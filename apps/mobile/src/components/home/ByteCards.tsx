@@ -147,17 +147,27 @@ const ByteCards = () => {
   const AnimatedStyles = {
     motion: useAnimatedStyle(() => {
       const inputRange = [-100, 0, 100]
-      const outputRange = [-20, 0, 20]
+      const outputRange = [-10, 0, 10] // reduce to slow down the translation
+      const springConfig = {
+        damping: 10,
+        stiffness: 80,
+        mass: 1,
+        overshootClamping: false,
+        restDisplacementThreshold: 0.01,
+        restSpeedThreshold: 0.01
+      }
       return {
         transform: [
           {
             translateX: withSpring(
-              interpolate(derivedTranslations.value.x, inputRange, outputRange)
+              interpolate(derivedTranslations.value.x, inputRange, outputRange),
+              springConfig
             )
           },
           {
             translateY: withSpring(
-              interpolate(derivedTranslations.value.y, inputRange, outputRange)
+              interpolate(derivedTranslations.value.y, inputRange, outputRange),
+              springConfig
             )
           }
         ]
@@ -167,9 +177,13 @@ const ByteCards = () => {
 
   const renderCard = useCallback((byte: Publication) => {
     return (
-      <LinearGradient
-        style={{ padding: 1, position: 'relative' }}
-        colors={['#ffffff30', '#ffffff40', '#ffffff50']}
+      <Animated.View
+        entering={FadeIn.duration(500)}
+        style={{
+          borderRadius: BORDER_RADIUS,
+          borderWidth: 0.5,
+          borderColor: theme.colors.secondary
+        }}
       >
         <ExpoImage
           source={{ uri: imageCdn(getThumbnailUrl(byte, true), 'THUMBNAIL_V') }}
@@ -181,9 +195,14 @@ const ByteCards = () => {
           colors={['transparent', '#00000090', '#000000']}
           style={styles.gradient}
         >
-          <UserProfile profile={byte.profile} size={15} radius={3} />
+          <UserProfile
+            profile={byte.profile}
+            size={15}
+            radius={3}
+            handleStyle={{ fontFamily: 'font-bold' }}
+          />
         </LinearGradient>
-      </LinearGradient>
+      </Animated.View>
     )
   }, [])
 

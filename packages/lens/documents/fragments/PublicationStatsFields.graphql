@@ -1,4 +1,4 @@
-fragment StatsFields on PublicationStats {
+fragment PublicationStatsFields on PublicationStats {
   totalUpvotes
   totalAmountOfMirrors
   totalAmountOfCollects

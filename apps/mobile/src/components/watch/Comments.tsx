@@ -7,9 +7,9 @@ import type { FC } from 'react'
 import React, { useCallback, useRef } from 'react'
 import {
   ActivityIndicator,
-  Dimensions,
   Pressable,
   StyleSheet,
+  useWindowDimensions,
   View
 } from 'react-native'
 
@@ -40,6 +40,7 @@ type Props = {
 
 const Comments: FC<Props> = ({ id }) => {
   const commentsSheetRef = useRef<BottomSheetModal>(null)
+  const { height } = useWindowDimensions()
 
   const request = {
     limit: 10,
@@ -99,7 +100,7 @@ const Comments: FC<Props> = ({ id }) => {
         <View
           style={{
             flex: 1,
-            height: Dimensions.get('screen').height / 2
+            height: height / 2
           }}
         >
           {comments?.length ? (

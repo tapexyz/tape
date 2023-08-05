@@ -1,4 +1,3 @@
-export * from '../components/common/modals/MusicModal'
 export * from './BytesScreen'
 export * from './ExploreScreen'
 export * from './HomeScreen'

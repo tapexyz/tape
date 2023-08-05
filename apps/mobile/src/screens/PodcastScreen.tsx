@@ -8,16 +8,17 @@ import {
 } from '@lenstube/lens'
 import { FlashList } from '@shopify/flash-list'
 import React, { useCallback } from 'react'
-import { ActivityIndicator, Dimensions, StyleSheet, View } from 'react-native'
+import { ActivityIndicator, StyleSheet, View } from 'react-native'
 
 import VideoCard from '~/components/common/VideoCard'
+import { windowHeight } from '~/helpers/theme'
 
 const styles = StyleSheet.create({
   container: {
     paddingTop: 10,
     paddingHorizontal: 5,
     flex: 1,
-    height: Dimensions.get('screen').height
+    height: windowHeight
   }
 })
 

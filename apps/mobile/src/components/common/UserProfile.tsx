@@ -1,5 +1,6 @@
 import { getProfilePicture, trimLensHandle } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
+import { useNavigation } from '@react-navigation/native'
 import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
 import React, { memo } from 'react'
@@ -44,10 +45,18 @@ const UserProfile: FC<Props> = ({
   showHandle = true,
   handleStyle
 }) => {
+  const { navigate } = useNavigation()
+
+  const navigateToProfile = () => {
+    navigate('ProfileModal', {
+      handle: profile.handle
+    })
+  }
+
   return (
     <AnimatedPressable
       style={[styles.pressable, { opacity }]}
-      onPress={onPress}
+      onPress={onPress ?? navigateToProfile}
     >
       <ExpoImage
         source={{
@@ -55,7 +64,13 @@ const UserProfile: FC<Props> = ({
         }}
         contentFit="cover"
         transition={500}
-        style={{ width: size, height: size, borderRadius: radius }}
+        style={{
+          width: size,
+          height: size,
+          borderRadius: radius,
+          borderWidth: 0.5,
+          borderColor: theme.colors.secondary
+        }}
       />
       {showHandle && (
         <Text numberOfLines={1} style={[styles.handle, handleStyle]}>

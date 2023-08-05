@@ -3,7 +3,8 @@ import {
   getThumbnailUrl,
   getValueFromTraitType,
   imageCdn,
-  trimify
+  trimify,
+  trimNewLines
 } from '@lenstube/generic'
 import type { Attribute, Publication } from '@lenstube/lens'
 import { useNavigation } from '@react-navigation/native'
@@ -114,7 +115,7 @@ const AudioCard: FC<Props> = ({ audio }) => {
         <View style={{ paddingVertical: 10, paddingHorizontal: 5 }}>
           {audio.metadata.description && (
             <Text numberOfLines={3} style={styles.description}>
-              {audio.metadata.description.replace('\n', '')}
+              {trimNewLines(audio.metadata.description)}
             </Text>
           )}
           <View style={styles.otherInfoContainer}>

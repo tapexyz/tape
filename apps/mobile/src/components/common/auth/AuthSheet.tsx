@@ -16,7 +16,7 @@ import { useWalletConnectModal } from '@walletconnect/modal-react-native'
 import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
 import React from 'react'
-import { Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import { createWalletClient, custom } from 'viem'
 import { polygon } from 'viem/chains'
 import type { SignableMessage } from 'viem/dist/types/types/misc'
@@ -32,6 +32,25 @@ import { useMobilePersistStore } from '~/store/persist'
 type Props = {
   sheetRef: React.RefObject<BottomSheetModalMethods>
 }
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 10,
+    display: 'flex',
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    gap: 15
+  },
+  button: {
+    padding: 20,
+    borderRadius: 100,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: theme.colors.grey,
+    backgroundColor: theme.colors.backdrop2
+  }
+})
 
 const AuthSheet: FC<Props> = ({ sheetRef }) => {
   const setChannels = useMobileStore((state) => state.setChannels)
@@ -95,22 +114,15 @@ const AuthSheet: FC<Props> = ({ sheetRef }) => {
     }
   }
 
+  const loading = challengeLoading || signingIn
+
   if (!address) {
     return null
   }
 
   return (
-    <Sheet sheetRef={sheetRef}>
-      <View
-        style={{
-          padding: 10,
-          display: 'flex',
-          flex: 1,
-          flexDirection: 'column',
-          justifyContent: 'space-between',
-          gap: 15
-        }}
-      >
+    <Sheet sheetRef={sheetRef} snap={['35%']}>
+      <View style={styles.container}>
         <View
           style={{
             alignItems: 'center',
@@ -126,7 +138,7 @@ const AuthSheet: FC<Props> = ({ sheetRef }) => {
             }}
             transition={300}
             contentFit="cover"
-            style={{ width: 70, height: 70, borderRadius: 25 }}
+            style={{ width: 80, height: 80, borderRadius: 25 }}
           />
           <Text
             style={{
@@ -149,28 +161,22 @@ const AuthSheet: FC<Props> = ({ sheetRef }) => {
           </Text>
         </View>
         <AnimatedPressable
-          disabled={challengeLoading || signingIn}
+          disabled={loading}
           onPress={() => {
             haptic()
             signIn()
           }}
-          style={{
-            backgroundColor: challengeLoading
-              ? theme.colors.secondary
-              : theme.colors.white,
-            padding: 20,
-            borderRadius: 100,
-            alignItems: 'center'
-          }}
+          style={styles.button}
         >
           <Text
             style={{
-              color: theme.colors.black,
+              color: theme.colors.white,
               fontFamily: 'font-medium',
-              fontSize: normalizeFont(18)
+              fontSize: normalizeFont(18),
+              opacity: loading ? 0.3 : 1
             }}
           >
-            Sign
+            Sign & Verify
           </Text>
         </AnimatedPressable>
       </View>

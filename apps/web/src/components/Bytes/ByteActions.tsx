@@ -47,7 +47,9 @@ const ByteActions: FC<Props> = ({ video }) => {
               <Tooltip content="What do you think?" placement="top">
                 <div className="flex flex-col items-center pt-2">
                   <CommentOutline className="h-5 w-5" />
-                  <div className="pt-1 text-xs">Wdyt</div>
+                  <div className="pt-1 text-xs">
+                    {video.stats.totalAmountOfComments || 'Wdyt'}
+                  </div>
                 </div>
               </Tooltip>
             }

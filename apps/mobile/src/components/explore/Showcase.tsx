@@ -1,10 +1,9 @@
 import { STATIC_ASSETS } from '@lenstube/constants'
 import { imageCdn } from '@lenstube/generic'
 import { useNavigation } from '@react-navigation/native'
-import { ImageBackground } from 'expo-image'
 import { LinearGradient } from 'expo-linear-gradient'
 import React, { memo } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { ImageBackground, StyleSheet, Text, View } from 'react-native'
 import Animated, { FadeInRight } from 'react-native-reanimated'
 
 import haptic from '~/helpers/haptic'
@@ -45,7 +44,9 @@ const styles = StyleSheet.create({
     contentFit: 'cover',
     justifyContent: 'flex-end',
     borderRadius: BORDER_RADIUS,
-    overflow: 'hidden'
+    overflow: 'hidden',
+    borderWidth: 0.5,
+    borderColor: theme.colors.grey
   },
   title: {
     fontFamily: 'font-bold',
@@ -79,9 +80,6 @@ const Showcase = () => {
       <Animated.View entering={FadeInRight.duration(400)} style={styles.card}>
         <AnimatedPressable onPress={() => haptic()}>
           <ImageBackground
-            placeholder={
-              '|JGv6ax-AMS7#YZloQtKNK=*r?OBNwr;ahOWniWAJHWH$Qr;XMTJM{aPt39;K5xA,BOsS~v%X8ozD_Rk$vS~R:#k$|WCa{XjwcRVKQw4#Ro{jtbE=xW-JPsDe-X7bYovjIacWDnos9X7S}objGsDtit2adR*oMW;RUaPS$'
-            }
             source={{
               uri: imageCdn(`${STATIC_ASSETS}/mobile/images/couch-garden.jpg`)
             }}
@@ -114,9 +112,6 @@ const Showcase = () => {
             }}
           >
             <ImageBackground
-              placeholder={
-                '|JGj?v^cZ@Ios~XPNaN2n6{Nv#nns+kDWFR+SeX50K$k%W%1R:VwWCofSzK*?G-lR*M{W-n#r^V[=LiyVhRon,XRbYS2V^}?OkS#t6xpr@WZNdoNIoOsbqxUfSnPaOnhobFxnirZWFbHS}R*n,W-xZ-7xtS#jXX5X5ozaj'
-              }
               source={{
                 uri: imageCdn(`${STATIC_ASSETS}/mobile/images/couch-watch.jpeg`)
               }}
@@ -142,9 +137,6 @@ const Showcase = () => {
             }}
           >
             <ImageBackground
-              placeholder={
-                '|GJsxXE*.pt8%e#l+Znmg5cFxVJENLSvskSiW=Rk_Pw^PnrqM}KPOtNcnh1SNI$ut2#TbdslwIt6^OS5OCT0RQrWbHxWS5M|ofs9wbO@RnrqOYs.TJjGn4jqt6XTOFoer=xuV[n+X9i^SeXTnhR.Ipt6W?RRS~xCv|V]XA'
-              }
               source={{
                 uri: imageCdn(
                   `${STATIC_ASSETS}/mobile/images/couch-listen.jpeg`

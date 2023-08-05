@@ -1,6 +1,6 @@
 import { MotiView, Text, View } from 'moti'
 import type { FC } from 'react'
-import React, { useEffect, useMemo, useRef } from 'react'
+import React, { memo, useEffect, useMemo, useRef } from 'react'
 import type { StyleProp, TextStyle } from 'react-native'
 
 const numZeroToNine = [...Array(10).keys()]
@@ -13,8 +13,9 @@ type TickProps = {
 }
 
 const Tick: FC<TickProps> = ({ number, textSize, textStyle, index }) => {
-  const usePrevious = (value: any) => {
-    const ref = useRef()
+  const usePrevious = (value: number) => {
+    const ref = useRef<number>()
+
     useEffect(() => {
       ref.current = value
     }, [value])
@@ -23,7 +24,7 @@ const Tick: FC<TickProps> = ({ number, textSize, textStyle, index }) => {
 
   const prev = usePrevious(number)
   return (
-    <MotiView style={{ height: textSize, overflow: 'hidden' }}>
+    <View style={{ height: textSize, overflow: 'hidden' }}>
       <View
         from={{ translateY: -textSize * (prev ?? 0) }}
         animate={{ translateY: -textSize * number }}
@@ -41,7 +42,8 @@ const Tick: FC<TickProps> = ({ number, textSize, textStyle, index }) => {
                 textStyle,
                 {
                   height: textSize,
-                  fontSize: textSize
+                  fontSize: textSize,
+                  textAlign: 'center'
                 }
               ]}
             >
@@ -50,7 +52,7 @@ const Tick: FC<TickProps> = ({ number, textSize, textStyle, index }) => {
           )
         })}
       </View>
-    </MotiView>
+    </View>
   )
 }
 
@@ -80,4 +82,4 @@ const Ticker: FC<TickerProps> = ({ number, textSize, textStyle }) => {
   )
 }
 
-export default Ticker
+export default memo(Ticker)

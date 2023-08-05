@@ -2,12 +2,12 @@ import { VERIFIED_CHANNELS } from '@lenstube/constants'
 import { getProfilePicture, shuffleArray } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import { useAllProfilesQuery } from '@lenstube/lens'
+import { useNavigation } from '@react-navigation/native'
 import { Image as ExpoImage } from 'expo-image'
 import React, { useMemo } from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import Animated, { FadeInRight } from 'react-native-reanimated'
 
-import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
 
@@ -26,7 +26,9 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     borderRadius: BORDER_RADIUS,
     overflow: 'hidden',
-    marginRight: 6
+    marginRight: 6,
+    borderWidth: 1,
+    borderColor: theme.colors.grey
   },
   title: {
     fontFamily: 'font-bold',
@@ -46,6 +48,7 @@ const styles = StyleSheet.create({
 })
 
 const PopularCreators = () => {
+  const { navigate } = useNavigation()
   const profileIds = useMemo(
     () => shuffleArray(VERIFIED_CHANNELS).slice(0, 15),
     []
@@ -69,15 +72,19 @@ const PopularCreators = () => {
             paddingTop: 20
           }}
         >
-          {profiles?.map((p) => (
+          {profiles?.map((profile) => (
             <AnimatedPressable
-              key={p.id}
-              onPress={() => haptic()}
+              key={profile.id}
+              onPress={() =>
+                navigate('ProfileModal', {
+                  handle: profile.handle
+                })
+              }
               style={styles.imageContainer}
             >
               <ExpoImage
                 source={{
-                  uri: getProfilePicture(p)
+                  uri: getProfilePicture(profile, 'AVATAR_LG')
                 }}
                 transition={300}
                 style={styles.image}

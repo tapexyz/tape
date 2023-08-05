@@ -1,10 +1,12 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
 import type { BottomSheetModal } from '@gorhom/bottom-sheet'
 import type { HeaderTitleProps } from '@react-navigation/elements'
+import { useNavigation } from '@react-navigation/native'
 import { useWalletConnectModal } from '@walletconnect/modal-react-native'
 import type { FC } from 'react'
 import React, { useRef } from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import { SharedElement } from 'react-navigation-shared-element'
 
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
@@ -28,7 +30,7 @@ const styles = StyleSheet.create({
     width: '100%',
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingBottom: 5
+    paddingBottom: 10
   },
   rightView: {
     display: 'flex',
@@ -40,12 +42,13 @@ const styles = StyleSheet.create({
     color: theme.colors.white,
     fontFamily: 'font-bold',
     fontWeight: '500',
-    fontSize: normalizeFont(18)
+    fontSize: normalizeFont(22)
   }
 })
 
-const Header: FC<HeaderTitleProps> = () => {
+const AuthenticatedUser = () => {
   const profileSheetRef = useRef<BottomSheetModal>(null)
+  const { navigate } = useNavigation()
   const { provider } = useWalletConnectModal()
 
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
@@ -58,9 +61,63 @@ const Header: FC<HeaderTitleProps> = () => {
     haptic()
   }
 
+  if (!selectedChannel) {
+    return null
+  }
+
+  return (
+    <>
+      <SharedElement id={`profile.${selectedChannel.handle}`}>
+        <UserProfile
+          profile={selectedChannel}
+          showHandle={false}
+          size={30}
+          radius={10}
+          onPress={() => profileSheetRef.current?.present()}
+        />
+      </SharedElement>
+      <Sheet sheetRef={profileSheetRef} snap={['60%']}>
+        <ScrollView style={{ paddingHorizontal: 10 }}>
+          <Switch />
+          <View style={{ marginTop: 20, gap: 20 }}>
+            <Menu>
+              <MenuItem
+                icon="person-outline"
+                title="My Profile"
+                onPress={() => {
+                  profileSheetRef.current?.close()
+                  navigate('ProfileModal', {
+                    handle: selectedChannel.handle
+                  })
+                }}
+              />
+              <MenuItem icon="notifications-outline" title="Notifications" />
+              <MenuItem icon="pie-chart-outline" title="Creator Studio" />
+              <MenuItem icon="bookmark-outline" title="Bookmarks" />
+              <MenuItem icon="cog-outline" title="Settings" />
+            </Menu>
+            <Menu>
+              <MenuItem
+                icon="log-out-outline"
+                title="Sign out"
+                onPress={() => logout()}
+              />
+            </Menu>
+          </View>
+        </ScrollView>
+        <AppInfo />
+      </Sheet>
+    </>
+  )
+}
+
+const Header: FC<HeaderTitleProps> = () => {
+  const selectedChannel = useMobileStore((state) => state.selectedChannel)
+
   return (
     <View style={styles.container}>
       <Text style={styles.forYouText}>gm</Text>
+
       <View style={styles.rightView}>
         {selectedChannel && (
           <AnimatedPressable
@@ -71,47 +128,12 @@ const Header: FC<HeaderTitleProps> = () => {
             <Ionicons
               name="create-outline"
               color={theme.colors.white}
-              size={20}
+              size={22}
             />
           </AnimatedPressable>
         )}
 
-        {selectedChannel ? (
-          <>
-            <UserProfile
-              profile={selectedChannel}
-              showHandle={false}
-              onPress={() => profileSheetRef.current?.present()}
-            />
-            <Sheet sheetRef={profileSheetRef} snap={['60%']}>
-              <ScrollView style={{ paddingHorizontal: 10 }}>
-                <Switch />
-                <View style={{ marginTop: 20, gap: 20 }}>
-                  <Menu>
-                    <MenuItem icon="person-outline" title="My Profile" />
-                    <MenuItem
-                      icon="notifications-outline"
-                      title="Notifications"
-                    />
-                    <MenuItem icon="pie-chart-outline" title="Creator Studio" />
-                    <MenuItem icon="bookmark-outline" title="Bookmarks" />
-                    <MenuItem icon="cog-outline" title="Settings" />
-                  </Menu>
-                  <Menu>
-                    <MenuItem
-                      icon="log-out-outline"
-                      title="Sign out"
-                      onPress={() => logout()}
-                    />
-                  </Menu>
-                </View>
-              </ScrollView>
-              <AppInfo />
-            </Sheet>
-          </>
-        ) : (
-          <SignIn />
-        )}
+        {selectedChannel ? <AuthenticatedUser /> : <SignIn />}
       </View>
     </View>
   )

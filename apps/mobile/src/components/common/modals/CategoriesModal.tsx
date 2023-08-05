@@ -86,7 +86,7 @@ export const CategoriesModal = (): JSX.Element => {
         ]}
         showsVerticalScrollIndicator={false}
       >
-        <Animated.View entering={SlideInDown.delay(10).duration(400)}>
+        <Animated.View entering={SlideInDown.delay(10).duration(300)}>
           <TouchableOpacity
             activeOpacity={0.6}
             onPress={() => {
@@ -107,7 +107,7 @@ export const CategoriesModal = (): JSX.Element => {
         {CREATOR_VIDEO_CATEGORIES.map(({ tag, name }, index) => (
           <Animated.View
             key={tag}
-            entering={SlideInDown.delay(index * 10).duration(500)}
+            entering={SlideInDown.delay(index * 10).duration(300)}
           >
             <TouchableOpacity
               activeOpacity={0.6}
