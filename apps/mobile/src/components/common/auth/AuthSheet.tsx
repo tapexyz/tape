@@ -121,7 +121,7 @@ const AuthSheet: FC<Props> = ({ sheetRef }) => {
   }
 
   return (
-    <Sheet sheetRef={sheetRef}>
+    <Sheet sheetRef={sheetRef} snap={['35%']}>
       <View style={styles.container}>
         <View
           style={{
@@ -138,7 +138,7 @@ const AuthSheet: FC<Props> = ({ sheetRef }) => {
             }}
             transition={300}
             contentFit="cover"
-            style={{ width: 70, height: 70, borderRadius: 25 }}
+            style={{ width: 80, height: 80, borderRadius: 25 }}
           />
           <Text
             style={{
