@@ -1,6 +1,8 @@
 {
   "extends": "@lenstube/config/base.tsconfig.json",
   "compilerOptions": {
+    "lib": ["es2021"],
+    "noEmit": true,
     "types": ["@cloudflare/workers-types"]
   }
 }
