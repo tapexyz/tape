@@ -1,4 +1,4 @@
-import { K3LFeedItem, K3LProfile } from "../types"
+import { K3LFeedItem, K3LProfile } from '../types'
 
 export const k3lFeed = async (
   strategy: string,
