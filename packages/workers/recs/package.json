@@ -14,6 +14,7 @@
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230801.0",
     "typescript": "^5.1.6",
+    "@lenstube/config": "*",
     "wrangler": "3.4.0"
   }
 }
