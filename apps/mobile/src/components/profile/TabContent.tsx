@@ -7,7 +7,14 @@ import type {
   ViewToken
 } from 'react-native'
 import { FlatList, useWindowDimensions, View } from 'react-native'
-import Animated, { FadeInRight } from 'react-native-reanimated'
+import type { SharedValue } from 'react-native-reanimated'
+import Animated, {
+  Extrapolate,
+  FadeInRight,
+  interpolate,
+  useAnimatedStyle
+} from 'react-native-reanimated'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import TabList from './TabList'
 import Bytes from './tabs/Bytes'
@@ -19,11 +26,15 @@ type TabItemType = (typeof tabs)[number]
 
 type Props = {
   profile: Profile
+  infoHeaderHeight: number
+  contentScrollY: SharedValue<number>
   scrollHandler: (event: NativeSyntheticEvent<NativeScrollEvent>) => void
 }
 
-const TabContent: FC<Props> = ({ profile, scrollHandler }) => {
+const TabContent: FC<Props> = (props) => {
+  const { profile, scrollHandler, infoHeaderHeight, contentScrollY } = props
   const { width, height } = useWindowDimensions()
+  const insets = useSafeAreaInsets()
 
   const [activeTabIndex, setActiveTabIndex] = useState(0)
   const flatListRef = useRef<FlatList<string>>(null)
@@ -46,9 +57,22 @@ const TabContent: FC<Props> = ({ profile, scrollHandler }) => {
     flatListRef.current?.scrollToIndex({ animated: true, index })
   }
 
+  const animatedScrollStyles = useAnimatedStyle(() => {
+    return {
+      flex: 1,
+      position: 'absolute',
+      marginTop: interpolate(
+        contentScrollY.value,
+        [0, infoHeaderHeight],
+        [infoHeaderHeight, insets.top],
+        Extrapolate.CLAMP
+      )
+    }
+  })
+
   return (
     <Animated.View
-      style={{ flex: 1 }}
+      style={animatedScrollStyles}
       entering={FadeInRight.delay(200).duration(400)}
     >
       <TabList

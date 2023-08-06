@@ -9,7 +9,7 @@ import {
 } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import { useNavigation } from '@react-navigation/native'
-import type { FC } from 'react'
+import type { Dispatch, FC } from 'react'
 import React, { memo, useRef, useState } from 'react'
 import {
   ImageBackground,
@@ -26,7 +26,7 @@ import Animated, {
   interpolate,
   useAnimatedStyle
 } from 'react-native-reanimated'
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import { SharedElement } from 'react-navigation-shared-element'
 
 import normalizeFont from '~/helpers/normalize-font'
@@ -40,7 +40,9 @@ import ShareSheet from './ShareSheet'
 
 type Props = {
   profile: Profile
+  infoHeaderHeight: number
   contentScrollY: SharedValue<number>
+  setInfoHeaderHeight: Dispatch<number>
 }
 
 const styles = StyleSheet.create({
@@ -88,35 +90,37 @@ const styles = StyleSheet.create({
   }
 })
 
-const Info: FC<Props> = ({ profile, contentScrollY }) => {
+const Info: FC<Props> = (props) => {
+  const { profile, contentScrollY, infoHeaderHeight, setInfoHeaderHeight } =
+    props
   const { goBack } = useNavigation()
   const { height } = useWindowDimensions()
-  const insets = useSafeAreaInsets()
   const shareSheetRef = useRef<BottomSheetModal>(null)
 
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
   const isOwned = selectedChannel?.id === profile.id
 
   const [showMoreBio, setShowMoreBio] = useState(false)
-  const [headerHeight, setHeaderHeight] = useState(0)
 
   const animatedHeaderStyle = useAnimatedStyle(() => {
     return {
-      height:
-        headerHeight !== 0
-          ? interpolate(
-              contentScrollY.value,
-              [0, headerHeight],
-              [headerHeight, insets.top],
-              Extrapolate.CLAMP
-            )
-          : undefined,
+      transform: [
+        {
+          translateY: interpolate(
+            contentScrollY.value,
+            [0, infoHeaderHeight],
+            [0, -infoHeaderHeight],
+            Extrapolate.CLAMP
+          )
+        }
+      ],
       opacity: interpolate(
         contentScrollY.value,
-        [0, headerHeight / 2], // the value /3 is added to speed up the opacity timing
+        [0, infoHeaderHeight / 2], // the value /3 is added to speed up the opacity timing
         [1, 0],
         Extrapolate.CLAMP
-      )
+      ),
+      height: infoHeaderHeight !== 0 ? infoHeaderHeight : undefined
     }
   })
 
@@ -125,8 +129,8 @@ const Info: FC<Props> = ({ profile, contentScrollY }) => {
       <Animated.View
         onLayout={(event) => {
           const { height } = event.nativeEvent.layout
-          if (headerHeight !== height) {
-            setHeaderHeight(height)
+          if (infoHeaderHeight !== height) {
+            setInfoHeaderHeight(height)
           }
         }}
       >
