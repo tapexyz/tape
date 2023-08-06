@@ -110,7 +110,7 @@ const Info: FC<Props> = (props) => {
         {
           translateY: interpolate(
             contentScrollY.value,
-            [0, infoHeaderHeight],
+            [0, infoHeaderHeight * 2], // the value *2 is added to speed down the translateY timing
             [0, -infoHeaderHeight],
             Extrapolate.CLAMP
           )
@@ -196,9 +196,9 @@ const Info: FC<Props> = (props) => {
             id={`profile.${profile.handle}`}
           >
             <UserProfile
-              profile={profile}
               size={100}
               radius={20}
+              profile={profile}
               showHandle={false}
             />
           </SharedElement>
