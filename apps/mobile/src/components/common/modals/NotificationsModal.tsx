@@ -7,14 +7,12 @@ import React, { useCallback, useRef } from 'react'
 import { ActivityIndicator, Text } from 'react-native'
 
 import { theme } from '~/helpers/theme'
+import { usePushNotifications } from '~/hooks'
 import useMobileStore from '~/store'
 
-export const NotificationsModal = (
-  props: NotificationsModalProps
-): JSX.Element => {
-  const {
-    navigation: {}
-  } = props
+export const NotificationsModal = (): JSX.Element => {
+  usePushNotifications()
+
   const scrollRef = useRef<FlashList<Notification>>(null)
   //@ts-expect-error FlashList as type is not supported
   useScrollToTop(scrollRef)
