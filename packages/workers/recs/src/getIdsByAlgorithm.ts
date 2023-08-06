@@ -14,9 +14,6 @@ export default async (
   try {
     let ids: string[] = []
     switch (provider) {
-      case 'k3l-feed':
-        ids = await k3lFeed(strategy, limit, offset)
-        break
       case 'k3l-score':
         ids = await k3lScores(strategy, limit, offset)
         break
