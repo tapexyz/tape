@@ -77,9 +77,9 @@ const AuthenticatedUser = () => {
         />
       </SharedElement>
       <Sheet sheetRef={profileSheetRef} snap={['60%']}>
-        <ScrollView style={{ paddingHorizontal: 10 }}>
+        <ScrollView style={{ paddingHorizontal: 10, paddingVertical: 20 }}>
           <Switch />
-          <View style={{ marginTop: 20, gap: 20 }}>
+          <View style={{ marginTop: 15, gap: 15 }}>
             <Menu>
               <MenuItem
                 icon="person-outline"

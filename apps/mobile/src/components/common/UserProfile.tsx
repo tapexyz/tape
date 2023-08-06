@@ -36,15 +36,16 @@ const styles = StyleSheet.create({
   }
 })
 
-const UserProfile: FC<Props> = ({
-  profile,
-  size = 25,
-  radius = 8,
-  opacity = 1,
-  onPress,
-  showHandle = true,
-  handleStyle
-}) => {
+const UserProfile: FC<Props> = (props) => {
+  const {
+    profile,
+    size = 25,
+    radius = 8,
+    opacity = 1,
+    onPress,
+    showHandle = true,
+    handleStyle
+  } = props
   const { navigate } = useNavigation()
 
   const navigateToProfile = () => {

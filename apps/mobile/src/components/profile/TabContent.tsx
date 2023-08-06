@@ -7,24 +7,34 @@ import type {
   ViewToken
 } from 'react-native'
 import { FlatList, useWindowDimensions, View } from 'react-native'
-import Animated, { FadeInRight } from 'react-native-reanimated'
+import type { SharedValue } from 'react-native-reanimated'
+import Animated, {
+  Extrapolate,
+  FadeInRight,
+  interpolate,
+  useAnimatedStyle
+} from 'react-native-reanimated'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import Feed from './Feed'
-import Gallery from './Gallery'
-import Media from './Media'
-import Replies from './Replies'
-import Tabs from './Tabs'
+import TabList from './TabList'
+import Bytes from './tabs/Bytes'
+import Feed from './tabs/Feed'
+import Media from './tabs/Media'
 
-const tabs = ['Feed', 'Media', 'Replies', 'Gallery']
+const tabs = ['Feed', 'Media', 'Bytes', 'Replies', 'Gallery']
 type TabItemType = (typeof tabs)[number]
 
 type Props = {
   profile: Profile
+  infoHeaderHeight: number
+  contentScrollY: SharedValue<number>
   scrollHandler: (event: NativeSyntheticEvent<NativeScrollEvent>) => void
 }
 
-const TabContent: FC<Props> = ({ profile, scrollHandler }) => {
+const TabContent: FC<Props> = (props) => {
+  const { profile, scrollHandler, infoHeaderHeight, contentScrollY } = props
   const { width, height } = useWindowDimensions()
+  const insets = useSafeAreaInsets()
 
   const [activeTabIndex, setActiveTabIndex] = useState(0)
   const flatListRef = useRef<FlatList<string>>(null)
@@ -47,12 +57,29 @@ const TabContent: FC<Props> = ({ profile, scrollHandler }) => {
     flatListRef.current?.scrollToIndex({ animated: true, index })
   }
 
+  const animatedScrollStyles = useAnimatedStyle(() => {
+    return {
+      flex: 1,
+      position: 'absolute',
+      marginTop: interpolate(
+        contentScrollY.value,
+        [0, infoHeaderHeight],
+        [infoHeaderHeight, insets.top],
+        Extrapolate.CLAMP
+      )
+    }
+  })
+
   return (
     <Animated.View
-      style={{ flex: 1 }}
+      style={animatedScrollStyles}
       entering={FadeInRight.delay(200).duration(400)}
     >
-      <Tabs activeTab={activeTabIndex} tabs={tabs} scrollToTab={scrollToTab} />
+      <TabList
+        activeTab={activeTabIndex}
+        tabs={tabs}
+        scrollToTab={scrollToTab}
+      />
       <FlatList
         ref={flatListRef}
         style={{ height }}
@@ -68,20 +95,13 @@ const TabContent: FC<Props> = ({ profile, scrollHandler }) => {
         renderItem={({ item }: { item: TabItemType }) => {
           const component = {
             Feed: <Feed profile={profile} scrollHandler={scrollHandler} />,
-            Media: <Media profile={profile} />,
-            Replies: <Replies profile={profile} />,
-            Gallery: <Gallery profile={profile} />
+            Media: <Media profile={profile} scrollHandler={scrollHandler} />,
+            Bytes: <Bytes profile={profile} scrollHandler={scrollHandler} />,
+            Replies: <Feed profile={profile} scrollHandler={scrollHandler} />,
+            Gallery: <Feed profile={profile} scrollHandler={scrollHandler} />
           }[item]
 
-          return (
-            <View
-              style={{
-                width
-              }}
-            >
-              {component}
-            </View>
-          )
+          return <View style={{ width }}>{component}</View>
         }}
         keyExtractor={(item, i) => `${item}_${i}`}
         onViewableItemsChanged={onViewableItemsChanged}

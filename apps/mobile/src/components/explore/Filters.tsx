@@ -24,8 +24,7 @@ const styles = StyleSheet.create({
     gap: 3,
     borderRadius: 25,
     borderWidth: 1,
-    borderColor: theme.colors.secondary,
-    marginRight: 10
+    borderColor: theme.colors.secondary
   },
   text: {
     fontFamily: 'font-bold',
@@ -58,6 +57,7 @@ const Filters = () => {
       style={styles.container}
       horizontal={true}
       showsHorizontalScrollIndicator={false}
+      contentContainerStyle={{ gap: 10 }}
     >
       <Pressable
         onPress={() => {

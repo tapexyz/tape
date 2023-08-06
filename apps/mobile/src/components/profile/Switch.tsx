@@ -129,7 +129,7 @@ const Switch = () => {
   })
   const profiles = data?.profiles?.items as Profile[]
 
-  if (error) {
+  if (error || !selectedChannel) {
     return null
   }
 
@@ -141,7 +141,9 @@ const Switch = () => {
     >
       <Animated.View entering={FadeIn.delay(200)}>
         <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-          {profiles?.map((profile) => renderItem({ profile }))}
+          {profiles
+            ? profiles?.map((profile) => renderItem({ profile }))
+            : renderItem({ profile: selectedChannel })}
         </ScrollView>
       </Animated.View>
     </Skeleton>

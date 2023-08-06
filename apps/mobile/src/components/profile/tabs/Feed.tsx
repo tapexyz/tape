@@ -17,8 +17,8 @@ import {
 } from 'react-native'
 import Animated from 'react-native-reanimated'
 
-import AudioCard from '../common/AudioCard'
-import VideoCard from '../common/VideoCard'
+import AudioCard from '../../common/AudioCard'
+import VideoCard from '../../common/VideoCard'
 
 type Props = {
   profile: Profile
@@ -90,7 +90,6 @@ const Feed: FC<Props> = ({ profile, scrollHandler }) => {
         onEndReachedThreshold={0.8}
         showsVerticalScrollIndicator={false}
         onScroll={scrollHandler}
-        removeClippedSubviews
         scrollEventThrottle={16}
       />
     </View>

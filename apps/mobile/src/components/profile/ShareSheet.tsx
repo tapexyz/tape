@@ -1,0 +1,230 @@
+import Ionicons from '@expo/vector-icons/Ionicons'
+import type { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
+import { LENSTUBE_LOGO, LENSTUBE_WEBSITE_URL } from '@lenstube/constants'
+import {
+  formatNumber,
+  getProfilePicture,
+  imageCdn,
+  logger
+} from '@lenstube/generic'
+import type { Profile } from '@lenstube/lens'
+import { Image as ExpoImage } from 'expo-image'
+import * as Sharing from 'expo-sharing'
+import type { FC } from 'react'
+import React, { memo, useRef } from 'react'
+import { Share, StyleSheet, Text, View } from 'react-native'
+import { captureRef } from 'react-native-view-shot'
+
+import AnimatedPressable from '~/components/ui/AnimatedPressable'
+import Sheet from '~/components/ui/Sheet'
+import haptic from '~/helpers/haptic'
+import normalizeFont from '~/helpers/normalize-font'
+import { theme } from '~/helpers/theme'
+
+import Button from '../ui/Button'
+import QRCode from '../ui/QRCode'
+
+type Props = {
+  sheetRef: React.RefObject<BottomSheetModalMethods>
+  profile: Profile
+}
+
+const CARD_BORDER_RADIUS = 25
+
+const styles = StyleSheet.create({
+  container: {
+    padding: 10,
+    display: 'flex',
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    gap: 15
+  },
+  profileShareCard: {
+    borderRadius: CARD_BORDER_RADIUS,
+    backgroundColor: theme.colors.black,
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    padding: 20,
+    gap: 10,
+    height: 210,
+    borderColor: theme.colors.grey,
+    borderWidth: 0.5
+  },
+  cardActions: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center'
+  },
+  hintText: {
+    color: theme.colors.white,
+    fontFamily: 'font-normal',
+    fontSize: normalizeFont(8),
+    letterSpacing: 1,
+    textTransform: 'uppercase'
+  },
+  boldText: {
+    color: theme.colors.white,
+    fontFamily: 'font-extrabold',
+    fontSize: normalizeFont(14),
+    letterSpacing: 1
+  },
+  qrContainer: {
+    padding: 10,
+    backgroundColor: theme.colors.white,
+    alignSelf: 'flex-start',
+    borderRadius: 20
+  }
+})
+
+const ShareSheet: FC<Props> = ({ sheetRef, profile }) => {
+  const profileCardRef = useRef<View>(null)
+
+  const shareAsPng = async () => {
+    try {
+      const uri = await captureRef(profileCardRef, {
+        quality: 1,
+        format: 'png'
+      })
+      Sharing.shareAsync(`file://${uri}`)
+    } catch (error) {
+      logger.error('📱 COPY PROFILE SHARE CARD AS PNG', error)
+    }
+  }
+
+  return (
+    <Sheet sheetRef={sheetRef} snap={['45%']} marginX={10}>
+      <View style={styles.container}>
+        <View style={{ borderRadius: CARD_BORDER_RADIUS, overflow: 'hidden' }}>
+          <View
+            ref={profileCardRef}
+            style={{ backgroundColor: theme.colors.black }}
+          >
+            <View style={styles.profileShareCard}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between'
+                }}
+              >
+                <View style={styles.qrContainer}>
+                  <QRCode
+                    logo={getProfilePicture(profile, 'AVATAR')}
+                    size={100}
+                    value={`${LENSTUBE_WEBSITE_URL}/channel/${profile.handle}`}
+                  />
+                </View>
+                <View
+                  style={{
+                    flexDirection: 'column',
+                    alignItems: 'flex-end',
+                    gap: 15
+                  }}
+                >
+                  <View style={{ alignItems: 'flex-end' }}>
+                    <Text style={styles.boldText}>
+                      {formatNumber(profile.stats.totalFollowers)}
+                    </Text>
+                    <Text style={styles.hintText}>followers</Text>
+                  </View>
+                  <View style={{ alignItems: 'flex-end' }}>
+                    <Text style={styles.boldText}>
+                      {formatNumber(profile.stats.totalPosts)}
+                    </Text>
+                    <Text style={styles.hintText}>posts</Text>
+                  </View>
+                </View>
+              </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center'
+                }}
+              >
+                <View>
+                  <Text style={styles.hintText}>Find me on Lens</Text>
+                  <Text
+                    style={{
+                      color: theme.colors.white,
+                      fontFamily: 'font-bold',
+                      fontSize: normalizeFont(12),
+                      letterSpacing: 1
+                    }}
+                  >
+                    {profile.handle}
+                  </Text>
+                </View>
+                <ExpoImage
+                  source={{
+                    uri: imageCdn(LENSTUBE_LOGO, 'AVATAR')
+                  }}
+                  contentFit="cover"
+                  transition={500}
+                  style={{
+                    width: 30,
+                    height: 30
+                  }}
+                />
+              </View>
+            </View>
+          </View>
+        </View>
+
+        <View style={styles.cardActions}>
+          <AnimatedPressable
+            style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}
+          >
+            <Ionicons
+              name="scan-outline"
+              color={theme.colors.white}
+              size={20}
+            />
+            <Text
+              style={{
+                color: theme.colors.white,
+                fontFamily: 'font-medium',
+                fontSize: normalizeFont(10)
+              }}
+            >
+              Quick Follow
+            </Text>
+          </AnimatedPressable>
+          <AnimatedPressable
+            onPress={() => shareAsPng()}
+            style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}
+          >
+            <Ionicons
+              name="image-outline"
+              color={theme.colors.white}
+              size={20}
+            />
+            <Text
+              style={{
+                color: theme.colors.white,
+                fontFamily: 'font-medium',
+                fontSize: normalizeFont(10)
+              }}
+            >
+              Share as Image
+            </Text>
+          </AnimatedPressable>
+        </View>
+
+        <Button
+          text="Share via..."
+          onPress={() => {
+            haptic()
+            Share.share({
+              url: `${LENSTUBE_WEBSITE_URL}/channel/${profile.handle}`,
+              message: `Checkout my Lens profile! 🌿 ${LENSTUBE_WEBSITE_URL}/channel/${profile.handle}`,
+              title: `Checkout my Lens profile! 🌿 ${LENSTUBE_WEBSITE_URL}/channel/${profile.handle}`
+            })
+          }}
+        />
+      </View>
+    </Sheet>
+  )
+}
+
+export default memo(ShareSheet)

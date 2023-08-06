@@ -1,4 +1,5 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
+import type { BottomSheetModal } from '@gorhom/bottom-sheet'
 import {
   getChannelCoverPicture,
   imageCdn,
@@ -8,8 +9,8 @@ import {
 } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import { useNavigation } from '@react-navigation/native'
-import type { FC } from 'react'
-import React, { memo, useState } from 'react'
+import type { Dispatch, FC } from 'react'
+import React, { memo, useRef, useState } from 'react'
 import {
   ImageBackground,
   Pressable,
@@ -25,20 +26,25 @@ import Animated, {
   interpolate,
   useAnimatedStyle
 } from 'react-native-reanimated'
-import { SafeAreaView, useSafeAreaInsets } from 'react-native-safe-area-context'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import { SharedElement } from 'react-navigation-shared-element'
 
+import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
 import { theme, windowWidth } from '~/helpers/theme'
 import useMobileStore from '~/store'
 
 import UserProfile from '../common/UserProfile'
+import Button from '../ui/Button'
 import Ticker from '../ui/Ticker'
 import OnChainIdentities from './OnChainIdentities'
+import ShareSheet from './ShareSheet'
 
 type Props = {
   profile: Profile
+  infoHeaderHeight: number
   contentScrollY: SharedValue<number>
+  setInfoHeaderHeight: Dispatch<number>
 }
 
 const styles = StyleSheet.create({
@@ -86,34 +92,37 @@ const styles = StyleSheet.create({
   }
 })
 
-const Info: FC<Props> = ({ profile, contentScrollY }) => {
+const Info: FC<Props> = (props) => {
+  const { profile, contentScrollY, infoHeaderHeight, setInfoHeaderHeight } =
+    props
   const { goBack } = useNavigation()
   const { height } = useWindowDimensions()
-  const insets = useSafeAreaInsets()
+  const shareSheetRef = useRef<BottomSheetModal>(null)
 
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
   const isOwned = selectedChannel?.id === profile.id
 
   const [showMoreBio, setShowMoreBio] = useState(false)
-  const [headerHeight, setHeaderHeight] = useState(0)
 
   const animatedHeaderStyle = useAnimatedStyle(() => {
     return {
-      height:
-        headerHeight !== 0
-          ? interpolate(
-              contentScrollY.value,
-              [0, headerHeight],
-              [headerHeight, insets.top],
-              Extrapolate.CLAMP
-            )
-          : undefined,
+      transform: [
+        {
+          translateY: interpolate(
+            contentScrollY.value,
+            [0, infoHeaderHeight * 2], // the value *2 is added to speed down the translateY timing
+            [0, -infoHeaderHeight],
+            Extrapolate.CLAMP
+          )
+        }
+      ],
       opacity: interpolate(
         contentScrollY.value,
-        [0, headerHeight / 2], // the value /3 is added to speed up the opacity timing
+        [0, infoHeaderHeight / 2], // the value /3 is added to speed up the opacity timing
         [1, 0],
         Extrapolate.CLAMP
-      )
+      ),
+      height: infoHeaderHeight !== 0 ? infoHeaderHeight : undefined
     }
   })
 
@@ -122,8 +131,8 @@ const Info: FC<Props> = ({ profile, contentScrollY }) => {
       <Animated.View
         onLayout={(event) => {
           const { height } = event.nativeEvent.layout
-          if (headerHeight !== height) {
-            setHeaderHeight(height)
+          if (infoHeaderHeight !== height) {
+            setInfoHeaderHeight(height)
           }
         }}
       >
@@ -150,6 +159,8 @@ const Info: FC<Props> = ({ profile, contentScrollY }) => {
               justifyContent: 'space-between'
             }}
           >
+            <ShareSheet sheetRef={shareSheetRef} profile={profile} />
+
             <Pressable onPress={() => goBack()} style={styles.icon}>
               <Ionicons
                 name="chevron-back-outline"
@@ -157,7 +168,10 @@ const Info: FC<Props> = ({ profile, contentScrollY }) => {
                 size={20}
               />
             </Pressable>
-            <Pressable onPress={() => goBack()} style={styles.icon}>
+            <Pressable
+              onPress={() => shareSheetRef.current?.present()}
+              style={styles.icon}
+            >
               <Ionicons
                 name="share-outline"
                 color={theme.colors.white}
@@ -182,9 +196,9 @@ const Info: FC<Props> = ({ profile, contentScrollY }) => {
             id={`profile.${profile.handle}`}
           >
             <UserProfile
-              profile={profile}
               size={100}
               radius={20}
+              profile={profile}
               showHandle={false}
             />
           </SharedElement>
@@ -198,29 +212,59 @@ const Info: FC<Props> = ({ profile, contentScrollY }) => {
           </View>
         </View>
 
-        <View style={{ paddingHorizontal: 10 }}>
-          {isOwned && (
-            <Text style={[styles.handle, { opacity: 0.5 }]}>gm,</Text>
-          )}
-          <Animated.Text
-            style={styles.handle}
-            entering={FadeInRight.duration(500)}
-            numberOfLines={1}
-          >
-            {trimLensHandle(profile.handle)}
-          </Animated.Text>
-
-          <Pressable onPress={() => setShowMoreBio(!showMoreBio)}>
+        <View style={{ paddingHorizontal: 10, gap: 20 }}>
+          <View>
+            {isOwned && (
+              <Text style={[styles.handle, { opacity: 0.5 }]}>gm,</Text>
+            )}
             <Animated.Text
-              numberOfLines={!showMoreBio ? 2 : undefined}
-              style={styles.bio}
-              entering={FadeInRight.delay(200).duration(500)}
+              style={styles.handle}
+              entering={FadeInRight.duration(400)}
+              numberOfLines={1}
             >
-              {showMoreBio ? profile.bio : trimNewLines(profile.bio ?? '')}
+              {trimLensHandle(profile.handle)}
             </Animated.Text>
-          </Pressable>
+
+            <Pressable onPress={() => setShowMoreBio(!showMoreBio)}>
+              <Animated.Text
+                numberOfLines={!showMoreBio ? 2 : undefined}
+                style={styles.bio}
+                entering={FadeInRight.delay(200).duration(400)}
+              >
+                {showMoreBio ? profile.bio : trimNewLines(profile.bio ?? '')}
+              </Animated.Text>
+            </Pressable>
+          </View>
 
           <OnChainIdentities identity={profile.onChainIdentity} />
+
+          <Animated.View
+            style={{ flexDirection: 'row', gap: 10 }}
+            entering={FadeInRight.duration(400)}
+          >
+            <View style={{ flex: 1 }}>
+              <Button
+                text="Follow"
+                size="sm"
+                onPress={() => {
+                  haptic()
+                }}
+              />
+            </View>
+            <Button
+              icon={
+                <Ionicons
+                  name="ellipsis-vertical-outline"
+                  color={theme.colors.white}
+                  size={16}
+                />
+              }
+              size="sm"
+              onPress={() => {
+                haptic()
+              }}
+            />
+          </Animated.View>
         </View>
       </Animated.View>
     </Animated.View>

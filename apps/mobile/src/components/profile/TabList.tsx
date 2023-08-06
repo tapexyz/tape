@@ -48,17 +48,18 @@ type Props = {
 const icons = [
   'planet-outline',
   'headset-outline',
+  'videocam-outline',
   'chatbubble-outline',
   'shapes-outline'
 ] as (keyof typeof Ionicons.glyphMap)[]
 
-const Tabs: FC<Props> = ({ activeTab, tabs, scrollToTab }) => {
+const TabList: FC<Props> = ({ activeTab, tabs, scrollToTab }) => {
   const scrollViewRef = useRef<ScrollView>(null)
   const { width } = useWindowDimensions()
 
   const autoScroll = useCallback(() => {
     scrollViewRef.current?.scrollTo({
-      x: width * activeTab,
+      x: activeTab < 3 ? 0 : width * activeTab,
       animated: true
     })
   }, [activeTab, width])
@@ -75,7 +76,8 @@ const Tabs: FC<Props> = ({ activeTab, tabs, scrollToTab }) => {
         ref={scrollViewRef}
         style={styles.container}
         contentContainerStyle={{
-          alignItems: 'baseline'
+          alignItems: 'baseline',
+          gap: 10
         }}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
@@ -89,6 +91,7 @@ const Tabs: FC<Props> = ({ activeTab, tabs, scrollToTab }) => {
               key={tab}
               onPress={() => {
                 scrollToTab(index)
+                autoScroll()
                 haptic()
               }}
               style={[
@@ -117,4 +120,4 @@ const Tabs: FC<Props> = ({ activeTab, tabs, scrollToTab }) => {
   )
 }
 
-export default memo(Tabs)
+export default memo(TabList)

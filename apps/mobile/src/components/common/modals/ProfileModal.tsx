@@ -1,7 +1,7 @@
 import type { Profile } from '@lenstube/lens'
 import { useProfileQuery } from '@lenstube/lens'
 import { useNavigation } from '@react-navigation/native'
-import React from 'react'
+import React, { useState } from 'react'
 import { ActivityIndicator, useWindowDimensions, View } from 'react-native'
 import {
   useAnimatedScrollHandler,
@@ -17,8 +17,9 @@ export const ProfileModal = (props: ProfileModalProps): JSX.Element | null => {
   const { handle } = props.route.params
   const { goBack } = useNavigation()
   const { height } = useWindowDimensions()
-
   const contentScrollY = useSharedValue(0)
+
+  const [infoHeaderHeight, setInfoHeaderHeight] = useState(0)
 
   const scrollHandler = useAnimatedScrollHandler({
     onScroll: (event) => {
@@ -61,8 +62,18 @@ export const ProfileModal = (props: ProfileModalProps): JSX.Element | null => {
         backgroundColor: theme.colors.black
       }}
     >
-      <Info profile={profile} contentScrollY={contentScrollY} />
-      <TabContent profile={profile} scrollHandler={scrollHandler} />
+      <Info
+        profile={profile}
+        contentScrollY={contentScrollY}
+        infoHeaderHeight={infoHeaderHeight}
+        setInfoHeaderHeight={setInfoHeaderHeight}
+      />
+      <TabContent
+        profile={profile}
+        contentScrollY={contentScrollY}
+        infoHeaderHeight={infoHeaderHeight}
+        scrollHandler={scrollHandler}
+      />
     </View>
   )
 }

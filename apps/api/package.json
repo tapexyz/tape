@@ -19,7 +19,7 @@
     "@lenstube/constants": "*",
     "@lenstube/generic": "*",
     "@lenstube/lens": "*",
-    "@types/node": "20.4.7",
+    "@types/node": "20.4.8",
     "typescript": "5.1.6"
   }
 }
