@@ -1,9 +1,7 @@
 import { createStackNavigator } from '@react-navigation/stack'
 import React from 'react'
 
-import BackButton from '~/components/common/BackButton'
-import { theme } from '~/helpers/theme'
-import { ExploreScreen, PodcastScreen } from '~/screens'
+import { ExploreScreen } from '~/screens'
 
 import Header from '../components/common/Header'
 import useMobileStore from '../store'
@@ -33,10 +31,10 @@ export const ExploreStack = (): JSX.Element => {
         }}
         component={ExploreScreen}
       />
-      <Screen
-        name="Podcast"
+      {/* <Screen
+        name="PodcastModa"
         options={{
-          headerLeft: (props) => <BackButton {...props} />,
+          headerLeft: () => <BackButton />,
           headerTitleStyle: { fontFamily: 'font-medium', letterSpacing: 1 },
           headerStyle: {
             backgroundColor: theme.colors.background,
@@ -45,7 +43,7 @@ export const ExploreStack = (): JSX.Element => {
           }
         }}
         component={PodcastScreen}
-      />
+      /> */}
     </Navigator>
   )
 }

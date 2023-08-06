@@ -1,15 +1,19 @@
-import type { StackNavigationOptions } from '@react-navigation/stack'
+import { type StackNavigationOptions } from '@react-navigation/stack'
 import type { FC } from 'react'
 import React from 'react'
 import { Easing } from 'react-native'
 import { createSharedElementStackNavigator } from 'react-navigation-shared-element'
 
+import CollapseButton from '~/components/common/CollapseButton'
 import {
   CategoriesModal,
   MusicModal,
+  NotificationsModal,
+  PodcastModal,
   ProfileModal,
   TopsModal
 } from '~/components/common/modals'
+import { theme } from '~/helpers/theme'
 import { useNetWorkConnection } from '~/hooks'
 import { WatchScreen } from '~/screens'
 
@@ -78,7 +82,7 @@ export const RootNavigator: FC = () => {
       />
       <Screen
         name="MusicModal"
-        options={{ ...options, presentation: 'transparentModal' }}
+        options={{ presentation: 'modal' }}
         component={MusicModal}
       />
       <Screen
@@ -91,6 +95,34 @@ export const RootNavigator: FC = () => {
             return [{ id: `profile.${handle}`, animation: 'fade' }]
           }
         }}
+      />
+      <Screen
+        name="PodcastModal"
+        options={{
+          presentation: 'modal',
+          title: 'Podcasts',
+          headerShown: true,
+          headerTitleStyle: { fontFamily: 'font-medium', letterSpacing: 1 },
+          headerStyle: {
+            backgroundColor: theme.colors.background
+          },
+          headerLeft: () => <CollapseButton />
+        }}
+        component={PodcastModal}
+      />
+      <Screen
+        name="NotificationsModal"
+        options={{
+          presentation: 'modal',
+          title: 'Notifications',
+          headerShown: true,
+          headerTitleStyle: { fontFamily: 'font-medium', letterSpacing: 1 },
+          headerStyle: {
+            backgroundColor: theme.colors.background
+          },
+          headerLeft: () => <CollapseButton />
+        }}
+        component={NotificationsModal}
       />
     </Navigator>
   )

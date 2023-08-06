@@ -105,10 +105,7 @@ const Showcase = () => {
           <AnimatedPressable
             onPress={() => {
               haptic()
-              navigate('MainTab', {
-                screen: 'ExploreStack',
-                params: { screen: 'Podcast' }
-              })
+              navigate('PodcastModal')
             }}
           >
             <ImageBackground

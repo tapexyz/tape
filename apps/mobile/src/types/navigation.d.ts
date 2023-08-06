@@ -47,7 +47,6 @@ declare global {
 
   type ExploreStackParamList = {
     Explore: undefined
-    Podcast: undefined
   }
 
   type BytesStackParamList = {
@@ -63,7 +62,9 @@ declare global {
   type RootStackParamList = {
     ExploreTopsModal: undefined
     ExploreCategoriesModal: undefined
+    PodcastModal: undefined
     MusicModal: undefined
+    NotificationsModal: undefined
     ProfileModal: { handle: string }
     WatchVideo: { id: string }
 
@@ -93,12 +94,13 @@ declare global {
   type RootStackScreenProps = RootStackComposite
   type WatchScreenProps = RootStackComposite<'WatchVideo'>
   type ProfileModalProps = RootStackComposite<'ProfileModal'>
+  type NotificationsModalProps = RootStackComposite<'NotificationsModal'>
+  type PodcastModalProps = ExploreStackComposite<'PodcastModal'>
 
   // Home stack
   type HomeScreenProps = HomeStackComposite<'Home'>
 
   type ExploreScreenProps = ExploreStackComposite<'Explore'>
-  type PodcastScreenProps = ExploreStackComposite<'Podcast'>
 
   type BytesScreenProps = BytesStackComposite<'Bytes'>
 }
