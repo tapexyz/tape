@@ -31,19 +31,6 @@ export const ExploreStack = (): JSX.Element => {
         }}
         component={ExploreScreen}
       />
-      {/* <Screen
-        name="PodcastModa"
-        options={{
-          headerLeft: () => <BackButton />,
-          headerTitleStyle: { fontFamily: 'font-medium', letterSpacing: 1 },
-          headerStyle: {
-            backgroundColor: theme.colors.background,
-            shadowColor: 'transparent',
-            elevation: 0
-          }
-        }}
-        component={PodcastScreen}
-      /> */}
     </Navigator>
   )
 }
