@@ -30,12 +30,11 @@ const GRID_GAP = 5
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: GRID_GAP,
     flex: 1
   },
   thumbnail: {
     width: '100%',
-    height: 230,
+    height: 210,
     borderRadius: GRID_GAP,
     borderColor: theme.colors.grey,
     borderWidth: 0.5,
@@ -44,7 +43,7 @@ const styles = StyleSheet.create({
 })
 
 const Bytes: FC<Props> = ({ profile, scrollHandler }) => {
-  const { height } = useWindowDimensions()
+  const { height, width } = useWindowDimensions()
 
   const request = {
     publicationTypes: [PublicationTypes.Post],
@@ -79,8 +78,8 @@ const Bytes: FC<Props> = ({ profile, scrollHandler }) => {
     ({ item, index }: { item: Publication; index: number }) => (
       <View
         style={{
-          flex: 1,
-          marginRight: index % 3 < 2 ? GRID_GAP : 0
+          marginRight: index % 3 < 2 ? GRID_GAP : 0,
+          width: (width - GRID_GAP * 2) / 3
         }}
       >
         <AnimatedPressable>
@@ -95,7 +94,7 @@ const Bytes: FC<Props> = ({ profile, scrollHandler }) => {
         </AnimatedPressable>
       </View>
     ),
-    []
+    [width]
   )
 
   return (
