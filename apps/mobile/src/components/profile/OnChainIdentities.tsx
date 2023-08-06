@@ -39,6 +39,16 @@ const styles = StyleSheet.create({
 })
 
 const OnChainIdentities: FC<Props> = ({ identity }) => {
+  const hasOnChainId =
+    identity?.ens?.name ||
+    identity?.worldcoin.isHuman ||
+    identity?.proofOfHumanity ||
+    identity?.sybilDotOrg.verified
+
+  if (!hasOnChainId) {
+    return null
+  }
+
   return (
     <Animated.View entering={FadeIn.delay(500)}>
       <ScrollView

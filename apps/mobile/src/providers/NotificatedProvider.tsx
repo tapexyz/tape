@@ -54,17 +54,17 @@ const NotificationComponent = (
   >
     <View
       style={{
-        backgroundColor: theme.colors.black,
+        backgroundColor: theme.colors.white,
         paddingVertical: 12,
         paddingHorizontal: 20,
         borderRadius: 100,
         alignItems: 'baseline',
         borderColor: getBorderColor(props.variant),
-        borderWidth: 0.3
+        borderWidth: 1
       }}
     >
       <View style={{ gap: 10, flexDirection: 'row' }}>
-        <Text style={{ color: theme.colors.white }}>{props.title}</Text>
+        <Text style={{ color: theme.colors.black }}>{props.title}</Text>
         <Text>{getEmoji(props.variant)}</Text>
       </View>
     </View>

@@ -29,11 +29,13 @@ import Animated, {
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { SharedElement } from 'react-navigation-shared-element'
 
+import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
 import { theme, windowWidth } from '~/helpers/theme'
 import useMobileStore from '~/store'
 
 import UserProfile from '../common/UserProfile'
+import Button from '../ui/Button'
 import Ticker from '../ui/Ticker'
 import OnChainIdentities from './OnChainIdentities'
 import ShareSheet from './ShareSheet'
@@ -210,31 +212,59 @@ const Info: FC<Props> = (props) => {
           </View>
         </View>
 
-        <View style={{ paddingHorizontal: 10 }}>
-          {isOwned && (
-            <Text style={[styles.handle, { opacity: 0.5 }]}>gm,</Text>
-          )}
-          <Animated.Text
-            style={styles.handle}
-            entering={FadeInRight.duration(500)}
-            numberOfLines={1}
-          >
-            {trimLensHandle(profile.handle)}
-          </Animated.Text>
-
-          <Pressable onPress={() => setShowMoreBio(!showMoreBio)}>
+        <View style={{ paddingHorizontal: 10, gap: 20 }}>
+          <View>
+            {isOwned && (
+              <Text style={[styles.handle, { opacity: 0.5 }]}>gm,</Text>
+            )}
             <Animated.Text
-              numberOfLines={!showMoreBio ? 2 : undefined}
-              style={styles.bio}
-              entering={FadeInRight.delay(200).duration(500)}
+              style={styles.handle}
+              entering={FadeInRight.duration(400)}
+              numberOfLines={1}
             >
-              {showMoreBio ? profile.bio : trimNewLines(profile.bio ?? '')}
+              {trimLensHandle(profile.handle)}
             </Animated.Text>
-          </Pressable>
 
-          <View style={{ paddingTop: 15 }}>
-            <OnChainIdentities identity={profile.onChainIdentity} />
+            <Pressable onPress={() => setShowMoreBio(!showMoreBio)}>
+              <Animated.Text
+                numberOfLines={!showMoreBio ? 2 : undefined}
+                style={styles.bio}
+                entering={FadeInRight.delay(200).duration(400)}
+              >
+                {showMoreBio ? profile.bio : trimNewLines(profile.bio ?? '')}
+              </Animated.Text>
+            </Pressable>
           </View>
+
+          <OnChainIdentities identity={profile.onChainIdentity} />
+
+          <Animated.View
+            style={{ flexDirection: 'row', gap: 10 }}
+            entering={FadeInRight.duration(400)}
+          >
+            <View style={{ flex: 1 }}>
+              <Button
+                text="Follow"
+                size="sm"
+                onPress={() => {
+                  haptic()
+                }}
+              />
+            </View>
+            <Button
+              icon={
+                <Ionicons
+                  name="ellipsis-vertical-outline"
+                  color={theme.colors.white}
+                  size={16}
+                />
+              }
+              size="sm"
+              onPress={() => {
+                haptic()
+              }}
+            />
+          </Animated.View>
         </View>
       </Animated.View>
     </Animated.View>

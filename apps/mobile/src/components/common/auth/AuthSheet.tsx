@@ -21,7 +21,7 @@ import { createWalletClient, custom } from 'viem'
 import { polygon } from 'viem/chains'
 import type { SignableMessage } from 'viem/dist/types/types/misc'
 
-import AnimatedPressable from '~/components/ui/AnimatedPressable'
+import Button from '~/components/ui/Button'
 import Sheet from '~/components/ui/Sheet'
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
@@ -41,14 +41,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-between',
     gap: 15
-  },
-  button: {
-    padding: 20,
-    borderRadius: 100,
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: theme.colors.grey,
-    backgroundColor: theme.colors.backdrop2
   }
 })
 
@@ -160,25 +152,15 @@ const AuthSheet: FC<Props> = ({ sheetRef }) => {
             signing the message.
           </Text>
         </View>
-        <AnimatedPressable
+
+        <Button
+          text="Sign & Verify"
           disabled={loading}
           onPress={() => {
             haptic()
             signIn()
           }}
-          style={styles.button}
-        >
-          <Text
-            style={{
-              color: theme.colors.white,
-              fontFamily: 'font-medium',
-              fontSize: normalizeFont(18),
-              opacity: loading ? 0.3 : 1
-            }}
-          >
-            Sign & Verify
-          </Text>
-        </AnimatedPressable>
+        />
       </View>
     </Sheet>
   )

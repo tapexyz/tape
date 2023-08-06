@@ -21,6 +21,7 @@ import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
 
+import Button from '../ui/Button'
 import QRCode from '../ui/QRCode'
 
 type Props = {
@@ -38,14 +39,6 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     justifyContent: 'space-between',
     gap: 15
-  },
-  shareVia: {
-    padding: 15,
-    borderRadius: 100,
-    alignItems: 'center',
-    borderWidth: 1,
-    borderColor: theme.colors.grey,
-    backgroundColor: theme.colors.backdrop2
   },
   profileShareCard: {
     borderRadius: CARD_BORDER_RADIUS,
@@ -218,7 +211,8 @@ const ShareSheet: FC<Props> = ({ sheetRef, profile }) => {
           </AnimatedPressable>
         </View>
 
-        <AnimatedPressable
+        <Button
+          text="Share via..."
           onPress={() => {
             haptic()
             Share.share({
@@ -227,18 +221,7 @@ const ShareSheet: FC<Props> = ({ sheetRef, profile }) => {
               title: `Checkout my Lens profile! 🌿 ${LENSTUBE_WEBSITE_URL}/channel/${profile.handle}`
             })
           }}
-          style={styles.shareVia}
-        >
-          <Text
-            style={{
-              color: theme.colors.white,
-              fontFamily: 'font-medium',
-              fontSize: normalizeFont(12)
-            }}
-          >
-            Share via...
-          </Text>
-        </AnimatedPressable>
+        />
       </View>
     </Sheet>
   )
