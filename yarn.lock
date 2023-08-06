@@ -12360,6 +12360,11 @@ isomorphic-ws@^4.0.1:
   resolved "https://registry.yarnpkg.com/isomorphic-ws/-/isomorphic-ws-4.0.1.tgz#55fd4cd6c5e6491e76dc125938dd863f5cd4f2dc"
   integrity sha512-BhBvN2MBpWTaSHdWRb/bwdZJ1WaehQ2L1KngkCkfLUGF0mAWAT1sQUQacEmQ0jXkFw/czDXPNQSL5u2/Krsz1w==
 
+itty-router@^4.0.14:
+  version "4.0.14"
+  resolved "https://registry.yarnpkg.com/itty-router/-/itty-router-4.0.14.tgz#5ca9aa5647e0d1a450c8d484d3502217d588878a"
+  integrity sha512-s8DfaLkQp+E3kBhjwto3Z91ozulotCLAmlS8AIr230NqwFJssiGIoewo1P+CEkZ3YrzghS9k/RVvmMlvKQxueQ==
+
 jayson@^4.1.0:
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/jayson/-/jayson-4.1.0.tgz#60dc946a85197317f2b1439d672a8b0a99cea2f9"

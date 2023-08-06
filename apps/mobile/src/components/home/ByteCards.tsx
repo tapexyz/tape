@@ -71,17 +71,6 @@ const styles = StyleSheet.create({
     borderRadius: BORDER_RADIUS,
     overflow: 'hidden'
   },
-  firstByteCardWrapper: {
-    zIndex: 1,
-    shadowColor: '#000',
-    shadowOpacity: 0.8,
-    shadowOffset: {
-      height: 10,
-      width: 0
-    },
-    shadowRadius: 15,
-    elevation: 24
-  },
   firstCard: {
     width: 200,
     marginBottom: 10,
@@ -232,7 +221,7 @@ const ByteCards = () => {
       entering={FadeIn.duration(500)}
       style={styles.cardsContainer}
     >
-      <View style={styles.firstByteCardWrapper}>
+      <View style={{ zIndex: 1 }}>
         <Skeleton
           show={loading}
           colors={[`${homeGradientColor}10`, '#00000080']}
