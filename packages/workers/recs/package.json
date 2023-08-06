@@ -1,16 +1,20 @@
 {
-  "name": "@lenstube/worker-og",
+  "name": "@lenstube/worker-recs",
   "version": "0.0.0",
-  "license": "AGPL-3.0",
   "private": true,
+  "license": "AGPL-3.0",
   "scripts": {
     "worker:dev": "wrangler dev",
-    "worker:deploy": "wrangler deploy"
+    "worker:deploy": "wrangler deploy",
+    "typecheck": "tsc --pretty"
+  },
+  "dependencies": {
+    "itty-router": "^4.0.14"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230801.0",
-    "@lenstube/config": "*",
     "typescript": "^5.1.6",
+    "@lenstube/config": "*",
     "wrangler": "3.4.0"
   }
 }

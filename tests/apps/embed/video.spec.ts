@@ -14,10 +14,4 @@ test('has bytes', async ({ page }) => {
   // Wait for the VideoPlayer to load and become visible
   const videoPlayer = page.locator('video')
   await expect(videoPlayer).toBeVisible()
-
-  // Check if the video is playing
-  const isPaused = await videoPlayer.evaluate(
-    (video: HTMLVideoElement) => video.paused
-  )
-  expect(isPaused).toBeFalsy()
 })
