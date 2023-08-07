@@ -9,8 +9,10 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
     "assetBundlePatterns": ["assets/**"],
+    "backgroundColor": "#000000",
     "splash": {
-      "backgroundColor": "#000"
+      "backgroundColor": "#000000",
+      "image": "./assets/splash.png"
     },
     "ios": {
       "supportsTablet": false,
@@ -21,7 +23,7 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "backgroundColor": "#000000"
       },
       "jsEngine": "hermes"
     },
