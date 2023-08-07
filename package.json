@@ -14,7 +14,7 @@
     "build": "turbo run build --parallel",
     "dev": "turbo run dev --parallel",
     "start": "turbo run start --parallel",
-    "codegen": "turbo run codegen",
+    "codegen": "turbo run codegen --parallel",
     "lint": "turbo run lint --parallel",
     "typecheck": "turbo run typecheck --parallel",
     "prepare": "husky install",
