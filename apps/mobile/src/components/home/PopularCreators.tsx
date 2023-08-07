@@ -84,7 +84,7 @@ const PopularCreators = () => {
             >
               <ExpoImage
                 source={{
-                  uri: getProfilePicture(profile, 'AVATAR_LG')
+                  uri: getProfilePicture(profile)
                 }}
                 transition={300}
                 style={styles.image}

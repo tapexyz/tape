@@ -109,7 +109,7 @@ const ShareSheet: FC<Props> = ({ sheetRef, profile }) => {
               >
                 <View style={styles.qrContainer}>
                   <QRCode
-                    logo={getProfilePicture(profile, 'AVATAR')}
+                    logo={getProfilePicture(profile)}
                     size={100}
                     value={`${LENSTUBE_WEBSITE_URL}/channel/${profile.handle}`}
                   />
