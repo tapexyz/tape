@@ -23,13 +23,13 @@ const Splash = () => {
   const opacity = useSharedValue(1)
 
   useEffect(() => {
-    // 3 times scale
-    scale.value = withTiming(3, {
-      duration: 800,
+    // 10 times scale
+    scale.value = withTiming(10, {
+      duration: 1000,
       easing: Easing.inOut(Easing.ease)
     })
     opacity.value = withTiming(0, {
-      duration: 800,
+      duration: 1000,
       easing: Easing.inOut(Easing.ease)
     })
   }, [scale, opacity])
@@ -71,7 +71,9 @@ export const AppLoading: FC<PropsWithChildren> = ({ children }) => {
   useEffect(() => {
     SplashScreen.hideAsync()
     if (isCached && isAuthValidated) {
-      setAppLoadingIsVisible(false)
+      setTimeout(() => {
+        setAppLoadingIsVisible(false)
+      }, 500)
     }
   }, [isCached, isAuthValidated])
 
