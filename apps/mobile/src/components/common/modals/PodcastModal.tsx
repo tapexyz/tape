@@ -67,6 +67,7 @@ export const PodcastModal = () => {
   return (
     <View style={styles.container}>
       <FlashList
+        contentContainerStyle={{ paddingTop: 10 }}
         data={publications}
         estimatedItemSize={publications.length}
         renderItem={renderItem}
