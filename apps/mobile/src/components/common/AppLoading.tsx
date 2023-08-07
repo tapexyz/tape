@@ -71,9 +71,7 @@ export const AppLoading: FC<PropsWithChildren> = ({ children }) => {
   useEffect(() => {
     SplashScreen.hideAsync()
     if (isCached && isAuthValidated) {
-      setTimeout(() => {
-        setAppLoadingIsVisible(false)
-      }, 500)
+      setAppLoadingIsVisible(false)
     }
   }, [isCached, isAuthValidated])
 
