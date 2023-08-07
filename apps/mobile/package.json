@@ -39,6 +39,7 @@
     "expo-sharing": "~11.2.2",
     "expo-splash-screen": "~0.18.2",
     "expo-status-bar": "~1.4.4",
+    "expo-system-ui": "~2.2.1",
     "moti": "^0.25.4",
     "qrcode": "^1.5.3",
     "react": "18.2.0",
