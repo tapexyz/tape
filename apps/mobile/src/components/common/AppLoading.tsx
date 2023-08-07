@@ -73,7 +73,7 @@ export const AppLoading: FC<PropsWithChildren> = ({ children }) => {
     if (isCached && isAuthValidated) {
       setTimeout(() => {
         setAppLoadingIsVisible(false)
-      }, 500)
+      }, 100)
     }
   }, [isCached, isAuthValidated])
 
