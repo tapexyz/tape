@@ -70,7 +70,8 @@ const UserProfile: FC<Props> = (props) => {
           height: size,
           borderRadius: radius,
           borderWidth: 0.5,
-          borderColor: theme.colors.secondary
+          borderColor: theme.colors.secondary,
+          backgroundColor: theme.colors.backdrop
         }}
       />
       {showHandle && (

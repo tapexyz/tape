@@ -34,7 +34,8 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    paddingTop: 10
+    paddingTop: 20,
+    flex: 1
   },
   actions: {
     flex: 1,
