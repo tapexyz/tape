@@ -25,11 +25,11 @@ const Splash = () => {
   useEffect(() => {
     // 3 times scale
     scale.value = withTiming(3, {
-      duration: 1000,
+      duration: 800,
       easing: Easing.inOut(Easing.ease)
     })
     opacity.value = withTiming(0, {
-      duration: 1000,
+      duration: 800,
       easing: Easing.inOut(Easing.ease)
     })
   }, [scale, opacity])
