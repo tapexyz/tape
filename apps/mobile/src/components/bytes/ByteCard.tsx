@@ -14,10 +14,13 @@ import Animated, { FadeIn } from 'react-native-reanimated'
 
 import { useIsFocused } from '~/hooks/navigation'
 
+import Overlay from './Overlay'
+
 const styles = StyleSheet.create({
   byteCard: {
     justifyContent: 'center',
-    borderRadius: 45
+    borderRadius: 45,
+    position: 'relative'
   }
 })
 
@@ -82,6 +85,8 @@ const ByteCard: FC<Props> = ({ byte, isActive }) => {
         posterSource={{ uri: thumbnailUrl }}
         style={{ width, height: BYTE_HEIGHT }}
       />
+
+      <Overlay byte={byte} />
     </Animated.View>
   )
 }
