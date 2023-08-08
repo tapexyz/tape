@@ -14,7 +14,7 @@
     "viem": "^1.5.3"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20230801.0",
+    "@cloudflare/workers-types": "^4.20230807.0",
     "@lenstube/config": "*",
     "@types/secp256k1": "latest",
     "typescript": "^5.1.6",
