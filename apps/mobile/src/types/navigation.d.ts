@@ -66,6 +66,7 @@ declare global {
     MusicModal: undefined
     NotificationsModal: undefined
     ProfileModal: { handle: string }
+    NewPublicationModal: undefined
     WatchVideo: { id: string }
 
     MainTab: NavigatorScreenParams<MainTabParamList>
@@ -95,6 +96,7 @@ declare global {
   type WatchScreenProps = RootStackComposite<'WatchVideo'>
   type ProfileModalProps = RootStackComposite<'ProfileModal'>
   type NotificationsModalProps = RootStackComposite<'NotificationsModal'>
+  type NewPublicationModalProps = RootStackComposite<'NewPublicationModal'>
   type PodcastModalProps = ExploreStackComposite<'PodcastModal'>
 
   // Home stack

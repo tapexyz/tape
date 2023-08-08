@@ -8,6 +8,7 @@ import CollapseButton from '~/components/common/CollapseButton'
 import {
   CategoriesModal,
   MusicModal,
+  NewPublicationModal,
   NotificationsModal,
   PodcastModal,
   ProfileModal,
@@ -50,6 +51,15 @@ const options: StackNavigationOptions = {
   }
 }
 
+const modalOptions = {
+  headerShown: true,
+  headerTitleStyle: { fontFamily: 'font-medium', letterSpacing: 1 },
+  headerStyle: {
+    backgroundColor: theme.colors.background
+  },
+  headerLeft: () => <CollapseButton />
+}
+
 export const RootNavigator: FC = () => {
   useNetWorkConnection()
 
@@ -81,11 +91,6 @@ export const RootNavigator: FC = () => {
         component={CategoriesModal}
       />
       <Screen
-        name="MusicModal"
-        options={{ presentation: 'modal' }}
-        component={MusicModal}
-      />
-      <Screen
         name="ProfileModal"
         options={{ ...options, presentation: 'transparentModal' }}
         component={ProfileModal}
@@ -97,30 +102,37 @@ export const RootNavigator: FC = () => {
         }}
       />
       <Screen
+        name="NewPublicationModal"
+        options={{ ...options, presentation: 'transparentModal' }}
+        component={NewPublicationModal}
+        sharedElements={(route) => {
+          const { handle } = route.params
+          if (handle) {
+            return [{ id: `profile.${handle}`, animation: 'fade' }]
+          }
+        }}
+      />
+
+      <Screen
+        name="MusicModal"
+        options={{ presentation: 'modal' }}
+        component={MusicModal}
+      />
+      <Screen
         name="PodcastModal"
         options={{
-          presentation: 'modal',
+          ...modalOptions,
           title: 'Podcasts',
-          headerShown: true,
-          headerTitleStyle: { fontFamily: 'font-medium', letterSpacing: 1 },
-          headerStyle: {
-            backgroundColor: theme.colors.background
-          },
-          headerLeft: () => <CollapseButton />
+          presentation: 'modal'
         }}
         component={PodcastModal}
       />
       <Screen
         name="NotificationsModal"
         options={{
+          ...modalOptions,
           presentation: 'modal',
-          title: 'Notifications',
-          headerShown: true,
-          headerTitleStyle: { fontFamily: 'font-medium', letterSpacing: 1 },
-          headerStyle: {
-            backgroundColor: theme.colors.background
-          },
-          headerLeft: () => <CollapseButton />
+          title: 'Notifications'
         }}
         component={NotificationsModal}
       />

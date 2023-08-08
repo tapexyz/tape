@@ -71,8 +71,7 @@ const AuthenticatedUser = () => {
         <UserProfile
           profile={selectedChannel}
           showHandle={false}
-          size={30}
-          radius={10}
+          size={26}
           onPress={() => profileSheetRef.current?.present()}
         />
       </SharedElement>
@@ -119,6 +118,7 @@ const AuthenticatedUser = () => {
 }
 
 const Header: FC<HeaderTitleProps> = () => {
+  const { navigate } = useNavigation()
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
 
   return (
@@ -127,15 +127,11 @@ const Header: FC<HeaderTitleProps> = () => {
 
       <View style={styles.rightView}>
         {selectedChannel && (
-          <AnimatedPressable
-            onPress={() => {
-              haptic()
-            }}
-          >
+          <AnimatedPressable onPress={() => navigate('NewPublicationModal')}>
             <Ionicons
-              name="create-outline"
+              name="add-circle-outline"
               color={theme.colors.white}
-              size={22}
+              size={26}
             />
           </AnimatedPressable>
         )}

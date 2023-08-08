@@ -1,5 +1,6 @@
 export * from './CategoriesModal'
 export * from './MusicModal'
+export * from './NewPublicationModal'
 export * from './NotificationsModal'
 export * from './PodcastModal'
 export * from './ProfileModal'
