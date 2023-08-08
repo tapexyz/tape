@@ -118,7 +118,7 @@ const Overlay: FC<Props> = ({ byte: { stats, profile, metadata } }) => {
             <Ionicons
               name="grid-outline"
               color={theme.colors.white}
-              size={18}
+              size={17}
             />
             {stats.totalAmountOfCollects ? (
               <Text style={styles.text}>

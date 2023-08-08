@@ -29,7 +29,7 @@ export const k3lScores = async (
       { headers: { 'User-Agent': 'Lenstube' } }
     )
     const json: K3LProfile[] = await response.json()
-    return json.map((item: K3LProfile) => item.handle)
+    return json.map((item: K3LProfile) => item.id)
   } catch (error) {
     console.log(error)
     return []
