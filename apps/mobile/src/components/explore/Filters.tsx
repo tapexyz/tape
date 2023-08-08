@@ -12,8 +12,7 @@ import useMobileStore from '~/store'
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 20,
-    marginHorizontal: 5
+    marginVertical: 20
   },
   filter: {
     paddingHorizontal: 15,

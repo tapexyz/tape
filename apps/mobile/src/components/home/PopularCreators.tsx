@@ -1,4 +1,4 @@
-import { RECS_URL, VERIFIED_CHANNELS } from '@lenstube/constants'
+import { RECS_URL } from '@lenstube/constants'
 import { getProfilePicture, shuffleArray } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import { useAllProfilesQuery } from '@lenstube/lens'
@@ -24,8 +24,7 @@ const BORDER_RADIUS = 25
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 10,
-    marginHorizontal: 5
+    marginTop: 10
   },
   imageContainer: {
     display: 'flex',
@@ -55,13 +54,13 @@ const styles = StyleSheet.create({
 
 const PopularCreators = () => {
   const { navigate } = useNavigation()
-  const shuffleProfileIds = useCallback(
-    (ids: string[]) => shuffleArray(ids),
+  const shuffle = useCallback(
+    (items: string[]) => shuffleArray(items ?? []),
     []
   )
 
   const { data: recsData, isLoading: recsLoading } = useSWR(
-    `${RECS_URL}/k3l-score/influencer/50/0`,
+    `${RECS_URL}/k3l-score/creator/49/0`,
     (url: string) => fetch(url).then((res) => res.json()),
     { revalidateIfStale: true }
   )
@@ -69,7 +68,7 @@ const PopularCreators = () => {
   const { data, loading: profilesLoading } = useAllProfilesQuery({
     variables: {
       request: {
-        profileIds: shuffleProfileIds(recsData?.ids ?? VERIFIED_CHANNELS)
+        handles: shuffle(recsData?.items)
       }
     },
     skip: recsLoading
