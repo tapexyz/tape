@@ -7,6 +7,8 @@ import Animated, {
   Easing,
   useAnimatedStyle,
   useSharedValue,
+  withRepeat,
+  withSequence,
   withTiming
 } from 'react-native-reanimated'
 
@@ -18,25 +20,21 @@ SplashScreen.preventAutoHideAsync()
 
 const Splash = () => {
   const { height, width } = useWindowDimensions()
-
-  const scale = useSharedValue(1)
   const opacity = useSharedValue(1)
 
   useEffect(() => {
-    // 10 times scale
-    scale.value = withTiming(10, {
-      duration: 1000,
-      easing: Easing.inOut(Easing.ease)
-    })
-    opacity.value = withTiming(0, {
-      duration: 1000,
-      easing: Easing.inOut(Easing.ease)
-    })
-  }, [scale, opacity])
+    opacity.value = withRepeat(
+      withSequence(
+        withTiming(0.5, { duration: 500, easing: Easing.inOut(Easing.ease) }), // fade out
+        withTiming(1, { duration: 500, easing: Easing.inOut(Easing.ease) }) // fade in
+      ),
+      -1,
+      true
+    )
+  }, [opacity])
 
   const animatedStyle = useAnimatedStyle(() => {
     return {
-      transform: [{ scale: scale.value }],
       opacity: opacity.value
     }
   })
@@ -55,7 +53,7 @@ const Splash = () => {
           source={require('assets/splash.png')}
           transition={100}
           contentFit="cover"
-          style={[{ width, height }]}
+          style={{ width, height }}
         />
       </Animated.View>
     </View>
