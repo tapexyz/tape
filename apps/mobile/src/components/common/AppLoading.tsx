@@ -2,9 +2,10 @@ import { Image as ExpoImage } from 'expo-image'
 import * as SplashScreen from 'expo-splash-screen'
 import type { FC, PropsWithChildren } from 'react'
 import React, { useState } from 'react'
-import { useWindowDimensions, View } from 'react-native'
+import { useWindowDimensions } from 'react-native'
 import Animated, {
   Easing,
+  FadeIn,
   useAnimatedStyle,
   useSharedValue,
   withRepeat,
@@ -13,6 +14,7 @@ import Animated, {
 } from 'react-native-reanimated'
 
 import { theme } from '~/helpers/theme'
+import { useMobilePersistStore } from '~/store/persist'
 
 import { useAuth, useCachedResources, useEffect } from '../../hooks'
 
@@ -25,8 +27,8 @@ const Splash = () => {
   useEffect(() => {
     opacity.value = withRepeat(
       withSequence(
-        withTiming(0.5, { duration: 500, easing: Easing.inOut(Easing.ease) }), // fade out
-        withTiming(1, { duration: 500, easing: Easing.inOut(Easing.ease) }) // fade in
+        withTiming(0.5, { duration: 2000, easing: Easing.inOut(Easing.ease) }), // fade out
+        withTiming(1, { duration: 2000, easing: Easing.inOut(Easing.ease) }) // fade in
       ),
       -1,
       true
@@ -40,7 +42,8 @@ const Splash = () => {
   })
 
   return (
-    <View
+    <Animated.View
+      entering={FadeIn.duration(1000)}
       style={{
         flex: 1,
         alignItems: 'center',
@@ -56,12 +59,15 @@ const Splash = () => {
           style={{ width, height }}
         />
       </Animated.View>
-    </View>
+    </Animated.View>
   )
 }
 
 export const AppLoading: FC<PropsWithChildren> = ({ children }) => {
   const [appLoadingIsVisible, setAppLoadingIsVisible] = useState(true)
+  const selectedChannelId = useMobilePersistStore(
+    (state) => state.selectedChannelId
+  )
 
   const isCached = useCachedResources()
   const isAuthValidated = useAuth()
@@ -69,11 +75,12 @@ export const AppLoading: FC<PropsWithChildren> = ({ children }) => {
   useEffect(() => {
     SplashScreen.hideAsync()
     if (isCached && isAuthValidated) {
+      const timer = selectedChannelId ? 50 : 500
       setTimeout(() => {
         setAppLoadingIsVisible(false)
-      }, 500)
+      }, timer)
     }
-  }, [isCached, isAuthValidated])
+  }, [isCached, isAuthValidated, selectedChannelId])
 
   if (appLoadingIsVisible) {
     return <Splash />
