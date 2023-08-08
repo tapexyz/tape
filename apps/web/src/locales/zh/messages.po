@@ -18,7 +18,7 @@ msgstr ""
 "X-Crowdin-File: messages.po\n"
 "X-Crowdin-File-ID: 5\n"
 
-#: src/components/Channel/Tabs/index.tsx:192
+#: src/components/Channel/Tabs/index.tsx:193
 msgid "About"
 msgstr "关于"
 
@@ -110,7 +110,7 @@ msgstr "基本信息"
 msgid "Be the first to comment"
 msgstr "成为第一个评论者"
 
-#: src/components/Channel/Tabs/index.tsx:99
+#: src/components/Channel/Tabs/index.tsx:100
 #: src/components/Common/MobileBottomNav.tsx:44
 #: src/components/Common/Sidebar.tsx:113
 #: src/components/Common/Sidebar.tsx:132
@@ -122,7 +122,7 @@ msgstr "字节"
 msgid "can collect"
 msgstr "可以收集"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:315
+#: src/components/Watch/CollectVideo/CollectModal.tsx:313
 msgid "can collect this publication"
 msgstr "可以收集此发布"
 
@@ -165,7 +165,7 @@ msgstr "频道设置"
 msgid "Channel URL"
 msgstr "频道 URL"
 
-#: src/components/Channel/Tabs/index.tsx:173
+#: src/components/Channel/Tabs/index.tsx:174
 #: src/components/Common/Search/GlobalSearchBar.tsx:114
 msgid "Channels"
 msgstr "频道"
@@ -174,7 +174,7 @@ msgstr "频道"
 msgid "Claim Handle"
 msgstr "索赔处理"
 
-#: src/components/Bytes/ByteActions.tsx:71
+#: src/components/Bytes/ByteActions.tsx:73
 #: src/components/Bytes/ByteVideo.tsx:163
 msgid "Collect"
 msgstr "收集"
@@ -191,7 +191,7 @@ msgstr "以 NFT 方式收集"
 msgid "Collect Currency"
 msgstr "收集货币"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:325
+#: src/components/Watch/CollectVideo/CollectModal.tsx:323
 msgid "Collect for free"
 msgstr "免费收集"
 
@@ -203,7 +203,7 @@ msgstr "免费收藏"
 msgid "Collect limit should be greater than 0"
 msgstr "收集限制应该大于 0"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:325
+#: src/components/Watch/CollectVideo/CollectModal.tsx:323
 msgid "Collect Now"
 msgstr "立即收集"
 
@@ -211,7 +211,7 @@ msgstr "立即收集"
 msgid "Collect Type"
 msgstr "收藏类型"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:225
+#: src/components/Watch/CollectVideo/CollectModal.tsx:223
 msgid "Collect Video"
 msgstr "收集视频"
 
@@ -223,7 +223,7 @@ msgstr "以 NFT 方式收集"
 msgid "Collected By"
 msgstr "收集者"
 
-#: src/components/Notifications/Collected.tsx:68
+#: src/components/Notifications/Collected.tsx:65
 msgid "collected your"
 msgstr "收集您的"
 
@@ -247,7 +247,7 @@ msgstr "评论"
 msgid "Comment deleted"
 msgstr "评论已删除"
 
-#: src/components/Notifications/Collected.tsx:70
+#: src/components/Notifications/Collected.tsx:67
 #: src/components/Notifications/Reacted.tsx:42
 msgid "comment on"
 msgstr "评论于"
@@ -256,7 +256,7 @@ msgstr "评论于"
 msgid "Comment should not exceed 5000 characters"
 msgstr "评论不能超过 5000 个字符"
 
-#: src/components/Channel/Tabs/index.tsx:118
+#: src/components/Channel/Tabs/index.tsx:119
 msgid "Commented"
 msgstr "已评论"
 
@@ -338,7 +338,7 @@ msgstr "存款"
 msgid "Describe more about your video, can be @channels, #hashtags or chapters (00:20 - Intro)"
 msgstr "详细描述您的视频，可以是 @cannets, #hashtag 或章节(00:20 - Intro)"
 
-#: src/components/Channel/Tabs/About.tsx:33
+#: src/components/Channel/Tabs/About.tsx:34
 #: src/components/Upload/Details.tsx:112
 msgid "Description"
 msgstr "描述"
@@ -402,7 +402,7 @@ msgstr "启用"
 msgid "enabled"
 msgstr "已启用"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:258
+#: src/components/Watch/CollectVideo/CollectModal.tsx:256
 msgid "Ends At"
 msgstr "结束于"
 
@@ -551,7 +551,7 @@ msgstr "IPFS 上传失败"
 msgid "Join Channel"
 msgstr "加入频道"
 
-#: src/components/Notifications/Subscribed.tsx:71
+#: src/components/Notifications/Subscribed.tsx:68
 msgid "joined"
 msgstr "已加入"
 
@@ -590,7 +590,7 @@ msgstr "限制24小时销售"
 msgid "Limited collect"
 msgstr "有限采集量"
 
-#: src/components/Channel/Tabs/About.tsx:87
+#: src/components/Channel/Tabs/About.tsx:88
 msgid "Links"
 msgstr "链接"
 
@@ -602,7 +602,7 @@ msgstr "地点"
 msgid "Login"
 msgstr "登录"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:314
+#: src/components/Watch/CollectVideo/CollectModal.tsx:312
 msgid "Members"
 msgstr "成员"
 
@@ -622,11 +622,11 @@ msgstr "提到了"
 msgid "Mentions"
 msgstr "提及内容"
 
-#: src/components/Notifications/Collected.tsx:77
+#: src/components/Notifications/Collected.tsx:74
 msgid "mirror"
 msgstr "镜像"
 
-#: src/components/Bytes/ByteActions.tsx:62
+#: src/components/Bytes/ByteActions.tsx:64
 msgid "Mirror"
 msgstr "镜像"
 
@@ -635,7 +635,7 @@ msgid "Mirror video across Lens"
 msgstr "全镜像视频"
 
 #: src/components/Channel/MirroredVideoCard.tsx:94
-#: src/components/Channel/Tabs/index.tsx:137
+#: src/components/Channel/Tabs/index.tsx:138
 msgid "Mirrored"
 msgstr "镜像"
 
@@ -718,8 +718,8 @@ msgstr "没有人能够收集这个出版物"
 msgid "No other channels found"
 msgstr "未找到其他频道"
 
-#: src/components/Common/Search/Channels.tsx:65
-#: src/components/Common/Search/Videos.tsx:47
+#: src/components/Common/Search/Channels.tsx:64
+#: src/components/Common/Search/Videos.tsx:46
 msgid "No results found"
 msgstr "未找到结果"
 
@@ -764,7 +764,7 @@ msgstr "NSFW"
 msgid "Offensive"
 msgstr "攻击性的"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:313
+#: src/components/Watch/CollectVideo/CollectModal.tsx:311
 msgid "Only"
 msgstr "仅限"
 
@@ -792,7 +792,7 @@ msgstr "或选择视频"
 msgid "Pay Membership of"
 msgstr "会员支付"
 
-#: src/components/Channel/Mutual/MutualSubscribers.tsx:79
+#: src/components/Channel/Mutual/MutualSubscribers.tsx:81
 msgid "People you may know"
 msgstr "您可能知道的人"
 
@@ -852,7 +852,7 @@ msgstr "发布视频"
 msgid "Posting video"
 msgstr "发布视频"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:247
+#: src/components/Watch/CollectVideo/CollectModal.tsx:245
 msgid "Price"
 msgstr "价格"
 
@@ -864,11 +864,11 @@ msgstr "每个收集的价格"
 msgid "Privacy"
 msgstr "隐私"
 
-#: src/components/Channel/Tabs/About.tsx:63
+#: src/components/Channel/Tabs/About.tsx:64
 msgid "Proof of Humanity"
 msgstr "人类证据"
 
-#: src/components/Channel/Tabs/About.tsx:73
+#: src/components/Channel/Tabs/About.tsx:74
 msgid "Proof of Personhood"
 msgstr "人格证明"
 
@@ -886,15 +886,15 @@ msgstr "原因"
 
 #: src/components/Settings/Membership.tsx:224
 #: src/components/Settings/Membership.tsx:278
-#: src/components/Watch/CollectVideo/CollectModal.tsx:294
+#: src/components/Watch/CollectVideo/CollectModal.tsx:292
 msgid "Recipient"
 msgstr "收款人"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:293
+#: src/components/Watch/CollectVideo/CollectModal.tsx:291
 msgid "Recipients"
 msgstr "收件人"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:283
+#: src/components/Watch/CollectVideo/CollectModal.tsx:281
 msgid "Referral Fee"
 msgstr "转诊费"
 
@@ -935,12 +935,12 @@ msgstr "报告"
 msgid "Report Publication"
 msgstr "报告发布"
 
-#: src/components/Upload/Details.tsx:199
+#: src/components/Upload/Details.tsx:204
 msgid "Reset"
 msgstr "Reset"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:269
-#: src/components/Watch/CollectVideo/CollectModal.tsx:291
+#: src/components/Watch/CollectVideo/CollectModal.tsx:267
+#: src/components/Watch/CollectVideo/CollectModal.tsx:289
 msgid "Revenue"
 msgstr "收入"
 
@@ -1082,25 +1082,25 @@ msgstr "存储元数据"
 msgid "Subscribe"
 msgstr "订阅"
 
-#: src/components/Notifications/Subscribed.tsx:71
+#: src/components/Notifications/Subscribed.tsx:68
 msgid "subscribed"
 msgstr "订阅"
 
-#: src/components/Channel/BasicInfo/index.tsx:94
+#: src/components/Channel/BasicInfo/index.tsx:107
 msgid "Subscriber"
 msgstr "订阅者"
 
-#: src/components/Channel/BasicInfo/index.tsx:89
+#: src/components/Channel/BasicInfo/index.tsx:102
 #: src/components/Channel/Tabs/OtherChannelCard.tsx:40
 #: src/components/UIElements/ChannelSuggestions.tsx:39
 #: src/components/Watch/AboutChannel.tsx:60
 msgid "subscribers"
 msgstr "订阅者"
 
-#: src/components/Channel/BasicInfo/index.tsx:73
+#: src/components/Channel/BasicInfo/index.tsx:86
 #: src/components/Upload/CollectModule/index.tsx:49
 #: src/components/Upload/CollectModule/PermissionQuestion.tsx:68
-#: src/components/Watch/CollectVideo/CollectModal.tsx:314
+#: src/components/Watch/CollectVideo/CollectModal.tsx:312
 msgid "Subscribers"
 msgstr "订阅者"
 
@@ -1135,7 +1135,7 @@ msgstr "切换到暗色"
 msgid "Switch to Light"
 msgstr "切换到灯光"
 
-#: src/components/Channel/Tabs/About.tsx:53
+#: src/components/Channel/Tabs/About.tsx:54
 msgid "Sybil Verified"
 msgstr "Sybil 验证"
 
@@ -1156,7 +1156,7 @@ msgstr "感谢制作这个视频！"
 msgid "Thanks for supporting our community!"
 msgstr "感谢支持我们的社区！"
 
-#: src/components/Notifications/Subscribed.tsx:72
+#: src/components/Notifications/Subscribed.tsx:69
 msgid "the channel"
 msgstr "频道"
 
@@ -1245,7 +1245,7 @@ msgstr "收藏品总数"
 msgid "total collects"
 msgstr "总收藏"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:235
+#: src/components/Watch/CollectVideo/CollectModal.tsx:233
 msgid "Total Collects"
 msgstr "总收藏量"
 
@@ -1331,7 +1331,7 @@ msgid "Upload to IPFS"
 msgstr "上传到 IPFS"
 
 #: src/components/Upload/ChooseThumbnail.tsx:123
-#: src/components/Upload/Details.tsx:206
+#: src/components/Upload/Details.tsx:211
 msgid "Uploading thumbnail"
 msgstr "正在上传缩略图"
 
@@ -1343,11 +1343,11 @@ msgstr "正在上传到Arweeve"
 msgid "Uploading to IPFS"
 msgstr "上传到 IPFS"
 
-#: src/components/Channel/BasicInfo/index.tsx:66
+#: src/components/Common/Badge.tsx:24
 msgid "Verified"
 msgstr "已验证"
 
-#: src/components/Notifications/Collected.tsx:78
+#: src/components/Notifications/Collected.tsx:75
 #: src/components/Notifications/Commented.tsx:45
 #: src/components/Notifications/Mirrored.tsx:44
 #: src/components/Notifications/Reacted.tsx:52
@@ -1398,13 +1398,13 @@ msgstr "要上传的视频"
 msgid "Video will be stored permanently on-chain and can't be updated"
 msgstr "视频将在链上永久存储，不能更新"
 
-#: src/components/Channel/Tabs/index.tsx:80
+#: src/components/Channel/Tabs/index.tsx:81
 #: src/components/Common/Search/GlobalSearchBar.tsx:129
 msgid "Videos"
 msgstr "视频"
 
-#: src/components/Watch/MetaInfo.tsx:48
-#: src/components/Watch/MetaInfo.tsx:61
+#: src/components/Watch/MetaInfo.tsx:49
+#: src/components/Watch/MetaInfo.tsx:63
 msgid "View Metadata"
 msgstr "查看元数据"
 
@@ -1412,11 +1412,11 @@ msgstr "查看元数据"
 msgid "View more"
 msgstr "查看更多"
 
-#: src/components/Watch/MetaInfo.tsx:96
+#: src/components/Watch/MetaInfo.tsx:100
 msgid "View Proof"
 msgstr "查看证明"
 
-#: src/components/Watch/MetaInfo.tsx:77
+#: src/components/Watch/MetaInfo.tsx:80
 msgid "View Token"
 msgstr "查看令牌"
 
@@ -1511,4 +1511,3 @@ msgstr "您的频道"
 #: src/components/Upload/BundlrInfo.tsx:171
 msgid "Your Storage Balance"
 msgstr "您的存储余额"
-

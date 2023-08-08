@@ -18,7 +18,7 @@ msgstr ""
 "X-Crowdin-File: messages.po\n"
 "X-Crowdin-File-ID: 5\n"
 
-#: src/components/Channel/Tabs/index.tsx:192
+#: src/components/Channel/Tabs/index.tsx:193
 msgid "About"
 msgstr "About"
 
@@ -110,7 +110,7 @@ msgstr "Basic Info"
 msgid "Be the first to comment"
 msgstr "Be the first to comment"
 
-#: src/components/Channel/Tabs/index.tsx:99
+#: src/components/Channel/Tabs/index.tsx:100
 #: src/components/Common/MobileBottomNav.tsx:44
 #: src/components/Common/Sidebar.tsx:113
 #: src/components/Common/Sidebar.tsx:132
@@ -122,7 +122,7 @@ msgstr "Bytes"
 msgid "can collect"
 msgstr "can collect"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:315
+#: src/components/Watch/CollectVideo/CollectModal.tsx:313
 msgid "can collect this publication"
 msgstr "can collect this publication"
 
@@ -165,7 +165,7 @@ msgstr "Channel Settings"
 msgid "Channel URL"
 msgstr "Channel URL"
 
-#: src/components/Channel/Tabs/index.tsx:173
+#: src/components/Channel/Tabs/index.tsx:174
 #: src/components/Common/Search/GlobalSearchBar.tsx:114
 msgid "Channels"
 msgstr "Channels"
@@ -174,7 +174,7 @@ msgstr "Channels"
 msgid "Claim Handle"
 msgstr "Claim Handle"
 
-#: src/components/Bytes/ByteActions.tsx:71
+#: src/components/Bytes/ByteActions.tsx:73
 #: src/components/Bytes/ByteVideo.tsx:163
 msgid "Collect"
 msgstr "Collect"
@@ -191,7 +191,7 @@ msgstr "Collect as NFT for"
 msgid "Collect Currency"
 msgstr "Collect Currency"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:325
+#: src/components/Watch/CollectVideo/CollectModal.tsx:323
 msgid "Collect for free"
 msgstr "Collect for free"
 
@@ -203,7 +203,7 @@ msgstr "Collect for Free"
 msgid "Collect limit should be greater than 0"
 msgstr "Collect limit should be greater than 0"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:325
+#: src/components/Watch/CollectVideo/CollectModal.tsx:323
 msgid "Collect Now"
 msgstr "Collect Now"
 
@@ -211,7 +211,7 @@ msgstr "Collect Now"
 msgid "Collect Type"
 msgstr "Collect Type"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:225
+#: src/components/Watch/CollectVideo/CollectModal.tsx:223
 msgid "Collect Video"
 msgstr "Collect Video"
 
@@ -223,7 +223,7 @@ msgstr "Collected as NFT"
 msgid "Collected By"
 msgstr "Collected By"
 
-#: src/components/Notifications/Collected.tsx:68
+#: src/components/Notifications/Collected.tsx:65
 msgid "collected your"
 msgstr "collected your"
 
@@ -247,7 +247,7 @@ msgstr "Comment"
 msgid "Comment deleted"
 msgstr "Comment deleted"
 
-#: src/components/Notifications/Collected.tsx:70
+#: src/components/Notifications/Collected.tsx:67
 #: src/components/Notifications/Reacted.tsx:42
 msgid "comment on"
 msgstr "comment on"
@@ -256,7 +256,7 @@ msgstr "comment on"
 msgid "Comment should not exceed 5000 characters"
 msgstr "Comment should not exceed 5000 characters"
 
-#: src/components/Channel/Tabs/index.tsx:118
+#: src/components/Channel/Tabs/index.tsx:119
 msgid "Commented"
 msgstr "Commented"
 
@@ -338,7 +338,7 @@ msgstr "Deposit"
 msgid "Describe more about your video, can be @channels, #hashtags or chapters (00:20 - Intro)"
 msgstr "Describe more about your video, can be @channels, #hashtags or chapters (00:20 - Intro)"
 
-#: src/components/Channel/Tabs/About.tsx:33
+#: src/components/Channel/Tabs/About.tsx:34
 #: src/components/Upload/Details.tsx:112
 msgid "Description"
 msgstr "Description"
@@ -402,7 +402,7 @@ msgstr "Enable"
 msgid "enabled"
 msgstr "enabled"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:258
+#: src/components/Watch/CollectVideo/CollectModal.tsx:256
 msgid "Ends At"
 msgstr "Ends At"
 
@@ -551,7 +551,7 @@ msgstr "IPFS Upload failed"
 msgid "Join Channel"
 msgstr "Join Channel"
 
-#: src/components/Notifications/Subscribed.tsx:71
+#: src/components/Notifications/Subscribed.tsx:68
 msgid "joined"
 msgstr "joined"
 
@@ -590,7 +590,7 @@ msgstr ""
 msgid "Limited collect"
 msgstr ""
 
-#: src/components/Channel/Tabs/About.tsx:87
+#: src/components/Channel/Tabs/About.tsx:88
 msgid "Links"
 msgstr "Links"
 
@@ -602,7 +602,7 @@ msgstr ""
 msgid "Login"
 msgstr ""
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:314
+#: src/components/Watch/CollectVideo/CollectModal.tsx:312
 msgid "Members"
 msgstr ""
 
@@ -622,11 +622,11 @@ msgstr ""
 msgid "Mentions"
 msgstr ""
 
-#: src/components/Notifications/Collected.tsx:77
+#: src/components/Notifications/Collected.tsx:74
 msgid "mirror"
 msgstr ""
 
-#: src/components/Bytes/ByteActions.tsx:62
+#: src/components/Bytes/ByteActions.tsx:64
 msgid "Mirror"
 msgstr "Mirror"
 
@@ -635,7 +635,7 @@ msgid "Mirror video across Lens"
 msgstr "Mirror video across Lens"
 
 #: src/components/Channel/MirroredVideoCard.tsx:94
-#: src/components/Channel/Tabs/index.tsx:137
+#: src/components/Channel/Tabs/index.tsx:138
 msgid "Mirrored"
 msgstr "Mirrored"
 
@@ -718,8 +718,8 @@ msgstr ""
 msgid "No other channels found"
 msgstr "No other channels found"
 
-#: src/components/Common/Search/Channels.tsx:65
-#: src/components/Common/Search/Videos.tsx:47
+#: src/components/Common/Search/Channels.tsx:64
+#: src/components/Common/Search/Videos.tsx:46
 msgid "No results found"
 msgstr "No results found"
 
@@ -764,7 +764,7 @@ msgstr ""
 msgid "Offensive"
 msgstr ""
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:313
+#: src/components/Watch/CollectVideo/CollectModal.tsx:311
 msgid "Only"
 msgstr ""
 
@@ -792,7 +792,7 @@ msgstr ""
 msgid "Pay Membership of"
 msgstr "Pay Membership of"
 
-#: src/components/Channel/Mutual/MutualSubscribers.tsx:79
+#: src/components/Channel/Mutual/MutualSubscribers.tsx:81
 msgid "People you may know"
 msgstr "People you may know"
 
@@ -852,7 +852,7 @@ msgstr "Post Video"
 msgid "Posting video"
 msgstr "Posting video"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:247
+#: src/components/Watch/CollectVideo/CollectModal.tsx:245
 msgid "Price"
 msgstr "Price"
 
@@ -864,11 +864,11 @@ msgstr "Price of each collect"
 msgid "Privacy"
 msgstr "Privacy"
 
-#: src/components/Channel/Tabs/About.tsx:63
+#: src/components/Channel/Tabs/About.tsx:64
 msgid "Proof of Humanity"
 msgstr "Proof of Humanity"
 
-#: src/components/Channel/Tabs/About.tsx:73
+#: src/components/Channel/Tabs/About.tsx:74
 msgid "Proof of Personhood"
 msgstr "Proof of Personhood"
 
@@ -886,15 +886,15 @@ msgstr "Reason"
 
 #: src/components/Settings/Membership.tsx:224
 #: src/components/Settings/Membership.tsx:278
-#: src/components/Watch/CollectVideo/CollectModal.tsx:294
+#: src/components/Watch/CollectVideo/CollectModal.tsx:292
 msgid "Recipient"
 msgstr "Recipient"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:293
+#: src/components/Watch/CollectVideo/CollectModal.tsx:291
 msgid "Recipients"
 msgstr "Recipients"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:283
+#: src/components/Watch/CollectVideo/CollectModal.tsx:281
 msgid "Referral Fee"
 msgstr "Referral Fee"
 
@@ -935,12 +935,12 @@ msgstr "Report"
 msgid "Report Publication"
 msgstr "Report Publication"
 
-#: src/components/Upload/Details.tsx:199
+#: src/components/Upload/Details.tsx:204
 msgid "Reset"
 msgstr "Reset"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:269
-#: src/components/Watch/CollectVideo/CollectModal.tsx:291
+#: src/components/Watch/CollectVideo/CollectModal.tsx:267
+#: src/components/Watch/CollectVideo/CollectModal.tsx:289
 msgid "Revenue"
 msgstr ""
 
@@ -1082,25 +1082,25 @@ msgstr ""
 msgid "Subscribe"
 msgstr "Subscribe"
 
-#: src/components/Notifications/Subscribed.tsx:71
+#: src/components/Notifications/Subscribed.tsx:68
 msgid "subscribed"
 msgstr ""
 
-#: src/components/Channel/BasicInfo/index.tsx:94
+#: src/components/Channel/BasicInfo/index.tsx:107
 msgid "Subscriber"
 msgstr "Subscriber"
 
-#: src/components/Channel/BasicInfo/index.tsx:89
+#: src/components/Channel/BasicInfo/index.tsx:102
 #: src/components/Channel/Tabs/OtherChannelCard.tsx:40
 #: src/components/UIElements/ChannelSuggestions.tsx:39
 #: src/components/Watch/AboutChannel.tsx:60
 msgid "subscribers"
 msgstr "subscribers"
 
-#: src/components/Channel/BasicInfo/index.tsx:73
+#: src/components/Channel/BasicInfo/index.tsx:86
 #: src/components/Upload/CollectModule/index.tsx:49
 #: src/components/Upload/CollectModule/PermissionQuestion.tsx:68
-#: src/components/Watch/CollectVideo/CollectModal.tsx:314
+#: src/components/Watch/CollectVideo/CollectModal.tsx:312
 msgid "Subscribers"
 msgstr "Subscribers"
 
@@ -1135,7 +1135,7 @@ msgstr "Switch to Dark"
 msgid "Switch to Light"
 msgstr "Switch to Light"
 
-#: src/components/Channel/Tabs/About.tsx:53
+#: src/components/Channel/Tabs/About.tsx:54
 msgid "Sybil Verified"
 msgstr "Sybil Verified"
 
@@ -1156,7 +1156,7 @@ msgstr ""
 msgid "Thanks for supporting our community!"
 msgstr ""
 
-#: src/components/Notifications/Subscribed.tsx:72
+#: src/components/Notifications/Subscribed.tsx:69
 msgid "the channel"
 msgstr ""
 
@@ -1245,7 +1245,7 @@ msgstr ""
 msgid "total collects"
 msgstr ""
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:235
+#: src/components/Watch/CollectVideo/CollectModal.tsx:233
 msgid "Total Collects"
 msgstr ""
 
@@ -1331,7 +1331,7 @@ msgid "Upload to IPFS"
 msgstr ""
 
 #: src/components/Upload/ChooseThumbnail.tsx:123
-#: src/components/Upload/Details.tsx:206
+#: src/components/Upload/Details.tsx:211
 msgid "Uploading thumbnail"
 msgstr "Uploading thumbnail"
 
@@ -1343,11 +1343,11 @@ msgstr ""
 msgid "Uploading to IPFS"
 msgstr ""
 
-#: src/components/Channel/BasicInfo/index.tsx:66
+#: src/components/Common/Badge.tsx:24
 msgid "Verified"
 msgstr "Verified"
 
-#: src/components/Notifications/Collected.tsx:78
+#: src/components/Notifications/Collected.tsx:75
 #: src/components/Notifications/Commented.tsx:45
 #: src/components/Notifications/Mirrored.tsx:44
 #: src/components/Notifications/Reacted.tsx:52
@@ -1398,13 +1398,13 @@ msgstr "video to upload"
 msgid "Video will be stored permanently on-chain and can't be updated"
 msgstr ""
 
-#: src/components/Channel/Tabs/index.tsx:80
+#: src/components/Channel/Tabs/index.tsx:81
 #: src/components/Common/Search/GlobalSearchBar.tsx:129
 msgid "Videos"
 msgstr "Videos"
 
-#: src/components/Watch/MetaInfo.tsx:48
-#: src/components/Watch/MetaInfo.tsx:61
+#: src/components/Watch/MetaInfo.tsx:49
+#: src/components/Watch/MetaInfo.tsx:63
 msgid "View Metadata"
 msgstr ""
 
@@ -1412,11 +1412,11 @@ msgstr ""
 msgid "View more"
 msgstr "View more"
 
-#: src/components/Watch/MetaInfo.tsx:96
+#: src/components/Watch/MetaInfo.tsx:100
 msgid "View Proof"
 msgstr ""
 
-#: src/components/Watch/MetaInfo.tsx:77
+#: src/components/Watch/MetaInfo.tsx:80
 msgid "View Token"
 msgstr ""
 
@@ -1511,4 +1511,3 @@ msgstr "Your Channel"
 #: src/components/Upload/BundlrInfo.tsx:171
 msgid "Your Storage Balance"
 msgstr "Your Storage Balance"
-
