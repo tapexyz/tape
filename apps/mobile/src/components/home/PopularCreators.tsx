@@ -4,7 +4,7 @@ import type { Profile } from '@lenstube/lens'
 import { useAllProfilesQuery } from '@lenstube/lens'
 import { useNavigation } from '@react-navigation/native'
 import { Image as ExpoImage } from 'expo-image'
-import React, { useCallback } from 'react'
+import React, { useMemo } from 'react'
 import {
   ActivityIndicator,
   ScrollView,
@@ -54,10 +54,6 @@ const styles = StyleSheet.create({
 
 const PopularCreators = () => {
   const { navigate } = useNavigation()
-  const shuffle = useCallback(
-    (items: string[]) => shuffleArray(items ?? []),
-    []
-  )
 
   const { data: recsData, isLoading: recsLoading } = useSWR(
     `${RECS_URL}/k3l-score/creator/49/0`,
@@ -68,13 +64,18 @@ const PopularCreators = () => {
   const { data, loading: profilesLoading } = useAllProfilesQuery({
     variables: {
       request: {
-        handles: shuffle(recsData?.items)
+        handles: recsData?.items
       }
     },
     skip: recsLoading
   })
   const profiles = data?.profiles?.items as Profile[]
   const loading = recsLoading || profilesLoading
+
+  const shuffled = useMemo(
+    () => shuffleArray(profiles ? [...profiles] : []),
+    [profiles]
+  )
 
   return (
     <View style={styles.container}>
@@ -100,7 +101,7 @@ const PopularCreators = () => {
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{ gap: 5 }}
         >
-          {profiles?.map((profile) => (
+          {shuffled?.map((profile) => (
             <AnimatedPressable
               key={profile.id}
               onPress={() =>

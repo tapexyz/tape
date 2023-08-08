@@ -36,7 +36,7 @@ const Timeline = () => {
 
   const request = {
     sortCriteria: PublicationSortCriteria.CuratedProfiles,
-    limit: 50,
+    limit: 5,
     noRandomize: false,
     publicationTypes: [PublicationTypes.Post],
     customFilters: LENS_CUSTOM_FILTERS,

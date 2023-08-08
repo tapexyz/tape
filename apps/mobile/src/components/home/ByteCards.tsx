@@ -30,6 +30,7 @@ import { usePlatform } from '~/hooks'
 import useMobileStore from '~/store'
 
 import UserProfile from '../common/UserProfile'
+import AnimatedPressable from '../ui/AnimatedPressable'
 
 const BORDER_RADIUS = 20
 
@@ -227,7 +228,7 @@ const ByteCards = () => {
           colors={[`${homeGradientColor}10`, '#00000080']}
           radius={BORDER_RADIUS}
         >
-          <Pressable
+          <AnimatedPressable
             onPress={() => {
               haptic()
               navigate('MainTab', {
@@ -245,7 +246,7 @@ const ByteCards = () => {
                 {bytes?.length && renderCard(bytes[0])}
               </View>
             )}
-          </Pressable>
+          </AnimatedPressable>
         </Skeleton>
       </View>
       <Pressable
