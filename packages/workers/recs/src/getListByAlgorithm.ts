@@ -1,5 +1,5 @@
 import { error } from 'itty-router'
-import { k3lFeed, k3lScores } from './providers/k3l'
+import { k3lScores } from './providers/k3l'
 
 export default async (
   provider: string,
@@ -12,16 +12,16 @@ export default async (
   }
 
   try {
-    let ids: string[] = []
+    let items: string[] = []
     switch (provider) {
       case 'k3l-score':
-        ids = await k3lScores(strategy, limit, offset)
+        items = await k3lScores(strategy, limit, offset)
         break
       default:
         error(400, 'Bad request!')
     }
 
-    let response = new Response(JSON.stringify({ success: true, ids }))
+    let response = new Response(JSON.stringify({ success: true, items }))
 
     response.headers.set('Cache-Control', 'max-age=1000')
     response.headers.set('Content-Type', 'application/json')

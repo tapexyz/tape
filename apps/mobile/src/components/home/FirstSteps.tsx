@@ -20,8 +20,7 @@ const BORDER_RADIUS = 25
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 10,
-    marginHorizontal: 5
+    marginVertical: 10
   },
   card: {
     display: 'flex',

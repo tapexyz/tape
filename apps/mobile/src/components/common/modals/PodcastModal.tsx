@@ -15,14 +15,13 @@ import { windowHeight } from '~/helpers/theme'
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 10,
     paddingHorizontal: 5,
     flex: 1,
     height: windowHeight
   }
 })
 
-export const PodcastScreen = () => {
+export const PodcastModal = () => {
   const request = {
     sortCriteria: PublicationSortCriteria.CuratedProfiles,
     limit: 50,
@@ -34,7 +33,7 @@ export const PodcastScreen = () => {
       mainContentFocus: [PublicationMainFocus.Video]
     }
   }
-  const { data, fetchMore, loading, error } = useExploreQuery({
+  const { data, fetchMore, loading, error, refetch } = useExploreQuery({
     variables: { request }
   })
 
@@ -68,6 +67,7 @@ export const PodcastScreen = () => {
   return (
     <View style={styles.container}>
       <FlashList
+        contentContainerStyle={{ paddingTop: 10 }}
         data={publications}
         estimatedItemSize={publications.length}
         renderItem={renderItem}
@@ -79,6 +79,8 @@ export const PodcastScreen = () => {
         onEndReached={fetchMorePublications}
         onEndReachedThreshold={0.8}
         showsVerticalScrollIndicator={false}
+        onRefresh={() => refetch()}
+        refreshing={loading}
       />
     </View>
   )

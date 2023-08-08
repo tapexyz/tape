@@ -1,33 +1,49 @@
+import { Image as ExpoImage } from 'expo-image'
 import * as SplashScreen from 'expo-splash-screen'
-import { MotiView } from 'moti'
 import type { FC, PropsWithChildren } from 'react'
-import React, { useMemo } from 'react'
-import { View } from 'react-native'
-import Animated, { FadeInUp, FadeOutUp } from 'react-native-reanimated'
+import React, { useState } from 'react'
+import { useWindowDimensions } from 'react-native'
+import Animated, {
+  Easing,
+  FadeIn,
+  useAnimatedStyle,
+  useSharedValue,
+  withRepeat,
+  withSequence,
+  withTiming
+} from 'react-native-reanimated'
 
 import { theme } from '~/helpers/theme'
+import { useMobilePersistStore } from '~/store/persist'
 
-import {
-  useAuth,
-  useCachedResources,
-  useEffect,
-  usePlatform
-} from '../../hooks'
+import { useAuth, useCachedResources, useEffect } from '../../hooks'
 
 SplashScreen.preventAutoHideAsync()
 
 const Splash = () => {
-  const text = 'pripe'
-  const FONT_SIZE = 50
-  const delay = 100
+  const { height, width } = useWindowDimensions()
+  const opacity = useSharedValue(1)
 
-  const reversedText = useMemo(() => {
-    return text.split('').reverse()
-  }, [text])
-  const { isIOS } = usePlatform()
+  useEffect(() => {
+    opacity.value = withRepeat(
+      withSequence(
+        withTiming(0.5, { duration: 2000, easing: Easing.inOut(Easing.ease) }), // fade out
+        withTiming(1, { duration: 2000, easing: Easing.inOut(Easing.ease) }) // fade in
+      ),
+      -1,
+      true
+    )
+  }, [opacity])
+
+  const animatedStyle = useAnimatedStyle(() => {
+    return {
+      opacity: opacity.value
+    }
+  })
 
   return (
-    <View
+    <Animated.View
+      entering={FadeIn.duration(1000)}
       style={{
         flex: 1,
         alignItems: 'center',
@@ -35,64 +51,38 @@ const Splash = () => {
         backgroundColor: theme.colors.background
       }}
     >
-      <MotiView
-        key={text}
-        entering={FadeInUp.delay(reversedText.length * delay).springify()}
-        exiting={FadeOutUp.delay(reversedText.length * delay).springify()}
-        from={{ opacity: 0.6 }}
-        animate={{ opacity: 1 }}
-        transition={{
-          type: 'timing',
-          loop: true,
-          duration: 800,
-          repeatReverse: true,
-          delay: reversedText.length * delay
-        }}
-      >
-        {reversedText.map((char, index) => {
-          return (
-            <Animated.View
-              key={index}
-              entering={FadeInUp.delay(
-                (reversedText.length - index) * delay
-              ).springify()}
-              exiting={FadeOutUp.delay(
-                (reversedText.length - index) * delay
-              ).springify()}
-            >
-              <Animated.Text
-                style={{
-                  fontWeight: 'bold',
-                  color: theme.colors.white,
-                  fontSize: FONT_SIZE,
-                  marginVertical: -FONT_SIZE / 8,
-                  lineHeight: FONT_SIZE,
-                  transform: [{ rotate: '-90deg' }],
-                  textAlign: 'center',
-                  fontFamily: isIOS ? 'Menlo' : 'Roboto'
-                }}
-              >
-                {char}
-              </Animated.Text>
-            </Animated.View>
-          )
-        })}
-      </MotiView>
-    </View>
+      <Animated.View style={animatedStyle}>
+        <ExpoImage
+          source={require('assets/splash.png')}
+          transition={100}
+          contentFit="cover"
+          style={{ width, height }}
+        />
+      </Animated.View>
+    </Animated.View>
   )
 }
 
 export const AppLoading: FC<PropsWithChildren> = ({ children }) => {
+  const [appLoadingIsVisible, setAppLoadingIsVisible] = useState(true)
+  const selectedChannelId = useMobilePersistStore(
+    (state) => state.selectedChannelId
+  )
+
   const isCached = useCachedResources()
   const isAuthValidated = useAuth()
 
   useEffect(() => {
+    SplashScreen.hideAsync()
     if (isCached && isAuthValidated) {
-      SplashScreen.hideAsync()
+      const timer = selectedChannelId ? 50 : 500
+      setTimeout(() => {
+        setAppLoadingIsVisible(false)
+      }, timer)
     }
-  }, [isCached, isAuthValidated])
+  }, [isCached, isAuthValidated, selectedChannelId])
 
-  if (!isCached || !isAuthValidated) {
+  if (appLoadingIsVisible) {
     return <Splash />
   }
 

@@ -7,7 +7,7 @@ import { theme } from '~/helpers/theme'
 
 import AnimatedPressable from '../ui/AnimatedPressable'
 
-const BackButton = () => {
+const CollapseButton = () => {
   const { goBack } = useNavigation()
 
   return (
@@ -19,7 +19,7 @@ const BackButton = () => {
       }}
     >
       <Ionicons
-        name="chevron-back-outline"
+        name="chevron-down-outline"
         color={theme.colors.white}
         size={25}
       />
@@ -27,4 +27,4 @@ const BackButton = () => {
   )
 }
 
-export default BackButton
+export default CollapseButton

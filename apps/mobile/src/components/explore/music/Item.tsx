@@ -28,7 +28,8 @@ const styles = StyleSheet.create({
     color: theme.colors.white,
     fontFamily: 'font-bold',
     fontSize: normalizeFont(14),
-    letterSpacing: 0.5
+    letterSpacing: 0.5,
+    textAlign: 'center'
   },
   description: {
     fontFamily: 'font-normal',

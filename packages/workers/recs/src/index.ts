@@ -1,6 +1,6 @@
 import { createCors, error, json, Router } from 'itty-router'
 
-import getIdsByAlgorithm from './getIdsByAlgorithm'
+import getListByAlgorithm from './getListByAlgorithm'
 import type { Env } from './types'
 
 const { preflight, corsify } = createCors({
@@ -13,7 +13,7 @@ const router = Router()
 router.all('*', preflight)
 router.get('/', () => new Response('gm 👋'))
 router.get('/:provider/:strategy/:limit/:offset', ({ params }) =>
-  getIdsByAlgorithm(
+  getListByAlgorithm(
     params.provider,
     params.strategy,
     params.limit,

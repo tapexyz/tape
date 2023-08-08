@@ -91,7 +91,14 @@ const AuthenticatedUser = () => {
                   })
                 }}
               />
-              <MenuItem icon="notifications-outline" title="Notifications" />
+              <MenuItem
+                icon="notifications-outline"
+                title="Notifications"
+                onPress={() => {
+                  profileSheetRef.current?.close()
+                  navigate('NotificationsModal')
+                }}
+              />
               <MenuItem icon="pie-chart-outline" title="Creator Studio" />
               <MenuItem icon="bookmark-outline" title="Bookmarks" />
               <MenuItem icon="cog-outline" title="Settings" />

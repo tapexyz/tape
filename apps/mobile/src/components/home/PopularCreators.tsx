@@ -1,12 +1,19 @@
-import { VERIFIED_CHANNELS } from '@lenstube/constants'
+import { RECS_URL } from '@lenstube/constants'
 import { getProfilePicture, shuffleArray } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import { useAllProfilesQuery } from '@lenstube/lens'
 import { useNavigation } from '@react-navigation/native'
 import { Image as ExpoImage } from 'expo-image'
-import React, { useMemo } from 'react'
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import React, { useCallback } from 'react'
+import {
+  ActivityIndicator,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View
+} from 'react-native'
 import Animated, { FadeInRight } from 'react-native-reanimated'
+import useSWR from 'swr'
 
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
@@ -17,8 +24,7 @@ const BORDER_RADIUS = 25
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 10,
-    marginHorizontal: 5
+    marginTop: 10
   },
   imageContainer: {
     display: 'flex',
@@ -48,29 +54,51 @@ const styles = StyleSheet.create({
 
 const PopularCreators = () => {
   const { navigate } = useNavigation()
-  const profileIds = useMemo(
-    () => shuffleArray(VERIFIED_CHANNELS).slice(0, 15),
+  const shuffle = useCallback(
+    (items: string[]) => shuffleArray(items ?? []),
     []
   )
-  const { data } = useAllProfilesQuery({
+
+  const { data: recsData, isLoading: recsLoading } = useSWR(
+    `${RECS_URL}/k3l-score/creator/49/0`,
+    (url: string) => fetch(url).then((res) => res.json()),
+    { revalidateIfStale: true }
+  )
+
+  const { data, loading: profilesLoading } = useAllProfilesQuery({
     variables: {
-      request: { profileIds }
-    }
+      request: {
+        handles: shuffle(recsData?.items)
+      }
+    },
+    skip: recsLoading
   })
   const profiles = data?.profiles?.items as Profile[]
+  const loading = recsLoading || profilesLoading
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Creators on Lensverse</Text>
+      <Text style={styles.title}>Trending on Lensverse</Text>
       <Text style={styles.subheading}>Discover, Connect, and Collect</Text>
-      <Animated.View entering={FadeInRight.duration(500)}>
+      <Animated.View
+        entering={FadeInRight.duration(500)}
+        style={{
+          paddingTop: 20
+        }}
+      >
+        {loading && (
+          <ActivityIndicator
+            style={{
+              height: 120,
+              alignSelf: 'center',
+              borderRadius: BORDER_RADIUS
+            }}
+          />
+        )}
         <ScrollView
           horizontal={true}
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{ gap: 5 }}
-          style={{
-            paddingTop: 20
-          }}
         >
           {profiles?.map((profile) => (
             <AnimatedPressable
@@ -84,7 +112,7 @@ const PopularCreators = () => {
             >
               <ExpoImage
                 source={{
-                  uri: getProfilePicture(profile, 'AVATAR_LG')
+                  uri: getProfilePicture(profile)
                 }}
                 transition={300}
                 style={styles.image}

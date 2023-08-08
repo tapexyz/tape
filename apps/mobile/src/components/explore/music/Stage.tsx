@@ -1,4 +1,3 @@
-import Ionicons from '@expo/vector-icons/Ionicons'
 import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
 import { getThumbnailUrl, imageCdn } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
@@ -8,7 +7,6 @@ import {
   PublicationTypes,
   useExploreQuery
 } from '@lenstube/lens'
-import { useNavigation } from '@react-navigation/native'
 import { FlashList } from '@shopify/flash-list'
 import React, { useCallback, useState } from 'react'
 import type { ViewToken } from 'react-native'
@@ -18,11 +16,9 @@ import Animated, {
   FadeInDown,
   SlideInLeft
 } from 'react-native-reanimated'
-import { SafeAreaView } from 'react-native-safe-area-context'
 
-import AnimatedPressable from '~/components/ui/AnimatedPressable'
+import CollapseButton from '~/components/common/CollapseButton'
 import Comments from '~/components/watch/Comments'
-import { theme } from '~/helpers/theme'
 
 import Item from './Item'
 import Player from './Player'
@@ -30,21 +26,28 @@ import Player from './Player'
 const styles = StyleSheet.create({
   close: {
     zIndex: 1,
-    paddingHorizontal: 15,
-    marginBottom: 10,
-    padding: 10
+    alignSelf: 'baseline',
+    marginTop: 15,
+    marginHorizontal: 5
   },
   container: {
-    flex: 1,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
-    paddingTop: 10
+    paddingTop: 20,
+    flex: 1
+  },
+  actions: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 5,
+    gap: 30
   }
 })
 
 const Stage = () => {
-  const { goBack } = useNavigation()
   const [activeAudioIndex, setActiveAudioIndex] = useState(0)
 
   const renderItem = useCallback(
@@ -110,60 +113,37 @@ const Stage = () => {
       resizeMode="cover"
       imageStyle={{ opacity: 0.3 }}
     >
-      <SafeAreaView
-        style={{
-          flex: 1,
-          paddingBottom: 20
-        }}
+      <Animated.View entering={SlideInLeft.duration(400)} style={styles.close}>
+        <CollapseButton />
+      </Animated.View>
+
+      <Animated.View
+        entering={FadeIn.delay(300).duration(400)}
+        style={styles.container}
       >
-        <Animated.View
-          entering={SlideInLeft.duration(400)}
-          style={{ alignSelf: 'baseline' }}
-        >
-          <AnimatedPressable onPress={() => goBack()} style={styles.close}>
-            <Ionicons
-              name="chevron-down-outline"
-              color={theme.colors.white}
-              size={30}
-            />
-          </AnimatedPressable>
-        </Animated.View>
+        <FlashList
+          horizontal
+          data={audios}
+          bounces={false}
+          pagingEnabled
+          decelerationRate={'fast'}
+          renderToHardwareTextureAndroid
+          showsHorizontalScrollIndicator={false}
+          snapToAlignment="start"
+          estimatedItemSize={audios.length}
+          renderItem={renderItem}
+          keyExtractor={(item, i) => `${item.id}_${i}`}
+          onEndReached={fetchMoreAudio}
+          onEndReachedThreshold={0.8}
+          onViewableItemsChanged={onViewableItemsChanged}
+          extraData={activeAudioIndex}
+        />
+      </Animated.View>
 
-        <Animated.View
-          entering={FadeIn.delay(300).duration(400)}
-          style={styles.container}
-        >
-          <FlashList
-            horizontal
-            data={audios}
-            bounces={false}
-            pagingEnabled
-            decelerationRate={'fast'}
-            renderToHardwareTextureAndroid
-            showsHorizontalScrollIndicator={false}
-            snapToAlignment="start"
-            estimatedItemSize={audios.length}
-            renderItem={renderItem}
-            keyExtractor={(item, i) => `${item.id}_${i}`}
-            onEndReached={fetchMoreAudio}
-            onEndReachedThreshold={0.8}
-            onViewableItemsChanged={onViewableItemsChanged}
-            extraData={activeAudioIndex}
-          />
-        </Animated.View>
-
-        <Animated.View
-          entering={FadeInDown.delay(400)}
-          style={{
-            alignItems: 'center',
-            paddingHorizontal: 5,
-            gap: 30
-          }}
-        >
-          <Comments id={audios[activeAudioIndex].id} />
-          <Player audio={audios[activeAudioIndex]} />
-        </Animated.View>
-      </SafeAreaView>
+      <Animated.View entering={FadeInDown.delay(400)} style={styles.actions}>
+        <Comments id={audios[activeAudioIndex].id} />
+        <Player audio={audios[activeAudioIndex]} />
+      </Animated.View>
     </ImageBackground>
   )
 }

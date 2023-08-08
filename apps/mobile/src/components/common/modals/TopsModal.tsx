@@ -75,7 +75,7 @@ export const TopsModal = (): JSX.Element => {
       ]}
     >
       <View style={styles.listContainer}>
-        <Animated.View entering={SlideInDown.delay(50).duration(300)}>
+        <Animated.View entering={SlideInDown.delay(50).duration(200)}>
           <TouchableOpacity
             activeOpacity={0.6}
             onPress={() => {
@@ -89,7 +89,7 @@ export const TopsModal = (): JSX.Element => {
             <Text style={[styles.text, { opacity: 0.7 }]}>Top Collected</Text>
           </TouchableOpacity>
         </Animated.View>
-        <Animated.View entering={SlideInDown.delay(100).duration(300)}>
+        <Animated.View entering={SlideInDown.delay(100).duration(200)}>
           <TouchableOpacity
             activeOpacity={0.6}
             onPress={() => {
@@ -103,7 +103,7 @@ export const TopsModal = (): JSX.Element => {
             <Text style={[styles.text, { opacity: 0.7 }]}>Top Commented</Text>
           </TouchableOpacity>
         </Animated.View>
-        <Animated.View entering={SlideInDown.delay(150).duration(300)}>
+        <Animated.View entering={SlideInDown.delay(150).duration(200)}>
           <TouchableOpacity
             activeOpacity={0.6}
             onPress={() => {

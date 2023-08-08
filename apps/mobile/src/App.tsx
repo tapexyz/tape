@@ -24,7 +24,6 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
 import { AppLoading } from './components'
 import mobileAuthLink from './helpers/auth-link'
-import { usePushNotifications } from './hooks'
 import { Navigation } from './navigation'
 import { NotificationsProvider, SafeAreaProvider } from './providers'
 
@@ -59,8 +58,6 @@ const explorerRecommendedWalletIds = [
 ]
 
 const App = (): JSX.Element => {
-  usePushNotifications()
-
   return (
     <SafeAreaProvider>
       <ApolloProvider client={apolloClient(mobileAuthLink)}>

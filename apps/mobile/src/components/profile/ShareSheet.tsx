@@ -93,7 +93,7 @@ const ShareSheet: FC<Props> = ({ sheetRef, profile }) => {
   }
 
   return (
-    <Sheet sheetRef={sheetRef} snap={['45%']} marginX={10}>
+    <Sheet sheetRef={sheetRef} snap={['45%']}>
       <View style={styles.container}>
         <View style={{ borderRadius: CARD_BORDER_RADIUS, overflow: 'hidden' }}>
           <View
@@ -109,7 +109,7 @@ const ShareSheet: FC<Props> = ({ sheetRef, profile }) => {
               >
                 <View style={styles.qrContainer}>
                   <QRCode
-                    logo={getProfilePicture(profile, 'AVATAR')}
+                    logo={getProfilePicture(profile)}
                     size={100}
                     value={`${LENSTUBE_WEBSITE_URL}/channel/${profile.handle}`}
                   />
