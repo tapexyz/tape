@@ -25,7 +25,6 @@ import UserProfile from './UserProfile'
 
 const styles = StyleSheet.create({
   container: {
-    display: 'flex',
     flexDirection: 'row',
     width: '100%',
     justifyContent: 'space-between',
@@ -43,6 +42,15 @@ const styles = StyleSheet.create({
     fontFamily: 'font-bold',
     fontWeight: '500',
     fontSize: normalizeFont(22)
+  },
+  newButton: {
+    width: 30,
+    height: 30,
+    borderRadius: 100,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: theme.colors.black
   }
 })
 
@@ -71,7 +79,7 @@ const AuthenticatedUser = () => {
         <UserProfile
           profile={selectedChannel}
           showHandle={false}
-          size={26}
+          size={30}
           onPress={() => profileSheetRef.current?.present()}
         />
       </SharedElement>
@@ -127,11 +135,15 @@ const Header: FC<HeaderTitleProps> = () => {
 
       <View style={styles.rightView}>
         {selectedChannel && (
-          <AnimatedPressable onPress={() => navigate('NewPublicationModal')}>
+          <AnimatedPressable
+            style={styles.newButton}
+            onPress={() => navigate('NewPublication')}
+          >
             <Ionicons
-              name="add-circle-outline"
+              name="add-outline"
               color={theme.colors.white}
-              size={26}
+              style={{ paddingLeft: 1 }}
+              size={20}
             />
           </AnimatedPressable>
         )}

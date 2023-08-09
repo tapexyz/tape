@@ -1,12 +1,15 @@
+import { PublicationMainFocus } from '@lenstube/lens'
 import { create } from 'zustand'
 
 type DraftPublication = {
   title: string
   description: string
+  mainFocus: PublicationMainFocus
 }
 const defaults = {
   title: '',
-  description: ''
+  description: '',
+  mainFocus: PublicationMainFocus.TextOnly
 }
 
 interface State {

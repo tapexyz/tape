@@ -6,6 +6,10 @@ import { StyleSheet, TextInput, View } from 'react-native'
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
 
+interface Props extends TextInputProps {
+  errored?: boolean
+}
+
 const styles = StyleSheet.create({
   container: {
     paddingVertical: 20
@@ -18,13 +22,15 @@ const styles = StyleSheet.create({
   }
 })
 
-const Input: FC<TextInputProps> = ({ ...props }) => {
+const Input: FC<Props> = ({ ...props }) => {
   return (
     <View style={styles.container}>
       <TextInput
         {...props}
         style={[styles.input, props.style]}
-        placeholderTextColor={theme.colors.grey}
+        placeholderTextColor={
+          props.errored ? theme.colors.red : theme.colors.grey
+        }
       />
     </View>
   )

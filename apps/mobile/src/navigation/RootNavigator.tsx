@@ -8,8 +8,8 @@ import CollapseButton from '~/components/common/CollapseButton'
 import {
   CategoriesModal,
   MusicModal,
-  NewPublicationModal,
   NotificationsModal,
+  PickerModal,
   PodcastModal,
   ProfileModal,
   TopsModal
@@ -17,6 +17,7 @@ import {
 import { theme } from '~/helpers/theme'
 import { useNetWorkConnection } from '~/hooks'
 import { WatchScreen } from '~/screens'
+import { NewPublication } from '~/screens/NewPublication'
 
 import { BottomTabNavigator } from './BottomTabNavigator'
 
@@ -81,6 +82,12 @@ export const RootNavigator: FC = () => {
         }}
       />
       <Screen
+        name="NewPublication"
+        options={options}
+        component={NewPublication}
+      />
+
+      <Screen
         name="ExploreTopsModal"
         options={{ ...options, presentation: 'transparentModal' }}
         component={TopsModal}
@@ -101,18 +108,19 @@ export const RootNavigator: FC = () => {
           }
         }}
       />
+
       <Screen
-        name="NewPublicationModal"
-        options={{ ...options, presentation: 'transparentModal' }}
-        component={NewPublicationModal}
-        sharedElements={(route) => {
-          const { handle } = route.params
-          if (handle) {
-            return [{ id: `profile.${handle}`, animation: 'fade' }]
+        name="PickerModal"
+        component={PickerModal}
+        options={{
+          ...modalOptions,
+          presentation: 'modal',
+          title: 'Choose',
+          headerStyle: {
+            backgroundColor: theme.colors.backdrop
           }
         }}
       />
-
       <Screen
         name="MusicModal"
         options={{ presentation: 'modal' }}

@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import React, { useCallback, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
-import { Animated, Text, TouchableOpacity, View } from 'react-native'
+import { Animated, Text, View } from 'react-native'
 import type { z } from 'zod'
 import { object, string } from 'zod'
 
@@ -11,18 +11,8 @@ import Input from '../ui/Input'
 import Separator from '../ui/Separator'
 
 const formSchema = object({
-  title: string()
-    .min(5, { message: 'Name should be atleast 5 characters' })
-    .max(30, { message: 'Name should not exceed 30 characters' })
-    .regex(/^[a-z0-9]+$/, {
-      message: 'Name should only contain alphanumeric characters'
-    }),
-  description: string()
-    .min(5, { message: 'Name should be atleast 5 characters' })
-    .max(30, { message: 'Name should not exceed 30 characters' })
-    .regex(/^[a-z0-9]+$/, {
-      message: 'Name should only contain alphanumeric characters'
-    })
+  title: string().min(1),
+  description: string().max(5000).optional()
 })
 type FormData = z.infer<typeof formSchema>
 
@@ -74,7 +64,11 @@ const Form = () => {
     ).start()
   }, [])
 
-  const onSubmit = (data: FormData) => {
+  const onValid = () => {
+    alert(getValues('title'))
+  }
+
+  const onInValid = () => {
     shake()
   }
 
@@ -94,6 +88,7 @@ const Form = () => {
               onBlur={onBlur}
               onChangeText={onChange}
               value={value}
+              errored={Boolean(errors.title)}
             />
           </Animated.View>
         )}
@@ -104,18 +99,17 @@ const Form = () => {
       <Controller
         control={control}
         rules={{
-          required: true
+          required: false
         }}
         render={({ field: { onChange, onBlur, value } }) => (
           <Input
-            placeholder="Feel like sharing more? - spill or skip!"
+            placeholder="Feel like sharing more?"
             onBlur={onBlur}
             onChangeText={onChange}
             value={value}
             numberOfLines={4}
             multiline={true}
             style={{
-              height: 100,
               textAlignVertical: 'top'
             }}
           />
@@ -125,9 +119,12 @@ const Form = () => {
       {errors.description && <Text>This is required.</Text>}
       <Separator />
 
-      <TouchableOpacity onPress={() => onSubmit(getValues())}>
+      {/* <TouchableOpacity
+        onPress={() => handleSubmit(onValid, onInValid)()}
+        style={{ padding: 30 }}
+      >
         <Text style={{ color: 'white' }}>Submit</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   )
 }
