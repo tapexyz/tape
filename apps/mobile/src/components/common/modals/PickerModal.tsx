@@ -1,21 +1,26 @@
 import { PRIPE_APP_NAME } from '@lenstube/constants'
 import { logger } from '@lenstube/generic'
+import { PublicationMainFocus } from '@lenstube/lens'
 import { Image as ExpoImage } from 'expo-image'
 import * as MediaLibrary from 'expo-media-library'
-import React, { useEffect, useState } from 'react'
+import * as VideoThumbnails from 'expo-video-thumbnails'
+import React, { useEffect, useMemo, useState } from 'react'
 import {
   ActivityIndicator,
   FlatList,
   Linking,
+  Pressable,
   StyleSheet,
   Text,
   useWindowDimensions,
   View
 } from 'react-native'
 
+import PreviewRenderer from '~/components/new/PreviewRenderer'
 import Button from '~/components/ui/Button'
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
+import useMobilePublicationStore from '~/store/publication'
 
 const styles = StyleSheet.create({
   listContainer: {
@@ -33,29 +38,50 @@ const styles = StyleSheet.create({
 const GRID_GAP = 3
 const NUM_COLUMNS = 4
 
-export const PickerModal = (): JSX.Element => {
+export const PickerModal = (props: PickerModalProps): JSX.Element => {
+  const { mainFocus } = props.route.params
+
   const { height, width } = useWindowDimensions()
-  const [assets, setAssets] = useState<MediaLibrary.Asset[]>([])
   const [permissionResponse] = MediaLibrary.usePermissions()
+
+  const [assets, setAssets] = useState<MediaLibrary.Asset[]>([])
+  const [hasNextPage, setHasNextPage] = useState(true)
   const [loading, setLoading] = useState(false)
   const [page, setPage] = useState(1)
 
+  const draftedPublication = useMobilePublicationStore(
+    (state) => state.draftedPublication
+  )
+  const setDraftedPublication = useMobilePublicationStore(
+    (state) => state.setDraftedPublication
+  )
+
   const fetchMoreAssets = async () => {
-    if (loading) {
+    if (loading || !hasNextPage) {
       return
     }
     setLoading(true)
     try {
-      const { assets: newAssets } = await MediaLibrary.getAssetsAsync({
-        mediaType: ['audio', 'video', 'photo'],
-        first: 50,
-        after: assets.length > 0 ? assets[assets.length - 1].id : undefined
-      })
+      const mediaType =
+        mainFocus === PublicationMainFocus.Video
+          ? [MediaLibrary.MediaType.video]
+          : mainFocus === PublicationMainFocus.Audio
+          ? [MediaLibrary.MediaType.audio]
+          : [MediaLibrary.MediaType.photo]
 
-      setAssets((prevAssets) => [...prevAssets, ...newAssets])
+      const { assets: newAssets, hasNextPage } =
+        await MediaLibrary.getAssetsAsync({
+          mediaType,
+          first: 50,
+          after: assets.length > 0 ? assets[assets.length - 1].id : undefined
+        })
+      const filtered = newAssets.filter((asset) => asset.duration <= 120) // 2minutes
+
+      setHasNextPage(hasNextPage)
+      setAssets((prevAssets) => [...prevAssets, ...filtered])
       setPage(page + 1)
     } catch (error) {
-      logger.error('📱 Error fetching Assets', error)
+      logger.error('📱 Error Fetching Picker Assets', error)
     } finally {
       setLoading(false)
     }
@@ -86,9 +112,21 @@ export const PickerModal = (): JSX.Element => {
     index: number
   }) => {
     return (
-      <View style={{ margin: 0 }}>
+      <Pressable
+        onPress={async () => {
+          const asset = await MediaLibrary.getAssetInfoAsync(item.id)
+          const { uri } = await VideoThumbnails.getThumbnailAsync(
+            asset.localUri as string,
+            {
+              time: 0
+            }
+          )
+          setDraftedPublication({ ...draftedPublication, asset, poster: uri })
+        }}
+      >
         <ExpoImage
           source={{ uri: item.uri }}
+          transition={500}
           style={{
             marginRight: index % NUM_COLUMNS !== NUM_COLUMNS - 1 ? GRID_GAP : 0,
             marginBottom: GRID_GAP,
@@ -96,17 +134,17 @@ export const PickerModal = (): JSX.Element => {
             height: (width - GRID_GAP * (NUM_COLUMNS - 1)) / NUM_COLUMNS
           }}
         />
-      </View>
+      </Pressable>
     )
   }
 
-  const Header = () => {
+  const ListHeaderComponent = useMemo(() => {
     return (
-      <View style={{ height: height / 2, backgroundColor: 'red' }}>
-        <Text style={styles.allowText}>Edit Here</Text>
+      <View style={{ height: height / 2 }}>
+        <PreviewRenderer />
       </View>
     )
-  }
+  }, [height])
 
   return (
     <View style={styles.listContainer}>
@@ -129,7 +167,7 @@ export const PickerModal = (): JSX.Element => {
         <View style={{ flex: 1 }}>
           <FlatList
             data={assets}
-            ListHeaderComponent={Header}
+            ListHeaderComponent={ListHeaderComponent}
             renderItem={renderAssetItem}
             keyExtractor={(item) => item.id}
             numColumns={NUM_COLUMNS}

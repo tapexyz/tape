@@ -7,6 +7,7 @@ import {
 } from 'react-native'
 
 import ActionHeader from '~/components/new/ActionHeader'
+import Attachments from '~/components/new/Attachments'
 import ChooseFocus from '~/components/new/ChooseFocus'
 import Form from '~/components/new/Form'
 import normalizeFont from '~/helpers/normalize-font'
@@ -43,6 +44,7 @@ export const NewPublication = () => {
         >
           <Form />
           <ChooseFocus />
+          <Attachments />
         </ScrollView>
       </KeyboardAvoidingView>
     </View>

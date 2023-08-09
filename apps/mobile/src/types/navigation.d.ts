@@ -1,3 +1,4 @@
+import type { PublicationMainFocus } from '@lenstube/lens'
 import type { BottomTabScreenProps } from '@react-navigation/bottom-tabs'
 import type {
   CompositeScreenProps,
@@ -64,7 +65,7 @@ declare global {
     ExploreCategoriesModal: undefined
     PodcastModal: undefined
     MusicModal: undefined
-    PickerModal: undefined
+    PickerModal: { mainFocus: PublicationMainFocus }
     NotificationsModal: undefined
     ProfileModal: { handle: string }
     NewPublication: undefined
@@ -96,10 +97,11 @@ declare global {
   type RootStackScreenProps = RootStackComposite
   type WatchScreenProps = RootStackComposite<'WatchVideo'>
   type ProfileModalProps = RootStackComposite<'ProfileModal'>
+  type PickerModalProps = RootStackComposite<'PickerModal'>
   type NotificationsModalProps = RootStackComposite<'NotificationsModal'>
   type NewPublicationProps = RootStackComposite<'NewPublication'>
+
   type PodcastModalProps = ExploreStackComposite<'PodcastModal'>
-  type PickerModalProps = ExploreStackComposite<'PickerModal'>
 
   // Home stack
   type HomeScreenProps = HomeStackComposite<'Home'>

@@ -1,5 +1,4 @@
 import { PublicationMainFocus } from '@lenstube/lens'
-import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { ScrollView, StyleSheet, Text } from 'react-native'
 
@@ -19,7 +18,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     borderRadius: 25,
     flexDirection: 'row',
-    alignItems: 'center'
+    alignItems: 'center',
+    borderWidth: 0.5,
+    borderColor: theme.colors.grey
   },
   text: {
     fontFamily: 'font-medium',
@@ -34,7 +35,6 @@ const styles = StyleSheet.create({
 })
 
 const ChooseFocus = () => {
-  const { navigate } = useNavigation()
   const draftedPublication = useMobilePublicationStore(
     (state) => state.draftedPublication
   )
@@ -47,42 +47,15 @@ const ChooseFocus = () => {
       ...draftedPublication,
       mainFocus
     })
-    navigate('PickerModal')
   }
 
   return (
     <ScrollView
       style={styles.container}
       horizontal={true}
+      contentContainerStyle={{ gap: 5 }}
       showsHorizontalScrollIndicator={false}
     >
-      <AnimatedPressable
-        onPress={() => onChoose(PublicationMainFocus.TextOnly)}
-        style={[
-          styles.filter,
-          {
-            backgroundColor:
-              draftedPublication.mainFocus === PublicationMainFocus.TextOnly
-                ? theme.colors.white
-                : theme.colors.black
-          }
-        ]}
-      >
-        <Text
-          style={[
-            styles.text,
-            {
-              color:
-                draftedPublication.mainFocus === PublicationMainFocus.TextOnly
-                  ? theme.colors.black
-                  : theme.colors.white
-            }
-          ]}
-        >
-          Post
-        </Text>
-      </AnimatedPressable>
-
       <AnimatedPressable
         onPress={() => onChoose(PublicationMainFocus.Video)}
         style={[
@@ -106,7 +79,7 @@ const ChooseFocus = () => {
             }
           ]}
         >
-          Bytes
+          Byte
         </Text>
       </AnimatedPressable>
 
