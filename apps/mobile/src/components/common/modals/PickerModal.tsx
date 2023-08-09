@@ -75,10 +75,10 @@ export const PickerModal = (props: PickerModalProps): JSX.Element => {
           first: 50,
           after: assets.length > 0 ? assets[assets.length - 1].id : undefined
         })
-      const filtered = newAssets.filter((asset) => asset.duration <= 120) // 2minutes
+      // const filtered = newAssets.filter((asset) => asset.duration <= 120) // 2minutes
 
       setHasNextPage(hasNextPage)
-      setAssets((prevAssets) => [...prevAssets, ...filtered])
+      setAssets((prevAssets) => [...prevAssets, ...newAssets])
       setPage(page + 1)
     } catch (error) {
       logger.error('📱 Error Fetching Picker Assets', error)
@@ -123,6 +123,7 @@ export const PickerModal = (props: PickerModalProps): JSX.Element => {
           )
           setDraftedPublication({ ...draftedPublication, asset, poster: uri })
         }}
+        style={{ backgroundColor: theme.colors.backdrop2 }}
       >
         <ExpoImage
           source={{ uri: item.uri }}
