@@ -8,7 +8,7 @@ import { theme } from '~/helpers/theme'
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    gap: 10,
+    gap: 20,
     paddingVertical: 10
   },
   text: {
@@ -29,26 +29,43 @@ const styles = StyleSheet.create({
     fontSize: normalizeFont(10),
     color: theme.colors.white,
     opacity: 0.8,
-    textTransform: 'uppercase',
-    letterSpacing: 1
+    letterSpacing: 1,
+    paddingBottom: 10
   }
 })
 
 const AccessControl = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.helperText}>Who can comment or mirror?</Text>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ gap: 7 }}
-      >
-        {REFERENCE_TEMPLATES.map((r) => (
-          <View key={r.id} style={styles.reference}>
-            <Text style={styles.text}>{r.text}</Text>
+      <View>
+        <Text style={styles.helperText}>Who can view the post?</Text>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{ gap: 7 }}
+        >
+          <View style={styles.reference}>
+            <Text style={styles.text}>My Followers</Text>
           </View>
-        ))}
-      </ScrollView>
+          <View style={styles.reference}>
+            <Text style={styles.text}>My Collectors</Text>
+          </View>
+        </ScrollView>
+      </View>
+      <View>
+        <Text style={styles.helperText}>Who can comment or mirror?</Text>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{ gap: 7 }}
+        >
+          {REFERENCE_TEMPLATES.map((r) => (
+            <View key={r.id} style={styles.reference}>
+              <Text style={styles.text}>{r.text}</Text>
+            </View>
+          ))}
+        </ScrollView>
+      </View>
     </View>
   )
 }
