@@ -103,7 +103,7 @@ const PopularVideos = () => {
   })
   const publications = data?.explorePublications?.items as Publication[]
 
-  if (error) {
+  if (error || !publications?.length) {
     return <ServerError />
   }
 

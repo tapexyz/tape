@@ -90,7 +90,7 @@ const Timeline = () => {
     return <ActivityIndicator style={{ flex: 1 }} />
   }
 
-  if (error) {
+  if (error || !publications?.length) {
     return <ServerError />
   }
 
