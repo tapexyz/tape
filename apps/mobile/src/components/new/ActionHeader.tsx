@@ -11,7 +11,6 @@ import AnimatedPressable from '../ui/AnimatedPressable'
 const styles = StyleSheet.create({
   actionIcon: {
     backgroundColor: theme.colors.backdrop,
-    padding: 6,
     borderRadius: 100,
     width: 50,
     height: 50,
@@ -21,7 +20,7 @@ const styles = StyleSheet.create({
   }
 })
 
-const ActionHeader = () => {
+const ActionHeader = ({ onPost }: { onPost: () => void }) => {
   const { goBack } = useNavigation()
 
   return (
@@ -29,7 +28,13 @@ const ActionHeader = () => {
       <AnimatedPressable onPress={() => goBack()} style={styles.actionIcon}>
         <Ionicons name="close-outline" color={theme.colors.white} size={32} />
       </AnimatedPressable>
-      <AnimatedPressable onPress={() => haptic()} style={styles.actionIcon}>
+      <AnimatedPressable
+        onPress={() => {
+          onPost()
+          haptic()
+        }}
+        style={styles.actionIcon}
+      >
         <Ionicons
           name="paper-plane-outline"
           color={theme.colors.indigo}

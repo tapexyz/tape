@@ -1,11 +1,11 @@
-import { zodResolver } from '@hookform/resolvers/zod'
 import { PublicationMainFocus } from '@lenstube/lens'
-import React, { useCallback, useRef } from 'react'
-import { Controller, useForm } from 'react-hook-form'
+import type { MutableRefObject } from 'react'
+import React from 'react'
+import type { UseFormReturn } from 'react-hook-form'
+import { Controller } from 'react-hook-form'
 import { Animated, Text, View } from 'react-native'
-import type { z } from 'zod'
-import { object, string } from 'zod'
 
+import type { FormData } from '~/screens/NewPublication'
 import useMobilePublicationStore from '~/store/publication'
 
 import AccordionWithSwitch from '../ui/AccordionWithSwitch'
@@ -16,70 +16,23 @@ import Attachments from './Attachments'
 import ChooseFocus from './ChooseFocus'
 import CollectTemplates from './CollectTemplates'
 
-const formSchema = object({
-  title: string().min(1),
-  description: string().max(5000).optional()
-})
-type FormData = z.infer<typeof formSchema>
-
-const Form = () => {
-  const shakeRef = useRef(new Animated.Value(0))
-
+const Form = ({
+  form,
+  shakeRef
+}: {
+  form: UseFormReturn<FormData>
+  shakeRef: MutableRefObject<Animated.Value>
+}) => {
   const {
     control,
-    handleSubmit,
-    getValues,
     formState: { errors }
-  } = useForm<FormData>({
-    resolver: zodResolver(formSchema),
-    defaultValues: {
-      title: '',
-      description: ''
-    }
-  })
+  } = form
   const draftedPublication = useMobilePublicationStore(
     (state) => state.draftedPublication
   )
   const setDraftedPublication = useMobilePublicationStore(
     (state) => state.setDraftedPublication
   )
-
-  const shake = useCallback(() => {
-    // makes the sequence loop
-    Animated.loop(
-      // runs the animation array in sequence
-      Animated.sequence([
-        // shift element to the left by 2 units
-        Animated.timing(shakeRef.current, {
-          toValue: -2,
-          duration: 50,
-          useNativeDriver: true
-        }),
-        // shift element to the right by 2 units
-        Animated.timing(shakeRef.current, {
-          toValue: 2,
-          duration: 50,
-          useNativeDriver: true
-        }),
-        // bring the element back to its original position
-        Animated.timing(shakeRef.current, {
-          toValue: 0,
-          duration: 50,
-          useNativeDriver: true
-        })
-      ]),
-      // loops the above animation config 2 times
-      { iterations: 2 }
-    ).start()
-  }, [])
-
-  const onValid = () => {
-    alert(getValues('title'))
-  }
-
-  const onInValid = () => {
-    shake()
-  }
 
   return (
     <View>
@@ -169,13 +122,6 @@ const Form = () => {
         text="Exclusive Access"
         content={<AccessControl />}
       />
-
-      {/* <TouchableOpacity
-        onPress={() => handleSubmit(onValid, onInValid)()}
-        style={{ padding: 30 }}
-      >
-        <Text style={{ color: 'white' }}>Submit</Text>
-      </TouchableOpacity> */}
     </View>
   )
 }
