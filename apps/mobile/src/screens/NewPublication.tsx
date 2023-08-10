@@ -7,8 +7,6 @@ import {
 } from 'react-native'
 
 import ActionHeader from '~/components/new/ActionHeader'
-import Attachments from '~/components/new/Attachments'
-import ChooseFocus from '~/components/new/ChooseFocus'
 import Form from '~/components/new/Form'
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
@@ -43,8 +41,6 @@ export const NewPublication = () => {
           style={{ flexGrow: 1 }}
         >
           <Form />
-          <ChooseFocus />
-          <Attachments />
         </ScrollView>
       </KeyboardAvoidingView>
     </View>

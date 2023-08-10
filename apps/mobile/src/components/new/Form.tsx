@@ -11,6 +11,9 @@ import useMobilePublicationStore from '~/store/publication'
 import AccordionWithSwitch from '../ui/AccordionWithSwitch'
 import Input from '../ui/Input'
 import Separator from '../ui/Separator'
+import Attachments from './Attachments'
+import ChooseFocus from './ChooseFocus'
+import CollectTemplates from './CollectTemplates'
 
 const formSchema = object({
   title: string().min(1),
@@ -125,15 +128,33 @@ const Form = () => {
       <Separator />
 
       <AccordionWithSwitch
-        active={draftedPublication.hasAttachment}
+        active={draftedPublication.attachmentEnabled}
         setActive={(value) =>
           setDraftedPublication({
             ...draftedPublication,
-            hasAttachment: value,
+            attachmentEnabled: value,
             mainFocus: PublicationMainFocus.Video
           })
         }
-        text="Attach media"
+        text="Attachments"
+        content={
+          <>
+            <ChooseFocus />
+            <Attachments />
+          </>
+        }
+      />
+
+      <AccordionWithSwitch
+        active={draftedPublication.collectEnabled}
+        setActive={(value) =>
+          setDraftedPublication({
+            ...draftedPublication,
+            collectEnabled: value
+          })
+        }
+        text="Collectible"
+        content={<CollectTemplates />}
       />
 
       {/* <TouchableOpacity

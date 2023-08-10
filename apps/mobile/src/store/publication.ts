@@ -8,7 +8,8 @@ type DraftPublication = {
   mainFocus: PublicationMainFocus
   asset: MediaLibrary.AssetInfo | null
   poster: string
-  hasAttachment: boolean
+  attachmentEnabled: boolean
+  collectEnabled: boolean
 }
 
 const defaults = {
@@ -17,7 +18,8 @@ const defaults = {
   mainFocus: PublicationMainFocus.TextOnly,
   asset: null,
   poster: '',
-  hasAttachment: false
+  attachmentEnabled: false,
+  collectEnabled: false
 }
 
 interface State {

@@ -3,7 +3,6 @@ import { useNavigation } from '@react-navigation/native'
 import { Image as ExpoImage } from 'expo-image'
 import React from 'react'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
-import Animated, { SlideInLeft } from 'react-native-reanimated'
 
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
@@ -34,19 +33,12 @@ const styles = StyleSheet.create({
 
 const Attachments = () => {
   const { navigate } = useNavigation()
-  const { mainFocus, poster, hasAttachment } = useMobilePublicationStore(
+  const { mainFocus, poster } = useMobilePublicationStore(
     (state) => state.draftedPublication
   )
 
-  if (!hasAttachment) {
-    return null
-  }
-
   return (
-    <Animated.View
-      style={styles.container}
-      entering={SlideInLeft.duration(300)}
-    >
+    <View style={styles.container}>
       {poster ? (
         <>
           <Pressable onPress={() => navigate('PickerModal', { mainFocus })}>
@@ -65,6 +57,7 @@ const Attachments = () => {
         </>
       ) : (
         <Pressable
+          onPress={() => navigate('PickerModal', { mainFocus })}
           style={{
             height: 60,
             flex: 1,
@@ -82,7 +75,7 @@ const Attachments = () => {
           <Text style={styles.text}>Choose a {mainFocus.toLowerCase()}</Text>
         </Pressable>
       )}
-    </Animated.View>
+    </View>
   )
 }
 

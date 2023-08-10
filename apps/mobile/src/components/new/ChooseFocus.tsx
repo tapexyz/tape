@@ -1,7 +1,6 @@
 import { PublicationMainFocus } from '@lenstube/lens'
 import React from 'react'
-import { StyleSheet, Text } from 'react-native'
-import Animated, { SlideInLeft } from 'react-native-reanimated'
+import { StyleSheet, Text, View } from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
@@ -52,15 +51,8 @@ const ChooseFocus = () => {
     })
   }
 
-  if (!draftedPublication.hasAttachment) {
-    return null
-  }
-
   return (
-    <Animated.View
-      style={styles.container}
-      entering={SlideInLeft.duration(300)}
-    >
+    <View style={styles.container}>
       <AnimatedPressable
         onPress={() => onChoose(PublicationMainFocus.Video)}
         style={[
@@ -114,7 +106,7 @@ const ChooseFocus = () => {
           Audio
         </Text>
       </AnimatedPressable>
-    </Animated.View>
+    </View>
   )
 }
 

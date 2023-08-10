@@ -92,7 +92,7 @@ export const PickerModal = (props: PickerModalProps): JSX.Element => {
   }
 
   useEffect(() => {
-    if (permissionResponse) {
+    if (permissionResponse?.accessPrivileges) {
       if (permissionResponse?.canAskAgain) {
         MediaLibrary.requestPermissionsAsync()
       }

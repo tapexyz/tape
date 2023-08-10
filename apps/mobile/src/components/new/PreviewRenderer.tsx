@@ -1,4 +1,3 @@
-import { useNavigation } from '@react-navigation/native'
 import { ResizeMode, Video } from 'expo-av'
 import { Image as ExpoImage } from 'expo-image'
 import * as MediaLibrary from 'expo-media-library'
@@ -22,18 +21,14 @@ const styles = StyleSheet.create({
 })
 
 const PreviewRenderer = () => {
-  const { navigate } = useNavigation()
   const { height } = useWindowDimensions()
 
-  const { mainFocus, asset } = useMobilePublicationStore(
+  const { asset } = useMobilePublicationStore(
     (state) => state.draftedPublication
   )
 
   return (
-    <Pressable
-      onPress={() => navigate('PickerModal', { mainFocus })}
-      style={styles.container}
-    >
+    <Pressable style={styles.container}>
       {asset ? (
         asset.mediaType === MediaLibrary.MediaType.photo ? (
           <ExpoImage

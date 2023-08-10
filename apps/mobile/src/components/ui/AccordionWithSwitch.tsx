@@ -1,7 +1,8 @@
-import type { FC } from 'react'
+import type { FC, ReactNode } from 'react'
 import React from 'react'
 import type { TextStyle } from 'react-native'
 import { Text, View } from 'react-native'
+import Animated, { FadeInUp } from 'react-native-reanimated'
 
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
@@ -13,40 +14,47 @@ type Props = {
   setActive: (b: boolean) => void
   textStyle?: TextStyle
   text?: string
+  content?: ReactNode
 }
 
 const AccordionWithSwitch: FC<Props> = ({
   active = false,
   setActive,
   text = 'Enable',
-  textStyle
+  textStyle,
+  content
 }) => {
   return (
-    <View
-      style={{
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        paddingVertical: 20,
-        paddingRight: 15
-      }}
-    >
-      <Text
-        style={[
-          {
-            fontSize: normalizeFont(15),
-            paddingHorizontal: 12,
-            color: theme.colors.grey,
-            fontFamily: 'font-medium'
-          },
-          textStyle
-        ]}
+    <>
+      <View
+        style={{
+          flex: 1,
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          paddingVertical: 20,
+          paddingRight: 15
+        }}
       >
-        {text}
-      </Text>
-      <Switch isActive={active} onPress={() => setActive(!active)} />
-    </View>
+        <Text
+          style={[
+            {
+              fontSize: normalizeFont(15),
+              paddingHorizontal: 12,
+              color: theme.colors.grey,
+              fontFamily: 'font-medium'
+            },
+            textStyle
+          ]}
+        >
+          {text}
+        </Text>
+        <Switch isActive={active} onPress={() => setActive(!active)} />
+      </View>
+      {active ? (
+        <Animated.View entering={FadeInUp}>{content}</Animated.View>
+      ) : null}
+    </>
   )
 }
 
