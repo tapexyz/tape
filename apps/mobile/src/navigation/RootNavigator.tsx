@@ -16,6 +16,7 @@ import {
 import { theme } from '~/helpers/theme'
 import { useNetWorkConnection } from '~/hooks'
 import { WatchScreen } from '~/screens'
+import { NewPublication } from '~/screens/NewPublication'
 
 import { BottomTabNavigator } from './BottomTabNavigator'
 
@@ -50,6 +51,15 @@ const options: StackNavigationOptions = {
   }
 }
 
+const modalOptions = {
+  headerShown: true,
+  headerTitleStyle: { fontFamily: 'font-medium', letterSpacing: 1 },
+  headerStyle: {
+    backgroundColor: theme.colors.background
+  },
+  headerLeft: () => <CollapseButton />
+}
+
 export const RootNavigator: FC = () => {
   useNetWorkConnection()
 
@@ -71,6 +81,12 @@ export const RootNavigator: FC = () => {
         }}
       />
       <Screen
+        name="NewPublication"
+        options={options}
+        component={NewPublication}
+      />
+
+      <Screen
         name="ExploreTopsModal"
         options={{ ...options, presentation: 'transparentModal' }}
         component={TopsModal}
@@ -79,11 +95,6 @@ export const RootNavigator: FC = () => {
         name="ExploreCategoriesModal"
         options={{ ...options, presentation: 'transparentModal' }}
         component={CategoriesModal}
-      />
-      <Screen
-        name="MusicModal"
-        options={{ presentation: 'modal' }}
-        component={MusicModal}
       />
       <Screen
         name="ProfileModal"
@@ -96,31 +107,27 @@ export const RootNavigator: FC = () => {
           }
         }}
       />
+
+      <Screen
+        name="MusicModal"
+        options={{ presentation: 'modal' }}
+        component={MusicModal}
+      />
       <Screen
         name="PodcastModal"
         options={{
-          presentation: 'modal',
+          ...modalOptions,
           title: 'Podcasts',
-          headerShown: true,
-          headerTitleStyle: { fontFamily: 'font-medium', letterSpacing: 1 },
-          headerStyle: {
-            backgroundColor: theme.colors.background
-          },
-          headerLeft: () => <CollapseButton />
+          presentation: 'modal'
         }}
         component={PodcastModal}
       />
       <Screen
         name="NotificationsModal"
         options={{
+          ...modalOptions,
           presentation: 'modal',
-          title: 'Notifications',
-          headerShown: true,
-          headerTitleStyle: { fontFamily: 'font-medium', letterSpacing: 1 },
-          headerStyle: {
-            backgroundColor: theme.colors.background
-          },
-          headerLeft: () => <CollapseButton />
+          title: 'Notifications'
         }}
         component={NotificationsModal}
       />

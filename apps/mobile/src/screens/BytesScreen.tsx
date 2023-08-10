@@ -90,6 +90,7 @@ export const BytesScreen = (props: BytesScreenProps): JSX.Element => {
       extraData={activeVideoIndex} // To handle rerender if anything changes in data
       onViewableItemsChanged={onViewableItemsChanged}
       onEndReachedThreshold={0.8}
+      removeClippedSubviews
       ListFooterComponent={() => (
         <ActivityIndicator style={{ paddingVertical: 20 }} />
       )}

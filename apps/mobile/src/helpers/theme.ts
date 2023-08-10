@@ -18,7 +18,8 @@ const commonColors = {
   yellow: '#FEFF55',
   green: 'green',
   grey: '#333333',
-  blueGrey: '#E0E8FF'
+  blueGrey: '#E0E8FF',
+  indigo: '#6366f1'
 }
 
 export const theme = {

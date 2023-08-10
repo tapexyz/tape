@@ -27,6 +27,7 @@ type Props = {
 }
 
 const GRID_GAP = 5
+const NUM_COLUMNS = 3
 
 const styles = StyleSheet.create({
   container: {
@@ -78,8 +79,8 @@ const Bytes: FC<Props> = ({ profile, scrollHandler }) => {
     ({ item, index }: { item: Publication; index: number }) => (
       <View
         style={{
-          marginRight: index % 3 < 2 ? GRID_GAP : 0,
-          width: (width - GRID_GAP * 2) / 3
+          marginRight: index % NUM_COLUMNS !== NUM_COLUMNS - 1 ? GRID_GAP : 0,
+          width: (width - GRID_GAP * (NUM_COLUMNS - 1)) / NUM_COLUMNS
         }}
       >
         <AnimatedPressable>
@@ -100,6 +101,7 @@ const Bytes: FC<Props> = ({ profile, scrollHandler }) => {
   return (
     <View style={[styles.container, { height }]}>
       <Animated.FlatList
+        contentContainerStyle={{ paddingBottom: 180 }}
         data={bytes}
         renderItem={renderItem}
         keyExtractor={(item, i) => `${item.id}_${i}`}
