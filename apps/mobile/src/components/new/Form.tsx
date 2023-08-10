@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import { PublicationMainFocus } from '@lenstube/lens'
 import React, { useCallback, useRef } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { Animated, Text, View } from 'react-native'
@@ -7,6 +8,7 @@ import { object, string } from 'zod'
 
 import useMobilePublicationStore from '~/store/publication'
 
+import AccordionWithSwitch from '../ui/AccordionWithSwitch'
 import Input from '../ui/Input'
 import Separator from '../ui/Separator'
 
@@ -31,6 +33,9 @@ const Form = () => {
       description: ''
     }
   })
+  const draftedPublication = useMobilePublicationStore(
+    (state) => state.draftedPublication
+  )
   const setDraftedPublication = useMobilePublicationStore(
     (state) => state.setDraftedPublication
   )
@@ -118,6 +123,18 @@ const Form = () => {
       />
       {errors.description && <Text>This is required.</Text>}
       <Separator />
+
+      <AccordionWithSwitch
+        active={draftedPublication.hasAttachment}
+        setActive={(value) =>
+          setDraftedPublication({
+            ...draftedPublication,
+            hasAttachment: value,
+            mainFocus: PublicationMainFocus.Video
+          })
+        }
+        text="Attach media"
+      />
 
       {/* <TouchableOpacity
         onPress={() => handleSubmit(onValid, onInValid)()}

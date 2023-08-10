@@ -1,7 +1,9 @@
+import Ionicons from '@expo/vector-icons/Ionicons'
 import { useNavigation } from '@react-navigation/native'
 import { Image as ExpoImage } from 'expo-image'
 import React from 'react'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
+import Animated, { SlideInLeft } from 'react-native-reanimated'
 
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
@@ -32,26 +34,55 @@ const styles = StyleSheet.create({
 
 const Attachments = () => {
   const { navigate } = useNavigation()
-  const { mainFocus, poster } = useMobilePublicationStore(
+  const { mainFocus, poster, hasAttachment } = useMobilePublicationStore(
     (state) => state.draftedPublication
   )
 
+  if (!hasAttachment) {
+    return null
+  }
+
   return (
-    <View style={styles.container}>
-      <Pressable onPress={() => navigate('PickerModal', { mainFocus })}>
-        <ExpoImage
-          source={{
-            uri: poster
+    <Animated.View
+      style={styles.container}
+      entering={SlideInLeft.duration(300)}
+    >
+      {poster ? (
+        <>
+          <Pressable onPress={() => navigate('PickerModal', { mainFocus })}>
+            <ExpoImage
+              source={{
+                uri: poster
+              }}
+              contentFit="cover"
+              transition={200}
+              style={styles.image}
+            />
+          </Pressable>
+          <View style={{ paddingHorizontal: 15 }}>
+            <Text style={styles.text}>0%</Text>
+          </View>
+        </>
+      ) : (
+        <Pressable
+          style={{
+            height: 60,
+            flex: 1,
+            flexDirection: 'row',
+            gap: 10,
+            alignItems: 'center',
+            justifyContent: 'center'
           }}
-          contentFit="cover"
-          transition={200}
-          style={styles.image}
-        />
-      </Pressable>
-      <View style={{ paddingHorizontal: 15 }}>
-        <Text style={styles.text}>0%</Text>
-      </View>
-    </View>
+        >
+          <Ionicons
+            name="file-tray-outline"
+            color={theme.colors.white}
+            size={20}
+          />
+          <Text style={styles.text}>Choose a {mainFocus.toLowerCase()}</Text>
+        </Pressable>
+      )}
+    </Animated.View>
   )
 }
 

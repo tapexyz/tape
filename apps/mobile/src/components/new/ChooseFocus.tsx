@@ -1,6 +1,7 @@
 import { PublicationMainFocus } from '@lenstube/lens'
 import React from 'react'
-import { ScrollView, StyleSheet, Text } from 'react-native'
+import { StyleSheet, Text } from 'react-native'
+import Animated, { SlideInLeft } from 'react-native-reanimated'
 
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
@@ -10,8 +11,10 @@ import AnimatedPressable from '../ui/AnimatedPressable'
 
 const styles = StyleSheet.create({
   container: {
+    flexDirection: 'row',
     marginHorizontal: 5,
-    marginVertical: 20
+    marginVertical: 20,
+    gap: 5
   },
   filter: {
     paddingVertical: 7,
@@ -49,12 +52,14 @@ const ChooseFocus = () => {
     })
   }
 
+  if (!draftedPublication.hasAttachment) {
+    return null
+  }
+
   return (
-    <ScrollView
+    <Animated.View
       style={styles.container}
-      horizontal={true}
-      contentContainerStyle={{ gap: 5 }}
-      showsHorizontalScrollIndicator={false}
+      entering={SlideInLeft.duration(300)}
     >
       <AnimatedPressable
         onPress={() => onChoose(PublicationMainFocus.Video)}
@@ -84,33 +89,6 @@ const ChooseFocus = () => {
       </AnimatedPressable>
 
       <AnimatedPressable
-        onPress={() => onChoose(PublicationMainFocus.Video)}
-        style={[
-          styles.filter,
-          {
-            backgroundColor:
-              draftedPublication.mainFocus === PublicationMainFocus.Video
-                ? theme.colors.white
-                : theme.colors.black
-          }
-        ]}
-      >
-        <Text
-          style={[
-            styles.text,
-            {
-              color:
-                draftedPublication.mainFocus === PublicationMainFocus.Video
-                  ? theme.colors.black
-                  : theme.colors.white
-            }
-          ]}
-        >
-          Video
-        </Text>
-      </AnimatedPressable>
-
-      <AnimatedPressable
         onPress={() => onChoose(PublicationMainFocus.Audio)}
         style={[
           styles.filter,
@@ -136,88 +114,7 @@ const ChooseFocus = () => {
           Audio
         </Text>
       </AnimatedPressable>
-
-      <AnimatedPressable
-        onPress={() => onChoose(PublicationMainFocus.Video)}
-        style={[
-          styles.filter,
-          {
-            backgroundColor:
-              draftedPublication.mainFocus === PublicationMainFocus.Video
-                ? theme.colors.white
-                : theme.colors.black
-          }
-        ]}
-      >
-        <Text
-          style={[
-            styles.text,
-            {
-              color:
-                draftedPublication.mainFocus === PublicationMainFocus.Video
-                  ? theme.colors.black
-                  : theme.colors.white
-            }
-          ]}
-        >
-          Story
-        </Text>
-      </AnimatedPressable>
-
-      <AnimatedPressable
-        onPress={() => onChoose(PublicationMainFocus.TextOnly)}
-        style={[
-          styles.filter,
-          {
-            backgroundColor:
-              draftedPublication.mainFocus === PublicationMainFocus.TextOnly
-                ? theme.colors.white
-                : theme.colors.black
-          }
-        ]}
-      >
-        <Text
-          style={[
-            styles.text,
-            {
-              color:
-                draftedPublication.mainFocus === PublicationMainFocus.TextOnly
-                  ? theme.colors.black
-                  : theme.colors.white
-            }
-          ]}
-        >
-          Event
-        </Text>
-      </AnimatedPressable>
-
-      <AnimatedPressable
-        onPress={() => onChoose(PublicationMainFocus.TextOnly)}
-        style={[
-          styles.filter,
-          {
-            backgroundColor:
-              draftedPublication.mainFocus === PublicationMainFocus.TextOnly
-                ? theme.colors.white
-                : theme.colors.black
-          }
-        ]}
-      >
-        <Text
-          style={[
-            styles.text,
-            {
-              color:
-                draftedPublication.mainFocus === PublicationMainFocus.TextOnly
-                  ? theme.colors.black
-                  : theme.colors.white
-            }
-          ]}
-        >
-          Check In
-        </Text>
-      </AnimatedPressable>
-    </ScrollView>
+    </Animated.View>
   )
 }
 
