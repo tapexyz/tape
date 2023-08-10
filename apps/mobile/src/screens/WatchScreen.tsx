@@ -11,6 +11,7 @@ import Animated, { FadeInDown } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { SharedElement } from 'react-navigation-shared-element'
 
+import ServerError from '~/components/ui/ServerError'
 import MoreVideos from '~/components/watch/MoreVideos'
 import VideoPlayer from '~/components/watch/Player'
 import { theme } from '~/helpers/theme'
@@ -46,7 +47,7 @@ export const WatchScreen = (props: WatchScreenProps) => {
     publication?.__typename === 'Mirror' ? publication.mirrorOf : publication
 
   if (error) {
-    return null
+    return <ServerError />
   }
   if (loading || !data) {
     return <ActivityIndicator style={styles.container} />

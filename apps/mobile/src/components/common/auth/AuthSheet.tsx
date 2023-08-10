@@ -36,6 +36,7 @@ type Props = {
 const styles = StyleSheet.create({
   container: {
     padding: 10,
+    paddingTop: 15,
     display: 'flex',
     flex: 1,
     flexDirection: 'column',

@@ -25,7 +25,6 @@ import UserProfile from './UserProfile'
 
 const styles = StyleSheet.create({
   container: {
-    display: 'flex',
     flexDirection: 'row',
     width: '100%',
     justifyContent: 'space-between',
@@ -43,6 +42,15 @@ const styles = StyleSheet.create({
     fontFamily: 'font-bold',
     fontWeight: '500',
     fontSize: normalizeFont(22)
+  },
+  newButton: {
+    width: 30,
+    height: 30,
+    borderRadius: 100,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: theme.colors.black
   }
 })
 
@@ -72,7 +80,6 @@ const AuthenticatedUser = () => {
           profile={selectedChannel}
           showHandle={false}
           size={30}
-          radius={10}
           onPress={() => profileSheetRef.current?.present()}
         />
       </SharedElement>
@@ -119,6 +126,7 @@ const AuthenticatedUser = () => {
 }
 
 const Header: FC<HeaderTitleProps> = () => {
+  const { navigate } = useNavigation()
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
 
   return (
@@ -128,14 +136,14 @@ const Header: FC<HeaderTitleProps> = () => {
       <View style={styles.rightView}>
         {selectedChannel && (
           <AnimatedPressable
-            onPress={() => {
-              haptic()
-            }}
+            style={styles.newButton}
+            onPress={() => navigate('NewPublication')}
           >
             <Ionicons
-              name="create-outline"
+              name="add-outline"
               color={theme.colors.white}
-              size={22}
+              style={{ paddingLeft: 1 }}
+              size={20}
             />
           </AnimatedPressable>
         )}

@@ -19,13 +19,13 @@ interface Props extends MotiPressableProps {
 const getButtonSize = (size: ButtonSize) => {
   switch (size) {
     case 'sm':
-      return 10
+      return [10, 20]
     case 'md':
-      return 15
+      return [15, 20]
     case 'lg':
-      return 20
+      return [20, 30]
     default:
-      return 15
+      return [15, 20]
   }
 }
 
@@ -35,7 +35,8 @@ const Button: FC<Props> = ({ text, icon, size = 'md', ...props }) => {
       {...props}
       style={[
         {
-          padding: getButtonSize(size),
+          paddingVertical: getButtonSize(size)[0],
+          paddingHorizontal: getButtonSize(size)[1],
           borderRadius: 100,
           alignItems: 'center',
           borderWidth: 1,

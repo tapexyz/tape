@@ -11,6 +11,7 @@ import React, { useCallback } from 'react'
 import { ActivityIndicator, StyleSheet, View } from 'react-native'
 
 import VideoCard from '~/components/common/VideoCard'
+import ServerError from '~/components/ui/ServerError'
 import { windowHeight } from '~/helpers/theme'
 
 const styles = StyleSheet.create({
@@ -56,8 +57,12 @@ export const PodcastModal = () => {
     []
   )
 
-  if (loading || error) {
+  if (loading) {
     return <ActivityIndicator style={{ flex: 1 }} />
+  }
+
+  if (error) {
+    return <ServerError />
   }
 
   if (!publications?.length) {

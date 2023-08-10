@@ -29,7 +29,7 @@ type Props = {
   profile: Profile
 }
 
-const CARD_BORDER_RADIUS = 25
+const CARD_BORDER_RADIUS = 30
 
 const styles = StyleSheet.create({
   container: {

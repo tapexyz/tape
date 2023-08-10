@@ -15,6 +15,7 @@
   "dependencies": {
     "@apollo/client": "^3.8.0",
     "@gorhom/bottom-sheet": "^4.4.7",
+    "@hookform/resolvers": "^3.2.0",
     "@livepeer/react-native": "^1.8.0",
     "@react-native-async-storage/async-storage": "1.17.11",
     "@react-native-community/netinfo": "9.3.7",
@@ -30,8 +31,10 @@
     "expo-constants": "~14.2.1",
     "expo-crypto": "~12.2.1",
     "expo-device": "~5.2.1",
+    "expo-document-picker": "~11.2.2",
     "expo-haptics": "~12.2.1",
     "expo-image": "~1.0.1",
+    "expo-image-picker": "~14.1.1",
     "expo-linear-gradient": "~12.1.2",
     "expo-linking": "~4.0.1",
     "expo-notifications": "~0.18.1",
@@ -40,9 +43,11 @@
     "expo-splash-screen": "~0.18.2",
     "expo-status-bar": "~1.4.4",
     "expo-system-ui": "~2.2.1",
+    "expo-video-thumbnails": "~7.2.1",
     "moti": "^0.25.4",
     "qrcode": "^1.5.3",
     "react": "18.2.0",
+    "react-hook-form": "^7.45.4",
     "react-native": "0.71.8",
     "react-native-gesture-handler": "~2.9.0",
     "react-native-get-random-values": "~1.9.0",
@@ -58,6 +63,7 @@
     "swr": "^2.2.0",
     "uuid": "^3.4.0",
     "viem": "^1.5.3",
+    "zod": "^3.21.4",
     "zustand": "^4.4.0"
   },
   "devDependencies": {
