@@ -1,15 +1,17 @@
 import { PublicationMainFocus } from '@lenstube/lens'
-import type * as MediaLibrary from 'expo-media-library'
+import type { DocumentResult } from 'expo-document-picker'
+import type { ImagePickerResult } from 'expo-image-picker'
 import { create } from 'zustand'
 
 type DraftPublication = {
   title: string
   description: string
   mainFocus: PublicationMainFocus
-  asset: MediaLibrary.AssetInfo | null
+  asset: ImagePickerResult | DocumentResult | null
   poster: string
   attachmentEnabled: boolean
   collectEnabled: boolean
+  referenceEnabled: boolean
 }
 
 const defaults = {
@@ -19,7 +21,8 @@ const defaults = {
   asset: null,
   poster: '',
   attachmentEnabled: false,
-  collectEnabled: false
+  collectEnabled: false,
+  referenceEnabled: false
 }
 
 interface State {

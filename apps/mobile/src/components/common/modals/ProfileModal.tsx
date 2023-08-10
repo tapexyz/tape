@@ -10,6 +10,7 @@ import {
 
 import Info from '~/components/profile/Info'
 import TabContent from '~/components/profile/TabContent'
+import ServerError from '~/components/ui/ServerError'
 import { theme } from '~/helpers/theme'
 import useMobileStore from '~/store'
 
@@ -48,7 +49,11 @@ export const ProfileModal = (props: ProfileModalProps): JSX.Element | null => {
     )
   }
 
-  if (!data?.profile || error) {
+  if (error) {
+    return <ServerError />
+  }
+
+  if (!data?.profile) {
     goBack()
     return null
   }

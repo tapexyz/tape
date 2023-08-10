@@ -31,6 +31,7 @@ import useMobileStore from '~/store'
 
 import UserProfile from '../common/UserProfile'
 import AnimatedPressable from '../ui/AnimatedPressable'
+import ServerError from '../ui/ServerError'
 
 const BORDER_RADIUS = 20
 
@@ -212,7 +213,7 @@ const ByteCards = () => {
   })
 
   if (error) {
-    return null
+    return <ServerError />
   }
 
   const bytes = data?.explorePublications?.items as Publication[]

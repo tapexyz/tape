@@ -11,6 +11,7 @@ import useMobilePublicationStore from '~/store/publication'
 import AccordionWithSwitch from '../ui/AccordionWithSwitch'
 import Input from '../ui/Input'
 import Separator from '../ui/Separator'
+import AccessControl from './AccessControl'
 import Attachments from './Attachments'
 import ChooseFocus from './ChooseFocus'
 import CollectTemplates from './CollectTemplates'
@@ -156,6 +157,19 @@ const Form = () => {
         text="Collectible"
         content={<CollectTemplates />}
       />
+
+      <AccordionWithSwitch
+        active={draftedPublication.referenceEnabled}
+        setActive={(value) =>
+          setDraftedPublication({
+            ...draftedPublication,
+            referenceEnabled: value
+          })
+        }
+        text="Exclusive Access"
+        content={<AccessControl />}
+      />
+      <Separator />
 
       {/* <TouchableOpacity
         onPress={() => handleSubmit(onValid, onInValid)()}

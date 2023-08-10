@@ -18,6 +18,7 @@ import Animated, {
 } from 'react-native-reanimated'
 
 import CollapseButton from '~/components/common/CollapseButton'
+import ServerError from '~/components/ui/ServerError'
 import Comments from '~/components/watch/Comments'
 
 import Item from './Item'
@@ -83,8 +84,12 @@ const Stage = () => {
     variables: { request }
   })
 
-  if (loading || error) {
+  if (loading) {
     return <ActivityIndicator style={{ flex: 1 }} />
+  }
+
+  if (error) {
+    return <ServerError />
   }
 
   const audios = data?.explorePublications?.items as Publication[]

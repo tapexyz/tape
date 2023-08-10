@@ -26,6 +26,7 @@ import useMobileStore from '~/store'
 
 import UserProfile from '../common/UserProfile'
 import HCarousel from '../ui/HCarousel'
+import ServerError from '../ui/ServerError'
 
 const CAROUSEL_HEIGHT = 210
 const BORDER_RADIUS = 25
@@ -103,7 +104,7 @@ const PopularVideos = () => {
   const publications = data?.explorePublications?.items as Publication[]
 
   if (error) {
-    return null
+    return <ServerError />
   }
 
   return (

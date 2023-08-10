@@ -11,8 +11,7 @@ import AnimatedPressable from '../ui/AnimatedPressable'
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    marginHorizontal: 5,
-    marginVertical: 20,
+    marginBottom: 10,
     gap: 5
   },
   filter: {

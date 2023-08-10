@@ -1,7 +1,6 @@
 export * from './CategoriesModal'
 export * from './MusicModal'
 export * from './NotificationsModal'
-export * from './PickerModal'
 export * from './PodcastModal'
 export * from './ProfileModal'
 export * from './TopsModal'

@@ -1,6 +1,9 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
-import { useNavigation } from '@react-navigation/native'
+import { PublicationMainFocus } from '@lenstube/lens'
+import * as DocumentPicker from 'expo-document-picker'
 import { Image as ExpoImage } from 'expo-image'
+import * as ImagePicker from 'expo-image-picker'
+import * as VideoThumbnails from 'expo-video-thumbnails'
 import React from 'react'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 
@@ -32,16 +35,65 @@ const styles = StyleSheet.create({
 })
 
 const Attachments = () => {
-  const { navigate } = useNavigation()
-  const { mainFocus, poster } = useMobilePublicationStore(
+  const draftedPublication = useMobilePublicationStore(
     (state) => state.draftedPublication
   )
+  const { mainFocus, poster } = draftedPublication
+  const setDraftedPublication = useMobilePublicationStore(
+    (state) => state.setDraftedPublication
+  )
+
+  const openDocumentPicker = async () => {
+    let result = await DocumentPicker.getDocumentAsync({ type: 'audio/*' })
+    if (result.type !== 'cancel' && result.uri) {
+      console.log(
+        '🚀 ~ file: Attachments.tsx:43 ~ openPicker ~ result:',
+        result
+      )
+    }
+  }
+
+  const openVideoPicker = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Videos,
+      allowsEditing: true,
+      exif: false,
+      aspect: [9, 16],
+      allowsMultipleSelection: false,
+      quality: 1,
+      videoMaxDuration: 120 // 2 mins
+    })
+
+    if (result.assets) {
+      const asset = result.assets[0]
+      const { uri } = await VideoThumbnails.getThumbnailAsync(
+        asset.uri as string,
+        {
+          time: 1
+        }
+      )
+      setDraftedPublication({
+        ...draftedPublication,
+        asset: result,
+        poster: uri
+      })
+    }
+  }
+
+  const openPicker = () => {
+    if (mainFocus === PublicationMainFocus.Video) {
+      return openVideoPicker()
+    }
+    if (mainFocus === PublicationMainFocus.Audio) {
+      openDocumentPicker()
+    }
+  }
 
   return (
     <View style={styles.container}>
       {poster ? (
         <>
-          <Pressable onPress={() => navigate('PickerModal', { mainFocus })}>
+          <Pressable onPress={openPicker}>
             <ExpoImage
               source={{
                 uri: poster
@@ -57,7 +109,7 @@ const Attachments = () => {
         </>
       ) : (
         <Pressable
-          onPress={() => navigate('PickerModal', { mainFocus })}
+          onPress={openPicker}
           style={{
             height: 60,
             flex: 1,

@@ -1,4 +1,4 @@
-import { COLLECT_TEMPLATES } from '@lenstube/constants'
+import { REFERENCE_TEMPLATES } from '@lenstube/constants'
 import React from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 
@@ -16,37 +16,33 @@ const styles = StyleSheet.create({
     color: theme.colors.white,
     letterSpacing: 0.7
   },
-  template: {
+  reference: {
     paddingHorizontal: 20,
     paddingVertical: 8,
     borderWidth: 0.5,
     borderRadius: 100,
     borderColor: theme.colors.grey
+  },
+  helperText: {
+    fontFamily: 'font-medium',
+    fontSize: normalizeFont(10),
+    color: theme.colors.white,
+    opacity: 0.8
   }
 })
 
-const CollectTemplates = () => {
+const AccessControl = () => {
   return (
     <View style={styles.container}>
+      <Text style={styles.helperText}>Who can comment or mirror?</Text>
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ gap: 7 }}
       >
-        {COLLECT_TEMPLATES.FOLLOWERS.map((t) => (
-          <View key={t.id} style={styles.template}>
-            <Text style={styles.text}>{t.text}</Text>
-          </View>
-        ))}
-      </ScrollView>
-      <ScrollView
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ gap: 7 }}
-      >
-        {COLLECT_TEMPLATES.ANYONE.map((t) => (
-          <View key={t.id} style={styles.template}>
-            <Text style={styles.text}>{t.text}</Text>
+        {REFERENCE_TEMPLATES.map((r) => (
+          <View key={r.id} style={styles.reference}>
+            <Text style={styles.text}>{r.text}</Text>
           </View>
         ))}
       </ScrollView>
@@ -54,4 +50,4 @@ const CollectTemplates = () => {
   )
 }
 
-export default CollectTemplates
+export default AccessControl

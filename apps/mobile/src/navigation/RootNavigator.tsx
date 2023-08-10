@@ -9,12 +9,10 @@ import {
   CategoriesModal,
   MusicModal,
   NotificationsModal,
-  PickerModal,
   PodcastModal,
   ProfileModal,
   TopsModal
 } from '~/components/common/modals'
-import NextButton from '~/components/common/NextButton'
 import { theme } from '~/helpers/theme'
 import { useNetWorkConnection } from '~/hooks'
 import { WatchScreen } from '~/screens'
@@ -110,19 +108,6 @@ export const RootNavigator: FC = () => {
         }}
       />
 
-      <Screen
-        name="PickerModal"
-        component={PickerModal}
-        options={{
-          ...modalOptions,
-          headerRight: () => <NextButton />,
-          presentation: 'modal',
-          title: 'Choose',
-          headerStyle: {
-            backgroundColor: theme.colors.backdrop
-          }
-        }}
-      />
       <Screen
         name="MusicModal"
         options={{ presentation: 'modal' }}

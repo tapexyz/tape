@@ -20,3 +20,18 @@ export const COLLECT_TEMPLATES = {
     }
   ]
 }
+
+export const REFERENCE_TEMPLATES = [
+  {
+    id: 1,
+    text: 'My Followers'
+  },
+  {
+    id: 2,
+    text: 'Frens I follow'
+  },
+  {
+    id: 3,
+    text: 'Friends of Frens'
+  }
+]

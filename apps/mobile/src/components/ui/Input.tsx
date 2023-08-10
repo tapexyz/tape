@@ -16,7 +16,6 @@ const styles = StyleSheet.create({
   },
   input: {
     fontSize: normalizeFont(15),
-    paddingHorizontal: 12,
     color: theme.colors.white,
     fontFamily: 'font-medium'
   }

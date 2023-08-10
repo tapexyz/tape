@@ -1,7 +1,7 @@
 import type { FC, ReactNode } from 'react'
 import React from 'react'
 import type { TextStyle } from 'react-native'
-import { Text, View } from 'react-native'
+import { Pressable, Text } from 'react-native'
 import Animated, { FadeInUp } from 'react-native-reanimated'
 
 import normalizeFont from '~/helpers/normalize-font'
@@ -26,22 +26,22 @@ const AccordionWithSwitch: FC<Props> = ({
 }) => {
   return (
     <>
-      <View
+      <Pressable
+        onPress={() => setActive(!active)}
         style={{
           flex: 1,
           flexDirection: 'row',
           justifyContent: 'space-between',
           alignItems: 'center',
           paddingVertical: 20,
-          paddingRight: 15
+          paddingRight: 10
         }}
       >
         <Text
           style={[
             {
               fontSize: normalizeFont(15),
-              paddingHorizontal: 12,
-              color: theme.colors.grey,
+              color: theme.colors.secondary,
               fontFamily: 'font-medium'
             },
             textStyle
@@ -50,7 +50,7 @@ const AccordionWithSwitch: FC<Props> = ({
           {text}
         </Text>
         <Switch isActive={active} onPress={() => setActive(!active)} />
-      </View>
+      </Pressable>
       {active ? (
         <Animated.View entering={FadeInUp}>{content}</Animated.View>
       ) : null}

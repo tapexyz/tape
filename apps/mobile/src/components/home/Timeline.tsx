@@ -15,6 +15,7 @@ import { windowHeight } from '~/helpers/theme'
 
 import AudioCard from '../common/AudioCard'
 import VideoCard from '../common/VideoCard'
+import ServerError from '../ui/ServerError'
 import ByteCards from './ByteCards'
 import FirstSteps from './FirstSteps'
 import PopularCreators from './PopularCreators'
@@ -44,7 +45,7 @@ const Timeline = () => {
       mainContentFocus: [PublicationMainFocus.Audio, PublicationMainFocus.Video]
     }
   }
-  const { data, fetchMore, loading } = useExploreQuery({
+  const { data, fetchMore, loading, error } = useExploreQuery({
     variables: { request }
   })
 
@@ -85,8 +86,12 @@ const Timeline = () => {
     []
   )
 
-  if (loading || !publications?.length) {
+  if (loading) {
     return <ActivityIndicator style={{ flex: 1 }} />
+  }
+
+  if (error) {
+    return <ServerError />
   }
 
   return (
