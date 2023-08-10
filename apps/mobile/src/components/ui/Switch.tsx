@@ -66,13 +66,15 @@ const Switch: FC<Props> = ({ size = SIZE, onPress, isActive }) => {
           <MView
             transition={transition}
             from={{
-              width: isActive ? size * 0.4 : size * 0.4,
+              width: isActive ? size * 0.4 : 0,
+              height: isActive ? size * 0.4 : 0,
               borderColor: isActive
                 ? theme.colors.backdrop2
                 : theme.colors.backdrop
             }}
             animate={{
-              width: isActive ? 0 : size * 0.4,
+              width: isActive ? size * 0.4 : 0,
+              height: isActive ? size * 0.4 : 0,
               borderColor: isActive
                 ? theme.colors.backdrop2
                 : theme.colors.backdrop

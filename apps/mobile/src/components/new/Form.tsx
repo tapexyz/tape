@@ -169,7 +169,6 @@ const Form = () => {
         text="Exclusive Access"
         content={<AccessControl />}
       />
-      <Separator />
 
       {/* <TouchableOpacity
         onPress={() => handleSubmit(onValid, onInValid)()}

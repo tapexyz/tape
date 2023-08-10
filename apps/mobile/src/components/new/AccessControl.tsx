@@ -8,7 +8,8 @@ import { theme } from '~/helpers/theme'
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    gap: 10
+    gap: 10,
+    paddingVertical: 10
   },
   text: {
     fontFamily: 'font-medium',
@@ -27,7 +28,9 @@ const styles = StyleSheet.create({
     fontFamily: 'font-medium',
     fontSize: normalizeFont(10),
     color: theme.colors.white,
-    opacity: 0.8
+    opacity: 0.8,
+    textTransform: 'uppercase',
+    letterSpacing: 1
   }
 })
 
