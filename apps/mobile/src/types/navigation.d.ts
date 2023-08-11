@@ -65,7 +65,7 @@ declare global {
     PodcastModal: undefined
     MusicModal: undefined
     NotificationsModal: undefined
-    ProfileModal: { handle: string }
+    ProfileScreen: { handle: string }
     NewPublication: undefined
     WatchVideo: { id: string }
 
@@ -94,7 +94,7 @@ declare global {
   // Root stack
   type RootStackScreenProps = RootStackComposite
   type WatchScreenProps = RootStackComposite<'WatchVideo'>
-  type ProfileModalProps = RootStackComposite<'ProfileModal'>
+  type ProfileScreenProps = RootStackComposite<'ProfileScreen'>
   type NotificationsModalProps = RootStackComposite<'NotificationsModal'>
   type NewPublicationProps = RootStackComposite<'NewPublication'>
 

@@ -105,7 +105,7 @@ const PopularCreators = () => {
             <AnimatedPressable
               key={profile.id}
               onPress={() =>
-                navigate('ProfileModal', {
+                navigate('ProfileScreen', {
                   handle: profile.handle
                 })
               }

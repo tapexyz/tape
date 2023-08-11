@@ -49,7 +49,7 @@ const UserProfile: FC<Props> = (props) => {
   const { navigate } = useNavigation()
 
   const navigateToProfile = () => {
-    navigate('ProfileModal', {
+    navigate('ProfileScreen', {
       handle: profile.handle
     })
   }

@@ -104,7 +104,7 @@ const TabContent: FC<Props> = (props) => {
           return <View style={{ width }}>{component}</View>
         }}
         keyExtractor={(item, i) => `${item}_${i}`}
-        // onViewableItemsChanged={onViewableItemsChanged}
+        onViewableItemsChanged={onViewableItemsChanged}
       />
     </Animated.View>
   )

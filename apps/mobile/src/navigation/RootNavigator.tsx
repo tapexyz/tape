@@ -10,13 +10,13 @@ import {
   MusicModal,
   NotificationsModal,
   PodcastModal,
-  ProfileModal,
   TopsModal
 } from '~/components/common/modals'
 import { theme } from '~/helpers/theme'
 import { useNetWorkConnection } from '~/hooks'
 import { WatchScreen } from '~/screens'
 import { NewPublication } from '~/screens/NewPublication'
+import { ProfileScreen } from '~/screens/ProfileScreenn'
 
 import { BottomTabNavigator } from './BottomTabNavigator'
 
@@ -97,9 +97,9 @@ export const RootNavigator: FC = () => {
         component={CategoriesModal}
       />
       <Screen
-        name="ProfileModal"
+        name="ProfileScreen"
         options={{ ...options, presentation: 'transparentModal' }}
-        component={ProfileModal}
+        component={ProfileScreen}
         sharedElements={(route) => {
           const { handle } = route.params
           if (handle) {

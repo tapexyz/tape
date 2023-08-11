@@ -14,7 +14,9 @@ import ServerError from '~/components/ui/ServerError'
 import { theme } from '~/helpers/theme'
 import useMobileStore from '~/store'
 
-export const ProfileModal = (props: ProfileModalProps): JSX.Element | null => {
+export const ProfileScreen = (
+  props: ProfileScreenProps
+): JSX.Element | null => {
   const { handle } = props.route.params
   const { goBack } = useNavigation()
   const { height } = useWindowDimensions()

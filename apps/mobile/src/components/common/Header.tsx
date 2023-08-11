@@ -93,7 +93,7 @@ const AuthenticatedUser = () => {
                 title="My Profile"
                 onPress={() => {
                   profileSheetRef.current?.close()
-                  navigate('ProfileModal', {
+                  navigate('ProfileScreen', {
                     handle: selectedChannel.handle
                   })
                 }}
