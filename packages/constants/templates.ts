@@ -2,11 +2,11 @@ export const COLLECT_TEMPLATES = {
   FOLLOWERS: [
     {
       id: 1,
-      text: 'Followers can collect 10 items within 24 hrs'
+      text: 'My followers can collect 10 items within 24 hrs'
     },
     {
       id: 2,
-      text: 'Followers can collect 10 items within 24 hrs'
+      text: 'My followers can collect 10 items within 24 hrs'
     }
   ],
   ANYONE: [

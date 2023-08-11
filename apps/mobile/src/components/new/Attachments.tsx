@@ -46,16 +46,17 @@ const Attachments = () => {
   const openDocumentPicker = async () => {
     let result = await DocumentPicker.getDocumentAsync({ type: 'audio/*' })
     if (result.type !== 'cancel' && result.uri) {
-      console.log(
-        '🚀 ~ file: Attachments.tsx:43 ~ openPicker ~ result:',
-        result
-      )
+      console.log('🚀 ~ file: Attachments.tsx ~ openPicker ~ result:', result)
+      setDraftedPublication({
+        ...draftedPublication,
+        asset: result
+      })
     }
   }
 
-  const openVideoPicker = async () => {
+  const openMediaPicker = async (mediaTypes: ImagePicker.MediaTypeOptions) => {
     let result = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Videos,
+      mediaTypes,
       allowsEditing: true,
       exif: false,
       aspect: [9, 16],
@@ -82,7 +83,10 @@ const Attachments = () => {
 
   const openPicker = () => {
     if (mainFocus === PublicationMainFocus.Video) {
-      return openVideoPicker()
+      return openMediaPicker(ImagePicker.MediaTypeOptions.Videos)
+    }
+    if (mainFocus === PublicationMainFocus.Image) {
+      return openMediaPicker(ImagePicker.MediaTypeOptions.Images)
     }
     if (mainFocus === PublicationMainFocus.Audio) {
       openDocumentPicker()

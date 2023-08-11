@@ -4,7 +4,7 @@ import React from 'react'
 import { StyleSheet, View } from 'react-native'
 
 import haptic from '~/helpers/haptic'
-import { theme } from '~/helpers/theme'
+import { theme, windowWidth } from '~/helpers/theme'
 
 import AnimatedPressable from '../ui/AnimatedPressable'
 
@@ -12,9 +12,10 @@ const styles = StyleSheet.create({
   actionIcon: {
     backgroundColor: theme.colors.backdrop,
     borderRadius: 100,
-    width: 50,
-    height: 50,
+    width: windowWidth * 0.1,
+    height: windowWidth * 0.1,
     alignItems: 'center',
+    paddingTop: 1,
     justifyContent: 'center',
     marginBottom: 10
   }
@@ -37,7 +38,7 @@ const ActionHeader = ({ onPost }: { onPost: () => void }) => {
       >
         <Ionicons
           name="paper-plane-outline"
-          color={theme.colors.indigo}
+          color={theme.colors.green}
           size={22}
         />
       </AnimatedPressable>
