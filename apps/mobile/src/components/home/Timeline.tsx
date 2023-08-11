@@ -38,12 +38,16 @@ const Timeline = () => {
 
   const request = {
     sortCriteria: PublicationSortCriteria.CuratedProfiles,
-    limit: 5,
+    limit: 10,
     noRandomize: false,
     publicationTypes: [PublicationTypes.Post],
     customFilters: LENS_CUSTOM_FILTERS,
     metadata: {
-      mainContentFocus: [PublicationMainFocus.Audio, PublicationMainFocus.Video]
+      mainContentFocus: [
+        PublicationMainFocus.Audio,
+        PublicationMainFocus.Video,
+        PublicationMainFocus.Image
+      ]
     }
   }
   const { data, fetchMore, loading, error } = useExploreQuery({

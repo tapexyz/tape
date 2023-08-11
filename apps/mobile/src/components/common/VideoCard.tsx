@@ -1,5 +1,7 @@
-import { LENSTUBE_BYTES_APP_ID } from '@lenstube/constants'
+import Ionicons from '@expo/vector-icons/Ionicons'
+import { LENSTUBE_BYTES_APP_ID, STATIC_ASSETS } from '@lenstube/constants'
 import {
+  getIsSensitiveContent,
   getRelativeTime,
   getThumbnailUrl,
   getTimeFromSeconds,
@@ -75,6 +77,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 5,
     paddingVertical: 3,
     backgroundColor: theme.colors.black
+  },
+  sensitive: {
+    position: 'absolute',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    top: 7,
+    right: 7,
+    borderRadius: 5,
+    paddingHorizontal: 5,
+    paddingVertical: 3,
+    backgroundColor: theme.colors.black
   }
 })
 
@@ -82,8 +96,11 @@ const VideoCard: FC<Props> = ({ video }) => {
   const { navigate } = useNavigation()
 
   const isBytes = video.appId === LENSTUBE_BYTES_APP_ID
+  const isSensitiveContent = getIsSensitiveContent(video?.metadata, video.id)
   const thumbnailUrl = imageCdn(
-    getThumbnailUrl(video, true),
+    isSensitiveContent
+      ? `${STATIC_ASSETS}/images/sensor-blur.png`
+      : getThumbnailUrl(video, true),
     isBytes ? 'THUMBNAIL_V' : 'THUMBNAIL'
   )
   const videoDuration = getValueFromTraitType(
@@ -115,6 +132,16 @@ const VideoCard: FC<Props> = ({ video }) => {
                 <Text style={styles.otherInfo}>
                   {getTimeFromSeconds(videoDuration)}
                 </Text>
+              </View>
+            )}
+            {isSensitiveContent && (
+              <View style={styles.sensitive}>
+                <Ionicons
+                  name="eye-off-outline"
+                  color={theme.colors.white}
+                  size={10}
+                />
+                <Text style={styles.otherInfo}>Sensitive</Text>
               </View>
             )}
           </ImageBackground>

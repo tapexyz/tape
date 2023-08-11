@@ -57,7 +57,7 @@ const ImageCard: FC<Props> = ({ image }) => {
       <ImageSlider images={image.metadata?.media} />
 
       <View style={{ paddingVertical: 15, paddingHorizontal: 5 }}>
-        {image.metadata.content && (
+        {image.metadata?.content && (
           <Text style={styles.content} numberOfLines={3}>
             {trimNewLines(image.metadata.content)}
           </Text>
