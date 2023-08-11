@@ -77,7 +77,7 @@ const Showcase = () => {
 
   return (
     <View style={styles.container}>
-      <Animated.View entering={FadeInRight.duration(400)} style={styles.card}>
+      <Animated.View entering={FadeInRight.duration(100)} style={styles.card}>
         <AnimatedPressable onPress={() => haptic()}>
           <ImageBackground
             source={{
@@ -100,7 +100,7 @@ const Showcase = () => {
           </ImageBackground>
         </AnimatedPressable>
       </Animated.View>
-      <Animated.View entering={FadeInRight.duration(600)} style={styles.grid}>
+      <Animated.View entering={FadeInRight.duration(300)} style={styles.grid}>
         <View style={styles.gridCard}>
           <AnimatedPressable
             onPress={() => {
