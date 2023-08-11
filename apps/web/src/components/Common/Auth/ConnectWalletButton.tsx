@@ -79,8 +79,12 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
   ) : (
     <Button
       onClick={() => {
-        openConnectModal?.()
-        Analytics.track(TRACK.AUTH.CONNECT_WALLET)
+        if (openConnectModal) {
+          openConnectModal()
+          Analytics.track(TRACK.AUTH.CONNECT_WALLET)
+        } else {
+          disconnect?.()
+        }
       }}
     >
       <Trans>Connect</Trans>

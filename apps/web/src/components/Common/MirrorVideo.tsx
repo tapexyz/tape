@@ -186,8 +186,10 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
     return null
   }
 
-  const tooltipContent = collectModule?.referralFee
-    ? `Mirror video for ${collectModule?.referralFee}% referral fee`
+  const referralFee =
+    collectModule?.referralFee ?? collectModule?.fee?.referralFee
+  const tooltipContent = referralFee
+    ? `Mirror video for ${referralFee}% referral fee`
     : t`Mirror video across Lens`
 
   return (
