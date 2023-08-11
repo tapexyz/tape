@@ -3,13 +3,7 @@ import type { MediaSet } from '@lenstube/lens'
 import { Image as ExpoImage } from 'expo-image'
 import { MotiText, MotiView } from 'moti'
 import React, { useState } from 'react'
-import {
-  Pressable,
-  StatusBar,
-  StyleSheet,
-  useWindowDimensions,
-  View
-} from 'react-native'
+import { Pressable, StyleSheet, View } from 'react-native'
 import Animated, { Easing, FadeIn, FadeOut } from 'react-native-reanimated'
 
 import normalizeFont from '~/helpers/normalize-font'
@@ -25,23 +19,21 @@ const styles = StyleSheet.create({
 const MAX_SHOW_COUNT = 4
 
 const ImageSlider = ({ images }: { images: MediaSet[] }) => {
-  const { width } = useWindowDimensions()
   const [selectedItem, setSelectedItem] = useState(0)
 
   return (
     <View style={styles.container}>
-      <StatusBar hidden />
       <View
         style={{
           flexDirection: 'row',
           justifyContent: 'space-evenly',
-          height: width
+          aspectRatio: 1 / 1
         }}
       >
         {images.slice(0, MAX_SHOW_COUNT).map((image, index) => {
           return (
             <MotiView
-              key={image.onChain.url}
+              key={`${image.onChain.url}_${index}`}
               animate={{
                 flex: selectedItem === index ? MAX_SHOW_COUNT * 2 : 1
               }}
