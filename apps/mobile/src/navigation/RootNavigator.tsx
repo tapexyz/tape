@@ -14,9 +14,8 @@ import {
 } from '~/components/common/modals'
 import { theme } from '~/helpers/theme'
 import { useNetWorkConnection } from '~/hooks'
-import { WatchScreen } from '~/screens'
+import { ProfileScreen, WatchScreen } from '~/screens'
 import { NewPublication } from '~/screens/NewPublication'
-import { ProfileScreen } from '~/screens/ProfileScreenn'
 
 import { BottomTabNavigator } from './BottomTabNavigator'
 
