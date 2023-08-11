@@ -53,7 +53,11 @@ export const PodcastModal = () => {
   }
 
   const renderItem = useCallback(
-    ({ item }: { item: Publication }) => <VideoCard video={item} />,
+    ({ item }: { item: Publication }) => (
+      <View style={{ marginBottom: 30 }}>
+        <VideoCard video={item} />
+      </View>
+    ),
     []
   )
 
@@ -77,7 +81,6 @@ export const PodcastModal = () => {
         estimatedItemSize={publications.length}
         renderItem={renderItem}
         keyExtractor={(item, i) => `${item.id}_${i}`}
-        ItemSeparatorComponent={() => <View style={{ height: 30 }} />}
         ListFooterComponent={() => (
           <ActivityIndicator style={{ paddingVertical: 20 }} />
         )}

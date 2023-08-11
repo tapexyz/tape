@@ -43,11 +43,7 @@ const Timeline = () => {
     publicationTypes: [PublicationTypes.Post],
     customFilters: LENS_CUSTOM_FILTERS,
     metadata: {
-      mainContentFocus: [
-        PublicationMainFocus.Audio,
-        PublicationMainFocus.Video,
-        PublicationMainFocus.Image
-      ]
+      mainContentFocus: [PublicationMainFocus.Audio, PublicationMainFocus.Video]
     }
   }
   const { data, fetchMore, loading, error } = useExploreQuery({
@@ -69,14 +65,18 @@ const Timeline = () => {
   }
 
   const renderItem = useCallback(
-    ({ item }: { item: Publication }) =>
-      item.metadata.mainContentFocus === PublicationMainFocus.Audio ? (
-        <AudioCard audio={item} />
-      ) : item.metadata.mainContentFocus === PublicationMainFocus.Image ? (
-        <ImageCard image={item} />
-      ) : (
-        <VideoCard video={item} />
-      ),
+    ({ item }: { item: Publication }) => (
+      // Added extra 'View' this to fix issue with ItemSeparator rendering
+      <View style={{ marginBottom: 30 }}>
+        {item.metadata.mainContentFocus === PublicationMainFocus.Audio ? (
+          <AudioCard audio={item} />
+        ) : item.metadata.mainContentFocus === PublicationMainFocus.Image ? (
+          <ImageCard image={item} />
+        ) : (
+          <VideoCard video={item} />
+        )}
+      </View>
+    ),
     []
   )
 
@@ -110,7 +110,6 @@ const Timeline = () => {
         estimatedItemSize={publications.length}
         renderItem={renderItem}
         keyExtractor={(item, i) => `${item.id}_${i}`}
-        ItemSeparatorComponent={() => <View style={{ height: 30 }} />}
         ListFooterComponent={() => (
           <ActivityIndicator style={{ paddingVertical: 20 }} />
         )}

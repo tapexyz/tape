@@ -80,14 +80,17 @@ const Timeline = () => {
   }
 
   const renderItem = useCallback(
-    ({ item }: { item: Publication }) =>
-      item.metadata.mainContentFocus === PublicationMainFocus.Audio ? (
-        <AudioCard audio={item} />
-      ) : item.metadata.mainContentFocus === PublicationMainFocus.Image ? (
-        <ImageCard image={item} />
-      ) : (
-        <VideoCard video={item} />
-      ),
+    ({ item }: { item: Publication }) => (
+      <View style={{ marginBottom: 30 }}>
+        {item.metadata.mainContentFocus === PublicationMainFocus.Audio ? (
+          <AudioCard audio={item} />
+        ) : item.metadata.mainContentFocus === PublicationMainFocus.Image ? (
+          <ImageCard image={item} />
+        ) : (
+          <VideoCard video={item} />
+        )}
+      </View>
+    ),
     []
   )
 
@@ -110,7 +113,6 @@ const Timeline = () => {
         estimatedItemSize={publications?.length ?? 50}
         renderItem={renderItem}
         keyExtractor={(item, i) => `${item.id}_${i}`}
-        ItemSeparatorComponent={() => <View style={{ height: 30 }} />}
         ListFooterComponent={() =>
           loading && <ActivityIndicator style={{ paddingVertical: 20 }} />
         }

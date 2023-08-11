@@ -2,11 +2,13 @@ import { LENSTUBE_BYTES_APP_ID } from '@lenstube/constants'
 import {
   getRelativeTime,
   getThumbnailUrl,
+  getTimeFromSeconds,
+  getValueFromTraitType,
   imageCdn,
   trimify,
   trimNewLines
 } from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
+import type { Attribute, Publication } from '@lenstube/lens'
 import { useNavigation } from '@react-navigation/native'
 import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
@@ -64,6 +66,15 @@ const styles = StyleSheet.create({
     fontFamily: 'font-normal',
     fontSize: normalizeFont(10),
     color: theme.colors.white
+  },
+  duration: {
+    position: 'absolute',
+    bottom: 7,
+    right: 7,
+    borderRadius: 5,
+    paddingHorizontal: 5,
+    paddingVertical: 3,
+    backgroundColor: theme.colors.black
   }
 })
 
@@ -75,6 +86,10 @@ const VideoCard: FC<Props> = ({ video }) => {
     getThumbnailUrl(video, true),
     isBytes ? 'THUMBNAIL_V' : 'THUMBNAIL'
   )
+  const videoDuration = getValueFromTraitType(
+    video.metadata?.attributes as Attribute[],
+    'durationInSeconds'
+  )
 
   return (
     <Animated.View entering={FadeIn.duration(300)}>
@@ -83,7 +98,11 @@ const VideoCard: FC<Props> = ({ video }) => {
           <ImageBackground
             source={{ uri: thumbnailUrl }}
             blurRadius={15}
-            imageStyle={{ opacity: 0.8, borderRadius: BORDER_RADIUS }}
+            imageStyle={{
+              opacity: 0.8,
+              borderRadius: BORDER_RADIUS,
+              position: 'relative'
+            }}
           >
             <ExpoImage
               source={{ uri: thumbnailUrl }}
@@ -91,6 +110,13 @@ const VideoCard: FC<Props> = ({ video }) => {
               contentFit={isBytes ? 'contain' : 'cover'}
               style={styles.thumbnail}
             />
+            {videoDuration && (
+              <View style={styles.duration}>
+                <Text style={styles.otherInfo}>
+                  {getTimeFromSeconds(videoDuration)}
+                </Text>
+              </View>
+            )}
           </ImageBackground>
         </SharedElement>
 
