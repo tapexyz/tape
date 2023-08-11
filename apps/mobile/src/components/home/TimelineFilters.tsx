@@ -3,10 +3,12 @@ import { imageCdn } from '@lenstube/generic'
 import { Image as ExpoImage } from 'expo-image'
 import React from 'react'
 import { Pressable, ScrollView, StyleSheet, Text } from 'react-native'
+import { notify } from 'react-native-notificated'
 
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
+import useMobileStore from '~/store'
 
 const styles = StyleSheet.create({
   container: {
@@ -32,11 +34,14 @@ const styles = StyleSheet.create({
 })
 
 const TimelineFilters = () => {
+  const selectedChannel = useMobileStore((state) => state.selectedChannel)
+
   return (
     <ScrollView
       style={styles.container}
       horizontal={true}
       showsHorizontalScrollIndicator={false}
+      contentContainerStyle={{ gap: 5 }}
     >
       <Pressable
         onPress={() => haptic()}
@@ -50,10 +55,17 @@ const TimelineFilters = () => {
           style={styles.image}
         />
         <Text style={[styles.text, { color: theme.colors.black }]}>
-          Everyone's Listening
+          For You
         </Text>
       </Pressable>
-      <Pressable onPress={() => haptic()} style={styles.filter}>
+      <Pressable
+        onPress={() => {
+          if (!selectedChannel) {
+            return notify('info', { params: { title: 'Sign in with Lens' } })
+          }
+        }}
+        style={styles.filter}
+      >
         <ExpoImage
           source={{
             uri: imageCdn(`${STATIC_ASSETS}/mobile/icons/smile.png`, 'AVATAR')
@@ -61,11 +73,16 @@ const TimelineFilters = () => {
           transition={300}
           style={styles.image}
         />
-        <Text style={[styles.text, { color: theme.colors.white }]}>
-          For You
-        </Text>
+        <Text style={[styles.text, { color: theme.colors.white }]}>Feed</Text>
       </Pressable>
-      <Pressable onPress={() => haptic()} style={styles.filter}>
+      <Pressable
+        onPress={() => {
+          if (!selectedChannel) {
+            return notify('info', { params: { title: 'Sign in with Lens' } })
+          }
+        }}
+        style={styles.filter}
+      >
         <ExpoImage
           source={{
             uri: imageCdn(`${STATIC_ASSETS}/mobile/icons/proud.png`, 'AVATAR')

@@ -14,6 +14,7 @@ import { ActivityIndicator, StyleSheet, View } from 'react-native'
 import { windowHeight } from '~/helpers/theme'
 
 import AudioCard from '../common/AudioCard'
+import ImageCard from '../common/ImageCard'
 import VideoCard from '../common/VideoCard'
 import ServerError from '../ui/ServerError'
 import ByteCards from './ByteCards'
@@ -42,7 +43,11 @@ const Timeline = () => {
     publicationTypes: [PublicationTypes.Post],
     customFilters: LENS_CUSTOM_FILTERS,
     metadata: {
-      mainContentFocus: [PublicationMainFocus.Audio, PublicationMainFocus.Video]
+      mainContentFocus: [
+        PublicationMainFocus.Audio,
+        PublicationMainFocus.Video,
+        PublicationMainFocus.Image
+      ]
     }
   }
   const { data, fetchMore, loading, error } = useExploreQuery({
@@ -67,6 +72,8 @@ const Timeline = () => {
     ({ item }: { item: Publication }) =>
       item.metadata.mainContentFocus === PublicationMainFocus.Audio ? (
         <AudioCard audio={item} />
+      ) : item.metadata.mainContentFocus === PublicationMainFocus.Image ? (
+        <ImageCard image={item} />
       ) : (
         <VideoCard video={item} />
       ),
