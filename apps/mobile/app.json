@@ -21,6 +21,7 @@
       "associatedDomains": ["applinks:pripe.xyz"]
     },
     "android": {
+      "package": "xyz.pripe.mobile",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#000000"
