@@ -12,6 +12,12 @@ export const MISUSED_CHANNELS: {
   description: string | null
 }[] = [
   {
+    // brian_armstrong.lens
+    id: '0x700c',
+    type: MisuseType.Impersonated,
+    description: null
+  },
+  {
     // lufoart.lens
     id: '0xd3a4',
     type: MisuseType.Impersonated,

@@ -98,11 +98,6 @@ const Layout: FC<Props> = ({ children }) => {
       // Redirect to signin page
       replace(`/auth?next=${asPath}`)
     }
-    const logout = () => {
-      resetAuthState()
-      signOut()
-      disconnect?.()
-    }
     const ownerAddress = selectedChannel?.ownedBy
     const isWrongNetworkChain = chain?.id !== POLYGON_CHAIN_ID
     const isSwitchedAccount =
@@ -112,7 +107,9 @@ const Layout: FC<Props> = ({ children }) => {
       !accessToken || isWrongNetworkChain || isSwitchedAccount
 
     if (shouldLogout && selectedChannelId) {
-      logout()
+      resetAuthState()
+      signOut()
+      disconnect?.()
     }
   }
 
