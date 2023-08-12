@@ -200,6 +200,7 @@ const Info: FC<Props> = (props) => {
               radius={20}
               profile={profile}
               showHandle={false}
+              pressable={false}
             />
           </SharedElement>
           <View style={styles.stat}>
