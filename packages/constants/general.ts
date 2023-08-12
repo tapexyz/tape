@@ -103,6 +103,7 @@ export const LENSTUBE_TAIL_INGEST_URL = 'https://tail.lenstube.xyz'
 export const STS_TOKEN_URL = 'https://sts.lenstube.xyz'
 export const HEALTH_URL = 'https://health.lenstube.xyz'
 export const RECS_URL = 'https://recs.lenstube.xyz'
+export const NFTS_URL = 'https://nfts.lenstube.xyz'
 
 // bundlr
 export const BUNDLR_NODE_URL = IS_MAINNET

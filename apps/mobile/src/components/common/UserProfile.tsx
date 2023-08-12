@@ -17,6 +17,7 @@ type Props = {
   size?: number
   radius?: number
   showHandle?: boolean
+  pressable?: boolean
   opacity?: number
   onPress?: () => void
   handleStyle?: StyleProp<TextStyle>
@@ -44,18 +45,20 @@ const UserProfile: FC<Props> = (props) => {
     opacity = 1,
     onPress,
     showHandle = true,
-    handleStyle
+    handleStyle,
+    pressable
   } = props
   const { navigate } = useNavigation()
 
   const navigateToProfile = () => {
-    navigate('ProfileModal', {
+    navigate('ProfileScreen', {
       handle: profile.handle
     })
   }
 
   return (
     <AnimatedPressable
+      pressable={pressable}
       style={[styles.pressable, { opacity }]}
       onPress={onPress ?? navigateToProfile}
     >

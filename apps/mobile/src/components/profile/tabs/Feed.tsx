@@ -17,6 +17,8 @@ import {
 } from 'react-native'
 import Animated from 'react-native-reanimated'
 
+import ImageCard from '~/components/common/ImageCard'
+
 import AudioCard from '../../common/AudioCard'
 import VideoCard from '../../common/VideoCard'
 
@@ -39,7 +41,11 @@ const Feed: FC<Props> = ({ profile, scrollHandler }) => {
     publicationTypes: [PublicationTypes.Post],
     limit: 32,
     metadata: {
-      mainContentFocus: [PublicationMainFocus.Video, PublicationMainFocus.Audio]
+      mainContentFocus: [
+        PublicationMainFocus.Video,
+        PublicationMainFocus.Audio,
+        PublicationMainFocus.Image
+      ]
     },
     customFilters: LENS_CUSTOM_FILTERS,
     profileId: profile?.id
@@ -67,12 +73,17 @@ const Feed: FC<Props> = ({ profile, scrollHandler }) => {
   }
 
   const renderItem = useCallback(
-    ({ item }: { item: Publication }) =>
-      item.metadata.mainContentFocus === PublicationMainFocus.Audio ? (
-        <AudioCard audio={item} />
-      ) : (
-        <VideoCard video={item} />
-      ),
+    ({ item }: { item: Publication }) => (
+      <View style={{ marginBottom: 30 }}>
+        {item.metadata.mainContentFocus === PublicationMainFocus.Audio ? (
+          <AudioCard audio={item} />
+        ) : item.metadata.mainContentFocus === PublicationMainFocus.Image ? (
+          <ImageCard image={item} />
+        ) : (
+          <VideoCard video={item} />
+        )}
+      </View>
+    ),
     []
   )
 
@@ -80,10 +91,11 @@ const Feed: FC<Props> = ({ profile, scrollHandler }) => {
     <View style={[styles.container, { height }]}>
       <Animated.FlatList
         data={publications}
-        contentContainerStyle={{ paddingBottom: 180 }}
+        contentContainerStyle={{
+          paddingBottom: publications?.length < 5 ? 350 : 180
+        }}
         renderItem={renderItem}
         keyExtractor={(item, i) => `${item.id}_${i}`}
-        ItemSeparatorComponent={() => <View style={{ height: 30 }} />}
         ListFooterComponent={() =>
           loading && <ActivityIndicator style={{ paddingVertical: 20 }} />
         }

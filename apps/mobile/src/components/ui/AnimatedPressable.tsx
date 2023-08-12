@@ -5,9 +5,14 @@ import React, { useMemo } from 'react'
 
 interface Props extends MotiPressableProps {
   children?: ReactNode
+  pressable?: boolean
 }
 
-const AnimatedPressable: FC<Props> = ({ children, ...props }) => {
+const AnimatedPressable: FC<Props> = ({
+  children,
+  pressable = true,
+  ...props
+}) => {
   const animatePress = useMemo(
     () =>
       ({ pressed }: { pressed: boolean }) => {
@@ -20,7 +25,7 @@ const AnimatedPressable: FC<Props> = ({ children, ...props }) => {
   )
 
   return (
-    <MotiPressable {...props} animate={animatePress}>
+    <MotiPressable {...props} animate={pressable ? animatePress : undefined}>
       {children}
     </MotiPressable>
   )

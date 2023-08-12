@@ -105,6 +105,33 @@ const ChooseFocus = () => {
           Audio
         </Text>
       </AnimatedPressable>
+
+      <AnimatedPressable
+        onPress={() => onChoose(PublicationMainFocus.Image)}
+        style={[
+          styles.filter,
+          {
+            backgroundColor:
+              draftedPublication.mainFocus === PublicationMainFocus.Image
+                ? theme.colors.white
+                : theme.colors.black
+          }
+        ]}
+      >
+        <Text
+          style={[
+            styles.text,
+            {
+              color:
+                draftedPublication.mainFocus === PublicationMainFocus.Image
+                  ? theme.colors.black
+                  : theme.colors.white
+            }
+          ]}
+        >
+          Image
+        </Text>
+      </AnimatedPressable>
     </View>
   )
 }

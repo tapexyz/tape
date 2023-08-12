@@ -4,11 +4,13 @@ import { useNavigation } from '@react-navigation/native'
 import { LinearGradient } from 'expo-linear-gradient'
 import React, { memo } from 'react'
 import { ImageBackground, StyleSheet, Text, View } from 'react-native'
+import { notify } from 'react-native-notificated'
 import Animated, { FadeInRight } from 'react-native-reanimated'
 
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
+import useMobileStore from '~/store'
 
 import AnimatedPressable from '../ui/AnimatedPressable'
 
@@ -74,11 +76,19 @@ const styles = StyleSheet.create({
 
 const Showcase = () => {
   const { navigate } = useNavigation()
+  const selectedChannel = useMobileStore((state) => state.selectedChannel)
 
   return (
     <View style={styles.container}>
-      <Animated.View entering={FadeInRight.duration(400)} style={styles.card}>
-        <AnimatedPressable onPress={() => haptic()}>
+      <Animated.View entering={FadeInRight.duration(100)} style={styles.card}>
+        <AnimatedPressable
+          onPress={() => {
+            if (!selectedChannel) {
+              return notify('info', { params: { title: 'Sign in with Lens' } })
+            }
+            haptic()
+          }}
+        >
           <ImageBackground
             source={{
               uri: imageCdn(`${STATIC_ASSETS}/mobile/images/couch-garden.jpg`)
@@ -91,16 +101,16 @@ const Showcase = () => {
           >
             <LinearGradient colors={['transparent', '#00000080', '#00000090']}>
               <View style={styles.whTextWrapper}>
-                <Text style={styles.whTitle}>What's happening?</Text>
+                <Text style={styles.whTitle}>Digital Crossovers</Text>
                 <Text style={styles.whDescription}>
-                  Adventure awaits beyond the horizon.
+                  Collectibles cross paths with friends.
                 </Text>
               </View>
             </LinearGradient>
           </ImageBackground>
         </AnimatedPressable>
       </Animated.View>
-      <Animated.View entering={FadeInRight.duration(600)} style={styles.grid}>
+      <Animated.View entering={FadeInRight.duration(300)} style={styles.grid}>
         <View style={styles.gridCard}>
           <AnimatedPressable
             onPress={() => {

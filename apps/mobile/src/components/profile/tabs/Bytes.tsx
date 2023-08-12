@@ -101,7 +101,9 @@ const Bytes: FC<Props> = ({ profile, scrollHandler }) => {
   return (
     <View style={[styles.container, { height }]}>
       <Animated.FlatList
-        contentContainerStyle={{ paddingBottom: 180 }}
+        contentContainerStyle={{
+          paddingBottom: bytes?.length < 10 ? 350 : 180
+        }}
         data={bytes}
         renderItem={renderItem}
         keyExtractor={(item, i) => `${item.id}_${i}`}
@@ -113,7 +115,7 @@ const Bytes: FC<Props> = ({ profile, scrollHandler }) => {
         onEndReachedThreshold={0.8}
         showsVerticalScrollIndicator={false}
         onScroll={scrollHandler}
-        numColumns={3}
+        numColumns={NUM_COLUMNS}
         scrollEventThrottle={16}
       />
     </View>

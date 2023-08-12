@@ -11,6 +11,6 @@
     "@lenstube/config": "*",
     "@lenstube/constants": "*",
     "@lenstube/generic": "*",
-    "@playwright/test": "^1.36.1"
+    "@playwright/test": "^1.37.0"
   }
 }

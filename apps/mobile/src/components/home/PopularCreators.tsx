@@ -79,10 +79,10 @@ const PopularCreators = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Trending on Lensverse</Text>
+      <Text style={styles.title}>Creators on Lens</Text>
       <Text style={styles.subheading}>Discover, Connect, and Collect</Text>
       <Animated.View
-        entering={FadeInRight.duration(500)}
+        entering={FadeInRight.duration(300)}
         style={{
           paddingTop: 20
         }}
@@ -105,7 +105,7 @@ const PopularCreators = () => {
             <AnimatedPressable
               key={profile.id}
               onPress={() =>
-                navigate('ProfileModal', {
+                navigate('ProfileScreen', {
                   handle: profile.handle
                 })
               }

@@ -67,12 +67,15 @@ const Media: FC<Props> = ({ profile, scrollHandler }) => {
   }
 
   const renderItem = useCallback(
-    ({ item }: { item: Publication }) =>
-      item.metadata.mainContentFocus === PublicationMainFocus.Audio ? (
-        <AudioCard audio={item} />
-      ) : (
-        <VideoCard video={item} />
-      ),
+    ({ item }: { item: Publication }) => (
+      <View style={{ marginBottom: 30 }}>
+        {item.metadata.mainContentFocus === PublicationMainFocus.Audio ? (
+          <AudioCard audio={item} />
+        ) : (
+          <VideoCard video={item} />
+        )}
+      </View>
+    ),
     []
   )
 
@@ -81,9 +84,10 @@ const Media: FC<Props> = ({ profile, scrollHandler }) => {
       <Animated.FlatList
         data={publications}
         renderItem={renderItem}
-        contentContainerStyle={{ paddingBottom: 180 }}
+        contentContainerStyle={{
+          paddingBottom: publications?.length < 5 ? 350 : 180
+        }}
         keyExtractor={(item, i) => `${item.id}_${i}`}
-        ItemSeparatorComponent={() => <View style={{ height: 30 }} />}
         ListFooterComponent={() =>
           loading && <ActivityIndicator style={{ paddingVertical: 20 }} />
         }

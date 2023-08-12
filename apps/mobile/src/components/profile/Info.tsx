@@ -200,6 +200,7 @@ const Info: FC<Props> = (props) => {
               radius={20}
               profile={profile}
               showHandle={false}
+              pressable={false}
             />
           </SharedElement>
           <View style={styles.stat}>
@@ -219,7 +220,7 @@ const Info: FC<Props> = (props) => {
             )}
             <Animated.Text
               style={styles.handle}
-              entering={FadeInRight.duration(400)}
+              entering={FadeInRight.duration(300)}
               numberOfLines={1}
             >
               {trimLensHandle(profile.handle)}
@@ -229,7 +230,7 @@ const Info: FC<Props> = (props) => {
               <Animated.Text
                 numberOfLines={!showMoreBio ? 2 : undefined}
                 style={styles.bio}
-                entering={FadeInRight.delay(200).duration(400)}
+                entering={FadeInRight.delay(100).duration(300)}
               >
                 {showMoreBio ? profile.bio : trimNewLines(profile.bio ?? '')}
               </Animated.Text>
@@ -243,13 +244,7 @@ const Info: FC<Props> = (props) => {
             entering={FadeInRight.duration(400)}
           >
             <View style={{ flex: 1 }}>
-              <Button
-                text="Follow"
-                size="sm"
-                onPress={() => {
-                  haptic()
-                }}
-              />
+              <Button text="Follow" size="sm" onPress={() => haptic()} />
             </View>
             <Button
               icon={

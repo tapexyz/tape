@@ -37,7 +37,7 @@ const Timeline = () => {
 
   const request = {
     sortCriteria: PublicationSortCriteria.CuratedProfiles,
-    limit: 5,
+    limit: 10,
     noRandomize: false,
     publicationTypes: [PublicationTypes.Post],
     customFilters: LENS_CUSTOM_FILTERS,
@@ -64,12 +64,16 @@ const Timeline = () => {
   }
 
   const renderItem = useCallback(
-    ({ item }: { item: Publication }) =>
-      item.metadata.mainContentFocus === PublicationMainFocus.Audio ? (
-        <AudioCard audio={item} />
-      ) : (
-        <VideoCard video={item} />
-      ),
+    ({ item }: { item: Publication }) => (
+      // Added extra 'View' this to fix issue with ItemSeparator rendering
+      <View style={{ marginBottom: 30 }}>
+        {item.metadata.mainContentFocus === PublicationMainFocus.Audio ? (
+          <AudioCard audio={item} />
+        ) : (
+          <VideoCard video={item} />
+        )}
+      </View>
+    ),
     []
   )
 
@@ -103,7 +107,6 @@ const Timeline = () => {
         estimatedItemSize={publications.length}
         renderItem={renderItem}
         keyExtractor={(item, i) => `${item.id}_${i}`}
-        ItemSeparatorComponent={() => <View style={{ height: 30 }} />}
         ListFooterComponent={() => (
           <ActivityIndicator style={{ paddingVertical: 20 }} />
         )}
