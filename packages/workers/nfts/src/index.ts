@@ -12,8 +12,8 @@ const router = Router()
 
 router.all('*', preflight)
 router.get('/', () => new Response('gm 👋'))
-router.get('/:handle/:limit/:cursor?', ({ params }, env) => 
-   getNfts(env, params.handle, params.limit)
+router.get('/:handle/:limit/:cursor?', ({ params }, env) =>
+  getNfts(env, params.handle, params.limit)
 )
 
 const routerHandleStack = (request: Request, env: Env, ctx: ExecutionContext) =>
