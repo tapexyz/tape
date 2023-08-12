@@ -12,7 +12,7 @@
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "@apollo/client": "^3.8.0",
+    "@apollo/client": "^3.8.1",
     "@livepeer/react": "^2.8.0",
     "clsx": "^2.0.0",
     "graphql": "^16.7.0",
@@ -28,7 +28,7 @@
     "@lenstube/generic": "*",
     "@lenstube/lens": "*",
     "@lenstube/ui": "*",
-    "@types/node": "20.4.9",
+    "@types/node": "20.4.10",
     "@types/react": "18.2.20",
     "@types/react-dom": "18.2.7",
     "autoprefixer": "^10.4.14",
