@@ -19,6 +19,7 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import TabList from './TabList'
 import Bytes from './tabs/Bytes'
 import Feed from './tabs/Feed'
+import Gallery from './tabs/Gallery'
 import Media from './tabs/Media'
 
 const tabs = ['Feed', 'Media', 'Bytes', 'Replies', 'Gallery']
@@ -98,7 +99,7 @@ const TabContent: FC<Props> = (props) => {
             Media: <Media profile={profile} scrollHandler={scrollHandler} />,
             Bytes: <Bytes profile={profile} scrollHandler={scrollHandler} />,
             Replies: <Feed profile={profile} scrollHandler={scrollHandler} />,
-            Gallery: <Feed profile={profile} scrollHandler={scrollHandler} />
+            Gallery: <Gallery profile={profile} scrollHandler={scrollHandler} />
           }[item]
 
           return <View style={{ width }}>{component}</View>

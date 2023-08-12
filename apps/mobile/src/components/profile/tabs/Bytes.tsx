@@ -113,7 +113,7 @@ const Bytes: FC<Props> = ({ profile, scrollHandler }) => {
         onEndReachedThreshold={0.8}
         showsVerticalScrollIndicator={false}
         onScroll={scrollHandler}
-        numColumns={3}
+        numColumns={NUM_COLUMNS}
         scrollEventThrottle={16}
       />
     </View>

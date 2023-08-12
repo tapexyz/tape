@@ -31,12 +31,16 @@ export default async (
       Polygon ?? {}
 
     const items = [
-      ...EthereumTokenBalance.map(({ tokenNfts }: any) => tokenNfts).filter(
-        ({ contentValue }: any) => contentValue.video || contentValue.audio
-      ),
-      ...PolygonTokenBalance.map(({ tokenNfts }: any) => tokenNfts).filter(
-        ({ contentValue }: any) => contentValue.video || contentValue.audio
-      )
+      ...(EthereumTokenBalance ?? [])
+        .map(({ tokenNfts }: any) => tokenNfts)
+        .filter(
+          ({ contentValue }: any) => contentValue.video || contentValue.audio
+        ),
+      ...(PolygonTokenBalance ?? [])
+        .map(({ tokenNfts }: any) => tokenNfts)
+        .filter(
+          ({ contentValue }: any) => contentValue.video || contentValue.audio
+        )
     ]
 
     let response = new Response(JSON.stringify({ success: true, items }))
