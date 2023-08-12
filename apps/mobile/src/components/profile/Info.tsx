@@ -243,13 +243,7 @@ const Info: FC<Props> = (props) => {
             entering={FadeInRight.duration(400)}
           >
             <View style={{ flex: 1 }}>
-              <Button
-                text="Follow"
-                size="sm"
-                onPress={() => {
-                  haptic()
-                }}
-              />
+              <Button text="Follow" size="sm" onPress={() => haptic()} />
             </View>
             <Button
               icon={
