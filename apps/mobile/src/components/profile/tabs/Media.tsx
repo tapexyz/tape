@@ -17,8 +17,6 @@ import {
 } from 'react-native'
 import Animated from 'react-native-reanimated'
 
-import ImageCard from '~/components/common/ImageCard'
-
 import AudioCard from '../../common/AudioCard'
 import VideoCard from '../../common/VideoCard'
 
@@ -41,11 +39,7 @@ const Media: FC<Props> = ({ profile, scrollHandler }) => {
     publicationTypes: [PublicationTypes.Post],
     limit: 32,
     metadata: {
-      mainContentFocus: [
-        PublicationMainFocus.Video,
-        PublicationMainFocus.Audio,
-        PublicationMainFocus.Image
-      ]
+      mainContentFocus: [PublicationMainFocus.Video, PublicationMainFocus.Audio]
     },
     customFilters: LENS_CUSTOM_FILTERS,
     profileId: profile?.id
@@ -77,8 +71,6 @@ const Media: FC<Props> = ({ profile, scrollHandler }) => {
       <View style={{ marginBottom: 30 }}>
         {item.metadata.mainContentFocus === PublicationMainFocus.Audio ? (
           <AudioCard audio={item} />
-        ) : item.metadata.mainContentFocus === PublicationMainFocus.Image ? (
-          <ImageCard image={item} />
         ) : (
           <VideoCard video={item} />
         )}

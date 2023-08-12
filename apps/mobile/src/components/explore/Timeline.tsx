@@ -18,7 +18,6 @@ import {
 import useMobileStore from '~/store'
 
 import AudioCard from '../common/AudioCard'
-import ImageCard from '../common/ImageCard'
 import VideoCard from '../common/VideoCard'
 import Filters from './Filters'
 import Showcase from './Showcase'
@@ -53,11 +52,7 @@ const Timeline = () => {
         selectedExploreFilter.category !== 'all'
           ? { oneOf: [selectedExploreFilter.category] }
           : undefined,
-      mainContentFocus: [
-        PublicationMainFocus.Audio,
-        PublicationMainFocus.Video,
-        PublicationMainFocus.Image
-      ]
+      mainContentFocus: [PublicationMainFocus.Audio, PublicationMainFocus.Video]
     }
   }
 
@@ -84,8 +79,6 @@ const Timeline = () => {
       <View style={{ marginBottom: 30 }}>
         {item.metadata.mainContentFocus === PublicationMainFocus.Audio ? (
           <AudioCard audio={item} />
-        ) : item.metadata.mainContentFocus === PublicationMainFocus.Image ? (
-          <ImageCard image={item} />
         ) : (
           <VideoCard video={item} />
         )}
