@@ -2,7 +2,7 @@ import { imageCdn, sanitizeDStorageUrl } from '@lenstube/generic'
 import type { MediaSet } from '@lenstube/lens'
 import { Image as ExpoImage } from 'expo-image'
 import { MotiText, MotiView } from 'moti'
-import React, { useState } from 'react'
+import React, { memo, useState } from 'react'
 import { Pressable, StyleSheet, View } from 'react-native'
 import Animated, { Easing, FadeIn, FadeOut } from 'react-native-reanimated'
 
@@ -62,7 +62,10 @@ const ImageSlider = ({ images }: { images: MediaSet[] }) => {
                   source={{
                     uri: imageCdn(sanitizeDStorageUrl(image.original.url))
                   }}
-                  style={StyleSheet.absoluteFillObject}
+                  style={[
+                    StyleSheet.absoluteFillObject,
+                    { backgroundColor: theme.colors.backdrop }
+                  ]}
                   transition={300}
                   contentFit="cover"
                 />
@@ -121,4 +124,4 @@ const ImageSlider = ({ images }: { images: MediaSet[] }) => {
   )
 }
 
-export default ImageSlider
+export default memo(ImageSlider)

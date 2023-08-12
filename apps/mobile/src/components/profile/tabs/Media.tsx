@@ -84,7 +84,9 @@ const Media: FC<Props> = ({ profile, scrollHandler }) => {
       <Animated.FlatList
         data={publications}
         renderItem={renderItem}
-        contentContainerStyle={{ paddingBottom: 180 }}
+        contentContainerStyle={{
+          paddingBottom: publications?.length < 5 ? 350 : 180
+        }}
         keyExtractor={(item, i) => `${item.id}_${i}`}
         ListFooterComponent={() =>
           loading && <ActivityIndicator style={{ paddingVertical: 20 }} />

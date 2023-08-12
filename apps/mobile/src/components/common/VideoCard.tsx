@@ -117,8 +117,7 @@ const VideoCard: FC<Props> = ({ video }) => {
             blurRadius={15}
             imageStyle={{
               opacity: 0.8,
-              borderRadius: BORDER_RADIUS,
-              position: 'relative'
+              borderRadius: BORDER_RADIUS
             }}
           >
             <ExpoImage

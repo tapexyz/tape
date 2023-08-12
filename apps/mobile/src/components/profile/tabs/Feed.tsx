@@ -91,7 +91,9 @@ const Feed: FC<Props> = ({ profile, scrollHandler }) => {
     <View style={[styles.container, { height }]}>
       <Animated.FlatList
         data={publications}
-        contentContainerStyle={{ paddingBottom: 180 }}
+        contentContainerStyle={{
+          paddingBottom: publications?.length < 5 ? 350 : 180
+        }}
         renderItem={renderItem}
         keyExtractor={(item, i) => `${item.id}_${i}`}
         ListFooterComponent={() =>
