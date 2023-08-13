@@ -1,10 +1,8 @@
 import { imageCdn, sanitizeDStorageUrl } from '@lenstube/generic'
 import type { MediaSet } from '@lenstube/lens'
 import { Image as ExpoImage } from 'expo-image'
-import { MotiText, MotiView } from 'moti'
 import React, { memo, useState } from 'react'
-import { Pressable, StyleSheet, View } from 'react-native'
-import Animated, { Easing, FadeIn, FadeOut } from 'react-native-reanimated'
+import { Pressable, StyleSheet, Text, View } from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
@@ -32,17 +30,10 @@ const ImageSlider = ({ images }: { images: MediaSet[] }) => {
       >
         {images.slice(0, MAX_SHOW_COUNT).map((image, index) => {
           return (
-            <MotiView
+            <View
               key={`${image.onChain.url}_${index}`}
-              animate={{
-                flex: selectedItem === index ? MAX_SHOW_COUNT * 2 : 1
-              }}
-              transition={{
-                type: 'timing',
-                duration: 500,
-                easing: Easing.inOut(Easing.ease)
-              }}
               style={{
+                flex: selectedItem === index ? MAX_SHOW_COUNT * 2 : 1,
                 borderRadius: 20,
                 overflow: 'hidden',
                 marginRight: index === MAX_SHOW_COUNT - 1 ? 0 : 5
@@ -54,9 +45,7 @@ const ImageSlider = ({ images }: { images: MediaSet[] }) => {
                   justifyContent: 'flex-end',
                   padding: 5
                 }}
-                onPress={() => {
-                  setSelectedItem(index)
-                }}
+                onPress={() => setSelectedItem(index)}
               >
                 <ExpoImage
                   source={{
@@ -70,7 +59,7 @@ const ImageSlider = ({ images }: { images: MediaSet[] }) => {
                   contentFit="cover"
                 />
                 {images.length > 1 && (
-                  <Animated.View
+                  <View
                     style={{
                       display: selectedItem === index ? 'none' : 'flex',
                       flexDirection: 'row',
@@ -78,18 +67,12 @@ const ImageSlider = ({ images }: { images: MediaSet[] }) => {
                       justifyContent: 'center'
                     }}
                   >
-                    <MotiView
-                      animate={{
+                    <View
+                      style={{
                         backgroundColor:
                           selectedItem === index
                             ? 'transparent'
-                            : theme.colors.white
-                      }}
-                      transition={{
-                        type: 'timing',
-                        duration: 500
-                      }}
-                      style={{
+                            : theme.colors.white,
                         width: 15,
                         height: 15,
                         borderRadius: 100,
@@ -98,25 +81,20 @@ const ImageSlider = ({ images }: { images: MediaSet[] }) => {
                         justifyContent: 'center'
                       }}
                     >
-                      <MotiText
-                        animate={{
-                          opacity: selectedItem === index ? 0 : 1
-                        }}
+                      <Text
                         style={{
                           color: theme.colors.black,
                           fontFamily: 'font-medium',
                           fontSize: normalizeFont(6)
                         }}
-                        entering={FadeIn.delay(50)}
-                        exiting={FadeOut.delay(100)}
                       >
                         {index + 1}
-                      </MotiText>
-                    </MotiView>
-                  </Animated.View>
+                      </Text>
+                    </View>
+                  </View>
                 )}
               </Pressable>
-            </MotiView>
+            </View>
           )
         })}
       </View>

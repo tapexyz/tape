@@ -66,7 +66,7 @@ const App = (): JSX.Element => {
           <WalletConnectModal
             themeMode="dark"
             projectId={WC_PROJECT_ID}
-            // explorerExcludedWalletIds="ALL"
+            explorerExcludedWalletIds="ALL"
             providerMetadata={providerMetadata}
             explorerRecommendedWalletIds={explorerRecommendedWalletIds}
           />
