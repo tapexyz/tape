@@ -6554,10 +6554,10 @@
   dependencies:
     valtio "1.11.0"
 
-"@walletconnect/modal-react-native@^1.0.0-rc.7":
-  version "1.0.0-rc.9"
-  resolved "https://registry.yarnpkg.com/@walletconnect/modal-react-native/-/modal-react-native-1.0.0-rc.9.tgz#5be0fac14695b78f9cd0d63968d2875ee1eb0148"
-  integrity sha512-jurJeIVhtaFqMLOTUA50FdLNRJautrMf/uaJcdkH+X2ZdJpHkH4OHzpKbfdwk0sEDJ2QIQ6pJsLP1TUt9wYi2g==
+"@walletconnect/modal-react-native@^1.0.0-rc.10":
+  version "1.0.0-rc.10"
+  resolved "https://registry.yarnpkg.com/@walletconnect/modal-react-native/-/modal-react-native-1.0.0-rc.10.tgz#31821e0bcd7f8fc99ad9f726926a254ea5dfe288"
+  integrity sha512-hwDqTKkSgYL6hD3JIawZLlOJrGVtgMKfCEKeUsVMuxSX5oz7SRh4GkyXppz7Scq47214jTMWiP/z80JW1bEj3A==
   dependencies:
     "@ethersproject/shims" "5.7.0"
     "@walletconnect/core" "2.9.2"

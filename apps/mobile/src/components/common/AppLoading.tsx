@@ -43,7 +43,7 @@ const Splash = () => {
 
   return (
     <Animated.View
-      entering={FadeIn.duration(1000)}
+      entering={FadeIn.duration(700)}
       style={{
         flex: 1,
         alignItems: 'center',
@@ -54,7 +54,6 @@ const Splash = () => {
       <Animated.View style={animatedStyle}>
         <ExpoImage
           source={require('assets/splash.png')}
-          transition={100}
           contentFit="cover"
           style={{ width, height }}
         />
