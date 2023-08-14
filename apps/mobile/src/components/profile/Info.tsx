@@ -22,7 +22,6 @@ import {
 import type { SharedValue } from 'react-native-reanimated'
 import Animated, {
   Extrapolate,
-  FadeInRight,
   interpolate,
   useAnimatedStyle
 } from 'react-native-reanimated'
@@ -128,7 +127,7 @@ const Info: FC<Props> = (props) => {
 
   return (
     <Animated.View style={animatedHeaderStyle}>
-      <Animated.View
+      <View
         onLayout={(event) => {
           const { height } = event.nativeEvent.layout
           if (infoHeaderHeight !== height) {
@@ -218,31 +217,23 @@ const Info: FC<Props> = (props) => {
             {isOwned && (
               <Text style={[styles.handle, { opacity: 0.5 }]}>gm,</Text>
             )}
-            <Animated.Text
-              style={styles.handle}
-              entering={FadeInRight.duration(300)}
-              numberOfLines={1}
-            >
+            <Text style={styles.handle} numberOfLines={1}>
               {trimLensHandle(profile.handle)}
-            </Animated.Text>
+            </Text>
 
             <Pressable onPress={() => setShowMoreBio(!showMoreBio)}>
-              <Animated.Text
+              <Text
                 numberOfLines={!showMoreBio ? 2 : undefined}
                 style={styles.bio}
-                entering={FadeInRight.delay(100).duration(300)}
               >
                 {showMoreBio ? profile.bio : trimNewLines(profile.bio ?? '')}
-              </Animated.Text>
+              </Text>
             </Pressable>
           </View>
 
           <OnChainIdentities identity={profile.onChainIdentity} />
 
-          <Animated.View
-            style={{ flexDirection: 'row', gap: 10 }}
-            entering={FadeInRight.duration(400)}
-          >
+          <View style={{ flexDirection: 'row', gap: 10 }}>
             <View style={{ flex: 1 }}>
               <Button text="Follow" size="sm" onPress={() => haptic()} />
             </View>
@@ -259,9 +250,9 @@ const Info: FC<Props> = (props) => {
                 haptic()
               }}
             />
-          </Animated.View>
+          </View>
         </View>
-      </Animated.View>
+      </View>
     </Animated.View>
   )
 }

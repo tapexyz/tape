@@ -91,7 +91,7 @@ const FirstSteps = () => {
     <View style={styles.container}>
       <Text style={styles.title}>First steps with Pripe</Text>
       <Text style={styles.subheading}>Unleash New Social Horizons</Text>
-      <Animated.View entering={FadeInRight.duration(300)}>
+      <Animated.View entering={FadeInRight}>
         <ScrollView
           horizontal={true}
           showsHorizontalScrollIndicator={false}

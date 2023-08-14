@@ -59,10 +59,7 @@ export const WatchScreen = (props: WatchScreenProps) => {
         <VideoPlayer video={video} />
       </SharedElement>
 
-      <Animated.View
-        style={{ height: windowHeight }}
-        entering={FadeInDown.duration(500)}
-      >
+      <Animated.View style={{ height: windowHeight }} entering={FadeInDown}>
         <MoreVideos video={video} />
       </Animated.View>
     </View>

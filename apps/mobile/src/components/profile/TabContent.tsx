@@ -72,10 +72,7 @@ const TabContent: FC<Props> = (props) => {
   })
 
   return (
-    <Animated.View
-      style={animatedScrollStyles}
-      entering={FadeInRight.delay(200).duration(400)}
-    >
+    <Animated.View style={animatedScrollStyles} entering={FadeInRight}>
       <TabList
         activeTab={activeTabIndex}
         tabs={tabs}

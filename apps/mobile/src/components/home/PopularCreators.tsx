@@ -82,7 +82,7 @@ const PopularCreators = () => {
       <Text style={styles.title}>Creators on Lens</Text>
       <Text style={styles.subheading}>Discover, Connect, and Collect</Text>
       <Animated.View
-        entering={FadeInRight.duration(300)}
+        entering={FadeInRight}
         style={{
           paddingTop: 20
         }}

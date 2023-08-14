@@ -22,7 +22,6 @@ import {
   Text,
   View
 } from 'react-native'
-import Animated, { FadeIn } from 'react-native-reanimated'
 import { SharedElement } from 'react-navigation-shared-element'
 
 import normalizeFont from '~/helpers/normalize-font'
@@ -109,72 +108,70 @@ const VideoCard: FC<Props> = ({ video }) => {
   )
 
   return (
-    <Animated.View entering={FadeIn.duration(300)}>
-      <Pressable onPress={() => navigate('WatchVideo', { id: video.id })}>
-        <SharedElement id={`video.watch.${video.id}.thumbnail`}>
-          <ImageBackground
+    <Pressable onPress={() => navigate('WatchVideo', { id: video.id })}>
+      <SharedElement id={`video.watch.${video.id}.thumbnail`}>
+        <ImageBackground
+          source={{ uri: thumbnailUrl }}
+          blurRadius={15}
+          imageStyle={{
+            opacity: 0.8,
+            borderRadius: BORDER_RADIUS
+          }}
+        >
+          <ExpoImage
             source={{ uri: thumbnailUrl }}
-            blurRadius={15}
-            imageStyle={{
-              opacity: 0.8,
-              borderRadius: BORDER_RADIUS
-            }}
-          >
-            <ExpoImage
-              source={{ uri: thumbnailUrl }}
-              transition={300}
-              contentFit={isBytes ? 'contain' : 'cover'}
-              style={styles.thumbnail}
-            />
-            {videoDuration && (
-              <View style={styles.duration}>
-                <Text style={styles.otherInfo}>
-                  {getTimeFromSeconds(videoDuration)}
-                </Text>
-              </View>
-            )}
-            {isSensitiveContent && (
-              <View style={styles.sensitive}>
-                <Ionicons
-                  name="eye-off-outline"
-                  color={theme.colors.white}
-                  size={10}
-                />
-                <Text style={styles.otherInfo}>Sensitive</Text>
-              </View>
-            )}
-          </ImageBackground>
-        </SharedElement>
-
-        <SharedElement id={`video.watch.${video.id}.info`}>
-          <View style={{ paddingVertical: 15, paddingHorizontal: 5 }}>
-            <Text numberOfLines={3} style={styles.title}>
-              {trimify(video.metadata.name ?? '')}
-            </Text>
-            {video.metadata.description && (
-              <Text numberOfLines={3} style={styles.description}>
-                {trimNewLines(video.metadata.description)}
-              </Text>
-            )}
-            <View style={styles.otherInfoContainer}>
-              <UserProfile profile={video.profile} size={15} radius={3} />
-              <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
-                {'\u2B24'}
-              </Text>
+            transition={300}
+            contentFit={isBytes ? 'contain' : 'cover'}
+            style={styles.thumbnail}
+          />
+          {videoDuration && (
+            <View style={styles.duration}>
               <Text style={styles.otherInfo}>
-                {video.stats.totalUpvotes} likes
-              </Text>
-              <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
-                {'\u2B24'}
-              </Text>
-              <Text style={styles.otherInfo}>
-                {getRelativeTime(video.createdAt)}
+                {getTimeFromSeconds(videoDuration)}
               </Text>
             </View>
+          )}
+          {isSensitiveContent && (
+            <View style={styles.sensitive}>
+              <Ionicons
+                name="eye-off-outline"
+                color={theme.colors.white}
+                size={10}
+              />
+              <Text style={styles.otherInfo}>Sensitive</Text>
+            </View>
+          )}
+        </ImageBackground>
+      </SharedElement>
+
+      <SharedElement id={`video.watch.${video.id}.info`}>
+        <View style={{ paddingVertical: 15, paddingHorizontal: 5 }}>
+          <Text numberOfLines={3} style={styles.title}>
+            {trimify(video.metadata.name ?? '')}
+          </Text>
+          {video.metadata.description && (
+            <Text numberOfLines={3} style={styles.description}>
+              {trimNewLines(video.metadata.description)}
+            </Text>
+          )}
+          <View style={styles.otherInfoContainer}>
+            <UserProfile profile={video.profile} size={15} radius={3} />
+            <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
+              {'\u2B24'}
+            </Text>
+            <Text style={styles.otherInfo}>
+              {video.stats.totalUpvotes} likes
+            </Text>
+            <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
+              {'\u2B24'}
+            </Text>
+            <Text style={styles.otherInfo}>
+              {getRelativeTime(video.createdAt)}
+            </Text>
           </View>
-        </SharedElement>
-      </Pressable>
-    </Animated.View>
+        </View>
+      </SharedElement>
+    </Pressable>
   )
 }
 

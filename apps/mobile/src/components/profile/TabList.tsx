@@ -6,9 +6,9 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  useWindowDimensions
+  useWindowDimensions,
+  View
 } from 'react-native'
-import Animated from 'react-native-reanimated'
 
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
@@ -69,9 +69,7 @@ const TabList: FC<Props> = ({ activeTab, tabs, scrollToTab }) => {
   }, [activeTab, autoScroll])
 
   return (
-    <Animated.View
-      style={{ flexDirection: 'row', backgroundColor: theme.colors.black }}
-    >
+    <View style={{ flexDirection: 'row', backgroundColor: theme.colors.black }}>
       <ScrollView
         ref={scrollViewRef}
         style={styles.container}
@@ -116,7 +114,7 @@ const TabList: FC<Props> = ({ activeTab, tabs, scrollToTab }) => {
           )
         })}
       </ScrollView>
-    </Animated.View>
+    </View>
   )
 }
 

@@ -3,7 +3,6 @@ import type { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import type { FC } from 'react'
 import React, { useCallback } from 'react'
-import Animated, { FadeIn } from 'react-native-reanimated'
 
 import haptic from '~/helpers/haptic'
 import { navigationTheme } from '~/helpers/theme'
@@ -46,11 +45,7 @@ export const BottomTabNavigator: FC = () => {
           iconName = 'globe'
         }
 
-        return (
-          <Animated.View entering={FadeIn.duration(1000)}>
-            <Ionicons name={iconName} color={color} size={size} />
-          </Animated.View>
-        )
+        return <Ionicons name={iconName} color={color} size={size} />
       },
       headerShown: false,
       ...tabBarTheme

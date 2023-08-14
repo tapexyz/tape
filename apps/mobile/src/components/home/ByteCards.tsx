@@ -16,7 +16,6 @@ import { Skeleton } from 'moti/skeleton'
 import React, { useCallback, useEffect } from 'react'
 import { Pressable, StyleSheet, View } from 'react-native'
 import Animated, {
-  FadeIn,
   interpolate,
   useAnimatedStyle,
   useDerivedValue,
@@ -168,8 +167,7 @@ const ByteCards = () => {
 
   const renderCard = useCallback((byte: Publication) => {
     return (
-      <Animated.View
-        entering={FadeIn.duration(500)}
+      <View
         style={{
           borderRadius: BORDER_RADIUS,
           borderWidth: 0.5,
@@ -193,7 +191,7 @@ const ByteCards = () => {
             handleStyle={{ fontFamily: 'font-bold' }}
           />
         </LinearGradient>
-      </Animated.View>
+      </View>
     )
   }, [])
 
@@ -219,10 +217,7 @@ const ByteCards = () => {
   const bytes = data?.explorePublications?.items as Publication[]
 
   return (
-    <Animated.View
-      entering={FadeIn.duration(500)}
-      style={styles.cardsContainer}
-    >
+    <View style={styles.cardsContainer}>
       <View style={{ zIndex: 1 }}>
         <Skeleton
           show={loading}
@@ -284,7 +279,7 @@ const ByteCards = () => {
       >
         {bytes?.length && renderCard(bytes[2])}
       </Pressable>
-    </Animated.View>
+    </View>
   )
 }
 

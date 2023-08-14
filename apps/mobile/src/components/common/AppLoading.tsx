@@ -43,7 +43,7 @@ const Splash = () => {
 
   return (
     <Animated.View
-      entering={FadeIn.duration(700)}
+      entering={FadeIn}
       style={{
         flex: 1,
         alignItems: 'center',
