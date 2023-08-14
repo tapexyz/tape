@@ -60,7 +60,6 @@ const Replies: FC<Props> = ({ profile, scrollHandler }) => {
 
   const publications = data?.publications?.items as Comment[]
   const pageInfo = data?.publications?.pageInfo
-  console.log('🚀 ~ file: Replies.tsx:63 ~ publications:', publications)
 
   const fetchMorePublications = async () => {
     await fetchMore({
