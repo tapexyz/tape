@@ -22,7 +22,7 @@ import { StyleSheet } from 'react-native'
 // eslint-disable-next-line import/no-duplicates
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 
-import { AppLoading } from './components'
+import AppLoading from './components/common/AppLoading'
 import mobileAuthLink from './helpers/auth-link'
 import { Navigation } from './navigation'
 import { NotificationsProvider, SafeAreaProvider } from './providers'

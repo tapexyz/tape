@@ -62,7 +62,7 @@ const Splash = () => {
   )
 }
 
-export const AppLoading: FC<PropsWithChildren> = ({ children }) => {
+const AppLoading: FC<PropsWithChildren> = ({ children }) => {
   const [appLoadingIsVisible, setAppLoadingIsVisible] = useState(true)
   const selectedChannelId = useMobilePersistStore(
     (state) => state.selectedChannelId
@@ -88,3 +88,5 @@ export const AppLoading: FC<PropsWithChildren> = ({ children }) => {
   // eslint-disable-next-line react/jsx-no-useless-fragment
   return <>{children}</>
 }
+
+export default AppLoading
