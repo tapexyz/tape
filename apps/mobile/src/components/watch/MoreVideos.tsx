@@ -31,7 +31,7 @@ const MoreVideos: FC<Props> = ({ video }) => {
     customFilters: LENS_CUSTOM_FILTERS,
     sources: [LENSTUBE_APP_ID]
   }
-  const { data, fetchMore } = useExploreQuery({
+  const { data, fetchMore, loading } = useExploreQuery({
     variables: {
       request
     }
@@ -72,6 +72,10 @@ const MoreVideos: FC<Props> = ({ video }) => {
     [video]
   )
 
+  if (loading) {
+    return <ActivityIndicator style={{ flex: 1 }} />
+  }
+
   if (!videos?.length) {
     return null
   }
@@ -90,9 +94,9 @@ const MoreVideos: FC<Props> = ({ video }) => {
         renderItem={renderItem}
         keyExtractor={(item, i) => `${item.id}_${i}`}
         onEndReachedThreshold={0.8}
-        ListFooterComponent={() => (
-          <ActivityIndicator style={{ paddingVertical: 20 }} />
-        )}
+        ListFooterComponent={() =>
+          loading && <ActivityIndicator style={{ paddingVertical: 20 }} />
+        }
         onEndReached={() => fetchMoreVideos()}
         showsVerticalScrollIndicator={false}
       />
