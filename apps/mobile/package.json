@@ -9,6 +9,7 @@
     "android": "expo start --android",
     "ios": "expo start --ios",
     "web": "expo start --web",
+    "devtools": "react-devtools",
     "lint": "eslint . --ext .js,.ts,.tsx",
     "eas:build": "eas build  --platform ios"
   },
@@ -68,6 +69,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.22.9",
+    "react-devtools": "^4.28.0",
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.18.6",
     "@babel/plugin-proposal-optional-chaining": "^7.21.0",
     "@babel/plugin-transform-arrow-functions": "^7.22.5",
@@ -80,6 +82,7 @@
     "@lenstube/lens": "*",
     "@types/node": "20.4.10",
     "@types/qrcode": "^1.5.1",
+    "@welldone-software/why-did-you-render": "^7.0.1",
     "babel-plugin-module-resolver": "^5.0.0",
     "ts-node": "^10.9.1",
     "typescript": "^4.9.4"
