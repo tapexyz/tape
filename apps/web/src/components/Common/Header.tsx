@@ -3,6 +3,7 @@ import Modal from '@components/UIElements/Modal'
 import Tooltip from '@components/UIElements/Tooltip'
 import { Analytics, TRACK } from '@lenstube/browser'
 import {
+  IS_MAINNET,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
@@ -59,7 +60,9 @@ const Header: FC<Props> = ({ className }) => {
     variables: {
       request: {
         profileId: selectedChannel?.id,
-        sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
+        sources: IS_MAINNET
+          ? [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID]
+          : undefined,
         customFilters: LENS_CUSTOM_FILTERS,
         limit: 1
       }

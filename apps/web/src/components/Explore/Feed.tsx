@@ -9,6 +9,7 @@ import { Tab } from '@headlessui/react'
 import { Analytics, TRACK } from '@lenstube/browser'
 import {
   ALLOWED_APP_IDS,
+  IS_MAINNET,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
@@ -56,7 +57,9 @@ const ExploreFeed = () => {
     sortCriteria: getCriteria(),
     limit: 32,
     noRandomize: true,
-    sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS],
+    sources: IS_MAINNET
+      ? [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
+      : undefined,
     publicationTypes: [PublicationTypes.Post],
     customFilters: LENS_CUSTOM_FILTERS,
     metadata: {
