@@ -3,6 +3,7 @@ import { Loader } from '@components/UIElements/Loader'
 import { Tab } from '@headlessui/react'
 import { Analytics, TRACK, useOutsideClick } from '@lenstube/browser'
 import {
+  IS_MAINNET,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID
@@ -48,7 +49,9 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
             type: activeSearch,
             query: keyword,
             limit: 30,
-            sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
+            sources: IS_MAINNET
+              ? [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID]
+              : undefined,
             customFilters: LENS_CUSTOM_FILTERS
           }
         }
