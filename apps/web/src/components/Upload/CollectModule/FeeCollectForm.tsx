@@ -14,7 +14,8 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-hot-toast'
 import { isAddress } from 'viem'
-import { z } from 'zod'
+import type { z } from 'zod'
+import { number, object, string } from 'zod'
 
 import Splits from './Splits'
 
@@ -25,18 +26,15 @@ type Props = {
   enabledCurrencies: { enabledModuleCurrencies: Array<Erc20> }
 }
 
-const formSchema = z.object({
-  currency: z.string(),
-  amount: z
-    .string()
+const formSchema = object({
+  currency: string(),
+  amount: string()
     .min(1, { message: t`Invalid amount` })
     .optional(),
-  collectLimit: z
-    .string()
+  collectLimit: string()
     .min(1, { message: t`Invalid collect limit` })
     .optional(),
-  referralPercent: z
-    .number()
+  referralPercent: number()
     .max(100, { message: t`Percentage should be 0 to 100` })
     .nonnegative({ message: t`Should to greater than or equal to zero` })
 })

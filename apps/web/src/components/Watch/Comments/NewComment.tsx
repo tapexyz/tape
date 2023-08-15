@@ -47,7 +47,9 @@ import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
-import { z } from 'zod'
+import type { z } from 'zod'
+import { object, string } from 'zod'
+
 type Props = {
   video: Publication
   defaultValue?: string
@@ -55,9 +57,8 @@ type Props = {
   hideEmojiPicker?: boolean
 }
 
-const formSchema = z.object({
-  comment: z
-    .string({ required_error: t`Enter valid comment` })
+const formSchema = object({
+  comment: string({ required_error: t`Enter valid comment` })
     .trim()
     .min(1, { message: t`Enter valid comment` })
     .max(5000, { message: t`Comment should not exceed 5000 characters` })
