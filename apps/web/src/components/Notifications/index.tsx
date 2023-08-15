@@ -11,6 +11,7 @@ import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { Tab } from '@headlessui/react'
 import { Analytics, TRACK } from '@lenstube/browser'
 import {
+  IS_MAINNET,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
@@ -87,7 +88,9 @@ const Notifications = () => {
     limit: 30,
     sources: activeFilter.subscriptions
       ? undefined
-      : [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
+      : IS_MAINNET
+      ? [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID]
+      : undefined,
     customFilters: LENS_CUSTOM_FILTERS,
     profileId: selectedChannel?.id,
     highSignalFilter:

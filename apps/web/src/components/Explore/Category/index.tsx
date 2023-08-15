@@ -5,6 +5,7 @@ import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import {
   ALLOWED_APP_IDS,
+  IS_MAINNET,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
@@ -34,7 +35,9 @@ const ExploreCategory = () => {
     publicationTypes: [PublicationTypes.Post],
     limit: 32,
     sortCriteria: PublicationSortCriteria.Latest,
-    sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS],
+    sources: IS_MAINNET
+      ? [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
+      : undefined,
     customFilters: LENS_CUSTOM_FILTERS,
     metadata: {
       tags: { oneOf: [categoryName] },

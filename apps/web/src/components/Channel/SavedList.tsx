@@ -5,7 +5,9 @@ import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import {
   ALLOWED_APP_IDS,
+  IS_MAINNET,
   LENSTUBE_APP_ID,
+  LENSTUBE_BYTES_APP_ID,
   SCROLL_ROOT_MARGIN
 } from '@lenstube/constants'
 import type { Profile, Publication } from '@lenstube/lens'
@@ -27,7 +29,9 @@ const SavedList: FC<Props> = () => {
     limit: 32,
     metadata: { mainContentFocus: [PublicationMainFocus.Video] },
     profileId: selectedChannel?.id,
-    sources: [LENSTUBE_APP_ID, ...ALLOWED_APP_IDS]
+    sources: IS_MAINNET
+      ? [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
+      : undefined
   }
 
   const { data, loading, error, fetchMore } = useProfileBookmarksQuery({

@@ -4,6 +4,7 @@ import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import {
   ALLOWED_APP_IDS,
+  IS_MAINNET,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
   SCROLL_ROOT_MARGIN
@@ -29,7 +30,7 @@ const HomeFeed = () => {
     sortCriteria: PublicationSortCriteria.CuratedProfiles,
     limit: 32,
     noRandomize: false,
-    sources: [LENSTUBE_APP_ID, ...ALLOWED_APP_IDS],
+    sources: IS_MAINNET ? [LENSTUBE_APP_ID, ...ALLOWED_APP_IDS] : undefined,
     publicationTypes: [PublicationTypes.Post],
     customFilters: LENS_CUSTOM_FILTERS,
     metadata: {
