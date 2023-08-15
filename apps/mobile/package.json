@@ -78,7 +78,7 @@
     "@lenstube/config": "*",
     "@lenstube/generic": "*",
     "@lenstube/lens": "*",
-    "@types/node": "20.4.10",
+    "@types/node": "20.5.0",
     "@types/qrcode": "^1.5.1",
     "babel-plugin-module-resolver": "^5.0.0",
     "ts-node": "^10.9.1",

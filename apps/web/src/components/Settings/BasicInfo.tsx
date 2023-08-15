@@ -52,35 +52,33 @@ import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
-import { z } from 'zod'
+import { object, string, union, z } from 'zod'
 
 type Props = {
   channel: Profile & {
     coverPicture: MediaSet
   }
 }
-const formSchema = z.object({
-  displayName: z.union([
-    z
-      .string()
+const formSchema = object({
+  displayName: union([
+    string()
       .min(4, { message: 'Name should be atleast 5 characters' })
       .max(30, { message: 'Name should not exceed 30 characters' }),
     z.string().max(0)
   ]),
-  description: z.union([
-    z
-      .string()
+  description: union([
+    string()
       .min(5, { message: 'Description should be atleast 5 characters' })
       .max(1000, { message: 'Description should not exceed 1000 characters' }),
     z.string().max(0)
   ]),
-  twitter: z.string(),
-  location: z.string(),
-  website: z.union([
-    z
-      .string()
-      .url({ message: 'Enter valid website URL (eg. https://lenstube.xyz)' }),
-    z.string().max(0)
+  twitter: string(),
+  location: string(),
+  website: union([
+    string().url({
+      message: 'Enter valid website URL (eg. https://lenstube.xyz)'
+    }),
+    string().max(0)
   ])
 })
 type FormData = z.infer<typeof formSchema> & { coverImage?: string }

@@ -18,11 +18,11 @@ import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useAccount } from 'wagmi'
-import z from 'zod'
+import type z from 'zod'
+import { object, string } from 'zod'
 
-const formSchema = z.object({
-  channelName: z
-    .string()
+const formSchema = object({
+  channelName: string()
     .min(5, { message: 'Name should be atleast 5 characters' })
     .max(30, { message: 'Name should not exceed 30 characters' })
     .regex(/^[a-z0-9]+$/, {
