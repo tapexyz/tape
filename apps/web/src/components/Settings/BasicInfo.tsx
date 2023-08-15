@@ -52,7 +52,8 @@ import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
-import { object, string, union, z } from 'zod'
+import type { z } from 'zod'
+import { object, string, union } from 'zod'
 
 type Props = {
   channel: Profile & {
@@ -64,13 +65,13 @@ const formSchema = object({
     string()
       .min(4, { message: 'Name should be atleast 5 characters' })
       .max(30, { message: 'Name should not exceed 30 characters' }),
-    z.string().max(0)
+    string().max(0)
   ]),
   description: union([
     string()
       .min(5, { message: 'Description should be atleast 5 characters' })
       .max(1000, { message: 'Description should not exceed 1000 characters' }),
-    z.string().max(0)
+    string().max(0)
   ]),
   twitter: string(),
   location: string(),

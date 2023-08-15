@@ -31,19 +31,19 @@ import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { useContractWrite, useSignTypedData } from 'wagmi'
-import { z } from 'zod'
+import type { z } from 'zod'
+import { number, object, string } from 'zod'
 
 type Props = {
   channel: Profile
 }
 
-const formSchema = z.object({
-  recipient: z.string().length(42, { message: 'Enter valid ethereum address' }),
-  amount: z
-    .number()
+const formSchema = object({
+  recipient: string().length(42, { message: 'Enter valid ethereum address' }),
+  amount: number()
     .nonnegative({ message: 'Amount should to greater than zero' })
     .refine((n) => n > 0, { message: 'Amount should be greater than 0' }),
-  token: z.string().length(42, { message: 'Select valid token' })
+  token: string().length(42, { message: 'Select valid token' })
 })
 type FormData = z.infer<typeof formSchema>
 

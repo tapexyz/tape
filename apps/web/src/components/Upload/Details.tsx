@@ -13,24 +13,23 @@ import type { FC } from 'react'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-hot-toast'
-import { z } from 'zod'
+import type { z } from 'zod'
+import { boolean, object, string } from 'zod'
 
 import Category from './Category'
 import CollectModule from './CollectModule'
 import ReferenceModule from './ReferenceModule'
 import Video from './Video'
 
-const formSchema = z.object({
-  title: z
-    .string()
+const formSchema = object({
+  title: string()
     .trim()
     .min(5, { message: t`Title should be atleast 5 characters` })
     .max(100, { message: t`Title should not exceed 100 characters` }),
-  description: z
-    .string()
+  description: string()
     .trim()
     .max(5000, { message: t`Description should not exceed 5000 characters` }),
-  isSensitiveContent: z.boolean()
+  isSensitiveContent: boolean()
 })
 
 export type VideoFormData = z.infer<typeof formSchema>

@@ -47,7 +47,8 @@ import toast from 'react-hot-toast'
 import { v4 as uuidv4 } from 'uuid'
 import { parseEther } from 'viem'
 import { useContractWrite, useSendTransaction, useSignTypedData } from 'wagmi'
-import { z } from 'zod'
+import type { z } from 'zod'
+import { number, object, string } from 'zod'
 
 type Props = {
   show: boolean
@@ -55,13 +56,12 @@ type Props = {
   video: Publication
 }
 
-const formSchema = z.object({
-  tipQuantity: z
-    .number()
+const formSchema = object({
+  tipQuantity: number()
     .nonnegative({ message: t`Tip should to greater than zero` })
     .max(100, { message: t`Tip should be less than or equal to 100 MATIC` })
     .refine((n) => n > 0, { message: t`Tip should be greater than 0 MATIC` }),
-  message: z.string().min(1, { message: t`Tip message is requried` })
+  message: string().min(1, { message: t`Tip message is requried` })
 })
 type FormData = z.infer<typeof formSchema>
 
