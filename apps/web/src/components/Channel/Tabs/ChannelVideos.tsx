@@ -5,6 +5,7 @@ import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import {
   ALLOWED_APP_IDS,
+  IS_MAINNET,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
   SCROLL_ROOT_MARGIN
@@ -41,7 +42,7 @@ const ChannelVideos: FC<Props> = ({ channel }) => {
     metadata: { mainContentFocus: [PublicationMainFocus.Video] },
     customFilters: LENS_CUSTOM_FILTERS,
     profileId: channel?.id,
-    sources: [LENSTUBE_APP_ID, ...ALLOWED_APP_IDS]
+    sources: IS_MAINNET ? [LENSTUBE_APP_ID, ...ALLOWED_APP_IDS] : undefined
   }
 
   const { data, loading, error, fetchMore } = useProfilePostsQuery({

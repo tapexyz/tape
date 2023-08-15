@@ -2,6 +2,7 @@ import { SuggestedVideosShimmer } from '@components/Shimmers/VideoDetailShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import {
   ALLOWED_APP_IDS,
+  IS_MAINNET,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
@@ -25,7 +26,9 @@ import SuggestedVideoCard from './SuggestedVideoCard'
 const request = {
   sortCriteria: PublicationSortCriteria.CuratedProfiles,
   limit: 30,
-  sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS],
+  sources: IS_MAINNET
+    ? [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
+    : undefined,
   publicationTypes: [PublicationTypes.Post],
   metadata: { mainContentFocus: [PublicationMainFocus.Video] },
   noRandomize: false,
