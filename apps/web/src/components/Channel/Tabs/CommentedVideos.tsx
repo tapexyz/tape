@@ -3,6 +3,7 @@ import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import {
+  ALLOWED_APP_IDS,
   IS_MAINNET,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
@@ -24,7 +25,9 @@ const CommentedVideos: FC<Props> = ({ channel }) => {
   const request = {
     publicationTypes: [PublicationTypes.Comment],
     limit: 32,
-    sources: IS_MAINNET ? [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID] : undefined,
+    sources: IS_MAINNET
+      ? [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
+      : undefined,
     customFilters: LENS_CUSTOM_FILTERS,
     profileId: channel?.id
   }
