@@ -30,7 +30,7 @@ export const DRAGVERSE_SPATIAL_URL =
 export const DRAGVERSE_DECENTRALAND_URL =
   'https://play.decentraland.org/?realm=dragverse.dcl.eth'
 export const OG_IMAGE = `${FALLBACK_COVER_URL}`
-export const IMAGE_CDN_URL = IS_MAINNET ? 'https://img.lenstube.xyz' : ''
+export const IMAGE_CDN_URL = ''
 export const SCROLL_ROOT_MARGIN = '40% 0px'
 export const LENS_IMAGEKIT_SNAPSHOT_URL =
   'https://ik.imagekit.io/lens/media-snapshot'
