@@ -41,6 +41,12 @@ export const CREATORS = IS_MAINNET
       '0x8b61', // bankless.lens
       '0x1c19', // gabriel.lens
       '0x0160', // ethglobal.lens
-      '0x9797' // ethdubai.lens
+      '0x9797', // ethdubai.lens
+      '0x25bb', // salti.lens
+      '0x01b89c', //dragverse.lens
+      '0x01b98e', //locoblock.lens
+      '0x4bed', // vansh.lens
+      '0x01bbdb', // ckbubbles.lens
+      '0x0189df', // jacklennon.lens
     ]
   : []
