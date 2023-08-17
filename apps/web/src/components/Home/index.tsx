@@ -7,6 +7,7 @@ import React, { useEffect } from 'react'
 import BytesSection from './BytesSection'
 import DispatcherAlert from './DispatcherAlert'
 import HomeFeed from './Feed'
+import GitcoinAlert from './GitcoinAlert'
 
 const Home: NextPage = () => {
   useEffect(() => {
@@ -15,6 +16,7 @@ const Home: NextPage = () => {
   return (
     <>
       <MetaTags title={t`Home`} />
+      <GitcoinAlert />
       <DispatcherAlert />
       <BytesSection />
       <HomeFeed />
