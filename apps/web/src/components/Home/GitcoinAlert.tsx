@@ -26,7 +26,9 @@ const GitcoinAlert = () => {
               <Trans>Round 18</Trans>
             </p>
             <Link href="/gitcoin" target="_blank">
-              <Button>Contribute Now</Button>
+              <Button>
+                <Trans>Contribute Now</Trans>
+              </Button>
             </Link>
           </div>
         </div>

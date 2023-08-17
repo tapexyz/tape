@@ -294,6 +294,10 @@ msgstr "Connect Wallet & Sign with Lens to continue,"
 msgid "Connected as"
 msgstr "Connected as"
 
+#: src/components/Home/GitcoinAlert.tsx:30
+msgid "Contribute Now"
+msgstr ""
+
 #: src/components/Common/EmbedVideo.tsx:26
 msgid "Copied to clipboard"
 msgstr "Copied to clipboard"

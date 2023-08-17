@@ -294,6 +294,10 @@ msgstr "Conecte Wallet y Firmar con la lente para continuar,"
 msgid "Connected as"
 msgstr "Conectado como"
 
+#: src/components/Home/GitcoinAlert.tsx:30
+msgid "Contribute Now"
+msgstr ""
+
 #: src/components/Common/EmbedVideo.tsx:26
 msgid "Copied to clipboard"
 msgstr "Copiado al portapapeles"

@@ -294,6 +294,10 @@ msgstr "连接钱包并使用镜头登录以继续。"
 msgid "Connected as"
 msgstr "连接为"
 
+#: src/components/Home/GitcoinAlert.tsx:30
+msgid "Contribute Now"
+msgstr ""
+
 #: src/components/Common/EmbedVideo.tsx:26
 msgid "Copied to clipboard"
 msgstr "复制到剪贴板"
