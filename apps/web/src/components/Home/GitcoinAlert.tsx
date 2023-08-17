@@ -19,10 +19,10 @@ const GitcoinAlert = () => {
           </div>
           <div className="flex w-full flex-1 flex-wrap items-center justify-between gap-y-3 dark:text-gray-100">
             <p className="md:text-md text-sm lg:text-lg">
-              <Trans>Support Lenstube on </Trans>
+              <Trans>Support Lenstube on</Trans>{' '}
               <span className="font-medium">
-                <Trans>Gitcoin Grants </Trans>
-              </span>
+                <Trans>Gitcoin Grants</Trans>
+              </span>{' '}
               <Trans>Round 18</Trans>
             </p>
             <Link href="/gitcoin" target="_blank">
