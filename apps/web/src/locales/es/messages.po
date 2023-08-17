@@ -466,8 +466,12 @@ msgstr "por los honorarios dados"
 #~ msgid "Get Verified"
 #~ msgstr ""
 
-#: src/components/Home/GitcoinAlert.tsx:18
+#: src/components/Home/GitcoinAlert.tsx:17
 msgid "GG18 is Live"
+msgstr ""
+
+#: src/components/Home/GitcoinAlert.tsx:24
+msgid "Gitcoin Grants"
 msgstr ""
 
 #: src/components/Settings/Membership.tsx:186
@@ -952,6 +956,10 @@ msgstr "Ingresos"
 msgid "Revoke"
 msgstr "Revoke"
 
+#: src/components/Home/GitcoinAlert.tsx:26
+msgid "Round 18"
+msgstr ""
+
 #: src/components/Settings/BasicInfo.tsx:385
 msgid "Save"
 msgstr "Guardar"
@@ -1118,6 +1126,14 @@ msgstr "Suscripciones"
 #: src/components/Upload/CollectModule/FeeCollectForm.tsx:128
 msgid "Sum of all splits should be 100%"
 msgstr "La suma de todas las divisiones debe ser 100%"
+
+#: src/components/Home/GitcoinAlert.tsx:23
+#~ msgid "Support {LENSTUBE_APP_NAME} on <0>Gitcoin Grants</0> Round 18"
+#~ msgstr ""
+
+#: src/components/Home/GitcoinAlert.tsx:22
+msgid "Support Lenstube on"
+msgstr ""
 
 #: src/components/Watch/CollectVideo/BalanceAlert.tsx:37
 msgid "Swap"
