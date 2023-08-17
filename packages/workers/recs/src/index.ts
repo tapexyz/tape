@@ -12,13 +12,8 @@ const router = Router()
 
 router.all('*', preflight)
 router.get('/', () => new Response('gm 👋'))
-router.get('/:provider/:strategy/:limit/:offset', ({ params }) =>
-  getListByAlgorithm(
-    params.provider,
-    params.strategy,
-    params.limit,
-    params.offset
-  )
+router.get('/:provider/:strategy/:limit?/:offset?', (request) =>
+  getListByAlgorithm(request)
 )
 
 const routerHandleStack = (request: Request, env: Env, ctx: ExecutionContext) =>
