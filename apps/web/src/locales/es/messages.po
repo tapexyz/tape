@@ -8,7 +8,7 @@ msgstr ""
 "Language: es\n"
 "Project-Id-Version: lenstube\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-08-17 09:48\n"
+"PO-Revision-Date: 2023-08-17 10:02\n"
 "Last-Translator: \n"
 "Language-Team: Spanish\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -296,7 +296,7 @@ msgstr "Conectado como"
 
 #: src/components/Home/GitcoinAlert.tsx:30
 msgid "Contribute Now"
-msgstr ""
+msgstr "Contribuir ahora"
 
 #: src/components/Common/EmbedVideo.tsx:26
 msgid "Copied to clipboard"
@@ -472,11 +472,11 @@ msgstr "por los honorarios dados"
 
 #: src/components/Home/GitcoinAlert.tsx:17
 msgid "GG18 is Live"
-msgstr ""
+msgstr "GG18 está en vivo"
 
 #: src/components/Home/GitcoinAlert.tsx:24
 msgid "Gitcoin Grants"
-msgstr ""
+msgstr "Subvenciones de Gitcoin"
 
 #: src/components/Settings/Membership.tsx:186
 msgid "Grow with Lens"
@@ -962,7 +962,7 @@ msgstr "Revoke"
 
 #: src/components/Home/GitcoinAlert.tsx:26
 msgid "Round 18"
-msgstr ""
+msgstr "Ronda 18"
 
 #: src/components/Settings/BasicInfo.tsx:385
 msgid "Save"
@@ -1137,7 +1137,7 @@ msgstr "La suma de todas las divisiones debe ser 100%"
 
 #: src/components/Home/GitcoinAlert.tsx:22
 msgid "Support Lenstube on"
-msgstr ""
+msgstr "Soporte Lenstube activado"
 
 #: src/components/Watch/CollectVideo/BalanceAlert.tsx:37
 msgid "Swap"
