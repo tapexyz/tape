@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenstube\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-08-09 01:23\n"
+"PO-Revision-Date: 2023-08-17 09:48\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -296,7 +296,7 @@ msgstr "连接为"
 
 #: src/components/Home/GitcoinAlert.tsx:30
 msgid "Contribute Now"
-msgstr ""
+msgstr "立即捐款"
 
 #: src/components/Common/EmbedVideo.tsx:26
 msgid "Copied to clipboard"
@@ -472,11 +472,11 @@ msgstr "给定费用"
 
 #: src/components/Home/GitcoinAlert.tsx:17
 msgid "GG18 is Live"
-msgstr ""
+msgstr "GG18 是实时的"
 
 #: src/components/Home/GitcoinAlert.tsx:24
 msgid "Gitcoin Grants"
-msgstr ""
+msgstr "Gitco币赠款"
 
 #: src/components/Settings/Membership.tsx:186
 msgid "Grow with Lens"
@@ -962,7 +962,7 @@ msgstr "Revoke"
 
 #: src/components/Home/GitcoinAlert.tsx:26
 msgid "Round 18"
-msgstr ""
+msgstr "第18圆桌会议"
 
 #: src/components/Settings/BasicInfo.tsx:385
 msgid "Save"
@@ -1137,7 +1137,7 @@ msgstr "所有分割的总和应该是 100%"
 
 #: src/components/Home/GitcoinAlert.tsx:22
 msgid "Support Lenstube on"
-msgstr ""
+msgstr "支持 Lenstube 开启"
 
 #: src/components/Watch/CollectVideo/BalanceAlert.tsx:37
 msgid "Swap"
@@ -1535,3 +1535,4 @@ msgstr "您的频道"
 #: src/components/Upload/BundlrInfo.tsx:171
 msgid "Your Storage Balance"
 msgstr "您的存储余额"
+
