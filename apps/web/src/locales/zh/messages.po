@@ -46,7 +46,7 @@ msgstr "算法操作"
 msgid "All"
 msgstr "所有的"
 
-#: src/components/Notifications/index.tsx:146
+#: src/components/Notifications/index.tsx:149
 msgid "All Notifications"
 msgstr "所有通知"
 
@@ -72,7 +72,7 @@ msgstr "已经收集"
 msgid "Amount"
 msgstr "金额"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:106
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:104
 msgid "Amount should be greater than 0"
 msgstr "金额必须大于 0"
 
@@ -136,11 +136,11 @@ msgstr "取消"
 msgid "Category"
 msgstr "类别"
 
-#: src/components/Settings/BasicInfo.tsx:291
+#: src/components/Settings/BasicInfo.tsx:290
 msgid "Change"
 msgstr "更改"
 
-#: src/components/Settings/BasicInfo.tsx:304
+#: src/components/Settings/BasicInfo.tsx:303
 msgid "Channel"
 msgstr "频道"
 
@@ -148,7 +148,7 @@ msgstr "频道"
 msgid "Channel deleted"
 msgstr "频道已删除"
 
-#: src/components/Settings/BasicInfo.tsx:345
+#: src/components/Settings/BasicInfo.tsx:344
 msgid "Channel Description"
 msgstr "频道描述"
 
@@ -161,12 +161,12 @@ msgstr "频道图像已更新"
 msgid "Channel Settings"
 msgstr "频道设置"
 
-#: src/components/Settings/BasicInfo.tsx:316
+#: src/components/Settings/BasicInfo.tsx:315
 msgid "Channel URL"
 msgstr "频道 URL"
 
 #: src/components/Channel/Tabs/index.tsx:174
-#: src/components/Common/Search/GlobalSearchBar.tsx:114
+#: src/components/Common/Search/GlobalSearchBar.tsx:118
 msgid "Channels"
 msgstr "频道"
 
@@ -187,7 +187,7 @@ msgstr "以 NFT 方式收集"
 msgid "Collect as NFT for"
 msgstr "以 NFT 方式收集"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:165
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:163
 msgid "Collect Currency"
 msgstr "收集货币"
 
@@ -199,7 +199,7 @@ msgstr "免费收集"
 msgid "Collect for Free"
 msgstr "免费收藏"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:136
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:134
 msgid "Collect limit should be greater than 0"
 msgstr "收集限制应该大于 0"
 
@@ -235,11 +235,11 @@ msgstr "收集中"
 msgid "collects"
 msgstr "收藏"
 
-#: src/components/Notifications/index.tsx:251
+#: src/components/Notifications/index.tsx:254
 msgid "Collects"
 msgstr "收藏"
 
-#: src/components/Watch/Comments/NewComment.tsx:428
+#: src/components/Watch/Comments/NewComment.tsx:429
 msgid "Comment"
 msgstr "评论"
 
@@ -252,7 +252,7 @@ msgstr "评论已删除"
 msgid "comment on"
 msgstr "评论于"
 
-#: src/components/Watch/Comments/NewComment.tsx:63
+#: src/components/Watch/Comments/NewComment.tsx:64
 msgid "Comment should not exceed 5000 characters"
 msgstr "评论不能超过 5000 个字符"
 
@@ -265,7 +265,7 @@ msgid "commented on your"
 msgstr "对您的评论"
 
 #: src/components/Bytes/CommentModal.tsx:37
-#: src/components/Notifications/index.tsx:209
+#: src/components/Notifications/index.tsx:212
 #: src/components/Watch/Comments/VideoComments.tsx:107
 msgid "Comments"
 msgstr "评论"
@@ -282,7 +282,7 @@ msgstr "确认"
 msgid "Confirmation"
 msgstr "确认"
 
-#: src/components/Common/Auth/ConnectWalletButton.tsx:86
+#: src/components/Common/Auth/ConnectWalletButton.tsx:90
 msgid "Connect"
 msgstr "连接"
 
@@ -293,6 +293,10 @@ msgstr "连接钱包并使用镜头登录以继续。"
 #: src/components/Common/UserMenu.tsx:161
 msgid "Connected as"
 msgstr "连接为"
+
+#: src/components/Home/GitcoinAlert.tsx:30
+msgid "Contribute Now"
+msgstr ""
 
 #: src/components/Common/EmbedVideo.tsx:26
 msgid "Copied to clipboard"
@@ -334,16 +338,16 @@ msgstr "删除"
 msgid "Deposit"
 msgstr "存款"
 
-#: src/components/Upload/Details.tsx:113
+#: src/components/Upload/Details.tsx:112
 msgid "Describe more about your video, can be @channels, #hashtags or chapters (00:20 - Intro)"
 msgstr "详细描述您的视频，可以是 @cannets, #hashtag 或章节(00:20 - Intro)"
 
 #: src/components/Channel/Tabs/About.tsx:34
-#: src/components/Upload/Details.tsx:112
+#: src/components/Upload/Details.tsx:111
 msgid "Description"
 msgstr "描述"
 
-#: src/components/Upload/Details.tsx:32
+#: src/components/Upload/Details.tsx:31
 msgid "Description should not exceed 5000 characters"
 msgstr "描述不能超过 5000 个字符"
 
@@ -377,11 +381,11 @@ msgstr "调度器"
 msgid "Dispatcher"
 msgstr "调度器"
 
-#: src/components/Settings/BasicInfo.tsx:336
+#: src/components/Settings/BasicInfo.tsx:335
 msgid "Display Name"
 msgstr "显示名称"
 
-#: src/components/Upload/Details.tsx:183
+#: src/components/Upload/Details.tsx:182
 msgid "Does this video contain sensitive information that targets an adult audience?"
 msgstr "此视频是否包含针对成年听众的敏感信息？"
 
@@ -410,8 +414,8 @@ msgstr "结束于"
 msgid "Enter deposit amount"
 msgstr "输入存款金额"
 
-#: src/components/Watch/Comments/NewComment.tsx:60
-#: src/components/Watch/Comments/NewComment.tsx:62
+#: src/components/Watch/Comments/NewComment.tsx:61
+#: src/components/Watch/Comments/NewComment.tsx:63
 msgid "Enter valid comment"
 msgstr "输入有效的评论"
 
@@ -466,6 +470,14 @@ msgstr "给定费用"
 #~ msgid "Get Verified"
 #~ msgstr ""
 
+#: src/components/Home/GitcoinAlert.tsx:17
+msgid "GG18 is Live"
+msgstr ""
+
+#: src/components/Home/GitcoinAlert.tsx:24
+msgid "Gitcoin Grants"
+msgstr ""
+
 #: src/components/Settings/Membership.tsx:186
 msgid "Grow with Lens"
 msgstr "放大镜头"
@@ -481,11 +493,11 @@ msgstr "高信号"
 #: src/components/Common/MobileBottomNav.tsx:31
 #: src/components/Common/Sidebar.tsx:63
 #: src/components/Common/Sidebar.tsx:82
-#: src/components/Home/index.tsx:17
+#: src/components/Home/index.tsx:18
 msgid "Home"
 msgstr "首页"
 
-#: src/components/Watch/Comments/NewComment.tsx:70
+#: src/components/Watch/Comments/NewComment.tsx:71
 msgid "How's this video?"
 msgstr "这个视频是如何的？"
 
@@ -513,7 +525,7 @@ msgstr "正在索引..."
 msgid "Insufficient storage balance"
 msgstr "存储余额不足"
 
-#: src/components/Explore/Feed.tsx:159
+#: src/components/Explore/Feed.tsx:162
 msgid "Interesting"
 msgstr "有趣的"
 
@@ -526,7 +538,7 @@ msgstr "兴趣"
 msgid "Invalid amount"
 msgstr "无效金额"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:36
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:35
 msgid "Invalid collect limit"
 msgstr "无效的收集限制"
 
@@ -538,7 +550,7 @@ msgstr "无效的存款金额"
 msgid "Invalid Signature!"
 msgstr "签名无效！"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:120
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:118
 msgid "Invalid split recipient address"
 msgstr "无效的分割收件人地址"
 
@@ -578,7 +590,7 @@ msgstr "赞了"
 msgid "likes"
 msgstr "赞"
 
-#: src/components/Notifications/index.tsx:188
+#: src/components/Notifications/index.tsx:191
 msgid "Likes"
 msgstr "喜欢的"
 
@@ -594,7 +606,7 @@ msgstr "有限采集量"
 msgid "Links"
 msgstr "链接"
 
-#: src/components/Settings/BasicInfo.tsx:378
+#: src/components/Settings/BasicInfo.tsx:377
 msgid "Location"
 msgstr "地点"
 
@@ -618,7 +630,7 @@ msgstr "会员已更新"
 msgid "mentioned"
 msgstr "提到了"
 
-#: src/components/Notifications/index.tsx:230
+#: src/components/Notifications/index.tsx:233
 msgid "Mentions"
 msgstr "提及内容"
 
@@ -630,7 +642,7 @@ msgstr "镜像"
 msgid "Mirror"
 msgstr "镜像"
 
-#: src/components/Common/MirrorVideo.tsx:191
+#: src/components/Common/MirrorVideo.tsx:193
 msgid "Mirror video across Lens"
 msgstr "全镜像视频"
 
@@ -647,7 +659,7 @@ msgstr "镜像者"
 msgid "mirrored your"
 msgstr "镜像您的"
 
-#: src/components/Common/MirrorVideo.tsx:194
+#: src/components/Common/MirrorVideo.tsx:196
 msgid "Mirroring"
 msgstr "镜像"
 
@@ -664,13 +676,13 @@ msgid "Misuse Hashtags"
 msgstr "错误使用哈希标签"
 
 #: src/components/Common/MirrorVideo.tsx:153
-#: src/components/Watch/Comments/NewComment.tsx:323
+#: src/components/Watch/Comments/NewComment.tsx:324
 #: src/components/Watch/TipModal.tsx:317
 #: src/components/Watch/TipModal.tsx:391
 msgid "Momoka is currently in beta - during this time certain actions are not available to all channels."
 msgstr "Momoka目前处于测试版中 - 在此期间某些操作不能用于所有频道。"
 
-#: src/components/Settings/BasicInfo.tsx:346
+#: src/components/Settings/BasicInfo.tsx:345
 msgid "More about your channel"
 msgstr "更多关于您的频道"
 
@@ -678,7 +690,7 @@ msgstr "更多关于您的频道"
 #~ msgid "My Saved List"
 #~ msgstr ""
 
-#: src/components/Common/Header.tsx:141
+#: src/components/Common/Header.tsx:144
 msgid "New video"
 msgstr "新视频"
 
@@ -694,7 +706,7 @@ msgstr "否"
 msgid "No bytes found"
 msgstr "未找到字节"
 
-#: src/components/Channel/Tabs/CommentedVideos.tsx:60
+#: src/components/Channel/Tabs/CommentedVideos.tsx:64
 msgid "No comments on videos"
 msgstr "视频上没有评论"
 
@@ -706,7 +718,7 @@ msgstr "未找到镜像"
 msgid "No NFTs found"
 msgstr "未找到NFTs"
 
-#: src/components/Notifications/index.tsx:260
+#: src/components/Notifications/index.tsx:263
 msgid "No Notifications"
 msgstr "无通知"
 
@@ -723,7 +735,7 @@ msgstr "未找到其他频道"
 msgid "No results found"
 msgstr "未找到结果"
 
-#: src/components/Channel/SavedList.tsx:64
+#: src/components/Channel/SavedList.tsx:68
 msgid "No saved videos found"
 msgstr "未找到保存的视频"
 
@@ -731,11 +743,11 @@ msgstr "未找到保存的视频"
 msgid "No subscribers"
 msgstr "没有订阅者"
 
-#: src/components/Channel/Tabs/ChannelVideos.tsx:81
-#: src/components/Explore/Category/index.tsx:84
-#: src/components/Explore/Feed.tsx:166
-#: src/components/Explore/Hashtag/index.tsx:74
-#: src/components/Home/Feed.tsx:65
+#: src/components/Channel/Tabs/ChannelVideos.tsx:82
+#: src/components/Explore/Category/index.tsx:87
+#: src/components/Explore/Feed.tsx:169
+#: src/components/Explore/Hashtag/index.tsx:78
+#: src/components/Home/Feed.tsx:66
 #: src/components/Mod/Recents.tsx:70
 msgid "No videos found"
 msgstr "未找到视频"
@@ -752,7 +764,7 @@ msgstr "还不足"
 msgid "Not Interested"
 msgstr "不感兴趣的"
 
-#: src/components/Notifications/index.tsx:124
+#: src/components/Notifications/index.tsx:127
 msgid "Notifications"
 msgstr "通知"
 
@@ -768,7 +780,7 @@ msgstr "攻击性的"
 msgid "Only"
 msgstr "仅限"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:110
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:108
 msgid "Only 5 splits supported"
 msgstr "仅支持 5 拆分"
 
@@ -796,11 +808,11 @@ msgstr "会员支付"
 msgid "People you may know"
 msgstr "您可能知道的人"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:215
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:213
 msgid "Percent of collect revenue can be shared with anyone who mirrors this video."
 msgstr "税收的百分比可以分享给镜像此视频的任何人。"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:40
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:38
 msgid "Percentage should be 0 to 100"
 msgstr "百分比应为0到100"
 
@@ -828,11 +840,11 @@ msgstr "正在固定视频..."
 msgid "Please connect to your wallet"
 msgstr "请连接到你的钱包"
 
-#: src/components/Upload/Details.tsx:149
+#: src/components/Upload/Details.tsx:148
 msgid "Please note that only videos under 2 minutes in length can be uploaded as bytes."
 msgstr "请注意，只有2分钟以下的视频才能以字节的形式上传。"
 
-#: src/components/Upload/Details.tsx:69
+#: src/components/Upload/Details.tsx:68
 msgid "Please select or upload a thumbnail"
 msgstr "请选择或上传缩略图"
 
@@ -840,7 +852,7 @@ msgstr "请选择或上传缩略图"
 msgid "Please upload a custom thumbnail"
 msgstr "请上传一个自定义缩略图"
 
-#: src/components/Explore/Feed.tsx:136
+#: src/components/Explore/Feed.tsx:139
 msgid "Popular"
 msgstr "热门的"
 
@@ -856,7 +868,7 @@ msgstr "发布视频"
 msgid "Price"
 msgstr "价格"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:196
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:194
 msgid "Price of each collect"
 msgstr "每个收集的价格"
 
@@ -898,7 +910,7 @@ msgstr "收件人"
 msgid "Referral Fee"
 msgstr "转诊费"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:211
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:209
 msgid "Referral Percentage"
 msgstr "推荐百分比"
 
@@ -935,7 +947,7 @@ msgstr "报告"
 msgid "Report Publication"
 msgstr "报告发布"
 
-#: src/components/Upload/Details.tsx:204
+#: src/components/Upload/Details.tsx:203
 msgid "Reset"
 msgstr "Reset"
 
@@ -948,7 +960,11 @@ msgstr "收入"
 msgid "Revoke"
 msgstr "Revoke"
 
-#: src/components/Settings/BasicInfo.tsx:386
+#: src/components/Home/GitcoinAlert.tsx:26
+msgid "Round 18"
+msgstr ""
+
+#: src/components/Settings/BasicInfo.tsx:385
 msgid "Save"
 msgstr "保存"
 
@@ -964,11 +980,11 @@ msgstr "保存的视频"
 msgid "Scam"
 msgstr "Scam"
 
-#: src/components/Common/Header.tsx:153
+#: src/components/Common/Header.tsx:156
 msgid "Search"
 msgstr "搜索"
 
-#: src/components/Common/Search/GlobalSearchBar.tsx:83
+#: src/components/Common/Search/GlobalSearchBar.tsx:87
 msgid "Search by channel / hashtag"
 msgstr "通过频道 / 标签搜索"
 
@@ -986,7 +1002,7 @@ msgstr "选择视频"
 msgid "Sensitive Content"
 msgstr "敏感内容"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:225
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:223
 #: src/components/Upload/CollectModule/index.tsx:127
 msgid "Set Collect Type"
 msgstr "设置收藏类型"
@@ -1000,7 +1016,7 @@ msgstr "设置首选项"
 msgid "Share"
 msgstr "分享"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:41
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:39
 msgid "Should to greater than or equal to zero"
 msgstr "应大于或等于0"
 
@@ -1054,7 +1070,7 @@ msgstr "有些服务处于离线状态"
 msgid "Something Else"
 msgstr "其它内容"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:124
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:122
 msgid "Split addresses should be unique"
 msgstr "拆分地址应该是唯一的"
 
@@ -1106,14 +1122,22 @@ msgstr "订阅者"
 
 #: src/components/Common/Sidebar.tsx:88
 #: src/components/Common/Sidebar.tsx:107
-#: src/components/Notifications/index.tsx:167
+#: src/components/Notifications/index.tsx:170
 #: src/components/Subscriptions/index.tsx:10
 msgid "Subscriptions"
 msgstr "订阅"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:130
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:128
 msgid "Sum of all splits should be 100%"
 msgstr "所有分割的总和应该是 100%"
+
+#: src/components/Home/GitcoinAlert.tsx:23
+#~ msgid "Support {LENSTUBE_APP_NAME} on <0>Gitcoin Grants</0> Round 18"
+#~ msgstr ""
+
+#: src/components/Home/GitcoinAlert.tsx:22
+msgid "Support Lenstube on"
+msgstr ""
 
 #: src/components/Watch/CollectVideo/BalanceAlert.tsx:37
 msgid "Swap"
@@ -1205,7 +1229,7 @@ msgstr "提示应大于0"
 msgid "Tipped successfully"
 msgstr "已成功推送"
 
-#: src/components/Upload/Details.tsx:89
+#: src/components/Upload/Details.tsx:88
 msgid "Title"
 msgstr "标题"
 
@@ -1217,7 +1241,7 @@ msgstr "标题应至少5个字符"
 msgid "Title should not exceed 100 characters"
 msgstr "标题不能超过 100 个字符"
 
-#: src/components/Upload/Details.tsx:90
+#: src/components/Upload/Details.tsx:89
 msgid "Title that describes your video"
 msgstr "描述您视频的标题"
 
@@ -1237,7 +1261,7 @@ msgstr "代币余额"
 msgid "total bytes"
 msgstr "总计字节"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:148
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:146
 msgid "Total Collectibles"
 msgstr "收藏品总数"
 
@@ -1269,7 +1293,7 @@ msgstr "全部视频"
 msgid "Transaction submitted"
 msgstr "交易已提交"
 
-#: src/components/Explore/Feed.tsx:113
+#: src/components/Explore/Feed.tsx:116
 msgid "Trending"
 msgstr "热门主题"
 
@@ -1318,7 +1342,7 @@ msgstr "上传成本估计失败"
 msgid "Upload from Source Url"
 msgstr "从源网址上传"
 
-#: src/components/Upload/Details.tsx:158
+#: src/components/Upload/Details.tsx:157
 msgid "Upload this video as short-form bytes"
 msgstr "上传这个视频作为短表格字节"
 
@@ -1331,7 +1355,7 @@ msgid "Upload to IPFS"
 msgstr "上传到 IPFS"
 
 #: src/components/Upload/ChooseThumbnail.tsx:123
-#: src/components/Upload/Details.tsx:211
+#: src/components/Upload/Details.tsx:210
 msgid "Uploading thumbnail"
 msgstr "正在上传缩略图"
 
@@ -1399,7 +1423,7 @@ msgid "Video will be stored permanently on-chain and can't be updated"
 msgstr "视频将在链上永久存储，不能更新"
 
 #: src/components/Channel/Tabs/index.tsx:81
-#: src/components/Common/Search/GlobalSearchBar.tsx:129
+#: src/components/Common/Search/GlobalSearchBar.tsx:133
 msgid "Videos"
 msgstr "视频"
 
@@ -1432,7 +1456,7 @@ msgstr "暴力"
 msgid "Visit"
 msgstr "访问"
 
-#: src/components/Common/Auth/ConnectWalletButton.tsx:88
+#: src/components/Common/Auth/ConnectWalletButton.tsx:92
 msgid "Wallet"
 msgstr "钱包"
 
@@ -1444,7 +1468,7 @@ msgstr "观察"
 msgid "Watch Video"
 msgstr "观看视频"
 
-#: src/components/Settings/BasicInfo.tsx:370
+#: src/components/Settings/BasicInfo.tsx:369
 msgid "Website"
 msgstr "网址"
 
@@ -1511,4 +1535,3 @@ msgstr "您的频道"
 #: src/components/Upload/BundlrInfo.tsx:171
 msgid "Your Storage Balance"
 msgstr "您的存储余额"
-
