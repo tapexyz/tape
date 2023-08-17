@@ -9,9 +9,9 @@ import App from './src/App'
 if (__DEV__) {
   const whyDidYouRender = require('@welldone-software/why-did-you-render')
   whyDidYouRender(React, {
-    trackAllPureComponents: true,
-    trackHooks: true,
-    logOnDifferentValues: true
+    trackAllPureComponents: false,
+    trackHooks: false,
+    logOnDifferentValues: false
   })
 }
 
