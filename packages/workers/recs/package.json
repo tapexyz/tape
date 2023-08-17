@@ -9,12 +9,12 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "itty-router": "^4.0.15"
+    "itty-router": "^4.0.17"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230814.0",
     "@lenstube/config": "*",
     "typescript": "^5.1.6",
-    "wrangler": "3.5.0"
+    "wrangler": "3.5.1"
   }
 }
