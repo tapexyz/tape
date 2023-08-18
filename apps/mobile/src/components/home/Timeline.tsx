@@ -112,12 +112,21 @@ const Timeline = () => {
       skip: !selectedChannelId
     })
 
-  const publications =
-    selectedFeedType === TimelineFeedType.CURATED
-      ? (curatedData?.explorePublications?.items as Publication[])
-      : TimelineFeedType.HIGHLIGHTS
-      ? (feedHighlightsData?.feedHighlights.items as Publication[])
-      : (feedData?.feed?.items as FeedItem[])
+  const publications = useMemo(
+    () =>
+      selectedFeedType === TimelineFeedType.CURATED
+        ? (curatedData?.explorePublications?.items as Publication[])
+        : TimelineFeedType.HIGHLIGHTS
+        ? (feedHighlightsData?.feedHighlights.items as Publication[])
+        : (feedData?.feed?.items as FeedItem[]),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [selectedFeedType]
+  )
+
+  console.log(
+    '🚀 ~ file: Timeline.tsx:125 ~ Timeline ~ publications:',
+    publications?.length
+  )
 
   const pageInfo =
     selectedFeedType === TimelineFeedType.CURATED
@@ -128,7 +137,7 @@ const Timeline = () => {
 
   const fetchMorePublications = async () => {
     if (selectedFeedType === TimelineFeedType.CURATED) {
-      await fetchMoreCurated({
+      return await fetchMoreCurated({
         variables: {
           request: {
             ...curatedRequest,
@@ -138,7 +147,7 @@ const Timeline = () => {
       })
     }
     if (selectedFeedType === TimelineFeedType.FOLLOWING) {
-      await fetchMoreFeed({
+      return await fetchMoreFeed({
         variables: {
           request: {
             ...feedRequest,
@@ -148,7 +157,7 @@ const Timeline = () => {
       })
     }
     if (selectedFeedType === TimelineFeedType.HIGHLIGHTS) {
-      await fetchMoreHighlights({
+      return await fetchMoreHighlights({
         variables: {
           request: {
             ...highlightsRequest,
