@@ -7,6 +7,7 @@ import { createSharedElementStackNavigator } from 'react-navigation-shared-eleme
 import CollapseButton from '~/components/common/CollapseButton'
 import {
   CategoriesModal,
+  FeedFlexModal,
   MusicModal,
   NotificationsModal,
   PodcastModal,
@@ -94,6 +95,11 @@ export const RootNavigator: FC = () => {
         name="ExploreCategoriesModal"
         options={{ ...options, presentation: 'transparentModal' }}
         component={CategoriesModal}
+      />
+      <Screen
+        name="FeedFlexModal"
+        options={{ ...options, presentation: 'transparentModal' }}
+        component={FeedFlexModal}
       />
       <Screen
         name="ProfileScreen"

@@ -121,8 +121,9 @@ const MoreVideos: FC<Props> = ({ video }) => {
   return (
     <View
       style={{
+        flex: 1,
         paddingHorizontal: 5,
-        flex: 1
+        marginBottom: 250
       }}
     >
       <FlashList
