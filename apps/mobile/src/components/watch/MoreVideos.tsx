@@ -1,6 +1,10 @@
 import { RECS_URL, STATIC_ASSETS } from '@lenstube/constants'
 import { imageCdn } from '@lenstube/generic'
-import { type Publication, useProfilePostsQuery } from '@lenstube/lens'
+import {
+  type Publication,
+  PublicationMainFocus,
+  useProfilePostsQuery
+} from '@lenstube/lens'
 import { FlashList } from '@shopify/flash-list'
 import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
@@ -12,6 +16,7 @@ import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
 import { useMobilePersistStore } from '~/store/persist'
 
+import AudioCard from '../common/AudioCard'
 import VideoCard from '../common/VideoCard'
 import Actions from './Actions'
 import Comments from './Comments'
@@ -83,7 +88,11 @@ const MoreVideos: FC<Props> = ({ video }) => {
   const renderItem = useCallback(
     ({ item }: { item: Publication }) => (
       <View style={{ marginBottom: 30 }}>
-        <VideoCard video={item} />
+        {item.metadata.mainContentFocus === PublicationMainFocus.Audio ? (
+          <AudioCard audio={item} />
+        ) : (
+          <VideoCard video={item} />
+        )}
       </View>
     ),
     []

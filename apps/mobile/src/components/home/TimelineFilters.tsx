@@ -51,7 +51,6 @@ const TimelineFilters = () => {
           source={{
             uri: imageCdn(`${STATIC_ASSETS}/mobile/icons/in-love.png`, 'AVATAR')
           }}
-          transition={300}
           style={styles.image}
         />
         <Text style={[styles.text, { color: theme.colors.black }]}>
@@ -70,10 +69,29 @@ const TimelineFilters = () => {
           source={{
             uri: imageCdn(`${STATIC_ASSETS}/mobile/icons/smile.png`, 'AVATAR')
           }}
-          transition={300}
           style={styles.image}
         />
-        <Text style={[styles.text, { color: theme.colors.white }]}>Feed</Text>
+        <Text style={[styles.text, { color: theme.colors.white }]}>
+          Following
+        </Text>
+      </Pressable>
+      <Pressable
+        onPress={() => {
+          if (!selectedChannel) {
+            return notify('info', { params: { title: 'Sign in with Lens' } })
+          }
+        }}
+        style={styles.filter}
+      >
+        <ExpoImage
+          source={{
+            uri: imageCdn(`${STATIC_ASSETS}/mobile/icons/wow.png`, 'AVATAR')
+          }}
+          style={styles.image}
+        />
+        <Text style={[styles.text, { color: theme.colors.white }]}>
+          Highlights
+        </Text>
       </Pressable>
       <Pressable
         onPress={() => {
@@ -87,11 +105,10 @@ const TimelineFilters = () => {
           source={{
             uri: imageCdn(`${STATIC_ASSETS}/mobile/icons/proud.png`, 'AVATAR')
           }}
-          transition={300}
           style={styles.image}
         />
         <Text style={[styles.text, { color: theme.colors.white }]}>
-          Highlights
+          Feed Flex
         </Text>
       </Pressable>
     </ScrollView>
