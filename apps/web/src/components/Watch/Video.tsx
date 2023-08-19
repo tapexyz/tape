@@ -46,20 +46,22 @@ const Video: FC<Props> = ({ video }) => {
   }
 
   return (
-    <div className="overflow-hidden">
-      <VideoPlayer
-        address={selectedChannel?.ownedBy}
-        refCallback={refCallback}
-        currentTime={videoWatchTime}
-        permanentUrl={getPublicationRawMediaUrl(video)}
-        hlsUrl={getPublicationHlsUrl(video)}
-        posterUrl={thumbnailUrl}
-        options={{
-          loadingSpinner: true,
-          isCurrentlyShown: true
-        }}
-        isSensitiveContent={isSensitiveContent}
-      />
+    <div>
+      <div className="overflow-hidden rounded-xl">
+        <VideoPlayer
+          address={selectedChannel?.ownedBy}
+          refCallback={refCallback}
+          currentTime={videoWatchTime}
+          permanentUrl={getPublicationRawMediaUrl(video)}
+          hlsUrl={getPublicationHlsUrl(video)}
+          posterUrl={thumbnailUrl}
+          options={{
+            loadingSpinner: true,
+            isCurrentlyShown: true
+          }}
+          isSensitiveContent={isSensitiveContent}
+        />
+      </div>
       <div className="flex items-center justify-between">
         <div>
           <h1
