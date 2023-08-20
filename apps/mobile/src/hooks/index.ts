@@ -41,10 +41,6 @@ export {
 } from 'react-hook-form'
 export { useWindowDimensions } from 'react-native'
 export {
-  useNotificationController,
-  useNotifications
-} from 'react-native-notificated'
-export {
   useSafeAreaFrame,
   useSafeAreaInsets
 } from 'react-native-safe-area-context'

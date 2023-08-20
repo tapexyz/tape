@@ -7,11 +7,12 @@ import { Image as ExpoImage } from 'expo-image'
 import type { Dispatch, FC } from 'react'
 import React from 'react'
 import { Pressable, ScrollView, StyleSheet, Text } from 'react-native'
-import { notify } from 'react-native-notificated'
 
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
 import useMobileStore from '~/store'
+
+import { useToast } from '../common/toast'
 
 const styles = StyleSheet.create({
   container: {
@@ -46,7 +47,7 @@ const TimelineFilters: FC<Props> = ({
   setSelectedFeedType
 }) => {
   const { navigate } = useNavigation()
-
+  const { showToast } = useToast()
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
 
   return (
@@ -91,7 +92,7 @@ const TimelineFilters: FC<Props> = ({
       <Pressable
         onPress={() => {
           if (!selectedChannel) {
-            return notify('info', { params: { title: 'Sign in with Lens' } })
+            return showToast({ text: 'Sign in with Lens' })
           }
           setSelectedFeedType(TimelineFeedType.FOLLOWING)
         }}
@@ -128,7 +129,7 @@ const TimelineFilters: FC<Props> = ({
       <Pressable
         onPress={() => {
           if (!selectedChannel) {
-            return notify('info', { params: { title: 'Sign in with Lens' } })
+            return showToast({ text: 'Sign in with Lens' })
           }
           setSelectedFeedType(TimelineFeedType.HIGHLIGHTS)
         }}

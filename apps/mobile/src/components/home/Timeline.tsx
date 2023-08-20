@@ -112,16 +112,12 @@ const Timeline = () => {
       skip: !selectedChannelId
     })
 
-  const publications = useMemo(
-    () =>
-      selectedFeedType === TimelineFeedType.CURATED
-        ? (curatedData?.explorePublications?.items as Publication[])
-        : TimelineFeedType.HIGHLIGHTS
-        ? (feedHighlightsData?.feedHighlights.items as Publication[])
-        : (feedData?.feed?.items as FeedItem[]),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [selectedFeedType]
-  )
+  const publications =
+    selectedFeedType === TimelineFeedType.CURATED
+      ? (curatedData?.explorePublications?.items as Publication[])
+      : TimelineFeedType.HIGHLIGHTS
+      ? (feedHighlightsData?.feedHighlights.items as Publication[])
+      : (feedData?.feed?.items as FeedItem[])
 
   console.log(
     '🚀 ~ file: Timeline.tsx:125 ~ Timeline ~ publications:',
