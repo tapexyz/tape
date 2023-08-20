@@ -19,7 +19,6 @@ import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
 import { usePlatform } from '~/hooks'
-import useMobileStore from '~/store'
 
 const styles = StyleSheet.create({
   container: {
@@ -72,13 +71,6 @@ export const FeedFlexModal = (): JSX.Element => {
   const { height } = useWindowDimensions()
   const { isAndroid } = usePlatform()
 
-  const selectedExploreFilter = useMobileStore(
-    (state) => state.selectedExploreFilter
-  )
-  const setSelectedExploreFilter = useMobileStore(
-    (state) => state.setSelectedExploreFilter
-  )
-
   return (
     <BlurView
       intensity={100}
@@ -104,10 +96,6 @@ export const FeedFlexModal = (): JSX.Element => {
           <TouchableOpacity
             activeOpacity={0.6}
             onPress={() => {
-              setSelectedExploreFilter({
-                ...selectedExploreFilter,
-                category: 'all'
-              })
               goBack()
             }}
           >

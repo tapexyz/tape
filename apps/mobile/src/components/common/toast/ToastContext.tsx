@@ -7,6 +7,6 @@ export const ToastContext = createContext({})
 export const useToast = () => {
   return useContext(ToastContext) as {
     showToast: (props: ToastProps) => void
-    hideToast: (props: ToastProps) => void
+    hideToast: () => void
   }
 }
