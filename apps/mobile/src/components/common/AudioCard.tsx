@@ -18,7 +18,6 @@ import {
   useWindowDimensions,
   View
 } from 'react-native'
-import { SharedElement } from 'react-navigation-shared-element'
 
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
@@ -86,17 +85,12 @@ const AudioCard: FC<Props> = ({ audio }) => {
     <Pressable onPress={() => navigate('WatchVideo', { id: audio.id })}>
       <>
         <View style={{ display: 'flex', flexDirection: 'row' }}>
-          <SharedElement id={`video.watch.${audio.id}.thumbnail`}>
-            <ExpoImage
-              source={{ uri: thumbnailUrl }}
-              transition={300}
-              contentFit="cover"
-              style={[
-                styles.thumbnail,
-                { width: width / 3, height: width / 3 }
-              ]}
-            />
-          </SharedElement>
+          <ExpoImage
+            source={{ uri: thumbnailUrl }}
+            transition={300}
+            contentFit="cover"
+            style={[styles.thumbnail, { width: width / 3, height: width / 3 }]}
+          />
           <View style={styles.audioInfoContainer}>
             <View style={{ gap: 5 }}>
               <Text style={styles.title} numberOfLines={2}>

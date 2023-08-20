@@ -3,7 +3,6 @@ import type { Publication } from '@lenstube/lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
-import { SharedElement } from 'react-navigation-shared-element'
 
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
@@ -46,36 +45,32 @@ const Metadata: FC<Props> = ({ video }) => {
   const [showMore, setShowMore] = useState(false)
 
   return (
-    <SharedElement id={`video.watch.${video.id}.info`}>
-      <View style={{ paddingVertical: 15, paddingHorizontal: 5 }}>
-        <Text style={styles.title}>{video.metadata.name}</Text>
-        {video.metadata.description && (
-          <Pressable onPress={() => setShowMore(!showMore)}>
-            <Text
-              numberOfLines={!showMore ? 2 : undefined}
-              style={styles.description}
-            >
-              {showMore
-                ? video.metadata.description
-                : trimNewLines(video.metadata.description)}
-            </Text>
-          </Pressable>
-        )}
-        <View style={styles.otherInfoContainer}>
-          <UserProfile profile={video.profile} size={15} radius={3} />
-          <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
-            {'\u2B24'}
+    <View style={{ paddingVertical: 15, paddingHorizontal: 5 }}>
+      <Text style={styles.title}>{video.metadata.name}</Text>
+      {video.metadata.description && (
+        <Pressable onPress={() => setShowMore(!showMore)}>
+          <Text
+            numberOfLines={!showMore ? 2 : undefined}
+            style={styles.description}
+          >
+            {showMore
+              ? video.metadata.description
+              : trimNewLines(video.metadata.description)}
           </Text>
-          <Text style={styles.otherInfo}>{video.stats.totalUpvotes} likes</Text>
-          <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
-            {'\u2B24'}
-          </Text>
-          <Text style={styles.otherInfo}>
-            {getRelativeTime(video.createdAt)}
-          </Text>
-        </View>
+        </Pressable>
+      )}
+      <View style={styles.otherInfoContainer}>
+        <UserProfile profile={video.profile} size={15} radius={3} />
+        <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
+          {'\u2B24'}
+        </Text>
+        <Text style={styles.otherInfo}>{video.stats.totalUpvotes} likes</Text>
+        <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
+          {'\u2B24'}
+        </Text>
+        <Text style={styles.otherInfo}>{getRelativeTime(video.createdAt)}</Text>
       </View>
-    </SharedElement>
+    </View>
   )
 }
 

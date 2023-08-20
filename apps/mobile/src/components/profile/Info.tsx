@@ -26,7 +26,6 @@ import Animated, {
   useAnimatedStyle
 } from 'react-native-reanimated'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { SharedElement } from 'react-navigation-shared-element'
 
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
@@ -190,10 +189,7 @@ const Info: FC<Props> = (props) => {
             />
             <Text style={styles.text}>followers</Text>
           </View>
-          <SharedElement
-            style={{ marginTop: -(height * 0.07) }}
-            id={`profile.${profile.handle}`}
-          >
+          <View style={{ marginTop: -(height * 0.07) }}>
             <UserProfile
               size={100}
               radius={20}
@@ -201,7 +197,7 @@ const Info: FC<Props> = (props) => {
               showHandle={false}
               pressable={false}
             />
-          </SharedElement>
+          </View>
           <View style={styles.stat}>
             <Ticker
               number={profile.stats.totalCollects}

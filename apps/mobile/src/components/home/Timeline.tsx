@@ -120,7 +120,7 @@ const Timeline = () => {
         ? (feedData?.feed?.items as FeedItem[])
         : (curatedData?.explorePublications?.items as Publication[]),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [selectedFeedType]
+    [selectedFeedType, loading]
   )
 
   const pageInfo =

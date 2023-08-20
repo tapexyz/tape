@@ -22,7 +22,7 @@ import {
   Text,
   View
 } from 'react-native'
-import { SharedElement } from 'react-navigation-shared-element'
+import Animated from 'react-native-reanimated'
 
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
@@ -109,7 +109,7 @@ const VideoCard: FC<Props> = ({ video }) => {
 
   return (
     <Pressable onPress={() => navigate('WatchVideo', { id: video.id })}>
-      <SharedElement id={`video.watch.${video.id}.thumbnail`}>
+      <Animated.View sharedTransitionTag={`video.watch.${video.id}.thumbnail`}>
         <ImageBackground
           source={{ uri: thumbnailUrl }}
           blurRadius={15}
@@ -142,35 +142,31 @@ const VideoCard: FC<Props> = ({ video }) => {
             </View>
           )}
         </ImageBackground>
-      </SharedElement>
+      </Animated.View>
 
-      <SharedElement id={`video.watch.${video.id}.info`}>
-        <View style={{ paddingVertical: 15, paddingHorizontal: 5 }}>
-          <Text numberOfLines={3} style={styles.title}>
-            {trimify(video.metadata.name ?? '')}
+      <View style={{ paddingVertical: 15, paddingHorizontal: 5 }}>
+        <Text numberOfLines={3} style={styles.title}>
+          {trimify(video.metadata.name ?? '')}
+        </Text>
+        {video.metadata.description && (
+          <Text numberOfLines={3} style={styles.description}>
+            {trimNewLines(video.metadata.description)}
           </Text>
-          {video.metadata.description && (
-            <Text numberOfLines={3} style={styles.description}>
-              {trimNewLines(video.metadata.description)}
-            </Text>
-          )}
-          <View style={styles.otherInfoContainer}>
-            <UserProfile profile={video.profile} size={15} radius={3} />
-            <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
-              {'\u2B24'}
-            </Text>
-            <Text style={styles.otherInfo}>
-              {video.stats.totalUpvotes} likes
-            </Text>
-            <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
-              {'\u2B24'}
-            </Text>
-            <Text style={styles.otherInfo}>
-              {getRelativeTime(video.createdAt)}
-            </Text>
-          </View>
+        )}
+        <View style={styles.otherInfoContainer}>
+          <UserProfile profile={video.profile} size={15} radius={3} />
+          <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
+            {'\u2B24'}
+          </Text>
+          <Text style={styles.otherInfo}>{video.stats.totalUpvotes} likes</Text>
+          <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
+            {'\u2B24'}
+          </Text>
+          <Text style={styles.otherInfo}>
+            {getRelativeTime(video.createdAt)}
+          </Text>
         </View>
-      </SharedElement>
+      </View>
     </Pressable>
   )
 }

@@ -9,7 +9,6 @@ import {
 } from 'react-native'
 import Animated, { FadeInDown } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { SharedElement } from 'react-navigation-shared-element'
 
 import ServerError from '~/components/ui/ServerError'
 import MoreVideos from '~/components/watch/MoreVideos'
@@ -55,9 +54,9 @@ export const WatchScreen = (props: WatchScreenProps) => {
 
   return (
     <View style={[styles.container, { top, bottom }]}>
-      <SharedElement id={`video.watch.${video.id}.thumbnail`}>
+      <Animated.View sharedTransitionTag={`video.watch.${video.id}.thumbnail`}>
         <VideoPlayer video={video} />
-      </SharedElement>
+      </Animated.View>
 
       <Animated.View style={{ height: windowHeight }} entering={FadeInDown}>
         <MoreVideos video={video} />
