@@ -54,9 +54,7 @@ export const WatchScreen = (props: WatchScreenProps) => {
 
   return (
     <View style={[styles.container, { top, bottom }]}>
-      <Animated.View sharedTransitionTag={`video.watch.${video.id}.thumbnail`}>
-        <VideoPlayer video={video} />
-      </Animated.View>
+      <VideoPlayer video={video} />
 
       <Animated.View style={{ height: windowHeight }} entering={FadeInDown}>
         <MoreVideos video={video} />

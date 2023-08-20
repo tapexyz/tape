@@ -22,7 +22,6 @@ import {
   Text,
   View
 } from 'react-native'
-import Animated from 'react-native-reanimated'
 
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
@@ -109,40 +108,38 @@ const VideoCard: FC<Props> = ({ video }) => {
 
   return (
     <Pressable onPress={() => navigate('WatchVideo', { id: video.id })}>
-      <Animated.View sharedTransitionTag={`video.watch.${video.id}.thumbnail`}>
-        <ImageBackground
+      <ImageBackground
+        source={{ uri: thumbnailUrl }}
+        blurRadius={15}
+        imageStyle={{
+          opacity: 0.8,
+          borderRadius: BORDER_RADIUS
+        }}
+      >
+        <ExpoImage
           source={{ uri: thumbnailUrl }}
-          blurRadius={15}
-          imageStyle={{
-            opacity: 0.8,
-            borderRadius: BORDER_RADIUS
-          }}
-        >
-          <ExpoImage
-            source={{ uri: thumbnailUrl }}
-            transition={300}
-            contentFit={isBytes ? 'contain' : 'cover'}
-            style={styles.thumbnail}
-          />
-          {videoDuration && (
-            <View style={styles.duration}>
-              <Text style={styles.otherInfo}>
-                {getTimeFromSeconds(videoDuration)}
-              </Text>
-            </View>
-          )}
-          {isSensitiveContent && (
-            <View style={styles.sensitive}>
-              <Ionicons
-                name="eye-off-outline"
-                color={theme.colors.white}
-                size={10}
-              />
-              <Text style={styles.otherInfo}>Sensitive</Text>
-            </View>
-          )}
-        </ImageBackground>
-      </Animated.View>
+          transition={300}
+          contentFit={isBytes ? 'contain' : 'cover'}
+          style={styles.thumbnail}
+        />
+        {videoDuration && (
+          <View style={styles.duration}>
+            <Text style={styles.otherInfo}>
+              {getTimeFromSeconds(videoDuration)}
+            </Text>
+          </View>
+        )}
+        {isSensitiveContent && (
+          <View style={styles.sensitive}>
+            <Ionicons
+              name="eye-off-outline"
+              color={theme.colors.white}
+              size={10}
+            />
+            <Text style={styles.otherInfo}>Sensitive</Text>
+          </View>
+        )}
+      </ImageBackground>
 
       <View style={{ paddingVertical: 15, paddingHorizontal: 5 }}>
         <Text numberOfLines={3} style={styles.title}>
