@@ -62,22 +62,22 @@ const App = (): JSX.Element => {
   return (
     <SafeAreaProvider>
       <ApolloProvider client={apolloClient(mobileAuthLink)}>
-        <ToastProvider>
-          <LivepeerConfig client={livepeerClient}>
-            <WalletConnectModal
-              themeMode="dark"
-              projectId={WC_PROJECT_ID}
-              explorerExcludedWalletIds="ALL"
-              providerMetadata={providerMetadata}
-              explorerRecommendedWalletIds={explorerRecommendedWalletIds}
-            />
-            <AppLoading>
+        <AppLoading>
+          <ToastProvider>
+            <LivepeerConfig client={livepeerClient}>
+              <WalletConnectModal
+                themeMode="dark"
+                projectId={WC_PROJECT_ID}
+                explorerExcludedWalletIds="ALL"
+                providerMetadata={providerMetadata}
+                explorerRecommendedWalletIds={explorerRecommendedWalletIds}
+              />
               <GestureHandlerRootView style={styles.gestureHandlerRootView}>
                 <Navigation />
               </GestureHandlerRootView>
-            </AppLoading>
-          </LivepeerConfig>
-        </ToastProvider>
+            </LivepeerConfig>
+          </ToastProvider>
+        </AppLoading>
       </ApolloProvider>
     </SafeAreaProvider>
   )
