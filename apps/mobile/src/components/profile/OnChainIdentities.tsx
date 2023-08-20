@@ -5,7 +5,6 @@ import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
 import React from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import Animated, { FadeIn } from 'react-native-reanimated'
 
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
@@ -50,76 +49,74 @@ const OnChainIdentities: FC<Props> = ({ identity }) => {
   }
 
   return (
-    <Animated.View entering={FadeIn.delay(500)}>
-      <ScrollView
-        horizontal={true}
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ gap: 10 }}
-      >
-        {identity?.ens?.name && (
-          <View style={styles.badge}>
-            <ExpoImage
-              source={{
-                uri: imageCdn(
-                  `${STATIC_ASSETS}/mobile/images/products/ens.png`,
-                  'AVATAR'
-                )
-              }}
-              transition={300}
-              style={styles.image}
-            />
-            <Text style={styles.text}>{identity.ens.name}</Text>
-          </View>
-        )}
-        {identity?.worldcoin.isHuman && (
-          <View style={styles.badge}>
-            <ExpoImage
-              source={{
-                uri: imageCdn(
-                  `${STATIC_ASSETS}/mobile/images/products/worldcoin.png`,
-                  'AVATAR'
-                )
-              }}
-              transition={300}
-              style={styles.image}
-            />
-            <Text style={styles.text}>Person</Text>
-          </View>
-        )}
-        {identity?.proofOfHumanity && (
-          <View style={styles.badge}>
-            <ExpoImage
-              source={{
-                uri: imageCdn(
-                  `${STATIC_ASSETS}/mobile/images/products/poh.png`,
-                  'AVATAR'
-                )
-              }}
-              transition={300}
-              style={styles.image}
-            />
-            <Text style={styles.text}>Human</Text>
-          </View>
-        )}
-        {identity?.sybilDotOrg.verified && (
-          <View style={styles.badge}>
-            <ExpoImage
-              source={{
-                uri: imageCdn(
-                  `${STATIC_ASSETS}/mobile/images/products/sybil.png`,
-                  'AVATAR'
-                )
-              }}
-              transition={300}
-              style={styles.image}
-            />
-            <Text style={styles.text}>
-              {identity?.sybilDotOrg.source.twitter.handle}
-            </Text>
-          </View>
-        )}
-      </ScrollView>
-    </Animated.View>
+    <ScrollView
+      horizontal={true}
+      showsHorizontalScrollIndicator={false}
+      contentContainerStyle={{ gap: 10 }}
+    >
+      {identity?.ens?.name && (
+        <View style={styles.badge}>
+          <ExpoImage
+            source={{
+              uri: imageCdn(
+                `${STATIC_ASSETS}/mobile/images/products/ens.png`,
+                'AVATAR'
+              )
+            }}
+            transition={300}
+            style={styles.image}
+          />
+          <Text style={styles.text}>{identity.ens.name}</Text>
+        </View>
+      )}
+      {identity?.worldcoin.isHuman && (
+        <View style={styles.badge}>
+          <ExpoImage
+            source={{
+              uri: imageCdn(
+                `${STATIC_ASSETS}/mobile/images/products/worldcoin.png`,
+                'AVATAR'
+              )
+            }}
+            transition={300}
+            style={styles.image}
+          />
+          <Text style={styles.text}>Person</Text>
+        </View>
+      )}
+      {identity?.proofOfHumanity && (
+        <View style={styles.badge}>
+          <ExpoImage
+            source={{
+              uri: imageCdn(
+                `${STATIC_ASSETS}/mobile/images/products/poh.png`,
+                'AVATAR'
+              )
+            }}
+            transition={300}
+            style={styles.image}
+          />
+          <Text style={styles.text}>Human</Text>
+        </View>
+      )}
+      {identity?.sybilDotOrg.verified && (
+        <View style={styles.badge}>
+          <ExpoImage
+            source={{
+              uri: imageCdn(
+                `${STATIC_ASSETS}/mobile/images/products/sybil.png`,
+                'AVATAR'
+              )
+            }}
+            transition={300}
+            style={styles.image}
+          />
+          <Text style={styles.text}>
+            {identity?.sybilDotOrg.source.twitter.handle}
+          </Text>
+        </View>
+      )}
+    </ScrollView>
   )
 }
 

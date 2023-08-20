@@ -1,7 +1,6 @@
 import type { FC, PropsWithChildren } from 'react'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
-import Animated, { FadeIn } from 'react-native-reanimated'
 
 import { theme } from '~/helpers/theme'
 
@@ -14,9 +13,9 @@ const styles = StyleSheet.create({
 
 const Menu: FC<PropsWithChildren> = ({ children }) => {
   return (
-    <Animated.View entering={FadeIn.delay(200)} style={styles.card}>
+    <View style={styles.card}>
       <View>{children}</View>
-    </Animated.View>
+    </View>
   )
 }
 

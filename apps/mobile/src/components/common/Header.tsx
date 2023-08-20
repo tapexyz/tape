@@ -6,7 +6,6 @@ import { useWalletConnectModal } from '@walletconnect/modal-react-native'
 import type { FC } from 'react'
 import React, { useRef } from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import { SharedElement } from 'react-navigation-shared-element'
 
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
@@ -75,14 +74,12 @@ const AuthenticatedUser = () => {
 
   return (
     <>
-      <SharedElement id={`profile.${selectedChannel.handle}`}>
-        <UserProfile
-          profile={selectedChannel}
-          showHandle={false}
-          size={30}
-          onPress={() => profileSheetRef.current?.present()}
-        />
-      </SharedElement>
+      <UserProfile
+        profile={selectedChannel}
+        showHandle={false}
+        size={30}
+        onPress={() => profileSheetRef.current?.present()}
+      />
       <Sheet sheetRef={profileSheetRef} snap={['60%']}>
         <ScrollView style={{ paddingHorizontal: 10, paddingVertical: 15 }}>
           <Switch />

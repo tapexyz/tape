@@ -4,7 +4,6 @@ import { useNavigation } from '@react-navigation/native'
 import { LinearGradient } from 'expo-linear-gradient'
 import React, { memo } from 'react'
 import { ImageBackground, StyleSheet, Text, View } from 'react-native'
-import { notify } from 'react-native-notificated'
 import Animated, { FadeInRight } from 'react-native-reanimated'
 
 import haptic from '~/helpers/haptic'
@@ -12,6 +11,7 @@ import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
 import useMobileStore from '~/store'
 
+import { useToast } from '../common/toast'
 import AnimatedPressable from '../ui/AnimatedPressable'
 
 const BORDER_RADIUS = 30
@@ -76,6 +76,7 @@ const styles = StyleSheet.create({
 
 const Showcase = () => {
   const { navigate } = useNavigation()
+  const { showToast } = useToast()
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
 
   return (
@@ -84,7 +85,7 @@ const Showcase = () => {
         <AnimatedPressable
           onPress={() => {
             if (!selectedChannel) {
-              return notify('info', { params: { title: 'Sign in with Lens' } })
+              return showToast({ text: 'Sign in with Lens' })
             }
             haptic()
           }}

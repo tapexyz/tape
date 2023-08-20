@@ -1,3 +1,4 @@
+export * from './useAlgoFeed'
 export * from './useAuth'
 export * from './useCachedResources'
 export * from './useIsForeground'
@@ -39,10 +40,6 @@ export {
   useWatch
 } from 'react-hook-form'
 export { useWindowDimensions } from 'react-native'
-export {
-  useNotificationController,
-  useNotifications
-} from 'react-native-notificated'
 export {
   useSafeAreaFrame,
   useSafeAreaInsets

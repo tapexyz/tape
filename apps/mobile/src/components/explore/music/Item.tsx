@@ -9,7 +9,6 @@ import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
 import React from 'react'
 import { StyleSheet, Text, useWindowDimensions, View } from 'react-native'
-import { SharedElement } from 'react-navigation-shared-element'
 
 import UserProfile from '~/components/common/UserProfile'
 import normalizeFont from '~/helpers/normalize-font'
@@ -108,10 +107,7 @@ const Item: FC<Props> = ({ audio }) => {
           justifyContent: 'center'
         }}
       >
-        <SharedElement
-          id={`item.${audio.id}.image`}
-          style={[styles.poster, { height: width * 0.6 }]}
-        >
+        <View style={[styles.poster, { height: width * 0.6 }]}>
           <ExpoImage
             source={{
               uri: imageCdn(getThumbnailUrl(audio), 'SQUARE')
@@ -120,7 +116,7 @@ const Item: FC<Props> = ({ audio }) => {
             contentFit="cover"
             style={[styles.poster, { height: width * 0.6 }]}
           />
-        </SharedElement>
+        </View>
       </View>
     </View>
   )

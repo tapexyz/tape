@@ -9,8 +9,7 @@ import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 import { ResizeMode, Video } from 'expo-av'
 import type { FC } from 'react'
 import React, { useEffect, useRef } from 'react'
-import { StyleSheet, useWindowDimensions } from 'react-native'
-import Animated, { FadeIn } from 'react-native-reanimated'
+import { StyleSheet, useWindowDimensions, View } from 'react-native'
 
 import { useIsFocused } from '~/hooks/navigation'
 
@@ -68,10 +67,7 @@ const ByteCard: FC<Props> = ({ byte, isActive }) => {
   }, [isFocused, isActive])
 
   return (
-    <Animated.View
-      entering={FadeIn.duration(500)}
-      style={[styles.byteCard, { height: BYTE_HEIGHT, width }]}
-    >
+    <View style={[styles.byteCard, { height: BYTE_HEIGHT, width }]}>
       <Video
         ref={videoRef}
         isLooping
@@ -87,7 +83,7 @@ const ByteCard: FC<Props> = ({ byte, isActive }) => {
       />
 
       <Overlay byte={byte} />
-    </Animated.View>
+    </View>
   )
 }
 

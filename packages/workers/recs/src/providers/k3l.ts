@@ -2,16 +2,18 @@ import { K3LFeedItem, K3LProfile } from '../types'
 
 export const k3lFeed = async (
   strategy: string,
-  limit: string,
-  offset: string
+  limit: string = '50',
+  offset: string = '0',
+  exclude?: string
 ) => {
   try {
     const response = await fetch(
-      `https://lens-api.k3l.io/feed/${strategy}?limit=${limit}&offset=${offset}`,
+      `https://lens-api.k3l.io/feed/${strategy}?limit=${limit}&offset=${offset}&contentFocus=AUDIO&contentFocus=VIDEO`,
       { headers: { 'User-Agent': 'Lenstube' } }
     )
     const json: K3LFeedItem[] = await response.json()
-    return json.map((item: K3LFeedItem) => item.postId)
+    const ids = json.map((item: K3LFeedItem) => item.postId)
+    return ids.filter((el) => el !== exclude)
   } catch (error) {
     console.log(error)
     return []
@@ -20,8 +22,8 @@ export const k3lFeed = async (
 
 export const k3lScores = async (
   strategy: string,
-  limit: string,
-  offset: string
+  limit: string = '49',
+  offset: string = '0'
 ) => {
   try {
     const response = await fetch(

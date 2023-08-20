@@ -1,10 +1,9 @@
 import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
+import type { Comment, Profile } from '@lenstube/lens'
 import {
-  type Profile,
-  type Publication,
   PublicationMainFocus,
   PublicationTypes,
-  useProfilePostsQuery
+  useCommentsQuery
 } from '@lenstube/lens'
 import type { FC } from 'react'
 import React, { memo, useCallback } from 'react'
@@ -18,6 +17,7 @@ import {
 import Animated from 'react-native-reanimated'
 
 import ImageCard from '~/components/common/ImageCard'
+import ServerError from '~/components/ui/ServerError'
 
 import AudioCard from '../../common/AudioCard'
 import VideoCard from '../../common/VideoCard'
@@ -34,11 +34,11 @@ const styles = StyleSheet.create({
   }
 })
 
-const Feed: FC<Props> = ({ profile, scrollHandler }) => {
+const Replies: FC<Props> = ({ profile, scrollHandler }) => {
   const { height } = useWindowDimensions()
 
   const request = {
-    publicationTypes: [PublicationTypes.Post],
+    publicationTypes: [PublicationTypes.Comment],
     limit: 10,
     metadata: {
       mainContentFocus: [
@@ -51,14 +51,14 @@ const Feed: FC<Props> = ({ profile, scrollHandler }) => {
     profileId: profile?.id
   }
 
-  const { data, loading, fetchMore } = useProfilePostsQuery({
+  const { data, loading, fetchMore, error } = useCommentsQuery({
     variables: {
       request
     },
     skip: !profile?.id
   })
 
-  const publications = data?.publications?.items as Publication[]
+  const publications = data?.publications?.items as Comment[]
   const pageInfo = data?.publications?.pageInfo
 
   const fetchMorePublications = async () => {
@@ -73,7 +73,7 @@ const Feed: FC<Props> = ({ profile, scrollHandler }) => {
   }
 
   const renderItem = useCallback(
-    ({ item }: { item: Publication }) => (
+    ({ item }: { item: Comment }) => (
       <View style={{ marginBottom: 30 }}>
         {item.metadata.mainContentFocus === PublicationMainFocus.Audio ? (
           <AudioCard audio={item} />
@@ -86,6 +86,14 @@ const Feed: FC<Props> = ({ profile, scrollHandler }) => {
     ),
     []
   )
+
+  if (loading) {
+    return <ActivityIndicator style={{ flex: 1 }} />
+  }
+
+  if (error) {
+    return <ServerError />
+  }
 
   return (
     <View style={[styles.container, { height }]}>
@@ -109,4 +117,4 @@ const Feed: FC<Props> = ({ profile, scrollHandler }) => {
   )
 }
 
-export default memo(Feed)
+export default memo(Replies)

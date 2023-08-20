@@ -21,6 +21,7 @@ import Bytes from './tabs/Bytes'
 import Feed from './tabs/Feed'
 import Gallery from './tabs/Gallery'
 import Media from './tabs/Media'
+import Replies from './tabs/Replies'
 
 const tabs = ['Feed', 'Media', 'Bytes', 'Replies', 'Gallery']
 type TabItemType = (typeof tabs)[number]
@@ -72,10 +73,7 @@ const TabContent: FC<Props> = (props) => {
   })
 
   return (
-    <Animated.View
-      style={animatedScrollStyles}
-      entering={FadeInRight.delay(200).duration(400)}
-    >
+    <Animated.View style={animatedScrollStyles} entering={FadeInRight}>
       <TabList
         activeTab={activeTabIndex}
         tabs={tabs}
@@ -98,7 +96,9 @@ const TabContent: FC<Props> = (props) => {
             Feed: <Feed profile={profile} scrollHandler={scrollHandler} />,
             Media: <Media profile={profile} scrollHandler={scrollHandler} />,
             Bytes: <Bytes profile={profile} scrollHandler={scrollHandler} />,
-            Replies: <Feed profile={profile} scrollHandler={scrollHandler} />,
+            Replies: (
+              <Replies profile={profile} scrollHandler={scrollHandler} />
+            ),
             Gallery: <Gallery profile={profile} scrollHandler={scrollHandler} />
           }[item]
 

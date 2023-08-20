@@ -1,14 +1,18 @@
+import Ionicons from '@expo/vector-icons/Ionicons'
 import { STATIC_ASSETS } from '@lenstube/constants'
 import { imageCdn } from '@lenstube/generic'
+import { TimelineFeedType } from '@lenstube/lens/custom-types'
+import { useNavigation } from '@react-navigation/native'
 import { Image as ExpoImage } from 'expo-image'
+import type { Dispatch, FC } from 'react'
 import React from 'react'
 import { Pressable, ScrollView, StyleSheet, Text } from 'react-native'
-import { notify } from 'react-native-notificated'
 
-import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
 import useMobileStore from '~/store'
+
+import { useToast } from '../common/toast'
 
 const styles = StyleSheet.create({
   container: {
@@ -33,7 +37,17 @@ const styles = StyleSheet.create({
   }
 })
 
-const TimelineFilters = () => {
+type Props = {
+  selectedFeedType: TimelineFeedType
+  setSelectedFeedType: Dispatch<TimelineFeedType>
+}
+
+const TimelineFilters: FC<Props> = ({
+  selectedFeedType,
+  setSelectedFeedType
+}) => {
+  const { navigate } = useNavigation()
+  const { showToast } = useToast()
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
 
   return (
@@ -41,58 +55,157 @@ const TimelineFilters = () => {
       style={styles.container}
       horizontal={true}
       showsHorizontalScrollIndicator={false}
-      contentContainerStyle={{ gap: 5 }}
+      contentContainerStyle={{ gap: 5, paddingRight: 15 }}
     >
       <Pressable
-        onPress={() => haptic()}
-        style={[styles.filter, { backgroundColor: theme.colors.white }]}
+        onPress={() => setSelectedFeedType(TimelineFeedType.CURATED)}
+        style={[
+          styles.filter,
+          {
+            backgroundColor:
+              selectedFeedType === TimelineFeedType.CURATED
+                ? theme.colors.white
+                : 'transparent'
+          }
+        ]}
       >
         <ExpoImage
           source={{
             uri: imageCdn(`${STATIC_ASSETS}/mobile/icons/in-love.png`, 'AVATAR')
           }}
-          transition={300}
           style={styles.image}
         />
-        <Text style={[styles.text, { color: theme.colors.black }]}>
-          For You
+        <Text
+          style={[
+            styles.text,
+            {
+              color:
+                selectedFeedType === TimelineFeedType.CURATED
+                  ? theme.colors.black
+                  : theme.colors.white
+            }
+          ]}
+        >
+          Curated
         </Text>
       </Pressable>
       <Pressable
         onPress={() => {
           if (!selectedChannel) {
-            return notify('info', { params: { title: 'Sign in with Lens' } })
+            return showToast({ text: 'Sign in with Lens' })
           }
+          setSelectedFeedType(TimelineFeedType.FOLLOWING)
         }}
-        style={styles.filter}
+        style={[
+          styles.filter,
+          {
+            backgroundColor:
+              selectedFeedType === TimelineFeedType.FOLLOWING
+                ? theme.colors.white
+                : 'transparent'
+          }
+        ]}
       >
         <ExpoImage
           source={{
             uri: imageCdn(`${STATIC_ASSETS}/mobile/icons/smile.png`, 'AVATAR')
           }}
-          transition={300}
           style={styles.image}
         />
-        <Text style={[styles.text, { color: theme.colors.white }]}>Feed</Text>
+        <Text
+          style={[
+            styles.text,
+            {
+              color:
+                selectedFeedType === TimelineFeedType.FOLLOWING
+                  ? theme.colors.black
+                  : theme.colors.white
+            }
+          ]}
+        >
+          Following
+        </Text>
       </Pressable>
       <Pressable
         onPress={() => {
           if (!selectedChannel) {
-            return notify('info', { params: { title: 'Sign in with Lens' } })
+            return showToast({ text: 'Sign in with Lens' })
           }
+          setSelectedFeedType(TimelineFeedType.HIGHLIGHTS)
         }}
-        style={styles.filter}
+        style={[
+          styles.filter,
+          {
+            backgroundColor:
+              selectedFeedType === TimelineFeedType.HIGHLIGHTS
+                ? theme.colors.white
+                : 'transparent'
+          }
+        ]}
+      >
+        <ExpoImage
+          source={{
+            uri: imageCdn(`${STATIC_ASSETS}/mobile/icons/wow.png`, 'AVATAR')
+          }}
+          style={styles.image}
+        />
+        <Text
+          style={[
+            styles.text,
+            {
+              color:
+                selectedFeedType === TimelineFeedType.HIGHLIGHTS
+                  ? theme.colors.black
+                  : theme.colors.white
+            }
+          ]}
+        >
+          Highlights
+        </Text>
+      </Pressable>
+      <Pressable
+        onPress={() => {
+          navigate('FeedFlexModal')
+          setSelectedFeedType(TimelineFeedType.ALGORITHM)
+        }}
+        style={[
+          styles.filter,
+          {
+            backgroundColor:
+              selectedFeedType === TimelineFeedType.ALGORITHM
+                ? theme.colors.white
+                : 'transparent'
+          }
+        ]}
       >
         <ExpoImage
           source={{
             uri: imageCdn(`${STATIC_ASSETS}/mobile/icons/proud.png`, 'AVATAR')
           }}
-          transition={300}
           style={styles.image}
         />
-        <Text style={[styles.text, { color: theme.colors.white }]}>
-          Highlights
+        <Text
+          style={[
+            styles.text,
+            {
+              color:
+                selectedFeedType === TimelineFeedType.ALGORITHM
+                  ? theme.colors.black
+                  : theme.colors.white
+            }
+          ]}
+        >
+          Flex
         </Text>
+        <Ionicons
+          name="chevron-down-outline"
+          color={
+            selectedFeedType === TimelineFeedType.ALGORITHM
+              ? theme.colors.black
+              : theme.colors.white
+          }
+          size={15}
+        />
       </Pressable>
     </ScrollView>
   )

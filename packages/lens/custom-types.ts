@@ -154,3 +154,20 @@ export enum CustomNotificationsFilterEnum {
   HIGH_SIGNAL = 'HighSignal',
   ALL_NOTIFICATIONS = 'AllNotifications'
 }
+
+export enum TimelineFeedType {
+  CURATED = 'CURATED',
+  FOLLOWING = 'FOLLOWING',
+  HIGHLIGHTS = 'HIGHLIGHTS',
+  ALGORITHM = 'ALGORITHM'
+}
+
+export enum AlgoType {
+  K3L_RECOMMENDED = 'K3L_RECOMMENDED',
+  K3L_POPULAR = 'K3L_POPULAR',
+  K3L_CROWDSOURCED = 'K3L_CROWDSOURCED'
+}
+
+export enum ALGO_PROVIDER {
+  K3L = 'K3L'
+}

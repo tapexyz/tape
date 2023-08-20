@@ -1,17 +1,27 @@
 import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
-import type { Publication } from '@lenstube/lens'
+import type {
+  FeedHighlightsRequest,
+  FeedItem,
+  FeedItemRoot,
+  Publication
+} from '@lenstube/lens'
 import {
+  FeedEventItemType,
   PublicationMainFocus,
   PublicationSortCriteria,
   PublicationTypes,
-  useExploreQuery
+  useExploreQuery,
+  useFeedHighlightsQuery,
+  useFeedQuery
 } from '@lenstube/lens'
+import { TimelineFeedType } from '@lenstube/lens/custom-types'
 import { useScrollToTop } from '@react-navigation/native'
 import { FlashList } from '@shopify/flash-list'
-import React, { useCallback, useMemo, useRef } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { ActivityIndicator, StyleSheet, View } from 'react-native'
 
 import { windowHeight } from '~/helpers/theme'
+import { useMobilePersistStore } from '~/store/persist'
 
 import AudioCard from '../common/AudioCard'
 import VideoCard from '../common/VideoCard'
@@ -31,11 +41,33 @@ const styles = StyleSheet.create({
 })
 
 const Timeline = () => {
-  const scrollRef = useRef<FlashList<Publication>>(null)
+  const [selectedFeedType, setSelectedFeedType] = useState(
+    TimelineFeedType.CURATED
+  )
+  const selectedChannelId = useMobilePersistStore(
+    (state) => state.selectedChannelId
+  )
+
+  const scrollRef = useRef<FlashList<Publication | FeedItem>>(null)
   //@ts-expect-error FlashList as type is not supported
   useScrollToTop(scrollRef)
 
-  const request = {
+  useEffect(() => {
+    if (!selectedChannelId) {
+      setSelectedFeedType(TimelineFeedType.CURATED)
+    }
+  }, [selectedChannelId])
+
+  const feedRequest = {
+    limit: 50,
+    feedEventItemTypes: [FeedEventItemType.Post],
+    profileId: selectedChannelId,
+    metadata: {
+      mainContentFocus: [PublicationMainFocus.Video]
+    }
+  }
+
+  const curatedRequest = {
     sortCriteria: PublicationSortCriteria.CuratedProfiles,
     limit: 10,
     noRandomize: false,
@@ -45,35 +77,110 @@ const Timeline = () => {
       mainContentFocus: [PublicationMainFocus.Audio, PublicationMainFocus.Video]
     }
   }
-  const { data, fetchMore, loading, error } = useExploreQuery({
-    variables: { request }
+
+  const highlightsRequest: FeedHighlightsRequest = {
+    profileId: selectedChannelId,
+    limit: 10,
+    metadata: {
+      mainContentFocus: [PublicationMainFocus.Audio, PublicationMainFocus.Video]
+    }
+  }
+
+  const {
+    data: curatedData,
+    fetchMore: fetchMoreCurated,
+    loading,
+    error
+  } = useExploreQuery({
+    variables: {
+      request: curatedRequest
+    }
   })
 
-  const publications = data?.explorePublications?.items as Publication[]
-  const pageInfo = data?.explorePublications?.pageInfo
+  const { data: feedData, fetchMore: fetchMoreFeed } = useFeedQuery({
+    variables: {
+      request: feedRequest
+    },
+    skip: !selectedChannelId
+  })
+
+  const { data: feedHighlightsData, fetchMore: fetchMoreHighlights } =
+    useFeedHighlightsQuery({
+      variables: {
+        request: highlightsRequest
+      },
+      skip: !selectedChannelId
+    })
+
+  const publications = useMemo(
+    () =>
+      selectedFeedType === TimelineFeedType.HIGHLIGHTS
+        ? (feedHighlightsData?.feedHighlights.items as Publication[])
+        : selectedFeedType === TimelineFeedType.FOLLOWING
+        ? (feedData?.feed?.items as FeedItem[])
+        : (curatedData?.explorePublications?.items as Publication[]),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [selectedFeedType, loading]
+  )
+
+  const pageInfo =
+    selectedFeedType === TimelineFeedType.CURATED
+      ? curatedData?.explorePublications?.pageInfo
+      : TimelineFeedType.HIGHLIGHTS
+      ? feedHighlightsData?.feedHighlights.pageInfo
+      : feedData?.feed.pageInfo
 
   const fetchMorePublications = async () => {
-    await fetchMore({
-      variables: {
-        request: {
-          ...request,
-          cursor: pageInfo?.next
+    if (selectedFeedType === TimelineFeedType.CURATED) {
+      return await fetchMoreCurated({
+        variables: {
+          request: {
+            ...curatedRequest,
+            cursor: pageInfo?.next
+          }
         }
-      }
-    })
+      })
+    }
+    if (selectedFeedType === TimelineFeedType.FOLLOWING) {
+      return await fetchMoreFeed({
+        variables: {
+          request: {
+            ...feedRequest,
+            cursor: pageInfo?.next
+          }
+        }
+      })
+    }
+    if (selectedFeedType === TimelineFeedType.HIGHLIGHTS) {
+      return await fetchMoreHighlights({
+        variables: {
+          request: {
+            ...highlightsRequest,
+            cursor: pageInfo?.next
+          }
+        }
+      })
+    }
   }
 
   const renderItem = useCallback(
-    ({ item }: { item: Publication }) => (
-      // Added extra 'View' this to fix issue with ItemSeparator rendering
-      <View style={{ marginBottom: 30 }}>
-        {item.metadata.mainContentFocus === PublicationMainFocus.Audio ? (
-          <AudioCard audio={item} />
-        ) : (
-          <VideoCard video={item} />
-        )}
-      </View>
-    ),
+    ({ item }: { item: Publication | FeedItem }) => {
+      const publication =
+        item?.__typename === 'FeedItem'
+          ? (item.root as FeedItemRoot)
+          : (item as Publication)
+      return (
+        // Added extra 'View' this to fix issue with ItemSeparator rendering
+        <View style={{ marginBottom: 30 }}>
+          {publication.metadata.mainContentFocus ===
+          PublicationMainFocus.Audio ? (
+            <AudioCard audio={publication} />
+          ) : (
+            <VideoCard video={publication} />
+          )}
+        </View>
+      )
+    },
     []
   )
 
@@ -84,17 +191,20 @@ const Timeline = () => {
         <FirstSteps />
         <PopularCreators />
         <Streak />
-        <TimelineFilters />
+        <TimelineFilters
+          selectedFeedType={selectedFeedType}
+          setSelectedFeedType={setSelectedFeedType}
+        />
       </>
     ),
-    []
+    [selectedFeedType]
   )
 
   if (loading) {
     return <ActivityIndicator style={{ flex: 1 }} />
   }
 
-  if (error || !publications?.length) {
+  if (error) {
     return <ServerError />
   }
 
@@ -104,12 +214,12 @@ const Timeline = () => {
         ref={scrollRef}
         ListHeaderComponent={HeaderComponent}
         data={publications}
-        estimatedItemSize={publications.length}
+        estimatedItemSize={publications?.length ?? []}
         renderItem={renderItem}
-        keyExtractor={(item, i) => `${item.id}_${i}`}
-        ListFooterComponent={() => (
-          <ActivityIndicator style={{ paddingVertical: 20 }} />
-        )}
+        keyExtractor={(item, i) => `${i + 1}_${i}`}
+        ListFooterComponent={() =>
+          loading && <ActivityIndicator style={{ paddingVertical: 20 }} />
+        }
         onEndReached={fetchMorePublications}
         onEndReachedThreshold={0.8}
         showsVerticalScrollIndicator={false}

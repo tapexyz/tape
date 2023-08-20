@@ -48,7 +48,7 @@ const Bytes: FC<Props> = ({ profile, scrollHandler }) => {
 
   const request = {
     publicationTypes: [PublicationTypes.Post],
-    limit: 30,
+    limit: 10,
     sources: [LENSTUBE_BYTES_APP_ID],
     customFilters: LENS_CUSTOM_FILTERS,
     profileId: profile?.id

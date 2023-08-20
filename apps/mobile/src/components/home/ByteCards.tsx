@@ -10,13 +10,11 @@ import {
 } from '@lenstube/lens'
 import { useNavigation } from '@react-navigation/native'
 import { Image as ExpoImage } from 'expo-image'
-import { LinearGradient } from 'expo-linear-gradient'
 import { Gyroscope } from 'expo-sensors'
 import { Skeleton } from 'moti/skeleton'
 import React, { useCallback, useEffect } from 'react'
 import { Pressable, StyleSheet, View } from 'react-native'
 import Animated, {
-  FadeIn,
   interpolate,
   useAnimatedStyle,
   useDerivedValue,
@@ -36,18 +34,14 @@ import ServerError from '../ui/ServerError'
 const BORDER_RADIUS = 20
 
 const styles = StyleSheet.create({
-  gradient: {
+  profile: {
     width: '100%',
-    alignSelf: 'center',
     position: 'absolute',
     bottom: 0,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center',
-    gap: 6,
     paddingVertical: 10,
-    marginBottom: 1,
     borderBottomRightRadius: BORDER_RADIUS,
     borderBottomLeftRadius: BORDER_RADIUS
   },
@@ -168,32 +162,25 @@ const ByteCards = () => {
 
   const renderCard = useCallback((byte: Publication) => {
     return (
-      <Animated.View
-        entering={FadeIn.duration(500)}
-        style={{
-          borderRadius: BORDER_RADIUS,
-          borderWidth: 0.5,
-          borderColor: theme.colors.secondary
-        }}
-      >
+      <>
         <ExpoImage
           source={{ uri: imageCdn(getThumbnailUrl(byte, true), 'THUMBNAIL_V') }}
           contentFit="cover"
           transition={300}
           style={styles.thumbnail}
         />
-        <LinearGradient
-          colors={['transparent', '#00000090', '#000000']}
-          style={styles.gradient}
-        >
+        <View style={styles.profile}>
           <UserProfile
             profile={byte.profile}
             size={15}
             radius={3}
             handleStyle={{ fontFamily: 'font-bold' }}
+            imageStyle={{
+              borderWidth: 0
+            }}
           />
-        </LinearGradient>
-      </Animated.View>
+        </View>
+      </>
     )
   }, [])
 
@@ -219,10 +206,7 @@ const ByteCards = () => {
   const bytes = data?.explorePublications?.items as Publication[]
 
   return (
-    <Animated.View
-      entering={FadeIn.duration(500)}
-      style={styles.cardsContainer}
-    >
+    <View style={styles.cardsContainer}>
       <View style={{ zIndex: 1 }}>
         <Skeleton
           show={loading}
@@ -284,7 +268,7 @@ const ByteCards = () => {
       >
         {bytes?.length && renderCard(bytes[2])}
       </Pressable>
-    </Animated.View>
+    </View>
   )
 }
 

@@ -62,6 +62,7 @@ declare global {
   type RootStackParamList = {
     ExploreTopsModal: undefined
     ExploreCategoriesModal: undefined
+    FeedFlexModal: undefined
     PodcastModal: undefined
     MusicModal: undefined
     NotificationsModal: undefined
@@ -100,7 +101,6 @@ declare global {
 
   type PodcastModalProps = ExploreStackComposite<'PodcastModal'>
 
-  // Home stack
   type HomeScreenProps = HomeStackComposite<'Home'>
 
   type ExploreScreenProps = ExploreStackComposite<'Explore'>

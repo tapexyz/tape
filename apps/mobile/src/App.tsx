@@ -21,11 +21,12 @@ import React from 'react'
 import { StyleSheet } from 'react-native'
 // eslint-disable-next-line import/no-duplicates
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import { SafeAreaProvider } from 'react-native-safe-area-context'
 
-import { AppLoading } from './components'
+import AppLoading from './components/common/AppLoading'
+import { ToastProvider } from './components/common/toast'
 import mobileAuthLink from './helpers/auth-link'
 import { Navigation } from './navigation'
-import { NotificationsProvider, SafeAreaProvider } from './providers'
 
 const styles = StyleSheet.create({
   gestureHandlerRootView: {
@@ -61,21 +62,22 @@ const App = (): JSX.Element => {
   return (
     <SafeAreaProvider>
       <ApolloProvider client={apolloClient(mobileAuthLink)}>
-        <LivepeerConfig client={livepeerClient}>
-          <NotificationsProvider />
-          <WalletConnectModal
-            themeMode="dark"
-            projectId={WC_PROJECT_ID}
-            explorerExcludedWalletIds="ALL"
-            providerMetadata={providerMetadata}
-            explorerRecommendedWalletIds={explorerRecommendedWalletIds}
-          />
-          <AppLoading>
-            <GestureHandlerRootView style={styles.gestureHandlerRootView}>
-              <Navigation />
-            </GestureHandlerRootView>
-          </AppLoading>
-        </LivepeerConfig>
+        <AppLoading>
+          <ToastProvider>
+            <LivepeerConfig client={livepeerClient}>
+              <WalletConnectModal
+                themeMode="dark"
+                projectId={WC_PROJECT_ID}
+                explorerExcludedWalletIds="ALL"
+                providerMetadata={providerMetadata}
+                explorerRecommendedWalletIds={explorerRecommendedWalletIds}
+              />
+              <GestureHandlerRootView style={styles.gestureHandlerRootView}>
+                <Navigation />
+              </GestureHandlerRootView>
+            </LivepeerConfig>
+          </ToastProvider>
+        </AppLoading>
       </ApolloProvider>
     </SafeAreaProvider>
   )

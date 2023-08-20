@@ -18,7 +18,6 @@ import {
   Text,
   View
 } from 'react-native'
-import Animated, { FadeIn } from 'react-native-reanimated'
 
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
@@ -139,13 +138,11 @@ const Switch = () => {
       colors={[theme.colors.backdrop2, theme.colors.backdrop]}
       radius={BORDER_RADIUS}
     >
-      <Animated.View entering={FadeIn.delay(200)}>
-        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-          {profiles
-            ? profiles?.map((profile) => renderItem({ profile }))
-            : renderItem({ profile: selectedChannel })}
-        </ScrollView>
-      </Animated.View>
+      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+        {profiles
+          ? profiles?.map((profile) => renderItem({ profile }))
+          : renderItem({ profile: selectedChannel })}
+      </ScrollView>
     </Skeleton>
   )
 }

@@ -10,12 +10,13 @@ import {
 import { FlashList } from '@shopify/flash-list'
 import React, { useCallback, useState } from 'react'
 import type { ViewToken } from 'react-native'
-import { ActivityIndicator, ImageBackground, StyleSheet } from 'react-native'
-import Animated, {
-  FadeIn,
-  FadeInDown,
-  SlideInLeft
-} from 'react-native-reanimated'
+import {
+  ActivityIndicator,
+  ImageBackground,
+  StyleSheet,
+  View
+} from 'react-native'
+import Animated, { FadeIn, FadeInDown } from 'react-native-reanimated'
 
 import CollapseButton from '~/components/common/CollapseButton'
 import ServerError from '~/components/ui/ServerError'
@@ -118,9 +119,9 @@ const Stage = () => {
       resizeMode="cover"
       imageStyle={{ opacity: 0.3 }}
     >
-      <Animated.View entering={SlideInLeft.duration(400)} style={styles.close}>
+      <View style={styles.close}>
         <CollapseButton />
-      </Animated.View>
+      </View>
 
       <Animated.View
         entering={FadeIn.delay(300).duration(400)}

@@ -1,6 +1,7 @@
 import { getProfilePicture, trimLensHandle } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import { useNavigation } from '@react-navigation/native'
+import type { ImageStyle } from 'expo-image'
 import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
 import React, { memo } from 'react'
@@ -21,6 +22,7 @@ type Props = {
   opacity?: number
   onPress?: () => void
   handleStyle?: StyleProp<TextStyle>
+  imageStyle?: ImageStyle
 }
 
 const styles = StyleSheet.create({
@@ -46,7 +48,8 @@ const UserProfile: FC<Props> = (props) => {
     onPress,
     showHandle = true,
     handleStyle,
-    pressable
+    pressable,
+    imageStyle = {}
   } = props
   const { navigate } = useNavigation()
 
@@ -68,14 +71,17 @@ const UserProfile: FC<Props> = (props) => {
         }}
         contentFit="cover"
         transition={500}
-        style={{
-          width: size,
-          height: size,
-          borderRadius: radius,
-          borderWidth: 0.5,
-          borderColor: theme.colors.secondary,
-          backgroundColor: theme.colors.backdrop
-        }}
+        style={[
+          {
+            width: size,
+            height: size,
+            borderRadius: radius,
+            borderWidth: 0.5,
+            borderColor: theme.colors.secondary,
+            backgroundColor: theme.colors.backdrop
+          },
+          imageStyle
+        ]}
       />
       {showHandle && (
         <Text numberOfLines={1} style={[styles.handle, handleStyle]}>

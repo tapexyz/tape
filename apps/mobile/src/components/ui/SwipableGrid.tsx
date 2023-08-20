@@ -2,7 +2,7 @@ import { getThumbnailUrl, imageCdn } from '@lenstube/generic'
 import { Image as ExpoImage } from 'expo-image'
 import { LinearGradient } from 'expo-linear-gradient'
 import * as React from 'react'
-import { Pressable, StatusBar, StyleSheet, Text, View } from 'react-native'
+import { Pressable, StyleSheet, Text, View } from 'react-native'
 import { PanGestureHandler } from 'react-native-gesture-handler'
 import Animated, {
   useAnimatedGestureHandler,
@@ -208,7 +208,6 @@ const SwipableGrid: React.FC<Props> = ({ data }) => {
   return (
     <PanGestureHandler onGestureEvent={onGestureEvent}>
       <Animated.View style={styles.container}>
-        <StatusBar hidden />
         <Animated.ScrollView
           ref={ref}
           scrollEnabled={false}

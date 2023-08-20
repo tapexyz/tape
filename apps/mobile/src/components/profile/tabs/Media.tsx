@@ -37,7 +37,7 @@ const Media: FC<Props> = ({ profile, scrollHandler }) => {
 
   const request = {
     publicationTypes: [PublicationTypes.Post],
-    limit: 32,
+    limit: 10,
     metadata: {
       mainContentFocus: [PublicationMainFocus.Video, PublicationMainFocus.Audio]
     },
