@@ -4,7 +4,7 @@ import { k3lFeed, k3lScores } from './providers/k3l'
 export default async (request: IRequest) => {
   const { provider, strategy, limit, offset } = request.params
   const exclude = request.query.exclude as string
- 
+
   if (!provider || !strategy) {
     return error(400, 'Bad request!')
   }
