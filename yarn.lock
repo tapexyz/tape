@@ -5824,11 +5824,6 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-11.11.6.tgz#df929d1bb2eee5afdda598a41930fe50b43eaa6a"
   integrity sha512-Exw4yUWMBXM3X+8oqzJNRqZSwUAaS4+7NdvHqQuFi/d+synz++xmX3QIf+BFqneW8N31R8Ky+sikfZUXq07ggQ==
 
-"@types/node@20.5.1", "@types/node@^20.5.1":
-  version "20.5.1"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.5.1.tgz#178d58ee7e4834152b0e8b4d30cbfab578b9bb30"
-  integrity sha512-4tT2UrL5LBqDwoed9wZ6N3umC4Yhz3W3FloMmiiG4JwmUJWpie0c7lcnUNd4gtMKuDEO4wRVS8B6Xa0uMRsMKg==
-
 "@types/node@^12.12.54":
   version "12.20.55"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-12.20.55.tgz#c329cbd434c42164f846b909bd6f85b5537f6240"
@@ -12254,10 +12249,10 @@ iterator.prototype@^1.1.0:
     has-tostringtag "^1.0.0"
     reflect.getprototypeof "^1.0.3"
 
-itty-router@^4.0.20:
-  version "4.0.20"
-  resolved "https://registry.yarnpkg.com/itty-router/-/itty-router-4.0.20.tgz#ba9d2e98f35ecbd292d7b92a18a43dd919d49b0b"
-  integrity sha512-dGbWSMkX5CgBV+VRu2xZEcQPkfu2KYyULPzmmmOTVJ6swvnfNsF1UikRrewzuo/nNwb5MHr9afjsdsmQktqp2g==
+itty-router@^4.0.22:
+  version "4.0.22"
+  resolved "https://registry.yarnpkg.com/itty-router/-/itty-router-4.0.22.tgz#2a5ba61f6b1df261d8321e8d218edcb0b59a0001"
+  integrity sha512-FWK13vcITqld32NaOh+k2unRrR4qBZdzA9O1ctpqT1Q4lxKrHbtgaX1lLTv2VyXj3/8Waqk/NlDGNfxypJ8GKA==
 
 jayson@^4.1.0:
   version "4.1.0"
@@ -17987,10 +17982,10 @@ viem@^1.0.0:
     isomorphic-ws "5.0.0"
     ws "8.12.0"
 
-viem@^1.6.3:
-  version "1.6.3"
-  resolved "https://registry.yarnpkg.com/viem/-/viem-1.6.3.tgz#3e937dc72fd85b428f1c6337a865333f447ad962"
-  integrity sha512-DO4cRCQEi+pZ502hSBr/POgBHC4RuhpLsOUXxuYY4yQMjmi1ACODmMgHvvk7lWMPc8dFJipKBa5rOfIUJDgX8Q==
+viem@^1.6.4:
+  version "1.6.4"
+  resolved "https://registry.yarnpkg.com/viem/-/viem-1.6.4.tgz#051c6fe54bca73911af0e33a308feb06369ce396"
+  integrity sha512-NUZIZRQnvjViP6P8PTQsPev9va9hYwFzAWR6y0UCtd4LBOUaAKUZqFoPTanX83rHInyHtyVTGr/Dl4qy7CbMNA==
   dependencies:
     "@adraffy/ens-normalize" "1.9.0"
     "@noble/curves" "1.1.0"
