@@ -16,7 +16,7 @@
   "dependencies": {
     "@apollo/client": "^3.8.1",
     "@gorhom/bottom-sheet": "^4.4.7",
-    "@hookform/resolvers": "^3.2.0",
+    "@hookform/resolvers": "^3.3.0",
     "@livepeer/react-native": "^1.8.0",
     "@react-native-async-storage/async-storage": "1.18.2",
     "@react-native-community/netinfo": "9.3.10",
@@ -60,7 +60,7 @@
     "react-native-view-shot": "3.7.0",
     "swr": "^2.2.1",
     "uuid": "^3.4.0",
-    "viem": "^1.6.4",
+    "viem": "^1.6.7",
     "zod": "^3.22.2",
     "zustand": "^4.4.1"
   },
@@ -76,7 +76,7 @@
     "@lenstube/config": "*",
     "@lenstube/generic": "*",
     "@lenstube/lens": "*",
-    "@types/node": "20.5.1",
+    "@types/node": "20.5.2",
     "@types/qrcode": "^1.5.1",
     "@welldone-software/why-did-you-render": "^7.0.1",
     "babel-plugin-module-resolver": "^5.0.0",
