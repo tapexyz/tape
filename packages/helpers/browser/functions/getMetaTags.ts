@@ -3,8 +3,8 @@ import {
   LENSTUBE_APP_DESCRIPTION,
   LENSTUBE_APP_NAME,
   LENSTUBE_EMBED_URL,
-  LENSTUBE_TWITTER_HANDLE,
   LENSTUBE_WEBSITE_URL,
+  LENSTUBE_X_HANDLE,
   OG_IMAGE
 } from '@lenstube/constants'
 import {
@@ -65,11 +65,11 @@ export const getMetaTags = ({
               <meta property="twitter:image:height" content="${
                 isVideo ? 360 : 400
               }" />
-              <meta name="twitter:site" content="@${LENSTUBE_TWITTER_HANDLE}" />
+              <meta name="twitter:site" content="@${LENSTUBE_X_HANDLE}" />
               <meta name="twitter:title" content="${meta.title}" />
               <meta name="twitter:description" content="${meta.description}" />
               <meta property="twitter:image" content="${meta.image}" />
-              <meta property="twitter:creator" content="${LENSTUBE_TWITTER_HANDLE}" />
+              <meta property="twitter:creator" content="${LENSTUBE_X_HANDLE}" />
               <meta name="twitter:card" content="${
                 isVideo ? 'player' : 'summary'
               }" />`

@@ -1,12 +1,15 @@
 import GlobeOutline from '@components/Common/Icons/GlobeOutline'
 import { Analytics, TRACK } from '@lenstube/browser'
 import { STATIC_ASSETS } from '@lenstube/constants'
-import { getValueFromKeyInAttributes } from '@lenstube/generic'
+import { getValueFromKeyInAttributes, imageCdn } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import Link from 'next/link'
+import { useTheme } from 'next-themes'
 import React from 'react'
 
 const CoverLinks = ({ channel }: { channel: Profile }) => {
+  const { resolvedTheme } = useTheme()
+
   return (
     <div className="absolute bottom-2 right-2">
       <div className="flex space-x-2">
@@ -28,25 +31,44 @@ const CoverLinks = ({ channel }: { channel: Profile }) => {
             <GlobeOutline className="h-4 w-4" />
           </Link>
         )}
-        {getValueFromKeyInAttributes(channel.attributes, 'twitter') && (
+        {getValueFromKeyInAttributes(channel.attributes, 'x') && (
           <Link
             onClick={() =>
               Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_COVER_LINKS)
             }
-            href={`https://twitter.com/${getValueFromKeyInAttributes(
+            href={`https://x.com/${getValueFromKeyInAttributes(
               channel.attributes,
-              'twitter'
+              'x'
             )}`}
             target="_blank"
             rel="noreferer noreferrer"
             className="rounded-lg bg-white bg-opacity-80 p-2 dark:bg-gray-900"
           >
-            <img
-              src={`${STATIC_ASSETS}/images/social/twitter.svg`}
-              alt="twitter"
-              className="h-4 w-4"
-              draggable={false}
-            />
+            {resolvedTheme === 'dark' ? (
+              <img
+                src={imageCdn(
+                  `${STATIC_ASSETS}/images/social/x-white.png`,
+                  'AVATAR'
+                )}
+                className="h-4 w-4"
+                height={16}
+                width={16}
+                alt="X Logo"
+                draggable={false}
+              />
+            ) : (
+              <img
+                src={imageCdn(
+                  `${STATIC_ASSETS}/images/social/x-black.png`,
+                  'AVATAR'
+                )}
+                className="h-4 w-4"
+                height={16}
+                width={16}
+                alt="X Logo"
+                draggable={false}
+              />
+            )}
           </Link>
         )}
       </div>

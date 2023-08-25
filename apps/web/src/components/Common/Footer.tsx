@@ -3,7 +3,7 @@ import {
   LENSTUBE_GITHUB_HANDLE,
   LENSTUBE_ROADMAP_URL,
   LENSTUBE_STATUS_PAGE,
-  LENSTUBE_TWITTER_HANDLE
+  LENSTUBE_X_HANDLE
 } from '@lenstube/constants'
 import usePersistStore from '@lib/store/persist'
 import { Trans } from '@lingui/macro'
@@ -41,14 +41,14 @@ const Footer = () => {
       </Link>
       <Link
         className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
-        href={`https://twitter.com/${LENSTUBE_TWITTER_HANDLE}`}
+        href={`https://x.com/${LENSTUBE_X_HANDLE}`}
         onClick={() => {
           setSidebarCollapsed(true)
-          Analytics.track(TRACK.SYSTEM.MORE_MENU.TWITTER)
+          Analytics.track(TRACK.SYSTEM.MORE_MENU.X)
         }}
         target="_blank"
       >
-        Twitter
+        X.com
       </Link>
       <Link
         className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
