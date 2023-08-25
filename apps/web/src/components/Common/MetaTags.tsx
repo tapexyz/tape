@@ -4,7 +4,8 @@ import {
   LENSTUBE_APP_NAME,
   LENSTUBE_EMBED_URL,
   LENSTUBE_X_HANDLE,
-  OG_IMAGE
+  OG_IMAGE,
+  STATIC_ASSETS
 } from '@lenstube/constants'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -79,8 +80,8 @@ const MetaTags: FC<Props> = (props) => {
           />
         </>
       )}
-      <link rel="preconnect" href="https://static.lenstube.xyz" />
-      <link rel="dns-prefetch" href="https://static.lenstube.xyz" />
+      <link rel="preconnect" href={STATIC_ASSETS} />
+      <link rel="dns-prefetch" href={STATIC_ASSETS} />
     </Head>
   )
 }
