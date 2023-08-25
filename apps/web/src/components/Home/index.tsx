@@ -7,6 +7,7 @@ import { Analytics, TRACK } from 'utils'
 import Banner from './Banner'
 import DispatcherAlert from './DispatcherAlert'
 import HomeFeed from './Feed'
+import GitcoinAlert from './GitcoinAlert'
 
 const BytesSection = dynamic(() => import('./BytesSection'), {
   loading: () => <BytesShimmer />
@@ -19,6 +20,7 @@ const Home: React.FC = () => {
   return (
     <>
       <MetaTags title={t`Home`} />
+      <GitcoinAlert />
       <Banner />
       <DispatcherAlert />
       <BytesSection />
