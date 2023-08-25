@@ -12,7 +12,6 @@ import {
   useWindowDimensions,
   View
 } from 'react-native'
-import Animated, { SlideInDown } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import haptic from '~/helpers/haptic'
@@ -54,7 +53,6 @@ const styles = StyleSheet.create({
     paddingBottom: 20
   },
   groupItems: {
-    paddingLeft: 10,
     gap: 20
   },
   groupTitle: {
@@ -92,31 +90,14 @@ export const FeedFlexModal = (): JSX.Element => {
         ]}
         showsVerticalScrollIndicator={false}
       >
-        <Animated.View entering={SlideInDown.delay(10).duration(200)}>
-          <TouchableOpacity
-            activeOpacity={0.6}
-            onPress={() => {
-              goBack()
-            }}
-          >
-            <Text
-              style={[styles.text, { color: theme.colors.white, opacity: 0.7 }]}
-            >
-              See feed through
-            </Text>
-          </TouchableOpacity>
-        </Animated.View>
-        {FEED_ALGORITHMS.map(({ algorithms, provider }, index) => (
+        {FEED_ALGORITHMS.map(({ algorithms, provider }) => (
           <View key={provider}>
             <View style={styles.group}>
               <Text style={styles.groupTitle}>{provider}</Text>
             </View>
             <View style={styles.groupItems}>
               {algorithms.map(({ name }) => (
-                <Animated.View
-                  key={name}
-                  entering={SlideInDown.delay(index * 10).duration(200)}
-                >
+                <View key={name}>
                   <TouchableOpacity
                     activeOpacity={0.6}
                     onPress={() => {
@@ -132,7 +113,7 @@ export const FeedFlexModal = (): JSX.Element => {
                       {name}
                     </Text>
                   </TouchableOpacity>
-                </Animated.View>
+                </View>
               ))}
             </View>
           </View>

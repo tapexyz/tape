@@ -103,8 +103,11 @@ const AuthenticatedUser = () => {
                   navigate('NotificationsModal')
                 }}
               />
-              <MenuItem icon="pie-chart-outline" title="Creator Studio" />
               <MenuItem icon="bookmark-outline" title="Bookmarks" />
+            </Menu>
+            <Menu>
+              <MenuItem icon="pie-chart-outline" title="Creator Studio" />
+              <MenuItem icon="people-outline" title="Manager" />
               <MenuItem icon="cog-outline" title="Settings" />
             </Menu>
             <Menu>
@@ -112,6 +115,7 @@ const AuthenticatedUser = () => {
                 icon="log-out-outline"
                 title="Sign out"
                 onPress={() => logout()}
+                showArrow={false}
               />
             </Menu>
           </View>

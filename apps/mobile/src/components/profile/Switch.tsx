@@ -47,10 +47,10 @@ const styles = StyleSheet.create({
     fontFamily: 'font-medium',
     fontSize: normalizeFont(10),
     color: theme.colors.white,
-    opacity: 0.6
+    opacity: 0.8
   },
   handle: {
-    fontFamily: 'font-normal',
+    fontFamily: 'font-medium',
     fontSize: normalizeFont(12),
     color: theme.colors.white
   },

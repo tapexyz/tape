@@ -35,7 +35,7 @@ import useMobileStore from '~/store'
 import UserProfile from '../common/UserProfile'
 import Button from '../ui/Button'
 import Ticker from '../ui/Ticker'
-import OnChainIdentities from './OnChainIdentities'
+import OnChainInfo from './OnChainInfo'
 import ShareSheet from './ShareSheet'
 
 type Props = {
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   },
   bio: {
     fontFamily: 'font-medium',
-    fontSize: normalizeFont(12),
+    fontSize: normalizeFont(13),
     color: theme.colors.white,
     opacity: 0.6
   }
@@ -227,7 +227,7 @@ const Info: FC<Props> = (props) => {
             </Pressable>
           </View>
 
-          <OnChainIdentities identity={profile.onChainIdentity} />
+          <OnChainInfo identity={profile.onChainIdentity} />
 
           <View style={{ flexDirection: 'row', gap: 10 }}>
             <View style={{ flex: 1 }}>

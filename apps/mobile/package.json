@@ -49,7 +49,7 @@
     "qrcode": "^1.5.3",
     "react": "18.2.0",
     "react-hook-form": "^7.45.4",
-    "react-native": "0.72.3",
+    "react-native": "0.72.4",
     "react-native-gesture-handler": "~2.12.1",
     "react-native-get-random-values": "~1.9.0",
     "react-native-modal": "^13.0.1",

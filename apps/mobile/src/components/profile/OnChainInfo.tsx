@@ -21,6 +21,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 8,
     paddingRight: 10,
+    paddingVertical: 1,
     borderColor: theme.colors.grey,
     borderWidth: 1
   },
@@ -37,23 +38,16 @@ const styles = StyleSheet.create({
   }
 })
 
-const OnChainIdentities: FC<Props> = ({ identity }) => {
-  const hasOnChainId =
-    identity?.ens?.name ||
-    identity?.worldcoin.isHuman ||
-    identity?.proofOfHumanity ||
-    identity?.sybilDotOrg.verified
-
-  if (!hasOnChainId) {
-    return null
-  }
-
+const OnChainInfo: FC<Props> = ({ identity }) => {
   return (
     <ScrollView
       horizontal={true}
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={{ gap: 10 }}
     >
+      <View style={[styles.badge, { paddingLeft: 10 }]}>
+        <Text style={styles.text}>Bloomer since July 2022</Text>
+      </View>
       {identity?.ens?.name && (
         <View style={styles.badge}>
           <ExpoImage
@@ -120,4 +114,4 @@ const OnChainIdentities: FC<Props> = ({ identity }) => {
   )
 }
 
-export default OnChainIdentities
+export default OnChainInfo
