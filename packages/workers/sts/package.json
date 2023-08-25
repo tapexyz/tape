@@ -9,12 +9,12 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "^3.395.0"
+    "@aws-sdk/client-sts": "^3.398.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230821.0",
     "@lenstube/config": "*",
-    "typescript": "^5.1.6",
-    "wrangler": "3.5.1"
+    "typescript": "^5.2.2",
+    "wrangler": "3.6.0"
   }
 }
