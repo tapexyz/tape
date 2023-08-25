@@ -31,7 +31,7 @@ export const TRACK = {
     PERMALINK: 'Permalink publication',
     SHARE: {
       LENSTER: 'Share to Lenster',
-      TWITTER: 'Share to Twitter',
+      X: 'Share to X',
       REDDIT: 'Share to Reddit',
       LINKEDIN: 'Share to LinkedIn'
     },
@@ -97,7 +97,7 @@ export const TRACK = {
       TERMS: 'Click Terms',
       PRIVACY: 'Click Privacy',
       STATUS: 'Click Status',
-      TWITTER: 'Click Twitter'
+      X: 'Click X'
     }
   },
   PAGE_VIEW: {

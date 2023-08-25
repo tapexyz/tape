@@ -73,7 +73,8 @@ const formSchema = object({
       .max(1000, { message: 'Description should not exceed 1000 characters' }),
     string().max(0)
   ]),
-  twitter: string(),
+  x: string(),
+  youtube: string(),
   location: string(),
   website: union([
     string().url({
@@ -107,7 +108,8 @@ const BasicInfo = ({ channel }: Props) => {
       displayName: channel.name || '',
       description: channel.bio || '',
       location: getValueFromKeyInAttributes(channel?.attributes, 'location'),
-      twitter: getValueFromKeyInAttributes(channel?.attributes, 'twitter'),
+      x: getValueFromKeyInAttributes(channel?.attributes, 'x'),
+      youtube: getValueFromKeyInAttributes(channel?.attributes, 'youtube'),
       website: getValueFromKeyInAttributes(channel?.attributes, 'website')
     }
   })
@@ -196,7 +198,8 @@ const BasicInfo = ({ channel }: Props) => {
   const otherAttributes =
     channel?.attributes
       ?.filter(
-        (attr) => !['website', 'location', 'twitter', 'app'].includes(attr.key)
+        (attr) =>
+          !['website', 'location', 'x', 'youtube', 'app'].includes(attr.key)
       )
       .map(({ traitType, key, value }) => ({ traitType, key, value })) ?? []
 
@@ -224,9 +227,15 @@ const BasicInfo = ({ channel }: Props) => {
           },
           {
             displayType: PublicationMetadataDisplayTypes.String,
-            traitType: 'twitter',
-            key: 'twitter',
-            value: data.twitter
+            traitType: 'x',
+            key: 'x',
+            value: data.x
+          },
+          {
+            displayType: PublicationMetadataDisplayTypes.String,
+            traitType: 'youtube',
+            key: 'youtube',
+            value: data.youtube
           },
           {
             displayType: PublicationMetadataDisplayTypes.String,
@@ -357,11 +366,20 @@ const BasicInfo = ({ channel }: Props) => {
       </div>
       <div className="mt-4">
         <Input
-          label="Twitter"
-          placeholder="johndoe"
-          {...register('twitter')}
-          validationError={errors.twitter?.message}
-          prefix="https://twitter.com/"
+          label="Youtube"
+          placeholder="channel"
+          {...register('youtube')}
+          validationError={errors.x?.message}
+          prefix="https://youtube.com/"
+        />
+      </div>
+      <div className="mt-4">
+        <Input
+          label="X.com"
+          placeholder="profile"
+          {...register('x')}
+          validationError={errors.x?.message}
+          prefix="https://x.com/"
         />
       </div>
       <div className="mt-4">

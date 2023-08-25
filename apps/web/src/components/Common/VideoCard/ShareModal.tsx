@@ -5,6 +5,7 @@ import { getSharableLink, imageCdn } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import { t } from '@lingui/macro'
 import Link from 'next/link'
+import { useTheme } from 'next-themes'
 import type { FC } from 'react'
 import React from 'react'
 import toast from 'react-hot-toast'
@@ -22,6 +23,7 @@ type Props = {
 
 const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
   const [copy] = useCopyToClipboard()
+  const { resolvedTheme } = useTheme()
 
   const onCopyVideoUrl = async () => {
     await copy(`${LENSTUBE_WEBSITE_URL}/watch/${video.id}`)
@@ -70,19 +72,36 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
             className="rounded-full"
             target="_blank"
             rel="noreferrer"
-            href={getSharableLink('twitter', video)}
-            onClick={() => Analytics.track(TRACK.PUBLICATION.SHARE.TWITTER)}
+            href={getSharableLink('x', video)}
+            onClick={() => Analytics.track(TRACK.PUBLICATION.SHARE.X)}
           >
-            <img
-              src={imageCdn(
-                `${STATIC_ASSETS}/images/social/twitter-logo.png`,
-                'AVATAR_LG'
+            <div className="rounded-full bg-gray-200 p-3 dark:bg-gray-800">
+              {resolvedTheme === 'dark' ? (
+                <img
+                  src={imageCdn(
+                    `${STATIC_ASSETS}/images/social/x-white.png`,
+                    'AVATAR'
+                  )}
+                  className="h-4 w-4"
+                  height={16}
+                  width={16}
+                  alt="X Logo"
+                  draggable={false}
+                />
+              ) : (
+                <img
+                  src={imageCdn(
+                    `${STATIC_ASSETS}/images/social/x-black.png`,
+                    'AVATAR'
+                  )}
+                  className="h-4 w-4"
+                  height={16}
+                  width={16}
+                  alt="X Logo"
+                  draggable={false}
+                />
               )}
-              loading="eager"
-              className="h-10 w-10 max-w-none rounded-full"
-              alt="twitter"
-              draggable={false}
-            />
+            </div>
           </Link>
           <Link
             href={getSharableLink('reddit', video)}

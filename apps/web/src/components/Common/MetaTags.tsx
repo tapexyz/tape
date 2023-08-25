@@ -3,7 +3,7 @@ import {
   LENSTUBE_APP_DESCRIPTION,
   LENSTUBE_APP_NAME,
   LENSTUBE_EMBED_URL,
-  LENSTUBE_TWITTER_HANDLE,
+  LENSTUBE_X_HANDLE,
   OG_IMAGE
 } from '@lenstube/constants'
 import Head from 'next/head'
@@ -56,7 +56,7 @@ const MetaTags: FC<Props> = (props) => {
       <meta name="twitter:title" content={meta.title} />
       <meta name="twitter:description" content={meta.description} />
       <meta property="twitter:image" content={meta.image} />
-      <meta property="twitter:creator" content={LENSTUBE_TWITTER_HANDLE} />
+      <meta property="twitter:creator" content={LENSTUBE_X_HANDLE} />
       {router.pathname === '/watch/[id]' && router.query?.id && (
         <>
           <link

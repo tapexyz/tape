@@ -7,10 +7,15 @@ import InterweaveContent from '@components/Common/InterweaveContent'
 import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
 import Tooltip from '@components/UIElements/Tooltip'
 import { LENSTER_WEBSITE_URL, STATIC_ASSETS } from '@lenstube/constants'
-import { getValueFromKeyInAttributes, shortenAddress } from '@lenstube/generic'
+import {
+  getValueFromKeyInAttributes,
+  imageCdn,
+  shortenAddress
+} from '@lenstube/generic'
 import type { Attribute, Profile } from '@lenstube/lens'
 import { t, Trans } from '@lingui/macro'
 import Link from 'next/link'
+import { useTheme } from 'next-themes'
 import type { FC } from 'react'
 import React from 'react'
 
@@ -19,6 +24,7 @@ type Props = {
 }
 
 const About: FC<Props> = ({ channel }) => {
+  const { resolvedTheme } = useTheme()
   const attributes = channel?.attributes as Attribute[]
   const hasOnChainId =
     channel.onChainIdentity?.ens?.name ||
@@ -108,27 +114,46 @@ const About: FC<Props> = ({ channel }) => {
               </Link>
             </div>
           )}
-          {getValueFromKeyInAttributes(attributes, 'twitter') && (
+          {getValueFromKeyInAttributes(attributes, 'x') && (
             <div className="flex items-center space-x-1.5">
-              <img
-                src={`${STATIC_ASSETS}/images/social/twitter.svg`}
-                alt="twitter"
-                className="h-4 w-4"
-                draggable={false}
-              />
+              {resolvedTheme === 'dark' ? (
+                <img
+                  src={imageCdn(
+                    `${STATIC_ASSETS}/images/social/x-white.png`,
+                    'AVATAR'
+                  )}
+                  className="h-4 w-4"
+                  height={16}
+                  width={16}
+                  alt="X Logo"
+                  draggable={false}
+                />
+              ) : (
+                <img
+                  src={imageCdn(
+                    `${STATIC_ASSETS}/images/social/x-black.png`,
+                    'AVATAR'
+                  )}
+                  className="h-4 w-4"
+                  height={16}
+                  width={16}
+                  alt="X Logo"
+                  draggable={false}
+                />
+              )}
               <Link
-                href={`https://twitter.com/${getValueFromKeyInAttributes(
+                href={`https://x.com/${getValueFromKeyInAttributes(
                   attributes,
-                  'twitter'
+                  'x'
                 )}`}
                 target="_blank"
                 rel="noreferer noreferrer"
                 className="hover:text-indigo-500"
               >
-                {getValueFromKeyInAttributes(
-                  channel?.attributes,
-                  'twitter'
-                )?.replace('https://twitter.com/', '')}
+                {getValueFromKeyInAttributes(channel?.attributes, 'x')?.replace(
+                  'https://x.com/',
+                  ''
+                )}
               </Link>
             </div>
           )}

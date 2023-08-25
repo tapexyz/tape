@@ -15,7 +15,7 @@
     <a href="https://lenstube.xyz/discord">
        <img src="https://img.shields.io/discord/980882088783913010.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2" alt="Discord">
     </a>
-    <a href="https://twitter.com/lenstubexyz">
+    <a href="https://x.com/lenstubexyz">
         <img src="https://img.shields.io/twitter/follow/lenstubexyz?style=social" alt="Twitter">
     </a>
     <a href="https://deepsource.io/gh/lenstube-xyz/lenstube">

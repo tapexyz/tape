@@ -1,8 +1,8 @@
 import {
   LENSTER_WEBSITE_URL,
   LENSTUBE_APP_NAME,
-  LENSTUBE_TWITTER_HANDLE,
-  LENSTUBE_WEBSITE_URL
+  LENSTUBE_WEBSITE_URL,
+  LENSTUBE_X_HANDLE
 } from '@lenstube/constants'
 import type { Publication } from '@lenstube/lens'
 
@@ -10,21 +10,23 @@ const getViewUrl = (video: Publication) => {
   return `${LENSTUBE_WEBSITE_URL}/watch/${video.id}`
 }
 
-type Link = 'lenstube' | 'lenster' | 'twitter' | 'reddit' | 'linkedin'
+type Link = 'lenstube' | 'lenster' | 'x' | 'reddit' | 'linkedin'
 
 export const getSharableLink = (link: Link, video: Publication) => {
-  const { handle, metadata } = video.profile
+  const { handle } = video.profile
+  const { metadata } = video
+
   if (link === 'lenstube') {
     return `${LENSTUBE_WEBSITE_URL}/watch/${video.id}`
   } else if (link === 'lenster') {
     return `${LENSTER_WEBSITE_URL}/?url=${getViewUrl(video)}&text=${
       (metadata?.name as string) ?? ''
     } by @${handle}&hashtags=Lenstube&preview=true`
-  } else if (link === 'twitter') {
+  } else if (link === 'x') {
     return encodeURI(
-      `https://twitter.com/intent/tweet?url=${getViewUrl(video)}&text=${
+      `https://x.com/intent/tweet?url=${getViewUrl(video)}&text=${
         (metadata?.name as string) ?? ''
-      } by @${handle}&via=${LENSTUBE_TWITTER_HANDLE}&related=Lenstube&hashtags=Lenstube`
+      } by @${handle}&via=${LENSTUBE_X_HANDLE}&related=Lenstube&hashtags=Lenstube`
     )
   } else if (link === 'reddit') {
     return `https://www.reddit.com/submit?url=${getViewUrl(video)}&title=${
