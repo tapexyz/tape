@@ -6,7 +6,7 @@ import WalletOutline from '@components/Common/Icons/WalletOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
 import Tooltip from '@components/UIElements/Tooltip'
-import { LENSTER_WEBSITE_URL, STATIC_ASSETS } from '@lenstube/constants'
+import { STATIC_ASSETS } from '@lenstube/constants'
 import {
   getValueFromKeyInAttributes,
   imageCdn,
@@ -186,24 +186,6 @@ const About: FC<Props> = ({ channel }) => {
               </Link>
             </div>
           )}
-          <div className="flex items-center space-x-1.5">
-            <span className="grayscale" role="img">
-              <img
-                src={`${STATIC_ASSETS}/images/lenster-logo.svg`}
-                alt="lenster"
-                className="h-4 w-4"
-                draggable={false}
-              />
-            </span>
-            <Link
-              href={`${LENSTER_WEBSITE_URL}/u/${channel?.handle}`}
-              target="_blank"
-              rel="noreferer noreferrer"
-              className="hover:text-indigo-500"
-            >
-              Lenster
-            </Link>
-          </div>
         </div>
       </div>
       <div className="inline-flex flex-col space-y-3">

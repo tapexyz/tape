@@ -8,16 +8,11 @@
     "worker:deploy": "wrangler deploy"
   },
   "dependencies": {
-    "arbundles": "^0.9.8",
     "base64url": "^3.0.1",
-    "secp256k1": "^5.0.0",
-    "viem": "^1.6.7"
+    "viem": "^1.7.0"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20230821.0",
     "@lenstube/config": "*",
-    "@types/secp256k1": "latest",
-    "typescript": "^5.1.6",
-    "wrangler": "3.5.1"
+    "typescript": "^5.2.2"
   }
 }
