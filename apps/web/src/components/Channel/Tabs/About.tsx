@@ -114,6 +114,35 @@ const About: FC<Props> = ({ channel }) => {
               </Link>
             </div>
           )}
+          {getValueFromKeyInAttributes(attributes, 'youtube') && (
+            <div className="flex items-center space-x-1.5">
+              <img
+                src={imageCdn(
+                  `${STATIC_ASSETS}/images/social/youtube.png`,
+                  'AVATAR'
+                )}
+                className="h-4 w-4"
+                height={16}
+                width={16}
+                alt="Youtube"
+                draggable={false}
+              />
+              <Link
+                href={`https://youtube.com/${getValueFromKeyInAttributes(
+                  attributes,
+                  'youtube'
+                )}`}
+                target="_blank"
+                rel="noreferer noreferrer"
+                className="hover:text-indigo-500"
+              >
+                {getValueFromKeyInAttributes(
+                  channel?.attributes,
+                  'youtube'
+                )?.replace('https://youtube.com/', '')}
+              </Link>
+            </div>
+          )}
           {getValueFromKeyInAttributes(attributes, 'x') && (
             <div className="flex items-center space-x-1.5">
               {resolvedTheme === 'dark' ? (
