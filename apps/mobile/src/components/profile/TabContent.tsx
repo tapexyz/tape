@@ -1,4 +1,8 @@
 import type { Profile } from '@lenstube/lens'
+import {
+  MOBILE_PROFILE_ITEMS,
+  type MobileProfileTabItemType
+} from '@lenstube/lens/custom-types'
 import type { FC } from 'react'
 import React, { memo, useCallback, useRef, useState } from 'react'
 import type {
@@ -23,9 +27,6 @@ import Gallery from './tabs/Gallery'
 import Media from './tabs/Media'
 import Replies from './tabs/Replies'
 
-export const tabs = ['Clan', 'Media', 'Bytes', 'Replies', 'Gallery'] as const
-export type TabItemType = (typeof tabs)[number]
-
 type Props = {
   profile: Profile
   infoHeaderHeight: number
@@ -39,7 +40,7 @@ const TabContent: FC<Props> = (props) => {
   const insets = useSafeAreaInsets()
 
   const [activeTabIndex, setActiveTabIndex] = useState(0)
-  const flatListRef = useRef<FlatList<TabItemType>>(null)
+  const flatListRef = useRef<FlatList<MobileProfileTabItemType>>(null)
 
   const onViewableItemsChanged = useCallback(
     ({ viewableItems }: { viewableItems: Array<ViewToken> }) => {
@@ -82,12 +83,12 @@ const TabContent: FC<Props> = (props) => {
         horizontal
         snapToAlignment="center"
         decelerationRate="fast"
-        data={tabs}
+        data={MOBILE_PROFILE_ITEMS}
         bounces={false}
         pagingEnabled
         bouncesZoom={false}
         showsHorizontalScrollIndicator={false}
-        renderItem={({ item }: { item: TabItemType }) => {
+        renderItem={({ item }: { item: MobileProfileTabItemType }) => {
           const component = {
             Clan: <Clan profile={profile} scrollHandler={scrollHandler} />,
             Media: <Media profile={profile} scrollHandler={scrollHandler} />,

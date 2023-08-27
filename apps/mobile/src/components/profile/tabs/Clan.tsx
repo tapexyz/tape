@@ -22,9 +22,6 @@ import ImageCard from '~/components/common/ImageCard'
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
 
-import AudioCard from '../../common/AudioCard'
-import VideoCard from '../../common/VideoCard'
-
 type Props = {
   profile: Profile
   scrollHandler: (event: NativeSyntheticEvent<NativeScrollEvent>) => void
@@ -40,7 +37,7 @@ const styles = StyleSheet.create({
     color: theme.colors.white,
     opacity: 0.8,
     fontSize: normalizeFont(13),
-    paddingBottom: 25
+    paddingBottom: 20
   }
 })
 
@@ -52,9 +49,10 @@ const Clan: FC<Props> = ({ profile, scrollHandler }) => {
     limit: 10,
     metadata: {
       mainContentFocus: [
-        PublicationMainFocus.Video,
-        PublicationMainFocus.Audio,
-        PublicationMainFocus.Image
+        PublicationMainFocus.Article,
+        PublicationMainFocus.TextOnly,
+        PublicationMainFocus.Image,
+        PublicationMainFocus.Link
       ]
     },
     customFilters: LENS_CUSTOM_FILTERS,
@@ -85,13 +83,7 @@ const Clan: FC<Props> = ({ profile, scrollHandler }) => {
   const renderItem = useCallback(
     ({ item }: { item: Publication }) => (
       <View style={{ marginBottom: 30 }}>
-        {item.metadata.mainContentFocus === PublicationMainFocus.Audio ? (
-          <AudioCard audio={item} />
-        ) : item.metadata.mainContentFocus === PublicationMainFocus.Image ? (
-          <ImageCard image={item} />
-        ) : (
-          <VideoCard video={item} />
-        )}
+        <ImageCard image={item} />
       </View>
     ),
     []

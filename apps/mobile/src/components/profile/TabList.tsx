@@ -1,4 +1,5 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
+import { MOBILE_PROFILE_ITEMS } from '@lenstube/lens/custom-types'
 import type { FC } from 'react'
 import React, { memo, useCallback, useEffect, useRef } from 'react'
 import {
@@ -13,8 +14,6 @@ import {
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
-
-import { tabs } from './TabContent'
 
 const styles = StyleSheet.create({
   container: {
@@ -81,7 +80,7 @@ const TabList: FC<Props> = ({ activeTab, scrollToTab }) => {
         horizontal={true}
         showsHorizontalScrollIndicator={false}
       >
-        {tabs.map((tab, index) => {
+        {MOBILE_PROFILE_ITEMS.map((tab, index) => {
           const isActive = activeTab === index
           const color = isActive ? theme.colors.black : theme.colors.white
           const backgroundColor = isActive ? theme.colors.white : 'transparent'
