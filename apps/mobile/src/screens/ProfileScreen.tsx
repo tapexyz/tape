@@ -75,12 +75,14 @@ export const ProfileScreen = (
         infoHeaderHeight={infoHeaderHeight}
         setInfoHeaderHeight={setInfoHeaderHeight}
       />
-      <TabContent
-        profile={profile}
-        contentScrollY={contentScrollY}
-        infoHeaderHeight={infoHeaderHeight}
-        scrollHandler={scrollHandler}
-      />
+      {Boolean(infoHeaderHeight) ? (
+        <TabContent
+          profile={profile}
+          contentScrollY={contentScrollY}
+          infoHeaderHeight={infoHeaderHeight}
+          scrollHandler={scrollHandler}
+        />
+      ) : null}
     </View>
   )
 }

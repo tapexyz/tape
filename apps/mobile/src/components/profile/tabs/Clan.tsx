@@ -12,15 +12,15 @@ import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native'
 import {
   ActivityIndicator,
   StyleSheet,
+  Text,
   useWindowDimensions,
   View
 } from 'react-native'
 import Animated from 'react-native-reanimated'
 
 import ImageCard from '~/components/common/ImageCard'
-
-import AudioCard from '../../common/AudioCard'
-import VideoCard from '../../common/VideoCard'
+import normalizeFont from '~/helpers/normalize-font'
+import { theme } from '~/helpers/theme'
 
 type Props = {
   profile: Profile
@@ -31,10 +31,17 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 5,
     flex: 1
+  },
+  subheading: {
+    fontFamily: 'font-normal',
+    color: theme.colors.white,
+    opacity: 0.8,
+    fontSize: normalizeFont(13),
+    paddingBottom: 20
   }
 })
 
-const Feed: FC<Props> = ({ profile, scrollHandler }) => {
+const Clan: FC<Props> = ({ profile, scrollHandler }) => {
   const { height } = useWindowDimensions()
 
   const request = {
@@ -42,9 +49,10 @@ const Feed: FC<Props> = ({ profile, scrollHandler }) => {
     limit: 10,
     metadata: {
       mainContentFocus: [
-        PublicationMainFocus.Video,
-        PublicationMainFocus.Audio,
-        PublicationMainFocus.Image
+        PublicationMainFocus.Article,
+        PublicationMainFocus.TextOnly,
+        PublicationMainFocus.Image,
+        PublicationMainFocus.Link
       ]
     },
     customFilters: LENS_CUSTOM_FILTERS,
@@ -75,13 +83,7 @@ const Feed: FC<Props> = ({ profile, scrollHandler }) => {
   const renderItem = useCallback(
     ({ item }: { item: Publication }) => (
       <View style={{ marginBottom: 30 }}>
-        {item.metadata.mainContentFocus === PublicationMainFocus.Audio ? (
-          <AudioCard audio={item} />
-        ) : item.metadata.mainContentFocus === PublicationMainFocus.Image ? (
-          <ImageCard image={item} />
-        ) : (
-          <VideoCard video={item} />
-        )}
+        <ImageCard image={item} />
       </View>
     ),
     []
@@ -89,6 +91,10 @@ const Feed: FC<Props> = ({ profile, scrollHandler }) => {
 
   return (
     <View style={[styles.container, { height }]}>
+      <Text style={styles.subheading}>
+        Dedicated corner to connect, swap stories, and get hyped about what we
+        do!
+      </Text>
       <Animated.FlatList
         data={publications}
         contentContainerStyle={{
@@ -109,4 +115,4 @@ const Feed: FC<Props> = ({ profile, scrollHandler }) => {
   )
 }
 
-export default memo(Feed)
+export default memo(Clan)

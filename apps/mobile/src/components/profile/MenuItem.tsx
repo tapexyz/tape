@@ -32,9 +32,10 @@ type Props = {
   title: string
   icon: keyof typeof Ionicons.glyphMap
   onPress?: () => void
+  showArrow?: boolean
 }
 
-const MenuItem: FC<Props> = ({ icon, title, onPress }) => {
+const MenuItem: FC<Props> = ({ icon, title, showArrow = true, onPress }) => {
   return (
     <AnimatedPressable style={styles.item} onPress={onPress}>
       <View style={styles.left}>
@@ -46,12 +47,14 @@ const MenuItem: FC<Props> = ({ icon, title, onPress }) => {
         />
         <Text style={styles.title}>{title}</Text>
       </View>
-      <Ionicons
-        name="chevron-forward"
-        color={theme.colors.white}
-        style={{ opacity: 0.6 }}
-        size={20}
-      />
+      {showArrow && (
+        <Ionicons
+          name="chevron-forward"
+          color={theme.colors.white}
+          style={{ opacity: 0.6 }}
+          size={20}
+        />
+      )}
     </AnimatedPressable>
   )
 }

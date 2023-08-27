@@ -43,8 +43,7 @@ const Gallery: FC<Props> = ({ profile, scrollHandler }) => {
 
   const { data: nfts, isLoading } = useSWR(
     `${NFTS_URL}/${profile.handle}/200`,
-    (url: string) => fetch(url).then((res) => res.json()),
-    { revalidateIfStale: true }
+    (url: string) => fetch(url).then((res) => res.json())
   )
 
   const renderItem = useCallback(

@@ -1,4 +1,5 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
+import { MOBILE_PROFILE_ITEMS } from '@lenstube/lens/custom-types'
 import type { FC } from 'react'
 import React, { memo, useCallback, useEffect, useRef } from 'react'
 import {
@@ -41,19 +42,18 @@ const styles = StyleSheet.create({
 
 type Props = {
   activeTab: number
-  tabs: string[]
   scrollToTab: (index: number) => void
 }
 
 const icons = [
-  'planet-outline',
+  'bonfire-outline',
   'headset-outline',
   'videocam-outline',
   'chatbubble-outline',
   'shapes-outline'
 ] as (keyof typeof Ionicons.glyphMap)[]
 
-const TabList: FC<Props> = ({ activeTab, tabs, scrollToTab }) => {
+const TabList: FC<Props> = ({ activeTab, scrollToTab }) => {
   const scrollViewRef = useRef<ScrollView>(null)
   const { width } = useWindowDimensions()
 
@@ -80,7 +80,7 @@ const TabList: FC<Props> = ({ activeTab, tabs, scrollToTab }) => {
         horizontal={true}
         showsHorizontalScrollIndicator={false}
       >
-        {tabs.map((tab, index) => {
+        {MOBILE_PROFILE_ITEMS.map((tab, index) => {
           const isActive = activeTab === index
           const color = isActive ? theme.colors.black : theme.colors.white
           const backgroundColor = isActive ? theme.colors.white : 'transparent'

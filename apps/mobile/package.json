@@ -11,7 +11,7 @@
     "web": "expo start --web",
     "devtools": "react-devtools",
     "lint": "eslint . --ext .js,.ts,.tsx",
-    "eas:build": "eas build  --platform ios"
+    "eas:build": "eas build  --platform ios --local"
   },
   "dependencies": {
     "@apollo/client": "^3.8.1",

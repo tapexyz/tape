@@ -171,3 +171,12 @@ export enum AlgoType {
 export enum ALGO_PROVIDER {
   K3L = 'K3L'
 }
+
+export const MOBILE_PROFILE_ITEMS = [
+  'Clan',
+  'Media',
+  'Bytes',
+  'Replies',
+  'Gallery'
+] as const
+export type MobileProfileTabItemType = (typeof MOBILE_PROFILE_ITEMS)[number]

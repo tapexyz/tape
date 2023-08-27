@@ -57,8 +57,7 @@ const PopularCreators = () => {
 
   const { data: recsData, isLoading: recsLoading } = useSWR(
     `${RECS_URL}/k3l-score/creator/49/0`,
-    (url: string) => fetch(url).then((res) => res.json()),
-    { revalidateIfStale: true }
+    (url: string) => fetch(url).then((res) => res.json())
   )
 
   const { data, loading: profilesLoading } = useAllProfilesQuery({
