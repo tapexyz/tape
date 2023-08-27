@@ -85,7 +85,6 @@ const RenderPublication: FC<Props> = ({ publication }) => {
             ) : (
               <Text style={styles.textContent} numberOfLines={3}>
                 {trimNewLines(publication.metadata.content)}
-                {publication.metadata.mainContentFocus}
               </Text>
             )}
           </View>
