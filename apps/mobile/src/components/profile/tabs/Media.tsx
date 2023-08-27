@@ -45,7 +45,7 @@ const Media: FC<Props> = ({ profile, scrollHandler }) => {
     profileId: profile?.id
   }
 
-  const { data, loading, fetchMore } = useProfilePostsQuery({
+  const { data, loading, fetchMore, refetch } = useProfilePostsQuery({
     variables: {
       request
     },
@@ -85,7 +85,7 @@ const Media: FC<Props> = ({ profile, scrollHandler }) => {
         data={publications}
         renderItem={renderItem}
         contentContainerStyle={{
-          paddingBottom: publications?.length < 5 ? 350 : 180
+          paddingBottom: publications?.length < 5 ? 500 : 180
         }}
         keyExtractor={(item, i) => `${item.id}_${i}`}
         ListFooterComponent={() =>
@@ -97,6 +97,8 @@ const Media: FC<Props> = ({ profile, scrollHandler }) => {
         onScroll={scrollHandler}
         removeClippedSubviews
         scrollEventThrottle={16}
+        onRefresh={() => refetch()}
+        refreshing={loading}
       />
     </View>
   )

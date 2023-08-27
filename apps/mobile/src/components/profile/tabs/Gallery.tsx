@@ -85,7 +85,7 @@ const Gallery: FC<Props> = ({ profile, scrollHandler }) => {
     <View style={[styles.container, { height }]}>
       <Animated.FlatList
         contentContainerStyle={{
-          paddingBottom: nfts.items?.length < 10 ? 350 : 180
+          paddingBottom: nfts.items?.length < 10 ? 500 : 180
         }}
         data={nfts.items}
         renderItem={renderItem}

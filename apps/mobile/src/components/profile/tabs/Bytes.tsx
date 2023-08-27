@@ -54,7 +54,7 @@ const Bytes: FC<Props> = ({ profile, scrollHandler }) => {
     profileId: profile?.id
   }
 
-  const { data, loading, fetchMore } = useProfilePostsQuery({
+  const { data, loading, fetchMore, refetch } = useProfilePostsQuery({
     variables: {
       request
     },
@@ -102,7 +102,7 @@ const Bytes: FC<Props> = ({ profile, scrollHandler }) => {
     <View style={[styles.container, { height }]}>
       <Animated.FlatList
         contentContainerStyle={{
-          paddingBottom: bytes?.length < 10 ? 350 : 180
+          paddingBottom: bytes?.length < 10 ? 500 : 180
         }}
         data={bytes}
         renderItem={renderItem}
@@ -117,6 +117,8 @@ const Bytes: FC<Props> = ({ profile, scrollHandler }) => {
         onScroll={scrollHandler}
         numColumns={NUM_COLUMNS}
         scrollEventThrottle={16}
+        onRefresh={() => refetch()}
+        refreshing={loading}
       />
     </View>
   )

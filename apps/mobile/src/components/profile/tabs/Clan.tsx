@@ -18,7 +18,7 @@ import {
 } from 'react-native'
 import Animated from 'react-native-reanimated'
 
-import ImageCard from '~/components/common/ImageCard'
+import RenderPublication from '~/components/common/RenderPublication'
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
 
@@ -59,7 +59,7 @@ const Clan: FC<Props> = ({ profile, scrollHandler }) => {
     profileId: profile?.id
   }
 
-  const { data, loading, fetchMore } = useProfilePostsQuery({
+  const { data, loading, fetchMore, refetch } = useProfilePostsQuery({
     variables: {
       request
     },
@@ -83,7 +83,7 @@ const Clan: FC<Props> = ({ profile, scrollHandler }) => {
   const renderItem = useCallback(
     ({ item }: { item: Publication }) => (
       <View style={{ marginBottom: 30 }}>
-        <ImageCard image={item} />
+        <RenderPublication publication={item} />
       </View>
     ),
     []
@@ -98,7 +98,7 @@ const Clan: FC<Props> = ({ profile, scrollHandler }) => {
       <Animated.FlatList
         data={publications}
         contentContainerStyle={{
-          paddingBottom: publications?.length < 5 ? 350 : 180
+          paddingBottom: publications?.length < 5 ? 500 : 180
         }}
         renderItem={renderItem}
         keyExtractor={(item, i) => `${item.id}_${i}`}
@@ -110,6 +110,8 @@ const Clan: FC<Props> = ({ profile, scrollHandler }) => {
         showsVerticalScrollIndicator={false}
         onScroll={scrollHandler}
         scrollEventThrottle={16}
+        onRefresh={() => refetch()}
+        refreshing={loading}
       />
     </View>
   )
