@@ -12,12 +12,15 @@ import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native'
 import {
   ActivityIndicator,
   StyleSheet,
+  Text,
   useWindowDimensions,
   View
 } from 'react-native'
 import Animated from 'react-native-reanimated'
 
 import ImageCard from '~/components/common/ImageCard'
+import normalizeFont from '~/helpers/normalize-font'
+import { theme } from '~/helpers/theme'
 
 import AudioCard from '../../common/AudioCard'
 import VideoCard from '../../common/VideoCard'
@@ -31,10 +34,17 @@ const styles = StyleSheet.create({
   container: {
     paddingHorizontal: 5,
     flex: 1
+  },
+  subheading: {
+    fontFamily: 'font-normal',
+    color: theme.colors.white,
+    opacity: 0.8,
+    fontSize: normalizeFont(13),
+    paddingBottom: 25
   }
 })
 
-const Feed: FC<Props> = ({ profile, scrollHandler }) => {
+const Clan: FC<Props> = ({ profile, scrollHandler }) => {
   const { height } = useWindowDimensions()
 
   const request = {
@@ -89,6 +99,10 @@ const Feed: FC<Props> = ({ profile, scrollHandler }) => {
 
   return (
     <View style={[styles.container, { height }]}>
+      <Text style={styles.subheading}>
+        Dedicated corner to connect, swap stories, and get hyped about what we
+        do!
+      </Text>
       <Animated.FlatList
         data={publications}
         contentContainerStyle={{
@@ -109,4 +123,4 @@ const Feed: FC<Props> = ({ profile, scrollHandler }) => {
   )
 }
 
-export default memo(Feed)
+export default memo(Clan)

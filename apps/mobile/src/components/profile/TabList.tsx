@@ -14,6 +14,8 @@ import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
 
+import { tabs } from './TabContent'
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -41,19 +43,18 @@ const styles = StyleSheet.create({
 
 type Props = {
   activeTab: number
-  tabs: string[]
   scrollToTab: (index: number) => void
 }
 
 const icons = [
-  'planet-outline',
+  'bonfire-outline',
   'headset-outline',
   'videocam-outline',
   'chatbubble-outline',
   'shapes-outline'
 ] as (keyof typeof Ionicons.glyphMap)[]
 
-const TabList: FC<Props> = ({ activeTab, tabs, scrollToTab }) => {
+const TabList: FC<Props> = ({ activeTab, scrollToTab }) => {
   const scrollViewRef = useRef<ScrollView>(null)
   const { width } = useWindowDimensions()
 

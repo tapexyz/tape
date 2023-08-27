@@ -18,13 +18,13 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import TabList from './TabList'
 import Bytes from './tabs/Bytes'
-import Feed from './tabs/Feed'
+import Clan from './tabs/Clan'
 import Gallery from './tabs/Gallery'
 import Media from './tabs/Media'
 import Replies from './tabs/Replies'
 
-const tabs = ['Feed', 'Media', 'Bytes', 'Replies', 'Gallery']
-type TabItemType = (typeof tabs)[number]
+export const tabs = ['Clan', 'Media', 'Bytes', 'Replies', 'Gallery'] as const
+export type TabItemType = (typeof tabs)[number]
 
 type Props = {
   profile: Profile
@@ -39,7 +39,7 @@ const TabContent: FC<Props> = (props) => {
   const insets = useSafeAreaInsets()
 
   const [activeTabIndex, setActiveTabIndex] = useState(0)
-  const flatListRef = useRef<FlatList<string>>(null)
+  const flatListRef = useRef<FlatList<TabItemType>>(null)
 
   const onViewableItemsChanged = useCallback(
     ({ viewableItems }: { viewableItems: Array<ViewToken> }) => {
@@ -74,11 +74,7 @@ const TabContent: FC<Props> = (props) => {
 
   return (
     <Animated.View style={animatedScrollStyles} entering={FadeInRight}>
-      <TabList
-        activeTab={activeTabIndex}
-        tabs={tabs}
-        scrollToTab={scrollToTab}
-      />
+      <TabList activeTab={activeTabIndex} scrollToTab={scrollToTab} />
       <FlatList
         ref={flatListRef}
         style={{ height }}
@@ -93,7 +89,7 @@ const TabContent: FC<Props> = (props) => {
         showsHorizontalScrollIndicator={false}
         renderItem={({ item }: { item: TabItemType }) => {
           const component = {
-            Feed: <Feed profile={profile} scrollHandler={scrollHandler} />,
+            Clan: <Clan profile={profile} scrollHandler={scrollHandler} />,
             Media: <Media profile={profile} scrollHandler={scrollHandler} />,
             Bytes: <Bytes profile={profile} scrollHandler={scrollHandler} />,
             Replies: (

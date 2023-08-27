@@ -112,16 +112,12 @@ const Timeline = () => {
       skip: !selectedChannelId
     })
 
-  const publications = useMemo(
-    () =>
-      selectedFeedType === TimelineFeedType.HIGHLIGHTS
-        ? (feedHighlightsData?.feedHighlights.items as Publication[])
-        : selectedFeedType === TimelineFeedType.FOLLOWING
-        ? (feedData?.feed?.items as FeedItem[])
-        : (curatedData?.explorePublications?.items as Publication[]),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [selectedFeedType, loading]
-  )
+  const publications =
+    selectedFeedType === TimelineFeedType.HIGHLIGHTS
+      ? (feedHighlightsData?.feedHighlights.items as Publication[])
+      : selectedFeedType === TimelineFeedType.FOLLOWING
+      ? (feedData?.feed?.items as FeedItem[])
+      : (curatedData?.explorePublications?.items as Publication[])
 
   const pageInfo =
     selectedFeedType === TimelineFeedType.CURATED
@@ -217,9 +213,9 @@ const Timeline = () => {
         estimatedItemSize={publications?.length ?? []}
         renderItem={renderItem}
         keyExtractor={(item, i) => `${i + 1}_${i}`}
-        ListFooterComponent={() =>
-          loading && <ActivityIndicator style={{ paddingVertical: 20 }} />
-        }
+        ListFooterComponent={() => (
+          <ActivityIndicator style={{ paddingVertical: 20 }} />
+        )}
         onEndReached={fetchMorePublications}
         onEndReachedThreshold={0.8}
         showsVerticalScrollIndicator={false}
