@@ -72,7 +72,7 @@
     "@babel/plugin-transform-shorthand-properties": "^7.22.5",
     "@babel/plugin-transform-template-literals": "^7.22.5",
     "@expo/metro-config": "^0.10.7",
-    "@expo/webpack-config": "^18.1.1",
+    "@expo/webpack-config": "^19.0.0",
     "@lenstube/config": "*",
     "@lenstube/generic": "*",
     "@lenstube/lens": "*",
