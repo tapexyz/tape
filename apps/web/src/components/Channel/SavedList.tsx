@@ -70,7 +70,7 @@ const SavedList: FC<Props> = () => {
 
   return (
     <>
-      <MetaTags title="Saved Videos" />
+      <MetaTags title={t`Saved Videos`} />
       <h1 className="mb-6 font-semibold md:text-2xl">Saved Videos</h1>
       {!error && !loading && (
         <>

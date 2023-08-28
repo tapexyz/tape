@@ -1,15 +1,16 @@
 import MetaTags from '@components/Common/MetaTags'
+import { t, Trans } from '@lingui/macro'
 import Link from 'next/link'
 import React from 'react'
 
 const terms = () => {
   return (
     <div className="relative overflow-hidden py-[5rem]">
-      <MetaTags title="Privacy Policy" />
+      <MetaTags title={t`Privacy Policy`} />
       <div className="px-2">
         <div className="relative mx-auto max-w-4xl pb-24 text-center">
           <h1 className="text-4xl font-extrabold tracking-tight text-slate-900 dark:text-slate-100 sm:text-5xl">
-            Privacy policy
+            <Trans>Privacy policy</Trans>
           </h1>
           <p className="mt-4 text-base leading-7 text-slate-600 dark:text-slate-400">
             Last updated on May 09, 2023

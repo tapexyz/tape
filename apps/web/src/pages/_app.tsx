@@ -3,6 +3,7 @@ import '@rainbow-me/rainbowkit/styles.css'
 import 'tippy.js/dist/tippy.css'
 
 import FullPageLoader from '@components/Common/FullPageLoader'
+import MetaTags from '@components/Common/MetaTags'
 import { bloomer } from '@lenstube/browser'
 import { AUTH_ROUTES } from '@lenstube/constants'
 import useAuthPersistStore from '@lib/store/auth'
@@ -26,18 +27,21 @@ const App = ({ Component, pageProps }: AppProps) => {
   }, [selectedChannelId, pathname, asPath, replace])
 
   return (
-    <Suspense fallback={<FullPageLoader />}>
-      <Providers>
-        <style jsx global>{`
-          body {
-            font-family: ${bloomer.style.fontFamily};
-          }
-        `}</style>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
-      </Providers>
-    </Suspense>
+    <>
+      <MetaTags />
+      <Suspense fallback={<FullPageLoader />}>
+        <Providers>
+          <style jsx global>{`
+            body {
+              font-family: ${bloomer.style.fontFamily};
+            }
+          `}</style>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
+        </Providers>
+      </Suspense>
+    </>
   )
 }
 

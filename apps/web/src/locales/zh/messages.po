@@ -136,11 +136,11 @@ msgstr "取消"
 msgid "Category"
 msgstr "类别"
 
-#: src/components/Settings/BasicInfo.tsx:290
+#: src/components/Settings/BasicInfo.tsx:299
 msgid "Change"
 msgstr "更改"
 
-#: src/components/Settings/BasicInfo.tsx:303
+#: src/components/Settings/BasicInfo.tsx:312
 msgid "Channel"
 msgstr "频道"
 
@@ -148,7 +148,7 @@ msgstr "频道"
 msgid "Channel deleted"
 msgstr "频道已删除"
 
-#: src/components/Settings/BasicInfo.tsx:344
+#: src/components/Settings/BasicInfo.tsx:353
 msgid "Channel Description"
 msgstr "频道描述"
 
@@ -161,7 +161,7 @@ msgstr "频道图像已更新"
 msgid "Channel Settings"
 msgstr "频道设置"
 
-#: src/components/Settings/BasicInfo.tsx:315
+#: src/components/Settings/BasicInfo.tsx:324
 msgid "Channel URL"
 msgstr "频道 URL"
 
@@ -342,7 +342,7 @@ msgstr "存款"
 msgid "Describe more about your video, can be @channels, #hashtags or chapters (00:20 - Intro)"
 msgstr "详细描述您的视频，可以是 @cannets, #hashtag 或章节(00:20 - Intro)"
 
-#: src/components/Channel/Tabs/About.tsx:34
+#: src/components/Channel/Tabs/About.tsx:40
 #: src/components/Upload/Details.tsx:111
 msgid "Description"
 msgstr "描述"
@@ -381,7 +381,7 @@ msgstr "调度器"
 msgid "Dispatcher"
 msgstr "调度器"
 
-#: src/components/Settings/BasicInfo.tsx:335
+#: src/components/Settings/BasicInfo.tsx:344
 msgid "Display Name"
 msgstr "显示名称"
 
@@ -602,11 +602,11 @@ msgstr "限制24小时销售"
 msgid "Limited collect"
 msgstr "有限采集量"
 
-#: src/components/Channel/Tabs/About.tsx:88
+#: src/components/Channel/Tabs/About.tsx:94
 msgid "Links"
 msgstr "链接"
 
-#: src/components/Settings/BasicInfo.tsx:377
+#: src/components/Settings/BasicInfo.tsx:395
 msgid "Location"
 msgstr "地点"
 
@@ -682,7 +682,7 @@ msgstr "错误使用哈希标签"
 msgid "Momoka is currently in beta - during this time certain actions are not available to all channels."
 msgstr "Momoka目前处于测试版中 - 在此期间某些操作不能用于所有频道。"
 
-#: src/components/Settings/BasicInfo.tsx:345
+#: src/components/Settings/BasicInfo.tsx:354
 msgid "More about your channel"
 msgstr "更多关于您的频道"
 
@@ -816,7 +816,7 @@ msgstr "税收的百分比可以分享给镜像此视频的任何人。"
 msgid "Percentage should be 0 to 100"
 msgstr "百分比应为0到100"
 
-#: src/components/Common/VideoCard/ShareModal.tsx:28
+#: src/components/Common/VideoCard/ShareModal.tsx:30
 msgid "Permalink copied to clipboard"
 msgstr "永久链接已复制到剪贴板"
 
@@ -876,11 +876,19 @@ msgstr "每个收集的价格"
 msgid "Privacy"
 msgstr "隐私"
 
-#: src/components/Channel/Tabs/About.tsx:64
+#: src/pages/privacy.tsx:13
+msgid "Privacy policy"
+msgstr ""
+
+#: src/pages/privacy.tsx:9
+msgid "Privacy Policy"
+msgstr ""
+
+#: src/components/Channel/Tabs/About.tsx:70
 msgid "Proof of Humanity"
 msgstr "人类证据"
 
-#: src/components/Channel/Tabs/About.tsx:74
+#: src/components/Channel/Tabs/About.tsx:80
 msgid "Proof of Personhood"
 msgstr "人格证明"
 
@@ -964,7 +972,7 @@ msgstr "Revoke"
 msgid "Round 18"
 msgstr "第18圆桌会议"
 
-#: src/components/Settings/BasicInfo.tsx:385
+#: src/components/Settings/BasicInfo.tsx:403
 msgid "Save"
 msgstr "保存"
 
@@ -972,6 +980,7 @@ msgstr "保存"
 msgid "Save to List"
 msgstr "保存到列表"
 
+#: src/components/Channel/SavedList.tsx:73
 #: src/components/Common/UserMenu.tsx:206
 msgid "Saved Videos"
 msgstr "保存的视频"
@@ -1159,13 +1168,18 @@ msgstr "切换到暗色"
 msgid "Switch to Light"
 msgstr "切换到灯光"
 
-#: src/components/Channel/Tabs/About.tsx:54
+#: src/components/Channel/Tabs/About.tsx:60
 msgid "Sybil Verified"
 msgstr "Sybil 验证"
 
 #: src/components/Common/Footer.tsx:95
 msgid "Terms"
 msgstr "条款"
+
+#: src/pages/terms.tsx:9
+#: src/pages/terms.tsx:13
+msgid "Terms and Conditions"
+msgstr ""
 
 #: src/components/Common/Footer.tsx:73
 #: src/components/Thanks/index.tsx:15
@@ -1468,7 +1482,7 @@ msgstr "观察"
 msgid "Watch Video"
 msgstr "观看视频"
 
-#: src/components/Settings/BasicInfo.tsx:369
+#: src/components/Settings/BasicInfo.tsx:387
 msgid "Website"
 msgstr "网址"
 
@@ -1535,4 +1549,3 @@ msgstr "您的频道"
 #: src/components/Upload/BundlrInfo.tsx:171
 msgid "Your Storage Balance"
 msgstr "您的存储余额"
-
