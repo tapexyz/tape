@@ -4,8 +4,9 @@ import MarkdownDisplay, {
 } from '@ronradtke/react-native-markdown-display'
 import markdownItRegex from 'markdown-it-regex'
 import React, { useMemo } from 'react'
-import { Linking, Pressable, Text, type TextStyle } from 'react-native'
+import { Linking, Text, type TextStyle } from 'react-native'
 
+import AnimatedPressable from '~/components/ui/AnimatedPressable'
 import { theme } from '~/helpers/theme'
 
 import HashtagLink from './HashtagLink'
@@ -26,14 +27,17 @@ const rules: RenderRules = {
   },
   link: ({ attributes }, children) => {
     return (
-      <Pressable
-        onPress={() => Linking.openURL(attributes.href)}
-        style={{ justifyContent: 'center' }}
-      >
-        <Text style={{ textDecorationColor: theme.colors.indigo }}>
+      <AnimatedPressable onPress={() => Linking.openURL(attributes.href)}>
+        <Text
+          selectable
+          style={{
+            textDecorationColor: theme.colors.indigo,
+            textDecorationStyle: 'dotted'
+          }}
+        >
           {children}
         </Text>
-      </Pressable>
+      </AnimatedPressable>
     )
   },
   mention: ({ key, content }) => {

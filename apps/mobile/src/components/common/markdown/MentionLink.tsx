@@ -1,7 +1,8 @@
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
-import { Pressable, StyleSheet, Text } from 'react-native'
+import { StyleSheet, Text } from 'react-native'
 
+import AnimatedPressable from '~/components/ui/AnimatedPressable'
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
 
@@ -22,14 +23,13 @@ const MentionLink = ({ handle }: MentionLinkProps) => {
   const { navigate } = useNavigation()
 
   return (
-    <Pressable
+    <AnimatedPressable
       onPress={() => {
         navigate('ProfileScreen', { handle })
       }}
-      style={{ justifyContent: 'center' }}
     >
       <Text style={styles.mention}>{handle}</Text>
-    </Pressable>
+    </AnimatedPressable>
   )
 }
 

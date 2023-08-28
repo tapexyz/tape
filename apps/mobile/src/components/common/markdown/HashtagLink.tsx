@@ -12,14 +12,13 @@ const styles = StyleSheet.create({
     fontFamily: 'font-normal',
     fontSize: normalizeFont(13),
     color: theme.colors.secondary,
-    letterSpacing: 0.6,
-    opacity: 0.9
+    letterSpacing: 0.6
   }
 })
 
 const HashtagLink = ({ hashtag }: HashtagLinkProps) => {
   return (
-    <Pressable style={{ justifyContent: 'center' }}>
+    <Pressable>
       <Text style={styles.hashtag}>{hashtag}</Text>
     </Pressable>
   )
