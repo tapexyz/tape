@@ -25,7 +25,7 @@ const MentionLink = ({ handle }: MentionLinkProps) => {
   return (
     <AnimatedPressable
       onPress={() => {
-        navigate('ProfileScreen', { handle })
+        navigate('ProfileScreen', { handle: handle.replace('@', '') })
       }}
     >
       <Text style={styles.mention}>{handle}</Text>

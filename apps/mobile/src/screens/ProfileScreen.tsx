@@ -1,7 +1,7 @@
 import type { Profile } from '@lenstube/lens'
 import { useProfileQuery } from '@lenstube/lens'
 import { useNavigation } from '@react-navigation/native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ActivityIndicator, useWindowDimensions, View } from 'react-native'
 import {
   useAnimatedScrollHandler,
@@ -17,9 +17,15 @@ export const ProfileScreen = (
   props: ProfileScreenProps
 ): JSX.Element | null => {
   const { handle } = props.route.params
+  console.log('🚀 ~ file: ProfileScreen.tsx:20 ~ handle:', handle)
   const { goBack } = useNavigation()
   const { height } = useWindowDimensions()
   const contentScrollY = useSharedValue(0)
+
+  useEffect(() => {
+    contentScrollY.value = 0
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [handle])
 
   const [infoHeaderHeight, setInfoHeaderHeight] = useState(0)
 
