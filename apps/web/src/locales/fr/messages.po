@@ -8,7 +8,7 @@ msgstr ""
 "Language: fr\n"
 "Project-Id-Version: lenstube\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-08-18 01:08\n"
+"PO-Revision-Date: 2023-08-28 11:22\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -878,11 +878,11 @@ msgstr "Confidentialité"
 
 #: src/pages/privacy.tsx:13
 msgid "Privacy policy"
-msgstr ""
+msgstr "Politique de confidentialité"
 
 #: src/pages/privacy.tsx:9
 msgid "Privacy Policy"
-msgstr ""
+msgstr "Politique de confidentialité"
 
 #: src/components/Channel/Tabs/About.tsx:70
 msgid "Proof of Humanity"
@@ -1179,7 +1179,7 @@ msgstr "Conditions générales de vente"
 #: src/pages/terms.tsx:9
 #: src/pages/terms.tsx:13
 msgid "Terms and Conditions"
-msgstr ""
+msgstr "Termes et Conditions"
 
 #: src/components/Common/Footer.tsx:73
 #: src/components/Thanks/index.tsx:15
@@ -1549,3 +1549,4 @@ msgstr "Votre Chaîne"
 #: src/components/Upload/BundlrInfo.tsx:171
 msgid "Your Storage Balance"
 msgstr "Votre solde de stockage"
+
