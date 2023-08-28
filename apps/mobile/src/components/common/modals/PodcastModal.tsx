@@ -88,7 +88,7 @@ export const PodcastModal = () => {
         onEndReachedThreshold={0.8}
         showsVerticalScrollIndicator={false}
         onRefresh={() => refetch()}
-        refreshing={loading}
+        refreshing={Boolean(publications?.length) && loading}
       />
     </View>
   )

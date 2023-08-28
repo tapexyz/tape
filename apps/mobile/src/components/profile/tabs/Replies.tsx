@@ -110,7 +110,7 @@ const Replies: FC<Props> = ({ profile, scrollHandler }) => {
         onScroll={scrollHandler}
         scrollEventThrottle={16}
         onRefresh={() => refetch()}
-        refreshing={loading}
+        refreshing={Boolean(publications?.length) && loading}
       />
     </View>
   )

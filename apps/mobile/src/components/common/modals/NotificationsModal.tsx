@@ -69,7 +69,7 @@ export const NotificationsModal = (): JSX.Element => {
         <ActivityIndicator style={{ paddingVertical: 20 }} />
       )}
       onRefresh={() => refetch()}
-      refreshing={loading}
+      refreshing={Boolean(notifications?.length) && loading}
     />
   )
 }

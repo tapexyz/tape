@@ -118,7 +118,7 @@ const Bytes: FC<Props> = ({ profile, scrollHandler }) => {
         numColumns={NUM_COLUMNS}
         scrollEventThrottle={16}
         onRefresh={() => refetch()}
-        refreshing={loading}
+        refreshing={Boolean(bytes?.length) && loading}
       />
     </View>
   )

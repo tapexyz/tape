@@ -98,7 +98,7 @@ const Media: FC<Props> = ({ profile, scrollHandler }) => {
         removeClippedSubviews
         scrollEventThrottle={16}
         onRefresh={() => refetch()}
-        refreshing={loading}
+        refreshing={Boolean(publications?.length) && loading}
       />
     </View>
   )

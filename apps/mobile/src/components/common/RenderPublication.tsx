@@ -8,6 +8,7 @@ import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
 
 import ImageSlider from '../ui/ImageSlider'
+import RenderMarkdown from './RenderMarkdown'
 import UserProfile from './UserProfile'
 
 type Props = {
@@ -79,9 +80,13 @@ const RenderPublication: FC<Props> = ({ publication }) => {
             }}
           >
             {isTextPost ? (
-              <Text style={styles.textContent}>
-                {publication.metadata.content}
-              </Text>
+              <RenderMarkdown
+                content={publication.metadata.content}
+                styles={{
+                  text: styles.textContent,
+                  paragraph: { backgroundColor: theme.colors.backdrop2 }
+                }}
+              />
             ) : (
               <Text style={styles.textContent} numberOfLines={3}>
                 {trimNewLines(publication.metadata.content)}
