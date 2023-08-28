@@ -136,11 +136,11 @@ msgstr "Cancelar"
 msgid "Category"
 msgstr "Categoría"
 
-#: src/components/Settings/BasicInfo.tsx:290
+#: src/components/Settings/BasicInfo.tsx:299
 msgid "Change"
 msgstr "Cambiar"
 
-#: src/components/Settings/BasicInfo.tsx:303
+#: src/components/Settings/BasicInfo.tsx:312
 msgid "Channel"
 msgstr "Canal"
 
@@ -148,7 +148,7 @@ msgstr "Canal"
 msgid "Channel deleted"
 msgstr "Canal eliminado"
 
-#: src/components/Settings/BasicInfo.tsx:344
+#: src/components/Settings/BasicInfo.tsx:353
 msgid "Channel Description"
 msgstr "Descripción del canal"
 
@@ -161,7 +161,7 @@ msgstr "Imagen del canal actualizada"
 msgid "Channel Settings"
 msgstr "Ajustes del canal"
 
-#: src/components/Settings/BasicInfo.tsx:315
+#: src/components/Settings/BasicInfo.tsx:324
 msgid "Channel URL"
 msgstr "URL del canal"
 
@@ -342,7 +342,7 @@ msgstr "Depósito"
 msgid "Describe more about your video, can be @channels, #hashtags or chapters (00:20 - Intro)"
 msgstr "Describe más acerca de tu video, puede ser @channels, #hashtags o capítulos (00:20 - Introducción)"
 
-#: src/components/Channel/Tabs/About.tsx:34
+#: src/components/Channel/Tabs/About.tsx:40
 #: src/components/Upload/Details.tsx:111
 msgid "Description"
 msgstr "Descripción"
@@ -381,7 +381,7 @@ msgstr "despachador"
 msgid "Dispatcher"
 msgstr "Despachador"
 
-#: src/components/Settings/BasicInfo.tsx:335
+#: src/components/Settings/BasicInfo.tsx:344
 msgid "Display Name"
 msgstr "Mostrar nombre"
 
@@ -602,11 +602,11 @@ msgstr "Limitar a 24 horas de venta"
 msgid "Limited collect"
 msgstr "Colección limitada"
 
-#: src/components/Channel/Tabs/About.tsx:88
+#: src/components/Channel/Tabs/About.tsx:94
 msgid "Links"
 msgstr "Enlaces"
 
-#: src/components/Settings/BasicInfo.tsx:377
+#: src/components/Settings/BasicInfo.tsx:395
 msgid "Location"
 msgstr "Ubicación"
 
@@ -682,7 +682,7 @@ msgstr "Etiquetas erróneas"
 msgid "Momoka is currently in beta - during this time certain actions are not available to all channels."
 msgstr "Momoka está actualmente en fase beta - durante este tiempo determinadas acciones no están disponibles para todos los canales."
 
-#: src/components/Settings/BasicInfo.tsx:345
+#: src/components/Settings/BasicInfo.tsx:354
 msgid "More about your channel"
 msgstr "Más acerca de tu canal"
 
@@ -816,7 +816,7 @@ msgstr "El porcentaje de recaudación de ingresos se puede compartir con cualqui
 msgid "Percentage should be 0 to 100"
 msgstr "Porcentaje debe ser de 0 a 100"
 
-#: src/components/Common/VideoCard/ShareModal.tsx:28
+#: src/components/Common/VideoCard/ShareModal.tsx:30
 msgid "Permalink copied to clipboard"
 msgstr "Permalink copiado al portapapeles"
 
@@ -876,11 +876,19 @@ msgstr "Precio de cada recogida"
 msgid "Privacy"
 msgstr "Privacidad"
 
-#: src/components/Channel/Tabs/About.tsx:64
+#: src/pages/privacy.tsx:13
+msgid "Privacy policy"
+msgstr ""
+
+#: src/pages/privacy.tsx:9
+msgid "Privacy Policy"
+msgstr ""
+
+#: src/components/Channel/Tabs/About.tsx:70
 msgid "Proof of Humanity"
 msgstr "Prueba de la humanidad"
 
-#: src/components/Channel/Tabs/About.tsx:74
+#: src/components/Channel/Tabs/About.tsx:80
 msgid "Proof of Personhood"
 msgstr "Prueba de Personalidad"
 
@@ -964,7 +972,7 @@ msgstr "Revoke"
 msgid "Round 18"
 msgstr "Ronda 18"
 
-#: src/components/Settings/BasicInfo.tsx:385
+#: src/components/Settings/BasicInfo.tsx:403
 msgid "Save"
 msgstr "Guardar"
 
@@ -972,6 +980,7 @@ msgstr "Guardar"
 msgid "Save to List"
 msgstr "Guardar en lista"
 
+#: src/components/Channel/SavedList.tsx:73
 #: src/components/Common/UserMenu.tsx:206
 msgid "Saved Videos"
 msgstr "Vídeos guardados"
@@ -1159,13 +1168,18 @@ msgstr "Cambiar a Oscuro"
 msgid "Switch to Light"
 msgstr "Cambiar a Luz"
 
-#: src/components/Channel/Tabs/About.tsx:54
+#: src/components/Channel/Tabs/About.tsx:60
 msgid "Sybil Verified"
 msgstr "Síbil verificado"
 
 #: src/components/Common/Footer.tsx:95
 msgid "Terms"
 msgstr "Términos"
+
+#: src/pages/terms.tsx:9
+#: src/pages/terms.tsx:13
+msgid "Terms and Conditions"
+msgstr ""
 
 #: src/components/Common/Footer.tsx:73
 #: src/components/Thanks/index.tsx:15
@@ -1468,7 +1482,7 @@ msgstr "Vigilar"
 msgid "Watch Video"
 msgstr "Ver vídeo"
 
-#: src/components/Settings/BasicInfo.tsx:369
+#: src/components/Settings/BasicInfo.tsx:387
 msgid "Website"
 msgstr "Sitio web"
 
@@ -1535,4 +1549,3 @@ msgstr "Tu Canal"
 #: src/components/Upload/BundlrInfo.tsx:171
 msgid "Your Storage Balance"
 msgstr "Tu saldo de almacenamiento"
-
