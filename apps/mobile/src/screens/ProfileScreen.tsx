@@ -17,7 +17,6 @@ export const ProfileScreen = (
   props: ProfileScreenProps
 ): JSX.Element | null => {
   const { handle } = props.route.params
-  console.log('🚀 ~ file: ProfileScreen.tsx:20 ~ handle:', handle)
   const { goBack } = useNavigation()
   const { height } = useWindowDimensions()
   const contentScrollY = useSharedValue(0)
