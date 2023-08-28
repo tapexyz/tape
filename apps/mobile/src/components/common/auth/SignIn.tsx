@@ -1,5 +1,5 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
-import type { BottomSheetModal } from '@gorhom/bottom-sheet'
+import { type BottomSheetModal } from '@gorhom/bottom-sheet'
 import { STATIC_ASSETS } from '@lenstube/constants'
 import { imageCdn } from '@lenstube/generic'
 import { useWalletConnectModal } from '@walletconnect/modal-react-native'
@@ -14,19 +14,25 @@ import AuthSheet from './AuthSheet'
 
 const SignIn = () => {
   const authSheetRef = useRef<BottomSheetModal>(null)
-  const { open, address } = useWalletConnectModal()
+
+  const {
+    open: openWalletConnectModal,
+    address,
+    provider
+  } = useWalletConnectModal()
 
   return (
     <>
-      {address && <AuthSheet sheetRef={authSheetRef} />}
+      {address ? <AuthSheet sheetRef={authSheetRef} /> : null}
 
       <AnimatedPressable
+        onLongPress={() => provider?.disconnect()}
         onPress={() => {
           haptic()
           if (address) {
             return authSheetRef.current?.present()
           }
-          open()
+          openWalletConnectModal()
         }}
       >
         {address ? (

@@ -1,5 +1,9 @@
 import type { BottomSheetBackdropProps } from '@gorhom/bottom-sheet'
-import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet'
+import {
+  BottomSheetBackdrop,
+  BottomSheetModal,
+  BottomSheetScrollView
+} from '@gorhom/bottom-sheet'
 import type { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import type { FC, PropsWithChildren } from 'react'
 import React, { useCallback, useMemo, useRef } from 'react'
@@ -58,7 +62,12 @@ const Sheet: FC<PropsWithChildren & Props> = ({
       snapPoints={snapPoints}
       backdropComponent={renderBackdrop}
     >
-      {children}
+      <BottomSheetScrollView
+        contentContainerStyle={{ flex: 1 }}
+        showsVerticalScrollIndicator={false}
+      >
+        {children}
+      </BottomSheetScrollView>
     </BottomSheetModal>
   )
 }

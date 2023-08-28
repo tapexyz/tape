@@ -25,9 +25,12 @@ const rules: RenderRules = {
       </Text>
     )
   },
-  link: ({ attributes }, children) => {
+  link: ({ attributes, key }, children) => {
     return (
-      <AnimatedPressable onPress={() => Linking.openURL(attributes.href)}>
+      <AnimatedPressable
+        key={key}
+        onPress={() => Linking.openURL(attributes.href)}
+      >
         <Text
           selectable
           style={{

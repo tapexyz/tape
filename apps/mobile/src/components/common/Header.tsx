@@ -1,11 +1,11 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
-import type { BottomSheetModal } from '@gorhom/bottom-sheet'
+import { type BottomSheetModal } from '@gorhom/bottom-sheet'
 import type { HeaderTitleProps } from '@react-navigation/elements'
 import { useNavigation } from '@react-navigation/native'
 import { useWalletConnectModal } from '@walletconnect/modal-react-native'
 import type { FC } from 'react'
 import React, { useRef } from 'react'
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
@@ -81,7 +81,7 @@ const AuthenticatedUser = () => {
         onPress={() => profileSheetRef.current?.present()}
       />
       <Sheet sheetRef={profileSheetRef} snap={['60%']}>
-        <ScrollView style={{ paddingHorizontal: 10, paddingVertical: 15 }}>
+        <View style={{ padding: 10 }}>
           <Switch />
           <View style={{ marginTop: 15, gap: 15 }}>
             <Menu>
@@ -119,7 +119,7 @@ const AuthenticatedUser = () => {
               />
             </Menu>
           </View>
-        </ScrollView>
+        </View>
         <AppInfo />
       </Sheet>
     </>
