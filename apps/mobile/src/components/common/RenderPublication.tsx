@@ -8,7 +8,7 @@ import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
 
 import ImageSlider from '../ui/ImageSlider'
-import RenderMarkdown from './RenderMarkdown'
+import RenderMarkdown from './markdown/RenderMarkdown'
 import UserProfile from './UserProfile'
 
 type Props = {
@@ -72,7 +72,7 @@ const RenderPublication: FC<Props> = ({ publication }) => {
               backgroundColor: isTextPost
                 ? theme.colors.backdrop2
                 : 'transparent',
-              padding: isTextPost ? 15 : 0,
+              paddingHorizontal: isTextPost ? 15 : 0,
               borderRadius: 20,
               borderBottomLeftRadius: 0,
               borderColor: isTextPost ? theme.colors.grey : 'transparent',
@@ -81,11 +81,8 @@ const RenderPublication: FC<Props> = ({ publication }) => {
           >
             {isTextPost ? (
               <RenderMarkdown
-                content={publication.metadata.content}
-                styles={{
-                  text: styles.textContent,
-                  paragraph: { backgroundColor: theme.colors.backdrop2 }
-                }}
+                content={publication.metadata.content ?? ''}
+                textStyle={styles.textContent}
               />
             ) : (
               <Text style={styles.textContent} numberOfLines={3}>

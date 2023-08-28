@@ -10,7 +10,6 @@ import {
 
 import Info from '~/components/profile/Info'
 import TabContent from '~/components/profile/TabContent'
-import ServerError from '~/components/ui/ServerError'
 import { theme } from '~/helpers/theme'
 import useMobileStore from '~/store'
 
@@ -35,7 +34,7 @@ export const ProfileScreen = (
 
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
 
-  const { data, loading, error } = useProfileQuery({
+  const { data, loading } = useProfileQuery({
     variables: {
       request: { handle },
       who: selectedChannel?.id ?? null
@@ -49,10 +48,6 @@ export const ProfileScreen = (
         style={{ flex: 1, backgroundColor: theme.colors.black }}
       />
     )
-  }
-
-  if (error) {
-    return <ServerError />
   }
 
   if (!data?.profile) {
