@@ -55,6 +55,7 @@ const RenderMarkdown = ({ content, textStyle }: MarkupTextProps) => {
   const renderedStyle = useMemo(() => {
     const style: Record<string, TextStyle> = {
       text: { ...textStyle },
+      ordered_list: { color: theme.colors.white, paddingBottom: 10 },
       heading1: {
         fontFamily: 'font-bold'
       },
