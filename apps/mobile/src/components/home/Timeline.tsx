@@ -140,7 +140,7 @@ const Timeline = () => {
 
   const publicationIds = recsData?.items as string[]
 
-  const { data } = useProfilePostsQuery({
+  const { data, loading: recsLoading } = useProfilePostsQuery({
     variables: {
       request: { publicationIds, limit: 50 },
       reactionRequest: selectedChannelId
@@ -252,11 +252,17 @@ const Timeline = () => {
         data={publications}
         estimatedItemSize={publications?.length ?? []}
         renderItem={renderItem}
-        keyExtractor={(item, i) => `${i + 1}_${i}`}
-        ListFooterComponent={() => (
-          <ActivityIndicator style={{ paddingVertical: 20 }} />
-        )}
-        onEndReached={fetchMorePublications}
+        keyExtractor={(_item, i) => `${i + 1}_${i}`}
+        ListFooterComponent={() =>
+          selectedFeedType !== TimelineFeedType.ALGORITHM || recsLoading ? (
+            <ActivityIndicator style={{ paddingVertical: 20 }} />
+          ) : null
+        }
+        onEndReached={
+          selectedFeedType !== TimelineFeedType.ALGORITHM
+            ? fetchMorePublications
+            : null
+        }
         onEndReachedThreshold={0.8}
         showsVerticalScrollIndicator={false}
       />
