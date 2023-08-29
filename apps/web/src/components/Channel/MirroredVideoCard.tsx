@@ -73,7 +73,7 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
               </Link>
             </div>
             <Link
-              href={`/channel/${mirrorOf.profile?.handle}`}
+              href={`/channel/${trimLensHandle(mirrorOf.profile?.handle)}`}
               className="flex w-fit items-center space-x-0.5 text-[13px] opacity-70 hover:opacity-100"
             >
               <span>{trimLensHandle(mirrorOf.profile?.handle)}</span>

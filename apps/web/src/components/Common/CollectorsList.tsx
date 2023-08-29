@@ -64,7 +64,9 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
         <div className="flex flex-col" key={wallet.address}>
           {wallet?.defaultProfile ? (
             <Link
-              href={`/channel/${wallet?.defaultProfile?.handle}`}
+              href={`/channel/${trimLensHandle(
+                wallet?.defaultProfile?.handle
+              )}`}
               className="font-base flex items-center justify-between"
             >
               <div className="flex items-center space-x-1.5">

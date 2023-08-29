@@ -55,7 +55,7 @@ const VideoCard: FC<Props> = ({ video }) => {
           <div className="py-2">
             <div className="flex items-start space-x-2.5">
               <Link
-                href={`/channel/${video.profile?.handle}`}
+                href={`/channel/${trimLensHandle(video.profile?.handle)}`}
                 className="mt-0.5 flex-none"
               >
                 <img
@@ -82,7 +82,7 @@ const VideoCard: FC<Props> = ({ video }) => {
                   />
                 </div>
                 <Link
-                  href={`/channel/${video.profile?.handle}`}
+                  href={`/channel/${trimLensHandle(video.profile?.handle)}`}
                   className="flex w-fit items-center space-x-0.5 text-[13px] opacity-70 hover:opacity-100"
                   data-testid="video-card-channel"
                 >
