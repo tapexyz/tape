@@ -45,7 +45,7 @@ const Attachments = () => {
 
   const openDocumentPicker = async () => {
     let result = await DocumentPicker.getDocumentAsync({ type: 'audio/*' })
-    if (result.type !== 'cancel' && result.uri) {
+    if (!result.canceled && result.assets[0].uri) {
       console.log('🚀 ~ file: Attachments.tsx ~ openPicker ~ result:', result)
       setDraftedPublication({
         ...draftedPublication,

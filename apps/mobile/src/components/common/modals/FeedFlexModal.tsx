@@ -1,5 +1,6 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { FEED_ALGORITHMS } from '@lenstube/constants'
+import { TimelineFeedType } from '@lenstube/lens/custom-types'
 import { useNavigation } from '@react-navigation/native'
 import { BlurView } from 'expo-blur'
 import React from 'react'
@@ -8,7 +9,6 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   useWindowDimensions,
   View
 } from 'react-native'
@@ -18,6 +18,7 @@ import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
 import { usePlatform } from '~/hooks'
+import useMobileHomeFeedStore from '~/store/feed'
 
 const styles = StyleSheet.create({
   container: {
@@ -68,6 +69,15 @@ export const FeedFlexModal = (): JSX.Element => {
   const { top } = useSafeAreaInsets()
   const { height } = useWindowDimensions()
   const { isAndroid } = usePlatform()
+  const setSelectedFeedType = useMobileHomeFeedStore(
+    (state) => state.setSelectedFeedType
+  )
+  const selectedAlgoType = useMobileHomeFeedStore(
+    (state) => state.selectedAlgoType
+  )
+  const setSelectedAlgoType = useMobileHomeFeedStore(
+    (state) => state.setSelectedAlgoType
+  )
 
   return (
     <BlurView
@@ -96,23 +106,27 @@ export const FeedFlexModal = (): JSX.Element => {
               <Text style={styles.groupTitle}>{provider}</Text>
             </View>
             <View style={styles.groupItems}>
-              {algorithms.map(({ name }) => (
+              {algorithms.map(({ name, strategy }) => (
                 <View key={name}>
-                  <TouchableOpacity
-                    activeOpacity={0.6}
+                  <Pressable
                     onPress={() => {
+                      setSelectedFeedType(TimelineFeedType.ALGORITHM)
+                      setSelectedAlgoType(strategy)
                       goBack()
                     }}
                   >
                     <Text
                       style={[
                         styles.text,
-                        { color: theme.colors.white, opacity: 0.7 }
+                        {
+                          color: theme.colors.white,
+                          opacity: selectedAlgoType === strategy ? 1 : 0.5
+                        }
                       ]}
                     >
                       {name}
                     </Text>
-                  </TouchableOpacity>
+                  </Pressable>
                 </View>
               ))}
             </View>

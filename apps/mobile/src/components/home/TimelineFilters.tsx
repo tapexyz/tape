@@ -4,13 +4,13 @@ import { imageCdn } from '@lenstube/generic'
 import { TimelineFeedType } from '@lenstube/lens/custom-types'
 import { useNavigation } from '@react-navigation/native'
 import { Image as ExpoImage } from 'expo-image'
-import type { Dispatch, FC } from 'react'
 import React from 'react'
 import { Pressable, ScrollView, StyleSheet, Text } from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'
 import { theme } from '~/helpers/theme'
 import useMobileStore from '~/store'
+import useMobileHomeFeedStore from '~/store/feed'
 
 import { useToast } from '../common/toast'
 
@@ -37,18 +37,16 @@ const styles = StyleSheet.create({
   }
 })
 
-type Props = {
-  selectedFeedType: TimelineFeedType
-  setSelectedFeedType: Dispatch<TimelineFeedType>
-}
-
-const TimelineFilters: FC<Props> = ({
-  selectedFeedType,
-  setSelectedFeedType
-}) => {
+const TimelineFilters = () => {
   const { navigate } = useNavigation()
   const { showToast } = useToast()
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
+  const selectedFeedType = useMobileHomeFeedStore(
+    (state) => state.selectedFeedType
+  )
+  const setSelectedFeedType = useMobileHomeFeedStore(
+    (state) => state.setSelectedFeedType
+  )
 
   return (
     <ScrollView
@@ -166,7 +164,6 @@ const TimelineFilters: FC<Props> = ({
       <Pressable
         onPress={() => {
           navigate('FeedFlexModal')
-          setSelectedFeedType(TimelineFeedType.ALGORITHM)
         }}
         style={[
           styles.filter,
