@@ -161,6 +161,8 @@ export const SUPPORTED_LOCALES: Record<string, string> = {
   zh: 'Chinese'
 }
 export const DEFAULT_LOCALE = 'en'
+export const LENSPROTOCOL_HANDLE = 'lensprotocol'
+export const HANDLE_SUFFIX = IS_MAINNET ? '.lens' : '.test'
 
 // other apps
 export const LENSTER_WEBSITE_URL = IS_MAINNET

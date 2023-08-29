@@ -61,7 +61,7 @@ const MutualSubscribersList: FC<Props> = ({ viewingChannelId }) => {
     <div className="mt-4 space-y-3">
       {mutualSubscribers?.map((channel: Profile) => (
         <Link
-          href={`/channel/${channel?.handle}`}
+          href={`/channel/${trimLensHandle(channel?.handle)}`}
           className="font-base flex items-center justify-between"
           key={channel?.id}
         >

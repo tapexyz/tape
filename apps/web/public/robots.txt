@@ -5,3 +5,4 @@ Allow: /*
 
 Disallow: /_next/*
 Disallow: /api/*
+Disallow: /settings/*

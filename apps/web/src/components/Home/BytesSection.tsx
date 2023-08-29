@@ -12,7 +12,8 @@ import {
   getProfilePicture,
   getPublicationMediaUrl,
   getThumbnailUrl,
-  imageCdn
+  imageCdn,
+  trimLensHandle
 } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import {
@@ -128,7 +129,7 @@ const BytesSection = () => {
               </Link>
               <div className="flex items-end space-x-1.5">
                 <Link
-                  href={`/channel/${byte.profile?.handle}`}
+                  href={`/channel/${trimLensHandle(byte.profile?.handle)}`}
                   className="flex-none"
                   title={byte.profile.handle}
                 >

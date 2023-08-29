@@ -5,7 +5,11 @@ import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import MirrorVideo from '@components/Common/MirrorVideo'
 import SubscribeActions from '@components/Common/SubscribeActions'
-import { formatNumber, getProfilePicture } from '@lenstube/generic'
+import {
+  formatNumber,
+  getProfilePicture,
+  trimLensHandle
+} from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
@@ -35,7 +39,7 @@ const AboutChannel: FC<Props> = ({ video }) => {
 
   return (
     <div className="flex w-full items-start justify-between">
-      <Link href={`/channel/${channel?.handle}`}>
+      <Link href={`/channel/${trimLensHandle(channel?.handle)}`}>
         <div className="mr-3 flex-none cursor-pointer">
           <img
             src={getProfilePicture(channel, 'AVATAR')}
@@ -49,7 +53,7 @@ const AboutChannel: FC<Props> = ({ video }) => {
         <div className="flex flex-wrap justify-between gap-y-2">
           <div className="mr-2 flex flex-col items-start">
             <Link
-              href={`/channel/${channel?.handle}`}
+              href={`/channel/${trimLensHandle(channel?.handle)}`}
               className="flex items-center space-x-1 font-semibold"
             >
               <span>{channel?.handle}</span>
