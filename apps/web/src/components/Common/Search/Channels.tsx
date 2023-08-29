@@ -29,7 +29,7 @@ const Channels: FC<Props> = ({ results, loading, clearSearch }) => {
         >
           <Link
             onClick={() => clearSearch()}
-            href={`/channel/${channel?.handle}`}
+            href={`/channel/${trimLensHandle(channel?.handle)}`}
             key={channel?.handle}
             className="flex flex-col justify-center space-y-1 rounded-xl py-2"
           >

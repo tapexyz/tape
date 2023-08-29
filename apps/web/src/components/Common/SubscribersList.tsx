@@ -65,7 +65,9 @@ const SubscribersList: FC<Props> = ({ channel }) => {
         <div className="flex flex-col" key={subscriber.wallet.address}>
           {subscriber.wallet?.defaultProfile ? (
             <Link
-              href={`/channel/${subscriber.wallet?.defaultProfile?.handle}`}
+              href={`/channel/${trimLensHandle(
+                subscriber.wallet?.defaultProfile?.handle
+              )}`}
               className="font-base flex items-center justify-between"
             >
               <div className="flex items-center space-x-1.5">

@@ -23,6 +23,7 @@ import {
   getSignature,
   logger,
   trimify,
+  trimLensHandle,
   uploadToAr
 } from '@lenstube/generic'
 import type {
@@ -89,8 +90,8 @@ const UploadSteps = () => {
   const redirectToChannelPage = () => {
     router.push(
       uploadedVideo.isByteVideo
-        ? `/channel/${selectedChannel?.handle}?tab=bytes`
-        : `/channel/${selectedChannel?.handle}`
+        ? `/channel/${trimLensHandle(selectedChannel?.handle)}?tab=bytes`
+        : `/channel/${trimLensHandle(selectedChannel?.handle)}`
     )
   }
 

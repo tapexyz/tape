@@ -1,4 +1,5 @@
 import { STATIC_ASSETS } from '@lenstube/constants'
+import { trimLensHandle } from '@lenstube/generic'
 import { Matcher } from 'interweave'
 import Link from 'next/link'
 import React from 'react'
@@ -8,7 +9,7 @@ import type { MentionProps } from './utils'
 const ChannelLink = ({ ...props }: any) => {
   return (
     <Link
-      href={`/channel/${props.display?.slice(1)}`}
+      href={`/channel/${trimLensHandle(props.display?.slice(1))}`}
       className="inline-flex items-center space-x-1 rounded-full bg-gray-200 px-2 text-sm font-medium dark:bg-gray-800"
     >
       <img

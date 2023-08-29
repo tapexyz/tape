@@ -110,7 +110,7 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
             </div>
             <div className="truncate">
               <Link
-                href={`/channel/${video.profile?.handle}`}
+                href={`/channel/${trimLensHandle(video.profile?.handle)}`}
                 className="truncate text-[13px] opacity-70 hover:opacity-100"
               >
                 <div className="flex items-center space-x-0.5">

@@ -26,7 +26,7 @@ const OtherChannelCard = ({ channel }: { channel: Profile }) => {
       <div className="w-full px-1.5 py-2">
         <div className="flex-1 text-center">
           <Link
-            href={`/channel/${channel.handle}`}
+            href={`/channel/${trimLensHandle(channel.handle)}`}
             className="block truncate font-medium"
           >
             <div className="flex items-center justify-center space-x-1">

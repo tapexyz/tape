@@ -10,7 +10,8 @@ import {
   getProfilePicture,
   getRandomProfilePicture,
   imageCdn,
-  shortenAddress
+  shortenAddress,
+  trimLensHandle
 } from '@lenstube/generic'
 import type {
   ApprovedAllowanceAmount,
@@ -204,7 +205,11 @@ const CollectModal: FC<Props> = ({
               content={handles?.map((handle) => <p key={handle}>{handle}</p>)}
             >
               {defaultProfile?.handle ? (
-                <Link href={`/channel/${defaultProfile.handle}`}>{label}</Link>
+                <Link
+                  href={`/channel/${trimLensHandle(defaultProfile.handle)}`}
+                >
+                  {label}
+                </Link>
               ) : (
                 <AddressExplorerLink address={splitRecipient?.recipient}>
                   <span>{label}</span>

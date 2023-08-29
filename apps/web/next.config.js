@@ -32,6 +32,16 @@ const moduleExports = {
   async redirects() {
     return [
       {
+        source: '/channel/:handle(.+).lens',
+        destination: '/channel/:handle',
+        permanent: true
+      },
+      {
+        source: '/channel/:handle(.+).test',
+        destination: '/channel/:handle',
+        permanent: true
+      },
+      {
         source: '/discord',
         destination: 'https://discord.com/servers/lenstube-980882088783913010',
         permanent: true
