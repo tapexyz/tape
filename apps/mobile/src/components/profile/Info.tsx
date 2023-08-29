@@ -210,10 +210,10 @@ const Info: FC<Props> = (props) => {
 
         <View style={{ paddingHorizontal: 10, gap: 20 }}>
           <View>
-            {isOwned && (
-              <Text style={[styles.handle, { opacity: 0.5 }]}>gm,</Text>
-            )}
             <Text style={styles.handle} numberOfLines={1}>
+              {isOwned && (
+                <Text style={[styles.handle, { opacity: 0.5 }]}>gm,</Text>
+              )}{' '}
               {trimLensHandle(profile.handle)}
             </Text>
 
