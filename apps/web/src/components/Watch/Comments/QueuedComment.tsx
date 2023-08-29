@@ -103,7 +103,7 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
     <div className="flex items-start justify-between">
       <div className="flex items-start justify-between">
         <Link
-          href={`/channel/${selectedChannel?.handle}`}
+          href={`/channel/${trimLensHandle(selectedChannel?.handle)}`}
           className="mr-3 mt-0.5 flex-none"
         >
           <img
@@ -116,7 +116,7 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
         <div className="mr-2 flex flex-col items-start">
           <span className="mb-1 flex items-center space-x-1">
             <Link
-              href={`/channel/${selectedChannel.handle}`}
+              href={`/channel/${trimLensHandle(selectedChannel.handle)}`}
               className="flex items-center space-x-1 text-sm font-medium"
             >
               <span>{trimLensHandle(selectedChannel?.handle)}</span>

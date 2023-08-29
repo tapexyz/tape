@@ -83,7 +83,7 @@ const CommentedVideoCard: FC<Props> = ({ video }) => {
               </Link>
             </div>
             <Link
-              href={`/channel/${commentedOn.profile?.handle}`}
+              href={`/channel/${trimLensHandle(commentedOn.profile?.handle)}`}
               className="flex w-fit items-center space-x-0.5 text-[13px] opacity-70 hover:opacity-100"
             >
               <span>{trimLensHandle(commentedOn.profile?.handle)}</span>

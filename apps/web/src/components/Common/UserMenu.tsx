@@ -7,7 +7,7 @@ import {
   IS_MAINNET,
   LENSTUBE_STATUS_PAGE
 } from '@lenstube/constants'
-import { getProfilePicture } from '@lenstube/generic'
+import { getProfilePicture, trimLensHandle } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import { useAllProfilesLazyQuery } from '@lenstube/lens'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
@@ -148,7 +148,9 @@ const UserMenu = () => {
             <>
               <div className="flex flex-col space-y-1 rounded-lg text-sm transition duration-150 ease-in-out">
                 <div className="inline-flex items-center space-x-2 rounded-lg p-3">
-                  <Link href={`/channel/${selectedChannel?.handle}`}>
+                  <Link
+                    href={`/channel/${trimLensHandle(selectedChannel?.handle)}`}
+                  >
                     <img
                       className="h-9 w-9 rounded-full object-cover"
                       src={getProfilePicture(selectedChannel, 'AVATAR')}
@@ -160,7 +162,11 @@ const UserMenu = () => {
                     <span className="text-xs opacity-70">
                       <Trans>Connected as</Trans>
                     </span>
-                    <Link href={`/channel/${selectedChannel?.handle}`}>
+                    <Link
+                      href={`/channel/${trimLensHandle(
+                        selectedChannel?.handle
+                      )}`}
+                    >
                       <h6
                         title={selectedChannel?.handle}
                         className="truncate text-base leading-4"
@@ -188,7 +194,9 @@ const UserMenu = () => {
                   <>
                     <Menu.Item
                       as={NextLink}
-                      href={`/channel/${selectedChannel?.handle}`}
+                      href={`/channel/${trimLensHandle(
+                        selectedChannel?.handle
+                      )}`}
                       className="inline-flex w-full items-center space-x-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
                     >
                       <ChannelOutline className="h-4 w-4" />

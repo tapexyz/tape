@@ -1,6 +1,7 @@
 import MetaTags from '@components/Common/MetaTags'
 import ChannelShimmer from '@components/Shimmers/ChannelShimmer'
 import { Analytics, TRACK } from '@lenstube/browser'
+import { trimLensHandle } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import { useProfileQuery } from '@lenstube/lens'
 import useChannelStore from '@lib/store/channel'
@@ -23,7 +24,7 @@ const Channel = () => {
 
   const { data, loading, error } = useProfileQuery({
     variables: {
-      request: { handle },
+      request: { handle: trimLensHandle(handle as string, true) },
       who: selectedChannel?.id ?? null
     },
     skip: !handle
