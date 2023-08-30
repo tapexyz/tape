@@ -4,7 +4,7 @@ import type { FC, PropsWithChildren } from 'react'
 import React from 'react'
 import { StyleSheet } from 'react-native'
 
-import { useMobileTheme } from '~/hooks'
+import { colors } from '~/helpers/theme'
 import useMobileStore from '~/store'
 
 const styles = StyleSheet.create({
@@ -14,15 +14,14 @@ const styles = StyleSheet.create({
 })
 
 const Container: FC<PropsWithChildren> = ({ children }) => {
-  const { themeConfig } = useMobileTheme()
-
   const homeGradientColor = useMobileStore((state) => state.homeGradientColor)
+
   const setHomeGradientColor = useMobileStore(
     (state) => state.setHomeGradientColor
   )
 
   const generateJustOneColor = () => {
-    if (homeGradientColor !== themeConfig.backgroudColor) {
+    if (homeGradientColor !== colors.black) {
       return `${homeGradientColor}35`
     }
     let hexColorRep = '#'
