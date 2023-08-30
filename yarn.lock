@@ -3493,10 +3493,10 @@
   dependencies:
     client-only "^0.0.1"
 
-"@hookform/resolvers@^3.3.0":
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/@hookform/resolvers/-/resolvers-3.3.0.tgz#5e37c2926b827d2577c1bd2676a2a705984b334d"
-  integrity sha512-tgK3nWlfFLlqhqpXZmFMP3RN5E7mlbGfnM2h2ILVsW1TNGuFSod0ePW0grlIY2GAbL4pJdtmOT4HQSZsTwOiKg==
+"@hookform/resolvers@^3.3.1":
+  version "3.3.1"
+  resolved "https://registry.yarnpkg.com/@hookform/resolvers/-/resolvers-3.3.1.tgz#b7cbfe767434f52cba6b99b0a9a0b73eb8895188"
+  integrity sha512-K7KCKRKjymxIB90nHDQ7b9nli474ru99ZbqxiqDAWYsYhOsU3/4qLxW91y+1n04ic13ajjZ66L3aXbNef8PELQ==
 
 "@humanwhocodes/config-array@^0.11.10":
   version "0.11.10"
@@ -3773,12 +3773,12 @@
   dependencies:
     "@lit-labs/ssr-dom-shim" "^1.0.0"
 
-"@livepeer/core-react@^1.8.0":
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/@livepeer/core-react/-/core-react-1.8.0.tgz#ffa50c7b0e66d004bcebcd4e0aaf36294634461e"
-  integrity sha512-DRciHEJgpALO2a9gHAy75g9VpaU6yszALP/gatO3W/+x9/o6MSR5PRhFg5eMDJA8o1ua39ZlaDu0/irLHIeE8g==
+"@livepeer/core-react@^1.8.1":
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/@livepeer/core-react/-/core-react-1.8.1.tgz#32ad893b3b1aec580717a651da405f20163c91e5"
+  integrity sha512-tZGmr/rjQ0YTmhZySFy9FDozlJg1No95BPZ8AdvgG3/ab3PjrdyqccIF7ZXcRlhI3ldAa+AzHa5JeVTuNjbiNw==
   dependencies:
-    "@livepeer/core" "^1.8.0"
+    "@livepeer/core" "^1.8.1"
     "@tanstack/query-async-storage-persister" "4.29.23"
     "@tanstack/query-core" "4.29.23"
     "@tanstack/react-query" "4.29.23"
@@ -3786,10 +3786,10 @@
     use-sync-external-store "^1.2.0"
     zustand "^4.3.9"
 
-"@livepeer/core@^1.8.0":
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/@livepeer/core/-/core-1.8.0.tgz#abbf57f32a57217f7bcd63925cf5895ad5b2e513"
-  integrity sha512-Sr+DplfGfhpv2Arh53tTTL9DyPEzlVAzy+eXd8+PMIlXLVOHTgGfDgpfpaeSCB8v8WlJtrgX50vFdSWyUyxi3g==
+"@livepeer/core@^1.8.1":
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/@livepeer/core/-/core-1.8.1.tgz#21029fb9ec3e22c4c7d9b82cf3cccf9bbb93de81"
+  integrity sha512-jcgmHPV9e0xMfEC7D3c9ST9miRHZv9fXVpV7WMfaXv2KeP0chO1qYLxPyhnY6fdpVaFw62SNNa8q7K0fAI9Giw==
   dependencies:
     cross-fetch "^4.0.0"
     ms "^3.0.0-canary.1"
@@ -3797,28 +3797,28 @@
     tus-js-client "^3.1.0"
     zustand "^4.3.9"
 
-"@livepeer/react-native@^1.8.0":
-  version "1.8.0"
-  resolved "https://registry.yarnpkg.com/@livepeer/react-native/-/react-native-1.8.0.tgz#ab4c976eb722f42f08a614553d8420750e272714"
-  integrity sha512-S/GsVWev3iuM5y3ahz4PTxNS80mpYyXpkpptwQz7S0HiVFrDiBqwwLblyTy1KWGGA4onP145F7MFi+yvysiEew==
+"@livepeer/react-native@^1.8.1":
+  version "1.8.1"
+  resolved "https://registry.yarnpkg.com/@livepeer/react-native/-/react-native-1.8.1.tgz#1f3f7fa984c65ae88bef03bd881a64b32731fd1f"
+  integrity sha512-ptIHvu/SYyO3hYeVudxw4z2MhAHG71JTf4XeY/CSNRTlgz09/JD/77KMUxxLyTHZx4l0pCPgWtWNzvcdrNEVWQ==
   dependencies:
-    "@livepeer/core-react" "^1.8.0"
+    "@livepeer/core-react" "^1.8.1"
     react-native-url-polyfill "^2.0.0"
     stitches-native "^0.4.0"
     zustand "^4.3.9"
 
-"@livepeer/react@^2.8.0":
-  version "2.8.0"
-  resolved "https://registry.yarnpkg.com/@livepeer/react/-/react-2.8.0.tgz#5f922683690df0692ac26953eae63803d6f3a5ee"
-  integrity sha512-ttQ6ggndZaGUboMHZxHS5NMMTBjZdn+SbXroMFo+Z+jiAB5TQCklYQXgsYazTE4GxtGePOLU0LndoJ0viDAJEw==
+"@livepeer/react@^2.8.1":
+  version "2.8.1"
+  resolved "https://registry.yarnpkg.com/@livepeer/react/-/react-2.8.1.tgz#374bf933a17081c2f16a99187cdd106bcf6b23b6"
+  integrity sha512-eojjJclL97z5fkkyTkz4khDqEi4QU+fPp/nyfhZ2v8DIblKsW5tZG8yuWrZ6L7enOvugdXvqFVv+m2QkxvhfJg==
   dependencies:
-    "@livepeer/core-react" "^1.8.0"
+    "@livepeer/core-react" "^1.8.1"
     "@radix-ui/react-dialog" "^1.0.4"
     "@radix-ui/react-popover" "^1.0.6"
     "@radix-ui/react-select" "^1.2.2"
     "@stitches/react" "^1.2.8"
     core-js "^3.31.1"
-    livepeer "2.8.0"
+    livepeer "2.8.1"
     zustand "^4.3.9"
 
 "@messageformat/parser@^5.0.0":
@@ -13031,12 +13031,12 @@ lit@2.7.6:
     lit-element "^3.3.0"
     lit-html "^2.7.0"
 
-livepeer@2.8.0:
-  version "2.8.0"
-  resolved "https://registry.yarnpkg.com/livepeer/-/livepeer-2.8.0.tgz#f46fc579cb20f9bbec5c3b209d64a2196ac034d4"
-  integrity sha512-ZYw/bew356VZ1MZE6T7NBV6xgQ6yukqutb/GiSk9Yz+vjJvxy2npu4sEhgZ1pkHFVVczcGVwjZidWWaZ+oMwGg==
+livepeer@2.8.1:
+  version "2.8.1"
+  resolved "https://registry.yarnpkg.com/livepeer/-/livepeer-2.8.1.tgz#9e6b8536d1286c01b1f0324753c7f4e1af4ab3a2"
+  integrity sha512-UPEUxedBBDyhf94m+KUr8J+XPt9P+0HLZln67ECsCqIePUFbS5LkjwLXLIXSuAsYmgyQQnHbqh5WQNQvJiNDmw==
   dependencies:
-    "@livepeer/core" "^1.8.0"
+    "@livepeer/core" "^1.8.1"
     "@stitches/core" "^1.2.8"
     core-js "^3.31.1"
     cross-fetch "^4.0.0"
@@ -15298,11 +15298,6 @@ prettier-plugin-tailwindcss@^0.5.3:
   resolved "https://registry.yarnpkg.com/prettier-plugin-tailwindcss/-/prettier-plugin-tailwindcss-0.5.3.tgz#ed4b31ee75bbce1db4ac020a859267d5b65ad8df"
   integrity sha512-M5K80V21yM+CTm/FEFYRv9/9LyInYbCSXpIoPAKMm8zy89IOwdiA2e4JVbcO7tvRtAQWz32zdj7/WKcsmFyAVg==
 
-prettier@^3.0.2:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.0.2.tgz#78fcecd6d870551aa5547437cdae39d4701dca5b"
-  integrity sha512-o2YR9qtniXvwEZlOKbveKfDQVyqxbEIWn48Z8m3ZJjBjcCmUy3xZGIv+7AkaeuaTr6yPXJjwv07ZWlsWbEy1rQ==
-
 prettier@^3.0.3:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.0.3.tgz#432a51f7ba422d1469096c0fdc28e235db8f9643"
@@ -17329,10 +17324,10 @@ swap-case@^2.0.2:
   dependencies:
     tslib "^2.0.3"
 
-swr@^2.2.1:
-  version "2.2.1"
-  resolved "https://registry.yarnpkg.com/swr/-/swr-2.2.1.tgz#19b89a9034a62a73c30dbf06857a0a31981cd60a"
-  integrity sha512-KJVA7dGtOBeZ+2sycEuzUfVIP5lZ/cd0xjevv85n2YG0x1uHJQicjAtahVZL6xG3+TjqhbBqimwYzVo3saeVXQ==
+swr@^2.2.2:
+  version "2.2.2"
+  resolved "https://registry.yarnpkg.com/swr/-/swr-2.2.2.tgz#abcb1f9c97e10527789884169d58b878472d4c98"
+  integrity sha512-CbR41AoMD4TQBQw9ic3GTXspgfM9Y8Mdhb5Ob4uIKXhWqnRLItwA5fpGvB7SmSw3+zEjb0PdhiEumtUvYoQ+bQ==
   dependencies:
     client-only "^0.0.1"
     use-sync-external-store "^1.2.0"
@@ -18283,10 +18278,10 @@ viem@^1.0.0:
     isomorphic-ws "5.0.0"
     ws "8.12.0"
 
-viem@^1.7.0:
-  version "1.7.0"
-  resolved "https://registry.yarnpkg.com/viem/-/viem-1.7.0.tgz#9d6fbdb4c7db2ef31fe5344fb8fc3b9103ae3225"
-  integrity sha512-S4SclYe0Oca6TuPh2YPI3BzfC7a4UvN7TRDCWwpoVNnu9+4z2hqCZhW+6aF1yufgSwdezNsF14vztE/P4eMdBw==
+viem@^1.9.2:
+  version "1.9.2"
+  resolved "https://registry.yarnpkg.com/viem/-/viem-1.9.2.tgz#7cc15d8945e8268810d885610a8a06b11c0bbe16"
+  integrity sha512-a4l502Sl4ytYOT6a77ezDCEEgztR+wF8ZZRLAEVcrQawFFIiAWXGPrXVPT8MQmDF00idPMKPON8Ayz34Ft3NLw==
   dependencies:
     "@adraffy/ens-normalize" "1.9.0"
     "@noble/curves" "1.1.0"
@@ -18294,7 +18289,6 @@ viem@^1.7.0:
     "@scure/bip32" "1.3.0"
     "@scure/bip39" "1.2.0"
     "@types/ws" "^8.5.4"
-    "@wagmi/chains" "1.7.0"
     abitype "0.9.3"
     isomorphic-ws "5.0.0"
     ws "8.12.0"
