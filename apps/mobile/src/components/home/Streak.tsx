@@ -66,7 +66,7 @@ const styles = (themeConfig: MobileThemeConfig) =>
       color: themeConfig.textColor
     },
     add: {
-      backgroundColor: themeConfig.backgroudColor2,
+      backgroundColor: themeConfig.backgroudColor3,
       width: 50,
       flex: 1,
       alignItems: 'center',

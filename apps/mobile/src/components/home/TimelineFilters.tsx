@@ -64,7 +64,7 @@ const TimelineFilters = () => {
           {
             backgroundColor:
               selectedFeedType === TimelineFeedType.CURATED
-                ? themeConfig.backgroudColor
+                ? themeConfig.contrastBackgroundColor
                 : 'transparent'
           }
         ]}
@@ -79,7 +79,10 @@ const TimelineFilters = () => {
           style={[
             styles.text,
             {
-              color: themeConfig.textColor
+              color:
+                selectedFeedType === TimelineFeedType.CURATED
+                  ? themeConfig.contrastTextColor
+                  : themeConfig.textColor
             }
           ]}
         >

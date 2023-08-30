@@ -130,6 +130,7 @@ const AuthenticatedUser = () => {
 
 const Header: FC<HeaderTitleProps> = () => {
   const { themeConfig } = useMobileTheme()
+  const style = styles(themeConfig)
   const { navigate } = useNavigation()
 
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
@@ -137,12 +138,12 @@ const Header: FC<HeaderTitleProps> = () => {
   const setTheme = useMobilePersistStore((state) => state.setTheme)
 
   return (
-    <View style={styles(themeConfig).container}>
-      <Text style={styles(themeConfig).forYouText}>gm</Text>
+    <View style={style.container}>
+      <Text style={style.forYouText}>gm</Text>
 
-      <View style={styles(themeConfig).rightView}>
+      <View style={style.rightView}>
         <AnimatedPressable
-          style={styles(themeConfig).newButton}
+          style={style.newButton}
           onPress={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
         >
           <Ionicons
@@ -154,7 +155,7 @@ const Header: FC<HeaderTitleProps> = () => {
         </AnimatedPressable>
         {selectedChannel && (
           <AnimatedPressable
-            style={styles(themeConfig).newButton}
+            style={style.newButton}
             onPress={() => navigate('NewPublication')}
           >
             <Ionicons

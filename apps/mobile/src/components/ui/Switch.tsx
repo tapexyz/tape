@@ -38,7 +38,7 @@ const Switch: FC<Props> = ({ size = SIZE, onPress, isActive }) => {
           animate={{
             backgroundColor: isActive
               ? themeConfig.borderColor
-              : themeConfig.backgroudColor2
+              : themeConfig.secondaryTextColor
           }}
           transition={transition}
           style={{
@@ -69,7 +69,10 @@ const Switch: FC<Props> = ({ size = SIZE, onPress, isActive }) => {
             transition={transition}
             from={{
               width: isActive ? size * 0.4 : 0,
-              height: isActive ? size * 0.4 : 0
+              height: isActive ? size * 0.4 : 0,
+              borderColor: isActive
+                ? themeConfig.backgroudColor3
+                : themeConfig.backgroudColor2
             }}
             animate={{
               width: isActive ? size * 0.4 : 0,
