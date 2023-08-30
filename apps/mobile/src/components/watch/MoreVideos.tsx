@@ -1,10 +1,7 @@
 import { RECS_URL, STATIC_ASSETS } from '@lenstube/constants'
 import { imageCdn } from '@lenstube/generic'
-import {
-  type Publication,
-  PublicationMainFocus,
-  useProfilePostsQuery
-} from '@lenstube/lens'
+import type { Publication, PublicationsQueryRequest } from '@lenstube/lens'
+import { PublicationMainFocus, useProfilePostsQuery } from '@lenstube/lens'
 import { FlashList } from '@shopify/flash-list'
 import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
@@ -71,7 +68,7 @@ const MoreVideos: FC<Props> = ({ video }) => {
 
   const publicationIds = recsData?.items as string[]
 
-  const request = { publicationIds, limit: 20 }
+  const request: PublicationsQueryRequest = { publicationIds, limit: 20 }
   const reactionRequest = selectedChannelId
     ? { profileId: selectedChannelId }
     : null

@@ -1,5 +1,5 @@
 import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
-import type { Notification } from '@lenstube/lens'
+import type { Notification, NotificationRequest } from '@lenstube/lens'
 import { useNotificationsQuery } from '@lenstube/lens'
 import { useScrollToTop } from '@react-navigation/native'
 import { FlashList } from '@shopify/flash-list'
@@ -19,7 +19,7 @@ export const NotificationsModal = (): JSX.Element => {
 
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
 
-  const request = {
+  const request: NotificationRequest = {
     limit: 50,
     customFilters: LENS_CUSTOM_FILTERS,
     profileId: selectedChannel?.id

@@ -1,11 +1,11 @@
 import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@lenstube/constants'
 import { getThumbnailUrl, imageCdn } from '@lenstube/generic'
-import {
-  type Profile,
-  type Publication,
-  PublicationTypes,
-  useProfilePostsQuery
+import type {
+  Profile,
+  Publication,
+  PublicationsQueryRequest
 } from '@lenstube/lens'
+import { PublicationTypes, useProfilePostsQuery } from '@lenstube/lens'
 import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
 import React, { memo, useCallback } from 'react'
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
 const Bytes: FC<Props> = ({ profile, scrollHandler }) => {
   const { height, width } = useWindowDimensions()
 
-  const request = {
+  const request: PublicationsQueryRequest = {
     publicationTypes: [PublicationTypes.Post],
     limit: 10,
     sources: [LENSTUBE_BYTES_APP_ID],

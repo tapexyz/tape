@@ -1,6 +1,6 @@
 import { LENSTUBE_BYTES_APP_ID } from '@lenstube/constants'
 import { getThumbnailUrl, imageCdn } from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
+import type { ExplorePublicationRequest, Publication } from '@lenstube/lens'
 import {
   CustomFiltersTypes,
   PublicationMainFocus,
@@ -184,7 +184,7 @@ const ByteCards = () => {
     )
   }, [])
 
-  const request = {
+  const request: ExplorePublicationRequest = {
     sortCriteria: PublicationSortCriteria.CuratedProfiles,
     limit: 10,
     noRandomize: false,

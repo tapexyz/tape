@@ -1,6 +1,7 @@
 import type { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
-import { type Publication, useCommentsQuery } from '@lenstube/lens'
+import type { Publication, PublicationsQueryRequest } from '@lenstube/lens'
+import { useCommentsQuery } from '@lenstube/lens'
 import { FlashList } from '@shopify/flash-list'
 import { Skeleton } from 'moti/skeleton'
 import type { FC } from 'react'
@@ -42,7 +43,7 @@ const Comments: FC<Props> = ({ id }) => {
   const commentsSheetRef = useRef<BottomSheetModal>(null)
   const { height } = useWindowDimensions()
 
-  const request = {
+  const request: PublicationsQueryRequest = {
     limit: 10,
     customFilters: LENS_CUSTOM_FILTERS,
     commentsOf: id

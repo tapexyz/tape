@@ -1,7 +1,10 @@
 import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
+import type {
+  Profile,
+  Publication,
+  PublicationsQueryRequest
+} from '@lenstube/lens'
 import {
-  type Profile,
-  type Publication,
   PublicationMainFocus,
   PublicationTypes,
   useProfilePostsQuery
@@ -36,15 +39,14 @@ const styles = StyleSheet.create({
     fontFamily: 'font-normal',
     color: theme.colors.white,
     opacity: 0.8,
-    fontSize: normalizeFont(13),
-    paddingBottom: 20
+    fontSize: normalizeFont(13)
   }
 })
 
 const Clan: FC<Props> = ({ profile, scrollHandler }) => {
   const { height } = useWindowDimensions()
 
-  const request = {
+  const request: PublicationsQueryRequest = {
     publicationTypes: [PublicationTypes.Post],
     limit: 10,
     metadata: {
@@ -91,11 +93,13 @@ const Clan: FC<Props> = ({ profile, scrollHandler }) => {
 
   return (
     <View style={[styles.container, { height }]}>
-      <Text style={styles.subheading}>
-        Dedicated corner to connect, swap stories, and get hyped about what we
-        do!
-      </Text>
       <Animated.FlatList
+        ListHeaderComponent={
+          <Text style={styles.subheading}>
+            Dedicated corner to connect, swap stories, and get hyped about what
+            we do!
+          </Text>
+        }
         data={publications}
         contentContainerStyle={{
           paddingBottom: publications?.length < 5 ? 500 : 180

@@ -1,8 +1,10 @@
 import { LENS_CUSTOM_FILTERS, RECS_URL } from '@lenstube/constants'
 import type {
+  ExplorePublicationRequest,
   FeedHighlightsRequest,
   FeedItem,
   FeedItemRoot,
+  FeedRequest,
   Publication
 } from '@lenstube/lens'
 import {
@@ -68,7 +70,7 @@ const Timeline = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedChannelId])
 
-  const feedRequest = {
+  const feedRequest: FeedRequest = {
     limit: 50,
     feedEventItemTypes: [FeedEventItemType.Post],
     profileId: selectedChannelId,
@@ -77,7 +79,7 @@ const Timeline = () => {
     }
   }
 
-  const curatedRequest = {
+  const curatedRequest: ExplorePublicationRequest = {
     sortCriteria: PublicationSortCriteria.CuratedProfiles,
     limit: 10,
     noRandomize: false,

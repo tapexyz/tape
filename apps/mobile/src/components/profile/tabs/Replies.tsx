@@ -1,5 +1,5 @@
 import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
-import type { Comment, Profile } from '@lenstube/lens'
+import type { Comment, Profile, PublicationsQueryRequest } from '@lenstube/lens'
 import {
   PublicationMainFocus,
   PublicationTypes,
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
 const Replies: FC<Props> = ({ profile, scrollHandler }) => {
   const { height } = useWindowDimensions()
 
-  const request = {
+  const request: PublicationsQueryRequest = {
     publicationTypes: [PublicationTypes.Comment],
     limit: 10,
     metadata: {

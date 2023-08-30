@@ -6,7 +6,7 @@ import {
   getThumbnailUrl,
   imageCdn
 } from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
+import type { Publication, PublicationsQueryRequest } from '@lenstube/lens'
 import {
   PublicationMainFocus,
   PublicationTypes,
@@ -127,8 +127,8 @@ const Streak = () => {
   const { navigate } = useNavigation()
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
 
-  const request = {
-    limit: 10,
+  const request: PublicationsQueryRequest = {
+    limit: 7,
     customFilters: LENS_CUSTOM_FILTERS,
     metadata: {
       mainContentFocus: [
