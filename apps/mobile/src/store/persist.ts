@@ -48,7 +48,7 @@ export const useMobilePersistStore = create(
       selectedChannelId: null,
       setSelectedChannelId: (id) => set({ selectedChannelId: id }),
       // theme state
-      theme: 'light',
+      theme: 'dark',
       setTheme: (theme) => set({ theme })
     }),
     {

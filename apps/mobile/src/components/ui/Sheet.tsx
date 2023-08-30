@@ -56,7 +56,7 @@ const Sheet: FC<PropsWithChildren & Props> = ({
         duration: 200
       }}
       style={{
-        marginHorizontal: marginX ?? 3,
+        marginHorizontal: marginX ?? 7,
         overflow: 'hidden',
         borderRadius: 40
       }}

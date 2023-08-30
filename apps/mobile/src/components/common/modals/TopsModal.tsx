@@ -17,6 +17,7 @@ import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
 import { useMobileTheme, usePlatform } from '~/hooks'
 import useMobileStore from '~/store'
+import { isLightMode } from '~/store/persist'
 
 const styles = (themeConfig: MobileThemeConfig) =>
   StyleSheet.create({
@@ -69,11 +70,13 @@ export const TopsModal = (): JSX.Element => {
   return (
     <BlurView
       intensity={100}
-      tint="dark"
+      tint={isLightMode() ? 'light' : 'dark'}
       style={[
         style.container,
         {
-          backgroundColor: isAndroid ? themeConfig.backgroudColor : '#00000080'
+          backgroundColor: isAndroid
+            ? themeConfig.backgroudColor
+            : `${themeConfig.backgroudColor}80`
         }
       ]}
     >

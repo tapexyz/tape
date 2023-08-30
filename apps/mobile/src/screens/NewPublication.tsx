@@ -74,7 +74,7 @@ export const NewPublication = () => {
       >
         <ScrollView
           showsVerticalScrollIndicator={false}
-          style={{ flexGrow: 1 }}
+          style={{ flexGrow: 1, paddingHorizontal: 5 }}
         >
           <Form form={form} shakeRef={shakeRef} />
         </ScrollView>

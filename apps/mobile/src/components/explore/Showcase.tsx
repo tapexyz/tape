@@ -55,7 +55,7 @@ const styles = (themeConfig: MobileThemeConfig) =>
     },
     title: {
       fontFamily: 'font-bold',
-      color: themeConfig.textColor,
+      color: colors.white,
       fontSize: normalizeFont(24),
       paddingVertical: 8,
       paddingHorizontal: 18

@@ -11,10 +11,12 @@ import {
   ActivityIndicator,
   Pressable,
   StyleSheet,
+  Text,
   useWindowDimensions,
   View
 } from 'react-native'
 
+import normalizeFont from '~/helpers/normalize-font'
 import { colors } from '~/helpers/theme'
 import { useMobileTheme } from '~/hooks'
 
@@ -35,6 +37,12 @@ const styles = (themeConfig: MobileThemeConfig) =>
       gap: 10,
       height: CONTAINER_HEIGHT,
       width: '100%'
+    },
+    title: {
+      fontFamily: 'font-bold',
+      color: themeConfig.textColor,
+      fontSize: normalizeFont(14),
+      paddingBottom: 10
     }
   })
 
@@ -55,14 +63,14 @@ const Comments: FC<Props> = ({ id }) => {
     commentsOf: id
   }
 
-  const { data, fetchMore, loading } = useCommentsQuery({
+  const { data, fetchMore, loading, refetch } = useCommentsQuery({
     variables: { request },
     skip: !id
   })
   const comments = data?.publications?.items as Publication[]
   const pageInfo = data?.publications?.pageInfo
 
-  const fetchMoreVideos = async () => {
+  const fetchMoreComments = async () => {
     await fetchMore({
       variables: {
         request: {
@@ -74,7 +82,11 @@ const Comments: FC<Props> = ({ id }) => {
   }
 
   const renderItem = useCallback(
-    ({ item }: { item: Publication }) => <Comment comment={item} />,
+    ({ item }: { item: Publication }) => (
+      <View style={{ marginTop: 20 }}>
+        <Comment comment={item} richText />
+      </View>
+    ),
     []
   )
 
@@ -90,7 +102,8 @@ const Comments: FC<Props> = ({ id }) => {
           <Pressable
             style={{
               flex: 1,
-              justifyContent: 'center'
+              justifyContent: 'center',
+              paddingHorizontal: 15
             }}
             onPress={() => commentsSheetRef.current?.present()}
           >
@@ -108,21 +121,25 @@ const Comments: FC<Props> = ({ id }) => {
           style={{
             flex: 1,
             height: height / 2,
-            paddingVertical: 5
+            padding: 20
           }}
         >
+          <Text style={style.title}>Comments</Text>
+
           {comments?.length ? (
             <FlashList
               data={comments}
-              estimatedItemSize={comments?.length ?? 0}
+              estimatedItemSize={comments.length}
               ListFooterComponent={() =>
                 loading && <ActivityIndicator style={{ paddingVertical: 20 }} />
               }
               keyExtractor={(item, i) => `${item.id}_${i}`}
               onEndReachedThreshold={0.8}
-              onEndReached={() => fetchMoreVideos()}
+              onEndReached={() => fetchMoreComments()}
               showsVerticalScrollIndicator={false}
               renderItem={renderItem}
+              onRefresh={() => refetch()}
+              refreshing={Boolean(comments?.length) && loading}
             />
           ) : null}
         </View>

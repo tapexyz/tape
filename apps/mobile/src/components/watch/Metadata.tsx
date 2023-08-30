@@ -8,6 +8,7 @@ import { Pressable, StyleSheet, Text, View } from 'react-native'
 import normalizeFont from '~/helpers/normalize-font'
 import { useMobileTheme } from '~/hooks'
 
+import RenderMarkdown from '../common/markdown/RenderMarkdown'
 import UserProfile from '../common/UserProfile'
 
 const styles = (themeConfig: MobileThemeConfig) =>
@@ -58,9 +59,14 @@ const Metadata: FC<Props> = ({ video }) => {
             numberOfLines={!showMore ? 2 : undefined}
             style={style.description}
           >
-            {showMore
-              ? video.metadata.description
-              : trimNewLines(video.metadata.description)}
+            {showMore ? (
+              <RenderMarkdown
+                content={video.metadata.description}
+                textStyle={style.description}
+              />
+            ) : (
+              trimNewLines(video.metadata.description)
+            )}
           </Text>
         </Pressable>
       )}

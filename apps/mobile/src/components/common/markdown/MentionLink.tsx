@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   mention: {
     fontFamily: 'font-normal',
     fontSize: normalizeFont(13),
-    color: colors.yellow,
+    color: colors.green,
     letterSpacing: 0.6,
     opacity: 0.9
   }

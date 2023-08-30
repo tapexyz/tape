@@ -8,6 +8,7 @@ import { StyleSheet, Text, useWindowDimensions, View } from 'react-native'
 import normalizeFont from '~/helpers/normalize-font'
 import { useMobileTheme } from '~/hooks'
 
+import RenderMarkdown from '../common/markdown/RenderMarkdown'
 import UserProfile from '../common/UserProfile'
 
 const styles = (themeConfig: MobileThemeConfig) =>
@@ -33,10 +34,12 @@ const styles = (themeConfig: MobileThemeConfig) =>
 
 const Comment = ({
   comment,
-  numberOfLines
+  numberOfLines,
+  richText = false
 }: {
   comment: Publication
   numberOfLines?: number
+  richText?: boolean
 }) => {
   const { width } = useWindowDimensions()
   const { themeConfig } = useMobileTheme()
@@ -47,8 +50,7 @@ const Comment = ({
       style={{
         display: 'flex',
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        padding: 20
+        justifyContent: 'space-between'
       }}
     >
       <View style={{ gap: 10, width: width * 0.8 }}>
@@ -68,9 +70,16 @@ const Comment = ({
             {getShortHandTime(comment.createdAt)}
           </Text>
         </View>
-        <Text numberOfLines={numberOfLines} style={style.comment}>
-          {trimify(comment.metadata.content)}
-        </Text>
+        {richText ? (
+          <RenderMarkdown
+            content={comment.metadata.content ?? ''}
+            textStyle={style.comment}
+          />
+        ) : (
+          <Text numberOfLines={numberOfLines} style={style.comment}>
+            {trimify(comment.metadata.content)}
+          </Text>
+        )}
       </View>
       <View>
         <Ionicons
