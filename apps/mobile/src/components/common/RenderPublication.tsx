@@ -75,7 +75,7 @@ const RenderPublication: FC<Props> = ({ publication }) => {
           <View
             style={{
               backgroundColor: isTextPost
-                ? themeConfig.backgroudColor3
+                ? themeConfig.backgroudColor2
                 : 'transparent',
               paddingHorizontal: isTextPost ? 15 : 0,
               borderRadius: 20,

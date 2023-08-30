@@ -43,7 +43,7 @@ const Button: FC<Props> = ({ text, icon, size = 'md', ...props }) => {
           alignItems: 'center',
           borderWidth: 1,
           borderColor: themeConfig.borderColor,
-          backgroundColor: themeConfig.backgroudColor3
+          backgroundColor: themeConfig.backgroudColor2
         },
         props.style
       ]}

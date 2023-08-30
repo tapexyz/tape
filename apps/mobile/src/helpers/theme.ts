@@ -41,7 +41,7 @@ const lightTheme: MobileThemeConfig = {
   secondaryTextColor: '#00000090',
   backgroudColor: colors.white,
   backgroudColor2: '#F0F2F5',
-  backgroudColor3: '#AAB2BD',
+  backgroudColor3: '#dfe2e6',
   sheetBackgroundColor: '#F0F2F5',
   borderColor: '#CCCCCC',
   contrastBorderColor: colors.black,
