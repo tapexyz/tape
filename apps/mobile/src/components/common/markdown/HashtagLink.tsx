@@ -3,6 +3,7 @@ import React from 'react'
 import { Pressable, StyleSheet, Text } from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'
+import { useMobileTheme } from '~/hooks'
 
 export type HashtagLinkProps = {
   hashtag: string
@@ -19,9 +20,11 @@ const styles = (themeConfig: MobileThemeConfig) =>
   })
 
 const HashtagLink = ({ hashtag }: HashtagLinkProps) => {
+  const { themeConfig } = useMobileTheme()
+
   return (
     <Pressable>
-      <Text style={styles.hashtag}>{hashtag}</Text>
+      <Text style={styles(themeConfig).hashtag}>{hashtag}</Text>
     </Pressable>
   )
 }
