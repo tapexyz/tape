@@ -3,11 +3,12 @@ import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 
 import haptic from '~/helpers/haptic'
-import { theme } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 
 import AnimatedPressable from '../ui/AnimatedPressable'
 
 const CollapseButton = () => {
+  const { themeConfig } = useMobileTheme()
   const { goBack } = useNavigation()
 
   return (
@@ -20,7 +21,7 @@ const CollapseButton = () => {
     >
       <Ionicons
         name="chevron-down-outline"
-        color={theme.colors.white}
+        color={themeConfig.textColor}
         size={25}
       />
     </AnimatedPressable>

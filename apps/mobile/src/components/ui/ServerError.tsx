@@ -1,22 +1,26 @@
+import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'
-import { theme } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 
 import { useToast } from '../common/toast'
 import AnimatedPressable from './AnimatedPressable'
 
-const styles = StyleSheet.create({
-  text: {
-    fontFamily: 'font-normal',
-    fontSize: normalizeFont(10),
-    color: theme.colors.white
-  }
-})
+const styles = (themeConfig: MobileThemeConfig) =>
+  StyleSheet.create({
+    text: {
+      fontFamily: 'font-normal',
+      fontSize: normalizeFont(10),
+      color: themeConfig.textColor
+    }
+  })
 
 const ServerError = () => {
   const { showToast } = useToast()
+  const { themeConfig } = useMobileTheme()
+  const style = styles(themeConfig)
 
   return (
     <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -27,7 +31,7 @@ const ServerError = () => {
         }}
       >
         <Text style={{ fontSize: normalizeFont(30) }}>🧑🏻‍🚒</Text>
-        <Text style={styles.text}>Failed to fetch</Text>
+        <Text style={style.text}>Failed to fetch</Text>
       </AnimatedPressable>
     </View>
   )

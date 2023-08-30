@@ -8,11 +8,12 @@ import React, { useRef } from 'react'
 
 import AnimatedPressable from '~/components/ui/AnimatedPressable'
 import haptic from '~/helpers/haptic'
-import { theme } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 
 import AuthSheet from './AuthSheet'
 
 const SignIn = () => {
+  const { themeConfig } = useMobileTheme()
   const authSheetRef = useRef<BottomSheetModal>(null)
 
   const {
@@ -38,7 +39,7 @@ const SignIn = () => {
         {address ? (
           <Ionicons
             name="log-in-outline"
-            color={theme.colors.white}
+            color={themeConfig.textColor}
             size={25}
           />
         ) : (

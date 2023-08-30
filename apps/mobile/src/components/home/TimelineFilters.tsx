@@ -8,7 +8,7 @@ import React from 'react'
 import { Pressable, ScrollView, StyleSheet, Text } from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'
-import { theme } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 import useMobileStore from '~/store'
 import useMobileHomeFeedStore from '~/store/feed'
 
@@ -38,8 +38,10 @@ const styles = StyleSheet.create({
 })
 
 const TimelineFilters = () => {
+  const { themeConfig } = useMobileTheme()
   const { navigate } = useNavigation()
   const { showToast } = useToast()
+
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
   const selectedFeedType = useMobileHomeFeedStore(
     (state) => state.selectedFeedType
@@ -62,7 +64,7 @@ const TimelineFilters = () => {
           {
             backgroundColor:
               selectedFeedType === TimelineFeedType.CURATED
-                ? theme.colors.white
+                ? themeConfig.backgroudColor
                 : 'transparent'
           }
         ]}
@@ -77,10 +79,7 @@ const TimelineFilters = () => {
           style={[
             styles.text,
             {
-              color:
-                selectedFeedType === TimelineFeedType.CURATED
-                  ? theme.colors.black
-                  : theme.colors.white
+              color: themeConfig.textColor
             }
           ]}
         >
@@ -99,7 +98,7 @@ const TimelineFilters = () => {
           {
             backgroundColor:
               selectedFeedType === TimelineFeedType.FOLLOWING
-                ? theme.colors.white
+                ? themeConfig.contrastBackgroundColor
                 : 'transparent'
           }
         ]}
@@ -116,8 +115,8 @@ const TimelineFilters = () => {
             {
               color:
                 selectedFeedType === TimelineFeedType.FOLLOWING
-                  ? theme.colors.black
-                  : theme.colors.white
+                  ? themeConfig.contrastTextColor
+                  : themeConfig.textColor
             }
           ]}
         >
@@ -136,7 +135,7 @@ const TimelineFilters = () => {
           {
             backgroundColor:
               selectedFeedType === TimelineFeedType.HIGHLIGHTS
-                ? theme.colors.white
+                ? themeConfig.contrastBackgroundColor
                 : 'transparent'
           }
         ]}
@@ -153,8 +152,8 @@ const TimelineFilters = () => {
             {
               color:
                 selectedFeedType === TimelineFeedType.HIGHLIGHTS
-                  ? theme.colors.black
-                  : theme.colors.white
+                  ? themeConfig.contrastTextColor
+                  : themeConfig.textColor
             }
           ]}
         >
@@ -170,7 +169,7 @@ const TimelineFilters = () => {
           {
             backgroundColor:
               selectedFeedType === TimelineFeedType.ALGORITHM
-                ? theme.colors.white
+                ? themeConfig.contrastBackgroundColor
                 : 'transparent'
           }
         ]}
@@ -187,8 +186,8 @@ const TimelineFilters = () => {
             {
               color:
                 selectedFeedType === TimelineFeedType.ALGORITHM
-                  ? theme.colors.black
-                  : theme.colors.white
+                  ? themeConfig.contrastTextColor
+                  : themeConfig.textColor
             }
           ]}
         >
@@ -198,8 +197,8 @@ const TimelineFilters = () => {
           name="chevron-down-outline"
           color={
             selectedFeedType === TimelineFeedType.ALGORITHM
-              ? theme.colors.black
-              : theme.colors.white
+              ? themeConfig.contrastTextColor
+              : themeConfig.textColor
           }
           size={15}
         />

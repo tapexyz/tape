@@ -9,6 +9,7 @@ import {
   PublicationTypes,
   useProfilePostsQuery
 } from '@lenstube/lens'
+import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import type { FC } from 'react'
 import React, { memo, useCallback } from 'react'
 import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native'
@@ -23,28 +24,31 @@ import Animated from 'react-native-reanimated'
 
 import RenderPublication from '~/components/common/RenderPublication'
 import normalizeFont from '~/helpers/normalize-font'
-import { theme } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 
 type Props = {
   profile: Profile
   scrollHandler: (event: NativeSyntheticEvent<NativeScrollEvent>) => void
 }
 
-const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 5,
-    flex: 1
-  },
-  subheading: {
-    fontFamily: 'font-normal',
-    color: theme.colors.white,
-    opacity: 0.8,
-    fontSize: normalizeFont(13)
-  }
-})
+const styles = (themeConfig: MobileThemeConfig) =>
+  StyleSheet.create({
+    container: {
+      paddingHorizontal: 5,
+      flex: 1
+    },
+    subheading: {
+      fontFamily: 'font-normal',
+      color: themeConfig.textColor,
+      opacity: 0.8,
+      fontSize: normalizeFont(13)
+    }
+  })
 
 const Clan: FC<Props> = ({ profile, scrollHandler }) => {
   const { height } = useWindowDimensions()
+  const { themeConfig } = useMobileTheme()
+  const style = styles(themeConfig)
 
   const request: PublicationsQueryRequest = {
     publicationTypes: [PublicationTypes.Post],
@@ -92,10 +96,10 @@ const Clan: FC<Props> = ({ profile, scrollHandler }) => {
   )
 
   return (
-    <View style={[styles.container, { height }]}>
+    <View style={[style.container, { height }]}>
       <Animated.FlatList
         ListHeaderComponent={
-          <Text style={styles.subheading}>
+          <Text style={style.subheading}>
             Dedicated corner to connect, swap stories, and get hyped about what
             we do!
           </Text>

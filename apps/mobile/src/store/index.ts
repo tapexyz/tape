@@ -2,6 +2,10 @@ import type { Profile } from '@lenstube/lens'
 import { PublicationSortCriteria } from '@lenstube/lens'
 import { create } from 'zustand'
 
+import { theme } from '~/helpers/theme'
+
+import { useMobilePersistStore } from './persist'
+
 type ExploreFilter = {
   criteria: PublicationSortCriteria
   category: string | null
@@ -20,8 +24,11 @@ interface AuthState {
   setSelectedExploreFilter: (filter: ExploreFilter) => void
 }
 
+export const getBgColor = () =>
+  theme[useMobilePersistStore.getState().theme].backgroudColor
+
 const useMobileStore = create<AuthState>((set) => ({
-  homeGradientColor: '#000000',
+  homeGradientColor: getBgColor(),
   setHomeGradientColor: (homeGradientColor) => set({ homeGradientColor }),
   channels: [],
   setChannels: (channels) => set({ channels }),

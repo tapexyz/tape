@@ -1,5 +1,6 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { type BottomSheetModal } from '@gorhom/bottom-sheet'
+import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import type { HeaderTitleProps } from '@react-navigation/elements'
 import { useNavigation } from '@react-navigation/native'
 import { useWalletConnectModal } from '@walletconnect/modal-react-native'
@@ -9,9 +10,9 @@ import { StyleSheet, Text, View } from 'react-native'
 
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
-import { theme } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 import useMobileStore from '~/store'
-import { signOut } from '~/store/persist'
+import { signOut, useMobilePersistStore } from '~/store/persist'
 
 import Menu from '../profile/Menu'
 import MenuItem from '../profile/MenuItem'
@@ -22,36 +23,37 @@ import AppInfo from './AppInfo'
 import SignIn from './auth/SignIn'
 import UserProfile from './UserProfile'
 
-const styles = StyleSheet.create({
-  container: {
-    flexDirection: 'row',
-    width: '100%',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingBottom: 10
-  },
-  rightView: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 20
-  },
-  forYouText: {
-    color: theme.colors.white,
-    fontFamily: 'font-bold',
-    fontWeight: '500',
-    fontSize: normalizeFont(22)
-  },
-  newButton: {
-    width: 30,
-    height: 30,
-    borderRadius: 100,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: theme.colors.black
-  }
-})
+const styles = (themeConfig: MobileThemeConfig) =>
+  StyleSheet.create({
+    container: {
+      flexDirection: 'row',
+      width: '100%',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      paddingBottom: 10
+    },
+    rightView: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 20
+    },
+    forYouText: {
+      color: themeConfig.textColor,
+      fontFamily: 'font-bold',
+      fontWeight: '500',
+      fontSize: normalizeFont(22)
+    },
+    newButton: {
+      width: 30,
+      height: 30,
+      borderRadius: 100,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: themeConfig.backgroudColor
+    }
+  })
 
 const AuthenticatedUser = () => {
   const profileSheetRef = useRef<BottomSheetModal>(null)
@@ -127,22 +129,37 @@ const AuthenticatedUser = () => {
 }
 
 const Header: FC<HeaderTitleProps> = () => {
+  const { themeConfig } = useMobileTheme()
   const { navigate } = useNavigation()
+
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
+  const theme = useMobilePersistStore((state) => state.theme)
+  const setTheme = useMobilePersistStore((state) => state.setTheme)
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.forYouText}>gm</Text>
+    <View style={styles(themeConfig).container}>
+      <Text style={styles(themeConfig).forYouText}>gm</Text>
 
-      <View style={styles.rightView}>
+      <View style={styles(themeConfig).rightView}>
+        <AnimatedPressable
+          style={styles(themeConfig).newButton}
+          onPress={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+        >
+          <Ionicons
+            name="swap-horizontal"
+            color={themeConfig.textColor}
+            style={{ paddingLeft: 1 }}
+            size={20}
+          />
+        </AnimatedPressable>
         {selectedChannel && (
           <AnimatedPressable
-            style={styles.newButton}
+            style={styles(themeConfig).newButton}
             onPress={() => navigate('NewPublication')}
           >
             <Ionicons
               name="add-outline"
-              color={theme.colors.white}
+              color={themeConfig.textColor}
               style={{ paddingLeft: 1 }}
               size={20}
             />

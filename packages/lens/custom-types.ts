@@ -155,6 +155,8 @@ export enum CustomNotificationsFilterEnum {
   ALL_NOTIFICATIONS = 'AllNotifications'
 }
 
+// MOBILE
+
 export enum TimelineFeedType {
   CURATED = 'CURATED',
   FOLLOWING = 'FOLLOWING',
@@ -179,4 +181,19 @@ export const MOBILE_PROFILE_ITEMS = [
   'Replies',
   'Gallery'
 ] as const
+
 export type MobileProfileTabItemType = (typeof MOBILE_PROFILE_ITEMS)[number]
+
+export interface MobileThemeConfig {
+  textColor: string
+  secondaryTextColor: string
+  backgroudColor: string
+  backgroudColor2: string
+  backgroudColor3: string
+  sheetBackgroundColor: string
+  borderColor: string
+  contrastBorderColor: string
+  sheetBorderColor: string
+  contrastBackgroundColor: string
+  contrastTextColor: string
+}

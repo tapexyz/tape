@@ -1,5 +1,6 @@
 import { getProfilePicture, trimLensHandle } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
+import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { useNavigation } from '@react-navigation/native'
 import type { ImageStyle } from 'expo-image'
 import { Image as ExpoImage } from 'expo-image'
@@ -9,7 +10,7 @@ import type { StyleProp, TextStyle } from 'react-native'
 import { StyleSheet, Text } from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'
-import { theme } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 
 import AnimatedPressable from '../ui/AnimatedPressable'
 
@@ -25,19 +26,20 @@ type Props = {
   imageStyle?: ImageStyle
 }
 
-const styles = StyleSheet.create({
-  pressable: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6
-  },
-  handle: {
-    fontFamily: 'font-normal',
-    fontSize: normalizeFont(10),
-    color: theme.colors.white
-  }
-})
+const styles = (themeConfig: MobileThemeConfig) =>
+  StyleSheet.create({
+    pressable: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 6
+    },
+    handle: {
+      fontFamily: 'font-normal',
+      fontSize: normalizeFont(10),
+      color: themeConfig.textColor
+    }
+  })
 
 const UserProfile: FC<Props> = (props) => {
   const {
@@ -52,6 +54,8 @@ const UserProfile: FC<Props> = (props) => {
     imageStyle = {}
   } = props
   const { navigate } = useNavigation()
+  const { themeConfig } = useMobileTheme()
+  const style = styles(themeConfig)
 
   const navigateToProfile = () => {
     navigate('ProfileScreen', {
@@ -62,7 +66,7 @@ const UserProfile: FC<Props> = (props) => {
   return (
     <AnimatedPressable
       pressable={pressable}
-      style={[styles.pressable, { opacity }]}
+      style={[style.pressable, { opacity }]}
       onPress={onPress ?? navigateToProfile}
     >
       <ExpoImage
@@ -77,14 +81,14 @@ const UserProfile: FC<Props> = (props) => {
             height: size,
             borderRadius: radius,
             borderWidth: 0.5,
-            borderColor: theme.colors.secondary,
-            backgroundColor: theme.colors.backdrop
+            borderColor: themeConfig.borderColor,
+            backgroundColor: themeConfig.backgroudColor2
           },
           imageStyle
         ]}
       />
       {showHandle && (
-        <Text numberOfLines={1} style={[styles.handle, handleStyle]}>
+        <Text numberOfLines={1} style={[style.handle, handleStyle]}>
           {trimLensHandle(profile.handle)}
         </Text>
       )}

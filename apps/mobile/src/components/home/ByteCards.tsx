@@ -8,6 +8,7 @@ import {
   PublicationTypes,
   useExploreQuery
 } from '@lenstube/lens'
+import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { useNavigation } from '@react-navigation/native'
 import { Image as ExpoImage } from 'expo-image'
 import { Gyroscope } from 'expo-sensors'
@@ -23,8 +24,8 @@ import Animated, {
 } from 'react-native-reanimated'
 
 import haptic from '~/helpers/haptic'
-import { theme } from '~/helpers/theme'
-import { usePlatform } from '~/hooks'
+import { colors } from '~/helpers/theme'
+import { useMobileTheme, usePlatform } from '~/hooks'
 import useMobileStore from '~/store'
 
 import UserProfile from '../common/UserProfile'
@@ -33,50 +34,53 @@ import ServerError from '../ui/ServerError'
 
 const BORDER_RADIUS = 20
 
-const styles = StyleSheet.create({
-  profile: {
-    width: '100%',
-    position: 'absolute',
-    bottom: 0,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    paddingVertical: 10,
-    borderBottomRightRadius: BORDER_RADIUS,
-    borderBottomLeftRadius: BORDER_RADIUS
-  },
-  thumbnail: {
-    width: '100%',
-    height: '100%',
-    borderRadius: BORDER_RADIUS,
-    backgroundColor: theme.colors.backdrop
-  },
-  cardsContainer: {
-    position: 'relative',
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingVertical: 30
-  },
-  backgroundCards: {
-    position: 'absolute',
-    width: 170,
-    opacity: 0.5,
-    aspectRatio: 9 / 16,
-    borderRadius: BORDER_RADIUS,
-    overflow: 'hidden'
-  },
-  firstCard: {
-    width: 200,
-    marginBottom: 10,
-    aspectRatio: 9 / 16,
-    borderRadius: BORDER_RADIUS,
-    overflow: 'hidden'
-  }
-})
+const styles = (themeConfig: MobileThemeConfig) =>
+  StyleSheet.create({
+    profile: {
+      width: '100%',
+      position: 'absolute',
+      bottom: 0,
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      paddingVertical: 10,
+      borderBottomRightRadius: BORDER_RADIUS,
+      borderBottomLeftRadius: BORDER_RADIUS
+    },
+    thumbnail: {
+      width: '100%',
+      height: '100%',
+      borderRadius: BORDER_RADIUS,
+      backgroundColor: themeConfig.backgroudColor2
+    },
+    cardsContainer: {
+      position: 'relative',
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      paddingVertical: 30
+    },
+    backgroundCards: {
+      position: 'absolute',
+      width: 170,
+      opacity: 0.5,
+      aspectRatio: 9 / 16,
+      borderRadius: BORDER_RADIUS,
+      overflow: 'hidden'
+    },
+    firstCard: {
+      width: 200,
+      marginBottom: 10,
+      aspectRatio: 9 / 16,
+      borderRadius: BORDER_RADIUS,
+      overflow: 'hidden'
+    }
+  })
 
 const ByteCards = () => {
+  const { themeConfig } = useMobileTheme()
+  const style = styles(themeConfig)
   const { navigate } = useNavigation()
   const { isIOS } = usePlatform()
   const homeGradientColor = useMobileStore((state) => state.homeGradientColor)
@@ -167,14 +171,14 @@ const ByteCards = () => {
           source={{ uri: imageCdn(getThumbnailUrl(byte, true), 'THUMBNAIL_V') }}
           contentFit="cover"
           transition={300}
-          style={styles.thumbnail}
+          style={style.thumbnail}
         />
-        <View style={styles.profile}>
+        <View style={style.profile}>
           <UserProfile
             profile={byte.profile}
-            size={15}
+            size={14}
             radius={3}
-            handleStyle={{ fontFamily: 'font-bold' }}
+            handleStyle={{ fontFamily: 'font-bold', color: colors.white }}
             imageStyle={{
               borderWidth: 0
             }}
@@ -206,11 +210,11 @@ const ByteCards = () => {
   const bytes = data?.explorePublications?.items as Publication[]
 
   return (
-    <View style={styles.cardsContainer}>
+    <View style={style.cardsContainer}>
       <View style={{ zIndex: 1 }}>
         <Skeleton
           show={loading}
-          colors={[`${homeGradientColor}10`, '#00000080']}
+          colors={[`${homeGradientColor}10`, themeConfig.backgroudColor2]}
           radius={BORDER_RADIUS}
         >
           <AnimatedPressable
@@ -223,11 +227,11 @@ const ByteCards = () => {
             }}
           >
             {isIOS ? (
-              <Animated.View style={[AnimatedStyles.motion, styles.firstCard]}>
+              <Animated.View style={[AnimatedStyles.motion, style.firstCard]}>
                 {bytes?.length && renderCard(bytes[0])}
               </Animated.View>
             ) : (
-              <View style={styles.firstCard}>
+              <View style={style.firstCard}>
                 {bytes?.length && renderCard(bytes[0])}
               </View>
             )}
@@ -243,7 +247,7 @@ const ByteCards = () => {
           })
         }}
         style={[
-          styles.backgroundCards,
+          style.backgroundCards,
           {
             left: 20
           }
@@ -260,7 +264,7 @@ const ByteCards = () => {
           })
         }}
         style={[
-          styles.backgroundCards,
+          style.backgroundCards,
           {
             right: 20
           }

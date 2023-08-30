@@ -1,13 +1,15 @@
 import React from 'react'
 import { View } from 'react-native'
 
-import { theme } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 
 const Separator = () => {
+  const { themeConfig } = useMobileTheme()
+
   return (
     <View
       style={{
-        backgroundColor: theme.colors.backdrop2,
+        backgroundColor: themeConfig.backgroudColor3,
         height: 0.3,
         borderRadius: 10
       }}

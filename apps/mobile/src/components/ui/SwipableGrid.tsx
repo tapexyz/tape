@@ -1,4 +1,5 @@
 import { getThumbnailUrl, imageCdn } from '@lenstube/generic'
+import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { Image as ExpoImage } from 'expo-image'
 import { LinearGradient } from 'expo-linear-gradient'
 import * as React from 'react'
@@ -15,43 +16,45 @@ import Animated, {
 } from 'react-native-reanimated'
 
 import normalizeFont from '~/helpers/normalize-font'
-import { theme, windowHeight, windowWidth } from '~/helpers/theme'
+import { windowHeight, windowWidth } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 
 import UserProfile from '../common/UserProfile'
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center'
-  },
-  gradient: {
-    width: '100%',
-    alignSelf: 'center',
-    position: 'absolute',
-    bottom: 0,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: 6,
-    paddingVertical: 10,
-    opacity: 0.8,
-    marginBottom: 1,
-    borderBottomRightRadius: 25,
-    borderBottomLeftRadius: 25
-  },
-  thumbnail: {
-    width: '100%',
-    height: '100%',
-    borderRadius: 25,
-    backgroundColor: theme.colors.backdrop
-  },
-  otherInfo: {
-    fontFamily: 'font-medium',
-    fontSize: normalizeFont(10),
-    color: theme.colors.white
-  }
-})
+const styles = (themeConfig: MobileThemeConfig) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      justifyContent: 'center'
+    },
+    gradient: {
+      width: '100%',
+      alignSelf: 'center',
+      position: 'absolute',
+      bottom: 0,
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      gap: 6,
+      paddingVertical: 10,
+      opacity: 0.8,
+      marginBottom: 1,
+      borderBottomRightRadius: 25,
+      borderBottomLeftRadius: 25
+    },
+    thumbnail: {
+      width: '100%',
+      height: '100%',
+      borderRadius: 25,
+      backgroundColor: themeConfig.backgroudColor2
+    },
+    otherInfo: {
+      fontFamily: 'font-medium',
+      fontSize: normalizeFont(10),
+      color: themeConfig.textColor
+    }
+  })
 
 const _spacing = 8
 const _itemWidth = windowWidth * 0.7
@@ -65,8 +68,8 @@ const clamp = (value: number, min: number, max: number) => {
   return Math.min(Math.max(value, min), max)
 }
 
-const Item = ({ item, activeIndex, index, onPress }: any) => {
-  const stylez = useAnimatedStyle(() => {
+const Item = ({ item, activeIndex, index, onPress, style }: any) => {
+  const animateStyles = useAnimatedStyle(() => {
     return {
       opacity:
         activeIndex.value === index
@@ -83,7 +86,7 @@ const Item = ({ item, activeIndex, index, onPress }: any) => {
             height: _itemHeight,
             padding: _spacing
           },
-          stylez
+          animateStyles
         ]}
         key={item.key}
       >
@@ -93,17 +96,17 @@ const Item = ({ item, activeIndex, index, onPress }: any) => {
           }}
           transition={300}
           contentFit="cover"
-          style={styles.thumbnail}
+          style={style.thumbnail}
         />
         <LinearGradient
           colors={['transparent', '#00000080', '#00000090']}
-          style={styles.gradient}
+          style={style.gradient}
         >
           <UserProfile profile={item.profile} size={15} radius={3} />
-          <Text style={{ color: theme.colors.white, fontSize: 3 }}>
+          <Text style={{ color: style.secondaryTextColor, fontSize: 3 }}>
             {'\u2B24'}
           </Text>
-          <Text style={styles.otherInfo}>{item.stats.totalUpvotes} likes</Text>
+          <Text style={style.otherInfo}>{item.stats.totalUpvotes} likes</Text>
         </LinearGradient>
       </Animated.View>
     </Pressable>
@@ -138,6 +141,9 @@ type Props = {
 }
 
 const SwipableGrid: React.FC<Props> = ({ data }) => {
+  const { themeConfig } = useMobileTheme()
+  const style = styles(themeConfig)
+
   const _gridLength = Math.round(Math.sqrt(data.length))
 
   const ref = React.useRef<Animated.ScrollView>(null)
@@ -207,7 +213,7 @@ const SwipableGrid: React.FC<Props> = ({ data }) => {
 
   return (
     <PanGestureHandler onGestureEvent={onGestureEvent}>
-      <Animated.View style={styles.container}>
+      <Animated.View style={style.container}>
         <Animated.ScrollView
           ref={ref}
           scrollEnabled={false}
@@ -223,6 +229,7 @@ const SwipableGrid: React.FC<Props> = ({ data }) => {
                 {row.map((item, colIndex) => {
                   return (
                     <Item
+                      style={style}
                       key={item.id}
                       row={rowIndex}
                       col={colIndex}

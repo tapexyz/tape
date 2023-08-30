@@ -25,7 +25,7 @@ import Button from '~/components/ui/Button'
 import Sheet from '~/components/ui/Sheet'
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
-import { theme } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 import useMobileStore from '~/store'
 import { useMobilePersistStore } from '~/store/persist'
 
@@ -46,6 +46,8 @@ const styles = StyleSheet.create({
 })
 
 const AuthSheet: FC<Props> = ({ sheetRef }) => {
+  const { themeConfig } = useMobileTheme()
+
   const setChannels = useMobileStore((state) => state.setChannels)
   const setSelectedChannel = useMobileStore((state) => state.setSelectedChannel)
   const { signIn: persistSignin } = useMobilePersistStore()
@@ -135,7 +137,7 @@ const AuthSheet: FC<Props> = ({ sheetRef }) => {
           />
           <Text
             style={{
-              color: theme.colors.white,
+              color: themeConfig.textColor,
               fontFamily: 'font-medium',
               fontSize: normalizeFont(24)
             }}
@@ -144,7 +146,7 @@ const AuthSheet: FC<Props> = ({ sheetRef }) => {
           </Text>
           <Text
             style={{
-              color: theme.colors.secondary,
+              color: themeConfig.secondaryTextColor,
               fontFamily: 'font-normal',
               fontSize: normalizeFont(14)
             }}

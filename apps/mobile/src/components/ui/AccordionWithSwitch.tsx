@@ -5,7 +5,7 @@ import { Pressable, Text } from 'react-native'
 import Animated, { FadeInUp } from 'react-native-reanimated'
 
 import normalizeFont from '~/helpers/normalize-font'
-import { theme } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 
 import Switch from './Switch'
 
@@ -24,6 +24,8 @@ const AccordionWithSwitch: FC<Props> = ({
   textStyle,
   content
 }) => {
+  const { themeConfig } = useMobileTheme()
+
   return (
     <>
       <Pressable
@@ -41,7 +43,7 @@ const AccordionWithSwitch: FC<Props> = ({
           style={[
             {
               fontSize: normalizeFont(15),
-              color: theme.colors.secondary,
+              color: themeConfig.secondaryTextColor,
               fontFamily: 'font-medium'
             },
             textStyle

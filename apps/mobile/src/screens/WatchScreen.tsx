@@ -1,5 +1,6 @@
 import type { Publication } from '@lenstube/lens'
 import { usePublicationDetailsQuery } from '@lenstube/lens'
+import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import React from 'react'
 import {
   ActivityIndicator,
@@ -13,17 +14,21 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import ServerError from '~/components/ui/ServerError'
 import MoreVideos from '~/components/watch/MoreVideos'
 import VideoPlayer from '~/components/watch/Player'
-import { theme } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 import useMobileStore from '~/store'
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: theme.colors.black
-  }
-})
+const styles = (themeConfig: MobileThemeConfig) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: themeConfig.backgroudColor
+    }
+  })
 
 export const WatchScreen = (props: WatchScreenProps) => {
+  const { themeConfig } = useMobileTheme()
+  const style = styles(themeConfig)
+
   const { top, bottom } = useSafeAreaInsets()
   const { height: windowHeight } = useWindowDimensions()
 
@@ -49,11 +54,11 @@ export const WatchScreen = (props: WatchScreenProps) => {
     return <ServerError />
   }
   if (loading || !data) {
-    return <ActivityIndicator style={styles.container} />
+    return <ActivityIndicator style={style.container} />
   }
 
   return (
-    <View style={[styles.container, { top, bottom }]}>
+    <View style={[style.container, { top, bottom }]}>
       <VideoPlayer video={video} />
 
       <Animated.View style={{ height: windowHeight }} entering={FadeInDown}>

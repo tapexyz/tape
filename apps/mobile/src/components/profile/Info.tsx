@@ -8,6 +8,7 @@ import {
   trimNewLines
 } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
+import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { useNavigation } from '@react-navigation/native'
 import type { Dispatch, FC } from 'react'
 import React, { memo, useRef, useState } from 'react'
@@ -29,7 +30,8 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
-import { theme, windowWidth } from '~/helpers/theme'
+import { windowWidth } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 import useMobileStore from '~/store'
 
 import UserProfile from '../common/UserProfile'
@@ -45,56 +47,60 @@ type Props = {
   setInfoHeaderHeight: Dispatch<number>
 }
 
-const styles = StyleSheet.create({
-  icon: {
-    backgroundColor: theme.colors.backdrop,
-    borderRadius: 100,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 35,
-    height: 35
-  },
-  text: {
-    fontFamily: 'font-medium',
-    fontSize: normalizeFont(10),
-    color: theme.colors.white,
-    opacity: 0.8
-  },
-  statsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    paddingVertical: 20
-  },
-  stat: {
-    flexDirection: 'column',
-    width: windowWidth * 0.3,
-    alignItems: 'center',
-    gap: 4
-  },
-  tickerText: {
-    fontFamily: 'font-bold',
-    color: theme.colors.white
-  },
-  handle: {
-    fontFamily: 'font-bold',
-    color: theme.colors.white,
-    fontSize: normalizeFont(35),
-    letterSpacing: 0.6
-  },
-  bio: {
-    fontFamily: 'font-medium',
-    fontSize: normalizeFont(13),
-    color: theme.colors.white,
-    opacity: 0.6
-  }
-})
+const styles = (themeConfig: MobileThemeConfig) =>
+  StyleSheet.create({
+    icon: {
+      backgroundColor: themeConfig.backgroudColor2,
+      borderRadius: 100,
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: 35,
+      height: 35
+    },
+    text: {
+      fontFamily: 'font-medium',
+      fontSize: normalizeFont(10),
+      color: themeConfig.textColor,
+      opacity: 0.8
+    },
+    statsContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-evenly',
+      paddingVertical: 20
+    },
+    stat: {
+      flexDirection: 'column',
+      width: windowWidth * 0.3,
+      alignItems: 'center',
+      gap: 4
+    },
+    tickerText: {
+      fontFamily: 'font-bold',
+      color: themeConfig.textColor
+    },
+    handle: {
+      fontFamily: 'font-bold',
+      color: themeConfig.textColor,
+      fontSize: normalizeFont(35),
+      letterSpacing: 0.6
+    },
+    bio: {
+      fontFamily: 'font-medium',
+      fontSize: normalizeFont(13),
+      color: themeConfig.textColor,
+      opacity: 0.6
+    }
+  })
 
 const Info: FC<Props> = (props) => {
   const { profile, contentScrollY, infoHeaderHeight, setInfoHeaderHeight } =
     props
   const { goBack } = useNavigation()
   const { height } = useWindowDimensions()
+  const { themeConfig } = useMobileTheme()
+  const style = styles(themeConfig)
+
   const shareSheetRef = useRef<BottomSheetModal>(null)
 
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
@@ -159,20 +165,20 @@ const Info: FC<Props> = (props) => {
           >
             <ShareSheet sheetRef={shareSheetRef} profile={profile} />
 
-            <Pressable onPress={() => goBack()} style={styles.icon}>
+            <Pressable onPress={() => goBack()} style={style.icon}>
               <Ionicons
                 name="chevron-back-outline"
-                color={theme.colors.white}
+                color={themeConfig.textColor}
                 size={20}
               />
             </Pressable>
             <Pressable
               onPress={() => shareSheetRef.current?.present()}
-              style={styles.icon}
+              style={style.icon}
             >
               <Ionicons
                 name="share-outline"
-                color={theme.colors.white}
+                color={themeConfig.textColor}
                 size={20}
                 style={{ paddingLeft: 2, paddingBottom: 1 }}
               />
@@ -180,14 +186,14 @@ const Info: FC<Props> = (props) => {
           </SafeAreaView>
         </ImageBackground>
 
-        <View style={styles.statsContainer}>
-          <View style={styles.stat}>
+        <View style={style.statsContainer}>
+          <View style={style.stat}>
             <Ticker
               number={profile.stats.totalFollowers}
-              textStyle={styles.tickerText}
+              textStyle={style.tickerText}
               textSize={18}
             />
-            <Text style={styles.text}>followers</Text>
+            <Text style={style.text}>followers</Text>
           </View>
           <View style={{ marginTop: -(height * 0.07) }}>
             <UserProfile
@@ -198,21 +204,21 @@ const Info: FC<Props> = (props) => {
               pressable={false}
             />
           </View>
-          <View style={styles.stat}>
+          <View style={style.stat}>
             <Ticker
               number={profile.stats.totalCollects}
-              textStyle={styles.tickerText}
+              textStyle={style.tickerText}
               textSize={18}
             />
-            <Text style={styles.text}>collects</Text>
+            <Text style={style.text}>collects</Text>
           </View>
         </View>
 
         <View style={{ paddingHorizontal: 10, gap: 20 }}>
           <View>
-            <Text style={styles.handle} numberOfLines={1}>
+            <Text style={style.handle} numberOfLines={1}>
               {isOwned && (
-                <Text style={[styles.handle, { opacity: 0.5 }]}>gm,</Text>
+                <Text style={[style.handle, { opacity: 0.5 }]}>gm,</Text>
               )}{' '}
               {trimLensHandle(profile.handle)}
             </Text>
@@ -220,7 +226,7 @@ const Info: FC<Props> = (props) => {
             <Pressable onPress={() => setShowMoreBio(!showMoreBio)}>
               <Text
                 numberOfLines={!showMoreBio ? 2 : undefined}
-                style={styles.bio}
+                style={style.bio}
               >
                 {showMoreBio ? profile.bio : trimNewLines(profile.bio ?? '')}
               </Text>
@@ -237,7 +243,7 @@ const Info: FC<Props> = (props) => {
               icon={
                 <Ionicons
                   name="ellipsis-vertical-outline"
-                  color={theme.colors.white}
+                  color={themeConfig.textColor}
                   size={16}
                 />
               }

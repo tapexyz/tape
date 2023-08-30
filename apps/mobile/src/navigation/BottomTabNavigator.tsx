@@ -5,7 +5,7 @@ import type { FC } from 'react'
 import React, { useCallback } from 'react'
 
 import haptic from '~/helpers/haptic'
-import { navigationTheme } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 import { useNavigationTheme } from '~/hooks/navigation/useNavigationTheme'
 
 import { BytesStack } from './BytesStack'
@@ -20,11 +20,12 @@ type ScreenOptions = (
 
 export const BottomTabNavigator: FC = () => {
   const { tabBarTheme } = useNavigationTheme()
+  const { themeConfig } = useMobileTheme()
 
   const screenOptions = useCallback<ScreenOptions>(
     ({ route }) => ({
       tabBarShowLabel: false,
-      tabBarStyle: { backgroundColor: navigationTheme.colors.background },
+      tabBarStyle: { backgroundColor: themeConfig.backgroudColor },
       tabBarIcon: ({
         color,
         size
@@ -50,7 +51,7 @@ export const BottomTabNavigator: FC = () => {
       headerShown: false,
       ...tabBarTheme
     }),
-    [tabBarTheme]
+    [tabBarTheme, themeConfig]
   )
 
   return (

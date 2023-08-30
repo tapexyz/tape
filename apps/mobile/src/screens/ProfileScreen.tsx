@@ -10,7 +10,7 @@ import {
 
 import Info from '~/components/profile/Info'
 import TabContent from '~/components/profile/TabContent'
-import { theme } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 import useMobileStore from '~/store'
 
 export const ProfileScreen = (
@@ -20,6 +20,7 @@ export const ProfileScreen = (
   const { goBack } = useNavigation()
   const { height } = useWindowDimensions()
   const contentScrollY = useSharedValue(0)
+  const { themeConfig } = useMobileTheme()
 
   useEffect(() => {
     contentScrollY.value = 0
@@ -50,7 +51,7 @@ export const ProfileScreen = (
   if (loading) {
     return (
       <ActivityIndicator
-        style={{ flex: 1, backgroundColor: theme.colors.black }}
+        style={{ flex: 1, backgroundColor: themeConfig.backgroudColor }}
       />
     )
   }
@@ -66,7 +67,7 @@ export const ProfileScreen = (
     <View
       style={{
         flex: 1,
-        backgroundColor: theme.colors.black
+        backgroundColor: themeConfig.backgroudColor
       }}
     >
       <Info

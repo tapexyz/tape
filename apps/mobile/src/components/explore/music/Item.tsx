@@ -5,6 +5,7 @@ import {
   trimify
 } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
+import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
 import React from 'react'
@@ -12,61 +13,52 @@ import { StyleSheet, Text, useWindowDimensions, View } from 'react-native'
 
 import UserProfile from '~/components/common/UserProfile'
 import normalizeFont from '~/helpers/normalize-font'
-import { theme } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 
 const BORDER_RADIUS = 25
 
-const styles = StyleSheet.create({
-  poster: {
-    borderRadius: BORDER_RADIUS,
-    aspectRatio: 1 / 1,
-    borderColor: theme.colors.grey,
-    borderWidth: 0.5
-  },
-  title: {
-    color: theme.colors.white,
-    fontFamily: 'font-bold',
-    fontSize: normalizeFont(14),
-    letterSpacing: 0.5,
-    textAlign: 'center'
-  },
-  description: {
-    fontFamily: 'font-normal',
-    fontSize: normalizeFont(12),
-    color: theme.colors.secondary,
-    paddingTop: 10
-  },
-  thumbnail: {
-    width: '100%',
-    height: 215,
-    borderRadius: BORDER_RADIUS,
-    borderColor: theme.colors.grey,
-    borderWidth: 0.5
-  },
-  otherInfoContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-    paddingTop: 10,
-    opacity: 0.8
-  },
-  otherInfo: {
-    fontFamily: 'font-normal',
-    fontSize: normalizeFont(10),
-    color: theme.colors.white
-  },
-  icon: {
-    backgroundColor: theme.colors.grey,
-    borderRadius: 100,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 50,
-    height: 50
-  }
-})
+const styles = (themeConfig: MobileThemeConfig) =>
+  StyleSheet.create({
+    poster: {
+      borderRadius: BORDER_RADIUS,
+      aspectRatio: 1 / 1,
+      borderColor: themeConfig.borderColor,
+      borderWidth: 0.5
+    },
+    title: {
+      color: themeConfig.textColor,
+      fontFamily: 'font-bold',
+      fontSize: normalizeFont(14),
+      letterSpacing: 0.5,
+      textAlign: 'center'
+    },
+    description: {
+      fontFamily: 'font-normal',
+      fontSize: normalizeFont(12),
+      color: themeConfig.secondaryTextColor,
+      paddingTop: 10
+    },
+    thumbnail: {
+      width: '100%',
+      height: 215,
+      borderRadius: BORDER_RADIUS,
+      borderColor: themeConfig.borderColor,
+      borderWidth: 0.5
+    },
+    otherInfoContainer: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 6,
+      paddingTop: 10,
+      opacity: 0.8
+    },
+    otherInfo: {
+      fontFamily: 'font-normal',
+      fontSize: normalizeFont(10),
+      color: themeConfig.textColor
+    }
+  })
 
 type Props = {
   audio: Publication
@@ -74,6 +66,8 @@ type Props = {
 
 const Item: FC<Props> = ({ audio }) => {
   const { width } = useWindowDimensions()
+  const { themeConfig } = useMobileTheme()
+  const style = styles(themeConfig)
 
   return (
     <View style={{ width }}>
@@ -83,19 +77,19 @@ const Item: FC<Props> = ({ audio }) => {
           alignItems: 'center'
         }}
       >
-        <Text numberOfLines={1} style={styles.title}>
+        <Text numberOfLines={1} style={style.title}>
           {trimify(audio.metadata.name ?? '')}
         </Text>
-        <View style={styles.otherInfoContainer}>
+        <View style={style.otherInfoContainer}>
           <UserProfile profile={audio.profile} size={15} radius={3} />
-          <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
+          <Text style={{ color: themeConfig.secondaryTextColor, fontSize: 3 }}>
             {'\u2B24'}
           </Text>
-          <Text style={styles.otherInfo}>{audio.stats.totalUpvotes} likes</Text>
-          <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
+          <Text style={style.otherInfo}>{audio.stats.totalUpvotes} likes</Text>
+          <Text style={{ color: themeConfig.secondaryTextColor, fontSize: 3 }}>
             {'\u2B24'}
           </Text>
-          <Text style={styles.otherInfo}>
+          <Text style={style.otherInfo}>
             {getShortHandTime(audio.createdAt)}
           </Text>
         </View>
@@ -107,14 +101,14 @@ const Item: FC<Props> = ({ audio }) => {
           justifyContent: 'center'
         }}
       >
-        <View style={[styles.poster, { height: width * 0.6 }]}>
+        <View style={[style.poster, { height: width * 0.6 }]}>
           <ExpoImage
             source={{
               uri: imageCdn(getThumbnailUrl(audio), 'SQUARE')
             }}
             transition={300}
             contentFit="cover"
-            style={[styles.poster, { height: width * 0.6 }]}
+            style={[style.poster, { height: width * 0.6 }]}
           />
         </View>
       </View>

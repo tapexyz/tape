@@ -8,6 +8,7 @@ import {
 } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import { useAllProfilesQuery } from '@lenstube/lens'
+import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { Image as ExpoImage } from 'expo-image'
 import { Skeleton } from 'moti/skeleton'
 import React, { useCallback } from 'react'
@@ -21,55 +22,59 @@ import {
 
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
-import { theme } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 import useMobileStore from '~/store'
 
 import AnimatedPressable from '../ui/AnimatedPressable'
 
 const BORDER_RADIUS = 100
 
-const styles = StyleSheet.create({
-  cardContainer: {
-    display: 'flex',
-    margin: 5,
-    backgroundColor: theme.colors.black,
-    borderRadius: BORDER_RADIUS
-  },
-  card: {
-    gap: 8,
-    paddingVertical: 10,
-    paddingHorizontal: 15,
-    flexDirection: 'row',
-    alignItems: 'center',
-    borderRadius: BORDER_RADIUS
-  },
-  otherInfo: {
-    fontFamily: 'font-medium',
-    fontSize: normalizeFont(10),
-    color: theme.colors.white,
-    opacity: 0.8
-  },
-  handle: {
-    fontFamily: 'font-medium',
-    fontSize: normalizeFont(12),
-    color: theme.colors.white
-  },
-  profileImage: {
-    width: 30,
-    height: 30,
-    borderRadius: BORDER_RADIUS,
-    borderWidth: 0.5,
-    borderColor: theme.colors.grey
-  }
-})
+const styles = (themeConfig: MobileThemeConfig) =>
+  StyleSheet.create({
+    cardContainer: {
+      display: 'flex',
+      margin: 5,
+      backgroundColor: themeConfig.backgroudColor,
+      borderRadius: BORDER_RADIUS
+    },
+    card: {
+      gap: 8,
+      paddingVertical: 10,
+      paddingHorizontal: 15,
+      flexDirection: 'row',
+      alignItems: 'center',
+      borderRadius: BORDER_RADIUS
+    },
+    otherInfo: {
+      fontFamily: 'font-medium',
+      fontSize: normalizeFont(10),
+      color: themeConfig.textColor,
+      opacity: 0.8
+    },
+    handle: {
+      fontFamily: 'font-medium',
+      fontSize: normalizeFont(12),
+      color: themeConfig.textColor
+    },
+    profileImage: {
+      width: 30,
+      height: 30,
+      borderRadius: BORDER_RADIUS,
+      borderWidth: 0.5,
+      borderColor: themeConfig.borderColor
+    }
+  })
 
 const Switch = () => {
+  const { themeConfig } = useMobileTheme()
+  const style = styles(themeConfig)
+
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
   const setSelectedChannel = useMobileStore((state) => state.setSelectedChannel)
 
   const renderItem = useCallback(
     ({ profile }: { profile: Profile }) => (
-      <View key={profile.id} style={styles.cardContainer}>
+      <View key={profile.id} style={style.cardContainer}>
         <ImageBackground
           source={{
             uri: imageCdn(
@@ -81,8 +86,8 @@ const Switch = () => {
             borderWidth: 2,
             borderColor:
               selectedChannel?.id === profile.id
-                ? theme.colors.white
-                : theme.colors.black,
+                ? themeConfig.contrastBorderColor
+                : 'transparent',
             borderRadius: BORDER_RADIUS
           }}
           imageStyle={{
@@ -92,7 +97,7 @@ const Switch = () => {
         >
           <AnimatedPressable
             key={profile.id}
-            style={styles.card}
+            style={style.card}
             onPress={() => {
               setSelectedChannel(profile)
               haptic()
@@ -104,13 +109,13 @@ const Switch = () => {
               }}
               contentFit="cover"
               transition={500}
-              style={styles.profileImage}
+              style={style.profileImage}
             />
             <View>
-              <Text numberOfLines={1} style={styles.handle}>
+              <Text numberOfLines={1} style={style.handle}>
                 {trimLensHandle(profile.handle)}
               </Text>
-              <Text style={styles.otherInfo}>
+              <Text style={style.otherInfo}>
                 {formatNumber(profile.stats.totalFollowers)} followers
               </Text>
             </View>
@@ -118,7 +123,7 @@ const Switch = () => {
         </ImageBackground>
       </View>
     ),
-    [selectedChannel, setSelectedChannel]
+    [selectedChannel, setSelectedChannel, themeConfig, style]
   )
 
   const { data, loading, error } = useAllProfilesQuery({
@@ -135,7 +140,7 @@ const Switch = () => {
   return (
     <Skeleton
       show={loading}
-      colors={[theme.colors.backdrop2, theme.colors.backdrop]}
+      colors={[themeConfig.backgroudColor3, themeConfig.backgroudColor2]}
       radius={BORDER_RADIUS}
     >
       <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>

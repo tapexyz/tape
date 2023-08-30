@@ -1,5 +1,6 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { CREATOR_VIDEO_CATEGORIES } from '@lenstube/constants'
+import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { useNavigation } from '@react-navigation/native'
 import { BlurView } from 'expo-blur'
 import React from 'react'
@@ -16,47 +17,49 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
-import { theme } from '~/helpers/theme'
-import { usePlatform } from '~/hooks'
+import { useMobileTheme, usePlatform } from '~/hooks'
 import useMobileStore from '~/store'
 
-const styles = StyleSheet.create({
-  container: {
-    position: 'relative',
-    flex: 1,
-    alignItems: 'center'
-  },
-  text: {
-    fontFamily: 'font-medium',
-    fontSize: normalizeFont(20),
-    letterSpacing: 2,
-    color: theme.colors.white
-  },
-  close: {
-    position: 'absolute',
-    backgroundColor: theme.colors.white,
-    padding: 10,
-    borderRadius: 100,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 60,
-    height: 60,
-    bottom: 50
-  },
-  listContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 30
-  }
-})
+const styles = (themeConfig: MobileThemeConfig) =>
+  StyleSheet.create({
+    container: {
+      position: 'relative',
+      flex: 1,
+      alignItems: 'center'
+    },
+    text: {
+      fontFamily: 'font-medium',
+      fontSize: normalizeFont(20),
+      letterSpacing: 2,
+      color: themeConfig.textColor
+    },
+    close: {
+      position: 'absolute',
+      backgroundColor: themeConfig.contrastBackgroundColor,
+      padding: 10,
+      borderRadius: 100,
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: 60,
+      height: 60,
+      bottom: 50
+    },
+    listContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 30
+    }
+  })
 
 export const CategoriesModal = (): JSX.Element => {
   const { goBack } = useNavigation()
   const { top } = useSafeAreaInsets()
   const { height } = useWindowDimensions()
   const { isAndroid } = usePlatform()
+  const { themeConfig } = useMobileTheme()
+  const style = styles(themeConfig)
 
   const selectedExploreFilter = useMobileStore(
     (state) => state.selectedExploreFilter
@@ -70,15 +73,15 @@ export const CategoriesModal = (): JSX.Element => {
       intensity={100}
       tint="dark"
       style={[
-        styles.container,
+        style.container,
         {
-          backgroundColor: isAndroid ? theme.colors.black : '#00000080'
+          backgroundColor: isAndroid ? themeConfig.backgroudColor : '#00000080'
         }
       ]}
     >
       <ScrollView
         contentContainerStyle={[
-          styles.listContainer,
+          style.listContainer,
           {
             paddingTop: top * 2,
             paddingBottom: height / 3
@@ -98,7 +101,10 @@ export const CategoriesModal = (): JSX.Element => {
             }}
           >
             <Text
-              style={[styles.text, { color: theme.colors.white, opacity: 0.7 }]}
+              style={[
+                style.text,
+                { color: themeConfig.textColor, opacity: 0.7 }
+              ]}
             >
               All
             </Text>
@@ -121,8 +127,8 @@ export const CategoriesModal = (): JSX.Element => {
             >
               <Text
                 style={[
-                  styles.text,
-                  { color: theme.colors.white, opacity: 0.7 }
+                  style.text,
+                  { color: themeConfig.textColor, opacity: 0.7 }
                 ]}
               >
                 {name}
@@ -137,9 +143,13 @@ export const CategoriesModal = (): JSX.Element => {
           haptic()
           goBack()
         }}
-        style={styles.close}
+        style={style.close}
       >
-        <Ionicons name="close-outline" color={theme.colors.black} size={35} />
+        <Ionicons
+          name="close-outline"
+          color={themeConfig.contrastTextColor}
+          size={35}
+        />
       </Pressable>
     </BlurView>
   )

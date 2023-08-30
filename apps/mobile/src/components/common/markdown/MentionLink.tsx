@@ -4,7 +4,7 @@ import { StyleSheet, Text } from 'react-native'
 
 import AnimatedPressable from '~/components/ui/AnimatedPressable'
 import normalizeFont from '~/helpers/normalize-font'
-import { theme } from '~/helpers/theme'
+import { colors } from '~/helpers/theme'
 
 export type MentionLinkProps = {
   handle: string
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
   mention: {
     fontFamily: 'font-normal',
     fontSize: normalizeFont(13),
-    color: theme.colors.yellow,
+    color: colors.yellow,
     letterSpacing: 0.6,
     opacity: 0.9
   }

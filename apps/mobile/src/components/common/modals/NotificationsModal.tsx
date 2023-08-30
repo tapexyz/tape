@@ -6,12 +6,12 @@ import { FlashList } from '@shopify/flash-list'
 import React, { useCallback, useRef } from 'react'
 import { ActivityIndicator, Text } from 'react-native'
 
-import { theme } from '~/helpers/theme'
-import { usePushNotifications } from '~/hooks'
+import { useMobileTheme, usePushNotifications } from '~/hooks'
 import useMobileStore from '~/store'
 
 export const NotificationsModal = (): JSX.Element => {
   usePushNotifications()
+  const { themeConfig } = useMobileTheme()
 
   const scrollRef = useRef<FlashList<Notification>>(null)
   //@ts-expect-error FlashList as type is not supported
@@ -46,9 +46,9 @@ export const NotificationsModal = (): JSX.Element => {
 
   const renderItem = useCallback(
     ({ item }: { item: Notification }) => (
-      <Text style={{ color: theme.colors.white }}>{item.__typename}</Text>
+      <Text style={{ color: themeConfig.textColor }}>{item.__typename}</Text>
     ),
-    []
+    [themeConfig]
   )
 
   if (loading) {

@@ -7,7 +7,8 @@ import React, { useMemo } from 'react'
 import { Linking, Text, type TextStyle } from 'react-native'
 
 import AnimatedPressable from '~/components/ui/AnimatedPressable'
-import { theme } from '~/helpers/theme'
+import { colors } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 
 import HashtagLink from './HashtagLink'
 import MentionLink from './MentionLink'
@@ -34,7 +35,7 @@ const rules: RenderRules = {
         <Text
           selectable
           style={{
-            textDecorationColor: theme.colors.indigo,
+            textDecorationColor: colors.indigo,
             textDecorationStyle: 'dotted'
           }}
         >
@@ -52,10 +53,11 @@ const rules: RenderRules = {
 }
 
 const RenderMarkdown = ({ content, textStyle }: MarkupTextProps) => {
+  const { themeConfig } = useMobileTheme()
   const renderedStyle = useMemo(() => {
     const style: Record<string, TextStyle> = {
       text: { ...textStyle },
-      ordered_list: { color: theme.colors.white, paddingBottom: 10 },
+      ordered_list: { color: themeConfig.textColor, paddingBottom: 10 },
       heading1: {
         fontFamily: 'font-bold'
       },
@@ -80,7 +82,7 @@ const RenderMarkdown = ({ content, textStyle }: MarkupTextProps) => {
     }
 
     return style
-  }, [textStyle])
+  }, [textStyle, themeConfig])
 
   return (
     <MarkdownDisplay

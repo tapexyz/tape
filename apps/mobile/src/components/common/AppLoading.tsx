@@ -13,16 +13,21 @@ import Animated, {
   withTiming
 } from 'react-native-reanimated'
 
-import { theme } from '~/helpers/theme'
 import { useMobilePersistStore } from '~/store/persist'
 
-import { useAuth, useCachedResources, useEffect } from '../../hooks'
+import {
+  useAuth,
+  useCachedResources,
+  useEffect,
+  useMobileTheme
+} from '../../hooks'
 
 SplashScreen.preventAutoHideAsync()
 
 const Splash = () => {
   const { height, width } = useWindowDimensions()
   const opacity = useSharedValue(1)
+  const { themeConfig } = useMobileTheme()
 
   useEffect(() => {
     opacity.value = withRepeat(
@@ -48,7 +53,7 @@ const Splash = () => {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: theme.colors.background
+        backgroundColor: themeConfig.backgroudColor
       }}
     >
       <Animated.View style={animatedStyle}>

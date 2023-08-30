@@ -2,6 +2,7 @@ import type { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
 import type { Publication, PublicationsQueryRequest } from '@lenstube/lens'
 import { useCommentsQuery } from '@lenstube/lens'
+import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { FlashList } from '@shopify/flash-list'
 import { Skeleton } from 'moti/skeleton'
 import type { FC } from 'react'
@@ -14,7 +15,8 @@ import {
   View
 } from 'react-native'
 
-import { theme } from '~/helpers/theme'
+import { colors } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 
 import Sheet from '../ui/Sheet'
 import Comment from './Comment'
@@ -23,25 +25,29 @@ import CommentButton from './CommentButton'
 // fixed height to fix CLS between comment and comment button
 const CONTAINER_HEIGHT = 80
 
-const styles = StyleSheet.create({
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    borderRadius: 15,
-    backgroundColor: theme.colors.backdrop,
-    gap: 10,
-    height: CONTAINER_HEIGHT,
-    width: '100%'
-  }
-})
+const styles = (themeConfig: MobileThemeConfig) =>
+  StyleSheet.create({
+    container: {
+      display: 'flex',
+      flexDirection: 'column',
+      borderRadius: 15,
+      backgroundColor: themeConfig.sheetBackgroundColor,
+      gap: 10,
+      height: CONTAINER_HEIGHT,
+      width: '100%'
+    }
+  })
 
 type Props = {
   id: string
 }
 
 const Comments: FC<Props> = ({ id }) => {
-  const commentsSheetRef = useRef<BottomSheetModal>(null)
+  const { themeConfig } = useMobileTheme()
+  const style = styles(themeConfig)
+
   const { height } = useWindowDimensions()
+  const commentsSheetRef = useRef<BottomSheetModal>(null)
 
   const request: PublicationsQueryRequest = {
     limit: 10,
@@ -74,10 +80,10 @@ const Comments: FC<Props> = ({ id }) => {
 
   return (
     <>
-      <View style={styles.container}>
+      <View style={style.container}>
         <Skeleton
           show={loading}
-          colors={[theme.colors.backdrop, theme.colors.grey]}
+          colors={[themeConfig.sheetBackgroundColor, colors.grey]}
           radius={15}
           height={CONTAINER_HEIGHT}
         >
@@ -97,7 +103,7 @@ const Comments: FC<Props> = ({ id }) => {
         </Skeleton>
       </View>
 
-      <Sheet sheetRef={commentsSheetRef} snap={['70%']}>
+      <Sheet sheetRef={commentsSheetRef} snap={['70%']} backdropOpacity={0.9}>
         <View
           style={{
             flex: 1,

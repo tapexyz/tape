@@ -6,6 +6,7 @@ import type {
   PublicationsQueryRequest
 } from '@lenstube/lens'
 import { PublicationTypes, useProfilePostsQuery } from '@lenstube/lens'
+import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
 import React, { memo, useCallback } from 'react'
@@ -19,7 +20,7 @@ import {
 import Animated from 'react-native-reanimated'
 
 import AnimatedPressable from '~/components/ui/AnimatedPressable'
-import { theme } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 
 type Props = {
   profile: Profile
@@ -29,21 +30,24 @@ type Props = {
 const GRID_GAP = 5
 const NUM_COLUMNS = 3
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-  thumbnail: {
-    width: '100%',
-    height: 210,
-    borderRadius: GRID_GAP,
-    borderColor: theme.colors.grey,
-    borderWidth: 0.5,
-    backgroundColor: theme.colors.backdrop
-  }
-})
+const styles = (themeConfig: MobileThemeConfig) =>
+  StyleSheet.create({
+    container: {
+      flex: 1
+    },
+    thumbnail: {
+      width: '100%',
+      height: 210,
+      borderRadius: GRID_GAP,
+      borderColor: themeConfig.borderColor,
+      borderWidth: 0.5,
+      backgroundColor: themeConfig.backgroudColor2
+    }
+  })
 
 const Bytes: FC<Props> = ({ profile, scrollHandler }) => {
+  const { themeConfig } = useMobileTheme()
+  const style = styles(themeConfig)
   const { height, width } = useWindowDimensions()
 
   const request: PublicationsQueryRequest = {
@@ -90,16 +94,16 @@ const Bytes: FC<Props> = ({ profile, scrollHandler }) => {
             }}
             transition={300}
             contentFit="cover"
-            style={styles.thumbnail}
+            style={style.thumbnail}
           />
         </AnimatedPressable>
       </View>
     ),
-    [width]
+    [width, style]
   )
 
   return (
-    <View style={[styles.container, { height }]}>
+    <View style={[style.container, { height }]}>
       <Animated.FlatList
         contentContainerStyle={{
           paddingBottom: bytes?.length < 10 ? 500 : 180

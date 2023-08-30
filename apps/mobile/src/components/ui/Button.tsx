@@ -4,7 +4,7 @@ import React from 'react'
 import { Text } from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'
-import { theme } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 
 import AnimatedPressable from './AnimatedPressable'
 
@@ -30,6 +30,8 @@ const getButtonSize = (size: ButtonSize) => {
 }
 
 const Button: FC<Props> = ({ text, icon, size = 'md', ...props }) => {
+  const { themeConfig } = useMobileTheme()
+
   return (
     <AnimatedPressable
       {...props}
@@ -40,8 +42,8 @@ const Button: FC<Props> = ({ text, icon, size = 'md', ...props }) => {
           borderRadius: 100,
           alignItems: 'center',
           borderWidth: 1,
-          borderColor: theme.colors.grey,
-          backgroundColor: theme.colors.backdrop2
+          borderColor: themeConfig.borderColor,
+          backgroundColor: themeConfig.backgroudColor3
         },
         props.style
       ]}
@@ -50,7 +52,7 @@ const Button: FC<Props> = ({ text, icon, size = 'md', ...props }) => {
       {text && (
         <Text
           style={{
-            color: theme.colors.white,
+            color: themeConfig.textColor,
             fontFamily: 'font-medium',
             fontSize: normalizeFont(12),
             opacity: props.disabled ? 0.3 : 1

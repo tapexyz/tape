@@ -1,33 +1,35 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { getShortHandTime, trimify } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
+import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import React from 'react'
 import { StyleSheet, Text, useWindowDimensions, View } from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'
-import { theme } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 
 import UserProfile from '../common/UserProfile'
 
-const styles = StyleSheet.create({
-  handle: {
-    fontFamily: 'font-medium',
-    fontSize: normalizeFont(10),
-    color: theme.colors.white
-  },
-  comment: {
-    fontFamily: 'font-normal',
-    fontSize: normalizeFont(12),
-    color: theme.colors.white,
-    lineHeight: 20,
-    letterSpacing: 0.5
-  },
-  timestamp: {
-    fontFamily: 'font-normal',
-    fontSize: normalizeFont(8),
-    color: theme.colors.white
-  }
-})
+const styles = (themeConfig: MobileThemeConfig) =>
+  StyleSheet.create({
+    handle: {
+      fontFamily: 'font-medium',
+      fontSize: normalizeFont(10),
+      color: themeConfig.textColor
+    },
+    comment: {
+      fontFamily: 'font-normal',
+      fontSize: normalizeFont(12),
+      color: themeConfig.textColor,
+      lineHeight: 20,
+      letterSpacing: 0.5
+    },
+    timestamp: {
+      fontFamily: 'font-normal',
+      fontSize: normalizeFont(8),
+      color: themeConfig.textColor
+    }
+  })
 
 const Comment = ({
   comment,
@@ -37,6 +39,8 @@ const Comment = ({
   numberOfLines?: number
 }) => {
   const { width } = useWindowDimensions()
+  const { themeConfig } = useMobileTheme()
+  const style = styles(themeConfig)
 
   return (
     <View
@@ -57,19 +61,23 @@ const Comment = ({
           }}
         >
           <UserProfile profile={comment.profile} size={15} radius={3} />
-          <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
+          <Text style={{ color: themeConfig.secondaryTextColor, fontSize: 3 }}>
             {'\u2B24'}
           </Text>
-          <Text style={styles.timestamp}>
+          <Text style={style.timestamp}>
             {getShortHandTime(comment.createdAt)}
           </Text>
         </View>
-        <Text numberOfLines={numberOfLines} style={styles.comment}>
+        <Text numberOfLines={numberOfLines} style={style.comment}>
           {trimify(comment.metadata.content)}
         </Text>
       </View>
       <View>
-        <Ionicons name="heart-outline" color={theme.colors.white} size={20} />
+        <Ionicons
+          name="heart-outline"
+          color={themeConfig.textColor}
+          size={20}
+        />
       </View>
     </View>
   )

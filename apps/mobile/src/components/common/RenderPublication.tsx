@@ -1,11 +1,12 @@
 import { getRelativeTime, trimNewLines } from '@lenstube/generic'
 import { type Publication, PublicationMainFocus } from '@lenstube/lens'
+import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import type { FC } from 'react'
 import React, { memo } from 'react'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'
-import { theme } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 
 import ImageSlider from '../ui/ImageSlider'
 import RenderMarkdown from './markdown/RenderMarkdown'
@@ -17,44 +18,48 @@ type Props = {
 
 const BORDER_RADIUS = 10
 
-const styles = StyleSheet.create({
-  title: {
-    color: theme.colors.white,
-    fontFamily: 'font-bold',
-    fontSize: normalizeFont(13),
-    letterSpacing: 0.5
-  },
-  textContent: {
-    fontFamily: 'font-normal',
-    fontSize: normalizeFont(13),
-    color: theme.colors.white,
-    letterSpacing: 0.6,
-    opacity: 0.9
-  },
-  thumbnail: {
-    width: '100%',
-    height: 215,
-    borderRadius: BORDER_RADIUS,
-    borderColor: theme.colors.grey,
-    borderWidth: 0.5
-  },
-  otherInfoContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-    paddingTop: 10,
-    opacity: 0.8,
-    paddingHorizontal: 5
-  },
-  otherInfo: {
-    fontFamily: 'font-normal',
-    fontSize: normalizeFont(10),
-    color: theme.colors.white
-  }
-})
+const styles = (themeConfig: MobileThemeConfig) =>
+  StyleSheet.create({
+    title: {
+      color: themeConfig.textColor,
+      fontFamily: 'font-bold',
+      fontSize: normalizeFont(13),
+      letterSpacing: 0.5
+    },
+    textContent: {
+      fontFamily: 'font-normal',
+      fontSize: normalizeFont(13),
+      color: themeConfig.textColor,
+      letterSpacing: 0.6,
+      opacity: 0.9
+    },
+    thumbnail: {
+      width: '100%',
+      height: 215,
+      borderRadius: BORDER_RADIUS,
+      borderColor: themeConfig.borderColor,
+      borderWidth: 0.5
+    },
+    otherInfoContainer: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 6,
+      paddingTop: 10,
+      opacity: 0.8,
+      paddingHorizontal: 5
+    },
+    otherInfo: {
+      fontFamily: 'font-normal',
+      fontSize: normalizeFont(10),
+      color: themeConfig.textColor
+    }
+  })
 
 const RenderPublication: FC<Props> = ({ publication }) => {
+  const { themeConfig } = useMobileTheme()
+  const style = styles(themeConfig)
+
   const media = publication.metadata?.media
   const isTextPost =
     publication.metadata.mainContentFocus === PublicationMainFocus.TextOnly ||
@@ -70,44 +75,44 @@ const RenderPublication: FC<Props> = ({ publication }) => {
           <View
             style={{
               backgroundColor: isTextPost
-                ? theme.colors.backdrop2
+                ? themeConfig.backgroudColor3
                 : 'transparent',
               paddingHorizontal: isTextPost ? 15 : 0,
               borderRadius: 20,
               borderBottomLeftRadius: 0,
-              borderColor: isTextPost ? theme.colors.grey : 'transparent',
+              borderColor: isTextPost ? themeConfig.borderColor : 'transparent',
               borderWidth: 1
             }}
           >
             {isTextPost ? (
               <RenderMarkdown
                 content={publication.metadata.content ?? ''}
-                textStyle={styles.textContent}
+                textStyle={style.textContent}
               />
             ) : (
-              <Text style={styles.textContent} numberOfLines={3}>
+              <Text style={style.textContent} numberOfLines={3}>
                 {trimNewLines(publication.metadata.content)}
               </Text>
             )}
           </View>
         )}
-        <View style={styles.otherInfoContainer}>
+        <View style={style.otherInfoContainer}>
           <UserProfile profile={publication.profile} size={15} radius={3} />
           <Text
             style={{
-              color: theme.colors.secondary,
+              color: themeConfig.secondaryTextColor,
               fontSize: 3
             }}
           >
             {'\u2B24'}
           </Text>
-          <Text style={styles.otherInfo}>
+          <Text style={style.otherInfo}>
             {publication.stats.totalUpvotes} likes
           </Text>
-          <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
+          <Text style={{ color: themeConfig.secondaryTextColor, fontSize: 3 }}>
             {'\u2B24'}
           </Text>
-          <Text style={styles.otherInfo}>
+          <Text style={style.otherInfo}>
             {getRelativeTime(publication.createdAt)}
           </Text>
         </View>
