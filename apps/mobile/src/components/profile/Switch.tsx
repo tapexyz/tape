@@ -59,9 +59,7 @@ const styles = (themeConfig: MobileThemeConfig) =>
     profileImage: {
       width: 30,
       height: 30,
-      borderRadius: BORDER_RADIUS,
-      borderWidth: 0.5,
-      borderColor: themeConfig.borderColor
+      borderRadius: BORDER_RADIUS
     }
   })
 
@@ -87,7 +85,7 @@ const Switch = () => {
             borderColor:
               selectedChannel?.id === profile.id
                 ? themeConfig.contrastBorderColor
-                : 'transparent',
+                : themeConfig.borderColor,
             borderRadius: BORDER_RADIUS
           }}
           imageStyle={{

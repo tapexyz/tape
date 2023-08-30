@@ -52,6 +52,12 @@ const styles = (themeConfig: MobileThemeConfig) =>
       alignItems: 'center',
       justifyContent: 'center',
       backgroundColor: themeConfig.backgroudColor
+    },
+    sheetContainer: {
+      justifyContent: 'space-between',
+      flexDirection: 'column',
+      flex: 1,
+      padding: 10
     }
   })
 
@@ -59,6 +65,8 @@ const AuthenticatedUser = () => {
   const profileSheetRef = useRef<BottomSheetModal>(null)
   const { navigate } = useNavigation()
   const { provider } = useWalletConnectModal()
+  const { themeConfig } = useMobileTheme()
+  const style = styles(themeConfig)
 
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
   const setSelectedChannel = useMobileStore((state) => state.setSelectedChannel)
@@ -83,46 +91,48 @@ const AuthenticatedUser = () => {
         onPress={() => profileSheetRef.current?.present()}
       />
       <Sheet sheetRef={profileSheetRef} snap={['60%']}>
-        <View style={{ padding: 10 }}>
-          <Switch />
-          <View style={{ marginTop: 15, gap: 15 }}>
-            <Menu>
-              <MenuItem
-                icon="person-outline"
-                title="My Profile"
-                onPress={() => {
-                  profileSheetRef.current?.close()
-                  navigate('ProfileScreen', {
-                    handle: selectedChannel.handle
-                  })
-                }}
-              />
-              <MenuItem
-                icon="notifications-outline"
-                title="Notifications"
-                onPress={() => {
-                  profileSheetRef.current?.close()
-                  navigate('NotificationsModal')
-                }}
-              />
-              <MenuItem icon="bookmark-outline" title="Bookmarks" />
-            </Menu>
-            <Menu>
-              <MenuItem icon="pie-chart-outline" title="Creator Studio" />
-              <MenuItem icon="people-outline" title="Manager" />
-              <MenuItem icon="cog-outline" title="Settings" />
-            </Menu>
-            <Menu>
-              <MenuItem
-                icon="log-out-outline"
-                title="Sign out"
-                onPress={() => logout()}
-                showArrow={false}
-              />
-            </Menu>
+        <View style={style.sheetContainer}>
+          <View>
+            <Switch />
+            <View style={{ marginTop: 15, gap: 15 }}>
+              <Menu>
+                <MenuItem
+                  icon="person-outline"
+                  title="My Profile"
+                  onPress={() => {
+                    profileSheetRef.current?.close()
+                    navigate('ProfileScreen', {
+                      handle: selectedChannel.handle
+                    })
+                  }}
+                />
+                <MenuItem
+                  icon="notifications-outline"
+                  title="Notifications"
+                  onPress={() => {
+                    profileSheetRef.current?.close()
+                    navigate('NotificationsModal')
+                  }}
+                />
+                <MenuItem icon="bookmark-outline" title="Bookmarks" />
+              </Menu>
+              <Menu>
+                <MenuItem icon="pie-chart-outline" title="Creator Studio" />
+                <MenuItem icon="people-outline" title="Manager" />
+                <MenuItem icon="cog-outline" title="Settings" />
+              </Menu>
+              <Menu>
+                <MenuItem
+                  icon="log-out-outline"
+                  title="Sign out"
+                  onPress={() => logout()}
+                  showArrow={false}
+                />
+              </Menu>
+            </View>
           </View>
+          <AppInfo />
         </View>
-        <AppInfo />
       </Sheet>
     </>
   )
