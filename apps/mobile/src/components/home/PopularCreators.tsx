@@ -2,6 +2,7 @@ import { RECS_URL } from '@lenstube/constants'
 import { getProfilePicture, shuffleArray } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import { useAllProfilesQuery } from '@lenstube/lens'
+import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { useNavigation } from '@react-navigation/native'
 import { Image as ExpoImage } from 'expo-image'
 import React, { useMemo } from 'react'
@@ -16,44 +17,47 @@ import Animated, { FadeInRight } from 'react-native-reanimated'
 import useSWR from 'swr'
 
 import normalizeFont from '~/helpers/normalize-font'
-import { theme } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 
 import AnimatedPressable from '../ui/AnimatedPressable'
 
 const BORDER_RADIUS = 25
 
-const styles = StyleSheet.create({
-  container: {
-    marginTop: 10
-  },
-  imageContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    borderRadius: BORDER_RADIUS,
-    overflow: 'hidden',
-    borderWidth: 1,
-    borderColor: theme.colors.grey
-  },
-  title: {
-    fontFamily: 'font-bold',
-    color: theme.colors.white,
-    fontSize: normalizeFont(14)
-  },
-  subheading: {
-    fontFamily: 'font-normal',
-    color: theme.colors.secondary,
-    fontSize: normalizeFont(12)
-  },
-  image: {
-    width: 120,
-    height: 120,
-    backgroundColor: theme.colors.backdrop
-  }
-})
+const styles = (themeConfig: MobileThemeConfig) =>
+  StyleSheet.create({
+    container: {
+      marginTop: 10
+    },
+    imageContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      borderRadius: BORDER_RADIUS,
+      overflow: 'hidden',
+      borderWidth: 1,
+      borderColor: themeConfig.borderColor
+    },
+    title: {
+      fontFamily: 'font-bold',
+      color: themeConfig.textColor,
+      fontSize: normalizeFont(14)
+    },
+    subheading: {
+      fontFamily: 'font-normal',
+      color: themeConfig.secondaryTextColor,
+      fontSize: normalizeFont(12)
+    },
+    image: {
+      width: 120,
+      height: 120,
+      backgroundColor: themeConfig.backgroudColor2
+    }
+  })
 
 const PopularCreators = () => {
   const { navigate } = useNavigation()
+  const { themeConfig } = useMobileTheme()
+  const style = styles(themeConfig)
 
   const { data: recsData, isLoading: recsLoading } = useSWR(
     `${RECS_URL}/k3l-score/creator/49/0`,
@@ -77,9 +81,9 @@ const PopularCreators = () => {
   )
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Creators on Lens</Text>
-      <Text style={styles.subheading}>Discover, Connect, and Collect</Text>
+    <View style={style.container}>
+      <Text style={style.title}>Creators on Lens</Text>
+      <Text style={style.subheading}>Discover, Connect, and Collect</Text>
       <Animated.View
         entering={FadeInRight}
         style={{
@@ -108,14 +112,14 @@ const PopularCreators = () => {
                   handle: profile.handle
                 })
               }
-              style={styles.imageContainer}
+              style={style.imageContainer}
             >
               <ExpoImage
                 source={{
                   uri: getProfilePicture(profile)
                 }}
                 transition={300}
-                style={styles.image}
+                style={style.image}
               />
             </AnimatedPressable>
           ))}

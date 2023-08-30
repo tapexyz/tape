@@ -1,6 +1,7 @@
 import { NFTS_URL } from '@lenstube/constants'
 import { imageCdn, sanitizeDStorageUrl } from '@lenstube/generic'
 import { type Profile } from '@lenstube/lens'
+import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { ResizeMode, Video } from 'expo-av'
 import type { FC } from 'react'
 import React, { memo, useCallback } from 'react'
@@ -14,7 +15,7 @@ import {
 import Animated from 'react-native-reanimated'
 import useSWR from 'swr'
 
-import { theme } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 
 type Props = {
   profile: Profile
@@ -24,22 +25,25 @@ type Props = {
 const GRID_GAP = 5
 const NUM_COLUMNS = 2
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-  card: {
-    width: '100%',
-    height: 210,
-    borderRadius: GRID_GAP,
-    borderColor: theme.colors.grey,
-    borderWidth: 0.5,
-    backgroundColor: theme.colors.backdrop
-  }
-})
+const styles = (themeConfig: MobileThemeConfig) =>
+  StyleSheet.create({
+    container: {
+      flex: 1
+    },
+    card: {
+      width: '100%',
+      height: 210,
+      borderRadius: GRID_GAP,
+      borderColor: themeConfig.borderColor,
+      borderWidth: 0.5,
+      backgroundColor: themeConfig.backgroudColor2
+    }
+  })
 
 const Gallery: FC<Props> = ({ profile, scrollHandler }) => {
   const { height, width } = useWindowDimensions()
+  const { themeConfig } = useMobileTheme()
+  const style = styles(themeConfig)
 
   const { data: nfts, isLoading } = useSWR(
     `${NFTS_URL}/${profile.handle}/200`,
@@ -70,11 +74,11 @@ const Gallery: FC<Props> = ({ profile, scrollHandler }) => {
                 : item.contentValue.video ?? item.contentValue.audio
             )
           }}
-          style={styles.card}
+          style={style.card}
         />
       </View>
     ),
-    [width]
+    [width, style]
   )
 
   if (isLoading) {
@@ -82,10 +86,10 @@ const Gallery: FC<Props> = ({ profile, scrollHandler }) => {
   }
 
   return (
-    <View style={[styles.container, { height }]}>
+    <View style={[style.container, { height }]}>
       <Animated.FlatList
         contentContainerStyle={{
-          paddingBottom: nfts.items?.length < 10 ? 350 : 180
+          paddingBottom: nfts.items?.length < 10 ? 500 : 180
         }}
         data={nfts.items}
         renderItem={renderItem}

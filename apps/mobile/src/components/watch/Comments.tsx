@@ -1,6 +1,8 @@
 import type { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
-import { type Publication, useCommentsQuery } from '@lenstube/lens'
+import type { Publication, PublicationsQueryRequest } from '@lenstube/lens'
+import { useCommentsQuery } from '@lenstube/lens'
+import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { FlashList } from '@shopify/flash-list'
 import { Skeleton } from 'moti/skeleton'
 import type { FC } from 'react'
@@ -9,11 +11,14 @@ import {
   ActivityIndicator,
   Pressable,
   StyleSheet,
+  Text,
   useWindowDimensions,
   View
 } from 'react-native'
 
-import { theme } from '~/helpers/theme'
+import normalizeFont from '~/helpers/normalize-font'
+import { colors } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 
 import Sheet from '../ui/Sheet'
 import Comment from './Comment'
@@ -22,40 +27,50 @@ import CommentButton from './CommentButton'
 // fixed height to fix CLS between comment and comment button
 const CONTAINER_HEIGHT = 80
 
-const styles = StyleSheet.create({
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    borderRadius: 15,
-    backgroundColor: theme.colors.backdrop,
-    gap: 10,
-    height: CONTAINER_HEIGHT,
-    width: '100%'
-  }
-})
+const styles = (themeConfig: MobileThemeConfig) =>
+  StyleSheet.create({
+    container: {
+      display: 'flex',
+      flexDirection: 'column',
+      borderRadius: 15,
+      backgroundColor: themeConfig.sheetBackgroundColor,
+      gap: 10,
+      height: CONTAINER_HEIGHT,
+      width: '100%'
+    },
+    title: {
+      fontFamily: 'font-bold',
+      color: themeConfig.textColor,
+      fontSize: normalizeFont(14),
+      paddingBottom: 10
+    }
+  })
 
 type Props = {
   id: string
 }
 
 const Comments: FC<Props> = ({ id }) => {
-  const commentsSheetRef = useRef<BottomSheetModal>(null)
-  const { height } = useWindowDimensions()
+  const { themeConfig } = useMobileTheme()
+  const style = styles(themeConfig)
 
-  const request = {
+  const { height } = useWindowDimensions()
+  const commentsSheetRef = useRef<BottomSheetModal>(null)
+
+  const request: PublicationsQueryRequest = {
     limit: 10,
     customFilters: LENS_CUSTOM_FILTERS,
     commentsOf: id
   }
 
-  const { data, fetchMore, loading } = useCommentsQuery({
+  const { data, fetchMore, loading, refetch } = useCommentsQuery({
     variables: { request },
     skip: !id
   })
   const comments = data?.publications?.items as Publication[]
   const pageInfo = data?.publications?.pageInfo
 
-  const fetchMoreVideos = async () => {
+  const fetchMoreComments = async () => {
     await fetchMore({
       variables: {
         request: {
@@ -67,23 +82,28 @@ const Comments: FC<Props> = ({ id }) => {
   }
 
   const renderItem = useCallback(
-    ({ item }: { item: Publication }) => <Comment comment={item} />,
+    ({ item }: { item: Publication }) => (
+      <View style={{ marginTop: 20 }}>
+        <Comment comment={item} richText />
+      </View>
+    ),
     []
   )
 
   return (
     <>
-      <View style={styles.container}>
+      <View style={style.container}>
         <Skeleton
           show={loading}
-          colors={[theme.colors.backdrop, theme.colors.grey]}
+          colors={[themeConfig.sheetBackgroundColor, colors.grey]}
           radius={15}
           height={CONTAINER_HEIGHT}
         >
           <Pressable
             style={{
               flex: 1,
-              justifyContent: 'center'
+              justifyContent: 'center',
+              paddingHorizontal: 15
             }}
             onPress={() => commentsSheetRef.current?.present()}
           >
@@ -96,26 +116,30 @@ const Comments: FC<Props> = ({ id }) => {
         </Skeleton>
       </View>
 
-      <Sheet sheetRef={commentsSheetRef} snap={['70%']}>
+      <Sheet sheetRef={commentsSheetRef} snap={['70%']} backdropOpacity={0.9}>
         <View
           style={{
             flex: 1,
             height: height / 2,
-            paddingVertical: 5
+            padding: 20
           }}
         >
+          <Text style={style.title}>Comments</Text>
+
           {comments?.length ? (
             <FlashList
               data={comments}
-              estimatedItemSize={comments?.length ?? 0}
+              estimatedItemSize={comments.length}
               ListFooterComponent={() =>
                 loading && <ActivityIndicator style={{ paddingVertical: 20 }} />
               }
               keyExtractor={(item, i) => `${item.id}_${i}`}
               onEndReachedThreshold={0.8}
-              onEndReached={() => fetchMoreVideos()}
+              onEndReached={() => fetchMoreComments()}
               showsVerticalScrollIndicator={false}
               renderItem={renderItem}
+              onRefresh={() => refetch()}
+              refreshing={Boolean(comments?.length) && loading}
             />
           ) : null}
         </View>

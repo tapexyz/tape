@@ -1,30 +1,34 @@
+import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import React, { useMemo } from 'react'
 import { StyleSheet, View } from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'
-import { theme } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 
-const styles = StyleSheet.create({
-  title: {
-    color: theme.colors.white,
-    fontFamily: 'font-bold',
-    fontSize: normalizeFont(13),
-    letterSpacing: 0.5
-  },
-  sticks: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    gap: 5
-  },
-  stick: {
-    width: 1,
-    borderRadius: 10,
-    backgroundColor: '#FF9729'
-  }
-})
+const styles = (themeConfig: MobileThemeConfig) =>
+  StyleSheet.create({
+    title: {
+      color: themeConfig.textColor,
+      fontFamily: 'font-bold',
+      fontSize: normalizeFont(13),
+      letterSpacing: 0.5
+    },
+    sticks: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'flex-end',
+      gap: 5
+    },
+    stick: {
+      width: 1,
+      borderRadius: 10,
+      backgroundColor: '#FF9729'
+    }
+  })
 
 const WaveForm = () => {
+  const { themeConfig } = useMobileTheme()
+  const style = styles(themeConfig)
   const sticks = useMemo(() => Array(100).fill(1), [])
 
   const getRandomInt = (min = 0, max = 30) => {
@@ -33,12 +37,12 @@ const WaveForm = () => {
 
   return (
     <View>
-      <View style={styles.sticks}>
+      <View style={style.sticks}>
         {sticks.map((s, i) => (
           <View
             key={s + i}
             style={[
-              styles.stick,
+              style.stick,
               {
                 height: getRandomInt()
               }
@@ -46,12 +50,12 @@ const WaveForm = () => {
           />
         ))}
       </View>
-      <View style={[styles.sticks, { alignItems: 'flex-start' }]}>
+      <View style={[style.sticks, { alignItems: 'flex-start' }]}>
         {sticks.map((s, i) => (
           <View
             key={s + i}
             style={[
-              styles.stick,
+              style.stick,
               {
                 height: getRandomInt(5, 12),
                 backgroundColor: '#606060'

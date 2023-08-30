@@ -1,23 +1,30 @@
 import type { BottomSheetBackdropProps } from '@gorhom/bottom-sheet'
-import { BottomSheetBackdrop, BottomSheetModal } from '@gorhom/bottom-sheet'
+import {
+  BottomSheetBackdrop,
+  BottomSheetModal,
+  BottomSheetScrollView
+} from '@gorhom/bottom-sheet'
 import type { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import type { FC, PropsWithChildren } from 'react'
 import React, { useCallback, useMemo, useRef } from 'react'
 
-import { theme } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 
 type Props = {
   sheetRef?: React.RefObject<BottomSheetModalMethods>
   snap?: string[]
   marginX?: number
+  backdropOpacity?: number
 }
 
 const Sheet: FC<PropsWithChildren & Props> = ({
   snap,
   marginX,
   children,
-  sheetRef
+  sheetRef,
+  backdropOpacity = 0.5
 }) => {
+  const { themeConfig } = useMobileTheme()
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
 
   const snapPoints = useMemo(() => snap ?? ['40%'], [snap])
@@ -26,12 +33,12 @@ const Sheet: FC<PropsWithChildren & Props> = ({
     (props: BottomSheetBackdropProps) => (
       <BottomSheetBackdrop
         {...props}
-        opacity={0.5}
+        opacity={backdropOpacity}
         disappearsOnIndex={-1}
         appearsOnIndex={0}
       />
     ),
-    []
+    [backdropOpacity]
   )
 
   return (
@@ -41,15 +48,15 @@ const Sheet: FC<PropsWithChildren & Props> = ({
       handleComponent={null}
       backgroundStyle={{
         borderRadius: 40,
-        backgroundColor: theme.colors.backdrop,
-        borderColor: theme.colors.grey,
+        backgroundColor: themeConfig.sheetBackgroundColor,
+        borderColor: themeConfig.sheetBorderColor,
         borderWidth: 0.5
       }}
       animationConfigs={{
         duration: 200
       }}
       style={{
-        marginHorizontal: marginX ?? 3,
+        marginHorizontal: marginX ?? 7,
         overflow: 'hidden',
         borderRadius: 40
       }}
@@ -58,7 +65,12 @@ const Sheet: FC<PropsWithChildren & Props> = ({
       snapPoints={snapPoints}
       backdropComponent={renderBackdrop}
     >
-      {children}
+      <BottomSheetScrollView
+        contentContainerStyle={{ flex: 1 }}
+        showsVerticalScrollIndicator={false}
+      >
+        {children}
+      </BottomSheetScrollView>
     </BottomSheetModal>
   )
 }

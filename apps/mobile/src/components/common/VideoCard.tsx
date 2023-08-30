@@ -11,6 +11,7 @@ import {
   trimNewLines
 } from '@lenstube/generic'
 import type { Attribute, Publication } from '@lenstube/lens'
+import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { useNavigation } from '@react-navigation/native'
 import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
@@ -24,7 +25,7 @@ import {
 } from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'
-import { theme } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 
 import UserProfile from './UserProfile'
 
@@ -34,64 +35,67 @@ type Props = {
 
 const BORDER_RADIUS = 10
 
-const styles = StyleSheet.create({
-  title: {
-    color: theme.colors.white,
-    fontFamily: 'font-bold',
-    fontSize: normalizeFont(13),
-    letterSpacing: 0.5
-  },
-  description: {
-    fontFamily: 'font-normal',
-    fontSize: normalizeFont(12),
-    color: theme.colors.secondary,
-    paddingTop: 10
-  },
-  thumbnail: {
-    width: '100%',
-    height: 215,
-    borderRadius: BORDER_RADIUS,
-    borderColor: theme.colors.grey,
-    borderWidth: 0.5
-  },
-  otherInfoContainer: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-    paddingTop: 10,
-    opacity: 0.8
-  },
-  otherInfo: {
-    fontFamily: 'font-normal',
-    fontSize: normalizeFont(10),
-    color: theme.colors.white
-  },
-  duration: {
-    position: 'absolute',
-    bottom: 7,
-    right: 7,
-    borderRadius: 5,
-    paddingHorizontal: 5,
-    paddingVertical: 3,
-    backgroundColor: theme.colors.black
-  },
-  sensitive: {
-    position: 'absolute',
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 5,
-    top: 7,
-    right: 7,
-    borderRadius: 5,
-    paddingHorizontal: 5,
-    paddingVertical: 3,
-    backgroundColor: theme.colors.black
-  }
-})
+const styles = (themeConfig: MobileThemeConfig) =>
+  StyleSheet.create({
+    title: {
+      color: themeConfig.textColor,
+      fontFamily: 'font-bold',
+      fontSize: normalizeFont(13),
+      letterSpacing: 0.5
+    },
+    description: {
+      fontFamily: 'font-normal',
+      fontSize: normalizeFont(12),
+      color: themeConfig.secondaryTextColor,
+      paddingTop: 10
+    },
+    thumbnail: {
+      width: '100%',
+      height: 215,
+      borderRadius: BORDER_RADIUS,
+      borderColor: themeConfig.borderColor,
+      borderWidth: 0.5
+    },
+    otherInfoContainer: {
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 6,
+      paddingTop: 10,
+      opacity: 0.8
+    },
+    otherInfo: {
+      fontFamily: 'font-normal',
+      fontSize: normalizeFont(10),
+      color: themeConfig.textColor
+    },
+    duration: {
+      position: 'absolute',
+      bottom: 7,
+      right: 7,
+      borderRadius: 5,
+      paddingHorizontal: 5,
+      paddingVertical: 3,
+      backgroundColor: themeConfig.backgroudColor
+    },
+    sensitive: {
+      position: 'absolute',
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 5,
+      top: 7,
+      right: 7,
+      borderRadius: 5,
+      paddingHorizontal: 5,
+      paddingVertical: 3,
+      backgroundColor: themeConfig.backgroudColor
+    }
+  })
 
 const VideoCard: FC<Props> = ({ video }) => {
   const { navigate } = useNavigation()
+  const { themeConfig } = useMobileTheme()
+  const style = styles(themeConfig)
 
   const isBytes = video.appId === LENSTUBE_BYTES_APP_ID
   const isSensitiveContent = getIsSensitiveContent(video?.metadata, video.id)
@@ -120,46 +124,46 @@ const VideoCard: FC<Props> = ({ video }) => {
           source={{ uri: thumbnailUrl }}
           transition={300}
           contentFit={isBytes ? 'contain' : 'cover'}
-          style={styles.thumbnail}
+          style={style.thumbnail}
         />
         {videoDuration && (
-          <View style={styles.duration}>
-            <Text style={styles.otherInfo}>
+          <View style={style.duration}>
+            <Text style={style.otherInfo}>
               {getTimeFromSeconds(videoDuration)}
             </Text>
           </View>
         )}
         {isSensitiveContent && (
-          <View style={styles.sensitive}>
+          <View style={style.sensitive}>
             <Ionicons
               name="eye-off-outline"
-              color={theme.colors.white}
+              color={themeConfig.textColor}
               size={10}
             />
-            <Text style={styles.otherInfo}>Sensitive</Text>
+            <Text style={style.otherInfo}>Sensitive</Text>
           </View>
         )}
       </ImageBackground>
 
       <View style={{ paddingVertical: 15, paddingHorizontal: 5 }}>
-        <Text numberOfLines={3} style={styles.title}>
+        <Text numberOfLines={3} style={style.title}>
           {trimify(video.metadata.name ?? '')}
         </Text>
         {video.metadata.description && (
-          <Text numberOfLines={3} style={styles.description}>
+          <Text numberOfLines={3} style={style.description}>
             {trimNewLines(video.metadata.description)}
           </Text>
         )}
-        <View style={styles.otherInfoContainer}>
+        <View style={style.otherInfoContainer}>
           <UserProfile profile={video.profile} size={15} radius={3} />
-          <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
+          <Text style={{ color: themeConfig.secondaryTextColor, fontSize: 3 }}>
             {'\u2B24'}
           </Text>
-          <Text style={styles.otherInfo}>{video.stats.totalUpvotes} likes</Text>
-          <Text style={{ color: theme.colors.secondary, fontSize: 3 }}>
+          <Text style={style.otherInfo}>{video.stats.totalUpvotes} likes</Text>
+          <Text style={{ color: themeConfig.secondaryTextColor, fontSize: 3 }}>
             {'\u2B24'}
           </Text>
-          <Text style={styles.otherInfo}>
+          <Text style={style.otherInfo}>
             {getRelativeTime(video.createdAt)}
           </Text>
         </View>

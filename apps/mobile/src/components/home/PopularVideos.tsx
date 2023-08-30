@@ -7,6 +7,7 @@ import {
   PublicationTypes,
   useExploreQuery
 } from '@lenstube/lens'
+import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { useNavigation } from '@react-navigation/native'
 import { Image as ExpoImage } from 'expo-image'
 import { LinearGradient } from 'expo-linear-gradient'
@@ -21,7 +22,7 @@ import {
 } from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'
-import { theme } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 import useMobileStore from '~/store'
 
 import UserProfile from '../common/UserProfile'
@@ -31,56 +32,59 @@ import ServerError from '../ui/ServerError'
 const CAROUSEL_HEIGHT = 210
 const BORDER_RADIUS = 25
 
-const styles = StyleSheet.create({
-  container: {
-    paddingTop: 30,
-    position: 'relative',
-    flex: 1,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center'
-  },
-  thumbnail: {
-    width: '100%',
-    height: CAROUSEL_HEIGHT,
-    borderRadius: BORDER_RADIUS,
-    borderColor: theme.colors.grey,
-    borderWidth: 1
-  },
-  gradient: {
-    alignSelf: 'center',
-    position: 'absolute',
-    top: 0,
-    marginTop: 1,
-    right: 1,
-    left: 1,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    gap: 6,
-    paddingHorizontal: 15,
-    paddingVertical: 12,
-    opacity: 0.8,
-    borderTopLeftRadius: BORDER_RADIUS,
-    borderTopRightRadius: BORDER_RADIUS,
-    zIndex: 2
-  },
-  otherInfo: {
-    fontFamily: 'font-medium',
-    fontSize: normalizeFont(10),
-    color: theme.colors.white
-  },
-  title: {
-    fontFamily: 'font-bold',
-    color: theme.colors.white,
-    fontSize: normalizeFont(10),
-    width: '60%'
-  }
-})
+const styles = (themeConfig: MobileThemeConfig) =>
+  StyleSheet.create({
+    container: {
+      paddingTop: 30,
+      position: 'relative',
+      flex: 1,
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center'
+    },
+    thumbnail: {
+      width: '100%',
+      height: CAROUSEL_HEIGHT,
+      borderRadius: BORDER_RADIUS,
+      borderColor: themeConfig.borderColor,
+      borderWidth: 1
+    },
+    gradient: {
+      alignSelf: 'center',
+      position: 'absolute',
+      top: 0,
+      marginTop: 1,
+      right: 1,
+      left: 1,
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center',
+      gap: 6,
+      paddingHorizontal: 15,
+      paddingVertical: 12,
+      opacity: 0.8,
+      borderTopLeftRadius: BORDER_RADIUS,
+      borderTopRightRadius: BORDER_RADIUS,
+      zIndex: 2
+    },
+    otherInfo: {
+      fontFamily: 'font-medium',
+      fontSize: normalizeFont(10),
+      color: themeConfig.textColor
+    },
+    title: {
+      fontFamily: 'font-bold',
+      color: themeConfig.textColor,
+      fontSize: normalizeFont(10),
+      width: '60%'
+    }
+  })
 
 const PopularVideos = () => {
   const { navigate } = useNavigation()
+  const { themeConfig } = useMobileTheme()
+  const style = styles(themeConfig)
 
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
   const homeGradientColor = useMobileStore((state) => state.homeGradientColor)
@@ -108,7 +112,7 @@ const PopularVideos = () => {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={style.container}>
       <Skeleton
         show={loading}
         colors={[`${homeGradientColor}10`, '#00000080']}
@@ -140,9 +144,9 @@ const PopularVideos = () => {
                   >
                     <LinearGradient
                       colors={['#00000090', '#00000080', 'transparent']}
-                      style={styles.gradient}
+                      style={style.gradient}
                     >
-                      <Text numberOfLines={1} style={styles.title}>
+                      <Text numberOfLines={1} style={style.title}>
                         {trimify(item.metadata.name ?? '')}
                       </Text>
                       <UserProfile
@@ -157,7 +161,7 @@ const PopularVideos = () => {
                       }}
                       transition={300}
                       contentFit={isBytes ? 'contain' : 'cover'}
-                      style={styles.thumbnail}
+                      style={style.thumbnail}
                     />
                   </ImageBackground>
                 </Pressable>

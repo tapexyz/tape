@@ -25,7 +25,8 @@ const cache = new InMemoryCache({
             'publicationTypes',
             'sources',
             'commentsRankingFilter',
-            'commentsOfOrdering'
+            'commentsOfOrdering',
+            'metadata'
           ]
         ]),
         nfts: cursorBasedPagination(['request', ['ownerAddress']]),

@@ -1,8 +1,10 @@
-import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
+import { LENS_CUSTOM_FILTERS, RECS_URL } from '@lenstube/constants'
 import type {
+  ExplorePublicationRequest,
   FeedHighlightsRequest,
   FeedItem,
   FeedItemRoot,
+  FeedRequest,
   Publication
 } from '@lenstube/lens'
 import {
@@ -12,15 +14,18 @@ import {
   PublicationTypes,
   useExploreQuery,
   useFeedHighlightsQuery,
-  useFeedQuery
+  useFeedQuery,
+  useProfilePostsQuery
 } from '@lenstube/lens'
-import { TimelineFeedType } from '@lenstube/lens/custom-types'
+import { AlgoType, TimelineFeedType } from '@lenstube/lens/custom-types'
 import { useScrollToTop } from '@react-navigation/native'
 import { FlashList } from '@shopify/flash-list'
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef } from 'react'
 import { ActivityIndicator, StyleSheet, View } from 'react-native'
+import useSWR from 'swr'
 
 import { windowHeight } from '~/helpers/theme'
+import useMobileHomeFeedStore from '~/store/feed'
 import { useMobilePersistStore } from '~/store/persist'
 
 import AudioCard from '../common/AudioCard'
@@ -41,8 +46,14 @@ const styles = StyleSheet.create({
 })
 
 const Timeline = () => {
-  const [selectedFeedType, setSelectedFeedType] = useState(
-    TimelineFeedType.CURATED
+  const selectedFeedType = useMobileHomeFeedStore(
+    (state) => state.selectedFeedType
+  )
+  const setSelectedFeedType = useMobileHomeFeedStore(
+    (state) => state.setSelectedFeedType
+  )
+  const selectedAlgoType = useMobileHomeFeedStore(
+    (state) => state.selectedAlgoType
   )
   const selectedChannelId = useMobilePersistStore(
     (state) => state.selectedChannelId
@@ -56,9 +67,10 @@ const Timeline = () => {
     if (!selectedChannelId) {
       setSelectedFeedType(TimelineFeedType.CURATED)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedChannelId])
 
-  const feedRequest = {
+  const feedRequest: FeedRequest = {
     limit: 50,
     feedEventItemTypes: [FeedEventItemType.Post],
     profileId: selectedChannelId,
@@ -67,7 +79,7 @@ const Timeline = () => {
     }
   }
 
-  const curatedRequest = {
+  const curatedRequest: ExplorePublicationRequest = {
     sortCriteria: PublicationSortCriteria.CuratedProfiles,
     limit: 10,
     noRandomize: false,
@@ -112,8 +124,40 @@ const Timeline = () => {
       skip: !selectedChannelId
     })
 
+  const getAlgoStrategy = () => {
+    switch (selectedAlgoType) {
+      case AlgoType.K3L_CROWDSOURCED:
+        return 'crowdsourced'
+      case AlgoType.K3L_POPULAR:
+        return 'popular'
+      case AlgoType.K3L_RECOMMENDED:
+        return 'recommended'
+    }
+  }
+
+  const { data: recsData } = useSWR(
+    `${RECS_URL}/k3l-feed/${getAlgoStrategy()}`,
+    (url: string) => fetch(url).then((res) => res.json())
+  )
+
+  const publicationIds = recsData?.items as string[]
+
+  const { data, loading: recsLoading } = useProfilePostsQuery({
+    variables: {
+      request: { publicationIds, limit: 50 },
+      reactionRequest: selectedChannelId
+        ? { profileId: selectedChannelId }
+        : null,
+      channelId: selectedChannelId ?? null
+    },
+    skip: !publicationIds,
+    fetchPolicy: 'no-cache'
+  })
+
   const publications =
-    selectedFeedType === TimelineFeedType.HIGHLIGHTS
+    selectedFeedType === TimelineFeedType.ALGORITHM
+      ? (data?.publications.items as Publication[])
+      : selectedFeedType === TimelineFeedType.HIGHLIGHTS
       ? (feedHighlightsData?.feedHighlights.items as Publication[])
       : selectedFeedType === TimelineFeedType.FOLLOWING
       ? (feedData?.feed?.items as FeedItem[])
@@ -187,12 +231,10 @@ const Timeline = () => {
         <FirstSteps />
         <PopularCreators />
         <Streak />
-        <TimelineFilters
-          selectedFeedType={selectedFeedType}
-          setSelectedFeedType={setSelectedFeedType}
-        />
+        <TimelineFilters />
       </>
     ),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [selectedFeedType]
   )
 
@@ -212,11 +254,17 @@ const Timeline = () => {
         data={publications}
         estimatedItemSize={publications?.length ?? []}
         renderItem={renderItem}
-        keyExtractor={(item, i) => `${i + 1}_${i}`}
-        ListFooterComponent={() => (
-          <ActivityIndicator style={{ paddingVertical: 20 }} />
-        )}
-        onEndReached={fetchMorePublications}
+        keyExtractor={(_item, i) => `${i + 1}_${i}`}
+        ListFooterComponent={() =>
+          selectedFeedType !== TimelineFeedType.ALGORITHM || recsLoading ? (
+            <ActivityIndicator style={{ paddingVertical: 20 }} />
+          ) : null
+        }
+        onEndReached={
+          selectedFeedType !== TimelineFeedType.ALGORITHM
+            ? fetchMorePublications
+            : null
+        }
         onEndReachedThreshold={0.8}
         showsVerticalScrollIndicator={false}
       />

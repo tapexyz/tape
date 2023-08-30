@@ -1,5 +1,5 @@
 import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
-import type { Comment, Profile } from '@lenstube/lens'
+import type { Comment, Profile, PublicationsQueryRequest } from '@lenstube/lens'
 import {
   PublicationMainFocus,
   PublicationTypes,
@@ -16,7 +16,6 @@ import {
 } from 'react-native'
 import Animated from 'react-native-reanimated'
 
-import ImageCard from '~/components/common/ImageCard'
 import ServerError from '~/components/ui/ServerError'
 
 import AudioCard from '../../common/AudioCard'
@@ -37,7 +36,7 @@ const styles = StyleSheet.create({
 const Replies: FC<Props> = ({ profile, scrollHandler }) => {
   const { height } = useWindowDimensions()
 
-  const request = {
+  const request: PublicationsQueryRequest = {
     publicationTypes: [PublicationTypes.Comment],
     limit: 10,
     metadata: {
@@ -51,7 +50,7 @@ const Replies: FC<Props> = ({ profile, scrollHandler }) => {
     profileId: profile?.id
   }
 
-  const { data, loading, fetchMore, error } = useCommentsQuery({
+  const { data, loading, fetchMore, error, refetch } = useCommentsQuery({
     variables: {
       request
     },
@@ -77,8 +76,6 @@ const Replies: FC<Props> = ({ profile, scrollHandler }) => {
       <View style={{ marginBottom: 30 }}>
         {item.metadata.mainContentFocus === PublicationMainFocus.Audio ? (
           <AudioCard audio={item} />
-        ) : item.metadata.mainContentFocus === PublicationMainFocus.Image ? (
-          <ImageCard image={item} />
         ) : (
           <VideoCard video={item} />
         )}
@@ -100,7 +97,7 @@ const Replies: FC<Props> = ({ profile, scrollHandler }) => {
       <Animated.FlatList
         data={publications}
         contentContainerStyle={{
-          paddingBottom: publications?.length < 5 ? 350 : 180
+          paddingBottom: publications?.length < 5 ? 500 : 180
         }}
         renderItem={renderItem}
         keyExtractor={(item, i) => `${item.id}_${i}`}
@@ -112,6 +109,8 @@ const Replies: FC<Props> = ({ profile, scrollHandler }) => {
         showsVerticalScrollIndicator={false}
         onScroll={scrollHandler}
         scrollEventThrottle={16}
+        onRefresh={() => refetch()}
+        refreshing={Boolean(publications?.length) && loading}
       />
     </View>
   )

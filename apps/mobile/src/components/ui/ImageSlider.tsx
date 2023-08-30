@@ -5,7 +5,7 @@ import React, { memo, useState } from 'react'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'
-import { theme } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 
 const styles = StyleSheet.create({
   container: {
@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
 const MAX_SHOW_COUNT = 4
 
 const ImageSlider = ({ images }: { images: MediaSet[] }) => {
+  const { themeConfig } = useMobileTheme()
   const [selectedItem, setSelectedItem] = useState(0)
 
   return (
@@ -53,7 +54,7 @@ const ImageSlider = ({ images }: { images: MediaSet[] }) => {
                   }}
                   style={[
                     StyleSheet.absoluteFillObject,
-                    { backgroundColor: theme.colors.backdrop }
+                    { backgroundColor: themeConfig.backgroudColor2 }
                   ]}
                   transition={300}
                   contentFit="cover"
@@ -72,7 +73,7 @@ const ImageSlider = ({ images }: { images: MediaSet[] }) => {
                         backgroundColor:
                           selectedItem === index
                             ? 'transparent'
-                            : theme.colors.white,
+                            : themeConfig.contrastBackgroundColor,
                         width: 15,
                         height: 15,
                         borderRadius: 100,
@@ -83,7 +84,7 @@ const ImageSlider = ({ images }: { images: MediaSet[] }) => {
                     >
                       <Text
                         style={{
-                          color: theme.colors.black,
+                          color: themeConfig.contrastTextColor,
                           fontFamily: 'font-medium',
                           fontSize: normalizeFont(6)
                         }}

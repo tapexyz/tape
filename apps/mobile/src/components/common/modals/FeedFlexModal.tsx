@@ -1,5 +1,7 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { FEED_ALGORITHMS } from '@lenstube/constants'
+import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
+import { TimelineFeedType } from '@lenstube/lens/custom-types'
 import { useNavigation } from '@react-navigation/native'
 import { BlurView } from 'expo-blur'
 import React from 'react'
@@ -8,7 +10,6 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   useWindowDimensions,
   View
 } from 'react-native'
@@ -16,73 +17,89 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
-import { theme } from '~/helpers/theme'
-import { usePlatform } from '~/hooks'
+import { useMobileTheme, usePlatform } from '~/hooks'
+import useMobileHomeFeedStore from '~/store/feed'
+import { isLightMode } from '~/store/persist'
 
-const styles = StyleSheet.create({
-  container: {
-    position: 'relative',
-    flex: 1,
-    alignItems: 'center'
-  },
-  text: {
-    fontFamily: 'font-medium',
-    fontSize: normalizeFont(20),
-    letterSpacing: 2,
-    color: theme.colors.white
-  },
-  close: {
-    position: 'absolute',
-    backgroundColor: theme.colors.white,
-    padding: 10,
-    borderRadius: 100,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 60,
-    height: 60,
-    bottom: 50
-  },
-  listContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 30
-  },
-  group: {
-    paddingBottom: 20
-  },
-  groupItems: {
-    gap: 20
-  },
-  groupTitle: {
-    fontFamily: 'font-medium',
-    fontSize: normalizeFont(12),
-    letterSpacing: 2,
-    color: theme.colors.white
-  }
-})
+const styles = (themeConfig: MobileThemeConfig) =>
+  StyleSheet.create({
+    container: {
+      position: 'relative',
+      flex: 1,
+      alignItems: 'center'
+    },
+    text: {
+      fontFamily: 'font-medium',
+      fontSize: normalizeFont(20),
+      letterSpacing: 2,
+      color: themeConfig.textColor
+    },
+    close: {
+      position: 'absolute',
+      backgroundColor: themeConfig.contrastBackgroundColor,
+      padding: 10,
+      borderRadius: 100,
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: 60,
+      height: 60,
+      bottom: 50
+    },
+    listContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      gap: 30
+    },
+    group: {
+      paddingBottom: 20
+    },
+    groupItems: {
+      gap: 20
+    },
+    groupTitle: {
+      fontFamily: 'font-medium',
+      fontSize: normalizeFont(12),
+      letterSpacing: 2,
+      color: themeConfig.textColor
+    }
+  })
 
 export const FeedFlexModal = (): JSX.Element => {
   const { goBack } = useNavigation()
   const { top } = useSafeAreaInsets()
   const { height } = useWindowDimensions()
   const { isAndroid } = usePlatform()
+  const { themeConfig } = useMobileTheme()
+  const style = styles(themeConfig)
+
+  const setSelectedFeedType = useMobileHomeFeedStore(
+    (state) => state.setSelectedFeedType
+  )
+  const selectedAlgoType = useMobileHomeFeedStore(
+    (state) => state.selectedAlgoType
+  )
+  const setSelectedAlgoType = useMobileHomeFeedStore(
+    (state) => state.setSelectedAlgoType
+  )
 
   return (
     <BlurView
       intensity={100}
-      tint="dark"
+      tint={isLightMode() ? 'light' : 'dark'}
       style={[
-        styles.container,
+        style.container,
         {
-          backgroundColor: isAndroid ? theme.colors.black : '#00000080'
+          backgroundColor: isAndroid
+            ? themeConfig.backgroudColor
+            : `${themeConfig.backgroudColor}80`
         }
       ]}
     >
       <ScrollView
         contentContainerStyle={[
-          styles.listContainer,
+          style.listContainer,
           {
             paddingTop: top * 2,
             paddingBottom: height / 3
@@ -92,27 +109,31 @@ export const FeedFlexModal = (): JSX.Element => {
       >
         {FEED_ALGORITHMS.map(({ algorithms, provider }) => (
           <View key={provider}>
-            <View style={styles.group}>
-              <Text style={styles.groupTitle}>{provider}</Text>
+            <View style={style.group}>
+              <Text style={style.groupTitle}>{provider}</Text>
             </View>
-            <View style={styles.groupItems}>
-              {algorithms.map(({ name }) => (
+            <View style={style.groupItems}>
+              {algorithms.map(({ name, strategy }) => (
                 <View key={name}>
-                  <TouchableOpacity
-                    activeOpacity={0.6}
+                  <Pressable
                     onPress={() => {
+                      setSelectedFeedType(TimelineFeedType.ALGORITHM)
+                      setSelectedAlgoType(strategy)
                       goBack()
                     }}
                   >
                     <Text
                       style={[
-                        styles.text,
-                        { color: theme.colors.white, opacity: 0.7 }
+                        style.text,
+                        {
+                          color: themeConfig.textColor,
+                          opacity: selectedAlgoType === strategy ? 1 : 0.5
+                        }
                       ]}
                     >
                       {name}
                     </Text>
-                  </TouchableOpacity>
+                  </Pressable>
                 </View>
               ))}
             </View>
@@ -125,9 +146,13 @@ export const FeedFlexModal = (): JSX.Element => {
           haptic()
           goBack()
         }}
-        style={styles.close}
+        style={style.close}
       >
-        <Ionicons name="close-outline" color={theme.colors.black} size={35} />
+        <Ionicons
+          name="close-outline"
+          color={themeConfig.contrastTextColor}
+          size={35}
+        />
       </Pressable>
     </BlurView>
   )

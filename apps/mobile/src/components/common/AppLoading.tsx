@@ -13,7 +13,7 @@ import Animated, {
   withTiming
 } from 'react-native-reanimated'
 
-import { theme } from '~/helpers/theme'
+import { colors } from '~/helpers/theme'
 import { useMobilePersistStore } from '~/store/persist'
 
 import { useAuth, useCachedResources, useEffect } from '../../hooks'
@@ -48,7 +48,7 @@ const Splash = () => {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: theme.colors.background
+        backgroundColor: colors.black
       }}
     >
       <Animated.View style={animatedStyle}>

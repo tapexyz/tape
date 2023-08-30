@@ -6,7 +6,7 @@ import React, { useState } from 'react'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'
-import { theme, windowWidth } from '~/helpers/theme'
+import { colors, windowWidth } from '~/helpers/theme'
 
 import UserProfile from '../common/UserProfile'
 import AnimatedPressable from '../ui/AnimatedPressable'
@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   text: {
     fontFamily: 'font-medium',
     fontSize: normalizeFont(10),
-    color: theme.colors.white
+    color: colors.white
   }
 })
 
@@ -72,18 +72,15 @@ const Overlay: FC<Props> = ({ byte: { stats, profile, metadata } }) => {
           radius={6}
           handleStyle={{
             fontSize: normalizeFont(12),
-            fontFamily: 'font-medium'
+            fontFamily: 'font-medium',
+            color: colors.white
           }}
         />
       </View>
       <View style={styles.actions}>
         <View style={styles.verticalContainer}>
           <AnimatedPressable style={styles.actionItem}>
-            <Ionicons
-              name="heart-outline"
-              color={theme.colors.white}
-              size={20}
-            />
+            <Ionicons name="heart-outline" color={colors.white} size={20} />
             {stats.totalUpvotes ? (
               <Text style={styles.text}>
                 {formatNumber(stats.totalUpvotes)}
@@ -93,7 +90,7 @@ const Overlay: FC<Props> = ({ byte: { stats, profile, metadata } }) => {
           <AnimatedPressable style={styles.actionItem}>
             <Ionicons
               name="chatbubble-outline"
-              color={theme.colors.white}
+              color={colors.white}
               size={20}
             />
             {stats.totalAmountOfComments ? (
@@ -103,11 +100,7 @@ const Overlay: FC<Props> = ({ byte: { stats, profile, metadata } }) => {
             ) : null}
           </AnimatedPressable>
           <AnimatedPressable style={styles.actionItem}>
-            <Ionicons
-              name="sync-outline"
-              color={theme.colors.white}
-              size={20}
-            />
+            <Ionicons name="sync-outline" color={colors.white} size={20} />
             {stats.totalAmountOfMirrors ? (
               <Text style={styles.text}>
                 {formatNumber(stats.totalAmountOfMirrors)}
@@ -115,11 +108,7 @@ const Overlay: FC<Props> = ({ byte: { stats, profile, metadata } }) => {
             ) : null}
           </AnimatedPressable>
           <AnimatedPressable style={styles.actionItem}>
-            <Ionicons
-              name="grid-outline"
-              color={theme.colors.white}
-              size={17}
-            />
+            <Ionicons name="grid-outline" color={colors.white} size={17} />
             {stats.totalAmountOfCollects ? (
               <Text style={styles.text}>
                 {formatNumber(stats.totalAmountOfCollects)}
@@ -129,7 +118,7 @@ const Overlay: FC<Props> = ({ byte: { stats, profile, metadata } }) => {
           <AnimatedPressable style={styles.actionItem}>
             <Ionicons
               name="ellipsis-vertical-outline"
-              color={theme.colors.white}
+              color={colors.white}
               size={20}
             />
           </AnimatedPressable>

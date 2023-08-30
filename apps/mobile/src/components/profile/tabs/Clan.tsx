@@ -1,11 +1,15 @@
 import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
+import type {
+  Profile,
+  Publication,
+  PublicationsQueryRequest
+} from '@lenstube/lens'
 import {
-  type Profile,
-  type Publication,
   PublicationMainFocus,
   PublicationTypes,
   useProfilePostsQuery
 } from '@lenstube/lens'
+import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import type { FC } from 'react'
 import React, { memo, useCallback } from 'react'
 import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native'
@@ -18,33 +22,35 @@ import {
 } from 'react-native'
 import Animated from 'react-native-reanimated'
 
-import ImageCard from '~/components/common/ImageCard'
+import RenderPublication from '~/components/common/RenderPublication'
 import normalizeFont from '~/helpers/normalize-font'
-import { theme } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 
 type Props = {
   profile: Profile
   scrollHandler: (event: NativeSyntheticEvent<NativeScrollEvent>) => void
 }
 
-const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 5,
-    flex: 1
-  },
-  subheading: {
-    fontFamily: 'font-normal',
-    color: theme.colors.white,
-    opacity: 0.8,
-    fontSize: normalizeFont(13),
-    paddingBottom: 20
-  }
-})
+const styles = (themeConfig: MobileThemeConfig) =>
+  StyleSheet.create({
+    container: {
+      paddingHorizontal: 5,
+      flex: 1
+    },
+    subheading: {
+      fontFamily: 'font-normal',
+      color: themeConfig.textColor,
+      opacity: 0.8,
+      fontSize: normalizeFont(13)
+    }
+  })
 
 const Clan: FC<Props> = ({ profile, scrollHandler }) => {
   const { height } = useWindowDimensions()
+  const { themeConfig } = useMobileTheme()
+  const style = styles(themeConfig)
 
-  const request = {
+  const request: PublicationsQueryRequest = {
     publicationTypes: [PublicationTypes.Post],
     limit: 10,
     metadata: {
@@ -59,7 +65,7 @@ const Clan: FC<Props> = ({ profile, scrollHandler }) => {
     profileId: profile?.id
   }
 
-  const { data, loading, fetchMore } = useProfilePostsQuery({
+  const { data, loading, fetchMore, refetch } = useProfilePostsQuery({
     variables: {
       request
     },
@@ -83,22 +89,24 @@ const Clan: FC<Props> = ({ profile, scrollHandler }) => {
   const renderItem = useCallback(
     ({ item }: { item: Publication }) => (
       <View style={{ marginBottom: 30 }}>
-        <ImageCard image={item} />
+        <RenderPublication publication={item} />
       </View>
     ),
     []
   )
 
   return (
-    <View style={[styles.container, { height }]}>
-      <Text style={styles.subheading}>
-        Dedicated corner to connect, swap stories, and get hyped about what we
-        do!
-      </Text>
+    <View style={[style.container, { height }]}>
       <Animated.FlatList
+        ListHeaderComponent={
+          <Text style={style.subheading}>
+            Dedicated corner to connect, swap stories, and get hyped about what
+            we do!
+          </Text>
+        }
         data={publications}
         contentContainerStyle={{
-          paddingBottom: publications?.length < 5 ? 350 : 180
+          paddingBottom: publications?.length < 5 ? 500 : 180
         }}
         renderItem={renderItem}
         keyExtractor={(item, i) => `${item.id}_${i}`}
@@ -110,6 +118,8 @@ const Clan: FC<Props> = ({ profile, scrollHandler }) => {
         showsVerticalScrollIndicator={false}
         onScroll={scrollHandler}
         scrollEventThrottle={16}
+        onRefresh={() => refetch()}
+        refreshing={Boolean(publications?.length) && loading}
       />
     </View>
   )

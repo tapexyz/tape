@@ -1,5 +1,5 @@
 import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
-import type { Publication } from '@lenstube/lens'
+import type { ExplorePublicationRequest, Publication } from '@lenstube/lens'
 import {
   PublicationMainFocus,
   PublicationTypes,
@@ -40,7 +40,7 @@ const Timeline = () => {
     (state) => state.selectedExploreFilter
   )
 
-  const request = {
+  const request: ExplorePublicationRequest = {
     sortCriteria: selectedExploreFilter.criteria,
     limit: 10,
     noRandomize: false,

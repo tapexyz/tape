@@ -1,17 +1,17 @@
 import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
-import type { Notification } from '@lenstube/lens'
+import type { Notification, NotificationRequest } from '@lenstube/lens'
 import { useNotificationsQuery } from '@lenstube/lens'
 import { useScrollToTop } from '@react-navigation/native'
 import { FlashList } from '@shopify/flash-list'
 import React, { useCallback, useRef } from 'react'
 import { ActivityIndicator, Text } from 'react-native'
 
-import { theme } from '~/helpers/theme'
-import { usePushNotifications } from '~/hooks'
+import { useMobileTheme, usePushNotifications } from '~/hooks'
 import useMobileStore from '~/store'
 
 export const NotificationsModal = (): JSX.Element => {
   usePushNotifications()
+  const { themeConfig } = useMobileTheme()
 
   const scrollRef = useRef<FlashList<Notification>>(null)
   //@ts-expect-error FlashList as type is not supported
@@ -19,7 +19,7 @@ export const NotificationsModal = (): JSX.Element => {
 
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
 
-  const request = {
+  const request: NotificationRequest = {
     limit: 50,
     customFilters: LENS_CUSTOM_FILTERS,
     profileId: selectedChannel?.id
@@ -46,9 +46,9 @@ export const NotificationsModal = (): JSX.Element => {
 
   const renderItem = useCallback(
     ({ item }: { item: Notification }) => (
-      <Text style={{ color: theme.colors.white }}>{item.__typename}</Text>
+      <Text style={{ color: themeConfig.textColor }}>{item.__typename}</Text>
     ),
-    []
+    [themeConfig]
   )
 
   if (loading) {
@@ -69,7 +69,7 @@ export const NotificationsModal = (): JSX.Element => {
         <ActivityIndicator style={{ paddingVertical: 20 }} />
       )}
       onRefresh={() => refetch()}
-      refreshing={loading}
+      refreshing={Boolean(notifications?.length) && loading}
     />
   )
 }

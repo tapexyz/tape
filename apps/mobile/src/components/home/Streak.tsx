@@ -6,20 +6,22 @@ import {
   getThumbnailUrl,
   imageCdn
 } from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
+import type { Publication, PublicationsQueryRequest } from '@lenstube/lens'
 import {
   PublicationMainFocus,
   PublicationTypes,
   useProfilePostsQuery
 } from '@lenstube/lens'
+import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { useNavigation } from '@react-navigation/native'
 import { Image as ExpoImage } from 'expo-image'
+import type { FC } from 'react'
 import React, { useCallback } from 'react'
 import type { ListRenderItemInfo } from 'react-native'
 import { StyleSheet, Text, View } from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'
-import { theme } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 import useMobileStore from '~/store'
 
 import AnimatedPressable from '../ui/AnimatedPressable'
@@ -27,61 +29,63 @@ import { HorizantalSlider } from '../ui/HorizantalSlider'
 
 const BORDER_RADIUS = 10
 
-const styles = StyleSheet.create({
-  container: {
-    paddingTop: 30
-  },
-  item: {
-    position: 'relative',
-    display: 'flex',
-    flexDirection: 'column',
-    marginRight: 3,
-    height: 120
-  },
-  title: {
-    fontFamily: 'font-bold',
-    color: theme.colors.white,
-    fontSize: normalizeFont(14)
-  },
-  subheading: {
-    fontFamily: 'font-normal',
-    color: theme.colors.secondary,
-    fontSize: normalizeFont(12)
-  },
-  created: {
-    position: 'absolute',
-    bottom: 7,
-    right: 7,
-    borderRadius: 5,
-    paddingHorizontal: 5,
-    paddingVertical: 3,
-    backgroundColor: theme.colors.black
-  },
-  text: {
-    fontFamily: 'font-medium',
-    fontSize: normalizeFont(7),
-    color: theme.colors.white
-  },
-  add: {
-    backgroundColor: theme.colors.backdrop,
-    width: 50,
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderTopLeftRadius: BORDER_RADIUS,
-    borderBottomLeftRadius: BORDER_RADIUS
-  }
-})
+const styles = (themeConfig: MobileThemeConfig) =>
+  StyleSheet.create({
+    container: {
+      paddingTop: 30
+    },
+    item: {
+      position: 'relative',
+      display: 'flex',
+      flexDirection: 'column',
+      marginRight: 3,
+      height: 120
+    },
+    title: {
+      fontFamily: 'font-bold',
+      color: themeConfig.textColor,
+      fontSize: normalizeFont(14)
+    },
+    subheading: {
+      fontFamily: 'font-normal',
+      color: themeConfig.secondaryTextColor,
+      fontSize: normalizeFont(12)
+    },
+    created: {
+      position: 'absolute',
+      bottom: 7,
+      right: 7,
+      borderRadius: 5,
+      paddingHorizontal: 5,
+      paddingVertical: 3,
+      backgroundColor: themeConfig.backgroudColor
+    },
+    text: {
+      fontFamily: 'font-medium',
+      fontSize: normalizeFont(7),
+      color: themeConfig.textColor
+    },
+    add: {
+      backgroundColor: themeConfig.backgroudColor3,
+      width: 50,
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderTopLeftRadius: BORDER_RADIUS,
+      borderBottomLeftRadius: BORDER_RADIUS
+    }
+  })
 
-const StreakItem = ({
-  publication,
-  index,
-  last
-}: {
+type Props = {
   publication: Publication
   index: number
   last: number
-}) => {
+}
+
+const StreakItem: FC<Props> = ({ publication, index, last }) => {
+  const { themeConfig } = useMobileTheme()
+  const style = styles(themeConfig)
+
   const isVideo =
     publication.metadata.mainContentFocus === PublicationMainFocus.Video
   const isBytes = publication.appId === LENSTUBE_BYTES_APP_ID
@@ -94,7 +98,7 @@ const StreakItem = ({
   return (
     <View
       style={[
-        styles.item,
+        style.item,
         {
           aspectRatio: isVideo ? (isBytes ? 9 / 16 : 16 / 9) : 1 / 1
         }
@@ -114,8 +118,8 @@ const StreakItem = ({
           StyleSheet.absoluteFillObject
         ]}
       />
-      <View style={styles.created}>
-        <Text style={styles.text}>
+      <View style={style.created}>
+        <Text style={style.text}>
           {getShortHandTime(publication.createdAt)}
         </Text>
       </View>
@@ -124,11 +128,13 @@ const StreakItem = ({
 }
 
 const Streak = () => {
+  const { themeConfig } = useMobileTheme()
+  const style = styles(themeConfig)
   const { navigate } = useNavigation()
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
 
-  const request = {
-    limit: 10,
+  const request: PublicationsQueryRequest = {
+    limit: 7,
     customFilters: LENS_CUSTOM_FILTERS,
     metadata: {
       mainContentFocus: [
@@ -167,19 +173,19 @@ const Streak = () => {
   }
 
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Lens Week & Streak</Text>
-      <Text style={styles.subheading}>
+    <View style={style.container}>
+      <Text style={style.title}>Lens Week & Streak</Text>
+      <Text style={style.subheading}>
         Your Collectibles, Your Story: Weekly
       </Text>
       <View style={{ paddingTop: 20, flexDirection: 'row', gap: 3 }}>
         <AnimatedPressable
           onPress={() => navigate('NewPublication')}
-          style={styles.add}
+          style={style.add}
         >
           <Ionicons
             name="add-outline"
-            color={theme.colors.white}
+            color={themeConfig.textColor}
             style={{ paddingLeft: 1 }}
             size={20}
           />

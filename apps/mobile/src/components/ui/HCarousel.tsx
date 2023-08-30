@@ -10,7 +10,7 @@ import Animated, {
 import Carousel from 'react-native-reanimated-carousel'
 import type { CarouselRenderItem } from 'react-native-reanimated-carousel/lib/typescript/types'
 
-import { theme } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 
 const styles = StyleSheet.create({
   pagination: {
@@ -37,6 +37,8 @@ const Pagination = memo<PaginationItemProps>(function PaginationRectangleItem({
   index,
   length
 }) {
+  const { themeConfig } = useMobileTheme()
+
   const width = 20
   const animStyle = useAnimatedStyle(() => {
     let inputRange = [index - 1, index, index + 1]
@@ -67,7 +69,7 @@ const Pagination = memo<PaginationItemProps>(function PaginationRectangleItem({
         style={[
           {
             borderRadius: 50,
-            backgroundColor: theme.colors.white,
+            backgroundColor: themeConfig.contrastBackgroundColor,
             flex: 1
           },
           animStyle

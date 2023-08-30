@@ -2,6 +2,8 @@ import type { Profile } from '@lenstube/lens'
 import { PublicationSortCriteria } from '@lenstube/lens'
 import { create } from 'zustand'
 
+import { colors } from '~/helpers/theme'
+
 type ExploreFilter = {
   criteria: PublicationSortCriteria
   category: string | null
@@ -21,7 +23,7 @@ interface AuthState {
 }
 
 const useMobileStore = create<AuthState>((set) => ({
-  homeGradientColor: '#000000',
+  homeGradientColor: colors.black,
   setHomeGradientColor: (homeGradientColor) => set({ homeGradientColor }),
   channels: [],
   setChannels: (channels) => set({ channels }),

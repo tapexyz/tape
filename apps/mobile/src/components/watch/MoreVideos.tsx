@@ -1,10 +1,8 @@
 import { RECS_URL, STATIC_ASSETS } from '@lenstube/constants'
 import { imageCdn } from '@lenstube/generic'
-import {
-  type Publication,
-  PublicationMainFocus,
-  useProfilePostsQuery
-} from '@lenstube/lens'
+import type { Publication, PublicationsQueryRequest } from '@lenstube/lens'
+import { PublicationMainFocus, useProfilePostsQuery } from '@lenstube/lens'
+import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { FlashList } from '@shopify/flash-list'
 import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
@@ -13,7 +11,7 @@ import { ActivityIndicator, StyleSheet, Text, View } from 'react-native'
 import useSWR from 'swr'
 
 import normalizeFont from '~/helpers/normalize-font'
-import { theme } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 import { useMobilePersistStore } from '~/store/persist'
 
 import AudioCard from '../common/AudioCard'
@@ -22,42 +20,51 @@ import Actions from './Actions'
 import Comments from './Comments'
 import Metadata from './Metadata'
 
-const styles = StyleSheet.create({
-  titleContainer: {
-    paddingHorizontal: 5,
-    paddingVertical: 20,
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 7,
-    borderRadius: 25
-  },
-  title: {
-    fontFamily: 'font-bold',
-    color: theme.colors.white,
-    fontSize: normalizeFont(14)
-  },
-  image: {
-    width: 30,
-    height: 30
-  }
-})
+const styles = (themeConfig: MobileThemeConfig) =>
+  StyleSheet.create({
+    titleContainer: {
+      paddingHorizontal: 5,
+      paddingVertical: 20,
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 7,
+      borderRadius: 25
+    },
+    title: {
+      fontFamily: 'font-bold',
+      color: themeConfig.textColor,
+      fontSize: normalizeFont(14)
+    },
+    image: {
+      width: 30,
+      height: 30
+    }
+  })
 
 type Props = {
   video: Publication
 }
 
-const RecommendedTitle = () => (
-  <View style={styles.titleContainer}>
-    <ExpoImage
-      source={{
-        uri: imageCdn(`${STATIC_ASSETS}/mobile/icons/recommended.png`, 'AVATAR')
-      }}
-      style={styles.image}
-    />
-    <Text style={styles.title}>Recommended</Text>
-  </View>
-)
+const RecommendedTitle = () => {
+  const { themeConfig } = useMobileTheme()
+  const style = styles(themeConfig)
+
+  return (
+    <View style={style.titleContainer}>
+      <ExpoImage
+        source={{
+          uri: imageCdn(
+            `${STATIC_ASSETS}/mobile/icons/recommended.png`,
+            'AVATAR'
+          )
+        }}
+        style={style.image}
+      />
+      <Text style={style.title}>Recommended</Text>
+    </View>
+  )
+}
 
 const MoreVideos: FC<Props> = ({ video }) => {
   const selectedChannelId = useMobilePersistStore(
@@ -71,7 +78,7 @@ const MoreVideos: FC<Props> = ({ video }) => {
 
   const publicationIds = recsData?.items as string[]
 
-  const request = { publicationIds, limit: 20 }
+  const request: PublicationsQueryRequest = { publicationIds, limit: 20 }
   const reactionRequest = selectedChannelId
     ? { profileId: selectedChannelId }
     : null

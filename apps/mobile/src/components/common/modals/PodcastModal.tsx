@@ -1,5 +1,5 @@
 import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
-import type { Publication } from '@lenstube/lens'
+import type { ExplorePublicationRequest, Publication } from '@lenstube/lens'
 import {
   PublicationMainFocus,
   PublicationSortCriteria,
@@ -23,7 +23,7 @@ const styles = StyleSheet.create({
 })
 
 export const PodcastModal = () => {
-  const request = {
+  const request: ExplorePublicationRequest = {
     sortCriteria: PublicationSortCriteria.CuratedProfiles,
     limit: 50,
     noRandomize: false,
@@ -88,7 +88,7 @@ export const PodcastModal = () => {
         onEndReachedThreshold={0.8}
         showsVerticalScrollIndicator={false}
         onRefresh={() => refetch()}
-        refreshing={loading}
+        refreshing={Boolean(publications?.length) && loading}
       />
     </View>
   )

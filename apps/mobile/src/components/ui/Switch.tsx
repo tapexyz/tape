@@ -5,7 +5,7 @@ import React, { memo } from 'react'
 import { Pressable, View } from 'react-native'
 import { Easing } from 'react-native-reanimated'
 
-import { theme } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 
 const SIZE = 20
 const TRACK_SIZE = SIZE * 1.3
@@ -24,19 +24,21 @@ type Props = {
 }
 
 const Switch: FC<Props> = ({ size = SIZE, onPress, isActive }) => {
+  const { themeConfig } = useMobileTheme()
+
   return (
     <Pressable onPress={onPress}>
       <View style={{ alignItems: 'center', justifyContent: 'center' }}>
         <MView
           from={{
             backgroundColor: isActive
-              ? theme.colors.grey
-              : theme.colors.secondary
+              ? themeConfig.borderColor
+              : themeConfig.secondaryTextColor
           }}
           animate={{
             backgroundColor: isActive
-              ? theme.colors.grey
-              : theme.colors.secondary
+              ? themeConfig.borderColor
+              : themeConfig.secondaryTextColor
           }}
           transition={transition}
           style={{
@@ -58,7 +60,7 @@ const Switch: FC<Props> = ({ size = SIZE, onPress, isActive }) => {
             width: size * 0.8,
             height: size * 0.8,
             borderRadius: size,
-            backgroundColor: theme.colors.white,
+            backgroundColor: themeConfig.contrastBackgroundColor,
             alignItems: 'center',
             justifyContent: 'center'
           }}
@@ -69,15 +71,12 @@ const Switch: FC<Props> = ({ size = SIZE, onPress, isActive }) => {
               width: isActive ? size * 0.4 : 0,
               height: isActive ? size * 0.4 : 0,
               borderColor: isActive
-                ? theme.colors.backdrop2
-                : theme.colors.backdrop
+                ? themeConfig.backgroudColor3
+                : themeConfig.backgroudColor2
             }}
             animate={{
               width: isActive ? size * 0.4 : 0,
-              height: isActive ? size * 0.4 : 0,
-              borderColor: isActive
-                ? theme.colors.backdrop2
-                : theme.colors.backdrop
+              height: isActive ? size * 0.4 : 0
             }}
             style={{
               width: size * 0.4,

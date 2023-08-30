@@ -11,6 +11,7 @@ import type { FC } from 'react'
 import React, { useEffect, useRef } from 'react'
 import { StyleSheet, useWindowDimensions, View } from 'react-native'
 
+import { colors } from '~/helpers/theme'
 import { useIsFocused } from '~/hooks/navigation'
 
 import Overlay from './Overlay'
@@ -18,8 +19,8 @@ import Overlay from './Overlay'
 const styles = StyleSheet.create({
   byteCard: {
     justifyContent: 'center',
-    borderRadius: 45,
-    position: 'relative'
+    position: 'relative',
+    backgroundColor: colors.backdrop
   }
 })
 

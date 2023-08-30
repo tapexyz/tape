@@ -4,13 +4,13 @@ import { imageCdn } from '@lenstube/generic'
 import { TimelineFeedType } from '@lenstube/lens/custom-types'
 import { useNavigation } from '@react-navigation/native'
 import { Image as ExpoImage } from 'expo-image'
-import type { Dispatch, FC } from 'react'
 import React from 'react'
 import { Pressable, ScrollView, StyleSheet, Text } from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'
-import { theme } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 import useMobileStore from '~/store'
+import useMobileHomeFeedStore from '~/store/feed'
 
 import { useToast } from '../common/toast'
 
@@ -37,18 +37,18 @@ const styles = StyleSheet.create({
   }
 })
 
-type Props = {
-  selectedFeedType: TimelineFeedType
-  setSelectedFeedType: Dispatch<TimelineFeedType>
-}
-
-const TimelineFilters: FC<Props> = ({
-  selectedFeedType,
-  setSelectedFeedType
-}) => {
+const TimelineFilters = () => {
+  const { themeConfig } = useMobileTheme()
   const { navigate } = useNavigation()
   const { showToast } = useToast()
+
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
+  const selectedFeedType = useMobileHomeFeedStore(
+    (state) => state.selectedFeedType
+  )
+  const setSelectedFeedType = useMobileHomeFeedStore(
+    (state) => state.setSelectedFeedType
+  )
 
   return (
     <ScrollView
@@ -64,7 +64,7 @@ const TimelineFilters: FC<Props> = ({
           {
             backgroundColor:
               selectedFeedType === TimelineFeedType.CURATED
-                ? theme.colors.white
+                ? themeConfig.contrastBackgroundColor
                 : 'transparent'
           }
         ]}
@@ -81,8 +81,8 @@ const TimelineFilters: FC<Props> = ({
             {
               color:
                 selectedFeedType === TimelineFeedType.CURATED
-                  ? theme.colors.black
-                  : theme.colors.white
+                  ? themeConfig.contrastTextColor
+                  : themeConfig.textColor
             }
           ]}
         >
@@ -101,7 +101,7 @@ const TimelineFilters: FC<Props> = ({
           {
             backgroundColor:
               selectedFeedType === TimelineFeedType.FOLLOWING
-                ? theme.colors.white
+                ? themeConfig.contrastBackgroundColor
                 : 'transparent'
           }
         ]}
@@ -118,8 +118,8 @@ const TimelineFilters: FC<Props> = ({
             {
               color:
                 selectedFeedType === TimelineFeedType.FOLLOWING
-                  ? theme.colors.black
-                  : theme.colors.white
+                  ? themeConfig.contrastTextColor
+                  : themeConfig.textColor
             }
           ]}
         >
@@ -138,7 +138,7 @@ const TimelineFilters: FC<Props> = ({
           {
             backgroundColor:
               selectedFeedType === TimelineFeedType.HIGHLIGHTS
-                ? theme.colors.white
+                ? themeConfig.contrastBackgroundColor
                 : 'transparent'
           }
         ]}
@@ -155,8 +155,8 @@ const TimelineFilters: FC<Props> = ({
             {
               color:
                 selectedFeedType === TimelineFeedType.HIGHLIGHTS
-                  ? theme.colors.black
-                  : theme.colors.white
+                  ? themeConfig.contrastTextColor
+                  : themeConfig.textColor
             }
           ]}
         >
@@ -166,14 +166,13 @@ const TimelineFilters: FC<Props> = ({
       <Pressable
         onPress={() => {
           navigate('FeedFlexModal')
-          setSelectedFeedType(TimelineFeedType.ALGORITHM)
         }}
         style={[
           styles.filter,
           {
             backgroundColor:
               selectedFeedType === TimelineFeedType.ALGORITHM
-                ? theme.colors.white
+                ? themeConfig.contrastBackgroundColor
                 : 'transparent'
           }
         ]}
@@ -190,8 +189,8 @@ const TimelineFilters: FC<Props> = ({
             {
               color:
                 selectedFeedType === TimelineFeedType.ALGORITHM
-                  ? theme.colors.black
-                  : theme.colors.white
+                  ? themeConfig.contrastTextColor
+                  : themeConfig.textColor
             }
           ]}
         >
@@ -201,8 +200,8 @@ const TimelineFilters: FC<Props> = ({
           name="chevron-down-outline"
           color={
             selectedFeedType === TimelineFeedType.ALGORITHM
-              ? theme.colors.black
-              : theme.colors.white
+              ? themeConfig.contrastTextColor
+              : themeConfig.textColor
           }
           size={15}
         />

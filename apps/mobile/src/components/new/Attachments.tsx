@@ -1,5 +1,6 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { PublicationMainFocus } from '@lenstube/lens'
+import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import * as DocumentPicker from 'expo-document-picker'
 import { Image as ExpoImage } from 'expo-image'
 import * as ImagePicker from 'expo-image-picker'
@@ -8,33 +9,37 @@ import React from 'react'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'
-import { theme } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 import useMobilePublicationStore from '~/store/publication'
 
-const styles = StyleSheet.create({
-  container: {
-    borderRadius: 10,
-    borderWidth: 0.5,
-    borderColor: theme.colors.grey,
-    overflow: 'hidden',
-    padding: 5,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center'
-  },
-  image: {
-    aspectRatio: 16 / 9,
-    height: 60,
-    borderRadius: 5
-  },
-  text: {
-    fontFamily: 'font-medium',
-    fontSize: normalizeFont(10),
-    color: theme.colors.white
-  }
-})
+const styles = (themeConfig: MobileThemeConfig) =>
+  StyleSheet.create({
+    container: {
+      borderRadius: 10,
+      borderWidth: 0.5,
+      borderColor: themeConfig.borderColor,
+      overflow: 'hidden',
+      padding: 5,
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      alignItems: 'center'
+    },
+    image: {
+      aspectRatio: 16 / 9,
+      height: 60,
+      borderRadius: 5
+    },
+    text: {
+      fontFamily: 'font-medium',
+      fontSize: normalizeFont(10),
+      color: themeConfig.textColor
+    }
+  })
 
 const Attachments = () => {
+  const { themeConfig } = useMobileTheme()
+  const style = styles(themeConfig)
+
   const draftedPublication = useMobilePublicationStore(
     (state) => state.draftedPublication
   )
@@ -45,7 +50,7 @@ const Attachments = () => {
 
   const openDocumentPicker = async () => {
     let result = await DocumentPicker.getDocumentAsync({ type: 'audio/*' })
-    if (result.type !== 'cancel' && result.uri) {
+    if (!result.canceled && result.assets[0].uri) {
       console.log('🚀 ~ file: Attachments.tsx ~ openPicker ~ result:', result)
       setDraftedPublication({
         ...draftedPublication,
@@ -94,7 +99,7 @@ const Attachments = () => {
   }
 
   return (
-    <View style={styles.container}>
+    <View style={style.container}>
       {poster ? (
         <>
           <Pressable onPress={openPicker}>
@@ -104,11 +109,11 @@ const Attachments = () => {
               }}
               contentFit="cover"
               transition={200}
-              style={styles.image}
+              style={style.image}
             />
           </Pressable>
           <View style={{ paddingHorizontal: 15 }}>
-            <Text style={styles.text}>0%</Text>
+            <Text style={style.text}>0%</Text>
           </View>
         </>
       ) : (
@@ -125,10 +130,10 @@ const Attachments = () => {
         >
           <Ionicons
             name="file-tray-outline"
-            color={theme.colors.white}
+            color={themeConfig.textColor}
             size={20}
           />
-          <Text style={styles.text}>Choose a {mainFocus.toLowerCase()}</Text>
+          <Text style={style.text}>Choose a {mainFocus.toLowerCase()}</Text>
         </Pressable>
       )}
     </View>

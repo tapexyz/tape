@@ -1,40 +1,44 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { getCategoryName } from '@lenstube/generic'
 import { PublicationSortCriteria } from '@lenstube/lens'
+import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
 import { Pressable, ScrollView, StyleSheet, Text } from 'react-native'
 
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
-import { theme } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 import useMobileStore from '~/store'
 
-const styles = StyleSheet.create({
-  container: {
-    marginVertical: 20
-  },
-  filter: {
-    paddingHorizontal: 15,
-    paddingVertical: 7,
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 3,
-    borderRadius: 25,
-    borderWidth: 1,
-    borderColor: theme.colors.secondary
-  },
-  text: {
-    fontFamily: 'font-bold',
-    fontSize: normalizeFont(12),
-    letterSpacing: 0.5,
-    color: theme.colors.white
-  }
-})
+const styles = (themeConfig: MobileThemeConfig) =>
+  StyleSheet.create({
+    container: {
+      marginVertical: 20
+    },
+    filter: {
+      paddingHorizontal: 15,
+      paddingVertical: 7,
+      display: 'flex',
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: 3,
+      borderRadius: 25,
+      borderWidth: 1,
+      borderColor: themeConfig.borderColor
+    },
+    text: {
+      fontFamily: 'font-bold',
+      fontSize: normalizeFont(12),
+      letterSpacing: 0.5,
+      color: themeConfig.textColor
+    }
+  })
 
 const Filters = () => {
   const { navigate } = useNavigation()
+  const { themeConfig } = useMobileTheme()
+  const style = styles(themeConfig)
 
   const selectedExploreFilter = useMobileStore(
     (state) => state.selectedExploreFilter
@@ -53,7 +57,7 @@ const Filters = () => {
 
   return (
     <ScrollView
-      style={styles.container}
+      style={style.container}
       horizontal={true}
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={{ gap: 10 }}
@@ -63,14 +67,14 @@ const Filters = () => {
           haptic()
           navigate('ExploreTopsModal')
         }}
-        style={styles.filter}
+        style={style.filter}
       >
-        <Text style={styles.text}>
+        <Text style={style.text}>
           {getCriteriaTextLabel(selectedExploreFilter.criteria)}
         </Text>
         <Ionicons
           name="chevron-down-outline"
-          color={theme.colors.white}
+          color={themeConfig.textColor}
           size={15}
         />
       </Pressable>
@@ -79,14 +83,14 @@ const Filters = () => {
           haptic()
           navigate('ExploreCategoriesModal')
         }}
-        style={styles.filter}
+        style={style.filter}
       >
-        <Text style={styles.text}>
+        <Text style={style.text}>
           {getCategoryName(selectedExploreFilter.category ?? '') ?? 'Category'}
         </Text>
         <Ionicons
           name="chevron-down-outline"
-          color={theme.colors.white}
+          color={themeConfig.textColor}
           size={15}
         />
       </Pressable>

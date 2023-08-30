@@ -11,7 +11,8 @@ import Animated, {
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import normalizeFont from '~/helpers/normalize-font'
-import { theme } from '~/helpers/theme'
+import { colors } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 
 const springConfig: WithSpringConfig = {
   mass: 1,
@@ -32,21 +33,6 @@ export type ToastProps = {
   variant?: Variant
 } & ViewProps
 
-const getTextColor = (variant: Variant) => {
-  switch (variant) {
-    case 'default':
-      return theme.colors.white
-    case 'success':
-      return theme.colors.green
-    case 'warn':
-      return theme.colors.yellow
-    case 'error':
-      return theme.colors.red
-    default:
-      return theme.colors.white
-  }
-}
-
 export const Toast = ({
   icon,
   isVisible,
@@ -55,11 +41,27 @@ export const Toast = ({
 }: ToastProps) => {
   const distance = 60
   const targetTranslate = 0
-  const textColor = getTextColor(variant)
+  const { themeConfig } = useMobileTheme()
 
   const insets = useSafeAreaInsets()
   const { width: deviceWidth } = useWindowDimensions()
   const animation = useSharedValue(isVisible ? 1 : 0)
+
+  const getTextColor = (variant: Variant) => {
+    switch (variant) {
+      case 'default':
+        return themeConfig.textColor
+      case 'success':
+        return colors.green
+      case 'warn':
+        return colors.yellow
+      case 'error':
+        return colors.red
+      default:
+        return themeConfig.textColor
+    }
+  }
+  const textColor = getTextColor(variant)
 
   useLayoutEffect(() => {
     animation.value = withSpring(isVisible ? 1 : 0, springConfig)
@@ -90,7 +92,7 @@ export const Toast = ({
           paddingVertical: 5,
           paddingHorizontal: 12,
           alignSelf: 'center',
-          backgroundColor: theme.colors.grey,
+          backgroundColor: themeConfig.backgroudColor2,
           bottom: (insets.bottom || 40) + 3
         }}
       >

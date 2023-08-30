@@ -1,11 +1,12 @@
 import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@lenstube/constants'
 import { getThumbnailUrl, imageCdn } from '@lenstube/generic'
-import {
-  type Profile,
-  type Publication,
-  PublicationTypes,
-  useProfilePostsQuery
+import type {
+  Profile,
+  Publication,
+  PublicationsQueryRequest
 } from '@lenstube/lens'
+import { PublicationTypes, useProfilePostsQuery } from '@lenstube/lens'
+import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
 import React, { memo, useCallback } from 'react'
@@ -19,7 +20,7 @@ import {
 import Animated from 'react-native-reanimated'
 
 import AnimatedPressable from '~/components/ui/AnimatedPressable'
-import { theme } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 
 type Props = {
   profile: Profile
@@ -29,24 +30,27 @@ type Props = {
 const GRID_GAP = 5
 const NUM_COLUMNS = 3
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  },
-  thumbnail: {
-    width: '100%',
-    height: 210,
-    borderRadius: GRID_GAP,
-    borderColor: theme.colors.grey,
-    borderWidth: 0.5,
-    backgroundColor: theme.colors.backdrop
-  }
-})
+const styles = (themeConfig: MobileThemeConfig) =>
+  StyleSheet.create({
+    container: {
+      flex: 1
+    },
+    thumbnail: {
+      width: '100%',
+      height: 210,
+      borderRadius: GRID_GAP,
+      borderColor: themeConfig.borderColor,
+      borderWidth: 0.5,
+      backgroundColor: themeConfig.backgroudColor2
+    }
+  })
 
 const Bytes: FC<Props> = ({ profile, scrollHandler }) => {
+  const { themeConfig } = useMobileTheme()
+  const style = styles(themeConfig)
   const { height, width } = useWindowDimensions()
 
-  const request = {
+  const request: PublicationsQueryRequest = {
     publicationTypes: [PublicationTypes.Post],
     limit: 10,
     sources: [LENSTUBE_BYTES_APP_ID],
@@ -54,7 +58,7 @@ const Bytes: FC<Props> = ({ profile, scrollHandler }) => {
     profileId: profile?.id
   }
 
-  const { data, loading, fetchMore } = useProfilePostsQuery({
+  const { data, loading, fetchMore, refetch } = useProfilePostsQuery({
     variables: {
       request
     },
@@ -90,19 +94,19 @@ const Bytes: FC<Props> = ({ profile, scrollHandler }) => {
             }}
             transition={300}
             contentFit="cover"
-            style={styles.thumbnail}
+            style={style.thumbnail}
           />
         </AnimatedPressable>
       </View>
     ),
-    [width]
+    [width, style]
   )
 
   return (
-    <View style={[styles.container, { height }]}>
+    <View style={[style.container, { height }]}>
       <Animated.FlatList
         contentContainerStyle={{
-          paddingBottom: bytes?.length < 10 ? 350 : 180
+          paddingBottom: bytes?.length < 10 ? 500 : 180
         }}
         data={bytes}
         renderItem={renderItem}
@@ -117,6 +121,8 @@ const Bytes: FC<Props> = ({ profile, scrollHandler }) => {
         onScroll={scrollHandler}
         numColumns={NUM_COLUMNS}
         scrollEventThrottle={16}
+        onRefresh={() => refetch()}
+        refreshing={Boolean(bytes?.length) && loading}
       />
     </View>
   )

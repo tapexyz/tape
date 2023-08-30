@@ -1,5 +1,6 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { PublicationSortCriteria } from '@lenstube/lens'
+import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { useNavigation } from '@react-navigation/native'
 import { BlurView } from 'expo-blur'
 import React from 'react'
@@ -14,47 +15,50 @@ import Animated, { SlideInDown } from 'react-native-reanimated'
 
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
-import { theme } from '~/helpers/theme'
-import { usePlatform } from '~/hooks'
+import { useMobileTheme, usePlatform } from '~/hooks'
 import useMobileStore from '~/store'
+import { isLightMode } from '~/store/persist'
 
-const styles = StyleSheet.create({
-  container: {
-    position: 'relative',
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  text: {
-    fontFamily: 'font-medium',
-    fontSize: normalizeFont(20),
-    letterSpacing: 2,
-    color: theme.colors.white
-  },
-  close: {
-    position: 'absolute',
-    backgroundColor: theme.colors.white,
-    padding: 10,
-    borderRadius: 100,
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 60,
-    height: 60,
-    bottom: 50
-  },
-  listContainer: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    gap: 30
-  }
-})
+const styles = (themeConfig: MobileThemeConfig) =>
+  StyleSheet.create({
+    container: {
+      position: 'relative',
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center'
+    },
+    text: {
+      fontFamily: 'font-medium',
+      fontSize: normalizeFont(20),
+      letterSpacing: 2,
+      color: themeConfig.textColor
+    },
+    close: {
+      position: 'absolute',
+      backgroundColor: themeConfig.contrastBackgroundColor,
+      padding: 10,
+      borderRadius: 100,
+      display: 'flex',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: 60,
+      height: 60,
+      bottom: 50
+    },
+    listContainer: {
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      gap: 30
+    }
+  })
 
 export const TopsModal = (): JSX.Element => {
   const { goBack } = useNavigation()
+  const { themeConfig } = useMobileTheme()
   const { isAndroid } = usePlatform()
+  const style = styles(themeConfig)
 
   const selectedExploreFilter = useMobileStore(
     (state) => state.selectedExploreFilter
@@ -66,16 +70,18 @@ export const TopsModal = (): JSX.Element => {
   return (
     <BlurView
       intensity={100}
-      tint="dark"
+      tint={isLightMode() ? 'light' : 'dark'}
       style={[
-        styles.container,
+        style.container,
         {
-          backgroundColor: isAndroid ? theme.colors.black : '#00000080'
+          backgroundColor: isAndroid
+            ? themeConfig.backgroudColor
+            : `${themeConfig.backgroudColor}80`
         }
       ]}
     >
-      <View style={styles.listContainer}>
-        <Animated.View entering={SlideInDown.delay(50).duration(200)}>
+      <View style={style.listContainer}>
+        <Animated.View entering={SlideInDown.duration(200)}>
           <TouchableOpacity
             activeOpacity={0.6}
             onPress={() => {
@@ -86,10 +92,10 @@ export const TopsModal = (): JSX.Element => {
               goBack()
             }}
           >
-            <Text style={[styles.text, { opacity: 0.7 }]}>Top Collected</Text>
+            <Text style={[style.text, { opacity: 0.7 }]}>Top Collected</Text>
           </TouchableOpacity>
         </Animated.View>
-        <Animated.View entering={SlideInDown.delay(100).duration(200)}>
+        <Animated.View entering={SlideInDown.duration(200)}>
           <TouchableOpacity
             activeOpacity={0.6}
             onPress={() => {
@@ -100,10 +106,10 @@ export const TopsModal = (): JSX.Element => {
               goBack()
             }}
           >
-            <Text style={[styles.text, { opacity: 0.7 }]}>Top Commented</Text>
+            <Text style={[style.text, { opacity: 0.7 }]}>Top Commented</Text>
           </TouchableOpacity>
         </Animated.View>
-        <Animated.View entering={SlideInDown.delay(150).duration(200)}>
+        <Animated.View entering={SlideInDown.duration(200)}>
           <TouchableOpacity
             activeOpacity={0.6}
             onPress={() => {
@@ -114,7 +120,7 @@ export const TopsModal = (): JSX.Element => {
               goBack()
             }}
           >
-            <Text style={[styles.text, { opacity: 0.7 }]}>Top Mirrored</Text>
+            <Text style={[style.text, { opacity: 0.7 }]}>Top Mirrored</Text>
           </TouchableOpacity>
         </Animated.View>
       </View>
@@ -124,9 +130,13 @@ export const TopsModal = (): JSX.Element => {
           haptic()
           goBack()
         }}
-        style={styles.close}
+        style={style.close}
       >
-        <Ionicons name="close-outline" color={theme.colors.black} size={35} />
+        <Ionicons
+          name="close-outline"
+          color={themeConfig.contrastTextColor}
+          size={35}
+        />
       </Pressable>
     </BlurView>
   )

@@ -1,5 +1,5 @@
 import { PublicationMainFocus } from '@lenstube/lens'
-import type { DocumentResult } from 'expo-document-picker'
+import type { DocumentPickerResult } from 'expo-document-picker'
 import type { ImagePickerResult } from 'expo-image-picker'
 import { create } from 'zustand'
 
@@ -7,7 +7,7 @@ type DraftPublication = {
   title: string
   description: string
   mainFocus: PublicationMainFocus
-  asset: ImagePickerResult | DocumentResult | null
+  asset: ImagePickerResult | DocumentPickerResult | null
   poster: string
   attachmentEnabled: boolean
   collectEnabled: boolean

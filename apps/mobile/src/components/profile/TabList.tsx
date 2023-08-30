@@ -13,7 +13,7 @@ import {
 
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
-import { theme } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 
 const styles = StyleSheet.create({
   container: {
@@ -56,6 +56,7 @@ const icons = [
 const TabList: FC<Props> = ({ activeTab, scrollToTab }) => {
   const scrollViewRef = useRef<ScrollView>(null)
   const { width } = useWindowDimensions()
+  const { themeConfig } = useMobileTheme()
 
   const autoScroll = useCallback(() => {
     scrollViewRef.current?.scrollTo({
@@ -69,7 +70,12 @@ const TabList: FC<Props> = ({ activeTab, scrollToTab }) => {
   }, [activeTab, autoScroll])
 
   return (
-    <View style={{ flexDirection: 'row', backgroundColor: theme.colors.black }}>
+    <View
+      style={{
+        flexDirection: 'row',
+        backgroundColor: themeConfig.backgroudColor
+      }}
+    >
       <ScrollView
         ref={scrollViewRef}
         style={styles.container}
@@ -82,8 +88,12 @@ const TabList: FC<Props> = ({ activeTab, scrollToTab }) => {
       >
         {MOBILE_PROFILE_ITEMS.map((tab, index) => {
           const isActive = activeTab === index
-          const color = isActive ? theme.colors.black : theme.colors.white
-          const backgroundColor = isActive ? theme.colors.white : 'transparent'
+          const color = isActive
+            ? themeConfig.contrastTextColor
+            : themeConfig.textColor
+          const backgroundColor = isActive
+            ? themeConfig.contrastBackgroundColor
+            : 'transparent'
           return (
             <Pressable
               key={tab}

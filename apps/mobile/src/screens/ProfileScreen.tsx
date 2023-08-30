@@ -1,7 +1,7 @@
 import type { Profile } from '@lenstube/lens'
 import { useProfileQuery } from '@lenstube/lens'
 import { useNavigation } from '@react-navigation/native'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ActivityIndicator, useWindowDimensions, View } from 'react-native'
 import {
   useAnimatedScrollHandler,
@@ -10,8 +10,7 @@ import {
 
 import Info from '~/components/profile/Info'
 import TabContent from '~/components/profile/TabContent'
-import ServerError from '~/components/ui/ServerError'
-import { theme } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 import useMobileStore from '~/store'
 
 export const ProfileScreen = (
@@ -21,6 +20,12 @@ export const ProfileScreen = (
   const { goBack } = useNavigation()
   const { height } = useWindowDimensions()
   const contentScrollY = useSharedValue(0)
+  const { themeConfig } = useMobileTheme()
+
+  useEffect(() => {
+    contentScrollY.value = 0
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [handle])
 
   const [infoHeaderHeight, setInfoHeaderHeight] = useState(0)
 
@@ -35,7 +40,7 @@ export const ProfileScreen = (
 
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
 
-  const { data, loading, error } = useProfileQuery({
+  const { data, loading } = useProfileQuery({
     variables: {
       request: { handle },
       who: selectedChannel?.id ?? null
@@ -46,13 +51,9 @@ export const ProfileScreen = (
   if (loading) {
     return (
       <ActivityIndicator
-        style={{ flex: 1, backgroundColor: theme.colors.black }}
+        style={{ flex: 1, backgroundColor: themeConfig.backgroudColor }}
       />
     )
-  }
-
-  if (error) {
-    return <ServerError />
   }
 
   if (!data?.profile) {
@@ -66,7 +67,7 @@ export const ProfileScreen = (
     <View
       style={{
         flex: 1,
-        backgroundColor: theme.colors.black
+        backgroundColor: themeConfig.backgroudColor
       }}
     >
       <Info

@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import React, { useRef } from 'react'
 import {
   Animated,
@@ -14,21 +15,26 @@ import ActionHeader from '~/components/new/ActionHeader'
 import Form from '~/components/new/Form'
 import shakeForm from '~/helpers/form-shake'
 import normalizeFont from '~/helpers/normalize-font'
-import { theme } from '~/helpers/theme'
-import { useForm, usePlatform, useSafeAreaInsets } from '~/hooks'
+import {
+  useForm,
+  useMobileTheme,
+  usePlatform,
+  useSafeAreaInsets
+} from '~/hooks'
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    paddingHorizontal: 5,
-    backgroundColor: theme.colors.black
-  },
-  text: {
-    fontFamily: 'font-medium',
-    fontSize: normalizeFont(12),
-    color: theme.colors.secondary
-  }
-})
+const styles = (themeConfig: MobileThemeConfig) =>
+  StyleSheet.create({
+    container: {
+      flex: 1,
+      paddingHorizontal: 5,
+      backgroundColor: themeConfig.backgroudColor
+    },
+    text: {
+      fontFamily: 'font-medium',
+      fontSize: normalizeFont(12),
+      color: themeConfig.secondaryTextColor
+    }
+  })
 
 const formSchema = object({
   title: string().min(1),
@@ -39,6 +45,8 @@ export type FormData = z.infer<typeof formSchema>
 export const NewPublication = () => {
   const { isIOS } = usePlatform()
   const { top } = useSafeAreaInsets()
+  const { themeConfig } = useMobileTheme()
+  const style = styles(themeConfig)
   const shakeRef = useRef(new Animated.Value(0))
 
   const form = useForm<FormData>({
@@ -57,7 +65,7 @@ export const NewPublication = () => {
     shakeForm(shakeRef)
   }
   return (
-    <View style={[styles.container, { top }]}>
+    <View style={[style.container, { top }]}>
       <ActionHeader onPost={() => form.handleSubmit(onValid, onInValid)()} />
       <KeyboardAvoidingView
         style={{ flex: 1 }}
@@ -66,7 +74,7 @@ export const NewPublication = () => {
       >
         <ScrollView
           showsVerticalScrollIndicator={false}
-          style={{ flexGrow: 1 }}
+          style={{ flexGrow: 1, paddingHorizontal: 5 }}
         >
           <Form form={form} shakeRef={shakeRef} />
         </ScrollView>

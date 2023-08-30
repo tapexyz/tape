@@ -2,7 +2,9 @@ import type { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs'
 import type { Theme } from '@react-navigation/native'
 import { useMemo } from 'react'
 
-import { navigationTheme } from '~/helpers/theme'
+import { isLightMode } from '~/store/persist'
+
+import { useMobileTheme } from '../useMobileTheme'
 
 type ReturnValues = {
   navigationTheme: Theme
@@ -10,12 +12,26 @@ type ReturnValues = {
 }
 
 export const useNavigationTheme = (): ReturnValues => {
+  const { themeConfig } = useMobileTheme()
+
+  const navigationTheme: Theme = {
+    colors: {
+      background: themeConfig.backgroudColor,
+      border: themeConfig.backgroudColor,
+      card: themeConfig.backgroudColor2,
+      notification: 'red',
+      primary: themeConfig.textColor,
+      text: themeConfig.textColor
+    },
+    dark: !isLightMode()
+  }
+
   const tabBarTheme: BottomTabNavigationOptions = useMemo(
     () => ({
-      tabBarActiveTintColor: '#ffffff',
-      tabBarInactiveTintColor: '#ffffff50'
+      tabBarActiveTintColor: themeConfig.textColor,
+      tabBarInactiveTintColor: themeConfig.secondaryTextColor
     }),
-    []
+    [themeConfig]
   )
 
   return {

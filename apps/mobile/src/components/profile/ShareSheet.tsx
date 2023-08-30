@@ -8,6 +8,7 @@ import {
   logger
 } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
+import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { Image as ExpoImage } from 'expo-image'
 import * as Sharing from 'expo-sharing'
 import type { FC } from 'react'
@@ -19,7 +20,7 @@ import AnimatedPressable from '~/components/ui/AnimatedPressable'
 import Sheet from '~/components/ui/Sheet'
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
-import { theme } from '~/helpers/theme'
+import { useMobileTheme } from '~/hooks'
 
 import Button from '../ui/Button'
 import QRCode from '../ui/QRCode'
@@ -31,54 +32,57 @@ type Props = {
 
 const CARD_BORDER_RADIUS = 30
 
-const styles = StyleSheet.create({
-  container: {
-    padding: 10,
-    display: 'flex',
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    gap: 15
-  },
-  profileShareCard: {
-    borderRadius: CARD_BORDER_RADIUS,
-    backgroundColor: theme.colors.black,
-    flexDirection: 'column',
-    justifyContent: 'space-between',
-    padding: 20,
-    gap: 10,
-    height: 210,
-    borderColor: theme.colors.grey,
-    borderWidth: 0.5
-  },
-  cardActions: {
-    flexDirection: 'row',
-    justifyContent: 'space-evenly',
-    alignItems: 'center'
-  },
-  hintText: {
-    color: theme.colors.white,
-    fontFamily: 'font-normal',
-    fontSize: normalizeFont(8),
-    letterSpacing: 1,
-    textTransform: 'uppercase'
-  },
-  boldText: {
-    color: theme.colors.white,
-    fontFamily: 'font-extrabold',
-    fontSize: normalizeFont(14),
-    letterSpacing: 1
-  },
-  qrContainer: {
-    padding: 10,
-    backgroundColor: theme.colors.white,
-    alignSelf: 'flex-start',
-    borderRadius: 20
-  }
-})
+const styles = (themeConfig: MobileThemeConfig) =>
+  StyleSheet.create({
+    container: {
+      padding: 10,
+      display: 'flex',
+      flex: 1,
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      gap: 15
+    },
+    profileShareCard: {
+      borderRadius: CARD_BORDER_RADIUS,
+      backgroundColor: themeConfig.backgroudColor,
+      flexDirection: 'column',
+      justifyContent: 'space-between',
+      padding: 20,
+      gap: 10,
+      height: 210,
+      borderColor: themeConfig.borderColor,
+      borderWidth: 0.5
+    },
+    cardActions: {
+      flexDirection: 'row',
+      justifyContent: 'space-evenly',
+      alignItems: 'center'
+    },
+    hintText: {
+      color: themeConfig.textColor,
+      fontFamily: 'font-normal',
+      fontSize: normalizeFont(8),
+      letterSpacing: 1,
+      textTransform: 'uppercase'
+    },
+    boldText: {
+      color: themeConfig.textColor,
+      fontFamily: 'font-extrabold',
+      fontSize: normalizeFont(14),
+      letterSpacing: 1
+    },
+    qrContainer: {
+      padding: 10,
+      backgroundColor: themeConfig.textColor,
+      alignSelf: 'flex-start',
+      borderRadius: 20
+    }
+  })
 
 const ShareSheet: FC<Props> = ({ sheetRef, profile }) => {
   const profileCardRef = useRef<View>(null)
+  const { themeConfig } = useMobileTheme()
+  const style = styles(themeConfig)
 
   const shareAsPng = async () => {
     try {
@@ -94,20 +98,20 @@ const ShareSheet: FC<Props> = ({ sheetRef, profile }) => {
 
   return (
     <Sheet sheetRef={sheetRef} snap={['45%']}>
-      <View style={styles.container}>
+      <View style={style.container}>
         <View style={{ borderRadius: CARD_BORDER_RADIUS, overflow: 'hidden' }}>
           <View
             ref={profileCardRef}
-            style={{ backgroundColor: theme.colors.black }}
+            style={{ backgroundColor: themeConfig.backgroudColor }}
           >
-            <View style={styles.profileShareCard}>
+            <View style={style.profileShareCard}>
               <View
                 style={{
                   flexDirection: 'row',
                   justifyContent: 'space-between'
                 }}
               >
-                <View style={styles.qrContainer}>
+                <View style={style.qrContainer}>
                   <QRCode
                     logo={getProfilePicture(profile)}
                     size={100}
@@ -122,16 +126,16 @@ const ShareSheet: FC<Props> = ({ sheetRef, profile }) => {
                   }}
                 >
                   <View style={{ alignItems: 'flex-end' }}>
-                    <Text style={styles.boldText}>
+                    <Text style={style.boldText}>
                       {formatNumber(profile.stats.totalFollowers)}
                     </Text>
-                    <Text style={styles.hintText}>followers</Text>
+                    <Text style={style.hintText}>followers</Text>
                   </View>
                   <View style={{ alignItems: 'flex-end' }}>
-                    <Text style={styles.boldText}>
+                    <Text style={style.boldText}>
                       {formatNumber(profile.stats.totalPosts)}
                     </Text>
-                    <Text style={styles.hintText}>posts</Text>
+                    <Text style={style.hintText}>posts</Text>
                   </View>
                 </View>
               </View>
@@ -143,10 +147,10 @@ const ShareSheet: FC<Props> = ({ sheetRef, profile }) => {
                 }}
               >
                 <View>
-                  <Text style={styles.hintText}>Find me on Lens</Text>
+                  <Text style={style.hintText}>Find me on Lens</Text>
                   <Text
                     style={{
-                      color: theme.colors.white,
+                      color: themeConfig.textColor,
                       fontFamily: 'font-bold',
                       fontSize: normalizeFont(12),
                       letterSpacing: 1
@@ -171,18 +175,18 @@ const ShareSheet: FC<Props> = ({ sheetRef, profile }) => {
           </View>
         </View>
 
-        <View style={styles.cardActions}>
+        <View style={style.cardActions}>
           <AnimatedPressable
             style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}
           >
             <Ionicons
               name="scan-outline"
-              color={theme.colors.white}
+              color={themeConfig.textColor}
               size={20}
             />
             <Text
               style={{
-                color: theme.colors.white,
+                color: themeConfig.textColor,
                 fontFamily: 'font-medium',
                 fontSize: normalizeFont(10)
               }}
@@ -196,12 +200,12 @@ const ShareSheet: FC<Props> = ({ sheetRef, profile }) => {
           >
             <Ionicons
               name="image-outline"
-              color={theme.colors.white}
+              color={themeConfig.textColor}
               size={20}
             />
             <Text
               style={{
-                color: theme.colors.white,
+                color: themeConfig.textColor,
                 fontFamily: 'font-medium',
                 fontSize: normalizeFont(10)
               }}

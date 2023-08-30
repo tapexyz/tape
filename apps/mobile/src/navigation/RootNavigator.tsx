@@ -15,8 +15,7 @@ import {
   PodcastModal,
   TopsModal
 } from '~/components/common/modals'
-import { theme } from '~/helpers/theme'
-import { useNetWorkConnection } from '~/hooks'
+import { useMobileTheme, useNetWorkConnection } from '~/hooks'
 import { ProfileScreen, WatchScreen } from '~/screens'
 import { NewPublication } from '~/screens/NewPublication'
 
@@ -52,17 +51,18 @@ const options: StackNavigationOptions = {
   }
 }
 
-const modalOptions = {
-  headerShown: true,
-  headerTitleStyle: { fontFamily: 'font-medium', letterSpacing: 1 },
-  headerStyle: {
-    backgroundColor: theme.colors.background
-  },
-  headerLeft: () => <CollapseButton />
-}
-
 export const RootNavigator: FC = () => {
   useNetWorkConnection()
+
+  const { themeConfig } = useMobileTheme()
+  const modalOptions = {
+    headerShown: true,
+    headerTitleStyle: { fontFamily: 'font-medium', letterSpacing: 1 },
+    headerStyle: {
+      backgroundColor: themeConfig.backgroudColor
+    },
+    headerLeft: () => <CollapseButton />
+  }
 
   return (
     <Navigator screenOptions={{ headerShown: false }}>
