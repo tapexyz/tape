@@ -7,13 +7,13 @@
     "./*": "./*"
   },
   "dependencies": {
-    "@typescript-eslint/eslint-plugin": "^6.4.1",
+    "@typescript-eslint/eslint-plugin": "^6.5.0",
     "eslint": "8.48.0",
     "eslint-config-next": "13.4.19",
     "eslint-plugin-prettier": "^5.0.0",
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-unicorn": "^48.0.1",
     "eslint-plugin-unused-imports": "^3.0.0",
-    "prettier": "^3.0.2"
+    "prettier": "^3.0.3"
   }
 }
