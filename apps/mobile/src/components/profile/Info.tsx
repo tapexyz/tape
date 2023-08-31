@@ -67,7 +67,7 @@ const styles = (themeConfig: MobileThemeConfig) =>
     statsContainer: {
       flexDirection: 'row',
       justifyContent: 'space-evenly',
-      paddingVertical: 20
+      paddingVertical: 15
     },
     stat: {
       flexDirection: 'column',
@@ -133,6 +133,9 @@ const Info: FC<Props> = (props) => {
   return (
     <Animated.View style={animatedHeaderStyle}>
       <View
+        style={{
+          paddingBottom: 10
+        }}
         onLayout={(event) => {
           const { height } = event.nativeEvent.layout
           if (infoHeaderHeight !== height) {
@@ -214,7 +217,7 @@ const Info: FC<Props> = (props) => {
           </View>
         </View>
 
-        <View style={{ paddingHorizontal: 10, gap: 20 }}>
+        <View style={{ paddingHorizontal: 10, gap: 15 }}>
           <View>
             <Text style={style.handle} numberOfLines={1}>
               {isOwned && (

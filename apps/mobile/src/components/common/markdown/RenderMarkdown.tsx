@@ -41,18 +41,10 @@ const rules: RenderRules = {
     )
   },
   mention: ({ key, content }) => {
-    return (
-      <Text key={key}>
-        <MentionLink handle={content} />
-      </Text>
-    )
+    return <MentionLink key={key} handle={content} />
   },
   hashtag: ({ key, content }) => {
-    return (
-      <Text key={key}>
-        <HashtagLink hashtag={content} />
-      </Text>
-    )
+    return <HashtagLink key={key} hashtag={content} />
   }
 }
 
@@ -99,7 +91,7 @@ const RenderMarkdown = ({ content, textStyle }: MarkupTextProps) => {
       })
         .use(markdownItRegex, {
           name: 'mention',
-          regex: /(@[a-z\d-_.]{1,31})/
+          regex: /(@[a-z\d-_.]{1,31}\.lens)/
         })
         .use(markdownItRegex, {
           name: 'hashtag',

@@ -121,7 +121,7 @@ const Comments: FC<Props> = ({ id }) => {
           style={{
             flex: 1,
             height: height / 2,
-            padding: 20
+            paddingHorizontal: 20
           }}
         >
           <Text style={style.title}>Comments</Text>

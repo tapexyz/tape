@@ -18,8 +18,8 @@ import { useMobileTheme } from '~/hooks'
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginVertical: 20,
-    marginHorizontal: 10
+    marginHorizontal: 10,
+    marginVertical: 10
   },
   filter: {
     paddingHorizontal: 15,
