@@ -84,7 +84,7 @@ export const ETHERSCAN_URL = IS_MAINNET
 export const POLYGON_CHAIN_ID = IS_MAINNET ? 137 : 80001
 
 // ipfs
-export const IPFS_FREE_UPLOAD_LIMIT = IS_MAINNET ? 7000 : 100 // in MB
+export const IPFS_FREE_UPLOAD_LIMIT = IS_MAINNET ? 10000 : 100 // in MB
 export const IPFS_GATEWAY_URL =
   'https://39454ef77cea81df61b54eafc2816cd7.ipfscdn.io/ipfs'
 export const EVER_ENDPOINT = 'https://endpoint.4everland.co'
