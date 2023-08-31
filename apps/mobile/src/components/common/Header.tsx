@@ -57,7 +57,7 @@ const styles = (themeConfig: MobileThemeConfig) =>
       justifyContent: 'space-between',
       flexDirection: 'column',
       flex: 1,
-      padding: 10
+      paddingVertical: 10
     }
   })
 
@@ -94,7 +94,7 @@ const AuthenticatedUser = () => {
         <View style={style.sheetContainer}>
           <View>
             <Switch />
-            <View style={{ marginTop: 15, gap: 15 }}>
+            <View style={{ margin: 10, gap: 10 }}>
               <Menu>
                 <MenuItem
                   icon="person-outline"

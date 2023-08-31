@@ -33,14 +33,13 @@ const styles = (themeConfig: MobileThemeConfig) =>
   StyleSheet.create({
     cardContainer: {
       display: 'flex',
-      margin: 5,
       backgroundColor: themeConfig.backgroudColor,
       borderRadius: BORDER_RADIUS
     },
     card: {
       gap: 8,
-      paddingVertical: 10,
-      paddingHorizontal: 15,
+      paddingVertical: 7,
+      paddingHorizontal: 14,
       flexDirection: 'row',
       alignItems: 'center',
       borderRadius: BORDER_RADIUS
@@ -141,7 +140,11 @@ const Switch = () => {
       colors={[themeConfig.backgroudColor3, themeConfig.backgroudColor2]}
       radius={BORDER_RADIUS}
     >
-      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+      <ScrollView
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
+        contentContainerStyle={{ gap: 7, paddingHorizontal: 10 }}
+      >
         {profiles
           ? profiles?.map((profile) => renderItem({ profile }))
           : renderItem({ profile: selectedChannel })}
