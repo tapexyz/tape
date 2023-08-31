@@ -16,7 +16,7 @@ import { signOut, useMobilePersistStore } from '~/store/persist'
 
 import Menu from '../profile/Menu'
 import MenuItem from '../profile/MenuItem'
-import Switch from '../profile/Switch'
+import SwitchProfile from '../profile/SwitchProfile'
 import AnimatedPressable from '../ui/AnimatedPressable'
 import Sheet from '../ui/Sheet'
 import AppInfo from './AppInfo'
@@ -93,7 +93,7 @@ const AuthenticatedUser = () => {
       <Sheet sheetRef={profileSheetRef}>
         <View style={style.sheetContainer}>
           <View>
-            <Switch />
+            <SwitchProfile />
             <View style={{ marginVertical: 10, gap: 10 }}>
               <Menu>
                 <MenuItem

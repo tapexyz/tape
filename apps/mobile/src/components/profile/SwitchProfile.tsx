@@ -80,7 +80,7 @@ const Switch = () => {
             )
           }}
           style={{
-            borderWidth: 2,
+            borderWidth: 1.5,
             borderColor:
               selectedChannel?.id === profile.id
                 ? themeConfig.contrastBorderColor
@@ -88,7 +88,7 @@ const Switch = () => {
             borderRadius: BORDER_RADIUS
           }}
           imageStyle={{
-            opacity: 0.3,
+            opacity: 0.2,
             borderRadius: BORDER_RADIUS
           }}
         >
