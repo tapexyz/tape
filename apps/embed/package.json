@@ -16,7 +16,7 @@
     "@livepeer/react": "^2.8.1",
     "clsx": "^2.0.0",
     "graphql": "^16.8.0",
-    "next": "13.4.2",
+    "next": "13.4.19",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.4.1"
