@@ -1,6 +1,6 @@
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import React from 'react'
-import { Pressable, StyleSheet, Text } from 'react-native'
+import { StyleSheet, Text } from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'
 import { useMobileTheme } from '~/hooks'
@@ -23,9 +23,9 @@ const HashtagLink = ({ hashtag }: HashtagLinkProps) => {
   const { themeConfig } = useMobileTheme()
 
   return (
-    <Pressable>
-      <Text style={styles(themeConfig).hashtag}>{hashtag}</Text>
-    </Pressable>
+    <Text style={styles(themeConfig).hashtag} suppressHighlighting>
+      {hashtag}
+    </Text>
   )
 }
 

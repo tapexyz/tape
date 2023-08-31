@@ -1,4 +1,5 @@
 import { ALLOWED_HEX_CHARACTERS } from '@lenstube/constants'
+import { useHeaderHeight } from '@react-navigation/elements'
 import { LinearGradient } from 'expo-linear-gradient'
 import type { FC, PropsWithChildren } from 'react'
 import React from 'react'
@@ -14,6 +15,8 @@ const styles = StyleSheet.create({
 })
 
 const Container: FC<PropsWithChildren> = ({ children }) => {
+  const headerHeight = useHeaderHeight()
+
   const homeGradientColor = useMobileStore((state) => state.homeGradientColor)
 
   const setHomeGradientColor = useMobileStore(
@@ -38,7 +41,7 @@ const Container: FC<PropsWithChildren> = ({ children }) => {
   return (
     <LinearGradient
       colors={[generateJustOneColor(), 'transparent']}
-      style={styles.background}
+      style={[styles.background, { paddingTop: headerHeight }]}
       locations={[0, 0.9]}
     >
       {children}

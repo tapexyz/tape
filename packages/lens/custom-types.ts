@@ -196,4 +196,6 @@ export interface MobileThemeConfig {
   sheetBorderColor: string
   contrastBackgroundColor: string
   contrastTextColor: string
+  buttonBackgroundColor: string
+  buttonTextColor: string
 }

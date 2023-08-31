@@ -22,7 +22,7 @@ const styles = (themeConfig: MobileThemeConfig) =>
   StyleSheet.create({
     close: {
       position: 'absolute',
-      backgroundColor: themeConfig.backgroudColor2,
+      backgroundColor: themeConfig.buttonBackgroundColor,
       borderRadius: 100,
       display: 'flex',
       flexDirection: 'row',
@@ -30,7 +30,7 @@ const styles = (themeConfig: MobileThemeConfig) =>
       alignItems: 'center',
       width: 30,
       height: 30,
-      right: 5,
+      right: 7,
       top: 5,
       zIndex: 1
     }
@@ -63,7 +63,7 @@ const VideoPlayer: FC<Props> = ({ video }) => {
       <Pressable onPress={() => goBack()} style={style.close}>
         <Ionicons
           name="close-outline"
-          color={themeConfig.textColor}
+          color={themeConfig.buttonTextColor}
           size={25}
         />
       </Pressable>

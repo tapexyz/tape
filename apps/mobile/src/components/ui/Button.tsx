@@ -41,9 +41,7 @@ const Button: FC<Props> = ({ text, icon, size = 'md', ...props }) => {
           paddingHorizontal: getButtonSize(size)[1],
           borderRadius: 100,
           alignItems: 'center',
-          borderWidth: 1,
-          borderColor: themeConfig.borderColor,
-          backgroundColor: themeConfig.backgroudColor2
+          backgroundColor: themeConfig.buttonBackgroundColor
         },
         props.style
       ]}
@@ -52,7 +50,7 @@ const Button: FC<Props> = ({ text, icon, size = 'md', ...props }) => {
       {text && (
         <Text
           style={{
-            color: themeConfig.textColor,
+            color: themeConfig.buttonTextColor,
             fontFamily: 'font-medium',
             fontSize: normalizeFont(12),
             opacity: props.disabled ? 0.3 : 1

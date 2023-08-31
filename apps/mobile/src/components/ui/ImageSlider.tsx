@@ -37,7 +37,8 @@ const ImageSlider = ({ images }: { images: MediaSet[] }) => {
                 flex: selectedItem === index ? MAX_SHOW_COUNT * 2 : 1,
                 borderRadius: 20,
                 overflow: 'hidden',
-                marginRight: index === MAX_SHOW_COUNT - 1 ? 0 : 5
+                marginRight:
+                  images.length === 1 ? 0 : index === MAX_SHOW_COUNT - 1 ? 0 : 5
               }}
             >
               <Pressable

@@ -17,6 +17,8 @@ type Props = {
   backdropOpacity?: number
 }
 
+const BORDER_RADIUS = 35
+
 const Sheet: FC<PropsWithChildren & Props> = ({
   snap,
   marginX,
@@ -45,20 +47,23 @@ const Sheet: FC<PropsWithChildren & Props> = ({
     <BottomSheetModal
       index={0}
       ref={sheetRef ?? bottomSheetModalRef}
-      handleComponent={null}
+      // handleComponent={null}
+      handleIndicatorStyle={{
+        backgroundColor: themeConfig.sheetBorderColor
+      }}
       backgroundStyle={{
-        borderRadius: 40,
+        borderRadius: BORDER_RADIUS,
         backgroundColor: themeConfig.sheetBackgroundColor,
         borderColor: themeConfig.sheetBorderColor,
-        borderWidth: 0.5
+        borderWidth: 1
       }}
       animationConfigs={{
         duration: 200
       }}
       style={{
-        marginHorizontal: marginX ?? 7,
+        marginHorizontal: marginX ?? 9,
         overflow: 'hidden',
-        borderRadius: 40
+        borderRadius: BORDER_RADIUS
       }}
       detached={true}
       bottomInset={20}

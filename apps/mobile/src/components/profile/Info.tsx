@@ -49,8 +49,8 @@ type Props = {
 
 const styles = (themeConfig: MobileThemeConfig) =>
   StyleSheet.create({
-    icon: {
-      backgroundColor: themeConfig.backgroudColor2,
+    iconButton: {
+      backgroundColor: themeConfig.buttonBackgroundColor,
       borderRadius: 100,
       flexDirection: 'row',
       justifyContent: 'center',
@@ -165,20 +165,20 @@ const Info: FC<Props> = (props) => {
           >
             <ShareSheet sheetRef={shareSheetRef} profile={profile} />
 
-            <Pressable onPress={() => goBack()} style={style.icon}>
+            <Pressable onPress={() => goBack()} style={style.iconButton}>
               <Ionicons
                 name="chevron-back-outline"
-                color={themeConfig.textColor}
+                color={themeConfig.buttonTextColor}
                 size={20}
               />
             </Pressable>
             <Pressable
               onPress={() => shareSheetRef.current?.present()}
-              style={style.icon}
+              style={style.iconButton}
             >
               <Ionicons
                 name="share-outline"
-                color={themeConfig.textColor}
+                color={themeConfig.buttonTextColor}
                 size={20}
                 style={{ paddingLeft: 2, paddingBottom: 1 }}
               />
@@ -243,7 +243,7 @@ const Info: FC<Props> = (props) => {
               icon={
                 <Ionicons
                   name="ellipsis-vertical-outline"
-                  color={themeConfig.textColor}
+                  color={themeConfig.buttonTextColor}
                   size={16}
                 />
               }

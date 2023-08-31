@@ -17,6 +17,7 @@ export const colors = {
   red: 'red',
   yellow: '#FEFF55',
   green: 'green',
+  orange: 'orange',
   grey: '#333333',
   blueGrey: '#E0E8FF',
   indigo: '#6366f1'
@@ -30,10 +31,12 @@ const darkTheme: MobileThemeConfig = {
   backgroudColor3: colors.backdrop2,
   sheetBackgroundColor: colors.backdrop,
   borderColor: colors.grey,
-  contrastBorderColor: colors.white,
   sheetBorderColor: colors.grey,
+  contrastBorderColor: colors.white,
   contrastBackgroundColor: colors.white,
-  contrastTextColor: colors.black
+  contrastTextColor: colors.black,
+  buttonBackgroundColor: colors.white,
+  buttonTextColor: colors.black
 }
 
 const lightTheme: MobileThemeConfig = {
@@ -44,13 +47,32 @@ const lightTheme: MobileThemeConfig = {
   backgroudColor3: '#dfe2e6',
   sheetBackgroundColor: '#F0F2F5',
   borderColor: '#CCCCCC',
-  contrastBorderColor: colors.black,
   sheetBorderColor: '#CCCCCC',
+  contrastBorderColor: colors.black,
   contrastBackgroundColor: colors.black,
-  contrastTextColor: colors.white
+  contrastTextColor: colors.white,
+  buttonBackgroundColor: colors.black,
+  buttonTextColor: colors.white
+}
+
+const gardenTheme: MobileThemeConfig = {
+  textColor: colors.black,
+  secondaryTextColor: '#00000090',
+  backgroudColor: colors.white,
+  backgroudColor2: '#F0F2F5',
+  backgroudColor3: '#dfe2e6',
+  sheetBackgroundColor: '#F0F2F5',
+  borderColor: '#CCCCCC',
+  sheetBorderColor: '#CCCCCC',
+  contrastBorderColor: colors.black,
+  contrastBackgroundColor: colors.black,
+  contrastTextColor: colors.white,
+  buttonBackgroundColor: '#404B42',
+  buttonTextColor: colors.white
 }
 
 export const theme = {
   dark: darkTheme,
-  light: lightTheme
+  light: lightTheme,
+  garden: gardenTheme
 }

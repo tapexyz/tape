@@ -36,7 +36,7 @@ const AccordionWithSwitch: FC<Props> = ({
           justifyContent: 'space-between',
           alignItems: 'center',
           paddingVertical: 20,
-          paddingRight: 10
+          paddingRight: 5
         }}
       >
         <Text

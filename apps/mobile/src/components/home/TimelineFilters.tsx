@@ -55,7 +55,7 @@ const TimelineFilters = () => {
       style={styles.container}
       horizontal={true}
       showsHorizontalScrollIndicator={false}
-      contentContainerStyle={{ gap: 5, paddingRight: 15 }}
+      contentContainerStyle={{ gap: 5 }}
     >
       <Pressable
         onPress={() => setSelectedFeedType(TimelineFeedType.CURATED)}
@@ -64,7 +64,7 @@ const TimelineFilters = () => {
           {
             backgroundColor:
               selectedFeedType === TimelineFeedType.CURATED
-                ? themeConfig.contrastBackgroundColor
+                ? themeConfig.buttonBackgroundColor
                 : 'transparent'
           }
         ]}
@@ -101,7 +101,7 @@ const TimelineFilters = () => {
           {
             backgroundColor:
               selectedFeedType === TimelineFeedType.FOLLOWING
-                ? themeConfig.contrastBackgroundColor
+                ? themeConfig.buttonBackgroundColor
                 : 'transparent'
           }
         ]}
@@ -138,7 +138,7 @@ const TimelineFilters = () => {
           {
             backgroundColor:
               selectedFeedType === TimelineFeedType.HIGHLIGHTS
-                ? themeConfig.contrastBackgroundColor
+                ? themeConfig.buttonBackgroundColor
                 : 'transparent'
           }
         ]}
@@ -172,7 +172,7 @@ const TimelineFilters = () => {
           {
             backgroundColor:
               selectedFeedType === TimelineFeedType.ALGORITHM
-                ? themeConfig.contrastBackgroundColor
+                ? themeConfig.buttonBackgroundColor
                 : 'transparent'
           }
         ]}

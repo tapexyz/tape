@@ -20,6 +20,7 @@ import AnimatedPressable from '~/components/ui/AnimatedPressable'
 import Sheet from '~/components/ui/Sheet'
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
+import { colors } from '~/helpers/theme'
 import { useMobileTheme } from '~/hooks'
 
 import Button from '../ui/Button'
@@ -73,9 +74,11 @@ const styles = (themeConfig: MobileThemeConfig) =>
     },
     qrContainer: {
       padding: 10,
-      backgroundColor: themeConfig.textColor,
+      backgroundColor: colors.white,
       alignSelf: 'flex-start',
-      borderRadius: 20
+      borderRadius: 20,
+      borderColor: themeConfig.borderColor,
+      borderWidth: 0.5
     }
   })
 
@@ -97,7 +100,7 @@ const ShareSheet: FC<Props> = ({ sheetRef, profile }) => {
   }
 
   return (
-    <Sheet sheetRef={sheetRef} snap={['45%']}>
+    <Sheet sheetRef={sheetRef} snap={['45%']} backdropOpacity={0.8}>
       <View style={style.container}>
         <View style={{ borderRadius: CARD_BORDER_RADIUS, overflow: 'hidden' }}>
           <View

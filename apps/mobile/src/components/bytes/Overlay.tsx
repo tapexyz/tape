@@ -62,8 +62,8 @@ const Overlay: FC<Props> = ({ byte: { stats, profile, metadata } }) => {
             style={[styles.text, { fontSize: normalizeFont(12) }]}
           >
             {showMoreContent
-              ? metadata.name
-              : trimNewLines(metadata.name ?? '')}
+              ? metadata.content
+              : trimNewLines(metadata.content ?? '')}
           </Text>
         </Pressable>
         <UserProfile
@@ -108,7 +108,7 @@ const Overlay: FC<Props> = ({ byte: { stats, profile, metadata } }) => {
             ) : null}
           </AnimatedPressable>
           <AnimatedPressable style={styles.actionItem}>
-            <Ionicons name="grid-outline" color={colors.white} size={17} />
+            <Ionicons name="layers-outline" color={colors.white} size={20} />
             {stats.totalAmountOfCollects ? (
               <Text style={styles.text}>
                 {formatNumber(stats.totalAmountOfCollects)}

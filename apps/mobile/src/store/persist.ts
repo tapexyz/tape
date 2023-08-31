@@ -64,4 +64,4 @@ export const signIn = (tokens: { accessToken: string; refreshToken: string }) =>
 export const hydrateAuthTokens = () =>
   useMobilePersistStore.getState().hydrateAuthTokens()
 export const isLightMode = () =>
-  useMobilePersistStore.getState().theme === 'light'
+  useMobilePersistStore.getState().theme !== 'dark'

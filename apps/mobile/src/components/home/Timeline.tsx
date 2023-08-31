@@ -39,7 +39,7 @@ import TimelineFilters from './TimelineFilters'
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 5,
+    paddingHorizontal: 10,
     flex: 1,
     height: windowHeight
   }
@@ -211,7 +211,7 @@ const Timeline = () => {
           : (item as Publication)
       return (
         // Added extra 'View' this to fix issue with ItemSeparator rendering
-        <View style={{ marginBottom: 30 }}>
+        <View style={{ marginBottom: 30 }} key={publication.id}>
           {publication.metadata.mainContentFocus ===
           PublicationMainFocus.Audio ? (
             <AudioCard audio={publication} />

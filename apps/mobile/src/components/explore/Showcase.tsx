@@ -50,7 +50,7 @@ const styles = (themeConfig: MobileThemeConfig) =>
       justifyContent: 'flex-end',
       borderRadius: BORDER_RADIUS,
       overflow: 'hidden',
-      borderWidth: 0.5,
+      borderWidth: 1,
       borderColor: themeConfig.borderColor
     },
     title: {
