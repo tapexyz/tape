@@ -34,14 +34,15 @@ type Props = {
 const styles = (themeConfig: MobileThemeConfig) =>
   StyleSheet.create({
     container: {
-      paddingHorizontal: 5,
+      paddingHorizontal: 10,
       flex: 1
     },
     subheading: {
-      fontFamily: 'font-normal',
+      fontFamily: 'font-bold',
       color: themeConfig.textColor,
       opacity: 0.8,
-      fontSize: normalizeFont(13)
+      fontSize: normalizeFont(13),
+      paddingBottom: 20
     }
   })
 

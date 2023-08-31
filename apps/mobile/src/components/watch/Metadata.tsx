@@ -51,7 +51,7 @@ const Metadata: FC<Props> = ({ video }) => {
   const [showMore, setShowMore] = useState(false)
 
   return (
-    <View style={{ paddingVertical: 15, paddingHorizontal: 5 }}>
+    <View style={{ paddingVertical: 15 }}>
       <Text style={style.title}>{video.metadata.name}</Text>
       {video.metadata.description && (
         <Pressable onPress={() => setShowMore(!showMore)}>

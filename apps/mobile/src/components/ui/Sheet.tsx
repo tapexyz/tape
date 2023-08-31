@@ -2,7 +2,9 @@ import type { BottomSheetBackdropProps } from '@gorhom/bottom-sheet'
 import {
   BottomSheetBackdrop,
   BottomSheetModal,
-  BottomSheetScrollView
+  BottomSheetScrollView,
+  BottomSheetView,
+  useBottomSheetDynamicSnapPoints
 } from '@gorhom/bottom-sheet'
 import type { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import type { FC, PropsWithChildren } from 'react'
@@ -12,13 +14,13 @@ import { useMobileTheme } from '~/hooks'
 
 type Props = {
   sheetRef?: React.RefObject<BottomSheetModalMethods>
-  snap?: string[]
   marginX?: number
   backdropOpacity?: number
 }
 
+const BORDER_RADIUS = 35
+
 const Sheet: FC<PropsWithChildren & Props> = ({
-  snap,
   marginX,
   children,
   sheetRef,
@@ -26,8 +28,6 @@ const Sheet: FC<PropsWithChildren & Props> = ({
 }) => {
   const { themeConfig } = useMobileTheme()
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
-
-  const snapPoints = useMemo(() => snap ?? ['40%'], [snap])
 
   const renderBackdrop = useCallback(
     (props: BottomSheetBackdropProps) => (
@@ -40,37 +40,49 @@ const Sheet: FC<PropsWithChildren & Props> = ({
     ),
     [backdropOpacity]
   )
+  const initialSnapPoints = useMemo(() => ['CONTENT_HEIGHT'], [])
+
+  const {
+    animatedHandleHeight,
+    animatedSnapPoints,
+    animatedContentHeight,
+    handleContentLayout
+  } = useBottomSheetDynamicSnapPoints(initialSnapPoints)
 
   return (
     <BottomSheetModal
       index={0}
+      keyboardBehavior="interactive"
       ref={sheetRef ?? bottomSheetModalRef}
-      handleComponent={null}
+      handleIndicatorStyle={{
+        backgroundColor: themeConfig.sheetBorderColor
+      }}
       backgroundStyle={{
-        borderRadius: 40,
+        borderRadius: BORDER_RADIUS,
         backgroundColor: themeConfig.sheetBackgroundColor,
         borderColor: themeConfig.sheetBorderColor,
         borderWidth: 0.5
       }}
-      animationConfigs={{
-        duration: 200
-      }}
       style={{
         marginHorizontal: marginX ?? 7,
         overflow: 'hidden',
-        borderRadius: 40
+        borderRadius: BORDER_RADIUS
       }}
       detached={true}
       bottomInset={20}
-      snapPoints={snapPoints}
       backdropComponent={renderBackdrop}
+      snapPoints={animatedSnapPoints}
+      handleHeight={animatedHandleHeight}
+      contentHeight={animatedContentHeight}
     >
-      <BottomSheetScrollView
-        contentContainerStyle={{ flex: 1 }}
-        showsVerticalScrollIndicator={false}
-      >
-        {children}
-      </BottomSheetScrollView>
+      <BottomSheetView onLayout={handleContentLayout}>
+        <BottomSheetScrollView
+          contentContainerStyle={{ flex: 1 }}
+          showsVerticalScrollIndicator={false}
+        >
+          {children}
+        </BottomSheetScrollView>
+      </BottomSheetView>
     </BottomSheetModal>
   )
 }

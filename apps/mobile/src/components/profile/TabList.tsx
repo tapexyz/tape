@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginVertical: 20,
-    marginHorizontal: 5
+    marginHorizontal: 10
   },
   filter: {
     paddingHorizontal: 15,
@@ -92,7 +92,7 @@ const TabList: FC<Props> = ({ activeTab, scrollToTab }) => {
             ? themeConfig.contrastTextColor
             : themeConfig.textColor
           const backgroundColor = isActive
-            ? themeConfig.contrastBackgroundColor
+            ? themeConfig.buttonBackgroundColor
             : 'transparent'
           return (
             <Pressable

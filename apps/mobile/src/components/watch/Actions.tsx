@@ -65,7 +65,11 @@ const Actions: FC<Props> = ({ video }) => {
         <Text style={style.otherInfo}>Mirror</Text>
       </AnimatedPressable>
       <AnimatedPressable style={style.action}>
-        <Ionicons name="grid-outline" color={themeConfig.textColor} size={25} />
+        <Ionicons
+          name="layers-outline"
+          color={themeConfig.textColor}
+          size={25}
+        />
         <Text style={style.otherInfo}>Collect</Text>
       </AnimatedPressable>
       <AnimatedPressable style={style.action}>

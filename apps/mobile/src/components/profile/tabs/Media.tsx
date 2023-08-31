@@ -30,7 +30,7 @@ type Props = {
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 5,
+    paddingHorizontal: 10,
     flex: 1
   }
 })

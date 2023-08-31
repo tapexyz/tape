@@ -6,7 +6,6 @@ import markdownItRegex from 'markdown-it-regex'
 import React, { useMemo } from 'react'
 import { Linking, Text, type TextStyle } from 'react-native'
 
-import AnimatedPressable from '~/components/ui/AnimatedPressable'
 import { colors } from '~/helpers/theme'
 import { useMobileTheme } from '~/hooks'
 
@@ -28,27 +27,32 @@ const rules: RenderRules = {
   },
   link: ({ attributes, key }, children) => {
     return (
-      <AnimatedPressable
+      <Text
         key={key}
+        style={{
+          textDecorationColor: colors.indigo,
+          textDecorationStyle: 'dotted'
+        }}
+        suppressHighlighting
         onPress={() => Linking.openURL(attributes.href)}
       >
-        <Text
-          selectable
-          style={{
-            textDecorationColor: colors.indigo,
-            textDecorationStyle: 'dotted'
-          }}
-        >
-          {children}
-        </Text>
-      </AnimatedPressable>
+        {children}
+      </Text>
     )
   },
   mention: ({ key, content }) => {
-    return <MentionLink key={key} handle={content} />
+    return (
+      <Text key={key}>
+        <MentionLink handle={content} />
+      </Text>
+    )
   },
   hashtag: ({ key, content }) => {
-    return <HashtagLink key={key} hashtag={content} />
+    return (
+      <Text key={key}>
+        <HashtagLink hashtag={content} />
+      </Text>
+    )
   }
 }
 

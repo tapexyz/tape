@@ -147,9 +147,9 @@ const VideoCard: FC<Props> = ({ video }) => {
 
       <View style={{ paddingVertical: 15, paddingHorizontal: 5 }}>
         <Text numberOfLines={3} style={style.title}>
-          {trimify(video.metadata.name ?? '')}
+          {trimify(video.metadata?.name ?? '')}
         </Text>
-        {video.metadata.description && (
+        {video.metadata?.description && (
           <Text numberOfLines={3} style={style.description}>
             {trimNewLines(video.metadata.description)}
           </Text>
@@ -159,7 +159,7 @@ const VideoCard: FC<Props> = ({ video }) => {
           <Text style={{ color: themeConfig.secondaryTextColor, fontSize: 3 }}>
             {'\u2B24'}
           </Text>
-          <Text style={style.otherInfo}>{video.stats.totalUpvotes} likes</Text>
+          <Text style={style.otherInfo}>{video.stats?.totalUpvotes} likes</Text>
           <Text style={{ color: themeConfig.secondaryTextColor, fontSize: 3 }}>
             {'\u2B24'}
           </Text>

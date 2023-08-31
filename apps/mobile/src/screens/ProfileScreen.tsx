@@ -42,7 +42,7 @@ export const ProfileScreen = (
 
   const { data, loading } = useProfileQuery({
     variables: {
-      request: { handle },
+      request: { handle: handle?.replace('@', '') },
       who: selectedChannel?.id ?? null
     },
     skip: !handle

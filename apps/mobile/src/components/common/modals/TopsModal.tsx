@@ -35,7 +35,7 @@ const styles = (themeConfig: MobileThemeConfig) =>
     },
     close: {
       position: 'absolute',
-      backgroundColor: themeConfig.contrastBackgroundColor,
+      backgroundColor: themeConfig.buttonBackgroundColor,
       padding: 10,
       borderRadius: 100,
       display: 'flex',
@@ -134,7 +134,7 @@ export const TopsModal = (): JSX.Element => {
       >
         <Ionicons
           name="close-outline"
-          color={themeConfig.contrastTextColor}
+          color={themeConfig.buttonTextColor}
           size={35}
         />
       </Pressable>

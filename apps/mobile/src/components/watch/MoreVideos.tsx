@@ -23,7 +23,6 @@ import Metadata from './Metadata'
 const styles = (themeConfig: MobileThemeConfig) =>
   StyleSheet.create({
     titleContainer: {
-      paddingHorizontal: 5,
       paddingVertical: 20,
       display: 'flex',
       flexDirection: 'row',
@@ -129,7 +128,7 @@ const MoreVideos: FC<Props> = ({ video }) => {
     <View
       style={{
         flex: 1,
-        paddingHorizontal: 5,
+        paddingHorizontal: 10,
         marginBottom: 250
       }}
     >
