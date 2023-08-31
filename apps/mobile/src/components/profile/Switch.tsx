@@ -143,7 +143,7 @@ const Switch = () => {
       <ScrollView
         horizontal={true}
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ gap: 7, paddingHorizontal: 10 }}
+        contentContainerStyle={{ gap: 7 }}
       >
         {profiles
           ? profiles?.map((profile) => renderItem({ profile }))

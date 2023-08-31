@@ -116,7 +116,7 @@ const AuthSheet: FC<Props> = ({ sheetRef }) => {
   }
 
   return (
-    <Sheet sheetRef={sheetRef} snap={['35%']}>
+    <Sheet sheetRef={sheetRef}>
       <View style={styles.container}>
         <View
           style={{

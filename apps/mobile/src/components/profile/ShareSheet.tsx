@@ -100,7 +100,7 @@ const ShareSheet: FC<Props> = ({ sheetRef, profile }) => {
   }
 
   return (
-    <Sheet sheetRef={sheetRef} snap={['45%']} backdropOpacity={0.8}>
+    <Sheet sheetRef={sheetRef} backdropOpacity={0.8}>
       <View style={style.container}>
         <View style={{ borderRadius: CARD_BORDER_RADIUS, overflow: 'hidden' }}>
           <View

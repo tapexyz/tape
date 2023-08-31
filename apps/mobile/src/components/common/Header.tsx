@@ -57,7 +57,7 @@ const styles = (themeConfig: MobileThemeConfig) =>
       justifyContent: 'space-between',
       flexDirection: 'column',
       flex: 1,
-      paddingVertical: 10
+      padding: 10
     }
   })
 
@@ -90,11 +90,11 @@ const AuthenticatedUser = () => {
         size={30}
         onPress={() => profileSheetRef.current?.present()}
       />
-      <Sheet sheetRef={profileSheetRef} snap={['60%']}>
+      <Sheet sheetRef={profileSheetRef}>
         <View style={style.sheetContainer}>
           <View>
             <Switch />
-            <View style={{ margin: 10, gap: 10 }}>
+            <View style={{ marginVertical: 10, gap: 10 }}>
               <Menu>
                 <MenuItem
                   icon="person-outline"
