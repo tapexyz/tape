@@ -11,7 +11,7 @@
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "next": "13.4.2"
+    "next": "13.4.19"
   },
   "devDependencies": {
     "@lenstube/browser": "*",
