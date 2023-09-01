@@ -3,9 +3,7 @@ import * as SplashScreen from 'expo-splash-screen'
 import type { FC, PropsWithChildren } from 'react'
 import React, { useState } from 'react'
 import { useWindowDimensions } from 'react-native'
-import Animated, { FadeInDown } from 'react-native-reanimated'
 
-import { colors } from '~/helpers/theme'
 import { useMobilePersistStore } from '~/store/persist'
 
 import { useAuth, useCachedResources, useEffect } from '../../hooks'
@@ -16,21 +14,11 @@ const Splash = () => {
   const { height, width } = useWindowDimensions()
 
   return (
-    <Animated.View
-      entering={FadeInDown}
-      style={{
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: colors.black
-      }}
-    >
-      <ExpoImage
-        source={require('assets/splash.png')}
-        contentFit="cover"
-        style={{ width, height }}
-      />
-    </Animated.View>
+    <ExpoImage
+      source={require('assets/splash.png')}
+      contentFit="cover"
+      style={{ width, height }}
+    />
   )
 }
 
