@@ -17,7 +17,6 @@ import {
 } from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'
-import { colors } from '~/helpers/theme'
 import { useMobileTheme } from '~/hooks'
 
 import Sheet from '../ui/Sheet'
@@ -33,7 +32,8 @@ const styles = (themeConfig: MobileThemeConfig) =>
       display: 'flex',
       flexDirection: 'column',
       borderRadius: 15,
-      backgroundColor: themeConfig.sheetBackgroundColor,
+      borderColor: themeConfig.borderColor,
+      borderWidth: 0.5,
       gap: 10,
       height: CONTAINER_HEIGHT,
       width: '100%'
@@ -95,7 +95,7 @@ const Comments: FC<Props> = ({ id }) => {
       <View style={style.container}>
         <Skeleton
           show={loading}
-          colors={[themeConfig.sheetBackgroundColor, colors.grey]}
+          colors={[`${themeConfig.backgroudColor}50`, 'transparent']}
           radius={15}
           height={CONTAINER_HEIGHT}
         >
@@ -121,7 +121,7 @@ const Comments: FC<Props> = ({ id }) => {
           style={{
             flex: 1,
             height: height / 2,
-            padding: 20
+            paddingHorizontal: 20
           }}
         >
           <Text style={style.title}>Comments</Text>

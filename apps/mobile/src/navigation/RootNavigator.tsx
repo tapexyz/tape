@@ -16,7 +16,7 @@ import {
   TopsModal
 } from '~/components/common/modals'
 import { useMobileTheme, useNetWorkConnection } from '~/hooks'
-import { ProfileScreen, WatchScreen } from '~/screens'
+import { ProfileScreen, SettingsScreen, WatchScreen } from '~/screens'
 import { NewPublication } from '~/screens/NewPublication'
 
 import { BottomTabNavigator } from './BottomTabNavigator'
@@ -67,11 +67,16 @@ export const RootNavigator: FC = () => {
   return (
     <Navigator screenOptions={{ headerShown: false }}>
       <Screen name="MainTab" options={options} component={BottomTabNavigator} />
-      <Screen name="WatchVideo" options={options} component={WatchScreen} />
+      <Screen name="WatchScreen" options={options} component={WatchScreen} />
       <Screen
         name="NewPublication"
         options={options}
         component={NewPublication}
+      />
+      <Screen
+        name="SettingsScreen"
+        options={options}
+        component={SettingsScreen}
       />
 
       <Screen

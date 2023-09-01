@@ -17,7 +17,7 @@ type Props = {
 const styles = (themeConfig: MobileThemeConfig) =>
   StyleSheet.create({
     badge: {
-      backgroundColor: themeConfig.backgroudColor2,
+      backgroundColor: themeConfig.backgroudColor,
       borderRadius: 100,
       flexDirection: 'row',
       alignItems: 'center',

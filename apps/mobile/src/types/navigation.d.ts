@@ -66,16 +66,12 @@ declare global {
     PodcastModal: undefined
     MusicModal: undefined
     NotificationsModal: undefined
-    ProfileScreen: { handle: string }
+    SettingsScreen: undefined
     NewPublication: undefined
-    WatchVideo: { id: string }
+    WatchScreen: { id: string }
+    ProfileScreen: { handle: string }
 
     MainTab: NavigatorScreenParams<MainTabParamList>
-    Settings: undefined
-
-    // modals
-    ApplicationInfo: undefined
-    NotFound: undefined
   }
 
   namespace ReactNavigation {
@@ -94,16 +90,15 @@ declare global {
 
   // Root stack
   type RootStackScreenProps = RootStackComposite
-  type WatchScreenProps = RootStackComposite<'WatchVideo'>
+  type WatchScreenProps = RootStackComposite<'WatchScreen'>
   type ProfileScreenProps = RootStackComposite<'ProfileScreen'>
+  type SettingsScreenProps = RootStackComposite<'SettingsScreen'>
   type NotificationsModalProps = RootStackComposite<'NotificationsModal'>
   type NewPublicationProps = RootStackComposite<'NewPublication'>
 
   type PodcastModalProps = ExploreStackComposite<'PodcastModal'>
-
-  type HomeScreenProps = HomeStackComposite<'Home'>
-
   type ExploreScreenProps = ExploreStackComposite<'Explore'>
 
+  type HomeScreenProps = HomeStackComposite<'Home'>
   type BytesScreenProps = BytesStackComposite<'Bytes'>
 }

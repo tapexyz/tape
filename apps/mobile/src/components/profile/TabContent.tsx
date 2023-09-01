@@ -14,7 +14,6 @@ import { FlatList, useWindowDimensions, View } from 'react-native'
 import type { SharedValue } from 'react-native-reanimated'
 import Animated, {
   Extrapolate,
-  FadeInRight,
   interpolate,
   useAnimatedStyle
 } from 'react-native-reanimated'
@@ -74,7 +73,7 @@ const TabContent: FC<Props> = (props) => {
   })
 
   return (
-    <Animated.View style={animatedScrollStyles} entering={FadeInRight}>
+    <Animated.View style={animatedScrollStyles}>
       <TabList activeTab={activeTabIndex} scrollToTab={scrollToTab} />
       <FlatList
         ref={flatListRef}

@@ -111,7 +111,7 @@ const VideoCard: FC<Props> = ({ video }) => {
   )
 
   return (
-    <Pressable onPress={() => navigate('WatchVideo', { id: video.id })}>
+    <Pressable onPress={() => navigate('WatchScreen', { id: video.id })}>
       <ImageBackground
         source={{ uri: thumbnailUrl }}
         blurRadius={15}

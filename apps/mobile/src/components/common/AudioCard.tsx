@@ -85,7 +85,7 @@ const AudioCard: FC<Props> = ({ audio }) => {
   const style = styles(themeConfig)
 
   return (
-    <Pressable onPress={() => navigate('WatchVideo', { id: audio.id })}>
+    <Pressable onPress={() => navigate('WatchScreen', { id: audio.id })}>
       <>
         <View style={{ display: 'flex', flexDirection: 'row' }}>
           <ExpoImage

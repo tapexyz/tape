@@ -121,7 +121,7 @@ const About: FC<Props> = ({ channel }) => {
                   `${STATIC_ASSETS}/images/social/youtube.png`,
                   'AVATAR'
                 )}
-                className="h-4 w-4"
+                className="h-4 w-4 object-contain"
                 height={16}
                 width={16}
                 alt="Youtube"
