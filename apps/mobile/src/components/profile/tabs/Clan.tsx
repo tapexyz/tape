@@ -1,4 +1,5 @@
 import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
+import { trimLensHandle } from '@lenstube/generic'
 import type {
   Profile,
   Publication,
@@ -101,8 +102,8 @@ const Clan: FC<Props> = ({ profile, scrollHandler }) => {
       <Animated.FlatList
         ListHeaderComponent={
           <Text style={style.subheading}>
-            Dedicated corner to connect, swap stories, and get hyped about what
-            we do!
+            Dedicated corner to connect, swap stories, and get hyped about what{' '}
+            {trimLensHandle(profile.handle)} do!
           </Text>
         }
         data={publications}
