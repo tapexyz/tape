@@ -8,7 +8,7 @@ import { useMobileTheme } from '~/hooks'
 const styles = (themeConfig: MobileThemeConfig) =>
   StyleSheet.create({
     card: {
-      backgroundColor: themeConfig.backgroudColor3,
+      backgroundColor: themeConfig.backgroudColor,
       borderRadius: 20
     }
   })
