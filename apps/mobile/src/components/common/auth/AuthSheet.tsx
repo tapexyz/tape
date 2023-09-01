@@ -122,7 +122,8 @@ const AuthSheet: FC<Props> = ({ sheetRef }) => {
           style={{
             alignItems: 'center',
             flex: 1,
-            justifyContent: 'space-between'
+            justifyContent: 'space-between',
+            gap: 10
           }}
         >
           <ExpoImage

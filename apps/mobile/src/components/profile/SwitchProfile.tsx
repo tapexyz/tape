@@ -39,7 +39,8 @@ const styles = (themeConfig: MobileThemeConfig) =>
     card: {
       gap: 8,
       paddingVertical: 7,
-      paddingHorizontal: 14,
+      paddingHorizontal: 9,
+      paddingRight: 14,
       flexDirection: 'row',
       alignItems: 'center',
       borderRadius: BORDER_RADIUS
@@ -62,7 +63,7 @@ const styles = (themeConfig: MobileThemeConfig) =>
     }
   })
 
-const Switch = () => {
+const SwitchProfile = () => {
   const { themeConfig } = useMobileTheme()
   const style = styles(themeConfig)
 
@@ -153,4 +154,4 @@ const Switch = () => {
   )
 }
 
-export default Switch
+export default SwitchProfile

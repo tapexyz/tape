@@ -28,18 +28,6 @@ const Sheet: FC<PropsWithChildren & Props> = ({
 }) => {
   const { themeConfig } = useMobileTheme()
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
-
-  const renderBackdrop = useCallback(
-    (props: BottomSheetBackdropProps) => (
-      <BottomSheetBackdrop
-        {...props}
-        opacity={backdropOpacity}
-        disappearsOnIndex={-1}
-        appearsOnIndex={0}
-      />
-    ),
-    [backdropOpacity]
-  )
   const initialSnapPoints = useMemo(() => ['CONTENT_HEIGHT'], [])
 
   const {
@@ -48,6 +36,19 @@ const Sheet: FC<PropsWithChildren & Props> = ({
     animatedContentHeight,
     handleContentLayout
   } = useBottomSheetDynamicSnapPoints(initialSnapPoints)
+
+  const renderBackdrop = useCallback(
+    (props: BottomSheetBackdropProps) => (
+      <BottomSheetBackdrop
+        {...props}
+        opacity={backdropOpacity}
+        disappearsOnIndex={-1}
+        appearsOnIndex={0}
+        pressBehavior="none"
+      />
+    ),
+    [backdropOpacity]
+  )
 
   return (
     <BottomSheetModal
