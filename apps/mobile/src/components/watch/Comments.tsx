@@ -17,7 +17,6 @@ import {
 } from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'
-import { colors } from '~/helpers/theme'
 import { useMobileTheme } from '~/hooks'
 
 import Sheet from '../ui/Sheet'
@@ -96,7 +95,7 @@ const Comments: FC<Props> = ({ id }) => {
       <View style={style.container}>
         <Skeleton
           show={loading}
-          colors={[themeConfig.sheetBackgroundColor, colors.grey]}
+          colors={[`${themeConfig.backgroudColor}50`, 'transparent']}
           radius={15}
           height={CONTAINER_HEIGHT}
         >
