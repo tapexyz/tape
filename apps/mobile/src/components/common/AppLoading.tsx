@@ -3,15 +3,7 @@ import * as SplashScreen from 'expo-splash-screen'
 import type { FC, PropsWithChildren } from 'react'
 import React, { useState } from 'react'
 import { useWindowDimensions } from 'react-native'
-import Animated, {
-  Easing,
-  FadeIn,
-  useAnimatedStyle,
-  useSharedValue,
-  withRepeat,
-  withSequence,
-  withTiming
-} from 'react-native-reanimated'
+import Animated, { FadeInDown } from 'react-native-reanimated'
 
 import { colors } from '~/helpers/theme'
 import { useMobilePersistStore } from '~/store/persist'
@@ -22,28 +14,10 @@ SplashScreen.preventAutoHideAsync()
 
 const Splash = () => {
   const { height, width } = useWindowDimensions()
-  const opacity = useSharedValue(1)
-
-  useEffect(() => {
-    opacity.value = withRepeat(
-      withSequence(
-        withTiming(0.5, { duration: 2000, easing: Easing.inOut(Easing.ease) }), // fade out
-        withTiming(1, { duration: 2000, easing: Easing.inOut(Easing.ease) }) // fade in
-      ),
-      -1,
-      true
-    )
-  }, [opacity])
-
-  const animatedStyle = useAnimatedStyle(() => {
-    return {
-      opacity: opacity.value
-    }
-  })
 
   return (
     <Animated.View
-      entering={FadeIn}
+      entering={FadeInDown}
       style={{
         flex: 1,
         alignItems: 'center',
@@ -51,13 +25,11 @@ const Splash = () => {
         backgroundColor: colors.black
       }}
     >
-      <Animated.View style={animatedStyle}>
-        <ExpoImage
-          source={require('assets/splash.png')}
-          contentFit="cover"
-          style={{ width, height }}
-        />
-      </Animated.View>
+      <ExpoImage
+        source={require('assets/splash.png')}
+        contentFit="cover"
+        style={{ width, height }}
+      />
     </Animated.View>
   )
 }
@@ -81,7 +53,7 @@ const AppLoading: FC<PropsWithChildren> = ({ children }) => {
     }
   }, [isCached, isAuthValidated, selectedChannelId])
 
-  if (appLoadingIsVisible) {
+  if (!appLoadingIsVisible) {
     return <Splash />
   }
 
