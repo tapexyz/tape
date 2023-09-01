@@ -33,7 +33,8 @@ const styles = (themeConfig: MobileThemeConfig) =>
       display: 'flex',
       flexDirection: 'column',
       borderRadius: 15,
-      backgroundColor: themeConfig.sheetBackgroundColor,
+      borderColor: themeConfig.borderColor,
+      borderWidth: 0.5,
       gap: 10,
       height: CONTAINER_HEIGHT,
       width: '100%'

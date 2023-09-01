@@ -132,6 +132,7 @@ const Stage = () => {
           data={audios}
           bounces={false}
           pagingEnabled
+          contentContainerStyle={{ paddingBottom: 5 }}
           decelerationRate={'fast'}
           renderToHardwareTextureAndroid
           showsHorizontalScrollIndicator={false}
