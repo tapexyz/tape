@@ -53,7 +53,7 @@ const AppLoading: FC<PropsWithChildren> = ({ children }) => {
     }
   }, [isCached, isAuthValidated, selectedChannelId])
 
-  if (!appLoadingIsVisible) {
+  if (appLoadingIsVisible) {
     return <Splash />
   }
 
