@@ -119,7 +119,14 @@ const AuthenticatedUser = () => {
               <Menu>
                 <MenuItem icon="pie-chart-outline" title="Creator Studio" />
                 <MenuItem icon="people-outline" title="Manager" />
-                <MenuItem icon="cog-outline" title="Settings" />
+                <MenuItem
+                  icon="cog-outline"
+                  title="Settings"
+                  onPress={() => {
+                    profileSheetRef.current?.close()
+                    navigate('SettingsScreen')
+                  }}
+                />
               </Menu>
               <Menu>
                 <MenuItem

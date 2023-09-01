@@ -37,8 +37,8 @@ export const linking: LinkingOptions<RootStackParamList> = {
           }
         }
       },
-      Settings: 'settings',
-      WatchVideo: '/watch/:id',
+      SettingsScreen: 'settings',
+      WatchScreen: '/watch/:id',
       ProfileScreen: '/u/:id',
       NotFound: '*'
     }

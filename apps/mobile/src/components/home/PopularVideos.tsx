@@ -132,7 +132,7 @@ const PopularVideos = () => {
               )
               return (
                 <Pressable
-                  onPress={() => navigate('WatchVideo', { id: item.id })}
+                  onPress={() => navigate('WatchScreen', { id: item.id })}
                 >
                   <ImageBackground
                     source={{
