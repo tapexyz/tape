@@ -18290,10 +18290,10 @@ viem@^1.0.0:
     isomorphic-ws "5.0.0"
     ws "8.12.0"
 
-viem@^1.9.3:
-  version "1.9.3"
-  resolved "https://registry.yarnpkg.com/viem/-/viem-1.9.3.tgz#d185b16348157dc63c80a8c0ff07dd58e891c5a4"
-  integrity sha512-5NcxPHkWCZIBYm8A8oOd77l2RQ/+VRm1p56mBxoRcZ+Mij5pA+5Y3cohz7MHt6gYmmoDWlLXUXxsdPLedeF2wg==
+viem@^1.9.5:
+  version "1.9.5"
+  resolved "https://registry.yarnpkg.com/viem/-/viem-1.9.5.tgz#1bc2582f3f11f678fd96f9b89b8effc826361721"
+  integrity sha512-o6gxd4hOMof4n1Lm4j58Y2VbAa95O6KrQU4tqvkQjMd0MH/s9u0UBh7pv45gFSr53+NW8036G4hYcEV35nry8g==
   dependencies:
     "@adraffy/ens-normalize" "1.9.0"
     "@noble/curves" "1.1.0"
