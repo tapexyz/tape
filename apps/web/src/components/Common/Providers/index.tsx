@@ -1,4 +1,3 @@
-import { ApolloProvider } from '@apollo/client'
 import { getLivepeerClient, videoPlayerTheme } from '@lenstube/browser'
 import {
   IS_MAINNET,
@@ -7,7 +6,7 @@ import {
   POLYGON_RPC_URL,
   WC_PROJECT_ID
 } from '@lenstube/constants'
-import apolloClient from '@lenstube/lens/apollo'
+import { apolloClient, ApolloProvider } from '@lenstube/lens/apollo'
 import authLink from '@lib/authLink'
 import { loadLocale } from '@lib/i18n'
 import { i18n } from '@lingui/core'

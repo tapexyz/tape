@@ -13,9 +13,8 @@
     "extract": "lingui compile; lingui extract"
   },
   "dependencies": {
-    "@apollo/client": "^3.8.1",
-    "@aws-sdk/client-s3": "^3.400.0",
-    "@aws-sdk/lib-storage": "^3.400.0",
+    "@aws-sdk/client-s3": "^3.405.0",
+    "@aws-sdk/lib-storage": "^3.405.0",
     "@bundlr-network/client": "0.11.13",
     "@emoji-mart/react": "^1.1.1",
     "@headlessui/react": "^1.7.17",
@@ -62,7 +61,7 @@
     "@lingui/swc-plugin": "4.0.4",
     "@tailwindcss/typography": "^0.5.9",
     "@types/mixpanel-browser": "^2.47.1",
-    "@types/node": "20.5.7",
+    "@types/node": "20.5.8",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
     "@types/react-mentions": "^4.1.7",

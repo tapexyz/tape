@@ -7,6 +7,9 @@
   "scripts": {
     "codegen": "graphql-codegen"
   },
+  "dependencies": {
+    "@apollo/client": "3.8.1"
+  },
   "devDependencies": {
     "typescript": "5.2.2",
     "@graphql-codegen/cli": "^5.0.0",

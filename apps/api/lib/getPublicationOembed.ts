@@ -7,7 +7,7 @@ import {
 import { getThumbnailUrl, imageCdn, truncate } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import { PublicationDetailsDocument } from '@lenstube/lens'
-import apolloClient from '@lenstube/lens/apollo'
+import { apolloClient } from '@lenstube/lens/apollo'
 
 const client = apolloClient()
 

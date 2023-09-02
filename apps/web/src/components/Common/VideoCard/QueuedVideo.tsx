@@ -1,4 +1,3 @@
-import { useApolloClient } from '@apollo/client'
 import Tooltip from '@components/UIElements/Tooltip'
 import { useAverageColor } from '@lenstube/browser'
 import { STATIC_ASSETS } from '@lenstube/constants'
@@ -15,6 +14,7 @@ import {
   usePublicationDetailsLazyQuery,
   useTxIdToTxHashLazyQuery
 } from '@lenstube/lens'
+import { useApolloClient } from '@lenstube/lens/apollo'
 import type { QueuedVideoType } from '@lenstube/lens/custom-types'
 import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
 import useChannelStore from '@lib/store/channel'
