@@ -14,7 +14,6 @@
     "eas:build:internal": "eas build --profile preview --platform ios --local"
   },
   "dependencies": {
-    "@apollo/client": "^3.8.1",
     "@gorhom/bottom-sheet": "^4.4.7",
     "@hookform/resolvers": "^3.3.1",
     "@livepeer/react-native": "^1.8.2",
@@ -78,7 +77,7 @@
     "@lenstube/config": "*",
     "@lenstube/generic": "*",
     "@lenstube/lens": "*",
-    "@types/node": "20.5.7",
+    "@types/node": "20.5.8",
     "@types/qrcode": "^1.5.2",
     "@welldone-software/why-did-you-render": "^7.0.1",
     "babel-plugin-module-resolver": "^5.0.0",

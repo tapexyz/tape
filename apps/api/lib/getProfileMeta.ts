@@ -3,7 +3,7 @@ import { LENSTUBE_APP_DESCRIPTION, OG_IMAGE } from '@lenstube/constants'
 import { getProfilePicture } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import { ProfileDocument } from '@lenstube/lens'
-import apolloClient from '@lenstube/lens/apollo'
+import { apolloClient } from '@lenstube/lens/apollo'
 import type { NextApiResponse } from 'next'
 
 const client = apolloClient()

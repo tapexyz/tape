@@ -1,4 +1,3 @@
-import { useApolloClient } from '@apollo/client'
 import Badge from '@components/Common/Badge'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import Tooltip from '@components/UIElements/Tooltip'
@@ -9,6 +8,7 @@ import {
   usePublicationDetailsLazyQuery,
   useTxIdToTxHashLazyQuery
 } from '@lenstube/lens'
+import { useApolloClient } from '@lenstube/lens/apollo'
 import type { QueuedCommentType } from '@lenstube/lens/custom-types'
 import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'

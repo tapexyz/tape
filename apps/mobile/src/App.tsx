@@ -2,7 +2,6 @@ import 'react-native-reanimated'
 // eslint-disable-next-line import/no-duplicates
 import 'react-native-gesture-handler'
 
-import { ApolloProvider } from '@apollo/client'
 import {
   LIVEPEER_STUDIO_API_KEY,
   PRIPE_APP_DESCRIPTION,
@@ -10,7 +9,7 @@ import {
   PRIPE_WEBSITE_URL,
   WC_PROJECT_ID
 } from '@lenstube/constants'
-import apolloClient from '@lenstube/lens/apollo'
+import { apolloClient, ApolloProvider } from '@lenstube/lens/apollo'
 import {
   createReactClient,
   LivepeerConfig,

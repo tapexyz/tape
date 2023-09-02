@@ -1,5 +1,4 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
-import { useApolloClient } from '@apollo/client'
 import { Button } from '@components/UIElements/Button'
 import EmojiPicker from '@components/UIElements/EmojiPicker'
 import InputMentions from '@components/UIElements/InputMentions'
@@ -36,6 +35,7 @@ import {
   useCreateDataAvailabilityCommentViaDispatcherMutation,
   usePublicationDetailsLazyQuery
 } from '@lenstube/lens'
+import { useApolloClient } from '@lenstube/lens/apollo'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
