@@ -10,7 +10,7 @@ import { useNavigation } from '@react-navigation/native'
 import { ResizeMode, Video } from 'expo-av'
 import type { FC } from 'react'
 import React from 'react'
-import { Pressable, StyleSheet } from 'react-native'
+import { Pressable, StyleSheet, View } from 'react-native'
 
 import { useMobileTheme } from '~/hooks'
 
@@ -42,7 +42,7 @@ const VideoPlayer: FC<Props> = ({ video }) => {
   const style = styles(themeConfig)
 
   return (
-    <>
+    <View style={{ position: 'relative' }}>
       <Video
         usePoster
         shouldPlay
@@ -67,7 +67,7 @@ const VideoPlayer: FC<Props> = ({ video }) => {
           size={25}
         />
       </Pressable>
-    </>
+    </View>
   )
 }
 
