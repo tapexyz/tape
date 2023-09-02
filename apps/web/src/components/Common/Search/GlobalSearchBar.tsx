@@ -1,4 +1,3 @@
-import { useLazyQuery } from '@apollo/client'
 import { Loader } from '@components/UIElements/Loader'
 import { Tab } from '@headlessui/react'
 import { Analytics, TRACK, useOutsideClick } from '@lenstube/browser'
@@ -16,6 +15,7 @@ import {
   SearchPublicationsDocument,
   SearchRequestTypes
 } from '@lenstube/lens'
+import { useLazyQuery } from '@lenstube/lens/apollo'
 import { t, Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import type { FC } from 'react'

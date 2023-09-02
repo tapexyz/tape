@@ -1,5 +1,4 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
-import { useApolloClient } from '@apollo/client'
 import HeartOutline from '@components/Common/Icons/HeartOutline'
 import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
@@ -34,6 +33,7 @@ import {
   useCreateDataAvailabilityCommentViaDispatcherMutation,
   usePublicationDetailsLazyQuery
 } from '@lenstube/lens'
+import { useApolloClient } from '@lenstube/lens/apollo'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'

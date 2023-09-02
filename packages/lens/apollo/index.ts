@@ -1,5 +1,18 @@
-import type { ApolloLink } from '@apollo/client'
-import { ApolloClient, from, HttpLink } from '@apollo/client'
+import {
+  ApolloCache,
+  ApolloClient,
+  ApolloLink,
+  ApolloProvider,
+  from,
+  fromPromise,
+  gql,
+  HttpLink,
+  InMemoryCache,
+  toPromise,
+  useApolloClient,
+  useLazyQuery,
+  useQuery
+} from '@apollo/client'
 import { RetryLink } from '@apollo/client/link/retry'
 import { LENS_API_URL } from '@lenstube/constants'
 
@@ -29,4 +42,16 @@ const apolloClient = (authLink?: ApolloLink) =>
     cache
   })
 
-export default apolloClient
+export {
+  ApolloCache,
+  apolloClient,
+  ApolloLink,
+  ApolloProvider,
+  fromPromise,
+  gql,
+  InMemoryCache,
+  toPromise,
+  useApolloClient,
+  useLazyQuery,
+  useQuery
+}

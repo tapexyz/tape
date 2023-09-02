@@ -1,5 +1,4 @@
 import { LENS_PERIPHERY_ABI } from '@abis/LensPeriphery'
-import { useApolloClient } from '@apollo/client'
 import Confirm from '@components/UIElements/Confirm'
 import DropMenu from '@components/UIElements/DropMenu'
 import { Menu } from '@headlessui/react'
@@ -32,6 +31,7 @@ import {
   useRemovePublicationFromBookmarkMutation,
   useRemovePublicationNotInterestedMutation
 } from '@lenstube/lens'
+import { useApolloClient } from '@lenstube/lens/apollo'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
