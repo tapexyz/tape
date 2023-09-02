@@ -8,7 +8,7 @@ msgstr ""
 "Language: en\n"
 "Project-Id-Version: lenstube\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-08-29 01:10\n"
+"PO-Revision-Date: 2023-09-02 13:49\n"
 "Last-Translator: \n"
 "Language-Team: English\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -878,11 +878,11 @@ msgstr "Privacy"
 
 #: src/pages/privacy.tsx:13
 msgid "Privacy policy"
-msgstr ""
+msgstr "Privacy policy"
 
 #: src/pages/privacy.tsx:9
 msgid "Privacy Policy"
-msgstr ""
+msgstr "Privacy Policy"
 
 #: src/components/Channel/Tabs/About.tsx:70
 msgid "Proof of Humanity"
@@ -1179,7 +1179,7 @@ msgstr "Terms"
 #: src/pages/terms.tsx:9
 #: src/pages/terms.tsx:13
 msgid "Terms and Conditions"
-msgstr ""
+msgstr "Terms and Conditions"
 
 #: src/components/Common/Footer.tsx:73
 #: src/components/Thanks/index.tsx:15
