@@ -28,7 +28,13 @@ const Switch: FC<Props> = ({ size = SIZE, onPress, isActive }) => {
 
   return (
     <Pressable onPress={onPress}>
-      <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+      <View
+        style={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          paddingRight: 3
+        }}
+      >
         <MView
           from={{
             backgroundColor: isActive

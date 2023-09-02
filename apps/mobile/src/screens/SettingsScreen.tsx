@@ -1,10 +1,12 @@
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 import ActionHeader from '~/components/settings/ActionHeader'
+import Accordion from '~/components/ui/Accordion'
 import normalizeFont from '~/helpers/normalize-font'
-import { useMobileTheme, useSafeAreaInsets } from '~/hooks'
+import { useMobileTheme } from '~/hooks'
 
 const styles = (themeConfig: MobileThemeConfig) =>
   StyleSheet.create({
@@ -21,13 +23,13 @@ const styles = (themeConfig: MobileThemeConfig) =>
   })
 
 export const SettingsScreen = () => {
-  const { top } = useSafeAreaInsets()
   const { themeConfig } = useMobileTheme()
   const style = styles(themeConfig)
 
   return (
-    <View style={[style.container, { top }]}>
+    <SafeAreaView style={style.container}>
       <ActionHeader onSave={() => {}} />
-    </View>
+      <Accordion setActive={() => {}} />
+    </SafeAreaView>
   )
 }

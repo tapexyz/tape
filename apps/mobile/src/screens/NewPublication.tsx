@@ -5,9 +5,9 @@ import {
   Animated,
   KeyboardAvoidingView,
   ScrollView,
-  StyleSheet,
-  View
+  StyleSheet
 } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 import type { z } from 'zod'
 import { object, string } from 'zod'
 
@@ -15,12 +15,7 @@ import ActionHeader from '~/components/new/ActionHeader'
 import Form from '~/components/new/Form'
 import shakeForm from '~/helpers/form-shake'
 import normalizeFont from '~/helpers/normalize-font'
-import {
-  useForm,
-  useMobileTheme,
-  usePlatform,
-  useSafeAreaInsets
-} from '~/hooks'
+import { useForm, useMobileTheme, usePlatform } from '~/hooks'
 
 const styles = (themeConfig: MobileThemeConfig) =>
   StyleSheet.create({
@@ -44,7 +39,6 @@ export type FormData = z.infer<typeof formSchema>
 
 export const NewPublication = () => {
   const { isIOS } = usePlatform()
-  const { top } = useSafeAreaInsets()
   const { themeConfig } = useMobileTheme()
   const style = styles(themeConfig)
   const shakeRef = useRef(new Animated.Value(0))
@@ -65,7 +59,7 @@ export const NewPublication = () => {
     shakeForm(shakeRef)
   }
   return (
-    <View style={[style.container, { top }]}>
+    <SafeAreaView style={style.container}>
       <ActionHeader onPost={() => form.handleSubmit(onValid, onInValid)()} />
       <KeyboardAvoidingView
         style={{ flex: 1 }}
@@ -79,6 +73,6 @@ export const NewPublication = () => {
           <Form form={form} shakeRef={shakeRef} />
         </ScrollView>
       </KeyboardAvoidingView>
-    </View>
+    </SafeAreaView>
   )
 }
