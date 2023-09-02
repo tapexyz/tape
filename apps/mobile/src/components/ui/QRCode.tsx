@@ -147,7 +147,7 @@ const QRCode: FC<Props> = ({
               height={logoSize}
               width={logoSize}
               href={{
-                uri: logo
+                uri: imageCdn(logo, 'AVATAR')
               }}
               preserveAspectRatio="xMidYMid slice"
             />

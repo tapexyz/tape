@@ -9,6 +9,7 @@ import React, { memo } from 'react'
 import type { StyleProp, TextStyle } from 'react-native'
 import { StyleSheet, Text } from 'react-native'
 
+import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
 import { useMobileTheme } from '~/hooks'
 
@@ -58,6 +59,7 @@ const UserProfile: FC<Props> = (props) => {
   const style = styles(themeConfig)
 
   const navigateToProfile = () => {
+    haptic()
     navigate('ProfileScreen', {
       handle: profile.handle
     })

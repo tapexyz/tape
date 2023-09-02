@@ -88,7 +88,10 @@ const AuthenticatedUser = () => {
         profile={selectedChannel}
         showHandle={false}
         size={30}
-        onPress={() => profileSheetRef.current?.present()}
+        onPress={() => {
+          haptic()
+          profileSheetRef.current?.present()
+        }}
       />
       <Sheet sheetRef={profileSheetRef}>
         <View style={style.sheetContainer}>

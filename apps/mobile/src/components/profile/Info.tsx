@@ -168,7 +168,13 @@ const Info: FC<Props> = (props) => {
           >
             <ShareSheet sheetRef={shareSheetRef} profile={profile} />
 
-            <Pressable onPress={() => goBack()} style={style.iconButton}>
+            <Pressable
+              onPress={() => {
+                haptic()
+                goBack()
+              }}
+              style={style.iconButton}
+            >
               <Ionicons
                 name="chevron-back-outline"
                 color={themeConfig.buttonTextColor}
@@ -176,7 +182,10 @@ const Info: FC<Props> = (props) => {
               />
             </Pressable>
             <Pressable
-              onPress={() => shareSheetRef.current?.present()}
+              onPress={() => {
+                haptic()
+                shareSheetRef.current?.present()
+              }}
               style={style.iconButton}
             >
               <Ionicons
@@ -221,8 +230,8 @@ const Info: FC<Props> = (props) => {
           <View>
             <Text style={style.handle} numberOfLines={1}>
               {isOwned && (
-                <Text style={[style.handle, { opacity: 0.5 }]}>gm,</Text>
-              )}{' '}
+                <Text style={[style.handle, { opacity: 0.5 }]}>gm, </Text>
+              )}
               {trimLensHandle(profile.handle)}
             </Text>
 
