@@ -1,5 +1,5 @@
+import { InMemoryCache } from '@apollo/client'
 import result from '@lenstube/lens'
-import { InMemoryCache } from '@lenstube/lens/apollo'
 
 import cursorBasedPagination from './cursorBasedPagination'
 
