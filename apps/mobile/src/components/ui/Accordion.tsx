@@ -30,7 +30,6 @@ const Accordion: FC<Props> = ({
       <Pressable
         onPress={() => setActive(!active)}
         style={{
-          flex: 1,
           flexDirection: 'row',
           justifyContent: 'space-between',
           paddingVertical: 20,
@@ -56,7 +55,9 @@ const Accordion: FC<Props> = ({
         />
       </Pressable>
       {active ? (
-        <Animated.View entering={FadeInUp}>{content}</Animated.View>
+        <Animated.View style={{ flex: 1 }} entering={FadeInUp}>
+          {content}
+        </Animated.View>
       ) : null}
     </>
   )

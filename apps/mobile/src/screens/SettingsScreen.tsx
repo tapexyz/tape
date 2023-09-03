@@ -4,6 +4,7 @@ import { StyleSheet } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 import ActionHeader from '~/components/settings/ActionHeader'
+import Appearance from '~/components/settings/Appearance'
 import Accordion from '~/components/ui/Accordion'
 import normalizeFont from '~/helpers/normalize-font'
 import { useMobileTheme } from '~/hooks'
@@ -30,6 +31,7 @@ export const SettingsScreen = () => {
     <SafeAreaView style={style.container}>
       <ActionHeader onSave={() => {}} />
       <Accordion setActive={() => {}} />
+      <Appearance />
     </SafeAreaView>
   )
 }
