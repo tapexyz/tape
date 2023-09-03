@@ -20,7 +20,7 @@ import SwitchProfile from '../profile/SwitchProfile'
 import AnimatedPressable from '../ui/AnimatedPressable'
 import Sheet from '../ui/Sheet'
 import AppInfo from './AppInfo'
-import SignIn from './auth/SignIn'
+import SignInWithQR from './auth/SignInWithQR'
 import UserProfile from './UserProfile'
 
 const styles = (themeConfig: MobileThemeConfig) =>
@@ -174,7 +174,7 @@ const Header: FC<HeaderTitleProps> = () => {
           </AnimatedPressable>
         )}
 
-        {selectedChannel ? <AuthenticatedUser /> : <SignIn />}
+        {selectedChannel ? <AuthenticatedUser /> : <SignInWithQR />}
       </View>
     </View>
   )
