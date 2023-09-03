@@ -30,13 +30,15 @@ const styles = (themeConfig: MobileThemeConfig) =>
       width: BOX_HEIGHT,
       height: BOX_HEIGHT,
       borderRadius: 10,
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
       borderColor: themeConfig.borderColor,
       borderWidth: 1
     },
     button: {
       alignItems: 'center',
-      gap: 5,
-      position: 'relative'
+      gap: 5
     }
   })
 
@@ -49,43 +51,43 @@ const Content = () => {
   return (
     <View style={style.content}>
       <AnimatedPressable style={style.button} onPress={() => setTheme('light')}>
-        <View style={[style.themeBox, { backgroundColor: colors.white }]} />
+        <View style={[style.themeBox, { backgroundColor: colors.white }]}>
+          {theme === 'light' && (
+            <Ionicons
+              name="checkmark-outline"
+              color={themeConfig.textColor}
+              size={22}
+            />
+          )}
+        </View>
         <Text style={style.text}>Light</Text>
-        {theme === 'light' && (
-          <Ionicons
-            style={{ position: 'absolute', top: BOX_HEIGHT / 4 }}
-            name="checkmark-outline"
-            color={themeConfig.textColor}
-            size={22}
-          />
-        )}
       </AnimatedPressable>
       <AnimatedPressable style={style.button} onPress={() => setTheme('dark')}>
-        <View style={[style.themeBox, { backgroundColor: colors.black }]} />
+        <View style={[style.themeBox, { backgroundColor: colors.black }]}>
+          {theme === 'dark' && (
+            <Ionicons
+              name="checkmark-outline"
+              color={themeConfig.textColor}
+              size={22}
+            />
+          )}
+        </View>
         <Text style={style.text}>Dark</Text>
-        {theme === 'dark' && (
-          <Ionicons
-            style={{ position: 'absolute', top: BOX_HEIGHT / 4 }}
-            name="checkmark-outline"
-            color={themeConfig.textColor}
-            size={22}
-          />
-        )}
       </AnimatedPressable>
       <AnimatedPressable
         style={style.button}
         onPress={() => setTheme('garden')}
       >
-        <View style={[style.themeBox, { backgroundColor: colors.garden }]} />
+        <View style={[style.themeBox, { backgroundColor: colors.garden }]}>
+          {theme === 'garden' && (
+            <Ionicons
+              name="checkmark-outline"
+              color={themeConfig.contrastTextColor}
+              size={22}
+            />
+          )}
+        </View>
         <Text style={style.text}>Garden</Text>
-        {theme === 'garden' && (
-          <Ionicons
-            style={{ position: 'absolute', top: BOX_HEIGHT / 4 }}
-            name="checkmark-outline"
-            color={themeConfig.contrastTextColor}
-            size={22}
-          />
-        )}
       </AnimatedPressable>
     </View>
   )
