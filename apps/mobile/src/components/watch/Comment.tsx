@@ -23,7 +23,8 @@ const styles = (themeConfig: MobileThemeConfig) =>
       fontSize: normalizeFont(12),
       color: themeConfig.textColor,
       lineHeight: 20,
-      letterSpacing: 0.5
+      letterSpacing: 0.5,
+      paddingTop: 10
     },
     timestamp: {
       fontFamily: 'font-normal',
@@ -53,7 +54,11 @@ const Comment = ({
         justifyContent: 'space-between'
       }}
     >
-      <View style={{ gap: 10, width: width * 0.8 }}>
+      <View
+        style={{
+          width: width * 0.8
+        }}
+      >
         <View
           style={{
             display: 'flex',

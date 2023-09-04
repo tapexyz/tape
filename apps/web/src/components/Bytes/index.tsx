@@ -1,7 +1,6 @@
 import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
 import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import MetaTags from '@components/Common/MetaTags'
-import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { Analytics, TRACK } from '@lenstube/browser'
 import {
@@ -16,6 +15,7 @@ import {
   useExploreLazyQuery,
   usePublicationDetailsLazyQuery
 } from '@lenstube/lens'
+import { Loader } from '@lenstube/ui'
 import useChannelStore from '@lib/store/channel'
 import Head from 'next/head'
 import { useRouter } from 'next/router'

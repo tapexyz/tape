@@ -1,4 +1,3 @@
-import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import {
   formatNumber,
@@ -10,6 +9,7 @@ import {
 } from '@lenstube/generic'
 import type { Follower, Profile } from '@lenstube/lens'
 import { useSubscribersQuery } from '@lenstube/lens'
+import { Loader } from '@lenstube/ui'
 import { t } from '@lingui/macro'
 import Link from 'next/link'
 import type { FC } from 'react'

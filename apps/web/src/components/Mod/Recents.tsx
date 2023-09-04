@@ -1,6 +1,5 @@
 import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
-import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import {
   LENS_CUSTOM_FILTERS,
@@ -15,6 +14,7 @@ import {
   PublicationTypes,
   useExploreQuery
 } from '@lenstube/lens'
+import { Loader } from '@lenstube/ui'
 import useChannelStore from '@lib/store/channel'
 import { t } from '@lingui/macro'
 import React from 'react'

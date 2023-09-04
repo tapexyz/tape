@@ -20,7 +20,8 @@ export const colors = {
   orange: 'orange',
   grey: '#333333',
   blueGrey: '#E0E8FF',
-  indigo: '#6366f1'
+  indigo: '#6366f1',
+  garden: '#404B42'
 }
 
 const darkTheme: MobileThemeConfig = {

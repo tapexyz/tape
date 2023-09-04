@@ -1,7 +1,6 @@
 import Alert from '@components/Common/Alert'
 import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
 import { Button } from '@components/UIElements/Button'
-import { Loader } from '@components/UIElements/Loader'
 import Modal from '@components/UIElements/Modal'
 import Tooltip from '@components/UIElements/Tooltip'
 import { Analytics, TRACK } from '@lenstube/browser'
@@ -26,6 +25,7 @@ import {
   usePublicationRevenueQuery
 } from '@lenstube/lens'
 import type { LenstubeCollectModule } from '@lenstube/lens/custom-types'
+import { Loader } from '@lenstube/ui'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'

@@ -1,8 +1,7 @@
+import { Loader } from '@lenstube/ui'
 import clsx from 'clsx'
 import type { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from 'react'
 import React, { forwardRef } from 'react'
-
-import { Loader } from './Loader'
 
 export type ButtonVariants = 'primary' | 'hover' | 'danger' | 'outline'
 

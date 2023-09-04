@@ -3,7 +3,6 @@ import FireOutline from '@components/Common/Icons/FireOutline'
 import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
-import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { Tab } from '@headlessui/react'
 import { Analytics, TRACK } from '@lenstube/browser'
@@ -22,6 +21,7 @@ import {
   PublicationTypes,
   useExploreQuery
 } from '@lenstube/lens'
+import { Loader } from '@lenstube/ui'
 import useAppStore from '@lib/store'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'

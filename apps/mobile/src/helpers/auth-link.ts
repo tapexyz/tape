@@ -17,7 +17,7 @@ const REFRESH_AUTHENTICATION_MUTATION = `
 const mobileAuthLink = new ApolloLink((operation, forward) => {
   operation.setContext({
     headers: {
-      Origin: LENSTUBE_WEBSITE_URL
+      origin: LENSTUBE_WEBSITE_URL
     }
   })
   const { accessToken, refreshToken } = hydrateAuthTokens()

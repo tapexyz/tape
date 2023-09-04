@@ -23,7 +23,6 @@ import normalizeFont from '~/helpers/normalize-font'
 import { colors } from '~/helpers/theme'
 import { useMobileTheme } from '~/hooks'
 
-import Button from '../ui/Button'
 import QRCode from '../ui/QRCode'
 
 type Props = {
@@ -57,7 +56,8 @@ const styles = (themeConfig: MobileThemeConfig) =>
     cardActions: {
       flexDirection: 'row',
       justifyContent: 'space-evenly',
-      alignItems: 'center'
+      alignItems: 'center',
+      paddingBottom: 9
     },
     hintText: {
       color: themeConfig.textColor,
@@ -180,30 +180,38 @@ const ShareSheet: FC<Props> = ({ sheetRef, profile }) => {
 
         <View style={style.cardActions}>
           <AnimatedPressable
-            style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}
-          >
-            <Ionicons
-              name="scan-outline"
-              color={themeConfig.textColor}
-              size={20}
-            />
-            <Text
-              style={{
-                color: themeConfig.textColor,
-                fontFamily: 'font-medium',
-                fontSize: normalizeFont(10)
-              }}
-            >
-              Quick Follow
-            </Text>
-          </AnimatedPressable>
-          <AnimatedPressable
             onPress={() => shareAsPng()}
             style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}
           >
             <Ionicons
               name="image-outline"
               color={themeConfig.textColor}
+              size={15}
+            />
+            <Text
+              style={{
+                color: themeConfig.textColor,
+                fontFamily: 'font-medium',
+                fontSize: normalizeFont(10)
+              }}
+            >
+              Share as image
+            </Text>
+          </AnimatedPressable>
+          <AnimatedPressable
+            style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}
+            onPress={() => {
+              haptic()
+              Share.share({
+                url: `${LENSTUBE_WEBSITE_URL}/channel/${profile.handle}`,
+                message: `Checkout my Lens profile! 🌿 ${LENSTUBE_WEBSITE_URL}/channel/${profile.handle}`,
+                title: `Checkout my Lens profile! 🌿 ${LENSTUBE_WEBSITE_URL}/channel/${profile.handle}`
+              })
+            }}
+          >
+            <Ionicons
+              name="link-outline"
+              color={themeConfig.textColor}
               size={20}
             />
             <Text
@@ -213,22 +221,10 @@ const ShareSheet: FC<Props> = ({ sheetRef, profile }) => {
                 fontSize: normalizeFont(10)
               }}
             >
-              Share as Image
+              Share as link
             </Text>
           </AnimatedPressable>
         </View>
-
-        <Button
-          text="Share via..."
-          onPress={() => {
-            haptic()
-            Share.share({
-              url: `${LENSTUBE_WEBSITE_URL}/channel/${profile.handle}`,
-              message: `Checkout my Lens profile! 🌿 ${LENSTUBE_WEBSITE_URL}/channel/${profile.handle}`,
-              title: `Checkout my Lens profile! 🌿 ${LENSTUBE_WEBSITE_URL}/channel/${profile.handle}`
-            })
-          }}
-        />
       </View>
     </Sheet>
   )

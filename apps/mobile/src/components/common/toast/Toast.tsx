@@ -12,7 +12,6 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import normalizeFont from '~/helpers/normalize-font'
 import { colors } from '~/helpers/theme'
-import { useMobileTheme } from '~/hooks'
 
 const springConfig: WithSpringConfig = {
   mass: 1,
@@ -41,7 +40,6 @@ export const Toast = ({
 }: ToastProps) => {
   const distance = 60
   const targetTranslate = 0
-  const { themeConfig } = useMobileTheme()
 
   const insets = useSafeAreaInsets()
   const { width: deviceWidth } = useWindowDimensions()
@@ -50,7 +48,7 @@ export const Toast = ({
   const getTextColor = (variant: Variant) => {
     switch (variant) {
       case 'default':
-        return themeConfig.textColor
+        return colors.white
       case 'success':
         return colors.green
       case 'warn':
@@ -58,7 +56,7 @@ export const Toast = ({
       case 'error':
         return colors.red
       default:
-        return themeConfig.textColor
+        return colors.white
     }
   }
   const textColor = getTextColor(variant)
@@ -92,7 +90,7 @@ export const Toast = ({
           paddingVertical: 5,
           paddingHorizontal: 12,
           alignSelf: 'center',
-          backgroundColor: themeConfig.backgroudColor2,
+          backgroundColor: colors.background,
           bottom: (insets.bottom || 40) + 3
         }}
       >

@@ -10,6 +10,7 @@ import AnimatedPressable from '~/components/ui/AnimatedPressable'
 import haptic from '~/helpers/haptic'
 import { useMobileTheme } from '~/hooks'
 
+import { useToast } from '../toast'
 import AuthSheet from './AuthSheet'
 
 const SignIn = () => {
@@ -21,13 +22,20 @@ const SignIn = () => {
     address,
     provider
   } = useWalletConnectModal()
+  const { showToast } = useToast()
 
   return (
     <>
       {address ? <AuthSheet sheetRef={authSheetRef} /> : null}
 
       <AnimatedPressable
-        onLongPress={() => provider?.disconnect()}
+        onLongPress={() => {
+          haptic()
+          showToast({ text: 'Disconnecting wallet...', variant: 'warn' })
+          if (address) {
+            provider?.disconnect()
+          }
+        }}
         onPress={() => {
           haptic()
           if (address) {

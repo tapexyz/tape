@@ -46,8 +46,7 @@ const styles = (themeConfig: MobileThemeConfig) =>
     description: {
       fontFamily: 'font-normal',
       fontSize: normalizeFont(12),
-      color: themeConfig.secondaryTextColor,
-      paddingTop: 10
+      color: themeConfig.secondaryTextColor
     },
     thumbnail: {
       width: '100%',
@@ -61,7 +60,6 @@ const styles = (themeConfig: MobileThemeConfig) =>
       flexDirection: 'row',
       alignItems: 'center',
       gap: 6,
-      paddingTop: 10,
       opacity: 0.8
     },
     otherInfo: {
@@ -145,7 +143,7 @@ const VideoCard: FC<Props> = ({ video }) => {
         )}
       </ImageBackground>
 
-      <View style={{ paddingVertical: 15, paddingHorizontal: 5 }}>
+      <View style={{ paddingVertical: 10, paddingHorizontal: 5, gap: 7 }}>
         <Text numberOfLines={3} style={style.title}>
           {trimify(video.metadata?.name ?? '')}
         </Text>

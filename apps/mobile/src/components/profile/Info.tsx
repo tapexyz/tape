@@ -102,11 +102,10 @@ const Info: FC<Props> = (props) => {
   const style = styles(themeConfig)
 
   const shareSheetRef = useRef<BottomSheetModal>(null)
+  const [showMoreBio, setShowMoreBio] = useState(false)
 
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
   const isOwned = selectedChannel?.id === profile.id
-
-  const [showMoreBio, setShowMoreBio] = useState(false)
 
   const animatedHeaderStyle = useAnimatedStyle(() => {
     return {
@@ -160,33 +159,44 @@ const Info: FC<Props> = (props) => {
             opacity: 0.5
           }}
         >
-          <SafeAreaView
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between'
-            }}
-          >
-            <ShareSheet sheetRef={shareSheetRef} profile={profile} />
-
-            <Pressable onPress={() => goBack()} style={style.iconButton}>
-              <Ionicons
-                name="chevron-back-outline"
-                color={themeConfig.buttonTextColor}
-                size={20}
-              />
-            </Pressable>
-            <Pressable
-              onPress={() => shareSheetRef.current?.present()}
-              style={style.iconButton}
+          {Boolean(infoHeaderHeight) ? (
+            <SafeAreaView
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between'
+              }}
             >
-              <Ionicons
-                name="share-outline"
-                color={themeConfig.buttonTextColor}
-                size={20}
-                style={{ paddingLeft: 2, paddingBottom: 1 }}
-              />
-            </Pressable>
-          </SafeAreaView>
+              <ShareSheet sheetRef={shareSheetRef} profile={profile} />
+
+              <Pressable
+                onPress={() => {
+                  haptic()
+                  goBack()
+                }}
+                style={style.iconButton}
+              >
+                <Ionicons
+                  name="chevron-back-outline"
+                  color={themeConfig.buttonTextColor}
+                  size={20}
+                />
+              </Pressable>
+              <Pressable
+                onPress={() => {
+                  haptic()
+                  shareSheetRef.current?.present()
+                }}
+                style={style.iconButton}
+              >
+                <Ionicons
+                  name="share-outline"
+                  color={themeConfig.buttonTextColor}
+                  size={20}
+                  style={{ paddingLeft: 2, paddingBottom: 1 }}
+                />
+              </Pressable>
+            </SafeAreaView>
+          ) : null}
         </ImageBackground>
 
         <View style={style.statsContainer}>
@@ -221,8 +231,8 @@ const Info: FC<Props> = (props) => {
           <View>
             <Text style={style.handle} numberOfLines={1}>
               {isOwned && (
-                <Text style={[style.handle, { opacity: 0.5 }]}>gm,</Text>
-              )}{' '}
+                <Text style={[style.handle, { opacity: 0.5 }]}>gm, </Text>
+              )}
               {trimLensHandle(profile.handle)}
             </Text>
 

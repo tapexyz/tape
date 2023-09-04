@@ -21,17 +21,17 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
     marginVertical: 10
   },
-  filter: {
-    paddingHorizontal: 15,
+  tab: {
     paddingVertical: 7,
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 10,
-    borderRadius: 25
+    gap: 7,
+    borderRadius: 25,
+    borderBottomWidth: 2
   },
   text: {
-    fontFamily: 'font-bold',
+    fontFamily: 'font-medium',
     fontSize: normalizeFont(12)
   },
   image: {
@@ -81,18 +81,16 @@ const TabList: FC<Props> = ({ activeTab, scrollToTab }) => {
         style={styles.container}
         contentContainerStyle={{
           alignItems: 'baseline',
-          gap: 10
+          gap: 25
         }}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
       >
         {MOBILE_PROFILE_ITEMS.map((tab, index) => {
           const isActive = activeTab === index
-          const color = isActive
-            ? themeConfig.contrastTextColor
-            : themeConfig.textColor
-          const backgroundColor = isActive
-            ? themeConfig.buttonBackgroundColor
+          const color = isActive ? themeConfig.textColor : themeConfig.textColor
+          const borderColor = isActive
+            ? themeConfig.contrastBackgroundColor
             : 'transparent'
           return (
             <Pressable
@@ -103,9 +101,9 @@ const TabList: FC<Props> = ({ activeTab, scrollToTab }) => {
                 haptic()
               }}
               style={[
-                styles.filter,
+                styles.tab,
                 {
-                  backgroundColor
+                  borderColor
                 }
               ]}
             >

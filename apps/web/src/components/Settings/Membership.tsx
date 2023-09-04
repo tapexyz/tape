@@ -2,7 +2,6 @@ import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
 import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
-import { Loader } from '@components/UIElements/Loader'
 import { zodResolver } from '@hookform/resolvers/zod'
 import usePendingTxn from '@hooks/usePendingTxn'
 import {
@@ -25,6 +24,7 @@ import {
   useProfileFollowModuleQuery
 } from '@lenstube/lens'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
+import { Loader } from '@lenstube/ui'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
 import React, { useEffect, useState } from 'react'

@@ -12,7 +12,7 @@ import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
 import { useMobileTheme } from '~/hooks'
 import useMobileStore from '~/store'
-import { signOut, useMobilePersistStore } from '~/store/persist'
+import { signOut } from '~/store/persist'
 
 import Menu from '../profile/Menu'
 import MenuItem from '../profile/MenuItem'
@@ -88,7 +88,10 @@ const AuthenticatedUser = () => {
         profile={selectedChannel}
         showHandle={false}
         size={30}
-        onPress={() => profileSheetRef.current?.present()}
+        onPress={() => {
+          haptic()
+          profileSheetRef.current?.present()
+        }}
       />
       <Sheet sheetRef={profileSheetRef}>
         <View style={style.sheetContainer}>
@@ -151,25 +154,12 @@ const Header: FC<HeaderTitleProps> = () => {
   const { navigate } = useNavigation()
 
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
-  const theme = useMobilePersistStore((state) => state.theme)
-  const setTheme = useMobilePersistStore((state) => state.setTheme)
 
   return (
     <View style={style.container}>
       <Text style={style.forYouText}>gm</Text>
 
       <View style={style.rightView}>
-        <AnimatedPressable
-          style={style.newButton}
-          onPress={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-        >
-          <Ionicons
-            name="swap-horizontal"
-            color={themeConfig.textColor}
-            style={{ paddingLeft: 1 }}
-            size={20}
-          />
-        </AnimatedPressable>
         {selectedChannel && (
           <AnimatedPressable
             style={style.newButton}

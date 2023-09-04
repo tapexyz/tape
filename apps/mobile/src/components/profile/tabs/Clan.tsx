@@ -39,9 +39,8 @@ const styles = (themeConfig: MobileThemeConfig) =>
       flex: 1
     },
     subheading: {
-      fontFamily: 'font-bold',
-      color: themeConfig.textColor,
-      opacity: 0.8,
+      fontFamily: 'font-medium',
+      color: themeConfig.secondaryTextColor,
       fontSize: normalizeFont(13),
       paddingBottom: 20
     }

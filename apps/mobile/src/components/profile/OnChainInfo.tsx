@@ -5,10 +5,13 @@ import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
 import React from 'react'
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
 
+import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
 import { useMobileTheme } from '~/hooks'
+
+import { useToast } from '../common/toast'
 
 type Props = {
   identity: OnChainIdentity
@@ -43,6 +46,7 @@ const styles = (themeConfig: MobileThemeConfig) =>
 const OnChainInfo: FC<Props> = ({ identity }) => {
   const { themeConfig } = useMobileTheme()
   const style = styles(themeConfig)
+  const { showToast } = useToast()
 
   return (
     <ScrollView
@@ -50,9 +54,9 @@ const OnChainInfo: FC<Props> = ({ identity }) => {
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={{ gap: 10 }}
     >
-      <View style={[style.badge, { paddingLeft: 10 }]}>
+      <Pressable style={[style.badge, { paddingLeft: 10 }]}>
         <Text style={style.text}>Bloomer since July 2022</Text>
-      </View>
+      </Pressable>
       {identity?.ens?.name && (
         <View style={style.badge}>
           <ExpoImage
@@ -69,7 +73,13 @@ const OnChainInfo: FC<Props> = ({ identity }) => {
         </View>
       )}
       {identity?.worldcoin.isHuman && (
-        <View style={style.badge}>
+        <Pressable
+          style={style.badge}
+          onPress={() => {
+            haptic()
+            showToast({ text: 'Worldcoin Verified' })
+          }}
+        >
           <ExpoImage
             source={{
               uri: imageCdn(
@@ -81,10 +91,16 @@ const OnChainInfo: FC<Props> = ({ identity }) => {
             style={style.image}
           />
           <Text style={style.text}>Person</Text>
-        </View>
+        </Pressable>
       )}
       {identity?.proofOfHumanity && (
-        <View style={style.badge}>
+        <Pressable
+          style={style.badge}
+          onPress={() => {
+            haptic()
+            showToast({ text: 'Proof of Humanity Verified' })
+          }}
+        >
           <ExpoImage
             source={{
               uri: imageCdn(
@@ -96,10 +112,16 @@ const OnChainInfo: FC<Props> = ({ identity }) => {
             style={style.image}
           />
           <Text style={style.text}>Human</Text>
-        </View>
+        </Pressable>
       )}
       {identity?.sybilDotOrg.verified && (
-        <View style={style.badge}>
+        <Pressable
+          style={style.badge}
+          onPress={() => {
+            haptic()
+            showToast({ text: 'Twitter Verified' })
+          }}
+        >
           <ExpoImage
             source={{
               uri: imageCdn(
@@ -113,7 +135,7 @@ const OnChainInfo: FC<Props> = ({ identity }) => {
           <Text style={style.text}>
             {identity?.sybilDotOrg.source.twitter.handle}
           </Text>
-        </View>
+        </Pressable>
       )}
     </ScrollView>
   )

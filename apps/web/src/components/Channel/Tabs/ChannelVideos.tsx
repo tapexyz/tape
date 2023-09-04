@@ -1,7 +1,6 @@
 import Timeline from '@components/Home/Timeline'
 import PinnedVideoShimmer from '@components/Shimmers/PinnedVideoShimmer'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
-import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import {
   ALLOWED_APP_IDS,
@@ -17,6 +16,7 @@ import {
   PublicationTypes,
   useProfilePostsQuery
 } from '@lenstube/lens'
+import { Loader } from '@lenstube/ui'
 import usePersistStore from '@lib/store/persist'
 import { t } from '@lingui/macro'
 import type { FC } from 'react'

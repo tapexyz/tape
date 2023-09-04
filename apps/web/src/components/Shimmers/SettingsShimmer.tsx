@@ -1,4 +1,4 @@
-import { Loader } from '@components/UIElements/Loader'
+import { Loader } from '@lenstube/ui'
 import React from 'react'
 
 const SettingsShimmer = () => {

@@ -1,4 +1,3 @@
-import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import {
   formatNumber,
@@ -10,6 +9,7 @@ import {
 } from '@lenstube/generic'
 import type { Wallet } from '@lenstube/lens'
 import { useCollectorsQuery } from '@lenstube/lens'
+import { Loader } from '@lenstube/ui'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'

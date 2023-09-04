@@ -5,11 +5,10 @@ import React from 'react'
 import {
   ActivityIndicator,
   StyleSheet,
-  useWindowDimensions,
-  View
+  useWindowDimensions
 } from 'react-native'
 import Animated, { FadeInDown } from 'react-native-reanimated'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 import ServerError from '~/components/ui/ServerError'
 import MoreVideos from '~/components/watch/MoreVideos'
@@ -29,7 +28,6 @@ export const WatchScreen = (props: WatchScreenProps) => {
   const { themeConfig } = useMobileTheme()
   const style = styles(themeConfig)
 
-  const { top, bottom } = useSafeAreaInsets()
   const { height: windowHeight } = useWindowDimensions()
 
   const videoId = props.route.params.id
@@ -58,12 +56,12 @@ export const WatchScreen = (props: WatchScreenProps) => {
   }
 
   return (
-    <View style={[style.container, { top, bottom }]}>
+    <SafeAreaView style={style.container}>
       <VideoPlayer video={video} />
 
       <Animated.View style={{ height: windowHeight }} entering={FadeInDown}>
         <MoreVideos video={video} />
       </Animated.View>
-    </View>
+    </SafeAreaView>
   )
 }

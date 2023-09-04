@@ -1,5 +1,4 @@
 import { SuggestedVideosShimmer } from '@components/Shimmers/VideoDetailShimmer'
-import { Loader } from '@components/UIElements/Loader'
 import {
   ALLOWED_APP_IDS,
   IS_MAINNET,
@@ -15,6 +14,7 @@ import {
   PublicationTypes,
   useExploreQuery
 } from '@lenstube/lens'
+import { Loader } from '@lenstube/ui'
 import useChannelStore from '@lib/store/channel'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
