@@ -1,3 +1,5 @@
+'use client'
+
 import { Loader } from '@lenstube/ui'
 import React from 'react'
 
