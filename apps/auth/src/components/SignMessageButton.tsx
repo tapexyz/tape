@@ -2,7 +2,10 @@ import { useDynamicContext } from '@dynamic-labs/sdk-react'
 import { useAuthenticateMutation, useChallengeLazyQuery } from '@lenstube/lens'
 import React from 'react'
 
+import usePersistStore from '@/persist'
+
 const SignMessageButton = () => {
+  const storeTokens = usePersistStore((state) => state.storeTokens)
   const { primaryWallet } = useDynamicContext()
 
   const [loadChallenge] = useChallengeLazyQuery({
@@ -31,11 +34,12 @@ const SignMessageButton = () => {
     if (!signature) {
       return
     }
-    const result = await authenticate({
+    const { data } = await authenticate({
       variables: { request: { address, signature } }
     })
-
-    console.log('signature', result)
+    const accessToken = data?.authenticate.accessToken
+    const refreshToken = data?.authenticate.refreshToken
+    storeTokens({ accessToken, refreshToken })
   }
 
   return (

@@ -1,12 +1,17 @@
 import { useDynamicContext } from '@dynamic-labs/sdk-react'
-import { STATIC_ASSETS } from '@lenstube/constants'
+import { LENSTUBE_WEBSITE_URL } from '@lenstube/constants'
 import React from 'react'
+
+import usePersistStore from '@/persist'
 
 import { Loader } from './Loader'
 import QRCode from './QRCode'
 import SignMessageButton from './SignMessageButton'
 
 const Auth = () => {
+  const accessToken = usePersistStore((state) => state.accessToken)
+  const refreshToken = usePersistStore((state) => state.refreshToken)
+
   const { isFullyConnected, sdkHasLoaded } = useDynamicContext()
 
   return (
@@ -20,10 +25,15 @@ const Auth = () => {
             </p>
 
             <SignMessageButton />
-            <QRCode value={`${STATIC_ASSETS}/images/brand/lenstube.svg`} />
+            {accessToken && (
+              <QRCode value={JSON.stringify({ accessToken, refreshToken })} />
+            )}
           </>
         ) : (
-          <h1 className="text-xl font-medium md:text-3xl">Welcome</h1>
+          <div className="space-y-5">
+            <h1 className="text-center text-xl">Get the App</h1>
+            <QRCode value={LENSTUBE_WEBSITE_URL} />
+          </div>
         )
       ) : (
         <Loader />
