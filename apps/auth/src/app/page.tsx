@@ -1,39 +1,86 @@
 'use client'
 
-import { DynamicContextProvider } from '@dynamic-labs/sdk-react'
-import { LENSTUBE_WEBSITE_URL, STATIC_ASSETS } from '@lenstube/constants'
-import { imageCdn } from '@lenstube/generic'
+import '@rainbow-me/rainbowkit/styles.css'
+
+import {
+  LENSTUBE_APP_NAME,
+  LENSTUBE_WEBSITE_URL,
+  POLYGON_RPC_URL,
+  WC_PROJECT_ID
+} from '@lenstube/constants'
 import { apolloClient, ApolloProvider } from '@lenstube/lens/apollo'
+import {
+  darkTheme,
+  getDefaultWallets,
+  RainbowKitProvider
+} from '@rainbow-me/rainbowkit'
 import React from 'react'
+import { configureChains, createConfig, WagmiConfig } from 'wagmi'
+import { arbitrum, base, mainnet, optimism, polygon, zora } from 'wagmi/chains'
+import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
 
 import Auth from '@/components/Auth'
 import Header from '@/components/Header'
 
-const cssOverrides = `
-  .non-widget-network-picker {
-    display: none;
-  }
-`
+const { chains, publicClient } = configureChains(
+  [mainnet, polygon, optimism, arbitrum, base, zora],
+  [
+    jsonRpcProvider({
+      rpc: () => ({
+        http: POLYGON_RPC_URL
+      })
+    })
+  ]
+)
+
+const { connectors } = getDefaultWallets({
+  appName: LENSTUBE_APP_NAME,
+  projectId: WC_PROJECT_ID,
+  chains
+})
+
+const wagmiConfig = createConfig({
+  autoConnect: true,
+  connectors,
+  publicClient
+})
+
+const Disclaimer = () => (
+  <div className="text-[10px]">
+    <span>By continuing, you agree to Lenstube's</span>{' '}
+    <a href="/terms" className="text-indigo-300" target="_blank">
+      terms
+    </a>{' '}
+    <span>and</span>{' '}
+    <a href="/privacy" className="text-indigo-300" target="_blank">
+      privacy policy
+    </a>
+    .
+  </div>
+)
 
 const Home = () => {
   return (
     <ApolloProvider client={apolloClient()}>
-      <DynamicContextProvider
-        settings={{
-          environmentId: 'ec7de4c5-ed26-4fdd-9805-75cfda04108a',
-          initialAuthenticationMode: 'connect-only',
-          appLogoUrl: imageCdn(
-            `${STATIC_ASSETS}/images/brand/lenstube.svg`,
-            'AVATAR'
-          ),
-          privacyPolicyUrl: `${LENSTUBE_WEBSITE_URL}/privacy`,
-          termsOfServiceUrl: `${LENSTUBE_WEBSITE_URL}/terms`,
-          cssOverrides
-        }}
-      >
-        <Header />
-        <Auth />
-      </DynamicContextProvider>
+      <WagmiConfig config={wagmiConfig}>
+        <RainbowKitProvider
+          appInfo={{
+            appName: LENSTUBE_APP_NAME,
+            learnMoreUrl: LENSTUBE_WEBSITE_URL,
+            disclaimer: () => <Disclaimer />
+          }}
+          modalSize="compact"
+          chains={chains}
+          theme={darkTheme({
+            fontStack: 'system',
+            overlayBlur: 'small',
+            accentColor: '#6366f1'
+          })}
+        >
+          <Header />
+          <Auth />
+        </RainbowKitProvider>
+      </WagmiConfig>
     </ApolloProvider>
   )
 }

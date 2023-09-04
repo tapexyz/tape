@@ -1,12 +1,26 @@
-import { DynamicWidget, useDynamicContext } from '@dynamic-labs/sdk-react'
 import { STATIC_ASSETS } from '@lenstube/constants'
-import React from 'react'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
+import React, { useEffect } from 'react'
+import { useAccount, useDisconnect } from 'wagmi'
+
+import usePersistStore from '@/persist'
 
 const Header = () => {
-  const { sdkHasLoaded } = useDynamicContext()
+  const { openConnectModal } = useConnectModal()
+  const { address } = useAccount()
+  const { disconnectAsync } = useDisconnect()
+  const storeTokens = usePersistStore((state) => state.storeTokens)
 
-  if (!sdkHasLoaded) {
-    return
+  useEffect(() => {
+    if (!address) {
+      openConnectModal?.()
+    }
+  }, [address, openConnectModal])
+
+  const clearAll = async () => {
+    storeTokens({ accessToken: null, refreshToken: null })
+    await disconnectAsync()
+    localStorage.clear()
   }
 
   return (
@@ -19,7 +33,12 @@ const Header = () => {
         height={12}
         draggable={false}
       />
-      <DynamicWidget />
+      <button
+        className="rounded-xl border border-gray-800 bg-gray-900 px-6 py-2 focus:outline-none"
+        onClick={() => (address ? clearAll() : openConnectModal?.())}
+      >
+        {address ? 'Disconnect' : 'Connect Wallet'}
+      </button>
     </div>
   )
 }
