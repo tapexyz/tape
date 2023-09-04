@@ -1,6 +1,5 @@
 import VideoCard from '@components/Common/VideoCard'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
-import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { SCROLL_ROOT_MARGIN } from '@lenstube/constants'
 import type { FeedItem, Publication } from '@lenstube/lens'
@@ -9,6 +8,7 @@ import {
   PublicationMainFocus,
   useFeedQuery
 } from '@lenstube/lens'
+import { Loader } from '@lenstube/ui'
 import useAppStore from '@lib/store'
 import useChannelStore from '@lib/store/channel'
 import { t } from '@lingui/macro'

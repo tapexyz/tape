@@ -1,7 +1,6 @@
 import MetaTags from '@components/Common/MetaTags'
 import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
-import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import {
   ALLOWED_APP_IDS,
@@ -12,6 +11,7 @@ import {
 } from '@lenstube/constants'
 import type { Profile, Publication } from '@lenstube/lens'
 import { PublicationMainFocus, useProfileBookmarksQuery } from '@lenstube/lens'
+import { Loader } from '@lenstube/ui'
 import useChannelStore from '@lib/store/channel'
 import { t } from '@lingui/macro'
 import type { FC } from 'react'

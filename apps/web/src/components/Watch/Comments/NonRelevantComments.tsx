@@ -2,7 +2,6 @@ import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
 import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { Button } from '@components/UIElements/Button'
-import { Loader } from '@components/UIElements/Loader'
 import { LENS_CUSTOM_FILTERS, SCROLL_ROOT_MARGIN } from '@lenstube/constants'
 import type { Publication } from '@lenstube/lens'
 import {
@@ -10,6 +9,7 @@ import {
   CommentRankingFilter,
   useCommentsQuery
 } from '@lenstube/lens'
+import { Loader } from '@lenstube/ui'
 import useChannelStore from '@lib/store/channel'
 import { t } from '@lingui/macro'
 import type { FC } from 'react'

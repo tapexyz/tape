@@ -1,6 +1,5 @@
 import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
-import { Loader } from '@components/UIElements/Loader'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { LENS_CUSTOM_FILTERS, SCROLL_ROOT_MARGIN } from '@lenstube/constants'
 import type { Profile, Publication } from '@lenstube/lens'
@@ -9,6 +8,7 @@ import {
   PublicationTypes,
   useProfileMirrorsQuery
 } from '@lenstube/lens'
+import { Loader } from '@lenstube/ui'
 import { t } from '@lingui/macro'
 import type { FC } from 'react'
 import React from 'react'

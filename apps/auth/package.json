@@ -19,6 +19,7 @@
   },
   "devDependencies": {
     "@lenstube/browser": "*",
+    "@lenstube/ui": "*",
     "@lenstube/constants": "*",
     "@lenstube/generic": "*",
     "@lenstube/lens": "*",

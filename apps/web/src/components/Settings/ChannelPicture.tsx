@@ -1,6 +1,5 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import AddImageOutline from '@components/Common/Icons/AddImageOutline'
-import { Loader } from '@components/UIElements/Loader'
 import { uploadToIPFS } from '@lenstube/browser'
 import {
   ERROR_MESSAGE,
@@ -26,6 +25,7 @@ import type {
   CustomErrorWithData,
   IPFSUploadResult
 } from '@lenstube/lens/custom-types'
+import { Loader } from '@lenstube/ui'
 import useChannelStore from '@lib/store/channel'
 import { t } from '@lingui/macro'
 import clsx from 'clsx'

@@ -4,7 +4,6 @@ import CopyOutline from '@components/Common/Icons/CopyOutline'
 import { Button } from '@components/UIElements/Button'
 import EmojiPicker from '@components/UIElements/EmojiPicker'
 import { Input } from '@components/UIElements/Input'
-import { Loader } from '@components/UIElements/Loader'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
 import {
@@ -44,6 +43,7 @@ import type {
   CustomErrorWithData,
   IPFSUploadResult
 } from '@lenstube/lens/custom-types'
+import { Loader } from '@lenstube/ui'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
 import type { ChangeEvent } from 'react'
