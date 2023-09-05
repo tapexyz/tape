@@ -238,10 +238,6 @@ const Timeline = () => {
     [selectedFeedType]
   )
 
-  if (loading) {
-    return <ActivityIndicator style={{ flex: 1 }} />
-  }
-
   if (error) {
     return <ServerError />
   }
@@ -252,7 +248,7 @@ const Timeline = () => {
         ref={scrollRef}
         ListHeaderComponent={HeaderComponent}
         data={publications}
-        estimatedItemSize={publications?.length ?? []}
+        estimatedItemSize={publications?.length ?? 50}
         renderItem={renderItem}
         keyExtractor={(_item, i) => `${i + 1}_${i}`}
         ListFooterComponent={() =>
@@ -268,6 +264,7 @@ const Timeline = () => {
         onEndReachedThreshold={0.8}
         showsVerticalScrollIndicator={false}
       />
+      {loading && <ActivityIndicator />}
     </View>
   )
 }
