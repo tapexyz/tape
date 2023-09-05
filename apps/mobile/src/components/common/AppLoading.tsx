@@ -1,12 +1,12 @@
 import { Image as ExpoImage } from 'expo-image'
 import * as SplashScreen from 'expo-splash-screen'
 import type { FC, PropsWithChildren } from 'react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useWindowDimensions } from 'react-native'
 
 import { useMobilePersistStore } from '~/store/persist'
 
-import { useAuth, useCachedResources, useEffect } from '../../hooks'
+import { useAuth, useCachedResources } from '../../hooks'
 
 SplashScreen.preventAutoHideAsync()
 
