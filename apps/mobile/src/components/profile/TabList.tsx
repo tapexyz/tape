@@ -27,8 +27,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 7,
-    borderRadius: 25,
-    borderBottomWidth: 2
+    borderRadius: 15,
+    borderBottomWidth: 1.5
   },
   text: {
     fontFamily: 'font-medium',
@@ -88,7 +88,9 @@ const TabList: FC<Props> = ({ activeTab, scrollToTab }) => {
       >
         {MOBILE_PROFILE_ITEMS.map((tab, index) => {
           const isActive = activeTab === index
-          const color = isActive ? themeConfig.textColor : themeConfig.textColor
+          const color = isActive
+            ? themeConfig.textColor
+            : themeConfig.secondaryTextColor
           const borderColor = isActive
             ? themeConfig.contrastBackgroundColor
             : 'transparent'
