@@ -1,5 +1,9 @@
 import { useAverageColor } from '@lenstube/browser'
-import { LENSTUBE_BYTES_APP_ID, STATIC_ASSETS } from '@lenstube/constants'
+import {
+  FALLBACK_COVER_URL,
+  LENSTUBE_BYTES_APP_ID,
+  STATIC_ASSETS
+} from '@lenstube/constants'
 import {
   getIsSensitiveContent,
   getThumbnailUrl,
@@ -39,16 +43,16 @@ const ThumbnailImage: FC<Props> = ({ video }) => {
       }}
       alt="thumbnail"
       draggable={false}
-      // onError={async ({ currentTarget }) => {
-      //   currentTarget.src = FALLBACK_COVER_URL
-      //   const thumbnail = await generateVideoThumbnail(
-      //     getPublicationMediaUrl(video)
-      //   )
-      //   currentTarget.onerror = null
-      //   if (thumbnail?.includes('base64')) {
-      //     currentTarget.src = thumbnail
-      //   }
-      // }}
+      onError={async ({ currentTarget }) => {
+        currentTarget.src = FALLBACK_COVER_URL
+        // const thumbnail = await generateVideoThumbnail(
+        //   getPublicationMediaUrl(video)
+        // )
+        // currentTarget.onerror = null
+        // if (thumbnail?.includes('base64')) {
+        //   currentTarget.src = thumbnail
+        // }
+      }}
     />
   )
 }
