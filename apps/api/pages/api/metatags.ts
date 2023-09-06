@@ -21,8 +21,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     if (isChannel) {
-      const handle = path.replace('/channel/', '')
-      return await getProfileMeta(res, handle)
+      const handle = path.replace('/channel/', '').replace('.lens', '')
+      return await getProfileMeta(res, `${handle}.lens`)
     }
 
     if (isVideo || isByte) {
