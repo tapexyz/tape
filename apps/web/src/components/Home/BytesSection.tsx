@@ -2,15 +2,9 @@ import BytesOutline from '@components/Common/Icons/BytesOutline'
 import ChevronLeftOutline from '@components/Common/Icons/ChevronLeftOutline'
 import ChevronRightOutline from '@components/Common/Icons/ChevronRightOutline'
 import BytesShimmer from '@components/Shimmers/BytesShimmer'
-import { generateVideoThumbnail } from '@lenstube/browser'
-import {
-  FALLBACK_COVER_URL,
-  LENS_CUSTOM_FILTERS,
-  LENSTUBE_BYTES_APP_ID
-} from '@lenstube/constants'
+import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@lenstube/constants'
 import {
   getProfilePicture,
-  getPublicationMediaUrl,
   getThumbnailUrl,
   imageCdn,
   trimLensHandle
@@ -111,16 +105,16 @@ const BytesSection = () => {
                     }
                     alt="thumbnail"
                     draggable={false}
-                    onError={async ({ currentTarget }) => {
-                      currentTarget.src = FALLBACK_COVER_URL
-                      const thumbnail = await generateVideoThumbnail(
-                        getPublicationMediaUrl(byte)
-                      )
-                      currentTarget.onerror = null
-                      if (thumbnail?.includes('base64')) {
-                        currentTarget.src = thumbnail
-                      }
-                    }}
+                    // onError={async ({ currentTarget }) => {
+                    //   currentTarget.src = FALLBACK_COVER_URL
+                    //   const thumbnail = await generateVideoThumbnail(
+                    //     getPublicationMediaUrl(byte)
+                    //   )
+                    //   currentTarget.onerror = null
+                    //   if (thumbnail?.includes('base64')) {
+                    //     currentTarget.src = thumbnail
+                    //   }
+                    // }}
                   />
                 </div>
                 <h1 className="line-clamp-2 break-words pt-2 text-[13px]">
