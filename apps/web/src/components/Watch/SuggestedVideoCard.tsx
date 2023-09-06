@@ -2,7 +2,7 @@ import Badge from '@components/Common/Badge'
 import ReportModal from '@components/Common/VideoCard/ReportModal'
 import ShareModal from '@components/Common/VideoCard/ShareModal'
 import VideoOptions from '@components/Common/VideoCard/VideoOptions'
-import { generateVideoThumbnail, useAverageColor } from '@lenstube/browser'
+import { useAverageColor } from '@lenstube/browser'
 import {
   FALLBACK_COVER_URL,
   LENSTUBE_BYTES_APP_ID,
@@ -10,7 +10,6 @@ import {
 } from '@lenstube/constants'
 import {
   getIsSensitiveContent,
-  getPublicationMediaUrl,
   getRelativeTime,
   getThumbnailUrl,
   getTimeFromSeconds,
@@ -78,13 +77,13 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
                 draggable={false}
                 onError={async ({ currentTarget }) => {
                   currentTarget.src = FALLBACK_COVER_URL
-                  const thumbnail = await generateVideoThumbnail(
-                    getPublicationMediaUrl(video)
-                  )
-                  currentTarget.onerror = null
-                  if (thumbnail?.includes('base64')) {
-                    currentTarget.src = thumbnail
-                  }
+                  // const thumbnail = await generateVideoThumbnail(
+                  //   getPublicationMediaUrl(video)
+                  // )
+                  // currentTarget.onerror = null
+                  // if (thumbnail?.includes('base64')) {
+                  //   currentTarget.src = thumbnail
+                  // }
                 }}
               />
               {!isSensitiveContent && videoDuration ? (
