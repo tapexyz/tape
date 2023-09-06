@@ -32,8 +32,7 @@ const Accordion: FC<Props> = ({
         style={{
           flexDirection: 'row',
           justifyContent: 'space-between',
-          paddingVertical: 20,
-          paddingRight: 5
+          paddingVertical: 20
         }}
       >
         <Text

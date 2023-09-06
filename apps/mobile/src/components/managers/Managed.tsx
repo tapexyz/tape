@@ -73,7 +73,6 @@ const Managed = () => {
       ItemSeparatorComponent={() => <View style={{ height: GRID_GAP }} />}
       showsVerticalScrollIndicator={false}
       numColumns={NUM_COLUMNS}
-      scrollEventThrottle={16}
     />
   )
 }

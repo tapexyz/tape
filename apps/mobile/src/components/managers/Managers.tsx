@@ -1,9 +1,5 @@
 import { LENSTUBE_DONATION_ADDRESS } from '@lenstube/constants'
-import {
-  getRandomProfilePicture,
-  shortenAddress,
-  trimLensHandle
-} from '@lenstube/generic'
+import { getRandomProfilePicture, shortenAddress } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import { useAllProfilesQuery } from '@lenstube/lens'
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
@@ -11,8 +7,7 @@ import { FlashList } from '@shopify/flash-list'
 import { Image as ExpoImage } from 'expo-image'
 import React, { useCallback, useState } from 'react'
 import {
-  Pressable,
-  ScrollView,
+  FlatList,
   StyleSheet,
   Text,
   useWindowDimensions,
@@ -22,6 +17,8 @@ import {
 import normalizeFont from '~/helpers/normalize-font'
 import { useMobileTheme } from '~/hooks'
 import useMobileStore from '~/store'
+
+import Accordion from '../ui/Accordion'
 
 const GRID_GAP = 10
 const NUM_COLUMNS = 3
@@ -48,15 +45,10 @@ const styles = (themeConfig: MobileThemeConfig) =>
     }
   })
 
-const Managers = () => {
-  const { width } = useWindowDimensions()
-  const selectedChannel = useMobileStore((state) => state.selectedChannel)
+const Addresses = () => {
   const { themeConfig } = useMobileTheme()
   const style = styles(themeConfig)
-
-  const [selectedProfileId, setSelectedProfileId] = useState(
-    selectedChannel?.id
-  )
+  const { width } = useWindowDimensions()
 
   const sampleAddresses = [
     '0xa8535b8049948bE1bFeb1404daEabbD407792411',
@@ -64,15 +56,6 @@ const Managers = () => {
     '0xA8C62111e4652b07110A0FC81816303c42632f64',
     '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
   ]
-
-  const { data } = useAllProfilesQuery({
-    variables: {
-      request: {
-        ownedBy: [selectedChannel?.ownedBy]
-      }
-    }
-  })
-  const profiles = data?.profiles?.items as Profile[]
   const availableWidth = width - HORIZONTAL_PADDING * 2
 
   const renderItem = useCallback(
@@ -102,43 +85,61 @@ const Managers = () => {
   )
 
   return (
-    <>
-      <View style={{ paddingBottom: 20 }}>
-        <ScrollView
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-          contentContainerStyle={{ gap: 5 }}
-        >
-          {profiles.map((profile) => (
-            <Pressable
-              key={profile.id}
-              style={[
-                style.filter,
-                {
-                  borderColor:
-                    selectedProfileId === profile.id
-                      ? themeConfig.contrastBorderColor
-                      : themeConfig.borderColor
-                }
-              ]}
-              onPress={() => setSelectedProfileId(profile.id)}
-            >
-              <Text style={style.text}>{trimLensHandle(profile.handle)}</Text>
-            </Pressable>
-          ))}
-        </ScrollView>
-      </View>
-      <FlashList
-        data={sampleAddresses}
-        renderItem={renderItem}
-        estimatedItemSize={sampleAddresses.length}
-        keyExtractor={(item, i) => `${item}_${i}`}
-        ItemSeparatorComponent={() => <View style={{ height: GRID_GAP }} />}
-        showsVerticalScrollIndicator={false}
-        numColumns={NUM_COLUMNS}
-        scrollEventThrottle={16}
-      />
-    </>
+    <FlatList
+      data={sampleAddresses}
+      renderItem={renderItem}
+      numColumns={NUM_COLUMNS}
+      scrollEnabled={false}
+      showsVerticalScrollIndicator={false}
+      keyExtractor={(item, i) => `${item}_${i}`}
+      ItemSeparatorComponent={() => <View style={{ height: GRID_GAP }} />}
+    />
+  )
+}
+
+const Item = ({ profile, index }: { profile: Profile; index: number }) => {
+  const [active, setActive] = useState(index === 0)
+  return (
+    <Accordion
+      text={profile.handle}
+      setActive={setActive}
+      active={active}
+      key={profile.id}
+      content={<Addresses />}
+    />
+  )
+}
+
+const Managers = () => {
+  const { width } = useWindowDimensions()
+
+  const renderItem = useCallback(
+    ({ item, index }: { item: Profile; index: number }) => (
+      <Item profile={item} index={index} key={index} />
+    ),
+    []
+  )
+
+  const selectedChannel = useMobileStore((state) => state.selectedChannel)
+
+  const { data } = useAllProfilesQuery({
+    variables: {
+      request: {
+        ownedBy: [selectedChannel?.ownedBy]
+      }
+    }
+  })
+  const profiles = data?.profiles?.items as Profile[]
+
+  return (
+    <FlashList
+      data={profiles}
+      contentContainerStyle={{ paddingBottom: width }}
+      renderItem={renderItem}
+      estimatedItemSize={profiles.length}
+      keyExtractor={(item, i) => `${item.id}_${i}`}
+      showsVerticalScrollIndicator={false}
+    />
   )
 }
 

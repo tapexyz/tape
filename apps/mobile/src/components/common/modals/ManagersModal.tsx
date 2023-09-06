@@ -17,9 +17,11 @@ export const ManagersModal = (): JSX.Element => {
   const [showManagers, setShowManagers] = useState(true)
 
   return (
-    <View style={[styles.container, { height }]}>
+    <View style={styles.container}>
       <Filters showManagers={showManagers} setShowManagers={setShowManagers} />
-      {showManagers ? <Managers /> : <Managed />}
+      <View style={{ paddingHorizontal: 5, height }}>
+        {showManagers ? <Managers /> : <Managed />}
+      </View>
     </View>
   )
 }
