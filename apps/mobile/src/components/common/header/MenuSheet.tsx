@@ -74,7 +74,14 @@ const MenuSheet = ({
             </Menu>
             <Menu>
               <MenuItem icon="pie-chart-outline" title="Creator Studio" />
-              <MenuItem icon="people-outline" title="Manager" />
+              <MenuItem
+                icon="people-outline"
+                title="Managers"
+                onPress={() => {
+                  profileMenuRef.current?.close()
+                  navigate('ManagersModal')
+                }}
+              />
               <MenuItem
                 icon="cog-outline"
                 title="Settings"
