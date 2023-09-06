@@ -11,7 +11,7 @@ import { useAllProfilesQuery } from '@lenstube/lens'
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { Image as ExpoImage } from 'expo-image'
 import { Skeleton } from 'moti/skeleton'
-import React, { useCallback } from 'react'
+import React, { memo, useCallback } from 'react'
 import {
   ImageBackground,
   ScrollView,
@@ -154,4 +154,4 @@ const SwitchProfile = () => {
   )
 }
 
-export default SwitchProfile
+export default memo(SwitchProfile)

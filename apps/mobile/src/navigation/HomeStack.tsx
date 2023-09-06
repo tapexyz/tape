@@ -3,7 +3,7 @@ import React from 'react'
 
 import { HomeScreen } from '~/screens'
 
-import Header from '../components/common/Header'
+import Header from '../components/common/header/Header'
 
 const { Navigator, Screen } = createStackNavigator<HomeStackParamList>()
 

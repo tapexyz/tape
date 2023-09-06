@@ -57,7 +57,7 @@ const lightTheme: MobileThemeConfig = {
 }
 
 const gardenTheme: MobileThemeConfig = {
-  textColor: colors.black,
+  textColor: colors.garden,
   secondaryTextColor: '#00000090',
   backgroudColor: colors.white,
   backgroudColor2: '#F0F2F5',
