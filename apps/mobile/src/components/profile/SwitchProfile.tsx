@@ -11,7 +11,7 @@ import { useAllProfilesQuery } from '@lenstube/lens'
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { Image as ExpoImage } from 'expo-image'
 import { Skeleton } from 'moti/skeleton'
-import React, { memo, useCallback } from 'react'
+import React, { memo, useCallback, useMemo } from 'react'
 import {
   ImageBackground,
   ScrollView,
@@ -24,6 +24,7 @@ import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
 import { useMobileTheme } from '~/hooks'
 import useMobileStore from '~/store'
+import { useMobilePersistStore } from '~/store/persist'
 
 import AnimatedPressable from '../ui/AnimatedPressable'
 
@@ -66,8 +67,14 @@ const SwitchProfile = () => {
   const { themeConfig } = useMobileTheme()
   const style = styles(themeConfig)
 
+  const selectedChannelId = useMobilePersistStore(
+    (state) => state.selectedChannelId
+  )
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
   const setSelectedChannel = useMobileStore((state) => state.setSelectedChannel)
+  const setSelectedChannelId = useMobilePersistStore(
+    (state) => state.setSelectedChannelId
+  )
 
   const renderItem = useCallback(
     ({ profile }: { profile: Profile }) => (
@@ -96,8 +103,9 @@ const SwitchProfile = () => {
             key={profile.id}
             style={style.card}
             onPress={() => {
-              setSelectedChannel(profile)
               haptic()
+              setSelectedChannelId(profile.id)
+              setSelectedChannel(profile)
             }}
           >
             <ExpoImage
@@ -120,7 +128,13 @@ const SwitchProfile = () => {
         </ImageBackground>
       </View>
     ),
-    [selectedChannel, setSelectedChannel, themeConfig, style]
+    [
+      selectedChannel,
+      setSelectedChannel,
+      themeConfig,
+      style,
+      setSelectedChannelId
+    ]
   )
 
   const { data, loading, error } = useAllProfilesQuery({
@@ -128,7 +142,18 @@ const SwitchProfile = () => {
       request: { ownedBy: [selectedChannel?.ownedBy] }
     }
   })
-  const profiles = data?.profiles?.items as Profile[]
+
+  const profiles = useMemo(() => {
+    if (data?.profiles?.items.length) {
+      let items = [...data?.profiles?.items] as Profile[]
+      const targetIndex = items.findIndex((p) => p.id === selectedChannelId)
+      if (targetIndex !== -1) {
+        items.unshift(items.splice(targetIndex, 1)[0])
+      }
+      return items
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data])
 
   if (error || !selectedChannel) {
     return null
