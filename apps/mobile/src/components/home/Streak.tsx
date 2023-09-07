@@ -16,11 +16,18 @@ import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { useNavigation } from '@react-navigation/native'
 import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
-import React, { useCallback } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import type { ListRenderItemInfo } from 'react-native'
-import { StyleSheet, Text, View } from 'react-native'
+import {
+  ActivityIndicator,
+  ImageBackground,
+  StyleSheet,
+  Text,
+  View
+} from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'
+import { colors } from '~/helpers/theme'
 import { useMobileTheme } from '~/hooks'
 import useMobileStore from '~/store'
 
@@ -79,6 +86,28 @@ const styles = (themeConfig: MobileThemeConfig) =>
       borderColor: themeConfig.borderColor,
       borderWidth: 1,
       borderRightWidth: 0
+    },
+    trueItem: {
+      backgroundColor: colors.green,
+      flex: 1,
+      height: 5,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 10
+    },
+    falseItem: {
+      backgroundColor: colors.lightRed,
+      flex: 1,
+      height: 5,
+      alignItems: 'center',
+      justifyContent: 'center',
+      borderRadius: 10
+    },
+    streakContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      paddingBottom: 9,
+      gap: 4
     }
   })
 
@@ -88,7 +117,7 @@ type Props = {
   last: number
 }
 
-const StreakItem: FC<Props> = ({ publication, index, last }) => {
+const PublicationItem: FC<Props> = ({ publication, index, last }) => {
   const { themeConfig } = useMobileTheme()
   const style = styles(themeConfig)
 
@@ -113,14 +142,23 @@ const StreakItem: FC<Props> = ({ publication, index, last }) => {
         }
       ]}
     >
-      <ExpoImage
-        source={{
-          uri: imageUrl
-        }}
-        transition={300}
-        contentFit="contain"
+      <ImageBackground
+        source={{ uri: imageUrl }}
+        blurRadius={15}
         style={StyleSheet.absoluteFillObject}
-      />
+        imageStyle={{
+          opacity: 0.5
+        }}
+      >
+        <ExpoImage
+          source={{
+            uri: imageUrl
+          }}
+          transition={300}
+          contentFit={isVideo ? 'cover' : 'contain'}
+          style={StyleSheet.absoluteFillObject}
+        />
+      </ImageBackground>
       <View style={style.created}>
         <Text style={style.text}>
           {getShortHandTime(publication.createdAt)}
@@ -137,7 +175,7 @@ const Streak = () => {
   const selectedChannel = useMobileStore((state) => state.selectedChannel)
 
   const request: PublicationsQueryRequest = {
-    limit: 7,
+    limit: 50,
     customFilters: LENS_CUSTOM_FILTERS,
     metadata: {
       mainContentFocus: [
@@ -150,7 +188,7 @@ const Streak = () => {
     profileId: selectedChannel?.id
   }
 
-  const { data, error } = useProfilePostsQuery({
+  const { data, error, loading } = useProfilePostsQuery({
     variables: {
       request,
       channelId: selectedChannel?.id ?? null
@@ -162,13 +200,54 @@ const Streak = () => {
 
   const renderItem = useCallback(
     ({ item, index }: ListRenderItemInfo<Publication>) => (
-      <StreakItem
+      <PublicationItem
         publication={item}
         index={index}
         last={publications.length - 1}
       />
     ),
     [publications?.length]
+  )
+
+  const renderStreakItem = useCallback(
+    (item: boolean) => <View style={item ? style.trueItem : style.falseItem} />,
+    [style.trueItem, style.falseItem]
+  )
+
+  const calculateStreak = useCallback(
+    (posts: Publication[]) => {
+      const streakArray: boolean[] = []
+
+      if (!publications?.length) {
+        return streakArray
+      }
+      const postDates = posts
+        .slice(0, 7)
+        .map((post) => post.createdAt.split('T')[0])
+      const endDate = new Date()
+      const startDate = new Date(endDate)
+      startDate.setDate(endDate.getDate() - 6)
+
+      for (
+        let day = startDate;
+        day <= endDate;
+        day.setDate(day.getDate() + 1)
+      ) {
+        const targetDate = day.toISOString().split('T')[0]
+        if (postDates.includes(targetDate)) {
+          streakArray.push(true)
+        } else {
+          streakArray.push(false)
+        }
+      }
+      return streakArray
+    },
+    [publications?.length]
+  )
+
+  const streaks = useMemo(
+    () => calculateStreak(publications),
+    [publications, calculateStreak]
   )
 
   if (error || !selectedChannel) {
@@ -181,23 +260,47 @@ const Streak = () => {
       <Text style={style.subheading}>
         Your Collectibles, Your Story: Weekly
       </Text>
-      <View style={{ paddingTop: 20, flexDirection: 'row' }}>
-        <AnimatedPressable
-          onPress={() => navigate('NewPublication')}
-          style={style.add}
-        >
-          <Ionicons
-            name="add-outline"
-            color={themeConfig.textColor}
-            style={{ paddingLeft: 1 }}
-            size={20}
+      <View style={{ paddingTop: 20 }}>
+        {loading ? (
+          <ActivityIndicator
+            style={{
+              height: 120,
+              alignSelf: 'center',
+              borderRadius: BORDER_RADIUS
+            }}
           />
-        </AnimatedPressable>
-        <HorizantalSlider
-          data={publications}
-          renderItem={renderItem}
-          decelerationRate="normal"
-        />
+        ) : (
+          <>
+            {streaks?.length && (
+              <View style={style.streakContainer}>
+                {streaks.map((item) => renderStreakItem(item))}
+              </View>
+            )}
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'center'
+              }}
+            >
+              <AnimatedPressable
+                onPress={() => navigate('NewPublication')}
+                style={style.add}
+              >
+                <Ionicons
+                  name="add-outline"
+                  color={themeConfig.textColor}
+                  style={{ paddingLeft: 1 }}
+                  size={20}
+                />
+              </AnimatedPressable>
+              <HorizantalSlider
+                data={publications.slice(0, 7)}
+                renderItem={renderItem}
+                decelerationRate="normal"
+              />
+            </View>
+          </>
+        )}
       </View>
     </View>
   )
