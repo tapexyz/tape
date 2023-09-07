@@ -185,7 +185,7 @@ const Streak = () => {
       ]
     },
     publicationTypes: [PublicationTypes.Post],
-    profileId: '0x05'
+    profileId: selectedChannel?.id
   }
 
   const { data, error, loading } = useProfilePostsQuery({
