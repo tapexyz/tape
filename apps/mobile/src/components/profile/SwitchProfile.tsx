@@ -33,7 +33,6 @@ const styles = (themeConfig: MobileThemeConfig) =>
   StyleSheet.create({
     cardContainer: {
       display: 'flex',
-      backgroundColor: themeConfig.backgroudColor,
       borderRadius: BORDER_RADIUS
     },
     card: {
@@ -85,7 +84,7 @@ const SwitchProfile = () => {
             borderColor:
               selectedChannel?.id === profile.id
                 ? themeConfig.contrastBorderColor
-                : themeConfig.borderColor,
+                : 'transparent',
             borderRadius: BORDER_RADIUS
           }}
           imageStyle={{

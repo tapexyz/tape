@@ -140,7 +140,7 @@ const Stage = () => {
           estimatedItemSize={audios.length}
           renderItem={renderItem}
           keyExtractor={(item, i) => `${item.id}_${i}`}
-          onEndReached={fetchMoreAudio}
+          onEndReached={pageInfo?.next ? fetchMoreAudio : null}
           onEndReachedThreshold={0.8}
           onViewableItemsChanged={onViewableItemsChanged}
           extraData={activeAudioIndex}

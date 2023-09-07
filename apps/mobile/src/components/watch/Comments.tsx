@@ -136,7 +136,7 @@ const Comments: FC<Props> = ({ id }) => {
             ListEmptyComponent={() => !loading && <NotFound />}
             keyExtractor={(item, i) => `${item.id}_${i}`}
             onEndReachedThreshold={0.8}
-            onEndReached={() => fetchMoreComments()}
+            onEndReached={pageInfo?.next ? fetchMoreComments : null}
             showsVerticalScrollIndicator={false}
             renderItem={renderItem}
             onRefresh={() => refetch()}

@@ -86,7 +86,7 @@ export const BytesScreen = (props: BytesScreenProps): JSX.Element => {
       estimatedItemSize={bytes.length}
       showsVerticalScrollIndicator={false}
       keyExtractor={(item, i) => `${item.id}_${i}`}
-      onEndReached={() => fetchMoreVideos()}
+      onEndReached={pageInfo?.next ? fetchMoreVideos : null}
       extraData={activeVideoIndex} // To handle rerender if anything changes in data
       onViewableItemsChanged={onViewableItemsChanged}
       onEndReachedThreshold={0.8}

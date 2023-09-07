@@ -86,7 +86,7 @@ export const PodcastModal = () => {
           <ActivityIndicator style={{ paddingVertical: 20 }} />
         )}
         ListEmptyComponent={() => !loading && <NotFound />}
-        onEndReached={fetchMorePublications}
+        onEndReached={pageInfo?.next ? fetchMorePublications : null}
         onEndReachedThreshold={0.8}
         showsVerticalScrollIndicator={false}
         onRefresh={() => refetch()}
