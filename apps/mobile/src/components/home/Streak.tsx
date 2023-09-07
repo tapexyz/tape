@@ -210,7 +210,9 @@ const Streak = () => {
   )
 
   const renderStreakItem = useCallback(
-    (item: boolean) => <View style={item ? style.trueItem : style.falseItem} />,
+    (item: boolean, index: number) => (
+      <View key={index} style={item ? style.trueItem : style.falseItem} />
+    ),
     [style.trueItem, style.falseItem]
   )
 
@@ -266,7 +268,7 @@ const Streak = () => {
           <>
             {streaks?.length ? (
               <View style={style.streakContainer}>
-                {streaks.map((item) => renderStreakItem(item))}
+                {streaks.map((item, i) => renderStreakItem(item, i))}
               </View>
             ) : null}
             <View
