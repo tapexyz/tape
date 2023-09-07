@@ -63,7 +63,7 @@ export const NotificationsModal = (): JSX.Element => {
       ListFooterComponent={() => (
         <ActivityIndicator style={{ paddingVertical: 20 }} />
       )}
-      ListEmptyComponent={<NotFound />}
+      ListEmptyComponent={() => !loading && <NotFound />}
       onRefresh={() => refetch()}
       refreshing={Boolean(notifications?.length) && loading}
     />

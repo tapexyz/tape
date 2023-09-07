@@ -115,7 +115,7 @@ const Clan: FC<Props> = ({ profile, scrollHandler }) => {
         ListFooterComponent={() =>
           loading && <ActivityIndicator style={{ paddingVertical: 20 }} />
         }
-        ListEmptyComponent={<NotFound />}
+        ListEmptyComponent={() => !loading && <NotFound />}
         onEndReached={fetchMorePublications}
         onEndReachedThreshold={0.8}
         showsVerticalScrollIndicator={false}

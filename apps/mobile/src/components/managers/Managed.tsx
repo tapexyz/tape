@@ -32,7 +32,7 @@ const Managed = () => {
   const { themeConfig } = useMobileTheme()
   const style = styles(themeConfig)
 
-  const { data } = useAllProfilesQuery({
+  const { data, loading } = useAllProfilesQuery({
     variables: {
       request: {
         ownedBy: [selectedChannel?.ownedBy]
@@ -72,7 +72,7 @@ const Managed = () => {
       estimatedItemSize={profiles.length}
       keyExtractor={(item, i) => `${item.id}_${i}`}
       ItemSeparatorComponent={() => <View style={{ height: GRID_GAP }} />}
-      ListEmptyComponent={<NotFound />}
+      ListEmptyComponent={() => !loading && <NotFound />}
       showsVerticalScrollIndicator={false}
       numColumns={NUM_COLUMNS}
     />

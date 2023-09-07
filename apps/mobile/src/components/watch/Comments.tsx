@@ -133,7 +133,7 @@ const Comments: FC<Props> = ({ id }) => {
             ListFooterComponent={() =>
               loading && <ActivityIndicator style={{ paddingVertical: 20 }} />
             }
-            ListEmptyComponent={<NotFound />}
+            ListEmptyComponent={() => !loading && <NotFound />}
             keyExtractor={(item, i) => `${item.id}_${i}`}
             onEndReachedThreshold={0.8}
             onEndReached={() => fetchMoreComments()}

@@ -142,7 +142,7 @@ const MoreVideos: FC<Props> = ({ video }) => {
         ListFooterComponent={() =>
           loading && <ActivityIndicator style={{ paddingVertical: 20 }} />
         }
-        ListEmptyComponent={<NotFound />}
+        ListEmptyComponent={() => !loading && <NotFound />}
         showsVerticalScrollIndicator={false}
       />
     </View>

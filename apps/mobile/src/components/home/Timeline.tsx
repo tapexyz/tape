@@ -259,7 +259,7 @@ const Timeline = () => {
             <ActivityIndicator style={{ paddingVertical: 20 }} />
           ) : null
         }
-        ListEmptyComponent={<NotFound />}
+        ListEmptyComponent={() => !loading && <NotFound />}
         onEndReached={
           selectedFeedType !== TimelineFeedType.ALGORITHM
             ? fetchMorePublications
