@@ -18,7 +18,7 @@ import {
 } from 'react-native'
 import Animated, { FadeIn, FadeInDown } from 'react-native-reanimated'
 
-import CollapseButton from '~/components/common/CollapseButton'
+import CollapseButton from '~/components/common/header/CollapseButton'
 import ServerError from '~/components/ui/ServerError'
 import Comments from '~/components/watch/Comments'
 

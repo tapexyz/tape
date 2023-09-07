@@ -5,7 +5,7 @@ import React from 'react'
 import haptic from '~/helpers/haptic'
 import { useMobileTheme } from '~/hooks'
 
-import AnimatedPressable from '../ui/AnimatedPressable'
+import AnimatedPressable from '../../ui/AnimatedPressable'
 
 const CollapseButton = () => {
   const { themeConfig } = useMobileTheme()

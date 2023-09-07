@@ -15,6 +15,7 @@ export const colors = {
   black: '#000000',
   white: '#ffffff',
   red: 'red',
+  lightRed: '#ff8f8f',
   yellow: '#FEFF55',
   green: 'green',
   orange: 'orange',
@@ -57,7 +58,7 @@ const lightTheme: MobileThemeConfig = {
 }
 
 const gardenTheme: MobileThemeConfig = {
-  textColor: colors.black,
+  textColor: colors.garden,
   secondaryTextColor: '#00000090',
   backgroudColor: colors.white,
   backgroudColor2: '#F0F2F5',

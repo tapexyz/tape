@@ -15,6 +15,7 @@ import {
 import Animated from 'react-native-reanimated'
 import useSWR from 'swr'
 
+import NotFound from '~/components/ui/NotFound'
 import { useMobileTheme } from '~/hooks'
 
 type Props = {
@@ -95,6 +96,7 @@ const Gallery: FC<Props> = ({ profile, scrollHandler }) => {
         renderItem={renderItem}
         keyExtractor={(item, i) => `${item.id}_${i}`}
         ItemSeparatorComponent={() => <View style={{ height: GRID_GAP }} />}
+        ListEmptyComponent={() => !isLoading && <NotFound />}
         showsVerticalScrollIndicator={false}
         onScroll={scrollHandler}
         numColumns={NUM_COLUMNS}

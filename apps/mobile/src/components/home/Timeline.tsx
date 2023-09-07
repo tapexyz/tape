@@ -30,6 +30,7 @@ import { useMobilePersistStore } from '~/store/persist'
 
 import AudioCard from '../common/AudioCard'
 import VideoCard from '../common/VideoCard'
+import NotFound from '../ui/NotFound'
 import ServerError from '../ui/ServerError'
 import ByteCards from './ByteCards'
 import FirstSteps from './FirstSteps'
@@ -238,10 +239,6 @@ const Timeline = () => {
     [selectedFeedType]
   )
 
-  if (loading) {
-    return <ActivityIndicator style={{ flex: 1 }} />
-  }
-
   if (error) {
     return <ServerError />
   }
@@ -252,14 +249,17 @@ const Timeline = () => {
         ref={scrollRef}
         ListHeaderComponent={HeaderComponent}
         data={publications}
-        estimatedItemSize={publications?.length ?? []}
+        estimatedItemSize={publications?.length ?? 50}
         renderItem={renderItem}
         keyExtractor={(_item, i) => `${i + 1}_${i}`}
         ListFooterComponent={() =>
-          selectedFeedType !== TimelineFeedType.ALGORITHM || recsLoading ? (
+          selectedFeedType !== TimelineFeedType.ALGORITHM ||
+          recsLoading ||
+          loading ? (
             <ActivityIndicator style={{ paddingVertical: 20 }} />
           ) : null
         }
+        ListEmptyComponent={() => !loading && <NotFound />}
         onEndReached={
           selectedFeedType !== TimelineFeedType.ALGORITHM
             ? fetchMorePublications

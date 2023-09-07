@@ -6,10 +6,11 @@ import type { FC } from 'react'
 import React from 'react'
 import { Easing } from 'react-native'
 
-import CollapseButton from '~/components/common/CollapseButton'
+import CollapseButton from '~/components/common/header/CollapseButton'
 import {
   CategoriesModal,
   FeedFlexModal,
+  ManagersModal,
   MusicModal,
   NotificationsModal,
   PodcastModal,
@@ -122,6 +123,15 @@ export const RootNavigator: FC = () => {
           title: 'Notifications'
         }}
         component={NotificationsModal}
+      />
+      <Screen
+        name="ManagersModal"
+        options={{
+          ...modalOptions,
+          presentation: 'modal',
+          title: 'Manage Profiles'
+        }}
+        component={ManagersModal}
       />
     </Navigator>
   )

@@ -16,7 +16,7 @@ import { useToast } from '../common/toast'
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 30
+    marginVertical: 20
   },
   filter: {
     paddingHorizontal: 15,

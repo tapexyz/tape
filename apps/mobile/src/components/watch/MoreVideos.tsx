@@ -16,6 +16,7 @@ import { useMobilePersistStore } from '~/store/persist'
 
 import AudioCard from '../common/AudioCard'
 import VideoCard from '../common/VideoCard'
+import NotFound from '../ui/NotFound'
 import Actions from './Actions'
 import Comments from './Comments'
 import Metadata from './Metadata'
@@ -141,6 +142,7 @@ const MoreVideos: FC<Props> = ({ video }) => {
         ListFooterComponent={() =>
           loading && <ActivityIndicator style={{ paddingVertical: 20 }} />
         }
+        ListEmptyComponent={() => !loading && <NotFound />}
         showsVerticalScrollIndicator={false}
       />
     </View>

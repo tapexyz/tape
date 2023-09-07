@@ -1,5 +1,6 @@
 import { getMetaTags } from '@lenstube/browser'
 import { LENSTUBE_APP_DESCRIPTION, OG_IMAGE } from '@lenstube/constants'
+import { trimLensHandle } from '@lenstube/generic'
 import getProfileMeta from 'lib/getProfileMeta'
 import getPublicationMeta from 'lib/getPublicationMeta'
 import type { NextApiRequest, NextApiResponse } from 'next'
@@ -21,8 +22,8 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   try {
     if (isChannel) {
-      const handle = path.replace('/channel/', '').replace('.lens', '')
-      return await getProfileMeta(res, `${handle}.lens`)
+      const handle = path.replace('/channel/', '')
+      return await getProfileMeta(res, trimLensHandle(handle, true))
     }
 
     if (isVideo || isByte) {

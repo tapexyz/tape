@@ -11,6 +11,7 @@ import React, { useCallback } from 'react'
 import { ActivityIndicator, StyleSheet, View } from 'react-native'
 
 import VideoCard from '~/components/common/VideoCard'
+import NotFound from '~/components/ui/NotFound'
 import ServerError from '~/components/ui/ServerError'
 import { windowHeight } from '~/helpers/theme'
 
@@ -84,6 +85,7 @@ export const PodcastModal = () => {
         ListFooterComponent={() => (
           <ActivityIndicator style={{ paddingVertical: 20 }} />
         )}
+        ListEmptyComponent={() => !loading && <NotFound />}
         onEndReached={fetchMorePublications}
         onEndReachedThreshold={0.8}
         showsVerticalScrollIndicator={false}

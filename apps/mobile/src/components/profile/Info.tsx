@@ -1,6 +1,7 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
 import type { BottomSheetModal } from '@gorhom/bottom-sheet'
 import {
+  formatNumber,
   getChannelCoverPicture,
   imageCdn,
   sanitizeDStorageUrl,
@@ -36,7 +37,6 @@ import useMobileStore from '~/store'
 
 import UserProfile from '../common/UserProfile'
 import Button from '../ui/Button'
-import Ticker from '../ui/Ticker'
 import OnChainInfo from './OnChainInfo'
 import ShareSheet from './ShareSheet'
 
@@ -72,12 +72,13 @@ const styles = (themeConfig: MobileThemeConfig) =>
     stat: {
       flexDirection: 'column',
       width: windowWidth * 0.3,
-      alignItems: 'center',
-      gap: 4
+      alignItems: 'center'
     },
     tickerText: {
       fontFamily: 'font-bold',
-      color: themeConfig.textColor
+      color: themeConfig.textColor,
+      fontSize: normalizeFont(14),
+      letterSpacing: 1
     },
     handle: {
       fontFamily: 'font-bold',
@@ -201,11 +202,9 @@ const Info: FC<Props> = (props) => {
 
         <View style={style.statsContainer}>
           <View style={style.stat}>
-            <Ticker
-              number={profile.stats.totalFollowers}
-              textStyle={style.tickerText}
-              textSize={18}
-            />
+            <Text style={style.tickerText}>
+              {formatNumber(profile.stats.totalFollowers)}
+            </Text>
             <Text style={style.text}>followers</Text>
           </View>
           <View style={{ marginTop: -(height * 0.07) }}>
@@ -218,11 +217,9 @@ const Info: FC<Props> = (props) => {
             />
           </View>
           <View style={style.stat}>
-            <Ticker
-              number={profile.stats.totalCollects}
-              textStyle={style.tickerText}
-              textSize={18}
-            />
+            <Text style={style.tickerText}>
+              {formatNumber(profile.stats.totalCollects)}
+            </Text>
             <Text style={style.text}>collects</Text>
           </View>
         </View>
@@ -237,10 +234,7 @@ const Info: FC<Props> = (props) => {
             </Text>
 
             <Pressable onPress={() => setShowMoreBio(!showMoreBio)}>
-              <Text
-                numberOfLines={!showMoreBio ? 2 : undefined}
-                style={style.bio}
-              >
+              <Text numberOfLines={!showMoreBio ? 2 : 10} style={style.bio}>
                 {showMoreBio ? profile.bio : trimNewLines(profile.bio ?? '')}
               </Text>
             </Pressable>

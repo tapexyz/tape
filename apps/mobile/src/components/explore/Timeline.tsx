@@ -19,6 +19,7 @@ import useMobileStore from '~/store'
 
 import AudioCard from '../common/AudioCard'
 import VideoCard from '../common/VideoCard'
+import NotFound from '../ui/NotFound'
 import Filters from './Filters'
 import Showcase from './Showcase'
 
@@ -109,6 +110,7 @@ const Timeline = () => {
         ListFooterComponent={() =>
           loading && <ActivityIndicator style={{ paddingVertical: 20 }} />
         }
+        ListEmptyComponent={() => !loading && <NotFound />}
         onEndReached={fetchMorePublications}
         onEndReachedThreshold={0.8}
         showsVerticalScrollIndicator={false}
