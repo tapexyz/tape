@@ -11,6 +11,7 @@ import { useMobileTheme } from '~/hooks'
 import useMobileStore from '~/store'
 
 import UserProfile from '../common/UserProfile'
+import NotFound from '../ui/NotFound'
 
 const GRID_GAP = 10
 const NUM_COLUMNS = 3
@@ -71,6 +72,7 @@ const Managed = () => {
       estimatedItemSize={profiles.length}
       keyExtractor={(item, i) => `${item.id}_${i}`}
       ItemSeparatorComponent={() => <View style={{ height: GRID_GAP }} />}
+      ListEmptyComponent={<NotFound />}
       showsVerticalScrollIndicator={false}
       numColumns={NUM_COLUMNS}
     />

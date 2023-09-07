@@ -30,6 +30,7 @@ import { useMobilePersistStore } from '~/store/persist'
 
 import AudioCard from '../common/AudioCard'
 import VideoCard from '../common/VideoCard'
+import NotFound from '../ui/NotFound'
 import ServerError from '../ui/ServerError'
 import ByteCards from './ByteCards'
 import FirstSteps from './FirstSteps'
@@ -258,6 +259,7 @@ const Timeline = () => {
             <ActivityIndicator style={{ paddingVertical: 20 }} />
           ) : null
         }
+        ListEmptyComponent={<NotFound />}
         onEndReached={
           selectedFeedType !== TimelineFeedType.ALGORITHM
             ? fetchMorePublications

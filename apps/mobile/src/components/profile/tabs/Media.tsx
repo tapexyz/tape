@@ -20,6 +20,8 @@ import {
 } from 'react-native'
 import Animated from 'react-native-reanimated'
 
+import NotFound from '~/components/ui/NotFound'
+
 import AudioCard from '../../common/AudioCard'
 import VideoCard from '../../common/VideoCard'
 
@@ -94,6 +96,7 @@ const Media: FC<Props> = ({ profile, scrollHandler }) => {
         ListFooterComponent={() =>
           loading && <ActivityIndicator style={{ paddingVertical: 20 }} />
         }
+        ListEmptyComponent={<NotFound />}
         onEndReached={fetchMorePublications}
         onEndReachedThreshold={0.8}
         showsVerticalScrollIndicator={false}

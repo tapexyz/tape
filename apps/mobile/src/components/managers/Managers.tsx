@@ -19,6 +19,7 @@ import { useMobileTheme } from '~/hooks'
 import useMobileStore from '~/store'
 
 import Accordion from '../ui/Accordion'
+import NotFound from '../ui/NotFound'
 
 const GRID_GAP = 10
 const NUM_COLUMNS = 3
@@ -86,13 +87,14 @@ const Addresses = () => {
 
   return (
     <FlatList
-      data={sampleAddresses}
+      data={[]}
       renderItem={renderItem}
       numColumns={NUM_COLUMNS}
       scrollEnabled={false}
       showsVerticalScrollIndicator={false}
       keyExtractor={(item, i) => `${item}_${i}`}
       ItemSeparatorComponent={() => <View style={{ height: GRID_GAP }} />}
+      ListEmptyComponent={<NotFound />}
     />
   )
 }

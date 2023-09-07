@@ -24,6 +24,7 @@ import {
 import Animated from 'react-native-reanimated'
 
 import RenderPublication from '~/components/common/RenderPublication'
+import NotFound from '~/components/ui/NotFound'
 import normalizeFont from '~/helpers/normalize-font'
 import { useMobileTheme } from '~/hooks'
 
@@ -114,6 +115,7 @@ const Clan: FC<Props> = ({ profile, scrollHandler }) => {
         ListFooterComponent={() =>
           loading && <ActivityIndicator style={{ paddingVertical: 20 }} />
         }
+        ListEmptyComponent={<NotFound />}
         onEndReached={fetchMorePublications}
         onEndReachedThreshold={0.8}
         showsVerticalScrollIndicator={false}

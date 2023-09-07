@@ -19,6 +19,7 @@ import {
 import normalizeFont from '~/helpers/normalize-font'
 import { useMobileTheme } from '~/hooks'
 
+import NotFound from '../ui/NotFound'
 import Sheet from '../ui/Sheet'
 import Comment from './Comment'
 import CommentButton from './CommentButton'
@@ -126,22 +127,21 @@ const Comments: FC<Props> = ({ id }) => {
         >
           <Text style={style.title}>Comments</Text>
 
-          {comments?.length ? (
-            <FlashList
-              data={comments}
-              estimatedItemSize={comments.length}
-              ListFooterComponent={() =>
-                loading && <ActivityIndicator style={{ paddingVertical: 20 }} />
-              }
-              keyExtractor={(item, i) => `${item.id}_${i}`}
-              onEndReachedThreshold={0.8}
-              onEndReached={() => fetchMoreComments()}
-              showsVerticalScrollIndicator={false}
-              renderItem={renderItem}
-              onRefresh={() => refetch()}
-              refreshing={Boolean(comments?.length) && loading}
-            />
-          ) : null}
+          <FlashList
+            data={comments ?? []}
+            estimatedItemSize={Boolean(comments?.length) ? comments.length : 5}
+            ListFooterComponent={() =>
+              loading && <ActivityIndicator style={{ paddingVertical: 20 }} />
+            }
+            ListEmptyComponent={<NotFound />}
+            keyExtractor={(item, i) => `${item.id}_${i}`}
+            onEndReachedThreshold={0.8}
+            onEndReached={() => fetchMoreComments()}
+            showsVerticalScrollIndicator={false}
+            renderItem={renderItem}
+            onRefresh={() => refetch()}
+            refreshing={Boolean(comments?.length) && loading}
+          />
         </View>
       </Sheet>
     </>

@@ -20,6 +20,7 @@ import {
 import Animated from 'react-native-reanimated'
 
 import AnimatedPressable from '~/components/ui/AnimatedPressable'
+import NotFound from '~/components/ui/NotFound'
 import { useMobileTheme } from '~/hooks'
 
 type Props = {
@@ -115,6 +116,7 @@ const Bytes: FC<Props> = ({ profile, scrollHandler }) => {
         ListFooterComponent={() =>
           loading && <ActivityIndicator style={{ paddingVertical: 20 }} />
         }
+        ListEmptyComponent={<NotFound />}
         onEndReached={fetchMorePublications}
         onEndReachedThreshold={0.8}
         showsVerticalScrollIndicator={false}
