@@ -87,6 +87,11 @@ const Addresses = () => {
 
   return (
     <FlatList
+      contentContainerStyle={{
+        backgroundColor: themeConfig.backgroudColor2,
+        borderRadius: 20,
+        paddingVertical: 20
+      }}
       data={sampleAddresses}
       renderItem={renderItem}
       numColumns={NUM_COLUMNS}
