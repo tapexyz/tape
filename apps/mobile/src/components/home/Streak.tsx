@@ -38,8 +38,11 @@ const styles = (themeConfig: MobileThemeConfig) =>
       position: 'relative',
       display: 'flex',
       flexDirection: 'column',
-      marginRight: 3,
-      height: 120
+      height: 120,
+      borderColor: themeConfig.borderColor,
+      borderWidth: 1,
+      borderRightWidth: 0,
+      overflow: 'hidden'
     },
     title: {
       fontFamily: 'font-bold',
@@ -72,7 +75,10 @@ const styles = (themeConfig: MobileThemeConfig) =>
       alignItems: 'center',
       justifyContent: 'center',
       borderTopLeftRadius: BORDER_RADIUS,
-      borderBottomLeftRadius: BORDER_RADIUS
+      borderBottomLeftRadius: BORDER_RADIUS,
+      borderColor: themeConfig.borderColor,
+      borderWidth: 1,
+      borderRightWidth: 0
     }
   })
 
@@ -100,7 +106,10 @@ const StreakItem: FC<Props> = ({ publication, index, last }) => {
       style={[
         style.item,
         {
-          aspectRatio: isVideo ? (isBytes ? 9 / 16 : 16 / 9) : 1 / 1
+          aspectRatio: isVideo ? (isBytes ? 9 / 16 : 16 / 9) : 1 / 1,
+          borderRightWidth: index === last ? 1 : 0,
+          borderTopRightRadius: index === last ? BORDER_RADIUS : 3,
+          borderBottomRightRadius: index === last ? BORDER_RADIUS : 3
         }
       ]}
     >
@@ -109,14 +118,8 @@ const StreakItem: FC<Props> = ({ publication, index, last }) => {
           uri: imageUrl
         }}
         transition={300}
-        contentFit="cover"
-        style={[
-          {
-            borderTopRightRadius: index === last ? BORDER_RADIUS : 3,
-            borderBottomRightRadius: index === last ? BORDER_RADIUS : 3
-          },
-          StyleSheet.absoluteFillObject
-        ]}
+        contentFit="contain"
+        style={StyleSheet.absoluteFillObject}
       />
       <View style={style.created}>
         <Text style={style.text}>
@@ -178,7 +181,7 @@ const Streak = () => {
       <Text style={style.subheading}>
         Your Collectibles, Your Story: Weekly
       </Text>
-      <View style={{ paddingTop: 20, flexDirection: 'row', gap: 3 }}>
+      <View style={{ paddingTop: 20, flexDirection: 'row' }}>
         <AnimatedPressable
           onPress={() => navigate('NewPublication')}
           style={style.add}
