@@ -252,7 +252,9 @@ const Timeline = () => {
         renderItem={renderItem}
         keyExtractor={(_item, i) => `${i + 1}_${i}`}
         ListFooterComponent={() =>
-          selectedFeedType !== TimelineFeedType.ALGORITHM || recsLoading ? (
+          selectedFeedType !== TimelineFeedType.ALGORITHM ||
+          recsLoading ||
+          loading ? (
             <ActivityIndicator style={{ paddingVertical: 20 }} />
           ) : null
         }
@@ -264,7 +266,6 @@ const Timeline = () => {
         onEndReachedThreshold={0.8}
         showsVerticalScrollIndicator={false}
       />
-      {loading && <ActivityIndicator />}
     </View>
   )
 }
