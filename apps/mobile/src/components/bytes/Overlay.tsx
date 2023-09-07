@@ -65,7 +65,12 @@ const Overlay: FC<Props> = ({ byte: { stats, profile, metadata, id } }) => {
 
   return (
     <>
-      <DoubleTap onDoubleTap={() => alert('Liked')}>
+      <DoubleTap
+        onDoubleTap={() => {
+          haptic()
+          alert('Liked')
+        }}
+      >
         <View style={StyleSheet.absoluteFill}>
           <LinearGradient
             locations={[0, 0, 0.8, 1]}
