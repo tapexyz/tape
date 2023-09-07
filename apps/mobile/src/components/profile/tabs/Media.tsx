@@ -54,7 +54,8 @@ const Media: FC<Props> = ({ profile, scrollHandler }) => {
     variables: {
       request
     },
-    skip: !profile?.id
+    skip: !profile?.id,
+    notifyOnNetworkStatusChange: true
   })
 
   const publications = data?.publications?.items as Publication[]
