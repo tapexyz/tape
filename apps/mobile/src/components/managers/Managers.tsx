@@ -97,8 +97,8 @@ const Addresses = () => {
   )
 }
 
-const Item = ({ profile, index }: { profile: Profile; index: number }) => {
-  const [active, setActive] = useState(index === 0)
+const Item = ({ profile }: { profile: Profile }) => {
+  const [active, setActive] = useState(false)
   return (
     <Accordion
       text={profile.handle}
@@ -115,7 +115,7 @@ const Managers = () => {
 
   const renderItem = useCallback(
     ({ item, index }: { item: Profile; index: number }) => (
-      <Item profile={item} index={index} key={index} />
+      <Item profile={item} key={index} />
     ),
     []
   )
