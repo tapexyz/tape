@@ -80,11 +80,11 @@ const SwitchProfile = () => {
             )
           }}
           style={{
-            borderWidth: 1.5,
+            borderWidth: 2,
             borderColor:
               selectedChannel?.id === profile.id
                 ? themeConfig.contrastBorderColor
-                : 'transparent',
+                : `${themeConfig.borderColor}60`,
             borderRadius: BORDER_RADIUS
           }}
           imageStyle={{
