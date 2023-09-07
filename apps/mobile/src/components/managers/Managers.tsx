@@ -87,7 +87,7 @@ const Addresses = () => {
 
   return (
     <FlatList
-      data={[]}
+      data={sampleAddresses}
       renderItem={renderItem}
       numColumns={NUM_COLUMNS}
       scrollEnabled={false}
