@@ -16,7 +16,7 @@ import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { useNavigation } from '@react-navigation/native'
 import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
-import React, { useCallback, useMemo } from 'react'
+import React, { memo, useCallback, useMemo } from 'react'
 import type { ListRenderItemInfo } from 'react-native'
 import {
   ActivityIndicator,
@@ -185,7 +185,7 @@ const Streak = () => {
       ]
     },
     publicationTypes: [PublicationTypes.Post],
-    profileId: selectedChannel?.id
+    profileId: '0x05'
   }
 
   const { data, error, loading } = useProfilePostsQuery({
@@ -214,36 +214,29 @@ const Streak = () => {
     [style.trueItem, style.falseItem]
   )
 
-  const calculateStreak = useCallback(
-    (posts: Publication[]) => {
-      const streakArray: boolean[] = []
+  const calculateStreak = useCallback((publications: Publication[]) => {
+    const streakArray: boolean[] = []
 
-      if (!publications?.length) {
-        return streakArray
-      }
-      const postDates = posts
-        .slice(0, 7)
-        .map((post) => post.createdAt.split('T')[0])
-      const endDate = new Date()
-      const startDate = new Date(endDate)
-      startDate.setDate(endDate.getDate() - 6)
-
-      for (
-        let day = startDate;
-        day <= endDate;
-        day.setDate(day.getDate() + 1)
-      ) {
-        const targetDate = day.toISOString().split('T')[0]
-        if (postDates.includes(targetDate)) {
-          streakArray.push(true)
-        } else {
-          streakArray.push(false)
-        }
-      }
+    if (!publications?.length) {
       return streakArray
-    },
-    [publications?.length]
-  )
+    }
+    const postDates = publications
+      .slice(0, 7)
+      .map((publication) => publication.createdAt.split('T')[0])
+    const today = new Date()
+    const seventhDay = new Date(today)
+    seventhDay.setDate(today.getDate() - 6)
+
+    for (let day = today; day >= seventhDay; day.setDate(day.getDate() - 1)) {
+      const targetDate = day.toISOString().split('T')[0]
+      if (postDates.includes(targetDate)) {
+        streakArray.push(true)
+      } else {
+        streakArray.push(false)
+      }
+    }
+    return streakArray
+  }, [])
 
   const streaks = useMemo(
     () => calculateStreak(publications),
@@ -271,11 +264,11 @@ const Streak = () => {
           />
         ) : (
           <>
-            {streaks?.length && (
+            {streaks?.length ? (
               <View style={style.streakContainer}>
                 {streaks.map((item) => renderStreakItem(item))}
               </View>
-            )}
+            ) : null}
             <View
               style={{
                 flexDirection: 'row',
@@ -294,7 +287,7 @@ const Streak = () => {
                 />
               </AnimatedPressable>
               <HorizantalSlider
-                data={publications.slice(0, 7)}
+                data={publications?.slice(0, 7)}
                 renderItem={renderItem}
                 decelerationRate="normal"
               />
@@ -306,4 +299,4 @@ const Streak = () => {
   )
 }
 
-export default Streak
+export default memo(Streak)
