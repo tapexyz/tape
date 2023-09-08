@@ -13,15 +13,15 @@
     "extract": "lingui compile; lingui extract"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.405.0",
-    "@aws-sdk/lib-storage": "^3.405.0",
+    "@aws-sdk/client-s3": "^3.408.0",
+    "@aws-sdk/lib-storage": "^3.408.0",
     "@bundlr-network/client": "0.11.17",
     "@emoji-mart/react": "^1.1.1",
     "@headlessui/react": "^1.7.17",
     "@hookform/resolvers": "^3.3.1",
     "@lingui/react": "^4.4.0",
     "@livepeer/react": "^2.8.3",
-    "@rainbow-me/rainbowkit": "^1.0.10",
+    "@rainbow-me/rainbowkit": "^1.0.11",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tippyjs/react": "^4.2.6",
     "axios": "^1.5.0",
@@ -43,7 +43,7 @@
     "react-mentions": "^4.4.10",
     "swr": "^2.2.2",
     "uuid": "^9.0.0",
-    "viem": "^1.10.3",
+    "viem": "^1.10.8",
     "wagmi": "^1.4.1",
     "zod": "^3.22.2",
     "zustand": "^4.4.1"
