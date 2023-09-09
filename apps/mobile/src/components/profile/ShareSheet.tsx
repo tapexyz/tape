@@ -68,7 +68,7 @@ const styles = (themeConfig: MobileThemeConfig) =>
     },
     boldText: {
       color: themeConfig.textColor,
-      fontFamily: 'font-extrabold',
+      fontFamily: 'font-bold',
       fontSize: normalizeFont(14),
       letterSpacing: 1
     },
