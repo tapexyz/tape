@@ -9,10 +9,11 @@ export const useCachedResources = (): boolean => {
     try {
       await Font.loadAsync({
         ...Ionicons.font,
-        'font-normal': require('assets/fonts/ClashDisplay-Regular.ttf'),
-        'font-medium': require('assets/fonts/ClashDisplay-Medium.ttf'),
-        'font-bold': require('assets/fonts/ClashDisplay-Semibold.ttf'),
-        'font-extrabold': require('assets/fonts/ClashDisplay-Bold.ttf')
+        'font-light': require('assets/fonts/SpaceGrotesk-Light.ttf'),
+        'font-normal': require('assets/fonts/SpaceGrotesk-Regular.ttf'),
+        'font-medium': require('assets/fonts/SpaceGrotesk-Medium.ttf'),
+        'font-semibold': require('assets/fonts/SpaceGrotesk-SemiBold.ttf'),
+        'font-bold': require('assets/fonts/SpaceGrotesk-Bold.ttf')
       })
     } catch (e) {
       console.warn(e)
