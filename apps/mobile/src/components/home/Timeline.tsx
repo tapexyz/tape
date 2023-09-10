@@ -262,7 +262,9 @@ const Timeline = () => {
         ListEmptyComponent={() => !loading && <NotFound />}
         onEndReached={
           selectedFeedType !== TimelineFeedType.ALGORITHM
-            ? fetchMorePublications
+            ? pageInfo?.next
+              ? fetchMorePublications
+              : null
             : null
         }
         onEndReachedThreshold={0.8}

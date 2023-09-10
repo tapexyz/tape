@@ -58,11 +58,11 @@ export const NotificationsModal = (): JSX.Element => {
       estimatedItemSize={notifications.length}
       showsVerticalScrollIndicator={false}
       keyExtractor={(item, i) => `${item.notificationId}_${i}`}
-      onEndReached={() => fetchMoreNotifications()}
+      onEndReached={pageInfo?.next ? fetchMoreNotifications : null}
       onEndReachedThreshold={0.8}
-      ListFooterComponent={() => (
-        <ActivityIndicator style={{ paddingVertical: 20 }} />
-      )}
+      ListFooterComponent={() =>
+        loading && <ActivityIndicator style={{ paddingVertical: 20 }} />
+      }
       ListEmptyComponent={() => !loading && <NotFound />}
       onRefresh={() => refetch()}
       refreshing={Boolean(notifications?.length) && loading}

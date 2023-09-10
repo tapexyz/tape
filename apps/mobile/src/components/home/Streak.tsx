@@ -137,8 +137,8 @@ const PublicationItem: FC<Props> = ({ publication, index, last }) => {
         {
           aspectRatio: isVideo ? (isBytes ? 9 / 16 : 16 / 9) : 1 / 1,
           borderRightWidth: index === last ? 1 : 0,
-          borderTopRightRadius: index === last ? BORDER_RADIUS : 3,
-          borderBottomRightRadius: index === last ? BORDER_RADIUS : 3
+          borderTopRightRadius: index === last ? BORDER_RADIUS : 0,
+          borderBottomRightRadius: index === last ? BORDER_RADIUS : 0
         }
       ]}
     >
@@ -200,13 +200,9 @@ const Streak = () => {
 
   const renderItem = useCallback(
     ({ item, index }: ListRenderItemInfo<Publication>) => (
-      <PublicationItem
-        publication={item}
-        index={index}
-        last={publications.length - 1}
-      />
+      <PublicationItem publication={item} index={index} last={6} />
     ),
-    [publications?.length]
+    []
   )
 
   const renderStreakItem = useCallback(

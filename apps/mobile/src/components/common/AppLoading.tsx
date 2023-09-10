@@ -2,7 +2,7 @@ import { Image as ExpoImage } from 'expo-image'
 import * as SplashScreen from 'expo-splash-screen'
 import type { FC, PropsWithChildren } from 'react'
 import React, { useEffect, useState } from 'react'
-import { useWindowDimensions } from 'react-native'
+import { StyleSheet } from 'react-native'
 
 import { useMobilePersistStore } from '~/store/persist'
 
@@ -11,13 +11,11 @@ import { useAuth, useCachedResources } from '../../hooks'
 SplashScreen.preventAutoHideAsync()
 
 const Splash = () => {
-  const { height, width } = useWindowDimensions()
-
   return (
     <ExpoImage
       source={require('assets/splash.png')}
       contentFit="cover"
-      style={{ width, height }}
+      style={StyleSheet.absoluteFill}
     />
   )
 }
