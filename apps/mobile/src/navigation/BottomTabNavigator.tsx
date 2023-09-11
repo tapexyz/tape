@@ -70,7 +70,7 @@ export const BottomTabNavigator: FC = () => {
       <Screen
         name="HomeStack"
         options={{
-          title: 'Home' // tabBarBadge: 1
+          title: 'Home'
         }}
         component={HomeStack}
       />
