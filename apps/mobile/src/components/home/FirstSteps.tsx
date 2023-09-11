@@ -123,8 +123,8 @@ const FirstSteps = () => {
                 style={style.icon}
               />
               <View>
-                <Text style={style.cardTitle}>SIWL</Text>
-                <Text style={style.cardDescription}>Sign in with Lens</Text>
+                <Text style={style.cardTitle}>Login</Text>
+                <Text style={style.cardDescription}>Sign with Lens</Text>
               </View>
             </AnimatedPressable>
           )}
@@ -161,7 +161,7 @@ const FirstSteps = () => {
                 style={style.icon}
               />
               <View>
-                <Text style={style.cardTitle}>Lens</Text>
+                <Text style={style.cardTitle}>Social</Text>
                 <Text style={style.cardDescription}>Share your first Byte</Text>
               </View>
             </AnimatedPressable>
