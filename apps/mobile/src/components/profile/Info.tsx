@@ -247,6 +247,7 @@ const Info: FC<Props> = (props) => {
               <Button text="Follow" size="sm" onPress={() => haptic()} />
             </View>
             <Button
+              style={{ flex: 1, justifyContent: 'center' }}
               icon={
                 <Ionicons
                   name="ellipsis-vertical-outline"
