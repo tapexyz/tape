@@ -89,8 +89,7 @@ const styles = (themeConfig: MobileThemeConfig) =>
     bio: {
       fontFamily: 'font-medium',
       fontSize: normalizeFont(13),
-      color: themeConfig.textColor,
-      opacity: 0.6
+      color: themeConfig.secondaryTextColor
     }
   })
 

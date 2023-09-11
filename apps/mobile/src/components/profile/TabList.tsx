@@ -1,4 +1,3 @@
-import Ionicons from '@expo/vector-icons/Ionicons'
 import { MOBILE_PROFILE_ITEMS } from '@lenstube/lens/custom-types'
 import type { FC } from 'react'
 import React, { memo, useCallback, useEffect, useRef } from 'react'
@@ -23,20 +22,12 @@ const styles = StyleSheet.create({
   },
   tab: {
     paddingVertical: 7,
-    display: 'flex',
-    flexDirection: 'row',
     alignItems: 'center',
-    gap: 7,
-    borderRadius: 15,
-    borderBottomWidth: 1.5
+    gap: 3
   },
   text: {
     fontFamily: 'font-medium',
     fontSize: normalizeFont(12)
-  },
-  image: {
-    width: 20,
-    height: 20
   }
 })
 
@@ -44,14 +35,6 @@ type Props = {
   activeTab: number
   scrollToTab: (index: number) => void
 }
-
-const icons = [
-  'bonfire-outline',
-  'headset-outline',
-  'videocam-outline',
-  'chatbubble-outline',
-  'shapes-outline'
-] as (keyof typeof Ionicons.glyphMap)[]
 
 const TabList: FC<Props> = ({ activeTab, scrollToTab }) => {
   const scrollViewRef = useRef<ScrollView>(null)
@@ -90,10 +73,7 @@ const TabList: FC<Props> = ({ activeTab, scrollToTab }) => {
           const isActive = activeTab === index
           const color = isActive
             ? themeConfig.textColor
-            : themeConfig.secondaryTextColor
-          const borderColor = isActive
-            ? themeConfig.contrastBackgroundColor
-            : 'transparent'
+            : `${themeConfig.secondaryTextColor}80`
           return (
             <Pressable
               key={tab}
@@ -102,14 +82,8 @@ const TabList: FC<Props> = ({ activeTab, scrollToTab }) => {
                 autoScroll()
                 haptic()
               }}
-              style={[
-                styles.tab,
-                {
-                  borderColor
-                }
-              ]}
+              style={styles.tab}
             >
-              <Ionicons name={icons[index]} color={color} size={20} />
               <Text
                 style={[
                   styles.text,
@@ -120,6 +94,9 @@ const TabList: FC<Props> = ({ activeTab, scrollToTab }) => {
               >
                 {tab}
               </Text>
+              {isActive ? (
+                <Text style={{ color, fontSize: 3 }}>{'\u2B24'}</Text>
+              ) : null}
             </Pressable>
           )
         })}
