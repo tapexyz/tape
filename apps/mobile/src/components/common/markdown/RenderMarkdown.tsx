@@ -54,6 +54,8 @@ const RenderMarkdown = ({ content, textStyle }: MarkupTextProps) => {
     const style: Record<string, TextStyle> = {
       text: { ...textStyle },
       ordered_list: { color: themeConfig.textColor, paddingBottom: 10 },
+      bullet_list: { color: themeConfig.textColor, paddingBottom: 10 },
+      list_item: { color: themeConfig.textColor, paddingBottom: 10 },
       heading1: {
         fontFamily: 'font-bold'
       },
