@@ -3,7 +3,7 @@ import { getPublicationMediaCid } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import type { FC } from 'react'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { StyleSheet, useWindowDimensions, View } from 'react-native'
 import useSWR from 'swr'
 
@@ -45,7 +45,7 @@ const WaveForm: FC<Props> = ({ audio }) => {
     (url: string) => fetch(url).then((res) => res.json())
   )
 
-  const samples = waves?.samples as number[]
+  const samples = useMemo(() => waves?.samples as number[], [waves])
 
   return (
     <View style={{ height: 60, width, alignItems: 'center' }}>
