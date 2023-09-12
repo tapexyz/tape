@@ -90,7 +90,7 @@ const Player: FC<Props> = ({ audio }) => {
   }
   return (
     <>
-      <WaveForm />
+      <WaveForm audio={audio} />
       <AnimatedPressable
         onPress={() => {
           haptic()

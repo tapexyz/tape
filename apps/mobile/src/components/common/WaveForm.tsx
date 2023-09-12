@@ -1,6 +1,11 @@
+import { SB_STORAGE_URL } from '@lenstube/constants'
+import { getPublicationMediaCid } from '@lenstube/generic'
+import type { Publication } from '@lenstube/lens'
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
-import React, { useMemo } from 'react'
-import { StyleSheet, View } from 'react-native'
+import type { FC } from 'react'
+import React from 'react'
+import { StyleSheet, useWindowDimensions, View } from 'react-native'
+import useSWR from 'swr'
 
 import normalizeFont from '~/helpers/normalize-font'
 import { useMobileTheme } from '~/hooks'
@@ -26,38 +31,45 @@ const styles = (themeConfig: MobileThemeConfig) =>
     }
   })
 
-const WaveForm = () => {
+type Props = {
+  audio: Publication
+}
+
+const WaveForm: FC<Props> = ({ audio }) => {
   const { themeConfig } = useMobileTheme()
   const style = styles(themeConfig)
-  const sticks = useMemo(() => Array(100).fill(1), [])
+  const { width } = useWindowDimensions()
 
-  const getRandomInt = (min = 0, max = 30) => {
-    return Math.floor(Math.random() * (max - min + 1) + min)
-  }
+  const { data: waves } = useSWR(
+    `${SB_STORAGE_URL}/${getPublicationMediaCid(audio)}.json`,
+    (url: string) => fetch(url).then((res) => res.json())
+  )
+
+  const samples = waves?.samples as number[]
 
   return (
-    <View>
+    <View style={{ height: 60, width, alignItems: 'center' }}>
       <View style={style.sticks}>
-        {sticks.map((s, i) => (
+        {samples?.map((value, i) => (
           <View
-            key={s + i}
+            key={i}
             style={[
               style.stick,
               {
-                height: getRandomInt()
+                height: value * 40
               }
             ]}
           />
         ))}
       </View>
       <View style={[style.sticks, { alignItems: 'flex-start' }]}>
-        {sticks.map((s, i) => (
+        {samples?.map((value, i) => (
           <View
-            key={s + i}
+            key={i}
             style={[
               style.stick,
               {
-                height: getRandomInt(5, 12),
+                height: value * 20,
                 backgroundColor: '#606060'
               }
             ]}
