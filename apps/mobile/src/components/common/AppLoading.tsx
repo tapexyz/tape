@@ -1,7 +1,8 @@
+import { Image as ExpoImage } from 'expo-image'
 import * as SplashScreen from 'expo-splash-screen'
 import type { FC, PropsWithChildren } from 'react'
 import React, { useEffect, useState } from 'react'
-import { ActivityIndicator } from 'react-native'
+import { StyleSheet } from 'react-native'
 
 import { useMobilePersistStore } from '~/store/persist'
 
@@ -29,7 +30,13 @@ const AppLoading: FC<PropsWithChildren> = ({ children }) => {
   }, [isCached, isAuthValidated, selectedChannelId])
 
   if (appLoadingIsVisible) {
-    return <ActivityIndicator style={{ flex: 1 }} />
+    return (
+      <ExpoImage
+        source={require('assets/splash.png')}
+        contentFit="cover"
+        style={StyleSheet.absoluteFill}
+      />
+    )
   }
 
   // eslint-disable-next-line react/jsx-no-useless-fragment
