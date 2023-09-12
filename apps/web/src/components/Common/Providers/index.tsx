@@ -35,16 +35,19 @@ import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
 
 import ErrorBoundary from '../ErrorBoundary'
 
-const { chains, publicClient } = configureChains(
-  [IS_MAINNET ? polygon : polygonMumbai],
-  [
-    jsonRpcProvider({
-      rpc: () => ({
-        http: POLYGON_RPC_URL
-      })
+// TEMP: Duplicate to fix signTypedData_v4 issue. Remove once fixed on WC+WAGMI end.
+const preferredChains = [
+  IS_MAINNET ? polygon : polygonMumbai,
+  IS_MAINNET ? polygon : polygonMumbai
+]
+
+const { chains, publicClient } = configureChains(preferredChains, [
+  jsonRpcProvider({
+    rpc: () => ({
+      http: POLYGON_RPC_URL
     })
-  ]
-)
+  })
+])
 
 const connectors = connectorsForWallets([
   {
