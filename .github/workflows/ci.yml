@@ -25,12 +25,12 @@ jobs:
           run: bunx playwright install --with-deps
 
         - name: Check Lint 💅🏻
-          run: bun lint && bun typecheck
+          run: bun run lint && bun run typecheck
 
         - name: Run Build 🔨
-          run: bun build
+          run: bun run build
  
         - name: Run Tests 🧪
-          run: bun e2e:test
+          run: bun run e2e:test
         
           
