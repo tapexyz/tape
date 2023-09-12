@@ -68,7 +68,7 @@ const QRCode: FC<Props> = ({
         dots.push(
           <Rect
             key={`${i}_${x}_${y}`}
-            fill={i % 2 !== 0 ? colors.white : colors.backdrop}
+            fill={i % 2 !== 0 ? colors.white : colors.garden}
             height={cellSize * (7 - i * 2)}
             width={cellSize * (7 - i * 2)}
             rx={9}
@@ -107,7 +107,7 @@ const QRCode: FC<Props> = ({
               key={`${i}_${j}_${column}`}
               cx={i * cellSize + cellSize / 2}
               cy={j * cellSize + cellSize / 2}
-              fill={colors.black}
+              fill={colors.garden}
               r={cellSize / 3}
             />
           )

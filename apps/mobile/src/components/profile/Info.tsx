@@ -89,8 +89,7 @@ const styles = (themeConfig: MobileThemeConfig) =>
     bio: {
       fontFamily: 'font-medium',
       fontSize: normalizeFont(13),
-      color: themeConfig.textColor,
-      opacity: 0.6
+      color: themeConfig.secondaryTextColor
     }
   })
 
@@ -247,6 +246,7 @@ const Info: FC<Props> = (props) => {
               <Button text="Follow" size="sm" onPress={() => haptic()} />
             </View>
             <Button
+              style={{ flex: 1, justifyContent: 'center' }}
               icon={
                 <Ionicons
                   name="ellipsis-vertical-outline"

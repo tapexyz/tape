@@ -2,7 +2,13 @@ import { imageCdn, sanitizeDStorageUrl } from '@lenstube/generic'
 import type { MediaSet } from '@lenstube/lens'
 import { Image as ExpoImage } from 'expo-image'
 import React, { memo, useState } from 'react'
-import { Pressable, StyleSheet, Text, View } from 'react-native'
+import {
+  ImageBackground,
+  Pressable,
+  StyleSheet,
+  Text,
+  View
+} from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'
 import { useMobileTheme } from '~/hooks'
@@ -30,13 +36,17 @@ const ImageSlider = ({ images }: { images: MediaSet[] }) => {
         }}
       >
         {images.slice(0, MAX_SHOW_COUNT).map((image, index) => {
+          const uri = imageCdn(sanitizeDStorageUrl(image.original.url))
+          const selectedImage = selectedItem === index
           return (
             <View
               key={`${image.onChain.url}_${index}`}
               style={{
-                flex: selectedItem === index ? MAX_SHOW_COUNT * 2 : 1,
-                borderRadius: 20,
+                flex: selectedImage ? MAX_SHOW_COUNT * 2 : 1,
+                borderRadius: selectedImage ? 20 : 100,
                 overflow: 'hidden',
+                borderColor: themeConfig.borderColor,
+                borderWidth: 1,
                 marginRight:
                   images.length === 1 ? 0 : index === MAX_SHOW_COUNT - 1 ? 0 : 5
               }}
@@ -49,21 +59,25 @@ const ImageSlider = ({ images }: { images: MediaSet[] }) => {
                 }}
                 onPress={() => setSelectedItem(index)}
               >
-                <ExpoImage
-                  source={{
-                    uri: imageCdn(sanitizeDStorageUrl(image.original.url))
+                <ImageBackground
+                  source={{ uri }}
+                  blurRadius={15}
+                  style={StyleSheet.absoluteFillObject}
+                  imageStyle={{
+                    opacity: 0.5
                   }}
-                  style={[
-                    StyleSheet.absoluteFillObject,
-                    { backgroundColor: themeConfig.backgroudColor2 }
-                  ]}
-                  transition={300}
-                  contentFit="cover"
-                />
+                >
+                  <ExpoImage
+                    source={{ uri }}
+                    style={StyleSheet.absoluteFillObject}
+                    transition={300}
+                    contentFit={selectedImage ? 'contain' : 'cover'}
+                  />
+                </ImageBackground>
                 {images.length > 1 && (
                   <View
                     style={{
-                      display: selectedItem === index ? 'none' : 'flex',
+                      display: selectedImage ? 'none' : 'flex',
                       flexDirection: 'row',
                       alignItems: 'center',
                       justifyContent: 'center'
@@ -71,10 +85,9 @@ const ImageSlider = ({ images }: { images: MediaSet[] }) => {
                   >
                     <View
                       style={{
-                        backgroundColor:
-                          selectedItem === index
-                            ? 'transparent'
-                            : themeConfig.contrastBackgroundColor,
+                        backgroundColor: selectedImage
+                          ? 'transparent'
+                          : themeConfig.contrastBackgroundColor,
                         width: 15,
                         height: 15,
                         borderRadius: 100,

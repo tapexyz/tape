@@ -33,11 +33,10 @@ const styles = StyleSheet.create({
   },
   verticalContainer: {
     flexDirection: 'column',
-    gap: 7,
     borderRadius: 50,
-    paddingVertical: 15,
+    paddingVertical: 10,
     margin: 5,
-    backgroundColor: `${colors.grey}40`
+    backgroundColor: `${colors.grey}50`
   },
   actionItem: {
     width: 45,
@@ -46,7 +45,17 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 100,
-    gap: 4
+    marginTop: 9,
+    gap: 2
+  },
+  moreDots: {
+    width: 45,
+    height: 45,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingBottom: 9,
+    borderRadius: 100
   },
   text: {
     fontFamily: 'font-medium',
@@ -149,7 +158,7 @@ const Overlay: FC<Props> = ({ byte: { stats, profile, metadata, id } }) => {
                 ) : null}
               </AnimatedPressable>
             </View>
-            <AnimatedPressable style={styles.actionItem}>
+            <AnimatedPressable style={styles.moreDots}>
               <Ionicons
                 name="ellipsis-vertical-outline"
                 color={colors.white}

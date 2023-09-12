@@ -10,16 +10,6 @@ import { useAuth, useCachedResources } from '../../hooks'
 
 SplashScreen.preventAutoHideAsync()
 
-const Splash = () => {
-  return (
-    <ExpoImage
-      source={require('assets/splash.png')}
-      contentFit="cover"
-      style={StyleSheet.absoluteFill}
-    />
-  )
-}
-
 const AppLoading: FC<PropsWithChildren> = ({ children }) => {
   const [appLoadingIsVisible, setAppLoadingIsVisible] = useState(true)
   const selectedChannelId = useMobilePersistStore(
@@ -40,7 +30,13 @@ const AppLoading: FC<PropsWithChildren> = ({ children }) => {
   }, [isCached, isAuthValidated, selectedChannelId])
 
   if (appLoadingIsVisible) {
-    return <Splash />
+    return (
+      <ExpoImage
+        source={require('assets/splash.png')}
+        contentFit="cover"
+        style={StyleSheet.absoluteFill}
+      />
+    )
   }
 
   // eslint-disable-next-line react/jsx-no-useless-fragment

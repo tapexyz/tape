@@ -5,7 +5,7 @@ export const { width: windowWidth, height: windowHeight } =
   Dimensions.get('window')
 
 export const colors = {
-  secondary: '#ffffff90',
+  secondary: '#dee2e6',
   background: '#000000',
   backdrop: '#12131A',
   backdrop2: '#1E2028',

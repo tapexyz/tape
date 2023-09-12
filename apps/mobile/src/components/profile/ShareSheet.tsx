@@ -63,7 +63,6 @@ const styles = (themeConfig: MobileThemeConfig) =>
       color: themeConfig.textColor,
       fontFamily: 'font-normal',
       fontSize: normalizeFont(8),
-      letterSpacing: 1,
       textTransform: 'uppercase'
     },
     boldText: {
@@ -155,8 +154,7 @@ const ShareSheet: FC<Props> = ({ sheetRef, profile }) => {
                     style={{
                       color: themeConfig.textColor,
                       fontFamily: 'font-bold',
-                      fontSize: normalizeFont(12),
-                      letterSpacing: 1
+                      fontSize: normalizeFont(12)
                     }}
                   >
                     {profile.handle}
