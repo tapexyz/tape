@@ -9,10 +9,7 @@ import {
   REQUESTING_SIGNATURE_MESSAGE
 } from '@lenstube/constants'
 import { getIsDispatcherEnabled, getSignature } from '@lenstube/generic'
-import type {
-  CreateSetDispatcherBroadcastItemResult,
-  Profile
-} from '@lenstube/lens'
+import type { Profile } from '@lenstube/lens'
 import {
   useBroadcastMutation,
   useCreateSetDispatcherTypedDataMutation,
@@ -51,7 +48,13 @@ const Toggle = () => {
     address: LENSHUB_PROXY_ADDRESS,
     abi: LENSHUB_PROXY_ABI,
     functionName: 'setDispatcher',
-    onError
+    onSuccess: () => {
+      setUserSigNonce(userSigNonce + 1)
+    },
+    onError: (error) => {
+      onError(error)
+      setUserSigNonce(userSigNonce - 1)
+    }
   })
 
   const [broadcast, { data: broadcastData }] = useBroadcastMutation({
@@ -90,12 +93,10 @@ const Toggle = () => {
 
   const [createDispatcherTypedData] = useCreateSetDispatcherTypedDataMutation({
     onCompleted: async ({ createSetDispatcherTypedData }) => {
-      const { id, typedData } =
-        createSetDispatcherTypedData as CreateSetDispatcherBroadcastItemResult
+      const { id, typedData } = createSetDispatcherTypedData
       try {
         toast.loading(REQUESTING_SIGNATURE_MESSAGE)
         const signature = await signTypedDataAsync(getSignature(typedData))
-        setUserSigNonce(userSigNonce + 1)
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
@@ -115,7 +116,6 @@ const Toggle = () => {
     setLoading(true)
     createDispatcherTypedData({
       variables: {
-        options: { overrideSigNonce: userSigNonce },
         request: {
           profileId: selectedChannel?.id,
           enable: !canUseRelay
