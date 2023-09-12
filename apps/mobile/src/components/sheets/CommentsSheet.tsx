@@ -82,7 +82,8 @@ const CommentsSheet: FC<Props> = ({ id, commentsSheetRef }) => {
         style={{
           flex: 1,
           height: height / 2,
-          paddingHorizontal: 20
+          paddingHorizontal: 20,
+          paddingBottom: 20
         }}
       >
         <Text style={style.title}>Comments</Text>
