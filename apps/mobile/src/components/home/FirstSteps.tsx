@@ -123,8 +123,8 @@ const FirstSteps = () => {
                 style={style.icon}
               />
               <View>
-                <Text style={style.cardTitle}>Login</Text>
-                <Text style={style.cardDescription}>Sign with Lens</Text>
+                <Text style={style.cardTitle}>Verify</Text>
+                <Text style={style.cardDescription}>Login with Lens</Text>
               </View>
             </AnimatedPressable>
           )}
