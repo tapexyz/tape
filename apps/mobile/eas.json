@@ -4,13 +4,6 @@
     "appVersionSource": "remote"
   },
   "build": {
-    "development": {
-      "developmentClient": true,
-      "distribution": "internal",
-      "env": {
-        "LENS_ENV": "testnet"
-      }
-    },
     "preview": {
       "distribution": "internal",
       "env": {

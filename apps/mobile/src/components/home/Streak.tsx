@@ -29,7 +29,7 @@ import {
 import normalizeFont from '~/helpers/normalize-font'
 import { colors } from '~/helpers/theme'
 import { useMobileTheme } from '~/hooks'
-import useMobileStore from '~/store'
+import { useMobilePersistStore } from '~/store/persist'
 
 import AnimatedPressable from '../ui/AnimatedPressable'
 import { HorizantalSlider } from '../ui/HorizantalSlider'
@@ -172,7 +172,9 @@ const Streak = () => {
   const { themeConfig } = useMobileTheme()
   const style = styles(themeConfig)
   const { navigate } = useNavigation()
-  const selectedChannel = useMobileStore((state) => state.selectedChannel)
+  const selectedProfile = useMobilePersistStore(
+    (state) => state.selectedProfile
+  )
 
   const request: PublicationsQueryRequest = {
     limit: 50,
@@ -185,15 +187,15 @@ const Streak = () => {
       ]
     },
     publicationTypes: [PublicationTypes.Post],
-    profileId: selectedChannel?.id
+    profileId: selectedProfile?.id
   }
 
   const { data, error, loading } = useProfilePostsQuery({
     variables: {
       request,
-      channelId: selectedChannel?.id ?? null
+      channelId: selectedProfile?.id ?? null
     },
-    skip: !selectedChannel?.id
+    skip: !selectedProfile?.id
   })
 
   const publications = data?.publications?.items as Publication[]
@@ -241,7 +243,7 @@ const Streak = () => {
     [publications, calculateStreak]
   )
 
-  if (error || !selectedChannel) {
+  if (error || !selectedProfile) {
     return null
   }
 

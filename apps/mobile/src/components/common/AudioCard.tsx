@@ -109,7 +109,7 @@ const AudioCard: FC<Props> = ({ audio }) => {
                 )}
               </Text>
             </View>
-            <WaveForm />
+            <WaveForm audio={audio} />
           </View>
         </View>
         <View style={{ paddingVertical: 10, paddingHorizontal: 5 }}>

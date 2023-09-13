@@ -9,8 +9,8 @@ import { Pressable, ScrollView, StyleSheet, Text } from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'
 import { useMobileTheme } from '~/hooks'
-import useMobileStore from '~/store'
 import useMobileHomeFeedStore from '~/store/feed'
+import { useMobilePersistStore } from '~/store/persist'
 
 import { useToast } from '../common/toast'
 
@@ -42,7 +42,9 @@ const TimelineFilters = () => {
   const { navigate } = useNavigation()
   const { showToast } = useToast()
 
-  const selectedChannel = useMobileStore((state) => state.selectedChannel)
+  const selectedProfile = useMobilePersistStore(
+    (state) => state.selectedProfile
+  )
   const selectedFeedType = useMobileHomeFeedStore(
     (state) => state.selectedFeedType
   )
@@ -91,7 +93,7 @@ const TimelineFilters = () => {
       </Pressable>
       <Pressable
         onPress={() => {
-          if (!selectedChannel) {
+          if (!selectedProfile) {
             return showToast({ text: 'Sign in with Lens' })
           }
           setSelectedFeedType(TimelineFeedType.FOLLOWING)
@@ -128,7 +130,7 @@ const TimelineFilters = () => {
       </Pressable>
       <Pressable
         onPress={() => {
-          if (!selectedChannel) {
+          if (!selectedProfile) {
             return showToast({ text: 'Sign in with Lens' })
           }
           setSelectedFeedType(TimelineFeedType.HIGHLIGHTS)

@@ -1,6 +1,6 @@
 import { LENSTUBE_BYTES_APP_ID, STATIC_ASSETS } from '@lenstube/constants'
 import { getIsDispatcherEnabled, imageCdn } from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
+import type { Profile, Publication } from '@lenstube/lens'
 import { PublicationTypes, useProfilePostsQuery } from '@lenstube/lens'
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { useWalletConnectModal } from '@walletconnect/modal-react-native'
@@ -13,8 +13,7 @@ import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
 import { colors } from '~/helpers/theme'
 import { useMobileTheme } from '~/hooks'
-import useMobileStore from '~/store'
-import { hydrateAuthTokens } from '~/store/persist'
+import { useMobilePersistStore } from '~/store/persist'
 
 import AnimatedPressable from '../ui/AnimatedPressable'
 
@@ -69,8 +68,10 @@ const FirstSteps = () => {
   const { themeConfig } = useMobileTheme()
   const style = styles(themeConfig)
   const { open } = useWalletConnectModal()
-  const { accessToken } = hydrateAuthTokens()
-  const selectedChannel = useMobileStore((state) => state.selectedChannel)
+  const accessToken = useMobilePersistStore((state) => state.accessToken)
+  const selectedProfile = useMobilePersistStore(
+    (state) => state.selectedProfile
+  )
 
   const { data } = useProfilePostsQuery({
     variables: {
@@ -78,17 +79,17 @@ const FirstSteps = () => {
         publicationTypes: [PublicationTypes.Post],
         limit: 1,
         sources: [LENSTUBE_BYTES_APP_ID],
-        profileId: selectedChannel?.id
+        profileId: selectedProfile?.id
       }
     },
-    skip: !selectedChannel?.id
+    skip: !selectedProfile?.id
   })
   const bytes = data?.publications?.items as Publication[]
 
-  const dispatcherEnabled = getIsDispatcherEnabled(selectedChannel)
+  const dispatcherEnabled = getIsDispatcherEnabled(selectedProfile as Profile)
   const sharedByte = Boolean(bytes?.length)
 
-  if (dispatcherEnabled && sharedByte && selectedChannel) {
+  if (dispatcherEnabled && sharedByte && selectedProfile) {
     return null
   }
 
@@ -123,8 +124,8 @@ const FirstSteps = () => {
                 style={style.icon}
               />
               <View>
-                <Text style={style.cardTitle}>Login</Text>
-                <Text style={style.cardDescription}>Sign with Lens</Text>
+                <Text style={style.cardTitle}>Verify</Text>
+                <Text style={style.cardDescription}>Login with Lens</Text>
               </View>
             </AnimatedPressable>
           )}

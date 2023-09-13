@@ -1,3 +1,4 @@
+import type { Profile } from '@lenstube/lens'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
@@ -9,6 +10,10 @@ type Tokens = {
   refreshToken: string | null
 }
 type MobileTheme = keyof typeof theme
+type SimpleProfile = Pick<
+  Profile,
+  'id' | 'handle' | 'ownedBy' | 'isDefault' | 'dispatcher' | 'stats' | 'picture'
+>
 
 interface AuthPerisistState {
   accessToken: Tokens['accessToken']
@@ -19,8 +24,8 @@ interface AuthPerisistState {
   }) => void
   signOut: () => void
   hydrateAuthTokens: () => Tokens
-  selectedChannelId: string | null
-  setSelectedChannelId: (id: string | null) => void
+  selectedProfile: SimpleProfile | null
+  setSelectedProfile: (profile: SimpleProfile | null) => void
   theme: MobileTheme
   setTheme: (theme: MobileTheme) => void
 }
@@ -36,7 +41,7 @@ export const useMobilePersistStore = create(
           refreshToken
         }),
       signOut: () => {
-        set({ accessToken: null, refreshToken: null, selectedChannelId: null })
+        set({ accessToken: null, refreshToken: null, selectedProfile: null })
         AsyncStorage.clear()
       },
       hydrateAuthTokens: () => {
@@ -45,8 +50,8 @@ export const useMobilePersistStore = create(
           refreshToken: get().refreshToken
         }
       },
-      selectedChannelId: null,
-      setSelectedChannelId: (id) => set({ selectedChannelId: id }),
+      selectedProfile: null,
+      setSelectedProfile: (id) => set({ selectedProfile: id }),
       // theme state
       theme: 'dark',
       setTheme: (theme) => set({ theme })

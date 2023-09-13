@@ -1,42 +1,24 @@
-import { Image as ExpoImage } from 'expo-image'
 import * as SplashScreen from 'expo-splash-screen'
 import type { FC, PropsWithChildren } from 'react'
-import React, { useEffect, useState } from 'react'
-import { StyleSheet } from 'react-native'
+import React, { useEffect } from 'react'
 
-import { useMobilePersistStore } from '~/store/persist'
-
-import { useAuth, useCachedResources } from '../../hooks'
+import { useCachedResources } from '../../hooks'
 
 SplashScreen.preventAutoHideAsync()
 
 const AppLoading: FC<PropsWithChildren> = ({ children }) => {
-  const [appLoadingIsVisible, setAppLoadingIsVisible] = useState(true)
-  const selectedChannelId = useMobilePersistStore(
-    (state) => state.selectedChannelId
-  )
-
   const isCached = useCachedResources()
-  const isAuthValidated = useAuth()
 
   useEffect(() => {
-    SplashScreen.hideAsync()
-    if (isCached && isAuthValidated) {
-      const timer = selectedChannelId ? 50 : 500
+    if (isCached) {
       setTimeout(() => {
-        setAppLoadingIsVisible(false)
-      }, timer)
+        SplashScreen.hideAsync()
+      }, 1000)
     }
-  }, [isCached, isAuthValidated, selectedChannelId])
+  }, [isCached])
 
-  if (appLoadingIsVisible) {
-    return (
-      <ExpoImage
-        source={require('assets/splash.png')}
-        contentFit="cover"
-        style={StyleSheet.absoluteFill}
-      />
-    )
+  if (!isCached) {
+    return null
   }
 
   // eslint-disable-next-line react/jsx-no-useless-fragment

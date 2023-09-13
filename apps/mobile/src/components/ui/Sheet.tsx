@@ -2,13 +2,11 @@ import type { BottomSheetBackdropProps } from '@gorhom/bottom-sheet'
 import {
   BottomSheetBackdrop,
   BottomSheetModal,
-  BottomSheetScrollView,
-  BottomSheetView,
-  useBottomSheetDynamicSnapPoints
+  BottomSheetScrollView
 } from '@gorhom/bottom-sheet'
 import type { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import type { FC, PropsWithChildren } from 'react'
-import React, { useCallback, useMemo, useRef } from 'react'
+import React, { useCallback, useRef } from 'react'
 
 import { useMobileTheme } from '~/hooks'
 
@@ -28,14 +26,6 @@ const Sheet: FC<PropsWithChildren & Props> = ({
 }) => {
   const { themeConfig } = useMobileTheme()
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
-  const initialSnapPoints = useMemo(() => ['CONTENT_HEIGHT'], [])
-
-  const {
-    animatedHandleHeight,
-    animatedSnapPoints,
-    animatedContentHeight,
-    handleContentLayout
-  } = useBottomSheetDynamicSnapPoints(initialSnapPoints)
 
   const renderBackdrop = useCallback(
     (props: BottomSheetBackdropProps) => (
@@ -72,18 +62,14 @@ const Sheet: FC<PropsWithChildren & Props> = ({
       detached={true}
       bottomInset={20}
       backdropComponent={renderBackdrop}
-      snapPoints={animatedSnapPoints}
-      handleHeight={animatedHandleHeight}
-      contentHeight={animatedContentHeight}
+      enableDynamicSizing={true}
     >
-      <BottomSheetView onLayout={handleContentLayout}>
-        <BottomSheetScrollView
-          contentContainerStyle={{ flex: 1 }}
-          showsVerticalScrollIndicator={false}
-        >
-          {children}
-        </BottomSheetScrollView>
-      </BottomSheetView>
+      <BottomSheetScrollView
+        contentContainerStyle={{ flex: 1 }}
+        showsVerticalScrollIndicator={false}
+      >
+        {children}
+      </BottomSheetScrollView>
     </BottomSheetModal>
   )
 }

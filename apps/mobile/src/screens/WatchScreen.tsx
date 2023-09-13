@@ -14,7 +14,7 @@ import ServerError from '~/components/ui/ServerError'
 import MoreVideos from '~/components/watch/MoreVideos'
 import VideoPlayer from '~/components/watch/Player'
 import { useMobileTheme } from '~/hooks'
-import useMobileStore from '~/store'
+import { useMobilePersistStore } from '~/store/persist'
 
 const styles = (themeConfig: MobileThemeConfig) =>
   StyleSheet.create({
@@ -31,15 +31,17 @@ export const WatchScreen = (props: WatchScreenProps) => {
   const { height: windowHeight } = useWindowDimensions()
 
   const videoId = props.route.params.id
-  const selectedChannel = useMobileStore((state) => state.selectedChannel)
+  const selectedProfile = useMobilePersistStore(
+    (state) => state.selectedProfile
+  )
 
   const { data, error, loading } = usePublicationDetailsQuery({
     variables: {
       request: { publicationId: videoId },
-      reactionRequest: selectedChannel
-        ? { profileId: selectedChannel?.id }
+      reactionRequest: selectedProfile
+        ? { profileId: selectedProfile?.id }
         : null,
-      channelId: selectedChannel?.id ?? null
+      channelId: selectedProfile?.id ?? null
     },
     skip: !videoId
   })

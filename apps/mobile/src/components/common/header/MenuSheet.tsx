@@ -5,8 +5,7 @@ import React from 'react'
 import { StyleSheet, View } from 'react-native'
 
 import haptic from '~/helpers/haptic'
-import useMobileStore from '~/store'
-import { signOut } from '~/store/persist'
+import { signOut, useMobilePersistStore } from '~/store/persist'
 
 import Menu from '../../profile/Menu'
 import MenuItem from '../../profile/MenuItem'
@@ -31,17 +30,21 @@ const MenuSheet = ({
   const { navigate } = useNavigation()
   const { provider } = useWalletConnectModal()
 
-  const selectedChannel = useMobileStore((state) => state.selectedChannel)
-  const setSelectedChannel = useMobileStore((state) => state.setSelectedChannel)
+  const selectedProfile = useMobilePersistStore(
+    (state) => state.selectedProfile
+  )
+  const setSelectedProfile = useMobilePersistStore(
+    (state) => state.setSelectedProfile
+  )
 
   const logout = () => {
     signOut()
     provider?.disconnect()
-    setSelectedChannel(null)
+    setSelectedProfile(null)
     haptic()
   }
 
-  if (!selectedChannel) {
+  if (!selectedProfile) {
     return null
   }
 
@@ -58,7 +61,7 @@ const MenuSheet = ({
                 onPress={() => {
                   profileMenuRef.current?.close()
                   navigate('ProfileScreen', {
-                    handle: selectedChannel.handle
+                    handle: selectedProfile.handle
                   })
                 }}
               />
