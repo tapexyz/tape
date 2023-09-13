@@ -2,7 +2,7 @@ import { Image as ExpoImage } from 'expo-image'
 import * as SplashScreen from 'expo-splash-screen'
 import type { FC, PropsWithChildren } from 'react'
 import React, { useEffect, useState } from 'react'
-import { StyleSheet } from 'react-native'
+import { useWindowDimensions } from 'react-native'
 
 import { useMobilePersistStore } from '~/store/persist'
 
@@ -16,6 +16,7 @@ const AppLoading: FC<PropsWithChildren> = ({ children }) => {
     (state) => state.selectedChannelId
   )
 
+  const { height, width } = useWindowDimensions()
   const isCached = useCachedResources()
   const isAuthValidated = useAuth()
 
@@ -34,7 +35,7 @@ const AppLoading: FC<PropsWithChildren> = ({ children }) => {
       <ExpoImage
         source={require('assets/splash.png')}
         contentFit="cover"
-        style={StyleSheet.absoluteFill}
+        style={{ height, width }}
       />
     )
   }
