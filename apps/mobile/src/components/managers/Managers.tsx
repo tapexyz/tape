@@ -23,7 +23,7 @@ import NotFound from '../ui/NotFound'
 
 const GRID_GAP = 10
 const NUM_COLUMNS = 3
-const HORIZONTAL_PADDING = 5
+const HORIZONTAL_PADDING = 10
 
 const styles = (themeConfig: MobileThemeConfig) =>
   StyleSheet.create({
@@ -57,18 +57,17 @@ const Addresses = () => {
     '0xA8C62111e4652b07110A0FC81816303c42632f64',
     '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
   ]
-  const availableWidth = width - HORIZONTAL_PADDING * 2
+  const AVAILABLE_WIDTH = width - HORIZONTAL_PADDING * 2
 
   const renderItem = useCallback(
     ({ item, index }: { item: string; index: number }) => (
       <View
         style={{
           marginRight: index % NUM_COLUMNS !== NUM_COLUMNS - 1 ? GRID_GAP : 0,
-          width: (availableWidth - GRID_GAP * (NUM_COLUMNS - 1)) / NUM_COLUMNS,
-          alignItems: 'center',
+          width: (AVAILABLE_WIDTH - GRID_GAP * (NUM_COLUMNS - 1)) / NUM_COLUMNS,
           gap: 10,
           padding: 10,
-          borderRadius: 20
+          alignItems: 'center'
         }}
       >
         <ExpoImage
@@ -82,7 +81,7 @@ const Addresses = () => {
         <Text style={style.text}>{shortenAddress(item)}</Text>
       </View>
     ),
-    [availableWidth, style]
+    [AVAILABLE_WIDTH, style]
   )
 
   return (
@@ -145,7 +144,7 @@ const Managers = () => {
       data={profiles}
       contentContainerStyle={{ paddingBottom: width }}
       renderItem={renderItem}
-      estimatedItemSize={profiles.length}
+      estimatedItemSize={profiles?.length ?? 50}
       keyExtractor={(item, i) => `${item.id}_${i}`}
       showsVerticalScrollIndicator={false}
     />

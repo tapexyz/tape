@@ -10,6 +10,10 @@ type Tokens = {
   refreshToken: string | null
 }
 type MobileTheme = keyof typeof theme
+type SimpleProfile = Pick<
+  Profile,
+  'id' | 'handle' | 'ownedBy' | 'isDefault' | 'dispatcher' | 'stats' | 'picture'
+>
 
 interface AuthPerisistState {
   accessToken: Tokens['accessToken']
@@ -20,8 +24,8 @@ interface AuthPerisistState {
   }) => void
   signOut: () => void
   hydrateAuthTokens: () => Tokens
-  selectedProfile: Profile | null
-  setSelectedProfile: (profile: Profile | null) => void
+  selectedProfile: SimpleProfile | null
+  setSelectedProfile: (profile: SimpleProfile | null) => void
   theme: MobileTheme
   setTheme: (theme: MobileTheme) => void
 }

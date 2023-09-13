@@ -7,7 +7,7 @@ import {
   trimLensHandle
 } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
-import { useSimpleProfilesQuery } from '@lenstube/lens'
+import { useAllProfilesQuery } from '@lenstube/lens'
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { Image as ExpoImage } from 'expo-image'
 import { Skeleton } from 'moti/skeleton'
@@ -73,9 +73,30 @@ const SwitchProfile = () => {
     (state) => state.setSelectedProfile
   )
 
+  const { data, loading, error } = useAllProfilesQuery({
+    variables: {
+      request: { ownedBy: [selectedProfile?.ownedBy] }
+    }
+  })
+
+  const profiles = useMemo(() => {
+    if (data?.profiles?.items.length) {
+      let items = [...data?.profiles?.items] as Profile[]
+      const targetIndex = items.findIndex((p) => p.id === selectedProfile?.id)
+      if (targetIndex !== -1) {
+        items.unshift(items.splice(targetIndex, 1)[0])
+      }
+      return items
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data])
+
   const renderItem = useCallback(
     ({ profile }: { profile: Profile }) => (
-      <View key={profile.id} style={style.cardContainer}>
+      <View
+        key={profile.id}
+        style={[style.cardContainer, { opacity: loading ? 0 : 1 }]}
+      >
         <ImageBackground
           source={{
             uri: imageCdn(
@@ -101,7 +122,16 @@ const SwitchProfile = () => {
             style={style.card}
             onPress={() => {
               haptic()
-              setSelectedProfile(profile)
+              // hand picked attributes to persist, to not bloat storage
+              setSelectedProfile({
+                handle: profile.handle,
+                id: profile.id,
+                isDefault: profile.isDefault,
+                ownedBy: profile.ownedBy,
+                stats: profile.stats,
+                dispatcher: profile.dispatcher,
+                picture: profile.picture
+              })
             }}
           >
             <ExpoImage
@@ -124,26 +154,8 @@ const SwitchProfile = () => {
         </ImageBackground>
       </View>
     ),
-    [selectedProfile, setSelectedProfile, themeConfig, style]
+    [selectedProfile, setSelectedProfile, themeConfig, style, loading]
   )
-
-  const { data, loading, error } = useSimpleProfilesQuery({
-    variables: {
-      request: { ownedBy: [selectedProfile?.ownedBy] }
-    }
-  })
-
-  const profiles = useMemo(() => {
-    if (data?.profiles?.items.length) {
-      let items = [...data?.profiles?.items] as Profile[]
-      const targetIndex = items.findIndex((p) => p.id === selectedProfile?.id)
-      if (targetIndex !== -1) {
-        items.unshift(items.splice(targetIndex, 1)[0])
-      }
-      return items
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [data])
 
   if (error || !selectedProfile) {
     return null
@@ -162,7 +174,7 @@ const SwitchProfile = () => {
       >
         {profiles
           ? profiles?.map((profile) => renderItem({ profile }))
-          : renderItem({ profile: selectedProfile })}
+          : renderItem({ profile: selectedProfile as Profile })}
       </ScrollView>
     </Skeleton>
   )
