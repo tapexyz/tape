@@ -9,6 +9,7 @@ import React, { useRef } from 'react'
 import AnimatedPressable from '~/components/ui/AnimatedPressable'
 import haptic from '~/helpers/haptic'
 import { useMobileTheme } from '~/hooks'
+import { signOut } from '~/store/persist'
 
 import { useToast } from '../toast'
 import AuthSheet from './AuthSheet'
@@ -32,6 +33,7 @@ const SignIn = () => {
         onLongPress={() => {
           haptic()
           showToast({ text: 'Disconnecting wallet...', variant: 'warn' })
+          signOut()
           if (address) {
             provider?.disconnect()
           }

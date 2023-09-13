@@ -1,6 +1,6 @@
 import { LENSTUBE_BYTES_APP_ID, STATIC_ASSETS } from '@lenstube/constants'
 import { getIsDispatcherEnabled, imageCdn } from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
+import type { Profile, Publication } from '@lenstube/lens'
 import { PublicationTypes, useProfilePostsQuery } from '@lenstube/lens'
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { useWalletConnectModal } from '@walletconnect/modal-react-native'
@@ -69,6 +69,10 @@ const FirstSteps = () => {
   const style = styles(themeConfig)
   const { open } = useWalletConnectModal()
   const { accessToken } = hydrateAuthTokens()
+  console.log(
+    '🚀 ~ file: FirstSteps.tsx:72 ~ FirstSteps ~ accessToken:',
+    accessToken
+  )
   const selectedProfile = useMobilePersistStore(
     (state) => state.selectedProfile
   )
@@ -86,7 +90,7 @@ const FirstSteps = () => {
   })
   const bytes = data?.publications?.items as Publication[]
 
-  const dispatcherEnabled = getIsDispatcherEnabled(selectedProfile)
+  const dispatcherEnabled = getIsDispatcherEnabled(selectedProfile as Profile)
   const sharedByte = Boolean(bytes?.length)
 
   if (dispatcherEnabled && sharedByte && selectedProfile) {
