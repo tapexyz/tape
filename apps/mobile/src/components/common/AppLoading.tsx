@@ -1,6 +1,7 @@
 import * as SplashScreen from 'expo-splash-screen'
 import type { FC, PropsWithChildren } from 'react'
-import React, { useEffect } from 'react'
+import React, { useCallback } from 'react'
+import { View } from 'react-native'
 
 import { useCachedResources } from '../../hooks'
 
@@ -9,7 +10,7 @@ SplashScreen.preventAutoHideAsync()
 const AppLoading: FC<PropsWithChildren> = ({ children }) => {
   const isCached = useCachedResources()
 
-  useEffect(() => {
+  const onLayoutRootView = useCallback(async () => {
     if (isCached) {
       setTimeout(() => {
         SplashScreen.hideAsync()
@@ -21,8 +22,11 @@ const AppLoading: FC<PropsWithChildren> = ({ children }) => {
     return null
   }
 
-  // eslint-disable-next-line react/jsx-no-useless-fragment
-  return <>{children}</>
+  return (
+    <View style={{ flex: 1 }} onLayout={onLayoutRootView}>
+      {children}
+    </View>
+  )
 }
 
 export default AppLoading
