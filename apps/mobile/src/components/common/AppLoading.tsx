@@ -13,7 +13,7 @@ const AppLoading: FC<PropsWithChildren> = ({ children }) => {
     if (isCached) {
       setTimeout(() => {
         SplashScreen.hideAsync()
-      }, 500)
+      }, 1000)
     }
   }, [isCached])
 
