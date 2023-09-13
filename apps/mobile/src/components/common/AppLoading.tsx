@@ -11,7 +11,9 @@ const AppLoading: FC<PropsWithChildren> = ({ children }) => {
 
   useEffect(() => {
     if (isCached) {
-      SplashScreen.hideAsync()
+      setTimeout(() => {
+        SplashScreen.hideAsync()
+      }, 500)
     }
   }, [isCached])
 
