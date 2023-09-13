@@ -11,7 +11,7 @@ import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
 import { colors } from '~/helpers/theme'
 import { useMobileTheme } from '~/hooks'
-import useMobileStore from '~/store'
+import { useMobilePersistStore } from '~/store/persist'
 
 import { useToast } from '../common/toast'
 import AnimatedPressable from '../ui/AnimatedPressable'
@@ -83,14 +83,16 @@ const Showcase = () => {
   const { themeConfig } = useMobileTheme()
   const style = styles(themeConfig)
 
-  const selectedChannel = useMobileStore((state) => state.selectedChannel)
+  const selectedProfile = useMobilePersistStore(
+    (state) => state.selectedProfile
+  )
 
   return (
     <View style={style.container}>
       <Animated.View entering={FadeInRight.duration(100)} style={style.card}>
         <AnimatedPressable
           onPress={() => {
-            if (!selectedChannel) {
+            if (!selectedProfile) {
               return showToast({ text: 'Sign in with Lens' })
             }
             haptic()

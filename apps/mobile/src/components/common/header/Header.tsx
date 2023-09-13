@@ -10,7 +10,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
 import { useMobileTheme } from '~/hooks'
-import useMobileStore from '~/store'
+import { useMobilePersistStore } from '~/store/persist'
 
 import AnimatedPressable from '../../ui/AnimatedPressable'
 import SignIn from '../auth/SignIn'
@@ -51,16 +51,18 @@ const styles = (themeConfig: MobileThemeConfig) =>
 
 const AuthenticatedUser = () => {
   const profileMenuRef = useRef<BottomSheetModal>(null)
-  const selectedChannel = useMobileStore((state) => state.selectedChannel)
+  const selectedProfile = useMobilePersistStore(
+    (state) => state.selectedProfile
+  )
 
-  if (!selectedChannel) {
+  if (!selectedProfile) {
     return null
   }
 
   return (
     <>
       <UserProfile
-        profile={selectedChannel}
+        profile={selectedProfile}
         showHandle={false}
         size={30}
         onPress={() => {
@@ -78,14 +80,16 @@ const Header: FC<HeaderTitleProps> = () => {
   const style = styles(themeConfig)
   const { navigate } = useNavigation()
 
-  const selectedChannel = useMobileStore((state) => state.selectedChannel)
+  const selectedProfile = useMobilePersistStore(
+    (state) => state.selectedProfile
+  )
 
   return (
     <View style={style.container}>
       <Text style={style.forYouText}>gm</Text>
 
       <View style={style.rightView}>
-        {selectedChannel && (
+        {selectedProfile && (
           <AnimatedPressable
             style={style.newButton}
             onPress={() => navigate('NewPublication')}
@@ -99,7 +103,7 @@ const Header: FC<HeaderTitleProps> = () => {
           </AnimatedPressable>
         )}
 
-        {selectedChannel ? <AuthenticatedUser /> : <SignIn />}
+        {selectedProfile ? <AuthenticatedUser /> : <SignIn />}
       </View>
     </View>
   )

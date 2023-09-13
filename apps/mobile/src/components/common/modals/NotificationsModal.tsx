@@ -7,18 +7,19 @@ import { ActivityIndicator, Text } from 'react-native'
 
 import NotFound from '~/components/ui/NotFound'
 import { useMobileTheme, usePushNotifications } from '~/hooks'
-import useMobileStore from '~/store'
+import { useMobilePersistStore } from '~/store/persist'
 
 export const NotificationsModal = (): JSX.Element => {
   usePushNotifications()
   const { themeConfig } = useMobileTheme()
 
-  const selectedChannel = useMobileStore((state) => state.selectedChannel)
-
+  const selectedProfile = useMobilePersistStore(
+    (state) => state.selectedProfile
+  )
   const request: NotificationRequest = {
     limit: 50,
     customFilters: LENS_CUSTOM_FILTERS,
-    profileId: selectedChannel?.id
+    profileId: selectedProfile?.id
   }
 
   const { data, loading, fetchMore, refetch } = useNotificationsQuery({

@@ -1,0 +1,10 @@
+query SimpleProfiles($request: ProfileQueryRequest!) {
+  profiles(request: $request) {
+    items {
+      ...SimpleProfileFields
+    }
+    pageInfo {
+      next
+    }
+  }
+}

@@ -16,8 +16,6 @@ interface AuthState {
   setHomeGradientColor: (homeGradientColor: string) => void
   channels: Profile[]
   setChannels: (channels: Profile[]) => void
-  selectedChannel: Profile | null
-  setSelectedChannel: (channel: Profile | null) => void
   selectedExploreFilter: ExploreFilter
   setSelectedExploreFilter: (filter: ExploreFilter) => void
 }
@@ -27,8 +25,6 @@ const useMobileStore = create<AuthState>((set) => ({
   setHomeGradientColor: (homeGradientColor) => set({ homeGradientColor }),
   channels: [],
   setChannels: (channels) => set({ channels }),
-  selectedChannel: null,
-  setSelectedChannel: (channel) => set({ selectedChannel: channel }),
   userSigNonce: 0,
   setUserSigNonce: (userSigNonce) => set({ userSigNonce }),
   selectedExploreFilter: {

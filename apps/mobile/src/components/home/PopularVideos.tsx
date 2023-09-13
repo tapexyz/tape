@@ -24,6 +24,7 @@ import {
 import normalizeFont from '~/helpers/normalize-font'
 import { useMobileTheme } from '~/hooks'
 import useMobileStore from '~/store'
+import { useMobilePersistStore } from '~/store/persist'
 
 import UserProfile from '../common/UserProfile'
 import HCarousel from '../ui/HCarousel'
@@ -86,7 +87,9 @@ const PopularVideos = () => {
   const { themeConfig } = useMobileTheme()
   const style = styles(themeConfig)
 
-  const selectedChannel = useMobileStore((state) => state.selectedChannel)
+  const selectedProfile = useMobilePersistStore(
+    (state) => state.selectedProfile
+  )
   const homeGradientColor = useMobileStore((state) => state.homeGradientColor)
 
   const request = {
@@ -102,7 +105,7 @@ const PopularVideos = () => {
   const { data, loading, error } = useExploreQuery({
     variables: {
       request,
-      channelId: selectedChannel?.id ?? null
+      channelId: selectedProfile?.id ?? null
     }
   })
   const publications = data?.explorePublications?.items as Publication[]

@@ -1,5 +1,4 @@
 export * from './useAlgoFeed'
-export * from './useAuth'
 export * from './useCachedResources'
 export * from './useIsForeground'
 export * from './useIsOnline'

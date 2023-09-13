@@ -11,7 +11,7 @@ import {
 import Info from '~/components/profile/Info'
 import TabContent from '~/components/profile/TabContent'
 import { useMobileTheme } from '~/hooks'
-import useMobileStore from '~/store'
+import { useMobilePersistStore } from '~/store/persist'
 
 export const ProfileScreen = (
   props: ProfileScreenProps
@@ -38,12 +38,14 @@ export const ProfileScreen = (
     }
   })
 
-  const selectedChannel = useMobileStore((state) => state.selectedChannel)
+  const selectedProfile = useMobilePersistStore(
+    (state) => state.selectedProfile
+  )
 
   const { data, loading } = useProfileQuery({
     variables: {
       request: { handle: handle?.replace('@', '') },
-      who: selectedChannel?.id ?? null
+      who: selectedProfile?.id ?? null
     },
     skip: !handle
   })

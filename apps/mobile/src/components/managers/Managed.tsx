@@ -8,7 +8,7 @@ import { StyleSheet, Text, useWindowDimensions, View } from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'
 import { useMobileTheme } from '~/hooks'
-import useMobileStore from '~/store'
+import { useMobilePersistStore } from '~/store/persist'
 
 import UserProfile from '../common/UserProfile'
 import NotFound from '../ui/NotFound'
@@ -28,14 +28,16 @@ const styles = (themeConfig: MobileThemeConfig) =>
 
 const Managed = () => {
   const { width } = useWindowDimensions()
-  const selectedChannel = useMobileStore((state) => state.selectedChannel)
   const { themeConfig } = useMobileTheme()
   const style = styles(themeConfig)
+  const selectedProfile = useMobilePersistStore(
+    (state) => state.selectedProfile
+  )
 
   const { data, loading } = useAllProfilesQuery({
     variables: {
       request: {
-        ownedBy: [selectedChannel?.ownedBy]
+        ownedBy: [selectedProfile?.ownedBy]
       }
     }
   })

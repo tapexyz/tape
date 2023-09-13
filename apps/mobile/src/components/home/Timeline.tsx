@@ -56,8 +56,8 @@ const Timeline = () => {
   const selectedAlgoType = useMobileHomeFeedStore(
     (state) => state.selectedAlgoType
   )
-  const selectedChannelId = useMobilePersistStore(
-    (state) => state.selectedChannelId
+  const selectedProfile = useMobilePersistStore(
+    (state) => state.selectedProfile
   )
 
   const scrollRef = useRef<FlashList<Publication | FeedItem>>(null)
@@ -65,16 +65,16 @@ const Timeline = () => {
   useScrollToTop(scrollRef)
 
   useEffect(() => {
-    if (!selectedChannelId) {
+    if (!selectedProfile) {
       setSelectedFeedType(TimelineFeedType.CURATED)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedChannelId])
+  }, [selectedProfile])
 
   const feedRequest: FeedRequest = {
     limit: 50,
     feedEventItemTypes: [FeedEventItemType.Post],
-    profileId: selectedChannelId,
+    profileId: selectedProfile?.id,
     metadata: {
       mainContentFocus: [PublicationMainFocus.Video]
     }
@@ -92,7 +92,7 @@ const Timeline = () => {
   }
 
   const highlightsRequest: FeedHighlightsRequest = {
-    profileId: selectedChannelId,
+    profileId: selectedProfile?.id,
     limit: 10,
     metadata: {
       mainContentFocus: [PublicationMainFocus.Audio, PublicationMainFocus.Video]
@@ -114,7 +114,7 @@ const Timeline = () => {
     variables: {
       request: feedRequest
     },
-    skip: !selectedChannelId
+    skip: !selectedProfile?.id
   })
 
   const { data: feedHighlightsData, fetchMore: fetchMoreHighlights } =
@@ -122,7 +122,7 @@ const Timeline = () => {
       variables: {
         request: highlightsRequest
       },
-      skip: !selectedChannelId
+      skip: !selectedProfile?.id
     })
 
   const getAlgoStrategy = () => {
@@ -146,10 +146,10 @@ const Timeline = () => {
   const { data, loading: recsLoading } = useProfilePostsQuery({
     variables: {
       request: { publicationIds, limit: 50 },
-      reactionRequest: selectedChannelId
-        ? { profileId: selectedChannelId }
+      reactionRequest: selectedProfile?.id
+        ? { profileId: selectedProfile?.id }
         : null,
-      channelId: selectedChannelId ?? null
+      channelId: selectedProfile?.id ?? null
     },
     skip: !publicationIds,
     fetchPolicy: 'no-cache'

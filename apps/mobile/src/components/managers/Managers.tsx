@@ -16,7 +16,7 @@ import {
 
 import normalizeFont from '~/helpers/normalize-font'
 import { useMobileTheme } from '~/hooks'
-import useMobileStore from '~/store'
+import { useMobilePersistStore } from '~/store/persist'
 
 import Accordion from '../ui/Accordion'
 import NotFound from '../ui/NotFound'
@@ -127,12 +127,14 @@ const Managers = () => {
     []
   )
 
-  const selectedChannel = useMobileStore((state) => state.selectedChannel)
+  const selectedProfile = useMobilePersistStore(
+    (state) => state.selectedProfile
+  )
 
   const { data } = useAllProfilesQuery({
     variables: {
       request: {
-        ownedBy: [selectedChannel?.ownedBy]
+        ownedBy: [selectedProfile?.ownedBy]
       }
     }
   })

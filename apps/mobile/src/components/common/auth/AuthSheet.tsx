@@ -8,9 +8,9 @@ import {
 } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import {
-  useAllProfilesLazyQuery,
   useAuthenticateMutation,
-  useChallengeLazyQuery
+  useChallengeLazyQuery,
+  useSimpleProfilesLazyQuery
 } from '@lenstube/lens'
 import { useWalletConnectModal } from '@walletconnect/modal-react-native'
 import { Image as ExpoImage } from 'expo-image'
@@ -26,7 +26,6 @@ import Sheet from '~/components/ui/Sheet'
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
 import { useMobileTheme } from '~/hooks'
-import useMobileStore from '~/store'
 import { useMobilePersistStore } from '~/store/persist'
 
 type Props = {
@@ -48,11 +47,9 @@ const styles = StyleSheet.create({
 const AuthSheet: FC<Props> = ({ sheetRef }) => {
   const { themeConfig } = useMobileTheme()
 
-  const setChannels = useMobileStore((state) => state.setChannels)
-  const setSelectedChannel = useMobileStore((state) => state.setSelectedChannel)
   const { signIn: persistSignin } = useMobilePersistStore()
-  const setSelectedChannelId = useMobilePersistStore(
-    (state) => state.setSelectedChannelId
+  const setSelectedProfile = useMobilePersistStore(
+    (state) => state.setSelectedProfile
   )
 
   const { provider, address } = useWalletConnectModal()
@@ -61,7 +58,7 @@ const AuthSheet: FC<Props> = ({ sheetRef }) => {
     fetchPolicy: 'no-cache' // if cache old challenge persist issue (InvalidSignature)
   })
   const [authenticate, { loading: signingIn }] = useAuthenticateMutation()
-  const [getChannels] = useAllProfilesLazyQuery({
+  const [getAllSimpleProfiles] = useSimpleProfilesLazyQuery({
     fetchPolicy: 'no-cache'
   })
 
@@ -87,22 +84,20 @@ const AuthSheet: FC<Props> = ({ sheetRef }) => {
       const accessToken = data?.authenticate.accessToken
       const refreshToken = data?.authenticate.refreshToken
       persistSignin({ accessToken, refreshToken })
-      const { data: channelsData } = await getChannels({
+      const { data: profilesData } = await getAllSimpleProfiles({
         variables: {
           request: { ownedBy: [address] }
         }
       })
       if (
-        !channelsData?.profiles ||
-        channelsData?.profiles?.items.length === 0
+        !profilesData?.profiles ||
+        profilesData?.profiles?.items.length === 0
       ) {
         return persistSignin({ accessToken: null, refreshToken: null })
       }
-      const channels = channelsData?.profiles?.items as Profile[]
-      setChannels(channels)
-      const defaultChannel = channels.find((channel) => channel.isDefault)
-      setSelectedChannel(defaultChannel ?? channels[0])
-      setSelectedChannelId(defaultChannel?.id ?? channels[0].id)
+      const profiles = profilesData?.profiles?.items as Profile[]
+      const defaultProfile = profiles.find((profile) => profile.isDefault)
+      setSelectedProfile(defaultProfile ?? profiles[0])
       sheetRef.current?.close()
     } catch (error) {
       logger.error('SIGN IN ERROR 🔒', error)

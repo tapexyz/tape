@@ -33,7 +33,7 @@ import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
 import { windowWidth } from '~/helpers/theme'
 import { useMobileTheme } from '~/hooks'
-import useMobileStore from '~/store'
+import { useMobilePersistStore } from '~/store/persist'
 
 import UserProfile from '../common/UserProfile'
 import Button from '../ui/Button'
@@ -104,8 +104,10 @@ const Info: FC<Props> = (props) => {
   const shareSheetRef = useRef<BottomSheetModal>(null)
   const [showMoreBio, setShowMoreBio] = useState(false)
 
-  const selectedChannel = useMobileStore((state) => state.selectedChannel)
-  const isOwned = selectedChannel?.id === profile.id
+  const selectedProfile = useMobilePersistStore(
+    (state) => state.selectedProfile
+  )
+  const isOwned = selectedProfile?.id === profile.id
 
   const animatedHeaderStyle = useAnimatedStyle(() => {
     return {

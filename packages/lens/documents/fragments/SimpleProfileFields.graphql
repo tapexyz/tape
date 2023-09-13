@@ -1,0 +1,19 @@
+fragment SimpleProfileFields on Profile {
+  id
+  handle
+  ownedBy
+  isDefault
+  dispatcher {
+    canUseRelay
+  }
+  stats {
+    totalFollowers
+  }
+  picture {
+    ... on MediaSet {
+      original {
+        url
+      }
+    }
+  }
+}

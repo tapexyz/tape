@@ -7,7 +7,7 @@ import {
   trimLensHandle
 } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
-import { useAllProfilesQuery } from '@lenstube/lens'
+import { useSimpleProfilesQuery } from '@lenstube/lens'
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { Image as ExpoImage } from 'expo-image'
 import { Skeleton } from 'moti/skeleton'
@@ -23,7 +23,6 @@ import {
 import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
 import { useMobileTheme } from '~/hooks'
-import useMobileStore from '~/store'
 import { useMobilePersistStore } from '~/store/persist'
 
 import AnimatedPressable from '../ui/AnimatedPressable'
@@ -67,13 +66,11 @@ const SwitchProfile = () => {
   const { themeConfig } = useMobileTheme()
   const style = styles(themeConfig)
 
-  const selectedChannelId = useMobilePersistStore(
-    (state) => state.selectedChannelId
+  const selectedProfile = useMobilePersistStore(
+    (state) => state.selectedProfile
   )
-  const selectedChannel = useMobileStore((state) => state.selectedChannel)
-  const setSelectedChannel = useMobileStore((state) => state.setSelectedChannel)
-  const setSelectedChannelId = useMobilePersistStore(
-    (state) => state.setSelectedChannelId
+  const setSelectedProfile = useMobilePersistStore(
+    (state) => state.setSelectedProfile
   )
 
   const renderItem = useCallback(
@@ -89,7 +86,7 @@ const SwitchProfile = () => {
           style={{
             borderWidth: 2,
             borderColor:
-              selectedChannel?.id === profile.id
+              selectedProfile?.id === profile.id
                 ? themeConfig.contrastBorderColor
                 : `${themeConfig.borderColor}60`,
             borderRadius: BORDER_RADIUS
@@ -104,8 +101,7 @@ const SwitchProfile = () => {
             style={style.card}
             onPress={() => {
               haptic()
-              setSelectedChannelId(profile.id)
-              setSelectedChannel(profile)
+              setSelectedProfile(profile)
             }}
           >
             <ExpoImage
@@ -128,25 +124,19 @@ const SwitchProfile = () => {
         </ImageBackground>
       </View>
     ),
-    [
-      selectedChannel,
-      setSelectedChannel,
-      themeConfig,
-      style,
-      setSelectedChannelId
-    ]
+    [selectedProfile, setSelectedProfile, themeConfig, style]
   )
 
-  const { data, loading, error } = useAllProfilesQuery({
+  const { data, loading, error } = useSimpleProfilesQuery({
     variables: {
-      request: { ownedBy: [selectedChannel?.ownedBy] }
+      request: { ownedBy: [selectedProfile?.ownedBy] }
     }
   })
 
   const profiles = useMemo(() => {
     if (data?.profiles?.items.length) {
       let items = [...data?.profiles?.items] as Profile[]
-      const targetIndex = items.findIndex((p) => p.id === selectedChannelId)
+      const targetIndex = items.findIndex((p) => p.id === selectedProfile?.id)
       if (targetIndex !== -1) {
         items.unshift(items.splice(targetIndex, 1)[0])
       }
@@ -155,7 +145,7 @@ const SwitchProfile = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data])
 
-  if (error || !selectedChannel) {
+  if (error || !selectedProfile) {
     return null
   }
 
@@ -172,7 +162,7 @@ const SwitchProfile = () => {
       >
         {profiles
           ? profiles?.map((profile) => renderItem({ profile }))
-          : renderItem({ profile: selectedChannel })}
+          : renderItem({ profile: selectedProfile })}
       </ScrollView>
     </Skeleton>
   )

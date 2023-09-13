@@ -6586,6 +6586,20 @@ export type RelayerResultFragment =
   | RelayerResult_RelayError_Fragment
   | RelayerResult_RelayerResult_Fragment
 
+export type SimpleProfileFieldsFragment = {
+  __typename?: 'Profile'
+  id: any
+  handle: any
+  ownedBy: any
+  isDefault: boolean
+  dispatcher?: { __typename?: 'Dispatcher'; canUseRelay: boolean } | null
+  stats: { __typename?: 'ProfileStats'; totalFollowers: number }
+  picture?:
+    | { __typename?: 'MediaSet'; original: { __typename?: 'Media'; url: any } }
+    | { __typename?: 'NftImage' }
+    | null
+}
+
 export type AddProfileInterestMutationVariables = Exact<{
   request: AddProfileInterestsRequest
 }>
@@ -17003,6 +17017,34 @@ export type SearchPublicationsQuery = {
       }
 }
 
+export type SimpleProfilesQueryVariables = Exact<{
+  request: ProfileQueryRequest
+}>
+
+export type SimpleProfilesQuery = {
+  __typename?: 'Query'
+  profiles: {
+    __typename?: 'PaginatedProfileResult'
+    items: Array<{
+      __typename?: 'Profile'
+      id: any
+      handle: any
+      ownedBy: any
+      isDefault: boolean
+      dispatcher?: { __typename?: 'Dispatcher'; canUseRelay: boolean } | null
+      stats: { __typename?: 'ProfileStats'; totalFollowers: number }
+      picture?:
+        | {
+            __typename?: 'MediaSet'
+            original: { __typename?: 'Media'; url: any }
+          }
+        | { __typename?: 'NftImage' }
+        | null
+    }>
+    pageInfo: { __typename?: 'PaginatedResultInfo'; next?: any | null }
+  }
+}
+
 export type SubscribersQueryVariables = Exact<{
   request: FollowersRequest
 }>
@@ -17541,6 +17583,27 @@ export const RelayerResultFragmentDoc = gql`
     }
     ... on RelayError {
       reason
+    }
+  }
+`
+export const SimpleProfileFieldsFragmentDoc = gql`
+  fragment SimpleProfileFields on Profile {
+    id
+    handle
+    ownedBy
+    isDefault
+    dispatcher {
+      canUseRelay
+    }
+    stats {
+      totalFollowers
+    }
+    picture {
+      ... on MediaSet {
+        original {
+          url
+        }
+      }
     }
   }
 `
@@ -21907,6 +21970,70 @@ export type SearchPublicationsLazyQueryHookResult = ReturnType<
 export type SearchPublicationsQueryResult = Apollo.QueryResult<
   SearchPublicationsQuery,
   SearchPublicationsQueryVariables
+>
+export const SimpleProfilesDocument = gql`
+  query SimpleProfiles($request: ProfileQueryRequest!) {
+    profiles(request: $request) {
+      items {
+        ...SimpleProfileFields
+      }
+      pageInfo {
+        next
+      }
+    }
+  }
+  ${SimpleProfileFieldsFragmentDoc}
+`
+
+/**
+ * __useSimpleProfilesQuery__
+ *
+ * To run a query within a React component, call `useSimpleProfilesQuery` and pass it any options that fit your needs.
+ * When your component renders, `useSimpleProfilesQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useSimpleProfilesQuery({
+ *   variables: {
+ *      request: // value for 'request'
+ *   },
+ * });
+ */
+export function useSimpleProfilesQuery(
+  baseOptions: Apollo.QueryHookOptions<
+    SimpleProfilesQuery,
+    SimpleProfilesQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<SimpleProfilesQuery, SimpleProfilesQueryVariables>(
+    SimpleProfilesDocument,
+    options
+  )
+}
+export function useSimpleProfilesLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    SimpleProfilesQuery,
+    SimpleProfilesQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<SimpleProfilesQuery, SimpleProfilesQueryVariables>(
+    SimpleProfilesDocument,
+    options
+  )
+}
+export type SimpleProfilesQueryHookResult = ReturnType<
+  typeof useSimpleProfilesQuery
+>
+export type SimpleProfilesLazyQueryHookResult = ReturnType<
+  typeof useSimpleProfilesLazyQuery
+>
+export type SimpleProfilesQueryResult = Apollo.QueryResult<
+  SimpleProfilesQuery,
+  SimpleProfilesQueryVariables
 >
 export const SubscribersDocument = gql`
   query Subscribers($request: FollowersRequest!) {

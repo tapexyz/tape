@@ -13,8 +13,7 @@ import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
 import { colors } from '~/helpers/theme'
 import { useMobileTheme } from '~/hooks'
-import useMobileStore from '~/store'
-import { hydrateAuthTokens } from '~/store/persist'
+import { hydrateAuthTokens, useMobilePersistStore } from '~/store/persist'
 
 import AnimatedPressable from '../ui/AnimatedPressable'
 
@@ -70,7 +69,9 @@ const FirstSteps = () => {
   const style = styles(themeConfig)
   const { open } = useWalletConnectModal()
   const { accessToken } = hydrateAuthTokens()
-  const selectedChannel = useMobileStore((state) => state.selectedChannel)
+  const selectedProfile = useMobilePersistStore(
+    (state) => state.selectedProfile
+  )
 
   const { data } = useProfilePostsQuery({
     variables: {
@@ -78,17 +79,17 @@ const FirstSteps = () => {
         publicationTypes: [PublicationTypes.Post],
         limit: 1,
         sources: [LENSTUBE_BYTES_APP_ID],
-        profileId: selectedChannel?.id
+        profileId: selectedProfile?.id
       }
     },
-    skip: !selectedChannel?.id
+    skip: !selectedProfile?.id
   })
   const bytes = data?.publications?.items as Publication[]
 
-  const dispatcherEnabled = getIsDispatcherEnabled(selectedChannel)
+  const dispatcherEnabled = getIsDispatcherEnabled(selectedProfile)
   const sharedByte = Boolean(bytes?.length)
 
-  if (dispatcherEnabled && sharedByte && selectedChannel) {
+  if (dispatcherEnabled && sharedByte && selectedProfile) {
     return null
   }
 

@@ -67,8 +67,8 @@ const RecommendedTitle = () => {
 }
 
 const MoreVideos: FC<Props> = ({ video }) => {
-  const selectedChannelId = useMobilePersistStore(
-    (state) => state.selectedChannelId
+  const selectedProfile = useMobilePersistStore(
+    (state) => state.selectedProfile
   )
 
   const { data: recsData, isLoading: recsLoading } = useSWR(
@@ -79,10 +79,10 @@ const MoreVideos: FC<Props> = ({ video }) => {
   const publicationIds = recsData?.items as string[]
 
   const request: PublicationsQueryRequest = { publicationIds, limit: 20 }
-  const reactionRequest = selectedChannelId
-    ? { profileId: selectedChannelId }
+  const reactionRequest = selectedProfile
+    ? { profileId: selectedProfile.id }
     : null
-  const channelId = selectedChannelId ?? null
+  const channelId = selectedProfile?.id ?? null
 
   const { data, loading } = useProfilePostsQuery({
     variables: { request, reactionRequest, channelId },
