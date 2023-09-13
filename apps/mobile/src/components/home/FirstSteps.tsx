@@ -13,7 +13,7 @@ import haptic from '~/helpers/haptic'
 import normalizeFont from '~/helpers/normalize-font'
 import { colors } from '~/helpers/theme'
 import { useMobileTheme } from '~/hooks'
-import { hydrateAuthTokens, useMobilePersistStore } from '~/store/persist'
+import { useMobilePersistStore } from '~/store/persist'
 
 import AnimatedPressable from '../ui/AnimatedPressable'
 
@@ -68,11 +68,7 @@ const FirstSteps = () => {
   const { themeConfig } = useMobileTheme()
   const style = styles(themeConfig)
   const { open } = useWalletConnectModal()
-  const { accessToken } = hydrateAuthTokens()
-  console.log(
-    '🚀 ~ file: FirstSteps.tsx:72 ~ FirstSteps ~ accessToken:',
-    accessToken
-  )
+  const accessToken = useMobilePersistStore((state) => state.accessToken)
   const selectedProfile = useMobilePersistStore(
     (state) => state.selectedProfile
   )
