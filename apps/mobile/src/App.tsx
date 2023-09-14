@@ -59,9 +59,9 @@ const explorerRecommendedWalletIds = [
 
 const App = (): JSX.Element => {
   return (
-    <SafeAreaProvider>
-      <ApolloProvider client={apolloClient(mobileAuthLink)}>
-        <AppLoading>
+    <AppLoading>
+      <SafeAreaProvider>
+        <ApolloProvider client={apolloClient(mobileAuthLink)}>
           <ToastProvider>
             <LivepeerConfig client={livepeerClient}>
               <WalletConnectModal
@@ -76,9 +76,9 @@ const App = (): JSX.Element => {
               </GestureHandlerRootView>
             </LivepeerConfig>
           </ToastProvider>
-        </AppLoading>
-      </ApolloProvider>
-    </SafeAreaProvider>
+        </ApolloProvider>
+      </SafeAreaProvider>
+    </AppLoading>
   )
 }
 
