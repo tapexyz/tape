@@ -6,6 +6,7 @@ import InfoOutline from '@components/Common/Icons/InfoOutline'
 import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import { Tab } from '@headlessui/react'
 import { Analytics, TRACK } from '@lenstube/browser'
+import { trimLensHandle } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
@@ -50,7 +51,9 @@ const Tabs: FC<Props> = ({ channel }) => {
 
   const handleTabChange = (tab: string) => {
     if (tab) {
-      const nextUrl = `${location.origin}/channel/${channel.handle}?tab=${tab}`
+      const nextUrl = `${location.origin}/channel/${trimLensHandle(
+        channel.handle
+      )}?tab=${tab}`
       history.replaceState({ path: nextUrl }, '', nextUrl)
     }
   }
