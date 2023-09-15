@@ -61,7 +61,7 @@
     "@lingui/swc-plugin": "4.0.4",
     "@tailwindcss/typography": "^0.5.10",
     "@types/mixpanel-browser": "^2.47.1",
-    "@types/node": "20.6.0",
+    "@types/node": "20.6.1",
     "@types/react": "18.2.21",
     "@types/react-dom": "18.2.7",
     "@types/react-mentions": "^4.1.7",
