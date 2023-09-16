@@ -34,8 +34,8 @@ const PublicationReaction: FC<Props> = ({
 }) => {
   const { openConnectModal } = useConnectModal()
 
-  const selectedChannelId = useAuthPersistStore(
-    (state) => state.selectedChannelId
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
   )
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
 
@@ -57,7 +57,7 @@ const PublicationReaction: FC<Props> = ({
   })
 
   const likeVideo = () => {
-    if (!selectedChannelId) {
+    if (!selectedSimpleProfile?.id) {
       return openConnectModal?.()
     }
     Analytics.track(TRACK.PUBLICATION.LIKE)
@@ -90,7 +90,7 @@ const PublicationReaction: FC<Props> = ({
   }
 
   const dislikeVideo = () => {
-    if (!selectedChannelId) {
+    if (!selectedSimpleProfile?.id) {
       return openConnectModal?.()
     }
     Analytics.track(TRACK.PUBLICATION.DISLIKE)

@@ -34,8 +34,8 @@ type Props = {
 
 const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
   const [loading, setLoading] = useState(false)
-  const selectedChannelId = useAuthPersistStore(
-    (state) => state.selectedChannelId
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
   )
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
   const { openConnectModal } = useConnectModal()
@@ -136,7 +136,7 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
   }
 
   const subscribe = () => {
-    if (!selectedChannelId) {
+    if (!selectedSimpleProfile?.id) {
       return openConnectModal?.()
     }
     setLoading(true)

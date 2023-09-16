@@ -7,16 +7,16 @@ import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 
 const AuthRequiredPage = () => {
-  const selectedChannelId = useAuthPersistStore(
-    (state) => state.selectedChannelId
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
   )
   const { replace, query } = useRouter()
 
   useEffect(() => {
-    if (selectedChannelId && query?.next) {
+    if (selectedSimpleProfile?.id && query?.next) {
       replace(query?.next as string)
     }
-  }, [selectedChannelId, query, replace])
+  }, [selectedSimpleProfile, query, replace])
 
   return (
     <>

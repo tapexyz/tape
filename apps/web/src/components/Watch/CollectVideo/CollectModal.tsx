@@ -58,8 +58,8 @@ const CollectModal: FC<Props> = ({
   fetchingCollectModule
 }) => {
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
-  const selectedChannelId = useAuthPersistStore(
-    (state) => state.selectedChannelId
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
   )
 
   const [isAllowed, setIsAllowed] = useState(true)
@@ -135,7 +135,7 @@ const CollectModal: FC<Props> = ({
         referenceModules: []
       }
     },
-    skip: !assetAddress || !selectedChannelId,
+    skip: !assetAddress || !selectedSimpleProfile?.id,
     onCompleted: (data) => {
       setIsAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
     }
@@ -151,10 +151,16 @@ const CollectModal: FC<Props> = ({
     } else {
       setHaveEnoughBalance(true)
     }
-    if (assetAddress && selectedChannelId) {
+    if (assetAddress && selectedSimpleProfile?.id) {
       refetchAllowance()
     }
-  }, [balanceData, assetAddress, amount, refetchAllowance, selectedChannelId])
+  }, [
+    balanceData,
+    assetAddress,
+    amount,
+    refetchAllowance,
+    selectedSimpleProfile
+  ])
 
   const getDefaultProfileByAddress = (address: string) => {
     const profiles = recipientProfilesData?.profiles?.items

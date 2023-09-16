@@ -39,8 +39,8 @@ const Header: FC<Props> = ({ className }) => {
   const hasNewNotification = useChannelStore(
     (state) => state.hasNewNotification
   )
-  const selectedChannelId = useAuthPersistStore(
-    (state) => state.selectedChannelId
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
   )
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
   const latestNotificationId = usePersistStore(
@@ -104,7 +104,7 @@ const Header: FC<Props> = ({ className }) => {
             >
               <SearchOutline className="h-4 w-4" aria-hidden="true" />
             </button>
-            {selectedChannelId ? (
+            {selectedSimpleProfile?.id ? (
               <>
                 <Link
                   onClick={() =>

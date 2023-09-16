@@ -30,8 +30,8 @@ type Props = {
 }
 
 const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
-  const selectedChannelId = useAuthPersistStore(
-    (state) => state.selectedChannelId
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
   )
   const queuedComments = usePersistStore((state) => state.queuedComments)
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
@@ -119,7 +119,7 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
         <>
           {video?.canComment.result ? (
             <NewComment video={video} />
-          ) : selectedChannelId ? (
+          ) : selectedSimpleProfile?.id ? (
             <Alert variant="warning">
               <span className="text-sm">
                 {isFollowerOnlyReferenceModule

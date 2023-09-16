@@ -84,8 +84,8 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   const { openConnectModal } = useConnectModal()
   const { cache } = useApolloClient()
   const [loading, setLoading] = useState(false)
-  const selectedChannelId = useAuthPersistStore(
-    (state) => state.selectedChannelId
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
   )
   const queuedComments = usePersistStore((state) => state.queuedComments)
   const setQueuedComments = usePersistStore((state) => state.setQueuedComments)
@@ -383,7 +383,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   }
 
   const onSendTip = async () => {
-    if (!selectedChannelId) {
+    if (!selectedSimpleProfile?.id) {
       return openConnectModal?.()
     }
     if (video.isDataAvailability && !isSponsored) {

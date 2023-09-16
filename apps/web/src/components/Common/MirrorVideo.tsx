@@ -43,8 +43,8 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
 
   const userSigNonce = useChannelStore((state) => state.userSigNonce)
   const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
-  const selectedChannelId = useAuthPersistStore(
-    (state) => state.selectedChannelId
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
   )
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
 
@@ -144,7 +144,7 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
   }
 
   const mirrorVideo = async () => {
-    if (!selectedChannelId) {
+    if (!selectedSimpleProfile?.id) {
       return openConnectModal?.()
     }
 

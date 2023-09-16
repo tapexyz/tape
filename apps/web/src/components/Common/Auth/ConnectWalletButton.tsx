@@ -20,8 +20,8 @@ type Props = {
 }
 
 const ConnectWalletButton = ({ handleSign, signing }: Props) => {
-  const selectedChannelId = useAuthPersistStore(
-    (state) => state.selectedChannelId
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
   )
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
 
@@ -42,7 +42,7 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
 
   return connector?.id && isConnected ? (
     chain?.id === POLYGON_CHAIN_ID ? (
-      selectedChannelId && selectedChannel ? (
+      selectedSimpleProfile?.id && selectedChannel ? (
         <UserMenu />
       ) : (
         <div className="flex items-center space-x-2">

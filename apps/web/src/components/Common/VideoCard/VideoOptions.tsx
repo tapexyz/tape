@@ -71,8 +71,8 @@ const VideoOptions: FC<Props> = ({
   const { cache } = useApolloClient()
 
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
-  const selectedChannelId = useAuthPersistStore(
-    (state) => state.selectedChannelId
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
   )
   const isVideoOwner = selectedChannel?.id === video?.profile?.id
   const pinnedVideoId = getValueFromKeyInAttributes(
@@ -99,7 +99,7 @@ const VideoOptions: FC<Props> = ({
   }
 
   const onClickReport = () => {
-    if (!selectedChannelId) {
+    if (!selectedSimpleProfile?.id) {
       return openConnectModal?.()
     }
     setShowReport(true)
@@ -274,38 +274,50 @@ const VideoOptions: FC<Props> = ({
   })
 
   const notInterested = () => {
-    if (!selectedChannelId) {
+    if (!selectedSimpleProfile?.id) {
       return openConnectModal?.()
     }
     if (video.notInterested) {
       removeNotInterested({
         variables: {
-          request: { profileId: selectedChannelId, publicationId: video.id }
+          request: {
+            profileId: selectedSimpleProfile?.id,
+            publicationId: video.id
+          }
         }
       })
     } else {
       addNotInterested({
         variables: {
-          request: { profileId: selectedChannelId, publicationId: video.id }
+          request: {
+            profileId: selectedSimpleProfile?.id,
+            publicationId: video.id
+          }
         }
       })
     }
   }
 
   const saveToList = () => {
-    if (!selectedChannelId) {
+    if (!selectedSimpleProfile?.id) {
       return openConnectModal?.()
     }
     if (video.bookmarked) {
       removeVideoFromList({
         variables: {
-          request: { profileId: selectedChannelId, publicationId: video.id }
+          request: {
+            profileId: selectedSimpleProfile?.id,
+            publicationId: video.id
+          }
         }
       })
     } else {
       saveVideoToList({
         variables: {
-          request: { profileId: selectedChannelId, publicationId: video.id }
+          request: {
+            profileId: selectedSimpleProfile?.id,
+            publicationId: video.id
+          }
         }
       })
     }

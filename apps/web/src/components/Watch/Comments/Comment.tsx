@@ -45,8 +45,8 @@ const Comment: FC<Props> = ({ comment }) => {
   const { openConnectModal } = useConnectModal()
 
   const queuedComments = usePersistStore((state) => state.queuedComments)
-  const selectedChannelId = useAuthPersistStore(
-    (state) => state.selectedChannelId
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
   )
 
   useEffect(() => {
@@ -136,7 +136,7 @@ const Comment: FC<Props> = ({ comment }) => {
               <PublicationReaction publication={comment} />
               <button
                 onClick={() => {
-                  if (!selectedChannelId) {
+                  if (!selectedSimpleProfile?.id) {
                     return openConnectModal?.()
                   }
                   setShowNewComment(!showNewComment)
@@ -179,7 +179,7 @@ const Comment: FC<Props> = ({ comment }) => {
               <CommentReplies
                 comment={comment}
                 replyTo={(profile) => {
-                  if (!selectedChannelId) {
+                  if (!selectedSimpleProfile?.id) {
                     return openConnectModal?.()
                   }
                   setShowNewComment(true)

@@ -36,8 +36,8 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
   const [isAllowed, setIsAllowed] = useState(false)
   const { openConnectModal } = useConnectModal()
 
-  const selectedChannelId = useAuthPersistStore(
-    (state) => state.selectedChannelId
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
   )
   const userSigNonce = useChannelStore((state) => state.userSigNonce)
   const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
@@ -91,7 +91,7 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
         referenceModules: []
       }
     },
-    skip: !followModule?.amount?.asset?.address || !selectedChannelId,
+    skip: !followModule?.amount?.asset?.address || !selectedSimpleProfile?.id,
     onCompleted: (data) => {
       setIsAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
     }
@@ -119,7 +119,7 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
   })
 
   const joinChannel = () => {
-    if (!selectedChannelId) {
+    if (!selectedSimpleProfile?.id) {
       return openConnectModal?.()
     }
     if (!isAllowed) {

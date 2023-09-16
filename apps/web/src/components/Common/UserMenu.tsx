@@ -49,8 +49,8 @@ const UserMenu = () => {
   const selectedChannel = useChannelStore(
     (state) => state.selectedChannel as Profile
   )
-  const setSelectedChannelId = useAuthPersistStore(
-    (state) => state.setSelectedChannelId
+  const setSelectedSimpleProfile = useAuthPersistStore(
+    (state) => state.setSelectedSimpleProfile
   )
 
   const { data: statusData } = useSWR(
@@ -69,9 +69,18 @@ const UserMenu = () => {
 
   const isAdmin = ADMIN_IDS.includes(selectedChannel?.id)
 
-  const onSelectChannel = (channel: Profile) => {
-    setSelectedChannel(channel)
-    setSelectedChannelId(channel.id)
+  const onSelectChannel = (profile: Profile) => {
+    setSelectedChannel(profile)
+    // hand picked attributes to persist, to not bloat storage
+    setSelectedSimpleProfile({
+      handle: profile.handle,
+      id: profile.id,
+      isDefault: profile.isDefault,
+      ownedBy: profile.ownedBy,
+      stats: profile.stats,
+      dispatcher: profile.dispatcher,
+      picture: profile.picture
+    })
     setShowAccountSwitcher(false)
     Analytics.track(TRACK.CHANNEL.SWITCH)
   }

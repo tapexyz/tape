@@ -24,8 +24,8 @@ type Props = {
 
 const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
   const [loading, setLoading] = useState(false)
-  const selectedChannelId = useAuthPersistStore(
-    (state) => state.selectedChannelId
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
   )
   const { openConnectModal } = useConnectModal()
 
@@ -86,7 +86,7 @@ const UnSubscribe: FC<Props> = ({ channel, onUnSubscribe }) => {
   })
 
   const unsubscribe = () => {
-    if (!selectedChannelId) {
+    if (!selectedSimpleProfile?.id) {
       return openConnectModal?.()
     }
     setLoading(true)

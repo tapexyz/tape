@@ -48,8 +48,8 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
   const [alreadyCollected, setAlreadyCollected] = useState(
     video.hasCollectedByMe
   )
-  const selectedChannelId = useAuthPersistStore(
-    (state) => state.selectedChannelId
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
   )
   const userSigNonce = useChannelStore((state) => state.userSigNonce)
   const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
@@ -158,7 +158,7 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
   }
 
   const onClickCollect = () => {
-    if (!selectedChannelId) {
+    if (!selectedSimpleProfile?.id) {
       return openConnectModal?.()
     }
     return setShowCollectModal(true)

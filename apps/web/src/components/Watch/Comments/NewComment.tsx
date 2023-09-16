@@ -75,8 +75,8 @@ const NewComment: FC<Props> = ({
 
   const [loading, setLoading] = useState(false)
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
-  const selectedChannelId = useAuthPersistStore(
-    (state) => state.selectedChannelId
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
   )
   const queuedComments = usePersistStore((state) => state.queuedComments)
   const setQueuedComments = usePersistStore((state) => state.setQueuedComments)
@@ -384,7 +384,7 @@ const NewComment: FC<Props> = ({
     } catch {}
   }
 
-  if (!selectedChannel || !selectedChannelId) {
+  if (!selectedChannel || !selectedSimpleProfile?.id) {
     return null
   }
 
