@@ -47,7 +47,7 @@ const Modal: FC<Props> = ({
             >
               <Dialog.Panel
                 className={clsx(
-                  'bg-secondary w-full transform overflow-x-hidden rounded-2xl p-5 py-5 text-left align-middle shadow-xl transition-all',
+                  'bg-secondary w-full transform overflow-x-hidden rounded-3xl p-5 py-5 text-left align-middle shadow-xl transition-all',
                   panelClassName
                 )}
               >
@@ -62,10 +62,13 @@ const Modal: FC<Props> = ({
                     {onClose && (
                       <button
                         type="button"
-                        className="opacity-70 focus:outline-none"
+                        className="rounded-full opacity-70 hover:bg-gray-200 focus:outline-none dark:hover:bg-gray-800"
                         onClick={() => onClose?.()}
                       >
-                        <TimesOutline className="h-4 w-4" />
+                        <TimesOutline
+                          className="m-2 h-4 w-4 p-0.5"
+                          outlined={false}
+                        />
                       </button>
                     )}
                   </div>
