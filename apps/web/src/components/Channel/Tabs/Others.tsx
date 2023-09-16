@@ -18,7 +18,7 @@ const Others: FC<Props> = ({ channel }) => {
   const attributes = channel?.attributes as Attribute[]
 
   return (
-    <div className="space-y-1.5 md:p-4">
+    <div className="space-y-1.5 p-4">
       {getValueFromKeyInAttributes(attributes, 'location') && (
         <div className="flex items-center space-x-1.5">
           <LocationOutline className="h-4 w-4" />
