@@ -105,7 +105,7 @@ const Login = () => {
         message: challenge?.data?.challenge?.text
       })
       if (!signature) {
-        return toast.error(t`Invalid Signature!`)
+        return
       }
       const result = await authenticate({
         variables: { request: { address, signature } }
