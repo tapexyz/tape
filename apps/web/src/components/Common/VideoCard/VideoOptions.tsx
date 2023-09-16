@@ -322,7 +322,7 @@ const VideoOptions: FC<Props> = ({
         trigger={
           <div
             className={clsx(
-              'py-1 text-white group-hover:visible md:text-inherit',
+              'py-1 group-hover:visible dark:text-white md:text-inherit',
               showOnHover && 'lg:invisible'
             )}
             role="button"

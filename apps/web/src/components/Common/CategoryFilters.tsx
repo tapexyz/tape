@@ -56,7 +56,7 @@ const CategoryFilters = () => {
 
   return (
     <div
-      className="ultrawide:max-w-[110rem] relative mx-auto flex pt-4"
+      className="ultrawide:max-w-[90rem] relative mx-auto flex pt-4"
       data-testid="category-filters"
     >
       {scrollX !== 0 && (

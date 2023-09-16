@@ -31,6 +31,34 @@ const CoverLinks = ({ channel }: { channel: Profile }) => {
             <GlobeOutline className="h-4 w-4" />
           </Link>
         )}
+        {getValueFromKeyInAttributes(channel.attributes, 'youtube') && (
+          <Link
+            onClick={() =>
+              Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_COVER_LINKS)
+            }
+            href={`https://youtube.com/${getValueFromKeyInAttributes(
+              channel.attributes,
+              'youtube'
+            )
+              ?.replace('https://youtube.com/', '')
+              .replace('http://youtube.com/', '')}`}
+            target="_blank"
+            rel="noreferer noreferrer"
+            className="rounded-lg bg-white bg-opacity-80 p-2 dark:bg-gray-900"
+          >
+            <img
+              src={imageCdn(
+                `${STATIC_ASSETS}/images/social/youtube.png`,
+                'AVATAR'
+              )}
+              className="h-4 w-4 object-contain"
+              height={16}
+              width={16}
+              alt="Youtube"
+              draggable={false}
+            />
+          </Link>
+        )}
         {getValueFromKeyInAttributes(channel.attributes, 'x') && (
           <Link
             onClick={() =>

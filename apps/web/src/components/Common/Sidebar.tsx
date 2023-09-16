@@ -1,6 +1,6 @@
 import Tooltip from '@components/UIElements/Tooltip'
-import { getShowFullScreen } from '@lenstube/browser'
-import { STATIC_ASSETS } from '@lenstube/constants'
+import { Analytics, getShowFullScreen, TRACK } from '@lenstube/browser'
+import { LENSTUBE_ROADMAP_URL, STATIC_ASSETS } from '@lenstube/constants'
 import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'
 import clsx from 'clsx'
@@ -16,6 +16,7 @@ import ChevronRightOutline from './Icons/ChevronRightOutline'
 import ExploreOutline from './Icons/ExploreOutline'
 import FeedOutline from './Icons/FeedOutline'
 import HomeOutline from './Icons/HomeOutline'
+import RoadmapOutline from './Icons/RoadmapOutline'
 import Locale from './Locale'
 import MobileBottomNav from './MobileBottomNav'
 
@@ -163,16 +164,28 @@ const Sidebar = () => {
         </div>
         <div
           className={clsx(
-            'mb-1 flex flex-col',
+            'mb-2 flex flex-col',
             sidebarCollapsed ? 'mx-auto' : 'px-3'
           )}
         >
           {!sidebarCollapsed && <Footer />}
+          <Link
+            className={clsx(
+              'mt-2 flex h-12 items-center justify-center space-x-2 rounded-full p-3.5 opacity-90 hover:bg-gray-50 hover:opacity-100 focus:outline-none dark:hover:bg-gray-800',
+              sidebarCollapsed ? 'w-12' : 'w-full'
+            )}
+            href={LENSTUBE_ROADMAP_URL}
+            onClick={() => Analytics.track(TRACK.SYSTEM.MORE_MENU.ROADMAP)}
+            target="_blank"
+          >
+            <RoadmapOutline className="h-4 w-4" />
+            {!sidebarCollapsed && <span className="text-sm">Roadmap</span>}
+          </Link>
           <Locale />
           <button
             type="button"
             className={clsx(
-              'mt-2 flex h-12 items-center justify-center rounded-full p-3.5 opacity-90 hover:bg-gray-50 hover:opacity-100 focus:outline-none dark:hover:bg-gray-800',
+              'flex h-12 items-center justify-center rounded-full p-3.5 opacity-90 hover:bg-gray-50 hover:opacity-100 focus:outline-none dark:hover:bg-gray-800',
               sidebarCollapsed ? 'w-12' : 'w-full'
             )}
             onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
