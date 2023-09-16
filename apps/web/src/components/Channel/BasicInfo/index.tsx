@@ -135,7 +135,10 @@ const BasicInfo: FC<Props> = ({ channel }) => {
         {hasOnChainId && (
           <div className="flex items-center space-x-2 py-2">
             {channel.onChainIdentity?.ens?.name && (
-              <Tooltip content={channel.onChainIdentity?.ens?.name}>
+              <Tooltip
+                content={channel.onChainIdentity?.ens?.name}
+                placement="top"
+              >
                 <img
                   src={`${STATIC_ASSETS}/images/social/ens.svg`}
                   alt="ens"
@@ -145,7 +148,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
               </Tooltip>
             )}
             {channel?.onChainIdentity?.sybilDotOrg.verified && (
-              <Tooltip content={t`Sybil Verified`}>
+              <Tooltip content={t`Sybil Verified`} placement="top">
                 <img
                   src={`${STATIC_ASSETS}/images/social/sybil.png`}
                   alt="sybil"
@@ -155,7 +158,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
               </Tooltip>
             )}
             {channel?.onChainIdentity?.proofOfHumanity && (
-              <Tooltip content={t`Proof of Humanity`}>
+              <Tooltip content={t`Proof of Humanity`} placement="top">
                 <img
                   src={`${STATIC_ASSETS}/images/social/poh.png`}
                   alt="poh"
@@ -165,7 +168,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
               </Tooltip>
             )}
             {channel?.onChainIdentity?.worldcoin.isHuman && (
-              <Tooltip content={t`Proof of Personhood`}>
+              <Tooltip content={t`Proof of Personhood`} placement="top">
                 <img
                   src={`${STATIC_ASSETS}/images/social/worldcoin.png`}
                   alt="worldcoin"
