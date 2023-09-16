@@ -46,8 +46,9 @@ const UserMenu = () => {
   const setSelectedChannel = useChannelStore(
     (state) => state.setSelectedChannel
   )
-  const selectedChannel = useChannelStore(
-    (state) => state.selectedChannel as Profile
+
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
   )
   const setSelectedSimpleProfile = useAuthPersistStore(
     (state) => state.setSelectedSimpleProfile
@@ -67,7 +68,7 @@ const UserMenu = () => {
     }
   })
 
-  const isAdmin = ADMIN_IDS.includes(selectedChannel?.id)
+  const isAdmin = ADMIN_IDS.includes(selectedSimpleProfile?.id)
 
   const onSelectChannel = (profile: Profile) => {
     setSelectedChannel(profile)
@@ -108,8 +109,8 @@ const UserMenu = () => {
         >
           <img
             className="dark:bg-theme h-8 w-8 rounded-full bg-white object-cover md:h-9 md:w-9"
-            src={getProfilePicture(selectedChannel)}
-            alt={selectedChannel.handle}
+            src={getProfilePicture(selectedSimpleProfile as Profile)}
+            alt={selectedSimpleProfile?.handle}
             draggable={false}
           />
         </button>
@@ -146,7 +147,7 @@ const UserMenu = () => {
                         {channel.handle}
                       </span>
                     </span>
-                    {selectedChannel?.id === channel.id && (
+                    {selectedSimpleProfile?.id === channel.id && (
                       <CheckOutline className="h-3 w-3" />
                     )}
                   </button>
@@ -158,12 +159,17 @@ const UserMenu = () => {
               <div className="flex flex-col space-y-1 rounded-lg text-sm transition duration-150 ease-in-out">
                 <div className="inline-flex items-center space-x-2 rounded-lg p-3">
                   <Link
-                    href={`/channel/${trimLensHandle(selectedChannel?.handle)}`}
+                    href={`/channel/${trimLensHandle(
+                      selectedSimpleProfile?.handle
+                    )}`}
                   >
                     <img
                       className="h-9 w-9 rounded-full object-cover"
-                      src={getProfilePicture(selectedChannel, 'AVATAR')}
-                      alt={selectedChannel.handle}
+                      src={getProfilePicture(
+                        selectedSimpleProfile as Profile,
+                        'AVATAR'
+                      )}
+                      alt={selectedSimpleProfile?.handle}
                       draggable={false}
                     />
                   </Link>
@@ -173,14 +179,14 @@ const UserMenu = () => {
                     </span>
                     <Link
                       href={`/channel/${trimLensHandle(
-                        selectedChannel?.handle
+                        selectedSimpleProfile?.handle
                       )}`}
                     >
                       <h6
-                        title={selectedChannel?.handle}
+                        title={selectedSimpleProfile?.handle}
                         className="truncate text-base leading-4"
                       >
-                        {selectedChannel?.handle}
+                        {selectedSimpleProfile?.handle}
                       </h6>
                     </Link>
                   </div>
@@ -199,12 +205,12 @@ const UserMenu = () => {
                     </span>
                   </Menu.Item>
                 )}
-                {selectedChannel && (
+                {selectedSimpleProfile && (
                   <>
                     <Menu.Item
                       as={NextLink}
                       href={`/channel/${trimLensHandle(
-                        selectedChannel?.handle
+                        selectedSimpleProfile?.handle
                       )}`}
                       className="inline-flex w-full items-center space-x-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
                     >
