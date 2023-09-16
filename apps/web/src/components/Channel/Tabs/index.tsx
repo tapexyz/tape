@@ -1,7 +1,6 @@
 import BytesOutline from '@components/Common/Icons/BytesOutline'
 import ChannelOutline from '@components/Common/Icons/ChannelOutline'
 import CollectOutline from '@components/Common/Icons/CollectOutline'
-import CommentOutline from '@components/Common/Icons/CommentOutline'
 import InfoOutline from '@components/Common/Icons/InfoOutline'
 import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import { Tab } from '@headlessui/react'
@@ -19,7 +18,6 @@ import About from './About'
 import ChannelBytes from './ChannelBytes'
 import ChannelVideos from './ChannelVideos'
 import CollectedNFTs from './CollectedNFTs'
-import CommentedVideos from './CommentedVideos'
 import MirroredVideos from './MirroredVideos'
 import OtherChannels from './OtherChannels'
 
@@ -34,16 +32,14 @@ const Tabs: FC<Props> = ({ channel }) => {
     switch (router.query.tab) {
       case 'bytes':
         return 1
-      case 'commented':
-        return 2
       case 'mirrored':
-        return 3
+        return 2
       case 'nfts':
-        return 4
+        return 3
       case 'channels':
-        return 5
+        return 4
       case 'about':
-        return 6
+        return 5
       default:
         return 0
     }
@@ -101,25 +97,6 @@ const Tabs: FC<Props> = ({ channel }) => {
           <BytesOutline className="h-4 w-4" />
           <span>
             <Trans>Bytes</Trans>
-          </span>
-        </Tab>
-        <Tab
-          onClick={() => {
-            handleTabChange('commented')
-            Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_COMMENTED)
-          }}
-          className={({ selected }) =>
-            clsx(
-              'flex items-center space-x-2 whitespace-nowrap rounded-full border border-gray-200 px-4 py-2 text-xs font-medium uppercase transition duration-300 ease-in-out focus:outline-none dark:border-gray-800',
-              selected
-                ? 'bg-gray-200 dark:bg-gray-700'
-                : 'hover:bg-gray-200 hover:dark:bg-gray-800'
-            )
-          }
-        >
-          <CommentOutline className="h-4 w-4" />
-          <span>
-            <Trans>Commented</Trans>
           </span>
         </Tab>
         <Tab
@@ -203,9 +180,6 @@ const Tabs: FC<Props> = ({ channel }) => {
         </Tab.Panel>
         <Tab.Panel className="focus:outline-none">
           <ChannelBytes channel={channel} />
-        </Tab.Panel>
-        <Tab.Panel className="focus:outline-none">
-          <CommentedVideos channel={channel} />
         </Tab.Panel>
         <Tab.Panel className="focus:outline-none">
           <MirroredVideos channel={channel} />
