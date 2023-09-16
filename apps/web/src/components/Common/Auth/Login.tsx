@@ -34,9 +34,7 @@ const Login = () => {
     (state) => state.setShowCreateChannel
   )
   const setChannels = useChannelStore((state) => state.setChannels)
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
+
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
   const setSelectedChannel = useChannelStore(
     (state) => state.setSelectedChannel
@@ -49,7 +47,6 @@ const Login = () => {
     setLoading(false)
     signOut()
     setSelectedChannel(null)
-    setSelectedSimpleProfile(null)
   }
 
   const { signMessageAsync } = useSignMessage({
@@ -85,8 +82,7 @@ const Login = () => {
     connector?.id &&
     isConnected &&
     chain?.id === POLYGON_CHAIN_ID &&
-    !selectedChannel &&
-    !selectedSimpleProfile?.id
+    !selectedChannel
 
   const handleSign = useCallback(async () => {
     if (!isReadyToSign) {

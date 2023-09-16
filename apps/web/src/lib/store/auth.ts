@@ -30,6 +30,7 @@ export const useAuthPersistStore = create(
       signOut: () => {
         localStorage.removeItem('lenstube.store')
         localStorage.removeItem('lenstube.auth.store')
+        set({ selectedSimpleProfile: null })
       },
       hydrateAuthTokens: () => {
         return {
