@@ -1,13 +1,11 @@
 import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
-import Tooltip from '@components/UIElements/Tooltip'
 import { Analytics, TRACK } from '@lenstube/browser'
 import {
   IS_MAINNET,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
-  LENSTUBE_ROADMAP_URL,
   STATIC_ASSETS
 } from '@lenstube/constants'
 import { useLatestNotificationIdQuery } from '@lenstube/lens'
@@ -25,7 +23,6 @@ import Login from './Auth/Login'
 import CategoryFilters from './CategoryFilters'
 import BellOutline from './Icons/BellOutline'
 import NewVideoOutline from './Icons/NewVideoOutline'
-import RoadmapOutline from './Icons/RoadmapOutline'
 import SearchOutline from './Icons/SearchOutline'
 import GlobalSearchBar from './Search/GlobalSearchBar'
 
@@ -107,18 +104,6 @@ const Header: FC<Props> = ({ className }) => {
             >
               <SearchOutline className="h-4 w-4" aria-hidden="true" />
             </button>
-            <Tooltip content="Roadmap & Feedback">
-              <Link
-                className="hidden rounded-lg opacity-80 hover:opacity-100 lg:block"
-                href={LENSTUBE_ROADMAP_URL}
-                onClick={() => Analytics.track(TRACK.SYSTEM.MORE_MENU.ROADMAP)}
-                target="_blank"
-              >
-                <button className="btn-hover p-2.5">
-                  <RoadmapOutline className="h-4 w-4" />
-                </button>
-              </Link>
-            </Tooltip>
             {selectedChannelId ? (
               <>
                 <Link
