@@ -1,4 +1,4 @@
-import type { Profile } from '@lenstube/lens'
+import type { SimpleProfile } from '@lenstube/lens/custom-types'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
@@ -10,10 +10,6 @@ type Tokens = {
   refreshToken: string | null
 }
 type MobileTheme = keyof typeof theme
-type SimpleProfile = Pick<
-  Profile,
-  'id' | 'handle' | 'ownedBy' | 'isDefault' | 'dispatcher' | 'stats' | 'picture'
->
 
 interface AuthPerisistState {
   accessToken: Tokens['accessToken']
