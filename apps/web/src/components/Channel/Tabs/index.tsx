@@ -61,7 +61,7 @@ const Tabs: FC<Props> = ({ channel }) => {
   return (
     <Tab.Group
       as="div"
-      className="container mx-auto w-full max-w-[85rem] md:p-2"
+      className="container mx-auto mt-4 w-full max-w-[85rem] p-2 md:mt-6 2xl:px-0"
       defaultIndex={getDefaultTab()}
     >
       <Tab.List className="no-scrollbar flex space-x-2 overflow-x-auto">
@@ -72,7 +72,7 @@ const Tabs: FC<Props> = ({ channel }) => {
           }}
           className={({ selected }) =>
             clsx(
-              'flex items-center space-x-2 whitespace-nowrap rounded-full px-4 py-2 text-xs font-medium uppercase transition duration-300 ease-in-out focus:outline-none',
+              'flex items-center space-x-2 whitespace-nowrap rounded-full border border-gray-200 px-4 py-2 text-xs font-medium uppercase transition duration-300 ease-in-out focus:outline-none dark:border-gray-800',
               selected
                 ? 'bg-gray-200 dark:bg-gray-700'
                 : 'hover:bg-gray-200 hover:dark:bg-gray-800'
@@ -91,7 +91,7 @@ const Tabs: FC<Props> = ({ channel }) => {
           }}
           className={({ selected }) =>
             clsx(
-              'flex items-center space-x-2 whitespace-nowrap rounded-full px-4 py-2 text-xs font-medium uppercase transition duration-300 ease-in-out focus:outline-none',
+              'flex items-center space-x-2 whitespace-nowrap rounded-full border border-gray-200 px-4 py-2 text-xs font-medium uppercase transition duration-300 ease-in-out focus:outline-none dark:border-gray-800',
               selected
                 ? 'bg-gray-200 dark:bg-gray-700'
                 : 'hover:bg-gray-200 hover:dark:bg-gray-800'
@@ -110,7 +110,7 @@ const Tabs: FC<Props> = ({ channel }) => {
           }}
           className={({ selected }) =>
             clsx(
-              'flex items-center space-x-2 whitespace-nowrap rounded-full px-4 py-2 text-xs font-medium uppercase transition duration-300 ease-in-out focus:outline-none',
+              'flex items-center space-x-2 whitespace-nowrap rounded-full border border-gray-200 px-4 py-2 text-xs font-medium uppercase transition duration-300 ease-in-out focus:outline-none dark:border-gray-800',
               selected
                 ? 'bg-gray-200 dark:bg-gray-700'
                 : 'hover:bg-gray-200 hover:dark:bg-gray-800'
@@ -129,7 +129,7 @@ const Tabs: FC<Props> = ({ channel }) => {
           }}
           className={({ selected }) =>
             clsx(
-              'flex items-center space-x-2 whitespace-nowrap rounded-full px-4 py-2 text-xs font-medium uppercase transition duration-300 ease-in-out focus:outline-none',
+              'flex items-center space-x-2 whitespace-nowrap rounded-full border border-gray-200 px-4 py-2 text-xs font-medium uppercase transition duration-300 ease-in-out focus:outline-none dark:border-gray-800',
               selected
                 ? 'bg-gray-200 dark:bg-gray-700'
                 : 'hover:bg-gray-200 hover:dark:bg-gray-800'
@@ -148,7 +148,7 @@ const Tabs: FC<Props> = ({ channel }) => {
           }}
           className={({ selected }) =>
             clsx(
-              'flex items-center space-x-2 whitespace-nowrap rounded-full px-4 py-2 text-xs font-medium uppercase transition duration-300 ease-in-out focus:outline-none',
+              'flex items-center space-x-2 whitespace-nowrap rounded-full border border-gray-200 px-4 py-2 text-xs font-medium uppercase transition duration-300 ease-in-out focus:outline-none dark:border-gray-800',
               selected
                 ? 'bg-gray-200 dark:bg-gray-700'
                 : 'hover:bg-gray-200 hover:dark:bg-gray-800'
@@ -165,7 +165,7 @@ const Tabs: FC<Props> = ({ channel }) => {
           }}
           className={({ selected }) =>
             clsx(
-              'flex items-center space-x-2 whitespace-nowrap rounded-full px-4 py-2 text-xs font-medium uppercase transition duration-300 ease-in-out focus:outline-none',
+              'flex items-center space-x-2 whitespace-nowrap rounded-full border border-gray-200 px-4 py-2 text-xs font-medium uppercase transition duration-300 ease-in-out focus:outline-none dark:border-gray-800',
               selected
                 ? 'bg-gray-200 dark:bg-gray-700'
                 : 'hover:bg-gray-200 hover:dark:bg-gray-800'
@@ -184,7 +184,7 @@ const Tabs: FC<Props> = ({ channel }) => {
           }}
           className={({ selected }) =>
             clsx(
-              'flex items-center space-x-2 whitespace-nowrap rounded-full px-4 py-2 text-xs font-medium uppercase transition duration-300 ease-in-out focus:outline-none',
+              'flex items-center space-x-2 whitespace-nowrap rounded-full border border-gray-200 px-4 py-2 text-xs font-medium uppercase transition duration-300 ease-in-out focus:outline-none dark:border-gray-800',
               selected
                 ? 'bg-gray-200 dark:bg-gray-700'
                 : 'hover:bg-gray-200 hover:dark:bg-gray-800'

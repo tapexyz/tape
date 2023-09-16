@@ -17,30 +17,30 @@ const MobileBottomNav = () => {
 
   return (
     <div className="pb-safe dark:bg-theme fixed inset-x-0 bottom-0 z-[4] border-t border-gray-300 bg-white dark:border-gray-700 md:hidden">
-      <div className="grid grid-cols-5">
+      <div className="grid grid-cols-5 py-2">
         <Link
           href="/"
-          className="flex w-full flex-col items-center justify-center rounded-lg bg-transparent pt-2 text-sm font-medium text-gray-700 dark:text-gray-100 dark:hover:text-gray-100 md:grid"
+          className="flex w-full flex-col items-center justify-center space-y-1 rounded-lg bg-transparent text-sm font-medium text-gray-700 dark:text-gray-100 dark:hover:text-gray-100 md:grid"
         >
           <HomeOutline
             className={clsx('h-4 w-4 opacity-80', {
               'text-indigo-500 opacity-100': isActivePath('/')
             })}
           />
-          <span className="text-[9px]">
+          <span className="text-xs">
             <Trans>Home</Trans>
           </span>
         </Link>
         <Link
           href="/bytes"
-          className="flex w-full flex-col items-center justify-center rounded-lg bg-transparent pt-2 text-sm font-medium text-gray-700 dark:text-gray-100 dark:hover:text-gray-100 md:grid"
+          className="flex w-full flex-col items-center justify-center space-y-1 rounded-lg bg-transparent text-sm font-medium text-gray-700 dark:text-gray-100 dark:hover:text-gray-100 md:grid"
         >
           <BytesOutline
             className={clsx('h-4 w-4 opacity-80', {
               'text-indigo-500 opacity-100': isActivePath('/bytes')
             })}
           />
-          <span className="text-[9px]">
+          <span className="text-xs">
             <Trans>Bytes</Trans>
           </span>
         </Link>
@@ -52,27 +52,27 @@ const MobileBottomNav = () => {
         </Link>
         <Link
           href="/explore"
-          className="flex w-full flex-col items-center justify-center rounded-lg bg-transparent pt-2 text-sm font-medium text-gray-700 dark:text-gray-100 dark:hover:text-gray-100 md:grid"
+          className="flex w-full flex-col items-center justify-center space-y-1 rounded-lg bg-transparent text-sm font-medium text-gray-700 dark:text-gray-100 dark:hover:text-gray-100 md:grid"
         >
           <ExploreOutline
             className={clsx('h-4 w-4 opacity-80', {
               'text-indigo-500 opacity-100': isActivePath('/explore')
             })}
           />
-          <span className="text-[9px]">
+          <span className="text-xs">
             <Trans>Explore</Trans>
           </span>
         </Link>
         <Link
           href="/feed"
-          className="flex w-full flex-col items-center justify-center rounded-lg bg-transparent pt-2 text-sm font-medium text-gray-700 dark:text-gray-100 dark:hover:text-gray-100 md:grid"
+          className="flex w-full flex-col items-center justify-center space-y-1 rounded-lg bg-transparent text-sm font-medium text-gray-700 dark:text-gray-100 dark:hover:text-gray-100 md:grid"
         >
           <FeedOutline
             className={clsx('h-4 w-4 opacity-80', {
               'text-indigo-500 opacity-100': isActivePath('/feed')
             })}
           />
-          <span className="text-[9px]">
+          <span className="text-xs">
             <Trans>Feed</Trans>
           </span>
         </Link>

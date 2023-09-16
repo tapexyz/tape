@@ -35,7 +35,7 @@ const ThumbnailImage: FC<Props> = ({ video }) => {
           : ''
       }
       className={clsx(
-        'h-full w-full bg-gray-100 object-center dark:bg-gray-900 md:rounded-xl lg:h-full lg:w-full',
+        'h-full w-full rounded-xl bg-gray-100 object-center dark:bg-gray-900 lg:h-full lg:w-full',
         isBytesVideo ? 'object-contain' : 'object-cover'
       )}
       style={{
