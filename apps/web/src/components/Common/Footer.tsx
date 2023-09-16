@@ -59,7 +59,7 @@ const Footer = () => {
         }}
         target="_blank"
       >
-        X.com
+        x.com
       </Link>
       <Link
         className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"

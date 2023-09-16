@@ -78,7 +78,7 @@ const Header: FC<Props> = ({ className }) => {
   return (
     <div
       className={clsx(
-        'dark:bg-theme sticky left-0 right-0 top-0 z-10 flex w-full items-center bg-white py-2.5',
+        'dark:bg-theme/90 sticky left-0 right-0 top-0 z-10 flex w-full items-center bg-white/90 py-2.5 backdrop-blur-xl',
         className
       )}
     >

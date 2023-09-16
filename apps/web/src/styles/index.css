@@ -79,3 +79,8 @@ input[type='number'] {
 .livepeer-aspect-ratio-container {
   @apply outline-none;
 }
+
+/* RainbowKit font override */
+[data-rk] {
+  --rk-fonts-body: inherit !important;
+}
