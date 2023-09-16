@@ -71,6 +71,9 @@ const NFTCard: FC<Props> = ({ nft }) => {
               className="object-contain"
               alt={nft.metaData.name}
               draggable={false}
+              onError={async ({ currentTarget }) => {
+                currentTarget.src = FALLBACK_COVER_URL
+              }}
             />
           </>
         )}
