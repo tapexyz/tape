@@ -1,6 +1,6 @@
 import Tooltip from '@components/UIElements/Tooltip'
-import { Analytics, getShowFullScreen, TRACK } from '@lenstube/browser'
-import { LENSTUBE_ROADMAP_URL, STATIC_ASSETS } from '@lenstube/constants'
+import { getShowFullScreen } from '@lenstube/browser'
+import { STATIC_ASSETS } from '@lenstube/constants'
 import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'
 import clsx from 'clsx'
@@ -16,7 +16,6 @@ import ChevronRightOutline from './Icons/ChevronRightOutline'
 import ExploreOutline from './Icons/ExploreOutline'
 import FeedOutline from './Icons/FeedOutline'
 import HomeOutline from './Icons/HomeOutline'
-import RoadmapOutline from './Icons/RoadmapOutline'
 import Locale from './Locale'
 import MobileBottomNav from './MobileBottomNav'
 
@@ -42,11 +41,11 @@ const Sidebar = () => {
         <div
           className={clsx(
             'flex flex-col space-y-2',
-            sidebarCollapsed ? 'self-center' : 'w-full px-[18px]'
+            sidebarCollapsed ? 'self-center' : 'w-full px-3'
           )}
           data-testid="sidebar-items"
         >
-          <div className={clsx('py-3', sidebarCollapsed ? 'px-2' : 'px-3.5')}>
+          <div className={clsx('py-3', sidebarCollapsed ? 'px-2' : 'px-3')}>
             <Link
               href="/"
               className="flex items-center pt-0.5 focus:outline-none"
@@ -74,7 +73,7 @@ const Sidebar = () => {
                     : 'hover:bg-gray-50 dark:hover:bg-gray-800',
                   sidebarCollapsed
                     ? 'w-12 justify-center'
-                    : 'w-full space-x-3 px-4'
+                    : 'w-full space-x-3 px-3.5'
                 )}
               >
                 <HomeOutline className="h-5 w-5" />
@@ -99,7 +98,7 @@ const Sidebar = () => {
                     : 'hover:bg-gray-50 dark:hover:bg-gray-800',
                   sidebarCollapsed
                     ? 'w-12 justify-center'
-                    : 'w-full space-x-3 px-4'
+                    : 'w-full space-x-3 px-3.5'
                 )}
               >
                 <FeedOutline className="h-5 w-5 flex-none" />
@@ -124,7 +123,7 @@ const Sidebar = () => {
                     : 'hover:bg-gray-50 dark:hover:bg-gray-800',
                   sidebarCollapsed
                     ? 'w-12 justify-center'
-                    : 'w-full space-x-3 px-4'
+                    : 'w-full space-x-3 px-3.5'
                 )}
               >
                 <BytesOutline className="h-5 w-5" />
@@ -149,7 +148,7 @@ const Sidebar = () => {
                     : 'hover:bg-gray-50 dark:hover:bg-gray-800',
                   sidebarCollapsed
                     ? 'w-12 justify-center'
-                    : 'w-full space-x-3 px-4'
+                    : 'w-full space-x-3 px-3.5'
                 )}
               >
                 <ExploreOutline className="h-5 w-5" />
@@ -169,18 +168,6 @@ const Sidebar = () => {
           )}
         >
           {!sidebarCollapsed && <Footer />}
-          <Link
-            className={clsx(
-              'mt-2 flex h-12 items-center justify-center space-x-2 rounded-full p-3.5 opacity-90 hover:bg-gray-50 hover:opacity-100 focus:outline-none dark:hover:bg-gray-800',
-              sidebarCollapsed ? 'w-12' : 'w-full'
-            )}
-            href={LENSTUBE_ROADMAP_URL}
-            onClick={() => Analytics.track(TRACK.SYSTEM.MORE_MENU.ROADMAP)}
-            target="_blank"
-          >
-            <RoadmapOutline className="h-4 w-4" />
-            {!sidebarCollapsed && <span className="text-sm">Roadmap</span>}
-          </Link>
           <Locale />
           <button
             type="button"

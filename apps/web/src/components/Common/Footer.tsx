@@ -19,6 +19,17 @@ const Footer = () => {
     <div className="grid grid-cols-2 text-sm">
       <Link
         className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
+        href={LENSTUBE_ROADMAP_URL}
+        onClick={() => {
+          setSidebarCollapsed(true)
+          Analytics.track(TRACK.SYSTEM.MORE_MENU.ROADMAP)
+        }}
+        target="_blank"
+      >
+        <Trans>Feedback</Trans>
+      </Link>
+      <Link
+        className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
         href={LENSTUBE_STATUS_PAGE}
         onClick={() => {
           setSidebarCollapsed(true)
@@ -71,17 +82,6 @@ const Footer = () => {
         }}
       >
         <Trans>Thanks</Trans>
-      </Link>
-      <Link
-        className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
-        href={LENSTUBE_ROADMAP_URL}
-        onClick={() => {
-          setSidebarCollapsed(true)
-          Analytics.track(TRACK.SYSTEM.MORE_MENU.ROADMAP)
-        }}
-        target="_blank"
-      >
-        <Trans>Feedback</Trans>
       </Link>
       <Link
         className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
