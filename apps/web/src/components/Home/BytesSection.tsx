@@ -109,15 +109,8 @@ const BytesSection = () => {
                     }
                     alt="thumbnail"
                     draggable={false}
-                    onError={async ({ currentTarget }) => {
+                    onError={({ currentTarget }) => {
                       currentTarget.src = FALLBACK_COVER_URL
-                      // const thumbnail = await generateVideoThumbnail(
-                      //   getPublicationMediaUrl(byte)
-                      // )
-                      // currentTarget.onerror = null
-                      // if (thumbnail?.includes('base64')) {
-                      //   currentTarget.src = thumbnail
-                      // }
                     }}
                   />
                 </div>

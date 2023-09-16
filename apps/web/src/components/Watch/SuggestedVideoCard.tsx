@@ -75,15 +75,8 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
                 style={{ backgroundColor: `${backgroundColor}95` }}
                 alt="thumbnail"
                 draggable={false}
-                onError={async ({ currentTarget }) => {
+                onError={({ currentTarget }) => {
                   currentTarget.src = FALLBACK_COVER_URL
-                  // const thumbnail = await generateVideoThumbnail(
-                  //   getPublicationMediaUrl(video)
-                  // )
-                  // currentTarget.onerror = null
-                  // if (thumbnail?.includes('base64')) {
-                  //   currentTarget.src = thumbnail
-                  // }
                 }}
               />
               {!isSensitiveContent && videoDuration ? (
