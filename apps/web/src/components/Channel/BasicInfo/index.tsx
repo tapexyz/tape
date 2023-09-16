@@ -49,7 +49,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
         style={{
           backgroundImage: `url(${coverImage})`
         }}
-        className="ultrawide:h-[35vh] relative h-44 w-full bg-white bg-cover bg-center bg-no-repeat dark:bg-gray-900 md:h-[20vw]"
+        className="ultrawide:h-[25vh] relative h-44 w-full bg-white bg-cover bg-center bg-no-repeat dark:bg-gray-900 md:h-[20vw]"
       >
         <CoverLinks channel={channel} />
       </div>
@@ -139,7 +139,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
                 <img
                   src={`${STATIC_ASSETS}/images/social/ens.svg`}
                   alt="ens"
-                  className="h-7 w-7"
+                  className="h-6 w-6"
                   draggable={false}
                 />
               </Tooltip>
@@ -149,7 +149,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
                 <img
                   src={`${STATIC_ASSETS}/images/social/sybil.png`}
                   alt="sybil"
-                  className="h-8 w-8"
+                  className="h-7 w-7"
                   draggable={false}
                 />
               </Tooltip>
@@ -159,7 +159,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
                 <img
                   src={`${STATIC_ASSETS}/images/social/poh.png`}
                   alt="poh"
-                  className="h-8 w-8"
+                  className="h-7 w-7"
                   draggable={false}
                 />
               </Tooltip>
@@ -169,7 +169,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
                 <img
                   src={`${STATIC_ASSETS}/images/social/worldcoin.png`}
                   alt="worldcoin"
-                  className="h-8 w-8"
+                  className="h-7 w-7"
                   draggable={false}
                 />
               </Tooltip>
