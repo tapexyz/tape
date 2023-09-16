@@ -57,11 +57,13 @@ const BasicInfo: FC<Props> = ({ channel }) => {
         {misused?.description && (
           <Alert
             variant="danger"
-            className="mx-auto mt-4 max-w-[85rem] space-x-2 bg-white font-medium dark:bg-black"
+            className="mx-auto mt-4 flex max-w-[85rem] flex-wrap gap-2 bg-white font-medium dark:bg-black"
           >
-            <span className="inline-flex items-center space-x-1 rounded-full bg-red-500 px-2">
-              <InfoOutline className="h-4 w-4" />
-              <span>{misused.type}</span>
+            <span className="inline-flex items-center space-x-1 rounded-full bg-red-500 px-3 py-1">
+              <InfoOutline className="h-4 w-4 text-white" />
+              <span className="text-sm font-semibold text-white">
+                {misused.type}
+              </span>
             </span>
             <InterweaveContent content={misused.description} />
           </Alert>
@@ -69,7 +71,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
         <div className="flex space-x-3 py-2 md:items-center md:space-x-5 md:py-5">
           <div className="flex-none">
             <img
-              className="ultrawide:h-32 ultrawide:w-32 h-24 w-24 rounded-full bg-white object-cover dark:bg-gray-900"
+              className="ultrawide:h-32 ultrawide:w-32 h-24 w-24 rounded-xl bg-white object-cover dark:bg-gray-900"
               src={getProfilePicture(channel, 'AVATAR_LG')}
               draggable={false}
               alt={channel?.handle}

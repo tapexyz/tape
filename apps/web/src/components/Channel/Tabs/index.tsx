@@ -14,12 +14,12 @@ import type { FC } from 'react'
 import React from 'react'
 
 import VideoOutline from '../../Common/Icons/VideoOutline'
-import About from './About'
 import ChannelBytes from './ChannelBytes'
 import ChannelVideos from './ChannelVideos'
 import CollectedNFTs from './CollectedNFTs'
 import MirroredVideos from './MirroredVideos'
 import OtherChannels from './OtherChannels'
+import Others from './Others'
 
 type Props = {
   channel: Profile
@@ -38,7 +38,7 @@ const Tabs: FC<Props> = ({ channel }) => {
         return 3
       case 'channels':
         return 4
-      case 'about':
+      case 'others':
         return 5
       default:
         return 0
@@ -57,7 +57,7 @@ const Tabs: FC<Props> = ({ channel }) => {
   return (
     <Tab.Group
       as="div"
-      className="container mx-auto mt-4 w-full max-w-[85rem] p-2 md:mt-6 2xl:px-0"
+      className="container mx-auto mt-4 w-full max-w-[85rem] p-2 md:mt-5 2xl:px-0"
       defaultIndex={getDefaultTab()}
     >
       <Tab.List className="no-scrollbar flex space-x-2 overflow-x-auto">
@@ -161,7 +161,7 @@ const Tabs: FC<Props> = ({ channel }) => {
           }}
           className={({ selected }) =>
             clsx(
-              'flex items-center space-x-2 whitespace-nowrap rounded-full border border-gray-200 px-4 py-2 text-xs font-medium uppercase transition duration-300 ease-in-out focus:outline-none dark:border-gray-800',
+              'rounded-full border border-gray-200 p-2 text-xs font-medium uppercase transition duration-300 ease-in-out focus:outline-none dark:border-gray-800',
               selected
                 ? 'bg-gray-200 dark:bg-gray-700'
                 : 'hover:bg-gray-200 hover:dark:bg-gray-800'
@@ -169,9 +169,6 @@ const Tabs: FC<Props> = ({ channel }) => {
           }
         >
           <InfoOutline className="h-4 w-4" />
-          <span>
-            <Trans>About</Trans>
-          </span>
         </Tab>
       </Tab.List>
       <Tab.Panels className="py-4 md:py-5">
@@ -191,7 +188,7 @@ const Tabs: FC<Props> = ({ channel }) => {
           <OtherChannels channel={channel} />
         </Tab.Panel>
         <Tab.Panel className="focus:outline-none">
-          <About channel={channel} />
+          <Others channel={channel} />
         </Tab.Panel>
       </Tab.Panels>
     </Tab.Group>
