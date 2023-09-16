@@ -17,7 +17,7 @@ import {
 import { useApolloClient } from '@lenstube/lens/apollo'
 import type { QueuedVideoType } from '@lenstube/lens/custom-types'
 import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
-import useChannelStore from '@lib/store/channel'
+import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
 import { t } from '@lingui/macro'
 import clsx from 'clsx'
@@ -31,7 +31,9 @@ type Props = {
 }
 
 const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
+  )
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
   const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
 
@@ -144,8 +146,8 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
         <div className="flex items-start space-x-2.5">
           <img
             className="h-8 w-8 rounded-full"
-            src={getProfilePicture(selectedChannel as Profile)}
-            alt={selectedChannel?.handle}
+            src={getProfilePicture(selectedSimpleProfile as Profile)}
+            alt={selectedSimpleProfile?.handle}
             draggable={false}
           />
           <div className="grid flex-1">
@@ -166,8 +168,8 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
               </div>
             </div>
             <span className="flex w-fit items-center space-x-0.5 text-[13px] opacity-70">
-              <span>{trimLensHandle(selectedChannel?.handle)}</span>
-              <Badge id={selectedChannel?.id} size="xs" />
+              <span>{trimLensHandle(selectedSimpleProfile?.handle)}</span>
+              <Badge id={selectedSimpleProfile?.id} size="xs" />
             </span>
           </div>
         </div>

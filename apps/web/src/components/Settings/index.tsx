@@ -3,7 +3,7 @@ import SettingsShimmer from '@components/Shimmers/SettingsShimmer'
 import { Analytics, TRACK } from '@lenstube/browser'
 import type { MediaSet, Profile } from '@lenstube/lens'
 import { useProfileQuery } from '@lenstube/lens'
-import useChannelStore from '@lib/store/channel'
+import useAuthPersistStore from '@lib/store/auth'
 import { t } from '@lingui/macro'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
@@ -25,7 +25,9 @@ export const SETTINGS = '/settings'
 
 const Settings = () => {
   const router = useRouter()
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
+  )
 
   useEffect(() => {
     Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.SETTINGS })
@@ -33,9 +35,9 @@ const Settings = () => {
 
   const { data, loading, error } = useProfileQuery({
     variables: {
-      request: { handle: selectedChannel?.handle }
+      request: { handle: selectedSimpleProfile?.handle }
     },
-    skip: !selectedChannel?.handle
+    skip: !selectedSimpleProfile?.handle
   })
 
   if (error) {
@@ -45,7 +47,7 @@ const Settings = () => {
     return <SettingsShimmer />
   }
 
-  if (!data?.profile || (!selectedChannel && router.isReady)) {
+  if (!data?.profile || (!selectedSimpleProfile && router.isReady)) {
     return <Custom404 />
   }
 

@@ -9,7 +9,7 @@ import {
   sanitizeDStorageUrl
 } from '@lenstube/generic'
 import useAppStore from '@lib/store'
-import useChannelStore from '@lib/store/channel'
+import useAuthPersistStore from '@lib/store/auth'
 import { t, Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import React, { useEffect, useRef } from 'react'
@@ -19,7 +19,9 @@ import ChooseThumbnail from './ChooseThumbnail'
 import UploadMethod from './UploadMethod'
 
 const Video = () => {
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
+  )
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
   const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
   const [copy] = useCopyToClipboard()
@@ -99,7 +101,7 @@ const Video = () => {
       </Tooltip>
       {getIsFeatureEnabled(
         FEATURE_FLAGS.POST_WITH_SOURCE_URL,
-        selectedChannel?.id
+        selectedSimpleProfile?.id
       ) && (
         <div className="mt-4">
           <Input

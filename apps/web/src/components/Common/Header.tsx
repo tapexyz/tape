@@ -42,7 +42,6 @@ const Header: FC<Props> = ({ className }) => {
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
   const latestNotificationId = usePersistStore(
     (state) => state.latestNotificationId
   )
@@ -56,7 +55,7 @@ const Header: FC<Props> = ({ className }) => {
   useLatestNotificationIdQuery({
     variables: {
       request: {
-        profileId: selectedChannel?.id,
+        profileId: selectedSimpleProfile?.id,
         sources: IS_MAINNET
           ? [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID]
           : undefined,
@@ -65,9 +64,9 @@ const Header: FC<Props> = ({ className }) => {
       }
     },
     fetchPolicy: 'no-cache',
-    skip: !selectedChannel?.id,
+    skip: !selectedSimpleProfile?.id,
     onCompleted: (notificationsData) => {
-      if (selectedChannel && notificationsData) {
+      if (selectedSimpleProfile && notificationsData) {
         const id = notificationsData?.notifications?.items[0].notificationId
         setHasNewNotification(latestNotificationId !== id)
         setLatestNotificationId(id)

@@ -34,7 +34,6 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
     (state) => state.selectedSimpleProfile
   )
   const queuedComments = usePersistStore((state) => state.queuedComments)
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
   const selectedCommentFilter = useChannelStore(
     (state) => state.selectedCommentFilter
   )
@@ -67,10 +66,10 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
   }
   const variables = {
     request,
-    reactionRequest: selectedChannel
-      ? { profileId: selectedChannel?.id }
+    reactionRequest: selectedSimpleProfile
+      ? { profileId: selectedSimpleProfile?.id }
       : null,
-    channelId: selectedChannel?.id ?? null
+    channelId: selectedSimpleProfile?.id ?? null
   }
 
   const { data, loading, error, fetchMore } = useCommentsQuery({

@@ -15,7 +15,7 @@ import {
   useExploreQuery
 } from '@lenstube/lens'
 import { Loader } from '@lenstube/ui'
-import useChannelStore from '@lib/store/channel'
+import useAuthPersistStore from '@lib/store/auth'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useEffect } from 'react'
@@ -40,12 +40,14 @@ const SuggestedVideos: FC = () => {
     query: { id }
   } = useRouter()
 
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
+  )
 
   const { data, loading, error, fetchMore, refetch } = useExploreQuery({
     variables: {
       request,
-      channelId: selectedChannel?.id ?? null
+      channelId: selectedSimpleProfile?.id ?? null
     }
   })
 
@@ -65,7 +67,7 @@ const SuggestedVideos: FC = () => {
             ...request,
             cursor: pageInfo?.next
           },
-          channelId: selectedChannel?.id ?? null
+          channelId: selectedSimpleProfile?.id ?? null
         }
       })
     }

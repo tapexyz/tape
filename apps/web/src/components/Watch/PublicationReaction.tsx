@@ -9,7 +9,6 @@ import {
   useRemoveReactionMutation
 } from '@lenstube/lens'
 import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 import clsx from 'clsx'
@@ -37,7 +36,6 @@ const PublicationReaction: FC<Props> = ({
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
 
   const [reaction, setReaction] = useState({
     isLiked: publication.reaction === 'UPVOTE',
@@ -70,7 +68,7 @@ const PublicationReaction: FC<Props> = ({
       removeReaction({
         variables: {
           request: {
-            profileId: selectedChannel?.id,
+            profileId: selectedSimpleProfile?.id,
             reaction: ReactionTypes.Upvote,
             publicationId: publication.id
           }
@@ -80,7 +78,7 @@ const PublicationReaction: FC<Props> = ({
       addReaction({
         variables: {
           request: {
-            profileId: selectedChannel?.id,
+            profileId: selectedSimpleProfile?.id,
             reaction: ReactionTypes.Upvote,
             publicationId: publication.id
           }
@@ -103,7 +101,7 @@ const PublicationReaction: FC<Props> = ({
       removeReaction({
         variables: {
           request: {
-            profileId: selectedChannel?.id,
+            profileId: selectedSimpleProfile?.id,
             reaction: ReactionTypes.Downvote,
             publicationId: publication.id
           }
@@ -113,7 +111,7 @@ const PublicationReaction: FC<Props> = ({
       addReaction({
         variables: {
           request: {
-            profileId: selectedChannel?.id,
+            profileId: selectedSimpleProfile?.id,
             reaction: ReactionTypes.Downvote,
             publicationId: publication.id
           }

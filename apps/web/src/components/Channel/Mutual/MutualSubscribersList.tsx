@@ -5,7 +5,7 @@ import { getProfilePicture, trimLensHandle } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import { useMutualFollowersQuery } from '@lenstube/lens'
 import { Loader } from '@lenstube/ui'
-import useChannelStore from '@lib/store/channel'
+import useAuthPersistStore from '@lib/store/auth'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
@@ -16,10 +16,12 @@ type Props = {
 }
 
 const MutualSubscribersList: FC<Props> = ({ viewingChannelId }) => {
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
+  )
   const request = {
     viewingProfileId: viewingChannelId,
-    yourProfileId: selectedChannel?.id,
+    yourProfileId: selectedSimpleProfile?.id,
     limit: 30
   }
 

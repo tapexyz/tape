@@ -14,7 +14,7 @@ import {
 } from '@lenstube/generic'
 import type { Profile, Publication } from '@lenstube/lens'
 import { useCommentsQuery } from '@lenstube/lens'
-import useChannelStore from '@lib/store/channel'
+import useAuthPersistStore from '@lib/store/auth'
 import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import Link from 'next/link'
@@ -77,8 +77,9 @@ type Props = {
 
 const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
   const [showReport, setShowReport] = useState(false)
-
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
+  )
 
   const request = {
     limit: 10,
@@ -87,10 +88,10 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
   }
   const variables = {
     request,
-    reactionRequest: selectedChannel
-      ? { profileId: selectedChannel?.id }
+    reactionRequest: selectedSimpleProfile
+      ? { profileId: selectedSimpleProfile?.id }
       : null,
-    channelId: selectedChannel?.id ?? null
+    channelId: selectedSimpleProfile?.id ?? null
   }
 
   const { data, loading, error, fetchMore } = useCommentsQuery({

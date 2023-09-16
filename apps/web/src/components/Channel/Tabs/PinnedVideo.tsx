@@ -13,7 +13,7 @@ import {
 import type { Publication } from '@lenstube/lens'
 import { usePublicationDetailsQuery } from '@lenstube/lens'
 import VideoPlayer from '@lenstube/ui/VideoPlayer'
-import useChannelStore from '@lib/store/channel'
+import useAuthPersistStore from '@lib/store/auth'
 import { Trans } from '@lingui/macro'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -30,8 +30,9 @@ const PinnedVideo: FC<Props> = ({ id }) => {
     },
     skip: !id
   })
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
-
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
+  )
   const publication = data?.publication as Publication
   const pinnedPublication =
     publication?.__typename === 'Mirror' ? publication.mirrorOf : publication
@@ -58,7 +59,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
     <div className="mb-6 mt-2 grid grid-cols-3 overflow-hidden border-b border-gray-300 pb-6 dark:border-gray-700 md:space-x-5">
       <div className="overflow-hidden md:rounded-xl">
         <VideoPlayer
-          address={selectedChannel?.ownedBy}
+          address={selectedSimpleProfile?.ownedBy}
           permanentUrl={getPublicationRawMediaUrl(pinnedPublication)}
           hlsUrl={getPublicationHlsUrl(pinnedPublication)}
           posterUrl={thumbnailUrl}

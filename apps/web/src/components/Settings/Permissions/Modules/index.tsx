@@ -11,7 +11,7 @@ import {
 } from '@lenstube/lens'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import { Loader } from '@lenstube/ui'
-import useChannelStore from '@lib/store/channel'
+import useAuthPersistStore from '@lib/store/auth'
 import { t, Trans } from '@lingui/macro'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -29,7 +29,9 @@ const collectModules = [
 ]
 
 const ModulePermissions = () => {
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
+  )
   const [currency, setCurrency] = useState(WMATIC_TOKEN_ADDRESS)
   const [loadingModule, setLoadingModule] = useState('')
 
@@ -63,7 +65,7 @@ const ModulePermissions = () => {
         referenceModules: [ReferenceModules.FollowerOnlyReferenceModule]
       }
     },
-    skip: !selectedChannel?.id
+    skip: !selectedSimpleProfile?.id
   })
   useWaitForTransaction({
     hash: txData?.hash,

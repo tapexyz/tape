@@ -3,7 +3,7 @@ import {
   MIXPANEL_API_HOST,
   MIXPANEL_TOKEN
 } from '@lenstube/constants'
-import useChannelStore from '@lib/store/channel'
+import useAuthPersistStore from '@lib/store/auth'
 import mixpanel from 'mixpanel-browser'
 import type { FC } from 'react'
 import { useEffect } from 'react'
@@ -16,13 +16,15 @@ if (IS_PRODUCTION) {
 }
 
 const TelemetryProvider: FC = () => {
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
+  )
 
   useEffect(() => {
-    if (IS_PRODUCTION && selectedChannel?.id) {
-      mixpanel.identify(selectedChannel?.id)
+    if (IS_PRODUCTION && selectedSimpleProfile?.id) {
+      mixpanel.identify(selectedSimpleProfile?.id)
       mixpanel.people.set({
-        $name: selectedChannel?.handle,
+        $name: selectedSimpleProfile?.handle,
         $last_active: new Date()
       })
       mixpanel.people.set_once({
@@ -30,7 +32,7 @@ const TelemetryProvider: FC = () => {
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedChannel?.id])
+  }, [selectedSimpleProfile?.id])
 
   return null
 }

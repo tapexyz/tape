@@ -16,7 +16,7 @@ import {
   usePublicationDetailsLazyQuery
 } from '@lenstube/lens'
 import { Loader } from '@lenstube/ui'
-import useChannelStore from '@lib/store/channel'
+import useAuthPersistStore from '@lib/store/auth'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect, useRef, useState } from 'react'
@@ -37,7 +37,9 @@ const Bytes = () => {
   const router = useRouter()
   const bytesContainer = useRef<HTMLDivElement>(null)
   const [currentViewingId, setCurrentViewingId] = useState('')
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
+  )
 
   const [fetchPublication, { data: singleByte, loading: singleByteLoading }] =
     usePublicationDetailsLazyQuery()
@@ -46,10 +48,10 @@ const Bytes = () => {
     useExploreLazyQuery({
       variables: {
         request,
-        reactionRequest: selectedChannel
-          ? { profileId: selectedChannel?.id }
+        reactionRequest: selectedSimpleProfile
+          ? { profileId: selectedSimpleProfile?.id }
           : null,
-        channelId: selectedChannel?.id ?? null
+        channelId: selectedSimpleProfile?.id ?? null
       },
       onCompleted: ({ explorePublications }) => {
         const items = explorePublications?.items as Publication[]
@@ -73,10 +75,10 @@ const Bytes = () => {
     await fetchPublication({
       variables: {
         request: { publicationId },
-        reactionRequest: selectedChannel
-          ? { profileId: selectedChannel?.id }
+        reactionRequest: selectedSimpleProfile
+          ? { profileId: selectedSimpleProfile?.id }
           : null,
-        channelId: selectedChannel?.id ?? null
+        channelId: selectedSimpleProfile?.id ?? null
       },
       onCompleted: () => fetchAllBytes(),
       fetchPolicy: 'network-only'

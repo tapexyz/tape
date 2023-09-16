@@ -10,20 +10,22 @@ import {
 } from '@lenstube/lens'
 import { Loader } from '@lenstube/ui'
 import useAppStore from '@lib/store'
-import useChannelStore from '@lib/store/channel'
+import useAuthPersistStore from '@lib/store/auth'
 import { t } from '@lingui/macro'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 import Custom500 from 'src/pages/500'
 
 const Subscriptions = () => {
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
+  )
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
 
   const request = {
     limit: 50,
     feedEventItemTypes: [FeedEventItemType.Post],
-    profileId: selectedChannel?.id,
+    profileId: selectedSimpleProfile?.id,
     metadata: {
       tags:
         activeTagFilter !== 'all' ? { oneOf: [activeTagFilter] } : undefined,
@@ -35,7 +37,7 @@ const Subscriptions = () => {
     variables: {
       request
     },
-    skip: !selectedChannel?.id
+    skip: !selectedSimpleProfile?.id
   })
 
   const videos = data?.feed?.items as FeedItem[]

@@ -27,7 +27,6 @@ import {
 import type { LenstubeCollectModule } from '@lenstube/lens/custom-types'
 import { Loader } from '@lenstube/ui'
 import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
 import dayjs from 'dayjs'
 import Link from 'next/link'
@@ -57,7 +56,6 @@ const CollectModal: FC<Props> = ({
   collectModule,
   fetchingCollectModule
 }) => {
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
@@ -106,7 +104,7 @@ const CollectModal: FC<Props> = ({
   })
 
   const { data: balanceData, isLoading: balanceLoading } = useBalance({
-    address: selectedChannel?.ownedBy,
+    address: selectedSimpleProfile?.ownedBy,
     token: assetAddress,
     formatUnits: assetDecimals,
     watch: Boolean(amount),

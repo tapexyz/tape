@@ -4,7 +4,7 @@ import { Analytics, TRACK } from '@lenstube/browser'
 import { ADMIN_IDS, LENSTUBE_APP_ID } from '@lenstube/constants'
 import type { GlobalProtocolStats } from '@lenstube/lens'
 import { useGlobalProtocolStatsQuery } from '@lenstube/lens'
-import useChannelStore from '@lib/store/channel'
+import useAuthPersistStore from '@lib/store/auth'
 import { t } from '@lingui/macro'
 import React, { useEffect } from 'react'
 import Custom404 from 'src/pages/404'
@@ -14,7 +14,9 @@ import Recents from './Recents'
 import StatCard from './StatCard'
 
 const Mod = () => {
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
+  )
 
   useEffect(() => {
     Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.MOD })
@@ -28,7 +30,7 @@ const Mod = () => {
     }
   })
 
-  if (!ADMIN_IDS.includes(selectedChannel?.id)) {
+  if (!ADMIN_IDS.includes(selectedSimpleProfile?.id)) {
     return <Custom404 />
   }
 

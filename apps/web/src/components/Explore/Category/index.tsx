@@ -19,7 +19,7 @@ import {
   useExploreQuery
 } from '@lenstube/lens'
 import { Loader } from '@lenstube/ui'
-import useChannelStore from '@lib/store/channel'
+import useAuthPersistStore from '@lib/store/auth'
 import { t } from '@lingui/macro'
 import { useRouter } from 'next/router'
 import React from 'react'
@@ -29,7 +29,9 @@ import Custom404 from 'src/pages/404'
 const ExploreCategory = () => {
   const { query } = useRouter()
   const categoryName = query.category as string
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
+  )
 
   const request = {
     publicationTypes: [PublicationTypes.Post],
@@ -48,7 +50,7 @@ const ExploreCategory = () => {
   const { data, loading, error, fetchMore } = useExploreQuery({
     variables: {
       request,
-      channelId: selectedChannel?.id ?? null
+      channelId: selectedSimpleProfile?.id ?? null
     },
     skip: !query.category
   })
@@ -65,7 +67,7 @@ const ExploreCategory = () => {
             cursor: pageInfo?.next,
             ...request
           },
-          channelId: selectedChannel?.id ?? null
+          channelId: selectedSimpleProfile?.id ?? null
         }
       })
     }

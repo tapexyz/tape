@@ -19,7 +19,6 @@ import {
 } from '@lenstube/lens'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
 import { Trans } from '@lingui/macro'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 import type { FC } from 'react'
@@ -37,7 +36,6 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
   const { openConnectModal } = useConnectModal()
 
   const onError = (error: CustomErrorWithData) => {
@@ -116,7 +114,9 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
                 channel?.followModule?.__typename ===
                 'ProfileFollowModuleSettings'
                   ? {
-                      profileFollowModule: { profileId: selectedChannel?.id }
+                      profileFollowModule: {
+                        profileId: selectedSimpleProfile?.id
+                      }
                     }
                   : null
             }

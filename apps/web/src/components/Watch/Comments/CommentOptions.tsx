@@ -6,7 +6,7 @@ import DropMenu from '@components/UIElements/DropMenu'
 import { Analytics, TRACK } from '@lenstube/browser'
 import type { Publication } from '@lenstube/lens'
 import { useHidePublicationMutation } from '@lenstube/lens'
-import useChannelStore from '@lib/store/channel'
+import useAuthPersistStore from '@lib/store/auth'
 import { t, Trans } from '@lingui/macro'
 import type { Dispatch, FC } from 'react'
 import React, { useState } from 'react'
@@ -19,7 +19,9 @@ type Props = {
 
 const CommentOptions: FC<Props> = ({ comment, setShowReport }) => {
   const [showConfirm, setShowConfirm] = useState(false)
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
+  )
 
   const [hideComment] = useHidePublicationMutation({
     update(cache) {
@@ -58,7 +60,7 @@ const CommentOptions: FC<Props> = ({ comment, setShowReport }) => {
       >
         <div className="bg-secondary mt-0.5 w-36 overflow-hidden rounded-xl border border-gray-200 p-1 shadow dark:border-gray-800">
           <div className="flex flex-col rounded-lg text-sm transition duration-150 ease-in-out">
-            {selectedChannel?.id === comment?.profile?.id && (
+            {selectedSimpleProfile?.id === comment?.profile?.id && (
               <button
                 type="button"
                 onClick={() => setShowConfirm(true)}

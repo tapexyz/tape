@@ -23,7 +23,7 @@ import {
 } from '@lenstube/lens'
 import { Loader } from '@lenstube/ui'
 import useAppStore from '@lib/store'
-import useChannelStore from '@lib/store/channel'
+import useAuthPersistStore from '@lib/store/auth'
 import { t, Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import React, { useState } from 'react'
@@ -38,7 +38,9 @@ const initialCriteria = {
 const ExploreFeed = () => {
   const [activeCriteria, setActiveCriteria] = useState(initialCriteria)
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
+  )
 
   const getCriteria = () => {
     if (activeCriteria.trending) {
@@ -72,7 +74,7 @@ const ExploreFeed = () => {
   const { data, loading, error, fetchMore } = useExploreQuery({
     variables: {
       request,
-      channelId: selectedChannel?.id ?? null
+      channelId: selectedSimpleProfile?.id ?? null
     }
   })
 
@@ -88,7 +90,7 @@ const ExploreFeed = () => {
             ...request,
             cursor: pageInfo?.next
           },
-          channelId: selectedChannel?.id ?? null
+          channelId: selectedSimpleProfile?.id ?? null
         }
       })
     }
