@@ -1,9 +1,8 @@
-import CommentedVideoCard from '@components/Channel/CommentedVideoCard'
 import MirroredVideoCard from '@components/Channel/MirroredVideoCard'
 import VideoCard from '@components/Common/VideoCard'
 import QueuedVideo from '@components/Common/VideoCard/QueuedVideo'
 import { trimLensHandle } from '@lenstube/generic'
-import type { Comment, Mirror, Publication } from '@lenstube/lens'
+import type { Mirror, Publication } from '@lenstube/lens'
 import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
 import type { FC } from 'react'
@@ -18,7 +17,6 @@ const Timeline: FC<Props> = ({ videos, videoType = 'Post' }) => {
   const queuedVideos = usePersistStore((state) => state.queuedVideos)
   const selectedChannel = useChannelStore((state) => state.selectedChannel)
 
-  const isComment = videoType === 'Comment'
   const isMirror = videoType === 'Mirror'
   const isChannelPage =
     location.pathname === `/channel/${trimLensHandle(selectedChannel?.handle)}`
@@ -37,12 +35,7 @@ const Timeline: FC<Props> = ({ videos, videoType = 'Post' }) => {
         ))}
       {videos?.map((video: Publication, i) => {
         const isPub = video.__typename === videoType
-        return isPub && isComment ? (
-          <CommentedVideoCard
-            key={`${video?.id}_${i}`}
-            video={video as Comment}
-          />
-        ) : isPub && isMirror ? (
+        return isPub && isMirror ? (
           <MirroredVideoCard
             key={`${video?.id}_${i}`}
             video={video as Mirror}
