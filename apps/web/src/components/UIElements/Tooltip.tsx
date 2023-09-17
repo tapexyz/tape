@@ -1,5 +1,5 @@
 import 'tippy.js/themes/light.css'
-import 'tippy.js/themes/material.css'
+import 'tippy.js/themes/translucent.css'
 
 import Tippy from '@tippyjs/react'
 import clsx from 'clsx'
@@ -28,7 +28,7 @@ const Tooltip = ({
       placement={placement}
       content={content}
       arrow={false}
-      theme={resolvedTheme === 'dark' ? 'material' : 'light'}
+      theme={resolvedTheme === 'dark' ? 'translucent' : 'light'}
       className={clsx('hidden !rounded-lg !font-normal', {
         'sm:block': visible
       })}
