@@ -174,7 +174,7 @@ msgstr "Canales"
 msgid "Claim Handle"
 msgstr "Reclamar Manejo"
 
-#: src/components/Bytes/ByteActions.tsx:73
+#: src/components/Bytes/ByteActions.tsx:75
 #: src/components/Bytes/ByteVideo.tsx:165
 msgid "Collect"
 msgstr "Recoger"
@@ -364,7 +364,7 @@ msgstr "Desactivar"
 msgid "disabled"
 msgstr "deshabilitado"
 
-#: src/components/Watch/PublicationReaction.tsx:197
+#: src/components/Watch/PublicationReaction.tsx:195
 msgid "Dislike"
 msgstr "Dislike"
 
@@ -574,7 +574,7 @@ msgstr "lente reclamando sitio"
 msgid "Lenstube Stats"
 msgstr "Estadísticas de Lenstube"
 
-#: src/components/Watch/PublicationReaction.tsx:163
+#: src/components/Watch/PublicationReaction.tsx:161
 msgid "Like"
 msgstr "Me gusta"
 
@@ -637,7 +637,7 @@ msgstr "Menciones"
 msgid "mirror"
 msgstr "mirror"
 
-#: src/components/Bytes/ByteActions.tsx:64
+#: src/components/Bytes/ByteActions.tsx:65
 msgid "Mirror"
 msgstr "Mirror"
 
@@ -945,7 +945,6 @@ msgstr "Responder"
 #: src/components/Common/VideoCard/VideoOptions.tsx:398
 #: src/components/ReportPublication/index.tsx:158
 #: src/components/Watch/Comments/CommentOptions.tsx:82
-#: src/components/Watch/VideoActions.tsx:69
 msgid "Report"
 msgstr "Reporte"
 
@@ -1019,7 +1018,6 @@ msgid "Set Preference"
 msgstr "Establecer preferencia"
 
 #: src/components/Common/VideoCard/VideoOptions.tsx:385
-#: src/components/Watch/VideoActions.tsx:56
 msgid "Share"
 msgstr "Compartir"
 
@@ -1120,7 +1118,7 @@ msgstr "Suscriptor"
 #: src/components/Channel/BasicInfo/index.tsx:113
 #: src/components/Channel/Tabs/OtherChannelCard.tsx:40
 #: src/components/UIElements/ChannelSuggestions.tsx:39
-#: src/components/Watch/AboutChannel.tsx:67
+#: src/components/Watch/AboutChannel.tsx:69
 msgid "subscribers"
 msgstr "suscriptores"
 
@@ -1185,6 +1183,7 @@ msgstr "Términos y Condiciones"
 
 #: src/components/Common/Footer.tsx:84
 #: src/components/Thanks/index.tsx:15
+#: src/components/Watch/VideoActions.tsx:50
 msgid "Thanks"
 msgstr "Gracias"
 
@@ -1221,7 +1220,6 @@ msgid "Threat Individual"
 msgstr "Amenaza Individual"
 
 #: src/components/Watch/TipModal.tsx:417
-#: src/components/Watch/VideoActions.tsx:48
 msgid "Tip"
 msgstr "Tip"
 

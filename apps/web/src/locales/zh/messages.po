@@ -174,7 +174,7 @@ msgstr "频道"
 msgid "Claim Handle"
 msgstr "索赔处理"
 
-#: src/components/Bytes/ByteActions.tsx:73
+#: src/components/Bytes/ByteActions.tsx:75
 #: src/components/Bytes/ByteVideo.tsx:165
 msgid "Collect"
 msgstr "收集"
@@ -364,7 +364,7 @@ msgstr "禁用"
 msgid "disabled"
 msgstr "已禁用"
 
-#: src/components/Watch/PublicationReaction.tsx:197
+#: src/components/Watch/PublicationReaction.tsx:195
 msgid "Dislike"
 msgstr "Dislike"
 
@@ -574,7 +574,7 @@ msgstr "镜头索取站点"
 msgid "Lenstube Stats"
 msgstr "Lenstube统计"
 
-#: src/components/Watch/PublicationReaction.tsx:163
+#: src/components/Watch/PublicationReaction.tsx:161
 msgid "Like"
 msgstr "赞"
 
@@ -637,7 +637,7 @@ msgstr "提及内容"
 msgid "mirror"
 msgstr "镜像"
 
-#: src/components/Bytes/ByteActions.tsx:64
+#: src/components/Bytes/ByteActions.tsx:65
 msgid "Mirror"
 msgstr "镜像"
 
@@ -945,7 +945,6 @@ msgstr "答复"
 #: src/components/Common/VideoCard/VideoOptions.tsx:398
 #: src/components/ReportPublication/index.tsx:158
 #: src/components/Watch/Comments/CommentOptions.tsx:82
-#: src/components/Watch/VideoActions.tsx:69
 msgid "Report"
 msgstr "报告"
 
@@ -1019,7 +1018,6 @@ msgid "Set Preference"
 msgstr "设置首选项"
 
 #: src/components/Common/VideoCard/VideoOptions.tsx:385
-#: src/components/Watch/VideoActions.tsx:56
 msgid "Share"
 msgstr "分享"
 
@@ -1120,7 +1118,7 @@ msgstr "订阅者"
 #: src/components/Channel/BasicInfo/index.tsx:113
 #: src/components/Channel/Tabs/OtherChannelCard.tsx:40
 #: src/components/UIElements/ChannelSuggestions.tsx:39
-#: src/components/Watch/AboutChannel.tsx:67
+#: src/components/Watch/AboutChannel.tsx:69
 msgid "subscribers"
 msgstr "订阅者"
 
@@ -1185,6 +1183,7 @@ msgstr "条款和条件"
 
 #: src/components/Common/Footer.tsx:84
 #: src/components/Thanks/index.tsx:15
+#: src/components/Watch/VideoActions.tsx:50
 msgid "Thanks"
 msgstr "谢谢！"
 
@@ -1221,7 +1220,6 @@ msgid "Threat Individual"
 msgstr "个别威胁"
 
 #: src/components/Watch/TipModal.tsx:417
-#: src/components/Watch/VideoActions.tsx:48
 msgid "Tip"
 msgstr "Tip"
 
