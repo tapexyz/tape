@@ -54,7 +54,6 @@ type Props = {
 const PinnedVideo: FC<Props> = ({ id }) => {
   const { openConnectModal } = useConnectModal()
   const activeChannel = useChannelStore((state) => state.activeChannel)
-  console.log('🚀 ~ file: PinnedVideo.tsx:57 ~ activeChannel:', activeChannel)
 
   const { data, error, loading } = usePublicationDetailsQuery({
     variables: {

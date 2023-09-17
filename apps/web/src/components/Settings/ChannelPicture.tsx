@@ -14,6 +14,7 @@ import {
 import type {
   CreateSetProfileImageUriBroadcastItemResult,
   Profile,
+  ProfileMedia,
   UpdateProfileImageRequest
 } from '@lenstube/lens'
 import {
@@ -23,9 +24,11 @@ import {
 } from '@lenstube/lens'
 import type {
   CustomErrorWithData,
-  IPFSUploadResult
+  IPFSUploadResult,
+  SimpleProfile
 } from '@lenstube/lens/custom-types'
 import { Loader } from '@lenstube/ui'
+import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t } from '@lingui/macro'
 import clsx from 'clsx'
@@ -43,6 +46,12 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   const [loading, setLoading] = useState(false)
   const activeChannel = useChannelStore((state) => state.activeChannel)
   const setActiveChannel = useChannelStore((state) => state.setActiveChannel)
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
+  )
+  const setSelectedSimpleProfile = useAuthPersistStore(
+    (state) => state.setSelectedSimpleProfile
+  )
   const userSigNonce = useChannelStore((state) => state.userSigNonce)
   const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
 
@@ -62,13 +71,18 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     }
     setLoading(false)
     if (activeChannel && selectedPfp) {
+      const picture: ProfileMedia = {
+        original: { url: selectedPfp },
+        onChain: { url: selectedPfp },
+        __typename: 'MediaSet'
+      }
       setActiveChannel({
         ...activeChannel,
-        picture: {
-          original: { url: selectedPfp },
-          onChain: { url: selectedPfp },
-          __typename: 'MediaSet'
-        }
+        picture
+      })
+      setSelectedSimpleProfile({
+        ...(selectedSimpleProfile as SimpleProfile),
+        picture
       })
     }
     toast.success(t`Channel image updated`)

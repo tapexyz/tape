@@ -85,6 +85,7 @@ const Layout: FC<Props> = ({ children }) => {
     },
     onError: () => {
       setSelectedSimpleProfile(null)
+      setActiveChannel(null)
     }
   })
 
