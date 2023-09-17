@@ -58,9 +58,7 @@ const Login = () => {
   })
   const [authenticate, { error: errorAuthenticate }] = useAuthenticateMutation()
   const [getAllSimpleProfiles, { error: errorProfiles }] =
-    useSimpleProfilesLazyQuery({
-      fetchPolicy: 'no-cache'
-    })
+    useSimpleProfilesLazyQuery()
 
   useEffect(() => {
     if (
@@ -113,7 +111,8 @@ const Login = () => {
       const { data: profilesData } = await getAllSimpleProfiles({
         variables: {
           request: { ownedBy: [address] }
-        }
+        },
+        fetchPolicy: 'no-cache'
       })
       if (
         !profilesData?.profiles ||
