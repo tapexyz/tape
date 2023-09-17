@@ -26,6 +26,7 @@ import {
   imageCdn,
   sanitizeDStorageUrl,
   trimify,
+  trimLensHandle,
   uploadToAr
 } from '@lenstube/generic'
 import type {
@@ -330,12 +331,16 @@ const BasicInfo = ({ channel }: Props) => {
         </div>
         <div className="flex items-center space-x-2">
           <span>
-            {LENSTUBE_WEBSITE_URL}/channel/{channel.handle}
+            {LENSTUBE_WEBSITE_URL}/channel/{trimLensHandle(channel.handle)}
           </span>
           <button
             className="hover:opacity-60 focus:outline-none"
             onClick={() =>
-              onCopyChannelUrl(`${LENSTUBE_WEBSITE_URL}/${channel.handle}`)
+              onCopyChannelUrl(
+                `${LENSTUBE_WEBSITE_URL}/channel/${trimLensHandle(
+                  channel.handle
+                )}`
+              )
             }
             type="button"
           >

@@ -50,7 +50,7 @@ msgstr "所有的"
 msgid "All Notifications"
 msgstr "所有通知"
 
-#: src/components/Common/UserMenu.tsx:322
+#: src/components/Common/UserMenu.tsx:326
 msgid "All services are online"
 msgstr "所有服务都在线了"
 
@@ -63,7 +63,7 @@ msgstr "允许"
 msgid "Allow Collect"
 msgstr "允许收藏"
 
-#: src/components/Watch/CollectVideo/index.tsx:197
+#: src/components/Watch/CollectVideo/index.tsx:200
 msgid "Already Collected"
 msgstr "已经收集"
 
@@ -94,7 +94,7 @@ msgstr "任何人"
 msgid "Anyone can comment and mirror"
 msgstr "任何人都可以评论和镜像"
 
-#: src/components/Common/UserMenu.tsx:208
+#: src/components/Common/UserMenu.tsx:216
 msgid "App Info"
 msgstr "应用信息"
 
@@ -136,11 +136,11 @@ msgstr "取消"
 msgid "Category"
 msgstr "类别"
 
-#: src/components/Settings/BasicInfo.tsx:299
+#: src/components/Settings/BasicInfo.tsx:303
 msgid "Change"
 msgstr "更改"
 
-#: src/components/Settings/BasicInfo.tsx:312
+#: src/components/Settings/BasicInfo.tsx:316
 msgid "Channel"
 msgstr "频道"
 
@@ -148,20 +148,20 @@ msgstr "频道"
 msgid "Channel deleted"
 msgstr "频道已删除"
 
-#: src/components/Settings/BasicInfo.tsx:353
+#: src/components/Settings/BasicInfo.tsx:357
 msgid "Channel Description"
 msgstr "频道描述"
 
-#: src/components/Settings/ChannelPicture.tsx:71
+#: src/components/Settings/ChannelPicture.tsx:88
 msgid "Channel image updated"
 msgstr "频道图像已更新"
 
-#: src/components/Common/UserMenu.tsx:266
+#: src/components/Common/UserMenu.tsx:274
 #: src/components/Settings/index.tsx:60
 msgid "Channel Settings"
 msgstr "频道设置"
 
-#: src/components/Settings/BasicInfo.tsx:324
+#: src/components/Settings/BasicInfo.tsx:328
 msgid "Channel URL"
 msgstr "频道 URL"
 
@@ -179,11 +179,11 @@ msgstr "索赔处理"
 msgid "Collect"
 msgstr "收集"
 
-#: src/components/Watch/CollectVideo/index.tsx:176
+#: src/components/Watch/CollectVideo/index.tsx:179
 msgid "Collect as NFT"
 msgstr "以 NFT 方式收集"
 
-#: src/components/Watch/CollectVideo/index.tsx:169
+#: src/components/Watch/CollectVideo/index.tsx:172
 msgid "Collect as NFT for"
 msgstr "以 NFT 方式收集"
 
@@ -215,7 +215,7 @@ msgstr "收藏类型"
 msgid "Collect Video"
 msgstr "收集视频"
 
-#: src/components/Watch/CollectVideo/index.tsx:65
+#: src/components/Watch/CollectVideo/index.tsx:68
 msgid "Collected as NFT"
 msgstr "以 NFT 方式收集"
 
@@ -227,7 +227,7 @@ msgstr "收集者"
 msgid "collected your"
 msgstr "收集您的"
 
-#: src/components/Watch/CollectVideo/index.tsx:195
+#: src/components/Watch/CollectVideo/index.tsx:198
 msgid "Collecting"
 msgstr "收集中"
 
@@ -290,7 +290,7 @@ msgstr "连接"
 msgid "Connect Wallet & Sign with Lens to continue,"
 msgstr "连接钱包并使用镜头登录以继续。"
 
-#: src/components/Common/UserMenu.tsx:182
+#: src/components/Common/UserMenu.tsx:190
 msgid "Connected as"
 msgstr "连接为"
 
@@ -308,7 +308,7 @@ msgid "Create"
 msgstr "创建"
 
 #: src/components/Common/CreateChannel.tsx:131
-#: src/components/Common/UserMenu.tsx:256
+#: src/components/Common/UserMenu.tsx:264
 msgid "Create Channel"
 msgstr "创建频道"
 
@@ -328,7 +328,7 @@ msgstr "危险区域"
 msgid "degrees away from my network"
 msgstr "远离我的网络"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:369
+#: src/components/Common/VideoCard/VideoOptions.tsx:373
 #: src/components/Watch/Comments/CommentOptions.tsx:71
 msgid "Delete"
 msgstr "删除"
@@ -380,7 +380,7 @@ msgstr "调度器"
 msgid "Dispatcher"
 msgstr "调度器"
 
-#: src/components/Settings/BasicInfo.tsx:344
+#: src/components/Settings/BasicInfo.tsx:348
 msgid "Display Name"
 msgstr "显示名称"
 
@@ -557,8 +557,8 @@ msgstr "无效的分割收件人地址"
 msgid "IPFS Upload failed"
 msgstr "IPFS 上传失败"
 
-#: src/components/Channel/BasicInfo/JoinChannel.tsx:162
-#: src/components/Channel/BasicInfo/JoinChannel.tsx:169
+#: src/components/Channel/BasicInfo/JoinChannel.tsx:165
+#: src/components/Channel/BasicInfo/JoinChannel.tsx:172
 msgid "Join Channel"
 msgstr "加入频道"
 
@@ -582,7 +582,7 @@ msgstr "赞"
 msgid "liked"
 msgstr "赞了"
 
-#: src/components/Channel/Tabs/PinnedVideo.tsx:86
+#: src/components/Channel/Tabs/PinnedVideo.tsx:249
 #: src/components/Common/VideoCard/index.tsx:94
 #: src/components/Home/BytesSection.tsx:137
 #: src/components/Watch/SuggestedVideoCard.tsx:116
@@ -605,7 +605,7 @@ msgstr "有限采集量"
 #~ msgid "Links"
 #~ msgstr "Links"
 
-#: src/components/Settings/BasicInfo.tsx:395
+#: src/components/Settings/BasicInfo.tsx:399
 msgid "Location"
 msgstr "地点"
 
@@ -681,7 +681,7 @@ msgstr "错误使用哈希标签"
 msgid "Momoka is currently in beta - during this time certain actions are not available to all channels."
 msgstr "Momoka目前处于测试版中 - 在此期间某些操作不能用于所有频道。"
 
-#: src/components/Settings/BasicInfo.tsx:354
+#: src/components/Settings/BasicInfo.tsx:358
 msgid "More about your channel"
 msgstr "更多关于您的频道"
 
@@ -759,7 +759,7 @@ msgstr "无"
 msgid "Not enough"
 msgstr "还不足"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:421
+#: src/components/Common/VideoCard/VideoOptions.tsx:425
 msgid "Not Interested"
 msgstr "不感兴趣的"
 
@@ -799,7 +799,7 @@ msgstr "只有订阅者可以评论这个发布"
 msgid "or choose video"
 msgstr "或选择视频"
 
-#: src/components/Channel/BasicInfo/JoinChannel.tsx:155
+#: src/components/Channel/BasicInfo/JoinChannel.tsx:158
 msgid "Pay Membership of"
 msgstr "会员支付"
 
@@ -827,11 +827,11 @@ msgstr "权限已更新"
 msgid "Permissions"
 msgstr "权限"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:358
+#: src/components/Common/VideoCard/VideoOptions.tsx:362
 msgid "Pin Video"
 msgstr "置顶视频"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:195
+#: src/components/Common/VideoCard/VideoOptions.tsx:199
 msgid "Pinning video..."
 msgstr "正在固定视频..."
 
@@ -925,7 +925,7 @@ msgstr "推荐百分比"
 msgid "Relevant"
 msgstr "关联的"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:405
+#: src/components/Common/VideoCard/VideoOptions.tsx:409
 msgid "Remove from List"
 msgstr "从列表中删除"
 
@@ -942,7 +942,7 @@ msgstr "回复"
 msgid "Reply"
 msgstr "答复"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:394
+#: src/components/Common/VideoCard/VideoOptions.tsx:398
 #: src/components/ReportPublication/index.tsx:158
 #: src/components/Watch/Comments/CommentOptions.tsx:82
 #: src/components/Watch/VideoActions.tsx:69
@@ -971,16 +971,16 @@ msgstr "Revoke"
 msgid "Round 18"
 msgstr "第18圆桌会议"
 
-#: src/components/Settings/BasicInfo.tsx:403
+#: src/components/Settings/BasicInfo.tsx:407
 msgid "Save"
 msgstr "保存"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:407
+#: src/components/Common/VideoCard/VideoOptions.tsx:411
 msgid "Save to List"
 msgstr "保存到列表"
 
 #: src/components/Channel/SavedList.tsx:75
-#: src/components/Common/UserMenu.tsx:233
+#: src/components/Common/UserMenu.tsx:241
 msgid "Saved Videos"
 msgstr "保存的视频"
 
@@ -1018,7 +1018,7 @@ msgstr "设置收藏类型"
 msgid "Set Preference"
 msgstr "设置首选项"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:381
+#: src/components/Common/VideoCard/VideoOptions.tsx:385
 #: src/components/Watch/VideoActions.tsx:56
 msgid "Share"
 msgstr "分享"
@@ -1053,7 +1053,7 @@ msgstr "显示更多回复"
 msgid "Sign In"
 msgstr "登录"
 
-#: src/components/Common/Auth/Login.tsx:139
+#: src/components/Common/Auth/Login.tsx:138
 msgid "Sign in failed"
 msgstr "登录失败"
 
@@ -1061,7 +1061,7 @@ msgstr "登录失败"
 msgid "Sign In Required"
 msgstr "需要登录"
 
-#: src/components/Common/UserMenu.tsx:300
+#: src/components/Common/UserMenu.tsx:304
 msgid "Sign out"
 msgstr "登出"
 
@@ -1069,7 +1069,7 @@ msgstr "登出"
 msgid "Skip the video upload (Only use this if you know what your doing!)"
 msgstr "跳过视频上传 (只有当你知道你在做什么！)"
 
-#: src/components/Common/UserMenu.tsx:323
+#: src/components/Common/UserMenu.tsx:327
 msgid "Some services are offline"
 msgstr "有些服务处于离线状态"
 
@@ -1101,7 +1101,7 @@ msgstr "在上传时保持活跃于当前标签页以获得更快的体验。"
 msgid "Storing metadata"
 msgstr "存储元数据"
 
-#: src/components/Channel/BasicInfo/Subscribe.tsx:157
+#: src/components/Channel/BasicInfo/Subscribe.tsx:156
 msgid "Subscribe"
 msgstr "订阅"
 
@@ -1150,7 +1150,7 @@ msgstr "支持 Lenstube 开启"
 msgid "Swap"
 msgstr "切换"
 
-#: src/components/Common/UserMenu.tsx:243
+#: src/components/Common/UserMenu.tsx:251
 msgid "Switch channel"
 msgstr "切换频道"
 
@@ -1158,11 +1158,11 @@ msgstr "切换频道"
 msgid "Switch network"
 msgstr "切换网络"
 
-#: src/components/Common/UserMenu.tsx:286
+#: src/components/Common/UserMenu.tsx:294
 msgid "Switch to Dark"
 msgstr "切换到暗色"
 
-#: src/components/Common/UserMenu.tsx:286
+#: src/components/Common/UserMenu.tsx:294
 msgid "Switch to Light"
 msgstr "切换到灯光"
 
@@ -1301,7 +1301,8 @@ msgstr "订阅总数"
 msgid "total videos"
 msgstr "全部视频"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:123
+#: src/components/Channel/Tabs/PinnedVideo.tsx:99
+#: src/components/Common/VideoCard/VideoOptions.tsx:126
 msgid "Transaction submitted"
 msgstr "交易已提交"
 
@@ -1309,7 +1310,7 @@ msgstr "交易已提交"
 msgid "Trending"
 msgstr "热门主题"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:419
+#: src/components/Common/VideoCard/VideoOptions.tsx:423
 msgid "Undo Interest"
 msgstr "撤销兴趣"
 
@@ -1320,6 +1321,10 @@ msgstr "无限收藏"
 #: src/components/Upload/CollectModule/LimitDurationQuestion.tsx:43
 msgid "Unlimited duration"
 msgstr "无限制持续时间"
+
+#: src/components/Channel/Tabs/PinnedVideo.tsx:172
+msgid "Unpinning video..."
+msgstr ""
 
 #: src/components/ReportPublication/index.tsx:115
 msgid "Unrelated"
@@ -1390,7 +1395,7 @@ msgstr "已验证"
 msgid "video"
 msgstr "视频"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:251
+#: src/components/Common/VideoCard/VideoOptions.tsx:255
 msgid "Video added to your list"
 msgstr "视频添加到您的列表"
 
@@ -1406,7 +1411,7 @@ msgstr "视频格式不被支持"
 #~ msgid "Video marked as interested"
 #~ msgstr ""
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:239
+#: src/components/Common/VideoCard/VideoOptions.tsx:243
 msgid "Video marked as not interested"
 msgstr "标记为不感兴趣的视频"
 
@@ -1414,11 +1419,11 @@ msgstr "标记为不感兴趣的视频"
 msgid "Video not uploaded correctly"
 msgstr "视频上传不正确"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:240
+#: src/components/Common/VideoCard/VideoOptions.tsx:244
 msgid "Video removed from not interested"
 msgstr "从不感兴趣的视频删除"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:251
+#: src/components/Common/VideoCard/VideoOptions.tsx:255
 msgid "Video removed from your list"
 msgstr "视频已从您的列表中删除"
 
@@ -1444,7 +1449,7 @@ msgstr "视频"
 msgid "View Metadata"
 msgstr "查看元数据"
 
-#: src/components/Channel/Tabs/PinnedVideo.tsx:103
+#: src/components/Channel/Tabs/PinnedVideo.tsx:266
 msgid "View more"
 msgstr "查看更多"
 
@@ -1480,7 +1485,7 @@ msgstr "观察"
 msgid "Watch Video"
 msgstr "观看视频"
 
-#: src/components/Settings/BasicInfo.tsx:387
+#: src/components/Settings/BasicInfo.tsx:391
 msgid "Website"
 msgstr "网址"
 
@@ -1540,7 +1545,7 @@ msgstr "您的地址似乎没有镜头句柄。"
 msgid "your channel"
 msgstr "您的频道"
 
-#: src/components/Common/UserMenu.tsx:223
+#: src/components/Common/UserMenu.tsx:231
 msgid "Your Channel"
 msgstr "您的频道"
 
