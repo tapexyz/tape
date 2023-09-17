@@ -2,7 +2,7 @@ import { getShowFullScreen, getToastOptions } from '@lenstube/browser'
 import { AUTH_ROUTES, POLYGON_CHAIN_ID } from '@lenstube/constants'
 import { useIsMounted } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
-import { useSimpleProfilesQuery, useUserSigNoncesQuery } from '@lenstube/lens'
+import { useAllProfilesQuery, useUserSigNoncesQuery } from '@lenstube/lens'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAuthPersistStore, {
   hydrateAuthTokens,
@@ -55,14 +55,6 @@ const Layout: FC<Props> = ({ children }) => {
 
   const showFullScreen = getShowFullScreen(pathname)
 
-  const setUserChannels = (channels: Profile[]) => {
-    const profile = channels.find((ch) => ch.id === selectedSimpleProfile?.id)
-    if (profile) {
-      setActiveChannel(profile ?? channels[0])
-      setSelectedSimpleProfile(profile ?? channels[0])
-    }
-  }
-
   const resetAuthState = () => {
     setActiveChannel(null)
     setSelectedSimpleProfile(null)
@@ -76,7 +68,7 @@ const Layout: FC<Props> = ({ children }) => {
     pollInterval: 10_000
   })
 
-  useSimpleProfilesQuery({
+  useAllProfilesQuery({
     variables: {
       request: { ownedBy: [address] }
     },
@@ -86,7 +78,10 @@ const Layout: FC<Props> = ({ children }) => {
       if (!channels.length) {
         return resetAuthState()
       }
-      setUserChannels(channels)
+      const profile = channels.find((ch) => ch.id === selectedSimpleProfile?.id)
+      if (profile) {
+        setActiveChannel(profile ?? channels[0])
+      }
     },
     onError: () => {
       setSelectedSimpleProfile(null)

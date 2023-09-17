@@ -99,6 +99,14 @@ const UserMenu = () => {
     } catch {}
   }
 
+  const logout = () => {
+    disconnect?.()
+    signOut()
+    setActiveChannel(null)
+    setSelectedSimpleProfile(null)
+    Analytics.track(TRACK.AUTH.SIGN_OUT)
+  }
+
   return (
     <DropMenu
       trigger={
@@ -289,11 +297,7 @@ const UserMenu = () => {
                 <button
                   type="button"
                   className="flex w-full items-center space-x-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
-                  onClick={() => {
-                    disconnect?.()
-                    signOut()
-                    Analytics.track(TRACK.AUTH.SIGN_OUT)
-                  }}
+                  onClick={() => logout()}
                 >
                   <HandWaveOutline className="h-4 w-4" />
                   <span className="truncate whitespace-nowrap">

@@ -189,7 +189,7 @@ const VideoOptions: FC<Props> = ({
 
   const onPinVideo = async () => {
     if (!activeChannel) {
-      return
+      return openConnectModal?.()
     }
     try {
       toast.loading(t`Pinning video...`)

@@ -126,7 +126,6 @@ const Login = () => {
         const defaultProfile = profiles.find((profile) => profile.isDefault)
         const profile = defaultProfile ?? profiles[0]
         setSelectedSimpleProfile(profile)
-        setActiveChannel(profile)
         if (router.query?.next) {
           router.push(router.query?.next as string)
         }
