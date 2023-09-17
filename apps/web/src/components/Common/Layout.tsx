@@ -72,7 +72,8 @@ const Layout: FC<Props> = ({ children }) => {
     skip: !selectedSimpleProfile?.id,
     onCompleted: ({ userSigNonces }) => {
       setUserSigNonce(userSigNonces.lensHubOnChainSigNonce)
-    }
+    },
+    pollInterval: 10_000
   })
 
   useSimpleProfilesQuery({
