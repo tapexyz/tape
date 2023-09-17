@@ -24,15 +24,13 @@ import { useContractWrite, useSignTypedData } from 'wagmi'
 
 const Toggle = () => {
   const [loading, setLoading] = useState(false)
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
-  const setSelectedChannel = useChannelStore(
-    (state) => state.setSelectedChannel
-  )
+  const activeChannel = useChannelStore((state) => state.activeChannel)
+  const setActiveChannel = useChannelStore((state) => state.setActiveChannel)
   const userSigNonce = useChannelStore((state) => state.userSigNonce)
   const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
-  const canUseRelay = getIsDispatcherEnabled(selectedChannel)
+  const canUseRelay = getIsDispatcherEnabled(activeChannel)
   const usingOldDispatcher =
-    selectedChannel?.dispatcher?.address?.toLocaleLowerCase() ===
+    activeChannel?.dispatcher?.address?.toLocaleLowerCase() ===
     OLD_LENS_RELAYER_ADDRESS.toLocaleLowerCase()
 
   const onError = (error: CustomErrorWithData) => {
@@ -72,7 +70,7 @@ const Toggle = () => {
   const [refetchChannel] = useProfileLazyQuery({
     onCompleted: (data) => {
       const channel = data?.profile as Profile
-      setSelectedChannel(channel)
+      setActiveChannel(channel)
     }
   })
 
@@ -81,7 +79,7 @@ const Toggle = () => {
       toast.success(`Dispatcher ${canUseRelay ? t`disabled` : t`enabled`}`)
       refetchChannel({
         variables: {
-          request: { handle: selectedChannel?.handle }
+          request: { handle: activeChannel?.handle }
         },
         fetchPolicy: 'no-cache'
       })
@@ -117,7 +115,7 @@ const Toggle = () => {
     createDispatcherTypedData({
       variables: {
         request: {
-          profileId: selectedChannel?.id,
+          profileId: activeChannel?.id,
           enable: !canUseRelay
         }
       }

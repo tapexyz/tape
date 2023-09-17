@@ -14,7 +14,7 @@ import {
   sanitizeDStorageUrl
 } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
-import useChannelStore from '@lib/store/channel'
+import useAuthPersistStore from '@lib/store/auth'
 import { t, Trans } from '@lingui/macro'
 import type { FC } from 'react'
 import React, { useState } from 'react'
@@ -27,7 +27,9 @@ type Props = {
 }
 
 const BasicInfo: FC<Props> = ({ channel }) => {
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
+  )
   const [showSubscribersModal, setShowSubscribersModal] = useState(false)
   const hasOnChainId =
     channel.onChainIdentity?.ens?.name ||
@@ -35,7 +37,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
     channel.onChainIdentity?.worldcoin.isHuman ||
     channel.onChainIdentity?.sybilDotOrg.verified
 
-  const isOwnChannel = channel?.id === selectedChannel?.id
+  const isOwnChannel = channel?.id === selectedSimpleProfile?.id
   const subscribeType = channel?.followModule?.__typename
   const coverImage = imageCdn(
     sanitizeDStorageUrl(getChannelCoverPicture(channel))
@@ -111,7 +113,8 @@ const BasicInfo: FC<Props> = ({ channel }) => {
                     {channel?.stats.totalFollowers} <Trans>subscribers</Trans>
                   </span>
                 </button>
-                {channel.isFollowing && selectedChannel?.id !== channel?.id ? (
+                {channel.isFollowing &&
+                selectedSimpleProfile?.id !== channel?.id ? (
                   <span className="rounded-full border border-gray-400 px-2 text-xs dark:border-gray-600">
                     <Trans>Subscriber</Trans>
                   </span>

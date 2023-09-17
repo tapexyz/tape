@@ -7,7 +7,7 @@ import type {
   CollectModuleType,
   UploadedVideo
 } from '@lenstube/lens/custom-types'
-import useChannelStore from '@lib/store/channel'
+import useAuthPersistStore from '@lib/store/auth'
 import { t, Trans } from '@lingui/macro'
 import type { Dispatch, FC } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
@@ -47,8 +47,10 @@ const FeeCollectForm: FC<Props> = ({
   enabledCurrencies
 }) => {
   const submitContainerRef = useRef<HTMLDivElement>(null)
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
+  )
 
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
   const [selectedCurrencySymbol, setSelectedCurrencySymbol] = useState('WMATIC')
   const splitRecipients = uploadedVideo.collectModule.multiRecipients ?? []
 
@@ -88,7 +90,7 @@ const FeeCollectForm: FC<Props> = ({
         value: data.amount || '0'
       },
       referralFee: data.referralPercent,
-      recipient: selectedChannel?.ownedBy,
+      recipient: selectedSimpleProfile?.ownedBy,
       collectLimit: data.collectLimit
     })
     setShowModal(false)

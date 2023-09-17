@@ -3,7 +3,7 @@ import VideoCard from '@components/Common/VideoCard'
 import QueuedVideo from '@components/Common/VideoCard/QueuedVideo'
 import { trimLensHandle } from '@lenstube/generic'
 import type { Mirror, Publication } from '@lenstube/lens'
-import useChannelStore from '@lib/store/channel'
+import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
 import type { FC } from 'react'
 import React from 'react'
@@ -15,11 +15,14 @@ type Props = {
 
 const Timeline: FC<Props> = ({ videos, videoType = 'Post' }) => {
   const queuedVideos = usePersistStore((state) => state.queuedVideos)
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
+  )
 
   const isMirror = videoType === 'Mirror'
   const isChannelPage =
-    location.pathname === `/channel/${trimLensHandle(selectedChannel?.handle)}`
+    location.pathname ===
+    `/channel/${trimLensHandle(selectedSimpleProfile?.handle)}`
 
   return (
     <div

@@ -9,7 +9,7 @@ import {
 } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import VideoPlayer from '@lenstube/ui/VideoPlayer'
-import useChannelStore from '@lib/store/channel'
+import useAuthPersistStore from '@lib/store/auth'
 import { t } from '@lingui/macro'
 import type { FC } from 'react'
 import React, { useEffect, useRef } from 'react'
@@ -36,7 +36,9 @@ const ByteVideo: FC<Props> = ({
     'THUMBNAIL_V'
   )
   const { color: backgroundColor } = useAverageColor(thumbnailUrl, true)
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
+  )
 
   const playVideo = () => {
     if (!videoRef.current) {
@@ -112,7 +114,7 @@ const ByteVideo: FC<Props> = ({
           />
           {currentViewingId === video.id ? (
             <VideoPlayer
-              address={selectedChannel?.ownedBy}
+              address={selectedSimpleProfile?.ownedBy}
               refCallback={refCallback}
               permanentUrl={getPublicationRawMediaUrl(video)}
               hlsUrl={getPublicationHlsUrl(video)}

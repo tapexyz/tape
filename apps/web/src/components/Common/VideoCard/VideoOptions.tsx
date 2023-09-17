@@ -70,13 +70,13 @@ const VideoOptions: FC<Props> = ({
 
   const { cache } = useApolloClient()
 
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
-  const selectedChannelId = useAuthPersistStore(
-    (state) => state.selectedChannelId
+  const activeChannel = useChannelStore((state) => state.activeChannel)
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
   )
-  const isVideoOwner = selectedChannel?.id === video?.profile?.id
+  const isVideoOwner = activeChannel?.id === video?.profile?.id
   const pinnedVideoId = getValueFromKeyInAttributes(
-    selectedChannel?.attributes,
+    activeChannel?.attributes,
     'pinnedPublicationId'
   )
 
@@ -99,14 +99,14 @@ const VideoOptions: FC<Props> = ({
   }
 
   const onClickReport = () => {
-    if (!selectedChannelId) {
+    if (!selectedSimpleProfile?.id) {
       return openConnectModal?.()
     }
     setShowReport(true)
   }
 
   const otherAttributes =
-    (selectedChannel?.attributes as Attribute[])
+    (activeChannel?.attributes as Attribute[])
       ?.filter((attr) => !['pinnedPublicationId', 'app'].includes(attr.key))
       .map(({ traitType, key, value, displayType }) => ({
         traitType,
@@ -119,7 +119,10 @@ const VideoOptions: FC<Props> = ({
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
   }
 
-  const onCompleted = () => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+    if (__typename === 'RelayError') {
+      return
+    }
     toast.success(t`Transaction submitted`)
     Analytics.track(TRACK.PUBLICATION.PIN)
   }
@@ -133,18 +136,19 @@ const VideoOptions: FC<Props> = ({
     abi: LENS_PERIPHERY_ABI,
     functionName: 'setProfileMetadataURI',
     onError,
-    onSuccess: onCompleted
+    onSuccess: () => onCompleted()
   })
 
   const [broadcast] = useBroadcastMutation({
     onError,
-    onCompleted
+    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
   })
 
   const [createSetProfileMetadataViaDispatcher] =
     useCreateSetProfileMetadataViaDispatcherMutation({
       onError,
-      onCompleted
+      onCompleted: ({ createSetProfileMetadataViaDispatcher }) =>
+        onCompleted(createSetProfileMetadataViaDispatcher.__typename)
     })
 
   const [createSetProfileMetadataTypedData] =
@@ -188,17 +192,17 @@ const VideoOptions: FC<Props> = ({
   }
 
   const onPinVideo = async () => {
-    if (!selectedChannel) {
-      return
+    if (!activeChannel) {
+      return openConnectModal?.()
     }
     try {
       toast.loading(t`Pinning video...`)
       const metadataUri = await uploadToAr({
         version: '1.0.0',
         metadata_id: uuidv4(),
-        name: selectedChannel?.name ?? '',
-        bio: selectedChannel?.bio ?? '',
-        cover_picture: getChannelCoverPicture(selectedChannel),
+        name: activeChannel?.name ?? '',
+        bio: activeChannel?.bio ?? '',
+        cover_picture: getChannelCoverPicture(activeChannel),
         attributes: [
           ...otherAttributes,
           {
@@ -216,12 +220,12 @@ const VideoOptions: FC<Props> = ({
         ]
       })
       const request = {
-        profileId: selectedChannel?.id,
+        profileId: activeChannel?.id,
         metadata: metadataUri
       }
       const canUseDispatcher =
-        selectedChannel?.dispatcher?.canUseRelay &&
-        selectedChannel.dispatcher.sponsor
+        activeChannel?.dispatcher?.canUseRelay &&
+        activeChannel.dispatcher.sponsor
       if (!canUseDispatcher) {
         return createTypedData(request)
       }
@@ -274,38 +278,50 @@ const VideoOptions: FC<Props> = ({
   })
 
   const notInterested = () => {
-    if (!selectedChannelId) {
+    if (!selectedSimpleProfile?.id) {
       return openConnectModal?.()
     }
     if (video.notInterested) {
       removeNotInterested({
         variables: {
-          request: { profileId: selectedChannelId, publicationId: video.id }
+          request: {
+            profileId: selectedSimpleProfile?.id,
+            publicationId: video.id
+          }
         }
       })
     } else {
       addNotInterested({
         variables: {
-          request: { profileId: selectedChannelId, publicationId: video.id }
+          request: {
+            profileId: selectedSimpleProfile?.id,
+            publicationId: video.id
+          }
         }
       })
     }
   }
 
   const saveToList = () => {
-    if (!selectedChannelId) {
+    if (!selectedSimpleProfile?.id) {
       return openConnectModal?.()
     }
     if (video.bookmarked) {
       removeVideoFromList({
         variables: {
-          request: { profileId: selectedChannelId, publicationId: video.id }
+          request: {
+            profileId: selectedSimpleProfile?.id,
+            publicationId: video.id
+          }
         }
       })
     } else {
       saveVideoToList({
         variables: {
-          request: { profileId: selectedChannelId, publicationId: video.id }
+          request: {
+            profileId: selectedSimpleProfile?.id,
+            publicationId: video.id
+          }
         }
       })
     }

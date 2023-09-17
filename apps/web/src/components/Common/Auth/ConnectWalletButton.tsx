@@ -4,7 +4,6 @@ import { Analytics, TRACK } from '@lenstube/browser'
 import { POLYGON_CHAIN_ID } from '@lenstube/constants'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
 import { Trans } from '@lingui/macro'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 import React from 'react'
@@ -20,10 +19,9 @@ type Props = {
 }
 
 const ConnectWalletButton = ({ handleSign, signing }: Props) => {
-  const selectedChannelId = useAuthPersistStore(
-    (state) => state.selectedChannelId
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
   )
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
 
   const { connector, isConnected } = useAccount()
   const { switchNetwork } = useSwitchNetwork({
@@ -42,7 +40,7 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
 
   return connector?.id && isConnected ? (
     chain?.id === POLYGON_CHAIN_ID ? (
-      selectedChannelId && selectedChannel ? (
+      selectedSimpleProfile?.id ? (
         <UserMenu />
       ) : (
         <div className="flex items-center space-x-2">

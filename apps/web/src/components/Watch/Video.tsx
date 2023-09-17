@@ -11,7 +11,7 @@ import {
 } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import useAppStore from '@lib/store'
-import useChannelStore from '@lib/store/channel'
+import useAuthPersistStore from '@lib/store/auth'
 import dynamic from 'next/dynamic'
 import type { FC } from 'react'
 import React from 'react'
@@ -31,7 +31,9 @@ type Props = {
 const Video: FC<Props> = ({ video }) => {
   const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
   const videoWatchTime = useAppStore((state) => state.videoWatchTime)
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
+  )
 
   const isBytesVideo = video.appId === LENSTUBE_BYTES_APP_ID
   const thumbnailUrl = imageCdn(
@@ -49,7 +51,7 @@ const Video: FC<Props> = ({ video }) => {
     <div>
       <div className="overflow-hidden rounded-xl">
         <VideoPlayer
-          address={selectedChannel?.ownedBy}
+          address={selectedSimpleProfile?.ownedBy}
           refCallback={refCallback}
           currentTime={videoWatchTime}
           permanentUrl={getPublicationRawMediaUrl(video)}

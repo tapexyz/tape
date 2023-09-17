@@ -1,7 +1,10 @@
 import { NFTS_URL } from '@lenstube/constants'
 import { imageCdn, sanitizeDStorageUrl } from '@lenstube/generic'
 import { type Profile } from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
+import type {
+  CustomNftItemType,
+  MobileThemeConfig
+} from '@lenstube/lens/custom-types'
 import { ResizeMode, Video } from 'expo-av'
 import type { FC } from 'react'
 import React, { memo, useCallback } from 'react'
@@ -52,7 +55,7 @@ const Gallery: FC<Props> = ({ profile, scrollHandler }) => {
   )
 
   const renderItem = useCallback(
-    ({ item, index }: { item: any; index: number }) => (
+    ({ item, index }: { item: CustomNftItemType; index: number }) => (
       <View
         style={{
           marginRight: index % NUM_COLUMNS !== NUM_COLUMNS - 1 ? GRID_GAP : 0,
@@ -94,7 +97,7 @@ const Gallery: FC<Props> = ({ profile, scrollHandler }) => {
         }}
         data={nfts.items}
         renderItem={renderItem}
-        keyExtractor={(item, i) => `${item.id}_${i}`}
+        keyExtractor={(item, i) => `${item.tokenId}_${i}`}
         ItemSeparatorComponent={() => <View style={{ height: GRID_GAP }} />}
         ListEmptyComponent={() => !isLoading && <NotFound />}
         showsVerticalScrollIndicator={false}

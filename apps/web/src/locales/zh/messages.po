@@ -19,10 +19,10 @@ msgstr ""
 "X-Crowdin-File-ID: 5\n"
 
 #: src/components/Channel/Tabs/index.tsx:196
-msgid "About"
-msgstr "关于"
+#~ msgid "About"
+#~ msgstr "关于"
 
-#: src/components/Settings/Permissions/Modules/index.tsx:110
+#: src/components/Settings/Permissions/Modules/index.tsx:112
 msgid "Access permissions"
 msgstr "访问权限"
 
@@ -46,16 +46,16 @@ msgstr "算法操作"
 msgid "All"
 msgstr "所有的"
 
-#: src/components/Notifications/index.tsx:149
+#: src/components/Notifications/index.tsx:152
 msgid "All Notifications"
 msgstr "所有通知"
 
-#: src/components/Common/UserMenu.tsx:303
+#: src/components/Common/UserMenu.tsx:326
 msgid "All services are online"
 msgstr "所有服务都在线了"
 
-#: src/components/Settings/Permissions/Modules/index.tsx:151
-#: src/components/Settings/Permissions/Modules/index.tsx:163
+#: src/components/Settings/Permissions/Modules/index.tsx:153
+#: src/components/Settings/Permissions/Modules/index.tsx:165
 msgid "Allow"
 msgstr "允许"
 
@@ -63,7 +63,7 @@ msgstr "允许"
 msgid "Allow Collect"
 msgstr "允许收藏"
 
-#: src/components/Watch/CollectVideo/index.tsx:197
+#: src/components/Watch/CollectVideo/index.tsx:200
 msgid "Already Collected"
 msgstr "已经收集"
 
@@ -72,7 +72,7 @@ msgstr "已经收集"
 msgid "Amount"
 msgstr "金额"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:104
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:106
 msgid "Amount should be greater than 0"
 msgstr "金额必须大于 0"
 
@@ -84,7 +84,7 @@ msgstr "存入金额 (MATIC)"
 msgid "Animal Abuse"
 msgstr "动物虐待"
 
-#: src/components/Upload/CollectModule/index.tsx:49
+#: src/components/Upload/CollectModule/index.tsx:51
 #: src/components/Upload/CollectModule/PermissionQuestion.tsx:42
 #: src/components/Upload/ReferenceModule/index.tsx:94
 msgid "Anyone"
@@ -94,7 +94,7 @@ msgstr "任何人"
 msgid "Anyone can comment and mirror"
 msgstr "任何人都可以评论和镜像"
 
-#: src/components/Common/UserMenu.tsx:189
+#: src/components/Common/UserMenu.tsx:216
 msgid "App Info"
 msgstr "应用信息"
 
@@ -106,23 +106,23 @@ msgstr "您确定要继续吗？"
 msgid "Basic Info"
 msgstr "基本信息"
 
-#: src/components/Watch/Comments/VideoComments.tsx:134
+#: src/components/Watch/Comments/VideoComments.tsx:133
 msgid "Be the first to comment"
 msgstr "成为第一个评论者"
 
-#: src/components/Channel/Tabs/index.tsx:103
-#: src/components/Common/MobileBottomNav.tsx:44
-#: src/components/Common/Sidebar.tsx:114
-#: src/components/Common/Sidebar.tsx:133
-#: src/components/Home/BytesSection.tsx:77
+#: src/components/Channel/Tabs/index.tsx:104
+#: src/components/Common/MobileBottomNav.tsx:42
+#: src/components/Common/Sidebar.tsx:113
+#: src/components/Common/Sidebar.tsx:132
+#: src/components/Home/BytesSection.tsx:79
 msgid "Bytes"
 msgstr "字节"
 
-#: src/components/Upload/CollectModule/index.tsx:50
+#: src/components/Upload/CollectModule/index.tsx:52
 msgid "can collect"
 msgstr "可以收集"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:318
+#: src/components/Watch/CollectVideo/CollectModal.tsx:322
 msgid "can collect this publication"
 msgstr "可以收集此发布"
 
@@ -136,11 +136,11 @@ msgstr "取消"
 msgid "Category"
 msgstr "类别"
 
-#: src/components/Settings/BasicInfo.tsx:299
+#: src/components/Settings/BasicInfo.tsx:303
 msgid "Change"
 msgstr "更改"
 
-#: src/components/Settings/BasicInfo.tsx:312
+#: src/components/Settings/BasicInfo.tsx:316
 msgid "Channel"
 msgstr "频道"
 
@@ -148,24 +148,24 @@ msgstr "频道"
 msgid "Channel deleted"
 msgstr "频道已删除"
 
-#: src/components/Settings/BasicInfo.tsx:353
+#: src/components/Settings/BasicInfo.tsx:357
 msgid "Channel Description"
 msgstr "频道描述"
 
-#: src/components/Settings/ChannelPicture.tsx:73
+#: src/components/Settings/ChannelPicture.tsx:88
 msgid "Channel image updated"
 msgstr "频道图像已更新"
 
-#: src/components/Common/UserMenu.tsx:247
-#: src/components/Settings/index.tsx:58
+#: src/components/Common/UserMenu.tsx:274
+#: src/components/Settings/index.tsx:60
 msgid "Channel Settings"
 msgstr "频道设置"
 
-#: src/components/Settings/BasicInfo.tsx:324
+#: src/components/Settings/BasicInfo.tsx:328
 msgid "Channel URL"
 msgstr "频道 URL"
 
-#: src/components/Channel/Tabs/index.tsx:177
+#: src/components/Channel/Tabs/index.tsx:164
 #: src/components/Common/Search/GlobalSearchBar.tsx:118
 msgid "Channels"
 msgstr "频道"
@@ -175,23 +175,23 @@ msgid "Claim Handle"
 msgstr "索赔处理"
 
 #: src/components/Bytes/ByteActions.tsx:73
-#: src/components/Bytes/ByteVideo.tsx:163
+#: src/components/Bytes/ByteVideo.tsx:165
 msgid "Collect"
 msgstr "收集"
 
-#: src/components/Watch/CollectVideo/index.tsx:176
+#: src/components/Watch/CollectVideo/index.tsx:179
 msgid "Collect as NFT"
 msgstr "以 NFT 方式收集"
 
-#: src/components/Watch/CollectVideo/index.tsx:169
+#: src/components/Watch/CollectVideo/index.tsx:172
 msgid "Collect as NFT for"
 msgstr "以 NFT 方式收集"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:163
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:165
 msgid "Collect Currency"
 msgstr "收集货币"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:328
+#: src/components/Watch/CollectVideo/CollectModal.tsx:332
 msgid "Collect for free"
 msgstr "免费收集"
 
@@ -199,23 +199,23 @@ msgstr "免费收集"
 msgid "Collect for Free"
 msgstr "免费收藏"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:134
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:136
 msgid "Collect limit should be greater than 0"
 msgstr "收集限制应该大于 0"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:328
+#: src/components/Watch/CollectVideo/CollectModal.tsx:332
 msgid "Collect Now"
 msgstr "立即收集"
 
-#: src/components/Upload/CollectModule/index.tsx:75
+#: src/components/Upload/CollectModule/index.tsx:77
 msgid "Collect Type"
 msgstr "收藏类型"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:228
+#: src/components/Watch/CollectVideo/CollectModal.tsx:232
 msgid "Collect Video"
 msgstr "收集视频"
 
-#: src/components/Watch/CollectVideo/index.tsx:65
+#: src/components/Watch/CollectVideo/index.tsx:68
 msgid "Collected as NFT"
 msgstr "以 NFT 方式收集"
 
@@ -227,7 +227,7 @@ msgstr "收集者"
 msgid "collected your"
 msgstr "收集您的"
 
-#: src/components/Watch/CollectVideo/index.tsx:195
+#: src/components/Watch/CollectVideo/index.tsx:198
 msgid "Collecting"
 msgstr "收集中"
 
@@ -235,7 +235,7 @@ msgstr "收集中"
 msgid "collects"
 msgstr "收藏"
 
-#: src/components/Notifications/index.tsx:254
+#: src/components/Notifications/index.tsx:257
 msgid "Collects"
 msgstr "收藏"
 
@@ -243,7 +243,7 @@ msgstr "收藏"
 msgid "Comment"
 msgstr "评论"
 
-#: src/components/Watch/Comments/CommentOptions.tsx:34
+#: src/components/Watch/Comments/CommentOptions.tsx:36
 msgid "Comment deleted"
 msgstr "评论已删除"
 
@@ -257,16 +257,16 @@ msgid "Comment should not exceed 5000 characters"
 msgstr "评论不能超过 5000 个字符"
 
 #: src/components/Channel/Tabs/index.tsx:122
-msgid "Commented"
-msgstr "已评论"
+#~ msgid "Commented"
+#~ msgstr "已评论"
 
 #: src/components/Notifications/Commented.tsx:37
 msgid "commented on your"
 msgstr "对您的评论"
 
 #: src/components/Bytes/CommentModal.tsx:37
-#: src/components/Notifications/index.tsx:212
-#: src/components/Watch/Comments/VideoComments.tsx:107
+#: src/components/Notifications/index.tsx:215
+#: src/components/Watch/Comments/VideoComments.tsx:106
 msgid "Comments"
 msgstr "评论"
 
@@ -282,7 +282,7 @@ msgstr "确认"
 msgid "Confirmation"
 msgstr "确认"
 
-#: src/components/Common/Auth/ConnectWalletButton.tsx:90
+#: src/components/Common/Auth/ConnectWalletButton.tsx:88
 msgid "Connect"
 msgstr "连接"
 
@@ -290,7 +290,7 @@ msgstr "连接"
 msgid "Connect Wallet & Sign with Lens to continue,"
 msgstr "连接钱包并使用镜头登录以继续。"
 
-#: src/components/Common/UserMenu.tsx:163
+#: src/components/Common/UserMenu.tsx:190
 msgid "Connected as"
 msgstr "连接为"
 
@@ -308,7 +308,7 @@ msgid "Create"
 msgstr "创建"
 
 #: src/components/Common/CreateChannel.tsx:131
-#: src/components/Common/UserMenu.tsx:237
+#: src/components/Common/UserMenu.tsx:264
 msgid "Create Channel"
 msgstr "创建频道"
 
@@ -328,8 +328,8 @@ msgstr "危险区域"
 msgid "degrees away from my network"
 msgstr "远离我的网络"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:357
-#: src/components/Watch/Comments/CommentOptions.tsx:69
+#: src/components/Common/VideoCard/VideoOptions.tsx:373
+#: src/components/Watch/Comments/CommentOptions.tsx:71
 msgid "Delete"
 msgstr "删除"
 
@@ -355,16 +355,16 @@ msgid "Direct threat"
 msgstr "直接威胁"
 
 #: src/components/Settings/Membership.tsx:307
-#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:131
+#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:129
 msgid "Disable"
 msgstr "禁用"
 
-#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:81
+#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:79
 #: src/components/Watch/CollectVideo/PermissionAlert.tsx:39
 msgid "disabled"
 msgstr "已禁用"
 
-#: src/components/Watch/PublicationReaction.tsx:199
+#: src/components/Watch/PublicationReaction.tsx:197
 msgid "Dislike"
 msgstr "Dislike"
 
@@ -372,7 +372,7 @@ msgstr "Dislike"
 msgid "dislisked"
 msgstr "已移除"
 
-#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:143
+#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:141
 msgid "dispatcher"
 msgstr "调度器"
 
@@ -380,7 +380,7 @@ msgstr "调度器"
 msgid "Dispatcher"
 msgstr "调度器"
 
-#: src/components/Settings/BasicInfo.tsx:344
+#: src/components/Settings/BasicInfo.tsx:348
 msgid "Display Name"
 msgstr "显示名称"
 
@@ -388,7 +388,7 @@ msgstr "显示名称"
 msgid "Does this video contain sensitive information that targets an adult audience?"
 msgstr "此视频是否包含针对成年听众的敏感信息？"
 
-#: src/components/Upload/Video.tsx:123
+#: src/components/Upload/Video.tsx:125
 msgid "Don't switch network or wallet accounts"
 msgstr "不切换网络或钱包账户"
 
@@ -396,16 +396,16 @@ msgstr "不切换网络或钱包账户"
 msgid "Drag and drop"
 msgstr "拖动"
 
-#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:133
+#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:131
 msgid "Enable"
 msgstr "启用"
 
-#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:81
+#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:79
 #: src/components/Watch/CollectVideo/PermissionAlert.tsx:39
 msgid "enabled"
 msgstr "已启用"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:261
+#: src/components/Watch/CollectVideo/CollectModal.tsx:265
 msgid "Ends At"
 msgstr "结束于"
 
@@ -426,9 +426,9 @@ msgstr "上传文件出错"
 msgid "Estimated Cost to Upload"
 msgstr "估计上传费用"
 
-#: src/components/Common/MobileBottomNav.tsx:63
-#: src/components/Common/Sidebar.tsx:139
-#: src/components/Common/Sidebar.tsx:158
+#: src/components/Common/MobileBottomNav.tsx:62
+#: src/components/Common/Sidebar.tsx:138
+#: src/components/Common/Sidebar.tsx:157
 #: src/components/Explore/index.tsx:15
 msgid "Explore"
 msgstr "浏览"
@@ -449,19 +449,19 @@ msgstr "上传视频到 Arweeve 失败"
 msgid "Fake Engagement"
 msgstr "假冒承诺"
 
-#: src/components/Common/MobileBottomNav.tsx:76
+#: src/components/Common/MobileBottomNav.tsx:74
 msgid "Feed"
 msgstr "订阅源"
 
-#: src/components/Common/Footer.tsx:84
+#: src/components/Common/Footer.tsx:29
 msgid "Feedback"
 msgstr "反馈"
 
-#: src/components/Upload/CollectModule/index.tsx:52
+#: src/components/Upload/CollectModule/index.tsx:54
 msgid "for free"
 msgstr "免费的"
 
-#: src/components/Upload/CollectModule/index.tsx:52
+#: src/components/Upload/CollectModule/index.tsx:54
 msgid "for given fees"
 msgstr "给定费用"
 
@@ -481,7 +481,7 @@ msgstr "Gitcoin Grants"
 msgid "Grow with Lens"
 msgstr "放大镜头"
 
-#: src/components/Watch/Comments/NonRelevantComments.tsx:85
+#: src/components/Watch/Comments/NonRelevantComments.tsx:87
 msgid "Hide more comments"
 msgstr "隐藏更多评论"
 
@@ -489,9 +489,9 @@ msgstr "隐藏更多评论"
 msgid "High signal"
 msgstr "高信号"
 
-#: src/components/Common/MobileBottomNav.tsx:31
-#: src/components/Common/Sidebar.tsx:64
-#: src/components/Common/Sidebar.tsx:83
+#: src/components/Common/MobileBottomNav.tsx:30
+#: src/components/Common/Sidebar.tsx:63
+#: src/components/Common/Sidebar.tsx:82
 #: src/components/Home/index.tsx:17
 msgid "Home"
 msgstr "首页"
@@ -508,7 +508,7 @@ msgstr "虐待人"
 msgid "Impersonation"
 msgstr "影像"
 
-#: src/components/Common/VideoCard/QueuedVideo.tsx:127
+#: src/components/Common/VideoCard/QueuedVideo.tsx:129
 msgid "Indexing, please wait..."
 msgstr "正在索引，请稍候..."
 
@@ -524,7 +524,7 @@ msgstr "正在索引..."
 msgid "Insufficient storage balance"
 msgstr "存储余额不足"
 
-#: src/components/Explore/Feed.tsx:162
+#: src/components/Explore/Feed.tsx:164
 msgid "Interesting"
 msgstr "有趣的"
 
@@ -546,10 +546,10 @@ msgid "Invalid deposit amount"
 msgstr "无效的存款金额"
 
 #: src/components/Common/Auth/Login.tsx:108
-msgid "Invalid Signature!"
-msgstr "签名无效！"
+#~ msgid "Invalid Signature!"
+#~ msgstr "签名无效！"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:118
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:120
 msgid "Invalid split recipient address"
 msgstr "无效的分割收件人地址"
 
@@ -557,8 +557,8 @@ msgstr "无效的分割收件人地址"
 msgid "IPFS Upload failed"
 msgstr "IPFS 上传失败"
 
-#: src/components/Channel/BasicInfo/JoinChannel.tsx:162
-#: src/components/Channel/BasicInfo/JoinChannel.tsx:169
+#: src/components/Channel/BasicInfo/JoinChannel.tsx:165
+#: src/components/Channel/BasicInfo/JoinChannel.tsx:172
 msgid "Join Channel"
 msgstr "加入频道"
 
@@ -570,11 +570,11 @@ msgstr "已加入"
 msgid "lens claiming site"
 msgstr "镜头索取站点"
 
-#: src/components/Mod/index.tsx:44
+#: src/components/Mod/index.tsx:46
 msgid "Lenstube Stats"
 msgstr "Lenstube统计"
 
-#: src/components/Watch/PublicationReaction.tsx:165
+#: src/components/Watch/PublicationReaction.tsx:163
 msgid "Like"
 msgstr "赞"
 
@@ -582,14 +582,14 @@ msgstr "赞"
 msgid "liked"
 msgstr "赞了"
 
-#: src/components/Channel/Tabs/PinnedVideo.tsx:85
+#: src/components/Channel/Tabs/PinnedVideo.tsx:249
 #: src/components/Common/VideoCard/index.tsx:94
-#: src/components/Home/BytesSection.tsx:142
-#: src/components/Watch/SuggestedVideoCard.tsx:123
+#: src/components/Home/BytesSection.tsx:137
+#: src/components/Watch/SuggestedVideoCard.tsx:116
 msgid "likes"
 msgstr "赞"
 
-#: src/components/Notifications/index.tsx:191
+#: src/components/Notifications/index.tsx:194
 msgid "Likes"
 msgstr "喜欢的"
 
@@ -605,7 +605,7 @@ msgstr "有限采集量"
 #~ msgid "Links"
 #~ msgstr "Links"
 
-#: src/components/Settings/BasicInfo.tsx:395
+#: src/components/Settings/BasicInfo.tsx:399
 msgid "Location"
 msgstr "地点"
 
@@ -613,7 +613,7 @@ msgstr "地点"
 msgid "Login"
 msgstr "登录"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:317
+#: src/components/Watch/CollectVideo/CollectModal.tsx:321
 msgid "Members"
 msgstr "成员"
 
@@ -629,7 +629,7 @@ msgstr "会员已更新"
 msgid "mentioned"
 msgstr "提到了"
 
-#: src/components/Notifications/index.tsx:233
+#: src/components/Notifications/index.tsx:236
 msgid "Mentions"
 msgstr "提及内容"
 
@@ -646,7 +646,7 @@ msgid "Mirror video across Lens"
 msgstr "全镜像视频"
 
 #: src/components/Channel/MirroredVideoCard.tsx:94
-#: src/components/Channel/Tabs/index.tsx:141
+#: src/components/Channel/Tabs/index.tsx:123
 msgid "Mirrored"
 msgstr "镜像"
 
@@ -681,7 +681,7 @@ msgstr "错误使用哈希标签"
 msgid "Momoka is currently in beta - during this time certain actions are not available to all channels."
 msgstr "Momoka目前处于测试版中 - 在此期间某些操作不能用于所有频道。"
 
-#: src/components/Settings/BasicInfo.tsx:354
+#: src/components/Settings/BasicInfo.tsx:358
 msgid "More about your channel"
 msgstr "更多关于您的频道"
 
@@ -689,7 +689,7 @@ msgstr "更多关于您的频道"
 #~ msgid "My Saved List"
 #~ msgstr ""
 
-#: src/components/Common/Header.tsx:129
+#: src/components/Common/Header.tsx:128
 msgid "New video"
 msgstr "新视频"
 
@@ -706,22 +706,22 @@ msgid "No bytes found"
 msgstr "未找到字节"
 
 #: src/components/Channel/Tabs/CommentedVideos.tsx:64
-msgid "No comments on videos"
-msgstr "视频上没有评论"
+#~ msgid "No comments on videos"
+#~ msgstr "视频上没有评论"
 
 #: src/components/Channel/Tabs/MirroredVideos.tsx:62
 msgid "No mirrors found"
 msgstr "未找到镜像"
 
-#: src/components/Channel/Tabs/CollectedNFTs.tsx:54
+#: src/components/Channel/Tabs/CollectedNFTs.tsx:34
 msgid "No NFTs found"
 msgstr "未找到NFTs"
 
-#: src/components/Notifications/index.tsx:263
+#: src/components/Notifications/index.tsx:266
 msgid "No Notifications"
 msgstr "无通知"
 
-#: src/components/Upload/CollectModule/index.tsx:44
+#: src/components/Upload/CollectModule/index.tsx:46
 msgid "No one can collect this publication"
 msgstr "没有人能够收集这个出版物"
 
@@ -734,7 +734,7 @@ msgstr "未找到其他频道"
 msgid "No results found"
 msgstr "未找到结果"
 
-#: src/components/Channel/SavedList.tsx:68
+#: src/components/Channel/SavedList.tsx:70
 msgid "No saved videos found"
 msgstr "未找到保存的视频"
 
@@ -743,11 +743,11 @@ msgid "No subscribers"
 msgstr "没有订阅者"
 
 #: src/components/Channel/Tabs/ChannelVideos.tsx:82
-#: src/components/Explore/Category/index.tsx:87
-#: src/components/Explore/Feed.tsx:169
+#: src/components/Explore/Category/index.tsx:89
+#: src/components/Explore/Feed.tsx:171
 #: src/components/Explore/Hashtag/index.tsx:78
-#: src/components/Home/Feed.tsx:66
-#: src/components/Mod/Recents.tsx:70
+#: src/components/Home/Feed.tsx:68
+#: src/components/Mod/Recents.tsx:72
 msgid "No videos found"
 msgstr "未找到视频"
 
@@ -759,11 +759,11 @@ msgstr "无"
 msgid "Not enough"
 msgstr "还不足"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:409
+#: src/components/Common/VideoCard/VideoOptions.tsx:425
 msgid "Not Interested"
 msgstr "不感兴趣的"
 
-#: src/components/Notifications/index.tsx:127
+#: src/components/Notifications/index.tsx:130
 msgid "Notifications"
 msgstr "通知"
 
@@ -775,11 +775,11 @@ msgstr "NSFW"
 msgid "Offensive"
 msgstr "攻击性的"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:316
+#: src/components/Watch/CollectVideo/CollectModal.tsx:320
 msgid "Only"
 msgstr "仅限"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:108
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:110
 msgid "Only 5 splits supported"
 msgstr "仅支持 5 拆分"
 
@@ -791,7 +791,7 @@ msgstr "只有我订阅的频道和他们的订阅才能达到最高值"
 msgid "Only my subscribers can comment and mirror"
 msgstr "只有我的订阅者可以评论和镜像"
 
-#: src/components/Watch/Comments/VideoComments.tsx:126
+#: src/components/Watch/Comments/VideoComments.tsx:125
 msgid "Only subscribers can comment on this publication"
 msgstr "只有订阅者可以评论这个发布"
 
@@ -799,15 +799,15 @@ msgstr "只有订阅者可以评论这个发布"
 msgid "or choose video"
 msgstr "或选择视频"
 
-#: src/components/Channel/BasicInfo/JoinChannel.tsx:155
+#: src/components/Channel/BasicInfo/JoinChannel.tsx:158
 msgid "Pay Membership of"
 msgstr "会员支付"
 
-#: src/components/Channel/Mutual/MutualSubscribers.tsx:81
+#: src/components/Channel/Mutual/MutualSubscribers.tsx:83
 msgid "People you may know"
 msgstr "您可能知道的人"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:213
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:215
 msgid "Percent of collect revenue can be shared with anyone who mirrors this video."
 msgstr "税收的百分比可以分享给镜像此视频的任何人。"
 
@@ -819,7 +819,7 @@ msgstr "百分比应为0到100"
 msgid "Permalink copied to clipboard"
 msgstr "永久链接已复制到剪贴板"
 
-#: src/components/Settings/Permissions/Modules/index.tsx:71
+#: src/components/Settings/Permissions/Modules/index.tsx:73
 msgid "Permission updated"
 msgstr "权限已更新"
 
@@ -827,15 +827,15 @@ msgstr "权限已更新"
 msgid "Permissions"
 msgstr "权限"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:346
+#: src/components/Common/VideoCard/VideoOptions.tsx:362
 msgid "Pin Video"
 msgstr "置顶视频"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:195
+#: src/components/Common/VideoCard/VideoOptions.tsx:199
 msgid "Pinning video..."
 msgstr "正在固定视频..."
 
-#: src/components/Common/Auth/Login.tsx:94
+#: src/components/Common/Auth/Login.tsx:89
 msgid "Please connect to your wallet"
 msgstr "请连接到你的钱包"
 
@@ -851,7 +851,7 @@ msgstr "请选择或上传缩略图"
 msgid "Please upload a custom thumbnail"
 msgstr "请上传一个自定义缩略图"
 
-#: src/components/Explore/Feed.tsx:139
+#: src/components/Explore/Feed.tsx:141
 msgid "Popular"
 msgstr "热门的"
 
@@ -863,11 +863,11 @@ msgstr "发布视频"
 msgid "Posting video"
 msgstr "发布视频"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:250
+#: src/components/Watch/CollectVideo/CollectModal.tsx:254
 msgid "Price"
 msgstr "价格"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:194
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:196
 msgid "Price of each collect"
 msgstr "每个收集的价格"
 
@@ -883,11 +883,11 @@ msgstr "隐私政策"
 msgid "Privacy Policy"
 msgstr "隐私政策"
 
-#: src/components/Channel/BasicInfo/index.tsx:158
+#: src/components/Channel/BasicInfo/index.tsx:166
 msgid "Proof of Humanity"
 msgstr "人类证据"
 
-#: src/components/Channel/BasicInfo/index.tsx:168
+#: src/components/Channel/BasicInfo/index.tsx:176
 msgid "Proof of Personhood"
 msgstr "人格证明"
 
@@ -905,19 +905,19 @@ msgstr "原因"
 
 #: src/components/Settings/Membership.tsx:224
 #: src/components/Settings/Membership.tsx:278
-#: src/components/Watch/CollectVideo/CollectModal.tsx:297
+#: src/components/Watch/CollectVideo/CollectModal.tsx:301
 msgid "Recipient"
 msgstr "收款人"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:296
+#: src/components/Watch/CollectVideo/CollectModal.tsx:300
 msgid "Recipients"
 msgstr "收件人"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:286
+#: src/components/Watch/CollectVideo/CollectModal.tsx:290
 msgid "Referral Fee"
 msgstr "转诊费"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:209
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:211
 msgid "Referral Percentage"
 msgstr "推荐百分比"
 
@@ -925,7 +925,7 @@ msgstr "推荐百分比"
 msgid "Relevant"
 msgstr "关联的"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:393
+#: src/components/Common/VideoCard/VideoOptions.tsx:409
 msgid "Remove from List"
 msgstr "从列表中删除"
 
@@ -938,13 +938,13 @@ msgid "replies"
 msgstr "回复"
 
 #: src/components/Watch/Comments/Comment.tsx:149
-#: src/components/Watch/Comments/CommentReplies.tsx:168
+#: src/components/Watch/Comments/CommentReplies.tsx:169
 msgid "Reply"
 msgstr "答复"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:382
+#: src/components/Common/VideoCard/VideoOptions.tsx:398
 #: src/components/ReportPublication/index.tsx:158
-#: src/components/Watch/Comments/CommentOptions.tsx:80
+#: src/components/Watch/Comments/CommentOptions.tsx:82
 #: src/components/Watch/VideoActions.tsx:69
 msgid "Report"
 msgstr "报告"
@@ -958,12 +958,12 @@ msgstr "报告发布"
 msgid "Reset"
 msgstr "Reset"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:272
-#: src/components/Watch/CollectVideo/CollectModal.tsx:294
+#: src/components/Watch/CollectVideo/CollectModal.tsx:276
+#: src/components/Watch/CollectVideo/CollectModal.tsx:298
 msgid "Revenue"
 msgstr "收入"
 
-#: src/components/Settings/Permissions/Modules/index.tsx:171
+#: src/components/Settings/Permissions/Modules/index.tsx:173
 msgid "Revoke"
 msgstr "Revoke"
 
@@ -971,16 +971,16 @@ msgstr "Revoke"
 msgid "Round 18"
 msgstr "第18圆桌会议"
 
-#: src/components/Settings/BasicInfo.tsx:403
+#: src/components/Settings/BasicInfo.tsx:407
 msgid "Save"
 msgstr "保存"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:395
+#: src/components/Common/VideoCard/VideoOptions.tsx:411
 msgid "Save to List"
 msgstr "保存到列表"
 
-#: src/components/Channel/SavedList.tsx:73
-#: src/components/Common/UserMenu.tsx:214
+#: src/components/Channel/SavedList.tsx:75
+#: src/components/Common/UserMenu.tsx:241
 msgid "Saved Videos"
 msgstr "保存的视频"
 
@@ -988,7 +988,7 @@ msgstr "保存的视频"
 msgid "Scam"
 msgstr "Scam"
 
-#: src/components/Common/Header.tsx:141
+#: src/components/Common/Header.tsx:140
 msgid "Search"
 msgstr "搜索"
 
@@ -996,7 +996,7 @@ msgstr "搜索"
 msgid "Search by channel / hashtag"
 msgstr "通过频道 / 标签搜索"
 
-#: src/components/Upload/CollectModule/index.tsx:87
+#: src/components/Upload/CollectModule/index.tsx:89
 msgid "Select collect type"
 msgstr "选择收藏类型"
 
@@ -1004,14 +1004,13 @@ msgstr "选择收藏类型"
 msgid "Select Video"
 msgstr "选择视频"
 
-#: src/components/Channel/CommentedVideoCard.tsx:49
 #: src/components/Channel/MirroredVideoCard.tsx:39
 #: src/components/Common/VideoCard/ThumbnailOverlays.tsx:27
 msgid "Sensitive Content"
 msgstr "敏感内容"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:223
-#: src/components/Upload/CollectModule/index.tsx:127
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:225
+#: src/components/Upload/CollectModule/index.tsx:129
 msgid "Set Collect Type"
 msgstr "设置收藏类型"
 
@@ -1019,7 +1018,7 @@ msgstr "设置收藏类型"
 msgid "Set Preference"
 msgstr "设置首选项"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:369
+#: src/components/Common/VideoCard/VideoOptions.tsx:385
 #: src/components/Watch/VideoActions.tsx:56
 msgid "Share"
 msgstr "分享"
@@ -1042,19 +1041,19 @@ msgstr "显示更少的"
 msgid "Show more"
 msgstr "显示更多"
 
-#: src/components/Watch/Comments/NonRelevantComments.tsx:85
+#: src/components/Watch/Comments/NonRelevantComments.tsx:87
 msgid "Show more comments"
 msgstr "显示更多评论"
 
-#: src/components/Watch/Comments/CommentReplies.tsx:197
+#: src/components/Watch/Comments/CommentReplies.tsx:198
 msgid "Show more replies"
 msgstr "显示更多回复"
 
-#: src/components/Common/Auth/ConnectWalletButton.tsx:54
+#: src/components/Common/Auth/ConnectWalletButton.tsx:52
 msgid "Sign In"
 msgstr "登录"
 
-#: src/components/Common/Auth/Login.tsx:143
+#: src/components/Common/Auth/Login.tsx:138
 msgid "Sign in failed"
 msgstr "登录失败"
 
@@ -1062,15 +1061,15 @@ msgstr "登录失败"
 msgid "Sign In Required"
 msgstr "需要登录"
 
-#: src/components/Common/UserMenu.tsx:281
+#: src/components/Common/UserMenu.tsx:304
 msgid "Sign out"
 msgstr "登出"
 
-#: src/components/Upload/Video.tsx:106
+#: src/components/Upload/Video.tsx:108
 msgid "Skip the video upload (Only use this if you know what your doing!)"
 msgstr "跳过视频上传 (只有当你知道你在做什么！)"
 
-#: src/components/Common/UserMenu.tsx:304
+#: src/components/Common/UserMenu.tsx:327
 msgid "Some services are offline"
 msgstr "有些服务处于离线状态"
 
@@ -1078,7 +1077,7 @@ msgstr "有些服务处于离线状态"
 msgid "Something Else"
 msgstr "其它内容"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:122
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:124
 msgid "Split addresses should be unique"
 msgstr "拆分地址应该是唯一的"
 
@@ -1090,11 +1089,11 @@ msgstr "平均拆分"
 msgid "Split revenue"
 msgstr "拆分收入"
 
-#: src/components/Common/Footer.tsx:29
+#: src/components/Common/Footer.tsx:40
 msgid "Status"
 msgstr "状态"
 
-#: src/components/Upload/Video.tsx:126
+#: src/components/Upload/Video.tsx:128
 msgid "Stay active in current tab while uploading for faster experience"
 msgstr "在上传时保持活跃于当前标签页以获得更快的体验。"
 
@@ -1102,7 +1101,7 @@ msgstr "在上传时保持活跃于当前标签页以获得更快的体验。"
 msgid "Storing metadata"
 msgstr "存储元数据"
 
-#: src/components/Channel/BasicInfo/Subscribe.tsx:157
+#: src/components/Channel/BasicInfo/Subscribe.tsx:156
 msgid "Subscribe"
 msgstr "订阅"
 
@@ -1110,32 +1109,32 @@ msgstr "订阅"
 msgid "subscribed"
 msgstr "订阅"
 
-#: src/components/Channel/BasicInfo/index.tsx:114
+#: src/components/Channel/BasicInfo/index.tsx:119
 msgid "Subscriber"
 msgstr "订阅者"
 
-#: src/components/Channel/BasicInfo/index.tsx:109
+#: src/components/Channel/BasicInfo/index.tsx:113
 #: src/components/Channel/Tabs/OtherChannelCard.tsx:40
 #: src/components/UIElements/ChannelSuggestions.tsx:39
 #: src/components/Watch/AboutChannel.tsx:64
 msgid "subscribers"
 msgstr "订阅者"
 
-#: src/components/Channel/BasicInfo/index.tsx:93
-#: src/components/Upload/CollectModule/index.tsx:49
+#: src/components/Channel/BasicInfo/index.tsx:97
+#: src/components/Upload/CollectModule/index.tsx:51
 #: src/components/Upload/CollectModule/PermissionQuestion.tsx:68
-#: src/components/Watch/CollectVideo/CollectModal.tsx:317
+#: src/components/Watch/CollectVideo/CollectModal.tsx:321
 msgid "Subscribers"
 msgstr "订阅者"
 
-#: src/components/Common/Sidebar.tsx:89
-#: src/components/Common/Sidebar.tsx:108
-#: src/components/Notifications/index.tsx:170
+#: src/components/Common/Sidebar.tsx:88
+#: src/components/Common/Sidebar.tsx:107
+#: src/components/Notifications/index.tsx:173
 #: src/components/Subscriptions/index.tsx:10
 msgid "Subscriptions"
 msgstr "订阅"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:128
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:130
 msgid "Sum of all splits should be 100%"
 msgstr "所有分割的总和应该是 100%"
 
@@ -1151,23 +1150,23 @@ msgstr "支持 Lenstube 开启"
 msgid "Swap"
 msgstr "切换"
 
-#: src/components/Common/UserMenu.tsx:224
+#: src/components/Common/UserMenu.tsx:251
 msgid "Switch channel"
 msgstr "切换频道"
 
-#: src/components/Common/Auth/ConnectWalletButton.tsx:75
+#: src/components/Common/Auth/ConnectWalletButton.tsx:73
 msgid "Switch network"
 msgstr "切换网络"
 
-#: src/components/Common/UserMenu.tsx:267
+#: src/components/Common/UserMenu.tsx:294
 msgid "Switch to Dark"
 msgstr "切换到暗色"
 
-#: src/components/Common/UserMenu.tsx:267
+#: src/components/Common/UserMenu.tsx:294
 msgid "Switch to Light"
 msgstr "切换到灯光"
 
-#: src/components/Channel/BasicInfo/index.tsx:148
+#: src/components/Channel/BasicInfo/index.tsx:156
 msgid "Sybil Verified"
 msgstr "Sybil 验证"
 
@@ -1180,7 +1179,7 @@ msgstr "条款"
 msgid "Terms and Conditions"
 msgstr "条款和条件"
 
-#: src/components/Common/Footer.tsx:73
+#: src/components/Common/Footer.tsx:84
 #: src/components/Thanks/index.tsx:15
 msgid "Thanks"
 msgstr "谢谢！"
@@ -1201,7 +1200,7 @@ msgstr "频道"
 msgid "There is so much good content on Lenstube, it may be hard to find what's most relevant to you from time to time. That's where profile interests can help curate content the way you like."
 msgstr "Lenstube上有这么多很好的内容，可能很难不时找到与你最相关的东西。 这就是个人资料兴趣可以帮助管理您喜欢的内容。"
 
-#: src/components/Settings/Permissions/Modules/index.tsx:113
+#: src/components/Settings/Permissions/Modules/index.tsx:115
 msgid "These are the collect modules which you allowed / need to allow to use collect feature. You can allow and revoke access anytime."
 msgstr "这些是您允许/允许使用收集功能的收集模块。您可以随时允许并撤销访问。"
 
@@ -1270,47 +1269,48 @@ msgstr "令牌"
 msgid "token balance"
 msgstr "代币余额"
 
-#: src/components/Mod/index.tsx:50
+#: src/components/Mod/index.tsx:52
 msgid "total bytes"
 msgstr "总计字节"
 
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx:146
+#: src/components/Upload/CollectModule/FeeCollectForm.tsx:148
 msgid "Total Collectibles"
 msgstr "收藏品总数"
 
-#: src/components/Mod/index.tsx:52
+#: src/components/Mod/index.tsx:54
 msgid "total collects"
 msgstr "总收藏"
 
-#: src/components/Watch/CollectVideo/CollectModal.tsx:238
+#: src/components/Watch/CollectVideo/CollectModal.tsx:242
 msgid "Total Collects"
 msgstr "总收藏量"
 
-#: src/components/Mod/index.tsx:48
+#: src/components/Mod/index.tsx:50
 msgid "total comments"
 msgstr "评论总数"
 
-#: src/components/Mod/index.tsx:49
+#: src/components/Mod/index.tsx:51
 msgid "total mirrors"
 msgstr "全部镜像"
 
-#: src/components/Mod/index.tsx:51
+#: src/components/Mod/index.tsx:53
 msgid "total subscriptions"
 msgstr "订阅总数"
 
-#: src/components/Mod/index.tsx:47
+#: src/components/Mod/index.tsx:49
 msgid "total videos"
 msgstr "全部视频"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:123
+#: src/components/Channel/Tabs/PinnedVideo.tsx:99
+#: src/components/Common/VideoCard/VideoOptions.tsx:126
 msgid "Transaction submitted"
 msgstr "交易已提交"
 
-#: src/components/Explore/Feed.tsx:116
+#: src/components/Explore/Feed.tsx:118
 msgid "Trending"
 msgstr "热门主题"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:407
+#: src/components/Common/VideoCard/VideoOptions.tsx:423
 msgid "Undo Interest"
 msgstr "撤销兴趣"
 
@@ -1321,6 +1321,10 @@ msgstr "无限收藏"
 #: src/components/Upload/CollectModule/LimitDurationQuestion.tsx:43
 msgid "Unlimited duration"
 msgstr "无限制持续时间"
+
+#: src/components/Channel/Tabs/PinnedVideo.tsx:172
+msgid "Unpinning video..."
+msgstr ""
 
 #: src/components/ReportPublication/index.tsx:115
 msgid "Unrelated"
@@ -1334,7 +1338,7 @@ msgstr "取消订阅"
 msgid "Update"
 msgstr "更新"
 
-#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:129
+#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:127
 msgid "Upgrade"
 msgstr "升级"
 
@@ -1351,7 +1355,7 @@ msgstr "上传"
 msgid "Upload cost estimation failed"
 msgstr "上传成本估计失败"
 
-#: src/components/Upload/Video.tsx:107
+#: src/components/Upload/Video.tsx:109
 msgid "Upload from Source Url"
 msgstr "从源网址上传"
 
@@ -1391,7 +1395,7 @@ msgstr "已验证"
 msgid "video"
 msgstr "视频"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:251
+#: src/components/Common/VideoCard/VideoOptions.tsx:255
 msgid "Video added to your list"
 msgstr "视频添加到您的列表"
 
@@ -1407,7 +1411,7 @@ msgstr "视频格式不被支持"
 #~ msgid "Video marked as interested"
 #~ msgstr ""
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:239
+#: src/components/Common/VideoCard/VideoOptions.tsx:243
 msgid "Video marked as not interested"
 msgstr "标记为不感兴趣的视频"
 
@@ -1415,15 +1419,15 @@ msgstr "标记为不感兴趣的视频"
 msgid "Video not uploaded correctly"
 msgstr "视频上传不正确"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:240
+#: src/components/Common/VideoCard/VideoOptions.tsx:244
 msgid "Video removed from not interested"
 msgstr "从不感兴趣的视频删除"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:251
+#: src/components/Common/VideoCard/VideoOptions.tsx:255
 msgid "Video removed from your list"
 msgstr "视频已从您的列表中删除"
 
-#: src/components/Upload/Video.tsx:45
+#: src/components/Upload/Video.tsx:47
 msgid "Video source copied"
 msgstr "视频源已复制"
 
@@ -1431,11 +1435,11 @@ msgstr "视频源已复制"
 msgid "video to upload"
 msgstr "要上传的视频"
 
-#: src/components/Upload/Video.tsx:131
+#: src/components/Upload/Video.tsx:133
 msgid "Video will be stored permanently on-chain and can't be updated"
 msgstr "视频将在链上永久存储，不能更新"
 
-#: src/components/Channel/Tabs/index.tsx:84
+#: src/components/Channel/Tabs/index.tsx:85
 #: src/components/Common/Search/GlobalSearchBar.tsx:133
 msgid "Videos"
 msgstr "视频"
@@ -1445,7 +1449,7 @@ msgstr "视频"
 msgid "View Metadata"
 msgstr "查看元数据"
 
-#: src/components/Channel/Tabs/PinnedVideo.tsx:102
+#: src/components/Channel/Tabs/PinnedVideo.tsx:266
 msgid "View more"
 msgstr "查看更多"
 
@@ -1469,11 +1473,11 @@ msgstr "暴力"
 msgid "Visit"
 msgstr "访问"
 
-#: src/components/Common/Auth/ConnectWalletButton.tsx:92
+#: src/components/Common/Auth/ConnectWalletButton.tsx:90
 msgid "Wallet"
 msgstr "钱包"
 
-#: src/components/Watch/index.tsx:67
+#: src/components/Watch/index.tsx:70
 msgid "Watch"
 msgstr "观察"
 
@@ -1481,7 +1485,7 @@ msgstr "观察"
 msgid "Watch Video"
 msgstr "观看视频"
 
-#: src/components/Settings/BasicInfo.tsx:387
+#: src/components/Settings/BasicInfo.tsx:391
 msgid "Website"
 msgstr "网址"
 
@@ -1489,11 +1493,11 @@ msgstr "网址"
 msgid "Who can collect this video?"
 msgstr "谁可以收集此视频？"
 
-#: src/components/Common/Auth/ConnectWalletButton.tsx:56
+#: src/components/Common/Auth/ConnectWalletButton.tsx:54
 msgid "with Lens"
 msgstr "与镜头"
 
-#: src/components/Upload/CollectModule/index.tsx:53
+#: src/components/Upload/CollectModule/index.tsx:55
 msgid "within 24hrs"
 msgstr "24小时内"
 
@@ -1525,7 +1529,7 @@ msgstr "是的，一些价格"
 msgid "You can set up a subscription fee for your channel and provide exclusive offers and perks to the subscribers, also people can pay and support your work."
 msgstr "您可以为您的频道设置订阅费，并向订阅者提供独家报价和增益， 人们也可以付费和支持你的工作。"
 
-#: src/components/Subscriptions/Feed.tsx:63
+#: src/components/Subscriptions/Feed.tsx:65
 msgid "You got no videos in your feed, explore!"
 msgstr "你在你的新闻源中没有视频，探索！"
 
@@ -1541,11 +1545,10 @@ msgstr "您的地址似乎没有镜头句柄。"
 msgid "your channel"
 msgstr "您的频道"
 
-#: src/components/Common/UserMenu.tsx:204
+#: src/components/Common/UserMenu.tsx:231
 msgid "Your Channel"
 msgstr "您的频道"
 
 #: src/components/Upload/BundlrInfo.tsx:171
 msgid "Your Storage Balance"
 msgstr "您的存储余额"
-

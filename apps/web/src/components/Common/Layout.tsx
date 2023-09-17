@@ -2,7 +2,7 @@ import { getShowFullScreen, getToastOptions } from '@lenstube/browser'
 import { AUTH_ROUTES, POLYGON_CHAIN_ID } from '@lenstube/constants'
 import { useIsMounted } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
-import { useUserProfilesQuery } from '@lenstube/lens'
+import { useAllProfilesQuery, useUserSigNoncesQuery } from '@lenstube/lens'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAuthPersistStore, {
   hydrateAuthTokens,
@@ -32,17 +32,13 @@ const NO_HEADER_PATHS = ['/auth']
 
 const Layout: FC<Props> = ({ children }) => {
   const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
-  const setChannels = useChannelStore((state) => state.setChannels)
-  const setSelectedChannel = useChannelStore(
-    (state) => state.setSelectedChannel
-  )
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const setActiveChannel = useChannelStore((state) => state.setActiveChannel)
   const sidebarCollapsed = usePersistStore((state) => state.sidebarCollapsed)
-  const selectedChannelId = useAuthPersistStore(
-    (state) => state.selectedChannelId
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
   )
-  const setSelectedChannelId = useAuthPersistStore(
-    (state) => state.setSelectedChannelId
+  const setSelectedSimpleProfile = useAuthPersistStore(
+    (state) => state.setSelectedSimpleProfile
   )
 
   const { chain } = useNetwork()
@@ -59,46 +55,46 @@ const Layout: FC<Props> = ({ children }) => {
 
   const showFullScreen = getShowFullScreen(pathname)
 
-  const setUserChannels = (channels: Profile[]) => {
-    setChannels(channels)
-    const channel = channels.find((ch) => ch.id === selectedChannelId)
-    setSelectedChannel(channel ?? channels[0])
-    setSelectedChannelId(channel?.id)
-  }
-
   const resetAuthState = () => {
-    setSelectedChannel(null)
-    setSelectedChannelId(null)
+    setActiveChannel(null)
+    setSelectedSimpleProfile(null)
   }
 
-  const { loading } = useUserProfilesQuery({
+  useUserSigNoncesQuery({
+    skip: !selectedSimpleProfile?.id,
+    onCompleted: ({ userSigNonces }) => {
+      setUserSigNonce(userSigNonces.lensHubOnChainSigNonce)
+    },
+    pollInterval: 10_000
+  })
+
+  useAllProfilesQuery({
     variables: {
       request: { ownedBy: [address] }
     },
-    skip: !selectedChannelId,
+    skip: !selectedSimpleProfile,
     onCompleted: (data) => {
       const channels = data?.profiles?.items as Profile[]
       if (!channels.length) {
         return resetAuthState()
       }
-      setUserChannels(channels)
-      setUserSigNonce(data?.userSigNonces?.lensHubOnChainSigNonce)
+      const profile = channels.find((ch) => ch.id === selectedSimpleProfile?.id)
+      if (profile) {
+        setActiveChannel(profile ?? channels[0])
+      }
     },
     onError: () => {
-      setSelectedChannelId(null)
+      setSelectedSimpleProfile(null)
+      setActiveChannel(null)
     }
   })
 
   const validateAuthentication = () => {
-    if (
-      !selectedChannel &&
-      !selectedChannelId &&
-      AUTH_ROUTES.includes(pathname)
-    ) {
+    if (!selectedSimpleProfile && AUTH_ROUTES.includes(pathname)) {
       // Redirect to signin page
       replace(`/auth?next=${asPath}`)
     }
-    const ownerAddress = selectedChannel?.ownedBy
+    const ownerAddress = selectedSimpleProfile?.ownedBy
     const isWrongNetworkChain = chain?.id !== POLYGON_CHAIN_ID
     const isSwitchedAccount =
       ownerAddress !== undefined && ownerAddress !== address
@@ -106,7 +102,7 @@ const Layout: FC<Props> = ({ children }) => {
     const shouldLogout =
       !accessToken || isWrongNetworkChain || isSwitchedAccount
 
-    if (shouldLogout && selectedChannelId) {
+    if (shouldLogout && selectedSimpleProfile?.id) {
       resetAuthState()
       signOut()
       disconnect?.()
@@ -116,9 +112,9 @@ const Layout: FC<Props> = ({ children }) => {
   useEffect(() => {
     validateAuthentication()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [address, chain, disconnect, selectedChannelId])
+  }, [address, chain, disconnect, selectedSimpleProfile])
 
-  if (loading || !mounted) {
+  if (!mounted) {
     return <FullPageLoader />
   }
 

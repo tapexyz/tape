@@ -27,7 +27,6 @@ import {
 import type { LenstubeCollectModule } from '@lenstube/lens/custom-types'
 import { Loader } from '@lenstube/ui'
 import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
 import dayjs from 'dayjs'
 import Link from 'next/link'
@@ -57,9 +56,8 @@ const CollectModal: FC<Props> = ({
   collectModule,
   fetchingCollectModule
 }) => {
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
-  const selectedChannelId = useAuthPersistStore(
-    (state) => state.selectedChannelId
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
   )
 
   const [isAllowed, setIsAllowed] = useState(true)
@@ -106,7 +104,7 @@ const CollectModal: FC<Props> = ({
   })
 
   const { data: balanceData, isLoading: balanceLoading } = useBalance({
-    address: selectedChannel?.ownedBy,
+    address: selectedSimpleProfile?.ownedBy,
     token: assetAddress,
     formatUnits: assetDecimals,
     watch: Boolean(amount),
@@ -135,7 +133,7 @@ const CollectModal: FC<Props> = ({
         referenceModules: []
       }
     },
-    skip: !assetAddress || !selectedChannelId,
+    skip: !assetAddress || !selectedSimpleProfile?.id,
     onCompleted: (data) => {
       setIsAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
     }
@@ -151,10 +149,16 @@ const CollectModal: FC<Props> = ({
     } else {
       setHaveEnoughBalance(true)
     }
-    if (assetAddress && selectedChannelId) {
+    if (assetAddress && selectedSimpleProfile?.id) {
       refetchAllowance()
     }
-  }, [balanceData, assetAddress, amount, refetchAllowance, selectedChannelId])
+  }, [
+    balanceData,
+    assetAddress,
+    amount,
+    refetchAllowance,
+    selectedSimpleProfile
+  ])
 
   const getDefaultProfileByAddress = (address: string) => {
     const profiles = recipientProfilesData?.profiles?.items

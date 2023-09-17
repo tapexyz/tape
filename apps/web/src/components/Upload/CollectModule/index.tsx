@@ -6,7 +6,7 @@ import Tooltip from '@components/UIElements/Tooltip'
 import { useEnabledModuleCurrrenciesQuery } from '@lenstube/lens'
 import type { CollectModuleType } from '@lenstube/lens/custom-types'
 import useAppStore from '@lib/store'
-import useChannelStore from '@lib/store/channel'
+import useAuthPersistStore from '@lib/store/auth'
 import { t, Trans } from '@lingui/macro'
 import React, { useState } from 'react'
 
@@ -20,7 +20,9 @@ const CollectModule = () => {
   const [showModal, setShowModal] = useState(false)
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
   const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
+  )
 
   const setCollectType = (data: CollectModuleType) => {
     setUploadedVideo({
@@ -29,8 +31,8 @@ const CollectModule = () => {
   }
 
   const { data: enabledCurrencies } = useEnabledModuleCurrrenciesQuery({
-    variables: { request: { profileIds: selectedChannel?.id } },
-    skip: !selectedChannel?.id
+    variables: { request: { profileIds: selectedSimpleProfile?.id } },
+    skip: !selectedSimpleProfile?.id
   })
 
   const getSelectedCollectType = () => {

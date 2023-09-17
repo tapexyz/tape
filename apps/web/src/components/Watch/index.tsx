@@ -6,6 +6,7 @@ import type { Publication } from '@lenstube/lens'
 import { usePublicationDetailsQuery } from '@lenstube/lens'
 import { CustomCommentsFilterEnum } from '@lenstube/lens/custom-types'
 import useAppStore from '@lib/store'
+import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t } from '@lingui/macro'
 import { useRouter } from 'next/router'
@@ -23,7 +24,9 @@ const VideoDetails = () => {
   const {
     query: { id, t: time }
   } = useRouter()
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
+  )
   const setVideoWatchTime = useAppStore((state) => state.setVideoWatchTime)
   const selectedCommentFilter = useChannelStore(
     (state) => state.selectedCommentFilter
@@ -36,10 +39,10 @@ const VideoDetails = () => {
   const { data, error, loading } = usePublicationDetailsQuery({
     variables: {
       request: { publicationId: id },
-      reactionRequest: selectedChannel
-        ? { profileId: selectedChannel?.id }
+      reactionRequest: selectedSimpleProfile
+        ? { profileId: selectedSimpleProfile?.id }
         : null,
-      channelId: selectedChannel?.id ?? null
+      channelId: selectedSimpleProfile?.id ?? null
     },
     skip: !id
   })

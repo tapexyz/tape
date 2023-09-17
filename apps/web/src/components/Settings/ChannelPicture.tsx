@@ -14,6 +14,7 @@ import {
 import type {
   CreateSetProfileImageUriBroadcastItemResult,
   Profile,
+  ProfileMedia,
   UpdateProfileImageRequest
 } from '@lenstube/lens'
 import {
@@ -23,9 +24,11 @@ import {
 } from '@lenstube/lens'
 import type {
   CustomErrorWithData,
-  IPFSUploadResult
+  IPFSUploadResult,
+  SimpleProfile
 } from '@lenstube/lens/custom-types'
 import { Loader } from '@lenstube/ui'
+import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t } from '@lingui/macro'
 import clsx from 'clsx'
@@ -41,16 +44,20 @@ type Props = {
 const ChannelPicture: FC<Props> = ({ channel }) => {
   const [selectedPfp, setSelectedPfp] = useState('')
   const [loading, setLoading] = useState(false)
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
-  const setSelectedChannel = useChannelStore(
-    (state) => state.setSelectedChannel
+  const activeChannel = useChannelStore((state) => state.activeChannel)
+  const setActiveChannel = useChannelStore((state) => state.setActiveChannel)
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
+  )
+  const setSelectedSimpleProfile = useAuthPersistStore(
+    (state) => state.setSelectedSimpleProfile
   )
   const userSigNonce = useChannelStore((state) => state.userSigNonce)
   const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
 
   // Dispatcher
-  const canUseRelay = selectedChannel?.dispatcher?.canUseRelay
-  const isSponsored = selectedChannel?.dispatcher?.sponsor
+  const canUseRelay = activeChannel?.dispatcher?.canUseRelay
+  const isSponsored = activeChannel?.dispatcher?.sponsor
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
@@ -58,16 +65,24 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     setSelectedPfp(getProfilePicture(channel, 'AVATAR_LG'))
   }
 
-  const onCompleted = () => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+    if (__typename === 'RelayError') {
+      return
+    }
     setLoading(false)
-    if (selectedChannel && selectedPfp) {
-      setSelectedChannel({
-        ...selectedChannel,
-        picture: {
-          original: { url: selectedPfp },
-          onChain: { url: selectedPfp },
-          __typename: 'MediaSet'
-        }
+    if (activeChannel && selectedPfp) {
+      const picture: ProfileMedia = {
+        original: { url: selectedPfp },
+        onChain: { url: selectedPfp },
+        __typename: 'MediaSet'
+      }
+      setActiveChannel({
+        ...activeChannel,
+        picture
+      })
+      setSelectedSimpleProfile({
+        ...(selectedSimpleProfile as SimpleProfile),
+        picture
       })
     }
     toast.success(t`Channel image updated`)
@@ -82,18 +97,19 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     abi: LENSHUB_PROXY_ABI,
     functionName: 'setProfileImageURI',
     onError,
-    onSuccess: onCompleted
+    onSuccess: () => onCompleted()
   })
 
   const [createSetProfileImageViaDispatcher] =
     useCreateSetProfileImageUriViaDispatcherMutation({
       onError,
-      onCompleted
+      onCompleted: ({ createSetProfileImageURIViaDispatcher }) =>
+        onCompleted(createSetProfileImageURIViaDispatcher.__typename)
     })
 
   const [broadcast] = useBroadcastMutation({
     onError,
-    onCompleted
+    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
   })
 
   const [createSetProfileImageURITypedData] =
@@ -142,7 +158,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
         setLoading(true)
         const result: IPFSUploadResult = await uploadToIPFS(e.target.files[0])
         const request = {
-          profileId: selectedChannel?.id,
+          profileId: activeChannel?.id,
           url: result.url
         }
         setSelectedPfp(result.url)
@@ -166,7 +182,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
         }
         className="h-32 w-32 rounded-full border-2 object-cover"
         draggable={false}
-        alt={selectedPfp ? selectedChannel?.handle : channel.handle}
+        alt={selectedPfp ? activeChannel?.handle : channel.handle}
       />
       <label
         htmlFor="choosePfp"

@@ -16,15 +16,15 @@ const Layout = lazy(() => import('../components/Common/Layout'))
 
 const App = ({ Component, pageProps }: AppProps) => {
   const { pathname, replace, asPath } = useRouter()
-  const selectedChannelId = useAuthPersistStore(
-    (state) => state.selectedChannelId
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
   )
 
   useEffect(() => {
-    if (!selectedChannelId && AUTH_ROUTES.includes(pathname)) {
+    if (!selectedSimpleProfile?.id && AUTH_ROUTES.includes(pathname)) {
       replace(`/auth?next=${asPath}`)
     }
-  }, [selectedChannelId, pathname, asPath, replace])
+  }, [selectedSimpleProfile, pathname, asPath, replace])
 
   return (
     <>

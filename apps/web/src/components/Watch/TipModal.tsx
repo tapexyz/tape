@@ -84,17 +84,17 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   const { openConnectModal } = useConnectModal()
   const { cache } = useApolloClient()
   const [loading, setLoading] = useState(false)
-  const selectedChannelId = useAuthPersistStore(
-    (state) => state.selectedChannelId
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
   )
   const queuedComments = usePersistStore((state) => state.queuedComments)
   const setQueuedComments = usePersistStore((state) => state.setQueuedComments)
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const activeChannel = useChannelStore((state) => state.activeChannel)
   const userSigNonce = useChannelStore((state) => state.userSigNonce)
   const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
   // Dispatcher
-  const canUseRelay = selectedChannel?.dispatcher?.canUseRelay
-  const isSponsored = selectedChannel?.dispatcher?.sponsor
+  const canUseRelay = activeChannel?.dispatcher?.canUseRelay
+  const isSponsored = activeChannel?.dispatcher?.sponsor
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error.message)
@@ -329,7 +329,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
         external_url: `${LENSTUBE_WEBSITE_URL}/watch/${video?.id}`,
         image: null,
         imageMimeType: null,
-        name: `${selectedChannel?.handle}'s comment on video ${video.metadata.name}`,
+        name: `${activeChannel?.handle}'s comment on video ${video.metadata.name}`,
         attributes: [
           {
             displayType: PublicationMetadataDisplayTypes.String,
@@ -352,12 +352,12 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
       })
 
       const dataAvailablityRequest = {
-        from: selectedChannel?.id,
+        from: activeChannel?.id,
         commentOn: video.id,
         contentURI: metadataUri
       }
       const request = {
-        profileId: selectedChannel?.id,
+        profileId: activeChannel?.id,
         publicationId: video?.id,
         contentURI: metadataUri,
         collectModule: {
@@ -383,7 +383,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   }
 
   const onSendTip = async () => {
-    if (!selectedChannelId) {
+    if (!selectedSimpleProfile?.id) {
       return openConnectModal?.()
     }
     if (video.isDataAvailability && !isSponsored) {

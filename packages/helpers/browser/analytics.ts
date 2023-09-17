@@ -21,6 +21,7 @@ export const TRACK = {
     DISLIKE: 'Dislike publication',
     MIRROR: 'Mirror publication',
     PIN: 'Pin publication',
+    UNPIN: 'Unpin publication',
     DELETE: 'Delete publication',
     REPORT: 'Report Publication',
     TOGGLE_INTEREST: 'Toggle Publication Interest',

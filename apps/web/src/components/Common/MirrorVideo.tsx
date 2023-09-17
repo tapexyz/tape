@@ -43,14 +43,14 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
 
   const userSigNonce = useChannelStore((state) => state.userSigNonce)
   const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
-  const selectedChannelId = useAuthPersistStore(
-    (state) => state.selectedChannelId
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
   )
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const activeChannel = useChannelStore((state) => state.activeChannel)
 
   // Dispatcher
-  const canUseRelay = selectedChannel?.dispatcher?.canUseRelay
-  const isSponsored = selectedChannel?.dispatcher?.sponsor
+  const canUseRelay = activeChannel?.dispatcher?.canUseRelay
+  const isSponsored = activeChannel?.dispatcher?.sponsor
 
   const collectModule =
     video?.__typename === 'Post'
@@ -144,7 +144,7 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
   }
 
   const mirrorVideo = async () => {
-    if (!selectedChannelId) {
+    if (!selectedSimpleProfile?.id) {
       return openConnectModal?.()
     }
 
@@ -156,7 +156,7 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
 
     setLoading(true)
     const request: CreateMirrorRequest = {
-      profileId: selectedChannel?.id,
+      profileId: activeChannel?.id,
       publicationId: video?.id,
       referenceModule: {
         followerOnlyReferenceModule: false
@@ -165,7 +165,7 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
 
     // Payload for the data availability mirror
     const dataAvailablityRequest = {
-      from: selectedChannel?.id,
+      from: activeChannel?.id,
       mirror: video?.id
     }
 

@@ -17,14 +17,16 @@ import {
 } from '@lenstube/lens'
 import { Loader } from '@lenstube/ui'
 import useAppStore from '@lib/store'
-import useChannelStore from '@lib/store/channel'
+import useAuthPersistStore from '@lib/store/auth'
 import { t } from '@lingui/macro'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 
 const HomeFeed = () => {
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
+  )
 
   const request = {
     sortCriteria: PublicationSortCriteria.CuratedProfiles,
@@ -41,7 +43,7 @@ const HomeFeed = () => {
   }
 
   const { data, loading, error, fetchMore } = useExploreQuery({
-    variables: { request, channelId: selectedChannel?.id ?? null }
+    variables: { request, channelId: selectedSimpleProfile?.id ?? null }
   })
 
   const pageInfo = data?.explorePublications?.pageInfo
@@ -56,7 +58,7 @@ const HomeFeed = () => {
             ...request,
             cursor: pageInfo?.next
           },
-          channelId: selectedChannel?.id ?? null
+          channelId: selectedSimpleProfile?.id ?? null
         }
       })
     }

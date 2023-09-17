@@ -15,13 +15,15 @@ import {
   useExploreQuery
 } from '@lenstube/lens'
 import { Loader } from '@lenstube/ui'
-import useChannelStore from '@lib/store/channel'
+import useAuthPersistStore from '@lib/store/auth'
 import { t } from '@lingui/macro'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 
 const Recents = () => {
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
+  )
 
   const request = {
     sortCriteria: PublicationSortCriteria.Latest,
@@ -38,7 +40,7 @@ const Recents = () => {
   const { data, loading, error, fetchMore } = useExploreQuery({
     variables: {
       request,
-      channelId: selectedChannel?.id ?? null
+      channelId: selectedSimpleProfile?.id ?? null
     }
   })
 
@@ -54,7 +56,7 @@ const Recents = () => {
             ...request,
             cursor: pageInfo?.next
           },
-          channelId: selectedChannel?.id ?? null
+          channelId: selectedSimpleProfile?.id ?? null
         }
       })
     }

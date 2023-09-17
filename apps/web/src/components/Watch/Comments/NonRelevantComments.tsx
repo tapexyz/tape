@@ -10,7 +10,7 @@ import {
   useCommentsQuery
 } from '@lenstube/lens'
 import { Loader } from '@lenstube/ui'
-import useChannelStore from '@lib/store/channel'
+import useAuthPersistStore from '@lib/store/auth'
 import { t } from '@lingui/macro'
 import type { FC } from 'react'
 import React, { useState } from 'react'
@@ -25,7 +25,9 @@ type Props = {
 
 const NonRelevantComments: FC<Props> = ({ video, className }) => {
   const [showSection, setShowSection] = useState(false)
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
+  )
 
   const request = {
     limit: 10,
@@ -36,10 +38,10 @@ const NonRelevantComments: FC<Props> = ({ video, className }) => {
   }
   const variables = {
     request,
-    reactionRequest: selectedChannel
-      ? { profileId: selectedChannel?.id }
+    reactionRequest: selectedSimpleProfile
+      ? { profileId: selectedSimpleProfile?.id }
       : null,
-    channelId: selectedChannel?.id ?? null
+    channelId: selectedSimpleProfile?.id ?? null
   }
 
   const { data, loading, fetchMore } = useCommentsQuery({

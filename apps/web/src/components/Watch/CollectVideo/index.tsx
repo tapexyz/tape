@@ -48,8 +48,8 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
   const [alreadyCollected, setAlreadyCollected] = useState(
     video.hasCollectedByMe
   )
-  const selectedChannelId = useAuthPersistStore(
-    (state) => state.selectedChannelId
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
   )
   const userSigNonce = useChannelStore((state) => state.userSigNonce)
   const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
@@ -59,7 +59,10 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
     setLoading(false)
   }
 
-  const onCompleted = () => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+    if (__typename === 'RelayError') {
+      return
+    }
     setLoading(false)
     setAlreadyCollected(true)
     toast.success(t`Collected as NFT`)
@@ -88,17 +91,17 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
     abi: LENSHUB_PROXY_ABI,
     functionName: 'collect',
     onError,
-    onSuccess: onCompleted
+    onSuccess: () => onCompleted()
   })
 
   const [broadcast] = useBroadcastMutation({
     onError,
-    onCompleted
+    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
   })
 
   const [createProxyActionFreeCollect] = useProxyActionMutation({
     onError,
-    onCompleted
+    onCompleted: () => onCompleted()
   })
 
   const [createCollectTypedData] = useCreateCollectTypedDataMutation({
@@ -158,7 +161,7 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
   }
 
   const onClickCollect = () => {
-    if (!selectedChannelId) {
+    if (!selectedSimpleProfile?.id) {
       return openConnectModal?.()
     }
     return setShowCollectModal(true)

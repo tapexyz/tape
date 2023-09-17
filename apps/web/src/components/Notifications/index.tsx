@@ -20,6 +20,7 @@ import type { Notification } from '@lenstube/lens'
 import { NotificationTypes, useNotificationsQuery } from '@lenstube/lens'
 import { CustomNotificationsFilterEnum } from '@lenstube/lens/custom-types'
 import { Loader } from '@lenstube/ui'
+import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'
@@ -46,7 +47,9 @@ const initialFilters = {
 
 const Notifications = () => {
   const [activeFilter, setActiveFilter] = useState(initialFilters)
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
+  )
   const setHasNewNotification = useChannelStore(
     (state) => state.setHasNewNotification
   )
@@ -92,7 +95,7 @@ const Notifications = () => {
       ? [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID]
       : undefined,
     customFilters: LENS_CUSTOM_FILTERS,
-    profileId: selectedChannel?.id,
+    profileId: selectedSimpleProfile?.id,
     highSignalFilter:
       selectedNotificationsFilter === CustomNotificationsFilterEnum.HIGH_SIGNAL,
     notificationTypes: getNotificationFilters()

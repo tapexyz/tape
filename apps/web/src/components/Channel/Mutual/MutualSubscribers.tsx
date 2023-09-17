@@ -5,7 +5,7 @@ import { Analytics, TRACK } from '@lenstube/browser'
 import { getProfilePicture } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import { useMutualFollowersQuery } from '@lenstube/lens'
-import useChannelStore from '@lib/store/channel'
+import useAuthPersistStore from '@lib/store/auth'
 import { t } from '@lingui/macro'
 import type { FC } from 'react'
 import React, { useState } from 'react'
@@ -18,7 +18,9 @@ type Props = {
 const FETCH_COUNT = 5
 
 const MutualSubscribers: FC<Props> = ({ viewingChannelId }) => {
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
+  )
   const [showMutualSubscribersModal, setShowMutualSubscribersModal] =
     useState(false)
 
@@ -26,11 +28,11 @@ const MutualSubscribers: FC<Props> = ({ viewingChannelId }) => {
     variables: {
       request: {
         viewingProfileId: viewingChannelId,
-        yourProfileId: selectedChannel?.id,
+        yourProfileId: selectedSimpleProfile?.id,
         limit: FETCH_COUNT
       }
     },
-    skip: !viewingChannelId || !selectedChannel?.id
+    skip: !viewingChannelId || !selectedSimpleProfile?.id
   })
 
   const onClickMutuals = () => {

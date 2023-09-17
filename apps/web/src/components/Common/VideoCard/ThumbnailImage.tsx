@@ -43,7 +43,7 @@ const ThumbnailImage: FC<Props> = ({ video }) => {
       }}
       alt="thumbnail"
       draggable={false}
-      onError={async ({ currentTarget }) => {
+      onError={({ currentTarget }) => {
         currentTarget.src = FALLBACK_COVER_URL
         // const thumbnail = await generateVideoThumbnail(
         //   getPublicationMediaUrl(video)

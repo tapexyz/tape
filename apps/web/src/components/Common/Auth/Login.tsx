@@ -3,9 +3,9 @@ import { ERROR_MESSAGE, POLYGON_CHAIN_ID } from '@lenstube/constants'
 import { logger } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import {
-  useAllProfilesLazyQuery,
   useAuthenticateMutation,
-  useChallengeLazyQuery
+  useChallengeLazyQuery,
+  useSimpleProfilesLazyQuery
 } from '@lenstube/lens'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAuthPersistStore, { signIn, signOut } from '@lib/store/auth'
@@ -33,23 +33,19 @@ const Login = () => {
   const setShowCreateChannel = useChannelStore(
     (state) => state.setShowCreateChannel
   )
-  const setChannels = useChannelStore((state) => state.setChannels)
-  const selectedChannelId = useAuthPersistStore(
-    (state) => state.selectedChannelId
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
   )
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
-  const setSelectedChannel = useChannelStore(
-    (state) => state.setSelectedChannel
-  )
-  const setSelectedChannelId = useAuthPersistStore(
-    (state) => state.setSelectedChannelId
+  const activeChannel = useChannelStore((state) => state.activeChannel)
+  const setActiveChannel = useChannelStore((state) => state.setActiveChannel)
+  const setSelectedSimpleProfile = useAuthPersistStore(
+    (state) => state.setSelectedSimpleProfile
   )
 
   const onError = () => {
     setLoading(false)
     signOut()
-    setSelectedChannel(null)
-    setSelectedChannelId(null)
+    setActiveChannel(null)
   }
 
   const { signMessageAsync } = useSignMessage({
@@ -61,9 +57,8 @@ const Login = () => {
     onError
   })
   const [authenticate, { error: errorAuthenticate }] = useAuthenticateMutation()
-  const [getChannels, { error: errorProfiles }] = useAllProfilesLazyQuery({
-    fetchPolicy: 'no-cache'
-  })
+  const [getAllSimpleProfiles, { error: errorProfiles }] =
+    useSimpleProfilesLazyQuery()
 
   useEffect(() => {
     if (
@@ -84,8 +79,8 @@ const Login = () => {
     connector?.id &&
     isConnected &&
     chain?.id === POLYGON_CHAIN_ID &&
-    !selectedChannel &&
-    !selectedChannelId
+    !activeChannel &&
+    !selectedSimpleProfile?.id
 
   const handleSign = useCallback(async () => {
     if (!isReadyToSign) {
@@ -113,24 +108,24 @@ const Login = () => {
       const accessToken = result.data?.authenticate.accessToken
       const refreshToken = result.data?.authenticate.refreshToken
       signIn({ accessToken, refreshToken })
-      const { data: channelsData } = await getChannels({
+      const { data: profilesData } = await getAllSimpleProfiles({
         variables: {
           request: { ownedBy: [address] }
-        }
+        },
+        fetchPolicy: 'no-cache'
       })
       if (
-        !channelsData?.profiles ||
-        channelsData?.profiles?.items.length === 0
+        !profilesData?.profiles ||
+        profilesData?.profiles?.items.length === 0
       ) {
-        setSelectedChannel(null)
-        setSelectedChannelId(null)
+        setActiveChannel(null)
+        setSelectedSimpleProfile(null)
         setShowCreateChannel(true)
       } else {
-        const channels = channelsData?.profiles?.items as Profile[]
-        const defaultChannel = channels.find((channel) => channel.isDefault)
-        setChannels(channels)
-        setSelectedChannel(defaultChannel ?? channels[0])
-        setSelectedChannelId(defaultChannel?.id ?? channels[0].id)
+        const profiles = profilesData?.profiles?.items as Profile[]
+        const defaultProfile = profiles.find((profile) => profile.isDefault)
+        const profile = defaultProfile ?? profiles[0]
+        setSelectedSimpleProfile(profile)
         if (router.query?.next) {
           router.push(router.query?.next as string)
         }
@@ -150,12 +145,11 @@ const Login = () => {
   }, [
     address,
     authenticate,
-    getChannels,
+    getAllSimpleProfiles,
     loadChallenge,
     router,
-    setChannels,
-    setSelectedChannel,
-    setSelectedChannelId,
+    setActiveChannel,
+    setSelectedSimpleProfile,
     setShowCreateChannel,
     signMessageAsync
   ])

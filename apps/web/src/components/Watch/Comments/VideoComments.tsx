@@ -30,11 +30,10 @@ type Props = {
 }
 
 const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
-  const selectedChannelId = useAuthPersistStore(
-    (state) => state.selectedChannelId
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
   )
   const queuedComments = usePersistStore((state) => state.queuedComments)
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
   const selectedCommentFilter = useChannelStore(
     (state) => state.selectedCommentFilter
   )
@@ -67,10 +66,10 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
   }
   const variables = {
     request,
-    reactionRequest: selectedChannel
-      ? { profileId: selectedChannel?.id }
+    reactionRequest: selectedSimpleProfile
+      ? { profileId: selectedSimpleProfile?.id }
       : null,
-    channelId: selectedChannel?.id ?? null
+    channelId: selectedSimpleProfile?.id ?? null
   }
 
   const { data, loading, error, fetchMore } = useCommentsQuery({
@@ -119,7 +118,7 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
         <>
           {video?.canComment.result ? (
             <NewComment video={video} />
-          ) : selectedChannelId ? (
+          ) : selectedSimpleProfile?.id ? (
             <Alert variant="warning">
               <span className="text-sm">
                 {isFollowerOnlyReferenceModule

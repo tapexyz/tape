@@ -12,7 +12,7 @@ import {
 import type { Profile, Publication } from '@lenstube/lens'
 import { PublicationMainFocus, useProfileBookmarksQuery } from '@lenstube/lens'
 import { Loader } from '@lenstube/ui'
-import useChannelStore from '@lib/store/channel'
+import useAuthPersistStore from '@lib/store/auth'
 import { t } from '@lingui/macro'
 import type { FC } from 'react'
 import React from 'react'
@@ -23,12 +23,14 @@ type Props = {
 }
 
 const SavedList: FC<Props> = () => {
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
+  )
 
   const request = {
     limit: 32,
     metadata: { mainContentFocus: [PublicationMainFocus.Video] },
-    profileId: selectedChannel?.id,
+    profileId: selectedSimpleProfile?.id,
     sources: IS_MAINNET
       ? [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
       : undefined
@@ -37,9 +39,9 @@ const SavedList: FC<Props> = () => {
   const { data, loading, error, fetchMore } = useProfileBookmarksQuery({
     variables: {
       request,
-      channelId: selectedChannel?.id ?? null
+      channelId: selectedSimpleProfile?.id ?? null
     },
-    skip: !selectedChannel?.id
+    skip: !selectedSimpleProfile?.id
   })
 
   const savedVideos = data?.publicationsProfileBookmarks?.items as Publication[]
@@ -54,7 +56,7 @@ const SavedList: FC<Props> = () => {
             ...request,
             cursor: pageInfo?.next
           },
-          channelId: selectedChannel?.id ?? null
+          channelId: selectedSimpleProfile?.id ?? null
         }
       })
     }

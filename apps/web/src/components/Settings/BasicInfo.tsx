@@ -26,6 +26,7 @@ import {
   imageCdn,
   sanitizeDStorageUrl,
   trimify,
+  trimLensHandle,
   uploadToAr
 } from '@lenstube/generic'
 import type {
@@ -91,10 +92,10 @@ const BasicInfo = ({ channel }: Props) => {
   const [uploading, setUploading] = useState(false)
   const [coverImage, setCoverImage] = useState(getChannelCoverPicture(channel))
 
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const activeChannel = useChannelStore((state) => state.activeChannel)
   // Dispatcher
-  const canUseRelay = selectedChannel?.dispatcher?.canUseRelay
-  const isSponsored = selectedChannel?.dispatcher?.sponsor
+  const canUseRelay = activeChannel?.dispatcher?.canUseRelay
+  const isSponsored = activeChannel?.dispatcher?.sponsor
 
   const {
     register,
@@ -119,7 +120,10 @@ const BasicInfo = ({ channel }: Props) => {
     setLoading(false)
   }
 
-  const onCompleted = () => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+    if (__typename === 'RelayError') {
+      return
+    }
     setLoading(false)
     toast.success('Channel details submitted')
     Analytics.track(TRACK.CHANNEL.UPDATE)
@@ -134,18 +138,19 @@ const BasicInfo = ({ channel }: Props) => {
     abi: LENS_PERIPHERY_ABI,
     functionName: 'setProfileMetadataURI',
     onError,
-    onSuccess: onCompleted
+    onSuccess: () => onCompleted()
   })
 
   const [broadcast] = useBroadcastMutation({
     onError,
-    onCompleted
+    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
   })
 
   const [createSetProfileMetadataViaDispatcher] =
     useCreateSetProfileMetadataViaDispatcherMutation({
       onError,
-      onCompleted
+      onCompleted: ({ createSetProfileMetadataViaDispatcher }) =>
+        onCompleted(createSetProfileMetadataViaDispatcher.__typename)
     })
 
   const [createSetProfileMetadataTypedData] =
@@ -326,12 +331,16 @@ const BasicInfo = ({ channel }: Props) => {
         </div>
         <div className="flex items-center space-x-2">
           <span>
-            {LENSTUBE_WEBSITE_URL}/channel/{channel.handle}
+            {LENSTUBE_WEBSITE_URL}/channel/{trimLensHandle(channel.handle)}
           </span>
           <button
             className="hover:opacity-60 focus:outline-none"
             onClick={() =>
-              onCopyChannelUrl(`${LENSTUBE_WEBSITE_URL}/${channel.handle}`)
+              onCopyChannelUrl(
+                `${LENSTUBE_WEBSITE_URL}/channel/${trimLensHandle(
+                  channel.handle
+                )}`
+              )
             }
             type="button"
           >

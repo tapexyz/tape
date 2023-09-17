@@ -1,4 +1,4 @@
-export const NFTS_QUERY = `query MyQuery($owner: Identity!, $limit: Int!, $cursor: String) {
+export const NFTS_QUERY = `query NftsQuery($owner: Identity!, $limit: Int!, $cursor: String) {
     Ethereum: TokenBalances(
       input: {filter: {owner: {_eq: $owner}, tokenType: {_in: [ERC1155, ERC721]}}, blockchain: ethereum, limit: $limit, cursor: $cursor}
     ) {
@@ -7,8 +7,9 @@ export const NFTS_QUERY = `query MyQuery($owner: Identity!, $limit: Int!, $curso
             metaData {
                 name
                 image
+                description
             }
-            blockchain
+            chainId
             address
             tokenId
             contentValue {
@@ -30,8 +31,9 @@ export const NFTS_QUERY = `query MyQuery($owner: Identity!, $limit: Int!, $curso
             metaData {
                 name
                 image
+                description
             }
-            blockchain
+            chainId
             address
             tokenId
             contentValue {

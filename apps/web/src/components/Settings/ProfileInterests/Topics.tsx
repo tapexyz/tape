@@ -14,7 +14,7 @@ import React, { useEffect } from 'react'
 const MAX_TOPICS_ALLOWED = 12
 
 const Topics = () => {
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const activeChannel = useChannelStore((state) => state.activeChannel)
 
   useEffect(() => {
     Analytics.track(TRACK.PROFILE_INTERESTS.VIEW)
@@ -27,19 +27,19 @@ const Topics = () => {
 
   const updateCache = (interests: string[]) => {
     cache.modify({
-      id: `Profile:${selectedChannel?.id}`,
+      id: `Profile:${activeChannel?.id}`,
       fields: { interests: () => interests }
     })
   }
 
   const interestsData = (data?.profileInterests as string[]) || []
-  const selectedTopics = selectedChannel?.interests ?? []
+  const selectedTopics = activeChannel?.interests ?? []
 
   const onSelectTopic = (topic: string) => {
     try {
       const variables = {
         request: {
-          profileId: selectedChannel?.id,
+          profileId: activeChannel?.id,
           interests: [topic]
         }
       }

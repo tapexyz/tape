@@ -7,6 +7,7 @@ import type {
   LimitedFeeCollectModuleSettings,
   LimitedTimedFeeCollectModuleSettings,
   MultirecipientFeeCollectModuleSettings,
+  Profile,
   RecipientDataInput,
   RevertCollectModuleSettings,
   SimpleCollectModuleSettings,
@@ -199,3 +200,24 @@ export interface MobileThemeConfig {
   buttonBackgroundColor: string
   buttonTextColor: string
 }
+
+export interface CustomNftItemType {
+  contentValue: {
+    video: string
+    audio: string
+  }
+  metaData: {
+    name: string
+    image: string
+    description: string
+  }
+  tokenId: string
+  blockchain: string
+  chainId: string
+  address: string
+}
+
+export type SimpleProfile = Pick<
+  Profile,
+  'id' | 'handle' | 'ownedBy' | 'isDefault' | 'dispatcher' | 'stats' | 'picture'
+>

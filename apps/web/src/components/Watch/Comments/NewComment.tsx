@@ -74,17 +74,17 @@ const NewComment: FC<Props> = ({
   const { cache } = useApolloClient()
 
   const [loading, setLoading] = useState(false)
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
-  const selectedChannelId = useAuthPersistStore(
-    (state) => state.selectedChannelId
+  const activeChannel = useChannelStore((state) => state.activeChannel)
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
   )
   const queuedComments = usePersistStore((state) => state.queuedComments)
   const setQueuedComments = usePersistStore((state) => state.setQueuedComments)
   const userSigNonce = useChannelStore((state) => state.userSigNonce)
   const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
   // Dispatcher
-  const canUseRelay = selectedChannel?.dispatcher?.canUseRelay
-  const isSponsored = selectedChannel?.dispatcher?.sponsor
+  const canUseRelay = activeChannel?.dispatcher?.canUseRelay
+  const isSponsored = activeChannel?.dispatcher?.sponsor
 
   const {
     clearErrors,
@@ -336,7 +336,7 @@ const NewComment: FC<Props> = ({
         external_url: `${LENSTUBE_WEBSITE_URL}/watch/${video?.id}`,
         image: null,
         imageMimeType: null,
-        name: `${selectedChannel?.handle}'s comment on video ${video.metadata.name}`,
+        name: `${activeChannel?.handle}'s comment on video ${video.metadata.name}`,
         attributes: [
           {
             displayType: PublicationMetadataDisplayTypes.String,
@@ -354,12 +354,12 @@ const NewComment: FC<Props> = ({
       })
 
       const dataAvailablityRequest = {
-        from: selectedChannel?.id,
+        from: activeChannel?.id,
         commentOn: video.id,
         contentURI: metadataUri
       }
       const request = {
-        profileId: selectedChannel?.id,
+        profileId: activeChannel?.id,
         publicationId: video?.id,
         contentURI: metadataUri,
         collectModule: {
@@ -384,7 +384,7 @@ const NewComment: FC<Props> = ({
     } catch {}
   }
 
-  if (!selectedChannel || !selectedChannelId) {
+  if (!activeChannel || !selectedSimpleProfile?.id) {
     return null
   }
 
@@ -396,10 +396,10 @@ const NewComment: FC<Props> = ({
       <div className="flex flex-1 items-center space-x-2 md:space-x-3">
         <div className="flex-none">
           <img
-            src={getProfilePicture(selectedChannel, 'AVATAR')}
+            src={getProfilePicture(activeChannel, 'AVATAR')}
             className="h-9 w-9 rounded-full"
             draggable={false}
-            alt={selectedChannel?.handle}
+            alt={activeChannel?.handle}
           />
         </div>
         <div className="relative w-full">
