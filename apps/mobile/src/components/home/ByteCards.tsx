@@ -164,29 +164,34 @@ const ByteCards = () => {
     })
   }
 
-  const renderCard = useCallback((byte: Publication) => {
-    return (
-      <>
-        <ExpoImage
-          source={{ uri: imageCdn(getThumbnailUrl(byte, true), 'THUMBNAIL_V') }}
-          contentFit="cover"
-          transition={300}
-          style={style.thumbnail}
-        />
-        <View style={style.profile}>
-          <UserProfile
-            profile={byte.profile}
-            size={14}
-            radius={3}
-            handleStyle={{ fontFamily: 'font-bold', color: colors.white }}
-            imageStyle={{
-              borderWidth: 0
+  const renderCard = useCallback(
+    (byte: Publication) => {
+      return (
+        <>
+          <ExpoImage
+            source={{
+              uri: imageCdn(getThumbnailUrl(byte, true), 'THUMBNAIL_V')
             }}
+            contentFit="cover"
+            transition={300}
+            style={style.thumbnail}
           />
-        </View>
-      </>
-    )
-  }, [])
+          <View style={style.profile}>
+            <UserProfile
+              profile={byte.profile}
+              size={14}
+              radius={3}
+              handleStyle={{ fontFamily: 'font-bold', color: colors.white }}
+              imageStyle={{
+                borderWidth: 0
+              }}
+            />
+          </View>
+        </>
+      )
+    },
+    [style]
+  )
 
   const request: ExplorePublicationRequest = {
     sortCriteria: PublicationSortCriteria.CuratedProfiles,
