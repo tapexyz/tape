@@ -92,7 +92,7 @@ const UserMenu = () => {
         variables: {
           request: { ownedBy: [address] }
         },
-        fetchPolicy: 'no-cache'
+        fetchPolicy: 'network-only'
       })
       const allChannels = data?.profiles?.items as Profile[]
       setChannels(allChannels)
