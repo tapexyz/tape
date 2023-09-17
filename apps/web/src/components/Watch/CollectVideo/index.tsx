@@ -1,5 +1,7 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import CollectOutline from '@components/Common/Icons/CollectOutline'
+import type { ButtonVariants } from '@components/UIElements/Button'
+import { Button } from '@components/UIElements/Button'
 import Tooltip from '@components/UIElements/Tooltip'
 import { Analytics, TRACK } from '@lenstube/browser'
 import {
@@ -27,7 +29,6 @@ import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
-import clsx from 'clsx'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -37,10 +38,11 @@ import CollectModal from './CollectModal'
 
 type Props = {
   video: Publication
-  variant?: 'hover'
+  variant?: ButtonVariants
+  text?: string
 }
 
-const CollectVideo: FC<Props> = ({ video, variant }) => {
+const CollectVideo: FC<Props> = ({ video, variant = 'primary', text }) => {
   const { openConnectModal } = useConnectModal()
 
   const [loading, setLoading] = useState(false)
@@ -203,17 +205,20 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
         placement="top"
       >
         <div>
-          <button
-            className={clsx('p-2.5', variant === 'hover' && 'btn-hover')}
+          <Button
+            variant={variant}
             disabled={loading || alreadyCollected}
             onClick={() => onClickCollect()}
+            icon={
+              loading ? (
+                <Loader size="md" />
+              ) : (
+                <CollectOutline className="h-5 w-5" />
+              )
+            }
           >
-            {loading ? (
-              <Loader size="md" />
-            ) : (
-              <CollectOutline className="h-5 w-5" />
-            )}
-          </button>
+            {text}
+          </Button>
         </div>
       </Tooltip>
     </div>

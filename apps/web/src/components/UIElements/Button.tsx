@@ -3,14 +3,15 @@ import clsx from 'clsx'
 import type { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from 'react'
 import React, { forwardRef } from 'react'
 
-export type ButtonVariants = 'primary' | 'hover' | 'danger' | 'outline'
+export type ButtonVariants = 'primary' | 'hover' | 'danger' | 'outline' | 'none'
+export type ButtonSizes = 'sm' | 'md' | 'lg' | 'xl'
 
 interface Props
   extends DetailedHTMLProps<
     ButtonHTMLAttributes<HTMLButtonElement>,
     HTMLButtonElement
   > {
-  size?: 'sm' | 'md' | 'lg' | 'xl'
+  size?: ButtonSizes
   variant?: ButtonVariants
   loading?: boolean
   children?: ReactNode
@@ -44,7 +45,8 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
           'px-4 py-1.5 text-xs': size === 'sm',
           'px-5 py-1.5 text-sm md:py-2': size === 'md',
           'px-6 py-3 text-sm': size === 'lg',
-          'px-8 py-4 text-lg': size === 'xl'
+          'px-8 py-4 text-lg': size === 'xl',
+          '!p-0': variant === 'none'
         },
         className
       )}
@@ -58,7 +60,9 @@ export const Button = forwardRef<HTMLButtonElement, Props>(function Button(
       >
         {icon}
         {loading && <Loader size="sm" />}
-        <span className="whitespace-nowrap">{children}</span>
+        {children && (
+          <span className="whitespace-nowrap font-medium">{children}</span>
+        )}
       </span>
     </button>
   )

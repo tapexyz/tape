@@ -1,4 +1,6 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
+import SuperFollowOutline from '@components/Common/Icons/SuperFollowOutline'
+import type { ButtonSizes, ButtonVariants } from '@components/UIElements/Button'
 import { Button } from '@components/UIElements/Button'
 import Tooltip from '@components/UIElements/Tooltip'
 import { Analytics, TRACK } from '@lenstube/browser'
@@ -21,6 +23,7 @@ import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
+import clsx from 'clsx'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -29,9 +32,18 @@ import { useContractWrite, useSignTypedData } from 'wagmi'
 type Props = {
   channel: Profile
   onJoin: () => void
+  variant?: ButtonVariants
+  size?: ButtonSizes
+  showText?: boolean
 }
 
-const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
+const JoinChannel: FC<Props> = ({
+  channel,
+  onJoin,
+  variant = 'primary',
+  size = 'md',
+  showText = true
+}) => {
   const [loading, setLoading] = useState(false)
   const [isAllowed, setIsAllowed] = useState(false)
   const { openConnectModal } = useConnectModal()
@@ -168,8 +180,23 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
   return (
     <Tooltip content={joinTooltipText} placement="top">
       <span>
-        <Button onClick={() => joinChannel()} loading={loading}>
-          <Trans>Join Channel</Trans>
+        <Button
+          variant={variant}
+          size={size}
+          onClick={() => joinChannel()}
+          loading={loading}
+          icon={
+            <SuperFollowOutline
+              className={clsx({
+                'h-2.5 w-2.5': size === 'sm',
+                'h-3.5 w-3.5': size === 'md',
+                'h-4 w-4': size === 'lg',
+                'h-5 w-5': size === 'xl'
+              })}
+            />
+          }
+        >
+          {showText && <Trans>Join Channel</Trans>}
         </Button>
       </span>
     </Tooltip>

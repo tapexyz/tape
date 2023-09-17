@@ -19,7 +19,7 @@ body {
 }
 
 .btn-outline {
-  @apply rounded-xl border border-gray-200 hover:border-indigo-300 focus:outline-none disabled:opacity-50 dark:border-gray-800 dark:hover:border-indigo-700;
+  @apply rounded-xl border border-gray-300 hover:border-black focus:outline-none disabled:opacity-50 dark:border-gray-700 dark:hover:border-white;
 }
 
 .bg-secondary {
@@ -83,4 +83,9 @@ input[type='number'] {
 /* RainbowKit font override */
 [data-rk] {
   --rk-fonts-body: inherit !important;
+}
+
+/* User Preview tippy override */
+.preview-tippy-content > div {
+  @apply !px-0 !py-0;
 }

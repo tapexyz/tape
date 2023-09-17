@@ -60,7 +60,7 @@ const SubscribersList: FC<Props> = ({ channel }) => {
   }
 
   return (
-    <div className="mt-4 space-y-3">
+    <div className="mt-2 space-y-3">
       {subscribers?.map((subscriber: Follower) => (
         <div className="flex flex-col" key={subscriber.wallet.address}>
           {subscriber.wallet?.defaultProfile ? (

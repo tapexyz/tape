@@ -47,7 +47,7 @@ const Modal: FC<Props> = ({
             >
               <Dialog.Panel
                 className={clsx(
-                  'bg-secondary w-full transform overflow-x-hidden rounded-3xl p-5 py-5 text-left align-middle shadow-xl transition-all',
+                  'bg-secondary w-full transform overflow-x-hidden rounded-3xl p-5 text-left align-middle shadow-xl transition-all',
                   panelClassName
                 )}
               >

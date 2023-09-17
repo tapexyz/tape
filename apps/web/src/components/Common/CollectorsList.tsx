@@ -59,7 +59,7 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
   }
 
   return (
-    <div className="mt-4 space-y-3">
+    <div className="mt-2 space-y-3">
       {collectors?.map((wallet: Wallet) => (
         <div className="flex flex-col" key={wallet.address}>
           {wallet?.defaultProfile ? (

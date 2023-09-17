@@ -4,7 +4,7 @@ import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import MirrorVideo from '@components/Common/MirrorVideo'
-import SubscribeActions from '@components/Common/SubscribeActions'
+import UserPreview from '@components/Common/UserPreview'
 import {
   formatNumber,
   getProfilePicture,
@@ -13,6 +13,7 @@ import {
 import type { Publication } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
+import { motion } from 'framer-motion'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
@@ -26,7 +27,6 @@ type Props = {
 
 const AboutChannel: FC<Props> = ({ video }) => {
   const channel = video?.profile
-  const subscribeType = channel?.followModule?.__typename
   const [clamped, setClamped] = useState(false)
   const [showMore, setShowMore] = useState(false)
 
@@ -51,34 +51,50 @@ const AboutChannel: FC<Props> = ({ video }) => {
       </Link>
       <div className="flex flex-1 flex-col overflow-hidden break-words">
         <div className="flex flex-wrap justify-between gap-y-2">
-          <div className="mr-2 flex flex-col items-start">
-            <Link
-              href={`/channel/${trimLensHandle(channel?.handle)}`}
-              className="flex items-center space-x-1 font-semibold"
-            >
-              <span>{channel?.handle}</span>
-              <Badge id={channel?.id} />
-            </Link>
-            <span className="inline-flex items-center space-x-1 text-sm opacity-90">
-              {formatNumber(channel?.stats.totalFollowers)}{' '}
-              <Trans>subscribers</Trans>
-            </span>
+          <div className="flex items-center space-x-5">
+            <div className="flex flex-col items-start">
+              <UserPreview profile={channel}>
+                <Link
+                  href={`/channel/${trimLensHandle(channel?.handle)}`}
+                  className="flex items-center space-x-1 font-semibold"
+                >
+                  <span className="leading-snug">
+                    {trimLensHandle(channel?.handle)}
+                  </span>
+                  <Badge id={channel?.id} />
+                </Link>
+              </UserPreview>
+              <span className="inline-flex items-center space-x-1 text-xs">
+                {formatNumber(channel?.stats.totalFollowers)}{' '}
+                <Trans>subscribers</Trans>
+              </span>
+            </div>
           </div>
-          <div className="flex items-center space-x-2 lg:space-x-4">
+          <div className="flex items-center space-x-2">
             <div className="hidden md:block">
               <MirrorVideo video={video}>
-                <div>
-                  <button className="btn-hover p-2.5">
-                    <MirrorOutline className="h-5 w-5" />
-                  </button>
+                <div className="group">
+                  <motion.button
+                    initial={{ width: 45 }}
+                    whileHover={{
+                      width: 105,
+                      transition: { duration: 0.2, ease: 'linear' }
+                    }}
+                    type="button"
+                    className="btn-hover flex items-center space-x-2 overflow-hidden px-4 py-1.5"
+                  >
+                    <MirrorOutline className="h-5 w-5 flex-none" />
+                    <span className="invisible group-hover:visible">
+                      Mirror
+                    </span>
+                  </motion.button>
                 </div>
               </MirrorVideo>
             </div>
             {video?.collectModule?.__typename !==
               'RevertCollectModuleSettings' && (
-              <CollectVideo variant="hover" video={video} />
+              <CollectVideo video={video} text="Collect" />
             )}
-            <SubscribeActions channel={channel} subscribeType={subscribeType} />
           </div>
         </div>
         {video.metadata.description || video.metadata.content ? (

@@ -21,7 +21,7 @@ const Badge: FC<Props> = ({ id, size = 'sm', color }) => {
   return (
     <div>
       {isVerified && (
-        <Tooltip content={t`Verified`} placement="right">
+        <Tooltip content={t`Verified`} placement="top">
           <span>
             <VerifiedSolid
               className={clsx(

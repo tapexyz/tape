@@ -29,6 +29,7 @@
     "dayjs": "^1.11.9",
     "emoji-mart": "^5.5.2",
     "filereader-stream": "^2.0.0",
+    "framer-motion": "^10.16.4",
     "graphql": "^16.8.0",
     "interweave": "^13.1.0",
     "make-plural": "^7.3.0",

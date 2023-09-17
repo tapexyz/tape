@@ -1,8 +1,7 @@
-import FlagOutline from '@components/Common/Icons/FlagOutline'
 import HeartOutline from '@components/Common/Icons/HeartOutline'
-import ShareOutline from '@components/Common/Icons/ShareOutline'
 import ReportModal from '@components/Common/VideoCard/ReportModal'
 import ShareModal from '@components/Common/VideoCard/ShareModal'
+import VideoOptions from '@components/Common/VideoCard/VideoOptions'
 import { Analytics, TRACK } from '@lenstube/browser'
 import type { Publication } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
@@ -22,7 +21,7 @@ const VideoActions: FC<Props> = ({ video }) => {
   const [showTip, setShowTip] = useState(false)
 
   return (
-    <div className="mt-4 flex items-center justify-end space-x-2.5 md:mt-2 md:space-x-5">
+    <div className="mt-4 flex items-center justify-end space-x-1 md:mt-2">
       <TipModal show={showTip} setShowTip={setShowTip} video={video} />
       <ShareModal video={video} show={showShare} setShowShare={setShowShare} />
       <ReportModal
@@ -30,46 +29,37 @@ const VideoActions: FC<Props> = ({ video }) => {
         setShowReport={setShowReport}
         video={video}
       />
-      <PublicationReaction
-        publication={video}
-        textSize="base"
-        iconSize="base"
-      />
-      <button
-        className="focus:outline-none"
-        onClick={() => {
-          Analytics.track(TRACK.PUBLICATION.TIP.OPEN)
-          setShowTip(true)
-        }}
-      >
-        <span className="flex items-center space-x-1.5 text-base">
-          <HeartOutline className="h-4 w-4" />
-          <span>
-            <Trans>Tip</Trans>
+      <div className="rounded-full bg-indigo-100/50 px-4 py-1 backdrop-blur-xl dark:bg-indigo-900/20">
+        <PublicationReaction
+          publication={video}
+          textSize="base"
+          iconSize="base"
+        />
+      </div>
+      <div className="flex items-center rounded-full bg-indigo-100/50 px-4 py-1 backdrop-blur-xl dark:bg-indigo-900/20">
+        <button
+          className="focus:outline-none"
+          onClick={() => {
+            Analytics.track(TRACK.PUBLICATION.TIP.OPEN)
+            setShowTip(true)
+          }}
+        >
+          <span className="flex items-center space-x-1.5 text-base">
+            <HeartOutline className="h-4 w-4" />
+            <span>
+              <Trans>Thanks</Trans>
+            </span>
           </span>
-        </span>
-      </button>
-      <button className="focus:outline-none" onClick={() => setShowShare(true)}>
-        <span className="flex items-center space-x-1.5 text-base">
-          <ShareOutline className="h-4 w-4" />
-          <span>
-            <Trans>Share</Trans>
-          </span>
-        </span>
-      </button>
-      <button
-        className="focus:outline-none"
-        onClick={() => {
-          setShowReport(true)
-        }}
-      >
-        <span className="flex items-center space-x-1.5 text-base">
-          <FlagOutline className="h-4 w-4" />
-          <span>
-            <Trans>Report</Trans>
-          </span>
-        </span>
-      </button>
+        </button>
+      </div>
+      <div className="rounded-full bg-indigo-100/50 px-3 py-1.5 backdrop-blur-xl dark:bg-indigo-900/20">
+        <VideoOptions
+          video={video}
+          setShowShare={setShowShare}
+          setShowReport={setShowReport}
+          showOnHover={false}
+        />
+      </div>
     </div>
   )
 }

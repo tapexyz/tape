@@ -32,8 +32,8 @@ const ByteActions: FC<Props> = ({ video }) => {
           showOnHover={false}
         />
       </div>
-      <div className="items-center space-y-1.5 pt-2.5 md:flex md:flex-col">
-        <div className="text-white md:text-inherit">
+      <div className="items-center pt-2.5 md:flex md:flex-col">
+        <div className="pb-3 text-white md:text-inherit">
           <PublicationReaction
             publication={video}
             iconSize="lg"
@@ -41,39 +41,42 @@ const ByteActions: FC<Props> = ({ video }) => {
             showLabel
           />
         </div>
-        <div className="w-full text-center text-white md:text-inherit">
-          <CommentModal
-            trigger={
-              <Tooltip content="What do you think?" placement="top">
-                <div className="flex flex-col items-center pt-2">
-                  <CommentOutline className="h-5 w-5" />
-                  <div className="pt-1 text-xs">
-                    {video.stats.totalAmountOfComments || 'Wdyt'}
+        <div className="space-y-4 py-2">
+          <div className="w-full text-center text-white md:text-inherit">
+            <CommentModal
+              trigger={
+                <Tooltip content="What do you think?" placement="top">
+                  <div className="flex flex-col items-center">
+                    <CommentOutline className="h-5 w-5" />
+                    <div className="pt-1 text-xs">
+                      {video.stats.totalAmountOfComments || 'Wdyt'}
+                    </div>
                   </div>
+                </Tooltip>
+              }
+              video={video}
+            />
+          </div>
+          <div className="w-full text-center text-white md:text-inherit">
+            <MirrorVideo video={video}>
+              <div className="flex flex-col items-center">
+                <MirrorOutline className="h-5 w-5" />
+                <div className="pt-1 text-xs">
+                  {video.stats?.totalAmountOfMirrors || t`Mirror`}
                 </div>
-              </Tooltip>
-            }
-            video={video}
-          />
-        </div>
-        <div className="w-full text-center text-white md:text-inherit">
-          <MirrorVideo video={video}>
-            <div className="flex flex-col items-center pt-2">
-              <MirrorOutline className="h-5 w-5" />
-              <div className="pt-1 text-xs">
-                {video.stats?.totalAmountOfMirrors || t`Mirror`}
+              </div>
+            </MirrorVideo>
+          </div>
+          {video?.collectModule?.__typename !==
+            'RevertCollectModuleSettings' && (
+            <div className="hidden w-full text-center md:block">
+              <CollectVideo video={video} variant="none" />
+              <div className="text-center text-xs leading-3">
+                {video.stats?.totalAmountOfCollects || t`Collect`}
               </div>
             </div>
-          </MirrorVideo>
+          )}
         </div>
-        {video?.collectModule?.__typename !== 'RevertCollectModuleSettings' && (
-          <div className="hidden w-full pb-3 text-center md:block">
-            <CollectVideo video={video} />
-            <div className="text-center text-xs leading-3">
-              {video.stats?.totalAmountOfCollects || t`Collect`}
-            </div>
-          </div>
-        )}
       </div>
       <ShareModal video={video} show={showShare} setShowShare={setShowShare} />
       <ReportModal

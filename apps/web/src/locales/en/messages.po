@@ -63,7 +63,7 @@ msgstr "Allow"
 msgid "Allow Collect"
 msgstr "Allow Collect"
 
-#: src/components/Watch/CollectVideo/index.tsx:200
+#: src/components/Watch/CollectVideo/index.tsx:202
 msgid "Already Collected"
 msgstr "Already Collected"
 
@@ -136,11 +136,11 @@ msgstr "Cancel"
 msgid "Category"
 msgstr "Category"
 
-#: src/components/Settings/BasicInfo.tsx:303
+#: src/components/Settings/BasicInfo.tsx:304
 msgid "Change"
 msgstr "Change"
 
-#: src/components/Settings/BasicInfo.tsx:316
+#: src/components/Settings/BasicInfo.tsx:317
 msgid "Channel"
 msgstr "Channel"
 
@@ -148,7 +148,7 @@ msgstr "Channel"
 msgid "Channel deleted"
 msgstr "Channel deleted"
 
-#: src/components/Settings/BasicInfo.tsx:357
+#: src/components/Settings/BasicInfo.tsx:362
 msgid "Channel Description"
 msgstr "Channel Description"
 
@@ -161,7 +161,7 @@ msgstr "Channel image updated"
 msgid "Channel Settings"
 msgstr "Channel Settings"
 
-#: src/components/Settings/BasicInfo.tsx:328
+#: src/components/Settings/BasicInfo.tsx:329
 msgid "Channel URL"
 msgstr "Channel URL"
 
@@ -174,16 +174,16 @@ msgstr "Channels"
 msgid "Claim Handle"
 msgstr "Claim Handle"
 
-#: src/components/Bytes/ByteActions.tsx:73
+#: src/components/Bytes/ByteActions.tsx:75
 #: src/components/Bytes/ByteVideo.tsx:165
 msgid "Collect"
 msgstr "Collect"
 
-#: src/components/Watch/CollectVideo/index.tsx:179
+#: src/components/Watch/CollectVideo/index.tsx:181
 msgid "Collect as NFT"
 msgstr "Collect as NFT"
 
-#: src/components/Watch/CollectVideo/index.tsx:172
+#: src/components/Watch/CollectVideo/index.tsx:174
 msgid "Collect as NFT for"
 msgstr "Collect as NFT for"
 
@@ -215,7 +215,7 @@ msgstr "Collect Type"
 msgid "Collect Video"
 msgstr "Collect Video"
 
-#: src/components/Watch/CollectVideo/index.tsx:68
+#: src/components/Watch/CollectVideo/index.tsx:70
 msgid "Collected as NFT"
 msgstr "Collected as NFT"
 
@@ -227,7 +227,7 @@ msgstr "Collected By"
 msgid "collected your"
 msgstr "collected your"
 
-#: src/components/Watch/CollectVideo/index.tsx:198
+#: src/components/Watch/CollectVideo/index.tsx:200
 msgid "Collecting"
 msgstr "Collecting"
 
@@ -364,7 +364,7 @@ msgstr "Disable"
 msgid "disabled"
 msgstr "disabled"
 
-#: src/components/Watch/PublicationReaction.tsx:197
+#: src/components/Watch/PublicationReaction.tsx:195
 msgid "Dislike"
 msgstr "Dislike"
 
@@ -380,7 +380,7 @@ msgstr "dispatcher"
 msgid "Dispatcher"
 msgstr "Dispatcher"
 
-#: src/components/Settings/BasicInfo.tsx:348
+#: src/components/Settings/BasicInfo.tsx:353
 msgid "Display Name"
 msgstr "Display Name"
 
@@ -557,8 +557,8 @@ msgstr "Invalid split recipient address"
 msgid "IPFS Upload failed"
 msgstr "IPFS Upload failed"
 
-#: src/components/Channel/BasicInfo/JoinChannel.tsx:165
-#: src/components/Channel/BasicInfo/JoinChannel.tsx:172
+#: src/components/Channel/BasicInfo/JoinChannel.tsx:177
+#: src/components/Channel/BasicInfo/JoinChannel.tsx:199
 msgid "Join Channel"
 msgstr "Join Channel"
 
@@ -574,7 +574,7 @@ msgstr "lens claiming site"
 msgid "Lenstube Stats"
 msgstr "Lenstube Stats"
 
-#: src/components/Watch/PublicationReaction.tsx:163
+#: src/components/Watch/PublicationReaction.tsx:161
 msgid "Like"
 msgstr "Like"
 
@@ -605,7 +605,7 @@ msgstr "Limited collect"
 #~ msgid "Links"
 #~ msgstr "Links"
 
-#: src/components/Settings/BasicInfo.tsx:399
+#: src/components/Settings/BasicInfo.tsx:404
 msgid "Location"
 msgstr "Location"
 
@@ -637,7 +637,7 @@ msgstr "Mentions"
 msgid "mirror"
 msgstr "mirror"
 
-#: src/components/Bytes/ByteActions.tsx:64
+#: src/components/Bytes/ByteActions.tsx:65
 msgid "Mirror"
 msgstr "Mirror"
 
@@ -681,7 +681,7 @@ msgstr "Misuse Hashtags"
 msgid "Momoka is currently in beta - during this time certain actions are not available to all channels."
 msgstr "Momoka is currently in beta - during this time certain actions are not available to all channels."
 
-#: src/components/Settings/BasicInfo.tsx:358
+#: src/components/Settings/BasicInfo.tsx:363
 msgid "More about your channel"
 msgstr "More about your channel"
 
@@ -799,7 +799,7 @@ msgstr "Only subscribers can comment on this publication"
 msgid "or choose video"
 msgstr "or choose video"
 
-#: src/components/Channel/BasicInfo/JoinChannel.tsx:158
+#: src/components/Channel/BasicInfo/JoinChannel.tsx:170
 msgid "Pay Membership of"
 msgstr "Pay Membership of"
 
@@ -945,7 +945,6 @@ msgstr "Reply"
 #: src/components/Common/VideoCard/VideoOptions.tsx:398
 #: src/components/ReportPublication/index.tsx:158
 #: src/components/Watch/Comments/CommentOptions.tsx:82
-#: src/components/Watch/VideoActions.tsx:69
 msgid "Report"
 msgstr "Report"
 
@@ -971,7 +970,7 @@ msgstr "Revoke"
 msgid "Round 18"
 msgstr "Round 18"
 
-#: src/components/Settings/BasicInfo.tsx:407
+#: src/components/Settings/BasicInfo.tsx:412
 msgid "Save"
 msgstr "Save"
 
@@ -1019,7 +1018,6 @@ msgid "Set Preference"
 msgstr "Set Preference"
 
 #: src/components/Common/VideoCard/VideoOptions.tsx:385
-#: src/components/Watch/VideoActions.tsx:56
 msgid "Share"
 msgstr "Share"
 
@@ -1101,13 +1099,17 @@ msgstr "Stay active in current tab while uploading for faster experience"
 msgid "Storing metadata"
 msgstr "Storing metadata"
 
-#: src/components/Channel/BasicInfo/Subscribe.tsx:156
+#: src/components/Channel/BasicInfo/Subscribe.tsx:183
 msgid "Subscribe"
 msgstr "Subscribe"
 
 #: src/components/Notifications/Subscribed.tsx:70
 msgid "subscribed"
 msgstr "subscribed"
+
+#: src/components/Channel/BasicInfo/UnSubscribe.tsx:129
+msgid "Subscribed"
+msgstr ""
 
 #: src/components/Channel/BasicInfo/index.tsx:119
 msgid "Subscriber"
@@ -1116,7 +1118,7 @@ msgstr "Subscriber"
 #: src/components/Channel/BasicInfo/index.tsx:113
 #: src/components/Channel/Tabs/OtherChannelCard.tsx:40
 #: src/components/UIElements/ChannelSuggestions.tsx:39
-#: src/components/Watch/AboutChannel.tsx:64
+#: src/components/Watch/AboutChannel.tsx:69
 msgid "subscribers"
 msgstr "subscribers"
 
@@ -1181,6 +1183,7 @@ msgstr "Terms and Conditions"
 
 #: src/components/Common/Footer.tsx:84
 #: src/components/Thanks/index.tsx:15
+#: src/components/Watch/VideoActions.tsx:50
 msgid "Thanks"
 msgstr "Thanks"
 
@@ -1217,7 +1220,6 @@ msgid "Threat Individual"
 msgstr "Threat Individual"
 
 #: src/components/Watch/TipModal.tsx:417
-#: src/components/Watch/VideoActions.tsx:48
 msgid "Tip"
 msgstr "Tip"
 
@@ -1331,8 +1333,8 @@ msgid "Unrelated"
 msgstr "Unrelated"
 
 #: src/components/Channel/BasicInfo/UnSubscribe.tsx:102
-msgid "Unsubscribe"
-msgstr "Unsubscribe"
+#~ msgid "Unsubscribe"
+#~ msgstr "Unsubscribe"
 
 #: src/components/Settings/Membership.tsx:299
 msgid "Update"
@@ -1485,7 +1487,7 @@ msgstr "Watch"
 msgid "Watch Video"
 msgstr "Watch Video"
 
-#: src/components/Settings/BasicInfo.tsx:391
+#: src/components/Settings/BasicInfo.tsx:396
 msgid "Website"
 msgstr "Website"
 

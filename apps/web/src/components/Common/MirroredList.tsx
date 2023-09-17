@@ -53,7 +53,7 @@ const MirroredList: FC<Props> = ({ videoId }) => {
   }
 
   return (
-    <div className="mt-4 space-y-3">
+    <div className="mt-2 space-y-3">
       {mirroredByProfiles?.map((profile: Profile) => (
         <div className="flex flex-col" key={profile.ownedBy}>
           <Link

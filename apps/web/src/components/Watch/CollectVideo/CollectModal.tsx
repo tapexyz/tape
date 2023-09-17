@@ -234,7 +234,7 @@ const CollectModal: FC<Props> = ({
       onClose={() => setShowModal(false)}
       show={showModal}
     >
-      <div className="mt-4">
+      <div className="mt-2">
         {!fetchingCollectModule && !allowanceLoading ? (
           <>
             <div className="mb-3 flex flex-col">
