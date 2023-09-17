@@ -47,7 +47,10 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
     setLoading(false)
   }
 
-  const onCompleted = () => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+    if (__typename === 'RelayError') {
+      return
+    }
     onJoin()
     toast.success(`Joined ${channel.handle}`)
     setLoading(false)
@@ -65,12 +68,12 @@ const JoinChannel: FC<Props> = ({ channel, onJoin }) => {
     address: LENSHUB_PROXY_ADDRESS,
     abi: LENSHUB_PROXY_ABI,
     functionName: 'follow',
-    onSuccess: onCompleted,
+    onSuccess: () => onCompleted(),
     onError
   })
 
   const [broadcast] = useBroadcastMutation({
-    onCompleted,
+    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename),
     onError
   })
 

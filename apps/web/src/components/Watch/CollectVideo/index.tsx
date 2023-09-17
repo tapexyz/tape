@@ -59,7 +59,10 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
     setLoading(false)
   }
 
-  const onCompleted = () => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+    if (__typename === 'RelayError') {
+      return
+    }
     setLoading(false)
     setAlreadyCollected(true)
     toast.success(t`Collected as NFT`)
@@ -88,17 +91,17 @@ const CollectVideo: FC<Props> = ({ video, variant }) => {
     abi: LENSHUB_PROXY_ABI,
     functionName: 'collect',
     onError,
-    onSuccess: onCompleted
+    onSuccess: () => onCompleted()
   })
 
   const [broadcast] = useBroadcastMutation({
     onError,
-    onCompleted
+    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
   })
 
   const [createProxyActionFreeCollect] = useProxyActionMutation({
     onError,
-    onCompleted
+    onCompleted: () => onCompleted()
   })
 
   const [createCollectTypedData] = useCreateCollectTypedDataMutation({

@@ -43,7 +43,10 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
     setLoading(false)
   }
 
-  const onCompleted = () => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+    if (__typename === 'RelayError') {
+      return
+    }
     onSubscribe()
     setLoading(false)
     toast.success(`Subscribed to ${channel.handle}`)
@@ -61,22 +64,18 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
     address: LENSHUB_PROXY_ADDRESS,
     abi: LENSHUB_PROXY_ABI,
     functionName: 'follow',
-    onSuccess: onCompleted,
+    onSuccess: () => onCompleted(),
     onError
   })
 
   const [broadcast] = useBroadcastMutation({
-    onCompleted: (data) => {
-      if (data?.broadcast?.__typename === 'RelayerResult') {
-        onCompleted()
-      }
-    },
+    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename),
     onError
   })
 
   const [createSubscribeProxyAction] = useProxyActionMutation({
     onError,
-    onCompleted
+    onCompleted: () => onCompleted()
   })
 
   const [createSubscribeTypedData] = useCreateFollowTypedDataMutation({

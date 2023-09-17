@@ -56,7 +56,10 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     setSelectedPfp(getProfilePicture(channel, 'AVATAR_LG'))
   }
 
-  const onCompleted = () => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+    if (__typename === 'RelayError') {
+      return
+    }
     setLoading(false)
     if (activeChannel && selectedPfp) {
       setActiveChannel({
@@ -80,18 +83,19 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     abi: LENSHUB_PROXY_ABI,
     functionName: 'setProfileImageURI',
     onError,
-    onSuccess: onCompleted
+    onSuccess: () => onCompleted()
   })
 
   const [createSetProfileImageViaDispatcher] =
     useCreateSetProfileImageUriViaDispatcherMutation({
       onError,
-      onCompleted
+      onCompleted: ({ createSetProfileImageURIViaDispatcher }) =>
+        onCompleted(createSetProfileImageURIViaDispatcher.__typename)
     })
 
   const [broadcast] = useBroadcastMutation({
     onError,
-    onCompleted
+    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
   })
 
   const [createSetProfileImageURITypedData] =

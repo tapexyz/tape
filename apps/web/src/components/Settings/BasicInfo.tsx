@@ -119,7 +119,10 @@ const BasicInfo = ({ channel }: Props) => {
     setLoading(false)
   }
 
-  const onCompleted = () => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+    if (__typename === 'RelayError') {
+      return
+    }
     setLoading(false)
     toast.success('Channel details submitted')
     Analytics.track(TRACK.CHANNEL.UPDATE)
@@ -134,18 +137,19 @@ const BasicInfo = ({ channel }: Props) => {
     abi: LENS_PERIPHERY_ABI,
     functionName: 'setProfileMetadataURI',
     onError,
-    onSuccess: onCompleted
+    onSuccess: () => onCompleted()
   })
 
   const [broadcast] = useBroadcastMutation({
     onError,
-    onCompleted
+    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
   })
 
   const [createSetProfileMetadataViaDispatcher] =
     useCreateSetProfileMetadataViaDispatcherMutation({
       onError,
-      onCompleted
+      onCompleted: ({ createSetProfileMetadataViaDispatcher }) =>
+        onCompleted(createSetProfileMetadataViaDispatcher.__typename)
     })
 
   const [createSetProfileMetadataTypedData] =

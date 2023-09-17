@@ -119,7 +119,10 @@ const VideoOptions: FC<Props> = ({
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
   }
 
-  const onCompleted = () => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+    if (__typename === 'RelayError') {
+      return
+    }
     toast.success(t`Transaction submitted`)
     Analytics.track(TRACK.PUBLICATION.PIN)
   }
@@ -133,18 +136,19 @@ const VideoOptions: FC<Props> = ({
     abi: LENS_PERIPHERY_ABI,
     functionName: 'setProfileMetadataURI',
     onError,
-    onSuccess: onCompleted
+    onSuccess: () => onCompleted()
   })
 
   const [broadcast] = useBroadcastMutation({
     onError,
-    onCompleted
+    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
   })
 
   const [createSetProfileMetadataViaDispatcher] =
     useCreateSetProfileMetadataViaDispatcherMutation({
       onError,
-      onCompleted
+      onCompleted: ({ createSetProfileMetadataViaDispatcher }) =>
+        onCompleted(createSetProfileMetadataViaDispatcher.__typename)
     })
 
   const [createSetProfileMetadataTypedData] =

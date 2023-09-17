@@ -197,13 +197,13 @@ const UploadSteps = () => {
    * DATA AVAILABILITY STARTS
    */
   const [broadcastDataAvailabilityPost] = useBroadcastDataAvailabilityMutation({
-    onCompleted: (data) => {
+    onCompleted: ({ broadcastDataAvailability }) => {
       onCompleted()
-      if (data.broadcastDataAvailability.__typename === 'RelayError') {
+      if (broadcastDataAvailability.__typename === 'RelayError') {
         return toast.error(ERROR_MESSAGE)
       }
       if (
-        data?.broadcastDataAvailability.__typename ===
+        broadcastDataAvailability.__typename ===
         'CreateDataAvailabilityPublicationResult'
       ) {
         redirectToChannelPage()
