@@ -124,9 +124,7 @@ const PublicationReaction: FC<Props> = ({
     <div
       className={clsx(
         'flex items-center justify-end',
-        isVertical
-          ? 'flex-col space-y-2.5 px-3 md:space-y-4'
-          : 'space-x-2.5 md:space-x-5'
+        isVertical ? 'flex-col space-y-2.5 px-3 md:space-y-4' : 'space-x-5'
       )}
     >
       <button

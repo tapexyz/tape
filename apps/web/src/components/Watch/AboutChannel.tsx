@@ -4,7 +4,6 @@ import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import MirrorVideo from '@components/Common/MirrorVideo'
-import SubscribeActions from '@components/Common/SubscribeActions'
 import {
   formatNumber,
   getProfilePicture,
@@ -67,20 +66,14 @@ const AboutChannel: FC<Props> = ({ video }) => {
                 <Trans>subscribers</Trans>
               </span>
             </div>
-            <SubscribeActions
-              variant="outline"
-              size="md"
-              channel={channel}
-              showText={false}
-              subscribeType={subscribeType}
-            />
           </div>
-          <div className="flex items-center space-x-2 lg:space-x-4">
+          <div className="flex items-center space-x-2">
             <div className="hidden md:block">
               <MirrorVideo video={video}>
                 <div>
-                  <button className="btn-hover p-2.5">
+                  <button className="btn-hover flex items-center space-x-2 px-4 py-1.5">
                     <MirrorOutline className="h-5 w-5" />
+                    <span>Mirror</span>
                   </button>
                 </div>
               </MirrorVideo>
