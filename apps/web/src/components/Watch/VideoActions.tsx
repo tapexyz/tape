@@ -29,14 +29,14 @@ const VideoActions: FC<Props> = ({ video }) => {
         setShowReport={setShowReport}
         video={video}
       />
-      <div className="rounded-full bg-indigo-50 px-4 py-1.5 backdrop-blur-xl dark:bg-indigo-900/20">
+      <div className="rounded-full bg-indigo-100/50 px-4 py-1 backdrop-blur-xl dark:bg-indigo-900/20">
         <PublicationReaction
           publication={video}
           textSize="base"
           iconSize="base"
         />
       </div>
-      <div className="rounded-full bg-indigo-50 px-4 py-1.5 backdrop-blur-xl dark:bg-indigo-900/20">
+      <div className="flex items-center rounded-full bg-indigo-100/50 px-4 py-1 backdrop-blur-xl dark:bg-indigo-900/20">
         <button
           className="focus:outline-none"
           onClick={() => {
@@ -52,7 +52,7 @@ const VideoActions: FC<Props> = ({ video }) => {
           </span>
         </button>
       </div>
-      <div className="rounded-full bg-indigo-50 px-3 py-[8px] backdrop-blur-xl dark:bg-indigo-900/20">
+      <div className="rounded-full bg-indigo-100/50 px-3 py-1.5 backdrop-blur-xl dark:bg-indigo-900/20">
         <VideoOptions
           video={video}
           setShowShare={setShowShare}
