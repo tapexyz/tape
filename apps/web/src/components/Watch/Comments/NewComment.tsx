@@ -425,7 +425,7 @@ const NewComment: FC<Props> = ({
           )}
         </div>
       </div>
-      <Button loading={loading}>
+      <Button variant="outline" loading={loading}>
         <Trans>Comment</Trans>
       </Button>
     </form>

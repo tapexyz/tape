@@ -32,8 +32,8 @@ const ByteActions: FC<Props> = ({ video }) => {
           showOnHover={false}
         />
       </div>
-      <div className="items-center space-y-1.5 pt-2.5 md:flex md:flex-col">
-        <div className="text-white md:text-inherit">
+      <div className="items-center pt-2.5 md:flex md:flex-col">
+        <div className="pb-3 text-white md:text-inherit">
           <PublicationReaction
             publication={video}
             iconSize="lg"
@@ -58,7 +58,7 @@ const ByteActions: FC<Props> = ({ video }) => {
         </div>
         <div className="w-full text-center text-white md:text-inherit">
           <MirrorVideo video={video}>
-            <div className="flex flex-col items-center pt-2">
+            <div className="flex flex-col items-center pt-3">
               <MirrorOutline className="h-5 w-5" />
               <div className="pt-1 text-xs">
                 {video.stats?.totalAmountOfMirrors || t`Mirror`}
@@ -67,8 +67,8 @@ const ByteActions: FC<Props> = ({ video }) => {
           </MirrorVideo>
         </div>
         {video?.collectModule?.__typename !== 'RevertCollectModuleSettings' && (
-          <div className="hidden w-full pb-3 text-center md:block">
-            <CollectVideo video={video} />
+          <div className="hidden w-full pb-3 pt-2 text-center md:block">
+            <CollectVideo video={video} variant="none" />
             <div className="text-center text-xs leading-3">
               {video.stats?.totalAmountOfCollects || t`Collect`}
             </div>

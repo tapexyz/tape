@@ -159,8 +159,8 @@ const ByteVideo: FC<Props> = ({
           <ByteActions video={video} />
           {video?.collectModule?.__typename !==
             'RevertCollectModuleSettings' && (
-            <div className="text-center text-white md:text-gray-500">
-              <CollectVideo video={video} />
+            <div className="pt-3 text-center text-white md:text-gray-500">
+              <CollectVideo video={video} variant="none" />
               <div className="text-xs">
                 {video.stats?.totalAmountOfCollects || t`Collect`}
               </div>

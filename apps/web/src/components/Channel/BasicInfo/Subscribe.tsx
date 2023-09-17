@@ -1,4 +1,6 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
+import FollowOutline from '@components/Common/Icons/FollowOutline'
+import type { ButtonSizes, ButtonVariants } from '@components/UIElements/Button'
 import { Button } from '@components/UIElements/Button'
 import { Analytics, TRACK } from '@lenstube/browser'
 import {
@@ -21,6 +23,7 @@ import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAuthPersistStore from '@lib/store/auth'
 import { Trans } from '@lingui/macro'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
+import clsx from 'clsx'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -29,9 +32,16 @@ import { useContractWrite, useSignTypedData } from 'wagmi'
 type Props = {
   channel: Profile
   onSubscribe: () => void
+  variant?: ButtonVariants
+  size?: ButtonSizes
 }
 
-const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
+const Subscribe: FC<Props> = ({
+  channel,
+  onSubscribe,
+  variant = 'primary',
+  size = 'md'
+}) => {
   const [loading, setLoading] = useState(false)
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
@@ -152,7 +162,22 @@ const Subscribe: FC<Props> = ({ channel, onSubscribe }) => {
   }
 
   return (
-    <Button onClick={() => subscribe()} loading={loading}>
+    <Button
+      variant={variant}
+      size={size}
+      onClick={() => subscribe()}
+      loading={loading}
+      icon={
+        <FollowOutline
+          className={clsx({
+            'h-2.5 w-2.5': size === 'sm',
+            'h-3 w-3': size === 'md',
+            'h-4 w-4': size === 'lg',
+            'h-5 w-5': size === 'xl'
+          })}
+        />
+      }
+    >
       <Trans>Subscribe</Trans>
     </Button>
   )
