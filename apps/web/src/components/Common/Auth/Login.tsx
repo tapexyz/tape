@@ -37,10 +37,8 @@ const Login = () => {
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
-  const setSelectedChannel = useChannelStore(
-    (state) => state.setSelectedChannel
-  )
+  const activeChannel = useChannelStore((state) => state.activeChannel)
+  const setActiveChannel = useChannelStore((state) => state.setActiveChannel)
   const setSelectedSimpleProfile = useAuthPersistStore(
     (state) => state.setSelectedSimpleProfile
   )
@@ -48,7 +46,7 @@ const Login = () => {
   const onError = () => {
     setLoading(false)
     signOut()
-    setSelectedChannel(null)
+    setActiveChannel(null)
   }
 
   const { signMessageAsync } = useSignMessage({
@@ -84,7 +82,7 @@ const Login = () => {
     connector?.id &&
     isConnected &&
     chain?.id === POLYGON_CHAIN_ID &&
-    !selectedChannel &&
+    !activeChannel &&
     !selectedSimpleProfile?.id
 
   const handleSign = useCallback(async () => {
@@ -122,7 +120,7 @@ const Login = () => {
         !profilesData?.profiles ||
         profilesData?.profiles?.items.length === 0
       ) {
-        setSelectedChannel(null)
+        setActiveChannel(null)
         setSelectedSimpleProfile(null)
         setShowCreateChannel(true)
       } else {
@@ -131,7 +129,7 @@ const Login = () => {
         setChannels(profiles)
         const profile = defaultProfile ?? profiles[0]
         setSelectedSimpleProfile(profile)
-        setSelectedChannel(profile)
+        setActiveChannel(profile)
         if (router.query?.next) {
           router.push(router.query?.next as string)
         }
@@ -155,7 +153,7 @@ const Login = () => {
     loadChallenge,
     router,
     setChannels,
-    setSelectedChannel,
+    setActiveChannel,
     setSelectedSimpleProfile,
     setShowCreateChannel,
     signMessageAsync

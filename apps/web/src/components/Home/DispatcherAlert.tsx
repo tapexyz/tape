@@ -11,10 +11,10 @@ import { t, Trans } from '@lingui/macro'
 import React from 'react'
 
 const DispatcherAlert = () => {
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
-  const isDispatcherEnabled = getIsDispatcherEnabled(selectedChannel)
+  const activeChannel = useChannelStore((state) => state.activeChannel)
+  const isDispatcherEnabled = getIsDispatcherEnabled(activeChannel)
   const usingOldDispatcher =
-    selectedChannel?.dispatcher?.address?.toLocaleLowerCase() ===
+    activeChannel?.dispatcher?.address?.toLocaleLowerCase() ===
     OLD_LENS_RELAYER_ADDRESS.toLocaleLowerCase()
 
   const getDescription = () => {
@@ -24,7 +24,7 @@ const DispatcherAlert = () => {
     return `You can enable dispatcher to interact with ${LENSTUBE_APP_NAME} without signing any of your transactions.`
   }
 
-  if (!selectedChannel || isDispatcherEnabled) {
+  if (!activeChannel || isDispatcherEnabled) {
     return null
   }
 

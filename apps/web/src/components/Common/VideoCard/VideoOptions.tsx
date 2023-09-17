@@ -70,13 +70,13 @@ const VideoOptions: FC<Props> = ({
 
   const { cache } = useApolloClient()
 
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const activeChannel = useChannelStore((state) => state.activeChannel)
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
-  const isVideoOwner = selectedChannel?.id === video?.profile?.id
+  const isVideoOwner = activeChannel?.id === video?.profile?.id
   const pinnedVideoId = getValueFromKeyInAttributes(
-    selectedChannel?.attributes,
+    activeChannel?.attributes,
     'pinnedPublicationId'
   )
 
@@ -106,7 +106,7 @@ const VideoOptions: FC<Props> = ({
   }
 
   const otherAttributes =
-    (selectedChannel?.attributes as Attribute[])
+    (activeChannel?.attributes as Attribute[])
       ?.filter((attr) => !['pinnedPublicationId', 'app'].includes(attr.key))
       .map(({ traitType, key, value, displayType }) => ({
         traitType,
@@ -188,7 +188,7 @@ const VideoOptions: FC<Props> = ({
   }
 
   const onPinVideo = async () => {
-    if (!selectedChannel) {
+    if (!activeChannel) {
       return
     }
     try {
@@ -196,9 +196,9 @@ const VideoOptions: FC<Props> = ({
       const metadataUri = await uploadToAr({
         version: '1.0.0',
         metadata_id: uuidv4(),
-        name: selectedChannel?.name ?? '',
-        bio: selectedChannel?.bio ?? '',
-        cover_picture: getChannelCoverPicture(selectedChannel),
+        name: activeChannel?.name ?? '',
+        bio: activeChannel?.bio ?? '',
+        cover_picture: getChannelCoverPicture(activeChannel),
         attributes: [
           ...otherAttributes,
           {
@@ -216,12 +216,12 @@ const VideoOptions: FC<Props> = ({
         ]
       })
       const request = {
-        profileId: selectedChannel?.id,
+        profileId: activeChannel?.id,
         metadata: metadataUri
       }
       const canUseDispatcher =
-        selectedChannel?.dispatcher?.canUseRelay &&
-        selectedChannel.dispatcher.sponsor
+        activeChannel?.dispatcher?.canUseRelay &&
+        activeChannel.dispatcher.sponsor
       if (!canUseDispatcher) {
         return createTypedData(request)
       }

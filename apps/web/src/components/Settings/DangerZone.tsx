@@ -20,7 +20,7 @@ import { useContractWrite, useWaitForTransaction } from 'wagmi'
 const DangerZone = () => {
   const [loading, setLoading] = useState(false)
   const [txnHash, setTxnHash] = useState<`0x${string}`>()
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const activeChannel = useChannelStore((state) => state.activeChannel)
 
   const onError = (error: CustomErrorWithData) => {
     setLoading(false)
@@ -66,12 +66,12 @@ const DangerZone = () => {
     setLoading(true)
     createBurnProfileTypedData({
       variables: {
-        request: { profileId: selectedChannel?.id }
+        request: { profileId: activeChannel?.id }
       }
     })
   }
 
-  if (!selectedChannel) {
+  if (!activeChannel) {
     return <Custom404 />
   }
 
@@ -81,29 +81,29 @@ const DangerZone = () => {
         <div className="flex items-center">
           <div className="mr-3 mt-0.5 flex-none">
             <img
-              src={getProfilePicture(selectedChannel, 'AVATAR')}
+              src={getProfilePicture(activeChannel, 'AVATAR')}
               className="h-9 w-9 rounded-full"
               draggable={false}
-              alt={selectedChannel?.handle}
+              alt={activeChannel?.handle}
             />
           </div>
           <div className="flex flex-col">
-            {selectedChannel.name && (
-              <h6 className="font-medium">{selectedChannel.name}</h6>
+            {activeChannel.name && (
+              <h6 className="font-medium">{activeChannel.name}</h6>
             )}
             <span className="flex items-center space-x-1">
-              <span className="text-sm">{selectedChannel?.handle}</span>
-              <Badge id={selectedChannel?.id} size="xs" />
+              <span className="text-sm">{activeChannel?.handle}</span>
+              <Badge id={activeChannel?.id} size="xs" />
             </span>
           </div>
         </div>
         <div className="flex space-x-2">
           <span>
-            {formatNumber(selectedChannel.stats.totalPosts)}{' '}
+            {formatNumber(activeChannel.stats.totalPosts)}{' '}
             <small>publications</small>
           </span>
           <span>
-            {formatNumber(selectedChannel.stats.totalFollowers)}{' '}
+            {formatNumber(activeChannel.stats.totalFollowers)}{' '}
             <small>subscribers</small>
           </span>
         </div>

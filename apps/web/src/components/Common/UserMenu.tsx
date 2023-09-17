@@ -43,9 +43,7 @@ const UserMenu = () => {
     (state) => state.setShowCreateChannel
   )
   const channels = useChannelStore((state) => state.channels)
-  const setSelectedChannel = useChannelStore(
-    (state) => state.setSelectedChannel
-  )
+  const setActiveChannel = useChannelStore((state) => state.setActiveChannel)
 
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
@@ -71,7 +69,7 @@ const UserMenu = () => {
   const isAdmin = ADMIN_IDS.includes(selectedSimpleProfile?.id)
 
   const onSelectChannel = (profile: Profile) => {
-    setSelectedChannel(profile)
+    setActiveChannel(profile)
     // hand picked attributes to persist, to not bloat storage
     setSelectedSimpleProfile({
       handle: profile.handle,

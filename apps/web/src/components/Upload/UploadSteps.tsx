@@ -66,7 +66,7 @@ const UploadSteps = () => {
   const bundlrData = useAppStore((state) => state.bundlrData)
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
   const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const activeChannel = useChannelStore((state) => state.activeChannel)
 
   const queuedVideos = usePersistStore((state) => state.queuedVideos)
   const setQueuedVideos = usePersistStore((state) => state.setQueuedVideos)
@@ -84,14 +84,14 @@ const UploadSteps = () => {
     : null
 
   // Dispatcher
-  const canUseRelay = selectedChannel?.dispatcher?.canUseRelay
-  const isSponsored = selectedChannel?.dispatcher?.sponsor
+  const canUseRelay = activeChannel?.dispatcher?.canUseRelay
+  const isSponsored = activeChannel?.dispatcher?.sponsor
 
   const redirectToChannelPage = () => {
     router.push(
       uploadedVideo.isByteVideo
-        ? `/channel/${trimLensHandle(selectedChannel?.handle)}?tab=bytes`
-        : `/channel/${trimLensHandle(selectedChannel?.handle)}`
+        ? `/channel/${trimLensHandle(activeChannel?.handle)}?tab=bytes`
+        : `/channel/${trimLensHandle(activeChannel?.handle)}`
     )
   }
 
@@ -153,7 +153,7 @@ const UploadSteps = () => {
         .referenceModule.degreesOfSeparationReferenceModule
         ? degreesOfSeparation
         : null,
-      user_id: selectedChannel?.id
+      user_id: activeChannel?.id
     })
     return stopLoading()
   }
@@ -338,7 +338,7 @@ const UploadSteps = () => {
         {
           displayType: PublicationMetadataDisplayTypes.String,
           traitType: 'handle',
-          value: `${selectedChannel?.handle}`
+          value: `${activeChannel?.handle}`
         },
         {
           displayType: PublicationMetadataDisplayTypes.String,
@@ -363,7 +363,7 @@ const UploadSteps = () => {
         locale: getUserLocale(),
         tags: [uploadedVideo.videoCategory.tag],
         mainContentFocus: PublicationMainFocus.Video,
-        external_url: `${LENSTUBE_WEBSITE_URL}/channel/${selectedChannel?.handle}`,
+        external_url: `${LENSTUBE_WEBSITE_URL}/channel/${activeChannel?.handle}`,
         animation_url: uploadedVideo.videoSource,
         image: uploadedVideo.thumbnail,
         imageMimeType: uploadedVideo.thumbnailType,
@@ -393,12 +393,12 @@ const UploadSteps = () => {
       // Create Data Availability post
       const { isRevertCollect } = uploadedVideo.collectModule
       const dataAvailablityRequest = {
-        from: selectedChannel?.id,
+        from: activeChannel?.id,
         contentURI: metadataUri
       }
 
       const request = {
-        profileId: selectedChannel?.id,
+        profileId: activeChannel?.id,
         contentURI: metadataUri,
         collectModule: getCollectModule(uploadedVideo.collectModule),
         referenceModule: {
@@ -475,7 +475,7 @@ const UploadSteps = () => {
       const tags = [
         { name: 'Content-Type', value: uploadedVideo.videoType || 'video/mp4' },
         { name: 'App-Name', value: LENSTUBE_APP_NAME },
-        { name: 'Profile-Id', value: selectedChannel?.id },
+        { name: 'Profile-Id', value: activeChannel?.id },
         // ANS-110 standard
         { name: 'Title', value: trimify(uploadedVideo.title) },
         { name: 'Type', value: 'video' },

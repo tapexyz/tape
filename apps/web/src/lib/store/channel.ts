@@ -7,9 +7,9 @@ interface ChannelState {
   showCreateChannel: boolean
   hasNewNotification: boolean
   userSigNonce: number
-  selectedChannel: Profile | null
+  activeChannel: Profile | null
   selectedCommentFilter: CustomCommentsFilterEnum
-  setSelectedChannel: (channel: Profile | null) => void
+  setActiveChannel: (channel: Profile | null) => void
   setUserSigNonce: (userSigNonce: number) => void
   setShowCreateChannel: (showCreateChannel: boolean) => void
   setChannels: (channels: Profile[]) => void
@@ -21,12 +21,12 @@ export const useChannelStore = create<ChannelState>((set) => ({
   channels: [],
   showCreateChannel: false,
   hasNewNotification: false,
-  selectedChannel: null,
+  activeChannel: null,
   userSigNonce: 0,
   selectedCommentFilter: CustomCommentsFilterEnum.RELEVANT_COMMENTS,
   setSelectedCommentFilter: (selectedCommentFilter) =>
     set({ selectedCommentFilter }),
-  setSelectedChannel: (channel) => set({ selectedChannel: channel }),
+  setActiveChannel: (activeChannel) => set({ activeChannel }),
   setUserSigNonce: (userSigNonce) => set({ userSigNonce }),
   setHasNewNotification: (b) => set({ hasNewNotification: b }),
   setChannels: (channels) => set({ channels }),

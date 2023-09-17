@@ -9,9 +9,9 @@ import React from 'react'
 import Toggle from './Toggle'
 
 const DispatcherPermissions = () => {
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const activeChannel = useChannelStore((state) => state.activeChannel)
   const usingOldDispatcher =
-    selectedChannel?.dispatcher?.address?.toLocaleLowerCase() ===
+    activeChannel?.dispatcher?.address?.toLocaleLowerCase() ===
     OLD_LENS_RELAYER_ADDRESS.toLocaleLowerCase()
 
   const getDescription = () => {

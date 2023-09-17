@@ -20,7 +20,7 @@ interface Props {
 }
 
 const SubscribedNotification: FC<Props> = ({ notification }) => {
-  const selectedChannel = useChannelStore((state) => state.selectedChannel)
+  const activeChannel = useChannelStore((state) => state.activeChannel)
 
   return (
     <>
@@ -67,7 +67,7 @@ const SubscribedNotification: FC<Props> = ({ notification }) => {
       </div>
       <div className="flex items-center justify-between">
         <span className="text-gray-600 dark:text-gray-400">
-          {selectedChannel?.followModule ? t`joined` : t`subscribed`}{' '}
+          {activeChannel?.followModule ? t`joined` : t`subscribed`}{' '}
           <Trans>the channel</Trans>
         </span>
         <div className="flex flex-none items-center text-gray-600 dark:text-gray-400">
