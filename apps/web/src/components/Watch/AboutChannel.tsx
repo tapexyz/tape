@@ -4,6 +4,7 @@ import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import MirrorVideo from '@components/Common/MirrorVideo'
+import UserPreview from '@components/Common/UserPreview'
 import {
   formatNumber,
   getProfilePicture,
@@ -25,7 +26,6 @@ type Props = {
 
 const AboutChannel: FC<Props> = ({ video }) => {
   const channel = video?.profile
-  const subscribeType = channel?.followModule?.__typename
   const [clamped, setClamped] = useState(false)
   const [showMore, setShowMore] = useState(false)
 
@@ -52,15 +52,17 @@ const AboutChannel: FC<Props> = ({ video }) => {
         <div className="flex flex-wrap justify-between gap-y-2">
           <div className="flex items-center space-x-5">
             <div className="flex flex-col items-start">
-              <Link
-                href={`/channel/${trimLensHandle(channel?.handle)}`}
-                className="flex items-center space-x-1 font-semibold"
-              >
-                <span className="leading-snug">
-                  {trimLensHandle(channel?.handle)}
-                </span>
-                <Badge id={channel?.id} />
-              </Link>
+              <UserPreview profile={channel}>
+                <Link
+                  href={`/channel/${trimLensHandle(channel?.handle)}`}
+                  className="flex items-center space-x-1 font-semibold"
+                >
+                  <span className="leading-snug">
+                    {trimLensHandle(channel?.handle)}
+                  </span>
+                  <Badge id={channel?.id} />
+                </Link>
+              </UserPreview>
               <span className="inline-flex items-center space-x-1 text-xs">
                 {formatNumber(channel?.stats.totalFollowers)}{' '}
                 <Trans>subscribers</Trans>
