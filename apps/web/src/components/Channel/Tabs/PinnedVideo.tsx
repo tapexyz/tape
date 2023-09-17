@@ -238,7 +238,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
             <Button
               variant="hover"
               size="sm"
-              className="invisible hover:!bg-red-800 group-hover:visible"
+              className="invisible hover:!bg-red-200 group-hover:visible dark:hover:!bg-red-800"
               onClick={() => unpinVideo()}
             >
               Unpin
