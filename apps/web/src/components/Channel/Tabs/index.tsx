@@ -5,8 +5,10 @@ import InfoOutline from '@components/Common/Icons/InfoOutline'
 import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import { Tab } from '@headlessui/react'
 import { Analytics, TRACK } from '@lenstube/browser'
-import { trimLensHandle } from '@lenstube/generic'
+import { FEATURE_FLAGS } from '@lenstube/constants'
+import { getIsFeatureEnabled, trimLensHandle } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
+import useAuthPersistStore from '@lib/store/auth'
 import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
@@ -27,6 +29,9 @@ type Props = {
 
 const Tabs: FC<Props> = ({ channel }) => {
   const router = useRouter()
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
+  )
 
   const getDefaultTab = () => {
     switch (router.query.tab) {
@@ -118,23 +123,28 @@ const Tabs: FC<Props> = ({ channel }) => {
             <Trans>Mirrored</Trans>
           </span>
         </Tab>
-        <Tab
-          onClick={() => {
-            handleTabChange('nfts')
-            Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_NFTS)
-          }}
-          className={({ selected }) =>
-            clsx(
-              'flex items-center space-x-2 whitespace-nowrap rounded-full border border-gray-200 px-4 py-2 text-xs font-medium uppercase transition duration-300 ease-in-out focus:outline-none dark:border-gray-800',
-              selected
-                ? 'bg-gray-200 dark:bg-gray-700'
-                : 'hover:bg-gray-200 hover:dark:bg-gray-800'
-            )
-          }
-        >
-          <CollectOutline className="h-4 w-4" />
-          <span>NFTs</span>
-        </Tab>
+        {getIsFeatureEnabled(
+          FEATURE_FLAGS.PROFILE_NFTS,
+          selectedSimpleProfile?.id
+        ) && (
+          <Tab
+            onClick={() => {
+              handleTabChange('nfts')
+              Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_NFTS)
+            }}
+            className={({ selected }) =>
+              clsx(
+                'flex items-center space-x-2 whitespace-nowrap rounded-full border border-gray-200 px-4 py-2 text-xs font-medium uppercase transition duration-300 ease-in-out focus:outline-none dark:border-gray-800',
+                selected
+                  ? 'bg-gray-200 dark:bg-gray-700'
+                  : 'hover:bg-gray-200 hover:dark:bg-gray-800'
+              )
+            }
+          >
+            <CollectOutline className="h-4 w-4" />
+            <span>NFTs</span>
+          </Tab>
+        )}
         <Tab
           onClick={() => {
             handleTabChange('channels')
@@ -181,9 +191,14 @@ const Tabs: FC<Props> = ({ channel }) => {
         <Tab.Panel className="focus:outline-none">
           <MirroredVideos channel={channel} />
         </Tab.Panel>
-        <Tab.Panel className="focus:outline-none">
-          <CollectedNFTs channel={channel} />
-        </Tab.Panel>
+        {getIsFeatureEnabled(
+          FEATURE_FLAGS.PROFILE_NFTS,
+          selectedSimpleProfile?.id
+        ) && (
+          <Tab.Panel className="focus:outline-none">
+            <CollectedNFTs channel={channel} />
+          </Tab.Panel>
+        )}
         <Tab.Panel className="focus:outline-none">
           <OtherChannels channel={channel} />
         </Tab.Panel>
