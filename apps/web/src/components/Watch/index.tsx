@@ -72,9 +72,9 @@ const VideoDetails = () => {
         <div className="grid grid-cols-1 gap-y-4 md:gap-4 xl:grid-cols-4">
           <div className="col-span-3 space-y-3.5">
             <Video video={video} />
-            <hr className="border border-gray-200 dark:border-gray-800" />
+            <hr className="border-[0.5px] border-gray-200 dark:border-gray-800" />
             <AboutChannel video={video} />
-            <hr className="border border-gray-200 dark:border-gray-800" />
+            <hr className="border-[0.5px] border-gray-200 dark:border-gray-800" />
             <VideoComments video={video} />
             {selectedCommentFilter ===
             CustomCommentsFilterEnum.RELEVANT_COMMENTS ? (

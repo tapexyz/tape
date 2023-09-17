@@ -11,13 +11,15 @@ type Props = {
   subscribeType: string | undefined
   variant?: ButtonVariants
   size?: ButtonSizes
+  showText?: boolean
 }
 
 const SubscribeActions: FC<Props> = ({
   channel,
   subscribeType,
   variant,
-  size
+  size,
+  showText
 }) => {
   const isSubscriber = channel?.isFollowedByMe
   const [subscriber, setSubscriber] = useState(isSubscriber)
@@ -29,6 +31,7 @@ const SubscribeActions: FC<Props> = ({
   return subscriber ? (
     <UnSubscribe
       variant={variant}
+      showText={showText}
       size={size}
       channel={channel}
       onUnSubscribe={() => setSubscriber(false)}
@@ -36,6 +39,7 @@ const SubscribeActions: FC<Props> = ({
   ) : subscribeType === 'FeeFollowModuleSettings' ? (
     <JoinChannel
       variant={variant}
+      showText={showText}
       size={size}
       channel={channel}
       onJoin={() => setSubscriber(true)}
@@ -43,6 +47,7 @@ const SubscribeActions: FC<Props> = ({
   ) : (
     <Subscribe
       variant={variant}
+      showText={showText}
       size={size}
       channel={channel}
       onSubscribe={() => setSubscriber(true)}

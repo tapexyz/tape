@@ -34,13 +34,15 @@ type Props = {
   onSubscribe: () => void
   variant?: ButtonVariants
   size?: ButtonSizes
+  showText?: boolean
 }
 
 const Subscribe: FC<Props> = ({
   channel,
   onSubscribe,
   variant = 'primary',
-  size = 'md'
+  size = 'md',
+  showText = true
 }) => {
   const [loading, setLoading] = useState(false)
   const selectedSimpleProfile = useAuthPersistStore(
@@ -171,14 +173,14 @@ const Subscribe: FC<Props> = ({
         <FollowOutline
           className={clsx({
             'h-2.5 w-2.5': size === 'sm',
-            'h-3 w-3': size === 'md',
+            'h-3.5 w-3.5': size === 'md',
             'h-4 w-4': size === 'lg',
             'h-5 w-5': size === 'xl'
           })}
         />
       }
     >
-      <Trans>Subscribe</Trans>
+      {showText && <Trans>Subscribe</Trans>}
     </Button>
   )
 }

@@ -51,18 +51,29 @@ const AboutChannel: FC<Props> = ({ video }) => {
       </Link>
       <div className="flex flex-1 flex-col overflow-hidden break-words">
         <div className="flex flex-wrap justify-between gap-y-2">
-          <div className="mr-2 flex flex-col items-start">
-            <Link
-              href={`/channel/${trimLensHandle(channel?.handle)}`}
-              className="flex items-center space-x-1 font-semibold"
-            >
-              <span>{channel?.handle}</span>
-              <Badge id={channel?.id} />
-            </Link>
-            <span className="inline-flex items-center space-x-1 text-sm opacity-90">
-              {formatNumber(channel?.stats.totalFollowers)}{' '}
-              <Trans>subscribers</Trans>
-            </span>
+          <div className="flex items-center space-x-5">
+            <div className="flex flex-col items-start">
+              <Link
+                href={`/channel/${trimLensHandle(channel?.handle)}`}
+                className="flex items-center space-x-1 font-semibold"
+              >
+                <span className="leading-snug">
+                  {trimLensHandle(channel?.handle)}
+                </span>
+                <Badge id={channel?.id} />
+              </Link>
+              <span className="inline-flex items-center space-x-1 text-xs">
+                {formatNumber(channel?.stats.totalFollowers)}{' '}
+                <Trans>subscribers</Trans>
+              </span>
+            </div>
+            <SubscribeActions
+              variant="outline"
+              size="md"
+              channel={channel}
+              showText={false}
+              subscribeType={subscribeType}
+            />
           </div>
           <div className="flex items-center space-x-2 lg:space-x-4">
             <div className="hidden md:block">
@@ -76,9 +87,8 @@ const AboutChannel: FC<Props> = ({ video }) => {
             </div>
             {video?.collectModule?.__typename !==
               'RevertCollectModuleSettings' && (
-              <CollectVideo variant="hover" video={video} />
+              <CollectVideo video={video} text="Collect" />
             )}
-            <SubscribeActions channel={channel} subscribeType={subscribeType} />
           </div>
         </div>
         {video.metadata.description || video.metadata.content ? (
