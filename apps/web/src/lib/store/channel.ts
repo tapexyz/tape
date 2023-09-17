@@ -3,7 +3,6 @@ import { CustomCommentsFilterEnum } from '@lenstube/lens/custom-types'
 import { create } from 'zustand'
 
 interface ChannelState {
-  channels: Profile[]
   showCreateChannel: boolean
   hasNewNotification: boolean
   userSigNonce: number
@@ -12,13 +11,11 @@ interface ChannelState {
   setActiveChannel: (channel: Profile | null) => void
   setUserSigNonce: (userSigNonce: number) => void
   setShowCreateChannel: (showCreateChannel: boolean) => void
-  setChannels: (channels: Profile[]) => void
   setHasNewNotification: (value: boolean) => void
   setSelectedCommentFilter: (filter: CustomCommentsFilterEnum) => void
 }
 
 export const useChannelStore = create<ChannelState>((set) => ({
-  channels: [],
   showCreateChannel: false,
   hasNewNotification: false,
   activeChannel: null,
@@ -29,7 +26,6 @@ export const useChannelStore = create<ChannelState>((set) => ({
   setActiveChannel: (activeChannel) => set({ activeChannel }),
   setUserSigNonce: (userSigNonce) => set({ userSigNonce }),
   setHasNewNotification: (b) => set({ hasNewNotification: b }),
-  setChannels: (channels) => set({ channels }),
   setShowCreateChannel: (showCreateChannel) => set({ showCreateChannel })
 }))
 

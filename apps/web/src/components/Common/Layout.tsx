@@ -32,7 +32,6 @@ const NO_HEADER_PATHS = ['/auth']
 
 const Layout: FC<Props> = ({ children }) => {
   const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
-  const setChannels = useChannelStore((state) => state.setChannels)
   const setActiveChannel = useChannelStore((state) => state.setActiveChannel)
   const sidebarCollapsed = usePersistStore((state) => state.sidebarCollapsed)
   const selectedSimpleProfile = useAuthPersistStore(
@@ -57,7 +56,6 @@ const Layout: FC<Props> = ({ children }) => {
   const showFullScreen = getShowFullScreen(pathname)
 
   const setUserChannels = (channels: Profile[]) => {
-    setChannels(channels)
     const profile = channels.find((ch) => ch.id === selectedSimpleProfile?.id)
     if (profile) {
       setActiveChannel(profile ?? channels[0])

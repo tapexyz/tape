@@ -33,7 +33,6 @@ const Login = () => {
   const setShowCreateChannel = useChannelStore(
     (state) => state.setShowCreateChannel
   )
-  const setChannels = useChannelStore((state) => state.setChannels)
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
@@ -126,7 +125,6 @@ const Login = () => {
       } else {
         const profiles = profilesData?.profiles?.items as Profile[]
         const defaultProfile = profiles.find((profile) => profile.isDefault)
-        setChannels(profiles)
         const profile = defaultProfile ?? profiles[0]
         setSelectedSimpleProfile(profile)
         setActiveChannel(profile)
@@ -152,7 +150,6 @@ const Login = () => {
     getAllSimpleProfiles,
     loadChallenge,
     router,
-    setChannels,
     setActiveChannel,
     setSelectedSimpleProfile,
     setShowCreateChannel,

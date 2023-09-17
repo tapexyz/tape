@@ -9,8 +9,9 @@ import {
 } from '@lenstube/constants'
 import { getProfilePicture, trimLensHandle } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
-import { useAllProfilesLazyQuery } from '@lenstube/lens'
+import { useSimpleProfilesLazyQuery } from '@lenstube/lens'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
+import { Loader } from '@lenstube/ui'
 import useAuthPersistStore, { signOut } from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
@@ -37,12 +38,11 @@ import SwitchChannelOutline from './Icons/SwitchChannelOutline'
 const UserMenu = () => {
   const { theme, setTheme } = useTheme()
   const [showAccountSwitcher, setShowAccountSwitcher] = useState(false)
+  const [channels, setChannels] = useState<Profile[]>([])
 
-  const setChannels = useChannelStore((state) => state.setChannels)
   const setShowCreateChannel = useChannelStore(
     (state) => state.setShowCreateChannel
   )
-  const channels = useChannelStore((state) => state.channels)
   const setActiveChannel = useChannelStore((state) => state.setActiveChannel)
 
   const selectedSimpleProfile = useAuthPersistStore(
@@ -58,13 +58,14 @@ const UserMenu = () => {
     { revalidateOnFocus: true }
   )
 
-  const [getChannels] = useAllProfilesLazyQuery()
   const { address } = useAccount()
   const { disconnect } = useDisconnect({
     onError(error: CustomErrorWithData) {
       toast.error(error?.data?.message || error?.message)
     }
   })
+
+  const [getAllSimpleProfiles, { loading }] = useSimpleProfilesLazyQuery()
 
   const isAdmin = ADMIN_IDS.includes(selectedSimpleProfile?.id)
 
@@ -87,7 +88,7 @@ const UserMenu = () => {
   const onSelectSwitchChannel = async () => {
     try {
       setShowAccountSwitcher(true)
-      const { data } = await getChannels({
+      const { data } = await getAllSimpleProfiles({
         variables: {
           request: { ownedBy: [address] }
         },
@@ -127,6 +128,11 @@ const UserMenu = () => {
                 <span className="py-2 text-sm">Channels</span>
               </button>
               <div className="py-1 text-sm">
+                {loading && !channels.length ? (
+                  <div className="py-10">
+                    <Loader />
+                  </div>
+                ) : null}
                 {channels?.map((channel) => (
                   <button
                     type="button"
