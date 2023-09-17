@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenstube\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-09-03 01:14\n"
+"PO-Revision-Date: 2023-09-17 01:14\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -603,7 +603,7 @@ msgstr "有限采集量"
 
 #: src/components/Channel/Tabs/About.tsx:94
 #~ msgid "Links"
-#~ msgstr "链接"
+#~ msgstr "Links"
 
 #: src/components/Settings/BasicInfo.tsx:395
 msgid "Location"
@@ -1548,3 +1548,4 @@ msgstr "您的频道"
 #: src/components/Upload/BundlrInfo.tsx:171
 msgid "Your Storage Balance"
 msgstr "您的存储余额"
+
