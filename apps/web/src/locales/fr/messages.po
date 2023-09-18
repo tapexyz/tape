@@ -8,7 +8,7 @@ msgstr ""
 "Language: fr\n"
 "Project-Id-Version: lenstube\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-09-17 01:14\n"
+"PO-Revision-Date: 2023-09-18 01:11\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: src/components/Channel/Tabs/index.tsx:196
 #~ msgid "About"
-#~ msgstr "À propos de"
+#~ msgstr "About"
 
 #: src/components/Settings/Permissions/Modules/index.tsx:112
 msgid "Access permissions"
@@ -258,7 +258,7 @@ msgstr "Le commentaire ne doit pas dépasser 5000 caractères"
 
 #: src/components/Channel/Tabs/index.tsx:122
 #~ msgid "Commented"
-#~ msgstr "Commenté"
+#~ msgstr "Commented"
 
 #: src/components/Notifications/Commented.tsx:37
 msgid "commented on your"
@@ -547,7 +547,7 @@ msgstr "Montant du dépôt non valide"
 
 #: src/components/Common/Auth/Login.tsx:108
 #~ msgid "Invalid Signature!"
-#~ msgstr "Signature invalide!"
+#~ msgstr "Invalid Signature!"
 
 #: src/components/Upload/CollectModule/FeeCollectForm.tsx:120
 msgid "Invalid split recipient address"
@@ -707,7 +707,7 @@ msgstr "Aucun octet trouvé"
 
 #: src/components/Channel/Tabs/CommentedVideos.tsx:64
 #~ msgid "No comments on videos"
-#~ msgstr "Aucun commentaire sur les vidéos"
+#~ msgstr "No comments on videos"
 
 #: src/components/Channel/Tabs/MirroredVideos.tsx:62
 msgid "No mirrors found"
@@ -1109,7 +1109,7 @@ msgstr "abonné"
 
 #: src/components/Channel/BasicInfo/UnSubscribe.tsx:129
 msgid "Subscribed"
-msgstr ""
+msgstr "Inscrit"
 
 #: src/components/Channel/BasicInfo/index.tsx:119
 msgid "Subscriber"
@@ -1326,7 +1326,7 @@ msgstr "Durée illimitée"
 
 #: src/components/Channel/Tabs/PinnedVideo.tsx:172
 msgid "Unpinning video..."
-msgstr ""
+msgstr "Annulation de la vidéo..."
 
 #: src/components/ReportPublication/index.tsx:115
 msgid "Unrelated"
@@ -1334,7 +1334,7 @@ msgstr "Sans lien"
 
 #: src/components/Channel/BasicInfo/UnSubscribe.tsx:102
 #~ msgid "Unsubscribe"
-#~ msgstr "Se désabonner"
+#~ msgstr "Unsubscribe"
 
 #: src/components/Settings/Membership.tsx:299
 msgid "Update"
@@ -1554,3 +1554,4 @@ msgstr "Votre Chaîne"
 #: src/components/Upload/BundlrInfo.tsx:171
 msgid "Your Storage Balance"
 msgstr "Votre solde de stockage"
+
