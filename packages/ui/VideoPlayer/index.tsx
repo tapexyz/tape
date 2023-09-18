@@ -52,7 +52,7 @@ const VideoPlayer: FC<Props> = ({
       ) : (
         <div
           onContextMenu={onContextClick}
-          className={`relative ${options.maxHeight && 'h-full'}`}
+          className={`relative flex ${options.maxHeight && 'h-full'}`}
         >
           <PlayerInstance
             ratio={ratio}
