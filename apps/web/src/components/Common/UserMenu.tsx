@@ -265,7 +265,8 @@ const UserMenu = () => {
                     </span>
                   </button>
                 )}
-                <Link
+                <Menu.Item
+                  as="a"
                   href="/settings"
                   className="flex w-full items-center space-x-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
                 >
@@ -273,9 +274,9 @@ const UserMenu = () => {
                   <span className="truncate whitespace-nowrap">
                     <Trans>Channel Settings</Trans>
                   </span>
-                </Link>
-                <button
-                  type="button"
+                </Menu.Item>
+                <Menu.Item
+                  as="button"
                   className="flex w-full items-center space-x-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
                   onClick={() => {
                     const selected = theme === 'dark' ? 'light' : 'dark'
@@ -293,9 +294,9 @@ const UserMenu = () => {
                   <span className="truncate whitespace-nowrap">
                     {theme === 'light' ? t`Switch to Dark` : t`Switch to Light`}
                   </span>
-                </button>
-                <button
-                  type="button"
+                </Menu.Item>
+                <Menu.Item
+                  as="button"
                   className="flex w-full items-center space-x-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
                   onClick={() => logout()}
                 >
@@ -303,7 +304,7 @@ const UserMenu = () => {
                   <span className="truncate whitespace-nowrap">
                     <Trans>Sign out</Trans>
                   </span>
-                </button>
+                </Menu.Item>
               </div>
             </>
           )}
