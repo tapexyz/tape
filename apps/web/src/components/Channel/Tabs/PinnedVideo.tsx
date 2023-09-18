@@ -69,6 +69,8 @@ const PinnedVideo: FC<Props> = ({ id }) => {
     publication?.__typename === 'Mirror' ? publication.mirrorOf : publication
 
   const isBytesVideo = pinnedPublication?.appId === LENSTUBE_BYTES_APP_ID
+  const isVideoOwner = activeChannel?.id === publication?.profile?.id
+
   const isSensitiveContent = getIsSensitiveContent(
     pinnedPublication?.metadata,
     pinnedPublication?.id
@@ -235,14 +237,16 @@ const PinnedVideo: FC<Props> = ({ id }) => {
             >
               {pinnedPublication.metadata?.name}
             </Link>
-            <Button
-              variant="hover"
-              size="sm"
-              className="invisible hover:!bg-red-200 group-hover:visible dark:hover:!bg-red-800"
-              onClick={() => unpinVideo()}
-            >
-              Unpin
-            </Button>
+            {isVideoOwner && (
+              <Button
+                variant="hover"
+                size="sm"
+                className="invisible hover:!bg-red-200 group-hover:visible dark:hover:!bg-red-800"
+                onClick={() => unpinVideo()}
+              >
+                Unpin
+              </Button>
+            )}
           </div>
           <div className="flex items-center overflow-hidden opacity-70">
             <span className="whitespace-nowrap">
