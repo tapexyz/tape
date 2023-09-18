@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenstube\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-09-17 01:14\n"
+"PO-Revision-Date: 2023-09-18 01:11\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: src/components/Channel/Tabs/index.tsx:196
 #~ msgid "About"
-#~ msgstr "关于"
+#~ msgstr "About"
 
 #: src/components/Settings/Permissions/Modules/index.tsx:112
 msgid "Access permissions"
@@ -258,7 +258,7 @@ msgstr "评论不能超过 5000 个字符"
 
 #: src/components/Channel/Tabs/index.tsx:122
 #~ msgid "Commented"
-#~ msgstr "已评论"
+#~ msgstr "Commented"
 
 #: src/components/Notifications/Commented.tsx:37
 msgid "commented on your"
@@ -547,7 +547,7 @@ msgstr "无效的存款金额"
 
 #: src/components/Common/Auth/Login.tsx:108
 #~ msgid "Invalid Signature!"
-#~ msgstr "签名无效！"
+#~ msgstr "Invalid Signature!"
 
 #: src/components/Upload/CollectModule/FeeCollectForm.tsx:120
 msgid "Invalid split recipient address"
@@ -707,7 +707,7 @@ msgstr "未找到字节"
 
 #: src/components/Channel/Tabs/CommentedVideos.tsx:64
 #~ msgid "No comments on videos"
-#~ msgstr "视频上没有评论"
+#~ msgstr "No comments on videos"
 
 #: src/components/Channel/Tabs/MirroredVideos.tsx:62
 msgid "No mirrors found"
@@ -1109,7 +1109,7 @@ msgstr "订阅"
 
 #: src/components/Channel/BasicInfo/UnSubscribe.tsx:129
 msgid "Subscribed"
-msgstr ""
+msgstr "订阅"
 
 #: src/components/Channel/BasicInfo/index.tsx:119
 msgid "Subscriber"
@@ -1326,7 +1326,7 @@ msgstr "无限制持续时间"
 
 #: src/components/Channel/Tabs/PinnedVideo.tsx:172
 msgid "Unpinning video..."
-msgstr ""
+msgstr "取消置顶视频..."
 
 #: src/components/ReportPublication/index.tsx:115
 msgid "Unrelated"
@@ -1334,7 +1334,7 @@ msgstr "未关联的"
 
 #: src/components/Channel/BasicInfo/UnSubscribe.tsx:102
 #~ msgid "Unsubscribe"
-#~ msgstr "取消订阅"
+#~ msgstr "Unsubscribe"
 
 #: src/components/Settings/Membership.tsx:299
 msgid "Update"
@@ -1554,3 +1554,4 @@ msgstr "您的频道"
 #: src/components/Upload/BundlrInfo.tsx:171
 msgid "Your Storage Balance"
 msgstr "您的存储余额"
+
