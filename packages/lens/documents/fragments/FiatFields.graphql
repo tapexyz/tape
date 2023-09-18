@@ -1,5 +1,0 @@
-fragment FiatFields on FiatAmount {
-  name
-  symbol
-  decimals
-}

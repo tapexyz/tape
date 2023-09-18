@@ -1,4 +1,4 @@
-fragment LinkMetadataFields on LinkMetadataV3 {
+fragment LinkMetadataV3Fields on LinkMetadataV3 {
   attributes {
     ...PublicationMetadataV3AttributeFields
   }

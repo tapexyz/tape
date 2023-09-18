@@ -3,10 +3,8 @@ fragment ProfileFields on Profile {
   ownedBy {
     ...NetworkAddressFields
   }
-  gasless {
-    enabled
-    relay
-  }
+  lensManager
+  sponsor
   txHash
   createdAt
   stats {

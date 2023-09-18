@@ -3,20 +3,17 @@ fragment OpenActionModulesFields on OpenActionModule {
     contract {
       ...NetworkAddressFields
     }
-    amount {
+    optionalAmount: amount {
       ...AmountFields
-      rate(for: USD) {
-        asset {
-          ...FiatFields
-        }
-        value
+      rate(request: { for: USD }) {
+        ...FiatAmountFields
       }
     }
-    collectLimit
+    optionalCollectLimit: collectLimit
     followerOnly
     recipient
     referralFee
-    endTimestamp
+    optionalEndTimestamp: endTimestamp
   }
   ... on MultirecipientFeeCollectOpenActionSettings {
     contract {
@@ -24,17 +21,14 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(for: USD) {
-        asset {
-          ...FiatFields
-        }
-        value
+      rate(request: { for: USD }) {
+        ...FiatAmountFields
       }
     }
-    collectLimit
+    optionalCollectLimit: collectLimit
     referralFee
     followerOnly
-    endTimestamp
+    optionalEndTimestamp: endTimestamp
     recipients {
       recipient
       split
@@ -52,11 +46,8 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(for: USD) {
-        asset {
-          ...FiatFields
-        }
-        value
+      rate(request: { for: USD }) {
+        ...FiatAmountFields
       }
     }
     recipient
@@ -70,11 +61,8 @@ fragment OpenActionModulesFields on OpenActionModule {
     collectLimit
     amount {
       ...AmountFields
-      rate(for: USD) {
-        asset {
-          ...FiatFields
-        }
-        value
+      rate(request: { for: USD }) {
+        ...FiatAmountFields
       }
     }
     recipient
@@ -88,11 +76,8 @@ fragment OpenActionModulesFields on OpenActionModule {
     collectLimit
     amount {
       ...AmountFields
-      rate(for: USD) {
-        asset {
-          ...FiatFields
-        }
-        value
+      rate(request: { for: USD }) {
+        ...FiatAmountFields
       }
     }
     recipient
@@ -109,14 +94,10 @@ fragment OpenActionModulesFields on OpenActionModule {
     contract {
       ...NetworkAddressFields
     }
-    collectLimit
     amount {
       ...AmountFields
-      rate(for: USD) {
-        asset {
-          ...FiatFields
-        }
-        value
+      rate(request: { for: USD }) {
+        ...FiatAmountFields
       }
     }
     recipient
@@ -130,17 +111,14 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(for: USD) {
-        asset {
-          ...FiatFields
-        }
-        value
+      rate(request: { for: USD }) {
+        ...FiatAmountFields
       }
     }
-    collectLimit
+    optionalCollectLimit: collectLimit
     referralFee
     followerOnly
-    endTimestamp
+    optionalEndTimestamp: endTimestamp
     recipients {
       recipient
       split
@@ -150,20 +128,17 @@ fragment OpenActionModulesFields on OpenActionModule {
     contract {
       ...NetworkAddressFields
     }
-    amount {
+    optionalAmount: amount {
       ...AmountFields
-      rate(for: USD) {
-        asset {
-          ...FiatFields
-        }
-        value
+      rate(request: { for: USD }) {
+        ...FiatAmountFields
       }
     }
-    collectLimit
+    optionalCollectLimit: collectLimit
     followerOnly
     recipient
     referralFee
-    endTimestamp
+    optionalEndTimestamp: endTimestamp
   }
   ... on LegacyERC4626FeeCollectModuleSettings {
     contract {
@@ -174,18 +149,15 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(for: USD) {
-        asset {
-          ...FiatFields
-        }
-        value
+      rate(request: { for: USD }) {
+        ...FiatAmountFields
       }
     }
     recipient
-    collectLimit
+    optionalCollectLimit: collectLimit
     referralFee
     followerOnly
-    endTimestamp
+    optionalEndTimestamp: endTimestamp
   }
   ... on LegacyAaveFeeCollectModuleSettings {
     contract {
@@ -193,17 +165,14 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
     amount {
       ...AmountFields
-      rate(for: USD) {
-        asset {
-          ...FiatFields
-        }
-        value
+      rate(request: { for: USD }) {
+        ...FiatAmountFields
       }
     }
-    collectLimit
+    optionalCollectLimit: collectLimit
     referralFee
     followerOnly
-    endTimestamp
+    optionalEndTimestamp: endTimestamp
     recipient
   }
   ... on UnknownOpenActionModuleSettings {

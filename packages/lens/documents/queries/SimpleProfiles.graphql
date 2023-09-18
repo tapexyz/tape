@@ -5,9 +5,7 @@ query SimpleProfiles($request: ProfilesRequest!) {
       ownedBy {
         address
       }
-      gasless {
-        enabled
-      }
+      sponsor
       stats {
         followers
       }

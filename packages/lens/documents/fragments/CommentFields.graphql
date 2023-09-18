@@ -10,13 +10,10 @@ fragment CommentFields on Comment {
   txHash
   createdAt
   by {
-    id
-    handle
+    ...ProfileFields
   }
   stats {
-    comments
-    mirrors
-    quotes
+    ...PublicationStatsFields
   }
   operations {
     ...PublicationOperationFields
@@ -28,13 +25,13 @@ fragment CommentFields on Comment {
     ...OpenActionModulesFields
   }
   root {
-    ...PostFields
+    ...PrimaryPublicationFields
   }
   commentOn {
     ...PrimaryPublicationFields
   }
   firstComment {
-    ...CommentFields
+    ...PrimaryPublicationFields
   }
   referenceModule {
     ...ReferenceModuleFields

@@ -1,5 +1,5 @@
-query RevenueForPublication($request: PublicationRevenueRequest!) {
-  revenueForPublication(request: $request) {
+query RevenueFromPublication($request: PublicationRevenueRequest!) {
+  revenueFromPublication(request: $request) {
     publication {
       ... on Post {
         ...PostFields

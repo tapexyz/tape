@@ -1,20 +1,18 @@
 query SearchPublications($request: PublicationSearchRequest!) {
   searchPublications(request: $request) {
-    ... on PublicationSearchResult {
-      items {
-        ... on Post {
-          ...PostFields
-        }
-        ... on Comment {
-          ...CommentFields
-        }
-        ... on Quote {
-          ...QuoteFields
-        }
+    items {
+      ... on Post {
+        ...PostFields
       }
-      pageInfo {
-        next
+      ... on Comment {
+        ...CommentFields
       }
+      ... on Quote {
+        ...QuoteFields
+      }
+    }
+    pageInfo {
+      next
     }
   }
 }

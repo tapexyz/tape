@@ -1,11 +1,11 @@
 fragment PrimaryPublicationFields on PrimaryPublication {
   ... on Comment {
-    ...CommentFields
+    id
   }
   ... on Quote {
-    ...QuoteFields
+    id
   }
   ... on Post {
-    PostFields
+    id
   }
 }

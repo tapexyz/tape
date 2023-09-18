@@ -1,4 +1,4 @@
-fragment EmbedMetadataFields on EmbedMetadataV3 {
+fragment EmbedMetadataV3Fields on EmbedMetadataV3 {
   attributes {
     ...PublicationMetadataV3AttributeFields
   }

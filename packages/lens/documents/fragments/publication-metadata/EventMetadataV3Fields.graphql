@@ -1,4 +1,4 @@
-fragment EventMetadataFields on EventMetadataV3 {
+fragment EventMetadataV3Fields on EventMetadataV3 {
   attributes {
     ...PublicationMetadataV3AttributeFields
   }

@@ -7,3 +7,4 @@ fragment Erc20Fields on Asset {
       ...NetworkAddressFields
     }
   }
+}

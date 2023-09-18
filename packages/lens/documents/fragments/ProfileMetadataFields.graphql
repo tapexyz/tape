@@ -1,4 +1,4 @@
-fragment ProfileMetadataFields on Profile {
+fragment ProfileMetadataFields on ProfileMetadata {
   displayName
   bio
   rawURI
@@ -16,10 +16,10 @@ fragment ProfileMetadataFields on Profile {
   }
   coverPicture {
     raw {
-      url
+      uri
     }
     optimized {
-      url
+      uri
     }
   }
 }

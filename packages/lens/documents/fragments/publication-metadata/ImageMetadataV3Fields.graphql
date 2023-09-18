@@ -1,4 +1,4 @@
-fragment ImageMetadataFields on ImageMetadataV3 {
+fragment ImageMetadataV3Fields on ImageMetadataV3 {
   attributes {
     ...PublicationMetadataV3AttributeFields
   }

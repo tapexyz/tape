@@ -1,4 +1,4 @@
-fragment ArticleMetadataFields on ArticleMetadataV3 {
+fragment ArticleMetadataV3Fields on ArticleMetadataV3 {
   attributes {
     ...PublicationMetadataV3AttributeFields
   }

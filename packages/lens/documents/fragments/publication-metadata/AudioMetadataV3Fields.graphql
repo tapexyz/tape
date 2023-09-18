@@ -1,4 +1,4 @@
-fragment AudioMetadataFields on AudioMetadataV3 {
+fragment AudioMetadataV3Fields on AudioMetadataV3 {
   attributes {
     ...PublicationMetadataV3AttributeFields
   }

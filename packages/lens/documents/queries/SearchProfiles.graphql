@@ -1,9 +1,10 @@
 query SearchProfiles($request: ProfileSearchRequest!) {
   searchProfiles(request: $request) {
-    ... on ProfileSearchResult {
-      items {
-        ...ProfileFields
-      }
+    items {
+      ...ProfileFields
+    }
+    pageInfo {
+      next
     }
   }
 }
