@@ -1,5 +1,0 @@
-mutation AddPublicationToBookmark(
-  $request: PublicationProfileBookmarkRequest!
-) {
-  addPublicationProfileBookmark(request: $request)
-}
