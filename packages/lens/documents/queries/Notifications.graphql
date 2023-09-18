@@ -1,114 +1,110 @@
 query Notifications($request: NotificationRequest!) {
   notifications(request: $request) {
     items {
-      ... on NewFollowerNotification {
-        notificationId
-        wallet {
-          address
-          defaultProfile {
-            ...ProfileFields
-          }
-        }
-        createdAt
-      }
-      ... on NewMentionNotification {
-        notificationId
-        mentionPublication {
+      ... on ReactionNotification {
+        id
+        publication {
           ... on Post {
-            id
-            profile {
-              ...ProfileFields
-            }
+            ...PostFields
           }
           ... on Comment {
-            id
-            profile {
-              ...ProfileFields
-            }
+            ...CommentFields
+          }
+          ... on Quote {
+            ...QuoteFields
           }
         }
-        createdAt
-      }
-      ... on NewCommentNotification {
-        notificationId
-        profile {
-          ...ProfileFields
+        reactions {
+          profile {
+            ...ProfileFields
+          }
+          reactions {
+            reactedAt
+            reaction
+          }
         }
+      }
+      ... on CommentNotification {
+        id
         comment {
-          id
-          metadata {
-            content
-          }
-          commentOn {
-            ... on Post {
-              id
-            }
-            ... on Comment {
-              id
-            }
-            ... on Mirror {
-              id
-            }
-          }
+          ...CommentFields
         }
-        createdAt
       }
-      ... on NewMirrorNotification {
-        notificationId
-        profile {
-          ...ProfileFields
-        }
-        publication {
-          ... on Post {
-            id
-          }
-          ... on Comment {
-            id
-          }
-        }
-        createdAt
-      }
-      ... on NewCollectNotification {
-        notificationId
-        wallet {
-          address
-          defaultProfile {
+      ... on MirrorNotification {
+        id
+        mirrors {
+          mirrorId
+          mirroredAt
+          profile {
             ...ProfileFields
           }
         }
-        collectedPublication {
-          ... on Post {
-            id
-          }
-          ... on Comment {
-            id
-          }
-        }
-        createdAt
-      }
-      ... on NewReactionNotification {
-        notificationId
-        profile {
-          ...ProfileFields
-        }
-        reaction
         publication {
+          ... on Post {
+            ...PostFields
+          }
           ... on Comment {
-            id
-            mainPost {
-              ... on Post {
-                id
-              }
+            ...CommentFields
+          }
+          ... on Quote {
+            ...QuoteFields
+          }
+        }
+      }
+      ... on QuoteNotification {
+        id
+        quote {
+          ...QuoteFields
+        }
+      }
+      ... on ActedNotification {
+        id
+        actions {
+          actedAt
+          profile {
+            ...ProfileFields
+          }
+          action {
+            ... on KnownCollectOpenActionResult {
+              type
+            }
+            ... on UnknownOpenActionResult {
+              address
+              category
             }
           }
+        }
+        publication {
           ... on Post {
-            id
+            ...PostFields
+          }
+          ... on Comment {
+            ...CommentFields
           }
           ... on Mirror {
-            id
+            ...MirrorFields
           }
         }
-        createdAt
+      }
+      ... on FollowNotification {
+        id
+        followers {
+          ...ProfileFields
+        }
+      }
+      ... on MentionNotification {
+        id
+        publication {
+          ... on Post {
+            ...PostFields
+          }
+          ... on Comment {
+            ...CommentFields
+          }
+          ... on Quote {
+            ...QuoteFields
+          }
+        }
       }
     }
     pageInfo {

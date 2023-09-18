@@ -1,4 +1,4 @@
-fragment PostFields on Post {
+fragment QuoteFields on Quote {
   id
   publishedOn {
     id
@@ -26,5 +26,8 @@ fragment PostFields on Post {
   }
   referenceModule {
     ...ReferenceModuleFields
+  }
+  quoteOn {
+    ...PrimaryPublicationFields
   }
 }

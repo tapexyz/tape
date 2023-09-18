@@ -1,7 +1,31 @@
-query SimpleProfiles($request: ProfileQueryRequest!) {
+query SimpleProfiles($request: ProfilesRequest!) {
   profiles(request: $request) {
     items {
-      ...SimpleProfileFields
+      id
+      ownedBy {
+        address
+      }
+      gasless {
+        enabled
+      }
+      stats {
+        followers
+      }
+      metadata {
+        picture {
+          ... on ImageSet {
+            ...ImageSetFields
+          }
+          ... on NftImage {
+            image {
+              raw {
+                uri
+              }
+            }
+          }
+        }
+      }
+      handle
     }
     pageInfo {
       next

@@ -1,48 +1,42 @@
 fragment CommentFields on Comment {
   id
-  reaction(request: $reactionRequest)
-  profile {
-    ...ProfileFields
+  publishedOn {
+    id
   }
-  collectModule {
-    ...CollectFields
+  isHidden
+  momoka {
+    proof
   }
-  referenceModule {
-    __typename
+  txHash
+  createdAt
+  by {
+    id
+    handle
   }
-  canComment(profileId: $channelId) {
-    result
-  }
-  canMirror(profileId: $channelId) {
-    result
-  }
-  collectNftAddress
-  onChainContentURI
-  hidden
-  notInterested(by: $channelId)
-  bookmarked(by: $channelId)
-  isGated
-  isDataAvailability
-  hasCollectedByMe
   stats {
-    ...PublicationStatsFields
+    comments
+    mirrors
+    quotes
+  }
+  operations {
+    ...PublicationOperationFields
   }
   metadata {
-    ...MetadataFields
+    ...AnyPublicationMetadataFields
+  }
+  openActionModules {
+    ...OpenActionModulesFields
+  }
+  root {
+    ...PostFields
   }
   commentOn {
-    ... on Post {
-      id
-      createdAt
-      profile {
-        ...ProfileFields
-      }
-      metadata {
-        ...MetadataFields
-      }
-      appId
-    }
+    ...PrimaryPublicationFields
   }
-  createdAt
-  appId
+  firstComment {
+    ...CommentFields
+  }
+  referenceModule {
+    ...ReferenceModuleFields
+  }
 }

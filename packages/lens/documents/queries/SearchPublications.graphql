@@ -1,9 +1,5 @@
-query SearchPublications(
-  $request: SearchQueryRequest!
-  $reactionRequest: ReactionFieldResolverRequest
-  $channelId: ProfileId
-) {
-  search(request: $request) {
+query SearchPublications($request: PublicationSearchRequest!) {
+  searchPublications(request: $request) {
     ... on PublicationSearchResult {
       items {
         ... on Post {
@@ -11,6 +7,9 @@ query SearchPublications(
         }
         ... on Comment {
           ...CommentFields
+        }
+        ... on Quote {
+          ...QuoteFields
         }
       }
       pageInfo {

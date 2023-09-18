@@ -1,5 +1,5 @@
-query SearchProfiles($request: SearchQueryRequest!) {
-  search(request: $request) {
+query SearchProfiles($request: ProfileSearchRequest!) {
+  searchProfiles(request: $request) {
     ... on ProfileSearchResult {
       items {
         ...ProfileFields

@@ -1,0 +1,9 @@
+fragment ImageMetadataFields on ImageMetadataV3 {
+  attributes {
+    ...PublicationMetadataV3AttributeFields
+  }
+  optionalContent
+  contentWarning
+  tags
+  locale
+}

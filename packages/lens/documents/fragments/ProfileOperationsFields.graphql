@@ -1,0 +1,16 @@
+fragment ProfileOperationsFields on ProfileStats {
+  id
+  isBlockedByMe {
+    value
+  }
+  isFollowedByMe {
+    value
+  }
+  isFollowingMe {
+    value
+  }
+  canBlock
+  canUnblock
+  canFollow
+  canUnfollow
+}

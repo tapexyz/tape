@@ -1,0 +1,9 @@
+fragment LinkMetadataFields on LinkMetadataV3 {
+  attributes {
+    ...PublicationMetadataV3AttributeFields
+  }
+  optionalContent
+  contentWarning
+  tags
+  locale
+}

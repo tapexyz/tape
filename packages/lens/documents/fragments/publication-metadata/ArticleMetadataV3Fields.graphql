@@ -1,0 +1,9 @@
+fragment ArticleMetadataFields on ArticleMetadataV3 {
+  attributes {
+    ...PublicationMetadataV3AttributeFields
+  }
+  content
+  contentWarning
+  tags
+  locale
+}

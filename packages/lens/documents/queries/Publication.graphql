@@ -1,16 +1,16 @@
-query HasPublicationIndexed($request: PublicationRequest!) {
+query Publication($request: PublicationRequest!) {
   publication(request: $request) {
     ... on Post {
-      id
+      ...PostFields
     }
     ... on Comment {
-      id
+      ...CommentFields
     }
     ... on Mirror {
-      id
+      ...MirrorFields
     }
     ... on Quote {
-      id
+      ...QuoteFields
     }
   }
 }

@@ -2,7 +2,7 @@ import type { CodegenConfig } from '@graphql-codegen/cli'
 
 const config: CodegenConfig = {
   overwrite: true,
-  schema: 'https://api-mumbai.lens.dev',
+  schema: 'http://localhost:4000',
   documents: './documents/**/*.graphql',
   generates: {
     'generated.ts': {

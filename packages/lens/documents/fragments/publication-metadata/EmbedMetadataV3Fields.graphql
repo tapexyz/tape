@@ -1,0 +1,9 @@
+fragment EmbedMetadataFields on EmbedMetadataV3 {
+  attributes {
+    ...PublicationMetadataV3AttributeFields
+  }
+  optionalContent
+  contentWarning
+  tags
+  locale
+}

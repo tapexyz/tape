@@ -1,12 +1,12 @@
-query FeedHighlights($request: FeedHighlightsRequest!) {
-  feedHighlights(request: $request) {
+query ExplorePublications($request: ExplorePublicationRequest!) {
+  explorePublications(request: $request) {
     items {
       ... on Post {
         ...PostFields
       }
       ... on Quote {
         ...QuoteFields
-      } 
+      }
     }
     pageInfo {
       next

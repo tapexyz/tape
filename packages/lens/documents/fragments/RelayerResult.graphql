@@ -1,9 +1,0 @@
-fragment RelayerResult on RelayResult {
-  ... on RelayerResult {
-    txId
-    txHash
-  }
-  ... on RelayError {
-    reason
-  }
-}
