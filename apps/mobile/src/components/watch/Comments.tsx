@@ -1,7 +1,7 @@
 import type { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
-import type { Publication, PublicationsQueryRequest } from '@lenstube/lens'
-import { useCommentsQuery } from '@lenstube/lens'
+import type { PublicationsRequest } from '@lenstube/lens'
+import { LimitType, usePublicationsQuery } from '@lenstube/lens'
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { Skeleton } from 'moti/skeleton'
 import type { FC } from 'react'
@@ -41,17 +41,21 @@ const Comments: FC<Props> = ({ id }) => {
 
   const commentsSheetRef = useRef<BottomSheetModal>(null)
 
-  const request: PublicationsQueryRequest = {
-    limit: 1,
-    customFilters: LENS_CUSTOM_FILTERS,
-    commentsOf: id
+  const request: PublicationsRequest = {
+    limit: LimitType.Ten,
+    where: {
+      customFilters: LENS_CUSTOM_FILTERS,
+      commentOn: {
+        id
+      }
+    }
   }
 
-  const { data, loading } = useCommentsQuery({
+  const { data, loading } = usePublicationsQuery({
     variables: { request },
     skip: !id
   })
-  const comments = data?.publications?.items as Publication[]
+  const comments = data?.publications?.items as Comment[]
 
   return (
     <>

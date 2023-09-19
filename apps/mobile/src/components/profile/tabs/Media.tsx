@@ -1,13 +1,14 @@
 import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
 import type {
+  MirrorablePublication,
   Profile,
-  Publication,
-  PublicationsQueryRequest
+  PublicationsRequest
 } from '@lenstube/lens'
 import {
-  PublicationMainFocus,
-  PublicationTypes,
-  useProfilePostsQuery
+  LimitType,
+  PublicationMetadataMainFocusType,
+  PublicationType,
+  usePublicationsQuery
 } from '@lenstube/lens'
 import type { FC } from 'react'
 import React, { memo, useCallback } from 'react'
@@ -40,17 +41,22 @@ const styles = StyleSheet.create({
 const Media: FC<Props> = ({ profile, scrollHandler }) => {
   const { height } = useWindowDimensions()
 
-  const request: PublicationsQueryRequest = {
-    publicationTypes: [PublicationTypes.Post],
-    limit: 10,
-    metadata: {
-      mainContentFocus: [PublicationMainFocus.Video, PublicationMainFocus.Audio]
+  const request: PublicationsRequest = {
+    where: {
+      publicationTypes: [PublicationType.Post],
+      metadata: {
+        mainContentFocus: [
+          PublicationMetadataMainFocusType.Video,
+          PublicationMetadataMainFocusType.Audio
+        ]
+      },
+      customFilters: LENS_CUSTOM_FILTERS,
+      from: profile?.id
     },
-    customFilters: LENS_CUSTOM_FILTERS,
-    profileId: profile?.id
+    limit: LimitType.Ten
   }
 
-  const { data, loading, fetchMore, refetch } = useProfilePostsQuery({
+  const { data, loading, fetchMore, refetch } = usePublicationsQuery({
     variables: {
       request
     },
@@ -58,7 +64,7 @@ const Media: FC<Props> = ({ profile, scrollHandler }) => {
     notifyOnNetworkStatusChange: true
   })
 
-  const publications = data?.publications?.items as Publication[]
+  const publications = data?.publications?.items as MirrorablePublication[]
   const pageInfo = data?.publications?.pageInfo
 
   const fetchMorePublications = async () => {
@@ -73,9 +79,9 @@ const Media: FC<Props> = ({ profile, scrollHandler }) => {
   }
 
   const renderItem = useCallback(
-    ({ item }: { item: Publication }) => (
+    ({ item }: { item: MirrorablePublication }) => (
       <View style={{ marginBottom: 30 }}>
-        {item.metadata.mainContentFocus === PublicationMainFocus.Audio ? (
+        {item.metadata.__typename === 'AudioMetadataV3' ? (
           <AudioCard audio={item} />
         ) : (
           <VideoCard video={item} />

@@ -1,23 +1,29 @@
 import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
-import type { PublicationsQueryRequest } from '@lenstube/lens'
+import type { PublicationsRequest } from '@lenstube/lens'
 import {
-  PublicationMainFocus,
-  PublicationTypes,
-  useProfilePostsQuery
+  LimitType,
+  PublicationMetadataMainFocusType,
+  PublicationType,
+  usePublicationsQuery
 } from '@lenstube/lens'
 
 const useAlgoFeed = () => {
-  const request: PublicationsQueryRequest = {
-    limit: 50,
-    publicationTypes: [PublicationTypes.Post],
-    customFilters: LENS_CUSTOM_FILTERS,
-    metadata: {
-      mainContentFocus: [PublicationMainFocus.Audio, PublicationMainFocus.Video]
-    },
-    publicationIds: []
+  const request: PublicationsRequest = {
+    limit: LimitType.Fifty,
+    where: {
+      publicationTypes: [PublicationType.Post],
+      customFilters: LENS_CUSTOM_FILTERS,
+      metadata: {
+        mainContentFocus: [
+          PublicationMetadataMainFocusType.Audio,
+          PublicationMetadataMainFocusType.Video
+        ]
+      },
+      publicationIds: []
+    }
   }
 
-  const { data } = useProfilePostsQuery({
+  const { data } = usePublicationsQuery({
     variables: { request }
   })
 

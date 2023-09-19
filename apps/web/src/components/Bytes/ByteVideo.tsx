@@ -7,7 +7,7 @@ import {
   imageCdn,
   sanitizeDStorageUrl
 } from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
+import type { MirrorablePublication } from '@lenstube/lens'
 import VideoPlayer from '@lenstube/ui/VideoPlayer'
 import useAuthPersistStore from '@lib/store/auth'
 import { t } from '@lingui/macro'
@@ -19,7 +19,7 @@ import ByteActions from './ByteActions'
 import TopOverlay from './TopOverlay'
 
 type Props = {
-  video: Publication
+  video: MirrorablePublication
   currentViewingId: string
   intersectionCallback: (id: string) => void
 }
@@ -114,7 +114,7 @@ const ByteVideo: FC<Props> = ({
           />
           {currentViewingId === video.id ? (
             <VideoPlayer
-              address={selectedSimpleProfile?.ownedBy}
+              address={selectedSimpleProfile?.ownedBy.address}
               refCallback={refCallback}
               permanentUrl={getPublicationRawMediaUrl(video)}
               hlsUrl={getPublicationHlsUrl(video)}
@@ -157,15 +157,12 @@ const ByteVideo: FC<Props> = ({
         <BottomOverlay video={video} />
         <div className="absolute bottom-[15%] right-2 z-[1] md:hidden">
           <ByteActions video={video} />
-          {video?.collectModule?.__typename !==
-            'RevertCollectModuleSettings' && (
-            <div className="pt-3 text-center text-white md:text-gray-500">
-              <CollectVideo video={video} variant="none" />
-              <div className="text-xs">
-                {video.stats?.totalAmountOfCollects || t`Collect`}
-              </div>
+          <div className="pt-3 text-center text-white md:text-gray-500">
+            <CollectVideo video={video} variant="none" />
+            <div className="text-xs">
+              {video.stats?.countOpenActions || t`Collect`}
             </div>
-          )}
+          </div>
         </div>
       </div>
       <div className="hidden md:flex">

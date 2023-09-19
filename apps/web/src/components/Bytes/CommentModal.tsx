@@ -2,7 +2,7 @@ import CommentOutline from '@components/Common/Icons/CommentOutline'
 import Modal from '@components/UIElements/Modal'
 import NonRelevantComments from '@components/Watch/Comments/NonRelevantComments'
 import VideoComments from '@components/Watch/Comments/VideoComments'
-import type { Publication } from '@lenstube/lens'
+import type { MirrorablePublication } from '@lenstube/lens'
 import { CustomCommentsFilterEnum } from '@lenstube/lens/custom-types'
 import useChannelStore from '@lib/store/channel'
 import { Trans } from '@lingui/macro'
@@ -11,7 +11,7 @@ import React, { useState } from 'react'
 
 type Props = {
   trigger: React.ReactNode
-  video: Publication
+  video: MirrorablePublication
 }
 
 const CommentModal: FC<Props> = ({ trigger, video }) => {

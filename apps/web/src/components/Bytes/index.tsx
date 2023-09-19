@@ -8,15 +8,18 @@ import {
   LENSTUBE_BYTES_APP_ID,
   SCROLL_ROOT_MARGIN
 } from '@lenstube/constants'
-import type { Publication } from '@lenstube/lens'
+import type {
+  ExplorePublicationRequest,
+  MirrorablePublication
+} from '@lenstube/lens'
 import {
-  PublicationSortCriteria,
-  PublicationTypes,
-  useExploreLazyQuery,
-  usePublicationDetailsLazyQuery
+  ExplorePublicationsOrderByType,
+  ExplorePublicationType,
+  LimitType,
+  useExplorePublicationsLazyQuery,
+  usePublicationLazyQuery
 } from '@lenstube/lens'
 import { Loader } from '@lenstube/ui'
-import useAuthPersistStore from '@lib/store/auth'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect, useRef, useState } from 'react'
@@ -24,37 +27,33 @@ import { useInView } from 'react-cool-inview'
 
 import ByteVideo from './ByteVideo'
 
-const request = {
-  sortCriteria: PublicationSortCriteria.CuratedProfiles,
-  limit: 50,
-  noRandomize: false,
-  sources: [LENSTUBE_BYTES_APP_ID],
-  publicationTypes: [PublicationTypes.Post],
-  customFilters: LENS_CUSTOM_FILTERS
+const request: ExplorePublicationRequest = {
+  where: {
+    publicationTypes: [ExplorePublicationType.Post],
+    metadata: {
+      publishedOn: [LENSTUBE_BYTES_APP_ID]
+    },
+    customFilters: LENS_CUSTOM_FILTERS
+  },
+  orderBy: ExplorePublicationsOrderByType.LensCurated,
+  limit: LimitType.Fifty
 }
 
 const Bytes = () => {
   const router = useRouter()
   const bytesContainer = useRef<HTMLDivElement>(null)
   const [currentViewingId, setCurrentViewingId] = useState('')
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
 
   const [fetchPublication, { data: singleByte, loading: singleByteLoading }] =
-    usePublicationDetailsLazyQuery()
+    usePublicationLazyQuery()
 
   const [fetchAllBytes, { data, loading, error, fetchMore }] =
-    useExploreLazyQuery({
+    useExplorePublicationsLazyQuery({
       variables: {
-        request,
-        reactionRequest: selectedSimpleProfile
-          ? { profileId: selectedSimpleProfile?.id }
-          : null,
-        channelId: selectedSimpleProfile?.id ?? null
+        request
       },
       onCompleted: ({ explorePublications }) => {
-        const items = explorePublications?.items as Publication[]
+        const items = explorePublications?.items as MirrorablePublication[]
         const publicationId = router.query.id
         if (!publicationId) {
           const nextUrl = `${location.origin}/bytes/${items[0]?.id}`
@@ -63,9 +62,9 @@ const Bytes = () => {
       }
     })
 
-  const bytes = data?.explorePublications?.items as Publication[]
+  const bytes = data?.explorePublications?.items as MirrorablePublication[]
   const pageInfo = data?.explorePublications?.pageInfo
-  const singleBytePublication = singleByte?.publication as Publication
+  const singleBytePublication = singleByte?.publication as MirrorablePublication
 
   const fetchSingleByte = async () => {
     const publicationId = router.query.id
@@ -74,11 +73,7 @@ const Bytes = () => {
     }
     await fetchPublication({
       variables: {
-        request: { publicationId },
-        reactionRequest: selectedSimpleProfile
-          ? { profileId: selectedSimpleProfile?.id }
-          : null,
-        channelId: selectedSimpleProfile?.id ?? null
+        request: { forId: publicationId }
       },
       onCompleted: () => fetchAllBytes(),
       fetchPolicy: 'network-only'
@@ -141,7 +136,7 @@ const Bytes = () => {
           />
         )}
         {bytes?.map(
-          (video: Publication, index) =>
+          (video: MirrorablePublication, index) =>
             singleByte?.publication?.id !== video.id && (
               <ByteVideo
                 video={video}

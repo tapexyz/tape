@@ -7,7 +7,7 @@ import VideoOptions from '@components/Common/VideoCard/VideoOptions'
 import Tooltip from '@components/UIElements/Tooltip'
 import CollectVideo from '@components/Watch/CollectVideo'
 import PublicationReaction from '@components/Watch/PublicationReaction'
-import type { Publication } from '@lenstube/lens'
+import type { MirrorablePublication } from '@lenstube/lens'
 import { t } from '@lingui/macro'
 import type { FC } from 'react'
 import React, { useState } from 'react'
@@ -15,7 +15,7 @@ import React, { useState } from 'react'
 import CommentModal from './CommentModal'
 
 type Props = {
-  video: Publication
+  video: MirrorablePublication
 }
 
 const ByteActions: FC<Props> = ({ video }) => {
@@ -49,7 +49,7 @@ const ByteActions: FC<Props> = ({ video }) => {
                   <div className="flex flex-col items-center">
                     <CommentOutline className="h-5 w-5" />
                     <div className="pt-1 text-xs">
-                      {video.stats.totalAmountOfComments || 'Wdyt'}
+                      {video.stats.comments || 'Wdyt'}
                     </div>
                   </div>
                 </Tooltip>
@@ -62,20 +62,17 @@ const ByteActions: FC<Props> = ({ video }) => {
               <div className="flex flex-col items-center">
                 <MirrorOutline className="h-5 w-5" />
                 <div className="pt-1 text-xs">
-                  {video.stats?.totalAmountOfMirrors || t`Mirror`}
+                  {video.stats?.mirrors || t`Mirror`}
                 </div>
               </div>
             </MirrorVideo>
           </div>
-          {video?.collectModule?.__typename !==
-            'RevertCollectModuleSettings' && (
-            <div className="hidden w-full text-center md:block">
-              <CollectVideo video={video} variant="none" />
-              <div className="text-center text-xs leading-3">
-                {video.stats?.totalAmountOfCollects || t`Collect`}
-              </div>
+          <div className="hidden w-full text-center md:block">
+            <CollectVideo video={video} variant="none" />
+            <div className="text-center text-xs leading-3">
+              {video.stats?.countOpenActions || t`Collect`}
             </div>
-          )}
+          </div>
         </div>
       </div>
       <ShareModal video={video} show={showShare} setShowShare={setShowShare} />

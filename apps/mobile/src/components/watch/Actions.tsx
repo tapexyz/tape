@@ -1,6 +1,6 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { getSharableLink, trimify } from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
+import type { MirrorablePublication } from '@lenstube/lens'
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import type { FC } from 'react'
 import React from 'react'
@@ -37,15 +37,17 @@ const styles = (themeConfig: MobileThemeConfig) =>
   })
 
 type Props = {
-  video: Publication
+  video: MirrorablePublication
 }
 
 const Actions: FC<Props> = ({ video }) => {
   const { themeConfig } = useMobileTheme()
   const style = styles(themeConfig)
 
-  const title = trimify(video.metadata.name ?? video.metadata.content)
-  const handle = video.profile?.handle
+  const title = trimify(
+    video.metadata.marketplace?.name ?? video.metadata.marketplace?.description
+  )
+  const handle = video.by?.handle
   return (
     <ScrollView
       horizontal

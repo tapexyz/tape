@@ -9,8 +9,15 @@ import {
   LENSTUBE_BYTES_APP_ID,
   SCROLL_ROOT_MARGIN
 } from '@lenstube/constants'
-import type { Profile, Publication } from '@lenstube/lens'
-import { PublicationMainFocus, useProfileBookmarksQuery } from '@lenstube/lens'
+import type {
+  AnyPublication,
+  PublicationBookmarksRequest
+} from '@lenstube/lens'
+import {
+  LimitType,
+  PublicationMetadataMainFocusType,
+  usePublicationBookmarksQuery
+} from '@lenstube/lens'
 import { Loader } from '@lenstube/ui'
 import useAuthPersistStore from '@lib/store/auth'
 import { t } from '@lingui/macro'
@@ -18,34 +25,32 @@ import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 
-type Props = {
-  channel: Profile
-}
-
-const SavedList: FC<Props> = () => {
+const SavedList: FC = () => {
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
 
-  const request = {
-    limit: 32,
-    metadata: { mainContentFocus: [PublicationMainFocus.Video] },
-    profileId: selectedSimpleProfile?.id,
-    sources: IS_MAINNET
-      ? [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
-      : undefined
+  const request: PublicationBookmarksRequest = {
+    limit: LimitType.Fifty,
+    where: {
+      metadata: {
+        mainContentFocus: [PublicationMetadataMainFocusType.Video],
+        publishedOn: IS_MAINNET
+          ? [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
+          : undefined
+      }
+    }
   }
 
-  const { data, loading, error, fetchMore } = useProfileBookmarksQuery({
+  const { data, loading, error, fetchMore } = usePublicationBookmarksQuery({
     variables: {
-      request,
-      channelId: selectedSimpleProfile?.id ?? null
+      request
     },
     skip: !selectedSimpleProfile?.id
   })
 
-  const savedVideos = data?.publicationsProfileBookmarks?.items as Publication[]
-  const pageInfo = data?.publicationsProfileBookmarks?.pageInfo
+  const savedVideos = data?.publicationBookmarks?.items as AnyPublication[]
+  const pageInfo = data?.publicationBookmarks?.pageInfo
 
   const { observe } = useInView({
     rootMargin: SCROLL_ROOT_MARGIN,
@@ -66,7 +71,7 @@ const SavedList: FC<Props> = () => {
     return <TimelineShimmer />
   }
 
-  if (!data?.publicationsProfileBookmarks?.items?.length) {
+  if (!data?.publicationBookmarks?.items?.length) {
     return <NoDataFound isCenter withImage text={t`No saved videos found`} />
   }
 

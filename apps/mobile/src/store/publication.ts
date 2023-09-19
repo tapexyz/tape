@@ -1,4 +1,4 @@
-import { PublicationMainFocus } from '@lenstube/lens'
+import { PublicationMetadataMainFocusType } from '@lenstube/lens'
 import type { DocumentPickerResult } from 'expo-document-picker'
 import type { ImagePickerResult } from 'expo-image-picker'
 import { create } from 'zustand'
@@ -6,7 +6,7 @@ import { create } from 'zustand'
 type DraftPublication = {
   title: string
   description: string
-  mainFocus: PublicationMainFocus
+  mainFocus: PublicationMetadataMainFocusType
   asset: ImagePickerResult | DocumentPickerResult | null
   poster: string
   attachmentEnabled: boolean
@@ -17,7 +17,7 @@ type DraftPublication = {
 const defaults = {
   title: '',
   description: '',
-  mainFocus: PublicationMainFocus.TextOnly,
+  mainFocus: PublicationMetadataMainFocusType.TextOnly,
   asset: null,
   poster: '',
   attachmentEnabled: false,

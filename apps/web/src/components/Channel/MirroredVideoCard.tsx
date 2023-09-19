@@ -10,7 +10,7 @@ import {
   getValueFromTraitType,
   trimLensHandle
 } from '@lenstube/generic'
-import type { Attribute, Mirror, Publication } from '@lenstube/lens'
+import type { Attribute, Mirror, MirrorablePublication } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -21,18 +21,18 @@ type Props = {
 }
 
 const MirroredVideoCard: FC<Props> = ({ video }) => {
-  const mirrorOf = video.mirrorOf as Publication
-  const isSensitiveContent = getIsSensitiveContent(mirrorOf.metadata, video.id)
+  const mirrorOn = video.mirrorOn as MirrorablePublication
+  const isSensitiveContent = getIsSensitiveContent(mirrorOn.metadata, video.id)
   const videoDuration = getValueFromTraitType(
-    mirrorOf.metadata?.attributes as Attribute[],
+    mirrorOn.metadata?.marketplace?.attributes as Attribute[],
     'durationInSeconds'
   )
 
   return (
     <div className="group overflow-hidden rounded-xl">
-      <Link href={`/watch/${mirrorOf.id}`}>
+      <Link href={`/watch/${mirrorOn.id}`}>
         <div className="aspect-w-16 aspect-h-8 relative rounded-xl">
-          <ThumbnailImage video={mirrorOf} />
+          <ThumbnailImage video={mirrorOn} />
           {isSensitiveContent && (
             <div className="absolute left-3 top-2">
               <span className="rounded-full bg-white px-2 py-0.5 text-[10px] text-black">
@@ -52,13 +52,13 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
       <div className="py-2">
         <div className="flex items-start space-x-2.5">
           <Link
-            href={`/channel/${video.profile?.handle}`}
+            href={`/channel/${mirrorOn.by?.handle}`}
             className="mt-0.5 flex-none"
           >
             <img
               className="h-8 w-8 rounded-full"
-              src={getProfilePicture(mirrorOf.profile, 'AVATAR')}
-              alt={mirrorOf.profile.handle}
+              src={getProfilePicture(mirrorOn.by, 'AVATAR')}
+              alt={mirrorOn.by.handle}
               draggable={false}
             />
           </Link>
@@ -66,18 +66,18 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
             <div className="flex w-full min-w-0 items-start justify-between space-x-1.5">
               <Link
                 className="line-clamp-1 break-words text-[15px] font-medium opacity-80"
-                href={`/watch/${mirrorOf.id}`}
-                title={video.metadata?.name ?? ''}
+                href={`/watch/${mirrorOn.id}`}
+                title={mirrorOn.metadata.marketplace?.name ?? ''}
               >
-                {video.metadata?.name}
+                {mirrorOn.metadata.marketplace?.name}
               </Link>
             </div>
             <Link
-              href={`/channel/${trimLensHandle(mirrorOf.profile?.handle)}`}
+              href={`/channel/${trimLensHandle(mirrorOn.by?.handle)}`}
               className="flex w-fit items-center space-x-0.5 text-[13px] opacity-70 hover:opacity-100"
             >
-              <span>{trimLensHandle(mirrorOf.profile?.handle)}</span>
-              <Badge id={mirrorOf.profile?.id} size="xs" />
+              <span>{trimLensHandle(mirrorOn.by?.handle)}</span>
+              <Badge id={mirrorOn.by?.id} size="xs" />
             </Link>
           </div>
         </div>

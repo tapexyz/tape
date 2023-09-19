@@ -1,5 +1,5 @@
 import { getRelativeTime, trimNewLines } from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
+import type { AnyPublication } from '@lenstube/lens'
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import type { FC } from 'react'
 import React, { useState } from 'react'
@@ -41,7 +41,7 @@ const styles = (themeConfig: MobileThemeConfig) =>
   })
 
 type Props = {
-  video: Publication
+  video: AnyPublication
 }
 
 const Metadata: FC<Props> = ({ video }) => {
@@ -52,8 +52,8 @@ const Metadata: FC<Props> = ({ video }) => {
 
   return (
     <View style={{ paddingVertical: 15 }}>
-      <Text style={style.title}>{video.metadata.name}</Text>
-      {video.metadata.description && (
+      <Text style={style.title}>{video.metadata.marketplace?.name}</Text>
+      {video.metadata.marketplace?.description && (
         <Pressable onPress={() => setShowMore(!showMore)}>
           <Text
             numberOfLines={!showMore ? 2 : undefined}
@@ -61,21 +61,21 @@ const Metadata: FC<Props> = ({ video }) => {
           >
             {showMore ? (
               <RenderMarkdown
-                content={video.metadata.description}
+                content={video.metadata.marketplace.description}
                 textStyle={style.description}
               />
             ) : (
-              trimNewLines(video.metadata.description)
+              trimNewLines(video.metadata.marketplace.description)
             )}
           </Text>
         </Pressable>
       )}
       <View style={style.otherInfoContainer}>
-        <UserProfile profile={video.profile} size={15} radius={3} />
+        <UserProfile profile={video.by} size={15} radius={3} />
         <Text style={{ color: themeConfig.secondaryTextColor, fontSize: 3 }}>
           {'\u2B24'}
         </Text>
-        <Text style={style.otherInfo}>{video.stats.totalUpvotes} likes</Text>
+        <Text style={style.otherInfo}>{video.stats.reactions} likes</Text>
         <Text style={{ color: themeConfig.secondaryTextColor, fontSize: 3 }}>
           {'\u2B24'}
         </Text>

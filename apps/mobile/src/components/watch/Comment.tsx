@@ -1,6 +1,6 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { getShortHandTime, trimify } from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
+import { Comment } from '@lenstube/lens'
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import React from 'react'
 import { StyleSheet, Text, useWindowDimensions, View } from 'react-native'
@@ -38,7 +38,7 @@ const Comment = ({
   numberOfLines,
   richText = false
 }: {
-  comment: Publication
+  comment: Comment
   numberOfLines?: number
   richText?: boolean
 }) => {
@@ -67,7 +67,7 @@ const Comment = ({
             gap: 5
           }}
         >
-          <UserProfile profile={comment.profile} size={15} radius={3} />
+          <UserProfile profile={comment.by} size={15} radius={3} />
           <Text style={{ color: themeConfig.secondaryTextColor, fontSize: 3 }}>
             {'\u2B24'}
           </Text>
@@ -77,12 +77,12 @@ const Comment = ({
         </View>
         {richText ? (
           <RenderMarkdown
-            content={comment.metadata.content ?? ''}
+            content={comment.metadata.marketplace?.description ?? ''}
             textStyle={style.comment}
           />
         ) : (
           <Text numberOfLines={numberOfLines} style={style.comment}>
-            {trimify(comment.metadata.content)}
+            {trimify(comment.metadata.marketplace?.description)}
           </Text>
         )}
       </View>

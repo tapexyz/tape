@@ -1,7 +1,11 @@
 import { RECS_URL, STATIC_ASSETS } from '@lenstube/constants'
 import { imageCdn } from '@lenstube/generic'
-import type { Publication, PublicationsQueryRequest } from '@lenstube/lens'
-import { PublicationMainFocus, useProfilePostsQuery } from '@lenstube/lens'
+import type {
+  AnyPublication,
+  MirrorablePublication,
+  PublicationsRequest
+} from '@lenstube/lens'
+import { LimitType, usePublicationsQuery } from '@lenstube/lens'
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { FlashList } from '@shopify/flash-list'
 import { Image as ExpoImage } from 'expo-image'
@@ -12,7 +16,6 @@ import useSWR from 'swr'
 
 import normalizeFont from '~/helpers/normalize-font'
 import { useMobileTheme } from '~/hooks'
-import { useMobilePersistStore } from '~/store/persist'
 
 import AudioCard from '../common/AudioCard'
 import VideoCard from '../common/VideoCard'
@@ -43,7 +46,7 @@ const styles = (themeConfig: MobileThemeConfig) =>
   })
 
 type Props = {
-  video: Publication
+  video: AnyPublication
 }
 
 const RecommendedTitle = () => {
@@ -67,10 +70,6 @@ const RecommendedTitle = () => {
 }
 
 const MoreVideos: FC<Props> = ({ video }) => {
-  const selectedProfile = useMobilePersistStore(
-    (state) => state.selectedProfile
-  )
-
   const { data: recsData, isLoading: recsLoading } = useSWR(
     `${RECS_URL}/k3l-feed/recommended?exclude=${video.id}`,
     (url: string) => fetch(url).then((res) => res.json())
@@ -78,24 +77,25 @@ const MoreVideos: FC<Props> = ({ video }) => {
 
   const publicationIds = recsData?.items as string[]
 
-  const request: PublicationsQueryRequest = { publicationIds, limit: 20 }
-  const reactionRequest = selectedProfile
-    ? { profileId: selectedProfile.id }
-    : null
-  const channelId = selectedProfile?.id ?? null
+  const request: PublicationsRequest = {
+    where: {
+      publicationIds
+    },
+    limit: LimitType.TwentyFive
+  }
 
-  const { data, loading } = useProfilePostsQuery({
-    variables: { request, reactionRequest, channelId },
+  const { data, loading } = usePublicationsQuery({
+    variables: { request },
     skip: !publicationIds,
     fetchPolicy: 'no-cache'
   })
 
-  const publications = data?.publications?.items as Publication[]
+  const publications = data?.publications?.items as MirrorablePublication[]
 
   const renderItem = useCallback(
-    ({ item }: { item: Publication }) => (
+    ({ item }: { item: MirrorablePublication }) => (
       <View style={{ marginBottom: 30 }}>
-        {item.metadata.mainContentFocus === PublicationMainFocus.Audio ? (
+        {item.metadata.__typename === 'AudioMetadataV3' ? (
           <AudioCard audio={item} />
         ) : (
           <VideoCard video={item} />

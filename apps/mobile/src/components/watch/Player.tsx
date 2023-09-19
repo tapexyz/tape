@@ -4,7 +4,7 @@ import {
   getThumbnailUrl,
   imageCdn
 } from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
+import type { AnyPublication } from '@lenstube/lens'
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { useNavigation } from '@react-navigation/native'
 import { ResizeMode, Video } from 'expo-av'
@@ -15,7 +15,7 @@ import { Pressable, StyleSheet, View } from 'react-native'
 import { useMobileTheme } from '~/hooks'
 
 type Props = {
-  video: Publication
+  video: AnyPublication
 }
 
 const styles = (themeConfig: MobileThemeConfig) =>
