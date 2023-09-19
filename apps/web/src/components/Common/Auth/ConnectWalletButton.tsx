@@ -23,7 +23,7 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
     (state) => state.selectedSimpleProfile
   )
 
-  const { connector, isConnected } = useAccount()
+  const { isConnected } = useAccount()
   const { switchNetwork } = useSwitchNetwork({
     onError(error: CustomErrorWithData) {
       toast.error(error?.data?.message ?? error?.message)
@@ -38,7 +38,7 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
 
   const { openConnectModal } = useConnectModal()
 
-  return connector?.id && isConnected ? (
+  return isConnected ? (
     chain?.id === POLYGON_CHAIN_ID ? (
       selectedSimpleProfile?.id ? (
         <UserMenu />

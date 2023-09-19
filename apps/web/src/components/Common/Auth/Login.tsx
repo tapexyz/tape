@@ -1,6 +1,6 @@
 import { Analytics, TRACK } from '@lenstube/browser'
 import { ERROR_MESSAGE, POLYGON_CHAIN_ID } from '@lenstube/constants'
-import { logger } from '@lenstube/generic'
+import { logger, useIsMounted } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import {
   useAuthenticateMutation,
@@ -20,7 +20,7 @@ import ConnectWalletButton from './ConnectWalletButton'
 
 const Login = () => {
   const router = useRouter()
-
+  const { mounted } = useIsMounted()
   const { chain } = useNetwork()
   const { address, connector, isConnected } = useAccount()
   const [loading, setLoading] = useState(false)
@@ -36,7 +36,6 @@ const Login = () => {
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
-  const activeChannel = useChannelStore((state) => state.activeChannel)
   const setActiveChannel = useChannelStore((state) => state.setActiveChannel)
   const setSelectedSimpleProfile = useAuthPersistStore(
     (state) => state.setSelectedSimpleProfile
@@ -76,11 +75,7 @@ const Login = () => {
   }, [errorAuthenticate, errorChallenge, errorProfiles])
 
   const isReadyToSign =
-    connector?.id &&
-    isConnected &&
-    chain?.id === POLYGON_CHAIN_ID &&
-    !activeChannel &&
-    !selectedSimpleProfile?.id
+    isConnected && chain?.id === POLYGON_CHAIN_ID && !selectedSimpleProfile?.id
 
   const handleSign = useCallback(async () => {
     if (!isReadyToSign) {
@@ -155,11 +150,11 @@ const Login = () => {
   ])
 
   useEffect(() => {
-    if (isReadyToSign) {
+    if (isReadyToSign && mounted) {
       handleSign()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isConnected])
+  }, [isConnected, mounted])
 
   return (
     <ConnectWalletButton handleSign={() => handleSign()} signing={loading} />

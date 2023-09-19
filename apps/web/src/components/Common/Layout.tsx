@@ -44,7 +44,7 @@ const Layout: FC<Props> = ({ children }) => {
   const { chain } = useNetwork()
   const { resolvedTheme } = useTheme()
   const { mounted } = useIsMounted()
-  const { address, connector } = useAccount()
+  const { address } = useAccount()
 
   const { pathname, replace, asPath } = useRouter()
 
@@ -101,7 +101,7 @@ const Layout: FC<Props> = ({ children }) => {
       ownerAddress !== undefined && ownerAddress !== address
     const { accessToken } = hydrateAuthTokens()
     const shouldLogout =
-      !accessToken || isWrongNetworkChain || isSwitchedAccount || !connector?.id
+      !accessToken || isWrongNetworkChain || isSwitchedAccount
 
     if (shouldLogout && selectedSimpleProfile?.id) {
       resetAuthState()
