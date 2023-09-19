@@ -1,9 +1,12 @@
-import { FOLLOW_NFT_ABI } from '@abis/FollowNFT'
+import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import FollowingOutline from '@components/Common/Icons/FollowingOutline'
 import type { ButtonSizes, ButtonVariants } from '@components/UIElements/Button'
 import { Button } from '@components/UIElements/Button'
 import { Analytics, TRACK } from '@lenstube/browser'
-import { REQUESTING_SIGNATURE_MESSAGE } from '@lenstube/constants'
+import {
+  LENSHUB_PROXY_ADDRESS,
+  REQUESTING_SIGNATURE_MESSAGE
+} from '@lenstube/constants'
 import { getSignature } from '@lenstube/generic'
 import type { CreateUnfollowBroadcastItemResult, Profile } from '@lenstube/lens'
 import {
@@ -70,8 +73,8 @@ const UnSubscribe: FC<Props> = ({
   })
 
   const { write } = useContractWrite({
-    address: channel.followNftAddress?.address,
-    abi: FOLLOW_NFT_ABI,
+    address: LENSHUB_PROXY_ADDRESS,
+    abi: LENSHUB_PROXY_ABI,
     functionName: 'burn',
     onSuccess: () => onCompleted(),
     onError
@@ -88,8 +91,11 @@ const UnSubscribe: FC<Props> = ({
           variables: { request: { id, signature } }
         })
         if (data?.broadcastOnchain?.__typename === 'RelayError') {
-          const { idsOfProfilesToUnfollow } = typedData.value
-          return write?.({ args: [idsOfProfilesToUnfollow[0]] })
+          const { idsOfProfilesToUnfollow, unfollowerProfileId } =
+            typedData.value
+          return write?.({
+            args: [unfollowerProfileId, idsOfProfilesToUnfollow]
+          })
         }
       } catch {
         setLoading(false)
