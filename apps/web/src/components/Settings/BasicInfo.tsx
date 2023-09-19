@@ -1,4 +1,4 @@
-import { LENS_PERIPHERY_ABI } from '@abis/LensPeriphery'
+import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import Badge from '@components/Common/Badge'
 import CopyOutline from '@components/Common/Icons/CopyOutline'
 import { Button } from '@components/UIElements/Button'
@@ -14,7 +14,7 @@ import {
 } from '@lenstube/browser'
 import {
   ERROR_MESSAGE,
-  LENS_PERIPHERY_ADDRESS,
+  LENSHUB_PROXY_ADDRESS,
   LENSTUBE_APP_ID,
   LENSTUBE_WEBSITE_URL,
   REQUESTING_SIGNATURE_MESSAGE
@@ -30,15 +30,13 @@ import {
   uploadToAr
 } from '@lenstube/generic'
 import type {
-  CreatePublicSetProfileMetadataUriRequest,
-  MediaSet,
+  ImageSet,
+  OnchainSetProfileMetadataRequest,
   Profile
 } from '@lenstube/lens'
 import {
-  PublicationMetadataDisplayTypes,
-  useBroadcastMutation,
-  useCreateSetProfileMetadataTypedDataMutation,
-  useCreateSetProfileMetadataViaDispatcherMutation
+  useBroadcastOnchainMutation,
+  useCreateOnchainSetProfileMetadataTypedDataMutation
 } from '@lenstube/lens'
 import type {
   CustomErrorWithData,
@@ -58,7 +56,7 @@ import { object, string, union } from 'zod'
 
 type Props = {
   channel: Profile & {
-    coverPicture: MediaSet
+    coverPicture: ImageSet
   }
 }
 const formSchema = object({
@@ -94,8 +92,7 @@ const BasicInfo = ({ channel }: Props) => {
 
   const activeChannel = useChannelStore((state) => state.activeChannel)
   // Dispatcher
-  const canUseRelay = activeChannel?.dispatcher?.canUseRelay
-  const isSponsored = activeChannel?.dispatcher?.sponsor
+  const canUseRelay = activeChannel?.lensManager && activeChannel?.sponsor
 
   const {
     register,
@@ -106,12 +103,21 @@ const BasicInfo = ({ channel }: Props) => {
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      displayName: channel.name || '',
-      description: channel.bio || '',
-      location: getValueFromKeyInAttributes(channel?.attributes, 'location'),
-      x: getValueFromKeyInAttributes(channel?.attributes, 'x'),
-      youtube: getValueFromKeyInAttributes(channel?.attributes, 'youtube'),
-      website: getValueFromKeyInAttributes(channel?.attributes, 'website')
+      displayName: channel.metadata?.displayName || '',
+      description: channel.metadata?.bio || '',
+      location: getValueFromKeyInAttributes(
+        channel.metadata?.attributes,
+        'location'
+      ),
+      x: getValueFromKeyInAttributes(channel.metadata?.attributes, 'x'),
+      youtube: getValueFromKeyInAttributes(
+        channel.metadata?.attributes,
+        'youtube'
+      ),
+      website: getValueFromKeyInAttributes(
+        channel.metadata?.attributes,
+        'website'
+      )
     }
   })
 
@@ -120,7 +126,7 @@ const BasicInfo = ({ channel }: Props) => {
     setLoading(false)
   }
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
     if (__typename === 'RelayError') {
       return
     }
@@ -134,38 +140,32 @@ const BasicInfo = ({ channel }: Props) => {
   })
 
   const { write } = useContractWrite({
-    address: LENS_PERIPHERY_ADDRESS,
-    abi: LENS_PERIPHERY_ABI,
+    address: LENSHUB_PROXY_ADDRESS,
+    abi: LENSHUB_PROXY_ABI,
     functionName: 'setProfileMetadataURI',
     onError,
     onSuccess: () => onCompleted()
   })
 
-  const [broadcast] = useBroadcastMutation({
+  const [broadcast] = useBroadcastOnchainMutation({
     onError,
-    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
+    onCompleted: ({ broadcastOnchain }) =>
+      onCompleted(broadcastOnchain.__typename)
   })
 
-  const [createSetProfileMetadataViaDispatcher] =
-    useCreateSetProfileMetadataViaDispatcherMutation({
-      onError,
-      onCompleted: ({ createSetProfileMetadataViaDispatcher }) =>
-        onCompleted(createSetProfileMetadataViaDispatcher.__typename)
-    })
-
   const [createSetProfileMetadataTypedData] =
-    useCreateSetProfileMetadataTypedDataMutation({
-      onCompleted: async (data) => {
-        const { typedData, id } = data.createSetProfileMetadataTypedData
+    useCreateOnchainSetProfileMetadataTypedDataMutation({
+      onCompleted: async ({ createOnchainSetProfileMetadataTypedData }) => {
+        const { typedData, id } = createOnchainSetProfileMetadataTypedData
         try {
           toast.loading(REQUESTING_SIGNATURE_MESSAGE)
           const signature = await signTypedDataAsync(getSignature(typedData))
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
-          if (data?.broadcast?.__typename === 'RelayError') {
-            const { profileId, metadata } = typedData.value
-            return write?.({ args: [profileId, metadata] })
+          if (data?.broadcastOnchain?.__typename === 'RelayError') {
+            const { profileId, metadataURI } = typedData.value
+            return write?.({ args: [profileId, metadataURI] })
           }
         } catch {
           setLoading(false)
@@ -179,34 +179,13 @@ const BasicInfo = ({ channel }: Props) => {
     toast.success('Copied to clipboard')
   }
 
-  const createTypedData = async (
-    request: CreatePublicSetProfileMetadataUriRequest
-  ) => {
-    await createSetProfileMetadataTypedData({
-      variables: { request }
-    })
-  }
-
-  const createViaDispatcher = async (
-    request: CreatePublicSetProfileMetadataUriRequest
-  ) => {
-    const { data } = await createSetProfileMetadataViaDispatcher({
-      variables: { request }
-    })
-    if (
-      data?.createSetProfileMetadataViaDispatcher.__typename === 'RelayError'
-    ) {
-      createTypedData(request)
-    }
-  }
-
   const otherAttributes =
-    channel?.attributes
+    channel.metadata?.attributes
       ?.filter(
         (attr) =>
           !['website', 'location', 'x', 'youtube', 'app'].includes(attr.key)
       )
-      .map(({ traitType, key, value }) => ({ traitType, key, value })) ?? []
+      .map(({ type, key, value }) => ({ type, key, value })) ?? []
 
   const onSaveBasicInfo = async (data: FormData) => {
     setLoading(true)
@@ -219,46 +198,41 @@ const BasicInfo = ({ channel }: Props) => {
         attributes: [
           ...otherAttributes,
           {
-            displayType: PublicationMetadataDisplayTypes.String,
-            traitType: 'website',
+            type: 'website',
             key: 'website',
             value: data.website
           },
           {
-            displayType: PublicationMetadataDisplayTypes.String,
-            traitType: 'location',
+            type: 'location',
             key: 'location',
             value: data.location
           },
           {
-            displayType: PublicationMetadataDisplayTypes.String,
-            traitType: 'x',
+            type: 'x',
             key: 'x',
             value: data.x
           },
           {
-            displayType: PublicationMetadataDisplayTypes.String,
-            traitType: 'youtube',
+            type: 'youtube',
             key: 'youtube',
             value: data.youtube
           },
           {
-            displayType: PublicationMetadataDisplayTypes.String,
-            traitType: 'app',
+            type: 'app',
             key: 'app',
             value: LENSTUBE_APP_ID
           }
         ],
         metadata_id: uuidv4()
       })
-      const request = {
-        profileId: channel?.id,
-        metadata: metadataUri
+      const request: OnchainSetProfileMetadataRequest = {
+        metadataURI: metadataUri
       }
-      if (canUseRelay && isSponsored) {
-        return await createViaDispatcher(request)
+      if (canUseRelay) {
+        await createSetProfileMetadataTypedData({
+          variables: { request }
+        })
       }
-      return await createTypedData(request)
     } catch {
       setLoading(false)
     }

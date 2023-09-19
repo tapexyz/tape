@@ -7,7 +7,11 @@ import {
   REQUESTING_SIGNATURE_MESSAGE
 } from '@lenstube/constants'
 import { getSignature } from '@lenstube/generic'
-import type { MirrorablePublication } from '@lenstube/lens'
+import {
+  type MirrorablePublication,
+  useBroadcastOnchainMutation,
+  useCreateOnchainMirrorTypedDataMutation
+} from '@lenstube/lens'
 import type {
   CustomErrorWithData,
   LenstubeCollectModule
@@ -50,7 +54,7 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
     setLoading(false)
   }
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
     if (__typename === 'RelayError') {
       return
     }
@@ -59,24 +63,12 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
     setLoading(false)
     Analytics.track(TRACK.PUBLICATION.MIRROR, {
       publication_id: video.id,
-      publication_state: video.isDataAvailability ? 'DATA_ONLY' : 'ON_CHAIN'
+      publication_state: video.momoka?.proof ? 'DATA_ONLY' : 'ON_CHAIN'
     })
   }
 
   const { signTypedDataAsync } = useSignTypedData({
     onError
-  })
-
-  const [createDataAvailabilityMirrorViaDispatcher] =
-    useCreateDataAvailabilityMirrorViaDispatcherMutation({
-      onCompleted: () => onCompleted(),
-      onError
-    })
-
-  const [createMirrorViaDispatcher] = useCreateMirrorViaDispatcherMutation({
-    onError,
-    onCompleted: ({ createMirrorViaDispatcher }) =>
-      onCompleted(createMirrorViaDispatcher.__typename)
   })
 
   const { write } = useContractWrite({
@@ -87,15 +79,15 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
     onSuccess: () => onCompleted()
   })
 
-  const [broadcast] = useBroadcastMutation({
+  const [broadcast] = useBroadcastOnchainMutation({
     onError,
-    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
+    onCompleted: ({ broadcastOnchain }) =>
+      onCompleted(broadcastOnchain.__typename)
   })
 
-  const [createMirrorTypedData] = useCreateMirrorTypedDataMutation({
-    onCompleted: async ({ createMirrorTypedData }) => {
-      const { id, typedData } =
-        createMirrorTypedData as CreateMirrorBroadcastItemResult
+  const [createMirrorTypedData] = useCreateOnchainMirrorTypedDataMutation({
+    onCompleted: async ({ createOnchainMirrorTypedData }) => {
+      const { id, typedData } = createOnchainMirrorTypedData
       try {
         toast.loading(REQUESTING_SIGNATURE_MESSAGE)
         const signature = await signTypedDataAsync(getSignature(typedData))
@@ -103,7 +95,7 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
-        if (data?.broadcast?.__typename === 'RelayError') {
+        if (data?.broadcastOnchain?.__typename === 'RelayError') {
           write?.({ args: [typedData.value] })
         }
       } catch {
@@ -136,7 +128,7 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
       return openConnectModal?.()
     }
 
-    if (video.isDataAvailability && !isSponsored) {
+    if (video.momoka?.proof && !isSponsored) {
       return toast.error(
         t`Momoka is currently in beta - during this time certain actions are not available to all channels.`
       )

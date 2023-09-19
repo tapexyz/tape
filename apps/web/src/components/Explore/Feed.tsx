@@ -14,12 +14,16 @@ import {
   LENSTUBE_BYTES_APP_ID,
   SCROLL_ROOT_MARGIN
 } from '@lenstube/constants'
-import type { Publication } from '@lenstube/lens'
+import type {
+  ExplorePublicationRequest,
+  MirrorablePublication
+} from '@lenstube/lens'
 import {
-  PublicationMainFocus,
-  PublicationSortCriteria,
-  PublicationTypes,
-  useExploreQuery
+  ExplorePublicationsOrderByType,
+  ExplorePublicationType,
+  LimitType,
+  PublicationMetadataMainFocusType,
+  useExplorePublicationsQuery
 } from '@lenstube/lens'
 import { Loader } from '@lenstube/ui'
 import useAppStore from '@lib/store'
@@ -44,41 +48,41 @@ const ExploreFeed = () => {
 
   const getCriteria = () => {
     if (activeCriteria.trending) {
-      return PublicationSortCriteria.TopCollected
+      return ExplorePublicationsOrderByType.TopCollectedOpenAction
     }
     if (activeCriteria.popular) {
-      return PublicationSortCriteria.TopCommented
+      return ExplorePublicationsOrderByType.TopCommented
     }
     if (activeCriteria.interesting) {
-      return PublicationSortCriteria.TopMirrored
+      return ExplorePublicationsOrderByType.TopMirrored
     }
-    return PublicationSortCriteria.TopCollected
+    return ExplorePublicationsOrderByType.TopCollectedOpenAction
   }
 
-  const request = {
-    sortCriteria: getCriteria(),
-    limit: 32,
-    noRandomize: true,
-    sources: IS_MAINNET
-      ? [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
-      : undefined,
-    publicationTypes: [PublicationTypes.Post],
-    customFilters: LENS_CUSTOM_FILTERS,
-    metadata: {
-      tags:
-        activeTagFilter !== 'all' ? { oneOf: [activeTagFilter] } : undefined,
-      mainContentFocus: [PublicationMainFocus.Video]
-    }
+  const request: ExplorePublicationRequest = {
+    where: {
+      customFilters: LENS_CUSTOM_FILTERS,
+      publicationTypes: [ExplorePublicationType.Post],
+      metadata: {
+        tags:
+          activeTagFilter !== 'all' ? { oneOf: [activeTagFilter] } : undefined,
+        mainContentFocus: [PublicationMetadataMainFocusType.Video],
+        publishedOn: IS_MAINNET
+          ? [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
+          : undefined
+      }
+    },
+    orderBy: getCriteria(),
+    limit: LimitType.TwentyFive
   }
 
-  const { data, loading, error, fetchMore } = useExploreQuery({
+  const { data, loading, error, fetchMore } = useExplorePublicationsQuery({
     variables: {
-      request,
-      channelId: selectedSimpleProfile?.id ?? null
+      request
     }
   })
 
-  const videos = data?.explorePublications?.items as Publication[]
+  const videos = data?.explorePublications?.items as MirrorablePublication[]
   const pageInfo = data?.explorePublications?.pageInfo
 
   const { observe } = useInView({

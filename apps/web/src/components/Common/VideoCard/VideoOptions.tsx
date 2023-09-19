@@ -1,11 +1,11 @@
-import { LENS_PERIPHERY_ABI } from '@abis/LensPeriphery'
+import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import Confirm from '@components/UIElements/Confirm'
 import DropMenu from '@components/UIElements/DropMenu'
 import { Menu } from '@headlessui/react'
 import { Analytics, TRACK } from '@lenstube/browser'
 import {
   ERROR_MESSAGE,
-  LENS_PERIPHERY_ADDRESS,
+  LENSHUB_PROXY_ADDRESS,
   LENSTUBE_APP_ID,
   REQUESTING_SIGNATURE_MESSAGE
 } from '@lenstube/constants'
@@ -15,21 +15,15 @@ import {
   getValueFromKeyInAttributes,
   uploadToAr
 } from '@lenstube/generic'
-import type {
-  Attribute,
-  CreatePublicSetProfileMetadataUriRequest,
-  Publication
-} from '@lenstube/lens'
+import type { Attribute, MirrorablePublication } from '@lenstube/lens'
 import {
-  PublicationMetadataDisplayTypes,
+  useAddPublicationBookmarkMutation,
   useAddPublicationNotInterestedMutation,
-  useAddPublicationToBookmarkMutation,
-  useBroadcastMutation,
-  useCreateSetProfileMetadataTypedDataMutation,
-  useCreateSetProfileMetadataViaDispatcherMutation,
+  useBroadcastOnchainMutation,
+  useCreateOnchainSetProfileMetadataTypedDataMutation,
   useHidePublicationMutation,
-  useRemovePublicationFromBookmarkMutation,
-  useRemovePublicationNotInterestedMutation
+  useRemovePublicationBookmarkMutation,
+  useUndoPublicationNotInterestedMutation
 } from '@lenstube/lens'
 import { useApolloClient } from '@lenstube/lens/apollo'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
@@ -53,7 +47,7 @@ import ThreeDotsOutline from '../Icons/ThreeDotsOutline'
 import TrashOutline from '../Icons/TrashOutline'
 
 type Props = {
-  video: Publication
+  video: MirrorablePublication
   setShowShare: React.Dispatch<boolean>
   setShowReport: React.Dispatch<boolean>
   showOnHover?: boolean
@@ -74,9 +68,9 @@ const VideoOptions: FC<Props> = ({
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
-  const isVideoOwner = activeChannel?.id === video?.profile?.id
+  const isVideoOwner = activeChannel?.id === video?.by?.id
   const pinnedVideoId = getValueFromKeyInAttributes(
-    activeChannel?.attributes,
+    activeChannel?.metadata?.attributes,
     'pinnedPublicationId'
   )
 
@@ -95,7 +89,7 @@ const VideoOptions: FC<Props> = ({
   })
 
   const onHideVideo = () => {
-    hideVideo({ variables: { request: { publicationId: video?.id } } })
+    hideVideo({ variables: { request: { for: video?.id } } })
   }
 
   const onClickReport = () => {
@@ -106,20 +100,19 @@ const VideoOptions: FC<Props> = ({
   }
 
   const otherAttributes =
-    (activeChannel?.attributes as Attribute[])
+    (activeChannel?.metadata?.attributes as Attribute[])
       ?.filter((attr) => !['pinnedPublicationId', 'app'].includes(attr.key))
-      .map(({ traitType, key, value, displayType }) => ({
-        traitType,
+      .map(({ type, key, value }) => ({
+        type,
         key,
-        value,
-        displayType
+        value
       })) ?? []
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
   }
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
     if (__typename === 'RelayError') {
       return
     }
@@ -132,64 +125,37 @@ const VideoOptions: FC<Props> = ({
   })
 
   const { write } = useContractWrite({
-    address: LENS_PERIPHERY_ADDRESS,
-    abi: LENS_PERIPHERY_ABI,
+    address: LENSHUB_PROXY_ADDRESS,
+    abi: LENSHUB_PROXY_ABI,
     functionName: 'setProfileMetadataURI',
     onError,
     onSuccess: () => onCompleted()
   })
 
-  const [broadcast] = useBroadcastMutation({
+  const [broadcast] = useBroadcastOnchainMutation({
     onError,
-    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
+    onCompleted: ({ broadcastOnchain }) =>
+      onCompleted(broadcastOnchain.__typename)
   })
 
-  const [createSetProfileMetadataViaDispatcher] =
-    useCreateSetProfileMetadataViaDispatcherMutation({
-      onError,
-      onCompleted: ({ createSetProfileMetadataViaDispatcher }) =>
-        onCompleted(createSetProfileMetadataViaDispatcher.__typename)
-    })
-
   const [createSetProfileMetadataTypedData] =
-    useCreateSetProfileMetadataTypedDataMutation({
-      onCompleted: async (data) => {
-        const { typedData, id } = data.createSetProfileMetadataTypedData
+    useCreateOnchainSetProfileMetadataTypedDataMutation({
+      onCompleted: async ({ createOnchainSetProfileMetadataTypedData }) => {
+        const { typedData, id } = createOnchainSetProfileMetadataTypedData
         try {
           toast.loading(REQUESTING_SIGNATURE_MESSAGE)
           const signature = await signTypedDataAsync(getSignature(typedData))
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
-          if (data?.broadcast?.__typename === 'RelayError') {
-            const { profileId, metadata } = typedData.value
-            return write?.({ args: [profileId, metadata] })
+          if (data?.broadcastOnchain?.__typename === 'RelayError') {
+            const { profileId, metadataURI } = typedData.value
+            return write?.({ args: [profileId, metadataURI] })
           }
         } catch {}
       },
       onError
     })
-
-  const createTypedData = (
-    request: CreatePublicSetProfileMetadataUriRequest
-  ) => {
-    createSetProfileMetadataTypedData({
-      variables: { request }
-    })
-  }
-
-  const createViaDispatcher = async (
-    request: CreatePublicSetProfileMetadataUriRequest
-  ) => {
-    const { data } = await createSetProfileMetadataViaDispatcher({
-      variables: { request }
-    })
-    if (
-      data?.createSetProfileMetadataViaDispatcher.__typename === 'RelayError'
-    ) {
-      createTypedData(request)
-    }
-  }
 
   const onPinVideo = async () => {
     if (!activeChannel) {
@@ -200,36 +166,30 @@ const VideoOptions: FC<Props> = ({
       const metadataUri = await uploadToAr({
         version: '1.0.0',
         metadata_id: uuidv4(),
-        name: activeChannel?.name ?? '',
-        bio: activeChannel?.bio ?? '',
+        name: activeChannel.metadata?.displayName ?? '',
+        bio: activeChannel.metadata?.bio ?? '',
         cover_picture: getChannelCoverPicture(activeChannel),
         attributes: [
           ...otherAttributes,
           {
-            displayType: PublicationMetadataDisplayTypes.String,
-            traitType: 'pinnedPublicationId',
+            type: 'pinnedPublicationId',
             key: 'pinnedPublicationId',
             value: video.id
           },
           {
-            displayType: PublicationMetadataDisplayTypes.String,
-            traitType: 'app',
+            type: 'app',
             key: 'app',
             value: LENSTUBE_APP_ID
           }
         ]
       })
-      const request = {
-        profileId: activeChannel?.id,
-        metadata: metadataUri
-      }
       const canUseDispatcher =
-        activeChannel?.dispatcher?.canUseRelay &&
-        activeChannel.dispatcher.sponsor
+        activeChannel?.lensManager && activeChannel.sponsor
       if (!canUseDispatcher) {
-        return createTypedData(request)
+        return createSetProfileMetadataTypedData({
+          variables: { request: { metadataURI: metadataUri } }
+        })
       }
-      createViaDispatcher(request)
     } catch {}
   }
 
@@ -262,17 +222,17 @@ const VideoOptions: FC<Props> = ({
     onCompleted: () => modifyInterestCache(true)
   })
 
-  const [removeNotInterested] = useRemovePublicationNotInterestedMutation({
+  const [removeNotInterested] = useUndoPublicationNotInterestedMutation({
     onError,
     onCompleted: () => modifyInterestCache(false)
   })
 
-  const [saveVideoToList] = useAddPublicationToBookmarkMutation({
+  const [saveVideoToList] = useAddPublicationBookmarkMutation({
     onError,
     onCompleted: () => modifyListCache(true)
   })
 
-  const [removeVideoFromList] = useRemovePublicationFromBookmarkMutation({
+  const [removeVideoFromList] = useRemovePublicationBookmarkMutation({
     onError,
     onCompleted: () => modifyListCache(false)
   })
@@ -281,21 +241,19 @@ const VideoOptions: FC<Props> = ({
     if (!selectedSimpleProfile?.id) {
       return openConnectModal?.()
     }
-    if (video.notInterested) {
-      removeNotInterested({
+    if (video.operations.isNotInterested) {
+      addNotInterested({
         variables: {
           request: {
-            profileId: selectedSimpleProfile?.id,
-            publicationId: video.id
+            on: video.id
           }
         }
       })
     } else {
-      addNotInterested({
+      removeNotInterested({
         variables: {
           request: {
-            profileId: selectedSimpleProfile?.id,
-            publicationId: video.id
+            on: video.id
           }
         }
       })
@@ -306,12 +264,11 @@ const VideoOptions: FC<Props> = ({
     if (!selectedSimpleProfile?.id) {
       return openConnectModal?.()
     }
-    if (video.bookmarked) {
+    if (video.operations.hasBookmarked) {
       removeVideoFromList({
         variables: {
           request: {
-            profileId: selectedSimpleProfile?.id,
-            publicationId: video.id
+            on: video.id
           }
         }
       })
@@ -319,8 +276,7 @@ const VideoOptions: FC<Props> = ({
       saveVideoToList({
         variables: {
           request: {
-            profileId: selectedSimpleProfile?.id,
-            publicationId: video.id
+            on: video.id
           }
         }
       })
@@ -405,7 +361,7 @@ const VideoOptions: FC<Props> = ({
                 >
                   <SaveToListOutline className="h-3.5 w-3.5 flex-none" />
                   <span className="truncate whitespace-nowrap">
-                    {video.bookmarked ? (
+                    {video.operations.hasBookmarked ? (
                       <Trans>Remove from List</Trans>
                     ) : (
                       <Trans>Save to List</Trans>
@@ -419,7 +375,7 @@ const VideoOptions: FC<Props> = ({
                 >
                   <ForbiddenOutline className="h-3.5 w-3.5" />
                   <span className="whitespace-nowrap">
-                    {video.notInterested ? (
+                    {video.operations.isNotInterested ? (
                       <Trans>Undo Interest</Trans>
                     ) : (
                       <Trans>Not Interested</Trans>

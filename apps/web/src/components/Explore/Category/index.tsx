@@ -11,12 +11,16 @@ import {
   SCROLL_ROOT_MARGIN
 } from '@lenstube/constants'
 import { getCategoryName } from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
+import type {
+  ExplorePublicationRequest,
+  MirrorablePublication
+} from '@lenstube/lens'
 import {
-  PublicationMainFocus,
-  PublicationSortCriteria,
-  PublicationTypes,
-  useExploreQuery
+  ExplorePublicationsOrderByType,
+  ExplorePublicationType,
+  LimitType,
+  PublicationMetadataMainFocusType,
+  useExplorePublicationsQuery
 } from '@lenstube/lens'
 import { Loader } from '@lenstube/ui'
 import useAuthPersistStore from '@lib/store/auth'
@@ -33,29 +37,30 @@ const ExploreCategory = () => {
     (state) => state.selectedSimpleProfile
   )
 
-  const request = {
-    publicationTypes: [PublicationTypes.Post],
-    limit: 32,
-    sortCriteria: PublicationSortCriteria.Latest,
-    sources: IS_MAINNET
-      ? [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
-      : undefined,
-    customFilters: LENS_CUSTOM_FILTERS,
-    metadata: {
-      tags: { oneOf: [categoryName] },
-      mainContentFocus: [PublicationMainFocus.Video]
-    }
+  const request: ExplorePublicationRequest = {
+    where: {
+      customFilters: LENS_CUSTOM_FILTERS,
+      publicationTypes: [ExplorePublicationType.Post],
+      metadata: {
+        tags: { oneOf: [categoryName] },
+        mainContentFocus: [PublicationMetadataMainFocusType.Video],
+        publishedOn: IS_MAINNET
+          ? [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
+          : undefined
+      }
+    },
+    orderBy: ExplorePublicationsOrderByType.Latest,
+    limit: LimitType.TwentyFive
   }
 
-  const { data, loading, error, fetchMore } = useExploreQuery({
+  const { data, loading, error, fetchMore } = useExplorePublicationsQuery({
     variables: {
-      request,
-      channelId: selectedSimpleProfile?.id ?? null
+      request
     },
     skip: !query.category
   })
 
-  const videos = data?.explorePublications?.items as Publication[]
+  const videos = data?.explorePublications?.items as MirrorablePublication[]
   const pageInfo = data?.explorePublications?.pageInfo
 
   const { observe } = useInView({

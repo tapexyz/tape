@@ -1,10 +1,10 @@
-import { LENS_PERIPHERY_ABI } from '@abis/LensPeriphery'
+import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import PinnedVideoShimmer from '@components/Shimmers/PinnedVideoShimmer'
 import { Button } from '@components/UIElements/Button'
 import { Analytics, TRACK } from '@lenstube/browser'
 import {
   ERROR_MESSAGE,
-  LENS_PERIPHERY_ADDRESS,
+  LENSHUB_PROXY_ADDRESS,
   LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
   REQUESTING_SIGNATURE_MESSAGE
@@ -108,8 +108,8 @@ const PinnedVideo: FC<Props> = ({ id }) => {
   })
 
   const { write } = useContractWrite({
-    address: LENS_PERIPHERY_ADDRESS,
-    abi: LENS_PERIPHERY_ABI,
+    address: LENSHUB_PROXY_ADDRESS,
+    abi: LENSHUB_PROXY_ABI,
     functionName: 'setProfileMetadataURI',
     onError,
     onSuccess: () => onCompleted()

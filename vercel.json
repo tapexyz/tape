@@ -1,0 +1,7 @@
+{
+  "git": {
+    "deploymentEnabled": {
+      "lens-v2": false
+    }
+  }
+}
