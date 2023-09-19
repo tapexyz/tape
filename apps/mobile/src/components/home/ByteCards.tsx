@@ -1,12 +1,13 @@
-import { LENSTUBE_BYTES_APP_ID } from '@lenstube/constants'
+import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@lenstube/constants'
 import { getThumbnailUrl, imageCdn } from '@lenstube/generic'
-import type { ExplorePublicationRequest, Publication } from '@lenstube/lens'
 import {
-  CustomFiltersTypes,
-  PublicationMainFocus,
-  PublicationSortCriteria,
-  PublicationTypes,
-  useExploreQuery
+  type ExplorePublicationRequest,
+  ExplorePublicationsOrderByType,
+  ExplorePublicationType,
+  LimitType,
+  type MirrorablePublication,
+  PublicationMetadataMainFocusType,
+  useExplorePublicationsQuery
 } from '@lenstube/lens'
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { useNavigation } from '@react-navigation/native'
@@ -165,7 +166,7 @@ const ByteCards = () => {
   }
 
   const renderCard = useCallback(
-    (byte: Publication) => {
+    (byte: MirrorablePublication) => {
       return (
         <>
           <ExpoImage
@@ -178,7 +179,7 @@ const ByteCards = () => {
           />
           <View style={style.profile}>
             <UserProfile
-              profile={byte.profile}
+              profile={byte.by}
               size={14}
               radius={3}
               handleStyle={{ fontFamily: 'font-bold', color: colors.white }}
@@ -194,17 +195,19 @@ const ByteCards = () => {
   )
 
   const request: ExplorePublicationRequest = {
-    sortCriteria: PublicationSortCriteria.CuratedProfiles,
-    limit: 10,
-    noRandomize: false,
-    sources: [LENSTUBE_BYTES_APP_ID],
-    publicationTypes: [PublicationTypes.Post],
-    customFilters: [CustomFiltersTypes.Gardeners],
-    metadata: {
-      mainContentFocus: [PublicationMainFocus.Video]
+    limit: LimitType.Ten,
+    orderBy: ExplorePublicationsOrderByType.LensCurated,
+    where: {
+      publicationTypes: [ExplorePublicationType.Post],
+      customFilters: LENS_CUSTOM_FILTERS,
+      metadata: {
+        mainContentFocus: [PublicationMetadataMainFocusType.Video],
+        publishedOn: [LENSTUBE_BYTES_APP_ID]
+      }
     }
   }
-  const { data, loading, error } = useExploreQuery({
+
+  const { data, loading, error } = useExplorePublicationsQuery({
     variables: { request }
   })
 
@@ -212,7 +215,7 @@ const ByteCards = () => {
     return <ServerError />
   }
 
-  const bytes = data?.explorePublications?.items as Publication[]
+  const bytes = data?.explorePublications?.items as MirrorablePublication[]
 
   return (
     <View style={style.cardsContainer}>

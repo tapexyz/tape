@@ -1,6 +1,6 @@
 import { trimLensHandle } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
-import { useAllProfilesQuery } from '@lenstube/lens'
+import { useProfilesQuery } from '@lenstube/lens'
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { FlashList } from '@shopify/flash-list'
 import React, { useCallback } from 'react'
@@ -34,10 +34,12 @@ const Managed = () => {
     (state) => state.selectedProfile
   )
 
-  const { data, loading } = useAllProfilesQuery({
+  const { data, loading } = useProfilesQuery({
     variables: {
       request: {
-        ownedBy: [selectedProfile?.ownedBy]
+        where: {
+          ownedBy: [selectedProfile?.ownedBy]
+        }
       }
     }
   })

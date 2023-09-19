@@ -6,11 +6,12 @@ import {
   getThumbnailUrl,
   imageCdn
 } from '@lenstube/generic'
-import type { Publication, PublicationsQueryRequest } from '@lenstube/lens'
+import type { MirrorablePublication, PublicationsRequest } from '@lenstube/lens'
 import {
-  PublicationMainFocus,
-  PublicationTypes,
-  useProfilePostsQuery
+  LimitType,
+  PublicationMetadataMainFocusType,
+  PublicationType,
+  usePublicationsQuery
 } from '@lenstube/lens'
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { useNavigation } from '@react-navigation/native'
@@ -112,7 +113,7 @@ const styles = (themeConfig: MobileThemeConfig) =>
   })
 
 type Props = {
-  publication: Publication
+  publication: MirrorablePublication
   index: number
   last: number
 }
@@ -121,11 +122,9 @@ const PublicationItem: FC<Props> = ({ publication, index, last }) => {
   const { themeConfig } = useMobileTheme()
   const style = styles(themeConfig)
 
-  const isVideo =
-    publication.metadata.mainContentFocus === PublicationMainFocus.Video
-  const isBytes = publication.appId === LENSTUBE_BYTES_APP_ID
-  const isImage =
-    publication.metadata.mainContentFocus === PublicationMainFocus.Image
+  const isVideo = publication.metadata.__typename === 'VideoMetadataV3'
+  const isBytes = publication.publishedOn?.id === LENSTUBE_BYTES_APP_ID
+  const isImage = publication.metadata.__typename === 'ImageMetadataV3'
   const imageUrl = imageCdn(
     isImage ? getPublicationMediaUrl(publication) : getThumbnailUrl(publication)
   )
@@ -176,32 +175,33 @@ const Streak = () => {
     (state) => state.selectedProfile
   )
 
-  const request: PublicationsQueryRequest = {
-    limit: 50,
-    customFilters: LENS_CUSTOM_FILTERS,
-    metadata: {
-      mainContentFocus: [
-        PublicationMainFocus.Image,
-        PublicationMainFocus.Audio,
-        PublicationMainFocus.Video
-      ]
-    },
-    publicationTypes: [PublicationTypes.Post],
-    profileId: selectedProfile?.id
+  const request: PublicationsRequest = {
+    limit: LimitType.Fifty,
+    where: {
+      customFilters: LENS_CUSTOM_FILTERS,
+      metadata: {
+        mainContentFocus: [
+          PublicationMetadataMainFocusType.Image,
+          PublicationMetadataMainFocusType.Audio,
+          PublicationMetadataMainFocusType.Video
+        ]
+      },
+      from: selectedProfile?.id,
+      publicationTypes: [PublicationType.Post]
+    }
   }
 
-  const { data, error, loading } = useProfilePostsQuery({
+  const { data, error, loading } = usePublicationsQuery({
     variables: {
-      request,
-      channelId: selectedProfile?.id ?? null
+      request
     },
     skip: !selectedProfile?.id
   })
 
-  const publications = data?.publications?.items as Publication[]
+  const publications = data?.publications?.items as MirrorablePublication[]
 
   const renderItem = useCallback(
-    ({ item, index }: ListRenderItemInfo<Publication>) => (
+    ({ item, index }: ListRenderItemInfo<MirrorablePublication>) => (
       <PublicationItem publication={item} index={index} last={6} />
     ),
     []
@@ -214,29 +214,32 @@ const Streak = () => {
     [style.trueItem, style.falseItem]
   )
 
-  const calculateStreak = useCallback((publications: Publication[]) => {
-    const streakArray: boolean[] = []
+  const calculateStreak = useCallback(
+    (publications: MirrorablePublication[]) => {
+      const streakArray: boolean[] = []
 
-    if (!publications?.length) {
-      return streakArray
-    }
-    const postDates = publications
-      .slice(0, 7)
-      .map((publication) => publication.createdAt.split('T')[0])
-    const today = new Date()
-    const seventhDay = new Date(today)
-    seventhDay.setDate(today.getDate() - 6)
-
-    for (let day = today; day >= seventhDay; day.setDate(day.getDate() - 1)) {
-      const targetDate = day.toISOString().split('T')[0]
-      if (postDates.includes(targetDate)) {
-        streakArray.push(true)
-      } else {
-        streakArray.push(false)
+      if (!publications?.length) {
+        return streakArray
       }
-    }
-    return streakArray
-  }, [])
+      const postDates = publications
+        .slice(0, 7)
+        .map((publication) => publication.createdAt.split('T')[0])
+      const today = new Date()
+      const seventhDay = new Date(today)
+      seventhDay.setDate(today.getDate() - 6)
+
+      for (let day = today; day >= seventhDay; day.setDate(day.getDate() - 1)) {
+        const targetDate = day.toISOString().split('T')[0]
+        if (postDates.includes(targetDate)) {
+          streakArray.push(true)
+        } else {
+          streakArray.push(false)
+        }
+      }
+      return streakArray
+    },
+    []
+  )
 
   const streaks = useMemo(
     () => calculateStreak(publications),

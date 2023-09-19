@@ -204,7 +204,7 @@ const Info: FC<Props> = (props) => {
         <View style={style.statsContainer}>
           <View style={style.stat}>
             <Text style={style.tickerText}>
-              {formatNumber(profile.stats.totalFollowers)}
+              {formatNumber(profile.stats.followers)}
             </Text>
             <Text style={style.text}>followers</Text>
           </View>
@@ -219,7 +219,7 @@ const Info: FC<Props> = (props) => {
           </View>
           <View style={style.stat}>
             <Text style={style.tickerText}>
-              {formatNumber(profile.stats.totalCollects)}
+              {formatNumber(profile.stats.countOpenActions)}
             </Text>
             <Text style={style.text}>collects</Text>
           </View>
@@ -236,12 +236,14 @@ const Info: FC<Props> = (props) => {
 
             <Pressable onPress={() => setShowMoreBio(!showMoreBio)}>
               <Text numberOfLines={!showMoreBio ? 2 : 10} style={style.bio}>
-                {showMoreBio ? profile.bio : trimNewLines(profile.bio ?? '')}
+                {showMoreBio
+                  ? profile.metadata?.bio
+                  : trimNewLines(profile.metadata?.bio ?? '')}
               </Text>
             </Pressable>
           </View>
 
-          <OnChainInfo identity={profile.onChainIdentity} />
+          <OnChainInfo identity={profile.onchainIdentity} />
 
           <View style={{ flexDirection: 'row', gap: 10 }}>
             <View style={{ flex: 1 }}>

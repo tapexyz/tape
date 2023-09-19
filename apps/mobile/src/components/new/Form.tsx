@@ -1,4 +1,4 @@
-import { PublicationMainFocus } from '@lenstube/lens'
+import { PublicationMetadataMainFocusType } from '@lenstube/lens'
 import type { MutableRefObject } from 'react'
 import React from 'react'
 import type { UseFormReturn } from 'react-hook-form'
@@ -87,7 +87,7 @@ const Form = ({
           setDraftedPublication({
             ...draftedPublication,
             attachmentEnabled: value,
-            mainFocus: PublicationMainFocus.Video
+            mainFocus: PublicationMetadataMainFocusType.Video
           })
         }
         text="Attachments"

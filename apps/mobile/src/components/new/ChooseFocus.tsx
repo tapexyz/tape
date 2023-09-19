@@ -1,4 +1,4 @@
-import { PublicationMainFocus } from '@lenstube/lens'
+import { PublicationMetadataMainFocusType } from '@lenstube/lens'
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
@@ -48,7 +48,7 @@ const ChooseFocus = () => {
     (state) => state.setDraftedPublication
   )
 
-  const onChoose = (mainFocus: PublicationMainFocus) => {
+  const onChoose = (mainFocus: PublicationMetadataMainFocusType) => {
     setDraftedPublication({
       ...draftedPublication,
       mainFocus
@@ -58,12 +58,13 @@ const ChooseFocus = () => {
   return (
     <View style={style.container}>
       <AnimatedPressable
-        onPress={() => onChoose(PublicationMainFocus.Video)}
+        onPress={() => onChoose(PublicationMetadataMainFocusType.Video)}
         style={[
           style.filter,
           {
             backgroundColor:
-              draftedPublication.mainFocus === PublicationMainFocus.Video
+              draftedPublication.mainFocus ===
+              PublicationMetadataMainFocusType.Video
                 ? themeConfig.contrastBackgroundColor
                 : themeConfig.backgroudColor
           }
@@ -74,7 +75,8 @@ const ChooseFocus = () => {
             style.text,
             {
               color:
-                draftedPublication.mainFocus === PublicationMainFocus.Video
+                draftedPublication.mainFocus ===
+                PublicationMetadataMainFocusType.Video
                   ? themeConfig.contrastTextColor
                   : themeConfig.textColor
             }
@@ -85,12 +87,13 @@ const ChooseFocus = () => {
       </AnimatedPressable>
 
       <AnimatedPressable
-        onPress={() => onChoose(PublicationMainFocus.Audio)}
+        onPress={() => onChoose(PublicationMetadataMainFocusType.Audio)}
         style={[
           style.filter,
           {
             backgroundColor:
-              draftedPublication.mainFocus === PublicationMainFocus.Audio
+              draftedPublication.mainFocus ===
+              PublicationMetadataMainFocusType.Audio
                 ? themeConfig.contrastBackgroundColor
                 : themeConfig.backgroudColor
           }
@@ -101,7 +104,8 @@ const ChooseFocus = () => {
             style.text,
             {
               color:
-                draftedPublication.mainFocus === PublicationMainFocus.Audio
+                draftedPublication.mainFocus ===
+                PublicationMetadataMainFocusType.Audio
                   ? themeConfig.contrastTextColor
                   : themeConfig.textColor
             }
@@ -112,12 +116,13 @@ const ChooseFocus = () => {
       </AnimatedPressable>
 
       <AnimatedPressable
-        onPress={() => onChoose(PublicationMainFocus.Image)}
+        onPress={() => onChoose(PublicationMetadataMainFocusType.Image)}
         style={[
           style.filter,
           {
             backgroundColor:
-              draftedPublication.mainFocus === PublicationMainFocus.Image
+              draftedPublication.mainFocus ===
+              PublicationMetadataMainFocusType.Image
                 ? themeConfig.contrastBackgroundColor
                 : themeConfig.backgroudColor
           }
@@ -128,7 +133,8 @@ const ChooseFocus = () => {
             style.text,
             {
               color:
-                draftedPublication.mainFocus === PublicationMainFocus.Image
+                draftedPublication.mainFocus ===
+                PublicationMetadataMainFocusType.Image
                   ? themeConfig.contrastTextColor
                   : themeConfig.textColor
             }
