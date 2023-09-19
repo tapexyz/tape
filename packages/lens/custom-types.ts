@@ -1,18 +1,5 @@
 import type { WebBundlr } from '@bundlr-network/client'
-import type {
-  AaveFeeCollectModuleSettings,
-  Attribute,
-  FeeCollectModuleSettings,
-  FreeCollectModuleSettings,
-  LimitedFeeCollectModuleSettings,
-  LimitedTimedFeeCollectModuleSettings,
-  MultirecipientFeeCollectModuleSettings,
-  Profile,
-  RecipientDataInput,
-  RevertCollectModuleSettings,
-  SimpleCollectModuleSettings,
-  TimedFeeCollectModuleSettings
-} from '@lenstube/lens'
+import type { Attribute, Profile, RecipientDataInput } from '@lenstube/lens'
 
 export type VideoDraft = {
   preview: string
@@ -104,22 +91,6 @@ export type ProfileMetadata = {
   cover_picture: string | null
   attributes: Attribute[]
 }
-
-type MultiRecipientFeeCollectModuleSettings =
-  MultirecipientFeeCollectModuleSettings & {
-    optionalEndTimestamp?: string
-    optionalCollectLimit?: string
-  }
-
-export type LenstubeCollectModule = FreeCollectModuleSettings &
-  FeeCollectModuleSettings &
-  RevertCollectModuleSettings &
-  TimedFeeCollectModuleSettings &
-  LimitedFeeCollectModuleSettings &
-  LimitedTimedFeeCollectModuleSettings &
-  MultiRecipientFeeCollectModuleSettings &
-  SimpleCollectModuleSettings &
-  AaveFeeCollectModuleSettings
 
 export interface CustomErrorWithData extends Error {
   data?: {
@@ -219,5 +190,7 @@ export interface CustomNftItemType {
 
 export type SimpleProfile = Pick<
   Profile,
-  'id' | 'handle' | 'ownedBy' | 'isDefault' | 'dispatcher' | 'stats' | 'picture'
+  'id' | 'handle' | 'ownedBy' | 'sponsor' | 'stats' | 'metadata'
 >
+
+export interface LenstubePublication {}

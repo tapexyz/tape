@@ -1,4 +1,4 @@
-import type { Publication } from '@lenstube/lens'
+import type { MirrorablePublication } from '@lenstube/lens'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 
@@ -6,7 +6,7 @@ import VideoOverlay from './VideoOverlay'
 
 type OverlayProps = {
   playerRef: HTMLMediaElement | undefined
-  video: Publication
+  video: MirrorablePublication
   clicked: boolean
 }
 

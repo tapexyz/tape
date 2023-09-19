@@ -5,8 +5,8 @@ import {
   OG_IMAGE
 } from '@lenstube/constants'
 import { getThumbnailUrl, imageCdn, truncate } from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
-import { PublicationDetailsDocument } from '@lenstube/lens'
+import type { AnyPublication, MirrorablePublication } from '@lenstube/lens'
+import { PublicationDocument } from '@lenstube/lens'
 import { apolloClient } from '@lenstube/lens/apollo'
 
 const client = apolloClient()
@@ -14,24 +14,26 @@ const client = apolloClient()
 const getPublicationOembed = async (publicationId: string, format: string) => {
   try {
     const { data } = await client.query({
-      query: PublicationDetailsDocument,
+      query: PublicationDocument,
       variables: { request: { publicationId } }
     })
-    const publication = data?.publication as Publication
+    const publication = data?.publication as AnyPublication
     const video =
-      publication?.__typename === 'Mirror' ? publication.mirrorOf : publication
+      publication?.__typename === 'Mirror'
+        ? publication.mirrorOn
+        : (publication as MirrorablePublication)
 
-    const title = truncate(video?.metadata?.name as string, 100).replaceAll(
-      '"',
-      "'"
-    )
+    const title = truncate(
+      video?.metadata?.marketplace?.name as string,
+      100
+    ).replaceAll('"', "'")
     const thumbnail = imageCdn(getThumbnailUrl(video) || OG_IMAGE, 'THUMBNAIL')
 
     if (format === 'json') {
       return {
         title,
-        author_name: video.profile?.handle,
-        author_url: `${LENSTUBE_WEBSITE_URL}/channel/${video.profile?.handle}`,
+        author_name: video.by?.handle,
+        author_url: `${LENSTUBE_WEBSITE_URL}/channel/${video.by?.handle}`,
         type: 'video',
         height: 113,
         width: 200,
@@ -47,8 +49,8 @@ const getPublicationOembed = async (publicationId: string, format: string) => {
     if (format === 'xml') {
       return `<oembed>
               <title>${title}</title>
-              <author_name>${video.profile?.handle}</author_name>
-              <author_url>${LENSTUBE_WEBSITE_URL}/channel/${video.profile?.handle}</author_url>
+              <author_name>${video.by?.handle}</author_name>
+              <author_url>${LENSTUBE_WEBSITE_URL}/channel/${video.by?.handle}</author_url>
               <type>video</type>
               <height>113</height>
               <width>200</width>

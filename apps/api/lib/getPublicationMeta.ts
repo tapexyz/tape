@@ -1,8 +1,8 @@
 import { getMetaTags } from '@lenstube/browser'
 import { LENSTUBE_APP_DESCRIPTION, OG_IMAGE } from '@lenstube/constants'
 import { getThumbnailUrl, imageCdn, truncate } from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
-import { PublicationDetailsDocument } from '@lenstube/lens'
+import type { AnyPublication, MirrorablePublication } from '@lenstube/lens'
+import { PublicationDocument } from '@lenstube/lens'
 import { apolloClient } from '@lenstube/lens/apollo'
 import type { NextApiResponse } from 'next'
 
@@ -14,16 +14,21 @@ const getPublicationMeta = async (
 ) => {
   try {
     const { data } = await client.query({
-      query: PublicationDetailsDocument,
+      query: PublicationDocument,
       variables: { request: { publicationId } }
     })
 
-    const publication = data?.publication as Publication
+    const publication = data?.publication as AnyPublication
     const video =
-      publication?.__typename === 'Mirror' ? publication.mirrorOf : publication
+      publication?.__typename === 'Mirror'
+        ? publication.mirrorOn
+        : (publication as MirrorablePublication)
 
-    const title = truncate(video?.metadata?.name as string, 100)
-    const description = truncate(video?.metadata?.description as string, 100)
+    const title = truncate(video?.metadata?.marketplace?.name as string, 100)
+    const description = truncate(
+      video?.metadata?.marketplace?.description as string,
+      100
+    )
     const thumbnail = imageCdn(getThumbnailUrl(video) || OG_IMAGE, 'THUMBNAIL')
 
     return res

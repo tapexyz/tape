@@ -6,7 +6,7 @@ import {
   trimify,
   trimNewLines
 } from '@lenstube/generic'
-import type { Attribute, Publication } from '@lenstube/lens'
+import type { Attribute, MirrorablePublication } from '@lenstube/lens'
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { useNavigation } from '@react-navigation/native'
 import { Image as ExpoImage } from 'expo-image'
@@ -27,7 +27,7 @@ import UserProfile from './UserProfile'
 import WaveForm from './WaveForm'
 
 type Props = {
-  audio: Publication
+  audio: MirrorablePublication
 }
 const styles = (themeConfig: MobileThemeConfig) =>
   StyleSheet.create({
@@ -100,11 +100,11 @@ const AudioCard: FC<Props> = ({ audio }) => {
           <View style={style.audioInfoContainer}>
             <View style={{ gap: 5 }}>
               <Text style={style.title} numberOfLines={2}>
-                {trimify(audio.metadata.name ?? '')}
+                {trimify(audio.metadata.marketplace?.name ?? '')}
               </Text>
               <Text style={style.author}>
                 {getValueFromTraitType(
-                  audio.metadata.attributes as Attribute[],
+                  audio.metadata.marketplace?.attributes as Attribute[],
                   'author'
                 )}
               </Text>
@@ -113,21 +113,19 @@ const AudioCard: FC<Props> = ({ audio }) => {
           </View>
         </View>
         <View style={{ paddingVertical: 10, paddingHorizontal: 5 }}>
-          {audio.metadata.description && (
+          {audio.metadata.marketplace?.description && (
             <Text numberOfLines={3} style={style.description}>
-              {trimNewLines(audio.metadata.description)}
+              {trimNewLines(audio.metadata.marketplace?.description)}
             </Text>
           )}
           <View style={style.otherInfoContainer}>
-            <UserProfile profile={audio.profile} size={15} radius={3} />
+            <UserProfile profile={audio.by} size={15} radius={3} />
             <Text
               style={{ color: themeConfig.secondaryTextColor, fontSize: 3 }}
             >
               {'\u2B24'}
             </Text>
-            <Text style={style.otherInfo}>
-              {audio.stats.totalUpvotes} likes
-            </Text>
+            <Text style={style.otherInfo}>{audio.stats.reactions} likes</Text>
             <Text
               style={{ color: themeConfig.secondaryTextColor, fontSize: 3 }}
             >

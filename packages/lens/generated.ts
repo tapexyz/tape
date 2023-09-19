@@ -3078,22 +3078,22 @@ export type PaginatedWhoReactedResult = {
 /** The POAP Event result */
 export type PoapEvent = {
   __typename?: 'PoapEvent'
-  animation_url?: Maybe<Scalars['URL']['output']>
+  animationUrl?: Maybe<Scalars['URL']['output']>
   city?: Maybe<Scalars['String']['output']>
   country?: Maybe<Scalars['String']['output']>
   description?: Maybe<Scalars['String']['output']>
-  end_date?: Maybe<Scalars['DateTime']['output']>
-  event_template_id?: Maybe<Scalars['Int']['output']>
-  event_url?: Maybe<Scalars['URL']['output']>
-  expiry_date?: Maybe<Scalars['DateTime']['output']>
-  fancy_id?: Maybe<Scalars['String']['output']>
-  from_admin?: Maybe<Scalars['Boolean']['output']>
+  endDate?: Maybe<Scalars['DateTime']['output']>
+  eventTemplateId?: Maybe<Scalars['Int']['output']>
+  eventUrl?: Maybe<Scalars['URL']['output']>
+  expiryDate?: Maybe<Scalars['DateTime']['output']>
+  fancyId?: Maybe<Scalars['String']['output']>
+  fromAdmin?: Maybe<Scalars['Boolean']['output']>
   id: Scalars['PoapEventId']['output']
-  image_url?: Maybe<Scalars['URL']['output']>
+  imageUrl?: Maybe<Scalars['URL']['output']>
   name?: Maybe<Scalars['String']['output']>
-  private_event?: Maybe<Scalars['Boolean']['output']>
-  start_date?: Maybe<Scalars['DateTime']['output']>
-  virtual_event?: Maybe<Scalars['Boolean']['output']>
+  privateEvent?: Maybe<Scalars['Boolean']['output']>
+  startDate?: Maybe<Scalars['DateTime']['output']>
+  virtualEvent?: Maybe<Scalars['Boolean']['output']>
   year?: Maybe<Scalars['Int']['output']>
 }
 
@@ -10219,7 +10219,7 @@ export type ChallengeQueryVariables = Exact<{
 
 export type ChallengeQuery = {
   __typename?: 'Query'
-  challenge: { __typename?: 'AuthChallengeResult'; text: string }
+  challenge: { __typename?: 'AuthChallengeResult'; id: any; text: string }
 }
 
 export type EnabledCurrenciesQueryVariables = Exact<{
@@ -46066,7 +46066,7 @@ export const PublicationStatsFieldsFragmentDoc = gql`
     comments
     mirrors
     quotes
-    reactions
+    reactions(request: { type: UPVOTE })
     countOpenActions
   }
 `
@@ -50112,6 +50112,7 @@ export type ApprovedModuleAllowanceAmountQueryResult = Apollo.QueryResult<
 export const ChallengeDocument = gql`
   query Challenge($request: ChallengeRequest!) {
     challenge(request: $request) {
+      id
       text
     }
   }

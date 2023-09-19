@@ -1,13 +1,13 @@
 import Video from '@components/Video'
-import type { Publication } from '@lenstube/lens'
-import { PublicationDetailsDocument } from '@lenstube/lens'
+import type { AnyPublication } from '@lenstube/lens'
+import { PublicationDocument } from '@lenstube/lens'
 import { apolloClient } from '@lenstube/lens/apollo'
 import type { GetServerSideProps } from 'next'
 
 export default Video
 
 interface Props {
-  video: Publication
+  video: AnyPublication
 }
 
 const client = apolloClient()
@@ -17,7 +17,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
 ) => {
   const publicationId = context.query.pubId as string
   const { data, error } = await client.query({
-    query: PublicationDetailsDocument,
+    query: PublicationDocument,
     variables: {
       request: { publicationId }
     }

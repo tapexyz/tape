@@ -9,7 +9,7 @@ import {
   sanitizeDStorageUrl,
   truncate
 } from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
+import type { MirrorablePublication } from '@lenstube/lens'
 import VideoPlayer from '@lenstube/ui/VideoPlayer'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
@@ -20,7 +20,7 @@ import MetaTags from './MetaTags'
 import TopOverlay from './TopOverlay'
 
 type Props = {
-  video: Publication
+  video: MirrorablePublication
 }
 
 const Video: FC<Props> = ({ video }) => {
@@ -33,16 +33,12 @@ const Video: FC<Props> = ({ video }) => {
 
   const [clicked, setClicked] = useState(isAutoPlay || currentTime !== 0)
 
-  const isBytesVideo = video.appId === LENSTUBE_BYTES_APP_ID
+  const isBytesVideo = video.publishedOn?.id === LENSTUBE_BYTES_APP_ID
   const thumbnailUrl = imageCdn(
     sanitizeDStorageUrl(getThumbnailUrl(video, true)),
     isBytesVideo ? 'THUMBNAIL_V' : 'THUMBNAIL'
   )
   const { color: backgroundColor } = useAverageColor(thumbnailUrl, isBytesVideo)
-
-  // useEffect(() => {
-  //   Analytics.track(TRACK.EMBED_VIDEO.LOADED)
-  // }, [])
 
   const refCallback = (ref: HTMLMediaElement) => {
     if (!ref) {
@@ -65,8 +61,11 @@ const Video: FC<Props> = ({ video }) => {
   return (
     <div className="group relative h-screen w-screen overflow-x-hidden">
       <MetaTags
-        title={truncate(video?.metadata?.name as string, 60)}
-        description={truncate(video?.metadata?.description as string, 100)}
+        title={truncate(video?.metadata?.marketplace?.name as string, 60)}
+        description={truncate(
+          video?.metadata?.marketplace?.description as string,
+          100
+        )}
         image={thumbnailUrl}
         videoUrl={getPublicationMediaUrl(video)}
       />
@@ -97,7 +96,7 @@ const Video: FC<Props> = ({ video }) => {
             style={{
               backgroundColor: backgroundColor && `${backgroundColor}95`
             }}
-            alt={video.metadata.name ?? video.profile.handle}
+            alt={video.metadata.marketplace?.description ?? video.by.handle}
             draggable={false}
           />
           <div

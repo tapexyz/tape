@@ -1,10 +1,10 @@
-import { PublicationSortCriteria } from '@lenstube/lens'
+import { ExplorePublicationsOrderByType } from '@lenstube/lens'
 import { create } from 'zustand'
 
 import { colors } from '~/helpers/theme'
 
 type ExploreFilter = {
-  criteria: PublicationSortCriteria
+  criteria: ExplorePublicationsOrderByType
   category: string | null
 }
 
@@ -23,7 +23,7 @@ const useMobileStore = create<AuthState>((set) => ({
   userSigNonce: 0,
   setUserSigNonce: (userSigNonce) => set({ userSigNonce }),
   selectedExploreFilter: {
-    criteria: PublicationSortCriteria.TopCollected,
+    criteria: ExplorePublicationsOrderByType.TopCollectedOpenAction,
     category: null
   },
   setSelectedExploreFilter: (selectedExploreFilter) =>

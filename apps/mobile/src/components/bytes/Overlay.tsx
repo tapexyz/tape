@@ -1,7 +1,7 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
 import type { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { formatNumber, trimNewLines } from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
+import type { Post } from '@lenstube/lens'
 import { LinearGradient } from 'expo-linear-gradient'
 import type { FC } from 'react'
 import React, { useRef, useState } from 'react'
@@ -65,10 +65,10 @@ const styles = StyleSheet.create({
 })
 
 type Props = {
-  byte: Publication
+  byte: Post
 }
 
-const Overlay: FC<Props> = ({ byte: { stats, profile, metadata, id } }) => {
+const Overlay: FC<Props> = ({ byte: { stats, by, metadata, id } }) => {
   const [showMoreContent, setShowMoreContent] = useState(false)
   const commentsSheetRef = useRef<BottomSheetModal>(null)
 
@@ -93,12 +93,12 @@ const Overlay: FC<Props> = ({ byte: { stats, profile, metadata, id } }) => {
                   style={[styles.text, { fontSize: normalizeFont(12) }]}
                 >
                   {showMoreContent
-                    ? metadata.content
-                    : trimNewLines(metadata.content ?? '')}
+                    ? metadata.marketplace?.description
+                    : trimNewLines(metadata.marketplace?.description ?? '')}
                 </Text>
               </Pressable>
               <UserProfile
-                profile={profile}
+                profile={by}
                 size={20}
                 radius={6}
                 handleStyle={{
@@ -113,9 +113,9 @@ const Overlay: FC<Props> = ({ byte: { stats, profile, metadata, id } }) => {
             <View style={styles.verticalContainer}>
               <AnimatedPressable style={styles.actionItem}>
                 <Ionicons name="heart-outline" color={colors.white} size={20} />
-                {stats.totalUpvotes ? (
+                {stats.reactions ? (
                   <Text style={styles.text}>
-                    {formatNumber(stats.totalUpvotes)}
+                    {formatNumber(stats.reactions)}
                   </Text>
                 ) : null}
               </AnimatedPressable>
@@ -131,18 +131,16 @@ const Overlay: FC<Props> = ({ byte: { stats, profile, metadata, id } }) => {
                   color={colors.white}
                   size={20}
                 />
-                {stats.totalAmountOfComments ? (
+                {stats.comments ? (
                   <Text style={styles.text}>
-                    {formatNumber(stats.totalAmountOfComments)}
+                    {formatNumber(stats.comments)}
                   </Text>
                 ) : null}
               </AnimatedPressable>
               <AnimatedPressable style={styles.actionItem}>
                 <Ionicons name="sync-outline" color={colors.white} size={20} />
-                {stats.totalAmountOfMirrors ? (
-                  <Text style={styles.text}>
-                    {formatNumber(stats.totalAmountOfMirrors)}
-                  </Text>
+                {stats.mirrors ? (
+                  <Text style={styles.text}>{formatNumber(stats.mirrors)}</Text>
                 ) : null}
               </AnimatedPressable>
               <AnimatedPressable style={styles.actionItem}>
@@ -151,9 +149,9 @@ const Overlay: FC<Props> = ({ byte: { stats, profile, metadata, id } }) => {
                   color={colors.white}
                   size={20}
                 />
-                {stats.totalAmountOfCollects ? (
+                {stats.countOpenActions ? (
                   <Text style={styles.text}>
-                    {formatNumber(stats.totalAmountOfCollects)}
+                    {formatNumber(stats.countOpenActions)}
                   </Text>
                 ) : null}
               </AnimatedPressable>

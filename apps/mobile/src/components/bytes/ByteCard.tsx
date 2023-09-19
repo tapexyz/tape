@@ -4,7 +4,7 @@ import {
   imageCdn,
   logger
 } from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
+import type { AnyPublication } from '@lenstube/lens'
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 import { ResizeMode, Video } from 'expo-av'
 import type { FC } from 'react'
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
 })
 
 type Props = {
-  byte: Publication
+  byte: AnyPublication
   isActive: boolean
 }
 

@@ -1,5 +1,5 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
-import { PublicationSortCriteria } from '@lenstube/lens'
+import { ExplorePublicationsOrderByType } from '@lenstube/lens'
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { useNavigation } from '@react-navigation/native'
 import { BlurView } from 'expo-blur'
@@ -87,7 +87,7 @@ export const TopsModal = (): JSX.Element => {
             onPress={() => {
               setSelectedExploreFilter({
                 ...selectedExploreFilter,
-                criteria: PublicationSortCriteria.TopCollected
+                criteria: ExplorePublicationsOrderByType.TopCollectedOpenAction
               })
               goBack()
             }}
@@ -101,7 +101,7 @@ export const TopsModal = (): JSX.Element => {
             onPress={() => {
               setSelectedExploreFilter({
                 ...selectedExploreFilter,
-                criteria: PublicationSortCriteria.TopCommented
+                criteria: ExplorePublicationsOrderByType.TopCommented
               })
               goBack()
             }}
@@ -115,7 +115,7 @@ export const TopsModal = (): JSX.Element => {
             onPress={() => {
               setSelectedExploreFilter({
                 ...selectedExploreFilter,
-                criteria: PublicationSortCriteria.TopMirrored
+                criteria: ExplorePublicationsOrderByType.TopMirrored
               })
               goBack()
             }}

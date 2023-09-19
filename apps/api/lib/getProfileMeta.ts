@@ -16,8 +16,9 @@ const getProfileMeta = async (res: NextApiResponse, handle: string) => {
     })
 
     const profile: Profile = data?.profile
-    const title = profile?.name ?? profile?.handle
-    const description = profile?.bio || LENSTUBE_APP_DESCRIPTION
+    const title = profile?.metadata?.displayName ?? profile?.handle
+    const description =
+      profile?.metadata?.displayName || LENSTUBE_APP_DESCRIPTION
     const image = getProfilePicture(profile, 'AVATAR_LG')
 
     return res

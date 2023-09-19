@@ -1,10 +1,10 @@
 import { FALLBACK_COVER_URL } from '@lenstube/constants'
-import type { Publication } from '@lenstube/lens'
+import type { AnyPublication } from '@lenstube/lens'
 
 import { sanitizeDStorageUrl } from './sanitizeDStorageUrl'
 
 export const getThumbnailUrl = (
-  video: Publication,
+  video: AnyPublication,
   withFallback?: boolean
 ): string => {
   let url = video?.metadata?.cover?.original.url || video?.metadata?.image
