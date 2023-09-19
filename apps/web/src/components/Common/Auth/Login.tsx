@@ -75,10 +75,7 @@ const Login = () => {
   }, [errorAuthenticate, errorChallenge, errorProfiles])
 
   const isReadyToSign =
-    connector?.id &&
-    isConnected &&
-    chain?.id === POLYGON_CHAIN_ID &&
-    !selectedSimpleProfile?.id
+    isConnected && chain?.id === POLYGON_CHAIN_ID && !selectedSimpleProfile?.id
 
   const handleSign = useCallback(async () => {
     if (!isReadyToSign) {
@@ -131,7 +128,7 @@ const Login = () => {
       setLoading(false)
       Analytics.track(TRACK.AUTH.SIGN_IN_WITH_LENS)
     } catch (error) {
-      signOut()
+      // signOut()
       setLoading(false)
       toast.error(t`Sign in failed`)
       logger.error('[Error Sign In]', {
