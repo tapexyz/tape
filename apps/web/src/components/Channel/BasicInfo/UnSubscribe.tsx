@@ -7,7 +7,7 @@ import { REQUESTING_SIGNATURE_MESSAGE } from '@lenstube/constants'
 import { getSignature } from '@lenstube/generic'
 import type { CreateUnfollowBroadcastItemResult, Profile } from '@lenstube/lens'
 import {
-  useBroadcastMutation,
+  useBroadcastOnchainMutation,
   useCreateUnfollowTypedDataMutation
 } from '@lenstube/lens'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
@@ -45,7 +45,7 @@ const UnSubscribe: FC<Props> = ({
     toast.error(error?.data?.message ?? error?.message)
     setLoading(false)
   }
-  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
     if (__typename === 'RelayError') {
       return
     }
@@ -63,13 +63,14 @@ const UnSubscribe: FC<Props> = ({
     onError
   })
 
-  const [broadcast] = useBroadcastMutation({
-    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename),
+  const [broadcast] = useBroadcastOnchainMutation({
+    onCompleted: ({ broadcastOnchain }) =>
+      onCompleted(broadcastOnchain.__typename),
     onError
   })
 
   const { write } = useContractWrite({
-    address: channel.followNftAddress,
+    address: channel.followNftAddress?.address,
     abi: FOLLOW_NFT_ABI,
     functionName: 'burn',
     onSuccess: () => onCompleted(),
@@ -86,9 +87,9 @@ const UnSubscribe: FC<Props> = ({
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
-        if (data?.broadcast?.__typename === 'RelayError') {
-          const { tokenId } = typedData.value
-          return write?.({ args: [tokenId] })
+        if (data?.broadcastOnchain?.__typename === 'RelayError') {
+          const { idsOfProfilesToUnfollow } = typedData.value
+          return write?.({ args: [idsOfProfilesToUnfollow[0]] })
         }
       } catch {
         setLoading(false)
@@ -102,9 +103,9 @@ const UnSubscribe: FC<Props> = ({
       return openConnectModal?.()
     }
     setLoading(true)
-    createUnsubscribeTypedData({
+    return createUnsubscribeTypedData({
       variables: {
-        request: { profile: channel?.id }
+        request: { unfollow: [channel?.id] }
       }
     })
   }

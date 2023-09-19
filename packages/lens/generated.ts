@@ -10205,6 +10205,16 @@ export type ApprovedModuleAllowanceAmountQuery = {
         decimals: number
         contract: { __typename?: 'NetworkAddress'; address: any; chainId: any }
       }
+      rate?: {
+        __typename?: 'FiatAmount'
+        value: string
+        asset: {
+          __typename?: 'Fiat'
+          name: string
+          symbol: string
+          decimals: number
+        }
+      } | null
     }
     moduleContract: {
       __typename?: 'NetworkAddress'
@@ -53172,15 +53182,19 @@ export const ApprovedModuleAllowanceAmountDocument = gql`
         asset {
           ...Erc20Fields
         }
+        rate(request: { for: USD }) {
+          ...FiatAmountFields
+        }
       }
       moduleContract {
-        address
-        chainId
+        ...NetworkAddressFields
       }
       moduleName
     }
   }
   ${Erc20FieldsFragmentDoc}
+  ${FiatAmountFieldsFragmentDoc}
+  ${NetworkAddressFieldsFragmentDoc}
 `
 
 /**

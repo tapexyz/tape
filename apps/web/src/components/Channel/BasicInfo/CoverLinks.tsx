@@ -13,13 +13,16 @@ const CoverLinks = ({ channel }: { channel: Profile }) => {
   return (
     <div className="absolute bottom-2 right-2">
       <div className="flex space-x-2">
-        {getValueFromKeyInAttributes(channel.attributes, 'website') && (
+        {getValueFromKeyInAttributes(
+          channel.metadata?.attributes,
+          'website'
+        ) && (
           <Link
             onClick={() =>
               Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_COVER_LINKS)
             }
             href={`https://${getValueFromKeyInAttributes(
-              channel.attributes,
+              channel.metadata?.attributes,
               'website'
             )
               ?.replace('https://', '')
@@ -31,13 +34,16 @@ const CoverLinks = ({ channel }: { channel: Profile }) => {
             <GlobeOutline className="h-4 w-4" />
           </Link>
         )}
-        {getValueFromKeyInAttributes(channel.attributes, 'youtube') && (
+        {getValueFromKeyInAttributes(
+          channel.metadata?.attributes,
+          'youtube'
+        ) && (
           <Link
             onClick={() =>
               Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_COVER_LINKS)
             }
             href={`https://youtube.com/${getValueFromKeyInAttributes(
-              channel.attributes,
+              channel.metadata?.attributes,
               'youtube'
             )
               ?.replace('https://youtube.com/', '')
@@ -59,13 +65,13 @@ const CoverLinks = ({ channel }: { channel: Profile }) => {
             />
           </Link>
         )}
-        {getValueFromKeyInAttributes(channel.attributes, 'x') && (
+        {getValueFromKeyInAttributes(channel.metadata?.attributes, 'x') && (
           <Link
             onClick={() =>
               Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_COVER_LINKS)
             }
             href={`https://x.com/${getValueFromKeyInAttributes(
-              channel.attributes,
+              channel.metadata?.attributes,
               'x'
             )}`}
             target="_blank"

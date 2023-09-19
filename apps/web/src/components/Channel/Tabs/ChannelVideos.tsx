@@ -10,11 +10,16 @@ import {
   SCROLL_ROOT_MARGIN
 } from '@lenstube/constants'
 import { getValueFromKeyInAttributes } from '@lenstube/generic'
-import type { Profile, Publication } from '@lenstube/lens'
+import type {
+  MirrorablePublication,
+  Profile,
+  PublicationsRequest
+} from '@lenstube/lens'
 import {
-  PublicationMainFocus,
-  PublicationTypes,
-  useProfilePostsQuery
+  LimitType,
+  PublicationMetadataMainFocusType,
+  PublicationType,
+  usePublicationsQuery
 } from '@lenstube/lens'
 import { Loader } from '@lenstube/ui'
 import usePersistStore from '@lib/store/persist'
@@ -29,30 +34,35 @@ type Props = {
   channel: Profile
 }
 
+const request: PublicationsRequest = {
+  where: {
+    metadata: {
+      mainContentFocus: [PublicationMetadataMainFocusType.Video],
+      publishedOn: IS_MAINNET
+        ? [LENSTUBE_APP_ID, ...ALLOWED_APP_IDS]
+        : undefined
+    },
+    publicationTypes: [PublicationType.Post],
+    customFilters: LENS_CUSTOM_FILTERS
+  },
+  limit: LimitType.TwentyFive
+}
+
 const ChannelVideos: FC<Props> = ({ channel }) => {
   const queuedVideos = usePersistStore((state) => state.queuedVideos)
   const pinnedVideoId = getValueFromKeyInAttributes(
-    channel?.attributes,
+    channel?.metadata?.attributes,
     'pinnedPublicationId'
   )
 
-  const request = {
-    publicationTypes: [PublicationTypes.Post],
-    limit: 32,
-    metadata: { mainContentFocus: [PublicationMainFocus.Video] },
-    customFilters: LENS_CUSTOM_FILTERS,
-    profileId: channel?.id,
-    sources: IS_MAINNET ? [LENSTUBE_APP_ID, ...ALLOWED_APP_IDS] : undefined
-  }
-
-  const { data, loading, error, fetchMore } = useProfilePostsQuery({
+  const { data, loading, error, fetchMore } = usePublicationsQuery({
     variables: {
       request
     },
     skip: !channel?.id
   })
 
-  const channelVideos = data?.publications?.items as Publication[]
+  const channelVideos = data?.publications?.items as MirrorablePublication[]
   const pageInfo = data?.publications?.pageInfo
 
   const { observe } = useInView({

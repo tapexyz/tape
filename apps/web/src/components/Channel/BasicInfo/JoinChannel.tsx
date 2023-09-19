@@ -12,9 +12,9 @@ import {
 import { getSignature } from '@lenstube/generic'
 import type { FeeFollowModuleSettings, Profile } from '@lenstube/lens'
 import {
-  FollowModules,
+  FollowModuleType,
   useApprovedModuleAllowanceAmountQuery,
-  useBroadcastMutation,
+  useBroadcastOnchainMutation,
   useCreateFollowTypedDataMutation,
   useProfileFollowModuleQuery
 } from '@lenstube/lens'
@@ -59,7 +59,7 @@ const JoinChannel: FC<Props> = ({
     setLoading(false)
   }
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
     if (__typename === 'RelayError') {
       return
     }
@@ -84,35 +84,38 @@ const JoinChannel: FC<Props> = ({
     onError
   })
 
-  const [broadcast] = useBroadcastMutation({
-    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename),
+  const [broadcast] = useBroadcastOnchainMutation({
+    onCompleted: ({ broadcastOnchain }) =>
+      onCompleted(broadcastOnchain.__typename),
     onError
   })
 
   const { data: followModuleData } = useProfileFollowModuleQuery({
-    variables: { request: { profileIds: channel?.id } },
+    variables: { request: { forProfileId: channel?.id } },
     skip: !channel?.id
   })
 
-  const followModule = followModuleData?.profiles?.items[0]
+  const followModule = followModuleData?.profile
     ?.followModule as FeeFollowModuleSettings
 
   useApprovedModuleAllowanceAmountQuery({
     variables: {
       request: {
-        currencies: followModule?.amount?.asset?.address,
-        followModules: [FollowModules.FeeFollowModule],
-        collectModules: [],
+        currencies: followModule?.amount?.asset?.contract.address,
+        followModules: [FollowModuleType.FeeFollowModule],
+        openActionModules: [],
         referenceModules: []
       }
     },
-    skip: !followModule?.amount?.asset?.address || !selectedSimpleProfile?.id,
-    onCompleted: (data) => {
-      setIsAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
+    skip:
+      !followModule?.amount?.asset?.contract.address ||
+      !selectedSimpleProfile?.id,
+    onCompleted: ({ approvedModuleAllowanceAmount }) => {
+      setIsAllowed(approvedModuleAllowanceAmount[0].allowance.value !== '0x00')
     }
   })
 
-  const [createJoinTypedData] = useCreateFollowTypedDataMutation({
+  const [createJoinChannelTypedData] = useCreateFollowTypedDataMutation({
     async onCompleted({ createFollowTypedData }) {
       const { typedData, id } = createFollowTypedData
       try {
@@ -122,9 +125,9 @@ const JoinChannel: FC<Props> = ({
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
-        if (data?.broadcast.__typename === 'RelayError') {
-          const { profileIds, datas } = typedData.value
-          return write?.({ args: [profileIds, datas] })
+        if (data?.broadcastOnchain.__typename === 'RelayError') {
+          const { idsOfProfilesToFollow, datas } = typedData.value
+          return write?.({ args: [idsOfProfilesToFollow, datas] })
         }
       } catch {
         setLoading(false)
@@ -143,20 +146,15 @@ const JoinChannel: FC<Props> = ({
       )
     }
     setLoading(true)
-    createJoinTypedData({
+    createJoinChannelTypedData({
       variables: {
         options: { overrideSigNonce: userSigNonce },
         request: {
           follow: [
             {
-              profile: channel?.id,
+              profileId: channel?.id,
               followModule: {
-                feeFollowModule: {
-                  amount: {
-                    currency: followModule?.amount?.asset?.address,
-                    value: followModule?.amount?.value
-                  }
-                }
+                feeFollowModule: true
               }
             }
           ]

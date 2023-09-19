@@ -32,10 +32,10 @@ const BasicInfo: FC<Props> = ({ channel }) => {
   )
   const [showSubscribersModal, setShowSubscribersModal] = useState(false)
   const hasOnChainId =
-    channel.onChainIdentity?.ens?.name ||
-    channel.onChainIdentity?.proofOfHumanity ||
-    channel.onChainIdentity?.worldcoin.isHuman ||
-    channel.onChainIdentity?.sybilDotOrg.verified
+    channel.onchainIdentity?.ens?.name ||
+    channel.onchainIdentity?.proofOfHumanity ||
+    channel.onchainIdentity?.worldcoin.isHuman ||
+    channel.onchainIdentity?.sybilDotOrg.verified
 
   const isOwnChannel = channel?.id === selectedSimpleProfile?.id
   const subscribeType = channel?.followModule?.__typename
@@ -81,9 +81,9 @@ const BasicInfo: FC<Props> = ({ channel }) => {
           </div>
           <div className="flex flex-1 flex-wrap items-center justify-between space-y-3 py-2">
             <div className="mr-3 flex flex-col items-start">
-              {channel.name && (
+              {channel.metadata?.displayName && (
                 <h1 className="flex items-center space-x-1.5 font-medium md:text-2xl">
-                  {channel.name}
+                  {channel.metadata.displayName}
                 </h1>
               )}
               <h2
@@ -110,10 +110,10 @@ const BasicInfo: FC<Props> = ({ channel }) => {
                   className="outline-none"
                 >
                   <span className="inline-flex items-center space-x-1 whitespace-nowrap">
-                    {channel?.stats.totalFollowers} <Trans>subscribers</Trans>
+                    {channel?.stats.followers} <Trans>subscribers</Trans>
                   </span>
                 </button>
-                {channel.isFollowing &&
+                {channel.operations.isFollowedByMe &&
                 selectedSimpleProfile?.id !== channel?.id ? (
                   <span className="rounded-full border border-gray-400 px-2 text-xs dark:border-gray-600">
                     <Trans>Subscriber</Trans>
@@ -132,16 +132,16 @@ const BasicInfo: FC<Props> = ({ channel }) => {
             </div>
           </div>
         </div>
-        {channel?.bio && (
+        {channel.metadata?.bio && (
           <div className="py-2">
-            <InterweaveContent content={channel?.bio} />
+            <InterweaveContent content={channel.metadata?.bio} />
           </div>
         )}
         {hasOnChainId && (
           <div className="flex items-center space-x-2 py-2">
-            {channel.onChainIdentity?.ens?.name && (
+            {channel.onchainIdentity?.ens?.name && (
               <Tooltip
-                content={channel.onChainIdentity?.ens?.name}
+                content={channel.onchainIdentity?.ens?.name}
                 placement="top"
               >
                 <img
@@ -152,7 +152,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
                 />
               </Tooltip>
             )}
-            {channel?.onChainIdentity?.sybilDotOrg.verified && (
+            {channel?.onchainIdentity?.sybilDotOrg.verified && (
               <Tooltip content={t`Sybil Verified`} placement="top">
                 <img
                   src={`${STATIC_ASSETS}/images/social/sybil.png`}
@@ -162,7 +162,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
                 />
               </Tooltip>
             )}
-            {channel?.onChainIdentity?.proofOfHumanity && (
+            {channel?.onchainIdentity?.proofOfHumanity && (
               <Tooltip content={t`Proof of Humanity`} placement="top">
                 <img
                   src={`${STATIC_ASSETS}/images/social/poh.png`}
@@ -172,7 +172,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
                 />
               </Tooltip>
             )}
-            {channel?.onChainIdentity?.worldcoin.isHuman && (
+            {channel?.onchainIdentity?.worldcoin.isHuman && (
               <Tooltip content={t`Proof of Personhood`} placement="top">
                 <img
                   src={`${STATIC_ASSETS}/images/social/worldcoin.png`}

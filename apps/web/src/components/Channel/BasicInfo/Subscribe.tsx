@@ -9,15 +9,10 @@ import {
   REQUESTING_SIGNATURE_MESSAGE
 } from '@lenstube/constants'
 import { getSignature } from '@lenstube/generic'
-import type {
-  CreateFollowBroadcastItemResult,
-  Profile,
-  ProxyActionRequest
-} from '@lenstube/lens'
+import type { Profile } from '@lenstube/lens'
 import {
-  useBroadcastMutation,
-  useCreateFollowTypedDataMutation,
-  useProxyActionMutation
+  useBroadcastOnchainMutation,
+  useCreateFollowTypedDataMutation
 } from '@lenstube/lens'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAuthPersistStore from '@lib/store/auth'
@@ -55,7 +50,7 @@ const Subscribe: FC<Props> = ({
     setLoading(false)
   }
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
     if (__typename === 'RelayError') {
       return
     }
@@ -80,29 +75,24 @@ const Subscribe: FC<Props> = ({
     onError
   })
 
-  const [broadcast] = useBroadcastMutation({
-    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename),
+  const [broadcast] = useBroadcastOnchainMutation({
+    onCompleted: ({ broadcastOnchain }) =>
+      onCompleted(broadcastOnchain.__typename),
     onError
-  })
-
-  const [createSubscribeProxyAction] = useProxyActionMutation({
-    onError,
-    onCompleted: () => onCompleted()
   })
 
   const [createSubscribeTypedData] = useCreateFollowTypedDataMutation({
     onCompleted: async ({ createFollowTypedData }) => {
-      const { typedData, id } =
-        createFollowTypedData as CreateFollowBroadcastItemResult
+      const { typedData, id } = createFollowTypedData
       try {
         toast.loading(REQUESTING_SIGNATURE_MESSAGE)
         const signature = await signTypedDataAsync(getSignature(typedData))
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
-        if (data?.broadcast?.__typename === 'RelayError') {
-          const { profileIds, datas } = typedData.value
-          write?.({ args: [profileIds, datas] })
+        if (data?.broadcastOnchain?.__typename === 'RelayError') {
+          const { idsOfProfilesToFollow, datas } = typedData.value
+          write?.({ args: [idsOfProfilesToFollow, datas] })
         }
       } catch {
         setLoading(false)
@@ -111,53 +101,19 @@ const Subscribe: FC<Props> = ({
     onError
   })
 
-  const createTypedData = async () => {
-    if (channel?.followModule?.__typename === 'ProfileFollowModuleSettings') {
-      toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-    }
-    await createSubscribeTypedData({
-      variables: {
-        request: {
-          follow: [
-            {
-              profile: channel.id,
-              followModule:
-                channel?.followModule?.__typename ===
-                'ProfileFollowModuleSettings'
-                  ? {
-                      profileFollowModule: {
-                        profileId: selectedSimpleProfile?.id
-                      }
-                    }
-                  : null
-            }
-          ]
-        }
-      }
-    })
-  }
-
-  const viaProxyAction = async (variables: ProxyActionRequest) => {
-    const { data } = await createSubscribeProxyAction({
-      variables: { request: variables }
-    })
-    if (!data?.proxyAction) {
-      await createTypedData()
-    }
-  }
-
-  const subscribe = () => {
+  const subscribe = async () => {
     if (!selectedSimpleProfile?.id) {
       return openConnectModal?.()
     }
     setLoading(true)
-    if (channel.followModule) {
-      return createTypedData()
-    }
-    viaProxyAction({
-      follow: {
-        freeFollow: {
-          profileId: channel?.id
+    return await createSubscribeTypedData({
+      variables: {
+        request: {
+          follow: [
+            {
+              profileId: channel.id
+            }
+          ]
         }
       }
     })

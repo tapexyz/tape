@@ -2,8 +2,8 @@ import Badge from '@components/Common/Badge'
 import UserOutline from '@components/Common/Icons/UserOutline'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { getProfilePicture, trimLensHandle } from '@lenstube/generic'
-import type { Profile } from '@lenstube/lens'
-import { useMutualFollowersQuery } from '@lenstube/lens'
+import type { MutualFollowersRequest, Profile } from '@lenstube/lens'
+import { LimitType, useMutualFollowersQuery } from '@lenstube/lens'
 import { Loader } from '@lenstube/ui'
 import useAuthPersistStore from '@lib/store/auth'
 import Link from 'next/link'
@@ -19,10 +19,10 @@ const MutualSubscribersList: FC<Props> = ({ viewingChannelId }) => {
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
-  const request = {
-    viewingProfileId: viewingChannelId,
-    yourProfileId: selectedSimpleProfile?.id,
-    limit: 30
+  const request: MutualFollowersRequest = {
+    viewing: viewingChannelId,
+    observer: selectedSimpleProfile?.id,
+    limit: LimitType.TwentyFive
   }
 
   const { data, loading, fetchMore } = useMutualFollowersQuery({
@@ -32,8 +32,8 @@ const MutualSubscribersList: FC<Props> = ({ viewingChannelId }) => {
     skip: !viewingChannelId
   })
 
-  const mutualSubscribers = data?.mutualFollowersProfiles?.items as Profile[]
-  const pageInfo = data?.mutualFollowersProfiles?.pageInfo
+  const mutualSubscribers = data?.mutualFollowers?.items as Profile[]
+  const pageInfo = data?.mutualFollowers?.pageInfo
 
   const { observe } = useInView({
     onEnter: async () => {
@@ -81,7 +81,7 @@ const MutualSubscribersList: FC<Props> = ({ viewingChannelId }) => {
           </div>
           <div className="flex items-center space-x-1 whitespace-nowrap text-xs opacity-80">
             <UserOutline className="h-2.5 w-2.5 opacity-60" />
-            <span>{channel.stats.totalFollowers}</span>
+            <span>{channel.stats.followers}</span>
           </div>
         </Link>
       ))}

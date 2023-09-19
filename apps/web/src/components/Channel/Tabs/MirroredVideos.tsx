@@ -2,11 +2,16 @@ import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { LENS_CUSTOM_FILTERS, SCROLL_ROOT_MARGIN } from '@lenstube/constants'
-import type { Profile, Publication } from '@lenstube/lens'
+import type {
+  AnyPublication,
+  Profile,
+  PublicationsRequest
+} from '@lenstube/lens'
 import {
-  PublicationMainFocus,
-  PublicationTypes,
-  useProfileMirrorsQuery
+  LimitType,
+  PublicationMetadataMainFocusType,
+  PublicationType,
+  usePublicationsQuery
 } from '@lenstube/lens'
 import { Loader } from '@lenstube/ui'
 import { t } from '@lingui/macro'
@@ -18,25 +23,26 @@ type Props = {
   channel: Profile
 }
 
-const request = {
-  publicationTypes: [PublicationTypes.Mirror],
-  limit: 32,
-  metadata: { mainContentFocus: [PublicationMainFocus.Video] },
-  customFilters: LENS_CUSTOM_FILTERS
+const request: PublicationsRequest = {
+  where: {
+    metadata: { mainContentFocus: [PublicationMetadataMainFocusType.Video] },
+    publicationTypes: [PublicationType.Mirror],
+    customFilters: LENS_CUSTOM_FILTERS
+  },
+  limit: LimitType.TwentyFive
 }
 
 const MirroredVideos: FC<Props> = ({ channel }) => {
-  const { data, loading, error, fetchMore } = useProfileMirrorsQuery({
+  const { data, loading, error, fetchMore } = usePublicationsQuery({
     variables: {
       request: {
-        ...request,
-        profileId: channel?.id
+        ...request
       }
     },
     skip: !channel?.id
   })
 
-  const channelVideos = data?.publications?.items as Publication[]
+  const mirroredVideos = data?.publications?.items as AnyPublication[]
   const pageInfo = data?.publications?.pageInfo
 
   const { observe } = useInView({
@@ -58,7 +64,7 @@ const MirroredVideos: FC<Props> = ({ channel }) => {
     return <TimelineShimmer />
   }
 
-  if (channelVideos?.length === 0) {
+  if (mirroredVideos?.length === 0) {
     return <NoDataFound isCenter withImage text={t`No mirrors found`} />
   }
 
@@ -66,7 +72,7 @@ const MirroredVideos: FC<Props> = ({ channel }) => {
     <div className="w-full">
       {!error && !loading && (
         <div>
-          <Timeline videos={channelVideos} videoType="Mirror" />
+          <Timeline videos={mirroredVideos} videoType="Mirror" />
           {pageInfo?.next && (
             <span ref={observe} className="flex justify-center p-10">
               <Loader />

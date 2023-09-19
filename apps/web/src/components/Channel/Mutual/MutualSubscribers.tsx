@@ -4,7 +4,7 @@ import Tooltip from '@components/UIElements/Tooltip'
 import { Analytics, TRACK } from '@lenstube/browser'
 import { getProfilePicture } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
-import { useMutualFollowersQuery } from '@lenstube/lens'
+import { LimitType, useMutualFollowersQuery } from '@lenstube/lens'
 import useAuthPersistStore from '@lib/store/auth'
 import { t } from '@lingui/macro'
 import type { FC } from 'react'
@@ -27,9 +27,9 @@ const MutualSubscribers: FC<Props> = ({ viewingChannelId }) => {
   const { data, loading } = useMutualFollowersQuery({
     variables: {
       request: {
-        viewingProfileId: viewingChannelId,
-        yourProfileId: selectedSimpleProfile?.id,
-        limit: FETCH_COUNT
+        observer: selectedSimpleProfile?.id,
+        viewing: viewingChannelId,
+        limit: LimitType.Ten
       }
     },
     skip: !viewingChannelId || !selectedSimpleProfile?.id
@@ -40,7 +40,7 @@ const MutualSubscribers: FC<Props> = ({ viewingChannelId }) => {
     Analytics.track(TRACK.OPENED_MUTUAL_CHANNELS)
   }
 
-  const mutualSubscribers = data?.mutualFollowersProfiles?.items as Profile[]
+  const mutualSubscribers = data?.mutualFollowers?.items as Profile[]
 
   if (loading) {
     return <ChannelCirclesShimmer />
@@ -70,7 +70,7 @@ const MutualSubscribers: FC<Props> = ({ viewingChannelId }) => {
                 alt={channel?.handle}
               />
             ))}
-          {mutualSubscribers.length === FETCH_COUNT && (
+          {mutualSubscribers.length > FETCH_COUNT && (
             <div className="flex h-7 w-7 flex-none items-center justify-center rounded-full border border-gray-300 bg-gray-200 dark:border-gray-600 dark:bg-gray-800">
               <span role="img" className="text-sm">
                 👀

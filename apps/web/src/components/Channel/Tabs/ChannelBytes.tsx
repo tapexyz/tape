@@ -6,8 +6,16 @@ import {
   LENSTUBE_BYTES_APP_ID,
   SCROLL_ROOT_MARGIN
 } from '@lenstube/constants'
-import type { Profile, Publication } from '@lenstube/lens'
-import { PublicationTypes, useProfilePostsQuery } from '@lenstube/lens'
+import type {
+  MirrorablePublication,
+  Profile,
+  PublicationsRequest
+} from '@lenstube/lens'
+import {
+  LimitType,
+  PublicationType,
+  usePublicationsQuery
+} from '@lenstube/lens'
 import { Loader } from '@lenstube/ui'
 import { t } from '@lingui/macro'
 import type { FC } from 'react'
@@ -19,20 +27,21 @@ type Props = {
 }
 
 const ChannelBytes: FC<Props> = ({ channel }) => {
-  const request = {
-    publicationTypes: [PublicationTypes.Post],
-    limit: 32,
-    sources: [LENSTUBE_BYTES_APP_ID],
-    customFilters: LENS_CUSTOM_FILTERS,
-    profileId: channel?.id
+  const request: PublicationsRequest = {
+    where: {
+      metadata: { publishedOn: [LENSTUBE_BYTES_APP_ID] },
+      publicationTypes: [PublicationType.Post],
+      customFilters: LENS_CUSTOM_FILTERS
+    },
+    limit: LimitType.TwentyFive
   }
 
-  const { data, loading, error, fetchMore } = useProfilePostsQuery({
+  const { data, loading, error, fetchMore } = usePublicationsQuery({
     variables: { request },
     skip: !channel?.id
   })
 
-  const bytes = data?.publications?.items as Publication[]
+  const bytes = data?.publications?.items as MirrorablePublication[]
   const pageInfo = data?.publications?.pageInfo
 
   const { observe } = useInView({
