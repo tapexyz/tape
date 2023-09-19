@@ -36,8 +36,7 @@ const OtherChannelCard = ({ channel }: { channel: Profile }) => {
           </Link>
         </div>
         <div className="text-center text-xs opacity-70">
-          {formatNumber(channel.stats.totalFollowers)}{' '}
-          <Trans>subscribers</Trans>
+          {formatNumber(channel.stats.followers)} <Trans>subscribers</Trans>
         </div>
       </div>
       <SubscribeActions channel={channel} subscribeType={subscribeType} />

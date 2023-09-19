@@ -55,19 +55,19 @@ const Header: FC<Props> = ({ className }) => {
   useLatestNotificationIdQuery({
     variables: {
       request: {
-        profileId: selectedSimpleProfile?.id,
-        sources: IS_MAINNET
-          ? [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID]
-          : undefined,
-        customFilters: LENS_CUSTOM_FILTERS,
-        limit: 1
+        where: {
+          publishedOn: IS_MAINNET
+            ? [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID]
+            : undefined,
+          customFilters: LENS_CUSTOM_FILTERS
+        }
       }
     },
     fetchPolicy: 'no-cache',
     skip: !selectedSimpleProfile?.id,
     onCompleted: (notificationsData) => {
       if (selectedSimpleProfile && notificationsData) {
-        const id = notificationsData?.notifications?.items[0].notificationId
+        const id = notificationsData?.notifications?.items[0].id
         setHasNewNotification(latestNotificationId !== id)
         setLatestNotificationId(id)
       }

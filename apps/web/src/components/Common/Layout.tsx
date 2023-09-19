@@ -2,7 +2,7 @@ import { getShowFullScreen, getToastOptions } from '@lenstube/browser'
 import { AUTH_ROUTES, POLYGON_CHAIN_ID } from '@lenstube/constants'
 import { useIsMounted } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
-import { useAllProfilesQuery, useUserSigNoncesQuery } from '@lenstube/lens'
+import { useProfilesQuery, useUserSigNoncesQuery } from '@lenstube/lens'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAuthPersistStore, {
   hydrateAuthTokens,
@@ -64,18 +64,18 @@ const Layout: FC<Props> = ({ children }) => {
   useUserSigNoncesQuery({
     skip: !selectedSimpleProfile?.id,
     onCompleted: ({ userSigNonces }) => {
-      setUserSigNonce(userSigNonces.lensHubOnChainSigNonce)
+      setUserSigNonce(userSigNonces.lensHubOnchainSigNonce)
     },
     pollInterval: 10_000
   })
 
-  useAllProfilesQuery({
+  useProfilesQuery({
     variables: {
-      request: { ownedBy: [address] }
+      request: { where: { ownedBy: [address] } }
     },
     skip: !selectedSimpleProfile,
-    onCompleted: (data) => {
-      const channels = data?.profiles?.items as Profile[]
+    onCompleted: ({ profiles }) => {
+      const channels = profiles?.items as Profile[]
       if (!channels.length) {
         return resetAuthState()
       }
@@ -95,7 +95,7 @@ const Layout: FC<Props> = ({ children }) => {
       // Redirect to signin page
       replace(`/auth?next=${asPath}`)
     }
-    const ownerAddress = selectedSimpleProfile?.ownedBy
+    const ownerAddress = selectedSimpleProfile?.ownedBy.address
     const isWrongNetworkChain = chain?.id !== POLYGON_CHAIN_ID
     const isSwitchedAccount =
       ownerAddress !== undefined && ownerAddress !== address

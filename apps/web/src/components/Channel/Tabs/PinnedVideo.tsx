@@ -23,16 +23,15 @@ import {
   uploadToAr
 } from '@lenstube/generic'
 import type {
+  AnyPublication,
   Attribute,
-  CreatePublicSetProfileMetadataUriRequest,
-  Publication
+  MirrorablePublication,
+  OnchainSetProfileMetadataRequest
 } from '@lenstube/lens'
 import {
-  PublicationMetadataDisplayTypes,
-  useBroadcastMutation,
-  useCreateSetProfileMetadataTypedDataMutation,
-  useCreateSetProfileMetadataViaDispatcherMutation,
-  usePublicationDetailsQuery
+  useBroadcastOnchainMutation,
+  useCreateOnchainSetProfileMetadataTypedDataMutation,
+  usePublicationQuery
 } from '@lenstube/lens'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import VideoPlayer from '@lenstube/ui/VideoPlayer'
@@ -55,21 +54,24 @@ const PinnedVideo: FC<Props> = ({ id }) => {
   const { openConnectModal } = useConnectModal()
   const activeChannel = useChannelStore((state) => state.activeChannel)
 
-  const { data, error, loading } = usePublicationDetailsQuery({
+  const { data, error, loading } = usePublicationQuery({
     variables: {
-      request: { publicationId: id }
+      request: { forId: id }
     },
     skip: !id
   })
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
-  const publication = data?.publication as Publication
+  const publication = data?.publication as AnyPublication
   const pinnedPublication =
-    publication?.__typename === 'Mirror' ? publication.mirrorOf : publication
+    publication?.__typename === 'Mirror'
+      ? (publication.mirrorOn as MirrorablePublication)
+      : (publication as MirrorablePublication)
 
-  const isBytesVideo = pinnedPublication?.appId === LENSTUBE_BYTES_APP_ID
-  const isVideoOwner = activeChannel?.id === publication?.profile?.id
+  const isBytesVideo =
+    pinnedPublication?.publishedOn?.id === LENSTUBE_BYTES_APP_ID
+  const isVideoOwner = activeChannel?.id === pinnedPublication?.by.id
 
   const isSensitiveContent = getIsSensitiveContent(
     pinnedPublication?.metadata,
@@ -81,20 +83,19 @@ const PinnedVideo: FC<Props> = ({ id }) => {
   )
 
   const otherAttributes =
-    (activeChannel?.attributes as Attribute[])
+    (activeChannel?.metadata?.attributes as Attribute[])
       ?.filter((attr) => !['pinnedPublicationId', 'app'].includes(attr.key))
-      .map(({ traitType, key, value, displayType }) => ({
-        traitType,
+      .map(({ key, value, type }) => ({
+        type,
         key,
-        value,
-        displayType
+        value
       })) ?? []
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
   }
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
     if (__typename === 'RelayError') {
       return
     }
@@ -114,57 +115,30 @@ const PinnedVideo: FC<Props> = ({ id }) => {
     onSuccess: () => onCompleted()
   })
 
-  const [broadcast] = useBroadcastMutation({
+  const [broadcast] = useBroadcastOnchainMutation({
     onError,
-    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
+    onCompleted: ({ broadcastOnchain }) =>
+      onCompleted(broadcastOnchain.__typename)
   })
 
-  const [createSetProfileMetadataViaDispatcher] =
-    useCreateSetProfileMetadataViaDispatcherMutation({
-      onError,
-      onCompleted: ({ createSetProfileMetadataViaDispatcher }) =>
-        onCompleted(createSetProfileMetadataViaDispatcher.__typename)
-    })
-
   const [createSetProfileMetadataTypedData] =
-    useCreateSetProfileMetadataTypedDataMutation({
-      onCompleted: async (data) => {
-        const { typedData, id } = data.createSetProfileMetadataTypedData
+    useCreateOnchainSetProfileMetadataTypedDataMutation({
+      onCompleted: async ({ createOnchainSetProfileMetadataTypedData }) => {
+        const { typedData, id } = createOnchainSetProfileMetadataTypedData
         try {
           toast.loading(REQUESTING_SIGNATURE_MESSAGE)
           const signature = await signTypedDataAsync(getSignature(typedData))
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
-          if (data?.broadcast?.__typename === 'RelayError') {
-            const { profileId, metadata } = typedData.value
-            return write?.({ args: [profileId, metadata] })
+          if (data?.broadcastOnchain?.__typename === 'RelayError') {
+            const { profileId, metadataURI } = typedData.value
+            return write?.({ args: [profileId, metadataURI] })
           }
         } catch {}
       },
       onError
     })
-
-  const createTypedData = (
-    request: CreatePublicSetProfileMetadataUriRequest
-  ) => {
-    createSetProfileMetadataTypedData({
-      variables: { request }
-    })
-  }
-
-  const createViaDispatcher = async (
-    request: CreatePublicSetProfileMetadataUriRequest
-  ) => {
-    const { data } = await createSetProfileMetadataViaDispatcher({
-      variables: { request }
-    })
-    if (
-      data?.createSetProfileMetadataViaDispatcher.__typename === 'RelayError'
-    ) {
-      createTypedData(request)
-    }
-  }
 
   const unpinVideo = async () => {
     if (!activeChannel) {
@@ -172,33 +146,29 @@ const PinnedVideo: FC<Props> = ({ id }) => {
     }
     try {
       toast.loading(t`Unpinning video...`)
-      const metadataUri = await uploadToAr({
+      const metadataURI = await uploadToAr({
         version: '1.0.0',
         metadata_id: uuidv4(),
-        name: activeChannel?.name ?? '',
-        bio: activeChannel?.bio ?? '',
+        name: activeChannel?.metadata?.displayName ?? '',
+        bio: activeChannel?.metadata?.bio ?? '',
         cover_picture: getChannelCoverPicture(activeChannel),
         attributes: [
           ...otherAttributes,
           {
-            displayType: PublicationMetadataDisplayTypes.String,
             traitType: 'app',
             key: 'app',
             value: LENSTUBE_APP_ID
           }
         ]
       })
-      const request = {
-        profileId: activeChannel?.id,
-        metadata: metadataUri
+      const request: OnchainSetProfileMetadataRequest = {
+        metadataURI
       }
-      const canUseDispatcher =
-        activeChannel?.dispatcher?.canUseRelay &&
-        activeChannel.dispatcher.sponsor
-      if (!canUseDispatcher) {
-        return createTypedData(request)
+      if (!activeChannel.sponsor) {
+        return createSetProfileMetadataTypedData({
+          variables: { request }
+        })
       }
-      createViaDispatcher(request)
     } catch {}
   }
 
@@ -214,7 +184,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
     <div className="mb-6 mt-2 grid grid-cols-3 overflow-hidden border-b border-gray-300 pb-6 dark:border-gray-700 md:space-x-5">
       <div className="overflow-hidden md:rounded-xl">
         <VideoPlayer
-          address={selectedSimpleProfile?.ownedBy}
+          address={selectedSimpleProfile?.ownedBy.address}
           permanentUrl={getPublicationRawMediaUrl(pinnedPublication)}
           hlsUrl={getPublicationHlsUrl(pinnedPublication)}
           posterUrl={thumbnailUrl}
@@ -233,9 +203,9 @@ const PinnedVideo: FC<Props> = ({ id }) => {
             <Link
               className="inline break-words text-lg font-medium"
               href={`/watch/${pinnedPublication.id}`}
-              title={pinnedPublication.metadata?.name ?? ''}
+              title={pinnedPublication.metadata?.marketplace?.name ?? ''}
             >
-              {pinnedPublication.metadata?.name}
+              {pinnedPublication.metadata?.marketplace?.name}
             </Link>
             {isVideoOwner && (
               <Button
@@ -250,7 +220,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
           </div>
           <div className="flex items-center overflow-hidden opacity-70">
             <span className="whitespace-nowrap">
-              {pinnedPublication.stats?.totalUpvotes} <Trans>likes</Trans>
+              {pinnedPublication.stats?.reactions} <Trans>likes</Trans>
             </span>
             <span className="middot" />
             {pinnedPublication.createdAt && (
@@ -260,7 +230,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
             )}
           </div>
           <p className="line-clamp-6 text-sm">
-            {pinnedPublication.metadata?.description}
+            {pinnedPublication.metadata?.marketplace?.description}
           </p>
         </div>
         <Link

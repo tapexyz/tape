@@ -1,7 +1,7 @@
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { getProfilePicture, trimLensHandle } from '@lenstube/generic'
-import type { Profile } from '@lenstube/lens'
-import { useAllProfilesQuery } from '@lenstube/lens'
+import type { Profile, ProfilesRequest } from '@lenstube/lens'
+import { LimitType, useProfilesQuery } from '@lenstube/lens'
 import { Loader } from '@lenstube/ui'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -16,9 +16,14 @@ type Props = {
 }
 
 const MirroredList: FC<Props> = ({ videoId }) => {
-  const request = { whoMirroredPublicationId: videoId, limit: 30 }
+  const request: ProfilesRequest = {
+    where: {
+      whoMirroredPublication: videoId
+    },
+    limit: LimitType.TwentyFive
+  }
 
-  const { data, loading, fetchMore } = useAllProfilesQuery({
+  const { data, loading, fetchMore } = useProfilesQuery({
     variables: {
       request
     },
@@ -55,7 +60,7 @@ const MirroredList: FC<Props> = ({ videoId }) => {
   return (
     <div className="mt-2 space-y-3">
       {mirroredByProfiles?.map((profile: Profile) => (
-        <div className="flex flex-col" key={profile.ownedBy}>
+        <div className="flex flex-col" key={profile.ownedBy.address}>
           <Link
             href={`/channel/${trimLensHandle(profile?.handle)}`}
             className="font-base flex items-center justify-between"
@@ -74,7 +79,7 @@ const MirroredList: FC<Props> = ({ videoId }) => {
             </div>
             <div className="flex items-center space-x-1 whitespace-nowrap text-xs opacity-80">
               <UserOutline className="h-2.5 w-2.5 opacity-60" />
-              <span>{profile.stats.totalFollowers}</span>
+              <span>{profile.stats.followers}</span>
             </div>
           </Link>
         </div>

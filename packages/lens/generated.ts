@@ -205,7 +205,7 @@ export enum AttributeType {
 
 export type Audio = {
   __typename?: 'Audio'
-  mimeType?: Maybe<AudioMimeType>
+  mimeType?: Maybe<Scalars['MimeType']['output']>
   uri: Scalars['URI']['output']
 }
 
@@ -225,17 +225,6 @@ export type AudioMetadataV3 = {
   optionalTitle?: Maybe<Scalars['String']['output']>
   rawURI: Scalars['URI']['output']
   tags?: Maybe<Array<Scalars['String']['output']>>
-}
-
-export enum AudioMimeType {
-  Aac = 'AAC',
-  Flac = 'FLAC',
-  Mp3 = 'MP3',
-  Mp4Audio = 'MP4_AUDIO',
-  OggAudio = 'OGG_AUDIO',
-  Wav = 'WAV',
-  WavVnd = 'WAV_VND',
-  WebmAudio = 'WEBM_AUDIO'
 }
 
 export type AudioSet = {
@@ -1205,7 +1194,7 @@ export type EmbedMetadataV3 = {
 
 export type EncryptableAudio = {
   __typename?: 'EncryptableAudio'
-  mimeType?: Maybe<AudioMimeType>
+  mimeType?: Maybe<Scalars['MimeType']['output']>
   uri: Scalars['EncryptableURI']['output']
 }
 
@@ -1220,7 +1209,7 @@ export type EncryptableImage = {
   /** Height of the image */
   height?: Maybe<Scalars['Int']['output']>
   /** MIME type of the image */
-  mimeType?: Maybe<ImageMimeType>
+  mimeType?: Maybe<Scalars['MimeType']['output']>
   uri: Scalars['EncryptableURI']['output']
   /** Width of the image */
   width?: Maybe<Scalars['Int']['output']>
@@ -1239,7 +1228,7 @@ export type EncryptableImageSetTransformedArgs = {
 
 export type EncryptableVideo = {
   __typename?: 'EncryptableVideo'
-  mimeType?: Maybe<VideoMimeType>
+  mimeType?: Maybe<Scalars['MimeType']['output']>
   uri: Scalars['EncryptableURI']['output']
 }
 
@@ -1308,7 +1297,7 @@ export type EventMetadataV3 = {
 }
 
 /** Possible sort criteria for exploring profiles */
-export enum ExploreProfileOrderBy {
+export enum ExploreProfilesOrderByType {
   CreatedOn = 'CREATED_ON',
   LatestCreated = 'LATEST_CREATED',
   MostCollects = 'MOST_COLLECTS',
@@ -1323,7 +1312,7 @@ export type ExploreProfilesRequest = {
   cursor?: InputMaybe<Scalars['Cursor']['input']>
   limit?: InputMaybe<LimitType>
   /** Order criteria for exploring profiles */
-  orderBy: ExploreProfileOrderBy
+  orderBy: ExploreProfilesOrderByType
   /** Filtering criteria for exploring profiles */
   where?: InputMaybe<ExploreProfilesWhere>
 }
@@ -1543,6 +1532,13 @@ export type GeoLocation = {
   rawURI: Scalars['EncryptableURI']['output']
 }
 
+export type GetProfileMetadataArgs = {
+  /** The app id to query the profile's metadata */
+  appId?: InputMaybe<Scalars['AppId']['input']>
+  /** If true, will fallback to global profile metadata, if there is no metadata set for that specific app id */
+  useFallback?: InputMaybe<Scalars['Boolean']['input']>
+}
+
 export type HandleLinkToProfileRequest = {
   handle: Scalars['Handle']['input']
 }
@@ -1580,7 +1576,7 @@ export type Image = {
   /** Height of the image */
   height?: Maybe<Scalars['Int']['output']>
   /** MIME type of the image */
-  mimeType?: Maybe<ImageMimeType>
+  mimeType?: Maybe<Scalars['MimeType']['output']>
   uri: Scalars['URI']['output']
   /** Width of the image */
   width?: Maybe<Scalars['Int']['output']>
@@ -1602,19 +1598,6 @@ export type ImageMetadataV3 = {
   optionalTitle?: Maybe<Scalars['String']['output']>
   rawURI: Scalars['URI']['output']
   tags?: Maybe<Array<Scalars['String']['output']>>
-}
-
-export enum ImageMimeType {
-  Bmp = 'BMP',
-  Gif = 'GIF',
-  Heic = 'HEIC',
-  Jpeg = 'JPEG',
-  Jpg = 'JPG',
-  Png = 'PNG',
-  SvgXml = 'SVG_XML',
-  Tiff = 'TIFF',
-  Webp = 'WEBP',
-  XMsBmp = 'X_MS_BMP'
 }
 
 export type ImageSet = {
@@ -1667,11 +1650,11 @@ export type LegacyAaveFeeCollectModuleSettings = {
   __typename?: 'LegacyAaveFeeCollectModuleSettings'
   /** The collect module amount info */
   amount: Amount
-  /** The maximum number of collects for this publication. Omit for no limit. */
+  /** The maximum number of collects for this publication. */
   collectLimit?: Maybe<Scalars['String']['output']>
   contract: NetworkAddress
-  /** The end timestamp after which collecting is impossible. No expiry if missing. */
-  endTimestamp?: Maybe<Scalars['DateTime']['output']>
+  /** The end timestamp after which collecting is impossible. */
+  endsAt?: Maybe<Scalars['DateTime']['output']>
   /** True if only followers of publisher may collect the post. */
   followerOnly: Scalars['Boolean']['output']
   /** Recipient of collect fees. */
@@ -1697,11 +1680,11 @@ export type LegacyErc4626FeeCollectModuleSettings = {
   __typename?: 'LegacyERC4626FeeCollectModuleSettings'
   /** The collect module amount info */
   amount: Amount
-  /** The maximum number of collects for this publication. 0 for no limit. */
+  /** The maximum number of collects for this publication. */
   collectLimit?: Maybe<Scalars['String']['output']>
   contract: NetworkAddress
-  /** The end timestamp after which collecting is impossible. 0 for no expiry. */
-  endTimestamp?: Maybe<Scalars['DateTime']['output']>
+  /** The end timestamp after which collecting is impossible. */
+  endsAt?: Maybe<Scalars['DateTime']['output']>
   /** True if only followers of publisher may collect the post. */
   followerOnly: Scalars['Boolean']['output']
   /** The recipient of the ERC4626 vault shares */
@@ -1743,8 +1726,8 @@ export type LegacyLimitedFeeCollectModuleSettings = {
   __typename?: 'LegacyLimitedFeeCollectModuleSettings'
   /** The collect module amount info */
   amount: Amount
-  /** The collect module limit */
-  collectLimit: Scalars['String']['output']
+  /** The collect module limit. */
+  collectLimit?: Maybe<Scalars['String']['output']>
   contract: NetworkAddress
   /** Follower only */
   followerOnly: Scalars['Boolean']['output']
@@ -1759,7 +1742,7 @@ export type LegacyLimitedTimedFeeCollectModuleSettings = {
   /** The collect module amount info */
   amount: Amount
   /** The collect module limit */
-  collectLimit: Scalars['String']['output']
+  collectLimit?: Maybe<Scalars['String']['output']>
   contract: NetworkAddress
   /** The collect module end timestamp */
   endTimestamp: Scalars['DateTime']['output']
@@ -1780,11 +1763,11 @@ export type LegacyMultirecipientFeeCollectModuleSettings = {
   __typename?: 'LegacyMultirecipientFeeCollectModuleSettings'
   /** The collect module amount info */
   amount: Amount
-  /** The maximum number of collects for this publication. 0 for no limit. */
+  /** The maximum number of collects for this publication. */
   collectLimit?: Maybe<Scalars['String']['output']>
   contract: NetworkAddress
-  /** The end timestamp after which collecting is impossible. 0 for no expiry. */
-  endTimestamp?: Maybe<Scalars['DateTime']['output']>
+  /** The end timestamp after which collecting is impossible. */
+  endsAt?: Maybe<Scalars['DateTime']['output']>
   /** True if only followers of publisher may collect the post. */
   followerOnly: Scalars['Boolean']['output']
   /** Recipient of collect fees. */
@@ -1835,13 +1818,13 @@ export type LegacyRevertCollectModuleSettings = {
 
 export type LegacySimpleCollectModuleSettings = {
   __typename?: 'LegacySimpleCollectModuleSettings'
-  /** The collect module amount info */
-  amount?: Maybe<Amount>
-  /** The maximum number of collects for this publication. 0 for no limit. */
+  /** The collect module amount info. `Amount.value = 0` in case of free collects. */
+  amount: Amount
+  /** The maximum number of collects for this publication. */
   collectLimit?: Maybe<Scalars['String']['output']>
   contract: NetworkAddress
-  /** The end timestamp after which collecting is impossible. 0 for no expiry. */
-  endTimestamp?: Maybe<Scalars['DateTime']['output']>
+  /** The end timestamp after which collecting is impossible. */
+  endsAt?: Maybe<Scalars['DateTime']['output']>
   /** True if only followers of publisher may collect the post. */
   followerOnly: Scalars['Boolean']['output']
   /** The collect module recipient address */
@@ -2201,11 +2184,11 @@ export type MultirecipientFeeCollectOpenActionSettings = {
   __typename?: 'MultirecipientFeeCollectOpenActionSettings'
   /** The collect module amount info */
   amount: Amount
-  /** The maximum number of collects for this publication. 0 for no limit. */
+  /** The maximum number of collects for this publication. */
   collectLimit?: Maybe<Scalars['String']['output']>
   contract: NetworkAddress
-  /** The end timestamp after which collecting is impossible. 0 for no expiry. */
-  endTimestamp?: Maybe<Scalars['DateTime']['output']>
+  /** The end timestamp after which collecting is impossible. */
+  endsAt?: Maybe<Scalars['DateTime']['output']>
   /** True if only followers of publisher may collect the post. */
   followerOnly: Scalars['Boolean']['output']
   /** Recipient of collect fees. */
@@ -3188,7 +3171,7 @@ export type Profile = {
   invitesLeft?: Maybe<Scalars['Int']['output']>
   /** If the profile has got the lens manager enabled - supports signless experience */
   lensManager: Scalars['Boolean']['output']
-  /** The profile metadata */
+  /** The profile metadata. You can optionally query profile metadata by app id.  */
   metadata?: Maybe<ProfileMetadata>
   /** The on chain identity */
   onchainIdentity: ProfileOnchainIdentity
@@ -3199,6 +3182,11 @@ export type Profile = {
   sponsor: Scalars['Boolean']['output']
   stats: ProfileStats
   txHash: Scalars['TxHash']['output']
+}
+
+/** The Profile */
+export type ProfileMetadataArgs = {
+  request?: InputMaybe<GetProfileMetadataArgs>
 }
 
 /** The Profile */
@@ -3328,7 +3316,9 @@ export type ProfileManagersRequest = {
 
 export type ProfileMetadata = {
   __typename?: 'ProfileMetadata'
-  /** Optionals param to add extra attributes on the metadata */
+  /** The app that this metadata is displayed on */
+  app?: Maybe<Scalars['AppId']['output']>
+  /** Metadata custom attributes */
   attributes: Array<Attribute>
   /** The bio for the profile */
   bio?: Maybe<Scalars['Markdown']['output']>
@@ -3810,10 +3800,6 @@ export type PublicationRevenue = {
   revenue: Array<RevenueAggregate>
 }
 
-export type PublicationRevenueRequest = {
-  for: Scalars['PublicationId']['input']
-}
-
 export type PublicationSearchRequest = {
   cursor?: InputMaybe<Scalars['Cursor']['input']>
   limit?: InputMaybe<LimitType>
@@ -3828,6 +3814,7 @@ export type PublicationSearchWhere = {
 
 export type PublicationStats = {
   __typename?: 'PublicationStats'
+  bookmarks: Scalars['Int']['output']
   comments: Scalars['Int']['output']
   countOpenActions: Scalars['Int']['output']
   id: Scalars['PublicationId']['output']
@@ -4143,7 +4130,7 @@ export type QueryPublicationsTagsArgs = {
 }
 
 export type QueryRevenueFromPublicationArgs = {
-  request: PublicationRevenueRequest
+  request: RevenueFromPublicationRequest
 }
 
 export type QueryRevenueFromPublicationsArgs = {
@@ -4399,18 +4386,14 @@ export type RevenueAggregate = {
   total: Amount
 }
 
+export type RevenueFromPublicationRequest = {
+  for: Scalars['PublicationId']['input']
+}
+
 export type RevenueFromPublicationsRequest = {
   cursor?: InputMaybe<Scalars['Cursor']['input']>
   for: Scalars['ProfileId']['input']
   limit?: InputMaybe<LimitType>
-  where: RevenueFromPublicationsWhere
-}
-
-export type RevenueFromPublicationsWhere = {
-  anyOf?: InputMaybe<Array<OpenActionFilter>>
-  fromCollects: Scalars['Boolean']['input']
-  metadata?: InputMaybe<PublicationMetadataFilters>
-  publicationTypes?: InputMaybe<Array<PublicationType>>
 }
 
 export type RevertFollowModuleSettings = {
@@ -4445,13 +4428,13 @@ export type SimpleCollectOpenActionModuleInput = {
 
 export type SimpleCollectOpenActionSettings = {
   __typename?: 'SimpleCollectOpenActionSettings'
-  /** The collect module amount info */
-  amount?: Maybe<Amount>
-  /** The maximum number of collects for this publication. 0 for no limit. */
+  /** The collect module amount info. `Amount.value = 0` in case of free collects. */
+  amount: Amount
+  /** The maximum number of collects for this publication. */
   collectLimit?: Maybe<Scalars['String']['output']>
   contract: NetworkAddress
-  /** The end timestamp after which collecting is impossible. 0 for no expiry. */
-  endTimestamp?: Maybe<Scalars['DateTime']['output']>
+  /** The end timestamp after which collecting is impossible. */
+  endsAt?: Maybe<Scalars['DateTime']['output']>
   /** True if only followers of publisher may collect the post. */
   followerOnly: Scalars['Boolean']['output']
   /** The collect module recipient address */
@@ -4719,7 +4702,7 @@ export type VerifyRequest = {
 
 export type Video = {
   __typename?: 'Video'
-  mimeType?: Maybe<VideoMimeType>
+  mimeType?: Maybe<Scalars['MimeType']['output']>
   uri: Scalars['URI']['output']
 }
 
@@ -4740,19 +4723,6 @@ export type VideoMetadataV3 = {
   rawURI: Scalars['URI']['output']
   tags?: Maybe<Array<Scalars['String']['output']>>
   video: PublicationMetadataMediaVideo
-}
-
-export enum VideoMimeType {
-  Gltf = 'GLTF',
-  GltfBinary = 'GLTF_BINARY',
-  M4V = 'M4V',
-  Mov = 'MOV',
-  Mp4 = 'MP4',
-  Mpeg = 'MPEG',
-  Ogg = 'OGG',
-  Ogv = 'OGV',
-  Quicktime = 'QUICKTIME',
-  Webm = 'WEBM'
 }
 
 export type VideoSet = {
@@ -4909,30 +4879,22 @@ type AnyPublicationMetadataFields_LegacyPublicationMetadata_Fragment = {
         __typename?: 'LegacyAudioItem'
         cover?: {
           __typename?: 'ImageSet'
-          raw: {
-            __typename?: 'Image'
-            uri: any
-            mimeType?: ImageMimeType | null
-          }
+          raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
           optimized?: {
             __typename?: 'Image'
             uri: any
-            mimeType?: ImageMimeType | null
+            mimeType?: any | null
             width?: number | null
             height?: number | null
           } | null
         } | null
         audio: {
           __typename?: 'AudioSet'
-          raw: {
-            __typename?: 'Audio'
-            uri: any
-            mimeType?: AudioMimeType | null
-          }
+          raw: { __typename?: 'Audio'; uri: any; mimeType?: any | null }
           optimized?: {
             __typename?: 'Audio'
             uri: any
-            mimeType?: AudioMimeType | null
+            mimeType?: any | null
           } | null
         }
       }
@@ -4940,15 +4902,11 @@ type AnyPublicationMetadataFields_LegacyPublicationMetadata_Fragment = {
         __typename?: 'LegacyImageItem'
         image: {
           __typename?: 'ImageSet'
-          raw: {
-            __typename?: 'Image'
-            uri: any
-            mimeType?: ImageMimeType | null
-          }
+          raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
           optimized?: {
             __typename?: 'Image'
             uri: any
-            mimeType?: ImageMimeType | null
+            mimeType?: any | null
             width?: number | null
             height?: number | null
           } | null
@@ -4958,30 +4916,22 @@ type AnyPublicationMetadataFields_LegacyPublicationMetadata_Fragment = {
         __typename?: 'LegacyVideoItem'
         cover?: {
           __typename?: 'ImageSet'
-          raw: {
-            __typename?: 'Image'
-            uri: any
-            mimeType?: ImageMimeType | null
-          }
+          raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
           optimized?: {
             __typename?: 'Image'
             uri: any
-            mimeType?: ImageMimeType | null
+            mimeType?: any | null
             width?: number | null
             height?: number | null
           } | null
         } | null
         video: {
           __typename?: 'VideoSet'
-          raw: {
-            __typename?: 'Video'
-            uri: any
-            mimeType?: VideoMimeType | null
-          }
+          raw: { __typename?: 'Video'; uri: any; mimeType?: any | null }
           optimized?: {
             __typename?: 'Video'
             uri: any
-            mimeType?: VideoMimeType | null
+            mimeType?: any | null
           } | null
         }
       }
@@ -4999,11 +4949,11 @@ type AnyPublicationMetadataFields_LegacyPublicationMetadata_Fragment = {
     }> | null
     image?: {
       __typename?: 'ImageSet'
-      raw: { __typename?: 'Image'; uri: any; mimeType?: ImageMimeType | null }
+      raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
       optimized?: {
         __typename?: 'Image'
         uri: any
-        mimeType?: ImageMimeType | null
+        mimeType?: any | null
         width?: number | null
         height?: number | null
       } | null
@@ -5245,15 +5195,11 @@ export type CommentFieldsFragment = {
       picture?:
         | {
             __typename?: 'ImageSet'
-            raw: {
-              __typename?: 'Image'
-              uri: any
-              mimeType?: ImageMimeType | null
-            }
+            raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
             optimized?: {
               __typename?: 'Image'
               uri: any
-              mimeType?: ImageMimeType | null
+              mimeType?: any | null
               width?: number | null
               height?: number | null
             } | null
@@ -5444,30 +5390,22 @@ export type CommentFieldsFragment = {
               __typename?: 'LegacyAudioItem'
               cover?: {
                 __typename?: 'ImageSet'
-                raw: {
-                  __typename?: 'Image'
-                  uri: any
-                  mimeType?: ImageMimeType | null
-                }
+                raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
                 optimized?: {
                   __typename?: 'Image'
                   uri: any
-                  mimeType?: ImageMimeType | null
+                  mimeType?: any | null
                   width?: number | null
                   height?: number | null
                 } | null
               } | null
               audio: {
                 __typename?: 'AudioSet'
-                raw: {
-                  __typename?: 'Audio'
-                  uri: any
-                  mimeType?: AudioMimeType | null
-                }
+                raw: { __typename?: 'Audio'; uri: any; mimeType?: any | null }
                 optimized?: {
                   __typename?: 'Audio'
                   uri: any
-                  mimeType?: AudioMimeType | null
+                  mimeType?: any | null
                 } | null
               }
             }
@@ -5475,15 +5413,11 @@ export type CommentFieldsFragment = {
               __typename?: 'LegacyImageItem'
               image: {
                 __typename?: 'ImageSet'
-                raw: {
-                  __typename?: 'Image'
-                  uri: any
-                  mimeType?: ImageMimeType | null
-                }
+                raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
                 optimized?: {
                   __typename?: 'Image'
                   uri: any
-                  mimeType?: ImageMimeType | null
+                  mimeType?: any | null
                   width?: number | null
                   height?: number | null
                 } | null
@@ -5493,30 +5427,22 @@ export type CommentFieldsFragment = {
               __typename?: 'LegacyVideoItem'
               cover?: {
                 __typename?: 'ImageSet'
-                raw: {
-                  __typename?: 'Image'
-                  uri: any
-                  mimeType?: ImageMimeType | null
-                }
+                raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
                 optimized?: {
                   __typename?: 'Image'
                   uri: any
-                  mimeType?: ImageMimeType | null
+                  mimeType?: any | null
                   width?: number | null
                   height?: number | null
                 } | null
               } | null
               video: {
                 __typename?: 'VideoSet'
-                raw: {
-                  __typename?: 'Video'
-                  uri: any
-                  mimeType?: VideoMimeType | null
-                }
+                raw: { __typename?: 'Video'; uri: any; mimeType?: any | null }
                 optimized?: {
                   __typename?: 'Video'
                   uri: any
-                  mimeType?: VideoMimeType | null
+                  mimeType?: any | null
                 } | null
               }
             }
@@ -5534,15 +5460,11 @@ export type CommentFieldsFragment = {
           }> | null
           image?: {
             __typename?: 'ImageSet'
-            raw: {
-              __typename?: 'Image'
-              uri: any
-              mimeType?: ImageMimeType | null
-            }
+            raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
             optimized?: {
               __typename?: 'Image'
               uri: any
-              mimeType?: ImageMimeType | null
+              mimeType?: any | null
               width?: number | null
               height?: number | null
             } | null
@@ -5683,7 +5605,7 @@ export type CommentFieldsFragment = {
         followerOnly: boolean
         recipient: any
         optionalCollectLimit?: string | null
-        optionalEndTimestamp?: any | null
+        optionalEndsAt?: any | null
         contract: { __typename?: 'NetworkAddress'; address: any; chainId: any }
         amount: {
           __typename?: 'Amount'
@@ -5717,7 +5639,7 @@ export type CommentFieldsFragment = {
         referralFee: number
         followerOnly: boolean
         optionalCollectLimit?: string | null
-        optionalEndTimestamp?: any | null
+        optionalEndsAt?: any | null
         contract: { __typename?: 'NetworkAddress'; address: any; chainId: any }
         vault: { __typename?: 'NetworkAddress'; address: any; chainId: any }
         amount: {
@@ -5785,7 +5707,7 @@ export type CommentFieldsFragment = {
       }
     | {
         __typename?: 'LegacyLimitedFeeCollectModuleSettings'
-        collectLimit: string
+        collectLimit?: string | null
         recipient: any
         referralFee: number
         followerOnly: boolean
@@ -5818,7 +5740,7 @@ export type CommentFieldsFragment = {
       }
     | {
         __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings'
-        collectLimit: string
+        collectLimit?: string | null
         recipient: any
         referralFee: number
         followerOnly: boolean
@@ -5855,7 +5777,7 @@ export type CommentFieldsFragment = {
         referralFee: number
         followerOnly: boolean
         optionalCollectLimit?: string | null
-        optionalEndTimestamp?: any | null
+        optionalEndsAt?: any | null
         contract: { __typename?: 'NetworkAddress'; address: any; chainId: any }
         amount: {
           __typename?: 'Amount'
@@ -5898,9 +5820,9 @@ export type CommentFieldsFragment = {
         recipient: any
         referralFee: number
         optionalCollectLimit?: string | null
-        optionalEndTimestamp?: any | null
+        optionalEndsAt?: any | null
         contract: { __typename?: 'NetworkAddress'; address: any; chainId: any }
-        optionalAmount?: {
+        optionalAmount: {
           __typename?: 'Amount'
           value: string
           rate?: {
@@ -5924,7 +5846,7 @@ export type CommentFieldsFragment = {
               chainId: any
             }
           }
-        } | null
+        }
       }
     | {
         __typename?: 'LegacyTimedFeeCollectModuleSettings'
@@ -5964,7 +5886,7 @@ export type CommentFieldsFragment = {
         referralFee: number
         followerOnly: boolean
         optionalCollectLimit?: string | null
-        optionalEndTimestamp?: any | null
+        optionalEndsAt?: any | null
         contract: { __typename?: 'NetworkAddress'; address: any; chainId: any }
         amount: {
           __typename?: 'Amount'
@@ -6003,9 +5925,9 @@ export type CommentFieldsFragment = {
         recipient: any
         referralFee: number
         optionalCollectLimit?: string | null
-        optionalEndTimestamp?: any | null
+        optionalEndsAt?: any | null
         contract: { __typename?: 'NetworkAddress'; address: any; chainId: any }
-        optionalAmount?: {
+        optionalAmount: {
           __typename?: 'Amount'
           value: string
           rate?: {
@@ -6029,7 +5951,7 @@ export type CommentFieldsFragment = {
               chainId: any
             }
           }
-        } | null
+        }
       }
     | {
         __typename?: 'UnknownOpenActionModuleSettings'
@@ -6113,11 +6035,11 @@ export type FollowModuleFieldsFragment =
 
 export type ImageSetFieldsFragment = {
   __typename?: 'ImageSet'
-  raw: { __typename?: 'Image'; uri: any; mimeType?: ImageMimeType | null }
+  raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
   optimized?: {
     __typename?: 'Image'
     uri: any
-    mimeType?: ImageMimeType | null
+    mimeType?: any | null
     width?: number | null
     height?: number | null
   } | null
@@ -6127,23 +6049,19 @@ type MediaFields_LegacyAudioItem_Fragment = {
   __typename?: 'LegacyAudioItem'
   cover?: {
     __typename?: 'ImageSet'
-    raw: { __typename?: 'Image'; uri: any; mimeType?: ImageMimeType | null }
+    raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
     optimized?: {
       __typename?: 'Image'
       uri: any
-      mimeType?: ImageMimeType | null
+      mimeType?: any | null
       width?: number | null
       height?: number | null
     } | null
   } | null
   audio: {
     __typename?: 'AudioSet'
-    raw: { __typename?: 'Audio'; uri: any; mimeType?: AudioMimeType | null }
-    optimized?: {
-      __typename?: 'Audio'
-      uri: any
-      mimeType?: AudioMimeType | null
-    } | null
+    raw: { __typename?: 'Audio'; uri: any; mimeType?: any | null }
+    optimized?: { __typename?: 'Audio'; uri: any; mimeType?: any | null } | null
   }
 }
 
@@ -6151,11 +6069,11 @@ type MediaFields_LegacyImageItem_Fragment = {
   __typename?: 'LegacyImageItem'
   image: {
     __typename?: 'ImageSet'
-    raw: { __typename?: 'Image'; uri: any; mimeType?: ImageMimeType | null }
+    raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
     optimized?: {
       __typename?: 'Image'
       uri: any
-      mimeType?: ImageMimeType | null
+      mimeType?: any | null
       width?: number | null
       height?: number | null
     } | null
@@ -6166,23 +6084,19 @@ type MediaFields_LegacyVideoItem_Fragment = {
   __typename?: 'LegacyVideoItem'
   cover?: {
     __typename?: 'ImageSet'
-    raw: { __typename?: 'Image'; uri: any; mimeType?: ImageMimeType | null }
+    raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
     optimized?: {
       __typename?: 'Image'
       uri: any
-      mimeType?: ImageMimeType | null
+      mimeType?: any | null
       width?: number | null
       height?: number | null
     } | null
   } | null
   video: {
     __typename?: 'VideoSet'
-    raw: { __typename?: 'Video'; uri: any; mimeType?: VideoMimeType | null }
-    optimized?: {
-      __typename?: 'Video'
-      uri: any
-      mimeType?: VideoMimeType | null
-    } | null
+    raw: { __typename?: 'Video'; uri: any; mimeType?: any | null }
+    optimized?: { __typename?: 'Video'; uri: any; mimeType?: any | null } | null
   }
 }
 
@@ -6217,7 +6131,7 @@ type OpenActionModulesFields_LegacyAaveFeeCollectModuleSettings_Fragment = {
   followerOnly: boolean
   recipient: any
   optionalCollectLimit?: string | null
-  optionalEndTimestamp?: any | null
+  optionalEndsAt?: any | null
   contract: { __typename?: 'NetworkAddress'; address: any; chainId: any }
   amount: {
     __typename?: 'Amount'
@@ -6248,7 +6162,7 @@ type OpenActionModulesFields_LegacyErc4626FeeCollectModuleSettings_Fragment = {
   referralFee: number
   followerOnly: boolean
   optionalCollectLimit?: string | null
-  optionalEndTimestamp?: any | null
+  optionalEndsAt?: any | null
   contract: { __typename?: 'NetworkAddress'; address: any; chainId: any }
   vault: { __typename?: 'NetworkAddress'; address: any; chainId: any }
   amount: {
@@ -6311,7 +6225,7 @@ type OpenActionModulesFields_LegacyFreeCollectModuleSettings_Fragment = {
 
 type OpenActionModulesFields_LegacyLimitedFeeCollectModuleSettings_Fragment = {
   __typename?: 'LegacyLimitedFeeCollectModuleSettings'
-  collectLimit: string
+  collectLimit?: string | null
   recipient: any
   referralFee: number
   followerOnly: boolean
@@ -6342,7 +6256,7 @@ type OpenActionModulesFields_LegacyLimitedFeeCollectModuleSettings_Fragment = {
 type OpenActionModulesFields_LegacyLimitedTimedFeeCollectModuleSettings_Fragment =
   {
     __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings'
-    collectLimit: string
+    collectLimit?: string | null
     recipient: any
     referralFee: number
     followerOnly: boolean
@@ -6377,7 +6291,7 @@ type OpenActionModulesFields_LegacyMultirecipientFeeCollectModuleSettings_Fragme
     referralFee: number
     followerOnly: boolean
     optionalCollectLimit?: string | null
-    optionalEndTimestamp?: any | null
+    optionalEndsAt?: any | null
     contract: { __typename?: 'NetworkAddress'; address: any; chainId: any }
     amount: {
       __typename?: 'Amount'
@@ -6418,9 +6332,9 @@ type OpenActionModulesFields_LegacySimpleCollectModuleSettings_Fragment = {
   recipient: any
   referralFee: number
   optionalCollectLimit?: string | null
-  optionalEndTimestamp?: any | null
+  optionalEndsAt?: any | null
   contract: { __typename?: 'NetworkAddress'; address: any; chainId: any }
-  optionalAmount?: {
+  optionalAmount: {
     __typename?: 'Amount'
     value: string
     rate?: {
@@ -6440,7 +6354,7 @@ type OpenActionModulesFields_LegacySimpleCollectModuleSettings_Fragment = {
       decimals: number
       contract: { __typename?: 'NetworkAddress'; address: any; chainId: any }
     }
-  } | null
+  }
 }
 
 type OpenActionModulesFields_LegacyTimedFeeCollectModuleSettings_Fragment = {
@@ -6479,7 +6393,7 @@ type OpenActionModulesFields_MultirecipientFeeCollectOpenActionSettings_Fragment
     referralFee: number
     followerOnly: boolean
     optionalCollectLimit?: string | null
-    optionalEndTimestamp?: any | null
+    optionalEndsAt?: any | null
     contract: { __typename?: 'NetworkAddress'; address: any; chainId: any }
     amount: {
       __typename?: 'Amount'
@@ -6515,9 +6429,9 @@ type OpenActionModulesFields_SimpleCollectOpenActionSettings_Fragment = {
   recipient: any
   referralFee: number
   optionalCollectLimit?: string | null
-  optionalEndTimestamp?: any | null
+  optionalEndsAt?: any | null
   contract: { __typename?: 'NetworkAddress'; address: any; chainId: any }
-  optionalAmount?: {
+  optionalAmount: {
     __typename?: 'Amount'
     value: string
     rate?: {
@@ -6537,7 +6451,7 @@ type OpenActionModulesFields_SimpleCollectOpenActionSettings_Fragment = {
       decimals: number
       contract: { __typename?: 'NetworkAddress'; address: any; chainId: any }
     }
-  } | null
+  }
 }
 
 type OpenActionModulesFields_UnknownOpenActionModuleSettings_Fragment = {
@@ -6641,15 +6555,11 @@ export type PostFieldsFragment = {
       picture?:
         | {
             __typename?: 'ImageSet'
-            raw: {
-              __typename?: 'Image'
-              uri: any
-              mimeType?: ImageMimeType | null
-            }
+            raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
             optimized?: {
               __typename?: 'Image'
               uri: any
-              mimeType?: ImageMimeType | null
+              mimeType?: any | null
               width?: number | null
               height?: number | null
             } | null
@@ -6840,30 +6750,22 @@ export type PostFieldsFragment = {
               __typename?: 'LegacyAudioItem'
               cover?: {
                 __typename?: 'ImageSet'
-                raw: {
-                  __typename?: 'Image'
-                  uri: any
-                  mimeType?: ImageMimeType | null
-                }
+                raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
                 optimized?: {
                   __typename?: 'Image'
                   uri: any
-                  mimeType?: ImageMimeType | null
+                  mimeType?: any | null
                   width?: number | null
                   height?: number | null
                 } | null
               } | null
               audio: {
                 __typename?: 'AudioSet'
-                raw: {
-                  __typename?: 'Audio'
-                  uri: any
-                  mimeType?: AudioMimeType | null
-                }
+                raw: { __typename?: 'Audio'; uri: any; mimeType?: any | null }
                 optimized?: {
                   __typename?: 'Audio'
                   uri: any
-                  mimeType?: AudioMimeType | null
+                  mimeType?: any | null
                 } | null
               }
             }
@@ -6871,15 +6773,11 @@ export type PostFieldsFragment = {
               __typename?: 'LegacyImageItem'
               image: {
                 __typename?: 'ImageSet'
-                raw: {
-                  __typename?: 'Image'
-                  uri: any
-                  mimeType?: ImageMimeType | null
-                }
+                raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
                 optimized?: {
                   __typename?: 'Image'
                   uri: any
-                  mimeType?: ImageMimeType | null
+                  mimeType?: any | null
                   width?: number | null
                   height?: number | null
                 } | null
@@ -6889,30 +6787,22 @@ export type PostFieldsFragment = {
               __typename?: 'LegacyVideoItem'
               cover?: {
                 __typename?: 'ImageSet'
-                raw: {
-                  __typename?: 'Image'
-                  uri: any
-                  mimeType?: ImageMimeType | null
-                }
+                raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
                 optimized?: {
                   __typename?: 'Image'
                   uri: any
-                  mimeType?: ImageMimeType | null
+                  mimeType?: any | null
                   width?: number | null
                   height?: number | null
                 } | null
               } | null
               video: {
                 __typename?: 'VideoSet'
-                raw: {
-                  __typename?: 'Video'
-                  uri: any
-                  mimeType?: VideoMimeType | null
-                }
+                raw: { __typename?: 'Video'; uri: any; mimeType?: any | null }
                 optimized?: {
                   __typename?: 'Video'
                   uri: any
-                  mimeType?: VideoMimeType | null
+                  mimeType?: any | null
                 } | null
               }
             }
@@ -6930,15 +6820,11 @@ export type PostFieldsFragment = {
           }> | null
           image?: {
             __typename?: 'ImageSet'
-            raw: {
-              __typename?: 'Image'
-              uri: any
-              mimeType?: ImageMimeType | null
-            }
+            raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
             optimized?: {
               __typename?: 'Image'
               uri: any
-              mimeType?: ImageMimeType | null
+              mimeType?: any | null
               width?: number | null
               height?: number | null
             } | null
@@ -7079,7 +6965,7 @@ export type PostFieldsFragment = {
         followerOnly: boolean
         recipient: any
         optionalCollectLimit?: string | null
-        optionalEndTimestamp?: any | null
+        optionalEndsAt?: any | null
         contract: { __typename?: 'NetworkAddress'; address: any; chainId: any }
         amount: {
           __typename?: 'Amount'
@@ -7113,7 +6999,7 @@ export type PostFieldsFragment = {
         referralFee: number
         followerOnly: boolean
         optionalCollectLimit?: string | null
-        optionalEndTimestamp?: any | null
+        optionalEndsAt?: any | null
         contract: { __typename?: 'NetworkAddress'; address: any; chainId: any }
         vault: { __typename?: 'NetworkAddress'; address: any; chainId: any }
         amount: {
@@ -7181,7 +7067,7 @@ export type PostFieldsFragment = {
       }
     | {
         __typename?: 'LegacyLimitedFeeCollectModuleSettings'
-        collectLimit: string
+        collectLimit?: string | null
         recipient: any
         referralFee: number
         followerOnly: boolean
@@ -7214,7 +7100,7 @@ export type PostFieldsFragment = {
       }
     | {
         __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings'
-        collectLimit: string
+        collectLimit?: string | null
         recipient: any
         referralFee: number
         followerOnly: boolean
@@ -7251,7 +7137,7 @@ export type PostFieldsFragment = {
         referralFee: number
         followerOnly: boolean
         optionalCollectLimit?: string | null
-        optionalEndTimestamp?: any | null
+        optionalEndsAt?: any | null
         contract: { __typename?: 'NetworkAddress'; address: any; chainId: any }
         amount: {
           __typename?: 'Amount'
@@ -7294,9 +7180,9 @@ export type PostFieldsFragment = {
         recipient: any
         referralFee: number
         optionalCollectLimit?: string | null
-        optionalEndTimestamp?: any | null
+        optionalEndsAt?: any | null
         contract: { __typename?: 'NetworkAddress'; address: any; chainId: any }
-        optionalAmount?: {
+        optionalAmount: {
           __typename?: 'Amount'
           value: string
           rate?: {
@@ -7320,7 +7206,7 @@ export type PostFieldsFragment = {
               chainId: any
             }
           }
-        } | null
+        }
       }
     | {
         __typename?: 'LegacyTimedFeeCollectModuleSettings'
@@ -7360,7 +7246,7 @@ export type PostFieldsFragment = {
         referralFee: number
         followerOnly: boolean
         optionalCollectLimit?: string | null
-        optionalEndTimestamp?: any | null
+        optionalEndsAt?: any | null
         contract: { __typename?: 'NetworkAddress'; address: any; chainId: any }
         amount: {
           __typename?: 'Amount'
@@ -7399,9 +7285,9 @@ export type PostFieldsFragment = {
         recipient: any
         referralFee: number
         optionalCollectLimit?: string | null
-        optionalEndTimestamp?: any | null
+        optionalEndsAt?: any | null
         contract: { __typename?: 'NetworkAddress'; address: any; chainId: any }
-        optionalAmount?: {
+        optionalAmount: {
           __typename?: 'Amount'
           value: string
           rate?: {
@@ -7425,7 +7311,7 @@ export type PostFieldsFragment = {
               chainId: any
             }
           }
-        } | null
+        }
       }
     | {
         __typename?: 'UnknownOpenActionModuleSettings'
@@ -7540,15 +7426,11 @@ export type ProfileFieldsFragment = {
     picture?:
       | {
           __typename?: 'ImageSet'
-          raw: {
-            __typename?: 'Image'
-            uri: any
-            mimeType?: ImageMimeType | null
-          }
+          raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
           optimized?: {
             __typename?: 'Image'
             uri: any
-            mimeType?: ImageMimeType | null
+            mimeType?: any | null
             width?: number | null
             height?: number | null
           } | null
@@ -7608,11 +7490,11 @@ export type ProfileMetadataFieldsFragment = {
   picture?:
     | {
         __typename?: 'ImageSet'
-        raw: { __typename?: 'Image'; uri: any; mimeType?: ImageMimeType | null }
+        raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
         optimized?: {
           __typename?: 'Image'
           uri: any
-          mimeType?: ImageMimeType | null
+          mimeType?: any | null
           width?: number | null
           height?: number | null
         } | null
@@ -7784,15 +7666,11 @@ export type QuoteFieldsFragment = {
       picture?:
         | {
             __typename?: 'ImageSet'
-            raw: {
-              __typename?: 'Image'
-              uri: any
-              mimeType?: ImageMimeType | null
-            }
+            raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
             optimized?: {
               __typename?: 'Image'
               uri: any
-              mimeType?: ImageMimeType | null
+              mimeType?: any | null
               width?: number | null
               height?: number | null
             } | null
@@ -7983,30 +7861,22 @@ export type QuoteFieldsFragment = {
               __typename?: 'LegacyAudioItem'
               cover?: {
                 __typename?: 'ImageSet'
-                raw: {
-                  __typename?: 'Image'
-                  uri: any
-                  mimeType?: ImageMimeType | null
-                }
+                raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
                 optimized?: {
                   __typename?: 'Image'
                   uri: any
-                  mimeType?: ImageMimeType | null
+                  mimeType?: any | null
                   width?: number | null
                   height?: number | null
                 } | null
               } | null
               audio: {
                 __typename?: 'AudioSet'
-                raw: {
-                  __typename?: 'Audio'
-                  uri: any
-                  mimeType?: AudioMimeType | null
-                }
+                raw: { __typename?: 'Audio'; uri: any; mimeType?: any | null }
                 optimized?: {
                   __typename?: 'Audio'
                   uri: any
-                  mimeType?: AudioMimeType | null
+                  mimeType?: any | null
                 } | null
               }
             }
@@ -8014,15 +7884,11 @@ export type QuoteFieldsFragment = {
               __typename?: 'LegacyImageItem'
               image: {
                 __typename?: 'ImageSet'
-                raw: {
-                  __typename?: 'Image'
-                  uri: any
-                  mimeType?: ImageMimeType | null
-                }
+                raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
                 optimized?: {
                   __typename?: 'Image'
                   uri: any
-                  mimeType?: ImageMimeType | null
+                  mimeType?: any | null
                   width?: number | null
                   height?: number | null
                 } | null
@@ -8032,30 +7898,22 @@ export type QuoteFieldsFragment = {
               __typename?: 'LegacyVideoItem'
               cover?: {
                 __typename?: 'ImageSet'
-                raw: {
-                  __typename?: 'Image'
-                  uri: any
-                  mimeType?: ImageMimeType | null
-                }
+                raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
                 optimized?: {
                   __typename?: 'Image'
                   uri: any
-                  mimeType?: ImageMimeType | null
+                  mimeType?: any | null
                   width?: number | null
                   height?: number | null
                 } | null
               } | null
               video: {
                 __typename?: 'VideoSet'
-                raw: {
-                  __typename?: 'Video'
-                  uri: any
-                  mimeType?: VideoMimeType | null
-                }
+                raw: { __typename?: 'Video'; uri: any; mimeType?: any | null }
                 optimized?: {
                   __typename?: 'Video'
                   uri: any
-                  mimeType?: VideoMimeType | null
+                  mimeType?: any | null
                 } | null
               }
             }
@@ -8073,15 +7931,11 @@ export type QuoteFieldsFragment = {
           }> | null
           image?: {
             __typename?: 'ImageSet'
-            raw: {
-              __typename?: 'Image'
-              uri: any
-              mimeType?: ImageMimeType | null
-            }
+            raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
             optimized?: {
               __typename?: 'Image'
               uri: any
-              mimeType?: ImageMimeType | null
+              mimeType?: any | null
               width?: number | null
               height?: number | null
             } | null
@@ -8222,7 +8076,7 @@ export type QuoteFieldsFragment = {
         followerOnly: boolean
         recipient: any
         optionalCollectLimit?: string | null
-        optionalEndTimestamp?: any | null
+        optionalEndsAt?: any | null
         contract: { __typename?: 'NetworkAddress'; address: any; chainId: any }
         amount: {
           __typename?: 'Amount'
@@ -8256,7 +8110,7 @@ export type QuoteFieldsFragment = {
         referralFee: number
         followerOnly: boolean
         optionalCollectLimit?: string | null
-        optionalEndTimestamp?: any | null
+        optionalEndsAt?: any | null
         contract: { __typename?: 'NetworkAddress'; address: any; chainId: any }
         vault: { __typename?: 'NetworkAddress'; address: any; chainId: any }
         amount: {
@@ -8324,7 +8178,7 @@ export type QuoteFieldsFragment = {
       }
     | {
         __typename?: 'LegacyLimitedFeeCollectModuleSettings'
-        collectLimit: string
+        collectLimit?: string | null
         recipient: any
         referralFee: number
         followerOnly: boolean
@@ -8357,7 +8211,7 @@ export type QuoteFieldsFragment = {
       }
     | {
         __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings'
-        collectLimit: string
+        collectLimit?: string | null
         recipient: any
         referralFee: number
         followerOnly: boolean
@@ -8394,7 +8248,7 @@ export type QuoteFieldsFragment = {
         referralFee: number
         followerOnly: boolean
         optionalCollectLimit?: string | null
-        optionalEndTimestamp?: any | null
+        optionalEndsAt?: any | null
         contract: { __typename?: 'NetworkAddress'; address: any; chainId: any }
         amount: {
           __typename?: 'Amount'
@@ -8437,9 +8291,9 @@ export type QuoteFieldsFragment = {
         recipient: any
         referralFee: number
         optionalCollectLimit?: string | null
-        optionalEndTimestamp?: any | null
+        optionalEndsAt?: any | null
         contract: { __typename?: 'NetworkAddress'; address: any; chainId: any }
-        optionalAmount?: {
+        optionalAmount: {
           __typename?: 'Amount'
           value: string
           rate?: {
@@ -8463,7 +8317,7 @@ export type QuoteFieldsFragment = {
               chainId: any
             }
           }
-        } | null
+        }
       }
     | {
         __typename?: 'LegacyTimedFeeCollectModuleSettings'
@@ -8503,7 +8357,7 @@ export type QuoteFieldsFragment = {
         referralFee: number
         followerOnly: boolean
         optionalCollectLimit?: string | null
-        optionalEndTimestamp?: any | null
+        optionalEndsAt?: any | null
         contract: { __typename?: 'NetworkAddress'; address: any; chainId: any }
         amount: {
           __typename?: 'Amount'
@@ -8542,9 +8396,9 @@ export type QuoteFieldsFragment = {
         recipient: any
         referralFee: number
         optionalCollectLimit?: string | null
-        optionalEndTimestamp?: any | null
+        optionalEndsAt?: any | null
         contract: { __typename?: 'NetworkAddress'; address: any; chainId: any }
-        optionalAmount?: {
+        optionalAmount: {
           __typename?: 'Amount'
           value: string
           rate?: {
@@ -8568,7 +8422,7 @@ export type QuoteFieldsFragment = {
               chainId: any
             }
           }
-        } | null
+        }
       }
     | {
         __typename?: 'UnknownOpenActionModuleSettings'
@@ -8717,30 +8571,22 @@ export type LegacyPublicationMetadataFieldsFragment = {
         __typename?: 'LegacyAudioItem'
         cover?: {
           __typename?: 'ImageSet'
-          raw: {
-            __typename?: 'Image'
-            uri: any
-            mimeType?: ImageMimeType | null
-          }
+          raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
           optimized?: {
             __typename?: 'Image'
             uri: any
-            mimeType?: ImageMimeType | null
+            mimeType?: any | null
             width?: number | null
             height?: number | null
           } | null
         } | null
         audio: {
           __typename?: 'AudioSet'
-          raw: {
-            __typename?: 'Audio'
-            uri: any
-            mimeType?: AudioMimeType | null
-          }
+          raw: { __typename?: 'Audio'; uri: any; mimeType?: any | null }
           optimized?: {
             __typename?: 'Audio'
             uri: any
-            mimeType?: AudioMimeType | null
+            mimeType?: any | null
           } | null
         }
       }
@@ -8748,15 +8594,11 @@ export type LegacyPublicationMetadataFieldsFragment = {
         __typename?: 'LegacyImageItem'
         image: {
           __typename?: 'ImageSet'
-          raw: {
-            __typename?: 'Image'
-            uri: any
-            mimeType?: ImageMimeType | null
-          }
+          raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
           optimized?: {
             __typename?: 'Image'
             uri: any
-            mimeType?: ImageMimeType | null
+            mimeType?: any | null
             width?: number | null
             height?: number | null
           } | null
@@ -8766,30 +8608,22 @@ export type LegacyPublicationMetadataFieldsFragment = {
         __typename?: 'LegacyVideoItem'
         cover?: {
           __typename?: 'ImageSet'
-          raw: {
-            __typename?: 'Image'
-            uri: any
-            mimeType?: ImageMimeType | null
-          }
+          raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
           optimized?: {
             __typename?: 'Image'
             uri: any
-            mimeType?: ImageMimeType | null
+            mimeType?: any | null
             width?: number | null
             height?: number | null
           } | null
         } | null
         video: {
           __typename?: 'VideoSet'
-          raw: {
-            __typename?: 'Video'
-            uri: any
-            mimeType?: VideoMimeType | null
-          }
+          raw: { __typename?: 'Video'; uri: any; mimeType?: any | null }
           optimized?: {
             __typename?: 'Video'
             uri: any
-            mimeType?: VideoMimeType | null
+            mimeType?: any | null
           } | null
         }
       }
@@ -8807,11 +8641,11 @@ export type LegacyPublicationMetadataFieldsFragment = {
     }> | null
     image?: {
       __typename?: 'ImageSet'
-      raw: { __typename?: 'Image'; uri: any; mimeType?: ImageMimeType | null }
+      raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
       optimized?: {
         __typename?: 'Image'
         uri: any
-        mimeType?: ImageMimeType | null
+        mimeType?: any | null
         width?: number | null
         height?: number | null
       } | null
@@ -10364,12 +10198,12 @@ export type ExplorePublicationsQuery = {
                     raw: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                     }
                     optimized?: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                       width?: number | null
                       height?: number | null
                     } | null
@@ -10563,12 +10397,12 @@ export type ExplorePublicationsQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -10578,12 +10412,12 @@ export type ExplorePublicationsQuery = {
                         raw: {
                           __typename?: 'Audio'
                           uri: any
-                          mimeType?: AudioMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Audio'
                           uri: any
-                          mimeType?: AudioMimeType | null
+                          mimeType?: any | null
                         } | null
                       }
                     }
@@ -10594,12 +10428,12 @@ export type ExplorePublicationsQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -10612,12 +10446,12 @@ export type ExplorePublicationsQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -10627,12 +10461,12 @@ export type ExplorePublicationsQuery = {
                         raw: {
                           __typename?: 'Video'
                           uri: any
-                          mimeType?: VideoMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Video'
                           uri: any
-                          mimeType?: VideoMimeType | null
+                          mimeType?: any | null
                         } | null
                       }
                     }
@@ -10653,12 +10487,12 @@ export type ExplorePublicationsQuery = {
                     raw: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                     }
                     optimized?: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                       width?: number | null
                       height?: number | null
                     } | null
@@ -10799,7 +10633,7 @@ export type ExplorePublicationsQuery = {
                 followerOnly: boolean
                 recipient: any
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -10837,7 +10671,7 @@ export type ExplorePublicationsQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -10921,7 +10755,7 @@ export type ExplorePublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyLimitedFeeCollectModuleSettings'
-                collectLimit: string
+                collectLimit?: string | null
                 recipient: any
                 referralFee: number
                 followerOnly: boolean
@@ -10958,7 +10792,7 @@ export type ExplorePublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings'
-                collectLimit: string
+                collectLimit?: string | null
                 recipient: any
                 referralFee: number
                 followerOnly: boolean
@@ -10999,7 +10833,7 @@ export type ExplorePublicationsQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -11050,13 +10884,13 @@ export type ExplorePublicationsQuery = {
                 recipient: any
                 referralFee: number
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
                   chainId: any
                 }
-                optionalAmount?: {
+                optionalAmount: {
                   __typename?: 'Amount'
                   value: string
                   rate?: {
@@ -11080,7 +10914,7 @@ export type ExplorePublicationsQuery = {
                       chainId: any
                     }
                   }
-                } | null
+                }
               }
             | {
                 __typename?: 'LegacyTimedFeeCollectModuleSettings'
@@ -11124,7 +10958,7 @@ export type ExplorePublicationsQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -11167,13 +11001,13 @@ export type ExplorePublicationsQuery = {
                 recipient: any
                 referralFee: number
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
                   chainId: any
                 }
-                optionalAmount?: {
+                optionalAmount: {
                   __typename?: 'Amount'
                   value: string
                   rate?: {
@@ -11197,7 +11031,7 @@ export type ExplorePublicationsQuery = {
                       chainId: any
                     }
                   }
-                } | null
+                }
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings'
@@ -11340,12 +11174,12 @@ export type ExplorePublicationsQuery = {
                     raw: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                     }
                     optimized?: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                       width?: number | null
                       height?: number | null
                     } | null
@@ -11539,12 +11373,12 @@ export type ExplorePublicationsQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -11554,12 +11388,12 @@ export type ExplorePublicationsQuery = {
                         raw: {
                           __typename?: 'Audio'
                           uri: any
-                          mimeType?: AudioMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Audio'
                           uri: any
-                          mimeType?: AudioMimeType | null
+                          mimeType?: any | null
                         } | null
                       }
                     }
@@ -11570,12 +11404,12 @@ export type ExplorePublicationsQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -11588,12 +11422,12 @@ export type ExplorePublicationsQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -11603,12 +11437,12 @@ export type ExplorePublicationsQuery = {
                         raw: {
                           __typename?: 'Video'
                           uri: any
-                          mimeType?: VideoMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Video'
                           uri: any
-                          mimeType?: VideoMimeType | null
+                          mimeType?: any | null
                         } | null
                       }
                     }
@@ -11629,12 +11463,12 @@ export type ExplorePublicationsQuery = {
                     raw: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                     }
                     optimized?: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                       width?: number | null
                       height?: number | null
                     } | null
@@ -11775,7 +11609,7 @@ export type ExplorePublicationsQuery = {
                 followerOnly: boolean
                 recipient: any
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -11813,7 +11647,7 @@ export type ExplorePublicationsQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -11897,7 +11731,7 @@ export type ExplorePublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyLimitedFeeCollectModuleSettings'
-                collectLimit: string
+                collectLimit?: string | null
                 recipient: any
                 referralFee: number
                 followerOnly: boolean
@@ -11934,7 +11768,7 @@ export type ExplorePublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings'
-                collectLimit: string
+                collectLimit?: string | null
                 recipient: any
                 referralFee: number
                 followerOnly: boolean
@@ -11975,7 +11809,7 @@ export type ExplorePublicationsQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -12026,13 +11860,13 @@ export type ExplorePublicationsQuery = {
                 recipient: any
                 referralFee: number
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
                   chainId: any
                 }
-                optionalAmount?: {
+                optionalAmount: {
                   __typename?: 'Amount'
                   value: string
                   rate?: {
@@ -12056,7 +11890,7 @@ export type ExplorePublicationsQuery = {
                       chainId: any
                     }
                   }
-                } | null
+                }
               }
             | {
                 __typename?: 'LegacyTimedFeeCollectModuleSettings'
@@ -12100,7 +11934,7 @@ export type ExplorePublicationsQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -12143,13 +11977,13 @@ export type ExplorePublicationsQuery = {
                 recipient: any
                 referralFee: number
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
                   chainId: any
                 }
-                optionalAmount?: {
+                optionalAmount: {
                   __typename?: 'Amount'
                   value: string
                   rate?: {
@@ -12173,7 +12007,7 @@ export type ExplorePublicationsQuery = {
                       chainId: any
                     }
                   }
-                } | null
+                }
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings'
@@ -12334,12 +12168,12 @@ export type FeedHighlightsQuery = {
                     raw: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                     }
                     optimized?: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                       width?: number | null
                       height?: number | null
                     } | null
@@ -12533,12 +12367,12 @@ export type FeedHighlightsQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -12548,12 +12382,12 @@ export type FeedHighlightsQuery = {
                         raw: {
                           __typename?: 'Audio'
                           uri: any
-                          mimeType?: AudioMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Audio'
                           uri: any
-                          mimeType?: AudioMimeType | null
+                          mimeType?: any | null
                         } | null
                       }
                     }
@@ -12564,12 +12398,12 @@ export type FeedHighlightsQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -12582,12 +12416,12 @@ export type FeedHighlightsQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -12597,12 +12431,12 @@ export type FeedHighlightsQuery = {
                         raw: {
                           __typename?: 'Video'
                           uri: any
-                          mimeType?: VideoMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Video'
                           uri: any
-                          mimeType?: VideoMimeType | null
+                          mimeType?: any | null
                         } | null
                       }
                     }
@@ -12623,12 +12457,12 @@ export type FeedHighlightsQuery = {
                     raw: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                     }
                     optimized?: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                       width?: number | null
                       height?: number | null
                     } | null
@@ -12769,7 +12603,7 @@ export type FeedHighlightsQuery = {
                 followerOnly: boolean
                 recipient: any
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -12807,7 +12641,7 @@ export type FeedHighlightsQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -12891,7 +12725,7 @@ export type FeedHighlightsQuery = {
               }
             | {
                 __typename?: 'LegacyLimitedFeeCollectModuleSettings'
-                collectLimit: string
+                collectLimit?: string | null
                 recipient: any
                 referralFee: number
                 followerOnly: boolean
@@ -12928,7 +12762,7 @@ export type FeedHighlightsQuery = {
               }
             | {
                 __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings'
-                collectLimit: string
+                collectLimit?: string | null
                 recipient: any
                 referralFee: number
                 followerOnly: boolean
@@ -12969,7 +12803,7 @@ export type FeedHighlightsQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -13020,13 +12854,13 @@ export type FeedHighlightsQuery = {
                 recipient: any
                 referralFee: number
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
                   chainId: any
                 }
-                optionalAmount?: {
+                optionalAmount: {
                   __typename?: 'Amount'
                   value: string
                   rate?: {
@@ -13050,7 +12884,7 @@ export type FeedHighlightsQuery = {
                       chainId: any
                     }
                   }
-                } | null
+                }
               }
             | {
                 __typename?: 'LegacyTimedFeeCollectModuleSettings'
@@ -13094,7 +12928,7 @@ export type FeedHighlightsQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -13137,13 +12971,13 @@ export type FeedHighlightsQuery = {
                 recipient: any
                 referralFee: number
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
                   chainId: any
                 }
-                optionalAmount?: {
+                optionalAmount: {
                   __typename?: 'Amount'
                   value: string
                   rate?: {
@@ -13167,7 +13001,7 @@ export type FeedHighlightsQuery = {
                       chainId: any
                     }
                   }
-                } | null
+                }
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings'
@@ -13310,12 +13144,12 @@ export type FeedHighlightsQuery = {
                     raw: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                     }
                     optimized?: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                       width?: number | null
                       height?: number | null
                     } | null
@@ -13509,12 +13343,12 @@ export type FeedHighlightsQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -13524,12 +13358,12 @@ export type FeedHighlightsQuery = {
                         raw: {
                           __typename?: 'Audio'
                           uri: any
-                          mimeType?: AudioMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Audio'
                           uri: any
-                          mimeType?: AudioMimeType | null
+                          mimeType?: any | null
                         } | null
                       }
                     }
@@ -13540,12 +13374,12 @@ export type FeedHighlightsQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -13558,12 +13392,12 @@ export type FeedHighlightsQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -13573,12 +13407,12 @@ export type FeedHighlightsQuery = {
                         raw: {
                           __typename?: 'Video'
                           uri: any
-                          mimeType?: VideoMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Video'
                           uri: any
-                          mimeType?: VideoMimeType | null
+                          mimeType?: any | null
                         } | null
                       }
                     }
@@ -13599,12 +13433,12 @@ export type FeedHighlightsQuery = {
                     raw: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                     }
                     optimized?: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                       width?: number | null
                       height?: number | null
                     } | null
@@ -13745,7 +13579,7 @@ export type FeedHighlightsQuery = {
                 followerOnly: boolean
                 recipient: any
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -13783,7 +13617,7 @@ export type FeedHighlightsQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -13867,7 +13701,7 @@ export type FeedHighlightsQuery = {
               }
             | {
                 __typename?: 'LegacyLimitedFeeCollectModuleSettings'
-                collectLimit: string
+                collectLimit?: string | null
                 recipient: any
                 referralFee: number
                 followerOnly: boolean
@@ -13904,7 +13738,7 @@ export type FeedHighlightsQuery = {
               }
             | {
                 __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings'
-                collectLimit: string
+                collectLimit?: string | null
                 recipient: any
                 referralFee: number
                 followerOnly: boolean
@@ -13945,7 +13779,7 @@ export type FeedHighlightsQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -13996,13 +13830,13 @@ export type FeedHighlightsQuery = {
                 recipient: any
                 referralFee: number
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
                   chainId: any
                 }
-                optionalAmount?: {
+                optionalAmount: {
                   __typename?: 'Amount'
                   value: string
                   rate?: {
@@ -14026,7 +13860,7 @@ export type FeedHighlightsQuery = {
                       chainId: any
                     }
                   }
-                } | null
+                }
               }
             | {
                 __typename?: 'LegacyTimedFeeCollectModuleSettings'
@@ -14070,7 +13904,7 @@ export type FeedHighlightsQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -14113,13 +13947,13 @@ export type FeedHighlightsQuery = {
                 recipient: any
                 referralFee: number
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
                   chainId: any
                 }
-                optionalAmount?: {
+                optionalAmount: {
                   __typename?: 'Amount'
                   value: string
                   rate?: {
@@ -14143,7 +13977,7 @@ export type FeedHighlightsQuery = {
                       chainId: any
                     }
                   }
-                } | null
+                }
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings'
@@ -14279,15 +14113,11 @@ export type FollowersQuery = {
         picture?:
           | {
               __typename?: 'ImageSet'
-              raw: {
-                __typename?: 'Image'
-                uri: any
-                mimeType?: ImageMimeType | null
-              }
+              raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
               optimized?: {
                 __typename?: 'Image'
                 uri: any
-                mimeType?: ImageMimeType | null
+                mimeType?: any | null
                 width?: number | null
                 height?: number | null
               } | null
@@ -14437,15 +14267,11 @@ export type FollowingQuery = {
         picture?:
           | {
               __typename?: 'ImageSet'
-              raw: {
-                __typename?: 'Image'
-                uri: any
-                mimeType?: ImageMimeType | null
-              }
+              raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
               optimized?: {
                 __typename?: 'Image'
                 uri: any
-                mimeType?: ImageMimeType | null
+                mimeType?: any | null
                 width?: number | null
                 height?: number | null
               } | null
@@ -14658,15 +14484,11 @@ export type MutualFollowersQuery = {
         picture?:
           | {
               __typename?: 'ImageSet'
-              raw: {
-                __typename?: 'Image'
-                uri: any
-                mimeType?: ImageMimeType | null
-              }
+              raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
               optimized?: {
                 __typename?: 'Image'
                 uri: any
-                mimeType?: ImageMimeType | null
+                mimeType?: any | null
                 width?: number | null
                 height?: number | null
               } | null
@@ -14769,7 +14591,7 @@ export type NftsQuery = {
           optimized?: {
             __typename?: 'Image'
             uri: any
-            mimeType?: ImageMimeType | null
+            mimeType?: any | null
           } | null
         } | null
         attributes?: Array<{
@@ -14898,12 +14720,12 @@ export type NotificationsQuery = {
                       raw: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                       }
                       optimized?: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                         width?: number | null
                         height?: number | null
                       } | null
@@ -15080,12 +14902,12 @@ export type NotificationsQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -15279,12 +15101,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                                 width?: number | null
                                 height?: number | null
                               } | null
@@ -15294,12 +15116,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Audio'
                                 uri: any
-                                mimeType?: AudioMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Audio'
                                 uri: any
-                                mimeType?: AudioMimeType | null
+                                mimeType?: any | null
                               } | null
                             }
                           }
@@ -15310,12 +15132,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                                 width?: number | null
                                 height?: number | null
                               } | null
@@ -15328,12 +15150,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                                 width?: number | null
                                 height?: number | null
                               } | null
@@ -15343,12 +15165,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Video'
                                 uri: any
-                                mimeType?: VideoMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Video'
                                 uri: any
-                                mimeType?: VideoMimeType | null
+                                mimeType?: any | null
                               } | null
                             }
                           }
@@ -15369,12 +15191,12 @@ export type NotificationsQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -15515,7 +15337,7 @@ export type NotificationsQuery = {
                       followerOnly: boolean
                       recipient: any
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -15553,7 +15375,7 @@ export type NotificationsQuery = {
                       referralFee: number
                       followerOnly: boolean
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -15637,7 +15459,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyLimitedFeeCollectModuleSettings'
-                      collectLimit: string
+                      collectLimit?: string | null
                       recipient: any
                       referralFee: number
                       followerOnly: boolean
@@ -15674,7 +15496,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings'
-                      collectLimit: string
+                      collectLimit?: string | null
                       recipient: any
                       referralFee: number
                       followerOnly: boolean
@@ -15715,7 +15537,7 @@ export type NotificationsQuery = {
                       referralFee: number
                       followerOnly: boolean
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -15766,13 +15588,13 @@ export type NotificationsQuery = {
                       recipient: any
                       referralFee: number
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
                         chainId: any
                       }
-                      optionalAmount?: {
+                      optionalAmount: {
                         __typename?: 'Amount'
                         value: string
                         rate?: {
@@ -15796,7 +15618,7 @@ export type NotificationsQuery = {
                             chainId: any
                           }
                         }
-                      } | null
+                      }
                     }
                   | {
                       __typename?: 'LegacyTimedFeeCollectModuleSettings'
@@ -15840,7 +15662,7 @@ export type NotificationsQuery = {
                       referralFee: number
                       followerOnly: boolean
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -15883,13 +15705,13 @@ export type NotificationsQuery = {
                       recipient: any
                       referralFee: number
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
                         chainId: any
                       }
-                      optionalAmount?: {
+                      optionalAmount: {
                         __typename?: 'Amount'
                         value: string
                         rate?: {
@@ -15913,7 +15735,7 @@ export type NotificationsQuery = {
                             chainId: any
                           }
                         }
-                      } | null
+                      }
                     }
                   | {
                       __typename?: 'UnknownOpenActionModuleSettings'
@@ -16078,12 +15900,12 @@ export type NotificationsQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -16277,12 +16099,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                                 width?: number | null
                                 height?: number | null
                               } | null
@@ -16292,12 +16114,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Audio'
                                 uri: any
-                                mimeType?: AudioMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Audio'
                                 uri: any
-                                mimeType?: AudioMimeType | null
+                                mimeType?: any | null
                               } | null
                             }
                           }
@@ -16308,12 +16130,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                                 width?: number | null
                                 height?: number | null
                               } | null
@@ -16326,12 +16148,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                                 width?: number | null
                                 height?: number | null
                               } | null
@@ -16341,12 +16163,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Video'
                                 uri: any
-                                mimeType?: VideoMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Video'
                                 uri: any
-                                mimeType?: VideoMimeType | null
+                                mimeType?: any | null
                               } | null
                             }
                           }
@@ -16367,12 +16189,12 @@ export type NotificationsQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -16513,7 +16335,7 @@ export type NotificationsQuery = {
                       followerOnly: boolean
                       recipient: any
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -16551,7 +16373,7 @@ export type NotificationsQuery = {
                       referralFee: number
                       followerOnly: boolean
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -16635,7 +16457,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyLimitedFeeCollectModuleSettings'
-                      collectLimit: string
+                      collectLimit?: string | null
                       recipient: any
                       referralFee: number
                       followerOnly: boolean
@@ -16672,7 +16494,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings'
-                      collectLimit: string
+                      collectLimit?: string | null
                       recipient: any
                       referralFee: number
                       followerOnly: boolean
@@ -16713,7 +16535,7 @@ export type NotificationsQuery = {
                       referralFee: number
                       followerOnly: boolean
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -16764,13 +16586,13 @@ export type NotificationsQuery = {
                       recipient: any
                       referralFee: number
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
                         chainId: any
                       }
-                      optionalAmount?: {
+                      optionalAmount: {
                         __typename?: 'Amount'
                         value: string
                         rate?: {
@@ -16794,7 +16616,7 @@ export type NotificationsQuery = {
                             chainId: any
                           }
                         }
-                      } | null
+                      }
                     }
                   | {
                       __typename?: 'LegacyTimedFeeCollectModuleSettings'
@@ -16838,7 +16660,7 @@ export type NotificationsQuery = {
                       referralFee: number
                       followerOnly: boolean
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -16881,13 +16703,13 @@ export type NotificationsQuery = {
                       recipient: any
                       referralFee: number
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
                         chainId: any
                       }
-                      optionalAmount?: {
+                      optionalAmount: {
                         __typename?: 'Amount'
                         value: string
                         rate?: {
@@ -16911,7 +16733,7 @@ export type NotificationsQuery = {
                             chainId: any
                           }
                         }
-                      } | null
+                      }
                     }
                   | {
                       __typename?: 'UnknownOpenActionModuleSettings'
@@ -17062,12 +16884,12 @@ export type NotificationsQuery = {
                       raw: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                       }
                       optimized?: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                         width?: number | null
                         height?: number | null
                       } | null
@@ -17261,12 +17083,12 @@ export type NotificationsQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -17276,12 +17098,12 @@ export type NotificationsQuery = {
                           raw: {
                             __typename?: 'Audio'
                             uri: any
-                            mimeType?: AudioMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Audio'
                             uri: any
-                            mimeType?: AudioMimeType | null
+                            mimeType?: any | null
                           } | null
                         }
                       }
@@ -17292,12 +17114,12 @@ export type NotificationsQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -17310,12 +17132,12 @@ export type NotificationsQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -17325,12 +17147,12 @@ export type NotificationsQuery = {
                           raw: {
                             __typename?: 'Video'
                             uri: any
-                            mimeType?: VideoMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Video'
                             uri: any
-                            mimeType?: VideoMimeType | null
+                            mimeType?: any | null
                           } | null
                         }
                       }
@@ -17351,12 +17173,12 @@ export type NotificationsQuery = {
                       raw: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                       }
                       optimized?: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                         width?: number | null
                         height?: number | null
                       } | null
@@ -17497,7 +17319,7 @@ export type NotificationsQuery = {
                   followerOnly: boolean
                   recipient: any
                   optionalCollectLimit?: string | null
-                  optionalEndTimestamp?: any | null
+                  optionalEndsAt?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
@@ -17535,7 +17357,7 @@ export type NotificationsQuery = {
                   referralFee: number
                   followerOnly: boolean
                   optionalCollectLimit?: string | null
-                  optionalEndTimestamp?: any | null
+                  optionalEndsAt?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
@@ -17619,7 +17441,7 @@ export type NotificationsQuery = {
                 }
               | {
                   __typename?: 'LegacyLimitedFeeCollectModuleSettings'
-                  collectLimit: string
+                  collectLimit?: string | null
                   recipient: any
                   referralFee: number
                   followerOnly: boolean
@@ -17656,7 +17478,7 @@ export type NotificationsQuery = {
                 }
               | {
                   __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings'
-                  collectLimit: string
+                  collectLimit?: string | null
                   recipient: any
                   referralFee: number
                   followerOnly: boolean
@@ -17697,7 +17519,7 @@ export type NotificationsQuery = {
                   referralFee: number
                   followerOnly: boolean
                   optionalCollectLimit?: string | null
-                  optionalEndTimestamp?: any | null
+                  optionalEndsAt?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
@@ -17748,13 +17570,13 @@ export type NotificationsQuery = {
                   recipient: any
                   referralFee: number
                   optionalCollectLimit?: string | null
-                  optionalEndTimestamp?: any | null
+                  optionalEndsAt?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
                     chainId: any
                   }
-                  optionalAmount?: {
+                  optionalAmount: {
                     __typename?: 'Amount'
                     value: string
                     rate?: {
@@ -17778,7 +17600,7 @@ export type NotificationsQuery = {
                         chainId: any
                       }
                     }
-                  } | null
+                  }
                 }
               | {
                   __typename?: 'LegacyTimedFeeCollectModuleSettings'
@@ -17822,7 +17644,7 @@ export type NotificationsQuery = {
                   referralFee: number
                   followerOnly: boolean
                   optionalCollectLimit?: string | null
-                  optionalEndTimestamp?: any | null
+                  optionalEndsAt?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
@@ -17865,13 +17687,13 @@ export type NotificationsQuery = {
                   recipient: any
                   referralFee: number
                   optionalCollectLimit?: string | null
-                  optionalEndTimestamp?: any | null
+                  optionalEndsAt?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
                     chainId: any
                   }
-                  optionalAmount?: {
+                  optionalAmount: {
                     __typename?: 'Amount'
                     value: string
                     rate?: {
@@ -17895,7 +17717,7 @@ export type NotificationsQuery = {
                         chainId: any
                       }
                     }
-                  } | null
+                  }
                 }
               | {
                   __typename?: 'UnknownOpenActionModuleSettings'
@@ -18040,12 +17862,12 @@ export type NotificationsQuery = {
                     raw: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                     }
                     optimized?: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                       width?: number | null
                       height?: number | null
                     } | null
@@ -18215,12 +18037,12 @@ export type NotificationsQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -18414,12 +18236,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                                 width?: number | null
                                 height?: number | null
                               } | null
@@ -18429,12 +18251,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Audio'
                                 uri: any
-                                mimeType?: AudioMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Audio'
                                 uri: any
-                                mimeType?: AudioMimeType | null
+                                mimeType?: any | null
                               } | null
                             }
                           }
@@ -18445,12 +18267,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                                 width?: number | null
                                 height?: number | null
                               } | null
@@ -18463,12 +18285,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                                 width?: number | null
                                 height?: number | null
                               } | null
@@ -18478,12 +18300,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Video'
                                 uri: any
-                                mimeType?: VideoMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Video'
                                 uri: any
-                                mimeType?: VideoMimeType | null
+                                mimeType?: any | null
                               } | null
                             }
                           }
@@ -18504,12 +18326,12 @@ export type NotificationsQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -18650,7 +18472,7 @@ export type NotificationsQuery = {
                       followerOnly: boolean
                       recipient: any
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -18688,7 +18510,7 @@ export type NotificationsQuery = {
                       referralFee: number
                       followerOnly: boolean
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -18772,7 +18594,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyLimitedFeeCollectModuleSettings'
-                      collectLimit: string
+                      collectLimit?: string | null
                       recipient: any
                       referralFee: number
                       followerOnly: boolean
@@ -18809,7 +18631,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings'
-                      collectLimit: string
+                      collectLimit?: string | null
                       recipient: any
                       referralFee: number
                       followerOnly: boolean
@@ -18850,7 +18672,7 @@ export type NotificationsQuery = {
                       referralFee: number
                       followerOnly: boolean
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -18901,13 +18723,13 @@ export type NotificationsQuery = {
                       recipient: any
                       referralFee: number
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
                         chainId: any
                       }
-                      optionalAmount?: {
+                      optionalAmount: {
                         __typename?: 'Amount'
                         value: string
                         rate?: {
@@ -18931,7 +18753,7 @@ export type NotificationsQuery = {
                             chainId: any
                           }
                         }
-                      } | null
+                      }
                     }
                   | {
                       __typename?: 'LegacyTimedFeeCollectModuleSettings'
@@ -18975,7 +18797,7 @@ export type NotificationsQuery = {
                       referralFee: number
                       followerOnly: boolean
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -19018,13 +18840,13 @@ export type NotificationsQuery = {
                       recipient: any
                       referralFee: number
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
                         chainId: any
                       }
-                      optionalAmount?: {
+                      optionalAmount: {
                         __typename?: 'Amount'
                         value: string
                         rate?: {
@@ -19048,7 +18870,7 @@ export type NotificationsQuery = {
                             chainId: any
                           }
                         }
-                      } | null
+                      }
                     }
                   | {
                       __typename?: 'UnknownOpenActionModuleSettings'
@@ -19200,12 +19022,12 @@ export type NotificationsQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -19399,12 +19221,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                                 width?: number | null
                                 height?: number | null
                               } | null
@@ -19414,12 +19236,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Audio'
                                 uri: any
-                                mimeType?: AudioMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Audio'
                                 uri: any
-                                mimeType?: AudioMimeType | null
+                                mimeType?: any | null
                               } | null
                             }
                           }
@@ -19430,12 +19252,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                                 width?: number | null
                                 height?: number | null
                               } | null
@@ -19448,12 +19270,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                                 width?: number | null
                                 height?: number | null
                               } | null
@@ -19463,12 +19285,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Video'
                                 uri: any
-                                mimeType?: VideoMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Video'
                                 uri: any
-                                mimeType?: VideoMimeType | null
+                                mimeType?: any | null
                               } | null
                             }
                           }
@@ -19489,12 +19311,12 @@ export type NotificationsQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -19635,7 +19457,7 @@ export type NotificationsQuery = {
                       followerOnly: boolean
                       recipient: any
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -19673,7 +19495,7 @@ export type NotificationsQuery = {
                       referralFee: number
                       followerOnly: boolean
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -19757,7 +19579,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyLimitedFeeCollectModuleSettings'
-                      collectLimit: string
+                      collectLimit?: string | null
                       recipient: any
                       referralFee: number
                       followerOnly: boolean
@@ -19794,7 +19616,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings'
-                      collectLimit: string
+                      collectLimit?: string | null
                       recipient: any
                       referralFee: number
                       followerOnly: boolean
@@ -19835,7 +19657,7 @@ export type NotificationsQuery = {
                       referralFee: number
                       followerOnly: boolean
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -19886,13 +19708,13 @@ export type NotificationsQuery = {
                       recipient: any
                       referralFee: number
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
                         chainId: any
                       }
-                      optionalAmount?: {
+                      optionalAmount: {
                         __typename?: 'Amount'
                         value: string
                         rate?: {
@@ -19916,7 +19738,7 @@ export type NotificationsQuery = {
                             chainId: any
                           }
                         }
-                      } | null
+                      }
                     }
                   | {
                       __typename?: 'LegacyTimedFeeCollectModuleSettings'
@@ -19960,7 +19782,7 @@ export type NotificationsQuery = {
                       referralFee: number
                       followerOnly: boolean
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -20003,13 +19825,13 @@ export type NotificationsQuery = {
                       recipient: any
                       referralFee: number
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
                         chainId: any
                       }
-                      optionalAmount?: {
+                      optionalAmount: {
                         __typename?: 'Amount'
                         value: string
                         rate?: {
@@ -20033,7 +19855,7 @@ export type NotificationsQuery = {
                             chainId: any
                           }
                         }
-                      } | null
+                      }
                     }
                   | {
                       __typename?: 'UnknownOpenActionModuleSettings'
@@ -20179,12 +20001,12 @@ export type NotificationsQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -20378,12 +20200,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                                 width?: number | null
                                 height?: number | null
                               } | null
@@ -20393,12 +20215,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Audio'
                                 uri: any
-                                mimeType?: AudioMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Audio'
                                 uri: any
-                                mimeType?: AudioMimeType | null
+                                mimeType?: any | null
                               } | null
                             }
                           }
@@ -20409,12 +20231,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                                 width?: number | null
                                 height?: number | null
                               } | null
@@ -20427,12 +20249,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                                 width?: number | null
                                 height?: number | null
                               } | null
@@ -20442,12 +20264,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Video'
                                 uri: any
-                                mimeType?: VideoMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Video'
                                 uri: any
-                                mimeType?: VideoMimeType | null
+                                mimeType?: any | null
                               } | null
                             }
                           }
@@ -20468,12 +20290,12 @@ export type NotificationsQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -20614,7 +20436,7 @@ export type NotificationsQuery = {
                       followerOnly: boolean
                       recipient: any
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -20652,7 +20474,7 @@ export type NotificationsQuery = {
                       referralFee: number
                       followerOnly: boolean
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -20736,7 +20558,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyLimitedFeeCollectModuleSettings'
-                      collectLimit: string
+                      collectLimit?: string | null
                       recipient: any
                       referralFee: number
                       followerOnly: boolean
@@ -20773,7 +20595,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings'
-                      collectLimit: string
+                      collectLimit?: string | null
                       recipient: any
                       referralFee: number
                       followerOnly: boolean
@@ -20814,7 +20636,7 @@ export type NotificationsQuery = {
                       referralFee: number
                       followerOnly: boolean
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -20865,13 +20687,13 @@ export type NotificationsQuery = {
                       recipient: any
                       referralFee: number
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
                         chainId: any
                       }
-                      optionalAmount?: {
+                      optionalAmount: {
                         __typename?: 'Amount'
                         value: string
                         rate?: {
@@ -20895,7 +20717,7 @@ export type NotificationsQuery = {
                             chainId: any
                           }
                         }
-                      } | null
+                      }
                     }
                   | {
                       __typename?: 'LegacyTimedFeeCollectModuleSettings'
@@ -20939,7 +20761,7 @@ export type NotificationsQuery = {
                       referralFee: number
                       followerOnly: boolean
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -20982,13 +20804,13 @@ export type NotificationsQuery = {
                       recipient: any
                       referralFee: number
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
                         chainId: any
                       }
-                      optionalAmount?: {
+                      optionalAmount: {
                         __typename?: 'Amount'
                         value: string
                         rate?: {
@@ -21012,7 +20834,7 @@ export type NotificationsQuery = {
                             chainId: any
                           }
                         }
-                      } | null
+                      }
                     }
                   | {
                       __typename?: 'UnknownOpenActionModuleSettings'
@@ -21162,12 +20984,12 @@ export type NotificationsQuery = {
                       raw: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                       }
                       optimized?: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                         width?: number | null
                         height?: number | null
                       } | null
@@ -21334,12 +21156,12 @@ export type NotificationsQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -21533,12 +21355,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                                 width?: number | null
                                 height?: number | null
                               } | null
@@ -21548,12 +21370,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Audio'
                                 uri: any
-                                mimeType?: AudioMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Audio'
                                 uri: any
-                                mimeType?: AudioMimeType | null
+                                mimeType?: any | null
                               } | null
                             }
                           }
@@ -21564,12 +21386,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                                 width?: number | null
                                 height?: number | null
                               } | null
@@ -21582,12 +21404,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                                 width?: number | null
                                 height?: number | null
                               } | null
@@ -21597,12 +21419,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Video'
                                 uri: any
-                                mimeType?: VideoMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Video'
                                 uri: any
-                                mimeType?: VideoMimeType | null
+                                mimeType?: any | null
                               } | null
                             }
                           }
@@ -21623,12 +21445,12 @@ export type NotificationsQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -21769,7 +21591,7 @@ export type NotificationsQuery = {
                       followerOnly: boolean
                       recipient: any
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -21807,7 +21629,7 @@ export type NotificationsQuery = {
                       referralFee: number
                       followerOnly: boolean
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -21891,7 +21713,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyLimitedFeeCollectModuleSettings'
-                      collectLimit: string
+                      collectLimit?: string | null
                       recipient: any
                       referralFee: number
                       followerOnly: boolean
@@ -21928,7 +21750,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings'
-                      collectLimit: string
+                      collectLimit?: string | null
                       recipient: any
                       referralFee: number
                       followerOnly: boolean
@@ -21969,7 +21791,7 @@ export type NotificationsQuery = {
                       referralFee: number
                       followerOnly: boolean
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -22020,13 +21842,13 @@ export type NotificationsQuery = {
                       recipient: any
                       referralFee: number
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
                         chainId: any
                       }
-                      optionalAmount?: {
+                      optionalAmount: {
                         __typename?: 'Amount'
                         value: string
                         rate?: {
@@ -22050,7 +21872,7 @@ export type NotificationsQuery = {
                             chainId: any
                           }
                         }
-                      } | null
+                      }
                     }
                   | {
                       __typename?: 'LegacyTimedFeeCollectModuleSettings'
@@ -22094,7 +21916,7 @@ export type NotificationsQuery = {
                       referralFee: number
                       followerOnly: boolean
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -22137,13 +21959,13 @@ export type NotificationsQuery = {
                       recipient: any
                       referralFee: number
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
                         chainId: any
                       }
-                      optionalAmount?: {
+                      optionalAmount: {
                         __typename?: 'Amount'
                         value: string
                         rate?: {
@@ -22167,7 +21989,7 @@ export type NotificationsQuery = {
                             chainId: any
                           }
                         }
-                      } | null
+                      }
                     }
                   | {
                       __typename?: 'UnknownOpenActionModuleSettings'
@@ -22319,12 +22141,12 @@ export type NotificationsQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -22518,12 +22340,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                                 width?: number | null
                                 height?: number | null
                               } | null
@@ -22533,12 +22355,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Audio'
                                 uri: any
-                                mimeType?: AudioMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Audio'
                                 uri: any
-                                mimeType?: AudioMimeType | null
+                                mimeType?: any | null
                               } | null
                             }
                           }
@@ -22549,12 +22371,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                                 width?: number | null
                                 height?: number | null
                               } | null
@@ -22567,12 +22389,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                                 width?: number | null
                                 height?: number | null
                               } | null
@@ -22582,12 +22404,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Video'
                                 uri: any
-                                mimeType?: VideoMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Video'
                                 uri: any
-                                mimeType?: VideoMimeType | null
+                                mimeType?: any | null
                               } | null
                             }
                           }
@@ -22608,12 +22430,12 @@ export type NotificationsQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -22754,7 +22576,7 @@ export type NotificationsQuery = {
                       followerOnly: boolean
                       recipient: any
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -22792,7 +22614,7 @@ export type NotificationsQuery = {
                       referralFee: number
                       followerOnly: boolean
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -22876,7 +22698,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyLimitedFeeCollectModuleSettings'
-                      collectLimit: string
+                      collectLimit?: string | null
                       recipient: any
                       referralFee: number
                       followerOnly: boolean
@@ -22913,7 +22735,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings'
-                      collectLimit: string
+                      collectLimit?: string | null
                       recipient: any
                       referralFee: number
                       followerOnly: boolean
@@ -22954,7 +22776,7 @@ export type NotificationsQuery = {
                       referralFee: number
                       followerOnly: boolean
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -23005,13 +22827,13 @@ export type NotificationsQuery = {
                       recipient: any
                       referralFee: number
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
                         chainId: any
                       }
-                      optionalAmount?: {
+                      optionalAmount: {
                         __typename?: 'Amount'
                         value: string
                         rate?: {
@@ -23035,7 +22857,7 @@ export type NotificationsQuery = {
                             chainId: any
                           }
                         }
-                      } | null
+                      }
                     }
                   | {
                       __typename?: 'LegacyTimedFeeCollectModuleSettings'
@@ -23079,7 +22901,7 @@ export type NotificationsQuery = {
                       referralFee: number
                       followerOnly: boolean
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -23122,13 +22944,13 @@ export type NotificationsQuery = {
                       recipient: any
                       referralFee: number
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
                         chainId: any
                       }
-                      optionalAmount?: {
+                      optionalAmount: {
                         __typename?: 'Amount'
                         value: string
                         rate?: {
@@ -23152,7 +22974,7 @@ export type NotificationsQuery = {
                             chainId: any
                           }
                         }
-                      } | null
+                      }
                     }
                   | {
                       __typename?: 'UnknownOpenActionModuleSettings'
@@ -23298,12 +23120,12 @@ export type NotificationsQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -23497,12 +23319,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                                 width?: number | null
                                 height?: number | null
                               } | null
@@ -23512,12 +23334,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Audio'
                                 uri: any
-                                mimeType?: AudioMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Audio'
                                 uri: any
-                                mimeType?: AudioMimeType | null
+                                mimeType?: any | null
                               } | null
                             }
                           }
@@ -23528,12 +23350,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                                 width?: number | null
                                 height?: number | null
                               } | null
@@ -23546,12 +23368,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                                 width?: number | null
                                 height?: number | null
                               } | null
@@ -23561,12 +23383,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Video'
                                 uri: any
-                                mimeType?: VideoMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Video'
                                 uri: any
-                                mimeType?: VideoMimeType | null
+                                mimeType?: any | null
                               } | null
                             }
                           }
@@ -23587,12 +23409,12 @@ export type NotificationsQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -23733,7 +23555,7 @@ export type NotificationsQuery = {
                       followerOnly: boolean
                       recipient: any
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -23771,7 +23593,7 @@ export type NotificationsQuery = {
                       referralFee: number
                       followerOnly: boolean
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -23855,7 +23677,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyLimitedFeeCollectModuleSettings'
-                      collectLimit: string
+                      collectLimit?: string | null
                       recipient: any
                       referralFee: number
                       followerOnly: boolean
@@ -23892,7 +23714,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings'
-                      collectLimit: string
+                      collectLimit?: string | null
                       recipient: any
                       referralFee: number
                       followerOnly: boolean
@@ -23933,7 +23755,7 @@ export type NotificationsQuery = {
                       referralFee: number
                       followerOnly: boolean
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -23984,13 +23806,13 @@ export type NotificationsQuery = {
                       recipient: any
                       referralFee: number
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
                         chainId: any
                       }
-                      optionalAmount?: {
+                      optionalAmount: {
                         __typename?: 'Amount'
                         value: string
                         rate?: {
@@ -24014,7 +23836,7 @@ export type NotificationsQuery = {
                             chainId: any
                           }
                         }
-                      } | null
+                      }
                     }
                   | {
                       __typename?: 'LegacyTimedFeeCollectModuleSettings'
@@ -24058,7 +23880,7 @@ export type NotificationsQuery = {
                       referralFee: number
                       followerOnly: boolean
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -24101,13 +23923,13 @@ export type NotificationsQuery = {
                       recipient: any
                       referralFee: number
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
                         chainId: any
                       }
-                      optionalAmount?: {
+                      optionalAmount: {
                         __typename?: 'Amount'
                         value: string
                         rate?: {
@@ -24131,7 +23953,7 @@ export type NotificationsQuery = {
                             chainId: any
                           }
                         }
-                      } | null
+                      }
                     }
                   | {
                       __typename?: 'UnknownOpenActionModuleSettings'
@@ -24285,12 +24107,12 @@ export type NotificationsQuery = {
                       raw: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                       }
                       optimized?: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                         width?: number | null
                         height?: number | null
                       } | null
@@ -24484,12 +24306,12 @@ export type NotificationsQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -24499,12 +24321,12 @@ export type NotificationsQuery = {
                           raw: {
                             __typename?: 'Audio'
                             uri: any
-                            mimeType?: AudioMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Audio'
                             uri: any
-                            mimeType?: AudioMimeType | null
+                            mimeType?: any | null
                           } | null
                         }
                       }
@@ -24515,12 +24337,12 @@ export type NotificationsQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -24533,12 +24355,12 @@ export type NotificationsQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -24548,12 +24370,12 @@ export type NotificationsQuery = {
                           raw: {
                             __typename?: 'Video'
                             uri: any
-                            mimeType?: VideoMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Video'
                             uri: any
-                            mimeType?: VideoMimeType | null
+                            mimeType?: any | null
                           } | null
                         }
                       }
@@ -24574,12 +24396,12 @@ export type NotificationsQuery = {
                       raw: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                       }
                       optimized?: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                         width?: number | null
                         height?: number | null
                       } | null
@@ -24720,7 +24542,7 @@ export type NotificationsQuery = {
                   followerOnly: boolean
                   recipient: any
                   optionalCollectLimit?: string | null
-                  optionalEndTimestamp?: any | null
+                  optionalEndsAt?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
@@ -24758,7 +24580,7 @@ export type NotificationsQuery = {
                   referralFee: number
                   followerOnly: boolean
                   optionalCollectLimit?: string | null
-                  optionalEndTimestamp?: any | null
+                  optionalEndsAt?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
@@ -24842,7 +24664,7 @@ export type NotificationsQuery = {
                 }
               | {
                   __typename?: 'LegacyLimitedFeeCollectModuleSettings'
-                  collectLimit: string
+                  collectLimit?: string | null
                   recipient: any
                   referralFee: number
                   followerOnly: boolean
@@ -24879,7 +24701,7 @@ export type NotificationsQuery = {
                 }
               | {
                   __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings'
-                  collectLimit: string
+                  collectLimit?: string | null
                   recipient: any
                   referralFee: number
                   followerOnly: boolean
@@ -24920,7 +24742,7 @@ export type NotificationsQuery = {
                   referralFee: number
                   followerOnly: boolean
                   optionalCollectLimit?: string | null
-                  optionalEndTimestamp?: any | null
+                  optionalEndsAt?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
@@ -24971,13 +24793,13 @@ export type NotificationsQuery = {
                   recipient: any
                   referralFee: number
                   optionalCollectLimit?: string | null
-                  optionalEndTimestamp?: any | null
+                  optionalEndsAt?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
                     chainId: any
                   }
-                  optionalAmount?: {
+                  optionalAmount: {
                     __typename?: 'Amount'
                     value: string
                     rate?: {
@@ -25001,7 +24823,7 @@ export type NotificationsQuery = {
                         chainId: any
                       }
                     }
-                  } | null
+                  }
                 }
               | {
                   __typename?: 'LegacyTimedFeeCollectModuleSettings'
@@ -25045,7 +24867,7 @@ export type NotificationsQuery = {
                   referralFee: number
                   followerOnly: boolean
                   optionalCollectLimit?: string | null
-                  optionalEndTimestamp?: any | null
+                  optionalEndsAt?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
@@ -25088,13 +24910,13 @@ export type NotificationsQuery = {
                   recipient: any
                   referralFee: number
                   optionalCollectLimit?: string | null
-                  optionalEndTimestamp?: any | null
+                  optionalEndsAt?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
                     chainId: any
                   }
-                  optionalAmount?: {
+                  optionalAmount: {
                     __typename?: 'Amount'
                     value: string
                     rate?: {
@@ -25118,7 +24940,7 @@ export type NotificationsQuery = {
                         chainId: any
                       }
                     }
-                  } | null
+                  }
                 }
               | {
                   __typename?: 'UnknownOpenActionModuleSettings'
@@ -25273,12 +25095,12 @@ export type NotificationsQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -25472,12 +25294,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                                 width?: number | null
                                 height?: number | null
                               } | null
@@ -25487,12 +25309,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Audio'
                                 uri: any
-                                mimeType?: AudioMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Audio'
                                 uri: any
-                                mimeType?: AudioMimeType | null
+                                mimeType?: any | null
                               } | null
                             }
                           }
@@ -25503,12 +25325,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                                 width?: number | null
                                 height?: number | null
                               } | null
@@ -25521,12 +25343,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                                 width?: number | null
                                 height?: number | null
                               } | null
@@ -25536,12 +25358,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Video'
                                 uri: any
-                                mimeType?: VideoMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Video'
                                 uri: any
-                                mimeType?: VideoMimeType | null
+                                mimeType?: any | null
                               } | null
                             }
                           }
@@ -25562,12 +25384,12 @@ export type NotificationsQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -25708,7 +25530,7 @@ export type NotificationsQuery = {
                       followerOnly: boolean
                       recipient: any
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -25746,7 +25568,7 @@ export type NotificationsQuery = {
                       referralFee: number
                       followerOnly: boolean
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -25830,7 +25652,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyLimitedFeeCollectModuleSettings'
-                      collectLimit: string
+                      collectLimit?: string | null
                       recipient: any
                       referralFee: number
                       followerOnly: boolean
@@ -25867,7 +25689,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings'
-                      collectLimit: string
+                      collectLimit?: string | null
                       recipient: any
                       referralFee: number
                       followerOnly: boolean
@@ -25908,7 +25730,7 @@ export type NotificationsQuery = {
                       referralFee: number
                       followerOnly: boolean
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -25959,13 +25781,13 @@ export type NotificationsQuery = {
                       recipient: any
                       referralFee: number
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
                         chainId: any
                       }
-                      optionalAmount?: {
+                      optionalAmount: {
                         __typename?: 'Amount'
                         value: string
                         rate?: {
@@ -25989,7 +25811,7 @@ export type NotificationsQuery = {
                             chainId: any
                           }
                         }
-                      } | null
+                      }
                     }
                   | {
                       __typename?: 'LegacyTimedFeeCollectModuleSettings'
@@ -26033,7 +25855,7 @@ export type NotificationsQuery = {
                       referralFee: number
                       followerOnly: boolean
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -26076,13 +25898,13 @@ export type NotificationsQuery = {
                       recipient: any
                       referralFee: number
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
                         chainId: any
                       }
-                      optionalAmount?: {
+                      optionalAmount: {
                         __typename?: 'Amount'
                         value: string
                         rate?: {
@@ -26106,7 +25928,7 @@ export type NotificationsQuery = {
                             chainId: any
                           }
                         }
-                      } | null
+                      }
                     }
                   | {
                       __typename?: 'UnknownOpenActionModuleSettings'
@@ -26258,12 +26080,12 @@ export type NotificationsQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -26457,12 +26279,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                                 width?: number | null
                                 height?: number | null
                               } | null
@@ -26472,12 +26294,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Audio'
                                 uri: any
-                                mimeType?: AudioMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Audio'
                                 uri: any
-                                mimeType?: AudioMimeType | null
+                                mimeType?: any | null
                               } | null
                             }
                           }
@@ -26488,12 +26310,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                                 width?: number | null
                                 height?: number | null
                               } | null
@@ -26506,12 +26328,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                                 width?: number | null
                                 height?: number | null
                               } | null
@@ -26521,12 +26343,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Video'
                                 uri: any
-                                mimeType?: VideoMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Video'
                                 uri: any
-                                mimeType?: VideoMimeType | null
+                                mimeType?: any | null
                               } | null
                             }
                           }
@@ -26547,12 +26369,12 @@ export type NotificationsQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -26693,7 +26515,7 @@ export type NotificationsQuery = {
                       followerOnly: boolean
                       recipient: any
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -26731,7 +26553,7 @@ export type NotificationsQuery = {
                       referralFee: number
                       followerOnly: boolean
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -26815,7 +26637,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyLimitedFeeCollectModuleSettings'
-                      collectLimit: string
+                      collectLimit?: string | null
                       recipient: any
                       referralFee: number
                       followerOnly: boolean
@@ -26852,7 +26674,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings'
-                      collectLimit: string
+                      collectLimit?: string | null
                       recipient: any
                       referralFee: number
                       followerOnly: boolean
@@ -26893,7 +26715,7 @@ export type NotificationsQuery = {
                       referralFee: number
                       followerOnly: boolean
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -26944,13 +26766,13 @@ export type NotificationsQuery = {
                       recipient: any
                       referralFee: number
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
                         chainId: any
                       }
-                      optionalAmount?: {
+                      optionalAmount: {
                         __typename?: 'Amount'
                         value: string
                         rate?: {
@@ -26974,7 +26796,7 @@ export type NotificationsQuery = {
                             chainId: any
                           }
                         }
-                      } | null
+                      }
                     }
                   | {
                       __typename?: 'LegacyTimedFeeCollectModuleSettings'
@@ -27018,7 +26840,7 @@ export type NotificationsQuery = {
                       referralFee: number
                       followerOnly: boolean
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -27061,13 +26883,13 @@ export type NotificationsQuery = {
                       recipient: any
                       referralFee: number
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
                         chainId: any
                       }
-                      optionalAmount?: {
+                      optionalAmount: {
                         __typename?: 'Amount'
                         value: string
                         rate?: {
@@ -27091,7 +26913,7 @@ export type NotificationsQuery = {
                             chainId: any
                           }
                         }
-                      } | null
+                      }
                     }
                   | {
                       __typename?: 'UnknownOpenActionModuleSettings'
@@ -27237,12 +27059,12 @@ export type NotificationsQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -27436,12 +27258,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                                 width?: number | null
                                 height?: number | null
                               } | null
@@ -27451,12 +27273,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Audio'
                                 uri: any
-                                mimeType?: AudioMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Audio'
                                 uri: any
-                                mimeType?: AudioMimeType | null
+                                mimeType?: any | null
                               } | null
                             }
                           }
@@ -27467,12 +27289,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                                 width?: number | null
                                 height?: number | null
                               } | null
@@ -27485,12 +27307,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Image'
                                 uri: any
-                                mimeType?: ImageMimeType | null
+                                mimeType?: any | null
                                 width?: number | null
                                 height?: number | null
                               } | null
@@ -27500,12 +27322,12 @@ export type NotificationsQuery = {
                               raw: {
                                 __typename?: 'Video'
                                 uri: any
-                                mimeType?: VideoMimeType | null
+                                mimeType?: any | null
                               }
                               optimized?: {
                                 __typename?: 'Video'
                                 uri: any
-                                mimeType?: VideoMimeType | null
+                                mimeType?: any | null
                               } | null
                             }
                           }
@@ -27526,12 +27348,12 @@ export type NotificationsQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -27672,7 +27494,7 @@ export type NotificationsQuery = {
                       followerOnly: boolean
                       recipient: any
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -27710,7 +27532,7 @@ export type NotificationsQuery = {
                       referralFee: number
                       followerOnly: boolean
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -27794,7 +27616,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyLimitedFeeCollectModuleSettings'
-                      collectLimit: string
+                      collectLimit?: string | null
                       recipient: any
                       referralFee: number
                       followerOnly: boolean
@@ -27831,7 +27653,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings'
-                      collectLimit: string
+                      collectLimit?: string | null
                       recipient: any
                       referralFee: number
                       followerOnly: boolean
@@ -27872,7 +27694,7 @@ export type NotificationsQuery = {
                       referralFee: number
                       followerOnly: boolean
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -27923,13 +27745,13 @@ export type NotificationsQuery = {
                       recipient: any
                       referralFee: number
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
                         chainId: any
                       }
-                      optionalAmount?: {
+                      optionalAmount: {
                         __typename?: 'Amount'
                         value: string
                         rate?: {
@@ -27953,7 +27775,7 @@ export type NotificationsQuery = {
                             chainId: any
                           }
                         }
-                      } | null
+                      }
                     }
                   | {
                       __typename?: 'LegacyTimedFeeCollectModuleSettings'
@@ -27997,7 +27819,7 @@ export type NotificationsQuery = {
                       referralFee: number
                       followerOnly: boolean
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -28040,13 +27862,13 @@ export type NotificationsQuery = {
                       recipient: any
                       referralFee: number
                       optionalCollectLimit?: string | null
-                      optionalEndTimestamp?: any | null
+                      optionalEndsAt?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
                         chainId: any
                       }
-                      optionalAmount?: {
+                      optionalAmount: {
                         __typename?: 'Amount'
                         value: string
                         rate?: {
@@ -28070,7 +27892,7 @@ export type NotificationsQuery = {
                             chainId: any
                           }
                         }
-                      } | null
+                      }
                     }
                   | {
                       __typename?: 'UnknownOpenActionModuleSettings'
@@ -28214,12 +28036,12 @@ export type NotificationsQuery = {
                       raw: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                       }
                       optimized?: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                         width?: number | null
                         height?: number | null
                       } | null
@@ -28372,15 +28194,11 @@ export type ProfileQuery = {
       picture?:
         | {
             __typename?: 'ImageSet'
-            raw: {
-              __typename?: 'Image'
-              uri: any
-              mimeType?: ImageMimeType | null
-            }
+            raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
             optimized?: {
               __typename?: 'Image'
               uri: any
-              mimeType?: ImageMimeType | null
+              mimeType?: any | null
               width?: number | null
               height?: number | null
             } | null
@@ -28558,12 +28376,12 @@ export type FeedQuery = {
                       raw: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                       }
                       optimized?: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                         width?: number | null
                         height?: number | null
                       } | null
@@ -28757,12 +28575,12 @@ export type FeedQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -28772,12 +28590,12 @@ export type FeedQuery = {
                           raw: {
                             __typename?: 'Audio'
                             uri: any
-                            mimeType?: AudioMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Audio'
                             uri: any
-                            mimeType?: AudioMimeType | null
+                            mimeType?: any | null
                           } | null
                         }
                       }
@@ -28788,12 +28606,12 @@ export type FeedQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -28806,12 +28624,12 @@ export type FeedQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -28821,12 +28639,12 @@ export type FeedQuery = {
                           raw: {
                             __typename?: 'Video'
                             uri: any
-                            mimeType?: VideoMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Video'
                             uri: any
-                            mimeType?: VideoMimeType | null
+                            mimeType?: any | null
                           } | null
                         }
                       }
@@ -28847,12 +28665,12 @@ export type FeedQuery = {
                       raw: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                       }
                       optimized?: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                         width?: number | null
                         height?: number | null
                       } | null
@@ -28993,7 +28811,7 @@ export type FeedQuery = {
                   followerOnly: boolean
                   recipient: any
                   optionalCollectLimit?: string | null
-                  optionalEndTimestamp?: any | null
+                  optionalEndsAt?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
@@ -29031,7 +28849,7 @@ export type FeedQuery = {
                   referralFee: number
                   followerOnly: boolean
                   optionalCollectLimit?: string | null
-                  optionalEndTimestamp?: any | null
+                  optionalEndsAt?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
@@ -29115,7 +28933,7 @@ export type FeedQuery = {
                 }
               | {
                   __typename?: 'LegacyLimitedFeeCollectModuleSettings'
-                  collectLimit: string
+                  collectLimit?: string | null
                   recipient: any
                   referralFee: number
                   followerOnly: boolean
@@ -29152,7 +28970,7 @@ export type FeedQuery = {
                 }
               | {
                   __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings'
-                  collectLimit: string
+                  collectLimit?: string | null
                   recipient: any
                   referralFee: number
                   followerOnly: boolean
@@ -29193,7 +29011,7 @@ export type FeedQuery = {
                   referralFee: number
                   followerOnly: boolean
                   optionalCollectLimit?: string | null
-                  optionalEndTimestamp?: any | null
+                  optionalEndsAt?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
@@ -29244,13 +29062,13 @@ export type FeedQuery = {
                   recipient: any
                   referralFee: number
                   optionalCollectLimit?: string | null
-                  optionalEndTimestamp?: any | null
+                  optionalEndsAt?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
                     chainId: any
                   }
-                  optionalAmount?: {
+                  optionalAmount: {
                     __typename?: 'Amount'
                     value: string
                     rate?: {
@@ -29274,7 +29092,7 @@ export type FeedQuery = {
                         chainId: any
                       }
                     }
-                  } | null
+                  }
                 }
               | {
                   __typename?: 'LegacyTimedFeeCollectModuleSettings'
@@ -29318,7 +29136,7 @@ export type FeedQuery = {
                   referralFee: number
                   followerOnly: boolean
                   optionalCollectLimit?: string | null
-                  optionalEndTimestamp?: any | null
+                  optionalEndsAt?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
@@ -29361,13 +29179,13 @@ export type FeedQuery = {
                   recipient: any
                   referralFee: number
                   optionalCollectLimit?: string | null
-                  optionalEndTimestamp?: any | null
+                  optionalEndsAt?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
                     chainId: any
                   }
-                  optionalAmount?: {
+                  optionalAmount: {
                     __typename?: 'Amount'
                     value: string
                     rate?: {
@@ -29391,7 +29209,7 @@ export type FeedQuery = {
                         chainId: any
                       }
                     }
-                  } | null
+                  }
                 }
               | {
                   __typename?: 'UnknownOpenActionModuleSettings'
@@ -29543,12 +29361,12 @@ export type FeedQuery = {
                       raw: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                       }
                       optimized?: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                         width?: number | null
                         height?: number | null
                       } | null
@@ -29742,12 +29560,12 @@ export type FeedQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -29757,12 +29575,12 @@ export type FeedQuery = {
                           raw: {
                             __typename?: 'Audio'
                             uri: any
-                            mimeType?: AudioMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Audio'
                             uri: any
-                            mimeType?: AudioMimeType | null
+                            mimeType?: any | null
                           } | null
                         }
                       }
@@ -29773,12 +29591,12 @@ export type FeedQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -29791,12 +29609,12 @@ export type FeedQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -29806,12 +29624,12 @@ export type FeedQuery = {
                           raw: {
                             __typename?: 'Video'
                             uri: any
-                            mimeType?: VideoMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Video'
                             uri: any
-                            mimeType?: VideoMimeType | null
+                            mimeType?: any | null
                           } | null
                         }
                       }
@@ -29832,12 +29650,12 @@ export type FeedQuery = {
                       raw: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                       }
                       optimized?: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                         width?: number | null
                         height?: number | null
                       } | null
@@ -29978,7 +29796,7 @@ export type FeedQuery = {
                   followerOnly: boolean
                   recipient: any
                   optionalCollectLimit?: string | null
-                  optionalEndTimestamp?: any | null
+                  optionalEndsAt?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
@@ -30016,7 +29834,7 @@ export type FeedQuery = {
                   referralFee: number
                   followerOnly: boolean
                   optionalCollectLimit?: string | null
-                  optionalEndTimestamp?: any | null
+                  optionalEndsAt?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
@@ -30100,7 +29918,7 @@ export type FeedQuery = {
                 }
               | {
                   __typename?: 'LegacyLimitedFeeCollectModuleSettings'
-                  collectLimit: string
+                  collectLimit?: string | null
                   recipient: any
                   referralFee: number
                   followerOnly: boolean
@@ -30137,7 +29955,7 @@ export type FeedQuery = {
                 }
               | {
                   __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings'
-                  collectLimit: string
+                  collectLimit?: string | null
                   recipient: any
                   referralFee: number
                   followerOnly: boolean
@@ -30178,7 +29996,7 @@ export type FeedQuery = {
                   referralFee: number
                   followerOnly: boolean
                   optionalCollectLimit?: string | null
-                  optionalEndTimestamp?: any | null
+                  optionalEndsAt?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
@@ -30229,13 +30047,13 @@ export type FeedQuery = {
                   recipient: any
                   referralFee: number
                   optionalCollectLimit?: string | null
-                  optionalEndTimestamp?: any | null
+                  optionalEndsAt?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
                     chainId: any
                   }
-                  optionalAmount?: {
+                  optionalAmount: {
                     __typename?: 'Amount'
                     value: string
                     rate?: {
@@ -30259,7 +30077,7 @@ export type FeedQuery = {
                         chainId: any
                       }
                     }
-                  } | null
+                  }
                 }
               | {
                   __typename?: 'LegacyTimedFeeCollectModuleSettings'
@@ -30303,7 +30121,7 @@ export type FeedQuery = {
                   referralFee: number
                   followerOnly: boolean
                   optionalCollectLimit?: string | null
-                  optionalEndTimestamp?: any | null
+                  optionalEndsAt?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
@@ -30346,13 +30164,13 @@ export type FeedQuery = {
                   recipient: any
                   referralFee: number
                   optionalCollectLimit?: string | null
-                  optionalEndTimestamp?: any | null
+                  optionalEndsAt?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
                     chainId: any
                   }
-                  optionalAmount?: {
+                  optionalAmount: {
                     __typename?: 'Amount'
                     value: string
                     rate?: {
@@ -30376,7 +30194,7 @@ export type FeedQuery = {
                         chainId: any
                       }
                     }
-                  } | null
+                  }
                 }
               | {
                   __typename?: 'UnknownOpenActionModuleSettings'
@@ -30580,15 +30398,11 @@ export type ProfilesQuery = {
         picture?:
           | {
               __typename?: 'ImageSet'
-              raw: {
-                __typename?: 'Image'
-                uri: any
-                mimeType?: ImageMimeType | null
-              }
+              raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
               optimized?: {
                 __typename?: 'Image'
                 uri: any
-                mimeType?: ImageMimeType | null
+                mimeType?: any | null
                 width?: number | null
                 height?: number | null
               } | null
@@ -30738,15 +30552,11 @@ export type ProfilesManagedQuery = {
         picture?:
           | {
               __typename?: 'ImageSet'
-              raw: {
-                __typename?: 'Image'
-                uri: any
-                mimeType?: ImageMimeType | null
-              }
+              raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
               optimized?: {
                 __typename?: 'Image'
                 uri: any
-                mimeType?: ImageMimeType | null
+                mimeType?: any | null
                 width?: number | null
                 height?: number | null
               } | null
@@ -30916,15 +30726,11 @@ export type PublicationQuery = {
             picture?:
               | {
                   __typename?: 'ImageSet'
-                  raw: {
-                    __typename?: 'Image'
-                    uri: any
-                    mimeType?: ImageMimeType | null
-                  }
+                  raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
                   optimized?: {
                     __typename?: 'Image'
                     uri: any
-                    mimeType?: ImageMimeType | null
+                    mimeType?: any | null
                     width?: number | null
                     height?: number | null
                   } | null
@@ -31118,12 +30924,12 @@ export type PublicationQuery = {
                       raw: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                       }
                       optimized?: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                         width?: number | null
                         height?: number | null
                       } | null
@@ -31133,12 +30939,12 @@ export type PublicationQuery = {
                       raw: {
                         __typename?: 'Audio'
                         uri: any
-                        mimeType?: AudioMimeType | null
+                        mimeType?: any | null
                       }
                       optimized?: {
                         __typename?: 'Audio'
                         uri: any
-                        mimeType?: AudioMimeType | null
+                        mimeType?: any | null
                       } | null
                     }
                   }
@@ -31149,12 +30955,12 @@ export type PublicationQuery = {
                       raw: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                       }
                       optimized?: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                         width?: number | null
                         height?: number | null
                       } | null
@@ -31167,12 +30973,12 @@ export type PublicationQuery = {
                       raw: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                       }
                       optimized?: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                         width?: number | null
                         height?: number | null
                       } | null
@@ -31182,12 +30988,12 @@ export type PublicationQuery = {
                       raw: {
                         __typename?: 'Video'
                         uri: any
-                        mimeType?: VideoMimeType | null
+                        mimeType?: any | null
                       }
                       optimized?: {
                         __typename?: 'Video'
                         uri: any
-                        mimeType?: VideoMimeType | null
+                        mimeType?: any | null
                       } | null
                     }
                   }
@@ -31205,15 +31011,11 @@ export type PublicationQuery = {
                 }> | null
                 image?: {
                   __typename?: 'ImageSet'
-                  raw: {
-                    __typename?: 'Image'
-                    uri: any
-                    mimeType?: ImageMimeType | null
-                  }
+                  raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
                   optimized?: {
                     __typename?: 'Image'
                     uri: any
-                    mimeType?: ImageMimeType | null
+                    mimeType?: any | null
                     width?: number | null
                     height?: number | null
                   } | null
@@ -31354,7 +31156,7 @@ export type PublicationQuery = {
               followerOnly: boolean
               recipient: any
               optionalCollectLimit?: string | null
-              optionalEndTimestamp?: any | null
+              optionalEndsAt?: any | null
               contract: {
                 __typename?: 'NetworkAddress'
                 address: any
@@ -31392,7 +31194,7 @@ export type PublicationQuery = {
               referralFee: number
               followerOnly: boolean
               optionalCollectLimit?: string | null
-              optionalEndTimestamp?: any | null
+              optionalEndsAt?: any | null
               contract: {
                 __typename?: 'NetworkAddress'
                 address: any
@@ -31476,7 +31278,7 @@ export type PublicationQuery = {
             }
           | {
               __typename?: 'LegacyLimitedFeeCollectModuleSettings'
-              collectLimit: string
+              collectLimit?: string | null
               recipient: any
               referralFee: number
               followerOnly: boolean
@@ -31513,7 +31315,7 @@ export type PublicationQuery = {
             }
           | {
               __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings'
-              collectLimit: string
+              collectLimit?: string | null
               recipient: any
               referralFee: number
               followerOnly: boolean
@@ -31554,7 +31356,7 @@ export type PublicationQuery = {
               referralFee: number
               followerOnly: boolean
               optionalCollectLimit?: string | null
-              optionalEndTimestamp?: any | null
+              optionalEndsAt?: any | null
               contract: {
                 __typename?: 'NetworkAddress'
                 address: any
@@ -31605,13 +31407,13 @@ export type PublicationQuery = {
               recipient: any
               referralFee: number
               optionalCollectLimit?: string | null
-              optionalEndTimestamp?: any | null
+              optionalEndsAt?: any | null
               contract: {
                 __typename?: 'NetworkAddress'
                 address: any
                 chainId: any
               }
-              optionalAmount?: {
+              optionalAmount: {
                 __typename?: 'Amount'
                 value: string
                 rate?: {
@@ -31635,7 +31437,7 @@ export type PublicationQuery = {
                     chainId: any
                   }
                 }
-              } | null
+              }
             }
           | {
               __typename?: 'LegacyTimedFeeCollectModuleSettings'
@@ -31679,7 +31481,7 @@ export type PublicationQuery = {
               referralFee: number
               followerOnly: boolean
               optionalCollectLimit?: string | null
-              optionalEndTimestamp?: any | null
+              optionalEndsAt?: any | null
               contract: {
                 __typename?: 'NetworkAddress'
                 address: any
@@ -31722,13 +31524,13 @@ export type PublicationQuery = {
               recipient: any
               referralFee: number
               optionalCollectLimit?: string | null
-              optionalEndTimestamp?: any | null
+              optionalEndsAt?: any | null
               contract: {
                 __typename?: 'NetworkAddress'
                 address: any
                 chainId: any
               }
-              optionalAmount?: {
+              optionalAmount: {
                 __typename?: 'Amount'
                 value: string
                 rate?: {
@@ -31752,7 +31554,7 @@ export type PublicationQuery = {
                     chainId: any
                   }
                 }
-              } | null
+              }
             }
           | {
               __typename?: 'UnknownOpenActionModuleSettings'
@@ -31907,15 +31709,11 @@ export type PublicationQuery = {
             picture?:
               | {
                   __typename?: 'ImageSet'
-                  raw: {
-                    __typename?: 'Image'
-                    uri: any
-                    mimeType?: ImageMimeType | null
-                  }
+                  raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
                   optimized?: {
                     __typename?: 'Image'
                     uri: any
-                    mimeType?: ImageMimeType | null
+                    mimeType?: any | null
                     width?: number | null
                     height?: number | null
                   } | null
@@ -32109,12 +31907,12 @@ export type PublicationQuery = {
                       raw: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                       }
                       optimized?: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                         width?: number | null
                         height?: number | null
                       } | null
@@ -32124,12 +31922,12 @@ export type PublicationQuery = {
                       raw: {
                         __typename?: 'Audio'
                         uri: any
-                        mimeType?: AudioMimeType | null
+                        mimeType?: any | null
                       }
                       optimized?: {
                         __typename?: 'Audio'
                         uri: any
-                        mimeType?: AudioMimeType | null
+                        mimeType?: any | null
                       } | null
                     }
                   }
@@ -32140,12 +31938,12 @@ export type PublicationQuery = {
                       raw: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                       }
                       optimized?: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                         width?: number | null
                         height?: number | null
                       } | null
@@ -32158,12 +31956,12 @@ export type PublicationQuery = {
                       raw: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                       }
                       optimized?: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                         width?: number | null
                         height?: number | null
                       } | null
@@ -32173,12 +31971,12 @@ export type PublicationQuery = {
                       raw: {
                         __typename?: 'Video'
                         uri: any
-                        mimeType?: VideoMimeType | null
+                        mimeType?: any | null
                       }
                       optimized?: {
                         __typename?: 'Video'
                         uri: any
-                        mimeType?: VideoMimeType | null
+                        mimeType?: any | null
                       } | null
                     }
                   }
@@ -32196,15 +31994,11 @@ export type PublicationQuery = {
                 }> | null
                 image?: {
                   __typename?: 'ImageSet'
-                  raw: {
-                    __typename?: 'Image'
-                    uri: any
-                    mimeType?: ImageMimeType | null
-                  }
+                  raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
                   optimized?: {
                     __typename?: 'Image'
                     uri: any
-                    mimeType?: ImageMimeType | null
+                    mimeType?: any | null
                     width?: number | null
                     height?: number | null
                   } | null
@@ -32345,7 +32139,7 @@ export type PublicationQuery = {
               followerOnly: boolean
               recipient: any
               optionalCollectLimit?: string | null
-              optionalEndTimestamp?: any | null
+              optionalEndsAt?: any | null
               contract: {
                 __typename?: 'NetworkAddress'
                 address: any
@@ -32383,7 +32177,7 @@ export type PublicationQuery = {
               referralFee: number
               followerOnly: boolean
               optionalCollectLimit?: string | null
-              optionalEndTimestamp?: any | null
+              optionalEndsAt?: any | null
               contract: {
                 __typename?: 'NetworkAddress'
                 address: any
@@ -32467,7 +32261,7 @@ export type PublicationQuery = {
             }
           | {
               __typename?: 'LegacyLimitedFeeCollectModuleSettings'
-              collectLimit: string
+              collectLimit?: string | null
               recipient: any
               referralFee: number
               followerOnly: boolean
@@ -32504,7 +32298,7 @@ export type PublicationQuery = {
             }
           | {
               __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings'
-              collectLimit: string
+              collectLimit?: string | null
               recipient: any
               referralFee: number
               followerOnly: boolean
@@ -32545,7 +32339,7 @@ export type PublicationQuery = {
               referralFee: number
               followerOnly: boolean
               optionalCollectLimit?: string | null
-              optionalEndTimestamp?: any | null
+              optionalEndsAt?: any | null
               contract: {
                 __typename?: 'NetworkAddress'
                 address: any
@@ -32596,13 +32390,13 @@ export type PublicationQuery = {
               recipient: any
               referralFee: number
               optionalCollectLimit?: string | null
-              optionalEndTimestamp?: any | null
+              optionalEndsAt?: any | null
               contract: {
                 __typename?: 'NetworkAddress'
                 address: any
                 chainId: any
               }
-              optionalAmount?: {
+              optionalAmount: {
                 __typename?: 'Amount'
                 value: string
                 rate?: {
@@ -32626,7 +32420,7 @@ export type PublicationQuery = {
                     chainId: any
                   }
                 }
-              } | null
+              }
             }
           | {
               __typename?: 'LegacyTimedFeeCollectModuleSettings'
@@ -32670,7 +32464,7 @@ export type PublicationQuery = {
               referralFee: number
               followerOnly: boolean
               optionalCollectLimit?: string | null
-              optionalEndTimestamp?: any | null
+              optionalEndsAt?: any | null
               contract: {
                 __typename?: 'NetworkAddress'
                 address: any
@@ -32713,13 +32507,13 @@ export type PublicationQuery = {
               recipient: any
               referralFee: number
               optionalCollectLimit?: string | null
-              optionalEndTimestamp?: any | null
+              optionalEndsAt?: any | null
               contract: {
                 __typename?: 'NetworkAddress'
                 address: any
                 chainId: any
               }
-              optionalAmount?: {
+              optionalAmount: {
                 __typename?: 'Amount'
                 value: string
                 rate?: {
@@ -32743,7 +32537,7 @@ export type PublicationQuery = {
                     chainId: any
                   }
                 }
-              } | null
+              }
             }
           | {
               __typename?: 'UnknownOpenActionModuleSettings'
@@ -32879,15 +32673,11 @@ export type PublicationQuery = {
             picture?:
               | {
                   __typename?: 'ImageSet'
-                  raw: {
-                    __typename?: 'Image'
-                    uri: any
-                    mimeType?: ImageMimeType | null
-                  }
+                  raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
                   optimized?: {
                     __typename?: 'Image'
                     uri: any
-                    mimeType?: ImageMimeType | null
+                    mimeType?: any | null
                     width?: number | null
                     height?: number | null
                   } | null
@@ -33081,12 +32871,12 @@ export type PublicationQuery = {
                       raw: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                       }
                       optimized?: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                         width?: number | null
                         height?: number | null
                       } | null
@@ -33096,12 +32886,12 @@ export type PublicationQuery = {
                       raw: {
                         __typename?: 'Audio'
                         uri: any
-                        mimeType?: AudioMimeType | null
+                        mimeType?: any | null
                       }
                       optimized?: {
                         __typename?: 'Audio'
                         uri: any
-                        mimeType?: AudioMimeType | null
+                        mimeType?: any | null
                       } | null
                     }
                   }
@@ -33112,12 +32902,12 @@ export type PublicationQuery = {
                       raw: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                       }
                       optimized?: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                         width?: number | null
                         height?: number | null
                       } | null
@@ -33130,12 +32920,12 @@ export type PublicationQuery = {
                       raw: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                       }
                       optimized?: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                         width?: number | null
                         height?: number | null
                       } | null
@@ -33145,12 +32935,12 @@ export type PublicationQuery = {
                       raw: {
                         __typename?: 'Video'
                         uri: any
-                        mimeType?: VideoMimeType | null
+                        mimeType?: any | null
                       }
                       optimized?: {
                         __typename?: 'Video'
                         uri: any
-                        mimeType?: VideoMimeType | null
+                        mimeType?: any | null
                       } | null
                     }
                   }
@@ -33168,15 +32958,11 @@ export type PublicationQuery = {
                 }> | null
                 image?: {
                   __typename?: 'ImageSet'
-                  raw: {
-                    __typename?: 'Image'
-                    uri: any
-                    mimeType?: ImageMimeType | null
-                  }
+                  raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
                   optimized?: {
                     __typename?: 'Image'
                     uri: any
-                    mimeType?: ImageMimeType | null
+                    mimeType?: any | null
                     width?: number | null
                     height?: number | null
                   } | null
@@ -33317,7 +33103,7 @@ export type PublicationQuery = {
               followerOnly: boolean
               recipient: any
               optionalCollectLimit?: string | null
-              optionalEndTimestamp?: any | null
+              optionalEndsAt?: any | null
               contract: {
                 __typename?: 'NetworkAddress'
                 address: any
@@ -33355,7 +33141,7 @@ export type PublicationQuery = {
               referralFee: number
               followerOnly: boolean
               optionalCollectLimit?: string | null
-              optionalEndTimestamp?: any | null
+              optionalEndsAt?: any | null
               contract: {
                 __typename?: 'NetworkAddress'
                 address: any
@@ -33439,7 +33225,7 @@ export type PublicationQuery = {
             }
           | {
               __typename?: 'LegacyLimitedFeeCollectModuleSettings'
-              collectLimit: string
+              collectLimit?: string | null
               recipient: any
               referralFee: number
               followerOnly: boolean
@@ -33476,7 +33262,7 @@ export type PublicationQuery = {
             }
           | {
               __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings'
-              collectLimit: string
+              collectLimit?: string | null
               recipient: any
               referralFee: number
               followerOnly: boolean
@@ -33517,7 +33303,7 @@ export type PublicationQuery = {
               referralFee: number
               followerOnly: boolean
               optionalCollectLimit?: string | null
-              optionalEndTimestamp?: any | null
+              optionalEndsAt?: any | null
               contract: {
                 __typename?: 'NetworkAddress'
                 address: any
@@ -33568,13 +33354,13 @@ export type PublicationQuery = {
               recipient: any
               referralFee: number
               optionalCollectLimit?: string | null
-              optionalEndTimestamp?: any | null
+              optionalEndsAt?: any | null
               contract: {
                 __typename?: 'NetworkAddress'
                 address: any
                 chainId: any
               }
-              optionalAmount?: {
+              optionalAmount: {
                 __typename?: 'Amount'
                 value: string
                 rate?: {
@@ -33598,7 +33384,7 @@ export type PublicationQuery = {
                     chainId: any
                   }
                 }
-              } | null
+              }
             }
           | {
               __typename?: 'LegacyTimedFeeCollectModuleSettings'
@@ -33642,7 +33428,7 @@ export type PublicationQuery = {
               referralFee: number
               followerOnly: boolean
               optionalCollectLimit?: string | null
-              optionalEndTimestamp?: any | null
+              optionalEndsAt?: any | null
               contract: {
                 __typename?: 'NetworkAddress'
                 address: any
@@ -33685,13 +33471,13 @@ export type PublicationQuery = {
               recipient: any
               referralFee: number
               optionalCollectLimit?: string | null
-              optionalEndTimestamp?: any | null
+              optionalEndsAt?: any | null
               contract: {
                 __typename?: 'NetworkAddress'
                 address: any
                 chainId: any
               }
-              optionalAmount?: {
+              optionalAmount: {
                 __typename?: 'Amount'
                 value: string
                 rate?: {
@@ -33715,7 +33501,7 @@ export type PublicationQuery = {
                     chainId: any
                   }
                 }
-              } | null
+              }
             }
           | {
               __typename?: 'UnknownOpenActionModuleSettings'
@@ -33874,12 +33660,12 @@ export type PublicationBookmarksQuery = {
                     raw: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                     }
                     optimized?: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                       width?: number | null
                       height?: number | null
                     } | null
@@ -34073,12 +33859,12 @@ export type PublicationBookmarksQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -34088,12 +33874,12 @@ export type PublicationBookmarksQuery = {
                         raw: {
                           __typename?: 'Audio'
                           uri: any
-                          mimeType?: AudioMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Audio'
                           uri: any
-                          mimeType?: AudioMimeType | null
+                          mimeType?: any | null
                         } | null
                       }
                     }
@@ -34104,12 +33890,12 @@ export type PublicationBookmarksQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -34122,12 +33908,12 @@ export type PublicationBookmarksQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -34137,12 +33923,12 @@ export type PublicationBookmarksQuery = {
                         raw: {
                           __typename?: 'Video'
                           uri: any
-                          mimeType?: VideoMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Video'
                           uri: any
-                          mimeType?: VideoMimeType | null
+                          mimeType?: any | null
                         } | null
                       }
                     }
@@ -34163,12 +33949,12 @@ export type PublicationBookmarksQuery = {
                     raw: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                     }
                     optimized?: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                       width?: number | null
                       height?: number | null
                     } | null
@@ -34309,7 +34095,7 @@ export type PublicationBookmarksQuery = {
                 followerOnly: boolean
                 recipient: any
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -34347,7 +34133,7 @@ export type PublicationBookmarksQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -34431,7 +34217,7 @@ export type PublicationBookmarksQuery = {
               }
             | {
                 __typename?: 'LegacyLimitedFeeCollectModuleSettings'
-                collectLimit: string
+                collectLimit?: string | null
                 recipient: any
                 referralFee: number
                 followerOnly: boolean
@@ -34468,7 +34254,7 @@ export type PublicationBookmarksQuery = {
               }
             | {
                 __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings'
-                collectLimit: string
+                collectLimit?: string | null
                 recipient: any
                 referralFee: number
                 followerOnly: boolean
@@ -34509,7 +34295,7 @@ export type PublicationBookmarksQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -34560,13 +34346,13 @@ export type PublicationBookmarksQuery = {
                 recipient: any
                 referralFee: number
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
                   chainId: any
                 }
-                optionalAmount?: {
+                optionalAmount: {
                   __typename?: 'Amount'
                   value: string
                   rate?: {
@@ -34590,7 +34376,7 @@ export type PublicationBookmarksQuery = {
                       chainId: any
                     }
                   }
-                } | null
+                }
               }
             | {
                 __typename?: 'LegacyTimedFeeCollectModuleSettings'
@@ -34634,7 +34420,7 @@ export type PublicationBookmarksQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -34677,13 +34463,13 @@ export type PublicationBookmarksQuery = {
                 recipient: any
                 referralFee: number
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
                   chainId: any
                 }
-                optionalAmount?: {
+                optionalAmount: {
                   __typename?: 'Amount'
                   value: string
                   rate?: {
@@ -34707,7 +34493,7 @@ export type PublicationBookmarksQuery = {
                       chainId: any
                     }
                   }
-                } | null
+                }
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings'
@@ -34869,12 +34655,12 @@ export type PublicationBookmarksQuery = {
                     raw: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                     }
                     optimized?: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                       width?: number | null
                       height?: number | null
                     } | null
@@ -35068,12 +34854,12 @@ export type PublicationBookmarksQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -35083,12 +34869,12 @@ export type PublicationBookmarksQuery = {
                         raw: {
                           __typename?: 'Audio'
                           uri: any
-                          mimeType?: AudioMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Audio'
                           uri: any
-                          mimeType?: AudioMimeType | null
+                          mimeType?: any | null
                         } | null
                       }
                     }
@@ -35099,12 +34885,12 @@ export type PublicationBookmarksQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -35117,12 +34903,12 @@ export type PublicationBookmarksQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -35132,12 +34918,12 @@ export type PublicationBookmarksQuery = {
                         raw: {
                           __typename?: 'Video'
                           uri: any
-                          mimeType?: VideoMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Video'
                           uri: any
-                          mimeType?: VideoMimeType | null
+                          mimeType?: any | null
                         } | null
                       }
                     }
@@ -35158,12 +34944,12 @@ export type PublicationBookmarksQuery = {
                     raw: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                     }
                     optimized?: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                       width?: number | null
                       height?: number | null
                     } | null
@@ -35304,7 +35090,7 @@ export type PublicationBookmarksQuery = {
                 followerOnly: boolean
                 recipient: any
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -35342,7 +35128,7 @@ export type PublicationBookmarksQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -35426,7 +35212,7 @@ export type PublicationBookmarksQuery = {
               }
             | {
                 __typename?: 'LegacyLimitedFeeCollectModuleSettings'
-                collectLimit: string
+                collectLimit?: string | null
                 recipient: any
                 referralFee: number
                 followerOnly: boolean
@@ -35463,7 +35249,7 @@ export type PublicationBookmarksQuery = {
               }
             | {
                 __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings'
-                collectLimit: string
+                collectLimit?: string | null
                 recipient: any
                 referralFee: number
                 followerOnly: boolean
@@ -35504,7 +35290,7 @@ export type PublicationBookmarksQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -35555,13 +35341,13 @@ export type PublicationBookmarksQuery = {
                 recipient: any
                 referralFee: number
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
                   chainId: any
                 }
-                optionalAmount?: {
+                optionalAmount: {
                   __typename?: 'Amount'
                   value: string
                   rate?: {
@@ -35585,7 +35371,7 @@ export type PublicationBookmarksQuery = {
                       chainId: any
                     }
                   }
-                } | null
+                }
               }
             | {
                 __typename?: 'LegacyTimedFeeCollectModuleSettings'
@@ -35629,7 +35415,7 @@ export type PublicationBookmarksQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -35672,13 +35458,13 @@ export type PublicationBookmarksQuery = {
                 recipient: any
                 referralFee: number
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
                   chainId: any
                 }
-                optionalAmount?: {
+                optionalAmount: {
                   __typename?: 'Amount'
                   value: string
                   rate?: {
@@ -35702,7 +35488,7 @@ export type PublicationBookmarksQuery = {
                       chainId: any
                     }
                   }
-                } | null
+                }
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings'
@@ -35845,12 +35631,12 @@ export type PublicationBookmarksQuery = {
                     raw: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                     }
                     optimized?: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                       width?: number | null
                       height?: number | null
                     } | null
@@ -36044,12 +35830,12 @@ export type PublicationBookmarksQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -36059,12 +35845,12 @@ export type PublicationBookmarksQuery = {
                         raw: {
                           __typename?: 'Audio'
                           uri: any
-                          mimeType?: AudioMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Audio'
                           uri: any
-                          mimeType?: AudioMimeType | null
+                          mimeType?: any | null
                         } | null
                       }
                     }
@@ -36075,12 +35861,12 @@ export type PublicationBookmarksQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -36093,12 +35879,12 @@ export type PublicationBookmarksQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -36108,12 +35894,12 @@ export type PublicationBookmarksQuery = {
                         raw: {
                           __typename?: 'Video'
                           uri: any
-                          mimeType?: VideoMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Video'
                           uri: any
-                          mimeType?: VideoMimeType | null
+                          mimeType?: any | null
                         } | null
                       }
                     }
@@ -36134,12 +35920,12 @@ export type PublicationBookmarksQuery = {
                     raw: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                     }
                     optimized?: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                       width?: number | null
                       height?: number | null
                     } | null
@@ -36280,7 +36066,7 @@ export type PublicationBookmarksQuery = {
                 followerOnly: boolean
                 recipient: any
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -36318,7 +36104,7 @@ export type PublicationBookmarksQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -36402,7 +36188,7 @@ export type PublicationBookmarksQuery = {
               }
             | {
                 __typename?: 'LegacyLimitedFeeCollectModuleSettings'
-                collectLimit: string
+                collectLimit?: string | null
                 recipient: any
                 referralFee: number
                 followerOnly: boolean
@@ -36439,7 +36225,7 @@ export type PublicationBookmarksQuery = {
               }
             | {
                 __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings'
-                collectLimit: string
+                collectLimit?: string | null
                 recipient: any
                 referralFee: number
                 followerOnly: boolean
@@ -36480,7 +36266,7 @@ export type PublicationBookmarksQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -36531,13 +36317,13 @@ export type PublicationBookmarksQuery = {
                 recipient: any
                 referralFee: number
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
                   chainId: any
                 }
-                optionalAmount?: {
+                optionalAmount: {
                   __typename?: 'Amount'
                   value: string
                   rate?: {
@@ -36561,7 +36347,7 @@ export type PublicationBookmarksQuery = {
                       chainId: any
                     }
                   }
-                } | null
+                }
               }
             | {
                 __typename?: 'LegacyTimedFeeCollectModuleSettings'
@@ -36605,7 +36391,7 @@ export type PublicationBookmarksQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -36648,13 +36434,13 @@ export type PublicationBookmarksQuery = {
                 recipient: any
                 referralFee: number
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
                   chainId: any
                 }
-                optionalAmount?: {
+                optionalAmount: {
                   __typename?: 'Amount'
                   value: string
                   rate?: {
@@ -36678,7 +36464,7 @@ export type PublicationBookmarksQuery = {
                       chainId: any
                     }
                   }
-                } | null
+                }
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings'
@@ -36839,12 +36625,12 @@ export type PublicationsQuery = {
                     raw: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                     }
                     optimized?: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                       width?: number | null
                       height?: number | null
                     } | null
@@ -37038,12 +36824,12 @@ export type PublicationsQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -37053,12 +36839,12 @@ export type PublicationsQuery = {
                         raw: {
                           __typename?: 'Audio'
                           uri: any
-                          mimeType?: AudioMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Audio'
                           uri: any
-                          mimeType?: AudioMimeType | null
+                          mimeType?: any | null
                         } | null
                       }
                     }
@@ -37069,12 +36855,12 @@ export type PublicationsQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -37087,12 +36873,12 @@ export type PublicationsQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -37102,12 +36888,12 @@ export type PublicationsQuery = {
                         raw: {
                           __typename?: 'Video'
                           uri: any
-                          mimeType?: VideoMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Video'
                           uri: any
-                          mimeType?: VideoMimeType | null
+                          mimeType?: any | null
                         } | null
                       }
                     }
@@ -37128,12 +36914,12 @@ export type PublicationsQuery = {
                     raw: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                     }
                     optimized?: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                       width?: number | null
                       height?: number | null
                     } | null
@@ -37274,7 +37060,7 @@ export type PublicationsQuery = {
                 followerOnly: boolean
                 recipient: any
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -37312,7 +37098,7 @@ export type PublicationsQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -37396,7 +37182,7 @@ export type PublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyLimitedFeeCollectModuleSettings'
-                collectLimit: string
+                collectLimit?: string | null
                 recipient: any
                 referralFee: number
                 followerOnly: boolean
@@ -37433,7 +37219,7 @@ export type PublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings'
-                collectLimit: string
+                collectLimit?: string | null
                 recipient: any
                 referralFee: number
                 followerOnly: boolean
@@ -37474,7 +37260,7 @@ export type PublicationsQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -37525,13 +37311,13 @@ export type PublicationsQuery = {
                 recipient: any
                 referralFee: number
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
                   chainId: any
                 }
-                optionalAmount?: {
+                optionalAmount: {
                   __typename?: 'Amount'
                   value: string
                   rate?: {
@@ -37555,7 +37341,7 @@ export type PublicationsQuery = {
                       chainId: any
                     }
                   }
-                } | null
+                }
               }
             | {
                 __typename?: 'LegacyTimedFeeCollectModuleSettings'
@@ -37599,7 +37385,7 @@ export type PublicationsQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -37642,13 +37428,13 @@ export type PublicationsQuery = {
                 recipient: any
                 referralFee: number
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
                   chainId: any
                 }
-                optionalAmount?: {
+                optionalAmount: {
                   __typename?: 'Amount'
                   value: string
                   rate?: {
@@ -37672,7 +37458,7 @@ export type PublicationsQuery = {
                       chainId: any
                     }
                   }
-                } | null
+                }
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings'
@@ -37834,12 +37620,12 @@ export type PublicationsQuery = {
                     raw: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                     }
                     optimized?: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                       width?: number | null
                       height?: number | null
                     } | null
@@ -38033,12 +37819,12 @@ export type PublicationsQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -38048,12 +37834,12 @@ export type PublicationsQuery = {
                         raw: {
                           __typename?: 'Audio'
                           uri: any
-                          mimeType?: AudioMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Audio'
                           uri: any
-                          mimeType?: AudioMimeType | null
+                          mimeType?: any | null
                         } | null
                       }
                     }
@@ -38064,12 +37850,12 @@ export type PublicationsQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -38082,12 +37868,12 @@ export type PublicationsQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -38097,12 +37883,12 @@ export type PublicationsQuery = {
                         raw: {
                           __typename?: 'Video'
                           uri: any
-                          mimeType?: VideoMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Video'
                           uri: any
-                          mimeType?: VideoMimeType | null
+                          mimeType?: any | null
                         } | null
                       }
                     }
@@ -38123,12 +37909,12 @@ export type PublicationsQuery = {
                     raw: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                     }
                     optimized?: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                       width?: number | null
                       height?: number | null
                     } | null
@@ -38269,7 +38055,7 @@ export type PublicationsQuery = {
                 followerOnly: boolean
                 recipient: any
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -38307,7 +38093,7 @@ export type PublicationsQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -38391,7 +38177,7 @@ export type PublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyLimitedFeeCollectModuleSettings'
-                collectLimit: string
+                collectLimit?: string | null
                 recipient: any
                 referralFee: number
                 followerOnly: boolean
@@ -38428,7 +38214,7 @@ export type PublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings'
-                collectLimit: string
+                collectLimit?: string | null
                 recipient: any
                 referralFee: number
                 followerOnly: boolean
@@ -38469,7 +38255,7 @@ export type PublicationsQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -38520,13 +38306,13 @@ export type PublicationsQuery = {
                 recipient: any
                 referralFee: number
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
                   chainId: any
                 }
-                optionalAmount?: {
+                optionalAmount: {
                   __typename?: 'Amount'
                   value: string
                   rate?: {
@@ -38550,7 +38336,7 @@ export type PublicationsQuery = {
                       chainId: any
                     }
                   }
-                } | null
+                }
               }
             | {
                 __typename?: 'LegacyTimedFeeCollectModuleSettings'
@@ -38594,7 +38380,7 @@ export type PublicationsQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -38637,13 +38423,13 @@ export type PublicationsQuery = {
                 recipient: any
                 referralFee: number
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
                   chainId: any
                 }
-                optionalAmount?: {
+                optionalAmount: {
                   __typename?: 'Amount'
                   value: string
                   rate?: {
@@ -38667,7 +38453,7 @@ export type PublicationsQuery = {
                       chainId: any
                     }
                   }
-                } | null
+                }
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings'
@@ -38810,12 +38596,12 @@ export type PublicationsQuery = {
                     raw: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                     }
                     optimized?: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                       width?: number | null
                       height?: number | null
                     } | null
@@ -39009,12 +38795,12 @@ export type PublicationsQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -39024,12 +38810,12 @@ export type PublicationsQuery = {
                         raw: {
                           __typename?: 'Audio'
                           uri: any
-                          mimeType?: AudioMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Audio'
                           uri: any
-                          mimeType?: AudioMimeType | null
+                          mimeType?: any | null
                         } | null
                       }
                     }
@@ -39040,12 +38826,12 @@ export type PublicationsQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -39058,12 +38844,12 @@ export type PublicationsQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -39073,12 +38859,12 @@ export type PublicationsQuery = {
                         raw: {
                           __typename?: 'Video'
                           uri: any
-                          mimeType?: VideoMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Video'
                           uri: any
-                          mimeType?: VideoMimeType | null
+                          mimeType?: any | null
                         } | null
                       }
                     }
@@ -39099,12 +38885,12 @@ export type PublicationsQuery = {
                     raw: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                     }
                     optimized?: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                       width?: number | null
                       height?: number | null
                     } | null
@@ -39245,7 +39031,7 @@ export type PublicationsQuery = {
                 followerOnly: boolean
                 recipient: any
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -39283,7 +39069,7 @@ export type PublicationsQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -39367,7 +39153,7 @@ export type PublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyLimitedFeeCollectModuleSettings'
-                collectLimit: string
+                collectLimit?: string | null
                 recipient: any
                 referralFee: number
                 followerOnly: boolean
@@ -39404,7 +39190,7 @@ export type PublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings'
-                collectLimit: string
+                collectLimit?: string | null
                 recipient: any
                 referralFee: number
                 followerOnly: boolean
@@ -39445,7 +39231,7 @@ export type PublicationsQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -39496,13 +39282,13 @@ export type PublicationsQuery = {
                 recipient: any
                 referralFee: number
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
                   chainId: any
                 }
-                optionalAmount?: {
+                optionalAmount: {
                   __typename?: 'Amount'
                   value: string
                   rate?: {
@@ -39526,7 +39312,7 @@ export type PublicationsQuery = {
                       chainId: any
                     }
                   }
-                } | null
+                }
               }
             | {
                 __typename?: 'LegacyTimedFeeCollectModuleSettings'
@@ -39570,7 +39356,7 @@ export type PublicationsQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -39613,13 +39399,13 @@ export type PublicationsQuery = {
                 recipient: any
                 referralFee: number
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
                   chainId: any
                 }
-                optionalAmount?: {
+                optionalAmount: {
                   __typename?: 'Amount'
                   value: string
                   rate?: {
@@ -39643,7 +39429,7 @@ export type PublicationsQuery = {
                       chainId: any
                     }
                   }
-                } | null
+                }
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings'
@@ -39697,7 +39483,7 @@ export type PublicationsQuery = {
 }
 
 export type RevenueFromPublicationQueryVariables = Exact<{
-  request: PublicationRevenueRequest
+  request: RevenueFromPublicationRequest
 }>
 
 export type RevenueFromPublicationQuery = {
@@ -39804,12 +39590,12 @@ export type RevenueFromPublicationQuery = {
                     raw: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                     }
                     optimized?: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                       width?: number | null
                       height?: number | null
                     } | null
@@ -40003,12 +39789,12 @@ export type RevenueFromPublicationQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -40018,12 +39804,12 @@ export type RevenueFromPublicationQuery = {
                         raw: {
                           __typename?: 'Audio'
                           uri: any
-                          mimeType?: AudioMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Audio'
                           uri: any
-                          mimeType?: AudioMimeType | null
+                          mimeType?: any | null
                         } | null
                       }
                     }
@@ -40034,12 +39820,12 @@ export type RevenueFromPublicationQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -40052,12 +39838,12 @@ export type RevenueFromPublicationQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -40067,12 +39853,12 @@ export type RevenueFromPublicationQuery = {
                         raw: {
                           __typename?: 'Video'
                           uri: any
-                          mimeType?: VideoMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Video'
                           uri: any
-                          mimeType?: VideoMimeType | null
+                          mimeType?: any | null
                         } | null
                       }
                     }
@@ -40093,12 +39879,12 @@ export type RevenueFromPublicationQuery = {
                     raw: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                     }
                     optimized?: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                       width?: number | null
                       height?: number | null
                     } | null
@@ -40239,7 +40025,7 @@ export type RevenueFromPublicationQuery = {
                 followerOnly: boolean
                 recipient: any
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -40277,7 +40063,7 @@ export type RevenueFromPublicationQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -40361,7 +40147,7 @@ export type RevenueFromPublicationQuery = {
               }
             | {
                 __typename?: 'LegacyLimitedFeeCollectModuleSettings'
-                collectLimit: string
+                collectLimit?: string | null
                 recipient: any
                 referralFee: number
                 followerOnly: boolean
@@ -40398,7 +40184,7 @@ export type RevenueFromPublicationQuery = {
               }
             | {
                 __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings'
-                collectLimit: string
+                collectLimit?: string | null
                 recipient: any
                 referralFee: number
                 followerOnly: boolean
@@ -40439,7 +40225,7 @@ export type RevenueFromPublicationQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -40490,13 +40276,13 @@ export type RevenueFromPublicationQuery = {
                 recipient: any
                 referralFee: number
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
                   chainId: any
                 }
-                optionalAmount?: {
+                optionalAmount: {
                   __typename?: 'Amount'
                   value: string
                   rate?: {
@@ -40520,7 +40306,7 @@ export type RevenueFromPublicationQuery = {
                       chainId: any
                     }
                   }
-                } | null
+                }
               }
             | {
                 __typename?: 'LegacyTimedFeeCollectModuleSettings'
@@ -40564,7 +40350,7 @@ export type RevenueFromPublicationQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -40607,13 +40393,13 @@ export type RevenueFromPublicationQuery = {
                 recipient: any
                 referralFee: number
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
                   chainId: any
                 }
-                optionalAmount?: {
+                optionalAmount: {
                   __typename?: 'Amount'
                   value: string
                   rate?: {
@@ -40637,7 +40423,7 @@ export type RevenueFromPublicationQuery = {
                       chainId: any
                     }
                   }
-                } | null
+                }
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings'
@@ -40799,12 +40585,12 @@ export type RevenueFromPublicationQuery = {
                     raw: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                     }
                     optimized?: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                       width?: number | null
                       height?: number | null
                     } | null
@@ -40998,12 +40784,12 @@ export type RevenueFromPublicationQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -41013,12 +40799,12 @@ export type RevenueFromPublicationQuery = {
                         raw: {
                           __typename?: 'Audio'
                           uri: any
-                          mimeType?: AudioMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Audio'
                           uri: any
-                          mimeType?: AudioMimeType | null
+                          mimeType?: any | null
                         } | null
                       }
                     }
@@ -41029,12 +40815,12 @@ export type RevenueFromPublicationQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -41047,12 +40833,12 @@ export type RevenueFromPublicationQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -41062,12 +40848,12 @@ export type RevenueFromPublicationQuery = {
                         raw: {
                           __typename?: 'Video'
                           uri: any
-                          mimeType?: VideoMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Video'
                           uri: any
-                          mimeType?: VideoMimeType | null
+                          mimeType?: any | null
                         } | null
                       }
                     }
@@ -41088,12 +40874,12 @@ export type RevenueFromPublicationQuery = {
                     raw: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                     }
                     optimized?: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                       width?: number | null
                       height?: number | null
                     } | null
@@ -41234,7 +41020,7 @@ export type RevenueFromPublicationQuery = {
                 followerOnly: boolean
                 recipient: any
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -41272,7 +41058,7 @@ export type RevenueFromPublicationQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -41356,7 +41142,7 @@ export type RevenueFromPublicationQuery = {
               }
             | {
                 __typename?: 'LegacyLimitedFeeCollectModuleSettings'
-                collectLimit: string
+                collectLimit?: string | null
                 recipient: any
                 referralFee: number
                 followerOnly: boolean
@@ -41393,7 +41179,7 @@ export type RevenueFromPublicationQuery = {
               }
             | {
                 __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings'
-                collectLimit: string
+                collectLimit?: string | null
                 recipient: any
                 referralFee: number
                 followerOnly: boolean
@@ -41434,7 +41220,7 @@ export type RevenueFromPublicationQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -41485,13 +41271,13 @@ export type RevenueFromPublicationQuery = {
                 recipient: any
                 referralFee: number
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
                   chainId: any
                 }
-                optionalAmount?: {
+                optionalAmount: {
                   __typename?: 'Amount'
                   value: string
                   rate?: {
@@ -41515,7 +41301,7 @@ export type RevenueFromPublicationQuery = {
                       chainId: any
                     }
                   }
-                } | null
+                }
               }
             | {
                 __typename?: 'LegacyTimedFeeCollectModuleSettings'
@@ -41559,7 +41345,7 @@ export type RevenueFromPublicationQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -41602,13 +41388,13 @@ export type RevenueFromPublicationQuery = {
                 recipient: any
                 referralFee: number
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
                   chainId: any
                 }
-                optionalAmount?: {
+                optionalAmount: {
                   __typename?: 'Amount'
                   value: string
                   rate?: {
@@ -41632,7 +41418,7 @@ export type RevenueFromPublicationQuery = {
                       chainId: any
                     }
                   }
-                } | null
+                }
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings'
@@ -41775,12 +41561,12 @@ export type RevenueFromPublicationQuery = {
                     raw: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                     }
                     optimized?: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                       width?: number | null
                       height?: number | null
                     } | null
@@ -41974,12 +41760,12 @@ export type RevenueFromPublicationQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -41989,12 +41775,12 @@ export type RevenueFromPublicationQuery = {
                         raw: {
                           __typename?: 'Audio'
                           uri: any
-                          mimeType?: AudioMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Audio'
                           uri: any
-                          mimeType?: AudioMimeType | null
+                          mimeType?: any | null
                         } | null
                       }
                     }
@@ -42005,12 +41791,12 @@ export type RevenueFromPublicationQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -42023,12 +41809,12 @@ export type RevenueFromPublicationQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -42038,12 +41824,12 @@ export type RevenueFromPublicationQuery = {
                         raw: {
                           __typename?: 'Video'
                           uri: any
-                          mimeType?: VideoMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Video'
                           uri: any
-                          mimeType?: VideoMimeType | null
+                          mimeType?: any | null
                         } | null
                       }
                     }
@@ -42064,12 +41850,12 @@ export type RevenueFromPublicationQuery = {
                     raw: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                     }
                     optimized?: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                       width?: number | null
                       height?: number | null
                     } | null
@@ -42210,7 +41996,7 @@ export type RevenueFromPublicationQuery = {
                 followerOnly: boolean
                 recipient: any
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -42248,7 +42034,7 @@ export type RevenueFromPublicationQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -42332,7 +42118,7 @@ export type RevenueFromPublicationQuery = {
               }
             | {
                 __typename?: 'LegacyLimitedFeeCollectModuleSettings'
-                collectLimit: string
+                collectLimit?: string | null
                 recipient: any
                 referralFee: number
                 followerOnly: boolean
@@ -42369,7 +42155,7 @@ export type RevenueFromPublicationQuery = {
               }
             | {
                 __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings'
-                collectLimit: string
+                collectLimit?: string | null
                 recipient: any
                 referralFee: number
                 followerOnly: boolean
@@ -42410,7 +42196,7 @@ export type RevenueFromPublicationQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -42461,13 +42247,13 @@ export type RevenueFromPublicationQuery = {
                 recipient: any
                 referralFee: number
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
                   chainId: any
                 }
-                optionalAmount?: {
+                optionalAmount: {
                   __typename?: 'Amount'
                   value: string
                   rate?: {
@@ -42491,7 +42277,7 @@ export type RevenueFromPublicationQuery = {
                       chainId: any
                     }
                   }
-                } | null
+                }
               }
             | {
                 __typename?: 'LegacyTimedFeeCollectModuleSettings'
@@ -42535,7 +42321,7 @@ export type RevenueFromPublicationQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -42578,13 +42364,13 @@ export type RevenueFromPublicationQuery = {
                 recipient: any
                 referralFee: number
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
                   chainId: any
                 }
-                optionalAmount?: {
+                optionalAmount: {
                   __typename?: 'Amount'
                   value: string
                   rate?: {
@@ -42608,7 +42394,7 @@ export type RevenueFromPublicationQuery = {
                       chainId: any
                     }
                   }
-                } | null
+                }
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings'
@@ -42790,12 +42576,12 @@ export type RevenueFromPublicationsQuery = {
                       raw: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                       }
                       optimized?: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                         width?: number | null
                         height?: number | null
                       } | null
@@ -42989,12 +42775,12 @@ export type RevenueFromPublicationsQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -43004,12 +42790,12 @@ export type RevenueFromPublicationsQuery = {
                           raw: {
                             __typename?: 'Audio'
                             uri: any
-                            mimeType?: AudioMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Audio'
                             uri: any
-                            mimeType?: AudioMimeType | null
+                            mimeType?: any | null
                           } | null
                         }
                       }
@@ -43020,12 +42806,12 @@ export type RevenueFromPublicationsQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -43038,12 +42824,12 @@ export type RevenueFromPublicationsQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -43053,12 +42839,12 @@ export type RevenueFromPublicationsQuery = {
                           raw: {
                             __typename?: 'Video'
                             uri: any
-                            mimeType?: VideoMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Video'
                             uri: any
-                            mimeType?: VideoMimeType | null
+                            mimeType?: any | null
                           } | null
                         }
                       }
@@ -43079,12 +42865,12 @@ export type RevenueFromPublicationsQuery = {
                       raw: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                       }
                       optimized?: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                         width?: number | null
                         height?: number | null
                       } | null
@@ -43225,7 +43011,7 @@ export type RevenueFromPublicationsQuery = {
                   followerOnly: boolean
                   recipient: any
                   optionalCollectLimit?: string | null
-                  optionalEndTimestamp?: any | null
+                  optionalEndsAt?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
@@ -43263,7 +43049,7 @@ export type RevenueFromPublicationsQuery = {
                   referralFee: number
                   followerOnly: boolean
                   optionalCollectLimit?: string | null
-                  optionalEndTimestamp?: any | null
+                  optionalEndsAt?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
@@ -43347,7 +43133,7 @@ export type RevenueFromPublicationsQuery = {
                 }
               | {
                   __typename?: 'LegacyLimitedFeeCollectModuleSettings'
-                  collectLimit: string
+                  collectLimit?: string | null
                   recipient: any
                   referralFee: number
                   followerOnly: boolean
@@ -43384,7 +43170,7 @@ export type RevenueFromPublicationsQuery = {
                 }
               | {
                   __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings'
-                  collectLimit: string
+                  collectLimit?: string | null
                   recipient: any
                   referralFee: number
                   followerOnly: boolean
@@ -43425,7 +43211,7 @@ export type RevenueFromPublicationsQuery = {
                   referralFee: number
                   followerOnly: boolean
                   optionalCollectLimit?: string | null
-                  optionalEndTimestamp?: any | null
+                  optionalEndsAt?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
@@ -43476,13 +43262,13 @@ export type RevenueFromPublicationsQuery = {
                   recipient: any
                   referralFee: number
                   optionalCollectLimit?: string | null
-                  optionalEndTimestamp?: any | null
+                  optionalEndsAt?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
                     chainId: any
                   }
-                  optionalAmount?: {
+                  optionalAmount: {
                     __typename?: 'Amount'
                     value: string
                     rate?: {
@@ -43506,7 +43292,7 @@ export type RevenueFromPublicationsQuery = {
                         chainId: any
                       }
                     }
-                  } | null
+                  }
                 }
               | {
                   __typename?: 'LegacyTimedFeeCollectModuleSettings'
@@ -43550,7 +43336,7 @@ export type RevenueFromPublicationsQuery = {
                   referralFee: number
                   followerOnly: boolean
                   optionalCollectLimit?: string | null
-                  optionalEndTimestamp?: any | null
+                  optionalEndsAt?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
@@ -43593,13 +43379,13 @@ export type RevenueFromPublicationsQuery = {
                   recipient: any
                   referralFee: number
                   optionalCollectLimit?: string | null
-                  optionalEndTimestamp?: any | null
+                  optionalEndsAt?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
                     chainId: any
                   }
-                  optionalAmount?: {
+                  optionalAmount: {
                     __typename?: 'Amount'
                     value: string
                     rate?: {
@@ -43623,7 +43409,7 @@ export type RevenueFromPublicationsQuery = {
                         chainId: any
                       }
                     }
-                  } | null
+                  }
                 }
               | {
                   __typename?: 'UnknownOpenActionModuleSettings'
@@ -43788,12 +43574,12 @@ export type RevenueFromPublicationsQuery = {
                       raw: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                       }
                       optimized?: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                         width?: number | null
                         height?: number | null
                       } | null
@@ -43987,12 +43773,12 @@ export type RevenueFromPublicationsQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -44002,12 +43788,12 @@ export type RevenueFromPublicationsQuery = {
                           raw: {
                             __typename?: 'Audio'
                             uri: any
-                            mimeType?: AudioMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Audio'
                             uri: any
-                            mimeType?: AudioMimeType | null
+                            mimeType?: any | null
                           } | null
                         }
                       }
@@ -44018,12 +43804,12 @@ export type RevenueFromPublicationsQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -44036,12 +43822,12 @@ export type RevenueFromPublicationsQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -44051,12 +43837,12 @@ export type RevenueFromPublicationsQuery = {
                           raw: {
                             __typename?: 'Video'
                             uri: any
-                            mimeType?: VideoMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Video'
                             uri: any
-                            mimeType?: VideoMimeType | null
+                            mimeType?: any | null
                           } | null
                         }
                       }
@@ -44077,12 +43863,12 @@ export type RevenueFromPublicationsQuery = {
                       raw: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                       }
                       optimized?: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                         width?: number | null
                         height?: number | null
                       } | null
@@ -44223,7 +44009,7 @@ export type RevenueFromPublicationsQuery = {
                   followerOnly: boolean
                   recipient: any
                   optionalCollectLimit?: string | null
-                  optionalEndTimestamp?: any | null
+                  optionalEndsAt?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
@@ -44261,7 +44047,7 @@ export type RevenueFromPublicationsQuery = {
                   referralFee: number
                   followerOnly: boolean
                   optionalCollectLimit?: string | null
-                  optionalEndTimestamp?: any | null
+                  optionalEndsAt?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
@@ -44345,7 +44131,7 @@ export type RevenueFromPublicationsQuery = {
                 }
               | {
                   __typename?: 'LegacyLimitedFeeCollectModuleSettings'
-                  collectLimit: string
+                  collectLimit?: string | null
                   recipient: any
                   referralFee: number
                   followerOnly: boolean
@@ -44382,7 +44168,7 @@ export type RevenueFromPublicationsQuery = {
                 }
               | {
                   __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings'
-                  collectLimit: string
+                  collectLimit?: string | null
                   recipient: any
                   referralFee: number
                   followerOnly: boolean
@@ -44423,7 +44209,7 @@ export type RevenueFromPublicationsQuery = {
                   referralFee: number
                   followerOnly: boolean
                   optionalCollectLimit?: string | null
-                  optionalEndTimestamp?: any | null
+                  optionalEndsAt?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
@@ -44474,13 +44260,13 @@ export type RevenueFromPublicationsQuery = {
                   recipient: any
                   referralFee: number
                   optionalCollectLimit?: string | null
-                  optionalEndTimestamp?: any | null
+                  optionalEndsAt?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
                     chainId: any
                   }
-                  optionalAmount?: {
+                  optionalAmount: {
                     __typename?: 'Amount'
                     value: string
                     rate?: {
@@ -44504,7 +44290,7 @@ export type RevenueFromPublicationsQuery = {
                         chainId: any
                       }
                     }
-                  } | null
+                  }
                 }
               | {
                   __typename?: 'LegacyTimedFeeCollectModuleSettings'
@@ -44548,7 +44334,7 @@ export type RevenueFromPublicationsQuery = {
                   referralFee: number
                   followerOnly: boolean
                   optionalCollectLimit?: string | null
-                  optionalEndTimestamp?: any | null
+                  optionalEndsAt?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
@@ -44591,13 +44377,13 @@ export type RevenueFromPublicationsQuery = {
                   recipient: any
                   referralFee: number
                   optionalCollectLimit?: string | null
-                  optionalEndTimestamp?: any | null
+                  optionalEndsAt?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
                     chainId: any
                   }
-                  optionalAmount?: {
+                  optionalAmount: {
                     __typename?: 'Amount'
                     value: string
                     rate?: {
@@ -44621,7 +44407,7 @@ export type RevenueFromPublicationsQuery = {
                         chainId: any
                       }
                     }
-                  } | null
+                  }
                 }
               | {
                   __typename?: 'UnknownOpenActionModuleSettings'
@@ -44767,12 +44553,12 @@ export type RevenueFromPublicationsQuery = {
                       raw: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                       }
                       optimized?: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                         width?: number | null
                         height?: number | null
                       } | null
@@ -44966,12 +44752,12 @@ export type RevenueFromPublicationsQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -44981,12 +44767,12 @@ export type RevenueFromPublicationsQuery = {
                           raw: {
                             __typename?: 'Audio'
                             uri: any
-                            mimeType?: AudioMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Audio'
                             uri: any
-                            mimeType?: AudioMimeType | null
+                            mimeType?: any | null
                           } | null
                         }
                       }
@@ -44997,12 +44783,12 @@ export type RevenueFromPublicationsQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -45015,12 +44801,12 @@ export type RevenueFromPublicationsQuery = {
                           raw: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Image'
                             uri: any
-                            mimeType?: ImageMimeType | null
+                            mimeType?: any | null
                             width?: number | null
                             height?: number | null
                           } | null
@@ -45030,12 +44816,12 @@ export type RevenueFromPublicationsQuery = {
                           raw: {
                             __typename?: 'Video'
                             uri: any
-                            mimeType?: VideoMimeType | null
+                            mimeType?: any | null
                           }
                           optimized?: {
                             __typename?: 'Video'
                             uri: any
-                            mimeType?: VideoMimeType | null
+                            mimeType?: any | null
                           } | null
                         }
                       }
@@ -45056,12 +44842,12 @@ export type RevenueFromPublicationsQuery = {
                       raw: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                       }
                       optimized?: {
                         __typename?: 'Image'
                         uri: any
-                        mimeType?: ImageMimeType | null
+                        mimeType?: any | null
                         width?: number | null
                         height?: number | null
                       } | null
@@ -45202,7 +44988,7 @@ export type RevenueFromPublicationsQuery = {
                   followerOnly: boolean
                   recipient: any
                   optionalCollectLimit?: string | null
-                  optionalEndTimestamp?: any | null
+                  optionalEndsAt?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
@@ -45240,7 +45026,7 @@ export type RevenueFromPublicationsQuery = {
                   referralFee: number
                   followerOnly: boolean
                   optionalCollectLimit?: string | null
-                  optionalEndTimestamp?: any | null
+                  optionalEndsAt?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
@@ -45324,7 +45110,7 @@ export type RevenueFromPublicationsQuery = {
                 }
               | {
                   __typename?: 'LegacyLimitedFeeCollectModuleSettings'
-                  collectLimit: string
+                  collectLimit?: string | null
                   recipient: any
                   referralFee: number
                   followerOnly: boolean
@@ -45361,7 +45147,7 @@ export type RevenueFromPublicationsQuery = {
                 }
               | {
                   __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings'
-                  collectLimit: string
+                  collectLimit?: string | null
                   recipient: any
                   referralFee: number
                   followerOnly: boolean
@@ -45402,7 +45188,7 @@ export type RevenueFromPublicationsQuery = {
                   referralFee: number
                   followerOnly: boolean
                   optionalCollectLimit?: string | null
-                  optionalEndTimestamp?: any | null
+                  optionalEndsAt?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
@@ -45453,13 +45239,13 @@ export type RevenueFromPublicationsQuery = {
                   recipient: any
                   referralFee: number
                   optionalCollectLimit?: string | null
-                  optionalEndTimestamp?: any | null
+                  optionalEndsAt?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
                     chainId: any
                   }
-                  optionalAmount?: {
+                  optionalAmount: {
                     __typename?: 'Amount'
                     value: string
                     rate?: {
@@ -45483,7 +45269,7 @@ export type RevenueFromPublicationsQuery = {
                         chainId: any
                       }
                     }
-                  } | null
+                  }
                 }
               | {
                   __typename?: 'LegacyTimedFeeCollectModuleSettings'
@@ -45527,7 +45313,7 @@ export type RevenueFromPublicationsQuery = {
                   referralFee: number
                   followerOnly: boolean
                   optionalCollectLimit?: string | null
-                  optionalEndTimestamp?: any | null
+                  optionalEndsAt?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
@@ -45570,13 +45356,13 @@ export type RevenueFromPublicationsQuery = {
                   recipient: any
                   referralFee: number
                   optionalCollectLimit?: string | null
-                  optionalEndTimestamp?: any | null
+                  optionalEndsAt?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
                     chainId: any
                   }
-                  optionalAmount?: {
+                  optionalAmount: {
                     __typename?: 'Amount'
                     value: string
                     rate?: {
@@ -45600,7 +45386,7 @@ export type RevenueFromPublicationsQuery = {
                         chainId: any
                       }
                     }
-                  } | null
+                  }
                 }
               | {
                   __typename?: 'UnknownOpenActionModuleSettings'
@@ -45753,15 +45539,11 @@ export type SearchProfilesQuery = {
         picture?:
           | {
               __typename?: 'ImageSet'
-              raw: {
-                __typename?: 'Image'
-                uri: any
-                mimeType?: ImageMimeType | null
-              }
+              raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
               optimized?: {
                 __typename?: 'Image'
                 uri: any
-                mimeType?: ImageMimeType | null
+                mimeType?: any | null
                 width?: number | null
                 height?: number | null
               } | null
@@ -45936,12 +45718,12 @@ export type SearchPublicationsQuery = {
                     raw: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                     }
                     optimized?: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                       width?: number | null
                       height?: number | null
                     } | null
@@ -46135,12 +45917,12 @@ export type SearchPublicationsQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -46150,12 +45932,12 @@ export type SearchPublicationsQuery = {
                         raw: {
                           __typename?: 'Audio'
                           uri: any
-                          mimeType?: AudioMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Audio'
                           uri: any
-                          mimeType?: AudioMimeType | null
+                          mimeType?: any | null
                         } | null
                       }
                     }
@@ -46166,12 +45948,12 @@ export type SearchPublicationsQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -46184,12 +45966,12 @@ export type SearchPublicationsQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -46199,12 +45981,12 @@ export type SearchPublicationsQuery = {
                         raw: {
                           __typename?: 'Video'
                           uri: any
-                          mimeType?: VideoMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Video'
                           uri: any
-                          mimeType?: VideoMimeType | null
+                          mimeType?: any | null
                         } | null
                       }
                     }
@@ -46225,12 +46007,12 @@ export type SearchPublicationsQuery = {
                     raw: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                     }
                     optimized?: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                       width?: number | null
                       height?: number | null
                     } | null
@@ -46371,7 +46153,7 @@ export type SearchPublicationsQuery = {
                 followerOnly: boolean
                 recipient: any
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -46409,7 +46191,7 @@ export type SearchPublicationsQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -46493,7 +46275,7 @@ export type SearchPublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyLimitedFeeCollectModuleSettings'
-                collectLimit: string
+                collectLimit?: string | null
                 recipient: any
                 referralFee: number
                 followerOnly: boolean
@@ -46530,7 +46312,7 @@ export type SearchPublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings'
-                collectLimit: string
+                collectLimit?: string | null
                 recipient: any
                 referralFee: number
                 followerOnly: boolean
@@ -46571,7 +46353,7 @@ export type SearchPublicationsQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -46622,13 +46404,13 @@ export type SearchPublicationsQuery = {
                 recipient: any
                 referralFee: number
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
                   chainId: any
                 }
-                optionalAmount?: {
+                optionalAmount: {
                   __typename?: 'Amount'
                   value: string
                   rate?: {
@@ -46652,7 +46434,7 @@ export type SearchPublicationsQuery = {
                       chainId: any
                     }
                   }
-                } | null
+                }
               }
             | {
                 __typename?: 'LegacyTimedFeeCollectModuleSettings'
@@ -46696,7 +46478,7 @@ export type SearchPublicationsQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -46739,13 +46521,13 @@ export type SearchPublicationsQuery = {
                 recipient: any
                 referralFee: number
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
                   chainId: any
                 }
-                optionalAmount?: {
+                optionalAmount: {
                   __typename?: 'Amount'
                   value: string
                   rate?: {
@@ -46769,7 +46551,7 @@ export type SearchPublicationsQuery = {
                       chainId: any
                     }
                   }
-                } | null
+                }
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings'
@@ -46918,12 +46700,12 @@ export type SearchPublicationsQuery = {
                     raw: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                     }
                     optimized?: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                       width?: number | null
                       height?: number | null
                     } | null
@@ -47117,12 +46899,12 @@ export type SearchPublicationsQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -47132,12 +46914,12 @@ export type SearchPublicationsQuery = {
                         raw: {
                           __typename?: 'Audio'
                           uri: any
-                          mimeType?: AudioMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Audio'
                           uri: any
-                          mimeType?: AudioMimeType | null
+                          mimeType?: any | null
                         } | null
                       }
                     }
@@ -47148,12 +46930,12 @@ export type SearchPublicationsQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -47166,12 +46948,12 @@ export type SearchPublicationsQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -47181,12 +46963,12 @@ export type SearchPublicationsQuery = {
                         raw: {
                           __typename?: 'Video'
                           uri: any
-                          mimeType?: VideoMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Video'
                           uri: any
-                          mimeType?: VideoMimeType | null
+                          mimeType?: any | null
                         } | null
                       }
                     }
@@ -47207,12 +46989,12 @@ export type SearchPublicationsQuery = {
                     raw: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                     }
                     optimized?: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                       width?: number | null
                       height?: number | null
                     } | null
@@ -47353,7 +47135,7 @@ export type SearchPublicationsQuery = {
                 followerOnly: boolean
                 recipient: any
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -47391,7 +47173,7 @@ export type SearchPublicationsQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -47475,7 +47257,7 @@ export type SearchPublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyLimitedFeeCollectModuleSettings'
-                collectLimit: string
+                collectLimit?: string | null
                 recipient: any
                 referralFee: number
                 followerOnly: boolean
@@ -47512,7 +47294,7 @@ export type SearchPublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings'
-                collectLimit: string
+                collectLimit?: string | null
                 recipient: any
                 referralFee: number
                 followerOnly: boolean
@@ -47553,7 +47335,7 @@ export type SearchPublicationsQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -47604,13 +47386,13 @@ export type SearchPublicationsQuery = {
                 recipient: any
                 referralFee: number
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
                   chainId: any
                 }
-                optionalAmount?: {
+                optionalAmount: {
                   __typename?: 'Amount'
                   value: string
                   rate?: {
@@ -47634,7 +47416,7 @@ export type SearchPublicationsQuery = {
                       chainId: any
                     }
                   }
-                } | null
+                }
               }
             | {
                 __typename?: 'LegacyTimedFeeCollectModuleSettings'
@@ -47678,7 +47460,7 @@ export type SearchPublicationsQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -47721,13 +47503,13 @@ export type SearchPublicationsQuery = {
                 recipient: any
                 referralFee: number
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
                   chainId: any
                 }
-                optionalAmount?: {
+                optionalAmount: {
                   __typename?: 'Amount'
                   value: string
                   rate?: {
@@ -47751,7 +47533,7 @@ export type SearchPublicationsQuery = {
                       chainId: any
                     }
                   }
-                } | null
+                }
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings'
@@ -47894,12 +47676,12 @@ export type SearchPublicationsQuery = {
                     raw: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                     }
                     optimized?: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                       width?: number | null
                       height?: number | null
                     } | null
@@ -48093,12 +47875,12 @@ export type SearchPublicationsQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -48108,12 +47890,12 @@ export type SearchPublicationsQuery = {
                         raw: {
                           __typename?: 'Audio'
                           uri: any
-                          mimeType?: AudioMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Audio'
                           uri: any
-                          mimeType?: AudioMimeType | null
+                          mimeType?: any | null
                         } | null
                       }
                     }
@@ -48124,12 +47906,12 @@ export type SearchPublicationsQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -48142,12 +47924,12 @@ export type SearchPublicationsQuery = {
                         raw: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Image'
                           uri: any
-                          mimeType?: ImageMimeType | null
+                          mimeType?: any | null
                           width?: number | null
                           height?: number | null
                         } | null
@@ -48157,12 +47939,12 @@ export type SearchPublicationsQuery = {
                         raw: {
                           __typename?: 'Video'
                           uri: any
-                          mimeType?: VideoMimeType | null
+                          mimeType?: any | null
                         }
                         optimized?: {
                           __typename?: 'Video'
                           uri: any
-                          mimeType?: VideoMimeType | null
+                          mimeType?: any | null
                         } | null
                       }
                     }
@@ -48183,12 +47965,12 @@ export type SearchPublicationsQuery = {
                     raw: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                     }
                     optimized?: {
                       __typename?: 'Image'
                       uri: any
-                      mimeType?: ImageMimeType | null
+                      mimeType?: any | null
                       width?: number | null
                       height?: number | null
                     } | null
@@ -48329,7 +48111,7 @@ export type SearchPublicationsQuery = {
                 followerOnly: boolean
                 recipient: any
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -48367,7 +48149,7 @@ export type SearchPublicationsQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -48451,7 +48233,7 @@ export type SearchPublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyLimitedFeeCollectModuleSettings'
-                collectLimit: string
+                collectLimit?: string | null
                 recipient: any
                 referralFee: number
                 followerOnly: boolean
@@ -48488,7 +48270,7 @@ export type SearchPublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyLimitedTimedFeeCollectModuleSettings'
-                collectLimit: string
+                collectLimit?: string | null
                 recipient: any
                 referralFee: number
                 followerOnly: boolean
@@ -48529,7 +48311,7 @@ export type SearchPublicationsQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -48580,13 +48362,13 @@ export type SearchPublicationsQuery = {
                 recipient: any
                 referralFee: number
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
                   chainId: any
                 }
-                optionalAmount?: {
+                optionalAmount: {
                   __typename?: 'Amount'
                   value: string
                   rate?: {
@@ -48610,7 +48392,7 @@ export type SearchPublicationsQuery = {
                       chainId: any
                     }
                   }
-                } | null
+                }
               }
             | {
                 __typename?: 'LegacyTimedFeeCollectModuleSettings'
@@ -48654,7 +48436,7 @@ export type SearchPublicationsQuery = {
                 referralFee: number
                 followerOnly: boolean
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -48697,13 +48479,13 @@ export type SearchPublicationsQuery = {
                 recipient: any
                 referralFee: number
                 optionalCollectLimit?: string | null
-                optionalEndTimestamp?: any | null
+                optionalEndsAt?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
                   chainId: any
                 }
-                optionalAmount?: {
+                optionalAmount: {
                   __typename?: 'Amount'
                   value: string
                   rate?: {
@@ -48727,7 +48509,7 @@ export type SearchPublicationsQuery = {
                       chainId: any
                     }
                   }
-                } | null
+                }
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings'
@@ -48800,15 +48582,11 @@ export type SimpleProfilesQuery = {
         picture?:
           | {
               __typename?: 'ImageSet'
-              raw: {
-                __typename?: 'Image'
-                uri: any
-                mimeType?: ImageMimeType | null
-              }
+              raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
               optimized?: {
                 __typename?: 'Image'
                 uri: any
-                mimeType?: ImageMimeType | null
+                mimeType?: any | null
                 width?: number | null
                 height?: number | null
               } | null
@@ -48930,15 +48708,11 @@ export type WhoActedOnPublicationQuery = {
         picture?:
           | {
               __typename?: 'ImageSet'
-              raw: {
-                __typename?: 'Image'
-                uri: any
-                mimeType?: ImageMimeType | null
-              }
+              raw: { __typename?: 'Image'; uri: any; mimeType?: any | null }
               optimized?: {
                 __typename?: 'Image'
                 uri: any
-                mimeType?: ImageMimeType | null
+                mimeType?: any | null
                 width?: number | null
                 height?: number | null
               } | null
@@ -49598,7 +49372,7 @@ export const OpenActionModulesFieldsFragmentDoc = gql`
       followerOnly
       recipient
       referralFee
-      optionalEndTimestamp: endTimestamp
+      optionalEndsAt: endsAt
     }
     ... on MultirecipientFeeCollectOpenActionSettings {
       contract {
@@ -49613,7 +49387,7 @@ export const OpenActionModulesFieldsFragmentDoc = gql`
       optionalCollectLimit: collectLimit
       referralFee
       followerOnly
-      optionalEndTimestamp: endTimestamp
+      optionalEndsAt: endsAt
       recipients {
         recipient
         split
@@ -49703,7 +49477,7 @@ export const OpenActionModulesFieldsFragmentDoc = gql`
       optionalCollectLimit: collectLimit
       referralFee
       followerOnly
-      optionalEndTimestamp: endTimestamp
+      optionalEndsAt: endsAt
       recipients {
         recipient
         split
@@ -49723,7 +49497,7 @@ export const OpenActionModulesFieldsFragmentDoc = gql`
       followerOnly
       recipient
       referralFee
-      optionalEndTimestamp: endTimestamp
+      optionalEndsAt: endsAt
     }
     ... on LegacyERC4626FeeCollectModuleSettings {
       contract {
@@ -49742,7 +49516,7 @@ export const OpenActionModulesFieldsFragmentDoc = gql`
       optionalCollectLimit: collectLimit
       referralFee
       followerOnly
-      optionalEndTimestamp: endTimestamp
+      optionalEndsAt: endsAt
     }
     ... on LegacyAaveFeeCollectModuleSettings {
       contract {
@@ -49757,7 +49531,7 @@ export const OpenActionModulesFieldsFragmentDoc = gql`
       optionalCollectLimit: collectLimit
       referralFee
       followerOnly
-      optionalEndTimestamp: endTimestamp
+      optionalEndsAt: endsAt
       recipient
     }
     ... on UnknownOpenActionModuleSettings {
@@ -54809,7 +54583,7 @@ export type PublicationsQueryResult = Apollo.QueryResult<
   PublicationsQueryVariables
 >
 export const RevenueFromPublicationDocument = gql`
-  query RevenueFromPublication($request: PublicationRevenueRequest!) {
+  query RevenueFromPublication($request: RevenueFromPublicationRequest!) {
     revenueFromPublication(request: $request) {
       publication {
         ... on Post {

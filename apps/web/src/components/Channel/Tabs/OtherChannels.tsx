@@ -1,7 +1,7 @@
 import OtherChannelsShimmer from '@components/Shimmers/OtherChannelsShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import type { Profile } from '@lenstube/lens'
-import { useAllProfilesQuery } from '@lenstube/lens'
+import { useProfilesQuery } from '@lenstube/lens'
 import { t } from '@lingui/macro'
 import type { FC } from 'react'
 import React from 'react'
@@ -13,9 +13,9 @@ type Props = {
 }
 
 const OtherChannels: FC<Props> = ({ channel }) => {
-  const { data, loading } = useAllProfilesQuery({
+  const { data, loading } = useProfilesQuery({
     variables: {
-      request: { ownedBy: channel?.ownedBy }
+      request: { where: { ownedBy: [channel?.ownedBy] } }
     },
     skip: !channel?.ownedBy
   })

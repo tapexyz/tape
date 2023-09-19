@@ -15,7 +15,7 @@ type Props = {
 }
 
 const Others: FC<Props> = ({ channel }) => {
-  const attributes = channel?.attributes as Attribute[]
+  const attributes = channel.metadata?.attributes as Attribute[]
 
   return (
     <div className="space-y-1.5 p-4">
@@ -37,8 +37,8 @@ const Others: FC<Props> = ({ channel }) => {
       </div>
       <div className="flex items-center space-x-1.5">
         <WalletOutline className="h-4 w-4" />
-        <AddressExplorerLink address={channel.ownedBy}>
-          <span>{shortenAddress(channel.ownedBy)}</span>
+        <AddressExplorerLink address={channel.ownedBy.address}>
+          <span>{shortenAddress(channel.ownedBy.address)}</span>
         </AddressExplorerLink>
       </div>
       {channel.invitedBy && (
