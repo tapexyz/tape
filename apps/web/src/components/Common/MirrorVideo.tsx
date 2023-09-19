@@ -7,17 +7,7 @@ import {
   REQUESTING_SIGNATURE_MESSAGE
 } from '@lenstube/constants'
 import { getSignature } from '@lenstube/generic'
-import type {
-  CreateMirrorBroadcastItemResult,
-  CreateMirrorRequest,
-  Publication
-} from '@lenstube/lens'
-import {
-  useBroadcastMutation,
-  useCreateDataAvailabilityMirrorViaDispatcherMutation,
-  useCreateMirrorTypedDataMutation,
-  useCreateMirrorViaDispatcherMutation
-} from '@lenstube/lens'
+import type { MirrorablePublication } from '@lenstube/lens'
 import type {
   CustomErrorWithData,
   LenstubeCollectModule
@@ -32,7 +22,7 @@ import toast from 'react-hot-toast'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
 type Props = {
-  video: Publication
+  video: MirrorablePublication
   onMirrorSuccess?: () => void
   children: React.ReactNode
 }
@@ -48,13 +38,11 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
   )
   const activeChannel = useChannelStore((state) => state.activeChannel)
 
-  // Dispatcher
-  const canUseRelay = activeChannel?.dispatcher?.canUseRelay
-  const isSponsored = activeChannel?.dispatcher?.sponsor
+  const canUseRelay = activeChannel?.lensManager && activeChannel?.sponsor
 
   const collectModule =
     video?.__typename === 'Post'
-      ? (video?.collectModule as LenstubeCollectModule)
+      ? (video?.openActionModules as LenstubeCollectModule)
       : null
 
   const onError = (error: CustomErrorWithData) => {

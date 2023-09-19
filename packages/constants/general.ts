@@ -1,4 +1,4 @@
-import { CustomFiltersTypes } from '@lenstube/lens'
+import { CustomFiltersType } from '@lenstube/lens'
 
 export const LENSTUBE_APP_NAME = 'Lenstube'
 export const LENSTUBE_APP_DESCRIPTION =
@@ -8,7 +8,6 @@ export const PRIPE_APP_DESCRIPTION = 'Social Networking, Upgraded.'
 
 export const LENS_ENV = process.env.NEXT_PUBLIC_ENVIRONMENT ?? 'mainnet'
 export const IS_MAINNET = LENS_ENV === 'mainnet'
-export const IS_STAGING = LENS_ENV === 'staging'
 export const IS_SANDBOX = LENS_ENV === 'sandbox'
 
 export const IS_DEVELOPMENT = process.env.NODE_ENV === 'development'
@@ -37,14 +36,11 @@ export const IMAGE_TRANSFORMATIONS = {
 
 // lens
 export const MAINNET_API_URL = 'https://api.lens.dev'
-export const TESTNET_API_URL = 'http://localhost:4000'
+export const TESTNET_API_URL = 'https://api-mumbai.lens.dev'
+export const DEVNET_API_URL = 'http://localhost:4000'
 export const STAGING_API_URL =
   'https://staging-api-social-mumbai.lens.crtlkey.com'
-export const LENS_API_URL = IS_MAINNET
-  ? MAINNET_API_URL
-  : IS_STAGING
-  ? STAGING_API_URL
-  : TESTNET_API_URL
+export const LENS_API_URL = IS_MAINNET ? MAINNET_API_URL : DEVNET_API_URL
 
 // API urls
 export const LENSTUBE_MAINNET_API_URL = 'https://api.lenstube.xyz'
@@ -60,7 +56,7 @@ export const LENSTUBE_API_URL = IS_MAINNET
 // contracts
 export const LENSHUB_PROXY_ADDRESS = IS_MAINNET
   ? '0xDb46d1Dc155634FbC732f92E853b10B288AD5a1d'
-  : '0x60Ae865ee4C725cd04353b5AAb364553f56ceF82'
+  : '0xC1E77eE73403B8a7478884915aA599932A677870'
 export const LENS_PERIPHERY_ADDRESS = IS_MAINNET
   ? '0xeff187b4190E551FC25a7fA4dFC6cf7fDeF7194f'
   : '0xD5037d72877808cdE7F669563e9389930AF404E8'
@@ -146,7 +142,7 @@ export const LENSTUBE_DONATION_ADDRESS =
   '0xB89560D7b33ea8d787EaaEfbcE1268f8991Db9E1'
 
 // lens
-export const LENS_CUSTOM_FILTERS = [CustomFiltersTypes.Gardeners]
+export const LENS_CUSTOM_FILTERS = [CustomFiltersType.Gardeners]
 export const ALLOWED_VIDEO_TYPES = [
   'video/mp4',
   'video/mpeg',
