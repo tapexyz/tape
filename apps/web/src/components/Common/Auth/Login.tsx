@@ -128,7 +128,7 @@ const Login = () => {
       setLoading(false)
       Analytics.track(TRACK.AUTH.SIGN_IN_WITH_LENS)
     } catch (error) {
-      // signOut()
+      signOut()
       setLoading(false)
       toast.error(t`Sign in failed`)
       logger.error('[Error Sign In]', {
