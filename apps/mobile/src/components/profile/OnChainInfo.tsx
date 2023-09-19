@@ -1,6 +1,6 @@
 import { STATIC_ASSETS } from '@lenstube/constants'
 import { imageCdn } from '@lenstube/generic'
-import type { OnChainIdentity } from '@lenstube/lens'
+import type { ProfileOnchainIdentity } from '@lenstube/lens'
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
@@ -14,7 +14,7 @@ import { useMobileTheme } from '~/hooks'
 import { useToast } from '../common/toast'
 
 type Props = {
-  identity: OnChainIdentity
+  identity: ProfileOnchainIdentity
 }
 
 const styles = (themeConfig: MobileThemeConfig) =>
@@ -133,7 +133,7 @@ const OnChainInfo: FC<Props> = ({ identity }) => {
             style={style.image}
           />
           <Text style={style.text}>
-            {identity?.sybilDotOrg.source.twitter.handle}
+            {identity?.sybilDotOrg.source?.twitter.handle}
           </Text>
         </Pressable>
       )}

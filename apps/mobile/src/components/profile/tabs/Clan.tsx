@@ -1,14 +1,15 @@
 import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
 import { trimLensHandle } from '@lenstube/generic'
 import type {
+  MirrorablePublication,
   Profile,
-  Publication,
-  PublicationsQueryRequest
+  PublicationsRequest
 } from '@lenstube/lens'
 import {
-  PublicationMainFocus,
-  PublicationTypes,
-  useProfilePostsQuery
+  LimitType,
+  PublicationMetadataMainFocusType,
+  PublicationType,
+  usePublicationsQuery
 } from '@lenstube/lens'
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import type { FC } from 'react'
@@ -52,22 +53,24 @@ const Clan: FC<Props> = ({ profile, scrollHandler }) => {
   const { themeConfig } = useMobileTheme()
   const style = styles(themeConfig)
 
-  const request: PublicationsQueryRequest = {
-    publicationTypes: [PublicationTypes.Post],
-    limit: 10,
-    metadata: {
-      mainContentFocus: [
-        PublicationMainFocus.Article,
-        PublicationMainFocus.TextOnly,
-        PublicationMainFocus.Image,
-        PublicationMainFocus.Link
-      ]
+  const request: PublicationsRequest = {
+    where: {
+      publicationTypes: [PublicationType.Post],
+      metadata: {
+        mainContentFocus: [
+          PublicationMetadataMainFocusType.Article,
+          PublicationMetadataMainFocusType.TextOnly,
+          PublicationMetadataMainFocusType.Image,
+          PublicationMetadataMainFocusType.Link
+        ]
+      },
+      customFilters: LENS_CUSTOM_FILTERS,
+      from: profile?.id
     },
-    customFilters: LENS_CUSTOM_FILTERS,
-    profileId: profile?.id
+    limit: LimitType.Ten
   }
 
-  const { data, loading, fetchMore, refetch } = useProfilePostsQuery({
+  const { data, loading, fetchMore, refetch } = usePublicationsQuery({
     variables: {
       request
     },
@@ -75,7 +78,7 @@ const Clan: FC<Props> = ({ profile, scrollHandler }) => {
     notifyOnNetworkStatusChange: true
   })
 
-  const publications = data?.publications?.items as Publication[]
+  const publications = data?.publications?.items as MirrorablePublication[]
   const pageInfo = data?.publications?.pageInfo
 
   const fetchMorePublications = async () => {
@@ -90,7 +93,7 @@ const Clan: FC<Props> = ({ profile, scrollHandler }) => {
   }
 
   const renderItem = useCallback(
-    ({ item }: { item: Publication }) => (
+    ({ item }: { item: MirrorablePublication }) => (
       <View style={{ marginBottom: 30 }}>
         <RenderPublication publication={item} />
       </View>
