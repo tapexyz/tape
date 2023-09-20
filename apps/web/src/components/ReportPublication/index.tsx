@@ -2,7 +2,7 @@ import MetaTags from '@components/Common/MetaTags'
 import { Button } from '@components/UIElements/Button'
 import { Analytics, TRACK } from '@lenstube/browser'
 import { ERROR_MESSAGE } from '@lenstube/constants'
-import type { Publication } from '@lenstube/lens'
+import type { MirrorablePublication } from '@lenstube/lens'
 import { useReportPublicationMutation } from '@lenstube/lens'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import { t, Trans } from '@lingui/macro'
@@ -11,7 +11,7 @@ import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 
 type Props = {
-  publication: Publication
+  publication: MirrorablePublication
   onSuccess: () => void
 }
 
@@ -54,7 +54,7 @@ const ReportPublication: FC<Props> = ({ publication, onSuccess }) => {
     createReport({
       variables: {
         request: {
-          publicationId: publication.id,
+          for: publication.id,
           reason: {
             [getReasonType(type)]: {
               reason: type,
@@ -77,8 +77,8 @@ const ReportPublication: FC<Props> = ({ publication, onSuccess }) => {
       <div className="flex justify-center">
         <div className="w-full">
           <div className="opacity-60">
-            <h1>{publication.metadata.name}</h1>
-            <span className="text-sm">by {publication.profile.handle}</span>
+            <h1>{publication.metadata.marketplace?.name}</h1>
+            <span className="text-sm">by {publication.by.handle}</span>
           </div>
           <div className="mt-4">
             <label

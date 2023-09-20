@@ -1,17 +1,13 @@
 import Badge from '@components/Common/Badge'
-import {
-  getProfilePicture,
-  getRelativeTime,
-  trimLensHandle
-} from '@lenstube/generic'
-import type { NewMirrorNotification } from '@lenstube/lens'
+import { getRelativeTime, trimLensHandle } from '@lenstube/generic'
+import type { MirrorNotification } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
 
 interface Props {
-  notification: NewMirrorNotification
+  notification: MirrorNotification
 }
 
 const MirroredNotification: FC<Props> = ({ notification }) => {
@@ -19,12 +15,12 @@ const MirroredNotification: FC<Props> = ({ notification }) => {
     <>
       <div className="flex items-center space-x-3">
         <Link
-          href={`/channel/${trimLensHandle(notification?.profile?.handle)}`}
+          href={`/channel/${trimLensHandle(notification?.handle)}`}
           className="font-base inline-flex items-center space-x-1.5"
         >
           <img
             className="h-5 w-5 rounded-full"
-            src={getProfilePicture(notification.profile, 'AVATAR')}
+            src={getbyPicture(notification.profile, 'AVATAR')}
             alt={notification.profile?.handle}
             draggable={false}
           />

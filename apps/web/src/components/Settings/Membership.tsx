@@ -13,14 +13,13 @@ import {
 import { getSignature, shortenAddress } from '@lenstube/generic'
 import type {
   CreateSetFollowModuleBroadcastItemResult,
-  Erc20,
   FeeFollowModuleSettings,
   Profile
 } from '@lenstube/lens'
 import {
-  useBroadcastMutation,
+  useBroadcastOnchainMutation,
   useCreateSetFollowModuleTypedDataMutation,
-  useEnabledModuleCurrrenciesQuery,
+  useEnabledCurrenciesQuery,
   useProfileFollowModuleQuery
 } from '@lenstube/lens'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
@@ -63,7 +62,7 @@ const Membership = ({ channel }: Props) => {
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      recipient: channel.ownedBy,
+      recipient: channel.ownedBy.address,
       token: WMATIC_TOKEN_ADDRESS
     }
   })
@@ -78,26 +77,25 @@ const Membership = ({ channel }: Props) => {
     refetch,
     loading: moduleLoading
   } = useProfileFollowModuleQuery({
-    variables: { request: { profileIds: channel?.id } },
+    variables: { request: { forProfileId: channel?.id } },
     skip: !channel?.id,
-    onCompleted(data) {
-      const activeFollowModule = data?.profiles?.items[0]
-        ?.followModule as FeeFollowModuleSettings
+    onCompleted: ({ profile }) => {
+      const activeFollowModule =
+        profile?.followModule as FeeFollowModuleSettings
       setShowForm(activeFollowModule ? false : true)
     }
   })
-  const activeFollowModule = followModuleData?.profiles?.items[0]
+  const activeFollowModule = followModuleData?.profile
     ?.followModule as FeeFollowModuleSettings
 
   const { signTypedDataAsync } = useSignTypedData({
     onError
   })
-  const { data: enabledCurrencies } = useEnabledModuleCurrrenciesQuery({
-    variables: { request: { profileIds: channel?.id } },
+  const { data: enabledCurrencies } = useEnabledCurrenciesQuery({
     skip: !channel?.id
   })
 
-  const [broadcast, { data: broadcastData }] = useBroadcastMutation({
+  const [broadcast, { data: broadcastData }] = useBroadcastOnchainMutation({
     onError
   })
 
@@ -111,8 +109,8 @@ const Membership = ({ channel }: Props) => {
   const { indexed } = usePendingTxn({
     txHash: writtenData?.hash,
     txId:
-      broadcastData?.broadcast.__typename === 'RelayerResult'
-        ? broadcastData?.broadcast?.txId
+      broadcastData?.broadcastOnchain.__typename === 'RelaySuccess'
+        ? broadcastData?.broadcastOnchain?.txId
         : undefined
   })
 
@@ -121,7 +119,7 @@ const Membership = ({ channel }: Props) => {
       setLoading(false)
       toast.success(t`Membership updated`)
       setShowForm(false)
-      refetch({ request: { profileIds: channel?.id } })
+      refetch({ request: { forProfileId: channel?.id } })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indexed])
@@ -138,7 +136,7 @@ const Membership = ({ channel }: Props) => {
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
-          if (data?.broadcast?.__typename === 'RelayError') {
+          if (data?.broadcastOnchain?.__typename === 'RelayError') {
             const { profileId, followModule, followModuleInitData } =
               typedData.value
             return write?.({
@@ -158,7 +156,6 @@ const Membership = ({ channel }: Props) => {
       variables: {
         options: { overrideSigNonce: userSigNonce },
         request: {
-          profileId: channel?.id,
           followModule: freeFollowModule
             ? { freeFollowModule: true }
             : {
@@ -248,10 +245,10 @@ const Membership = ({ channel }: Props) => {
                 value={watch('token')}
                 onChange={(e) => setValue('token', e.target.value)}
               >
-                {enabledCurrencies?.enabledModuleCurrencies?.map(
-                  (currency: Erc20) => (
-                    <option key={currency.address} value={currency.address}>
-                      {currency.symbol}
+                {enabledCurrencies?.currencies.items?.map(
+                  ({ contract, symbol }) => (
+                    <option key={contract.address} value={contract.address}>
+                      {symbol}
                     </option>
                   )
                 )}

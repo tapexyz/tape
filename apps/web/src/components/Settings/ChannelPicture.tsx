@@ -12,15 +12,13 @@ import {
   sanitizeDStorageUrl
 } from '@lenstube/generic'
 import type {
-  CreateSetProfileImageUriBroadcastItemResult,
+  OnchainSetProfileMetadataRequest,
   Profile,
-  ProfileMedia,
-  UpdateProfileImageRequest
+  ProfilePicture
 } from '@lenstube/lens'
 import {
-  useBroadcastMutation,
-  useCreateSetProfileImageUriTypedDataMutation,
-  useCreateSetProfileImageUriViaDispatcherMutation
+  useBroadcastOnchainMutation,
+  useCreateOnchainSetProfileMetadataTypedDataMutation
 } from '@lenstube/lens'
 import type {
   CustomErrorWithData,
@@ -56,8 +54,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
 
   // Dispatcher
-  const canUseRelay = activeChannel?.dispatcher?.canUseRelay
-  const isSponsored = activeChannel?.dispatcher?.sponsor
+  const canUseRelay = activeChannel?.sponsor && activeChannel?.lensManager
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
@@ -65,24 +62,31 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     setSelectedPfp(getProfilePicture(channel, 'AVATAR_LG'))
   }
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
     if (__typename === 'RelayError') {
       return
     }
     setLoading(false)
     if (activeChannel && selectedPfp) {
-      const picture: ProfileMedia = {
-        original: { url: selectedPfp },
-        onChain: { url: selectedPfp },
-        __typename: 'MediaSet'
+      const picture: ProfilePicture = {
+        raw: { uri: selectedPfp }
       }
       setActiveChannel({
         ...activeChannel,
-        picture
+        metadata: {
+          ...activeChannel.metadata,
+          picture,
+          attributes: activeChannel?.metadata?.attributes ?? [],
+          rawURI: activeChannel?.metadata?.rawURI
+        }
       })
       setSelectedSimpleProfile({
         ...(selectedSimpleProfile as SimpleProfile),
-        picture
+        metadata: {
+          picture,
+          attributes: selectedSimpleProfile?.metadata?.attributes ?? [],
+          rawURI: selectedSimpleProfile?.metadata?.rawURI
+        }
       })
     }
     toast.success(t`Channel image updated`)
@@ -100,23 +104,16 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     onSuccess: () => onCompleted()
   })
 
-  const [createSetProfileImageViaDispatcher] =
-    useCreateSetProfileImageUriViaDispatcherMutation({
-      onError,
-      onCompleted: ({ createSetProfileImageURIViaDispatcher }) =>
-        onCompleted(createSetProfileImageURIViaDispatcher.__typename)
-    })
-
-  const [broadcast] = useBroadcastMutation({
+  const [broadcast] = useBroadcastOnchainMutation({
     onError,
-    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
+    onCompleted: ({ broadcastOnchain }) =>
+      onCompleted(broadcastOnchain.__typename)
   })
 
   const [createSetProfileImageURITypedData] =
-    useCreateSetProfileImageUriTypedDataMutation({
-      onCompleted: async ({ createSetProfileImageURITypedData }) => {
-        const { typedData, id } =
-          createSetProfileImageURITypedData as CreateSetProfileImageUriBroadcastItemResult
+    useCreateOnchainSetProfileMetadataTypedDataMutation({
+      onCompleted: async ({ createOnchainSetProfileMetadataTypedData }) => {
+        const { typedData, id } = createOnchainSetProfileMetadataTypedData
         try {
           toast.loading(REQUESTING_SIGNATURE_MESSAGE)
           const signature = await signTypedDataAsync(getSignature(typedData))
@@ -124,9 +121,9 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
-          if (data?.broadcast?.__typename === 'RelayError') {
-            const { profileId, imageURI } = typedData.value
-            return write?.({ args: [profileId, imageURI] })
+          if (data?.broadcastOnchain?.__typename === 'RelayError') {
+            const { profileId, metadataURI } = typedData.value
+            return write?.({ args: [profileId, metadataURI] })
           }
         } catch {
           setLoading(false)
@@ -135,37 +132,20 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
       onError
     })
 
-  const createTypedData = async (request: UpdateProfileImageRequest) => {
-    await createSetProfileImageURITypedData({
-      variables: { options: { overrideSigNonce: userSigNonce }, request }
-    })
-  }
-
-  const createViaDispatcher = async (request: UpdateProfileImageRequest) => {
-    const { data } = await createSetProfileImageViaDispatcher({
-      variables: { request }
-    })
-    if (
-      data?.createSetProfileImageURIViaDispatcher.__typename === 'RelayError'
-    ) {
-      createTypedData(request)
-    }
-  }
-
   const onPfpUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
       try {
         setLoading(true)
         const result: IPFSUploadResult = await uploadToIPFS(e.target.files[0])
-        const request = {
-          profileId: activeChannel?.id,
-          url: result.url
+        const request: OnchainSetProfileMetadataRequest = {
+          metadataURI: result.url
         }
         setSelectedPfp(result.url)
-        if (canUseRelay && isSponsored) {
-          return await createViaDispatcher(request)
+        if (canUseRelay) {
+          return await createSetProfileImageURITypedData({
+            variables: { options: { overrideSigNonce: userSigNonce }, request }
+          })
         }
-        return await createTypedData(request)
       } catch (error) {
         onError(error as CustomErrorWithData)
       }

@@ -1,11 +1,10 @@
-import type { Publication } from '@lenstube/lens'
-import { PublicationMainFocus } from '@lenstube/lens'
+import type { MirrorablePublication } from '@lenstube/lens'
 
-export const isWatchable = (publication: Publication) => {
+export const isWatchable = (publication: MirrorablePublication) => {
   const canWatch =
     publication &&
-    publication.metadata?.mainContentFocus === PublicationMainFocus.Video &&
-    !publication?.hidden
+    publication.metadata.__typename === 'VideoMetadataV3' &&
+    !publication?.isHidden
 
   return canWatch
 }

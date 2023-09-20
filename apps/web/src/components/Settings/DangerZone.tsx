@@ -6,8 +6,6 @@ import {
   REQUESTING_SIGNATURE_MESSAGE
 } from '@lenstube/constants'
 import { formatNumber, getProfilePicture } from '@lenstube/generic'
-import type { CreateBurnProfileBroadcastItemResult } from '@lenstube/lens'
-import { useCreateBurnProfileTypedDataMutation } from '@lenstube/lens'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import { signOut } from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
@@ -47,28 +45,14 @@ const DangerZone = () => {
     onError
   })
 
-  const [createBurnProfileTypedData] = useCreateBurnProfileTypedDataMutation({
-    onCompleted: async (data) => {
-      const { typedData } =
-        data.createBurnProfileTypedData as CreateBurnProfileBroadcastItemResult
-      try {
-        toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-        const { tokenId } = typedData.value
-        write?.({ args: [tokenId] })
-      } catch {
-        setLoading(false)
-      }
-    },
-    onError
-  })
-
   const onClickDelete = () => {
     setLoading(true)
-    createBurnProfileTypedData({
-      variables: {
-        request: { profileId: activeChannel?.id }
-      }
-    })
+    try {
+      toast.loading(REQUESTING_SIGNATURE_MESSAGE)
+      write?.({ args: [activeChannel?.id] })
+    } catch {
+      setLoading(false)
+    }
   }
 
   if (!activeChannel) {
@@ -88,8 +72,10 @@ const DangerZone = () => {
             />
           </div>
           <div className="flex flex-col">
-            {activeChannel.name && (
-              <h6 className="font-medium">{activeChannel.name}</h6>
+            {activeChannel.metadata?.displayName && (
+              <h6 className="font-medium">
+                {activeChannel.metadata?.displayName}
+              </h6>
             )}
             <span className="flex items-center space-x-1">
               <span className="text-sm">{activeChannel?.handle}</span>
@@ -99,11 +85,11 @@ const DangerZone = () => {
         </div>
         <div className="flex space-x-2">
           <span>
-            {formatNumber(activeChannel.stats.totalPosts)}{' '}
+            {formatNumber(activeChannel.stats.posts)}{' '}
             <small>publications</small>
           </span>
           <span>
-            {formatNumber(activeChannel.stats.totalFollowers)}{' '}
+            {formatNumber(activeChannel.stats.followers)}{' '}
             <small>subscribers</small>
           </span>
         </div>
