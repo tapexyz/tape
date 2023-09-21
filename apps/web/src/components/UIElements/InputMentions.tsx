@@ -1,7 +1,7 @@
 import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
 import { getProfilePicture } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
-import { SearchRequestTypes, useSearchProfilesLazyQuery } from '@lenstube/lens'
+import { LimitType, useSearchProfilesLazyQuery } from '@lenstube/lens'
 import clsx from 'clsx'
 import type { ComponentProps, FC } from 'react'
 import React, { useId } from 'react'
@@ -29,7 +29,7 @@ const InputMentions: FC<Props> = ({
   ...props
 }) => {
   const id = useId()
-  const [searchChannels] = useSearchProfilesLazyQuery()
+  const [searchProfiles] = useSearchProfilesLazyQuery()
 
   const fetchSuggestions = async (
     query: string,
@@ -39,24 +39,25 @@ const InputMentions: FC<Props> = ({
       return
     }
     try {
-      const { data } = await searchChannels({
+      const { data } = await searchProfiles({
         variables: {
           request: {
-            type: SearchRequestTypes.Profile,
             query,
-            limit: 5,
-            customFilters: LENS_CUSTOM_FILTERS
+            limit: LimitType.Ten,
+            where: {
+              customFilters: LENS_CUSTOM_FILTERS
+            }
           }
         }
       })
-      if (data?.search.__typename === 'ProfileSearchResult') {
-        const profiles = data?.search?.items as Profile[]
+      if (data?.searchProfiles.__typename === 'PaginatedProfileResult') {
+        const profiles = data?.searchProfiles?.items as Profile[]
         const channels = profiles?.map((channel: Profile) => ({
           id: channel.handle,
           display: channel.handle,
           profileId: channel.id,
           picture: getProfilePicture(channel),
-          followers: channel.stats.totalFollowers
+          followers: channel.stats.followers
         }))
         callback(channels)
       }

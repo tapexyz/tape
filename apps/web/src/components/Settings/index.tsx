@@ -1,7 +1,7 @@
 import MetaTags from '@components/Common/MetaTags'
 import SettingsShimmer from '@components/Shimmers/SettingsShimmer'
 import { Analytics, TRACK } from '@lenstube/browser'
-import type { MediaSet, Profile } from '@lenstube/lens'
+import type { Profile } from '@lenstube/lens'
 import { useProfileQuery } from '@lenstube/lens'
 import useAuthPersistStore from '@lib/store/auth'
 import { t } from '@lingui/macro'
@@ -35,7 +35,7 @@ const Settings = () => {
 
   const { data, loading, error } = useProfileQuery({
     variables: {
-      request: { handle: selectedSimpleProfile?.handle }
+      request: { forHandle: selectedSimpleProfile?.handle }
     },
     skip: !selectedSimpleProfile?.handle
   })
@@ -51,9 +51,7 @@ const Settings = () => {
     return <Custom404 />
   }
 
-  const channel = data?.profile as Profile & {
-    coverPicture: MediaSet
-  }
+  const channel = data?.profile as Profile
 
   return (
     <div className="container mx-auto max-w-7xl">

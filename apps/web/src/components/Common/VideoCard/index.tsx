@@ -4,7 +4,7 @@ import {
   getRelativeTime,
   trimLensHandle
 } from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
+import type { MirrorablePublication } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -18,19 +18,19 @@ import ThumbnailOverlays from './ThumbnailOverlays'
 import VideoOptions from './VideoOptions'
 
 type Props = {
-  video: Publication
+  video: MirrorablePublication
 }
 
 const VideoCard: FC<Props> = ({ video }) => {
   const [showShare, setShowShare] = useState(false)
   const [showReport, setShowReport] = useState(false)
-  const isBytes = video.appId === LENSTUBE_BYTES_APP_ID
+  const isBytes = video.publishedOn?.id === LENSTUBE_BYTES_APP_ID
 
   const href = isBytes ? `/bytes/${video.id}` : `/watch/${video.id}`
 
   return (
     <div className="group" data-testid="video-card">
-      {video.hidden ? (
+      {video.isHidden ? (
         <div className="grid h-full place-items-center">
           <span className="text-xs">Video Hidden by User</span>
         </div>
@@ -55,13 +55,13 @@ const VideoCard: FC<Props> = ({ video }) => {
           <div className="py-2">
             <div className="flex items-start space-x-2.5">
               <Link
-                href={`/channel/${trimLensHandle(video.profile?.handle)}`}
+                href={`/channel/${trimLensHandle(video.by?.handle)}`}
                 className="mt-0.5 flex-none"
               >
                 <img
                   className="h-8 w-8 rounded-full"
-                  src={getProfilePicture(video.profile)}
-                  alt={video.profile?.handle}
+                  src={getProfilePicture(video.by)}
+                  alt={video.by?.handle}
                   draggable={false}
                 />
               </Link>
@@ -70,10 +70,10 @@ const VideoCard: FC<Props> = ({ video }) => {
                   <Link
                     className="ultrawide:line-clamp-1 ultrawide:break-all line-clamp-2 break-words text-sm font-semibold"
                     href={href}
-                    title={video.metadata?.name ?? ''}
+                    title={video.metadata.marketplace?.name ?? ''}
                     data-testid="video-card-title"
                   >
-                    {video.metadata?.name}
+                    {video.metadata.marketplace?.name}
                   </Link>
                   <VideoOptions
                     video={video}
@@ -82,16 +82,16 @@ const VideoCard: FC<Props> = ({ video }) => {
                   />
                 </div>
                 <Link
-                  href={`/channel/${trimLensHandle(video.profile?.handle)}`}
+                  href={`/channel/${trimLensHandle(video.by?.handle)}`}
                   className="flex w-fit items-center space-x-0.5 text-[13px] opacity-70 hover:opacity-100"
                   data-testid="video-card-channel"
                 >
-                  <span>{trimLensHandle(video.profile?.handle)}</span>
-                  <Badge id={video.profile?.id} size="xs" />
+                  <span>{trimLensHandle(video.by?.handle)}</span>
+                  <Badge id={video.by?.id} size="xs" />
                 </Link>
                 <div className="flex items-center overflow-hidden text-xs opacity-70">
                   <span className="whitespace-nowrap">
-                    {video.stats?.totalUpvotes} <Trans>likes</Trans>
+                    {video.stats?.reactions} <Trans>likes</Trans>
                   </span>
                   <span className="middot" />
                   {video.createdAt && (

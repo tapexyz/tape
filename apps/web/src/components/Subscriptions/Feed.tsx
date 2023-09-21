@@ -2,10 +2,14 @@ import VideoCard from '@components/Common/VideoCard'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { SCROLL_ROOT_MARGIN } from '@lenstube/constants'
-import type { FeedItem, Publication } from '@lenstube/lens'
+import type {
+  FeedItem,
+  FeedRequest,
+  MirrorablePublication
+} from '@lenstube/lens'
 import {
   FeedEventItemType,
-  PublicationMainFocus,
+  PublicationMetadataMainFocusType,
   useFeedQuery
 } from '@lenstube/lens'
 import { Loader } from '@lenstube/ui'
@@ -22,14 +26,15 @@ const Subscriptions = () => {
   )
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
 
-  const request = {
-    limit: 50,
-    feedEventItemTypes: [FeedEventItemType.Post],
-    profileId: selectedSimpleProfile?.id,
-    metadata: {
-      tags:
-        activeTagFilter !== 'all' ? { oneOf: [activeTagFilter] } : undefined,
-      mainContentFocus: [PublicationMainFocus.Video]
+  const request: FeedRequest = {
+    where: {
+      feedEventItemTypes: [FeedEventItemType.Post],
+      for: selectedSimpleProfile?.id,
+      metadata: {
+        tags:
+          activeTagFilter !== 'all' ? { oneOf: [activeTagFilter] } : undefined,
+        mainContentFocus: [PublicationMetadataMainFocusType.Video]
+      }
     }
   }
 
@@ -40,7 +45,7 @@ const Subscriptions = () => {
     skip: !selectedSimpleProfile?.id
   })
 
-  const videos = data?.feed?.items as FeedItem[]
+  const feedItems = data?.feed?.items as FeedItem[]
   const pageInfo = data?.feed?.pageInfo
 
   const { observe } = useInView({
@@ -57,7 +62,7 @@ const Subscriptions = () => {
     }
   })
 
-  if (videos?.length === 0) {
+  if (feedItems?.length === 0) {
     return (
       <NoDataFound
         isCenter
@@ -77,12 +82,12 @@ const Subscriptions = () => {
       {!error && !loading && (
         <>
           <div className="laptop:grid-cols-4 grid-col-1 grid gap-x-4 gap-y-2 md:grid-cols-2 md:gap-y-8 2xl:grid-cols-5">
-            {videos?.map((feedItem: FeedItem) => {
+            {feedItems?.map((feedItem: FeedItem) => {
               const video = feedItem.root
               return (
                 <VideoCard
                   key={`${video?.id}_${video.createdAt}`}
-                  video={video as Publication}
+                  video={video as MirrorablePublication}
                 />
               )
             })}

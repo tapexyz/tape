@@ -1,6 +1,9 @@
+import type { ProfileInterestTypes } from '@lenstube/lens'
 import type { ProfileInterest } from '@lenstube/lens/custom-types'
 
-export const sanitizeProfileInterests = (profileInterests: string[]) => {
+export const sanitizeProfileInterests = (
+  profileInterests: ProfileInterestTypes[]
+) => {
   if (!profileInterests) {
     return []
   }

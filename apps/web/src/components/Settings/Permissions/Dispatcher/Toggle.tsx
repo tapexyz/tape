@@ -5,14 +5,12 @@ import { Analytics, TRACK } from '@lenstube/browser'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
-  OLD_LENS_RELAYER_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE
 } from '@lenstube/constants'
 import { getIsDispatcherEnabled, getSignature } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import {
-  useBroadcastMutation,
-  useCreateSetDispatcherTypedDataMutation,
+  useBroadcastOnchainMutation,
   useProfileLazyQuery
 } from '@lenstube/lens'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
@@ -29,9 +27,7 @@ const Toggle = () => {
   const userSigNonce = useChannelStore((state) => state.userSigNonce)
   const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
   const canUseRelay = getIsDispatcherEnabled(activeChannel)
-  const usingOldDispatcher =
-    activeChannel?.dispatcher?.address?.toLocaleLowerCase() ===
-    OLD_LENS_RELAYER_ADDRESS.toLocaleLowerCase()
+  const usingOldDispatcher = activeChannel?.lensManager === false
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.message ?? ERROR_MESSAGE)
@@ -55,15 +51,15 @@ const Toggle = () => {
     }
   })
 
-  const [broadcast, { data: broadcastData }] = useBroadcastMutation({
+  const [broadcast, { data: broadcastData }] = useBroadcastOnchainMutation({
     onError
   })
 
   const { indexed } = usePendingTxn({
     txHash: writeData?.hash,
     txId:
-      broadcastData?.broadcast.__typename === 'RelayerResult'
-        ? broadcastData?.broadcast?.txId
+      broadcastData?.broadcastOnchain.__typename === 'RelaySuccess'
+        ? broadcastData?.broadcastOnchain?.txId
         : undefined
   })
 
@@ -79,7 +75,7 @@ const Toggle = () => {
       toast.success(`Dispatcher ${canUseRelay ? t`disabled` : t`enabled`}`)
       refetchChannel({
         variables: {
-          request: { handle: activeChannel?.handle }
+          request: { forHandle: activeChannel?.handle }
         },
         fetchPolicy: 'no-cache'
       })
@@ -98,7 +94,7 @@ const Toggle = () => {
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
-        if (data?.broadcast?.__typename === 'RelayError') {
+        if (data?.broadcastOnchain?.__typename === 'RelayError') {
           const { profileId, dispatcher } = typedData.value
           return write?.({
             args: [profileId, dispatcher]
@@ -110,6 +106,7 @@ const Toggle = () => {
     },
     onError
   })
+
   const onClick = () => {
     setLoading(true)
     createDispatcherTypedData({

@@ -4392,8 +4392,11 @@ export type RevenueFromPublicationRequest = {
 
 export type RevenueFromPublicationsRequest = {
   cursor?: InputMaybe<Scalars['Cursor']['input']>
+  /** The profile to get revenue for */
   for: Scalars['ProfileId']['input']
   limit?: InputMaybe<LimitType>
+  /** Will return revenue for publications made on any of the provided app ids. Will include all apps if omitted */
+  publishedOn?: InputMaybe<Array<Scalars['AppId']['input']>>
 }
 
 export type RevertFollowModuleSettings = {
@@ -4650,14 +4653,14 @@ export type UnknownOpenActionModuleSettings = {
   __typename?: 'UnknownOpenActionModuleSettings'
   contract: NetworkAddress
   /** The data used to setup the module which you can decode with your known ABI  */
-  openActionModuleReturnData: Scalars['BlockchainData']['output']
+  openActionModuleReturnData?: Maybe<Scalars['BlockchainData']['output']>
 }
 
 export type UnknownOpenActionResult = {
   __typename?: 'UnknownOpenActionResult'
   address: Scalars['EvmAddress']['output']
   category?: Maybe<OpenActionCategoryType>
-  initReturnData: Scalars['BlockchainData']['output']
+  initReturnData?: Maybe<Scalars['BlockchainData']['output']>
 }
 
 export type UnknownReferenceModuleInput = {
@@ -5295,7 +5298,7 @@ export type CommentFieldsFragment = {
           __typename?: 'UnknownOpenActionResult'
           address: any
           category?: OpenActionCategoryType | null
-          initReturnData: any
+          initReturnData?: any | null
         }
     >
     canDecrypt: {
@@ -5955,7 +5958,7 @@ export type CommentFieldsFragment = {
       }
     | {
         __typename?: 'UnknownOpenActionModuleSettings'
-        openActionModuleReturnData: any
+        openActionModuleReturnData?: any | null
         contract: { __typename?: 'NetworkAddress'; address: any; chainId: any }
       }
   > | null
@@ -6456,7 +6459,7 @@ type OpenActionModulesFields_SimpleCollectOpenActionSettings_Fragment = {
 
 type OpenActionModulesFields_UnknownOpenActionModuleSettings_Fragment = {
   __typename?: 'UnknownOpenActionModuleSettings'
-  openActionModuleReturnData: any
+  openActionModuleReturnData?: any | null
   contract: { __typename?: 'NetworkAddress'; address: any; chainId: any }
 }
 
@@ -6655,7 +6658,7 @@ export type PostFieldsFragment = {
           __typename?: 'UnknownOpenActionResult'
           address: any
           category?: OpenActionCategoryType | null
-          initReturnData: any
+          initReturnData?: any | null
         }
     >
     canDecrypt: {
@@ -7315,7 +7318,7 @@ export type PostFieldsFragment = {
       }
     | {
         __typename?: 'UnknownOpenActionModuleSettings'
-        openActionModuleReturnData: any
+        openActionModuleReturnData?: any | null
         contract: { __typename?: 'NetworkAddress'; address: any; chainId: any }
       }
   > | null
@@ -7565,7 +7568,7 @@ export type PublicationOperationFieldsFragment = {
         __typename?: 'UnknownOpenActionResult'
         address: any
         category?: OpenActionCategoryType | null
-        initReturnData: any
+        initReturnData?: any | null
       }
   >
   canDecrypt: {
@@ -7766,7 +7769,7 @@ export type QuoteFieldsFragment = {
           __typename?: 'UnknownOpenActionResult'
           address: any
           category?: OpenActionCategoryType | null
-          initReturnData: any
+          initReturnData?: any | null
         }
     >
     canDecrypt: {
@@ -8426,7 +8429,7 @@ export type QuoteFieldsFragment = {
       }
     | {
         __typename?: 'UnknownOpenActionModuleSettings'
-        openActionModuleReturnData: any
+        openActionModuleReturnData?: any | null
         contract: { __typename?: 'NetworkAddress'; address: any; chainId: any }
       }
   > | null
@@ -10299,7 +10302,7 @@ export type ExplorePublicationsQuery = {
                   __typename?: 'UnknownOpenActionResult'
                   address: any
                   category?: OpenActionCategoryType | null
-                  initReturnData: any
+                  initReturnData?: any | null
                 }
             >
             canDecrypt: {
@@ -11035,7 +11038,7 @@ export type ExplorePublicationsQuery = {
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings'
-                openActionModuleReturnData: any
+                openActionModuleReturnData?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -11275,7 +11278,7 @@ export type ExplorePublicationsQuery = {
                   __typename?: 'UnknownOpenActionResult'
                   address: any
                   category?: OpenActionCategoryType | null
-                  initReturnData: any
+                  initReturnData?: any | null
                 }
             >
             canDecrypt: {
@@ -12011,7 +12014,7 @@ export type ExplorePublicationsQuery = {
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings'
-                openActionModuleReturnData: any
+                openActionModuleReturnData?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -12269,7 +12272,7 @@ export type FeedHighlightsQuery = {
                   __typename?: 'UnknownOpenActionResult'
                   address: any
                   category?: OpenActionCategoryType | null
-                  initReturnData: any
+                  initReturnData?: any | null
                 }
             >
             canDecrypt: {
@@ -13005,7 +13008,7 @@ export type FeedHighlightsQuery = {
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings'
-                openActionModuleReturnData: any
+                openActionModuleReturnData?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -13245,7 +13248,7 @@ export type FeedHighlightsQuery = {
                   __typename?: 'UnknownOpenActionResult'
                   address: any
                   category?: OpenActionCategoryType | null
-                  initReturnData: any
+                  initReturnData?: any | null
                 }
             >
             canDecrypt: {
@@ -13981,7 +13984,7 @@ export type FeedHighlightsQuery = {
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings'
-                openActionModuleReturnData: any
+                openActionModuleReturnData?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -15003,7 +15006,7 @@ export type NotificationsQuery = {
                         __typename?: 'UnknownOpenActionResult'
                         address: any
                         category?: OpenActionCategoryType | null
-                        initReturnData: any
+                        initReturnData?: any | null
                       }
                   >
                   canDecrypt: {
@@ -15739,7 +15742,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'UnknownOpenActionModuleSettings'
-                      openActionModuleReturnData: any
+                      openActionModuleReturnData?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -16001,7 +16004,7 @@ export type NotificationsQuery = {
                         __typename?: 'UnknownOpenActionResult'
                         address: any
                         category?: OpenActionCategoryType | null
-                        initReturnData: any
+                        initReturnData?: any | null
                       }
                   >
                   canDecrypt: {
@@ -16737,7 +16740,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'UnknownOpenActionModuleSettings'
-                      openActionModuleReturnData: any
+                      openActionModuleReturnData?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -16985,7 +16988,7 @@ export type NotificationsQuery = {
                     __typename?: 'UnknownOpenActionResult'
                     address: any
                     category?: OpenActionCategoryType | null
-                    initReturnData: any
+                    initReturnData?: any | null
                   }
               >
               canDecrypt: {
@@ -17721,7 +17724,7 @@ export type NotificationsQuery = {
                 }
               | {
                   __typename?: 'UnknownOpenActionModuleSettings'
-                  openActionModuleReturnData: any
+                  openActionModuleReturnData?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
@@ -18138,7 +18141,7 @@ export type NotificationsQuery = {
                         __typename?: 'UnknownOpenActionResult'
                         address: any
                         category?: OpenActionCategoryType | null
-                        initReturnData: any
+                        initReturnData?: any | null
                       }
                   >
                   canDecrypt: {
@@ -18874,7 +18877,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'UnknownOpenActionModuleSettings'
-                      openActionModuleReturnData: any
+                      openActionModuleReturnData?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -19123,7 +19126,7 @@ export type NotificationsQuery = {
                         __typename?: 'UnknownOpenActionResult'
                         address: any
                         category?: OpenActionCategoryType | null
-                        initReturnData: any
+                        initReturnData?: any | null
                       }
                   >
                   canDecrypt: {
@@ -19859,7 +19862,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'UnknownOpenActionModuleSettings'
-                      openActionModuleReturnData: any
+                      openActionModuleReturnData?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -20102,7 +20105,7 @@ export type NotificationsQuery = {
                         __typename?: 'UnknownOpenActionResult'
                         address: any
                         category?: OpenActionCategoryType | null
-                        initReturnData: any
+                        initReturnData?: any | null
                       }
                   >
                   canDecrypt: {
@@ -20838,7 +20841,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'UnknownOpenActionModuleSettings'
-                      openActionModuleReturnData: any
+                      openActionModuleReturnData?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -21257,7 +21260,7 @@ export type NotificationsQuery = {
                         __typename?: 'UnknownOpenActionResult'
                         address: any
                         category?: OpenActionCategoryType | null
-                        initReturnData: any
+                        initReturnData?: any | null
                       }
                   >
                   canDecrypt: {
@@ -21993,7 +21996,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'UnknownOpenActionModuleSettings'
-                      openActionModuleReturnData: any
+                      openActionModuleReturnData?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -22242,7 +22245,7 @@ export type NotificationsQuery = {
                         __typename?: 'UnknownOpenActionResult'
                         address: any
                         category?: OpenActionCategoryType | null
-                        initReturnData: any
+                        initReturnData?: any | null
                       }
                   >
                   canDecrypt: {
@@ -22978,7 +22981,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'UnknownOpenActionModuleSettings'
-                      openActionModuleReturnData: any
+                      openActionModuleReturnData?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -23221,7 +23224,7 @@ export type NotificationsQuery = {
                         __typename?: 'UnknownOpenActionResult'
                         address: any
                         category?: OpenActionCategoryType | null
-                        initReturnData: any
+                        initReturnData?: any | null
                       }
                   >
                   canDecrypt: {
@@ -23957,7 +23960,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'UnknownOpenActionModuleSettings'
-                      openActionModuleReturnData: any
+                      openActionModuleReturnData?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -24208,7 +24211,7 @@ export type NotificationsQuery = {
                     __typename?: 'UnknownOpenActionResult'
                     address: any
                     category?: OpenActionCategoryType | null
-                    initReturnData: any
+                    initReturnData?: any | null
                   }
               >
               canDecrypt: {
@@ -24944,7 +24947,7 @@ export type NotificationsQuery = {
                 }
               | {
                   __typename?: 'UnknownOpenActionModuleSettings'
-                  openActionModuleReturnData: any
+                  openActionModuleReturnData?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
@@ -25196,7 +25199,7 @@ export type NotificationsQuery = {
                         __typename?: 'UnknownOpenActionResult'
                         address: any
                         category?: OpenActionCategoryType | null
-                        initReturnData: any
+                        initReturnData?: any | null
                       }
                   >
                   canDecrypt: {
@@ -25932,7 +25935,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'UnknownOpenActionModuleSettings'
-                      openActionModuleReturnData: any
+                      openActionModuleReturnData?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -26181,7 +26184,7 @@ export type NotificationsQuery = {
                         __typename?: 'UnknownOpenActionResult'
                         address: any
                         category?: OpenActionCategoryType | null
-                        initReturnData: any
+                        initReturnData?: any | null
                       }
                   >
                   canDecrypt: {
@@ -26917,7 +26920,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'UnknownOpenActionModuleSettings'
-                      openActionModuleReturnData: any
+                      openActionModuleReturnData?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -27160,7 +27163,7 @@ export type NotificationsQuery = {
                         __typename?: 'UnknownOpenActionResult'
                         address: any
                         category?: OpenActionCategoryType | null
-                        initReturnData: any
+                        initReturnData?: any | null
                       }
                   >
                   canDecrypt: {
@@ -27896,7 +27899,7 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'UnknownOpenActionModuleSettings'
-                      openActionModuleReturnData: any
+                      openActionModuleReturnData?: any | null
                       contract: {
                         __typename?: 'NetworkAddress'
                         address: any
@@ -28477,7 +28480,7 @@ export type FeedQuery = {
                     __typename?: 'UnknownOpenActionResult'
                     address: any
                     category?: OpenActionCategoryType | null
-                    initReturnData: any
+                    initReturnData?: any | null
                   }
               >
               canDecrypt: {
@@ -29213,7 +29216,7 @@ export type FeedQuery = {
                 }
               | {
                   __typename?: 'UnknownOpenActionModuleSettings'
-                  openActionModuleReturnData: any
+                  openActionModuleReturnData?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
@@ -29462,7 +29465,7 @@ export type FeedQuery = {
                     __typename?: 'UnknownOpenActionResult'
                     address: any
                     category?: OpenActionCategoryType | null
-                    initReturnData: any
+                    initReturnData?: any | null
                   }
               >
               canDecrypt: {
@@ -30198,7 +30201,7 @@ export type FeedQuery = {
                 }
               | {
                   __typename?: 'UnknownOpenActionModuleSettings'
-                  openActionModuleReturnData: any
+                  openActionModuleReturnData?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
@@ -30296,6 +30299,15 @@ export type ProfileFollowModuleQuery = {
         }
       | null
   } | null
+}
+
+export type ProfileInterestsOptionsQueryVariables = Exact<{
+  [key: string]: never
+}>
+
+export type ProfileInterestsOptionsQuery = {
+  __typename?: 'Query'
+  profileInterestsOptions: Array<string>
 }
 
 export type ProfileManagersQueryVariables = Exact<{
@@ -30826,7 +30838,7 @@ export type PublicationQuery = {
                 __typename?: 'UnknownOpenActionResult'
                 address: any
                 category?: OpenActionCategoryType | null
-                initReturnData: any
+                initReturnData?: any | null
               }
           >
           canDecrypt: {
@@ -31558,7 +31570,7 @@ export type PublicationQuery = {
             }
           | {
               __typename?: 'UnknownOpenActionModuleSettings'
-              openActionModuleReturnData: any
+              openActionModuleReturnData?: any | null
               contract: {
                 __typename?: 'NetworkAddress'
                 address: any
@@ -31809,7 +31821,7 @@ export type PublicationQuery = {
                 __typename?: 'UnknownOpenActionResult'
                 address: any
                 category?: OpenActionCategoryType | null
-                initReturnData: any
+                initReturnData?: any | null
               }
           >
           canDecrypt: {
@@ -32541,7 +32553,7 @@ export type PublicationQuery = {
             }
           | {
               __typename?: 'UnknownOpenActionModuleSettings'
-              openActionModuleReturnData: any
+              openActionModuleReturnData?: any | null
               contract: {
                 __typename?: 'NetworkAddress'
                 address: any
@@ -32773,7 +32785,7 @@ export type PublicationQuery = {
                 __typename?: 'UnknownOpenActionResult'
                 address: any
                 category?: OpenActionCategoryType | null
-                initReturnData: any
+                initReturnData?: any | null
               }
           >
           canDecrypt: {
@@ -33505,7 +33517,7 @@ export type PublicationQuery = {
             }
           | {
               __typename?: 'UnknownOpenActionModuleSettings'
-              openActionModuleReturnData: any
+              openActionModuleReturnData?: any | null
               contract: {
                 __typename?: 'NetworkAddress'
                 address: any
@@ -33761,7 +33773,7 @@ export type PublicationBookmarksQuery = {
                   __typename?: 'UnknownOpenActionResult'
                   address: any
                   category?: OpenActionCategoryType | null
-                  initReturnData: any
+                  initReturnData?: any | null
                 }
             >
             canDecrypt: {
@@ -34497,7 +34509,7 @@ export type PublicationBookmarksQuery = {
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings'
-                openActionModuleReturnData: any
+                openActionModuleReturnData?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -34756,7 +34768,7 @@ export type PublicationBookmarksQuery = {
                   __typename?: 'UnknownOpenActionResult'
                   address: any
                   category?: OpenActionCategoryType | null
-                  initReturnData: any
+                  initReturnData?: any | null
                 }
             >
             canDecrypt: {
@@ -35492,7 +35504,7 @@ export type PublicationBookmarksQuery = {
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings'
-                openActionModuleReturnData: any
+                openActionModuleReturnData?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -35732,7 +35744,7 @@ export type PublicationBookmarksQuery = {
                   __typename?: 'UnknownOpenActionResult'
                   address: any
                   category?: OpenActionCategoryType | null
-                  initReturnData: any
+                  initReturnData?: any | null
                 }
             >
             canDecrypt: {
@@ -36468,7 +36480,7 @@ export type PublicationBookmarksQuery = {
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings'
-                openActionModuleReturnData: any
+                openActionModuleReturnData?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -36726,7 +36738,7 @@ export type PublicationsQuery = {
                   __typename?: 'UnknownOpenActionResult'
                   address: any
                   category?: OpenActionCategoryType | null
-                  initReturnData: any
+                  initReturnData?: any | null
                 }
             >
             canDecrypt: {
@@ -37462,7 +37474,7 @@ export type PublicationsQuery = {
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings'
-                openActionModuleReturnData: any
+                openActionModuleReturnData?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -37721,7 +37733,7 @@ export type PublicationsQuery = {
                   __typename?: 'UnknownOpenActionResult'
                   address: any
                   category?: OpenActionCategoryType | null
-                  initReturnData: any
+                  initReturnData?: any | null
                 }
             >
             canDecrypt: {
@@ -38457,7 +38469,7 @@ export type PublicationsQuery = {
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings'
-                openActionModuleReturnData: any
+                openActionModuleReturnData?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -38697,7 +38709,7 @@ export type PublicationsQuery = {
                   __typename?: 'UnknownOpenActionResult'
                   address: any
                   category?: OpenActionCategoryType | null
-                  initReturnData: any
+                  initReturnData?: any | null
                 }
             >
             canDecrypt: {
@@ -39433,7 +39445,7 @@ export type PublicationsQuery = {
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings'
-                openActionModuleReturnData: any
+                openActionModuleReturnData?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -39691,7 +39703,7 @@ export type RevenueFromPublicationQuery = {
                   __typename?: 'UnknownOpenActionResult'
                   address: any
                   category?: OpenActionCategoryType | null
-                  initReturnData: any
+                  initReturnData?: any | null
                 }
             >
             canDecrypt: {
@@ -40427,7 +40439,7 @@ export type RevenueFromPublicationQuery = {
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings'
-                openActionModuleReturnData: any
+                openActionModuleReturnData?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -40686,7 +40698,7 @@ export type RevenueFromPublicationQuery = {
                   __typename?: 'UnknownOpenActionResult'
                   address: any
                   category?: OpenActionCategoryType | null
-                  initReturnData: any
+                  initReturnData?: any | null
                 }
             >
             canDecrypt: {
@@ -41422,7 +41434,7 @@ export type RevenueFromPublicationQuery = {
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings'
-                openActionModuleReturnData: any
+                openActionModuleReturnData?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -41662,7 +41674,7 @@ export type RevenueFromPublicationQuery = {
                   __typename?: 'UnknownOpenActionResult'
                   address: any
                   category?: OpenActionCategoryType | null
-                  initReturnData: any
+                  initReturnData?: any | null
                 }
             >
             canDecrypt: {
@@ -42398,7 +42410,7 @@ export type RevenueFromPublicationQuery = {
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings'
-                openActionModuleReturnData: any
+                openActionModuleReturnData?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -42677,7 +42689,7 @@ export type RevenueFromPublicationsQuery = {
                     __typename?: 'UnknownOpenActionResult'
                     address: any
                     category?: OpenActionCategoryType | null
-                    initReturnData: any
+                    initReturnData?: any | null
                   }
               >
               canDecrypt: {
@@ -43413,7 +43425,7 @@ export type RevenueFromPublicationsQuery = {
                 }
               | {
                   __typename?: 'UnknownOpenActionModuleSettings'
-                  openActionModuleReturnData: any
+                  openActionModuleReturnData?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
@@ -43675,7 +43687,7 @@ export type RevenueFromPublicationsQuery = {
                     __typename?: 'UnknownOpenActionResult'
                     address: any
                     category?: OpenActionCategoryType | null
-                    initReturnData: any
+                    initReturnData?: any | null
                   }
               >
               canDecrypt: {
@@ -44411,7 +44423,7 @@ export type RevenueFromPublicationsQuery = {
                 }
               | {
                   __typename?: 'UnknownOpenActionModuleSettings'
-                  openActionModuleReturnData: any
+                  openActionModuleReturnData?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
@@ -44654,7 +44666,7 @@ export type RevenueFromPublicationsQuery = {
                     __typename?: 'UnknownOpenActionResult'
                     address: any
                     category?: OpenActionCategoryType | null
-                    initReturnData: any
+                    initReturnData?: any | null
                   }
               >
               canDecrypt: {
@@ -45390,7 +45402,7 @@ export type RevenueFromPublicationsQuery = {
                 }
               | {
                   __typename?: 'UnknownOpenActionModuleSettings'
-                  openActionModuleReturnData: any
+                  openActionModuleReturnData?: any | null
                   contract: {
                     __typename?: 'NetworkAddress'
                     address: any
@@ -45819,7 +45831,7 @@ export type SearchPublicationsQuery = {
                   __typename?: 'UnknownOpenActionResult'
                   address: any
                   category?: OpenActionCategoryType | null
-                  initReturnData: any
+                  initReturnData?: any | null
                 }
             >
             canDecrypt: {
@@ -46555,7 +46567,7 @@ export type SearchPublicationsQuery = {
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings'
-                openActionModuleReturnData: any
+                openActionModuleReturnData?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -46801,7 +46813,7 @@ export type SearchPublicationsQuery = {
                   __typename?: 'UnknownOpenActionResult'
                   address: any
                   category?: OpenActionCategoryType | null
-                  initReturnData: any
+                  initReturnData?: any | null
                 }
             >
             canDecrypt: {
@@ -47537,7 +47549,7 @@ export type SearchPublicationsQuery = {
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings'
-                openActionModuleReturnData: any
+                openActionModuleReturnData?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -47777,7 +47789,7 @@ export type SearchPublicationsQuery = {
                   __typename?: 'UnknownOpenActionResult'
                   address: any
                   category?: OpenActionCategoryType | null
-                  initReturnData: any
+                  initReturnData?: any | null
                 }
             >
             canDecrypt: {
@@ -48513,7 +48525,7 @@ export type SearchPublicationsQuery = {
               }
             | {
                 __typename?: 'UnknownOpenActionModuleSettings'
-                openActionModuleReturnData: any
+                openActionModuleReturnData?: any | null
                 contract: {
                   __typename?: 'NetworkAddress'
                   address: any
@@ -54166,6 +54178,61 @@ export type ProfileFollowModuleLazyQueryHookResult = ReturnType<
 export type ProfileFollowModuleQueryResult = Apollo.QueryResult<
   ProfileFollowModuleQuery,
   ProfileFollowModuleQueryVariables
+>
+export const ProfileInterestsOptionsDocument = gql`
+  query ProfileInterestsOptions {
+    profileInterestsOptions
+  }
+`
+
+/**
+ * __useProfileInterestsOptionsQuery__
+ *
+ * To run a query within a React component, call `useProfileInterestsOptionsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useProfileInterestsOptionsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useProfileInterestsOptionsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useProfileInterestsOptionsQuery(
+  baseOptions?: Apollo.QueryHookOptions<
+    ProfileInterestsOptionsQuery,
+    ProfileInterestsOptionsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useQuery<
+    ProfileInterestsOptionsQuery,
+    ProfileInterestsOptionsQueryVariables
+  >(ProfileInterestsOptionsDocument, options)
+}
+export function useProfileInterestsOptionsLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    ProfileInterestsOptionsQuery,
+    ProfileInterestsOptionsQueryVariables
+  >
+) {
+  const options = { ...defaultOptions, ...baseOptions }
+  return Apollo.useLazyQuery<
+    ProfileInterestsOptionsQuery,
+    ProfileInterestsOptionsQueryVariables
+  >(ProfileInterestsOptionsDocument, options)
+}
+export type ProfileInterestsOptionsQueryHookResult = ReturnType<
+  typeof useProfileInterestsOptionsQuery
+>
+export type ProfileInterestsOptionsLazyQueryHookResult = ReturnType<
+  typeof useProfileInterestsOptionsLazyQuery
+>
+export type ProfileInterestsOptionsQueryResult = Apollo.QueryResult<
+  ProfileInterestsOptionsQuery,
+  ProfileInterestsOptionsQueryVariables
 >
 export const ProfileManagersDocument = gql`
   query ProfileManagers($request: ProfileManagersRequest!) {

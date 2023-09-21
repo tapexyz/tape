@@ -1,5 +1,10 @@
 import type { WebBundlr } from '@bundlr-network/client'
-import type { Attribute, Profile, RecipientDataInput } from '@lenstube/lens'
+import type {
+  Attribute,
+  Profile,
+  ProfileInterestTypes,
+  RecipientDataInput
+} from '@lenstube/lens'
 
 export type VideoDraft = {
   preview: string
@@ -99,8 +104,8 @@ export interface CustomErrorWithData extends Error {
 }
 
 export interface ProfileInterest {
-  category: { label: string; id: string }
-  subCategories: Array<{ label: string; id: string }>
+  category: { label: string; id: ProfileInterestTypes }
+  subCategories: Array<{ label: string; id: ProfileInterestTypes }>
 }
 
 export type QueuedVideoType = {

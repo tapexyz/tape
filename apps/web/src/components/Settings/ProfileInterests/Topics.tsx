@@ -1,9 +1,13 @@
 import { Analytics, TRACK } from '@lenstube/browser'
 import { sanitizeProfileInterests } from '@lenstube/generic'
+import type {
+  ProfileInterestsRequest,
+  ProfileInterestTypes
+} from '@lenstube/lens'
 import {
-  useAddProfileInterestMutation,
-  useProfileInterestsQuery,
-  useRemoveProfileInterestMutation
+  useAddProfileInterestsMutation,
+  useProfileInterestsOptionsQuery,
+  useRemoveProfileInterestsMutation
 } from '@lenstube/lens'
 import { useApolloClient } from '@lenstube/lens/apollo'
 import { Loader } from '@lenstube/ui'
@@ -21,9 +25,9 @@ const Topics = () => {
   }, [])
 
   const { cache } = useApolloClient()
-  const { data, loading } = useProfileInterestsQuery()
-  const [addProfileInterests] = useAddProfileInterestMutation()
-  const [removeProfileInterests] = useRemoveProfileInterestMutation()
+  const { data, loading } = useProfileInterestsOptionsQuery()
+  const [addProfileInterests] = useAddProfileInterestsMutation()
+  const [removeProfileInterests] = useRemoveProfileInterestsMutation()
 
   const updateCache = (interests: string[]) => {
     cache.modify({
@@ -32,28 +36,25 @@ const Topics = () => {
     })
   }
 
-  const interestsData = (data?.profileInterests as string[]) || []
+  const interestsData = data?.profileInterestsOptions as ProfileInterestTypes[]
   const selectedTopics = activeChannel?.interests ?? []
 
-  const onSelectTopic = (topic: string) => {
+  const onSelectTopic = (topic: ProfileInterestTypes) => {
     try {
-      const variables = {
-        request: {
-          profileId: activeChannel?.id,
-          interests: [topic]
-        }
+      const request: ProfileInterestsRequest = {
+        interests: [topic]
       }
       if (!selectedTopics.includes(topic)) {
         const interests = [...selectedTopics, topic]
         updateCache(interests)
         Analytics.track(TRACK.PROFILE_INTERESTS.ADD)
-        return addProfileInterests({ variables })
+        return addProfileInterests({ variables: { request } })
       }
       const topics = [...selectedTopics]
       topics.splice(topics.indexOf(topic), 1)
       updateCache(topics)
       Analytics.track(TRACK.PROFILE_INTERESTS.REMOVE)
-      removeProfileInterests({ variables })
+      removeProfileInterests({ variables: { request } })
     } catch {}
   }
 
@@ -83,7 +84,7 @@ const Topics = () => {
                 {category.label}
               </button>
               {subCategories?.map(
-                (subCategory: { id: string; label: string }) => (
+                (subCategory: { id: ProfileInterestTypes; label: string }) => (
                   <button
                     type="button"
                     disabled={

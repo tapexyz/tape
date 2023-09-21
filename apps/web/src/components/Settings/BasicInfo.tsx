@@ -29,11 +29,7 @@ import {
   trimLensHandle,
   uploadToAr
 } from '@lenstube/generic'
-import type {
-  ImageSet,
-  OnchainSetProfileMetadataRequest,
-  Profile
-} from '@lenstube/lens'
+import type { OnchainSetProfileMetadataRequest, Profile } from '@lenstube/lens'
 import {
   useBroadcastOnchainMutation,
   useCreateOnchainSetProfileMetadataTypedDataMutation
@@ -55,9 +51,7 @@ import type { z } from 'zod'
 import { object, string, union } from 'zod'
 
 type Props = {
-  channel: Profile & {
-    coverPicture: ImageSet
-  }
+  channel: Profile
 }
 const formSchema = object({
   displayName: union([
