@@ -23,7 +23,7 @@ type Props = {
   uploadedVideo: UploadedVideo
   setCollectType: (data: CollectModuleType) => void
   setShowModal: Dispatch<boolean>
-  enabledCurrencies: { enabledModuleCurrencies: Array<Erc20> }
+  enabledCurrencies: Erc20[]
 }
 
 const formSchema = object({
@@ -80,7 +80,8 @@ const FeeCollectForm: FC<Props> = ({
   }, [uploadedVideo.collectModule, register, unregister])
 
   const getCurrencySymbol = (currencies: Erc20[], address: string) => {
-    return currencies.find((c) => c.address === address)?.symbol as string
+    return currencies.find((c) => c.contract.address === address)
+      ?.symbol as string
   }
 
   const onSubmit = (data: FormData) => {
@@ -90,7 +91,7 @@ const FeeCollectForm: FC<Props> = ({
         value: data.amount || '0'
       },
       referralFee: data.referralPercent,
-      recipient: selectedSimpleProfile?.ownedBy,
+      recipient: selectedSimpleProfile?.ownedBy.address,
       collectLimit: data.collectLimit
     })
     setShowModal(false)
@@ -175,20 +176,18 @@ const FeeCollectForm: FC<Props> = ({
                   amount: { currency: e.target.value, value: '' }
                 })
                 setSelectedCurrencySymbol(
-                  getCurrencySymbol(
-                    enabledCurrencies.enabledModuleCurrencies,
-                    e.target.value
-                  )
+                  getCurrencySymbol(enabledCurrencies, e.target.value)
                 )
               }}
             >
-              {enabledCurrencies?.enabledModuleCurrencies?.map(
-                (currency: Erc20) => (
-                  <option key={currency.address} value={currency.address}>
-                    {currency.symbol}
-                  </option>
-                )
-              )}
+              {enabledCurrencies?.map((currency) => (
+                <option
+                  key={currency.contract.address}
+                  value={currency.contract.address}
+                >
+                  {currency.symbol}
+                </option>
+              ))}
             </select>
           </div>
           <div>

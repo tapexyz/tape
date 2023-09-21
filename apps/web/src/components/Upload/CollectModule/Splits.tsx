@@ -8,8 +8,7 @@ import {
   LENSTUBE_DONATION_ADDRESS
 } from '@lenstube/constants'
 import { splitNumber } from '@lenstube/generic'
-import type { RecipientDataInput } from '@lenstube/lens'
-import { useResolveProfileAddressLazyQuery } from '@lenstube/lens'
+import { type RecipientDataInput, useProfileLazyQuery } from '@lenstube/lens'
 import useAppStore from '@lib/store'
 import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
@@ -26,8 +25,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
   const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
   const splitRecipients = uploadedVideo.collectModule.multiRecipients ?? []
 
-  const [resolveChannelAddress, { loading: resolving }] =
-    useResolveProfileAddressLazyQuery()
+  const [resolveHandleAddress, { loading: resolving }] = useProfileLazyQuery()
 
   const setSplitRecipients = (multiRecipients: RecipientDataInput[]) => {
     const enabled = Boolean(splitRecipients.length)
@@ -62,10 +60,10 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
     } else {
       changedSplit[key] = value
       if (!getIsValidAddress(value) && getIsHandle(value)) {
-        const { data } = await resolveChannelAddress({
+        const { data } = await resolveHandleAddress({
           variables: {
             request: {
-              handle: value
+              forHandle: value
             }
           }
         })

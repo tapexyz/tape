@@ -9,22 +9,22 @@ import {
   getIsIPFSUrl,
   getMetadataCid
 } from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
+import type { MirrorablePublication } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
 
 type Props = {
-  video: Publication
+  video: MirrorablePublication
 }
 
 const MetaInfo: FC<Props> = ({ video }) => {
-  const isIPFS = getIsIPFSUrl(video.onChainContentURI)
+  const isIPFS = getIsIPFSUrl(video.rawURI)
 
   return (
     <div className="flex flex-wrap items-center space-x-1 opacity-80">
-      {video?.metadata?.tags[0] && (
+      {video?.metadata?.tags && (
         <Link
           href={`/explore/${video.metadata.tags[0]}`}
           className="flex items-center space-x-1 text-sm"
@@ -35,7 +35,7 @@ const MetaInfo: FC<Props> = ({ video }) => {
           </span>
         </Link>
       )}
-      {video?.metadata?.tags[0] && <span className="middot" />}
+      {video?.metadata?.tags && <span className="middot" />}
 
       {isIPFS ? (
         <IPFSLink hash={getMetadataCid(video)}>
@@ -84,7 +84,7 @@ const MetaInfo: FC<Props> = ({ video }) => {
           </TokenExplorerLink>
         </div>
       )}
-      {video.dataAvailabilityProofs && (
+      {video.momoka?.proof && (
         <div
           onClick={() => Analytics.track(TRACK.CLICK_VIEW_PROOF)}
           tabIndex={0}
@@ -92,9 +92,7 @@ const MetaInfo: FC<Props> = ({ video }) => {
           role="button"
         >
           <span className="middot" />
-          <ArweaveExplorerLink
-            txId={video.dataAvailabilityProofs?.replace('ar://', '')}
-          >
+          <ArweaveExplorerLink txId={video.momoka?.proof?.replace('ar://', '')}>
             <div className="flex items-center space-x-1">
               <div className="whitespace-nowrap text-sm">
                 <Trans>View Proof</Trans>

@@ -15,24 +15,6 @@ import {
   STATIC_ASSETS
 } from '@lenstube/constants'
 import { getSignature, imageCdn, logger, uploadToAr } from '@lenstube/generic'
-import type {
-  CreateCommentBroadcastItemResult,
-  CreateDataAvailabilityCommentRequest,
-  CreatePublicCommentRequest,
-  Publication
-} from '@lenstube/lens'
-import {
-  PublicationDetailsDocument,
-  PublicationMainFocus,
-  PublicationMetadataDisplayTypes,
-  useBroadcastDataAvailabilityMutation,
-  useBroadcastMutation,
-  useCreateCommentTypedDataMutation,
-  useCreateCommentViaDispatcherMutation,
-  useCreateDataAvailabilityCommentTypedDataMutation,
-  useCreateDataAvailabilityCommentViaDispatcherMutation,
-  usePublicationDetailsLazyQuery
-} from '@lenstube/lens'
 import { useApolloClient } from '@lenstube/lens/apollo'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAuthPersistStore from '@lib/store/auth'

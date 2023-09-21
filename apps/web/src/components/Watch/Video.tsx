@@ -9,7 +9,7 @@ import {
   imageCdn,
   sanitizeDStorageUrl
 } from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
+import type { MirrorablePublication } from '@lenstube/lens'
 import useAppStore from '@lib/store'
 import useAuthPersistStore from '@lib/store/auth'
 import dynamic from 'next/dynamic'
@@ -25,7 +25,7 @@ const VideoPlayer = dynamic(() => import('@lenstube/ui/VideoPlayer'), {
 })
 
 type Props = {
-  video: Publication
+  video: MirrorablePublication
 }
 
 const Video: FC<Props> = ({ video }) => {
@@ -35,7 +35,7 @@ const Video: FC<Props> = ({ video }) => {
     (state) => state.selectedSimpleProfile
   )
 
-  const isBytesVideo = video.appId === LENSTUBE_BYTES_APP_ID
+  const isBytesVideo = video.publishedOn?.id === LENSTUBE_BYTES_APP_ID
   const thumbnailUrl = imageCdn(
     sanitizeDStorageUrl(getThumbnailUrl(video, true)),
     isBytesVideo ? 'THUMBNAIL_V' : 'THUMBNAIL'
@@ -51,7 +51,7 @@ const Video: FC<Props> = ({ video }) => {
     <div>
       <div className="overflow-hidden rounded-xl">
         <VideoPlayer
-          address={selectedSimpleProfile?.ownedBy}
+          address={selectedSimpleProfile?.ownedBy.address}
           refCallback={refCallback}
           currentTime={videoWatchTime}
           permanentUrl={getPublicationRawMediaUrl(video)}
@@ -70,7 +70,9 @@ const Video: FC<Props> = ({ video }) => {
             className="mt-4 line-clamp-2 text-lg font-medium"
             data-testid="watch-video-title"
           >
-            <InterweaveContent content={video.metadata?.name as string} />
+            <InterweaveContent
+              content={video.metadata.marketplace?.name as string}
+            />
           </h1>
           <VideoMeta video={video} />
         </div>

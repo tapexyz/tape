@@ -3,7 +3,7 @@ import ReportModal from '@components/Common/VideoCard/ReportModal'
 import ShareModal from '@components/Common/VideoCard/ShareModal'
 import VideoOptions from '@components/Common/VideoCard/VideoOptions'
 import { Analytics, TRACK } from '@lenstube/browser'
-import type { Publication } from '@lenstube/lens'
+import type { MirrorablePublication } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
 import type { FC } from 'react'
 import React, { useState } from 'react'
@@ -12,7 +12,7 @@ import PublicationReaction from './PublicationReaction'
 import TipModal from './TipModal'
 
 type Props = {
-  video: Publication
+  video: MirrorablePublication
 }
 
 const VideoActions: FC<Props> = ({ video }) => {

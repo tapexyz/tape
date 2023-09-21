@@ -17,7 +17,7 @@ import {
   imageCdn,
   trimLensHandle
 } from '@lenstube/generic'
-import type { Attribute, Publication } from '@lenstube/lens'
+import type { Attribute, MirrorablePublication } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import Link from 'next/link'
@@ -25,14 +25,14 @@ import type { FC } from 'react'
 import React, { useState } from 'react'
 
 type Props = {
-  video: Publication
+  video: MirrorablePublication
 }
 
 const SuggestedVideoCard: FC<Props> = ({ video }) => {
   const [showReport, setShowReport] = useState(false)
   const [showShare, setShowShare] = useState(false)
 
-  const isBytesVideo = video.appId === LENSTUBE_BYTES_APP_ID
+  const isBytesVideo = video.publishedOn?.id === LENSTUBE_BYTES_APP_ID
   const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
   const thumbnailUrl = isSensitiveContent
     ? `${STATIC_ASSETS}/images/sensor-blur.png`
@@ -40,7 +40,7 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
 
   const { color: backgroundColor } = useAverageColor(thumbnailUrl, isBytesVideo)
   const videoDuration = getValueFromTraitType(
-    video.metadata?.attributes as Attribute[],
+    video.metadata.marketplace?.attributes as Attribute[],
     'durationInSeconds'
   )
 
@@ -95,25 +95,25 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
               <Link
                 href={`/watch/${video.id}`}
                 className="line-clamp-2 text-sm font-medium"
-                title={video.metadata?.name ?? ''}
+                title={video.metadata.marketplace?.name ?? ''}
               >
-                {video.metadata?.name}
+                {video.metadata.marketplace?.name}
               </Link>
             </div>
             <div className="truncate">
               <Link
-                href={`/channel/${trimLensHandle(video.profile?.handle)}`}
+                href={`/channel/${trimLensHandle(video.by?.handle)}`}
                 className="truncate text-[13px] opacity-70 hover:opacity-100"
               >
                 <div className="flex items-center space-x-0.5">
-                  <span>{trimLensHandle(video?.profile?.handle)}</span>
-                  <Badge id={video?.profile.id} size="xs" />
+                  <span>{trimLensHandle(video?.by?.handle)}</span>
+                  <Badge id={video?.by.id} size="xs" />
                 </div>
               </Link>
             </div>
             <div className="mt-0.5 flex items-center truncate text-xs opacity-70">
               <span className="whitespace-nowrap">
-                {video.stats?.totalUpvotes} <Trans>likes</Trans>
+                {video.stats?.reactions} <Trans>likes</Trans>
               </span>
               <span className="middot" />
               <span>{getRelativeTime(video.createdAt)}</span>

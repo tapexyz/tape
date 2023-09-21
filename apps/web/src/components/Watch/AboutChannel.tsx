@@ -10,7 +10,7 @@ import {
   getProfilePicture,
   trimLensHandle
 } from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
+import type { MirrorablePublication } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import { motion } from 'framer-motion'
@@ -22,20 +22,20 @@ import CollectVideo from './CollectVideo'
 import MetaInfo from './MetaInfo'
 
 type Props = {
-  video: Publication
+  video: MirrorablePublication
 }
 
 const AboutChannel: FC<Props> = ({ video }) => {
-  const channel = video?.profile
+  const channel = video?.by
   const [clamped, setClamped] = useState(false)
   const [showMore, setShowMore] = useState(false)
 
   useEffect(() => {
-    if (video.metadata?.description?.trim().length > 500) {
+    if (video.metadata.marketplace?.description?.trim().length > 500) {
       setClamped(true)
       setShowMore(true)
     }
-  }, [video.metadata?.description])
+  }, [video.metadata.marketplace?.description])
 
   return (
     <div className="flex w-full items-start justify-between">
@@ -65,7 +65,7 @@ const AboutChannel: FC<Props> = ({ video }) => {
                 </Link>
               </UserPreview>
               <span className="inline-flex items-center space-x-1 text-xs">
-                {formatNumber(channel?.stats.totalFollowers)}{' '}
+                {formatNumber(channel?.stats.followers)}{' '}
                 <Trans>subscribers</Trans>
               </span>
             </div>
@@ -91,16 +91,17 @@ const AboutChannel: FC<Props> = ({ video }) => {
                 </div>
               </MirrorVideo>
             </div>
-            {video?.collectModule?.__typename !==
-              'RevertCollectModuleSettings' && (
-              <CollectVideo video={video} text="Collect" />
-            )}
+            <CollectVideo video={video} text="Collect" />
           </div>
         </div>
-        {video.metadata.description || video.metadata.content ? (
+        {video.metadata.marketplace?.description ||
+        video.metadata.marketplace?.description ? (
           <p className={clsx('mt-4', { 'line-clamp-3': clamped })}>
             <InterweaveContent
-              content={video.metadata.description || video.metadata.content}
+              content={
+                video.metadata.marketplace?.name ||
+                video.metadata.marketplace?.description
+              }
             />
           </p>
         ) : null}

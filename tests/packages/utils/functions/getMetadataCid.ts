@@ -1,5 +1,5 @@
 import { getMetadataCid } from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
+import type { MirrorablePublication } from '@lenstube/lens'
 import { expect, test } from '@playwright/test'
 
 test('getMetadataCid', async () => {
@@ -10,7 +10,7 @@ test('getMetadataCid', async () => {
 
   const expectedHash =
     'bafybeic7346c53qefcpm4kbiyhmwomqutcqi3bhf6gppocnajppiui475u'
-  const actualHash = getMetadataCid(publication as Publication)
+  const actualHash = getMetadataCid(publication as MirrorablePublication)
 
   expect(actualHash).toBe(expectedHash)
 })

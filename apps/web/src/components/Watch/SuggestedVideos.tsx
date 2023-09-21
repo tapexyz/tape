@@ -7,35 +7,41 @@ import {
   LENSTUBE_BYTES_APP_ID,
   SCROLL_ROOT_MARGIN
 } from '@lenstube/constants'
-import type { Publication } from '@lenstube/lens'
+import type {
+  ExplorePublicationRequest,
+  MirrorablePublication
+} from '@lenstube/lens'
 import {
-  PublicationMainFocus,
-  PublicationSortCriteria,
-  PublicationTypes,
-  useExploreQuery
+  ExplorePublicationsOrderByType,
+  ExplorePublicationType,
+  LimitType,
+  PublicationMetadataMainFocusType,
+  useExplorePublicationsQuery
 } from '@lenstube/lens'
 import { Loader } from '@lenstube/ui'
 import useAuthPersistStore from '@lib/store/auth'
 import { useRouter } from 'next/router'
-import type { FC } from 'react'
 import React, { useEffect } from 'react'
 import { useInView } from 'react-cool-inview'
 
 import SuggestedVideoCard from './SuggestedVideoCard'
 
-const request = {
-  sortCriteria: PublicationSortCriteria.CuratedProfiles,
-  limit: 30,
-  sources: IS_MAINNET
-    ? [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
-    : undefined,
-  publicationTypes: [PublicationTypes.Post],
-  metadata: { mainContentFocus: [PublicationMainFocus.Video] },
-  noRandomize: false,
-  customFilters: LENS_CUSTOM_FILTERS
+const request: ExplorePublicationRequest = {
+  limit: LimitType.TwentyFive,
+  orderBy: ExplorePublicationsOrderByType.LensCurated,
+  where: {
+    customFilters: LENS_CUSTOM_FILTERS,
+    publicationTypes: [ExplorePublicationType.Post],
+    metadata: {
+      publishedOn: IS_MAINNET
+        ? [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
+        : undefined,
+      mainContentFocus: [PublicationMetadataMainFocusType.Video]
+    }
+  }
 }
 
-const SuggestedVideos: FC = () => {
+const SuggestedVideos = () => {
   const {
     query: { id }
   } = useRouter()
@@ -44,14 +50,14 @@ const SuggestedVideos: FC = () => {
     (state) => state.selectedSimpleProfile
   )
 
-  const { data, loading, error, fetchMore, refetch } = useExploreQuery({
-    variables: {
-      request,
-      channelId: selectedSimpleProfile?.id ?? null
-    }
-  })
+  const { data, loading, error, fetchMore, refetch } =
+    useExplorePublicationsQuery({
+      variables: {
+        request
+      }
+    })
 
-  const videos = data?.explorePublications?.items as Publication[]
+  const videos = data?.explorePublications?.items as MirrorablePublication[]
   const pageInfo = data?.explorePublications?.pageInfo
 
   useEffect(() => {
@@ -83,8 +89,8 @@ const SuggestedVideos: FC = () => {
             data-testid="watch-video-suggestions"
           >
             {videos?.map(
-              (video: Publication) =>
-                !video.hidden &&
+              (video) =>
+                !video.isHidden &&
                 video.id !== id && (
                   <SuggestedVideoCard video={video} key={video?.id} />
                 )

@@ -3,7 +3,7 @@ import SplitOutline from '@components/Common/Icons/SplitOutline'
 import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
 import Tooltip from '@components/UIElements/Tooltip'
-import { useEnabledModuleCurrrenciesQuery } from '@lenstube/lens'
+import { useEnabledCurrenciesQuery } from '@lenstube/lens'
 import type { CollectModuleType } from '@lenstube/lens/custom-types'
 import useAppStore from '@lib/store'
 import useAuthPersistStore from '@lib/store/auth'
@@ -30,8 +30,7 @@ const CollectModule = () => {
     })
   }
 
-  const { data: enabledCurrencies } = useEnabledModuleCurrrenciesQuery({
-    variables: { request: { profileIds: selectedSimpleProfile?.id } },
+  const { data: enabledCurrencies } = useEnabledCurrenciesQuery({
     skip: !selectedSimpleProfile?.id
   })
 
@@ -121,7 +120,7 @@ const CollectModule = () => {
               setCollectType={setCollectType}
               uploadedVideo={uploadedVideo}
               setShowModal={setShowModal}
-              enabledCurrencies={enabledCurrencies}
+              enabledCurrencies={enabledCurrencies.currencies.items}
             />
           ) : (
             <div className="flex justify-end">

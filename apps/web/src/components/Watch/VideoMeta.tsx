@@ -8,7 +8,7 @@ import {
   getPublicationMediaCid,
   getRelativeTime
 } from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
+import type { MirrorablePublication } from '@lenstube/lens'
 import { t, Trans } from '@lingui/macro'
 import type { FC } from 'react'
 import React, { useState } from 'react'
@@ -16,7 +16,7 @@ import React, { useState } from 'react'
 import ViewCount from './ViewCount'
 
 type Props = {
-  video: Publication
+  video: MirrorablePublication
 }
 
 const VideoMeta: FC<Props> = ({ video }) => {
@@ -47,21 +47,17 @@ const VideoMeta: FC<Props> = ({ video }) => {
           </div>
         </Modal>
         <ViewCount cid={getPublicationMediaCid(video)} />
-        {video?.collectModule?.__typename !== 'RevertCollectModuleSettings' && (
-          <>
-            <button
-              type="button"
-              onClick={() => setShowCollectsModal(true)}
-              className="flex items-center space-x-1 outline-none"
-            >
-              <CollectOutline className="h-3 w-3" />
-              <span>
-                {video.stats?.totalAmountOfCollects} <Trans>collects</Trans>
-              </span>
-            </button>
-            <span className="middot px-1" />
-          </>
-        )}
+        <button
+          type="button"
+          onClick={() => setShowCollectsModal(true)}
+          className="flex items-center space-x-1 outline-none"
+        >
+          <CollectOutline className="h-3 w-3" />
+          <span>
+            {video.stats?.countOpenActions} <Trans>collects</Trans>
+          </span>
+        </button>
+        <span className="middot px-1" />
         <button
           type="button"
           onClick={() => setShowMirrorsModal(true)}
@@ -69,7 +65,7 @@ const VideoMeta: FC<Props> = ({ video }) => {
         >
           <MirrorOutline className="h-3 w-3" />
           <span>
-            {video.stats?.totalAmountOfMirrors} <Trans>mirrors</Trans>
+            {video.stats?.mirrors} <Trans>mirrors</Trans>
           </span>
         </button>
       </div>
