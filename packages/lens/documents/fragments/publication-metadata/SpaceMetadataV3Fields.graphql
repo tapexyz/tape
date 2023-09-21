@@ -1,9 +1,22 @@
 fragment SpaceMetadataV3Fields on SpaceMetadataV3 {
+  id
+  rawURI
+  locale
+  tags
+  contentWarning
+  hideFromFeed
+  appId
+  marketplace {
+    ...MarketplaceMetadataFields
+  }
   attributes {
     ...PublicationMetadataV3AttributeFields
   }
-  optionalContent
-  contentWarning
-  tags
-  locale
+  title
+  link
+  startsAt
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  content
 }

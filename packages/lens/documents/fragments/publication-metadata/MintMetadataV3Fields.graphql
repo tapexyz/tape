@@ -1,4 +1,4 @@
-fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+fragment MintMetadataV3Fields on MintMetadataV3 {
   id
   rawURI
   locale
@@ -11,6 +11,10 @@ fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
   }
   attributes {
     ...PublicationMetadataV3AttributeFields
+  }
+  mintLink
+  attachments {
+    ...PublicationMetadataMediaFields
   }
   content
 }

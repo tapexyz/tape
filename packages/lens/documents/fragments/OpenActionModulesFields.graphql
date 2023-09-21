@@ -13,6 +13,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     followerOnly
     recipient
     referralFee
+    collectNft
     optionalEndsAt: endsAt
   }
   ... on MultirecipientFeeCollectOpenActionSettings {
@@ -28,6 +29,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     optionalCollectLimit: collectLimit
     referralFee
     followerOnly
+    collectNft
     optionalEndsAt: endsAt
     recipients {
       recipient
@@ -38,9 +40,11 @@ fragment OpenActionModulesFields on OpenActionModule {
     contract {
       ...NetworkAddressFields
     }
+    collectNft
     followerOnly
   }
   ... on LegacyFeeCollectModuleSettings {
+    collectNft
     contract {
       ...NetworkAddressFields
     }
@@ -55,6 +59,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     followerOnly
   }
   ... on LegacyLimitedFeeCollectModuleSettings {
+    collectNft
     contract {
       ...NetworkAddressFields
     }
@@ -70,6 +75,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     followerOnly
   }
   ... on LegacyLimitedTimedFeeCollectModuleSettings {
+    collectNft
     contract {
       ...NetworkAddressFields
     }
@@ -91,6 +97,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
   }
   ... on LegacyTimedFeeCollectModuleSettings {
+    collectNft
     contract {
       ...NetworkAddressFields
     }
@@ -106,6 +113,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     endTimestamp
   }
   ... on LegacyMultirecipientFeeCollectModuleSettings {
+    collectNft
     contract {
       ...NetworkAddressFields
     }
@@ -125,6 +133,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     }
   }
   ... on LegacySimpleCollectModuleSettings {
+    collectNft
     contract {
       ...NetworkAddressFields
     }
@@ -176,6 +185,7 @@ fragment OpenActionModulesFields on OpenActionModule {
     recipient
   }
   ... on UnknownOpenActionModuleSettings {
+    collectNft
     contract {
       ...NetworkAddressFields
     }

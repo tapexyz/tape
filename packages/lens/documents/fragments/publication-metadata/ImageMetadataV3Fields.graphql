@@ -1,9 +1,32 @@
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
+  id
+  rawURI
+  locale
+  tags
+  contentWarning
+  hideFromFeed
+  appId
+  marketplace {
+    ...MarketplaceMetadataFields
+  }
   attributes {
     ...PublicationMetadataV3AttributeFields
   }
-  optionalContent
-  contentWarning
-  tags
-  locale
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  asset {
+    image {
+      raw {
+        uri
+      }
+      optimized {
+        uri
+      }
+    }
+    license
+    altTag
+  }
+  title
+  content
 }
