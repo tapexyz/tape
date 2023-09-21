@@ -26,25 +26,11 @@ import {
   trimLensHandle,
   uploadToAr
 } from '@lenstube/generic'
-import type {
-  CreateDataAvailabilityPostRequest,
-  CreatePostBroadcastItemResult,
-  CreatePublicPostRequest,
-  MetadataAttributeInput,
-  PublicationMetadataMediaInput,
-  PublicationMetadataV2Input
-} from '@lenstube/lens'
 import {
-  PublicationContentWarning,
-  PublicationMainFocus,
-  PublicationMetadataDisplayTypes,
-  ReferenceModules,
-  useBroadcastDataAvailabilityMutation,
-  useBroadcastMutation,
-  useCreateDataAvailabilityPostTypedDataMutation,
-  useCreateDataAvailabilityPostViaDispatcherMutation,
-  useCreatePostTypedDataMutation,
-  useCreatePostViaDispatcherMutation
+  ReferenceModuleType,
+  useBroadcastOnchainMutation,
+  useBroadcastOnMomokaMutation,
+  useCreateMomokaPostTypedDataMutation
 } from '@lenstube/lens'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
@@ -78,14 +64,13 @@ const UploadSteps = () => {
     ?.degreesOfSeparationReferenceModule?.degreesOfSeparation as number
   const enabledReferenceModule = uploadedVideo.referenceModule
     ?.degreesOfSeparationReferenceModule
-    ? ReferenceModules.DegreesOfSeparationReferenceModule
+    ? ReferenceModuleType.DegreesOfSeparationReferenceModule
     : uploadedVideo.referenceModule.followerOnlyReferenceModule
-    ? ReferenceModules.FollowerOnlyReferenceModule
+    ? ReferenceModuleType.FollowerOnlyReferenceModule
     : null
 
   // Dispatcher
-  const canUseRelay = activeChannel?.dispatcher?.canUseRelay
-  const isSponsored = activeChannel?.dispatcher?.sponsor
+  const canUseRelay = activeChannel?.lensManager && activeChannel?.sponsor
 
   const redirectToChannelPage = () => {
     router.push(
@@ -134,7 +119,7 @@ const UploadSteps = () => {
     stopLoading()
   }
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
     if (__typename === 'RelayError') {
       return
     }
@@ -161,11 +146,11 @@ const UploadSteps = () => {
   const { signTypedDataAsync } = useSignTypedData({
     onError
   })
-  const [broadcast] = useBroadcastMutation({
-    onCompleted: ({ broadcast }) => {
-      onCompleted(broadcast.__typename)
-      if (broadcast.__typename === 'RelayerResult') {
-        const txnId = broadcast?.txId
+  const [broadcast] = useBroadcastOnchainMutation({
+    onCompleted: ({ broadcastOnchain }) => {
+      onCompleted(broadcastOnchain.__typename)
+      if (broadcastOnchain.__typename === 'RelaySuccess') {
+        const txnId = broadcastOnchain?.txId
         setToQueue({ txnId })
       }
     }
@@ -196,16 +181,13 @@ const UploadSteps = () => {
   /**
    * DATA AVAILABILITY STARTS
    */
-  const [broadcastDataAvailabilityPost] = useBroadcastDataAvailabilityMutation({
-    onCompleted: ({ broadcastDataAvailability }) => {
+  const [broadcastDataAvailabilityPost] = useBroadcastOnMomokaMutation({
+    onCompleted: ({ broadcastOnMomoka }) => {
       onCompleted()
-      if (broadcastDataAvailability.__typename === 'RelayError') {
+      if (broadcastOnMomoka.__typename === 'RelayError') {
         return toast.error(ERROR_MESSAGE)
       }
-      if (
-        broadcastDataAvailability.__typename ===
-        'CreateDataAvailabilityPublicationResult'
-      ) {
+      if (broadcastOnMomoka.__typename === 'CreateMomokaPublicationResult') {
         redirectToChannelPage()
       }
     },
@@ -213,9 +195,9 @@ const UploadSteps = () => {
   })
 
   const [createDataAvailabilityPostTypedData] =
-    useCreateDataAvailabilityPostTypedDataMutation({
-      onCompleted: async ({ createDataAvailabilityPostTypedData }) => {
-        const { id } = createDataAvailabilityPostTypedData
+    useCreateMomokaPostTypedDataMutation({
+      onCompleted: async ({ createMomokaPostTypedData }) => {
+        const { id } = createMomokaPostTypedData
         const signature = await getSignatureFromTypedData(
           createDataAvailabilityPostTypedData
         )

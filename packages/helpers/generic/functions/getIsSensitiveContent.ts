@@ -1,12 +1,14 @@
 import { SENSITIVE_CONTENT } from '@lenstube/constants'
-import type { MetadataOutput } from '@lenstube/lens'
+import type { PublicationMetadata } from '@lenstube/lens'
 
 export const getIsSensitiveContent = (
-  metadata: MetadataOutput | null,
+  metadata: PublicationMetadata | null,
   videoId: string
 ): boolean => {
   return (
-    Boolean(metadata?.attributes?.find((el) => el.value === 'sensitive')) ||
+    Boolean(
+      metadata?.marketplace?.attributes?.find((el) => el.value === 'sensitive')
+    ) ||
     SENSITIVE_CONTENT.includes(videoId) ||
     Boolean(metadata?.contentWarning)
   )

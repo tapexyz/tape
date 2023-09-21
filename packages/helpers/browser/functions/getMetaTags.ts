@@ -12,7 +12,8 @@ import {
   getValueFromTraitType,
   secondsToISO
 } from '@lenstube/generic'
-import type { Attribute, Publication } from '@lenstube/lens'
+import { getPublication } from '@lenstube/generic/functions/getPublication'
+import type { AnyPublication, Attribute } from '@lenstube/lens'
 
 type Args = {
   title: string
@@ -21,7 +22,7 @@ type Args = {
   page?: 'PROFILE' | 'VIDEO'
   handle?: string
   pubId?: string
-  publication?: Publication
+  publication?: AnyPublication
 }
 
 export const getMetaTags = ({
@@ -35,12 +36,21 @@ export const getMetaTags = ({
 }: Args) => {
   const isVideo = page === 'VIDEO'
   const meta = {
-    title: `${title} • Lenstube` ?? LENSTUBE_APP_NAME,
+    title: `${title} on Lenstube` ?? LENSTUBE_APP_NAME,
     description: description || LENSTUBE_APP_DESCRIPTION,
     image: image ?? OG_IMAGE,
     url: isVideo
       ? `${LENSTUBE_WEBSITE_URL}/watch/${pubId}`
       : `${LENSTUBE_WEBSITE_URL}/channel/${handle}`
+  }
+
+  const target = getPublication(publication as AnyPublication)
+
+  if (
+    target.metadata.__typename !== 'AudioMetadataV3' &&
+    target.metadata.__typename !== 'VideoMetadataV3'
+  ) {
+    return
   }
 
   let defaultMeta = `<title>${meta.title}</title>
@@ -83,19 +93,19 @@ export const getMetaTags = ({
       name: meta.title,
       description,
       thumbnailUrl: meta.image,
-      uploadDate: publication.createdAt,
+      uploadDate: target?.createdAt,
       duration: secondsToISO(
         getValueFromTraitType(
-          publication.metadata.attributes as Attribute[],
+          target?.metadata.marketplace?.attributes as Attribute[],
           'durationInSeconds'
         )
       ),
-      contentUrl: getPublicationMediaUrl(publication),
+      contentUrl: getPublicationMediaUrl(target.metadata),
       embedUrl,
       interactionStatistic: {
         '@type': 'InteractionCounter',
         interactionType: { '@type': 'LikeAction' },
-        userInteractionCount: publication?.stats.totalUpvotes
+        userInteractionCount: target?.stats.reactions
       }
     }
     defaultMeta += `<meta property="og:video" content="${embedUrl}" />

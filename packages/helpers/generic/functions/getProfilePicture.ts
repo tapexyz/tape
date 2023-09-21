@@ -10,11 +10,12 @@ export const getProfilePicture = (
   type?: keyof typeof IMAGE_TRANSFORMATIONS
 ): string => {
   const url =
-    channel.picture && channel.picture.__typename === 'MediaSet'
-      ? channel?.picture?.original?.url
-      : channel.picture?.__typename === 'NftImage'
-      ? channel?.picture?.uri
-      : getRandomProfilePicture(channel?.ownedBy)
+    channel.metadata?.picture &&
+    channel.metadata?.picture.__typename === 'ImageSet'
+      ? channel.metadata?.picture?.raw?.uri
+      : channel.metadata?.picture?.__typename === 'NftImage'
+      ? channel?.metadata.picture.image?.raw.uri
+      : getRandomProfilePicture(channel?.ownedBy.address)
   const sanitized = sanitizeDStorageUrl(url)
   return imageCdn(sanitized, type)
 }

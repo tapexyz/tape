@@ -1,6 +1,9 @@
 import type { AnyPublication } from '@lenstube/lens'
 
+import { getPublication } from './getPublication'
+
 export const getMetadataCid = (publication: AnyPublication): string => {
-  const hash = publication.metadata.rawURI.split('/').pop()
+  const target = getPublication(publication)
+  const hash = target.metadata.rawURI.split('/').pop()
   return hash ?? ''
 }

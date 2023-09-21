@@ -197,5 +197,3 @@ export type SimpleProfile = Pick<
   Profile,
   'id' | 'handle' | 'ownedBy' | 'sponsor' | 'stats' | 'metadata'
 >
-
-export interface LenstubePublication {}

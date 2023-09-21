@@ -12,7 +12,7 @@ export const getValueFromTraitType = (
   attributes: Attribute[] | null | undefined,
   traitType: string
 ) => {
-  return attributes?.find((el) => el.traitType === traitType)?.value
+  return attributes?.find((el) => el.type === traitType)?.value
 }
 
 export const checkValueInAttributes = (

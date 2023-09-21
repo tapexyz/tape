@@ -1,11 +1,9 @@
-import type { CollectModuleParams, RecipientDataInput } from '@lenstube/lens'
+import type { RecipientDataInput } from '@lenstube/lens'
 import type { CollectModuleType } from '@lenstube/lens/custom-types'
 
 import { getTimeAddedOneDay } from './formatTime'
 
-export const getCollectModule = (
-  selectedCollectModule: CollectModuleType
-): CollectModuleParams => {
+export const getCollectModule = (selectedCollectModule: CollectModuleType) => {
   const {
     amount,
     referralFee,
