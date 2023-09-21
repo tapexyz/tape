@@ -1,12 +1,12 @@
 import { BUNDLR_METADATA_UPLOAD_URL } from '@lenstube/constants'
-import type { PublicationMetadataV2Input } from '@lenstube/lens'
+import type { PublicationMetadata } from '@lenstube/lens'
 import type { ProfileMetadata } from '@lenstube/lens/custom-types'
 import axios from 'axios'
 
 import { logger } from '../logger'
 
 export const uploadToAr = async (
-  data: PublicationMetadataV2Input | ProfileMetadata
+  data: PublicationMetadata | ProfileMetadata
 ): Promise<string> => {
   try {
     const response = await axios.post(BUNDLR_METADATA_UPLOAD_URL, data)
