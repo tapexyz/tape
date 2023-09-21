@@ -16,11 +16,10 @@ import {
   LENSTUBE_BYTES_APP_ID,
   SCROLL_ROOT_MARGIN
 } from '@lenstube/constants'
-import type { Notification } from '@lenstube/lens'
-import { NotificationTypes, useNotificationsQuery } from '@lenstube/lens'
+import type { Notification, NotificationRequest } from '@lenstube/lens'
+import { NotificationType, useNotificationsQuery } from '@lenstube/lens'
 import { CustomNotificationsFilterEnum } from '@lenstube/lens/custom-types'
 import { Loader } from '@lenstube/ui'
-import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'
@@ -28,13 +27,7 @@ import clsx from 'clsx'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 
-import CollectedNotification from './Collected'
-import CommentedNotification from './Commented'
 import NotificationsFilter from './Filter'
-import MentionedNotification from './Mentioned'
-import MirroredNotification from './Mirrored'
-import ReactedNotification from './Reacted'
-import SubscribedNotification from './Subscribed'
 
 const initialFilters = {
   all: false,
@@ -47,9 +40,7 @@ const initialFilters = {
 
 const Notifications = () => {
   const [activeFilter, setActiveFilter] = useState(initialFilters)
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
+
   const setHasNewNotification = useChannelStore(
     (state) => state.setHasNewNotification
   )
@@ -59,46 +50,42 @@ const Notifications = () => {
 
   const getNotificationFilters = () => {
     if (activeFilter.mentions) {
-      return [NotificationTypes.MentionPost, NotificationTypes.MentionComment]
+      return [NotificationType.Mentioned]
     }
     if (activeFilter.subscriptions) {
-      return [NotificationTypes.Followed]
+      return [NotificationType.Followed]
     }
     if (activeFilter.likes) {
-      return [NotificationTypes.ReactionPost, NotificationTypes.ReactionComment]
+      return [NotificationType.Reacted]
     }
     if (activeFilter.comments) {
-      return [NotificationTypes.CommentedPost]
+      return [NotificationType.Commented]
     }
     if (activeFilter.collects) {
-      return [
-        NotificationTypes.CollectedPost,
-        NotificationTypes.CollectedComment
-      ]
+      return [NotificationType.Acted]
     }
     return [
-      NotificationTypes.CollectedPost,
-      NotificationTypes.CommentedPost,
-      NotificationTypes.Followed,
-      NotificationTypes.MentionComment,
-      NotificationTypes.MentionPost,
-      NotificationTypes.ReactionComment,
-      NotificationTypes.ReactionPost
+      NotificationType.Acted,
+      NotificationType.Commented,
+      NotificationType.Followed,
+      NotificationType.Mentioned,
+      NotificationType.Reacted
     ]
   }
 
-  const request = {
-    limit: 30,
-    sources: activeFilter.subscriptions
-      ? undefined
-      : IS_MAINNET
-      ? [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID]
-      : undefined,
-    customFilters: LENS_CUSTOM_FILTERS,
-    profileId: selectedSimpleProfile?.id,
-    highSignalFilter:
-      selectedNotificationsFilter === CustomNotificationsFilterEnum.HIGH_SIGNAL,
-    notificationTypes: getNotificationFilters()
+  const request: NotificationRequest = {
+    where: {
+      customFilters: LENS_CUSTOM_FILTERS,
+      highSignalFilter:
+        selectedNotificationsFilter ===
+        CustomNotificationsFilterEnum.HIGH_SIGNAL,
+      notificationTypes: getNotificationFilters(),
+      publishedOn: activeFilter.subscriptions
+        ? undefined
+        : IS_MAINNET
+        ? [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID]
+        : undefined
+    }
   }
 
   const { data, loading, fetchMore } = useNotificationsQuery({
@@ -266,11 +253,9 @@ const Notifications = () => {
             <NoDataFound isCenter withImage text={t`No Notifications`} />
           )}
           {notifications?.map((notification: Notification, index: number) => (
-            <div
-              className="pb-3"
-              key={`${notification.notificationId}_${index}`}
-            >
-              {notification?.__typename === 'NewFollowerNotification' && (
+            <div className="pb-3" key={`${notification.id}_${index}`}>
+              {notification.id}
+              {/* {notification?.__typename === 'NewFollowerNotification' && (
                 <SubscribedNotification notification={notification} />
               )}
               {notification?.__typename === 'NewCommentNotification' && (
@@ -287,7 +272,7 @@ const Notifications = () => {
               )}
               {notification?.__typename === 'NewReactionNotification' && (
                 <ReactedNotification notification={notification} />
-              )}
+              )} */}
             </div>
           ))}
           {pageInfo?.next && (

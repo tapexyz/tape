@@ -10,8 +10,15 @@ import {
   LENSTUBE_BYTES_APP_ID,
   SCROLL_ROOT_MARGIN
 } from '@lenstube/constants'
-import type { Publication } from '@lenstube/lens'
-import { SearchRequestTypes, useSearchPublicationsQuery } from '@lenstube/lens'
+import type {
+  MirrorablePublication,
+  PublicationSearchRequest
+} from '@lenstube/lens'
+import {
+  LimitType,
+  PublicationMetadataMainFocusType,
+  useSearchPublicationsQuery
+} from '@lenstube/lens'
 import { Loader } from '@lenstube/ui'
 import { t } from '@lingui/macro'
 import { useRouter } from 'next/router'
@@ -23,14 +30,18 @@ const ExploreHashtag = () => {
   const { query } = useRouter()
   const hashtag = query.hashtag as string
 
-  const request = {
-    type: SearchRequestTypes.Publication,
-    limit: 32,
-    sources: IS_MAINNET
-      ? [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
-      : undefined,
-    customFilters: LENS_CUSTOM_FILTERS,
-    query: hashtag
+  const request: PublicationSearchRequest = {
+    where: {
+      metadata: {
+        publishedOn: IS_MAINNET
+          ? [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
+          : undefined,
+        mainContentFocus: [PublicationMetadataMainFocusType.Video]
+      },
+      customFilters: LENS_CUSTOM_FILTERS
+    },
+    query: hashtag,
+    limit: LimitType.Fifty
   }
 
   const { data, loading, error, fetchMore } = useSearchPublicationsQuery({
@@ -40,14 +51,8 @@ const ExploreHashtag = () => {
     skip: !hashtag
   })
 
-  const videos =
-    data?.search.__typename === 'PublicationSearchResult'
-      ? (data?.search?.items as Publication[])
-      : []
-  const pageInfo =
-    data?.search.__typename === 'PublicationSearchResult'
-      ? data?.search?.pageInfo
-      : null
+  const videos = data?.searchPublications?.items as MirrorablePublication[]
+  const pageInfo = data?.searchPublications?.pageInfo
 
   const { observe } = useInView({
     rootMargin: SCROLL_ROOT_MARGIN,

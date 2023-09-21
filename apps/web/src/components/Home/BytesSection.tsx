@@ -13,15 +13,18 @@ import {
   imageCdn,
   trimLensHandle
 } from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
+import type {
+  ExplorePublicationRequest,
+  MirrorablePublication
+} from '@lenstube/lens'
 import {
-  PublicationMainFocus,
-  PublicationSortCriteria,
-  PublicationTypes,
-  useExploreQuery
+  ExplorePublicationsOrderByType,
+  ExplorePublicationType,
+  LimitType,
+  PublicationMetadataMainFocusType,
+  useExplorePublicationsQuery
 } from '@lenstube/lens'
 import useAppStore from '@lib/store'
-import useAuthPersistStore from '@lib/store/auth'
 import { Trans } from '@lingui/macro'
 import Link from 'next/link'
 import React, { useRef } from 'react'
@@ -29,29 +32,27 @@ import React, { useRef } from 'react'
 const BytesSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null)
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
 
-  const request = {
-    sortCriteria: PublicationSortCriteria.CuratedProfiles,
-    limit: 30,
-    noRandomize: false,
-    sources: [LENSTUBE_BYTES_APP_ID],
-    publicationTypes: [PublicationTypes.Post],
-    customFilters: LENS_CUSTOM_FILTERS,
-    metadata: {
-      tags:
-        activeTagFilter !== 'all' ? { oneOf: [activeTagFilter] } : undefined,
-      mainContentFocus: [PublicationMainFocus.Video]
-    }
+  const request: ExplorePublicationRequest = {
+    where: {
+      publicationTypes: [ExplorePublicationType.Post],
+      customFilters: LENS_CUSTOM_FILTERS,
+      metadata: {
+        publishedOn: [LENSTUBE_BYTES_APP_ID],
+        tags:
+          activeTagFilter !== 'all' ? { oneOf: [activeTagFilter] } : undefined,
+        mainContentFocus: [PublicationMetadataMainFocusType.Video]
+      }
+    },
+    orderBy: ExplorePublicationsOrderByType.LensCurated,
+    limit: LimitType.Fifty
   }
 
-  const { data, error, loading } = useExploreQuery({
-    variables: { request, channelId: selectedSimpleProfile?.id ?? null }
+  const { data, error, loading } = useExplorePublicationsQuery({
+    variables: { request }
   })
 
-  const bytes = data?.explorePublications?.items as Publication[]
+  const bytes = data?.explorePublications?.items as MirrorablePublication[]
 
   const sectionOffsetWidth = sectionRef.current?.offsetWidth ?? 1000
   const scrollOffset = sectionOffsetWidth / 1.2
@@ -117,24 +118,24 @@ const BytesSection = () => {
                   />
                 </div>
                 <h1 className="line-clamp-2 break-words pt-2 text-[13px]">
-                  {byte.metadata?.name}
+                  {byte.metadata.marketplace?.name}
                 </h1>
               </Link>
               <div className="flex items-end space-x-1.5">
                 <Link
-                  href={`/channel/${trimLensHandle(byte.profile?.handle)}`}
+                  href={`/channel/${trimLensHandle(byte.by?.handle)}`}
                   className="flex-none"
-                  title={byte.profile.handle}
+                  title={byte.by.handle}
                 >
                   <img
                     className="h-3.5 w-3.5 rounded-full bg-gray-200 dark:bg-gray-800"
-                    src={getProfilePicture(byte.profile, 'AVATAR')}
-                    alt={byte.profile?.handle}
+                    src={getProfilePicture(byte.by, 'AVATAR')}
+                    alt={byte.by?.handle}
                     draggable={false}
                   />
                 </Link>
                 <span className="text-xs leading-3 opacity-70">
-                  {byte.stats?.totalUpvotes} <Trans>likes</Trans>
+                  {byte.stats?.reactions} <Trans>likes</Trans>
                 </span>
               </div>
             </div>

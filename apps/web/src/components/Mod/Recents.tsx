@@ -7,44 +7,43 @@ import {
   LENSTUBE_BYTES_APP_ID,
   SCROLL_ROOT_MARGIN
 } from '@lenstube/constants'
-import type { Publication } from '@lenstube/lens'
+import type {
+  ExplorePublicationRequest,
+  MirrorablePublication
+} from '@lenstube/lens'
 import {
-  PublicationMainFocus,
-  PublicationSortCriteria,
-  PublicationTypes,
-  useExploreQuery
+  ExplorePublicationsOrderByType,
+  ExplorePublicationType,
+  LimitType,
+  PublicationMetadataMainFocusType,
+  useExplorePublicationsQuery
 } from '@lenstube/lens'
 import { Loader } from '@lenstube/ui'
-import useAuthPersistStore from '@lib/store/auth'
 import { t } from '@lingui/macro'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 
-const Recents = () => {
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
-
-  const request = {
-    sortCriteria: PublicationSortCriteria.Latest,
-    limit: 32,
-    noRandomize: true,
-    sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
-    publicationTypes: [PublicationTypes.Post],
+const request: ExplorePublicationRequest = {
+  where: {
+    publicationTypes: [ExplorePublicationType.Post],
     customFilters: LENS_CUSTOM_FILTERS,
     metadata: {
-      mainContentFocus: [PublicationMainFocus.Video]
+      publishedOn: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
+      mainContentFocus: [PublicationMetadataMainFocusType.Video]
     }
-  }
+  },
+  orderBy: ExplorePublicationsOrderByType.Latest,
+  limit: LimitType.Fifty
+}
 
-  const { data, loading, error, fetchMore } = useExploreQuery({
+const Recents = () => {
+  const { data, loading, error, fetchMore } = useExplorePublicationsQuery({
     variables: {
-      request,
-      channelId: selectedSimpleProfile?.id ?? null
+      request
     }
   })
 
-  const videos = data?.explorePublications?.items as Publication[]
+  const videos = data?.explorePublications?.items as MirrorablePublication[]
   const pageInfo = data?.explorePublications?.pageInfo
 
   const { observe } = useInView({
@@ -55,8 +54,7 @@ const Recents = () => {
           request: {
             ...request,
             cursor: pageInfo?.next
-          },
-          channelId: selectedSimpleProfile?.id ?? null
+          }
         }
       })
     }

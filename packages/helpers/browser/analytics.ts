@@ -106,7 +106,6 @@ export const TRACK = {
     CHANNEL: 'Channel Page',
     EXPLORE_TRENDING: 'Trending Page',
     EXPLORE_INTERESTING: 'Interesting Page',
-    MOD: 'Mod Page',
     EXPLORE_POPULAR: 'Popular Page',
     THANKS: 'Thanks Page',
     UPLOAD: {
