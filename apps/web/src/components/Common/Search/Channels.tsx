@@ -50,11 +50,13 @@ const Channels: FC<Props> = ({ results, loading, clearSearch }) => {
               </div>
               <span className="inline-flex items-center space-x-1 whitespace-nowrap text-xs opacity-60">
                 <UserOutline className="h-2.5 w-2.5" />
-                <span>{formatNumber(channel.stats.totalFollowers)}</span>
+                <span>{formatNumber(channel.stats.followers)}</span>
               </span>
             </span>
-            {channel.bio && (
-              <p className="truncate text-sm opacity-60">{channel.bio}</p>
+            {channel.metadata?.bio && (
+              <p className="truncate text-sm opacity-60">
+                {channel.metadata?.bio}
+              </p>
             )}
           </Link>
         </div>

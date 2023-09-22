@@ -6,19 +6,18 @@ import PlayerInstance from './Player'
 import SensitiveWarning from './SensitiveWarning'
 
 interface Props extends PlayerProps {
-  hlsUrl: string
+  url: string
   currentTime?: number
   isSensitiveContent?: boolean
   refCallback?: (ref: HTMLMediaElement) => void
 }
 
 const VideoPlayer: FC<Props> = ({
-  hlsUrl,
+  url,
   address,
   options,
   posterUrl,
   refCallback,
-  permanentUrl,
   ratio = '16to9',
   currentTime = 0,
   isSensitiveContent,
@@ -56,12 +55,11 @@ const VideoPlayer: FC<Props> = ({
         >
           <PlayerInstance
             ratio={ratio}
-            hlsUrl={hlsUrl}
+            url={url}
             options={options}
             address={address}
             posterUrl={posterUrl}
             playerRef={mediaElementRef}
-            permanentUrl={permanentUrl}
             showControls={showControls}
           />
         </div>

@@ -26,11 +26,13 @@ import {
   trimLensHandle,
   uploadToAr
 } from '@lenstube/generic'
+import type { CreateMomokaPostEip712TypedData } from '@lenstube/lens'
 import {
   ReferenceModuleType,
   useBroadcastOnchainMutation,
   useBroadcastOnMomokaMutation,
-  useCreateMomokaPostTypedDataMutation
+  useCreateMomokaPostTypedDataMutation,
+  useCreateOnchainPostTypedDataMutation
 } from '@lenstube/lens'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
@@ -170,7 +172,7 @@ const UploadSteps = () => {
   })
 
   const getSignatureFromTypedData = async (
-    data: CreatePostBroadcastItemResult
+    data: CreateMomokaPostEip712TypedData
   ) => {
     const { typedData } = data
     toast.loading(REQUESTING_SIGNATURE_MESSAGE)
@@ -197,10 +199,8 @@ const UploadSteps = () => {
   const [createDataAvailabilityPostTypedData] =
     useCreateMomokaPostTypedDataMutation({
       onCompleted: async ({ createMomokaPostTypedData }) => {
-        const { id } = createMomokaPostTypedData
-        const signature = await getSignatureFromTypedData(
-          createDataAvailabilityPostTypedData
-        )
+        const { id, typedData } = createMomokaPostTypedData
+        const signature = await getSignatureFromTypedData(typedData)
         return await broadcastDataAvailabilityPost({
           variables: { request: { id, signature } }
         })
@@ -208,16 +208,17 @@ const UploadSteps = () => {
     })
 
   const [createDataAvailabilityPostViaDispatcher] =
-    useCreateDataAvailabilityPostViaDispatcherMutation({
-      onCompleted: ({ createDataAvailabilityPostViaDispatcher }) => {
+    useCreateMomokaPostTypedDataMutation({
+      onCompleted: ({ createMomokaPostTypedData }) => {
         if (
-          createDataAvailabilityPostViaDispatcher?.__typename === 'RelayError'
+          createMomokaPostTypedData?.__typename !==
+          'CreateMomokaPostBroadcastItemResult'
         ) {
           return
         }
         if (
-          createDataAvailabilityPostViaDispatcher.__typename ===
-          'CreateDataAvailabilityPublicationResult'
+          createMomokaPostTypedData.__typename ===
+          'CreateMomokaPostBroadcastItemResult'
         ) {
           onCompleted()
           resetToDefaults()
@@ -230,10 +231,10 @@ const UploadSteps = () => {
    * DATA AVAILABILITY ENDS
    */
 
-  const [createPostViaDispatcher] = useCreatePostViaDispatcherMutation({
+  const [createPostViaDispatcher] = useCreateOnchainPostTypedDataMutation({
     onError,
-    onCompleted: ({ createPostViaDispatcher }) => {
-      onCompleted(createPostViaDispatcher.__typename)
+    onCompleted: ({ createOnchainPostTypedData }) => {
+      onCompleted(createOnchainPostTypedData.)
       if (createPostViaDispatcher.__typename === 'RelayerResult') {
         setToQueue({ txnId: createPostViaDispatcher.txId })
       }

@@ -192,27 +192,22 @@ const BasicInfo = ({ channel }: Props) => {
         attributes: [
           ...otherAttributes,
           {
-            type: 'website',
             key: 'website',
             value: data.website
           },
           {
-            type: 'location',
             key: 'location',
             value: data.location
           },
           {
-            type: 'x',
             key: 'x',
             value: data.x
           },
           {
-            type: 'youtube',
             key: 'youtube',
             value: data.youtube
           },
           {
-            type: 'app',
             key: 'app',
             value: LENSTUBE_APP_ID
           }

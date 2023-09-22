@@ -86,7 +86,7 @@ const Login = () => {
     try {
       setLoading(true)
       const challenge = await loadChallenge({
-        variables: { request: { address } }
+        variables: { request: { for: address, signedBy: address } }
       })
       if (!challenge?.data?.challenge?.text) {
         return toast.error(ERROR_MESSAGE)
@@ -98,14 +98,14 @@ const Login = () => {
         return
       }
       const result = await authenticate({
-        variables: { request: { address, signature } }
+        variables: { request: { id: challenge.data?.challenge.id, signature } }
       })
       const accessToken = result.data?.authenticate.accessToken
       const refreshToken = result.data?.authenticate.refreshToken
       signIn({ accessToken, refreshToken })
       const { data: profilesData } = await getAllSimpleProfiles({
         variables: {
-          request: { ownedBy: [address] }
+          request: { where: { ownedBy: [address] } }
         },
         fetchPolicy: 'no-cache'
       })
@@ -118,9 +118,7 @@ const Login = () => {
         setShowCreateChannel(true)
       } else {
         const profiles = profilesData?.profiles?.items as Profile[]
-        const defaultProfile = profiles.find((profile) => profile.isDefault)
-        const profile = defaultProfile ?? profiles[0]
-        setSelectedSimpleProfile(profile)
+        setSelectedSimpleProfile(profiles[0])
         if (router.query?.next) {
           router.push(router.query?.next as string)
         }

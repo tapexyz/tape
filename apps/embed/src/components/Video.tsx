@@ -1,9 +1,7 @@
 import { useAverageColor } from '@lenstube/browser'
 import { LENSTUBE_BYTES_APP_ID, STATIC_ASSETS } from '@lenstube/constants'
 import {
-  getPublicationHlsUrl,
   getPublicationMediaUrl,
-  getPublicationRawMediaUrl,
   getThumbnailUrl,
   imageCdn,
   sanitizeDStorageUrl,
@@ -67,13 +65,12 @@ const Video: FC<Props> = ({ video }) => {
           100
         )}
         image={thumbnailUrl}
-        videoUrl={getPublicationMediaUrl(video)}
+        videoUrl={getPublicationMediaUrl(video.metadata)}
       />
       {clicked ? (
         <VideoPlayer
           refCallback={refCallback}
-          permanentUrl={getPublicationRawMediaUrl(video)}
-          hlsUrl={getPublicationHlsUrl(video)}
+          url={getPublicationMediaUrl(video.metadata)}
           posterUrl={thumbnailUrl}
           currentTime={currentTime}
           options={{

@@ -21,7 +21,7 @@ const SubscribeActions: FC<Props> = ({
   size,
   showText
 }) => {
-  const isSubscriber = channel?.isFollowedByMe
+  const isSubscriber = channel?.operations.isFollowedByMe.value
   const [subscriber, setSubscriber] = useState(isSubscriber)
 
   useEffect(() => {

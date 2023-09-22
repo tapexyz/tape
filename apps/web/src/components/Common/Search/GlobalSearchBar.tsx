@@ -8,11 +8,10 @@ import {
   LENSTUBE_BYTES_APP_ID
 } from '@lenstube/constants'
 import { useDebounce } from '@lenstube/generic'
-import type { Profile, Publication } from '@lenstube/lens'
+import type { AnyPublication, Profile } from '@lenstube/lens'
 import {
   SearchProfilesDocument,
-  SearchPublicationsDocument,
-  SearchRequestTypes
+  SearchPublicationsDocument
 } from '@lenstube/lens'
 import { useLazyQuery } from '@lenstube/lens/apollo'
 import { Loader } from '@lenstube/ui'
@@ -30,7 +29,9 @@ interface Props {
 }
 
 const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
-  const [activeSearch, setActiveSearch] = useState(SearchRequestTypes.Profile)
+  const [activeSearch, setActiveSearch] = useState<'PROFILE' | 'PUBLICATION'>(
+    'PROFILE'
+  )
   const [keyword, setKeyword] = useState('')
   const debouncedValue = useDebounce<string>(keyword, 500)
   const resultsRef = useRef(null)
@@ -112,7 +113,7 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
                     )
                   }
                   onClick={() => {
-                    setActiveSearch(SearchRequestTypes.Profile)
+                    setActiveSearch('PROFILE')
                   }}
                 >
                   <Trans>Channels</Trans>
@@ -127,7 +128,7 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
                     )
                   }
                   onClick={() => {
-                    setActiveSearch(SearchRequestTypes.Publication)
+                    setActiveSearch('PUBLICATION')
                   }}
                 >
                   <Trans>Videos</Trans>
@@ -149,7 +150,7 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
                 <Tab.Panel className="no-scrollbar max-h-[80vh] overflow-y-auto focus:outline-none">
                   {data?.search?.__typename === 'PublicationSearchResult' && (
                     <Videos
-                      results={channels as Publication[]}
+                      results={channels as AnyPublication[]}
                       loading={loading}
                       clearSearch={clearSearch}
                     />

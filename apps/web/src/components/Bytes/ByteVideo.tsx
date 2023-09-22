@@ -1,8 +1,7 @@
 import CollectVideo from '@components/Watch/CollectVideo'
 import { Analytics, TRACK, useAverageColor } from '@lenstube/browser'
 import {
-  getPublicationHlsUrl,
-  getPublicationRawMediaUrl,
+  getPublicationMediaUrl,
   getThumbnailUrl,
   imageCdn,
   sanitizeDStorageUrl
@@ -116,8 +115,7 @@ const ByteVideo: FC<Props> = ({
             <VideoPlayer
               address={selectedSimpleProfile?.ownedBy.address}
               refCallback={refCallback}
-              permanentUrl={getPublicationRawMediaUrl(video)}
-              hlsUrl={getPublicationHlsUrl(video)}
+              url={getPublicationMediaUrl(video.metadata)}
               posterUrl={thumbnailUrl}
               ratio="9to16"
               showControls={false}
@@ -139,8 +137,7 @@ const ByteVideo: FC<Props> = ({
               />
               <span className="invisible absolute">
                 <VideoPlayer
-                  permanentUrl={getPublicationRawMediaUrl(video)}
-                  hlsUrl={getPublicationHlsUrl(video)}
+                  url={getPublicationMediaUrl(video.metadata)}
                   showControls={false}
                   options={{
                     autoPlay: false,

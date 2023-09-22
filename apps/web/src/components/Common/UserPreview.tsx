@@ -52,7 +52,7 @@ const UserPreview: FC<Props> = ({ profile, children }) => {
               </span>
               <Badge id={profile?.id} size="lg" />
             </Link>
-            {!profile.isFollowedByMe && (
+            {!profile.operations.isFollowedByMe.value && (
               <SubscribeActions
                 channel={profile}
                 showText={false}
@@ -61,9 +61,9 @@ const UserPreview: FC<Props> = ({ profile, children }) => {
               />
             )}
           </div>
-          {profile?.bio && (
+          {profile.metadata?.bio && (
             <div className="line-clamp-4 py-2">
-              <InterweaveContent content={profile?.bio} />
+              <InterweaveContent content={profile.metadata?.bio} />
             </div>
           )}
         </div>

@@ -1,7 +1,4 @@
-import {
-  LENSTUBE_APP_NAME,
-  OLD_LENS_RELAYER_ADDRESS
-} from '@lenstube/constants'
+import { LENSTUBE_APP_NAME } from '@lenstube/constants'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
 import React from 'react'
@@ -10,9 +7,7 @@ import Toggle from './Toggle'
 
 const DispatcherPermissions = () => {
   const activeChannel = useChannelStore((state) => state.activeChannel)
-  const usingOldDispatcher =
-    activeChannel?.dispatcher?.address?.toLocaleLowerCase() ===
-    OLD_LENS_RELAYER_ADDRESS.toLocaleLowerCase()
+  const usingOldDispatcher = activeChannel?.lensManager === false
 
   const getDescription = () => {
     if (usingOldDispatcher) {

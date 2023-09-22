@@ -75,11 +75,10 @@ const UserMenu = () => {
     setSelectedSimpleProfile({
       handle: profile.handle,
       id: profile.id,
-      isDefault: profile.isDefault,
-      ownedBy: profile.ownedBy,
-      stats: profile.stats,
-      dispatcher: profile.dispatcher,
-      picture: profile.picture
+      ownedBy: profile.ownedBy.address,
+      sponsor: profile.sponsor,
+      metadata: profile.metadata,
+      stats: profile.stats
     })
     setShowAccountSwitcher(false)
     Analytics.track(TRACK.CHANNEL.SWITCH)
@@ -90,7 +89,7 @@ const UserMenu = () => {
       setShowAccountSwitcher(true)
       const { data } = await getAllSimpleProfiles({
         variables: {
-          request: { ownedBy: [address] }
+          request: { where: { ownedBy: [address] } }
         },
         fetchPolicy: 'network-only'
       })

@@ -6,25 +6,32 @@ import {
 } from '@lenstube/constants'
 import {
   getIsSensitiveContent,
+  getPublication,
   getThumbnailUrl,
   imageCdn
 } from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
+import type { AnyPublication } from '@lenstube/lens'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
 
 type Props = {
-  video: Publication
+  video: AnyPublication
 }
 
 const ThumbnailImage: FC<Props> = ({ video }) => {
-  const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
-  const isBytesVideo = video.appId === LENSTUBE_BYTES_APP_ID
+  const targetPublication = getPublication(video)
+
+  const isSensitiveContent = getIsSensitiveContent(
+    targetPublication.metadata,
+    video.id
+  )
+  const isBytesVideo =
+    targetPublication.publishedOn?.id === LENSTUBE_BYTES_APP_ID
 
   const thumbnailUrl = isSensitiveContent
     ? `${STATIC_ASSETS}/images/sensor-blur.png`
-    : getThumbnailUrl(video)
+    : getThumbnailUrl(targetPublication)
   const { color: backgroundColor } = useAverageColor(thumbnailUrl, isBytesVideo)
 
   return (

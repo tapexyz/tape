@@ -12,8 +12,7 @@ import {
 import {
   getChannelCoverPicture,
   getIsSensitiveContent,
-  getPublicationHlsUrl,
-  getPublicationRawMediaUrl,
+  getPublicationMediaUrl,
   getRelativeTime,
   getSignature,
   getThumbnailUrl,
@@ -155,7 +154,6 @@ const PinnedVideo: FC<Props> = ({ id }) => {
         attributes: [
           ...otherAttributes,
           {
-            traitType: 'app',
             key: 'app',
             value: LENSTUBE_APP_ID
           }
@@ -187,8 +185,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
       <div className="overflow-hidden md:rounded-xl">
         <VideoPlayer
           address={selectedSimpleProfile?.ownedBy.address}
-          permanentUrl={getPublicationRawMediaUrl(pinnedPublication)}
-          hlsUrl={getPublicationHlsUrl(pinnedPublication)}
+          url={getPublicationMediaUrl(pinnedPublication.metadata)}
           posterUrl={thumbnailUrl}
           isSensitiveContent={isSensitiveContent}
           options={{

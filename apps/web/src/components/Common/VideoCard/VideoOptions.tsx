@@ -172,12 +172,10 @@ const VideoOptions: FC<Props> = ({
         attributes: [
           ...otherAttributes,
           {
-            type: 'pinnedPublicationId',
             key: 'pinnedPublicationId',
             value: video.id
           },
           {
-            type: 'app',
             key: 'app',
             value: LENSTUBE_APP_ID
           }

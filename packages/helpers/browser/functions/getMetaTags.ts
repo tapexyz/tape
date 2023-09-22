@@ -44,15 +44,6 @@ export const getMetaTags = ({
       : `${LENSTUBE_WEBSITE_URL}/channel/${handle}`
   }
 
-  const target = getPublication(publication as AnyPublication)
-
-  if (
-    target.metadata.__typename !== 'AudioMetadataV3' &&
-    target.metadata.__typename !== 'VideoMetadataV3'
-  ) {
-    return
-  }
-
   let defaultMeta = `<title>${meta.title}</title>
               <meta charset="UTF-8" />
               <meta content="${meta.description}" name="description" />
@@ -85,6 +76,10 @@ export const getMetaTags = ({
               }" />`
 
   if (isVideo && publication) {
+    const target = getPublication(publication as AnyPublication)
+
+    const contentUrl = getPublicationMediaUrl(target.metadata)
+
     const embedUrl = `${LENSTUBE_EMBED_URL}/${pubId}`
     // TODO: add `hasPart`
     const schemaObject = {
@@ -100,7 +95,7 @@ export const getMetaTags = ({
           'durationInSeconds'
         )
       ),
-      contentUrl: getPublicationMediaUrl(target.metadata),
+      contentUrl,
       embedUrl,
       interactionStatistic: {
         '@type': 'InteractionCounter',

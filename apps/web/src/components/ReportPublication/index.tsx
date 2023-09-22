@@ -2,7 +2,8 @@ import MetaTags from '@components/Common/MetaTags'
 import { Button } from '@components/UIElements/Button'
 import { Analytics, TRACK } from '@lenstube/browser'
 import { ERROR_MESSAGE } from '@lenstube/constants'
-import type { MirrorablePublication } from '@lenstube/lens'
+import { getPublication } from '@lenstube/generic'
+import type { AnyPublication } from '@lenstube/lens'
 import { useReportPublicationMutation } from '@lenstube/lens'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import { t, Trans } from '@lingui/macro'
@@ -11,11 +12,12 @@ import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 
 type Props = {
-  publication: MirrorablePublication
+  publication: AnyPublication
   onSuccess: () => void
 }
 
 const ReportPublication: FC<Props> = ({ publication, onSuccess }) => {
+  const targetPublication = getPublication(publication)
   const [reason, setReason] = useState('SPAM-FAKE_ENGAGEMENT')
 
   const [createReport, { loading: reporting }] = useReportPublicationMutation({
@@ -26,8 +28,8 @@ const ReportPublication: FC<Props> = ({ publication, onSuccess }) => {
       toast.success(t`Publication reported successfully.`)
       onSuccess()
       Analytics.track(TRACK.PUBLICATION.REPORT, {
-        publication_id: publication.id,
-        publication_type: publication.__typename?.toLowerCase()
+        publication_id: targetPublication.id,
+        publication_type: targetPublication.__typename?.toLowerCase()
       })
     }
   })
@@ -54,7 +56,7 @@ const ReportPublication: FC<Props> = ({ publication, onSuccess }) => {
     createReport({
       variables: {
         request: {
-          for: publication.id,
+          for: targetPublication.id,
           reason: {
             [getReasonType(type)]: {
               reason: type,
@@ -77,8 +79,8 @@ const ReportPublication: FC<Props> = ({ publication, onSuccess }) => {
       <div className="flex justify-center">
         <div className="w-full">
           <div className="opacity-60">
-            <h1>{publication.metadata.marketplace?.name}</h1>
-            <span className="text-sm">by {publication.by.handle}</span>
+            <h1>{targetPublication.metadata.marketplace?.name}</h1>
+            <span className="text-sm">by {targetPublication.by.handle}</span>
           </div>
           <div className="mt-4">
             <label

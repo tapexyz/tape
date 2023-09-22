@@ -3,7 +3,6 @@ import ChannelShimmer from '@components/Shimmers/ChannelShimmer'
 import { Analytics, TRACK } from '@lenstube/browser'
 import { trimLensHandle } from '@lenstube/generic'
 import { type Profile, useProfileQuery } from '@lenstube/lens'
-import useAuthPersistStore from '@lib/store/auth'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import Custom404 from 'src/pages/404'
@@ -15,9 +14,6 @@ import Tabs from './Tabs'
 const Channel = () => {
   const { query } = useRouter()
   const handle = query.channel ?? ''
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
 
   useEffect(() => {
     Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.CHANNEL })
@@ -25,8 +21,7 @@ const Channel = () => {
 
   const { data, loading, error } = useProfileQuery({
     variables: {
-      request: { handle: trimLensHandle(handle as string, true) },
-      who: selectedSimpleProfile?.id ?? null
+      request: { forHandle: trimLensHandle(handle as string, true) }
     },
     skip: !handle
   })

@@ -1,4 +1,7 @@
 fragment LegacyPublicationMetadataFields on LegacyPublicationMetadata {
+  id
+  rawURI
+  appId
   content
   media {
     ...MediaFields

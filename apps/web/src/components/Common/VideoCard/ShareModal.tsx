@@ -1,8 +1,8 @@
 import Modal from '@components/UIElements/Modal'
 import { Analytics, TRACK, useCopyToClipboard } from '@lenstube/browser'
 import { LENSTUBE_WEBSITE_URL, STATIC_ASSETS } from '@lenstube/constants'
-import { getSharableLink, imageCdn } from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
+import { getPublication, getSharableLink, imageCdn } from '@lenstube/generic'
+import type { AnyPublication } from '@lenstube/lens'
 import { t } from '@lingui/macro'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
@@ -16,7 +16,7 @@ import MirrorOutline from '../Icons/MirrorOutline'
 import MirrorVideo from '../MirrorVideo'
 
 type Props = {
-  video: Publication
+  video: AnyPublication
   show: boolean
   setShowShare: React.Dispatch<boolean>
 }
@@ -24,6 +24,7 @@ type Props = {
 const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
   const [copy] = useCopyToClipboard()
   const { resolvedTheme } = useTheme()
+  const targetPublication = getPublication(video)
 
   const onCopyVideoUrl = async () => {
     await copy(`${LENSTUBE_WEBSITE_URL}/watch/${video.id}`)
@@ -42,7 +43,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
         <div className="no-scrollbar mb-4 flex flex-nowrap items-center space-x-3 overflow-x-auto">
           <EmbedVideo videoId={video.id} onClose={() => setShowShare(false)} />
           <MirrorVideo
-            video={video}
+            video={targetPublication}
             onMirrorSuccess={() => setShowShare(false)}
           >
             <div className="rounded-full bg-gray-200 p-3 dark:bg-gray-800">
@@ -54,7 +55,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
             target="_blank"
             rel="noreferrer"
             onClick={() => Analytics.track(TRACK.PUBLICATION.SHARE.LENSTER)}
-            href={getSharableLink('lenster', video)}
+            href={getSharableLink('lenster', targetPublication)}
           >
             <img
               src={imageCdn(
@@ -72,7 +73,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
             className="rounded-full"
             target="_blank"
             rel="noreferrer"
-            href={getSharableLink('x', video)}
+            href={getSharableLink('x', targetPublication)}
             onClick={() => Analytics.track(TRACK.PUBLICATION.SHARE.X)}
           >
             <div className="rounded-full bg-gray-200 p-3 dark:bg-gray-800">
@@ -104,7 +105,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
             </div>
           </Link>
           <Link
-            href={getSharableLink('reddit', video)}
+            href={getSharableLink('reddit', targetPublication)}
             onClick={() => Analytics.track(TRACK.PUBLICATION.SHARE.REDDIT)}
             target="_blank"
             rel="noreferrer"
@@ -121,7 +122,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
             />
           </Link>
           <Link
-            href={getSharableLink('linkedin', video)}
+            href={getSharableLink('linkedin', targetPublication)}
             target="_blank"
             onClick={() => Analytics.track(TRACK.PUBLICATION.SHARE.LINKEDIN)}
             rel="noreferrer"

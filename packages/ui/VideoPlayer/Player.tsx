@@ -6,9 +6,8 @@ import React from 'react'
 
 export interface PlayerProps {
   playerRef?: (ref: HTMLMediaElement) => void
-  permanentUrl: string
   posterUrl?: string
-  hlsUrl?: string
+  url?: string
   ratio?: AspectRatio
   showControls?: boolean
   address?: string
@@ -24,8 +23,7 @@ export interface PlayerProps {
 
 const PlayerInstance: FC<PlayerProps> = ({
   ratio,
-  permanentUrl,
-  hlsUrl,
+  url,
   posterUrl,
   playerRef,
   options,
@@ -34,7 +32,7 @@ const PlayerInstance: FC<PlayerProps> = ({
 }) => {
   return (
     <Player
-      src={hlsUrl ?? permanentUrl}
+      src={url}
       poster={posterUrl}
       showTitle={false}
       objectFit="contain"

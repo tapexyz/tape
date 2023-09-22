@@ -9,9 +9,9 @@ import {
 } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import {
-  PublicationDetailsDocument,
-  useHasTxHashBeenIndexedQuery,
-  usePublicationDetailsLazyQuery,
+  PublicationDocument,
+  usePublicationLazyQuery,
+  usePublicationQuery,
   useTxIdToTxHashLazyQuery
 } from '@lenstube/lens'
 import { useApolloClient } from '@lenstube/lens/apollo'
@@ -64,7 +64,7 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
     setQueuedVideos(queuedVideos.filter((q) => q.txnId !== queuedVideo.txnId))
   }
 
-  const [getPublication] = usePublicationDetailsLazyQuery({
+  const [getPublication] = usePublicationLazyQuery({
     onCompleted: (data) => {
       if (data.publication) {
         cache.modify({
@@ -72,7 +72,7 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
             publications() {
               cache.writeQuery({
                 data: { publication: data?.publication },
-                query: PublicationDetailsDocument
+                query: PublicationDocument
               })
             }
           }
@@ -85,34 +85,28 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
   const getVideoByTxnId = async () => {
     const { data } = await getTxnHash({
       variables: {
-        txId: queuedVideo.txnId
+        for: queuedVideo.txnId
       }
     })
     if (data?.txIdToTxHash) {
       getPublication({
-        variables: { request: { txHash: data?.txIdToTxHash } }
+        variables: { request: { forTxHash: data?.txIdToTxHash } }
       })
     }
   }
 
-  const { stopPolling } = useHasTxHashBeenIndexedQuery({
+  const { stopPolling } = usePublicationQuery({
     variables: {
-      request: { txId: queuedVideo?.txnId, txHash: queuedVideo?.txnHash }
+      request: { forId: queuedVideo?.txnId, forTxHash: queuedVideo?.txnHash }
     },
     skip: !queuedVideo?.txnId?.length && !queuedVideo?.txnHash?.length,
     pollInterval: 1000,
     onCompleted: async (data) => {
-      if (data.hasTxHashBeenIndexed.__typename === 'TransactionError') {
-        return removeFromQueue()
-      }
-      if (
-        data?.hasTxHashBeenIndexed?.__typename === 'TransactionIndexedResult' &&
-        data?.hasTxHashBeenIndexed?.indexed
-      ) {
+      if (data?.publication?.txHash) {
         stopPolling()
         if (queuedVideo.txnHash) {
           return getPublication({
-            variables: { request: { txHash: queuedVideo?.txnHash } }
+            variables: { request: { forTxHash: queuedVideo?.txnHash } }
           })
         }
         await getVideoByTxnId()

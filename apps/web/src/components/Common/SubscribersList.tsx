@@ -2,13 +2,10 @@ import { NoDataFound } from '@components/UIElements/NoDataFound'
 import {
   formatNumber,
   getProfilePicture,
-  getRandomProfilePicture,
-  imageCdn,
-  shortenAddress,
   trimLensHandle
 } from '@lenstube/generic'
-import type { Follower, Profile } from '@lenstube/lens'
-import { useSubscribersQuery } from '@lenstube/lens'
+import type { FollowersRequest, Profile } from '@lenstube/lens'
+import { LimitType, useFollowersQuery } from '@lenstube/lens'
 import { Loader } from '@lenstube/ui'
 import { t } from '@lingui/macro'
 import Link from 'next/link'
@@ -18,21 +15,23 @@ import { useInView } from 'react-cool-inview'
 
 import Badge from './Badge'
 import UserOutline from './Icons/UserOutline'
-import AddressExplorerLink from './Links/AddressExplorerLink'
 
 type Props = {
   channel: Profile
 }
 
 const SubscribersList: FC<Props> = ({ channel }) => {
-  const request = { profileId: channel?.id, limit: 30 }
+  const request: FollowersRequest = {
+    of: channel.id,
+    limit: LimitType.Fifty
+  }
 
-  const { data, loading, fetchMore } = useSubscribersQuery({
+  const { data, loading, fetchMore } = useFollowersQuery({
     variables: { request },
     skip: !channel?.id
   })
 
-  const subscribers = data?.followers?.items as Follower[]
+  const subscribers = data?.followers?.items as Profile[]
   const pageInfo = data?.followers?.pageInfo
 
   const { observe } = useInView({
@@ -61,57 +60,29 @@ const SubscribersList: FC<Props> = ({ channel }) => {
 
   return (
     <div className="mt-2 space-y-3">
-      {subscribers?.map((subscriber: Follower) => (
-        <div className="flex flex-col" key={subscriber.wallet.address}>
-          {subscriber.wallet?.defaultProfile ? (
-            <Link
-              href={`/channel/${trimLensHandle(
-                subscriber.wallet?.defaultProfile?.handle
-              )}`}
-              className="font-base flex items-center justify-between"
-            >
-              <div className="flex items-center space-x-1.5">
-                <img
-                  className="h-5 w-5 rounded-full"
-                  src={getProfilePicture(
-                    subscriber.wallet?.defaultProfile,
-                    'AVATAR'
-                  )}
-                  alt={subscriber.wallet.defaultProfile.handle}
-                  draggable={false}
-                />
-                <div className="flex items-center space-x-1">
-                  <span>
-                    {trimLensHandle(subscriber.wallet?.defaultProfile?.handle)}
-                  </span>
-                  <Badge id={subscriber.wallet?.defaultProfile?.id} size="xs" />
-                </div>
+      {subscribers?.map((subscriber) => (
+        <div className="flex flex-col" key={subscriber.ownedBy.address}>
+          <Link
+            href={`/channel/${trimLensHandle(subscriber?.handle)}`}
+            className="font-base flex items-center justify-between"
+          >
+            <div className="flex items-center space-x-1.5">
+              <img
+                className="h-5 w-5 rounded-full"
+                src={getProfilePicture(subscriber, 'AVATAR')}
+                alt={subscriber.handle}
+                draggable={false}
+              />
+              <div className="flex items-center space-x-1">
+                <span>{trimLensHandle(subscriber?.handle)}</span>
+                <Badge id={subscriber?.id} size="xs" />
               </div>
-              <div className="flex items-center space-x-1 whitespace-nowrap text-xs opacity-80">
-                <UserOutline className="h-2.5 w-2.5 opacity-60" />
-                <span>
-                  {formatNumber(
-                    subscriber.wallet.defaultProfile.stats.totalFollowers
-                  )}
-                </span>
-              </div>
-            </Link>
-          ) : (
-            <AddressExplorerLink address={subscriber.wallet?.address}>
-              <div className="font-base flex items-center space-x-1.5">
-                <img
-                  className="h-5 w-5 rounded-full"
-                  src={imageCdn(
-                    getRandomProfilePicture(subscriber.wallet.address),
-                    'AVATAR'
-                  )}
-                  alt={subscriber.wallet.address.handle}
-                  draggable={false}
-                />
-                <div>{shortenAddress(subscriber.wallet?.address)}</div>
-              </div>
-            </AddressExplorerLink>
-          )}
+            </div>
+            <div className="flex items-center space-x-1 whitespace-nowrap text-xs opacity-80">
+              <UserOutline className="h-2.5 w-2.5 opacity-60" />
+              <span>{formatNumber(subscriber.stats.followers)}</span>
+            </div>
+          </Link>
         </div>
       ))}
       {pageInfo?.next && (

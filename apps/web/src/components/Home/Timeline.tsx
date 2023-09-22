@@ -1,7 +1,7 @@
 import MirroredVideoCard from '@components/Channel/MirroredVideoCard'
 import VideoCard from '@components/Common/VideoCard'
 import QueuedVideo from '@components/Common/VideoCard/QueuedVideo'
-import { trimLensHandle } from '@lenstube/generic'
+import { getPublication, trimLensHandle } from '@lenstube/generic'
 import type { AnyPublication, Mirror } from '@lenstube/lens'
 import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
@@ -38,13 +38,17 @@ const Timeline: FC<Props> = ({ videos, videoType = 'Post' }) => {
         ))}
       {videos?.map((video: AnyPublication, i) => {
         const isPub = video.__typename === videoType
+        const targetPublication = getPublication(video)
+
         return isPub && isMirror ? (
           <MirroredVideoCard
             key={`${video?.id}_${i}`}
             video={video as Mirror}
           />
         ) : (
-          isPub && <VideoCard key={`${video?.id}_${i}`} video={video} />
+          isPub && (
+            <VideoCard key={`${video?.id}_${i}`} video={targetPublication} />
+          )
         )
       })}
     </div>

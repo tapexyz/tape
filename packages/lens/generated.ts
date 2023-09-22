@@ -191,7 +191,7 @@ export type Attribute = {
   /** Identifier of this attribute, used for updating */
   key: Scalars['String']['output']
   /** The type of the attribute */
-  type: AttributeType
+  type?: Maybe<AttributeType>
   /** Value of the attribute */
   value: Scalars['String']['output']
 }
@@ -294,6 +294,7 @@ export type ChangeProfileManagersRequest = {
 
 export type CheckingInMetadataV3 = {
   __typename?: 'CheckingInMetadataV3'
+  address?: Maybe<PhysicalAddress>
   appId?: Maybe<Scalars['AppId']['output']>
   attachments?: Maybe<Array<PublicationMetadataMedia>>
   attributes?: Maybe<Array<PublicationMetadataV3Attribute>>
@@ -1283,6 +1284,7 @@ export type Erc20OwnershipCondition = {
 
 export type EventMetadataV3 = {
   __typename?: 'EventMetadataV3'
+  address?: Maybe<PhysicalAddress>
   appId?: Maybe<Scalars['AppId']['output']>
   attachments?: Maybe<Array<PublicationMetadataMedia>>
   attributes?: Maybe<Array<PublicationMetadataV3Attribute>>
@@ -1532,8 +1534,11 @@ export type GenerateModuleCurrencyApprovalResult = {
 
 export type GeoLocation = {
   __typename?: 'GeoLocation'
+  /** `null` when `rawURI` is encrypted */
   latitude?: Maybe<Scalars['Float']['output']>
+  /** `null` when `rawURI` is encrypted */
   longitude?: Maybe<Scalars['Float']['output']>
+  /** The raw Geo URI of the location. If encrypted `latitude` and `longitude` will be `null` */
   rawURI: Scalars['EncryptableURI']['output']
 }
 
@@ -1795,6 +1800,7 @@ export type LegacyMultirecipientFeeCollectModuleSettings = {
 
 export type LegacyPublicationMetadata = {
   __typename?: 'LegacyPublicationMetadata'
+  appId?: Maybe<Scalars['AppId']['output']>
   /**
    * Always defined with `mainContentFocus` value(s): `ARTICLE`, `LINK`, `TEXT_ONLY`.
    * Empty string if not set.
@@ -1804,6 +1810,7 @@ export type LegacyPublicationMetadata = {
   content: Scalars['EncryptableMarkdown']['output']
   contentWarning?: Maybe<PublicationContentWarningType>
   encryptedWith?: Maybe<PublicationMetadataV2Encryption>
+  id: Scalars['String']['output']
   locale: Scalars['Locale']['output']
   /** This is provided for backwards compatibility with legacy v1 and v2 publications. For new publications the nature of the content is explicit in their type. With new publications you SHOULD use __typename to discriminate specific fields. */
   mainContentFocus: LegacyPublicationMetadataMainFocusType
@@ -1816,6 +1823,7 @@ export type LegacyPublicationMetadata = {
    * - Optional otherwise.
    */
   media?: Maybe<Array<LegacyMediaItem>>
+  rawURI: Scalars['URI']['output']
   tags?: Maybe<Array<Scalars['String']['output']>>
 }
 
@@ -3088,6 +3096,22 @@ export type PaginatedWhoReactedResult = {
   pageInfo: PaginatedResultInfo
 }
 
+export type PhysicalAddress = {
+  __typename?: 'PhysicalAddress'
+  /** The country name component. */
+  country: Scalars['EncryptableString']['output']
+  /** The full mailing address formatted for display. */
+  formatted?: Maybe<Scalars['EncryptableString']['output']>
+  /** The city or locality. */
+  locality: Scalars['EncryptableString']['output']
+  /** The zip or postal code. */
+  postalCode?: Maybe<Scalars['EncryptableString']['output']>
+  /** The state or region. */
+  region?: Maybe<Scalars['EncryptableString']['output']>
+  /** The street address including house number, street name, P.O. Box, apartment or unit number and extended multi-line address information. */
+  streetAddress?: Maybe<Scalars['EncryptableString']['output']>
+}
+
 /** The POAP Event result */
 export type PoapEvent = {
   __typename?: 'PoapEvent'
@@ -3834,7 +3858,7 @@ export type PublicationSearchRequest = {
   cursor?: InputMaybe<Scalars['Cursor']['input']>
   limit?: InputMaybe<LimitType>
   query: Scalars['String']['input']
-  where: PublicationSearchWhere
+  where?: InputMaybe<PublicationSearchWhere>
 }
 
 export type PublicationSearchWhere = {
@@ -3905,7 +3929,7 @@ export type PublicationsRequest = {
   cursor?: InputMaybe<Scalars['Cursor']['input']>
   limit?: InputMaybe<LimitType>
   orderBy?: InputMaybe<PublicationsOrderByType>
-  where?: InputMaybe<PublicationsWhere>
+  where: PublicationsWhere
 }
 
 export type PublicationsTagsRequest = {
@@ -4092,7 +4116,7 @@ export type QueryNftsArgs = {
 }
 
 export type QueryNotificationsArgs = {
-  request: NotificationRequest
+  request?: InputMaybe<NotificationRequest>
 }
 
 export type QueryOwnedHandlesArgs = {
@@ -4148,7 +4172,7 @@ export type QueryPublicationArgs = {
 }
 
 export type QueryPublicationBookmarksArgs = {
-  request: PublicationBookmarksRequest
+  request?: InputMaybe<PublicationBookmarksRequest>
 }
 
 export type QueryPublicationsArgs = {
@@ -4156,7 +4180,7 @@ export type QueryPublicationsArgs = {
 }
 
 export type QueryPublicationsTagsArgs = {
-  request: PublicationsTagsRequest
+  request?: InputMaybe<PublicationsTagsRequest>
 }
 
 export type QueryRevenueFromPublicationArgs = {
@@ -5382,6 +5406,9 @@ type AnyPublicationMetadataFields_ImageMetadataV3_Fragment = {
 
 type AnyPublicationMetadataFields_LegacyPublicationMetadata_Fragment = {
   __typename?: 'LegacyPublicationMetadata'
+  id: string
+  rawURI: any
+  appId?: any | null
   content: any
   locale: any
   tags?: Array<string> | null
@@ -6927,6 +6954,9 @@ export type CommentFieldsFragment = {
       }
     | {
         __typename?: 'LegacyPublicationMetadata'
+        id: string
+        rawURI: any
+        appId?: any | null
         content: any
         locale: any
         tags?: Array<string> | null
@@ -9317,6 +9347,9 @@ export type PostFieldsFragment = {
       }
     | {
         __typename?: 'LegacyPublicationMetadata'
+        id: string
+        rawURI: any
+        appId?: any | null
         content: any
         locale: any
         tags?: Array<string> | null
@@ -11460,6 +11493,9 @@ export type QuoteFieldsFragment = {
       }
     | {
         __typename?: 'LegacyPublicationMetadata'
+        id: string
+        rawURI: any
+        appId?: any | null
         content: any
         locale: any
         tags?: Array<string> | null
@@ -13220,6 +13256,9 @@ export type ImageMetadataV3FieldsFragment = {
 
 export type LegacyPublicationMetadataFieldsFragment = {
   __typename?: 'LegacyPublicationMetadata'
+  id: string
+  rawURI: any
+  appId?: any | null
   content: any
   locale: any
   tags?: Array<string> | null
@@ -16195,6 +16234,9 @@ export type ExplorePublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyPublicationMetadata'
+                id: string
+                rawURI: any
+                appId?: any | null
                 content: any
                 locale: any
                 tags?: Array<string> | null
@@ -18187,6 +18229,9 @@ export type ExplorePublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyPublicationMetadata'
+                id: string
+                rawURI: any
+                appId?: any | null
                 content: any
                 locale: any
                 tags?: Array<string> | null
@@ -20197,6 +20242,9 @@ export type FeedHighlightsQuery = {
               }
             | {
                 __typename?: 'LegacyPublicationMetadata'
+                id: string
+                rawURI: any
+                appId?: any | null
                 content: any
                 locale: any
                 tags?: Array<string> | null
@@ -22189,6 +22237,9 @@ export type FeedHighlightsQuery = {
               }
             | {
                 __typename?: 'LegacyPublicationMetadata'
+                id: string
+                rawURI: any
+                appId?: any | null
                 content: any
                 locale: any
                 tags?: Array<string> | null
@@ -25025,6 +25076,9 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyPublicationMetadata'
+                      id: string
+                      rawURI: any
+                      appId?: any | null
                       content: any
                       locale: any
                       tags?: Array<string> | null
@@ -27264,6 +27318,9 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyPublicationMetadata'
+                      id: string
+                      rawURI: any
+                      appId?: any | null
                       content: any
                       locale: any
                       tags?: Array<string> | null
@@ -29399,6 +29456,9 @@ export type NotificationsQuery = {
                 }
               | {
                   __typename?: 'LegacyPublicationMetadata'
+                  id: string
+                  rawURI: any
+                  appId?: any | null
                   content: any
                   locale: any
                   tags?: Array<string> | null
@@ -31648,6 +31708,9 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyPublicationMetadata'
+                      id: string
+                      rawURI: any
+                      appId?: any | null
                       content: any
                       locale: any
                       tags?: Array<string> | null
@@ -33874,6 +33937,9 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyPublicationMetadata'
+                      id: string
+                      rawURI: any
+                      appId?: any | null
                       content: any
                       locale: any
                       tags?: Array<string> | null
@@ -36094,6 +36160,9 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyPublicationMetadata'
+                      id: string
+                      rawURI: any
+                      appId?: any | null
                       content: any
                       locale: any
                       tags?: Array<string> | null
@@ -38480,6 +38549,9 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyPublicationMetadata'
+                      id: string
+                      rawURI: any
+                      appId?: any | null
                       content: any
                       locale: any
                       tags?: Array<string> | null
@@ -40706,6 +40778,9 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyPublicationMetadata'
+                      id: string
+                      rawURI: any
+                      appId?: any | null
                       content: any
                       locale: any
                       tags?: Array<string> | null
@@ -42926,6 +43001,9 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyPublicationMetadata'
+                      id: string
+                      rawURI: any
+                      appId?: any | null
                       content: any
                       locale: any
                       tags?: Array<string> | null
@@ -45064,6 +45142,9 @@ export type NotificationsQuery = {
                 }
               | {
                   __typename?: 'LegacyPublicationMetadata'
+                  id: string
+                  rawURI: any
+                  appId?: any | null
                   content: any
                   locale: any
                   tags?: Array<string> | null
@@ -47158,6 +47239,9 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyPublicationMetadata'
+                      id: string
+                      rawURI: any
+                      appId?: any | null
                       content: any
                       locale: any
                       tags?: Array<string> | null
@@ -49384,6 +49468,9 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyPublicationMetadata'
+                      id: string
+                      rawURI: any
+                      appId?: any | null
                       content: any
                       locale: any
                       tags?: Array<string> | null
@@ -51604,6 +51691,9 @@ export type NotificationsQuery = {
                     }
                   | {
                       __typename?: 'LegacyPublicationMetadata'
+                      id: string
+                      rawURI: any
+                      appId?: any | null
                       content: any
                       locale: any
                       tags?: Array<string> | null
@@ -54056,6 +54146,9 @@ export type FeedQuery = {
                 }
               | {
                   __typename?: 'LegacyPublicationMetadata'
+                  id: string
+                  rawURI: any
+                  appId?: any | null
                   content: any
                   locale: any
                   tags?: Array<string> | null
@@ -56057,6 +56150,9 @@ export type FeedQuery = {
                 }
               | {
                   __typename?: 'LegacyPublicationMetadata'
+                  id: string
+                  rawURI: any
+                  appId?: any | null
                   content: any
                   locale: any
                   tags?: Array<string> | null
@@ -58438,6 +58534,9 @@ export type PublicationQuery = {
             }
           | {
               __typename?: 'LegacyPublicationMetadata'
+              id: string
+              rawURI: any
+              appId?: any | null
               content: any
               locale: any
               tags?: Array<string> | null
@@ -60445,6 +60544,9 @@ export type PublicationQuery = {
             }
           | {
               __typename?: 'LegacyPublicationMetadata'
+              id: string
+              rawURI: any
+              appId?: any | null
               content: any
               locale: any
               tags?: Array<string> | null
@@ -62433,6 +62535,9 @@ export type PublicationQuery = {
             }
           | {
               __typename?: 'LegacyPublicationMetadata'
+              id: string
+              rawURI: any
+              appId?: any | null
               content: any
               locale: any
               tags?: Array<string> | null
@@ -64441,6 +64546,9 @@ export type PublicationBookmarksQuery = {
               }
             | {
                 __typename?: 'LegacyPublicationMetadata'
+                id: string
+                rawURI: any
+                appId?: any | null
                 content: any
                 locale: any
                 tags?: Array<string> | null
@@ -66452,6 +66560,9 @@ export type PublicationBookmarksQuery = {
               }
             | {
                 __typename?: 'LegacyPublicationMetadata'
+                id: string
+                rawURI: any
+                appId?: any | null
                 content: any
                 locale: any
                 tags?: Array<string> | null
@@ -68444,6 +68555,9 @@ export type PublicationBookmarksQuery = {
               }
             | {
                 __typename?: 'LegacyPublicationMetadata'
+                id: string
+                rawURI: any
+                appId?: any | null
                 content: any
                 locale: any
                 tags?: Array<string> | null
@@ -70454,6 +70568,9 @@ export type PublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyPublicationMetadata'
+                id: string
+                rawURI: any
+                appId?: any | null
                 content: any
                 locale: any
                 tags?: Array<string> | null
@@ -72465,6 +72582,9 @@ export type PublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyPublicationMetadata'
+                id: string
+                rawURI: any
+                appId?: any | null
                 content: any
                 locale: any
                 tags?: Array<string> | null
@@ -74457,6 +74577,9 @@ export type PublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyPublicationMetadata'
+                id: string
+                rawURI: any
+                appId?: any | null
                 content: any
                 locale: any
                 tags?: Array<string> | null
@@ -76467,6 +76590,9 @@ export type RevenueFromPublicationQuery = {
               }
             | {
                 __typename?: 'LegacyPublicationMetadata'
+                id: string
+                rawURI: any
+                appId?: any | null
                 content: any
                 locale: any
                 tags?: Array<string> | null
@@ -78478,6 +78604,9 @@ export type RevenueFromPublicationQuery = {
               }
             | {
                 __typename?: 'LegacyPublicationMetadata'
+                id: string
+                rawURI: any
+                appId?: any | null
                 content: any
                 locale: any
                 tags?: Array<string> | null
@@ -80470,6 +80599,9 @@ export type RevenueFromPublicationQuery = {
               }
             | {
                 __typename?: 'LegacyPublicationMetadata'
+                id: string
+                rawURI: any
+                appId?: any | null
                 content: any
                 locale: any
                 tags?: Array<string> | null
@@ -82501,6 +82633,9 @@ export type RevenueFromPublicationsQuery = {
                 }
               | {
                   __typename?: 'LegacyPublicationMetadata'
+                  id: string
+                  rawURI: any
+                  appId?: any | null
                   content: any
                   locale: any
                   tags?: Array<string> | null
@@ -84515,6 +84650,9 @@ export type RevenueFromPublicationsQuery = {
                 }
               | {
                   __typename?: 'LegacyPublicationMetadata'
+                  id: string
+                  rawURI: any
+                  appId?: any | null
                   content: any
                   locale: any
                   tags?: Array<string> | null
@@ -86510,6 +86648,9 @@ export type RevenueFromPublicationsQuery = {
                 }
               | {
                   __typename?: 'LegacyPublicationMetadata'
+                  id: string
+                  rawURI: any
+                  appId?: any | null
                   content: any
                   locale: any
                   tags?: Array<string> | null
@@ -88685,6 +88826,9 @@ export type SearchPublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyPublicationMetadata'
+                id: string
+                rawURI: any
+                appId?: any | null
                 content: any
                 locale: any
                 tags?: Array<string> | null
@@ -90683,6 +90827,9 @@ export type SearchPublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyPublicationMetadata'
+                id: string
+                rawURI: any
+                appId?: any | null
                 content: any
                 locale: any
                 tags?: Array<string> | null
@@ -92675,6 +92822,9 @@ export type SearchPublicationsQuery = {
               }
             | {
                 __typename?: 'LegacyPublicationMetadata'
+                id: string
+                rawURI: any
+                appId?: any | null
                 content: any
                 locale: any
                 tags?: Array<string> | null
@@ -94417,6 +94567,9 @@ export const MarketplaceMetadataFieldsFragmentDoc = gql`
 `
 export const LegacyPublicationMetadataFieldsFragmentDoc = gql`
   fragment LegacyPublicationMetadataFields on LegacyPublicationMetadata {
+    id
+    rawURI
+    appId
     content
     media {
       ...MediaFields
