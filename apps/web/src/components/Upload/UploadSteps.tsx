@@ -26,8 +26,11 @@ import {
   trimLensHandle,
   uploadToAr
 } from '@lenstube/generic'
-import type { CreateMomokaPostEip712TypedData } from '@lenstube/lens'
+import type { CreateMomokaPostEip712TypedData, PublicationMetadata } from '@lenstube/lens'
 import {
+  LegacyPublicationMetadataMainFocusType,
+  PublicationContentWarningType,
+  PublicationMetadataMainFocusType,
   ReferenceModuleType,
   useBroadcastOnchainMutation,
   useBroadcastOnMomokaMutation,
@@ -336,7 +339,7 @@ const UploadSteps = () => {
           value: uploadedVideo.durationInSeconds
         })
       }
-      const metadata: PublicationMetadataV2Input = {
+      const metadata: PublicationMetadata = {
         version: '2.0.0',
         metadata_id: uuidv4(),
         description: trimify(uploadedVideo.description),
@@ -345,7 +348,7 @@ const UploadSteps = () => {
         ),
         locale: getUserLocale(),
         tags: [uploadedVideo.videoCategory.tag],
-        mainContentFocus: PublicationMainFocus.Video,
+        mainContentFocus: LegacyPublicationMetadataMainFocusType.Video,
         external_url: `${LENSTUBE_WEBSITE_URL}/channel/${activeChannel?.handle}`,
         animation_url: uploadedVideo.videoSource,
         image: uploadedVideo.thumbnail,
@@ -358,7 +361,7 @@ const UploadSteps = () => {
           : LENSTUBE_APP_ID
       }
       if (uploadedVideo.isSensitiveContent) {
-        metadata.contentWarning = PublicationContentWarning.Sensitive
+        metadata.contentWarning = PublicationContentWarningType.Sensitive
       }
       const metadataUri = await uploadToAr(metadata)
       setUploadedVideo({

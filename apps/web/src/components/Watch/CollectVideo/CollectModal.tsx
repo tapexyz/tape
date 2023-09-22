@@ -12,19 +12,7 @@ import {
   shortenAddress,
   trimLensHandle
 } from '@lenstube/generic'
-import type {
-  ApprovedAllowanceAmount,
-  Profile,
-  Publication,
-  RecipientDataOutput
-} from '@lenstube/lens'
-import {
-  CollectModules,
-  useAllProfilesQuery,
-  useApprovedModuleAllowanceAmountQuery,
-  usePublicationRevenueQuery
-} from '@lenstube/lens'
-import type { LenstubeCollectModule } from '@lenstube/lens/custom-types'
+import type { Profile, RecipientDataOutput } from '@lenstube/lens'
 import { Loader } from '@lenstube/ui'
 import useAuthPersistStore from '@lib/store/auth'
 import { t, Trans } from '@lingui/macro'

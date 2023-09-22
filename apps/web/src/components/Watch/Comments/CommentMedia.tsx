@@ -1,9 +1,8 @@
 import Modal from '@components/UIElements/Modal'
 import { imageCdn, sanitizeDStorageUrl } from '@lenstube/generic'
 import {
-  type MediaSet,
-  type Publication,
-  PublicationMainFocus
+  type AnyPublication,
+  PublicationMetadataMainFocusType
 } from '@lenstube/lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'
@@ -12,7 +11,7 @@ import AudioComment from './AudioComment'
 import VideoComment from './VideoComment'
 
 type Props = {
-  comment: Publication
+  comment: AnyPublication
 }
 const CommentMedia: FC<Props> = ({ comment }) => {
   const [imageSrc, setImageSrc] = useState('')
@@ -25,15 +24,24 @@ const CommentMedia: FC<Props> = ({ comment }) => {
   }
 
   const getIsVideoComment = () => {
-    return comment.metadata.mainContentFocus === PublicationMainFocus.Video
+    return (
+      comment.metadata.mainContentFocus ===
+      PublicationMetadataMainFocusType.Video
+    )
   }
 
   const getIsAudioComment = () => {
-    return comment.metadata.mainContentFocus === PublicationMainFocus.Audio
+    return (
+      comment.metadata.mainContentFocus ===
+      PublicationMetadataMainFocusType.Audio
+    )
   }
 
   const getIsImageComment = () => {
-    return comment.metadata.mainContentFocus === PublicationMainFocus.Image
+    return (
+      comment.metadata.mainContentFocus ===
+      PublicationMetadataMainFocusType.Image
+    )
   }
 
   return (

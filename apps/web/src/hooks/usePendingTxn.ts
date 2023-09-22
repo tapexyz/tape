@@ -1,4 +1,4 @@
-import { useHasTxHashBeenIndexedQuery } from '@lenstube/lens'
+import { useLensTransactionStatusQuery } from '@lenstube/lens'
 import { useCallback, useEffect } from 'react'
 import toast from 'react-hot-toast'
 
@@ -8,31 +8,27 @@ type Props = {
 }
 
 const usePendingTxn = ({ txHash, txId }: Props) => {
-  const { data, loading, stopPolling } = useHasTxHashBeenIndexedQuery({
+  const { data, loading, stopPolling } = useLensTransactionStatusQuery({
     variables: {
-      request: { txHash, txId }
+      request: { forTxHash: txHash, forTxId: txId }
     },
     skip: !txHash && !txHash?.length && !txId && !txId?.length,
     pollInterval: 1000
   })
 
   const checkIsIndexed = useCallback(() => {
-    if (data?.hasTxHashBeenIndexed?.__typename) {
-      if (
-        data?.hasTxHashBeenIndexed?.__typename === 'TransactionIndexedResult' &&
-        data?.hasTxHashBeenIndexed?.indexed
-      ) {
-        stopPolling()
-      }
-
-      if (data?.hasTxHashBeenIndexed?.__typename === 'TransactionError') {
-        stopPolling()
-        return toast.error(
-          `Relay Error - ${data?.hasTxHashBeenIndexed?.reason}`
-        )
-      }
+    if (
+      data?.lensTransactionStatus?.__typename &&
+      data?.lensTransactionStatus?.__typename === 'LensTransactionResult' &&
+      data?.lensTransactionStatus?.txHash
+    ) {
+      stopPolling()
     }
-  }, [stopPolling, data?.hasTxHashBeenIndexed])
+    if (data?.lensTransactionStatus?.reason) {
+      stopPolling()
+      return toast.error(`Relay Error - ${data?.lensTransactionStatus?.reason}`)
+    }
+  }, [stopPolling, data?.lensTransactionStatus])
 
   useEffect(() => {
     checkIsIndexed()
@@ -41,8 +37,8 @@ const usePendingTxn = ({ txHash, txId }: Props) => {
   return {
     data,
     indexed:
-      data?.hasTxHashBeenIndexed?.__typename === 'TransactionIndexedResult' &&
-      data.hasTxHashBeenIndexed.indexed,
+      data?.lensTransactionStatus?.__typename === 'LensTransactionResult' &&
+      data?.lensTransactionStatus?.txHash,
     loading
   }
 }
