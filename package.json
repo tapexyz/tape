@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "husky": "^8.0.3",
-    "start-server-and-test": "^2.0.0",
+    "start-server-and-test": "^2.0.1",
     "ts-node": "latest",
     "turbo": "1.10.13"
   },
