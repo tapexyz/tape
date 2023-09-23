@@ -13,8 +13,8 @@
     "extract": "lingui compile; lingui extract"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.417.0",
-    "@aws-sdk/lib-storage": "^3.417.0",
+    "@aws-sdk/client-s3": "^3.418.0",
+    "@aws-sdk/lib-storage": "^3.418.0",
     "@bundlr-network/client": "0.11.17",
     "@emoji-mart/react": "^1.1.1",
     "@headlessui/react": "^1.7.17",
