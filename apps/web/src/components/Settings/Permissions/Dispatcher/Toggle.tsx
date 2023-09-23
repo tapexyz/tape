@@ -11,6 +11,7 @@ import { getIsDispatcherEnabled, getSignature } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import {
   useBroadcastOnchainMutation,
+  useCreateChangeProfileManagersTypedDataMutation,
   useProfileLazyQuery
 } from '@lenstube/lens'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
@@ -41,7 +42,7 @@ const Toggle = () => {
   const { write, data: writeData } = useContractWrite({
     address: LENSHUB_PROXY_ADDRESS,
     abi: LENSHUB_PROXY_ABI,
-    functionName: 'setDispatcher',
+    functionName: 'changeDelegatedExecutorsConfig',
     onSuccess: () => {
       setUserSigNonce(userSigNonce + 1)
     },
@@ -85,9 +86,9 @@ const Toggle = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indexed])
 
-  const [createDispatcherTypedData] = useCreateSetDispatcherTypedDataMutation({
-    onCompleted: async ({ createSetDispatcherTypedData }) => {
-      const { id, typedData } = createSetDispatcherTypedData
+  const [toggleLensManager] = useCreateChangeProfileManagersTypedDataMutation({
+    onCompleted: async ({ createChangeProfileManagersTypedData }) => {
+      const { id, typedData } = createChangeProfileManagersTypedData
       try {
         toast.loading(REQUESTING_SIGNATURE_MESSAGE)
         const signature = await signTypedDataAsync(getSignature(typedData))
@@ -95,9 +96,21 @@ const Toggle = () => {
           variables: { request: { id, signature } }
         })
         if (data?.broadcastOnchain?.__typename === 'RelayError') {
-          const { profileId, dispatcher } = typedData.value
+          const {
+            delegatorProfileId,
+            delegatedExecutors,
+            approvals,
+            configNumber,
+            switchToGivenConfig
+          } = typedData.value
           return write?.({
-            args: [profileId, dispatcher]
+            args: [
+              delegatorProfileId,
+              delegatedExecutors,
+              approvals,
+              configNumber,
+              switchToGivenConfig
+            ]
           })
         }
       } catch {
@@ -109,11 +122,10 @@ const Toggle = () => {
 
   const onClick = () => {
     setLoading(true)
-    createDispatcherTypedData({
+    toggleLensManager({
       variables: {
         request: {
-          profileId: activeChannel?.id,
-          enable: !canUseRelay
+          approveLensManager: !canUseRelay
         }
       }
     })
