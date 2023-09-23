@@ -1,10 +1,12 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import MetaTags from '@components/Common/MetaTags'
 import useEthersWalletClient from '@hooks/useEthersWalletClient'
+import type { MetadataAttribute } from '@lens-protocol/metadata'
 import {
   MarketplaceMetadataAttributeDisplayType,
   MediaVideoMimeType,
   MetadataAttributeType,
+  MetadataLicenseType,
   PublicationContentWarning,
   video
 } from '@lens-protocol/metadata'
@@ -270,11 +272,32 @@ const UploadSteps = () => {
         loading: true
       })
       uploadedVideo.videoSource = videoSource
-
+      const attributes: MetadataAttribute[] = [
+        {
+          type: MetadataAttributeType.STRING,
+          key: 'durationInSeconds',
+          value: String(uploadedVideo.durationInSeconds)
+        },
+        {
+          type: MetadataAttributeType.STRING,
+          key: 'handle',
+          value: `${activeChannel?.handle}`
+        },
+        {
+          type: MetadataAttributeType.STRING,
+          key: 'app',
+          value: LENSTUBE_APP_ID
+        }
+      ]
       const metadata = video({
         video: {
           item: uploadedVideo.videoSource,
-          type: MediaVideoMimeType.MP4
+          type: MediaVideoMimeType.MP4,
+          altTag: uploadedVideo.title,
+          attributes,
+          cover: uploadedVideo.thumbnail,
+          duration: uploadedVideo.durationInSeconds,
+          license: MetadataLicenseType.CCO
         },
         appId: LENSTUBE_APP_ID,
         id: uuidv4(),
@@ -285,23 +308,7 @@ const UploadSteps = () => {
             type: MediaVideoMimeType.MP4
           }
         ],
-        attributes: [
-          {
-            type: MetadataAttributeType.STRING,
-            key: 'durationInSeconds',
-            value: uploadedVideo.durationInSeconds ?? '0'
-          },
-          {
-            type: MetadataAttributeType.STRING,
-            key: 'handle',
-            value: `${activeChannel?.handle}`
-          },
-          {
-            type: MetadataAttributeType.STRING,
-            key: 'app',
-            value: LENSTUBE_APP_ID
-          }
-        ],
+        attributes,
         content: trimify(
           `${uploadedVideo.title}\n\n${uploadedVideo.description}`
         ),

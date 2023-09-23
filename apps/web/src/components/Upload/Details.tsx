@@ -43,9 +43,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
   const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
 
-  const isByteSizeVideo = checkIsBytesVideo(
-    Number(uploadedVideo.durationInSeconds)
-  )
+  const isByteSizeVideo = checkIsBytesVideo(uploadedVideo.durationInSeconds)
 
   const {
     handleSubmit,

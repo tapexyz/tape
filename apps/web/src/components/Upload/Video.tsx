@@ -30,7 +30,7 @@ const Video = () => {
   const onDataLoaded = () => {
     if (videoRef.current?.duration && videoRef.current?.duration !== Infinity) {
       setUploadedVideo({
-        durationInSeconds: videoRef.current.duration.toFixed(2)
+        durationInSeconds: videoRef.current.duration
       })
     }
   }

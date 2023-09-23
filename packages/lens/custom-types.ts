@@ -69,7 +69,7 @@ export type UploadedVideo = {
   uploadingThumbnail: boolean
   videoSource: string
   buttonText: string
-  durationInSeconds: string | null
+  durationInSeconds: number
   collectModule: CollectModuleType
   referenceModule: ReferenceModuleType
   isByteVideo: boolean
