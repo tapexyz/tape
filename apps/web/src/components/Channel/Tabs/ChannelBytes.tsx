@@ -7,7 +7,7 @@ import {
   SCROLL_ROOT_MARGIN
 } from '@lenstube/constants'
 import type {
-  MirrorablePublication,
+  AnyPublication,
   Profile,
   PublicationsRequest
 } from '@lenstube/lens'
@@ -31,7 +31,8 @@ const ChannelBytes: FC<Props> = ({ channel }) => {
     where: {
       metadata: { publishedOn: [LENSTUBE_BYTES_APP_ID] },
       publicationTypes: [PublicationType.Post],
-      customFilters: LENS_CUSTOM_FILTERS
+      customFilters: LENS_CUSTOM_FILTERS,
+      from: channel.id
     },
     limit: LimitType.TwentyFive
   }
@@ -41,7 +42,7 @@ const ChannelBytes: FC<Props> = ({ channel }) => {
     skip: !channel?.id
   })
 
-  const bytes = data?.publications?.items as MirrorablePublication[]
+  const bytes = data?.publications?.items as AnyPublication[]
   const pageInfo = data?.publications?.pageInfo
 
   const { observe } = useInView({

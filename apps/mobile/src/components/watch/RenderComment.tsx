@@ -1,6 +1,6 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { getShortHandTime, trimify } from '@lenstube/generic'
-import { Comment } from '@lenstube/lens'
+import type { Comment } from '@lenstube/lens'
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import React from 'react'
 import { StyleSheet, Text, useWindowDimensions, View } from 'react-native'
@@ -33,7 +33,7 @@ const styles = (themeConfig: MobileThemeConfig) =>
     }
   })
 
-const Comment = ({
+const RenderComment = ({
   comment,
   numberOfLines,
   richText = false
@@ -97,4 +97,4 @@ const Comment = ({
   )
 }
 
-export default Comment
+export default RenderComment

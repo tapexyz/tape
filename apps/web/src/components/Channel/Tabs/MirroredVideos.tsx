@@ -23,16 +23,17 @@ type Props = {
   channel: Profile
 }
 
-const request: PublicationsRequest = {
-  where: {
-    metadata: { mainContentFocus: [PublicationMetadataMainFocusType.Video] },
-    publicationTypes: [PublicationType.Mirror],
-    customFilters: LENS_CUSTOM_FILTERS
-  },
-  limit: LimitType.TwentyFive
-}
-
 const MirroredVideos: FC<Props> = ({ channel }) => {
+  const request: PublicationsRequest = {
+    where: {
+      metadata: { mainContentFocus: [PublicationMetadataMainFocusType.Video] },
+      publicationTypes: [PublicationType.Mirror],
+      customFilters: LENS_CUSTOM_FILTERS,
+      from: channel.id
+    },
+    limit: LimitType.TwentyFive
+  }
+
   const { data, loading, error, fetchMore } = usePublicationsQuery({
     variables: {
       request: {

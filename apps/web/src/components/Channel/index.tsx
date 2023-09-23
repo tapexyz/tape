@@ -21,7 +21,7 @@ const Channel = () => {
 
   const { data, loading, error } = useProfileQuery({
     variables: {
-      request: { forHandle: trimLensHandle(`test/@${handle}`) }
+      request: { forHandle: `test/@${trimLensHandle(handle as string)}` }
     },
     skip: !handle
   })

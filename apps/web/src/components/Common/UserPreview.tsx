@@ -20,7 +20,7 @@ type Props = {
   children: ReactNode
 }
 
-const UserPreview: FC<Props> = ({ profile, children }) => {
+const ProfilePreview: FC<Props> = ({ profile, children }) => {
   const Preview = () => {
     return (
       <>
@@ -80,7 +80,7 @@ const UserPreview: FC<Props> = ({ profile, children }) => {
       arrow={false}
       interactive
       zIndex={1000}
-      className="preview-tippy-content hidden w-72 overflow-hidden !rounded-xl border !bg-white !text-black dark:border-gray-700 dark:!bg-black dark:!text-white md:block"
+      className="preview-tippy-content hidden w-72 overflow-hidden !rounded-xl border-[0.5px] !bg-white !text-black !shadow-2xl dark:border-gray-700 dark:!bg-black dark:!text-white md:block"
       appendTo={() => document.body}
     >
       <span>{children}</span>
@@ -88,4 +88,4 @@ const UserPreview: FC<Props> = ({ profile, children }) => {
   )
 }
 
-export default UserPreview
+export default ProfilePreview

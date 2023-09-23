@@ -11,7 +11,7 @@ import {
 } from '@lenstube/constants'
 import { getValueFromKeyInAttributes } from '@lenstube/generic'
 import type {
-  MirrorablePublication,
+  AnyPublication,
   Profile,
   PublicationsRequest
 } from '@lenstube/lens'
@@ -34,26 +34,27 @@ type Props = {
   channel: Profile
 }
 
-const request: PublicationsRequest = {
-  where: {
-    metadata: {
-      mainContentFocus: [PublicationMetadataMainFocusType.Video],
-      publishedOn: IS_MAINNET
-        ? [LENSTUBE_APP_ID, ...ALLOWED_APP_IDS]
-        : undefined
-    },
-    publicationTypes: [PublicationType.Post],
-    customFilters: LENS_CUSTOM_FILTERS
-  },
-  limit: LimitType.TwentyFive
-}
-
 const ChannelVideos: FC<Props> = ({ channel }) => {
   const queuedVideos = usePersistStore((state) => state.queuedVideos)
   const pinnedVideoId = getValueFromKeyInAttributes(
     channel?.metadata?.attributes,
     'pinnedPublicationId'
   )
+
+  const request: PublicationsRequest = {
+    where: {
+      metadata: {
+        mainContentFocus: [PublicationMetadataMainFocusType.Video],
+        publishedOn: IS_MAINNET
+          ? [LENSTUBE_APP_ID, ...ALLOWED_APP_IDS]
+          : undefined
+      },
+      publicationTypes: [PublicationType.Post],
+      customFilters: LENS_CUSTOM_FILTERS,
+      from: channel.id
+    },
+    limit: LimitType.TwentyFive
+  }
 
   const { data, loading, error, fetchMore } = usePublicationsQuery({
     variables: {
@@ -62,7 +63,7 @@ const ChannelVideos: FC<Props> = ({ channel }) => {
     skip: !channel?.id
   })
 
-  const channelVideos = data?.publications?.items as MirrorablePublication[]
+  const channelVideos = data?.publications?.items as AnyPublication[]
   const pageInfo = data?.publications?.pageInfo
 
   const { observe } = useInView({

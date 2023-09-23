@@ -4,6 +4,7 @@ import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { Button } from '@components/UIElements/Button'
 import { LENS_CUSTOM_FILTERS, SCROLL_ROOT_MARGIN } from '@lenstube/constants'
 import type {
+  AnyPublication,
   Comment,
   MirrorablePublication,
   PublicationsRequest
@@ -43,7 +44,7 @@ const NonRelevantComments: FC<Props> = ({ video, className }) => {
     variables: { request }
   })
 
-  const comments = data?.publications?.items as Comment[]
+  const comments = data?.publications?.items as AnyPublication[]
   const pageInfo = data?.publications?.pageInfo
 
   const { observe } = useInView({
@@ -96,7 +97,7 @@ const NonRelevantComments: FC<Props> = ({ video, className }) => {
                 !comment.isHidden && (
                   <RenderComment
                     key={`${comment?.id}_${comment.createdAt}`}
-                    comment={comment}
+                    comment={comment as Comment}
                   />
                 )
             )}

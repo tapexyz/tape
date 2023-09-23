@@ -15,7 +15,6 @@ import {
   TriStateValue,
   usePublicationsQuery
 } from '@lenstube/lens'
-import { CustomCommentsFilterEnum } from '@lenstube/lens/custom-types'
 import { Loader } from '@lenstube/ui'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
@@ -55,12 +54,18 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
     limit: LimitType.TwentyFive,
     where: {
       customFilters: LENS_CUSTOM_FILTERS,
-      commentOn: video.id
+      commentOn: {
+        id: video.id
+        // commentsRankingFilter:
+        //   selectedCommentFilter === CustomCommentsFilterEnum.RELEVANT_COMMENTS
+        //     ? CommentRankingFilterType.Relevant
+        //     : CommentRankingFilterType.NoneRelevant
+      }
     },
-    orderBy:
-      selectedCommentFilter === CustomCommentsFilterEnum.NEWEST_COMMENTS
-        ? PublicationsOrderByType.Latest
-        : PublicationsOrderByType.CommentOfQueryRanking
+    orderBy: PublicationsOrderByType.Latest
+    // selectedCommentFilter === CustomCommentsFilterEnum.NEWEST_COMMENTS
+    //   ? PublicationsOrderByType.Latest
+    //   : PublicationsOrderByType.CommentOfQueryRanking
   }
 
   const { data, loading, error, fetchMore } = usePublicationsQuery({
