@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "base64url": "^3.0.1",
-    "viem": "^1.11.0"
+    "viem": "^1.12.1"
   },
   "devDependencies": {
     "@lenstube/config": "*",
