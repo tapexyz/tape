@@ -3,52 +3,47 @@ import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { Button } from '@components/UIElements/Button'
 import { LENS_CUSTOM_FILTERS, SCROLL_ROOT_MARGIN } from '@lenstube/constants'
-import type { Publication } from '@lenstube/lens'
+import type {
+  Comment,
+  MirrorablePublication,
+  PublicationsRequest
+} from '@lenstube/lens'
 import {
-  CommentOrderingTypes,
-  CommentRankingFilter,
-  useCommentsQuery
+  LimitType,
+  PublicationsOrderByType,
+  usePublicationsQuery
 } from '@lenstube/lens'
 import { Loader } from '@lenstube/ui'
-import useAuthPersistStore from '@lib/store/auth'
 import { t } from '@lingui/macro'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 
-import Comment from './Comment'
+import RenderComment from './RenderComment'
 
 type Props = {
-  video: Publication
+  video: MirrorablePublication
   className?: string
 }
 
 const NonRelevantComments: FC<Props> = ({ video, className }) => {
   const [showSection, setShowSection] = useState(false)
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
 
-  const request = {
-    limit: 10,
-    customFilters: LENS_CUSTOM_FILTERS,
-    commentsOf: video.id,
-    commentsOfOrdering: CommentOrderingTypes.Ranking,
-    commentsRankingFilter: CommentRankingFilter.NoneRelevant
-  }
-  const variables = {
-    request,
-    reactionRequest: selectedSimpleProfile
-      ? { profileId: selectedSimpleProfile?.id }
-      : null,
-    channelId: selectedSimpleProfile?.id ?? null
+  const request: PublicationsRequest = {
+    limit: LimitType.TwentyFive,
+    where: {
+      customFilters: LENS_CUSTOM_FILTERS,
+
+      commentOn: video.id
+    },
+    orderBy: PublicationsOrderByType.CommentOfQueryRanking
   }
 
-  const { data, loading, fetchMore } = useCommentsQuery({
-    variables
+  const { data, loading, fetchMore } = usePublicationsQuery({
+    variables: { request }
   })
 
-  const comments = data?.publications?.items as Publication[]
+  const comments = data?.publications?.items as Comment[]
   const pageInfo = data?.publications?.pageInfo
 
   const { observe } = useInView({
@@ -56,7 +51,6 @@ const NonRelevantComments: FC<Props> = ({ video, className }) => {
     onEnter: async () => {
       await fetchMore({
         variables: {
-          ...variables,
           request: {
             ...request,
             cursor: pageInfo?.next
@@ -98,9 +92,9 @@ const NonRelevantComments: FC<Props> = ({ video, className }) => {
           <div className="space-y-4 pt-6">
             {loading && <CommentsShimmer />}
             {comments?.map(
-              (comment: Publication) =>
-                !comment.hidden && (
-                  <Comment
+              (comment) =>
+                !comment.isHidden && (
+                  <RenderComment
                     key={`${comment?.id}_${comment.createdAt}`}
                     comment={comment}
                   />

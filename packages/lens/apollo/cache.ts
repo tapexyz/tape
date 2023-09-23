@@ -8,50 +8,42 @@ const cache = new InMemoryCache({
   typePolicies: {
     Query: {
       fields: {
-        feed: cursorBasedPagination(['request', ['profileId', 'metadata']]),
+        feed: cursorBasedPagination(['request', ['where']]),
         explorePublications: cursorBasedPagination([
           'request',
-          ['sortCriteria', 'noRandomize', 'profileId', 'sources', 'metadata']
+          ['orderBy', 'limit', 'where']
         ]),
         publicationsProfileBookmarks: cursorBasedPagination([
           'request',
-          ['profileId', 'metadata']
+          ['orderBy', 'limit', 'where']
         ]),
         publications: cursorBasedPagination([
           'request',
-          [
-            'profileId',
-            'commentsOf',
-            'publicationTypes',
-            'sources',
-            'commentsRankingFilter',
-            'commentsOfOrdering',
-            'metadata'
-          ]
+          ['orderBy', 'limit', 'where']
         ]),
-        nfts: cursorBasedPagination(['request', ['ownerAddress']]),
+        nfts: cursorBasedPagination(['request', ['limit', 'where']]),
         notifications: cursorBasedPagination([
           'request',
           ['profileId', 'notificationTypes', 'highSignalFilter']
         ]),
-        followers: cursorBasedPagination(['request', ['profileId']]),
-        following: cursorBasedPagination(['request', ['address']]),
-        search: cursorBasedPagination(['request', ['query', 'type']]),
-        profiles: cursorBasedPagination([
+        followers: cursorBasedPagination(['request', ['limit', 'of']]),
+        following: cursorBasedPagination(['request', ['limit', 'for']]),
+        searchProfiles: cursorBasedPagination([
           'request',
-          ['profileIds', 'ownedBy', 'handles', 'whoMirroredPublicationId']
+          ['limit', 'query', 'where']
         ]),
+        searchPublications: cursorBasedPagination([
+          'request',
+          ['limit', 'query', 'where']
+        ]),
+        profiles: cursorBasedPagination(['request', ['limit', 'where']]),
         whoCollectedPublication: cursorBasedPagination([
           'request',
-          ['publicationId']
-        ]),
-        whoReactedPublication: cursorBasedPagination([
-          'request',
-          ['publicationId']
+          ['limit', 'where', 'on']
         ]),
         mutualFollowersProfiles: cursorBasedPagination([
           'request',
-          ['viewingProfileId', 'yourProfileId', 'limit']
+          ['limit', 'viewing', 'observer']
         ])
       }
     }

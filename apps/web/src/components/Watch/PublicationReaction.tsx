@@ -8,6 +8,7 @@ import {
   useAddReactionMutation,
   useRemoveReactionMutation
 } from '@lenstube/lens'
+import type { PublicationOperationsWithHasDownVoted } from '@lenstube/lens/custom-types'
 import useAuthPersistStore from '@lib/store/auth'
 import { t, Trans } from '@lingui/macro'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
@@ -40,7 +41,9 @@ const PublicationReaction: FC<Props> = ({
 
   const [reaction, setReaction] = useState({
     isLiked: targetPublication.operations.hasReacted,
-    isDisliked: !targetPublication.operations.hasReacted,
+    isDisliked: (
+      targetPublication.operations as PublicationOperationsWithHasDownVoted
+    ).hasDownvoted,
     likeCount: targetPublication.stats?.reactions
   })
 

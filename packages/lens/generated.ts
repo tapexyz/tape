@@ -6385,6 +6385,7 @@ export type CommentFieldsFragment = {
     canComment: TriStateValue
     canMirror: TriStateValue
     hasMirrored: boolean
+    hasDownvoted: boolean
     hasActed: {
       __typename?: 'OptimisticStatusResult'
       value: boolean
@@ -8778,6 +8779,7 @@ export type PostFieldsFragment = {
     canComment: TriStateValue
     canMirror: TriStateValue
     hasMirrored: boolean
+    hasDownvoted: boolean
     hasActed: {
       __typename?: 'OptimisticStatusResult'
       value: boolean
@@ -10729,6 +10731,7 @@ export type PublicationOperationFieldsFragment = {
   canComment: TriStateValue
   canMirror: TriStateValue
   hasMirrored: boolean
+  hasDownvoted: boolean
   hasActed: {
     __typename?: 'OptimisticStatusResult'
     value: boolean
@@ -10924,6 +10927,7 @@ export type QuoteFieldsFragment = {
     canComment: TriStateValue
     canMirror: TriStateValue
     hasMirrored: boolean
+    hasDownvoted: boolean
     hasActed: {
       __typename?: 'OptimisticStatusResult'
       value: boolean
@@ -15665,6 +15669,7 @@ export type ExplorePublicationsQuery = {
             canComment: TriStateValue
             canMirror: TriStateValue
             hasMirrored: boolean
+            hasDownvoted: boolean
             hasActed: {
               __typename?: 'OptimisticStatusResult'
               value: boolean
@@ -17660,6 +17665,7 @@ export type ExplorePublicationsQuery = {
             canComment: TriStateValue
             canMirror: TriStateValue
             hasMirrored: boolean
+            hasDownvoted: boolean
             hasActed: {
               __typename?: 'OptimisticStatusResult'
               value: boolean
@@ -19673,6 +19679,7 @@ export type FeedHighlightsQuery = {
             canComment: TriStateValue
             canMirror: TriStateValue
             hasMirrored: boolean
+            hasDownvoted: boolean
             hasActed: {
               __typename?: 'OptimisticStatusResult'
               value: boolean
@@ -21668,6 +21675,7 @@ export type FeedHighlightsQuery = {
             canComment: TriStateValue
             canMirror: TriStateValue
             hasMirrored: boolean
+            hasDownvoted: boolean
             hasActed: {
               __typename?: 'OptimisticStatusResult'
               value: boolean
@@ -24417,6 +24425,7 @@ export type NotificationsQuery = {
                   canComment: TriStateValue
                   canMirror: TriStateValue
                   hasMirrored: boolean
+                  hasDownvoted: boolean
                   hasActed: {
                     __typename?: 'OptimisticStatusResult'
                     value: boolean
@@ -26659,6 +26668,7 @@ export type NotificationsQuery = {
                   canComment: TriStateValue
                   canMirror: TriStateValue
                   hasMirrored: boolean
+                  hasDownvoted: boolean
                   hasActed: {
                     __typename?: 'OptimisticStatusResult'
                     value: boolean
@@ -28887,6 +28897,7 @@ export type NotificationsQuery = {
               canComment: TriStateValue
               canMirror: TriStateValue
               hasMirrored: boolean
+              hasDownvoted: boolean
               hasActed: {
                 __typename?: 'OptimisticStatusResult'
                 value: boolean
@@ -31049,6 +31060,7 @@ export type NotificationsQuery = {
                   canComment: TriStateValue
                   canMirror: TriStateValue
                   hasMirrored: boolean
+                  hasDownvoted: boolean
                   hasActed: {
                     __typename?: 'OptimisticStatusResult'
                     value: boolean
@@ -33278,6 +33290,7 @@ export type NotificationsQuery = {
                   canComment: TriStateValue
                   canMirror: TriStateValue
                   hasMirrored: boolean
+                  hasDownvoted: boolean
                   hasActed: {
                     __typename?: 'OptimisticStatusResult'
                     value: boolean
@@ -35501,6 +35514,7 @@ export type NotificationsQuery = {
                   canComment: TriStateValue
                   canMirror: TriStateValue
                   hasMirrored: boolean
+                  hasDownvoted: boolean
                   hasActed: {
                     __typename?: 'OptimisticStatusResult'
                     value: boolean
@@ -37890,6 +37904,7 @@ export type NotificationsQuery = {
                   canComment: TriStateValue
                   canMirror: TriStateValue
                   hasMirrored: boolean
+                  hasDownvoted: boolean
                   hasActed: {
                     __typename?: 'OptimisticStatusResult'
                     value: boolean
@@ -40119,6 +40134,7 @@ export type NotificationsQuery = {
                   canComment: TriStateValue
                   canMirror: TriStateValue
                   hasMirrored: boolean
+                  hasDownvoted: boolean
                   hasActed: {
                     __typename?: 'OptimisticStatusResult'
                     value: boolean
@@ -42342,6 +42358,7 @@ export type NotificationsQuery = {
                   canComment: TriStateValue
                   canMirror: TriStateValue
                   hasMirrored: boolean
+                  hasDownvoted: boolean
                   hasActed: {
                     __typename?: 'OptimisticStatusResult'
                     value: boolean
@@ -44573,6 +44590,7 @@ export type NotificationsQuery = {
               canComment: TriStateValue
               canMirror: TriStateValue
               hasMirrored: boolean
+              hasDownvoted: boolean
               hasActed: {
                 __typename?: 'OptimisticStatusResult'
                 value: boolean
@@ -46580,6 +46598,7 @@ export type NotificationsQuery = {
                   canComment: TriStateValue
                   canMirror: TriStateValue
                   hasMirrored: boolean
+                  hasDownvoted: boolean
                   hasActed: {
                     __typename?: 'OptimisticStatusResult'
                     value: boolean
@@ -48809,6 +48828,7 @@ export type NotificationsQuery = {
                   canComment: TriStateValue
                   canMirror: TriStateValue
                   hasMirrored: boolean
+                  hasDownvoted: boolean
                   hasActed: {
                     __typename?: 'OptimisticStatusResult'
                     value: boolean
@@ -51032,6 +51052,7 @@ export type NotificationsQuery = {
                   canComment: TriStateValue
                   canMirror: TriStateValue
                   hasMirrored: boolean
+                  hasDownvoted: boolean
                   hasActed: {
                     __typename?: 'OptimisticStatusResult'
                     value: boolean
@@ -53577,6 +53598,7 @@ export type FeedQuery = {
               canComment: TriStateValue
               canMirror: TriStateValue
               hasMirrored: boolean
+              hasDownvoted: boolean
               hasActed: {
                 __typename?: 'OptimisticStatusResult'
                 value: boolean
@@ -55581,6 +55603,7 @@ export type FeedQuery = {
               canComment: TriStateValue
               canMirror: TriStateValue
               hasMirrored: boolean
+              hasDownvoted: boolean
               hasActed: {
                 __typename?: 'OptimisticStatusResult'
                 value: boolean
@@ -57965,6 +57988,7 @@ export type PublicationQuery = {
           canComment: TriStateValue
           canMirror: TriStateValue
           hasMirrored: boolean
+          hasDownvoted: boolean
           hasActed: {
             __typename?: 'OptimisticStatusResult'
             value: boolean
@@ -59975,6 +59999,7 @@ export type PublicationQuery = {
           canComment: TriStateValue
           canMirror: TriStateValue
           hasMirrored: boolean
+          hasDownvoted: boolean
           hasActed: {
             __typename?: 'OptimisticStatusResult'
             value: boolean
@@ -61966,6 +61991,7 @@ export type PublicationQuery = {
           canComment: TriStateValue
           canMirror: TriStateValue
           hasMirrored: boolean
+          hasDownvoted: boolean
           hasActed: {
             __typename?: 'OptimisticStatusResult'
             value: boolean
@@ -63977,6 +64003,7 @@ export type PublicationBookmarksQuery = {
             canComment: TriStateValue
             canMirror: TriStateValue
             hasMirrored: boolean
+            hasDownvoted: boolean
             hasActed: {
               __typename?: 'OptimisticStatusResult'
               value: boolean
@@ -65991,6 +66018,7 @@ export type PublicationBookmarksQuery = {
             canComment: TriStateValue
             canMirror: TriStateValue
             hasMirrored: boolean
+            hasDownvoted: boolean
             hasActed: {
               __typename?: 'OptimisticStatusResult'
               value: boolean
@@ -67986,6 +68014,7 @@ export type PublicationBookmarksQuery = {
             canComment: TriStateValue
             canMirror: TriStateValue
             hasMirrored: boolean
+            hasDownvoted: boolean
             hasActed: {
               __typename?: 'OptimisticStatusResult'
               value: boolean
@@ -69999,6 +70028,7 @@ export type PublicationsQuery = {
             canComment: TriStateValue
             canMirror: TriStateValue
             hasMirrored: boolean
+            hasDownvoted: boolean
             hasActed: {
               __typename?: 'OptimisticStatusResult'
               value: boolean
@@ -72013,6 +72043,7 @@ export type PublicationsQuery = {
             canComment: TriStateValue
             canMirror: TriStateValue
             hasMirrored: boolean
+            hasDownvoted: boolean
             hasActed: {
               __typename?: 'OptimisticStatusResult'
               value: boolean
@@ -74008,6 +74039,7 @@ export type PublicationsQuery = {
             canComment: TriStateValue
             canMirror: TriStateValue
             hasMirrored: boolean
+            hasDownvoted: boolean
             hasActed: {
               __typename?: 'OptimisticStatusResult'
               value: boolean
@@ -76021,6 +76053,7 @@ export type RevenueFromPublicationQuery = {
             canComment: TriStateValue
             canMirror: TriStateValue
             hasMirrored: boolean
+            hasDownvoted: boolean
             hasActed: {
               __typename?: 'OptimisticStatusResult'
               value: boolean
@@ -78035,6 +78068,7 @@ export type RevenueFromPublicationQuery = {
             canComment: TriStateValue
             canMirror: TriStateValue
             hasMirrored: boolean
+            hasDownvoted: boolean
             hasActed: {
               __typename?: 'OptimisticStatusResult'
               value: boolean
@@ -80030,6 +80064,7 @@ export type RevenueFromPublicationQuery = {
             canComment: TriStateValue
             canMirror: TriStateValue
             hasMirrored: boolean
+            hasDownvoted: boolean
             hasActed: {
               __typename?: 'OptimisticStatusResult'
               value: boolean
@@ -82064,6 +82099,7 @@ export type RevenueFromPublicationsQuery = {
               canComment: TriStateValue
               canMirror: TriStateValue
               hasMirrored: boolean
+              hasDownvoted: boolean
               hasActed: {
                 __typename?: 'OptimisticStatusResult'
                 value: boolean
@@ -84081,6 +84117,7 @@ export type RevenueFromPublicationsQuery = {
               canComment: TriStateValue
               canMirror: TriStateValue
               hasMirrored: boolean
+              hasDownvoted: boolean
               hasActed: {
                 __typename?: 'OptimisticStatusResult'
                 value: boolean
@@ -86079,6 +86116,7 @@ export type RevenueFromPublicationsQuery = {
               canComment: TriStateValue
               canMirror: TriStateValue
               hasMirrored: boolean
+              hasDownvoted: boolean
               hasActed: {
                 __typename?: 'OptimisticStatusResult'
                 value: boolean
@@ -88257,6 +88295,7 @@ export type SearchPublicationsQuery = {
             canComment: TriStateValue
             canMirror: TriStateValue
             hasMirrored: boolean
+            hasDownvoted: boolean
             hasActed: {
               __typename?: 'OptimisticStatusResult'
               value: boolean
@@ -90258,6 +90297,7 @@ export type SearchPublicationsQuery = {
             canComment: TriStateValue
             canMirror: TriStateValue
             hasMirrored: boolean
+            hasDownvoted: boolean
             hasActed: {
               __typename?: 'OptimisticStatusResult'
               value: boolean
@@ -92253,6 +92293,7 @@ export type SearchPublicationsQuery = {
             canComment: TriStateValue
             canMirror: TriStateValue
             hasMirrored: boolean
+            hasDownvoted: boolean
             hasActed: {
               __typename?: 'OptimisticStatusResult'
               value: boolean
@@ -94502,6 +94543,7 @@ export const PublicationOperationFieldsFragmentDoc = gql`
       }
     }
     hasReacted(request: { type: UPVOTE })
+    hasDownvoted: hasReacted(request: { type: DOWNVOTE })
     canComment
     canMirror
     hasMirrored

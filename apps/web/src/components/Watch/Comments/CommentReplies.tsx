@@ -12,9 +12,13 @@ import {
   getRelativeTime,
   trimLensHandle
 } from '@lenstube/generic'
-import type { Profile, Publication } from '@lenstube/lens'
-import { useCommentsQuery } from '@lenstube/lens'
-import useAuthPersistStore from '@lib/store/auth'
+import type {
+  AnyPublication,
+  Comment,
+  Profile,
+  PublicationsRequest
+} from '@lenstube/lens'
+import { LimitType, usePublicationsQuery } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import Link from 'next/link'
@@ -26,23 +30,25 @@ import CommentMedia from './CommentMedia'
 import CommentOptions from './CommentOptions'
 
 type ReplyContentProps = {
-  comment: Publication
+  comment: Comment
 }
 
 const ReplyContent: FC<ReplyContentProps> = ({ comment }) => {
   const [clamped, setClamped] = useState(false)
   const [showMore, setShowMore] = useState(false)
   useEffect(() => {
-    if (comment?.metadata?.content.trim().length > 500) {
+    if (comment?.metadata?.marketplace?.description.trim().length > 500) {
       setClamped(true)
       setShowMore(true)
     }
-  }, [comment?.metadata?.content])
+  }, [comment?.metadata?.marketplace?.description])
 
   return (
     <>
       <div className={clsx({ 'line-clamp-2': clamped })}>
-        <InterweaveContent content={comment?.metadata?.content} />
+        <InterweaveContent
+          content={comment?.metadata?.marketplace?.description}
+        />
       </div>
       {showMore && (
         <div className="inline-flex">
@@ -71,42 +77,33 @@ const ReplyContent: FC<ReplyContentProps> = ({ comment }) => {
 }
 
 type Props = {
-  comment: Publication
+  comment: Comment
   replyTo: (profile: Profile) => void
 }
 
 const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
   const [showReport, setShowReport] = useState(false)
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
 
-  const request = {
-    limit: 10,
-    customFilters: LENS_CUSTOM_FILTERS,
-    commentsOf: comment.id
-  }
-  const variables = {
-    request,
-    reactionRequest: selectedSimpleProfile
-      ? { profileId: selectedSimpleProfile?.id }
-      : null,
-    channelId: selectedSimpleProfile?.id ?? null
+  const request: PublicationsRequest = {
+    limit: LimitType.Ten,
+    where: {
+      customFilters: LENS_CUSTOM_FILTERS,
+      commentOn: comment.id
+    }
   }
 
-  const { data, loading, error, fetchMore } = useCommentsQuery({
-    variables,
+  const { data, loading, error, fetchMore } = usePublicationsQuery({
+    variables: { request },
     skip: !comment.id
   })
 
-  const comments = data?.publications?.items as Publication[]
+  const comments = data?.publications?.items as AnyPublication[]
   const pageInfo = data?.publications?.pageInfo
   const hasMore = comments?.length > 10
 
   const loadMore = async () => {
     await fetchMore({
       variables: {
-        ...variables,
         request: {
           ...request,
           cursor: pageInfo?.next
@@ -126,42 +123,40 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
   return (
     <div className={clsx(comments.length && 'space-y-6')}>
       {comments?.map(
-        (comment: Publication) =>
-          !comment.hidden && (
+        (comment: AnyPublication) =>
+          !comment.isHidden && (
             <div key={comment.id} className="flex items-start justify-between">
               <div className="flex w-full items-start">
                 <Link
-                  href={`/channel/${trimLensHandle(comment.profile?.handle)}`}
+                  href={`/channel/${trimLensHandle(comment.by?.handle)}`}
                   className="mr-3 mt-0.5 flex-none"
                 >
                   <img
-                    src={getProfilePicture(comment.profile, 'AVATAR')}
+                    src={getProfilePicture(comment.by, 'AVATAR')}
                     className="h-7 w-7 rounded-full"
                     draggable={false}
-                    alt={comment.profile?.handle}
+                    alt={comment.by?.handle}
                   />
                 </Link>
                 <div className="mr-2 flex w-full flex-col items-start">
                   <span className="mb-1 flex items-center space-x-2">
                     <Link
-                      href={`/channel/${trimLensHandle(
-                        comment.profile?.handle
-                      )}`}
+                      href={`/channel/${trimLensHandle(comment.by?.handle)}`}
                       className="flex items-center space-x-1 text-sm font-medium"
                     >
-                      <span>{trimLensHandle(comment?.profile?.handle)}</span>
-                      <Badge id={comment?.profile.id} />
+                      <span>{trimLensHandle(comment?.by?.handle)}</span>
+                      <Badge id={comment?.by.id} />
                     </Link>
                     <span className="text-xs opacity-70">
                       {getRelativeTime(comment.createdAt)}
                     </span>
                   </span>
-                  <ReplyContent comment={comment} />
-                  {!comment.hidden && (
+                  <ReplyContent comment={comment as Comment} />
+                  {!comment.isHidden && (
                     <div className="mt-2 flex items-center space-x-4">
                       <PublicationReaction publication={comment} />
                       <button
-                        onClick={() => replyTo(comment.profile)}
+                        onClick={() => replyTo(comment.by)}
                         className="inline-flex items-center space-x-1.5 text-xs focus:outline-none"
                       >
                         <ReplyOutline className="h-3.5 w-3.5" />{' '}

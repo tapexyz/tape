@@ -3,7 +3,6 @@ import { CardShimmer } from '@components/Shimmers/VideoCardShimmer'
 import { LENSTUBE_BYTES_APP_ID } from '@lenstube/constants'
 import {
   getIsSensitiveContent,
-  getPublication,
   getPublicationMediaUrl,
   getThumbnailUrl,
   imageCdn,
@@ -29,20 +28,15 @@ type Props = {
 }
 
 const Video: FC<Props> = ({ video }) => {
-  const targetPublication = getPublication(video)
-  const isSensitiveContent = getIsSensitiveContent(
-    targetPublication.metadata,
-    targetPublication.id
-  )
+  const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
   const videoWatchTime = useAppStore((state) => state.videoWatchTime)
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
 
-  const isBytesVideo =
-    targetPublication.publishedOn?.id === LENSTUBE_BYTES_APP_ID
+  const isBytesVideo = video.publishedOn?.id === LENSTUBE_BYTES_APP_ID
   const thumbnailUrl = imageCdn(
-    sanitizeDStorageUrl(getThumbnailUrl(targetPublication, true)),
+    sanitizeDStorageUrl(getThumbnailUrl(video, true)),
     isBytesVideo ? 'THUMBNAIL_V' : 'THUMBNAIL'
   )
 
@@ -75,13 +69,13 @@ const Video: FC<Props> = ({ video }) => {
             data-testid="watch-video-title"
           >
             <InterweaveContent
-              content={targetPublication.metadata.marketplace?.name as string}
+              content={video.metadata.marketplace?.name as string}
             />
           </h1>
-          <VideoMeta video={targetPublication} />
+          <VideoMeta video={video} />
         </div>
       </div>
-      <VideoActions video={targetPublication} />
+      <VideoActions video={video} />
     </div>
   )
 }

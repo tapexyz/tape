@@ -42,7 +42,7 @@ export const getPublicationMediaCid = (
     url = metadata.attachments?.[0].audio.raw?.uri
   }
   if (
-    metadata.__typename === 'AudioMetadataV3' &&
+    metadata.__typename === 'VideoMetadataV3' &&
     metadata.attachments?.[0].__typename === 'PublicationMetadataMediaVideo'
   ) {
     url = metadata.attachments?.[0].video.raw?.uri

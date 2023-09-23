@@ -10,12 +10,11 @@ import Tooltip from '@components/UIElements/Tooltip'
 import {
   checkValueInAttributes,
   getProfilePicture,
-  getPublication,
   getRelativeTime,
   getValueFromTraitType,
   trimLensHandle
 } from '@lenstube/generic'
-import type { AnyPublication, Attribute } from '@lenstube/lens'
+import type { Attribute, Comment } from '@lenstube/lens'
 import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'
@@ -33,10 +32,10 @@ import NewComment from './NewComment'
 import QueuedComment from './QueuedComment'
 
 interface Props {
-  comment: AnyPublication
+  comment: Comment
 }
 
-const Comment: FC<Props> = ({ comment }) => {
+const RenderComment: FC<Props> = ({ comment }) => {
   const [clamped, setClamped] = useState(false)
   const [showMore, setShowMore] = useState(false)
   const [showReport, setShowReport] = useState(false)
@@ -45,51 +44,47 @@ const Comment: FC<Props> = ({ comment }) => {
   const [defaultComment, setDefaultComment] = useState('')
   const { openConnectModal } = useConnectModal()
 
-  const targetComment = getPublication(comment)
-
   const queuedComments = usePersistStore((state) => state.queuedComments)
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
 
   useEffect(() => {
-    if (targetComment?.metadata?.marketplace?.description.trim().length > 500) {
+    if (comment?.metadata?.marketplace?.description.trim().length > 500) {
       setClamped(true)
       setShowMore(true)
     }
-  }, [targetComment?.metadata])
+  }, [comment?.metadata])
 
   const getIsReplyQueuedComment = () => {
-    return Boolean(
-      queuedComments.filter((c) => c.pubId === targetComment.id)?.length
-    )
+    return Boolean(queuedComments.filter((c) => c.pubId === comment.id)?.length)
   }
 
   return (
     <div className="flex items-start justify-between">
       <div className="flex w-full items-start">
         <Link
-          href={`/channel/${trimLensHandle(targetComment.by?.handle)}`}
+          href={`/channel/${trimLensHandle(comment.by?.handle)}`}
           className="mr-3 mt-0.5 flex-none"
         >
           <img
-            src={getProfilePicture(targetComment.by, 'AVATAR')}
+            src={getProfilePicture(comment.by, 'AVATAR')}
             className="h-7 w-7 rounded-full"
             draggable={false}
-            alt={targetComment.by?.handle}
+            alt={comment.by?.handle}
           />
         </Link>
         <div className="mr-2 flex w-full flex-col items-start">
           <span className="mb-1 flex items-center space-x-2">
             <Link
-              href={`/channel/${trimLensHandle(targetComment.by?.handle)}`}
+              href={`/channel/${trimLensHandle(comment.by?.handle)}`}
               className="flex items-center space-x-1 text-sm font-medium"
             >
-              <span>{trimLensHandle(targetComment?.by?.handle)}</span>
-              <Badge id={targetComment?.by.id} />
+              <span>{trimLensHandle(comment?.by?.handle)}</span>
+              <Badge id={comment?.by.id} />
             </Link>
             {checkValueInAttributes(
-              targetComment?.metadata.marketplace?.attributes as Attribute[],
+              comment?.metadata.marketplace?.attributes as Attribute[],
               'tip'
             ) && (
               <Tooltip placement="top" content="Tipper">
@@ -97,7 +92,7 @@ const Comment: FC<Props> = ({ comment }) => {
                   <HashExplorerLink
                     hash={
                       getValueFromTraitType(
-                        targetComment?.metadata.marketplace
+                        comment?.metadata.marketplace
                           ?.attributes as Attribute[],
                         'hash'
                       ) || ''
@@ -109,12 +104,12 @@ const Comment: FC<Props> = ({ comment }) => {
               </Tooltip>
             )}
             <span className="text-xs opacity-70">
-              {getRelativeTime(targetComment.createdAt)}
+              {getRelativeTime(comment.createdAt)}
             </span>
           </span>
           <div className={clsx({ 'line-clamp-2': clamped })}>
             <InterweaveContent
-              content={targetComment?.metadata?.marketplace?.description}
+              content={comment?.metadata?.marketplace?.description}
             />
           </div>
           {showMore && (
@@ -138,10 +133,10 @@ const Comment: FC<Props> = ({ comment }) => {
               </button>
             </div>
           )}
-          <CommentMedia comment={targetComment} />
-          {!targetComment.isHidden && (
+          <CommentMedia comment={comment} />
+          {!comment.isHidden && (
             <div className="mt-2 flex items-center space-x-4">
-              <PublicationReaction publication={targetComment} />
+              <PublicationReaction publication={comment} />
               <button
                 onClick={() => {
                   if (!selectedSimpleProfile?.id) {
@@ -157,12 +152,12 @@ const Comment: FC<Props> = ({ comment }) => {
                   <Trans>Reply</Trans>
                 </span>
               </button>
-              {targetComment.stats.comments ? (
+              {comment.stats.comments ? (
                 <button
                   onClick={() => setShowReplies(!showReplies)}
                   className="rounded-full bg-indigo-100 px-2 py-1 text-xs focus:outline-none dark:bg-indigo-900/30"
                 >
-                  {targetComment.stats.comments} <Trans>replies</Trans>
+                  {comment.stats.comments} <Trans>replies</Trans>
                 </button>
               ) : null}
             </div>
@@ -176,7 +171,7 @@ const Comment: FC<Props> = ({ comment }) => {
           >
             {queuedComments?.map(
               (queuedComment) =>
-                queuedComment?.pubId === targetComment?.id && (
+                queuedComment?.pubId === comment?.id && (
                   <QueuedComment
                     key={queuedComment?.pubId}
                     queuedComment={queuedComment}
@@ -185,7 +180,7 @@ const Comment: FC<Props> = ({ comment }) => {
             )}
             {showReplies && (
               <CommentReplies
-                comment={targetComment}
+                comment={comment}
                 replyTo={(profile) => {
                   if (!selectedSimpleProfile?.id) {
                     return openConnectModal?.()
@@ -197,7 +192,7 @@ const Comment: FC<Props> = ({ comment }) => {
             )}
             {showNewComment && (
               <NewComment
-                video={targetComment}
+                video={comment}
                 defaultValue={defaultComment}
                 placeholder={t`Write a reply`}
                 hideEmojiPicker
@@ -208,14 +203,14 @@ const Comment: FC<Props> = ({ comment }) => {
       </div>
       <div>
         <ReportModal
-          video={targetComment}
+          video={comment}
           show={showReport}
           setShowReport={setShowReport}
         />
-        <CommentOptions comment={targetComment} setShowReport={setShowReport} />
+        <CommentOptions comment={comment} setShowReport={setShowReport} />
       </div>
     </div>
   )
 }
 
-export default Comment
+export default RenderComment

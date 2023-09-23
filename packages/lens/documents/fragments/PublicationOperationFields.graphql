@@ -18,6 +18,7 @@ fragment PublicationOperationFields on PublicationOperations {
     }
   }
   hasReacted(request: { type: UPVOTE })
+  hasDownvoted: hasReacted(request: { type: DOWNVOTE })
   canComment
   canMirror
   hasMirrored

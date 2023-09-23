@@ -41,10 +41,7 @@ const BytesSection = () => {
         publishedOn: [LENSTUBE_BYTES_APP_ID],
         tags:
           activeTagFilter !== 'all' ? { oneOf: [activeTagFilter] } : undefined,
-        mainContentFocus: [
-          PublicationMetadataMainFocusType.Video,
-          PublicationMetadataMainFocusType.ShortVideo
-        ]
+        mainContentFocus: [PublicationMetadataMainFocusType.ShortVideo]
       }
     },
     orderBy: ExplorePublicationsOrderByType.LensCurated,
