@@ -19,7 +19,7 @@ import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 
-import Login from './Auth/Login'
+import ConnectWalletButton from './Auth/ConnectWalletButton'
 import CategoryFilters from './CategoryFilters'
 import BellOutline from './Icons/BellOutline'
 import NewVideoOutline from './Icons/NewVideoOutline'
@@ -131,7 +131,7 @@ const Header: FC<Props> = ({ className }) => {
                 </Link>
               </>
             ) : null}
-            <Login />
+            <ConnectWalletButton />
           </div>
         </div>
         {showFilter && <CategoryFilters />}

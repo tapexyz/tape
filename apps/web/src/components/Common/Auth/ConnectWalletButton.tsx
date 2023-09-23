@@ -6,19 +6,16 @@ import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAuthPersistStore from '@lib/store/auth'
 import { Trans } from '@lingui/macro'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
-import React from 'react'
+import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useAccount, useDisconnect, useNetwork, useSwitchNetwork } from 'wagmi'
 
 import DisconnectOutline from '../Icons/DisconnectOutline'
 import UserMenu from '../UserMenu'
+import SelectProfile from './SelectProfile'
 
-type Props = {
-  handleSign: () => void
-  signing?: boolean
-}
-
-const ConnectWalletButton = ({ handleSign, signing }: Props) => {
+const ConnectWalletButton = () => {
+  const [showSelectProfile, setShowSelectProfile] = useState(false)
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
@@ -44,15 +41,12 @@ const ConnectWalletButton = ({ handleSign, signing }: Props) => {
         <UserMenu />
       ) : (
         <div className="flex items-center space-x-2">
-          <Button
-            loading={signing}
-            onClick={() => handleSign()}
-            disabled={signing}
-          >
+          <SelectProfile
+            show={showSelectProfile}
+            setShow={setShowSelectProfile}
+          />
+          <Button onClick={() => setShowSelectProfile(true)}>
             <Trans>Sign In</Trans>
-            <span className="ml-1 hidden md:inline-block">
-              <Trans>with Lens</Trans>
-            </span>
           </Button>
           <Tooltip content="Disconnect Wallet">
             <button

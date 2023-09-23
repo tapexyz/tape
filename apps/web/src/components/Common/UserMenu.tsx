@@ -9,7 +9,7 @@ import {
 } from '@lenstube/constants'
 import { getProfilePicture, trimLensHandle } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
-import { useSimpleProfilesLazyQuery } from '@lenstube/lens'
+import { LimitType, useProfilesManagedLazyQuery } from '@lenstube/lens'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import { Loader } from '@lenstube/ui'
 import useAuthPersistStore, { signOut } from '@lib/store/auth'
@@ -65,7 +65,7 @@ const UserMenu = () => {
     }
   })
 
-  const [getAllSimpleProfiles, { loading }] = useSimpleProfilesLazyQuery()
+  const [getAllManagedProfiles, { loading }] = useProfilesManagedLazyQuery()
 
   const isAdmin = ADMIN_IDS.includes(selectedSimpleProfile?.id)
 
@@ -75,7 +75,7 @@ const UserMenu = () => {
     setSelectedSimpleProfile({
       handle: profile.handle,
       id: profile.id,
-      ownedBy: profile.ownedBy.address,
+      ownedBy: profile.ownedBy,
       sponsor: profile.sponsor,
       metadata: profile.metadata,
       stats: profile.stats
@@ -87,13 +87,17 @@ const UserMenu = () => {
   const onSelectSwitchChannel = async () => {
     try {
       setShowAccountSwitcher(true)
-      const { data } = await getAllSimpleProfiles({
+      const { data } = await getAllManagedProfiles({
         variables: {
-          request: { where: { ownedBy: [address] } }
+          request: {
+            for: address,
+            includeOwned: true,
+            limit: LimitType.Fifty
+          }
         },
         fetchPolicy: 'network-only'
       })
-      const allChannels = data?.profiles?.items as Profile[]
+      const allChannels = data?.profilesManaged?.items as Profile[]
       setChannels(allChannels)
     } catch {}
   }

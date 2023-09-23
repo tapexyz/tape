@@ -1,4 +1,4 @@
-import Login from '@components/Common/Auth/Login'
+import ConnectWalletButton from '@components/Common/Auth/ConnectWalletButton'
 import MetaTags from '@components/Common/MetaTags'
 import { LENSTUBE_APP_NAME, STATIC_ASSETS } from '@lenstube/constants'
 import useAuthPersistStore from '@lib/store/auth'
@@ -37,7 +37,7 @@ const AuthRequiredPage = () => {
             <Trans>Connect Wallet & Sign with Lens to continue,</Trans>
           </div>
           <div>
-            <Login />
+            <ConnectWalletButton />
           </div>
         </div>
       </div>
