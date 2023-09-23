@@ -86,7 +86,7 @@ const Login = () => {
     try {
       setLoading(true)
       const challenge = await loadChallenge({
-        variables: { request: { for: address, signedBy: address } }
+        variables: { request: { for: '0x34', signedBy: address } }
       })
       if (!challenge?.data?.challenge?.text) {
         return toast.error(ERROR_MESSAGE)

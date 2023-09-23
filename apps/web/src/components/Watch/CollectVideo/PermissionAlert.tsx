@@ -1,6 +1,5 @@
 import { Button } from '@components/UIElements/Button'
-import { getCollectModuleConfig } from '@lenstube/generic'
-import type { ApprovedAllowanceAmount } from '@lenstube/lens'
+import type { ApprovedAllowanceAmountResult } from '@lenstube/lens'
 import { useGenerateModuleCurrencyApprovalDataLazyQuery } from '@lenstube/lens'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import { t, Trans } from '@lingui/macro'
@@ -12,7 +11,7 @@ import { useSendTransaction, useWaitForTransaction } from 'wagmi'
 type Props = {
   setIsAllowed: Dispatch<boolean>
   isAllowed: boolean
-  allowanceModule: ApprovedAllowanceAmount
+  allowanceModule: ApprovedAllowanceAmountResult
 }
 
 const PermissionAlert: FC<Props> = ({
@@ -46,21 +45,24 @@ const PermissionAlert: FC<Props> = ({
   })
 
   const handleAllowance = async () => {
-    const result = await generateAllowanceQuery({
-      variables: {
-        request: {
-          currency: allowanceModule.currency,
-          value: Number.MAX_SAFE_INTEGER.toString(),
-          [getCollectModuleConfig(allowanceModule.module).type]:
-            allowanceModule.module
-        }
-      }
-    })
-    const data = result?.data?.generateModuleCurrencyApprovalData
-    sendTransaction?.({
-      to: data?.to,
-      data: data?.data
-    })
+    // const result = await generateAllowanceQuery({
+    //   variables: {
+    //     request: {
+    //       allowance: {
+    //         currency: allowanceModule.currency,
+    //         value: Number.MAX_SAFE_INTEGER.toString(),
+    //         [getCollectModuleConfig(allowanceModule.module).type]:
+    //           allowanceModule.module
+    //       },
+    //       module: getCollectModuleConfig(allowanceModule.module).type as any
+    //     }
+    //   }
+    // })
+    // const data = result?.data?.generateModuleCurrencyApprovalData
+    // sendTransaction?.({
+    //   to: data?.to,
+    //   data: data?.data
+    // })
   }
 
   return (

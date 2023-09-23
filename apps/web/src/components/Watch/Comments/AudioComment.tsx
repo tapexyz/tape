@@ -1,10 +1,9 @@
 import { sanitizeDStorageUrl } from '@lenstube/generic'
-import type { Mediaite } from '@lenstube/lens'
 import type { FC } from 'react'
 import React from 'react'
 
 type Props = {
-  media: MediaSet
+  media: any
 }
 
 const AudioComment: FC<Props> = ({ media }) => {

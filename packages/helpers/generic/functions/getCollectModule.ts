@@ -1,9 +1,11 @@
-import type { RecipientDataInput } from '@lenstube/lens'
+import type { OpenActionModuleInput, RecipientDataInput } from '@lenstube/lens'
 import type { CollectModuleType } from '@lenstube/lens/custom-types'
 
 import { getTimeAddedOneDay } from './formatTime'
 
-export const getCollectModule = (selectedCollectModule: CollectModuleType) => {
+export const getCollectModule = (
+  selectedCollectModule: CollectModuleType
+): OpenActionModuleInput => {
   const {
     amount,
     referralFee,
@@ -19,14 +21,14 @@ export const getCollectModule = (selectedCollectModule: CollectModuleType) => {
   // No one can collect the post
   if (selectedCollectModule.isRevertCollect) {
     return {
-      revertCollectModule: true
+      collectOpenAction: null
     }
   }
 
   const baseCollectModuleParams = {
     collectLimit: collectLimitEnabled ? collectLimit : null,
     followerOnly: followerOnlyCollect as boolean,
-    endTimestamp: timeLimitEnabled ? getTimeAddedOneDay() : null
+    endsAt: timeLimitEnabled ? getTimeAddedOneDay() : null
   }
   const baseAmountParams = {
     amount: {
@@ -38,14 +40,19 @@ export const getCollectModule = (selectedCollectModule: CollectModuleType) => {
 
   if (selectedCollectModule.isSimpleCollect && !isMultiRecipientFeeCollect) {
     return {
-      simpleCollectModule: {
-        ...baseCollectModuleParams,
-        ...(isFeeCollect && {
-          fee: {
+      collectOpenAction: {
+        simpleCollectOpenAction: {
+          amount: {
+            currency: amount?.currency,
+            value: amount?.value as string
+          },
+          referralFee: referralFee as number,
+          ...baseCollectModuleParams,
+          ...(isFeeCollect && {
             ...baseAmountParams,
             recipient
-          }
-        })
+          })
+        }
       }
     }
   }
@@ -53,18 +60,27 @@ export const getCollectModule = (selectedCollectModule: CollectModuleType) => {
   // Multi collect / revenue split
   if (selectedCollectModule.isMultiRecipientFeeCollect) {
     return {
-      multirecipientFeeCollectModule: {
-        ...baseAmountParams,
-        ...baseCollectModuleParams,
-        recipients:
-          selectedCollectModule.multiRecipients as RecipientDataInput[]
+      collectOpenAction: {
+        multirecipientCollectOpenAction: {
+          ...baseAmountParams,
+          ...baseCollectModuleParams,
+          recipients:
+            selectedCollectModule.multiRecipients as RecipientDataInput[]
+        }
       }
     }
   }
+
   // Post is free to collect
   return {
-    freeCollectModule: {
-      followerOnly: selectedCollectModule.followerOnlyCollect as boolean
+    collectOpenAction: {
+      simpleCollectOpenAction: {
+        ...baseCollectModuleParams,
+        ...(isFeeCollect && {
+          ...baseAmountParams,
+          recipient
+        })
+      }
     }
   }
 }

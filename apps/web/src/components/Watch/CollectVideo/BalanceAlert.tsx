@@ -1,6 +1,5 @@
 import Alert from '@components/Common/Alert'
 import { IS_MAINNET } from '@lenstube/constants'
-import type { LenstubeCollectModule } from '@lenstube/lens/custom-types'
 import { Trans } from '@lingui/macro'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -13,7 +12,7 @@ const getUniswapURL = (amount: number, outputCurrency: string): string => {
 }
 
 type Props = {
-  collectModule: LenstubeCollectModule
+  collectModule: any
 }
 
 const BalanceAlert: FC<Props> = ({ collectModule }) => {

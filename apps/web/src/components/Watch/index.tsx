@@ -1,12 +1,11 @@
 import MetaTags from '@components/Common/MetaTags'
 import { VideoDetailShimmer } from '@components/Shimmers/VideoDetailShimmer'
 import { Analytics, TRACK } from '@lenstube/browser'
-import { isWatchable } from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
-import { usePublicationDetailsQuery } from '@lenstube/lens'
+import { getPublication, isWatchable } from '@lenstube/generic'
+import type { AnyPublication } from '@lenstube/lens'
+import { usePublicationQuery } from '@lenstube/lens'
 import { CustomCommentsFilterEnum } from '@lenstube/lens/custom-types'
 import useAppStore from '@lib/store'
-import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t } from '@lingui/macro'
 import { useRouter } from 'next/router'
@@ -24,9 +23,7 @@ const VideoDetails = () => {
   const {
     query: { id, t: time }
   } = useRouter()
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
+
   const setVideoWatchTime = useAppStore((state) => state.setVideoWatchTime)
   const selectedCommentFilter = useChannelStore(
     (state) => state.selectedCommentFilter
@@ -36,38 +33,34 @@ const VideoDetails = () => {
     Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.WATCH })
   }, [])
 
-  const { data, error, loading } = usePublicationDetailsQuery({
-    variables: {
-      request: { publicationId: id },
-      reactionRequest: selectedSimpleProfile
-        ? { profileId: selectedSimpleProfile?.id }
-        : null,
-      channelId: selectedSimpleProfile?.id ?? null
-    },
-    skip: !id
-  })
-
-  const publication = data?.publication as Publication
-  const video =
-    publication?.__typename === 'Mirror' ? publication.mirrorOf : publication
-
   useEffect(() => {
     setVideoWatchTime(Number(time))
   }, [time, setVideoWatchTime])
 
-  if (error) {
-    return <Custom500 />
-  }
+  const { data, error, loading } = usePublicationQuery({
+    variables: {
+      request: { forId: id }
+    },
+    skip: !id
+  })
   if (loading || !data) {
     return <VideoDetailShimmer />
   }
+
+  if (error) {
+    return <Custom500 />
+  }
+
+  const publication = data?.publication as AnyPublication
+  const video = getPublication(publication)
+
   if (!isWatchable(video)) {
     return <Custom404 />
   }
 
   return (
     <>
-      <MetaTags title={video?.metadata?.name ?? t`Watch`} />
+      <MetaTags title={video?.metadata.marketplace?.name ?? t`Watch`} />
       {!loading && !error && video ? (
         <div className="grid grid-cols-1 gap-y-4 md:gap-4 xl:grid-cols-4">
           <div className="col-span-3 space-y-3.5">

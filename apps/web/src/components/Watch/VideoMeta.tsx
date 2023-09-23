@@ -5,6 +5,7 @@ import MirroredList from '@components/Common/MirroredList'
 import Modal from '@components/UIElements/Modal'
 import {
   getDateString,
+  getPublication,
   getPublicationMediaCid,
   getRelativeTime
 } from '@lenstube/generic'
@@ -22,6 +23,7 @@ type Props = {
 const VideoMeta: FC<Props> = ({ video }) => {
   const [showCollectsModal, setShowCollectsModal] = useState(false)
   const [showMirrorsModal, setShowMirrorsModal] = useState(false)
+  const targetPublication = getPublication(video)
 
   return (
     <div className="flex flex-wrap items-center opacity-70">
@@ -33,7 +35,7 @@ const VideoMeta: FC<Props> = ({ video }) => {
           panelClassName="max-w-md"
         >
           <div className="no-scrollbar max-h-[40vh] overflow-y-auto">
-            <CollectorsList videoId={video.id} />
+            <CollectorsList videoId={targetPublication.id} />
           </div>
         </Modal>
         <Modal
@@ -46,7 +48,7 @@ const VideoMeta: FC<Props> = ({ video }) => {
             <MirroredList videoId={video.id} />
           </div>
         </Modal>
-        <ViewCount cid={getPublicationMediaCid(video)} />
+        <ViewCount cid={getPublicationMediaCid(targetPublication.metadata)} />
         <button
           type="button"
           onClick={() => setShowCollectsModal(true)}
@@ -54,7 +56,7 @@ const VideoMeta: FC<Props> = ({ video }) => {
         >
           <CollectOutline className="h-3 w-3" />
           <span>
-            {video.stats?.countOpenActions} <Trans>collects</Trans>
+            {targetPublication.stats?.countOpenActions} <Trans>collects</Trans>
           </span>
         </button>
         <span className="middot px-1" />
@@ -65,13 +67,13 @@ const VideoMeta: FC<Props> = ({ video }) => {
         >
           <MirrorOutline className="h-3 w-3" />
           <span>
-            {video.stats?.mirrors} <Trans>mirrors</Trans>
+            {targetPublication.stats?.mirrors} <Trans>mirrors</Trans>
           </span>
         </button>
       </div>
       <span className="middot px-1" />
-      <span title={getDateString(video.createdAt)}>
-        uploaded {getRelativeTime(video.createdAt)}
+      <span title={getDateString(targetPublication.createdAt)}>
+        uploaded {getRelativeTime(targetPublication.createdAt)}
       </span>
     </div>
   )

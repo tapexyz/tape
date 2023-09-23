@@ -1,10 +1,10 @@
 import DislikeOutline from '@components/Common/Icons/DislikeOutline'
 import LikeOutline from '@components/Common/Icons/LikeOutline'
 import { Analytics, TRACK } from '@lenstube/browser'
-import { formatNumber } from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
+import { formatNumber, getPublication } from '@lenstube/generic'
+import type { AnyPublication } from '@lenstube/lens'
 import {
-  ReactionTypes,
+  PublicationReactionType,
   useAddReactionMutation,
   useRemoveReactionMutation
 } from '@lenstube/lens'
@@ -17,7 +17,7 @@ import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 
 type Props = {
-  publication: Publication
+  publication: AnyPublication
   iconSize?: 'sm' | 'base' | 'lg'
   textSize?: 'sm' | 'base'
   isVertical?: boolean
@@ -31,6 +31,7 @@ const PublicationReaction: FC<Props> = ({
   isVertical = false,
   showLabel = true
 }) => {
+  const targetPublication = getPublication(publication)
   const { openConnectModal } = useConnectModal()
 
   const selectedSimpleProfile = useAuthPersistStore(
@@ -38,9 +39,9 @@ const PublicationReaction: FC<Props> = ({
   )
 
   const [reaction, setReaction] = useState({
-    isLiked: publication.reaction === 'UPVOTE',
-    isDisliked: publication.reaction === 'DOWNVOTE',
-    likeCount: publication.stats?.totalUpvotes
+    isLiked: targetPublication.operations.hasReacted,
+    isDisliked: !targetPublication.operations.hasReacted,
+    likeCount: targetPublication.stats?.reactions
   })
 
   const [addReaction] = useAddReactionMutation({
@@ -68,9 +69,8 @@ const PublicationReaction: FC<Props> = ({
       removeReaction({
         variables: {
           request: {
-            profileId: selectedSimpleProfile?.id,
-            reaction: ReactionTypes.Upvote,
-            publicationId: publication.id
+            for: publication.id,
+            reaction: PublicationReactionType.Upvote
           }
         }
       })
@@ -78,9 +78,8 @@ const PublicationReaction: FC<Props> = ({
       addReaction({
         variables: {
           request: {
-            profileId: selectedSimpleProfile?.id,
-            reaction: ReactionTypes.Upvote,
-            publicationId: publication.id
+            for: publication.id,
+            reaction: PublicationReactionType.Upvote
           }
         }
       })
@@ -101,9 +100,8 @@ const PublicationReaction: FC<Props> = ({
       removeReaction({
         variables: {
           request: {
-            profileId: selectedSimpleProfile?.id,
-            reaction: ReactionTypes.Downvote,
-            publicationId: publication.id
+            for: publication.id,
+            reaction: PublicationReactionType.Downvote
           }
         }
       })
@@ -111,9 +109,8 @@ const PublicationReaction: FC<Props> = ({
       addReaction({
         variables: {
           request: {
-            profileId: selectedSimpleProfile?.id,
-            reaction: ReactionTypes.Downvote,
-            publicationId: publication.id
+            for: publication.id,
+            reaction: PublicationReactionType.Downvote
           }
         }
       })

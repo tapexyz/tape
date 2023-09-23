@@ -3,14 +3,9 @@ import { Input } from '@components/UIElements/Input'
 import Modal from '@components/UIElements/Modal'
 import { zodResolver } from '@hookform/resolvers/zod'
 import usePendingTxn from '@hooks/usePendingTxn'
-import { IS_MAINNET, ZERO_ADDRESS } from '@lenstube/constants'
-import {
-  getRandomProfilePicture,
-  imageCdn,
-  trimify,
-  useIsMounted
-} from '@lenstube/generic'
-import { useCreateProfileMutation } from '@lenstube/lens'
+import { IS_MAINNET } from '@lenstube/constants'
+import { trimify, useIsMounted } from '@lenstube/generic'
+import { useCreateProfileWithHandleMutation } from '@lenstube/lens'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
 import Link from 'next/link'
@@ -76,10 +71,13 @@ const CreateChannel = () => {
     setButtonText('Create')
   }
 
-  const [createProfile, { data, reset }] = useCreateProfileMutation({
-    onCompleted: ({ createProfile }) => {
+  const [createProfile, { data, reset }] = useCreateProfileWithHandleMutation({
+    onCompleted: ({ createProfileWithHandle }) => {
       setButtonText(t`Indexing...`)
-      if (createProfile?.__typename === 'RelayError') {
+      if (
+        createProfileWithHandle?.__typename ===
+        'CreateProfileWithHandleErrorResult'
+      ) {
         setLoading(false)
         setButtonText(t`Create`)
       }
@@ -95,8 +93,8 @@ const CreateChannel = () => {
 
   const { indexed } = usePendingTxn({
     txHash:
-      data?.createProfile.__typename === 'RelayerResult'
-        ? data?.createProfile?.txHash
+      data?.createProfileWithHandle.__typename === 'RelaySuccess'
+        ? data?.createProfileWithHandle?.txHash
         : null
   })
 
@@ -117,10 +115,8 @@ const CreateChannel = () => {
       variables: {
         request: {
           handle: username,
-          profilePictureUri: imageCdn(
-            getRandomProfilePicture(address ?? ZERO_ADDRESS),
-            'AVATAR'
-          )
+          to: address,
+          followModule: null
         }
       }
     })
@@ -150,12 +146,13 @@ const CreateChannel = () => {
           </div>
           <div className="flex items-center justify-between">
             <span className="w-2/3 flex-wrap">
-              {data?.createProfile?.__typename === 'RelayError' && (
+              {data?.createProfileWithHandle?.__typename ===
+                'CreateProfileWithHandleErrorResult' && (
                 <div>
                   <p className="text-xs font-medium text-red-500">
-                    {data?.createProfile?.reason === 'HANDLE_TAKEN'
+                    {data?.createProfileWithHandle?.reason === 'HANDLE_TAKEN'
                       ? 'Channel already exists, try unique.'
-                      : data?.createProfile?.reason}
+                      : data?.createProfileWithHandle?.reason}
                   </p>
                 </div>
               )}

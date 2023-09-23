@@ -17,7 +17,7 @@ fragment PublicationOperationFields on PublicationOperations {
       initReturnData
     }
   }
-  hasReacted
+  hasReacted(request: { type: UPVOTE })
   canComment
   canMirror
   hasMirrored

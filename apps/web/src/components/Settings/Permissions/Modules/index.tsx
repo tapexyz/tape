@@ -1,12 +1,13 @@
 import { Button } from '@components/UIElements/Button'
 import { WMATIC_TOKEN_ADDRESS } from '@lenstube/constants'
 import { getCollectModuleConfig } from '@lenstube/generic'
-import type { ApprovedAllowanceAmount, Erc20 } from '@lenstube/lens'
+import type { ApprovedAllowanceAmountResult, Erc20 } from '@lenstube/lens'
 import {
-  CollectModules,
-  FollowModules,
-  ReferenceModules,
+  FollowModuleType,
+  OpenActionModuleType,
+  ReferenceModuleType,
   useApprovedModuleAllowanceAmountQuery,
+  useEnabledCurrenciesQuery,
   useGenerateModuleCurrencyApprovalDataLazyQuery
 } from '@lenstube/lens'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
@@ -16,17 +17,6 @@ import { t, Trans } from '@lingui/macro'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useSendTransaction, useWaitForTransaction } from 'wagmi'
-
-const collectModules = [
-  'FeeCollectModule',
-  'TimedFeeCollectModule',
-  'FeeFollowModule',
-  'LimitedFeeCollectModule',
-  'LimitedTimedFeeCollectModule',
-  'MultirecipientFeeCollectModule',
-  'AaveFeeCollectModule',
-  'SimpleCollectModule'
-]
 
 const ModulePermissions = () => {
   const selectedSimpleProfile = useAuthPersistStore(
@@ -50,19 +40,21 @@ const ModulePermissions = () => {
     variables: {
       request: {
         currencies: [currency],
-        followModules: [FollowModules.FeeFollowModule],
-        collectModules: [
-          CollectModules.FreeCollectModule,
-          CollectModules.FeeCollectModule,
-          CollectModules.LimitedFeeCollectModule,
-          CollectModules.LimitedTimedFeeCollectModule,
-          CollectModules.TimedFeeCollectModule,
-          CollectModules.RevertCollectModule,
-          CollectModules.MultirecipientFeeCollectModule,
-          CollectModules.AaveFeeCollectModule,
-          CollectModules.SimpleCollectModule
-        ],
-        referenceModules: [ReferenceModules.FollowerOnlyReferenceModule]
+        followModules: [FollowModuleType.FeeFollowModule],
+        referenceModules: [ReferenceModuleType.FollowerOnlyReferenceModule],
+        openActionModules: [
+          OpenActionModuleType.LegacyFreeCollectModule,
+          OpenActionModuleType.LegacyFeeCollectModule,
+          OpenActionModuleType.LegacyLimitedFeeCollectModule,
+          OpenActionModuleType.LegacyLimitedTimedFeeCollectModule,
+          OpenActionModuleType.LegacyTimedFeeCollectModule,
+          OpenActionModuleType.LegacyRevertCollectModule,
+          OpenActionModuleType.LegacyMultirecipientFeeCollectModule,
+          OpenActionModuleType.LegacyAaveFeeCollectModule,
+          OpenActionModuleType.LegacySimpleCollectModule,
+          OpenActionModuleType.SimpleCollectOpenActionModule,
+          OpenActionModuleType.MultirecipientFeeCollectOpenActionModule
+        ]
       }
     },
     skip: !selectedSimpleProfile?.id
@@ -83,15 +75,25 @@ const ModulePermissions = () => {
   const [generateAllowanceQuery] =
     useGenerateModuleCurrencyApprovalDataLazyQuery()
 
+  const { data: enabledCurrencies } = useEnabledCurrenciesQuery({
+    skip: !selectedSimpleProfile?.id
+  })
+
   const handleClick = async (isAllow: boolean, selectedModule: string) => {
     try {
       setLoadingModule(selectedModule)
       const { data: allowanceData } = await generateAllowanceQuery({
         variables: {
           request: {
-            currency,
-            value: isAllow ? Number.MAX_SAFE_INTEGER.toString() : '0',
-            [getCollectModuleConfig(selectedModule).type]: selectedModule
+            allowance: {
+              currency,
+              value: isAllow ? Number.MAX_SAFE_INTEGER.toString() : '0',
+              [getCollectModuleConfig(selectedModule).type]: selectedModule
+            },
+            module: {
+              openActionModule:
+                OpenActionModuleType.SimpleCollectOpenActionModule
+            }
           }
         }
       })
@@ -127,8 +129,11 @@ const ModulePermissions = () => {
               value={currency}
               onChange={(e) => setCurrency(e.target.value)}
             >
-              {data?.enabledModuleCurrencies?.map((token: Erc20) => (
-                <option key={token.address} value={token.address}>
+              {enabledCurrencies?.currencies.items?.map((token: Erc20) => (
+                <option
+                  key={token.contract.address}
+                  value={token.contract.address}
+                >
                   {token.symbol}
                 </option>
               ))}
@@ -142,40 +147,39 @@ const ModulePermissions = () => {
         )}
         {!gettingSettings &&
           data?.approvedModuleAllowanceAmount?.map(
-            (moduleItem: ApprovedAllowanceAmount) =>
-              collectModules.includes(moduleItem.module) && (
-                <div
-                  key={moduleItem.contractAddress}
-                  className="flex items-center rounded-md pb-4"
-                >
-                  <div className="flex-1">
-                    <h6 className="text-base">
-                      <Trans>Allow</Trans> {moduleItem.module}
-                    </h6>
-                    <p className="text-sm opacity-70">
-                      {getCollectModuleConfig(moduleItem.module).description}
-                    </p>
-                  </div>
-                  <div className="ml-2 flex flex-none items-center space-x-2">
-                    {moduleItem?.allowance === '0x00' ? (
-                      <Button
-                        loading={loadingModule === moduleItem.module}
-                        onClick={() => handleClick(true, moduleItem.module)}
-                      >
-                        <Trans>Allow</Trans>
-                      </Button>
-                    ) : (
-                      <Button
-                        onClick={() => handleClick(false, moduleItem.module)}
-                        variant="danger"
-                        loading={loadingModule === moduleItem.module}
-                      >
-                        <Trans>Revoke</Trans>
-                      </Button>
-                    )}
-                  </div>
+            (moduleItem: ApprovedAllowanceAmountResult) => (
+              <div
+                key={moduleItem.moduleContract.address}
+                className="flex items-center rounded-md pb-4"
+              >
+                <div className="flex-1">
+                  <h6 className="text-base">
+                    <Trans>Allow</Trans> {moduleItem.moduleName}
+                  </h6>
+                  <p className="text-sm opacity-70">
+                    {getCollectModuleConfig(moduleItem.moduleName).description}
+                  </p>
                 </div>
-              )
+                <div className="ml-2 flex flex-none items-center space-x-2">
+                  {moduleItem?.allowance.value === '0x00' ? (
+                    <Button
+                      loading={loadingModule === moduleItem.moduleName}
+                      onClick={() => handleClick(true, moduleItem.moduleName)}
+                    >
+                      <Trans>Allow</Trans>
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={() => handleClick(false, moduleItem.moduleName)}
+                      variant="danger"
+                      loading={loadingModule === moduleItem.moduleName}
+                    >
+                      <Trans>Revoke</Trans>
+                    </Button>
+                  )}
+                </div>
+              </div>
+            )
           )}
       </div>
     </div>

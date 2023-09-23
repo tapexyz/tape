@@ -1,5 +1,9 @@
 import Modal from '@components/UIElements/Modal'
-import { imageCdn, sanitizeDStorageUrl } from '@lenstube/generic'
+import {
+  getPublication,
+  imageCdn,
+  sanitizeDStorageUrl
+} from '@lenstube/generic'
 import {
   type AnyPublication,
   PublicationMetadataMainFocusType
@@ -13,11 +17,17 @@ import VideoComment from './VideoComment'
 type Props = {
   comment: AnyPublication
 }
+
 const CommentMedia: FC<Props> = ({ comment }) => {
   const [imageSrc, setImageSrc] = useState('')
   const [showLighBox, setShowLighBox] = useState(false)
 
-  const media: MediaSet[] = comment.metadata.media
+  const targetComment = getPublication(comment)
+
+  const media =
+    targetComment.metadata.__typename === 'LegacyPublicationMetadata'
+      ? targetComment.metadata.media
+      : targetComment.metadata.attachments
 
   if (!media.length) {
     return null

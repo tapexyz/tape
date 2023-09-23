@@ -12,10 +12,7 @@ import {
   useBroadcastOnchainMutation,
   useCreateOnchainMirrorTypedDataMutation
 } from '@lenstube/lens'
-import type {
-  CustomErrorWithData,
-  LenstubeCollectModule
-} from '@lenstube/lens/custom-types'
+import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t } from '@lingui/macro'
@@ -45,9 +42,7 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
   const canUseRelay = activeChannel?.lensManager && activeChannel?.sponsor
 
   const collectModule =
-    video?.__typename === 'Post'
-      ? (video?.openActionModules as LenstubeCollectModule)
-      : null
+    video?.__typename === 'Post' ? video?.openActionModules : null
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
@@ -105,81 +100,84 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
     onError
   })
 
-  const createTypedData = async (request: CreateMirrorRequest) => {
-    await createMirrorTypedData({
-      variables: {
-        options: { overrideSigNonce: userSigNonce },
-        request
-      }
-    })
-  }
+  // const createTypedData = async (request: CreateMirrorRequest) => {
+  //   await createMirrorTypedData({
+  //     variables: {
+  //       options: { overrideSigNonce: userSigNonce },
+  //       request
+  //     }
+  //   })
+  // }
 
-  const createViaDispatcher = async (request: CreateMirrorRequest) => {
-    const { data } = await createMirrorViaDispatcher({
-      variables: { request }
-    })
-    if (data?.createMirrorViaDispatcher.__typename === 'RelayError') {
-      await createTypedData(request)
-    }
-  }
+  // const createViaDispatcher = async (request: CreateMirrorRequest) => {
+  //   const { data } = await createMirrorViaDispatcher({
+  //     variables: { request }
+  //   })
+  //   if (data?.createMirrorViaDispatcher.__typename === 'RelayError') {
+  //     await createTypedData(request)
+  //   }
+  // }
 
-  const mirrorVideo = async () => {
-    if (!selectedSimpleProfile?.id) {
-      return openConnectModal?.()
-    }
+  // const mirrorVideo = async () => {
+  //   if (!selectedSimpleProfile?.id) {
+  //     return openConnectModal?.()
+  //   }
 
-    if (video.momoka?.proof && !isSponsored) {
-      return toast.error(
-        t`Momoka is currently in beta - during this time certain actions are not available to all channels.`
-      )
-    }
+  //   if (video.momoka?.proof && !isSponsored) {
+  //     return toast.error(
+  //       t`Momoka is currently in beta - during this time certain actions are not available to all channels.`
+  //     )
+  //   }
 
-    setLoading(true)
-    const request: CreateMirrorRequest = {
-      profileId: activeChannel?.id,
-      publicationId: video?.id,
-      referenceModule: {
-        followerOnlyReferenceModule: false
-      }
-    }
+  //   setLoading(true)
+  //   const request: CreateMirrorRequest = {
+  //     profileId: activeChannel?.id,
+  //     publicationId: video?.id,
+  //     referenceModule: {
+  //       followerOnlyReferenceModule: false
+  //     }
+  //   }
 
-    // Payload for the data availability mirror
-    const dataAvailablityRequest = {
-      from: activeChannel?.id,
-      mirror: video?.id
-    }
+  //   // Payload for the data availability mirror
+  //   const dataAvailablityRequest = {
+  //     from: activeChannel?.id,
+  //     mirror: video?.id
+  //   }
 
-    if (canUseRelay) {
-      if (video.isDataAvailability && isSponsored) {
-        return await createDataAvailabilityMirrorViaDispatcher({
-          variables: { request: dataAvailablityRequest }
-        })
-      }
+  //   if (canUseRelay) {
+  //     if (video.isDataAvailability && isSponsored) {
+  //       return await createDataAvailabilityMirrorViaDispatcher({
+  //         variables: { request: dataAvailablityRequest }
+  //       })
+  //     }
 
-      return await createViaDispatcher(request)
-    }
+  //     return await createViaDispatcher(request)
+  //   }
 
-    return await createTypedData(request)
-  }
+  //   return await createTypedData(request)
+  // }
 
-  if (!video?.canMirror.result) {
+  if (!video?.operations.canMirror) {
     return null
   }
 
-  const referralFee =
-    collectModule?.referralFee ?? collectModule?.fee?.referralFee
-  const tooltipContent = referralFee
-    ? `Mirror video for ${referralFee}% referral fee`
-    : t`Mirror video across Lens`
+  // const referralFee =
+  //   collectModule?.referralFee ?? collectModule?.fee?.referralFee
+  // const tooltipContent = referralFee
+  //   ? `Mirror video for ${referralFee}% referral fee`
+  //   : t`Mirror video across Lens`
 
   return (
-    <Tooltip placement="top" content={loading ? t`Mirroring` : tooltipContent}>
+    <Tooltip
+      placement="top"
+      content={loading ? t`Mirroring` : 'tooltipContent'}
+    >
       <div className="inline-flex">
         <button
           type="button"
           className="disabled:opacity-50"
           disabled={loading}
-          onClick={() => mirrorVideo()}
+          // onClick={() => mirrorVideo()}
         >
           {children}
         </button>

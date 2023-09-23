@@ -1,6 +1,5 @@
 import type { WebBundlr } from '@bundlr-network/client'
 import type {
-  Attribute,
   Profile,
   ProfileInterestTypes,
   RecipientDataInput
@@ -86,15 +85,6 @@ export type VideoUploadForm = {
   title: string
   description: string
   adultContent: boolean
-}
-
-export type ProfileMetadata = {
-  version: string
-  metadata_id: string
-  name: string | null
-  bio: string | null
-  cover_picture: string | null
-  attributes: Attribute[]
 }
 
 export interface CustomErrorWithData extends Error {

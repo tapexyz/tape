@@ -94501,7 +94501,7 @@ export const PublicationOperationFieldsFragmentDoc = gql`
         initReturnData
       }
     }
-    hasReacted
+    hasReacted(request: { type: UPVOTE })
     canComment
     canMirror
     hasMirrored

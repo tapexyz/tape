@@ -7,12 +7,20 @@ import { Analytics, TRACK } from '@lenstube/browser'
 import {
   formatNumber,
   getProfilePicture,
+  getPublication,
   getRandomProfilePicture,
   imageCdn,
   shortenAddress,
   trimLensHandle
 } from '@lenstube/generic'
-import type { Profile, RecipientDataOutput } from '@lenstube/lens'
+import {
+  type AnyPublication,
+  type Profile,
+  type RecipientDataOutput,
+  useApprovedModuleAllowanceAmountQuery,
+  useProfilesQuery,
+  useRevenueFromPublicationQuery
+} from '@lenstube/lens'
 import { Loader } from '@lenstube/ui'
 import useAuthPersistStore from '@lib/store/auth'
 import { t, Trans } from '@lingui/macro'
@@ -28,10 +36,10 @@ import PermissionAlert from './PermissionAlert'
 type Props = {
   showModal: boolean
   setShowModal: Dispatch<boolean>
-  video: Publication
+  video: AnyPublication
   collecting: boolean
   fetchingCollectModule: boolean
-  collectModule: LenstubeCollectModule
+  collectModule: any
   collectNow: () => void
 }
 
@@ -47,13 +55,13 @@ const CollectModal: FC<Props> = ({
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
+  const targetPublication = getPublication(video)
 
   const [isAllowed, setIsAllowed] = useState(true)
   const [haveEnoughBalance, setHaveEnoughBalance] = useState(false)
   const isMembershipActive =
-    video.profile?.followModule?.__typename === 'FeeFollowModuleSettings'
-  const isFreeCollect =
-    video.collectModule.__typename === 'FreeCollectModuleSettings'
+    targetPublication.by?.followModule?.__typename === 'FeeFollowModuleSettings'
+  // const isFreeCollect = targetPublication.openActionModules[0].__typename
 
   const amount =
     collectModule?.amount?.value ?? collectModule?.fee?.amount?.value
@@ -80,29 +88,32 @@ const CollectModal: FC<Props> = ({
   const isRecipientAvailable =
     collectModule?.recipients?.length || collectModule?.recipient
 
-  const { data: recipientProfilesData } = useAllProfilesQuery({
+  const { data: recipientProfilesData } = useProfilesQuery({
     variables: {
       request: {
-        ownedBy: collectModule?.recipients?.length
-          ? collectModule?.recipients?.map((r) => r.recipient)
-          : collectModule?.recipient
+        where: {
+          ownedBy: ['']
+          // ownedBy: collectModule?.recipients?.length
+          //   ? collectModule?.recipients?.map((r) => r.recipient)
+          //   : collectModule?.recipient
+        }
       }
     },
     skip: !isRecipientAvailable
   })
 
   const { data: balanceData, isLoading: balanceLoading } = useBalance({
-    address: selectedSimpleProfile?.ownedBy,
+    address: selectedSimpleProfile?.ownedBy.address,
     token: assetAddress,
     formatUnits: assetDecimals,
     watch: Boolean(amount),
     enabled: Boolean(amount)
   })
 
-  const { data: revenueData } = usePublicationRevenueQuery({
+  const { data: revenueData } = useRevenueFromPublicationQuery({
     variables: {
       request: {
-        publicationId: video?.id
+        for: video?.id
       }
     },
     skip: !video?.id
@@ -117,13 +128,15 @@ const CollectModal: FC<Props> = ({
       request: {
         currencies: assetAddress,
         followModules: [],
-        collectModules: [collectModule?.type],
+        // collectModules: [],
         referenceModules: []
       }
     },
     skip: !assetAddress || !selectedSimpleProfile?.id,
     onCompleted: (data) => {
-      setIsAllowed(data?.approvedModuleAllowanceAmount[0]?.allowance !== '0x00')
+      setIsAllowed(
+        data.approvedModuleAllowanceAmount[0].allowance.value !== '0x00'
+      )
     }
   })
 
@@ -152,7 +165,7 @@ const CollectModal: FC<Props> = ({
     const profiles = recipientProfilesData?.profiles?.items
     if (profiles) {
       // profile.isDefault check not required
-      return profiles.filter((p) => p.ownedBy === address)[0]
+      return profiles.filter((p) => p.ownedBy.address === address)[0]
     }
   }
 
@@ -160,7 +173,7 @@ const CollectModal: FC<Props> = ({
     const profiles = recipientProfilesData?.profiles?.items
     if (profiles) {
       const handles = profiles
-        .filter((p) => p.ownedBy === address)
+        .filter((p) => p.ownedBy.address === address)
         .map((p) => p.handle)
       return handles as string[]
     }
@@ -231,7 +244,7 @@ const CollectModal: FC<Props> = ({
               </span>
               <span className="space-x-1">
                 <span className="text-lg">
-                  {formatNumber(video?.stats.totalAmountOfCollects)}
+                  {formatNumber(targetPublication?.stats.countOpenActions)}
                   {collectLimit && <span> / {collectLimit}</span>}
                 </span>
               </span>
@@ -258,15 +271,15 @@ const CollectModal: FC<Props> = ({
                 </span>
               </div>
             ) : null}
-            {revenueData?.publicationRevenue ? (
+            {revenueData?.revenueFromPublication ? (
               <div className="mb-3 flex flex-col">
                 <span className="text-sm font-semibold">
                   <Trans>Revenue</Trans>
                 </span>
                 <span className="space-x-1">
                   <span className="text-2xl font-semibold">
-                    {revenueData?.publicationRevenue?.revenue?.total?.value ??
-                      0}
+                    {revenueData?.revenueFromPublication?.revenue[0].total
+                      .value ?? 0}
                   </span>
                   <span>{collectModule?.amount?.asset.symbol}</span>
                 </span>
@@ -292,16 +305,17 @@ const CollectModal: FC<Props> = ({
                   renderRecipients([
                     { recipient: collectModule.recipient, split: 100 }
                   ])}
-                {collectModule.type ===
+                {/* {collectModule.type ===
                   CollectModules.MultirecipientFeeCollectModule &&
                 collectModule.recipients?.length
                   ? renderRecipients(collectModule.recipients)
-                  : null}
+                  : null} */}
               </div>
             ) : null}
             <div className="flex justify-end space-x-2">
               {isAllowed ? (
-                collectModule?.followerOnly && !video.profile.isFollowedByMe ? (
+                collectModule?.followerOnly &&
+                !video.by.operations.isFollowedByMe ? (
                   <div className="flex-1">
                     <Alert variant="warning">
                       <div className="flex px-2">
@@ -317,7 +331,7 @@ const CollectModal: FC<Props> = ({
                   </div>
                 ) : haveEnoughBalance ? (
                   <Button disabled={collecting} onClick={() => collectNow()}>
-                    {isFreeCollect ? t`Collect for free` : t`Collect Now`}
+                    {true ? t`Collect for free` : t`Collect Now`}
                   </Button>
                 ) : (
                   <BalanceAlert collectModule={collectModule} />
@@ -327,8 +341,7 @@ const CollectModal: FC<Props> = ({
                   isAllowed={isAllowed}
                   setIsAllowed={setIsAllowed}
                   allowanceModule={
-                    allowanceData
-                      ?.approvedModuleAllowanceAmount[0] as ApprovedAllowanceAmount
+                    allowanceData?.approvedModuleAllowanceAmount[0] as any
                   }
                 />
               )}

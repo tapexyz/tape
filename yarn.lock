@@ -3487,6 +3487,13 @@
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
 
+"@lens-protocol/metadata@^0.1.0-alpha.28":
+  version "0.1.0-alpha.28"
+  resolved "https://registry.yarnpkg.com/@lens-protocol/metadata/-/metadata-0.1.0-alpha.28.tgz#37c3472a6ef5cfe9c3b31c4a6f47f864532543e0"
+  integrity sha512-CPyoPB1DpwWBrVpro3cKuczJc7JrwhIoR9iNJ7M4PHNr8MaX8sT5VHYjtnFfziMjamqLWZ82Fs7IUVV3AMWBOg==
+  dependencies:
+    uuid "^9.0.1"
+
 "@lingui/babel-plugin-extract-messages@4.5.0":
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/@lingui/babel-plugin-extract-messages/-/babel-plugin-extract-messages-4.5.0.tgz#71e56cc2eae73890caeea15a00ae4965413430ec"

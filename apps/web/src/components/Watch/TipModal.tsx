@@ -5,16 +5,15 @@ import { Input } from '@components/UIElements/Input'
 import Modal from '@components/UIElements/Modal'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Analytics, getUserLocale, TRACK } from '@lenstube/browser'
+import { Analytics, TRACK } from '@lenstube/browser'
+import { LENSHUB_PROXY_ADDRESS, STATIC_ASSETS } from '@lenstube/constants'
+import { getPublication, imageCdn } from '@lenstube/generic'
+import type { AnyPublication } from '@lenstube/lens'
 import {
-  ERROR_MESSAGE,
-  LENSHUB_PROXY_ADDRESS,
-  LENSTUBE_APP_ID,
-  LENSTUBE_WEBSITE_URL,
-  REQUESTING_SIGNATURE_MESSAGE,
-  STATIC_ASSETS
-} from '@lenstube/constants'
-import { getSignature, imageCdn, logger, uploadToAr } from '@lenstube/generic'
+  PublicationDocument,
+  useBroadcastOnchainMutation,
+  usePublicationLazyQuery
+} from '@lenstube/lens'
 import { useApolloClient } from '@lenstube/lens/apollo'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAuthPersistStore from '@lib/store/auth'
@@ -26,8 +25,6 @@ import type { FC } from 'react'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import { v4 as uuidv4 } from 'uuid'
-import { parseEther } from 'viem'
 import { useContractWrite, useSendTransaction, useSignTypedData } from 'wagmi'
 import type { z } from 'zod'
 import { number, object, string } from 'zod'
@@ -35,7 +32,7 @@ import { number, object, string } from 'zod'
 type Props = {
   show: boolean
   setShowTip: React.Dispatch<boolean>
-  video: Publication
+  video: AnyPublication
 }
 
 const formSchema = object({
@@ -48,6 +45,8 @@ const formSchema = object({
 type FormData = z.infer<typeof formSchema>
 
 const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
+  const targetPublication = getPublication(video)
+
   const {
     register,
     handleSubmit,
@@ -75,8 +74,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   const userSigNonce = useChannelStore((state) => state.userSigNonce)
   const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
   // Dispatcher
-  const canUseRelay = activeChannel?.dispatcher?.canUseRelay
-  const isSponsored = activeChannel?.dispatcher?.sponsor
+  const canUseRelay = activeChannel?.lensManager && activeChannel?.sponsor
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error.message)
@@ -90,13 +88,13 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     onError
   })
 
-  const [getComment] = usePublicationDetailsLazyQuery()
+  const [getComment] = usePublicationLazyQuery()
 
   const fetchAndCacheComment = async (commentId: string) => {
     const { data } = await getComment({
       variables: {
         request: {
-          publicationId: commentId
+          forId: commentId
         }
       }
     })
@@ -106,7 +104,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
           publications() {
             cache.writeQuery({
               data: { publication: data?.publication },
-              query: PublicationDetailsDocument
+              query: PublicationDocument
             })
           }
         }
@@ -121,22 +119,24 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
           comment: getValues('message'),
           txnId: txn.txnId,
           txnHash: txn.txnHash,
-          pubId: video.id
+          pubId: targetPublication.id
         },
         ...(queuedComments || [])
       ])
     }
   }
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
     if (__typename === 'RelayError') {
       return
     }
     toast.success(t`Tipped successfully`)
     Analytics.track(TRACK.PUBLICATION.NEW_COMMENT, {
-      publication_id: video.id,
+      publication_id: targetPublication.id,
       comment_type: 'tip',
-      publication_state: video.isDataAvailability ? 'DATA_ONLY' : 'ON_CHAIN'
+      publication_state: targetPublication.momoka?.proof
+        ? 'DATA_ONLY'
+        : 'ON_CHAIN'
     })
     setLoading(false)
     setShowTip(false)
@@ -152,243 +152,243 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     }
   })
 
-  const [broadcast] = useBroadcastMutation({
+  const [broadcast] = useBroadcastOnchainMutation({
     onError,
-    onCompleted: ({ broadcast }) => {
-      onCompleted(broadcast.__typename)
-      if (broadcast.__typename === 'RelayerResult') {
-        setToQueue({ txnId: broadcast.txId })
+    onCompleted: ({ broadcastOnchain }) => {
+      onCompleted(broadcastOnchain.__typename)
+      if (broadcastOnchain.__typename === 'RelaySuccess') {
+        setToQueue({ txnId: broadcastOnchain.txId })
       }
     }
   })
 
-  const [createCommentViaDispatcher] = useCreateCommentViaDispatcherMutation({
-    onError,
-    onCompleted: ({ createCommentViaDispatcher }) => {
-      onCompleted(createCommentViaDispatcher.__typename)
-      if (createCommentViaDispatcher.__typename === 'RelayerResult') {
-        setToQueue({ txnId: createCommentViaDispatcher.txId })
-      }
-    }
-  })
+  // const [createCommentViaDispatcher] = useCreateCommentViaDispatcherMutation({
+  //   onError,
+  //   onCompleted: ({ createCommentViaDispatcher }) => {
+  //     onCompleted(createCommentViaDispatcher.__typename)
+  //     if (createCommentViaDispatcher.__typename === 'RelayerResult') {
+  //       setToQueue({ txnId: createCommentViaDispatcher.txId })
+  //     }
+  //   }
+  // })
 
-  const getSignatureFromTypedData = async (
-    data: CreateCommentBroadcastItemResult
-  ) => {
-    const { typedData } = data
-    toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-    const signature = await signTypedDataAsync(getSignature(typedData))
-    return signature
-  }
+  // const getSignatureFromTypedData = async (
+  //   data: CreateCommentBroadcastItemResult
+  // ) => {
+  //   const { typedData } = data
+  //   toast.loading(REQUESTING_SIGNATURE_MESSAGE)
+  //   const signature = await signTypedDataAsync(getSignature(typedData))
+  //   return signature
+  // }
 
-  const [createCommentTypedData] = useCreateCommentTypedDataMutation({
-    onCompleted: async ({ createCommentTypedData }) => {
-      const { typedData, id } = createCommentTypedData
-      try {
-        const signature = await getSignatureFromTypedData(
-          createCommentTypedData
-        )
-        setUserSigNonce(userSigNonce + 1)
-        const { data } = await broadcast({
-          variables: { request: { id, signature } }
-        })
-        if (data?.broadcast?.__typename === 'RelayError') {
-          write?.({ args: [typedData.value] })
-        }
-      } catch {
-        setLoading(false)
-      }
-    },
-    onError
-  })
+  // const [createCommentTypedData] = useCreateCommentTypedDataMutation({
+  //   onCompleted: async ({ createCommentTypedData }) => {
+  //     const { typedData, id } = createCommentTypedData
+  //     try {
+  //       const signature = await getSignatureFromTypedData(
+  //         createCommentTypedData
+  //       )
+  //       setUserSigNonce(userSigNonce + 1)
+  //       const { data } = await broadcast({
+  //         variables: { request: { id, signature } }
+  //       })
+  //       if (data?.broadcast?.__typename === 'RelayError') {
+  //         write?.({ args: [typedData.value] })
+  //       }
+  //     } catch {
+  //       setLoading(false)
+  //     }
+  //   },
+  //   onError
+  // })
 
-  const createTypedData = async (request: CreatePublicCommentRequest) => {
-    await createCommentTypedData({
-      variables: { options: { overrideSigNonce: userSigNonce }, request }
-    })
-  }
+  // const createTypedData = async (request: CreatePublicCommentRequest) => {
+  //   await createCommentTypedData({
+  //     variables: { options: { overrideSigNonce: userSigNonce }, request }
+  //   })
+  // }
 
-  const createViaDispatcher = async (request: CreatePublicCommentRequest) => {
-    const { data } = await createCommentViaDispatcher({
-      variables: { request }
-    })
-    if (data?.createCommentViaDispatcher?.__typename === 'RelayError') {
-      await createTypedData(request)
-    }
-  }
+  // const createViaDispatcher = async (request: CreatePublicCommentRequest) => {
+  //   const { data } = await createCommentViaDispatcher({
+  //     variables: { request }
+  //   })
+  //   if (data?.createCommentViaDispatcher?.__typename === 'RelayError') {
+  //     await createTypedData(request)
+  //   }
+  // }
 
   /**
    * DATA AVAILABILITY STARTS
    */
-  const [broadcastDataAvailabilityComment] =
-    useBroadcastDataAvailabilityMutation({
-      onCompleted: async (data) => {
-        onCompleted()
-        if (data.broadcastDataAvailability.__typename === 'RelayError') {
-          return toast.error(ERROR_MESSAGE)
-        }
-        if (
-          data?.broadcastDataAvailability.__typename ===
-          'CreateDataAvailabilityPublicationResult'
-        ) {
-          const commentId = data?.broadcastDataAvailability.id
-          await fetchAndCacheComment(commentId)
-        }
-      },
-      onError
-    })
+  // const [broadcastDataAvailabilityComment] =
+  //   useBroadcastDataAvailabilityMutation({
+  //     onCompleted: async (data) => {
+  //       onCompleted()
+  //       if (data.broadcastDataAvailability.__typename === 'RelayError') {
+  //         return toast.error(ERROR_MESSAGE)
+  //       }
+  //       if (
+  //         data?.broadcastDataAvailability.__typename ===
+  //         'CreateDataAvailabilityPublicationResult'
+  //       ) {
+  //         const commentId = data?.broadcastDataAvailability.id
+  //         await fetchAndCacheComment(commentId)
+  //       }
+  //     },
+  //     onError
+  //   })
 
-  const [createDataAvailabilityCommentViaDispatcher] =
-    useCreateDataAvailabilityCommentViaDispatcherMutation({
-      onCompleted: async (data) => {
-        if (
-          data?.createDataAvailabilityCommentViaDispatcher?.__typename ===
-          'RelayError'
-        ) {
-          return
-        }
-        if (
-          data?.createDataAvailabilityCommentViaDispatcher.__typename ===
-          'CreateDataAvailabilityPublicationResult'
-        ) {
-          onCompleted()
-          const { id: commentId } =
-            data.createDataAvailabilityCommentViaDispatcher
-          await fetchAndCacheComment(commentId)
-        }
-      },
-      onError
-    })
+  // const [createDataAvailabilityCommentViaDispatcher] =
+  //   useCreateDataAvailabilityCommentViaDispatcherMutation({
+  //     onCompleted: async (data) => {
+  //       if (
+  //         data?.createDataAvailabilityCommentViaDispatcher?.__typename ===
+  //         'RelayError'
+  //       ) {
+  //         return
+  //       }
+  //       if (
+  //         data?.createDataAvailabilityCommentViaDispatcher.__typename ===
+  //         'CreateDataAvailabilityPublicationResult'
+  //       ) {
+  //         onCompleted()
+  //         const { id: commentId } =
+  //           data.createDataAvailabilityCommentViaDispatcher
+  //         await fetchAndCacheComment(commentId)
+  //       }
+  //     },
+  //     onError
+  //   })
 
-  const [createDataAvailabilityCommentTypedData] =
-    useCreateDataAvailabilityCommentTypedDataMutation({
-      onCompleted: async ({ createDataAvailabilityCommentTypedData }) => {
-        const { id } = createDataAvailabilityCommentTypedData
-        const signature = await getSignatureFromTypedData(
-          createDataAvailabilityCommentTypedData
-        )
-        return await broadcastDataAvailabilityComment({
-          variables: { request: { id, signature } }
-        })
-      }
-    })
+  // const [createDataAvailabilityCommentTypedData] =
+  //   useCreateDataAvailabilityCommentTypedDataMutation({
+  //     onCompleted: async ({ createDataAvailabilityCommentTypedData }) => {
+  //       const { id } = createDataAvailabilityCommentTypedData
+  //       const signature = await getSignatureFromTypedData(
+  //         createDataAvailabilityCommentTypedData
+  //       )
+  //       return await broadcastDataAvailabilityComment({
+  //         variables: { request: { id, signature } }
+  //       })
+  //     }
+  //   })
 
-  const createViaDataAvailablityDispatcher = async (
-    request: CreateDataAvailabilityCommentRequest
-  ) => {
-    const variables = { request }
+  // const createViaDataAvailablityDispatcher = async (
+  //   request: CreateDataAvailabilityCommentRequest
+  // ) => {
+  //   const variables = { request }
 
-    const { data } = await createDataAvailabilityCommentViaDispatcher({
-      variables
-    })
+  //   const { data } = await createDataAvailabilityCommentViaDispatcher({
+  //     variables
+  //   })
 
-    if (
-      data?.createDataAvailabilityCommentViaDispatcher?.__typename ===
-      'RelayError'
-    ) {
-      return await createDataAvailabilityCommentTypedData({ variables })
-    }
-  }
+  //   if (
+  //     data?.createDataAvailabilityCommentViaDispatcher?.__typename ===
+  //     'RelayError'
+  //   ) {
+  //     return await createDataAvailabilityCommentTypedData({ variables })
+  //   }
+  // }
   /**
    * DATA AVAILABILITY ENDS
    */
 
-  const submitComment = async (txnHash: string) => {
-    if (video.isDataAvailability && !isSponsored) {
-      return toast.error(
-        t`Momoka is currently in beta - during this time certain actions are not available to all channels.`
-      )
-    }
-    try {
-      setLoading(true)
-      const metadataUri = await uploadToAr({
-        version: '2.0.0',
-        metadata_id: uuidv4(),
-        description: getValues('message'),
-        content: getValues('message'),
-        locale: getUserLocale(),
-        mainContentFocus: PublicationMainFocus.TextOnly,
-        external_url: `${LENSTUBE_WEBSITE_URL}/watch/${video?.id}`,
-        image: null,
-        imageMimeType: null,
-        name: `${activeChannel?.handle}'s comment on video ${video.metadata.name}`,
-        attributes: [
-          {
-            displayType: PublicationMetadataDisplayTypes.String,
-            traitType: 'app',
-            value: LENSTUBE_APP_ID
-          },
-          {
-            displayType: PublicationMetadataDisplayTypes.String,
-            traitType: 'type',
-            value: 'tip'
-          },
-          {
-            displayType: PublicationMetadataDisplayTypes.String,
-            traitType: 'hash',
-            value: txnHash
-          }
-        ],
-        media: [],
-        appId: LENSTUBE_APP_ID
-      })
+  // const submitComment = async (txnHash: string) => {
+  //   if (video.isDataAvailability && !isSponsored) {
+  //     return toast.error(
+  //       t`Momoka is currently in beta - during this time certain actions are not available to all channels.`
+  //     )
+  //   }
+  //   try {
+  //     setLoading(true)
+  //     const metadataUri = await uploadToAr({
+  //       version: '2.0.0',
+  //       metadata_id: uuidv4(),
+  //       description: getValues('message'),
+  //       content: getValues('message'),
+  //       locale: getUserLocale(),
+  //       mainContentFocus: PublicationMainFocus.TextOnly,
+  //       external_url: `${LENSTUBE_WEBSITE_URL}/watch/${targetPublication?.id}`,
+  //       image: null,
+  //       imageMimeType: null,
+  //       name: `${activeChannel?.handle}'s comment on video ${targetPublication.metadata.marketplace?.name}`,
+  //       attributes: [
+  //         {
+  //           displayType: PublicationMetadataDisplayTypes.String,
+  //           traitType: 'app',
+  //           value: LENSTUBE_APP_ID
+  //         },
+  //         {
+  //           displayType: PublicationMetadataDisplayTypes.String,
+  //           traitType: 'type',
+  //           value: 'tip'
+  //         },
+  //         {
+  //           displayType: PublicationMetadataDisplayTypes.String,
+  //           traitType: 'hash',
+  //           value: txnHash
+  //         }
+  //       ],
+  //       media: [],
+  //       appId: LENSTUBE_APP_ID
+  //     })
 
-      const dataAvailablityRequest = {
-        from: activeChannel?.id,
-        commentOn: video.id,
-        contentURI: metadataUri
-      }
-      const request = {
-        profileId: activeChannel?.id,
-        publicationId: video?.id,
-        contentURI: metadataUri,
-        collectModule: {
-          revertCollectModule: true
-        },
-        referenceModule: {
-          followerOnlyReferenceModule: false
-        }
-      }
+  //     const dataAvailablityRequest = {
+  //       from: activeChannel?.id,
+  //       commentOn: video.id,
+  //       contentURI: metadataUri
+  //     }
+  //     const request = {
+  //       profileId: activeChannel?.id,
+  //       publicationId: video?.id,
+  //       contentURI: metadataUri,
+  //       collectModule: {
+  //         revertCollectModule: true
+  //       },
+  //       referenceModule: {
+  //         followerOnlyReferenceModule: false
+  //       }
+  //     }
 
-      if (canUseRelay) {
-        if (video.isDataAvailability && isSponsored) {
-          return await createViaDataAvailablityDispatcher(
-            dataAvailablityRequest
-          )
-        }
+  //     if (canUseRelay) {
+  //       if (video.isDataAvailability && isSponsored) {
+  //         return await createViaDataAvailablityDispatcher(
+  //           dataAvailablityRequest
+  //         )
+  //       }
 
-        return await createViaDispatcher(request)
-      }
+  //       return await createViaDispatcher(request)
+  //     }
 
-      return createTypedData(request)
-    } catch {}
-  }
+  //     return createTypedData(request)
+  //   } catch {}
+  // }
 
-  const onSendTip = async () => {
-    if (!selectedSimpleProfile?.id) {
-      return openConnectModal?.()
-    }
-    if (video.isDataAvailability && !isSponsored) {
-      return toast.error(
-        t`Momoka is currently in beta - during this time certain actions are not available to all channels.`
-      )
-    }
-    setLoading(true)
-    const amountToSend = Number(getValues('tipQuantity')) * 1
-    try {
-      const data = await sendTransactionAsync?.({
-        to: video.profile?.ownedBy,
-        value: BigInt(parseEther(amountToSend.toString() as `${number}`))
-      })
-      if (data?.hash) {
-        await submitComment(data.hash)
-      }
-      Analytics.track(TRACK.PUBLICATION.TIP.SENT)
-    } catch (error) {
-      setLoading(false)
-      logger.error('[Error Send Tip]', error)
-    }
-  }
+  // const onSendTip = async () => {
+  //   if (!selectedSimpleProfile?.id) {
+  //     return openConnectModal?.()
+  //   }
+  //   if (video.isDataAvailability && !isSponsored) {
+  //     return toast.error(
+  //       t`Momoka is currently in beta - during this time certain actions are not available to all channels.`
+  //     )
+  //   }
+  //   setLoading(true)
+  //   const amountToSend = Number(getValues('tipQuantity')) * 1
+  //   try {
+  //     const data = await sendTransactionAsync?.({
+  //       to: video.profile?.ownedBy,
+  //       value: BigInt(parseEther(amountToSend.toString() as `${number}`))
+  //     })
+  //     if (data?.hash) {
+  //       await submitComment(data.hash)
+  //     }
+  //     Analytics.track(TRACK.PUBLICATION.TIP.SENT)
+  //   } catch (error) {
+  //     setLoading(false)
+  //     logger.error('[Error Send Tip]', error)
+  //   }
+  // }
 
   return (
     <Modal
@@ -396,7 +396,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
         <span className="flex items-center space-x-2 outline-none">
           <HeartOutline className="h-4 w-4" />
           <span>
-            <Trans>Tip</Trans> {video.profile?.handle}
+            <Trans>Tip</Trans> {targetPublication.by?.handle}
           </span>
         </span>
       }
@@ -404,7 +404,10 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
       show={show}
       panelClassName="max-w-md"
     >
-      <form className="mt-2" onSubmit={handleSubmit(onSendTip)}>
+      <form
+        className="mt-2"
+        // onSubmit={handleSubmit(onSendTip)}
+      >
         <div className="flex flex-nowrap items-center justify-center space-x-2 p-10">
           <span className="flex items-center space-x-4">
             <img

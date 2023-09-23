@@ -2,6 +2,13 @@ import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import MetaTags from '@components/Common/MetaTags'
 import useEthersWalletClient from '@hooks/useEthersWalletClient'
 import {
+  MarketplaceMetadataAttributeDisplayType,
+  MediaVideoMimeType,
+  MetadataAttributeType,
+  PublicationContentWarning,
+  video
+} from '@lens-protocol/metadata'
+import {
   Analytics,
   getUserLocale,
   TRACK,
@@ -13,7 +20,6 @@ import {
   LENSHUB_PROXY_ADDRESS,
   LENSTUBE_APP_ID,
   LENSTUBE_APP_NAME,
-  LENSTUBE_BYTES_APP_ID,
   LENSTUBE_WEBSITE_URL,
   REQUESTING_SIGNATURE_MESSAGE
 } from '@lenstube/constants'
@@ -26,16 +32,18 @@ import {
   trimLensHandle,
   uploadToAr
 } from '@lenstube/generic'
-import type { CreateMomokaPostEip712TypedData, PublicationMetadata } from '@lenstube/lens'
+import type {
+  CreateMomokaPostEip712TypedData,
+  CreateOnchainPostEip712TypedData
+} from '@lenstube/lens'
 import {
-  LegacyPublicationMetadataMainFocusType,
-  PublicationContentWarningType,
-  PublicationMetadataMainFocusType,
   ReferenceModuleType,
   useBroadcastOnchainMutation,
   useBroadcastOnMomokaMutation,
   useCreateMomokaPostTypedDataMutation,
-  useCreateOnchainPostTypedDataMutation
+  useCreateOnchainPostTypedDataMutation,
+  usePostOnchainMutation,
+  usePostOnMomokaMutation
 } from '@lenstube/lens'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
@@ -74,7 +82,6 @@ const UploadSteps = () => {
     ? ReferenceModuleType.FollowerOnlyReferenceModule
     : null
 
-  // Dispatcher
   const canUseRelay = activeChannel?.lensManager && activeChannel?.sponsor
 
   const redirectToChannelPage = () => {
@@ -151,15 +158,6 @@ const UploadSteps = () => {
   const { signTypedDataAsync } = useSignTypedData({
     onError
   })
-  const [broadcast] = useBroadcastOnchainMutation({
-    onCompleted: ({ broadcastOnchain }) => {
-      onCompleted(broadcastOnchain.__typename)
-      if (broadcastOnchain.__typename === 'RelaySuccess') {
-        const txnId = broadcastOnchain?.txId
-        setToQueue({ txnId })
-      }
-    }
-  })
 
   const { write } = useContractWrite({
     address: LENSHUB_PROXY_ADDRESS,
@@ -175,74 +173,12 @@ const UploadSteps = () => {
   })
 
   const getSignatureFromTypedData = async (
-    data: CreateMomokaPostEip712TypedData
+    data: CreateMomokaPostEip712TypedData | CreateOnchainPostEip712TypedData
   ) => {
-    const { typedData } = data
     toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-    const signature = await signTypedDataAsync(getSignature(typedData))
+    const signature = await signTypedDataAsync(getSignature(data))
     return signature
   }
-
-  /**
-   * DATA AVAILABILITY STARTS
-   */
-  const [broadcastDataAvailabilityPost] = useBroadcastOnMomokaMutation({
-    onCompleted: ({ broadcastOnMomoka }) => {
-      onCompleted()
-      if (broadcastOnMomoka.__typename === 'RelayError') {
-        return toast.error(ERROR_MESSAGE)
-      }
-      if (broadcastOnMomoka.__typename === 'CreateMomokaPublicationResult') {
-        redirectToChannelPage()
-      }
-    },
-    onError
-  })
-
-  const [createDataAvailabilityPostTypedData] =
-    useCreateMomokaPostTypedDataMutation({
-      onCompleted: async ({ createMomokaPostTypedData }) => {
-        const { id, typedData } = createMomokaPostTypedData
-        const signature = await getSignatureFromTypedData(typedData)
-        return await broadcastDataAvailabilityPost({
-          variables: { request: { id, signature } }
-        })
-      }
-    })
-
-  const [createDataAvailabilityPostViaDispatcher] =
-    useCreateMomokaPostTypedDataMutation({
-      onCompleted: ({ createMomokaPostTypedData }) => {
-        if (
-          createMomokaPostTypedData?.__typename !==
-          'CreateMomokaPostBroadcastItemResult'
-        ) {
-          return
-        }
-        if (
-          createMomokaPostTypedData.__typename ===
-          'CreateMomokaPostBroadcastItemResult'
-        ) {
-          onCompleted()
-          resetToDefaults()
-          redirectToWatchPage(createDataAvailabilityPostViaDispatcher.id)
-        }
-      },
-      onError
-    })
-  /**
-   * DATA AVAILABILITY ENDS
-   */
-
-  const [createPostViaDispatcher] = useCreateOnchainPostTypedDataMutation({
-    onError,
-    onCompleted: ({ createOnchainPostTypedData }) => {
-      onCompleted(createOnchainPostTypedData.)
-      if (createPostViaDispatcher.__typename === 'RelayerResult') {
-        setToQueue({ txnId: createPostViaDispatcher.txId })
-      }
-    }
-  })
 
   const initBundlr = async () => {
     if (signer && address && !bundlrData.instance) {
@@ -254,16 +190,33 @@ const UploadSteps = () => {
     }
   }
 
-  const [createPostTypedData] = useCreatePostTypedDataMutation({
-    onCompleted: async ({ createPostTypedData }) => {
-      const { typedData, id } =
-        createPostTypedData as CreatePostBroadcastItemResult
+  const [broadcastOnchain] = useBroadcastOnchainMutation({
+    onCompleted: ({ broadcastOnchain }) => {
+      onCompleted(broadcastOnchain.__typename)
+      if (broadcastOnchain.__typename === 'RelaySuccess') {
+        const txnId = broadcastOnchain?.txId
+        setToQueue({ txnId })
+      }
+    }
+  })
+
+  const [broadcastOnMomoka] = useBroadcastOnMomokaMutation({
+    onCompleted: ({ broadcastOnMomoka }) => {
+      if (broadcastOnMomoka.__typename === 'CreateMomokaPublicationResult') {
+        redirectToWatchPage(broadcastOnMomoka?.id)
+      }
+    }
+  })
+
+  const [createOnchainPostTypedData] = useCreateOnchainPostTypedDataMutation({
+    onCompleted: async ({ createOnchainPostTypedData }) => {
+      const { typedData, id } = createOnchainPostTypedData
       try {
-        const signature = await getSignatureFromTypedData(createPostTypedData)
-        const { data } = await broadcast({
+        const signature = await getSignatureFromTypedData(typedData)
+        const { data } = await broadcastOnchain({
           variables: { request: { id, signature } }
         })
-        if (data?.broadcast?.__typename === 'RelayError') {
+        if (data?.broadcastOnchain?.__typename === 'RelayError') {
           return write?.({ args: [typedData.value] })
         }
       } catch {}
@@ -271,36 +224,40 @@ const UploadSteps = () => {
     onError
   })
 
-  const createTypedData = async (request: CreatePublicPostRequest) => {
-    await createPostTypedData({
-      variables: { request }
-    })
-  }
-
-  const createViaDispatcher = async (request: CreatePublicPostRequest) => {
-    const { data } = await createPostViaDispatcher({
-      variables: { request }
-    })
-    if (data?.createPostViaDispatcher.__typename === 'RelayError') {
-      await createTypedData(request)
+  const [postOnchain] = usePostOnchainMutation({
+    onError,
+    onCompleted: ({ postOnchain }) => {
+      if (postOnchain.__typename === 'RelaySuccess') {
+        onCompleted(postOnchain.__typename)
+        setToQueue({ txnId: postOnchain.txId })
+      }
     }
-  }
+  })
 
-  const createViaDataAvailablityDispatcher = async (
-    request: CreateDataAvailabilityPostRequest
-  ) => {
-    const variables = { request }
+  const [createMomokaPostTypedData] = useCreateMomokaPostTypedDataMutation({
+    onCompleted: async ({ createMomokaPostTypedData }) => {
+      const { typedData, id } = createMomokaPostTypedData
+      try {
+        const signature = await getSignatureFromTypedData(typedData)
+        const { data } = await broadcastOnMomoka({
+          variables: { request: { id, signature } }
+        })
+        if (data?.broadcastOnMomoka?.__typename === 'RelayError') {
+          return write?.({ args: [typedData.value] })
+        }
+      } catch {}
+    },
+    onError
+  })
 
-    const { data } = await createDataAvailabilityPostViaDispatcher({
-      variables
-    })
-
-    if (
-      data?.createDataAvailabilityPostViaDispatcher?.__typename === 'RelayError'
-    ) {
-      return await createDataAvailabilityPostTypedData({ variables })
+  const [postOnMomoka] = usePostOnMomokaMutation({
+    onError,
+    onCompleted: ({ postOnMomoka }) => {
+      if (postOnMomoka.__typename === 'CreateMomokaPublicationResult') {
+        redirectToWatchPage(postOnMomoka.id)
+      }
     }
-  }
+  })
 
   const createPublication = async ({
     videoSource
@@ -313,56 +270,67 @@ const UploadSteps = () => {
         loading: true
       })
       uploadedVideo.videoSource = videoSource
-      const media: Array<PublicationMetadataMediaInput> = [
-        {
+
+      const metadata = video({
+        video: {
           item: uploadedVideo.videoSource,
-          type: uploadedVideo.videoType,
-          cover: uploadedVideo.thumbnail
-        }
-      ]
-      const attributes: MetadataAttributeInput[] = [
-        {
-          displayType: PublicationMetadataDisplayTypes.String,
-          traitType: 'handle',
-          value: `${activeChannel?.handle}`
+          type: MediaVideoMimeType.MP4
         },
-        {
-          displayType: PublicationMetadataDisplayTypes.String,
-          traitType: 'app',
-          value: LENSTUBE_APP_ID
-        }
-      ]
-      if (uploadedVideo.durationInSeconds) {
-        attributes.push({
-          displayType: PublicationMetadataDisplayTypes.String,
-          traitType: 'durationInSeconds',
-          value: uploadedVideo.durationInSeconds
-        })
-      }
-      const metadata: PublicationMetadata = {
-        version: '2.0.0',
-        metadata_id: uuidv4(),
-        description: trimify(uploadedVideo.description),
+        appId: LENSTUBE_APP_ID,
+        id: uuidv4(),
+        attachments: [
+          {
+            item: uploadedVideo.videoSource,
+            cover: uploadedVideo.thumbnail,
+            type: MediaVideoMimeType.MP4
+          }
+        ],
+        attributes: [
+          {
+            type: MetadataAttributeType.STRING,
+            key: 'durationInSeconds',
+            value: uploadedVideo.durationInSeconds ?? '0'
+          },
+          {
+            type: MetadataAttributeType.STRING,
+            key: 'handle',
+            value: `${activeChannel?.handle}`
+          },
+          {
+            type: MetadataAttributeType.STRING,
+            key: 'app',
+            value: LENSTUBE_APP_ID
+          }
+        ],
         content: trimify(
           `${uploadedVideo.title}\n\n${uploadedVideo.description}`
         ),
-        locale: getUserLocale(),
         tags: [uploadedVideo.videoCategory.tag],
-        mainContentFocus: LegacyPublicationMetadataMainFocusType.Video,
-        external_url: `${LENSTUBE_WEBSITE_URL}/channel/${activeChannel?.handle}`,
-        animation_url: uploadedVideo.videoSource,
-        image: uploadedVideo.thumbnail,
-        imageMimeType: uploadedVideo.thumbnailType,
-        name: trimify(uploadedVideo.title),
-        attributes,
-        media,
-        appId: uploadedVideo.isByteVideo
-          ? LENSTUBE_BYTES_APP_ID
-          : LENSTUBE_APP_ID
-      }
-      if (uploadedVideo.isSensitiveContent) {
-        metadata.contentWarning = PublicationContentWarningType.Sensitive
-      }
+        contentWarning: uploadedVideo.isSensitiveContent
+          ? PublicationContentWarning.SENSITIVE
+          : undefined,
+        locale: getUserLocale(),
+        title: uploadedVideo.title,
+        marketplace: {
+          attributes: [
+            {
+              display_type: MarketplaceMetadataAttributeDisplayType.STRING,
+              trait_type: 'handle',
+              value: `${activeChannel?.handle}`
+            },
+            {
+              display_type: MarketplaceMetadataAttributeDisplayType.STRING,
+              trait_type: 'app',
+              value: LENSTUBE_APP_ID
+            }
+          ],
+          animation_url: uploadedVideo.videoSource,
+          external_url: `${LENSTUBE_WEBSITE_URL}/channel/${activeChannel?.handle}`,
+          description: trimify(uploadedVideo.description),
+          image: uploadedVideo.thumbnail,
+          name: uploadedVideo.title
+        }
+      })
       const metadataUri = await uploadToAr(metadata)
       setUploadedVideo({
         buttonText: t`Posting video`,
@@ -373,41 +341,58 @@ const UploadSteps = () => {
       const referenceModuleDegrees = {
         commentsRestricted: isRestricted,
         mirrorsRestricted: isRestricted,
-        degreesOfSeparation: degreesOfSeparation
+        degreesOfSeparation: degreesOfSeparation,
+        quotesRestricted: isRestricted
       }
 
-      // Create Data Availability post
       const { isRevertCollect } = uploadedVideo.collectModule
-      const dataAvailablityRequest = {
-        from: activeChannel?.id,
-        contentURI: metadataUri
-      }
 
-      const request = {
-        profileId: activeChannel?.id,
-        contentURI: metadataUri,
-        collectModule: getCollectModule(uploadedVideo.collectModule),
-        referenceModule: {
-          followerOnlyReferenceModule:
-            uploadedVideo.referenceModule?.followerOnlyReferenceModule,
-          degreesOfSeparationReferenceModule: uploadedVideo.referenceModule
-            ?.degreesOfSeparationReferenceModule
-            ? referenceModuleDegrees
-            : null
+      if (isRevertCollect) {
+        // MOMOKA
+        if (canUseRelay) {
+          return await postOnMomoka({
+            variables: {
+              request: {
+                contentURI: metadataUri
+              }
+            }
+          })
+        } else {
+          return await createMomokaPostTypedData({
+            variables: {
+              request: {
+                contentURI: metadataUri
+              }
+            }
+          })
+        }
+      } else {
+        // ON-CHAIN
+        const request = {
+          contentURI: metadataUri,
+          openActionModules: [
+            {
+              ...getCollectModule(uploadedVideo.collectModule)
+            }
+          ],
+          referenceModule: {
+            followerOnlyReferenceModule:
+              uploadedVideo.referenceModule?.followerOnlyReferenceModule,
+            degreesOfSeparationReferenceModule: {
+              ...referenceModuleDegrees
+            }
+          }
+        }
+        if (canUseRelay) {
+          return await postOnchain({
+            variables: { request }
+          })
+        } else {
+          return await createOnchainPostTypedData({
+            variables: { request }
+          })
         }
       }
-
-      if (canUseRelay) {
-        if (isRevertCollect && isSponsored) {
-          return await createViaDataAvailablityDispatcher(
-            dataAvailablityRequest
-          )
-        }
-
-        return await createViaDispatcher(request)
-      }
-
-      return await createTypedData(request)
     } catch {
       stopLoading()
     }
@@ -432,6 +417,10 @@ const UploadSteps = () => {
       percent: 100,
       videoSource: result.url
     })
+    console.log(
+      '🚀 ~ file: UploadSteps.tsx:447 ~ uploadVideoToIpfs ~ result:',
+      result
+    )
     return await createPublication({
       videoSource: result.url
     })

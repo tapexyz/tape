@@ -19,6 +19,7 @@
     "@emoji-mart/react": "^1.1.1",
     "@headlessui/react": "^1.7.17",
     "@hookform/resolvers": "^3.3.1",
+    "@lens-protocol/metadata": "^0.1.0-alpha.28",
     "@lingui/react": "^4.4.0",
     "@livepeer/react": "^2.8.6",
     "@rainbow-me/rainbowkit": "^1.0.11",

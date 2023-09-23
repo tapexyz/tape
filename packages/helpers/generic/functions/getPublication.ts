@@ -19,6 +19,17 @@ export const isMirrorPublication = <T extends AnyPublication>(
 export const getPublication = (
   publication: AnyPublication
 ): MirrorablePublication => {
+  if (!publication) {
+    return publication
+  }
+  const isMirror = isMirrorPublication(publication)
+
+  return isMirror ? publication?.mirrorOn : publication
+}
+
+export const getPublicationMedia = (
+  publication: AnyPublication
+): MirrorablePublication => {
   const isMirror = isMirrorPublication(publication)
 
   return isMirror ? publication?.mirrorOn : publication

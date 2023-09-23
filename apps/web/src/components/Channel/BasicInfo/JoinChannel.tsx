@@ -126,8 +126,20 @@ const JoinChannel: FC<Props> = ({
           variables: { request: { id, signature } }
         })
         if (data?.broadcastOnchain.__typename === 'RelayError') {
-          const { idsOfProfilesToFollow, datas } = typedData.value
-          return write?.({ args: [idsOfProfilesToFollow, datas] })
+          const {
+            followerProfileId,
+            idsOfProfilesToFollow,
+            followTokenIds,
+            datas
+          } = typedData.value
+          return write?.({
+            args: [
+              followerProfileId,
+              idsOfProfilesToFollow,
+              followTokenIds,
+              datas
+            ]
+          })
         }
       } catch {
         setLoading(false)

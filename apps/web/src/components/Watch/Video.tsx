@@ -3,8 +3,8 @@ import { CardShimmer } from '@components/Shimmers/VideoCardShimmer'
 import { LENSTUBE_BYTES_APP_ID } from '@lenstube/constants'
 import {
   getIsSensitiveContent,
-  getPublicationHlsUrl,
-  getPublicationRawMediaUrl,
+  getPublication,
+  getPublicationMediaUrl,
   getThumbnailUrl,
   imageCdn,
   sanitizeDStorageUrl
@@ -29,15 +29,20 @@ type Props = {
 }
 
 const Video: FC<Props> = ({ video }) => {
-  const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
+  const targetPublication = getPublication(video)
+  const isSensitiveContent = getIsSensitiveContent(
+    targetPublication.metadata,
+    targetPublication.id
+  )
   const videoWatchTime = useAppStore((state) => state.videoWatchTime)
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
 
-  const isBytesVideo = video.publishedOn?.id === LENSTUBE_BYTES_APP_ID
+  const isBytesVideo =
+    targetPublication.publishedOn?.id === LENSTUBE_BYTES_APP_ID
   const thumbnailUrl = imageCdn(
-    sanitizeDStorageUrl(getThumbnailUrl(video, true)),
+    sanitizeDStorageUrl(getThumbnailUrl(targetPublication, true)),
     isBytesVideo ? 'THUMBNAIL_V' : 'THUMBNAIL'
   )
 
@@ -54,8 +59,7 @@ const Video: FC<Props> = ({ video }) => {
           address={selectedSimpleProfile?.ownedBy.address}
           refCallback={refCallback}
           currentTime={videoWatchTime}
-          permanentUrl={getPublicationRawMediaUrl(video)}
-          hlsUrl={getPublicationHlsUrl(video)}
+          url={getPublicationMediaUrl(video.metadata)}
           posterUrl={thumbnailUrl}
           options={{
             loadingSpinner: true,
@@ -71,13 +75,13 @@ const Video: FC<Props> = ({ video }) => {
             data-testid="watch-video-title"
           >
             <InterweaveContent
-              content={video.metadata.marketplace?.name as string}
+              content={targetPublication.metadata.marketplace?.name as string}
             />
           </h1>
-          <VideoMeta video={video} />
+          <VideoMeta video={targetPublication} />
         </div>
       </div>
-      <VideoActions video={video} />
+      <VideoActions video={targetPublication} />
     </div>
   )
 }
