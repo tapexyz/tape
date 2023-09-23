@@ -4,7 +4,7 @@ import clsx from 'clsx'
 import React from 'react'
 
 export const NoDataFound = ({
-  text = 'No data found',
+  text = 'Zero trace!',
   withImage = false,
   isCenter = false
 }) => {
@@ -17,10 +17,10 @@ export const NoDataFound = ({
       {withImage && (
         <img
           src={imageCdn(
-            `${STATIC_ASSETS}/images/illustrations/no-results.png`,
-            'SQUARE'
+            `${STATIC_ASSETS}/mobile/icons/ice-cubes.png`,
+            'AVATAR'
           )}
-          className="w-32 md:w-36"
+          className="w-32 p-6 md:w-36"
           alt="no results"
           draggable={false}
         />

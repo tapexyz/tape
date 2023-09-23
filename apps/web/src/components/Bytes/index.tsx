@@ -9,8 +9,9 @@ import {
   SCROLL_ROOT_MARGIN
 } from '@lenstube/constants'
 import type {
+  AnyPublication,
   ExplorePublicationRequest,
-  MirrorablePublication
+  PrimaryPublication
 } from '@lenstube/lens'
 import {
   ExplorePublicationsOrderByType,
@@ -53,7 +54,7 @@ const Bytes = () => {
         request
       },
       onCompleted: ({ explorePublications }) => {
-        const items = explorePublications?.items as MirrorablePublication[]
+        const items = explorePublications?.items as unknown as AnyPublication[]
         const publicationId = router.query.id
         if (!publicationId) {
           const nextUrl = `${location.origin}/bytes/${items[0]?.id}`
@@ -62,9 +63,10 @@ const Bytes = () => {
       }
     })
 
-  const bytes = data?.explorePublications?.items as MirrorablePublication[]
+  const bytes = data?.explorePublications?.items as unknown as AnyPublication[]
   const pageInfo = data?.explorePublications?.pageInfo
-  const singleBytePublication = singleByte?.publication as MirrorablePublication
+  const singleBytePublication =
+    singleByte?.publication as unknown as PrimaryPublication
 
   const fetchSingleByte = async () => {
     const publicationId = router.query.id
@@ -113,7 +115,7 @@ const Bytes = () => {
   if (error) {
     return (
       <div className="grid h-[80vh] place-items-center">
-        <NoDataFound isCenter withImage text="No bytes found" />
+        <NoDataFound isCenter withImage />
       </div>
     )
   }
@@ -136,7 +138,7 @@ const Bytes = () => {
           />
         )}
         {bytes?.map(
-          (video: MirrorablePublication, index) =>
+          (video, index) =>
             singleByte?.publication?.id !== video.id && (
               <ByteVideo
                 video={video}

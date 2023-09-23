@@ -1,12 +1,13 @@
 import CollectVideo from '@components/Watch/CollectVideo'
 import { Analytics, TRACK, useAverageColor } from '@lenstube/browser'
 import {
+  getPublication,
   getPublicationMediaUrl,
   getThumbnailUrl,
   imageCdn,
   sanitizeDStorageUrl
 } from '@lenstube/generic'
-import type { MirrorablePublication } from '@lenstube/lens'
+import type { AnyPublication } from '@lenstube/lens'
 import VideoPlayer from '@lenstube/ui/VideoPlayer'
 import useAuthPersistStore from '@lib/store/auth'
 import { t } from '@lingui/macro'
@@ -18,7 +19,7 @@ import ByteActions from './ByteActions'
 import TopOverlay from './TopOverlay'
 
 type Props = {
-  video: MirrorablePublication
+  video: AnyPublication
   currentViewingId: string
   intersectionCallback: (id: string) => void
 }
@@ -30,8 +31,10 @@ const ByteVideo: FC<Props> = ({
 }) => {
   const videoRef = useRef<HTMLMediaElement>()
   const intersectionRef = useRef<HTMLDivElement>(null)
+  const targetPublication = getPublication(video)
+
   const thumbnailUrl = imageCdn(
-    sanitizeDStorageUrl(getThumbnailUrl(video, true)),
+    sanitizeDStorageUrl(getThumbnailUrl(targetPublication, true)),
     'THUMBNAIL_V'
   )
   const { color: backgroundColor } = useAverageColor(thumbnailUrl, true)
@@ -53,7 +56,7 @@ const ByteVideo: FC<Props> = ({
   const observer = new IntersectionObserver((data) => {
     if (data[0].target.id && data[0].isIntersecting) {
       intersectionCallback(data[0].target.id)
-      const nextUrl = `${location.origin}/bytes/${video?.id}`
+      const nextUrl = `${location.origin}/bytes/${targetPublication?.id}`
       history.replaceState({ path: nextUrl }, '', nextUrl)
     }
   })
@@ -109,13 +112,13 @@ const ByteVideo: FC<Props> = ({
           <div
             className="absolute top-[50%]"
             ref={intersectionRef}
-            id={video?.id}
+            id={targetPublication?.id}
           />
-          {currentViewingId === video.id ? (
+          {currentViewingId === targetPublication.id ? (
             <VideoPlayer
               address={selectedSimpleProfile?.ownedBy.address}
               refCallback={refCallback}
-              url={getPublicationMediaUrl(video.metadata)}
+              url={getPublicationMediaUrl(targetPublication.metadata)}
               posterUrl={thumbnailUrl}
               ratio="9to16"
               showControls={false}
@@ -137,13 +140,13 @@ const ByteVideo: FC<Props> = ({
               />
               <span className="invisible absolute">
                 <VideoPlayer
-                  url={getPublicationMediaUrl(video.metadata)}
+                  url={getPublicationMediaUrl(targetPublication.metadata)}
                   showControls={false}
                   options={{
                     autoPlay: false,
                     muted: true,
                     loadingSpinner: false,
-                    isCurrentlyShown: currentViewingId === video.id
+                    isCurrentlyShown: currentViewingId === targetPublication.id
                   }}
                 />
               </span>
@@ -151,19 +154,19 @@ const ByteVideo: FC<Props> = ({
           )}
         </div>
         <TopOverlay onClickVideo={onClickVideo} />
-        <BottomOverlay video={video} />
+        <BottomOverlay video={targetPublication} />
         <div className="absolute bottom-[15%] right-2 z-[1] md:hidden">
-          <ByteActions video={video} />
+          <ByteActions video={targetPublication} />
           <div className="pt-3 text-center text-white md:text-gray-500">
-            <CollectVideo video={video} variant="none" />
+            <CollectVideo video={targetPublication} variant="none" />
             <div className="text-xs">
-              {video.stats?.countOpenActions || t`Collect`}
+              {targetPublication.stats?.countOpenActions || t`Collect`}
             </div>
           </div>
         </div>
       </div>
       <div className="hidden md:flex">
-        <ByteActions video={video} />
+        <ByteActions video={targetPublication} />
       </div>
     </div>
   )
