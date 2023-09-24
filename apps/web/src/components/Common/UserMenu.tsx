@@ -15,6 +15,7 @@ import { Loader } from '@lenstube/ui'
 import useAuthPersistStore, { signOut } from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
+import { Avatar } from '@radix-ui/themes'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
@@ -117,11 +118,10 @@ const UserMenu = () => {
           onClick={() => Analytics.track(TRACK.CLICK_USER_MENU)}
           className="btn-primary flex-none ring-gray-200 hover:ring-4 dark:ring-gray-800"
         >
-          <img
-            className="dark:bg-theme h-8 w-8 rounded-full bg-white object-cover md:h-9 md:w-9"
+          <Avatar
+            size="2"
             src={getProfilePicture(selectedSimpleProfile as Profile)}
-            alt={selectedSimpleProfile?.handle}
-            draggable={false}
+            fallback={trimLensHandle(selectedSimpleProfile?.handle)[0]}
           />
         </button>
       }
@@ -152,11 +152,10 @@ const UserMenu = () => {
                     onClick={() => onSelectChannel(channel)}
                   >
                     <span className="inline-flex items-center space-x-1.5">
-                      <img
-                        className="h-6 w-6 rounded-full"
+                      <Avatar
+                        size="1"
                         src={getProfilePicture(channel)}
-                        alt={channel.handle}
-                        draggable={false}
+                        fallback={trimLensHandle(channel?.handle)[0]}
                       />
                       <span className="truncate whitespace-nowrap">
                         {channel.handle}
@@ -178,18 +177,19 @@ const UserMenu = () => {
                       selectedSimpleProfile?.handle
                     )}`}
                   >
-                    <img
-                      className="h-9 w-9 rounded-full object-cover"
+                    <Avatar
+                      size="3"
                       src={getProfilePicture(
                         selectedSimpleProfile as Profile,
                         'AVATAR'
                       )}
-                      alt={selectedSimpleProfile?.handle}
-                      draggable={false}
+                      fallback={
+                        trimLensHandle(selectedSimpleProfile?.handle)[0]
+                      }
                     />
                   </Link>
                   <div className="grid">
-                    <span className="text-xs opacity-70">
+                    <span className="text-sm opacity-70">
                       <Trans>Connected as</Trans>
                     </span>
                     <Link
