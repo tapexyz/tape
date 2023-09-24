@@ -157,6 +157,16 @@ const UploadSteps = () => {
     return stopLoading()
   }
 
+  const initBundlr = async () => {
+    if (signer && address && !bundlrData.instance) {
+      toast.loading(BUNDLR_CONNECT_MESSAGE)
+      const bundlr = await getBundlrInstance(signer)
+      if (bundlr) {
+        setBundlrData({ instance: bundlr })
+      }
+    }
+  }
+
   const { signTypedDataAsync } = useSignTypedData({
     onError
   })
@@ -180,16 +190,6 @@ const UploadSteps = () => {
     toast.loading(REQUESTING_SIGNATURE_MESSAGE)
     const signature = await signTypedDataAsync(getSignature(data))
     return signature
-  }
-
-  const initBundlr = async () => {
-    if (signer && address && !bundlrData.instance) {
-      toast.loading(BUNDLR_CONNECT_MESSAGE)
-      const bundlr = await getBundlrInstance(signer)
-      if (bundlr) {
-        setBundlrData({ instance: bundlr })
-      }
-    }
   }
 
   const [broadcastOnchain] = useBroadcastOnchainMutation({

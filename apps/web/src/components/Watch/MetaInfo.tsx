@@ -2,7 +2,6 @@ import ExternalOutline from '@components/Common/Icons/ExternalOutline'
 import TagOutline from '@components/Common/Icons/TagOutline'
 import ArweaveExplorerLink from '@components/Common/Links/ArweaveExplorerLink'
 import IPFSLink from '@components/Common/Links/IPFSLink'
-import TokenExplorerLink from '@components/Common/Links/TokenExplorerLink'
 import { Analytics, TRACK } from '@lenstube/browser'
 import {
   getCategoryName,
@@ -20,7 +19,7 @@ type Props = {
 }
 
 const MetaInfo: FC<Props> = ({ video }) => {
-  const isIPFS = getIsIPFSUrl(video.rawURI)
+  const isIPFS = getIsIPFSUrl(video.metadata.rawURI)
 
   return (
     <div className="flex flex-wrap items-center space-x-1 opacity-80">
@@ -65,24 +64,6 @@ const MetaInfo: FC<Props> = ({ video }) => {
             <ExternalOutline className="h-3.5 w-3.5" />
           </div>
         </ArweaveExplorerLink>
-      )}
-      {video.collectNftAddress && (
-        <div
-          onClick={() => Analytics.track(TRACK.CLICK_VIEW_TOKEN)}
-          tabIndex={0}
-          className="hidden items-center space-x-1 md:flex"
-          role="button"
-        >
-          <span className="middot" />
-          <TokenExplorerLink address={video.collectNftAddress}>
-            <div className="flex items-center space-x-1">
-              <div className="whitespace-nowrap text-sm">
-                <Trans>View Token</Trans>
-              </div>
-              <ExternalOutline className="h-3.5 w-3.5" />
-            </div>
-          </TokenExplorerLink>
-        </div>
       )}
       {video.momoka?.proof && (
         <div

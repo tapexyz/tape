@@ -57,7 +57,8 @@ const SuggestedVideos = () => {
       }
     })
 
-  const videos = data?.explorePublications?.items as MirrorablePublication[]
+  const videos = data?.explorePublications
+    ?.items as unknown as MirrorablePublication[]
   const pageInfo = data?.explorePublications?.pageInfo
 
   useEffect(() => {

@@ -1,6 +1,7 @@
 import type {
   AudioMetadata,
   ProfileMetadata,
+  TextOnlyMetadata,
   VideoMetadata
 } from '@lens-protocol/metadata'
 import { BUNDLR_METADATA_UPLOAD_URL } from '@lenstube/constants'
@@ -9,7 +10,7 @@ import axios from 'axios'
 import { logger } from '../logger'
 
 export const uploadToAr = async (
-  data: VideoMetadata | AudioMetadata | ProfileMetadata
+  data: VideoMetadata | AudioMetadata | ProfileMetadata | TextOnlyMetadata
 ): Promise<string> => {
   try {
     const response = await axios.post(BUNDLR_METADATA_UPLOAD_URL, data)

@@ -120,7 +120,10 @@ const SelectProfile: FC<Props> = ({ show, setShow }) => {
           setShowCreateChannel(true)
         } else {
           const profiles = profilesData?.profiles?.items as Profile[]
-          setSelectedSimpleProfile(profiles[0])
+          const profile = profiles.find((profile) => profile.id === profileId)
+          if (profile) {
+            setSelectedSimpleProfile(profile)
+          }
           if (router.query?.next) {
             router.push(router.query?.next as string)
           }

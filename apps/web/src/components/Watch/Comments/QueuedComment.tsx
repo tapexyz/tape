@@ -4,9 +4,9 @@ import Tooltip from '@components/UIElements/Tooltip'
 import { getProfilePicture, trimLensHandle } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import {
-  PublicationDetailsDocument,
-  useHasTxHashBeenIndexedQuery,
-  usePublicationDetailsLazyQuery,
+  PublicationDocument,
+  useLensTransactionStatusQuery,
+  usePublicationLazyQuery,
   useTxIdToTxHashLazyQuery
 } from '@lenstube/lens'
 import { useApolloClient } from '@lenstube/lens/apollo'
@@ -42,7 +42,7 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
     )
   }
 
-  const [getPublication] = usePublicationDetailsLazyQuery({
+  const [getPublication] = usePublicationLazyQuery({
     onCompleted: (data) => {
       if (data.publication) {
         cache.modify({
@@ -50,7 +50,7 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
             publications() {
               cache.writeQuery({
                 data: { publication: data?.publication },
-                query: PublicationDetailsDocument
+                query: PublicationDocument
               })
             }
           }
@@ -63,37 +63,39 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
   const getCommentByTxnId = async () => {
     const { data } = await getTxnHash({
       variables: {
-        txId: queuedComment?.txnId
+        for: queuedComment?.txnId
       }
     })
     if (data?.txIdToTxHash) {
       getPublication({
-        variables: { request: { txHash: data?.txIdToTxHash } }
+        variables: { request: { forTxHash: data?.txIdToTxHash } }
       })
     }
   }
 
-  const { stopPolling } = useHasTxHashBeenIndexedQuery({
+  const { stopPolling } = useLensTransactionStatusQuery({
     variables: {
-      request: { txId: queuedComment?.txnId, txHash: queuedComment?.txnHash }
+      request: {
+        forTxId: queuedComment?.txnId,
+        forTxHash: queuedComment?.txnHash
+      }
     },
     skip: !queuedComment?.txnId?.length && !queuedComment?.txnHash?.length,
     pollInterval: 1000,
     onCompleted: async (data) => {
-      if (data.hasTxHashBeenIndexed.__typename === 'TransactionError') {
-        return removeFromQueue()
-      }
       if (
-        data?.hasTxHashBeenIndexed?.__typename === 'TransactionIndexedResult' &&
-        data?.hasTxHashBeenIndexed?.indexed
+        data?.lensTransactionStatus?.__typename === 'LensTransactionResult' &&
+        data?.lensTransactionStatus?.status
       ) {
         stopPolling()
         if (queuedComment.txnHash) {
           return getPublication({
-            variables: { request: { txHash: queuedComment?.txnHash } }
+            variables: { request: { forTxHash: queuedComment?.txnHash } }
           })
         }
         await getCommentByTxnId()
+      } else {
+        return removeFromQueue()
       }
     }
   })

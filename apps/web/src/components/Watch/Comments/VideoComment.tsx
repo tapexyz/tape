@@ -1,12 +1,12 @@
 import { STATIC_ASSETS } from '@lenstube/constants'
-import type { Publication } from '@lenstube/lens'
+import type { Comment } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
 
 type Props = {
-  comment: Publication
+  comment: Comment
 }
 
 const VideoComment: FC<Props> = ({ comment }) => {
