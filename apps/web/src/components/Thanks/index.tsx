@@ -1,22 +1,13 @@
-import MetaTags from '@components/Common/MetaTags'
-import { Analytics, TRACK } from '@lenstube/browser'
 import { LENSTUBE_APP_NAME, STATIC_ASSETS } from '@lenstube/constants'
-import { t, Trans } from '@lingui/macro'
 import Link from 'next/link'
-import React, { useEffect } from 'react'
 
 const Thanks = () => {
-  useEffect(() => {
-    Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.THANKS })
-  }, [])
-
   return (
     <div className="space-y-5 md:py-10">
-      <MetaTags title={t`Thanks`} />
       <div className="bg-brand-400 flex h-48 w-full items-center justify-center">
         <div className="relative text-center">
           <div className="flex items-center space-x-2 text-3xl font-bold md:text-4xl">
-            <Trans>Thanks for supporting our community!</Trans>
+            Thanks for supporting our community!
           </div>
         </div>
       </div>
