@@ -4,14 +4,8 @@ export const metadata: Metadata = {
   title: 'Terms and Conditions'
 }
 
-export default function RootLayout({
-  children
-}: {
-  children: React.ReactNode
-}) {
-  return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
-  )
+const TermsLayout = ({ children }: { children: React.ReactNode }) => {
+  return <section>{children}</section>
 }
+
+export default TermsLayout

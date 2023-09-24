@@ -4,14 +4,8 @@ export const metadata: Metadata = {
   title: 'Privacy Policy'
 }
 
-export default function RootLayout({
-  children
-}: {
-  children: React.ReactNode
-}) {
-  return (
-    <html lang="en">
-      <body>{children}</body>
-    </html>
-  )
+const PrivacyLayout = ({ children }: { children: React.ReactNode }) => {
+  return <section>{children}</section>
 }
+
+export default PrivacyLayout

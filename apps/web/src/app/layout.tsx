@@ -135,8 +135,7 @@ export const metadata: Metadata = {
     }
   ],
   manifest: `${STATIC_ASSETS}/images/favicons/manifest.json`,
-  themeColor: '#000000',
-  colorScheme: 'dark light'
+  themeColor: '#000000'
 }
 
 export default function RootLayout({
