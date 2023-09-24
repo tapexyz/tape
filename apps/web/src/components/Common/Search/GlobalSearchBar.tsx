@@ -16,11 +16,12 @@ import {
 import { useLazyQuery } from '@lenstube/lens/apollo'
 import { Loader } from '@lenstube/ui'
 import { t, Trans } from '@lingui/macro'
+import { MagnifyingGlassIcon } from '@radix-ui/react-icons'
+import { TextField } from '@radix-ui/themes'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
 
-import SearchOutline from '../Icons/SearchOutline'
 import Channels from './Channels'
 import Videos from './Videos'
 
@@ -81,20 +82,16 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
     <div className="md:w-96" data-testid="global-search">
       <div ref={resultsRef}>
         <div className="relative">
-          <div className="relative w-full cursor-default overflow-hidden rounded-full border border-gray-200 dark:border-gray-700 sm:text-sm">
-            <input
-              className="w-full bg-transparent py-2 pl-4 pr-10 text-sm focus:outline-none"
+          <TextField.Root>
+            <TextField.Slot>
+              <MagnifyingGlassIcon height="16" width="16" />
+            </TextField.Slot>
+            <TextField.Input
+              value={keyword}
               onChange={(event) => setKeyword(event.target.value)}
               placeholder={t`Search by channel / hashtag`}
-              value={keyword}
             />
-            <div className="absolute inset-y-0 right-0 flex items-center pr-3">
-              <SearchOutline
-                className="h-4 w-4 text-gray-400"
-                aria-hidden="true"
-              />
-            </div>
-          </div>
+          </TextField.Root>
           <div
             className={clsx(
               'dark:bg-theme z-10 mt-1 w-full overflow-hidden rounded-xl bg-white text-base ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm md:absolute',
