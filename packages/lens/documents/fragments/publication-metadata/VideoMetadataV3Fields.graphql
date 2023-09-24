@@ -12,10 +12,13 @@ fragment VideoMetadataV3Fields on VideoMetadataV3 {
   attributes {
     ...PublicationMetadataV3AttributeFields
   }
-  content
-  tags
-  locale
+  asset {
+    ...PublicationMetadataMediaVideoFields
+  }
   attachments {
     ...PublicationMetadataMediaFields
   }
+  title
+  content
+  isShortVideo
 }

@@ -16,6 +16,9 @@ fragment ImageMetadataV3Fields on ImageMetadataV3 {
     ...PublicationMetadataMediaFields
   }
   asset {
+    ...PublicationMetadataMediaImageFields
+  }
+  asset {
     image {
       raw {
         uri

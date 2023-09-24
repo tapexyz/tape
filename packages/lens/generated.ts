@@ -6133,7 +6133,9 @@ type AnyPublicationMetadataFields_VideoMetadataV3_Fragment = {
   contentWarning?: PublicationContentWarningType | null
   hideFromFeed: boolean
   appId?: any | null
+  title: string
   content: any
+  isShortVideo: boolean
   marketplace?: {
     __typename?: 'MarketplaceMetadata'
     name?: string | null
@@ -6157,6 +6159,22 @@ type AnyPublicationMetadataFields_VideoMetadataV3_Fragment = {
     key: string
     value: string
   }> | null
+  asset: {
+    __typename?: 'PublicationMetadataMediaVideo'
+    duration?: number | null
+    license?: PublicationMetadataLicenseType | null
+    altTag?: any | null
+    video: {
+      __typename?: 'EncryptableVideoSet'
+      raw: { __typename?: 'EncryptableVideo'; uri: any }
+      optimized?: { __typename?: 'Video'; uri: any } | null
+    }
+    cover?: {
+      __typename?: 'EncryptableImageSet'
+      raw: { __typename?: 'EncryptableImage'; uri: any }
+      optimized?: { __typename?: 'Image'; uri: any } | null
+    } | null
+  }
   attachments?: Array<
     | {
         __typename?: 'PublicationMetadataMediaAudio'
@@ -7673,7 +7691,9 @@ export type CommentFieldsFragment = {
         contentWarning?: PublicationContentWarningType | null
         hideFromFeed: boolean
         appId?: any | null
+        title: string
         content: any
+        isShortVideo: boolean
         marketplace?: {
           __typename?: 'MarketplaceMetadata'
           name?: string | null
@@ -7697,6 +7717,22 @@ export type CommentFieldsFragment = {
           key: string
           value: string
         }> | null
+        asset: {
+          __typename?: 'PublicationMetadataMediaVideo'
+          duration?: number | null
+          license?: PublicationMetadataLicenseType | null
+          altTag?: any | null
+          video: {
+            __typename?: 'EncryptableVideoSet'
+            raw: { __typename?: 'EncryptableVideo'; uri: any }
+            optimized?: { __typename?: 'Video'; uri: any } | null
+          }
+          cover?: {
+            __typename?: 'EncryptableImageSet'
+            raw: { __typename?: 'EncryptableImage'; uri: any }
+            optimized?: { __typename?: 'Image'; uri: any } | null
+          } | null
+        }
         attachments?: Array<
           | {
               __typename?: 'PublicationMetadataMediaAudio'
@@ -10067,7 +10103,9 @@ export type PostFieldsFragment = {
         contentWarning?: PublicationContentWarningType | null
         hideFromFeed: boolean
         appId?: any | null
+        title: string
         content: any
+        isShortVideo: boolean
         marketplace?: {
           __typename?: 'MarketplaceMetadata'
           name?: string | null
@@ -10091,6 +10129,22 @@ export type PostFieldsFragment = {
           key: string
           value: string
         }> | null
+        asset: {
+          __typename?: 'PublicationMetadataMediaVideo'
+          duration?: number | null
+          license?: PublicationMetadataLicenseType | null
+          altTag?: any | null
+          video: {
+            __typename?: 'EncryptableVideoSet'
+            raw: { __typename?: 'EncryptableVideo'; uri: any }
+            optimized?: { __typename?: 'Video'; uri: any } | null
+          }
+          cover?: {
+            __typename?: 'EncryptableImageSet'
+            raw: { __typename?: 'EncryptableImage'; uri: any }
+            optimized?: { __typename?: 'Image'; uri: any } | null
+          } | null
+        }
         attachments?: Array<
           | {
               __typename?: 'PublicationMetadataMediaAudio'
@@ -12215,7 +12269,9 @@ export type QuoteFieldsFragment = {
         contentWarning?: PublicationContentWarningType | null
         hideFromFeed: boolean
         appId?: any | null
+        title: string
         content: any
+        isShortVideo: boolean
         marketplace?: {
           __typename?: 'MarketplaceMetadata'
           name?: string | null
@@ -12239,6 +12295,22 @@ export type QuoteFieldsFragment = {
           key: string
           value: string
         }> | null
+        asset: {
+          __typename?: 'PublicationMetadataMediaVideo'
+          duration?: number | null
+          license?: PublicationMetadataLicenseType | null
+          altTag?: any | null
+          video: {
+            __typename?: 'EncryptableVideoSet'
+            raw: { __typename?: 'EncryptableVideo'; uri: any }
+            optimized?: { __typename?: 'Video'; uri: any } | null
+          }
+          cover?: {
+            __typename?: 'EncryptableImageSet'
+            raw: { __typename?: 'EncryptableImage'; uri: any }
+            optimized?: { __typename?: 'Image'; uri: any } | null
+          } | null
+        }
         attachments?: Array<
           | {
               __typename?: 'PublicationMetadataMediaAudio'
@@ -13617,115 +13689,6 @@ export type MintMetadataV3FieldsFragment = {
   > | null
 }
 
-export type PublicationMetadataMediaAudioFieldsFragment = {
-  __typename?: 'PublicationMetadataMediaAudio'
-  artist?: any | null
-  duration?: number | null
-  license?: PublicationMetadataLicenseType | null
-  genre?: any | null
-  recordLabel?: any | null
-  credits?: any | null
-  lyrics?: any | null
-  audio: {
-    __typename?: 'EncryptableAudioSet'
-    raw: { __typename?: 'EncryptableAudio'; uri: any }
-    optimized?: { __typename?: 'Audio'; uri: any } | null
-  }
-  cover?: {
-    __typename?: 'EncryptableImageSet'
-    raw: { __typename?: 'EncryptableImage'; uri: any }
-    optimized?: { __typename?: 'Image'; uri: any } | null
-  } | null
-}
-
-type PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment = {
-  __typename?: 'PublicationMetadataMediaAudio'
-  artist?: any | null
-  duration?: number | null
-  license?: PublicationMetadataLicenseType | null
-  genre?: any | null
-  recordLabel?: any | null
-  credits?: any | null
-  lyrics?: any | null
-  audio: {
-    __typename?: 'EncryptableAudioSet'
-    raw: { __typename?: 'EncryptableAudio'; uri: any }
-    optimized?: { __typename?: 'Audio'; uri: any } | null
-  }
-  cover?: {
-    __typename?: 'EncryptableImageSet'
-    raw: { __typename?: 'EncryptableImage'; uri: any }
-    optimized?: { __typename?: 'Image'; uri: any } | null
-  } | null
-}
-
-type PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment = {
-  __typename?: 'PublicationMetadataMediaImage'
-  license?: PublicationMetadataLicenseType | null
-  altTag?: any | null
-  image: {
-    __typename?: 'EncryptableImageSet'
-    raw: { __typename?: 'EncryptableImage'; uri: any }
-    optimized?: { __typename?: 'Image'; uri: any } | null
-  }
-}
-
-type PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment = {
-  __typename?: 'PublicationMetadataMediaVideo'
-  duration?: number | null
-  license?: PublicationMetadataLicenseType | null
-  altTag?: any | null
-  video: {
-    __typename?: 'EncryptableVideoSet'
-    raw: { __typename?: 'EncryptableVideo'; uri: any }
-    optimized?: { __typename?: 'Video'; uri: any } | null
-  }
-  cover?: {
-    __typename?: 'EncryptableImageSet'
-    raw: { __typename?: 'EncryptableImage'; uri: any }
-    optimized?: { __typename?: 'Image'; uri: any } | null
-  } | null
-}
-
-export type PublicationMetadataMediaFieldsFragment =
-  | PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment
-  | PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment
-  | PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment
-
-export type PublicationMetadataMediaImageFieldsFragment = {
-  __typename?: 'PublicationMetadataMediaImage'
-  license?: PublicationMetadataLicenseType | null
-  altTag?: any | null
-  image: {
-    __typename?: 'EncryptableImageSet'
-    raw: { __typename?: 'EncryptableImage'; uri: any }
-    optimized?: { __typename?: 'Image'; uri: any } | null
-  }
-}
-
-export type PublicationMetadataMediaVideoFieldsFragment = {
-  __typename?: 'PublicationMetadataMediaVideo'
-  duration?: number | null
-  license?: PublicationMetadataLicenseType | null
-  altTag?: any | null
-  video: {
-    __typename?: 'EncryptableVideoSet'
-    raw: { __typename?: 'EncryptableVideo'; uri: any }
-    optimized?: { __typename?: 'Video'; uri: any } | null
-  }
-  cover?: {
-    __typename?: 'EncryptableImageSet'
-    raw: { __typename?: 'EncryptableImage'; uri: any }
-    optimized?: { __typename?: 'Image'; uri: any } | null
-  } | null
-}
-
-export type PublicationMetadataV3AttributeFieldsFragment = {
-  __typename?: 'PublicationMetadataV3Attribute'
-  key: string
-  value: string
-}
-
 export type SpaceMetadataV3FieldsFragment = {
   __typename?: 'SpaceMetadataV3'
   id: string
@@ -14115,7 +14078,9 @@ export type VideoMetadataV3FieldsFragment = {
   contentWarning?: PublicationContentWarningType | null
   hideFromFeed: boolean
   appId?: any | null
+  title: string
   content: any
+  isShortVideo: boolean
   marketplace?: {
     __typename?: 'MarketplaceMetadata'
     name?: string | null
@@ -14139,6 +14104,22 @@ export type VideoMetadataV3FieldsFragment = {
     key: string
     value: string
   }> | null
+  asset: {
+    __typename?: 'PublicationMetadataMediaVideo'
+    duration?: number | null
+    license?: PublicationMetadataLicenseType | null
+    altTag?: any | null
+    video: {
+      __typename?: 'EncryptableVideoSet'
+      raw: { __typename?: 'EncryptableVideo'; uri: any }
+      optimized?: { __typename?: 'Video'; uri: any } | null
+    }
+    cover?: {
+      __typename?: 'EncryptableImageSet'
+      raw: { __typename?: 'EncryptableImage'; uri: any }
+      optimized?: { __typename?: 'Image'; uri: any } | null
+    } | null
+  }
   attachments?: Array<
     | {
         __typename?: 'PublicationMetadataMediaAudio'
@@ -14187,6 +14168,115 @@ export type VideoMetadataV3FieldsFragment = {
         } | null
       }
   > | null
+}
+
+export type PublicationMetadataMediaAudioFieldsFragment = {
+  __typename?: 'PublicationMetadataMediaAudio'
+  artist?: any | null
+  duration?: number | null
+  license?: PublicationMetadataLicenseType | null
+  genre?: any | null
+  recordLabel?: any | null
+  credits?: any | null
+  lyrics?: any | null
+  audio: {
+    __typename?: 'EncryptableAudioSet'
+    raw: { __typename?: 'EncryptableAudio'; uri: any }
+    optimized?: { __typename?: 'Audio'; uri: any } | null
+  }
+  cover?: {
+    __typename?: 'EncryptableImageSet'
+    raw: { __typename?: 'EncryptableImage'; uri: any }
+    optimized?: { __typename?: 'Image'; uri: any } | null
+  } | null
+}
+
+type PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment = {
+  __typename?: 'PublicationMetadataMediaAudio'
+  artist?: any | null
+  duration?: number | null
+  license?: PublicationMetadataLicenseType | null
+  genre?: any | null
+  recordLabel?: any | null
+  credits?: any | null
+  lyrics?: any | null
+  audio: {
+    __typename?: 'EncryptableAudioSet'
+    raw: { __typename?: 'EncryptableAudio'; uri: any }
+    optimized?: { __typename?: 'Audio'; uri: any } | null
+  }
+  cover?: {
+    __typename?: 'EncryptableImageSet'
+    raw: { __typename?: 'EncryptableImage'; uri: any }
+    optimized?: { __typename?: 'Image'; uri: any } | null
+  } | null
+}
+
+type PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment = {
+  __typename?: 'PublicationMetadataMediaImage'
+  license?: PublicationMetadataLicenseType | null
+  altTag?: any | null
+  image: {
+    __typename?: 'EncryptableImageSet'
+    raw: { __typename?: 'EncryptableImage'; uri: any }
+    optimized?: { __typename?: 'Image'; uri: any } | null
+  }
+}
+
+type PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment = {
+  __typename?: 'PublicationMetadataMediaVideo'
+  duration?: number | null
+  license?: PublicationMetadataLicenseType | null
+  altTag?: any | null
+  video: {
+    __typename?: 'EncryptableVideoSet'
+    raw: { __typename?: 'EncryptableVideo'; uri: any }
+    optimized?: { __typename?: 'Video'; uri: any } | null
+  }
+  cover?: {
+    __typename?: 'EncryptableImageSet'
+    raw: { __typename?: 'EncryptableImage'; uri: any }
+    optimized?: { __typename?: 'Image'; uri: any } | null
+  } | null
+}
+
+export type PublicationMetadataMediaFieldsFragment =
+  | PublicationMetadataMediaFields_PublicationMetadataMediaAudio_Fragment
+  | PublicationMetadataMediaFields_PublicationMetadataMediaImage_Fragment
+  | PublicationMetadataMediaFields_PublicationMetadataMediaVideo_Fragment
+
+export type PublicationMetadataMediaImageFieldsFragment = {
+  __typename?: 'PublicationMetadataMediaImage'
+  license?: PublicationMetadataLicenseType | null
+  altTag?: any | null
+  image: {
+    __typename?: 'EncryptableImageSet'
+    raw: { __typename?: 'EncryptableImage'; uri: any }
+    optimized?: { __typename?: 'Image'; uri: any } | null
+  }
+}
+
+export type PublicationMetadataMediaVideoFieldsFragment = {
+  __typename?: 'PublicationMetadataMediaVideo'
+  duration?: number | null
+  license?: PublicationMetadataLicenseType | null
+  altTag?: any | null
+  video: {
+    __typename?: 'EncryptableVideoSet'
+    raw: { __typename?: 'EncryptableVideo'; uri: any }
+    optimized?: { __typename?: 'Video'; uri: any } | null
+  }
+  cover?: {
+    __typename?: 'EncryptableImageSet'
+    raw: { __typename?: 'EncryptableImage'; uri: any }
+    optimized?: { __typename?: 'Image'; uri: any } | null
+  } | null
+}
+
+export type PublicationMetadataV3AttributeFieldsFragment = {
+  __typename?: 'PublicationMetadataV3Attribute'
+  key: string
+  value: string
 }
 
 export type AuthenticateMutationVariables = Exact<{
@@ -16957,7 +17047,9 @@ export type ExplorePublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null
                 hideFromFeed: boolean
                 appId?: any | null
+                title: string
                 content: any
+                isShortVideo: boolean
                 marketplace?: {
                   __typename?: 'MarketplaceMetadata'
                   name?: string | null
@@ -16981,6 +17073,22 @@ export type ExplorePublicationsQuery = {
                   key: string
                   value: string
                 }> | null
+                asset: {
+                  __typename?: 'PublicationMetadataMediaVideo'
+                  duration?: number | null
+                  license?: PublicationMetadataLicenseType | null
+                  altTag?: any | null
+                  video: {
+                    __typename?: 'EncryptableVideoSet'
+                    raw: { __typename?: 'EncryptableVideo'; uri: any }
+                    optimized?: { __typename?: 'Video'; uri: any } | null
+                  }
+                  cover?: {
+                    __typename?: 'EncryptableImageSet'
+                    raw: { __typename?: 'EncryptableImage'; uri: any }
+                    optimized?: { __typename?: 'Image'; uri: any } | null
+                  } | null
+                }
                 attachments?: Array<
                   | {
                       __typename?: 'PublicationMetadataMediaAudio'
@@ -18953,7 +19061,9 @@ export type ExplorePublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null
                 hideFromFeed: boolean
                 appId?: any | null
+                title: string
                 content: any
+                isShortVideo: boolean
                 marketplace?: {
                   __typename?: 'MarketplaceMetadata'
                   name?: string | null
@@ -18977,6 +19087,22 @@ export type ExplorePublicationsQuery = {
                   key: string
                   value: string
                 }> | null
+                asset: {
+                  __typename?: 'PublicationMetadataMediaVideo'
+                  duration?: number | null
+                  license?: PublicationMetadataLicenseType | null
+                  altTag?: any | null
+                  video: {
+                    __typename?: 'EncryptableVideoSet'
+                    raw: { __typename?: 'EncryptableVideo'; uri: any }
+                    optimized?: { __typename?: 'Video'; uri: any } | null
+                  }
+                  cover?: {
+                    __typename?: 'EncryptableImageSet'
+                    raw: { __typename?: 'EncryptableImage'; uri: any }
+                    optimized?: { __typename?: 'Image'; uri: any } | null
+                  } | null
+                }
                 attachments?: Array<
                   | {
                       __typename?: 'PublicationMetadataMediaAudio'
@@ -20967,7 +21093,9 @@ export type FeedHighlightsQuery = {
                 contentWarning?: PublicationContentWarningType | null
                 hideFromFeed: boolean
                 appId?: any | null
+                title: string
                 content: any
+                isShortVideo: boolean
                 marketplace?: {
                   __typename?: 'MarketplaceMetadata'
                   name?: string | null
@@ -20991,6 +21119,22 @@ export type FeedHighlightsQuery = {
                   key: string
                   value: string
                 }> | null
+                asset: {
+                  __typename?: 'PublicationMetadataMediaVideo'
+                  duration?: number | null
+                  license?: PublicationMetadataLicenseType | null
+                  altTag?: any | null
+                  video: {
+                    __typename?: 'EncryptableVideoSet'
+                    raw: { __typename?: 'EncryptableVideo'; uri: any }
+                    optimized?: { __typename?: 'Video'; uri: any } | null
+                  }
+                  cover?: {
+                    __typename?: 'EncryptableImageSet'
+                    raw: { __typename?: 'EncryptableImage'; uri: any }
+                    optimized?: { __typename?: 'Image'; uri: any } | null
+                  } | null
+                }
                 attachments?: Array<
                   | {
                       __typename?: 'PublicationMetadataMediaAudio'
@@ -22963,7 +23107,9 @@ export type FeedHighlightsQuery = {
                 contentWarning?: PublicationContentWarningType | null
                 hideFromFeed: boolean
                 appId?: any | null
+                title: string
                 content: any
+                isShortVideo: boolean
                 marketplace?: {
                   __typename?: 'MarketplaceMetadata'
                   name?: string | null
@@ -22987,6 +23133,22 @@ export type FeedHighlightsQuery = {
                   key: string
                   value: string
                 }> | null
+                asset: {
+                  __typename?: 'PublicationMetadataMediaVideo'
+                  duration?: number | null
+                  license?: PublicationMetadataLicenseType | null
+                  altTag?: any | null
+                  video: {
+                    __typename?: 'EncryptableVideoSet'
+                    raw: { __typename?: 'EncryptableVideo'; uri: any }
+                    optimized?: { __typename?: 'Video'; uri: any } | null
+                  }
+                  cover?: {
+                    __typename?: 'EncryptableImageSet'
+                    raw: { __typename?: 'EncryptableImage'; uri: any }
+                    optimized?: { __typename?: 'Image'; uri: any } | null
+                  } | null
+                }
                 attachments?: Array<
                   | {
                       __typename?: 'PublicationMetadataMediaAudio'
@@ -25923,7 +26085,9 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null
                       hideFromFeed: boolean
                       appId?: any | null
+                      title: string
                       content: any
+                      isShortVideo: boolean
                       marketplace?: {
                         __typename?: 'MarketplaceMetadata'
                         name?: string | null
@@ -25947,6 +26111,22 @@ export type NotificationsQuery = {
                         key: string
                         value: string
                       }> | null
+                      asset: {
+                        __typename?: 'PublicationMetadataMediaVideo'
+                        duration?: number | null
+                        license?: PublicationMetadataLicenseType | null
+                        altTag?: any | null
+                        video: {
+                          __typename?: 'EncryptableVideoSet'
+                          raw: { __typename?: 'EncryptableVideo'; uri: any }
+                          optimized?: { __typename?: 'Video'; uri: any } | null
+                        }
+                        cover?: {
+                          __typename?: 'EncryptableImageSet'
+                          raw: { __typename?: 'EncryptableImage'; uri: any }
+                          optimized?: { __typename?: 'Image'; uri: any } | null
+                        } | null
+                      }
                       attachments?: Array<
                         | {
                             __typename?: 'PublicationMetadataMediaAudio'
@@ -28166,7 +28346,9 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null
                       hideFromFeed: boolean
                       appId?: any | null
+                      title: string
                       content: any
+                      isShortVideo: boolean
                       marketplace?: {
                         __typename?: 'MarketplaceMetadata'
                         name?: string | null
@@ -28190,6 +28372,22 @@ export type NotificationsQuery = {
                         key: string
                         value: string
                       }> | null
+                      asset: {
+                        __typename?: 'PublicationMetadataMediaVideo'
+                        duration?: number | null
+                        license?: PublicationMetadataLicenseType | null
+                        altTag?: any | null
+                        video: {
+                          __typename?: 'EncryptableVideoSet'
+                          raw: { __typename?: 'EncryptableVideo'; uri: any }
+                          optimized?: { __typename?: 'Video'; uri: any } | null
+                        }
+                        cover?: {
+                          __typename?: 'EncryptableImageSet'
+                          raw: { __typename?: 'EncryptableImage'; uri: any }
+                          optimized?: { __typename?: 'Image'; uri: any } | null
+                        } | null
+                      }
                       attachments?: Array<
                         | {
                             __typename?: 'PublicationMetadataMediaAudio'
@@ -30185,7 +30383,9 @@ export type NotificationsQuery = {
                   contentWarning?: PublicationContentWarningType | null
                   hideFromFeed: boolean
                   appId?: any | null
+                  title: string
                   content: any
+                  isShortVideo: boolean
                   marketplace?: {
                     __typename?: 'MarketplaceMetadata'
                     name?: string | null
@@ -30209,6 +30409,22 @@ export type NotificationsQuery = {
                     key: string
                     value: string
                   }> | null
+                  asset: {
+                    __typename?: 'PublicationMetadataMediaVideo'
+                    duration?: number | null
+                    license?: PublicationMetadataLicenseType | null
+                    altTag?: any | null
+                    video: {
+                      __typename?: 'EncryptableVideoSet'
+                      raw: { __typename?: 'EncryptableVideo'; uri: any }
+                      optimized?: { __typename?: 'Video'; uri: any } | null
+                    }
+                    cover?: {
+                      __typename?: 'EncryptableImageSet'
+                      raw: { __typename?: 'EncryptableImage'; uri: any }
+                      optimized?: { __typename?: 'Image'; uri: any } | null
+                    } | null
+                  }
                   attachments?: Array<
                     | {
                         __typename?: 'PublicationMetadataMediaAudio'
@@ -32558,7 +32774,9 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null
                       hideFromFeed: boolean
                       appId?: any | null
+                      title: string
                       content: any
+                      isShortVideo: boolean
                       marketplace?: {
                         __typename?: 'MarketplaceMetadata'
                         name?: string | null
@@ -32582,6 +32800,22 @@ export type NotificationsQuery = {
                         key: string
                         value: string
                       }> | null
+                      asset: {
+                        __typename?: 'PublicationMetadataMediaVideo'
+                        duration?: number | null
+                        license?: PublicationMetadataLicenseType | null
+                        altTag?: any | null
+                        video: {
+                          __typename?: 'EncryptableVideoSet'
+                          raw: { __typename?: 'EncryptableVideo'; uri: any }
+                          optimized?: { __typename?: 'Video'; uri: any } | null
+                        }
+                        cover?: {
+                          __typename?: 'EncryptableImageSet'
+                          raw: { __typename?: 'EncryptableImage'; uri: any }
+                          optimized?: { __typename?: 'Image'; uri: any } | null
+                        } | null
+                      }
                       attachments?: Array<
                         | {
                             __typename?: 'PublicationMetadataMediaAudio'
@@ -34788,7 +35022,9 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null
                       hideFromFeed: boolean
                       appId?: any | null
+                      title: string
                       content: any
+                      isShortVideo: boolean
                       marketplace?: {
                         __typename?: 'MarketplaceMetadata'
                         name?: string | null
@@ -34812,6 +35048,22 @@ export type NotificationsQuery = {
                         key: string
                         value: string
                       }> | null
+                      asset: {
+                        __typename?: 'PublicationMetadataMediaVideo'
+                        duration?: number | null
+                        license?: PublicationMetadataLicenseType | null
+                        altTag?: any | null
+                        video: {
+                          __typename?: 'EncryptableVideoSet'
+                          raw: { __typename?: 'EncryptableVideo'; uri: any }
+                          optimized?: { __typename?: 'Video'; uri: any } | null
+                        }
+                        cover?: {
+                          __typename?: 'EncryptableImageSet'
+                          raw: { __typename?: 'EncryptableImage'; uri: any }
+                          optimized?: { __typename?: 'Image'; uri: any } | null
+                        } | null
+                      }
                       attachments?: Array<
                         | {
                             __typename?: 'PublicationMetadataMediaAudio'
@@ -37012,7 +37264,9 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null
                       hideFromFeed: boolean
                       appId?: any | null
+                      title: string
                       content: any
+                      isShortVideo: boolean
                       marketplace?: {
                         __typename?: 'MarketplaceMetadata'
                         name?: string | null
@@ -37036,6 +37290,22 @@ export type NotificationsQuery = {
                         key: string
                         value: string
                       }> | null
+                      asset: {
+                        __typename?: 'PublicationMetadataMediaVideo'
+                        duration?: number | null
+                        license?: PublicationMetadataLicenseType | null
+                        altTag?: any | null
+                        video: {
+                          __typename?: 'EncryptableVideoSet'
+                          raw: { __typename?: 'EncryptableVideo'; uri: any }
+                          optimized?: { __typename?: 'Video'; uri: any } | null
+                        }
+                        cover?: {
+                          __typename?: 'EncryptableImageSet'
+                          raw: { __typename?: 'EncryptableImage'; uri: any }
+                          optimized?: { __typename?: 'Image'; uri: any } | null
+                        } | null
+                      }
                       attachments?: Array<
                         | {
                             __typename?: 'PublicationMetadataMediaAudio'
@@ -39402,7 +39672,9 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null
                       hideFromFeed: boolean
                       appId?: any | null
+                      title: string
                       content: any
+                      isShortVideo: boolean
                       marketplace?: {
                         __typename?: 'MarketplaceMetadata'
                         name?: string | null
@@ -39426,6 +39698,22 @@ export type NotificationsQuery = {
                         key: string
                         value: string
                       }> | null
+                      asset: {
+                        __typename?: 'PublicationMetadataMediaVideo'
+                        duration?: number | null
+                        license?: PublicationMetadataLicenseType | null
+                        altTag?: any | null
+                        video: {
+                          __typename?: 'EncryptableVideoSet'
+                          raw: { __typename?: 'EncryptableVideo'; uri: any }
+                          optimized?: { __typename?: 'Video'; uri: any } | null
+                        }
+                        cover?: {
+                          __typename?: 'EncryptableImageSet'
+                          raw: { __typename?: 'EncryptableImage'; uri: any }
+                          optimized?: { __typename?: 'Image'; uri: any } | null
+                        } | null
+                      }
                       attachments?: Array<
                         | {
                             __typename?: 'PublicationMetadataMediaAudio'
@@ -41632,7 +41920,9 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null
                       hideFromFeed: boolean
                       appId?: any | null
+                      title: string
                       content: any
+                      isShortVideo: boolean
                       marketplace?: {
                         __typename?: 'MarketplaceMetadata'
                         name?: string | null
@@ -41656,6 +41946,22 @@ export type NotificationsQuery = {
                         key: string
                         value: string
                       }> | null
+                      asset: {
+                        __typename?: 'PublicationMetadataMediaVideo'
+                        duration?: number | null
+                        license?: PublicationMetadataLicenseType | null
+                        altTag?: any | null
+                        video: {
+                          __typename?: 'EncryptableVideoSet'
+                          raw: { __typename?: 'EncryptableVideo'; uri: any }
+                          optimized?: { __typename?: 'Video'; uri: any } | null
+                        }
+                        cover?: {
+                          __typename?: 'EncryptableImageSet'
+                          raw: { __typename?: 'EncryptableImage'; uri: any }
+                          optimized?: { __typename?: 'Image'; uri: any } | null
+                        } | null
+                      }
                       attachments?: Array<
                         | {
                             __typename?: 'PublicationMetadataMediaAudio'
@@ -43856,7 +44162,9 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null
                       hideFromFeed: boolean
                       appId?: any | null
+                      title: string
                       content: any
+                      isShortVideo: boolean
                       marketplace?: {
                         __typename?: 'MarketplaceMetadata'
                         name?: string | null
@@ -43880,6 +44188,22 @@ export type NotificationsQuery = {
                         key: string
                         value: string
                       }> | null
+                      asset: {
+                        __typename?: 'PublicationMetadataMediaVideo'
+                        duration?: number | null
+                        license?: PublicationMetadataLicenseType | null
+                        altTag?: any | null
+                        video: {
+                          __typename?: 'EncryptableVideoSet'
+                          raw: { __typename?: 'EncryptableVideo'; uri: any }
+                          optimized?: { __typename?: 'Video'; uri: any } | null
+                        }
+                        cover?: {
+                          __typename?: 'EncryptableImageSet'
+                          raw: { __typename?: 'EncryptableImage'; uri: any }
+                          optimized?: { __typename?: 'Image'; uri: any } | null
+                        } | null
+                      }
                       attachments?: Array<
                         | {
                             __typename?: 'PublicationMetadataMediaAudio'
@@ -45878,7 +46202,9 @@ export type NotificationsQuery = {
                   contentWarning?: PublicationContentWarningType | null
                   hideFromFeed: boolean
                   appId?: any | null
+                  title: string
                   content: any
+                  isShortVideo: boolean
                   marketplace?: {
                     __typename?: 'MarketplaceMetadata'
                     name?: string | null
@@ -45902,6 +46228,22 @@ export type NotificationsQuery = {
                     key: string
                     value: string
                   }> | null
+                  asset: {
+                    __typename?: 'PublicationMetadataMediaVideo'
+                    duration?: number | null
+                    license?: PublicationMetadataLicenseType | null
+                    altTag?: any | null
+                    video: {
+                      __typename?: 'EncryptableVideoSet'
+                      raw: { __typename?: 'EncryptableVideo'; uri: any }
+                      optimized?: { __typename?: 'Video'; uri: any } | null
+                    }
+                    cover?: {
+                      __typename?: 'EncryptableImageSet'
+                      raw: { __typename?: 'EncryptableImage'; uri: any }
+                      optimized?: { __typename?: 'Image'; uri: any } | null
+                    } | null
+                  }
                   attachments?: Array<
                     | {
                         __typename?: 'PublicationMetadataMediaAudio'
@@ -48096,7 +48438,9 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null
                       hideFromFeed: boolean
                       appId?: any | null
+                      title: string
                       content: any
+                      isShortVideo: boolean
                       marketplace?: {
                         __typename?: 'MarketplaceMetadata'
                         name?: string | null
@@ -48120,6 +48464,22 @@ export type NotificationsQuery = {
                         key: string
                         value: string
                       }> | null
+                      asset: {
+                        __typename?: 'PublicationMetadataMediaVideo'
+                        duration?: number | null
+                        license?: PublicationMetadataLicenseType | null
+                        altTag?: any | null
+                        video: {
+                          __typename?: 'EncryptableVideoSet'
+                          raw: { __typename?: 'EncryptableVideo'; uri: any }
+                          optimized?: { __typename?: 'Video'; uri: any } | null
+                        }
+                        cover?: {
+                          __typename?: 'EncryptableImageSet'
+                          raw: { __typename?: 'EncryptableImage'; uri: any }
+                          optimized?: { __typename?: 'Image'; uri: any } | null
+                        } | null
+                      }
                       attachments?: Array<
                         | {
                             __typename?: 'PublicationMetadataMediaAudio'
@@ -50326,7 +50686,9 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null
                       hideFromFeed: boolean
                       appId?: any | null
+                      title: string
                       content: any
+                      isShortVideo: boolean
                       marketplace?: {
                         __typename?: 'MarketplaceMetadata'
                         name?: string | null
@@ -50350,6 +50712,22 @@ export type NotificationsQuery = {
                         key: string
                         value: string
                       }> | null
+                      asset: {
+                        __typename?: 'PublicationMetadataMediaVideo'
+                        duration?: number | null
+                        license?: PublicationMetadataLicenseType | null
+                        altTag?: any | null
+                        video: {
+                          __typename?: 'EncryptableVideoSet'
+                          raw: { __typename?: 'EncryptableVideo'; uri: any }
+                          optimized?: { __typename?: 'Video'; uri: any } | null
+                        }
+                        cover?: {
+                          __typename?: 'EncryptableImageSet'
+                          raw: { __typename?: 'EncryptableImage'; uri: any }
+                          optimized?: { __typename?: 'Image'; uri: any } | null
+                        } | null
+                      }
                       attachments?: Array<
                         | {
                             __typename?: 'PublicationMetadataMediaAudio'
@@ -52550,7 +52928,9 @@ export type NotificationsQuery = {
                       contentWarning?: PublicationContentWarningType | null
                       hideFromFeed: boolean
                       appId?: any | null
+                      title: string
                       content: any
+                      isShortVideo: boolean
                       marketplace?: {
                         __typename?: 'MarketplaceMetadata'
                         name?: string | null
@@ -52574,6 +52954,22 @@ export type NotificationsQuery = {
                         key: string
                         value: string
                       }> | null
+                      asset: {
+                        __typename?: 'PublicationMetadataMediaVideo'
+                        duration?: number | null
+                        license?: PublicationMetadataLicenseType | null
+                        altTag?: any | null
+                        video: {
+                          __typename?: 'EncryptableVideoSet'
+                          raw: { __typename?: 'EncryptableVideo'; uri: any }
+                          optimized?: { __typename?: 'Video'; uri: any } | null
+                        }
+                        cover?: {
+                          __typename?: 'EncryptableImageSet'
+                          raw: { __typename?: 'EncryptableImage'; uri: any }
+                          optimized?: { __typename?: 'Image'; uri: any } | null
+                        } | null
+                      }
                       attachments?: Array<
                         | {
                             __typename?: 'PublicationMetadataMediaAudio'
@@ -54886,7 +55282,9 @@ export type FeedQuery = {
                   contentWarning?: PublicationContentWarningType | null
                   hideFromFeed: boolean
                   appId?: any | null
+                  title: string
                   content: any
+                  isShortVideo: boolean
                   marketplace?: {
                     __typename?: 'MarketplaceMetadata'
                     name?: string | null
@@ -54910,6 +55308,22 @@ export type FeedQuery = {
                     key: string
                     value: string
                   }> | null
+                  asset: {
+                    __typename?: 'PublicationMetadataMediaVideo'
+                    duration?: number | null
+                    license?: PublicationMetadataLicenseType | null
+                    altTag?: any | null
+                    video: {
+                      __typename?: 'EncryptableVideoSet'
+                      raw: { __typename?: 'EncryptableVideo'; uri: any }
+                      optimized?: { __typename?: 'Video'; uri: any } | null
+                    }
+                    cover?: {
+                      __typename?: 'EncryptableImageSet'
+                      raw: { __typename?: 'EncryptableImage'; uri: any }
+                      optimized?: { __typename?: 'Image'; uri: any } | null
+                    } | null
+                  }
                   attachments?: Array<
                     | {
                         __typename?: 'PublicationMetadataMediaAudio'
@@ -56891,7 +57305,9 @@ export type FeedQuery = {
                   contentWarning?: PublicationContentWarningType | null
                   hideFromFeed: boolean
                   appId?: any | null
+                  title: string
                   content: any
+                  isShortVideo: boolean
                   marketplace?: {
                     __typename?: 'MarketplaceMetadata'
                     name?: string | null
@@ -56915,6 +57331,22 @@ export type FeedQuery = {
                     key: string
                     value: string
                   }> | null
+                  asset: {
+                    __typename?: 'PublicationMetadataMediaVideo'
+                    duration?: number | null
+                    license?: PublicationMetadataLicenseType | null
+                    altTag?: any | null
+                    video: {
+                      __typename?: 'EncryptableVideoSet'
+                      raw: { __typename?: 'EncryptableVideo'; uri: any }
+                      optimized?: { __typename?: 'Video'; uri: any } | null
+                    }
+                    cover?: {
+                      __typename?: 'EncryptableImageSet'
+                      raw: { __typename?: 'EncryptableImage'; uri: any }
+                      optimized?: { __typename?: 'Image'; uri: any } | null
+                    } | null
+                  }
                   attachments?: Array<
                     | {
                         __typename?: 'PublicationMetadataMediaAudio'
@@ -59276,7 +59708,9 @@ export type PublicationQuery = {
               contentWarning?: PublicationContentWarningType | null
               hideFromFeed: boolean
               appId?: any | null
+              title: string
               content: any
+              isShortVideo: boolean
               marketplace?: {
                 __typename?: 'MarketplaceMetadata'
                 name?: string | null
@@ -59300,6 +59734,22 @@ export type PublicationQuery = {
                 key: string
                 value: string
               }> | null
+              asset: {
+                __typename?: 'PublicationMetadataMediaVideo'
+                duration?: number | null
+                license?: PublicationMetadataLicenseType | null
+                altTag?: any | null
+                video: {
+                  __typename?: 'EncryptableVideoSet'
+                  raw: { __typename?: 'EncryptableVideo'; uri: any }
+                  optimized?: { __typename?: 'Video'; uri: any } | null
+                }
+                cover?: {
+                  __typename?: 'EncryptableImageSet'
+                  raw: { __typename?: 'EncryptableImage'; uri: any }
+                  optimized?: { __typename?: 'Image'; uri: any } | null
+                } | null
+              }
               attachments?: Array<
                 | {
                     __typename?: 'PublicationMetadataMediaAudio'
@@ -61287,7 +61737,9 @@ export type PublicationQuery = {
               contentWarning?: PublicationContentWarningType | null
               hideFromFeed: boolean
               appId?: any | null
+              title: string
               content: any
+              isShortVideo: boolean
               marketplace?: {
                 __typename?: 'MarketplaceMetadata'
                 name?: string | null
@@ -61311,6 +61763,22 @@ export type PublicationQuery = {
                 key: string
                 value: string
               }> | null
+              asset: {
+                __typename?: 'PublicationMetadataMediaVideo'
+                duration?: number | null
+                license?: PublicationMetadataLicenseType | null
+                altTag?: any | null
+                video: {
+                  __typename?: 'EncryptableVideoSet'
+                  raw: { __typename?: 'EncryptableVideo'; uri: any }
+                  optimized?: { __typename?: 'Video'; uri: any } | null
+                }
+                cover?: {
+                  __typename?: 'EncryptableImageSet'
+                  raw: { __typename?: 'EncryptableImage'; uri: any }
+                  optimized?: { __typename?: 'Image'; uri: any } | null
+                } | null
+              }
               attachments?: Array<
                 | {
                     __typename?: 'PublicationMetadataMediaAudio'
@@ -63279,7 +63747,9 @@ export type PublicationQuery = {
               contentWarning?: PublicationContentWarningType | null
               hideFromFeed: boolean
               appId?: any | null
+              title: string
               content: any
+              isShortVideo: boolean
               marketplace?: {
                 __typename?: 'MarketplaceMetadata'
                 name?: string | null
@@ -63303,6 +63773,22 @@ export type PublicationQuery = {
                 key: string
                 value: string
               }> | null
+              asset: {
+                __typename?: 'PublicationMetadataMediaVideo'
+                duration?: number | null
+                license?: PublicationMetadataLicenseType | null
+                altTag?: any | null
+                video: {
+                  __typename?: 'EncryptableVideoSet'
+                  raw: { __typename?: 'EncryptableVideo'; uri: any }
+                  optimized?: { __typename?: 'Video'; uri: any } | null
+                }
+                cover?: {
+                  __typename?: 'EncryptableImageSet'
+                  raw: { __typename?: 'EncryptableImage'; uri: any }
+                  optimized?: { __typename?: 'Image'; uri: any } | null
+                } | null
+              }
               attachments?: Array<
                 | {
                     __typename?: 'PublicationMetadataMediaAudio'
@@ -65291,7 +65777,9 @@ export type PublicationBookmarksQuery = {
                 contentWarning?: PublicationContentWarningType | null
                 hideFromFeed: boolean
                 appId?: any | null
+                title: string
                 content: any
+                isShortVideo: boolean
                 marketplace?: {
                   __typename?: 'MarketplaceMetadata'
                   name?: string | null
@@ -65315,6 +65803,22 @@ export type PublicationBookmarksQuery = {
                   key: string
                   value: string
                 }> | null
+                asset: {
+                  __typename?: 'PublicationMetadataMediaVideo'
+                  duration?: number | null
+                  license?: PublicationMetadataLicenseType | null
+                  altTag?: any | null
+                  video: {
+                    __typename?: 'EncryptableVideoSet'
+                    raw: { __typename?: 'EncryptableVideo'; uri: any }
+                    optimized?: { __typename?: 'Video'; uri: any } | null
+                  }
+                  cover?: {
+                    __typename?: 'EncryptableImageSet'
+                    raw: { __typename?: 'EncryptableImage'; uri: any }
+                    optimized?: { __typename?: 'Image'; uri: any } | null
+                  } | null
+                }
                 attachments?: Array<
                   | {
                       __typename?: 'PublicationMetadataMediaAudio'
@@ -67306,7 +67810,9 @@ export type PublicationBookmarksQuery = {
                 contentWarning?: PublicationContentWarningType | null
                 hideFromFeed: boolean
                 appId?: any | null
+                title: string
                 content: any
+                isShortVideo: boolean
                 marketplace?: {
                   __typename?: 'MarketplaceMetadata'
                   name?: string | null
@@ -67330,6 +67836,22 @@ export type PublicationBookmarksQuery = {
                   key: string
                   value: string
                 }> | null
+                asset: {
+                  __typename?: 'PublicationMetadataMediaVideo'
+                  duration?: number | null
+                  license?: PublicationMetadataLicenseType | null
+                  altTag?: any | null
+                  video: {
+                    __typename?: 'EncryptableVideoSet'
+                    raw: { __typename?: 'EncryptableVideo'; uri: any }
+                    optimized?: { __typename?: 'Video'; uri: any } | null
+                  }
+                  cover?: {
+                    __typename?: 'EncryptableImageSet'
+                    raw: { __typename?: 'EncryptableImage'; uri: any }
+                    optimized?: { __typename?: 'Image'; uri: any } | null
+                  } | null
+                }
                 attachments?: Array<
                   | {
                       __typename?: 'PublicationMetadataMediaAudio'
@@ -69302,7 +69824,9 @@ export type PublicationBookmarksQuery = {
                 contentWarning?: PublicationContentWarningType | null
                 hideFromFeed: boolean
                 appId?: any | null
+                title: string
                 content: any
+                isShortVideo: boolean
                 marketplace?: {
                   __typename?: 'MarketplaceMetadata'
                   name?: string | null
@@ -69326,6 +69850,22 @@ export type PublicationBookmarksQuery = {
                   key: string
                   value: string
                 }> | null
+                asset: {
+                  __typename?: 'PublicationMetadataMediaVideo'
+                  duration?: number | null
+                  license?: PublicationMetadataLicenseType | null
+                  altTag?: any | null
+                  video: {
+                    __typename?: 'EncryptableVideoSet'
+                    raw: { __typename?: 'EncryptableVideo'; uri: any }
+                    optimized?: { __typename?: 'Video'; uri: any } | null
+                  }
+                  cover?: {
+                    __typename?: 'EncryptableImageSet'
+                    raw: { __typename?: 'EncryptableImage'; uri: any }
+                    optimized?: { __typename?: 'Image'; uri: any } | null
+                  } | null
+                }
                 attachments?: Array<
                   | {
                       __typename?: 'PublicationMetadataMediaAudio'
@@ -71316,7 +71856,9 @@ export type PublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null
                 hideFromFeed: boolean
                 appId?: any | null
+                title: string
                 content: any
+                isShortVideo: boolean
                 marketplace?: {
                   __typename?: 'MarketplaceMetadata'
                   name?: string | null
@@ -71340,6 +71882,22 @@ export type PublicationsQuery = {
                   key: string
                   value: string
                 }> | null
+                asset: {
+                  __typename?: 'PublicationMetadataMediaVideo'
+                  duration?: number | null
+                  license?: PublicationMetadataLicenseType | null
+                  altTag?: any | null
+                  video: {
+                    __typename?: 'EncryptableVideoSet'
+                    raw: { __typename?: 'EncryptableVideo'; uri: any }
+                    optimized?: { __typename?: 'Video'; uri: any } | null
+                  }
+                  cover?: {
+                    __typename?: 'EncryptableImageSet'
+                    raw: { __typename?: 'EncryptableImage'; uri: any }
+                    optimized?: { __typename?: 'Image'; uri: any } | null
+                  } | null
+                }
                 attachments?: Array<
                   | {
                       __typename?: 'PublicationMetadataMediaAudio'
@@ -73331,7 +73889,9 @@ export type PublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null
                 hideFromFeed: boolean
                 appId?: any | null
+                title: string
                 content: any
+                isShortVideo: boolean
                 marketplace?: {
                   __typename?: 'MarketplaceMetadata'
                   name?: string | null
@@ -73355,6 +73915,22 @@ export type PublicationsQuery = {
                   key: string
                   value: string
                 }> | null
+                asset: {
+                  __typename?: 'PublicationMetadataMediaVideo'
+                  duration?: number | null
+                  license?: PublicationMetadataLicenseType | null
+                  altTag?: any | null
+                  video: {
+                    __typename?: 'EncryptableVideoSet'
+                    raw: { __typename?: 'EncryptableVideo'; uri: any }
+                    optimized?: { __typename?: 'Video'; uri: any } | null
+                  }
+                  cover?: {
+                    __typename?: 'EncryptableImageSet'
+                    raw: { __typename?: 'EncryptableImage'; uri: any }
+                    optimized?: { __typename?: 'Image'; uri: any } | null
+                  } | null
+                }
                 attachments?: Array<
                   | {
                       __typename?: 'PublicationMetadataMediaAudio'
@@ -75327,7 +75903,9 @@ export type PublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null
                 hideFromFeed: boolean
                 appId?: any | null
+                title: string
                 content: any
+                isShortVideo: boolean
                 marketplace?: {
                   __typename?: 'MarketplaceMetadata'
                   name?: string | null
@@ -75351,6 +75929,22 @@ export type PublicationsQuery = {
                   key: string
                   value: string
                 }> | null
+                asset: {
+                  __typename?: 'PublicationMetadataMediaVideo'
+                  duration?: number | null
+                  license?: PublicationMetadataLicenseType | null
+                  altTag?: any | null
+                  video: {
+                    __typename?: 'EncryptableVideoSet'
+                    raw: { __typename?: 'EncryptableVideo'; uri: any }
+                    optimized?: { __typename?: 'Video'; uri: any } | null
+                  }
+                  cover?: {
+                    __typename?: 'EncryptableImageSet'
+                    raw: { __typename?: 'EncryptableImage'; uri: any }
+                    optimized?: { __typename?: 'Image'; uri: any } | null
+                  } | null
+                }
                 attachments?: Array<
                   | {
                       __typename?: 'PublicationMetadataMediaAudio'
@@ -77341,7 +77935,9 @@ export type RevenueFromPublicationQuery = {
                 contentWarning?: PublicationContentWarningType | null
                 hideFromFeed: boolean
                 appId?: any | null
+                title: string
                 content: any
+                isShortVideo: boolean
                 marketplace?: {
                   __typename?: 'MarketplaceMetadata'
                   name?: string | null
@@ -77365,6 +77961,22 @@ export type RevenueFromPublicationQuery = {
                   key: string
                   value: string
                 }> | null
+                asset: {
+                  __typename?: 'PublicationMetadataMediaVideo'
+                  duration?: number | null
+                  license?: PublicationMetadataLicenseType | null
+                  altTag?: any | null
+                  video: {
+                    __typename?: 'EncryptableVideoSet'
+                    raw: { __typename?: 'EncryptableVideo'; uri: any }
+                    optimized?: { __typename?: 'Video'; uri: any } | null
+                  }
+                  cover?: {
+                    __typename?: 'EncryptableImageSet'
+                    raw: { __typename?: 'EncryptableImage'; uri: any }
+                    optimized?: { __typename?: 'Image'; uri: any } | null
+                  } | null
+                }
                 attachments?: Array<
                   | {
                       __typename?: 'PublicationMetadataMediaAudio'
@@ -79356,7 +79968,9 @@ export type RevenueFromPublicationQuery = {
                 contentWarning?: PublicationContentWarningType | null
                 hideFromFeed: boolean
                 appId?: any | null
+                title: string
                 content: any
+                isShortVideo: boolean
                 marketplace?: {
                   __typename?: 'MarketplaceMetadata'
                   name?: string | null
@@ -79380,6 +79994,22 @@ export type RevenueFromPublicationQuery = {
                   key: string
                   value: string
                 }> | null
+                asset: {
+                  __typename?: 'PublicationMetadataMediaVideo'
+                  duration?: number | null
+                  license?: PublicationMetadataLicenseType | null
+                  altTag?: any | null
+                  video: {
+                    __typename?: 'EncryptableVideoSet'
+                    raw: { __typename?: 'EncryptableVideo'; uri: any }
+                    optimized?: { __typename?: 'Video'; uri: any } | null
+                  }
+                  cover?: {
+                    __typename?: 'EncryptableImageSet'
+                    raw: { __typename?: 'EncryptableImage'; uri: any }
+                    optimized?: { __typename?: 'Image'; uri: any } | null
+                  } | null
+                }
                 attachments?: Array<
                   | {
                       __typename?: 'PublicationMetadataMediaAudio'
@@ -81352,7 +81982,9 @@ export type RevenueFromPublicationQuery = {
                 contentWarning?: PublicationContentWarningType | null
                 hideFromFeed: boolean
                 appId?: any | null
+                title: string
                 content: any
+                isShortVideo: boolean
                 marketplace?: {
                   __typename?: 'MarketplaceMetadata'
                   name?: string | null
@@ -81376,6 +82008,22 @@ export type RevenueFromPublicationQuery = {
                   key: string
                   value: string
                 }> | null
+                asset: {
+                  __typename?: 'PublicationMetadataMediaVideo'
+                  duration?: number | null
+                  license?: PublicationMetadataLicenseType | null
+                  altTag?: any | null
+                  video: {
+                    __typename?: 'EncryptableVideoSet'
+                    raw: { __typename?: 'EncryptableVideo'; uri: any }
+                    optimized?: { __typename?: 'Video'; uri: any } | null
+                  }
+                  cover?: {
+                    __typename?: 'EncryptableImageSet'
+                    raw: { __typename?: 'EncryptableImage'; uri: any }
+                    optimized?: { __typename?: 'Image'; uri: any } | null
+                  } | null
+                }
                 attachments?: Array<
                   | {
                       __typename?: 'PublicationMetadataMediaAudio'
@@ -83387,7 +84035,9 @@ export type RevenueFromPublicationsQuery = {
                   contentWarning?: PublicationContentWarningType | null
                   hideFromFeed: boolean
                   appId?: any | null
+                  title: string
                   content: any
+                  isShortVideo: boolean
                   marketplace?: {
                     __typename?: 'MarketplaceMetadata'
                     name?: string | null
@@ -83411,6 +84061,22 @@ export type RevenueFromPublicationsQuery = {
                     key: string
                     value: string
                   }> | null
+                  asset: {
+                    __typename?: 'PublicationMetadataMediaVideo'
+                    duration?: number | null
+                    license?: PublicationMetadataLicenseType | null
+                    altTag?: any | null
+                    video: {
+                      __typename?: 'EncryptableVideoSet'
+                      raw: { __typename?: 'EncryptableVideo'; uri: any }
+                      optimized?: { __typename?: 'Video'; uri: any } | null
+                    }
+                    cover?: {
+                      __typename?: 'EncryptableImageSet'
+                      raw: { __typename?: 'EncryptableImage'; uri: any }
+                      optimized?: { __typename?: 'Image'; uri: any } | null
+                    } | null
+                  }
                   attachments?: Array<
                     | {
                         __typename?: 'PublicationMetadataMediaAudio'
@@ -85405,7 +86071,9 @@ export type RevenueFromPublicationsQuery = {
                   contentWarning?: PublicationContentWarningType | null
                   hideFromFeed: boolean
                   appId?: any | null
+                  title: string
                   content: any
+                  isShortVideo: boolean
                   marketplace?: {
                     __typename?: 'MarketplaceMetadata'
                     name?: string | null
@@ -85429,6 +86097,22 @@ export type RevenueFromPublicationsQuery = {
                     key: string
                     value: string
                   }> | null
+                  asset: {
+                    __typename?: 'PublicationMetadataMediaVideo'
+                    duration?: number | null
+                    license?: PublicationMetadataLicenseType | null
+                    altTag?: any | null
+                    video: {
+                      __typename?: 'EncryptableVideoSet'
+                      raw: { __typename?: 'EncryptableVideo'; uri: any }
+                      optimized?: { __typename?: 'Video'; uri: any } | null
+                    }
+                    cover?: {
+                      __typename?: 'EncryptableImageSet'
+                      raw: { __typename?: 'EncryptableImage'; uri: any }
+                      optimized?: { __typename?: 'Image'; uri: any } | null
+                    } | null
+                  }
                   attachments?: Array<
                     | {
                         __typename?: 'PublicationMetadataMediaAudio'
@@ -87404,7 +88088,9 @@ export type RevenueFromPublicationsQuery = {
                   contentWarning?: PublicationContentWarningType | null
                   hideFromFeed: boolean
                   appId?: any | null
+                  title: string
                   content: any
+                  isShortVideo: boolean
                   marketplace?: {
                     __typename?: 'MarketplaceMetadata'
                     name?: string | null
@@ -87428,6 +88114,22 @@ export type RevenueFromPublicationsQuery = {
                     key: string
                     value: string
                   }> | null
+                  asset: {
+                    __typename?: 'PublicationMetadataMediaVideo'
+                    duration?: number | null
+                    license?: PublicationMetadataLicenseType | null
+                    altTag?: any | null
+                    video: {
+                      __typename?: 'EncryptableVideoSet'
+                      raw: { __typename?: 'EncryptableVideo'; uri: any }
+                      optimized?: { __typename?: 'Video'; uri: any } | null
+                    }
+                    cover?: {
+                      __typename?: 'EncryptableImageSet'
+                      raw: { __typename?: 'EncryptableImage'; uri: any }
+                      optimized?: { __typename?: 'Image'; uri: any } | null
+                    } | null
+                  }
                   attachments?: Array<
                     | {
                         __typename?: 'PublicationMetadataMediaAudio'
@@ -89583,7 +90285,9 @@ export type SearchPublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null
                 hideFromFeed: boolean
                 appId?: any | null
+                title: string
                 content: any
+                isShortVideo: boolean
                 marketplace?: {
                   __typename?: 'MarketplaceMetadata'
                   name?: string | null
@@ -89607,6 +90311,22 @@ export type SearchPublicationsQuery = {
                   key: string
                   value: string
                 }> | null
+                asset: {
+                  __typename?: 'PublicationMetadataMediaVideo'
+                  duration?: number | null
+                  license?: PublicationMetadataLicenseType | null
+                  altTag?: any | null
+                  video: {
+                    __typename?: 'EncryptableVideoSet'
+                    raw: { __typename?: 'EncryptableVideo'; uri: any }
+                    optimized?: { __typename?: 'Video'; uri: any } | null
+                  }
+                  cover?: {
+                    __typename?: 'EncryptableImageSet'
+                    raw: { __typename?: 'EncryptableImage'; uri: any }
+                    optimized?: { __typename?: 'Image'; uri: any } | null
+                  } | null
+                }
                 attachments?: Array<
                   | {
                       __typename?: 'PublicationMetadataMediaAudio'
@@ -91585,7 +92305,9 @@ export type SearchPublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null
                 hideFromFeed: boolean
                 appId?: any | null
+                title: string
                 content: any
+                isShortVideo: boolean
                 marketplace?: {
                   __typename?: 'MarketplaceMetadata'
                   name?: string | null
@@ -91609,6 +92331,22 @@ export type SearchPublicationsQuery = {
                   key: string
                   value: string
                 }> | null
+                asset: {
+                  __typename?: 'PublicationMetadataMediaVideo'
+                  duration?: number | null
+                  license?: PublicationMetadataLicenseType | null
+                  altTag?: any | null
+                  video: {
+                    __typename?: 'EncryptableVideoSet'
+                    raw: { __typename?: 'EncryptableVideo'; uri: any }
+                    optimized?: { __typename?: 'Video'; uri: any } | null
+                  }
+                  cover?: {
+                    __typename?: 'EncryptableImageSet'
+                    raw: { __typename?: 'EncryptableImage'; uri: any }
+                    optimized?: { __typename?: 'Image'; uri: any } | null
+                  } | null
+                }
                 attachments?: Array<
                   | {
                       __typename?: 'PublicationMetadataMediaAudio'
@@ -93581,7 +94319,9 @@ export type SearchPublicationsQuery = {
                 contentWarning?: PublicationContentWarningType | null
                 hideFromFeed: boolean
                 appId?: any | null
+                title: string
                 content: any
+                isShortVideo: boolean
                 marketplace?: {
                   __typename?: 'MarketplaceMetadata'
                   name?: string | null
@@ -93605,6 +94345,22 @@ export type SearchPublicationsQuery = {
                   key: string
                   value: string
                 }> | null
+                asset: {
+                  __typename?: 'PublicationMetadataMediaVideo'
+                  duration?: number | null
+                  license?: PublicationMetadataLicenseType | null
+                  altTag?: any | null
+                  video: {
+                    __typename?: 'EncryptableVideoSet'
+                    raw: { __typename?: 'EncryptableVideo'; uri: any }
+                    optimized?: { __typename?: 'Video'; uri: any } | null
+                  }
+                  cover?: {
+                    __typename?: 'EncryptableImageSet'
+                    raw: { __typename?: 'EncryptableImage'; uri: any }
+                    optimized?: { __typename?: 'Image'; uri: any } | null
+                  } | null
+                }
                 attachments?: Array<
                   | {
                       __typename?: 'PublicationMetadataMediaAudio'
@@ -94887,6 +95643,9 @@ export const ImageMetadataV3FieldsFragmentDoc = gql`
       ...PublicationMetadataMediaFields
     }
     asset {
+      ...PublicationMetadataMediaImageFields
+    }
+    asset {
       image {
         raw {
           uri
@@ -94904,6 +95663,7 @@ export const ImageMetadataV3FieldsFragmentDoc = gql`
   ${MarketplaceMetadataFieldsFragmentDoc}
   ${PublicationMetadataV3AttributeFieldsFragmentDoc}
   ${PublicationMetadataMediaFieldsFragmentDoc}
+  ${PublicationMetadataMediaImageFieldsFragmentDoc}
 `
 export const LinkMetadataV3FieldsFragmentDoc = gql`
   fragment LinkMetadataV3Fields on LinkMetadataV3 {
@@ -95129,15 +95889,19 @@ export const VideoMetadataV3FieldsFragmentDoc = gql`
     attributes {
       ...PublicationMetadataV3AttributeFields
     }
-    content
-    tags
-    locale
+    asset {
+      ...PublicationMetadataMediaVideoFields
+    }
     attachments {
       ...PublicationMetadataMediaFields
     }
+    title
+    content
+    isShortVideo
   }
   ${MarketplaceMetadataFieldsFragmentDoc}
   ${PublicationMetadataV3AttributeFieldsFragmentDoc}
+  ${PublicationMetadataMediaVideoFieldsFragmentDoc}
   ${PublicationMetadataMediaFieldsFragmentDoc}
 `
 export const AnyPublicationMetadataFieldsFragmentDoc = gql`

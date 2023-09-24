@@ -6,6 +6,8 @@ import EmojiPicker from '@components/UIElements/EmojiPicker'
 import { Input } from '@components/UIElements/Input'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
+import type { StringAttribute } from '@lens-protocol/metadata'
+import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
 import {
   Analytics,
   TRACK,
@@ -21,6 +23,7 @@ import {
 } from '@lenstube/constants'
 import {
   getChannelCoverPicture,
+  getProfilePicture,
   getSignature,
   getValueFromKeyInAttributes,
   imageCdn,
@@ -179,41 +182,51 @@ const BasicInfo = ({ channel }: Props) => {
         (attr) =>
           !['website', 'location', 'x', 'youtube', 'app'].includes(attr.key)
       )
-      .map(({ type, key, value }) => ({ type, key, value })) ?? []
+      .map(
+        ({ type, key, value }) =>
+          ({ type, key, value }) as unknown as StringAttribute
+      ) ?? []
 
   const onSaveBasicInfo = async (data: FormData) => {
     setLoading(true)
     try {
-      const metadataUri = await uploadToAr({
-        version: '1.0.0',
-        name: data.displayName || null,
+      const metadata = profile({
+        appId: LENSTUBE_APP_ID,
         bio: trimify(data.description),
-        cover_picture: data.coverImage ?? coverImage,
+        coverPicture: data.coverImage ?? coverImage,
+        id: uuidv4(),
+        name: data.displayName,
+        picture: getProfilePicture(activeChannel as Profile),
         attributes: [
           ...otherAttributes,
           {
+            type: MetadataAttributeType.STRING,
             key: 'website',
             value: data.website
           },
           {
+            type: MetadataAttributeType.STRING,
             key: 'location',
             value: data.location
           },
           {
+            type: MetadataAttributeType.STRING,
             key: 'x',
             value: data.x
           },
           {
+            type: MetadataAttributeType.STRING,
             key: 'youtube',
             value: data.youtube
           },
           {
+            type: MetadataAttributeType.STRING,
             key: 'app',
             value: LENSTUBE_APP_ID
           }
-        ],
-        metadata_id: uuidv4()
+        ]
       })
+      const metadataUri = await uploadToAr(metadata)
       const request: OnchainSetProfileMetadataRequest = {
         metadataURI: metadataUri
       }

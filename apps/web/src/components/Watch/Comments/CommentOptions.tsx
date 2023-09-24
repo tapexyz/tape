@@ -4,7 +4,7 @@ import TrashOutline from '@components/Common/Icons/TrashOutline'
 import Confirm from '@components/UIElements/Confirm'
 import DropMenu from '@components/UIElements/DropMenu'
 import { Analytics, TRACK } from '@lenstube/browser'
-import type { Publication } from '@lenstube/lens'
+import type { Comment } from '@lenstube/lens'
 import { useHidePublicationMutation } from '@lenstube/lens'
 import useAuthPersistStore from '@lib/store/auth'
 import { t, Trans } from '@lingui/macro'
@@ -14,7 +14,7 @@ import toast from 'react-hot-toast'
 
 type Props = {
   setShowReport: Dispatch<boolean>
-  comment: Publication
+  comment: Comment
 }
 
 const CommentOptions: FC<Props> = ({ comment, setShowReport }) => {
@@ -41,7 +41,7 @@ const CommentOptions: FC<Props> = ({ comment, setShowReport }) => {
   })
 
   const onHideComment = () => {
-    hideComment({ variables: { request: { publicationId: comment?.id } } })
+    hideComment({ variables: { request: { for: comment?.id } } })
   }
 
   return (
@@ -60,7 +60,7 @@ const CommentOptions: FC<Props> = ({ comment, setShowReport }) => {
       >
         <div className="bg-secondary mt-0.5 w-36 overflow-hidden rounded-xl border border-gray-200 p-1 shadow dark:border-gray-800">
           <div className="flex flex-col rounded-lg text-sm transition duration-150 ease-in-out">
-            {selectedSimpleProfile?.id === comment?.profile?.id && (
+            {selectedSimpleProfile?.id === comment?.by?.id && (
               <button
                 type="button"
                 onClick={() => setShowConfirm(true)}
