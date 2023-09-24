@@ -13,7 +13,7 @@ import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'
 import { BellIcon, UploadIcon } from '@radix-ui/react-icons'
-import { Button, Flex } from '@radix-ui/themes'
+import { Button, Flex, IconButton } from '@radix-ui/themes'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -109,20 +109,20 @@ const Header: FC<Props> = ({ className }) => {
                     Analytics.track(TRACK.NOTIFICATIONS.CLICK_NOTIFICATIONS)
                   }
                   href="/notifications"
-                  className="relative"
+                  className="relative flex items-center"
                 >
-                  <Button variant="ghost" className="!flex !p-2">
-                    <BellIcon />
-                    {hasNewNotification && (
-                      <span className="absolute -right-0.5 -top-0.5 flex h-1.5 w-1.5 rounded-full bg-red-500" />
+                  <IconButton variant="ghost">
+                    <BellIcon height={18} width={18} />
+                    {!hasNewNotification && (
+                      <span className="absolute -right-1 -top-1 flex h-1.5 w-1.5 rounded-full bg-red-500" />
                     )}
-                  </Button>
+                  </IconButton>
                 </Link>
                 <Link href="/upload" className="hidden md:block">
                   <Button>
                     <Flex align="center" gap="2">
                       <UploadIcon />
-                      <Trans>New video</Trans>
+                      <Trans>Upload</Trans>
                     </Flex>
                   </Button>
                 </Link>
