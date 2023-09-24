@@ -1,16 +1,13 @@
-import MetaTags from '@components/Common/MetaTags'
-import { t, Trans } from '@lingui/macro'
 import Link from 'next/link'
 import React from 'react'
 
 const terms = () => {
   return (
     <div className="relative overflow-hidden py-[5rem]">
-      <MetaTags title={t`Privacy Policy`} />
       <div className="px-2">
         <div className="relative mx-auto max-w-4xl pb-24 text-center">
           <h1 className="text-4xl font-bold tracking-tight text-slate-900 dark:text-slate-100 sm:text-5xl">
-            <Trans>Privacy policy</Trans>
+            Privacy policy
           </h1>
           <p className="mt-4 text-base leading-7 text-slate-600 dark:text-slate-400">
             Last updated on May 09, 2023
@@ -49,7 +46,7 @@ const terms = () => {
             Site.
           </p>
           <h2>2. Information Collection</h2>
-          <p>
+          <div>
             We may collect the following information about you when you use the
             Site:{' '}
             <li>
@@ -77,7 +74,7 @@ const terms = () => {
               blockchain addresses and information regarding the NFTs in
               wallets.
             </li>
-          </p>
+          </div>
           <h2>3. Use of Information</h2>
           <p>
             We may need to use it to operate and manage the Services on this
@@ -107,7 +104,7 @@ const terms = () => {
             should review everything before using the Site.
           </p>
           <h2>6. Your Rights and Choices</h2>
-          <p>
+          <div>
             <li>
               <b>Cookies</b>. We will only use strictly necessary cookies. These
               cookies are essential for you to browse the Site and use its
@@ -126,7 +123,7 @@ const terms = () => {
                 https://allaboutdnt.com.
               </Link>
             </li>
-          </p>
+          </div>
           <h2>7. Data Security</h2>
           <p>
             We implement and maintain reasonable administrative, physical, and
