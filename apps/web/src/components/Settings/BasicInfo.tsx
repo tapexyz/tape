@@ -6,7 +6,7 @@ import EmojiPicker from '@components/UIElements/EmojiPicker'
 import { Input } from '@components/UIElements/Input'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
-import type { StringAttribute } from '@lens-protocol/metadata'
+import type { MetadataAttribute } from '@lens-protocol/metadata'
 import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
 import {
   Analytics,
@@ -182,10 +182,7 @@ const BasicInfo = ({ channel }: Props) => {
         (attr) =>
           !['website', 'location', 'x', 'youtube', 'app'].includes(attr.key)
       )
-      .map(
-        ({ type, key, value }) =>
-          ({ type, key, value }) as unknown as StringAttribute
-      ) ?? []
+      .map(({ type, key, value }) => ({ type, key, value })) ?? []
 
   const onSaveBasicInfo = async (data: FormData) => {
     setLoading(true)
@@ -198,7 +195,7 @@ const BasicInfo = ({ channel }: Props) => {
         name: data.displayName,
         picture: getProfilePicture(activeChannel as Profile),
         attributes: [
-          ...otherAttributes,
+          ...(otherAttributes as unknown as MetadataAttribute[]),
           {
             type: MetadataAttributeType.STRING,
             key: 'website',

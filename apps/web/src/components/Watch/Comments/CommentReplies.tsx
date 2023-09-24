@@ -12,12 +12,7 @@ import {
   getRelativeTime,
   trimLensHandle
 } from '@lenstube/generic'
-import type {
-  AnyPublication,
-  Comment,
-  Profile,
-  PublicationsRequest
-} from '@lenstube/lens'
+import type { Comment, Profile, PublicationsRequest } from '@lenstube/lens'
 import { LimitType, usePublicationsQuery } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
@@ -97,7 +92,7 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
     skip: !comment.id
   })
 
-  const comments = data?.publications?.items as AnyPublication[]
+  const comments = data?.publications?.items as unknown as Comment[]
   const pageInfo = data?.publications?.pageInfo
   const hasMore = comments?.length > 10
 
@@ -123,7 +118,7 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
   return (
     <div className={clsx(comments.length && 'space-y-6')}>
       {comments?.map(
-        (comment: AnyPublication) =>
+        (comment) =>
           !comment.isHidden && (
             <div key={comment.id} className="flex items-start justify-between">
               <div className="flex w-full items-start">

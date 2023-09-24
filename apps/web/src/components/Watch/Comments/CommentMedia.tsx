@@ -1,13 +1,11 @@
 import Modal from '@components/UIElements/Modal'
 import {
   getPublication,
+  getPublicationMediaUrl,
   imageCdn,
   sanitizeDStorageUrl
 } from '@lenstube/generic'
-import {
-  type AnyPublication,
-  PublicationMetadataMainFocusType
-} from '@lenstube/lens'
+import type { AnyPublication, Comment } from '@lenstube/lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 
@@ -24,34 +22,22 @@ const CommentMedia: FC<Props> = ({ comment }) => {
 
   const targetComment = getPublication(comment)
 
-  const media =
-    targetComment.metadata.__typename === 'LegacyPublicationMetadata'
-      ? targetComment.metadata.media
-      : targetComment.metadata.attachments
+  const media = getPublicationMediaUrl(targetComment.metadata)
 
   if (!media.length) {
     return null
   }
 
   const getIsVideoComment = () => {
-    return (
-      comment.metadata.mainContentFocus ===
-      PublicationMetadataMainFocusType.Video
-    )
+    return targetComment.metadata.__typename === 'VideoMetadataV3'
   }
 
   const getIsAudioComment = () => {
-    return (
-      comment.metadata.mainContentFocus ===
-      PublicationMetadataMainFocusType.Audio
-    )
+    return targetComment.metadata.__typename === 'AudioMetadataV3'
   }
 
   const getIsImageComment = () => {
-    return (
-      comment.metadata.mainContentFocus ===
-      PublicationMetadataMainFocusType.Image
-    )
+    return targetComment.metadata.__typename === 'ImageMetadataV3'
   }
 
   return (
@@ -76,32 +62,26 @@ const CommentMedia: FC<Props> = ({ comment }) => {
         </div>
       </Modal>
       <div className="flex flex-wrap items-center gap-2">
-        {media.map((media, i) =>
-          getIsVideoComment() ? (
-            <VideoComment key={i} comment={comment} />
-          ) : getIsAudioComment() ? (
-            <AudioComment key={i} media={media} />
-          ) : getIsImageComment() ? (
-            <button
-              key={i}
-              className="focus:outline-none"
-              onClick={() => {
-                setImageSrc(imageCdn(sanitizeDStorageUrl(media.original.url)))
-                setShowLighBox(true)
-              }}
-            >
-              <img
-                className="h-20 w-20 rounded-xl bg-white object-cover dark:bg-black"
-                src={imageCdn(
-                  sanitizeDStorageUrl(media.original.url),
-                  'AVATAR_LG'
-                )}
-                alt={media.original.altTag ?? 'attachment'}
-                draggable={false}
-              />
-            </button>
-          ) : null
-        )}
+        {getIsVideoComment() ? (
+          <VideoComment comment={targetComment as Comment} />
+        ) : getIsAudioComment() ? (
+          <AudioComment media={media} />
+        ) : getIsImageComment() ? (
+          <button
+            className="focus:outline-none"
+            onClick={() => {
+              setImageSrc(imageCdn(sanitizeDStorageUrl(media)))
+              setShowLighBox(true)
+            }}
+          >
+            <img
+              className="h-20 w-20 rounded-xl bg-white object-cover dark:bg-black"
+              src={imageCdn(sanitizeDStorageUrl(media), 'AVATAR_LG')}
+              alt={'attachment'}
+              draggable={false}
+            />
+          </button>
+        ) : null}
       </div>
     </div>
   )

@@ -301,13 +301,6 @@ const UploadSteps = () => {
         },
         appId: LENSTUBE_APP_ID,
         id: uuidv4(),
-        attachments: [
-          {
-            item: uploadedVideo.videoSource,
-            cover: uploadedVideo.thumbnail,
-            type: MediaVideoMimeType.MP4
-          }
-        ],
         attributes,
         content: trimify(
           `${uploadedVideo.title}\n\n${uploadedVideo.description}`

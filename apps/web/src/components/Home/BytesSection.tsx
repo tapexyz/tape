@@ -15,7 +15,7 @@ import {
 } from '@lenstube/generic'
 import type {
   ExplorePublicationRequest,
-  MirrorablePublication
+  PrimaryPublication
 } from '@lenstube/lens'
 import {
   ExplorePublicationsOrderByType,
@@ -52,7 +52,8 @@ const BytesSection = () => {
     variables: { request }
   })
 
-  const bytes = data?.explorePublications?.items as MirrorablePublication[]
+  const bytes = data?.explorePublications
+    ?.items as unknown as PrimaryPublication[]
 
   const sectionOffsetWidth = sectionRef.current?.offsetWidth ?? 1000
   const scrollOffset = sectionOffsetWidth / 1.2

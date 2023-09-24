@@ -16,7 +16,7 @@ import {
 } from '@lenstube/constants'
 import type {
   ExplorePublicationRequest,
-  MirrorablePublication
+  PrimaryPublication
 } from '@lenstube/lens'
 import {
   ExplorePublicationsOrderByType,
@@ -82,7 +82,8 @@ const ExploreFeed = () => {
     }
   })
 
-  const videos = data?.explorePublications?.items as MirrorablePublication[]
+  const videos = data?.explorePublications
+    ?.items as unknown as PrimaryPublication[]
   const pageInfo = data?.explorePublications?.pageInfo
 
   const { observe } = useInView({

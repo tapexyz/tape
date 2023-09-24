@@ -1,6 +1,8 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import PinnedVideoShimmer from '@components/Shimmers/PinnedVideoShimmer'
 import { Button } from '@components/UIElements/Button'
+import type { MetadataAttribute } from '@lens-protocol/metadata'
+import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
 import { Analytics, TRACK } from '@lenstube/browser'
 import {
   ERROR_MESSAGE,
@@ -12,6 +14,7 @@ import {
 import {
   getChannelCoverPicture,
   getIsSensitiveContent,
+  getProfilePicture,
   getPublicationMediaUrl,
   getRelativeTime,
   getSignature,
@@ -25,7 +28,8 @@ import type {
   AnyPublication,
   Attribute,
   MirrorablePublication,
-  OnchainSetProfileMetadataRequest
+  OnchainSetProfileMetadataRequest,
+  Profile
 } from '@lenstube/lens'
 import {
   useBroadcastOnchainMutation,
@@ -145,20 +149,23 @@ const PinnedVideo: FC<Props> = ({ id }) => {
     }
     try {
       toast.loading(t`Unpinning video...`)
-      const metadataURI = await uploadToAr({
-        version: '1.0.0',
-        metadata_id: uuidv4(),
+      const metadata = profile({
+        appId: LENSTUBE_APP_ID,
+        bio: activeChannel?.metadata?.bio,
+        coverPicture: getChannelCoverPicture(activeChannel),
+        id: uuidv4(),
         name: activeChannel?.metadata?.displayName ?? '',
-        bio: activeChannel?.metadata?.bio ?? '',
-        cover_picture: getChannelCoverPicture(activeChannel),
+        picture: getProfilePicture(activeChannel as Profile),
         attributes: [
-          ...otherAttributes,
+          ...(otherAttributes as unknown as MetadataAttribute[]),
           {
+            type: MetadataAttributeType.STRING,
             key: 'app',
             value: LENSTUBE_APP_ID
           }
         ]
       })
+      const metadataURI = await uploadToAr(metadata)
       const request: OnchainSetProfileMetadataRequest = {
         metadataURI
       }

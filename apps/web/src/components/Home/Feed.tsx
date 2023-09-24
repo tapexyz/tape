@@ -10,7 +10,7 @@ import {
 } from '@lenstube/constants'
 import type {
   ExplorePublicationRequest,
-  MirrorablePublication
+  PrimaryPublication
 } from '@lenstube/lens'
 import {
   ExplorePublicationsOrderByType,
@@ -50,7 +50,8 @@ const HomeFeed = () => {
   })
 
   const pageInfo = data?.explorePublications?.pageInfo
-  const videos = data?.explorePublications?.items as MirrorablePublication[]
+  const videos = data?.explorePublications
+    ?.items as unknown as PrimaryPublication[]
 
   const { observe } = useInView({
     rootMargin: SCROLL_ROOT_MARGIN,

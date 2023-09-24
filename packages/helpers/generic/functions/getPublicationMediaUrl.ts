@@ -11,22 +11,15 @@ export const getPublicationRawMediaUrl = (
 }
 
 export const getPublicationMediaUrl = (metadata: PublicationMetadata) => {
-  let url
-  if (
-    metadata.__typename === 'AudioMetadataV3' &&
-    metadata.attachments?.[0].__typename === 'PublicationMetadataMediaAudio'
-  ) {
-    url =
-      metadata.attachments?.[0].audio.optimized?.uri ??
-      metadata.attachments?.[0].audio.raw?.uri
+  let url = ''
+  if (metadata.__typename === 'AudioMetadataV3' && metadata.asset.audio) {
+    url = metadata.asset.audio.optimized?.uri ?? metadata.asset.audio.raw?.uri
   }
-  if (
-    metadata.__typename === 'AudioMetadataV3' &&
-    metadata.attachments?.[0].__typename === 'PublicationMetadataMediaVideo'
-  ) {
-    url =
-      metadata.attachments?.[0].video.optimized?.uri ??
-      metadata.attachments?.[0].video.raw?.uri
+  if (metadata.__typename === 'VideoMetadataV3' && metadata.asset.video) {
+    url = metadata.asset.video.optimized?.uri ?? metadata.asset.video.raw?.uri
+  }
+  if (metadata.__typename === 'ImageMetadataV3' && metadata.asset.image) {
+    url = metadata.asset.image.raw?.uri
   }
   return url
 }
@@ -34,18 +27,15 @@ export const getPublicationMediaUrl = (metadata: PublicationMetadata) => {
 export const getPublicationMediaCid = (
   metadata: PublicationMetadata
 ): string => {
-  let url
-  if (
-    metadata.__typename === 'AudioMetadataV3' &&
-    metadata.attachments?.[0].__typename === 'PublicationMetadataMediaAudio'
-  ) {
-    url = metadata.attachments?.[0].audio.raw?.uri
+  let url = ''
+  if (metadata.__typename === 'AudioMetadataV3' && metadata.asset.audio) {
+    url = metadata.asset.audio.raw?.uri
   }
-  if (
-    metadata.__typename === 'VideoMetadataV3' &&
-    metadata.attachments?.[0].__typename === 'PublicationMetadataMediaVideo'
-  ) {
-    url = metadata.attachments?.[0].video.raw?.uri
+  if (metadata.__typename === 'VideoMetadataV3' && metadata.asset.video) {
+    url = metadata.asset.video.raw?.uri
+  }
+  if (metadata.__typename === 'ImageMetadataV3' && metadata.asset.image) {
+    url = metadata.asset.image.raw?.uri
   }
   const uri = url.replace('https://arweave.net/', 'ar://')
   return uri.replace('ipfs://', '').replace('ar://', '')

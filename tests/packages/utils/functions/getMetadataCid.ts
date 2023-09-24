@@ -10,7 +10,9 @@ test('getMetadataCid', async () => {
 
   const expectedHash =
     'bafybeic7346c53qefcpm4kbiyhmwomqutcqi3bhf6gppocnajppiui475u'
-  const actualHash = getMetadataCid(publication as MirrorablePublication)
+  const actualHash = getMetadataCid(
+    publication as unknown as MirrorablePublication
+  )
 
   expect(actualHash).toBe(expectedHash)
 })

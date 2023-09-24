@@ -11,7 +11,7 @@ import {
   SCROLL_ROOT_MARGIN
 } from '@lenstube/constants'
 import type {
-  MirrorablePublication,
+  PrimaryPublication,
   PublicationSearchRequest
 } from '@lenstube/lens'
 import {
@@ -51,7 +51,8 @@ const ExploreHashtag = () => {
     skip: !hashtag
   })
 
-  const videos = data?.searchPublications?.items as MirrorablePublication[]
+  const videos = data?.searchPublications
+    ?.items as unknown as PrimaryPublication[]
   const pageInfo = data?.searchPublications?.pageInfo
 
   const { observe } = useInView({

@@ -2,6 +2,8 @@ import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import Confirm from '@components/UIElements/Confirm'
 import DropMenu from '@components/UIElements/DropMenu'
 import { Menu } from '@headlessui/react'
+import type { MetadataAttribute } from '@lens-protocol/metadata'
+import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
 import { Analytics, TRACK } from '@lenstube/browser'
 import {
   ERROR_MESSAGE,
@@ -11,11 +13,12 @@ import {
 } from '@lenstube/constants'
 import {
   getChannelCoverPicture,
+  getProfilePicture,
   getSignature,
   getValueFromKeyInAttributes,
   uploadToAr
 } from '@lenstube/generic'
-import type { Attribute, MirrorablePublication } from '@lenstube/lens'
+import type { Attribute, MirrorablePublication, Profile } from '@lenstube/lens'
 import {
   useAddPublicationBookmarkMutation,
   useAddPublicationNotInterestedMutation,
@@ -163,24 +166,28 @@ const VideoOptions: FC<Props> = ({
     }
     try {
       toast.loading(t`Pinning video...`)
-      const metadataUri = await uploadToAr({
-        version: '1.0.0',
-        metadata_id: uuidv4(),
-        name: activeChannel.metadata?.displayName ?? '',
-        bio: activeChannel.metadata?.bio ?? '',
-        cover_picture: getChannelCoverPicture(activeChannel),
+      const metadata = profile({
+        appId: LENSTUBE_APP_ID,
+        bio: activeChannel?.metadata?.bio,
+        coverPicture: getChannelCoverPicture(activeChannel),
+        id: uuidv4(),
+        name: activeChannel?.metadata?.displayName ?? '',
+        picture: getProfilePicture(activeChannel as Profile),
         attributes: [
-          ...otherAttributes,
+          ...(otherAttributes as unknown as MetadataAttribute[]),
           {
+            type: MetadataAttributeType.STRING,
             key: 'pinnedPublicationId',
             value: video.id
           },
           {
+            type: MetadataAttributeType.STRING,
             key: 'app',
             value: LENSTUBE_APP_ID
           }
         ]
       })
+      const metadataUri = await uploadToAr(metadata)
       const canUseDispatcher =
         activeChannel?.lensManager && activeChannel.sponsor
       if (!canUseDispatcher) {
