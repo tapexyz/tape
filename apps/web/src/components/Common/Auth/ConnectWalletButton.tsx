@@ -1,21 +1,20 @@
-import { Button } from '@components/UIElements/Button'
 import Tooltip from '@components/UIElements/Tooltip'
 import { Analytics, TRACK } from '@lenstube/browser'
 import { POLYGON_CHAIN_ID } from '@lenstube/constants'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAuthPersistStore from '@lib/store/auth'
 import { Trans } from '@lingui/macro'
+import { LinkBreak1Icon } from '@radix-ui/react-icons'
+import { Button } from '@radix-ui/themes'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
-import React, { useState } from 'react'
+import React from 'react'
 import toast from 'react-hot-toast'
 import { useAccount, useDisconnect, useNetwork, useSwitchNetwork } from 'wagmi'
 
-import DisconnectOutline from '../Icons/DisconnectOutline'
 import UserMenu from '../UserMenu'
 import SelectProfile from './SelectProfile'
 
 const ConnectWalletButton = () => {
-  const [showSelectProfile, setShowSelectProfile] = useState(false)
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
@@ -41,27 +40,18 @@ const ConnectWalletButton = () => {
         <UserMenu />
       ) : (
         <div className="flex items-center space-x-2">
-          <SelectProfile
-            show={showSelectProfile}
-            setShow={setShowSelectProfile}
-          />
-          <Button onClick={() => setShowSelectProfile(true)}>
-            <Trans>Sign In</Trans>
-          </Button>
+          <SelectProfile />
           <Tooltip content="Disconnect Wallet">
-            <button
-              className="btn-danger p-2 md:p-2.5"
-              onClick={() => disconnect?.()}
-            >
-              <DisconnectOutline className="h-4 w-4" />
-            </button>
+            <Button variant="soft" onClick={() => disconnect?.()}>
+              <LinkBreak1Icon />
+            </Button>
           </Tooltip>
         </div>
       )
     ) : (
       <Button
         onClick={() => switchNetwork && switchNetwork(POLYGON_CHAIN_ID)}
-        variant="danger"
+        color="red"
       >
         <span className="text-white">
           <Trans>Switch network</Trans>
@@ -79,8 +69,8 @@ const ConnectWalletButton = () => {
         }
       }}
     >
-      <Trans>Connect</Trans>
-      <span className="ml-1 hidden md:inline-block">
+      <Trans>Connect</Trans>{' '}
+      <span className="hidden md:inline-block">
         <Trans>Wallet</Trans>
       </span>
     </Button>

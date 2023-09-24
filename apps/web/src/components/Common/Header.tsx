@@ -1,4 +1,3 @@
-import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
 import { Analytics, TRACK } from '@lenstube/browser'
 import {
@@ -13,6 +12,8 @@ import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'
+import { BellIcon, UploadIcon } from '@radix-ui/react-icons'
+import { Button, Flex } from '@radix-ui/themes'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -21,8 +22,6 @@ import React, { useState } from 'react'
 
 import ConnectWalletButton from './Auth/ConnectWalletButton'
 import CategoryFilters from './CategoryFilters'
-import BellOutline from './Icons/BellOutline'
-import NewVideoOutline from './Icons/NewVideoOutline'
 import SearchOutline from './Icons/SearchOutline'
 import GlobalSearchBar from './Search/GlobalSearchBar'
 
@@ -112,21 +111,19 @@ const Header: FC<Props> = ({ className }) => {
                   href="/notifications"
                   className="relative"
                 >
-                  <button className="btn-hover p-2.5">
-                    <BellOutline className="h-4 w-4" />
+                  <Button variant="ghost" className="!flex !p-2">
+                    <BellIcon />
                     {hasNewNotification && (
-                      <span className="absolute right-0.5 top-0.5 flex h-2 w-2 rounded-full bg-red-500" />
+                      <span className="absolute -right-0.5 -top-0.5 flex h-1.5 w-1.5 rounded-full bg-red-500" />
                     )}
-                  </button>
+                  </Button>
                 </Link>
-                <Link href="/upload">
-                  <Button
-                    className="hidden md:block"
-                    icon={<NewVideoOutline className="h-4 w-4" />}
-                  >
-                    <span>
+                <Link href="/upload" className="hidden md:block">
+                  <Button>
+                    <Flex align="center" gap="2">
+                      <UploadIcon />
                       <Trans>New video</Trans>
-                    </span>
+                    </Flex>
                   </Button>
                 </Link>
               </>

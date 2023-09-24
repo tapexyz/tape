@@ -1,5 +1,4 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
-import { Button } from '@components/UIElements/Button'
 import usePendingTxn from '@hooks/usePendingTxn'
 import { Analytics, TRACK } from '@lenstube/browser'
 import {
@@ -17,6 +16,7 @@ import {
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
+import { Button } from '@radix-ui/themes'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useContractWrite, useSignTypedData } from 'wagmi'
@@ -143,9 +143,9 @@ const Toggle = () => {
 
   return (
     <Button
-      variant={canUseRelay ? 'danger' : 'primary'}
+      color={canUseRelay ? 'red' : 'iris'}
       onClick={onClick}
-      loading={loading}
+      disabled={loading}
     >
       {getButtonText()} <Trans>dispatcher</Trans>
     </Button>

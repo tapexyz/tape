@@ -11,6 +11,7 @@ import { loadLocale } from '@lib/i18n'
 import { i18n } from '@lingui/core'
 import { I18nProvider } from '@lingui/react'
 import { LivepeerConfig } from '@livepeer/react'
+import { Theme } from '@radix-ui/themes'
 import { connectorsForWallets } from '@rainbow-me/rainbowkit'
 import {
   coinbaseWallet,
@@ -84,11 +85,13 @@ const Providers = ({ children }: { children: ReactNode }) => {
         <LivepeerConfig client={getLivepeerClient()} theme={videoPlayerTheme}>
           <WagmiConfig config={wagmiConfig}>
             <ThemeProvider defaultTheme="dark" attribute="class">
-              <RainbowKit chains={chains}>
-                <ApolloProvider client={apolloClient(authLink)}>
-                  {children}
-                </ApolloProvider>
-              </RainbowKit>
+              <Theme accentColor="iris" panelBackground="solid">
+                <RainbowKit chains={chains}>
+                  <ApolloProvider client={apolloClient(authLink)}>
+                    {children}
+                  </ApolloProvider>
+                </RainbowKit>
+              </Theme>
             </ThemeProvider>
           </WagmiConfig>
         </LivepeerConfig>

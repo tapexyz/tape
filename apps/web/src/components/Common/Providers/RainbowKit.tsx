@@ -35,7 +35,7 @@ const RainbowKit: FC<Props> = ({ chains, children }) => {
     fontStack: 'system',
     overlayBlur: 'small',
     accentColor: '#6366f1',
-    borderRadius: 'medium'
+    borderRadius: 'small'
   }
   return (
     <RainbowKitProvider

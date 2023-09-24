@@ -9,7 +9,6 @@ import useAuthPersistStore, {
   signOut
 } from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
-import usePersistStore from '@lib/store/persist'
 import clsx from 'clsx'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
@@ -33,7 +32,6 @@ const NO_HEADER_PATHS = ['/auth']
 const Layout: FC<Props> = ({ children }) => {
   const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
   const setActiveChannel = useChannelStore((state) => state.setActiveChannel)
-  const sidebarCollapsed = usePersistStore((state) => state.sidebarCollapsed)
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
@@ -134,13 +132,7 @@ const Layout: FC<Props> = ({ children }) => {
       <TelemetryProvider />
       <div className={clsx('flex pb-10 md:pb-0', showFullScreen && '!pb-0')}>
         <Sidebar />
-        <div
-          className={clsx(
-            'w-full',
-            showFullScreen && 'px-0',
-            sidebarCollapsed ? 'md:pl-[90px]' : 'md:pl-[180px]'
-          )}
-        >
+        <div className={clsx('w-full md:pl-[90px]', showFullScreen && 'px-0')}>
           {!NO_HEADER_PATHS.includes(pathname) && (
             <Header className={clsx(showFullScreen && 'hidden md:flex')} />
           )}

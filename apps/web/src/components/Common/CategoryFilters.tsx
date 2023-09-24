@@ -2,11 +2,9 @@ import { Analytics, TRACK, useHorizontalScroll } from '@lenstube/browser'
 import { CREATOR_VIDEO_CATEGORIES } from '@lenstube/constants'
 import useAppStore from '@lib/store'
 import { Trans } from '@lingui/macro'
-import clsx from 'clsx'
+import { ChevronLeftIcon, ChevronRightIcon } from '@radix-ui/react-icons'
+import { Badge, IconButton } from '@radix-ui/themes'
 import React, { useEffect, useState } from 'react'
-
-import ChevronLeftOutline from './Icons/ChevronLeftOutline'
-import ChevronRightOutline from './Icons/ChevronRightOutline'
 
 const CategoryFilters = () => {
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
@@ -56,61 +54,51 @@ const CategoryFilters = () => {
 
   return (
     <div
-      className="ultrawide:max-w-[90rem] relative mx-auto flex pt-4"
+      className="ultrawide:max-w-[90rem] relative mx-auto flex px-2 pt-4"
       data-testid="category-filters"
     >
       {scrollX !== 0 && (
-        <div className="ultrawide:pl-0 sticky bottom-0 right-0 bg-transparent px-2 ">
-          <button
-            type="button"
-            className="hidden rounded-full p-2 backdrop-blur-xl hover:bg-gray-500 hover:bg-opacity-20 focus:outline-none md:block"
+        <div className="ultrawide:pl-0 sticky bottom-0 right-0 hidden items-center bg-transparent px-2 md:flex">
+          <IconButton
+            color="gray"
+            variant="ghost"
             onClick={() => slide(-scrollOffset)}
           >
-            <ChevronLeftOutline className="h-4 w-4" />
-          </button>
+            <ChevronLeftIcon />
+          </IconButton>
         </div>
       )}
       <div
         ref={scrollRef}
-        className="no-scrollbar ultrawide:px-0 flex touch-pan-x items-center gap-2 overflow-x-auto scroll-smooth px-2 md:mx-auto"
+        className="no-scrollbar ultrawide:px-0 flex touch-pan-x items-center gap-2 overflow-x-auto scroll-smooth md:mx-auto"
       >
-        <button
-          type="button"
+        <Badge
+          color="gray"
+          variant={activeTagFilter === 'all' ? 'solid' : 'outline'}
           onClick={() => onFilter('all')}
-          className={clsx(
-            'whitespace-nowrap rounded-full border border-gray-200 px-3.5 py-1 text-xs capitalize dark:border-gray-700',
-            activeTagFilter === 'all'
-              ? 'bg-black text-white'
-              : 'bg-gray-100 dark:bg-gray-800'
-          )}
         >
           <Trans>All</Trans>
-        </button>
+        </Badge>
         {CREATOR_VIDEO_CATEGORIES.map((category) => (
-          <button
-            type="button"
-            onClick={() => onFilter(category.tag)}
+          <Badge
             key={category.tag}
-            className={clsx(
-              'whitespace-nowrap rounded-full border border-gray-200 px-3.5 py-1 text-xs capitalize dark:border-gray-700',
-              activeTagFilter === category.tag
-                ? 'bg-black text-white'
-                : 'bg-gray-100 dark:bg-gray-800'
-            )}
+            color="gray"
+            variant={activeTagFilter === category.tag ? 'solid' : 'outline'}
+            onClick={() => onFilter(category.tag)}
           >
             {category.name}
-          </button>
+          </Badge>
         ))}
       </div>
       {!scrollEnd && (
-        <div className="ultrawide:pr-0 sticky bottom-0 right-0 bg-transparent px-2">
-          <button
-            type="button"
-            className="hidden rounded-full p-2 backdrop-blur-xl hover:bg-gray-500 hover:bg-opacity-20 focus:outline-none md:block"
+        <div className="ultrawide:pr-0 sticky bottom-0 right-0 hidden items-center bg-transparent px-2 md:flex">
+          <IconButton
+            variant="ghost"
+            color="gray"
             onClick={() => slide(scrollOffset)}
           >
-            <ChevronRightOutline className="h-4 w-4" />
-          </button>
+            <ChevronRightIcon />
+          </IconButton>
         </div>
       )}
     </div>

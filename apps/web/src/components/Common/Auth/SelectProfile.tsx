@@ -1,7 +1,6 @@
-import Modal from '@components/UIElements/Modal'
 import { Analytics, TRACK } from '@lenstube/browser'
 import { ERROR_MESSAGE, POLYGON_CHAIN_ID } from '@lenstube/constants'
-import { getProfilePicture, logger } from '@lenstube/generic'
+import { getProfilePicture, logger, trimLensHandle } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import {
   LimitType,
@@ -11,23 +10,27 @@ import {
   useSimpleProfilesLazyQuery
 } from '@lenstube/lens'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
-import { Loader } from '@lenstube/ui'
 import useAuthPersistStore, { signIn, signOut } from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t } from '@lingui/macro'
+import {
+  Avatar,
+  Box,
+  Button,
+  Card,
+  Dialog,
+  Flex,
+  RadioGroup,
+  Text
+} from '@radix-ui/themes'
 import { useRouter } from 'next/router'
-import type { Dispatch, FC } from 'react'
 import React, { useCallback, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useAccount, useDisconnect, useNetwork, useSignMessage } from 'wagmi'
 
-type Props = {
-  show: boolean
-  setShow: Dispatch<boolean>
-}
-
-const SelectProfile: FC<Props> = ({ show, setShow }) => {
-  const [authenticatingId, setAuthenticatingId] = useState<string>()
+const SelectProfile = () => {
+  const [selectedProfileId, setSelectedProfileId] = useState<string>()
+  const [loading, setLoading] = useState(false)
 
   const router = useRouter()
   const { chain } = useNetwork()
@@ -52,6 +55,10 @@ const SelectProfile: FC<Props> = ({ show, setShow }) => {
   const { data } = useProfilesManagedQuery({
     variables: {
       request: { for: address, includeOwned: true, limit: LimitType.Fifty }
+    },
+    onCompleted: (data) => {
+      const profiles = data?.profilesManaged.items as Profile[]
+      setSelectedProfileId(profiles?.[0].id)
     }
   })
 
@@ -76,119 +83,135 @@ const SelectProfile: FC<Props> = ({ show, setShow }) => {
   const [authenticate] = useAuthenticateMutation()
   const [getAllSimpleProfiles] = useSimpleProfilesLazyQuery()
 
-  const handleSign = useCallback(
-    async (profileId: string) => {
-      if (!isReadyToSign) {
-        disconnect?.()
-        signOut()
-        return toast.error(t`Please connect to your wallet`)
+  const handleSign = useCallback(async () => {
+    if (!isReadyToSign) {
+      disconnect?.()
+      signOut()
+      return toast.error(t`Please connect to your wallet`)
+    }
+    try {
+      setLoading(true)
+      const challenge = await loadChallenge({
+        variables: { request: { for: selectedProfileId, signedBy: address } }
+      })
+      if (!challenge?.data?.challenge?.text) {
+        return toast.error(ERROR_MESSAGE)
       }
-      try {
-        setAuthenticatingId(profileId)
-        const challenge = await loadChallenge({
-          variables: { request: { for: profileId, signedBy: address } }
-        })
-        if (!challenge?.data?.challenge?.text) {
-          return toast.error(ERROR_MESSAGE)
-        }
-        const signature = await signMessageAsync({
-          message: challenge?.data?.challenge?.text
-        })
-        if (!signature) {
-          return
-        }
-        const result = await authenticate({
-          variables: {
-            request: { id: challenge.data?.challenge.id, signature }
-          }
-        })
-        const accessToken = result.data?.authenticate.accessToken
-        const refreshToken = result.data?.authenticate.refreshToken
-        signIn({ accessToken, refreshToken })
-        const { data: profilesData } = await getAllSimpleProfiles({
-          variables: {
-            request: { where: { ownedBy: [address] } }
-          },
-          fetchPolicy: 'no-cache'
-        })
-        if (
-          !profilesData?.profiles ||
-          profilesData?.profiles?.items.length === 0
-        ) {
-          setActiveChannel(null)
-          setSelectedSimpleProfile(null)
-          setShowCreateChannel(true)
-        } else {
-          const profiles = profilesData?.profiles?.items as Profile[]
-          const profile = profiles.find((profile) => profile.id === profileId)
-          if (profile) {
-            setSelectedSimpleProfile(profile)
-          }
-          if (router.query?.next) {
-            router.push(router.query?.next as string)
-          }
-        }
-        Analytics.track(TRACK.AUTH.SIGN_IN_WITH_LENS)
-      } catch (error) {
-        signOut()
-        logger.error('[Error Sign In]', {
-          error,
-          connector: connector?.name
-        })
-      } finally {
-        setAuthenticatingId('')
+      const signature = await signMessageAsync({
+        message: challenge?.data?.challenge?.text
+      })
+      if (!signature) {
+        return
       }
-    },
-    [
-      address,
-      authenticate,
-      getAllSimpleProfiles,
-      loadChallenge,
-      router,
-      setActiveChannel,
-      setSelectedSimpleProfile,
-      setShowCreateChannel,
-      signMessageAsync,
-      isReadyToSign,
-      connector,
-      disconnect
-    ]
-  )
+      const result = await authenticate({
+        variables: {
+          request: { id: challenge.data?.challenge.id, signature }
+        }
+      })
+      const accessToken = result.data?.authenticate.accessToken
+      const refreshToken = result.data?.authenticate.refreshToken
+      signIn({ accessToken, refreshToken })
+      const { data: profilesData } = await getAllSimpleProfiles({
+        variables: {
+          request: { where: { ownedBy: [address] } }
+        },
+        fetchPolicy: 'no-cache'
+      })
+      if (
+        !profilesData?.profiles ||
+        profilesData?.profiles?.items.length === 0
+      ) {
+        setActiveChannel(null)
+        setSelectedSimpleProfile(null)
+        setShowCreateChannel(true)
+      } else {
+        const profiles = profilesData?.profiles?.items as Profile[]
+        const profile = profiles.find(
+          (profile) => profile.id === selectedProfileId
+        )
+        if (profile) {
+          setSelectedSimpleProfile(profile)
+        }
+        if (router.query?.next) {
+          router.push(router.query?.next as string)
+        }
+      }
+      Analytics.track(TRACK.AUTH.SIGN_IN_WITH_LENS)
+    } catch (error) {
+      signOut()
+      logger.error('[Error Sign In]', {
+        error,
+        connector: connector?.name
+      })
+    } finally {
+      setLoading(false)
+    }
+  }, [
+    router,
+    address,
+    connector,
+    disconnect,
+    authenticate,
+    isReadyToSign,
+    loadChallenge,
+    setActiveChannel,
+    signMessageAsync,
+    selectedProfileId,
+    getAllSimpleProfiles,
+    setShowCreateChannel,
+    setSelectedSimpleProfile
+  ])
 
   return (
-    <div>
-      <Modal
-        show={show}
-        title={t`Select a Profile`}
-        onClose={() => setShow(false)}
-        panelClassName="max-w-md"
-      >
-        <div>
-          {profiles?.map((profile) => (
-            <button
-              type="button"
-              className="flex w-full items-center justify-between space-x-2 rounded-lg px-2 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
-              key={profile.id}
-              disabled={authenticatingId === profile.id}
-              onClick={() => handleSign(profile.id)}
-            >
-              <span className="inline-flex items-center space-x-1.5">
-                <img
-                  className="h-6 w-6 rounded-full"
-                  src={getProfilePicture(profile)}
-                  alt={profile.handle}
-                  draggable={false}
-                />
-                <span className="truncate whitespace-nowrap">
-                  {profile.handle}
-                </span>
-              </span>
-              {authenticatingId === profile.id && <Loader size="sm" />}
-            </button>
-          ))}
-        </div>
-      </Modal>
-    </div>
+    <Dialog.Root>
+      <Dialog.Trigger>
+        <Button>Sign In</Button>
+      </Dialog.Trigger>
+
+      <Dialog.Content style={{ maxWidth: 450 }}>
+        <Dialog.Title>{t`Sign in as...`}</Dialog.Title>
+
+        <Flex direction="column" gap="3" pt="3">
+          <RadioGroup.Root defaultValue={selectedProfileId}>
+            {profiles?.map((profile) => (
+              <Card variant="ghost" key={profile.id}>
+                <Flex gap="3" justify="between" align="center">
+                  <Flex gap="3" align="center">
+                    <Avatar
+                      size="2"
+                      src={getProfilePicture(profile)}
+                      fallback={trimLensHandle(profile.handle)[0]}
+                    />
+                    <Box>
+                      <Text as="div" size="2" weight="bold">
+                        {profile.handle}
+                      </Text>
+                      <Text as="div" size="2" color="gray">
+                        {profile.stats.followers} followers
+                      </Text>
+                    </Box>
+                  </Flex>
+                  <RadioGroup.Item
+                    onClick={() => setSelectedProfileId(profile.id)}
+                    value={profile.id}
+                  />
+                </Flex>
+              </Card>
+            ))}
+          </RadioGroup.Root>
+        </Flex>
+        <Flex gap="3" mt="4" justify="end">
+          <Dialog.Close>
+            <Button variant="soft" color="gray">
+              Cancel
+            </Button>
+          </Dialog.Close>
+          <Button disabled={loading} onClick={() => handleSign()}>
+            Sign In
+          </Button>
+        </Flex>
+      </Dialog.Content>
+    </Dialog.Root>
   )
 }
 
