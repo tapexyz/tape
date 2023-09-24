@@ -315,7 +315,7 @@ const CollectModal: FC<Props> = ({
             <div className="flex justify-end space-x-2">
               {isAllowed ? (
                 collectModule?.followerOnly &&
-                !video.by.operations.isFollowedByMe ? (
+                !video.by.operations.isFollowedByMe.value ? (
                   <div className="flex-1">
                     <Alert variant="warning">
                       <div className="flex px-2">

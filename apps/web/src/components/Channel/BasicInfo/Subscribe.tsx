@@ -12,10 +12,12 @@ import { getSignature } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import {
   useBroadcastOnchainMutation,
-  useCreateFollowTypedDataMutation
+  useCreateFollowTypedDataMutation,
+  useFollowMutation
 } from '@lenstube/lens'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAuthPersistStore from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
 import { Trans } from '@lingui/macro'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 import clsx from 'clsx'
@@ -43,6 +45,9 @@ const Subscribe: FC<Props> = ({
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
+  const activeChannel = useChannelStore((state) => state.activeChannel)
+  const canUseRelay = activeChannel?.lensManager && activeChannel?.sponsor
+
   const { openConnectModal } = useConnectModal()
 
   const onError = (error: CustomErrorWithData) => {
@@ -81,7 +86,7 @@ const Subscribe: FC<Props> = ({
     onError
   })
 
-  const [createSubscribeTypedData] = useCreateFollowTypedDataMutation({
+  const [createFollowTypedData] = useCreateFollowTypedDataMutation({
     onCompleted: async ({ createFollowTypedData }) => {
       const { typedData, id } = createFollowTypedData
       try {
@@ -113,12 +118,30 @@ const Subscribe: FC<Props> = ({
     onError
   })
 
+  const [follow] = useFollowMutation({
+    onCompleted: () => onCompleted(),
+    onError
+  })
+
   const subscribe = async () => {
     if (!selectedSimpleProfile?.id) {
       return openConnectModal?.()
     }
     setLoading(true)
-    return await createSubscribeTypedData({
+    if (canUseRelay) {
+      return await follow({
+        variables: {
+          request: {
+            follow: [
+              {
+                profileId: channel.id
+              }
+            ]
+          }
+        }
+      })
+    }
+    return await createFollowTypedData({
       variables: {
         request: {
           follow: [

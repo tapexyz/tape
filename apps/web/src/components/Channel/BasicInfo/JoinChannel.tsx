@@ -148,7 +148,7 @@ const JoinChannel: FC<Props> = ({
     onError
   })
 
-  const joinChannel = () => {
+  const joinChannel = async () => {
     if (!selectedSimpleProfile?.id) {
       return openConnectModal?.()
     }
@@ -158,7 +158,7 @@ const JoinChannel: FC<Props> = ({
       )
     }
     setLoading(true)
-    createJoinChannelTypedData({
+    await createJoinChannelTypedData({
       variables: {
         options: { overrideSigNonce: userSigNonce },
         request: {

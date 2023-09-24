@@ -11,10 +11,12 @@ import { getSignature } from '@lenstube/generic'
 import type { CreateUnfollowBroadcastItemResult, Profile } from '@lenstube/lens'
 import {
   useBroadcastOnchainMutation,
-  useCreateUnfollowTypedDataMutation
+  useCreateUnfollowTypedDataMutation,
+  useUnfollowMutation
 } from '@lenstube/lens'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAuthPersistStore from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
 import { Trans } from '@lingui/macro'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 import clsx from 'clsx'
@@ -43,6 +45,8 @@ const UnSubscribe: FC<Props> = ({
     (state) => state.selectedSimpleProfile
   )
   const { openConnectModal } = useConnectModal()
+  const activeChannel = useChannelStore((state) => state.activeChannel)
+  const canUseRelay = activeChannel?.lensManager && activeChannel?.sponsor
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message)
@@ -80,7 +84,7 @@ const UnSubscribe: FC<Props> = ({
     onError
   })
 
-  const [createUnsubscribeTypedData] = useCreateUnfollowTypedDataMutation({
+  const [createUnfollowTypedData] = useCreateUnfollowTypedDataMutation({
     onCompleted: async ({ createUnfollowTypedData }) => {
       const { typedData, id } =
         createUnfollowTypedData as CreateUnfollowBroadcastItemResult
@@ -104,12 +108,26 @@ const UnSubscribe: FC<Props> = ({
     onError
   })
 
-  const unsubscribe = () => {
+  const [unFollow] = useUnfollowMutation({
+    onCompleted: () => onCompleted(),
+    onError
+  })
+
+  const unsubscribe = async () => {
     if (!selectedSimpleProfile?.id) {
       return openConnectModal?.()
     }
     setLoading(true)
-    return createUnsubscribeTypedData({
+    if (canUseRelay) {
+      return await unFollow({
+        variables: {
+          request: {
+            unfollow: [channel.id]
+          }
+        }
+      })
+    }
+    return createUnfollowTypedData({
       variables: {
         request: { unfollow: [channel?.id] }
       }

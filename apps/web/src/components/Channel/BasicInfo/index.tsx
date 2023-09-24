@@ -27,6 +27,7 @@ type Props = {
 }
 
 const BasicInfo: FC<Props> = ({ channel }) => {
+  console.log('🚀 ~ file: index.tsx:30 ~ channel:', channel)
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
@@ -113,7 +114,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
                     {channel?.stats.followers} <Trans>subscribers</Trans>
                   </span>
                 </button>
-                {channel.operations.isFollowedByMe &&
+                {channel.operations.isFollowingMe.value &&
                 selectedSimpleProfile?.id !== channel?.id ? (
                   <span className="rounded-full border border-gray-400 px-2 text-xs dark:border-gray-600">
                     <Trans>Subscriber</Trans>
