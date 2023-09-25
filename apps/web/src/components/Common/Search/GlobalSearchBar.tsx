@@ -59,7 +59,7 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
 
   const profileSearchRequest: ProfileSearchRequest = {
     limit: LimitType.Ten,
-    query: keyword,
+    query: `test/@${keyword}`,
     where: {
       customFilters: LENS_CUSTOM_FILTERS
     }
@@ -123,7 +123,7 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
             ) : (
               <>
                 <div
-                  className="no-scrollbar max-h-[80vh] overflow-y-auto focus:outline-none"
+                  className="no-scrollbar max-h-[80vh] space-y-2 overflow-y-auto pb-2 focus:outline-none"
                   data-testid="search-channels-panel"
                 >
                   <Text size="3" weight="medium">
@@ -139,7 +139,7 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
                     <NoDataFound isCenter />
                   )}
                 </div>
-                <div className="no-scrollbar max-h-[80vh] overflow-y-auto focus:outline-none">
+                <div className="no-scrollbar max-h-[80vh] space-y-2 overflow-y-auto focus:outline-none">
                   <Text size="3" weight="medium">
                     Releases
                   </Text>
