@@ -31,18 +31,14 @@ const ThumbnailImage: FC<Props> = ({ video }) => {
 
   const thumbnailUrl = isSensitiveContent
     ? `${STATIC_ASSETS}/images/sensor-blur.png`
-    : getThumbnailUrl(targetPublication)
+    : getThumbnailUrl(targetPublication, true)
   const { color: backgroundColor } = useAverageColor(thumbnailUrl, isBytesVideo)
 
   return (
     <img
-      src={
-        thumbnailUrl
-          ? imageCdn(thumbnailUrl, isBytesVideo ? 'THUMBNAIL_V' : 'THUMBNAIL')
-          : ''
-      }
+      src={imageCdn(thumbnailUrl, isBytesVideo ? 'THUMBNAIL_V' : 'THUMBNAIL')}
       className={clsx(
-        'h-full w-full rounded-xl bg-gray-100 object-center dark:bg-gray-900 lg:h-full lg:w-full',
+        'h-full w-full rounded-md bg-gray-100 object-center dark:bg-gray-900 lg:h-full lg:w-full',
         isBytesVideo ? 'object-contain' : 'object-cover'
       )}
       style={{
@@ -52,13 +48,6 @@ const ThumbnailImage: FC<Props> = ({ video }) => {
       draggable={false}
       onError={({ currentTarget }) => {
         currentTarget.src = FALLBACK_COVER_URL
-        // const thumbnail = await generateVideoThumbnail(
-        //   getPublicationMediaUrl(video)
-        // )
-        // currentTarget.onerror = null
-        // if (thumbnail?.includes('base64')) {
-        //   currentTarget.src = thumbnail
-        // }
       }}
     />
   )

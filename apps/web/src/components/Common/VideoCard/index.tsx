@@ -1,5 +1,6 @@
 import { LENSTUBE_BYTES_APP_ID } from '@lenstube/constants'
-import type { MirrorablePublication } from '@lenstube/lens'
+import { formatNumber } from '@lenstube/generic'
+import type { MirrorablePublication, VideoMetadataV3 } from '@lenstube/lens'
 import { AspectRatio, Flex, Separator } from '@radix-ui/themes'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -24,12 +25,13 @@ const VideoCard: FC<Props> = ({ video }) => {
   const isBytes = video.publishedOn?.id === LENSTUBE_BYTES_APP_ID
 
   const href = isBytes ? `/bytes/${video.id}` : `/watch/${video.id}`
+  const metadata = video.metadata as VideoMetadataV3
 
   return (
     <div className="group" data-testid="video-card">
       {video.isHidden ? (
         <div className="grid h-full place-items-center">
-          <span className="text-xs">Video Hidden by User</span>
+          <span className="text-xs">Media Deleted</span>
         </div>
       ) : (
         <>
@@ -52,12 +54,12 @@ const VideoCard: FC<Props> = ({ video }) => {
           <div className="py-2">
             <div className="flex w-full min-w-0 items-start justify-between space-x-1.5 pb-1">
               <Link
-                className="ultrawide:line-clamp-1 ultrawide:break-all line-clamp-2 break-words font-semibold"
+                className="ultrawide:line-clamp-1 ultrawide:break-all line-clamp-2 break-words text-lg font-semibold"
                 href={href}
-                title={video.metadata.marketplace?.name ?? ''}
+                title={metadata.marketplace?.name ?? metadata.content}
                 data-testid="video-card-title"
               >
-                {video.metadata.marketplace?.name}
+                {metadata.marketplace?.name}
               </Link>
               <VideoOptions
                 video={video}
@@ -72,12 +74,12 @@ const VideoCard: FC<Props> = ({ video }) => {
               <div className="flex items-center overflow-hidden text-xs opacity-80">
                 <Flex align="center" gap="1">
                   <HeartOutline className="h-3 w-3" />
-                  {video.stats?.reactions}
+                  {formatNumber(video.stats?.reactions)}
                 </Flex>
                 <span className="middot" />
                 <Flex align="center" gap="1">
                   <CommentOutline className="h-3 w-3" />
-                  {video.stats?.comments}
+                  {formatNumber(video.stats?.comments)}
                 </Flex>
               </div>
             </Flex>
