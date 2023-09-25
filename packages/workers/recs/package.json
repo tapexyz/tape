@@ -12,7 +12,7 @@
     "itty-router": "^4.0.22"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20230914.0",
+    "@cloudflare/workers-types": "^4.20230922.0",
     "@lenstube/config": "*",
     "typescript": "^5.2.2",
     "wrangler": "3.9.0"
