@@ -6,11 +6,12 @@ import React from 'react'
 export const NoDataFound = ({
   text = 'Zero trace!',
   withImage = false,
-  isCenter = false
+  isCenter = false,
+  className = ''
 }) => {
   return (
     <div
-      className={clsx('flex flex-col space-y-1 rounded-lg p-6', {
+      className={clsx('flex flex-col space-y-1 rounded-lg p-6', className, {
         'items-center justify-center': isCenter
       })}
     >
@@ -20,7 +21,7 @@ export const NoDataFound = ({
             `${STATIC_ASSETS}/mobile/icons/ice-cubes.png`,
             'AVATAR'
           )}
-          className="w-32 p-6 md:w-36"
+          className="w-24"
           alt="no results"
           draggable={false}
         />

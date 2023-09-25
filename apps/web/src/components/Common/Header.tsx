@@ -83,7 +83,7 @@ const Header: FC<Props> = ({ className }) => {
             alt="lenstube"
           />
         </Link>
-        <div className="hidden md:block">
+        <div className="hidden w-full md:block">
           <GlobalSearchBar />
         </div>
         <Flex gap="3" align="center">
@@ -101,7 +101,7 @@ const Header: FC<Props> = ({ className }) => {
                 </IconButton>
               </Link>
               <Link href="/upload" className="hidden md:block">
-                <Button color="gray" variant="solid" highContrast>
+                <Button color="gray" variant="classic" highContrast>
                   <Flex align="center" gap="2">
                     <UploadOutline className="h-3 w-3" />
                     <Trans>Upload</Trans>

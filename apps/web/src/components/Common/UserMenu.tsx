@@ -1,6 +1,10 @@
 import { Analytics, TRACK } from '@lenstube/browser'
 import { ADMIN_IDS } from '@lenstube/constants'
-import { getProfilePicture, trimLensHandle } from '@lenstube/generic'
+import {
+  formatNumber,
+  getProfilePicture,
+  trimLensHandle
+} from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import { useProfilesQuery } from '@lenstube/lens'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
@@ -93,16 +97,16 @@ const UserMenu = () => {
       <DropdownMenu.Content sideOffset={10} variant="soft" align="end">
         <Flex gap="2" px="2" py="1" pb="3" align="center">
           <Avatar
-            size="2"
+            size="3"
             src={getProfilePicture(selectedSimpleProfile as Profile)}
             fallback={trimLensHandle(selectedSimpleProfile?.handle)[0]}
           />
           <Box>
-            <Text as="p" size="2" weight="bold">
+            <Text as="p" weight="bold">
               {selectedSimpleProfile?.handle}
             </Text>
-            <Text as="div" size="2" color="gray">
-              {selectedSimpleProfile?.stats.followers} followers
+            <Text as="p" size="2" color="gray">
+              {formatNumber(selectedSimpleProfile?.stats.followers!)} followers
             </Text>
           </Box>
         </Flex>
@@ -113,7 +117,7 @@ const UserMenu = () => {
               <DropdownMenu.Item>
                 <Link href="/mod">
                   <GraphOutline className="h-4 w-4" />
-                  <Text as="p" size="3" className="truncate whitespace-nowrap">
+                  <Text as="p" className="truncate whitespace-nowrap">
                     <Trans>App Info</Trans>
                   </Text>
                 </Link>
@@ -137,11 +141,7 @@ const UserMenu = () => {
                     className="flex items-center space-x-2"
                   >
                     <ChannelOutline className="h-4 w-4" />
-                    <Text
-                      as="p"
-                      size="3"
-                      className="truncate whitespace-nowrap"
-                    >
+                    <Text as="p" className="truncate whitespace-nowrap">
                       <Trans>My Profile</Trans>
                     </Text>
                   </Link>
@@ -152,11 +152,7 @@ const UserMenu = () => {
                     className="flex items-center space-x-2"
                   >
                     <SaveToListOutline className="h-4 w-4" />
-                    <Text
-                      as="p"
-                      size="3"
-                      className="truncate whitespace-nowrap"
-                    >
+                    <Text as="p" className="truncate whitespace-nowrap">
                       <Trans>Saved Items</Trans>
                     </Text>
                   </Link>
@@ -166,11 +162,7 @@ const UserMenu = () => {
                   <DropdownMenu.SubTrigger>
                     <Flex align="center" gap="2">
                       <SwitchChannelOutline className="h-4 w-4" />
-                      <Text
-                        as="p"
-                        size="3"
-                        className="truncate whitespace-nowrap"
-                      >
+                      <Text as="p" className="truncate whitespace-nowrap">
                         <Trans>Switch Profile</Trans>
                       </Text>
                     </Flex>
@@ -188,12 +180,8 @@ const UserMenu = () => {
                               src={getProfilePicture(profile)}
                               fallback={trimLensHandle(profile?.handle)[0]}
                             />
-                            <Text
-                              as="p"
-                              size="3"
-                              className="truncate whitespace-nowrap"
-                            >
-                              {profile.handle}
+                            <Text as="p" className="truncate whitespace-nowrap">
+                              {trimLensHandle(profile.handle)}
                             </Text>
                           </Flex>
                         </DropdownMenu.Item>
@@ -206,7 +194,7 @@ const UserMenu = () => {
             <DropdownMenu.Item onClick={() => push('/settings')}>
               <Link href="/settings" className="flex items-center space-x-2">
                 <CogOutline className="h-4 w-4" />
-                <Text as="p" size="3" className="truncate whitespace-nowrap">
+                <Text as="p" className="truncate whitespace-nowrap">
                   <Trans>My Settings</Trans>
                 </Text>
               </Link>
@@ -227,7 +215,7 @@ const UserMenu = () => {
                 ) : (
                   <MoonOutline className="h-4 w-4" />
                 )}
-                <Text as="p" size="3" className="truncate whitespace-nowrap">
+                <Text as="p" className="truncate whitespace-nowrap">
                   {theme === 'light' ? t`Switch to Dark` : t`Switch to Light`}
                 </Text>
               </Flex>
@@ -235,7 +223,7 @@ const UserMenu = () => {
             <DropdownMenu.Item color="red" onClick={() => logout()}>
               <Flex align="center" gap="2">
                 <HandWaveOutline className="h-4 w-4" />
-                <Text as="p" size="3" className="truncate whitespace-nowrap">
+                <Text as="p" className="truncate whitespace-nowrap">
                   <Trans>Sign out</Trans>
                 </Text>
               </Flex>

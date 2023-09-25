@@ -1,22 +1,22 @@
-import { Tab } from '@headlessui/react'
+import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { Analytics, TRACK, useOutsideClick } from '@lenstube/browser'
-import {
-  ALLOWED_APP_IDS,
-  IS_MAINNET,
-  LENS_CUSTOM_FILTERS,
-  LENSTUBE_APP_ID,
-  LENSTUBE_BYTES_APP_ID
-} from '@lenstube/constants'
+import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
 import { useDebounce } from '@lenstube/generic'
-import type { AnyPublication, Profile } from '@lenstube/lens'
-import {
-  SearchProfilesDocument,
-  SearchPublicationsDocument
+import type {
+  PrimaryPublication,
+  Profile,
+  ProfileSearchRequest,
+  PublicationSearchRequest
 } from '@lenstube/lens'
-import { useLazyQuery } from '@lenstube/lens/apollo'
+import {
+  LimitType,
+  PublicationMetadataMainFocusType,
+  useSearchProfilesLazyQuery,
+  useSearchPublicationsLazyQuery
+} from '@lenstube/lens'
 import { Loader } from '@lenstube/ui'
-import { t, Trans } from '@lingui/macro'
-import { TextField } from '@radix-ui/themes'
+import { t } from '@lingui/macro'
+import { Box, Text, TextField } from '@radix-ui/themes'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
@@ -30,48 +30,65 @@ interface Props {
 }
 
 const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
-  const [activeSearch, setActiveSearch] = useState<'PROFILE' | 'PUBLICATION'>(
-    'PROFILE'
-  )
   const [keyword, setKeyword] = useState('')
   const debouncedValue = useDebounce<string>(keyword, 500)
   const resultsRef = useRef(null)
   useOutsideClick(resultsRef, () => setKeyword(''))
 
-  const [searchChannels, { data, loading }] = useLazyQuery(
-    activeSearch === 'PROFILE'
-      ? SearchProfilesDocument
-      : SearchPublicationsDocument
-  )
+  const [
+    searchPublications,
+    { data: publicationsData, loading: publicationsLoading }
+  ] = useSearchPublicationsLazyQuery()
 
-  const onDebounce = () => {
-    if (keyword.trim().length) {
-      searchChannels({
-        variables: {
-          request: {
-            type: activeSearch,
-            query: keyword,
-            limit: 30,
-            sources: IS_MAINNET
-              ? [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
-              : undefined,
-            customFilters: LENS_CUSTOM_FILTERS
-          }
-        }
-      })
-      Analytics.track(
-        TRACK.SEARCH,
-        activeSearch === 'PROFILE' ? { channel: true } : { video: true }
-      )
+  const [searchProfiles, { data: profilesData, loading: profilesLoading }] =
+    useSearchProfilesLazyQuery()
+
+  const publicationSearchRequest: PublicationSearchRequest = {
+    limit: LimitType.Ten,
+    query: keyword,
+    where: {
+      metadata: {
+        mainContentFocus: [
+          PublicationMetadataMainFocusType.Video,
+          PublicationMetadataMainFocusType.ShortVideo
+        ]
+      },
+      customFilters: LENS_CUSTOM_FILTERS
     }
   }
 
-  const channels = data?.search?.items
+  const profileSearchRequest: ProfileSearchRequest = {
+    limit: LimitType.Ten,
+    query: keyword,
+    where: {
+      customFilters: LENS_CUSTOM_FILTERS
+    }
+  }
+
+  const onDebounce = () => {
+    if (keyword.trim().length) {
+      searchPublications({
+        variables: {
+          request: publicationSearchRequest
+        }
+      })
+      searchProfiles({
+        variables: {
+          request: profileSearchRequest
+        }
+      })
+      Analytics.track(TRACK.SEARCH)
+    }
+  }
+
+  const profiles = profilesData?.searchProfiles?.items as Profile[]
+  const publications = publicationsData?.searchPublications
+    ?.items as unknown as PrimaryPublication[]
 
   useEffect(() => {
     onDebounce()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedValue, activeSearch])
+  }, [debouncedValue])
 
   const clearSearch = () => {
     setKeyword('')
@@ -79,7 +96,7 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
   }
 
   return (
-    <div className="md:w-96" data-testid="global-search">
+    <div className="md:w-2/4" data-testid="global-search">
       <div ref={resultsRef}>
         <div className="relative">
           <TextField.Root variant="soft" color="gray">
@@ -87,6 +104,7 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
               <SearchOutline className="h-3 w-3" />
             </TextField.Slot>
             <TextField.Input
+              type="search"
               value={keyword}
               onChange={(event) => setKeyword(event.target.value)}
               placeholder={t`Search`}
@@ -94,77 +112,56 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
           </TextField.Root>
           <div
             className={clsx(
-              'dark:bg-theme z-10 mt-1 w-full overflow-hidden rounded-xl bg-white text-base ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm md:absolute',
+              'dark:bg-theme z-10 mt-1 w-full overflow-hidden rounded-md bg-white text-base ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm md:absolute',
               { hidden: debouncedValue.length === 0 }
             )}
           >
-            <Tab.Group>
-              <Tab.List className="flex justify-center">
-                <Tab
-                  className={({ selected }) =>
-                    clsx(
-                      'w-full border-b-2 px-4 py-2 text-sm focus:outline-none',
-                      selected
-                        ? 'border-indigo-500 opacity-100'
-                        : 'border-transparent opacity-50 hover:bg-indigo-500/[0.12]'
-                    )
-                  }
-                  onClick={() => {
-                    setActiveSearch('PROFILE')
-                  }}
-                >
-                  <Trans>Channels</Trans>
-                </Tab>
-                <Tab
-                  className={({ selected }) =>
-                    clsx(
-                      'w-full border-b-2 px-4 py-2 text-sm focus:outline-none',
-                      selected
-                        ? 'border-indigo-500 opacity-100'
-                        : 'border-transparent opacity-50 hover:bg-indigo-500/[0.12]'
-                    )
-                  }
-                  onClick={() => {
-                    setActiveSearch('PUBLICATION')
-                  }}
-                >
-                  <Trans>Videos</Trans>
-                </Tab>
-              </Tab.List>
-              <Tab.Panels>
-                <Tab.Panel
-                  className="no-scrollbar max-h-[80vh] overflow-y-auto focus:outline-none"
-                  data-testid="search-channels-panel"
-                >
-                  {data?.search?.__typename === 'ProfileSearchResult' && (
-                    <Channels
-                      results={channels as Profile[]}
-                      loading={loading}
-                      clearSearch={clearSearch}
-                    />
-                  )}
-                </Tab.Panel>
-                <Tab.Panel className="no-scrollbar max-h-[80vh] overflow-y-auto focus:outline-none">
-                  {data?.search?.__typename === 'PublicationSearchResult' && (
-                    <Videos
-                      results={channels as AnyPublication[]}
-                      loading={loading}
-                      clearSearch={clearSearch}
-                    />
-                  )}
-                </Tab.Panel>
-              </Tab.Panels>
-            </Tab.Group>
+            <div
+              className="no-scrollbar max-h-[80vh] overflow-y-auto focus:outline-none"
+              data-testid="search-channels-panel"
+            >
+              <Box p="4">
+                <Text size="3" weight="medium">
+                  Creators
+                </Text>
+              </Box>
+              {profiles?.length ? (
+                <Channels
+                  results={profiles}
+                  loading={profilesLoading}
+                  clearSearch={clearSearch}
+                />
+              ) : (
+                <NoDataFound withImage isCenter />
+              )}
+            </div>
+            <div className="no-scrollbar max-h-[80vh] overflow-y-auto focus:outline-none">
+              <Box p="4">
+                <Text size="3" weight="medium">
+                  Releases
+                </Text>
+              </Box>
+              {publications?.length ? (
+                <Videos
+                  results={publications}
+                  loading={publicationsLoading}
+                  clearSearch={clearSearch}
+                />
+              ) : (
+                <NoDataFound withImage isCenter />
+              )}
+            </div>
 
-            {loading && (
+            {profilesLoading || publicationsLoading ? (
               <div className="flex justify-center p-5">
                 <Loader />
               </div>
-            )}
+            ) : null}
           </div>
         </div>
       </div>
     </div>
   )
 }
+
 export default GlobalSearchBar

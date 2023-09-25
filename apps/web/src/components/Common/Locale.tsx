@@ -32,9 +32,8 @@ const Locale = () => {
           >
             <Text
               as="p"
-              size="4"
               weight={
-                selectedLocale === SUPPORTED_LOCALES[key] ? 'bold' : 'regular'
+                selectedLocale === SUPPORTED_LOCALES[key] ? 'medium' : 'regular'
               }
               className="w-24"
             >
