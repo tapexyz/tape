@@ -525,7 +525,7 @@ const UploadSteps = () => {
   }
 
   return (
-    <div className="mx-auto my-10 max-w-5xl gap-5">
+    <div className="mx-auto my-10 gap-5">
       <MetaTags title="Video Details" />
       <div className="mt-10">
         <Details onCancel={resetToDefaults} onUpload={onUpload} />

@@ -101,7 +101,7 @@ const Header: FC<Props> = ({ className }) => {
                 </IconButton>
               </Link>
               <Link href="/upload" className="hidden md:block">
-                <Button color="gray" variant="classic" highContrast>
+                <Button highContrast>
                   <Flex align="center" gap="2">
                     <UploadOutline className="h-3 w-3" />
                     <Trans>Upload</Trans>

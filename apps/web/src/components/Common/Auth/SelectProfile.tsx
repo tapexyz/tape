@@ -162,7 +162,7 @@ const SelectProfile = () => {
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <Button>Sign In</Button>
+        <Button highContrast>Sign In</Button>
       </Dialog.Trigger>
 
       <Dialog.Content style={{ maxWidth: 450 }}>
@@ -170,7 +170,7 @@ const SelectProfile = () => {
 
         <ScrollArea type="hover" scrollbars="vertical" style={{ height: 200 }}>
           <Flex direction="column" gap="3" pt="3">
-            <RadioGroup.Root defaultValue={selectedProfileId}>
+            <RadioGroup.Root defaultValue={selectedProfileId} highContrast>
               {profiles?.map((profile) => (
                 <Card variant="ghost" key={profile.id}>
                   <Flex gap="3" align="center">
@@ -203,7 +203,7 @@ const SelectProfile = () => {
               Cancel
             </Button>
           </Dialog.Close>
-          <Button disabled={loading} onClick={() => handleSign()}>
+          <Button highContrast disabled={loading} onClick={() => handleSign()}>
             Sign In
           </Button>
         </Flex>

@@ -1,7 +1,5 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import Confirm from '@components/UIElements/Confirm'
-import DropMenu from '@components/UIElements/DropMenu'
-import { Menu } from '@headlessui/react'
 import type { MetadataAttribute } from '@lens-protocol/metadata'
 import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
 import { Analytics, TRACK } from '@lenstube/browser'
@@ -33,8 +31,8 @@ import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
+import { Box, DropdownMenu, Flex } from '@radix-ui/themes'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
-import clsx from 'clsx'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -53,15 +51,9 @@ type Props = {
   video: MirrorablePublication
   setShowShare: React.Dispatch<boolean>
   setShowReport: React.Dispatch<boolean>
-  showOnHover?: boolean
 }
 
-const VideoOptions: FC<Props> = ({
-  video,
-  setShowShare,
-  setShowReport,
-  showOnHover = true
-}) => {
+const VideoOptions: FC<Props> = ({ video, setShowShare, setShowReport }) => {
   const { openConnectModal } = useConnectModal()
   const [showConfirm, setShowConfirm] = useState(false)
 
@@ -295,103 +287,84 @@ const VideoOptions: FC<Props> = ({
         setShowConfirm={setShowConfirm}
         action={onHideVideo}
       />
-      <DropMenu
-        trigger={
-          <div
-            className={clsx(
-              'py-1 group-hover:visible dark:text-white md:text-inherit',
-              showOnHover && 'lg:invisible'
-            )}
-            role="button"
-          >
+      <DropdownMenu.Root>
+        <DropdownMenu.Trigger>
+          <Box className="pt-2">
             <ThreeDotsOutline className="h-3.5 w-3.5" />
-          </div>
-        }
-      >
-        <div className="bg-secondary mt-0.5 w-40 overflow-hidden rounded-xl border border-gray-200 p-1 shadow dark:border-gray-800">
-          <div className="flex flex-col rounded-lg text-sm transition duration-150 ease-in-out">
+          </Box>
+        </DropdownMenu.Trigger>
+        <DropdownMenu.Content sideOffset={10} variant="soft" align="end">
+          <div className="flex w-40 flex-col rounded-lg text-sm transition duration-150 ease-in-out">
             {isVideoOwner && (
               <>
                 {pinnedVideoId !== video.id && (
-                  <Menu.Item
-                    as="button"
-                    className="flex items-center space-x-2 rounded-lg px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
-                    onClick={() => onPinVideo()}
-                  >
-                    <PinOutline className="h-3.5 w-3.5" />
-                    <span className="whitespace-nowrap">
-                      <Trans>Pin Video</Trans>
-                    </span>
-                  </Menu.Item>
+                  <DropdownMenu.Item onClick={() => onPinVideo()}>
+                    <Flex align="center" gap="2">
+                      <PinOutline className="h-3.5 w-3.5" />
+                      <span className="whitespace-nowrap">
+                        <Trans>Pin Video</Trans>
+                      </span>
+                    </Flex>
+                  </DropdownMenu.Item>
                 )}
-                <Menu.Item
-                  as="button"
-                  className="inline-flex items-center space-x-2 rounded-lg px-3 py-1.5 text-red-500 opacity-100 hover:bg-red-100 dark:hover:bg-red-900"
-                  onClick={() => setShowConfirm(true)}
-                >
-                  <TrashOutline className="h-3.5 w-3.5" />
-                  <span className="whitespace-nowrap">
-                    <Trans>Delete</Trans>
-                  </span>
-                </Menu.Item>
+                <DropdownMenu.Item onClick={() => setShowConfirm(true)}>
+                  <Flex align="center" gap="2">
+                    <TrashOutline className="h-3.5 w-3.5" />
+                    <span className="whitespace-nowrap">
+                      <Trans>Delete</Trans>
+                    </span>
+                  </Flex>
+                </DropdownMenu.Item>
               </>
             )}
-            <Menu.Item
-              as="button"
-              onClick={() => setShowShare(true)}
-              className="inline-flex items-center space-x-2 rounded-lg px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
-            >
-              <ShareOutline className="h-3.5 w-3.5" />
-              <span className="whitespace-nowrap">
-                <Trans>Share</Trans>
-              </span>
-            </Menu.Item>
+            <DropdownMenu.Item onClick={() => setShowShare(true)}>
+              <Flex align="center" gap="2">
+                <ShareOutline className="h-3.5 w-3.5" />
+                <span className="whitespace-nowrap">
+                  <Trans>Share</Trans>
+                </span>
+              </Flex>
+            </DropdownMenu.Item>
 
             {!isVideoOwner && (
               <>
-                <Menu.Item
-                  as="button"
-                  onClick={() => onClickReport()}
-                  className="hhover:opacity-100 inline-flex items-center space-x-2 rounded-lg px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
-                >
-                  <FlagOutline className="h-3.5 w-3.5" />
-                  <span className="whitespace-nowrap">
-                    <Trans>Report</Trans>
-                  </span>
-                </Menu.Item>
-                <Menu.Item
-                  as="button"
-                  onClick={() => saveToList()}
-                  className="inline-flex items-center space-x-2 rounded-lg px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
-                >
-                  <SaveToListOutline className="h-3.5 w-3.5 flex-none" />
-                  <span className="truncate whitespace-nowrap">
-                    {video.operations.hasBookmarked ? (
-                      <Trans>Remove from List</Trans>
-                    ) : (
-                      <Trans>Save to List</Trans>
-                    )}
-                  </span>
-                </Menu.Item>
-                <Menu.Item
-                  as="button"
-                  onClick={() => notInterested()}
-                  className="inline-flex items-center space-x-2 rounded-lg px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
-                >
-                  <ForbiddenOutline className="h-3.5 w-3.5" />
-                  <span className="whitespace-nowrap">
-                    {video.operations.isNotInterested ? (
-                      <Trans>Undo Interest</Trans>
-                    ) : (
-                      <Trans>Not Interested</Trans>
-                    )}
-                  </span>
-                </Menu.Item>
+                <DropdownMenu.Item onClick={() => saveToList()}>
+                  <Flex align="center" gap="2">
+                    <SaveToListOutline className="h-3.5 w-3.5 flex-none" />
+                    <span className="truncate whitespace-nowrap">
+                      {video.operations.hasBookmarked ? (
+                        <Trans>Unsave</Trans>
+                      ) : (
+                        <Trans>Save</Trans>
+                      )}
+                    </span>
+                  </Flex>
+                </DropdownMenu.Item>
+                <DropdownMenu.Item onClick={() => onClickReport()}>
+                  <Flex align="center" gap="2">
+                    <FlagOutline className="h-3.5 w-3.5" />
+                    <span className="whitespace-nowrap">
+                      <Trans>Report</Trans>
+                    </span>
+                  </Flex>
+                </DropdownMenu.Item>
+                <DropdownMenu.Item onClick={() => notInterested()}>
+                  <Flex align="center" gap="2">
+                    <ForbiddenOutline className="h-3.5 w-3.5" />
+                    <span className="whitespace-nowrap">
+                      {video.operations.isNotInterested ? (
+                        <Trans>Interested</Trans>
+                      ) : (
+                        <Trans>Not Interested</Trans>
+                      )}
+                    </span>
+                  </Flex>
+                </DropdownMenu.Item>
               </>
             )}
           </div>
-        </div>
-      </DropMenu>
+        </DropdownMenu.Content>
+      </DropdownMenu.Root>
     </>
   )
 }

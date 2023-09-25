@@ -57,7 +57,6 @@ const VideoActions: FC<Props> = ({ video }) => {
           video={video}
           setShowShare={setShowShare}
           setShowReport={setShowReport}
-          showOnHover={false}
         />
       </div>
     </div>

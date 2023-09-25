@@ -1,5 +1,5 @@
 import { getShowFullScreen, getToastOptions } from '@lenstube/browser'
-import { AUTH_ROUTES, POLYGON_CHAIN_ID } from '@lenstube/constants'
+import { AUTH_ROUTES } from '@lenstube/constants'
 import { useIsMounted } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import { useProfilesQuery, useUserSigNoncesQuery } from '@lenstube/lens'
@@ -30,14 +30,9 @@ interface Props {
 const NO_HEADER_PATHS = ['/auth']
 
 const Layout: FC<Props> = ({ children }) => {
-  const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
-  const setActiveChannel = useChannelStore((state) => state.setActiveChannel)
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
-  const setSelectedSimpleProfile = useAuthPersistStore(
-    (state) => state.setSelectedSimpleProfile
-  )
+  const { setUserSigNonce, setActiveChannel } = useChannelStore()
+  const { selectedSimpleProfile, setSelectedSimpleProfile } =
+    useAuthPersistStore()
 
   const { chain } = useNetwork()
   const { resolvedTheme } = useTheme()
@@ -94,12 +89,10 @@ const Layout: FC<Props> = ({ children }) => {
       replace(`/auth?next=${asPath}`)
     }
     const ownerAddress = selectedSimpleProfile?.ownedBy.address
-    const isWrongNetworkChain = chain?.id !== POLYGON_CHAIN_ID
     const isSwitchedAccount =
       ownerAddress !== undefined && ownerAddress !== address
     const { accessToken } = hydrateAuthTokens()
-    const shouldLogout =
-      !accessToken || isWrongNetworkChain || isSwitchedAccount
+    const shouldLogout = !accessToken || isSwitchedAccount
 
     if (shouldLogout && selectedSimpleProfile?.id) {
       resetAuthState()

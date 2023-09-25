@@ -44,7 +44,7 @@ const CommentMedia: FC<Props> = ({ comment }) => {
     <div className="my-2">
       <Modal
         show={showLighBox}
-        panelClassName="!p-0 !rounded-none max-w-7xl !shadow-none !bg-transparent"
+        panelClassName="!p-0 !rounded-none !shadow-none !bg-transparent"
         onClose={() => setShowLighBox(false)}
       >
         <div

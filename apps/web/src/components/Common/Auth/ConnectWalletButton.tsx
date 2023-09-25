@@ -40,7 +40,7 @@ const ConnectWalletButton = () => {
       ) : (
         <div className="flex items-center space-x-2">
           <SelectProfile />
-          <Button variant="soft" onClick={() => disconnect?.()}>
+          <Button color="red" onClick={() => disconnect?.()}>
             <DisconnectOutline className="h-3 w-3" />
           </Button>
         </div>
@@ -57,6 +57,7 @@ const ConnectWalletButton = () => {
     )
   ) : (
     <Button
+      highContrast
       onClick={() => {
         if (openConnectModal) {
           openConnectModal()

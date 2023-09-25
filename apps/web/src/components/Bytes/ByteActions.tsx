@@ -29,7 +29,6 @@ const ByteActions: FC<Props> = ({ video }) => {
           video={video}
           setShowShare={setShowShare}
           setShowReport={setShowReport}
-          showOnHover={false}
         />
       </div>
       <div className="items-center pt-2.5 md:flex md:flex-col">
