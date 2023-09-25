@@ -2,9 +2,9 @@ import {
   getIsSensitiveContent,
   getPublication,
   getTimeFromSeconds,
-  getValueFromTraitType
+  getValueFromKeyInAttributes
 } from '@lenstube/generic'
-import type { AnyPublication, Attribute } from '@lenstube/lens'
+import type { AnyPublication, Attribute, VideoMetadataV3 } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
 import type { FC } from 'react'
 import React from 'react'
@@ -15,12 +15,10 @@ type Props = {
 
 const ThumbnailOverlays: FC<Props> = ({ video }) => {
   const targetPublication = getPublication(video)
-  const isSensitiveContent = getIsSensitiveContent(
-    targetPublication.metadata,
-    video.id
-  )
-  const videoDuration = getValueFromTraitType(
-    targetPublication.metadata?.marketplace?.attributes as Attribute[],
+  const metadata = targetPublication.metadata as VideoMetadataV3
+  const isSensitiveContent = getIsSensitiveContent(metadata, video.id)
+  const videoDuration = getValueFromKeyInAttributes(
+    metadata?.attributes as Attribute[],
     'durationInSeconds'
   )
 

@@ -1,3 +1,4 @@
+import CategoryFilters from '@components/Common/CategoryFilters'
 import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
@@ -24,6 +25,8 @@ import useAppStore from '@lib/store'
 import { t } from '@lingui/macro'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
+
+import BytesSection from './BytesSection'
 
 const HomeFeed = () => {
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
@@ -67,14 +70,12 @@ const HomeFeed = () => {
     }
   })
 
-  if (videos?.length === 0) {
-    return <NoDataFound isCenter withImage text={t`No videos found`} />
-  }
-
   return (
     <div>
+      <CategoryFilters />
       {loading && <TimelineShimmer />}
-      {!error && !loading && videos && (
+      <BytesSection />
+      {!error && !loading && videos.length > 0 && (
         <>
           <Timeline videos={videos} />
           {pageInfo?.next && (
@@ -83,6 +84,9 @@ const HomeFeed = () => {
             </span>
           )}
         </>
+      )}
+      {videos?.length === 0 && (
+        <NoDataFound isCenter withImage text={t`No videos found`} />
       )}
     </div>
   )

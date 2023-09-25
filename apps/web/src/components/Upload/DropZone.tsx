@@ -5,6 +5,7 @@ import { ALLOWED_VIDEO_TYPES } from '@lenstube/constants'
 import { canUploadedToIpfs, logger } from '@lenstube/generic'
 import useAppStore from '@lib/store'
 import { t, Trans } from '@lingui/macro'
+import { Box, Button } from '@radix-ui/themes'
 import clsx from 'clsx'
 import fileReaderStream from 'filereader-stream'
 import React, { useEffect } from 'react'
@@ -68,11 +69,11 @@ const DropZone = () => {
 
   return (
     <div>
-      <MetaTags title={t`Select Video`} />
+      <MetaTags title={t`Select Media`} />
       <div className="relative my-20 flex flex-1 flex-col items-center justify-center">
         <label
           className={clsx(
-            'grid w-full place-items-center rounded-3xl border border-dashed border-gray-500 p-10 text-center focus:outline-none md:w-2/3 md:p-20',
+            'grid w-full place-items-center rounded-3xl border-2 border-dashed border-gray-500 p-10 text-center focus:outline-none md:w-2/3 md:p-20',
             { '!border-green-500': dragOver }
           )}
           htmlFor="dropVideo"
@@ -94,24 +95,29 @@ const DropZone = () => {
             <div className="text-2xl font-semibold md:text-4xl">
               <span>
                 <Trans>Drag and drop</Trans> <br />
-                <Trans>video to upload</Trans>
+                <Trans>media to upload</Trans>
               </span>
             </div>
-            <div>
-              <label
-                htmlFor="chooseVideo"
-                className="btn-primary cursor-pointer px-8 py-4 text-lg"
+            <Box>
+              <Button
+                size="4"
+                color="gray"
+                variant="classic"
+                highContrast
+                className="!px-0"
               >
-                <Trans>or choose video</Trans>
-                <input
-                  id="chooseVideo"
-                  onChange={onChooseFile}
-                  type="file"
-                  className="hidden"
-                  accept={ALLOWED_VIDEO_TYPES.join(',')}
-                />
-              </label>
-            </div>
+                <label htmlFor="chooseVideo" className="p-10">
+                  <Trans>or choose one</Trans>
+                  <input
+                    id="chooseVideo"
+                    onChange={onChooseFile}
+                    type="file"
+                    className="hidden"
+                    accept={ALLOWED_VIDEO_TYPES.join(',')}
+                  />
+                </label>
+              </Button>
+            </Box>
             {fileDropError && (
               <div className="font-medium text-red-500">{fileDropError}</div>
             )}

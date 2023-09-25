@@ -1,49 +1,33 @@
-import DropMenu, { NextLink } from '@components/UIElements/DropMenu'
-import { Menu } from '@headlessui/react'
 import { Analytics, TRACK } from '@lenstube/browser'
-import {
-  ADMIN_IDS,
-  HEALTH_URL,
-  IS_MAINNET,
-  LENSTUBE_STATUS_PAGE
-} from '@lenstube/constants'
+import { ADMIN_IDS } from '@lenstube/constants'
 import { getProfilePicture, trimLensHandle } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
-import { LimitType, useProfilesManagedLazyQuery } from '@lenstube/lens'
+import { useProfilesQuery } from '@lenstube/lens'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
-import { Loader } from '@lenstube/ui'
 import useAuthPersistStore, { signOut } from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
-import { Avatar } from '@radix-ui/themes'
-import clsx from 'clsx'
+import { Avatar, Box, DropdownMenu, Flex, Text } from '@radix-ui/themes'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
-import React, { useState } from 'react'
+import React from 'react'
 import { toast } from 'react-hot-toast'
-import useSWR from 'swr'
 import { useAccount, useDisconnect } from 'wagmi'
 
 import ChannelOutline from './Icons/ChannelOutline'
-import CheckOutline from './Icons/CheckOutline'
-import ChevronLeftOutline from './Icons/ChevronLeftOutline'
 import CogOutline from './Icons/CogOutline'
 import GraphOutline from './Icons/GraphOutline'
 import HandWaveOutline from './Icons/HandWaveOutline'
 import MoonOutline from './Icons/MoonOutline'
-import PlusOutline from './Icons/PlusOutline'
 import SaveToListOutline from './Icons/SaveToListOutline'
 import SunOutline from './Icons/SunOutline'
 import SwitchChannelOutline from './Icons/SwitchChannelOutline'
 
 const UserMenu = () => {
   const { theme, setTheme } = useTheme()
-  const [showAccountSwitcher, setShowAccountSwitcher] = useState(false)
-  const [channels, setChannels] = useState<Profile[]>([])
+  const { push } = useRouter()
 
-  const setShowCreateChannel = useChannelStore(
-    (state) => state.setShowCreateChannel
-  )
   const setActiveChannel = useChannelStore((state) => state.setActiveChannel)
 
   const selectedSimpleProfile = useAuthPersistStore(
@@ -53,12 +37,6 @@ const UserMenu = () => {
     (state) => state.setSelectedSimpleProfile
   )
 
-  const { data: statusData } = useSWR(
-    IS_MAINNET ? HEALTH_URL : null,
-    (url: string) => fetch(url).then((res) => res.json()),
-    { revalidateOnFocus: true }
-  )
-
   const { address } = useAccount()
   const { disconnect } = useDisconnect({
     onError(error: CustomErrorWithData) {
@@ -66,7 +44,16 @@ const UserMenu = () => {
     }
   })
 
-  const [getAllManagedProfiles, { loading }] = useProfilesManagedLazyQuery()
+  const { data } = useProfilesQuery({
+    variables: {
+      request: {
+        where: {
+          ownedBy: [address]
+        }
+      }
+    }
+  })
+  const allProfiles = data?.profiles.items as Profile[]
 
   const isAdmin = ADMIN_IDS.includes(selectedSimpleProfile?.id)
 
@@ -81,26 +68,7 @@ const UserMenu = () => {
       metadata: profile.metadata,
       stats: profile.stats
     })
-    setShowAccountSwitcher(false)
     Analytics.track(TRACK.CHANNEL.SWITCH)
-  }
-
-  const onSelectSwitchChannel = async () => {
-    try {
-      setShowAccountSwitcher(true)
-      const { data } = await getAllManagedProfiles({
-        variables: {
-          request: {
-            for: address,
-            includeOwned: true,
-            limit: LimitType.Fifty
-          }
-        },
-        fetchPolicy: 'network-only'
-      })
-      const allChannels = data?.profilesManaged?.items as Profile[]
-      setChannels(allChannels)
-    } catch {}
   }
 
   const logout = () => {
@@ -112,228 +80,170 @@ const UserMenu = () => {
   }
 
   return (
-    <DropMenu
-      trigger={
-        <button
-          onClick={() => Analytics.track(TRACK.CLICK_USER_MENU)}
-          className="btn-primary flex-none ring-gray-200 hover:ring-4 dark:ring-gray-800"
-        >
+    <DropdownMenu.Root>
+      <DropdownMenu.Trigger>
+        <div className="rounded ring-gray-200 hover:ring-4 dark:ring-gray-800">
           <Avatar
             size="2"
             src={getProfilePicture(selectedSimpleProfile as Profile)}
             fallback={trimLensHandle(selectedSimpleProfile?.handle)[0]}
           />
-        </button>
-      }
-    >
-      <div className="mt-2 w-56 overflow-hidden rounded-xl border bg-gray-100 shadow dark:border-gray-800 dark:bg-black">
-        <div className="dark:bg-theme m-1.5 overflow-hidden rounded-xl bg-white">
-          {showAccountSwitcher ? (
-            <>
-              <button
-                type="button"
-                className="flex items-center space-x-2 pl-2 opacity-70 outline-none"
-                onClick={() => setShowAccountSwitcher(false)}
-              >
-                <ChevronLeftOutline className="h-3 w-3" />
-                <span className="py-2 text-sm">Channels</span>
-              </button>
-              <div className="py-1 text-sm">
-                {loading && !channels.length ? (
-                  <div className="py-10">
-                    <Loader />
-                  </div>
-                ) : null}
-                {channels?.map((channel) => (
-                  <button
-                    type="button"
-                    className="flex w-full items-center justify-between space-x-2 rounded-lg px-2 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
-                    key={channel.id}
-                    onClick={() => onSelectChannel(channel)}
-                  >
-                    <span className="inline-flex items-center space-x-1.5">
-                      <Avatar
-                        size="1"
-                        src={getProfilePicture(channel)}
-                        fallback={trimLensHandle(channel?.handle)[0]}
-                      />
-                      <span className="truncate whitespace-nowrap">
-                        {channel.handle}
-                      </span>
-                    </span>
-                    {selectedSimpleProfile?.id === channel.id && (
-                      <CheckOutline className="h-3 w-3" />
-                    )}
-                  </button>
-                ))}
-              </div>
-            </>
-          ) : (
-            <>
-              <div className="flex flex-col space-y-1 rounded-lg text-sm transition duration-150 ease-in-out">
-                <div className="inline-flex items-center space-x-2 rounded-lg p-3">
+        </div>
+      </DropdownMenu.Trigger>
+      <DropdownMenu.Content sideOffset={10} variant="soft" align="end">
+        <Flex gap="2" px="2" py="1" pb="3" align="center">
+          <Avatar
+            size="2"
+            src={getProfilePicture(selectedSimpleProfile as Profile)}
+            fallback={trimLensHandle(selectedSimpleProfile?.handle)[0]}
+          />
+          <Box>
+            <Text as="p" size="2" weight="bold">
+              {selectedSimpleProfile?.handle}
+            </Text>
+            <Text as="div" size="2" color="gray">
+              {selectedSimpleProfile?.stats.followers} followers
+            </Text>
+          </Box>
+        </Flex>
+
+        <div className="w-52">
+          <div className="text-sm">
+            {isAdmin && (
+              <DropdownMenu.Item>
+                <Link href="/mod">
+                  <GraphOutline className="h-4 w-4" />
+                  <Text as="p" size="3" className="truncate whitespace-nowrap">
+                    <Trans>App Info</Trans>
+                  </Text>
+                </Link>
+              </DropdownMenu.Item>
+            )}
+            {selectedSimpleProfile && (
+              <>
+                <DropdownMenu.Item
+                  onClick={() =>
+                    push(
+                      `/channel/${trimLensHandle(
+                        selectedSimpleProfile?.handle
+                      )}`
+                    )
+                  }
+                >
                   <Link
                     href={`/channel/${trimLensHandle(
                       selectedSimpleProfile?.handle
                     )}`}
+                    className="flex items-center space-x-2"
                   >
-                    <Avatar
+                    <ChannelOutline className="h-4 w-4" />
+                    <Text
+                      as="p"
                       size="3"
-                      src={getProfilePicture(
-                        selectedSimpleProfile as Profile,
-                        'AVATAR'
-                      )}
-                      fallback={
-                        trimLensHandle(selectedSimpleProfile?.handle)[0]
-                      }
-                    />
+                      className="truncate whitespace-nowrap"
+                    >
+                      <Trans>My Profile</Trans>
+                    </Text>
                   </Link>
-                  <div className="grid">
-                    <span className="text-sm opacity-70">
-                      <Trans>Connected as</Trans>
-                    </span>
-                    <Link
-                      href={`/channel/${trimLensHandle(
-                        selectedSimpleProfile?.handle
-                      )}`}
-                    >
-                      <h6
-                        title={selectedSimpleProfile?.handle}
-                        className="truncate text-base leading-4"
-                      >
-                        {selectedSimpleProfile?.handle}
-                      </h6>
-                    </Link>
-                  </div>
-                </div>
-              </div>
-              <div className="text-sm">
-                {isAdmin && (
-                  <Menu.Item
-                    as={NextLink}
-                    href="/mod"
-                    className="inline-flex w-full items-center space-x-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+                </DropdownMenu.Item>
+                <DropdownMenu.Item onClick={() => push('/channel/saved')}>
+                  <Link
+                    href="/channel/saved"
+                    className="flex items-center space-x-2"
                   >
-                    <GraphOutline className="h-4 w-4" />
-                    <span className="truncate whitespace-nowrap">
-                      <Trans>App Info</Trans>
-                    </span>
-                  </Menu.Item>
-                )}
-                {selectedSimpleProfile && (
-                  <>
-                    <Menu.Item
-                      as={NextLink}
-                      href={`/channel/${trimLensHandle(
-                        selectedSimpleProfile?.handle
-                      )}`}
-                      className="inline-flex w-full items-center space-x-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    <SaveToListOutline className="h-4 w-4" />
+                    <Text
+                      as="p"
+                      size="3"
+                      className="truncate whitespace-nowrap"
                     >
-                      <ChannelOutline className="h-4 w-4" />
-                      <span className="truncate whitespace-nowrap">
-                        <Trans>Your Channel</Trans>
-                      </span>
-                    </Menu.Item>
-                    <Menu.Item
-                      as={NextLink}
-                      href="/channel/saved"
-                      className="inline-flex w-full items-center space-x-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
-                    >
-                      <SaveToListOutline className="h-4 w-4" />
-                      <span className="truncate whitespace-nowrap">
-                        <Trans>Saved Videos</Trans>
-                      </span>
-                    </Menu.Item>
-                    <button
-                      type="button"
-                      className="inline-flex w-full items-center space-x-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
-                      onClick={() => onSelectSwitchChannel()}
-                    >
+                      <Trans>Saved Items</Trans>
+                    </Text>
+                  </Link>
+                </DropdownMenu.Item>
+
+                <DropdownMenu.Sub>
+                  <DropdownMenu.SubTrigger>
+                    <Flex align="center" gap="2">
                       <SwitchChannelOutline className="h-4 w-4" />
-                      <span className="truncate whitespace-nowrap">
-                        <Trans>Switch channel</Trans>
-                      </span>
-                    </button>
-                  </>
+                      <Text
+                        as="p"
+                        size="3"
+                        className="truncate whitespace-nowrap"
+                      >
+                        <Trans>Switch Profile</Trans>
+                      </Text>
+                    </Flex>
+                  </DropdownMenu.SubTrigger>
+                  <DropdownMenu.SubContent>
+                    <div className="py-1 text-sm">
+                      {allProfiles?.map((profile) => (
+                        <DropdownMenu.Item
+                          key={profile.id}
+                          onClick={() => onSelectChannel(profile)}
+                        >
+                          <Flex gap="2" align="center">
+                            <Avatar
+                              size="1"
+                              src={getProfilePicture(profile)}
+                              fallback={trimLensHandle(profile?.handle)[0]}
+                            />
+                            <Text
+                              as="p"
+                              size="3"
+                              className="truncate whitespace-nowrap"
+                            >
+                              {profile.handle}
+                            </Text>
+                          </Flex>
+                        </DropdownMenu.Item>
+                      ))}
+                    </div>
+                  </DropdownMenu.SubContent>
+                </DropdownMenu.Sub>
+              </>
+            )}
+            <DropdownMenu.Item onClick={() => push('/settings')}>
+              <Link href="/settings" className="flex items-center space-x-2">
+                <CogOutline className="h-4 w-4" />
+                <Text as="p" size="3" className="truncate whitespace-nowrap">
+                  <Trans>My Settings</Trans>
+                </Text>
+              </Link>
+            </DropdownMenu.Item>
+            <DropdownMenu.Separator />
+            <DropdownMenu.Item
+              onClick={() => {
+                const selected = theme === 'dark' ? 'light' : 'dark'
+                setTheme(selected)
+                Analytics.track(TRACK.SYSTEM.TOGGLE_THEME, {
+                  selected_theme: selected
+                })
+              }}
+            >
+              <Flex align="center" gap="2">
+                {theme === 'dark' ? (
+                  <SunOutline className="h-4 w-4" />
+                ) : (
+                  <MoonOutline className="h-4 w-4" />
                 )}
-                {!IS_MAINNET && (
-                  <button
-                    type="button"
-                    className="flex w-full items-center space-x-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
-                    onClick={() => setShowCreateChannel(true)}
-                  >
-                    <PlusOutline className="h-4 w-4" />
-                    <span className="truncate whitespace-nowrap">
-                      <Trans>Create Channel</Trans>
-                    </span>
-                  </button>
-                )}
-                <Menu.Item
-                  as="a"
-                  href="/settings"
-                  className="flex w-full items-center space-x-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
-                >
-                  <CogOutline className="h-4 w-4" />
-                  <span className="truncate whitespace-nowrap">
-                    <Trans>Channel Settings</Trans>
-                  </span>
-                </Menu.Item>
-                <Menu.Item
-                  as="button"
-                  className="flex w-full items-center space-x-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
-                  onClick={() => {
-                    const selected = theme === 'dark' ? 'light' : 'dark'
-                    setTheme(selected)
-                    Analytics.track(TRACK.SYSTEM.TOGGLE_THEME, {
-                      selected_theme: selected
-                    })
-                  }}
-                >
-                  {theme === 'dark' ? (
-                    <SunOutline className="h-4 w-4" />
-                  ) : (
-                    <MoonOutline className="h-4 w-4" />
-                  )}
-                  <span className="truncate whitespace-nowrap">
-                    {theme === 'light' ? t`Switch to Dark` : t`Switch to Light`}
-                  </span>
-                </Menu.Item>
-                <Menu.Item
-                  as="button"
-                  className="flex w-full items-center space-x-2 px-3 py-2 hover:bg-gray-100 dark:hover:bg-gray-800"
-                  onClick={() => logout()}
-                >
-                  <HandWaveOutline className="h-4 w-4" />
-                  <span className="truncate whitespace-nowrap">
-                    <Trans>Sign out</Trans>
-                  </span>
-                </Menu.Item>
-              </div>
-            </>
-          )}
+                <Text as="p" size="3" className="truncate whitespace-nowrap">
+                  {theme === 'light' ? t`Switch to Dark` : t`Switch to Light`}
+                </Text>
+              </Flex>
+            </DropdownMenu.Item>
+            <DropdownMenu.Item color="red" onClick={() => logout()}>
+              <Flex align="center" gap="2">
+                <HandWaveOutline className="h-4 w-4" />
+                <Text as="p" size="3" className="truncate whitespace-nowrap">
+                  <Trans>Sign out</Trans>
+                </Text>
+              </Flex>
+            </DropdownMenu.Item>
+          </div>
         </div>
-        {IS_MAINNET && (
-          <Link
-            className="m-0.5 flex items-center space-x-2 px-5 pb-3 pt-2"
-            href={LENSTUBE_STATUS_PAGE}
-            target="_blank"
-            onClick={() => Analytics.track(TRACK.SYSTEM.MORE_MENU.STATUS)}
-          >
-            <span
-              className={clsx(
-                'h-2 w-2 rounded-full',
-                statusData?.ok ? 'bg-green-500' : 'bg-red-500'
-              )}
-            />
-            <span className="text-xs">
-              {statusData?.ok
-                ? t`All services are online`
-                : t`Some services are offline`}
-            </span>
-          </Link>
-        )}
-      </div>
-    </DropMenu>
+      </DropdownMenu.Content>
+    </DropdownMenu.Root>
   )
 }
 

@@ -1,16 +1,13 @@
 import { LENSTUBE_BYTES_APP_ID } from '@lenstube/constants'
-import {
-  getProfilePicture,
-  getRelativeTime,
-  trimLensHandle
-} from '@lenstube/generic'
 import type { MirrorablePublication } from '@lenstube/lens'
-import { Trans } from '@lingui/macro'
+import { AspectRatio, Flex, Separator } from '@radix-ui/themes'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 
-import Badge from '../Badge'
+import HoverableProfile from '../HoverableProfile'
+import CommentOutline from '../Icons/CommentOutline'
+import HeartOutline from '../Icons/HeartOutline'
 import ReportModal from './ReportModal'
 import ShareModal from './ShareModal'
 import ThumbnailImage from './ThumbnailImage'
@@ -47,61 +44,43 @@ const VideoCard: FC<Props> = ({ video }) => {
             setShowReport={setShowReport}
           />
           <Link href={href}>
-            <div className="aspect-w-16 aspect-h-9 relative overflow-hidden">
+            <AspectRatio ratio={16 / 9} className="relative overflow-hidden">
               <ThumbnailImage video={video} />
               <ThumbnailOverlays video={video} />
-            </div>
+            </AspectRatio>
           </Link>
           <div className="py-2">
-            <div className="flex items-start space-x-2.5">
+            <div className="flex w-full min-w-0 items-start justify-between space-x-1.5 pb-1">
               <Link
-                href={`/channel/${trimLensHandle(video.by?.handle)}`}
-                className="mt-0.5 flex-none"
+                className="ultrawide:line-clamp-1 ultrawide:break-all line-clamp-2 break-words font-semibold"
+                href={href}
+                title={video.metadata.marketplace?.name ?? ''}
+                data-testid="video-card-title"
               >
-                <img
-                  className="h-8 w-8 rounded-full"
-                  src={getProfilePicture(video.by)}
-                  alt={video.by?.handle}
-                  draggable={false}
-                />
+                {video.metadata.marketplace?.name}
               </Link>
-              <div className="grid flex-1">
-                <div className="flex w-full min-w-0 items-start justify-between space-x-1.5 pb-1">
-                  <Link
-                    className="ultrawide:line-clamp-1 ultrawide:break-all line-clamp-2 break-words text-sm font-semibold"
-                    href={href}
-                    title={video.metadata.marketplace?.name ?? ''}
-                    data-testid="video-card-title"
-                  >
-                    {video.metadata.marketplace?.name}
-                  </Link>
-                  <VideoOptions
-                    video={video}
-                    setShowShare={setShowShare}
-                    setShowReport={setShowReport}
-                  />
-                </div>
-                <Link
-                  href={`/channel/${trimLensHandle(video.by?.handle)}`}
-                  className="flex w-fit items-center space-x-0.5 text-[13px] opacity-70 hover:opacity-100"
-                  data-testid="video-card-channel"
-                >
-                  <span>{trimLensHandle(video.by?.handle)}</span>
-                  <Badge id={video.by?.id} size="xs" />
-                </Link>
-                <div className="flex items-center overflow-hidden text-xs opacity-70">
-                  <span className="whitespace-nowrap">
-                    {video.stats?.reactions} <Trans>likes</Trans>
-                  </span>
-                  <span className="middot" />
-                  {video.createdAt && (
-                    <span className="whitespace-nowrap">
-                      {getRelativeTime(video.createdAt)}
-                    </span>
-                  )}
-                </div>
-              </div>
+              <VideoOptions
+                video={video}
+                setShowShare={setShowShare}
+                setShowReport={setShowReport}
+              />
             </div>
+
+            <Flex align="center" gap="2">
+              <HoverableProfile profile={video.by} />
+              <Separator orientation="vertical" />
+              <div className="flex items-center overflow-hidden text-xs opacity-80">
+                <Flex align="center" gap="1">
+                  <HeartOutline className="h-3 w-3" />
+                  {video.stats?.reactions}
+                </Flex>
+                <span className="middot" />
+                <Flex align="center" gap="1">
+                  <CommentOutline className="h-3 w-3" />
+                  {video.stats?.comments}
+                </Flex>
+              </div>
+            </Flex>
           </div>
         </>
       )}

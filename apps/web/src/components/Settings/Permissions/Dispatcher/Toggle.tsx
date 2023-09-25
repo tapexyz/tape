@@ -143,7 +143,7 @@ const Toggle = () => {
 
   return (
     <Button
-      color={canUseRelay ? 'red' : 'iris'}
+      color={canUseRelay ? 'red' : 'indigo'}
       onClick={onClick}
       disabled={loading}
     >

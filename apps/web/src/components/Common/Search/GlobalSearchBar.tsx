@@ -16,12 +16,12 @@ import {
 import { useLazyQuery } from '@lenstube/lens/apollo'
 import { Loader } from '@lenstube/ui'
 import { t, Trans } from '@lingui/macro'
-import { MagnifyingGlassIcon } from '@radix-ui/react-icons'
 import { TextField } from '@radix-ui/themes'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
 
+import SearchOutline from '../Icons/SearchOutline'
 import Channels from './Channels'
 import Videos from './Videos'
 
@@ -82,14 +82,14 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
     <div className="md:w-96" data-testid="global-search">
       <div ref={resultsRef}>
         <div className="relative">
-          <TextField.Root>
+          <TextField.Root variant="soft" color="gray">
             <TextField.Slot>
-              <MagnifyingGlassIcon height="16" width="16" />
+              <SearchOutline className="h-3 w-3" />
             </TextField.Slot>
             <TextField.Input
               value={keyword}
               onChange={(event) => setKeyword(event.target.value)}
-              placeholder={t`Search by channel / hashtag`}
+              placeholder={t`Search`}
             />
           </TextField.Root>
           <div

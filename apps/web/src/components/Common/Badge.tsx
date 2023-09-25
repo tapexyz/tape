@@ -19,7 +19,7 @@ const Badge: FC<Props> = ({ id, size = 'sm', color }) => {
   const misused = MISUSED_CHANNELS.find((c) => c.id === id)
 
   return (
-    <div>
+    <>
       {isVerified && (
         <Tooltip content={t`Verified`} placement="top">
           <span>
@@ -56,7 +56,7 @@ const Badge: FC<Props> = ({ id, size = 'sm', color }) => {
           </span>
         </Tooltip>
       )}
-    </div>
+    </>
   )
 }
 

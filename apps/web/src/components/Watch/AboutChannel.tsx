@@ -10,7 +10,7 @@ import {
   getProfilePicture,
   trimLensHandle
 } from '@lenstube/generic'
-import type { MirrorablePublication } from '@lenstube/lens'
+import type { MirrorablePublication, VideoMetadataV3 } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import { motion } from 'framer-motion'
@@ -29,13 +29,14 @@ const AboutChannel: FC<Props> = ({ video }) => {
   const channel = video?.by
   const [clamped, setClamped] = useState(false)
   const [showMore, setShowMore] = useState(false)
+  const metadata = video.metadata as VideoMetadataV3
 
   useEffect(() => {
-    if (video.metadata.marketplace?.description?.trim().length > 500) {
+    if (metadata.marketplace?.description?.trim().length > 500) {
       setClamped(true)
       setShowMore(true)
     }
-  }, [video.metadata.marketplace?.description])
+  }, [metadata.marketplace?.description])
 
   return (
     <div className="flex w-full items-start justify-between">
@@ -94,14 +95,10 @@ const AboutChannel: FC<Props> = ({ video }) => {
             <CollectVideo video={video} text="Collect" />
           </div>
         </div>
-        {video.metadata.marketplace?.description ||
-        video.metadata.marketplace?.description ? (
+        {metadata.marketplace?.description || metadata.content ? (
           <p className={clsx('mt-4', { 'line-clamp-3': clamped })}>
             <InterweaveContent
-              content={
-                video.metadata.marketplace?.name ||
-                video.metadata.marketplace?.description
-              }
+              content={metadata.marketplace?.description || metadata.content}
             />
           </p>
         ) : null}

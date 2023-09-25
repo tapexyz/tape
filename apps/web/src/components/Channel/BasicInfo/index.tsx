@@ -91,7 +91,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
                 className="flex items-center space-x-1.5 md:text-lg"
                 data-testid="channel-name"
               >
-                <span>@{channel?.handle}</span>
+                <span>{channel?.handle}</span>
                 <Badge id={channel?.id} size="md" />
               </h2>
               <Modal

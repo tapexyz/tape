@@ -1,10 +1,8 @@
-import DropMenu from '@components/UIElements/DropMenu'
-import { Menu } from '@headlessui/react'
 import { Analytics, TRACK } from '@lenstube/browser'
 import { SUPPORTED_LOCALES } from '@lenstube/constants'
 import { storeLocale } from '@lib/i18n'
 import { useLingui } from '@lingui/react'
-import clsx from 'clsx'
+import { DropdownMenu, Text } from '@radix-ui/themes'
 import React from 'react'
 
 import GlobeOutline from './Icons/GlobeOutline'
@@ -14,29 +12,17 @@ const Locale = () => {
   const selectedLocale = SUPPORTED_LOCALES[i18n.locale]
 
   return (
-    <DropMenu
-      trigger={
-        <button
-          className={
-            'flex h-12 w-12 items-center justify-center rounded-full p-3.5 opacity-90 hover:bg-gray-50 hover:opacity-100 focus:outline-none dark:hover:bg-gray-800'
-          }
-        >
+    <DropdownMenu.Root>
+      <DropdownMenu.Trigger>
+        <button className="flex h-12 w-12 items-center justify-center rounded-full p-3.5 hover:bg-gray-100 focus:outline-none dark:hover:bg-gray-800">
           <GlobeOutline className="h-4 w-4" />
         </button>
-      }
-      position="bottom"
-      className="flex justify-center"
-    >
-      <div className="space-y-1 overflow-hidden rounded-xl border bg-gray-100 p-1 shadow dark:border-gray-800 dark:bg-black">
+      </DropdownMenu.Trigger>
+      <DropdownMenu.Content side="right" variant="soft">
         {Object.keys(SUPPORTED_LOCALES).map((key) => (
-          <Menu.Item
-            as="button"
+          <DropdownMenu.Item
             key={key}
-            className={clsx(
-              'dark:hover:bg-theme w-28 cursor-pointer overflow-hidden rounded-lg px-3 py-1 text-left hover:bg-white focus:outline-none',
-              selectedLocale === SUPPORTED_LOCALES[key] &&
-                'dark:bg-theme bg-white'
-            )}
+            color={selectedLocale === SUPPORTED_LOCALES[key] ? 'green' : 'gray'}
             onClick={() => {
               storeLocale(key)
               Analytics.track(TRACK.SYSTEM.SELECT_LOCALE, {
@@ -44,11 +30,20 @@ const Locale = () => {
               })
             }}
           >
-            {SUPPORTED_LOCALES[key]}
-          </Menu.Item>
+            <Text
+              as="p"
+              size="4"
+              weight={
+                selectedLocale === SUPPORTED_LOCALES[key] ? 'bold' : 'regular'
+              }
+              className="w-24"
+            >
+              {SUPPORTED_LOCALES[key]}
+            </Text>
+          </DropdownMenu.Item>
         ))}
-      </div>
-    </DropMenu>
+      </DropdownMenu.Content>
+    </DropdownMenu.Root>
   )
 }
 

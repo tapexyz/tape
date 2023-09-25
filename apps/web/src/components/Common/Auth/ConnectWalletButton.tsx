@@ -1,16 +1,15 @@
-import Tooltip from '@components/UIElements/Tooltip'
 import { Analytics, TRACK } from '@lenstube/browser'
 import { POLYGON_CHAIN_ID } from '@lenstube/constants'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAuthPersistStore from '@lib/store/auth'
 import { Trans } from '@lingui/macro'
-import { LinkBreak1Icon } from '@radix-ui/react-icons'
 import { Button } from '@radix-ui/themes'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 import React from 'react'
 import toast from 'react-hot-toast'
 import { useAccount, useDisconnect, useNetwork, useSwitchNetwork } from 'wagmi'
 
+import DisconnectOutline from '../Icons/DisconnectOutline'
 import UserMenu from '../UserMenu'
 import SelectProfile from './SelectProfile'
 
@@ -41,11 +40,9 @@ const ConnectWalletButton = () => {
       ) : (
         <div className="flex items-center space-x-2">
           <SelectProfile />
-          <Tooltip content="Disconnect Wallet">
-            <Button variant="soft" onClick={() => disconnect?.()}>
-              <LinkBreak1Icon />
-            </Button>
-          </Tooltip>
+          <Button variant="soft" onClick={() => disconnect?.()}>
+            <DisconnectOutline className="h-3 w-3" />
+          </Button>
         </div>
       )
     ) : (

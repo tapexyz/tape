@@ -2,9 +2,11 @@ import { Analytics, TRACK, useHorizontalScroll } from '@lenstube/browser'
 import { CREATOR_VIDEO_CATEGORIES } from '@lenstube/constants'
 import useAppStore from '@lib/store'
 import { Trans } from '@lingui/macro'
-import { ChevronLeftIcon, ChevronRightIcon } from '@radix-ui/react-icons'
 import { Badge, IconButton } from '@radix-ui/themes'
 import React, { useEffect, useState } from 'react'
+
+import ChevronLeftOutline from './Icons/ChevronLeftOutline'
+import ChevronRightOutline from './Icons/ChevronRightOutline'
 
 const CategoryFilters = () => {
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
@@ -54,7 +56,7 @@ const CategoryFilters = () => {
 
   return (
     <div
-      className="ultrawide:max-w-[90rem] relative mx-auto flex px-2 pt-4"
+      className="ultrawide:max-w-[90rem] relative mx-auto flex pb-5"
       data-testid="category-filters"
     >
       {scrollX !== 0 && (
@@ -64,16 +66,18 @@ const CategoryFilters = () => {
             variant="ghost"
             onClick={() => slide(-scrollOffset)}
           >
-            <ChevronLeftIcon />
+            <ChevronLeftOutline className="h-4 w-4" />
           </IconButton>
         </div>
       )}
       <div
         ref={scrollRef}
-        className="no-scrollbar ultrawide:px-0 flex touch-pan-x items-center gap-2 overflow-x-auto scroll-smooth md:mx-auto"
+        className="no-scrollbar flex touch-pan-x items-center gap-2 overflow-x-auto scroll-smooth md:mx-auto"
       >
         <Badge
           color="gray"
+          radius="full"
+          highContrast={activeTagFilter === 'all'}
           variant={activeTagFilter === 'all' ? 'solid' : 'outline'}
           onClick={() => onFilter('all')}
         >
@@ -83,6 +87,8 @@ const CategoryFilters = () => {
           <Badge
             key={category.tag}
             color="gray"
+            radius="full"
+            highContrast={activeTagFilter === category.tag}
             variant={activeTagFilter === category.tag ? 'solid' : 'outline'}
             onClick={() => onFilter(category.tag)}
           >
@@ -97,7 +103,7 @@ const CategoryFilters = () => {
             color="gray"
             onClick={() => slide(scrollOffset)}
           >
-            <ChevronRightIcon />
+            <ChevronRightOutline className="h-4 w-4" />
           </IconButton>
         </div>
       )}

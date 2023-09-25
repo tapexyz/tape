@@ -2,6 +2,7 @@ import '../styles/index.css'
 import '@rainbow-me/rainbowkit/styles.css'
 import 'tippy.js/dist/tippy.css'
 import '@radix-ui/themes/styles.css'
+import '../styles/theme.config.css'
 
 import FullPageLoader from '@components/Common/FullPageLoader'
 import MetaTags from '@components/Common/MetaTags'

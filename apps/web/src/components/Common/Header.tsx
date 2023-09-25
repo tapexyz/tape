@@ -1,5 +1,4 @@
 import Modal from '@components/UIElements/Modal'
-import { Analytics, TRACK } from '@lenstube/browser'
 import {
   IS_MAINNET,
   LENS_CUSTOM_FILTERS,
@@ -12,17 +11,15 @@ import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'
-import { BellIcon, UploadIcon } from '@radix-ui/react-icons'
 import { Button, Flex, IconButton } from '@radix-ui/themes'
 import clsx from 'clsx'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 
 import ConnectWalletButton from './Auth/ConnectWalletButton'
-import CategoryFilters from './CategoryFilters'
-import SearchOutline from './Icons/SearchOutline'
+import BellOutline from './Icons/BellOutline'
+import UploadOutline from './Icons/UploadOutline'
 import GlobalSearchBar from './Search/GlobalSearchBar'
 
 type Props = {
@@ -30,10 +27,7 @@ type Props = {
 }
 
 const Header: FC<Props> = ({ className }) => {
-  const { pathname } = useRouter()
   const [showShowModal, setSearchModal] = useState(false)
-  const showFilter =
-    pathname === '/' || pathname === '/explore' || pathname === '/feed'
 
   const hasNewNotification = useChannelStore(
     (state) => state.hasNewNotification
@@ -76,62 +70,48 @@ const Header: FC<Props> = ({ className }) => {
   return (
     <div
       className={clsx(
-        'dark:bg-theme/90 sticky left-0 right-0 top-0 z-10 flex w-full items-center bg-white/90 py-2.5 backdrop-blur-xl',
+        'dark:bg-theme/70 sticky left-0 right-0 top-0 z-10 flex w-full items-center bg-white/70 p-2 backdrop-blur-xl md:p-4',
         className
       )}
     >
-      <div className="w-full">
-        <div className="ultrawide:px-6 flex w-full items-center justify-between px-2">
-          <div className="md:w-[330px]">
-            <Link href="/" className="block md:invisible">
-              <img
-                src={`${STATIC_ASSETS}/images/brand/lenstube.svg`}
-                draggable={false}
-                className="h-5 w-5"
-                alt="lenstube"
-              />
-            </Link>
-          </div>
-          <div className="hidden md:block">
-            <GlobalSearchBar />
-          </div>
-          <div className="flex flex-row items-center justify-end space-x-2 md:w-96 md:space-x-3">
-            <button
-              onClick={() => setSearchModal(true)}
-              className="btn-hover p-2.5 md:hidden"
-            >
-              <SearchOutline className="h-4 w-4" aria-hidden="true" />
-            </button>
-            {selectedSimpleProfile?.id ? (
-              <>
-                <Link
-                  onClick={() =>
-                    Analytics.track(TRACK.NOTIFICATIONS.CLICK_NOTIFICATIONS)
-                  }
-                  href="/notifications"
-                  className="relative flex items-center"
-                >
-                  <IconButton variant="ghost">
-                    <BellIcon height={18} width={18} />
-                    {!hasNewNotification && (
-                      <span className="absolute -right-1 -top-1 flex h-1.5 w-1.5 rounded-full bg-red-500" />
-                    )}
-                  </IconButton>
-                </Link>
-                <Link href="/upload" className="hidden md:block">
-                  <Button>
-                    <Flex align="center" gap="2">
-                      <UploadIcon />
-                      <Trans>Upload</Trans>
-                    </Flex>
-                  </Button>
-                </Link>
-              </>
-            ) : null}
-            <ConnectWalletButton />
-          </div>
+      <div className="ultrawide:px-0 ultrawide:max-w-[90rem] mx-auto flex w-full items-center justify-between">
+        <Link href="/" className="block md:hidden">
+          <img
+            src={`${STATIC_ASSETS}/images/brand/lenstube.svg`}
+            draggable={false}
+            className="h-5 w-5"
+            alt="lenstube"
+          />
+        </Link>
+        <div className="hidden md:block">
+          <GlobalSearchBar />
         </div>
-        {showFilter && <CategoryFilters />}
+        <Flex gap="3" align="center">
+          {selectedSimpleProfile?.id ? (
+            <Flex gap="4" align="center">
+              <Link
+                href="/notifications"
+                className="relative flex items-center"
+              >
+                <IconButton variant="ghost">
+                  <BellOutline className="h-5 w-5" />
+                  {hasNewNotification && (
+                    <span className="absolute -right-0 -top-0 flex h-1.5 w-1.5 rounded-full bg-red-500" />
+                  )}
+                </IconButton>
+              </Link>
+              <Link href="/upload" className="hidden md:block">
+                <Button color="gray" variant="solid" highContrast>
+                  <Flex align="center" gap="2">
+                    <UploadOutline className="h-3 w-3" />
+                    <Trans>Upload</Trans>
+                  </Flex>
+                </Button>
+              </Link>
+            </Flex>
+          ) : null}
+          <ConnectWalletButton />
+        </Flex>
       </div>
       <Modal
         title={t`Search`}

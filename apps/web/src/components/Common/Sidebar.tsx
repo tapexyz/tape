@@ -7,7 +7,6 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
 
-import CreateChannel from './CreateChannel'
 import BytesOutline from './Icons/BytesOutline'
 import ExploreOutline from './Icons/ExploreOutline'
 import FeedOutline from './Icons/FeedOutline'
@@ -23,7 +22,6 @@ const Sidebar = () => {
   return (
     <>
       {!getShowFullScreen(router.pathname) && <MobileBottomNav />}
-      <CreateChannel />
       <div className="transition-width dark:bg-theme fixed bottom-0 left-0 top-0 z-10 hidden w-[90px] items-start justify-between bg-white md:flex md:flex-col">
         <div
           className="flex flex-col space-y-2 self-center"
@@ -49,7 +47,7 @@ const Sidebar = () => {
                 className={clsx(
                   'group flex h-12 w-12 items-center justify-center rounded-full py-2 2xl:py-2.5',
                   isActivePath('/')
-                    ? 'bg-indigo-50 dark:bg-gray-800'
+                    ? 'bg-gray-100 dark:bg-gray-800'
                     : 'hover:bg-gray-50 dark:hover:bg-gray-800'
                 )}
               >
@@ -62,7 +60,7 @@ const Sidebar = () => {
                 className={clsx(
                   'group flex h-12 w-12 items-center justify-center rounded-full py-2 2xl:py-2.5',
                   isActivePath('/feed')
-                    ? 'bg-indigo-50 dark:bg-gray-800'
+                    ? 'bg-gray-100 dark:bg-gray-800'
                     : 'hover:bg-gray-50 dark:hover:bg-gray-800'
                 )}
               >
@@ -75,7 +73,7 @@ const Sidebar = () => {
                 className={clsx(
                   'group flex h-12 w-12 items-center justify-center rounded-full py-2 2xl:py-2.5',
                   isActivePath('/bytes') || router.pathname === '/bytes/[id]'
-                    ? 'bg-indigo-50 dark:bg-gray-800'
+                    ? 'bg-gray-100 dark:bg-gray-800'
                     : 'hover:bg-gray-50 dark:hover:bg-gray-800'
                 )}
               >
@@ -88,7 +86,7 @@ const Sidebar = () => {
                 className={clsx(
                   'group flex h-12 w-12 items-center justify-center rounded-full py-2 2xl:py-2.5',
                   isActivePath('/explore')
-                    ? 'bg-indigo-50 dark:bg-gray-800'
+                    ? 'bg-gray-100 dark:bg-gray-800'
                     : 'hover:bg-gray-50 dark:hover:bg-gray-800'
                 )}
               >

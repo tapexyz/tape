@@ -21,6 +21,7 @@ import {
   Dialog,
   Flex,
   RadioGroup,
+  ScrollArea,
   Text
 } from '@radix-ui/themes'
 import { useRouter } from 'next/router'
@@ -41,9 +42,6 @@ const SelectProfile = () => {
     }
   })
 
-  const setShowCreateChannel = useChannelStore(
-    (state) => state.setShowCreateChannel
-  )
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
@@ -123,7 +121,7 @@ const SelectProfile = () => {
       ) {
         setActiveChannel(null)
         setSelectedSimpleProfile(null)
-        setShowCreateChannel(true)
+        toast.error('No profile found')
       } else {
         const profiles = profilesData?.profiles?.items as Profile[]
         const profile = profiles.find(
@@ -158,7 +156,6 @@ const SelectProfile = () => {
     signMessageAsync,
     selectedProfileId,
     getAllSimpleProfiles,
-    setShowCreateChannel,
     setSelectedSimpleProfile
   ])
 
@@ -171,12 +168,16 @@ const SelectProfile = () => {
       <Dialog.Content style={{ maxWidth: 450 }}>
         <Dialog.Title>{t`Sign in as...`}</Dialog.Title>
 
-        <Flex direction="column" gap="3" pt="3">
-          <RadioGroup.Root defaultValue={selectedProfileId}>
-            {profiles?.map((profile) => (
-              <Card variant="ghost" key={profile.id}>
-                <Flex gap="3" justify="between" align="center">
+        <ScrollArea type="hover" scrollbars="vertical" style={{ height: 200 }}>
+          <Flex direction="column" gap="3" pt="3">
+            <RadioGroup.Root defaultValue={selectedProfileId}>
+              {profiles?.map((profile) => (
+                <Card variant="ghost" key={profile.id}>
                   <Flex gap="3" align="center">
+                    <RadioGroup.Item
+                      onClick={() => setSelectedProfileId(profile.id)}
+                      value={profile.id}
+                    />
                     <Avatar
                       size="2"
                       src={getProfilePicture(profile)}
@@ -191,15 +192,11 @@ const SelectProfile = () => {
                       </Text>
                     </Box>
                   </Flex>
-                  <RadioGroup.Item
-                    onClick={() => setSelectedProfileId(profile.id)}
-                    value={profile.id}
-                  />
-                </Flex>
-              </Card>
-            ))}
-          </RadioGroup.Root>
-        </Flex>
+                </Card>
+              ))}
+            </RadioGroup.Root>
+          </Flex>
+        </ScrollArea>
         <Flex gap="3" mt="4" justify="end">
           <Dialog.Close>
             <Button variant="soft" color="gray">

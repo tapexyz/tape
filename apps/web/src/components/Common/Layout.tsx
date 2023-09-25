@@ -141,7 +141,7 @@ const Layout: FC<Props> = ({ children }) => {
               'ultrawide:px-0',
               showFullScreen && '!p-0',
               pathname !== '/channel/[channel]' &&
-                'ultrawide:max-w-[90rem] mx-auto px-2 py-4 md:px-3 2xl:py-6'
+                'ultrawide:max-w-[90rem] mx-auto p-2 md:p-4 2xl:py-6'
             )}
           >
             {children}

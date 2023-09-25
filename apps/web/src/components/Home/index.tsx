@@ -1,10 +1,7 @@
-import MetaTags from '@components/Common/MetaTags'
 import { Analytics, TRACK } from '@lenstube/browser'
-import { t } from '@lingui/macro'
 import type { NextPage } from 'next'
 import React, { useEffect } from 'react'
 
-import BytesSection from './BytesSection'
 import DispatcherAlert from './DispatcherAlert'
 import HomeFeed from './Feed'
 
@@ -14,10 +11,8 @@ const Home: NextPage = () => {
   }, [])
   return (
     <>
-      <MetaTags title={t`Home`} />
       {/* <GitcoinAlert /> */}
       <DispatcherAlert />
-      <BytesSection />
       <HomeFeed />
     </>
   )
