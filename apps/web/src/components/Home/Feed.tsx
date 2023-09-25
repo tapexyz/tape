@@ -73,8 +73,8 @@ const HomeFeed = () => {
   return (
     <div>
       <CategoryFilters />
-      {loading && <TimelineShimmer />}
       <BytesSection />
+      {loading && <TimelineShimmer />}
       {!error && !loading && videos.length > 0 && (
         <>
           <Timeline videos={videos} />
