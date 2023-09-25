@@ -31,7 +31,7 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
   return (
     <div className="group overflow-hidden rounded-xl">
       <Link href={`/watch/${mirrorOn.id}`}>
-        <div className="aspect-w-16 aspect-h-8 relative rounded-xl">
+        <div className="aspect-w-16 aspect-h-8 relative overflow-hidden rounded-md">
           <ThumbnailImage video={mirrorOn} />
           {isSensitiveContent && (
             <div className="absolute left-3 top-2">

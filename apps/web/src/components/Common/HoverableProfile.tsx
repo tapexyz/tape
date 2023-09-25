@@ -39,7 +39,7 @@ const HoverableProfile: FC<Props> = ({
               />
             )}
             <Flex align="center" gap="1">
-              <Text size={fontSize} highContrast color="gray">
+              <Text size={fontSize} color="gray">
                 {trimLensHandle(profile.handle)}
               </Text>
               <Badge id={profile?.id} size="xs" />

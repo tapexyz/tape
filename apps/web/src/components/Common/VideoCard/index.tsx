@@ -46,7 +46,10 @@ const VideoCard: FC<Props> = ({ video }) => {
             setShowReport={setShowReport}
           />
           <Link href={href}>
-            <AspectRatio ratio={16 / 9} className="relative overflow-hidden">
+            <AspectRatio
+              ratio={16 / 9}
+              className="relative overflow-hidden rounded-md"
+            >
               <ThumbnailImage video={video} />
               <ThumbnailOverlays video={video} />
             </AspectRatio>
@@ -54,7 +57,7 @@ const VideoCard: FC<Props> = ({ video }) => {
           <div className="py-2">
             <div className="flex w-full min-w-0 items-start justify-between space-x-1.5 pb-1">
               <Link
-                className="ultrawide:line-clamp-1 ultrawide:break-all text-md line-clamp-2 break-words font-semibold"
+                className="ultrawide:line-clamp-1 ultrawide:break-all line-clamp-2 break-words font-semibold"
                 href={href}
                 title={metadata.marketplace?.name ?? metadata.content}
                 data-testid="video-card-title"
