@@ -1,4 +1,3 @@
-import { Button } from '@components/UIElements/Button'
 import EmojiPicker from '@components/UIElements/EmojiPicker'
 import InputMentions from '@components/UIElements/InputMentions'
 import RadioInput from '@components/UIElements/RadioInput'
@@ -8,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { checkIsBytesVideo } from '@lenstube/generic'
 import useAppStore from '@lib/store'
 import { t, Trans } from '@lingui/macro'
+import { Button } from '@radix-ui/themes'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
@@ -193,15 +193,16 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
       </div>
       <div className="mt-4 flex items-center justify-end space-x-2">
         <Button
-          type="button"
-          variant="hover"
+          color="gray"
+          variant="soft"
           disabled={uploadedVideo.loading}
           onClick={() => onCancel()}
         >
           <Trans>Reset</Trans>
         </Button>
         <Button
-          loading={uploadedVideo.loading || uploadedVideo.uploadingThumbnail}
+          highContrast
+          disabled={uploadedVideo.loading || uploadedVideo.uploadingThumbnail}
           type="submit"
         >
           {uploadedVideo.uploadingThumbnail

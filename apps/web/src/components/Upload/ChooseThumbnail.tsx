@@ -10,6 +10,7 @@ import type { IPFSUploadResult } from '@lenstube/lens/custom-types'
 import { Loader } from '@lenstube/ui'
 import useAppStore from '@lib/store'
 import { t, Trans } from '@lingui/macro'
+import { AspectRatio, Grid } from '@radix-ui/themes'
 import clsx from 'clsx'
 import type { ChangeEvent, FC } from 'react'
 import React, { useEffect, useState } from 'react'
@@ -21,7 +22,7 @@ interface Props {
 }
 
 const DEFAULT_THUMBNAIL_INDEX = 0
-export const THUMBNAIL_GENERATE_COUNT = 7
+export const THUMBNAIL_GENERATE_COUNT = 9
 
 type Thumbnail = {
   blobUrl: string
@@ -145,10 +146,10 @@ const ChooseThumbnail: FC<Props> = ({ label, file }) => {
           </div>
         </div>
       )}
-      <div className="grid grid-cols-2 place-items-start gap-3 py-0.5 md:grid-cols-3 lg:grid-cols-4">
+      <Grid columns="5" gap="3">
         <label
           htmlFor="chooseThumbnail"
-          className="max-w-32 flex h-16 w-full flex-none cursor-pointer flex-col items-center justify-center rounded-xl border border-gray-300 opacity-80 focus:outline-none dark:border-gray-700"
+          className="max-w-32 flex h-full w-full flex-none cursor-pointer flex-col items-center justify-center rounded-xl border border-gray-300 opacity-80 focus:outline-none dark:border-gray-700"
         >
           <input
             id="chooseThumbnail"
@@ -162,9 +163,9 @@ const ChooseThumbnail: FC<Props> = ({ label, file }) => {
             <Trans>Upload</Trans>
           </span>
         </label>
-        {!thumbnails.length && uploadedVideo.file?.size && (
+        {!thumbnails.length && uploadedVideo.file?.size ? (
           <ThumbnailsShimmer />
-        )}
+        ) : null}
         {thumbnails.map((thumbnail, idx) => {
           return (
             <button
@@ -182,15 +183,19 @@ const ChooseThumbnail: FC<Props> = ({ label, file }) => {
                 }
               )}
             >
-              <img
-                className={clsx(
-                  'h-16 w-full rounded-lg md:w-32',
-                  uploadedVideo.isByteVideo ? 'object-contain' : 'object-cover'
-                )}
-                src={thumbnail.blobUrl}
-                alt="thumbnail"
-                draggable={false}
-              />
+              <AspectRatio ratio={16 / 9}>
+                <img
+                  className={clsx(
+                    'h-full w-full rounded-lg',
+                    uploadedVideo.isByteVideo
+                      ? 'object-contain'
+                      : 'object-cover'
+                  )}
+                  src={thumbnail.blobUrl}
+                  alt="thumbnail"
+                  draggable={false}
+                />
+              </AspectRatio>
               {uploadedVideo.uploadingThumbnail &&
                 selectedThumbnailIndex === idx && (
                   <div className="absolute inset-0 grid place-items-center bg-gray-100 bg-opacity-10 backdrop-blur-md">
@@ -200,7 +205,7 @@ const ChooseThumbnail: FC<Props> = ({ label, file }) => {
             </button>
           )
         })}
-      </div>
+      </Grid>
     </div>
   )
 }
