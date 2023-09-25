@@ -11,6 +11,7 @@ import type {
 import {
   LimitType,
   PublicationMetadataMainFocusType,
+  SearchPublicationType,
   useSearchProfilesLazyQuery,
   useSearchPublicationsLazyQuery
 } from '@lenstube/lens'
@@ -53,6 +54,7 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
           PublicationMetadataMainFocusType.ShortVideo
         ]
       },
+      publicationTypes: [SearchPublicationType.Post],
       customFilters: LENS_CUSTOM_FILTERS
     }
   }

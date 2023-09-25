@@ -3864,6 +3864,7 @@ export type PublicationSearchRequest = {
 export type PublicationSearchWhere = {
   customFilters?: InputMaybe<Array<CustomFiltersType>>
   metadata?: InputMaybe<PublicationMetadataFilters>
+  publicationTypes?: InputMaybe<Array<SearchPublicationType>>
 }
 
 export type PublicationStats = {
@@ -3918,11 +3919,7 @@ export type PublicationValidateMetadataResult = {
 
 export enum PublicationsOrderByType {
   CommentOfQueryRanking = 'COMMENT_OF_QUERY_RANKING',
-  Latest = 'LATEST',
-  TopCollectedOpenAction = 'TOP_COLLECTED_OPEN_ACTION',
-  TopCommented = 'TOP_COMMENTED',
-  TopMirrored = 'TOP_MIRRORED',
-  TopQuoted = 'TOP_QUOTED'
+  Latest = 'LATEST'
 }
 
 export type PublicationsRequest = {
@@ -4442,6 +4439,8 @@ export type RevenueAggregate = {
 
 export type RevenueFromPublicationRequest = {
   for: Scalars['PublicationId']['input']
+  /** Will return revenue for publications made on any of the provided app ids. Will include all apps if omitted */
+  publishedOn?: InputMaybe<Array<Scalars['AppId']['input']>>
 }
 
 export type RevenueFromPublicationsRequest = {
@@ -4456,6 +4455,12 @@ export type RevenueFromPublicationsRequest = {
 export type RevertFollowModuleSettings = {
   __typename?: 'RevertFollowModuleSettings'
   contract: NetworkAddress
+}
+
+export enum SearchPublicationType {
+  Comment = 'COMMENT',
+  Post = 'POST',
+  Quote = 'QUOTE'
 }
 
 export type SensitiveReasonInput = {

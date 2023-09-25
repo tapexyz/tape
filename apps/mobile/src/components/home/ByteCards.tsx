@@ -215,7 +215,8 @@ const ByteCards = () => {
     return <ServerError />
   }
 
-  const bytes = data?.explorePublications?.items as MirrorablePublication[]
+  const bytes = data?.explorePublications
+    ?.items as unknown as MirrorablePublication[]
 
   return (
     <View style={style.cardsContainer}>
