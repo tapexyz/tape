@@ -1,4 +1,6 @@
-import Badge from '@components/Common/Badge'
+import HoverableProfile from '@components/Common/HoverableProfile'
+import CommentOutline from '@components/Common/Icons/CommentOutline'
+import HeartOutline from '@components/Common/Icons/HeartOutline'
 import ReportModal from '@components/Common/VideoCard/ReportModal'
 import ShareModal from '@components/Common/VideoCard/ShareModal'
 import VideoOptions from '@components/Common/VideoCard/VideoOptions'
@@ -9,16 +11,16 @@ import {
   STATIC_ASSETS
 } from '@lenstube/constants'
 import {
+  formatNumber,
   getIsSensitiveContent,
-  getRelativeTime,
+  getShortHandTime,
   getThumbnailUrl,
   getTimeFromSeconds,
   getValueFromTraitType,
-  imageCdn,
-  trimLensHandle
+  imageCdn
 } from '@lenstube/generic'
 import type { Attribute, MirrorablePublication } from '@lenstube/lens'
-import { Trans } from '@lingui/macro'
+import { Box, Flex } from '@radix-ui/themes'
 import clsx from 'clsx'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -53,15 +55,15 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
         setShowReport={setShowReport}
       />
       <div className="flex justify-between">
-        <div className="flex-none overflow-hidden rounded-lg">
+        <div className="flex-none overflow-hidden rounded-md">
           <Link
             href={`/watch/${video.id}`}
-            className="cursor-pointer rounded-lg"
+            className="cursor-pointer rounded-md"
           >
             <div className="relative">
               <img
                 className={clsx(
-                  'h-20 w-36 bg-gray-300 object-center dark:bg-gray-700',
+                  'h-20 w-36 bg-gray-300 object-center transition-all duration-300 hover:scale-105 dark:bg-gray-700',
                   isBytesVideo ? 'object-contain' : 'object-cover'
                 )}
                 src={
@@ -100,32 +102,32 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
                 {video.metadata.marketplace?.name}
               </Link>
             </div>
-            <div className="truncate">
-              <Link
-                href={`/channel/${trimLensHandle(video.by?.handle)}`}
-                className="truncate text-[13px] opacity-70 hover:opacity-100"
-              >
-                <div className="flex items-center space-x-0.5">
-                  <span>{trimLensHandle(video?.by?.handle)}</span>
-                  <Badge id={video?.by.id} size="xs" />
-                </div>
-              </Link>
+            <div className="py-0.5">
+              <HoverableProfile profile={video.by} fontSize="1" hideImage />
             </div>
-            <div className="mt-0.5 flex items-center truncate text-xs opacity-70">
-              <span className="whitespace-nowrap">
-                {video.stats?.reactions} <Trans>likes</Trans>
-              </span>
+            <div className="flex items-center overflow-hidden text-xs opacity-80">
+              <Flex align="center" gap="1">
+                <HeartOutline className="h-2.5 w-2.5" />
+                {formatNumber(video.stats?.reactions)}
+              </Flex>
               <span className="middot" />
-              <span>{getRelativeTime(video.createdAt)}</span>
+              <Flex align="center" gap="1">
+                <CommentOutline className="h-2.5 w-2.5" />
+                {formatNumber(video.stats?.comments)}
+              </Flex>
+              <span className="middot" />
+              <span>{getShortHandTime(video.createdAt)}</span>
             </div>
           </div>
         </div>
       </div>
-      <VideoOptions
-        video={video}
-        setShowReport={setShowReport}
-        setShowShare={setShowShare}
-      />
+      <Box>
+        <VideoOptions
+          video={video}
+          setShowReport={setShowReport}
+          setShowShare={setShowShare}
+        />
+      </Box>
     </div>
   )
 }

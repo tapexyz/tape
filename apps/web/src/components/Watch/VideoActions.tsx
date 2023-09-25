@@ -52,7 +52,7 @@ const VideoActions: FC<Props> = ({ video }) => {
           </span>
         </button>
       </div>
-      <div className="rounded-full bg-indigo-100/50 px-3 py-1.5 backdrop-blur-xl dark:bg-indigo-900/30">
+      <div className="rounded-full bg-indigo-100/50 px-3 py-2 backdrop-blur-xl dark:bg-indigo-900/30">
         <VideoOptions
           video={video}
           setShowShare={setShowShare}

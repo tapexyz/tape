@@ -289,12 +289,20 @@ const VideoOptions: FC<Props> = ({ video, setShowShare, setShowReport }) => {
       />
       <DropdownMenu.Root>
         <DropdownMenu.Trigger>
-          <Box className="pt-2">
+          <Box>
             <ThreeDotsOutline className="h-3.5 w-3.5" />
           </Box>
         </DropdownMenu.Trigger>
         <DropdownMenu.Content sideOffset={10} variant="soft" align="end">
           <div className="flex w-40 flex-col rounded-lg text-sm transition duration-150 ease-in-out">
+            <DropdownMenu.Item onClick={() => setShowShare(true)}>
+              <Flex align="center" gap="2">
+                <ShareOutline className="h-3.5 w-3.5" />
+                <span className="whitespace-nowrap">
+                  <Trans>Share</Trans>
+                </span>
+              </Flex>
+            </DropdownMenu.Item>
             {isVideoOwner && (
               <>
                 {pinnedVideoId !== video.id && (
@@ -307,7 +315,10 @@ const VideoOptions: FC<Props> = ({ video, setShowShare, setShowReport }) => {
                     </Flex>
                   </DropdownMenu.Item>
                 )}
-                <DropdownMenu.Item onClick={() => setShowConfirm(true)}>
+                <DropdownMenu.Item
+                  color="red"
+                  onClick={() => setShowConfirm(true)}
+                >
                   <Flex align="center" gap="2">
                     <TrashOutline className="h-3.5 w-3.5" />
                     <span className="whitespace-nowrap">
@@ -317,14 +328,6 @@ const VideoOptions: FC<Props> = ({ video, setShowShare, setShowReport }) => {
                 </DropdownMenu.Item>
               </>
             )}
-            <DropdownMenu.Item onClick={() => setShowShare(true)}>
-              <Flex align="center" gap="2">
-                <ShareOutline className="h-3.5 w-3.5" />
-                <span className="whitespace-nowrap">
-                  <Trans>Share</Trans>
-                </span>
-              </Flex>
-            </DropdownMenu.Item>
 
             {!isVideoOwner && (
               <>

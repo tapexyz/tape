@@ -16,22 +16,30 @@ import Badge from './Badge'
 
 type Props = {
   profile: Profile
+  hideImage?: boolean
+  fontSize?: '1' | '2'
 }
 
-const HoverableProfile: FC<Props> = ({ profile }) => {
+const HoverableProfile: FC<Props> = ({
+  profile,
+  hideImage = false,
+  fontSize = '2'
+}) => {
   return (
     <HoverCard.Root>
       <HoverCard.Trigger>
         <Link href={`/channel/${trimLensHandle(profile.handle)}`}>
           <Flex gap="1" align="center">
-            <img
-              className="h-4 w-4 flex-none rounded-full object-cover"
-              src={getProfilePicture(profile)}
-              alt={trimLensHandle(profile.handle)[0]}
-              draggable={false}
-            />
+            {!hideImage && (
+              <img
+                className="h-4 w-4 flex-none rounded-full object-cover"
+                src={getProfilePicture(profile)}
+                alt={trimLensHandle(profile.handle)[0]}
+                draggable={false}
+              />
+            )}
             <Flex align="center" gap="1">
-              <Text size="2" highContrast color="gray">
+              <Text size={fontSize} highContrast color="gray">
                 {trimLensHandle(profile.handle)}
               </Text>
               <Badge id={profile?.id} size="xs" />
