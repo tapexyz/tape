@@ -38,7 +38,7 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
   const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
   const thumbnailUrl = isSensitiveContent
     ? `${STATIC_ASSETS}/images/sensor-blur.png`
-    : getThumbnailUrl(video)
+    : getThumbnailUrl(video, true)
 
   const { color: backgroundColor } = useAverageColor(thumbnailUrl, isBytesVideo)
   const videoDuration = getValueFromTraitType(
@@ -66,14 +66,10 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
                   'h-20 w-36 bg-gray-300 object-center transition-all duration-300 hover:scale-105 dark:bg-gray-700',
                   isBytesVideo ? 'object-contain' : 'object-cover'
                 )}
-                src={
-                  thumbnailUrl
-                    ? imageCdn(
-                        thumbnailUrl,
-                        isBytesVideo ? 'THUMBNAIL_V' : 'THUMBNAIL'
-                      )
-                    : ''
-                }
+                src={imageCdn(
+                  thumbnailUrl,
+                  isBytesVideo ? 'THUMBNAIL_V' : 'THUMBNAIL'
+                )}
                 style={{ backgroundColor: `${backgroundColor}95` }}
                 alt="thumbnail"
                 draggable={false}

@@ -22,8 +22,8 @@ import type { FC } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
 
 import SearchOutline from '../Icons/SearchOutline'
-import Channels from './Channels'
-import Videos from './Videos'
+import Profiles from './Profiles'
+import Publications from './Publications'
 
 interface Props {
   onSearchResults?: () => void
@@ -130,7 +130,7 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
                     Creators
                   </Text>
                   {profiles?.length ? (
-                    <Channels
+                    <Profiles
                       results={profiles}
                       loading={profilesLoading}
                       clearSearch={clearSearch}
@@ -144,7 +144,7 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
                     Releases
                   </Text>
                   {publications?.length ? (
-                    <Videos
+                    <Publications
                       results={publications}
                       loading={publicationsLoading}
                       clearSearch={clearSearch}

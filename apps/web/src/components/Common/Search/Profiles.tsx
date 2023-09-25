@@ -18,20 +18,20 @@ interface Props {
   clearSearch: () => void
 }
 
-const Channels: FC<Props> = ({ results, loading, clearSearch }) => {
+const Profiles: FC<Props> = ({ results, loading, clearSearch }) => {
   return (
-    <>
+    <div>
       {results?.map((channel: Profile) => (
         <div
           key={channel.id}
-          className="relative cursor-default select-none pl-3 pr-4 hover:bg-gray-100 dark:hover:bg-gray-900"
+          className="relative cursor-default select-none rounded-md pl-3 pr-4 hover:bg-gray-100 dark:hover:bg-gray-900"
           data-testid={`search-channel-${channel.handle}`}
         >
           <Link
             onClick={() => clearSearch()}
             href={`/channel/${trimLensHandle(channel?.handle)}`}
             key={channel?.handle}
-            className="flex flex-col justify-center space-y-1 rounded-xl py-2"
+            className="flex flex-col justify-center space-y-1 py-2"
           >
             <span className="flex items-center justify-between">
               <div className="inline-flex w-3/4 items-center space-x-2">
@@ -66,8 +66,8 @@ const Channels: FC<Props> = ({ results, loading, clearSearch }) => {
           <Trans>No results found</Trans>
         </div>
       )}
-    </>
+    </div>
   )
 }
 
-export default Channels
+export default Profiles
