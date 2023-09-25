@@ -16,7 +16,7 @@ import {
 } from '@lenstube/lens'
 import { Loader } from '@lenstube/ui'
 import { t } from '@lingui/macro'
-import { Box, Text, TextField } from '@radix-ui/themes'
+import { Text, TextField } from '@radix-ui/themes'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
@@ -112,51 +112,49 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
           </TextField.Root>
           <div
             className={clsx(
-              'dark:bg-theme z-10 mt-1 w-full overflow-hidden rounded-md bg-white text-base ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm md:absolute',
+              'dark:bg-theme z-10 mt-1 w-full overflow-hidden rounded-md bg-white p-5 text-base ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm md:absolute',
               { hidden: debouncedValue.length === 0 }
             )}
           >
-            <div
-              className="no-scrollbar max-h-[80vh] overflow-y-auto focus:outline-none"
-              data-testid="search-channels-panel"
-            >
-              <Box p="4">
-                <Text size="3" weight="medium">
-                  Creators
-                </Text>
-              </Box>
-              {profiles?.length ? (
-                <Channels
-                  results={profiles}
-                  loading={profilesLoading}
-                  clearSearch={clearSearch}
-                />
-              ) : (
-                <NoDataFound withImage isCenter />
-              )}
-            </div>
-            <div className="no-scrollbar max-h-[80vh] overflow-y-auto focus:outline-none">
-              <Box p="4">
-                <Text size="3" weight="medium">
-                  Releases
-                </Text>
-              </Box>
-              {publications?.length ? (
-                <Videos
-                  results={publications}
-                  loading={publicationsLoading}
-                  clearSearch={clearSearch}
-                />
-              ) : (
-                <NoDataFound withImage isCenter />
-              )}
-            </div>
-
             {profilesLoading || publicationsLoading ? (
               <div className="flex justify-center p-5">
                 <Loader />
               </div>
-            ) : null}
+            ) : (
+              <>
+                <div
+                  className="no-scrollbar max-h-[80vh] overflow-y-auto focus:outline-none"
+                  data-testid="search-channels-panel"
+                >
+                  <Text size="3" weight="medium">
+                    Creators
+                  </Text>
+                  {profiles?.length ? (
+                    <Channels
+                      results={profiles}
+                      loading={profilesLoading}
+                      clearSearch={clearSearch}
+                    />
+                  ) : (
+                    <NoDataFound isCenter />
+                  )}
+                </div>
+                <div className="no-scrollbar max-h-[80vh] overflow-y-auto focus:outline-none">
+                  <Text size="3" weight="medium">
+                    Releases
+                  </Text>
+                  {publications?.length ? (
+                    <Videos
+                      results={publications}
+                      loading={publicationsLoading}
+                      clearSearch={clearSearch}
+                    />
+                  ) : (
+                    <NoDataFound isCenter />
+                  )}
+                </div>
+              </>
+            )}
           </div>
         </div>
       </div>
