@@ -59,7 +59,7 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
 
   const profileSearchRequest: ProfileSearchRequest = {
     limit: LimitType.Ten,
-    query: `test/@${keyword}`,
+    query: keyword,
     where: {
       customFilters: LENS_CUSTOM_FILTERS
     }
