@@ -25,7 +25,7 @@ const SubscribeActions: FC<Props> = ({ profile, size = '2' }) => {
       profile={profile}
       onUnSubscribe={() => setSubscriber(false)}
     />
-  ) : subscribeType !== 'FeeFollowModuleSettings' ? (
+  ) : subscribeType === 'FeeFollowModuleSettings' ? (
     <SuperFollow
       size={size}
       profile={profile}
