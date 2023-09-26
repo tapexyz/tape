@@ -30,9 +30,7 @@ const HoverableProfile: FC<Props> = ({
   return (
     <HoverCard.Root>
       <HoverCard.Trigger>
-        {children ? (
-          children
-        ) : (
+        {children ?? (
           <Link href={`/channel/${trimLensHandle(profile.handle)}`}>
             <Flex gap="1" align="center">
               {!hideImage && (
