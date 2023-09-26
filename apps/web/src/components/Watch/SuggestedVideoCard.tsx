@@ -63,7 +63,7 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
             <div className="relative">
               <img
                 className={clsx(
-                  'h-20 w-36 bg-gray-300 object-center transition-all duration-300 hover:scale-105 dark:bg-gray-700',
+                  'h-20 w-36 bg-gray-300 object-center transition-all duration-500 hover:scale-105 dark:bg-gray-700',
                   isBytesVideo ? 'object-contain' : 'object-cover'
                 )}
                 src={imageCdn(
