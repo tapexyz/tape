@@ -107,18 +107,18 @@ const Follow: FC<Props> = ({ profile, onSubscribe, size = '2' }) => {
     onError
   })
 
-  const [follow] = useFollowMutation({
+  const [followMutation] = useFollowMutation({
     onCompleted: () => onCompleted(),
     onError
   })
 
-  const subscribe = async () => {
+  const follow = async () => {
     if (!selectedSimpleProfile?.id) {
       return openConnectModal?.()
     }
     setLoading(true)
     if (canUseRelay) {
-      return await follow({
+      return await followMutation({
         variables: {
           request: {
             follow: [
@@ -147,7 +147,7 @@ const Follow: FC<Props> = ({ profile, onSubscribe, size = '2' }) => {
     <Button
       size={size}
       disabled={loading}
-      onClick={() => subscribe()}
+      onClick={() => follow()}
       highContrast
     >
       <Trans>Follow</Trans>

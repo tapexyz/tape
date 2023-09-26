@@ -31,7 +31,7 @@ const VideoCard: FC<Props> = ({ video }) => {
     <div className="group" data-testid="video-card">
       {video.isHidden ? (
         <div className="grid h-full place-items-center">
-          <span className="text-xs">Media Deleted</span>
+          <span className="text-xs">Media deleted</span>
         </div>
       ) : (
         <>

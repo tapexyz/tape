@@ -6,6 +6,7 @@ import {
   trimLensHandle
 } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
+import useChannelStore from '@lib/store/channel'
 import { Avatar, Flex, HoverCard, Link, Text } from '@radix-ui/themes'
 import type { FC, ReactElement } from 'react'
 import React from 'react'
@@ -27,6 +28,9 @@ const HoverableProfile: FC<Props> = ({
   fontSize = '2',
   children
 }) => {
+  const activeChannel = useChannelStore((state) => state.activeChannel)
+  const isMyProfile = activeChannel?.id === profile.id
+
   return (
     <HoverCard.Root>
       <HoverCard.Trigger>
@@ -70,12 +74,12 @@ const HoverableProfile: FC<Props> = ({
             />
           </div>
           <div className="absolute bottom-2 right-2 flex-none">
-            {!profile.operations.isFollowedByMe.value && (
+            {!profile.operations.isFollowedByMe.value && !isMyProfile ? (
               <SubscribeActions
                 profile={profile}
                 subscribeType={profile?.followModule?.__typename}
               />
-            )}
+            ) : null}
           </div>
         </div>
         <div className="p-2 pl-4 pt-2.5">

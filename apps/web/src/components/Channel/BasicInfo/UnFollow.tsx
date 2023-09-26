@@ -99,18 +99,18 @@ const UnFollow: FC<Props> = ({ profile, onUnSubscribe, size = '2' }) => {
     onError
   })
 
-  const [unFollow] = useUnfollowMutation({
+  const [unFollowMutation] = useUnfollowMutation({
     onCompleted: () => onCompleted(),
     onError
   })
 
-  const unsubscribe = async () => {
+  const unfollow = async () => {
     if (!selectedSimpleProfile?.id) {
       return openConnectModal?.()
     }
     setLoading(true)
     if (canUseRelay) {
-      return await unFollow({
+      return await unFollowMutation({
         variables: {
           request: {
             unfollow: [profile.id]
@@ -126,7 +126,7 @@ const UnFollow: FC<Props> = ({ profile, onUnSubscribe, size = '2' }) => {
   }
 
   return (
-    <Button size={size} onClick={() => unsubscribe()} disabled={loading}>
+    <Button size={size} onClick={() => unfollow()} disabled={loading}>
       <Trans>Subscribed</Trans>
     </Button>
   )
