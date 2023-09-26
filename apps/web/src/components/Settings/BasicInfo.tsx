@@ -1,7 +1,6 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import Badge from '@components/Common/Badge'
 import CopyOutline from '@components/Common/Icons/CopyOutline'
-import { Button } from '@components/UIElements/Button'
 import EmojiPicker from '@components/UIElements/EmojiPicker'
 import { Input } from '@components/UIElements/Input'
 import { TextArea } from '@components/UIElements/TextArea'
@@ -44,6 +43,7 @@ import type {
 import { Loader } from '@lenstube/ui'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
+import { Button } from '@radix-ui/themes'
 import type { ChangeEvent } from 'react'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -56,6 +56,7 @@ import { object, string, union } from 'zod'
 type Props = {
   channel: Profile
 }
+
 const formSchema = object({
   displayName: union([
     string()
@@ -72,6 +73,7 @@ const formSchema = object({
   x: string(),
   youtube: string(),
   location: string(),
+  spotify: string(),
   website: union([
     string().url({
       message: 'Enter valid website URL (eg. https://lenstube.xyz)'
@@ -88,7 +90,6 @@ const BasicInfo = ({ channel }: Props) => {
   const [coverImage, setCoverImage] = useState(getChannelCoverPicture(channel))
 
   const activeChannel = useChannelStore((state) => state.activeChannel)
-  // Dispatcher
   const canUseRelay = activeChannel?.lensManager && activeChannel?.sponsor
 
   const {
@@ -100,8 +101,8 @@ const BasicInfo = ({ channel }: Props) => {
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      displayName: channel.metadata?.displayName || '',
-      description: channel.metadata?.bio || '',
+      displayName: channel.metadata?.displayName ?? '',
+      description: channel.metadata?.bio ?? '',
       location: getValueFromKeyInAttributes(
         channel.metadata?.attributes,
         'location'
@@ -110,6 +111,10 @@ const BasicInfo = ({ channel }: Props) => {
       youtube: getValueFromKeyInAttributes(
         channel.metadata?.attributes,
         'youtube'
+      ),
+      spotify: getValueFromKeyInAttributes(
+        channel.metadata?.attributes,
+        'spotify'
       ),
       website: getValueFromKeyInAttributes(
         channel.metadata?.attributes,
@@ -180,7 +185,9 @@ const BasicInfo = ({ channel }: Props) => {
     channel.metadata?.attributes
       ?.filter(
         (attr) =>
-          !['website', 'location', 'x', 'youtube', 'app'].includes(attr.key)
+          !['website', 'location', 'x', 'youtube', 'spotify', 'app'].includes(
+            attr.key
+          )
       )
       .map(({ type, key, value }) => ({ type, key, value })) ?? []
 
@@ -188,12 +195,11 @@ const BasicInfo = ({ channel }: Props) => {
     setLoading(true)
     try {
       const metadata = profile({
-        appId: LENSTUBE_APP_ID,
         bio: trimify(data.description),
         coverPicture: data.coverImage ?? coverImage,
         id: uuidv4(),
         name: data.displayName,
-        picture: getProfilePicture(activeChannel as Profile),
+        picture: getProfilePicture(activeChannel as Profile, 'AVATAR', false),
         attributes: [
           ...(otherAttributes as unknown as MetadataAttribute[]),
           {
@@ -218,11 +224,17 @@ const BasicInfo = ({ channel }: Props) => {
           },
           {
             type: MetadataAttributeType.STRING,
+            key: 'spotify',
+            value: data.spotify
+          },
+          {
+            type: MetadataAttributeType.STRING,
             key: 'app',
             value: LENSTUBE_APP_ID
           }
         ]
       })
+
       const metadataUri = await uploadToAr(metadata)
       const request: OnchainSetProfileMetadataRequest = {
         metadataURI: metadataUri
@@ -249,8 +261,8 @@ const BasicInfo = ({ channel }: Props) => {
 
   return (
     <form
-      onSubmit={handleSubmit(onSaveBasicInfo)}
       className="dark:bg-theme rounded-xl bg-white p-4"
+      onSubmit={handleSubmit(onSaveBasicInfo)}
     >
       <div className="relative w-full flex-none">
         {uploading && (
@@ -287,7 +299,7 @@ const BasicInfo = ({ channel }: Props) => {
       <div className="pt-1 text-right text-xs opacity-80">2560 x 1440</div>
       <div className="mb-1 flex items-center">
         <div className="text-[11px] font-semibold uppercase opacity-60">
-          <Trans>Channel</Trans>
+          <Trans>Profile</Trans>
         </div>
       </div>
       <div className="flex items-center space-x-3">
@@ -299,7 +311,7 @@ const BasicInfo = ({ channel }: Props) => {
       <div className="mt-4">
         <div className="mb-1 flex items-center">
           <div className="text-[11px] font-semibold uppercase opacity-60">
-            <Trans>Channel URL</Trans>
+            <Trans>Profile URL</Trans>
           </div>
         </div>
         <div className="flex items-center space-x-2">
@@ -323,20 +335,20 @@ const BasicInfo = ({ channel }: Props) => {
       </div>
       <div className="mt-6">
         <Input
+          {...register('displayName')}
           label={t`Display Name`}
           type="text"
           placeholder="T Series"
-          {...register('displayName')}
           validationError={errors.displayName?.message}
         />
       </div>
       <div className="relative mt-4">
         <TextArea
-          label={t`Channel Description`}
-          placeholder={t`More about your channel`}
+          {...register('description')}
+          label={t`Description`}
+          placeholder={t`More about you and what you do!`}
           rows={4}
           validationError={errors.description?.message}
-          {...register('description')}
         />
         <div className="absolute bottom-2 right-2">
           <EmojiPicker
@@ -348,41 +360,50 @@ const BasicInfo = ({ channel }: Props) => {
       </div>
       <div className="mt-4">
         <Input
+          {...register('website', { required: false })}
+          label={t`Website`}
+          placeholder="https://johndoe.xyz"
+          validationError={errors.website?.message}
+        />
+      </div>
+      <div className="mt-4">
+        <Input
           label="Youtube"
           placeholder="channel"
           {...register('youtube')}
-          validationError={errors.x?.message}
+          validationError={errors.youtube?.message}
           prefix="https://youtube.com/"
         />
       </div>
       <div className="mt-4">
         <Input
-          label="X.com"
+          {...register('spotify')}
+          label="Spotify"
           placeholder="profile"
+          validationError={errors.spotify?.message}
+          prefix="https://spotify.com/"
+        />
+      </div>
+      <div className="mt-4">
+        <Input
           {...register('x')}
+          label="X"
+          placeholder="profile"
           validationError={errors.x?.message}
           prefix="https://x.com/"
         />
       </div>
       <div className="mt-4">
         <Input
-          label={t`Website`}
-          placeholder="https://johndoe.xyz"
-          {...register('website')}
-          validationError={errors.website?.message}
-        />
-      </div>
-      <div className="mt-4">
-        <Input
+          {...register('location')}
           label={t`Location`}
           placeholder="Metaverse"
-          {...register('location')}
           validationError={errors.location?.message}
         />
       </div>
       <div className="mt-4 flex justify-end">
-        <Button loading={loading}>
-          <Trans>Save</Trans>
+        <Button disabled={loading} highContrast>
+          <Trans>Save Profile</Trans>
         </Button>
       </div>
     </form>

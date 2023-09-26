@@ -7,7 +7,8 @@ import { sanitizeDStorageUrl } from './sanitizeDStorageUrl'
 
 export const getProfilePicture = (
   channel: Profile,
-  type?: keyof typeof IMAGE_TRANSFORMATIONS
+  type?: keyof typeof IMAGE_TRANSFORMATIONS,
+  withFallback = true
 ): string => {
   const url =
     channel.metadata?.picture &&
@@ -15,7 +16,9 @@ export const getProfilePicture = (
       ? channel.metadata?.picture?.raw?.uri
       : channel.metadata?.picture?.__typename === 'NftImage'
       ? channel?.metadata.picture.image?.raw.uri
-      : getRandomProfilePicture(channel?.ownedBy.address)
+      : withFallback
+      ? getRandomProfilePicture(channel?.ownedBy.address)
+      : ''
   const sanitized = sanitizeDStorageUrl(url)
   return imageCdn(sanitized, type)
 }
