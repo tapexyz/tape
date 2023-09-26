@@ -6,11 +6,7 @@ import {
   LENSTUBE_BYTES_APP_ID,
   SCROLL_ROOT_MARGIN
 } from '@lenstube/constants'
-import type {
-  AnyPublication,
-  Profile,
-  PublicationsRequest
-} from '@lenstube/lens'
+import type { AnyPublication, PublicationsRequest } from '@lenstube/lens'
 import {
   LimitType,
   PublicationType,
@@ -23,23 +19,23 @@ import React from 'react'
 import { useInView } from 'react-cool-inview'
 
 type Props = {
-  channel: Profile
+  profileId: string
 }
 
-const ChannelBytes: FC<Props> = ({ channel }) => {
+const ChannelBytes: FC<Props> = ({ profileId }) => {
   const request: PublicationsRequest = {
     where: {
       metadata: { publishedOn: [LENSTUBE_BYTES_APP_ID] },
       publicationTypes: [PublicationType.Post],
       customFilters: LENS_CUSTOM_FILTERS,
-      from: channel.id
+      from: [profileId]
     },
     limit: LimitType.TwentyFive
   }
 
   const { data, loading, error, fetchMore } = usePublicationsQuery({
     variables: { request },
-    skip: !channel?.id
+    skip: !profileId
   })
 
   const bytes = data?.publications?.items as AnyPublication[]

@@ -1,10 +1,10 @@
 import Badge from '@components/Common/Badge'
+import HoverableProfile from '@components/Common/HoverableProfile'
 import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
 import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import MirrorVideo from '@components/Common/MirrorVideo'
-import ProfilePreview from '@components/Common/UserPreview'
 import {
   formatNumber,
   getProfilePicture,
@@ -54,7 +54,7 @@ const AboutChannel: FC<Props> = ({ video }) => {
         <div className="flex flex-wrap justify-between gap-y-2">
           <div className="flex items-center space-x-5">
             <div className="flex flex-col items-start">
-              <ProfilePreview profile={channel}>
+              <HoverableProfile profile={channel}>
                 <Link
                   href={`/channel/${trimLensHandle(channel?.handle)}`}
                   className="flex items-center space-x-1 font-semibold"
@@ -64,7 +64,7 @@ const AboutChannel: FC<Props> = ({ video }) => {
                   </span>
                   <Badge id={channel?.id} />
                 </Link>
-              </ProfilePreview>
+              </HoverableProfile>
               <span className="inline-flex items-center space-x-1 text-xs">
                 {formatNumber(channel?.stats.followers)}{' '}
                 <Trans>subscribers</Trans>

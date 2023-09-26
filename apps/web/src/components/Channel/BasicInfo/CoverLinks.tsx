@@ -2,27 +2,24 @@ import GlobeOutline from '@components/Common/Icons/GlobeOutline'
 import { Analytics, TRACK } from '@lenstube/browser'
 import { STATIC_ASSETS } from '@lenstube/constants'
 import { getValueFromKeyInAttributes, imageCdn } from '@lenstube/generic'
-import type { Profile } from '@lenstube/lens'
+import type { ProfileMetadata } from '@lenstube/lens'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import React from 'react'
 
-const CoverLinks = ({ channel }: { channel: Profile }) => {
+const CoverLinks = ({ metadata }: { metadata: ProfileMetadata }) => {
   const { resolvedTheme } = useTheme()
 
   return (
     <div className="absolute bottom-2 right-2">
       <div className="flex space-x-2">
-        {getValueFromKeyInAttributes(
-          channel.metadata?.attributes,
-          'website'
-        ) && (
+        {getValueFromKeyInAttributes(metadata?.attributes, 'website') && (
           <Link
             onClick={() =>
               Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_COVER_LINKS)
             }
             href={`https://${getValueFromKeyInAttributes(
-              channel.metadata?.attributes,
+              metadata?.attributes,
               'website'
             )
               ?.replace('https://', '')
@@ -34,16 +31,13 @@ const CoverLinks = ({ channel }: { channel: Profile }) => {
             <GlobeOutline className="h-4 w-4" />
           </Link>
         )}
-        {getValueFromKeyInAttributes(
-          channel.metadata?.attributes,
-          'youtube'
-        ) && (
+        {getValueFromKeyInAttributes(metadata?.attributes, 'youtube') && (
           <Link
             onClick={() =>
               Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_COVER_LINKS)
             }
             href={`https://youtube.com/${getValueFromKeyInAttributes(
-              channel.metadata?.attributes,
+              metadata?.attributes,
               'youtube'
             )
               ?.replace('https://youtube.com/', '')
@@ -65,13 +59,13 @@ const CoverLinks = ({ channel }: { channel: Profile }) => {
             />
           </Link>
         )}
-        {getValueFromKeyInAttributes(channel.metadata?.attributes, 'x') && (
+        {getValueFromKeyInAttributes(metadata?.attributes, 'x') && (
           <Link
             onClick={() =>
               Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_COVER_LINKS)
             }
             href={`https://x.com/${getValueFromKeyInAttributes(
-              channel.metadata?.attributes,
+              metadata?.attributes,
               'x'
             )}`}
             target="_blank"

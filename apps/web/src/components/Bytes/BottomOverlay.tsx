@@ -53,7 +53,7 @@ const BottomOverlay: FC<Props> = ({ video }) => {
           </Link>
         </div>
         <div className="flex items-center space-x-2">
-          <SubscribeActions channel={video.by} subscribeType={subscribeType} />
+          <SubscribeActions profile={video.by} subscribeType={subscribeType} />
         </div>
       </div>
     </div>

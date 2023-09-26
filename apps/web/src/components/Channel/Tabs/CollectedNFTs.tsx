@@ -11,12 +11,12 @@ import useSWR from 'swr'
 import NFTCard from './NFTCard'
 
 type Props = {
-  channel: Profile
+  profile: Profile
 }
 
-const CollectedNFTs: FC<Props> = ({ channel }) => {
+const CollectedNFTs: FC<Props> = ({ profile }) => {
   const { data, isLoading, error } = useSWR(
-    `${NFTS_URL}/${channel.handle}/200`,
+    `${NFTS_URL}/${profile.handle}/200`,
     (url: string) => fetch(url).then((res) => res.json()),
     {
       revalidateOnFocus: false,

@@ -1,6 +1,6 @@
+import HoverableProfile from '@components/Common/HoverableProfile'
 import DislikeOutline from '@components/Common/Icons/DislikeOutline'
 import LikeOutline from '@components/Common/Icons/LikeOutline'
-import ProfilePreview from '@components/Common/UserPreview'
 import { getProfilePicture } from '@lenstube/generic'
 import type { ProfileReactedResult, ReactionNotification } from '@lenstube/lens'
 import Link from 'next/link'
@@ -13,15 +13,15 @@ type Props = {
 
 const Reactions: FC<Props> = ({ notification: { publication, reactions } }) => {
   return (
-    <span className="flex space-x-4">
-      <div className="flex -space-y-2.5 space-x-0.5 pt-3">
+    <span className="flex space-x-5">
+      <div className="flex -space-x-1 -space-y-4 pt-5">
         <DislikeOutline className="h-4 w-4" />
         <LikeOutline className="h-4 w-4" />
       </div>
       <div>
         <span className="flex cursor-pointer -space-x-1.5">
           {reactions?.map(({ profile }: ProfileReactedResult) => (
-            <ProfilePreview profile={profile} key={profile?.id}>
+            <HoverableProfile profile={profile} key={profile?.id}>
               <img
                 title={profile?.handle}
                 className="h-7 w-7 rounded-full border dark:border-gray-700/80"
@@ -29,7 +29,7 @@ const Reactions: FC<Props> = ({ notification: { publication, reactions } }) => {
                 draggable={false}
                 alt={profile?.handle}
               />
-            </ProfilePreview>
+            </HoverableProfile>
           ))}
         </span>
         <div className="py-2">reacted to your publication</div>

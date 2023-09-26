@@ -1,7 +1,4 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
-import FollowOutline from '@components/Common/Icons/FollowOutline'
-import type { ButtonSizes, ButtonVariants } from '@components/UIElements/Button'
-import { Button } from '@components/UIElements/Button'
 import { Analytics, TRACK } from '@lenstube/browser'
 import {
   ERROR_MESSAGE,
@@ -19,28 +16,20 @@ import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { Trans } from '@lingui/macro'
+import { Button } from '@radix-ui/themes'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
-import clsx from 'clsx'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
 type Props = {
-  channel: Profile
+  profile: Profile
   onSubscribe: () => void
-  variant?: ButtonVariants
-  size?: ButtonSizes
-  showText?: boolean
+  size?: '1' | '2' | '3'
 }
 
-const Subscribe: FC<Props> = ({
-  channel,
-  onSubscribe,
-  variant = 'primary',
-  size = 'md',
-  showText = true
-}) => {
+const Follow: FC<Props> = ({ profile, onSubscribe, size = '2' }) => {
   const [loading, setLoading] = useState(false)
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
@@ -61,10 +50,10 @@ const Subscribe: FC<Props> = ({
     }
     onSubscribe()
     setLoading(false)
-    toast.success(`Subscribed to ${channel.handle}`)
+    toast.success(`Followed ${profile.handle}`)
     Analytics.track(TRACK.CHANNEL.SUBSCRIBE, {
-      channel_id: channel.id,
-      channel_name: channel.handle
+      channel_id: profile.id,
+      channel_name: profile.handle
     })
   }
 
@@ -134,7 +123,7 @@ const Subscribe: FC<Props> = ({
           request: {
             follow: [
               {
-                profileId: channel.id
+                profileId: profile.id
               }
             ]
           }
@@ -146,7 +135,7 @@ const Subscribe: FC<Props> = ({
         request: {
           follow: [
             {
-              profileId: channel.id
+              profileId: profile.id
             }
           ]
         }
@@ -156,24 +145,14 @@ const Subscribe: FC<Props> = ({
 
   return (
     <Button
-      variant={variant}
       size={size}
+      disabled={loading}
       onClick={() => subscribe()}
-      loading={loading}
-      icon={
-        <FollowOutline
-          className={clsx({
-            'h-2.5 w-2.5': size === 'sm',
-            'h-3.5 w-3.5': size === 'md',
-            'h-4 w-4': size === 'lg',
-            'h-5 w-5': size === 'xl'
-          })}
-        />
-      }
+      highContrast
     >
-      {showText && <Trans>Subscribe</Trans>}
+      <Trans>Follow</Trans>
     </Button>
   )
 }
 
-export default Subscribe
+export default Follow

@@ -96,7 +96,7 @@ const Header: FC<Props> = ({ className }) => {
                 <IconButton variant="ghost">
                   <BellOutline className="h-5 w-5" />
                   {hasNewNotification && (
-                    <span className="absolute -right-0 -top-0 flex h-1.5 w-1.5 rounded-full bg-red-500" />
+                    <span className="absolute -right-1 -top-1 flex h-1.5 w-1.5 rounded-full bg-red-500" />
                   )}
                 </IconButton>
               </Link>

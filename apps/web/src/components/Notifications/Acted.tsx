@@ -1,5 +1,5 @@
+import HoverableProfile from '@components/Common/HoverableProfile'
 import CollectOutline from '@components/Common/Icons/CollectOutline'
-import ProfilePreview from '@components/Common/UserPreview'
 import { getProfilePicture, getPublication } from '@lenstube/generic'
 import type { ActedNotification, OpenActionProfileActed } from '@lenstube/lens'
 import Link from 'next/link'
@@ -21,7 +21,7 @@ const Acted: FC<Props> = ({ notification: { publication, actions } }) => {
       <div>
         <span className="flex cursor-pointer -space-x-1.5">
           {actions?.map(({ by }: OpenActionProfileActed) => (
-            <ProfilePreview profile={by} key={by?.id}>
+            <HoverableProfile profile={by} key={by?.id}>
               <img
                 title={by?.handle}
                 className="h-7 w-7 rounded-full border dark:border-gray-700/80"
@@ -29,7 +29,7 @@ const Acted: FC<Props> = ({ notification: { publication, actions } }) => {
                 draggable={false}
                 alt={by?.handle}
               />
-            </ProfilePreview>
+            </HoverableProfile>
           ))}
         </span>
         <div className="py-2">acted on your publication</div>

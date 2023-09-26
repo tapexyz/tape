@@ -12,15 +12,15 @@ import React from 'react'
 import { useInView } from 'react-cool-inview'
 
 type Props = {
-  viewingChannelId: string
+  viewing: string
 }
 
-const MutualSubscribersList: FC<Props> = ({ viewingChannelId }) => {
+const MutualSubscribersList: FC<Props> = ({ viewing }) => {
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
   const request: MutualFollowersRequest = {
-    viewing: viewingChannelId,
+    viewing,
     observer: selectedSimpleProfile?.id,
     limit: LimitType.TwentyFive
   }
@@ -29,7 +29,7 @@ const MutualSubscribersList: FC<Props> = ({ viewingChannelId }) => {
     variables: {
       request
     },
-    skip: !viewingChannelId
+    skip: !viewing
   })
 
   const mutualSubscribers = data?.mutualFollowers?.items as Profile[]

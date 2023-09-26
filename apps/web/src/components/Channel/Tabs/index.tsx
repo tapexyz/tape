@@ -24,10 +24,10 @@ import OtherChannels from './OtherChannels'
 import Others from './Others'
 
 type Props = {
-  channel: Profile
+  profile: Profile
 }
 
-const Tabs: FC<Props> = ({ channel }) => {
+const Tabs: FC<Props> = ({ profile }) => {
   const router = useRouter()
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
@@ -53,7 +53,7 @@ const Tabs: FC<Props> = ({ channel }) => {
   const handleTabChange = (tab: string) => {
     if (tab) {
       const nextUrl = `${location.origin}/channel/${trimLensHandle(
-        channel.handle
+        profile.handle
       )}?tab=${tab}`
       history.replaceState({ path: nextUrl }, '', nextUrl)
     }
@@ -183,27 +183,27 @@ const Tabs: FC<Props> = ({ channel }) => {
       </Tab.List>
       <Tab.Panels className="py-4 md:py-5">
         <Tab.Panel className="focus:outline-none">
-          <ChannelVideos channel={channel} />
+          <ChannelVideos profile={profile} />
         </Tab.Panel>
         <Tab.Panel className="focus:outline-none">
-          <ChannelBytes channel={channel} />
+          <ChannelBytes profileId={profile.id} />
         </Tab.Panel>
         <Tab.Panel className="focus:outline-none">
-          <MirroredVideos channel={channel} />
+          <MirroredVideos profileId={profile.id} />
         </Tab.Panel>
         {getIsFeatureEnabled(
           FEATURE_FLAGS.PROFILE_NFTS,
           selectedSimpleProfile?.id
         ) && (
           <Tab.Panel className="focus:outline-none">
-            <CollectedNFTs channel={channel} />
+            <CollectedNFTs profile={profile} />
           </Tab.Panel>
         )}
         <Tab.Panel className="focus:outline-none">
-          <OtherChannels channel={channel} />
+          <OtherChannels profile={profile} />
         </Tab.Panel>
         <Tab.Panel className="focus:outline-none">
-          <Others channel={channel} />
+          <Others profile={profile} />
         </Tab.Panel>
       </Tab.Panels>
     </Tab.Group>

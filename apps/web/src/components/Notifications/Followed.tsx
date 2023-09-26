@@ -1,5 +1,5 @@
+import HoverableProfile from '@components/Common/HoverableProfile'
 import FollowOutline from '@components/Common/Icons/FollowOutline'
-import ProfilePreview from '@components/Common/UserPreview'
 import { getProfilePicture } from '@lenstube/generic'
 import type { FollowNotification, Profile } from '@lenstube/lens'
 import type { FC } from 'react'
@@ -18,7 +18,7 @@ const Followed: FC<Props> = ({ notification: { followers } }) => {
       <div>
         <span className="flex cursor-pointer -space-x-1.5">
           {followers?.map((profile: Profile) => (
-            <ProfilePreview profile={profile} key={profile?.id}>
+            <HoverableProfile profile={profile} key={profile?.id}>
               <img
                 title={profile?.handle}
                 className="h-7 w-7 rounded-full border dark:border-gray-700/80"
@@ -26,7 +26,7 @@ const Followed: FC<Props> = ({ notification: { followers } }) => {
                 draggable={false}
                 alt={profile?.handle}
               />
-            </ProfilePreview>
+            </HoverableProfile>
           ))}
         </span>
         <div className="py-2">followed you</div>

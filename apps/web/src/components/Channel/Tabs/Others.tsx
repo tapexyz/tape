@@ -11,11 +11,11 @@ import type { FC } from 'react'
 import React from 'react'
 
 type Props = {
-  channel: Profile
+  profile: Profile
 }
 
-const Others: FC<Props> = ({ channel }) => {
-  const attributes = channel.metadata?.attributes as Attribute[]
+const Others: FC<Props> = ({ profile }) => {
+  const attributes = profile.metadata?.attributes as Attribute[]
 
   return (
     <div className="space-y-1.5 p-4">
@@ -29,28 +29,28 @@ const Others: FC<Props> = ({ channel }) => {
       <div className="flex items-center space-x-1.5">
         <HashtagOutline className="h-4 w-4" />
         <Tooltip
-          content={`Profile Id - ${parseInt(channel.id)}`}
+          content={`Profile Id - ${parseInt(profile.id)}`}
           placement="right"
         >
-          <span>{channel.id}</span>
+          <span>{profile.id}</span>
         </Tooltip>
       </div>
       <div className="flex items-center space-x-1.5">
         <WalletOutline className="h-4 w-4" />
-        <AddressExplorerLink address={channel.ownedBy.address}>
-          <span>{shortenAddress(channel.ownedBy.address)}</span>
+        <AddressExplorerLink address={profile.ownedBy.address}>
+          <span>{shortenAddress(profile.ownedBy.address)}</span>
         </AddressExplorerLink>
       </div>
-      {channel.invitedBy && (
+      {profile.invitedBy && (
         <div className="flex items-center space-x-1.5">
           <UserOutline className="h-4 w-4" />
           <span>
             Invited by{' '}
             <Link
               className="hover:text-indigo-500"
-              href={`/channel/${channel.invitedBy.handle}`}
+              href={`/channel/${profile.invitedBy.handle}`}
             >
-              @{channel.invitedBy.handle}
+              @{profile.invitedBy.handle}
             </Link>
           </span>
         </div>

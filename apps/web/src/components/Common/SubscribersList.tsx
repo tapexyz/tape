@@ -17,18 +17,18 @@ import Badge from './Badge'
 import UserOutline from './Icons/UserOutline'
 
 type Props = {
-  channel: Profile
+  profileId: string
 }
 
-const SubscribersList: FC<Props> = ({ channel }) => {
+const SubscribersList: FC<Props> = ({ profileId }) => {
   const request: FollowersRequest = {
-    of: channel.id,
+    of: profileId,
     limit: LimitType.Fifty
   }
 
   const { data, loading, fetchMore } = useFollowersQuery({
     variables: { request },
-    skip: !channel?.id
+    skip: !profileId
   })
 
   const subscribers = data?.followers?.items as Profile[]

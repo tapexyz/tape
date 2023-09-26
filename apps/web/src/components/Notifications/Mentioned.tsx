@@ -1,5 +1,5 @@
+import HoverableProfile from '@components/Common/HoverableProfile'
 import MentionOutline from '@components/Common/Icons/MentionOutline'
-import ProfilePreview from '@components/Common/UserPreview'
 import { getProfilePicture } from '@lenstube/generic'
 import type { MentionNotification } from '@lenstube/lens'
 import Link from 'next/link'
@@ -18,7 +18,7 @@ const Mentioned: FC<Props> = ({ notification: { publication } }) => {
       </div>
       <div>
         <span className="flex cursor-pointer -space-x-1.5">
-          <ProfilePreview profile={publication.by} key={publication.by?.id}>
+          <HoverableProfile profile={publication.by} key={publication.by?.id}>
             <img
               title={publication.by?.handle}
               className="h-7 w-7 rounded-full border dark:border-gray-700/80"
@@ -26,7 +26,7 @@ const Mentioned: FC<Props> = ({ notification: { publication } }) => {
               draggable={false}
               alt={publication.by?.handle}
             />
-          </ProfilePreview>
+          </HoverableProfile>
         </span>
         <div className="py-2">mentioned you</div>
         <Link

@@ -36,15 +36,15 @@ const Channel = () => {
     return <Custom404 />
   }
 
-  const channel = data?.profile as Profile
+  const profile = data?.profile as Profile
 
   return (
     <>
-      <MetaTags title={channel?.handle} />
-      {!loading && !error && channel ? (
+      <MetaTags title={profile?.handle} />
+      {!loading && !error && profile ? (
         <>
-          <BasicInfo channel={channel} />
-          <Tabs channel={channel} />
+          <BasicInfo profile={profile} />
+          <Tabs profile={profile} />
         </>
       ) : null}
     </>

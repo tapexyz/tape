@@ -12,12 +12,12 @@ import React, { useState } from 'react'
 
 import MutualSubscribersList from './MutualSubscribersList'
 type Props = {
-  viewingChannelId: string
+  viewing: string
 }
 
 const FETCH_COUNT = 5
 
-const MutualSubscribers: FC<Props> = ({ viewingChannelId }) => {
+const MutualSubscribers: FC<Props> = ({ viewing }) => {
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
@@ -28,11 +28,11 @@ const MutualSubscribers: FC<Props> = ({ viewingChannelId }) => {
     variables: {
       request: {
         observer: selectedSimpleProfile?.id,
-        viewing: viewingChannelId,
+        viewing,
         limit: LimitType.Ten
       }
     },
-    skip: !viewingChannelId || !selectedSimpleProfile?.id
+    skip: !viewing || !selectedSimpleProfile?.id
   })
 
   const onClickMutuals = () => {
@@ -86,7 +86,7 @@ const MutualSubscribers: FC<Props> = ({ viewingChannelId }) => {
         panelClassName="max-w-md"
       >
         <div className="no-scrollbar max-h-[40vh] overflow-y-auto">
-          <MutualSubscribersList viewingChannelId={viewingChannelId} />
+          <MutualSubscribersList viewing={viewing} />
         </div>
       </Modal>
     </div>

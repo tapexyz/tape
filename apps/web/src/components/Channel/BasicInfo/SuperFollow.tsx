@@ -1,7 +1,4 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
-import SuperFollowOutline from '@components/Common/Icons/SuperFollowOutline'
-import type { ButtonSizes, ButtonVariants } from '@components/UIElements/Button'
-import { Button } from '@components/UIElements/Button'
 import Tooltip from '@components/UIElements/Tooltip'
 import { Analytics, TRACK } from '@lenstube/browser'
 import {
@@ -22,28 +19,21 @@ import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
+import { Button } from '@radix-ui/themes'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
-import clsx from 'clsx'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
 type Props = {
-  channel: Profile
+  profile: Profile
   onJoin: () => void
-  variant?: ButtonVariants
-  size?: ButtonSizes
+  size?: '1' | '2' | '3'
   showText?: boolean
 }
 
-const JoinChannel: FC<Props> = ({
-  channel,
-  onJoin,
-  variant = 'primary',
-  size = 'md',
-  showText = true
-}) => {
+const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
   const [loading, setLoading] = useState(false)
   const [isAllowed, setIsAllowed] = useState(false)
   const { openConnectModal } = useConnectModal()
@@ -64,11 +54,11 @@ const JoinChannel: FC<Props> = ({
       return
     }
     onJoin()
-    toast.success(`Joined ${channel.handle}`)
+    toast.success(`Joined ${profile.handle}`)
     setLoading(false)
     Analytics.track(TRACK.CHANNEL.JOIN, {
-      channel_id: channel.id,
-      channel_name: channel.handle
+      channel_id: profile.id,
+      channel_name: profile.handle
     })
   }
 
@@ -91,8 +81,8 @@ const JoinChannel: FC<Props> = ({
   })
 
   const { data: followModuleData } = useProfileFollowModuleQuery({
-    variables: { request: { forProfileId: channel?.id } },
-    skip: !channel?.id
+    variables: { request: { forProfileId: profile?.id } },
+    skip: !profile?.id
   })
 
   const followModule = followModuleData?.profile
@@ -164,7 +154,7 @@ const JoinChannel: FC<Props> = ({
         request: {
           follow: [
             {
-              profileId: channel?.id,
+              profileId: profile?.id,
               followModule: {
                 feeFollowModule: true
               }
@@ -184,33 +174,18 @@ const JoinChannel: FC<Props> = ({
       </b>
     </span>
   ) : (
-    t`Join Channel`
+    t`Super Follow`
   )
 
   return (
     <Tooltip content={joinTooltipText} placement="top">
       <span>
-        <Button
-          variant={variant}
-          size={size}
-          onClick={() => joinChannel()}
-          loading={loading}
-          icon={
-            <SuperFollowOutline
-              className={clsx({
-                'h-2.5 w-2.5': size === 'sm',
-                'h-3.5 w-3.5': size === 'md',
-                'h-4 w-4': size === 'lg',
-                'h-5 w-5': size === 'xl'
-              })}
-            />
-          }
-        >
-          {showText && <Trans>Join Channel</Trans>}
+        <Button size={size} onClick={() => joinChannel()} disabled={loading}>
+          <Trans>Super Follow</Trans>
         </Button>
       </span>
     </Tooltip>
   )
 }
 
-export default JoinChannel
+export default SuperFollow

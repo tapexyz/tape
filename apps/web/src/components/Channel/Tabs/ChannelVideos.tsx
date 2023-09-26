@@ -31,13 +31,13 @@ import { useInView } from 'react-cool-inview'
 import PinnedVideo from './PinnedVideo'
 
 type Props = {
-  channel: Profile
+  profile: Profile
 }
 
-const ChannelVideos: FC<Props> = ({ channel }) => {
+const ChannelVideos: FC<Props> = ({ profile }) => {
   const queuedVideos = usePersistStore((state) => state.queuedVideos)
   const pinnedVideoId = getValueFromKeyInAttributes(
-    channel?.metadata?.attributes,
+    profile?.metadata?.attributes,
     'pinnedPublicationId'
   )
 
@@ -51,7 +51,7 @@ const ChannelVideos: FC<Props> = ({ channel }) => {
       },
       publicationTypes: [PublicationType.Post],
       customFilters: LENS_CUSTOM_FILTERS,
-      from: channel.id
+      from: profile.id
     },
     limit: LimitType.TwentyFive
   }
@@ -60,7 +60,7 @@ const ChannelVideos: FC<Props> = ({ channel }) => {
     variables: {
       request
     },
-    skip: !channel?.id
+    skip: !profile?.id
   })
 
   const channelVideos = data?.publications?.items as AnyPublication[]

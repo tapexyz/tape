@@ -9,15 +9,15 @@ import React from 'react'
 import OtherChannelCard from './OtherChannelCard'
 
 type Props = {
-  channel: Profile
+  profile: Profile
 }
 
-const OtherChannels: FC<Props> = ({ channel }) => {
+const OtherChannels: FC<Props> = ({ profile }) => {
   const { data, loading } = useProfilesQuery({
     variables: {
-      request: { where: { ownedBy: [channel?.ownedBy] } }
+      request: { where: { ownedBy: [profile?.ownedBy] } }
     },
-    skip: !channel?.ownedBy
+    skip: !profile?.ownedBy
   })
   const allChannels = data?.profiles?.items as Profile[]
 
@@ -33,8 +33,8 @@ const OtherChannels: FC<Props> = ({ channel }) => {
     <div className="flex flex-wrap justify-center gap-3 md:justify-start">
       {allChannels?.map(
         (chnl) =>
-          chnl.id !== channel.id && (
-            <OtherChannelCard channel={chnl} key={chnl.id} />
+          chnl.id !== profile.id && (
+            <OtherChannelCard profile={profile} key={chnl.id} />
           )
       )}
     </div>

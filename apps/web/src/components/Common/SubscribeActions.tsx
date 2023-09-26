@@ -1,27 +1,22 @@
-import JoinChannel from '@components/Channel/BasicInfo/JoinChannel'
-import Subscribe from '@components/Channel/BasicInfo/Subscribe'
-import UnSubscribe from '@components/Channel/BasicInfo/UnSubscribe'
-import type { ButtonSizes, ButtonVariants } from '@components/UIElements/Button'
+import Follow from '@components/Channel/BasicInfo/Follow'
+import SuperFollow from '@components/Channel/BasicInfo/SuperFollow'
+import UnFollow from '@components/Channel/BasicInfo/UnFollow'
 import type { Profile } from '@lenstube/lens'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 
 type Props = {
-  channel: Profile
+  size?: '1' | '2' | '3'
+  profile: Profile
   subscribeType: string | undefined
-  variant?: ButtonVariants
-  size?: ButtonSizes
-  showText?: boolean
 }
 
 const SubscribeActions: FC<Props> = ({
-  channel,
-  subscribeType,
-  variant,
-  size,
-  showText
+  profile,
+  size = '2',
+  subscribeType
 }) => {
-  const isSubscriber = channel?.operations.isFollowedByMe.value
+  const isSubscriber = profile?.operations.isFollowedByMe.value
   const [subscriber, setSubscriber] = useState(isSubscriber)
 
   useEffect(() => {
@@ -29,27 +24,21 @@ const SubscribeActions: FC<Props> = ({
   }, [isSubscriber])
 
   return subscriber ? (
-    <UnSubscribe
-      variant={variant}
-      showText={showText}
+    <UnFollow
       size={size}
-      channel={channel}
+      profile={profile}
       onUnSubscribe={() => setSubscriber(false)}
     />
   ) : subscribeType === 'FeeFollowModuleSettings' ? (
-    <JoinChannel
-      variant={variant}
-      showText={showText}
+    <SuperFollow
       size={size}
-      channel={channel}
+      profile={profile}
       onJoin={() => setSubscriber(true)}
     />
   ) : (
-    <Subscribe
-      variant={variant}
-      showText={showText}
+    <Follow
       size={size}
-      channel={channel}
+      profile={profile}
       onSubscribe={() => setSubscriber(true)}
     />
   )

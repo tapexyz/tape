@@ -2,11 +2,7 @@ import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { LENS_CUSTOM_FILTERS, SCROLL_ROOT_MARGIN } from '@lenstube/constants'
-import type {
-  AnyPublication,
-  Profile,
-  PublicationsRequest
-} from '@lenstube/lens'
+import type { AnyPublication, PublicationsRequest } from '@lenstube/lens'
 import {
   LimitType,
   PublicationMetadataMainFocusType,
@@ -20,16 +16,16 @@ import React from 'react'
 import { useInView } from 'react-cool-inview'
 
 type Props = {
-  channel: Profile
+  profileId: string
 }
 
-const MirroredVideos: FC<Props> = ({ channel }) => {
+const MirroredVideos: FC<Props> = ({ profileId }) => {
   const request: PublicationsRequest = {
     where: {
       metadata: { mainContentFocus: [PublicationMetadataMainFocusType.Video] },
       publicationTypes: [PublicationType.Mirror],
       customFilters: LENS_CUSTOM_FILTERS,
-      from: channel.id
+      from: [profileId]
     },
     limit: LimitType.TwentyFive
   }
@@ -40,7 +36,7 @@ const MirroredVideos: FC<Props> = ({ channel }) => {
         ...request
       }
     },
-    skip: !channel?.id
+    skip: !profileId
   })
 
   const mirroredVideos = data?.publications?.items as AnyPublication[]
@@ -53,7 +49,7 @@ const MirroredVideos: FC<Props> = ({ channel }) => {
         variables: {
           request: {
             ...request,
-            profileId: channel?.id,
+            profileId,
             cursor: pageInfo?.next
           }
         }

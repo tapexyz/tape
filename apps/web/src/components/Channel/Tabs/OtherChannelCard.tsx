@@ -10,36 +10,36 @@ import { Trans } from '@lingui/macro'
 import Link from 'next/link'
 import React from 'react'
 
-const OtherChannelCard = ({ channel }: { channel: Profile }) => {
-  const subscribeType = channel?.followModule?.__typename
+const OtherChannelCard = ({ profile }: { profile: Profile }) => {
+  const subscribeType = profile?.followModule?.__typename
 
   return (
     <div className="flex w-44 flex-col items-center justify-center rounded-xl border border-gray-200 py-3 dark:border-gray-800">
-      <Link href={`/channel/${channel.handle}`}>
+      <Link href={`/channel/${profile.handle}`}>
         <img
           className="h-24 w-24 rounded-full object-cover"
-          src={getProfilePicture(channel, 'AVATAR_LG')}
-          alt={channel?.handle}
+          src={getProfilePicture(profile, 'AVATAR_LG')}
+          alt={profile?.handle}
           draggable={false}
         />
       </Link>
       <div className="w-full px-1.5 py-2">
         <div className="flex-1 text-center">
           <Link
-            href={`/channel/${trimLensHandle(channel.handle)}`}
+            href={`/channel/${trimLensHandle(profile.handle)}`}
             className="block truncate font-medium"
           >
             <div className="flex items-center justify-center space-x-1">
-              <span>{trimLensHandle(channel.handle)}</span>
-              <Badge id={channel?.id} />
+              <span>{trimLensHandle(profile.handle)}</span>
+              <Badge id={profile?.id} />
             </div>
           </Link>
         </div>
         <div className="text-center text-xs opacity-70">
-          {formatNumber(channel.stats.followers)} <Trans>subscribers</Trans>
+          {formatNumber(profile.stats.followers)} <Trans>subscribers</Trans>
         </div>
       </div>
-      <SubscribeActions channel={channel} subscribeType={subscribeType} />
+      <SubscribeActions profile={profile} subscribeType={subscribeType} />
     </div>
   )
 }

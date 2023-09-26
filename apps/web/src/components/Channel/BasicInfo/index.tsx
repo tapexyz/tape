@@ -23,28 +23,27 @@ import MutualSubscribers from '../Mutual/MutualSubscribers'
 import CoverLinks from './CoverLinks'
 
 type Props = {
-  channel: Profile
+  profile: Profile
 }
 
-const BasicInfo: FC<Props> = ({ channel }) => {
-  console.log('🚀 ~ file: index.tsx:30 ~ channel:', channel)
+const BasicInfo: FC<Props> = ({ profile }) => {
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
   const [showSubscribersModal, setShowSubscribersModal] = useState(false)
   const hasOnChainId =
-    channel.onchainIdentity?.ens?.name ||
-    channel.onchainIdentity?.proofOfHumanity ||
-    channel.onchainIdentity?.worldcoin.isHuman ||
-    channel.onchainIdentity?.sybilDotOrg.verified
+    profile.onchainIdentity?.ens?.name ||
+    profile.onchainIdentity?.proofOfHumanity ||
+    profile.onchainIdentity?.worldcoin.isHuman ||
+    profile.onchainIdentity?.sybilDotOrg.verified
 
-  const isOwnChannel = channel?.id === selectedSimpleProfile?.id
-  const subscribeType = channel?.followModule?.__typename
+  const isOwnChannel = profile?.id === selectedSimpleProfile?.id
+  const subscribeType = profile?.followModule?.__typename
   const coverImage = imageCdn(
-    sanitizeDStorageUrl(getChannelCoverPicture(channel))
+    sanitizeDStorageUrl(getChannelCoverPicture(profile))
   )
 
-  const misused = MISUSED_CHANNELS.find((c) => c.id === channel?.id)
+  const misused = MISUSED_CHANNELS.find((c) => c.id === profile?.id)
 
   return (
     <>
@@ -54,7 +53,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
         }}
         className="ultrawide:h-[25vh] relative h-44 w-full bg-white bg-cover bg-center bg-no-repeat dark:bg-gray-900 md:h-[20vw]"
       >
-        <CoverLinks channel={channel} />
+        {profile.metadata && <CoverLinks metadata={profile.metadata} />}
       </div>
       <div className="container mx-auto max-w-[85rem] px-2">
         {misused?.description && (
@@ -75,24 +74,24 @@ const BasicInfo: FC<Props> = ({ channel }) => {
           <div className="flex-none">
             <img
               className="ultrawide:h-32 ultrawide:w-32 h-24 w-24 rounded-xl bg-white object-cover dark:bg-gray-900"
-              src={getProfilePicture(channel, 'AVATAR_LG')}
+              src={getProfilePicture(profile, 'AVATAR_LG')}
               draggable={false}
-              alt={channel?.handle}
+              alt={profile?.handle}
             />
           </div>
           <div className="flex flex-1 flex-wrap items-center justify-between space-y-3 py-2">
             <div className="mr-3 flex flex-col items-start">
-              {channel.metadata?.displayName && (
+              {profile.metadata?.displayName && (
                 <h1 className="flex items-center space-x-1.5 font-medium md:text-2xl">
-                  {channel.metadata.displayName}
+                  {profile.metadata.displayName}
                 </h1>
               )}
               <h2
                 className="flex items-center space-x-1.5 md:text-lg"
                 data-testid="channel-name"
               >
-                <span>{channel?.handle}</span>
-                <Badge id={channel?.id} size="md" />
+                <span>{profile?.handle}</span>
+                <Badge id={profile?.id} size="md" />
               </h2>
               <Modal
                 title={t`Subscribers`}
@@ -101,7 +100,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
                 panelClassName="max-w-md"
               >
                 <div className="no-scrollbar max-h-[40vh] overflow-y-auto">
-                  <SubscribersList channel={channel} />
+                  <SubscribersList profileId={profile.id} />
                 </div>
               </Modal>
               <div className="flex items-center space-x-2">
@@ -111,11 +110,11 @@ const BasicInfo: FC<Props> = ({ channel }) => {
                   className="outline-none"
                 >
                   <span className="inline-flex items-center space-x-1 whitespace-nowrap">
-                    {channel?.stats.followers} <Trans>subscribers</Trans>
+                    {profile?.stats.followers} <Trans>subscribers</Trans>
                   </span>
                 </button>
-                {channel.operations.isFollowingMe.value &&
-                selectedSimpleProfile?.id !== channel?.id ? (
+                {profile.operations.isFollowingMe.value &&
+                selectedSimpleProfile?.id !== profile?.id ? (
                   <span className="rounded-full border border-gray-400 px-2 text-xs dark:border-gray-600">
                     <Trans>Subscriber</Trans>
                   </span>
@@ -123,26 +122,26 @@ const BasicInfo: FC<Props> = ({ channel }) => {
               </div>
             </div>
             <div className="flex items-center gap-3 md:flex-col md:items-end">
-              {channel?.id && !isOwnChannel ? (
-                <MutualSubscribers viewingChannelId={channel.id} />
+              {profile?.id && !isOwnChannel ? (
+                <MutualSubscribers viewing={profile.id} />
               ) : null}
               <SubscribeActions
-                channel={channel}
+                profile={profile}
                 subscribeType={subscribeType}
               />
             </div>
           </div>
         </div>
-        {channel.metadata?.bio && (
+        {profile.metadata?.bio && (
           <div className="py-2">
-            <InterweaveContent content={channel.metadata?.bio} />
+            <InterweaveContent content={profile.metadata?.bio} />
           </div>
         )}
         {hasOnChainId && (
           <div className="flex items-center space-x-2 py-2">
-            {channel.onchainIdentity?.ens?.name && (
+            {profile.onchainIdentity?.ens?.name && (
               <Tooltip
-                content={channel.onchainIdentity?.ens?.name}
+                content={profile.onchainIdentity?.ens?.name}
                 placement="top"
               >
                 <img
@@ -153,7 +152,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
                 />
               </Tooltip>
             )}
-            {channel?.onchainIdentity?.sybilDotOrg.verified && (
+            {profile?.onchainIdentity?.sybilDotOrg.verified && (
               <Tooltip content={t`Sybil Verified`} placement="top">
                 <img
                   src={`${STATIC_ASSETS}/images/social/sybil.png`}
@@ -163,7 +162,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
                 />
               </Tooltip>
             )}
-            {channel?.onchainIdentity?.proofOfHumanity && (
+            {profile?.onchainIdentity?.proofOfHumanity && (
               <Tooltip content={t`Proof of Humanity`} placement="top">
                 <img
                   src={`${STATIC_ASSETS}/images/social/poh.png`}
@@ -173,7 +172,7 @@ const BasicInfo: FC<Props> = ({ channel }) => {
                 />
               </Tooltip>
             )}
-            {channel?.onchainIdentity?.worldcoin.isHuman && (
+            {profile?.onchainIdentity?.worldcoin.isHuman && (
               <Tooltip content={t`Proof of Personhood`} placement="top">
                 <img
                   src={`${STATIC_ASSETS}/images/social/worldcoin.png`}
