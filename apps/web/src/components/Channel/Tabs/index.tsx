@@ -1,7 +1,6 @@
 import BytesOutline from '@components/Common/Icons/BytesOutline'
 import ChannelOutline from '@components/Common/Icons/ChannelOutline'
 import CollectOutline from '@components/Common/Icons/CollectOutline'
-import InfoOutline from '@components/Common/Icons/InfoOutline'
 import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import { Tab } from '@headlessui/react'
 import { Analytics, TRACK } from '@lenstube/browser'
@@ -20,8 +19,7 @@ import ChannelBytes from './ChannelBytes'
 import ChannelVideos from './ChannelVideos'
 import CollectedNFTs from './CollectedNFTs'
 import MirroredVideos from './MirroredVideos'
-import OtherChannels from './OtherChannels'
-import Others from './Others'
+import OtherProfiles from './OtherProfiles'
 
 type Props = {
   profile: Profile
@@ -39,12 +37,10 @@ const Tabs: FC<Props> = ({ profile }) => {
         return 1
       case 'mirrored':
         return 2
-      case 'nfts':
-        return 3
       case 'channels':
-        return 4
+        return 3
       case 'others':
-        return 5
+        return 4
       default:
         return 0
     }
@@ -62,7 +58,7 @@ const Tabs: FC<Props> = ({ profile }) => {
   return (
     <Tab.Group
       as="div"
-      className="container mx-auto mt-4 w-full max-w-[85rem] p-2 md:mt-5 2xl:px-0"
+      className="container mx-auto mt-4 w-full max-w-[70rem] p-2 md:mt-5 2xl:px-0"
       defaultIndex={getDefaultTab()}
     >
       <Tab.List className="no-scrollbar flex space-x-2 overflow-x-auto">
@@ -164,22 +160,6 @@ const Tabs: FC<Props> = ({ profile }) => {
             <Trans>Channels</Trans>
           </span>
         </Tab>
-        <Tab
-          onClick={() => {
-            handleTabChange('about')
-            Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_ABOUT)
-          }}
-          className={({ selected }) =>
-            clsx(
-              'rounded-full border border-gray-200 p-2 text-xs font-medium uppercase transition duration-300 ease-in-out focus:outline-none dark:border-gray-800',
-              selected
-                ? 'bg-gray-200 dark:bg-gray-700'
-                : 'hover:bg-gray-200 hover:dark:bg-gray-800'
-            )
-          }
-        >
-          <InfoOutline className="h-4 w-4" />
-        </Tab>
       </Tab.List>
       <Tab.Panels className="py-4 md:py-5">
         <Tab.Panel className="focus:outline-none">
@@ -200,10 +180,7 @@ const Tabs: FC<Props> = ({ profile }) => {
           </Tab.Panel>
         )}
         <Tab.Panel className="focus:outline-none">
-          <OtherChannels profile={profile} />
-        </Tab.Panel>
-        <Tab.Panel className="focus:outline-none">
-          <Others profile={profile} />
+          <OtherProfiles profile={profile} />
         </Tab.Panel>
       </Tab.Panels>
     </Tab.Group>

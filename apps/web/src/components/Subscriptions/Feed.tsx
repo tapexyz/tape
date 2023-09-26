@@ -81,7 +81,7 @@ const Subscriptions = () => {
       {loading && <TimelineShimmer />}
       {!error && !loading && (
         <>
-          <div className="laptop:grid-cols-4 grid-col-1 grid gap-x-4 gap-y-2 md:grid-cols-2 md:gap-y-8 2xl:grid-cols-5">
+          <div className="laptop:grid-cols-4 grid-col-1 grid gap-x-4 gap-y-2 md:grid-cols-2 md:gap-y-8">
             {feedItems?.map((feedItem: FeedItem) => {
               const video = feedItem.root
               return (

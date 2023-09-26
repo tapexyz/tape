@@ -132,7 +132,7 @@ const UnFollow: FC<Props> = ({ profile, onUnSubscribe, size = '2' }) => {
       highContrast
       disabled={loading}
     >
-      <Trans>Subscribed</Trans>
+      <Trans>Unfollow</Trans>
     </Button>
   )
 }

@@ -42,7 +42,7 @@ msgstr "Añadir destinatario"
 msgid "Algorithm Manipulation"
 msgstr "Manipulación del algoritmo"
 
-#: src/components/Common/CategoryFilters.tsx:83
+#: src/components/Common/CategoryFilters.tsx:84
 msgid "All"
 msgstr "Todos"
 
@@ -54,6 +54,7 @@ msgstr "Todas las notificaciones"
 #~ msgid "All services are online"
 #~ msgstr "Todos los servicios están en línea"
 
+#: src/components/Channel/BasicInfo/SuperFollow.tsx:259
 #: src/components/Settings/Permissions/Modules/index.tsx:157
 #: src/components/Settings/Permissions/Modules/index.tsx:169
 msgid "Allow"
@@ -94,7 +95,7 @@ msgstr "Cualquier persona"
 msgid "Anyone can comment and mirror"
 msgstr "Cualquiera puede comentar y espejar"
 
-#: src/components/Common/UserMenu.tsx:122
+#: src/components/Common/UserMenu.tsx:120
 msgid "App Info"
 msgstr "Información de aplicación"
 
@@ -110,9 +111,9 @@ msgstr "Información básica"
 msgid "Be the first to comment"
 msgstr "Sé el primero en comentar"
 
-#: src/components/Channel/Tabs/index.tsx:104
+#: src/components/Channel/Tabs/index.tsx:102
 #: src/components/Common/MobileBottomNav.tsx:42
-#: src/components/Common/Sidebar.tsx:72
+#: src/components/Common/Sidebar.tsx:70
 #: src/components/Home/BytesSection.tsx:81
 msgid "Bytes"
 msgstr "Bytes"
@@ -125,7 +126,6 @@ msgstr "puede recoger"
 msgid "can collect this publication"
 msgstr "puede recoger esta publicación"
 
-#: src/components/Common/CreateChannel.tsx:167
 #: src/components/Settings/Membership.tsx:286
 #: src/components/UIElements/Confirm.tsx:31
 msgid "Cancel"
@@ -163,16 +163,15 @@ msgstr "Ajustes del canal"
 msgid "Channel URL"
 msgstr "URL del canal"
 
-#: src/components/Channel/Tabs/index.tsx:164
-#: src/components/Common/Search/GlobalSearchBar.tsx:116
+#: src/components/Channel/Tabs/index.tsx:162
 msgid "Channels"
 msgstr "Canales"
 
 #: src/components/Common/CreateChannel.tsx:127
-msgid "Claim Handle"
-msgstr "Reclamar Manejo"
+#~ msgid "Claim Handle"
+#~ msgstr "Reclamar Manejo"
 
-#: src/components/Bytes/ByteActions.tsx:73
+#: src/components/Bytes/ByteActions.tsx:72
 #: src/components/Bytes/ByteVideo.tsx:163
 msgid "Collect"
 msgstr "Recoger"
@@ -279,7 +278,7 @@ msgstr "Confirmar"
 msgid "Confirmation"
 msgstr "Confirmación"
 
-#: src/components/Common/Auth/ConnectWalletButton.tsx:69
+#: src/components/Common/Auth/ConnectWalletButton.tsx:70
 msgid "Connect"
 msgstr "Conectar"
 
@@ -301,20 +300,20 @@ msgstr "Copiado al portapapeles"
 
 #: src/components/Common/CreateChannel.tsx:56
 #: src/components/Common/CreateChannel.tsx:82
-msgid "Create"
-msgstr "Crear"
+#~ msgid "Create"
+#~ msgstr "Crear"
 
 #: src/components/Common/CreateChannel.tsx:127
-msgid "Create Channel"
-msgstr "Crear canal"
+#~ msgid "Create Channel"
+#~ msgstr "Crear canal"
 
 #: src/components/Common/UserMenu.tsx:206
-msgid "Create Profile"
-msgstr ""
+#~ msgid "Create Profile"
+#~ msgstr ""
 
 #: src/components/Common/CreateChannel.tsx:113
-msgid "Creating..."
-msgstr "Creando..."
+#~ msgid "Creating..."
+#~ msgstr "Creando..."
 
 #: src/components/Settings/Membership.tsx:239
 msgid "Currency"
@@ -328,7 +327,7 @@ msgstr "Zona de peligro"
 msgid "degrees away from my network"
 msgstr "grados lejos de mi red"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:334
+#: src/components/Common/VideoCard/VideoOptions.tsx:325
 #: src/components/Watch/Comments/CommentOptions.tsx:71
 msgid "Delete"
 msgstr "Eliminar"
@@ -372,7 +371,7 @@ msgstr "Dislike"
 #~ msgid "dislisked"
 #~ msgstr "desamparado"
 
-#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:150
+#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:151
 msgid "dispatcher"
 msgstr "despachador"
 
@@ -427,7 +426,7 @@ msgid "Estimated Cost to Upload"
 msgstr "Costo estimado para subir"
 
 #: src/components/Common/MobileBottomNav.tsx:62
-#: src/components/Common/Sidebar.tsx:85
+#: src/components/Common/Sidebar.tsx:83
 #: src/components/Explore/index.tsx:15
 msgid "Explore"
 msgstr "Explorar"
@@ -436,7 +435,7 @@ msgstr "Explorar"
 msgid "Failed to deposit storage balance"
 msgstr "Error al depositar el saldo"
 
-#: src/components/Upload/ChooseThumbnail.tsx:42
+#: src/components/Upload/ChooseThumbnail.tsx:43
 msgid "Failed to upload thumbnail"
 msgstr "Error al subir la miniatura"
 
@@ -449,13 +448,21 @@ msgid "Fake Engagement"
 msgstr "Compromiso falso"
 
 #: src/components/Common/MobileBottomNav.tsx:74
-#: src/components/Common/Sidebar.tsx:59
+#: src/components/Common/Sidebar.tsx:57
 msgid "Feed"
 msgstr "Alimentación"
 
 #: src/components/Common/Footer.tsx:23
 msgid "Feedback"
 msgstr "Comentarios"
+
+#: src/components/Channel/BasicInfo/Follow.tsx:158
+msgid "Follow"
+msgstr ""
+
+#: src/components/Channel/Tabs/OtherProfiles.tsx:69
+msgid "followers"
+msgstr ""
 
 #: src/components/Upload/CollectModule/index.tsx:53
 msgid "for free"
@@ -485,13 +492,12 @@ msgstr "Crecer con lente"
 msgid "Hide more comments"
 msgstr "Ocultar más comentarios"
 
-#: src/components/Notifications/Filter.tsx:39
+#: src/components/Notifications/Filter.tsx:40
 msgid "High signal"
 msgstr "Señal alta"
 
 #: src/components/Common/MobileBottomNav.tsx:30
-#: src/components/Common/Sidebar.tsx:46
-#: src/components/Home/index.tsx:17
+#: src/components/Common/Sidebar.tsx:44
 msgid "Home"
 msgstr "Inicio"
 
@@ -512,8 +518,8 @@ msgid "Indexing, please wait..."
 msgstr "Indexando, por favor espere..."
 
 #: src/components/Common/CreateChannel.tsx:76
-msgid "Indexing..."
-msgstr "Indexando..."
+#~ msgid "Indexing..."
+#~ msgstr "Indexando..."
 
 #: src/components/Upload/UploadSteps.tsx:488
 #~ msgid "Insufficient balance"
@@ -522,6 +528,10 @@ msgstr "Indexando..."
 #: src/components/Upload/UploadSteps.tsx:442
 msgid "Insufficient storage balance"
 msgstr "Balance de almacenamiento insuficiente"
+
+#: src/components/Common/VideoCard/VideoOptions.tsx:359
+msgid "Interested"
+msgstr ""
 
 #: src/components/Explore/Feed.tsx:169
 msgid "Interesting"
@@ -558,16 +568,16 @@ msgstr "Error al subir IPFS"
 
 #: src/components/Channel/BasicInfo/JoinChannel.tsx:187
 #: src/components/Channel/BasicInfo/JoinChannel.tsx:209
-msgid "Join Channel"
-msgstr "Unirse al canal"
+#~ msgid "Join Channel"
+#~ msgstr "Unirse al canal"
 
 #: src/components/Notifications/Subscribed.tsx:70
 #~ msgid "joined"
 #~ msgstr "se unió"
 
 #: src/components/Common/CreateChannel.tsx:42
-msgid "lens claiming site"
-msgstr "lente reclamando sitio"
+#~ msgid "lens claiming site"
+#~ msgstr "lente reclamando sitio"
 
 #: src/components/Mod/index.tsx:22
 msgid "Lenstube Stats"
@@ -582,9 +592,7 @@ msgstr "Me gusta"
 #~ msgstr "le gustó"
 
 #: src/components/Channel/Tabs/PinnedVideo.tsx:229
-#: src/components/Common/VideoCard/index.tsx:94
 #: src/components/Home/BytesSection.tsx:139
-#: src/components/Watch/SuggestedVideoCard.tsx:116
 msgid "likes"
 msgstr "gustos"
 
@@ -640,7 +648,7 @@ msgstr "Membresía actualizada"
 #~ msgid "mirror"
 #~ msgstr "mirror"
 
-#: src/components/Bytes/ByteActions.tsx:65
+#: src/components/Bytes/ByteActions.tsx:64
 msgid "Mirror"
 msgstr "Mirror"
 
@@ -649,7 +657,7 @@ msgstr "Mirror"
 #~ msgstr "Vídeo de espejo a través de la lente"
 
 #: src/components/Channel/MirroredVideoCard.tsx:94
-#: src/components/Channel/Tabs/index.tsx:123
+#: src/components/Channel/Tabs/index.tsx:121
 msgid "Mirrored"
 msgstr "Mirado"
 
@@ -685,7 +693,7 @@ msgstr "Momoka está actualmente en fase beta - durante este tiempo determinadas
 msgid "More about your channel"
 msgstr "Más acerca de tu canal"
 
-#: src/components/Common/UserMenu.tsx:146
+#: src/components/Common/UserMenu.tsx:142
 msgid "My Profile"
 msgstr ""
 
@@ -693,7 +701,7 @@ msgstr ""
 #~ msgid "My Saved List"
 #~ msgstr ""
 
-#: src/components/Common/UserMenu.tsx:197
+#: src/components/Common/UserMenu.tsx:195
 msgid "My Settings"
 msgstr ""
 
@@ -709,7 +717,7 @@ msgstr "Más nuevo primero"
 msgid "No"
 msgstr "Nu"
 
-#: src/components/Channel/Tabs/ChannelBytes.tsx:67
+#: src/components/Channel/Tabs/ChannelBytes.tsx:63
 msgid "No bytes found"
 msgstr "No se encontraron bytes"
 
@@ -717,7 +725,7 @@ msgstr "No se encontraron bytes"
 #~ msgid "No comments on videos"
 #~ msgstr "No comments on videos"
 
-#: src/components/Channel/Tabs/MirroredVideos.tsx:69
+#: src/components/Channel/Tabs/MirroredVideos.tsx:65
 msgid "No mirrors found"
 msgstr "No se encontraron réplicas"
 
@@ -733,12 +741,12 @@ msgstr "No hay notificaciones"
 msgid "No one can collect this publication"
 msgstr "Nadie puede recoger esta publicación"
 
-#: src/components/Channel/Tabs/OtherChannels.tsx:29
+#: src/components/Channel/Tabs/OtherProfiles.tsx:35
 msgid "No other channels found"
 msgstr "No se encontraron otros canales"
 
-#: src/components/Common/Search/Channels.tsx:66
-#: src/components/Common/Search/Videos.tsx:49
+#: src/components/Common/Search/Profiles.tsx:66
+#: src/components/Common/Search/Publications.tsx:101
 msgid "No results found"
 msgstr "No hay resultados"
 
@@ -754,7 +762,7 @@ msgstr "No hay suscriptores"
 #: src/components/Explore/Category/index.tsx:95
 #: src/components/Explore/Feed.tsx:176
 #: src/components/Explore/Hashtag/index.tsx:84
-#: src/components/Home/Feed.tsx:71
+#: src/components/Home/Feed.tsx:89
 #: src/components/Mod/Recents.tsx:71
 msgid "No videos found"
 msgstr "No hay vídeos"
@@ -767,7 +775,7 @@ msgstr "Ninguna"
 msgid "Not enough"
 msgstr "No suficiente"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:386
+#: src/components/Common/VideoCard/VideoOptions.tsx:361
 msgid "Not Interested"
 msgstr "No Interesado"
 
@@ -803,7 +811,7 @@ msgstr "Sólo mis suscriptores pueden comentar y replicar"
 msgid "Only subscribers can comment on this publication"
 msgstr "Sólo los suscriptores pueden comentar en esta publicación"
 
-#: src/components/Upload/DropZone.tsx:111
+#: src/components/Upload/DropZone.tsx:104
 msgid "or choose one"
 msgstr ""
 
@@ -812,8 +820,8 @@ msgstr ""
 #~ msgstr "o elegir vídeo"
 
 #: src/components/Channel/BasicInfo/JoinChannel.tsx:180
-msgid "Pay Membership of"
-msgstr "Pagar Membresía de"
+#~ msgid "Pay Membership of"
+#~ msgstr "Pagar Membresía de"
 
 #: src/components/Channel/Mutual/MutualSubscribers.tsx:83
 msgid "People you may know"
@@ -839,15 +847,15 @@ msgstr "Permiso actualizado"
 msgid "Permissions"
 msgstr "Permisos"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:323
+#: src/components/Common/VideoCard/VideoOptions.tsx:313
 msgid "Pin Video"
 msgstr "Fijar vídeo"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:168
+#: src/components/Common/VideoCard/VideoOptions.tsx:160
 msgid "Pinning video..."
 msgstr "Fijando vídeo..."
 
-#: src/components/Common/Auth/SelectProfile.tsx:91
+#: src/components/Common/Auth/SelectProfile.tsx:88
 msgid "Please connect to your wallet"
 msgstr "Por favor, conéctese a su cartera"
 
@@ -859,7 +867,7 @@ msgstr "Tenga en cuenta que sólo los vídeos de menos de 2 minutos de duración
 msgid "Please select or upload a thumbnail"
 msgstr "Por favor, seleccione o suba una miniatura"
 
-#: src/components/Upload/ChooseThumbnail.tsx:61
+#: src/components/Upload/ChooseThumbnail.tsx:62
 msgid "Please upload a custom thumbnail"
 msgstr "Por favor, sube una miniatura personalizada"
 
@@ -895,11 +903,11 @@ msgstr "Privacidad"
 #~ msgid "Privacy Policy"
 #~ msgstr "Política de privacidad"
 
-#: src/components/Channel/BasicInfo/index.tsx:167
+#: src/components/Channel/BasicInfo/index.tsx:160
 msgid "Proof of Humanity"
 msgstr "Prueba de la humanidad"
 
-#: src/components/Channel/BasicInfo/index.tsx:177
+#: src/components/Channel/BasicInfo/index.tsx:170
 msgid "Proof of Personhood"
 msgstr "Prueba de Personalidad"
 
@@ -938,8 +946,8 @@ msgid "Relevant"
 msgstr "Relevante"
 
 #: src/components/Common/VideoCard/VideoOptions.tsx:370
-msgid "Remove from List"
-msgstr "Eliminar de la lista"
+#~ msgid "Remove from List"
+#~ msgstr "Eliminar de la lista"
 
 #: src/components/ReportPublication/index.tsx:114
 msgid "Repetitive"
@@ -954,7 +962,7 @@ msgstr "respuestas"
 msgid "Reply"
 msgstr "Responder"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:359
+#: src/components/Common/VideoCard/VideoOptions.tsx:350
 #: src/components/ReportPublication/index.tsx:160
 #: src/components/Watch/Comments/CommentOptions.tsx:82
 msgid "Report"
@@ -982,15 +990,16 @@ msgstr "Revoke"
 msgid "Round 18"
 msgstr "Ronda 18"
 
+#: src/components/Common/VideoCard/VideoOptions.tsx:341
 #: src/components/Settings/BasicInfo.tsx:385
 msgid "Save"
 msgstr "Guardar"
 
 #: src/components/Common/VideoCard/VideoOptions.tsx:372
-msgid "Save to List"
-msgstr "Guardar en lista"
+#~ msgid "Save to List"
+#~ msgstr "Guardar en lista"
 
-#: src/components/Common/UserMenu.tsx:157
+#: src/components/Common/UserMenu.tsx:153
 msgid "Saved Items"
 msgstr ""
 
@@ -1002,8 +1011,8 @@ msgstr "Vídeos guardados"
 msgid "Scam"
 msgstr "Scam"
 
-#: src/components/Common/Header.tsx:139
-#: src/components/Common/Search/GlobalSearchBar.tsx:92
+#: src/components/Common/Header.tsx:117
+#: src/components/Common/Search/GlobalSearchBar.tsx:112
 msgid "Search"
 msgstr "Buscar"
 
@@ -1024,7 +1033,7 @@ msgstr ""
 #~ msgstr "Seleccionar vídeo"
 
 #: src/components/Channel/MirroredVideoCard.tsx:39
-#: src/components/Common/VideoCard/ThumbnailOverlays.tsx:32
+#: src/components/Common/VideoCard/ThumbnailOverlays.tsx:30
 msgid "Sensitive Content"
 msgstr "Contenido sensible"
 
@@ -1037,7 +1046,7 @@ msgstr "Establecer tipo de colección"
 msgid "Set Preference"
 msgstr "Establecer preferencia"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:346
+#: src/components/Common/VideoCard/VideoOptions.tsx:302
 msgid "Share"
 msgstr "Compartir"
 
@@ -1045,7 +1054,7 @@ msgstr "Compartir"
 msgid "Should to greater than or equal to zero"
 msgstr "Debe ser mayor o igual a cero"
 
-#: src/components/Notifications/Filter.tsx:58
+#: src/components/Notifications/Filter.tsx:59
 msgid "Show all"
 msgstr "Mostrar todo"
 
@@ -1071,7 +1080,7 @@ msgstr "Mostrar más respuestas"
 #~ msgid "Sign In"
 #~ msgstr "Iniciar sesión"
 
-#: src/components/Common/Auth/SelectProfile.tsx:173
+#: src/components/Common/Auth/SelectProfile.tsx:169
 msgid "Sign in as..."
 msgstr ""
 
@@ -1083,7 +1092,7 @@ msgstr ""
 msgid "Sign In Required"
 msgstr "Inicio de sesión requerido"
 
-#: src/components/Common/UserMenu.tsx:236
+#: src/components/Common/UserMenu.tsx:224
 msgid "Sign out"
 msgstr "Cerrar sesión"
 
@@ -1124,29 +1133,28 @@ msgid "Storing metadata"
 msgstr "Almacenando metadatos"
 
 #: src/components/Channel/BasicInfo/Subscribe.tsx:174
-msgid "Subscribe"
-msgstr "Suscribirse"
+#~ msgid "Subscribe"
+#~ msgstr "Suscribirse"
 
 #: src/components/Notifications/Subscribed.tsx:70
 #~ msgid "subscribed"
 #~ msgstr "suscrito"
 
-#: src/components/Channel/BasicInfo/UnSubscribe.tsx:154
+#: src/components/Channel/BasicInfo/UnFollow.tsx:135
 msgid "Subscribed"
 msgstr "Suscrito"
 
-#: src/components/Channel/BasicInfo/index.tsx:120
+#: src/components/Channel/BasicInfo/index.tsx:117
 msgid "Subscriber"
 msgstr "Suscriptor"
 
-#: src/components/Channel/BasicInfo/index.tsx:114
-#: src/components/Channel/Tabs/OtherChannelCard.tsx:39
+#: src/components/Channel/BasicInfo/index.tsx:111
 #: src/components/UIElements/ChannelSuggestions.tsx:39
-#: src/components/Watch/AboutChannel.tsx:69
+#: src/components/Watch/AboutChannel.tsx:70
 msgid "subscribers"
 msgstr "suscriptores"
 
-#: src/components/Channel/BasicInfo/index.tsx:98
+#: src/components/Channel/BasicInfo/index.tsx:95
 #: src/components/Upload/CollectModule/index.tsx:50
 #: src/components/Upload/CollectModule/PermissionQuestion.tsx:68
 #: src/components/Watch/CollectVideo/CollectModal.tsx:323
@@ -1160,6 +1168,11 @@ msgstr "Suscripciones"
 #: src/components/Upload/CollectModule/FeeCollectForm.tsx:131
 msgid "Sum of all splits should be 100%"
 msgstr "La suma de todas las divisiones debe ser 100%"
+
+#: src/components/Channel/BasicInfo/SuperFollow.tsx:219
+#: src/components/Channel/BasicInfo/SuperFollow.tsx:255
+msgid "Super Follow"
+msgstr ""
 
 #: src/components/Home/GitcoinAlert.tsx:23
 #~ msgid "Support {LENSTUBE_APP_NAME} on <0>Gitcoin Grants</0> Round 18"
@@ -1181,19 +1194,19 @@ msgstr "Intercambiar"
 msgid "Switch network"
 msgstr "Cambiar red"
 
-#: src/components/Common/UserMenu.tsx:166
+#: src/components/Common/UserMenu.tsx:163
 msgid "Switch Profile"
 msgstr ""
 
-#: src/components/Common/UserMenu.tsx:228
+#: src/components/Common/UserMenu.tsx:216
 msgid "Switch to Dark"
 msgstr "Cambiar a Oscuro"
 
-#: src/components/Common/UserMenu.tsx:228
+#: src/components/Common/UserMenu.tsx:216
 msgid "Switch to Light"
 msgstr "Cambiar a Luz"
 
-#: src/components/Channel/BasicInfo/index.tsx:157
+#: src/components/Channel/BasicInfo/index.tsx:150
 msgid "Sybil Verified"
 msgstr "Síbil verificado"
 
@@ -1284,8 +1297,8 @@ msgid "Title that describes your video"
 msgstr "Título que describe tu video"
 
 #: src/components/Common/CreateChannel.tsx:44
-msgid "to claim your handle and then check back here."
-msgstr "para reclamar tu nombre de usuario y luego revisa de nuevo aquí."
+#~ msgid "to claim your handle and then check back here."
+#~ msgstr "para reclamar tu nombre de usuario y luego revisa de nuevo aquí."
 
 #: src/components/Settings/Membership.tsx:213
 msgid "Token"
@@ -1328,7 +1341,7 @@ msgstr "Colecciones totales"
 #~ msgstr "total de vídeos"
 
 #: src/components/Channel/Tabs/PinnedVideo.tsx:105
-#: src/components/Common/VideoCard/VideoOptions.tsx:122
+#: src/components/Common/VideoCard/VideoOptions.tsx:114
 msgid "Transaction submitted"
 msgstr "Transacción enviada"
 
@@ -1337,8 +1350,8 @@ msgid "Trending"
 msgstr "Tendencias"
 
 #: src/components/Common/VideoCard/VideoOptions.tsx:384
-msgid "Undo Interest"
-msgstr "Deshacer Interés"
+#~ msgid "Undo Interest"
+#~ msgstr "Deshacer Interés"
 
 #: src/components/Upload/CollectModule/LimitQuestion.tsx:40
 msgid "Unlimited collects"
@@ -1355,6 +1368,10 @@ msgstr "Desanclando vídeo..."
 #: src/components/ReportPublication/index.tsx:117
 msgid "Unrelated"
 msgstr "No relacionado"
+
+#: src/components/Common/VideoCard/VideoOptions.tsx:339
+msgid "Unsave"
+msgstr ""
 
 #: src/components/Channel/BasicInfo/UnSubscribe.tsx:102
 #~ msgid "Unsubscribe"
@@ -1373,8 +1390,8 @@ msgstr "Mejorar"
 msgid "Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions."
 msgstr "Actualice su despachador a la última versión para realizar transacciones sin señales más rápidas y rápidas."
 
-#: src/components/Common/Header.tsx:127
-#: src/components/Upload/ChooseThumbnail.tsx:162
+#: src/components/Common/Header.tsx:107
+#: src/components/Upload/ChooseThumbnail.tsx:163
 msgid "Upload"
 msgstr "Subir"
 
@@ -1398,8 +1415,8 @@ msgstr "Subir a Arweave"
 msgid "Upload to IPFS"
 msgstr "Subir a IPFS"
 
-#: src/components/Upload/ChooseThumbnail.tsx:123
-#: src/components/Upload/Details.tsx:208
+#: src/components/Upload/ChooseThumbnail.tsx:124
+#: src/components/Upload/Details.tsx:209
 msgid "Uploading thumbnail"
 msgstr "Subiendo miniatura"
 
@@ -1422,11 +1439,11 @@ msgstr "Verificado"
 #~ msgid "video"
 #~ msgstr "vídeo"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:220
+#: src/components/Common/VideoCard/VideoOptions.tsx:212
 msgid "Video added to your list"
 msgstr "Vídeo añadido a tu lista"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:87
+#: src/components/Common/VideoCard/VideoOptions.tsx:79
 msgid "Video deleted"
 msgstr "Vídeo eliminado"
 
@@ -1438,7 +1455,7 @@ msgstr "Formato de vídeo no soportado"
 #~ msgid "Video marked as interested"
 #~ msgstr ""
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:208
+#: src/components/Common/VideoCard/VideoOptions.tsx:200
 msgid "Video marked as not interested"
 msgstr "Video marcado como no interesado"
 
@@ -1446,11 +1463,11 @@ msgstr "Video marcado como no interesado"
 msgid "Video not uploaded correctly"
 msgstr "El vídeo no se ha subido correctamente"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:209
+#: src/components/Common/VideoCard/VideoOptions.tsx:201
 msgid "Video removed from not interested"
 msgstr "Video eliminado de no interesado"
 
-#: src/components/Common/VideoCard/VideoOptions.tsx:220
+#: src/components/Common/VideoCard/VideoOptions.tsx:212
 msgid "Video removed from your list"
 msgstr "Video eliminado de tu lista"
 
@@ -1466,8 +1483,7 @@ msgstr "Fuente de vídeo copiado"
 msgid "Video will be stored permanently on-chain and can't be updated"
 msgstr "El vídeo se almacenará permanentemente en la cadena y no se podrá actualizar"
 
-#: src/components/Channel/Tabs/index.tsx:85
-#: src/components/Common/Search/GlobalSearchBar.tsx:131
+#: src/components/Channel/Tabs/index.tsx:83
 msgid "Videos"
 msgstr "Vídeos"
 
@@ -1497,10 +1513,10 @@ msgid "Violence"
 msgstr "Violencia"
 
 #: src/components/Common/CreateChannel.tsx:35
-msgid "Visit"
-msgstr "Visita"
+#~ msgid "Visit"
+#~ msgstr "Visita"
 
-#: src/components/Common/Auth/ConnectWalletButton.tsx:71
+#: src/components/Common/Auth/ConnectWalletButton.tsx:72
 msgid "Wallet"
 msgstr "Cartera"
 
@@ -1565,8 +1581,8 @@ msgstr "No tienes vídeos en tu fuente, explora!"
 #~ msgstr "tu"
 
 #: src/components/Common/CreateChannel.tsx:32
-msgid "Your address does not seem to have Lens handle."
-msgstr "Tu dirección no parece tener lente handle."
+#~ msgid "Your address does not seem to have Lens handle."
+#~ msgstr "Tu dirección no parece tener lente handle."
 
 #: src/components/Notifications/Mentioned.tsx:57
 #~ msgid "your channel"

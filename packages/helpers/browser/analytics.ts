@@ -82,7 +82,6 @@ export const TRACK = {
     CLICK_NOTIFICATIONS: 'Click Notifications'
   },
   CLICK_USER_MENU: 'Click User Menu',
-  OPENED_MUTUAL_CHANNELS: 'Opened Mutual Channels',
   OPEN_COLLECT: 'Open Collect',
   SEARCH: 'Search',
   SYSTEM: {

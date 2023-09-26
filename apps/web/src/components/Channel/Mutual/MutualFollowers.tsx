@@ -15,7 +15,7 @@ type Props = {
   viewing: string
 }
 
-const MutualSubscribersList: FC<Props> = ({ viewing }) => {
+const MutualFollowers: FC<Props> = ({ viewing }) => {
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
@@ -32,7 +32,7 @@ const MutualSubscribersList: FC<Props> = ({ viewing }) => {
     skip: !viewing
   })
 
-  const mutualSubscribers = data?.mutualFollowers?.items as Profile[]
+  const mutualFollowers = data?.mutualFollowers?.items as Profile[]
   const pageInfo = data?.mutualFollowers?.pageInfo
 
   const { observe } = useInView({
@@ -51,7 +51,7 @@ const MutualSubscribersList: FC<Props> = ({ viewing }) => {
   if (loading) {
     return <Loader />
   }
-  if (mutualSubscribers?.length === 0) {
+  if (mutualFollowers?.length === 0) {
     return (
       <div className="pt-5">
         <NoDataFound text="No subscribers" isCenter />
@@ -60,8 +60,14 @@ const MutualSubscribersList: FC<Props> = ({ viewing }) => {
   }
 
   return (
-    <div className="mt-2 space-y-3">
-      {mutualSubscribers?.map((channel: Profile) => (
+    <div className="space-y-3">
+      {loading && <Loader />}
+      {mutualFollowers?.length === 0 && (
+        <div className="pt-5">
+          <NoDataFound withImage isCenter />
+        </div>
+      )}
+      {mutualFollowers?.map((channel: Profile) => (
         <Link
           href={`/channel/${trimLensHandle(channel?.handle)}`}
           className="font-base flex items-center justify-between"
@@ -94,4 +100,4 @@ const MutualSubscribersList: FC<Props> = ({ viewing }) => {
   )
 }
 
-export default MutualSubscribersList
+export default MutualFollowers
