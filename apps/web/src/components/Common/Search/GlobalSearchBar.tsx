@@ -114,7 +114,7 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
           </TextField.Root>
           <div
             className={clsx(
-              'dark:bg-theme z-10 mt-1 w-full overflow-hidden rounded-md bg-white p-5 text-base shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm md:absolute',
+              'dark:bg-theme z-10 mt-1 w-full overflow-hidden rounded-md bg-white p-5 text-base shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none md:absolute',
               { hidden: debouncedValue.length === 0 }
             )}
           >

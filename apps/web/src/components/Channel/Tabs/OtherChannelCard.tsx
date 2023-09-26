@@ -11,8 +11,6 @@ import Link from 'next/link'
 import React from 'react'
 
 const OtherChannelCard = ({ profile }: { profile: Profile }) => {
-  const subscribeType = profile?.followModule?.__typename
-
   return (
     <div className="flex w-44 flex-col items-center justify-center rounded-xl border border-gray-200 py-3 dark:border-gray-800">
       <Link href={`/channel/${profile.handle}`}>
@@ -39,7 +37,7 @@ const OtherChannelCard = ({ profile }: { profile: Profile }) => {
           {formatNumber(profile.stats.followers)} <Trans>subscribers</Trans>
         </div>
       </div>
-      <SubscribeActions profile={profile} subscribeType={subscribeType} />
+      <SubscribeActions profile={profile} />
     </div>
   )
 }

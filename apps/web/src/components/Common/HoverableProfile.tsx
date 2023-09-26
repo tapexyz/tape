@@ -75,10 +75,7 @@ const HoverableProfile: FC<Props> = ({
           </div>
           <div className="absolute bottom-2 right-2 flex-none">
             {!profile.operations.isFollowedByMe.value && !isMyProfile ? (
-              <SubscribeActions
-                profile={profile}
-                subscribeType={profile?.followModule?.__typename}
-              />
+              <SubscribeActions profile={profile} />
             ) : null}
           </div>
         </div>

@@ -126,7 +126,12 @@ const UnFollow: FC<Props> = ({ profile, onUnSubscribe, size = '2' }) => {
   }
 
   return (
-    <Button size={size} onClick={() => unfollow()} disabled={loading}>
+    <Button
+      size={size}
+      onClick={() => unfollow()}
+      highContrast
+      disabled={loading}
+    >
       <Trans>Subscribed</Trans>
     </Button>
   )

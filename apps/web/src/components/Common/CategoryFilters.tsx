@@ -78,7 +78,7 @@ const CategoryFilters = () => {
           color="gray"
           radius="full"
           highContrast={activeTagFilter === 'all'}
-          variant={activeTagFilter === 'all' ? 'solid' : 'outline'}
+          variant={activeTagFilter === 'all' ? 'outline' : 'soft'}
           onClick={() => onFilter('all')}
         >
           <Trans>All</Trans>
@@ -86,10 +86,9 @@ const CategoryFilters = () => {
         {CREATOR_VIDEO_CATEGORIES.map((category) => (
           <Badge
             key={category.tag}
-            color="gray"
             radius="full"
             highContrast={activeTagFilter === category.tag}
-            variant={activeTagFilter === category.tag ? 'solid' : 'outline'}
+            variant={activeTagFilter === category.tag ? 'outline' : 'soft'}
             onClick={() => onFilter(category.tag)}
           >
             {category.name}

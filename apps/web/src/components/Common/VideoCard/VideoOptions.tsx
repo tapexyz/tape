@@ -294,7 +294,7 @@ const VideoOptions: FC<Props> = ({ video, setShowShare, setShowReport }) => {
           </Box>
         </DropdownMenu.Trigger>
         <DropdownMenu.Content sideOffset={10} variant="soft" align="end">
-          <div className="flex w-40 flex-col rounded-lg text-sm transition duration-150 ease-in-out">
+          <div className="flex w-40 flex-col rounded-lg transition duration-150 ease-in-out">
             <DropdownMenu.Item onClick={() => setShowShare(true)}>
               <Flex align="center" gap="2">
                 <ShareOutline className="h-3.5 w-3.5" />

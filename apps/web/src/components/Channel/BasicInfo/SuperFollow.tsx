@@ -1,30 +1,35 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
-import Tooltip from '@components/UIElements/Tooltip'
 import { Analytics, TRACK } from '@lenstube/browser'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE
 } from '@lenstube/constants'
-import { getSignature } from '@lenstube/generic'
+import { getSignature, trimLensHandle } from '@lenstube/generic'
 import type { FeeFollowModuleSettings, Profile } from '@lenstube/lens'
 import {
   FollowModuleType,
   useApprovedModuleAllowanceAmountQuery,
   useBroadcastOnchainMutation,
   useCreateFollowTypedDataMutation,
+  useGenerateModuleCurrencyApprovalDataLazyQuery,
   useProfileFollowModuleQuery
 } from '@lenstube/lens'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
-import { t, Trans } from '@lingui/macro'
-import { Button } from '@radix-ui/themes'
+import { Trans } from '@lingui/macro'
+import { Button, Dialog, Flex, Text } from '@radix-ui/themes'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import { useContractWrite, useSignTypedData } from 'wagmi'
+import {
+  useContractWrite,
+  useSendTransaction,
+  useSignTypedData,
+  useWaitForTransaction
+} from 'wagmi'
 
 type Props = {
   profile: Profile
@@ -36,6 +41,7 @@ type Props = {
 const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
   const [loading, setLoading] = useState(false)
   const [isAllowed, setIsAllowed] = useState(false)
+  const [open, setOpen] = useState(false)
   const { openConnectModal } = useConnectModal()
 
   const selectedSimpleProfile = useAuthPersistStore(
@@ -54,7 +60,8 @@ const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
       return
     }
     onJoin()
-    toast.success(`Joined ${profile.handle}`)
+    setOpen(false)
+    toast.success(`Followed ${profile.handle}`)
     setLoading(false)
     Analytics.track(TRACK.CHANNEL.JOIN, {
       channel_id: profile.id,
@@ -88,7 +95,7 @@ const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
   const followModule = followModuleData?.profile
     ?.followModule as FeeFollowModuleSettings
 
-  useApprovedModuleAllowanceAmountQuery({
+  const { refetch } = useApprovedModuleAllowanceAmountQuery({
     variables: {
       request: {
         currencies: followModule?.amount?.asset?.contract.address,
@@ -105,7 +112,18 @@ const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
     }
   })
 
-  const [createJoinChannelTypedData] = useCreateFollowTypedDataMutation({
+  const { data: txData, sendTransaction } = useSendTransaction({
+    onError(error: CustomErrorWithData) {
+      toast.error(error?.data?.message ?? error?.message)
+    }
+  })
+
+  useWaitForTransaction({
+    hash: txData?.hash,
+    onSuccess: () => refetch()
+  })
+
+  const [createFollowTypedData] = useCreateFollowTypedDataMutation({
     async onCompleted({ createFollowTypedData }) {
       const { typedData, id } = createFollowTypedData
       try {
@@ -138,7 +156,31 @@ const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
     onError
   })
 
-  const joinChannel = async () => {
+  const [generateAllowanceQuery] =
+    useGenerateModuleCurrencyApprovalDataLazyQuery()
+
+  const allow = async () => {
+    const { data: allowanceData } = await generateAllowanceQuery({
+      variables: {
+        request: {
+          allowance: {
+            currency: followModule?.amount.asset.contract.address,
+            value: Number.MAX_SAFE_INTEGER.toString()
+          },
+          module: {
+            followModule: FollowModuleType.FeeFollowModule
+          }
+        }
+      }
+    })
+    const generated = allowanceData?.generateModuleCurrencyApprovalData
+    sendTransaction?.({
+      to: generated?.to,
+      data: generated?.data
+    })
+  }
+
+  const superFollow = async () => {
     if (!selectedSimpleProfile?.id) {
       return openConnectModal?.()
     }
@@ -148,7 +190,7 @@ const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
       )
     }
     setLoading(true)
-    await createJoinChannelTypedData({
+    await createFollowTypedData({
       variables: {
         options: { overrideSigNonce: userSigNonce },
         request: {
@@ -165,26 +207,61 @@ const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
     })
   }
 
-  const joinTooltipText = followModule ? (
-    <span>
-      <Trans>Pay Membership of</Trans>
-      <b className="ml-1 space-x-1">
-        <span>{followModule?.amount?.value}</span>
-        <span>{followModule?.amount?.asset.symbol}</span>
-      </b>
-    </span>
-  ) : (
-    t`Super Follow`
-  )
-
   return (
-    <Tooltip content={joinTooltipText} placement="top">
-      <span>
-        <Button size={size} onClick={() => joinChannel()} disabled={loading}>
+    <Dialog.Root open={open} onOpenChange={setOpen}>
+      <Dialog.Trigger>
+        <Button
+          onClick={() => setOpen(true)}
+          highContrast
+          size={size}
+          disabled={loading}
+        >
           <Trans>Super Follow</Trans>
         </Button>
-      </span>
-    </Tooltip>
+      </Dialog.Trigger>
+
+      <Dialog.Content style={{ maxWidth: 450 }}>
+        <Dialog.Title>Super Follow</Dialog.Title>
+        <Dialog.Description size="2" mb="4">
+          Support creator for their contributions on the platform.
+        </Dialog.Description>
+
+        <Flex gap="2" align="baseline">
+          <Text as="div" size="4">
+            Follow {trimLensHandle(profile.handle)} for
+          </Text>
+          <Flex gap="1" align="center">
+            <Text as="div" size="6">
+              $
+            </Text>
+            <Text as="div" size="7" weight="bold">
+              {followModule?.amount.rate?.value}
+            </Text>
+          </Flex>
+        </Flex>
+
+        <Flex gap="3" mt="4" justify="end">
+          <Dialog.Close>
+            <Button variant="soft" color="gray">
+              Cancel
+            </Button>
+          </Dialog.Close>
+          {isAllowed ? (
+            <Button
+              highContrast
+              onClick={() => superFollow()}
+              disabled={loading}
+            >
+              <Trans>Super Follow</Trans>
+            </Button>
+          ) : (
+            <Button highContrast onClick={() => allow()} disabled={loading}>
+              <Trans>Allow</Trans>
+            </Button>
+          )}
+        </Flex>
+      </Dialog.Content>
+    </Dialog.Root>
   )
 }
 

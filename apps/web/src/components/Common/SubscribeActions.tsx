@@ -8,16 +8,12 @@ import React, { useEffect, useState } from 'react'
 type Props = {
   size?: '1' | '2' | '3'
   profile: Profile
-  subscribeType: string | undefined
 }
 
-const SubscribeActions: FC<Props> = ({
-  profile,
-  size = '2',
-  subscribeType
-}) => {
+const SubscribeActions: FC<Props> = ({ profile, size = '2' }) => {
   const isSubscriber = profile?.operations.isFollowedByMe.value
   const [subscriber, setSubscriber] = useState(isSubscriber)
+  const subscribeType = profile?.followModule?.__typename
 
   useEffect(() => {
     setSubscriber(isSubscriber)
@@ -29,7 +25,7 @@ const SubscribeActions: FC<Props> = ({
       profile={profile}
       onUnSubscribe={() => setSubscriber(false)}
     />
-  ) : subscribeType === 'FeeFollowModuleSettings' ? (
+  ) : subscribeType !== 'FeeFollowModuleSettings' ? (
     <SuperFollow
       size={size}
       profile={profile}

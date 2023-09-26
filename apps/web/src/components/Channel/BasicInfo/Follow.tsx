@@ -34,7 +34,10 @@ const Follow: FC<Props> = ({ profile, onSubscribe, size = '2' }) => {
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
+
   const activeChannel = useChannelStore((state) => state.activeChannel)
+  const userSigNonce = useChannelStore((state) => state.userSigNonce)
+  const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
   const canUseRelay = activeChannel?.lensManager && activeChannel?.sponsor
 
   const { openConnectModal } = useConnectModal()
@@ -81,6 +84,7 @@ const Follow: FC<Props> = ({ profile, onSubscribe, size = '2' }) => {
       try {
         toast.loading(REQUESTING_SIGNATURE_MESSAGE)
         const signature = await signTypedDataAsync(getSignature(typedData))
+        setUserSigNonce(userSigNonce + 1)
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
@@ -132,6 +136,7 @@ const Follow: FC<Props> = ({ profile, onSubscribe, size = '2' }) => {
     }
     return await createFollowTypedData({
       variables: {
+        options: { overrideSigNonce: userSigNonce },
         request: {
           follow: [
             {

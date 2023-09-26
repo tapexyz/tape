@@ -22,7 +22,6 @@ const Locale = () => {
         {Object.keys(SUPPORTED_LOCALES).map((key) => (
           <DropdownMenu.Item
             key={key}
-            color={selectedLocale === SUPPORTED_LOCALES[key] ? 'green' : 'gray'}
             onClick={() => {
               storeLocale(key)
               Analytics.track(TRACK.SYSTEM.SELECT_LOCALE, {
@@ -33,7 +32,7 @@ const Locale = () => {
             <Text
               as="p"
               weight={
-                selectedLocale === SUPPORTED_LOCALES[key] ? 'medium' : 'regular'
+                selectedLocale === SUPPORTED_LOCALES[key] ? 'bold' : 'regular'
               }
               className="w-24"
             >

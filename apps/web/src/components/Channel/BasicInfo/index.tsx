@@ -38,7 +38,6 @@ const BasicInfo: FC<Props> = ({ profile }) => {
     profile.onchainIdentity?.sybilDotOrg.verified
 
   const isOwnChannel = profile?.id === selectedSimpleProfile?.id
-  const subscribeType = profile?.followModule?.__typename
   const coverImage = imageCdn(
     sanitizeDStorageUrl(getChannelCoverPicture(profile))
   )
@@ -63,9 +62,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
           >
             <span className="inline-flex items-center space-x-1 rounded-full bg-red-500 px-3 py-1">
               <InfoOutline className="h-4 w-4 text-white" />
-              <span className="text-sm font-semibold text-white">
-                {misused.type}
-              </span>
+              <span className="font-semibold text-white">{misused.type}</span>
             </span>
             <InterweaveContent content={misused.description} />
           </Alert>
@@ -125,10 +122,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
               {profile?.id && !isOwnChannel ? (
                 <MutualSubscribers viewing={profile.id} />
               ) : null}
-              <SubscribeActions
-                profile={profile}
-                subscribeType={subscribeType}
-              />
+              <SubscribeActions size="3" profile={profile} />
             </div>
           </div>
         </div>

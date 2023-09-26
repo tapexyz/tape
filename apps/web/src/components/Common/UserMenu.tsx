@@ -112,123 +112,119 @@ const UserMenu = () => {
         </Flex>
 
         <div className="w-52">
-          <div className="text-sm">
-            {isAdmin && (
-              <DropdownMenu.Item>
-                <Link href="/mod">
-                  <GraphOutline className="h-4 w-4" />
-                  <Text as="p" className="truncate whitespace-nowrap">
-                    <Trans>App Info</Trans>
-                  </Text>
-                </Link>
-              </DropdownMenu.Item>
-            )}
-            {selectedSimpleProfile && (
-              <>
-                <DropdownMenu.Item
-                  onClick={() =>
-                    push(
-                      `/channel/${trimLensHandle(
-                        selectedSimpleProfile?.handle
-                      )}`
-                    )
-                  }
-                >
-                  <Link
-                    href={`/channel/${trimLensHandle(
-                      selectedSimpleProfile?.handle
-                    )}`}
-                    className="flex items-center space-x-2"
-                  >
-                    <ChannelOutline className="h-4 w-4" />
-                    <Text as="p" className="truncate whitespace-nowrap">
-                      <Trans>My Profile</Trans>
-                    </Text>
-                  </Link>
-                </DropdownMenu.Item>
-                <DropdownMenu.Item onClick={() => push('/channel/saved')}>
-                  <Link
-                    href="/channel/saved"
-                    className="flex items-center space-x-2"
-                  >
-                    <SaveToListOutline className="h-4 w-4" />
-                    <Text as="p" className="truncate whitespace-nowrap">
-                      <Trans>Saved Items</Trans>
-                    </Text>
-                  </Link>
-                </DropdownMenu.Item>
-
-                <DropdownMenu.Sub>
-                  <DropdownMenu.SubTrigger>
-                    <Flex align="center" gap="2">
-                      <SwitchChannelOutline className="h-4 w-4" />
-                      <Text as="p" className="truncate whitespace-nowrap">
-                        <Trans>Switch Profile</Trans>
-                      </Text>
-                    </Flex>
-                  </DropdownMenu.SubTrigger>
-                  <DropdownMenu.SubContent>
-                    <div className="py-1 text-sm">
-                      {allProfiles?.map((profile) => (
-                        <DropdownMenu.Item
-                          key={profile.id}
-                          onClick={() => onSelectChannel(profile)}
-                        >
-                          <Flex gap="2" align="center">
-                            <Avatar
-                              size="1"
-                              src={getProfilePicture(profile)}
-                              fallback={trimLensHandle(profile?.handle)[0]}
-                            />
-                            <Text as="p" className="truncate whitespace-nowrap">
-                              {trimLensHandle(profile.handle)}
-                            </Text>
-                          </Flex>
-                        </DropdownMenu.Item>
-                      ))}
-                    </div>
-                  </DropdownMenu.SubContent>
-                </DropdownMenu.Sub>
-              </>
-            )}
-            <DropdownMenu.Item onClick={() => push('/settings')}>
-              <Link href="/settings" className="flex items-center space-x-2">
-                <CogOutline className="h-4 w-4" />
+          {isAdmin && (
+            <DropdownMenu.Item>
+              <Link href="/mod">
+                <GraphOutline className="h-4 w-4" />
                 <Text as="p" className="truncate whitespace-nowrap">
-                  <Trans>My Settings</Trans>
+                  <Trans>App Info</Trans>
                 </Text>
               </Link>
             </DropdownMenu.Item>
-            <DropdownMenu.Separator />
-            <DropdownMenu.Item
-              onClick={() => {
-                const selected = theme === 'dark' ? 'light' : 'dark'
-                setTheme(selected)
-                Analytics.track(TRACK.SYSTEM.TOGGLE_THEME, {
-                  selected_theme: selected
-                })
-              }}
-            >
-              <Flex align="center" gap="2">
-                {theme === 'dark' ? (
-                  <SunOutline className="h-4 w-4" />
-                ) : (
-                  <MoonOutline className="h-4 w-4" />
-                )}
-                <Text as="p" className="truncate whitespace-nowrap">
-                  {theme === 'light' ? t`Switch to Dark` : t`Switch to Light`}
-                </Text>
-              </Flex>
-            </DropdownMenu.Item>
-            <DropdownMenu.Item color="red" onClick={() => logout()}>
-              <Flex align="center" gap="2">
-                <HandWaveOutline className="h-4 w-4" />
-                <Text as="p" className="truncate whitespace-nowrap">
-                  <Trans>Sign out</Trans>
-                </Text>
-              </Flex>
-            </DropdownMenu.Item>
-          </div>
+          )}
+          {selectedSimpleProfile && (
+            <>
+              <DropdownMenu.Item
+                onClick={() =>
+                  push(
+                    `/channel/${trimLensHandle(selectedSimpleProfile?.handle)}`
+                  )
+                }
+              >
+                <Link
+                  href={`/channel/${trimLensHandle(
+                    selectedSimpleProfile?.handle
+                  )}`}
+                  className="flex items-center space-x-2"
+                >
+                  <ChannelOutline className="h-4 w-4" />
+                  <Text as="p" className="truncate whitespace-nowrap">
+                    <Trans>My Profile</Trans>
+                  </Text>
+                </Link>
+              </DropdownMenu.Item>
+              <DropdownMenu.Item onClick={() => push('/channel/saved')}>
+                <Link
+                  href="/channel/saved"
+                  className="flex items-center space-x-2"
+                >
+                  <SaveToListOutline className="h-4 w-4" />
+                  <Text as="p" className="truncate whitespace-nowrap">
+                    <Trans>Saved Items</Trans>
+                  </Text>
+                </Link>
+              </DropdownMenu.Item>
+
+              <DropdownMenu.Sub>
+                <DropdownMenu.SubTrigger>
+                  <Flex align="center" gap="2">
+                    <SwitchChannelOutline className="h-4 w-4" />
+                    <Text as="p" className="truncate whitespace-nowrap">
+                      <Trans>Switch Profile</Trans>
+                    </Text>
+                  </Flex>
+                </DropdownMenu.SubTrigger>
+                <DropdownMenu.SubContent>
+                  <div className="py-1">
+                    {allProfiles?.map((profile) => (
+                      <DropdownMenu.Item
+                        key={profile.id}
+                        onClick={() => onSelectChannel(profile)}
+                      >
+                        <Flex gap="2" align="center">
+                          <Avatar
+                            size="1"
+                            src={getProfilePicture(profile)}
+                            fallback={trimLensHandle(profile?.handle)[0]}
+                          />
+                          <Text as="p" className="truncate whitespace-nowrap">
+                            {trimLensHandle(profile.handle)}
+                          </Text>
+                        </Flex>
+                      </DropdownMenu.Item>
+                    ))}
+                  </div>
+                </DropdownMenu.SubContent>
+              </DropdownMenu.Sub>
+            </>
+          )}
+          <DropdownMenu.Item onClick={() => push('/settings')}>
+            <Link href="/settings" className="flex items-center space-x-2">
+              <CogOutline className="h-4 w-4" />
+              <Text as="p" className="truncate whitespace-nowrap">
+                <Trans>My Settings</Trans>
+              </Text>
+            </Link>
+          </DropdownMenu.Item>
+          <DropdownMenu.Separator />
+          <DropdownMenu.Item
+            onClick={() => {
+              const selected = theme === 'dark' ? 'light' : 'dark'
+              setTheme(selected)
+              Analytics.track(TRACK.SYSTEM.TOGGLE_THEME, {
+                selected_theme: selected
+              })
+            }}
+          >
+            <Flex align="center" gap="2">
+              {theme === 'dark' ? (
+                <SunOutline className="h-4 w-4" />
+              ) : (
+                <MoonOutline className="h-4 w-4" />
+              )}
+              <Text as="p" className="truncate whitespace-nowrap">
+                {theme === 'light' ? t`Switch to Dark` : t`Switch to Light`}
+              </Text>
+            </Flex>
+          </DropdownMenu.Item>
+          <DropdownMenu.Item color="red" onClick={() => logout()}>
+            <Flex align="center" gap="2">
+              <HandWaveOutline className="h-4 w-4" />
+              <Text as="p" className="truncate whitespace-nowrap">
+                <Trans>Sign out</Trans>
+              </Text>
+            </Flex>
+          </DropdownMenu.Item>
         </div>
       </DropdownMenu.Content>
     </DropdownMenu.Root>
