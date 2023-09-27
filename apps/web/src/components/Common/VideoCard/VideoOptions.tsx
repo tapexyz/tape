@@ -1,4 +1,5 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
+import ReportPublication from '@components/ReportPublication'
 import Confirm from '@components/UIElements/Confirm'
 import type { MetadataAttribute } from '@lens-protocol/metadata'
 import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
@@ -31,7 +32,7 @@ import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
-import { Box, DropdownMenu, Flex } from '@radix-ui/themes'
+import { Box, Dialog, DropdownMenu, Flex, Text } from '@radix-ui/themes'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 import type { FC } from 'react'
 import React, { useState } from 'react'
@@ -91,7 +92,6 @@ const VideoOptions: FC<Props> = ({ video, setShowShare, setShowReport }) => {
     if (!selectedSimpleProfile?.id) {
       return openConnectModal?.()
     }
-    setShowReport(true)
   }
 
   const otherAttributes =
@@ -343,14 +343,6 @@ const VideoOptions: FC<Props> = ({ video, setShowShare, setShowReport }) => {
                     </span>
                   </Flex>
                 </DropdownMenu.Item>
-                <DropdownMenu.Item onClick={() => onClickReport()}>
-                  <Flex align="center" gap="2">
-                    <FlagOutline className="h-3.5 w-3.5" />
-                    <span className="whitespace-nowrap">
-                      <Trans>Report</Trans>
-                    </span>
-                  </Flex>
-                </DropdownMenu.Item>
                 <DropdownMenu.Item onClick={() => notInterested()}>
                   <Flex align="center" gap="2">
                     <ForbiddenOutline className="h-3.5 w-3.5" />
@@ -363,6 +355,30 @@ const VideoOptions: FC<Props> = ({ video, setShowShare, setShowReport }) => {
                     </span>
                   </Flex>
                 </DropdownMenu.Item>
+                <Dialog.Root>
+                  <Dialog.Trigger>
+                    <button
+                      className="cursor-default rounded px-3 py-1.5 hover:bg-red-500/50"
+                      onClick={() => onClickReport()}
+                    >
+                      <Flex align="center" gap="2">
+                        <FlagOutline className="h-3.5 w-3.5" />
+                        <Text size="2" className="whitespace-nowrap">
+                          <Trans>Report</Trans>
+                        </Text>
+                      </Flex>
+                    </button>
+                  </Dialog.Trigger>
+
+                  <Dialog.Content style={{ maxWidth: 450 }}>
+                    <Dialog.Title>Report</Dialog.Title>
+
+                    <ReportPublication
+                      publication={video}
+                      onSuccess={() => setShowReport(false)}
+                    />
+                  </Dialog.Content>
+                </Dialog.Root>
               </>
             )}
           </div>

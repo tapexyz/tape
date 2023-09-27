@@ -1,6 +1,5 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import PinnedVideoShimmer from '@components/Shimmers/PinnedVideoShimmer'
-import { Button } from '@components/UIElements/Button'
 import type { MetadataAttribute } from '@lens-protocol/metadata'
 import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
 import { Analytics, TRACK } from '@lenstube/browser'
@@ -41,6 +40,7 @@ import VideoPlayer from '@lenstube/ui/VideoPlayer'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
+import { Button } from '@radix-ui/themes'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -215,8 +215,10 @@ const PinnedVideo: FC<Props> = ({ id }) => {
             </Link>
             {isVideoOwner && (
               <Button
-                variant="hover"
-                size="sm"
+                variant="soft"
+                size="2"
+                color="red"
+                highContrast
                 className="invisible hover:!bg-red-200 group-hover:visible dark:hover:!bg-red-800"
                 onClick={() => unpinVideo()}
               >

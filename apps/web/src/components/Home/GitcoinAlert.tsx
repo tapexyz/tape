@@ -1,7 +1,7 @@
 import HandWaveOutline from '@components/Common/Icons/HandWaveOutline'
-import { Button } from '@components/UIElements/Button'
 import SignalWaveGraphic from '@components/UIElements/SignalWaveGraphic'
 import { Trans } from '@lingui/macro'
+import { Button } from '@radix-ui/themes'
 import Link from 'next/link'
 import React from 'react'
 
@@ -26,7 +26,7 @@ const GitcoinAlert = () => {
               <Trans>Round 18</Trans>
             </p>
             <Link href="/gitcoin" target="_blank">
-              <Button>
+              <Button highContrast>
                 <Trans>Contribute Now</Trans>
               </Button>
             </Link>
