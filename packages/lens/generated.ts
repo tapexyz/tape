@@ -3887,7 +3887,7 @@ export type PublicationStatsReactionsArgs = {
 }
 
 export type PublicationStatsCountOpenActionArgs = {
-  anyOf: Array<OpenActionFilter>
+  anyOf?: InputMaybe<Array<OpenActionFilter>>
 }
 
 export type PublicationStatsInput = {
@@ -6325,6 +6325,7 @@ export type CommentFieldsFragment = {
       displayName?: string | null
       bio?: any | null
       rawURI: any
+      app?: any | null
       picture?:
         | {
             __typename?: 'ImageSet'
@@ -6344,6 +6345,12 @@ export type CommentFieldsFragment = {
         raw: { __typename?: 'Image'; uri: any }
         optimized?: { __typename?: 'Image'; uri: any } | null
       } | null
+      attributes: Array<{
+        __typename?: 'Attribute'
+        key: string
+        value: string
+        type?: AttributeType | null
+      }>
     } | null
     followModule?:
       | {
@@ -8737,6 +8744,7 @@ export type PostFieldsFragment = {
       displayName?: string | null
       bio?: any | null
       rawURI: any
+      app?: any | null
       picture?:
         | {
             __typename?: 'ImageSet'
@@ -8756,6 +8764,12 @@ export type PostFieldsFragment = {
         raw: { __typename?: 'Image'; uri: any }
         optimized?: { __typename?: 'Image'; uri: any } | null
       } | null
+      attributes: Array<{
+        __typename?: 'Attribute'
+        key: string
+        value: string
+        type?: AttributeType | null
+      }>
     } | null
     followModule?:
       | {
@@ -10674,6 +10688,7 @@ export type ProfileFieldsFragment = {
     displayName?: string | null
     bio?: any | null
     rawURI: any
+    app?: any | null
     picture?:
       | {
           __typename?: 'ImageSet'
@@ -10693,6 +10708,12 @@ export type ProfileFieldsFragment = {
       raw: { __typename?: 'Image'; uri: any }
       optimized?: { __typename?: 'Image'; uri: any } | null
     } | null
+    attributes: Array<{
+      __typename?: 'Attribute'
+      key: string
+      value: string
+      type?: AttributeType | null
+    }>
   } | null
   followModule?:
     | {
@@ -10732,6 +10753,7 @@ export type ProfileMetadataFieldsFragment = {
   displayName?: string | null
   bio?: any | null
   rawURI: any
+  app?: any | null
   picture?:
     | {
         __typename?: 'ImageSet'
@@ -10751,6 +10773,12 @@ export type ProfileMetadataFieldsFragment = {
     raw: { __typename?: 'Image'; uri: any }
     optimized?: { __typename?: 'Image'; uri: any } | null
   } | null
+  attributes: Array<{
+    __typename?: 'Attribute'
+    key: string
+    value: string
+    type?: AttributeType | null
+  }>
 }
 
 export type ProfileOperationsFieldsFragment = {
@@ -10903,6 +10931,7 @@ export type QuoteFieldsFragment = {
       displayName?: string | null
       bio?: any | null
       rawURI: any
+      app?: any | null
       picture?:
         | {
             __typename?: 'ImageSet'
@@ -10922,6 +10951,12 @@ export type QuoteFieldsFragment = {
         raw: { __typename?: 'Image'; uri: any }
         optimized?: { __typename?: 'Image'; uri: any } | null
       } | null
+      attributes: Array<{
+        __typename?: 'Attribute'
+        key: string
+        value: string
+        type?: AttributeType | null
+      }>
     } | null
     followModule?:
       | {
@@ -15681,6 +15716,7 @@ export type ExplorePublicationsQuery = {
               displayName?: string | null
               bio?: any | null
               rawURI: any
+              app?: any | null
               picture?:
                 | {
                     __typename?: 'ImageSet'
@@ -15700,6 +15736,12 @@ export type ExplorePublicationsQuery = {
                 raw: { __typename?: 'Image'; uri: any }
                 optimized?: { __typename?: 'Image'; uri: any } | null
               } | null
+              attributes: Array<{
+                __typename?: 'Attribute'
+                key: string
+                value: string
+                type?: AttributeType | null
+              }>
             } | null
             followModule?:
               | {
@@ -17695,6 +17737,7 @@ export type ExplorePublicationsQuery = {
               displayName?: string | null
               bio?: any | null
               rawURI: any
+              app?: any | null
               picture?:
                 | {
                     __typename?: 'ImageSet'
@@ -17714,6 +17757,12 @@ export type ExplorePublicationsQuery = {
                 raw: { __typename?: 'Image'; uri: any }
                 optimized?: { __typename?: 'Image'; uri: any } | null
               } | null
+              attributes: Array<{
+                __typename?: 'Attribute'
+                key: string
+                value: string
+                type?: AttributeType | null
+              }>
             } | null
             followModule?:
               | {
@@ -19727,6 +19776,7 @@ export type FeedHighlightsQuery = {
               displayName?: string | null
               bio?: any | null
               rawURI: any
+              app?: any | null
               picture?:
                 | {
                     __typename?: 'ImageSet'
@@ -19746,6 +19796,12 @@ export type FeedHighlightsQuery = {
                 raw: { __typename?: 'Image'; uri: any }
                 optimized?: { __typename?: 'Image'; uri: any } | null
               } | null
+              attributes: Array<{
+                __typename?: 'Attribute'
+                key: string
+                value: string
+                type?: AttributeType | null
+              }>
             } | null
             followModule?:
               | {
@@ -21741,6 +21797,7 @@ export type FeedHighlightsQuery = {
               displayName?: string | null
               bio?: any | null
               rawURI: any
+              app?: any | null
               picture?:
                 | {
                     __typename?: 'ImageSet'
@@ -21760,6 +21817,12 @@ export type FeedHighlightsQuery = {
                 raw: { __typename?: 'Image'; uri: any }
                 optimized?: { __typename?: 'Image'; uri: any } | null
               } | null
+              attributes: Array<{
+                __typename?: 'Attribute'
+                key: string
+                value: string
+                type?: AttributeType | null
+              }>
             } | null
             followModule?:
               | {
@@ -23751,6 +23814,7 @@ export type FollowersQuery = {
         displayName?: string | null
         bio?: any | null
         rawURI: any
+        app?: any | null
         picture?:
           | {
               __typename?: 'ImageSet'
@@ -23770,6 +23834,12 @@ export type FollowersQuery = {
           raw: { __typename?: 'Image'; uri: any }
           optimized?: { __typename?: 'Image'; uri: any } | null
         } | null
+        attributes: Array<{
+          __typename?: 'Attribute'
+          key: string
+          value: string
+          type?: AttributeType | null
+        }>
       } | null
       followModule?:
         | {
@@ -23899,6 +23969,7 @@ export type FollowingQuery = {
         displayName?: string | null
         bio?: any | null
         rawURI: any
+        app?: any | null
         picture?:
           | {
               __typename?: 'ImageSet'
@@ -23918,6 +23989,12 @@ export type FollowingQuery = {
           raw: { __typename?: 'Image'; uri: any }
           optimized?: { __typename?: 'Image'; uri: any } | null
         } | null
+        attributes: Array<{
+          __typename?: 'Attribute'
+          key: string
+          value: string
+          type?: AttributeType | null
+        }>
       } | null
       followModule?:
         | {
@@ -24110,6 +24187,7 @@ export type MutualFollowersQuery = {
         displayName?: string | null
         bio?: any | null
         rawURI: any
+        app?: any | null
         picture?:
           | {
               __typename?: 'ImageSet'
@@ -24129,6 +24207,12 @@ export type MutualFollowersQuery = {
           raw: { __typename?: 'Image'; uri: any }
           optimized?: { __typename?: 'Image'; uri: any } | null
         } | null
+        attributes: Array<{
+          __typename?: 'Attribute'
+          key: string
+          value: string
+          type?: AttributeType | null
+        }>
       } | null
       followModule?:
         | {
@@ -24337,6 +24421,7 @@ export type NotificationsQuery = {
                 displayName?: string | null
                 bio?: any | null
                 rawURI: any
+                app?: any | null
                 picture?:
                   | {
                       __typename?: 'ImageSet'
@@ -24356,6 +24441,12 @@ export type NotificationsQuery = {
                   raw: { __typename?: 'Image'; uri: any }
                   optimized?: { __typename?: 'Image'; uri: any } | null
                 } | null
+                attributes: Array<{
+                  __typename?: 'Attribute'
+                  key: string
+                  value: string
+                  type?: AttributeType | null
+                }>
               } | null
               followModule?:
                 | {
@@ -24509,6 +24600,7 @@ export type NotificationsQuery = {
                     displayName?: string | null
                     bio?: any | null
                     rawURI: any
+                    app?: any | null
                     picture?:
                       | {
                           __typename?: 'ImageSet'
@@ -24528,6 +24620,12 @@ export type NotificationsQuery = {
                       raw: { __typename?: 'Image'; uri: any }
                       optimized?: { __typename?: 'Image'; uri: any } | null
                     } | null
+                    attributes: Array<{
+                      __typename?: 'Attribute'
+                      key: string
+                      value: string
+                      type?: AttributeType | null
+                    }>
                   } | null
                   followModule?:
                     | {
@@ -26770,6 +26868,7 @@ export type NotificationsQuery = {
                     displayName?: string | null
                     bio?: any | null
                     rawURI: any
+                    app?: any | null
                     picture?:
                       | {
                           __typename?: 'ImageSet'
@@ -26789,6 +26888,12 @@ export type NotificationsQuery = {
                       raw: { __typename?: 'Image'; uri: any }
                       optimized?: { __typename?: 'Image'; uri: any } | null
                     } | null
+                    attributes: Array<{
+                      __typename?: 'Attribute'
+                      key: string
+                      value: string
+                      type?: AttributeType | null
+                    }>
                   } | null
                   followModule?:
                     | {
@@ -29017,6 +29122,7 @@ export type NotificationsQuery = {
                 displayName?: string | null
                 bio?: any | null
                 rawURI: any
+                app?: any | null
                 picture?:
                   | {
                       __typename?: 'ImageSet'
@@ -29036,6 +29142,12 @@ export type NotificationsQuery = {
                   raw: { __typename?: 'Image'; uri: any }
                   optimized?: { __typename?: 'Image'; uri: any } | null
                 } | null
+                attributes: Array<{
+                  __typename?: 'Attribute'
+                  key: string
+                  value: string
+                  type?: AttributeType | null
+                }>
               } | null
               followModule?:
                 | {
@@ -31033,6 +31145,7 @@ export type NotificationsQuery = {
               displayName?: string | null
               bio?: any | null
               rawURI: any
+              app?: any | null
               picture?:
                 | {
                     __typename?: 'ImageSet'
@@ -31052,6 +31165,12 @@ export type NotificationsQuery = {
                 raw: { __typename?: 'Image'; uri: any }
                 optimized?: { __typename?: 'Image'; uri: any } | null
               } | null
+              attributes: Array<{
+                __typename?: 'Attribute'
+                key: string
+                value: string
+                type?: AttributeType | null
+              }>
             } | null
             followModule?:
               | {
@@ -31198,6 +31317,7 @@ export type NotificationsQuery = {
                     displayName?: string | null
                     bio?: any | null
                     rawURI: any
+                    app?: any | null
                     picture?:
                       | {
                           __typename?: 'ImageSet'
@@ -31217,6 +31337,12 @@ export type NotificationsQuery = {
                       raw: { __typename?: 'Image'; uri: any }
                       optimized?: { __typename?: 'Image'; uri: any } | null
                     } | null
+                    attributes: Array<{
+                      __typename?: 'Attribute'
+                      key: string
+                      value: string
+                      type?: AttributeType | null
+                    }>
                   } | null
                   followModule?:
                     | {
@@ -33446,6 +33572,7 @@ export type NotificationsQuery = {
                     displayName?: string | null
                     bio?: any | null
                     rawURI: any
+                    app?: any | null
                     picture?:
                       | {
                           __typename?: 'ImageSet'
@@ -33465,6 +33592,12 @@ export type NotificationsQuery = {
                       raw: { __typename?: 'Image'; uri: any }
                       optimized?: { __typename?: 'Image'; uri: any } | null
                     } | null
+                    attributes: Array<{
+                      __typename?: 'Attribute'
+                      key: string
+                      value: string
+                      type?: AttributeType | null
+                    }>
                   } | null
                   followModule?:
                     | {
@@ -35688,6 +35821,7 @@ export type NotificationsQuery = {
                     displayName?: string | null
                     bio?: any | null
                     rawURI: any
+                    app?: any | null
                     picture?:
                       | {
                           __typename?: 'ImageSet'
@@ -35707,6 +35841,12 @@ export type NotificationsQuery = {
                       raw: { __typename?: 'Image'; uri: any }
                       optimized?: { __typename?: 'Image'; uri: any } | null
                     } | null
+                    attributes: Array<{
+                      __typename?: 'Attribute'
+                      key: string
+                      value: string
+                      type?: AttributeType | null
+                    }>
                   } | null
                   followModule?:
                     | {
@@ -37934,6 +38074,7 @@ export type NotificationsQuery = {
                 displayName?: string | null
                 bio?: any | null
                 rawURI: any
+                app?: any | null
                 picture?:
                   | {
                       __typename?: 'ImageSet'
@@ -37953,6 +38094,12 @@ export type NotificationsQuery = {
                   raw: { __typename?: 'Image'; uri: any }
                   optimized?: { __typename?: 'Image'; uri: any } | null
                 } | null
+                attributes: Array<{
+                  __typename?: 'Attribute'
+                  key: string
+                  value: string
+                  type?: AttributeType | null
+                }>
               } | null
               followModule?:
                 | {
@@ -38096,6 +38243,7 @@ export type NotificationsQuery = {
                     displayName?: string | null
                     bio?: any | null
                     rawURI: any
+                    app?: any | null
                     picture?:
                       | {
                           __typename?: 'ImageSet'
@@ -38115,6 +38263,12 @@ export type NotificationsQuery = {
                       raw: { __typename?: 'Image'; uri: any }
                       optimized?: { __typename?: 'Image'; uri: any } | null
                     } | null
+                    attributes: Array<{
+                      __typename?: 'Attribute'
+                      key: string
+                      value: string
+                      type?: AttributeType | null
+                    }>
                   } | null
                   followModule?:
                     | {
@@ -40344,6 +40498,7 @@ export type NotificationsQuery = {
                     displayName?: string | null
                     bio?: any | null
                     rawURI: any
+                    app?: any | null
                     picture?:
                       | {
                           __typename?: 'ImageSet'
@@ -40363,6 +40518,12 @@ export type NotificationsQuery = {
                       raw: { __typename?: 'Image'; uri: any }
                       optimized?: { __typename?: 'Image'; uri: any } | null
                     } | null
+                    attributes: Array<{
+                      __typename?: 'Attribute'
+                      key: string
+                      value: string
+                      type?: AttributeType | null
+                    }>
                   } | null
                   followModule?:
                     | {
@@ -42586,6 +42747,7 @@ export type NotificationsQuery = {
                     displayName?: string | null
                     bio?: any | null
                     rawURI: any
+                    app?: any | null
                     picture?:
                       | {
                           __typename?: 'ImageSet'
@@ -42605,6 +42767,12 @@ export type NotificationsQuery = {
                       raw: { __typename?: 'Image'; uri: any }
                       optimized?: { __typename?: 'Image'; uri: any } | null
                     } | null
+                    attributes: Array<{
+                      __typename?: 'Attribute'
+                      key: string
+                      value: string
+                      type?: AttributeType | null
+                    }>
                   } | null
                   followModule?:
                     | {
@@ -44836,6 +45004,7 @@ export type NotificationsQuery = {
                 displayName?: string | null
                 bio?: any | null
                 rawURI: any
+                app?: any | null
                 picture?:
                   | {
                       __typename?: 'ImageSet'
@@ -44855,6 +45024,12 @@ export type NotificationsQuery = {
                   raw: { __typename?: 'Image'; uri: any }
                   optimized?: { __typename?: 'Image'; uri: any } | null
                 } | null
+                attributes: Array<{
+                  __typename?: 'Attribute'
+                  key: string
+                  value: string
+                  type?: AttributeType | null
+                }>
               } | null
               followModule?:
                 | {
@@ -46862,6 +47037,7 @@ export type NotificationsQuery = {
                     displayName?: string | null
                     bio?: any | null
                     rawURI: any
+                    app?: any | null
                     picture?:
                       | {
                           __typename?: 'ImageSet'
@@ -46881,6 +47057,12 @@ export type NotificationsQuery = {
                       raw: { __typename?: 'Image'; uri: any }
                       optimized?: { __typename?: 'Image'; uri: any } | null
                     } | null
+                    attributes: Array<{
+                      __typename?: 'Attribute'
+                      key: string
+                      value: string
+                      type?: AttributeType | null
+                    }>
                   } | null
                   followModule?:
                     | {
@@ -49110,6 +49292,7 @@ export type NotificationsQuery = {
                     displayName?: string | null
                     bio?: any | null
                     rawURI: any
+                    app?: any | null
                     picture?:
                       | {
                           __typename?: 'ImageSet'
@@ -49129,6 +49312,12 @@ export type NotificationsQuery = {
                       raw: { __typename?: 'Image'; uri: any }
                       optimized?: { __typename?: 'Image'; uri: any } | null
                     } | null
+                    attributes: Array<{
+                      __typename?: 'Attribute'
+                      key: string
+                      value: string
+                      type?: AttributeType | null
+                    }>
                   } | null
                   followModule?:
                     | {
@@ -51352,6 +51541,7 @@ export type NotificationsQuery = {
                     displayName?: string | null
                     bio?: any | null
                     rawURI: any
+                    app?: any | null
                     picture?:
                       | {
                           __typename?: 'ImageSet'
@@ -51371,6 +51561,12 @@ export type NotificationsQuery = {
                       raw: { __typename?: 'Image'; uri: any }
                       optimized?: { __typename?: 'Image'; uri: any } | null
                     } | null
+                    attributes: Array<{
+                      __typename?: 'Attribute'
+                      key: string
+                      value: string
+                      type?: AttributeType | null
+                    }>
                   } | null
                   followModule?:
                     | {
@@ -53592,6 +53788,7 @@ export type NotificationsQuery = {
                 displayName?: string | null
                 bio?: any | null
                 rawURI: any
+                app?: any | null
                 picture?:
                   | {
                       __typename?: 'ImageSet'
@@ -53611,6 +53808,12 @@ export type NotificationsQuery = {
                   raw: { __typename?: 'Image'; uri: any }
                   optimized?: { __typename?: 'Image'; uri: any } | null
                 } | null
+                attributes: Array<{
+                  __typename?: 'Attribute'
+                  key: string
+                  value: string
+                  type?: AttributeType | null
+                }>
               } | null
               followModule?:
                 | {
@@ -53743,6 +53946,7 @@ export type ProfileQuery = {
       displayName?: string | null
       bio?: any | null
       rawURI: any
+      app?: any | null
       picture?:
         | {
             __typename?: 'ImageSet'
@@ -53762,6 +53966,12 @@ export type ProfileQuery = {
         raw: { __typename?: 'Image'; uri: any }
         optimized?: { __typename?: 'Image'; uri: any } | null
       } | null
+      attributes: Array<{
+        __typename?: 'Attribute'
+        key: string
+        value: string
+        type?: AttributeType | null
+      }>
     } | null
     followModule?:
       | {
@@ -53916,6 +54126,7 @@ export type FeedQuery = {
                 displayName?: string | null
                 bio?: any | null
                 rawURI: any
+                app?: any | null
                 picture?:
                   | {
                       __typename?: 'ImageSet'
@@ -53935,6 +54146,12 @@ export type FeedQuery = {
                   raw: { __typename?: 'Image'; uri: any }
                   optimized?: { __typename?: 'Image'; uri: any } | null
                 } | null
+                attributes: Array<{
+                  __typename?: 'Attribute'
+                  key: string
+                  value: string
+                  type?: AttributeType | null
+                }>
               } | null
               followModule?:
                 | {
@@ -55939,6 +56156,7 @@ export type FeedQuery = {
                 displayName?: string | null
                 bio?: any | null
                 rawURI: any
+                app?: any | null
                 picture?:
                   | {
                       __typename?: 'ImageSet'
@@ -55958,6 +56176,12 @@ export type FeedQuery = {
                   raw: { __typename?: 'Image'; uri: any }
                   optimized?: { __typename?: 'Image'; uri: any } | null
                 } | null
+                attributes: Array<{
+                  __typename?: 'Attribute'
+                  key: string
+                  value: string
+                  type?: AttributeType | null
+                }>
               } | null
               followModule?:
                 | {
@@ -58026,6 +58250,7 @@ export type ProfilesQuery = {
         displayName?: string | null
         bio?: any | null
         rawURI: any
+        app?: any | null
         picture?:
           | {
               __typename?: 'ImageSet'
@@ -58045,6 +58270,12 @@ export type ProfilesQuery = {
           raw: { __typename?: 'Image'; uri: any }
           optimized?: { __typename?: 'Image'; uri: any } | null
         } | null
+        attributes: Array<{
+          __typename?: 'Attribute'
+          key: string
+          value: string
+          type?: AttributeType | null
+        }>
       } | null
       followModule?:
         | {
@@ -58174,6 +58405,7 @@ export type ProfilesManagedQuery = {
         displayName?: string | null
         bio?: any | null
         rawURI: any
+        app?: any | null
         picture?:
           | {
               __typename?: 'ImageSet'
@@ -58193,6 +58425,12 @@ export type ProfilesManagedQuery = {
           raw: { __typename?: 'Image'; uri: any }
           optimized?: { __typename?: 'Image'; uri: any } | null
         } | null
+        attributes: Array<{
+          __typename?: 'Attribute'
+          key: string
+          value: string
+          type?: AttributeType | null
+        }>
       } | null
       followModule?:
         | {
@@ -58342,6 +58580,7 @@ export type PublicationQuery = {
             displayName?: string | null
             bio?: any | null
             rawURI: any
+            app?: any | null
             picture?:
               | {
                   __typename?: 'ImageSet'
@@ -58361,6 +58600,12 @@ export type PublicationQuery = {
               raw: { __typename?: 'Image'; uri: any }
               optimized?: { __typename?: 'Image'; uri: any } | null
             } | null
+            attributes: Array<{
+              __typename?: 'Attribute'
+              key: string
+              value: string
+              type?: AttributeType | null
+            }>
           } | null
           followModule?:
             | {
@@ -60371,6 +60616,7 @@ export type PublicationQuery = {
             displayName?: string | null
             bio?: any | null
             rawURI: any
+            app?: any | null
             picture?:
               | {
                   __typename?: 'ImageSet'
@@ -60390,6 +60636,12 @@ export type PublicationQuery = {
               raw: { __typename?: 'Image'; uri: any }
               optimized?: { __typename?: 'Image'; uri: any } | null
             } | null
+            attributes: Array<{
+              __typename?: 'Attribute'
+              key: string
+              value: string
+              type?: AttributeType | null
+            }>
           } | null
           followModule?:
             | {
@@ -62381,6 +62633,7 @@ export type PublicationQuery = {
             displayName?: string | null
             bio?: any | null
             rawURI: any
+            app?: any | null
             picture?:
               | {
                   __typename?: 'ImageSet'
@@ -62400,6 +62653,12 @@ export type PublicationQuery = {
               raw: { __typename?: 'Image'; uri: any }
               optimized?: { __typename?: 'Image'; uri: any } | null
             } | null
+            attributes: Array<{
+              __typename?: 'Attribute'
+              key: string
+              value: string
+              type?: AttributeType | null
+            }>
           } | null
           followModule?:
             | {
@@ -64411,6 +64670,7 @@ export type PublicationBookmarksQuery = {
               displayName?: string | null
               bio?: any | null
               rawURI: any
+              app?: any | null
               picture?:
                 | {
                     __typename?: 'ImageSet'
@@ -64430,6 +64690,12 @@ export type PublicationBookmarksQuery = {
                 raw: { __typename?: 'Image'; uri: any }
                 optimized?: { __typename?: 'Image'; uri: any } | null
               } | null
+              attributes: Array<{
+                __typename?: 'Attribute'
+                key: string
+                value: string
+                type?: AttributeType | null
+              }>
             } | null
             followModule?:
               | {
@@ -66444,6 +66710,7 @@ export type PublicationBookmarksQuery = {
               displayName?: string | null
               bio?: any | null
               rawURI: any
+              app?: any | null
               picture?:
                 | {
                     __typename?: 'ImageSet'
@@ -66463,6 +66730,12 @@ export type PublicationBookmarksQuery = {
                 raw: { __typename?: 'Image'; uri: any }
                 optimized?: { __typename?: 'Image'; uri: any } | null
               } | null
+              attributes: Array<{
+                __typename?: 'Attribute'
+                key: string
+                value: string
+                type?: AttributeType | null
+              }>
             } | null
             followModule?:
               | {
@@ -68458,6 +68731,7 @@ export type PublicationBookmarksQuery = {
               displayName?: string | null
               bio?: any | null
               rawURI: any
+              app?: any | null
               picture?:
                 | {
                     __typename?: 'ImageSet'
@@ -68477,6 +68751,12 @@ export type PublicationBookmarksQuery = {
                 raw: { __typename?: 'Image'; uri: any }
                 optimized?: { __typename?: 'Image'; uri: any } | null
               } | null
+              attributes: Array<{
+                __typename?: 'Attribute'
+                key: string
+                value: string
+                type?: AttributeType | null
+              }>
             } | null
             followModule?:
               | {
@@ -70490,6 +70770,7 @@ export type PublicationsQuery = {
               displayName?: string | null
               bio?: any | null
               rawURI: any
+              app?: any | null
               picture?:
                 | {
                     __typename?: 'ImageSet'
@@ -70509,6 +70790,12 @@ export type PublicationsQuery = {
                 raw: { __typename?: 'Image'; uri: any }
                 optimized?: { __typename?: 'Image'; uri: any } | null
               } | null
+              attributes: Array<{
+                __typename?: 'Attribute'
+                key: string
+                value: string
+                type?: AttributeType | null
+              }>
             } | null
             followModule?:
               | {
@@ -72523,6 +72810,7 @@ export type PublicationsQuery = {
               displayName?: string | null
               bio?: any | null
               rawURI: any
+              app?: any | null
               picture?:
                 | {
                     __typename?: 'ImageSet'
@@ -72542,6 +72830,12 @@ export type PublicationsQuery = {
                 raw: { __typename?: 'Image'; uri: any }
                 optimized?: { __typename?: 'Image'; uri: any } | null
               } | null
+              attributes: Array<{
+                __typename?: 'Attribute'
+                key: string
+                value: string
+                type?: AttributeType | null
+              }>
             } | null
             followModule?:
               | {
@@ -74537,6 +74831,7 @@ export type PublicationsQuery = {
               displayName?: string | null
               bio?: any | null
               rawURI: any
+              app?: any | null
               picture?:
                 | {
                     __typename?: 'ImageSet'
@@ -74556,6 +74851,12 @@ export type PublicationsQuery = {
                 raw: { __typename?: 'Image'; uri: any }
                 optimized?: { __typename?: 'Image'; uri: any } | null
               } | null
+              attributes: Array<{
+                __typename?: 'Attribute'
+                key: string
+                value: string
+                type?: AttributeType | null
+              }>
             } | null
             followModule?:
               | {
@@ -76569,6 +76870,7 @@ export type RevenueFromPublicationQuery = {
               displayName?: string | null
               bio?: any | null
               rawURI: any
+              app?: any | null
               picture?:
                 | {
                     __typename?: 'ImageSet'
@@ -76588,6 +76890,12 @@ export type RevenueFromPublicationQuery = {
                 raw: { __typename?: 'Image'; uri: any }
                 optimized?: { __typename?: 'Image'; uri: any } | null
               } | null
+              attributes: Array<{
+                __typename?: 'Attribute'
+                key: string
+                value: string
+                type?: AttributeType | null
+              }>
             } | null
             followModule?:
               | {
@@ -78602,6 +78910,7 @@ export type RevenueFromPublicationQuery = {
               displayName?: string | null
               bio?: any | null
               rawURI: any
+              app?: any | null
               picture?:
                 | {
                     __typename?: 'ImageSet'
@@ -78621,6 +78930,12 @@ export type RevenueFromPublicationQuery = {
                 raw: { __typename?: 'Image'; uri: any }
                 optimized?: { __typename?: 'Image'; uri: any } | null
               } | null
+              attributes: Array<{
+                __typename?: 'Attribute'
+                key: string
+                value: string
+                type?: AttributeType | null
+              }>
             } | null
             followModule?:
               | {
@@ -80616,6 +80931,7 @@ export type RevenueFromPublicationQuery = {
               displayName?: string | null
               bio?: any | null
               rawURI: any
+              app?: any | null
               picture?:
                 | {
                     __typename?: 'ImageSet'
@@ -80635,6 +80951,12 @@ export type RevenueFromPublicationQuery = {
                 raw: { __typename?: 'Image'; uri: any }
                 optimized?: { __typename?: 'Image'; uri: any } | null
               } | null
+              attributes: Array<{
+                __typename?: 'Attribute'
+                key: string
+                value: string
+                type?: AttributeType | null
+              }>
             } | null
             followModule?:
               | {
@@ -82669,6 +82991,7 @@ export type RevenueFromPublicationsQuery = {
                 displayName?: string | null
                 bio?: any | null
                 rawURI: any
+                app?: any | null
                 picture?:
                   | {
                       __typename?: 'ImageSet'
@@ -82688,6 +83011,12 @@ export type RevenueFromPublicationsQuery = {
                   raw: { __typename?: 'Image'; uri: any }
                   optimized?: { __typename?: 'Image'; uri: any } | null
                 } | null
+                attributes: Array<{
+                  __typename?: 'Attribute'
+                  key: string
+                  value: string
+                  type?: AttributeType | null
+                }>
               } | null
               followModule?:
                 | {
@@ -84705,6 +85034,7 @@ export type RevenueFromPublicationsQuery = {
                 displayName?: string | null
                 bio?: any | null
                 rawURI: any
+                app?: any | null
                 picture?:
                   | {
                       __typename?: 'ImageSet'
@@ -84724,6 +85054,12 @@ export type RevenueFromPublicationsQuery = {
                   raw: { __typename?: 'Image'; uri: any }
                   optimized?: { __typename?: 'Image'; uri: any } | null
                 } | null
+                attributes: Array<{
+                  __typename?: 'Attribute'
+                  key: string
+                  value: string
+                  type?: AttributeType | null
+                }>
               } | null
               followModule?:
                 | {
@@ -86722,6 +87058,7 @@ export type RevenueFromPublicationsQuery = {
                 displayName?: string | null
                 bio?: any | null
                 rawURI: any
+                app?: any | null
                 picture?:
                   | {
                       __typename?: 'ImageSet'
@@ -86741,6 +87078,12 @@ export type RevenueFromPublicationsQuery = {
                   raw: { __typename?: 'Image'; uri: any }
                   optimized?: { __typename?: 'Image'; uri: any } | null
                 } | null
+                attributes: Array<{
+                  __typename?: 'Attribute'
+                  key: string
+                  value: string
+                  type?: AttributeType | null
+                }>
               } | null
               followModule?:
                 | {
@@ -88749,6 +89092,7 @@ export type SearchProfilesQuery = {
         displayName?: string | null
         bio?: any | null
         rawURI: any
+        app?: any | null
         picture?:
           | {
               __typename?: 'ImageSet'
@@ -88768,6 +89112,12 @@ export type SearchProfilesQuery = {
           raw: { __typename?: 'Image'; uri: any }
           optimized?: { __typename?: 'Image'; uri: any } | null
         } | null
+        attributes: Array<{
+          __typename?: 'Attribute'
+          key: string
+          value: string
+          type?: AttributeType | null
+        }>
       } | null
       followModule?:
         | {
@@ -88919,6 +89269,7 @@ export type SearchPublicationsQuery = {
               displayName?: string | null
               bio?: any | null
               rawURI: any
+              app?: any | null
               picture?:
                 | {
                     __typename?: 'ImageSet'
@@ -88938,6 +89289,12 @@ export type SearchPublicationsQuery = {
                 raw: { __typename?: 'Image'; uri: any }
                 optimized?: { __typename?: 'Image'; uri: any } | null
               } | null
+              attributes: Array<{
+                __typename?: 'Attribute'
+                key: string
+                value: string
+                type?: AttributeType | null
+              }>
             } | null
             followModule?:
               | {
@@ -90939,6 +91296,7 @@ export type SearchPublicationsQuery = {
               displayName?: string | null
               bio?: any | null
               rawURI: any
+              app?: any | null
               picture?:
                 | {
                     __typename?: 'ImageSet'
@@ -90958,6 +91316,12 @@ export type SearchPublicationsQuery = {
                 raw: { __typename?: 'Image'; uri: any }
                 optimized?: { __typename?: 'Image'; uri: any } | null
               } | null
+              attributes: Array<{
+                __typename?: 'Attribute'
+                key: string
+                value: string
+                type?: AttributeType | null
+              }>
             } | null
             followModule?:
               | {
@@ -92953,6 +93317,7 @@ export type SearchPublicationsQuery = {
               displayName?: string | null
               bio?: any | null
               rawURI: any
+              app?: any | null
               picture?:
                 | {
                     __typename?: 'ImageSet'
@@ -92972,6 +93337,12 @@ export type SearchPublicationsQuery = {
                 raw: { __typename?: 'Image'; uri: any }
                 optimized?: { __typename?: 'Image'; uri: any } | null
               } | null
+              attributes: Array<{
+                __typename?: 'Attribute'
+                key: string
+                value: string
+                type?: AttributeType | null
+              }>
             } | null
             followModule?:
               | {
@@ -95020,6 +95391,7 @@ export type WhoActedOnPublicationQuery = {
         displayName?: string | null
         bio?: any | null
         rawURI: any
+        app?: any | null
         picture?:
           | {
               __typename?: 'ImageSet'
@@ -95039,6 +95411,12 @@ export type WhoActedOnPublicationQuery = {
           raw: { __typename?: 'Image'; uri: any }
           optimized?: { __typename?: 'Image'; uri: any } | null
         } | null
+        attributes: Array<{
+          __typename?: 'Attribute'
+          key: string
+          value: string
+          type?: AttributeType | null
+        }>
       } | null
       followModule?:
         | {
@@ -95142,6 +95520,7 @@ export const ProfileMetadataFieldsFragmentDoc = gql`
     displayName
     bio
     rawURI
+    app
     picture {
       ... on ImageSet {
         ...ImageSetFields
@@ -95155,12 +95534,12 @@ export const ProfileMetadataFieldsFragmentDoc = gql`
       }
     }
     coverPicture {
-      raw {
-        uri
-      }
-      optimized {
-        uri
-      }
+      ...ImageSetFields
+    }
+    attributes {
+      key
+      value
+      type
     }
   }
   ${ImageSetFieldsFragmentDoc}

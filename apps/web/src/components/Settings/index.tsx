@@ -59,7 +59,7 @@ const Settings = () => {
       {!loading && !error && channel ? (
         <div className="grid gap-4 md:grid-cols-4">
           <div className="md:col-span-1">
-            <SideNav channel={channel} />
+            <SideNav />
           </div>
           <div className="md:col-span-3">
             {router.pathname === SETTINGS && <BasicInfo channel={channel} />}

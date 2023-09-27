@@ -3,19 +3,12 @@ import KeyOutline from '@components/Common/Icons/KeyOutline'
 import SubscribeOutline from '@components/Common/Icons/SubscribeOutline'
 import UserOutline from '@components/Common/Icons/UserOutline'
 import WarningOutline from '@components/Common/Icons/WarningOutline'
-import type { Profile } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
+import { Card } from '@radix-ui/themes'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import type { FC } from 'react'
 import React from 'react'
-
-import ChannelPicture from './ChannelPicture'
-
-type Props = {
-  channel: Profile
-}
 
 export const SETTINGS_MEMBERSHIP = '/settings/membership'
 export const SETTINGS_INTERESTS = '/settings/interests'
@@ -23,21 +16,18 @@ export const SETTINGS_PERMISSIONS = '/settings/permissions'
 export const SETTINGS_DANGER_ZONE = '/settings/danger'
 export const SETTINGS = '/settings'
 
-const SideNav: FC<Props> = ({ channel }) => {
+const SideNav = () => {
   const router = useRouter()
 
   const isActivePath = (path: string) => router.pathname === path
 
   return (
-    <div className="dark:bg-theme rounded-xl bg-white p-2">
-      <div className="flex flex-col items-center space-y-2 py-4">
-        <ChannelPicture channel={channel} />
-      </div>
+    <Card>
       <div className="m-1 flex flex-col space-y-1 text-sm">
         <Link
           href={SETTINGS}
           className={clsx(
-            'flex items-center space-x-2 rounded-xl p-3 hover:bg-gray-100 hover:dark:bg-gray-800',
+            'flex items-center space-x-2 rounded-md p-3 hover:bg-gray-100 hover:dark:bg-gray-800',
             { 'bg-gray-100 dark:bg-gray-800': isActivePath(SETTINGS) }
           )}
         >
@@ -49,7 +39,7 @@ const SideNav: FC<Props> = ({ channel }) => {
         <Link
           href={SETTINGS_MEMBERSHIP}
           className={clsx(
-            'flex items-center space-x-2 rounded-xl p-3 hover:bg-gray-100 hover:dark:bg-gray-800',
+            'flex items-center space-x-2 rounded-md p-3 hover:bg-gray-100 hover:dark:bg-gray-800',
             {
               'bg-gray-100 dark:bg-gray-800': isActivePath(SETTINGS_MEMBERSHIP)
             }
@@ -63,7 +53,7 @@ const SideNav: FC<Props> = ({ channel }) => {
         <Link
           href={SETTINGS_PERMISSIONS}
           className={clsx(
-            'flex items-center space-x-2 rounded-xl p-3 hover:bg-gray-100 hover:dark:bg-gray-800',
+            'flex items-center space-x-2 rounded-md p-3 hover:bg-gray-100 hover:dark:bg-gray-800',
             {
               'bg-gray-100 dark:bg-gray-800': isActivePath(SETTINGS_PERMISSIONS)
             }
@@ -77,7 +67,7 @@ const SideNav: FC<Props> = ({ channel }) => {
         <Link
           href={SETTINGS_INTERESTS}
           className={clsx(
-            'flex items-center space-x-2 rounded-xl p-3 hover:bg-gray-100 hover:dark:bg-gray-800',
+            'flex items-center space-x-2 rounded-md p-3 hover:bg-gray-100 hover:dark:bg-gray-800',
             {
               'bg-gray-100 dark:bg-gray-800': isActivePath(SETTINGS_INTERESTS)
             }
@@ -91,7 +81,7 @@ const SideNav: FC<Props> = ({ channel }) => {
         <Link
           href={SETTINGS_DANGER_ZONE}
           className={clsx(
-            'flex items-center space-x-2 rounded-xl p-3 text-red-500 hover:bg-red-100 hover:dark:bg-red-900/60',
+            'flex items-center space-x-2 rounded-md p-3 text-red-500 hover:bg-red-100 hover:dark:bg-red-900/60',
             {
               'bg-red-100 dark:bg-red-900/60':
                 isActivePath(SETTINGS_DANGER_ZONE)
@@ -104,7 +94,7 @@ const SideNav: FC<Props> = ({ channel }) => {
           </span>
         </Link>
       </div>
-    </div>
+    </Card>
   )
 }
 

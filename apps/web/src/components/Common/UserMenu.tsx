@@ -86,9 +86,10 @@ const UserMenu = () => {
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger>
-        <div className="rounded ring-gray-200 hover:ring-4 dark:ring-gray-800">
+        <div className="rounded-full ring-gray-200 hover:ring-4 dark:ring-gray-800">
           <Avatar
             size="2"
+            radius="full"
             src={getProfilePicture(selectedSimpleProfile as Profile)}
             fallback={trimLensHandle(selectedSimpleProfile?.handle)[0]}
           />
@@ -98,6 +99,7 @@ const UserMenu = () => {
         <Flex gap="2" px="2" py="1" pb="3" align="center">
           <Avatar
             size="3"
+            radius="full"
             src={getProfilePicture(selectedSimpleProfile as Profile)}
             fallback={trimLensHandle(selectedSimpleProfile?.handle)[0]}
           />

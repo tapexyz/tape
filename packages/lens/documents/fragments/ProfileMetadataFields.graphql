@@ -2,6 +2,7 @@ fragment ProfileMetadataFields on ProfileMetadata {
   displayName
   bio
   rawURI
+  app
   picture {
     ... on ImageSet {
       ...ImageSetFields
@@ -15,11 +16,11 @@ fragment ProfileMetadataFields on ProfileMetadata {
     }
   }
   coverPicture {
-    raw {
-      uri
-    }
-    optimized {
-      uri
-    }
+    ...ImageSetFields
+  }
+  attributes {
+    key
+    value
+    type
   }
 }
