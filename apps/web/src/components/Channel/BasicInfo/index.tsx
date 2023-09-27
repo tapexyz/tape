@@ -82,7 +82,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
             draggable={false}
             alt={profile?.handle}
           />
-          <Flex direction="column" align="end">
+          <Flex direction="column" gap="4" align="end">
             {profile.metadata && <CoverLinks metadata={profile.metadata} />}
 
             <Flex gap="1">
@@ -128,7 +128,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
               </span>
               <Badge id={profile?.id} size="md" />
             </Text>
-            <Flex align="center" gap="3">
+            <Flex align="center" gap="4">
               {location && (
                 <Link
                   href={`https://www.google.com/maps/search/?api=1&query=${location}`}
@@ -226,7 +226,6 @@ const BasicInfo: FC<Props> = ({ profile }) => {
               <InterweaveContent content={profile.metadata?.bio} />
             </div>
           )}
-          asd
           {profile?.id && !isOwnChannel ? (
             <MutualFollowers viewing={profile.id} />
           ) : null}

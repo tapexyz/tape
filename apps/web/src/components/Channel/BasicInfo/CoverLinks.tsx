@@ -25,9 +25,37 @@ const CoverLinks = ({ metadata }: { metadata: ProfileMetadata }) => {
             .replace('http://', '')}`}
           target="_blank"
           rel="noreferer noreferrer"
-          className="rounded-lg bg-white bg-opacity-80 p-2 dark:bg-gray-900"
+          className="rounded-lg bg-white bg-opacity-80 p-1.5 dark:bg-gray-900"
         >
           <GlobeOutline className="h-4 w-4" />
+        </Link>
+      )}
+      {getValueFromKeyInAttributes(metadata?.attributes, 'spotify') && (
+        <Link
+          onClick={() =>
+            Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_COVER_LINKS)
+          }
+          href={`https://open.spotify.com/${getValueFromKeyInAttributes(
+            metadata?.attributes,
+            'spotify'
+          )
+            ?.replace('https://open.spotify.com/', '')
+            .replace('http://open.spotify.com/', '')}`}
+          target="_blank"
+          rel="noreferer noreferrer"
+          className="rounded-lg bg-white bg-opacity-80 p-1.5 dark:bg-gray-900"
+        >
+          <img
+            src={imageCdn(
+              `${STATIC_ASSETS}/images/social/spotify.png`,
+              'AVATAR'
+            )}
+            className="h-4 w-4 object-contain"
+            height={16}
+            width={16}
+            alt="Spotify"
+            draggable={false}
+          />
         </Link>
       )}
       {getValueFromKeyInAttributes(metadata?.attributes, 'youtube') && (
@@ -43,7 +71,7 @@ const CoverLinks = ({ metadata }: { metadata: ProfileMetadata }) => {
             .replace('http://youtube.com/', '')}`}
           target="_blank"
           rel="noreferer noreferrer"
-          className="rounded-lg bg-white bg-opacity-80 p-2 dark:bg-gray-900"
+          className="rounded-lg bg-white bg-opacity-80 p-1.5 dark:bg-gray-900"
         >
           <img
             src={imageCdn(
@@ -69,7 +97,7 @@ const CoverLinks = ({ metadata }: { metadata: ProfileMetadata }) => {
           )}`}
           target="_blank"
           rel="noreferer noreferrer"
-          className="rounded-lg bg-white bg-opacity-80 p-2 dark:bg-gray-900"
+          className="rounded-lg bg-white bg-opacity-80 p-1.5 dark:bg-gray-900"
         >
           {resolvedTheme === 'dark' ? (
             <img

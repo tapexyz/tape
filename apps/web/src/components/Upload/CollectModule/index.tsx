@@ -1,13 +1,12 @@
 import CheckOutline from '@components/Common/Icons/CheckOutline'
 import SplitOutline from '@components/Common/Icons/SplitOutline'
-import { Button } from '@components/UIElements/Button'
-import Modal from '@components/UIElements/Modal'
 import Tooltip from '@components/UIElements/Tooltip'
-import { useEnabledCurrenciesQuery } from '@lenstube/lens'
+import { LimitType, useEnabledCurrenciesQuery } from '@lenstube/lens'
 import type { CollectModuleType } from '@lenstube/lens/custom-types'
 import useAppStore from '@lib/store'
 import useAuthPersistStore from '@lib/store/auth'
 import { t, Trans } from '@lingui/macro'
+import { Button, Dialog, Flex } from '@radix-ui/themes'
 import React, { useState } from 'react'
 
 import ChargeQuestion from './ChargeQuestion'
@@ -31,6 +30,11 @@ const CollectModule = () => {
   }
 
   const { data: enabledCurrencies } = useEnabledCurrenciesQuery({
+    variables: {
+      request: {
+        limit: LimitType.Fifty
+      }
+    },
     skip: !selectedSimpleProfile?.id
   })
 
@@ -76,61 +80,69 @@ const CollectModule = () => {
           <Trans>Collect Type</Trans>
         </div>
       </div>
-      <button
-        type="button"
-        onClick={() => setShowModal(true)}
-        className="flex w-full items-center justify-between rounded-xl border border-gray-300 px-4 py-2.5 text-left text-sm focus:outline-none dark:border-gray-700"
-      >
-        <span>{getSelectedCollectType()}</span>
-        <CheckOutline className="h-3 w-3" />
-      </button>
-      <Modal
-        title={t`Select collect type`}
-        panelClassName="max-w-lg"
-        show={showModal}
-      >
-        <div className="no-scrollbar mt-2 max-h-[80vh] space-y-4 overflow-y-auto p-0.5">
-          <PermissionQuestion
-            setCollectType={setCollectType}
-            uploadedVideo={uploadedVideo}
-          />
-          {!uploadedVideo.collectModule.isRevertCollect && (
-            <LimitDurationQuestion
-              setCollectType={setCollectType}
-              uploadedVideo={uploadedVideo}
-            />
-          )}
-          {!uploadedVideo.collectModule.isRevertCollect && (
-            <LimitQuestion
-              setCollectType={setCollectType}
-              uploadedVideo={uploadedVideo}
-            />
-          )}
-          {!uploadedVideo.collectModule.isRevertCollect && (
-            <ChargeQuestion
-              setCollectType={setCollectType}
-              uploadedVideo={uploadedVideo}
-            />
-          )}
-          {(uploadedVideo.collectModule.isFeeCollect ||
-            uploadedVideo.collectModule.collectLimitEnabled) &&
-          !uploadedVideo.collectModule.isRevertCollect &&
-          enabledCurrencies ? (
-            <FeeCollectForm
-              setCollectType={setCollectType}
-              uploadedVideo={uploadedVideo}
-              setShowModal={setShowModal}
-              enabledCurrencies={enabledCurrencies.currencies.items}
-            />
-          ) : (
-            <div className="flex justify-end">
-              <Button type="button" onClick={() => setShowModal(false)}>
-                <Trans>Set Collect Type</Trans>
-              </Button>
+      <Dialog.Root open={showModal} onOpenChange={setShowModal}>
+        <Dialog.Trigger>
+          <button
+            type="button"
+            onClick={() => setShowModal(true)}
+            className="flex w-full items-center justify-between rounded-xl border border-gray-300 px-4 py-2.5 text-left text-sm focus:outline-none dark:border-gray-700"
+          >
+            <span>{getSelectedCollectType()}</span>
+            <CheckOutline className="h-3 w-3" />
+          </button>
+        </Dialog.Trigger>
+
+        <Dialog.Content style={{ maxWidth: 450 }}>
+          <Dialog.Title>Collect Settings</Dialog.Title>
+          <Flex direction="column" gap="3">
+            <div className="no-scrollbar mt-2 max-h-[80vh] space-y-4 overflow-y-auto p-0.5">
+              <PermissionQuestion
+                setCollectType={setCollectType}
+                uploadedVideo={uploadedVideo}
+              />
+              {!uploadedVideo.collectModule.isRevertCollect && (
+                <LimitDurationQuestion
+                  setCollectType={setCollectType}
+                  uploadedVideo={uploadedVideo}
+                />
+              )}
+              {!uploadedVideo.collectModule.isRevertCollect && (
+                <LimitQuestion
+                  setCollectType={setCollectType}
+                  uploadedVideo={uploadedVideo}
+                />
+              )}
+              {!uploadedVideo.collectModule.isRevertCollect && (
+                <ChargeQuestion
+                  setCollectType={setCollectType}
+                  uploadedVideo={uploadedVideo}
+                />
+              )}
+              {(uploadedVideo.collectModule.isFeeCollect ||
+                uploadedVideo.collectModule.collectLimitEnabled) &&
+              !uploadedVideo.collectModule.isRevertCollect &&
+              enabledCurrencies ? (
+                <FeeCollectForm
+                  setCollectType={setCollectType}
+                  uploadedVideo={uploadedVideo}
+                  setShowModal={setShowModal}
+                  enabledCurrencies={enabledCurrencies.currencies.items}
+                />
+              ) : (
+                <div className="flex justify-end">
+                  <Button
+                    type="button"
+                    highContrast
+                    onClick={() => setShowModal(false)}
+                  >
+                    <Trans>Set Collect Type</Trans>
+                  </Button>
+                </div>
+              )}
             </div>
-          )}
-        </div>
-      </Modal>
+          </Flex>
+        </Dialog.Content>
+      </Dialog.Root>
     </>
   )
 }

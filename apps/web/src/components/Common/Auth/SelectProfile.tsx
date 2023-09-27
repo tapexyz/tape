@@ -170,14 +170,16 @@ const SelectProfile = () => {
 
         <ScrollArea type="hover" scrollbars="vertical" style={{ height: 200 }}>
           <Flex direction="column" gap="3" pt="3">
-            <RadioGroup.Root defaultValue={selectedProfileId} highContrast>
+            <RadioGroup.Root
+              value={selectedProfileId}
+              onValueChange={(value) => setSelectedProfileId(value)}
+              defaultValue={selectedProfileId}
+              highContrast
+            >
               {profiles?.map((profile) => (
                 <Card variant="ghost" key={profile.id}>
                   <Flex gap="3" align="center">
-                    <RadioGroup.Item
-                      onClick={() => setSelectedProfileId(profile.id)}
-                      value={profile.id}
-                    />
+                    <RadioGroup.Item value={profile.id} />
                     <Avatar
                       size="2"
                       src={getProfilePicture(profile)}

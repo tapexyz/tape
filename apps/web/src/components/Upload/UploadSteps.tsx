@@ -1,7 +1,7 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import MetaTags from '@components/Common/MetaTags'
 import useEthersWalletClient from '@hooks/useEthersWalletClient'
-import type { MetadataAttribute } from '@lens-protocol/metadata'
+import type { MetadataAttribute, VideoOptions } from '@lens-protocol/metadata'
 import {
   MarketplaceMetadataAttributeDisplayType,
   MediaVideoMimeType,
@@ -289,7 +289,8 @@ const UploadSteps = () => {
           value: LENSTUBE_APP_ID
         }
       ]
-      const metadata = video({
+
+      const publicationMetadata: VideoOptions = {
         video: {
           item: uploadedVideo.videoSource,
           type: MediaVideoMimeType.MP4,
@@ -306,9 +307,6 @@ const UploadSteps = () => {
           `${uploadedVideo.title}\n\n${uploadedVideo.description}`
         ),
         tags: [uploadedVideo.videoCategory.tag],
-        contentWarning: uploadedVideo.isSensitiveContent
-          ? PublicationContentWarning.SENSITIVE
-          : undefined,
         locale: getUserLocale(),
         title: uploadedVideo.title,
         marketplace: {
@@ -330,7 +328,19 @@ const UploadSteps = () => {
           image: uploadedVideo.thumbnail,
           name: uploadedVideo.title
         }
-      })
+      }
+      if (uploadedVideo.isSensitiveContent) {
+        publicationMetadata.contentWarning = PublicationContentWarning.SENSITIVE
+      }
+      console.log(
+        '🚀 ~ file: UploadSteps.tsx:338 ~ UploadSteps ~ publicationMetadata:',
+        publicationMetadata
+      )
+      const metadata = video(publicationMetadata)
+      console.log(
+        '🚀 ~ file: UploadSteps.tsx:340 ~ UploadSteps ~ metadata:',
+        metadata
+      )
       const metadataUri = await uploadToAr(metadata)
       setUploadedVideo({
         buttonText: t`Posting video`,
@@ -417,10 +427,6 @@ const UploadSteps = () => {
       percent: 100,
       videoSource: result.url
     })
-    console.log(
-      '🚀 ~ file: UploadSteps.tsx:447 ~ uploadVideoToIpfs ~ result:',
-      result
-    )
     return await createPublication({
       videoSource: result.url
     })

@@ -1,4 +1,3 @@
-import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { WMATIC_TOKEN_ADDRESS } from '@lenstube/constants'
@@ -9,6 +8,7 @@ import type {
 } from '@lenstube/lens/custom-types'
 import useAuthPersistStore from '@lib/store/auth'
 import { t, Trans } from '@lingui/macro'
+import { Button } from '@radix-ui/themes'
 import type { Dispatch, FC } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -220,7 +220,11 @@ const FeeCollectForm: FC<Props> = ({
         </>
       ) : null}
       <div className="flex justify-end pt-2" ref={submitContainerRef}>
-        <Button type="button" onClick={() => handleSubmit(validateInputs)()}>
+        <Button
+          highContrast
+          type="button"
+          onClick={() => handleSubmit(validateInputs)()}
+        >
           <Trans>Set Collect Type</Trans>
         </Button>
       </div>

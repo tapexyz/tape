@@ -11,6 +11,7 @@ import { splitNumber } from '@lenstube/generic'
 import { type RecipientDataInput, useProfileLazyQuery } from '@lenstube/lens'
 import useAppStore from '@lib/store'
 import { Trans } from '@lingui/macro'
+import { Text } from '@radix-ui/themes'
 import clsx from 'clsx'
 import type { FC, RefObject } from 'react'
 import React from 'react'
@@ -118,9 +119,9 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
   return (
     <div className="space-y-1">
       <div className="flex items-center">
-        <div className="text-[11px] font-semibold uppercase tracking-wider opacity-70">
-          <Trans>Split revenue</Trans>
-        </div>
+        <Text as="div" size="2">
+          Split revenue
+        </Text>
         <Tooltip
           content="Split video revenue with multiple accounts."
           placement="top"

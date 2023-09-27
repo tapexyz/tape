@@ -4,6 +4,7 @@ import { getCollectModuleConfig } from '@lenstube/generic'
 import type { ApprovedAllowanceAmountResult, Erc20 } from '@lenstube/lens'
 import {
   FollowModuleType,
+  LimitType,
   OpenActionModuleType,
   ReferenceModuleType,
   useApprovedModuleAllowanceAmountQuery,
@@ -59,6 +60,7 @@ const ModulePermissions = () => {
     },
     skip: !selectedSimpleProfile?.id
   })
+
   useWaitForTransaction({
     hash: txData?.hash,
     onSuccess: () => {
@@ -76,6 +78,11 @@ const ModulePermissions = () => {
     useGenerateModuleCurrencyApprovalDataLazyQuery()
 
   const { data: enabledCurrencies } = useEnabledCurrenciesQuery({
+    variables: {
+      request: {
+        limit: LimitType.Fifty
+      }
+    },
     skip: !selectedSimpleProfile?.id
   })
 

@@ -68,6 +68,7 @@ const Membership = ({ channel }: Props) => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       recipient: channel.ownedBy.address,
+      amount: 2,
       token: WMATIC_TOKEN_ADDRESS
     }
   })

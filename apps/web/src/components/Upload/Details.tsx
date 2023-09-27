@@ -1,13 +1,12 @@
 import EmojiPicker from '@components/UIElements/EmojiPicker'
 import InputMentions from '@components/UIElements/InputMentions'
-import RadioInput from '@components/UIElements/RadioInput'
 import { Toggle } from '@components/UIElements/Toggle'
 import Tooltip from '@components/UIElements/Tooltip'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { checkIsBytesVideo } from '@lenstube/generic'
 import useAppStore from '@lib/store'
 import { t, Trans } from '@lingui/macro'
-import { Button } from '@radix-ui/themes'
+import { Button, Flex, RadioGroup, Text } from '@radix-ui/themes'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
@@ -170,20 +169,35 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
               <ReferenceModule />
             </div>
             <div className="mt-4">
-              <RadioInput
-                checked={watch('isSensitiveContent')}
-                onChange={(checked) => {
-                  setValue('isSensitiveContent', checked)
-                }}
-                question={
-                  <span>
-                    <Trans>
-                      Does this video contain sensitive information that targets
-                      an adult audience?
-                    </Trans>
-                  </span>
+              <span>
+                <Trans>
+                  Does this media content contain sensitive information that may
+                  not be suitable for a general audience?
+                </Trans>
+              </span>
+              <RadioGroup.Root
+                mt="2"
+                defaultValue="NO"
+                value={watch('isSensitiveContent') ? 'YES' : 'NO'}
+                onValueChange={(value) =>
+                  setValue('isSensitiveContent', value === 'YES')
                 }
-              />
+              >
+                <Flex gap="2" direction="column">
+                  <label>
+                    <Flex gap="2" align="center">
+                      <RadioGroup.Item value="YES" />
+                      <Text size="2">Yes</Text>
+                    </Flex>
+                  </label>
+                  <label>
+                    <Flex gap="2" align="center">
+                      <RadioGroup.Item value="NO" />
+                      <Text size="2">No</Text>
+                    </Flex>
+                  </label>
+                </Flex>
+              </RadioGroup.Root>
             </div>
           </div>
         </div>

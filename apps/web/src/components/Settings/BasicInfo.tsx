@@ -442,7 +442,7 @@ const BasicInfo = ({ channel }: Props) => {
             label="Spotify"
             placeholder="artist/6xl0mjD1B4paRyfPDUOynf"
             validationError={errors.spotify?.message}
-            prefix="https://spotify.com/"
+            prefix="https://open.spotify.com/"
             {...register('spotify')}
           />
         </div>
