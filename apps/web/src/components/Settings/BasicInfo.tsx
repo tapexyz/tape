@@ -5,7 +5,7 @@ import EmojiPicker from '@components/UIElements/EmojiPicker'
 import { Input } from '@components/UIElements/Input'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
-import type { MetadataAttribute } from '@lens-protocol/metadata'
+import type { MetadataAttribute, ProfileOptions } from '@lens-protocol/metadata'
 import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
 import {
   Analytics,
@@ -58,25 +58,19 @@ type Props = {
 }
 
 const formSchema = object({
-  displayName: union([
-    string()
-      .min(4, { message: 'Name should be atleast 5 characters' })
-      .max(30, { message: 'Name should not exceed 30 characters' }),
-    string().max(0)
-  ]),
-  description: union([
-    string()
-      .min(5, { message: 'Description should be atleast 5 characters' })
-      .max(1000, { message: 'Description should not exceed 1000 characters' }),
-    string().max(0)
-  ]),
+  displayName: string().max(30, {
+    message: 'Name should not exceed 30 characters'
+  }),
+  description: string().max(500, {
+    message: 'Description should not exceed 500 characters'
+  }),
   x: string(),
   youtube: string(),
   location: string(),
   spotify: string(),
   website: union([
     string().url({
-      message: 'Enter valid website URL (eg. https://lenstube.xyz)'
+      message: 'Invalid website URL'
     }),
     string().max(0)
   ])
@@ -133,7 +127,7 @@ const BasicInfo = ({ channel }: Props) => {
       return
     }
     setLoading(false)
-    toast.success('Channel details submitted')
+    toast.success('Profile updated')
     Analytics.track(TRACK.CHANNEL.UPDATE)
   }
 
@@ -194,12 +188,10 @@ const BasicInfo = ({ channel }: Props) => {
   const onSaveBasicInfo = async (data: FormData) => {
     setLoading(true)
     try {
-      const metadata = profile({
-        bio: trimify(data.description),
+      const profileMetadata: ProfileOptions = {
         coverPicture: data.coverImage ?? coverImage,
         id: uuidv4(),
-        name: data.displayName,
-        picture: getProfilePicture(activeChannel as Profile, 'AVATAR', false),
+        picture: getProfilePicture(activeChannel as Profile, 'AVATAR'),
         attributes: [
           ...(otherAttributes as unknown as MetadataAttribute[]),
           {
@@ -233,8 +225,17 @@ const BasicInfo = ({ channel }: Props) => {
             value: LENSTUBE_APP_ID
           }
         ]
-      })
-
+      }
+      profileMetadata.attributes = profileMetadata.attributes?.filter((m) =>
+        Boolean(trimify(m.value))
+      )
+      if (Boolean(trimify(data.description))) {
+        profileMetadata.bio = trimify(data.description)
+      }
+      if (Boolean(trimify(data.displayName))) {
+        profileMetadata.name = trimify(data.displayName)
+      }
+      const metadata = profile(profileMetadata)
       const metadataUri = await uploadToAr(metadata)
       const request: OnchainSetProfileMetadataRequest = {
         metadataURI: metadataUri
@@ -335,20 +336,20 @@ const BasicInfo = ({ channel }: Props) => {
       </div>
       <div className="mt-6">
         <Input
-          {...register('displayName')}
           label={t`Display Name`}
           type="text"
           placeholder="T Series"
           validationError={errors.displayName?.message}
+          {...register('displayName')}
         />
       </div>
       <div className="relative mt-4">
         <TextArea
-          {...register('description')}
           label={t`Description`}
           placeholder={t`More about you and what you do!`}
           rows={4}
           validationError={errors.description?.message}
+          {...register('description')}
         />
         <div className="absolute bottom-2 right-2">
           <EmojiPicker
@@ -360,45 +361,45 @@ const BasicInfo = ({ channel }: Props) => {
       </div>
       <div className="mt-4">
         <Input
-          {...register('website', { required: false })}
           label={t`Website`}
           placeholder="https://johndoe.xyz"
           validationError={errors.website?.message}
+          {...register('website')}
         />
       </div>
       <div className="mt-4">
         <Input
           label="Youtube"
           placeholder="channel"
-          {...register('youtube')}
           validationError={errors.youtube?.message}
           prefix="https://youtube.com/"
+          {...register('youtube')}
         />
       </div>
       <div className="mt-4">
         <Input
-          {...register('spotify')}
           label="Spotify"
-          placeholder="profile"
+          placeholder="artist/6xl0mjD1B4paRyfPDUOynf"
           validationError={errors.spotify?.message}
           prefix="https://spotify.com/"
+          {...register('spotify')}
         />
       </div>
       <div className="mt-4">
         <Input
-          {...register('x')}
           label="X"
           placeholder="profile"
           validationError={errors.x?.message}
           prefix="https://x.com/"
+          {...register('x')}
         />
       </div>
       <div className="mt-4">
         <Input
-          {...register('location')}
           label={t`Location`}
           placeholder="Metaverse"
           validationError={errors.location?.message}
+          {...register('location')}
         />
       </div>
       <div className="mt-4 flex justify-end">
