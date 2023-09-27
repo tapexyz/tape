@@ -32,7 +32,14 @@ import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
-import { Box, Dialog, DropdownMenu, Flex, Text } from '@radix-ui/themes'
+import {
+  Box,
+  Dialog,
+  DropdownMenu,
+  Flex,
+  IconButton,
+  Text
+} from '@radix-ui/themes'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 import type { FC } from 'react'
 import React, { useState } from 'react'
@@ -46,15 +53,15 @@ import PinOutline from '../Icons/PinOutline'
 import SaveToListOutline from '../Icons/SaveToListOutline'
 import ShareOutline from '../Icons/ShareOutline'
 import ThreeDotsOutline from '../Icons/ThreeDotsOutline'
+import TimesOutline from '../Icons/TimesOutline'
 import TrashOutline from '../Icons/TrashOutline'
+import Share from './Share'
 
 type Props = {
   video: MirrorablePublication
-  setShowShare: React.Dispatch<boolean>
-  setShowReport: React.Dispatch<boolean>
 }
 
-const VideoOptions: FC<Props> = ({ video, setShowShare, setShowReport }) => {
+const VideoOptions: FC<Props> = ({ video }) => {
   const { openConnectModal } = useConnectModal()
   const [showConfirm, setShowConfirm] = useState(false)
 
@@ -295,14 +302,34 @@ const VideoOptions: FC<Props> = ({ video, setShowShare, setShowReport }) => {
         </DropdownMenu.Trigger>
         <DropdownMenu.Content sideOffset={10} variant="soft" align="end">
           <div className="flex w-40 flex-col rounded-lg transition duration-150 ease-in-out">
-            <DropdownMenu.Item onClick={() => setShowShare(true)}>
-              <Flex align="center" gap="2">
-                <ShareOutline className="h-3.5 w-3.5" />
-                <span className="whitespace-nowrap">
-                  <Trans>Share</Trans>
-                </span>
-              </Flex>
-            </DropdownMenu.Item>
+            <Dialog.Root>
+              <Dialog.Trigger>
+                <button
+                  className="cursor-default rounded px-3 py-1.5 hover:bg-gray-500/20"
+                  onClick={() => onClickReport()}
+                >
+                  <Flex align="center" gap="2">
+                    <ShareOutline className="h-3.5 w-3.5" />
+                    <Text size="2" className="whitespace-nowrap">
+                      <Trans>Share</Trans>
+                    </Text>
+                  </Flex>
+                </button>
+              </Dialog.Trigger>
+
+              <Dialog.Content style={{ maxWidth: 450 }}>
+                <Flex justify="between" pb="5" align="center">
+                  <Dialog.Title mb="0">Share</Dialog.Title>
+                  <Dialog.Close>
+                    <IconButton variant="ghost" color="gray">
+                      <TimesOutline outlined={false} className="h-4 w-4" />
+                    </IconButton>
+                  </Dialog.Close>
+                </Flex>
+
+                <Share video={video} />
+              </Dialog.Content>
+            </Dialog.Root>
             {isVideoOwner && (
               <>
                 {pinnedVideoId !== video.id && (
@@ -373,10 +400,7 @@ const VideoOptions: FC<Props> = ({ video, setShowShare, setShowReport }) => {
                   <Dialog.Content style={{ maxWidth: 450 }}>
                     <Dialog.Title>Report</Dialog.Title>
 
-                    <ReportPublication
-                      publication={video}
-                      onSuccess={() => setShowReport(false)}
-                    />
+                    <ReportPublication publication={video} />
                   </Dialog.Content>
                 </Dialog.Root>
               </>

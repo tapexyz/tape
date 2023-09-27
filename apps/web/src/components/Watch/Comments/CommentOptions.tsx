@@ -8,16 +8,15 @@ import type { Comment } from '@lenstube/lens'
 import { useHidePublicationMutation } from '@lenstube/lens'
 import useAuthPersistStore from '@lib/store/auth'
 import { t, Trans } from '@lingui/macro'
-import type { Dispatch, FC } from 'react'
+import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 
 type Props = {
-  setShowReport: Dispatch<boolean>
   comment: Comment
 }
 
-const CommentOptions: FC<Props> = ({ comment, setShowReport }) => {
+const CommentOptions: FC<Props> = ({ comment }) => {
   const [showConfirm, setShowConfirm] = useState(false)
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
@@ -74,7 +73,6 @@ const CommentOptions: FC<Props> = ({ comment, setShowReport }) => {
             )}
             <button
               type="button"
-              onClick={() => setShowReport(true)}
               className="inline-flex items-center space-x-2 rounded-lg px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
             >
               <FlagOutline className="h-3.5 w-3.5" />

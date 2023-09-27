@@ -1,6 +1,4 @@
 import HeartOutline from '@components/Common/Icons/HeartOutline'
-import ReportModal from '@components/Common/VideoCard/ReportModal'
-import ShareModal from '@components/Common/VideoCard/ShareModal'
 import VideoOptions from '@components/Common/VideoCard/VideoOptions'
 import { Analytics, TRACK } from '@lenstube/browser'
 import type { MirrorablePublication } from '@lenstube/lens'
@@ -16,19 +14,12 @@ type Props = {
 }
 
 const VideoActions: FC<Props> = ({ video }) => {
-  const [showShare, setShowShare] = useState(false)
-  const [showReport, setShowReport] = useState(false)
   const [showTip, setShowTip] = useState(false)
 
   return (
     <div className="mt-4 flex items-center justify-end space-x-1 md:mt-2">
       <TipModal show={showTip} setShowTip={setShowTip} video={video} />
-      <ShareModal video={video} show={showShare} setShowShare={setShowShare} />
-      <ReportModal
-        show={showReport}
-        setShowReport={setShowReport}
-        video={video}
-      />
+
       <div className="rounded-full bg-indigo-100/50 px-4 py-1 backdrop-blur-xl dark:bg-indigo-900/30">
         <PublicationReaction
           publication={video}
@@ -53,11 +44,7 @@ const VideoActions: FC<Props> = ({ video }) => {
         </button>
       </div>
       <div className="rounded-full bg-indigo-100/50 px-3 py-2 backdrop-blur-xl dark:bg-indigo-900/30">
-        <VideoOptions
-          video={video}
-          setShowShare={setShowShare}
-          setShowReport={setShowReport}
-        />
+        <VideoOptions video={video} />
       </div>
     </div>
   )

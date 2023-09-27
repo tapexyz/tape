@@ -7,10 +7,19 @@ import {
   REQUESTING_SIGNATURE_MESSAGE
 } from '@lenstube/constants'
 import { getSignature } from '@lenstube/generic'
+import type {
+  CreateMomokaMirrorEip712TypedData,
+  CreateOnchainMirrorEip712TypedData,
+  MirrorablePublication
+} from '@lenstube/lens'
 import {
-  type MirrorablePublication,
+  TriStateValue,
   useBroadcastOnchainMutation,
-  useCreateOnchainMirrorTypedDataMutation
+  useBroadcastOnMomokaMutation,
+  useCreateMomokaMirrorTypedDataMutation,
+  useCreateOnchainMirrorTypedDataMutation,
+  useMirrorOnchainMutation,
+  useMirrorOnMomokaMutation
 } from '@lenstube/lens'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAuthPersistStore from '@lib/store/auth'
@@ -32,8 +41,6 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
   const [loading, setLoading] = useState(false)
   const { openConnectModal } = useConnectModal()
 
-  const userSigNonce = useChannelStore((state) => state.userSigNonce)
-  const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
@@ -41,8 +48,25 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
 
   const canUseRelay = activeChannel?.lensManager && activeChannel?.sponsor
 
-  const collectModule =
-    video?.__typename === 'Post' ? video?.openActionModules : null
+  const getReferralFee = () => {
+    const action = video.openActionModules?.[0]
+    if (
+      action?.__typename === 'SimpleCollectOpenActionSettings' ||
+      action?.__typename === 'MultirecipientFeeCollectOpenActionSettings' ||
+      action?.__typename === 'LegacyFeeCollectModuleSettings' ||
+      action?.__typename === 'LegacyLimitedFeeCollectModuleSettings' ||
+      action?.__typename === 'LegacyLimitedTimedFeeCollectModuleSettings' ||
+      action?.__typename === 'LegacyTimedFeeCollectModuleSettings' ||
+      action?.__typename === 'LegacyMultirecipientFeeCollectModuleSettings' ||
+      action?.__typename === 'LegacySimpleCollectModuleSettings' ||
+      action?.__typename === 'LegacyERC4626FeeCollectModuleSettings' ||
+      action?.__typename === 'LegacyAaveFeeCollectModuleSettings'
+    ) {
+      return action.referralFee
+    }
+  }
+
+  const referralFee = getReferralFee()
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
@@ -74,110 +98,144 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
     onSuccess: () => onCompleted()
   })
 
-  const [broadcast] = useBroadcastOnchainMutation({
-    onError,
-    onCompleted: ({ broadcastOnchain }) =>
-      onCompleted(broadcastOnchain.__typename)
+  const getSignatureFromTypedData = async (
+    data: CreateMomokaMirrorEip712TypedData | CreateOnchainMirrorEip712TypedData
+  ) => {
+    toast.loading(REQUESTING_SIGNATURE_MESSAGE)
+    const signature = await signTypedDataAsync(getSignature(data))
+    return signature
+  }
+
+  const [mirrorOnChain] = useMirrorOnchainMutation({
+    onCompleted: () => onCompleted()
   })
 
-  const [createMirrorTypedData] = useCreateOnchainMirrorTypedDataMutation({
-    onCompleted: async ({ createOnchainMirrorTypedData }) => {
-      const { id, typedData } = createOnchainMirrorTypedData
-      try {
-        toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-        const signature = await signTypedDataAsync(getSignature(typedData))
-        setUserSigNonce(userSigNonce + 1)
-        const { data } = await broadcast({
-          variables: { request: { id, signature } }
-        })
-        if (data?.broadcastOnchain?.__typename === 'RelayError') {
-          write?.({ args: [typedData.value] })
-        }
-      } catch {
-        setLoading(false)
+  const [broadcastOnchain] = useBroadcastOnchainMutation({
+    onCompleted: ({ broadcastOnchain }) => {
+      if (broadcastOnchain.__typename === 'RelaySuccess') {
+        onCompleted()
       }
-    },
-    onError
+    }
   })
 
-  // const createTypedData = async (request: CreateMirrorRequest) => {
-  //   await createMirrorTypedData({
-  //     variables: {
-  //       options: { overrideSigNonce: userSigNonce },
-  //       request
-  //     }
-  //   })
-  // }
+  const [createOnChainMirrorTypedData] =
+    useCreateOnchainMirrorTypedDataMutation({
+      onCompleted: async ({ createOnchainMirrorTypedData }) => {
+        const { typedData, id } = createOnchainMirrorTypedData
+        try {
+          const signature = await getSignatureFromTypedData(typedData)
+          const { data } = await broadcastOnchain({
+            variables: { request: { id, signature } }
+          })
+          if (data?.broadcastOnchain?.__typename === 'RelayError') {
+            return write?.({ args: [typedData.value] })
+          }
+        } catch {}
+      },
+      onError
+    })
 
-  // const createViaDispatcher = async (request: CreateMirrorRequest) => {
-  //   const { data } = await createMirrorViaDispatcher({
-  //     variables: { request }
-  //   })
-  //   if (data?.createMirrorViaDispatcher.__typename === 'RelayError') {
-  //     await createTypedData(request)
-  //   }
-  // }
+  const [broadcastOnMomoka] = useBroadcastOnMomokaMutation({
+    onCompleted: ({ broadcastOnMomoka }) => {
+      if (broadcastOnMomoka.__typename === 'CreateMomokaPublicationResult') {
+      }
+    }
+  })
 
-  // const mirrorVideo = async () => {
-  //   if (!selectedSimpleProfile?.id) {
-  //     return openConnectModal?.()
-  //   }
+  const [createMomokaCommentTypedData] = useCreateMomokaMirrorTypedDataMutation(
+    {
+      onCompleted: async ({ createMomokaMirrorTypedData }) => {
+        const { typedData, id } = createMomokaMirrorTypedData
+        try {
+          const signature = await getSignatureFromTypedData(typedData)
+          const { data } = await broadcastOnMomoka({
+            variables: { request: { id, signature } }
+          })
+          if (data?.broadcastOnMomoka?.__typename === 'RelayError') {
+            return write?.({ args: [typedData.value] })
+          }
+        } catch {}
+      },
+      onError
+    }
+  )
 
-  //   if (video.momoka?.proof && !isSponsored) {
-  //     return toast.error(
-  //       t`Momoka is currently in beta - during this time certain actions are not available to all channels.`
-  //     )
-  //   }
+  const [mirrorOnMomoka] = useMirrorOnMomokaMutation({
+    onCompleted: () => onCompleted()
+  })
 
-  //   setLoading(true)
-  //   const request: CreateMirrorRequest = {
-  //     profileId: activeChannel?.id,
-  //     publicationId: video?.id,
-  //     referenceModule: {
-  //       followerOnlyReferenceModule: false
-  //     }
-  //   }
+  const mirrorVideo = async () => {
+    if (!selectedSimpleProfile?.id) {
+      return openConnectModal?.()
+    }
 
-  //   // Payload for the data availability mirror
-  //   const dataAvailablityRequest = {
-  //     from: activeChannel?.id,
-  //     mirror: video?.id
-  //   }
+    if (video.momoka?.proof && !activeChannel?.sponsor) {
+      return toast.error(
+        t`Momoka is currently in beta - during this time certain actions are not available to all profiles.`
+      )
+    }
 
-  //   if (canUseRelay) {
-  //     if (video.isDataAvailability && isSponsored) {
-  //       return await createDataAvailabilityMirrorViaDispatcher({
-  //         variables: { request: dataAvailablityRequest }
-  //       })
-  //     }
+    try {
+      setLoading(true)
 
-  //     return await createViaDispatcher(request)
-  //   }
+      // MOMOKA
+      if (canUseRelay) {
+        if (video.momoka?.proof) {
+          return await mirrorOnMomoka({
+            variables: {
+              request: {
+                mirrorOn: video.id
+              }
+            }
+          })
+        } else {
+          return await createMomokaCommentTypedData({
+            variables: {
+              request: {
+                mirrorOn: video.id
+              }
+            }
+          })
+        }
+      } else {
+        //   // ON-CHAIN
+        if (canUseRelay) {
+          return await mirrorOnChain({
+            variables: {
+              request: {
+                mirrorOn: video.id
+              }
+            }
+          })
+        } else {
+          return await createOnChainMirrorTypedData({
+            variables: {
+              request: {
+                mirrorOn: video.id
+              }
+            }
+          })
+        }
+      }
+    } catch {}
+  }
 
-  //   return await createTypedData(request)
-  // }
-
-  if (!video?.operations.canMirror) {
+  if (video?.operations.canMirror !== TriStateValue.Yes) {
     return null
   }
 
-  // const referralFee =
-  //   collectModule?.referralFee ?? collectModule?.fee?.referralFee
-  // const tooltipContent = referralFee
-  //   ? `Mirror video for ${referralFee}% referral fee`
-  //   : t`Mirror video across Lens`
+  const tooltipContent = referralFee
+    ? `Mirror video for ${referralFee}% referral fee`
+    : t`Mirror video across Lens`
 
   return (
-    <Tooltip
-      placement="top"
-      content={loading ? t`Mirroring` : 'tooltipContent'}
-    >
+    <Tooltip placement="top" content={loading ? t`Mirroring` : tooltipContent}>
       <div className="inline-flex">
         <button
           type="button"
           className="disabled:opacity-50"
           disabled={loading}
-          // onClick={() => mirrorVideo()}
+          onClick={() => mirrorVideo()}
         >
           {children}
         </button>

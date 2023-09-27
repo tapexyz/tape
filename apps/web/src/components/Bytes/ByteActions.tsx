@@ -1,16 +1,13 @@
 import CommentOutline from '@components/Common/Icons/CommentOutline'
 import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import MirrorVideo from '@components/Common/MirrorVideo'
-import ReportModal from '@components/Common/VideoCard/ReportModal'
-import ShareModal from '@components/Common/VideoCard/ShareModal'
-import VideoOptions from '@components/Common/VideoCard/VideoOptions'
 import Tooltip from '@components/UIElements/Tooltip'
 import CollectVideo from '@components/Watch/CollectVideo'
 import PublicationReaction from '@components/Watch/PublicationReaction'
 import type { MirrorablePublication } from '@lenstube/lens'
 import { t } from '@lingui/macro'
 import type { FC } from 'react'
-import React, { useState } from 'react'
+import React from 'react'
 
 import CommentModal from './CommentModal'
 
@@ -19,18 +16,8 @@ type Props = {
 }
 
 const ByteActions: FC<Props> = ({ video }) => {
-  const [showShare, setShowShare] = useState(false)
-  const [showReport, setShowReport] = useState(false)
-
   return (
     <div className="w-12 flex-col items-center justify-between md:flex md:w-14">
-      <div className="flex justify-center space-y-4 p-2 md:flex-col">
-        <VideoOptions
-          video={video}
-          setShowShare={setShowShare}
-          setShowReport={setShowReport}
-        />
-      </div>
       <div className="items-center pt-2.5 md:flex md:flex-col">
         <div className="pb-3 text-white md:text-inherit">
           <PublicationReaction
@@ -74,12 +61,6 @@ const ByteActions: FC<Props> = ({ video }) => {
           </div>
         </div>
       </div>
-      <ShareModal video={video} show={showShare} setShowShare={setShowShare} />
-      <ReportModal
-        video={video}
-        show={showReport}
-        setShowReport={setShowReport}
-      />
     </div>
   )
 }

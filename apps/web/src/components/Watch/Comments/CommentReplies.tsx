@@ -3,7 +3,6 @@ import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
 import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import ReplyOutline from '@components/Common/Icons/ReplyOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
-import ReportModal from '@components/Common/VideoCard/ReportModal'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { Button } from '@components/UIElements/Button'
 import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
@@ -77,8 +76,6 @@ type Props = {
 }
 
 const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
-  const [showReport, setShowReport] = useState(false)
-
   const request: PublicationsRequest = {
     limit: LimitType.Ten,
     where: {
@@ -164,15 +161,7 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
                 </div>
               </div>
               <div>
-                <ReportModal
-                  video={comment}
-                  show={showReport}
-                  setShowReport={setShowReport}
-                />
-                <CommentOptions
-                  comment={comment}
-                  setShowReport={setShowReport}
-                />
+                <CommentOptions comment={comment} />
               </div>
             </div>
           )

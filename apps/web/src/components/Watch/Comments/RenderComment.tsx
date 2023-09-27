@@ -5,7 +5,6 @@ import HeartOutline from '@components/Common/Icons/HeartOutline'
 import ReplyOutline from '@components/Common/Icons/ReplyOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import HashExplorerLink from '@components/Common/Links/HashExplorerLink'
-import ReportModal from '@components/Common/VideoCard/ReportModal'
 import Tooltip from '@components/UIElements/Tooltip'
 import {
   checkValueInAttributes,
@@ -38,7 +37,6 @@ interface Props {
 const RenderComment: FC<Props> = ({ comment }) => {
   const [clamped, setClamped] = useState(false)
   const [showMore, setShowMore] = useState(false)
-  const [showReport, setShowReport] = useState(false)
   const [showNewComment, setShowNewComment] = useState(false)
   const [showReplies, setShowReplies] = useState(false)
   const [defaultComment, setDefaultComment] = useState('')
@@ -202,12 +200,7 @@ const RenderComment: FC<Props> = ({ comment }) => {
         </div>
       </div>
       <div>
-        <ReportModal
-          video={comment}
-          show={showReport}
-          setShowReport={setShowReport}
-        />
-        <CommentOptions comment={comment} setShowReport={setShowReport} />
+        <CommentOptions comment={comment} />
       </div>
     </div>
   )

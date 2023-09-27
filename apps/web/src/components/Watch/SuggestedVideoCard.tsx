@@ -1,8 +1,6 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
 import CommentOutline from '@components/Common/Icons/CommentOutline'
 import HeartOutline from '@components/Common/Icons/HeartOutline'
-import ReportModal from '@components/Common/VideoCard/ReportModal'
-import ShareModal from '@components/Common/VideoCard/ShareModal'
 import VideoOptions from '@components/Common/VideoCard/VideoOptions'
 import { useAverageColor } from '@lenstube/browser'
 import {
@@ -24,16 +22,13 @@ import { Box, Flex } from '@radix-ui/themes'
 import clsx from 'clsx'
 import Link from 'next/link'
 import type { FC } from 'react'
-import React, { useState } from 'react'
+import React from 'react'
 
 type Props = {
   video: MirrorablePublication
 }
 
 const SuggestedVideoCard: FC<Props> = ({ video }) => {
-  const [showReport, setShowReport] = useState(false)
-  const [showShare, setShowShare] = useState(false)
-
   const isBytesVideo = video.publishedOn?.id === LENSTUBE_BYTES_APP_ID
   const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
   const thumbnailUrl = isSensitiveContent
@@ -48,12 +43,6 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
 
   return (
     <div className="group flex justify-between">
-      <ShareModal video={video} show={showShare} setShowShare={setShowShare} />
-      <ReportModal
-        video={video}
-        show={showReport}
-        setShowReport={setShowReport}
-      />
       <div className="flex justify-between">
         <div className="flex-none overflow-hidden rounded-md">
           <Link
@@ -118,11 +107,7 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
         </div>
       </div>
       <Box>
-        <VideoOptions
-          video={video}
-          setShowReport={setShowReport}
-          setShowShare={setShowShare}
-        />
+        <VideoOptions video={video} />
       </Box>
     </div>
   )

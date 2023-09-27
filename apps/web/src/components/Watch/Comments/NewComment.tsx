@@ -216,7 +216,7 @@ const NewComment: FC<Props> = ({
   const submitComment = async (formData: FormData) => {
     if (video.momoka?.proof && !activeChannel?.sponsor) {
       return toast.error(
-        t`Momoka is currently in beta - during this time certain actions are not available to all channels.`
+        t`Momoka is currently in beta - during this time certain actions are not available to all profiles.`
       )
     }
     try {

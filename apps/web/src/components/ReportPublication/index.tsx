@@ -13,10 +13,9 @@ import toast from 'react-hot-toast'
 
 type Props = {
   publication: AnyPublication
-  onSuccess: () => void
 }
 
-const ReportPublication: FC<Props> = ({ publication, onSuccess }) => {
+const ReportPublication: FC<Props> = ({ publication }) => {
   const targetPublication = getPublication(publication)
   const [reason, setReason] = useState('SPAM-FAKE_ENGAGEMENT')
 
@@ -25,8 +24,7 @@ const ReportPublication: FC<Props> = ({ publication, onSuccess }) => {
       toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     },
     onCompleted: () => {
-      toast.success(t`Publication reported successfully.`)
-      onSuccess()
+      toast.success(t`Publication reported.`)
       Analytics.track(TRACK.PUBLICATION.REPORT, {
         publication_id: targetPublication.id,
         publication_type: targetPublication.__typename?.toLowerCase()

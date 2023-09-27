@@ -1,21 +1,19 @@
-import Modal from '@components/UIElements/Modal'
 import Tooltip from '@components/UIElements/Tooltip'
 import { Analytics, TRACK, useCopyToClipboard } from '@lenstube/browser'
 import { LENSTUBE_EMBED_URL } from '@lenstube/constants'
-import { t } from '@lingui/macro'
+import { Card, Dialog, Flex, IconButton } from '@radix-ui/themes'
 import type { FC } from 'react'
-import React, { useState } from 'react'
-import toast from 'react-hot-toast'
+import React from 'react'
 
 import CodeOutline from './Icons/CodeOutline'
+import CopyOutline from './Icons/CopyOutline'
+import TimesOutline from './Icons/TimesOutline'
 
 type Props = {
   videoId: string
-  onClose: () => void
 }
 
-const EmbedVideo: FC<Props> = ({ videoId, onClose }) => {
-  const [showModal, setShowModal] = useState(false)
+const EmbedVideo: FC<Props> = ({ videoId }) => {
   const [copy] = useCopyToClipboard()
 
   const iframeCode = `<iframe width="560" height="315" src="${LENSTUBE_EMBED_URL}/${videoId}?autoplay=1&t=0&loop=0" title="Lenstube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;" allowfullscreen></iframe>`
@@ -23,54 +21,15 @@ const EmbedVideo: FC<Props> = ({ videoId, onClose }) => {
   const onCopyCode = () => {
     Analytics.track(TRACK.EMBED_VIDEO.COPY)
     copy(iframeCode)
-    toast.success(t`Copied to clipboard`)
-  }
-
-  const closeModal = () => {
-    setShowModal(false)
-    onClose()
   }
 
   const openModal = () => {
-    setShowModal(true)
     Analytics.track(TRACK.EMBED_VIDEO.OPEN)
   }
 
   return (
-    <div>
-      <Modal
-        title="Embed Video"
-        onClose={closeModal}
-        show={showModal}
-        panelClassName="max-w-xl"
-      >
-        <div className="mt-2">
-          <div className="flex flex-col space-y-3">
-            <div className="w-full">
-              <iframe
-                sandbox="allow-scripts allow-same-origin"
-                className="aspect-[16/9] w-full"
-                src={`${LENSTUBE_EMBED_URL}/${videoId}`}
-                title="Lenstube video player"
-                allow="accelerometer; autoplay; clipboard-write; gyroscope;"
-                allowFullScreen
-              />
-            </div>
-            <div className="col-span-2">
-              <button
-                type="button"
-                onClick={() => onCopyCode()}
-                className="select-all rounded-xl border p-4 text-left dark:border-gray-800"
-              >
-                <code className="select-all text-sm opacity-60">
-                  {iframeCode}
-                </code>
-              </button>
-            </div>
-          </div>
-        </div>
-      </Modal>
-      <Tooltip placement="top-start" content="Embed Video">
+    <Dialog.Root>
+      <Dialog.Trigger>
         <button
           type="button"
           onClick={() => openModal()}
@@ -78,8 +37,50 @@ const EmbedVideo: FC<Props> = ({ videoId, onClose }) => {
         >
           <CodeOutline className="h-5 w-5" />
         </button>
-      </Tooltip>
-    </div>
+      </Dialog.Trigger>
+
+      <Dialog.Content style={{ maxWidth: 650 }}>
+        <Flex justify="between" pb="5" align="center">
+          <Dialog.Title mb="0">Embed Video</Dialog.Title>
+          <Dialog.Close>
+            <IconButton variant="ghost" color="gray">
+              <TimesOutline outlined={false} className="h-4 w-4" />
+            </IconButton>
+          </Dialog.Close>
+        </Flex>
+
+        <div className="flex flex-col space-y-3">
+          <div className="w-full">
+            <iframe
+              sandbox="allow-scripts allow-same-origin"
+              className="aspect-[16/9] w-full"
+              src={`${LENSTUBE_EMBED_URL}/${videoId}`}
+              title="Lenstube video player"
+              allow="accelerometer; autoplay; clipboard-write; gyroscope;"
+              allowFullScreen
+            />
+          </div>
+          <Flex>
+            <Card className="relative">
+              <code className="select-all text-sm opacity-60">
+                {iframeCode}
+              </code>
+              <Tooltip content="Copy Code" placement="top">
+                <IconButton
+                  type="button"
+                  size="1"
+                  variant="soft"
+                  onClick={() => onCopyCode()}
+                  className="absolute right-2 top-2"
+                >
+                  <CopyOutline className="h-4 w-4" />
+                </IconButton>
+              </Tooltip>
+            </Card>
+          </Flex>
+        </div>
+      </Dialog.Content>
+    </Dialog.Root>
   )
 }
 

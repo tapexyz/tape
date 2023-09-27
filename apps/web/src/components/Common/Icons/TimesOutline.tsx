@@ -30,9 +30,9 @@ const TimesOutline = ({
       <path
         d="M1 22L22 1M1 1L22 22"
         stroke="currentColor"
-        stroke-width="2.5"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
         fill="currentColor"
       />
     )}
