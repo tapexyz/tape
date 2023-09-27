@@ -4,6 +4,7 @@ import CopyOutline from '@components/Common/Icons/CopyOutline'
 import EmojiPicker from '@components/UIElements/EmojiPicker'
 import { Input } from '@components/UIElements/Input'
 import { TextArea } from '@components/UIElements/TextArea'
+import Tooltip from '@components/UIElements/Tooltip'
 import { zodResolver } from '@hookform/resolvers/zod'
 import type { MetadataAttribute, ProfileOptions } from '@lens-protocol/metadata'
 import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
@@ -43,7 +44,7 @@ import type {
 import { Loader } from '@lenstube/ui'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
-import { Button } from '@radix-ui/themes'
+import { Button, IconButton } from '@radix-ui/themes'
 import type { ChangeEvent } from 'react'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -170,11 +171,6 @@ const BasicInfo = ({ channel }: Props) => {
       onError
     })
 
-  const onCopyChannelUrl = async (value: string) => {
-    await copy(value)
-    toast.success('Copied to clipboard')
-  }
-
   const otherAttributes =
     channel.metadata?.attributes
       ?.filter(
@@ -191,7 +187,6 @@ const BasicInfo = ({ channel }: Props) => {
       const profileMetadata: ProfileOptions = {
         coverPicture: data.coverImage ?? coverImage,
         id: uuidv4(),
-        picture: getProfilePicture(activeChannel as Profile, 'AVATAR'),
         attributes: [
           ...(otherAttributes as unknown as MetadataAttribute[]),
           {
@@ -234,6 +229,17 @@ const BasicInfo = ({ channel }: Props) => {
       }
       if (Boolean(trimify(data.displayName))) {
         profileMetadata.name = trimify(data.displayName)
+      }
+      if (
+        Boolean(
+          trimify(getProfilePicture(activeChannel as Profile, 'AVATAR', false))
+        )
+      ) {
+        profileMetadata.picture = getProfilePicture(
+          activeChannel as Profile,
+          'AVATAR',
+          false
+        )
       }
       const metadata = profile(profileMetadata)
       const metadataUri = await uploadToAr(metadata)
@@ -319,19 +325,22 @@ const BasicInfo = ({ channel }: Props) => {
           <span>
             {LENSTUBE_WEBSITE_URL}/channel/{trimLensHandle(channel.handle)}
           </span>
-          <button
-            className="hover:opacity-60 focus:outline-none"
-            onClick={() =>
-              onCopyChannelUrl(
-                `${LENSTUBE_WEBSITE_URL}/channel/${trimLensHandle(
-                  channel.handle
-                )}`
-              )
-            }
-            type="button"
-          >
-            <CopyOutline className="h-4 w-4" />
-          </button>
+          <Tooltip content="Copy" placement="top">
+            <IconButton
+              className="hover:opacity-60 focus:outline-none"
+              onClick={async () =>
+                await copy(
+                  `${LENSTUBE_WEBSITE_URL}/channel/${trimLensHandle(
+                    channel.handle
+                  )}`
+                )
+              }
+              variant="ghost"
+              type="button"
+            >
+              <CopyOutline className="h-4 w-4" />
+            </IconButton>
+          </Tooltip>
         </div>
       </div>
       <div className="mt-6">
