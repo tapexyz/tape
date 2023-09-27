@@ -22,7 +22,7 @@ const Sidebar = () => {
   return (
     <>
       {!getShowFullScreen(router.pathname) && <MobileBottomNav />}
-      <div className="transition-width dark:bg-theme fixed bottom-0 left-0 top-0 z-10 hidden w-[90px] items-start justify-between bg-white md:flex md:flex-col">
+      <div className="fixed bottom-0 left-0 top-0 z-20 hidden w-[90px] items-start justify-between bg-white shadow-md dark:bg-black md:flex md:flex-col">
         <div
           className="flex flex-col space-y-2 self-center"
           data-testid="sidebar-items"

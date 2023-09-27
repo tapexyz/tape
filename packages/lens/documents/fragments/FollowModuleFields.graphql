@@ -5,6 +5,9 @@ fragment FollowModuleFields on FollowModule {
     }
     amount {
       ...AmountFields
+      rate(request: { for: USD }) {
+        ...FiatAmountFields
+      }
     }
     recipient
   }

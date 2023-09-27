@@ -114,7 +114,7 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
           </TextField.Root>
           <div
             className={clsx(
-              'dark:bg-theme z-10 mt-1 w-full overflow-hidden rounded-md bg-white p-5 text-base shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none md:absolute',
+              'z-10 mt-1 w-full overflow-hidden rounded-md bg-white p-5 text-base shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-black md:absolute',
               { hidden: debouncedValue.length === 0 }
             )}
           >
@@ -128,7 +128,7 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
                   className="no-scrollbar max-h-[80vh] space-y-2 overflow-y-auto pb-2 focus:outline-none"
                   data-testid="search-channels-panel"
                 >
-                  <Text size="3" weight="medium">
+                  <Text size="3" weight="bold">
                     Creators
                   </Text>
                   {profiles?.length ? (
@@ -142,7 +142,7 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
                   )}
                 </div>
                 <div className="no-scrollbar max-h-[80vh] space-y-2 overflow-y-auto focus:outline-none">
-                  <Text size="3" weight="medium">
+                  <Text size="3" weight="bold">
                     Releases
                   </Text>
                   {publications?.length ? (

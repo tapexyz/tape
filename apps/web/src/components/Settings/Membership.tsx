@@ -1,9 +1,9 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
-import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
-import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
+import Tooltip from '@components/UIElements/Tooltip'
 import { zodResolver } from '@hookform/resolvers/zod'
 import usePendingTxn from '@hooks/usePendingTxn'
+import { useCopyToClipboard } from '@lenstube/browser'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
@@ -17,6 +17,7 @@ import type {
   Profile
 } from '@lenstube/lens'
 import {
+  LimitType,
   useBroadcastOnchainMutation,
   useCreateSetFollowModuleTypedDataMutation,
   useEnabledCurrenciesQuery,
@@ -26,9 +27,11 @@ import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import { Loader } from '@lenstube/ui'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
+import { Button, Card, Text } from '@radix-ui/themes'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
+import { formatEther } from 'viem'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 import type { z } from 'zod'
 import { number, object, string } from 'zod'
@@ -47,6 +50,8 @@ const formSchema = object({
 type FormData = z.infer<typeof formSchema>
 
 const Membership = ({ channel }: Props) => {
+  const [copy] = useCopyToClipboard()
+
   const [loading, setLoading] = useState(false)
   const [showForm, setShowForm] = useState(false)
   const userSigNonce = useChannelStore((state) => state.userSigNonce)
@@ -92,6 +97,11 @@ const Membership = ({ channel }: Props) => {
     onError
   })
   const { data: enabledCurrencies } = useEnabledCurrenciesQuery({
+    variables: {
+      request: {
+        limit: LimitType.Fifty
+      }
+    },
     skip: !channel?.id
   })
 
@@ -177,16 +187,16 @@ const Membership = ({ channel }: Props) => {
   }
 
   return (
-    <div className="dark:bg-theme rounded-xl bg-white p-4">
+    <Card size="3">
       <div className="mb-5">
-        <h1 className="mb-1 text-xl font-semibold">
+        <Text size="5" weight="bold">
           <Trans>Grow with Lens</Trans>
-        </h1>
+        </Text>
         <p className="text opacity-80">
           <Trans>
-            You can set up a subscription fee for your channel and provide
-            exclusive offers and perks to the subscribers, also people can pay
-            and support your work.
+            You can set up a follow fee for your profile and provide exclusive
+            offers and perks to the followers, also people can pay and support
+            your work.
           </Trans>
         </p>
       </div>
@@ -197,14 +207,14 @@ const Membership = ({ channel }: Props) => {
       )}
 
       {activeFollowModule?.amount && (
-        <div className="mb-6 w-full rounded-xl border bg-gradient-to-r from-[#41AAD4]/20 to-[#41EAD4]/20 p-6 transition-all dark:border-gray-800">
+        <Card className="mb-6 w-full rounded-xl border bg-gradient-to-r from-[#41AAD4]/20 to-[#41EAD4]/20 p-6 transition-all dark:border-gray-800">
           <div className="grid gap-y-4 md:grid-cols-3">
             <div>
               <span className="text-xs font-medium uppercase opacity-50">
                 <Trans>Amount</Trans>
               </span>
-              <h6 className="text-semibold text-xl">
-                {activeFollowModule.amount?.value}{' '}
+              <h6 className="text-xl font-bold">
+                {formatEther(BigInt(activeFollowModule.amount?.value))}{' '}
                 {activeFollowModule.amount?.asset?.symbol}
               </h6>
             </div>
@@ -212,22 +222,27 @@ const Membership = ({ channel }: Props) => {
               <span className="text-xs font-medium uppercase opacity-50">
                 <Trans>Token</Trans>
               </span>
-              <h6 className="text-semibold text-xl">
+              <h6 className="text-xl font-bold">
                 {activeFollowModule.amount?.asset?.name}
               </h6>
             </div>
             <div>
-              <span className="text-xs font-medium uppercase opacity-50">
+              <div className="mb-1 text-xs font-medium uppercase opacity-50">
                 <Trans>Recipient</Trans>
-              </span>
-              <AddressExplorerLink address={activeFollowModule.recipient}>
-                <span className="text-semibold block text-xl outline-none">
-                  {shortenAddress(activeFollowModule.recipient)}
-                </span>
-              </AddressExplorerLink>
+              </div>
+              <Tooltip content="Copy Address" placement="top">
+                <Button
+                  variant="ghost"
+                  onClick={() => copy(activeFollowModule.recipient)}
+                >
+                  <span className="block text-xl font-bold outline-none">
+                    {shortenAddress(activeFollowModule.recipient)}
+                  </span>
+                </Button>
+              </Tooltip>
             </div>
           </div>
-        </div>
+        </Card>
       )}
 
       {showForm && !moduleLoading ? (
@@ -282,31 +297,33 @@ const Membership = ({ channel }: Props) => {
           </div>
           <div className="mt-4 flex justify-end space-x-2">
             {activeFollowModule && (
-              <Button variant="hover" onClick={() => setShowForm(false)}>
+              <Button variant="soft" onClick={() => setShowForm(false)}>
                 <Trans>Cancel</Trans>
               </Button>
             )}
-            <Button loading={loading}>Set Membership</Button>
+            <Button highContrast disabled={loading}>
+              Set Membership
+            </Button>
           </div>
         </form>
       ) : null}
       {!moduleLoading && !showForm && (
         <div className="flex items-center justify-end space-x-2">
-          <Button onClick={() => setShowForm(true)}>
-            <Trans>Update</Trans>
-          </Button>
           <Button
-            variant="danger"
-            loading={loading}
+            color="red"
+            disabled={loading}
             onClick={() => setMembership(true)}
           >
             <span className="text-white">
               <Trans>Disable</Trans>
             </span>
           </Button>
+          <Button highContrast onClick={() => setShowForm(true)}>
+            <Trans>Update</Trans>
+          </Button>
         </div>
       )}
-    </div>
+    </Card>
   )
 }
 

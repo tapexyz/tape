@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply min-h-screen bg-gradient-to-bl from-indigo-100 via-gray-100 to-gray-50 bg-fixed text-black antialiased dark:from-gray-800 dark:to-gray-900 dark:text-white;
+  @apply min-h-screen bg-white bg-fixed text-black antialiased dark:bg-black dark:text-white;
 }
 
 .btn-primary {

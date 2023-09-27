@@ -104,7 +104,7 @@ const InputMentions: FC<Props> = ({
                 picture={suggestion.picture as string}
                 handle={suggestion.id as string}
                 className={clsx({
-                  'dark:bg-theme rounded bg-indigo-50': focused
+                  'rounded bg-indigo-50 dark:bg-black': focused
                 })}
                 subscribersCount={suggestion.followers as number}
               />

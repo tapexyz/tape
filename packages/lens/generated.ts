@@ -4007,7 +4007,7 @@ export type Query = {
   publications: PaginatedPublicationsResult
   publicationsTags: PaginatedPublicationsTagsResult
   relayQueues: Array<RelayQueueResult>
-  revenueFromPublication: PublicationRevenue
+  revenueFromPublication?: Maybe<PublicationRevenue>
   revenueFromPublications: PaginatedRevenueFromPublicationsResult
   searchProfiles: PaginatedProfileResult
   searchPublications: PaginatedPublicationPrimaryResult
@@ -6364,6 +6364,16 @@ export type CommentFieldsFragment = {
           amount: {
             __typename?: 'Amount'
             value: string
+            rate?: {
+              __typename?: 'FiatAmount'
+              value: string
+              asset: {
+                __typename?: 'Fiat'
+                name: string
+                symbol: string
+                decimals: number
+              }
+            } | null
             asset: {
               __typename?: 'Erc20'
               name: string
@@ -8213,6 +8223,16 @@ type FollowModuleFields_FeeFollowModuleSettings_Fragment = {
   amount: {
     __typename?: 'Amount'
     value: string
+    rate?: {
+      __typename?: 'FiatAmount'
+      value: string
+      asset: {
+        __typename?: 'Fiat'
+        name: string
+        symbol: string
+        decimals: number
+      }
+    } | null
     asset: {
       __typename?: 'Erc20'
       name: string
@@ -8783,6 +8803,16 @@ export type PostFieldsFragment = {
           amount: {
             __typename?: 'Amount'
             value: string
+            rate?: {
+              __typename?: 'FiatAmount'
+              value: string
+              asset: {
+                __typename?: 'Fiat'
+                name: string
+                symbol: string
+                decimals: number
+              }
+            } | null
             asset: {
               __typename?: 'Erc20'
               name: string
@@ -10723,6 +10753,16 @@ export type ProfileFieldsFragment = {
         amount: {
           __typename?: 'Amount'
           value: string
+          rate?: {
+            __typename?: 'FiatAmount'
+            value: string
+            asset: {
+              __typename?: 'Fiat'
+              name: string
+              symbol: string
+              decimals: number
+            }
+          } | null
           asset: {
             __typename?: 'Erc20'
             name: string
@@ -10970,6 +11010,16 @@ export type QuoteFieldsFragment = {
           amount: {
             __typename?: 'Amount'
             value: string
+            rate?: {
+              __typename?: 'FiatAmount'
+              value: string
+              asset: {
+                __typename?: 'Fiat'
+                name: string
+                symbol: string
+                decimals: number
+              }
+            } | null
             asset: {
               __typename?: 'Erc20'
               name: string
@@ -15755,6 +15805,16 @@ export type ExplorePublicationsQuery = {
                   amount: {
                     __typename?: 'Amount'
                     value: string
+                    rate?: {
+                      __typename?: 'FiatAmount'
+                      value: string
+                      asset: {
+                        __typename?: 'Fiat'
+                        name: string
+                        symbol: string
+                        decimals: number
+                      }
+                    } | null
                     asset: {
                       __typename?: 'Erc20'
                       name: string
@@ -17776,6 +17836,16 @@ export type ExplorePublicationsQuery = {
                   amount: {
                     __typename?: 'Amount'
                     value: string
+                    rate?: {
+                      __typename?: 'FiatAmount'
+                      value: string
+                      asset: {
+                        __typename?: 'Fiat'
+                        name: string
+                        symbol: string
+                        decimals: number
+                      }
+                    } | null
                     asset: {
                       __typename?: 'Erc20'
                       name: string
@@ -19815,6 +19885,16 @@ export type FeedHighlightsQuery = {
                   amount: {
                     __typename?: 'Amount'
                     value: string
+                    rate?: {
+                      __typename?: 'FiatAmount'
+                      value: string
+                      asset: {
+                        __typename?: 'Fiat'
+                        name: string
+                        symbol: string
+                        decimals: number
+                      }
+                    } | null
                     asset: {
                       __typename?: 'Erc20'
                       name: string
@@ -21836,6 +21916,16 @@ export type FeedHighlightsQuery = {
                   amount: {
                     __typename?: 'Amount'
                     value: string
+                    rate?: {
+                      __typename?: 'FiatAmount'
+                      value: string
+                      asset: {
+                        __typename?: 'Fiat'
+                        name: string
+                        symbol: string
+                        decimals: number
+                      }
+                    } | null
                     asset: {
                       __typename?: 'Erc20'
                       name: string
@@ -23853,6 +23943,16 @@ export type FollowersQuery = {
             amount: {
               __typename?: 'Amount'
               value: string
+              rate?: {
+                __typename?: 'FiatAmount'
+                value: string
+                asset: {
+                  __typename?: 'Fiat'
+                  name: string
+                  symbol: string
+                  decimals: number
+                }
+              } | null
               asset: {
                 __typename?: 'Erc20'
                 name: string
@@ -24008,6 +24108,16 @@ export type FollowingQuery = {
             amount: {
               __typename?: 'Amount'
               value: string
+              rate?: {
+                __typename?: 'FiatAmount'
+                value: string
+                asset: {
+                  __typename?: 'Fiat'
+                  name: string
+                  symbol: string
+                  decimals: number
+                }
+              } | null
               asset: {
                 __typename?: 'Erc20'
                 name: string
@@ -24226,6 +24336,16 @@ export type MutualFollowersQuery = {
             amount: {
               __typename?: 'Amount'
               value: string
+              rate?: {
+                __typename?: 'FiatAmount'
+                value: string
+                asset: {
+                  __typename?: 'Fiat'
+                  name: string
+                  symbol: string
+                  decimals: number
+                }
+              } | null
               asset: {
                 __typename?: 'Erc20'
                 name: string
@@ -24460,6 +24580,16 @@ export type NotificationsQuery = {
                     amount: {
                       __typename?: 'Amount'
                       value: string
+                      rate?: {
+                        __typename?: 'FiatAmount'
+                        value: string
+                        asset: {
+                          __typename?: 'Fiat'
+                          name: string
+                          symbol: string
+                          decimals: number
+                        }
+                      } | null
                       asset: {
                         __typename?: 'Erc20'
                         name: string
@@ -24639,6 +24769,16 @@ export type NotificationsQuery = {
                         amount: {
                           __typename?: 'Amount'
                           value: string
+                          rate?: {
+                            __typename?: 'FiatAmount'
+                            value: string
+                            asset: {
+                              __typename?: 'Fiat'
+                              name: string
+                              symbol: string
+                              decimals: number
+                            }
+                          } | null
                           asset: {
                             __typename?: 'Erc20'
                             name: string
@@ -26907,6 +27047,16 @@ export type NotificationsQuery = {
                         amount: {
                           __typename?: 'Amount'
                           value: string
+                          rate?: {
+                            __typename?: 'FiatAmount'
+                            value: string
+                            asset: {
+                              __typename?: 'Fiat'
+                              name: string
+                              symbol: string
+                              decimals: number
+                            }
+                          } | null
                           asset: {
                             __typename?: 'Erc20'
                             name: string
@@ -29161,6 +29311,16 @@ export type NotificationsQuery = {
                     amount: {
                       __typename?: 'Amount'
                       value: string
+                      rate?: {
+                        __typename?: 'FiatAmount'
+                        value: string
+                        asset: {
+                          __typename?: 'Fiat'
+                          name: string
+                          symbol: string
+                          decimals: number
+                        }
+                      } | null
                       asset: {
                         __typename?: 'Erc20'
                         name: string
@@ -31184,6 +31344,16 @@ export type NotificationsQuery = {
                   amount: {
                     __typename?: 'Amount'
                     value: string
+                    rate?: {
+                      __typename?: 'FiatAmount'
+                      value: string
+                      asset: {
+                        __typename?: 'Fiat'
+                        name: string
+                        symbol: string
+                        decimals: number
+                      }
+                    } | null
                     asset: {
                       __typename?: 'Erc20'
                       name: string
@@ -31356,6 +31526,16 @@ export type NotificationsQuery = {
                         amount: {
                           __typename?: 'Amount'
                           value: string
+                          rate?: {
+                            __typename?: 'FiatAmount'
+                            value: string
+                            asset: {
+                              __typename?: 'Fiat'
+                              name: string
+                              symbol: string
+                              decimals: number
+                            }
+                          } | null
                           asset: {
                             __typename?: 'Erc20'
                             name: string
@@ -33611,6 +33791,16 @@ export type NotificationsQuery = {
                         amount: {
                           __typename?: 'Amount'
                           value: string
+                          rate?: {
+                            __typename?: 'FiatAmount'
+                            value: string
+                            asset: {
+                              __typename?: 'Fiat'
+                              name: string
+                              symbol: string
+                              decimals: number
+                            }
+                          } | null
                           asset: {
                             __typename?: 'Erc20'
                             name: string
@@ -35860,6 +36050,16 @@ export type NotificationsQuery = {
                         amount: {
                           __typename?: 'Amount'
                           value: string
+                          rate?: {
+                            __typename?: 'FiatAmount'
+                            value: string
+                            asset: {
+                              __typename?: 'Fiat'
+                              name: string
+                              symbol: string
+                              decimals: number
+                            }
+                          } | null
                           asset: {
                             __typename?: 'Erc20'
                             name: string
@@ -38113,6 +38313,16 @@ export type NotificationsQuery = {
                     amount: {
                       __typename?: 'Amount'
                       value: string
+                      rate?: {
+                        __typename?: 'FiatAmount'
+                        value: string
+                        asset: {
+                          __typename?: 'Fiat'
+                          name: string
+                          symbol: string
+                          decimals: number
+                        }
+                      } | null
                       asset: {
                         __typename?: 'Erc20'
                         name: string
@@ -38282,6 +38492,16 @@ export type NotificationsQuery = {
                         amount: {
                           __typename?: 'Amount'
                           value: string
+                          rate?: {
+                            __typename?: 'FiatAmount'
+                            value: string
+                            asset: {
+                              __typename?: 'Fiat'
+                              name: string
+                              symbol: string
+                              decimals: number
+                            }
+                          } | null
                           asset: {
                             __typename?: 'Erc20'
                             name: string
@@ -40537,6 +40757,16 @@ export type NotificationsQuery = {
                         amount: {
                           __typename?: 'Amount'
                           value: string
+                          rate?: {
+                            __typename?: 'FiatAmount'
+                            value: string
+                            asset: {
+                              __typename?: 'Fiat'
+                              name: string
+                              symbol: string
+                              decimals: number
+                            }
+                          } | null
                           asset: {
                             __typename?: 'Erc20'
                             name: string
@@ -42786,6 +43016,16 @@ export type NotificationsQuery = {
                         amount: {
                           __typename?: 'Amount'
                           value: string
+                          rate?: {
+                            __typename?: 'FiatAmount'
+                            value: string
+                            asset: {
+                              __typename?: 'Fiat'
+                              name: string
+                              symbol: string
+                              decimals: number
+                            }
+                          } | null
                           asset: {
                             __typename?: 'Erc20'
                             name: string
@@ -45043,6 +45283,16 @@ export type NotificationsQuery = {
                     amount: {
                       __typename?: 'Amount'
                       value: string
+                      rate?: {
+                        __typename?: 'FiatAmount'
+                        value: string
+                        asset: {
+                          __typename?: 'Fiat'
+                          name: string
+                          symbol: string
+                          decimals: number
+                        }
+                      } | null
                       asset: {
                         __typename?: 'Erc20'
                         name: string
@@ -47076,6 +47326,16 @@ export type NotificationsQuery = {
                         amount: {
                           __typename?: 'Amount'
                           value: string
+                          rate?: {
+                            __typename?: 'FiatAmount'
+                            value: string
+                            asset: {
+                              __typename?: 'Fiat'
+                              name: string
+                              symbol: string
+                              decimals: number
+                            }
+                          } | null
                           asset: {
                             __typename?: 'Erc20'
                             name: string
@@ -49331,6 +49591,16 @@ export type NotificationsQuery = {
                         amount: {
                           __typename?: 'Amount'
                           value: string
+                          rate?: {
+                            __typename?: 'FiatAmount'
+                            value: string
+                            asset: {
+                              __typename?: 'Fiat'
+                              name: string
+                              symbol: string
+                              decimals: number
+                            }
+                          } | null
                           asset: {
                             __typename?: 'Erc20'
                             name: string
@@ -51580,6 +51850,16 @@ export type NotificationsQuery = {
                         amount: {
                           __typename?: 'Amount'
                           value: string
+                          rate?: {
+                            __typename?: 'FiatAmount'
+                            value: string
+                            asset: {
+                              __typename?: 'Fiat'
+                              name: string
+                              symbol: string
+                              decimals: number
+                            }
+                          } | null
                           asset: {
                             __typename?: 'Erc20'
                             name: string
@@ -53827,6 +54107,16 @@ export type NotificationsQuery = {
                     amount: {
                       __typename?: 'Amount'
                       value: string
+                      rate?: {
+                        __typename?: 'FiatAmount'
+                        value: string
+                        asset: {
+                          __typename?: 'Fiat'
+                          name: string
+                          symbol: string
+                          decimals: number
+                        }
+                      } | null
                       asset: {
                         __typename?: 'Erc20'
                         name: string
@@ -53985,6 +54275,16 @@ export type ProfileQuery = {
           amount: {
             __typename?: 'Amount'
             value: string
+            rate?: {
+              __typename?: 'FiatAmount'
+              value: string
+              asset: {
+                __typename?: 'Fiat'
+                name: string
+                symbol: string
+                decimals: number
+              }
+            } | null
             asset: {
               __typename?: 'Erc20'
               name: string
@@ -54165,6 +54465,16 @@ export type FeedQuery = {
                     amount: {
                       __typename?: 'Amount'
                       value: string
+                      rate?: {
+                        __typename?: 'FiatAmount'
+                        value: string
+                        asset: {
+                          __typename?: 'Fiat'
+                          name: string
+                          symbol: string
+                          decimals: number
+                        }
+                      } | null
                       asset: {
                         __typename?: 'Erc20'
                         name: string
@@ -56195,6 +56505,16 @@ export type FeedQuery = {
                     amount: {
                       __typename?: 'Amount'
                       value: string
+                      rate?: {
+                        __typename?: 'FiatAmount'
+                        value: string
+                        asset: {
+                          __typename?: 'Fiat'
+                          name: string
+                          symbol: string
+                          decimals: number
+                        }
+                      } | null
                       asset: {
                         __typename?: 'Erc20'
                         name: string
@@ -58110,6 +58430,16 @@ export type ProfileFollowModuleQuery = {
           amount: {
             __typename?: 'Amount'
             value: string
+            rate?: {
+              __typename?: 'FiatAmount'
+              value: string
+              asset: {
+                __typename?: 'Fiat'
+                name: string
+                symbol: string
+                decimals: number
+              }
+            } | null
             asset: {
               __typename?: 'Erc20'
               name: string
@@ -58289,6 +58619,16 @@ export type ProfilesQuery = {
             amount: {
               __typename?: 'Amount'
               value: string
+              rate?: {
+                __typename?: 'FiatAmount'
+                value: string
+                asset: {
+                  __typename?: 'Fiat'
+                  name: string
+                  symbol: string
+                  decimals: number
+                }
+              } | null
               asset: {
                 __typename?: 'Erc20'
                 name: string
@@ -58444,6 +58784,16 @@ export type ProfilesManagedQuery = {
             amount: {
               __typename?: 'Amount'
               value: string
+              rate?: {
+                __typename?: 'FiatAmount'
+                value: string
+                asset: {
+                  __typename?: 'Fiat'
+                  name: string
+                  symbol: string
+                  decimals: number
+                }
+              } | null
               asset: {
                 __typename?: 'Erc20'
                 name: string
@@ -58619,6 +58969,16 @@ export type PublicationQuery = {
                 amount: {
                   __typename?: 'Amount'
                   value: string
+                  rate?: {
+                    __typename?: 'FiatAmount'
+                    value: string
+                    asset: {
+                      __typename?: 'Fiat'
+                      name: string
+                      symbol: string
+                      decimals: number
+                    }
+                  } | null
                   asset: {
                     __typename?: 'Erc20'
                     name: string
@@ -60655,6 +61015,16 @@ export type PublicationQuery = {
                 amount: {
                   __typename?: 'Amount'
                   value: string
+                  rate?: {
+                    __typename?: 'FiatAmount'
+                    value: string
+                    asset: {
+                      __typename?: 'Fiat'
+                      name: string
+                      symbol: string
+                      decimals: number
+                    }
+                  } | null
                   asset: {
                     __typename?: 'Erc20'
                     name: string
@@ -62672,6 +63042,16 @@ export type PublicationQuery = {
                 amount: {
                   __typename?: 'Amount'
                   value: string
+                  rate?: {
+                    __typename?: 'FiatAmount'
+                    value: string
+                    asset: {
+                      __typename?: 'Fiat'
+                      name: string
+                      symbol: string
+                      decimals: number
+                    }
+                  } | null
                   asset: {
                     __typename?: 'Erc20'
                     name: string
@@ -64709,6 +65089,16 @@ export type PublicationBookmarksQuery = {
                   amount: {
                     __typename?: 'Amount'
                     value: string
+                    rate?: {
+                      __typename?: 'FiatAmount'
+                      value: string
+                      asset: {
+                        __typename?: 'Fiat'
+                        name: string
+                        symbol: string
+                        decimals: number
+                      }
+                    } | null
                     asset: {
                       __typename?: 'Erc20'
                       name: string
@@ -66749,6 +67139,16 @@ export type PublicationBookmarksQuery = {
                   amount: {
                     __typename?: 'Amount'
                     value: string
+                    rate?: {
+                      __typename?: 'FiatAmount'
+                      value: string
+                      asset: {
+                        __typename?: 'Fiat'
+                        name: string
+                        symbol: string
+                        decimals: number
+                      }
+                    } | null
                     asset: {
                       __typename?: 'Erc20'
                       name: string
@@ -68770,6 +69170,16 @@ export type PublicationBookmarksQuery = {
                   amount: {
                     __typename?: 'Amount'
                     value: string
+                    rate?: {
+                      __typename?: 'FiatAmount'
+                      value: string
+                      asset: {
+                        __typename?: 'Fiat'
+                        name: string
+                        symbol: string
+                        decimals: number
+                      }
+                    } | null
                     asset: {
                       __typename?: 'Erc20'
                       name: string
@@ -70809,6 +71219,16 @@ export type PublicationsQuery = {
                   amount: {
                     __typename?: 'Amount'
                     value: string
+                    rate?: {
+                      __typename?: 'FiatAmount'
+                      value: string
+                      asset: {
+                        __typename?: 'Fiat'
+                        name: string
+                        symbol: string
+                        decimals: number
+                      }
+                    } | null
                     asset: {
                       __typename?: 'Erc20'
                       name: string
@@ -72849,6 +73269,16 @@ export type PublicationsQuery = {
                   amount: {
                     __typename?: 'Amount'
                     value: string
+                    rate?: {
+                      __typename?: 'FiatAmount'
+                      value: string
+                      asset: {
+                        __typename?: 'Fiat'
+                        name: string
+                        symbol: string
+                        decimals: number
+                      }
+                    } | null
                     asset: {
                       __typename?: 'Erc20'
                       name: string
@@ -74870,6 +75300,16 @@ export type PublicationsQuery = {
                   amount: {
                     __typename?: 'Amount'
                     value: string
+                    rate?: {
+                      __typename?: 'FiatAmount'
+                      value: string
+                      asset: {
+                        __typename?: 'Fiat'
+                        name: string
+                        symbol: string
+                        decimals: number
+                      }
+                    } | null
                     asset: {
                       __typename?: 'Erc20'
                       name: string
@@ -76774,7 +77214,7 @@ export type RevenueFromPublicationQueryVariables = Exact<{
 
 export type RevenueFromPublicationQuery = {
   __typename?: 'Query'
-  revenueFromPublication: {
+  revenueFromPublication?: {
     __typename?: 'PublicationRevenue'
     publication:
       | {
@@ -76909,6 +77349,16 @@ export type RevenueFromPublicationQuery = {
                   amount: {
                     __typename?: 'Amount'
                     value: string
+                    rate?: {
+                      __typename?: 'FiatAmount'
+                      value: string
+                      asset: {
+                        __typename?: 'Fiat'
+                        name: string
+                        symbol: string
+                        decimals: number
+                      }
+                    } | null
                     asset: {
                       __typename?: 'Erc20'
                       name: string
@@ -78949,6 +79399,16 @@ export type RevenueFromPublicationQuery = {
                   amount: {
                     __typename?: 'Amount'
                     value: string
+                    rate?: {
+                      __typename?: 'FiatAmount'
+                      value: string
+                      asset: {
+                        __typename?: 'Fiat'
+                        name: string
+                        symbol: string
+                        decimals: number
+                      }
+                    } | null
                     asset: {
                       __typename?: 'Erc20'
                       name: string
@@ -80970,6 +81430,16 @@ export type RevenueFromPublicationQuery = {
                   amount: {
                     __typename?: 'Amount'
                     value: string
+                    rate?: {
+                      __typename?: 'FiatAmount'
+                      value: string
+                      asset: {
+                        __typename?: 'Fiat'
+                        name: string
+                        symbol: string
+                        decimals: number
+                      }
+                    } | null
                     asset: {
                       __typename?: 'Erc20'
                       name: string
@@ -82881,7 +83351,7 @@ export type RevenueFromPublicationQuery = {
         }
       }
     }>
-  }
+  } | null
 }
 
 export type RevenueFromPublicationsQueryVariables = Exact<{
@@ -83030,6 +83500,16 @@ export type RevenueFromPublicationsQuery = {
                     amount: {
                       __typename?: 'Amount'
                       value: string
+                      rate?: {
+                        __typename?: 'FiatAmount'
+                        value: string
+                        asset: {
+                          __typename?: 'Fiat'
+                          name: string
+                          symbol: string
+                          decimals: number
+                        }
+                      } | null
                       asset: {
                         __typename?: 'Erc20'
                         name: string
@@ -85073,6 +85553,16 @@ export type RevenueFromPublicationsQuery = {
                     amount: {
                       __typename?: 'Amount'
                       value: string
+                      rate?: {
+                        __typename?: 'FiatAmount'
+                        value: string
+                        asset: {
+                          __typename?: 'Fiat'
+                          name: string
+                          symbol: string
+                          decimals: number
+                        }
+                      } | null
                       asset: {
                         __typename?: 'Erc20'
                         name: string
@@ -87097,6 +87587,16 @@ export type RevenueFromPublicationsQuery = {
                     amount: {
                       __typename?: 'Amount'
                       value: string
+                      rate?: {
+                        __typename?: 'FiatAmount'
+                        value: string
+                        asset: {
+                          __typename?: 'Fiat'
+                          name: string
+                          symbol: string
+                          decimals: number
+                        }
+                      } | null
                       asset: {
                         __typename?: 'Erc20'
                         name: string
@@ -89131,6 +89631,16 @@ export type SearchProfilesQuery = {
             amount: {
               __typename?: 'Amount'
               value: string
+              rate?: {
+                __typename?: 'FiatAmount'
+                value: string
+                asset: {
+                  __typename?: 'Fiat'
+                  name: string
+                  symbol: string
+                  decimals: number
+                }
+              } | null
               asset: {
                 __typename?: 'Erc20'
                 name: string
@@ -89308,6 +89818,16 @@ export type SearchPublicationsQuery = {
                   amount: {
                     __typename?: 'Amount'
                     value: string
+                    rate?: {
+                      __typename?: 'FiatAmount'
+                      value: string
+                      asset: {
+                        __typename?: 'Fiat'
+                        name: string
+                        symbol: string
+                        decimals: number
+                      }
+                    } | null
                     asset: {
                       __typename?: 'Erc20'
                       name: string
@@ -91335,6 +91855,16 @@ export type SearchPublicationsQuery = {
                   amount: {
                     __typename?: 'Amount'
                     value: string
+                    rate?: {
+                      __typename?: 'FiatAmount'
+                      value: string
+                      asset: {
+                        __typename?: 'Fiat'
+                        name: string
+                        symbol: string
+                        decimals: number
+                      }
+                    } | null
                     asset: {
                       __typename?: 'Erc20'
                       name: string
@@ -93356,6 +93886,16 @@ export type SearchPublicationsQuery = {
                   amount: {
                     __typename?: 'Amount'
                     value: string
+                    rate?: {
+                      __typename?: 'FiatAmount'
+                      value: string
+                      asset: {
+                        __typename?: 'Fiat'
+                        name: string
+                        symbol: string
+                        decimals: number
+                      }
+                    } | null
                     asset: {
                       __typename?: 'Erc20'
                       name: string
@@ -95430,6 +95970,16 @@ export type WhoActedOnPublicationQuery = {
             amount: {
               __typename?: 'Amount'
               value: string
+              rate?: {
+                __typename?: 'FiatAmount'
+                value: string
+                asset: {
+                  __typename?: 'Fiat'
+                  name: string
+                  symbol: string
+                  decimals: number
+                }
+              } | null
               asset: {
                 __typename?: 'Erc20'
                 name: string
@@ -95566,6 +96116,16 @@ export const AmountFieldsFragmentDoc = gql`
   }
   ${Erc20FieldsFragmentDoc}
 `
+export const FiatAmountFieldsFragmentDoc = gql`
+  fragment FiatAmountFields on FiatAmount {
+    asset {
+      name
+      symbol
+      decimals
+    }
+    value
+  }
+`
 export const FollowModuleFieldsFragmentDoc = gql`
   fragment FollowModuleFields on FollowModule {
     ... on FeeFollowModuleSettings {
@@ -95574,6 +96134,9 @@ export const FollowModuleFieldsFragmentDoc = gql`
       }
       amount {
         ...AmountFields
+        rate(request: { for: USD }) {
+          ...FiatAmountFields
+        }
       }
       recipient
     }
@@ -95591,6 +96154,7 @@ export const FollowModuleFieldsFragmentDoc = gql`
   }
   ${NetworkAddressFieldsFragmentDoc}
   ${AmountFieldsFragmentDoc}
+  ${FiatAmountFieldsFragmentDoc}
 `
 export const ProfileFieldsFragmentDoc = gql`
   fragment ProfileFields on Profile {
@@ -95638,7 +96202,7 @@ export const ProfileFieldsFragmentDoc = gql`
       address
       chainId
     }
-    metadata {
+    metadata(request: { appId: "lenstube", useFallback: true }) {
       ...ProfileMetadataFields
     }
     followModule {
@@ -96355,16 +96919,6 @@ export const AnyPublicationMetadataFieldsFragmentDoc = gql`
   ${ThreeDMetadataV3FieldsFragmentDoc}
   ${TransactionMetadataV3FieldsFragmentDoc}
   ${VideoMetadataV3FieldsFragmentDoc}
-`
-export const FiatAmountFieldsFragmentDoc = gql`
-  fragment FiatAmountFields on FiatAmount {
-    asset {
-      name
-      symbol
-      decimals
-    }
-    value
-  }
 `
 export const OpenActionModulesFieldsFragmentDoc = gql`
   fragment OpenActionModulesFields on OpenActionModule {

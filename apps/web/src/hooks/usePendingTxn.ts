@@ -1,4 +1,7 @@
-import { useLensTransactionStatusQuery } from '@lenstube/lens'
+import {
+  LensTransactionStatusType,
+  useLensTransactionStatusQuery
+} from '@lenstube/lens'
 import { useCallback, useEffect } from 'react'
 import toast from 'react-hot-toast'
 
@@ -18,9 +21,9 @@ const usePendingTxn = ({ txHash, txId }: Props) => {
 
   const checkIsIndexed = useCallback(() => {
     if (
-      data?.lensTransactionStatus?.__typename &&
       data?.lensTransactionStatus?.__typename === 'LensTransactionResult' &&
-      data?.lensTransactionStatus?.txHash
+      data?.lensTransactionStatus?.txHash &&
+      data.lensTransactionStatus.status === LensTransactionStatusType.Complete
     ) {
       stopPolling()
     }

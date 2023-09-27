@@ -187,6 +187,7 @@ const BasicInfo = ({ channel }: Props) => {
     setLoading(true)
     try {
       const profileMetadata: ProfileOptions = {
+        appId: LENSTUBE_APP_ID,
         coverPicture: data.coverImage ?? coverImage,
         id: uuidv4(),
         attributes: [
@@ -282,7 +283,7 @@ const BasicInfo = ({ channel }: Props) => {
             draggable={false}
             alt={`${channel.handle}'s cover`}
           />
-          <div className="dark:bg-theme absolute bottom-2 right-2 cursor-pointer text-sm">
+          <div className="absolute bottom-2 right-2 cursor-pointer text-sm dark:bg-black">
             <Button
               highContrast
               type="button"
@@ -326,7 +327,7 @@ const BasicInfo = ({ channel }: Props) => {
             <label
               htmlFor="choosePfp"
               className={clsx(
-                'dark:bg-theme invisible absolute top-0 grid h-32 w-32 cursor-pointer place-items-center rounded-full bg-white bg-opacity-70 backdrop-blur-lg group-hover:visible',
+                'invisible absolute top-0 grid h-32 w-32 cursor-pointer place-items-center rounded-full bg-white bg-opacity-70 backdrop-blur-lg group-hover:visible dark:bg-black',
                 { '!visible': uploading.pfp }
               )}
             >

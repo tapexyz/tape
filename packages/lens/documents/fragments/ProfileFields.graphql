@@ -43,7 +43,7 @@ fragment ProfileFields on Profile {
     address
     chainId
   }
-  metadata {
+  metadata(request: { appId: "lenstube", useFallback: true }) {
     ...ProfileMetadataFields
   }
   followModule {
