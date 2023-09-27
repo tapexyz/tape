@@ -2,7 +2,6 @@ import type { WebBundlr } from '@bundlr-network/client'
 import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
 import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import RefreshOutline from '@components/Common/Icons/RefreshOutline'
-import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
 import useEthersWalletClient from '@hooks/useEthersWalletClient'
@@ -11,6 +10,7 @@ import { BUNDLR_CURRENCY, POLYGON_CHAIN_ID } from '@lenstube/constants'
 import { logger, useIsMounted } from '@lenstube/generic'
 import useAppStore from '@lib/store'
 import { t, Trans } from '@lingui/macro'
+import { Button, Flex, IconButton, Text } from '@radix-ui/themes'
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
 import { formatEther, parseEther, parseUnits } from 'viem'
@@ -163,58 +163,63 @@ const BundlrInfo = () => {
   }
 
   return (
-    <div className="mt-4 w-full space-y-2">
+    <div className="mt-4 w-full space-y-4">
       <div className="flex flex-col">
-        <div className="inline-flex items-center justify-between rounded text-sm font-medium opacity-80">
+        <div className="inline-flex items-center justify-between rounded font-medium opacity-80">
           <span className="flex items-center space-x-1.5">
-            <span>
-              <Trans>Your Storage Balance</Trans>
-            </span>
+            <Text>
+              <Trans>Your storage balance</Trans>
+            </Text>
             <Tooltip content="Refresh balance" placement="top">
-              <button
+              <IconButton
+                size="1"
+                variant="soft"
                 type="button"
                 className="focus:outline-none"
                 onClick={() => onRefreshBalance()}
               >
                 <RefreshOutline className="h-3 w-3" />
-              </button>
+              </IconButton>
             </Tooltip>
           </span>
           <span>
-            <button
+            <Button
               type="button"
+              size="1"
+              variant="soft"
               onClick={() =>
                 setBundlrData({
                   showDeposit: !bundlrData.showDeposit
                 })
               }
-              className="inline-flex items-center rounded-full bg-gray-200 px-2 py-0.5 focus:outline-none dark:bg-gray-900"
             >
-              <span className="px-0.5 text-xs">
+              <Text>
                 <Trans>Deposit</Trans>
-              </span>
+              </Text>
               {bundlrData.showDeposit ? (
                 <ChevronUpOutline className="ml-1 h-3 w-3" />
               ) : (
                 <ChevronDownOutline className="ml-1 h-3 w-3" />
               )}
-            </button>
+            </Button>
           </span>
         </div>
         <div className="flex justify-between">
           {bundlrData.balance !== '0' ? (
-            <span className="text-lg font-medium">{bundlrData.balance}</span>
+            <Text weight="bold" size="4">
+              {bundlrData.balance}
+            </Text>
           ) : (
             <span className="mt-[6px] h-[22px] w-1/2 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700" />
           )}
         </div>
       </div>
       {bundlrData.showDeposit && (
-        <div>
-          <div className="mb-2 inline-flex flex-col text-sm font-medium opacity-80">
+        <div className="space-y-1">
+          <Text weight="medium">
             <Trans>Amount to deposit (MATIC)</Trans>
-          </div>
-          <div className="flex items-center space-x-2">
+          </Text>
+          <Flex gap="2">
             <Input
               type="number"
               placeholder={userBalance?.formatted}
@@ -228,24 +233,25 @@ const BundlrInfo = () => {
             />
             <Button
               type="button"
-              size="md"
-              loading={bundlrData.depositing}
+              variant="outline"
+              highContrast
+              disabled={bundlrData.depositing}
               onClick={() => depositToBundlr()}
             >
               <Trans>Deposit</Trans>
             </Button>
-          </div>
+          </Flex>
         </div>
       )}
-      <div>
-        <span className="inline-flex flex-col text-sm font-medium opacity-80">
-          <Trans>Estimated Cost to Upload</Trans>
-        </span>
+      <div className="space-y-1">
+        <Text weight="medium">
+          <Trans>Estimated cost to upload</Trans>
+        </Text>
         <div className="flex justify-between">
           {bundlrData.estimatedPrice !== '0' ? (
-            <div className="text-lg font-medium">
+            <Text weight="bold" size="4">
               {bundlrData.estimatedPrice}
-            </div>
+            </Text>
           ) : (
             <span className="mt-[6px] h-[22px] w-1/2 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700" />
           )}

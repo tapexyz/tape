@@ -10,7 +10,7 @@ import {
 } from '@lenstube/generic'
 import useAppStore from '@lib/store'
 import useAuthPersistStore from '@lib/store/auth'
-import { t, Trans } from '@lingui/macro'
+import { t } from '@lingui/macro'
 import clsx from 'clsx'
 import React, { useEffect, useRef } from 'react'
 import toast from 'react-hot-toast'
@@ -120,21 +120,6 @@ const Video = () => {
       <div className="mt-4">
         <ChooseThumbnail label="Thumbnail" file={uploadedVideo.file} />
       </div>
-      <ul className="mt-4 list-inside list-disc text-xs">
-        <li>
-          <Trans>Don't switch network or wallet accounts</Trans>
-        </li>
-        <li>
-          <Trans>
-            Stay active in current tab while uploading for faster experience
-          </Trans>
-        </li>
-        <li>
-          <Trans>
-            Video will be stored permanently on-chain and can't be updated
-          </Trans>
-        </li>
-      </ul>
       <div className="rounded-lg">
         <UploadMethod />
       </div>
