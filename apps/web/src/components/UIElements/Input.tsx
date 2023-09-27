@@ -1,27 +1,23 @@
 import InfoOutline from '@components/Common/Icons/InfoOutline'
-import clsx from 'clsx'
-import type { InputHTMLAttributes } from 'react'
+import { Text, TextField } from '@radix-ui/themes'
+import type { TextFieldInputProps } from '@radix-ui/themes/dist/cjs/components/text-field'
 import React, { forwardRef, useId } from 'react'
 
 import Tooltip from './Tooltip'
 
-interface Props extends InputHTMLAttributes<HTMLInputElement> {
+interface Props extends TextFieldInputProps {
   label?: string
   info?: string
-  type?: string
-  className?: string
-  validationError?: string
   prefix?: string
   suffix?: string
+  validationError?: string
   showErrorLabel?: boolean
 }
 export const Input = forwardRef<HTMLInputElement, Props>(function Input(
   {
     label,
     info,
-    type = 'text',
     validationError,
-    className = '',
     showErrorLabel = true,
     prefix,
     suffix,
@@ -34,11 +30,9 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
     <label className="w-full" htmlFor={id}>
       {label && (
         <div className="flex">
-          <div className="mb-1 flex items-center space-x-1.5">
-            <div className="text-[11px] font-semibold uppercase tracking-wider opacity-70">
-              {label}
-            </div>
-          </div>
+          <Text as="div" size="2" mb="1">
+            {label}
+          </Text>
           {info && (
             <Tooltip content={info} placement="top">
               <span>
@@ -49,38 +43,29 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
         </div>
       )}
       <div className="flex">
-        {prefix && (
-          <span className="inline-flex items-center rounded-l-xl border border-r-0 border-gray-300 bg-gray-100 px-4 text-sm dark:border-gray-700 dark:bg-gray-900">
-            {prefix}
-          </span>
-        )}
-        <input
-          id={id}
-          className={clsx(
-            {
-              'focus:ring-1 focus:ring-indigo-500': !validationError?.length,
-              '!border-red-500': validationError?.length,
-              'rounded-r-xl': prefix,
-              'rounded-xl': !prefix && !suffix,
-              'rounded-l-xl': suffix
-            },
-            'w-full border border-gray-300 bg-white px-2.5 py-2 text-sm outline-none disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700 dark:bg-gray-900',
-            className
+        <TextField.Root className="w-full">
+          {prefix && (
+            <TextField.Slot>
+              <Text size="2">{prefix}</Text>
+            </TextField.Slot>
           )}
-          ref={ref}
-          type={type}
-          {...props}
-        />
-        {suffix && (
-          <span className="inline-flex items-center whitespace-nowrap rounded-r-xl border border-l-0 border-gray-300 bg-gray-100 px-4 text-sm dark:border-gray-700 dark:bg-gray-900">
-            {suffix}
-          </span>
-        )}
+          <TextField.Input
+            id={id}
+            ref={ref}
+            color={validationError?.length ? 'red' : 'gray'}
+            {...props}
+          />
+          {suffix && (
+            <TextField.Slot>
+              <Text size="2">{suffix}</Text>
+            </TextField.Slot>
+          )}
+        </TextField.Root>
       </div>
       {validationError && showErrorLabel ? (
-        <div className="mx-1 mt-1 text-xs font-medium text-red-500">
+        <Text color="red" mt="1" size="1" weight="medium">
           {validationError}
-        </div>
+        </Text>
       ) : null}
     </label>
   )

@@ -4,7 +4,6 @@ import AddImageOutline from '@components/Common/Icons/AddImageOutline'
 import CopyOutline from '@components/Common/Icons/CopyOutline'
 import EmojiPicker from '@components/UIElements/EmojiPicker'
 import { Input } from '@components/UIElements/Input'
-import { TextArea } from '@components/UIElements/TextArea'
 import Tooltip from '@components/UIElements/Tooltip'
 import { zodResolver } from '@hookform/resolvers/zod'
 import type { MetadataAttribute, ProfileOptions } from '@lens-protocol/metadata'
@@ -283,7 +282,7 @@ const BasicInfo = ({ channel }: Props) => {
             draggable={false}
             alt={`${channel.handle}'s cover`}
           />
-          <div className="absolute bottom-2 right-2 cursor-pointer text-sm dark:bg-black">
+          <div className="absolute bottom-2 right-2 cursor-pointer rounded-md text-sm dark:bg-black">
             <Button
               highContrast
               type="button"
@@ -312,7 +311,7 @@ const BasicInfo = ({ channel }: Props) => {
             </Button>
           </div>
         </div>
-        <Flex align="center" mt="5" gap="5">
+        <Flex align="center" mt="5" gap="5" wrap="wrap">
           <div className="group relative flex-none overflow-hidden rounded-full">
             <img
               src={
@@ -400,22 +399,20 @@ const BasicInfo = ({ channel }: Props) => {
 
         <div className="mt-6">
           <Input
-            label={t`Display Name`}
-            type="text"
-            placeholder="T Series"
+            label={t`Name`}
+            placeholder="John Doe"
             validationError={errors.displayName?.message}
             {...register('displayName')}
           />
         </div>
         <div className="relative mt-4">
-          <TextArea
-            label={t`Description`}
+          <Input
+            label={t`Bio`}
             placeholder={t`More about you and what you do!`}
-            rows={4}
             validationError={errors.description?.message}
             {...register('description')}
           />
-          <div className="absolute bottom-2 right-2">
+          <div className="absolute bottom-1.5 right-2">
             <EmojiPicker
               onEmojiSelect={(emoji) =>
                 setValue('description', `${getValues('description')}${emoji}`)

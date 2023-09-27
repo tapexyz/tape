@@ -1,8 +1,8 @@
-import clsx from 'clsx'
-import type { ComponentProps } from 'react'
+import { Flex, Text, TextArea as TextAreaField } from '@radix-ui/themes'
+import type { TextAreaProps } from '@radix-ui/themes/dist/cjs/components/text-area'
 import React, { forwardRef, useId } from 'react'
 
-interface Props extends ComponentProps<'textarea'> {
+interface Props extends TextAreaProps {
   label?: string
   type?: string
   className?: string
@@ -10,36 +10,36 @@ interface Props extends ComponentProps<'textarea'> {
 }
 
 export const TextArea = forwardRef<HTMLTextAreaElement, Props>(
-  function TextArea({ label, validationError, className = '', ...props }, ref) {
+  function TextArea({ label, validationError, ...props }, ref) {
     const id = useId()
     return (
       <label className="w-full" htmlFor={id}>
         {label && (
           <div className="mb-1 flex items-center space-x-1.5">
-            <div className="text-[11px] font-semibold uppercase opacity-70">
+            <Text as="div" size="2" mb="1">
               {label}
-            </div>
+            </Text>
           </div>
         )}
-        <div className="flex">
-          <textarea
+        <Flex>
+          <TextAreaField
             id={id}
-            className={clsx(
-              validationError?.length
-                ? '!border-red-500'
-                : 'focus:ring-1 focus:ring-indigo-500',
-              'w-full rounded-xl border border-gray-300 bg-white px-2.5 py-2 text-sm outline-none disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700 dark:bg-gray-900',
-              className
-            )}
             ref={ref}
+            className="w-full border-[1.5px] border-gray-300 dark:border-gray-700"
+            color={validationError?.length ? 'red' : 'gray'}
             {...props}
           />
-        </div>
+        </Flex>
         {validationError && (
           <div className="mx-1 mt-1 text-xs font-medium text-red-500">
             {validationError}
           </div>
         )}
+        {validationError ? (
+          <Text color="red" mt="1" size="1" weight="medium">
+            {validationError}
+          </Text>
+        ) : null}
       </label>
     )
   }

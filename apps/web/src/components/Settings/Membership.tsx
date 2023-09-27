@@ -27,11 +27,11 @@ import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import { Loader } from '@lenstube/ui'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
-import { Button, Card, Text } from '@radix-ui/themes'
+import { Button, Card, Flex, Select, Text } from '@radix-ui/themes'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import { formatEther } from 'viem'
+import { formatUnits } from 'viem'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 import type { z } from 'zod'
 import { number, object, string } from 'zod'
@@ -214,7 +214,10 @@ const Membership = ({ channel }: Props) => {
                 <Trans>Amount</Trans>
               </span>
               <h6 className="text-xl font-bold">
-                {formatEther(BigInt(activeFollowModule.amount?.value))}{' '}
+                {formatUnits(
+                  BigInt(activeFollowModule.amount?.value),
+                  activeFollowModule.amount?.asset.decimals
+                )}{' '}
                 {activeFollowModule.amount?.asset?.symbol}
               </h6>
             </div>
@@ -247,27 +250,32 @@ const Membership = ({ channel }: Props) => {
 
       {showForm && !moduleLoading ? (
         <form onSubmit={handleSubmit(onSubmitForm)}>
-          <div className="grid gap-3 md:grid-cols-2">
+          <Flex direction="column" className="w-1/2" gap="4">
             <div>
-              <div className="mb-1 flex items-center space-x-1.5">
-                <div className="text-[11px] font-semibold uppercase opacity-70">
-                  <Trans>Currency</Trans>
-                </div>
-              </div>
-              <select
-                autoComplete="off"
-                className="w-full rounded-xl border border-gray-300 bg-white p-2.5 text-sm outline-none disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700 dark:bg-gray-900"
+              <Text as="div" size="2" mb="1">
+                Currency
+              </Text>
+              <Select.Root
                 value={watch('token')}
-                onChange={(e) => setValue('token', e.target.value)}
+                onValueChange={(value) => setValue('token', value)}
               >
-                {enabledCurrencies?.currencies.items?.map(
-                  ({ contract, symbol }) => (
-                    <option key={contract.address} value={contract.address}>
-                      {symbol}
-                    </option>
-                  )
-                )}
-              </select>
+                <Select.Trigger
+                  className="w-full"
+                  placeholder="Select preferred currency"
+                />
+                <Select.Content variant="soft">
+                  {enabledCurrencies?.currencies.items?.map(
+                    ({ contract, name }) => (
+                      <Select.Item
+                        key={contract.address}
+                        value={contract.address}
+                      >
+                        {name}
+                      </Select.Item>
+                    )
+                  )}
+                </Select.Content>
+              </Select.Root>
               {errors.token?.message && (
                 <div className="mx-1 mt-1 text-xs font-medium text-red-500">
                   {errors.token?.message}
@@ -294,8 +302,8 @@ const Membership = ({ channel }: Props) => {
                 {...register('recipient')}
               />
             </div>
-          </div>
-          <div className="mt-4 flex justify-end space-x-2">
+          </Flex>
+          <div className="mt-6 flex justify-end space-x-2">
             {activeFollowModule && (
               <Button variant="soft" onClick={() => setShowForm(false)}>
                 <Trans>Cancel</Trans>
