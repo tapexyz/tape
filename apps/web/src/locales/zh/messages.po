@@ -248,7 +248,7 @@ msgstr "收藏"
 #~ msgid "Collects"
 #~ msgstr "收藏"
 
-#: src/components/Watch/Comments/NewComment.tsx:339
+#: src/components/Watch/Comments/NewComment.tsx:389
 msgid "Comment"
 msgstr "评论"
 
@@ -261,7 +261,7 @@ msgstr "评论已删除"
 #~ msgid "comment on"
 #~ msgstr "评论于"
 
-#: src/components/Watch/Comments/NewComment.tsx:60
+#: src/components/Watch/Comments/NewComment.tsx:64
 msgid "Comment should not exceed 5000 characters"
 msgstr "评论不能超过 5000 个字符"
 
@@ -384,8 +384,8 @@ msgid "disabled"
 msgstr "已禁用"
 
 #: src/components/Watch/PublicationReaction.tsx:195
-msgid "Dislike"
-msgstr "Dislike"
+#~ msgid "Dislike"
+#~ msgstr "Dislike"
 
 #: src/components/Notifications/Reacted.tsx:39
 #~ msgid "dislisked"
@@ -436,8 +436,8 @@ msgstr "结束于"
 msgid "Enter deposit amount"
 msgstr "输入存款金额"
 
-#: src/components/Watch/Comments/NewComment.tsx:57
-#: src/components/Watch/Comments/NewComment.tsx:59
+#: src/components/Watch/Comments/NewComment.tsx:61
+#: src/components/Watch/Comments/NewComment.tsx:63
 msgid "Enter valid comment"
 msgstr "输入有效的评论"
 
@@ -467,7 +467,7 @@ msgstr "保存存储余额失败"
 msgid "Failed to upload thumbnail"
 msgstr "上传缩略图失败"
 
-#: src/components/Upload/UploadSteps.tsx:496
+#: src/components/Upload/UploadSteps.tsx:484
 msgid "Failed to upload video to Arweave"
 msgstr "上传视频到 Arweeve 失败"
 
@@ -537,7 +537,7 @@ msgstr "高信号"
 msgid "Home"
 msgstr "首页"
 
-#: src/components/Watch/Comments/NewComment.tsx:67
+#: src/components/Watch/Comments/NewComment.tsx:71
 msgid "How's this video?"
 msgstr "这个视频是如何的？"
 
@@ -561,7 +561,7 @@ msgstr "正在索引，请稍候..."
 #~ msgid "Insufficient balance"
 #~ msgstr ""
 
-#: src/components/Upload/UploadSteps.tsx:443
+#: src/components/Upload/UploadSteps.tsx:431
 msgid "Insufficient storage balance"
 msgstr "存储余额不足"
 
@@ -598,7 +598,7 @@ msgstr "无效的存款金额"
 msgid "Invalid split recipient address"
 msgstr "无效的分割收件人地址"
 
-#: src/components/Upload/UploadSteps.tsx:419
+#: src/components/Upload/UploadSteps.tsx:407
 msgid "IPFS Upload failed"
 msgstr "IPFS 上传失败"
 
@@ -619,7 +619,7 @@ msgstr "IPFS 上传失败"
 msgid "Lenstube Stats"
 msgstr "Lenstube统计"
 
-#: src/components/Watch/PublicationReaction.tsx:161
+#: src/components/Watch/PublicationReaction.tsx:124
 msgid "Like"
 msgstr "赞"
 
@@ -726,7 +726,8 @@ msgstr "错误使用哈希标签"
 #~ msgstr "Momoka目前处于测试版中 - 在此期间某些操作不能用于所有频道。"
 
 #: src/components/Common/MirrorVideo.tsx:174
-#: src/components/Watch/Comments/NewComment.tsx:219
+#: src/components/Watch/Comments/NewComment.tsx:262
+#: src/components/Watch/TipForm.tsx:350
 msgid "Momoka is currently in beta - during this time certain actions are not available to all profiles."
 msgstr ""
 
@@ -928,11 +929,11 @@ msgstr "请上传一个自定义缩略图"
 msgid "Popular"
 msgstr "热门的"
 
-#: src/components/Upload/UploadSteps.tsx:127
+#: src/components/Upload/UploadSteps.tsx:126
 msgid "Post Video"
 msgstr "发布视频"
 
-#: src/components/Upload/UploadSteps.tsx:340
+#: src/components/Upload/UploadSteps.tsx:328
 msgid "Posting video"
 msgstr "发布视频"
 
@@ -1092,8 +1093,8 @@ msgstr "搜索"
 #~ msgstr "选择收藏类型"
 
 #: src/components/Upload/DropZone.tsx:72
-msgid "Select Media"
-msgstr ""
+#~ msgid "Select Media"
+#~ msgstr ""
 
 #: src/components/Upload/DropZone.tsx:71
 #~ msgid "Select Video"
@@ -1124,6 +1125,10 @@ msgstr "应大于或等于0"
 #: src/components/Notifications/Filter.tsx:59
 msgid "Show all"
 msgstr "显示所有"
+
+#: src/components/Watch/VideoActions.tsx:52
+msgid "Show appreciation with a comment and tip."
+msgstr ""
 
 #: src/components/Watch/Comments/CommentReplies.tsx:61
 #: src/components/Watch/Comments/RenderComment.tsx:127
@@ -1195,7 +1200,7 @@ msgstr "状态"
 #~ msgid "Stay active in current tab while uploading for faster experience"
 #~ msgstr "在上传时保持活跃于当前标签页以获得更快的体验。"
 
-#: src/components/Upload/UploadSteps.tsx:272
+#: src/components/Upload/UploadSteps.tsx:271
 msgid "Storing metadata"
 msgstr "存储元数据"
 
@@ -1285,11 +1290,11 @@ msgstr "条款"
 #~ msgstr "条款和条件"
 
 #: src/components/Common/Footer.tsx:73
-#: src/components/Watch/VideoActions.tsx:41
+#: src/components/Watch/VideoActions.tsx:40
 msgid "Thanks"
 msgstr "谢谢！"
 
-#: src/components/Watch/TipModal.tsx:60
+#: src/components/Watch/TipForm.tsx:81
 msgid "Thanks for making this video!"
 msgstr "感谢制作这个视频！"
 
@@ -1313,7 +1318,7 @@ msgstr "这些是您允许/允许使用收集功能的收集模块。您可以�
 msgid "This cannot be reverted."
 msgstr "这不能恢复。"
 
-#: src/components/Watch/TipModal.tsx:442
+#: src/components/Watch/TipForm.tsx:403
 msgid "This will be published as a public comment."
 msgstr "这将作为公开评论发表。"
 
@@ -1321,27 +1326,27 @@ msgstr "这将作为公开评论发表。"
 msgid "Threat Individual"
 msgstr "个别威胁"
 
-#: src/components/Watch/TipModal.tsx:399
+#: src/components/Watch/VideoActions.tsx:49
 msgid "Tip"
 msgstr "Tip"
 
-#: src/components/Watch/TipModal.tsx:43
+#: src/components/Watch/TipForm.tsx:64
 msgid "Tip message is requried"
 msgstr "提示信息已经被重新qured"
 
-#: src/components/Watch/TipModal.tsx:42
+#: src/components/Watch/TipForm.tsx:63
 msgid "Tip should be greater than 0 MATIC"
 msgstr "提示应该大于 0 MATIC"
 
-#: src/components/Watch/TipModal.tsx:41
+#: src/components/Watch/TipForm.tsx:62
 msgid "Tip should be less than or equal to 100 MATIC"
 msgstr "提示应小于或等于 100 MATIC"
 
-#: src/components/Watch/TipModal.tsx:40
+#: src/components/Watch/TipForm.tsx:61
 msgid "Tip should to greater than zero"
 msgstr "提示应大于0"
 
-#: src/components/Watch/TipModal.tsx:133
+#: src/components/Watch/TipForm.tsx:127
 msgid "Tipped successfully"
 msgstr "已成功推送"
 
@@ -1465,6 +1470,7 @@ msgstr "将您的调度程序升级到最新版本，以获得更好、更快、
 
 #: src/components/Common/Header.tsx:107
 #: src/components/Upload/ChooseThumbnail.tsx:163
+#: src/components/Upload/DropZone.tsx:72
 msgid "Upload"
 msgstr "上传"
 
@@ -1493,11 +1499,11 @@ msgstr "上传这个视频作为短表格字节"
 msgid "Uploading thumbnail"
 msgstr "正在上传缩略图"
 
-#: src/components/Upload/UploadSteps.tsx:448
+#: src/components/Upload/UploadSteps.tsx:436
 msgid "Uploading to Arweave"
 msgstr "正在上传到Arweeve"
 
-#: src/components/Upload/UploadSteps.tsx:411
+#: src/components/Upload/UploadSteps.tsx:399
 msgid "Uploading to IPFS"
 msgstr "上传到 IPFS"
 
@@ -1532,7 +1538,7 @@ msgstr "视频格式不被支持"
 msgid "Video marked as not interested"
 msgstr "标记为不感兴趣的视频"
 
-#: src/components/Upload/UploadSteps.tsx:437
+#: src/components/Upload/UploadSteps.tsx:425
 msgid "Video not uploaded correctly"
 msgstr "视频上传不正确"
 

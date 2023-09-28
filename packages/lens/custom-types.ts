@@ -2,7 +2,6 @@ import type { WebBundlr } from '@bundlr-network/client'
 import type {
   Profile,
   ProfileInterestTypes,
-  PublicationOperations,
   RecipientDataInput
 } from '@lenstube/lens'
 
@@ -188,8 +187,3 @@ export type SimpleProfile = Pick<
   Profile,
   'id' | 'handle' | 'ownedBy' | 'sponsor' | 'stats' | 'metadata'
 >
-
-export interface PublicationOperationsWithHasDownVoted
-  extends PublicationOperations {
-  hasDownvoted: boolean
-}

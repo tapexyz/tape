@@ -18,7 +18,6 @@ export const TRACK = {
     NEW_POST: 'New post',
     NEW_COMMENT: 'New comment',
     LIKE: 'Like publication',
-    DISLIKE: 'Dislike publication',
     MIRROR: 'Mirror publication',
     PIN: 'Pin publication',
     UNPIN: 'Unpin publication',

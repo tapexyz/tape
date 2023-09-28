@@ -1,8 +1,5 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
-import HeartOutline from '@components/Common/Icons/HeartOutline'
-import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
-import Modal from '@components/UIElements/Modal'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
 import type { MetadataAttribute } from '@lens-protocol/metadata'
@@ -43,6 +40,7 @@ import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'
+import { Button } from '@radix-ui/themes'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 import type { FC } from 'react'
 import React, { useState } from 'react'
@@ -55,8 +53,6 @@ import type { z } from 'zod'
 import { number, object, string } from 'zod'
 
 type Props = {
-  show: boolean
-  setShowTip: React.Dispatch<boolean>
   video: AnyPublication
 }
 
@@ -69,7 +65,7 @@ const formSchema = object({
 })
 type FormData = z.infer<typeof formSchema>
 
-const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
+const TipForm: FC<Props> = ({ video }) => {
   const targetVideo = getPublication(video)
 
   const {
@@ -135,7 +131,6 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
       publication_state: targetVideo.momoka?.proof ? 'DATA_ONLY' : 'ON_CHAIN'
     })
     setLoading(false)
-    setShowTip(false)
   }
 
   const { write } = useContractWrite({
@@ -373,77 +368,62 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   }
 
   return (
-    <Modal
-      title={
-        <span className="flex items-center space-x-2 outline-none">
-          <HeartOutline className="h-4 w-4" />
-          <span>
-            <Trans>Tip</Trans> {targetVideo.by?.handle}
-          </span>
-        </span>
-      }
-      onClose={() => setShowTip(false)}
-      show={show}
-      panelClassName="max-w-md"
-    >
-      <form className="mt-2" onSubmit={handleSubmit(onSendTip)}>
-        <div className="flex flex-nowrap items-center justify-center space-x-2 p-10">
-          <span className="flex items-center space-x-4">
-            <img
-              src={imageCdn(
-                `${STATIC_ASSETS}/images/raise-hand.png`,
-                'AVATAR_LG'
-              )}
-              alt="Raising Hand"
-              className="h-10"
-              loading="eager"
-              draggable={false}
-            />
-            <span>x</span>
-            <Input
-              type="number"
-              className="w-14"
-              step="any"
-              {...register('tipQuantity', { valueAsNumber: true })}
-            />
-          </span>
-        </div>
-        <div className="mt-4">
-          <TextArea
-            label="Message"
-            {...register('message')}
-            placeholder="Say something nice"
-            autoComplete="off"
-            className="w-full rounded-xl border border-gray-200 bg-white p-2 text-sm outline-none focus:ring-1 focus:ring-indigo-500 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-800 dark:bg-gray-900"
-            rows={3}
-          />
-          <div className="mx-1 mt-1 text-[11px] opacity-50">
-            <Trans>This will be published as a public comment.</Trans>
-          </div>
-        </div>
-
-        <div className="mt-4 flex items-center justify-between">
-          <span className="w-1/2 truncate">
-            {(errors.tipQuantity || errors.message) && (
-              <div>
-                <p className="text-xs font-medium text-red-500">
-                  {errors?.tipQuantity?.message || errors?.message?.message}
-                </p>
-              </div>
+    <form className="mt-2" onSubmit={handleSubmit(onSendTip)}>
+      <div className="flex flex-nowrap items-center justify-center space-x-2 p-10">
+        <span className="flex items-center space-x-4">
+          <img
+            src={imageCdn(
+              `${STATIC_ASSETS}/images/raise-hand.png`,
+              'AVATAR_LG'
             )}
-          </span>
-          <Button loading={loading} disabled={!isValid || loading}>
-            {`Tip ${
-              isNaN(Number(watchTipQuantity) * 1) ||
-              Number(watchTipQuantity) < 0
-                ? 0
-                : Number(watchTipQuantity) * 1
-            } MATIC`}
-          </Button>
+            alt="Raising Hand"
+            className="h-10"
+            loading="eager"
+            draggable={false}
+          />
+          <span>x</span>
+          <Input
+            type="number"
+            className="w-14"
+            step="any"
+            {...register('tipQuantity', { valueAsNumber: true })}
+          />
+        </span>
+      </div>
+      <div className="mt-4">
+        <TextArea
+          label="Message"
+          {...register('message')}
+          placeholder="Say something nice"
+          autoComplete="off"
+          className="w-full rounded-xl border border-gray-200 text-sm outline-none focus:ring-1 focus:ring-indigo-500 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-800"
+          rows={3}
+        />
+        <div className="mx-1 mt-1 text-[11px] opacity-50">
+          <Trans>This will be published as a public comment.</Trans>
         </div>
-      </form>
-    </Modal>
+      </div>
+
+      <div className="mt-4 flex items-center justify-between">
+        <span className="w-1/2 truncate">
+          {(errors.tipQuantity || errors.message) && (
+            <div>
+              <p className="text-xs font-medium text-red-500">
+                {errors?.tipQuantity?.message || errors?.message?.message}
+              </p>
+            </div>
+          )}
+        </span>
+        <Button highContrast disabled={!isValid || loading}>
+          {`Tip ${
+            isNaN(Number(watchTipQuantity) * 1) || Number(watchTipQuantity) < 0
+              ? 0
+              : Number(watchTipQuantity) * 1
+          } MATIC`}
+        </Button>
+      </div>
+    </form>
   )
 }
 
-export default TipModal
+export default TipForm
