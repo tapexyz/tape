@@ -42,11 +42,6 @@ export const getCollectModule = (
     return {
       collectOpenAction: {
         simpleCollectOpenAction: {
-          amount: {
-            currency: amount?.currency,
-            value: amount?.value as string
-          },
-          referralFee: referralFee as number,
           ...baseCollectModuleParams,
           ...(isFeeCollect && {
             ...baseAmountParams,

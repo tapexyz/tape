@@ -72,16 +72,6 @@ export type Scalars = {
   Void: { input: any; output: any }
 }
 
-export type AccessCondition =
-  | AndCondition
-  | CollectCondition
-  | EoaOwnershipCondition
-  | Erc20OwnershipCondition
-  | FollowCondition
-  | NftOwnershipCondition
-  | OrCondition
-  | ProfileOwnershipCondition
-
 export type ActOnOpenActionInput = {
   multirecipientCollectOpenAction?: InputMaybe<Scalars['Boolean']['input']>
   simpleCollectOpenAction?: InputMaybe<Scalars['Boolean']['input']>
@@ -139,7 +129,7 @@ export type AmountInput = {
 
 export type AndCondition = {
   __typename?: 'AndCondition'
-  criteria: Array<AccessCondition>
+  criteria: Array<ThirdTierCondition>
 }
 
 export type AnyPublication = Comment | Mirror | Post | Quote
@@ -191,7 +181,7 @@ export type Attribute = {
   /** Identifier of this attribute, used for updating */
   key: Scalars['String']['output']
   /** The type of the attribute */
-  type?: Maybe<AttributeType>
+  type: AttributeType
   /** Value of the attribute */
   value: Scalars['String']['output']
 }
@@ -2933,7 +2923,7 @@ export type OptimisticStatusResult = {
 
 export type OrCondition = {
   __typename?: 'OrCondition'
-  criteria: Array<AccessCondition>
+  criteria: Array<ThirdTierCondition>
 }
 
 export type OwnedHandlesRequest = {
@@ -3741,7 +3731,7 @@ export type PublicationMetadataV2EncryptedFields = {
 
 export type PublicationMetadataV2Encryption = {
   __typename?: 'PublicationMetadataV2Encryption'
-  accessCondition: AccessCondition
+  accessCondition: RootCondition
   encryptedFields: PublicationMetadataV2EncryptedFields
   encryptionKey: Scalars['ContentEncryptionKey']['output']
 }
@@ -3754,7 +3744,7 @@ export type PublicationMetadataV3Attribute = {
 
 export type PublicationMetadataV3LitEncryption = {
   __typename?: 'PublicationMetadataV3LitEncryption'
-  accessCondition: AccessCondition
+  accessCondition: RootCondition
   encryptedPaths: Array<Scalars['EncryptedPath']['output']>
   encryptionKey: Scalars['ContentEncryptionKey']['output']
 }
@@ -4457,11 +4447,26 @@ export type RevertFollowModuleSettings = {
   contract: NetworkAddress
 }
 
+export type RootCondition = {
+  __typename?: 'RootCondition'
+  criteria: Array<SecondTierCondition>
+}
+
 export enum SearchPublicationType {
   Comment = 'COMMENT',
   Post = 'POST',
   Quote = 'QUOTE'
 }
+
+export type SecondTierCondition =
+  | AndCondition
+  | CollectCondition
+  | EoaOwnershipCondition
+  | Erc20OwnershipCondition
+  | FollowCondition
+  | NftOwnershipCondition
+  | OrCondition
+  | ProfileOwnershipCondition
 
 export type SensitiveReasonInput = {
   reason: PublicationReportingReason
@@ -4620,6 +4625,14 @@ export type TextOnlyMetadataV3 = {
   rawURI: Scalars['URI']['output']
   tags?: Maybe<Array<Scalars['String']['output']>>
 }
+
+export type ThirdTierCondition =
+  | CollectCondition
+  | EoaOwnershipCondition
+  | Erc20OwnershipCondition
+  | FollowCondition
+  | NftOwnershipCondition
+  | ProfileOwnershipCondition
 
 export type ThreeDMetadataV3 = {
   __typename?: 'ThreeDMetadataV3'
@@ -6349,7 +6362,7 @@ export type CommentFieldsFragment = {
         __typename?: 'Attribute'
         key: string
         value: string
-        type?: AttributeType | null
+        type: AttributeType
       }>
     } | null
     followModule?:
@@ -8788,7 +8801,7 @@ export type PostFieldsFragment = {
         __typename?: 'Attribute'
         key: string
         value: string
-        type?: AttributeType | null
+        type: AttributeType
       }>
     } | null
     followModule?:
@@ -10742,7 +10755,7 @@ export type ProfileFieldsFragment = {
       __typename?: 'Attribute'
       key: string
       value: string
-      type?: AttributeType | null
+      type: AttributeType
     }>
   } | null
   followModule?:
@@ -10817,7 +10830,7 @@ export type ProfileMetadataFieldsFragment = {
     __typename?: 'Attribute'
     key: string
     value: string
-    type?: AttributeType | null
+    type: AttributeType
   }>
 }
 
@@ -10995,7 +11008,7 @@ export type QuoteFieldsFragment = {
         __typename?: 'Attribute'
         key: string
         value: string
-        type?: AttributeType | null
+        type: AttributeType
       }>
     } | null
     followModule?:
@@ -15790,7 +15803,7 @@ export type ExplorePublicationsQuery = {
                 __typename?: 'Attribute'
                 key: string
                 value: string
-                type?: AttributeType | null
+                type: AttributeType
               }>
             } | null
             followModule?:
@@ -17821,7 +17834,7 @@ export type ExplorePublicationsQuery = {
                 __typename?: 'Attribute'
                 key: string
                 value: string
-                type?: AttributeType | null
+                type: AttributeType
               }>
             } | null
             followModule?:
@@ -19870,7 +19883,7 @@ export type FeedHighlightsQuery = {
                 __typename?: 'Attribute'
                 key: string
                 value: string
-                type?: AttributeType | null
+                type: AttributeType
               }>
             } | null
             followModule?:
@@ -21901,7 +21914,7 @@ export type FeedHighlightsQuery = {
                 __typename?: 'Attribute'
                 key: string
                 value: string
-                type?: AttributeType | null
+                type: AttributeType
               }>
             } | null
             followModule?:
@@ -23928,7 +23941,7 @@ export type FollowersQuery = {
           __typename?: 'Attribute'
           key: string
           value: string
-          type?: AttributeType | null
+          type: AttributeType
         }>
       } | null
       followModule?:
@@ -24093,7 +24106,7 @@ export type FollowingQuery = {
           __typename?: 'Attribute'
           key: string
           value: string
-          type?: AttributeType | null
+          type: AttributeType
         }>
       } | null
       followModule?:
@@ -24321,7 +24334,7 @@ export type MutualFollowersQuery = {
           __typename?: 'Attribute'
           key: string
           value: string
-          type?: AttributeType | null
+          type: AttributeType
         }>
       } | null
       followModule?:
@@ -24565,7 +24578,7 @@ export type NotificationsQuery = {
                   __typename?: 'Attribute'
                   key: string
                   value: string
-                  type?: AttributeType | null
+                  type: AttributeType
                 }>
               } | null
               followModule?:
@@ -24754,7 +24767,7 @@ export type NotificationsQuery = {
                       __typename?: 'Attribute'
                       key: string
                       value: string
-                      type?: AttributeType | null
+                      type: AttributeType
                     }>
                   } | null
                   followModule?:
@@ -27032,7 +27045,7 @@ export type NotificationsQuery = {
                       __typename?: 'Attribute'
                       key: string
                       value: string
-                      type?: AttributeType | null
+                      type: AttributeType
                     }>
                   } | null
                   followModule?:
@@ -29296,7 +29309,7 @@ export type NotificationsQuery = {
                   __typename?: 'Attribute'
                   key: string
                   value: string
-                  type?: AttributeType | null
+                  type: AttributeType
                 }>
               } | null
               followModule?:
@@ -31329,7 +31342,7 @@ export type NotificationsQuery = {
                 __typename?: 'Attribute'
                 key: string
                 value: string
-                type?: AttributeType | null
+                type: AttributeType
               }>
             } | null
             followModule?:
@@ -31511,7 +31524,7 @@ export type NotificationsQuery = {
                       __typename?: 'Attribute'
                       key: string
                       value: string
-                      type?: AttributeType | null
+                      type: AttributeType
                     }>
                   } | null
                   followModule?:
@@ -33776,7 +33789,7 @@ export type NotificationsQuery = {
                       __typename?: 'Attribute'
                       key: string
                       value: string
-                      type?: AttributeType | null
+                      type: AttributeType
                     }>
                   } | null
                   followModule?:
@@ -36035,7 +36048,7 @@ export type NotificationsQuery = {
                       __typename?: 'Attribute'
                       key: string
                       value: string
-                      type?: AttributeType | null
+                      type: AttributeType
                     }>
                   } | null
                   followModule?:
@@ -38298,7 +38311,7 @@ export type NotificationsQuery = {
                   __typename?: 'Attribute'
                   key: string
                   value: string
-                  type?: AttributeType | null
+                  type: AttributeType
                 }>
               } | null
               followModule?:
@@ -38477,7 +38490,7 @@ export type NotificationsQuery = {
                       __typename?: 'Attribute'
                       key: string
                       value: string
-                      type?: AttributeType | null
+                      type: AttributeType
                     }>
                   } | null
                   followModule?:
@@ -40742,7 +40755,7 @@ export type NotificationsQuery = {
                       __typename?: 'Attribute'
                       key: string
                       value: string
-                      type?: AttributeType | null
+                      type: AttributeType
                     }>
                   } | null
                   followModule?:
@@ -43001,7 +43014,7 @@ export type NotificationsQuery = {
                       __typename?: 'Attribute'
                       key: string
                       value: string
-                      type?: AttributeType | null
+                      type: AttributeType
                     }>
                   } | null
                   followModule?:
@@ -45268,7 +45281,7 @@ export type NotificationsQuery = {
                   __typename?: 'Attribute'
                   key: string
                   value: string
-                  type?: AttributeType | null
+                  type: AttributeType
                 }>
               } | null
               followModule?:
@@ -47311,7 +47324,7 @@ export type NotificationsQuery = {
                       __typename?: 'Attribute'
                       key: string
                       value: string
-                      type?: AttributeType | null
+                      type: AttributeType
                     }>
                   } | null
                   followModule?:
@@ -49576,7 +49589,7 @@ export type NotificationsQuery = {
                       __typename?: 'Attribute'
                       key: string
                       value: string
-                      type?: AttributeType | null
+                      type: AttributeType
                     }>
                   } | null
                   followModule?:
@@ -51835,7 +51848,7 @@ export type NotificationsQuery = {
                       __typename?: 'Attribute'
                       key: string
                       value: string
-                      type?: AttributeType | null
+                      type: AttributeType
                     }>
                   } | null
                   followModule?:
@@ -54092,7 +54105,7 @@ export type NotificationsQuery = {
                   __typename?: 'Attribute'
                   key: string
                   value: string
-                  type?: AttributeType | null
+                  type: AttributeType
                 }>
               } | null
               followModule?:
@@ -54260,7 +54273,7 @@ export type ProfileQuery = {
         __typename?: 'Attribute'
         key: string
         value: string
-        type?: AttributeType | null
+        type: AttributeType
       }>
     } | null
     followModule?:
@@ -54450,7 +54463,7 @@ export type FeedQuery = {
                   __typename?: 'Attribute'
                   key: string
                   value: string
-                  type?: AttributeType | null
+                  type: AttributeType
                 }>
               } | null
               followModule?:
@@ -56490,7 +56503,7 @@ export type FeedQuery = {
                   __typename?: 'Attribute'
                   key: string
                   value: string
-                  type?: AttributeType | null
+                  type: AttributeType
                 }>
               } | null
               followModule?:
@@ -58604,7 +58617,7 @@ export type ProfilesQuery = {
           __typename?: 'Attribute'
           key: string
           value: string
-          type?: AttributeType | null
+          type: AttributeType
         }>
       } | null
       followModule?:
@@ -58769,7 +58782,7 @@ export type ProfilesManagedQuery = {
           __typename?: 'Attribute'
           key: string
           value: string
-          type?: AttributeType | null
+          type: AttributeType
         }>
       } | null
       followModule?:
@@ -58954,7 +58967,7 @@ export type PublicationQuery = {
               __typename?: 'Attribute'
               key: string
               value: string
-              type?: AttributeType | null
+              type: AttributeType
             }>
           } | null
           followModule?:
@@ -61000,7 +61013,7 @@ export type PublicationQuery = {
               __typename?: 'Attribute'
               key: string
               value: string
-              type?: AttributeType | null
+              type: AttributeType
             }>
           } | null
           followModule?:
@@ -63027,7 +63040,7 @@ export type PublicationQuery = {
               __typename?: 'Attribute'
               key: string
               value: string
-              type?: AttributeType | null
+              type: AttributeType
             }>
           } | null
           followModule?:
@@ -65074,7 +65087,7 @@ export type PublicationBookmarksQuery = {
                 __typename?: 'Attribute'
                 key: string
                 value: string
-                type?: AttributeType | null
+                type: AttributeType
               }>
             } | null
             followModule?:
@@ -67124,7 +67137,7 @@ export type PublicationBookmarksQuery = {
                 __typename?: 'Attribute'
                 key: string
                 value: string
-                type?: AttributeType | null
+                type: AttributeType
               }>
             } | null
             followModule?:
@@ -69155,7 +69168,7 @@ export type PublicationBookmarksQuery = {
                 __typename?: 'Attribute'
                 key: string
                 value: string
-                type?: AttributeType | null
+                type: AttributeType
               }>
             } | null
             followModule?:
@@ -71204,7 +71217,7 @@ export type PublicationsQuery = {
                 __typename?: 'Attribute'
                 key: string
                 value: string
-                type?: AttributeType | null
+                type: AttributeType
               }>
             } | null
             followModule?:
@@ -73254,7 +73267,7 @@ export type PublicationsQuery = {
                 __typename?: 'Attribute'
                 key: string
                 value: string
-                type?: AttributeType | null
+                type: AttributeType
               }>
             } | null
             followModule?:
@@ -75285,7 +75298,7 @@ export type PublicationsQuery = {
                 __typename?: 'Attribute'
                 key: string
                 value: string
-                type?: AttributeType | null
+                type: AttributeType
               }>
             } | null
             followModule?:
@@ -77334,7 +77347,7 @@ export type RevenueFromPublicationQuery = {
                 __typename?: 'Attribute'
                 key: string
                 value: string
-                type?: AttributeType | null
+                type: AttributeType
               }>
             } | null
             followModule?:
@@ -79384,7 +79397,7 @@ export type RevenueFromPublicationQuery = {
                 __typename?: 'Attribute'
                 key: string
                 value: string
-                type?: AttributeType | null
+                type: AttributeType
               }>
             } | null
             followModule?:
@@ -81415,7 +81428,7 @@ export type RevenueFromPublicationQuery = {
                 __typename?: 'Attribute'
                 key: string
                 value: string
-                type?: AttributeType | null
+                type: AttributeType
               }>
             } | null
             followModule?:
@@ -83485,7 +83498,7 @@ export type RevenueFromPublicationsQuery = {
                   __typename?: 'Attribute'
                   key: string
                   value: string
-                  type?: AttributeType | null
+                  type: AttributeType
                 }>
               } | null
               followModule?:
@@ -85538,7 +85551,7 @@ export type RevenueFromPublicationsQuery = {
                   __typename?: 'Attribute'
                   key: string
                   value: string
-                  type?: AttributeType | null
+                  type: AttributeType
                 }>
               } | null
               followModule?:
@@ -87572,7 +87585,7 @@ export type RevenueFromPublicationsQuery = {
                   __typename?: 'Attribute'
                   key: string
                   value: string
-                  type?: AttributeType | null
+                  type: AttributeType
                 }>
               } | null
               followModule?:
@@ -89616,7 +89629,7 @@ export type SearchProfilesQuery = {
           __typename?: 'Attribute'
           key: string
           value: string
-          type?: AttributeType | null
+          type: AttributeType
         }>
       } | null
       followModule?:
@@ -89803,7 +89816,7 @@ export type SearchPublicationsQuery = {
                 __typename?: 'Attribute'
                 key: string
                 value: string
-                type?: AttributeType | null
+                type: AttributeType
               }>
             } | null
             followModule?:
@@ -91840,7 +91853,7 @@ export type SearchPublicationsQuery = {
                 __typename?: 'Attribute'
                 key: string
                 value: string
-                type?: AttributeType | null
+                type: AttributeType
               }>
             } | null
             followModule?:
@@ -93871,7 +93884,7 @@ export type SearchPublicationsQuery = {
                 __typename?: 'Attribute'
                 key: string
                 value: string
-                type?: AttributeType | null
+                type: AttributeType
               }>
             } | null
             followModule?:
@@ -95955,7 +95968,7 @@ export type WhoActedOnPublicationQuery = {
           __typename?: 'Attribute'
           key: string
           value: string
-          type?: AttributeType | null
+          type: AttributeType
         }>
       } | null
       followModule?:
@@ -102525,7 +102538,7 @@ export const SimpleProfilesDocument = gql`
         stats {
           followers
         }
-        metadata {
+        metadata(request: { appId: "lenstube", useFallback: true }) {
           picture {
             ... on ImageSet {
               ...ImageSetFields
@@ -102785,16 +102798,6 @@ export interface PossibleTypesResultData {
 }
 const result: PossibleTypesResultData = {
   possibleTypes: {
-    AccessCondition: [
-      'AndCondition',
-      'CollectCondition',
-      'EoaOwnershipCondition',
-      'Erc20OwnershipCondition',
-      'FollowCondition',
-      'NftOwnershipCondition',
-      'OrCondition',
-      'ProfileOwnershipCondition'
-    ],
     AnyPublication: ['Comment', 'Mirror', 'Post', 'Quote'],
     Asset: ['Erc20'],
     BroadcastMomokaResult: ['CreateMomokaPublicationResult', 'RelayError'],
@@ -102891,7 +102894,25 @@ const result: PossibleTypesResultData = {
       'LensProfileManagerRelayError'
     ],
     RelayResult: ['RelayError', 'RelaySuccess'],
-    SupportedModule: ['KnownSupportedModule', 'UnknownSupportedModule']
+    SecondTierCondition: [
+      'AndCondition',
+      'CollectCondition',
+      'EoaOwnershipCondition',
+      'Erc20OwnershipCondition',
+      'FollowCondition',
+      'NftOwnershipCondition',
+      'OrCondition',
+      'ProfileOwnershipCondition'
+    ],
+    SupportedModule: ['KnownSupportedModule', 'UnknownSupportedModule'],
+    ThirdTierCondition: [
+      'CollectCondition',
+      'EoaOwnershipCondition',
+      'Erc20OwnershipCondition',
+      'FollowCondition',
+      'NftOwnershipCondition',
+      'ProfileOwnershipCondition'
+    ]
   }
 }
 export default result

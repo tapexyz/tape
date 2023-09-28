@@ -36,7 +36,8 @@ import {
 } from '@lenstube/generic'
 import type {
   CreateMomokaPostEip712TypedData,
-  CreateOnchainPostEip712TypedData
+  CreateOnchainPostEip712TypedData,
+  ReferenceModuleInput
 } from '@lenstube/lens'
 import {
   ReferenceModuleType,
@@ -275,18 +276,18 @@ const UploadSteps = () => {
       const attributes: MetadataAttribute[] = [
         {
           type: MetadataAttributeType.STRING,
-          key: 'durationInSeconds',
-          value: String(uploadedVideo.durationInSeconds)
+          key: 'category',
+          value: uploadedVideo.videoCategory.tag
         },
         {
           type: MetadataAttributeType.STRING,
-          key: 'handle',
+          key: 'creator',
           value: `${activeChannel?.handle}`
         },
         {
           type: MetadataAttributeType.STRING,
           key: 'app',
-          value: LENSTUBE_APP_ID
+          value: LENSTUBE_WEBSITE_URL
         }
       ]
 
@@ -332,15 +333,7 @@ const UploadSteps = () => {
       if (uploadedVideo.isSensitiveContent) {
         publicationMetadata.contentWarning = PublicationContentWarning.SENSITIVE
       }
-      console.log(
-        '🚀 ~ file: UploadSteps.tsx:338 ~ UploadSteps ~ publicationMetadata:',
-        publicationMetadata
-      )
       const metadata = video(publicationMetadata)
-      console.log(
-        '🚀 ~ file: UploadSteps.tsx:340 ~ UploadSteps ~ metadata:',
-        metadata
-      )
       const metadataUri = await uploadToAr(metadata)
       setUploadedVideo({
         buttonText: t`Posting video`,
@@ -351,7 +344,7 @@ const UploadSteps = () => {
       const referenceModuleDegrees = {
         commentsRestricted: isRestricted,
         mirrorsRestricted: isRestricted,
-        degreesOfSeparation: degreesOfSeparation,
+        degreesOfSeparation: degreesOfSeparation ?? 0,
         quotesRestricted: isRestricted
       }
 
@@ -378,6 +371,15 @@ const UploadSteps = () => {
         }
       } else {
         // ON-CHAIN
+        const referenceModule: ReferenceModuleInput = {
+          degreesOfSeparationReferenceModule: {
+            ...referenceModuleDegrees
+          }
+        }
+        if (uploadedVideo.referenceModule?.followerOnlyReferenceModule) {
+          referenceModule.followerOnlyReferenceModule =
+            uploadedVideo.referenceModule?.followerOnlyReferenceModule
+        }
         const request = {
           contentURI: metadataUri,
           openActionModules: [
@@ -385,13 +387,7 @@ const UploadSteps = () => {
               ...getCollectModule(uploadedVideo.collectModule)
             }
           ],
-          referenceModule: {
-            followerOnlyReferenceModule:
-              uploadedVideo.referenceModule?.followerOnlyReferenceModule,
-            degreesOfSeparationReferenceModule: {
-              ...referenceModuleDegrees
-            }
-          }
+          referenceModule
         }
         if (canUseRelay) {
           return await postOnchain({
@@ -403,7 +399,8 @@ const UploadSteps = () => {
           })
         }
       }
-    } catch {
+    } catch (error) {
+      console.log('🚀 ~ file: UploadSteps.tsx ~ UploadSteps ~ error:', error)
       stopLoading()
     }
   }

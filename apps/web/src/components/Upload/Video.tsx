@@ -1,4 +1,3 @@
-import CopyOutline from '@components/Common/Icons/CopyOutline'
 import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
 import { useCopyToClipboard } from '@lenstube/browser'
@@ -11,6 +10,7 @@ import {
 import useAppStore from '@lib/store'
 import useAuthPersistStore from '@lib/store/auth'
 import { t } from '@lingui/macro'
+import { Badge } from '@radix-ui/themes'
 import clsx from 'clsx'
 import React, { useEffect, useRef } from 'react'
 import toast from 'react-hot-toast'
@@ -31,6 +31,8 @@ const Video = () => {
     if (videoRef.current?.duration && videoRef.current?.duration !== Infinity) {
       setUploadedVideo({
         durationInSeconds: videoRef.current.duration
+          ? Math.floor(videoRef.current.duration)
+          : 0
       })
     }
   }
@@ -65,24 +67,17 @@ const Video = () => {
             type={uploadedVideo.videoType || 'video/mp4'}
           />
         </video>
-        <div className="absolute left-2 top-2 rounded-full bg-orange-200 px-2 py-0.5 text-xs uppercase text-black">
+        <Badge
+          variant="solid"
+          color="tomato"
+          className="absolute left-2 top-2 rounded-full bg-orange-200 px-2 py-0.5 text-xs uppercase text-black"
+        >
           {uploadedVideo.file?.size && (
             <span className="whitespace-nowrap font-semibold">
               {formatBytes(uploadedVideo.file?.size)}
             </span>
           )}
-        </div>
-        {uploadedVideo.videoSource && (
-          <Tooltip placement="left" content="Copy permanent video URL">
-            <button
-              type="button"
-              onClick={() => onCopyVideoSource(uploadedVideo.videoSource)}
-              className="absolute right-2 top-2 rounded-lg bg-orange-200 p-1 px-1.5 text-xs text-black outline-none"
-            >
-              <CopyOutline className="h-3.5 w-3.5" />
-            </button>
-          </Tooltip>
-        )}
+        </Badge>
       </div>
       <Tooltip content={`Uploaded (${uploadedVideo.percent}%)`}>
         <div className="w-full overflow-hidden rounded-b-full bg-gray-200">

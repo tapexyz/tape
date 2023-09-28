@@ -1,13 +1,13 @@
+import Tooltip from '@components/UIElements/Tooltip'
 import { Analytics, TRACK, useCopyToClipboard } from '@lenstube/browser'
 import { LENSTUBE_WEBSITE_URL, STATIC_ASSETS } from '@lenstube/constants'
 import { getSharableLink, imageCdn } from '@lenstube/generic'
 import type { PrimaryPublication } from '@lenstube/lens'
-import { t } from '@lingui/macro'
+import { IconButton } from '@radix-ui/themes'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import type { FC } from 'react'
 import React from 'react'
-import toast from 'react-hot-toast'
 
 import EmbedVideo from '../EmbedVideo'
 import CopyOutline from '../Icons/CopyOutline'
@@ -24,7 +24,6 @@ const Share: FC<Props> = ({ video }) => {
 
   const onCopyVideoUrl = async () => {
     await copy(`${LENSTUBE_WEBSITE_URL}/watch/${video.id}`)
-    toast.success(t`Permalink copied to clipboard`)
     Analytics.track(TRACK.PUBLICATION.PERMALINK)
   }
 
@@ -130,13 +129,16 @@ const Share: FC<Props> = ({ video }) => {
         <div className="select-all truncate text-sm">
           {LENSTUBE_WEBSITE_URL}/watch/{video.id}
         </div>
-        <button
-          className="ml-2 hover:opacity-60 focus:outline-none"
-          onClick={() => onCopyVideoUrl()}
-          type="button"
-        >
-          <CopyOutline className="h-4 w-4" />
-        </button>
+        <Tooltip content="Copy" placement="top">
+          <IconButton
+            variant="soft"
+            size="1"
+            className="ml-2 hover:opacity-60 focus:outline-none"
+            onClick={() => onCopyVideoUrl()}
+          >
+            <CopyOutline className="h-4 w-4" />
+          </IconButton>
+        </Tooltip>
       </div>
     </div>
   )

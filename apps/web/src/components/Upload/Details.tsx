@@ -178,6 +178,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
               <RadioGroup.Root
                 mt="2"
                 defaultValue="NO"
+                highContrast
                 value={watch('isSensitiveContent') ? 'YES' : 'NO'}
                 onValueChange={(value) =>
                   setValue('isSensitiveContent', value === 'YES')
