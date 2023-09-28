@@ -327,7 +327,7 @@ const UploadSteps = () => {
           external_url: `${LENSTUBE_WEBSITE_URL}/channel/${activeChannel?.handle}`,
           image: uploadedVideo.thumbnail,
           name: uploadedVideo.title,
-          description: trimify(uploadedVideo.description) ?? undefined
+          description: trimify(uploadedVideo.description)
         }
       }
 
