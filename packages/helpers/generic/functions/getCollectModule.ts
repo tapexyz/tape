@@ -26,9 +26,9 @@ export const getCollectModule = (
   }
 
   const baseCollectModuleParams = {
-    collectLimit: collectLimitEnabled ? collectLimit : null,
+    collectLimit: collectLimitEnabled ? collectLimit : undefined,
     followerOnly: followerOnlyCollect as boolean,
-    endsAt: timeLimitEnabled ? getTimeAddedOneDay() : null
+    endsAt: timeLimitEnabled ? getTimeAddedOneDay() : undefined
   }
   const baseAmountParams = {
     amount: {

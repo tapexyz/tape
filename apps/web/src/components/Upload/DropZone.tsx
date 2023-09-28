@@ -69,7 +69,7 @@ const DropZone = () => {
 
   return (
     <div>
-      <MetaTags title={t`Select Media`} />
+      <MetaTags title={t`Upload`} />
       <div className="relative my-20 flex flex-1 flex-col items-center justify-center">
         <label
           className={clsx(
