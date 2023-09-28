@@ -15,7 +15,7 @@
     "@graphql-codegen/fragment-matcher": "^5.0.0",
     "@graphql-codegen/typescript": "^4.0.1",
     "@graphql-codegen/typescript-operations": "^4.0.1",
-    "@graphql-codegen/typescript-react-apollo": "^3.3.6",
+    "@graphql-codegen/typescript-react-apollo": "^4.0.0",
     "typescript": "5.2.2"
   }
 }
