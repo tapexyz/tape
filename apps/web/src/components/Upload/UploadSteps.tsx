@@ -3,7 +3,6 @@ import MetaTags from '@components/Common/MetaTags'
 import useEthersWalletClient from '@hooks/useEthersWalletClient'
 import type { MetadataAttribute, VideoOptions } from '@lens-protocol/metadata'
 import {
-  MarketplaceMetadataAttributeDisplayType,
   MediaVideoMimeType,
   MetadataAttributeType,
   MetadataLicenseType,
@@ -311,18 +310,7 @@ const UploadSteps = () => {
         locale: getUserLocale(),
         title: uploadedVideo.title,
         marketplace: {
-          attributes: [
-            {
-              display_type: MarketplaceMetadataAttributeDisplayType.STRING,
-              trait_type: 'handle',
-              value: `${activeChannel?.handle}`
-            },
-            {
-              display_type: MarketplaceMetadataAttributeDisplayType.STRING,
-              trait_type: 'app',
-              value: LENSTUBE_APP_ID
-            }
-          ],
+          attributes,
           animation_url: uploadedVideo.videoSource,
           external_url: `${LENSTUBE_WEBSITE_URL}/channel/${activeChannel?.handle}`,
           image: uploadedVideo.thumbnail,
