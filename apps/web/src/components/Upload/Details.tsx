@@ -27,6 +27,7 @@ const formSchema = object({
     .max(100, { message: t`Title should not exceed 100 characters` }),
   description: string()
     .trim()
+    .min(5, { message: t`Description should be atleast 5 characters` })
     .max(5000, { message: t`Description should not exceed 5000 characters` }),
   isSensitiveContent: boolean()
 })
@@ -83,7 +84,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
             <div className="relative">
               <InputMentions
                 label={t`Title`}
-                placeholder={t`Title that describes your video`}
+                placeholder={t`Title that describes your content`}
                 autoComplete="off"
                 validationError={errors.title?.message}
                 value={watch('title')}
@@ -106,7 +107,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
             <div className="relative mt-4">
               <InputMentions
                 label={t`Description`}
-                placeholder={t`Describe more about your video, can be @channels, #hashtags or chapters (00:20 - Intro)`}
+                placeholder={t`Describe more about your content, can also be @profile, #hashtags or chapters (00:20 - Intro)`}
                 autoComplete="off"
                 validationError={errors.description?.message}
                 value={watch('description')}

@@ -325,11 +325,12 @@ const UploadSteps = () => {
           ],
           animation_url: uploadedVideo.videoSource,
           external_url: `${LENSTUBE_WEBSITE_URL}/channel/${activeChannel?.handle}`,
-          description: trimify(uploadedVideo.description),
           image: uploadedVideo.thumbnail,
-          name: uploadedVideo.title
+          name: uploadedVideo.title,
+          description: trimify(uploadedVideo.description) ?? undefined
         }
       }
+
       if (uploadedVideo.isSensitiveContent) {
         publicationMetadata.contentWarning = PublicationContentWarning.SENSITIVE
       }
@@ -399,10 +400,7 @@ const UploadSteps = () => {
           })
         }
       }
-    } catch (error) {
-      console.log('🚀 ~ file: UploadSteps.tsx ~ UploadSteps ~ error:', error)
-      stopLoading()
-    }
+    } catch (error) {}
   }
 
   const uploadVideoToIpfs = async () => {
