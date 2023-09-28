@@ -96,9 +96,6 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   const queuedComments = usePersistStore((state) => state.queuedComments)
   const setQueuedComments = usePersistStore((state) => state.setQueuedComments)
   const activeChannel = useChannelStore((state) => state.activeChannel)
-  const userSigNonce = useChannelStore((state) => state.userSigNonce)
-  const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
-  // Dispatcher
   const canUseRelay = activeChannel?.lensManager && activeChannel?.sponsor
 
   const onError = (error: CustomErrorWithData) => {
