@@ -4,9 +4,9 @@ import { Analytics, TRACK } from '@lenstube/browser'
 import { trimLensHandle } from '@lenstube/generic'
 import type { MirrorablePublication } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
-import { Button, Dialog, Flex } from '@radix-ui/themes'
+import { Dialog } from '@radix-ui/themes'
 import type { FC } from 'react'
-import React from 'react'
+import React, { useState } from 'react'
 
 import PublicationReaction from './PublicationReaction'
 import TipForm from './TipForm'
@@ -16,6 +16,7 @@ type Props = {
 }
 
 const VideoActions: FC<Props> = ({ video }) => {
+  const [showTip, setShowTip] = useState(false)
   return (
     <div className="mt-4 flex items-center justify-end space-x-1 md:mt-2">
       <div className="rounded-full bg-indigo-100/50 px-4 py-1 backdrop-blur-xl dark:bg-indigo-900/30">
@@ -25,12 +26,13 @@ const VideoActions: FC<Props> = ({ video }) => {
           iconSize="base"
         />
       </div>
-      <Dialog.Root>
+      <Dialog.Root open={showTip}>
         <Dialog.Trigger>
           <div className="flex items-center rounded-full bg-indigo-100/50 px-4 py-1 backdrop-blur-xl dark:bg-indigo-900/30">
             <button
               className="focus:outline-none"
               onClick={() => {
+                setShowTip(true)
                 Analytics.track(TRACK.PUBLICATION.TIP.OPEN)
               }}
             >
@@ -52,18 +54,7 @@ const VideoActions: FC<Props> = ({ video }) => {
             <Trans>Show appreciation with a comment and tip.</Trans>
           </Dialog.Description>
 
-          <TipForm video={video} />
-
-          <Flex gap="3" mt="4" justify="end">
-            <Dialog.Close>
-              <Button variant="soft" color="gray">
-                Cancel
-              </Button>
-            </Dialog.Close>
-            <Dialog.Close>
-              <Button>Save</Button>
-            </Dialog.Close>
-          </Flex>
+          <TipForm video={video} setShow={setShowTip} />
         </Dialog.Content>
       </Dialog.Root>
 

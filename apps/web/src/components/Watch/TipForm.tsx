@@ -40,9 +40,9 @@ import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'
-import { Button } from '@radix-ui/themes'
+import { Button, Dialog } from '@radix-ui/themes'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
-import type { FC } from 'react'
+import type { Dispatch, FC } from 'react'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -54,6 +54,7 @@ import { number, object, string } from 'zod'
 
 type Props = {
   video: AnyPublication
+  setShow: Dispatch<boolean>
 }
 
 const formSchema = object({
@@ -65,7 +66,7 @@ const formSchema = object({
 })
 type FormData = z.infer<typeof formSchema>
 
-const TipForm: FC<Props> = ({ video }) => {
+const TipForm: FC<Props> = ({ video, setShow }) => {
   const targetVideo = getPublication(video)
 
   const {
@@ -131,6 +132,7 @@ const TipForm: FC<Props> = ({ video }) => {
       publication_state: targetVideo.momoka?.proof ? 'DATA_ONLY' : 'ON_CHAIN'
     })
     setLoading(false)
+    setShow(false)
   }
 
   const { write } = useContractWrite({
@@ -414,6 +416,11 @@ const TipForm: FC<Props> = ({ video }) => {
             </div>
           )}
         </span>
+        <Dialog.Close>
+          <Button variant="soft" color="gray">
+            Cancel
+          </Button>
+        </Dialog.Close>
         <Button highContrast disabled={!isValid || loading}>
           {`Tip ${
             isNaN(Number(watchTipQuantity) * 1) || Number(watchTipQuantity) < 0

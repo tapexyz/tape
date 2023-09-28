@@ -53,7 +53,6 @@ const VideoDetails = () => {
 
   const publication = data?.publication as AnyPublication
   const video = getPublication(publication)
-  console.log('🚀 ~ file: index.tsx:56 ~ VideoDetails ~ video:', video)
 
   if (!isWatchable(video)) {
     return <Custom404 />
