@@ -1,5 +1,3 @@
-import ChevronLeftOutline from '@components/Common/Icons/ChevronLeftOutline'
-import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
 
@@ -14,11 +12,7 @@ const TopOverlay: FC<Props> = ({ onClickVideo }) => {
       tabIndex={0}
       onClick={() => onClickVideo()}
       className="absolute inset-0 z-[1] w-full cursor-default outline-none"
-    >
-      <Link href="/" className="flex p-4 md:hidden">
-        <ChevronLeftOutline className="h-4 w-4 text-white" />
-      </Link>
-    </div>
+    />
   )
 }
 

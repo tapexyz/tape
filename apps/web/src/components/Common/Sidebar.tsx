@@ -1,5 +1,4 @@
 import Tooltip from '@components/UIElements/Tooltip'
-import { getShowFullScreen } from '@lenstube/browser'
 import { STATIC_ASSETS } from '@lenstube/constants'
 import { t } from '@lingui/macro'
 import clsx from 'clsx'
@@ -21,7 +20,7 @@ const Sidebar = () => {
 
   return (
     <>
-      {!getShowFullScreen(router.pathname) && <MobileBottomNav />}
+      <MobileBottomNav />
       <div className="fixed bottom-0 left-0 top-0 z-20 hidden w-[90px] items-start justify-between bg-white shadow-md dark:bg-black md:flex md:flex-col">
         <div
           className="flex flex-col space-y-2 self-center"

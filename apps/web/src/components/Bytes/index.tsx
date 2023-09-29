@@ -118,14 +118,14 @@ const Bytes = () => {
   }
 
   return (
-    <div className="overflow-y-hidden">
+    <div className="h-full overflow-y-hidden">
       <Head>
         <meta name="theme-color" content="#000000" />
       </Head>
       <MetaTags title="Bytes" />
       <div
         ref={bytesContainer}
-        className="no-scrollbar h-screen snap-y snap-mandatory overflow-y-scroll scroll-smooth md:h-[calc(100vh-70px)]"
+        className="no-scrollbar h-[calc(100vh-70px)] snap-y snap-mandatory overflow-y-scroll scroll-smooth md:h-screen"
       >
         {singleByte && (
           <ByteVideo

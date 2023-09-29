@@ -1,4 +1,4 @@
-import { getShowFullScreen, getToastOptions } from '@lenstube/browser'
+import { getToastOptions } from '@lenstube/browser'
 import { AUTH_ROUTES } from '@lenstube/constants'
 import { useIsMounted } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
@@ -27,7 +27,8 @@ interface Props {
   children: ReactNode
 }
 
-const NO_HEADER_PATHS = ['/auth']
+const NO_HEADER_PATHS = ['/auth', '/bytes', '/bytes/[id]']
+const NO_PY_PADDING_PATHS = ['/channel/[channel]', '/bytes', '/bytes/[id]']
 
 const Layout: FC<Props> = ({ children }) => {
   const { setUserSigNonce, setActiveChannel } = useChannelStore()
@@ -46,8 +47,6 @@ const Layout: FC<Props> = ({ children }) => {
       toast.error(error?.data?.message ?? error?.message)
     }
   })
-
-  const showFullScreen = getShowFullScreen(pathname)
 
   const resetAuthState = () => {
     setActiveChannel(null)
@@ -123,17 +122,14 @@ const Layout: FC<Props> = ({ children }) => {
         toastOptions={getToastOptions(resolvedTheme)}
       />
       <TelemetryProvider />
-      <div className={clsx('flex pb-10 md:pb-0', showFullScreen && '!pb-0')}>
+      <div className="flex">
         <Sidebar />
-        <div className={clsx('w-full md:pl-[90px]', showFullScreen && 'px-0')}>
-          {!NO_HEADER_PATHS.includes(pathname) && (
-            <Header className={clsx(showFullScreen && 'hidden md:flex')} />
-          )}
+        <div className="w-full md:pl-[90px]">
+          {!NO_HEADER_PATHS.includes(pathname) && <Header />}
           <div
             className={clsx(
-              'ultrawide:px-0',
-              showFullScreen && '!p-0',
-              pathname !== '/channel/[channel]' &&
+              'ultrawide:px-0 h-screen',
+              !NO_PY_PADDING_PATHS.includes(pathname) &&
                 'ultrawide:max-w-[90rem] mx-auto p-2 md:p-4 2xl:py-6'
             )}
           >

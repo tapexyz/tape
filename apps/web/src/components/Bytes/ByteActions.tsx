@@ -19,12 +19,12 @@ type Props = {
 
 const ByteActions: FC<Props> = ({ video }) => {
   return (
-    <div className="w-12 flex-col items-center justify-between md:flex md:w-14">
+    <div className="flex w-14 flex-col items-center justify-between">
       <div className="pt-2">
         <VideoOptions video={video} />
       </div>
       <div className="items-center pt-2.5 md:flex md:flex-col">
-        <div className="pb-3 text-white md:text-inherit">
+        <div className="pb-3">
           <PublicationReaction
             publication={video}
             iconSize="lg"
@@ -33,7 +33,7 @@ const ByteActions: FC<Props> = ({ video }) => {
           />
         </div>
         <div className="space-y-4 py-2">
-          <div className="w-full text-center text-white md:text-inherit">
+          <div className="w-full text-center">
             <Dialog.Root>
               <Dialog.Trigger>
                 <div className="flex flex-col items-center">
@@ -58,7 +58,7 @@ const ByteActions: FC<Props> = ({ video }) => {
               </Dialog.Content>
             </Dialog.Root>
           </div>
-          <div className="w-full text-center text-white md:text-inherit">
+          <div className="text-cente w-full">
             <MirrorVideo video={video}>
               <div className="flex flex-col items-center">
                 <MirrorOutline className="h-5 w-5" />
@@ -68,7 +68,7 @@ const ByteActions: FC<Props> = ({ video }) => {
               </div>
             </MirrorVideo>
           </div>
-          <div className="hidden w-full text-center md:block">
+          <div className="w-full text-center">
             <CollectVideo video={video} variant="ghost" />
             <div className="text-center text-xs leading-3">
               {video.stats?.countOpenActions || t`Collect`}
