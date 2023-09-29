@@ -2201,7 +2201,7 @@ export type MultirecipientFeeCollectModuleInput = {
   amount: AmountInput
   collectLimit?: InputMaybe<Scalars['String']['input']>
   endsAt?: InputMaybe<Scalars['DateTime']['input']>
-  followerOnly?: InputMaybe<Scalars['Boolean']['input']>
+  followerOnly: Scalars['Boolean']['input']
   recipients: Array<RecipientDataInput>
   referralFee?: InputMaybe<Scalars['Float']['input']>
 }
@@ -3212,7 +3212,7 @@ export type Profile = {
   interests: Array<Scalars['String']['output']>
   invitedBy?: Maybe<Profile>
   /** The number of invites left */
-  invitesLeft?: Maybe<Scalars['Int']['output']>
+  invitesLeft: Scalars['Int']['output']
   /** If the profile has got the lens manager enabled - supports signless experience */
   lensManager: Scalars['Boolean']['output']
   /** The profile metadata. You can optionally query profile metadata by app id.  */
@@ -4488,7 +4488,7 @@ export type SimpleCollectOpenActionModuleInput = {
   amount?: InputMaybe<AmountInput>
   collectLimit?: InputMaybe<Scalars['String']['input']>
   endsAt?: InputMaybe<Scalars['DateTime']['input']>
-  followerOnly?: InputMaybe<Scalars['Boolean']['input']>
+  followerOnly: Scalars['Boolean']['input']
   recipient?: InputMaybe<Scalars['EvmAddress']['input']>
   referralFee?: InputMaybe<Scalars['Float']['input']>
 }
@@ -6277,7 +6277,7 @@ export type CommentFieldsFragment = {
     txHash: any
     createdAt: any
     interests: Array<string>
-    invitesLeft?: number | null
+    invitesLeft: number
     handle?: any | null
     ownedBy: { __typename?: 'NetworkAddress'; address: any; chainId: any }
     stats: {
@@ -6438,7 +6438,6 @@ export type CommentFieldsFragment = {
     canComment: TriStateValue
     canMirror: TriStateValue
     hasMirrored: boolean
-    hasDownvoted: boolean
     hasActed: {
       __typename?: 'OptimisticStatusResult'
       value: boolean
@@ -8716,7 +8715,7 @@ export type PostFieldsFragment = {
     txHash: any
     createdAt: any
     interests: Array<string>
-    invitesLeft?: number | null
+    invitesLeft: number
     handle?: any | null
     ownedBy: { __typename?: 'NetworkAddress'; address: any; chainId: any }
     stats: {
@@ -8877,7 +8876,6 @@ export type PostFieldsFragment = {
     canComment: TriStateValue
     canMirror: TriStateValue
     hasMirrored: boolean
-    hasDownvoted: boolean
     hasActed: {
       __typename?: 'OptimisticStatusResult'
       value: boolean
@@ -10670,7 +10668,7 @@ export type ProfileFieldsFragment = {
   txHash: any
   createdAt: any
   interests: Array<string>
-  invitesLeft?: number | null
+  invitesLeft: number
   handle?: any | null
   ownedBy: { __typename?: 'NetworkAddress'; address: any; chainId: any }
   stats: {
@@ -10871,7 +10869,6 @@ export type PublicationOperationFieldsFragment = {
   canComment: TriStateValue
   canMirror: TriStateValue
   hasMirrored: boolean
-  hasDownvoted: boolean
   hasActed: {
     __typename?: 'OptimisticStatusResult'
     value: boolean
@@ -10923,7 +10920,7 @@ export type QuoteFieldsFragment = {
     txHash: any
     createdAt: any
     interests: Array<string>
-    invitesLeft?: number | null
+    invitesLeft: number
     handle?: any | null
     ownedBy: { __typename?: 'NetworkAddress'; address: any; chainId: any }
     stats: {
@@ -11084,7 +11081,6 @@ export type QuoteFieldsFragment = {
     canComment: TriStateValue
     canMirror: TriStateValue
     hasMirrored: boolean
-    hasDownvoted: boolean
     hasActed: {
       __typename?: 'OptimisticStatusResult'
       value: boolean
@@ -15702,7 +15698,7 @@ export type ExplorePublicationsQuery = {
             txHash: any
             createdAt: any
             interests: Array<string>
-            invitesLeft?: number | null
+            invitesLeft: number
             handle?: any | null
             ownedBy: {
               __typename?: 'NetworkAddress'
@@ -15879,7 +15875,6 @@ export type ExplorePublicationsQuery = {
             canComment: TriStateValue
             canMirror: TriStateValue
             hasMirrored: boolean
-            hasDownvoted: boolean
             hasActed: {
               __typename?: 'OptimisticStatusResult'
               value: boolean
@@ -17733,7 +17728,7 @@ export type ExplorePublicationsQuery = {
             txHash: any
             createdAt: any
             interests: Array<string>
-            invitesLeft?: number | null
+            invitesLeft: number
             handle?: any | null
             ownedBy: {
               __typename?: 'NetworkAddress'
@@ -17910,7 +17905,6 @@ export type ExplorePublicationsQuery = {
             canComment: TriStateValue
             canMirror: TriStateValue
             hasMirrored: boolean
-            hasDownvoted: boolean
             hasActed: {
               __typename?: 'OptimisticStatusResult'
               value: boolean
@@ -19782,7 +19776,7 @@ export type FeedHighlightsQuery = {
             txHash: any
             createdAt: any
             interests: Array<string>
-            invitesLeft?: number | null
+            invitesLeft: number
             handle?: any | null
             ownedBy: {
               __typename?: 'NetworkAddress'
@@ -19959,7 +19953,6 @@ export type FeedHighlightsQuery = {
             canComment: TriStateValue
             canMirror: TriStateValue
             hasMirrored: boolean
-            hasDownvoted: boolean
             hasActed: {
               __typename?: 'OptimisticStatusResult'
               value: boolean
@@ -21813,7 +21806,7 @@ export type FeedHighlightsQuery = {
             txHash: any
             createdAt: any
             interests: Array<string>
-            invitesLeft?: number | null
+            invitesLeft: number
             handle?: any | null
             ownedBy: {
               __typename?: 'NetworkAddress'
@@ -21990,7 +21983,6 @@ export type FeedHighlightsQuery = {
             canComment: TriStateValue
             canMirror: TriStateValue
             hasMirrored: boolean
-            hasDownvoted: boolean
             hasActed: {
               __typename?: 'OptimisticStatusResult'
               value: boolean
@@ -23853,7 +23845,7 @@ export type FollowersQuery = {
       txHash: any
       createdAt: any
       interests: Array<string>
-      invitesLeft?: number | null
+      invitesLeft: number
       handle?: any | null
       ownedBy: { __typename?: 'NetworkAddress'; address: any; chainId: any }
       stats: {
@@ -24018,7 +24010,7 @@ export type FollowingQuery = {
       txHash: any
       createdAt: any
       interests: Array<string>
-      invitesLeft?: number | null
+      invitesLeft: number
       handle?: any | null
       ownedBy: { __typename?: 'NetworkAddress'; address: any; chainId: any }
       stats: {
@@ -24246,7 +24238,7 @@ export type MutualFollowersQuery = {
       txHash: any
       createdAt: any
       interests: Array<string>
-      invitesLeft?: number | null
+      invitesLeft: number
       handle?: any | null
       ownedBy: { __typename?: 'NetworkAddress'; address: any; chainId: any }
       stats: {
@@ -24474,7 +24466,7 @@ export type NotificationsQuery = {
               txHash: any
               createdAt: any
               interests: Array<string>
-              invitesLeft?: number | null
+              invitesLeft: number
               handle?: any | null
               ownedBy: {
                 __typename?: 'NetworkAddress'
@@ -24663,7 +24655,7 @@ export type NotificationsQuery = {
                   txHash: any
                   createdAt: any
                   interests: Array<string>
-                  invitesLeft?: number | null
+                  invitesLeft: number
                   handle?: any | null
                   ownedBy: {
                     __typename?: 'NetworkAddress'
@@ -24843,7 +24835,6 @@ export type NotificationsQuery = {
                   canComment: TriStateValue
                   canMirror: TriStateValue
                   hasMirrored: boolean
-                  hasDownvoted: boolean
                   hasActed: {
                     __typename?: 'OptimisticStatusResult'
                     value: boolean
@@ -26941,7 +26932,7 @@ export type NotificationsQuery = {
                   txHash: any
                   createdAt: any
                   interests: Array<string>
-                  invitesLeft?: number | null
+                  invitesLeft: number
                   handle?: any | null
                   ownedBy: {
                     __typename?: 'NetworkAddress'
@@ -27121,7 +27112,6 @@ export type NotificationsQuery = {
                   canComment: TriStateValue
                   canMirror: TriStateValue
                   hasMirrored: boolean
-                  hasDownvoted: boolean
                   hasActed: {
                     __typename?: 'OptimisticStatusResult'
                     value: boolean
@@ -29205,7 +29195,7 @@ export type NotificationsQuery = {
               txHash: any
               createdAt: any
               interests: Array<string>
-              invitesLeft?: number | null
+              invitesLeft: number
               handle?: any | null
               ownedBy: {
                 __typename?: 'NetworkAddress'
@@ -29385,7 +29375,6 @@ export type NotificationsQuery = {
               canComment: TriStateValue
               canMirror: TriStateValue
               hasMirrored: boolean
-              hasDownvoted: boolean
               hasActed: {
                 __typename?: 'OptimisticStatusResult'
                 value: boolean
@@ -31241,7 +31230,7 @@ export type NotificationsQuery = {
             txHash: any
             createdAt: any
             interests: Array<string>
-            invitesLeft?: number | null
+            invitesLeft: number
             handle?: any | null
             ownedBy: {
               __typename?: 'NetworkAddress'
@@ -31420,7 +31409,7 @@ export type NotificationsQuery = {
                   txHash: any
                   createdAt: any
                   interests: Array<string>
-                  invitesLeft?: number | null
+                  invitesLeft: number
                   handle?: any | null
                   ownedBy: {
                     __typename?: 'NetworkAddress'
@@ -31600,7 +31589,6 @@ export type NotificationsQuery = {
                   canComment: TriStateValue
                   canMirror: TriStateValue
                   hasMirrored: boolean
-                  hasDownvoted: boolean
                   hasActed: {
                     __typename?: 'OptimisticStatusResult'
                     value: boolean
@@ -33685,7 +33673,7 @@ export type NotificationsQuery = {
                   txHash: any
                   createdAt: any
                   interests: Array<string>
-                  invitesLeft?: number | null
+                  invitesLeft: number
                   handle?: any | null
                   ownedBy: {
                     __typename?: 'NetworkAddress'
@@ -33865,7 +33853,6 @@ export type NotificationsQuery = {
                   canComment: TriStateValue
                   canMirror: TriStateValue
                   hasMirrored: boolean
-                  hasDownvoted: boolean
                   hasActed: {
                     __typename?: 'OptimisticStatusResult'
                     value: boolean
@@ -35944,7 +35931,7 @@ export type NotificationsQuery = {
                   txHash: any
                   createdAt: any
                   interests: Array<string>
-                  invitesLeft?: number | null
+                  invitesLeft: number
                   handle?: any | null
                   ownedBy: {
                     __typename?: 'NetworkAddress'
@@ -36124,7 +36111,6 @@ export type NotificationsQuery = {
                   canComment: TriStateValue
                   canMirror: TriStateValue
                   hasMirrored: boolean
-                  hasDownvoted: boolean
                   hasActed: {
                     __typename?: 'OptimisticStatusResult'
                     value: boolean
@@ -38207,7 +38193,7 @@ export type NotificationsQuery = {
               txHash: any
               createdAt: any
               interests: Array<string>
-              invitesLeft?: number | null
+              invitesLeft: number
               handle?: any | null
               ownedBy: {
                 __typename?: 'NetworkAddress'
@@ -38386,7 +38372,7 @@ export type NotificationsQuery = {
                   txHash: any
                   createdAt: any
                   interests: Array<string>
-                  invitesLeft?: number | null
+                  invitesLeft: number
                   handle?: any | null
                   ownedBy: {
                     __typename?: 'NetworkAddress'
@@ -38566,7 +38552,6 @@ export type NotificationsQuery = {
                   canComment: TriStateValue
                   canMirror: TriStateValue
                   hasMirrored: boolean
-                  hasDownvoted: boolean
                   hasActed: {
                     __typename?: 'OptimisticStatusResult'
                     value: boolean
@@ -40651,7 +40636,7 @@ export type NotificationsQuery = {
                   txHash: any
                   createdAt: any
                   interests: Array<string>
-                  invitesLeft?: number | null
+                  invitesLeft: number
                   handle?: any | null
                   ownedBy: {
                     __typename?: 'NetworkAddress'
@@ -40831,7 +40816,6 @@ export type NotificationsQuery = {
                   canComment: TriStateValue
                   canMirror: TriStateValue
                   hasMirrored: boolean
-                  hasDownvoted: boolean
                   hasActed: {
                     __typename?: 'OptimisticStatusResult'
                     value: boolean
@@ -42910,7 +42894,7 @@ export type NotificationsQuery = {
                   txHash: any
                   createdAt: any
                   interests: Array<string>
-                  invitesLeft?: number | null
+                  invitesLeft: number
                   handle?: any | null
                   ownedBy: {
                     __typename?: 'NetworkAddress'
@@ -43090,7 +43074,6 @@ export type NotificationsQuery = {
                   canComment: TriStateValue
                   canMirror: TriStateValue
                   hasMirrored: boolean
-                  hasDownvoted: boolean
                   hasActed: {
                     __typename?: 'OptimisticStatusResult'
                     value: boolean
@@ -45177,7 +45160,7 @@ export type NotificationsQuery = {
               txHash: any
               createdAt: any
               interests: Array<string>
-              invitesLeft?: number | null
+              invitesLeft: number
               handle?: any | null
               ownedBy: {
                 __typename?: 'NetworkAddress'
@@ -45357,7 +45340,6 @@ export type NotificationsQuery = {
               canComment: TriStateValue
               canMirror: TriStateValue
               hasMirrored: boolean
-              hasDownvoted: boolean
               hasActed: {
                 __typename?: 'OptimisticStatusResult'
                 value: boolean
@@ -47220,7 +47202,7 @@ export type NotificationsQuery = {
                   txHash: any
                   createdAt: any
                   interests: Array<string>
-                  invitesLeft?: number | null
+                  invitesLeft: number
                   handle?: any | null
                   ownedBy: {
                     __typename?: 'NetworkAddress'
@@ -47400,7 +47382,6 @@ export type NotificationsQuery = {
                   canComment: TriStateValue
                   canMirror: TriStateValue
                   hasMirrored: boolean
-                  hasDownvoted: boolean
                   hasActed: {
                     __typename?: 'OptimisticStatusResult'
                     value: boolean
@@ -49485,7 +49466,7 @@ export type NotificationsQuery = {
                   txHash: any
                   createdAt: any
                   interests: Array<string>
-                  invitesLeft?: number | null
+                  invitesLeft: number
                   handle?: any | null
                   ownedBy: {
                     __typename?: 'NetworkAddress'
@@ -49665,7 +49646,6 @@ export type NotificationsQuery = {
                   canComment: TriStateValue
                   canMirror: TriStateValue
                   hasMirrored: boolean
-                  hasDownvoted: boolean
                   hasActed: {
                     __typename?: 'OptimisticStatusResult'
                     value: boolean
@@ -51744,7 +51724,7 @@ export type NotificationsQuery = {
                   txHash: any
                   createdAt: any
                   interests: Array<string>
-                  invitesLeft?: number | null
+                  invitesLeft: number
                   handle?: any | null
                   ownedBy: {
                     __typename?: 'NetworkAddress'
@@ -51924,7 +51904,6 @@ export type NotificationsQuery = {
                   canComment: TriStateValue
                   canMirror: TriStateValue
                   hasMirrored: boolean
-                  hasDownvoted: boolean
                   hasActed: {
                     __typename?: 'OptimisticStatusResult'
                     value: boolean
@@ -54001,7 +53980,7 @@ export type NotificationsQuery = {
               txHash: any
               createdAt: any
               interests: Array<string>
-              invitesLeft?: number | null
+              invitesLeft: number
               handle?: any | null
               ownedBy: {
                 __typename?: 'NetworkAddress'
@@ -54188,7 +54167,7 @@ export type ProfileQuery = {
     txHash: any
     createdAt: any
     interests: Array<string>
-    invitesLeft?: number | null
+    invitesLeft: number
     handle?: any | null
     ownedBy: { __typename?: 'NetworkAddress'; address: any; chainId: any }
     stats: {
@@ -54359,7 +54338,7 @@ export type FeedQuery = {
               txHash: any
               createdAt: any
               interests: Array<string>
-              invitesLeft?: number | null
+              invitesLeft: number
               handle?: any | null
               ownedBy: {
                 __typename?: 'NetworkAddress'
@@ -54539,7 +54518,6 @@ export type FeedQuery = {
               canComment: TriStateValue
               canMirror: TriStateValue
               hasMirrored: boolean
-              hasDownvoted: boolean
               hasActed: {
                 __typename?: 'OptimisticStatusResult'
                 value: boolean
@@ -56399,7 +56377,7 @@ export type FeedQuery = {
               txHash: any
               createdAt: any
               interests: Array<string>
-              invitesLeft?: number | null
+              invitesLeft: number
               handle?: any | null
               ownedBy: {
                 __typename?: 'NetworkAddress'
@@ -56579,7 +56557,6 @@ export type FeedQuery = {
               canComment: TriStateValue
               canMirror: TriStateValue
               hasMirrored: boolean
-              hasDownvoted: boolean
               hasActed: {
                 __typename?: 'OptimisticStatusResult'
                 value: boolean
@@ -58529,7 +58506,7 @@ export type ProfilesQuery = {
       txHash: any
       createdAt: any
       interests: Array<string>
-      invitesLeft?: number | null
+      invitesLeft: number
       handle?: any | null
       ownedBy: { __typename?: 'NetworkAddress'; address: any; chainId: any }
       stats: {
@@ -58694,7 +58671,7 @@ export type ProfilesManagedQuery = {
       txHash: any
       createdAt: any
       interests: Array<string>
-      invitesLeft?: number | null
+      invitesLeft: number
       handle?: any | null
       ownedBy: { __typename?: 'NetworkAddress'; address: any; chainId: any }
       stats: {
@@ -58870,7 +58847,7 @@ export type PublicationQuery = {
           txHash: any
           createdAt: any
           interests: Array<string>
-          invitesLeft?: number | null
+          invitesLeft: number
           handle?: any | null
           ownedBy: { __typename?: 'NetworkAddress'; address: any; chainId: any }
           stats: {
@@ -59043,7 +59020,6 @@ export type PublicationQuery = {
           canComment: TriStateValue
           canMirror: TriStateValue
           hasMirrored: boolean
-          hasDownvoted: boolean
           hasActed: {
             __typename?: 'OptimisticStatusResult'
             value: boolean
@@ -60916,7 +60892,7 @@ export type PublicationQuery = {
           txHash: any
           createdAt: any
           interests: Array<string>
-          invitesLeft?: number | null
+          invitesLeft: number
           handle?: any | null
           ownedBy: { __typename?: 'NetworkAddress'; address: any; chainId: any }
           stats: {
@@ -61089,7 +61065,6 @@ export type PublicationQuery = {
           canComment: TriStateValue
           canMirror: TriStateValue
           hasMirrored: boolean
-          hasDownvoted: boolean
           hasActed: {
             __typename?: 'OptimisticStatusResult'
             value: boolean
@@ -62943,7 +62918,7 @@ export type PublicationQuery = {
           txHash: any
           createdAt: any
           interests: Array<string>
-          invitesLeft?: number | null
+          invitesLeft: number
           handle?: any | null
           ownedBy: { __typename?: 'NetworkAddress'; address: any; chainId: any }
           stats: {
@@ -63116,7 +63091,6 @@ export type PublicationQuery = {
           canComment: TriStateValue
           canMirror: TriStateValue
           hasMirrored: boolean
-          hasDownvoted: boolean
           hasActed: {
             __typename?: 'OptimisticStatusResult'
             value: boolean
@@ -64986,7 +64960,7 @@ export type PublicationBookmarksQuery = {
             txHash: any
             createdAt: any
             interests: Array<string>
-            invitesLeft?: number | null
+            invitesLeft: number
             handle?: any | null
             ownedBy: {
               __typename?: 'NetworkAddress'
@@ -65163,7 +65137,6 @@ export type PublicationBookmarksQuery = {
             canComment: TriStateValue
             canMirror: TriStateValue
             hasMirrored: boolean
-            hasDownvoted: boolean
             hasActed: {
               __typename?: 'OptimisticStatusResult'
               value: boolean
@@ -67036,7 +67009,7 @@ export type PublicationBookmarksQuery = {
             txHash: any
             createdAt: any
             interests: Array<string>
-            invitesLeft?: number | null
+            invitesLeft: number
             handle?: any | null
             ownedBy: {
               __typename?: 'NetworkAddress'
@@ -67213,7 +67186,6 @@ export type PublicationBookmarksQuery = {
             canComment: TriStateValue
             canMirror: TriStateValue
             hasMirrored: boolean
-            hasDownvoted: boolean
             hasActed: {
               __typename?: 'OptimisticStatusResult'
               value: boolean
@@ -69067,7 +69039,7 @@ export type PublicationBookmarksQuery = {
             txHash: any
             createdAt: any
             interests: Array<string>
-            invitesLeft?: number | null
+            invitesLeft: number
             handle?: any | null
             ownedBy: {
               __typename?: 'NetworkAddress'
@@ -69244,7 +69216,6 @@ export type PublicationBookmarksQuery = {
             canComment: TriStateValue
             canMirror: TriStateValue
             hasMirrored: boolean
-            hasDownvoted: boolean
             hasActed: {
               __typename?: 'OptimisticStatusResult'
               value: boolean
@@ -71116,7 +71087,7 @@ export type PublicationsQuery = {
             txHash: any
             createdAt: any
             interests: Array<string>
-            invitesLeft?: number | null
+            invitesLeft: number
             handle?: any | null
             ownedBy: {
               __typename?: 'NetworkAddress'
@@ -71293,7 +71264,6 @@ export type PublicationsQuery = {
             canComment: TriStateValue
             canMirror: TriStateValue
             hasMirrored: boolean
-            hasDownvoted: boolean
             hasActed: {
               __typename?: 'OptimisticStatusResult'
               value: boolean
@@ -73166,7 +73136,7 @@ export type PublicationsQuery = {
             txHash: any
             createdAt: any
             interests: Array<string>
-            invitesLeft?: number | null
+            invitesLeft: number
             handle?: any | null
             ownedBy: {
               __typename?: 'NetworkAddress'
@@ -73343,7 +73313,6 @@ export type PublicationsQuery = {
             canComment: TriStateValue
             canMirror: TriStateValue
             hasMirrored: boolean
-            hasDownvoted: boolean
             hasActed: {
               __typename?: 'OptimisticStatusResult'
               value: boolean
@@ -75197,7 +75166,7 @@ export type PublicationsQuery = {
             txHash: any
             createdAt: any
             interests: Array<string>
-            invitesLeft?: number | null
+            invitesLeft: number
             handle?: any | null
             ownedBy: {
               __typename?: 'NetworkAddress'
@@ -75374,7 +75343,6 @@ export type PublicationsQuery = {
             canComment: TriStateValue
             canMirror: TriStateValue
             hasMirrored: boolean
-            hasDownvoted: boolean
             hasActed: {
               __typename?: 'OptimisticStatusResult'
               value: boolean
@@ -77246,7 +77214,7 @@ export type RevenueFromPublicationQuery = {
             txHash: any
             createdAt: any
             interests: Array<string>
-            invitesLeft?: number | null
+            invitesLeft: number
             handle?: any | null
             ownedBy: {
               __typename?: 'NetworkAddress'
@@ -77423,7 +77391,6 @@ export type RevenueFromPublicationQuery = {
             canComment: TriStateValue
             canMirror: TriStateValue
             hasMirrored: boolean
-            hasDownvoted: boolean
             hasActed: {
               __typename?: 'OptimisticStatusResult'
               value: boolean
@@ -79296,7 +79263,7 @@ export type RevenueFromPublicationQuery = {
             txHash: any
             createdAt: any
             interests: Array<string>
-            invitesLeft?: number | null
+            invitesLeft: number
             handle?: any | null
             ownedBy: {
               __typename?: 'NetworkAddress'
@@ -79473,7 +79440,6 @@ export type RevenueFromPublicationQuery = {
             canComment: TriStateValue
             canMirror: TriStateValue
             hasMirrored: boolean
-            hasDownvoted: boolean
             hasActed: {
               __typename?: 'OptimisticStatusResult'
               value: boolean
@@ -81327,7 +81293,7 @@ export type RevenueFromPublicationQuery = {
             txHash: any
             createdAt: any
             interests: Array<string>
-            invitesLeft?: number | null
+            invitesLeft: number
             handle?: any | null
             ownedBy: {
               __typename?: 'NetworkAddress'
@@ -81504,7 +81470,6 @@ export type RevenueFromPublicationQuery = {
             canComment: TriStateValue
             canMirror: TriStateValue
             hasMirrored: boolean
-            hasDownvoted: boolean
             hasActed: {
               __typename?: 'OptimisticStatusResult'
               value: boolean
@@ -83394,7 +83359,7 @@ export type RevenueFromPublicationsQuery = {
               txHash: any
               createdAt: any
               interests: Array<string>
-              invitesLeft?: number | null
+              invitesLeft: number
               handle?: any | null
               ownedBy: {
                 __typename?: 'NetworkAddress'
@@ -83574,7 +83539,6 @@ export type RevenueFromPublicationsQuery = {
               canComment: TriStateValue
               canMirror: TriStateValue
               hasMirrored: boolean
-              hasDownvoted: boolean
               hasActed: {
                 __typename?: 'OptimisticStatusResult'
                 value: boolean
@@ -85447,7 +85411,7 @@ export type RevenueFromPublicationsQuery = {
               txHash: any
               createdAt: any
               interests: Array<string>
-              invitesLeft?: number | null
+              invitesLeft: number
               handle?: any | null
               ownedBy: {
                 __typename?: 'NetworkAddress'
@@ -85627,7 +85591,6 @@ export type RevenueFromPublicationsQuery = {
               canComment: TriStateValue
               canMirror: TriStateValue
               hasMirrored: boolean
-              hasDownvoted: boolean
               hasActed: {
                 __typename?: 'OptimisticStatusResult'
                 value: boolean
@@ -87481,7 +87444,7 @@ export type RevenueFromPublicationsQuery = {
               txHash: any
               createdAt: any
               interests: Array<string>
-              invitesLeft?: number | null
+              invitesLeft: number
               handle?: any | null
               ownedBy: {
                 __typename?: 'NetworkAddress'
@@ -87661,7 +87624,6 @@ export type RevenueFromPublicationsQuery = {
               canComment: TriStateValue
               canMirror: TriStateValue
               hasMirrored: boolean
-              hasDownvoted: boolean
               hasActed: {
                 __typename?: 'OptimisticStatusResult'
                 value: boolean
@@ -89541,7 +89503,7 @@ export type SearchProfilesQuery = {
       txHash: any
       createdAt: any
       interests: Array<string>
-      invitesLeft?: number | null
+      invitesLeft: number
       handle?: any | null
       ownedBy: { __typename?: 'NetworkAddress'; address: any; chainId: any }
       stats: {
@@ -89715,7 +89677,7 @@ export type SearchPublicationsQuery = {
             txHash: any
             createdAt: any
             interests: Array<string>
-            invitesLeft?: number | null
+            invitesLeft: number
             handle?: any | null
             ownedBy: {
               __typename?: 'NetworkAddress'
@@ -89892,7 +89854,6 @@ export type SearchPublicationsQuery = {
             canComment: TriStateValue
             canMirror: TriStateValue
             hasMirrored: boolean
-            hasDownvoted: boolean
             hasActed: {
               __typename?: 'OptimisticStatusResult'
               value: boolean
@@ -91752,7 +91713,7 @@ export type SearchPublicationsQuery = {
             txHash: any
             createdAt: any
             interests: Array<string>
-            invitesLeft?: number | null
+            invitesLeft: number
             handle?: any | null
             ownedBy: {
               __typename?: 'NetworkAddress'
@@ -91929,7 +91890,6 @@ export type SearchPublicationsQuery = {
             canComment: TriStateValue
             canMirror: TriStateValue
             hasMirrored: boolean
-            hasDownvoted: boolean
             hasActed: {
               __typename?: 'OptimisticStatusResult'
               value: boolean
@@ -93783,7 +93743,7 @@ export type SearchPublicationsQuery = {
             txHash: any
             createdAt: any
             interests: Array<string>
-            invitesLeft?: number | null
+            invitesLeft: number
             handle?: any | null
             ownedBy: {
               __typename?: 'NetworkAddress'
@@ -93960,7 +93920,6 @@ export type SearchPublicationsQuery = {
             canComment: TriStateValue
             canMirror: TriStateValue
             hasMirrored: boolean
-            hasDownvoted: boolean
             hasActed: {
               __typename?: 'OptimisticStatusResult'
               value: boolean
@@ -95880,7 +95839,7 @@ export type WhoActedOnPublicationQuery = {
       txHash: any
       createdAt: any
       interests: Array<string>
-      invitesLeft?: number | null
+      invitesLeft: number
       handle?: any | null
       ownedBy: { __typename?: 'NetworkAddress'; address: any; chainId: any }
       stats: {
@@ -96260,7 +96219,6 @@ export const PublicationOperationFieldsFragmentDoc = gql`
       }
     }
     hasReacted(request: { type: UPVOTE })
-    hasDownvoted: hasReacted(request: { type: DOWNVOTE })
     canComment
     canMirror
     hasMirrored
