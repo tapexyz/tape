@@ -16,7 +16,8 @@ const usePendingTxn = ({ txHash, txId }: Props) => {
       request: { forTxHash: txHash, forTxId: txId }
     },
     skip: !txHash && !txHash?.length && !txId && !txId?.length,
-    pollInterval: 1000
+    pollInterval: 1000,
+    notifyOnNetworkStatusChange: true
   })
 
   const checkIsIndexed = useCallback(() => {
