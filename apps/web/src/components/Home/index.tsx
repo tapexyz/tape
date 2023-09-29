@@ -5,6 +5,7 @@ import type { NextPage } from 'next'
 import React, { useEffect } from 'react'
 
 import BytesSection from './BytesSection'
+import CrossChainCollects from './CrossChainCollects'
 import DispatcherAlert from './DispatcherAlert'
 import HomeFeed from './Feed'
 
@@ -18,6 +19,7 @@ const Home: NextPage = () => {
       {/* <GitcoinAlert /> */}
       <DispatcherAlert />
       <BytesSection />
+      <CrossChainCollects />
       <HomeFeed />
     </>
   )

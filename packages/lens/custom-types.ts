@@ -13,6 +13,7 @@ import type {
   SimpleCollectModuleSettings,
   TimedFeeCollectModuleSettings
 } from '@lenstube/lens'
+import type { NFTMetadata } from '@thirdweb-dev/sdk'
 
 export type VideoDraft = {
   preview: string
@@ -221,3 +222,36 @@ export type SimpleProfile = Pick<
   Profile,
   'id' | 'handle' | 'ownedBy' | 'isDefault' | 'dispatcher' | 'stats' | 'picture'
 >
+
+export type CrossChainCollect = {
+  token: {
+    name: string
+    description: string
+    collectionName: string
+    collectionAddress: string
+    tokenId: string
+    owner: string
+    content: {
+      url: string
+      mediaEncoding: {
+        large: string
+        poster: string
+        thumbnail: string
+      }
+    }
+    image: {
+      url: string
+      mediaEncoding: {
+        large: string
+        poster: string
+        thumbnail: string
+      }
+    }
+    mintInfo: {
+      mintContext: {
+        blockTimestamp: string
+      }
+    }
+    metadata: NFTMetadata
+  }
+}

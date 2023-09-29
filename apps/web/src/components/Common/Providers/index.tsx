@@ -20,6 +20,7 @@ import {
   rainbowWallet,
   walletConnectWallet
 } from '@rainbow-me/rainbowkit/wallets'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ThemeProvider } from 'next-themes'
 import type { ReactNode } from 'react'
 import React, { useEffect } from 'react'
@@ -67,6 +68,10 @@ const connectors = connectorsForWallets([
   }
 ])
 
+const queryClient = new QueryClient({
+  defaultOptions: { queries: { refetchOnWindowFocus: false } }
+})
+
 const wagmiConfig = createConfig({
   autoConnect: true,
   connectors,
@@ -86,7 +91,9 @@ const Providers = ({ children }: { children: ReactNode }) => {
             <ThemeProvider defaultTheme="dark" attribute="class">
               <RainbowKit chains={chains}>
                 <ApolloProvider client={apolloClient(authLink)}>
-                  {children}
+                  <QueryClientProvider client={queryClient}>
+                    {children}
+                  </QueryClientProvider>
                 </ApolloProvider>
               </RainbowKit>
             </ThemeProvider>

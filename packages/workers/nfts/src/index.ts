@@ -2,6 +2,7 @@ import { createCors, error, json, Router } from 'itty-router'
 
 import type { Env } from './types'
 import getNfts from './getNfts'
+import getZoraNfts from './getZoraNfts'
 
 const { preflight, corsify } = createCors({
   origins: ['*'],
@@ -12,6 +13,7 @@ const router = Router()
 
 router.all('*', preflight)
 router.get('/', () => new Response('gm 👋'))
+router.get('/zora', () => getZoraNfts())
 router.get('/:handle/:limit/:cursor?', ({ params }, env) =>
   getNfts(env, params.handle, params.limit)
 )
