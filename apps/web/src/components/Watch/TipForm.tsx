@@ -40,7 +40,7 @@ import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'
-import { Button, Dialog } from '@radix-ui/themes'
+import { Button, Flex } from '@radix-ui/themes'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 import type { Dispatch, FC } from 'react'
 import React, { useState } from 'react'
@@ -416,18 +416,24 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
             </div>
           )}
         </span>
-        <Dialog.Close>
-          <Button variant="soft" color="gray">
+        <Flex gap="2">
+          <Button
+            type="button"
+            variant="soft"
+            color="gray"
+            onClick={() => setShow(false)}
+          >
             Cancel
           </Button>
-        </Dialog.Close>
-        <Button highContrast disabled={!isValid || loading}>
-          {`Tip ${
-            isNaN(Number(watchTipQuantity) * 1) || Number(watchTipQuantity) < 0
-              ? 0
-              : Number(watchTipQuantity) * 1
-          } MATIC`}
-        </Button>
+          <Button highContrast disabled={!isValid || loading}>
+            {`Tip ${
+              isNaN(Number(watchTipQuantity) * 1) ||
+              Number(watchTipQuantity) < 0
+                ? 0
+                : Number(watchTipQuantity) * 1
+            } MATIC`}
+          </Button>
+        </Flex>
       </div>
     </form>
   )

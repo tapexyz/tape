@@ -1,6 +1,5 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
-import DislikeOutline from '@components/Common/Icons/DislikeOutline'
-import LikeOutline from '@components/Common/Icons/LikeOutline'
+import HeartOutline from '@components/Common/Icons/HeartOutline'
 import { getProfilePicture } from '@lenstube/generic'
 import type { ProfileReactedResult, ReactionNotification } from '@lenstube/lens'
 import Link from 'next/link'
@@ -14,9 +13,8 @@ type Props = {
 const Reactions: FC<Props> = ({ notification: { publication, reactions } }) => {
   return (
     <span className="flex space-x-5">
-      <div className="flex -space-x-1 -space-y-4 pt-5">
-        <DislikeOutline className="h-4 w-4" />
-        <LikeOutline className="h-4 w-4" />
+      <div className="p-1.5">
+        <HeartOutline className="h-5 w-5" />
       </div>
       <div>
         <span className="flex cursor-pointer -space-x-1.5">

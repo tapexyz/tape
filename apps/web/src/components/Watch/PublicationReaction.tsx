@@ -1,4 +1,4 @@
-import LikeOutline from '@components/Common/Icons/LikeOutline'
+import HeartOutline from '@components/Common/Icons/HeartOutline'
 import { Analytics, TRACK } from '@lenstube/browser'
 import { formatNumber, getPublication } from '@lenstube/generic'
 import type { AnyPublication } from '@lenstube/lens'
@@ -103,7 +103,7 @@ const PublicationReaction: FC<Props> = ({
             }
           )}
         >
-          <LikeOutline
+          <HeartOutline
             className={clsx({
               'h-3.5 w-3.5': iconSize === 'sm',
               'h-6 w-6': iconSize === 'lg',
