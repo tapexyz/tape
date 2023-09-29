@@ -3507,10 +3507,10 @@
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
 
-"@lens-protocol/metadata@^0.1.0-alpha.28":
-  version "0.1.0-alpha.28"
-  resolved "https://registry.yarnpkg.com/@lens-protocol/metadata/-/metadata-0.1.0-alpha.28.tgz#37c3472a6ef5cfe9c3b31c4a6f47f864532543e0"
-  integrity sha512-CPyoPB1DpwWBrVpro3cKuczJc7JrwhIoR9iNJ7M4PHNr8MaX8sT5VHYjtnFfziMjamqLWZ82Fs7IUVV3AMWBOg==
+"@lens-protocol/metadata@^0.1.0-alpha.29":
+  version "0.1.0-alpha.29"
+  resolved "https://registry.yarnpkg.com/@lens-protocol/metadata/-/metadata-0.1.0-alpha.29.tgz#2d9b60e0426acc436d4dc09509f465925cf5de70"
+  integrity sha512-yfbdN3t+NwcON5oE64/DsndQTMDdHVBxJwB8SVF0BQJLpiEoo7lNB87RpH8z5XzZsQZZFutw3oFZHsO5/7ignQ==
   dependencies:
     uuid "^9.0.1"
 

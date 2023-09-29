@@ -8,8 +8,8 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "dayjs-twitter": "^0.5.0",
-    "@lens-protocol/metadata": "^0.1.0-alpha.28"
+    "@lens-protocol/metadata": "^0.1.0-alpha.29",
+    "dayjs-twitter": "^0.5.0"
   },
   "devDependencies": {
     "typescript": "5.2.2"
