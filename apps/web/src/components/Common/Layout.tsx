@@ -29,6 +29,7 @@ interface Props {
 
 const NO_HEADER_PATHS = ['/auth', '/bytes', '/bytes/[id]']
 const NO_PY_PADDING_PATHS = ['/channel/[channel]', '/bytes', '/bytes/[id]']
+const H_SCREEN_PATHS = ['/bytes', '/bytes/[id]']
 
 const Layout: FC<Props> = ({ children }) => {
   const { setUserSigNonce, setActiveChannel } = useChannelStore()
@@ -128,7 +129,8 @@ const Layout: FC<Props> = ({ children }) => {
           {!NO_HEADER_PATHS.includes(pathname) && <Header />}
           <div
             className={clsx(
-              'ultrawide:px-0 h-screen',
+              'ultrawide:px-0',
+              H_SCREEN_PATHS.includes(pathname) && 'h-screen',
               !NO_PY_PADDING_PATHS.includes(pathname) &&
                 'ultrawide:max-w-[90rem] mx-auto p-2 md:p-4 2xl:py-6'
             )}

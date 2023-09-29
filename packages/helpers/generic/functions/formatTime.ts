@@ -19,7 +19,7 @@ export const getSecondsFromTime = (time: string) => {
 }
 
 export const getTimeFromSeconds = (seconds: string) => {
-  if (seconds === 'Infinity') {
+  if (seconds === 'Infinity' || !seconds) {
     return null
   }
   const parsed = parseFloat(seconds)

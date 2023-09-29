@@ -192,6 +192,7 @@ const NewComment: FC<Props> = ({
         const txnId = broadcastOnchain?.txId
         setToQueue({ txnId })
       }
+      onCompleted(broadcastOnchain.__typename)
     }
   })
 
@@ -216,8 +217,8 @@ const NewComment: FC<Props> = ({
     onError,
     onCompleted: ({ commentOnchain }) => {
       if (commentOnchain.__typename === 'RelaySuccess') {
-        onCompleted(commentOnchain.__typename)
         setToQueue({ txnId: commentOnchain.txId })
+        onCompleted(commentOnchain.__typename)
       }
     }
   })
@@ -227,6 +228,7 @@ const NewComment: FC<Props> = ({
       if (broadcastOnMomoka.__typename === 'CreateMomokaPublicationResult') {
         fetchAndCacheComment(broadcastOnMomoka?.id)
       }
+      onCompleted()
     }
   })
 
@@ -251,6 +253,7 @@ const NewComment: FC<Props> = ({
     onError,
     onCompleted: ({ commentOnMomoka }) => {
       if (commentOnMomoka.__typename === 'CreateMomokaPublicationResult') {
+        onCompleted()
         fetchAndCacheComment(commentOnMomoka.id)
       }
     }

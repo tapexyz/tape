@@ -1,4 +1,3 @@
-import { IPFS_GATEWAY_URL, IS_PRODUCTION } from '@lenstube/constants'
 import type { AspectRatio } from '@livepeer/react'
 import { Player } from '@livepeer/react'
 import type { FC } from 'react'
@@ -47,12 +46,12 @@ const PlayerInstance: FC<PlayerProps> = ({
       autoPlay={options.autoPlay ?? false}
       showLoadingSpinner={options.loadingSpinner}
       _isCurrentlyShown={options.isCurrentlyShown}
-      autoUrlUpload={
-        IS_PRODUCTION && {
-          fallback: true,
-          ipfsGateway: IPFS_GATEWAY_URL
-        }
-      }
+      // autoUrlUpload={
+      //   IS_PRODUCTION && {
+      //     fallback: true,
+      //     ipfsGateway: IPFS_GATEWAY_URL
+      //   }
+      // }
     >
       {/* eslint-disable-next-line react/jsx-no-useless-fragment */}
       {!showControls ? <></> : null}

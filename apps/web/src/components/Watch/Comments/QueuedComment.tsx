@@ -4,6 +4,7 @@ import Tooltip from '@components/UIElements/Tooltip'
 import { getProfilePicture, trimLensHandle } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import {
+  LensTransactionStatusType,
   PublicationDocument,
   useLensTransactionStatusQuery,
   usePublicationLazyQuery,
@@ -82,20 +83,28 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
     },
     skip: !queuedComment?.txnId?.length && !queuedComment?.txnHash?.length,
     pollInterval: 1000,
+    notifyOnNetworkStatusChange: true,
     onCompleted: async (data) => {
       if (
         data?.lensTransactionStatus?.__typename === 'LensTransactionResult' &&
-        data?.lensTransactionStatus?.status
+        data?.lensTransactionStatus?.reason
+      ) {
+        return removeFromQueue()
+      }
+      if (
+        data?.lensTransactionStatus?.__typename === 'LensTransactionResult' &&
+        data?.lensTransactionStatus?.status ===
+          LensTransactionStatusType.Complete
       ) {
         stopPolling()
         if (queuedComment.txnHash) {
           return getPublication({
-            variables: { request: { forTxHash: queuedComment?.txnHash } }
+            variables: {
+              request: { forTxHash: queuedComment.txnHash }
+            }
           })
         }
         await getCommentByTxnId()
-      } else {
-        return removeFromQueue()
       }
     }
   })
