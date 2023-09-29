@@ -7,6 +7,7 @@ import {
   MetadataAttributeType,
   MetadataLicenseType,
   PublicationContentWarning,
+  shortVideo,
   video
 } from '@lens-protocol/metadata'
 import {
@@ -322,8 +323,12 @@ const UploadSteps = () => {
       if (uploadedVideo.isSensitiveContent) {
         publicationMetadata.contentWarning = PublicationContentWarning.SENSITIVE
       }
-      const metadata = video(publicationMetadata)
-      const metadataUri = await uploadToAr(metadata)
+
+      const shortVideoMetadata = shortVideo(publicationMetadata)
+      const longVideoMetadata = video(publicationMetadata)
+      const metadataUri = await uploadToAr(
+        uploadedVideo.isByteVideo ? shortVideoMetadata : longVideoMetadata
+      )
       setUploadedVideo({
         buttonText: t`Posting video`,
         loading: true

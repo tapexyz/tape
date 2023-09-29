@@ -1,15 +1,13 @@
 import CollectOutline from '@components/Common/Icons/CollectOutline'
-import type { ButtonVariants } from '@components/UIElements/Button'
-import { Button } from '@components/UIElements/Button'
 import Tooltip from '@components/UIElements/Tooltip'
 import { ERROR_MESSAGE } from '@lenstube/constants'
 import { getPublication } from '@lenstube/generic'
 import type { AnyPublication } from '@lenstube/lens'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
-import { Loader } from '@lenstube/ui'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t } from '@lingui/macro'
+import { Button } from '@radix-ui/themes'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 import type { FC } from 'react'
 import React, { useState } from 'react'
@@ -18,18 +16,18 @@ import { useSignTypedData } from 'wagmi'
 
 type Props = {
   video: AnyPublication
-  variant?: ButtonVariants
+  variant?: 'classic' | 'solid' | 'soft' | 'surface' | 'outline' | 'ghost'
   text?: string
 }
 
-const CollectVideo: FC<Props> = ({ video, variant = 'primary', text }) => {
+const CollectVideo: FC<Props> = ({ video, variant = 'solid', text }) => {
   const { openConnectModal } = useConnectModal()
   const targetPublication = getPublication(video)
 
   const [loading, setLoading] = useState(false)
   const [showCollectModal, setShowCollectModal] = useState(false)
   const [alreadyCollected, setAlreadyCollected] = useState(
-    targetPublication.operations.actedOn
+    targetPublication.operations.hasActed.value
   )
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
@@ -188,16 +186,11 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary', text }) => {
         <div>
           <Button
             variant={variant}
-            // disabled={loading || alreadyCollected}
+            disabled={loading || alreadyCollected}
+            highContrast
             // onClick={() => onClickCollect()}
-            icon={
-              loading ? (
-                <Loader size="md" />
-              ) : (
-                <CollectOutline className="h-5 w-5" />
-              )
-            }
           >
+            <CollectOutline className="h-5 w-5" />
             {text}
           </Button>
         </div>

@@ -1,15 +1,17 @@
 import CommentOutline from '@components/Common/Icons/CommentOutline'
 import MirrorOutline from '@components/Common/Icons/MirrorOutline'
+import TimesOutline from '@components/Common/Icons/TimesOutline'
 import MirrorVideo from '@components/Common/MirrorVideo'
-import Tooltip from '@components/UIElements/Tooltip'
+import VideoOptions from '@components/Common/VideoCard/VideoOptions'
 import CollectVideo from '@components/Watch/CollectVideo'
 import PublicationReaction from '@components/Watch/PublicationReaction'
 import type { MirrorablePublication } from '@lenstube/lens'
 import { t } from '@lingui/macro'
+import { Dialog, DialogClose, Flex, IconButton } from '@radix-ui/themes'
 import type { FC } from 'react'
 import React from 'react'
 
-import CommentModal from './CommentModal'
+import ByteComments from './ByteComments'
 
 type Props = {
   video: MirrorablePublication
@@ -18,6 +20,9 @@ type Props = {
 const ByteActions: FC<Props> = ({ video }) => {
   return (
     <div className="w-12 flex-col items-center justify-between md:flex md:w-14">
+      <div className="pt-2">
+        <VideoOptions video={video} />
+      </div>
       <div className="items-center pt-2.5 md:flex md:flex-col">
         <div className="pb-3 text-white md:text-inherit">
           <PublicationReaction
@@ -29,19 +34,29 @@ const ByteActions: FC<Props> = ({ video }) => {
         </div>
         <div className="space-y-4 py-2">
           <div className="w-full text-center text-white md:text-inherit">
-            <CommentModal
-              trigger={
-                <Tooltip content="What do you think?" placement="top">
-                  <div className="flex flex-col items-center">
-                    <CommentOutline className="h-5 w-5" />
-                    <div className="pt-1 text-xs">
-                      {video.stats.comments || 'Wdyt'}
-                    </div>
+            <Dialog.Root>
+              <Dialog.Trigger>
+                <div className="flex flex-col items-center">
+                  <CommentOutline className="h-5 w-5" />
+                  <div className="pt-1 text-xs">
+                    {video.stats.comments || 'Wdyt'}
                   </div>
-                </Tooltip>
-              }
-              video={video}
-            />
+                </div>
+              </Dialog.Trigger>
+
+              <Dialog.Content style={{ maxWidth: 450 }}>
+                <Flex gap="3" justify="between" pb="2">
+                  <Dialog.Title size="6">Comments</Dialog.Title>
+                  <DialogClose>
+                    <IconButton variant="ghost" color="gray">
+                      <TimesOutline outlined={false} className="h-4 w-4" />
+                    </IconButton>
+                  </DialogClose>
+                </Flex>
+
+                <ByteComments video={video} />
+              </Dialog.Content>
+            </Dialog.Root>
           </div>
           <div className="w-full text-center text-white md:text-inherit">
             <MirrorVideo video={video}>
@@ -54,7 +69,7 @@ const ByteActions: FC<Props> = ({ video }) => {
             </MirrorVideo>
           </div>
           <div className="hidden w-full text-center md:block">
-            <CollectVideo video={video} variant="none" />
+            <CollectVideo video={video} variant="ghost" />
             <div className="text-center text-xs leading-3">
               {video.stats?.countOpenActions || t`Collect`}
             </div>

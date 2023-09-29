@@ -158,7 +158,7 @@ const ByteVideo: FC<Props> = ({
         <div className="absolute bottom-[15%] right-2 z-[1] md:hidden">
           <ByteActions video={targetPublication} />
           <div className="pt-3 text-center text-white md:text-gray-500">
-            <CollectVideo video={targetPublication} variant="none" />
+            <CollectVideo video={targetPublication} variant="ghost" />
             <div className="text-xs">
               {targetPublication.stats?.countOpenActions || t`Collect`}
             </div>

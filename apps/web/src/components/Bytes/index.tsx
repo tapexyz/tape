@@ -3,11 +3,7 @@ import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import MetaTags from '@components/Common/MetaTags'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { Analytics, TRACK } from '@lenstube/browser'
-import {
-  LENS_CUSTOM_FILTERS,
-  LENSTUBE_BYTES_APP_ID,
-  SCROLL_ROOT_MARGIN
-} from '@lenstube/constants'
+import { LENS_CUSTOM_FILTERS, SCROLL_ROOT_MARGIN } from '@lenstube/constants'
 import type {
   AnyPublication,
   ExplorePublicationRequest,
@@ -17,6 +13,7 @@ import {
   ExplorePublicationsOrderByType,
   ExplorePublicationType,
   LimitType,
+  PublicationMetadataMainFocusType,
   useExplorePublicationsLazyQuery,
   usePublicationLazyQuery
 } from '@lenstube/lens'
@@ -32,7 +29,7 @@ const request: ExplorePublicationRequest = {
   where: {
     publicationTypes: [ExplorePublicationType.Post],
     metadata: {
-      publishedOn: [LENSTUBE_BYTES_APP_ID]
+      mainContentFocus: [PublicationMetadataMainFocusType.ShortVideo]
     },
     customFilters: LENS_CUSTOM_FILTERS
   },
