@@ -87,13 +87,13 @@ const BasicInfo: FC<Props> = ({ profile }) => {
 
             <Flex gap="1">
               <BadgeUI
-                variant="soft"
+                className="!bg-white"
                 onClick={() => copy(profile.ownedBy.address)}
               >
                 # {parseInt(profile.id)}
               </BadgeUI>
               <BadgeUI
-                variant="soft"
+                className="!bg-white"
                 onClick={() => copy(profile.ownedBy.address)}
               >
                 Joined {getRelativeTime(profile.createdAt)}
