@@ -101,6 +101,7 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
     },
     skip: !queuedVideo?.txnId?.length && !queuedVideo?.txnHash?.length,
     pollInterval: 1000,
+    notifyOnNetworkStatusChange: true,
     onCompleted: async (data) => {
       if (data.hasTxHashBeenIndexed.__typename === 'TransactionError') {
         return removeFromQueue()

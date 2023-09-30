@@ -79,6 +79,7 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
     },
     skip: !queuedComment?.txnId?.length && !queuedComment?.txnHash?.length,
     pollInterval: 1000,
+    notifyOnNetworkStatusChange: true,
     onCompleted: async (data) => {
       if (data.hasTxHashBeenIndexed.__typename === 'TransactionError') {
         return removeFromQueue()
