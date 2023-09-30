@@ -35,7 +35,7 @@ const CrossChainCollects = () => {
     return <CrossChainCollectsShimmer />
   }
 
-  if (error) {
+  if (error || !data?.explorePublications) {
     return null
   }
 
