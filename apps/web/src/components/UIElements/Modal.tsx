@@ -69,7 +69,7 @@ const Modal: FC<Props> = ({
                           onClick={() => onClose?.()}
                         >
                           <TimesOutline
-                            className="m-2 h-4 w-4 p-0.5"
+                            className="m-1 h-4 w-4 p-0.5"
                             outlined={false}
                           />
                         </button>

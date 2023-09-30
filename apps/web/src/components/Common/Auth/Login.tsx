@@ -1,6 +1,6 @@
 import { Analytics, TRACK } from '@lenstube/browser'
 import { ERROR_MESSAGE, POLYGON_CHAIN_ID } from '@lenstube/constants'
-import { logger, useIsMounted } from '@lenstube/generic'
+import { logger } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import {
   useAuthenticateMutation,
@@ -20,7 +20,6 @@ import ConnectWalletButton from './ConnectWalletButton'
 
 const Login = () => {
   const router = useRouter()
-  const { mounted } = useIsMounted()
   const { chain } = useNetwork()
   const { address, connector, isConnected } = useAccount()
   const [loading, setLoading] = useState(false)
@@ -148,13 +147,6 @@ const Login = () => {
     setShowCreateChannel,
     signMessageAsync
   ])
-
-  useEffect(() => {
-    if (isReadyToSign && mounted) {
-      handleSign()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isConnected, mounted])
 
   return (
     <ConnectWalletButton handleSign={() => handleSign()} signing={loading} />

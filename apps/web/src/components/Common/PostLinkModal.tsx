@@ -128,7 +128,8 @@ const PostLinkModal: FC<Props> = ({ show, setShow }) => {
     })
     setLoading(false)
     reset()
-    toast.success('Posted successfully')
+    setBasicNftMetadata(defaults)
+    toast.success('Link posted')
     setShow(false)
   }
 
@@ -271,7 +272,7 @@ const PostLinkModal: FC<Props> = ({ show, setShow }) => {
       locale: getUserLocale(),
       mainContentFocus: PublicationMainFocus.Link,
       external_url: LENSTUBE_WEBSITE_URL,
-      name: 'Check out this drop 📼 \n',
+      name: `${activeChannel?.handle} shared a link`,
       attributes: [
         {
           displayType: PublicationMetadataDisplayTypes.String,
@@ -284,7 +285,7 @@ const PostLinkModal: FC<Props> = ({ show, setShow }) => {
           value: LENSTUBE_APP_ID
         }
       ],
-      content: link,
+      content: `Check out this drop 📼 \n${link}`,
       image: null,
       media: [],
       appId: LENSTUBE_APP_ID

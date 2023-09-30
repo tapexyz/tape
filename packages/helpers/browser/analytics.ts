@@ -38,6 +38,9 @@ export const TRACK = {
     },
     COLLECT: 'Collect publication'
   },
+  OPEN_ACTIONS: {
+    COLLECT_ZORA: 'Collect Zora'
+  },
   AUTH: {
     CONNECT_WALLET: 'Connect Wallet',
     SIGN_IN_WITH_LENS: 'Sign in with Lens',

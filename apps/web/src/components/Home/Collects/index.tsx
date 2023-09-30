@@ -15,7 +15,7 @@ import SharedLink from './SharedLink'
 const CrossChainCollects = () => {
   const request = {
     sortCriteria: PublicationSortCriteria.Latest,
-    limit: 30,
+    limit: 10,
     noRandomize: false,
     sources: [LENSTUBE_APP_ID],
     publicationTypes: [PublicationTypes.Post],
@@ -45,8 +45,15 @@ const CrossChainCollects = () => {
         </div>
       </div>
       <div className="grid gap-x-4 gap-y-2 md:grid-cols-4 md:gap-y-8 lg:grid-cols-5">
-        {links?.map(({ metadata }: Publication, i) => {
-          return <SharedLink metadata={metadata} key={i} />
+        {links?.map(({ metadata, profile, createdAt }: Publication, i) => {
+          return (
+            <SharedLink
+              key={i}
+              metadata={metadata}
+              sharedBy={profile}
+              postedAt={createdAt}
+            />
+          )
         })}
       </div>
       <hr className="border-theme my-8 border-opacity-10 dark:border-gray-700" />

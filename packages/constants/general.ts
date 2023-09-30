@@ -142,8 +142,7 @@ export const LENSTUBE_ROADMAP_URL = 'https://roadmap.lenstube.xyz'
 // admin
 export const ADMIN_IDS = IS_MAINNET ? ['0x2d'] : ['0x2f']
 export const MOD_IDS = IS_MAINNET ? [...ADMIN_IDS, '0x24'] : ['0x2f']
-export const LENSTUBE_DONATION_ADDRESS =
-  '0xB89560D7b33ea8d787EaaEfbcE1268f8991Db9E1'
+export const LENSTUBE_ADDRESS = '0xB89560D7b33ea8d787EaaEfbcE1268f8991Db9E1'
 
 // lens
 export const LENS_CUSTOM_FILTERS = [CustomFiltersTypes.Gardeners]

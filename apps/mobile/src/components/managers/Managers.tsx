@@ -1,4 +1,4 @@
-import { LENSTUBE_DONATION_ADDRESS } from '@lenstube/constants'
+import { LENSTUBE_ADDRESS } from '@lenstube/constants'
 import { getRandomProfilePicture, shortenAddress } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import { useAllProfilesQuery } from '@lenstube/lens'
@@ -53,7 +53,7 @@ const Addresses = () => {
 
   const sampleAddresses = [
     '0xa8535b8049948bE1bFeb1404daEabbD407792411',
-    LENSTUBE_DONATION_ADDRESS,
+    LENSTUBE_ADDRESS,
     '0xA8C62111e4652b07110A0FC81816303c42632f64',
     '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
   ]
