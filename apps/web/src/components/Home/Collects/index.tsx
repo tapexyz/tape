@@ -1,4 +1,5 @@
 import CollectOutline from '@components/Common/Icons/CollectOutline'
+import CrossChainCollectsShimmer from '@components/Shimmers/CrossChainCollectsShimmer'
 import { LENS_CUSTOM_FILTERS, LENSTUBE_APP_ID } from '@lenstube/constants'
 import type { Publication } from '@lenstube/lens'
 import {
@@ -25,10 +26,14 @@ const CrossChainCollects = () => {
     }
   }
 
-  const { data, error } = useExploreQuery({
+  const { data, error, loading } = useExploreQuery({
     variables: { request, channelId: null }
   })
   const links = data?.explorePublications?.items as Publication[]
+
+  if (loading) {
+    return <CrossChainCollectsShimmer />
+  }
 
   if (error) {
     return null
