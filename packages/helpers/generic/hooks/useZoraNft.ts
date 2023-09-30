@@ -19,7 +19,6 @@ export const useZoraNft = ({
   data: ZoraNft
   loading: boolean
   error: unknown
-  loadNftDetails: () => Promise<ZoraNft>
 } => {
   const loadNftDetails = async () => {
     const response = await axios.get(`${NFTS_URL}/zora`, {
@@ -35,5 +34,5 @@ export const useZoraNft = ({
     { enabled }
   )
 
-  return { data, loading: isLoading, error, loadNftDetails }
+  return { data, loading: isLoading, error }
 }
