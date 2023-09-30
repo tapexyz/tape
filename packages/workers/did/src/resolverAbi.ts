@@ -13,4 +13,4 @@ export const resolverAbi = [
     stateMutability: 'view',
     type: 'function'
   }
-];
+]

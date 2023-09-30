@@ -1,16 +1,16 @@
-import type { Env, WorkerRequest } from '../types';
+import type { Env, WorkerRequest } from '../types'
 
 const buildRequest = (
   request: Request,
   env: Env,
   ctx: ExecutionContext
 ): WorkerRequest => {
-  const temp: WorkerRequest = request as WorkerRequest;
-  temp.req = request;
-  temp.env = env;
-  temp.ctx = ctx;
+  const temp: WorkerRequest = request as WorkerRequest
+  temp.req = request
+  temp.env = env
+  temp.ctx = ctx
 
-  return temp;
-};
+  return temp
+}
 
-export default buildRequest;
+export default buildRequest
