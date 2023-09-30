@@ -94,7 +94,7 @@ const Collect = ({ nft, link }: { nft: ZoraNft; link: string }) => {
   )
 
   return (
-    <div className="mt-4 flex items-center justify-between">
+    <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
       <div>
         <div className="flex items-center space-x-4">
           <button
