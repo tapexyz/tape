@@ -67,7 +67,6 @@ export default async (request: WorkerRequest) => {
 
     return new Response(JSON.stringify({ success: true, dids }))
   } catch (error) {
-    console.log('🚀 ~ file: resolveDid.ts:75 ~ error:', error)
     throw error
   }
 }
