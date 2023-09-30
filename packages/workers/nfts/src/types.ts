@@ -1,4 +1,4 @@
-import { IRequestStrict } from "itty-router"
+import { IRequestStrict } from 'itty-router'
 
 export interface Env {
   API_KEY: string
