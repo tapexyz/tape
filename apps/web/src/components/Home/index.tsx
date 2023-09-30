@@ -25,11 +25,11 @@ const Home: NextPage = () => {
       <MetaTags title={t`Home`} />
       {/* <GitcoinAlert /> */}
       <DispatcherAlert />
-      <BytesSection />
       {getIsFeatureEnabled(
         FEATURE_FLAGS.CROSS_CHAIN_COLLECTS,
         selectedSimpleProfile?.id
       ) && <CrossChainCollects />}
+      <BytesSection />
       <HomeFeed />
     </>
   )

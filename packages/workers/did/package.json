@@ -1,0 +1,22 @@
+{
+  "name": "@workers/did",
+  "version": "0.0.0",
+  "private": true,
+  "license": "AGPL-3.0",
+  "scripts": {
+    "worker:dev": "wrangler dev",
+    "worker:deploy": "wrangler deploy",
+    "typecheck": "tsc --pretty"
+  },
+  "dependencies": {
+    "itty-router": "^4.0.23",
+    "viem": "^1.13.2",
+    "zod": "^3.22.2"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20230922.0",
+    "@lenstube/config": "*",
+    "typescript": "^5.2.2",
+    "wrangler": "3.10.0"
+  }
+}
