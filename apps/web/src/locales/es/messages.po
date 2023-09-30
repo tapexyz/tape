@@ -18,6 +18,10 @@ msgstr ""
 "X-Crowdin-File: messages.po\n"
 "X-Crowdin-File-ID: 5\n"
 
+#: src/components/Home/Collects/zora/Collect.tsx:113
+msgid "{nftPriceInEth} ETH + {platformFeesInEth} ETH mint fees"
+msgstr ""
+
 #: src/components/Channel/Tabs/index.tsx:196
 #~ msgid "About"
 #~ msgstr "About"
@@ -30,11 +34,11 @@ msgstr "Permisos de acceso"
 msgid "Action Required"
 msgstr "Acción requerida"
 
-#: src/components/Upload/CollectModule/Splits.tsx:206
+#: src/components/Upload/CollectModule/Splits.tsx:205
 msgid "Add Donation"
 msgstr "Añadir donación"
 
-#: src/components/Upload/CollectModule/Splits.tsx:191
+#: src/components/Upload/CollectModule/Splits.tsx:190
 msgid "Add recipient"
 msgstr "Añadir destinatario"
 
@@ -51,8 +55,8 @@ msgid "All Notifications"
 msgstr "Todas las notificaciones"
 
 #: src/components/Common/UserMenu.tsx:326
-msgid "All services are online"
-msgstr "Todos los servicios están en línea"
+#~ msgid "All services are online"
+#~ msgstr "Todos los servicios están en línea"
 
 #: src/components/Settings/Permissions/Modules/index.tsx:153
 #: src/components/Settings/Permissions/Modules/index.tsx:165
@@ -94,7 +98,7 @@ msgstr "Cualquier persona"
 msgid "Anyone can comment and mirror"
 msgstr "Cualquiera puede comentar y espejar"
 
-#: src/components/Common/UserMenu.tsx:216
+#: src/components/Common/UserMenu.tsx:203
 msgid "App Info"
 msgstr "Información de aplicación"
 
@@ -140,6 +144,10 @@ msgstr "Categoría"
 msgid "Change"
 msgstr "Cambiar"
 
+#: src/components/Common/Auth/Login.tsx:172
+msgid "Change network"
+msgstr ""
+
 #: src/components/Settings/BasicInfo.tsx:317
 msgid "Channel"
 msgstr "Canal"
@@ -156,7 +164,7 @@ msgstr "Descripción del canal"
 msgid "Channel image updated"
 msgstr "Imagen del canal actualizada"
 
-#: src/components/Common/UserMenu.tsx:274
+#: src/components/Common/UserMenu.tsx:262
 #: src/components/Settings/index.tsx:60
 msgid "Channel Settings"
 msgstr "Ajustes del canal"
@@ -176,6 +184,8 @@ msgstr "Reclamar Manejo"
 
 #: src/components/Bytes/ByteActions.tsx:75
 #: src/components/Bytes/ByteVideo.tsx:165
+#: src/components/Home/Collects/zora/ZoraNft.tsx:46
+#: src/components/Home/Collects/zora/ZoraNft.tsx:70
 msgid "Collect"
 msgstr "Recoger"
 
@@ -231,6 +241,7 @@ msgstr "recogido tu"
 msgid "Collecting"
 msgstr "Recolectando"
 
+#: src/components/Home/Collects/zora/Metadata.tsx:54
 #: src/components/Watch/VideoMeta.tsx:59
 msgid "collects"
 msgstr "recolecta"
@@ -282,15 +293,19 @@ msgstr "Confirmar"
 msgid "Confirmation"
 msgstr "Confirmación"
 
-#: src/components/Common/Auth/ConnectWalletButton.tsx:88
+#: src/components/Common/Auth/ConnectWalletButton.tsx:76
 msgid "Connect"
 msgstr "Conectar"
+
+#: src/components/Common/Auth/Login.tsx:175
+msgid "Connect to the correct network to continue"
+msgstr ""
 
 #: src/pages/auth.tsx:37
 msgid "Connect Wallet & Sign with Lens to continue,"
 msgstr "Conecte Wallet y Firmar con la lente para continuar,"
 
-#: src/components/Common/UserMenu.tsx:190
+#: src/components/Common/UserMenu.tsx:177
 msgid "Connected as"
 msgstr "Conectado como"
 
@@ -304,17 +319,22 @@ msgstr "Copiado al portapapeles"
 
 #: src/components/Common/CreateChannel.tsx:61
 #: src/components/Common/CreateChannel.tsx:84
+#: src/components/Common/Header.tsx:131
 msgid "Create"
 msgstr "Crear"
 
 #: src/components/Common/CreateChannel.tsx:131
-#: src/components/Common/UserMenu.tsx:264
+#: src/components/Common/UserMenu.tsx:251
 msgid "Create Channel"
 msgstr "Crear canal"
 
 #: src/components/Common/CreateChannel.tsx:115
 msgid "Creating..."
 msgstr "Creando..."
+
+#: src/components/Home/Collects/index.tsx:48
+msgid "Cross Chain Collects"
+msgstr ""
 
 #: src/components/Settings/Membership.tsx:242
 msgid "Currency"
@@ -426,6 +446,10 @@ msgstr "Error al cargar el archivo"
 msgid "Estimated Cost to Upload"
 msgstr "Costo estimado para subir"
 
+#: src/components/Home/Collects/zora/Metadata.tsx:60
+msgid "ETH"
+msgstr ""
+
 #: src/components/Common/MobileBottomNav.tsx:62
 #: src/components/Common/Sidebar.tsx:138
 #: src/components/Common/Sidebar.tsx:157
@@ -492,7 +516,7 @@ msgstr "Señal alta"
 #: src/components/Common/MobileBottomNav.tsx:30
 #: src/components/Common/Sidebar.tsx:63
 #: src/components/Common/Sidebar.tsx:82
-#: src/components/Home/index.tsx:17
+#: src/components/Home/index.tsx:18
 msgid "Home"
 msgstr "Inicio"
 
@@ -582,7 +606,7 @@ msgstr "Me gusta"
 msgid "liked"
 msgstr "le gustó"
 
-#: src/components/Channel/Tabs/PinnedVideo.tsx:249
+#: src/components/Channel/Tabs/PinnedVideo.tsx:253
 #: src/components/Common/VideoCard/index.tsx:94
 #: src/components/Home/BytesSection.tsx:137
 #: src/components/Watch/SuggestedVideoCard.tsx:116
@@ -689,9 +713,13 @@ msgstr "Más acerca de tu canal"
 #~ msgid "My Saved List"
 #~ msgstr ""
 
+#: src/components/Common/Header.tsx:144
+msgid "New Upload"
+msgstr ""
+
 #: src/components/Common/Header.tsx:128
-msgid "New video"
-msgstr "Nuevo vídeo"
+#~ msgid "New video"
+#~ msgstr "Nuevo vídeo"
 
 #: src/components/Watch/Comments/CommentsFilter.tsx:59
 msgid "Newest first"
@@ -713,7 +741,7 @@ msgstr "No se encontraron bytes"
 msgid "No mirrors found"
 msgstr "No se encontraron réplicas"
 
-#: src/components/Channel/Tabs/CollectedNFTs.tsx:34
+#: src/components/Channel/Tabs/CollectedNFTs.tsx:48
 msgid "No NFTs found"
 msgstr "NFTs no encontrados"
 
@@ -835,7 +863,11 @@ msgstr "Fijar vídeo"
 msgid "Pinning video..."
 msgstr "Fijando vídeo..."
 
-#: src/components/Common/Auth/Login.tsx:89
+#: src/components/Common/Auth/Login.tsx:185
+msgid "Please change your network wallet!"
+msgstr ""
+
+#: src/components/Common/Auth/Login.tsx:93
 msgid "Please connect to your wallet"
 msgstr "Por favor, conéctese a su cartera"
 
@@ -979,7 +1011,7 @@ msgid "Save to List"
 msgstr "Guardar en lista"
 
 #: src/components/Channel/SavedList.tsx:75
-#: src/components/Common/UserMenu.tsx:241
+#: src/components/Common/UserMenu.tsx:228
 msgid "Saved Videos"
 msgstr "Vídeos guardados"
 
@@ -987,7 +1019,7 @@ msgstr "Vídeos guardados"
 msgid "Scam"
 msgstr "Scam"
 
-#: src/components/Common/Header.tsx:140
+#: src/components/Common/Header.tsx:168
 msgid "Search"
 msgstr "Buscar"
 
@@ -1021,6 +1053,14 @@ msgstr "Establecer preferencia"
 msgid "Share"
 msgstr "Compartir"
 
+#: src/components/Common/PostLinkModal.tsx:317
+msgid "Share a Collect"
+msgstr ""
+
+#: src/components/Common/Header.tsx:154
+msgid "Share Collect"
+msgstr ""
+
 #: src/components/Upload/CollectModule/FeeCollectForm.tsx:39
 msgid "Should to greater than or equal to zero"
 msgstr "Debe ser mayor o igual a cero"
@@ -1047,11 +1087,11 @@ msgstr "Mostrar más comentarios"
 msgid "Show more replies"
 msgstr "Mostrar más respuestas"
 
-#: src/components/Common/Auth/ConnectWalletButton.tsx:52
+#: src/components/Common/Auth/ConnectWalletButton.tsx:50
 msgid "Sign In"
 msgstr "Iniciar sesión"
 
-#: src/components/Common/Auth/Login.tsx:138
+#: src/components/Common/Auth/Login.tsx:142
 msgid "Sign in failed"
 msgstr "Error al iniciar sesión"
 
@@ -1059,7 +1099,7 @@ msgstr "Error al iniciar sesión"
 msgid "Sign In Required"
 msgstr "Inicio de sesión requerido"
 
-#: src/components/Common/UserMenu.tsx:304
+#: src/components/Common/UserMenu.tsx:292
 msgid "Sign out"
 msgstr "Cerrar sesión"
 
@@ -1068,8 +1108,8 @@ msgid "Skip the video upload (Only use this if you know what your doing!)"
 msgstr "Omitir la subida de vídeo (¡Úsalo si sabes lo que haces!)"
 
 #: src/components/Common/UserMenu.tsx:327
-msgid "Some services are offline"
-msgstr "Algunos servicios están desconectados"
+#~ msgid "Some services are offline"
+#~ msgstr "Algunos servicios están desconectados"
 
 #: src/components/ReportPublication/index.tsx:118
 msgid "Something Else"
@@ -1079,11 +1119,11 @@ msgstr "Otra cosa"
 msgid "Split addresses should be unique"
 msgstr "Las direcciones separadas deben ser únicas"
 
-#: src/components/Upload/CollectModule/Splits.tsx:217
+#: src/components/Upload/CollectModule/Splits.tsx:216
 msgid "Split evenly"
 msgstr "Dividir uniformemente"
 
-#: src/components/Upload/CollectModule/Splits.tsx:124
+#: src/components/Upload/CollectModule/Splits.tsx:123
 msgid "Split revenue"
 msgstr "Dividir ingresos"
 
@@ -1148,23 +1188,31 @@ msgstr "La suma de todas las divisiones debe ser 100%"
 msgid "Support Lenstube on"
 msgstr "Soporte Lenstube activado"
 
+#: src/components/Common/PostLinkModal.tsx:318
+msgid "Supported now - Zora"
+msgstr ""
+
 #: src/components/Watch/CollectVideo/BalanceAlert.tsx:37
 msgid "Swap"
 msgstr "Intercambiar"
 
-#: src/components/Common/UserMenu.tsx:251
+#: src/components/Common/UserMenu.tsx:238
 msgid "Switch channel"
 msgstr "Cambiar canal"
 
 #: src/components/Common/Auth/ConnectWalletButton.tsx:73
-msgid "Switch network"
-msgstr "Cambiar red"
+#~ msgid "Switch network"
+#~ msgstr "Cambiar red"
 
-#: src/components/Common/UserMenu.tsx:294
+#: src/components/Common/Auth/Login.tsx:189
+msgid "Switch Network"
+msgstr ""
+
+#: src/components/Common/UserMenu.tsx:282
 msgid "Switch to Dark"
 msgstr "Cambiar a Oscuro"
 
-#: src/components/Common/UserMenu.tsx:294
+#: src/components/Common/UserMenu.tsx:282
 msgid "Switch to Light"
 msgstr "Cambiar a Luz"
 
@@ -1303,7 +1351,7 @@ msgstr "suscripciones totales"
 msgid "total videos"
 msgstr "total de vídeos"
 
-#: src/components/Channel/Tabs/PinnedVideo.tsx:99
+#: src/components/Channel/Tabs/PinnedVideo.tsx:101
 #: src/components/Common/VideoCard/VideoOptions.tsx:126
 msgid "Transaction submitted"
 msgstr "Transacción enviada"
@@ -1324,7 +1372,7 @@ msgstr "Colecciones ilimitadas"
 msgid "Unlimited duration"
 msgstr "Duración ilimitada"
 
-#: src/components/Channel/Tabs/PinnedVideo.tsx:172
+#: src/components/Channel/Tabs/PinnedVideo.tsx:174
 msgid "Unpinning video..."
 msgstr "Desanclando vídeo..."
 
@@ -1451,7 +1499,7 @@ msgstr "Vídeos"
 msgid "View Metadata"
 msgstr "Ver metadatos"
 
-#: src/components/Channel/Tabs/PinnedVideo.tsx:266
+#: src/components/Channel/Tabs/PinnedVideo.tsx:270
 msgid "View more"
 msgstr "Ver más"
 
@@ -1475,7 +1523,7 @@ msgstr "Violencia"
 msgid "Visit"
 msgstr "Visita"
 
-#: src/components/Common/Auth/ConnectWalletButton.tsx:90
+#: src/components/Common/Auth/ConnectWalletButton.tsx:78
 msgid "Wallet"
 msgstr "Cartera"
 
@@ -1495,7 +1543,7 @@ msgstr "Sitio web"
 msgid "Who can collect this video?"
 msgstr "¿Quién puede recoger este video?"
 
-#: src/components/Common/Auth/ConnectWalletButton.tsx:54
+#: src/components/Common/Auth/ConnectWalletButton.tsx:52
 msgid "with Lens"
 msgstr "con lente"
 
@@ -1518,6 +1566,10 @@ msgstr "¿Le gustaría fijar el precio de recaudación de este vídeo?"
 #: src/components/Watch/Comments/Comment.tsx:194
 msgid "Write a reply"
 msgstr "Escribe una respuesta"
+
+#: src/components/Common/Auth/Login.tsx:164
+msgid "Wrong Network"
+msgstr ""
 
 #: src/components/UIElements/RadioInput.tsx:29
 msgid "Yes"
@@ -1547,11 +1599,10 @@ msgstr "Tu dirección no parece tener lente handle."
 msgid "your channel"
 msgstr "tu canal"
 
-#: src/components/Common/UserMenu.tsx:231
+#: src/components/Common/UserMenu.tsx:218
 msgid "Your Channel"
 msgstr "Tu Canal"
 
 #: src/components/Upload/BundlrInfo.tsx:171
 msgid "Your Storage Balance"
 msgstr "Tu saldo de almacenamiento"
-

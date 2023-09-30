@@ -5,6 +5,7 @@ import { Input } from '@components/UIElements/Input'
 import Modal from '@components/UIElements/Modal'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import { Analytics, getUserLocale, TRACK } from '@lenstube/browser'
 import {
   ERROR_MESSAGE,
@@ -82,6 +83,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
   const watchTipQuantity = watch('tipQuantity', 1)
 
   const { openConnectModal } = useConnectModal()
+  const handleWrongNetwork = useHandleWrongNetwork()
   const { cache } = useApolloClient()
   const [loading, setLoading] = useState(false)
   const selectedSimpleProfile = useAuthPersistStore(
@@ -386,6 +388,10 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
     if (!selectedSimpleProfile?.id) {
       return openConnectModal?.()
     }
+    if (handleWrongNetwork()) {
+      return
+    }
+
     if (video.isDataAvailability && !isSponsored) {
       return toast.error(
         t`Momoka is currently in beta - during this time certain actions are not available to all channels.`

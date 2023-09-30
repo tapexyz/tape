@@ -2,6 +2,7 @@ import { FOLLOW_NFT_ABI } from '@abis/FollowNFT'
 import FollowingOutline from '@components/Common/Icons/FollowingOutline'
 import type { ButtonSizes, ButtonVariants } from '@components/UIElements/Button'
 import { Button } from '@components/UIElements/Button'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import { Analytics, TRACK } from '@lenstube/browser'
 import { REQUESTING_SIGNATURE_MESSAGE } from '@lenstube/constants'
 import { getSignature } from '@lenstube/generic'
@@ -40,6 +41,7 @@ const UnSubscribe: FC<Props> = ({
     (state) => state.selectedSimpleProfile
   )
   const { openConnectModal } = useConnectModal()
+  const handleWrongNetwork = useHandleWrongNetwork()
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message)
@@ -101,6 +103,10 @@ const UnSubscribe: FC<Props> = ({
     if (!selectedSimpleProfile?.id) {
       return openConnectModal?.()
     }
+    if (handleWrongNetwork()) {
+      return
+    }
+
     setLoading(true)
     createUnsubscribeTypedData({
       variables: {
