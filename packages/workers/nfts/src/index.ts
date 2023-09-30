@@ -1,22 +1,26 @@
-import { createCors, error, json, Router } from 'itty-router'
+import { createCors, error, json, Router, status } from 'itty-router'
 
 import type { Env } from './types'
-import getNfts from './getNfts'
-import getZoraNfts from './getZoraNfts'
+import getNfts from './handlers/getNfts'
+import buildRequest from './helper/buildRequest'
+import getZoraNft from './handlers/getZoraNft'
 
 const { preflight, corsify } = createCors({
   origins: ['*'],
-  methods: ['HEAD', 'GET', 'POST']
+  methods: ['HEAD', 'GET']
 })
 
 const router = Router()
 
-router.all('*', preflight)
-router.get('/', () => new Response('gm 👋'))
-router.get('/zora', () => getZoraNfts())
-router.get('/:handle/:limit/:cursor?', ({ params }, env) =>
-  getNfts(env, params.handle, params.limit)
-)
+router
+  .all('*', preflight)
+  .head('*', () => status(200))
+  .get('/', () => new Response('gm 👋'))
+  .get('/zora', getZoraNft)
+  .get('/:handle/:limit/:cursor?', ({ params }, env) =>
+    getNfts(env, params.handle, params.limit)
+  )
+  .all('*', () => error(404))
 
 const routerHandleStack = (request: Request, env: Env, ctx: ExecutionContext) =>
   router.handle(request, env, ctx).then(json)
@@ -34,6 +38,18 @@ const handleFetch = async (
 }
 
 export default {
-  fetch: (request: Request, env: Env, context: ExecutionContext) =>
-    handleFetch(request, env, context).then(corsify)
+  async fetch(
+    request: Request,
+    env: Env,
+    ctx: ExecutionContext
+  ): Promise<Response> {
+    const incomingRequest = buildRequest(request, env, ctx)
+
+    return await router
+      .handle(incomingRequest)
+      .then(corsify)
+      .catch(() => {
+        return error(500, 'Server error')
+      })
+  }
 }

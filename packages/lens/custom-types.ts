@@ -13,7 +13,6 @@ import type {
   SimpleCollectModuleSettings,
   TimedFeeCollectModuleSettings
 } from '@lenstube/lens'
-import type { NFTMetadata } from '@thirdweb-dev/sdk'
 
 export type VideoDraft = {
   preview: string
@@ -223,35 +222,35 @@ export type SimpleProfile = Pick<
   'id' | 'handle' | 'ownedBy' | 'isDefault' | 'dispatcher' | 'stats' | 'picture'
 >
 
-export type CrossChainCollect = {
-  token: {
-    name: string
-    description: string
-    collectionName: string
-    collectionAddress: string
-    tokenId: string
-    owner: string
-    content: {
-      url: string
-      mediaEncoding: {
-        large: string
-        poster: string
-        thumbnail: string
-      }
-    }
-    image: {
-      url: string
-      mediaEncoding: {
-        large: string
-        poster: string
-        thumbnail: string
-      }
-    }
-    mintInfo: {
-      mintContext: {
-        blockTimestamp: string
-      }
-    }
-    metadata: NFTMetadata
-  }
+export interface NftProvider {
+  provider: 'zora' | 'basepaint'
+}
+
+export interface BasicNftMetadata extends NftProvider {
+  chain: string
+  address: string
+  token: string
+}
+
+export type ZoraNft = {
+  chainId: number
+  name: string
+  description: string
+  coverImageUrl: string
+  mediaUrl: string
+  tokenId: string
+  address: `0x${string}`
+  owner: `0x${string}`
+  creator: `0x${string}`
+  maxSupply: number
+  remainingSupply: number
+  totalMinted: number
+  isOpenEdition: boolean
+  price: string
+  contractType:
+    | 'ERC721_DROP'
+    | 'ERC721_SINGLE_EDITION'
+    | 'ERC1155_COLLECTION'
+    | 'ERC1155_COLLECTION_TOKEN'
+  contractStandard: 'ERC721' | 'ERC1155'
 }
