@@ -21,7 +21,7 @@ router
     getNfts(env, params.handle, params.limit)
   )
   .all('*', () => error(404))
- 
+
 export default {
   async fetch(
     request: Request,
