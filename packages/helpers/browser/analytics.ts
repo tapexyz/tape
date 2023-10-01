@@ -49,7 +49,7 @@ export const TRACK = {
   CHANNEL: {
     CLICK_CHANNEL_VIDEOS: 'Click Channel Videos',
     CLICK_CHANNEL_BYTES: 'Click Channel Bytes',
-    CLICK_CHANNEL_MIRRORED: 'Click Channel Mirrored',
+    CLICK_CHANNEL_MIRRORS: 'Click Channel Mirrors',
     CLICK_CHANNEL_LINKS: 'Click Channel Links',
     CLICK_CHANNEL_NFTS: 'Click Channel NFTs',
     CLICK_OTHER_CHANNELS: 'Click Other Channels',

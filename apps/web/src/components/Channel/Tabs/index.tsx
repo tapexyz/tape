@@ -39,9 +39,9 @@ const Tabs: FC<Props> = ({ channel }) => {
     switch (router.query.tab) {
       case 'bytes':
         return 1
-      case 'mirrored':
+      case 'mirrors':
         return 2
-      case 'channels':
+      case 'links':
         return 3
       case 'nfts':
         return 4
@@ -110,8 +110,8 @@ const Tabs: FC<Props> = ({ channel }) => {
         </Tab>
         <Tab
           onClick={() => {
-            handleTabChange('mirrored')
-            Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_MIRRORED)
+            handleTabChange('mirrors')
+            Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_MIRRORS)
           }}
           className={({ selected }) =>
             clsx(
@@ -124,7 +124,7 @@ const Tabs: FC<Props> = ({ channel }) => {
         >
           <MirrorOutline className="h-4 w-4" />
           <span>
-            <Trans>Mirrored</Trans>
+            <Trans>Mirrors</Trans>
           </span>
         </Tab>
         <Tab
