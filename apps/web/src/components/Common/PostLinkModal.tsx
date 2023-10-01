@@ -12,7 +12,7 @@ import {
   REQUESTING_SIGNATURE_MESSAGE
 } from '@lenstube/constants'
 import {
-  getCrossChainNftMetadata,
+  getOpenActionNftMetadata,
   getSignature,
   getURLs,
   trimify,
@@ -99,7 +99,7 @@ const PostLinkModal: FC<Props> = ({ show, setShow }) => {
   useEffect(() => {
     if (trimify(link)?.length) {
       const urls = getURLs(link)
-      const nftMetadata = getCrossChainNftMetadata(urls)
+      const nftMetadata = getOpenActionNftMetadata(urls)
       if (nftMetadata) {
         clearErrors()
         return setBasicNftMetadata(nftMetadata)

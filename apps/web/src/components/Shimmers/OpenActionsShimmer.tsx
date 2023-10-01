@@ -1,6 +1,6 @@
 import React, { useMemo } from 'react'
 
-const CrossChainCollectsShimmer = () => {
+const OpenActionsShimmer = () => {
   const cards = useMemo(() => Array(10).fill(1), [])
   return (
     <>
@@ -38,4 +38,4 @@ const CrossChainCollectsShimmer = () => {
   )
 }
 
-export default CrossChainCollectsShimmer
+export default OpenActionsShimmer

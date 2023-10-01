@@ -1,10 +1,10 @@
-import { getCrossChainNftMetadata, getURLs } from '@lenstube/generic'
+import { getOpenActionNftMetadata, getURLs } from '@lenstube/generic'
 import type { MetadataOutput, Profile } from '@lenstube/lens'
 import type { BasicNftMetadata } from '@lenstube/lens/custom-types'
 import type { FC } from 'react'
 import React from 'react'
 
-import ZoraNft from './zora/ZoraNft'
+import ZoraNft from './Zora/ZoraNft'
 
 type Props = {
   metadata: MetadataOutput
@@ -15,7 +15,7 @@ type Props = {
 const SharedLink: FC<Props> = ({ metadata, sharedBy, postedAt }) => {
   const content = metadata.content
   const urls = getURLs(content)
-  const nftMetadata = getCrossChainNftMetadata(urls)
+  const nftMetadata = getOpenActionNftMetadata(urls)
   if (!nftMetadata) {
     return null
   }

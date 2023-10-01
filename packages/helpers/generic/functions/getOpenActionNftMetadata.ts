@@ -18,7 +18,7 @@ const getZoraNFT = (url: string): BasicNftMetadata | null => {
   return null
 }
 
-export const getCrossChainNftMetadata = (
+export const getOpenActionNftMetadata = (
   urls: string[]
 ): BasicNftMetadata | null => {
   if (!urls.length) {

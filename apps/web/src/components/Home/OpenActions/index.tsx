@@ -1,5 +1,5 @@
 import CollectOutline from '@components/Common/Icons/CollectOutline'
-import CrossChainCollectsShimmer from '@components/Shimmers/CrossChainCollectsShimmer'
+import OpenActionsShimmer from '@components/Shimmers/OpenActionsShimmer'
 import { LENS_CUSTOM_FILTERS, LENSTUBE_APP_ID } from '@lenstube/constants'
 import type { Publication } from '@lenstube/lens'
 import {
@@ -13,7 +13,7 @@ import React from 'react'
 
 import SharedLink from './SharedLink'
 
-const CrossChainCollects = () => {
+const OpenActionCollects = () => {
   const request = {
     sortCriteria: PublicationSortCriteria.Latest,
     limit: 10,
@@ -32,7 +32,7 @@ const CrossChainCollects = () => {
   const links = data?.explorePublications?.items as Publication[]
 
   if (loading) {
-    return <CrossChainCollectsShimmer />
+    return <OpenActionsShimmer />
   }
 
   if (error || !data?.explorePublications?.items?.length) {
@@ -66,4 +66,4 @@ const CrossChainCollects = () => {
   )
 }
 
-export default CrossChainCollects
+export default OpenActionCollects

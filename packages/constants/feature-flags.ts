@@ -3,7 +3,7 @@ import { CORE_MEMBERS } from './verified'
 export enum FEATURE_FLAGS {
   POST_WITH_SOURCE_URL = 'PostWithSource',
   PROFILE_NFTS = 'ProfileNfts',
-  CROSS_CHAIN_COLLECTS = 'CrossChainCollects'
+  OPEN_ACTIONS = 'OpenActions'
 }
 
 type FeatureFlag = {
@@ -21,7 +21,7 @@ export const featureFlags: FeatureFlag[] = [
     enabledFor: CORE_MEMBERS
   },
   {
-    flag: FEATURE_FLAGS.CROSS_CHAIN_COLLECTS,
+    flag: FEATURE_FLAGS.OPEN_ACTIONS,
     enabledFor: CORE_MEMBERS
   }
 ]

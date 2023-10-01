@@ -1,5 +1,5 @@
-import SharedLink from '@components/Home/Collects/SharedLink'
-import CrossChainCollectsShimmer from '@components/Shimmers/CrossChainCollectsShimmer'
+import SharedLink from '@components/Home/OpenActions/SharedLink'
+import OpenActionsShimmer from '@components/Shimmers/OpenActionsShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import {
   LENS_CUSTOM_FILTERS,
@@ -61,7 +61,7 @@ const SharedLinks: FC<Props> = ({ channel }) => {
   })
 
   if (loading) {
-    return <CrossChainCollectsShimmer />
+    return <OpenActionsShimmer />
   }
 
   if (data?.publications?.items?.length === 0) {

@@ -128,7 +128,7 @@ const Header: FC<Props> = ({ className }) => {
                   </button>
                 </Link>
                 {getIsFeatureEnabled(
-                  FEATURE_FLAGS.CROSS_CHAIN_COLLECTS,
+                  FEATURE_FLAGS.OPEN_ACTIONS,
                   selectedSimpleProfile.id
                 ) ? (
                   <DropMenu

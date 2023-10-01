@@ -8,9 +8,9 @@ import type { NextPage } from 'next'
 import React, { useEffect } from 'react'
 
 import BytesSection from './BytesSection'
-import CrossChainCollects from './Collects'
 import DispatcherAlert from './DispatcherAlert'
 import HomeFeed from './Feed'
+import OpenActions from './OpenActions'
 
 const Home: NextPage = () => {
   useEffect(() => {
@@ -26,9 +26,9 @@ const Home: NextPage = () => {
       {/* <GitcoinAlert /> */}
       <DispatcherAlert />
       {getIsFeatureEnabled(
-        FEATURE_FLAGS.CROSS_CHAIN_COLLECTS,
+        FEATURE_FLAGS.OPEN_ACTIONS,
         selectedSimpleProfile?.id
-      ) && <CrossChainCollects />}
+      ) && <OpenActions />}
       <BytesSection />
       <HomeFeed />
     </>
