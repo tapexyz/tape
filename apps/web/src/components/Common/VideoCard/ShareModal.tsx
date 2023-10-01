@@ -53,8 +53,8 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
             className="rounded-full"
             target="_blank"
             rel="noreferrer"
-            onClick={() => Analytics.track(TRACK.PUBLICATION.SHARE.LENSTER)}
-            href={getSharableLink('lenster', video)}
+            onClick={() => Analytics.track(TRACK.PUBLICATION.SHARE.HEY)}
+            href={getSharableLink('hey', video)}
           >
             <img
               src={imageCdn(
@@ -63,7 +63,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
               )}
               className="h-10 w-10 max-w-none rounded-full"
               loading="eager"
-              alt="lenster"
+              alt="hey"
               draggable={false}
             />
           </Link>
