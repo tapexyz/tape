@@ -1,6 +1,6 @@
 import { error } from 'itty-router'
-import { Env } from './types'
-import { NFTS_QUERY } from './queries'
+import { Env } from '../types'
+import { NFTS_QUERY } from '../queries'
 
 export default async (
   env: Env,

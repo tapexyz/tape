@@ -1,6 +1,8 @@
+import { Button } from '@components/UIElements/Button'
+import Modal from '@components/UIElements/Modal'
 import { Analytics, TRACK } from '@lenstube/browser'
 import { ERROR_MESSAGE, POLYGON_CHAIN_ID } from '@lenstube/constants'
-import { logger, useIsMounted } from '@lenstube/generic'
+import { logger } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import {
   useAuthenticateMutation,
@@ -10,18 +12,22 @@ import {
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAuthPersistStore, { signIn, signOut } from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
-import { t } from '@lingui/macro'
+import useNetworkStore from '@lib/store/network'
+import { t, Trans } from '@lingui/macro'
 import { useRouter } from 'next/router'
 import React, { useCallback, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import { useAccount, useDisconnect, useNetwork, useSignMessage } from 'wagmi'
+import {
+  useAccount,
+  useDisconnect,
+  useSignMessage,
+  useSwitchNetwork
+} from 'wagmi'
 
 import ConnectWalletButton from './ConnectWalletButton'
 
 const Login = () => {
   const router = useRouter()
-  const { mounted } = useIsMounted()
-  const { chain } = useNetwork()
   const { address, connector, isConnected } = useAccount()
   const [loading, setLoading] = useState(false)
   const { disconnect } = useDisconnect({
@@ -29,6 +35,7 @@ const Login = () => {
       toast.error(error?.data?.message ?? error?.message)
     }
   })
+  const { switchNetwork } = useSwitchNetwork()
 
   const setShowCreateChannel = useChannelStore(
     (state) => state.setShowCreateChannel
@@ -40,6 +47,7 @@ const Login = () => {
   const setSelectedSimpleProfile = useAuthPersistStore(
     (state) => state.setSelectedSimpleProfile
   )
+  const { showSwitchNetwork, setShowSwitchNetwork } = useNetworkStore()
 
   const onError = () => {
     setLoading(false)
@@ -74,8 +82,7 @@ const Login = () => {
     }
   }, [errorAuthenticate, errorChallenge, errorProfiles])
 
-  const isReadyToSign =
-    isConnected && chain?.id === POLYGON_CHAIN_ID && !selectedSimpleProfile?.id
+  const isReadyToSign = isConnected && !selectedSimpleProfile?.id
 
   const handleSign = useCallback(async () => {
     if (!isReadyToSign) {
@@ -149,15 +156,35 @@ const Login = () => {
     signMessageAsync
   ])
 
-  useEffect(() => {
-    if (isReadyToSign && mounted) {
-      handleSign()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isConnected, mounted])
-
   return (
-    <ConnectWalletButton handleSign={() => handleSign()} signing={loading} />
+    <>
+      <Modal
+        title={t`Wrong Network`}
+        show={showSwitchNetwork}
+        panelClassName="max-w-lg"
+        onClose={() => setShowSwitchNetwork(false)}
+      >
+        <h6 className="py-4">
+          <Trans>Connect to the right network to continue</Trans>
+        </h6>
+        <div className="flex justify-end">
+          <Button
+            variant="danger"
+            onClick={() => {
+              if (switchNetwork) {
+                switchNetwork(POLYGON_CHAIN_ID)
+                setShowSwitchNetwork(false)
+              } else {
+                toast.error(t`Please change your network wallet!`)
+              }
+            }}
+          >
+            <Trans>Switch to Polygon</Trans>
+          </Button>
+        </div>
+      </Modal>
+      <ConnectWalletButton handleSign={() => handleSign()} signing={loading} />
+    </>
   )
 }
 

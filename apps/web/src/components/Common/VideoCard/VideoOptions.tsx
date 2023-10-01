@@ -2,6 +2,7 @@ import { LENS_PERIPHERY_ABI } from '@abis/LensPeriphery'
 import Confirm from '@components/UIElements/Confirm'
 import DropMenu from '@components/UIElements/DropMenu'
 import { Menu } from '@headlessui/react'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import { Analytics, TRACK } from '@lenstube/browser'
 import {
   ERROR_MESSAGE,
@@ -66,6 +67,7 @@ const VideoOptions: FC<Props> = ({
   showOnHover = true
 }) => {
   const { openConnectModal } = useConnectModal()
+  const handleWrongNetwork = useHandleWrongNetwork()
   const [showConfirm, setShowConfirm] = useState(false)
 
   const { cache } = useApolloClient()
@@ -102,6 +104,10 @@ const VideoOptions: FC<Props> = ({
     if (!selectedSimpleProfile?.id) {
       return openConnectModal?.()
     }
+    if (handleWrongNetwork()) {
+      return
+    }
+
     setShowReport(true)
   }
 
@@ -195,6 +201,10 @@ const VideoOptions: FC<Props> = ({
     if (!activeChannel) {
       return openConnectModal?.()
     }
+    if (handleWrongNetwork()) {
+      return
+    }
+
     try {
       toast.loading(t`Pinning video...`)
       const metadataUri = await uploadToAr({
@@ -281,6 +291,7 @@ const VideoOptions: FC<Props> = ({
     if (!selectedSimpleProfile?.id) {
       return openConnectModal?.()
     }
+
     if (video.notInterested) {
       removeNotInterested({
         variables: {

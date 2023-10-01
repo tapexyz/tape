@@ -4,9 +4,10 @@ import { NFTS_URL } from '@lenstube/constants'
 import type { Profile } from '@lenstube/lens'
 import type { CustomNftItemType } from '@lenstube/lens/custom-types'
 import { t } from '@lingui/macro'
+import { useQuery } from '@tanstack/react-query'
+import axios from 'axios'
 import type { FC } from 'react'
 import React from 'react'
-import useSWR from 'swr'
 
 import NFTCard from './NFTCard'
 
@@ -15,14 +16,27 @@ type Props = {
 }
 
 const CollectedNFTs: FC<Props> = ({ channel }) => {
-  const { data, isLoading, error } = useSWR(
-    `${NFTS_URL}/${channel.handle}/200`,
-    (url: string) => fetch(url).then((res) => res.json()),
+  const fetchNfts = async () => {
+    const { data } = await axios.get(`${NFTS_URL}/${channel.handle}/200`)
+    return data?.result
+  }
+
+  const { data, isLoading, error } = useQuery(
+    ['nfts', channel.handle],
+    () => fetchNfts().then((res) => res),
     {
-      revalidateOnFocus: false,
-      revalidateIfStale: false
+      enabled: true
     }
   )
+
+  // const { data, isLoading, error } = useSWR(
+  //   `${NFTS_URL}/${channel.handle}/200`,
+  //   (url: string) => fetch(url).then((res) => res.json()),
+  //   {
+  //     revalidateOnFocus: false,
+  //     revalidateIfStale: false
+  //   }
+  // )
 
   const nfts = data?.items
 

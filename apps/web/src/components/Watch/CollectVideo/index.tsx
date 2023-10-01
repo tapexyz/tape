@@ -3,6 +3,7 @@ import CollectOutline from '@components/Common/Icons/CollectOutline'
 import type { ButtonVariants } from '@components/UIElements/Button'
 import { Button } from '@components/UIElements/Button'
 import Tooltip from '@components/UIElements/Tooltip'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import { Analytics, TRACK } from '@lenstube/browser'
 import {
   ERROR_MESSAGE,
@@ -44,6 +45,7 @@ type Props = {
 
 const CollectVideo: FC<Props> = ({ video, variant = 'primary', text }) => {
   const { openConnectModal } = useConnectModal()
+  const handleWrongNetwork = useHandleWrongNetwork()
 
   const [loading, setLoading] = useState(false)
   const [showCollectModal, setShowCollectModal] = useState(false)
@@ -166,6 +168,10 @@ const CollectVideo: FC<Props> = ({ video, variant = 'primary', text }) => {
     if (!selectedSimpleProfile?.id) {
       return openConnectModal?.()
     }
+    if (handleWrongNetwork()) {
+      return
+    }
+
     return setShowCollectModal(true)
   }
 

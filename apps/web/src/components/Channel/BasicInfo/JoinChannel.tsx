@@ -3,6 +3,7 @@ import SuperFollowOutline from '@components/Common/Icons/SuperFollowOutline'
 import type { ButtonSizes, ButtonVariants } from '@components/UIElements/Button'
 import { Button } from '@components/UIElements/Button'
 import Tooltip from '@components/UIElements/Tooltip'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import { Analytics, TRACK } from '@lenstube/browser'
 import {
   ERROR_MESSAGE,
@@ -47,6 +48,7 @@ const JoinChannel: FC<Props> = ({
   const [loading, setLoading] = useState(false)
   const [isAllowed, setIsAllowed] = useState(false)
   const { openConnectModal } = useConnectModal()
+  const handleWrongNetwork = useHandleWrongNetwork()
 
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
@@ -137,6 +139,10 @@ const JoinChannel: FC<Props> = ({
     if (!selectedSimpleProfile?.id) {
       return openConnectModal?.()
     }
+    if (handleWrongNetwork()) {
+      return
+    }
+
     if (!isAllowed) {
       return toast.error(
         `Goto Settings -> Permissions and allow fee follow module for ${followModule?.amount?.asset?.symbol}.`

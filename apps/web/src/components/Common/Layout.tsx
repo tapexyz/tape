@@ -1,5 +1,5 @@
 import { getShowFullScreen, getToastOptions } from '@lenstube/browser'
-import { AUTH_ROUTES, POLYGON_CHAIN_ID } from '@lenstube/constants'
+import { AUTH_ROUTES } from '@lenstube/constants'
 import { useIsMounted } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import { useAllProfilesQuery, useUserSigNoncesQuery } from '@lenstube/lens'
@@ -96,12 +96,10 @@ const Layout: FC<Props> = ({ children }) => {
       replace(`/auth?next=${asPath}`)
     }
     const ownerAddress = selectedSimpleProfile?.ownedBy
-    const isWrongNetworkChain = chain?.id !== POLYGON_CHAIN_ID
     const isSwitchedAccount =
       ownerAddress !== undefined && ownerAddress !== address
     const { accessToken } = hydrateAuthTokens()
-    const shouldLogout =
-      !accessToken || isWrongNetworkChain || isSwitchedAccount
+    const shouldLogout = !accessToken || isSwitchedAccount
 
     if (shouldLogout && selectedSimpleProfile?.id) {
       resetAuthState()

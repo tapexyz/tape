@@ -104,6 +104,7 @@ export const STS_TOKEN_URL = 'https://sts.lenstube.xyz'
 export const HEALTH_URL = 'https://health.lenstube.xyz'
 export const RECS_URL = 'https://recs.lenstube.xyz'
 export const NFTS_URL = 'https://nfts.lenstube.xyz'
+export const DID_URL = 'https://did.lenstube.xyz'
 export const SB_STORAGE_URL =
   'https://hdpmuwmctxbkykamcvpl.supabase.co/storage/v1/object/public/waves'
 
@@ -142,8 +143,7 @@ export const LENSTUBE_ROADMAP_URL = 'https://roadmap.lenstube.xyz'
 // admin
 export const ADMIN_IDS = IS_MAINNET ? ['0x2d'] : ['0x2f']
 export const MOD_IDS = IS_MAINNET ? [...ADMIN_IDS, '0x24'] : ['0x2f']
-export const LENSTUBE_DONATION_ADDRESS =
-  '0xB89560D7b33ea8d787EaaEfbcE1268f8991Db9E1'
+export const LENSTUBE_ADDRESS = '0xB89560D7b33ea8d787EaaEfbcE1268f8991Db9E1'
 
 // lens
 export const LENS_CUSTOM_FILTERS = [CustomFiltersTypes.Gardeners]
@@ -201,3 +201,6 @@ export const ALLOWED_HEX_CHARACTERS = [
   'E',
   'F'
 ]
+
+// cross chain collects
+export const ZORA_MAINNET_CHAINS = ['eth', 'oeth', 'base', 'zora']

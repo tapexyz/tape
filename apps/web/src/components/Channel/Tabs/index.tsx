@@ -2,6 +2,7 @@ import BytesOutline from '@components/Common/Icons/BytesOutline'
 import ChannelOutline from '@components/Common/Icons/ChannelOutline'
 import CollectOutline from '@components/Common/Icons/CollectOutline'
 import InfoOutline from '@components/Common/Icons/InfoOutline'
+import LinkOutline from '@components/Common/Icons/LinkOutline'
 import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import { Tab } from '@headlessui/react'
 import { Analytics, TRACK } from '@lenstube/browser'
@@ -22,6 +23,7 @@ import CollectedNFTs from './CollectedNFTs'
 import MirroredVideos from './MirroredVideos'
 import OtherChannels from './OtherChannels'
 import Others from './Others'
+import SharedLinks from './SharedLinks'
 
 type Props = {
   channel: Profile
@@ -37,14 +39,16 @@ const Tabs: FC<Props> = ({ channel }) => {
     switch (router.query.tab) {
       case 'bytes':
         return 1
-      case 'mirrored':
+      case 'mirrors':
         return 2
-      case 'nfts':
+      case 'links':
         return 3
-      case 'channels':
+      case 'nfts':
         return 4
-      case 'others':
+      case 'channels':
         return 5
+      case 'others':
+        return 6
       default:
         return 0
     }
@@ -106,8 +110,8 @@ const Tabs: FC<Props> = ({ channel }) => {
         </Tab>
         <Tab
           onClick={() => {
-            handleTabChange('mirrored')
-            Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_MIRRORED)
+            handleTabChange('mirrors')
+            Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_MIRRORS)
           }}
           className={({ selected }) =>
             clsx(
@@ -120,7 +124,26 @@ const Tabs: FC<Props> = ({ channel }) => {
         >
           <MirrorOutline className="h-4 w-4" />
           <span>
-            <Trans>Mirrored</Trans>
+            <Trans>Mirrors</Trans>
+          </span>
+        </Tab>
+        <Tab
+          onClick={() => {
+            handleTabChange('links')
+            Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_LINKS)
+          }}
+          className={({ selected }) =>
+            clsx(
+              'flex items-center space-x-2 whitespace-nowrap rounded-full border border-gray-200 px-4 py-2 text-xs font-medium uppercase transition duration-300 ease-in-out focus:outline-none dark:border-gray-800',
+              selected
+                ? 'bg-gray-200 dark:bg-gray-700'
+                : 'hover:bg-gray-200 hover:dark:bg-gray-800'
+            )
+          }
+        >
+          <LinkOutline className="h-4 w-4" />
+          <span>
+            <Trans>Links</Trans>
           </span>
         </Tab>
         {getIsFeatureEnabled(
@@ -190,6 +213,9 @@ const Tabs: FC<Props> = ({ channel }) => {
         </Tab.Panel>
         <Tab.Panel className="focus:outline-none">
           <MirroredVideos channel={channel} />
+        </Tab.Panel>
+        <Tab.Panel className="focus:outline-none">
+          <SharedLinks channel={channel} />
         </Tab.Panel>
         {getIsFeatureEnabled(
           FEATURE_FLAGS.PROFILE_NFTS,

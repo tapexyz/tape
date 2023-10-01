@@ -1,12 +1,7 @@
 import DropMenu, { NextLink } from '@components/UIElements/DropMenu'
 import { Menu } from '@headlessui/react'
 import { Analytics, TRACK } from '@lenstube/browser'
-import {
-  ADMIN_IDS,
-  HEALTH_URL,
-  IS_MAINNET,
-  LENSTUBE_STATUS_PAGE
-} from '@lenstube/constants'
+import { ADMIN_IDS, IS_MAINNET } from '@lenstube/constants'
 import { getProfilePicture, trimLensHandle } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import { useSimpleProfilesLazyQuery } from '@lenstube/lens'
@@ -15,12 +10,10 @@ import { Loader } from '@lenstube/ui'
 import useAuthPersistStore, { signOut } from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
-import clsx from 'clsx'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import React, { useState } from 'react'
 import { toast } from 'react-hot-toast'
-import useSWR from 'swr'
 import { useAccount, useDisconnect } from 'wagmi'
 
 import ChannelOutline from './Icons/ChannelOutline'
@@ -50,12 +43,6 @@ const UserMenu = () => {
   )
   const setSelectedSimpleProfile = useAuthPersistStore(
     (state) => state.setSelectedSimpleProfile
-  )
-
-  const { data: statusData } = useSWR(
-    IS_MAINNET ? HEALTH_URL : null,
-    (url: string) => fetch(url).then((res) => res.json()),
-    { revalidateOnFocus: true }
   )
 
   const { address } = useAccount()
@@ -309,26 +296,6 @@ const UserMenu = () => {
             </>
           )}
         </div>
-        {IS_MAINNET && (
-          <Link
-            className="m-0.5 flex items-center space-x-2 px-5 pb-3 pt-2"
-            href={LENSTUBE_STATUS_PAGE}
-            target="_blank"
-            onClick={() => Analytics.track(TRACK.SYSTEM.MORE_MENU.STATUS)}
-          >
-            <span
-              className={clsx(
-                'h-2 w-2 rounded-full',
-                statusData?.ok ? 'bg-green-500' : 'bg-red-500'
-              )}
-            />
-            <span className="text-xs">
-              {statusData?.ok
-                ? t`All services are online`
-                : t`Some services are offline`}
-            </span>
-          </Link>
-        )}
       </div>
     </DropMenu>
   )

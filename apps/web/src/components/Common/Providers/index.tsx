@@ -2,7 +2,6 @@ import { getLivepeerClient, videoPlayerTheme } from '@lenstube/browser'
 import {
   IS_MAINNET,
   LENSTUBE_APP_NAME,
-  POLYGON_RPC_URL,
   WC_PROJECT_ID
 } from '@lenstube/constants'
 import { apolloClient, ApolloProvider } from '@lenstube/lens/apollo'
@@ -20,12 +19,24 @@ import {
   rainbowWallet,
   walletConnectWallet
 } from '@rainbow-me/rainbowkit/wallets'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ThemeProvider } from 'next-themes'
 import type { ReactNode } from 'react'
 import React, { useEffect } from 'react'
 import { configureChains, createConfig, WagmiConfig } from 'wagmi'
-import { polygon, polygonMumbai } from 'wagmi/chains'
-import { jsonRpcProvider } from 'wagmi/providers/jsonRpc'
+import {
+  base,
+  baseGoerli,
+  goerli,
+  mainnet,
+  optimism,
+  optimismGoerli,
+  polygon,
+  polygonMumbai,
+  zora,
+  zoraTestnet
+} from 'wagmi/chains'
+import { publicProvider } from 'wagmi/providers/public'
 
 import ErrorBoundary from '../ErrorBoundary'
 import RainbowKit from './RainbowKit'
@@ -33,15 +44,19 @@ import RainbowKit from './RainbowKit'
 // TEMP: Duplicate to fix signTypedData_v4 issue. Remove once fixed on WC+WAGMI end.
 const preferredChains = [
   IS_MAINNET ? polygon : polygonMumbai,
-  IS_MAINNET ? polygon : polygonMumbai
+  IS_MAINNET ? polygon : polygonMumbai,
+  mainnet,
+  goerli,
+  zora,
+  zoraTestnet,
+  optimism,
+  optimismGoerli,
+  base,
+  baseGoerli
 ]
 
 const { chains, publicClient } = configureChains(preferredChains, [
-  jsonRpcProvider({
-    rpc: () => ({
-      http: POLYGON_RPC_URL
-    })
-  })
+  publicProvider()
 ])
 
 const connectors = connectorsForWallets([
@@ -67,6 +82,10 @@ const connectors = connectorsForWallets([
   }
 ])
 
+const queryClient = new QueryClient({
+  defaultOptions: { queries: { refetchOnWindowFocus: false } }
+})
+
 const wagmiConfig = createConfig({
   autoConnect: true,
   connectors,
@@ -83,10 +102,12 @@ const Providers = ({ children }: { children: ReactNode }) => {
       <ErrorBoundary>
         <LivepeerConfig client={getLivepeerClient()} theme={videoPlayerTheme}>
           <WagmiConfig config={wagmiConfig}>
-            <ThemeProvider defaultTheme="dark" attribute="class">
+            <ThemeProvider defaultTheme="light" attribute="class">
               <RainbowKit chains={chains}>
                 <ApolloProvider client={apolloClient(authLink)}>
-                  {children}
+                  <QueryClientProvider client={queryClient}>
+                    {children}
+                  </QueryClientProvider>
                 </ApolloProvider>
               </RainbowKit>
             </ThemeProvider>

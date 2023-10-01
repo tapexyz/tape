@@ -24,16 +24,12 @@ const ThumbnailImage: FC<Props> = ({ video }) => {
 
   const thumbnailUrl = isSensitiveContent
     ? `${STATIC_ASSETS}/images/sensor-blur.png`
-    : getThumbnailUrl(video)
+    : getThumbnailUrl(video, true)
   const { color: backgroundColor } = useAverageColor(thumbnailUrl, isBytesVideo)
 
   return (
     <img
-      src={
-        thumbnailUrl
-          ? imageCdn(thumbnailUrl, isBytesVideo ? 'THUMBNAIL_V' : 'THUMBNAIL')
-          : ''
-      }
+      src={imageCdn(thumbnailUrl, isBytesVideo ? 'THUMBNAIL_V' : 'THUMBNAIL')}
       className={clsx(
         'h-full w-full rounded-xl bg-gray-100 object-center dark:bg-gray-900 lg:h-full lg:w-full',
         isBytesVideo ? 'object-contain' : 'object-cover'
