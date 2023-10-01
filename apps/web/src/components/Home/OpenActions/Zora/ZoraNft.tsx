@@ -1,5 +1,5 @@
+import HoverableProfile from '@components/Common/HoverableProfile'
 import CollectOutline from '@components/Common/Icons/CollectOutline'
-import UserPreview from '@components/Common/UserPreview'
 import Modal from '@components/UIElements/Modal'
 import { LENSTUBE_ADDRESS } from '@lenstube/constants'
 import {
@@ -89,11 +89,11 @@ const ZoraNft: FC<Props> = ({ nftMetadata, sharedBy, postedAt }) => {
           {zoraNft?.description}
         </p>
         <div className="flex items-center text-sm opacity-50">
-          <UserPreview profile={sharedBy}>
+          <HoverableProfile profile={sharedBy}>
             <span className="ultrawide:break-all line-clamp-1 break-words">
               shared by {trimLensHandle(sharedBy?.handle)}
             </span>
-          </UserPreview>
+          </HoverableProfile>
           <span className="middot" />
           {postedAt && (
             <span className="whitespace-nowrap">

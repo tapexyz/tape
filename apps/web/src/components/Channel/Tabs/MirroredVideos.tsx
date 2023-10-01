@@ -32,9 +32,7 @@ const MirroredVideos: FC<Props> = ({ profileId }) => {
 
   const { data, loading, error, fetchMore } = usePublicationsQuery({
     variables: {
-      request: {
-        ...request
-      }
+      request
     },
     skip: !profileId
   })

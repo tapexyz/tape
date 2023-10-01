@@ -1,5 +1,5 @@
 import { getOpenActionNftMetadata, getURLs } from '@lenstube/generic'
-import type { MetadataOutput, Profile } from '@lenstube/lens'
+import type { LinkMetadataV3, Profile } from '@lenstube/lens'
 import type { BasicNftMetadata } from '@lenstube/lens/custom-types'
 import type { FC } from 'react'
 import React from 'react'
@@ -7,7 +7,7 @@ import React from 'react'
 import ZoraNft from './Zora/ZoraNft'
 
 type Props = {
-  metadata: MetadataOutput
+  metadata: LinkMetadataV3
   sharedBy: Profile
   postedAt: string
 }

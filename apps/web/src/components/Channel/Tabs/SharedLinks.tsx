@@ -6,15 +6,14 @@ import {
   LENSTUBE_APP_ID,
   SCROLL_ROOT_MARGIN
 } from '@lenstube/constants'
-import type {
-  Profile,
-  Publication,
-  PublicationsQueryRequest
-} from '@lenstube/lens'
 import {
-  PublicationMainFocus,
-  PublicationTypes,
-  useProfilePostsQuery
+  LimitType,
+  type LinkMetadataV3,
+  type PrimaryPublication,
+  PublicationMetadataMainFocusType,
+  type PublicationsRequest,
+  PublicationType,
+  usePublicationsQuery
 } from '@lenstube/lens'
 import { Loader } from '@lenstube/ui'
 import { t } from '@lingui/macro'
@@ -23,27 +22,29 @@ import React from 'react'
 import { useInView } from 'react-cool-inview'
 
 type Props = {
-  channel: Profile
+  profileId: string
 }
 
-const SharedLinks: FC<Props> = ({ channel }) => {
-  const request: PublicationsQueryRequest = {
-    publicationTypes: [PublicationTypes.Post],
-    limit: 50,
-    sources: [LENSTUBE_APP_ID],
-    customFilters: LENS_CUSTOM_FILTERS,
-    profileId: channel?.id,
-    metadata: {
-      mainContentFocus: [PublicationMainFocus.Link]
-    }
+const SharedLinks: FC<Props> = ({ profileId }) => {
+  const request: PublicationsRequest = {
+    where: {
+      metadata: {
+        mainContentFocus: [PublicationMetadataMainFocusType.Link],
+        publishedOn: [LENSTUBE_APP_ID]
+      },
+      publicationTypes: [PublicationType.Post],
+      customFilters: LENS_CUSTOM_FILTERS,
+      from: [profileId]
+    },
+    limit: LimitType.Fifty
   }
 
-  const { data, loading, error, fetchMore } = useProfilePostsQuery({
+  const { data, loading, error, fetchMore } = usePublicationsQuery({
     variables: { request },
-    skip: !channel?.id
+    skip: !profileId
   })
 
-  const links = data?.publications?.items as Publication[]
+  const links = data?.publications?.items as PrimaryPublication[]
   const pageInfo = data?.publications?.pageInfo
 
   const { observe } = useInView({
@@ -73,16 +74,18 @@ const SharedLinks: FC<Props> = ({ channel }) => {
       {!error && !loading && (
         <>
           <div className="grid gap-x-4 gap-y-2 md:grid-cols-4 md:gap-y-8 lg:grid-cols-5">
-            {links?.map(({ metadata, profile, createdAt }: Publication, i) => {
-              return (
-                <SharedLink
-                  key={i}
-                  metadata={metadata}
-                  sharedBy={profile}
-                  postedAt={createdAt}
-                />
-              )
-            })}
+            {links?.map(
+              ({ metadata, by, createdAt }: PrimaryPublication, i) => {
+                return (
+                  <SharedLink
+                    key={i}
+                    metadata={metadata as LinkMetadataV3}
+                    sharedBy={by}
+                    postedAt={createdAt}
+                  />
+                )
+              }
+            )}
           </div>
           {pageInfo?.next && (
             <span ref={observe} className="flex justify-center p-10">

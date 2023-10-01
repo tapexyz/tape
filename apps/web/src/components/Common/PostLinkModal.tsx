@@ -3,6 +3,8 @@ import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
+import type { MetadataAttribute } from '@lens-protocol/metadata'
+import { link, MetadataAttributeType } from '@lens-protocol/metadata'
 import { Analytics, getUserLocale, TRACK } from '@lenstube/browser'
 import {
   ERROR_MESSAGE,
@@ -20,19 +22,13 @@ import {
   useZoraNft
 } from '@lenstube/generic'
 import type {
-  CreateDataAvailabilityPostRequest,
-  CreatePostBroadcastItemResult,
-  CreatePublicPostRequest
+  CreateMomokaPostEip712TypedData,
+  CreateOnchainPostEip712TypedData
 } from '@lenstube/lens'
 import {
-  PublicationMainFocus,
-  PublicationMetadataDisplayTypes,
-  useBroadcastDataAvailabilityMutation,
-  useBroadcastMutation,
-  useCreateDataAvailabilityPostTypedDataMutation,
-  useCreateDataAvailabilityPostViaDispatcherMutation,
-  useCreatePostTypedDataMutation,
-  useCreatePostViaDispatcherMutation
+  useBroadcastOnMomokaMutation,
+  useCreateMomokaPostTypedDataMutation,
+  usePostOnMomokaMutation
 } from '@lenstube/lens'
 import type {
   BasicNftMetadata,
@@ -72,8 +68,7 @@ const PostLinkModal: FC<Props> = ({ show, setShow }) => {
   const [loading, setLoading] = useState(false)
 
   const activeChannel = useChannelStore((state) => state.activeChannel)
-  const canUseRelay = activeChannel?.dispatcher?.canUseRelay
-  const isSponsored = activeChannel?.dispatcher?.sponsor
+  const canUseRelay = activeChannel?.lensManager && activeChannel?.sponsor
 
   const {
     register,
@@ -94,11 +89,11 @@ const PostLinkModal: FC<Props> = ({ show, setShow }) => {
     enabled: Boolean(basicNftMetadata?.address)
   })
 
-  const link = watch('link')
+  const linkText = watch('link')
 
   useEffect(() => {
-    if (trimify(link)?.length) {
-      const urls = getURLs(link)
+    if (trimify(linkText)?.length) {
+      const urls = getURLs(linkText)
       const nftMetadata = getOpenActionNftMetadata(urls)
       if (nftMetadata) {
         clearErrors()
@@ -110,37 +105,31 @@ const PostLinkModal: FC<Props> = ({ show, setShow }) => {
       setBasicNftMetadata(defaults)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [link])
+  }, [linkText])
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     setLoading(false)
   }
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
     if (__typename === 'RelayError') {
       return
     }
-    Analytics.track(TRACK.PUBLICATION.NEW_POST, {
-      type: 'link',
-      publication_state: canUseRelay && isSponsored ? 'MOMOKA' : 'ON_CHAIN',
-      user_id: activeChannel?.id
-    })
     setLoading(false)
     reset()
     setBasicNftMetadata(defaults)
     toast.success('Link posted')
     setShow(false)
+    Analytics.track(TRACK.PUBLICATION.NEW_POST, {
+      type: 'link',
+      publication_state: canUseRelay ? 'MOMOKA' : 'ON_CHAIN',
+      user_id: activeChannel?.id
+    })
   }
 
   const { signTypedDataAsync } = useSignTypedData({
     onError
-  })
-
-  const [broadcast] = useBroadcastMutation({
-    onCompleted: ({ broadcast }) => {
-      onCompleted(broadcast.__typename)
-    }
   })
 
   const { write } = useContractWrite({
@@ -148,84 +137,36 @@ const PostLinkModal: FC<Props> = ({ show, setShow }) => {
     abi: LENSHUB_PROXY_ABI,
     functionName: 'post',
     onSuccess: () => {
-      setLoading(false)
+      onCompleted()
     },
     onError
   })
 
   const getSignatureFromTypedData = async (
-    data: CreatePostBroadcastItemResult
+    data: CreateMomokaPostEip712TypedData | CreateOnchainPostEip712TypedData
   ) => {
-    const { typedData } = data
     toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-    const signature = await signTypedDataAsync(getSignature(typedData))
+    const signature = await signTypedDataAsync(getSignature(data))
     return signature
   }
 
-  /**
-   * DATA AVAILABILITY STARTS
-   */
-  const [broadcastDataAvailabilityPost] = useBroadcastDataAvailabilityMutation({
-    onCompleted: ({ broadcastDataAvailability }) => {
-      onCompleted()
-      if (broadcastDataAvailability.__typename === 'RelayError') {
-        return toast.error(ERROR_MESSAGE)
+  const [broadcastOnMomoka] = useBroadcastOnMomokaMutation({
+    onCompleted: ({ broadcastOnMomoka }) => {
+      if (broadcastOnMomoka.__typename === 'CreateMomokaPublicationResult') {
+        onCompleted()
       }
-    },
-    onError
-  })
-
-  const [createDataAvailabilityPostTypedData] =
-    useCreateDataAvailabilityPostTypedDataMutation({
-      onCompleted: async ({ createDataAvailabilityPostTypedData }) => {
-        const { id } = createDataAvailabilityPostTypedData
-        const signature = await getSignatureFromTypedData(
-          createDataAvailabilityPostTypedData
-        )
-        return await broadcastDataAvailabilityPost({
-          variables: { request: { id, signature } }
-        })
-      }
-    })
-
-  const [createDataAvailabilityPostViaDispatcher] =
-    useCreateDataAvailabilityPostViaDispatcherMutation({
-      onCompleted: ({ createDataAvailabilityPostViaDispatcher }) => {
-        if (
-          createDataAvailabilityPostViaDispatcher?.__typename === 'RelayError'
-        ) {
-          return
-        }
-        if (
-          createDataAvailabilityPostViaDispatcher.__typename ===
-          'CreateDataAvailabilityPublicationResult'
-        ) {
-          onCompleted()
-        }
-      },
-      onError
-    })
-  /**
-   * DATA AVAILABILITY ENDS
-   */
-
-  const [createPostViaDispatcher] = useCreatePostViaDispatcherMutation({
-    onError,
-    onCompleted: ({ createPostViaDispatcher }) => {
-      onCompleted(createPostViaDispatcher.__typename)
     }
   })
 
-  const [createPostTypedData] = useCreatePostTypedDataMutation({
-    onCompleted: async ({ createPostTypedData }) => {
-      const { typedData, id } =
-        createPostTypedData as CreatePostBroadcastItemResult
+  const [createMomokaPostTypedData] = useCreateMomokaPostTypedDataMutation({
+    onCompleted: async ({ createMomokaPostTypedData }) => {
+      const { typedData, id } = createMomokaPostTypedData
       try {
-        const signature = await getSignatureFromTypedData(createPostTypedData)
-        const { data } = await broadcast({
+        const signature = await getSignatureFromTypedData(typedData)
+        const { data } = await broadcastOnMomoka({
           variables: { request: { id, signature } }
         })
-        if (data?.broadcast?.__typename === 'RelayError') {
+        if (data?.broadcastOnMomoka?.__typename === 'RelayError') {
           return write?.({ args: [typedData.value] })
         }
       } catch {}
@@ -233,82 +174,63 @@ const PostLinkModal: FC<Props> = ({ show, setShow }) => {
     onError
   })
 
-  const createTypedData = async (request: CreatePublicPostRequest) => {
-    await createPostTypedData({
-      variables: { request }
-    })
-  }
-
-  const createViaDispatcher = async (request: CreatePublicPostRequest) => {
-    const { data } = await createPostViaDispatcher({
-      variables: { request }
-    })
-    if (data?.createPostViaDispatcher.__typename === 'RelayError') {
-      await createTypedData(request)
+  const [postOnMomoka] = usePostOnMomokaMutation({
+    onError,
+    onCompleted: ({ postOnMomoka }) => {
+      if (postOnMomoka.__typename === 'CreateMomokaPublicationResult') {
+        onCompleted()
+      }
     }
-  }
-
-  const createViaDataAvailablityDispatcher = async (
-    request: CreateDataAvailabilityPostRequest
-  ) => {
-    const variables = { request }
-
-    const { data } = await createDataAvailabilityPostViaDispatcher({
-      variables
-    })
-
-    if (
-      data?.createDataAvailabilityPostViaDispatcher?.__typename === 'RelayError'
-    ) {
-      return await createDataAvailabilityPostTypedData({ variables })
-    }
-  }
+  })
 
   const onSubmit = async () => {
     setLoading(true)
-    const metadata = {
-      version: '2.0.0',
-      metadata_id: uuidv4(),
-      locale: getUserLocale(),
-      mainContentFocus: PublicationMainFocus.Link,
-      external_url: LENSTUBE_WEBSITE_URL,
-      name: `${activeChannel?.handle} shared a link`,
-      attributes: [
-        {
-          displayType: PublicationMetadataDisplayTypes.String,
-          traitType: 'publication',
-          value: 'link'
-        },
-        {
-          displayType: PublicationMetadataDisplayTypes.String,
-          traitType: 'app',
-          value: LENSTUBE_APP_ID
-        }
-      ],
-      content: `Check out this drop 📼 \n${link}`,
-      image: null,
-      media: [],
-      appId: LENSTUBE_APP_ID
-    }
 
-    const metadataUri = await uploadToAr(metadata)
-
-    const dataAvailablityRequest: CreateDataAvailabilityPostRequest = {
-      from: activeChannel?.id,
-      contentURI: metadataUri
-    }
-    const request: CreatePublicPostRequest = {
-      profileId: activeChannel?.id,
-      contentURI: metadataUri,
-      collectModule: { revertCollectModule: true }
-    }
-    if (canUseRelay) {
-      if (isSponsored) {
-        return await createViaDataAvailablityDispatcher(dataAvailablityRequest)
+    const attributes: MetadataAttribute[] = [
+      {
+        type: MetadataAttributeType.STRING,
+        key: 'publication',
+        value: 'link'
+      },
+      {
+        type: MetadataAttributeType.STRING,
+        key: 'app',
+        value: LENSTUBE_APP_ID
       }
-      return await createViaDispatcher(request)
+    ]
+    const linkMetadata = link({
+      sharingLink: linkText,
+      appId: LENSTUBE_APP_ID,
+      id: uuidv4(),
+      content: `Check out this drop 📼 \n${linkText}`,
+      locale: getUserLocale(),
+      marketplace: {
+        name: `Link by @${activeChannel?.handle}`,
+        attributes,
+        description: linkText,
+        external_url: LENSTUBE_WEBSITE_URL
+      },
+      attributes
+    })
+
+    const metadataUri = await uploadToAr(linkMetadata)
+    if (canUseRelay) {
+      return await postOnMomoka({
+        variables: {
+          request: {
+            contentURI: metadataUri
+          }
+        }
+      })
+    } else {
+      return await createMomokaPostTypedData({
+        variables: {
+          request: {
+            contentURI: metadataUri
+          }
+        }
+      })
     }
-    return await createTypedData(request)
   }
 
   return (

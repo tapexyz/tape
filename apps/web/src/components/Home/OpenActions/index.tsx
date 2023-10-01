@@ -1,35 +1,41 @@
 import CollectOutline from '@components/Common/Icons/CollectOutline'
 import OpenActionsShimmer from '@components/Shimmers/OpenActionsShimmer'
 import { LENS_CUSTOM_FILTERS, LENSTUBE_APP_ID } from '@lenstube/constants'
-import type { Publication } from '@lenstube/lens'
+import type {
+  ExplorePublicationRequest,
+  LinkMetadataV3,
+  PrimaryPublication
+} from '@lenstube/lens'
 import {
-  PublicationMainFocus,
-  PublicationSortCriteria,
-  PublicationTypes,
-  useExploreQuery
+  ExplorePublicationsOrderByType,
+  ExplorePublicationType,
+  LimitType,
+  PublicationMetadataMainFocusType,
+  useExplorePublicationsQuery
 } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
 import React from 'react'
 
 import SharedLink from './SharedLink'
 
-const OpenActionCollects = () => {
-  const request = {
-    sortCriteria: PublicationSortCriteria.Latest,
-    limit: 10,
-    noRandomize: false,
-    sources: [LENSTUBE_APP_ID],
-    publicationTypes: [PublicationTypes.Post],
-    customFilters: LENS_CUSTOM_FILTERS,
+const request: ExplorePublicationRequest = {
+  where: {
     metadata: {
-      mainContentFocus: [PublicationMainFocus.Link]
-    }
-  }
+      publishedOn: [LENSTUBE_APP_ID],
+      mainContentFocus: [PublicationMetadataMainFocusType.Link]
+    },
+    publicationTypes: [ExplorePublicationType.Post],
+    customFilters: LENS_CUSTOM_FILTERS
+  },
+  orderBy: ExplorePublicationsOrderByType.Latest,
+  limit: LimitType.Ten
+}
 
-  const { data, error, loading } = useExploreQuery({
-    variables: { request, channelId: null }
+const OpenActionCollects = () => {
+  const { data, error, loading } = useExplorePublicationsQuery({
+    variables: { request }
   })
-  const links = data?.explorePublications?.items as Publication[]
+  const links = data?.explorePublications?.items as PrimaryPublication[]
 
   if (loading) {
     return <OpenActionsShimmer />
@@ -50,12 +56,12 @@ const OpenActionCollects = () => {
         </div>
       </div>
       <div className="grid gap-x-4 gap-y-2 md:grid-cols-4 md:gap-y-8 lg:grid-cols-5">
-        {links?.map(({ metadata, profile, createdAt }: Publication, i) => {
+        {links?.map(({ metadata, by, createdAt }: PrimaryPublication, i) => {
           return (
             <SharedLink
               key={i}
-              metadata={metadata}
-              sharedBy={profile}
+              metadata={metadata as LinkMetadataV3}
+              sharedBy={by}
               postedAt={createdAt}
             />
           )

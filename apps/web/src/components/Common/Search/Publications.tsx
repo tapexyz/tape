@@ -7,11 +7,11 @@ import {
   formatNumber,
   getIsSensitiveContent,
   getPublication,
-  getShortHandTime,
   getThumbnailUrl,
   imageCdn
 } from '@lenstube/generic'
 import type { AnyPublication } from '@lenstube/lens'
+import { getShortHandTime } from '@lib/formatTime'
 import { Trans } from '@lingui/macro'
 import { Flex } from '@radix-ui/themes'
 import clsx from 'clsx'

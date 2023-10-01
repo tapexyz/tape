@@ -13,7 +13,6 @@ import { MISUSED_CHANNELS, STATIC_ASSETS } from '@lenstube/constants'
 import {
   getChannelCoverPicture,
   getProfilePicture,
-  getRelativeTime,
   getValueFromKeyInAttributes,
   imageCdn,
   sanitizeDStorageUrl,
@@ -21,6 +20,7 @@ import {
   trimLensHandle
 } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
+import { getRelativeTime } from '@lib/formatTime'
 import useAuthPersistStore from '@lib/store/auth'
 import { t, Trans } from '@lingui/macro'
 import {

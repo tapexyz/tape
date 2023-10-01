@@ -1,5 +1,6 @@
 import type {
   AudioMetadata,
+  LinkMetadata,
   ProfileMetadata,
   TextOnlyMetadata,
   VideoMetadata
@@ -10,7 +11,12 @@ import axios from 'axios'
 import { logger } from '../logger'
 
 export const uploadToAr = async (
-  data: VideoMetadata | AudioMetadata | ProfileMetadata | TextOnlyMetadata
+  data:
+    | VideoMetadata
+    | AudioMetadata
+    | ProfileMetadata
+    | TextOnlyMetadata
+    | LinkMetadata
 ): Promise<string> => {
   try {
     const response = await axios.post(BUNDLR_METADATA_UPLOAD_URL, data)
