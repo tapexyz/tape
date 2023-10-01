@@ -151,7 +151,7 @@ const Header: FC<Props> = ({ className }) => {
                     >
                       <LinkOutline className="h-3.5 w-3.5" />
                       <span className="whitespace-nowrap">
-                        <Trans>Share Collect</Trans>
+                        <Trans>Share Drop</Trans>
                       </span>
                     </Menu.Item>
                   </div>
