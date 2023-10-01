@@ -4,7 +4,8 @@ import { Button } from '@components/UIElements/Button'
 import {
   getRandomProfilePicture,
   sanitizeDStorageUrl,
-  shortenAddress
+  shortenAddress,
+  useDid
 } from '@lenstube/generic'
 import type { ZoraNft } from '@lenstube/lens/custom-types'
 import { Trans } from '@lingui/macro'
@@ -20,6 +21,11 @@ const Metadata = ({ nft, link }: { nft: ZoraNft; link: string }) => {
     'ERC721_SINGLE_EDITION',
     'ERC1155_COLLECTION_TOKEN'
   ].includes(nft.contractType)
+
+  const { did } = useDid({
+    address: nft?.creator,
+    enabled: Boolean(nft?.creator)
+  })
 
   return (
     <div>
@@ -43,7 +49,7 @@ const Metadata = ({ nft, link }: { nft: ZoraNft; link: string }) => {
             className="h-5 w-5 rounded-full"
             alt=""
           />
-          <span> {shortenAddress(nft?.creator)}</span>
+          <span> {did ?? shortenAddress(nft.creator)}</span>
         </div>
         <p className="line-clamp-4 break-words" title={nft.description}>
           {nft?.description}

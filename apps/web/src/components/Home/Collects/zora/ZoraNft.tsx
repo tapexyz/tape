@@ -41,7 +41,7 @@ const ZoraNft: FC<Props> = ({ nftMetadata, sharedBy, postedAt }) => {
   const coverImage = `https://remote-image.decentralized-content.com/image?url=${zoraNft.coverImageUrl}&w=1200&q=75`
 
   return (
-    <div role="button" onClick={() => setShowMintModal(true)}>
+    <div>
       <Modal
         title={t`Collect`}
         show={showMintModal}
@@ -50,7 +50,11 @@ const ZoraNft: FC<Props> = ({ nftMetadata, sharedBy, postedAt }) => {
       >
         <Metadata nft={zoraNft} link={zoraLink} />
       </Modal>
-      <div className="aspect-h-9 aspect-w-16 relative overflow-hidden rounded-xl">
+      <div
+        role="button"
+        onClick={() => setShowMintModal(true)}
+        className="aspect-h-9 aspect-w-16 relative overflow-hidden rounded-xl"
+      >
         <div
           style={{
             backgroundImage: `url("${coverImage}")`
