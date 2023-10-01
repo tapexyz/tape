@@ -1,6 +1,5 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import PinnedVideoShimmer from '@components/Shimmers/PinnedVideoShimmer'
-import { Button } from '@components/UIElements/Button'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import type { MetadataAttribute } from '@lens-protocol/metadata'
 import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
@@ -17,7 +16,6 @@ import {
   getIsSensitiveContent,
   getProfilePicture,
   getPublicationMediaUrl,
-  getRelativeTime,
   getSignature,
   getThumbnailUrl,
   imageCdn,
@@ -39,6 +37,7 @@ import {
 } from '@lenstube/lens'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import VideoPlayer from '@lenstube/ui/VideoPlayer'
+import { getRelativeTime } from '@lib/formatTime'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'

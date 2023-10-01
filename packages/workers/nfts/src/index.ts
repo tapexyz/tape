@@ -1,4 +1,4 @@
-import { createCors, error, json, Router, status } from 'itty-router'
+import { createCors, error, Router, status } from 'itty-router'
 
 import type { Env } from './types'
 import getNfts from './handlers/getNfts'

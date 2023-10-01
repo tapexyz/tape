@@ -6,13 +6,10 @@ import InterweaveContent from '@components/Common/InterweaveContent'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { Button } from '@components/UIElements/Button'
 import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
-import {
-  getProfilePicture,
-  getRelativeTime,
-  trimLensHandle
-} from '@lenstube/generic'
+import { getProfilePicture, trimLensHandle } from '@lenstube/generic'
 import type { Comment, Profile, PublicationsRequest } from '@lenstube/lens'
 import { LimitType, usePublicationsQuery } from '@lenstube/lens'
+import { getRelativeTime } from '@lib/formatTime'
 import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import Link from 'next/link'

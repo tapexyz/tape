@@ -2,15 +2,17 @@ import Badge from '@components/Common/Badge'
 import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import ThumbnailImage from '@components/Common/VideoCard/ThumbnailImage'
 import {
-  getDateString,
   getIsSensitiveContent,
   getProfilePicture,
-  getRelativeTime,
-  getTimeFromSeconds,
   getValueFromTraitType,
   trimLensHandle
 } from '@lenstube/generic'
 import type { Attribute, Mirror, MirrorablePublication } from '@lenstube/lens'
+import {
+  getDateString,
+  getRelativeTime,
+  getTimeFromSeconds
+} from '@lib/formatTime'
 import { Trans } from '@lingui/macro'
 import Link from 'next/link'
 import type { FC } from 'react'

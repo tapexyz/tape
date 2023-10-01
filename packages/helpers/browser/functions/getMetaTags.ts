@@ -7,13 +7,9 @@ import {
   LENSTUBE_X_HANDLE,
   OG_IMAGE
 } from '@lenstube/constants'
-import {
-  getPublicationMediaUrl,
-  getValueFromTraitType,
-  secondsToISO
-} from '@lenstube/generic'
+import { getPublicationMediaUrl } from '@lenstube/generic'
 import { getPublication } from '@lenstube/generic/functions/getPublication'
-import type { AnyPublication, Attribute } from '@lenstube/lens'
+import type { AnyPublication } from '@lenstube/lens'
 
 type Args = {
   title: string
@@ -88,13 +84,13 @@ export const getMetaTags = ({
       name: meta.title,
       description,
       thumbnailUrl: meta.image,
-      uploadDate: target?.createdAt,
-      duration: secondsToISO(
-        getValueFromTraitType(
-          target?.metadata.marketplace?.attributes as Attribute[],
-          'durationInSeconds'
-        )
-      ),
+      uploadDate: publication.createdAt,
+      // duration: secondsToISO(
+      //   getValueFromTraitType(
+      //     publication.metadata.attributes as Attribute[],
+      //     'durationInSeconds'
+      //   )
+      // ),
       contentUrl,
       embedUrl,
       interactionStatistic: {

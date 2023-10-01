@@ -1,9 +1,6 @@
-import {
-  getIsSensitiveContent,
-  getPublication,
-  getTimeFromSeconds
-} from '@lenstube/generic'
+import { getIsSensitiveContent, getPublication } from '@lenstube/generic'
 import type { AnyPublication, VideoMetadataV3 } from '@lenstube/lens'
+import { getTimeFromSeconds } from '@lib/formatTime'
 import { Trans } from '@lingui/macro'
 import type { FC } from 'react'
 import React from 'react'

@@ -194,6 +194,3 @@ export const ALLOWED_HEX_CHARACTERS = [
   'E',
   'F'
 ]
-
-// cross chain collects
-export const ZORA_MAINNET_CHAINS = ['eth', 'oeth', 'base', 'zora']

@@ -11,13 +11,12 @@ import {
 import {
   formatNumber,
   getIsSensitiveContent,
-  getShortHandTime,
   getThumbnailUrl,
-  getTimeFromSeconds,
   getValueFromTraitType,
   imageCdn
 } from '@lenstube/generic'
 import type { Attribute, MirrorablePublication } from '@lenstube/lens'
+import { getShortHandTime, getTimeFromSeconds } from '@lib/formatTime'
 import { Box, Flex } from '@radix-ui/themes'
 import clsx from 'clsx'
 import Link from 'next/link'

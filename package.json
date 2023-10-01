@@ -23,7 +23,7 @@
     "dev:test": "turbo run dev:test",
     "e2e:test": "start-server-and-test start 4783 dev:test",
     "i18n:extract": "turbo run extract",
-    "mobile": "cd apps/mobile && yarn start"
+    "mobile": "cd apps/mobile && yarn mobile:start"
   },
   "devDependencies": {
     "husky": "^8.0.3",
