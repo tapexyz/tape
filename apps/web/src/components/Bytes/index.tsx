@@ -17,6 +17,7 @@ import {
 } from '@lenstube/lens'
 import { Loader } from '@lenstube/ui'
 import useAuthPersistStore from '@lib/store/auth'
+import { t } from '@lingui/macro'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect, useRef, useState } from 'react'
@@ -118,7 +119,7 @@ const Bytes = () => {
   if (error) {
     return (
       <div className="grid h-[80vh] place-items-center">
-        <NoDataFound isCenter withImage text="No bytes found" />
+        <NoDataFound isCenter withImage text={t`No bytes found`} />
       </div>
     )
   }

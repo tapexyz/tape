@@ -65,7 +65,7 @@ const SharedLinks: FC<Props> = ({ channel }) => {
   }
 
   if (data?.publications?.items?.length === 0) {
-    return <NoDataFound isCenter withImage text={t`No bytes found`} />
+    return <NoDataFound isCenter withImage text={t`No links found`} />
   }
 
   return (
