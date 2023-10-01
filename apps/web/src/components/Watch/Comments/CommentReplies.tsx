@@ -7,13 +7,10 @@ import ReportModal from '@components/Common/VideoCard/ReportModal'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { Button } from '@components/UIElements/Button'
 import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
-import {
-  getProfilePicture,
-  getRelativeTime,
-  trimLensHandle
-} from '@lenstube/generic'
+import { getProfilePicture, trimLensHandle } from '@lenstube/generic'
 import type { Profile, Publication } from '@lenstube/lens'
 import { useCommentsQuery } from '@lenstube/lens'
+import { getRelativeTime } from '@lib/formatTime'
 import useAuthPersistStore from '@lib/store/auth'
 import { Trans } from '@lingui/macro'
 import clsx from 'clsx'

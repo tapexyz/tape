@@ -1,10 +1,7 @@
 import { LENSTUBE_BYTES_APP_ID } from '@lenstube/constants'
-import {
-  getProfilePicture,
-  getRelativeTime,
-  trimLensHandle
-} from '@lenstube/generic'
+import { getProfilePicture, trimLensHandle } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
+import { getRelativeTime } from '@lib/formatTime'
 import { Trans } from '@lingui/macro'
 import Link from 'next/link'
 import type { FC } from 'react'

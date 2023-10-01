@@ -5,10 +5,10 @@
   "private": true,
   "license": "AGPL-3.0",
   "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web",
+    "mobile:start": "expo start",
+    "android": "expo mobile:start --android",
+    "ios": "expo mobile:start --ios",
+    "web": "expo mobile:start --web",
     "devtools": "react-devtools",
     "lint": "eslint . --ext .js,.ts,.tsx",
     "eas:build:internal": "eas build --profile preview --platform ios --local"

@@ -19,7 +19,6 @@ import {
 } from '@lenstube/constants'
 import {
   canUploadedToIpfs,
-  getCollectModule,
   getSignature,
   logger,
   trimify,
@@ -47,6 +46,7 @@ import {
   useCreatePostViaDispatcherMutation
 } from '@lenstube/lens'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
+import { getCollectModule } from '@lib/getCollectModule'
 import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
 import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'

@@ -11,11 +11,11 @@ import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import {
   checkValueInAttributes,
   getProfilePicture,
-  getRelativeTime,
   getValueFromTraitType,
   trimLensHandle
 } from '@lenstube/generic'
 import type { Attribute, Publication } from '@lenstube/lens'
+import { getRelativeTime } from '@lib/formatTime'
 import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'

@@ -1,10 +1,15 @@
 import CollectOutline from '@components/Common/Icons/CollectOutline'
 import UserPreview from '@components/Common/UserPreview'
 import Modal from '@components/UIElements/Modal'
-import { LENSTUBE_ADDRESS, ZORA_MAINNET_CHAINS } from '@lenstube/constants'
-import { getShortHandTime, trimLensHandle, useZoraNft } from '@lenstube/generic'
+import { LENSTUBE_ADDRESS } from '@lenstube/constants'
+import {
+  getZoraChainIsMainnet,
+  trimLensHandle,
+  useZoraNft
+} from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import type { BasicNftMetadata } from '@lenstube/lens/custom-types'
+import { getShortHandTime } from '@lib/formatTime'
 import { t, Trans } from '@lingui/macro'
 import type { FC } from 'react'
 import React, { useState } from 'react'
@@ -33,7 +38,7 @@ const ZoraNft: FC<Props> = ({ nftMetadata, sharedBy, postedAt }) => {
     return null
   }
 
-  const network = ZORA_MAINNET_CHAINS.includes(chain) ? '' : 'testnet.'
+  const network = getZoraChainIsMainnet(chain) ? '' : 'testnet.'
   const zoraLink = `https://${network}zora.co/collect/${chain}:${address}${
     token ? `/${token}` : ''
   }?referrer=${LENSTUBE_ADDRESS}`

@@ -1,10 +1,7 @@
 import Badge from '@components/Common/Badge'
-import {
-  getProfilePicture,
-  getRelativeTime,
-  trimLensHandle
-} from '@lenstube/generic'
+import { getProfilePicture, trimLensHandle } from '@lenstube/generic'
 import type { NewMirrorNotification } from '@lenstube/lens'
+import { getRelativeTime } from '@lib/formatTime'
 import { Trans } from '@lingui/macro'
 import Link from 'next/link'
 import type { FC } from 'react'
