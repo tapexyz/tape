@@ -58,7 +58,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
           >
             <img
               src={imageCdn(
-                `${STATIC_ASSETS}/images/lenster-logo.svg`,
+                `${STATIC_ASSETS}/images/social/hey-logo.svg`,
                 'AVATAR_LG'
               )}
               className="h-10 w-10 max-w-none rounded-full"
