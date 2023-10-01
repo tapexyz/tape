@@ -15,7 +15,9 @@ export default async (request: WorkerRequest) => {
   }
 
   try {
-    const network = ZORA_MAINNET_CHAINS.includes(chain as string) ? '' : 'testnet.'
+    const network = ZORA_MAINNET_CHAINS.includes(chain as string)
+      ? ''
+      : 'testnet.'
     const zoraResponse = await fetch(
       `https://${network}zora.co/api/personalize/collection/${chain}:${address}/${
         token || ''
