@@ -126,7 +126,7 @@ export const LENSTUBE_APP_ID = 'lenstube'
 export const LENSTUBE_BYTES_APP_ID = 'lenstube-bytes'
 export const ALLOWED_APP_IDS = [
   'orb',
-  'lenster',
+  'hey',
   'buttrfly',
   'lensplay',
   'diversehq'
@@ -167,9 +167,9 @@ export const LENSPROTOCOL_HANDLE = 'lensprotocol'
 export const HANDLE_SUFFIX = IS_MAINNET ? '.lens' : '.test'
 
 // other apps
-export const LENSTER_WEBSITE_URL = IS_MAINNET
-  ? 'https://lenster.xyz'
-  : 'https://testnet.lenster.xyz'
+export const HEY_WEBSITE_URL = IS_MAINNET
+  ? 'https://hey.xyz'
+  : 'https://testnet.hey.xyz'
 
 // analytics
 export const MIXPANEL_API_HOST = '/collect'
