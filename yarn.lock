@@ -5770,7 +5770,7 @@
     "@tanstack/query-core" "4.29.23"
     use-sync-external-store "^1.2.0"
 
-"@tanstack/react-query@^4.28.0", "@tanstack/react-query@^4.35.3":
+"@tanstack/react-query@^4.28.0", "@tanstack/react-query@^4.35.7":
   version "4.35.7"
   resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-4.35.7.tgz#35a1db50156411b2a9eb68a020bae416948939db"
   integrity sha512-0MankquP/6EOM2ATfEov6ViiKemey5uTbjGlFMX1xGotwNaqC76YKDMJdHumZupPbZcZPWAeoPGEHQmVKIKoOQ==
