@@ -1,4 +1,5 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import { Analytics, TRACK } from '@lenstube/browser'
 import {
   LENSHUB_PROXY_ADDRESS,
@@ -38,6 +39,7 @@ const UnFollow: FC<Props> = ({ profile, onUnSubscribe, size = '2' }) => {
   const { openConnectModal } = useConnectModal()
   const activeChannel = useChannelStore((state) => state.activeChannel)
   const canUseRelay = activeChannel?.lensManager && activeChannel?.sponsor
+  const handleWrongNetwork = useHandleWrongNetwork()
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message)
@@ -108,6 +110,10 @@ const UnFollow: FC<Props> = ({ profile, onUnSubscribe, size = '2' }) => {
     if (!selectedSimpleProfile?.id) {
       return openConnectModal?.()
     }
+    if (handleWrongNetwork()) {
+      return
+    }
+
     setLoading(true)
     if (canUseRelay) {
       return await unFollowMutation({

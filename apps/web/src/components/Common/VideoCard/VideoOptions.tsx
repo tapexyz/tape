@@ -1,6 +1,7 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import ReportPublication from '@components/ReportPublication'
 import Confirm from '@components/UIElements/Confirm'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import type { MetadataAttribute } from '@lens-protocol/metadata'
 import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
 import { Analytics, TRACK } from '@lenstube/browser'
@@ -63,6 +64,7 @@ type Props = {
 
 const VideoOptions: FC<Props> = ({ video }) => {
   const { openConnectModal } = useConnectModal()
+  const handleWrongNetwork = useHandleWrongNetwork()
   const [showConfirm, setShowConfirm] = useState(false)
 
   const { cache } = useApolloClient()
@@ -98,6 +100,9 @@ const VideoOptions: FC<Props> = ({ video }) => {
   const onClickReport = () => {
     if (!selectedSimpleProfile?.id) {
       return openConnectModal?.()
+    }
+    if (handleWrongNetwork()) {
+      return
     }
   }
 
@@ -163,6 +168,10 @@ const VideoOptions: FC<Props> = ({ video }) => {
     if (!activeChannel) {
       return openConnectModal?.()
     }
+    if (handleWrongNetwork()) {
+      return
+    }
+
     try {
       toast.loading(t`Pinning video...`)
       const metadata = profile({

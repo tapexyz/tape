@@ -1,5 +1,6 @@
 import CollectOutline from '@components/Common/Icons/CollectOutline'
 import Tooltip from '@components/UIElements/Tooltip'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import { ERROR_MESSAGE } from '@lenstube/constants'
 import { getPublication } from '@lenstube/generic'
 import type { AnyPublication } from '@lenstube/lens'
@@ -23,6 +24,7 @@ type Props = {
 const CollectVideo: FC<Props> = ({ video, variant = 'solid', text }) => {
   const { openConnectModal } = useConnectModal()
   const targetPublication = getPublication(video)
+  const handleWrongNetwork = useHandleWrongNetwork()
 
   const [loading, setLoading] = useState(false)
   const [showCollectModal, setShowCollectModal] = useState(false)

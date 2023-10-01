@@ -7,6 +7,7 @@ import React, { Fragment } from 'react'
 type Props = {
   show: boolean
   title?: React.ReactNode
+  description?: React.ReactNode
   onClose?: () => void
   children: React.ReactNode
   panelClassName?: string
@@ -17,6 +18,7 @@ const Modal: FC<Props> = ({
   onClose,
   children,
   title,
+  description,
   panelClassName
 }) => {
   return (
@@ -47,32 +49,39 @@ const Modal: FC<Props> = ({
             >
               <Dialog.Panel
                 className={clsx(
-                  'bg-secondary w-full transform overflow-x-hidden rounded-3xl p-5 text-left align-middle shadow-xl transition-all',
+                  'bg-secondary w-full transform space-y-3 overflow-x-hidden rounded-3xl px-5 py-4 text-left align-middle shadow-xl transition-all',
                   panelClassName
                 )}
               >
-                {title && (
-                  <div className="flex items-center justify-between pb-2">
-                    <Dialog.Title
-                      as="h3"
-                      className="text-sm font-medium uppercase leading-6 tracking-wider opacity-70"
-                    >
-                      {title}
-                    </Dialog.Title>
-                    {onClose && (
-                      <button
-                        type="button"
-                        className="rounded-full opacity-70 hover:bg-gray-200 focus:outline-none dark:hover:bg-gray-800"
-                        onClick={() => onClose?.()}
+                <div>
+                  {title && (
+                    <div className="flex items-center justify-between">
+                      <Dialog.Title
+                        as="h3"
+                        className="text-sm font-medium uppercase leading-6 tracking-wider opacity-70"
                       >
-                        <TimesOutline
-                          className="m-2 h-4 w-4 p-0.5"
-                          outlined={false}
-                        />
-                      </button>
-                    )}
-                  </div>
-                )}
+                        {title}
+                      </Dialog.Title>
+                      {onClose && (
+                        <button
+                          type="button"
+                          className="rounded-full opacity-70 hover:bg-gray-200 focus:outline-none dark:hover:bg-gray-800"
+                          onClick={() => onClose?.()}
+                        >
+                          <TimesOutline
+                            className="m-1 h-4 w-4 p-0.5"
+                            outlined={false}
+                          />
+                        </button>
+                      )}
+                    </div>
+                  )}
+                  {description && (
+                    <Dialog.Description className="text-sm opacity-50">
+                      {description}
+                    </Dialog.Description>
+                  )}
+                </div>
                 {children}
               </Dialog.Panel>
             </Transition.Child>

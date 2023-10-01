@@ -1,5 +1,6 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import Tooltip from '@components/UIElements/Tooltip'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import { Analytics, TRACK } from '@lenstube/browser'
 import {
   ERROR_MESSAGE,
@@ -40,6 +41,7 @@ type Props = {
 const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
   const [loading, setLoading] = useState(false)
   const { openConnectModal } = useConnectModal()
+  const handleWrongNetwork = useHandleWrongNetwork()
 
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
@@ -167,6 +169,9 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
   const mirrorVideo = async () => {
     if (!selectedSimpleProfile?.id) {
       return openConnectModal?.()
+    }
+    if (handleWrongNetwork()) {
+      return
     }
 
     if (video.momoka?.proof && !activeChannel?.sponsor) {

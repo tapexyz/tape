@@ -1,5 +1,7 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import PinnedVideoShimmer from '@components/Shimmers/PinnedVideoShimmer'
+import { Button } from '@components/UIElements/Button'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import type { MetadataAttribute } from '@lens-protocol/metadata'
 import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
 import { Analytics, TRACK } from '@lenstube/browser'
@@ -55,6 +57,8 @@ type Props = {
 
 const PinnedVideo: FC<Props> = ({ id }) => {
   const { openConnectModal } = useConnectModal()
+  const handleWrongNetwork = useHandleWrongNetwork()
+
   const activeChannel = useChannelStore((state) => state.activeChannel)
 
   const { data, error, loading } = usePublicationQuery({
@@ -147,6 +151,10 @@ const PinnedVideo: FC<Props> = ({ id }) => {
     if (!activeChannel) {
       return openConnectModal?.()
     }
+    if (handleWrongNetwork()) {
+      return
+    }
+
     try {
       toast.loading(t`Unpinning video...`)
       const metadata = profile({

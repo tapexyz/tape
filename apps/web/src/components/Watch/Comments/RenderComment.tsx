@@ -6,6 +6,7 @@ import ReplyOutline from '@components/Common/Icons/ReplyOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import HashExplorerLink from '@components/Common/Links/HashExplorerLink'
 import Tooltip from '@components/UIElements/Tooltip'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import {
   checkValueInAttributes,
   getProfilePicture,
@@ -41,6 +42,7 @@ const RenderComment: FC<Props> = ({ comment }) => {
   const [showReplies, setShowReplies] = useState(false)
   const [defaultComment, setDefaultComment] = useState('')
   const { openConnectModal } = useConnectModal()
+  const handleWrongNetwork = useHandleWrongNetwork()
 
   const queuedComments = usePersistStore((state) => state.queuedComments)
   const selectedSimpleProfile = useAuthPersistStore(
@@ -140,6 +142,9 @@ const RenderComment: FC<Props> = ({ comment }) => {
                   if (!selectedSimpleProfile?.id) {
                     return openConnectModal?.()
                   }
+                  if (handleWrongNetwork()) {
+                    return
+                  }
                   setShowNewComment(!showNewComment)
                   setDefaultComment('')
                 }}
@@ -182,6 +187,9 @@ const RenderComment: FC<Props> = ({ comment }) => {
                 replyTo={(profile) => {
                   if (!selectedSimpleProfile?.id) {
                     return openConnectModal?.()
+                  }
+                  if (handleWrongNetwork()) {
+                    return
                   }
                   setShowNewComment(true)
                   setDefaultComment(`@${profile.handle} `)
