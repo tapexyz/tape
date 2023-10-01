@@ -38,7 +38,7 @@ const postLog = async (request: Request, env: Env) => {
       headers: {
         Authorization: `Bearer ${env.LOGTAIL_API_KEY}`,
         'Content-Type': 'application/json',
-        'User-Agent': `CFW`
+        'User-Agent': 'Lenstube'
       },
       body
     })
