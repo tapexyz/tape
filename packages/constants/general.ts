@@ -201,3 +201,6 @@ export const ALLOWED_HEX_CHARACTERS = [
   'E',
   'F'
 ]
+
+// open actions
+export const ZORA_MAINNET_CHAINS = ['eth', 'oeth', 'base', 'zora']
