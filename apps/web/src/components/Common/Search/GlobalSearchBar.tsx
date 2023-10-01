@@ -17,7 +17,7 @@ import {
 } from '@lenstube/lens'
 import { Loader } from '@lenstube/ui'
 import { t } from '@lingui/macro'
-import { Text, TextField } from '@radix-ui/themes'
+import { ScrollArea, Text, TextField } from '@radix-ui/themes'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
@@ -114,46 +114,48 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
           </TextField.Root>
           <div
             className={clsx(
-              'z-10 mt-1 w-full overflow-hidden rounded-md bg-white p-5 text-base shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-black md:absolute',
+              'z-10 mt-1 h-[80vh] w-full rounded-md bg-white text-base shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-black md:absolute',
               { hidden: debouncedValue.length === 0 }
             )}
           >
-            {profilesLoading || publicationsLoading ? (
-              <div className="flex justify-center p-5">
-                <Loader />
-              </div>
-            ) : (
-              <>
-                <div className="no-scrollbar max-h-[80vh] space-y-2 overflow-y-auto pb-2 focus:outline-none">
-                  <Text size="3" weight="bold">
-                    Creators
-                  </Text>
-                  {profiles?.length ? (
-                    <Profiles
-                      results={profiles}
-                      loading={profilesLoading}
-                      clearSearch={clearSearch}
-                    />
-                  ) : (
-                    <NoDataFound isCenter />
-                  )}
+            <ScrollArea className="p-5" type="hover" scrollbars="vertical">
+              {profilesLoading || publicationsLoading ? (
+                <div className="flex justify-center p-5">
+                  <Loader />
                 </div>
-                <div className="no-scrollbar max-h-[80vh] space-y-2 overflow-y-auto focus:outline-none">
-                  <Text size="3" weight="bold">
-                    Releases
-                  </Text>
-                  {publications?.length ? (
-                    <Publications
-                      results={publications}
-                      loading={publicationsLoading}
-                      clearSearch={clearSearch}
-                    />
-                  ) : (
-                    <NoDataFound isCenter />
-                  )}
-                </div>
-              </>
-            )}
+              ) : (
+                <>
+                  <div className="space-y-2 pb-2 focus:outline-none">
+                    <Text size="3" weight="bold">
+                      Creators
+                    </Text>
+                    {profiles?.length ? (
+                      <Profiles
+                        results={profiles}
+                        loading={profilesLoading}
+                        clearSearch={clearSearch}
+                      />
+                    ) : (
+                      <NoDataFound isCenter />
+                    )}
+                  </div>
+                  <div className="space-y-2 focus:outline-none">
+                    <Text size="3" weight="bold">
+                      Releases
+                    </Text>
+                    {publications?.length ? (
+                      <Publications
+                        results={publications}
+                        loading={publicationsLoading}
+                        clearSearch={clearSearch}
+                      />
+                    ) : (
+                      <NoDataFound isCenter />
+                    )}
+                  </div>
+                </>
+              )}
+            </ScrollArea>
           </div>
         </div>
       </div>

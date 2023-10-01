@@ -7,8 +7,7 @@ import {
   IS_MAINNET,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
-  LENSTUBE_BYTES_APP_ID,
-  STATIC_ASSETS
+  LENSTUBE_BYTES_APP_ID
 } from '@lenstube/constants'
 import { getIsFeatureEnabled } from '@lenstube/generic'
 import { useLatestNotificationIdQuery } from '@lenstube/lens'
@@ -84,21 +83,9 @@ const Header: FC<Props> = ({ className }) => {
         className
       )}
     >
-      <div className="w-full">
-        <div className="ultrawide:px-6 flex w-full items-center justify-between px-2">
-          <div className="md:w-[330px]">
-            <Link href="/" className="block md:invisible">
-              <img
-                src={`${STATIC_ASSETS}/images/brand/lenstube.svg`}
-                draggable={false}
-                className="h-5 w-5"
-                alt="lenstube"
-              />
-            </Link>
-          </div>
-          <div className="hidden md:block">
-            <GlobalSearchBar />
-          </div>
+      <div className="flex w-full">
+        <div className="flex w-full items-center justify-between px-2 md:px-0">
+          <GlobalSearchBar />
           <div className="flex flex-row items-center justify-end space-x-2 md:w-96 md:space-x-3">
             <button
               onClick={() => setSearchModal(true)}
