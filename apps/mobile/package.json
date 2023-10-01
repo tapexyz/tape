@@ -10,7 +10,7 @@
     "ios": "expo mobile:start --ios",
     "web": "expo mobile:start --web",
     "devtools": "react-devtools",
-    "lint": "eslint . --ext .js,.ts,.tsx",
+    "mobile:lint": "eslint . --ext .js,.ts,.tsx",
     "eas:build:internal": "eas build --profile preview --platform ios --local"
   },
   "dependencies": {
