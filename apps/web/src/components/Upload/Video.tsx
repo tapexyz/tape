@@ -1,6 +1,5 @@
 import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
-import { useCopyToClipboard } from '@lenstube/browser'
 import { FEATURE_FLAGS } from '@lenstube/constants'
 import {
   formatBytes,
@@ -13,7 +12,6 @@ import { t } from '@lingui/macro'
 import { Badge } from '@radix-ui/themes'
 import clsx from 'clsx'
 import React, { useEffect, useRef } from 'react'
-import toast from 'react-hot-toast'
 
 import ChooseThumbnail from './ChooseThumbnail'
 import UploadMethod from './UploadMethod'
@@ -24,7 +22,6 @@ const Video = () => {
   )
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
   const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
-  const [copy] = useCopyToClipboard()
   const videoRef = useRef<HTMLVideoElement>(null)
 
   const onDataLoaded = () => {
@@ -43,11 +40,6 @@ const Video = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [videoRef])
-
-  const onCopyVideoSource = async (value: string) => {
-    await copy(value)
-    toast.success(t`Video source copied`)
-  }
 
   return (
     <div className="flex w-full flex-col">

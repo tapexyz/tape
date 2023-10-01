@@ -17,7 +17,6 @@ import {
 } from '@lenstube/lens'
 import { Loader } from '@lenstube/ui'
 import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'
 import type { FC } from 'react'
@@ -39,9 +38,9 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
     (state) => state.selectedSimpleProfile
   )
   const queuedComments = usePersistStore((state) => state.queuedComments)
-  const selectedCommentFilter = useChannelStore(
-    (state) => state.selectedCommentFilter
-  )
+  // const selectedCommentFilter = useChannelStore(
+  //   (state) => state.selectedCommentFilter
+  // )
 
   const isFollowerOnlyReferenceModule =
     video?.referenceModule?.__typename === 'FollowOnlyReferenceModuleSettings'
