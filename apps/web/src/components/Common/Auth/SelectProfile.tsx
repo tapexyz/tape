@@ -174,6 +174,7 @@ const SelectProfile = () => {
               value={selectedProfileId}
               onValueChange={(value) => setSelectedProfileId(value)}
               defaultValue={selectedProfileId}
+              variant="classic"
               highContrast
             >
               {profiles?.map((profile) => (

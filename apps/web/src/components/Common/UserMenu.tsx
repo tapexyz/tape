@@ -167,25 +167,24 @@ const UserMenu = () => {
                   </Flex>
                 </DropdownMenu.SubTrigger>
                 <DropdownMenu.SubContent>
-                  <div className="py-1">
-                    {allProfiles?.map((profile) => (
-                      <DropdownMenu.Item
-                        key={profile.id}
-                        onClick={() => onSelectChannel(profile)}
-                      >
-                        <Flex gap="2" align="center">
-                          <Avatar
-                            size="1"
-                            src={getProfilePicture(profile)}
-                            fallback={trimLensHandle(profile?.handle)[0]}
-                          />
-                          <Text as="p" className="truncate whitespace-nowrap">
-                            {trimLensHandle(profile.handle)}
-                          </Text>
-                        </Flex>
-                      </DropdownMenu.Item>
-                    ))}
-                  </div>
+                  {allProfiles?.map((profile) => (
+                    <DropdownMenu.Item
+                      key={profile.id}
+                      onClick={() => onSelectChannel(profile)}
+                    >
+                      <Flex gap="2" align="center">
+                        <Avatar
+                          size="1"
+                          radius="full"
+                          src={getProfilePicture(profile)}
+                          fallback={trimLensHandle(profile?.handle)[0]}
+                        />
+                        <Text as="p" className="truncate whitespace-nowrap">
+                          {trimLensHandle(profile.handle)}
+                        </Text>
+                      </Flex>
+                    </DropdownMenu.Item>
+                  ))}
                 </DropdownMenu.SubContent>
               </DropdownMenu.Sub>
             </>

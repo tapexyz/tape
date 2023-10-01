@@ -145,6 +145,7 @@ const Toggle = () => {
     <Button
       color={canUseRelay ? 'red' : 'gray'}
       highContrast
+      variant="classic"
       onClick={onClick}
       disabled={loading}
     >

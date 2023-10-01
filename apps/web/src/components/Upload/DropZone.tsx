@@ -99,7 +99,7 @@ const DropZone = () => {
               </span>
             </div>
             <Box>
-              <Button size="4" highContrast className="!px-0">
+              <Button size="4" highContrast variant="classic" className="!px-0">
                 <label htmlFor="chooseVideo" className="p-10">
                   <Trans>or choose one</Trans>
                   <input

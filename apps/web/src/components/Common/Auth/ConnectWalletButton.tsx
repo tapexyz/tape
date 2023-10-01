@@ -2,7 +2,7 @@ import { Analytics, TRACK } from '@lenstube/browser'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAuthPersistStore from '@lib/store/auth'
 import { Trans } from '@lingui/macro'
-import { Button } from '@radix-ui/themes'
+import { Button, IconButton } from '@radix-ui/themes'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 import React from 'react'
 import toast from 'react-hot-toast'
@@ -31,9 +31,9 @@ const ConnectWalletButton = () => {
     ) : (
       <div className="flex items-center space-x-2">
         <SelectProfile />
-        <Button color="red" onClick={() => disconnect?.()}>
+        <IconButton color="red" onClick={() => disconnect?.()}>
           <DisconnectOutline className="h-4 w-4" />
-        </Button>
+        </IconButton>
       </div>
     )
   ) : (

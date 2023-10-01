@@ -152,6 +152,7 @@ const Follow: FC<Props> = ({ profile, onSubscribe, size = '2' }) => {
     <Button
       size={size}
       disabled={loading}
+      variant="classic"
       onClick={() => follow()}
       highContrast
     >
