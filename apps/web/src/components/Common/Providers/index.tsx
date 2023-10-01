@@ -102,7 +102,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
       <ErrorBoundary>
         <LivepeerConfig client={getLivepeerClient()} theme={videoPlayerTheme}>
           <WagmiConfig config={wagmiConfig}>
-            <ThemeProvider defaultTheme="dark" attribute="class">
+            <ThemeProvider defaultTheme="light" attribute="class">
               <RainbowKit chains={chains}>
                 <ApolloProvider client={apolloClient(authLink)}>
                   <QueryClientProvider client={queryClient}>
