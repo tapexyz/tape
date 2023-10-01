@@ -25,7 +25,6 @@ const Profiles: FC<Props> = ({ results, loading, clearSearch }) => {
         <div
           key={channel.id}
           className="relative cursor-default select-none rounded-md pl-3 pr-4 hover:bg-gray-100 dark:hover:bg-gray-900"
-          data-testid={`search-channel-${channel.handle}`}
         >
           <Link
             onClick={() => clearSearch()}

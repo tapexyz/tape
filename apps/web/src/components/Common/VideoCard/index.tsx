@@ -24,7 +24,7 @@ const VideoCard: FC<Props> = ({ video }) => {
   const metadata = video.metadata as VideoMetadataV3
 
   return (
-    <div className="group" data-testid="video-card">
+    <div className="group">
       {video.isHidden ? (
         <div className="grid h-full place-items-center">
           <span className="text-xs">Media deleted</span>
@@ -46,7 +46,6 @@ const VideoCard: FC<Props> = ({ video }) => {
                 className="ultrawide:line-clamp-1 ultrawide:break-all line-clamp-2 break-words font-semibold"
                 href={href}
                 title={metadata.marketplace?.name ?? metadata.content}
-                data-testid="video-card-title"
               >
                 {metadata.marketplace?.name}
               </Link>

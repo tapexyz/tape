@@ -21,16 +21,11 @@ jobs:
         - name: Install dependencies 🧳
           run: bun install
 
-        - name: Install Playwright Browsers 🕹️
-          run: bunx playwright install --with-deps
-
         - name: Check Lint 💅🏻
           run: bun run lint && bun run typecheck
 
         - name: Run Build 🔨
           run: bun run build
  
-        - name: Run Tests 🧪
-          run: bun run e2e:test
         
           

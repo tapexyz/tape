@@ -98,7 +98,7 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
   }
 
   return (
-    <div className="md:w-2/4" data-testid="global-search">
+    <div className="md:w-2/4">
       <div ref={resultsRef}>
         <div className="relative">
           <TextField.Root variant="soft" color="gray">
@@ -124,10 +124,7 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
               </div>
             ) : (
               <>
-                <div
-                  className="no-scrollbar max-h-[80vh] space-y-2 overflow-y-auto pb-2 focus:outline-none"
-                  data-testid="search-channels-panel"
-                >
+                <div className="no-scrollbar max-h-[80vh] space-y-2 overflow-y-auto pb-2 focus:outline-none">
                   <Text size="3" weight="bold">
                     Creators
                   </Text>

@@ -55,10 +55,7 @@ const CategoryFilters = () => {
   }
 
   return (
-    <div
-      className="ultrawide:max-w-[90rem] relative mx-auto flex pb-5"
-      data-testid="category-filters"
-    >
+    <div className="ultrawide:max-w-[90rem] relative mx-auto flex pb-5">
       {scrollX !== 0 && (
         <div className="ultrawide:pl-0 sticky bottom-0 right-0 hidden items-center bg-transparent px-2 md:flex">
           <IconButton

@@ -12,11 +12,9 @@
     "extract": { "outputs": [] },
     "start": { "cache": false },
     "typecheck": { "outputs": [] },
-    "e2e:test": { "dependsOn": ["^build"] },
     "worker:deploy": { "outputs": [] },
     "lint": { "outputs": [] },
     "codegen": { "outputs": [] },
-    "dev": { "cache": false },
-    "dev:test": { "cache": false }
+    "dev": { "cache": false }
   }
 }

@@ -1,7 +1,0 @@
-{
-  "extends": "@lenstube/config/react.tsconfig.json",
-  "compilerOptions": {
-    "baseUrl": ".",
-    "noEmit": true
-  }
-}

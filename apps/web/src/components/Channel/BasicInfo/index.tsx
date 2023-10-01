@@ -119,7 +119,6 @@ const BasicInfo: FC<Props> = ({ profile }) => {
           <div className="mr-3 flex flex-col items-start space-y-1.5">
             <Text
               className="flex items-center space-x-1.5 text-lg md:text-2xl"
-              data-testid="channel-name"
               weight="bold"
             >
               <span>
