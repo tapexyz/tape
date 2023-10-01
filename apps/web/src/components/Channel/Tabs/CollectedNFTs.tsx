@@ -15,28 +15,19 @@ type Props = {
   profile: Profile
 }
 
-const CollectedNFTs: FC<Props> = ({ channel }) => {
+const CollectedNFTs: FC<Props> = ({ profile }) => {
   const fetchNfts = async () => {
-    const { data } = await axios.get(`${NFTS_URL}/${channel.handle}/200`)
+    const { data } = await axios.get(`${NFTS_URL}/${profile.handle}/200`)
     return data?.result
   }
 
   const { data, isLoading, error } = useQuery(
-    ['nfts', channel.handle],
+    ['nfts', profile.handle],
     () => fetchNfts().then((res) => res),
     {
       enabled: true
     }
   )
-
-  // const { data, isLoading, error } = useSWR(
-  //   `${NFTS_URL}/${channel.handle}/200`,
-  //   (url: string) => fetch(url).then((res) => res.json()),
-  //   {
-  //     revalidateOnFocus: false,
-  //     revalidateIfStale: false
-  //   }
-  // )
 
   const nfts = data?.items
 
