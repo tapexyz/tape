@@ -21,22 +21,7 @@ router
     getNfts(env, params.handle, params.limit)
   )
   .all('*', () => error(404))
-
-const routerHandleStack = (request: Request, env: Env, ctx: ExecutionContext) =>
-  router.handle(request, env, ctx).then(json)
-
-const handleFetch = async (
-  request: Request,
-  env: Env,
-  ctx: ExecutionContext
-) => {
-  try {
-    return await routerHandleStack(request, env, ctx)
-  } catch {
-    return error(500)
-  }
-}
-
+ 
 export default {
   async fetch(
     request: Request,
