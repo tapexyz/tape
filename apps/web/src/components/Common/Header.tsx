@@ -116,14 +116,14 @@ const Header: FC<Props> = ({ className }) => {
                   variant="soft"
                   align="end"
                 >
-                  <DropdownMenu.Item>
-                    <Link href="/upload" className="hidden md:block">
+                  <Link href="/upload" className="hidden md:block">
+                    <DropdownMenu.Item>
                       <Flex align="center" gap="2">
                         <UploadOutline className="h-3 w-3" />
                         <Trans>New Upload</Trans>
                       </Flex>
-                    </Link>
-                  </DropdownMenu.Item>
+                    </DropdownMenu.Item>
+                  </Link>
                   <DropdownMenu.Item onClick={() => setShowPostLinkModal(true)}>
                     <Flex align="center" gap="2">
                       <LinkOutline className="h-3 w-3" />
