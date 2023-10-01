@@ -29,6 +29,15 @@ const CollectedNFTs: FC<Props> = ({ channel }) => {
     }
   )
 
+  // const { data, isLoading, error } = useSWR(
+  //   `${NFTS_URL}/${channel.handle}/200`,
+  //   (url: string) => fetch(url).then((res) => res.json()),
+  //   {
+  //     revalidateOnFocus: false,
+  //     revalidateIfStale: false
+  //   }
+  // )
+
   const nfts = data?.items
 
   if (isLoading) {

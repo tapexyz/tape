@@ -199,6 +199,9 @@ const Tabs: FC<Props> = ({ profile }) => {
         <Tab.Panel className="focus:outline-none">
           <SharedLinks profileId={profile.id} />
         </Tab.Panel>
+        <Tab.Panel className="focus:outline-none">
+          <SharedLinks channel={channel} />
+        </Tab.Panel>
         {getIsFeatureEnabled(
           FEATURE_FLAGS.PROFILE_NFTS,
           selectedSimpleProfile?.id
