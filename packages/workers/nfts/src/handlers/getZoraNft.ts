@@ -1,5 +1,6 @@
 import { WorkerRequest } from '../types'
-import { getZoraChainIsMainnet } from '@lenstube/generic'
+
+const ZORA_MAINNET_CHAINS = ['eth', 'oeth', 'base', 'zora']
 
 export default async (request: WorkerRequest) => {
   const { chain, address, token } = request.query
@@ -14,7 +15,9 @@ export default async (request: WorkerRequest) => {
   }
 
   try {
-    const network = getZoraChainIsMainnet(chain as string) ? '' : 'testnet.'
+    const network = ZORA_MAINNET_CHAINS.includes(chain as string)
+      ? ''
+      : 'testnet.'
     const zoraResponse = await fetch(
       `https://${network}zora.co/api/personalize/collection/${chain}:${address}/${
         token || ''
