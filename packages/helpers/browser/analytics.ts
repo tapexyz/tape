@@ -30,7 +30,7 @@ export const TRACK = {
     },
     PERMALINK: 'Permalink publication',
     SHARE: {
-      LENSTER: 'Share to Lenster',
+      HEY: 'Share to Hey',
       X: 'Share to X',
       REDDIT: 'Share to Reddit',
       LINKEDIN: 'Share to LinkedIn'

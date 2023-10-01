@@ -1,5 +1,5 @@
 import {
-  LENSTER_WEBSITE_URL,
+  HEY_WEBSITE_URL,
   LENSTUBE_APP_NAME,
   LENSTUBE_WEBSITE_URL,
   LENSTUBE_X_HANDLE
@@ -10,7 +10,7 @@ const getViewUrl = (video: MirrorablePublication) => {
   return `${LENSTUBE_WEBSITE_URL}/watch/${video.id}`
 }
 
-type Link = 'lenstube' | 'lenster' | 'x' | 'reddit' | 'linkedin'
+type Link = 'lenstube' | 'hey' | 'x' | 'reddit' | 'linkedin'
 
 export const getSharableLink = (link: Link, video: MirrorablePublication) => {
   const { handle } = video.by
@@ -18,9 +18,9 @@ export const getSharableLink = (link: Link, video: MirrorablePublication) => {
 
   if (link === 'lenstube') {
     return `${LENSTUBE_WEBSITE_URL}/watch/${video.id}`
-  } else if (link === 'lenster') {
-    return `${LENSTER_WEBSITE_URL}/?url=${getViewUrl(video)}&text=${
-      (metadata.marketplace?.name as string) ?? ''
+  } else if (link === 'hey') {
+    return `${HEY_WEBSITE_URL}/?url=${getViewUrl(video)}&text=${
+      (metadata?.marketplace?.name as string) ?? ''
     } by @${handle}&hashtags=Lenstube&preview=true`
   } else if (link === 'x') {
     return encodeURI(

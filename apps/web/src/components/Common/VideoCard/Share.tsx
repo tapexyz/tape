@@ -40,17 +40,14 @@ const Share: FC<Props> = ({ video }) => {
           className="rounded-full"
           target="_blank"
           rel="noreferrer"
-          onClick={() => Analytics.track(TRACK.PUBLICATION.SHARE.LENSTER)}
-          href={getSharableLink('lenster', video)}
+          onClick={() => Analytics.track(TRACK.PUBLICATION.SHARE.HEY)}
+          href={getSharableLink('hey', video)}
         >
           <img
-            src={imageCdn(
-              `${STATIC_ASSETS}/images/lenster-logo.svg`,
-              'AVATAR_LG'
-            )}
+            src={imageCdn(`${STATIC_ASSETS}/images/hey-logo.svg`, 'AVATAR_LG')}
             className="h-10 w-10 max-w-none rounded-full"
             loading="eager"
-            alt="lenster"
+            alt="hey"
             draggable={false}
           />
         </Link>
