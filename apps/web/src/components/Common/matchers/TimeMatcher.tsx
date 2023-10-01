@@ -1,4 +1,4 @@
-import { getSecondsFromTime } from '@lenstube/generic'
+import { getSecondsFromTime } from '@lib/formatTime'
 import { Matcher } from 'interweave'
 import Link from 'next/link'
 import { useRouter } from 'next/router'

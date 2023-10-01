@@ -3,12 +3,12 @@ import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
 import {
   getProfilePicture,
   getRandomProfilePicture,
-  getRelativeTime,
   imageCdn,
   shortenAddress,
   trimLensHandle
 } from '@lenstube/generic'
 import type { NewFollowerNotification } from '@lenstube/lens'
+import { getRelativeTime } from '@lib/formatTime'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
 import Link from 'next/link'

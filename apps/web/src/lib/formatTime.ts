@@ -3,8 +3,8 @@ import relativeTime from 'dayjs/plugin/relativeTime'
 import utc from 'dayjs/plugin/utc'
 import dayjsTwitter from 'dayjs-twitter'
 
-dayjs.extend(relativeTime)
 dayjs.extend(utc)
+dayjs.extend(relativeTime)
 dayjs.extend(dayjsTwitter)
 
 export const getSecondsFromTime = (time: string) => {
@@ -41,6 +41,10 @@ export const getTimeAddedOneDay = () => {
   return dayjs().add(1, 'day').utc().format()
 }
 
+export const getDateString = (timestamp: string) => {
+  return dayjs(timestamp).format('dddd, MMMM D, YYYY h:mm A')
+}
+
 export const secondsToISO = (seconds: string | undefined) => {
   const SECONDS_PER_SECOND = 1
   const SECONDS_PER_MINUTE = 60
@@ -67,8 +71,4 @@ export const secondsToISO = (seconds: string | undefined) => {
     duration = 'P0S'
   }
   return duration // ex: P2M47S
-}
-
-export const getDateString = (timestamp: string) => {
-  return dayjs(timestamp).format('dddd, MMMM D, YYYY h:mm A')
 }

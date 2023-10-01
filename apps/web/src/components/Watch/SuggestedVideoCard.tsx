@@ -10,14 +10,13 @@ import {
 } from '@lenstube/constants'
 import {
   getIsSensitiveContent,
-  getRelativeTime,
   getThumbnailUrl,
-  getTimeFromSeconds,
   getValueFromTraitType,
   imageCdn,
   trimLensHandle
 } from '@lenstube/generic'
 import type { Attribute, Publication } from '@lenstube/lens'
+import { getRelativeTime, getTimeFromSeconds } from '@lib/formatTime'
 import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import Link from 'next/link'

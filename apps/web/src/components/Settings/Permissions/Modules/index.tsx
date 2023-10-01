@@ -1,6 +1,5 @@
 import { Button } from '@components/UIElements/Button'
 import { WMATIC_TOKEN_ADDRESS } from '@lenstube/constants'
-import { getCollectModuleConfig } from '@lenstube/generic'
 import type { ApprovedAllowanceAmount, Erc20 } from '@lenstube/lens'
 import {
   CollectModules,
@@ -11,6 +10,7 @@ import {
 } from '@lenstube/lens'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import { Loader } from '@lenstube/ui'
+import { getCollectModuleConfig } from '@lib/getCollectModule'
 import useAuthPersistStore from '@lib/store/auth'
 import { t, Trans } from '@lingui/macro'
 import React, { useState } from 'react'
