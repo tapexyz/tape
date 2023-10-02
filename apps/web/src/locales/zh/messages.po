@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenstube\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-09-19 01:12\n"
+"PO-Revision-Date: 2023-10-02 06:30\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -56,7 +56,7 @@ msgstr "所有通知"
 
 #: src/components/Common/UserMenu.tsx:326
 #~ msgid "All services are online"
-#~ msgstr "所有服务都在线了"
+#~ msgstr "All services are online"
 
 #: src/components/Settings/Permissions/Modules/index.tsx:153
 #: src/components/Settings/Permissions/Modules/index.tsx:165
@@ -303,7 +303,7 @@ msgstr "连接"
 
 #: src/components/Common/Auth/Login.tsx:168
 msgid "Connect to the right network to continue"
-msgstr ""
+msgstr "连接到正确的网络以继续"
 
 #: src/pages/auth.tsx:37
 msgid "Connect Wallet & Sign with Lens to continue,"
@@ -338,7 +338,7 @@ msgstr "创建中..."
 
 #: src/components/Home/OpenActions/index.tsx:48
 msgid "Cross Chain Collects"
-msgstr ""
+msgstr "十字链收藏"
 
 #: src/components/Settings/Membership.tsx:242
 msgid "Currency"
@@ -452,7 +452,7 @@ msgstr "估计上传费用"
 
 #: src/components/Home/OpenActions/Zora/Metadata.tsx:66
 msgid "ETH"
-msgstr ""
+msgstr "ETH"
 
 #: src/components/Common/MobileBottomNav.tsx:62
 #: src/components/Common/Sidebar.tsx:138
@@ -631,7 +631,7 @@ msgstr "有限采集量"
 
 #: src/components/Channel/Tabs/index.tsx:146
 msgid "Links"
-msgstr "Links"
+msgstr "链接"
 
 #: src/components/Settings/BasicInfo.tsx:404
 msgid "Location"
@@ -695,7 +695,7 @@ msgstr "镜像"
 
 #: src/components/Channel/Tabs/index.tsx:127
 msgid "Mirrors"
-msgstr ""
+msgstr "镜像"
 
 #: src/components/ReportPublication/index.tsx:106
 msgid "Misleading"
@@ -722,7 +722,7 @@ msgstr "更多关于您的频道"
 
 #: src/components/Common/Header.tsx:151
 msgid "New Upload"
-msgstr ""
+msgstr "新增上传"
 
 #: src/components/Common/Header.tsx:173
 msgid "New video"
@@ -747,7 +747,7 @@ msgstr "未找到字节"
 
 #: src/components/Channel/Tabs/SharedLinks.tsx:68
 msgid "No links found"
-msgstr ""
+msgstr "没有找到链接"
 
 #: src/components/Channel/Tabs/MirroredVideos.tsx:62
 msgid "No mirrors found"
@@ -837,7 +837,7 @@ msgstr "只有订阅者可以评论这个发布"
 
 #: src/components/Common/PostLinkModal.tsx:318
 msgid "Only zora links are supported at the moment."
-msgstr ""
+msgstr "目前只支持zora链接。"
 
 #: src/components/Common/PostLinkModal.tsx:318
 #~ msgid "Only zora links are supported now."
@@ -885,7 +885,7 @@ msgstr "正在固定视频..."
 
 #: src/components/Common/Auth/Login.tsx:178
 msgid "Please change your network wallet!"
-msgstr ""
+msgstr "请更改您的网络钱包！"
 
 #: src/components/Common/Auth/Login.tsx:91
 msgid "Please connect to your wallet"
@@ -1079,7 +1079,7 @@ msgstr "分享"
 
 #: src/components/Common/PostLinkModal.tsx:317
 msgid "Share a Drop"
-msgstr ""
+msgstr "分享掉落记录"
 
 #: src/components/Common/Header.tsx:154
 #~ msgid "Share Collect"
@@ -1087,7 +1087,7 @@ msgstr ""
 
 #: src/components/Common/Header.tsx:161
 msgid "Share Drop"
-msgstr ""
+msgstr "分享掉落功能"
 
 #: src/components/Upload/CollectModule/FeeCollectForm.tsx:39
 msgid "Should to greater than or equal to zero"
@@ -1137,7 +1137,7 @@ msgstr "跳过视频上传 (只有当你知道你在做什么！)"
 
 #: src/components/Common/UserMenu.tsx:327
 #~ msgid "Some services are offline"
-#~ msgstr "有些服务处于离线状态"
+#~ msgstr "Some services are offline"
 
 #: src/components/ReportPublication/index.tsx:118
 msgid "Something Else"
@@ -1230,7 +1230,7 @@ msgstr "切换频道"
 
 #: src/components/Common/Auth/ConnectWalletButton.tsx:73
 #~ msgid "Switch network"
-#~ msgstr "切换网络"
+#~ msgstr "Switch network"
 
 #: src/components/Common/Auth/Login.tsx:189
 #~ msgid "Switch Network"
@@ -1246,7 +1246,7 @@ msgstr "切换到灯光"
 
 #: src/components/Common/Auth/Login.tsx:182
 msgid "Switch to Polygon"
-msgstr ""
+msgstr "切换到多边形"
 
 #: src/components/Channel/BasicInfo/index.tsx:156
 msgid "Sybil Verified"
@@ -1601,7 +1601,7 @@ msgstr "撰写回复"
 
 #: src/components/Common/Auth/Login.tsx:162
 msgid "Wrong Network"
-msgstr ""
+msgstr "网络错误"
 
 #: src/components/UIElements/RadioInput.tsx:29
 msgid "Yes"
@@ -1638,3 +1638,4 @@ msgstr "您的频道"
 #: src/components/Upload/BundlrInfo.tsx:171
 msgid "Your Storage Balance"
 msgstr "您的存储余额"
+
