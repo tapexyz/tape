@@ -73,7 +73,7 @@ const Header: FC<Props> = ({ className }) => {
   return (
     <div
       className={clsx(
-        'sticky left-0 right-0 top-0 z-10 flex w-full items-center bg-white/70 p-2 backdrop-blur-xl dark:bg-black/70 md:p-4',
+        'ultrawide:max-w-[90rem] ultrawide:px-0 container sticky left-0 right-0 top-0 z-10 mx-auto flex items-center bg-white/70 p-2 backdrop-blur-xl dark:bg-black/70 md:p-4',
         className
       )}
     >

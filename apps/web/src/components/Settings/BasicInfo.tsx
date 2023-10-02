@@ -4,6 +4,7 @@ import AddImageOutline from '@components/Common/Icons/AddImageOutline'
 import CopyOutline from '@components/Common/Icons/CopyOutline'
 import EmojiPicker from '@components/UIElements/EmojiPicker'
 import { Input } from '@components/UIElements/Input'
+import { TextArea } from '@components/UIElements/TextArea'
 import Tooltip from '@components/UIElements/Tooltip'
 import { zodResolver } from '@hookform/resolvers/zod'
 import type { MetadataAttribute, ProfileOptions } from '@lens-protocol/metadata'
@@ -406,7 +407,7 @@ const BasicInfo = ({ channel }: Props) => {
           />
         </div>
         <div className="relative mt-4">
-          <Input
+          <TextArea
             label={t`Bio`}
             placeholder={t`More about you and what you do!`}
             validationError={errors.description?.message}
@@ -464,7 +465,7 @@ const BasicInfo = ({ channel }: Props) => {
           />
         </div>
         <div className="mt-4 flex justify-end">
-          <Button disabled={loading} highContrast>
+          <Button variant="classic" disabled={loading} highContrast>
             <Trans>Save Profile</Trans>
           </Button>
         </div>
