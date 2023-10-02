@@ -1,5 +1,5 @@
 import { Analytics, TRACK } from '@lenstube/browser'
-import { ERROR_MESSAGE, POLYGON_CHAIN_ID } from '@lenstube/constants'
+import { ERROR_MESSAGE } from '@lenstube/constants'
 import { getProfilePicture, logger, trimLensHandle } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import {
@@ -27,14 +27,13 @@ import {
 import { useRouter } from 'next/router'
 import React, { useCallback, useState } from 'react'
 import toast from 'react-hot-toast'
-import { useAccount, useDisconnect, useNetwork, useSignMessage } from 'wagmi'
+import { useAccount, useDisconnect, useSignMessage } from 'wagmi'
 
 const SelectProfile = () => {
   const [selectedProfileId, setSelectedProfileId] = useState<string>()
   const [loading, setLoading] = useState(false)
 
   const router = useRouter()
-  const { chain } = useNetwork()
   const { address, connector, isConnected } = useAccount()
   const { disconnect } = useDisconnect({
     onError(error: CustomErrorWithData) {
@@ -62,8 +61,7 @@ const SelectProfile = () => {
 
   const profiles = data?.profilesManaged.items as Profile[]
 
-  const isReadyToSign =
-    isConnected && chain?.id === POLYGON_CHAIN_ID && !selectedSimpleProfile?.id
+  const isReadyToSign = isConnected && !selectedSimpleProfile?.id
 
   const onError = () => {
     signOut()
@@ -162,7 +160,9 @@ const SelectProfile = () => {
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <Button highContrast>Sign In</Button>
+        <Button highContrast variant="classic">
+          Sign In
+        </Button>
       </Dialog.Trigger>
 
       <Dialog.Content style={{ maxWidth: 450 }}>
@@ -206,7 +206,12 @@ const SelectProfile = () => {
               Cancel
             </Button>
           </Dialog.Close>
-          <Button highContrast disabled={loading} onClick={() => handleSign()}>
+          <Button
+            highContrast
+            variant="classic"
+            disabled={loading}
+            onClick={() => handleSign()}
+          >
             Sign In
           </Button>
         </Flex>

@@ -31,7 +31,11 @@ const ConnectWalletButton = () => {
     ) : (
       <div className="flex items-center space-x-2">
         <SelectProfile />
-        <IconButton color="red" onClick={() => disconnect?.()}>
+        <IconButton
+          color="red"
+          variant="classic"
+          onClick={() => disconnect?.()}
+        >
           <DisconnectOutline className="h-4 w-4" />
         </IconButton>
       </div>
@@ -39,6 +43,7 @@ const ConnectWalletButton = () => {
   ) : (
     <Button
       highContrast
+      variant="classic"
       onClick={() => {
         if (openConnectModal) {
           openConnectModal()
@@ -48,10 +53,7 @@ const ConnectWalletButton = () => {
         }
       }}
     >
-      <Trans>Connect</Trans>{' '}
-      <span className="hidden md:inline-block">
-        <Trans>Wallet</Trans>
-      </span>
+      <Trans>Connect</Trans>
     </Button>
   )
 }
