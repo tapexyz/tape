@@ -18,7 +18,7 @@ msgstr ""
 "X-Crowdin-File: messages.po\n"
 "X-Crowdin-File-ID: 5\n"
 
-#: src/components/Home/Collects/zora/Collect.tsx:113
+#: src/components/Home/OpenActions/Zora/Collect.tsx:113
 msgid "{nftPriceInEth} ETH + {platformFeesInEth} ETH mint fees"
 msgstr ""
 
@@ -184,8 +184,8 @@ msgstr "索赔处理"
 
 #: src/components/Bytes/ByteActions.tsx:75
 #: src/components/Bytes/ByteVideo.tsx:165
-#: src/components/Home/Collects/zora/ZoraNft.tsx:46
-#: src/components/Home/Collects/zora/ZoraNft.tsx:74
+#: src/components/Home/OpenActions/Zora/ZoraNft.tsx:47
+#: src/components/Home/OpenActions/Zora/ZoraNft.tsx:75
 msgid "Collect"
 msgstr "收集"
 
@@ -229,7 +229,7 @@ msgstr "收集视频"
 msgid "Collected as NFT"
 msgstr "以 NFT 方式收集"
 
-#: src/components/Watch/VideoMeta.tsx:30
+#: src/components/Watch/VideoMeta.tsx:27
 msgid "Collected By"
 msgstr "收集者"
 
@@ -241,8 +241,8 @@ msgstr "收集您的"
 msgid "Collecting"
 msgstr "收集中"
 
-#: src/components/Home/Collects/zora/Metadata.tsx:60
-#: src/components/Watch/VideoMeta.tsx:59
+#: src/components/Home/OpenActions/Zora/Metadata.tsx:60
+#: src/components/Watch/VideoMeta.tsx:56
 msgid "collects"
 msgstr "收藏"
 
@@ -259,7 +259,7 @@ msgid "Comment deleted"
 msgstr "评论已删除"
 
 #: src/components/Notifications/Collected.tsx:69
-#: src/components/Notifications/Reacted.tsx:42
+#: src/components/Notifications/Reacted.tsx:39
 msgid "comment on"
 msgstr "评论于"
 
@@ -271,7 +271,7 @@ msgstr "评论不能超过 5000 个字符"
 #~ msgid "Commented"
 #~ msgstr "Commented"
 
-#: src/components/Notifications/Commented.tsx:37
+#: src/components/Notifications/Commented.tsx:34
 msgid "commented on your"
 msgstr "对您的评论"
 
@@ -323,7 +323,7 @@ msgstr "复制到剪贴板"
 
 #: src/components/Common/CreateChannel.tsx:61
 #: src/components/Common/CreateChannel.tsx:84
-#: src/components/Common/Header.tsx:131
+#: src/components/Common/Header.tsx:138
 msgid "Create"
 msgstr "创建"
 
@@ -336,7 +336,7 @@ msgstr "创建频道"
 msgid "Creating..."
 msgstr "创建中..."
 
-#: src/components/Home/Collects/index.tsx:48
+#: src/components/Home/OpenActions/index.tsx:48
 msgid "Cross Chain Collects"
 msgstr ""
 
@@ -392,7 +392,7 @@ msgstr "已禁用"
 msgid "Dislike"
 msgstr "Dislike"
 
-#: src/components/Notifications/Reacted.tsx:39
+#: src/components/Notifications/Reacted.tsx:36
 msgid "dislisked"
 msgstr "已移除"
 
@@ -450,7 +450,7 @@ msgstr "上传文件出错"
 msgid "Estimated Cost to Upload"
 msgstr "估计上传费用"
 
-#: src/components/Home/Collects/zora/Metadata.tsx:66
+#: src/components/Home/OpenActions/Zora/Metadata.tsx:66
 msgid "ETH"
 msgstr ""
 
@@ -606,14 +606,14 @@ msgstr "Lenstube统计"
 msgid "Like"
 msgstr "赞"
 
-#: src/components/Notifications/Reacted.tsx:39
+#: src/components/Notifications/Reacted.tsx:36
 msgid "liked"
 msgstr "赞了"
 
 #: src/components/Channel/Tabs/PinnedVideo.tsx:260
-#: src/components/Common/VideoCard/index.tsx:94
+#: src/components/Common/VideoCard/index.tsx:91
 #: src/components/Home/BytesSection.tsx:137
-#: src/components/Watch/SuggestedVideoCard.tsx:116
+#: src/components/Watch/SuggestedVideoCard.tsx:115
 msgid "likes"
 msgstr "赞"
 
@@ -653,7 +653,7 @@ msgstr "成员"
 msgid "Membership updated"
 msgstr "会员已更新"
 
-#: src/components/Notifications/Mentioned.tsx:55
+#: src/components/Notifications/Mentioned.tsx:52
 msgid "mentioned"
 msgstr "提到了"
 
@@ -673,15 +673,15 @@ msgstr "镜像"
 msgid "Mirror video across Lens"
 msgstr "全镜像视频"
 
-#: src/components/Channel/MirroredVideoCard.tsx:94
+#: src/components/Channel/MirroredVideoCard.tsx:96
 msgid "Mirrored"
 msgstr "镜像"
 
-#: src/components/Watch/VideoMeta.tsx:40
+#: src/components/Watch/VideoMeta.tsx:37
 msgid "Mirrored By"
 msgstr "镜像者"
 
-#: src/components/Notifications/Mirrored.tsx:39
+#: src/components/Notifications/Mirrored.tsx:36
 msgid "mirrored your"
 msgstr "镜像您的"
 
@@ -689,7 +689,7 @@ msgstr "镜像您的"
 msgid "Mirroring"
 msgstr "镜像"
 
-#: src/components/Watch/VideoMeta.tsx:72
+#: src/components/Watch/VideoMeta.tsx:69
 msgid "mirrors"
 msgstr "镜像"
 
@@ -720,13 +720,13 @@ msgstr "更多关于您的频道"
 #~ msgid "My Saved List"
 #~ msgstr ""
 
-#: src/components/Common/Header.tsx:144
+#: src/components/Common/Header.tsx:151
 msgid "New Upload"
 msgstr ""
 
-#: src/components/Common/Header.tsx:128
-#~ msgid "New video"
-#~ msgstr "新视频"
+#: src/components/Common/Header.tsx:173
+msgid "New video"
+msgstr "新视频"
 
 #: src/components/Watch/Comments/CommentsFilter.tsx:59
 msgid "Newest first"
@@ -836,8 +836,12 @@ msgid "Only subscribers can comment on this publication"
 msgstr "只有订阅者可以评论这个发布"
 
 #: src/components/Common/PostLinkModal.tsx:318
-msgid "Only zora links are supported now."
+msgid "Only zora links are supported at the moment."
 msgstr ""
+
+#: src/components/Common/PostLinkModal.tsx:318
+#~ msgid "Only zora links are supported now."
+#~ msgstr ""
 
 #: src/components/Upload/DropZone.tsx:105
 msgid "or choose video"
@@ -986,7 +990,7 @@ msgid "replies"
 msgstr "回复"
 
 #: src/components/Watch/Comments/Comment.tsx:154
-#: src/components/Watch/Comments/CommentReplies.tsx:169
+#: src/components/Watch/Comments/CommentReplies.tsx:166
 msgid "Reply"
 msgstr "答复"
 
@@ -1035,7 +1039,7 @@ msgstr "保存的视频"
 msgid "Scam"
 msgstr "Scam"
 
-#: src/components/Common/Header.tsx:168
+#: src/components/Common/Header.tsx:187
 msgid "Search"
 msgstr "搜索"
 
@@ -1051,8 +1055,8 @@ msgstr "选择收藏类型"
 msgid "Select Video"
 msgstr "选择视频"
 
-#: src/components/Channel/MirroredVideoCard.tsx:39
-#: src/components/Common/VideoCard/ThumbnailOverlays.tsx:27
+#: src/components/Channel/MirroredVideoCard.tsx:41
+#: src/components/Common/VideoCard/ThumbnailOverlays.tsx:24
 msgid "Sensitive Content"
 msgstr "敏感内容"
 
@@ -1081,7 +1085,7 @@ msgstr ""
 #~ msgid "Share Collect"
 #~ msgstr ""
 
-#: src/components/Common/Header.tsx:154
+#: src/components/Common/Header.tsx:161
 msgid "Share Drop"
 msgstr ""
 
@@ -1094,12 +1098,12 @@ msgid "Show all"
 msgstr "显示所有"
 
 #: src/components/Watch/Comments/Comment.tsx:128
-#: src/components/Watch/Comments/CommentReplies.tsx:61
+#: src/components/Watch/Comments/CommentReplies.tsx:58
 msgid "Show less"
 msgstr "显示更少的"
 
 #: src/components/Watch/Comments/Comment.tsx:123
-#: src/components/Watch/Comments/CommentReplies.tsx:56
+#: src/components/Watch/Comments/CommentReplies.tsx:53
 msgid "Show more"
 msgstr "显示更多"
 
@@ -1107,7 +1111,7 @@ msgstr "显示更多"
 msgid "Show more comments"
 msgstr "显示更多评论"
 
-#: src/components/Watch/Comments/CommentReplies.tsx:198
+#: src/components/Watch/Comments/CommentReplies.tsx:195
 msgid "Show more replies"
 msgstr "显示更多回复"
 
@@ -1467,9 +1471,9 @@ msgid "Verified"
 msgstr "已验证"
 
 #: src/components/Notifications/Collected.tsx:77
-#: src/components/Notifications/Commented.tsx:45
-#: src/components/Notifications/Mirrored.tsx:44
-#: src/components/Notifications/Reacted.tsx:52
+#: src/components/Notifications/Commented.tsx:42
+#: src/components/Notifications/Mirrored.tsx:41
+#: src/components/Notifications/Reacted.tsx:49
 msgid "video"
 msgstr "视频"
 
@@ -1615,7 +1619,7 @@ msgstr "您可以为您的频道设置订阅费，并向订阅者提供独家报
 msgid "You got no videos in your feed, explore!"
 msgstr "你在你的新闻源中没有视频，探索！"
 
-#: src/components/Notifications/Reacted.tsx:40
+#: src/components/Notifications/Reacted.tsx:37
 msgid "your"
 msgstr "您的"
 
@@ -1623,7 +1627,7 @@ msgstr "您的"
 msgid "Your address does not seem to have Lens handle."
 msgstr "您的地址似乎没有镜头句柄。"
 
-#: src/components/Notifications/Mentioned.tsx:57
+#: src/components/Notifications/Mentioned.tsx:54
 msgid "your channel"
 msgstr "您的频道"
 
