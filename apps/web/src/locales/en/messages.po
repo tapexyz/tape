@@ -8,7 +8,7 @@ msgstr ""
 "Language: en\n"
 "Project-Id-Version: lenstube\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-09-19 01:12\n"
+"PO-Revision-Date: 2023-10-02 06:30\n"
 "Last-Translator: \n"
 "Language-Team: English\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -631,7 +631,7 @@ msgstr "Limited collect"
 
 #: src/components/Channel/Tabs/index.tsx:146
 msgid "Links"
-msgstr "Links"
+msgstr ""
 
 #: src/components/Settings/BasicInfo.tsx:404
 msgid "Location"
@@ -726,7 +726,7 @@ msgstr ""
 
 #: src/components/Common/Header.tsx:173
 msgid "New video"
-msgstr "New video"
+msgstr ""
 
 #: src/components/Watch/Comments/CommentsFilter.tsx:59
 msgid "Newest first"
@@ -1638,3 +1638,4 @@ msgstr "Your Channel"
 #: src/components/Upload/BundlrInfo.tsx:171
 msgid "Your Storage Balance"
 msgstr "Your Storage Balance"
+
