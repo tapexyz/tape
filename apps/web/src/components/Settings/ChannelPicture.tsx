@@ -1,5 +1,6 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import AddImageOutline from '@components/Common/Icons/AddImageOutline'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import { uploadToIPFS } from '@lenstube/browser'
 import {
   ERROR_MESSAGE,
@@ -54,6 +55,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   )
   const userSigNonce = useChannelStore((state) => state.userSigNonce)
   const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
+  const handleWrongNetwork = useHandleWrongNetwork()
 
   // Dispatcher
   const canUseRelay = activeChannel?.dispatcher?.canUseRelay
@@ -136,6 +138,9 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     })
 
   const createTypedData = async (request: UpdateProfileImageRequest) => {
+    if (handleWrongNetwork()) {
+      return
+    }
     await createSetProfileImageURITypedData({
       variables: { options: { overrideSigNonce: userSigNonce }, request }
     })

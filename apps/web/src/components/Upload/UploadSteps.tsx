@@ -1,6 +1,7 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import MetaTags from '@components/Common/MetaTags'
 import useEthersWalletClient from '@hooks/useEthersWalletClient'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import {
   Analytics,
   getUserLocale,
@@ -73,6 +74,7 @@ const UploadSteps = () => {
   const { address } = useAccount()
   const { data: signer } = useEthersWalletClient()
   const router = useRouter()
+  const handleWrongNetwork = useHandleWrongNetwork()
 
   const degreesOfSeparation = uploadedVideo.referenceModule
     ?.degreesOfSeparationReferenceModule?.degreesOfSeparation as number
@@ -286,6 +288,9 @@ const UploadSteps = () => {
   })
 
   const createTypedData = async (request: CreatePublicPostRequest) => {
+    if (handleWrongNetwork()) {
+      return
+    }
     await createPostTypedData({
       variables: { request }
     })

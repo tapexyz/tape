@@ -3,6 +3,7 @@ import { Button } from '@components/UIElements/Button'
 import EmojiPicker from '@components/UIElements/EmojiPicker'
 import InputMentions from '@components/UIElements/InputMentions'
 import { zodResolver } from '@hookform/resolvers/zod'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import { Analytics, getUserLocale, TRACK } from '@lenstube/browser'
 import {
   ERROR_MESSAGE,
@@ -78,6 +79,7 @@ const NewComment: FC<Props> = ({
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
+  const handleWrongNetwork = useHandleWrongNetwork()
   const queuedComments = usePersistStore((state) => state.queuedComments)
   const setQueuedComments = usePersistStore((state) => state.setQueuedComments)
   const userSigNonce = useChannelStore((state) => state.userSigNonce)
@@ -228,6 +230,9 @@ const NewComment: FC<Props> = ({
   })
 
   const createTypedData = async (request: CreatePublicCommentRequest) => {
+    if (handleWrongNetwork()) {
+      return
+    }
     await createCommentTypedData({
       variables: { options: { overrideSigNonce: userSigNonce }, request }
     })
