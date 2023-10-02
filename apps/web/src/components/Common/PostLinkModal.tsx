@@ -1,6 +1,4 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
-import { Button } from '@components/UIElements/Button'
-import Modal from '@components/UIElements/Modal'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
 import type { MetadataAttribute } from '@lens-protocol/metadata'
@@ -35,7 +33,8 @@ import type {
   CustomErrorWithData
 } from '@lenstube/lens/custom-types'
 import useChannelStore from '@lib/store/channel'
-import { t } from '@lingui/macro'
+import { Trans } from '@lingui/macro'
+import { Button, Dialog, Flex } from '@radix-ui/themes'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -235,35 +234,46 @@ const PostLinkModal: FC<Props> = ({ show, setShow }) => {
 
   return (
     <div>
-      <Modal
-        title={t`Share a Drop`}
-        description={t`Only zora links are supported at the moment.`}
-        onClose={() => setShow(false)}
-        show={show}
-        panelClassName="max-w-lg"
-      >
-        <div className="no-scrollbar max-h-[40vh] overflow-y-auto p-0.5">
-          <form className="mt-2" onSubmit={handleSubmit(onSubmit)}>
-            <TextArea
-              label="Absolute URL"
-              placeholder="https://..."
-              {...register('link')}
-              validationError={errors.link?.message}
-            />
-            {data && (
-              <div className="mt-4 rounded-xl border border-gray-200 p-5 dark:border-gray-800">
-                <h6 className="text-xl font-bold">{data.name}</h6>
-                <p className="line-clamp-2">{data.description}</p>
-              </div>
-            )}
-            <div className="mt-4 flex items-center justify-end">
-              <Button disabled={!isValid || !data || loading} loading={loading}>
-                Post Link
-              </Button>
-            </div>
-          </form>
-        </div>
-      </Modal>
+      <Dialog.Root open={show} onOpenChange={setShow}>
+        <Dialog.Content>
+          <Dialog.Title>
+            <Trans>Share a Drop</Trans>
+          </Dialog.Title>
+          <Dialog.Description size="2" mb="4">
+            <Trans>Only zora links are supported at the moment.</Trans>
+          </Dialog.Description>
+          <div className="no-scrollbar max-h-[40vh] overflow-y-auto p-0.5">
+            <form className="mt-2" onSubmit={handleSubmit(onSubmit)}>
+              <TextArea
+                label="Absolute URL"
+                placeholder="https://..."
+                {...register('link')}
+                validationError={errors.link?.message}
+              />
+              {data && (
+                <div className="mt-4 rounded-xl border border-gray-200 p-5 dark:border-gray-800">
+                  <h6 className="text-xl font-bold">{data.name}</h6>
+                  <p className="line-clamp-2">{data.description}</p>
+                </div>
+              )}
+              <Flex gap="3" mt="4" justify="end">
+                <Dialog.Close>
+                  <Button variant="soft" color="gray">
+                    Cancel
+                  </Button>
+                </Dialog.Close>
+                <Button
+                  highContrast
+                  variant="classic"
+                  disabled={!isValid || !data || loading}
+                >
+                  Post Link
+                </Button>
+              </Flex>
+            </form>
+          </div>
+        </Dialog.Content>
+      </Dialog.Root>
     </div>
   )
 }
