@@ -2,6 +2,7 @@ import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import Modal from '@components/UIElements/Modal'
 import { zodResolver } from '@hookform/resolvers/zod'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import usePendingTxn from '@hooks/usePendingTxn'
 import { IS_MAINNET, ZERO_ADDRESS } from '@lenstube/constants'
 import {
@@ -57,6 +58,7 @@ const CreateChannel = () => {
     (state) => state.setShowCreateChannel
   )
 
+  const handleWrongNetwork = useHandleWrongNetwork()
   const [loading, setLoading] = useState(false)
   const [buttonText, setButtonText] = useState(t`Create`)
   const { mounted } = useIsMounted()
@@ -110,6 +112,9 @@ const CreateChannel = () => {
   }, [indexed])
 
   const onCreate = ({ channelName }: FormData) => {
+    if (handleWrongNetwork()) {
+      return
+    }
     const username = trimify(channelName.toLowerCase())
     setLoading(true)
     setButtonText(t`Creating...`)

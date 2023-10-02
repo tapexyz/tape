@@ -3,6 +3,7 @@ import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
 import { Button } from '@components/UIElements/Button'
 import { Input } from '@components/UIElements/Input'
 import { zodResolver } from '@hookform/resolvers/zod'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import usePendingTxn from '@hooks/usePendingTxn'
 import {
   ERROR_MESSAGE,
@@ -52,6 +53,7 @@ const Membership = ({ channel }: Props) => {
   const [showForm, setShowForm] = useState(false)
   const userSigNonce = useChannelStore((state) => state.userSigNonce)
   const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
+  const handleWrongNetwork = useHandleWrongNetwork()
 
   const {
     register,
@@ -153,6 +155,9 @@ const Membership = ({ channel }: Props) => {
     })
 
   const setMembership = (freeFollowModule: boolean) => {
+    if (handleWrongNetwork()) {
+      return
+    }
     setLoading(true)
     createSetFollowModuleTypedData({
       variables: {

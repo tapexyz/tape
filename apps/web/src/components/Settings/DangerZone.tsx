@@ -1,6 +1,7 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import Badge from '@components/Common/Badge'
 import { Button } from '@components/UIElements/Button'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import {
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE
@@ -21,6 +22,7 @@ const DangerZone = () => {
   const [loading, setLoading] = useState(false)
   const [txnHash, setTxnHash] = useState<`0x${string}`>()
   const activeChannel = useChannelStore((state) => state.activeChannel)
+  const handleWrongNetwork = useHandleWrongNetwork()
 
   const onError = (error: CustomErrorWithData) => {
     setLoading(false)
@@ -63,6 +65,9 @@ const DangerZone = () => {
   })
 
   const onClickDelete = () => {
+    if (handleWrongNetwork()) {
+      return
+    }
     setLoading(true)
     createBurnProfileTypedData({
       variables: {

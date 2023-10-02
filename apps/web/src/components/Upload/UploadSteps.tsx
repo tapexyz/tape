@@ -1,6 +1,7 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import MetaTags from '@components/Common/MetaTags'
 import useEthersWalletClient from '@hooks/useEthersWalletClient'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import {
   Analytics,
   getUserLocale,
@@ -73,6 +74,7 @@ const UploadSteps = () => {
   const { address } = useAccount()
   const { data: signer } = useEthersWalletClient()
   const router = useRouter()
+  const handleWrongNetwork = useHandleWrongNetwork()
 
   const degreesOfSeparation = uploadedVideo.referenceModule
     ?.degreesOfSeparationReferenceModule?.degreesOfSeparation as number
@@ -322,6 +324,9 @@ const UploadSteps = () => {
     videoSource: string
   }) => {
     try {
+      if (handleWrongNetwork()) {
+        return
+      }
       setUploadedVideo({
         buttonText: t`Storing metadata`,
         loading: true

@@ -3,6 +3,7 @@ import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import { Analytics, getUserLocale, TRACK } from '@lenstube/browser'
 import {
   ERROR_MESSAGE,
@@ -70,6 +71,7 @@ const PostLinkModal: FC<Props> = ({ show, setShow }) => {
   const [basicNftMetadata, setBasicNftMetadata] =
     useState<BasicNftMetadata>(defaults)
   const [loading, setLoading] = useState(false)
+  const handleWrongNetwork = useHandleWrongNetwork()
 
   const activeChannel = useChannelStore((state) => state.activeChannel)
   const canUseRelay = activeChannel?.dispatcher?.canUseRelay
@@ -265,6 +267,9 @@ const PostLinkModal: FC<Props> = ({ show, setShow }) => {
   }
 
   const onSubmit = async () => {
+    if (handleWrongNetwork()) {
+      return
+    }
     setLoading(true)
     const metadata = {
       version: '2.0.0',

@@ -6,6 +6,7 @@ import EmojiPicker from '@components/UIElements/EmojiPicker'
 import { Input } from '@components/UIElements/Input'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import {
   Analytics,
   TRACK,
@@ -91,6 +92,7 @@ const BasicInfo = ({ channel }: Props) => {
   const [loading, setLoading] = useState(false)
   const [uploading, setUploading] = useState(false)
   const [coverImage, setCoverImage] = useState(getChannelCoverPicture(channel))
+  const handleWrongNetwork = useHandleWrongNetwork()
 
   const activeChannel = useChannelStore((state) => state.activeChannel)
   // Dispatcher
@@ -209,6 +211,9 @@ const BasicInfo = ({ channel }: Props) => {
       .map(({ traitType, key, value }) => ({ traitType, key, value })) ?? []
 
   const onSaveBasicInfo = async (data: FormData) => {
+    if (handleWrongNetwork()) {
+      return
+    }
     setLoading(true)
     try {
       const metadataUri = await uploadToAr({
