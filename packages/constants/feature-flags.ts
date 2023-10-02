@@ -1,5 +1,4 @@
 import { CORE_MEMBERS } from './verified'
-import { AAVE_MEMBERS } from './verified/aave-members'
 
 export enum FEATURE_FLAGS {
   POST_WITH_SOURCE_URL = 'PostWithSource',
@@ -23,6 +22,6 @@ export const featureFlags: FeatureFlag[] = [
   },
   {
     flag: FEATURE_FLAGS.OPEN_ACTIONS,
-    enabledFor: [...CORE_MEMBERS, ...AAVE_MEMBERS]
+    enabledFor: CORE_MEMBERS
   }
 ]
