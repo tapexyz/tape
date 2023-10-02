@@ -288,9 +288,6 @@ const UploadSteps = () => {
   })
 
   const createTypedData = async (request: CreatePublicPostRequest) => {
-    if (handleWrongNetwork()) {
-      return
-    }
     await createPostTypedData({
       variables: { request }
     })
@@ -327,6 +324,9 @@ const UploadSteps = () => {
     videoSource: string
   }) => {
     try {
+      if (handleWrongNetwork()) {
+        return
+      }
       setUploadedVideo({
         buttonText: t`Storing metadata`,
         loading: true

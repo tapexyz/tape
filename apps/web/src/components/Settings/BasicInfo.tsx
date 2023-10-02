@@ -184,9 +184,6 @@ const BasicInfo = ({ channel }: Props) => {
   const createTypedData = async (
     request: CreatePublicSetProfileMetadataUriRequest
   ) => {
-    if (handleWrongNetwork()) {
-      return
-    }
     await createSetProfileMetadataTypedData({
       variables: { request }
     })
@@ -214,6 +211,9 @@ const BasicInfo = ({ channel }: Props) => {
       .map(({ traitType, key, value }) => ({ traitType, key, value })) ?? []
 
   const onSaveBasicInfo = async (data: FormData) => {
+    if (handleWrongNetwork()) {
+      return
+    }
     setLoading(true)
     try {
       const metadataUri = await uploadToAr({

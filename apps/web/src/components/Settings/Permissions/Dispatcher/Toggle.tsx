@@ -113,10 +113,10 @@ const Toggle = () => {
     onError
   })
   const onClick = () => {
-    setLoading(true)
     if (handleWrongNetwork()) {
       return
     }
+    setLoading(true)
     createDispatcherTypedData({
       variables: {
         request: {

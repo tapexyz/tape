@@ -230,9 +230,6 @@ const NewComment: FC<Props> = ({
   })
 
   const createTypedData = async (request: CreatePublicCommentRequest) => {
-    if (handleWrongNetwork()) {
-      return
-    }
     await createCommentTypedData({
       variables: { options: { overrideSigNonce: userSigNonce }, request }
     })
@@ -330,6 +327,9 @@ const NewComment: FC<Props> = ({
       )
     }
     try {
+      if (handleWrongNetwork()) {
+        return
+      }
       setLoading(true)
       const metadataUri = await uploadToAr({
         version: '2.0.0',

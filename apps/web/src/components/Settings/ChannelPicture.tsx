@@ -138,9 +138,6 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
     })
 
   const createTypedData = async (request: UpdateProfileImageRequest) => {
-    if (handleWrongNetwork()) {
-      return
-    }
     await createSetProfileImageURITypedData({
       variables: { options: { overrideSigNonce: userSigNonce }, request }
     })
@@ -160,6 +157,9 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
   const onPfpUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
       try {
+        if (handleWrongNetwork()) {
+          return
+        }
         setLoading(true)
         const result: IPFSUploadResult = await uploadToIPFS(e.target.files[0])
         const request = {
