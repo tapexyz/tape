@@ -18,7 +18,7 @@ msgstr ""
 "X-Crowdin-File: messages.po\n"
 "X-Crowdin-File-ID: 5\n"
 
-#: src/components/Home/Collects/zora/Collect.tsx:113
+#: src/components/Home/OpenActions/Zora/Collect.tsx:113
 msgid "{nftPriceInEth} ETH + {platformFeesInEth} ETH mint fees"
 msgstr ""
 
@@ -184,8 +184,8 @@ msgstr "Poignée de revendication"
 
 #: src/components/Bytes/ByteActions.tsx:75
 #: src/components/Bytes/ByteVideo.tsx:165
-#: src/components/Home/Collects/zora/ZoraNft.tsx:46
-#: src/components/Home/Collects/zora/ZoraNft.tsx:74
+#: src/components/Home/OpenActions/Zora/ZoraNft.tsx:47
+#: src/components/Home/OpenActions/Zora/ZoraNft.tsx:75
 msgid "Collect"
 msgstr "Collecter"
 
@@ -229,7 +229,7 @@ msgstr "Collecter la vidéo"
 msgid "Collected as NFT"
 msgstr "Collecté en NFT"
 
-#: src/components/Watch/VideoMeta.tsx:30
+#: src/components/Watch/VideoMeta.tsx:27
 msgid "Collected By"
 msgstr "Collecté par"
 
@@ -241,8 +241,8 @@ msgstr "a collecté votre"
 msgid "Collecting"
 msgstr "Collecte en cours"
 
-#: src/components/Home/Collects/zora/Metadata.tsx:60
-#: src/components/Watch/VideoMeta.tsx:59
+#: src/components/Home/OpenActions/Zora/Metadata.tsx:60
+#: src/components/Watch/VideoMeta.tsx:56
 msgid "collects"
 msgstr "Collecte"
 
@@ -259,7 +259,7 @@ msgid "Comment deleted"
 msgstr "Commentaire supprimé"
 
 #: src/components/Notifications/Collected.tsx:69
-#: src/components/Notifications/Reacted.tsx:42
+#: src/components/Notifications/Reacted.tsx:39
 msgid "comment on"
 msgstr "commentaire sur"
 
@@ -271,7 +271,7 @@ msgstr "Le commentaire ne doit pas dépasser 5000 caractères"
 #~ msgid "Commented"
 #~ msgstr "Commented"
 
-#: src/components/Notifications/Commented.tsx:37
+#: src/components/Notifications/Commented.tsx:34
 msgid "commented on your"
 msgstr "a commenté votre"
 
@@ -323,7 +323,7 @@ msgstr "Copié dans le presse-papiers"
 
 #: src/components/Common/CreateChannel.tsx:61
 #: src/components/Common/CreateChannel.tsx:84
-#: src/components/Common/Header.tsx:131
+#: src/components/Common/Header.tsx:138
 msgid "Create"
 msgstr "Créer"
 
@@ -336,7 +336,7 @@ msgstr "Créer un canal"
 msgid "Creating..."
 msgstr "Création en cours..."
 
-#: src/components/Home/Collects/index.tsx:48
+#: src/components/Home/OpenActions/index.tsx:48
 msgid "Cross Chain Collects"
 msgstr ""
 
@@ -392,7 +392,7 @@ msgstr "désactivée"
 msgid "Dislike"
 msgstr "Dislike"
 
-#: src/components/Notifications/Reacted.tsx:39
+#: src/components/Notifications/Reacted.tsx:36
 msgid "dislisked"
 msgstr "disloqué"
 
@@ -450,7 +450,7 @@ msgstr "Erreur lors du chargement du fichier"
 msgid "Estimated Cost to Upload"
 msgstr "Coût estimé à télécharger"
 
-#: src/components/Home/Collects/zora/Metadata.tsx:66
+#: src/components/Home/OpenActions/Zora/Metadata.tsx:66
 msgid "ETH"
 msgstr ""
 
@@ -606,14 +606,14 @@ msgstr "Statistiques de Lenstube"
 msgid "Like"
 msgstr "J'aime"
 
-#: src/components/Notifications/Reacted.tsx:39
+#: src/components/Notifications/Reacted.tsx:36
 msgid "liked"
 msgstr "Aimé"
 
 #: src/components/Channel/Tabs/PinnedVideo.tsx:260
-#: src/components/Common/VideoCard/index.tsx:94
+#: src/components/Common/VideoCard/index.tsx:91
 #: src/components/Home/BytesSection.tsx:137
-#: src/components/Watch/SuggestedVideoCard.tsx:116
+#: src/components/Watch/SuggestedVideoCard.tsx:115
 msgid "likes"
 msgstr "J'aime"
 
@@ -653,7 +653,7 @@ msgstr "Adhésion"
 msgid "Membership updated"
 msgstr "Adhésion mise à jour"
 
-#: src/components/Notifications/Mentioned.tsx:55
+#: src/components/Notifications/Mentioned.tsx:52
 msgid "mentioned"
 msgstr "a mentionné"
 
@@ -673,15 +673,15 @@ msgstr "Miroir"
 msgid "Mirror video across Lens"
 msgstr "Vidéo miroir à travers lentilles"
 
-#: src/components/Channel/MirroredVideoCard.tsx:94
+#: src/components/Channel/MirroredVideoCard.tsx:96
 msgid "Mirrored"
 msgstr "Miroir"
 
-#: src/components/Watch/VideoMeta.tsx:40
+#: src/components/Watch/VideoMeta.tsx:37
 msgid "Mirrored By"
 msgstr "Miroir par"
 
-#: src/components/Notifications/Mirrored.tsx:39
+#: src/components/Notifications/Mirrored.tsx:36
 msgid "mirrored your"
 msgstr "a mis en miroir votre"
 
@@ -689,7 +689,7 @@ msgstr "a mis en miroir votre"
 msgid "Mirroring"
 msgstr "Miroir"
 
-#: src/components/Watch/VideoMeta.tsx:72
+#: src/components/Watch/VideoMeta.tsx:69
 msgid "mirrors"
 msgstr "miroirs"
 
@@ -720,13 +720,13 @@ msgstr "En savoir plus sur votre chaîne"
 #~ msgid "My Saved List"
 #~ msgstr ""
 
-#: src/components/Common/Header.tsx:144
+#: src/components/Common/Header.tsx:151
 msgid "New Upload"
 msgstr ""
 
-#: src/components/Common/Header.tsx:128
-#~ msgid "New video"
-#~ msgstr "Nouvelle vidéo"
+#: src/components/Common/Header.tsx:173
+msgid "New video"
+msgstr "Nouvelle vidéo"
 
 #: src/components/Watch/Comments/CommentsFilter.tsx:59
 msgid "Newest first"
@@ -836,8 +836,12 @@ msgid "Only subscribers can comment on this publication"
 msgstr "Seuls les abonnés peuvent commenter cette publication"
 
 #: src/components/Common/PostLinkModal.tsx:318
-msgid "Only zora links are supported now."
+msgid "Only zora links are supported at the moment."
 msgstr ""
+
+#: src/components/Common/PostLinkModal.tsx:318
+#~ msgid "Only zora links are supported now."
+#~ msgstr ""
 
 #: src/components/Upload/DropZone.tsx:105
 msgid "or choose video"
@@ -986,7 +990,7 @@ msgid "replies"
 msgstr "Réponses"
 
 #: src/components/Watch/Comments/Comment.tsx:154
-#: src/components/Watch/Comments/CommentReplies.tsx:169
+#: src/components/Watch/Comments/CommentReplies.tsx:166
 msgid "Reply"
 msgstr "Répondre"
 
@@ -1035,7 +1039,7 @@ msgstr "Vidéos enregistrées"
 msgid "Scam"
 msgstr "Scam"
 
-#: src/components/Common/Header.tsx:168
+#: src/components/Common/Header.tsx:187
 msgid "Search"
 msgstr "Chercher"
 
@@ -1051,8 +1055,8 @@ msgstr "Sélectionnez le type de collecte"
 msgid "Select Video"
 msgstr "Sélectionner une vidéo"
 
-#: src/components/Channel/MirroredVideoCard.tsx:39
-#: src/components/Common/VideoCard/ThumbnailOverlays.tsx:27
+#: src/components/Channel/MirroredVideoCard.tsx:41
+#: src/components/Common/VideoCard/ThumbnailOverlays.tsx:24
 msgid "Sensitive Content"
 msgstr "Contenu sensible"
 
@@ -1081,7 +1085,7 @@ msgstr ""
 #~ msgid "Share Collect"
 #~ msgstr ""
 
-#: src/components/Common/Header.tsx:154
+#: src/components/Common/Header.tsx:161
 msgid "Share Drop"
 msgstr ""
 
@@ -1094,12 +1098,12 @@ msgid "Show all"
 msgstr "Tout afficher"
 
 #: src/components/Watch/Comments/Comment.tsx:128
-#: src/components/Watch/Comments/CommentReplies.tsx:61
+#: src/components/Watch/Comments/CommentReplies.tsx:58
 msgid "Show less"
 msgstr "Afficher moins"
 
 #: src/components/Watch/Comments/Comment.tsx:123
-#: src/components/Watch/Comments/CommentReplies.tsx:56
+#: src/components/Watch/Comments/CommentReplies.tsx:53
 msgid "Show more"
 msgstr "Afficher plus"
 
@@ -1107,7 +1111,7 @@ msgstr "Afficher plus"
 msgid "Show more comments"
 msgstr "Afficher plus de commentaires"
 
-#: src/components/Watch/Comments/CommentReplies.tsx:198
+#: src/components/Watch/Comments/CommentReplies.tsx:195
 msgid "Show more replies"
 msgstr "Afficher plus de réponses"
 
@@ -1467,9 +1471,9 @@ msgid "Verified"
 msgstr "Vérifié"
 
 #: src/components/Notifications/Collected.tsx:77
-#: src/components/Notifications/Commented.tsx:45
-#: src/components/Notifications/Mirrored.tsx:44
-#: src/components/Notifications/Reacted.tsx:52
+#: src/components/Notifications/Commented.tsx:42
+#: src/components/Notifications/Mirrored.tsx:41
+#: src/components/Notifications/Reacted.tsx:49
 msgid "video"
 msgstr "Vidéo"
 
@@ -1615,7 +1619,7 @@ msgstr "Vous pouvez configurer des frais d'abonnement pour votre chaîne et four
 msgid "You got no videos in your feed, explore!"
 msgstr "Vous n'avez pas de vidéos dans votre flux, explorez !"
 
-#: src/components/Notifications/Reacted.tsx:40
+#: src/components/Notifications/Reacted.tsx:37
 msgid "your"
 msgstr "votre"
 
@@ -1623,7 +1627,7 @@ msgstr "votre"
 msgid "Your address does not seem to have Lens handle."
 msgstr "Votre adresse ne semble pas avoir le gestionnaire de lentille."
 
-#: src/components/Notifications/Mentioned.tsx:57
+#: src/components/Notifications/Mentioned.tsx:54
 msgid "your channel"
 msgstr "votre chaîne"
 

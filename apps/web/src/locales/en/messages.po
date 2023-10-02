@@ -18,7 +18,7 @@ msgstr ""
 "X-Crowdin-File: messages.po\n"
 "X-Crowdin-File-ID: 5\n"
 
-#: src/components/Home/Collects/zora/Collect.tsx:113
+#: src/components/Home/OpenActions/Zora/Collect.tsx:113
 msgid "{nftPriceInEth} ETH + {platformFeesInEth} ETH mint fees"
 msgstr ""
 
@@ -184,8 +184,8 @@ msgstr "Claim Handle"
 
 #: src/components/Bytes/ByteActions.tsx:75
 #: src/components/Bytes/ByteVideo.tsx:165
-#: src/components/Home/Collects/zora/ZoraNft.tsx:46
-#: src/components/Home/Collects/zora/ZoraNft.tsx:74
+#: src/components/Home/OpenActions/Zora/ZoraNft.tsx:47
+#: src/components/Home/OpenActions/Zora/ZoraNft.tsx:75
 msgid "Collect"
 msgstr "Collect"
 
@@ -229,7 +229,7 @@ msgstr "Collect Video"
 msgid "Collected as NFT"
 msgstr "Collected as NFT"
 
-#: src/components/Watch/VideoMeta.tsx:30
+#: src/components/Watch/VideoMeta.tsx:27
 msgid "Collected By"
 msgstr "Collected By"
 
@@ -241,8 +241,8 @@ msgstr "collected your"
 msgid "Collecting"
 msgstr "Collecting"
 
-#: src/components/Home/Collects/zora/Metadata.tsx:60
-#: src/components/Watch/VideoMeta.tsx:59
+#: src/components/Home/OpenActions/Zora/Metadata.tsx:60
+#: src/components/Watch/VideoMeta.tsx:56
 msgid "collects"
 msgstr "collects"
 
@@ -259,7 +259,7 @@ msgid "Comment deleted"
 msgstr "Comment deleted"
 
 #: src/components/Notifications/Collected.tsx:69
-#: src/components/Notifications/Reacted.tsx:42
+#: src/components/Notifications/Reacted.tsx:39
 msgid "comment on"
 msgstr "comment on"
 
@@ -271,7 +271,7 @@ msgstr "Comment should not exceed 5000 characters"
 #~ msgid "Commented"
 #~ msgstr "Commented"
 
-#: src/components/Notifications/Commented.tsx:37
+#: src/components/Notifications/Commented.tsx:34
 msgid "commented on your"
 msgstr "commented on your"
 
@@ -323,7 +323,7 @@ msgstr "Copied to clipboard"
 
 #: src/components/Common/CreateChannel.tsx:61
 #: src/components/Common/CreateChannel.tsx:84
-#: src/components/Common/Header.tsx:131
+#: src/components/Common/Header.tsx:138
 msgid "Create"
 msgstr "Create"
 
@@ -336,7 +336,7 @@ msgstr "Create Channel"
 msgid "Creating..."
 msgstr "Creating..."
 
-#: src/components/Home/Collects/index.tsx:48
+#: src/components/Home/OpenActions/index.tsx:48
 msgid "Cross Chain Collects"
 msgstr ""
 
@@ -392,7 +392,7 @@ msgstr "disabled"
 msgid "Dislike"
 msgstr "Dislike"
 
-#: src/components/Notifications/Reacted.tsx:39
+#: src/components/Notifications/Reacted.tsx:36
 msgid "dislisked"
 msgstr "dislisked"
 
@@ -450,7 +450,7 @@ msgstr "Error uploading file"
 msgid "Estimated Cost to Upload"
 msgstr "Estimated Cost to Upload"
 
-#: src/components/Home/Collects/zora/Metadata.tsx:66
+#: src/components/Home/OpenActions/Zora/Metadata.tsx:66
 msgid "ETH"
 msgstr ""
 
@@ -606,14 +606,14 @@ msgstr "Lenstube Stats"
 msgid "Like"
 msgstr "Like"
 
-#: src/components/Notifications/Reacted.tsx:39
+#: src/components/Notifications/Reacted.tsx:36
 msgid "liked"
 msgstr "liked"
 
 #: src/components/Channel/Tabs/PinnedVideo.tsx:260
-#: src/components/Common/VideoCard/index.tsx:94
+#: src/components/Common/VideoCard/index.tsx:91
 #: src/components/Home/BytesSection.tsx:137
-#: src/components/Watch/SuggestedVideoCard.tsx:116
+#: src/components/Watch/SuggestedVideoCard.tsx:115
 msgid "likes"
 msgstr "likes"
 
@@ -653,7 +653,7 @@ msgstr "Membership"
 msgid "Membership updated"
 msgstr "Membership updated"
 
-#: src/components/Notifications/Mentioned.tsx:55
+#: src/components/Notifications/Mentioned.tsx:52
 msgid "mentioned"
 msgstr "mentioned"
 
@@ -673,15 +673,15 @@ msgstr "Mirror"
 msgid "Mirror video across Lens"
 msgstr "Mirror video across Lens"
 
-#: src/components/Channel/MirroredVideoCard.tsx:94
+#: src/components/Channel/MirroredVideoCard.tsx:96
 msgid "Mirrored"
 msgstr "Mirrored"
 
-#: src/components/Watch/VideoMeta.tsx:40
+#: src/components/Watch/VideoMeta.tsx:37
 msgid "Mirrored By"
 msgstr "Mirrored By"
 
-#: src/components/Notifications/Mirrored.tsx:39
+#: src/components/Notifications/Mirrored.tsx:36
 msgid "mirrored your"
 msgstr "mirrored your"
 
@@ -689,7 +689,7 @@ msgstr "mirrored your"
 msgid "Mirroring"
 msgstr "Mirroring"
 
-#: src/components/Watch/VideoMeta.tsx:72
+#: src/components/Watch/VideoMeta.tsx:69
 msgid "mirrors"
 msgstr "mirrors"
 
@@ -720,13 +720,13 @@ msgstr "More about your channel"
 #~ msgid "My Saved List"
 #~ msgstr ""
 
-#: src/components/Common/Header.tsx:144
+#: src/components/Common/Header.tsx:151
 msgid "New Upload"
 msgstr ""
 
-#: src/components/Common/Header.tsx:128
-#~ msgid "New video"
-#~ msgstr "New video"
+#: src/components/Common/Header.tsx:173
+msgid "New video"
+msgstr "New video"
 
 #: src/components/Watch/Comments/CommentsFilter.tsx:59
 msgid "Newest first"
@@ -836,8 +836,12 @@ msgid "Only subscribers can comment on this publication"
 msgstr "Only subscribers can comment on this publication"
 
 #: src/components/Common/PostLinkModal.tsx:318
-msgid "Only zora links are supported now."
+msgid "Only zora links are supported at the moment."
 msgstr ""
+
+#: src/components/Common/PostLinkModal.tsx:318
+#~ msgid "Only zora links are supported now."
+#~ msgstr ""
 
 #: src/components/Upload/DropZone.tsx:105
 msgid "or choose video"
@@ -986,7 +990,7 @@ msgid "replies"
 msgstr "replies"
 
 #: src/components/Watch/Comments/Comment.tsx:154
-#: src/components/Watch/Comments/CommentReplies.tsx:169
+#: src/components/Watch/Comments/CommentReplies.tsx:166
 msgid "Reply"
 msgstr "Reply"
 
@@ -1035,7 +1039,7 @@ msgstr "Saved Videos"
 msgid "Scam"
 msgstr "Scam"
 
-#: src/components/Common/Header.tsx:168
+#: src/components/Common/Header.tsx:187
 msgid "Search"
 msgstr "Search"
 
@@ -1051,8 +1055,8 @@ msgstr "Select collect type"
 msgid "Select Video"
 msgstr "Select Video"
 
-#: src/components/Channel/MirroredVideoCard.tsx:39
-#: src/components/Common/VideoCard/ThumbnailOverlays.tsx:27
+#: src/components/Channel/MirroredVideoCard.tsx:41
+#: src/components/Common/VideoCard/ThumbnailOverlays.tsx:24
 msgid "Sensitive Content"
 msgstr "Sensitive Content"
 
@@ -1081,7 +1085,7 @@ msgstr ""
 #~ msgid "Share Collect"
 #~ msgstr ""
 
-#: src/components/Common/Header.tsx:154
+#: src/components/Common/Header.tsx:161
 msgid "Share Drop"
 msgstr ""
 
@@ -1094,12 +1098,12 @@ msgid "Show all"
 msgstr "Show all"
 
 #: src/components/Watch/Comments/Comment.tsx:128
-#: src/components/Watch/Comments/CommentReplies.tsx:61
+#: src/components/Watch/Comments/CommentReplies.tsx:58
 msgid "Show less"
 msgstr "Show less"
 
 #: src/components/Watch/Comments/Comment.tsx:123
-#: src/components/Watch/Comments/CommentReplies.tsx:56
+#: src/components/Watch/Comments/CommentReplies.tsx:53
 msgid "Show more"
 msgstr "Show more"
 
@@ -1107,7 +1111,7 @@ msgstr "Show more"
 msgid "Show more comments"
 msgstr "Show more comments"
 
-#: src/components/Watch/Comments/CommentReplies.tsx:198
+#: src/components/Watch/Comments/CommentReplies.tsx:195
 msgid "Show more replies"
 msgstr "Show more replies"
 
@@ -1467,9 +1471,9 @@ msgid "Verified"
 msgstr "Verified"
 
 #: src/components/Notifications/Collected.tsx:77
-#: src/components/Notifications/Commented.tsx:45
-#: src/components/Notifications/Mirrored.tsx:44
-#: src/components/Notifications/Reacted.tsx:52
+#: src/components/Notifications/Commented.tsx:42
+#: src/components/Notifications/Mirrored.tsx:41
+#: src/components/Notifications/Reacted.tsx:49
 msgid "video"
 msgstr "video"
 
@@ -1615,7 +1619,7 @@ msgstr "You can set up a subscription fee for your channel and provide exclusive
 msgid "You got no videos in your feed, explore!"
 msgstr "You got no videos in your feed, explore!"
 
-#: src/components/Notifications/Reacted.tsx:40
+#: src/components/Notifications/Reacted.tsx:37
 msgid "your"
 msgstr "your"
 
@@ -1623,7 +1627,7 @@ msgstr "your"
 msgid "Your address does not seem to have Lens handle."
 msgstr "Your address does not seem to have Lens handle."
 
-#: src/components/Notifications/Mentioned.tsx:57
+#: src/components/Notifications/Mentioned.tsx:54
 msgid "your channel"
 msgstr "your channel"
 
