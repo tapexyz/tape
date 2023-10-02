@@ -1,4 +1,5 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import usePendingTxn from '@hooks/usePendingTxn'
 import { Analytics, TRACK } from '@lenstube/browser'
 import {
@@ -29,6 +30,7 @@ const Toggle = () => {
   const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
   const canUseRelay = getIsDispatcherEnabled(activeChannel)
   const usingOldDispatcher = activeChannel?.lensManager === false
+  const handleWrongNetwork = useHandleWrongNetwork()
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.message ?? ERROR_MESSAGE)
@@ -121,6 +123,9 @@ const Toggle = () => {
   })
 
   const onClick = () => {
+    if (handleWrongNetwork()) {
+      return
+    }
     setLoading(true)
     toggleLensManager({
       variables: {

@@ -1,6 +1,7 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import type { MetadataAttribute } from '@lens-protocol/metadata'
 import { link, MetadataAttributeType } from '@lens-protocol/metadata'
 import { Analytics, getUserLocale, TRACK } from '@lenstube/browser'
@@ -65,6 +66,7 @@ const PostLinkModal: FC<Props> = ({ show, setShow }) => {
   const [basicNftMetadata, setBasicNftMetadata] =
     useState<BasicNftMetadata>(defaults)
   const [loading, setLoading] = useState(false)
+  const handleWrongNetwork = useHandleWrongNetwork()
 
   const activeChannel = useChannelStore((state) => state.activeChannel)
   const canUseRelay = activeChannel?.lensManager && activeChannel?.sponsor
@@ -183,6 +185,9 @@ const PostLinkModal: FC<Props> = ({ show, setShow }) => {
   })
 
   const onSubmit = async () => {
+    if (handleWrongNetwork()) {
+      return
+    }
     setLoading(true)
 
     const attributes: MetadataAttribute[] = [

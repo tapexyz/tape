@@ -7,6 +7,7 @@ import { Input } from '@components/UIElements/Input'
 import { TextArea } from '@components/UIElements/TextArea'
 import Tooltip from '@components/UIElements/Tooltip'
 import { zodResolver } from '@hookform/resolvers/zod'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import type { MetadataAttribute, ProfileOptions } from '@lens-protocol/metadata'
 import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
 import {
@@ -85,6 +86,7 @@ const BasicInfo = ({ channel }: Props) => {
   const [coverImage, setCoverImage] = useState(getChannelCoverPicture(channel))
   const [selectedPfp, setSelectedPfp] = useState('')
   const [uploading, setUploading] = useState({ pfp: false, cover: false })
+  const handleWrongNetwork = useHandleWrongNetwork()
 
   const activeChannel = useChannelStore((state) => state.activeChannel)
   const canUseRelay = activeChannel?.lensManager && activeChannel?.sponsor
@@ -184,6 +186,9 @@ const BasicInfo = ({ channel }: Props) => {
       .map(({ type, key, value }) => ({ type, key, value })) ?? []
 
   const onSaveBasicInfo = async (data: FormData) => {
+    if (handleWrongNetwork()) {
+      return
+    }
     setLoading(true)
     try {
       const profileMetadata: ProfileOptions = {

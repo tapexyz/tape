@@ -3,6 +3,7 @@ import { Button } from '@components/UIElements/Button'
 import EmojiPicker from '@components/UIElements/EmojiPicker'
 import InputMentions from '@components/UIElements/InputMentions'
 import { zodResolver } from '@hookform/resolvers/zod'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import type { MetadataAttribute } from '@lens-protocol/metadata'
 import { MetadataAttributeType, textOnly } from '@lens-protocol/metadata'
 import { Analytics, getUserLocale, TRACK } from '@lenstube/browser'
@@ -78,6 +79,7 @@ const NewComment: FC<Props> = ({
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
+  const handleWrongNetwork = useHandleWrongNetwork()
   const queuedComments = usePersistStore((state) => state.queuedComments)
   const setQueuedComments = usePersistStore((state) => state.setQueuedComments)
   const canUseRelay = activeChannel?.lensManager && activeChannel?.sponsor
@@ -266,6 +268,9 @@ const NewComment: FC<Props> = ({
       )
     }
     try {
+      if (handleWrongNetwork()) {
+        return
+      }
       setLoading(true)
       const attributes: MetadataAttribute[] = [
         {
