@@ -237,7 +237,7 @@ const PostLinkModal: FC<Props> = ({ show, setShow }) => {
     <div>
       <Modal
         title={t`Share a Drop`}
-        description={t`Only zora links are supported now.`}
+        description={t`Only zora links are supported at the moment.`}
         onClose={() => setShow(false)}
         show={show}
         panelClassName="max-w-lg"
