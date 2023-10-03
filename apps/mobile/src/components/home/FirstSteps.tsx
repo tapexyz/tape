@@ -95,7 +95,7 @@ const FirstSteps = () => {
 
   return (
     <View style={style.container}>
-      <Text style={style.title}>First steps with Pripe</Text>
+      <Text style={style.title}>First steps with Lenstube</Text>
       <Text style={style.subheading}>Unleash New Social Horizons</Text>
       <Animated.View entering={FadeInRight}>
         <ScrollView

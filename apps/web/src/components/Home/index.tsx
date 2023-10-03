@@ -25,11 +25,11 @@ const Home: NextPage = () => {
       <MetaTags title={t`Home`} />
       {/* <GitcoinAlert /> */}
       <DispatcherAlert />
+      <BytesSection />
       {getIsFeatureEnabled(
         FEATURE_FLAGS.OPEN_ACTIONS,
         selectedSimpleProfile?.id
       ) && <OpenActions />}
-      <BytesSection />
       <HomeFeed />
     </>
   )

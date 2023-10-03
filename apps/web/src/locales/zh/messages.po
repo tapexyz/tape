@@ -71,8 +71,8 @@ msgstr "允许收藏"
 msgid "Already Collected"
 msgstr "已经收集"
 
-#: src/components/Settings/Membership.tsx:207
-#: src/components/Settings/Membership.tsx:267
+#: src/components/Settings/Membership.tsx:212
+#: src/components/Settings/Membership.tsx:272
 msgid "Amount"
 msgstr "金额"
 
@@ -130,8 +130,8 @@ msgstr "可以收集"
 msgid "can collect this publication"
 msgstr "可以收集此发布"
 
-#: src/components/Common/CreateChannel.tsx:170
-#: src/components/Settings/Membership.tsx:289
+#: src/components/Common/CreateChannel.tsx:175
+#: src/components/Settings/Membership.tsx:294
 #: src/components/UIElements/Confirm.tsx:31
 msgid "Cancel"
 msgstr "取消"
@@ -140,7 +140,7 @@ msgstr "取消"
 msgid "Category"
 msgstr "类别"
 
-#: src/components/Settings/BasicInfo.tsx:304
+#: src/components/Settings/BasicInfo.tsx:309
 msgid "Change"
 msgstr "更改"
 
@@ -148,19 +148,19 @@ msgstr "更改"
 #~ msgid "Change network"
 #~ msgstr ""
 
-#: src/components/Settings/BasicInfo.tsx:317
+#: src/components/Settings/BasicInfo.tsx:322
 msgid "Channel"
 msgstr "频道"
 
-#: src/components/Settings/DangerZone.tsx:42
+#: src/components/Settings/DangerZone.tsx:44
 msgid "Channel deleted"
 msgstr "频道已删除"
 
-#: src/components/Settings/BasicInfo.tsx:362
+#: src/components/Settings/BasicInfo.tsx:367
 msgid "Channel Description"
 msgstr "频道描述"
 
-#: src/components/Settings/ChannelPicture.tsx:88
+#: src/components/Settings/ChannelPicture.tsx:90
 msgid "Channel image updated"
 msgstr "频道图像已更新"
 
@@ -169,7 +169,7 @@ msgstr "频道图像已更新"
 msgid "Channel Settings"
 msgstr "频道设置"
 
-#: src/components/Settings/BasicInfo.tsx:329
+#: src/components/Settings/BasicInfo.tsx:334
 msgid "Channel URL"
 msgstr "频道 URL"
 
@@ -178,7 +178,7 @@ msgstr "频道 URL"
 msgid "Channels"
 msgstr "频道"
 
-#: src/components/Common/CreateChannel.tsx:131
+#: src/components/Common/CreateChannel.tsx:136
 msgid "Claim Handle"
 msgstr "索赔处理"
 
@@ -250,7 +250,7 @@ msgstr "收藏"
 msgid "Collects"
 msgstr "收藏"
 
-#: src/components/Watch/Comments/NewComment.tsx:429
+#: src/components/Watch/Comments/NewComment.tsx:434
 msgid "Comment"
 msgstr "评论"
 
@@ -263,7 +263,7 @@ msgstr "评论已删除"
 msgid "comment on"
 msgstr "评论于"
 
-#: src/components/Watch/Comments/NewComment.tsx:64
+#: src/components/Watch/Comments/NewComment.tsx:65
 msgid "Comment should not exceed 5000 characters"
 msgstr "评论不能超过 5000 个字符"
 
@@ -301,7 +301,7 @@ msgstr "连接"
 #~ msgid "Connect to the correct network to continue"
 #~ msgstr ""
 
-#: src/components/Common/Auth/Login.tsx:168
+#: src/components/Common/Auth/Login.tsx:172
 msgid "Connect to the right network to continue"
 msgstr "连接到正确的网络以继续"
 
@@ -321,26 +321,26 @@ msgstr "立即捐款"
 msgid "Copied to clipboard"
 msgstr "复制到剪贴板"
 
-#: src/components/Common/CreateChannel.tsx:61
-#: src/components/Common/CreateChannel.tsx:84
+#: src/components/Common/CreateChannel.tsx:63
+#: src/components/Common/CreateChannel.tsx:86
 #: src/components/Common/Header.tsx:138
 msgid "Create"
 msgstr "创建"
 
-#: src/components/Common/CreateChannel.tsx:131
+#: src/components/Common/CreateChannel.tsx:136
 #: src/components/Common/UserMenu.tsx:251
 msgid "Create Channel"
 msgstr "创建频道"
 
-#: src/components/Common/CreateChannel.tsx:115
+#: src/components/Common/CreateChannel.tsx:120
 msgid "Creating..."
 msgstr "创建中..."
 
 #: src/components/Home/OpenActions/index.tsx:48
-msgid "Cross Chain Collects"
-msgstr "十字链收藏"
+#~ msgid "Cross Chain Collects"
+#~ msgstr "十字链收藏"
 
-#: src/components/Settings/Membership.tsx:242
+#: src/components/Settings/Membership.tsx:247
 msgid "Currency"
 msgstr "货币"
 
@@ -378,12 +378,12 @@ msgstr "描述不能超过 5000 个字符"
 msgid "Direct threat"
 msgstr "直接威胁"
 
-#: src/components/Settings/Membership.tsx:307
-#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:129
+#: src/components/Settings/Membership.tsx:312
+#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:134
 msgid "Disable"
 msgstr "禁用"
 
-#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:79
+#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:81
 #: src/components/Watch/CollectVideo/PermissionAlert.tsx:39
 msgid "disabled"
 msgstr "已禁用"
@@ -396,7 +396,7 @@ msgstr "Dislike"
 msgid "dislisked"
 msgstr "已移除"
 
-#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:141
+#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:146
 msgid "dispatcher"
 msgstr "调度器"
 
@@ -404,7 +404,7 @@ msgstr "调度器"
 msgid "Dispatcher"
 msgstr "调度器"
 
-#: src/components/Settings/BasicInfo.tsx:353
+#: src/components/Settings/BasicInfo.tsx:358
 msgid "Display Name"
 msgstr "显示名称"
 
@@ -420,11 +420,11 @@ msgstr "不切换网络或钱包账户"
 msgid "Drag and drop"
 msgstr "拖动"
 
-#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:131
+#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:136
 msgid "Enable"
 msgstr "启用"
 
-#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:79
+#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:81
 #: src/components/Watch/CollectVideo/PermissionAlert.tsx:39
 msgid "enabled"
 msgstr "已启用"
@@ -437,8 +437,8 @@ msgstr "结束于"
 msgid "Enter deposit amount"
 msgstr "输入存款金额"
 
-#: src/components/Watch/Comments/NewComment.tsx:61
-#: src/components/Watch/Comments/NewComment.tsx:63
+#: src/components/Watch/Comments/NewComment.tsx:62
+#: src/components/Watch/Comments/NewComment.tsx:64
 msgid "Enter valid comment"
 msgstr "输入有效的评论"
 
@@ -469,7 +469,7 @@ msgstr "保存存储余额失败"
 msgid "Failed to upload thumbnail"
 msgstr "上传缩略图失败"
 
-#: src/components/Upload/UploadSteps.tsx:520
+#: src/components/Upload/UploadSteps.tsx:525
 msgid "Failed to upload video to Arweave"
 msgstr "上传视频到 Arweeve 失败"
 
@@ -505,7 +505,7 @@ msgstr "GG18 是实时的"
 msgid "Gitcoin Grants"
 msgstr "Gitcoin Grants"
 
-#: src/components/Settings/Membership.tsx:186
+#: src/components/Settings/Membership.tsx:191
 msgid "Grow with Lens"
 msgstr "放大镜头"
 
@@ -524,7 +524,7 @@ msgstr "高信号"
 msgid "Home"
 msgstr "首页"
 
-#: src/components/Watch/Comments/NewComment.tsx:71
+#: src/components/Watch/Comments/NewComment.tsx:72
 msgid "How's this video?"
 msgstr "这个视频是如何的？"
 
@@ -540,7 +540,7 @@ msgstr "影像"
 msgid "Indexing, please wait..."
 msgstr "正在索引，请稍候..."
 
-#: src/components/Common/CreateChannel.tsx:81
+#: src/components/Common/CreateChannel.tsx:83
 msgid "Indexing..."
 msgstr "正在索引..."
 
@@ -548,7 +548,7 @@ msgstr "正在索引..."
 #~ msgid "Insufficient balance"
 #~ msgstr ""
 
-#: src/components/Upload/UploadSteps.tsx:467
+#: src/components/Upload/UploadSteps.tsx:472
 msgid "Insufficient storage balance"
 msgstr "存储余额不足"
 
@@ -581,7 +581,7 @@ msgstr "无效的存款金额"
 msgid "Invalid split recipient address"
 msgstr "无效的分割收件人地址"
 
-#: src/components/Upload/UploadSteps.tsx:443
+#: src/components/Upload/UploadSteps.tsx:448
 msgid "IPFS Upload failed"
 msgstr "IPFS 上传失败"
 
@@ -594,7 +594,7 @@ msgstr "加入频道"
 msgid "joined"
 msgstr "已加入"
 
-#: src/components/Common/CreateChannel.tsx:47
+#: src/components/Common/CreateChannel.tsx:48
 msgid "lens claiming site"
 msgstr "镜头索取站点"
 
@@ -633,7 +633,7 @@ msgstr "有限采集量"
 msgid "Links"
 msgstr "链接"
 
-#: src/components/Settings/BasicInfo.tsx:404
+#: src/components/Settings/BasicInfo.tsx:409
 msgid "Location"
 msgstr "地点"
 
@@ -649,7 +649,7 @@ msgstr "成员"
 msgid "Membership"
 msgstr "成员"
 
-#: src/components/Settings/Membership.tsx:122
+#: src/components/Settings/Membership.tsx:124
 msgid "Membership updated"
 msgstr "会员已更新"
 
@@ -706,13 +706,13 @@ msgid "Misuse Hashtags"
 msgstr "错误使用哈希标签"
 
 #: src/components/Common/MirrorVideo.tsx:158
-#: src/components/Watch/Comments/NewComment.tsx:324
+#: src/components/Watch/Comments/NewComment.tsx:326
 #: src/components/Watch/TipModal.tsx:319
 #: src/components/Watch/TipModal.tsx:397
 msgid "Momoka is currently in beta - during this time certain actions are not available to all channels."
 msgstr "Momoka目前处于测试版中 - 在此期间某些操作不能用于所有频道。"
 
-#: src/components/Settings/BasicInfo.tsx:363
+#: src/components/Settings/BasicInfo.tsx:368
 msgid "More about your channel"
 msgstr "更多关于您的频道"
 
@@ -835,7 +835,7 @@ msgstr "只有我的订阅者可以评论和镜像"
 msgid "Only subscribers can comment on this publication"
 msgstr "只有订阅者可以评论这个发布"
 
-#: src/components/Common/PostLinkModal.tsx:318
+#: src/components/Common/PostLinkModal.tsx:323
 msgid "Only zora links are supported at the moment."
 msgstr "目前只支持zora链接。"
 
@@ -883,11 +883,16 @@ msgstr "置顶视频"
 msgid "Pinning video..."
 msgstr "正在固定视频..."
 
-#: src/components/Common/Auth/Login.tsx:178
-msgid "Please change your network wallet!"
-msgstr "请更改您的网络钱包！"
+#: src/components/Common/Auth/Login.tsx:40
+#: src/components/Common/Auth/Login.tsx:182
+msgid "Please change your network to Polygon!"
+msgstr ""
 
-#: src/components/Common/Auth/Login.tsx:91
+#: src/components/Common/Auth/Login.tsx:178
+#~ msgid "Please change your network wallet!"
+#~ msgstr "请更改您的网络钱包！"
+
+#: src/components/Common/Auth/Login.tsx:95
 msgid "Please connect to your wallet"
 msgstr "请连接到你的钱包"
 
@@ -907,11 +912,11 @@ msgstr "请上传一个自定义缩略图"
 msgid "Popular"
 msgstr "热门的"
 
-#: src/components/Upload/UploadSteps.tsx:127
+#: src/components/Upload/UploadSteps.tsx:129
 msgid "Post Video"
 msgstr "发布视频"
 
-#: src/components/Upload/UploadSteps.tsx:382
+#: src/components/Upload/UploadSteps.tsx:387
 msgid "Posting video"
 msgstr "发布视频"
 
@@ -955,8 +960,8 @@ msgstr "发布报告成功"
 msgid "Reason"
 msgstr "原因"
 
-#: src/components/Settings/Membership.tsx:224
-#: src/components/Settings/Membership.tsx:278
+#: src/components/Settings/Membership.tsx:229
+#: src/components/Settings/Membership.tsx:283
 #: src/components/Watch/CollectVideo/CollectModal.tsx:301
 msgid "Recipient"
 msgstr "收款人"
@@ -1022,7 +1027,7 @@ msgstr "Revoke"
 msgid "Round 18"
 msgstr "第18圆桌会议"
 
-#: src/components/Settings/BasicInfo.tsx:412
+#: src/components/Settings/BasicInfo.tsx:417
 msgid "Save"
 msgstr "保存"
 
@@ -1077,7 +1082,7 @@ msgstr "分享"
 #~ msgid "Share a Collect"
 #~ msgstr ""
 
-#: src/components/Common/PostLinkModal.tsx:317
+#: src/components/Common/PostLinkModal.tsx:322
 msgid "Share a Drop"
 msgstr "分享掉落记录"
 
@@ -1119,7 +1124,7 @@ msgstr "显示更多回复"
 msgid "Sign In"
 msgstr "登录"
 
-#: src/components/Common/Auth/Login.tsx:140
+#: src/components/Common/Auth/Login.tsx:144
 msgid "Sign in failed"
 msgstr "登录失败"
 
@@ -1163,7 +1168,7 @@ msgstr "状态"
 msgid "Stay active in current tab while uploading for faster experience"
 msgstr "在上传时保持活跃于当前标签页以获得更快的体验。"
 
-#: src/components/Upload/UploadSteps.tsx:326
+#: src/components/Upload/UploadSteps.tsx:331
 msgid "Storing metadata"
 msgstr "存储元数据"
 
@@ -1244,7 +1249,7 @@ msgstr "切换到暗色"
 msgid "Switch to Light"
 msgstr "切换到灯光"
 
-#: src/components/Common/Auth/Login.tsx:182
+#: src/components/Common/Auth/Login.tsx:186
 msgid "Switch to Polygon"
 msgstr "切换到多边形"
 
@@ -1339,11 +1344,11 @@ msgstr "标题不能超过 100 个字符"
 msgid "Title that describes your video"
 msgstr "描述您视频的标题"
 
-#: src/components/Common/CreateChannel.tsx:49
+#: src/components/Common/CreateChannel.tsx:50
 msgid "to claim your handle and then check back here."
 msgstr "申领您的句柄，然后回到这里。"
 
-#: src/components/Settings/Membership.tsx:216
+#: src/components/Settings/Membership.tsx:221
 msgid "Token"
 msgstr "令牌"
 
@@ -1416,11 +1421,11 @@ msgstr "未关联的"
 #~ msgid "Unsubscribe"
 #~ msgstr "Unsubscribe"
 
-#: src/components/Settings/Membership.tsx:299
+#: src/components/Settings/Membership.tsx:304
 msgid "Update"
 msgstr "更新"
 
-#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:127
+#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx:132
 msgid "Upgrade"
 msgstr "升级"
 
@@ -1458,11 +1463,11 @@ msgstr "上传到 IPFS"
 msgid "Uploading thumbnail"
 msgstr "正在上传缩略图"
 
-#: src/components/Upload/UploadSteps.tsx:472
+#: src/components/Upload/UploadSteps.tsx:477
 msgid "Uploading to Arweave"
 msgstr "正在上传到Arweeve"
 
-#: src/components/Upload/UploadSteps.tsx:435
+#: src/components/Upload/UploadSteps.tsx:440
 msgid "Uploading to IPFS"
 msgstr "上传到 IPFS"
 
@@ -1497,7 +1502,7 @@ msgstr "视频格式不被支持"
 msgid "Video marked as not interested"
 msgstr "标记为不感兴趣的视频"
 
-#: src/components/Upload/UploadSteps.tsx:461
+#: src/components/Upload/UploadSteps.tsx:466
 msgid "Video not uploaded correctly"
 msgstr "视频上传不正确"
 
@@ -1551,7 +1556,7 @@ msgstr "视图"
 msgid "Violence"
 msgstr "暴力"
 
-#: src/components/Common/CreateChannel.tsx:40
+#: src/components/Common/CreateChannel.tsx:41
 msgid "Visit"
 msgstr "访问"
 
@@ -1567,7 +1572,7 @@ msgstr "观察"
 msgid "Watch Video"
 msgstr "观看视频"
 
-#: src/components/Settings/BasicInfo.tsx:396
+#: src/components/Settings/BasicInfo.tsx:401
 msgid "Website"
 msgstr "网址"
 
@@ -1599,7 +1604,7 @@ msgstr "您想为此视频设置采集价格吗？"
 msgid "Write a reply"
 msgstr "撰写回复"
 
-#: src/components/Common/Auth/Login.tsx:162
+#: src/components/Common/Auth/Login.tsx:166
 msgid "Wrong Network"
 msgstr "网络错误"
 
@@ -1611,7 +1616,7 @@ msgstr "否"
 msgid "Yes, Some Price"
 msgstr "是的，一些价格"
 
-#: src/components/Settings/Membership.tsx:189
+#: src/components/Settings/Membership.tsx:194
 msgid "You can set up a subscription fee for your channel and provide exclusive offers and perks to the subscribers, also people can pay and support your work."
 msgstr "您可以为您的频道设置订阅费，并向订阅者提供独家报价和增益， 人们也可以付费和支持你的工作。"
 
@@ -1623,7 +1628,7 @@ msgstr "你在你的新闻源中没有视频，探索！"
 msgid "your"
 msgstr "您的"
 
-#: src/components/Common/CreateChannel.tsx:37
+#: src/components/Common/CreateChannel.tsx:38
 msgid "Your address does not seem to have Lens handle."
 msgstr "您的地址似乎没有镜头句柄。"
 
@@ -1638,4 +1643,3 @@ msgstr "您的频道"
 #: src/components/Upload/BundlrInfo.tsx:171
 msgid "Your Storage Balance"
 msgstr "您的存储余额"
-
