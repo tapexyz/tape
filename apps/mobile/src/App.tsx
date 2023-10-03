@@ -3,10 +3,10 @@ import 'react-native-reanimated'
 import 'react-native-gesture-handler'
 
 import {
+  LENSTUBE_APP_DESCRIPTION,
+  LENSTUBE_APP_NAME,
+  LENSTUBE_WEBSITE_URL,
   LIVEPEER_STUDIO_API_KEY,
-  PRIPE_APP_DESCRIPTION,
-  PRIPE_APP_NAME,
-  PRIPE_WEBSITE_URL,
   WC_PROJECT_ID
 } from '@lenstube/constants'
 import { apolloClient, ApolloProvider } from '@lenstube/lens/apollo'
@@ -34,13 +34,13 @@ const styles = StyleSheet.create({
 })
 
 const providerMetadata = {
-  name: PRIPE_APP_NAME,
-  description: PRIPE_APP_DESCRIPTION,
-  url: PRIPE_WEBSITE_URL,
+  name: LENSTUBE_APP_NAME,
+  description: LENSTUBE_APP_DESCRIPTION,
+  url: LENSTUBE_WEBSITE_URL,
   icons: ['https://static.lenstube.xyz/images/brand/lenstube.svg'],
   redirect: {
-    native: 'pripe://',
-    universal: 'pripe.xyz'
+    native: 'lenstube://',
+    universal: 'lenstube.xyz'
   }
 }
 

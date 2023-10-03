@@ -1,4 +1,4 @@
-import { PRIPE_APP_NAME } from '@lenstube/constants'
+import { LENSTUBE_APP_NAME } from '@lenstube/constants'
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import Constants from 'expo-constants'
 import React from 'react'
@@ -32,7 +32,7 @@ const AppInfo = () => {
 
   return (
     <View style={style.otherInfoContainer}>
-      <Text style={style.otherInfo}>{PRIPE_APP_NAME}</Text>
+      <Text style={style.otherInfo}>{LENSTUBE_APP_NAME}</Text>
       <Text style={{ color: themeConfig.secondaryTextColor, fontSize: 3 }}>
         {'\u2B24'}
       </Text>

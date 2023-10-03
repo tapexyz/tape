@@ -35,7 +35,11 @@ const Login = () => {
       toast.error(error?.data?.message ?? error?.message)
     }
   })
-  const { switchNetwork } = useSwitchNetwork()
+  const { switchNetwork } = useSwitchNetwork({
+    onError: () => {
+      toast.error(t`Please change your network to Polygon!`)
+    }
+  })
 
   const setShowCreateChannel = useChannelStore(
     (state) => state.setShowCreateChannel
@@ -161,7 +165,7 @@ const Login = () => {
       <Modal
         title={t`Wrong Network`}
         show={showSwitchNetwork}
-        panelClassName="max-w-lg"
+        panelClassName="max-w-lg z-50"
         onClose={() => setShowSwitchNetwork(false)}
       >
         <h6 className="py-4">
@@ -175,7 +179,7 @@ const Login = () => {
                 switchNetwork(POLYGON_CHAIN_ID)
                 setShowSwitchNetwork(false)
               } else {
-                toast.error(t`Please change your network wallet!`)
+                toast.error(t`Please change your network to Polygon!`)
               }
             }}
           >

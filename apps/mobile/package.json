@@ -1,5 +1,5 @@
 {
-  "name": "@pripe/mobile",
+  "name": "@lenstube/mobile",
   "version": "0.0.1",
   "main": "index.tsx",
   "private": true,
@@ -78,7 +78,7 @@
     "@lenstube/config": "*",
     "@lenstube/generic": "*",
     "@lenstube/lens": "*",
-    "@types/node": "20.8.0",
+    "@types/node": "20.8.2",
     "@types/qrcode": "^1.5.2",
     "@welldone-software/why-did-you-render": "^7.0.1",
     "babel-plugin-module-resolver": "^5.0.0",

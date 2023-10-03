@@ -53,7 +53,7 @@ export const useMobilePersistStore = create(
       setTheme: (theme) => set({ theme })
     }),
     {
-      name: '@pripe/mobile/store',
+      name: '@lenstube/mobile/store',
       storage: createJSONStorage(() => AsyncStorage)
     }
   )

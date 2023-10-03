@@ -45,7 +45,7 @@
     "react-mentions": "^4.4.10",
     "uuid": "^9.0.1",
     "viem": "^1.13.1",
-    "wagmi": "^1.4.2",
+    "wagmi": "^1.4.3",
     "zod": "^3.22.2",
     "zustand": "^4.4.2"
   },
@@ -62,7 +62,7 @@
     "@lingui/swc-plugin": "4.0.4",
     "@tailwindcss/typography": "^0.5.10",
     "@types/mixpanel-browser": "^2.47.3",
-    "@types/node": "20.8.0",
+    "@types/node": "20.8.2",
     "@types/react": "18.2.24",
     "@types/react-dom": "18.2.8",
     "@types/react-mentions": "^4.1.9",
