@@ -1,22 +1,22 @@
 import { Tab } from '@headlessui/react'
-import { Analytics, TRACK, useOutsideClick } from '@lenstube/browser'
+import { t, Trans } from '@lingui/macro'
+import { Analytics, TRACK, useOutsideClick } from '@tape.xyz/browser'
 import {
   ALLOWED_APP_IDS,
   IS_MAINNET,
   LENS_CUSTOM_FILTERS,
-  LENSTUBE_APP_ID,
-  LENSTUBE_BYTES_APP_ID
-} from '@lenstube/constants'
-import { useDebounce } from '@lenstube/generic'
-import type { Profile, Publication } from '@lenstube/lens'
+  LENSTUBE_BYTES_APP_ID,
+  TAPE_APP_ID
+} from '@tape.xyz/constants'
+import { useDebounce } from '@tape.xyz/generic'
+import type { Profile, Publication } from '@tape.xyz/lens'
 import {
   SearchProfilesDocument,
   SearchPublicationsDocument,
   SearchRequestTypes
-} from '@lenstube/lens'
-import { useLazyQuery } from '@lenstube/lens/apollo'
-import { Loader } from '@lenstube/ui'
-import { t, Trans } from '@lingui/macro'
+} from '@tape.xyz/lens'
+import { useLazyQuery } from '@tape.xyz/lens/apollo'
+import { Loader } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
@@ -51,7 +51,7 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
             query: keyword,
             limit: 30,
             sources: IS_MAINNET
-              ? [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
+              ? [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
               : undefined,
             customFilters: LENS_CUSTOM_FILTERS
           }

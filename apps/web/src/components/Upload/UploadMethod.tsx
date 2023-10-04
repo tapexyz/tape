@@ -1,9 +1,9 @@
 import Tooltip from '@components/UIElements/Tooltip'
 import { Tab } from '@headlessui/react'
-import { IPFS_FREE_UPLOAD_LIMIT } from '@lenstube/constants'
-import { canUploadedToIpfs } from '@lenstube/generic'
 import useAppStore from '@lib/store'
 import { Trans } from '@lingui/macro'
+import { IPFS_FREE_UPLOAD_LIMIT } from '@tape.xyz/constants'
+import { canUploadedToIpfs } from '@tape.xyz/generic'
 import clsx from 'clsx'
 import React from 'react'
 

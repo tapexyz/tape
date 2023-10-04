@@ -1,5 +1,5 @@
-import { STATIC_ASSETS } from '@lenstube/constants'
-import { trimLensHandle } from '@lenstube/generic'
+import { STATIC_ASSETS, TAPE_APP_NAME } from '@tape.xyz/constants'
+import { trimLensHandle } from '@tape.xyz/generic'
 import { Matcher } from 'interweave'
 import Link from 'next/link'
 import React from 'react'
@@ -16,7 +16,7 @@ const ChannelLink = ({ ...props }: any) => {
         src={`${STATIC_ASSETS}/brand/logo.svg`}
         className="h-3 w-3"
         draggable={false}
-        alt="lenstube"
+        alt={TAPE_APP_NAME}
       />
       <span>{props.display.replace('@', '')}</span>
     </Link>

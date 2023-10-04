@@ -4,7 +4,7 @@ export interface Env {
 
 const logtailApiURL = 'https://in.logtail.com/'
 // A list of allowed origins that can access our backend API
-const allowedOrigins = ['https://lenstube.xyz', 'https://www.lenstube.xyz']
+const allowedOrigins = ['https://tape.xyz', 'https://www.tape.xyz']
 
 // A function that returns a set of CORS headers
 const corsHeaders = (origin: string) => ({
@@ -38,7 +38,7 @@ const postLog = async (request: Request, env: Env) => {
       headers: {
         Authorization: `Bearer ${env.LOGTAIL_API_KEY}`,
         'Content-Type': 'application/json',
-        'User-Agent': 'Lenstube'
+        'User-Agent': 'Tape'
       },
       body
     })
@@ -65,7 +65,7 @@ const handleRequest = async (request: Request, env: Env) => {
 
   // Redirect any other requests to a different URL, such as
   // your deployed React application
-  return Response.redirect('https://lenstube.xyz')
+  return Response.redirect('https://tape.xyz')
 }
 
 export default {

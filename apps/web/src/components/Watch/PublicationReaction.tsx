@@ -1,16 +1,16 @@
 import DislikeOutline from '@components/Common/Icons/DislikeOutline'
 import LikeOutline from '@components/Common/Icons/LikeOutline'
-import { Analytics, TRACK } from '@lenstube/browser'
-import { formatNumber } from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
+import useAuthPersistStore from '@lib/store/auth'
+import { t, Trans } from '@lingui/macro'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
+import { Analytics, TRACK } from '@tape.xyz/browser'
+import { formatNumber } from '@tape.xyz/generic'
+import type { Publication } from '@tape.xyz/lens'
 import {
   ReactionTypes,
   useAddReactionMutation,
   useRemoveReactionMutation
-} from '@lenstube/lens'
-import useAuthPersistStore from '@lib/store/auth'
-import { t, Trans } from '@lingui/macro'
-import { useConnectModal } from '@rainbow-me/rainbowkit'
+} from '@tape.xyz/lens'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React, { useState } from 'react'

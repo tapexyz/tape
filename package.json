@@ -1,6 +1,6 @@
 {
-  "name": "lenstube",
-  "description": "Decentralized video-sharing social media platform.",
+  "name": "tape.xyz",
+  "description": "Talk, Amplify, Post, Explore",
   "version": "1.0.5-beta",
   "private": true,
   "workspaces": [

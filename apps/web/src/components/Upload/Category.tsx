@@ -1,8 +1,8 @@
 import CheckOutline from '@components/Common/Icons/CheckOutline'
 import { Listbox, Transition } from '@headlessui/react'
-import { CREATOR_VIDEO_CATEGORIES } from '@lenstube/constants'
 import useAppStore from '@lib/store'
 import { Trans } from '@lingui/macro'
+import { CREATOR_VIDEO_CATEGORIES } from '@tape.xyz/constants'
 import React, { Fragment } from 'react'
 
 const Category = () => {

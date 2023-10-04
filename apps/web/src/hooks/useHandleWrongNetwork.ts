@@ -1,5 +1,5 @@
-import { POLYGON_CHAIN_ID } from '@lenstube/constants'
 import useNetworkStore from '@lib/store/network'
+import { POLYGON_CHAIN_ID } from '@tape.xyz/constants'
 import { useCallback } from 'react'
 import { useChainId } from 'wagmi'
 

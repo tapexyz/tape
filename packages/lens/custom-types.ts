@@ -12,7 +12,7 @@ import type {
   RevertCollectModuleSettings,
   SimpleCollectModuleSettings,
   TimedFeeCollectModuleSettings
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 
 export type VideoDraft = {
   preview: string
@@ -111,7 +111,7 @@ type MultiRecipientFeeCollectModuleSettings =
     optionalCollectLimit?: string
   }
 
-export type LenstubeCollectModule = FreeCollectModuleSettings &
+export type CustomCollectModule = FreeCollectModuleSettings &
   FeeCollectModuleSettings &
   RevertCollectModuleSettings &
   TimedFeeCollectModuleSettings &

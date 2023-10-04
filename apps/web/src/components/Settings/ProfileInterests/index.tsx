@@ -1,4 +1,5 @@
 import { Trans } from '@lingui/macro'
+import { TAPE_APP_NAME } from '@tape.xyz/constants'
 import React from 'react'
 
 import Topics from './Topics'
@@ -12,9 +13,9 @@ const ProfileInterests = () => {
         </h1>
         <p className="text opacity-80">
           <Trans>
-            There is so much good content on Lenstube, it may be hard to find
-            what's most relevant to you from time to time. That's where profile
-            interests can help curate content the way you like.
+            There is so much good content on {TAPE_APP_NAME}, it may be hard to
+            find what's most relevant to you from time to time. That's where
+            profile interests can help curate content the way you like.
           </Trans>
         </p>
       </div>

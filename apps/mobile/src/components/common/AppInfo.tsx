@@ -1,5 +1,5 @@
-import { LENSTUBE_APP_NAME } from '@lenstube/constants'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
+import { TAPE_APP_NAME } from '@tape.xyz/constants'
+import type { MobileThemeConfig } from '@tape.xyz/lens/custom-types'
 import Constants from 'expo-constants'
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
@@ -32,7 +32,7 @@ const AppInfo = () => {
 
   return (
     <View style={style.otherInfoContainer}>
-      <Text style={style.otherInfo}>{LENSTUBE_APP_NAME}</Text>
+      <Text style={style.otherInfo}>{TAPE_APP_NAME}</Text>
       <Text style={{ color: themeConfig.secondaryTextColor, fontSize: 3 }}>
         {'\u2B24'}
       </Text>

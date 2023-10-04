@@ -4,8 +4,8 @@ import {
   imageCdn,
   sanitizeDStorageUrl,
   trimLensHandle
-} from '@lenstube/generic'
-import type { Profile } from '@lenstube/lens'
+} from '@tape.xyz/generic'
+import type { Profile } from '@tape.xyz/lens'
 import Tippy from '@tippyjs/react'
 import Link from 'next/link'
 import type { FC, ReactNode } from 'react'

@@ -1,4 +1,4 @@
-import { formatNumber } from '@lenstube/generic'
+import { formatNumber } from '@tape.xyz/generic'
 import { expect, test } from '@playwright/test'
 
 test('formatNumber', () => {

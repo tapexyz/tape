@@ -1,9 +1,9 @@
 import CheckOutline from '@components/Common/Icons/CheckOutline'
 import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
-import type { ReferenceModuleType } from '@lenstube/lens/custom-types'
 import useAppStore from '@lib/store'
 import { t, Trans } from '@lingui/macro'
+import type { ReferenceModuleType } from '@tape.xyz/lens/custom-types'
 import clsx from 'clsx'
 import React, { useState } from 'react'
 

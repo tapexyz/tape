@@ -1,9 +1,9 @@
 import DropMenu from '@components/UIElements/DropMenu'
-import { Analytics, TRACK } from '@lenstube/browser'
-import { SUPPORTED_LOCALES } from '@lenstube/constants'
 import { storeLocale } from '@lib/i18n'
 import usePersistStore from '@lib/store/persist'
 import { useLingui } from '@lingui/react'
+import { Analytics, TRACK } from '@tape.xyz/browser'
+import { SUPPORTED_LOCALES } from '@tape.xyz/constants'
 import clsx from 'clsx'
 import React from 'react'
 

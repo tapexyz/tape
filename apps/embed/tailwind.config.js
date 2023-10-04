@@ -1,4 +1,4 @@
-const base = require('@lenstube/ui/tailwind-preset')
+const base = require('@tape.xyz/ui/tailwind-preset')
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {

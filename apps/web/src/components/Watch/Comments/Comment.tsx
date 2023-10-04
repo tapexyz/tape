@@ -8,18 +8,18 @@ import HashExplorerLink from '@components/Common/Links/HashExplorerLink'
 import ReportModal from '@components/Common/VideoCard/ReportModal'
 import Tooltip from '@components/UIElements/Tooltip'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import {
-  checkValueInAttributes,
-  getProfilePicture,
-  getValueFromTraitType,
-  trimLensHandle
-} from '@lenstube/generic'
-import type { Attribute, Publication } from '@lenstube/lens'
 import { getRelativeTime } from '@lib/formatTime'
 import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
+import {
+  checkValueInAttributes,
+  getProfilePicture,
+  getValueFromTraitType,
+  trimLensHandle
+} from '@tape.xyz/generic'
+import type { Attribute, Publication } from '@tape.xyz/lens'
 import clsx from 'clsx'
 import Link from 'next/link'
 import type { FC } from 'react'

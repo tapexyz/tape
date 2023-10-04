@@ -1,8 +1,8 @@
 import Tooltip from '@components/UIElements/Tooltip'
-import { getShowFullScreen } from '@lenstube/browser'
-import { STATIC_ASSETS } from '@lenstube/constants'
 import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'
+import { getShowFullScreen } from '@tape.xyz/browser'
+import { STATIC_ASSETS, TAPE_APP_NAME } from '@tape.xyz/constants'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -54,7 +54,7 @@ const Sidebar = () => {
                 src={`${STATIC_ASSETS}/brand/logo.svg`}
                 draggable={false}
                 className="h-8 w-8"
-                alt="lenstube"
+                alt={TAPE_APP_NAME}
               />
             </Link>
           </div>

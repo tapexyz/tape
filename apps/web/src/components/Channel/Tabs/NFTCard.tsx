@@ -4,9 +4,9 @@ import {
   ETHERSCAN_URL,
   FALLBACK_COVER_URL,
   POLYGONSCAN_URL
-} from '@lenstube/constants'
-import { sanitizeDStorageUrl } from '@lenstube/generic'
-import type { CustomNftItemType } from '@lenstube/lens/custom-types'
+} from '@tape.xyz/constants'
+import { sanitizeDStorageUrl } from '@tape.xyz/generic'
+import type { CustomNftItemType } from '@tape.xyz/lens/custom-types'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useState } from 'react'

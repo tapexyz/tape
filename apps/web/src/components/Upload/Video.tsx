@@ -1,16 +1,16 @@
 import CopyOutline from '@components/Common/Icons/CopyOutline'
 import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
-import { useCopyToClipboard } from '@lenstube/browser'
-import { FEATURE_FLAGS } from '@lenstube/constants'
+import useAppStore from '@lib/store'
+import useAuthPersistStore from '@lib/store/auth'
+import { t, Trans } from '@lingui/macro'
+import { useCopyToClipboard } from '@tape.xyz/browser'
+import { FEATURE_FLAGS } from '@tape.xyz/constants'
 import {
   formatBytes,
   getIsFeatureEnabled,
   sanitizeDStorageUrl
-} from '@lenstube/generic'
-import useAppStore from '@lib/store'
-import useAuthPersistStore from '@lib/store/auth'
-import { t, Trans } from '@lingui/macro'
+} from '@tape.xyz/generic'
 import clsx from 'clsx'
 import React, { useEffect, useRef } from 'react'
 import toast from 'react-hot-toast'

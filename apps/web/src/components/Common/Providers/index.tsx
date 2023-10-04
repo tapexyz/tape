@@ -1,10 +1,3 @@
-import { getLivepeerClient, videoPlayerTheme } from '@lenstube/browser'
-import {
-  IS_MAINNET,
-  LENSTUBE_APP_NAME,
-  WC_PROJECT_ID
-} from '@lenstube/constants'
-import { apolloClient, ApolloProvider } from '@lenstube/lens/apollo'
 import authLink from '@lib/authLink'
 import { loadLocale } from '@lib/i18n'
 import { i18n } from '@lingui/core'
@@ -20,6 +13,9 @@ import {
   walletConnectWallet
 } from '@rainbow-me/rainbowkit/wallets'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { getLivepeerClient, videoPlayerTheme } from '@tape.xyz/browser'
+import { IS_MAINNET, TAPE_APP_NAME, WC_PROJECT_ID } from '@tape.xyz/constants'
+import { apolloClient, ApolloProvider } from '@tape.xyz/lens/apollo'
 import { ThemeProvider } from 'next-themes'
 import type { ReactNode } from 'react'
 import React, { useEffect } from 'react'
@@ -66,7 +62,7 @@ const connectors = connectorsForWallets([
       metaMaskWallet({ chains, projectId: WC_PROJECT_ID }),
       rainbowWallet({ chains, projectId: WC_PROJECT_ID }),
       ledgerWallet({ chains, projectId: WC_PROJECT_ID }),
-      coinbaseWallet({ appName: LENSTUBE_APP_NAME, chains }),
+      coinbaseWallet({ appName: TAPE_APP_NAME, chains }),
       walletConnectWallet({
         chains,
         projectId: WC_PROJECT_ID,

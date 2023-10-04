@@ -1,13 +1,13 @@
-import { Analytics, TRACK } from '@lenstube/browser'
-import { sanitizeProfileInterests } from '@lenstube/generic'
+import useChannelStore from '@lib/store/channel'
+import { Analytics, TRACK } from '@tape.xyz/browser'
+import { sanitizeProfileInterests } from '@tape.xyz/generic'
 import {
   useAddProfileInterestMutation,
   useProfileInterestsQuery,
   useRemoveProfileInterestMutation
-} from '@lenstube/lens'
-import { useApolloClient } from '@lenstube/lens/apollo'
-import { Loader } from '@lenstube/ui'
-import useChannelStore from '@lib/store/channel'
+} from '@tape.xyz/lens'
+import { useApolloClient } from '@tape.xyz/lens/apollo'
+import { Loader } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import React, { useEffect } from 'react'
 

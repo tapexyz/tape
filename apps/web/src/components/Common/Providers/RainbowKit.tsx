@@ -1,4 +1,3 @@
-import { LENSTUBE_APP_NAME, LENSTUBE_WEBSITE_URL } from '@lenstube/constants'
 import type { Chain } from '@rainbow-me/rainbowkit'
 import {
   darkTheme,
@@ -6,6 +5,7 @@ import {
   RainbowKitProvider
 } from '@rainbow-me/rainbowkit'
 import type { ThemeOptions } from '@rainbow-me/rainbowkit/dist/themes/baseTheme'
+import { TAPE_APP_NAME, TAPE_WEBSITE_URL } from '@tape.xyz/constants'
 import { useTheme } from 'next-themes'
 import type { FC, ReactNode } from 'react'
 import React from 'react'
@@ -17,7 +17,9 @@ type Props = {
 
 const Disclaimer = () => (
   <div className="prose-sm prose-a:text-brand-500 text-[11px]">
-    <span>By connecting, you acknowledge and agree to the Lenstube's</span>{' '}
+    <span>
+      By connecting, you acknowledge and agree to the {TAPE_APP_NAME}'s
+    </span>{' '}
     <a href="/terms" target="_blank">
       terms
     </a>{' '}
@@ -40,8 +42,8 @@ const RainbowKit: FC<Props> = ({ chains, children }) => {
   return (
     <RainbowKitProvider
       appInfo={{
-        appName: LENSTUBE_APP_NAME,
-        learnMoreUrl: LENSTUBE_WEBSITE_URL,
+        appName: TAPE_APP_NAME,
+        learnMoreUrl: TAPE_WEBSITE_URL,
         disclaimer: () => <Disclaimer />
       }}
       modalSize="compact"

@@ -1,5 +1,6 @@
 import MetaTags from '@components/Common/MetaTags'
 import { t, Trans } from '@lingui/macro'
+import { TAPE_APP_NAME } from '@tape.xyz/constants'
 import Link from 'next/link'
 import React from 'react'
 
@@ -29,10 +30,10 @@ const terms = () => {
           </p>
           <p>
             This Privacy Policy (the “Privacy Policy”) provides a comprehensive
-            description of how Lenstube (“we,” “our,” or “us”) collects, uses,
-            and shares information about you in connection with the website at
-            “lenstube.xyz”, as well as your rights and choices regarding such
-            information.
+            description of how {TAPE_APP_NAME} (“we,” “our,” or “us”) collects,
+            uses, and shares information about you in connection with the
+            website at tape.xyz”, as well as your rights and choices regarding
+            such information.
           </p>
           <p>
             By accessing or using the Site, you accept and assume certain
@@ -156,8 +157,7 @@ const terms = () => {
             If you have any questions or comments about this Privacy Policy, our
             data practices, or our compliance with applicable law, please
             contact us at{' '}
-            <Link href="mailto:privacy@lenstube.xyz">privacy@lenstube.xyz</Link>
-            .
+            <Link href="mailto:privacy@tape.xyz">privacy@tape.xyz</Link>.
           </p>
         </div>
       </div>

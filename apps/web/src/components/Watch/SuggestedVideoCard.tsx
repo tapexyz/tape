@@ -2,22 +2,22 @@ import Badge from '@components/Common/Badge'
 import ReportModal from '@components/Common/VideoCard/ReportModal'
 import ShareModal from '@components/Common/VideoCard/ShareModal'
 import VideoOptions from '@components/Common/VideoCard/VideoOptions'
-import { useAverageColor } from '@lenstube/browser'
+import { getRelativeTime, getTimeFromSeconds } from '@lib/formatTime'
+import { Trans } from '@lingui/macro'
+import { useAverageColor } from '@tape.xyz/browser'
 import {
   FALLBACK_COVER_URL,
   LENSTUBE_BYTES_APP_ID,
   STATIC_ASSETS
-} from '@lenstube/constants'
+} from '@tape.xyz/constants'
 import {
   getIsSensitiveContent,
   getThumbnailUrl,
   getValueFromTraitType,
   imageCdn,
   trimLensHandle
-} from '@lenstube/generic'
-import type { Attribute, Publication } from '@lenstube/lens'
-import { getRelativeTime, getTimeFromSeconds } from '@lib/formatTime'
-import { Trans } from '@lingui/macro'
+} from '@tape.xyz/generic'
+import type { Attribute, Publication } from '@tape.xyz/lens'
 import clsx from 'clsx'
 import Link from 'next/link'
 import type { FC } from 'react'

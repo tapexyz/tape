@@ -1,5 +1,5 @@
-import { FALLBACK_COVER_URL } from '@lenstube/constants'
-import { logger } from '@lenstube/generic'
+import { FALLBACK_COVER_URL } from '@tape.xyz/constants'
+import { logger } from '@tape.xyz/generic'
 
 const canvasImageFromVideo = (
   file: File,

@@ -1,10 +1,10 @@
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { NFTS_URL } from '@lenstube/constants'
-import type { Profile } from '@lenstube/lens'
-import type { CustomNftItemType } from '@lenstube/lens/custom-types'
 import { t } from '@lingui/macro'
 import { useQuery } from '@tanstack/react-query'
+import { WORKER_NFTS_URL } from '@tape.xyz/constants'
+import type { Profile } from '@tape.xyz/lens'
+import type { CustomNftItemType } from '@tape.xyz/lens/custom-types'
 import axios from 'axios'
 import type { FC } from 'react'
 import React from 'react'
@@ -17,7 +17,7 @@ type Props = {
 
 const CollectedNFTs: FC<Props> = ({ channel }) => {
   const fetchNfts = async () => {
-    const { data } = await axios.get(`${NFTS_URL}/${channel.handle}/200`)
+    const { data } = await axios.get(`${WORKER_NFTS_URL}/${channel.handle}/200`)
     return data?.result
   }
 

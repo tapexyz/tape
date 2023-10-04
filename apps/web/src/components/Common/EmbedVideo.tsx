@@ -1,8 +1,8 @@
 import Modal from '@components/UIElements/Modal'
 import Tooltip from '@components/UIElements/Tooltip'
-import { Analytics, TRACK, useCopyToClipboard } from '@lenstube/browser'
-import { LENSTUBE_EMBED_URL } from '@lenstube/constants'
 import { t } from '@lingui/macro'
+import { Analytics, TRACK, useCopyToClipboard } from '@tape.xyz/browser'
+import { TAPE_APP_NAME, TAPE_EMBED_URL } from '@tape.xyz/constants'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -18,7 +18,7 @@ const EmbedVideo: FC<Props> = ({ videoId, onClose }) => {
   const [showModal, setShowModal] = useState(false)
   const [copy] = useCopyToClipboard()
 
-  const iframeCode = `<iframe width="560" height="315" src="${LENSTUBE_EMBED_URL}/${videoId}?autoplay=1&t=0&loop=0" title="Lenstube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;" allowfullscreen></iframe>`
+  const iframeCode = `<iframe width="560" height="315" src="${TAPE_EMBED_URL}/${videoId}?autoplay=1&t=0&loop=0" title="${TAPE_APP_NAME} video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;" allowfullscreen></iframe>`
 
   const onCopyCode = () => {
     Analytics.track(TRACK.EMBED_VIDEO.COPY)
@@ -50,8 +50,8 @@ const EmbedVideo: FC<Props> = ({ videoId, onClose }) => {
               <iframe
                 sandbox="allow-scripts allow-same-origin"
                 className="aspect-[16/9] w-full"
-                src={`${LENSTUBE_EMBED_URL}/${videoId}`}
-                title="Lenstube video player"
+                src={`${TAPE_EMBED_URL}/${videoId}`}
+                title={TAPE_APP_NAME}
                 allow="accelerometer; autoplay; clipboard-write; gyroscope;"
                 allowFullScreen
               />

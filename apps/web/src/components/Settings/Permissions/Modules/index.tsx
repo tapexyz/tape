@@ -1,18 +1,18 @@
 import { Button } from '@components/UIElements/Button'
-import { WMATIC_TOKEN_ADDRESS } from '@lenstube/constants'
-import type { ApprovedAllowanceAmount, Erc20 } from '@lenstube/lens'
+import { getCollectModuleConfig } from '@lib/getCollectModule'
+import useAuthPersistStore from '@lib/store/auth'
+import { t, Trans } from '@lingui/macro'
+import { WMATIC_TOKEN_ADDRESS } from '@tape.xyz/constants'
+import type { ApprovedAllowanceAmount, Erc20 } from '@tape.xyz/lens'
 import {
   CollectModules,
   FollowModules,
   ReferenceModules,
   useApprovedModuleAllowanceAmountQuery,
   useGenerateModuleCurrencyApprovalDataLazyQuery
-} from '@lenstube/lens'
-import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
-import { Loader } from '@lenstube/ui'
-import { getCollectModuleConfig } from '@lib/getCollectModule'
-import useAuthPersistStore from '@lib/store/auth'
-import { t, Trans } from '@lingui/macro'
+} from '@tape.xyz/lens'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+import { Loader } from '@tape.xyz/ui'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useSendTransaction, useWaitForTransaction } from 'wagmi'

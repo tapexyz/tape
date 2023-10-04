@@ -1,5 +1,5 @@
-import { useAverageColor } from '@lenstube/browser'
-import { LENSTUBE_BYTES_APP_ID, STATIC_ASSETS } from '@lenstube/constants'
+import { useAverageColor } from '@tape.xyz/browser'
+import { LENSTUBE_BYTES_APP_ID, STATIC_ASSETS } from '@tape.xyz/constants'
 import {
   getPublicationHlsUrl,
   getPublicationMediaUrl,
@@ -8,9 +8,9 @@ import {
   imageCdn,
   sanitizeDStorageUrl,
   truncate
-} from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
-import VideoPlayer from '@lenstube/ui/VideoPlayer'
+} from '@tape.xyz/generic'
+import type { Publication } from '@tape.xyz/lens'
+import VideoPlayer from '@tape.xyz/ui/VideoPlayer'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'

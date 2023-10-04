@@ -1,6 +1,6 @@
 import Badge from '@components/Common/Badge'
-import { formatNumber, trimLensHandle } from '@lenstube/generic'
 import { Trans } from '@lingui/macro'
+import { formatNumber, trimLensHandle } from '@tape.xyz/generic'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'

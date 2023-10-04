@@ -1,4 +1,4 @@
-import { IPFS_GATEWAY_URL } from '@lenstube/constants'
+import { IPFS_GATEWAY_URL } from '@tape.xyz/constants'
 import Link from 'next/link'
 import type { ReactElement } from 'react'
 import React from 'react'

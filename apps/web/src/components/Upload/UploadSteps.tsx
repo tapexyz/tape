@@ -2,22 +2,27 @@ import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import MetaTags from '@components/Common/MetaTags'
 import useEthersWalletClient from '@hooks/useEthersWalletClient'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
+import { getCollectModule } from '@lib/getCollectModule'
+import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
+import useChannelStore from '@lib/store/channel'
+import usePersistStore from '@lib/store/persist'
+import { t } from '@lingui/macro'
 import {
   Analytics,
   getUserLocale,
   TRACK,
   uploadToIPFS
-} from '@lenstube/browser'
+} from '@tape.xyz/browser'
 import {
   BUNDLR_CONNECT_MESSAGE,
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
-  LENSTUBE_APP_ID,
-  LENSTUBE_APP_NAME,
   LENSTUBE_BYTES_APP_ID,
-  LENSTUBE_WEBSITE_URL,
-  REQUESTING_SIGNATURE_MESSAGE
-} from '@lenstube/constants'
+  REQUESTING_SIGNATURE_MESSAGE,
+  TAPE_APP_ID,
+  TAPE_APP_NAME,
+  TAPE_WEBSITE_URL
+} from '@tape.xyz/constants'
 import {
   canUploadedToIpfs,
   getSignature,
@@ -25,7 +30,7 @@ import {
   trimify,
   trimLensHandle,
   uploadToAr
-} from '@lenstube/generic'
+} from '@tape.xyz/generic'
 import type {
   CreateDataAvailabilityPostRequest,
   CreatePostBroadcastItemResult,
@@ -33,7 +38,7 @@ import type {
   MetadataAttributeInput,
   PublicationMetadataMediaInput,
   PublicationMetadataV2Input
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 import {
   PublicationContentWarning,
   PublicationMainFocus,
@@ -45,13 +50,8 @@ import {
   useCreateDataAvailabilityPostViaDispatcherMutation,
   useCreatePostTypedDataMutation,
   useCreatePostViaDispatcherMutation
-} from '@lenstube/lens'
-import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
-import { getCollectModule } from '@lib/getCollectModule'
-import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
-import useChannelStore from '@lib/store/channel'
-import usePersistStore from '@lib/store/persist'
-import { t } from '@lingui/macro'
+} from '@tape.xyz/lens'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
@@ -348,7 +348,7 @@ const UploadSteps = () => {
         {
           displayType: PublicationMetadataDisplayTypes.String,
           traitType: 'app',
-          value: LENSTUBE_APP_ID
+          value: TAPE_APP_ID
         }
       ]
       if (uploadedVideo.durationInSeconds) {
@@ -368,16 +368,14 @@ const UploadSteps = () => {
         locale: getUserLocale(),
         tags: [uploadedVideo.videoCategory.tag],
         mainContentFocus: PublicationMainFocus.Video,
-        external_url: `${LENSTUBE_WEBSITE_URL}/channel/${activeChannel?.handle}`,
+        external_url: `${TAPE_WEBSITE_URL}/channel/${activeChannel?.handle}`,
         animation_url: uploadedVideo.videoSource,
         image: uploadedVideo.thumbnail,
         imageMimeType: uploadedVideo.thumbnailType,
         name: trimify(uploadedVideo.title),
         attributes,
         media,
-        appId: uploadedVideo.isByteVideo
-          ? LENSTUBE_BYTES_APP_ID
-          : LENSTUBE_APP_ID
+        appId: uploadedVideo.isByteVideo ? LENSTUBE_BYTES_APP_ID : TAPE_APP_ID
       }
       if (uploadedVideo.isSensitiveContent) {
         metadata.contentWarning = PublicationContentWarning.Sensitive
@@ -479,7 +477,7 @@ const UploadSteps = () => {
       const bundlr = bundlrData.instance
       const tags = [
         { name: 'Content-Type', value: uploadedVideo.videoType || 'video/mp4' },
-        { name: 'App-Name', value: LENSTUBE_APP_NAME },
+        { name: 'App-Name', value: TAPE_APP_NAME },
         { name: 'Profile-Id', value: activeChannel?.id },
         // ANS-110 standard
         { name: 'Title', value: trimify(uploadedVideo.title) },

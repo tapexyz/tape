@@ -5,12 +5,12 @@ import {
   CREATOR_VIDEO_CATEGORIES,
   POLYGON_RPC_URL,
   WMATIC_TOKEN_ADDRESS
-} from '@lenstube/constants'
-import { logger } from '@lenstube/generic'
+} from '@tape.xyz/constants'
+import { logger } from '@tape.xyz/generic'
 import type {
   BundlrDataState,
   UploadedVideo
-} from '@lenstube/lens/custom-types'
+} from '@tape.xyz/lens/custom-types'
 import { create } from 'zustand'
 
 export const UPLOADED_VIDEO_BUNDLR_DEFAULTS = {

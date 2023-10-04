@@ -1,5 +1,5 @@
-import type { IMAGE_TRANSFORMATIONS } from '@lenstube/constants'
-import type { Profile } from '@lenstube/lens'
+import type { IMAGE_TRANSFORMATIONS } from '@tape.xyz/constants'
+import type { Profile } from '@tape.xyz/lens'
 
 import { getRandomProfilePicture } from './getRandomProfilePicture'
 import { imageCdn } from './imageCdn'

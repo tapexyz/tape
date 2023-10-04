@@ -1,5 +1,5 @@
 {
-  "extends": "@lenstube/config/react.tsconfig.json",
+  "extends": "@tape.xyz/config/react.tsconfig.json",
   "compilerOptions": {
     "jsx": "react-native",
     "paths": {

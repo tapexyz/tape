@@ -2,10 +2,10 @@
 const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }]
 const moduleExports = {
   transpilePackages: [
-    '@lenstube/lens',
-    '@lenstube/browser',
-    '@lenstube/generic',
-    '@lenstube/ui'
+    '@tape.xyz/lens',
+    '@tape.xyz/browser',
+    '@tape.xyz/generic',
+    '@tape.xyz/ui'
   ],
   reactStrictMode: process.env.NODE_ENV === 'production',
   experimental: {

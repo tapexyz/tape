@@ -1,14 +1,14 @@
 import CollectOutline from '@components/Common/Icons/CollectOutline'
 import TagOutline from '@components/Common/Icons/TagOutline'
 import { Button } from '@components/UIElements/Button'
+import { Trans } from '@lingui/macro'
 import {
   getRandomProfilePicture,
   sanitizeDStorageUrl,
   shortenAddress,
   useDid
-} from '@lenstube/generic'
-import type { ZoraNft } from '@lenstube/lens/custom-types'
-import { Trans } from '@lingui/macro'
+} from '@tape.xyz/generic'
+import type { ZoraNft } from '@tape.xyz/lens/custom-types'
 import Link from 'next/link'
 import React from 'react'
 import { formatEther } from 'viem'

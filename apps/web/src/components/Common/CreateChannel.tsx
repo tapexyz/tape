@@ -4,16 +4,16 @@ import Modal from '@components/UIElements/Modal'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import usePendingTxn from '@hooks/usePendingTxn'
-import { IS_MAINNET, ZERO_ADDRESS } from '@lenstube/constants'
+import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
+import { IS_MAINNET, TAPE_APP_NAME, ZERO_ADDRESS } from '@tape.xyz/constants'
 import {
   getRandomProfilePicture,
   imageCdn,
   trimify,
   useIsMounted
-} from '@lenstube/generic'
-import { useCreateProfileMutation } from '@lenstube/lens'
-import useChannelStore from '@lib/store/channel'
-import { t, Trans } from '@lingui/macro'
+} from '@tape.xyz/generic'
+import { useCreateProfileMutation } from '@tape.xyz/lens'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
@@ -142,13 +142,15 @@ const CreateChannel = () => {
         <ClaimHandle />
       ) : (
         <form onSubmit={handleSubmit(onCreate)} className="space-y-4">
-          <h6 className="text-sm opacity-70">Your new Lenstube channel</h6>
+          <h6 className="text-sm opacity-70">
+            Your new {TAPE_APP_NAME} channel
+          </h6>
           <div className="mt-2">
             <Input
               {...register('channelName')}
               label="Channel Name"
               type="text"
-              placeholder="lenstubechannel"
+              placeholder="handle"
               autoComplete="off"
               validationError={errors.channelName?.message}
             />

@@ -1,6 +1,6 @@
-import { getOpenActionNftMetadata, getURLs } from '@lenstube/generic'
-import type { MetadataOutput, Profile } from '@lenstube/lens'
-import type { BasicNftMetadata } from '@lenstube/lens/custom-types'
+import { getOpenActionNftMetadata, getURLs } from '@tape.xyz/generic'
+import type { MetadataOutput, Profile } from '@tape.xyz/lens'
+import type { BasicNftMetadata } from '@tape.xyz/lens/custom-types'
 import type { FC } from 'react'
 import React from 'react'
 

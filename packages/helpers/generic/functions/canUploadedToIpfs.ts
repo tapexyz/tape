@@ -1,4 +1,4 @@
-import { IPFS_FREE_UPLOAD_LIMIT } from '@lenstube/constants'
+import { IPFS_FREE_UPLOAD_LIMIT } from '@tape.xyz/constants'
 
 export const canUploadedToIpfs = (bytes?: number | null) => {
   if (bytes === null || bytes === undefined) {

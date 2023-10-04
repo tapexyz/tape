@@ -1,4 +1,4 @@
-import { trimLensHandle } from '@lenstube/generic'
+import { trimLensHandle } from '@tape.xyz/generic'
 import { expect, test } from '@playwright/test'
 
 test('trimLensHandle', () => {

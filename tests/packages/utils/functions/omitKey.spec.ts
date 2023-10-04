@@ -1,4 +1,4 @@
-import { omitKey } from '@lenstube/generic'
+import { omitKey } from '@tape.xyz/generic'
 import { expect, test } from '@playwright/test'
 
 test('omitKey', async () => {

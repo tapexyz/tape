@@ -2,18 +2,18 @@ import MetaTags from '@components/Common/MetaTags'
 import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { t } from '@lingui/macro'
 import {
   ALLOWED_APP_IDS,
   IS_MAINNET,
   LENS_CUSTOM_FILTERS,
-  LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
-  SCROLL_ROOT_MARGIN
-} from '@lenstube/constants'
-import type { Publication } from '@lenstube/lens'
-import { SearchRequestTypes, useSearchPublicationsQuery } from '@lenstube/lens'
-import { Loader } from '@lenstube/ui'
-import { t } from '@lingui/macro'
+  SCROLL_ROOT_MARGIN,
+  TAPE_APP_ID
+} from '@tape.xyz/constants'
+import type { Publication } from '@tape.xyz/lens'
+import { SearchRequestTypes, useSearchPublicationsQuery } from '@tape.xyz/lens'
+import { Loader } from '@tape.xyz/ui'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
@@ -27,7 +27,7 @@ const ExploreHashtag = () => {
     type: SearchRequestTypes.Publication,
     limit: 32,
     sources: IS_MAINNET
-      ? [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
+      ? [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
       : undefined,
     customFilters: LENS_CUSTOM_FILTERS,
     query: hashtag

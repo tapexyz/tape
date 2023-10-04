@@ -6,16 +6,16 @@ import SubscribeActions from '@components/Common/SubscribeActions'
 import SubscribersList from '@components/Common/SubscribersList'
 import Modal from '@components/UIElements/Modal'
 import Tooltip from '@components/UIElements/Tooltip'
-import { MISUSED_CHANNELS, STATIC_ASSETS } from '@lenstube/constants'
+import useAuthPersistStore from '@lib/store/auth'
+import { t, Trans } from '@lingui/macro'
+import { MISUSED_CHANNELS, STATIC_ASSETS } from '@tape.xyz/constants'
 import {
   getChannelCoverPicture,
   getProfilePicture,
   imageCdn,
   sanitizeDStorageUrl
-} from '@lenstube/generic'
-import type { Profile } from '@lenstube/lens'
-import useAuthPersistStore from '@lib/store/auth'
-import { t, Trans } from '@lingui/macro'
+} from '@tape.xyz/generic'
+import type { Profile } from '@tape.xyz/lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 

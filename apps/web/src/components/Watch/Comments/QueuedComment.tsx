@@ -1,18 +1,18 @@
 import Badge from '@components/Common/Badge'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import Tooltip from '@components/UIElements/Tooltip'
-import { getProfilePicture, trimLensHandle } from '@lenstube/generic'
-import type { Profile } from '@lenstube/lens'
+import useAuthPersistStore from '@lib/store/auth'
+import usePersistStore from '@lib/store/persist'
+import { getProfilePicture, trimLensHandle } from '@tape.xyz/generic'
+import type { Profile } from '@tape.xyz/lens'
 import {
   PublicationDetailsDocument,
   useHasTxHashBeenIndexedQuery,
   usePublicationDetailsLazyQuery,
   useTxIdToTxHashLazyQuery
-} from '@lenstube/lens'
-import { useApolloClient } from '@lenstube/lens/apollo'
-import type { QueuedCommentType } from '@lenstube/lens/custom-types'
-import useAuthPersistStore from '@lib/store/auth'
-import usePersistStore from '@lib/store/persist'
+} from '@tape.xyz/lens'
+import { useApolloClient } from '@tape.xyz/lens/apollo'
+import type { QueuedCommentType } from '@tape.xyz/lens/custom-types'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'

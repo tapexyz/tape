@@ -1,4 +1,4 @@
-import { formatBytes } from '@lenstube/generic'
+import { formatBytes } from '@tape.xyz/generic'
 import { expect, test } from '@playwright/test'
 
 test('Format bytes', async () => {

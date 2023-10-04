@@ -7,19 +7,21 @@ import { Input } from '@components/UIElements/Input'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
+import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
 import {
   Analytics,
   TRACK,
   uploadToIPFS,
   useCopyToClipboard
-} from '@lenstube/browser'
+} from '@tape.xyz/browser'
 import {
   ERROR_MESSAGE,
   LENS_PERIPHERY_ADDRESS,
-  LENSTUBE_APP_ID,
-  LENSTUBE_WEBSITE_URL,
-  REQUESTING_SIGNATURE_MESSAGE
-} from '@lenstube/constants'
+  REQUESTING_SIGNATURE_MESSAGE,
+  TAPE_APP_ID,
+  TAPE_WEBSITE_URL
+} from '@tape.xyz/constants'
 import {
   getChannelCoverPicture,
   getSignature,
@@ -29,25 +31,23 @@ import {
   trimify,
   trimLensHandle,
   uploadToAr
-} from '@lenstube/generic'
+} from '@tape.xyz/generic'
 import type {
   CreatePublicSetProfileMetadataUriRequest,
   MediaSet,
   Profile
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 import {
   PublicationMetadataDisplayTypes,
   useBroadcastMutation,
   useCreateSetProfileMetadataTypedDataMutation,
   useCreateSetProfileMetadataViaDispatcherMutation
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 import type {
   CustomErrorWithData,
   IPFSUploadResult
-} from '@lenstube/lens/custom-types'
-import { Loader } from '@lenstube/ui'
-import useChannelStore from '@lib/store/channel'
-import { t, Trans } from '@lingui/macro'
+} from '@tape.xyz/lens/custom-types'
+import { Loader } from '@tape.xyz/ui'
 import type { ChangeEvent } from 'react'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -80,7 +80,7 @@ const formSchema = object({
   location: string(),
   website: union([
     string().url({
-      message: 'Enter valid website URL (eg. https://lenstube.xyz)'
+      message: 'Enter valid website URL'
     }),
     string().max(0)
   ])
@@ -251,7 +251,7 @@ const BasicInfo = ({ channel }: Props) => {
             displayType: PublicationMetadataDisplayTypes.String,
             traitType: 'app',
             key: 'app',
-            value: LENSTUBE_APP_ID
+            value: TAPE_APP_ID
           }
         ],
         metadata_id: uuidv4()
@@ -336,15 +336,13 @@ const BasicInfo = ({ channel }: Props) => {
         </div>
         <div className="flex items-center space-x-2">
           <span>
-            {LENSTUBE_WEBSITE_URL}/channel/{trimLensHandle(channel.handle)}
+            {TAPE_WEBSITE_URL}/channel/{trimLensHandle(channel.handle)}
           </span>
           <button
             className="hover:opacity-60 focus:outline-none"
             onClick={() =>
               onCopyChannelUrl(
-                `${LENSTUBE_WEBSITE_URL}/channel/${trimLensHandle(
-                  channel.handle
-                )}`
+                `${TAPE_WEBSITE_URL}/channel/${trimLensHandle(channel.handle)}`
               )
             }
             type="button"

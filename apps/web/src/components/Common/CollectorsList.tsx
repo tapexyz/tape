@@ -6,10 +6,10 @@ import {
   imageCdn,
   shortenAddress,
   trimLensHandle
-} from '@lenstube/generic'
-import type { Wallet } from '@lenstube/lens'
-import { useCollectorsQuery } from '@lenstube/lens'
-import { Loader } from '@lenstube/ui'
+} from '@tape.xyz/generic'
+import type { Wallet } from '@tape.xyz/lens'
+import { useCollectorsQuery } from '@tape.xyz/lens'
+import { Loader } from '@tape.xyz/ui'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'

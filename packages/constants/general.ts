@@ -1,8 +1,7 @@
-import { CustomFiltersTypes } from '@lenstube/lens'
+import { CustomFiltersTypes } from '@tape.xyz/lens'
 
-export const LENSTUBE_APP_NAME = 'Lenstube'
-export const LENSTUBE_APP_DESCRIPTION =
-  'Lenstube is a decentralized video-sharing social media platform built with Lens protocol.'
+export const TAPE_APP_NAME = 'Tape'
+export const TAPE_APP_DESCRIPTION = 'Talk, Amplify, Post, Explore'
 
 export const LENS_ENV = process.env.NEXT_PUBLIC_ENVIRONMENT ?? 'mainnet'
 export const IS_MAINNET = LENS_ENV === 'mainnet'
@@ -13,9 +12,9 @@ export const IS_DEVELOPMENT = process.env.NODE_ENV === 'development'
 export const IS_PRODUCTION = !IS_DEVELOPMENT
 
 export const STATIC_ASSETS = 'https://static.lenstube.xyz'
-export const LENSTUBE_WEBSITE_URL = IS_MAINNET
-  ? 'https://lenstube.xyz'
-  : 'https://testnet.lenstube.xyz'
+export const TAPE_WEBSITE_URL = IS_MAINNET
+  ? 'https://tape.xyz'
+  : 'https://testnet.tape.xyz'
 export const FALLBACK_COVER_URL = `${STATIC_ASSETS}/images/fallbackThumbnail.png`
 export const OG_IMAGE = `${STATIC_ASSETS}/images/seo/og.png`
 export const SCROLL_ROOT_MARGIN = '60% 0px'
@@ -42,15 +41,15 @@ export const LENS_API_URL = IS_MAINNET
   : TESTNET_API_URL
 
 // API urls
-export const LENSTUBE_MAINNET_API_URL = 'https://api.lenstube.xyz'
-export const LENSTUBE_TESTNET_API_URL = 'https://api-testnet.lenstube.xyz'
-export const LENSTUBE_EMBED_URL = IS_MAINNET
-  ? 'https://embed.lenstube.xyz'
-  : 'https://embed-testnet.lenstube.xyz'
-export const LENSTUBE_DEV_API_URL = 'http://localhost:4002'
-export const LENSTUBE_API_URL = IS_MAINNET
-  ? LENSTUBE_MAINNET_API_URL
-  : LENSTUBE_TESTNET_API_URL
+export const TAPE_MAINNET_API_URL = 'https://api.tape.xyz'
+export const TAPE_TESTNET_API_URL = 'https://api-testnet.tape.xyz'
+export const TAPE_EMBED_URL = IS_MAINNET
+  ? 'https://embed.tape.xyz'
+  : 'https://embed-testnet.tape.xyz'
+export const TAPE_DEV_API_URL = 'http://localhost:4002'
+export const TAPE_API_URL = IS_MAINNET
+  ? TAPE_MAINNET_API_URL
+  : TAPE_TESTNET_API_URL
 
 // contracts
 export const LENSHUB_PROXY_ADDRESS = IS_MAINNET
@@ -92,14 +91,14 @@ export const WC_PROJECT_ID = 'bf790b6b57570b99567abd1677b7415d'
 export const LIVEPEER_STUDIO_API_KEY = 'b13fd43e-d0d6-4abc-a5df-93592a0c5124'
 
 // workers
-export const LIVEPEER_VIEWS_URL = 'https://views.lenstube.xyz'
-export const BUNDLR_METADATA_UPLOAD_URL = 'https://metadata.lenstube.xyz'
-export const LENSTUBE_TAIL_INGEST_URL = 'https://tail.lenstube.xyz'
-export const STS_TOKEN_URL = 'https://sts.lenstube.xyz'
-export const HEALTH_URL = 'https://health.lenstube.xyz'
-export const RECS_URL = 'https://recs.lenstube.xyz'
-export const NFTS_URL = 'https://nfts.lenstube.xyz'
-export const DID_URL = 'https://did.lenstube.xyz'
+export const WORKER_LIVEPEER_VIEWS_URL = 'https://views.tape.xyz'
+export const WORKER_BUNDLR_METADATA_UPLOAD_URL = 'https://metadata.tape.xyz'
+export const WORKER_LOGTAIL_INGEST_URL = 'https://tail.tape.xyz'
+export const WORKER_STS_TOKEN_URL = 'https://sts.tape.xyz'
+export const WORKER_HEALTH_URL = 'https://health.tape.xyz'
+export const WORKER_RECS_URL = 'https://recs.tape.xyz'
+export const WORKER_NFTS_URL = 'https://nfts.tape.xyz'
+export const WORKER_DID_URL = 'https://did.tape.xyz'
 export const SB_STORAGE_URL =
   'https://hdpmuwmctxbkykamcvpl.supabase.co/storage/v1/object/public/waves'
 
@@ -117,7 +116,7 @@ export const REQUESTING_SIGNATURE_MESSAGE = 'Requesting signature...'
 export const ERROR_MESSAGE = 'Oops, something went wrong!'
 
 // App Ids
-export const LENSTUBE_APP_ID = 'lenstube'
+export const TAPE_APP_ID = 'tape'
 export const LENSTUBE_BYTES_APP_ID = 'lenstube-bytes'
 export const ALLOWED_APP_IDS = [
   'orb',
@@ -128,16 +127,16 @@ export const ALLOWED_APP_IDS = [
 ]
 
 // official
-export const LENSTUBE_X_HANDLE = 'lenstubexyz'
-export const LENSTUBE_GITHUB_HANDLE = 'lenstube-xyz'
-export const LENSTUBE_LOGO = 'https://static.lenstube.xyz/brand/logo.svg'
-export const LENSTUBE_STATUS_PAGE = 'https://status.lenstube.xyz'
-export const LENSTUBE_ROADMAP_URL = 'https://roadmap.lenstube.xyz'
+export const TAPE_X_HANDLE = 'tapexyz'
+export const TAPE_GITHUB_HANDLE = 'tapexyz'
+export const TAPE_LOGO = 'https://static.lenstube.xyz/brand/logo.svg'
+export const TAPE_STATUS_PAGE = 'https://status.tape.xyz'
+export const TAPE_ROADMAP_URL = 'https://roadmap.tape.xyz'
 
 // admin
 export const ADMIN_IDS = IS_MAINNET ? ['0x2d'] : ['0x2f']
 export const MOD_IDS = IS_MAINNET ? [...ADMIN_IDS, '0x24'] : ['0x2f']
-export const LENSTUBE_ADDRESS = '0xB89560D7b33ea8d787EaaEfbcE1268f8991Db9E1'
+export const TAPE_ADMIN_ADDRESS = '0xB89560D7b33ea8d787EaaEfbcE1268f8991Db9E1'
 
 // lens
 export const LENS_CUSTOM_FILTERS = [CustomFiltersTypes.Gardeners]

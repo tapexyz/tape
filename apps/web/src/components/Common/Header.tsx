@@ -2,21 +2,21 @@ import { Button } from '@components/UIElements/Button'
 import DropMenu, { NextLink } from '@components/UIElements/DropMenu'
 import Modal from '@components/UIElements/Modal'
 import { Menu } from '@headlessui/react'
-import { Analytics, TRACK } from '@lenstube/browser'
-import {
-  FEATURE_FLAGS,
-  IS_MAINNET,
-  LENS_CUSTOM_FILTERS,
-  LENSTUBE_APP_ID,
-  LENSTUBE_BYTES_APP_ID,
-  STATIC_ASSETS
-} from '@lenstube/constants'
-import { getIsFeatureEnabled } from '@lenstube/generic'
-import { useLatestNotificationIdQuery } from '@lenstube/lens'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'
+import { Analytics, TRACK } from '@tape.xyz/browser'
+import {
+  FEATURE_FLAGS,
+  IS_MAINNET,
+  LENS_CUSTOM_FILTERS,
+  LENSTUBE_BYTES_APP_ID,
+  STATIC_ASSETS,
+  TAPE_APP_ID
+} from '@tape.xyz/constants'
+import { getIsFeatureEnabled } from '@tape.xyz/generic'
+import { useLatestNotificationIdQuery } from '@tape.xyz/lens'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -64,9 +64,7 @@ const Header: FC<Props> = ({ className }) => {
     variables: {
       request: {
         profileId: selectedSimpleProfile?.id,
-        sources: IS_MAINNET
-          ? [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID]
-          : undefined,
+        sources: IS_MAINNET ? [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID] : undefined,
         customFilters: LENS_CUSTOM_FILTERS,
         limit: 1
       }

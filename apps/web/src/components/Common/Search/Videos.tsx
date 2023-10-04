@@ -1,6 +1,6 @@
-import { formatNumber } from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
+import { formatNumber } from '@tape.xyz/generic'
+import type { Publication } from '@tape.xyz/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'

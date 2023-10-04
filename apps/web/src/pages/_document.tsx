@@ -1,8 +1,8 @@
-import { STATIC_ASSETS } from '@lenstube/constants'
+import { STATIC_ASSETS } from '@tape.xyz/constants'
 import Document, { Head, Html, Main, NextScript } from 'next/document'
 import React from 'react'
 
-class LenstubeDocument extends Document {
+class AppDocument extends Document {
   render() {
     return (
       <Html lang="en">
@@ -60,4 +60,4 @@ class LenstubeDocument extends Document {
   }
 }
 
-export default LenstubeDocument
+export default AppDocument

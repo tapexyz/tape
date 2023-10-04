@@ -1,10 +1,10 @@
 import Modal from '@components/UIElements/Modal'
-import { imageCdn, sanitizeDStorageUrl } from '@lenstube/generic'
+import { imageCdn, sanitizeDStorageUrl } from '@tape.xyz/generic'
 import {
   type MediaSet,
   type Publication,
   PublicationMainFocus
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 

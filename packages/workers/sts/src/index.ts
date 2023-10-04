@@ -9,7 +9,7 @@ const headers = {
   'Access-Control-Allow-Origin': '*',
   'Content-Type': 'application/json'
 }
-const bucketName = 'lenstube'
+const bucketName = 'tape'
 const everEndpoint = 'https://endpoint.4everland.co'
 
 const params = {
@@ -22,7 +22,7 @@ const params = {
         "Action": [
           "s3:PutObject",
           "s3:GetObject",
-		  "s3:AbortMultipartUpload"
+		      "s3:AbortMultipartUpload"
         ],
         "Resource": [
           "arn:aws:s3:::${bucketName}/*"

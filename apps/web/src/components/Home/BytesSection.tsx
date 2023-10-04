@@ -2,27 +2,27 @@ import BytesOutline from '@components/Common/Icons/BytesOutline'
 import ChevronLeftOutline from '@components/Common/Icons/ChevronLeftOutline'
 import ChevronRightOutline from '@components/Common/Icons/ChevronRightOutline'
 import BytesShimmer from '@components/Shimmers/BytesShimmer'
+import useAppStore from '@lib/store'
+import useAuthPersistStore from '@lib/store/auth'
+import { Trans } from '@lingui/macro'
 import {
   FALLBACK_COVER_URL,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_BYTES_APP_ID
-} from '@lenstube/constants'
+} from '@tape.xyz/constants'
 import {
   getProfilePicture,
   getThumbnailUrl,
   imageCdn,
   trimLensHandle
-} from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
+} from '@tape.xyz/generic'
+import type { Publication } from '@tape.xyz/lens'
 import {
   PublicationMainFocus,
   PublicationSortCriteria,
   PublicationTypes,
   useExploreQuery
-} from '@lenstube/lens'
-import useAppStore from '@lib/store'
-import useAuthPersistStore from '@lib/store/auth'
-import { Trans } from '@lingui/macro'
+} from '@tape.xyz/lens'
 import Link from 'next/link'
 import React, { useRef } from 'react'
 

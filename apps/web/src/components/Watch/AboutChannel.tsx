@@ -5,13 +5,13 @@ import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import MirrorVideo from '@components/Common/MirrorVideo'
 import UserPreview from '@components/Common/UserPreview'
+import { Trans } from '@lingui/macro'
 import {
   formatNumber,
   getProfilePicture,
   trimLensHandle
-} from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
-import { Trans } from '@lingui/macro'
+} from '@tape.xyz/generic'
+import type { Publication } from '@tape.xyz/lens'
 import clsx from 'clsx'
 import { motion } from 'framer-motion'
 import Link from 'next/link'

@@ -37,7 +37,7 @@ const handleRequest = async (request: Request, env: Env) => {
     const tx = createData(JSON.stringify(payload), signer, {
       tags: [
         { name: 'Content-Type', value: 'application/json' },
-        { name: 'App-Name', value: 'Lenstube' }
+        { name: 'App-Name', value: 'Tape' }
       ]
     })
     await tx.sign(signer)

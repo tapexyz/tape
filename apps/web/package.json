@@ -1,5 +1,5 @@
 {
-  "name": "@lenstube/web",
+  "name": "@tape.xyz/web",
   "description": "Web application",
   "version": "0.0.0",
   "license": "AGPL-3.0",
@@ -50,12 +50,12 @@
     "zustand": "^4.4.2"
   },
   "devDependencies": {
-    "@lenstube/browser": "*",
-    "@lenstube/config": "*",
-    "@lenstube/constants": "*",
-    "@lenstube/generic": "*",
-    "@lenstube/lens": "*",
-    "@lenstube/ui": "*",
+    "@tape.xyz/browser": "*",
+    "@tape.xyz/config": "*",
+    "@tape.xyz/constants": "*",
+    "@tape.xyz/generic": "*",
+    "@tape.xyz/lens": "*",
+    "@tape.xyz/ui": "*",
     "@lingui/cli": "^4.4.0",
     "@lingui/loader": "^4.4.0",
     "@lingui/macro": "^4.4.0",

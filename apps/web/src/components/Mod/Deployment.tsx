@@ -3,7 +3,7 @@ import {
   GIT_DEPLOYED_COMMIT_SHA,
   IS_MAINNET,
   VERCEL_DEPLOYED_ENV
-} from '@lenstube/constants'
+} from '@tape.xyz/constants'
 import Link from 'next/link'
 import React from 'react'
 
@@ -26,7 +26,7 @@ const Deployment = () => {
       {GIT_DEPLOYED_COMMIT_SHA && (
         <span className="bg-secondary rounded-lg bg-opacity-70 p-1 px-3 text-xs backdrop-blur-xl dark:bg-black">
           <Link
-            href={`https://github.com/lenstube-xyz/lenstube/commit/${GIT_DEPLOYED_COMMIT_SHA}`}
+            href={`https://github.com/tapexyz/tape/commit/${GIT_DEPLOYED_COMMIT_SHA}`}
             target="_blank"
             rel="noreferer noreferrer"
           >

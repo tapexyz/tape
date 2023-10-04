@@ -94,7 +94,7 @@ export default async (request: WorkerRequest) => {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'User-Agent': 'Lenstube'
+        'User-Agent': 'Tape'
       },
       body: JSON.stringify({
         operationName: 'AllProfiles',

@@ -1,9 +1,9 @@
 import MetaTags from '@components/Common/MetaTags'
-import { Analytics, TRACK } from '@lenstube/browser'
-import { FEATURE_FLAGS } from '@lenstube/constants'
-import { getIsFeatureEnabled } from '@lenstube/generic'
 import useAuthPersistStore from '@lib/store/auth'
 import { t } from '@lingui/macro'
+import { Analytics, TRACK } from '@tape.xyz/browser'
+import { FEATURE_FLAGS } from '@tape.xyz/constants'
+import { getIsFeatureEnabled } from '@tape.xyz/generic'
 import type { NextPage } from 'next'
 import React, { useEffect } from 'react'
 

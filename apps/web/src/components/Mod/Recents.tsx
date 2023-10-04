@@ -1,22 +1,22 @@
 import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import useAuthPersistStore from '@lib/store/auth'
+import { t } from '@lingui/macro'
 import {
   LENS_CUSTOM_FILTERS,
-  LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
-  SCROLL_ROOT_MARGIN
-} from '@lenstube/constants'
-import type { Publication } from '@lenstube/lens'
+  SCROLL_ROOT_MARGIN,
+  TAPE_APP_ID
+} from '@tape.xyz/constants'
+import type { Publication } from '@tape.xyz/lens'
 import {
   PublicationMainFocus,
   PublicationSortCriteria,
   PublicationTypes,
   useExploreQuery
-} from '@lenstube/lens'
-import { Loader } from '@lenstube/ui'
-import useAuthPersistStore from '@lib/store/auth'
-import { t } from '@lingui/macro'
+} from '@tape.xyz/lens'
+import { Loader } from '@tape.xyz/ui'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 
@@ -29,7 +29,7 @@ const Recents = () => {
     sortCriteria: PublicationSortCriteria.Latest,
     limit: 32,
     noRandomize: true,
-    sources: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
+    sources: [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID],
     publicationTypes: [PublicationTypes.Post],
     customFilters: LENS_CUSTOM_FILTERS,
     metadata: {

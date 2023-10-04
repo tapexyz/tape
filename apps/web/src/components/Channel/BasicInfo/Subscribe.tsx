@@ -3,27 +3,27 @@ import FollowOutline from '@components/Common/Icons/FollowOutline'
 import type { ButtonSizes, ButtonVariants } from '@components/UIElements/Button'
 import { Button } from '@components/UIElements/Button'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import { Analytics, TRACK } from '@lenstube/browser'
+import useAuthPersistStore from '@lib/store/auth'
+import { Trans } from '@lingui/macro'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
+import { Analytics, TRACK } from '@tape.xyz/browser'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE
-} from '@lenstube/constants'
-import { getSignature } from '@lenstube/generic'
+} from '@tape.xyz/constants'
+import { getSignature } from '@tape.xyz/generic'
 import type {
   CreateFollowBroadcastItemResult,
   Profile,
   ProxyActionRequest
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 import {
   useBroadcastMutation,
   useCreateFollowTypedDataMutation,
   useProxyActionMutation
-} from '@lenstube/lens'
-import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
-import useAuthPersistStore from '@lib/store/auth'
-import { Trans } from '@lingui/macro'
-import { useConnectModal } from '@rainbow-me/rainbowkit'
+} from '@tape.xyz/lens'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React, { useState } from 'react'

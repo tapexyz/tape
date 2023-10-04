@@ -1,6 +1,6 @@
-import { STATIC_ASSETS } from '@lenstube/constants'
-import type { Publication } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
+import { STATIC_ASSETS, TAPE_APP_NAME } from '@tape.xyz/constants'
+import type { Publication } from '@tape.xyz/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
@@ -21,7 +21,7 @@ const VideoComment: FC<Props> = ({ comment }) => {
           src={`${STATIC_ASSETS}/brand/logo.svg`}
           className="h-5 w-5"
           draggable={false}
-          alt="lenstube"
+          alt={TAPE_APP_NAME}
         />
         <span>
           <Trans>Watch Video</Trans>

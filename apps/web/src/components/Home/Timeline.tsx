@@ -1,10 +1,10 @@
 import MirroredVideoCard from '@components/Channel/MirroredVideoCard'
 import VideoCard from '@components/Common/VideoCard'
 import QueuedVideo from '@components/Common/VideoCard/QueuedVideo'
-import { trimLensHandle } from '@lenstube/generic'
-import type { Mirror, Publication } from '@lenstube/lens'
 import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
+import { trimLensHandle } from '@tape.xyz/generic'
+import type { Mirror, Publication } from '@tape.xyz/lens'
 import type { FC } from 'react'
 import React from 'react'
 

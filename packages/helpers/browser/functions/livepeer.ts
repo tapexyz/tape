@@ -1,6 +1,6 @@
-import { LIVEPEER_STUDIO_API_KEY } from '@lenstube/constants'
 import type { ThemeConfig } from '@livepeer/react'
 import { createReactClient, studioProvider } from '@livepeer/react'
+import { LIVEPEER_STUDIO_API_KEY } from '@tape.xyz/constants'
 
 export const getLivepeerClient = () => {
   return createReactClient({

@@ -1,4 +1,4 @@
-import { checkIsBytesVideo } from '@lenstube/generic'
+import { checkIsBytesVideo } from '@tape.xyz/generic'
 import { expect, test } from '@playwright/test'
 
 test('returns true for videos shorter than 2 minutes', async () => {

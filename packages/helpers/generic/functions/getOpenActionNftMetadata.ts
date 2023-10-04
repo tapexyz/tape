@@ -1,5 +1,5 @@
-import { COMMON_REGEX } from '@lenstube/constants'
-import type { BasicNftMetadata } from '@lenstube/lens/custom-types'
+import { COMMON_REGEX } from '@tape.xyz/constants'
+import type { BasicNftMetadata } from '@tape.xyz/lens/custom-types'
 
 const knownSites = ['zora.co', 'testnet.zora.co']
 

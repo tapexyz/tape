@@ -1,4 +1,5 @@
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { t } from '@lingui/macro'
 import {
   formatNumber,
   getProfilePicture,
@@ -6,11 +7,10 @@ import {
   imageCdn,
   shortenAddress,
   trimLensHandle
-} from '@lenstube/generic'
-import type { Follower, Profile } from '@lenstube/lens'
-import { useSubscribersQuery } from '@lenstube/lens'
-import { Loader } from '@lenstube/ui'
-import { t } from '@lingui/macro'
+} from '@tape.xyz/generic'
+import type { Follower, Profile } from '@tape.xyz/lens'
+import { useSubscribersQuery } from '@tape.xyz/lens'
+import { Loader } from '@tape.xyz/ui'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
