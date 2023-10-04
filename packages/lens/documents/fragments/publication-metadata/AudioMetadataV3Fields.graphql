@@ -10,7 +10,7 @@ fragment AudioMetadataV3Fields on AudioMetadataV3 {
     ...MarketplaceMetadataFields
   }
   attributes {
-    ...PublicationMetadataV3AttributeFields
+    ...MetadataAttributeFields
   }
   asset {
     ...PublicationMetadataMediaAudioFields

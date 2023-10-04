@@ -1,8 +1,8 @@
 fragment AnyPublicationMetadataFields on PublicationMetadata {
-  ... on LegacyPublicationMetadata {
-    ...LegacyPublicationMetadataFields
+  ... on VideoMetadataV3 {
+    ...VideoMetadataV3Fields
   }
-
+  
   ... on ArticleMetadataV3 {
     ...ArticleMetadataV3Fields
   }
@@ -57,9 +57,5 @@ fragment AnyPublicationMetadataFields on PublicationMetadata {
 
   ... on TransactionMetadataV3 {
     ...TransactionMetadataV3Fields
-  }
-
-  ... on VideoMetadataV3 {
-    ...VideoMetadataV3Fields
   }
 }

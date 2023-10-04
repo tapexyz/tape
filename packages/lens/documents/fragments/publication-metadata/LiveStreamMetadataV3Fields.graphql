@@ -10,7 +10,7 @@ fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
     ...MarketplaceMetadataFields
   }
   attributes {
-    ...PublicationMetadataV3AttributeFields
+    ...MetadataAttributeFields
   }
   startsAt
   endsAt

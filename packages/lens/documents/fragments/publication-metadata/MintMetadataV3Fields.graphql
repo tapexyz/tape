@@ -10,7 +10,7 @@ fragment MintMetadataV3Fields on MintMetadataV3 {
     ...MarketplaceMetadataFields
   }
   attributes {
-    ...PublicationMetadataV3AttributeFields
+    ...MetadataAttributeFields
   }
   mintLink
   attachments {

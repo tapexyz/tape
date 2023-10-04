@@ -10,7 +10,7 @@ fragment LinkMetadataV3Fields on LinkMetadataV3 {
     ...MarketplaceMetadataFields
   }
   attributes {
-    ...PublicationMetadataV3AttributeFields
+    ...MetadataAttributeFields
   }
   sharingLink
   attachments {

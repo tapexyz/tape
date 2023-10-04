@@ -10,7 +10,7 @@ fragment StoryMetadataV3Fields on StoryMetadataV3 {
     ...MarketplaceMetadataFields
   }
   attributes {
-    ...PublicationMetadataV3AttributeFields
+    ...MetadataAttributeFields
   }
   asset {
     ...PublicationMetadataMediaFields

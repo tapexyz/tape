@@ -4,10 +4,14 @@ import ThumbnailImage from '@components/Common/VideoCard/ThumbnailImage'
 import {
   getIsSensitiveContent,
   getProfilePicture,
-  getValueFromTraitType,
+  getValueFromKeyInAttributes,
   trimLensHandle
 } from '@lenstube/generic'
-import type { Attribute, Mirror, MirrorablePublication } from '@lenstube/lens'
+import type {
+  MetadataAttribute,
+  Mirror,
+  MirrorablePublication
+} from '@lenstube/lens'
 import {
   getDateString,
   getRelativeTime,
@@ -25,8 +29,8 @@ type Props = {
 const MirroredVideoCard: FC<Props> = ({ video }) => {
   const mirrorOn = video.mirrorOn as MirrorablePublication
   const isSensitiveContent = getIsSensitiveContent(mirrorOn.metadata, video.id)
-  const videoDuration = getValueFromTraitType(
-    mirrorOn.metadata?.marketplace?.attributes as Attribute[],
+  const videoDuration = getValueFromKeyInAttributes(
+    mirrorOn.metadata?.marketplace?.attributes as MetadataAttribute[],
     'durationInSeconds'
   )
 

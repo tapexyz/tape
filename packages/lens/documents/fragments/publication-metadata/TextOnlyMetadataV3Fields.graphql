@@ -10,7 +10,7 @@ fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
     ...MarketplaceMetadataFields
   }
   attributes {
-    ...PublicationMetadataV3AttributeFields
+    ...MetadataAttributeFields
   }
   content
 }

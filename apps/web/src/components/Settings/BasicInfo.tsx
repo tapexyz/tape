@@ -183,7 +183,7 @@ const BasicInfo = ({ channel }: Props) => {
             attr.key
           )
       )
-      .map(({ type, key, value }) => ({ type, key, value })) ?? []
+      .map(({ key, value }) => ({ key, value })) ?? []
 
   const onSaveBasicInfo = async (data: FormData) => {
     if (handleWrongNetwork()) {
@@ -196,7 +196,7 @@ const BasicInfo = ({ channel }: Props) => {
         coverPicture: data.coverImage ?? coverImage,
         id: uuidv4(),
         attributes: [
-          ...(otherAttributes as unknown as MetadataAttribute[]),
+          ...(otherAttributes as MetadataAttribute[]),
           {
             type: MetadataAttributeType.STRING,
             key: 'website',

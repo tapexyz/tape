@@ -10,7 +10,7 @@ fragment ThreeDMetadataV3Fields on ThreeDMetadataV3 {
     ...MarketplaceMetadataFields
   }
   attributes {
-    ...PublicationMetadataV3AttributeFields
+    ...MetadataAttributeFields
   }
   assets {
     license

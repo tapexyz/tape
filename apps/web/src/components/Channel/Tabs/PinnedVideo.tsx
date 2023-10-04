@@ -25,7 +25,6 @@ import {
 } from '@lenstube/generic'
 import type {
   AnyPublication,
-  Attribute,
   MirrorablePublication,
   OnchainSetProfileMetadataRequest,
   Profile
@@ -89,7 +88,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
   )
 
   const otherAttributes =
-    (activeChannel?.metadata?.attributes as Attribute[])
+    (activeChannel?.metadata?.attributes as MetadataAttribute[])
       ?.filter((attr) => !['pinnedPublicationId', 'app'].includes(attr.key))
       .map(({ key, value, type }) => ({
         type,

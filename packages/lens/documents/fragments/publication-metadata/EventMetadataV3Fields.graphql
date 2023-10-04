@@ -10,7 +10,7 @@ fragment EventMetadataV3Fields on EventMetadataV3 {
     ...MarketplaceMetadataFields
   }
   attributes {
-    ...PublicationMetadataV3AttributeFields
+    ...MetadataAttributeFields
   }
   geographic {
     rawURI

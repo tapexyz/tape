@@ -10,10 +10,10 @@ import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import {
   checkValueInAttributes,
   getProfilePicture,
-  getValueFromTraitType,
+  getValueFromKeyInAttributes,
   trimLensHandle
 } from '@lenstube/generic'
-import type { Attribute, Comment } from '@lenstube/lens'
+import type { Comment, MetadataAttribute } from '@lenstube/lens'
 import { getRelativeTime } from '@lib/formatTime'
 import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
@@ -84,16 +84,16 @@ const RenderComment: FC<Props> = ({ comment }) => {
               <Badge id={comment?.by.id} />
             </Link>
             {checkValueInAttributes(
-              comment?.metadata.marketplace?.attributes as Attribute[],
+              comment?.metadata.marketplace?.attributes as MetadataAttribute[],
               'tip'
             ) && (
               <Tooltip placement="top" content="Tipper">
                 <span>
                   <HashExplorerLink
                     hash={
-                      getValueFromTraitType(
+                      getValueFromKeyInAttributes(
                         comment?.metadata.marketplace
-                          ?.attributes as Attribute[],
+                          ?.attributes as MetadataAttribute[],
                         'hash'
                       ) || ''
                     }

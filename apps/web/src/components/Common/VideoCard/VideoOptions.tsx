@@ -18,7 +18,7 @@ import {
   getValueFromKeyInAttributes,
   uploadToAr
 } from '@lenstube/generic'
-import type { Attribute, MirrorablePublication, Profile } from '@lenstube/lens'
+import type { MirrorablePublication, Profile } from '@lenstube/lens'
 import {
   useAddPublicationBookmarkMutation,
   useAddPublicationNotInterestedMutation,
@@ -107,7 +107,7 @@ const VideoOptions: FC<Props> = ({ video }) => {
   }
 
   const otherAttributes =
-    (activeChannel?.metadata?.attributes as Attribute[])
+    (activeChannel?.metadata?.attributes as MetadataAttribute[])
       ?.filter((attr) => !['pinnedPublicationId', 'app'].includes(attr.key))
       .map(({ type, key, value }) => ({
         type,

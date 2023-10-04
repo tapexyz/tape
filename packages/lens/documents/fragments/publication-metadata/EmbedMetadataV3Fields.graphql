@@ -10,7 +10,7 @@ fragment EmbedMetadataV3Fields on EmbedMetadataV3 {
     ...MarketplaceMetadataFields
   }
   attributes {
-    ...PublicationMetadataV3AttributeFields
+    ...MetadataAttributeFields
   }
   embed
   attachments {

@@ -10,7 +10,7 @@ fragment CheckingInMetadataV3Fields on CheckingInMetadataV3 {
     ...MarketplaceMetadataFields
   }
   attributes {
-    ...PublicationMetadataV3AttributeFields
+    ...MetadataAttributeFields
   }
   location
   geographic {

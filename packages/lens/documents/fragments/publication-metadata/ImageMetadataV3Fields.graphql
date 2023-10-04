@@ -10,7 +10,7 @@ fragment ImageMetadataV3Fields on ImageMetadataV3 {
     ...MarketplaceMetadataFields
   }
   attributes {
-    ...PublicationMetadataV3AttributeFields
+    ...MetadataAttributeFields
   }
   attachments {
     ...PublicationMetadataMediaFields

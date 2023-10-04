@@ -1,22 +1,15 @@
-import type { Attribute } from '@lenstube/lens'
+import type { MetadataAttribute } from '@lenstube/lens'
 
 // key available only profile metadata
 export const getValueFromKeyInAttributes = (
-  attributes: Attribute[] | null | undefined,
+  attributes: MetadataAttribute[] | null | undefined,
   key: string
 ) => {
   return attributes?.find((el) => el.key === key)?.value ?? ''
 }
 
-export const getValueFromTraitType = (
-  attributes: Attribute[] | null | undefined,
-  traitType: string
-) => {
-  return attributes?.find((el) => el.type === traitType)?.value ?? ''
-}
-
 export const checkValueInAttributes = (
-  attributes: Attribute[],
+  attributes: MetadataAttribute[],
   value: string
 ) => {
   return attributes?.find((el) => el.value === value)?.value ?? ''

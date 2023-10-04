@@ -10,7 +10,7 @@ fragment TransactionMetadataV3Fields on TransactionMetadataV3 {
     ...MarketplaceMetadataFields
   }
   attributes {
-    ...PublicationMetadataV3AttributeFields
+    ...MetadataAttributeFields
   }
   type
   txHash

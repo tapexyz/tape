@@ -12,10 +12,10 @@ import {
   formatNumber,
   getIsSensitiveContent,
   getThumbnailUrl,
-  getValueFromTraitType,
+  getValueFromKeyInAttributes,
   imageCdn
 } from '@lenstube/generic'
-import type { Attribute, MirrorablePublication } from '@lenstube/lens'
+import type { MetadataAttribute, MirrorablePublication } from '@lenstube/lens'
 import { getShortHandTime, getTimeFromSeconds } from '@lib/formatTime'
 import { Box, Flex } from '@radix-ui/themes'
 import clsx from 'clsx'
@@ -35,8 +35,8 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
     : getThumbnailUrl(video, true)
 
   const { color: backgroundColor } = useAverageColor(thumbnailUrl, isBytesVideo)
-  const videoDuration = getValueFromTraitType(
-    video.metadata.marketplace?.attributes as Attribute[],
+  const videoDuration = getValueFromKeyInAttributes(
+    video.metadata.marketplace?.attributes as MetadataAttribute[],
     'durationInSeconds'
   )
 

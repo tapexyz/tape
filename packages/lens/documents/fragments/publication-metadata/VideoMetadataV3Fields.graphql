@@ -10,7 +10,7 @@ fragment VideoMetadataV3Fields on VideoMetadataV3 {
     ...MarketplaceMetadataFields
   }
   attributes {
-    ...PublicationMetadataV3AttributeFields
+    ...MetadataAttributeFields
   }
   asset {
     ...PublicationMetadataMediaVideoFields
