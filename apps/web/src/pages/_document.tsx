@@ -45,6 +45,11 @@ class LenstubeDocument extends Document {
             rel="manifest"
             href={`${STATIC_ASSETS}/brand/favicons/site.webmanifest`}
           />
+          <link
+            rel="mask-icon"
+            href={`${STATIC_ASSETS}/brand/favicons/safari-pinned-tab.svg`}
+            color="#ffffff"
+          />
         </Head>
         <body>
           <Main />
