@@ -11,9 +11,7 @@ import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'
 import { Button, DropdownMenu, Flex, IconButton } from '@radix-ui/themes'
-import clsx from 'clsx'
 import Link from 'next/link'
-import type { FC } from 'react'
 import React, { useState } from 'react'
 
 import ConnectWalletButton from './Auth/ConnectWalletButton'
@@ -24,11 +22,7 @@ import UploadOutline from './Icons/UploadOutline'
 import PostLinkModal from './PostLinkModal'
 import GlobalSearchBar from './Search/GlobalSearchBar'
 
-type Props = {
-  className?: string
-}
-
-const Header: FC<Props> = ({ className }) => {
+const Header = () => {
   const [showShowModal, setSearchModal] = useState(false)
   const [showPostLinkModal, setShowPostLinkModal] = useState(false)
 
@@ -71,12 +65,7 @@ const Header: FC<Props> = ({ className }) => {
   })
 
   return (
-    <div
-      className={clsx(
-        'ultrawide:max-w-[90rem] ultrawide:px-0 container sticky left-0 right-0 top-0 z-10 mx-auto flex items-center bg-white/70 p-2 backdrop-blur-xl dark:bg-black/70 md:p-4',
-        className
-      )}
-    >
+    <div className="ultrawide:max-w-[90rem] ultrawide:px-0 ultrawide:container sticky left-0 right-0 top-0 z-10 mx-auto flex items-center bg-white/70 p-2 backdrop-blur-xl dark:bg-black/70 md:p-4">
       <div className="flex w-full">
         <div className="flex w-full items-center justify-between px-2 md:px-0">
           <GlobalSearchBar />
