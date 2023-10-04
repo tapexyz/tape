@@ -10,6 +10,5 @@ test('has channel', async ({ page }) => {
 
   await card.getByTestId('video-card-channel').click()
 
-  expect(page.getByTestId('channel-name'))
   expect(page.getByTestId('video-card'))
 })

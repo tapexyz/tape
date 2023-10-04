@@ -18,7 +18,7 @@ const ChannelLink = ({ ...props }: any) => {
         draggable={false}
         alt={TAPE_APP_NAME}
       />
-      <span>{props.display.replace('@', '')}</span>
+      <span>{trimLensHandle(props.display.replace('@', ''))}</span>
     </Link>
   )
 }
