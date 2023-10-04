@@ -104,10 +104,9 @@ export const SB_STORAGE_URL =
 
 // bundlr
 export const BUNDLR_NODE_URL = IS_MAINNET
-  ? 'https://node1.bundlr.network'
-  : 'https://devnet.bundlr.network'
+  ? 'https://node1.irys.xyz'
+  : 'https://devnet.irys.xyz'
 export const BUNDLR_CURRENCY = 'matic'
-export const BUNDLR_WEBSITE_URL = 'https://bundlr.network'
 export const ARWEAVE_GATEWAY_URL = 'https://arweave.net'
 export const BUNDLR_CONNECT_MESSAGE = 'Estimating video upload cost...'
 export const REQUESTING_SIGNATURE_MESSAGE = 'Requesting signature...'
