@@ -1,4 +1,4 @@
-import { WORKER_BUNDLR_METADATA_UPLOAD_URL } from '@tape.xyz/constants'
+import { WORKER_IRYS_METADATA_UPLOAD_URL } from '@tape.xyz/constants'
 import type { PublicationMetadataV2Input } from '@tape.xyz/lens'
 import type { ProfileMetadata } from '@tape.xyz/lens/custom-types'
 import axios from 'axios'
@@ -9,7 +9,7 @@ export const uploadToAr = async (
   data: PublicationMetadataV2Input | ProfileMetadata
 ): Promise<string> => {
   try {
-    const response = await axios.post(WORKER_BUNDLR_METADATA_UPLOAD_URL, data)
+    const response = await axios.post(WORKER_IRYS_METADATA_UPLOAD_URL, data)
     const { id } = response.data
     return `ar://${id}`
   } catch (error) {

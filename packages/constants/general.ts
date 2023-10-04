@@ -92,7 +92,7 @@ export const LIVEPEER_STUDIO_API_KEY = 'b13fd43e-d0d6-4abc-a5df-93592a0c5124'
 
 // workers
 export const WORKER_LIVEPEER_VIEWS_URL = 'https://views.tape.xyz'
-export const WORKER_BUNDLR_METADATA_UPLOAD_URL = 'https://metadata.tape.xyz'
+export const WORKER_IRYS_METADATA_UPLOAD_URL = 'https://metadata.tape.xyz'
 export const WORKER_LOGTAIL_INGEST_URL = 'https://tail.tape.xyz'
 export const WORKER_STS_TOKEN_URL = 'https://sts.tape.xyz'
 export const WORKER_HEALTH_URL = 'https://health.tape.xyz'
@@ -102,13 +102,13 @@ export const WORKER_DID_URL = 'https://did.tape.xyz'
 export const SB_STORAGE_URL =
   'https://hdpmuwmctxbkykamcvpl.supabase.co/storage/v1/object/public/waves'
 
-// bundlr
-export const BUNDLR_NODE_URL = IS_MAINNET
+// irys
+export const IRYS_NODE_URL = IS_MAINNET
   ? 'https://node1.irys.xyz'
   : 'https://devnet.irys.xyz'
-export const BUNDLR_CURRENCY = 'matic'
+export const IRYS_CURRENCY = 'matic'
 export const ARWEAVE_GATEWAY_URL = 'https://arweave.net'
-export const BUNDLR_CONNECT_MESSAGE = 'Estimating video upload cost...'
+export const IRYS_CONNECT_MESSAGE = 'Estimating video upload cost...'
 export const REQUESTING_SIGNATURE_MESSAGE = 'Requesting signature...'
 
 // error messages

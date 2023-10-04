@@ -14,8 +14,8 @@ import {
   uploadToIPFS
 } from '@tape.xyz/browser'
 import {
-  BUNDLR_CONNECT_MESSAGE,
   ERROR_MESSAGE,
+  IRYS_CONNECT_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   LENSTUBE_BYTES_APP_ID,
   REQUESTING_SIGNATURE_MESSAGE,
@@ -62,9 +62,9 @@ import type { VideoFormData } from './Details'
 import Details from './Details'
 
 const UploadSteps = () => {
-  const getBundlrInstance = useAppStore((state) => state.getBundlrInstance)
-  const setBundlrData = useAppStore((state) => state.setBundlrData)
-  const bundlrData = useAppStore((state) => state.bundlrData)
+  const getIrysInstance = useAppStore((state) => state.getIrysInstance)
+  const setIrysData = useAppStore((state) => state.setIrysData)
+  const irysData = useAppStore((state) => state.irysData)
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
   const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
   const activeChannel = useChannelStore((state) => state.activeChannel)
@@ -260,12 +260,12 @@ const UploadSteps = () => {
     }
   })
 
-  const initBundlr = async () => {
-    if (signer && address && !bundlrData.instance) {
-      toast.loading(BUNDLR_CONNECT_MESSAGE)
-      const bundlr = await getBundlrInstance(signer)
-      if (bundlr) {
-        setBundlrData({ instance: bundlr })
+  const initIrys = async () => {
+    if (signer && address && !irysData.instance) {
+      toast.loading(IRYS_CONNECT_MESSAGE)
+      const instance = await getIrysInstance(signer)
+      if (instance) {
+        setIrysData({ instance })
       }
     }
   }
@@ -454,18 +454,16 @@ const UploadSteps = () => {
     })
   }
 
-  const uploadToBundlr = async () => {
-    if (!bundlrData.instance) {
+  const uploadToIrys = async () => {
+    if (!irysData.instance) {
       stopLoading()
-      return await initBundlr()
+      return await initIrys()
     }
     if (!uploadedVideo.stream) {
       stopLoading()
       return toast.error(t`Video not uploaded correctly`)
     }
-    if (
-      parseFloat(bundlrData.balance) < parseFloat(bundlrData.estimatedPrice)
-    ) {
+    if (parseFloat(irysData.balance) < parseFloat(irysData.estimatedPrice)) {
       stopLoading()
       return toast.error(t`Insufficient storage balance`)
     }
@@ -474,7 +472,7 @@ const UploadSteps = () => {
         loading: true,
         buttonText: t`Uploading to Arweave`
       })
-      const bundlr = bundlrData.instance
+      const instance = irysData.instance
       const tags = [
         { name: 'Content-Type', value: uploadedVideo.videoType || 'video/mp4' },
         { name: 'App-Name', value: TAPE_APP_NAME },
@@ -489,7 +487,7 @@ const UploadSteps = () => {
         }
       ]
       const fileSize = uploadedVideo?.file?.size as number
-      const uploader = bundlr.uploader.chunkedUploader
+      const uploader = instance.uploader.chunkedUploader
       const chunkSize = 10000000 // 10 MB
       uploader.setChunkSize(chunkSize)
       if (fileSize < chunkSize) {
@@ -521,7 +519,7 @@ const UploadSteps = () => {
       })
     } catch (error) {
       toast.error(t`Failed to upload video to Arweave`)
-      logger.error('[Error Bundlr Upload Video]', error)
+      logger.error('[Error Irys Upload Video]', error)
       return stopLoading()
     }
   }
@@ -548,7 +546,7 @@ const UploadSteps = () => {
     ) {
       return await uploadVideoToIpfs()
     } else {
-      await uploadToBundlr()
+      await uploadToIrys()
     }
   }
 

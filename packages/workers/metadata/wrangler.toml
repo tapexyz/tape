@@ -8,4 +8,4 @@ keep_vars = true
 node_compat = true
 
 [env.production.vars]
-BUNDLR_PRIVATE_KEY = ""
+WALLET_PRIVATE_KEY = ""

@@ -1,4 +1,4 @@
-import type { WebBundlr } from '@bundlr-network/client'
+import type { WebIrys } from '@irys/sdk'
 import type {
   AaveFeeCollectModuleSettings,
   Attribute,
@@ -20,8 +20,8 @@ export type VideoDraft = {
   description: string
 }
 
-export type BundlrDataState = {
-  instance: WebBundlr | null
+export type IrysDataState = {
+  instance: WebIrys | null
   balance: string
   estimatedPrice: string
   deposit: string | null

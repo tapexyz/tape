@@ -1,19 +1,16 @@
-import { WebBundlr } from '@bundlr-network/client'
+import { WebIrys } from '@irys/sdk'
 import {
-  BUNDLR_CURRENCY,
-  BUNDLR_NODE_URL,
   CREATOR_VIDEO_CATEGORIES,
+  IRYS_CURRENCY,
+  IRYS_NODE_URL,
   POLYGON_RPC_URL,
   WMATIC_TOKEN_ADDRESS
 } from '@tape.xyz/constants'
 import { logger } from '@tape.xyz/generic'
-import type {
-  BundlrDataState,
-  UploadedVideo
-} from '@tape.xyz/lens/custom-types'
+import type { IrysDataState, UploadedVideo } from '@tape.xyz/lens/custom-types'
 import { create } from 'zustand'
 
-export const UPLOADED_VIDEO_BUNDLR_DEFAULTS = {
+export const UPLOADED_VIDEO_IRYS_DEFAULTS = {
   balance: '0',
   estimatedPrice: '0',
   deposit: null,
@@ -62,41 +59,47 @@ export const UPLOADED_VIDEO_FORM_DEFAULTS = {
 
 interface AppState {
   uploadedVideo: UploadedVideo
-  bundlrData: BundlrDataState
+  irysData: IrysDataState
   videoWatchTime: number
   activeTagFilter: string
   setUploadedVideo: (videoProps: Partial<UploadedVideo>) => void
   setActiveTagFilter: (activeTagFilter: string) => void
   setVideoWatchTime: (videoWatchTime: number) => void
-  setBundlrData: (bundlrProps: Partial<BundlrDataState>) => void
-  getBundlrInstance: (signer: {
+  setIrysData: (irysProps: Partial<IrysDataState>) => void
+  getIrysInstance: (signer: {
     signMessage: (message: string) => Promise<string>
-  }) => Promise<WebBundlr | null>
+  }) => Promise<WebIrys | null>
 }
 
 export const useAppStore = create<AppState>((set) => ({
   videoWatchTime: 0,
   activeTagFilter: 'all',
-  bundlrData: UPLOADED_VIDEO_BUNDLR_DEFAULTS,
+  irysData: UPLOADED_VIDEO_IRYS_DEFAULTS,
   uploadedVideo: UPLOADED_VIDEO_FORM_DEFAULTS,
   setActiveTagFilter: (activeTagFilter) => set({ activeTagFilter }),
   setVideoWatchTime: (videoWatchTime) => set({ videoWatchTime }),
-  setBundlrData: (bundlrProps) =>
-    set((state) => ({ bundlrData: { ...state.bundlrData, ...bundlrProps } })),
+  setIrysData: (props) =>
+    set((state) => ({ irysData: { ...state.irysData, ...props } })),
   setUploadedVideo: (videoProps) =>
     set((state) => ({
       uploadedVideo: { ...state.uploadedVideo, ...videoProps }
     })),
-  getBundlrInstance: async (signer) => {
+  getIrysInstance: async (signer) => {
     try {
-      const bundlr = new WebBundlr(BUNDLR_NODE_URL, BUNDLR_CURRENCY, signer, {
-        providerUrl: POLYGON_RPC_URL
+      const instance = new WebIrys({
+        url: IRYS_NODE_URL,
+        token: IRYS_CURRENCY,
+        wallet: {
+          rpcUrl: POLYGON_RPC_URL,
+          name: 'rainbowkitv1',
+          provider: signer
+        }
       })
-      await bundlr.utils.getBundlerAddress(BUNDLR_CURRENCY)
-      await bundlr.ready()
-      return bundlr
+      await instance.utils.getBundlerAddress(IRYS_CURRENCY)
+      await instance.ready()
+      return instance
     } catch (error) {
-      logger.error('[Error Init Bundlr]', error)
+      logger.error('[Error Init Irys]', error)
       return null
     }
   }

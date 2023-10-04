@@ -1,7 +1,7 @@
-import { createData, EthereumSigner } from '../bundlr'
+import { createData, EthereumSigner } from '../irys'
 
 export interface Env {
-  BUNDLR_PRIVATE_KEY: string
+  WALLET_PRIVATE_KEY: string
 }
 
 const headers = {
@@ -33,7 +33,7 @@ const handleRequest = async (request: Request, env: Env) => {
   }
 
   try {
-    const signer = new EthereumSigner(env.BUNDLR_PRIVATE_KEY)
+    const signer = new EthereumSigner(env.WALLET_PRIVATE_KEY)
     const tx = createData(JSON.stringify(payload), signer, {
       tags: [
         { name: 'Content-Type', value: 'application/json' },
@@ -41,13 +41,13 @@ const handleRequest = async (request: Request, env: Env) => {
       ]
     })
     await tx.sign(signer)
-    const bundlrRes = await fetch('http://node2.bundlr.network/tx/matic', {
+    const irysRes = await fetch('http://node2.irys.xyz/tx/matic', {
       method: 'POST',
       headers: { 'content-type': 'application/octet-stream' },
       body: tx.getRaw()
     })
 
-    if (bundlrRes.statusText === 'Created' || bundlrRes.statusText === 'OK') {
+    if (irysRes.statusText === 'Created' || irysRes.statusText === 'OK') {
       return new Response(
         JSON.stringify({
           success: true,
@@ -63,7 +63,7 @@ const handleRequest = async (request: Request, env: Env) => {
         JSON.stringify({
           success: false,
           message: 'Something went wrong!',
-          bundlrRes
+          irysRes
         }),
         {
           headers

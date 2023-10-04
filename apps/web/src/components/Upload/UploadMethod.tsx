@@ -7,7 +7,7 @@ import { canUploadedToIpfs } from '@tape.xyz/generic'
 import clsx from 'clsx'
 import React from 'react'
 
-import BundlrInfo from './BundlrInfo'
+import IrysInfo from './IrysInfo'
 
 const UploadMethod = () => {
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
@@ -58,7 +58,7 @@ const UploadMethod = () => {
       </Tab.List>
       <Tab.Panels>
         <Tab.Panel className="focus:outline-none">
-          {!uploadedVideo.isUploadToIpfs && <BundlrInfo />}
+          {!uploadedVideo.isUploadToIpfs && <IrysInfo />}
         </Tab.Panel>
       </Tab.Panels>
     </Tab.Group>
