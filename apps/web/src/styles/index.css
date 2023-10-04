@@ -7,15 +7,15 @@ body {
 }
 
 .btn-primary {
-  @apply rounded-full bg-indigo-500 text-white focus:outline-none disabled:opacity-50;
+  @apply rounded-full bg-indigo-500 text-white focus:outline-none disabled:bg-opacity-50;
 }
 
 .btn-danger {
-  @apply rounded-full bg-red-500 text-white focus:outline-none disabled:opacity-50;
+  @apply rounded-full bg-red-500 text-white focus:outline-none disabled:bg-opacity-50;
 }
 
 .btn-hover {
-  @apply rounded-full hover:bg-indigo-100 focus:outline-none disabled:opacity-50 dark:hover:bg-indigo-900;
+  @apply rounded-full hover:bg-indigo-100 focus:outline-none disabled:bg-opacity-50 dark:hover:bg-indigo-900;
 }
 
 .btn-outline {
