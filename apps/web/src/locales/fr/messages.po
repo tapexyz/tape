@@ -8,7 +8,7 @@ msgstr ""
 "Language: fr\n"
 "Project-Id-Version: lenstube\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-10-03 01:12\n"
+"PO-Revision-Date: 2023-10-04 01:13\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -338,7 +338,7 @@ msgstr "Création en cours..."
 
 #: src/components/Home/OpenActions/index.tsx:48
 #~ msgid "Cross Chain Collects"
-#~ msgstr "Collectes de chaîne croisée"
+#~ msgstr ""
 
 #: src/components/Settings/Membership.tsx:247
 msgid "Currency"
@@ -886,11 +886,11 @@ msgstr "Épinglage de la vidéo..."
 #: src/components/Common/Auth/Login.tsx:40
 #: src/components/Common/Auth/Login.tsx:182
 msgid "Please change your network to Polygon!"
-msgstr ""
+msgstr "Veuillez changer votre réseau en Polygonal !"
 
 #: src/components/Common/Auth/Login.tsx:178
 #~ msgid "Please change your network wallet!"
-#~ msgstr "Veuillez changer votre portefeuille de réseau!"
+#~ msgstr ""
 
 #: src/components/Common/Auth/Login.tsx:95
 msgid "Please connect to your wallet"
@@ -1643,3 +1643,4 @@ msgstr "Votre Chaîne"
 #: src/components/Upload/BundlrInfo.tsx:171
 msgid "Your Storage Balance"
 msgstr "Votre solde de stockage"
+
