@@ -1,0 +1,3 @@
+{
+  "extends": "@lenstube/config/base.tsconfig.json"
+}

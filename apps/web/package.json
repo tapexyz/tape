@@ -57,6 +57,7 @@
     "@lenstube/constants": "*",
     "@lenstube/generic": "*",
     "@lenstube/lens": "*",
+    "@lenstube/abis": "*",
     "@lenstube/ui": "*",
     "@lingui/cli": "^4.4.0",
     "@lingui/loader": "^4.4.0",

@@ -1,4 +1,3 @@
-import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { Button } from '@components/UIElements/Button'
 import EmojiPicker from '@components/UIElements/EmojiPicker'
 import InputMentions from '@components/UIElements/InputMentions'
@@ -6,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import type { MetadataAttribute } from '@lens-protocol/metadata'
 import { MetadataAttributeType, textOnly } from '@lens-protocol/metadata'
+import { LENSHUB_PROXY_ABI } from '@lenstube/abis'
 import { Analytics, getUserLocale, TRACK } from '@lenstube/browser'
 import {
   ERROR_MESSAGE,

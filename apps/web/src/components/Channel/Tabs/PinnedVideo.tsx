@@ -1,8 +1,8 @@
-import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import PinnedVideoShimmer from '@components/Shimmers/PinnedVideoShimmer'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import type { MetadataAttribute } from '@lens-protocol/metadata'
 import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
+import { LENSHUB_PROXY_ABI } from '@lenstube/abis'
 import { Analytics, TRACK } from '@lenstube/browser'
 import {
   ERROR_MESSAGE,

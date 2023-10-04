@@ -1,4 +1,4 @@
-import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
+import { LENSHUB_PROXY_ABI } from '@lenstube/abis'
 import { Analytics, TRACK } from '@lenstube/browser'
 import {
   ERROR_MESSAGE,

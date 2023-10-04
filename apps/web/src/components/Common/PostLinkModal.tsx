@@ -1,9 +1,9 @@
-import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import type { MetadataAttribute } from '@lens-protocol/metadata'
 import { link, MetadataAttributeType } from '@lens-protocol/metadata'
+import { LENSHUB_PROXY_ABI } from '@lenstube/abis'
 import { Analytics, getUserLocale, TRACK } from '@lenstube/browser'
 import {
   ERROR_MESSAGE,

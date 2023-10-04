@@ -1,9 +1,9 @@
-import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import usePendingTxn from '@hooks/usePendingTxn'
+import { LENSHUB_PROXY_ABI } from '@lenstube/abis'
 import { useCopyToClipboard } from '@lenstube/browser'
 import {
   ERROR_MESSAGE,

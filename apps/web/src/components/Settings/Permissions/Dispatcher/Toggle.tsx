@@ -1,6 +1,6 @@
-import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import usePendingTxn from '@hooks/usePendingTxn'
+import { LENSHUB_PROXY_ABI } from '@lenstube/abis'
 import { Analytics, TRACK } from '@lenstube/browser'
 import {
   ERROR_MESSAGE,

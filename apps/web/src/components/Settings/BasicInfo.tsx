@@ -1,4 +1,3 @@
-import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import Badge from '@components/Common/Badge'
 import AddImageOutline from '@components/Common/Icons/AddImageOutline'
 import CopyOutline from '@components/Common/Icons/CopyOutline'
@@ -10,6 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import type { MetadataAttribute, ProfileOptions } from '@lens-protocol/metadata'
 import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
+import { LENSHUB_PROXY_ABI } from '@lenstube/abis'
 import {
   Analytics,
   TRACK,

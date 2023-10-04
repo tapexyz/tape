@@ -1,6 +1,5 @@
-import { ZoraCreator1155Impl } from '@abis/ZoraCreator1155Impl'
-import { ZoraERC721Drop } from '@abis/ZoraERC721Drop'
 import { Button } from '@components/UIElements/Button'
+import { ZoraCreator1155Impl, ZoraERC721Drop } from '@lenstube/abis'
 import { Analytics, TRACK } from '@lenstube/browser'
 import { LENSTUBE_ADDRESS, LENSTUBE_APP_NAME } from '@lenstube/constants'
 import { getZoraChainInfo } from '@lenstube/generic'

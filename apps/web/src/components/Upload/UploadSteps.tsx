@@ -1,4 +1,3 @@
-import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import MetaTags from '@components/Common/MetaTags'
 import useEthersWalletClient from '@hooks/useEthersWalletClient'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
@@ -11,6 +10,7 @@ import {
   shortVideo,
   video
 } from '@lens-protocol/metadata'
+import { LENSHUB_PROXY_ABI } from '@lenstube/abis'
 import {
   Analytics,
   getUserLocale,

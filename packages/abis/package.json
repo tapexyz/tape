@@ -1,0 +1,16 @@
+{
+  "name": "@lenstube/abis",
+  "version": "0.0.0",
+  "private": true,
+  "license": "AGPL-3.0",
+  "main": "index.ts",
+  "scripts": {
+    "lint": "eslint . --ext .js,.ts,.tsx",
+    "typecheck": "tsc --pretty"
+  },
+  "dependencies": {
+    "typescript": "^5.2.2",
+    "@types/node": "^20.8.0",
+    "@lenstube/config": "*"
+  }
+}

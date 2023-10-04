@@ -15,12 +15,6 @@
       ],
       "@ui*": [
         "src/components/ui*"
-      ],
-      "@abis*": [
-        "src/abis*"
-      ],
-      "@gql*": [
-        "src/gql*"
       ]
     },
     "isolatedModules": true,

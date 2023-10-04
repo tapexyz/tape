@@ -1,7 +1,7 @@
-import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import Badge from '@components/Common/Badge'
 import { Button } from '@components/UIElements/Button'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
+import { LENSHUB_PROXY_ABI } from '@lenstube/abis'
 import {
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE

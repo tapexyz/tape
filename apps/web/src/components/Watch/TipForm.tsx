@@ -1,9 +1,9 @@
-import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import { Input } from '@components/UIElements/Input'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
 import type { MetadataAttribute } from '@lens-protocol/metadata'
 import { MetadataAttributeType, textOnly } from '@lens-protocol/metadata'
+import { LENSHUB_PROXY_ABI } from '@lenstube/abis'
 import { Analytics, getUserLocale, TRACK } from '@lenstube/browser'
 import {
   LENSHUB_PROXY_ADDRESS,
