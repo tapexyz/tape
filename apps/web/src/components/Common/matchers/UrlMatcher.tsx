@@ -1,3 +1,4 @@
+import { Trans } from '@lingui/macro'
 import { STATIC_ASSETS, TAPE_APP_NAME } from '@tape.xyz/constants'
 import type { ChildrenNode, MatchResponse, Node } from 'interweave'
 import { Matcher } from 'interweave'
@@ -27,7 +28,9 @@ const Url = ({ children, url, ...props }: UrlProps) => {
         draggable={false}
         alt={TAPE_APP_NAME}
       />
-      <span>Watch Now</span>
+      <span>
+        <Trans>Watch Now</Trans>
+      </span>
     </Link>
   ) : (
     <Link {...props} href={href} target="_blank">

@@ -1580,6 +1580,10 @@ msgstr "Cartera"
 msgid "Watch"
 msgstr "Vigilar"
 
+#: src/components/Common/matchers/UrlMatcher.tsx:32
+msgid "Watch Now"
+msgstr ""
+
 #: src/components/Watch/Comments/VideoComment.tsx:27
 msgid "Watch Video"
 msgstr "Ver vídeo"
