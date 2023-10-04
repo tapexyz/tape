@@ -80,7 +80,7 @@ msgstr "Amount"
 msgid "Amount should be greater than 0"
 msgstr "Amount should be greater than 0"
 
-#: src/components/Upload/BundlrInfo.tsx:215
+#: src/components/Upload/IrysInfo.tsx:210
 msgid "Amount to deposit (MATIC)"
 msgstr "Amount to deposit (MATIC)"
 
@@ -357,8 +357,8 @@ msgstr "degrees away from my network"
 msgid "Delete"
 msgstr "Delete"
 
-#: src/components/Upload/BundlrInfo.tsx:194
-#: src/components/Upload/BundlrInfo.tsx:235
+#: src/components/Upload/IrysInfo.tsx:189
+#: src/components/Upload/IrysInfo.tsx:230
 msgid "Deposit"
 msgstr "Deposit"
 
@@ -433,7 +433,7 @@ msgstr "enabled"
 msgid "Ends At"
 msgstr "Ends At"
 
-#: src/components/Upload/BundlrInfo.tsx:98
+#: src/components/Upload/IrysInfo.tsx:95
 msgid "Enter deposit amount"
 msgstr "Enter deposit amount"
 
@@ -446,7 +446,7 @@ msgstr "Enter valid comment"
 msgid "Error uploading file"
 msgstr "Error uploading file"
 
-#: src/components/Upload/BundlrInfo.tsx:242
+#: src/components/Upload/IrysInfo.tsx:237
 msgid "Estimated Cost to Upload"
 msgstr "Estimated Cost to Upload"
 
@@ -461,7 +461,7 @@ msgstr ""
 msgid "Explore"
 msgstr "Explore"
 
-#: src/components/Upload/BundlrInfo.tsx:146
+#: src/components/Upload/IrysInfo.tsx:141
 msgid "Failed to deposit storage balance"
 msgstr "Failed to deposit storage balance"
 
@@ -469,7 +469,7 @@ msgstr "Failed to deposit storage balance"
 msgid "Failed to upload thumbnail"
 msgstr "Failed to upload thumbnail"
 
-#: src/components/Upload/UploadSteps.tsx:523
+#: src/components/Upload/UploadSteps.tsx:521
 msgid "Failed to upload video to Arweave"
 msgstr "Failed to upload video to Arweave"
 
@@ -548,7 +548,7 @@ msgstr "Indexing..."
 #~ msgid "Insufficient balance"
 #~ msgstr ""
 
-#: src/components/Upload/UploadSteps.tsx:470
+#: src/components/Upload/UploadSteps.tsx:468
 msgid "Insufficient storage balance"
 msgstr "Insufficient storage balance"
 
@@ -569,7 +569,7 @@ msgstr "Invalid amount"
 msgid "Invalid collect limit"
 msgstr "Invalid collect limit"
 
-#: src/components/Upload/BundlrInfo.tsx:103
+#: src/components/Upload/IrysInfo.tsx:100
 msgid "Invalid deposit amount"
 msgstr "Invalid deposit amount"
 
@@ -1450,7 +1450,7 @@ msgstr "Upgrade your dispatcher to the latest version for better, faster, strong
 msgid "Upload"
 msgstr "Upload"
 
-#: src/components/Upload/BundlrInfo.tsx:45
+#: src/components/Upload/IrysInfo.tsx:45
 msgid "Upload cost estimation failed"
 msgstr "Upload cost estimation failed"
 
@@ -1475,7 +1475,7 @@ msgstr "Upload to IPFS"
 msgid "Uploading thumbnail"
 msgstr "Uploading thumbnail"
 
-#: src/components/Upload/UploadSteps.tsx:475
+#: src/components/Upload/UploadSteps.tsx:473
 msgid "Uploading to Arweave"
 msgstr "Uploading to Arweave"
 
@@ -1652,6 +1652,6 @@ msgstr "your channel"
 msgid "Your Channel"
 msgstr "Your Channel"
 
-#: src/components/Upload/BundlrInfo.tsx:171
+#: src/components/Upload/IrysInfo.tsx:166
 msgid "Your Storage Balance"
 msgstr "Your Storage Balance"

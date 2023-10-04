@@ -80,7 +80,7 @@ msgstr "Montant"
 msgid "Amount should be greater than 0"
 msgstr "Le montant doit être supérieur à 0"
 
-#: src/components/Upload/BundlrInfo.tsx:215
+#: src/components/Upload/IrysInfo.tsx:210
 msgid "Amount to deposit (MATIC)"
 msgstr "Montant à déposer (MATIC)"
 
@@ -357,8 +357,8 @@ msgstr "degrés d'éloignement de mon réseau"
 msgid "Delete"
 msgstr "Supprimez"
 
-#: src/components/Upload/BundlrInfo.tsx:194
-#: src/components/Upload/BundlrInfo.tsx:235
+#: src/components/Upload/IrysInfo.tsx:189
+#: src/components/Upload/IrysInfo.tsx:230
 msgid "Deposit"
 msgstr "Dépôt"
 
@@ -433,7 +433,7 @@ msgstr "Activé"
 msgid "Ends At"
 msgstr "Se termine à"
 
-#: src/components/Upload/BundlrInfo.tsx:98
+#: src/components/Upload/IrysInfo.tsx:95
 msgid "Enter deposit amount"
 msgstr "Entrez le montant du dépôt"
 
@@ -446,7 +446,7 @@ msgstr "Entrez un commentaire valide"
 msgid "Error uploading file"
 msgstr "Erreur lors du chargement du fichier"
 
-#: src/components/Upload/BundlrInfo.tsx:242
+#: src/components/Upload/IrysInfo.tsx:237
 msgid "Estimated Cost to Upload"
 msgstr "Coût estimé à télécharger"
 
@@ -461,7 +461,7 @@ msgstr "ETH"
 msgid "Explore"
 msgstr "Explorer"
 
-#: src/components/Upload/BundlrInfo.tsx:146
+#: src/components/Upload/IrysInfo.tsx:141
 msgid "Failed to deposit storage balance"
 msgstr "Échec du dépôt du solde de stockage"
 
@@ -469,7 +469,7 @@ msgstr "Échec du dépôt du solde de stockage"
 msgid "Failed to upload thumbnail"
 msgstr "Échec du téléchargement de la miniature"
 
-#: src/components/Upload/UploadSteps.tsx:523
+#: src/components/Upload/UploadSteps.tsx:521
 msgid "Failed to upload video to Arweave"
 msgstr "Impossible de télécharger la vidéo vers Arweave"
 
@@ -548,7 +548,7 @@ msgstr "Indexation..."
 #~ msgid "Insufficient balance"
 #~ msgstr ""
 
-#: src/components/Upload/UploadSteps.tsx:470
+#: src/components/Upload/UploadSteps.tsx:468
 msgid "Insufficient storage balance"
 msgstr "Solde de stockage insuffisant"
 
@@ -569,7 +569,7 @@ msgstr "Montant non valide"
 msgid "Invalid collect limit"
 msgstr "Limite de collecte invalide"
 
-#: src/components/Upload/BundlrInfo.tsx:103
+#: src/components/Upload/IrysInfo.tsx:100
 msgid "Invalid deposit amount"
 msgstr "Montant du dépôt non valide"
 
@@ -1450,7 +1450,7 @@ msgstr "Mettez à jour votre répartiteur vers la dernière version pour de meil
 msgid "Upload"
 msgstr "Charger"
 
-#: src/components/Upload/BundlrInfo.tsx:45
+#: src/components/Upload/IrysInfo.tsx:45
 msgid "Upload cost estimation failed"
 msgstr "L'estimation du coût du téléchargement a échoué"
 
@@ -1475,7 +1475,7 @@ msgstr "Télécharger vers IPFS"
 msgid "Uploading thumbnail"
 msgstr "Envoi de la miniature"
 
-#: src/components/Upload/UploadSteps.tsx:475
+#: src/components/Upload/UploadSteps.tsx:473
 msgid "Uploading to Arweave"
 msgstr "Envoi vers Arweave"
 
@@ -1652,6 +1652,6 @@ msgstr "votre chaîne"
 msgid "Your Channel"
 msgstr "Votre Chaîne"
 
-#: src/components/Upload/BundlrInfo.tsx:171
+#: src/components/Upload/IrysInfo.tsx:166
 msgid "Your Storage Balance"
 msgstr "Votre solde de stockage"

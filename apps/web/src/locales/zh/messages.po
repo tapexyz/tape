@@ -80,7 +80,7 @@ msgstr "金额"
 msgid "Amount should be greater than 0"
 msgstr "金额必须大于 0"
 
-#: src/components/Upload/BundlrInfo.tsx:215
+#: src/components/Upload/IrysInfo.tsx:210
 msgid "Amount to deposit (MATIC)"
 msgstr "存入金额 (MATIC)"
 
@@ -357,8 +357,8 @@ msgstr "远离我的网络"
 msgid "Delete"
 msgstr "删除"
 
-#: src/components/Upload/BundlrInfo.tsx:194
-#: src/components/Upload/BundlrInfo.tsx:235
+#: src/components/Upload/IrysInfo.tsx:189
+#: src/components/Upload/IrysInfo.tsx:230
 msgid "Deposit"
 msgstr "存款"
 
@@ -433,7 +433,7 @@ msgstr "已启用"
 msgid "Ends At"
 msgstr "结束于"
 
-#: src/components/Upload/BundlrInfo.tsx:98
+#: src/components/Upload/IrysInfo.tsx:95
 msgid "Enter deposit amount"
 msgstr "输入存款金额"
 
@@ -446,7 +446,7 @@ msgstr "输入有效的评论"
 msgid "Error uploading file"
 msgstr "上传文件出错"
 
-#: src/components/Upload/BundlrInfo.tsx:242
+#: src/components/Upload/IrysInfo.tsx:237
 msgid "Estimated Cost to Upload"
 msgstr "估计上传费用"
 
@@ -461,7 +461,7 @@ msgstr "ETH"
 msgid "Explore"
 msgstr "浏览"
 
-#: src/components/Upload/BundlrInfo.tsx:146
+#: src/components/Upload/IrysInfo.tsx:141
 msgid "Failed to deposit storage balance"
 msgstr "保存存储余额失败"
 
@@ -469,7 +469,7 @@ msgstr "保存存储余额失败"
 msgid "Failed to upload thumbnail"
 msgstr "上传缩略图失败"
 
-#: src/components/Upload/UploadSteps.tsx:523
+#: src/components/Upload/UploadSteps.tsx:521
 msgid "Failed to upload video to Arweave"
 msgstr "上传视频到 Arweeve 失败"
 
@@ -548,7 +548,7 @@ msgstr "正在索引..."
 #~ msgid "Insufficient balance"
 #~ msgstr ""
 
-#: src/components/Upload/UploadSteps.tsx:470
+#: src/components/Upload/UploadSteps.tsx:468
 msgid "Insufficient storage balance"
 msgstr "存储余额不足"
 
@@ -569,7 +569,7 @@ msgstr "无效金额"
 msgid "Invalid collect limit"
 msgstr "无效的收集限制"
 
-#: src/components/Upload/BundlrInfo.tsx:103
+#: src/components/Upload/IrysInfo.tsx:100
 msgid "Invalid deposit amount"
 msgstr "无效的存款金额"
 
@@ -1450,7 +1450,7 @@ msgstr "将您的调度程序升级到最新版本，以获得更好、更快、
 msgid "Upload"
 msgstr "上传"
 
-#: src/components/Upload/BundlrInfo.tsx:45
+#: src/components/Upload/IrysInfo.tsx:45
 msgid "Upload cost estimation failed"
 msgstr "上传成本估计失败"
 
@@ -1475,7 +1475,7 @@ msgstr "上传到 IPFS"
 msgid "Uploading thumbnail"
 msgstr "正在上传缩略图"
 
-#: src/components/Upload/UploadSteps.tsx:475
+#: src/components/Upload/UploadSteps.tsx:473
 msgid "Uploading to Arweave"
 msgstr "正在上传到Arweeve"
 
@@ -1652,6 +1652,6 @@ msgstr "您的频道"
 msgid "Your Channel"
 msgstr "您的频道"
 
-#: src/components/Upload/BundlrInfo.tsx:171
+#: src/components/Upload/IrysInfo.tsx:166
 msgid "Your Storage Balance"
 msgstr "您的存储余额"
