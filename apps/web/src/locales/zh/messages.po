@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenstube\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-10-03 01:12\n"
+"PO-Revision-Date: 2023-10-04 01:13\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -338,7 +338,7 @@ msgstr "创建中..."
 
 #: src/components/Home/OpenActions/index.tsx:48
 #~ msgid "Cross Chain Collects"
-#~ msgstr "十字链收藏"
+#~ msgstr ""
 
 #: src/components/Settings/Membership.tsx:247
 msgid "Currency"
@@ -886,11 +886,11 @@ msgstr "正在固定视频..."
 #: src/components/Common/Auth/Login.tsx:40
 #: src/components/Common/Auth/Login.tsx:182
 msgid "Please change your network to Polygon!"
-msgstr ""
+msgstr "请将您的网络更改为多边形！"
 
 #: src/components/Common/Auth/Login.tsx:178
 #~ msgid "Please change your network wallet!"
-#~ msgstr "请更改您的网络钱包！"
+#~ msgstr ""
 
 #: src/components/Common/Auth/Login.tsx:95
 msgid "Please connect to your wallet"
@@ -1643,3 +1643,4 @@ msgstr "您的频道"
 #: src/components/Upload/BundlrInfo.tsx:171
 msgid "Your Storage Balance"
 msgstr "您的存储余额"
+
