@@ -47,7 +47,7 @@ const Others: FC<Props> = ({ channel }) => {
           <span>
             Invited by{' '}
             <Link
-              className="hover:text-indigo-500"
+              className="hover:text-brand-500"
               href={`/channel/${channel.invitedBy.handle}`}
             >
               @{channel.invitedBy.handle}

@@ -18,7 +18,7 @@ const VideoComment: FC<Props> = ({ comment }) => {
         target="_blank"
       >
         <img
-          src={`${STATIC_ASSETS}/images/brand/circle-72x72.png`}
+          src={`${STATIC_ASSETS}/brand/logo.svg`}
           className="h-5 w-5"
           draggable={false}
           alt="lenstube"

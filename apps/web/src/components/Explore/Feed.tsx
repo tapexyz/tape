@@ -109,7 +109,7 @@ const ExploreFeed = () => {
           className={({ selected }) =>
             clsx(
               'flex items-center space-x-2 whitespace-nowrap border-b-2 px-4 py-2 focus:outline-none',
-              selected ? 'border-indigo-500' : 'border-transparent'
+              selected ? 'border-brand-500' : 'border-transparent'
             )
           }
         >
@@ -132,7 +132,7 @@ const ExploreFeed = () => {
           className={({ selected }) =>
             clsx(
               'flex items-center space-x-2 border-b-2 px-4 py-2 focus:outline-none',
-              selected ? 'border-indigo-500' : 'border-transparent'
+              selected ? 'border-brand-500' : 'border-transparent'
             )
           }
         >
@@ -155,7 +155,7 @@ const ExploreFeed = () => {
           className={({ selected }) =>
             clsx(
               'flex items-center space-x-2 border-b-2 px-4 py-2 focus:outline-none',
-              selected ? 'border-indigo-500' : 'border-transparent'
+              selected ? 'border-brand-500' : 'border-transparent'
             )
           }
         >

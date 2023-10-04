@@ -37,7 +37,7 @@ const providerMetadata = {
   name: LENSTUBE_APP_NAME,
   description: LENSTUBE_APP_DESCRIPTION,
   url: LENSTUBE_WEBSITE_URL,
-  icons: ['https://static.lenstube.xyz/images/brand/lenstube.svg'],
+  icons: ['https://static.lenstube.xyz/brand/logo.svg'],
   redirect: {
     native: 'lenstube://',
     universal: 'lenstube.xyz'

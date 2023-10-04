@@ -42,7 +42,7 @@ export const ClaimHandle = () => (
       <Link
         href="https://claim.lens.xyz/"
         target="_blank"
-        className="text-indigo-500"
+        className="text-brand-500"
         rel="noreferrer"
       >
         <Trans>lens claiming site</Trans>

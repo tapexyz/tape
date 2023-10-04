@@ -175,7 +175,7 @@ const ChooseThumbnail: FC<Props> = ({ label, file }) => {
               className={clsx(
                 'relative w-full flex-none overflow-hidden rounded-lg ring-1 ring-white focus:outline-none dark:ring-black',
                 {
-                  '!ring !ring-indigo-500':
+                  '!ring-brand-500 !ring':
                     thumbnail.ipfsUrl &&
                     selectedThumbnailIndex === idx &&
                     thumbnail.ipfsUrl === uploadedVideo.thumbnail

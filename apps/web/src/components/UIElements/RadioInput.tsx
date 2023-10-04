@@ -16,7 +16,7 @@ const RadioInput: FC<Props> = ({ question, checked, onChange }) => {
       <div className="mt-1.5 flex items-center space-x-4 text-xs">
         <div className="flex items-center">
           <input
-            className="h-3 w-3 border-indigo-300 bg-indigo-100 text-indigo-600 focus:outline-none dark:border-indigo-900 dark:bg-indigo-700"
+            className="border-brand-300 bg-brand-100 text-brand-600 dark:border-brand-900 dark:bg-brand-700 h-3 w-3 focus:outline-none"
             type="radio"
             id={`option1_${id}`}
             checked={checked}
@@ -31,7 +31,7 @@ const RadioInput: FC<Props> = ({ question, checked, onChange }) => {
         </div>
         <div className="flex items-center">
           <input
-            className="h-3 w-3 border-gray-300 bg-indigo-100 text-indigo-600 focus:outline-none dark:border-indigo-600 dark:bg-indigo-700"
+            className="bg-brand-100 text-brand-600 dark:border-brand-600 dark:bg-brand-700 h-3 w-3 border-gray-300 focus:outline-none"
             type="radio"
             id={`option2_${id}`}
             checked={!checked}

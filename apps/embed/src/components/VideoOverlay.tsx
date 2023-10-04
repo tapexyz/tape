@@ -69,7 +69,7 @@ const VideoOverlay: FC<Props> = ({ video, clicked }) => {
               target="_blank"
             >
               <img
-                src={`${STATIC_ASSETS}/images/brand/lenstube.svg`}
+                src={`${STATIC_ASSETS}/brand/logo.svg`}
                 draggable={false}
                 className="ml-0.5 h-8 w-8 rounded-full"
                 alt="lenstube"

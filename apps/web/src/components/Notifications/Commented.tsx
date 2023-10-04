@@ -37,7 +37,7 @@ const CommentedNotification: FC<Props> = ({ notification }) => {
               notification?.comment?.commentOn &&
               notification?.comment?.commentOn?.id
             }`}
-            className="ml-1 text-indigo-500"
+            className="text-brand-500 ml-1"
           >
             <Trans>video</Trans>
           </Link>

@@ -90,7 +90,7 @@ const Video = () => {
             className={clsx(
               'h-[6px]',
               uploadedVideo.percent !== 0
-                ? 'bg-indigo-500'
+                ? 'bg-brand-500'
                 : 'bg-gray-300 dark:bg-gray-800'
             )}
             style={{

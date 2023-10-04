@@ -130,8 +130,7 @@ export const ALLOWED_APP_IDS = [
 // official
 export const LENSTUBE_X_HANDLE = 'lenstubexyz'
 export const LENSTUBE_GITHUB_HANDLE = 'lenstube-xyz'
-export const LENSTUBE_LOGO =
-  'https://static.lenstube.xyz/images/brand/without-bg.png'
+export const LENSTUBE_LOGO = 'https://static.lenstube.xyz/brand/logo.svg'
 export const LENSTUBE_STATUS_PAGE = 'https://status.lenstube.xyz'
 export const LENSTUBE_ROADMAP_URL = 'https://roadmap.lenstube.xyz'
 

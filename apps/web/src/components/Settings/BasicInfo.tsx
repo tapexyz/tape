@@ -282,7 +282,7 @@ const BasicInfo = ({ channel }: Props) => {
   return (
     <form
       onSubmit={handleSubmit(onSaveBasicInfo)}
-      className="dark:bg-theme rounded-xl bg-white p-4"
+      className="rounded-xl bg-white p-4 dark:bg-black"
     >
       <div className="relative w-full flex-none">
         {uploading && (
@@ -304,7 +304,7 @@ const BasicInfo = ({ channel }: Props) => {
         />
         <label
           htmlFor="chooseCover"
-          className="dark:bg-theme absolute bottom-2 left-2 cursor-pointer rounded-lg bg-white p-1 px-3 text-sm"
+          className="absolute bottom-2 left-2 cursor-pointer rounded-lg bg-white p-1 px-3 text-sm dark:bg-black"
         >
           <Trans>Change</Trans>
           <input

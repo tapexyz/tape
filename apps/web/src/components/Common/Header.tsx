@@ -85,7 +85,7 @@ const Header: FC<Props> = ({ className }) => {
   return (
     <div
       className={clsx(
-        'dark:bg-theme/90 sticky left-0 right-0 top-0 z-10 flex w-full items-center bg-white/90 py-2.5 backdrop-blur-xl',
+        'sticky left-0 right-0 top-0 z-10 flex w-full items-center bg-white/90 py-2.5 backdrop-blur-xl dark:bg-black/90',
         className
       )}
     >
@@ -94,7 +94,7 @@ const Header: FC<Props> = ({ className }) => {
           <div className="md:w-[330px]">
             <Link href="/" className="block md:invisible">
               <img
-                src={`${STATIC_ASSETS}/images/brand/lenstube.svg`}
+                src={`${STATIC_ASSETS}/brand/logo.svg`}
                 draggable={false}
                 className="h-5 w-5"
                 alt="lenstube"

@@ -38,9 +38,9 @@ const Locale = () => {
           <button
             key={key}
             className={clsx(
-              'dark:hover:bg-theme w-28 cursor-pointer overflow-hidden rounded-lg px-3 py-1 text-left hover:bg-white focus:outline-none',
+              'w-28 cursor-pointer overflow-hidden rounded-lg px-3 py-1 text-left hover:bg-white focus:outline-none dark:hover:bg-black',
               selectedLocale === SUPPORTED_LOCALES[key] &&
-                'dark:bg-theme bg-white'
+                'bg-white dark:bg-black'
             )}
             onClick={() => {
               storeLocale(key)

@@ -16,7 +16,7 @@ type Props = {
 }
 
 const Disclaimer = () => (
-  <div className="prose-sm prose-a:text-indigo-500 text-[11px]">
+  <div className="prose-sm prose-a:text-brand-500 text-[11px]">
     <span>By connecting, you acknowledge and agree to the Lenstube's</span>{' '}
     <a href="/terms" target="_blank">
       terms
@@ -34,7 +34,7 @@ const RainbowKit: FC<Props> = ({ chains, children }) => {
   const themeOptions: ThemeOptions = {
     fontStack: 'system',
     overlayBlur: 'small',
-    accentColor: '#6366f1',
+    accentColor: '#39c4ff',
     borderRadius: 'medium'
   }
   return (

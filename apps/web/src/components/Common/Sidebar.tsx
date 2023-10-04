@@ -34,7 +34,7 @@ const Sidebar = () => {
       <CreateChannel />
       <div
         className={clsx(
-          'transition-width dark:bg-theme fixed bottom-0 left-0 top-0 z-10 hidden items-start justify-between bg-white md:flex md:flex-col',
+          'transition-width fixed bottom-0 left-0 top-0 z-10 hidden items-start justify-between bg-white dark:bg-black/50 md:flex md:flex-col',
           sidebarCollapsed ? 'w-[90px]' : 'w-[180px]'
         )}
       >
@@ -51,7 +51,7 @@ const Sidebar = () => {
               className="flex items-center pt-0.5 focus:outline-none"
             >
               <img
-                src={`${STATIC_ASSETS}/images/brand/lenstube.svg`}
+                src={`${STATIC_ASSETS}/brand/logo.svg`}
                 draggable={false}
                 className="h-8 w-8"
                 alt="lenstube"
@@ -69,7 +69,7 @@ const Sidebar = () => {
                 className={clsx(
                   'group flex h-12 items-center rounded-full py-2 2xl:py-2.5',
                   isActivePath('/')
-                    ? 'bg-indigo-50 dark:bg-gray-800'
+                    ? 'bg-brand-50 dark:bg-gray-800'
                     : 'hover:bg-gray-50 dark:hover:bg-gray-800',
                   sidebarCollapsed
                     ? 'w-12 justify-center'
@@ -94,7 +94,7 @@ const Sidebar = () => {
                 className={clsx(
                   'group flex h-12 items-center rounded-full py-2 2xl:py-2.5',
                   isActivePath('/feed')
-                    ? 'bg-indigo-50 dark:bg-gray-800'
+                    ? 'bg-brand-50 dark:bg-gray-800'
                     : 'hover:bg-gray-50 dark:hover:bg-gray-800',
                   sidebarCollapsed
                     ? 'w-12 justify-center'
@@ -119,7 +119,7 @@ const Sidebar = () => {
                 className={clsx(
                   'group flex h-12 items-center rounded-full py-2 2xl:py-2.5',
                   isActivePath('/bytes') || router.pathname === '/bytes/[id]'
-                    ? 'bg-indigo-50 dark:bg-gray-800'
+                    ? 'bg-brand-50 dark:bg-gray-800'
                     : 'hover:bg-gray-50 dark:hover:bg-gray-800',
                   sidebarCollapsed
                     ? 'w-12 justify-center'
@@ -144,7 +144,7 @@ const Sidebar = () => {
                 className={clsx(
                   'group flex h-12 items-center rounded-full py-2 2xl:py-2.5',
                   isActivePath('/explore')
-                    ? 'bg-indigo-50 dark:bg-gray-800'
+                    ? 'bg-brand-50 dark:bg-gray-800'
                     : 'hover:bg-gray-50 dark:hover:bg-gray-800',
                   sidebarCollapsed
                     ? 'w-12 justify-center'

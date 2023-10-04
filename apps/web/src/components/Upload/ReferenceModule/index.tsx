@@ -82,7 +82,7 @@ const ReferenceModule = () => {
               className={clsx(
                 'flex w-full items-center justify-between rounded-xl border border-gray-200 px-4 py-2 text-sm focus:outline-none dark:border-gray-800',
                 {
-                  '!border-indigo-500':
+                  '!border-brand-500':
                     !uploadedVideo.referenceModule
                       ?.followerOnlyReferenceModule &&
                     !uploadedVideo?.referenceModule
@@ -110,7 +110,7 @@ const ReferenceModule = () => {
               className={clsx(
                 'flex w-full items-center justify-between rounded-xl border border-gray-200 px-4 py-2 text-left text-sm focus:outline-none dark:border-gray-800',
                 {
-                  '!border-indigo-500':
+                  '!border-brand-500':
                     uploadedVideo.referenceModule
                       ?.followerOnlyReferenceModule &&
                     !uploadedVideo.referenceModule
@@ -144,7 +144,7 @@ const ReferenceModule = () => {
             className={clsx(
               'flex w-full items-center justify-between rounded-xl border border-gray-200 px-4 py-2 text-left text-sm focus:outline-none dark:border-gray-800',
               {
-                '!border-indigo-500':
+                '!border-brand-500':
                   uploadedVideo.referenceModule
                     ?.degreesOfSeparationReferenceModule !== null
               }

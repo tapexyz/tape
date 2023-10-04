@@ -32,7 +32,7 @@ const BalanceAlert: FC<Props> = ({ collectModule }) => {
             )}
             rel="noreferer noreferrer"
             target="_blank"
-            className="text-indigo-500"
+            className="text-brand-500"
           >
             <Trans>Swap</Trans>
           </Link>

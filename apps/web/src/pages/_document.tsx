@@ -11,7 +11,7 @@ class LenstubeDocument extends Document {
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
           <link
             rel="icon"
-            href={`${STATIC_ASSETS}/images/brand/lenstube.svg`}
+            href={`${STATIC_ASSETS}/brand/logo.svg`}
             type="image/svg+xml"
           />
           <link

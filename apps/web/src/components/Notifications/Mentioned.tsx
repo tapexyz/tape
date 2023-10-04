@@ -47,7 +47,7 @@ const MentionedNotification: FC<Props> = ({ notification }) => {
         <span className="truncate text-gray-600 dark:text-gray-400">
           <Link
             href={`/watch/${notification?.mentionPublication.id}`}
-            className="mr-1 text-indigo-500"
+            className="text-brand-500 mr-1"
           >
             <Trans>mentioned</Trans>
           </Link>

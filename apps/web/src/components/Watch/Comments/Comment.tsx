@@ -157,7 +157,7 @@ const Comment: FC<Props> = ({ comment }) => {
               {comment.stats.totalAmountOfComments ? (
                 <button
                   onClick={() => setShowReplies(!showReplies)}
-                  className="rounded-full bg-indigo-100 px-2 py-1 text-xs focus:outline-none dark:bg-indigo-900/30"
+                  className="bg-brand-100 dark:bg-brand-900/30 rounded-full px-2 py-1 text-xs focus:outline-none"
                 >
                   {comment.stats.totalAmountOfComments} <Trans>replies</Trans>
                 </button>

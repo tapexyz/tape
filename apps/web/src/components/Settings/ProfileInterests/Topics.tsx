@@ -70,8 +70,9 @@ const Topics = () => {
                 className={clsx(
                   'flex items-center justify-between rounded-full border border-gray-300 px-3 py-0.5 text-sm capitalize focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700',
                   {
-                    '!border-indigo-500 text-indigo-500':
-                      selectedTopics.includes(category.id)
+                    '!border-brand-500 text-brand-500': selectedTopics.includes(
+                      category.id
+                    )
                   }
                 )}
                 disabled={
@@ -93,7 +94,7 @@ const Topics = () => {
                     className={clsx(
                       'flex items-center justify-between rounded-full border border-gray-300 px-3 py-0.5 text-sm capitalize focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700',
                       {
-                        '!border-indigo-500 text-indigo-500':
+                        '!border-brand-500 text-brand-500':
                           selectedTopics.includes(subCategory.id)
                       }
                     )}

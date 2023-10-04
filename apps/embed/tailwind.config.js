@@ -1,12 +1,12 @@
+const base = require('@lenstube/ui/tailwind-preset')
+
 /** @type {import('tailwindcss').Config} */
 module.exports = {
+  ...base,
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx}',
     './src/components/**/*.{js,ts,jsx,tsx}',
     '../../packages/**/*.{ts,tsx}'
   ],
-  theme: {
-    extend: {}
-  },
   plugins: [require('@tailwindcss/aspect-ratio')]
 }

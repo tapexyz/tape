@@ -142,7 +142,7 @@ const Notifications = () => {
                 clsx(
                   'flex items-center space-x-2 border-b-2 px-1 py-2 text-sm focus:outline-none',
                   selected
-                    ? 'border-indigo-900 opacity-100'
+                    ? 'border-brand-900 opacity-100'
                     : 'border-transparent opacity-50'
                 )
               }
@@ -163,7 +163,7 @@ const Notifications = () => {
                 clsx(
                   'flex items-center space-x-2 border-b-2 px-1 py-2 text-sm focus:outline-none',
                   selected
-                    ? 'border-indigo-900 opacity-100'
+                    ? 'border-brand-900 opacity-100'
                     : 'border-transparent opacity-50'
                 )
               }
@@ -184,7 +184,7 @@ const Notifications = () => {
                 clsx(
                   'flex items-center space-x-2 whitespace-nowrap border-b-2 py-2 text-sm focus:outline-none',
                   selected
-                    ? 'border-indigo-900 opacity-100'
+                    ? 'border-brand-900 opacity-100'
                     : 'border-transparent opacity-50'
                 )
               }
@@ -205,7 +205,7 @@ const Notifications = () => {
                 clsx(
                   'flex items-center space-x-2 border-b-2 px-1 py-2 text-sm focus:outline-none',
                   selected
-                    ? 'border-indigo-900 opacity-100'
+                    ? 'border-brand-900 opacity-100'
                     : 'border-transparent opacity-50'
                 )
               }
@@ -226,7 +226,7 @@ const Notifications = () => {
                 clsx(
                   'flex items-center space-x-2 border-b-2 px-1 py-2 text-sm focus:outline-none',
                   selected
-                    ? 'border-indigo-900 opacity-100'
+                    ? 'border-brand-900 opacity-100'
                     : 'border-transparent opacity-50'
                 )
               }
@@ -247,7 +247,7 @@ const Notifications = () => {
                 clsx(
                   'flex items-center space-x-2 border-b-2 px-1 py-2 text-sm focus:outline-none',
                   selected
-                    ? 'border-indigo-900 opacity-100'
+                    ? 'border-brand-900 opacity-100'
                     : 'border-transparent opacity-50'
                 )
               }

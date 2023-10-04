@@ -96,7 +96,7 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
           </div>
           <div
             className={clsx(
-              'dark:bg-theme z-10 mt-1 w-full overflow-hidden rounded-xl bg-white text-base ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm md:absolute',
+              'z-10 mt-1 w-full overflow-hidden rounded-xl bg-white text-base ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-black sm:text-sm md:absolute',
               { hidden: debouncedValue.length === 0 }
             )}
           >
@@ -107,8 +107,8 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
                     clsx(
                       'w-full border-b-2 px-4 py-2 text-sm focus:outline-none',
                       selected
-                        ? 'border-indigo-500 opacity-100'
-                        : 'border-transparent opacity-50 hover:bg-indigo-500/[0.12]'
+                        ? 'border-brand-500 opacity-100'
+                        : 'hover:bg-brand-500/[0.12] border-transparent opacity-50'
                     )
                   }
                   onClick={() => {
@@ -122,8 +122,8 @@ const GlobalSearchBar: FC<Props> = ({ onSearchResults }) => {
                     clsx(
                       'w-full border-b-2 px-4 py-2 text-sm focus:outline-none',
                       selected
-                        ? 'border-indigo-500 opacity-100'
-                        : 'border-transparent opacity-50 hover:bg-indigo-500/[0.12]'
+                        ? 'border-brand-500 opacity-100'
+                        : 'hover:bg-brand-500/[0.12] border-transparent opacity-50'
                     )
                   }
                   onClick={() => {

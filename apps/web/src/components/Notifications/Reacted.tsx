@@ -44,7 +44,7 @@ const ReactedNotification: FC<Props> = ({ notification }) => {
                 ? notification.publication?.mainPost?.id
                 : notification?.publication.id
             }`}
-            className="ml-1 text-indigo-500"
+            className="text-brand-500 ml-1"
           >
             <Trans>video</Trans>
           </Link>
