@@ -118,6 +118,8 @@ export const ERROR_MESSAGE = 'Oops, something went wrong!'
 export const TAPE_APP_ID = 'tape'
 export const LENSTUBE_BYTES_APP_ID = 'lenstube-bytes'
 export const ALLOWED_APP_IDS = [
+  'lenster',
+  'lenstube',
   'orb',
   'hey',
   'buttrfly',
