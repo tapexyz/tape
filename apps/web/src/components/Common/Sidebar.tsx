@@ -69,8 +69,8 @@ const Sidebar = () => {
                 className={clsx(
                   'group flex h-12 items-center rounded-full py-2 2xl:py-2.5',
                   isActivePath('/')
-                    ? 'bg-brand-50 dark:bg-gray-800'
-                    : 'hover:bg-gray-50 dark:hover:bg-gray-800',
+                    ? 'bg-brand-50 dark:bg-brand-900'
+                    : 'dark:hover:bg-brand-900 hover:bg-brand-50',
                   sidebarCollapsed
                     ? 'w-12 justify-center'
                     : 'w-full space-x-3 px-3.5'
@@ -94,8 +94,8 @@ const Sidebar = () => {
                 className={clsx(
                   'group flex h-12 items-center rounded-full py-2 2xl:py-2.5',
                   isActivePath('/feed')
-                    ? 'bg-brand-50 dark:bg-gray-800'
-                    : 'hover:bg-gray-50 dark:hover:bg-gray-800',
+                    ? 'bg-brand-50 dark:bg-brand-900'
+                    : 'hover:bg-brand-50 dark:hover:bg-brand-900',
                   sidebarCollapsed
                     ? 'w-12 justify-center'
                     : 'w-full space-x-3 px-3.5'
@@ -119,8 +119,8 @@ const Sidebar = () => {
                 className={clsx(
                   'group flex h-12 items-center rounded-full py-2 2xl:py-2.5',
                   isActivePath('/bytes') || router.pathname === '/bytes/[id]'
-                    ? 'bg-brand-50 dark:bg-gray-800'
-                    : 'hover:bg-gray-50 dark:hover:bg-gray-800',
+                    ? 'bg-brand-50 dark:bg-brand-900'
+                    : 'hover:bg-brand-50 dark:hover:bg-brand-900',
                   sidebarCollapsed
                     ? 'w-12 justify-center'
                     : 'w-full space-x-3 px-3.5'
@@ -144,8 +144,8 @@ const Sidebar = () => {
                 className={clsx(
                   'group flex h-12 items-center rounded-full py-2 2xl:py-2.5',
                   isActivePath('/explore')
-                    ? 'bg-brand-50 dark:bg-gray-800'
-                    : 'hover:bg-gray-50 dark:hover:bg-gray-800',
+                    ? 'bg-brand-50 dark:bg-brand-900'
+                    : 'hover:bg-brand-50 dark:hover:bg-brand-900',
                   sidebarCollapsed
                     ? 'w-12 justify-center'
                     : 'w-full space-x-3 px-3.5'
@@ -172,7 +172,7 @@ const Sidebar = () => {
           <button
             type="button"
             className={clsx(
-              'flex h-12 items-center justify-center rounded-full p-3.5 opacity-90 hover:bg-gray-50 hover:opacity-100 focus:outline-none dark:hover:bg-gray-800',
+              'hover:bg-brand-50 dark:hover:bg-brand-800 flex h-12 items-center justify-center rounded-full p-3.5 opacity-90 hover:opacity-100 focus:outline-none',
               sidebarCollapsed ? 'w-12' : 'w-full'
             )}
             onClick={() => setSidebarCollapsed(!sidebarCollapsed)}
