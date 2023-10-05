@@ -41,8 +41,7 @@ const StreamDetails = () => {
     return <Custom404 />
   }
 
-  const { thumbnailUrl, playbackUrl, owner, name, updatedAt, description } =
-    liveItem
+  const { thumbnailUrl, playbackUrl, name, updatedAt, description } = liveItem
 
   return (
     <>
