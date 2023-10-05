@@ -11,6 +11,7 @@ import BytesSection from './BytesSection'
 import DispatcherAlert from './DispatcherAlert'
 import HomeFeed from './Feed'
 import OpenActions from './OpenActions'
+import WelcomeAlert from './WelcomeAlert'
 
 const Home: NextPage = () => {
   useEffect(() => {
@@ -23,6 +24,7 @@ const Home: NextPage = () => {
   return (
     <>
       <MetaTags title={t`Home`} />
+      {!selectedSimpleProfile && <WelcomeAlert />}
       {/* <GitcoinAlert /> */}
       <DispatcherAlert />
       <BytesSection />

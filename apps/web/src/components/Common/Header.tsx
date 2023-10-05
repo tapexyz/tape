@@ -13,7 +13,8 @@ import {
   LENS_CUSTOM_FILTERS,
   LENSTUBE_BYTES_APP_ID,
   STATIC_ASSETS,
-  TAPE_APP_ID
+  TAPE_APP_ID,
+  TAPE_APP_NAME
 } from '@tape.xyz/constants'
 import { getIsFeatureEnabled } from '@tape.xyz/generic'
 import { useLatestNotificationIdQuery } from '@tape.xyz/lens'
@@ -95,7 +96,7 @@ const Header: FC<Props> = ({ className }) => {
                 src={`${STATIC_ASSETS}/brand/logo.svg`}
                 draggable={false}
                 className="h-5 w-5"
-                alt="lenstube"
+                alt={TAPE_APP_NAME}
               />
             </Link>
           </div>

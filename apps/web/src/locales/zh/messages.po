@@ -323,7 +323,7 @@ msgstr "复制到剪贴板"
 
 #: src/components/Common/CreateChannel.tsx:63
 #: src/components/Common/CreateChannel.tsx:86
-#: src/components/Common/Header.tsx:136
+#: src/components/Common/Header.tsx:137
 msgid "Create"
 msgstr "创建"
 
@@ -720,11 +720,11 @@ msgstr "更多关于您的频道"
 #~ msgid "My Saved List"
 #~ msgstr ""
 
-#: src/components/Common/Header.tsx:149
+#: src/components/Common/Header.tsx:150
 msgid "New Upload"
 msgstr "新增上传"
 
-#: src/components/Common/Header.tsx:171
+#: src/components/Common/Header.tsx:172
 msgid "New video"
 msgstr "新视频"
 
@@ -940,11 +940,11 @@ msgstr "隐私政策"
 msgid "Privacy Policy"
 msgstr "隐私政策"
 
-#: src/components/Channel/BasicInfo/index.tsx:166
+#: src/components/Channel/BasicInfo/index.tsx:159
 msgid "Proof of Humanity"
 msgstr "人类证据"
 
-#: src/components/Channel/BasicInfo/index.tsx:176
+#: src/components/Channel/BasicInfo/index.tsx:169
 msgid "Proof of Personhood"
 msgstr "人格证明"
 
@@ -1044,7 +1044,7 @@ msgstr "保存的视频"
 msgid "Scam"
 msgstr "Scam"
 
-#: src/components/Common/Header.tsx:185
+#: src/components/Common/Header.tsx:186
 msgid "Search"
 msgstr "搜索"
 
@@ -1090,7 +1090,7 @@ msgstr "分享掉落记录"
 #~ msgid "Share Collect"
 #~ msgstr ""
 
-#: src/components/Common/Header.tsx:159
+#: src/components/Common/Header.tsx:160
 msgid "Share Drop"
 msgstr "分享掉落功能"
 
@@ -1188,18 +1188,18 @@ msgstr "订阅"
 msgid "Subscribed"
 msgstr "订阅"
 
-#: src/components/Channel/BasicInfo/index.tsx:119
+#: src/components/Channel/BasicInfo/index.tsx:112
 msgid "Subscriber"
 msgstr "订阅者"
 
-#: src/components/Channel/BasicInfo/index.tsx:113
+#: src/components/Channel/BasicInfo/index.tsx:106
 #: src/components/Channel/Tabs/OtherChannelCard.tsx:40
 #: src/components/UIElements/ChannelSuggestions.tsx:39
 #: src/components/Watch/AboutChannel.tsx:69
 msgid "subscribers"
 msgstr "订阅者"
 
-#: src/components/Channel/BasicInfo/index.tsx:97
+#: src/components/Channel/BasicInfo/index.tsx:90
 #: src/components/Upload/CollectModule/index.tsx:51
 #: src/components/Upload/CollectModule/PermissionQuestion.tsx:68
 #: src/components/Watch/CollectVideo/CollectModal.tsx:321
@@ -1222,8 +1222,8 @@ msgstr "所有分割的总和应该是 100%"
 #~ msgstr ""
 
 #: src/components/Home/GitcoinAlert.tsx:23
-msgid "Support {TAPE_APP_NAME} on"
-msgstr ""
+#~ msgid "Support {TAPE_APP_NAME} on"
+#~ msgstr ""
 
 #: src/components/Home/GitcoinAlert.tsx:22
 #~ msgid "Support Lenstube on"
@@ -1261,7 +1261,7 @@ msgstr "切换到灯光"
 msgid "Switch to Polygon"
 msgstr "切换到多边形"
 
-#: src/components/Channel/BasicInfo/index.tsx:156
+#: src/components/Channel/BasicInfo/index.tsx:149
 msgid "Sybil Verified"
 msgstr "Sybil 验证"
 
