@@ -1,5 +1,9 @@
 import { FALLBACK_COVER_URL } from '@lenstube/constants'
-import { getRandomProfilePicture, useDid } from '@lenstube/generic'
+import {
+  getRandomProfilePicture,
+  trimLensHandle,
+  useDid
+} from '@lenstube/generic'
 import { getShortHandTime } from '@lib/formatTime'
 import Link from 'next/link'
 import type { FC, ReactNode } from 'react'
@@ -48,8 +52,8 @@ const LiveStreamCard: FC<Props> = ({
           )}
         </div>
       </Link>
-      <div className="py-2">
-        <div className="flex items-start space-x-2.5">
+      <div className="py-1">
+        <div className="flex items-center space-x-2.5">
           <img
             className="h-8 w-8 rounded-full"
             src={getRandomProfilePicture(address ?? '')}
@@ -58,14 +62,13 @@ const LiveStreamCard: FC<Props> = ({
           />
           <div className="grid flex-1">
             <div className="flex w-full min-w-0 items-start justify-between space-x-1.5">
-              <div className="ultrawide:line-clamp-1 ultrawide:break-all line-clamp-2 break-words text-sm font-semibold">
+              <div className="ultrawide:line-clamp-1 ultrawide:break-all line-clamp-2 break-words font-semibold">
                 {name}
               </div>
             </div>
-            <div className="flex w-fit items-center space-x-0.5 text-[13px]">
-              <span>{did ?? username}</span>
-            </div>
             <div className="flex items-center overflow-hidden text-xs opacity-70">
+              <span>{trimLensHandle(did) ?? username}</span>
+              <span className="middot" />
               {app}
               <span className="middot" />
               {createdAt && (
