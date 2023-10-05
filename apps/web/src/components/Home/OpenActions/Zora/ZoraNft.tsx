@@ -1,4 +1,3 @@
-import CollectOutline from '@components/Common/Icons/CollectOutline'
 import Modal from '@components/UIElements/Modal'
 import {
   LENSTUBE_ADDRESS,
@@ -7,7 +6,7 @@ import {
 } from '@lenstube/constants'
 import { trimLensHandle, useDid, useZoraNft } from '@lenstube/generic'
 import type { BasicNftMetadata } from '@lenstube/lens/custom-types'
-import { t, Trans } from '@lingui/macro'
+import { t } from '@lingui/macro'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useState } from 'react'
@@ -73,14 +72,6 @@ const ZoraNft: FC<Props> = ({ nftMetadata }) => {
           alt="thumbnail"
           draggable={false}
         />
-        <div>
-          <div className="absolute bottom-1 right-1 flex items-center space-x-1 rounded-full bg-black px-3 py-1 text-sm font-semibold text-white">
-            <CollectOutline className="h-4 w-4" />
-            <span>
-              <Trans>Collect</Trans>
-            </span>
-          </div>
-        </div>
       </div>
       <div className="pt-2">
         <h1 className="ultrawide:break-all line-clamp-2 break-words font-semibold">
