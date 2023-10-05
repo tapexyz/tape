@@ -16,6 +16,7 @@ type Props = {
   address: string
   username: string
   createdAt: string
+  slug: string
   app: ReactNode
 }
 
@@ -26,13 +27,14 @@ const LiveStreamCard: FC<Props> = ({
   isLive,
   createdAt,
   username,
-  app
+  app,
+  slug
 }) => {
   const { did } = useDid({ address, enabled: Boolean(address) })
 
   return (
     <div className="w-72">
-      <Link href={``}>
+      <Link href={`/stream/${slug}`}>
         <div className="aspect-w-16 aspect-h-9 relative overflow-hidden">
           <img
             src={thumbnailUrl}

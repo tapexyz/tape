@@ -15,7 +15,9 @@ router
   .all('*', preflight)
   .head('*', () => status(200))
   .get('/', () => new Response('gm 👋'))
-  .get('/unlonely', getUnlonelyStream)
+  .get('/unlonely/:channel?', ({ params }) =>
+    getUnlonelyStream(params.channel)
+  )
   .all('*', () => error(404))
 
 export default {

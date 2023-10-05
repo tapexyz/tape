@@ -1,5 +1,5 @@
 import LiveStreamCard from '@components/Common/LiveStreamCard'
-import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
+import WhatsPoppingSectionShimmer from '@components/Shimmers/WhatsPoppingSectionShimmer'
 import { STATIC_ASSETS, WORKER_LIVE_URL } from '@lenstube/constants'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
@@ -7,7 +7,7 @@ import Link from 'next/link'
 import React from 'react'
 
 const UnlonelyStreams = () => {
-  const fetchNfts = async () => {
+  const fetchStreams = async () => {
     const { data } = await axios.get(`${WORKER_LIVE_URL}/unlonely`)
     return data?.items
   }
@@ -16,17 +16,17 @@ const UnlonelyStreams = () => {
     data: liveItems,
     isLoading,
     error
-  } = useQuery(['unlonely'], () => fetchNfts().then((res) => res), {
+  } = useQuery(['unlonely'], () => fetchStreams().then((res) => res), {
     enabled: true,
     refetchInterval: 10_000
   })
 
   if (isLoading) {
-    return <TimelineShimmer count={5} />
+    return <WhatsPoppingSectionShimmer />
   }
 
   if (!liveItems?.length || error) {
-    return
+    return null
   }
 
   return (
@@ -40,6 +40,7 @@ const UnlonelyStreams = () => {
           name={live.name}
           thumbnailUrl={live.thumbnailUrl}
           username={live.slug}
+          slug={`unlonely:${live.slug}`}
           app={
             <Link
               href={`https://www.unlonely.app/channels/${live.slug}`}
