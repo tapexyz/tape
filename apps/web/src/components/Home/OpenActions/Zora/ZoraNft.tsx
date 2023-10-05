@@ -1,4 +1,5 @@
 import Modal from '@components/UIElements/Modal'
+import { Analytics, TRACK } from '@lenstube/browser'
 import {
   LENSTUBE_ADDRESS,
   STATIC_ASSETS,
@@ -81,6 +82,7 @@ const ZoraNft: FC<Props> = ({ nftMetadata }) => {
           <span className="whitespace-nowrap">{trimLensHandle(did)}</span>
           <span className="middot" />
           <Link
+            onClick={() => Analytics.track(TRACK.OPEN_ACTIONS.OPEN_IN_ZORA)}
             href={zoraLink}
             target="_blank"
             className="flex items-center space-x-1 font-medium hover:text-indigo-500"

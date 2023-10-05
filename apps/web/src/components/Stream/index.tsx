@@ -1,6 +1,8 @@
+import ExternalOutline from '@components/Common/Icons/ExternalOutline'
 import MetaTags from '@components/Common/MetaTags'
 import { VideoDetailShimmer } from '@components/Shimmers/VideoDetailShimmer'
 import SuggestedVideos from '@components/Watch/SuggestedVideos'
+import { Analytics, TRACK } from '@lenstube/browser'
 import { STATIC_ASSETS, WORKER_LIVE_URL } from '@lenstube/constants'
 import { getShortHandTime } from '@lib/formatTime'
 import { t } from '@lingui/macro'
@@ -63,7 +65,16 @@ const StreamDetails = () => {
                 <div className="flex items-center overflow-hidden pt-6 opacity-70">
                   <span>{channel}</span>
                   <span className="middot" />
+                  {updatedAt && (
+                    <span className="whitespace-nowrap">
+                      {getShortHandTime(updatedAt)}
+                    </span>
+                  )}
+                  <span className="middot" />
                   <Link
+                    onClick={() =>
+                      Analytics.track(TRACK.OPEN_ACTIONS.OPEN_IN_UNLONELY)
+                    }
                     href={`https://www.unlonely.app/channels/${channel}`}
                     target="_blank"
                     className="flex items-center space-x-1 font-medium hover:text-indigo-500"
@@ -74,13 +85,8 @@ const StreamDetails = () => {
                       className="h-5 w-5 rounded-lg"
                     />
                     <span>Unlonely</span>
+                    <ExternalOutline className="h-3 w-3" />
                   </Link>
-                  <span className="middot" />
-                  {updatedAt && (
-                    <span className="whitespace-nowrap">
-                      {getShortHandTime(updatedAt)}
-                    </span>
-                  )}
                 </div>
               </div>
             </div>

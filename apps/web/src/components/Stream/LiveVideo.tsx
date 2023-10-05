@@ -1,6 +1,7 @@
+import { Analytics, TRACK } from '@lenstube/browser'
 import VideoPlayer from '@lenstube/ui/VideoPlayer'
 import type { FC } from 'react'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 type Props = {
   thumbnailUrl: string
@@ -8,6 +9,10 @@ type Props = {
 }
 
 const LiveVideo: FC<Props> = ({ playbackUrl, thumbnailUrl }) => {
+  useEffect(() => {
+    Analytics.track(TRACK.OPEN_ACTIONS.OPEN_IN_UNLONELY)
+  }, [])
+
   return (
     <div>
       <div className="overflow-hidden rounded-xl">

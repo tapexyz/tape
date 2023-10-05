@@ -1,5 +1,6 @@
 import LiveStreamCard from '@components/Common/LiveStreamCard'
 import WhatsPoppingSectionShimmer from '@components/Shimmers/WhatsPoppingSectionShimmer'
+import { Analytics, TRACK } from '@lenstube/browser'
 import { STATIC_ASSETS, WORKER_LIVE_URL } from '@lenstube/constants'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
@@ -44,6 +45,9 @@ const UnlonelyStreams = () => {
           slug={`unlonely:${live.slug}`}
           app={
             <Link
+              onClick={() =>
+                Analytics.track(TRACK.OPEN_ACTIONS.OPEN_IN_UNLONELY)
+              }
               href={`https://www.unlonely.app/channels/${live.slug}`}
               target="_blank"
               className="flex items-center space-x-1 font-medium hover:text-indigo-500"
