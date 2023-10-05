@@ -388,6 +388,10 @@ msgstr "Désactiver"
 msgid "disabled"
 msgstr "désactivée"
 
+#: src/components/Home/WelcomeAlert.tsx:22
+msgid "Discover a new era of content sharing on Lens with Tape. A decentralized, user-centric approach to online media."
+msgstr ""
+
 #: src/components/Watch/PublicationReaction.tsx:195
 msgid "Dislike"
 msgstr "Dislike"
@@ -520,7 +524,7 @@ msgstr "Signal élevé"
 #: src/components/Common/MobileBottomNav.tsx:30
 #: src/components/Common/Sidebar.tsx:63
 #: src/components/Common/Sidebar.tsx:82
-#: src/components/Home/index.tsx:25
+#: src/components/Home/index.tsx:26
 msgid "Home"
 msgstr "Domicile"
 
