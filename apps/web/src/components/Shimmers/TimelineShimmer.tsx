@@ -3,8 +3,14 @@ import React, { useMemo } from 'react'
 
 import VideoCardShimmer from './VideoCardShimmer'
 
-const TimelineShimmer = ({ className }: { className?: string }) => {
-  const cards = useMemo(() => Array(16).fill(1), [])
+const TimelineShimmer = ({
+  className,
+  count
+}: {
+  className?: string
+  count?: number
+}) => {
+  const cards = useMemo(() => Array(count).fill(1), [count])
   return (
     <div
       className={clsx(

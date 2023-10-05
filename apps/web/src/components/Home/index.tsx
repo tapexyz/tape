@@ -11,6 +11,7 @@ import BytesSection from './BytesSection'
 import DispatcherAlert from './DispatcherAlert'
 import HomeFeed from './Feed'
 import OpenActions from './OpenActions'
+import WhatsPopping from './Popping'
 
 const Home: NextPage = () => {
   useEffect(() => {
@@ -25,6 +26,7 @@ const Home: NextPage = () => {
       <MetaTags title={t`Home`} />
       {/* <GitcoinAlert /> */}
       <DispatcherAlert />
+      <WhatsPopping />
       <BytesSection />
       {getIsFeatureEnabled(
         FEATURE_FLAGS.OPEN_ACTIONS,

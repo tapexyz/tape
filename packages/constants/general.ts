@@ -99,6 +99,7 @@ export const STS_TOKEN_URL = 'https://sts.lenstube.xyz'
 export const HEALTH_URL = 'https://health.lenstube.xyz'
 export const RECS_URL = 'https://recs.lenstube.xyz'
 export const NFTS_URL = 'https://nfts.lenstube.xyz'
+export const WORKER_LIVE_URL = 'https://live.lenstube.xyz'
 export const DID_URL = 'https://did.lenstube.xyz'
 export const SB_STORAGE_URL =
   'https://hdpmuwmctxbkykamcvpl.supabase.co/storage/v1/object/public/waves'
