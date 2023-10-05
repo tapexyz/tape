@@ -35,7 +35,7 @@ const ZoraNft: FC<Props> = ({ nftMetadata }) => {
   })
 
   if (loading) {
-    return null
+    return <div className="h-56 w-72" />
   }
 
   const network = ZORA_MAINNET_CHAINS.includes(chain) ? '' : 'testnet.'
