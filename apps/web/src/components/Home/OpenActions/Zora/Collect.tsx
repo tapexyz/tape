@@ -94,9 +94,9 @@ const Collect = ({ nft, link }: { nft: ZoraNft; link: string }) => {
   )
 
   return (
-    <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
+    <div className="mt-4 flex flex-wrap items-center justify-between gap-3 md:mt-8">
       <div>
-        <div className="flex items-center space-x-4">
+        <div className="flex items-center space-x-4 text-lg">
           <button
             className="px-1 disabled:opacity-25"
             disabled={quantity === 1}
@@ -109,7 +109,7 @@ const Collect = ({ nft, link }: { nft: ZoraNft; link: string }) => {
             +
           </button>
         </div>
-        <span className="text-xs">
+        <span className="text-sm">
           <Trans>
             {nftPriceInEth} ETH + {platformFeesInEth} ETH mint fees
           </Trans>

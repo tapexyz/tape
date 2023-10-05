@@ -29,7 +29,7 @@ const Metadata = ({ nft, link }: { nft: ZoraNft; link: string }) => {
 
   return (
     <div>
-      <div className="space-y-2">
+      <div className="space-y-4">
         <video
           className="aspect-[16/9] w-full rounded-lg"
           disablePictureInPicture
@@ -54,23 +54,25 @@ const Metadata = ({ nft, link }: { nft: ZoraNft; link: string }) => {
         <p className="line-clamp-4 break-words" title={nft.description}>
           {nft?.description}
         </p>
-        <div className="flex items-center space-x-2 outline-none">
-          <CollectOutline className="h-4 w-4" />
-          <span>
-            {nft.totalMinted} <Trans>collects</Trans>
-          </span>
-        </div>
-        <div className="flex items-center space-x-2 outline-none">
-          <TagOutline className="h-4 w-4" />
-          <span>
-            {formatEther(BigInt(nft.price))} <Trans>ETH</Trans>
-          </span>
+        <div className="space-y-2 font-semibold">
+          <div className="flex items-center space-x-2 outline-none">
+            <CollectOutline className="h-4 w-4" />
+            <span>
+              {nft.totalMinted} <Trans>collects</Trans>
+            </span>
+          </div>
+          <div className="flex items-center space-x-2 outline-none">
+            <TagOutline className="h-4 w-4" />
+            <span>
+              {formatEther(BigInt(nft.price))} <Trans>ETH</Trans>
+            </span>
+          </div>
         </div>
       </div>
       {canMint ? (
         <Collect nft={nft} link={link} />
       ) : (
-        <div className="mt-4 flex justify-end">
+        <div className="mt-4 flex justify-end md:mt-8">
           <Link href={link} target="_blank">
             <Button>Collect</Button>
           </Link>

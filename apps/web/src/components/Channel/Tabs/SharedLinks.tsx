@@ -73,15 +73,8 @@ const SharedLinks: FC<Props> = ({ channel }) => {
       {!error && !loading && (
         <>
           <div className="grid gap-x-4 gap-y-2 md:grid-cols-4 md:gap-y-8 lg:grid-cols-5">
-            {links?.map(({ metadata, profile, createdAt }: Publication, i) => {
-              return (
-                <SharedLink
-                  key={i}
-                  metadata={metadata}
-                  sharedBy={profile}
-                  postedAt={createdAt}
-                />
-              )
+            {links?.map(({ metadata }: Publication, i) => {
+              return <SharedLink key={i} metadata={metadata} />
             })}
           </div>
           {pageInfo?.next && (

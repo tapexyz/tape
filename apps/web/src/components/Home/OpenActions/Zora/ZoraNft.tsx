@@ -1,12 +1,14 @@
 import CollectOutline from '@components/Common/Icons/CollectOutline'
-import UserPreview from '@components/Common/UserPreview'
 import Modal from '@components/UIElements/Modal'
-import { LENSTUBE_ADDRESS, ZORA_MAINNET_CHAINS } from '@lenstube/constants'
-import { trimLensHandle, useZoraNft } from '@lenstube/generic'
-import type { Profile } from '@lenstube/lens'
+import {
+  LENSTUBE_ADDRESS,
+  STATIC_ASSETS,
+  ZORA_MAINNET_CHAINS
+} from '@lenstube/constants'
+import { trimLensHandle, useDid, useZoraNft } from '@lenstube/generic'
 import type { BasicNftMetadata } from '@lenstube/lens/custom-types'
-import { getShortHandTime } from '@lib/formatTime'
 import { t, Trans } from '@lingui/macro'
+import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 
@@ -14,11 +16,9 @@ import Metadata from './Metadata'
 
 type Props = {
   nftMetadata: BasicNftMetadata
-  sharedBy: Profile
-  postedAt: string
 }
 
-const ZoraNft: FC<Props> = ({ nftMetadata, sharedBy, postedAt }) => {
+const ZoraNft: FC<Props> = ({ nftMetadata }) => {
   const [showMintModal, setShowMintModal] = useState(false)
 
   const { chain, address, token } = nftMetadata
@@ -28,6 +28,11 @@ const ZoraNft: FC<Props> = ({ nftMetadata, sharedBy, postedAt }) => {
     token: token,
     address: address,
     enabled: Boolean(chain && address)
+  })
+
+  const { did } = useDid({
+    address: zoraNft.creator,
+    enabled: Boolean(zoraNft.creator)
   })
 
   if (loading) {
@@ -42,12 +47,12 @@ const ZoraNft: FC<Props> = ({ nftMetadata, sharedBy, postedAt }) => {
   const coverImage = `https://remote-image.decentralized-content.com/image?url=${zoraNft.coverImageUrl}&w=1200&q=75`
 
   return (
-    <div>
+    <div className="w-72">
       <Modal
         title={t`Collect`}
         show={showMintModal}
         onClose={() => setShowMintModal(false)}
-        panelClassName="max-w-2xl"
+        panelClassName="max-w-6xl"
       >
         <Metadata nft={zoraNft} link={zoraLink} />
       </Modal>
@@ -81,21 +86,21 @@ const ZoraNft: FC<Props> = ({ nftMetadata, sharedBy, postedAt }) => {
         <h1 className="ultrawide:break-all line-clamp-2 break-words font-semibold">
           {zoraNft?.name}
         </h1>
-        <p className="ultrawide:break-all line-clamp-1 break-words text-sm">
-          {zoraNft?.description}
-        </p>
         <div className="flex items-center text-sm opacity-50">
-          <UserPreview profile={sharedBy}>
-            <span className="ultrawide:break-all line-clamp-1 break-words">
-              shared by {trimLensHandle(sharedBy?.handle)}
-            </span>
-          </UserPreview>
+          <span className="whitespace-nowrap">{trimLensHandle(did)}</span>
           <span className="middot" />
-          {postedAt && (
-            <span className="whitespace-nowrap">
-              {getShortHandTime(postedAt)}
-            </span>
-          )}
+          <Link
+            href={zoraLink}
+            target="_blank"
+            className="flex items-center space-x-1 font-medium hover:text-indigo-500"
+          >
+            <img
+              src={`${STATIC_ASSETS}/images/zora.png`}
+              className="h-3 w-3 rounded-lg"
+              alt=""
+            />
+            <span>zora</span>
+          </Link>
         </div>
       </div>
     </div>
