@@ -2,21 +2,17 @@ import { FALLBACK_COVER_URL } from '@lenstube/constants'
 import { getRandomProfilePicture, useDid } from '@lenstube/generic'
 import { getShortHandTime } from '@lib/formatTime'
 import Link from 'next/link'
-import type { FC } from 'react'
+import type { FC, ReactNode } from 'react'
 import React from 'react'
-
-import ExternalOutline from './Icons/ExternalOutline'
 
 type Props = {
   name: string
-  description: string
   thumbnailUrl: string
   isLive: boolean
   address: string
   username: string
   createdAt: string
-  externalUrl?: string
-  appName?: string
+  app: ReactNode
 }
 
 const LiveStreamCard: FC<Props> = ({
@@ -24,15 +20,14 @@ const LiveStreamCard: FC<Props> = ({
   thumbnailUrl,
   address,
   isLive,
-  externalUrl,
   createdAt,
   username,
-  appName
+  app
 }) => {
   const { did } = useDid({ address, enabled: Boolean(address) })
 
   return (
-    <div>
+    <div className="w-72">
       <Link href={``}>
         <div className="aspect-w-16 aspect-h-9 relative overflow-hidden">
           <img
@@ -71,15 +66,7 @@ const LiveStreamCard: FC<Props> = ({
               <span>{did ?? username}</span>
             </div>
             <div className="flex items-center overflow-hidden text-xs opacity-70">
-              {externalUrl && (
-                <Link
-                  href={externalUrl}
-                  target="_blank"
-                  className="flex items-center space-x-1 hover:text-indigo-500 hover:underline"
-                >
-                  <span>{appName}</span> <ExternalOutline className="h-2 w-2" />
-                </Link>
-              )}
+              {app}
               <span className="middot" />
               {createdAt && (
                 <span className="whitespace-nowrap">

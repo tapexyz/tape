@@ -1,11 +1,12 @@
 import LiveStreamCard from '@components/Common/LiveStreamCard'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
-import { WORKER_LIVE_URL } from '@lenstube/constants'
+import { STATIC_ASSETS, WORKER_LIVE_URL } from '@lenstube/constants'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
+import Link from 'next/link'
 import React from 'react'
 
-const Unlonely = () => {
+const UnlonelyStreams = () => {
   const fetchNfts = async () => {
     const { data } = await axios.get(`${WORKER_LIVE_URL}/unlonely`)
     return data?.items
@@ -16,9 +17,9 @@ const Unlonely = () => {
     isLoading,
     error
   } = useQuery(['unlonely'], () => fetchNfts().then((res) => res), {
-    enabled: true
+    enabled: true,
+    refetchInterval: 10_000
   })
-  console.log('🚀 ~ file: Unlonely.tsx:13 ~ Unlonely ~ data:', liveItems)
 
   if (isLoading) {
     return <TimelineShimmer count={5} />
@@ -29,23 +30,34 @@ const Unlonely = () => {
   }
 
   return (
-    <div className="laptop:grid-cols-4 grid-col-1 grid gap-x-4 gap-y-2 md:grid-cols-2 md:gap-y-8 2xl:grid-cols-5">
+    <div>
       {liveItems.map((live: any) => (
         <LiveStreamCard
           key={live.slug}
           address={live.owner.address}
-          description={live.description}
           createdAt={live.updatedAt}
           isLive={live.isLive}
           name={live.name}
           thumbnailUrl={live.thumbnailUrl}
           username={live.slug}
-          externalUrl={`https://www.unlonely.app/channels/${live.slug}`}
-          appName="Unlonely"
+          app={
+            <Link
+              href={`https://www.unlonely.app/channels/${live.slug}`}
+              target="_blank"
+              className="flex items-center space-x-1 font-medium hover:text-indigo-500"
+            >
+              <img
+                src={`${STATIC_ASSETS}/images/unlonely.png`}
+                alt=""
+                className="h-3 w-3 rounded-lg"
+              />
+              <span>Unlonely</span>
+            </Link>
+          }
         />
       ))}
     </div>
   )
 }
 
-export default Unlonely
+export default UnlonelyStreams
