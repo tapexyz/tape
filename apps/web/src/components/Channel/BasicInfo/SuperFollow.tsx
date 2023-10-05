@@ -20,7 +20,6 @@ import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { Trans } from '@lingui/macro'
 import { Button, Dialog, Flex, Text } from '@radix-ui/themes'
-import { useConnectModal } from '@rainbow-me/rainbowkit'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -42,7 +41,6 @@ const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
   const [loading, setLoading] = useState(false)
   const [isAllowed, setIsAllowed] = useState(false)
   const [open, setOpen] = useState(false)
-  const { openConnectModal } = useConnectModal()
 
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
@@ -182,7 +180,7 @@ const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
 
   const superFollow = async () => {
     if (!selectedSimpleProfile?.id) {
-      return openConnectModal?.()
+      return toast.error('Sign in to proceed')
     }
     if (!isAllowed) {
       return toast.error(

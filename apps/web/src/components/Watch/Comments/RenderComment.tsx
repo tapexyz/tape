@@ -18,11 +18,11 @@ import { getRelativeTime } from '@lib/formatTime'
 import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'
-import { useConnectModal } from '@rainbow-me/rainbowkit'
 import clsx from 'clsx'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
 
 import PublicationReaction from '../PublicationReaction'
 import CommentMedia from './CommentMedia'
@@ -41,7 +41,6 @@ const RenderComment: FC<Props> = ({ comment }) => {
   const [showNewComment, setShowNewComment] = useState(false)
   const [showReplies, setShowReplies] = useState(false)
   const [defaultComment, setDefaultComment] = useState('')
-  const { openConnectModal } = useConnectModal()
   const handleWrongNetwork = useHandleWrongNetwork()
 
   const queuedComments = usePersistStore((state) => state.queuedComments)
@@ -140,7 +139,7 @@ const RenderComment: FC<Props> = ({ comment }) => {
               <button
                 onClick={() => {
                   if (!selectedSimpleProfile?.id) {
-                    return openConnectModal?.()
+                    return toast.error('Sign in to proceed')
                   }
                   if (handleWrongNetwork()) {
                     return
@@ -186,7 +185,7 @@ const RenderComment: FC<Props> = ({ comment }) => {
                 comment={comment}
                 replyTo={(profile) => {
                   if (!selectedSimpleProfile?.id) {
-                    return openConnectModal?.()
+                    return toast.error('Sign in to proceed')
                   }
                   if (handleWrongNetwork()) {
                     return

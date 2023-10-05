@@ -9,7 +9,6 @@ import {
 } from '@lenstube/lens'
 import useAuthPersistStore from '@lib/store/auth'
 import { t } from '@lingui/macro'
-import { useConnectModal } from '@rainbow-me/rainbowkit'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React, { useState } from 'react'
@@ -31,7 +30,6 @@ const PublicationReaction: FC<Props> = ({
   showLabel = true
 }) => {
   const targetPublication = getPublication(publication)
-  const { openConnectModal } = useConnectModal()
 
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
@@ -55,7 +53,7 @@ const PublicationReaction: FC<Props> = ({
 
   const likeVideo = () => {
     if (!selectedSimpleProfile?.id) {
-      return openConnectModal?.()
+      return toast.error('Sign in to proceed')
     }
     setReaction((prev) => ({
       likeCount: prev.isLiked ? prev.likeCount - 1 : prev.likeCount + 1,

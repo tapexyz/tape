@@ -1,6 +1,5 @@
-import { getToastOptions } from '@lenstube/browser'
+import { getToastOptions, useIsMounted } from '@lenstube/browser'
 import { AUTH_ROUTES } from '@lenstube/constants'
-import { useIsMounted } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
 import { useProfilesQuery, useUserSigNoncesQuery } from '@lenstube/lens'
 import type { CustomErrorWithData } from '@lenstube/lens/custom-types'

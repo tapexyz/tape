@@ -1,5 +1,6 @@
 import './globals.css'
 
+import ThemeProvider from '@components/Common/Providers/ThemeProvider'
 import {
   LENSTUBE_APP_DESCRIPTION,
   LENSTUBE_APP_NAME,
@@ -9,6 +10,7 @@ import {
   STATIC_ASSETS
 } from '@lenstube/constants'
 import type { Metadata } from 'next'
+import { Space_Grotesk } from 'next/font/google'
 
 export const metadata: Metadata = {
   title: LENSTUBE_APP_NAME,
@@ -138,10 +140,17 @@ export const metadata: Metadata = {
   themeColor: '#000000'
 }
 
+const font = Space_Grotesk({
+  subsets: ['latin'],
+  display: 'swap'
+})
+
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <html lang="en">
-      <body>{children}</body>
+    <html lang="en" className={font.className}>
+      <body>
+        <ThemeProvider>{children}</ThemeProvider>
+      </body>
     </html>
   )
 }

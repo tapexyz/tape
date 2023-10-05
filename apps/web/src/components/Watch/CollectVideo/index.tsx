@@ -9,7 +9,6 @@ import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t } from '@lingui/macro'
 import { Button } from '@radix-ui/themes'
-import { useConnectModal } from '@rainbow-me/rainbowkit'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -22,7 +21,6 @@ type Props = {
 }
 
 const CollectVideo: FC<Props> = ({ video, variant = 'solid', text }) => {
-  const { openConnectModal } = useConnectModal()
   const targetPublication = getPublication(video)
   const handleWrongNetwork = useHandleWrongNetwork()
 

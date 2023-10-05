@@ -1,4 +1,4 @@
-import { useVideoViews } from '@lenstube/generic'
+import { useVideoViews } from '@lenstube/browser'
 import { Trans } from '@lingui/macro'
 import React from 'react'
 

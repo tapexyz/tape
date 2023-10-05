@@ -1,5 +1,4 @@
 import '../styles/index.css'
-import '@rainbow-me/rainbowkit/styles.css'
 import 'tippy.js/dist/tippy.css'
 import '@radix-ui/themes/styles.css'
 import '../styles/theme.config.css'
@@ -14,7 +13,7 @@ import { useRouter } from 'next/router'
 import React, { lazy, Suspense, useEffect } from 'react'
 
 const Providers = lazy(() => import('../components/Common/Providers'))
-const Layout = lazy(() => import('../components/Common/Layout'))
+// const Layout = lazy(() => import('../components/Common/Layout'))
 
 const App = ({ Component, pageProps }: AppProps) => {
   const { pathname, replace, asPath } = useRouter()
@@ -32,15 +31,13 @@ const App = ({ Component, pageProps }: AppProps) => {
     <>
       <MetaTags />
       <Suspense fallback={<FullPageLoader />}>
+        <style jsx global>{`
+          body {
+            font-family: ${bloomer.style.fontFamily};
+          }
+        `}</style>
         <Providers>
-          <style jsx global>{`
-            body {
-              font-family: ${bloomer.style.fontFamily};
-            }
-          `}</style>
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
+          <Component {...pageProps} />
         </Providers>
       </Suspense>
     </>

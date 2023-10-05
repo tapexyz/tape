@@ -41,7 +41,6 @@ import {
   IconButton,
   Text
 } from '@radix-ui/themes'
-import { useConnectModal } from '@rainbow-me/rainbowkit'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -63,7 +62,6 @@ type Props = {
 }
 
 const VideoOptions: FC<Props> = ({ video }) => {
-  const { openConnectModal } = useConnectModal()
   const handleWrongNetwork = useHandleWrongNetwork()
   const [showConfirm, setShowConfirm] = useState(false)
 
@@ -99,7 +97,7 @@ const VideoOptions: FC<Props> = ({ video }) => {
 
   const onClickReport = () => {
     if (!selectedSimpleProfile?.id) {
-      return openConnectModal?.()
+      return toast.error('Sign in to proceed')
     }
     if (handleWrongNetwork()) {
       return
@@ -166,7 +164,7 @@ const VideoOptions: FC<Props> = ({ video }) => {
 
   const onPinVideo = async () => {
     if (!activeChannel) {
-      return openConnectModal?.()
+      return toast.error('Sign in to proceed')
     }
     if (handleWrongNetwork()) {
       return
@@ -252,7 +250,7 @@ const VideoOptions: FC<Props> = ({ video }) => {
 
   const notInterested = () => {
     if (!selectedSimpleProfile?.id) {
-      return openConnectModal?.()
+      return toast.error('Sign in to proceed')
     }
     if (video.operations.isNotInterested) {
       addNotInterested({
@@ -275,7 +273,7 @@ const VideoOptions: FC<Props> = ({ video }) => {
 
   const saveToList = () => {
     if (!selectedSimpleProfile?.id) {
-      return openConnectModal?.()
+      return toast.error('Sign in to proceed')
     }
     if (video.operations.hasBookmarked) {
       removeVideoFromList({

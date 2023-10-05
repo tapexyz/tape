@@ -17,7 +17,6 @@ import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { Trans } from '@lingui/macro'
 import { Button } from '@radix-ui/themes'
-import { useConnectModal } from '@rainbow-me/rainbowkit'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -36,7 +35,6 @@ const UnFollow: FC<Props> = ({ profile, onUnSubscribe, size = '2' }) => {
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
-  const { openConnectModal } = useConnectModal()
   const activeChannel = useChannelStore((state) => state.activeChannel)
   const canUseRelay = activeChannel?.lensManager && activeChannel?.sponsor
   const handleWrongNetwork = useHandleWrongNetwork()
@@ -108,7 +106,7 @@ const UnFollow: FC<Props> = ({ profile, onUnSubscribe, size = '2' }) => {
 
   const unfollow = async () => {
     if (!selectedSimpleProfile?.id) {
-      return openConnectModal?.()
+      return toast.error('Sign in to proceed')
     }
     if (handleWrongNetwork()) {
       return

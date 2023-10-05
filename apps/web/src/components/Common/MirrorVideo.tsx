@@ -26,7 +26,6 @@ import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t } from '@lingui/macro'
-import { useConnectModal } from '@rainbow-me/rainbowkit'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -40,7 +39,6 @@ type Props = {
 
 const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
   const [loading, setLoading] = useState(false)
-  const { openConnectModal } = useConnectModal()
   const handleWrongNetwork = useHandleWrongNetwork()
 
   const selectedSimpleProfile = useAuthPersistStore(
@@ -168,7 +166,7 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
 
   const mirrorVideo = async () => {
     if (!selectedSimpleProfile?.id) {
-      return openConnectModal?.()
+      return toast.error('Sign in to proceed')
     }
     if (handleWrongNetwork()) {
       return

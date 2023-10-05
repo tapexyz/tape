@@ -17,7 +17,6 @@ import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { Trans } from '@lingui/macro'
 import { Button } from '@radix-ui/themes'
-import { useConnectModal } from '@rainbow-me/rainbowkit'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -39,8 +38,6 @@ const Follow: FC<Props> = ({ profile, onSubscribe, size = '2' }) => {
   const userSigNonce = useChannelStore((state) => state.userSigNonce)
   const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
   const canUseRelay = activeChannel?.lensManager && activeChannel?.sponsor
-
-  const { openConnectModal } = useConnectModal()
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
@@ -118,7 +115,7 @@ const Follow: FC<Props> = ({ profile, onSubscribe, size = '2' }) => {
 
   const follow = async () => {
     if (!selectedSimpleProfile?.id) {
-      return openConnectModal?.()
+      return toast.error('Sign in to proceed')
     }
     setLoading(true)
     if (canUseRelay) {

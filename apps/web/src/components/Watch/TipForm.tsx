@@ -41,7 +41,6 @@ import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'
 import { Button, Flex } from '@radix-ui/themes'
-import { useConnectModal } from '@rainbow-me/rainbowkit'
 import type { Dispatch, FC } from 'react'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -84,7 +83,6 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
   })
   const watchTipQuantity = watch('tipQuantity', 1)
 
-  const { openConnectModal } = useConnectModal()
   const { cache } = useApolloClient()
   const [loading, setLoading] = useState(false)
   const selectedSimpleProfile = useAuthPersistStore(
@@ -345,7 +343,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
 
   const onSendTip = async () => {
     if (!selectedSimpleProfile?.id) {
-      return openConnectModal?.()
+      return toast.error('Sign in to proceed')
     }
     if (video.momoka?.proof && !activeChannel?.sponsor) {
       return toast.error(

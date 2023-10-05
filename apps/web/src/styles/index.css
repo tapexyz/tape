@@ -80,11 +80,6 @@ input[type='number'] {
   @apply outline-none;
 }
 
-/* RainbowKit font override */
-[data-rk] {
-  --rk-fonts-body: inherit !important;
-}
-
 /* User Preview tippy override */
 .preview-tippy-content > div {
   @apply !px-0 !py-0;

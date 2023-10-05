@@ -5,9 +5,9 @@ import { LENSTUBE_ADDRESS, LENSTUBE_APP_NAME } from '@lenstube/constants'
 import { getZoraChainInfo } from '@lenstube/generic'
 import type { ZoraNft } from '@lenstube/lens/custom-types'
 import { Trans } from '@lingui/macro'
-import { useConnectModal } from '@rainbow-me/rainbowkit'
 import Link from 'next/link'
 import React, { useState } from 'react'
+import toast from 'react-hot-toast'
 import { encodeAbiParameters, parseAbiParameters, parseEther } from 'viem'
 import type { Address } from 'wagmi'
 import {
@@ -26,7 +26,6 @@ const MAX_MINT_EXCEEDED_ERROR = 'Purchase_TooManyForAddress'
 const Collect = ({ nft, link }: { nft: ZoraNft; link: string }) => {
   const chain = useChainId()
   const { address, isDisconnected } = useAccount()
-  const { openConnectModal } = useConnectModal()
   const { switchNetwork } = useSwitchNetwork()
 
   const [quantity, setQuantity] = useState(1)
@@ -115,7 +114,9 @@ const Collect = ({ nft, link }: { nft: ZoraNft; link: string }) => {
         </span>
       </div>
       {isDisconnected ? (
-        <Button onClick={openConnectModal}>Connect Wallet</Button>
+        <Button onClick={() => toast.error('Sign in to proceed')}>
+          Connect Wallet
+        </Button>
       ) : chain !== nft.chainId ? (
         <Button onClick={() => switchNetwork?.(nft.chainId)} variant="danger">
           Switch to {getZoraChainInfo(nft.chainId).name}

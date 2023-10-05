@@ -1,7 +1,11 @@
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { Analytics, TRACK, useOutsideClick } from '@lenstube/browser'
+import {
+  Analytics,
+  TRACK,
+  useDebounce,
+  useOutsideClick
+} from '@lenstube/browser'
 import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
-import { useDebounce } from '@lenstube/generic'
 import type {
   PrimaryPublication,
   Profile,

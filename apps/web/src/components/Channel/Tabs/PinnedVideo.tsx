@@ -41,7 +41,6 @@ import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
 import { Button } from '@radix-ui/themes'
-import { useConnectModal } from '@rainbow-me/rainbowkit'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
@@ -54,7 +53,6 @@ type Props = {
 }
 
 const PinnedVideo: FC<Props> = ({ id }) => {
-  const { openConnectModal } = useConnectModal()
   const handleWrongNetwork = useHandleWrongNetwork()
 
   const activeChannel = useChannelStore((state) => state.activeChannel)
@@ -147,7 +145,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
 
   const unpinVideo = async () => {
     if (!activeChannel) {
-      return openConnectModal?.()
+      return toast.error('Sign in to proceed')
     }
     if (handleWrongNetwork()) {
       return

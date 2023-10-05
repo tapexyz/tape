@@ -3,7 +3,6 @@ import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAuthPersistStore from '@lib/store/auth'
 import { Trans } from '@lingui/macro'
 import { Button, IconButton } from '@radix-ui/themes'
-import { useConnectModal } from '@rainbow-me/rainbowkit'
 import React from 'react'
 import toast from 'react-hot-toast'
 import { useAccount, useDisconnect } from 'wagmi'
@@ -23,7 +22,6 @@ const ConnectWalletButton = () => {
       toast.error(error?.data?.message ?? error?.message)
     }
   })
-  const { openConnectModal } = useConnectModal()
 
   return isConnected ? (
     selectedSimpleProfile?.id ? (
@@ -45,12 +43,11 @@ const ConnectWalletButton = () => {
       highContrast
       variant="classic"
       onClick={() => {
-        if (openConnectModal) {
-          openConnectModal()
-          Analytics.track(TRACK.AUTH.CONNECT_WALLET)
-        } else {
-          disconnect?.()
-        }
+        toast.error('Sign in to proceed')
+        Analytics.track(TRACK.AUTH.CONNECT_WALLET)
+        // } else {
+        //   disconnect?.()
+        // }
       }}
     >
       <Trans>Connect</Trans>
