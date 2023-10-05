@@ -38,6 +38,7 @@ const UnlonelyStreams = () => {
           createdAt={live.updatedAt}
           isLive={live.isLive}
           name={live.name}
+          description={live.description}
           thumbnailUrl={live.thumbnailUrl}
           username={live.slug}
           slug={`unlonely:${live.slug}`}

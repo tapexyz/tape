@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 
 import { resolveDid } from '../functions/resolveDid'
+import { shortenAddress } from '../functions/shortenAddress'
 
 interface UseDidProps {
   address: string
@@ -17,7 +18,11 @@ export const useDid = ({
 } => {
   const loadDetails = async () => {
     const data = await resolveDid([address])
-    return data[0].length ? data[0] : address
+    let item = data[0]
+    if (item.startsWith('0x')) {
+      item = shortenAddress(address)
+    }
+    return item.length ? item : shortenAddress(address)
   }
 
   const { data, isLoading, error } = useQuery(

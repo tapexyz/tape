@@ -17,7 +17,8 @@ const LiveVideo: FC<Props> = ({ playbackUrl, thumbnailUrl }) => {
           posterUrl={thumbnailUrl}
           options={{
             loadingSpinner: true,
-            isCurrentlyShown: true
+            isCurrentlyShown: true,
+            autoPlay: true
           }}
           isSensitiveContent={false}
         />

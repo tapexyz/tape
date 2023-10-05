@@ -11,6 +11,7 @@ import React from 'react'
 
 type Props = {
   name: string
+  description: string
   thumbnailUrl: string
   isLive: boolean
   address: string
@@ -22,6 +23,7 @@ type Props = {
 
 const LiveStreamCard: FC<Props> = ({
   name,
+  description,
   thumbnailUrl,
   address,
   isLive,
@@ -55,9 +57,9 @@ const LiveStreamCard: FC<Props> = ({
         </div>
       </Link>
       <div className="py-1">
-        <div className="flex items-center space-x-2.5">
+        <div className="flex items-start space-x-2.5">
           <img
-            className="h-8 w-8 rounded-full"
+            className="mt-1 h-8 w-8 rounded-full"
             src={getRandomProfilePicture(address ?? '')}
             alt={username}
             draggable={false}
@@ -68,6 +70,7 @@ const LiveStreamCard: FC<Props> = ({
                 {name}
               </div>
             </div>
+            <p className="line-clamp-1">{description}</p>
             <div className="flex items-center overflow-hidden text-xs opacity-70">
               <span>{trimLensHandle(did) ?? username}</span>
               <span className="middot" />
