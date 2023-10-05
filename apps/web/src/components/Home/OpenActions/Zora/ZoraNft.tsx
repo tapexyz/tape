@@ -30,8 +30,8 @@ const ZoraNft: FC<Props> = ({ nftMetadata }) => {
   })
 
   const { did } = useDid({
-    address: zoraNft.creator,
-    enabled: Boolean(zoraNft.creator)
+    address: zoraNft?.creator,
+    enabled: Boolean(zoraNft?.creator)
   })
 
   if (loading) {

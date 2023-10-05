@@ -8,6 +8,7 @@ import {
   useDid
 } from '@lenstube/generic'
 import type { ZoraNft } from '@lenstube/lens/custom-types'
+import VideoPlayer from '@lenstube/ui/VideoPlayer'
 import { Trans } from '@lingui/macro'
 import Link from 'next/link'
 import React from 'react'
@@ -30,18 +31,18 @@ const Metadata = ({ nft, link }: { nft: ZoraNft; link: string }) => {
   return (
     <div>
       <div className="space-y-4">
-        <video
-          className="aspect-[16/9] w-full rounded-lg"
-          disablePictureInPicture
-          disableRemotePlayback
-          autoPlay
-          controlsList="nodownload noplaybackrate nofullscreen"
-          poster={sanitizeDStorageUrl(nft.coverImageUrl)}
-          controls
-          src={sanitizeDStorageUrl(nft.mediaUrl)}
-        >
-          <source src={sanitizeDStorageUrl(nft.mediaUrl)} type="video/mp4" />
-        </video>
+        <div className="aspect-[16/9] w-full overflow-hidden rounded-xl">
+          <VideoPlayer
+            hlsUrl={sanitizeDStorageUrl(nft.mediaUrl)}
+            permanentUrl={sanitizeDStorageUrl(nft.mediaUrl)}
+            posterUrl={sanitizeDStorageUrl(nft.coverImageUrl)}
+            options={{
+              isCurrentlyShown: true,
+              loadingSpinner: true,
+              autoPlay: true
+            }}
+          />
+        </div>
         <h1 className="font-semibold">{nft?.name}</h1>
         <div className="flex items-center space-x-1">
           <img
