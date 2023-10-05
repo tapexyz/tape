@@ -10,7 +10,7 @@ import ZoraNft from '../OpenActions/Zora/ZoraNft'
 import UnlonelyStreams from './UnlonelyStreams'
 
 const FEATURED_ZORA = [
-  'https://zora.co/collect/zora:0x5ab90bcd91fba5f909d0d7bcebf73a5ac43039b0'
+  'https://zora.co/collect/zora:0xc8dae866a5a4c2c86bfc01b719bd322ab807fefb/6'
 ]
 
 const WhatsPopping = () => {

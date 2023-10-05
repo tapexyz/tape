@@ -1,6 +1,8 @@
 import CollectOutline from '@components/Common/Icons/CollectOutline'
+import ExternalOutline from '@components/Common/Icons/ExternalOutline'
 import TagOutline from '@components/Common/Icons/TagOutline'
 import { Button } from '@components/UIElements/Button'
+import { Analytics, TRACK } from '@lenstube/browser'
 import {
   getRandomProfilePicture,
   sanitizeDStorageUrl,
@@ -68,6 +70,15 @@ const Metadata = ({ nft, link }: { nft: ZoraNft; link: string }) => {
               {formatEther(BigInt(nft.price))} <Trans>ETH</Trans>
             </span>
           </div>
+          <Link
+            onClick={() => Analytics.track(TRACK.OPEN_ACTIONS.OPEN_IN_ZORA)}
+            href={link}
+            target="_blank"
+            className="inline-flex flex-wrap items-center space-x-2 outline-none"
+          >
+            <ExternalOutline className="h-3.5 w-3.5" />
+            <span>Open in Zora</span>
+          </Link>
         </div>
       </div>
       {canMint ? (

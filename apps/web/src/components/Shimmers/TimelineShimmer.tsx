@@ -10,7 +10,7 @@ const TimelineShimmer = ({
   className?: string
   count?: number
 }) => {
-  const cards = useMemo(() => Array(count).fill(1), [count])
+  const cards = useMemo(() => Array(count).fill(16), [count])
   return (
     <div
       className={clsx(
