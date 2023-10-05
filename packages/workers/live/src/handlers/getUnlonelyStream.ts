@@ -24,9 +24,7 @@ export default async (channel?: string) => {
       getChannelBySlug
     ]
 
-    let response = new Response(
-      JSON.stringify({ success: true, items })
-    )
+    let response = new Response(JSON.stringify({ success: true, items }))
 
     response.headers.set('Cache-Control', 'max-age=1000')
     response.headers.set('Content-Type', 'application/json')
