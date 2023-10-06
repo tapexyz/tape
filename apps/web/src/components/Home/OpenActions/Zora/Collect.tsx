@@ -34,7 +34,7 @@ const Collect = ({ nft, link }: { nft: ZoraNft; link: string }) => {
 
   // Write contract
   const nftAddress = nft.address
-  const recipient = address as Address
+  const recipient = (address ?? LENSTUBE_ADDRESS) as Address
   const comment = `Minted from ${LENSTUBE_APP_NAME}`
   const mintReferral = LENSTUBE_ADDRESS
   const mintFee = parseEther('0.000777')

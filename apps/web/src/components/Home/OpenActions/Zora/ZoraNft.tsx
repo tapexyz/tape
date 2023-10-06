@@ -47,7 +47,7 @@ const ZoraNft: FC<Props> = ({ nftMetadata }) => {
   const coverImage = `https://remote-image.decentralized-content.com/image?url=${zoraNft.coverImageUrl}&w=1200&q=75`
 
   return (
-    <div className="w-72">
+    <div className="w-72 flex-none">
       <Modal
         title={t`Collect`}
         show={showMintModal}

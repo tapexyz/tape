@@ -1,10 +1,10 @@
 import React, { useMemo } from 'react'
 
 const WhatsPoppingSectionShimmer = () => {
-  const cards = useMemo(() => Array(6).fill(1), [])
+  const cards = useMemo(() => Array(7).fill(1), [])
 
   return (
-    <div className="no-scrollbar relative mb-3 flex items-start space-x-4 overflow-x-auto scroll-smooth">
+    <div className="relative mb-3 flex items-start space-x-4">
       {cards.map((i, idx) => (
         <div className="w-72 rounded-xl" key={`${i}_${idx}`}>
           <div className="flex animate-pulse flex-col space-x-2">
