@@ -11,7 +11,7 @@ export const IS_SANDBOX = LENS_ENV === 'sandbox'
 export const IS_DEVELOPMENT = process.env.NODE_ENV === 'development'
 export const IS_PRODUCTION = !IS_DEVELOPMENT
 
-export const STATIC_ASSETS = 'https://static.lenstube.xyz'
+export const STATIC_ASSETS = 'https://static.tape.xyz'
 export const TAPE_WEBSITE_URL = IS_MAINNET
   ? 'https://tape.xyz'
   : 'https://testnet.tape.xyz'
@@ -130,7 +130,7 @@ export const ALLOWED_APP_IDS = [
 // official
 export const TAPE_X_HANDLE = 'tapexyz'
 export const TAPE_GITHUB_HANDLE = 'tapexyz'
-export const TAPE_LOGO = 'https://static.lenstube.xyz/brand/logo.svg'
+export const TAPE_LOGO = `${STATIC_ASSETS}/brand/logo.svg`
 export const TAPE_STATUS_PAGE = 'https://status.tape.xyz'
 export const TAPE_ROADMAP_URL = 'https://roadmap.tape.xyz'
 
