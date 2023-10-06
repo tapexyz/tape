@@ -184,8 +184,7 @@ msgstr "Claim Handle"
 
 #: src/components/Bytes/ByteActions.tsx:75
 #: src/components/Bytes/ByteVideo.tsx:165
-#: src/components/Home/OpenActions/Zora/ZoraNft.tsx:47
-#: src/components/Home/OpenActions/Zora/ZoraNft.tsx:75
+#: src/components/Home/OpenActions/Zora/ZoraNft.tsx:52
 msgid "Collect"
 msgstr "Collect"
 
@@ -241,7 +240,7 @@ msgstr "collected your"
 msgid "Collecting"
 msgstr "Collecting"
 
-#: src/components/Home/OpenActions/Zora/Metadata.tsx:60
+#: src/components/Home/OpenActions/Zora/Metadata.tsx:64
 #: src/components/Watch/VideoMeta.tsx:56
 msgid "collects"
 msgstr "collects"
@@ -450,7 +449,7 @@ msgstr "Error uploading file"
 msgid "Estimated Cost to Upload"
 msgstr "Estimated Cost to Upload"
 
-#: src/components/Home/OpenActions/Zora/Metadata.tsx:66
+#: src/components/Home/OpenActions/Zora/Metadata.tsx:70
 msgid "ETH"
 msgstr ""
 
@@ -520,7 +519,7 @@ msgstr "High signal"
 #: src/components/Common/MobileBottomNav.tsx:30
 #: src/components/Common/Sidebar.tsx:63
 #: src/components/Common/Sidebar.tsx:82
-#: src/components/Home/index.tsx:25
+#: src/components/Home/index.tsx:26
 msgid "Home"
 msgstr "Home"
 
@@ -631,6 +630,10 @@ msgstr "Limited collect"
 
 #: src/components/Channel/Tabs/index.tsx:146
 msgid "Links"
+msgstr ""
+
+#: src/components/Stream/index.tsx:50
+msgid "Live"
 msgstr ""
 
 #: src/components/Settings/BasicInfo.tsx:409
@@ -1576,6 +1579,10 @@ msgstr "Watch Video"
 msgid "Website"
 msgstr "Website"
 
+#: src/components/Home/Popping/index.tsx:33
+msgid "What's Popping?"
+msgstr ""
+
 #: src/components/Upload/CollectModule/PermissionQuestion.tsx:20
 msgid "Who can collect this video?"
 msgstr "Who can collect this video?"
@@ -1643,4 +1650,3 @@ msgstr "Your Channel"
 #: src/components/Upload/BundlrInfo.tsx:171
 msgid "Your Storage Balance"
 msgstr "Your Storage Balance"
-

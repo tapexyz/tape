@@ -184,8 +184,7 @@ msgstr "索赔处理"
 
 #: src/components/Bytes/ByteActions.tsx:75
 #: src/components/Bytes/ByteVideo.tsx:165
-#: src/components/Home/OpenActions/Zora/ZoraNft.tsx:47
-#: src/components/Home/OpenActions/Zora/ZoraNft.tsx:75
+#: src/components/Home/OpenActions/Zora/ZoraNft.tsx:52
 msgid "Collect"
 msgstr "收集"
 
@@ -241,7 +240,7 @@ msgstr "收集您的"
 msgid "Collecting"
 msgstr "收集中"
 
-#: src/components/Home/OpenActions/Zora/Metadata.tsx:60
+#: src/components/Home/OpenActions/Zora/Metadata.tsx:64
 #: src/components/Watch/VideoMeta.tsx:56
 msgid "collects"
 msgstr "收藏"
@@ -450,7 +449,7 @@ msgstr "上传文件出错"
 msgid "Estimated Cost to Upload"
 msgstr "估计上传费用"
 
-#: src/components/Home/OpenActions/Zora/Metadata.tsx:66
+#: src/components/Home/OpenActions/Zora/Metadata.tsx:70
 msgid "ETH"
 msgstr "ETH"
 
@@ -520,7 +519,7 @@ msgstr "高信号"
 #: src/components/Common/MobileBottomNav.tsx:30
 #: src/components/Common/Sidebar.tsx:63
 #: src/components/Common/Sidebar.tsx:82
-#: src/components/Home/index.tsx:25
+#: src/components/Home/index.tsx:26
 msgid "Home"
 msgstr "首页"
 
@@ -632,6 +631,10 @@ msgstr "有限采集量"
 #: src/components/Channel/Tabs/index.tsx:146
 msgid "Links"
 msgstr "链接"
+
+#: src/components/Stream/index.tsx:50
+msgid "Live"
+msgstr ""
 
 #: src/components/Settings/BasicInfo.tsx:409
 msgid "Location"
@@ -1576,6 +1579,10 @@ msgstr "观看视频"
 msgid "Website"
 msgstr "网址"
 
+#: src/components/Home/Popping/index.tsx:33
+msgid "What's Popping?"
+msgstr ""
+
 #: src/components/Upload/CollectModule/PermissionQuestion.tsx:20
 msgid "Who can collect this video?"
 msgstr "谁可以收集此视频？"
@@ -1643,4 +1650,3 @@ msgstr "您的频道"
 #: src/components/Upload/BundlrInfo.tsx:171
 msgid "Your Storage Balance"
 msgstr "您的存储余额"
-
