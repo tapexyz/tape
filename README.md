@@ -43,8 +43,8 @@ For a place to have open discussions on features, voice your ideas, or get help 
 
 ## 🚢 Deployments
 
-| Name    | Link                         |
-| ------- | ---------------------------- |
+| Name    | Link                     |
+| ------- | ------------------------ |
 | Mainnet | https://tape.xyz         |
 | Testnet | https://testnet.tape.xyz |
 
@@ -56,8 +56,8 @@ This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. I
 
 | Name     | Description                         |
 | -------- | ----------------------------------- |
-| `web`    | NextJs tape website             |
-| `mobile` | React Native tape mobile app    |
+| `web`    | NextJs tape website                 |
+| `mobile` | React Native tape mobile app        |
 | `embed`  | NextJs application for video embeds |
 | `api`    | NextJs serverless functions         |
 
