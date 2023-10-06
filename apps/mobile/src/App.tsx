@@ -37,7 +37,7 @@ const providerMetadata = {
   name: TAPE_APP_NAME,
   description: TAPE_APP_DESCRIPTION,
   url: TAPE_WEBSITE_URL,
-  icons: ['https://static.lenstube.xyz/brand/logo.svg'],
+  icons: ['https://static.tape.xyz/brand/logo.svg'],
   redirect: {
     native: 'tape://',
     universal: 'tape.xyz'
