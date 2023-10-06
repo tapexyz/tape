@@ -130,7 +130,7 @@ export const ALLOWED_APP_IDS = [
 // official
 export const TAPE_X_HANDLE = 'tapexyz'
 export const TAPE_GITHUB_HANDLE = 'tapexyz'
-export const TAPE_LOGO = 'https://static.lenstube.xyz/brand/logo.svg'
+export const TAPE_LOGO = `${STATIC_ASSETS}/brand/logo.svg`
 export const TAPE_STATUS_PAGE = 'https://status.tape.xyz'
 export const TAPE_ROADMAP_URL = 'https://roadmap.tape.xyz'
 
