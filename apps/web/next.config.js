@@ -49,7 +49,7 @@ const moduleExports = {
       },
       {
         source: '/donate',
-        destination: 'https://giveth.io/project/lenstube',
+        destination: 'https://giveth.io/project/tape',
         permanent: true
       },
       {

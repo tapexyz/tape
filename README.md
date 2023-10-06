@@ -1,6 +1,7 @@
 <div align="center">
     <img src="https://static.tape.xyz/brand/og.png" alt="banner">
-    <h1>Tape</h1>
+    <br/>
+    <br/>
     <p>Talk, Amplify, Post, Explore</p>
     <a href="https://tape.xyz">tape.xyz</a>
 </div>
