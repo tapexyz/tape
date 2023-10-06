@@ -4734,16 +4734,15 @@
   dependencies:
     "@babel/runtime" "^7.13.10"
 
-"@rainbow-me/rainbowkit@^1.0.11":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@rainbow-me/rainbowkit/-/rainbowkit-1.1.0.tgz#ad55597ae43903d2f075e777ac6397537f6f2f53"
-  integrity sha512-kSMsEDZY4nWC9ITSh5Fj6QmcDZCWrIrpHJrW6+VeuU7wMVtBmzuCegMi3SMqqvQtgBktfgooflTELv/2I4wuvQ==
+"@rainbow-me/rainbowkit@1.0.12":
+  version "1.0.12"
+  resolved "https://registry.yarnpkg.com/@rainbow-me/rainbowkit/-/rainbowkit-1.0.12.tgz#64c93817aa9e3f41cac328d055605e7965d03993"
+  integrity sha512-/gpjLw+IXAPrdv7X2hrOD0Unwrl4XOSPGmGYDPhIeyda0ddQP9urVdD2rcU+x528tP+4BYRu4Xv1NaZ4Iw4zzg==
   dependencies:
     "@vanilla-extract/css" "1.9.1"
     "@vanilla-extract/dynamic" "2.0.2"
     "@vanilla-extract/sprinkles" "1.5.0"
     clsx "1.1.1"
-    i18n-js "^4.3.2"
     qrcode "1.5.0"
     react-remove-scroll "2.5.4"
 
@@ -5186,9 +5185,9 @@
     buffer "~6.0.3"
 
 "@solana/web3.js@^1.36.0", "@solana/web3.js@^1.70.1":
-  version "1.78.7"
-  resolved "https://registry.yarnpkg.com/@solana/web3.js/-/web3.js-1.78.7.tgz#a53dd3bbd604c13468555cb5eea1d39d69dd9e82"
-  integrity sha512-BiAuCaHnbxgHsjNt/4dfMYjvPDRw+tollg6uWdVZpPogQW2GJj51LQ2NeVhfIGlJIU75O03YZeIc0r0H6LH1vA==
+  version "1.81.0"
+  resolved "https://registry.yarnpkg.com/@solana/web3.js/-/web3.js-1.81.0.tgz#69d8ec2621e84098be8ff38ef7a4f30290599a69"
+  integrity sha512-KgbYOC/dGX9W3IvQ6wKXQa2P5qKzHk3nc4Lc6ZlgwIUB1U2QnDnVD1fysD/4fg9W9xIufbLAC2z5j8QRixjUew==
   dependencies:
     "@babel/runtime" "^7.22.6"
     "@noble/curves" "^1.2.0"
@@ -7558,7 +7557,7 @@ bigint-buffer@^1.1.5:
   dependencies:
     bindings "^1.3.0"
 
-bignumber.js@*, bignumber.js@^9.0.0, bignumber.js@^9.0.1, bignumber.js@^9.0.2:
+bignumber.js@^9.0.0, bignumber.js@^9.0.1, bignumber.js@^9.0.2:
   version "9.1.2"
   resolved "https://registry.yarnpkg.com/bignumber.js/-/bignumber.js-9.1.2.tgz#b7c4242259c008903b13707983b5f4bbd31eda0c"
   integrity sha512-2/mKyZH9K85bzOEfhXDBFZTGd1CTs+5IHpeFQo9luiBG7hghdC851Pj2WAhb6E3R6b9tZj/XKhbg4fum+Kepug==
@@ -11496,15 +11495,6 @@ husky@^8.0.3:
   resolved "https://registry.yarnpkg.com/husky/-/husky-8.0.3.tgz#4936d7212e46d1dea28fef29bb3a108872cd9184"
   integrity sha512-+dQSyqPh4x1hlO1swXBiNb2HzTDN1I2IGLQx1GrBuiqFJfoMrnZWwVmatvSiO+Iz8fBUnf+lekwNo4c2LlXItg==
 
-i18n-js@^4.3.2:
-  version "4.3.2"
-  resolved "https://registry.yarnpkg.com/i18n-js/-/i18n-js-4.3.2.tgz#ec5391f23c76f5374b53645c83d272914eb81291"
-  integrity sha512-n8gbEbQEueym2/q2yrZk5/xKWjFcKtg3/Escw4JHSVWa8qtKqP8j7se3UjkRbHlO/REqFA0V/MG1q8tEfyHeOA==
-  dependencies:
-    bignumber.js "*"
-    lodash "*"
-    make-plural "*"
-
 iconv-lite@0.4.24, iconv-lite@^0.4.24:
   version "0.4.24"
   resolved "https://registry.yarnpkg.com/iconv-lite/-/iconv-lite-0.4.24.tgz#2022b4b25fbddc21d2f524974a474aafe733908b"
@@ -12870,7 +12860,7 @@ lodash.uniqby@4.5.0:
     lodash._baseiteratee "~4.7.0"
     lodash._baseuniq "~4.6.0"
 
-lodash@*, lodash@^4, lodash@^4.17.13, lodash@^4.17.19, lodash@^4.17.20, lodash@^4.17.21, lodash@^4.17.4, lodash@~4.17.0:
+lodash@^4, lodash@^4.17.13, lodash@^4.17.19, lodash@^4.17.20, lodash@^4.17.21, lodash@^4.17.4, lodash@~4.17.0:
   version "4.17.21"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.21.tgz#679591c564c3bffaae8454cf0b3df370c3d6911c"
   integrity sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==
@@ -12996,7 +12986,7 @@ make-error@^1.1.1:
   resolved "https://registry.yarnpkg.com/make-error/-/make-error-1.3.6.tgz#2eb2e37ea9b67c4891f684a1394799af484cf7a2"
   integrity sha512-s8UhlNe7vPKomQhC1qFelMokr/Sc3AgNbso3n74mVPA5LTZwkB9NlXf4XPamLxJE8h0gh73rM94xvwRT2CVInw==
 
-make-plural@*, make-plural@^7.3.0:
+make-plural@^7.3.0:
   version "7.3.0"
   resolved "https://registry.yarnpkg.com/make-plural/-/make-plural-7.3.0.tgz#2889dbafca2fb097037c47967d3e3afa7e48a52c"
   integrity sha512-/K3BC0KIsO+WK2i94LkMPv3wslMrazrQhfi5We9fMbLlLjzoOSJWr7TAdupLlDWaJcWxwoNosBkhFDejiu5VDw==
