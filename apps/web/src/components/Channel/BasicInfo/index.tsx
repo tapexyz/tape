@@ -6,16 +6,17 @@ import SubscribeActions from '@components/Common/SubscribeActions'
 import SubscribersList from '@components/Common/SubscribersList'
 import Modal from '@components/UIElements/Modal'
 import Tooltip from '@components/UIElements/Tooltip'
-import { MISUSED_CHANNELS, STATIC_ASSETS } from '@lenstube/constants'
+import useAuthPersistStore from '@lib/store/auth'
+import { t, Trans } from '@lingui/macro'
+import { MISUSED_CHANNELS, STATIC_ASSETS } from '@tape.xyz/constants'
 import {
   getChannelCoverPicture,
   getProfilePicture,
   imageCdn,
-  sanitizeDStorageUrl
-} from '@lenstube/generic'
-import type { Profile } from '@lenstube/lens'
-import useAuthPersistStore from '@lib/store/auth'
-import { t, Trans } from '@lingui/macro'
+  sanitizeDStorageUrl,
+  trimLensHandle
+} from '@tape.xyz/generic'
+import type { Profile } from '@tape.xyz/lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 
@@ -81,18 +82,10 @@ const BasicInfo: FC<Props> = ({ channel }) => {
           </div>
           <div className="flex flex-1 flex-wrap items-center justify-between space-y-3 py-2">
             <div className="mr-3 flex flex-col items-start">
-              {channel.name && (
-                <h1 className="flex items-center space-x-1.5 font-medium md:text-2xl">
-                  {channel.name}
-                </h1>
-              )}
-              <h2
-                className="flex items-center space-x-1.5 md:text-lg"
-                data-testid="channel-name"
-              >
-                <span>@{channel?.handle}</span>
+              <h1 className="flex items-center space-x-1.5 font-medium md:text-2xl">
+                <span>{channel.name || trimLensHandle(channel?.handle)}</span>
                 <Badge id={channel?.id} size="md" />
-              </h2>
+              </h1>
               <Modal
                 title={t`Subscribers`}
                 onClose={() => setShowSubscribersModal(false)}

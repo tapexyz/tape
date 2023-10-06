@@ -1,5 +1,5 @@
-import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from '@lenstube/constants'
 import { i18n } from '@lingui/core'
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from '@tape.xyz/constants'
 import dayjs from 'dayjs'
 import { en, es, fr, zh } from 'make-plural/plurals'
 

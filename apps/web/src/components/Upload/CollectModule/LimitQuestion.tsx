@@ -1,9 +1,9 @@
 import CheckOutline from '@components/Common/Icons/CheckOutline'
+import { Trans } from '@lingui/macro'
 import type {
   CollectModuleType,
   UploadedVideo
-} from '@lenstube/lens/custom-types'
-import { Trans } from '@lingui/macro'
+} from '@tape.xyz/lens/custom-types'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
@@ -31,7 +31,7 @@ const LimitQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
           className={clsx(
             'flex w-full items-center justify-between rounded-xl border border-gray-300 px-4 py-2 text-sm focus:outline-none dark:border-gray-700',
             {
-              '!border-indigo-500':
+              '!border-brand-500':
                 !uploadedVideo.collectModule.collectLimitEnabled
             }
           )}
@@ -54,7 +54,7 @@ const LimitQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
           className={clsx(
             'flex w-full items-center justify-between rounded-xl border border-gray-300 px-4 py-2 text-sm focus:outline-none dark:border-gray-700',
             {
-              '!border-indigo-500':
+              '!border-brand-500':
                 uploadedVideo.collectModule.collectLimitEnabled
             }
           )}

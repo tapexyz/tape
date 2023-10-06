@@ -1,8 +1,8 @@
 import Tooltip from '@components/UIElements/Tooltip'
-import { getShowFullScreen } from '@lenstube/browser'
-import { STATIC_ASSETS } from '@lenstube/constants'
 import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'
+import { getShowFullScreen } from '@tape.xyz/browser'
+import { STATIC_ASSETS, TAPE_APP_NAME } from '@tape.xyz/constants'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -34,7 +34,7 @@ const Sidebar = () => {
       <CreateChannel />
       <div
         className={clsx(
-          'transition-width dark:bg-theme fixed bottom-0 left-0 top-0 z-10 hidden items-start justify-between bg-white md:flex md:flex-col',
+          'transition-width fixed bottom-0 left-0 top-0 z-10 hidden items-start justify-between bg-white dark:bg-black/50 md:flex md:flex-col',
           sidebarCollapsed ? 'w-[90px]' : 'w-[180px]'
         )}
       >
@@ -51,10 +51,10 @@ const Sidebar = () => {
               className="flex items-center pt-0.5 focus:outline-none"
             >
               <img
-                src={`${STATIC_ASSETS}/images/brand/lenstube.svg`}
+                src={`${STATIC_ASSETS}/brand/logo.svg`}
                 draggable={false}
                 className="h-8 w-8"
-                alt="lenstube"
+                alt={TAPE_APP_NAME}
               />
             </Link>
           </div>
@@ -69,8 +69,8 @@ const Sidebar = () => {
                 className={clsx(
                   'group flex h-12 items-center rounded-full py-2 2xl:py-2.5',
                   isActivePath('/')
-                    ? 'bg-indigo-50 dark:bg-gray-800'
-                    : 'hover:bg-gray-50 dark:hover:bg-gray-800',
+                    ? 'bg-brand-50 dark:bg-brand-900'
+                    : 'dark:hover:bg-brand-900 hover:bg-brand-50',
                   sidebarCollapsed
                     ? 'w-12 justify-center'
                     : 'w-full space-x-3 px-3.5'
@@ -94,8 +94,8 @@ const Sidebar = () => {
                 className={clsx(
                   'group flex h-12 items-center rounded-full py-2 2xl:py-2.5',
                   isActivePath('/feed')
-                    ? 'bg-indigo-50 dark:bg-gray-800'
-                    : 'hover:bg-gray-50 dark:hover:bg-gray-800',
+                    ? 'bg-brand-50 dark:bg-brand-900'
+                    : 'hover:bg-brand-50 dark:hover:bg-brand-900',
                   sidebarCollapsed
                     ? 'w-12 justify-center'
                     : 'w-full space-x-3 px-3.5'
@@ -119,8 +119,8 @@ const Sidebar = () => {
                 className={clsx(
                   'group flex h-12 items-center rounded-full py-2 2xl:py-2.5',
                   isActivePath('/bytes') || router.pathname === '/bytes/[id]'
-                    ? 'bg-indigo-50 dark:bg-gray-800'
-                    : 'hover:bg-gray-50 dark:hover:bg-gray-800',
+                    ? 'bg-brand-50 dark:bg-brand-900'
+                    : 'hover:bg-brand-50 dark:hover:bg-brand-900',
                   sidebarCollapsed
                     ? 'w-12 justify-center'
                     : 'w-full space-x-3 px-3.5'
@@ -144,8 +144,8 @@ const Sidebar = () => {
                 className={clsx(
                   'group flex h-12 items-center rounded-full py-2 2xl:py-2.5',
                   isActivePath('/explore')
-                    ? 'bg-indigo-50 dark:bg-gray-800'
-                    : 'hover:bg-gray-50 dark:hover:bg-gray-800',
+                    ? 'bg-brand-50 dark:bg-brand-900'
+                    : 'hover:bg-brand-50 dark:hover:bg-brand-900',
                   sidebarCollapsed
                     ? 'w-12 justify-center'
                     : 'w-full space-x-3 px-3.5'
@@ -172,7 +172,7 @@ const Sidebar = () => {
           <button
             type="button"
             className={clsx(
-              'flex h-12 items-center justify-center rounded-full p-3.5 opacity-90 hover:bg-gray-50 hover:opacity-100 focus:outline-none dark:hover:bg-gray-800',
+              'hover:bg-brand-50 dark:hover:bg-brand-800 flex h-12 items-center justify-center rounded-full p-3.5 opacity-90 hover:opacity-100 focus:outline-none',
               sidebarCollapsed ? 'w-12' : 'w-full'
             )}
             onClick={() => setSidebarCollapsed(!sidebarCollapsed)}

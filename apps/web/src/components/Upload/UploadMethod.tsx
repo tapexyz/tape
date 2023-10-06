@@ -1,13 +1,13 @@
 import Tooltip from '@components/UIElements/Tooltip'
 import { Tab } from '@headlessui/react'
-import { IPFS_FREE_UPLOAD_LIMIT } from '@lenstube/constants'
-import { canUploadedToIpfs } from '@lenstube/generic'
 import useAppStore from '@lib/store'
 import { Trans } from '@lingui/macro'
+import { IPFS_FREE_UPLOAD_LIMIT } from '@tape.xyz/constants'
+import { canUploadedToIpfs } from '@tape.xyz/generic'
 import clsx from 'clsx'
 import React from 'react'
 
-import BundlrInfo from './BundlrInfo'
+import IrysInfo from './IrysInfo'
 
 const UploadMethod = () => {
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
@@ -26,7 +26,7 @@ const UploadMethod = () => {
           className={({ selected }) =>
             clsx(
               'w-full rounded-xl py-2.5 text-sm font-medium leading-5 focus:outline-none',
-              selected ? 'dark:bg-theme bg-white' : 'hover:bg-white/[0.12]'
+              selected ? 'bg-white dark:bg-black' : 'hover:bg-white/[0.12]'
             )
           }
           onClick={() => setUploadedVideo({ isUploadToIpfs: false })}
@@ -38,7 +38,7 @@ const UploadMethod = () => {
             clsx(
               'w-full rounded-xl text-sm font-medium leading-5 focus:outline-none disabled:opacity-30',
               selected
-                ? 'dark:bg-theme bg-white'
+                ? 'bg-white dark:bg-black'
                 : 'enabled:hover:bg-white/[0.12]'
             )
           }
@@ -58,7 +58,7 @@ const UploadMethod = () => {
       </Tab.List>
       <Tab.Panels>
         <Tab.Panel className="focus:outline-none">
-          {!uploadedVideo.isUploadToIpfs && <BundlrInfo />}
+          {!uploadedVideo.isUploadToIpfs && <IrysInfo />}
         </Tab.Panel>
       </Tab.Panels>
     </Tab.Group>

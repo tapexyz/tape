@@ -8,7 +8,7 @@ type Props = {
 
 const StatCard: FC<Props> = ({ count, text }) => {
   return (
-    <div className="dark:bg-theme space-y-3 rounded-xl bg-white bg-opacity-80 p-6 backdrop-blur-lg">
+    <div className="space-y-3 rounded-xl bg-white bg-opacity-80 p-6 backdrop-blur-lg dark:bg-black">
       <div>
         <h6 className="mb-1 text-3xl font-semibold opacity-90">{count}</h6>
         <div className="truncate whitespace-nowrap text-xs font-medium opacity-70">

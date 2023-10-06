@@ -9,7 +9,7 @@ export const k3lFeed = async (
   try {
     const response = await fetch(
       `https://lens-api.k3l.io/feed/${strategy}?limit=${limit}&offset=${offset}&contentFocus=AUDIO&contentFocus=VIDEO`,
-      { headers: { 'User-Agent': 'Lenstube' } }
+      { headers: { 'User-Agent': 'Tape' } }
     )
     const json: K3LFeedItem[] = await response.json()
     const ids = json.map((item: K3LFeedItem) => item.postId)
@@ -28,7 +28,7 @@ export const k3lScores = async (
   try {
     const response = await fetch(
       `https://lens-api.k3l.io/profile/scores?strategy=${strategy}&limit=${limit}&offset=${offset}`,
-      { headers: { 'User-Agent': 'Lenstube' } }
+      { headers: { 'User-Agent': 'Tape' } }
     )
     const json: K3LProfile[] = await response.json()
     return json.map((item: K3LProfile) => item.handle)

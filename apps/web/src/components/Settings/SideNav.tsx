@@ -3,8 +3,8 @@ import KeyOutline from '@components/Common/Icons/KeyOutline'
 import SubscribeOutline from '@components/Common/Icons/SubscribeOutline'
 import UserOutline from '@components/Common/Icons/UserOutline'
 import WarningOutline from '@components/Common/Icons/WarningOutline'
-import type { Profile } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
+import type { Profile } from '@tape.xyz/lens'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -29,7 +29,7 @@ const SideNav: FC<Props> = ({ channel }) => {
   const isActivePath = (path: string) => router.pathname === path
 
   return (
-    <div className="dark:bg-theme rounded-xl bg-white p-2">
+    <div className="rounded-xl bg-white p-2 dark:bg-black">
       <div className="flex flex-col items-center space-y-2 py-4">
         <ChannelPicture channel={channel} />
       </div>

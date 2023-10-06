@@ -2,16 +2,16 @@ import CollectOutline from '@components/Common/Icons/CollectOutline'
 import ExternalOutline from '@components/Common/Icons/ExternalOutline'
 import TagOutline from '@components/Common/Icons/TagOutline'
 import { Button } from '@components/UIElements/Button'
-import { Analytics, TRACK } from '@lenstube/browser'
+import { Trans } from '@lingui/macro'
+import { Analytics, TRACK } from '@tape.xyz/browser'
 import {
   getRandomProfilePicture,
   sanitizeDStorageUrl,
   shortenAddress,
   useDid
-} from '@lenstube/generic'
-import type { ZoraNft } from '@lenstube/lens/custom-types'
-import VideoPlayer from '@lenstube/ui/VideoPlayer'
-import { Trans } from '@lingui/macro'
+} from '@tape.xyz/generic'
+import type { ZoraNft } from '@tape.xyz/lens/custom-types'
+import VideoPlayer from '@tape.xyz/ui/VideoPlayer'
 import Link from 'next/link'
 import React from 'react'
 import { formatEther } from 'viem'

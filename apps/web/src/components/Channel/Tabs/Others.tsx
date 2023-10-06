@@ -4,8 +4,8 @@ import UserOutline from '@components/Common/Icons/UserOutline'
 import WalletOutline from '@components/Common/Icons/WalletOutline'
 import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
 import Tooltip from '@components/UIElements/Tooltip'
-import { getValueFromKeyInAttributes, shortenAddress } from '@lenstube/generic'
-import type { Attribute, Profile } from '@lenstube/lens'
+import { getValueFromKeyInAttributes, shortenAddress } from '@tape.xyz/generic'
+import type { Attribute, Profile } from '@tape.xyz/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
@@ -47,7 +47,7 @@ const Others: FC<Props> = ({ channel }) => {
           <span>
             Invited by{' '}
             <Link
-              className="hover:text-indigo-500"
+              className="hover:text-brand-500"
               href={`/channel/${channel.invitedBy.handle}`}
             >
               @{channel.invitedBy.handle}

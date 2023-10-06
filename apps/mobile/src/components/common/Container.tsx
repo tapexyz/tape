@@ -1,5 +1,5 @@
-import { ALLOWED_HEX_CHARACTERS } from '@lenstube/constants'
 import { useHeaderHeight } from '@react-navigation/elements'
+import { ALLOWED_HEX_CHARACTERS } from '@tape.xyz/constants'
 import { LinearGradient } from 'expo-linear-gradient'
 import type { FC, PropsWithChildren } from 'react'
 import React from 'react'

@@ -1,6 +1,6 @@
-import { LIVEPEER_STUDIO_API_KEY } from '@lenstube/constants'
 import type { ThemeConfig } from '@livepeer/react'
 import { createReactClient, studioProvider } from '@livepeer/react'
+import { LIVEPEER_STUDIO_API_KEY } from '@tape.xyz/constants'
 
 export const getLivepeerClient = () => {
   return createReactClient({
@@ -13,8 +13,8 @@ export const getLivepeerClient = () => {
 export const videoPlayerTheme: ThemeConfig = {
   colors: {
     accent: '#fff',
-    progressLeft: '#6366f1',
-    loading: '#6366f1'
+    progressLeft: '#39C4FF',
+    loading: '#39C4FF'
   },
   fontSizes: {
     timeFontSize: '12px'

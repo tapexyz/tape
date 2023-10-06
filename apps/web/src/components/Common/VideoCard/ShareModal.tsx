@@ -1,9 +1,9 @@
 import Modal from '@components/UIElements/Modal'
-import { Analytics, TRACK, useCopyToClipboard } from '@lenstube/browser'
-import { LENSTUBE_WEBSITE_URL, STATIC_ASSETS } from '@lenstube/constants'
-import { getSharableLink, imageCdn } from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
 import { t } from '@lingui/macro'
+import { Analytics, TRACK, useCopyToClipboard } from '@tape.xyz/browser'
+import { STATIC_ASSETS, TAPE_WEBSITE_URL } from '@tape.xyz/constants'
+import { getSharableLink, imageCdn } from '@tape.xyz/generic'
+import type { Publication } from '@tape.xyz/lens'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import type { FC } from 'react'
@@ -26,7 +26,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
   const { resolvedTheme } = useTheme()
 
   const onCopyVideoUrl = async () => {
-    await copy(`${LENSTUBE_WEBSITE_URL}/watch/${video.id}`)
+    await copy(`${TAPE_WEBSITE_URL}/watch/${video.id}`)
     toast.success(t`Permalink copied to clipboard`)
     Analytics.track(TRACK.PUBLICATION.PERMALINK)
   }
@@ -140,7 +140,7 @@ const ShareModal: FC<Props> = ({ show, setShowShare, video }) => {
         </div>
         <div className="flex items-center justify-between rounded-lg border border-gray-200 p-2 dark:border-gray-800">
           <div className="select-all truncate text-sm">
-            {LENSTUBE_WEBSITE_URL}/watch/{video.id}
+            {TAPE_WEBSITE_URL}/watch/{video.id}
           </div>
           <button
             className="ml-2 hover:opacity-60 focus:outline-none"

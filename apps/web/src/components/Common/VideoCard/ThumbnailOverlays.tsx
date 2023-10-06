@@ -1,7 +1,7 @@
-import { getIsSensitiveContent, getValueFromTraitType } from '@lenstube/generic'
-import type { Attribute, Publication } from '@lenstube/lens'
 import { getTimeFromSeconds } from '@lib/formatTime'
 import { Trans } from '@lingui/macro'
+import { getIsSensitiveContent, getValueFromTraitType } from '@tape.xyz/generic'
+import type { Attribute, Publication } from '@tape.xyz/lens'
 import type { FC } from 'react'
 import React from 'react'
 

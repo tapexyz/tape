@@ -1,11 +1,11 @@
 import MetaTags from '@components/Common/MetaTags'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
-import { Analytics, TRACK } from '@lenstube/browser'
-import { ADMIN_IDS, LENSTUBE_APP_ID } from '@lenstube/constants'
-import type { GlobalProtocolStats } from '@lenstube/lens'
-import { useGlobalProtocolStatsQuery } from '@lenstube/lens'
 import useAuthPersistStore from '@lib/store/auth'
 import { t } from '@lingui/macro'
+import { Analytics, TRACK } from '@tape.xyz/browser'
+import { ADMIN_IDS, TAPE_APP_ID } from '@tape.xyz/constants'
+import type { GlobalProtocolStats } from '@tape.xyz/lens'
+import { useGlobalProtocolStatsQuery } from '@tape.xyz/lens'
 import React, { useEffect } from 'react'
 import Custom404 from 'src/pages/404'
 
@@ -25,7 +25,7 @@ const Mod = () => {
   const { data, loading } = useGlobalProtocolStatsQuery({
     variables: {
       request: {
-        sources: [LENSTUBE_APP_ID]
+        sources: [TAPE_APP_ID]
       }
     }
   })
@@ -43,7 +43,7 @@ const Mod = () => {
 
   return (
     <>
-      <MetaTags title={t`Lenstube Stats`} />
+      <MetaTags title={t`Stats`} />
       <Deployment />
       <div className="grid grid-cols-2 gap-4 md:grid-cols-3 lg:grid-cols-6">
         <StatCard count={stats?.totalPosts} text={t`total videos`} />

@@ -5,29 +5,29 @@ import { Input } from '@components/UIElements/Input'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import usePendingTxn from '@hooks/usePendingTxn'
+import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
   WMATIC_TOKEN_ADDRESS
-} from '@lenstube/constants'
-import { getSignature, shortenAddress } from '@lenstube/generic'
+} from '@tape.xyz/constants'
+import { getSignature, shortenAddress } from '@tape.xyz/generic'
 import type {
   CreateSetFollowModuleBroadcastItemResult,
   Erc20,
   FeeFollowModuleSettings,
   Profile
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 import {
   useBroadcastMutation,
   useCreateSetFollowModuleTypedDataMutation,
   useEnabledModuleCurrrenciesQuery,
   useProfileFollowModuleQuery
-} from '@lenstube/lens'
-import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
-import { Loader } from '@lenstube/ui'
-import useChannelStore from '@lib/store/channel'
-import { t, Trans } from '@lingui/macro'
+} from '@tape.xyz/lens'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+import { Loader } from '@tape.xyz/ui'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -185,7 +185,7 @@ const Membership = ({ channel }: Props) => {
   }
 
   return (
-    <div className="dark:bg-theme rounded-xl bg-white p-4">
+    <div className="rounded-xl bg-white p-4 dark:bg-black">
       <div className="mb-5">
         <h1 className="mb-1 text-xl font-semibold">
           <Trans>Grow with Lens</Trans>

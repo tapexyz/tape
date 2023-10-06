@@ -1,37 +1,37 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import AddImageOutline from '@components/Common/Icons/AddImageOutline'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import { uploadToIPFS } from '@lenstube/browser'
+import useAuthPersistStore from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
+import { t } from '@lingui/macro'
+import { uploadToIPFS } from '@tape.xyz/browser'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE
-} from '@lenstube/constants'
+} from '@tape.xyz/constants'
 import {
   getProfilePicture,
   getSignature,
   sanitizeDStorageUrl
-} from '@lenstube/generic'
+} from '@tape.xyz/generic'
 import type {
   CreateSetProfileImageUriBroadcastItemResult,
   Profile,
   ProfileMedia,
   UpdateProfileImageRequest
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 import {
   useBroadcastMutation,
   useCreateSetProfileImageUriTypedDataMutation,
   useCreateSetProfileImageUriViaDispatcherMutation
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 import type {
   CustomErrorWithData,
   IPFSUploadResult,
   SimpleProfile
-} from '@lenstube/lens/custom-types'
-import { Loader } from '@lenstube/ui'
-import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
-import { t } from '@lingui/macro'
+} from '@tape.xyz/lens/custom-types'
+import { Loader } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import type { ChangeEvent, FC } from 'react'
 import React, { useState } from 'react'
@@ -192,7 +192,7 @@ const ChannelPicture: FC<Props> = ({ channel }) => {
       <label
         htmlFor="choosePfp"
         className={clsx(
-          'dark:bg-theme invisible absolute top-0 grid h-32 w-32 cursor-pointer place-items-center rounded-full bg-white bg-opacity-70 backdrop-blur-lg group-hover:visible',
+          'invisible absolute top-0 grid h-32 w-32 cursor-pointer place-items-center rounded-full bg-white bg-opacity-70 backdrop-blur-lg group-hover:visible dark:bg-black',
           { '!visible': loading && !pfpData?.hash }
         )}
       >

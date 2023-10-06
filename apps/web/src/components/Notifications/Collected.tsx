@@ -1,15 +1,15 @@
 import Badge from '@components/Common/Badge'
 import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
+import { getRelativeTime } from '@lib/formatTime'
+import { t, Trans } from '@lingui/macro'
 import {
   getProfilePicture,
   getRandomProfilePicture,
   imageCdn,
   shortenAddress,
   trimLensHandle
-} from '@lenstube/generic'
-import type { NewCollectNotification } from '@lenstube/lens'
-import { getRelativeTime } from '@lib/formatTime'
-import { t, Trans } from '@lingui/macro'
+} from '@tape.xyz/generic'
+import type { NewCollectNotification } from '@tape.xyz/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
@@ -70,7 +70,7 @@ const CollectedNotification: FC<Props> = ({ notification }) => {
           )}
           <Link
             href={`/watch/${notification?.collectedPublication.id}`}
-            className="ml-1 text-indigo-500"
+            className="text-brand-500 ml-1"
           >
             {notification.collectedPublication.__typename === 'Mirror'
               ? t`mirror`

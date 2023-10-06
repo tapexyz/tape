@@ -2,17 +2,17 @@ import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import Badge from '@components/Common/Badge'
 import { Button } from '@components/UIElements/Button'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import {
-  LENSHUB_PROXY_ADDRESS,
-  REQUESTING_SIGNATURE_MESSAGE
-} from '@lenstube/constants'
-import { formatNumber, getProfilePicture } from '@lenstube/generic'
-import type { CreateBurnProfileBroadcastItemResult } from '@lenstube/lens'
-import { useCreateBurnProfileTypedDataMutation } from '@lenstube/lens'
-import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import { signOut } from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t } from '@lingui/macro'
+import {
+  LENSHUB_PROXY_ADDRESS,
+  REQUESTING_SIGNATURE_MESSAGE
+} from '@tape.xyz/constants'
+import { formatNumber, getProfilePicture } from '@tape.xyz/generic'
+import type { CreateBurnProfileBroadcastItemResult } from '@tape.xyz/lens'
+import { useCreateBurnProfileTypedDataMutation } from '@tape.xyz/lens'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import Custom404 from 'src/pages/404'
@@ -81,7 +81,7 @@ const DangerZone = () => {
   }
 
   return (
-    <div className="dark:bg-theme rounded-lg bg-white p-4 dark:divide-gray-900">
+    <div className="rounded-lg bg-white p-4 dark:divide-gray-900 dark:bg-black">
       <div className="mb-5 flex flex-wrap items-center justify-between rounded-xl border p-4 dark:border-gray-700">
         <div className="flex items-center">
           <div className="mr-3 mt-0.5 flex-none">

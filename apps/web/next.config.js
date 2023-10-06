@@ -4,10 +4,10 @@ const linguiConfig = require('./lingui.config')
 const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }]
 const moduleExports = {
   transpilePackages: [
-    '@lenstube/lens',
-    '@lenstube/browser',
-    '@lenstube/generic',
-    '@lenstube/ui'
+    '@tape.xyz/lens',
+    '@tape.xyz/browser',
+    '@tape.xyz/generic',
+    '@tape.xyz/ui'
   ],
   reactStrictMode: process.env.NODE_ENV === 'production',
   experimental: {
@@ -23,11 +23,11 @@ const moduleExports = {
     return [
       {
         source: '/sitemap.xml',
-        destination: 'https://static.lenstube.xyz/sitemaps/sitemap.xml'
+        destination: 'https://static.tape.xyz/sitemaps/sitemap.xml'
       },
       {
         source: '/sitemaps/:match*',
-        destination: 'https://static.lenstube.xyz/sitemaps/:match*'
+        destination: 'https://static.tape.xyz/sitemaps/:match*'
       },
       {
         source: '/collect/:match*',
@@ -49,12 +49,13 @@ const moduleExports = {
       },
       {
         source: '/discord',
-        destination: 'https://discord.com/servers/lenstube-980882088783913010',
+        destination:
+          'https://discord.com/servers/tape-formerly-lenstube-980882088783913010',
         permanent: true
       },
       {
         source: '/donate',
-        destination: 'https://giveth.io/project/lenstube',
+        destination: 'https://giveth.io/project/tape',
         permanent: true
       },
       {

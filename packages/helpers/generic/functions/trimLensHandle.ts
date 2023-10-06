@@ -1,4 +1,4 @@
-import { HANDLE_SUFFIX, LENSPROTOCOL_HANDLE } from '@lenstube/constants'
+import { HANDLE_SUFFIX, LENSPROTOCOL_HANDLE } from '@tape.xyz/constants'
 
 export const trimLensHandle = (handle: string, keepTld = false) => {
   if (!handle) {

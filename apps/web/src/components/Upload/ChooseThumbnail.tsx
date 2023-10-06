@@ -1,15 +1,15 @@
 import AddImageOutline from '@components/Common/Icons/AddImageOutline'
 import ThumbnailsShimmer from '@components/Shimmers/ThumbnailsShimmer'
+import useAppStore from '@lib/store'
+import { t, Trans } from '@lingui/macro'
 import {
   generateVideoThumbnails,
   getFileFromDataURL,
   uploadToIPFS
-} from '@lenstube/browser'
-import { logger } from '@lenstube/generic'
-import type { IPFSUploadResult } from '@lenstube/lens/custom-types'
-import { Loader } from '@lenstube/ui'
-import useAppStore from '@lib/store'
-import { t, Trans } from '@lingui/macro'
+} from '@tape.xyz/browser'
+import { logger } from '@tape.xyz/generic'
+import type { IPFSUploadResult } from '@tape.xyz/lens/custom-types'
+import { Loader } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import type { ChangeEvent, FC } from 'react'
 import React, { useEffect, useState } from 'react'
@@ -175,7 +175,7 @@ const ChooseThumbnail: FC<Props> = ({ label, file }) => {
               className={clsx(
                 'relative w-full flex-none overflow-hidden rounded-lg ring-1 ring-white focus:outline-none dark:ring-black',
                 {
-                  '!ring !ring-indigo-500':
+                  '!ring-brand-500 !ring':
                     thumbnail.ipfsUrl &&
                     selectedThumbnailIndex === idx &&
                     thumbnail.ipfsUrl === uploadedVideo.thumbnail

@@ -1,15 +1,15 @@
-import { getShowFullScreen, getToastOptions } from '@lenstube/browser'
-import { AUTH_ROUTES } from '@lenstube/constants'
-import { useIsMounted } from '@lenstube/generic'
-import type { Profile } from '@lenstube/lens'
-import { useAllProfilesQuery, useUserSigNoncesQuery } from '@lenstube/lens'
-import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAuthPersistStore, {
   hydrateAuthTokens,
   signOut
 } from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
+import { getShowFullScreen, getToastOptions } from '@tape.xyz/browser'
+import { AUTH_ROUTES } from '@tape.xyz/constants'
+import { useIsMounted } from '@tape.xyz/generic'
+import type { Profile } from '@tape.xyz/lens'
+import { useAllProfilesQuery, useUserSigNoncesQuery } from '@tape.xyz/lens'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import clsx from 'clsx'
 import Head from 'next/head'
 import { useRouter } from 'next/router'

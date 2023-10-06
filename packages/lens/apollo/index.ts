@@ -14,7 +14,7 @@ import {
   useQuery
 } from '@apollo/client'
 import { RetryLink } from '@apollo/client/link/retry'
-import { LENS_API_URL } from '@lenstube/constants'
+import { LENS_API_URL } from '@tape.xyz/constants'
 
 import cache from './cache'
 

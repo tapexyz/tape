@@ -1,7 +1,7 @@
-import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
-import { getProfilePicture } from '@lenstube/generic'
-import type { Profile } from '@lenstube/lens'
-import { SearchRequestTypes, useSearchProfilesLazyQuery } from '@lenstube/lens'
+import { LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
+import { getProfilePicture } from '@tape.xyz/generic'
+import type { Profile } from '@tape.xyz/lens'
+import { SearchRequestTypes, useSearchProfilesLazyQuery } from '@tape.xyz/lens'
 import clsx from 'clsx'
 import type { ComponentProps, FC } from 'react'
 import React, { useId } from 'react'
@@ -103,7 +103,7 @@ const InputMentions: FC<Props> = ({
                 picture={suggestion.picture as string}
                 handle={suggestion.id as string}
                 className={clsx({
-                  'dark:bg-theme rounded bg-indigo-50': focused
+                  'bg-brand-50 rounded dark:bg-black': focused
                 })}
                 subscribersCount={suggestion.followers as number}
               />

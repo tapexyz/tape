@@ -3,14 +3,14 @@ import TagOutline from '@components/Common/Icons/TagOutline'
 import ArweaveExplorerLink from '@components/Common/Links/ArweaveExplorerLink'
 import IPFSLink from '@components/Common/Links/IPFSLink'
 import TokenExplorerLink from '@components/Common/Links/TokenExplorerLink'
-import { Analytics, TRACK } from '@lenstube/browser'
+import { Trans } from '@lingui/macro'
+import { Analytics, TRACK } from '@tape.xyz/browser'
 import {
   getCategoryName,
   getIsIPFSUrl,
   getMetadataCid
-} from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
-import { Trans } from '@lingui/macro'
+} from '@tape.xyz/generic'
+import type { Publication } from '@tape.xyz/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'

@@ -8,18 +8,18 @@ import HashExplorerLink from '@components/Common/Links/HashExplorerLink'
 import ReportModal from '@components/Common/VideoCard/ReportModal'
 import Tooltip from '@components/UIElements/Tooltip'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import {
-  checkValueInAttributes,
-  getProfilePicture,
-  getValueFromTraitType,
-  trimLensHandle
-} from '@lenstube/generic'
-import type { Attribute, Publication } from '@lenstube/lens'
 import { getRelativeTime } from '@lib/formatTime'
 import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
+import {
+  checkValueInAttributes,
+  getProfilePicture,
+  getValueFromTraitType,
+  trimLensHandle
+} from '@tape.xyz/generic'
+import type { Attribute, Publication } from '@tape.xyz/lens'
 import clsx from 'clsx'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -157,7 +157,7 @@ const Comment: FC<Props> = ({ comment }) => {
               {comment.stats.totalAmountOfComments ? (
                 <button
                   onClick={() => setShowReplies(!showReplies)}
-                  className="rounded-full bg-indigo-100 px-2 py-1 text-xs focus:outline-none dark:bg-indigo-900/30"
+                  className="bg-brand-100 dark:bg-brand-900/30 rounded-full px-2 py-1 text-xs focus:outline-none"
                 >
                   {comment.stats.totalAmountOfComments} <Trans>replies</Trans>
                 </button>

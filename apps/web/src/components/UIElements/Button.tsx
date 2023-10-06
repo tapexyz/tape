@@ -1,4 +1,4 @@
-import { Loader } from '@lenstube/ui'
+import { Loader } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import type { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from 'react'
 import React, { forwardRef } from 'react'

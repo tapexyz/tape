@@ -1,9 +1,9 @@
 import DropMenu from '@components/UIElements/DropMenu'
-import { Analytics, TRACK } from '@lenstube/browser'
-import { SUPPORTED_LOCALES } from '@lenstube/constants'
 import { storeLocale } from '@lib/i18n'
 import usePersistStore from '@lib/store/persist'
 import { useLingui } from '@lingui/react'
+import { Analytics, TRACK } from '@tape.xyz/browser'
+import { SUPPORTED_LOCALES } from '@tape.xyz/constants'
 import clsx from 'clsx'
 import React from 'react'
 
@@ -19,7 +19,7 @@ const Locale = () => {
       trigger={
         <button
           className={clsx(
-            'flex h-12 items-center justify-center space-x-2 rounded-full p-3.5 opacity-90 hover:bg-gray-50 hover:opacity-100 focus:outline-none dark:hover:bg-gray-800',
+            'hover:bg-brand-50 dark:hover:bg-brand-900 flex h-12 items-center justify-center space-x-2 rounded-full p-3.5 opacity-90 hover:opacity-100 focus:outline-none',
             sidebarCollapsed ? 'w-12' : 'w-full'
           )}
         >
@@ -38,9 +38,9 @@ const Locale = () => {
           <button
             key={key}
             className={clsx(
-              'dark:hover:bg-theme w-28 cursor-pointer overflow-hidden rounded-lg px-3 py-1 text-left hover:bg-white focus:outline-none',
+              'w-28 cursor-pointer overflow-hidden rounded-lg px-3 py-1 text-left hover:bg-white focus:outline-none dark:hover:bg-black',
               selectedLocale === SUPPORTED_LOCALES[key] &&
-                'dark:bg-theme bg-white'
+                'bg-white dark:bg-black'
             )}
             onClick={() => {
               storeLocale(key)

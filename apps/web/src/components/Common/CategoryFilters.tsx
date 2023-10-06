@@ -1,7 +1,7 @@
-import { Analytics, TRACK, useHorizontalScroll } from '@lenstube/browser'
-import { CREATOR_VIDEO_CATEGORIES } from '@lenstube/constants'
 import useAppStore from '@lib/store'
 import { Trans } from '@lingui/macro'
+import { Analytics, TRACK, useHorizontalScroll } from '@tape.xyz/browser'
+import { CREATOR_VIDEO_CATEGORIES } from '@tape.xyz/constants'
 import clsx from 'clsx'
 import React, { useEffect, useState } from 'react'
 

@@ -1,13 +1,13 @@
 import Modal from '@components/UIElements/Modal'
-import { Analytics, TRACK } from '@lenstube/browser'
-import {
-  LENSTUBE_ADDRESS,
-  STATIC_ASSETS,
-  ZORA_MAINNET_CHAINS
-} from '@lenstube/constants'
-import { trimLensHandle, useDid, useZoraNft } from '@lenstube/generic'
-import type { BasicNftMetadata } from '@lenstube/lens/custom-types'
 import { t } from '@lingui/macro'
+import { Analytics, TRACK } from '@tape.xyz/browser'
+import {
+  STATIC_ASSETS,
+  TAPE_ADMIN_ADDRESS,
+  ZORA_MAINNET_CHAINS
+} from '@tape.xyz/constants'
+import { trimLensHandle, useDid, useZoraNft } from '@tape.xyz/generic'
+import type { BasicNftMetadata } from '@tape.xyz/lens/custom-types'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useState } from 'react'
@@ -42,7 +42,7 @@ const ZoraNft: FC<Props> = ({ nftMetadata }) => {
   const network = ZORA_MAINNET_CHAINS.includes(chain) ? '' : 'testnet.'
   const zoraLink = `https://${network}zora.co/collect/${chain}:${address}${
     token ? `/${token}` : ''
-  }?referrer=${LENSTUBE_ADDRESS}`
+  }?referrer=${TAPE_ADMIN_ADDRESS}`
 
   const coverImage = `https://remote-image.decentralized-content.com/image?url=${zoraNft.coverImageUrl}&w=1200&q=75`
 

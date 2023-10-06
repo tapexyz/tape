@@ -1,4 +1,5 @@
-import { STATIC_ASSETS } from '@lenstube/constants'
+import { Trans } from '@lingui/macro'
+import { STATIC_ASSETS, TAPE_APP_NAME } from '@tape.xyz/constants'
 import type { ChildrenNode, MatchResponse, Node } from 'interweave'
 import { Matcher } from 'interweave'
 import Link from 'next/link'
@@ -16,18 +17,20 @@ const Url = ({ children, url, ...props }: UrlProps) => {
     href = `http://${href}`
   }
 
-  return href?.includes('lenstube.xyz/watch') ? (
+  return href?.includes('tape.xyz/watch') ? (
     <Link
       href={href}
       className="inline-flex items-center space-x-1 rounded-full bg-gray-200 px-2 text-sm font-medium dark:bg-gray-800"
     >
       <img
-        src={`${STATIC_ASSETS}/images/brand/lenstube.svg`}
+        src={`${STATIC_ASSETS}/brand/logo.svg`}
         className="h-3 w-3"
         draggable={false}
-        alt="lenstube"
+        alt={TAPE_APP_NAME}
       />
-      <span>Watch Now</span>
+      <span>
+        <Trans>Watch Now</Trans>
+      </span>
     </Link>
   ) : (
     <Link {...props} href={href} target="_blank">

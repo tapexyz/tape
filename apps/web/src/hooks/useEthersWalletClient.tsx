@@ -30,6 +30,7 @@ const useEthersWalletClient = (): {
             domain,
             message,
             types,
+            // Dont change to Irys
             primaryType: 'Bundlr'
           })
           return r

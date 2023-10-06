@@ -1,12 +1,12 @@
 import OpenActionsShimmer from '@components/Shimmers/OpenActionsShimmer'
-import { LENS_CUSTOM_FILTERS, LENSTUBE_APP_ID } from '@lenstube/constants'
-import type { Publication } from '@lenstube/lens'
+import { LENS_CUSTOM_FILTERS, TAPE_APP_ID } from '@tape.xyz/constants'
+import type { Publication } from '@tape.xyz/lens'
 import {
   PublicationMainFocus,
   PublicationSortCriteria,
   PublicationTypes,
   useExploreQuery
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 import React from 'react'
 
 import SharedLink from './SharedLink'
@@ -16,7 +16,7 @@ const OpenActionCollects = () => {
     sortCriteria: PublicationSortCriteria.Latest,
     limit: 10,
     noRandomize: false,
-    sources: [LENSTUBE_APP_ID],
+    sources: [TAPE_APP_ID],
     publicationTypes: [PublicationTypes.Post],
     customFilters: LENS_CUSTOM_FILTERS,
     metadata: {

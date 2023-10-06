@@ -1,16 +1,16 @@
 import Badge from '@components/Common/Badge'
 import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
+import { getRelativeTime } from '@lib/formatTime'
+import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
 import {
   getProfilePicture,
   getRandomProfilePicture,
   imageCdn,
   shortenAddress,
   trimLensHandle
-} from '@lenstube/generic'
-import type { NewFollowerNotification } from '@lenstube/lens'
-import { getRelativeTime } from '@lib/formatTime'
-import useChannelStore from '@lib/store/channel'
-import { t, Trans } from '@lingui/macro'
+} from '@tape.xyz/generic'
+import type { NewFollowerNotification } from '@tape.xyz/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
