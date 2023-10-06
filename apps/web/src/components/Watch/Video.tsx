@@ -1,6 +1,8 @@
 import InterweaveContent from '@components/Common/InterweaveContent'
 import { CardShimmer } from '@components/Shimmers/VideoCardShimmer'
-import { LENSTUBE_BYTES_APP_ID } from '@lenstube/constants'
+import useAppStore from '@lib/store'
+import useAuthPersistStore from '@lib/store/auth'
+import { LENSTUBE_BYTES_APP_ID } from '@tape.xyz/constants'
 import {
   getIsSensitiveContent,
   getPublicationHlsUrl,
@@ -8,10 +10,8 @@ import {
   getThumbnailUrl,
   imageCdn,
   sanitizeDStorageUrl
-} from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
-import useAppStore from '@lib/store'
-import useAuthPersistStore from '@lib/store/auth'
+} from '@tape.xyz/generic'
+import type { Publication } from '@tape.xyz/lens'
 import dynamic from 'next/dynamic'
 import type { FC } from 'react'
 import React from 'react'
@@ -19,7 +19,7 @@ import React from 'react'
 import VideoActions from './VideoActions'
 import VideoMeta from './VideoMeta'
 
-const VideoPlayer = dynamic(() => import('@lenstube/ui/VideoPlayer'), {
+const VideoPlayer = dynamic(() => import('@tape.xyz/ui/VideoPlayer'), {
   loading: () => <CardShimmer rounded={false} />,
   ssr: false
 })

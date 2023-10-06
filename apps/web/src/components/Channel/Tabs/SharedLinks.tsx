@@ -1,23 +1,23 @@
 import SharedLink from '@components/Home/OpenActions/SharedLink'
 import OpenActionsShimmer from '@components/Shimmers/OpenActionsShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { t } from '@lingui/macro'
 import {
   LENS_CUSTOM_FILTERS,
-  LENSTUBE_APP_ID,
-  SCROLL_ROOT_MARGIN
-} from '@lenstube/constants'
+  SCROLL_ROOT_MARGIN,
+  TAPE_APP_ID
+} from '@tape.xyz/constants'
 import type {
   Profile,
   Publication,
   PublicationsQueryRequest
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 import {
   PublicationMainFocus,
   PublicationTypes,
   useProfilePostsQuery
-} from '@lenstube/lens'
-import { Loader } from '@lenstube/ui'
-import { t } from '@lingui/macro'
+} from '@tape.xyz/lens'
+import { Loader } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
@@ -30,7 +30,7 @@ const SharedLinks: FC<Props> = ({ channel }) => {
   const request: PublicationsQueryRequest = {
     publicationTypes: [PublicationTypes.Post],
     limit: 50,
-    sources: [LENSTUBE_APP_ID],
+    sources: [TAPE_APP_ID],
     customFilters: LENS_CUSTOM_FILTERS,
     profileId: channel?.id,
     metadata: {

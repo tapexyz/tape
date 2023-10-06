@@ -1,12 +1,12 @@
-import { Analytics, TRACK } from '@lenstube/browser'
-import {
-  LENSTUBE_GITHUB_HANDLE,
-  LENSTUBE_ROADMAP_URL,
-  LENSTUBE_STATUS_PAGE,
-  LENSTUBE_X_HANDLE
-} from '@lenstube/constants'
 import usePersistStore from '@lib/store/persist'
 import { Trans } from '@lingui/macro'
+import { Analytics, TRACK } from '@tape.xyz/browser'
+import {
+  TAPE_GITHUB_HANDLE,
+  TAPE_ROADMAP_URL,
+  TAPE_STATUS_PAGE,
+  TAPE_X_HANDLE
+} from '@tape.xyz/constants'
 import Link from 'next/link'
 import React from 'react'
 
@@ -19,7 +19,7 @@ const Footer = () => {
     <div className="grid grid-cols-2 text-sm">
       <Link
         className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
-        href={LENSTUBE_ROADMAP_URL}
+        href={TAPE_ROADMAP_URL}
         onClick={() => {
           setSidebarCollapsed(true)
           Analytics.track(TRACK.SYSTEM.MORE_MENU.ROADMAP)
@@ -30,7 +30,7 @@ const Footer = () => {
       </Link>
       <Link
         className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
-        href={LENSTUBE_STATUS_PAGE}
+        href={TAPE_STATUS_PAGE}
         onClick={() => {
           setSidebarCollapsed(true)
           Analytics.track(TRACK.SYSTEM.MORE_MENU.STATUS)
@@ -41,18 +41,18 @@ const Footer = () => {
       </Link>
       <Link
         className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
-        href={`https://github.com/${LENSTUBE_GITHUB_HANDLE}`}
+        href={`https://github.com/${TAPE_GITHUB_HANDLE}`}
         onClick={() => {
           setSidebarCollapsed(true)
           Analytics.track(TRACK.SYSTEM.MORE_MENU.GITHUB)
         }}
         target="_blank"
       >
-        Github
+        GitHub
       </Link>
       <Link
         className="rounded-lg px-2.5 py-1.5 opacity-80 hover:opacity-100"
-        href={`https://x.com/${LENSTUBE_X_HANDLE}`}
+        href={`https://x.com/${TAPE_X_HANDLE}`}
         onClick={() => {
           setSidebarCollapsed(true)
           Analytics.track(TRACK.SYSTEM.MORE_MENU.X)

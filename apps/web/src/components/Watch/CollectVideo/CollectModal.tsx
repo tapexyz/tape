@@ -3,7 +3,9 @@ import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
 import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
 import Tooltip from '@components/UIElements/Tooltip'
-import { Analytics, TRACK } from '@lenstube/browser'
+import useAuthPersistStore from '@lib/store/auth'
+import { t, Trans } from '@lingui/macro'
+import { Analytics, TRACK } from '@tape.xyz/browser'
 import {
   formatNumber,
   getProfilePicture,
@@ -11,23 +13,21 @@ import {
   imageCdn,
   shortenAddress,
   trimLensHandle
-} from '@lenstube/generic'
+} from '@tape.xyz/generic'
 import type {
   ApprovedAllowanceAmount,
   Profile,
   Publication,
   RecipientDataOutput
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 import {
   CollectModules,
   useAllProfilesQuery,
   useApprovedModuleAllowanceAmountQuery,
   usePublicationRevenueQuery
-} from '@lenstube/lens'
-import type { LenstubeCollectModule } from '@lenstube/lens/custom-types'
-import { Loader } from '@lenstube/ui'
-import useAuthPersistStore from '@lib/store/auth'
-import { t, Trans } from '@lingui/macro'
+} from '@tape.xyz/lens'
+import type { CustomCollectModule } from '@tape.xyz/lens/custom-types'
+import { Loader } from '@tape.xyz/ui'
 import dayjs from 'dayjs'
 import Link from 'next/link'
 import type { Dispatch, FC } from 'react'
@@ -43,7 +43,7 @@ type Props = {
   video: Publication
   collecting: boolean
   fetchingCollectModule: boolean
-  collectModule: LenstubeCollectModule
+  collectModule: CustomCollectModule
   collectNow: () => void
 }
 

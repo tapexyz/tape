@@ -1,8 +1,8 @@
 import Badge from '@components/Common/Badge'
-import { getProfilePicture, trimLensHandle } from '@lenstube/generic'
-import type { NewCommentNotification } from '@lenstube/lens'
 import { getRelativeTime } from '@lib/formatTime'
 import { Trans } from '@lingui/macro'
+import { getProfilePicture, trimLensHandle } from '@tape.xyz/generic'
+import type { NewCommentNotification } from '@tape.xyz/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
@@ -37,7 +37,7 @@ const CommentedNotification: FC<Props> = ({ notification }) => {
               notification?.comment?.commentOn &&
               notification?.comment?.commentOn?.id
             }`}
-            className="ml-1 text-indigo-500"
+            className="text-brand-500 ml-1"
           >
             <Trans>video</Trans>
           </Link>

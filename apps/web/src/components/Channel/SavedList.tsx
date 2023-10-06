@@ -2,18 +2,18 @@ import MetaTags from '@components/Common/MetaTags'
 import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import useAuthPersistStore from '@lib/store/auth'
+import { t } from '@lingui/macro'
 import {
   ALLOWED_APP_IDS,
   IS_MAINNET,
-  LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
-  SCROLL_ROOT_MARGIN
-} from '@lenstube/constants'
-import type { Profile, Publication } from '@lenstube/lens'
-import { PublicationMainFocus, useProfileBookmarksQuery } from '@lenstube/lens'
-import { Loader } from '@lenstube/ui'
-import useAuthPersistStore from '@lib/store/auth'
-import { t } from '@lingui/macro'
+  SCROLL_ROOT_MARGIN,
+  TAPE_APP_ID
+} from '@tape.xyz/constants'
+import type { Profile, Publication } from '@tape.xyz/lens'
+import { PublicationMainFocus, useProfileBookmarksQuery } from '@tape.xyz/lens'
+import { Loader } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
@@ -32,7 +32,7 @@ const SavedList: FC<Props> = () => {
     metadata: { mainContentFocus: [PublicationMainFocus.Video] },
     profileId: selectedSimpleProfile?.id,
     sources: IS_MAINNET
-      ? [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
+      ? [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
       : undefined
   }
 

@@ -1,4 +1,4 @@
-import type { SimpleProfile } from '@lenstube/lens/custom-types'
+import type { SimpleProfile } from '@tape.xyz/lens/custom-types'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
@@ -28,8 +28,8 @@ export const useAuthPersistStore = create(
       signIn: ({ accessToken, refreshToken }) =>
         set({ accessToken, refreshToken }),
       signOut: () => {
-        localStorage.removeItem('lenstube.store')
-        localStorage.removeItem('lenstube.auth.store')
+        localStorage.removeItem('tape.store')
+        localStorage.removeItem('tape.auth.store')
         set({ selectedSimpleProfile: null })
       },
       hydrateAuthTokens: () => {
@@ -40,7 +40,7 @@ export const useAuthPersistStore = create(
       }
     }),
     {
-      name: 'lenstube.auth.store'
+      name: 'tape.auth.store'
     }
   )
 )

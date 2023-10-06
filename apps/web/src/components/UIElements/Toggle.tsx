@@ -25,7 +25,7 @@ export const Toggle: FC<ToggleProps> = ({
         checked={enabled}
         onChange={() => setEnabled(!enabled)}
         className={clsx(
-          enabled ? 'bg-indigo-500' : 'bg-gray-200 dark:bg-gray-700',
+          enabled ? 'bg-brand-500' : 'bg-gray-200 dark:bg-gray-700',
           'inline-flex h-4 w-8 flex-none items-center rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none',
           {
             'h-4 w-8': size === 'sm',

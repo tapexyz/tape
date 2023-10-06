@@ -1,6 +1,6 @@
 import Tooltip from '@components/UIElements/Tooltip'
-import { MISUSED_CHANNELS, VERIFIED_CHANNELS } from '@lenstube/constants'
 import { t } from '@lingui/macro'
+import { MISUSED_CHANNELS, VERIFIED_CHANNELS } from '@tape.xyz/constants'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
@@ -25,7 +25,7 @@ const Badge: FC<Props> = ({ id, size = 'sm', color }) => {
           <span>
             <VerifiedSolid
               className={clsx(
-                'ml-0.5',
+                'text-brand-500 ml-0.5',
                 {
                   'h-2.5 w-2.5': size === 'xs',
                   'h-3 w-3': size === 'sm',

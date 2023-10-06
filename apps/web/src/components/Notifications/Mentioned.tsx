@@ -1,8 +1,8 @@
 import Badge from '@components/Common/Badge'
-import { getProfilePicture, trimLensHandle } from '@lenstube/generic'
-import type { NewMentionNotification } from '@lenstube/lens'
 import { getRelativeTime } from '@lib/formatTime'
 import { Trans } from '@lingui/macro'
+import { getProfilePicture, trimLensHandle } from '@tape.xyz/generic'
+import type { NewMentionNotification } from '@tape.xyz/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
@@ -47,7 +47,7 @@ const MentionedNotification: FC<Props> = ({ notification }) => {
         <span className="truncate text-gray-600 dark:text-gray-400">
           <Link
             href={`/watch/${notification?.mentionPublication.id}`}
-            className="mr-1 text-indigo-500"
+            className="text-brand-500 mr-1"
           >
             <Trans>mentioned</Trans>
           </Link>

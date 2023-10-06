@@ -1,6 +1,10 @@
-import { getMetaTags } from '@lenstube/browser'
-import { LENSTUBE_APP_DESCRIPTION, OG_IMAGE } from '@lenstube/constants'
-import { trimLensHandle } from '@lenstube/generic'
+import { getMetaTags } from '@tape.xyz/browser'
+import {
+  OG_IMAGE,
+  TAPE_APP_DESCRIPTION,
+  TAPE_APP_NAME
+} from '@tape.xyz/constants'
+import { trimLensHandle } from '@tape.xyz/generic'
 import getProfileMeta from 'lib/getProfileMeta'
 import getPublicationMeta from 'lib/getPublicationMeta'
 import type { NextApiRequest, NextApiResponse } from 'next'
@@ -35,16 +39,16 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     return res.setHeader('Content-Type', 'text/html').send(
       getMetaTags({
-        title: 'Lenstube',
-        description: LENSTUBE_APP_DESCRIPTION,
+        title: TAPE_APP_NAME,
+        description: TAPE_APP_DESCRIPTION,
         image: OG_IMAGE
       })
     )
   } catch (error) {
     return res.setHeader('Content-Type', 'text/html').send(
       getMetaTags({
-        title: 'Lenstube',
-        description: LENSTUBE_APP_DESCRIPTION,
+        title: TAPE_APP_NAME,
+        description: TAPE_APP_DESCRIPTION,
         image: OG_IMAGE
       })
     )

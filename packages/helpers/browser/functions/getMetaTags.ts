@@ -1,14 +1,14 @@
 import {
-  LENSTUBE_API_URL,
-  LENSTUBE_APP_DESCRIPTION,
-  LENSTUBE_APP_NAME,
-  LENSTUBE_EMBED_URL,
-  LENSTUBE_WEBSITE_URL,
-  LENSTUBE_X_HANDLE,
-  OG_IMAGE
-} from '@lenstube/constants'
-import { getPublicationMediaUrl } from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
+  OG_IMAGE,
+  TAPE_API_URL,
+  TAPE_APP_DESCRIPTION,
+  TAPE_APP_NAME,
+  TAPE_EMBED_URL,
+  TAPE_WEBSITE_URL,
+  TAPE_X_HANDLE
+} from '@tape.xyz/constants'
+import { getPublicationMediaUrl } from '@tape.xyz/generic'
+import type { Publication } from '@tape.xyz/lens'
 
 type Args = {
   title: string
@@ -31,12 +31,12 @@ export const getMetaTags = ({
 }: Args) => {
   const isVideo = page === 'VIDEO'
   const meta = {
-    title: `${title} • Lenstube` ?? LENSTUBE_APP_NAME,
-    description: description || LENSTUBE_APP_DESCRIPTION,
+    title: title ?? TAPE_APP_NAME,
+    description: description || TAPE_APP_DESCRIPTION,
     image: image ?? OG_IMAGE,
     url: isVideo
-      ? `${LENSTUBE_WEBSITE_URL}/watch/${pubId}`
-      : `${LENSTUBE_WEBSITE_URL}/channel/${handle}`
+      ? `${TAPE_WEBSITE_URL}/watch/${pubId}`
+      : `${TAPE_WEBSITE_URL}/channel/${handle}`
   }
 
   let defaultMeta = `<title>${meta.title}</title>
@@ -45,7 +45,7 @@ export const getMetaTags = ({
               <meta name="robots" content="follow, index" />
               <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
               <meta property="og:url" content="${meta.url}" />
-              <meta property="og:site_name" content="${LENSTUBE_APP_NAME}" />
+              <meta property="og:site_name" content="${TAPE_APP_NAME}" />
               <meta property="og:description" content="${meta.description}" />
               <meta property="og:title" content="${meta.title}" />
               <meta property="og:image" content="${meta.image}" />
@@ -61,17 +61,17 @@ export const getMetaTags = ({
               <meta property="twitter:image:height" content="${
                 isVideo ? 360 : 400
               }" />
-              <meta name="twitter:site" content="@${LENSTUBE_X_HANDLE}" />
+              <meta name="twitter:site" content="@${TAPE_X_HANDLE}" />
               <meta name="twitter:title" content="${meta.title}" />
               <meta name="twitter:description" content="${meta.description}" />
               <meta property="twitter:image" content="${meta.image}" />
-              <meta property="twitter:creator" content="${LENSTUBE_X_HANDLE}" />
+              <meta property="twitter:creator" content="${TAPE_X_HANDLE}" />
               <meta name="twitter:card" content="${
                 isVideo ? 'player' : 'summary'
               }" />`
 
   if (isVideo && publication) {
-    const embedUrl = `${LENSTUBE_EMBED_URL}/${pubId}`
+    const embedUrl = `${TAPE_EMBED_URL}/${pubId}`
     // TODO: add `hasPart`
     const schemaObject = {
       '@context': 'https://schema.org',
@@ -106,8 +106,8 @@ export const getMetaTags = ({
       <meta property="twitter:player:width" content="1280" />
       <meta property="twitter:player:height" content="720" />
       <link rel="iframely player" type="text/html" href="${embedUrl}" media="(aspect-ratio: 1280/720)" />
-      <link rel="alternate" type="text/xml+oembed" href="${LENSTUBE_API_URL}/oembed?format=xml&id=${pubId}" title="${title}" />
-      <link rel="alternate" type="application/json+oembed" href="${LENSTUBE_API_URL}/oembed?format=json&id=${pubId}" title="${title}" />
+      <link rel="alternate" type="text/xml+oembed" href="${TAPE_API_URL}/oembed?format=xml&id=${pubId}" title="${title}" />
+      <link rel="alternate" type="application/json+oembed" href="${TAPE_API_URL}/oembed?format=json&id=${pubId}" title="${title}" />
 
       <meta property="og:video:url" content="${meta.url}" />
       <meta property="og:video:secure_url" content="${meta.url}" />

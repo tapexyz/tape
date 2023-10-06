@@ -2,21 +2,22 @@ import { Button } from '@components/UIElements/Button'
 import DropMenu, { NextLink } from '@components/UIElements/DropMenu'
 import Modal from '@components/UIElements/Modal'
 import { Menu } from '@headlessui/react'
-import { Analytics, TRACK } from '@lenstube/browser'
-import {
-  FEATURE_FLAGS,
-  IS_MAINNET,
-  LENS_CUSTOM_FILTERS,
-  LENSTUBE_APP_ID,
-  LENSTUBE_BYTES_APP_ID,
-  STATIC_ASSETS
-} from '@lenstube/constants'
-import { getIsFeatureEnabled } from '@lenstube/generic'
-import { useLatestNotificationIdQuery } from '@lenstube/lens'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'
+import { Analytics, TRACK } from '@tape.xyz/browser'
+import {
+  FEATURE_FLAGS,
+  IS_MAINNET,
+  LENS_CUSTOM_FILTERS,
+  LENSTUBE_BYTES_APP_ID,
+  STATIC_ASSETS,
+  TAPE_APP_ID,
+  TAPE_APP_NAME
+} from '@tape.xyz/constants'
+import { getIsFeatureEnabled } from '@tape.xyz/generic'
+import { useLatestNotificationIdQuery } from '@tape.xyz/lens'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -64,9 +65,7 @@ const Header: FC<Props> = ({ className }) => {
     variables: {
       request: {
         profileId: selectedSimpleProfile?.id,
-        sources: IS_MAINNET
-          ? [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID]
-          : undefined,
+        sources: IS_MAINNET ? [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID] : undefined,
         customFilters: LENS_CUSTOM_FILTERS,
         limit: 1
       }
@@ -85,7 +84,7 @@ const Header: FC<Props> = ({ className }) => {
   return (
     <div
       className={clsx(
-        'dark:bg-theme/90 sticky left-0 right-0 top-0 z-10 flex w-full items-center bg-white/90 py-2.5 backdrop-blur-xl',
+        'sticky left-0 right-0 top-0 z-10 flex w-full items-center bg-white/90 py-2.5 backdrop-blur-xl dark:bg-black/90',
         className
       )}
     >
@@ -94,10 +93,10 @@ const Header: FC<Props> = ({ className }) => {
           <div className="md:w-[330px]">
             <Link href="/" className="block md:invisible">
               <img
-                src={`${STATIC_ASSETS}/images/brand/lenstube.svg`}
+                src={`${STATIC_ASSETS}/brand/logo.svg`}
                 draggable={false}
                 className="h-5 w-5"
-                alt="lenstube"
+                alt={TAPE_APP_NAME}
               />
             </Link>
           </div>

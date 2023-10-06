@@ -2,9 +2,9 @@ import HeartOutline from '@components/Common/Icons/HeartOutline'
 import ReportModal from '@components/Common/VideoCard/ReportModal'
 import ShareModal from '@components/Common/VideoCard/ShareModal'
 import VideoOptions from '@components/Common/VideoCard/VideoOptions'
-import { Analytics, TRACK } from '@lenstube/browser'
-import type { Publication } from '@lenstube/lens'
 import { Trans } from '@lingui/macro'
+import { Analytics, TRACK } from '@tape.xyz/browser'
+import type { Publication } from '@tape.xyz/lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 
@@ -29,14 +29,14 @@ const VideoActions: FC<Props> = ({ video }) => {
         setShowReport={setShowReport}
         video={video}
       />
-      <div className="rounded-full bg-indigo-100/50 px-4 py-1 backdrop-blur-xl dark:bg-indigo-900/30">
+      <div className="bg-brand-100/50 dark:bg-brand-900/30 rounded-full px-4 py-1 backdrop-blur-xl">
         <PublicationReaction
           publication={video}
           textSize="base"
           iconSize="base"
         />
       </div>
-      <div className="flex items-center rounded-full bg-indigo-100/50 px-4 py-1 backdrop-blur-xl dark:bg-indigo-900/30">
+      <div className="bg-brand-100/50 dark:bg-brand-900/30 flex items-center rounded-full px-4 py-1 backdrop-blur-xl">
         <button
           className="focus:outline-none"
           onClick={() => {
@@ -52,7 +52,7 @@ const VideoActions: FC<Props> = ({ video }) => {
           </span>
         </button>
       </div>
-      <div className="rounded-full bg-indigo-100/50 px-3 py-1.5 backdrop-blur-xl dark:bg-indigo-900/30">
+      <div className="bg-brand-100/50 dark:bg-brand-900/30 rounded-full px-3 py-1.5 backdrop-blur-xl">
         <VideoOptions
           video={video}
           setShowShare={setShowShare}

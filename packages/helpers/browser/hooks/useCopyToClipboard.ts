@@ -1,4 +1,4 @@
-import { logger } from '@lenstube/generic'
+import { logger } from '@tape.xyz/generic'
 import { useState } from 'react'
 
 type CopiedValue = string | null

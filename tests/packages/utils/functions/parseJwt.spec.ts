@@ -1,4 +1,4 @@
-import { parseJwt } from '@lenstube/generic'
+import { parseJwt } from '@tape.xyz/generic'
 import { expect, test } from '@playwright/test'
 
 test('parseJwt', () => {

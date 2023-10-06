@@ -1,5 +1,5 @@
-import { sanitizeDStorageUrl } from '@lenstube/generic'
-import type { MediaSet } from '@lenstube/lens'
+import { sanitizeDStorageUrl } from '@tape.xyz/generic'
+import type { MediaSet } from '@tape.xyz/lens'
 import type { FC } from 'react'
 import React from 'react'
 

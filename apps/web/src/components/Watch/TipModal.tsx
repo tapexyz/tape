@@ -6,22 +6,27 @@ import Modal from '@components/UIElements/Modal'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import { Analytics, getUserLocale, TRACK } from '@lenstube/browser'
+import useAuthPersistStore from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
+import usePersistStore from '@lib/store/persist'
+import { t, Trans } from '@lingui/macro'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
+import { Analytics, getUserLocale, TRACK } from '@tape.xyz/browser'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
-  LENSTUBE_APP_ID,
-  LENSTUBE_WEBSITE_URL,
   REQUESTING_SIGNATURE_MESSAGE,
-  STATIC_ASSETS
-} from '@lenstube/constants'
-import { getSignature, imageCdn, logger, uploadToAr } from '@lenstube/generic'
+  STATIC_ASSETS,
+  TAPE_APP_ID,
+  TAPE_WEBSITE_URL
+} from '@tape.xyz/constants'
+import { getSignature, imageCdn, logger, uploadToAr } from '@tape.xyz/generic'
 import type {
   CreateCommentBroadcastItemResult,
   CreateDataAvailabilityCommentRequest,
   CreatePublicCommentRequest,
   Publication
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 import {
   PublicationDetailsDocument,
   PublicationMainFocus,
@@ -33,14 +38,9 @@ import {
   useCreateDataAvailabilityCommentTypedDataMutation,
   useCreateDataAvailabilityCommentViaDispatcherMutation,
   usePublicationDetailsLazyQuery
-} from '@lenstube/lens'
-import { useApolloClient } from '@lenstube/lens/apollo'
-import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
-import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
-import usePersistStore from '@lib/store/persist'
-import { t, Trans } from '@lingui/macro'
-import { useConnectModal } from '@rainbow-me/rainbowkit'
+} from '@tape.xyz/lens'
+import { useApolloClient } from '@tape.xyz/lens/apollo'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -328,7 +328,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
         content: getValues('message'),
         locale: getUserLocale(),
         mainContentFocus: PublicationMainFocus.TextOnly,
-        external_url: `${LENSTUBE_WEBSITE_URL}/watch/${video?.id}`,
+        external_url: `${TAPE_WEBSITE_URL}/watch/${video?.id}`,
         image: null,
         imageMimeType: null,
         name: `${activeChannel?.handle}'s comment on video ${video.metadata.name}`,
@@ -336,7 +336,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
           {
             displayType: PublicationMetadataDisplayTypes.String,
             traitType: 'app',
-            value: LENSTUBE_APP_ID
+            value: TAPE_APP_ID
           },
           {
             displayType: PublicationMetadataDisplayTypes.String,
@@ -350,7 +350,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
           }
         ],
         media: [],
-        appId: LENSTUBE_APP_ID
+        appId: TAPE_APP_ID
       })
 
       const dataAvailablityRequest = {
@@ -456,7 +456,7 @@ const TipModal: FC<Props> = ({ show, setShowTip, video }) => {
             {...register('message')}
             placeholder="Say something nice"
             autoComplete="off"
-            className="w-full rounded-xl border border-gray-200 bg-white p-2 text-sm outline-none focus:ring-1 focus:ring-indigo-500 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-800 dark:bg-gray-900"
+            className="focus:ring-brand-500 w-full rounded-xl border border-gray-200 bg-white p-2 text-sm outline-none focus:ring-1 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-800 dark:bg-gray-900"
             rows={3}
           />
           <div className="mx-1 mt-1 text-[11px] opacity-50">

@@ -1,10 +1,10 @@
+import { Trans } from '@lingui/macro'
 import {
   formatNumber,
   getProfilePicture,
   trimLensHandle
-} from '@lenstube/generic'
-import type { Profile } from '@lenstube/lens'
-import { Trans } from '@lingui/macro'
+} from '@tape.xyz/generic'
+import type { Profile } from '@tape.xyz/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'

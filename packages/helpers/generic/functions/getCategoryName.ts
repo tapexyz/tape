@@ -1,4 +1,4 @@
-import { CREATOR_VIDEO_CATEGORIES } from '@lenstube/constants'
+import { CREATOR_VIDEO_CATEGORIES } from '@tape.xyz/constants'
 
 export const getCategoryName = (tag: string) => {
   if (!tag) {

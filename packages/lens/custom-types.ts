@@ -1,4 +1,4 @@
-import type { WebBundlr } from '@bundlr-network/client'
+import type { WebIrys } from '@irys/sdk'
 import type {
   AaveFeeCollectModuleSettings,
   Attribute,
@@ -12,7 +12,7 @@ import type {
   RevertCollectModuleSettings,
   SimpleCollectModuleSettings,
   TimedFeeCollectModuleSettings
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 
 export type VideoDraft = {
   preview: string
@@ -20,8 +20,8 @@ export type VideoDraft = {
   description: string
 }
 
-export type BundlrDataState = {
-  instance: WebBundlr | null
+export type IrysDataState = {
+  instance: WebIrys | null
   balance: string
   estimatedPrice: string
   deposit: string | null
@@ -111,7 +111,7 @@ type MultiRecipientFeeCollectModuleSettings =
     optionalCollectLimit?: string
   }
 
-export type LenstubeCollectModule = FreeCollectModuleSettings &
+export type CustomCollectModule = FreeCollectModuleSettings &
   FeeCollectModuleSettings &
   RevertCollectModuleSettings &
   TimedFeeCollectModuleSettings &

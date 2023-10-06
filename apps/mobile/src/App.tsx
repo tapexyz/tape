@@ -3,18 +3,18 @@ import 'react-native-reanimated'
 import 'react-native-gesture-handler'
 
 import {
-  LENSTUBE_APP_DESCRIPTION,
-  LENSTUBE_APP_NAME,
-  LENSTUBE_WEBSITE_URL,
-  LIVEPEER_STUDIO_API_KEY,
-  WC_PROJECT_ID
-} from '@lenstube/constants'
-import { apolloClient, ApolloProvider } from '@lenstube/lens/apollo'
-import {
   createReactClient,
   LivepeerConfig,
   studioProvider
 } from '@livepeer/react-native'
+import {
+  LIVEPEER_STUDIO_API_KEY,
+  TAPE_APP_DESCRIPTION,
+  TAPE_APP_NAME,
+  TAPE_WEBSITE_URL,
+  WC_PROJECT_ID
+} from '@tape.xyz/constants'
+import { apolloClient, ApolloProvider } from '@tape.xyz/lens/apollo'
 import { WalletConnectModal } from '@walletconnect/modal-react-native'
 import React from 'react'
 import { StyleSheet } from 'react-native'
@@ -34,13 +34,13 @@ const styles = StyleSheet.create({
 })
 
 const providerMetadata = {
-  name: LENSTUBE_APP_NAME,
-  description: LENSTUBE_APP_DESCRIPTION,
-  url: LENSTUBE_WEBSITE_URL,
-  icons: ['https://static.lenstube.xyz/images/brand/lenstube.svg'],
+  name: TAPE_APP_NAME,
+  description: TAPE_APP_DESCRIPTION,
+  url: TAPE_WEBSITE_URL,
+  icons: ['https://static.lenstube.xyz/brand/logo.svg'],
   redirect: {
-    native: 'lenstube://',
-    universal: 'lenstube.xyz'
+    native: 'tape://',
+    universal: 'tape.xyz'
   }
 }
 

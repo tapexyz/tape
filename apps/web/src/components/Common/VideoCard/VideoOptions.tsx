@@ -3,24 +3,28 @@ import Confirm from '@components/UIElements/Confirm'
 import DropMenu from '@components/UIElements/DropMenu'
 import { Menu } from '@headlessui/react'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import { Analytics, TRACK } from '@lenstube/browser'
+import useAuthPersistStore from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
+import { Analytics, TRACK } from '@tape.xyz/browser'
 import {
   ERROR_MESSAGE,
   LENS_PERIPHERY_ADDRESS,
-  LENSTUBE_APP_ID,
-  REQUESTING_SIGNATURE_MESSAGE
-} from '@lenstube/constants'
+  REQUESTING_SIGNATURE_MESSAGE,
+  TAPE_APP_ID
+} from '@tape.xyz/constants'
 import {
   getChannelCoverPicture,
   getSignature,
   getValueFromKeyInAttributes,
   uploadToAr
-} from '@lenstube/generic'
+} from '@tape.xyz/generic'
 import type {
   Attribute,
   CreatePublicSetProfileMetadataUriRequest,
   Publication
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 import {
   PublicationMetadataDisplayTypes,
   useAddPublicationNotInterestedMutation,
@@ -31,13 +35,9 @@ import {
   useHidePublicationMutation,
   useRemovePublicationFromBookmarkMutation,
   useRemovePublicationNotInterestedMutation
-} from '@lenstube/lens'
-import { useApolloClient } from '@lenstube/lens/apollo'
-import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
-import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
-import { t, Trans } from '@lingui/macro'
-import { useConnectModal } from '@rainbow-me/rainbowkit'
+} from '@tape.xyz/lens'
+import { useApolloClient } from '@tape.xyz/lens/apollo'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React, { useState } from 'react'
@@ -225,7 +225,7 @@ const VideoOptions: FC<Props> = ({
             displayType: PublicationMetadataDisplayTypes.String,
             traitType: 'app',
             key: 'app',
-            value: LENSTUBE_APP_ID
+            value: TAPE_APP_ID
           }
         ]
       })

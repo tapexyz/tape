@@ -1,8 +1,9 @@
 import {
-  LENSTUBE_APP_NAME,
-  LENSTUBE_WEBSITE_URL,
-  OG_IMAGE
-} from '@lenstube/constants'
+  OG_IMAGE,
+  TAPE_APP_DESCRIPTION,
+  TAPE_APP_NAME,
+  TAPE_WEBSITE_URL
+} from '@tape.xyz/constants'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
@@ -20,10 +21,8 @@ const MetaTags: FC<Props> = (props) => {
   const router = useRouter()
 
   const meta = {
-    title: `${title} • Lenstube` ?? LENSTUBE_APP_NAME,
-    description:
-      description ??
-      'Lenstube is a decentralized video-sharing social media platform built with Lens protocol.',
+    title: title ?? TAPE_APP_NAME,
+    description: description ?? TAPE_APP_DESCRIPTION,
     image: image ?? OG_IMAGE,
     type: 'video.other',
     videoUrl
@@ -40,7 +39,7 @@ const MetaTags: FC<Props> = (props) => {
       />
       <link
         rel="canonical"
-        href={`${LENSTUBE_WEBSITE_URL}/watch${router.asPath}`}
+        href={`${TAPE_WEBSITE_URL}/watch${router.asPath}`}
       />
     </Head>
   )

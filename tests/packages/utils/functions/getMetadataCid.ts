@@ -1,5 +1,5 @@
-import { getMetadataCid } from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
+import { getMetadataCid } from '@tape.xyz/generic'
+import type { Publication } from '@tape.xyz/lens'
 import { expect, test } from '@playwright/test'
 
 test('getMetadataCid', async () => {

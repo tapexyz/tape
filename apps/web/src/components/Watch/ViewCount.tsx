@@ -1,5 +1,5 @@
-import { useVideoViews } from '@lenstube/generic'
 import { Trans } from '@lingui/macro'
+import { useVideoViews } from '@tape.xyz/generic'
 import React from 'react'
 
 const ViewCount = ({ cid }: { cid: string }) => {

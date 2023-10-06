@@ -2,22 +2,22 @@ import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
 import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import MetaTags from '@components/Common/MetaTags'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { Analytics, TRACK } from '@lenstube/browser'
+import useAuthPersistStore from '@lib/store/auth'
+import { t } from '@lingui/macro'
+import { Analytics, TRACK } from '@tape.xyz/browser'
 import {
   LENS_CUSTOM_FILTERS,
   LENSTUBE_BYTES_APP_ID,
   SCROLL_ROOT_MARGIN
-} from '@lenstube/constants'
-import type { Publication } from '@lenstube/lens'
+} from '@tape.xyz/constants'
+import type { Publication } from '@tape.xyz/lens'
 import {
   PublicationSortCriteria,
   PublicationTypes,
   useExploreLazyQuery,
   usePublicationDetailsLazyQuery
-} from '@lenstube/lens'
-import { Loader } from '@lenstube/ui'
-import useAuthPersistStore from '@lib/store/auth'
-import { t } from '@lingui/macro'
+} from '@tape.xyz/lens'
+import { Loader } from '@tape.xyz/ui'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect, useRef, useState } from 'react'

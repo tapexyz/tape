@@ -1,19 +1,19 @@
 import { Button } from '@components/UIElements/Button'
 import Modal from '@components/UIElements/Modal'
-import { Analytics, TRACK } from '@lenstube/browser'
-import { ERROR_MESSAGE, POLYGON_CHAIN_ID } from '@lenstube/constants'
-import { logger } from '@lenstube/generic'
-import type { Profile } from '@lenstube/lens'
-import {
-  useAuthenticateMutation,
-  useChallengeLazyQuery,
-  useSimpleProfilesLazyQuery
-} from '@lenstube/lens'
-import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAuthPersistStore, { signIn, signOut } from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import useNetworkStore from '@lib/store/network'
 import { t, Trans } from '@lingui/macro'
+import { Analytics, TRACK } from '@tape.xyz/browser'
+import { ERROR_MESSAGE, POLYGON_CHAIN_ID } from '@tape.xyz/constants'
+import { logger } from '@tape.xyz/generic'
+import type { Profile } from '@tape.xyz/lens'
+import {
+  useAuthenticateMutation,
+  useChallengeLazyQuery,
+  useSimpleProfilesLazyQuery
+} from '@tape.xyz/lens'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { useRouter } from 'next/router'
 import React, { useCallback, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'

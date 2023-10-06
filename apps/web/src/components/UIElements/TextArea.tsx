@@ -27,7 +27,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, Props>(
             className={clsx(
               validationError?.length
                 ? '!border-red-500'
-                : 'focus:ring-1 focus:ring-indigo-500',
+                : 'focus:ring-brand-500 focus:ring-1',
               'w-full rounded-xl border border-gray-300 bg-white px-2.5 py-2 text-sm outline-none disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700 dark:bg-gray-900',
               className
             )}

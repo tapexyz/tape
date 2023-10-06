@@ -1,6 +1,6 @@
 import MetaTags from '@components/Common/MetaTags'
-import { Analytics, TRACK } from '@lenstube/browser'
 import { t } from '@lingui/macro'
+import { Analytics, TRACK } from '@tape.xyz/browser'
 import React, { useEffect } from 'react'
 
 import ExploreFeed from './Feed'

@@ -1,15 +1,15 @@
 import DropMenu, { NextLink } from '@components/UIElements/DropMenu'
 import { Menu } from '@headlessui/react'
-import { Analytics, TRACK } from '@lenstube/browser'
-import { ADMIN_IDS, IS_MAINNET } from '@lenstube/constants'
-import { getProfilePicture, trimLensHandle } from '@lenstube/generic'
-import type { Profile } from '@lenstube/lens'
-import { useSimpleProfilesLazyQuery } from '@lenstube/lens'
-import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
-import { Loader } from '@lenstube/ui'
 import useAuthPersistStore, { signOut } from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
+import { Analytics, TRACK } from '@tape.xyz/browser'
+import { ADMIN_IDS, IS_MAINNET } from '@tape.xyz/constants'
+import { getProfilePicture, trimLensHandle } from '@tape.xyz/generic'
+import type { Profile } from '@tape.xyz/lens'
+import { useSimpleProfilesLazyQuery } from '@tape.xyz/lens'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+import { Loader } from '@tape.xyz/ui'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import React, { useState } from 'react'
@@ -102,7 +102,7 @@ const UserMenu = () => {
           className="btn-primary flex-none ring-gray-200 hover:ring-4 dark:ring-gray-800"
         >
           <img
-            className="dark:bg-theme h-8 w-8 rounded-full bg-white object-cover md:h-9 md:w-9"
+            className="h-8 w-8 rounded-full bg-white object-cover dark:bg-black md:h-9 md:w-9"
             src={getProfilePicture(selectedSimpleProfile as Profile)}
             alt={selectedSimpleProfile?.handle}
             draggable={false}
@@ -111,7 +111,7 @@ const UserMenu = () => {
       }
     >
       <div className="mt-2 w-56 overflow-hidden rounded-xl border bg-gray-100 shadow dark:border-gray-800 dark:bg-black">
-        <div className="dark:bg-theme m-1.5 overflow-hidden rounded-xl bg-white">
+        <div className="m-1.5 overflow-hidden rounded-xl bg-white dark:bg-black">
           {showAccountSwitcher ? (
             <>
               <button

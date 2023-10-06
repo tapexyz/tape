@@ -2,7 +2,7 @@ import JoinChannel from '@components/Channel/BasicInfo/JoinChannel'
 import Subscribe from '@components/Channel/BasicInfo/Subscribe'
 import UnSubscribe from '@components/Channel/BasicInfo/UnSubscribe'
 import type { ButtonSizes, ButtonVariants } from '@components/UIElements/Button'
-import type { Profile } from '@lenstube/lens'
+import type { Profile } from '@tape.xyz/lens'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 

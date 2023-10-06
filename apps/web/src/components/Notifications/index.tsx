@@ -8,22 +8,22 @@ import MetaTags from '@components/Common/MetaTags'
 import NotificationsShimmer from '@components/Shimmers/NotificationsShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { Tab } from '@headlessui/react'
-import { Analytics, TRACK } from '@lenstube/browser'
-import {
-  IS_MAINNET,
-  LENS_CUSTOM_FILTERS,
-  LENSTUBE_APP_ID,
-  LENSTUBE_BYTES_APP_ID,
-  SCROLL_ROOT_MARGIN
-} from '@lenstube/constants'
-import type { Notification } from '@lenstube/lens'
-import { NotificationTypes, useNotificationsQuery } from '@lenstube/lens'
-import { CustomNotificationsFilterEnum } from '@lenstube/lens/custom-types'
-import { Loader } from '@lenstube/ui'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'
+import { Analytics, TRACK } from '@tape.xyz/browser'
+import {
+  IS_MAINNET,
+  LENS_CUSTOM_FILTERS,
+  LENSTUBE_BYTES_APP_ID,
+  SCROLL_ROOT_MARGIN,
+  TAPE_APP_ID
+} from '@tape.xyz/constants'
+import type { Notification } from '@tape.xyz/lens'
+import { NotificationTypes, useNotificationsQuery } from '@tape.xyz/lens'
+import { CustomNotificationsFilterEnum } from '@tape.xyz/lens/custom-types'
+import { Loader } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
@@ -92,7 +92,7 @@ const Notifications = () => {
     sources: activeFilter.subscriptions
       ? undefined
       : IS_MAINNET
-      ? [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID]
+      ? [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID]
       : undefined,
     customFilters: LENS_CUSTOM_FILTERS,
     profileId: selectedSimpleProfile?.id,
@@ -142,7 +142,7 @@ const Notifications = () => {
                 clsx(
                   'flex items-center space-x-2 border-b-2 px-1 py-2 text-sm focus:outline-none',
                   selected
-                    ? 'border-indigo-900 opacity-100'
+                    ? 'border-brand-900 opacity-100'
                     : 'border-transparent opacity-50'
                 )
               }
@@ -163,7 +163,7 @@ const Notifications = () => {
                 clsx(
                   'flex items-center space-x-2 border-b-2 px-1 py-2 text-sm focus:outline-none',
                   selected
-                    ? 'border-indigo-900 opacity-100'
+                    ? 'border-brand-900 opacity-100'
                     : 'border-transparent opacity-50'
                 )
               }
@@ -184,7 +184,7 @@ const Notifications = () => {
                 clsx(
                   'flex items-center space-x-2 whitespace-nowrap border-b-2 py-2 text-sm focus:outline-none',
                   selected
-                    ? 'border-indigo-900 opacity-100'
+                    ? 'border-brand-900 opacity-100'
                     : 'border-transparent opacity-50'
                 )
               }
@@ -205,7 +205,7 @@ const Notifications = () => {
                 clsx(
                   'flex items-center space-x-2 border-b-2 px-1 py-2 text-sm focus:outline-none',
                   selected
-                    ? 'border-indigo-900 opacity-100'
+                    ? 'border-brand-900 opacity-100'
                     : 'border-transparent opacity-50'
                 )
               }
@@ -226,7 +226,7 @@ const Notifications = () => {
                 clsx(
                   'flex items-center space-x-2 border-b-2 px-1 py-2 text-sm focus:outline-none',
                   selected
-                    ? 'border-indigo-900 opacity-100'
+                    ? 'border-brand-900 opacity-100'
                     : 'border-transparent opacity-50'
                 )
               }
@@ -247,7 +247,7 @@ const Notifications = () => {
                 clsx(
                   'flex items-center space-x-2 border-b-2 px-1 py-2 text-sm focus:outline-none',
                   selected
-                    ? 'border-indigo-900 opacity-100'
+                    ? 'border-brand-900 opacity-100'
                     : 'border-transparent opacity-50'
                 )
               }

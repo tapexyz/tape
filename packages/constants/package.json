@@ -1,5 +1,5 @@
 {
-  "name": "@lenstube/constants",
+  "name": "@tape.xyz/constants",
   "version": "0.0.0",
   "private": true,
   "license": "AGPL-3.0",
@@ -9,8 +9,8 @@
     "typecheck": "tsc --pretty"
   },
   "devDependencies": {
-    "@lenstube/config": "*",
-    "@lenstube/lens": "*",
+    "@tape.xyz/config": "*",
+    "@tape.xyz/lens": "*",
     "@types/node": "^20.8.2",
     "typescript": "^5.2.2"
   }

@@ -30,15 +30,15 @@ msgstr ""
 msgid "Access permissions"
 msgstr "Access permissions"
 
-#: src/components/Home/DispatcherAlert.tsx:39
+#: src/components/Home/DispatcherAlert.tsx:36
 msgid "Action Required"
 msgstr "Action Required"
 
-#: src/components/Upload/CollectModule/Splits.tsx:205
+#: src/components/Upload/CollectModule/Splits.tsx:206
 msgid "Add Donation"
 msgstr "Add Donation"
 
-#: src/components/Upload/CollectModule/Splits.tsx:190
+#: src/components/Upload/CollectModule/Splits.tsx:191
 msgid "Add recipient"
 msgstr "Add recipient"
 
@@ -80,7 +80,7 @@ msgstr "Amount"
 msgid "Amount should be greater than 0"
 msgstr "Amount should be greater than 0"
 
-#: src/components/Upload/BundlrInfo.tsx:215
+#: src/components/Upload/IrysInfo.tsx:210
 msgid "Amount to deposit (MATIC)"
 msgstr "Amount to deposit (MATIC)"
 
@@ -130,7 +130,7 @@ msgstr "can collect"
 msgid "can collect this publication"
 msgstr "can collect this publication"
 
-#: src/components/Common/CreateChannel.tsx:175
+#: src/components/Common/CreateChannel.tsx:177
 #: src/components/Settings/Membership.tsx:294
 #: src/components/UIElements/Confirm.tsx:31
 msgid "Cancel"
@@ -156,7 +156,7 @@ msgstr "Channel"
 msgid "Channel deleted"
 msgstr "Channel deleted"
 
-#: src/components/Settings/BasicInfo.tsx:367
+#: src/components/Settings/BasicInfo.tsx:365
 msgid "Channel Description"
 msgstr "Channel Description"
 
@@ -313,7 +313,7 @@ msgstr "Connect Wallet & Sign with Lens to continue,"
 msgid "Connected as"
 msgstr "Connected as"
 
-#: src/components/Home/GitcoinAlert.tsx:30
+#: src/components/Home/GitcoinAlert.tsx:31
 msgid "Contribute Now"
 msgstr "Contribute Now"
 
@@ -323,7 +323,7 @@ msgstr "Copied to clipboard"
 
 #: src/components/Common/CreateChannel.tsx:63
 #: src/components/Common/CreateChannel.tsx:86
-#: src/components/Common/Header.tsx:138
+#: src/components/Common/Header.tsx:137
 msgid "Create"
 msgstr "Create"
 
@@ -357,8 +357,8 @@ msgstr "degrees away from my network"
 msgid "Delete"
 msgstr "Delete"
 
-#: src/components/Upload/BundlrInfo.tsx:194
-#: src/components/Upload/BundlrInfo.tsx:235
+#: src/components/Upload/IrysInfo.tsx:189
+#: src/components/Upload/IrysInfo.tsx:230
 msgid "Deposit"
 msgstr "Deposit"
 
@@ -388,6 +388,10 @@ msgstr "Disable"
 msgid "disabled"
 msgstr "disabled"
 
+#: src/components/Home/WelcomeAlert.tsx:22
+msgid "Discover a new era of content sharing on Lens with Tape. A decentralized, user-centric approach to online media."
+msgstr ""
+
 #: src/components/Watch/PublicationReaction.tsx:195
 msgid "Dislike"
 msgstr "Dislike"
@@ -400,11 +404,11 @@ msgstr "dislisked"
 msgid "dispatcher"
 msgstr "dispatcher"
 
-#: src/components/Settings/Permissions/Dispatcher/index.tsx:28
+#: src/components/Settings/Permissions/Dispatcher/index.tsx:25
 msgid "Dispatcher"
 msgstr "Dispatcher"
 
-#: src/components/Settings/BasicInfo.tsx:358
+#: src/components/Settings/BasicInfo.tsx:356
 msgid "Display Name"
 msgstr "Display Name"
 
@@ -433,7 +437,7 @@ msgstr "enabled"
 msgid "Ends At"
 msgstr "Ends At"
 
-#: src/components/Upload/BundlrInfo.tsx:98
+#: src/components/Upload/IrysInfo.tsx:95
 msgid "Enter deposit amount"
 msgstr "Enter deposit amount"
 
@@ -446,7 +450,7 @@ msgstr "Enter valid comment"
 msgid "Error uploading file"
 msgstr "Error uploading file"
 
-#: src/components/Upload/BundlrInfo.tsx:242
+#: src/components/Upload/IrysInfo.tsx:237
 msgid "Estimated Cost to Upload"
 msgstr "Estimated Cost to Upload"
 
@@ -461,7 +465,7 @@ msgstr ""
 msgid "Explore"
 msgstr "Explore"
 
-#: src/components/Upload/BundlrInfo.tsx:146
+#: src/components/Upload/IrysInfo.tsx:141
 msgid "Failed to deposit storage balance"
 msgstr "Failed to deposit storage balance"
 
@@ -469,7 +473,7 @@ msgstr "Failed to deposit storage balance"
 msgid "Failed to upload thumbnail"
 msgstr "Failed to upload thumbnail"
 
-#: src/components/Upload/UploadSteps.tsx:525
+#: src/components/Upload/UploadSteps.tsx:521
 msgid "Failed to upload video to Arweave"
 msgstr "Failed to upload video to Arweave"
 
@@ -497,11 +501,11 @@ msgstr "for given fees"
 #~ msgid "Get Verified"
 #~ msgstr ""
 
-#: src/components/Home/GitcoinAlert.tsx:17
+#: src/components/Home/GitcoinAlert.tsx:18
 msgid "GG18 is Live"
 msgstr "GG18 is Live"
 
-#: src/components/Home/GitcoinAlert.tsx:24
+#: src/components/Home/GitcoinAlert.tsx:25
 msgid "Gitcoin Grants"
 msgstr "Gitcoin Grants"
 
@@ -520,7 +524,7 @@ msgstr "High signal"
 #: src/components/Common/MobileBottomNav.tsx:30
 #: src/components/Common/Sidebar.tsx:63
 #: src/components/Common/Sidebar.tsx:82
-#: src/components/Home/index.tsx:25
+#: src/components/Home/index.tsx:26
 msgid "Home"
 msgstr "Home"
 
@@ -548,7 +552,7 @@ msgstr "Indexing..."
 #~ msgid "Insufficient balance"
 #~ msgstr ""
 
-#: src/components/Upload/UploadSteps.tsx:472
+#: src/components/Upload/UploadSteps.tsx:468
 msgid "Insufficient storage balance"
 msgstr "Insufficient storage balance"
 
@@ -556,7 +560,7 @@ msgstr "Insufficient storage balance"
 msgid "Interesting"
 msgstr "Interesting"
 
-#: src/components/Settings/ProfileInterests/index.tsx:11
+#: src/components/Settings/ProfileInterests/index.tsx:12
 #: src/components/Settings/SideNav.tsx:88
 msgid "Interests"
 msgstr "Interests"
@@ -569,7 +573,7 @@ msgstr "Invalid amount"
 msgid "Invalid collect limit"
 msgstr "Invalid collect limit"
 
-#: src/components/Upload/BundlrInfo.tsx:103
+#: src/components/Upload/IrysInfo.tsx:100
 msgid "Invalid deposit amount"
 msgstr "Invalid deposit amount"
 
@@ -581,7 +585,7 @@ msgstr "Invalid deposit amount"
 msgid "Invalid split recipient address"
 msgstr "Invalid split recipient address"
 
-#: src/components/Upload/UploadSteps.tsx:448
+#: src/components/Upload/UploadSteps.tsx:446
 msgid "IPFS Upload failed"
 msgstr "IPFS Upload failed"
 
@@ -599,8 +603,8 @@ msgid "lens claiming site"
 msgstr "lens claiming site"
 
 #: src/components/Mod/index.tsx:46
-msgid "Lenstube Stats"
-msgstr "Lenstube Stats"
+#~ msgid "Lenstube Stats"
+#~ msgstr "Lenstube Stats"
 
 #: src/components/Watch/PublicationReaction.tsx:161
 msgid "Like"
@@ -621,7 +625,7 @@ msgstr "likes"
 msgid "Likes"
 msgstr "Likes"
 
-#: src/components/Upload/CollectModule/LimitDurationQuestion.tsx:65
+#: src/components/Upload/CollectModule/LimitDurationQuestion.tsx:64
 msgid "Limit to 24 hours sale"
 msgstr "Limit to 24 hours sale"
 
@@ -633,7 +637,7 @@ msgstr "Limited collect"
 msgid "Links"
 msgstr ""
 
-#: src/components/Settings/BasicInfo.tsx:409
+#: src/components/Settings/BasicInfo.tsx:407
 msgid "Location"
 msgstr "Location"
 
@@ -712,7 +716,7 @@ msgstr "Misuse Hashtags"
 msgid "Momoka is currently in beta - during this time certain actions are not available to all channels."
 msgstr "Momoka is currently in beta - during this time certain actions are not available to all channels."
 
-#: src/components/Settings/BasicInfo.tsx:368
+#: src/components/Settings/BasicInfo.tsx:366
 msgid "More about your channel"
 msgstr "More about your channel"
 
@@ -720,11 +724,11 @@ msgstr "More about your channel"
 #~ msgid "My Saved List"
 #~ msgstr ""
 
-#: src/components/Common/Header.tsx:151
+#: src/components/Common/Header.tsx:150
 msgid "New Upload"
 msgstr ""
 
-#: src/components/Common/Header.tsx:173
+#: src/components/Common/Header.tsx:172
 msgid "New video"
 msgstr ""
 
@@ -916,7 +920,7 @@ msgstr "Popular"
 msgid "Post Video"
 msgstr "Post Video"
 
-#: src/components/Upload/UploadSteps.tsx:387
+#: src/components/Upload/UploadSteps.tsx:385
 msgid "Posting video"
 msgstr "Posting video"
 
@@ -932,19 +936,19 @@ msgstr "Price of each collect"
 msgid "Privacy"
 msgstr "Privacy"
 
-#: src/pages/privacy.tsx:13
+#: src/pages/privacy.tsx:14
 msgid "Privacy policy"
 msgstr "Privacy policy"
 
-#: src/pages/privacy.tsx:9
+#: src/pages/privacy.tsx:10
 msgid "Privacy Policy"
 msgstr "Privacy Policy"
 
-#: src/components/Channel/BasicInfo/index.tsx:166
+#: src/components/Channel/BasicInfo/index.tsx:159
 msgid "Proof of Humanity"
 msgstr "Proof of Humanity"
 
-#: src/components/Channel/BasicInfo/index.tsx:176
+#: src/components/Channel/BasicInfo/index.tsx:169
 msgid "Proof of Personhood"
 msgstr "Proof of Personhood"
 
@@ -1023,11 +1027,11 @@ msgstr "Revenue"
 msgid "Revoke"
 msgstr "Revoke"
 
-#: src/components/Home/GitcoinAlert.tsx:26
+#: src/components/Home/GitcoinAlert.tsx:27
 msgid "Round 18"
 msgstr "Round 18"
 
-#: src/components/Settings/BasicInfo.tsx:417
+#: src/components/Settings/BasicInfo.tsx:415
 msgid "Save"
 msgstr "Save"
 
@@ -1044,7 +1048,7 @@ msgstr "Saved Videos"
 msgid "Scam"
 msgstr "Scam"
 
-#: src/components/Common/Header.tsx:187
+#: src/components/Common/Header.tsx:186
 msgid "Search"
 msgstr "Search"
 
@@ -1090,7 +1094,7 @@ msgstr ""
 #~ msgid "Share Collect"
 #~ msgstr ""
 
-#: src/components/Common/Header.tsx:161
+#: src/components/Common/Header.tsx:160
 msgid "Share Drop"
 msgstr ""
 
@@ -1152,13 +1156,17 @@ msgstr "Something Else"
 msgid "Split addresses should be unique"
 msgstr "Split addresses should be unique"
 
-#: src/components/Upload/CollectModule/Splits.tsx:216
+#: src/components/Upload/CollectModule/Splits.tsx:217
 msgid "Split evenly"
 msgstr "Split evenly"
 
-#: src/components/Upload/CollectModule/Splits.tsx:123
+#: src/components/Upload/CollectModule/Splits.tsx:124
 msgid "Split revenue"
 msgstr "Split revenue"
+
+#: src/components/Mod/index.tsx:46
+msgid "Stats"
+msgstr ""
 
 #: src/components/Common/Footer.tsx:40
 msgid "Status"
@@ -1184,18 +1192,18 @@ msgstr "subscribed"
 msgid "Subscribed"
 msgstr ""
 
-#: src/components/Channel/BasicInfo/index.tsx:119
+#: src/components/Channel/BasicInfo/index.tsx:112
 msgid "Subscriber"
 msgstr "Subscriber"
 
-#: src/components/Channel/BasicInfo/index.tsx:113
+#: src/components/Channel/BasicInfo/index.tsx:106
 #: src/components/Channel/Tabs/OtherChannelCard.tsx:40
 #: src/components/UIElements/ChannelSuggestions.tsx:39
 #: src/components/Watch/AboutChannel.tsx:69
 msgid "subscribers"
 msgstr "subscribers"
 
-#: src/components/Channel/BasicInfo/index.tsx:97
+#: src/components/Channel/BasicInfo/index.tsx:90
 #: src/components/Upload/CollectModule/index.tsx:51
 #: src/components/Upload/CollectModule/PermissionQuestion.tsx:68
 #: src/components/Watch/CollectVideo/CollectModal.tsx:321
@@ -1217,9 +1225,13 @@ msgstr "Sum of all splits should be 100%"
 #~ msgid "Support {LENSTUBE_APP_NAME} on <0>Gitcoin Grants</0> Round 18"
 #~ msgstr ""
 
+#: src/components/Home/GitcoinAlert.tsx:23
+#~ msgid "Support {TAPE_APP_NAME} on"
+#~ msgstr ""
+
 #: src/components/Home/GitcoinAlert.tsx:22
-msgid "Support Lenstube on"
-msgstr "Support Lenstube on"
+#~ msgid "Support Lenstube on"
+#~ msgstr "Support Lenstube on"
 
 #: src/components/Common/PostLinkModal.tsx:318
 #~ msgid "Supported now - Zora"
@@ -1253,7 +1265,7 @@ msgstr "Switch to Light"
 msgid "Switch to Polygon"
 msgstr ""
 
-#: src/components/Channel/BasicInfo/index.tsx:156
+#: src/components/Channel/BasicInfo/index.tsx:149
 msgid "Sybil Verified"
 msgstr "Sybil Verified"
 
@@ -1261,8 +1273,8 @@ msgstr "Sybil Verified"
 msgid "Terms"
 msgstr "Terms"
 
-#: src/pages/terms.tsx:9
-#: src/pages/terms.tsx:13
+#: src/pages/terms.tsx:10
+#: src/pages/terms.tsx:14
 msgid "Terms and Conditions"
 msgstr "Terms and Conditions"
 
@@ -1284,9 +1296,13 @@ msgstr "Thanks for supporting our community!"
 msgid "the channel"
 msgstr "the channel"
 
+#: src/components/Settings/ProfileInterests/index.tsx:15
+msgid "There is so much good content on {TAPE_APP_NAME}, it may be hard to find what's most relevant to you from time to time. That's where profile interests can help curate content the way you like."
+msgstr ""
+
 #: src/components/Settings/ProfileInterests/index.tsx:14
-msgid "There is so much good content on Lenstube, it may be hard to find what's most relevant to you from time to time. That's where profile interests can help curate content the way you like."
-msgstr "There is so much good content on Lenstube, it may be hard to find what's most relevant to you from time to time. That's where profile interests can help curate content the way you like."
+#~ msgid "There is so much good content on Lenstube, it may be hard to find what's most relevant to you from time to time. That's where profile interests can help curate content the way you like."
+#~ msgstr "There is so much good content on Lenstube, it may be hard to find what's most relevant to you from time to time. That's where profile interests can help curate content the way you like."
 
 #: src/components/Settings/Permissions/Modules/index.tsx:115
 msgid "These are the collect modules which you allowed / need to allow to use collect feature. You can allow and revoke access anytime."
@@ -1405,7 +1421,7 @@ msgstr "Undo Interest"
 msgid "Unlimited collects"
 msgstr "Unlimited collects"
 
-#: src/components/Upload/CollectModule/LimitDurationQuestion.tsx:43
+#: src/components/Upload/CollectModule/LimitDurationQuestion.tsx:42
 msgid "Unlimited duration"
 msgstr "Unlimited duration"
 
@@ -1429,8 +1445,8 @@ msgstr "Update"
 msgid "Upgrade"
 msgstr "Upgrade"
 
-#: src/components/Home/DispatcherAlert.tsx:22
-#: src/components/Settings/Permissions/Dispatcher/index.tsx:19
+#: src/components/Home/DispatcherAlert.tsx:19
+#: src/components/Settings/Permissions/Dispatcher/index.tsx:16
 msgid "Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions."
 msgstr "Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions."
 
@@ -1438,7 +1454,7 @@ msgstr "Upgrade your dispatcher to the latest version for better, faster, strong
 msgid "Upload"
 msgstr "Upload"
 
-#: src/components/Upload/BundlrInfo.tsx:45
+#: src/components/Upload/IrysInfo.tsx:45
 msgid "Upload cost estimation failed"
 msgstr "Upload cost estimation failed"
 
@@ -1463,11 +1479,11 @@ msgstr "Upload to IPFS"
 msgid "Uploading thumbnail"
 msgstr "Uploading thumbnail"
 
-#: src/components/Upload/UploadSteps.tsx:477
+#: src/components/Upload/UploadSteps.tsx:473
 msgid "Uploading to Arweave"
 msgstr "Uploading to Arweave"
 
-#: src/components/Upload/UploadSteps.tsx:440
+#: src/components/Upload/UploadSteps.tsx:438
 msgid "Uploading to IPFS"
 msgstr "Uploading to IPFS"
 
@@ -1502,7 +1518,7 @@ msgstr "Video format not supported"
 msgid "Video marked as not interested"
 msgstr "Video marked as not interested"
 
-#: src/components/Upload/UploadSteps.tsx:466
+#: src/components/Upload/UploadSteps.tsx:464
 msgid "Video not uploaded correctly"
 msgstr "Video not uploaded correctly"
 
@@ -1568,11 +1584,15 @@ msgstr "Wallet"
 msgid "Watch"
 msgstr "Watch"
 
+#: src/components/Common/matchers/UrlMatcher.tsx:32
+msgid "Watch Now"
+msgstr ""
+
 #: src/components/Watch/Comments/VideoComment.tsx:27
 msgid "Watch Video"
 msgstr "Watch Video"
 
-#: src/components/Settings/BasicInfo.tsx:401
+#: src/components/Settings/BasicInfo.tsx:399
 msgid "Website"
 msgstr "Website"
 
@@ -1640,7 +1660,6 @@ msgstr "your channel"
 msgid "Your Channel"
 msgstr "Your Channel"
 
-#: src/components/Upload/BundlrInfo.tsx:171
+#: src/components/Upload/IrysInfo.tsx:166
 msgid "Your Storage Balance"
 msgstr "Your Storage Balance"
-

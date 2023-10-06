@@ -2,18 +2,18 @@ import Badge from '@components/Common/Badge'
 import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import ThumbnailImage from '@components/Common/VideoCard/ThumbnailImage'
 import {
-  getIsSensitiveContent,
-  getProfilePicture,
-  getValueFromTraitType,
-  trimLensHandle
-} from '@lenstube/generic'
-import type { Attribute, Mirror, Publication } from '@lenstube/lens'
-import {
   getDateString,
   getRelativeTime,
   getTimeFromSeconds
 } from '@lib/formatTime'
 import { Trans } from '@lingui/macro'
+import {
+  getIsSensitiveContent,
+  getProfilePicture,
+  getValueFromTraitType,
+  trimLensHandle
+} from '@tape.xyz/generic'
+import type { Attribute, Mirror, Publication } from '@tape.xyz/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'

@@ -1,14 +1,14 @@
 import {
   IS_MAINNET,
   IS_PRODUCTION,
-  LENSTUBE_TAIL_INGEST_URL
-} from '@lenstube/constants/general'
+  WORKER_LOGTAIL_INGEST_URL
+} from '@tape.xyz/constants/general'
 import axios from 'axios'
 
 const tailLog = (level: 'error' | 'log', message: string) => {
   if (IS_MAINNET && IS_PRODUCTION) {
     axios
-      .post(LENSTUBE_TAIL_INGEST_URL, {
+      .post(WORKER_LOGTAIL_INGEST_URL, {
         source: 'web',
         level,
         message

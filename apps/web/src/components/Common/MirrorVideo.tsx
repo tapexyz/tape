@@ -1,32 +1,32 @@
 import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
 import Tooltip from '@components/UIElements/Tooltip'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import { Analytics, TRACK } from '@lenstube/browser'
+import useAuthPersistStore from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
+import { t } from '@lingui/macro'
+import { useConnectModal } from '@rainbow-me/rainbowkit'
+import { Analytics, TRACK } from '@tape.xyz/browser'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE
-} from '@lenstube/constants'
-import { getSignature } from '@lenstube/generic'
+} from '@tape.xyz/constants'
+import { getSignature } from '@tape.xyz/generic'
 import type {
   CreateMirrorBroadcastItemResult,
   CreateMirrorRequest,
   Publication
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 import {
   useBroadcastMutation,
   useCreateDataAvailabilityMirrorViaDispatcherMutation,
   useCreateMirrorTypedDataMutation,
   useCreateMirrorViaDispatcherMutation
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 import type {
-  CustomErrorWithData,
-  LenstubeCollectModule
-} from '@lenstube/lens/custom-types'
-import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
-import { t } from '@lingui/macro'
-import { useConnectModal } from '@rainbow-me/rainbowkit'
+  CustomCollectModule,
+  CustomErrorWithData
+} from '@tape.xyz/lens/custom-types'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -56,7 +56,7 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
 
   const collectModule =
     video?.__typename === 'Post'
-      ? (video?.collectModule as LenstubeCollectModule)
+      ? (video?.collectModule as CustomCollectModule)
       : null
 
   const onError = (error: CustomErrorWithData) => {

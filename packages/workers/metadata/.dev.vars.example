@@ -1,2 +1,2 @@
-# bundlr - pk without 0x
-BUNDLR_PRIVATE_KEY=""
+# pk without 0x
+WALLET_PRIVATE_KEY=""

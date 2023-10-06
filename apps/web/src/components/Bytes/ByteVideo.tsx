@@ -1,16 +1,16 @@
 import CollectVideo from '@components/Watch/CollectVideo'
-import { Analytics, TRACK, useAverageColor } from '@lenstube/browser'
+import useAuthPersistStore from '@lib/store/auth'
+import { t } from '@lingui/macro'
+import { Analytics, TRACK, useAverageColor } from '@tape.xyz/browser'
 import {
   getPublicationHlsUrl,
   getPublicationRawMediaUrl,
   getThumbnailUrl,
   imageCdn,
   sanitizeDStorageUrl
-} from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
-import VideoPlayer from '@lenstube/ui/VideoPlayer'
-import useAuthPersistStore from '@lib/store/auth'
-import { t } from '@lingui/macro'
+} from '@tape.xyz/generic'
+import type { Publication } from '@tape.xyz/lens'
+import VideoPlayer from '@tape.xyz/ui/VideoPlayer'
 import type { FC } from 'react'
 import React, { useEffect, useRef } from 'react'
 

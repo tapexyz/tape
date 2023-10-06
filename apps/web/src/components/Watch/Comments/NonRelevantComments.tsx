@@ -2,16 +2,16 @@ import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
 import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { Button } from '@components/UIElements/Button'
-import { LENS_CUSTOM_FILTERS, SCROLL_ROOT_MARGIN } from '@lenstube/constants'
-import type { Publication } from '@lenstube/lens'
+import useAuthPersistStore from '@lib/store/auth'
+import { t } from '@lingui/macro'
+import { LENS_CUSTOM_FILTERS, SCROLL_ROOT_MARGIN } from '@tape.xyz/constants'
+import type { Publication } from '@tape.xyz/lens'
 import {
   CommentOrderingTypes,
   CommentRankingFilter,
   useCommentsQuery
-} from '@lenstube/lens'
-import { Loader } from '@lenstube/ui'
-import useAuthPersistStore from '@lib/store/auth'
-import { t } from '@lingui/macro'
+} from '@tape.xyz/lens'
+import { Loader } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'

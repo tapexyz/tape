@@ -13,8 +13,8 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20231002.0",
-    "@lenstube/config": "*",
-    "@lenstube/generic": "*",
+    "@tape.xyz/config": "*",
+    "@tape.xyz/generic": "*",
     "typescript": "^5.2.2",
     "wrangler": "3.10.1"
   }

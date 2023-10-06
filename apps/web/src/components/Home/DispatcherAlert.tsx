@@ -1,13 +1,10 @@
 import HandWaveOutline from '@components/Common/Icons/HandWaveOutline'
 import Toggle from '@components/Settings/Permissions/Dispatcher/Toggle'
 import SignalWaveGraphic from '@components/UIElements/SignalWaveGraphic'
-import {
-  LENSTUBE_APP_NAME,
-  OLD_LENS_RELAYER_ADDRESS
-} from '@lenstube/constants'
-import { getIsDispatcherEnabled } from '@lenstube/generic'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
+import { OLD_LENS_RELAYER_ADDRESS, TAPE_APP_NAME } from '@tape.xyz/constants'
+import { getIsDispatcherEnabled } from '@tape.xyz/generic'
 import React from 'react'
 
 const DispatcherAlert = () => {
@@ -21,7 +18,7 @@ const DispatcherAlert = () => {
     if (usingOldDispatcher) {
       return t`Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions.`
     }
-    return `You can enable dispatcher to interact with ${LENSTUBE_APP_NAME} without signing any of your transactions.`
+    return `You can enable dispatcher to interact with ${TAPE_APP_NAME} without signing any of your transactions.`
   }
 
   if (!activeChannel || isDispatcherEnabled) {

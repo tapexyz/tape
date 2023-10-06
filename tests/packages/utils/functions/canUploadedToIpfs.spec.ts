@@ -1,5 +1,5 @@
-import { IPFS_FREE_UPLOAD_LIMIT } from '@lenstube/constants'
-import { canUploadedToIpfs } from '@lenstube/generic'
+import { IPFS_FREE_UPLOAD_LIMIT } from '@tape.xyz/constants'
+import { canUploadedToIpfs } from '@tape.xyz/generic'
 import { expect, test } from '@playwright/test'
 
 test('returns true for values within the limit', async () => {

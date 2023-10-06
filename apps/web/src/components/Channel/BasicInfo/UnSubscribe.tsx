@@ -3,18 +3,18 @@ import FollowingOutline from '@components/Common/Icons/FollowingOutline'
 import type { ButtonSizes, ButtonVariants } from '@components/UIElements/Button'
 import { Button } from '@components/UIElements/Button'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import { Analytics, TRACK } from '@lenstube/browser'
-import { REQUESTING_SIGNATURE_MESSAGE } from '@lenstube/constants'
-import { getSignature } from '@lenstube/generic'
-import type { CreateUnfollowBroadcastItemResult, Profile } from '@lenstube/lens'
-import {
-  useBroadcastMutation,
-  useCreateUnfollowTypedDataMutation
-} from '@lenstube/lens'
-import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAuthPersistStore from '@lib/store/auth'
 import { Trans } from '@lingui/macro'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
+import { Analytics, TRACK } from '@tape.xyz/browser'
+import { REQUESTING_SIGNATURE_MESSAGE } from '@tape.xyz/constants'
+import { getSignature } from '@tape.xyz/generic'
+import type { CreateUnfollowBroadcastItemResult, Profile } from '@tape.xyz/lens'
+import {
+  useBroadcastMutation,
+  useCreateUnfollowTypedDataMutation
+} from '@tape.xyz/lens'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React, { useState } from 'react'
