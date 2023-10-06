@@ -18,8 +18,8 @@
     <a href="https://x.com/tapexyz">
         <img src="https://img.shields.io/twitter/follow/tapexyz?style=social" alt="Twitter">
     </a>
-    <a href="https://deepsource.io/gh/lenstube-xyz/lenstube">
-        <img src="https://deepsource.io/gh/lenstube-xyz/lenstube.svg/?label=active+issues&show_trend=true" alt="Deepsource">
+    <a href="https://deepsource.io/gh/tapexyz/tape">
+        <img src="https://deepsource.io/gh/tapexyz/tape.svg/?label=active+issues&show_trend=true" alt="Deepsource">
     </a>
      <a href="https://status.tape.xyz">
         <img src="https://betteruptime.com/status-badges/v1/monitor/dfaw.svg" alt="Better Uptime">
