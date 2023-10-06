@@ -43,7 +43,8 @@ const moduleExports = {
       },
       {
         source: '/discord',
-        destination: 'https://discord.com/servers/lenstube-980882088783913010',
+        destination:
+          'https://discord.com/servers/tape-formerly-lenstube-980882088783913010',
         permanent: true
       },
       {
