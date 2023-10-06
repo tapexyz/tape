@@ -1,5 +1,5 @@
 import { useAverageColor } from '@tape.xyz/browser'
-import { LENSTUBE_BYTES_APP_ID, STATIC_ASSETS } from '@tape.xyz/constants'
+import { LENSTUBE_BYTES_APP_ID } from '@tape.xyz/constants'
 import {
   getPublicationHlsUrl,
   getPublicationMediaUrl,
@@ -17,6 +17,7 @@ import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 
 import MetaTags from './MetaTags'
+import PlayOutline from './PlayOutline'
 import TopOverlay from './TopOverlay'
 
 type Props = {
@@ -39,10 +40,6 @@ const Video: FC<Props> = ({ video }) => {
     isBytesVideo ? 'THUMBNAIL_V' : 'THUMBNAIL'
   )
   const { color: backgroundColor } = useAverageColor(thumbnailUrl, isBytesVideo)
-
-  // useEffect(() => {
-  //   Analytics.track(TRACK.EMBED_VIDEO.LOADED)
-  // }, [])
 
   const refCallback = (ref: HTMLMediaElement) => {
     if (!ref) {
@@ -106,13 +103,8 @@ const Video: FC<Props> = ({ video }) => {
             onClick={onClickOverlay}
             role="button"
           >
-            <button className="from-brand-200 to-brand-400 rounded-full bg-gradient-to-r p-2 shadow-2xl xl:p-5">
-              <img
-                className="h-8 w-8 pl-1"
-                src={imageCdn(`${STATIC_ASSETS}/brand/logo.svg`, 'AVATAR')}
-                alt="play"
-                draggable={false}
-              />
+            <button className="from-brand-300 to-brand-700 rounded-full bg-gradient-to-r p-2 shadow-2xl xl:p-5">
+              <PlayOutline className="h-6 w-6 pl-0.5 text-white" />
             </button>
           </div>
         </div>
