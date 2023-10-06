@@ -1,7 +1,7 @@
 import Follow from '@components/Channel/BasicInfo/Follow'
 import SuperFollow from '@components/Channel/BasicInfo/SuperFollow'
 import UnFollow from '@components/Channel/BasicInfo/UnFollow'
-import type { Profile } from '@lenstube/lens'
+import type { Profile } from '@tape.xyz/lens'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 

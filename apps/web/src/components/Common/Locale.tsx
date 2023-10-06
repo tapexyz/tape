@@ -1,8 +1,8 @@
-import { Analytics, TRACK } from '@lenstube/browser'
-import { SUPPORTED_LOCALES } from '@lenstube/constants'
 import { storeLocale } from '@lib/i18n'
 import { useLingui } from '@lingui/react'
 import { DropdownMenu, Text } from '@radix-ui/themes'
+import { Analytics, TRACK } from '@tape.xyz/browser'
+import { SUPPORTED_LOCALES } from '@tape.xyz/constants'
 import React from 'react'
 
 import GlobeOutline from './Icons/GlobeOutline'

@@ -1,5 +1,5 @@
-import { FALLBACK_COVER_URL } from '@lenstube/constants'
-import type { MirrorablePublication } from '@lenstube/lens'
+import { FALLBACK_COVER_URL } from '@tape.xyz/constants'
+import type { MirrorablePublication } from '@tape.xyz/lens'
 
 import { sanitizeDStorageUrl } from './sanitizeDStorageUrl'
 

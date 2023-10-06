@@ -1,8 +1,12 @@
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { getProfilePicture, trimLensHandle } from '@lenstube/generic'
-import type { Profile, ProfilesRequest } from '@lenstube/lens'
-import { LimitType, useProfilesQuery } from '@lenstube/lens'
-import { Loader } from '@lenstube/ui'
+import { getProfilePicture, trimLensHandle } from '@tape.xyz/generic'
+import {
+  LimitType,
+  type Profile,
+  type ProfilesRequest,
+  useProfilesQuery
+} from '@tape.xyz/lens'
+import { Loader } from '@tape.xyz/ui'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'

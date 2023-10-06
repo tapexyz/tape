@@ -1,4 +1,4 @@
-import { sanitizeDStorageUrl } from '@lenstube/generic'
+import { sanitizeDStorageUrl } from '@tape.xyz/generic'
 import type { FC } from 'react'
 import React from 'react'
 

@@ -1,13 +1,13 @@
 import {
-  LENSTUBE_APP_NAME,
-  LENSTUBE_EMBED_URL,
-  LENSTUBE_WEBSITE_URL,
-  OG_IMAGE
-} from '@lenstube/constants'
-import { getThumbnailUrl, imageCdn, truncate } from '@lenstube/generic'
-import type { AnyPublication, MirrorablePublication } from '@lenstube/lens'
-import { PublicationDocument } from '@lenstube/lens'
-import { apolloClient } from '@lenstube/lens/apollo'
+  OG_IMAGE,
+  TAPE_APP_NAME,
+  TAPE_EMBED_URL,
+  TAPE_WEBSITE_URL
+} from '@tape.xyz/constants'
+import { getThumbnailUrl, imageCdn, truncate } from '@tape.xyz/generic'
+import type { AnyPublication, MirrorablePublication } from '@tape.xyz/lens'
+import { PublicationDocument } from '@tape.xyz/lens'
+import { apolloClient } from '@tape.xyz/lens/apollo'
 
 const client = apolloClient()
 
@@ -33,35 +33,35 @@ const getPublicationOembed = async (publicationId: string, format: string) => {
       return {
         title,
         author_name: video.by?.handle,
-        author_url: `${LENSTUBE_WEBSITE_URL}/channel/${video.by?.handle}`,
+        author_url: `${TAPE_WEBSITE_URL}/channel/${video.by?.handle}`,
         type: 'video',
         height: 113,
         width: 200,
         version: '1.0',
-        provider_name: LENSTUBE_APP_NAME,
-        provider_url: LENSTUBE_WEBSITE_URL,
+        provider_name: TAPE_APP_NAME,
+        provider_url: TAPE_WEBSITE_URL,
         thumbnail_height: 360,
         thumbnail_width: 480,
         thumbnail_url: thumbnail,
-        html: `<iframe width="200" height="113" src="${LENSTUBE_EMBED_URL}/${video.id}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="${title}"></iframe>`
+        html: `<iframe width="200" height="113" src="${TAPE_EMBED_URL}/${video.id}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="${title}"></iframe>`
       }
     }
     if (format === 'xml') {
       return `<oembed>
               <title>${title}</title>
               <author_name>${video.by?.handle}</author_name>
-              <author_url>${LENSTUBE_WEBSITE_URL}/channel/${video.by?.handle}</author_url>
+              <author_url>${TAPE_WEBSITE_URL}/channel/${video.by?.handle}</author_url>
               <type>video</type>
               <height>113</height>
               <width>200</width>
               <version>1.0</version>
-              <provider_name>${LENSTUBE_APP_NAME}</provider_name>
-              <provider_url>${LENSTUBE_WEBSITE_URL}</provider_url>
+              <provider_name>${TAPE_APP_NAME}</provider_name>
+              <provider_url>${TAPE_WEBSITE_URL}</provider_url>
               <thumbnail_height>360</thumbnail_height>
               <thumbnail_width>480</thumbnail_width>
               <thumbnail_url>${thumbnail}</thumbnail_url>
               <html>
-                <iframe width="200" height="113" src="${LENSTUBE_EMBED_URL}/${video.id}" title="Lenstube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;" allowfullscreen="true"></iframe>
+                <iframe width="200" height="113" src="${TAPE_EMBED_URL}/${video.id}" title="${TAPE_APP_NAME} video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;" allowfullscreen="true"></iframe>
               </html>
               </oembed>`
     }

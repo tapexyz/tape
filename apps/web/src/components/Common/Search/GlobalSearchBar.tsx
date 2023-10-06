@@ -1,27 +1,23 @@
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import {
-  Analytics,
-  TRACK,
-  useDebounce,
-  useOutsideClick
-} from '@lenstube/browser'
-import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
+import { t } from '@lingui/macro'
+import { ScrollArea, Text, TextField } from '@radix-ui/themes'
+import { Analytics, TRACK, useOutsideClick } from '@tape.xyz/browser'
+import { LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
+import { useDebounce } from '@tape.xyz/generic'
 import type {
   PrimaryPublication,
   Profile,
   ProfileSearchRequest,
   PublicationSearchRequest
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 import {
   LimitType,
   PublicationMetadataMainFocusType,
   SearchPublicationType,
   useSearchProfilesLazyQuery,
   useSearchPublicationsLazyQuery
-} from '@lenstube/lens'
-import { Loader } from '@lenstube/ui'
-import { t } from '@lingui/macro'
-import { ScrollArea, Text, TextField } from '@radix-ui/themes'
+} from '@tape.xyz/lens'
+import { Loader } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React, { useEffect, useRef, useState } from 'react'

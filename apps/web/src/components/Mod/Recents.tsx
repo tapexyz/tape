@@ -1,25 +1,25 @@
 import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { t } from '@lingui/macro'
 import {
   LENS_CUSTOM_FILTERS,
-  LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
-  SCROLL_ROOT_MARGIN
-} from '@lenstube/constants'
+  SCROLL_ROOT_MARGIN,
+  TAPE_APP_ID
+} from '@tape.xyz/constants'
 import type {
   ExplorePublicationRequest,
   PrimaryPublication
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 import {
   ExplorePublicationsOrderByType,
   ExplorePublicationType,
   LimitType,
   PublicationMetadataMainFocusType,
   useExplorePublicationsQuery
-} from '@lenstube/lens'
-import { Loader } from '@lenstube/ui'
-import { t } from '@lingui/macro'
+} from '@tape.xyz/lens'
+import { Loader } from '@tape.xyz/ui'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 
@@ -28,7 +28,7 @@ const request: ExplorePublicationRequest = {
     publicationTypes: [ExplorePublicationType.Post],
     customFilters: LENS_CUSTOM_FILTERS,
     metadata: {
-      publishedOn: [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
+      publishedOn: [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID],
       mainContentFocus: [PublicationMetadataMainFocusType.Video]
     }
   },

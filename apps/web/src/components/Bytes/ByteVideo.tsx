@@ -1,14 +1,14 @@
-import { Analytics, TRACK } from '@lenstube/browser'
+import useAuthPersistStore from '@lib/store/auth'
+import { Analytics, TRACK } from '@tape.xyz/browser'
 import {
   getPublication,
   getPublicationMediaUrl,
   getThumbnailUrl,
   imageCdn,
   sanitizeDStorageUrl
-} from '@lenstube/generic'
-import type { AnyPublication } from '@lenstube/lens'
-import VideoPlayer from '@lenstube/ui/VideoPlayer'
-import useAuthPersistStore from '@lib/store/auth'
+} from '@tape.xyz/generic'
+import type { AnyPublication } from '@tape.xyz/lens'
+import VideoPlayer from '@tape.xyz/ui/VideoPlayer'
 import type { FC } from 'react'
 import React, { useEffect, useRef } from 'react'
 

@@ -1,4 +1,4 @@
-import type { MirrorablePublication } from '@lenstube/lens'
+import type { MirrorablePublication } from '@tape.xyz/lens'
 
 export const isWatchable = (publication: MirrorablePublication) => {
   const canWatch =

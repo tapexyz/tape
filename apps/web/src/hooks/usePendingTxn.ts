@@ -1,7 +1,7 @@
 import {
   LensTransactionStatusType,
   useLensTransactionStatusQuery
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 import { useCallback, useEffect } from 'react'
 import toast from 'react-hot-toast'
 

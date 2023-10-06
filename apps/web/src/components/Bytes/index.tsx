@@ -2,13 +2,13 @@ import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
 import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import MetaTags from '@components/Common/MetaTags'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { Analytics, TRACK } from '@lenstube/browser'
-import { LENS_CUSTOM_FILTERS, SCROLL_ROOT_MARGIN } from '@lenstube/constants'
+import { Analytics, TRACK } from '@tape.xyz/browser'
+import { LENS_CUSTOM_FILTERS, SCROLL_ROOT_MARGIN } from '@tape.xyz/constants'
 import type {
   AnyPublication,
   ExplorePublicationRequest,
   PrimaryPublication
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 import {
   ExplorePublicationsOrderByType,
   ExplorePublicationType,
@@ -16,8 +16,8 @@ import {
   PublicationMetadataMainFocusType,
   useExplorePublicationsLazyQuery,
   usePublicationLazyQuery
-} from '@lenstube/lens'
-import { Loader } from '@lenstube/ui'
+} from '@tape.xyz/lens'
+import { Loader } from '@tape.xyz/ui'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect, useRef, useState } from 'react'

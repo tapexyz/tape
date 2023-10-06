@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "Pripe",
-    "slug": "pripe",
+    "name": "Tape",
+    "slug": "tape",
     "version": "0.0.1",
     "orientation": "portrait",
     "owner": "sasicodes",
-    "scheme": "pripe",
+    "scheme": "tape",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
     "assetBundlePatterns": ["assets/**"],
@@ -17,11 +17,11 @@
     "ios": {
       "supportsTablet": false,
       "jsEngine": "hermes",
-      "bundleIdentifier": "xyz.pripe.mobile",
-      "associatedDomains": ["applinks:pripe.xyz"]
+      "bundleIdentifier": "xyz.tape.mobile",
+      "associatedDomains": ["applinks:tape.xyz"]
     },
     "android": {
-      "package": "xyz.pripe.mobile",
+      "package": "xyz.tape.mobile",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#000000"

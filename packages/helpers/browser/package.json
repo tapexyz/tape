@@ -1,5 +1,5 @@
 {
-  "name": "@lenstube/browser",
+  "name": "@tape.xyz/browser",
   "version": "0.0.0",
   "license": "AGPL-3.0",
   "main": "./index.ts",

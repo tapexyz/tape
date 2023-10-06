@@ -1,9 +1,9 @@
+import useAuthPersistStore from '@lib/store/auth'
 import {
   IS_PRODUCTION,
   MIXPANEL_API_HOST,
   MIXPANEL_TOKEN
-} from '@lenstube/constants'
-import useAuthPersistStore from '@lib/store/auth'
+} from '@tape.xyz/constants'
 import mixpanel from 'mixpanel-browser'
 import type { FC } from 'react'
 import { useEffect } from 'react'

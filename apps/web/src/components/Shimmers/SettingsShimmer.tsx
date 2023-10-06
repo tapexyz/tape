@@ -1,4 +1,4 @@
-import { Loader } from '@lenstube/ui'
+import { Loader } from '@tape.xyz/ui'
 import React from 'react'
 
 const SettingsShimmer = () => {

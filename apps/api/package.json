@@ -1,5 +1,5 @@
 {
-  "name": "@lenstube/api",
+  "name": "@tape.xyz/api",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -14,12 +14,12 @@
     "next": "13.4.19"
   },
   "devDependencies": {
-    "@lenstube/browser": "*",
-    "@lenstube/config": "*",
-    "@lenstube/constants": "*",
-    "@lenstube/generic": "*",
-    "@lenstube/lens": "*",
-    "@types/node": "20.8.0",
+    "@tape.xyz/browser": "*",
+    "@tape.xyz/config": "*",
+    "@tape.xyz/constants": "*",
+    "@tape.xyz/generic": "*",
+    "@tape.xyz/lens": "*",
+    "@types/node": "20.8.2",
     "typescript": "5.2.2"
   }
 }

@@ -4,14 +4,17 @@ import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import type { MetadataAttribute } from '@lens-protocol/metadata'
 import { link, MetadataAttributeType } from '@lens-protocol/metadata'
 import { LENSHUB_PROXY_ABI } from '@lenstube/abis'
-import { Analytics, getUserLocale, TRACK } from '@lenstube/browser'
+import useChannelStore from '@lib/store/channel'
+import { Trans } from '@lingui/macro'
+import { Button, Dialog, Flex } from '@radix-ui/themes'
+import { Analytics, getUserLocale, TRACK } from '@tape.xyz/browser'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
-  LENSTUBE_APP_ID,
-  LENSTUBE_WEBSITE_URL,
-  REQUESTING_SIGNATURE_MESSAGE
-} from '@lenstube/constants'
+  REQUESTING_SIGNATURE_MESSAGE,
+  TAPE_APP_ID,
+  TAPE_WEBSITE_URL
+} from '@tape.xyz/constants'
 import {
   getOpenActionNftMetadata,
   getSignature,
@@ -19,23 +22,20 @@ import {
   trimify,
   uploadToAr,
   useZoraNft
-} from '@lenstube/generic'
+} from '@tape.xyz/generic'
 import type {
   CreateMomokaPostEip712TypedData,
   CreateOnchainPostEip712TypedData
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 import {
   useBroadcastOnMomokaMutation,
   useCreateMomokaPostTypedDataMutation,
   usePostOnMomokaMutation
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 import type {
   BasicNftMetadata,
   CustomErrorWithData
-} from '@lenstube/lens/custom-types'
-import useChannelStore from '@lib/store/channel'
-import { Trans } from '@lingui/macro'
-import { Button, Dialog, Flex } from '@radix-ui/themes'
+} from '@tape.xyz/lens/custom-types'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -199,12 +199,12 @@ const PostLinkModal: FC<Props> = ({ show, setShow }) => {
       {
         type: MetadataAttributeType.STRING,
         key: 'app',
-        value: LENSTUBE_APP_ID
+        value: TAPE_APP_ID
       }
     ]
     const linkMetadata = link({
       sharingLink: linkText,
-      appId: LENSTUBE_APP_ID,
+      appId: TAPE_WEBSITE_URL,
       id: uuidv4(),
       content: `Check out this drop 📼 \n${linkText}`,
       locale: getUserLocale(),
@@ -212,7 +212,7 @@ const PostLinkModal: FC<Props> = ({ show, setShow }) => {
         name: `Link by @${activeChannel?.handle}`,
         attributes,
         description: linkText,
-        external_url: LENSTUBE_WEBSITE_URL
+        external_url: TAPE_WEBSITE_URL
       },
       attributes
     })

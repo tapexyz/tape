@@ -4,31 +4,31 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import usePendingTxn from '@hooks/usePendingTxn'
 import { LENSHUB_PROXY_ABI } from '@lenstube/abis'
-import { useCopyToClipboard } from '@lenstube/browser'
+import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
+import { Button, Card, Flex, Select, Text } from '@radix-ui/themes'
+import { useCopyToClipboard } from '@tape.xyz/browser'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
   WMATIC_TOKEN_ADDRESS
-} from '@lenstube/constants'
-import { getSignature, shortenAddress } from '@lenstube/generic'
+} from '@tape.xyz/constants'
+import { getSignature, shortenAddress } from '@tape.xyz/generic'
 import type {
   CreateSetFollowModuleBroadcastItemResult,
   FeeFollowModuleSettings,
   Profile
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 import {
   LimitType,
   useBroadcastOnchainMutation,
   useCreateSetFollowModuleTypedDataMutation,
   useEnabledCurrenciesQuery,
   useProfileFollowModuleQuery
-} from '@lenstube/lens'
-import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
-import { Loader } from '@lenstube/ui'
-import useChannelStore from '@lib/store/channel'
-import { t, Trans } from '@lingui/macro'
-import { Button, Card, Flex, Select, Text } from '@radix-ui/themes'
+} from '@tape.xyz/lens'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+import { Loader } from '@tape.xyz/ui'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'

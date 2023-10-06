@@ -1,19 +1,19 @@
 import Badge from '@components/Common/Badge'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import Tooltip from '@components/UIElements/Tooltip'
-import { getProfilePicture, trimLensHandle } from '@lenstube/generic'
-import type { Profile } from '@lenstube/lens'
+import useAuthPersistStore from '@lib/store/auth'
+import usePersistStore from '@lib/store/persist'
+import { getProfilePicture, trimLensHandle } from '@tape.xyz/generic'
+import type { Profile } from '@tape.xyz/lens'
 import {
   LensTransactionStatusType,
   PublicationDocument,
   useLensTransactionStatusQuery,
   usePublicationLazyQuery,
   useTxIdToTxHashLazyQuery
-} from '@lenstube/lens'
-import { useApolloClient } from '@lenstube/lens/apollo'
-import type { QueuedCommentType } from '@lenstube/lens/custom-types'
-import useAuthPersistStore from '@lib/store/auth'
-import usePersistStore from '@lib/store/persist'
+} from '@tape.xyz/lens'
+import { useApolloClient } from '@tape.xyz/lens/apollo'
+import type { QueuedCommentType } from '@tape.xyz/lens/custom-types'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
@@ -147,8 +147,8 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
         <div className="p-2">
           <Tooltip content="Indexing" placement="top">
             <span className="relative flex h-2 w-2 items-center justify-center">
-              <span className="absolute inline-flex h-2 w-2 animate-ping rounded-full bg-indigo-400 opacity-75" />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-indigo-500" />
+              <span className="bg-brand-400 absolute inline-flex h-2 w-2 animate-ping rounded-full opacity-75" />
+              <span className="bg-brand-500 relative inline-flex h-1.5 w-1.5 rounded-full" />
             </span>
           </Tooltip>
         </div>

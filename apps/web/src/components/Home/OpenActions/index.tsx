@@ -1,19 +1,19 @@
 import CollectOutline from '@components/Common/Icons/CollectOutline'
 import OpenActionsShimmer from '@components/Shimmers/OpenActionsShimmer'
-import { LENS_CUSTOM_FILTERS, LENSTUBE_APP_ID } from '@lenstube/constants'
+import { Trans } from '@lingui/macro'
+import { LENS_CUSTOM_FILTERS, TAPE_APP_ID } from '@tape.xyz/constants'
 import type {
   ExplorePublicationRequest,
   LinkMetadataV3,
   PrimaryPublication
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 import {
   ExplorePublicationsOrderByType,
   ExplorePublicationType,
   LimitType,
   PublicationMetadataMainFocusType,
   useExplorePublicationsQuery
-} from '@lenstube/lens'
-import { Trans } from '@lingui/macro'
+} from '@tape.xyz/lens'
 import React from 'react'
 
 import SharedLink from './SharedLink'
@@ -21,7 +21,7 @@ import SharedLink from './SharedLink'
 const request: ExplorePublicationRequest = {
   where: {
     metadata: {
-      publishedOn: [LENSTUBE_APP_ID],
+      publishedOn: [TAPE_APP_ID],
       mainContentFocus: [PublicationMetadataMainFocusType.Link]
     },
     publicationTypes: [ExplorePublicationType.Post],

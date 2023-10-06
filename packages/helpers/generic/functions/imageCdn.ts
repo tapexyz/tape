@@ -1,7 +1,7 @@
 import {
   IMAGE_TRANSFORMATIONS,
   LENS_IMAGEKIT_SNAPSHOT_URL
-} from '@lenstube/constants'
+} from '@tape.xyz/constants'
 
 export const imageCdn = (
   url: string,

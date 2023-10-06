@@ -2,20 +2,20 @@ import MetaTags from '@components/Common/MetaTags'
 import NotificationsShimmer from '@components/Shimmers/NotificationsShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { Tab } from '@headlessui/react'
-import {
-  IS_MAINNET,
-  LENS_CUSTOM_FILTERS,
-  LENSTUBE_APP_ID,
-  LENSTUBE_BYTES_APP_ID,
-  SCROLL_ROOT_MARGIN
-} from '@lenstube/constants'
-import type { Notification, NotificationRequest } from '@lenstube/lens'
-import { NotificationType, useNotificationsQuery } from '@lenstube/lens'
-import { CustomNotificationsFilterEnum } from '@lenstube/lens/custom-types'
-import { Loader } from '@lenstube/ui'
 import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'
+import {
+  IS_MAINNET,
+  LENS_CUSTOM_FILTERS,
+  LENSTUBE_BYTES_APP_ID,
+  SCROLL_ROOT_MARGIN,
+  TAPE_APP_ID
+} from '@tape.xyz/constants'
+import type { Notification, NotificationRequest } from '@tape.xyz/lens'
+import { NotificationType, useNotificationsQuery } from '@tape.xyz/lens'
+import { CustomNotificationsFilterEnum } from '@tape.xyz/lens/custom-types'
+import { Loader } from '@tape.xyz/ui'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 
@@ -51,9 +51,7 @@ const Notifications = () => {
         NotificationType.Mirrored,
         NotificationType.Quoted
       ],
-      publishedOn: IS_MAINNET
-        ? [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID]
-        : undefined
+      publishedOn: IS_MAINNET ? [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID] : undefined
     }
   }
 

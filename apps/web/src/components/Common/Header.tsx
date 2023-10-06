@@ -1,16 +1,16 @@
 import Modal from '@components/UIElements/Modal'
-import {
-  IS_MAINNET,
-  LENS_CUSTOM_FILTERS,
-  LENSTUBE_APP_ID,
-  LENSTUBE_BYTES_APP_ID
-} from '@lenstube/constants'
-import { useLatestNotificationIdQuery } from '@lenstube/lens'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'
 import { Button, DropdownMenu, Flex, IconButton } from '@radix-ui/themes'
+import {
+  IS_MAINNET,
+  LENS_CUSTOM_FILTERS,
+  LENSTUBE_BYTES_APP_ID,
+  TAPE_APP_ID
+} from '@tape.xyz/constants'
+import { useLatestNotificationIdQuery } from '@tape.xyz/lens'
 import Link from 'next/link'
 import React, { useState } from 'react'
 
@@ -47,7 +47,7 @@ const Header = () => {
       request: {
         where: {
           publishedOn: IS_MAINNET
-            ? [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID]
+            ? [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID]
             : undefined,
           customFilters: LENS_CUSTOM_FILTERS
         }

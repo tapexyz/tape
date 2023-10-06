@@ -1,16 +1,19 @@
 import PinnedVideoShimmer from '@components/Shimmers/PinnedVideoShimmer'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import type { MetadataAttribute } from '@lens-protocol/metadata'
 import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
 import { LENSHUB_PROXY_ABI } from '@lenstube/abis'
-import { Analytics, TRACK } from '@lenstube/browser'
+import { getRelativeTime } from '@lib/formatTime'
+import useAuthPersistStore from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
+import { Analytics, TRACK } from '@tape.xyz/browser'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
-  LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
-  REQUESTING_SIGNATURE_MESSAGE
-} from '@lenstube/constants'
+  REQUESTING_SIGNATURE_MESSAGE,
+  TAPE_APP_ID
+} from '@tape.xyz/constants'
 import {
   getChannelCoverPicture,
   getIsSensitiveContent,
@@ -22,25 +25,21 @@ import {
   isWatchable,
   sanitizeDStorageUrl,
   uploadToAr
-} from '@lenstube/generic'
+} from '@tape.xyz/generic'
 import type {
   AnyPublication,
+  MetadataAttribute,
   MirrorablePublication,
   OnchainSetProfileMetadataRequest,
   Profile
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 import {
   useBroadcastOnchainMutation,
   useCreateOnchainSetProfileMetadataTypedDataMutation,
   usePublicationQuery
-} from '@lenstube/lens'
-import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
-import VideoPlayer from '@lenstube/ui/VideoPlayer'
-import { getRelativeTime } from '@lib/formatTime'
-import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
-import { t, Trans } from '@lingui/macro'
-import { Button } from '@radix-ui/themes'
+} from '@tape.xyz/lens'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+import VideoPlayer from '@tape.xyz/ui/VideoPlayer'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
@@ -88,8 +87,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
   const otherAttributes =
     (activeChannel?.metadata?.attributes as MetadataAttribute[])
       ?.filter((attr) => !['pinnedPublicationId', 'app'].includes(attr.key))
-      .map(({ key, value, type }) => ({
-        type,
+      .map(({ key, value }) => ({
         key,
         value
       })) ?? []
@@ -154,18 +152,18 @@ const PinnedVideo: FC<Props> = ({ id }) => {
     try {
       toast.loading(t`Unpinning video...`)
       const metadata = profile({
-        appId: LENSTUBE_APP_ID,
+        appId: TAPE_APP_ID,
         bio: activeChannel?.metadata?.bio,
         coverPicture: getChannelCoverPicture(activeChannel),
         id: uuidv4(),
         name: activeChannel?.metadata?.displayName ?? '',
         picture: getProfilePicture(activeChannel as Profile),
         attributes: [
-          ...(otherAttributes as unknown as MetadataAttribute[]),
+          ...(otherAttributes as MetadataAttribute[]),
           {
             type: MetadataAttributeType.STRING,
             key: 'app',
-            value: LENSTUBE_APP_ID
+            value: TAPE_APP_ID
           }
         ]
       })
@@ -246,7 +244,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
           </p>
         </div>
         <Link
-          className="text-xs font-semibold text-indigo-500"
+          className="text-brand-500 text-xs font-semibold"
           href={`/watch/${pinnedPublication.id}`}
         >
           <Trans>View more</Trans>

@@ -1,4 +1,4 @@
-import type { MirrorablePublication } from '@lenstube/lens'
+import type { MirrorablePublication } from '@tape.xyz/lens'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 

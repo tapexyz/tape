@@ -2,22 +2,22 @@ import Badge from '@components/Common/Badge'
 import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import ThumbnailImage from '@components/Common/VideoCard/ThumbnailImage'
 import {
-  getIsSensitiveContent,
-  getProfilePicture,
-  getValueFromKeyInAttributes,
-  trimLensHandle
-} from '@lenstube/generic'
-import type {
-  MetadataAttribute,
-  Mirror,
-  MirrorablePublication
-} from '@lenstube/lens'
-import {
   getDateString,
   getRelativeTime,
   getTimeFromSeconds
 } from '@lib/formatTime'
 import { Trans } from '@lingui/macro'
+import {
+  getIsSensitiveContent,
+  getProfilePicture,
+  getValueFromKeyInAttributes,
+  trimLensHandle
+} from '@tape.xyz/generic'
+import type {
+  Mirror,
+  MirrorablePublication,
+  PublicationMarketplaceMetadataAttribute
+} from '@tape.xyz/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
@@ -30,7 +30,8 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
   const mirrorOn = video.mirrorOn as MirrorablePublication
   const isSensitiveContent = getIsSensitiveContent(mirrorOn.metadata, video.id)
   const videoDuration = getValueFromKeyInAttributes(
-    mirrorOn.metadata?.marketplace?.attributes as MetadataAttribute[],
+    mirrorOn.metadata?.marketplace
+      ?.attributes as PublicationMarketplaceMetadataAttribute[],
     'durationInSeconds'
   )
 

@@ -1,8 +1,8 @@
 import CogOutline from '@components/Common/Icons/CogOutline'
-import { CustomNotificationsFilterEnum } from '@lenstube/lens/custom-types'
 import usePersistStore from '@lib/store/persist'
 import { Trans } from '@lingui/macro'
 import { Box, DropdownMenu, Text } from '@radix-ui/themes'
+import { CustomNotificationsFilterEnum } from '@tape.xyz/lens/custom-types'
 import React from 'react'
 
 const NotificationsFilter = () => {

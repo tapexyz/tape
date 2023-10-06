@@ -1,13 +1,13 @@
-import { getToastOptions, useIsMounted } from '@lenstube/browser'
-import { AUTH_ROUTES } from '@lenstube/constants'
-import type { Profile } from '@lenstube/lens'
-import { useProfilesQuery, useUserSigNoncesQuery } from '@lenstube/lens'
-import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAuthPersistStore, {
   hydrateAuthTokens,
   signOut
 } from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
+import { getToastOptions, useIsMounted } from '@tape.xyz/browser'
+import { AUTH_ROUTES } from '@tape.xyz/constants'
+import type { Profile } from '@tape.xyz/lens'
+import { useProfilesQuery, useUserSigNoncesQuery } from '@tape.xyz/lens'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import clsx from 'clsx'
 import Head from 'next/head'
 import { useRouter } from 'next/router'

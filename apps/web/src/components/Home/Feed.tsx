@@ -2,27 +2,27 @@ import CategoryFilters from '@components/Common/CategoryFilters'
 import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import useAppStore from '@lib/store'
+import { t } from '@lingui/macro'
 import {
   ALLOWED_APP_IDS,
   IS_MAINNET,
   LENS_CUSTOM_FILTERS,
-  LENSTUBE_APP_ID,
-  SCROLL_ROOT_MARGIN
-} from '@lenstube/constants'
+  SCROLL_ROOT_MARGIN,
+  TAPE_APP_ID
+} from '@tape.xyz/constants'
 import type {
   ExplorePublicationRequest,
   PrimaryPublication
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 import {
   ExplorePublicationsOrderByType,
   ExplorePublicationType,
   LimitType,
   PublicationMetadataMainFocusType,
   useExplorePublicationsQuery
-} from '@lenstube/lens'
-import { Loader } from '@lenstube/ui'
-import useAppStore from '@lib/store'
-import { t } from '@lingui/macro'
+} from '@tape.xyz/lens'
+import { Loader } from '@tape.xyz/ui'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 
@@ -36,9 +36,7 @@ const HomeFeed = () => {
       publicationTypes: [ExplorePublicationType.Post],
       customFilters: LENS_CUSTOM_FILTERS,
       metadata: {
-        publishedOn: IS_MAINNET
-          ? [LENSTUBE_APP_ID, ...ALLOWED_APP_IDS]
-          : undefined,
+        publishedOn: IS_MAINNET ? [TAPE_APP_ID, ...ALLOWED_APP_IDS] : undefined,
         tags:
           activeTagFilter !== 'all' ? { oneOf: [activeTagFilter] } : undefined,
         mainContentFocus: [PublicationMetadataMainFocusType.Video]

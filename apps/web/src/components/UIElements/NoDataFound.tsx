@@ -1,5 +1,5 @@
-import { STATIC_ASSETS } from '@lenstube/constants'
-import { imageCdn } from '@lenstube/generic'
+import { STATIC_ASSETS } from '@tape.xyz/constants'
+import { imageCdn } from '@tape.xyz/generic'
 import clsx from 'clsx'
 import React from 'react'
 

@@ -1,35 +1,12 @@
 import ReportPublication from '@components/ReportPublication'
 import Confirm from '@components/UIElements/Confirm'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import type { MetadataAttribute } from '@lens-protocol/metadata'
-import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
+import {
+  type MetadataAttribute,
+  MetadataAttributeType,
+  profile
+} from '@lens-protocol/metadata'
 import { LENSHUB_PROXY_ABI } from '@lenstube/abis'
-import { Analytics, TRACK } from '@lenstube/browser'
-import {
-  ERROR_MESSAGE,
-  LENSHUB_PROXY_ADDRESS,
-  LENSTUBE_APP_ID,
-  REQUESTING_SIGNATURE_MESSAGE
-} from '@lenstube/constants'
-import {
-  getChannelCoverPicture,
-  getProfilePicture,
-  getSignature,
-  getValueFromKeyInAttributes,
-  uploadToAr
-} from '@lenstube/generic'
-import type { MirrorablePublication, Profile } from '@lenstube/lens'
-import {
-  useAddPublicationBookmarkMutation,
-  useAddPublicationNotInterestedMutation,
-  useBroadcastOnchainMutation,
-  useCreateOnchainSetProfileMetadataTypedDataMutation,
-  useHidePublicationMutation,
-  useRemovePublicationBookmarkMutation,
-  useUndoPublicationNotInterestedMutation
-} from '@lenstube/lens'
-import { useApolloClient } from '@lenstube/lens/apollo'
-import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
@@ -41,6 +18,32 @@ import {
   IconButton,
   Text
 } from '@radix-ui/themes'
+import { Analytics, TRACK } from '@tape.xyz/browser'
+import {
+  ERROR_MESSAGE,
+  LENSHUB_PROXY_ADDRESS,
+  REQUESTING_SIGNATURE_MESSAGE,
+  TAPE_APP_ID
+} from '@tape.xyz/constants'
+import {
+  getChannelCoverPicture,
+  getProfilePicture,
+  getSignature,
+  getValueFromKeyInAttributes,
+  uploadToAr
+} from '@tape.xyz/generic'
+import type { MirrorablePublication, Profile } from '@tape.xyz/lens'
+import {
+  useAddPublicationBookmarkMutation,
+  useAddPublicationNotInterestedMutation,
+  useBroadcastOnchainMutation,
+  useCreateOnchainSetProfileMetadataTypedDataMutation,
+  useHidePublicationMutation,
+  useRemovePublicationBookmarkMutation,
+  useUndoPublicationNotInterestedMutation
+} from '@tape.xyz/lens'
+import { useApolloClient } from '@tape.xyz/lens/apollo'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -104,14 +107,12 @@ const VideoOptions: FC<Props> = ({ video }) => {
     }
   }
 
-  const otherAttributes =
-    (activeChannel?.metadata?.attributes as MetadataAttribute[])
-      ?.filter((attr) => !['pinnedPublicationId', 'app'].includes(attr.key))
-      .map(({ type, key, value }) => ({
-        type,
-        key,
-        value
-      })) ?? []
+  const otherAttributes = activeChannel?.metadata?.attributes
+    ?.filter((attr) => !['pinnedPublicationId', 'app'].includes(attr.key))
+    .map(({ key, value }) => ({
+      key,
+      value
+    })) as MetadataAttribute[]
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
@@ -173,14 +174,14 @@ const VideoOptions: FC<Props> = ({ video }) => {
     try {
       toast.loading(t`Pinning video...`)
       const metadata = profile({
-        appId: LENSTUBE_APP_ID,
+        appId: TAPE_APP_ID,
         bio: activeChannel?.metadata?.bio,
         coverPicture: getChannelCoverPicture(activeChannel),
         id: uuidv4(),
         name: activeChannel?.metadata?.displayName ?? '',
         picture: getProfilePicture(activeChannel as Profile),
         attributes: [
-          ...(otherAttributes as unknown as MetadataAttribute[]),
+          ...otherAttributes,
           {
             type: MetadataAttributeType.STRING,
             key: 'pinnedPublicationId',
@@ -189,7 +190,7 @@ const VideoOptions: FC<Props> = ({ video }) => {
           {
             type: MetadataAttributeType.STRING,
             key: 'app',
-            value: LENSTUBE_APP_ID
+            value: TAPE_APP_ID
           }
         ]
       })

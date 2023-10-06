@@ -1,6 +1,6 @@
 import Alert from '@components/Common/Alert'
-import { IS_MAINNET } from '@lenstube/constants'
 import { Trans } from '@lingui/macro'
+import { IS_MAINNET } from '@tape.xyz/constants'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
@@ -31,7 +31,7 @@ const BalanceAlert: FC<Props> = ({ collectModule }) => {
             )}
             rel="noreferer noreferrer"
             target="_blank"
-            className="text-indigo-500"
+            className="text-brand-500"
           >
             <Trans>Swap</Trans>
           </Link>

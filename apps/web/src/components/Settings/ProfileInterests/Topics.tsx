@@ -1,17 +1,17 @@
-import { Analytics, TRACK } from '@lenstube/browser'
-import { sanitizeProfileInterests } from '@lenstube/generic'
+import useChannelStore from '@lib/store/channel'
+import { Analytics, TRACK } from '@tape.xyz/browser'
+import { sanitizeProfileInterests } from '@tape.xyz/generic'
 import type {
   ProfileInterestsRequest,
   ProfileInterestTypes
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 import {
   useAddProfileInterestsMutation,
   useProfileInterestsOptionsQuery,
   useRemoveProfileInterestsMutation
-} from '@lenstube/lens'
-import { useApolloClient } from '@lenstube/lens/apollo'
-import { Loader } from '@lenstube/ui'
-import useChannelStore from '@lib/store/channel'
+} from '@tape.xyz/lens'
+import { useApolloClient } from '@tape.xyz/lens/apollo'
+import { Loader } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import React, { useEffect } from 'react'
 
@@ -71,8 +71,9 @@ const Topics = () => {
                 className={clsx(
                   'flex items-center justify-between rounded-full border border-gray-300 px-3 py-0.5 text-sm capitalize focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700',
                   {
-                    '!border-indigo-500 text-indigo-500':
-                      selectedTopics.includes(category.id)
+                    '!border-brand-500 text-brand-500': selectedTopics.includes(
+                      category.id
+                    )
                   }
                 )}
                 disabled={
@@ -94,7 +95,7 @@ const Topics = () => {
                     className={clsx(
                       'flex items-center justify-between rounded-full border border-gray-300 px-3 py-0.5 text-sm capitalize focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700',
                       {
-                        '!border-indigo-500 text-indigo-500':
+                        '!border-brand-500 text-brand-500':
                           selectedTopics.includes(subCategory.id)
                       }
                     )}

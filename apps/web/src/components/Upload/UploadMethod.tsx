@@ -1,10 +1,10 @@
-import { canUploadedToIpfs } from '@lenstube/generic'
 import useAppStore from '@lib/store'
 import { Trans } from '@lingui/macro'
 import { Text } from '@radix-ui/themes'
-import React, { useEffect } from 'react'
+import { canUploadedToIpfs } from '@tape.xyz/generic'
+import React from 'react'
 
-import BundlrInfo from './BundlrInfo'
+import IrysInfo from './IrysInfo'
 
 const UploadMethod = () => {
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
@@ -30,7 +30,7 @@ const UploadMethod = () => {
           proceed with the upload by paying the storage fee.
         </Trans>
       </Text>
-      <BundlrInfo />
+      <IrysInfo />
     </div>
   )
 }

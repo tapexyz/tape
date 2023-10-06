@@ -1,22 +1,22 @@
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import { LENSHUB_PROXY_ABI } from '@lenstube/abis'
-import { Analytics, TRACK } from '@lenstube/browser'
-import {
-  LENSHUB_PROXY_ADDRESS,
-  REQUESTING_SIGNATURE_MESSAGE
-} from '@lenstube/constants'
-import { getSignature } from '@lenstube/generic'
-import type { CreateUnfollowBroadcastItemResult, Profile } from '@lenstube/lens'
-import {
-  useBroadcastOnchainMutation,
-  useCreateUnfollowTypedDataMutation,
-  useUnfollowMutation
-} from '@lenstube/lens'
-import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { Trans } from '@lingui/macro'
 import { Button } from '@radix-ui/themes'
+import { Analytics, TRACK } from '@tape.xyz/browser'
+import {
+  LENSHUB_PROXY_ADDRESS,
+  REQUESTING_SIGNATURE_MESSAGE
+} from '@tape.xyz/constants'
+import { getSignature } from '@tape.xyz/generic'
+import type { CreateUnfollowBroadcastItemResult, Profile } from '@tape.xyz/lens'
+import {
+  useBroadcastOnchainMutation,
+  useCreateUnfollowTypedDataMutation,
+  useUnfollowMutation
+} from '@tape.xyz/lens'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'

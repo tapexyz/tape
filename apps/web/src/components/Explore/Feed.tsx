@@ -5,30 +5,30 @@ import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { Tab } from '@headlessui/react'
-import { Analytics, TRACK } from '@lenstube/browser'
+import useAppStore from '@lib/store'
+import useAuthPersistStore from '@lib/store/auth'
+import { t, Trans } from '@lingui/macro'
+import { Analytics, TRACK } from '@tape.xyz/browser'
 import {
   ALLOWED_APP_IDS,
   IS_MAINNET,
   LENS_CUSTOM_FILTERS,
-  LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
-  SCROLL_ROOT_MARGIN
-} from '@lenstube/constants'
+  SCROLL_ROOT_MARGIN,
+  TAPE_APP_ID
+} from '@tape.xyz/constants'
 import type {
   ExplorePublicationRequest,
   PrimaryPublication
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 import {
   ExplorePublicationsOrderByType,
   ExplorePublicationType,
   LimitType,
   PublicationMetadataMainFocusType,
   useExplorePublicationsQuery
-} from '@lenstube/lens'
-import { Loader } from '@lenstube/ui'
-import useAppStore from '@lib/store'
-import useAuthPersistStore from '@lib/store/auth'
-import { t, Trans } from '@lingui/macro'
+} from '@tape.xyz/lens'
+import { Loader } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
@@ -68,7 +68,7 @@ const ExploreFeed = () => {
           activeTagFilter !== 'all' ? { oneOf: [activeTagFilter] } : undefined,
         mainContentFocus: [PublicationMetadataMainFocusType.Video],
         publishedOn: IS_MAINNET
-          ? [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
+          ? [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
           : undefined
       }
     },
@@ -114,7 +114,7 @@ const ExploreFeed = () => {
           className={({ selected }) =>
             clsx(
               'flex items-center space-x-2 whitespace-nowrap border-b-2 px-4 py-2 focus:outline-none',
-              selected ? 'border-indigo-500' : 'border-transparent'
+              selected ? 'border-brand-500' : 'border-transparent'
             )
           }
         >
@@ -137,7 +137,7 @@ const ExploreFeed = () => {
           className={({ selected }) =>
             clsx(
               'flex items-center space-x-2 border-b-2 px-4 py-2 focus:outline-none',
-              selected ? 'border-indigo-500' : 'border-transparent'
+              selected ? 'border-brand-500' : 'border-transparent'
             )
           }
         >
@@ -160,7 +160,7 @@ const ExploreFeed = () => {
           className={({ selected }) =>
             clsx(
               'flex items-center space-x-2 border-b-2 px-4 py-2 focus:outline-none',
-              selected ? 'border-indigo-500' : 'border-transparent'
+              selected ? 'border-brand-500' : 'border-transparent'
             )
           }
         >

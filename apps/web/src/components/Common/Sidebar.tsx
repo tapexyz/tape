@@ -1,6 +1,6 @@
 import Tooltip from '@components/UIElements/Tooltip'
-import { STATIC_ASSETS } from '@lenstube/constants'
 import { t } from '@lingui/macro'
+import { STATIC_ASSETS, TAPE_APP_NAME } from '@tape.xyz/constants'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -29,10 +29,10 @@ const Sidebar = () => {
               className="flex items-center pt-0.5 focus:outline-none"
             >
               <img
-                src={`${STATIC_ASSETS}/images/brand/lenstube.svg`}
+                src={`${STATIC_ASSETS}/brand/logo.svg`}
                 draggable={false}
                 className="h-8 w-8"
-                alt="lenstube"
+                alt={TAPE_APP_NAME}
               />
             </Link>
           </div>

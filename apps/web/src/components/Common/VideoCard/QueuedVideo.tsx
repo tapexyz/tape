@@ -1,25 +1,25 @@
 import Tooltip from '@components/UIElements/Tooltip'
-import { useAverageColor } from '@lenstube/browser'
-import { STATIC_ASSETS } from '@lenstube/constants'
+import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
+import useAuthPersistStore from '@lib/store/auth'
+import usePersistStore from '@lib/store/persist'
+import { t } from '@lingui/macro'
+import { useAverageColor } from '@tape.xyz/browser'
+import { STATIC_ASSETS } from '@tape.xyz/constants'
 import {
   getProfilePicture,
   imageCdn,
   sanitizeDStorageUrl,
   trimLensHandle
-} from '@lenstube/generic'
-import type { Profile } from '@lenstube/lens'
+} from '@tape.xyz/generic'
+import type { Profile } from '@tape.xyz/lens'
 import {
   PublicationDocument,
   usePublicationLazyQuery,
   usePublicationQuery,
   useTxIdToTxHashLazyQuery
-} from '@lenstube/lens'
-import { useApolloClient } from '@lenstube/lens/apollo'
-import type { QueuedVideoType } from '@lenstube/lens/custom-types'
-import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
-import useAuthPersistStore from '@lib/store/auth'
-import usePersistStore from '@lib/store/persist'
-import { t } from '@lingui/macro'
+} from '@tape.xyz/lens'
+import { useApolloClient } from '@tape.xyz/lens/apollo'
+import type { QueuedVideoType } from '@tape.xyz/lens/custom-types'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
@@ -156,8 +156,8 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
               <div className="p-1">
                 <Tooltip content="Indexing" placement="top">
                   <span className="relative flex h-2 w-2 items-center justify-center">
-                    <span className="absolute inline-flex h-2 w-2 animate-ping rounded-full bg-indigo-400 opacity-75" />
-                    <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-indigo-500" />
+                    <span className="bg-brand-500 absolute inline-flex h-2 w-2 animate-ping rounded-full opacity-75" />
+                    <span className="bg-brand-500 relative inline-flex h-1.5 w-1.5 rounded-full" />
                   </span>
                 </Tooltip>
               </div>

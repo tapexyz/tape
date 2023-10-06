@@ -1,10 +1,10 @@
 import { Button } from '@components/UIElements/Button'
 import { ZoraCreator1155Impl, ZoraERC721Drop } from '@lenstube/abis'
-import { Analytics, TRACK } from '@lenstube/browser'
-import { LENSTUBE_ADDRESS, LENSTUBE_APP_NAME } from '@lenstube/constants'
-import { getZoraChainInfo } from '@lenstube/generic'
-import type { ZoraNft } from '@lenstube/lens/custom-types'
 import { Trans } from '@lingui/macro'
+import { Analytics, TRACK } from '@tape.xyz/browser'
+import { TAPE_ADMIN_ADDRESS, TAPE_APP_NAME } from '@tape.xyz/constants'
+import { getZoraChainInfo } from '@tape.xyz/generic'
+import type { ZoraNft } from '@tape.xyz/lens/custom-types'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -33,8 +33,8 @@ const Collect = ({ nft, link }: { nft: ZoraNft; link: string }) => {
   // Write contract
   const nftAddress = nft.address
   const recipient = address as Address
-  const comment = `Minted from ${LENSTUBE_APP_NAME}`
-  const mintReferral = LENSTUBE_ADDRESS
+  const comment = `Minted from ${TAPE_APP_NAME}`
+  const mintReferral = TAPE_ADMIN_ADDRESS
   const mintFee = parseEther('0.000777')
 
   const price = quantity * parseInt(nft.price)

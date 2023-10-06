@@ -1,7 +1,7 @@
 import Video from '@components/Video'
-import type { AnyPublication } from '@lenstube/lens'
-import { PublicationDocument } from '@lenstube/lens'
-import { apolloClient } from '@lenstube/lens/apollo'
+import type { AnyPublication } from '@tape.xyz/lens'
+import { PublicationDocument } from '@tape.xyz/lens'
+import { apolloClient } from '@tape.xyz/lens/apollo'
 import type { GetServerSideProps } from 'next'
 
 export default Video

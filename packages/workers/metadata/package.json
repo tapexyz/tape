@@ -12,7 +12,7 @@
     "viem": "^1.13.1"
   },
   "devDependencies": {
-    "@lenstube/config": "*",
+    "@tape.xyz/config": "*",
     "typescript": "^5.2.2"
   }
 }

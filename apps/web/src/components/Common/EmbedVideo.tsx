@@ -1,7 +1,7 @@
 import Tooltip from '@components/UIElements/Tooltip'
-import { Analytics, TRACK, useCopyToClipboard } from '@lenstube/browser'
-import { LENSTUBE_EMBED_URL } from '@lenstube/constants'
 import { Card, Dialog, Flex, IconButton } from '@radix-ui/themes'
+import { Analytics, TRACK, useCopyToClipboard } from '@tape.xyz/browser'
+import { TAPE_APP_NAME, TAPE_EMBED_URL } from '@tape.xyz/constants'
 import type { FC } from 'react'
 import React from 'react'
 
@@ -16,7 +16,7 @@ type Props = {
 const EmbedVideo: FC<Props> = ({ videoId }) => {
   const [copy] = useCopyToClipboard()
 
-  const iframeCode = `<iframe width="560" height="315" src="${LENSTUBE_EMBED_URL}/${videoId}?autoplay=1&t=0&loop=0" title="Lenstube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;" allowfullscreen></iframe>`
+  const iframeCode = `<iframe width="560" height="315" src="${TAPE_EMBED_URL}/${videoId}?autoplay=1&t=0&loop=0" title="${TAPE_APP_NAME} video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;" allowfullscreen></iframe>`
 
   const onCopyCode = () => {
     Analytics.track(TRACK.EMBED_VIDEO.COPY)
@@ -54,7 +54,7 @@ const EmbedVideo: FC<Props> = ({ videoId }) => {
             <iframe
               sandbox="allow-scripts allow-same-origin"
               className="aspect-[16/9] w-full"
-              src={`${LENSTUBE_EMBED_URL}/${videoId}`}
+              src={`${TAPE_EMBED_URL}/${videoId}`}
               title="Lenstube video player"
               allow="accelerometer; autoplay; clipboard-write; gyroscope;"
               allowFullScreen

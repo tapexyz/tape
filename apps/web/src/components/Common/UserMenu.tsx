@@ -1,17 +1,17 @@
-import { Analytics, TRACK } from '@lenstube/browser'
-import { ADMIN_IDS } from '@lenstube/constants'
-import {
-  formatNumber,
-  getProfilePicture,
-  trimLensHandle
-} from '@lenstube/generic'
-import type { Profile } from '@lenstube/lens'
-import { useProfilesQuery } from '@lenstube/lens'
-import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAuthPersistStore, { signOut } from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
 import { Avatar, Box, DropdownMenu, Flex, Text } from '@radix-ui/themes'
+import { Analytics, TRACK } from '@tape.xyz/browser'
+import { ADMIN_IDS } from '@tape.xyz/constants'
+import {
+  formatNumber,
+  getProfilePicture,
+  trimLensHandle
+} from '@tape.xyz/generic'
+import type { Profile } from '@tape.xyz/lens'
+import { useProfilesQuery } from '@tape.xyz/lens'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'

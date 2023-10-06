@@ -4,8 +4,8 @@ import {
   formatNumber,
   getProfilePicture,
   trimLensHandle
-} from '@lenstube/generic'
-import type { MirrorablePublication } from '@lenstube/lens'
+} from '@tape.xyz/generic'
+import type { MirrorablePublication } from '@tape.xyz/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'

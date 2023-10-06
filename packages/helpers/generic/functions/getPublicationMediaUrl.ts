@@ -2,7 +2,7 @@ import type {
   PublicationMetadata,
   PublicationMetadataMediaAudio,
   PublicationMetadataMediaVideo
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 
 export const getPublicationRawMediaUrl = (
   metadata: PublicationMetadataMediaAudio | PublicationMetadataMediaVideo

@@ -14,9 +14,9 @@
     "zod": "^3.22.2"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20230922.0",
-    "@lenstube/config": "*",
+    "@cloudflare/workers-types": "^4.20231002.0",
+    "@tape.xyz/config": "*",
     "typescript": "^5.2.2",
-    "wrangler": "3.10.1"
+    "wrangler": "3.11.0"
   }
 }

@@ -11,21 +11,26 @@ import {
   video
 } from '@lens-protocol/metadata'
 import { LENSHUB_PROXY_ABI } from '@lenstube/abis'
+import { getCollectModule } from '@lib/getCollectModule'
+import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
+import useChannelStore from '@lib/store/channel'
+import usePersistStore from '@lib/store/persist'
+import { t } from '@lingui/macro'
 import {
   Analytics,
   getUserLocale,
   TRACK,
   uploadToIPFS
-} from '@lenstube/browser'
+} from '@tape.xyz/browser'
 import {
-  BUNDLR_CONNECT_MESSAGE,
   ERROR_MESSAGE,
+  IRYS_CONNECT_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
-  LENSTUBE_APP_ID,
-  LENSTUBE_APP_NAME,
-  LENSTUBE_WEBSITE_URL,
-  REQUESTING_SIGNATURE_MESSAGE
-} from '@lenstube/constants'
+  REQUESTING_SIGNATURE_MESSAGE,
+  TAPE_APP_ID,
+  TAPE_APP_NAME,
+  TAPE_WEBSITE_URL
+} from '@tape.xyz/constants'
 import {
   canUploadedToIpfs,
   getSignature,
@@ -33,12 +38,12 @@ import {
   trimify,
   trimLensHandle,
   uploadToAr
-} from '@lenstube/generic'
+} from '@tape.xyz/generic'
 import type {
   CreateMomokaPostEip712TypedData,
   CreateOnchainPostEip712TypedData,
   ReferenceModuleInput
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 import {
   ReferenceModuleType,
   useBroadcastOnchainMutation,
@@ -47,13 +52,8 @@ import {
   useCreateOnchainPostTypedDataMutation,
   usePostOnchainMutation,
   usePostOnMomokaMutation
-} from '@lenstube/lens'
-import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
-import { getCollectModule } from '@lib/getCollectModule'
-import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
-import useChannelStore from '@lib/store/channel'
-import usePersistStore from '@lib/store/persist'
-import { t } from '@lingui/macro'
+} from '@tape.xyz/lens'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
@@ -64,9 +64,9 @@ import type { VideoFormData } from './Details'
 import Details from './Details'
 
 const UploadSteps = () => {
-  const getBundlrInstance = useAppStore((state) => state.getBundlrInstance)
-  const setBundlrData = useAppStore((state) => state.setBundlrData)
-  const bundlrData = useAppStore((state) => state.bundlrData)
+  const getIrysInstance = useAppStore((state) => state.getIrysInstance)
+  const setIrysData = useAppStore((state) => state.setIrysData)
+  const irysData = useAppStore((state) => state.irysData)
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
   const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
   const activeChannel = useChannelStore((state) => state.activeChannel)
@@ -160,12 +160,12 @@ const UploadSteps = () => {
     return stopLoading()
   }
 
-  const initBundlr = async () => {
-    if (signer && address && !bundlrData.instance) {
-      toast.loading(BUNDLR_CONNECT_MESSAGE)
-      const bundlr = await getBundlrInstance(signer)
-      if (bundlr) {
-        setBundlrData({ instance: bundlr })
+  const initIrys = async () => {
+    if (signer && address && !irysData.instance) {
+      toast.loading(IRYS_CONNECT_MESSAGE)
+      const instance = await getIrysInstance(signer)
+      if (instance) {
+        setIrysData({ instance })
       }
     }
   }
@@ -292,7 +292,7 @@ const UploadSteps = () => {
         {
           type: MetadataAttributeType.STRING,
           key: 'app',
-          value: LENSTUBE_WEBSITE_URL
+          value: TAPE_WEBSITE_URL
         }
       ]
 
@@ -306,7 +306,7 @@ const UploadSteps = () => {
           duration: uploadedVideo.durationInSeconds,
           license: MetadataLicenseType.CCO
         },
-        appId: LENSTUBE_APP_ID,
+        appId: TAPE_APP_ID,
         id: uuidv4(),
         attributes,
         content: trimify(
@@ -318,7 +318,7 @@ const UploadSteps = () => {
         marketplace: {
           attributes,
           animation_url: uploadedVideo.videoSource,
-          external_url: `${LENSTUBE_WEBSITE_URL}/channel/${activeChannel?.handle}`,
+          external_url: `${TAPE_WEBSITE_URL}/channel/${activeChannel?.handle}`,
           image: uploadedVideo.thumbnail,
           name: uploadedVideo.title,
           description: trimify(uploadedVideo.description)
@@ -425,18 +425,16 @@ const UploadSteps = () => {
     })
   }
 
-  const uploadToBundlr = async () => {
-    if (!bundlrData.instance) {
+  const uploadToIrys = async () => {
+    if (!irysData.instance) {
       stopLoading()
-      return await initBundlr()
+      return await initIrys()
     }
     if (!uploadedVideo.stream) {
       stopLoading()
       return toast.error(t`Video not uploaded correctly`)
     }
-    if (
-      parseFloat(bundlrData.balance) < parseFloat(bundlrData.estimatedPrice)
-    ) {
+    if (parseFloat(irysData.balance) < parseFloat(irysData.estimatedPrice)) {
       stopLoading()
       return toast.error(t`Insufficient storage balance`)
     }
@@ -445,10 +443,10 @@ const UploadSteps = () => {
         loading: true,
         buttonText: t`Uploading to Arweave`
       })
-      const bundlr = bundlrData.instance
+      const instance = irysData.instance
       const tags = [
         { name: 'Content-Type', value: uploadedVideo.videoType || 'video/mp4' },
-        { name: 'App-Name', value: LENSTUBE_APP_NAME },
+        { name: 'App-Name', value: TAPE_APP_NAME },
         { name: 'Profile-Id', value: activeChannel?.id },
         // ANS-110 standard
         { name: 'Title', value: trimify(uploadedVideo.title) },
@@ -460,7 +458,7 @@ const UploadSteps = () => {
         }
       ]
       const fileSize = uploadedVideo?.file?.size as number
-      const uploader = bundlr.uploader.chunkedUploader
+      const uploader = instance.uploader.chunkedUploader
       const chunkSize = 10000000 // 10 MB
       uploader.setChunkSize(chunkSize)
       if (fileSize < chunkSize) {
@@ -492,7 +490,7 @@ const UploadSteps = () => {
       })
     } catch (error) {
       toast.error(t`Failed to upload video to Arweave`)
-      logger.error('[Error Bundlr Upload Video]', error)
+      logger.error('[Error Irys Upload Video]', error)
       return stopLoading()
     }
   }
@@ -519,7 +517,7 @@ const UploadSteps = () => {
     ) {
       return await uploadVideoToIpfs()
     } else {
-      await uploadToBundlr()
+      await uploadToIrys()
     }
   }
 

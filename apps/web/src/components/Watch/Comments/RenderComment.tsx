@@ -7,17 +7,16 @@ import InterweaveContent from '@components/Common/InterweaveContent'
 import HashExplorerLink from '@components/Common/Links/HashExplorerLink'
 import Tooltip from '@components/UIElements/Tooltip'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import {
-  checkValueInAttributes,
-  getProfilePicture,
-  getValueFromKeyInAttributes,
-  trimLensHandle
-} from '@lenstube/generic'
-import type { Comment, MetadataAttribute } from '@lenstube/lens'
 import { getRelativeTime } from '@lib/formatTime'
 import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'
+import {
+  checkValueInAttributes,
+  getProfilePicture,
+  trimLensHandle
+} from '@tape.xyz/generic'
+import type { Comment } from '@tape.xyz/lens'
 import clsx from 'clsx'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -157,7 +156,7 @@ const RenderComment: FC<Props> = ({ comment }) => {
               {comment.stats.comments ? (
                 <button
                   onClick={() => setShowReplies(!showReplies)}
-                  className="rounded-full bg-indigo-100 px-2 py-1 text-xs focus:outline-none dark:bg-indigo-900/30"
+                  className="bg-brand-100 dark:bg-brand-900/30 rounded-full px-2 py-1 text-xs focus:outline-none"
                 >
                   {comment.stats.comments} <Trans>replies</Trans>
                 </button>

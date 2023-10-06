@@ -2,28 +2,28 @@ import Timeline from '@components/Home/Timeline'
 import PinnedVideoShimmer from '@components/Shimmers/PinnedVideoShimmer'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import usePersistStore from '@lib/store/persist'
+import { t } from '@lingui/macro'
 import {
   ALLOWED_APP_IDS,
   IS_MAINNET,
   LENS_CUSTOM_FILTERS,
-  LENSTUBE_APP_ID,
-  SCROLL_ROOT_MARGIN
-} from '@lenstube/constants'
-import { getValueFromKeyInAttributes } from '@lenstube/generic'
+  SCROLL_ROOT_MARGIN,
+  TAPE_APP_ID
+} from '@tape.xyz/constants'
+import { getValueFromKeyInAttributes } from '@tape.xyz/generic'
 import type {
   AnyPublication,
   Profile,
   PublicationsRequest
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 import {
   LimitType,
   PublicationMetadataMainFocusType,
   PublicationType,
   usePublicationsQuery
-} from '@lenstube/lens'
-import { Loader } from '@lenstube/ui'
-import usePersistStore from '@lib/store/persist'
-import { t } from '@lingui/macro'
+} from '@tape.xyz/lens'
+import { Loader } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
@@ -45,9 +45,7 @@ const ChannelVideos: FC<Props> = ({ profile }) => {
     where: {
       metadata: {
         mainContentFocus: [PublicationMetadataMainFocusType.Video],
-        publishedOn: IS_MAINNET
-          ? [LENSTUBE_APP_ID, ...ALLOWED_APP_IDS]
-          : undefined
+        publishedOn: IS_MAINNET ? [TAPE_APP_ID, ...ALLOWED_APP_IDS] : undefined
       },
       publicationTypes: [PublicationType.Post],
       customFilters: LENS_CUSTOM_FILTERS,

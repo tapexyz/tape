@@ -6,26 +6,30 @@ import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import type { MetadataAttribute } from '@lens-protocol/metadata'
 import { MetadataAttributeType, textOnly } from '@lens-protocol/metadata'
 import { LENSHUB_PROXY_ABI } from '@lenstube/abis'
-import { Analytics, getUserLocale, TRACK } from '@lenstube/browser'
+import useAuthPersistStore from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
+import usePersistStore from '@lib/store/persist'
+import { t, Trans } from '@lingui/macro'
+import { Analytics, getUserLocale, TRACK } from '@tape.xyz/browser'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
-  LENSTUBE_APP_ID,
-  LENSTUBE_WEBSITE_URL,
-  REQUESTING_SIGNATURE_MESSAGE
-} from '@lenstube/constants'
+  REQUESTING_SIGNATURE_MESSAGE,
+  TAPE_APP_ID,
+  TAPE_WEBSITE_URL
+} from '@tape.xyz/constants'
 import {
   getProfilePicture,
   getPublication,
   getSignature,
   trimify,
   uploadToAr
-} from '@lenstube/generic'
+} from '@tape.xyz/generic'
 import type {
   AnyPublication,
   CreateMomokaCommentEip712TypedData,
   CreateOnchainCommentEip712TypedData
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 import {
   PublicationDocument,
   useBroadcastOnchainMutation,
@@ -35,13 +39,9 @@ import {
   useCreateMomokaCommentTypedDataMutation,
   useCreateOnchainCommentTypedDataMutation,
   usePublicationLazyQuery
-} from '@lenstube/lens'
-import { useApolloClient } from '@lenstube/lens/apollo'
-import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
-import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
-import usePersistStore from '@lib/store/persist'
-import { t, Trans } from '@lingui/macro'
+} from '@tape.xyz/lens'
+import { useApolloClient } from '@tape.xyz/lens/apollo'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -286,11 +286,11 @@ const NewComment: FC<Props> = ({
         {
           type: MetadataAttributeType.STRING,
           key: 'app',
-          value: LENSTUBE_WEBSITE_URL
+          value: TAPE_WEBSITE_URL
         }
       ]
       const metadata = textOnly({
-        appId: LENSTUBE_APP_ID,
+        appId: TAPE_APP_ID,
         id: uuidv4(),
         attributes,
         content: trimify(formData.comment),
@@ -299,7 +299,7 @@ const NewComment: FC<Props> = ({
           name: `${activeChannel?.handle}'s comment on video ${targetVideo.metadata.marketplace?.name}`,
           attributes,
           description: trimify(formData.comment),
-          external_url: `${LENSTUBE_WEBSITE_URL}/watch/${video?.id}`
+          external_url: `${TAPE_WEBSITE_URL}/watch/${video?.id}`
         }
       })
       const metadataUri = await uploadToAr(metadata)

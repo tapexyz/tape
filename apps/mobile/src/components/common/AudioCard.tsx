@@ -1,14 +1,16 @@
+import { useNavigation } from '@react-navigation/native'
 import {
-  getRelativeTime,
   getThumbnailUrl,
-  getValueFromTraitType,
+  getValueFromKeyInAttributes,
   imageCdn,
   trimify,
   trimNewLines
-} from '@lenstube/generic'
-import type { Attribute, MirrorablePublication } from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
-import { useNavigation } from '@react-navigation/native'
+} from '@tape.xyz/generic'
+import type {
+  MirrorablePublication,
+  PublicationMarketplaceMetadataAttribute
+} from '@tape.xyz/lens'
+import type { MobileThemeConfig } from '@tape.xyz/lens/custom-types'
 import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
 import React, { memo } from 'react'
@@ -103,8 +105,9 @@ const AudioCard: FC<Props> = ({ audio }) => {
                 {trimify(audio.metadata.marketplace?.name ?? '')}
               </Text>
               <Text style={style.author}>
-                {getValueFromTraitType(
-                  audio.metadata.marketplace?.attributes as Attribute[],
+                {getValueFromKeyInAttributes(
+                  audio.metadata.marketplace
+                    ?.attributes as PublicationMarketplaceMetadataAttribute[],
                   'author'
                 )}
               </Text>

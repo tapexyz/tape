@@ -1,25 +1,25 @@
 import { SuggestedVideosShimmer } from '@components/Shimmers/VideoDetailShimmer'
+import useAuthPersistStore from '@lib/store/auth'
 import {
   ALLOWED_APP_IDS,
   IS_MAINNET,
   LENS_CUSTOM_FILTERS,
-  LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
-  SCROLL_ROOT_MARGIN
-} from '@lenstube/constants'
+  SCROLL_ROOT_MARGIN,
+  TAPE_APP_ID
+} from '@tape.xyz/constants'
 import type {
   ExplorePublicationRequest,
   MirrorablePublication
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 import {
   ExplorePublicationsOrderByType,
   ExplorePublicationType,
   LimitType,
   PublicationMetadataMainFocusType,
   useExplorePublicationsQuery
-} from '@lenstube/lens'
-import { Loader } from '@lenstube/ui'
-import useAuthPersistStore from '@lib/store/auth'
+} from '@tape.xyz/lens'
+import { Loader } from '@tape.xyz/ui'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { useInView } from 'react-cool-inview'
@@ -34,7 +34,7 @@ const request: ExplorePublicationRequest = {
     publicationTypes: [ExplorePublicationType.Post],
     metadata: {
       publishedOn: IS_MAINNET
-        ? [LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
+        ? [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
         : undefined,
       mainContentFocus: [PublicationMetadataMainFocusType.Video]
     }

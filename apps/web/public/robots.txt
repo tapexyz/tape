@@ -1,4 +1,4 @@
-Sitemap: https://lenstube.xyz/sitemap.xml
+Sitemap: https://tape.xyz/sitemap.xml
 
 User-agent: *
 Allow: /*

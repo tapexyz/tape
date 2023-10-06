@@ -3,18 +3,18 @@ import 'react-native-reanimated'
 import 'react-native-gesture-handler'
 
 import {
-  LIVEPEER_STUDIO_API_KEY,
-  PRIPE_APP_DESCRIPTION,
-  PRIPE_APP_NAME,
-  PRIPE_WEBSITE_URL,
-  WC_PROJECT_ID
-} from '@lenstube/constants'
-import { apolloClient, ApolloProvider } from '@lenstube/lens/apollo'
-import {
   createReactClient,
   LivepeerConfig,
   studioProvider
 } from '@livepeer/react-native'
+import {
+  LIVEPEER_STUDIO_API_KEY,
+  TAPE_APP_DESCRIPTION,
+  TAPE_APP_NAME,
+  TAPE_WEBSITE_URL,
+  WC_PROJECT_ID
+} from '@tape.xyz/constants'
+import { apolloClient, ApolloProvider } from '@tape.xyz/lens/apollo'
 import { WalletConnectModal } from '@walletconnect/modal-react-native'
 import React from 'react'
 import { StyleSheet } from 'react-native'
@@ -34,13 +34,13 @@ const styles = StyleSheet.create({
 })
 
 const providerMetadata = {
-  name: PRIPE_APP_NAME,
-  description: PRIPE_APP_DESCRIPTION,
-  url: PRIPE_WEBSITE_URL,
-  icons: ['https://static.lenstube.xyz/images/brand/lenstube.svg'],
+  name: TAPE_APP_NAME,
+  description: TAPE_APP_DESCRIPTION,
+  url: TAPE_WEBSITE_URL,
+  icons: ['https://static.tape.xyz/brand/logo.svg'],
   redirect: {
-    native: 'pripe://',
-    universal: 'pripe.xyz'
+    native: 'tape://',
+    universal: 'tape.xyz'
   }
 }
 

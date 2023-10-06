@@ -1,23 +1,23 @@
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import usePendingTxn from '@hooks/usePendingTxn'
 import { LENSHUB_PROXY_ABI } from '@lenstube/abis'
-import { Analytics, TRACK } from '@lenstube/browser'
+import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
+import { Button } from '@radix-ui/themes'
+import { Analytics, TRACK } from '@tape.xyz/browser'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE
-} from '@lenstube/constants'
-import { getIsDispatcherEnabled, getSignature } from '@lenstube/generic'
-import type { Profile } from '@lenstube/lens'
+} from '@tape.xyz/constants'
+import { getIsDispatcherEnabled, getSignature } from '@tape.xyz/generic'
+import type { Profile } from '@tape.xyz/lens'
 import {
   useBroadcastOnchainMutation,
   useCreateChangeProfileManagersTypedDataMutation,
   useProfileLazyQuery
-} from '@lenstube/lens'
-import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
-import useChannelStore from '@lib/store/channel'
-import { t, Trans } from '@lingui/macro'
-import { Button } from '@radix-ui/themes'
+} from '@tape.xyz/lens'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useContractWrite, useSignTypedData } from 'wagmi'

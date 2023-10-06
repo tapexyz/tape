@@ -10,19 +10,22 @@ import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import type { MetadataAttribute, ProfileOptions } from '@lens-protocol/metadata'
 import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
 import { LENSHUB_PROXY_ABI } from '@lenstube/abis'
+import useChannelStore from '@lib/store/channel'
+import { t, Trans } from '@lingui/macro'
+import { Button, Card, Flex, IconButton } from '@radix-ui/themes'
 import {
   Analytics,
   TRACK,
   uploadToIPFS,
   useCopyToClipboard
-} from '@lenstube/browser'
+} from '@tape.xyz/browser'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
-  LENSTUBE_APP_ID,
-  LENSTUBE_WEBSITE_URL,
-  REQUESTING_SIGNATURE_MESSAGE
-} from '@lenstube/constants'
+  REQUESTING_SIGNATURE_MESSAGE,
+  TAPE_APP_ID,
+  TAPE_WEBSITE_URL
+} from '@tape.xyz/constants'
 import {
   getChannelCoverPicture,
   getProfilePicture,
@@ -33,21 +36,17 @@ import {
   trimify,
   trimLensHandle,
   uploadToAr
-} from '@lenstube/generic'
-import type { OnchainSetProfileMetadataRequest, Profile } from '@lenstube/lens'
+} from '@tape.xyz/generic'
+import type { OnchainSetProfileMetadataRequest, Profile } from '@tape.xyz/lens'
 import {
   useBroadcastOnchainMutation,
   useCreateOnchainSetProfileMetadataTypedDataMutation
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 import type {
   CustomErrorWithData,
   IPFSUploadResult
-} from '@lenstube/lens/custom-types'
-import { Loader } from '@lenstube/ui'
-import useChannelStore from '@lib/store/channel'
-import { t, Trans } from '@lingui/macro'
-import { Button, Card, Flex, IconButton } from '@radix-ui/themes'
-import clsx from 'clsx'
+} from '@tape.xyz/lens/custom-types'
+import { Loader } from '@tape.xyz/ui'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -192,7 +191,7 @@ const BasicInfo = ({ channel }: Props) => {
     setLoading(true)
     try {
       const profileMetadata: ProfileOptions = {
-        appId: LENSTUBE_APP_ID,
+        appId: TAPE_APP_ID,
         coverPicture: data.coverImage ?? coverImage,
         id: uuidv4(),
         attributes: [
@@ -225,7 +224,7 @@ const BasicInfo = ({ channel }: Props) => {
           {
             type: MetadataAttributeType.STRING,
             key: 'app',
-            value: LENSTUBE_APP_ID
+            value: TAPE_APP_ID
           }
         ]
       }
@@ -379,7 +378,7 @@ const BasicInfo = ({ channel }: Props) => {
               </div>
               <div className="flex items-center space-x-2">
                 <span>
-                  {LENSTUBE_WEBSITE_URL}/channel/
+                  {TAPE_WEBSITE_URL}/channel/
                   {trimLensHandle(channel.handle)}
                 </span>
                 <Tooltip content="Copy" placement="top">
@@ -387,7 +386,7 @@ const BasicInfo = ({ channel }: Props) => {
                     className="hover:opacity-60 focus:outline-none"
                     onClick={async () =>
                       await copy(
-                        `${LENSTUBE_WEBSITE_URL}/channel/${trimLensHandle(
+                        `${TAPE_WEBSITE_URL}/channel/${trimLensHandle(
                           channel.handle
                         )}`
                       )

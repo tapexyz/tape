@@ -1,8 +1,8 @@
 import type {
   QueuedCommentType,
   QueuedVideoType
-} from '@lenstube/lens/custom-types'
-import { CustomNotificationsFilterEnum } from '@lenstube/lens/custom-types'
+} from '@tape.xyz/lens/custom-types'
+import { CustomNotificationsFilterEnum } from '@tape.xyz/lens/custom-types'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
@@ -34,7 +34,7 @@ export const usePersistStore = create(
         set({ selectedNotificationsFilter })
     }),
     {
-      name: 'lenstube.store'
+      name: 'tape.store'
     }
   )
 )

@@ -1,23 +1,23 @@
 import {
   HEY_WEBSITE_URL,
-  LENSTUBE_APP_NAME,
-  LENSTUBE_WEBSITE_URL,
-  LENSTUBE_X_HANDLE
-} from '@lenstube/constants'
-import type { MirrorablePublication } from '@lenstube/lens'
+  TAPE_APP_NAME,
+  TAPE_WEBSITE_URL,
+  TAPE_X_HANDLE
+} from '@tape.xyz/constants'
+import type { AnyPublication, MirrorablePublication } from '@tape.xyz/lens'
 
-const getViewUrl = (video: MirrorablePublication) => {
-  return `${LENSTUBE_WEBSITE_URL}/watch/${video.id}`
+const getViewUrl = (video: AnyPublication) => {
+  return `${TAPE_WEBSITE_URL}/watch/${video.id}`
 }
 
-type Link = 'lenstube' | 'hey' | 'x' | 'reddit' | 'linkedin'
+type Link = 'tape' | 'hey' | 'x' | 'reddit' | 'linkedin'
 
 export const getSharableLink = (link: Link, video: MirrorablePublication) => {
   const { handle } = video.by
   const { metadata } = video
 
-  if (link === 'lenstube') {
-    return `${LENSTUBE_WEBSITE_URL}/watch/${video.id}`
+  if (link === 'tape') {
+    return `${TAPE_WEBSITE_URL}/watch/${video.id}`
   } else if (link === 'hey') {
     return `${HEY_WEBSITE_URL}/?url=${getViewUrl(video)}&text=${
       (metadata?.marketplace?.name as string) ?? ''
@@ -26,7 +26,7 @@ export const getSharableLink = (link: Link, video: MirrorablePublication) => {
     return encodeURI(
       `https://x.com/intent/tweet?url=${getViewUrl(video)}&text=${
         (metadata.marketplace?.name as string) ?? ''
-      } by @${handle}&via=${LENSTUBE_X_HANDLE}&related=Lenstube&hashtags=Lenstube`
+      } by @${handle}&via=${TAPE_X_HANDLE}&related=Lenstube&hashtags=Lenstube`
     )
   } else if (link === 'reddit') {
     return `https://www.reddit.com/submit?url=${getViewUrl(video)}&title=${
@@ -39,7 +39,7 @@ export const getSharableLink = (link: Link, video: MirrorablePublication) => {
       (metadata.marketplace?.name as string) ?? ''
     }&summary=${
       metadata?.marketplace?.description as string
-    }&source=${LENSTUBE_APP_NAME}`
+    }&source=${TAPE_APP_NAME}`
   }
   return ''
 }

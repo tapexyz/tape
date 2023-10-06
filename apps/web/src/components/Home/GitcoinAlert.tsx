@@ -2,6 +2,7 @@ import HandWaveOutline from '@components/Common/Icons/HandWaveOutline'
 import SignalWaveGraphic from '@components/UIElements/SignalWaveGraphic'
 import { Trans } from '@lingui/macro'
 import { Button } from '@radix-ui/themes'
+import { TAPE_APP_NAME } from '@tape.xyz/constants'
 import Link from 'next/link'
 import React from 'react'
 
@@ -19,7 +20,7 @@ const GitcoinAlert = () => {
           </div>
           <div className="flex w-full flex-1 flex-wrap items-center justify-between gap-y-3 dark:text-gray-100">
             <p className="md:text-md text-sm lg:text-lg">
-              <Trans>Support Lenstube on</Trans>{' '}
+              Support {TAPE_APP_NAME} on{' '}
               <span className="font-medium">
                 <Trans>Gitcoin Grants</Trans>
               </span>{' '}

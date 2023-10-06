@@ -1,5 +1,5 @@
-import type { OpenActionModuleInput, RecipientDataInput } from '@lenstube/lens'
-import type { CollectModuleType } from '@lenstube/lens/custom-types'
+import type { OpenActionModuleInput, RecipientDataInput } from '@tape.xyz/lens'
+import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
 
 import { getTimeAddedOneDay } from './formatTime'
 

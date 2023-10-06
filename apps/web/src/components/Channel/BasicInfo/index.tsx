@@ -8,18 +8,6 @@ import WalletOutline from '@components/Common/Icons/WalletOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import SubscribeActions from '@components/Common/SubscribeActions'
 import Tooltip from '@components/UIElements/Tooltip'
-import { useCopyToClipboard } from '@lenstube/browser'
-import { MISUSED_CHANNELS, STATIC_ASSETS } from '@lenstube/constants'
-import {
-  getChannelCoverPicture,
-  getProfilePicture,
-  getValueFromKeyInAttributes,
-  imageCdn,
-  sanitizeDStorageUrl,
-  shortenAddress,
-  trimLensHandle
-} from '@lenstube/generic'
-import type { Profile } from '@lenstube/lens'
 import { getRelativeTime } from '@lib/formatTime'
 import useAuthPersistStore from '@lib/store/auth'
 import { t, Trans } from '@lingui/macro'
@@ -29,9 +17,21 @@ import {
   DropdownMenu,
   Flex,
   IconButton,
-  Link,
   Text
 } from '@radix-ui/themes'
+import { useCopyToClipboard } from '@tape.xyz/browser'
+import { MISUSED_CHANNELS, STATIC_ASSETS } from '@tape.xyz/constants'
+import {
+  getChannelCoverPicture,
+  getProfilePicture,
+  getValueFromKeyInAttributes,
+  imageCdn,
+  sanitizeDStorageUrl,
+  shortenAddress,
+  trimLensHandle
+} from '@tape.xyz/generic'
+import type { Profile } from '@tape.xyz/lens'
+import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
 

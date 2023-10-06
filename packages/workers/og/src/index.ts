@@ -6,7 +6,7 @@ async function handleRequest(request: Request) {
   if (regex.test(userAgent)) {
     const url = new URL(request.url)
     const path = url.pathname
-    const fetchUrl = `https://api.lenstube.xyz/metatags?path=${path}`
+    const fetchUrl = `https://api.tape.xyz/metatags?path=${path}`
     return fetch(fetchUrl)
   }
 

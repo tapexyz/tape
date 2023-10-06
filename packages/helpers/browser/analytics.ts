@@ -1,4 +1,4 @@
-import { IS_MAINNET, IS_PRODUCTION } from '@lenstube/constants/general'
+import { IS_MAINNET, IS_PRODUCTION } from '@tape.xyz/constants/general'
 import type { Dict } from 'mixpanel-browser'
 import mixpanel from 'mixpanel-browser'
 
@@ -68,7 +68,7 @@ export const TRACK = {
     OPEN: 'Open Embed',
     COPY: 'Copy Embed',
     LOADED: 'Embed Video Loaded',
-    WATCH_ON_LENSTUBE: 'Watch on LensTube',
+    WATCH_ON_TAPE: 'Watch on Tape',
     CLICK_EMBED_TITLE: 'Click Embed Title',
     CLICK_EMBED_CHANNEL: 'Click Embed Channel'
   },

@@ -1,22 +1,24 @@
 import SharedLink from '@components/Home/OpenActions/SharedLink'
 import OpenActionsShimmer from '@components/Shimmers/OpenActionsShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { t } from '@lingui/macro'
 import {
   LENS_CUSTOM_FILTERS,
-  LENSTUBE_APP_ID,
-  SCROLL_ROOT_MARGIN
-} from '@lenstube/constants'
+  SCROLL_ROOT_MARGIN,
+  TAPE_APP_ID
+} from '@tape.xyz/constants'
+import type {
+  LinkMetadataV3,
+  PrimaryPublication,
+  PublicationsRequest
+} from '@tape.xyz/lens'
 import {
   LimitType,
-  type LinkMetadataV3,
-  type PrimaryPublication,
   PublicationMetadataMainFocusType,
-  type PublicationsRequest,
   PublicationType,
   usePublicationsQuery
-} from '@lenstube/lens'
-import { Loader } from '@lenstube/ui'
-import { t } from '@lingui/macro'
+} from '@tape.xyz/lens'
+import { Loader } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
@@ -30,7 +32,7 @@ const SharedLinks: FC<Props> = ({ profileId }) => {
     where: {
       metadata: {
         mainContentFocus: [PublicationMetadataMainFocusType.Link],
-        publishedOn: [LENSTUBE_APP_ID]
+        publishedOn: [TAPE_APP_ID]
       },
       publicationTypes: [PublicationType.Post],
       customFilters: LENS_CUSTOM_FILTERS,

@@ -3,14 +3,14 @@ import {
   formatNumber,
   getProfilePicture,
   trimLensHandle
-} from '@lenstube/generic'
-import type { Profile, WhoActedOnPublicationRequest } from '@lenstube/lens'
+} from '@tape.xyz/generic'
+import type { Profile, WhoActedOnPublicationRequest } from '@tape.xyz/lens'
 import {
   LimitType,
   OpenActionCategoryType,
   useWhoActedOnPublicationQuery
-} from '@lenstube/lens'
-import { Loader } from '@lenstube/ui'
+} from '@tape.xyz/lens'
+import { Loader } from '@tape.xyz/ui'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'

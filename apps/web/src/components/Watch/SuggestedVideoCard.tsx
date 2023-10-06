@@ -2,22 +2,22 @@ import HoverableProfile from '@components/Common/HoverableProfile'
 import CommentOutline from '@components/Common/Icons/CommentOutline'
 import HeartOutline from '@components/Common/Icons/HeartOutline'
 import VideoOptions from '@components/Common/VideoCard/VideoOptions'
-import { useAverageColor } from '@lenstube/browser'
+import { getShortHandTime, getTimeFromSeconds } from '@lib/formatTime'
+import { Box, Flex } from '@radix-ui/themes'
+import { useAverageColor } from '@tape.xyz/browser'
 import {
   FALLBACK_COVER_URL,
   LENSTUBE_BYTES_APP_ID,
   STATIC_ASSETS
-} from '@lenstube/constants'
+} from '@tape.xyz/constants'
 import {
   formatNumber,
   getIsSensitiveContent,
   getThumbnailUrl,
   getValueFromKeyInAttributes,
   imageCdn
-} from '@lenstube/generic'
-import type { MetadataAttribute, MirrorablePublication } from '@lenstube/lens'
-import { getShortHandTime, getTimeFromSeconds } from '@lib/formatTime'
-import { Box, Flex } from '@radix-ui/themes'
+} from '@tape.xyz/generic'
+import type { MetadataAttribute, MirrorablePublication } from '@tape.xyz/lens'
 import clsx from 'clsx'
 import Link from 'next/link'
 import type { FC } from 'react'

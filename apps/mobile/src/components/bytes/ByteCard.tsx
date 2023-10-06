@@ -1,11 +1,11 @@
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 import {
   getPublicationMediaUrl,
   getThumbnailUrl,
   imageCdn,
   logger
-} from '@lenstube/generic'
-import type { AnyPublication } from '@lenstube/lens'
-import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
+} from '@tape.xyz/generic'
+import type { AnyPublication } from '@tape.xyz/lens'
 import { ResizeMode, Video } from 'expo-av'
 import type { FC } from 'react'
 import React, { useEffect, useRef } from 'react'

@@ -2,16 +2,16 @@ import InfoOutline from '@components/Common/Icons/InfoOutline'
 import TimesOutline from '@components/Common/Icons/TimesOutline'
 import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
-import {
-  IS_MAINNET,
-  LENSTUBE_ADDRESS,
-  LENSTUBE_APP_NAME
-} from '@lenstube/constants'
-import { splitNumber } from '@lenstube/generic'
-import { type RecipientDataInput, useProfileLazyQuery } from '@lenstube/lens'
 import useAppStore from '@lib/store'
 import { Trans } from '@lingui/macro'
 import { Text } from '@radix-ui/themes'
+import {
+  IS_MAINNET,
+  TAPE_ADMIN_ADDRESS,
+  TAPE_APP_NAME
+} from '@tape.xyz/constants'
+import { splitNumber } from '@tape.xyz/generic'
+import type { RecipientDataInput } from '@tape.xyz/lens'
 import clsx from 'clsx'
 import type { FC, RefObject } from 'react'
 import React from 'react'
@@ -41,7 +41,8 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
 
   const getIsValidAddress = (address: string) => isAddress(address)
   const isIncludesDonationAddress =
-    splitRecipients.filter((el) => el.recipient === LENSTUBE_ADDRESS).length > 0
+    splitRecipients.filter((el) => el.recipient === TAPE_ADMIN_ADDRESS).length >
+    0
   const getIsHandle = (value: string) => {
     return IS_MAINNET && value === 'lensprotocol'
       ? true
@@ -91,7 +92,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
 
   const addDonation = () => {
     const splits = splitRecipients
-    splits.push({ recipient: LENSTUBE_ADDRESS, split: 2 })
+    splits.push({ recipient: TAPE_ADMIN_ADDRESS, split: 2 })
     setSplitRecipients([...splits])
     scrollToSubmit()
   }
@@ -145,11 +146,11 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
             autoComplete="off"
             spellCheck="false"
             suffix={
-              splitRecipient.recipient === LENSTUBE_ADDRESS
-                ? LENSTUBE_APP_NAME
+              splitRecipient.recipient === TAPE_ADMIN_ADDRESS
+                ? TAPE_APP_NAME
                 : ''
             }
-            disabled={splitRecipient.recipient === LENSTUBE_ADDRESS}
+            disabled={splitRecipient.recipient === TAPE_ADMIN_ADDRESS}
             validationError={
               getIsValidAddress(splitRecipient.recipient) ? '' : ' '
             }
@@ -190,7 +191,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
           </button>
           {!isIncludesDonationAddress && (
             <Tooltip
-              content={`Help ${LENSTUBE_APP_NAME} continue to grow by adding a donation.`}
+              content={`Help ${TAPE_APP_NAME} continue to grow by adding a donation.`}
               placement="top"
             >
               <button

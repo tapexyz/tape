@@ -1,6 +1,6 @@
-import { NFTS_URL } from '@lenstube/constants'
-import type { ZoraNft } from '@lenstube/lens/custom-types'
 import { useQuery } from '@tanstack/react-query'
+import { WORKER_NFTS_URL } from '@tape.xyz/constants'
+import type { ZoraNft } from '@tape.xyz/lens/custom-types'
 import axios from 'axios'
 
 interface UseZoraNftProps {
@@ -21,7 +21,7 @@ export const useZoraNft = ({
   error: unknown
 } => {
   const loadNftDetails = async () => {
-    const response = await axios.get(`${NFTS_URL}/zora`, {
+    const response = await axios.get(`${WORKER_NFTS_URL}/zora`, {
       params: { chain, address, token }
     })
 

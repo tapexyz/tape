@@ -5,12 +5,17 @@ import ReplyOutline from '@components/Common/Icons/ReplyOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { Button } from '@components/UIElements/Button'
-import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
-import { getProfilePicture, trimLensHandle } from '@lenstube/generic'
-import type { Comment, Profile, PublicationsRequest } from '@lenstube/lens'
-import { LimitType, usePublicationsQuery } from '@lenstube/lens'
 import { getRelativeTime } from '@lib/formatTime'
 import { Trans } from '@lingui/macro'
+import { LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
+import { getProfilePicture, trimLensHandle } from '@tape.xyz/generic'
+import {
+  type Comment,
+  LimitType,
+  type Profile,
+  type PublicationsRequest,
+  usePublicationsQuery
+} from '@tape.xyz/lens'
 import clsx from 'clsx'
 import Link from 'next/link'
 import type { FC } from 'react'

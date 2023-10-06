@@ -1,9 +1,9 @@
-import type { WebBundlr } from '@bundlr-network/client'
+import type { WebIrys } from '@irys/sdk'
 import type {
   Profile,
   ProfileInterestTypes,
   RecipientDataInput
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 
 export type VideoDraft = {
   preview: string
@@ -11,8 +11,8 @@ export type VideoDraft = {
   description: string
 }
 
-export type BundlrDataState = {
-  instance: WebBundlr | null
+export type IrysDataState = {
+  instance: WebIrys | null
   balance: string
   estimatedPrice: string
   deposit: string | null

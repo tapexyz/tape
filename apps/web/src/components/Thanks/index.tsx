@@ -1,4 +1,4 @@
-import { LENSTUBE_APP_NAME, STATIC_ASSETS } from '@lenstube/constants'
+import { STATIC_ASSETS, TAPE_APP_NAME } from '@tape.xyz/constants'
 import Link from 'next/link'
 
 const Thanks = () => {
@@ -13,7 +13,7 @@ const Thanks = () => {
       </div>
       <div className="mx-auto grid max-w-xl grid-cols-2 place-items-start gap-12">
         <Link
-          href={`https://livepeer.studio/?utm_source=${LENSTUBE_APP_NAME}`}
+          href={`https://livepeer.studio/?utm_source=${TAPE_APP_NAME}`}
           className="col-span-1 flex items-center justify-center md:col-span-2 lg:col-span-1"
         >
           <img
@@ -25,7 +25,7 @@ const Thanks = () => {
           <div className="px-5">Livepeer</div>
         </Link>
         <Link
-          href={`https://4everland.org/?utm_source=${LENSTUBE_APP_NAME}`}
+          href={`https://4everland.org/?utm_source=${TAPE_APP_NAME}`}
           className="col-span-1 flex items-center justify-center md:col-span-2 lg:col-span-1"
         >
           <img
@@ -37,7 +37,7 @@ const Thanks = () => {
           <div className="px-5">4everland</div>
         </Link>
         <Link
-          href={`https://betteruptime.com/?utm_source=${LENSTUBE_APP_NAME}`}
+          href={`https://betteruptime.com/?utm_source=${TAPE_APP_NAME}`}
           className="col-span-1 flex items-center justify-center md:col-span-2 lg:col-span-1"
         >
           <img

@@ -1,6 +1,6 @@
-import { LENSTUBE_APP_NAME } from '@lenstube/constants'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
+import { TAPE_APP_NAME } from '@tape.xyz/constants'
 import React from 'react'
 
 import Toggle from './Toggle'
@@ -13,7 +13,7 @@ const DispatcherPermissions = () => {
     if (usingOldDispatcher) {
       return t`Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions.`
     }
-    return `Dispacher helps interact with ${LENSTUBE_APP_NAME} without signing any of your transactions.`
+    return `Dispacher helps interact with ${TAPE_APP_NAME} without signing any of your transactions.`
   }
 
   return (

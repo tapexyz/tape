@@ -1,16 +1,16 @@
-import { useAverageColor } from '@lenstube/browser'
+import { useAverageColor } from '@tape.xyz/browser'
 import {
   FALLBACK_COVER_URL,
   LENSTUBE_BYTES_APP_ID,
   STATIC_ASSETS
-} from '@lenstube/constants'
+} from '@tape.xyz/constants'
 import {
   getIsSensitiveContent,
   getPublication,
   getThumbnailUrl,
   imageCdn
-} from '@lenstube/generic'
-import type { AnyPublication } from '@lenstube/lens'
+} from '@tape.xyz/generic'
+import type { AnyPublication } from '@tape.xyz/lens'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'

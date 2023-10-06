@@ -1,5 +1,5 @@
-import type { Profile } from '@lenstube/lens'
-import { CustomCommentsFilterEnum } from '@lenstube/lens/custom-types'
+import type { Profile } from '@tape.xyz/lens'
+import { CustomCommentsFilterEnum } from '@tape.xyz/lens/custom-types'
 import { create } from 'zustand'
 
 interface ChannelState {

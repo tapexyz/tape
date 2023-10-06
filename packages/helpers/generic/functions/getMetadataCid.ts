@@ -1,4 +1,4 @@
-import type { AnyPublication } from '@lenstube/lens'
+import type { AnyPublication } from '@tape.xyz/lens'
 
 import { getPublication } from './getPublication'
 

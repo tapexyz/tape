@@ -1,14 +1,14 @@
 import { Input } from '@components/UIElements/Input'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { WMATIC_TOKEN_ADDRESS } from '@lenstube/constants'
-import type { Erc20 } from '@lenstube/lens'
-import type {
-  CollectModuleType,
-  UploadedVideo
-} from '@lenstube/lens/custom-types'
 import useAuthPersistStore from '@lib/store/auth'
 import { t, Trans } from '@lingui/macro'
 import { Button } from '@radix-ui/themes'
+import { WMATIC_TOKEN_ADDRESS } from '@tape.xyz/constants'
+import type { Erc20 } from '@tape.xyz/lens'
+import type {
+  CollectModuleType,
+  UploadedVideo
+} from '@tape.xyz/lens/custom-types'
 import type { Dispatch, FC } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'

@@ -1,21 +1,21 @@
 import VideoCard from '@components/Common/VideoCard'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { SCROLL_ROOT_MARGIN } from '@lenstube/constants'
+import useAppStore from '@lib/store'
+import useAuthPersistStore from '@lib/store/auth'
+import { t } from '@lingui/macro'
+import { SCROLL_ROOT_MARGIN } from '@tape.xyz/constants'
 import type {
   FeedItem,
   FeedRequest,
   MirrorablePublication
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 import {
   FeedEventItemType,
   PublicationMetadataMainFocusType,
   useFeedQuery
-} from '@lenstube/lens'
-import { Loader } from '@lenstube/ui'
-import useAppStore from '@lib/store'
-import useAuthPersistStore from '@lib/store/auth'
-import { t } from '@lingui/macro'
+} from '@tape.xyz/lens'
+import { Loader } from '@tape.xyz/ui'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 import Custom500 from 'src/pages/500'
