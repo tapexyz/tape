@@ -4,7 +4,9 @@ import useAppStore from '@lib/store'
 import useChannelStore from '@lib/store/channel'
 import { t } from '@lingui/macro'
 import { Analytics, TRACK } from '@tape.xyz/browser'
-import { isWatchable } from '@tape.xyz/generic'
+import { getPublication, isWatchable } from '@tape.xyz/generic'
+import type { AnyPublication } from '@tape.xyz/lens'
+import { usePublicationQuery } from '@tape.xyz/lens'
 import { CustomCommentsFilterEnum } from '@tape.xyz/lens/custom-types'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
@@ -16,7 +18,6 @@ import NonRelevantComments from './Comments/NonRelevantComments'
 import VideoComments from './Comments/VideoComments'
 import SuggestedVideos from './SuggestedVideos'
 import Video from './Video'
-import { usePublicationQuery } from '@tape.xyz/lens'
 
 const VideoDetails = () => {
   const {

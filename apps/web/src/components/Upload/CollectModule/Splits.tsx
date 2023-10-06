@@ -11,7 +11,7 @@ import {
   TAPE_APP_NAME
 } from '@tape.xyz/constants'
 import { splitNumber } from '@tape.xyz/generic'
-import type { RecipientDataInput } from '@tape.xyz/lens'
+import { type RecipientDataInput, useProfileLazyQuery } from '@tape.xyz/lens'
 import clsx from 'clsx'
 import type { FC, RefObject } from 'react'
 import React from 'react'

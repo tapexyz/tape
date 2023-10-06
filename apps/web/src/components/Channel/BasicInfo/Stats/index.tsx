@@ -1,5 +1,5 @@
-import type { Profile } from '@lenstube/lens'
 import { Flex } from '@radix-ui/themes'
+import type { Profile } from '@tape.xyz/lens'
 import type { FC } from 'react'
 import React from 'react'
 

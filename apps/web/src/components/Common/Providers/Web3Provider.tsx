@@ -1,10 +1,6 @@
 'use client'
 
-import {
-  IS_MAINNET,
-  LENSTUBE_APP_NAME,
-  WC_PROJECT_ID
-} from '@lenstube/constants'
+import { IS_MAINNET, TAPE_APP_NAME, WC_PROJECT_ID } from '@tape.xyz/constants'
 import { CoinbaseWalletConnector } from '@wagmi/connectors/coinbaseWallet'
 import { InjectedConnector } from '@wagmi/connectors/injected'
 import { WalletConnectConnector } from '@wagmi/connectors/walletConnect'
@@ -41,7 +37,7 @@ const { chains, publicClient } = configureChains(
 
 const connectors: any = [
   new InjectedConnector({ chains, options: { shimDisconnect: true } }),
-  new CoinbaseWalletConnector({ options: { appName: LENSTUBE_APP_NAME } }),
+  new CoinbaseWalletConnector({ options: { appName: TAPE_APP_NAME } }),
   new WalletConnectConnector({
     options: {
       projectId: WC_PROJECT_ID,

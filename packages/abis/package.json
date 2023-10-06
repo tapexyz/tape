@@ -11,6 +11,6 @@
   "dependencies": {
     "typescript": "^5.2.2",
     "@types/node": "^20.8.0",
-    "@lenstube/config": "*"
+    "@tape.xyz/config": "*"
   }
 }

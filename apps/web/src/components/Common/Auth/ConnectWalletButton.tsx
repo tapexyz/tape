@@ -1,7 +1,6 @@
-import { Button } from '@components/UIElements/Button'
 import useAuthPersistStore from '@lib/store/auth'
 import { Trans } from '@lingui/macro'
-import { IconButton } from '@radix-ui/themes'
+import { Button, IconButton } from '@radix-ui/themes'
 import { Analytics, TRACK } from '@tape.xyz/browser'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import React from 'react'

@@ -1,19 +1,19 @@
+import { getShortHandTime } from '@lib/formatTime'
+import { Trans } from '@lingui/macro'
+import { Flex } from '@radix-ui/themes'
 import {
   FALLBACK_COVER_URL,
   LENSTUBE_BYTES_APP_ID,
   STATIC_ASSETS
-} from '@lenstube/constants'
+} from '@tape.xyz/constants'
 import {
   formatNumber,
   getIsSensitiveContent,
   getPublication,
   getThumbnailUrl,
   imageCdn
-} from '@lenstube/generic'
-import type { AnyPublication } from '@lenstube/lens'
-import { getShortHandTime } from '@lib/formatTime'
-import { Trans } from '@lingui/macro'
-import { Flex } from '@radix-ui/themes'
+} from '@tape.xyz/generic'
+import type { AnyPublication } from '@tape.xyz/lens'
 import clsx from 'clsx'
 import Link from 'next/link'
 import type { FC } from 'react'

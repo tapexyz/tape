@@ -1,4 +1,4 @@
-import type { AnyPublication, MirrorablePublication } from '@lenstube/lens'
+import type { AnyPublication, MirrorablePublication } from '@tape.xyz/lens'
 
 export type Typename<T = string> = { [key in '__typename']?: T }
 

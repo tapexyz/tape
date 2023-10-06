@@ -2,7 +2,7 @@ import useAppStore from '@lib/store'
 import { Trans } from '@lingui/macro'
 import { Text } from '@radix-ui/themes'
 import { canUploadedToIpfs } from '@tape.xyz/generic'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import IrysInfo from './IrysInfo'
 

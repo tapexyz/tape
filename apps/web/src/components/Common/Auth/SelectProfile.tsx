@@ -1,15 +1,3 @@
-import { Analytics, TRACK } from '@lenstube/browser'
-import { ERROR_MESSAGE } from '@lenstube/constants'
-import { getProfilePicture, logger, trimLensHandle } from '@lenstube/generic'
-import type { Profile } from '@lenstube/lens'
-import {
-  LimitType,
-  useAuthenticateMutation,
-  useChallengeLazyQuery,
-  useProfilesManagedQuery,
-  useSimpleProfilesLazyQuery
-} from '@lenstube/lens'
-import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
 import useAuthPersistStore, { signIn, signOut } from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t } from '@lingui/macro'
@@ -24,6 +12,18 @@ import {
   ScrollArea,
   Text
 } from '@radix-ui/themes'
+import { Analytics, TRACK } from '@tape.xyz/browser'
+import { ERROR_MESSAGE } from '@tape.xyz/constants'
+import { getProfilePicture, logger, trimLensHandle } from '@tape.xyz/generic'
+import type { Profile } from '@tape.xyz/lens'
+import {
+  LimitType,
+  useAuthenticateMutation,
+  useChallengeLazyQuery,
+  useProfilesManagedQuery,
+  useSimpleProfilesLazyQuery
+} from '@tape.xyz/lens'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { useRouter } from 'next/router'
 import React, { useCallback, useState } from 'react'
 import toast from 'react-hot-toast'

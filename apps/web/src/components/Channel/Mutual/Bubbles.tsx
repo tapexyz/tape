@@ -1,9 +1,6 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
 import TimesOutline from '@components/Common/Icons/TimesOutline'
 import ChannelCirclesShimmer from '@components/Shimmers/ChannelCirclesShimmer'
-import { getProfilePicture, trimLensHandle } from '@lenstube/generic'
-import type { Profile } from '@lenstube/lens'
-import { LimitType, useMutualFollowersQuery } from '@lenstube/lens'
 import useAuthPersistStore from '@lib/store/auth'
 import {
   Dialog,
@@ -13,6 +10,9 @@ import {
   ScrollArea,
   Text
 } from '@radix-ui/themes'
+import { getProfilePicture, trimLensHandle } from '@tape.xyz/generic'
+import type { Profile } from '@tape.xyz/lens'
+import { LimitType, useMutualFollowersQuery } from '@tape.xyz/lens'
 import type { FC } from 'react'
 import React from 'react'
 

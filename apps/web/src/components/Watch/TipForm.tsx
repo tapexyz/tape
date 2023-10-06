@@ -4,26 +4,31 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import type { MetadataAttribute } from '@lens-protocol/metadata'
 import { MetadataAttributeType, textOnly } from '@lens-protocol/metadata'
 import { LENSHUB_PROXY_ABI } from '@lenstube/abis'
-import { Analytics, getUserLocale, TRACK } from '@lenstube/browser'
+import useAuthPersistStore from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
+import usePersistStore from '@lib/store/persist'
+import { t, Trans } from '@lingui/macro'
+import { Button, Flex } from '@radix-ui/themes'
+import { Analytics, getUserLocale, TRACK } from '@tape.xyz/browser'
 import {
   LENSHUB_PROXY_ADDRESS,
-  LENSTUBE_APP_ID,
-  LENSTUBE_WEBSITE_URL,
   REQUESTING_SIGNATURE_MESSAGE,
-  STATIC_ASSETS
-} from '@lenstube/constants'
+  STATIC_ASSETS,
+  TAPE_APP_ID,
+  TAPE_WEBSITE_URL
+} from '@tape.xyz/constants'
 import {
   getPublication,
   getSignature,
   imageCdn,
   logger,
   uploadToAr
-} from '@lenstube/generic'
+} from '@tape.xyz/generic'
 import type {
   AnyPublication,
   CreateMomokaCommentEip712TypedData,
   CreateOnchainCommentEip712TypedData
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 import {
   PublicationDocument,
   useBroadcastOnchainMutation,
@@ -33,14 +38,9 @@ import {
   useCreateMomokaCommentTypedDataMutation,
   useCreateOnchainCommentTypedDataMutation,
   usePublicationLazyQuery
-} from '@lenstube/lens'
-import { useApolloClient } from '@lenstube/lens/apollo'
-import type { CustomErrorWithData } from '@lenstube/lens/custom-types'
-import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
-import usePersistStore from '@lib/store/persist'
-import { t, Trans } from '@lingui/macro'
-import { Button, Flex } from '@radix-ui/themes'
+} from '@tape.xyz/lens'
+import { useApolloClient } from '@tape.xyz/lens/apollo'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import type { Dispatch, FC } from 'react'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -265,7 +265,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
         {
           type: MetadataAttributeType.STRING,
           key: 'app',
-          value: LENSTUBE_WEBSITE_URL
+          value: TAPE_WEBSITE_URL
         },
         {
           type: MetadataAttributeType.STRING,
@@ -279,7 +279,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
         }
       ]
       const metadata = textOnly({
-        appId: LENSTUBE_APP_ID,
+        appId: TAPE_APP_ID,
         id: uuidv4(),
         attributes,
         content: getValues('message'),
@@ -288,7 +288,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
           name: `${activeChannel?.handle}'s comment on video ${targetVideo.metadata.marketplace?.name}`,
           attributes,
           description: getValues('message'),
-          external_url: `${LENSTUBE_WEBSITE_URL}/watch/${video?.id}`
+          external_url: `${TAPE_WEBSITE_URL}/watch/${video?.id}`
         }
       })
       const metadataUri = await uploadToAr(metadata)

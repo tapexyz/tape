@@ -1,9 +1,9 @@
 import Tooltip from '@components/UIElements/Tooltip'
-import { Analytics, TRACK, useCopyToClipboard } from '@lenstube/browser'
-import { LENSTUBE_WEBSITE_URL, STATIC_ASSETS } from '@lenstube/constants'
-import { getSharableLink, imageCdn } from '@lenstube/generic'
-import type { PrimaryPublication } from '@lenstube/lens'
 import { IconButton } from '@radix-ui/themes'
+import { Analytics, TRACK, useCopyToClipboard } from '@tape.xyz/browser'
+import { STATIC_ASSETS, TAPE_WEBSITE_URL } from '@tape.xyz/constants'
+import { getSharableLink, imageCdn } from '@tape.xyz/generic'
+import type { PrimaryPublication } from '@tape.xyz/lens'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import type { FC } from 'react'
@@ -23,7 +23,7 @@ const Share: FC<Props> = ({ video }) => {
   const { resolvedTheme } = useTheme()
 
   const onCopyVideoUrl = async () => {
-    await copy(`${LENSTUBE_WEBSITE_URL}/watch/${video.id}`)
+    await copy(`${TAPE_WEBSITE_URL}/watch/${video.id}`)
     Analytics.track(TRACK.PUBLICATION.PERMALINK)
   }
 
@@ -124,7 +124,7 @@ const Share: FC<Props> = ({ video }) => {
       </div>
       <div className="flex items-center justify-between rounded-lg border border-gray-200 p-2 dark:border-gray-800">
         <div className="select-all truncate text-sm">
-          {LENSTUBE_WEBSITE_URL}/watch/{video.id}
+          {TAPE_WEBSITE_URL}/watch/{video.id}
         </div>
         <Tooltip content="Copy" placement="top">
           <IconButton

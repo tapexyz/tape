@@ -7,6 +7,7 @@ import InterweaveContent from '@components/Common/InterweaveContent'
 import HashExplorerLink from '@components/Common/Links/HashExplorerLink'
 import Tooltip from '@components/UIElements/Tooltip'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
+import type { MetadataAttribute } from '@lens-protocol/metadata'
 import { getRelativeTime } from '@lib/formatTime'
 import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
@@ -14,6 +15,7 @@ import { t, Trans } from '@lingui/macro'
 import {
   checkValueInAttributes,
   getProfilePicture,
+  getValueFromKeyInAttributes,
   trimLensHandle
 } from '@tape.xyz/generic'
 import type { Comment } from '@tape.xyz/lens'

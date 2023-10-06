@@ -2,38 +2,38 @@ import './globals.css'
 
 import ThemeProvider from '@components/Common/Providers/ThemeProvider'
 import {
-  LENSTUBE_APP_DESCRIPTION,
-  LENSTUBE_APP_NAME,
-  LENSTUBE_WEBSITE_URL,
-  LENSTUBE_X_HANDLE,
   OG_IMAGE,
-  STATIC_ASSETS
-} from '@lenstube/constants'
+  STATIC_ASSETS,
+  TAPE_APP_DESCRIPTION,
+  TAPE_APP_NAME,
+  TAPE_WEBSITE_URL,
+  TAPE_X_HANDLE
+} from '@tape.xyz/constants'
 import type { Metadata } from 'next'
 import { Space_Grotesk } from 'next/font/google'
 
 export const metadata: Metadata = {
-  title: LENSTUBE_APP_NAME,
-  description: LENSTUBE_APP_DESCRIPTION,
+  title: TAPE_APP_NAME,
+  description: TAPE_APP_DESCRIPTION,
   robots: 'index, follow',
   viewport:
     'width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover',
-  alternates: { canonical: LENSTUBE_WEBSITE_URL, languages: { en: 'en' } },
+  alternates: { canonical: TAPE_WEBSITE_URL, languages: { en: 'en' } },
   openGraph: {
     type: 'website',
-    title: LENSTUBE_APP_NAME,
-    description: LENSTUBE_APP_DESCRIPTION,
-    url: LENSTUBE_WEBSITE_URL,
-    siteName: LENSTUBE_APP_NAME,
+    title: TAPE_APP_NAME,
+    description: TAPE_APP_DESCRIPTION,
+    url: TAPE_WEBSITE_URL,
+    siteName: TAPE_APP_NAME,
     images: [{ url: OG_IMAGE, width: 400, height: 400 }]
   },
   twitter: {
     card: 'summary_large_image',
     images: [{ url: OG_IMAGE, width: 400, height: 400 }],
-    site: LENSTUBE_APP_NAME,
-    title: LENSTUBE_APP_NAME,
-    description: LENSTUBE_APP_DESCRIPTION,
-    creator: LENSTUBE_X_HANDLE
+    site: TAPE_APP_NAME,
+    title: TAPE_APP_NAME,
+    description: TAPE_APP_DESCRIPTION,
+    creator: TAPE_X_HANDLE
   },
   keywords: [
     'entertainment',

@@ -5,7 +5,7 @@ import {
   imageCdn,
   sanitizeDStorageUrl
 } from '@tape.xyz/generic'
-import type { AnyPublication } from '@tape.xyz/lens'
+import type { AnyPublication, Comment } from '@tape.xyz/lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 

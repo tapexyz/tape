@@ -14,9 +14,9 @@ import {
   trimLensHandle
 } from '@tape.xyz/generic'
 import type {
+  MetadataAttribute,
   Mirror,
-  MirrorablePublication,
-  PublicationMarketplaceMetadataAttribute
+  MirrorablePublication
 } from '@tape.xyz/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -30,8 +30,7 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
   const mirrorOn = video.mirrorOn as MirrorablePublication
   const isSensitiveContent = getIsSensitiveContent(mirrorOn.metadata, video.id)
   const videoDuration = getValueFromKeyInAttributes(
-    mirrorOn.metadata?.marketplace
-      ?.attributes as PublicationMarketplaceMetadataAttribute[],
+    mirrorOn.metadata?.marketplace?.attributes as MetadataAttribute[],
     'durationInSeconds'
   )
 

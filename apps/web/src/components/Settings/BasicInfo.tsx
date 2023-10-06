@@ -47,6 +47,7 @@ import type {
   IPFSUploadResult
 } from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
+import clsx from 'clsx'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'

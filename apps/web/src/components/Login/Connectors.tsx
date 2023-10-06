@@ -1,7 +1,7 @@
 import CheckOutline from '@components/Common/Icons/CheckOutline'
-import { POLYGON_CHAIN_ID } from '@lenstube/constants'
 import useAuthPersistStore from '@lib/store/auth'
 import { Button, Flex } from '@radix-ui/themes'
+import { POLYGON_CHAIN_ID } from '@tape.xyz/constants'
 import React from 'react'
 import { useAccount, useConnect } from 'wagmi'
 

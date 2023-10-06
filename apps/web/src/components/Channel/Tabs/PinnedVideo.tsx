@@ -1,11 +1,13 @@
 import PinnedVideoShimmer from '@components/Shimmers/PinnedVideoShimmer'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
+import type { MetadataAttribute } from '@lens-protocol/metadata'
 import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
 import { LENSHUB_PROXY_ABI } from '@lenstube/abis'
 import { getRelativeTime } from '@lib/formatTime'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
+import { Button } from '@radix-ui/themes'
 import { Analytics, TRACK } from '@tape.xyz/browser'
 import {
   ERROR_MESSAGE,
@@ -28,7 +30,6 @@ import {
 } from '@tape.xyz/generic'
 import type {
   AnyPublication,
-  MetadataAttribute,
   MirrorablePublication,
   OnchainSetProfileMetadataRequest,
   Profile
@@ -84,13 +85,12 @@ const PinnedVideo: FC<Props> = ({ id }) => {
     isBytesVideo ? 'THUMBNAIL_V' : 'THUMBNAIL'
   )
 
-  const otherAttributes =
-    (activeChannel?.metadata?.attributes as MetadataAttribute[])
-      ?.filter((attr) => !['pinnedPublicationId', 'app'].includes(attr.key))
-      .map(({ key, value }) => ({
-        key,
-        value
-      })) ?? []
+  const otherAttributes = activeChannel?.metadata?.attributes
+    ?.filter((attr) => !['pinnedPublicationId', 'app'].includes(attr.key))
+    .map(({ key, value }) => ({
+      key,
+      value
+    })) as MetadataAttribute[]
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
@@ -159,7 +159,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
         name: activeChannel?.metadata?.displayName ?? '',
         picture: getProfilePicture(activeChannel as Profile),
         attributes: [
-          ...(otherAttributes as MetadataAttribute[]),
+          ...otherAttributes,
           {
             type: MetadataAttributeType.STRING,
             key: 'app',

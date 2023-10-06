@@ -1,13 +1,13 @@
+import useChannelStore from '@lib/store/channel'
+import { Avatar, Flex, HoverCard, Link, Text } from '@radix-ui/themes'
 import {
   getChannelCoverPicture,
   getProfilePicture,
   imageCdn,
   sanitizeDStorageUrl,
   trimLensHandle
-} from '@lenstube/generic'
-import type { Profile } from '@lenstube/lens'
-import useChannelStore from '@lib/store/channel'
-import { Avatar, Flex, HoverCard, Link, Text } from '@radix-ui/themes'
+} from '@tape.xyz/generic'
+import type { Profile } from '@tape.xyz/lens'
 import type { FC, ReactElement } from 'react'
 import React from 'react'
 

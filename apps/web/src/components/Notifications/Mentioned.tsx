@@ -1,6 +1,7 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
 import MentionOutline from '@components/Common/Icons/MentionOutline'
 import { getProfilePicture } from '@tape.xyz/generic'
+import type { MentionNotification } from '@tape.xyz/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'

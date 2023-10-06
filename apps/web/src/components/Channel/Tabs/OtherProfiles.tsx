@@ -2,14 +2,14 @@ import Badge from '@components/Common/Badge'
 import SubscribeActions from '@components/Common/SubscribeActions'
 import OtherChannelsShimmer from '@components/Shimmers/OtherChannelsShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { t, Trans } from '@lingui/macro'
 import {
   formatNumber,
   getProfilePicture,
   trimLensHandle
-} from '@lenstube/generic'
-import type { Profile } from '@lenstube/lens'
-import { useProfilesQuery } from '@lenstube/lens'
-import { t, Trans } from '@lingui/macro'
+} from '@tape.xyz/generic'
+import type { Profile } from '@tape.xyz/lens'
+import { useProfilesQuery } from '@tape.xyz/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
