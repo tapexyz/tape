@@ -1,5 +1,5 @@
 <div align="center">
-    <img src="https://static.lenstube.xyz/images/brand/banner.png" alt="banner">
+    <img src="https://static.lenstube.xyz/brand/og.png" alt="banner">
     <h1>Tape</h1>
     <p>Talk, Amplify, Post, Explore</p>
     <a href="https://tape.xyz">tape.xyz</a>
