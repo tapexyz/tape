@@ -61,7 +61,7 @@ const VideoOverlay: FC<Props> = ({ video, clicked }) => {
               target="_blank"
             >
               <img
-                src={`${STATIC_ASSETS}/brand/logo.svg`}
+                src={`${STATIC_ASSETS}/brand/logo.png`}
                 draggable={false}
                 className="ml-0.5 h-8 w-8 rounded-full"
                 alt={TAPE_APP_NAME}
