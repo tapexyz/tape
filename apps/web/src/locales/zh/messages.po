@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenstube\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-10-05 01:12\n"
+"PO-Revision-Date: 2023-10-07 01:11\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -394,7 +394,7 @@ msgstr "已禁用"
 
 #: src/components/Home/WelcomeAlert.tsx:22
 msgid "Discover a new era of content sharing on Lens with Tape. A decentralized, user-centric approach to online media."
-msgstr ""
+msgstr "发现与 Tape 共享内容的新时代。对在线媒体采取分散的、以用户为中心的方法。"
 
 #: src/components/Watch/PublicationReaction.tsx:195
 msgid "Dislike"
@@ -608,7 +608,7 @@ msgstr "镜头索取站点"
 
 #: src/components/Mod/index.tsx:46
 #~ msgid "Lenstube Stats"
-#~ msgstr "Lenstube统计"
+#~ msgstr "Lenstube Stats"
 
 #: src/components/Watch/PublicationReaction.tsx:161
 msgid "Like"
@@ -1170,7 +1170,7 @@ msgstr "拆分收入"
 
 #: src/components/Mod/index.tsx:46
 msgid "Stats"
-msgstr ""
+msgstr "统计信息"
 
 #: src/components/Common/Footer.tsx:40
 msgid "Status"
@@ -1235,7 +1235,7 @@ msgstr "所有分割的总和应该是 100%"
 
 #: src/components/Home/GitcoinAlert.tsx:22
 #~ msgid "Support Lenstube on"
-#~ msgstr "支持 Lenstube 开启"
+#~ msgstr "Support Lenstube on"
 
 #: src/components/Common/PostLinkModal.tsx:318
 #~ msgid "Supported now - Zora"
@@ -1306,7 +1306,7 @@ msgstr ""
 
 #: src/components/Settings/ProfileInterests/index.tsx:14
 #~ msgid "There is so much good content on Lenstube, it may be hard to find what's most relevant to you from time to time. That's where profile interests can help curate content the way you like."
-#~ msgstr "Lenstube上有这么多很好的内容，可能很难不时找到与你最相关的东西。 这就是个人资料兴趣可以帮助管理您喜欢的内容。"
+#~ msgstr "There is so much good content on Lenstube, it may be hard to find what's most relevant to you from time to time. That's where profile interests can help curate content the way you like."
 
 #: src/components/Settings/Permissions/Modules/index.tsx:115
 msgid "These are the collect modules which you allowed / need to allow to use collect feature. You can allow and revoke access anytime."
@@ -1590,7 +1590,7 @@ msgstr "观察"
 
 #: src/components/Common/matchers/UrlMatcher.tsx:32
 msgid "Watch Now"
-msgstr ""
+msgstr "立即查看"
 
 #: src/components/Watch/Comments/VideoComment.tsx:27
 msgid "Watch Video"
@@ -1667,3 +1667,4 @@ msgstr "您的频道"
 #: src/components/Upload/IrysInfo.tsx:166
 msgid "Your Storage Balance"
 msgstr "您的存储余额"
+

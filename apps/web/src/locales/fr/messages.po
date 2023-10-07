@@ -8,7 +8,7 @@ msgstr ""
 "Language: fr\n"
 "Project-Id-Version: lenstube\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-10-05 01:12\n"
+"PO-Revision-Date: 2023-10-07 01:11\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -394,7 +394,7 @@ msgstr "désactivée"
 
 #: src/components/Home/WelcomeAlert.tsx:22
 msgid "Discover a new era of content sharing on Lens with Tape. A decentralized, user-centric approach to online media."
-msgstr ""
+msgstr "Découvrez une nouvelle ère de partage de contenu sur Lens avec Tape. Une approche décentralisée et centrée sur l’utilisateur des médias en ligne."
 
 #: src/components/Watch/PublicationReaction.tsx:195
 msgid "Dislike"
@@ -608,7 +608,7 @@ msgstr "site de réclamation Lens"
 
 #: src/components/Mod/index.tsx:46
 #~ msgid "Lenstube Stats"
-#~ msgstr "Statistiques de Lenstube"
+#~ msgstr "Lenstube Stats"
 
 #: src/components/Watch/PublicationReaction.tsx:161
 msgid "Like"
@@ -1170,7 +1170,7 @@ msgstr "Diviser les revenus"
 
 #: src/components/Mod/index.tsx:46
 msgid "Stats"
-msgstr ""
+msgstr "Stats"
 
 #: src/components/Common/Footer.tsx:40
 msgid "Status"
@@ -1235,7 +1235,7 @@ msgstr "La somme de toutes les fractions doit être de 100%"
 
 #: src/components/Home/GitcoinAlert.tsx:22
 #~ msgid "Support Lenstube on"
-#~ msgstr "Soutenir Lenstube sur"
+#~ msgstr "Support Lenstube on"
 
 #: src/components/Common/PostLinkModal.tsx:318
 #~ msgid "Supported now - Zora"
@@ -1302,11 +1302,11 @@ msgstr "le canal"
 
 #: src/components/Settings/ProfileInterests/index.tsx:15
 msgid "There is so much good content on {TAPE_APP_NAME}, it may be hard to find what's most relevant to you from time to time. That's where profile interests can help curate content the way you like."
-msgstr ""
+msgstr "Il y a tellement de bons contenus sur {TAPE_APP_NAME}, il peut être difficile de trouver ce qui vous intéresse de temps en temps. C'est là que les intérêts du profil peuvent aider à organiser le contenu comme vous le souhaitez."
 
 #: src/components/Settings/ProfileInterests/index.tsx:14
 #~ msgid "There is so much good content on Lenstube, it may be hard to find what's most relevant to you from time to time. That's where profile interests can help curate content the way you like."
-#~ msgstr "Il y a tellement de bons contenus sur Lenstube, il peut être difficile de trouver ce qui vous intéresse le plus de temps en temps. C'est là que les intérêts du profil peuvent aider à organiser le contenu comme vous le souhaitez."
+#~ msgstr "There is so much good content on Lenstube, it may be hard to find what's most relevant to you from time to time. That's where profile interests can help curate content the way you like."
 
 #: src/components/Settings/Permissions/Modules/index.tsx:115
 msgid "These are the collect modules which you allowed / need to allow to use collect feature. You can allow and revoke access anytime."
@@ -1590,7 +1590,7 @@ msgstr "Regarder"
 
 #: src/components/Common/matchers/UrlMatcher.tsx:32
 msgid "Watch Now"
-msgstr ""
+msgstr "Regarder maintenant"
 
 #: src/components/Watch/Comments/VideoComment.tsx:27
 msgid "Watch Video"
@@ -1667,3 +1667,4 @@ msgstr "Votre Chaîne"
 #: src/components/Upload/IrysInfo.tsx:166
 msgid "Your Storage Balance"
 msgstr "Votre solde de stockage"
+
