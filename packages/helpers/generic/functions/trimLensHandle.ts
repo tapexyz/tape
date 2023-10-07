@@ -15,5 +15,5 @@ export const trimLensHandle = (handle: string, keepTld = false) => {
       : handle + HANDLE_SUFFIX
   }
 
-  return handle.replace('.lens', '').replace('.test', '')
+  return handle.replace('.lens', '').replace('.test', '').replace('.eth', '')
 }

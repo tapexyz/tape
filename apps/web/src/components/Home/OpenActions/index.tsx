@@ -39,15 +39,8 @@ const OpenActionCollects = () => {
 
   return (
     <div className="mb-6 grid gap-x-4 gap-y-2 md:mb-8 md:grid-cols-4 md:gap-y-7 lg:grid-cols-5">
-      {links?.map(({ metadata, profile, createdAt }: Publication, i) => {
-        return (
-          <SharedLink
-            key={i}
-            metadata={metadata}
-            sharedBy={profile}
-            postedAt={createdAt}
-          />
-        )
+      {links?.map(({ metadata }: Publication, i) => {
+        return <SharedLink key={i} metadata={metadata} />
       })}
     </div>
   )

@@ -1,12 +1,12 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
+import { useNavigation } from '@react-navigation/native'
 import {
   getPublicationHlsUrl,
   getThumbnailUrl,
   imageCdn
-} from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
-import { useNavigation } from '@react-navigation/native'
+} from '@tape.xyz/generic'
+import type { Publication } from '@tape.xyz/lens'
+import type { MobileThemeConfig } from '@tape.xyz/lens/custom-types'
 import { ResizeMode, Video } from 'expo-av'
 import type { FC } from 'react'
 import React from 'react'

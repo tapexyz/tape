@@ -69,7 +69,7 @@ const SignInWithQR = () => {
           }}
         >
           <Text style={style.text}>
-            Open auth.lenstube.xyz and scan the QR after you sign in with lens
+            Open auth.tape.xyz and scan the QR after you sign in with lens
           </Text>
         </View>
       </Sheet>

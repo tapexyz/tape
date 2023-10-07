@@ -1,6 +1,7 @@
 import { getRelativeTime, trimNewLines } from '@lenstube/generic'
 import type { Publication } from '@lenstube/lens'
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
+import { getRelativeTime } from '@lib/formatTime'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import { Pressable, StyleSheet, Text, View } from 'react-native'

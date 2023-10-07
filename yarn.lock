@@ -5197,9 +5197,9 @@
     buffer "~6.0.3"
 
 "@solana/web3.js@^1.36.0", "@solana/web3.js@^1.70.1":
-  version "1.85.0"
-  resolved "https://registry.yarnpkg.com/@solana/web3.js/-/web3.js-1.85.0.tgz#6cc3444a51897cb0e9968a8384033fb68cee0c34"
-  integrity sha512-VDdL8Spdg8S6lz6XR9iHOSOI0mBXNY913aV7azIZ4lcVh41dPFgyN6w1GIjh4VjpOiK1kZ1IPApMAJhuwuxj3g==
+  version "1.87.0"
+  resolved "https://registry.yarnpkg.com/@solana/web3.js/-/web3.js-1.87.0.tgz#6515d1db63b182034cff899d638d3946c5abba34"
+  integrity sha512-2V5nUkK3WHK2JkFvIU0IXadvHPwScfSqpmnO114RBKux+yXdIlIcLYZphWJ2v3We5Ufugi3wBwHD9rOvVQUGJw==
   dependencies:
     "@babel/runtime" "^7.22.6"
     "@noble/curves" "^1.2.0"
@@ -10602,15 +10602,15 @@ find-yarn-workspace-root@~2.0.0:
     micromatch "^4.0.2"
 
 flat-cache@^3.0.4:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/flat-cache/-/flat-cache-3.1.0.tgz#0e54ab4a1a60fe87e2946b6b00657f1c99e1af3f"
-  integrity sha512-OHx4Qwrrt0E4jEIcI5/Xb+f+QmJYNj2rrK8wiIdQOIrB9WrrJL8cjZvXdXuBTkkEwEqLycb5BeZDV1o2i9bTew==
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/flat-cache/-/flat-cache-3.1.1.tgz#a02a15fdec25a8f844ff7cc658f03dd99eb4609b"
+  integrity sha512-/qM2b3LUIaIgviBQovTLvijfyOQXPtSRnRK26ksj2J7rzPIecePUIpJsZ4T02Qg+xiAEKIs5K8dsHEd+VaKa/Q==
   dependencies:
-    flatted "^3.2.7"
+    flatted "^3.2.9"
     keyv "^4.5.3"
     rimraf "^3.0.2"
 
-flatted@^3.2.7:
+flatted@^3.2.9:
   version "3.2.9"
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-3.2.9.tgz#7eb4c67ca1ba34232ca9d2d93e9886e611ad7daf"
   integrity sha512-36yxDn5H7OFZQla0/jFJmbIKTdZAQHngCedGxiMmpNfEZM0sdEeT+WczLQrjK6D7o2aiyLYDnkw0R3JK0Qv1RQ==
