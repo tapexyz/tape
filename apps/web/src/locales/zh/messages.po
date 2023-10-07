@@ -103,8 +103,12 @@ msgid "App Info"
 msgstr "应用信息"
 
 #: src/components/UIElements/Confirm.tsx:24
-msgid "Are you sure want to continue?"
-msgstr "您确定要继续吗？"
+#~ msgid "Are you sure want to continue?"
+#~ msgstr "您确定要继续吗？"
+
+#: src/components/UIElements/Confirm.tsx:24
+msgid "Are you sure you want to continue?"
+msgstr ""
 
 #: src/components/Settings/SideNav.tsx:46
 msgid "Basic Info"
