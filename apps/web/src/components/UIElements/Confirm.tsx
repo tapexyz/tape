@@ -21,7 +21,7 @@ const Confirm: FC<Props> = ({ showConfirm, setShowConfirm, action }) => {
     >
       <div className="pt-4">
         <h5 className="pb-3">
-          <Trans>Are you sure want to continue?</Trans>
+          <Trans>Are you sure you want to continue?</Trans>
         </h5>
         <span className="text-red-500 opacity-75">
           <Trans>This cannot be reverted.</Trans>

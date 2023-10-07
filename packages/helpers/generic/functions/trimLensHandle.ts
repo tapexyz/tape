@@ -20,4 +20,5 @@ export const trimLensHandle = (handle: string, keepTld = false) => {
     .replace('.test', '')
     .replace('test/@', '')
     .replace('lens/@', '')
+    .replace('.eth', '')
 }

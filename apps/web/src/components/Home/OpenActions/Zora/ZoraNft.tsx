@@ -1,12 +1,14 @@
-import HoverableProfile from '@components/Common/HoverableProfile'
-import CollectOutline from '@components/Common/Icons/CollectOutline'
 import Modal from '@components/UIElements/Modal'
-import { getShortHandTime } from '@lib/formatTime'
-import { t, Trans } from '@lingui/macro'
-import { TAPE_ADMIN_ADDRESS, ZORA_MAINNET_CHAINS } from '@tape.xyz/constants'
-import { trimLensHandle, useZoraNft } from '@tape.xyz/generic'
-import type { Profile } from '@tape.xyz/lens'
+import { t } from '@lingui/macro'
+import { Analytics, TRACK } from '@tape.xyz/browser'
+import {
+  STATIC_ASSETS,
+  TAPE_ADMIN_ADDRESS,
+  ZORA_MAINNET_CHAINS
+} from '@tape.xyz/constants'
+import { trimLensHandle, useDid, useZoraNft } from '@tape.xyz/generic'
 import type { BasicNftMetadata } from '@tape.xyz/lens/custom-types'
+import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 
@@ -14,11 +16,9 @@ import Metadata from './Metadata'
 
 type Props = {
   nftMetadata: BasicNftMetadata
-  sharedBy: Profile
-  postedAt: string
 }
 
-const ZoraNft: FC<Props> = ({ nftMetadata, sharedBy, postedAt }) => {
+const ZoraNft: FC<Props> = ({ nftMetadata }) => {
   const [showMintModal, setShowMintModal] = useState(false)
 
   const { chain, address, token } = nftMetadata
@@ -30,8 +30,13 @@ const ZoraNft: FC<Props> = ({ nftMetadata, sharedBy, postedAt }) => {
     enabled: Boolean(chain && address)
   })
 
+  const { did } = useDid({
+    address: zoraNft?.creator,
+    enabled: Boolean(zoraNft?.creator)
+  })
+
   if (loading) {
-    return null
+    return <div className="h-56 w-72" />
   }
 
   const network = ZORA_MAINNET_CHAINS.includes(chain) ? '' : 'testnet.'
@@ -42,12 +47,12 @@ const ZoraNft: FC<Props> = ({ nftMetadata, sharedBy, postedAt }) => {
   const coverImage = `https://remote-image.decentralized-content.com/image?url=${zoraNft.coverImageUrl}&w=1200&q=75`
 
   return (
-    <div>
+    <div className="w-72 flex-none">
       <Modal
         title={t`Collect`}
         show={showMintModal}
         onClose={() => setShowMintModal(false)}
-        panelClassName="max-w-2xl"
+        panelClassName="max-w-6xl max-h-[95vh]"
       >
         <Metadata nft={zoraNft} link={zoraLink} />
       </Modal>
@@ -68,34 +73,27 @@ const ZoraNft: FC<Props> = ({ nftMetadata, sharedBy, postedAt }) => {
           alt="thumbnail"
           draggable={false}
         />
-        <div>
-          <div className="absolute bottom-1 right-1 flex items-center space-x-1 rounded-full bg-black px-3 py-1 text-sm font-semibold text-white">
-            <CollectOutline className="h-4 w-4" />
-            <span>
-              <Trans>Collect</Trans>
-            </span>
-          </div>
-        </div>
       </div>
       <div className="pt-2">
         <h1 className="ultrawide:break-all line-clamp-2 break-words font-semibold">
           {zoraNft?.name}
         </h1>
-        <p className="ultrawide:break-all line-clamp-1 break-words text-sm">
-          {zoraNft?.description}
-        </p>
         <div className="flex items-center text-sm opacity-50">
-          <HoverableProfile profile={sharedBy}>
-            <span className="ultrawide:break-all line-clamp-1 break-words">
-              shared by {trimLensHandle(sharedBy?.handle)}
-            </span>
-          </HoverableProfile>
+          <span className="whitespace-nowrap">{trimLensHandle(did)}</span>
           <span className="middot" />
-          {postedAt && (
-            <span className="whitespace-nowrap">
-              {getShortHandTime(postedAt)}
-            </span>
-          )}
+          <Link
+            onClick={() => Analytics.track(TRACK.OPEN_ACTIONS.OPEN_IN_ZORA)}
+            href={zoraLink}
+            target="_blank"
+            className="flex items-center space-x-1 font-medium hover:text-indigo-500"
+          >
+            <img
+              src={`${STATIC_ASSETS}/images/zora.png`}
+              className="h-3 w-3 rounded-lg"
+              alt=""
+            />
+            <span>zora</span>
+          </Link>
         </div>
       </div>
     </div>

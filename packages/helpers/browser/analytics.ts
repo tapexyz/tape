@@ -38,7 +38,10 @@ export const TRACK = {
     COLLECT: 'Collect publication'
   },
   OPEN_ACTIONS: {
-    COLLECT_ZORA: 'Collect Zora'
+    COLLECT_ZORA: 'Collect Zora',
+    OPEN_IN_ZORA: 'Open in Zora',
+    OPEN_IN_UNLONELY: 'Open in Unlonely',
+    WATCH_UNLONELY_LIVE: 'Watch Unlonely Live'
   },
   AUTH: {
     CONNECT_WALLET: 'Connect Wallet',

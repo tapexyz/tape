@@ -1,4 +1,4 @@
-import { STATIC_ASSETS, TAPE_APP_NAME } from '@tape.xyz/constants'
+import { COMMON_REGEX, STATIC_ASSETS, TAPE_APP_NAME } from '@tape.xyz/constants'
 import { trimLensHandle } from '@tape.xyz/generic'
 import { Matcher } from 'interweave'
 import Link from 'next/link'
@@ -33,10 +33,14 @@ export class MentionMatcher extends Matcher<MentionProps> {
   }
 
   match(value: string) {
-    return this.doMatch(value, /@[a-zA-Z0-9-_.]+(\.lens|\.test)/, (matches) => {
-      return {
-        display: matches[0]
+    return this.doMatch(
+      value,
+      COMMON_REGEX.MENTION_MATCHER_REGEX,
+      (matches) => {
+        return {
+          display: matches[0]
+        }
       }
-    })
+    )
   }
 }
