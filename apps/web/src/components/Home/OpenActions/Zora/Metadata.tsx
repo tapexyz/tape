@@ -8,6 +8,7 @@ import {
   getRandomProfilePicture,
   sanitizeDStorageUrl,
   shortenAddress,
+  trimLensHandle,
   useDid
 } from '@tape.xyz/generic'
 import type { ZoraNft } from '@tape.xyz/lens/custom-types'
@@ -45,14 +46,14 @@ const Metadata = ({ nft, link }: { nft: ZoraNft; link: string }) => {
             }}
           />
         </div>
-        <h1 className="font-semibold">{nft?.name}</h1>
+        <h1 className="text-lg font-bold">{nft?.name}</h1>
         <div className="flex items-center space-x-1">
           <img
             src={getRandomProfilePicture(nft.creator)}
             className="h-5 w-5 rounded-full"
             alt=""
           />
-          <span> {did ?? shortenAddress(nft.creator)}</span>
+          <span> {trimLensHandle(did) ?? shortenAddress(nft.creator)}</span>
         </div>
         <p className="line-clamp-4 break-words" title={nft.description}>
           {nft?.description}
@@ -67,7 +68,7 @@ const Metadata = ({ nft, link }: { nft: ZoraNft; link: string }) => {
           <div className="flex items-center space-x-2 outline-none">
             <TagOutline className="h-4 w-4" />
             <span>
-              {formatEther(BigInt(nft.price))} <Trans>ETH</Trans>
+              {formatEther(BigInt(nft.price ?? 0))} <Trans>ETH</Trans>
             </span>
           </div>
           <Link

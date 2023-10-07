@@ -39,7 +39,7 @@ const Collect = ({ nft, link }: { nft: ZoraNft; link: string }) => {
   const mintReferral = TAPE_ADMIN_ADDRESS
   const mintFee = parseEther('0.000777')
 
-  const price = quantity * parseInt(nft.price)
+  const price = quantity * parseInt(nft.price ?? 0)
   const nftPriceInEth = price / 10 ** 18
   const platformFeesInEth = quantity * 0.000777
 
@@ -98,22 +98,25 @@ const Collect = ({ nft, link }: { nft: ZoraNft; link: string }) => {
       <div>
         <div className="flex items-center space-x-4 text-lg">
           <button
-            className="px-1 disabled:opacity-25"
+            className="h-8 w-8 border disabled:opacity-25 dark:border-gray-500"
             disabled={quantity === 1}
             onClick={() => setQuantity((q) => q - 1)}
           >
             -
           </button>
-          <span className="font-bold">{quantity}</span>
-          <button className="px-1" onClick={() => setQuantity((q) => q + 1)}>
+          <span className="text-lg font-bold">{quantity}</span>
+          <button
+            className="h-8 w-8 border dark:border-gray-500"
+            onClick={() => setQuantity((q) => q + 1)}
+          >
             +
           </button>
+          <span className="pl-4 text-sm">
+            <Trans>
+              {nftPriceInEth} ETH + {platformFeesInEth} ETH mint fees
+            </Trans>
+          </span>
         </div>
-        <span className="text-sm">
-          <Trans>
-            {nftPriceInEth} ETH + {platformFeesInEth} ETH mint fees
-          </Trans>
-        </span>
       </div>
       {isDisconnected ? (
         <Button onClick={openConnectModal}>Connect Wallet</Button>

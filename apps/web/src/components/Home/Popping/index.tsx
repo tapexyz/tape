@@ -10,10 +10,12 @@ import ZoraNft from '../OpenActions/Zora/ZoraNft'
 import UnlonelyStreams from './UnlonelyStreams'
 
 const FEATURED_ZORA = [
+  'https://zora.co/collect/zora:0xc8b408c889baeed2704168de3b3b8795158ca187',
   'https://zora.co/collect/zora:0x4e18d1be29f54d6c11935939e36c9988897c145e',
+  'https://zora.co/collect/eth:0x5ec5a9b979a7fd4835a7ce9bdf3090209ec0fc8a/1',
   'https://zora.co/collect/eth:0x0bc2a24ce568dad89691116d5b34deb6c203f342/193',
   'https://zora.co/collect/eth:0x7ad18982781ae3d68d1c964f61b872fb2f899021',
-  'https://zora.co/collect/zora:0xc8b408c889baeed2704168de3b3b8795158ca187',
+  'https://zora.co/collect/zora:0xd4889d519b1ab9b2fa8634e0271118de480f6d32',
   'https://zora.co/collect/zora:0xab821ed94191628354078bcbb206512914eb42e1'
 ]
 
