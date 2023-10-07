@@ -12,11 +12,9 @@ const ProfileInterests = () => {
           <Trans>Interests</Trans>
         </h1>
         <p className="text opacity-80">
-          <Trans>
-            There is so much good content on {TAPE_APP_NAME}, it may be hard to
-            find what's most relevant to you from time to time. That's where
-            profile interests can help curate content the way you like.
-          </Trans>
+          There is so much good content on {TAPE_APP_NAME}, it may be hard to
+          find what's most relevant to you from time to time. That's where
+          profile interests can help curate content the way you like.
         </p>
       </div>
       <Topics />

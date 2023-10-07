@@ -1,7 +1,6 @@
 import { ZoraCreator1155Impl } from '@abis/ZoraCreator1155Impl'
 import { ZoraERC721Drop } from '@abis/ZoraERC721Drop'
 import { Button } from '@components/UIElements/Button'
-import { Trans } from '@lingui/macro'
 import { useConnectModal } from '@rainbow-me/rainbowkit'
 import { Analytics, TRACK } from '@tape.xyz/browser'
 import { TAPE_ADMIN_ADDRESS, TAPE_APP_NAME } from '@tape.xyz/constants'
@@ -112,9 +111,7 @@ const Collect = ({ nft, link }: { nft: ZoraNft; link: string }) => {
             +
           </button>
           <span className="pl-4 text-sm">
-            <Trans>
-              {nftPriceInEth} ETH + {platformFeesInEth} ETH mint fees
-            </Trans>
+            {nftPriceInEth} ETH + {platformFeesInEth} ETH mint fees
           </span>
         </div>
       </div>
