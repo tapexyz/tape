@@ -5,12 +5,12 @@ import VideoCardShimmer from './VideoCardShimmer'
 
 const TimelineShimmer = ({
   className,
-  count
+  count = 15
 }: {
   className?: string
   count?: number
 }) => {
-  const cards = useMemo(() => Array(count).fill(16), [count])
+  const cards = useMemo(() => Array(count).fill(1), [count])
   return (
     <div
       className={clsx(
