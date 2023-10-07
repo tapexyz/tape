@@ -19,8 +19,8 @@ msgstr ""
 "X-Crowdin-File-ID: 5\n"
 
 #: src/components/Home/OpenActions/Zora/Collect.tsx:113
-msgid "{nftPriceInEth} ETH + {platformFeesInEth} ETH mint fees"
-msgstr ""
+#~ msgid "{nftPriceInEth} ETH + {platformFeesInEth} ETH mint fees"
+#~ msgstr ""
 
 #: src/components/Channel/Tabs/index.tsx:196
 #~ msgid "About"
@@ -1301,8 +1301,8 @@ msgid "the channel"
 msgstr "the channel"
 
 #: src/components/Settings/ProfileInterests/index.tsx:15
-msgid "There is so much good content on {TAPE_APP_NAME}, it may be hard to find what's most relevant to you from time to time. That's where profile interests can help curate content the way you like."
-msgstr ""
+#~ msgid "There is so much good content on {TAPE_APP_NAME}, it may be hard to find what's most relevant to you from time to time. That's where profile interests can help curate content the way you like."
+#~ msgstr ""
 
 #: src/components/Settings/ProfileInterests/index.tsx:14
 #~ msgid "There is so much good content on Lenstube, it may be hard to find what's most relevant to you from time to time. That's where profile interests can help curate content the way you like."
@@ -1667,4 +1667,3 @@ msgstr "Your Channel"
 #: src/components/Upload/IrysInfo.tsx:166
 msgid "Your Storage Balance"
 msgstr "Your Storage Balance"
-

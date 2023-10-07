@@ -19,8 +19,8 @@ msgstr ""
 "X-Crowdin-File-ID: 5\n"
 
 #: src/components/Home/OpenActions/Zora/Collect.tsx:113
-msgid "{nftPriceInEth} ETH + {platformFeesInEth} ETH mint fees"
-msgstr "{nftPriceInEth} ETH + {platformFeesInEth} comisiones de la menta"
+#~ msgid "{nftPriceInEth} ETH + {platformFeesInEth} ETH mint fees"
+#~ msgstr "{nftPriceInEth} ETH + {platformFeesInEth} comisiones de la menta"
 
 #: src/components/Channel/Tabs/index.tsx:196
 #~ msgid "About"
@@ -1301,8 +1301,8 @@ msgid "the channel"
 msgstr "el canal"
 
 #: src/components/Settings/ProfileInterests/index.tsx:15
-msgid "There is so much good content on {TAPE_APP_NAME}, it may be hard to find what's most relevant to you from time to time. That's where profile interests can help curate content the way you like."
-msgstr "Hay tanto contenido bueno en {TAPE_APP_NAME}, puede ser difícil encontrar lo que es más relevante para ti de vez en cuando. Ahí es donde los intereses del perfil pueden ayudar a curar el contenido de la manera que quieras."
+#~ msgid "There is so much good content on {TAPE_APP_NAME}, it may be hard to find what's most relevant to you from time to time. That's where profile interests can help curate content the way you like."
+#~ msgstr "Hay tanto contenido bueno en {TAPE_APP_NAME}, puede ser difícil encontrar lo que es más relevante para ti de vez en cuando. Ahí es donde los intereses del perfil pueden ayudar a curar el contenido de la manera que quieras."
 
 #: src/components/Settings/ProfileInterests/index.tsx:14
 #~ msgid "There is so much good content on Lenstube, it may be hard to find what's most relevant to you from time to time. That's where profile interests can help curate content the way you like."
@@ -1667,4 +1667,3 @@ msgstr "Tu Canal"
 #: src/components/Upload/IrysInfo.tsx:166
 msgid "Your Storage Balance"
 msgstr "Tu saldo de almacenamiento"
-
