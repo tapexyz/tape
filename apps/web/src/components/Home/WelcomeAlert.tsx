@@ -4,7 +4,7 @@ import React from 'react'
 
 const WelcomeAlert = () => {
   return (
-    <div className="mb-4 w-full">
+    <div className="mb-6 w-full">
       <div className="relative flex flex-col overflow-hidden rounded-2xl">
         <div className="absolute inset-0 h-full w-full bg-[#29ABE2]" />
         <div className="absolute inset-0 h-full w-full bg-gradient-to-b from-[#316FC9] to-transparent" />
