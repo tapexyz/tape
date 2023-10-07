@@ -1,5 +1,6 @@
 import type { AspectRatio } from '@livepeer/react'
 import { Player } from '@livepeer/react'
+import { ARWEAVE_GATEWAY_URL, IPFS_GATEWAY_URL } from '@tape.xyz/constants'
 import type { FC } from 'react'
 import React from 'react'
 
@@ -48,12 +49,11 @@ const PlayerInstance: FC<PlayerProps> = ({
       autoPlay={options.autoPlay ?? false}
       showLoadingSpinner={options.loadingSpinner}
       _isCurrentlyShown={options.isCurrentlyShown}
-      // autoUrlUpload={
-      //   IS_PRODUCTION && {
-      //     fallback: true,
-      //     ipfsGateway: IPFS_GATEWAY_URL
-      //   }
-      // }
+      autoUrlUpload={{
+        fallback: true,
+        ipfsGateway: IPFS_GATEWAY_URL,
+        arweaveGateway: ARWEAVE_GATEWAY_URL
+      }}
     >
       {/* eslint-disable-next-line react/jsx-no-useless-fragment */}
       {!showControls ? <></> : null}
