@@ -36,8 +36,7 @@ const Metadata = ({ nft, link }: { nft: ZoraNft; link: string }) => {
       <div className="space-y-4">
         <div className="aspect-[16/9] w-full overflow-hidden rounded-xl">
           <VideoPlayer
-            hlsUrl={sanitizeDStorageUrl(nft.mediaUrl)}
-            permanentUrl={sanitizeDStorageUrl(nft.mediaUrl)}
+            url={sanitizeDStorageUrl(nft.mediaUrl)}
             posterUrl={sanitizeDStorageUrl(nft.coverImageUrl)}
             options={{
               isCurrentlyShown: true,

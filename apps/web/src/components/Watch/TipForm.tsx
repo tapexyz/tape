@@ -3,12 +3,12 @@ import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
 import type { MetadataAttribute } from '@lens-protocol/metadata'
 import { MetadataAttributeType, textOnly } from '@lens-protocol/metadata'
-import { LENSHUB_PROXY_ABI } from '@lenstube/abis'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'
 import { Button, Flex } from '@radix-ui/themes'
+import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { Analytics, getUserLocale, TRACK } from '@tape.xyz/browser'
 import {
   LENSHUB_PROXY_ADDRESS,

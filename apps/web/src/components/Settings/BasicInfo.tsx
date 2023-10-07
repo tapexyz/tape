@@ -9,10 +9,10 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import type { MetadataAttribute, ProfileOptions } from '@lens-protocol/metadata'
 import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
-import { LENSHUB_PROXY_ABI } from '@lenstube/abis'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
 import { Button, Card, Flex, IconButton } from '@radix-ui/themes'
+import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   Analytics,
   TRACK,

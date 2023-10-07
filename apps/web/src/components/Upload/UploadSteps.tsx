@@ -10,12 +10,12 @@ import {
   shortVideo,
   video
 } from '@lens-protocol/metadata'
-import { LENSHUB_PROXY_ABI } from '@lenstube/abis'
 import { getCollectModule } from '@lib/getCollectModule'
 import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
 import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
 import { t } from '@lingui/macro'
+import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   Analytics,
   getUserLocale,

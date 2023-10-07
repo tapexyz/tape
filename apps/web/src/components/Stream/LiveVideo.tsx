@@ -16,8 +16,7 @@ const LiveVideo: FC<Props> = ({ playbackUrl, thumbnailUrl }) => {
   return (
     <div className="overflow-hidden rounded-xl">
       <VideoPlayer
-        permanentUrl={playbackUrl}
-        hlsUrl={playbackUrl}
+        url={playbackUrl}
         posterUrl={thumbnailUrl}
         options={{
           loadingSpinner: true,

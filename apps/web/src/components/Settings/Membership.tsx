@@ -3,10 +3,10 @@ import Tooltip from '@components/UIElements/Tooltip'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import usePendingTxn from '@hooks/usePendingTxn'
-import { LENSHUB_PROXY_ABI } from '@lenstube/abis'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
 import { Button, Card, Flex, Select, Text } from '@radix-ui/themes'
+import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { useCopyToClipboard } from '@tape.xyz/browser'
 import {
   ERROR_MESSAGE,

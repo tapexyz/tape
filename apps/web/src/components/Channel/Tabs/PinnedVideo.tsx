@@ -2,12 +2,12 @@ import PinnedVideoShimmer from '@components/Shimmers/PinnedVideoShimmer'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import type { MetadataAttribute } from '@lens-protocol/metadata'
 import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
-import { LENSHUB_PROXY_ABI } from '@lenstube/abis'
 import { getRelativeTime } from '@lib/formatTime'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
 import { Button } from '@radix-ui/themes'
+import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { Analytics, TRACK } from '@tape.xyz/browser'
 import {
   ERROR_MESSAGE,

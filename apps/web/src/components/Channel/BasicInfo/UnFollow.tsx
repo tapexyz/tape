@@ -1,9 +1,9 @@
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import { LENSHUB_PROXY_ABI } from '@lenstube/abis'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { Trans } from '@lingui/macro'
 import { Button } from '@radix-ui/themes'
+import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { Analytics, TRACK } from '@tape.xyz/browser'
 import {
   LENSHUB_PROXY_ADDRESS,

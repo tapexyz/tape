@@ -6,7 +6,6 @@ import {
   MetadataAttributeType,
   profile
 } from '@lens-protocol/metadata'
-import { LENSHUB_PROXY_ABI } from '@lenstube/abis'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
@@ -18,6 +17,7 @@ import {
   IconButton,
   Text
 } from '@radix-ui/themes'
+import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { Analytics, TRACK } from '@tape.xyz/browser'
 import {
   ERROR_MESSAGE,
