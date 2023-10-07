@@ -52,7 +52,7 @@ const ZoraNft: FC<Props> = ({ nftMetadata }) => {
         title={t`Collect`}
         show={showMintModal}
         onClose={() => setShowMintModal(false)}
-        panelClassName="max-w-6xl"
+        panelClassName="max-w-6xl max-h-[95vh]"
       >
         <Metadata nft={zoraNft} link={zoraLink} />
       </Modal>
