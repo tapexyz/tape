@@ -99,7 +99,7 @@ export const WORKER_HEALTH_URL = 'https://health.tape.xyz'
 export const WORKER_RECS_URL = 'https://recs.tape.xyz'
 export const WORKER_NFTS_URL = 'https://nfts.tape.xyz'
 export const WORKER_DID_URL = 'https://did.tape.xyz'
-export const WORKER_LIVE_URL = 'https://live.lenstube.xyz'
+export const WORKER_LIVE_URL = 'https://live.tape.xyz'
 
 export const SB_STORAGE_URL =
   'https://hdpmuwmctxbkykamcvpl.supabase.co/storage/v1/object/public/waves'

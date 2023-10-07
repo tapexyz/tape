@@ -2,6 +2,6 @@ name = "live"
 main = "src/index.ts"
 compatibility_date = "2023-01-25"
 routes = [
-	{ pattern = "live.lenstube.xyz", custom_domain = true }
+	{ pattern = "live.tape.xyz", custom_domain = true }
 ]
 keep_vars = true
