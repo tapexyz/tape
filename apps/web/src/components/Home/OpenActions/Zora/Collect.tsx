@@ -33,7 +33,7 @@ const Collect = ({ nft, link }: { nft: ZoraNft; link: string }) => {
 
   // Write contract
   const nftAddress = nft.address
-  const recipient = (address ?? TAPE_ADMIN_ADDRESS) as Address
+  const recipient = address as Address
   const comment = `Minted from ${TAPE_APP_NAME}`
   const mintReferral = TAPE_ADMIN_ADDRESS
   const mintFee = parseEther('0.000777')
@@ -47,16 +47,23 @@ const Collect = ({ nft, link }: { nft: ZoraNft; link: string }) => {
 
   const abi =
     nft.contractStandard === 'ERC721' ? ZoraERC721Drop : ZoraCreator1155Impl
-  const args =
-    nft.contractStandard === 'ERC721'
-      ? [recipient, BigInt(quantity), comment, mintReferral]
-      : [
-          FIXED_PRICE_SALE_STRATEGY,
-          parseInt(nft.tokenId),
-          BigInt(quantity),
-          encodeAbiParameters(parseAbiParameters('address'), [recipient]),
-          mintReferral
-        ]
+
+  const getArgs = () => {
+    if (!recipient) {
+      return
+    }
+    const args =
+      nft.contractStandard === 'ERC721'
+        ? [recipient, BigInt(quantity), comment, mintReferral]
+        : [
+            FIXED_PRICE_SALE_STRATEGY,
+            parseInt(nft.tokenId),
+            BigInt(quantity),
+            encodeAbiParameters(parseAbiParameters('address'), [recipient]),
+            mintReferral
+          ]
+    return args
+  }
 
   const {
     config,
@@ -68,7 +75,7 @@ const Collect = ({ nft, link }: { nft: ZoraNft; link: string }) => {
     address: nftAddress,
     functionName: 'mintWithRewards',
     abi,
-    args,
+    args: getArgs(),
     value
   })
   const {
