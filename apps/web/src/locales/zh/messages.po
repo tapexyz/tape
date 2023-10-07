@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenstube\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-10-07 01:11\n"
+"PO-Revision-Date: 2023-10-07 08:22\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -104,11 +104,11 @@ msgstr "应用信息"
 
 #: src/components/UIElements/Confirm.tsx:24
 #~ msgid "Are you sure want to continue?"
-#~ msgstr "您确定要继续吗？"
+#~ msgstr "Are you sure want to continue?"
 
 #: src/components/UIElements/Confirm.tsx:24
 msgid "Are you sure you want to continue?"
-msgstr ""
+msgstr "您确定要继续吗？"
 
 #: src/components/Settings/SideNav.tsx:46
 msgid "Basic Info"
@@ -1667,3 +1667,4 @@ msgstr "您的频道"
 #: src/components/Upload/IrysInfo.tsx:166
 msgid "Your Storage Balance"
 msgstr "您的存储余额"
+

@@ -8,7 +8,7 @@ msgstr ""
 "Language: fr\n"
 "Project-Id-Version: lenstube\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-10-07 01:11\n"
+"PO-Revision-Date: 2023-10-07 08:22\n"
 "Last-Translator: \n"
 "Language-Team: French\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
@@ -20,7 +20,7 @@ msgstr ""
 
 #: src/components/Home/OpenActions/Zora/Collect.tsx:113
 #~ msgid "{nftPriceInEth} ETH + {platformFeesInEth} ETH mint fees"
-#~ msgstr "Frais de menthe ETH {nftPriceInEth} + {platformFeesInEth} ETH"
+#~ msgstr ""
 
 #: src/components/Channel/Tabs/index.tsx:196
 #~ msgid "About"
@@ -104,11 +104,11 @@ msgstr "Infos sur l'application"
 
 #: src/components/UIElements/Confirm.tsx:24
 #~ msgid "Are you sure want to continue?"
-#~ msgstr "Êtes-vous sûr de vouloir continuer ?"
+#~ msgstr "Are you sure want to continue?"
 
 #: src/components/UIElements/Confirm.tsx:24
 msgid "Are you sure you want to continue?"
-msgstr ""
+msgstr "Êtes-vous sûr de vouloir continuer ?"
 
 #: src/components/Settings/SideNav.tsx:46
 msgid "Basic Info"
@@ -311,7 +311,7 @@ msgstr "Connectez-vous au bon réseau pour continuer"
 
 #: src/pages/auth.tsx:37
 msgid "Connect Wallet & Sign with Lens to continue,"
-msgstr "Connectez Wallet et Signez avec Lens pour continuer,"
+msgstr "Connectez Wallet et Signez avec les lentilles pour continuer,"
 
 #: src/components/Common/UserMenu.tsx:177
 msgid "Connected as"
@@ -515,7 +515,7 @@ msgstr "Attributions Gitcoin"
 
 #: src/components/Settings/Membership.tsx:191
 msgid "Grow with Lens"
-msgstr "Croître avec Lens"
+msgstr "Agrandir avec la lentille"
 
 #: src/components/Watch/Comments/NonRelevantComments.tsx:87
 msgid "Hide more comments"
@@ -604,7 +604,7 @@ msgstr "a rejoint"
 
 #: src/components/Common/CreateChannel.tsx:48
 msgid "lens claiming site"
-msgstr "site de réclamation Lens"
+msgstr "lentille réclamant site"
 
 #: src/components/Mod/index.tsx:46
 #~ msgid "Lenstube Stats"
@@ -679,7 +679,7 @@ msgstr "Miroir"
 
 #: src/components/Common/MirrorVideo.tsx:198
 msgid "Mirror video across Lens"
-msgstr "Mirror Vidéo sur Lens"
+msgstr "Vidéo miroir à travers lentilles"
 
 #: src/components/Channel/MirroredVideoCard.tsx:96
 msgid "Mirrored"
@@ -1302,7 +1302,7 @@ msgstr "le canal"
 
 #: src/components/Settings/ProfileInterests/index.tsx:15
 #~ msgid "There is so much good content on {TAPE_APP_NAME}, it may be hard to find what's most relevant to you from time to time. That's where profile interests can help curate content the way you like."
-#~ msgstr "Il y a tellement de bons contenus sur {TAPE_APP_NAME}, il peut être difficile de trouver ce qui vous intéresse de temps en temps. C'est là que les intérêts du profil peuvent aider à organiser le contenu comme vous le souhaitez."
+#~ msgstr ""
 
 #: src/components/Settings/ProfileInterests/index.tsx:14
 #~ msgid "There is so much good content on Lenstube, it may be hard to find what's most relevant to you from time to time. That's where profile interests can help curate content the way you like."
@@ -1606,7 +1606,7 @@ msgstr "Qui peut collecter cette vidéo ?"
 
 #: src/components/Common/Auth/ConnectWalletButton.tsx:45
 msgid "with Lens"
-msgstr "avec Lens"
+msgstr "avec lentille"
 
 #: src/components/Upload/CollectModule/index.tsx:55
 msgid "within 24hrs"
@@ -1654,7 +1654,7 @@ msgstr "votre"
 
 #: src/components/Common/CreateChannel.tsx:38
 msgid "Your address does not seem to have Lens handle."
-msgstr "Votre adresse ne semble pas avoir de pseudo Lens."
+msgstr "Votre adresse ne semble pas avoir le gestionnaire de lentille."
 
 #: src/components/Notifications/Mentioned.tsx:54
 msgid "your channel"
@@ -1667,3 +1667,4 @@ msgstr "Votre Chaîne"
 #: src/components/Upload/IrysInfo.tsx:166
 msgid "Your Storage Balance"
 msgstr "Votre solde de stockage"
+
