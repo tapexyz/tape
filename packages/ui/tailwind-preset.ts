@@ -3,6 +3,10 @@ module.exports = {
   darkMode: 'class',
   theme: {
     extend: {
+      fontFamily: {
+        space: ['var(--font-space)'],
+        clash: ['var(--font-clash)']
+      },
       screens: {
         tablet: '640px',
         laptop: '1024px',

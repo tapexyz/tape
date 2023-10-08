@@ -17,16 +17,14 @@ import React, { useEffect } from 'react'
 import { toast, Toaster } from 'react-hot-toast'
 import { useAccount, useDisconnect, useNetwork } from 'wagmi'
 
+import FloatingNav from './FloatingNav'
 import FullPageLoader from './FullPageLoader'
-import Header from './Header'
 import TelemetryProvider from './Providers/TelemetryProvider'
-import Sidebar from './Sidebar'
 
 interface Props {
   children: ReactNode
 }
 
-const NO_HEADER_PATHS = ['/auth', '/bytes', '/bytes/[id]']
 const NO_PY_PADDING_PATHS = ['/channel/[channel]', '/bytes', '/bytes/[id]']
 const H_SCREEN_PATHS = ['/bytes', '/bytes/[id]']
 
@@ -122,20 +120,17 @@ const Layout: FC<Props> = ({ children }) => {
         toastOptions={getToastOptions(resolvedTheme)}
       />
       <TelemetryProvider />
-      <div className="flex">
-        <Sidebar />
-        <div className="w-full md:pl-[90px]">
-          {!NO_HEADER_PATHS.includes(pathname) && <Header />}
-          <div
-            className={clsx(
-              'ultrawide:px-0',
-              H_SCREEN_PATHS.includes(pathname) && 'h-screen',
-              !NO_PY_PADDING_PATHS.includes(pathname) &&
-                'mx-auto max-w-[90rem] p-2 md:p-4 2xl:py-6'
-            )}
-          >
-            {children}
-          </div>
+      <div className="relative w-full">
+        <FloatingNav />
+        <div
+          className={clsx(
+            'ultrawide:px-0',
+            H_SCREEN_PATHS.includes(pathname) && 'h-screen',
+            !NO_PY_PADDING_PATHS.includes(pathname) &&
+              'mx-auto max-w-[90rem] p-2 md:p-4 2xl:py-6'
+          )}
+        >
+          {children}
         </div>
       </div>
     </>
