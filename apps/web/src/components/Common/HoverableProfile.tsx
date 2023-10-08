@@ -41,7 +41,7 @@ const HoverableProfile: FC<Props> = ({
                 <img
                   className="h-4 w-4 flex-none rounded-full object-cover"
                   src={getProfilePicture(profile)}
-                  alt={trimLensHandle(profile.handle)[0]}
+                  alt={trimLensHandle(profile.handle)?.[0]}
                   draggable={false}
                 />
               )}
@@ -68,7 +68,7 @@ const HoverableProfile: FC<Props> = ({
             <Avatar
               className="border-2 border-white bg-white object-cover dark:bg-gray-900"
               size="3"
-              fallback={trimLensHandle(profile.handle)[0]}
+              fallback={trimLensHandle(profile.handle)?.[0]}
               radius="medium"
               src={getProfilePicture(profile, 'AVATAR')}
             />
