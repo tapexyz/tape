@@ -58,7 +58,7 @@ const LatestBytes = () => {
           <Link
             href={`/bytes/${byte.id}`}
             key={byte.id}
-            className="ultrawide:w-[260px] hover:border-brand-500 rounded-large ultrawide:h-[400px] tape-border relative aspect-[9/16] h-[350px] w-[220px] overflow-hidden"
+            className="ultrawide:w-[260px] hover:border-brand-500 rounded-large ultrawide:h-[400px] tape-border relative aspect-[9/16] h-[350px] w-[220px] flex-none overflow-hidden"
           >
             <img
               className="h-full object-cover"
