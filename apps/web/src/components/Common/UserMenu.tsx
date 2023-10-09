@@ -123,28 +123,20 @@ const UserMenu = () => {
                   )
                 }
               >
-                <Link
-                  href={`/channel/${trimLensHandle(
-                    selectedSimpleProfile?.handle
-                  )}`}
-                  className="flex items-center space-x-2"
-                >
+                <Flex gap="2" align="center">
                   <ChannelOutline className="h-4 w-4" />
                   <Text as="p" className="truncate whitespace-nowrap">
                     <Trans>My Profile</Trans>
                   </Text>
-                </Link>
+                </Flex>
               </DropdownMenu.Item>
               <DropdownMenu.Item onClick={() => push('/channel/saved')}>
-                <Link
-                  href="/channel/saved"
-                  className="flex items-center space-x-2"
-                >
+                <Flex gap="2" align="center">
                   <SaveToListOutline className="h-4 w-4" />
                   <Text as="p" className="truncate whitespace-nowrap">
                     <Trans>Saved Items</Trans>
                   </Text>
-                </Link>
+                </Flex>
               </DropdownMenu.Item>
 
               <DropdownMenu.Sub>
