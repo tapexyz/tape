@@ -22,6 +22,6 @@ export const featureFlags: FeatureFlag[] = [
   },
   {
     flag: FEATURE_FLAGS.OPEN_ACTIONS,
-    enabledFor: CORE_MEMBERS
+    enabledFor: []
   }
 ]

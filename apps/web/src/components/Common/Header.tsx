@@ -1,8 +1,4 @@
-import Modal from '@components/UIElements/Modal'
-import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
-import usePersistStore from '@lib/store/persist'
-import { t, Trans } from '@lingui/macro'
+import { Trans } from '@lingui/macro'
 import { Button, DropdownMenu, Flex, IconButton } from '@radix-ui/themes'
 import {
   IS_MAINNET,
@@ -19,12 +15,11 @@ import BellOutline from './Icons/BellOutline'
 import LinkOutline from './Icons/LinkOutline'
 import SearchOutline from './Icons/SearchOutline'
 import UploadOutline from './Icons/UploadOutline'
-import PostLinkModal from './PostLinkModal'
 import GlobalSearchBar from './Search/GlobalSearchBar'
 
 const Header = () => {
   const [showShowModal, setSearchModal] = useState(false)
-  const [showPostLinkModal, setShowPostLinkModal] = useState(false)
+  // const [showPostLinkModal, setShowPostLinkModal] = useState(false)
 
   const hasNewNotification = useChannelStore(
     (state) => state.hasNewNotification
@@ -113,7 +108,7 @@ const Header = () => {
                       </Flex>
                     </DropdownMenu.Item>
                   </Link>
-                  <DropdownMenu.Item onClick={() => setShowPostLinkModal(true)}>
+                  <DropdownMenu.Item>
                     <Flex align="center" gap="2">
                       <LinkOutline className="h-3 w-3" />
                       <Trans>Share Drop</Trans>
@@ -126,17 +121,7 @@ const Header = () => {
           <ConnectWalletButton />
         </Flex>
       </div>
-      <PostLinkModal show={showPostLinkModal} setShow={setShowPostLinkModal} />
-      <Modal
-        title={t`Search`}
-        onClose={() => setSearchModal(false)}
-        show={showShowModal}
-        panelClassName="max-w-md h-full"
-      >
-        <div className="no-scrollbar max-h-[80vh] overflow-y-auto">
-          <GlobalSearchBar onSearchResults={() => setSearchModal(false)} />
-        </div>
-      </Modal>
+      {/* <PostLinkModal show={showPostLinkModal} setShow={setShowPostLinkModal} /> */}
     </div>
   )
 }

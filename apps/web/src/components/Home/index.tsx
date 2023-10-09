@@ -11,7 +11,6 @@ import BytesSection from './BytesSection'
 import DispatcherAlert from './DispatcherAlert'
 import HomeFeed from './Feed'
 import OpenActions from './OpenActions'
-import WhatsPopping from './Popping'
 import WelcomeAlert from './WelcomeAlert'
 
 const Home: NextPage = () => {
@@ -28,7 +27,7 @@ const Home: NextPage = () => {
       {!selectedSimpleProfile && <WelcomeAlert />}
       {/* <GitcoinAlert /> */}
       <DispatcherAlert />
-      <WhatsPopping />
+      {/* <WhatsPopping /> */}
       <BytesSection />
       {getIsFeatureEnabled(
         FEATURE_FLAGS.OPEN_ACTIONS,
