@@ -16,7 +16,7 @@ export const TAPE_WEBSITE_URL = IS_MAINNET
   : 'https://testnet.tape.xyz'
 export const FALLBACK_COVER_URL = `${STATIC_ASSETS}/brand/fallback.png`
 export const OG_IMAGE = `${STATIC_ASSETS}/brand/og.png`
-export const SCROLL_ROOT_MARGIN = '60% 0px'
+export const SCROLL_ROOT_MARGIN = '300px 0px'
 export const LENS_IMAGEKIT_SNAPSHOT_URL =
   'https://ik.imagekit.io/lens/media-snapshot'
 
