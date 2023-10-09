@@ -3,7 +3,7 @@ import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
 
 import { getTimeAddedOneDay } from './formatTime'
 
-export const getCollectModule = (
+export const getCollectModuleInput = (
   selectedCollectModule: CollectModuleType
 ): OpenActionModuleInput => {
   const {

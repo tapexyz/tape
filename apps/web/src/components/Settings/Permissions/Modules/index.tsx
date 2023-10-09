@@ -1,5 +1,5 @@
 import { Button } from '@components/UIElements/Button'
-import { getCollectModuleConfig } from '@lib/getCollectModule'
+import { getCollectModuleConfig } from '@lib/getCollectModuleInput'
 import useAuthPersistStore from '@lib/store/auth'
 import { t, Trans } from '@lingui/macro'
 import { WMATIC_TOKEN_ADDRESS } from '@tape.xyz/constants'

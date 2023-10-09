@@ -10,7 +10,7 @@ import {
   shortVideo,
   video
 } from '@lens-protocol/metadata'
-import { getCollectModule } from '@lib/getCollectModule'
+import { getCollectModuleInput } from '@lib/getCollectModuleInput'
 import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
 import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
@@ -148,7 +148,7 @@ const UploadSteps = () => {
         : 'ON_CHAIN',
       video_storage: uploadedVideo.isUploadToIpfs ? 'IPFS' : 'ARWEAVE',
       publication_collect_module: Object.keys(
-        getCollectModule(uploadedVideo.collectModule)
+        getCollectModuleInput(uploadedVideo.collectModule)
       )[0],
       publication_reference_module: enabledReferenceModule,
       publication_reference_module_degrees_of_separation: uploadedVideo
@@ -383,7 +383,7 @@ const UploadSteps = () => {
           contentURI: metadataUri,
           openActionModules: [
             {
-              ...getCollectModule(uploadedVideo.collectModule)
+              ...getCollectModuleInput(uploadedVideo.collectModule)
             }
           ],
           referenceModule

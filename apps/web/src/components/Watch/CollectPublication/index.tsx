@@ -1,18 +1,19 @@
 import CollectOutline from '@components/Common/Icons/CollectOutline'
-import Tooltip from '@components/UIElements/Tooltip'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t } from '@lingui/macro'
-import { Button } from '@radix-ui/themes'
+import { Button, Dialog, Flex } from '@radix-ui/themes'
 import { ERROR_MESSAGE } from '@tape.xyz/constants'
 import { getPublication } from '@tape.xyz/generic'
-import type { AnyPublication } from '@tape.xyz/lens'
+import { type AnyPublication, TriStateValue } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useSignTypedData } from 'wagmi'
+
+import CollectInfo from './CollectInfo'
 
 type Props = {
   video: AnyPublication
@@ -20,7 +21,7 @@ type Props = {
   text?: string
 }
 
-const CollectVideo: FC<Props> = ({ video, variant = 'solid', text }) => {
+const CollectPublication: FC<Props> = ({ video, variant = 'solid', text }) => {
   const targetPublication = getPublication(video)
   const handleWrongNetwork = useHandleWrongNetwork()
 
@@ -57,10 +58,11 @@ const CollectVideo: FC<Props> = ({ video, variant = 'solid', text }) => {
   //   usePublicationCollectModuleQuery({
   //     variables: { request: { publicationId: video?.id } }
   //   })
-  // const collectModule =
-  //   data?.publication?.__typename === 'Post'
-  //     ? (data?.publication?.collectModule as LenstubeCollectModule)
-  //     : null
+  const canAct = targetPublication.operations.canAct === TriStateValue.Yes
+
+  if (!canAct) {
+    return null
+  }
   // const collectAmount =
   //   collectModule?.amount?.value ?? collectModule?.fee?.amount?.value
   // const currency =
@@ -161,7 +163,7 @@ const CollectVideo: FC<Props> = ({ video, variant = 'solid', text }) => {
   // )
 
   return (
-    <div>
+    <Dialog.Root>
       {/* {showCollectModal && collectModule && (
         <CollectModal
           video={video}
@@ -173,30 +175,37 @@ const CollectVideo: FC<Props> = ({ video, variant = 'solid', text }) => {
           fetchingCollectModule={fetchingCollectModule}
         />
       )} */}
-      <Tooltip
-        content={
-          loading
-            ? t`Collecting`
-            : alreadyCollected
-            ? t`Already Collected`
-            : 'collectTooltipText'
-        }
-        placement="top"
-      >
-        <div>
-          <Button
-            variant={variant}
-            disabled={loading || alreadyCollected}
-            highContrast
-            // onClick={() => onClickCollect()}
-          >
-            <CollectOutline className="h-5 w-5" />
-            {text}
-          </Button>
-        </div>
-      </Tooltip>
-    </div>
+      <Dialog.Trigger>
+        <Button
+          variant={variant}
+          disabled={loading || alreadyCollected}
+          highContrast
+        >
+          <CollectOutline className="h-5 w-5" />
+          {text}
+        </Button>
+      </Dialog.Trigger>
+
+      <Dialog.Content>
+        <Dialog.Title>Collect</Dialog.Title>
+
+        <Flex direction="column" gap="3">
+          <CollectInfo publication={video} onCollect={() => {}} />
+        </Flex>
+
+        <Flex gap="3" mt="4" justify="end">
+          <Dialog.Close>
+            <Button variant="soft" color="gray">
+              Cancel
+            </Button>
+          </Dialog.Close>
+          <Dialog.Close>
+            <Button highContrast>Save</Button>
+          </Dialog.Close>
+        </Flex>
+      </Dialog.Content>
+    </Dialog.Root>
   )
 }
 
-export default CollectVideo
+export default CollectPublication

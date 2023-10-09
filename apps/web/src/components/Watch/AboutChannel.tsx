@@ -18,7 +18,7 @@ import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 
-import CollectVideo from './CollectVideo'
+import CollectPublication from './CollectPublication'
 import MetaInfo from './MetaInfo'
 
 type Props = {
@@ -92,7 +92,7 @@ const AboutChannel: FC<Props> = ({ video }) => {
                 </div>
               </MirrorVideo>
             </div>
-            <CollectVideo video={video} text="Collect" />
+            <CollectPublication video={video} text="Collect" />
           </div>
         </div>
         {metadata.marketplace?.description || metadata.content ? (

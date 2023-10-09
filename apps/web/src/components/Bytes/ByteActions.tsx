@@ -3,7 +3,7 @@ import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import TimesOutline from '@components/Common/Icons/TimesOutline'
 import MirrorVideo from '@components/Common/MirrorVideo'
 import VideoOptions from '@components/Common/VideoCard/VideoOptions'
-import CollectVideo from '@components/Watch/CollectVideo'
+import CollectPublication from '@components/Watch/CollectPublication'
 import PublicationReaction from '@components/Watch/PublicationReaction'
 import { t } from '@lingui/macro'
 import { Dialog, DialogClose, Flex, IconButton } from '@radix-ui/themes'
@@ -69,7 +69,7 @@ const ByteActions: FC<Props> = ({ video }) => {
             </MirrorVideo>
           </div>
           <div className="w-full text-center">
-            <CollectVideo video={video} variant="ghost" />
+            <CollectPublication video={video} variant="ghost" />
             <div className="text-center text-xs leading-3">
               {video.stats?.countOpenActions || t`Collect`}
             </div>
