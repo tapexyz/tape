@@ -1,5 +1,5 @@
 import Badge from '@components/Common/Badge'
-import BytesShimmer from '@components/Shimmers/BytesShimmer'
+import LatestBytesShimmer from '@components/Shimmers/LatestBytesShimmer'
 import { Trans } from '@lingui/macro'
 import { FALLBACK_COVER_URL, LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
 import {
@@ -42,8 +42,8 @@ const LatestBytes = () => {
   const bytes = data?.explorePublications
     ?.items as unknown as PrimaryPublication[]
 
-  if (loading) {
-    return <BytesShimmer />
+  if (!loading) {
+    return <LatestBytesShimmer />
   }
 
   if (!bytes?.length || error) {
