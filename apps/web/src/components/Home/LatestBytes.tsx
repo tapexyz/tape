@@ -1,3 +1,4 @@
+import Badge from '@components/Common/Badge'
 import BytesShimmer from '@components/Shimmers/BytesShimmer'
 import { Trans } from '@lingui/macro'
 import { FALLBACK_COVER_URL, LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
@@ -54,43 +55,40 @@ const LatestBytes = () => {
       {bytes.map((byte) => {
         const thumbnailUrl = getThumbnailUrl(byte)
         return (
-          <div key={byte.id} className="w-[260px] space-y-1">
-            <Link href={`/bytes/${byte.id}`}>
-              <div className="aspect-[9/16] h-[400px] w-[260px]">
-                <img
-                  className="h-full rounded-xl object-cover"
-                  src={
-                    thumbnailUrl ? imageCdn(thumbnailUrl, 'THUMBNAIL_V') : ''
-                  }
-                  alt="thumbnail"
-                  draggable={false}
-                  onError={({ currentTarget }) => {
-                    currentTarget.src = FALLBACK_COVER_URL
-                  }}
-                />
-              </div>
-              <h1 className="line-clamp-2 break-words pt-2 text-[13px]">
+          <Link
+            href={`/bytes/${byte.id}`}
+            key={byte.id}
+            className="ultrawide:w-[260px] hover:border-brand-500 rounded-large ultrawide:h-[400px] tape-border relative aspect-[9/16] h-[350px] w-[220px] overflow-hidden"
+          >
+            <img
+              className="h-full object-cover"
+              src={thumbnailUrl ? imageCdn(thumbnailUrl, 'THUMBNAIL_V') : ''}
+              alt="thumbnail"
+              draggable={false}
+              onError={({ currentTarget }) => {
+                currentTarget.src = FALLBACK_COVER_URL
+              }}
+            />
+            <div className="absolute left-0 right-0 top-0 bg-gradient-to-b from-black/30 to-transparent px-4 py-2 text-white">
+              <h1 className="line-clamp-1 break-words">
                 {byte.metadata.marketplace?.name}
               </h1>
-            </Link>
-            <div className="flex items-end space-x-1.5">
-              <Link
-                href={`/channel/${trimLensHandle(byte.by?.handle)}`}
-                className="flex-none"
-                title={byte.by.handle}
-              >
-                <img
-                  className="h-3.5 w-3.5 rounded-full bg-gray-200 dark:bg-gray-800"
-                  src={getProfilePicture(byte.by, 'AVATAR')}
-                  alt={byte.by?.handle}
-                  draggable={false}
-                />
-              </Link>
-              <span className="text-xs leading-3 opacity-70">
+              <p className="text-xs opacity-80">
                 {byte.stats?.reactions} <Trans>likes</Trans>
+              </p>
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 flex items-center space-x-1.5 bg-gradient-to-t from-black/30 to-transparent px-4 py-2 text-white">
+              <img
+                className="h-5 w-5 rounded-full bg-gray-200 dark:bg-gray-800"
+                src={getProfilePicture(byte.by, 'AVATAR')}
+                alt={byte.by?.handle}
+                draggable={false}
+              />
+              <span className="font-medium">
+                {trimLensHandle(byte.by?.handle)} <Badge id={byte.by.id} />
               </span>
             </div>
-          </div>
+          </Link>
         )
       })}
     </>
