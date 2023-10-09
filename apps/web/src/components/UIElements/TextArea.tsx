@@ -25,7 +25,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, Props>(
           <TextAreaField
             id={id}
             ref={ref}
-            className="w-full border-[1.5px] border-gray-300 dark:border-gray-700"
+            className="w-full border-[1.4px] border-gray-300 dark:border-gray-700"
             color={validationError?.length ? 'red' : 'gray'}
             {...props}
           />

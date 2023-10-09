@@ -59,6 +59,7 @@ const CategoryFilters = () => {
         className="no-scrollbar ultrawide:py-8 laptop:py-6 flex touch-pan-x items-center gap-2 overflow-x-auto scroll-smooth py-4 md:mx-auto"
       >
         <Button
+          size="3"
           highContrast={activeTagFilter === 'all'}
           variant={activeTagFilter === 'all' ? 'outline' : 'soft'}
           onClick={() => onFilter('all')}
@@ -68,6 +69,7 @@ const CategoryFilters = () => {
         {CREATOR_VIDEO_CATEGORIES.map((category) => (
           <Button
             key={category.tag}
+            size="3"
             highContrast={activeTagFilter === category.tag}
             variant={activeTagFilter === category.tag ? 'outline' : 'soft'}
             onClick={() => onFilter(category.tag)}

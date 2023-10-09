@@ -4,6 +4,7 @@ import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import { signOut } from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t } from '@lingui/macro'
+import { Card, Flex } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   LENSHUB_PROXY_ADDRESS,
@@ -66,39 +67,41 @@ const DangerZone = () => {
 
   return (
     <div className="rounded-lg bg-white p-4 dark:divide-gray-900 dark:bg-black">
-      <div className="mb-5 flex flex-wrap items-center justify-between rounded-xl border p-4 dark:border-gray-700">
-        <div className="flex items-center">
-          <div className="mr-3 mt-0.5 flex-none">
-            <img
-              src={getProfilePicture(activeChannel, 'AVATAR')}
-              className="h-9 w-9 rounded-full"
-              draggable={false}
-              alt={activeChannel?.handle}
-            />
+      <Card size="3" className="mb-6">
+        <Flex align="center" justify="between">
+          <div className="flex items-center">
+            <div className="mr-3 mt-0.5 flex-none">
+              <img
+                src={getProfilePicture(activeChannel, 'AVATAR')}
+                className="h-9 w-9 rounded-full"
+                draggable={false}
+                alt={activeChannel?.handle}
+              />
+            </div>
+            <div className="flex flex-col">
+              {activeChannel.metadata?.displayName && (
+                <h6 className="font-medium">
+                  {activeChannel.metadata?.displayName}
+                </h6>
+              )}
+              <span className="flex items-center space-x-1">
+                <span className="text-sm">{activeChannel?.handle}</span>
+                <Badge id={activeChannel?.id} size="xs" />
+              </span>
+            </div>
           </div>
-          <div className="flex flex-col">
-            {activeChannel.metadata?.displayName && (
-              <h6 className="font-medium">
-                {activeChannel.metadata?.displayName}
-              </h6>
-            )}
-            <span className="flex items-center space-x-1">
-              <span className="text-sm">{activeChannel?.handle}</span>
-              <Badge id={activeChannel?.id} size="xs" />
+          <div className="flex space-x-2">
+            <span>
+              {formatNumber(activeChannel.stats.posts)}{' '}
+              <small>publications</small>
+            </span>
+            <span>
+              {formatNumber(activeChannel.stats.followers)}{' '}
+              <small>subscribers</small>
             </span>
           </div>
-        </div>
-        <div className="flex space-x-2">
-          <span>
-            {formatNumber(activeChannel.stats.posts)}{' '}
-            <small>publications</small>
-          </span>
-          <span>
-            {formatNumber(activeChannel.stats.followers)}{' '}
-            <small>subscribers</small>
-          </span>
-        </div>
-      </div>
+        </Flex>
+      </Card>
       <div className="flex flex-wrap items-center justify-between px-2">
         <div className="mb-4">
           <h1 className="mb-1 text-xl font-semibold">Delete Channel</h1>

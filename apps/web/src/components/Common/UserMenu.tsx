@@ -1,14 +1,10 @@
 import useAuthPersistStore, { signOut } from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
-import { Avatar, Box, DropdownMenu, Flex, Text } from '@radix-ui/themes'
+import { Avatar, DropdownMenu, Flex, Text } from '@radix-ui/themes'
 import { Analytics, TRACK } from '@tape.xyz/browser'
 import { ADMIN_IDS } from '@tape.xyz/constants'
-import {
-  formatNumber,
-  getProfilePicture,
-  trimLensHandle
-} from '@tape.xyz/generic'
+import { getProfilePicture, trimLensHandle } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { useProfilesQuery } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
@@ -96,24 +92,18 @@ const UserMenu = () => {
         </div>
       </DropdownMenu.Trigger>
       <DropdownMenu.Content sideOffset={10} variant="soft" align="center">
-        <Flex gap="2" px="2" py="1" pb="3" align="center">
-          <Avatar
-            size="3"
-            radius="full"
-            src={getProfilePicture(selectedSimpleProfile as Profile)}
-            fallback={trimLensHandle(selectedSimpleProfile?.handle)[0]}
-          />
-          <Box>
-            <Text as="p" weight="bold">
-              {selectedSimpleProfile?.handle}
+        <div className="w-48">
+          <Flex gap="2" px="2" py="1" pb="3" align="center">
+            <Avatar
+              size="1"
+              radius="full"
+              src={getProfilePicture(selectedSimpleProfile as Profile)}
+              fallback={trimLensHandle(selectedSimpleProfile?.handle)[0]}
+            />
+            <Text as="p" weight="bold" className="line-clamp-1">
+              {trimLensHandle(selectedSimpleProfile?.handle)}
             </Text>
-            <Text as="p" size="2" color="gray">
-              {formatNumber(selectedSimpleProfile?.stats.followers!)} followers
-            </Text>
-          </Box>
-        </Flex>
-
-        <div className="w-52">
+          </Flex>
           {isAdmin && (
             <DropdownMenu.Item>
               <Link href="/mod">
@@ -190,12 +180,12 @@ const UserMenu = () => {
             </>
           )}
           <DropdownMenu.Item onClick={() => push('/settings')}>
-            <Link href="/settings" className="flex items-center space-x-2">
+            <Flex gap="2" align="center">
               <CogOutline className="h-4 w-4" />
               <Text as="p" className="truncate whitespace-nowrap">
                 <Trans>My Settings</Trans>
               </Text>
-            </Link>
+            </Flex>
           </DropdownMenu.Item>
           <DropdownMenu.Separator />
           <DropdownMenu.Item

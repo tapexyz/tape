@@ -1,4 +1,5 @@
 import { Trans } from '@lingui/macro'
+import { Card } from '@radix-ui/themes'
 import { TAPE_APP_NAME } from '@tape.xyz/constants'
 import React from 'react'
 
@@ -6,7 +7,7 @@ import Topics from './Topics'
 
 const ProfileInterests = () => {
   return (
-    <div className="space-y-6 rounded-xl bg-white p-5 dark:bg-black">
+    <Card size="3">
       <div className="mb-5">
         <h1 className="mb-1 text-xl font-semibold">
           <Trans>Interests</Trans>
@@ -18,7 +19,7 @@ const ProfileInterests = () => {
         </p>
       </div>
       <Topics />
-    </div>
+    </Card>
   )
 }
 
