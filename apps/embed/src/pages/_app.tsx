@@ -1,11 +1,8 @@
 import '../styles/index.css'
 
 import { LivepeerConfig } from '@livepeer/react'
-import {
-  getLivepeerClient,
-  spaceGrotesk,
-  videoPlayerTheme
-} from '@tape.xyz/browser'
+import { getLivepeerClient, videoPlayerTheme } from '@tape.xyz/browser'
+import { tapeFont } from '@tape.xyz/browser/font'
 import type { AppProps } from 'next/app'
 import React from 'react'
 
@@ -14,7 +11,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
     <LivepeerConfig client={getLivepeerClient()} theme={videoPlayerTheme}>
       <style jsx global>{`
         body {
-          font-family: ${spaceGrotesk.style.fontFamily};
+          font-family: ${tapeFont.style.fontFamily};
         }
       `}</style>
       <Component {...pageProps} />

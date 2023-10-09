@@ -124,10 +124,9 @@ const Layout: FC<Props> = ({ children }) => {
         <FloatingNav />
         <div
           className={clsx(
-            'ultrawide:px-0',
             H_SCREEN_PATHS.includes(pathname) && 'h-screen',
             !NO_PY_PADDING_PATHS.includes(pathname) &&
-              'mx-auto max-w-[90rem] p-2 md:p-4 2xl:py-6'
+              'mx-auto p-2 md:p-4 2xl:py-6'
           )}
         >
           {children}

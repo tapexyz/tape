@@ -6,7 +6,7 @@ import '../styles/theme.config.css'
 import FullPageLoader from '@components/Common/FullPageLoader'
 import MetaTags from '@components/Common/MetaTags'
 import useAuthPersistStore from '@lib/store/auth'
-import { spaceGrotesk } from '@tape.xyz/browser'
+import { tapeFont } from '@tape.xyz/browser/font'
 import { AUTH_ROUTES } from '@tape.xyz/constants'
 import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
@@ -33,7 +33,7 @@ const App = ({ Component, pageProps }: AppProps) => {
       <Suspense fallback={<FullPageLoader />}>
         <style jsx global>{`
           body {
-            font-family: ${spaceGrotesk.style.fontFamily};
+            font-family: ${tapeFont.style.fontFamily};
           }
         `}</style>
         <Providers>
