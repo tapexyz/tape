@@ -1,108 +1,81 @@
 import useAppStore from '@lib/store'
 import { Trans } from '@lingui/macro'
-import { Badge, IconButton } from '@radix-ui/themes'
-import { Analytics, TRACK, useHorizontalScroll } from '@tape.xyz/browser'
+import { Button } from '@radix-ui/themes'
+import { Analytics, TRACK } from '@tape.xyz/browser'
 import { CREATOR_VIDEO_CATEGORIES } from '@tape.xyz/constants'
-import React, { useEffect, useState } from 'react'
+import React, { useRef } from 'react'
 
 import ChevronLeftOutline from './Icons/ChevronLeftOutline'
 import ChevronRightOutline from './Icons/ChevronRightOutline'
 
 const CategoryFilters = () => {
+  const sectionRef = useRef<HTMLDivElement>(null)
+
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
   const setActiveTagFilter = useAppStore((state) => state.setActiveTagFilter)
-
-  const [scrollX, setScrollX] = useState(0)
-  const [scrollEnd, setScrollEnd] = useState(false)
-
-  const scrollRef = useHorizontalScroll()
 
   const onFilter = (tag: string) => {
     setActiveTagFilter(tag)
     Analytics.track(TRACK.FILTER_CATEGORIES)
   }
 
-  const sectionOffsetWidth = scrollRef.current?.offsetWidth ?? 1000
+  const sectionOffsetWidth = sectionRef.current?.offsetWidth ?? 1000
   const scrollOffset = sectionOffsetWidth / 1.2
 
-  useEffect(() => {
-    if (
-      scrollRef.current &&
-      scrollRef?.current?.scrollWidth === scrollRef?.current?.offsetWidth
-    ) {
-      setScrollEnd(true)
-    } else {
-      setScrollEnd(false)
-    }
-  }, [scrollRef])
-
-  const slide = (shift: number) => {
-    if (scrollRef.current) {
-      const scrolled = scrollRef.current.scrollLeft + shift
-      scrollRef.current.scrollLeft += shift
-
-      setScrollX(scrolled <= 0 ? 0 : scrollX + shift)
-
-      if (
-        Math.floor(scrollRef.current.scrollWidth - scrolled) <=
-        scrollRef.current.offsetWidth
-      ) {
-        setScrollEnd(true)
-      } else {
-        setScrollEnd(false)
-      }
+  const scroll = (offset: number) => {
+    if (sectionRef.current) {
+      sectionRef.current.scrollLeft += offset
     }
   }
 
   return (
-    <div className="ultrawide:max-w-[90rem] relative mx-auto flex pb-5">
-      {scrollX !== 0 && (
-        <div className="ultrawide:pl-0 sticky bottom-0 right-0 hidden items-center bg-transparent px-2 md:flex">
-          <IconButton
-            color="gray"
-            variant="ghost"
-            onClick={() => slide(-scrollOffset)}
+    <div className="ultrawide:pt-8 laptop:pt-6 pt-4">
+      <div className="flex items-center justify-between">
+        <div className="flex items-center space-x-3 text-xl">
+          <h1 className="font-bold text-blue-500">
+            <Trans>Explore</Trans>
+          </h1>
+          <h1>
+            <Trans>Categories</Trans>
+          </h1>
+        </div>
+        <div className="space-x-2">
+          <button
+            onClick={() => scroll(-scrollOffset)}
+            className="rounded-full p-2 backdrop-blur-xl hover:bg-gray-100 focus:outline-none dark:hover:bg-gray-900"
           >
             <ChevronLeftOutline className="h-4 w-4" />
-          </IconButton>
+          </button>
+          <button
+            onClick={() => scroll(scrollOffset)}
+            className="rounded-full p-2 backdrop-blur-xl hover:bg-gray-100 focus:outline-none dark:hover:bg-gray-900"
+          >
+            <ChevronRightOutline className="h-4 w-4" />
+          </button>
         </div>
-      )}
+      </div>
       <div
-        ref={scrollRef}
-        className="no-scrollbar flex touch-pan-x items-center gap-2 overflow-x-auto scroll-smooth md:mx-auto"
+        ref={sectionRef}
+        className="no-scrollbar ultrawide:py-8 laptop:py-6 flex touch-pan-x items-center gap-2 overflow-x-auto scroll-smooth py-4 md:mx-auto"
       >
-        <Badge
-          color="gray"
-          radius="full"
+        <Button
           highContrast={activeTagFilter === 'all'}
           variant={activeTagFilter === 'all' ? 'outline' : 'soft'}
           onClick={() => onFilter('all')}
         >
           <Trans>All</Trans>
-        </Badge>
+        </Button>
         {CREATOR_VIDEO_CATEGORIES.map((category) => (
-          <Badge
+          <Button
             key={category.tag}
-            radius="full"
             highContrast={activeTagFilter === category.tag}
             variant={activeTagFilter === category.tag ? 'outline' : 'soft'}
             onClick={() => onFilter(category.tag)}
           >
             {category.name}
-          </Badge>
+          </Button>
         ))}
       </div>
-      {!scrollEnd && (
-        <div className="ultrawide:pr-0 sticky bottom-0 right-0 hidden items-center bg-transparent px-2 md:flex">
-          <IconButton
-            variant="ghost"
-            color="gray"
-            onClick={() => slide(scrollOffset)}
-          >
-            <ChevronRightOutline className="h-4 w-4" />
-          </IconButton>
-        </div>
-      )}
     </div>
   )
 }

@@ -26,9 +26,7 @@ import { Loader } from '@tape.xyz/ui'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 
-import BytesSection from './BytesSection'
-
-const HomeFeed = () => {
+const Feed = () => {
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
 
   const request: ExplorePublicationRequest = {
@@ -71,7 +69,6 @@ const HomeFeed = () => {
   return (
     <div>
       <CategoryFilters />
-      <BytesSection />
       {loading && <TimelineShimmer />}
       {!error && !loading && videos.length > 0 && (
         <>
@@ -90,4 +87,4 @@ const HomeFeed = () => {
   )
 }
 
-export default HomeFeed
+export default Feed

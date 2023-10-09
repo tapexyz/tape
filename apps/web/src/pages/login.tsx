@@ -1,5 +1,6 @@
 import MetaTags from '@components/Common/MetaTags'
 import Connectors from '@components/Login/Connectors'
+import { STATIC_ASSETS } from '@tape.xyz/constants'
 import React from 'react'
 
 const login = () => {
@@ -9,7 +10,7 @@ const login = () => {
       <div id="tape-cursor" className="hidden w-1/2 p-6 md:block">
         <div
           style={{
-            backgroundImage: 'url("bg.svg")'
+            backgroundImage: `url("${STATIC_ASSETS}/brand/transparent-bg-large.svg")`
           }}
           className="flex h-full flex-col items-center justify-center bg-contain bg-repeat-space text-white"
         >

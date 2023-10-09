@@ -7,11 +7,10 @@ import { getIsFeatureEnabled } from '@tape.xyz/generic'
 import type { NextPage } from 'next'
 import React, { useEffect } from 'react'
 
-import BytesSection from './BytesSection'
 import DispatcherAlert from './DispatcherAlert'
-import HomeFeed from './Feed'
+import Feed from './Feed'
 import OpenActions from './OpenActions'
-import WelcomeAlert from './WelcomeAlert'
+import TopSection from './TopSection'
 
 const Home: NextPage = () => {
   useEffect(() => {
@@ -24,16 +23,16 @@ const Home: NextPage = () => {
   return (
     <>
       <MetaTags title={t`Home`} />
-      {!selectedSimpleProfile && <WelcomeAlert />}
+      <TopSection />
+      <Feed />
+
       {/* <GitcoinAlert /> */}
       <DispatcherAlert />
       {/* <WhatsPopping /> */}
-      <BytesSection />
       {getIsFeatureEnabled(
         FEATURE_FLAGS.OPEN_ACTIONS,
         selectedSimpleProfile?.id
       ) && <OpenActions />}
-      <HomeFeed />
     </>
   )
 }

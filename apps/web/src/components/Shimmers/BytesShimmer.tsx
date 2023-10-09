@@ -20,7 +20,7 @@ const BytesShimmer = () => {
           <div className="no-scrollbar relative mb-3 flex items-start space-x-4 overflow-x-auto scroll-smooth">
             {cards.map((i, idx) => (
               <div key={`${i}_${idx}`} className="space-y-1.5">
-                <div className="aspect-[9/16] h-[280px] rounded-xl bg-gray-300 dark:bg-gray-700" />
+                <div className="aspect-[9/16] h-[400px] w-[260px] rounded-xl bg-gray-300 dark:bg-gray-700" />
                 <div className="rounded-lg bg-gray-300 py-1 dark:bg-gray-700" />
                 <div className="w-20 rounded-lg bg-gray-300 py-1 dark:bg-gray-700" />
                 <div className="flex items-center space-x-1.5">

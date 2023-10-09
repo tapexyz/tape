@@ -15,6 +15,8 @@ import React, { lazy, Suspense, useEffect } from 'react'
 const Providers = lazy(() => import('../components/Common/Providers'))
 const Layout = lazy(() => import('../components/Common/Layout'))
 
+const NO_LAYOUT_PATHS = ['/login']
+
 const App = ({ Component, pageProps }: AppProps) => {
   const { pathname, replace, asPath } = useRouter()
   const selectedSimpleProfile = useAuthPersistStore(
@@ -37,7 +39,7 @@ const App = ({ Component, pageProps }: AppProps) => {
           }
         `}</style>
         <Providers>
-          <Layout>
+          <Layout skip={NO_LAYOUT_PATHS.includes(pathname)}>
             <Component {...pageProps} />
           </Layout>
         </Providers>

@@ -3,6 +3,11 @@ module.exports = {
   darkMode: 'class',
   theme: {
     extend: {
+      borderRadius: {
+        small: '12px',
+        medium: '16px',
+        large: '20px'
+      },
       fontFamily: {
         space: ['var(--font-space)'],
         clash: ['var(--font-clash)']
