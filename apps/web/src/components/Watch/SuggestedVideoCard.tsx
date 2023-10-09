@@ -87,7 +87,7 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
               </Link>
             </div>
             <div className="py-0.5">
-              <HoverableProfile profile={video.by} fontSize="1" hideImage />
+              <HoverableProfile profile={video.by} fontSize="1" />
             </div>
             <div className="flex items-center overflow-hidden text-xs opacity-80">
               <Flex align="center" gap="1">

@@ -17,17 +17,11 @@ import SubscribeActions from './SubscribeActions'
 
 type Props = {
   profile: Profile
-  hideImage?: boolean
   fontSize?: '1' | '2'
   children?: ReactElement
 }
 
-const HoverableProfile: FC<Props> = ({
-  profile,
-  hideImage = false,
-  fontSize = '2',
-  children
-}) => {
+const HoverableProfile: FC<Props> = ({ profile, fontSize = '2', children }) => {
   const activeChannel = useChannelStore((state) => state.activeChannel)
   const isMyProfile = activeChannel?.id === profile.id
 
@@ -36,21 +30,11 @@ const HoverableProfile: FC<Props> = ({
       <HoverCard.Trigger>
         {children ?? (
           <Link href={`/channel/${trimLensHandle(profile.handle)}`}>
-            <Flex gap="1" align="center">
-              {!hideImage && (
-                <img
-                  className="h-4 w-4 flex-none rounded-full object-cover"
-                  src={getProfilePicture(profile)}
-                  alt={trimLensHandle(profile.handle)?.[0]}
-                  draggable={false}
-                />
-              )}
-              <Flex align="center" gap="1">
-                <Text size={fontSize} color="gray">
-                  {trimLensHandle(profile.handle)}
-                </Text>
-                <Badge id={profile?.id} size="xs" />
-              </Flex>
+            <Flex align="center" gap="1">
+              <Text size={fontSize} color="gray">
+                {trimLensHandle(profile.handle)}
+              </Text>
+              <Badge id={profile?.id} size="xs" />
             </Flex>
           </Link>
         )}

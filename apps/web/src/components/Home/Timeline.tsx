@@ -25,7 +25,7 @@ const Timeline: FC<Props> = ({ videos, videoType = 'Post' }) => {
     `/channel/${trimLensHandle(selectedSimpleProfile?.handle)}`
 
   return (
-    <div className="laptop:grid-cols-4 grid-col-1 grid gap-x-4 gap-y-2 md:grid-cols-2 md:gap-y-8">
+    <div className="laptop:grid-cols-5 ultrawide:grid-cols-6 grid-col-1 grid gap-x-4 gap-y-2 md:grid-cols-3 md:gap-y-8">
       {isChannelPage &&
         queuedVideos?.map((queuedVideo) => (
           <QueuedVideo
