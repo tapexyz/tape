@@ -1,5 +1,5 @@
 import Badge from '@components/Common/Badge'
-import SubscribeActions from '@components/Common/SubscribeActions'
+import FollowActions from '@components/Common/FollowActions'
 import OtherChannelsShimmer from '@components/Shimmers/OtherChannelsShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { t, Trans } from '@lingui/macro'
@@ -69,7 +69,7 @@ const OtherProfiles: FC<Props> = ({ profile }) => {
                   <Trans>followers</Trans>
                 </div>
               </div>
-              <SubscribeActions profile={profile} />
+              <FollowActions profile={profile} />
             </div>
           )
       )}

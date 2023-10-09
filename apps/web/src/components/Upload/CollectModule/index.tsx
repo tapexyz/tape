@@ -132,7 +132,6 @@ const CollectModule = () => {
                 <div className="flex justify-end">
                   <Button
                     type="button"
-                    variant="classic"
                     highContrast
                     onClick={() => setShowModal(false)}
                   >

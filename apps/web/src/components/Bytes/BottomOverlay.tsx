@@ -1,5 +1,5 @@
 import Badge from '@components/Common/Badge'
-import SubscribeActions from '@components/Common/SubscribeActions'
+import FollowActions from '@components/Common/FollowActions'
 import {
   formatNumber,
   getProfilePicture,
@@ -53,7 +53,7 @@ const BottomOverlay: FC<Props> = ({ video }) => {
           </Link>
         </div>
         <div className="flex items-center space-x-2">
-          <SubscribeActions profile={profile} />
+          <FollowActions profile={profile} />
         </div>
       </div>
     </div>

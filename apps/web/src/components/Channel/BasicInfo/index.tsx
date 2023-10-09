@@ -1,12 +1,12 @@
 import Alert from '@components/Common/Alert'
 import Badge from '@components/Common/Badge'
+import FollowActions from '@components/Common/FollowActions'
 import ForbiddenOutline from '@components/Common/Icons/ForbiddenOutline'
 import InfoOutline from '@components/Common/Icons/InfoOutline'
 import LocationOutline from '@components/Common/Icons/LocationOutline'
 import ThreeDotsOutline from '@components/Common/Icons/ThreeDotsOutline'
 import WalletOutline from '@components/Common/Icons/WalletOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
-import SubscribeActions from '@components/Common/SubscribeActions'
 import Tooltip from '@components/UIElements/Tooltip'
 import { getRelativeTime } from '@lib/formatTime'
 import useAuthPersistStore from '@lib/store/auth'
@@ -215,7 +215,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
                 </DropdownMenu.Item>
               </DropdownMenu.Content>
             </DropdownMenu.Root>
-            <SubscribeActions size="3" profile={profile} />
+            <FollowActions size="3" profile={profile} />
           </Flex>
         </div>
         <Stats profile={profile} />

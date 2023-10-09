@@ -10,7 +10,7 @@ type Props = {
   profile: Profile
 }
 
-const SubscribeActions: FC<Props> = ({ profile, size = '2' }) => {
+const FollowActions: FC<Props> = ({ profile, size = '2' }) => {
   const isSubscriber = profile?.operations.isFollowedByMe.value
   const [subscriber, setSubscriber] = useState(isSubscriber)
   const subscribeType = profile?.followModule?.__typename
@@ -40,4 +40,4 @@ const SubscribeActions: FC<Props> = ({ profile, size = '2' }) => {
   )
 }
 
-export default SubscribeActions
+export default FollowActions

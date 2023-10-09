@@ -332,11 +332,7 @@ const Membership = ({ channel }: Props) => {
               <Trans>Disable</Trans>
             </span>
           </Button>
-          <Button
-            highContrast
-            variant="classic"
-            onClick={() => setShowForm(true)}
-          >
+          <Button highContrast onClick={() => setShowForm(true)}>
             <Trans>Update</Trans>
           </Button>
         </div>

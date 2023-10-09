@@ -179,7 +179,6 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
               <RadioGroup.Root
                 mt="2"
                 defaultValue="NO"
-                variant="classic"
                 highContrast
                 value={watch('isSensitiveContent') ? 'YES' : 'NO'}
                 onValueChange={(value) =>
@@ -220,7 +219,6 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
         <Button
           highContrast
           disabled={uploadedVideo.loading || uploadedVideo.uploadingThumbnail}
-          variant="classic"
           type="submit"
         >
           {uploadedVideo.uploadingThumbnail

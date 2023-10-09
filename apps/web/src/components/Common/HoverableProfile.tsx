@@ -12,8 +12,8 @@ import type { FC, ReactElement } from 'react'
 import React from 'react'
 
 import Badge from './Badge'
+import FollowActions from './FollowActions'
 import InterweaveContent from './InterweaveContent'
-import SubscribeActions from './SubscribeActions'
 
 type Props = {
   profile: Profile
@@ -59,7 +59,7 @@ const HoverableProfile: FC<Props> = ({ profile, fontSize = '2', children }) => {
           </div>
           <div className="absolute bottom-2 right-2 flex-none">
             {!profile.operations.isFollowedByMe.value && !isMyProfile ? (
-              <SubscribeActions profile={profile} />
+              <FollowActions profile={profile} />
             ) : null}
           </div>
         </div>

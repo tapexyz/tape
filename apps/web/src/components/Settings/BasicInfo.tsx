@@ -470,7 +470,7 @@ const BasicInfo = ({ channel }: Props) => {
           />
         </div>
         <div className="mt-4 flex justify-end">
-          <Button variant="classic" disabled={loading} highContrast>
+          <Button disabled={loading} highContrast>
             <Trans>Save Profile</Trans>
           </Button>
         </div>

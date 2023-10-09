@@ -211,7 +211,6 @@ const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
         <Button
           onClick={() => setOpen(true)}
           highContrast
-          variant="classic"
           size={size}
           disabled={loading}
         >
@@ -249,18 +248,12 @@ const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
             <Button
               highContrast
               onClick={() => superFollow()}
-              variant="classic"
               disabled={loading}
             >
               <Trans>Super Follow</Trans>
             </Button>
           ) : (
-            <Button
-              highContrast
-              variant="classic"
-              onClick={() => allow()}
-              disabled={loading}
-            >
+            <Button highContrast onClick={() => allow()} disabled={loading}>
               <Trans>Allow</Trans>
             </Button>
           )}

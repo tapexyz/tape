@@ -267,11 +267,7 @@ const PostLinkModal: FC<Props> = ({ show, setShow }) => {
                     Cancel
                   </Button>
                 </Dialog.Close>
-                <Button
-                  highContrast
-                  variant="classic"
-                  disabled={!isValid || !data || loading}
-                >
+                <Button highContrast disabled={!isValid || !data || loading}>
                   Post Link
                 </Button>
               </Flex>

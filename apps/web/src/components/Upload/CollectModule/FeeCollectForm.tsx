@@ -222,7 +222,6 @@ const FeeCollectForm: FC<Props> = ({
       <div className="flex justify-end pt-2" ref={submitContainerRef}>
         <Button
           highContrast
-          variant="classic"
           type="button"
           onClick={() => handleSubmit(validateInputs)()}
         >
