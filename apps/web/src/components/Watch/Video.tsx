@@ -48,7 +48,7 @@ const Video: FC<Props> = ({ video }) => {
 
   return (
     <div>
-      <div className="overflow-hidden rounded-xl">
+      <div className="rounded-large overflow-hidden">
         <VideoPlayer
           address={selectedSimpleProfile?.ownedBy.address}
           refCallback={refCallback}

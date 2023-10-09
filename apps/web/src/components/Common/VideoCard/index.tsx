@@ -33,7 +33,7 @@ const VideoCard: FC<Props> = ({ video }) => {
       <Link href={href}>
         <AspectRatio
           ratio={16 / 9}
-          className="rounded-medium relative overflow-hidden"
+          className="rounded-medium tape-border relative overflow-hidden"
         >
           <ThumbnailImage video={video} />
           <ThumbnailOverlays video={video} />
