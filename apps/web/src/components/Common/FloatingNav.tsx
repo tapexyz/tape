@@ -29,7 +29,7 @@ const FloatingNav = () => {
         initial={{ y: 200 }}
         animate={{ y: 0 }}
         transition={{ type: 'spring', stiffness: 100 }}
-        className="tape-border fixed bottom-7 z-10 rounded-full bg-white px-5 py-3.5 shadow-xl backdrop-blur-3xl dark:bg-[#ffffff10]"
+        className="tape-border fixed bottom-7 z-10 rounded-full bg-white px-5 py-3.5 backdrop-blur-3xl dark:bg-[#ffffff10]"
       >
         <div className="flex items-center space-x-4">
           <Link href="/">
