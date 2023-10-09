@@ -61,7 +61,7 @@ const CategoryFilters = () => {
         <Button
           size="3"
           highContrast={activeTagFilter === 'all'}
-          variant={activeTagFilter === 'all' ? 'outline' : 'soft'}
+          variant={activeTagFilter === 'all' ? 'solid' : 'soft'}
           onClick={() => onFilter('all')}
         >
           <Trans>All</Trans>
@@ -71,7 +71,7 @@ const CategoryFilters = () => {
             key={category.tag}
             size="3"
             highContrast={activeTagFilter === category.tag}
-            variant={activeTagFilter === category.tag ? 'outline' : 'soft'}
+            variant={activeTagFilter === category.tag ? 'solid' : 'soft'}
             onClick={() => onFilter(category.tag)}
           >
             {category.name}
