@@ -159,7 +159,7 @@ msgid "Unpinning video..."
 msgstr "Annulation de la vidéo..."
 
 #: src/components/Channel/Tabs/PinnedVideo.tsx
-#: src/components/Home/BytesSection.tsx
+#: src/components/Home/LatestBytes.tsx
 msgid "likes"
 msgstr "J'aime"
 
@@ -186,7 +186,6 @@ msgstr "Vidéos"
 #: src/components/Channel/Tabs/index.tsx
 #: src/components/Common/MobileBottomNav.tsx
 #: src/components/Common/Sidebar.tsx
-#: src/components/Home/BytesSection.tsx
 msgid "Bytes"
 msgstr "Octets"
 
@@ -277,6 +276,17 @@ msgid "Verified"
 msgstr "Vérifié"
 
 #: src/components/Common/CategoryFilters.tsx
+#: src/components/Common/MobileBottomNav.tsx
+#: src/components/Common/Sidebar.tsx
+#: src/components/Explore/index.tsx
+msgid "Explore"
+msgstr "Explorer"
+
+#: src/components/Common/CategoryFilters.tsx
+msgid "Categories"
+msgstr ""
+
+#: src/components/Common/CategoryFilters.tsx
 msgid "All"
 msgstr "Tous"
 
@@ -358,11 +368,6 @@ msgstr "Nouvel envoi"
 msgid "Share Drop"
 msgstr "Partager le Drop"
 
-#: src/components/Common/Header.tsx
-#: src/components/Common/Search/GlobalSearchBar.tsx
-msgid "Search"
-msgstr "Chercher"
-
 #: src/components/Common/MirrorVideo.tsx
 #: src/components/Watch/Comments/NewComment.tsx
 #: src/components/Watch/TipModal.tsx
@@ -392,12 +397,6 @@ msgstr "Domicile"
 
 #: src/components/Common/MobileBottomNav.tsx
 #: src/components/Common/Sidebar.tsx
-#: src/components/Explore/index.tsx
-msgid "Explore"
-msgstr "Explorer"
-
-#: src/components/Common/MobileBottomNav.tsx
-#: src/components/Common/Sidebar.tsx
 msgid "Feed"
 msgstr "Flux"
 
@@ -424,6 +423,10 @@ msgstr "Seuls les liens zora sont pris en charge pour le moment."
 #: src/components/Common/Search/GlobalSearchBar.tsx
 #~ msgid "Search by channel / hashtag"
 #~ msgstr "Recherche par canal / hashtag"
+
+#: src/components/Common/Search/GlobalSearchBar.tsx
+msgid "Search"
+msgstr "Chercher"
 
 #: src/components/Common/Search/Profiles.tsx
 #: src/components/Common/Search/Publications.tsx
@@ -594,9 +597,8 @@ msgid "Interesting"
 msgstr "Intéressant"
 
 #: src/components/Home/DispatcherAlert.tsx
-#: src/components/Settings/Permissions/Dispatcher/index.tsx
-msgid "Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions."
-msgstr "Mettez à jour votre répartiteur vers la dernière version pour de meilleures transactions sans signatures, plus rapides."
+msgid "Upgrade your dispatcher to the latest version for better, faster signless transactions."
+msgstr ""
 
 #: src/components/Home/DispatcherAlert.tsx
 msgid "Action Required"
@@ -650,6 +652,14 @@ msgstr ""
 #: src/components/Home/Popping/index.tsx
 msgid "What's Popping?"
 msgstr "Qu'est-ce que le Popping ?"
+
+#: src/components/Home/TopSection.tsx
+msgid "Today"
+msgstr ""
+
+#: src/components/Home/TopSection.tsx
+msgid "New & Trending"
+msgstr ""
 
 #: src/components/Home/WelcomeAlert.tsx
 msgid "Discover a new era of content sharing on Lens with Tape. A decentralized, user-centric approach to online media."
@@ -1001,6 +1011,10 @@ msgstr "Activer"
 #: src/components/Settings/Permissions/Dispatcher/Toggle.tsx
 msgid "dispatcher"
 msgstr "répartiteur"
+
+#: src/components/Settings/Permissions/Dispatcher/index.tsx
+msgid "Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions."
+msgstr "Mettez à jour votre répartiteur vers la dernière version pour de meilleures transactions sans signatures, plus rapides."
 
 #: src/components/Settings/Permissions/Dispatcher/index.tsx
 msgid "Dispatcher"

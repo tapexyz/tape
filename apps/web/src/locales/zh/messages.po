@@ -159,7 +159,7 @@ msgid "Unpinning video..."
 msgstr "取消置顶视频..."
 
 #: src/components/Channel/Tabs/PinnedVideo.tsx
-#: src/components/Home/BytesSection.tsx
+#: src/components/Home/LatestBytes.tsx
 msgid "likes"
 msgstr "赞"
 
@@ -186,7 +186,6 @@ msgstr "视频"
 #: src/components/Channel/Tabs/index.tsx
 #: src/components/Common/MobileBottomNav.tsx
 #: src/components/Common/Sidebar.tsx
-#: src/components/Home/BytesSection.tsx
 msgid "Bytes"
 msgstr "字节"
 
@@ -277,6 +276,17 @@ msgid "Verified"
 msgstr "已验证"
 
 #: src/components/Common/CategoryFilters.tsx
+#: src/components/Common/MobileBottomNav.tsx
+#: src/components/Common/Sidebar.tsx
+#: src/components/Explore/index.tsx
+msgid "Explore"
+msgstr "浏览"
+
+#: src/components/Common/CategoryFilters.tsx
+msgid "Categories"
+msgstr ""
+
+#: src/components/Common/CategoryFilters.tsx
 msgid "All"
 msgstr "所有的"
 
@@ -358,11 +368,6 @@ msgstr "新增上传"
 msgid "Share Drop"
 msgstr "分享掉落功能"
 
-#: src/components/Common/Header.tsx
-#: src/components/Common/Search/GlobalSearchBar.tsx
-msgid "Search"
-msgstr "搜索"
-
 #: src/components/Common/MirrorVideo.tsx
 #: src/components/Watch/Comments/NewComment.tsx
 #: src/components/Watch/TipModal.tsx
@@ -392,12 +397,6 @@ msgstr "首页"
 
 #: src/components/Common/MobileBottomNav.tsx
 #: src/components/Common/Sidebar.tsx
-#: src/components/Explore/index.tsx
-msgid "Explore"
-msgstr "浏览"
-
-#: src/components/Common/MobileBottomNav.tsx
-#: src/components/Common/Sidebar.tsx
 msgid "Feed"
 msgstr "订阅源"
 
@@ -424,6 +423,10 @@ msgstr "目前只支持zora链接。"
 #: src/components/Common/Search/GlobalSearchBar.tsx
 #~ msgid "Search by channel / hashtag"
 #~ msgstr "通过频道 / 标签搜索"
+
+#: src/components/Common/Search/GlobalSearchBar.tsx
+msgid "Search"
+msgstr "搜索"
 
 #: src/components/Common/Search/Profiles.tsx
 #: src/components/Common/Search/Publications.tsx
@@ -594,9 +597,8 @@ msgid "Interesting"
 msgstr "有趣的"
 
 #: src/components/Home/DispatcherAlert.tsx
-#: src/components/Settings/Permissions/Dispatcher/index.tsx
-msgid "Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions."
-msgstr "将您的调度程序升级到最新版本，以获得更好、更快、更强大的无符号交易。"
+msgid "Upgrade your dispatcher to the latest version for better, faster signless transactions."
+msgstr ""
 
 #: src/components/Home/DispatcherAlert.tsx
 msgid "Action Required"
@@ -650,6 +652,14 @@ msgstr ""
 #: src/components/Home/Popping/index.tsx
 msgid "What's Popping?"
 msgstr "什么是弹出？"
+
+#: src/components/Home/TopSection.tsx
+msgid "Today"
+msgstr ""
+
+#: src/components/Home/TopSection.tsx
+msgid "New & Trending"
+msgstr ""
 
 #: src/components/Home/WelcomeAlert.tsx
 msgid "Discover a new era of content sharing on Lens with Tape. A decentralized, user-centric approach to online media."
@@ -1001,6 +1011,10 @@ msgstr "启用"
 #: src/components/Settings/Permissions/Dispatcher/Toggle.tsx
 msgid "dispatcher"
 msgstr "调度器"
+
+#: src/components/Settings/Permissions/Dispatcher/index.tsx
+msgid "Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions."
+msgstr "将您的调度程序升级到最新版本，以获得更好、更快、更强大的无符号交易。"
 
 #: src/components/Settings/Permissions/Dispatcher/index.tsx
 msgid "Dispatcher"

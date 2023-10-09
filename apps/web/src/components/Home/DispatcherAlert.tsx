@@ -14,7 +14,7 @@ const DispatcherAlert = () => {
 
   const getDescription = () => {
     if (usingOldDispatcher) {
-      return t`Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions.`
+      return t`Upgrade your dispatcher to the latest version for better, faster signless transactions.`
     }
     return `You can enable dispatcher to interact with ${TAPE_APP_NAME} without signing any of your transactions.`
   }

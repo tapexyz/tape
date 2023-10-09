@@ -6,7 +6,7 @@ import React from 'react'
 
 const WelcomeAlert = () => {
   return (
-    <div className="tape-border rounded-large relative flex h-[400px] w-[500px] overflow-hidden">
+    <div className="tape-border rounded-large ultrawide:h-[400px] relative flex h-[350px] w-[500px] overflow-hidden">
       <div className="absolute inset-0 h-full w-full bg-[#29ABE2]" />
       <div className="from-brand-700 absolute inset-0 h-full w-full bg-gradient-to-b to-transparent" />
       <img
@@ -14,7 +14,7 @@ const WelcomeAlert = () => {
         className="absolute -left-2"
         alt=""
       />
-      <div className="relative flex h-full flex-col justify-end space-y-4 p-6 text-left text-white md:p-8">
+      <div className="ultrawide:p-8 relative flex h-full flex-col justify-end space-y-4 p-4 text-left text-white md:p-6">
         <div className="text-3xl">
           Welcome to <b>Tape</b>
         </div>

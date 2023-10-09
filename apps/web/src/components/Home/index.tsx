@@ -23,16 +23,16 @@ const Home: NextPage = () => {
   return (
     <>
       <MetaTags title={t`Home`} />
-      <TopSection />
-      <Feed />
-
-      {/* <GitcoinAlert /> */}
       <DispatcherAlert />
+      {/* <GitcoinAlert /> */}
       {/* <WhatsPopping /> */}
       {getIsFeatureEnabled(
         FEATURE_FLAGS.OPEN_ACTIONS,
         selectedSimpleProfile?.id
       ) && <OpenActions />}
+
+      <TopSection />
+      <Feed />
     </>
   )
 }
