@@ -40,7 +40,7 @@ type Props = {
 const Header: FC<Props> = ({ className }) => {
   const { pathname } = useRouter()
   const [showShowModal, setSearchModal] = useState(false)
-  const [showPostLinkModal, setShowPostLinkModal] = useState(false)
+  // const [showPostLinkModal, setShowPostLinkModal] = useState(false)
   const showFilter =
     pathname === '/' || pathname === '/explore' || pathname === '/feed'
 
@@ -152,7 +152,7 @@ const Header: FC<Props> = ({ className }) => {
                       <Menu.Item
                         as="button"
                         className="flex items-center space-x-2 rounded-lg px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
-                        onClick={() => setShowPostLinkModal(true)}
+                        // onClick={() => setShowPostLinkModal(true)}
                       >
                         <LinkOutline className="h-3.5 w-3.5" />
                         <span className="whitespace-nowrap">
