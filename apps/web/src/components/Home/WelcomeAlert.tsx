@@ -11,7 +11,7 @@ const WelcomeAlert = () => {
       <div className="from-brand-700 absolute inset-0 h-full w-full bg-gradient-to-b to-transparent" />
       <img
         src={`${STATIC_ASSETS}/brand/transparent-bg-large.svg`}
-        className="absolute -left-2"
+        className="ultrawide:px-8 ultrawide:-top-10 absolute -top-20 px-4 md:px-6"
         alt=""
       />
       <div className="ultrawide:p-8 relative flex h-full flex-col justify-end space-y-4 p-4 text-left text-white md:p-6">
