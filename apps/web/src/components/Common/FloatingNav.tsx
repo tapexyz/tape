@@ -1,3 +1,4 @@
+import useAuthPersistStore from '@lib/store/auth'
 import { Separator } from '@radix-ui/themes'
 import { STATIC_ASSETS } from '@tape.xyz/constants'
 import clsx from 'clsx'
@@ -10,12 +11,17 @@ import React from 'react'
 import BytesOutline from './Icons/BytesOutline'
 import FeedOutline from './Icons/FeedOutline'
 import HomeOutline from './Icons/HomeOutline'
+import UserMenu from './UserMenu'
 
 const FloatingNav = () => {
   const router = useRouter()
   const { resolvedTheme } = useTheme()
 
   const isActivePath = (path: string) => router.pathname === path
+
+  const selectedSimpleProfile = useAuthPersistStore(
+    (state) => state.selectedSimpleProfile
+  )
 
   return (
     <div className="flex justify-center">
@@ -72,6 +78,12 @@ const FloatingNav = () => {
               <BytesOutline className="h-5 w-5" />
             </Link>
           </div>
+          {selectedSimpleProfile?.id && (
+            <>
+              <Separator orientation="vertical" />
+              <UserMenu />
+            </>
+          )}
         </div>
       </motion.div>
     </div>

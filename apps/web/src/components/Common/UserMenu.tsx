@@ -86,16 +86,16 @@ const UserMenu = () => {
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger>
-        <div className="rounded-full ring-gray-200 hover:ring-4 dark:ring-gray-800">
+        <div className="ring-brand-500 flex rounded-full hover:ring-2">
           <Avatar
-            size="2"
+            size="1"
             radius="full"
             src={getProfilePicture(selectedSimpleProfile as Profile)}
             fallback={trimLensHandle(selectedSimpleProfile?.handle)[0]}
           />
         </div>
       </DropdownMenu.Trigger>
-      <DropdownMenu.Content sideOffset={10} variant="soft" align="end">
+      <DropdownMenu.Content sideOffset={10} variant="soft" align="center">
         <Flex gap="2" px="2" py="1" pb="3" align="center">
           <Avatar
             size="3"

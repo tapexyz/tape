@@ -23,6 +23,8 @@ import { publicProvider } from 'wagmi/providers/public'
 const { chains, publicClient } = configureChains(
   [
     IS_MAINNET ? polygon : polygonMumbai,
+    polygon,
+    polygonMumbai,
     mainnet,
     goerli,
     zora,
