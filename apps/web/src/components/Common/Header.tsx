@@ -1,3 +1,6 @@
+import useAuthPersistStore from '@lib/store/auth'
+import useChannelStore from '@lib/store/channel'
+import usePersistStore from '@lib/store/persist'
 import { Trans } from '@lingui/macro'
 import { Button, DropdownMenu, Flex, IconButton } from '@radix-ui/themes'
 import {
@@ -8,17 +11,15 @@ import {
 } from '@tape.xyz/constants'
 import { useLatestNotificationIdQuery } from '@tape.xyz/lens'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React from 'react'
 
 import ConnectWalletButton from './Auth/ConnectWalletButton'
 import BellOutline from './Icons/BellOutline'
 import LinkOutline from './Icons/LinkOutline'
-import SearchOutline from './Icons/SearchOutline'
 import UploadOutline from './Icons/UploadOutline'
 import GlobalSearchBar from './Search/GlobalSearchBar'
 
 const Header = () => {
-  const [showShowModal, setSearchModal] = useState(false)
   // const [showPostLinkModal, setShowPostLinkModal] = useState(false)
 
   const hasNewNotification = useChannelStore(
@@ -64,14 +65,6 @@ const Header = () => {
       <div className="flex w-full">
         <div className="flex w-full items-center justify-between px-2 md:px-0">
           <GlobalSearchBar />
-          <div className="flex flex-row items-center justify-end space-x-2 md:w-96 md:space-x-3">
-            <button
-              onClick={() => setSearchModal(true)}
-              className="btn-hover p-2.5 md:hidden"
-            >
-              <SearchOutline className="h-4 w-4" aria-hidden="true" />
-            </button>
-          </div>
         </div>
         <Flex gap="3" align="center">
           {selectedSimpleProfile?.id ? (
