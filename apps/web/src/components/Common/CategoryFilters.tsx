@@ -32,7 +32,7 @@ const CategoryFilters = () => {
     <div className="ultrawide:pt-8 laptop:pt-6 pt-4">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3 text-xl">
-          <h1 className="font-bold text-blue-500">
+          <h1 className="font-bold text-blue-400">
             <Trans>Explore</Trans>
           </h1>
           <h1>

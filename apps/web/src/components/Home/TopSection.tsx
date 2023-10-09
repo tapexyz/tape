@@ -26,7 +26,7 @@ const TopSection = () => {
     <div className="flex flex-col">
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-3 text-xl">
-          <h1 className="font-bold text-blue-500">
+          <h1 className="font-bold text-blue-400">
             <Trans>Today</Trans>
           </h1>
           <h1>
