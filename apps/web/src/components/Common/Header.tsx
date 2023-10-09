@@ -31,7 +31,6 @@ import LinkOutline from './Icons/LinkOutline'
 import NewVideoOutline from './Icons/NewVideoOutline'
 import SearchOutline from './Icons/SearchOutline'
 import UploadOutline from './Icons/UploadOutline'
-import PostLinkModal from './PostLinkModal'
 import GlobalSearchBar from './Search/GlobalSearchBar'
 
 type Props = {
@@ -181,7 +180,7 @@ const Header: FC<Props> = ({ className }) => {
         </div>
         {showFilter && <CategoryFilters />}
       </div>
-      <PostLinkModal show={showPostLinkModal} setShow={setShowPostLinkModal} />
+      {/* <PostLinkModal show={showPostLinkModal} setShow={setShowPostLinkModal} /> */}
       <Modal
         title={t`Search`}
         onClose={() => setSearchModal(false)}
