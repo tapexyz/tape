@@ -10,7 +10,7 @@ const login = () => {
       <div id="tape-cursor" className="hidden w-1/2 p-6 md:block">
         <div
           style={{
-            backgroundImage: `url("${STATIC_ASSETS}/brand/logo-bg.svg")`
+            backgroundImage: `url("${STATIC_ASSETS}/brand/login-bg.svg")`
           }}
           className="flex h-full flex-col items-center justify-center bg-contain bg-repeat-space text-white"
         >
