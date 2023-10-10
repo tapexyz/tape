@@ -62,7 +62,7 @@
     "react-native-view-shot": "3.7.0",
     "swr": "^2.2.4",
     "uuid": "^3.4.0",
-    "viem": "^1.16.0",
+    "viem": "^1.16.2",
     "zod": "^3.22.2",
     "zustand": "^4.4.2"
   },
@@ -78,7 +78,7 @@
     "@tape.xyz/config": "*",
     "@tape.xyz/generic": "*",
     "@tape.xyz/lens": "*",
-    "@types/node": "20.8.3",
+    "@types/node": "20.8.4",
     "@types/qrcode": "^1.5.2",
     "@welldone-software/why-did-you-render": "^7.0.1",
     "babel-plugin-module-resolver": "^5.0.0",
