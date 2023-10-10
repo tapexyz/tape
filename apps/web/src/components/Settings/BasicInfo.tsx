@@ -176,14 +176,14 @@ const BasicInfo = ({ channel }: Props) => {
     })
 
   const otherAttributes =
-    channel.metadata?.attributes
+    (channel.metadata?.attributes
       ?.filter(
         (attr) =>
           !['website', 'location', 'x', 'youtube', 'spotify', 'app'].includes(
             attr.key
           )
       )
-      .map(({ key, value }) => ({ key, value })) ?? []
+      .map(({ key, value }) => ({ key, value })) as MetadataAttribute[]) ?? []
 
   const onSaveBasicInfo = async (data: FormData) => {
     if (handleWrongNetwork()) {
@@ -196,7 +196,7 @@ const BasicInfo = ({ channel }: Props) => {
         coverPicture: data.coverImage ?? coverImage,
         id: uuidv4(),
         attributes: [
-          ...(otherAttributes as MetadataAttribute[]),
+          ...otherAttributes,
           {
             type: MetadataAttributeType.STRING,
             key: 'website',
