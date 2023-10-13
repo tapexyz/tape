@@ -3,18 +3,18 @@ fragment OpenActionModulesFields on OpenActionModule {
     contract {
       ...NetworkAddressFields
     }
-    optionalAmount: amount {
+    amount {
       ...AmountFields
       rate(request: { for: USD }) {
         ...FiatAmountFields
       }
     }
-    optionalCollectLimit: collectLimit
+    collectLimit
     followerOnly
     recipient
     referralFee
     collectNft
-    optionalEndsAt: endsAt
+    endsAt
   }
   ... on MultirecipientFeeCollectOpenActionSettings {
     contract {
@@ -26,11 +26,11 @@ fragment OpenActionModulesFields on OpenActionModule {
         ...FiatAmountFields
       }
     }
-    optionalCollectLimit: collectLimit
+    collectLimit
     referralFee
     followerOnly
     collectNft
-    optionalEndsAt: endsAt
+    endsAt
     recipients {
       recipient
       split
@@ -123,10 +123,10 @@ fragment OpenActionModulesFields on OpenActionModule {
         ...FiatAmountFields
       }
     }
-    optionalCollectLimit: collectLimit
+    collectLimit
     referralFee
     followerOnly
-    optionalEndsAt: endsAt
+    endsAt
     recipients {
       recipient
       split
@@ -137,17 +137,17 @@ fragment OpenActionModulesFields on OpenActionModule {
     contract {
       ...NetworkAddressFields
     }
-    optionalAmount: amount {
+    amount {
       ...AmountFields
       rate(request: { for: USD }) {
         ...FiatAmountFields
       }
     }
-    optionalCollectLimit: collectLimit
+    collectLimit
     followerOnly
     recipient
     referralFee
-    optionalEndsAt: endsAt
+    endsAt
   }
   ... on LegacyERC4626FeeCollectModuleSettings {
     contract {
@@ -163,10 +163,10 @@ fragment OpenActionModulesFields on OpenActionModule {
       }
     }
     recipient
-    optionalCollectLimit: collectLimit
+    collectLimit
     referralFee
     followerOnly
-    optionalEndsAt: endsAt
+    endsAt
   }
   ... on LegacyAaveFeeCollectModuleSettings {
     contract {
@@ -178,10 +178,10 @@ fragment OpenActionModulesFields on OpenActionModule {
         ...FiatAmountFields
       }
     }
-    optionalCollectLimit: collectLimit
+    collectLimit
     referralFee
     followerOnly
-    optionalEndsAt: endsAt
+    endsAt
     recipient
   }
   ... on UnknownOpenActionModuleSettings {
