@@ -124,6 +124,12 @@ const UploadSteps = () => {
     Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.UPLOAD.STEPS })
   }, [])
 
+  useEffect(() => {
+    if (handleWrongNetwork()) {
+      return
+    }
+  }, [handleWrongNetwork])
+
   const stopLoading = () => {
     setUploadedVideo({
       buttonText: t`Post Video`,
@@ -324,9 +330,6 @@ const UploadSteps = () => {
     videoSource: string
   }) => {
     try {
-      if (handleWrongNetwork()) {
-        return
-      }
       setUploadedVideo({
         buttonText: t`Storing metadata`,
         loading: true
