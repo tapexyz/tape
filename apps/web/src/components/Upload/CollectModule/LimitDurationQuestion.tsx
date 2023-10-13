@@ -7,7 +7,7 @@ import type {
 } from '@tape.xyz/lens/custom-types'
 import clsx from 'clsx'
 import type { FC } from 'react'
-import React from 'react'
+import React, { useState } from 'react'
 
 type Props = {
   uploadedVideo: UploadedVideo
@@ -18,6 +18,7 @@ const LimitDurationQuestion: FC<Props> = ({
   uploadedVideo,
   setCollectType
 }) => {
+  const [showDayPicker, setShowDayPicker] = useState(false)
   return (
     <div className="space-y-2">
       <h6>
@@ -26,12 +27,13 @@ const LimitDurationQuestion: FC<Props> = ({
       <div className="flex flex-wrap gap-1.5 md:flex-nowrap">
         <button
           type="button"
-          onClick={() =>
+          onClick={() => {
             setCollectType({
               timeLimitEnabled: false,
               isSimpleCollect: true
             })
-          }
+            setShowDayPicker(false)
+          }}
           className={clsx(
             'flex w-full items-center justify-between rounded-xl border border-gray-300 px-4 py-2 text-sm focus:outline-none dark:border-gray-700',
             {
@@ -39,7 +41,7 @@ const LimitDurationQuestion: FC<Props> = ({
             }
           )}
         >
-          <span>
+          <span className="whitespace-nowrap">
             <Trans>Unlimited duration</Trans>
           </span>
           {!uploadedVideo.collectModule.timeLimitEnabled && (
@@ -48,21 +50,31 @@ const LimitDurationQuestion: FC<Props> = ({
         </button>
         <button
           type="button"
-          onClick={() =>
+          onClick={() => {
             setCollectType({
               timeLimitEnabled: true,
               isSimpleCollect: true
             })
-          }
+            setShowDayPicker(true)
+          }}
           className={clsx(
-            'flex w-full items-center justify-between rounded-xl border border-gray-300 text-sm focus:outline-none dark:border-gray-700',
+            'flex w-full items-center justify-between rounded-xl border border-gray-300 px-4 py-2 text-sm focus:outline-none dark:border-gray-700',
             {
               '!border-brand-500': uploadedVideo.collectModule.timeLimitEnabled
             }
           )}
         >
+          <span>
+            <Trans>Custom</Trans>
+          </span>
+          {uploadedVideo.collectModule.timeLimitEnabled && (
+            <CheckOutline className="h-3 w-3" />
+          )}
+        </button>
+        {showDayPicker && (
           <Input
             type="number"
+            className="!border-brand-500"
             onChange={(e) => {
               const { value } = e.target
               if (Number(value) > 0) {
@@ -75,7 +87,7 @@ const LimitDurationQuestion: FC<Props> = ({
             placeholder="number of days"
             suffix="days"
           />
-        </button>
+        )}
       </div>
     </div>
   )
