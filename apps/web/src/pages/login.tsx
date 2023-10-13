@@ -17,7 +17,7 @@ const login = () => {
           <h1 className="text-2xl font-bold">〖tape〗</h1>
         </div>
       </div>
-      <div className="relative grid h-full w-full place-items-center bg-white text-black md:w-1/2">
+      <div className="relative grid h-full w-full place-items-center md:w-1/2">
         <div className="container mx-auto max-w-md space-y-3 text-center">
           <h2 className="text-2xl font-semibold">Welcome back</h2>
           <p>Discover a new era of content sharing with Tape.</p>

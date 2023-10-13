@@ -16,7 +16,7 @@ const Providers = lazy(() => import('../components/Common/Providers'))
 const Layout = lazy(() => import('../components/Common/Layout'))
 
 const NO_NAV_PATHS = ['/login']
-const NO_PADDING_PATHS = ['/channel/[channel]']
+const NO_PADDING_PATHS = ['/channel/[channel]', '/login']
 
 const App = ({ Component, pageProps }: AppProps) => {
   const { pathname, replace, asPath } = useRouter()

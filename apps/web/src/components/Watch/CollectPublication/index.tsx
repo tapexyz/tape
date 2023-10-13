@@ -60,9 +60,9 @@ const CollectPublication: FC<Props> = ({ video, variant = 'solid', text }) => {
   //   })
   const canAct = targetPublication.operations.canAct === TriStateValue.Yes
 
-  if (!canAct) {
-    return null
-  }
+  // if (!canAct) {
+  //   return null
+  // }
   // const collectAmount =
   //   collectModule?.amount?.value ?? collectModule?.fee?.amount?.value
   // const currency =
