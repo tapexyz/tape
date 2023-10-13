@@ -46,6 +46,7 @@ export type CollectModuleType = {
   collectLimitEnabled?: boolean
   collectLimit?: string
   timeLimitEnabled?: boolean
+  timeLimit?: string
   followerOnlyCollect?: boolean
   recipient?: string
   multiRecipients?: RecipientDataInput[]
