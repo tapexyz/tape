@@ -37,8 +37,8 @@ export const getShortHandTime = (timeString: string) => {
   return dayjs(new Date(timeString)).twitter()
 }
 
-export const getTimeAddedOneDay = () => {
-  return dayjs().add(1, 'day').utc().format()
+export const getAddedDaysFromToday = (days: number) => {
+  return dayjs().add(days, 'day').utc().format()
 }
 
 export const getDateString = (timestamp: string) => {

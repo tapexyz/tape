@@ -1,4 +1,5 @@
 import CheckOutline from '@components/Common/Icons/CheckOutline'
+import { Input } from '@components/UIElements/Input'
 import { Trans } from '@lingui/macro'
 import type {
   CollectModuleType,
@@ -54,18 +55,26 @@ const LimitDurationQuestion: FC<Props> = ({
             })
           }
           className={clsx(
-            'flex w-full items-center justify-between rounded-xl border border-gray-300 px-4 py-2 text-sm focus:outline-none dark:border-gray-700',
+            'flex w-full items-center justify-between rounded-xl border border-gray-300 text-sm focus:outline-none dark:border-gray-700',
             {
               '!border-brand-500': uploadedVideo.collectModule.timeLimitEnabled
             }
           )}
         >
-          <span>
-            <Trans>Limit to 24 hours sale</Trans>
-          </span>
-          {uploadedVideo.collectModule.timeLimitEnabled && (
-            <CheckOutline className="h-3 w-3" />
-          )}
+          <Input
+            type="number"
+            onChange={(e) => {
+              const { value } = e.target
+              if (Number(value) > 0) {
+                setCollectType({
+                  timeLimit: value
+                })
+              }
+            }}
+            value={uploadedVideo.collectModule.timeLimit}
+            placeholder="number of days"
+            suffix="days"
+          />
         </button>
       </div>
     </div>
