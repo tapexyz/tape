@@ -78,13 +78,12 @@ const LimitDurationQuestion: FC<Props> = ({
         <div>
           <Input
             type="number"
+            min="1"
             onChange={(e) => {
               const { value } = e.target
-              if (Number(value) > 0) {
-                setCollectType({
-                  timeLimit: value
-                })
-              }
+              setCollectType({
+                timeLimit: Number(value) <= 0 ? '' : value
+              })
             }}
             value={uploadedVideo.collectModule.timeLimit}
             placeholder="number of days"
