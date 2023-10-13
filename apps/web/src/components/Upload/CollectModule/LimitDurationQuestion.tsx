@@ -18,7 +18,9 @@ const LimitDurationQuestion: FC<Props> = ({
   uploadedVideo,
   setCollectType
 }) => {
-  const [showDayPicker, setShowDayPicker] = useState(false)
+  const [showDayPicker, setShowDayPicker] = useState(
+    uploadedVideo.collectModule.timeLimitEnabled
+  )
   return (
     <div className="space-y-2">
       <h6>
@@ -71,10 +73,11 @@ const LimitDurationQuestion: FC<Props> = ({
             <CheckOutline className="h-3 w-3" />
           )}
         </button>
-        {showDayPicker && (
+      </div>
+      {showDayPicker && (
+        <div>
           <Input
             type="number"
-            className="!border-brand-500"
             onChange={(e) => {
               const { value } = e.target
               if (Number(value) > 0) {
@@ -87,8 +90,8 @@ const LimitDurationQuestion: FC<Props> = ({
             placeholder="number of days"
             suffix="days"
           />
-        )}
-      </div>
+        </div>
+      )}
     </div>
   )
 }
