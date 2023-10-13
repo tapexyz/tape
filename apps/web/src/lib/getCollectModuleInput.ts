@@ -1,7 +1,7 @@
 import type { OpenActionModuleInput, RecipientDataInput } from '@tape.xyz/lens'
 import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
 
-import { getTimeAddedOneDay } from './formatTime'
+import { getAddedDaysFromToday } from './formatTime'
 
 export const getCollectModuleInput = (
   selectedCollectModule: CollectModuleType
@@ -13,6 +13,7 @@ export const getCollectModuleInput = (
     followerOnlyCollect,
     recipient,
     timeLimitEnabled,
+    timeLimit = 1,
     isFeeCollect,
     isMultiRecipientFeeCollect,
     collectLimitEnabled
@@ -28,7 +29,9 @@ export const getCollectModuleInput = (
   const baseCollectModuleParams = {
     collectLimit: collectLimitEnabled ? collectLimit : undefined,
     followerOnly: followerOnlyCollect as boolean,
-    endsAt: timeLimitEnabled ? getTimeAddedOneDay() : undefined
+    endsAt: timeLimitEnabled
+      ? getAddedDaysFromToday(Number(timeLimit))
+      : undefined
   }
   const baseAmountParams = {
     amount: {

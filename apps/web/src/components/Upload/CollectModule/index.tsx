@@ -44,6 +44,7 @@ const CollectModule = () => {
     const collectLimitEnabled = uploadedVideo.collectModule.collectLimitEnabled
     const isFeeCollect = uploadedVideo.collectModule.isFeeCollect
     const collectLimit = uploadedVideo.collectModule.collectLimit
+    const timeLimit = uploadedVideo.collectModule.timeLimit
     const multiRecipients = uploadedVideo.collectModule.multiRecipients
     if (uploadedVideo.collectModule.isRevertCollect) {
       return t`No one can collect this publication`
@@ -55,7 +56,7 @@ const CollectModule = () => {
           <Trans>can collect</Trans>{' '}
           {collectLimitEnabled ? `maximum of ${collectLimit}` : ''}{' '}
           {isFeeCollect ? t`for given fees` : t`for free`}{' '}
-          {timeLimitEnabled ? t`within 24hrs` : ''}
+          {timeLimitEnabled ? t`within ${timeLimit} days` : ''}
         </span>
         {uploadedVideo.collectModule.isMultiRecipientFeeCollect && (
           <Tooltip
