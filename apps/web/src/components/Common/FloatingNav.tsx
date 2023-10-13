@@ -11,6 +11,7 @@ import React from 'react'
 import BytesOutline from './Icons/BytesOutline'
 import FeedOutline from './Icons/FeedOutline'
 import HomeOutline from './Icons/HomeOutline'
+import UploadOutline from './Icons/UploadOutline'
 import UserMenu from './UserMenu'
 
 const FloatingNav = () => {
@@ -83,6 +84,16 @@ const FloatingNav = () => {
           {selectedSimpleProfile?.id && (
             <>
               <Separator orientation="vertical" />
+              <Link
+                href="/upload"
+                className={clsx(
+                  isActivePath('/bytes')
+                    ? 'opacity-100'
+                    : 'opacity-30 hover:opacity-90'
+                )}
+              >
+                <UploadOutline className="h-5 w-5" />
+              </Link>
               <UserMenu />
             </>
           )}

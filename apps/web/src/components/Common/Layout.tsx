@@ -8,6 +8,7 @@ import { AUTH_ROUTES } from '@tape.xyz/constants'
 import type { Profile } from '@tape.xyz/lens'
 import { useProfilesQuery, useUserSigNoncesQuery } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
 import type { FC, ReactNode } from 'react'
@@ -21,10 +22,11 @@ import TelemetryProvider from './Providers/TelemetryProvider'
 
 interface Props {
   children: ReactNode
-  skip?: boolean
+  skipNav?: boolean
+  skipPadding?: boolean
 }
 
-const Layout: FC<Props> = ({ children, skip }) => {
+const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
   const { setUserSigNonce, setActiveChannel } = useChannelStore()
   const { selectedSimpleProfile, setSelectedSimpleProfile } =
     useAuthPersistStore()
@@ -110,14 +112,15 @@ const Layout: FC<Props> = ({ children, skip }) => {
         toastOptions={getToastOptions(resolvedTheme)}
       />
       <TelemetryProvider />
-      {skip ? (
-        children
-      ) : (
-        <div className="ultrawide:p-8 laptop:p-6 relative w-full p-4">
-          <FloatingNav />
-          {children}
-        </div>
-      )}
+      <div
+        className={clsx(
+          'relative',
+          !skipPadding && 'ultrawide:p-8 laptop:p-6 p-4'
+        )}
+      >
+        {!skipNav && <FloatingNav />}
+        {children}
+      </div>
     </>
   )
 }

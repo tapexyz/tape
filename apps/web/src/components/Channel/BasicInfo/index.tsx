@@ -30,10 +30,15 @@ import {
   shortenAddress,
   trimLensHandle
 } from '@tape.xyz/generic'
-import type { Profile } from '@tape.xyz/lens'
+import {
+  type Profile,
+  useBlockMutation,
+  useUnblockMutation
+} from '@tape.xyz/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
+import toast from 'react-hot-toast'
 
 import MutualFollowers from '../Mutual/Bubbles'
 import CoverLinks from './CoverLinks'
@@ -61,11 +66,37 @@ const BasicInfo: FC<Props> = ({ profile }) => {
   )
 
   const misused = MISUSED_CHANNELS.find((c) => c.id === profile?.id)
+  const isBlockedByMe = profile.operations.isBlockedByMe.value
 
   const location = getValueFromKeyInAttributes(
     profile.metadata?.attributes,
     'location'
   )
+
+  const [block] = useBlockMutation()
+  const [unBlock] = useUnblockMutation()
+
+  const toggleBlockProfile = async () => {
+    if (isBlockedByMe) {
+      await unBlock({
+        variables: {
+          request: {
+            profiles: [profile.id]
+          }
+        }
+      })
+      toast.success(t`Unblocked successfully`)
+    } else {
+      await block({
+        variables: {
+          request: {
+            profiles: [profile.id]
+          }
+        }
+      })
+      toast.success(t`Unblocked successfully`)
+    }
+  }
 
   return (
     <>
@@ -87,13 +118,15 @@ const BasicInfo: FC<Props> = ({ profile }) => {
 
             <Flex gap="1">
               <BadgeUI
-                className="!bg-white"
+                className="!bg-white !text-black"
                 onClick={() => copy(profile.ownedBy.address)}
               >
-                # {parseInt(profile.id)}
+                <span className="bg-white text-black">
+                  # {parseInt(profile.id)}
+                </span>
               </BadgeUI>
               <BadgeUI
-                className="!bg-white"
+                className="!bg-white !text-black"
                 onClick={() => copy(profile.ownedBy.address)}
               >
                 Joined {getRelativeTime(profile.createdAt)}
@@ -135,7 +168,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
                 >
                   <Flex gap="1" align="center">
                     <LocationOutline className="h-4 w-4" />
-                    <span>India</span>
+                    <span>{location}</span>
                   </Flex>
                 </Link>
               )}
@@ -205,11 +238,18 @@ const BasicInfo: FC<Props> = ({ profile }) => {
                 </IconButton>
               </DropdownMenu.Trigger>
               <DropdownMenu.Content sideOffset={10} variant="soft" align="end">
-                <DropdownMenu.Item color="red">
+                <DropdownMenu.Item
+                  color="red"
+                  onClick={() => toggleBlockProfile()}
+                >
                   <Flex align="center" gap="2">
                     <ForbiddenOutline className="h-3.5 w-3.5" />
                     <span className="whitespace-nowrap">
-                      <Trans>Block</Trans>
+                      {isBlockedByMe ? (
+                        <Trans>Unblock</Trans>
+                      ) : (
+                        <Trans>Block</Trans>
+                      )}
                     </span>
                   </Flex>
                 </DropdownMenu.Item>

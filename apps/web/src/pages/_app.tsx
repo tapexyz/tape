@@ -15,7 +15,8 @@ import React, { lazy, Suspense, useEffect } from 'react'
 const Providers = lazy(() => import('../components/Common/Providers'))
 const Layout = lazy(() => import('../components/Common/Layout'))
 
-const NO_LAYOUT_PATHS = ['/login']
+const NO_NAV_PATHS = ['/login']
+const NO_PADDING_PATHS = ['/channel/[channel]']
 
 const App = ({ Component, pageProps }: AppProps) => {
   const { pathname, replace, asPath } = useRouter()
@@ -39,7 +40,10 @@ const App = ({ Component, pageProps }: AppProps) => {
           }
         `}</style>
         <Providers>
-          <Layout skip={NO_LAYOUT_PATHS.includes(pathname)}>
+          <Layout
+            skipNav={NO_NAV_PATHS.includes(pathname)}
+            skipPadding={NO_PADDING_PATHS.includes(pathname)}
+          >
             <Component {...pageProps} />
           </Layout>
         </Providers>
