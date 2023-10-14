@@ -17,6 +17,7 @@ import { toast, Toaster } from 'react-hot-toast'
 import { useAccount, useDisconnect, useNetwork } from 'wagmi'
 
 import FullPageLoader from './FullPageLoader'
+import MobileBottomNav from './MobileBottomNav'
 import Navbar from './Navbar'
 import TelemetryProvider from './Providers/TelemetryProvider'
 
@@ -112,6 +113,7 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
         toastOptions={getToastOptions(resolvedTheme)}
       />
       <TelemetryProvider />
+      <MobileBottomNav />
       {!skipNav && <Navbar />}
       <div
         className={clsx(
