@@ -12,10 +12,6 @@ import { useContractWrite, useWaitForTransaction } from 'wagmi'
 
 const Guardian: FC = () => {
   const activeChannel = useChannelStore((state) => state.activeChannel)
-  console.log(
-    '🚀 ~ file: Guardian.tsx:15 ~ activeChannel:',
-    activeChannel?.guardian
-  )
 
   const [loading, setLoading] = useState(false)
   const handleWrongNetwork = useHandleWrongNetwork()
