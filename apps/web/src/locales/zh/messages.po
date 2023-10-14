@@ -8,7 +8,7 @@ msgstr ""
 "Language: zh\n"
 "Project-Id-Version: lenstube\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-10-08 01:16\n"
+"PO-Revision-Date: 2023-10-14 01:10\n"
 "Last-Translator: \n"
 "Language-Team: Chinese Simplified\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
@@ -1139,7 +1139,7 @@ msgstr "设置收藏类型"
 
 #: src/components/Upload/CollectModule/LimitDurationQuestion.tsx
 #~ msgid "Limit to 24 hours sale"
-#~ msgstr "限制24小时销售"
+#~ msgstr "Limit to 24 hours sale"
 
 #: src/components/Upload/CollectModule/LimitDurationQuestion.tsx
 msgid "Would you like to limit the collect duration?"
@@ -1151,7 +1151,7 @@ msgstr "无限制持续时间"
 
 #: src/components/Upload/CollectModule/LimitDurationQuestion.tsx
 msgid "Custom"
-msgstr ""
+msgstr "自定义"
 
 #: src/components/Upload/CollectModule/LimitQuestion.tsx
 msgid "Would you like to limit the collectibles?"
@@ -1197,7 +1197,7 @@ msgstr "平均拆分"
 
 #: src/components/Upload/CollectModule/index.tsx
 #~ msgid "within 24hrs"
-#~ msgstr "24小时内"
+#~ msgstr "within 24hrs"
 
 #: src/components/Upload/CollectModule/index.tsx
 msgid "No one can collect this publication"
@@ -1686,3 +1686,4 @@ msgstr "隐私政策"
 #: src/pages/terms.tsx
 msgid "Terms and Conditions"
 msgstr "条款和条件"
+

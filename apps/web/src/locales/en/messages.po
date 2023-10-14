@@ -8,7 +8,7 @@ msgstr ""
 "Language: en\n"
 "Project-Id-Version: lenstube\n"
 "Report-Msgid-Bugs-To: \n"
-"PO-Revision-Date: 2023-10-08 01:16\n"
+"PO-Revision-Date: 2023-10-14 01:10\n"
 "Last-Translator: \n"
 "Language-Team: English\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
@@ -1151,7 +1151,7 @@ msgstr "Unlimited duration"
 
 #: src/components/Upload/CollectModule/LimitDurationQuestion.tsx
 msgid "Custom"
-msgstr "Custom"
+msgstr ""
 
 #: src/components/Upload/CollectModule/LimitQuestion.tsx
 msgid "Would you like to limit the collectibles?"
@@ -1217,7 +1217,7 @@ msgstr "for free"
 
 #: src/components/Upload/CollectModule/index.tsx
 msgid "within {timeLimit} days"
-msgstr "within {timeLimit} days"
+msgstr ""
 
 #: src/components/Upload/CollectModule/index.tsx
 msgid "Collect Type"
@@ -1686,3 +1686,4 @@ msgstr "Privacy policy"
 #: src/pages/terms.tsx
 msgid "Terms and Conditions"
 msgstr "Terms and Conditions"
+
