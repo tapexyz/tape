@@ -66,8 +66,6 @@ const VideoCard: FC<Props> = ({ video }) => {
             </div>
 
             <Flex align="center" className="text-xs">
-              <span>{getShortHandTime(video.createdAt)}</span>
-              <span className="middot" />
               <Flex align="center" gap="1">
                 <HeartOutline className="h-3 w-3" />
                 {formatNumber(video.stats?.reactions)}
@@ -77,6 +75,8 @@ const VideoCard: FC<Props> = ({ video }) => {
                 <CommentOutline className="h-3 w-3" />
                 {formatNumber(video.stats?.comments)}
               </Flex>
+              <span className="middot" />
+              <span>{getShortHandTime(video.createdAt)}</span>
             </Flex>
           </Flex>
         </Flex>
