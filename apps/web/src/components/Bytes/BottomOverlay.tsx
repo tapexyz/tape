@@ -18,7 +18,7 @@ const BottomOverlay: FC<Props> = ({ video }) => {
   const profile = video.by
 
   return (
-    <div className="absolute bottom-0 left-0 right-0 z-[1] rounded-b-xl bg-gradient-to-t from-gray-900 to-transparent px-3 pb-3 pt-5">
+    <div className="rounded-b-large absolute bottom-0 left-0 right-0 z-[1] bg-gradient-to-t from-gray-900 to-transparent px-3 pb-3 pt-5">
       <div className="pb-2">
         <h1 className="line-clamp-2 text-white">
           {video.metadata.marketplace?.name}
@@ -27,14 +27,14 @@ const BottomOverlay: FC<Props> = ({ video }) => {
       <div className="flex items-center justify-between">
         <div className="min-w-0">
           <Link
-            href={`/channel/${profile?.handle}`}
+            href={`/channel/${trimLensHandle(profile?.handle)}`}
             className="flex flex-none cursor-pointer items-center space-x-2"
           >
             <img
               src={getProfilePicture(profile, 'AVATAR')}
               className="h-9 w-9 rounded-full"
               draggable={false}
-              alt={profile?.handle}
+              alt={trimLensHandle(profile?.handle)}
             />
             <div className="flex min-w-0 flex-col items-start text-white">
               <h6 className="flex max-w-full items-center space-x-1">

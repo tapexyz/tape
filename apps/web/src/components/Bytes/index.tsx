@@ -18,7 +18,6 @@ import {
   usePublicationLazyQuery
 } from '@tape.xyz/lens'
 import { Loader } from '@tape.xyz/ui'
-import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect, useRef, useState } from 'react'
 import { useInView } from 'react-cool-inview'
@@ -118,14 +117,11 @@ const Bytes = () => {
   }
 
   return (
-    <div className="h-full overflow-y-hidden">
-      <Head>
-        <meta name="theme-color" content="#000000" />
-      </Head>
+    <div className="overflow-y-hidden">
       <MetaTags title="Bytes" />
       <div
         ref={bytesContainer}
-        className="no-scrollbar h-[calc(100vh-70px)] snap-y snap-mandatory overflow-y-scroll scroll-smooth md:h-screen"
+        className="no-scrollbar mt-20 h-[calc(100vh-5rem)] snap-y snap-mandatory overflow-y-scroll scroll-smooth"
       >
         {singleByte && (
           <ByteVideo
@@ -150,15 +146,15 @@ const Bytes = () => {
             <Loader />
           </span>
         )}
-        <div className="bottom-7 right-4 hidden flex-col space-y-3 lg:absolute lg:flex">
+        <div className="bottom-4 right-4 hidden flex-col space-y-2 lg:absolute lg:flex">
           <button
-            className="rounded-full bg-gray-300 p-3 focus:outline-none dark:bg-gray-700"
+            className="rounded-full p-3 hover:bg-gray-200 focus:outline-none dark:bg-gray-800"
             onClick={() => bytesContainer.current?.scrollBy({ top: -30 })}
           >
             <ChevronUpOutline className="h-5 w-5" />
           </button>
           <button
-            className="rounded-full bg-gray-300 p-3 focus:outline-none dark:bg-gray-700"
+            className="rounded-full p-3 hover:bg-gray-200 focus:outline-none dark:bg-gray-800"
             onClick={() => bytesContainer.current?.scrollBy({ top: 30 })}
           >
             <ChevronDownOutline className="h-5 w-5" />

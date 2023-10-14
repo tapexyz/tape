@@ -24,7 +24,7 @@ const ByteActions: FC<Props> = ({ video }) => {
         <VideoOptions video={video} />
       </div>
       <div className="items-center pt-2.5 md:flex md:flex-col">
-        <div className="pb-3">
+        <div className="pb-2">
           <PublicationReaction
             publication={video}
             iconSize="lg"
@@ -58,7 +58,7 @@ const ByteActions: FC<Props> = ({ video }) => {
               </Dialog.Content>
             </Dialog.Root>
           </div>
-          <div className="text-cente w-full">
+          <div className="w-full text-center">
             <MirrorVideo video={video}>
               <div className="flex flex-col items-center">
                 <MirrorOutline className="h-5 w-5" />

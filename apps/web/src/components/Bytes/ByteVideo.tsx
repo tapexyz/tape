@@ -95,9 +95,9 @@ const ByteVideo: FC<Props> = ({
   }
 
   return (
-    <div className="mb-6 flex snap-center justify-center first:mt-6">
+    <div className="mb-6 flex snap-center justify-center md:-mr-14">
       <div className="relative">
-        <div className="ultrawide:w-[650px] flex h-[800px] w-[calc(100vw-80px)] items-center overflow-hidden rounded-md bg-black md:h-[calc(100vh-100px)] md:w-[620px]">
+        <div className="ultrawide:w-[650px] rounded-large flex h-[calc(100vh-10rem)] w-[calc(100vw-80px)] items-center overflow-hidden bg-black md:h-[calc(100vh-100px)] md:w-[420px]">
           <div
             className="absolute top-[50%]"
             ref={intersectionRef}

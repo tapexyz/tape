@@ -27,9 +27,9 @@ const Navbar = () => {
       initial={{ y: -200 }}
       animate={{ y: 0 }}
       transition={{ ease: 'linear' }}
-      className="ultrawide:p-8 laptop:p-6 fixed z-10 w-full bg-white/70 p-4 backdrop-blur-2xl dark:bg-black/70"
+      className="ultrawide:p-8 laptop:p-6 fixed z-10 flex h-20 w-full items-center bg-white/70 p-4 backdrop-blur-2xl dark:bg-black/70"
     >
-      <div className="flex items-center justify-between">
+      <div className="flex w-full items-center justify-between">
         <Link href="/" className="flex items-center md:w-1/5">
           {resolvedTheme === 'dark' ? (
             <img
