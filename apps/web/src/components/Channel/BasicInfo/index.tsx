@@ -40,7 +40,7 @@ import type { FC } from 'react'
 import React from 'react'
 import toast from 'react-hot-toast'
 
-import MutualFollowers from '../Mutual/Bubbles'
+import Bubbles from '../Mutual/Bubbles'
 import CoverLinks from './CoverLinks'
 import Stats from './Stats'
 
@@ -258,17 +258,15 @@ const BasicInfo: FC<Props> = ({ profile }) => {
             <FollowActions size="3" profile={profile} />
           </Flex>
         </div>
-        <Stats profile={profile} />
-        <Flex pt="3" gap="3">
+        <Flex justify="between" align="center" gap="3">
           {profile.metadata?.bio && (
-            <div className="py-2">
+            <div className="line-clamp-2 py-2">
               <InterweaveContent content={profile.metadata?.bio} />
             </div>
           )}
-          {profile?.id && !isOwnChannel ? (
-            <MutualFollowers viewing={profile.id} />
-          ) : null}
+          <Stats profile={profile} />
         </Flex>
+        {profile?.id && !isOwnChannel ? <Bubbles viewing={profile.id} /> : null}
       </div>
     </>
   )

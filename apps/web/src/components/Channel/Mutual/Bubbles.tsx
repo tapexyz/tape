@@ -53,9 +53,9 @@ const Bubbles: FC<Props> = ({ viewing }) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <Flex pt="3" align="center">
+        <Flex pt="3" align="center" gap="1">
           <button type="button" className="flex cursor-pointer -space-x-1.5">
-            {mutualFollowers.slice(0, 4)?.map((profile: Profile) => (
+            {mutualFollowers.slice(0, 3)?.map((profile: Profile) => (
               <HoverableProfile profile={profile} key={profile?.id}>
                 <img
                   title={profile?.handle}
@@ -67,15 +67,19 @@ const Bubbles: FC<Props> = ({ viewing }) => {
               </HoverableProfile>
             ))}
           </button>
-          <Text size="2">Followed by</Text>
-          {mutualFollowers
-            .slice(0, 4)
-            ?.map((profile: Profile) => (
-              <Text key={profile?.id}>{trimLensHandle(profile?.handle)}</Text>
-            ))}
-          {mutualFollowers.length > FETCH_COUNT && (
-            <Text size="2">and few others</Text>
-          )}
+          <div className="flex items-center space-x-1.5">
+            <Text size="2">Followed by</Text>
+            {mutualFollowers
+              .slice(0, 3)
+              ?.map((profile: Profile) => (
+                <Text key={profile?.id}>
+                  {trimLensHandle(profile?.handle)},
+                </Text>
+              ))}
+            {mutualFollowers.length > FETCH_COUNT && (
+              <Text size="2">and few others</Text>
+            )}
+          </div>
         </Flex>
       </Dialog.Trigger>
       <Dialog.Content style={{ maxWidth: 450 }}>

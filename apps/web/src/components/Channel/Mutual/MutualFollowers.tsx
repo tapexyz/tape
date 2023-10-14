@@ -81,7 +81,7 @@ const MutualFollowers: FC<Props> = ({ viewing }) => {
               draggable={false}
             />
             <div className="flex items-center space-x-1">
-              <span>{trimLensHandle(channel?.handle)}</span>
+              <span>{trimLensHandle(channel?.handle) ?? channel?.id}</span>
               <Badge id={channel?.id} size="xs" />
             </div>
           </div>

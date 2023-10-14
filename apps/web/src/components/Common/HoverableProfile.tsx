@@ -32,7 +32,7 @@ const HoverableProfile: FC<Props> = ({ profile, fontSize = '2', children }) => {
           <Link href={`/channel/${trimLensHandle(profile.handle)}`}>
             <Flex align="center" gap="1">
               <Text size={fontSize} color="gray">
-                {trimLensHandle(profile.handle)}
+                {trimLensHandle(profile.handle) ?? profile.id}
               </Text>
               <Badge id={profile?.id} size="xs" />
             </Flex>
@@ -69,7 +69,7 @@ const HoverableProfile: FC<Props> = ({ profile, fontSize = '2', children }) => {
             className="flex items-center space-x-1"
           >
             <span className="text-2xl font-semibold leading-tight">
-              {trimLensHandle(profile?.handle)}
+              {trimLensHandle(profile?.handle) ?? profile.id}
             </span>
             <Badge id={profile?.id} size="lg" />
           </Link>

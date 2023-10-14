@@ -64,7 +64,7 @@ const Tabs: FC<Props> = ({ profile }) => {
   return (
     <Tab.Group
       as="div"
-      className="container mx-auto mt-4 w-full max-w-[70rem] p-2 md:mt-5 2xl:px-0"
+      className="container mx-auto mt-4 w-full max-w-[70rem] md:mt-5"
       defaultIndex={getDefaultTab()}
     >
       <Tab.List className="no-scrollbar flex space-x-2 overflow-x-auto">
