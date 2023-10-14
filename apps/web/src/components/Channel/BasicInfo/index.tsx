@@ -260,8 +260,12 @@ const BasicInfo: FC<Props> = ({ profile }) => {
         </div>
         <Flex justify="between" align="center" gap="3">
           {profile.metadata?.bio && (
-            <div className="line-clamp-2 py-2">
-              <InterweaveContent content={profile.metadata?.bio} />
+            <div className="line-clamp-2">
+              <InterweaveContent
+                content={
+                  'Lorem ipsum is placeholder text commonly used in the graphic, print, and publishing industries for previewing layouts and visual mockups.'
+                }
+              />
             </div>
           )}
           <Stats profile={profile} />

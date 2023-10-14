@@ -48,6 +48,11 @@ const moduleExports = {
         permanent: true
       },
       {
+        source: '/channel/:handle',
+        destination: '/u/:handle',
+        permanent: true
+      },
+      {
         source: '/discord',
         destination:
           'https://discord.com/servers/tape-formerly-lenstube-980882088783913010',

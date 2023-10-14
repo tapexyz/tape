@@ -1,4 +1,4 @@
-import Timeline from '@components/Home/Timeline'
+import VideoCard from '@components/Common/VideoCard'
 import PinnedVideoShimmer from '@components/Shimmers/PinnedVideoShimmer'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
@@ -11,12 +11,7 @@ import {
   SCROLL_ROOT_MARGIN,
   TAPE_APP_ID
 } from '@tape.xyz/constants'
-import { getValueFromKeyInAttributes } from '@tape.xyz/generic'
-import type {
-  AnyPublication,
-  Profile,
-  PublicationsRequest
-} from '@tape.xyz/lens'
+import type { Post, Profile, PublicationsRequest } from '@tape.xyz/lens'
 import {
   LimitType,
   PublicationMetadataMainFocusType,
@@ -28,18 +23,12 @@ import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 
-import PinnedVideo from './PinnedVideo'
-
 type Props = {
   profile: Profile
 }
 
-const ChannelVideos: FC<Props> = ({ profile }) => {
+const ProfileVideos: FC<Props> = ({ profile }) => {
   const queuedVideos = usePersistStore((state) => state.queuedVideos)
-  const pinnedVideoId = getValueFromKeyInAttributes(
-    profile?.metadata?.attributes,
-    'pinnedPublicationId'
-  )
 
   const request: PublicationsRequest = {
     where: {
@@ -61,7 +50,7 @@ const ChannelVideos: FC<Props> = ({ profile }) => {
     skip: !profile?.id
   })
 
-  const channelVideos = data?.publications?.items as AnyPublication[]
+  const videos = data?.publications?.items as Post[]
   const pageInfo = data?.publications?.pageInfo
 
   const { observe } = useInView({
@@ -91,25 +80,18 @@ const ChannelVideos: FC<Props> = ({ profile }) => {
     return <NoDataFound isCenter withImage text={t`No videos found`} />
   }
 
-  return (
-    <>
-      {pinnedVideoId?.length ? (
-        <span className="hidden lg:block">
-          <PinnedVideo id={pinnedVideoId} />
+  return !error && !loading ? (
+    <div className="laptop:grid-cols-4 grid-col-1 grid gap-x-4 gap-y-2 md:grid-cols-3 md:gap-y-6">
+      {videos?.map((video: Post, i) => {
+        return <VideoCard key={`${video?.id}_${i}`} video={video} />
+      })}
+      {pageInfo?.next && (
+        <span ref={observe} className="flex justify-center p-10">
+          <Loader />
         </span>
-      ) : null}
-      {!error && !loading && (
-        <>
-          <Timeline videos={channelVideos} />
-          {pageInfo?.next && (
-            <span ref={observe} className="flex justify-center p-10">
-              <Loader />
-            </span>
-          )}
-        </>
       )}
-    </>
-  )
+    </div>
+  ) : null
 }
 
-export default ChannelVideos
+export default ProfileVideos

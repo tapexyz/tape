@@ -1,7 +1,7 @@
 import MetaTags from '@components/Common/MetaTags'
 import ChannelShimmer from '@components/Shimmers/ChannelShimmer'
 import { Analytics, TRACK } from '@tape.xyz/browser'
-import { trimLensHandle } from '@tape.xyz/generic'
+import { getValueFromKeyInAttributes, trimLensHandle } from '@tape.xyz/generic'
 import { type Profile, useProfileQuery } from '@tape.xyz/lens'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
@@ -9,11 +9,12 @@ import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
 
 import BasicInfo from './BasicInfo'
-import Tabs from './Tabs'
+import ProfileTabs from './Tabs'
+import PinnedVideo from './Tabs/PinnedVideo'
 
 const Channel = () => {
   const { query } = useRouter()
-  const handle = query.channel ?? ''
+  const handle = query.profile ?? ''
 
   useEffect(() => {
     Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.CHANNEL })
@@ -37,6 +38,10 @@ const Channel = () => {
   }
 
   const profile = data?.profile as Profile
+  const pinnedVideoId = getValueFromKeyInAttributes(
+    profile?.metadata?.attributes,
+    'pinnedPublicationId'
+  )
 
   return (
     <>
@@ -44,7 +49,8 @@ const Channel = () => {
       {!loading && !error && profile ? (
         <>
           <BasicInfo profile={profile} />
-          <Tabs profile={profile} />
+          {pinnedVideoId?.length ? <PinnedVideo id={pinnedVideoId} /> : null}
+          <ProfileTabs profile={profile} />
         </>
       ) : null}
     </>

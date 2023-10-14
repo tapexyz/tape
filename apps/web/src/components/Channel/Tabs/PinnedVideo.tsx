@@ -190,65 +190,70 @@ const PinnedVideo: FC<Props> = ({ id }) => {
   }
 
   return (
-    <div className="mb-6 mt-2 grid grid-cols-3 overflow-hidden border-b border-gray-300 pb-6 dark:border-gray-700 md:space-x-5">
-      <div className="overflow-hidden md:rounded-xl">
-        <VideoPlayer
-          address={selectedSimpleProfile?.ownedBy.address}
-          url={getPublicationMediaUrl(pinnedPublication.metadata)}
-          posterUrl={thumbnailUrl}
-          isSensitiveContent={isSensitiveContent}
-          options={{
-            autoPlay: true,
-            loop: false,
-            loadingSpinner: true,
-            isCurrentlyShown: true
-          }}
-        />
-      </div>
-      <div className="group flex flex-col justify-between px-2 lg:col-span-2">
-        <div className="space-y-3">
-          <div className="flex items-center justify-between">
-            <Link
-              className="inline break-words text-lg font-medium"
-              href={`/watch/${pinnedPublication.id}`}
-              title={pinnedPublication.metadata?.marketplace?.name ?? ''}
-            >
-              {pinnedPublication.metadata?.marketplace?.name}
-            </Link>
-            {isVideoOwner && (
-              <Button
-                variant="soft"
-                size="2"
-                color="red"
-                highContrast
-                className="invisible hover:!bg-red-200 group-hover:visible dark:hover:!bg-red-800"
-                onClick={() => unpinVideo()}
-              >
-                Unpin
-              </Button>
-            )}
-          </div>
-          <div className="flex items-center overflow-hidden opacity-70">
-            <span className="whitespace-nowrap">
-              {pinnedPublication.stats?.reactions} <Trans>likes</Trans>
-            </span>
-            <span className="middot" />
-            {pinnedPublication.createdAt && (
-              <span className="whitespace-nowrap">
-                {getRelativeTime(pinnedPublication.createdAt)}
-              </span>
-            )}
-          </div>
-          <p className="line-clamp-6 text-sm">
-            {pinnedPublication.metadata?.marketplace?.description}
-          </p>
+    <div className="container mx-auto mb-4 mt-6 max-w-[70rem]">
+      <h1 className="pb-4 text-xl font-bold text-blue-400">
+        <Trans>Featured</Trans>
+      </h1>
+      <div className="grid grid-cols-3 overflow-hidden md:space-x-5">
+        <div className="overflow-hidden md:rounded-xl">
+          <VideoPlayer
+            address={selectedSimpleProfile?.ownedBy.address}
+            url={getPublicationMediaUrl(pinnedPublication.metadata)}
+            posterUrl={thumbnailUrl}
+            isSensitiveContent={isSensitiveContent}
+            options={{
+              autoPlay: true,
+              loop: false,
+              loadingSpinner: true,
+              isCurrentlyShown: true
+            }}
+          />
         </div>
-        <Link
-          className="text-brand-500 text-xs font-semibold"
-          href={`/watch/${pinnedPublication.id}`}
-        >
-          <Trans>View more</Trans>
-        </Link>
+        <div className="group flex flex-col justify-between pl-2 lg:col-span-2">
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <Link
+                className="inline break-words text-lg font-medium"
+                href={`/watch/${pinnedPublication.id}`}
+                title={pinnedPublication.metadata?.marketplace?.name ?? ''}
+              >
+                {pinnedPublication.metadata?.marketplace?.name}
+              </Link>
+              {isVideoOwner && (
+                <Button
+                  variant="soft"
+                  size="2"
+                  color="red"
+                  highContrast
+                  className="invisible hover:!bg-red-200 group-hover:visible dark:hover:!bg-red-800"
+                  onClick={() => unpinVideo()}
+                >
+                  Unpin
+                </Button>
+              )}
+            </div>
+            <div className="flex items-center overflow-hidden opacity-70">
+              <span className="whitespace-nowrap">
+                {pinnedPublication.stats?.reactions} <Trans>likes</Trans>
+              </span>
+              <span className="middot" />
+              {pinnedPublication.createdAt && (
+                <span className="whitespace-nowrap">
+                  {getRelativeTime(pinnedPublication.createdAt)}
+                </span>
+              )}
+            </div>
+            <p className="line-clamp-6 text-sm">
+              {pinnedPublication.metadata?.marketplace?.description}
+            </p>
+          </div>
+          <Link
+            className="text-brand-500 text-xs font-semibold"
+            href={`/watch/${pinnedPublication.id}`}
+          >
+            <Trans>View more</Trans>
+          </Link>
+        </div>
       </div>
     </div>
   )
