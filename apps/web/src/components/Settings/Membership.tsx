@@ -194,10 +194,10 @@ const Membership = ({ channel }: Props) => {
 
   return (
     <Card size="3">
-      <div className="mb-5">
-        <Text size="5" weight="bold">
+      <div className="mb-5 space-y-2">
+        <h1 className="text-brand-400 text-xl font-bold">
           <Trans>Grow with Lens</Trans>
-        </Text>
+        </h1>
         <p className="text opacity-80">
           <Trans>
             You can set up a follow fee for your profile and provide exclusive

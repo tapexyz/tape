@@ -1,14 +1,13 @@
-import { Button } from '@components/UIElements/Button'
 import { getCollectModuleConfig } from '@lib/getCollectModuleInput'
 import useAuthPersistStore from '@lib/store/auth'
 import { t, Trans } from '@lingui/macro'
+import { Button, Select } from '@radix-ui/themes'
 import { WMATIC_TOKEN_ADDRESS } from '@tape.xyz/constants'
 import type { ApprovedAllowanceAmountResult, Erc20 } from '@tape.xyz/lens'
 import {
   FollowModuleType,
   LimitType,
   OpenActionModuleType,
-  ReferenceModuleType,
   useApprovedModuleAllowanceAmountQuery,
   useEnabledCurrenciesQuery,
   useGenerateModuleCurrencyApprovalDataLazyQuery
@@ -42,17 +41,7 @@ const ModulePermissions = () => {
       request: {
         currencies: [currency],
         followModules: [FollowModuleType.FeeFollowModule],
-        referenceModules: [ReferenceModuleType.FollowerOnlyReferenceModule],
         openActionModules: [
-          OpenActionModuleType.LegacyFreeCollectModule,
-          OpenActionModuleType.LegacyFeeCollectModule,
-          OpenActionModuleType.LegacyLimitedFeeCollectModule,
-          OpenActionModuleType.LegacyLimitedTimedFeeCollectModule,
-          OpenActionModuleType.LegacyTimedFeeCollectModule,
-          OpenActionModuleType.LegacyRevertCollectModule,
-          OpenActionModuleType.LegacyMultirecipientFeeCollectModule,
-          OpenActionModuleType.LegacyAaveFeeCollectModule,
-          OpenActionModuleType.LegacySimpleCollectModule,
           OpenActionModuleType.SimpleCollectOpenActionModule,
           OpenActionModuleType.MultirecipientFeeCollectOpenActionModule
         ]
@@ -82,8 +71,7 @@ const ModulePermissions = () => {
       request: {
         limit: LimitType.Fifty
       }
-    },
-    skip: !selectedSimpleProfile?.id
+    }
   })
 
   const handleClick = async (isAllow: boolean, selectedModule: string) => {
@@ -116,8 +104,8 @@ const ModulePermissions = () => {
 
   return (
     <div className="pt-6">
-      <div>
-        <h1 className="mb-1 text-xl font-semibold">
+      <div className="space-y-2">
+        <h1 className="text-brand-400 text-xl font-bold">
           <Trans>Access permissions</Trans>
         </h1>
         <p className="opacity-80">
@@ -129,22 +117,23 @@ const ModulePermissions = () => {
       </div>
       <div>
         {!gettingSettings && data && (
-          <div className="flex justify-end pb-4 pt-3 md:pt-0">
-            <select
-              autoComplete="off"
-              className="rounded-xl border border-gray-300 bg-white p-2.5 text-sm outline-none disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700 dark:bg-gray-900"
+          <div className="flex justify-end py-6">
+            <Select.Root
               value={currency}
-              onChange={(e) => setCurrency(e.target.value)}
+              onValueChange={(value) => setCurrency(value)}
             >
-              {enabledCurrencies?.currencies.items?.map((token: Erc20) => (
-                <option
-                  key={token.contract.address}
-                  value={token.contract.address}
-                >
-                  {token.symbol}
-                </option>
-              ))}
-            </select>
+              <Select.Trigger className="w-full" />
+              <Select.Content highContrast>
+                {enabledCurrencies?.currencies.items?.map((token: Erc20) => (
+                  <Select.Item
+                    key={token.contract.address}
+                    value={token.contract.address}
+                  >
+                    {token.symbol}
+                  </Select.Item>
+                ))}
+              </Select.Content>
+            </Select.Root>
           </div>
         )}
         {gettingSettings && (
@@ -170,16 +159,17 @@ const ModulePermissions = () => {
                 <div className="ml-2 flex flex-none items-center space-x-2">
                   {moduleItem?.allowance.value === '0x00' ? (
                     <Button
-                      loading={loadingModule === moduleItem.moduleName}
+                      highContrast
+                      disabled={loadingModule === moduleItem.moduleName}
                       onClick={() => handleClick(true, moduleItem.moduleName)}
                     >
                       <Trans>Allow</Trans>
                     </Button>
                   ) : (
                     <Button
+                      color="red"
                       onClick={() => handleClick(false, moduleItem.moduleName)}
-                      variant="danger"
-                      loading={loadingModule === moduleItem.moduleName}
+                      disabled={loadingModule === moduleItem.moduleName}
                     >
                       <Trans>Revoke</Trans>
                     </Button>

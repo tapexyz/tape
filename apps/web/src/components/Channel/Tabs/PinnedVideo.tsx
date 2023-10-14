@@ -191,7 +191,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
 
   return (
     <div className="container mx-auto mb-4 mt-6 max-w-[70rem]">
-      <h1 className="pb-4 text-xl font-bold text-blue-400">
+      <h1 className="text-brand-400 pb-4 text-xl font-bold">
         <Trans>Featured</Trans>
       </h1>
       <div className="grid grid-cols-3 overflow-hidden md:space-x-5">

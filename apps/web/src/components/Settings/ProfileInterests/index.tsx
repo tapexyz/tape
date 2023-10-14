@@ -8,8 +8,8 @@ import Topics from './Topics'
 const ProfileInterests = () => {
   return (
     <Card size="3">
-      <div className="mb-5">
-        <h1 className="mb-1 text-xl font-semibold">
+      <div className="mb-5 space-y-2">
+        <h1 className="text-brand-400 text-xl font-bold">
           <Trans>Interests</Trans>
         </h1>
         <p className="text opacity-80">
