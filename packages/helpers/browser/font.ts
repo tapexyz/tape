@@ -1,8 +1,7 @@
-import { Space_Grotesk } from 'next/font/google'
+import localFont from 'next/font/local'
 
-export const tapeFont = Space_Grotesk({
-  weight: ['300', '400', '500', '600', '700'],
-  subsets: ['latin'],
+export const tapeFont = localFont({
+  src: './font/Satoshi-Variable.ttf',
   fallback: ['system-ui', 'sans-serif'],
-  variable: '--font-space'
+  preload: true
 })

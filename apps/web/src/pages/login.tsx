@@ -5,9 +5,9 @@ import React from 'react'
 
 const login = () => {
   return (
-    <div className="flex h-screen w-screen overflow-hidden bg-black">
+    <div className="flex h-screen w-screen overflow-hidden">
       <MetaTags title="Login" />
-      <div id="tape-cursor" className="hidden w-1/2 p-8 md:block">
+      <div id="tape-cursor" className="hidden w-1/2 bg-black p-8 md:block">
         <div
           style={{
             backgroundImage: `url("${STATIC_ASSETS}/brand/login-bg.svg")`

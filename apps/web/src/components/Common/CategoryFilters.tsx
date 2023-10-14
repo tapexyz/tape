@@ -1,8 +1,8 @@
 import useAppStore from '@lib/store'
 import { Trans } from '@lingui/macro'
-import { Button } from '@radix-ui/themes'
 import { Analytics, TRACK } from '@tape.xyz/browser'
 import { CREATOR_VIDEO_CATEGORIES } from '@tape.xyz/constants'
+import clsx from 'clsx'
 import React, { useRef } from 'react'
 
 import ChevronLeftOutline from './Icons/ChevronLeftOutline'
@@ -56,26 +56,32 @@ const CategoryFilters = () => {
       </div>
       <div
         ref={sectionRef}
-        className="no-scrollbar ultrawide:py-8 laptop:py-6 flex touch-pan-x items-center gap-2 overflow-x-auto scroll-smooth py-4 md:mx-auto"
+        className="no-scrollbar ultrawide:py-8 laptop:py-6 flex touch-pan-x items-center overflow-x-auto scroll-smooth py-4 md:mx-auto"
       >
-        <Button
-          size="3"
-          highContrast={activeTagFilter === 'all'}
-          variant={activeTagFilter === 'all' ? 'solid' : 'soft'}
+        <button
+          className={clsx(
+            'whitespace-nowrap px-6 py-2.5 font-bold',
+            activeTagFilter === 'all'
+              ? 'from-brand-100 border-brand-400 via-brand-50 border-b-2 bg-gradient-to-t to-transparent'
+              : 'border-b opacity-50'
+          )}
           onClick={() => onFilter('all')}
         >
           <Trans>All</Trans>
-        </Button>
+        </button>
         {CREATOR_VIDEO_CATEGORIES.map((category) => (
-          <Button
+          <button
             key={category.tag}
-            size="3"
-            highContrast={activeTagFilter === category.tag}
-            variant={activeTagFilter === category.tag ? 'solid' : 'soft'}
+            className={clsx(
+              'whitespace-nowrap px-6 py-2.5 font-bold',
+              activeTagFilter === category.tag
+                ? 'from-brand-100 border-brand-400 via-brand-50 border-b-2 bg-gradient-to-t to-transparent'
+                : 'border-b opacity-50'
+            )}
             onClick={() => onFilter(category.tag)}
           >
             {category.name}
-          </Button>
+          </button>
         ))}
       </div>
     </div>

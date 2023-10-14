@@ -16,8 +16,8 @@ import React, { useEffect } from 'react'
 import { toast, Toaster } from 'react-hot-toast'
 import { useAccount, useDisconnect, useNetwork } from 'wagmi'
 
-import FloatingNav from './FloatingNav'
 import FullPageLoader from './FullPageLoader'
+import Navbar from './Navbar'
 import TelemetryProvider from './Providers/TelemetryProvider'
 
 interface Props {
@@ -112,13 +112,14 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
         toastOptions={getToastOptions(resolvedTheme)}
       />
       <TelemetryProvider />
+      {!skipNav && <Navbar />}
       <div
         className={clsx(
           'relative',
-          !skipPadding && 'ultrawide:p-8 laptop:p-6 p-4'
+          !skipPadding &&
+            'ultrawide:px-8 ultrawide:pb-8 laptop:px-6 laptop:pb-6 px-4 pb-4 pt-24'
         )}
       >
-        {!skipNav && <FloatingNav />}
         {children}
       </div>
     </>

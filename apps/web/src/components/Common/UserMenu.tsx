@@ -84,7 +84,7 @@ const UserMenu = () => {
       <DropdownMenu.Trigger>
         <div className="ring-brand-500 flex rounded-full hover:ring-2">
           <Avatar
-            size="1"
+            size="2"
             radius="full"
             src={getProfilePicture(selectedSimpleProfile as Profile)}
             fallback={trimLensHandle(selectedSimpleProfile?.handle)[0]}
