@@ -137,13 +137,13 @@ const UserMenu = () => {
                   >
                     <span className="inline-flex items-center space-x-1.5">
                       <img
-                        className="h-6 w-6 rounded-full"
+                        className="h-6 w-6 flex-none rounded-full"
                         src={getProfilePicture(channel)}
                         alt={channel.handle}
                         draggable={false}
                       />
                       <span className="truncate whitespace-nowrap">
-                        {channel.handle}
+                        {trimLensHandle(channel.handle)}
                       </span>
                     </span>
                     {selectedSimpleProfile?.id === channel.id && (
@@ -163,7 +163,7 @@ const UserMenu = () => {
                     )}`}
                   >
                     <img
-                      className="h-9 w-9 rounded-full object-cover"
+                      className="h-9 w-9 flex-none rounded-full object-cover"
                       src={getProfilePicture(
                         selectedSimpleProfile as Profile,
                         'AVATAR'
@@ -173,7 +173,7 @@ const UserMenu = () => {
                     />
                   </Link>
                   <div className="grid">
-                    <span className="text-xs opacity-70">
+                    <span className="text-xs leading-4 opacity-70">
                       <Trans>Connected as</Trans>
                     </span>
                     <Link
@@ -183,9 +183,9 @@ const UserMenu = () => {
                     >
                       <h6
                         title={selectedSimpleProfile?.handle}
-                        className="truncate text-base leading-4"
+                        className="truncate text-base"
                       >
-                        {selectedSimpleProfile?.handle}
+                        {trimLensHandle(selectedSimpleProfile?.handle)}
                       </h6>
                     </Link>
                   </div>
