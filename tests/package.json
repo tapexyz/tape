@@ -7,10 +7,10 @@
     "dev:test": "playwright test"
   },
   "devDependencies": {
+    "@playwright/test": "^1.39.0",
     "@tape.xyz/browser": "*",
     "@tape.xyz/config": "*",
     "@tape.xyz/constants": "*",
-    "@tape.xyz/generic": "*",
-    "@playwright/test": "^1.38.1"
+    "@tape.xyz/generic": "*"
   }
 }
