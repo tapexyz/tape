@@ -121,7 +121,7 @@ const Bytes = () => {
       <MetaTags title="Bytes" />
       <div
         ref={bytesContainer}
-        className="no-scrollbar mt-20 h-[calc(100vh-5rem)] snap-y snap-mandatory overflow-y-scroll scroll-smooth"
+        className="no-scrollbar mt-16 h-[calc(100vh-4rem)] snap-y snap-mandatory overflow-y-scroll scroll-smooth"
       >
         {singleByte && (
           <ByteVideo

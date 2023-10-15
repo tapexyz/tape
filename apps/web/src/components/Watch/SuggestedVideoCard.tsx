@@ -43,7 +43,7 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
   return (
     <div className="group flex justify-between">
       <div className="flex justify-between">
-        <div className="flex-none overflow-hidden rounded-md">
+        <div className="rounded-small flex-none overflow-hidden">
           <Link
             href={`/watch/${video.id}`}
             className="cursor-pointer rounded-md"
@@ -105,7 +105,7 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
           </div>
         </div>
       </div>
-      <Box>
+      <Box pt="1">
         <VideoOptions video={video} />
       </Box>
     </div>

@@ -60,10 +60,10 @@ const CategoryFilters = () => {
       >
         <button
           className={clsx(
-            'whitespace-nowrap px-6 py-2.5 font-bold',
+            'whitespace-nowrap px-10 py-2.5 font-bold',
             activeTagFilter === 'all'
-              ? 'from-brand-100 border-brand-400 via-brand-50 border-b-2 bg-gradient-to-t to-transparent'
-              : 'border-b opacity-50'
+              ? 'from-brand-100 border-brand-400 dark:via-brand-950 dark:from-brand-900 via-brand-50 border-b-2 bg-gradient-to-t to-transparent'
+              : 'border-b opacity-50 dark:border-gray-600'
           )}
           onClick={() => onFilter('all')}
         >
@@ -75,8 +75,8 @@ const CategoryFilters = () => {
             className={clsx(
               'whitespace-nowrap px-6 py-2.5 font-bold',
               activeTagFilter === category.tag
-                ? 'from-brand-100 border-brand-400 via-brand-50 border-b-2 bg-gradient-to-t to-transparent'
-                : 'border-b opacity-50'
+                ? 'from-brand-100 border-brand-400 via-brand-50 dark:via-brand-950 dark:from-brand-900 border-b-2 bg-gradient-to-t to-transparent'
+                : 'border-b opacity-50 dark:border-gray-600'
             )}
             onClick={() => onFilter(category.tag)}
           >

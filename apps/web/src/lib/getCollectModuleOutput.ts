@@ -5,9 +5,13 @@ export const getCollectModuleOutput = (openActionModule: OpenActionModule) => {
     collectLimit: 0,
     amount: {
       rate: '',
-      value: ''
+      value: '',
+      assetAddress: '',
+      assetDecimals: '',
+      assetSymbol: ''
     },
     recipient: '',
+    recipients: [],
     referralFee: 0,
     endsAt: '',
     followerOnly: false
@@ -19,6 +23,9 @@ export const getCollectModuleOutput = (openActionModule: OpenActionModule) => {
         collectLimit: openActionModule.collectLimit,
         amount: {
           value: openActionModule.amount?.value,
+          assetSymbol: openActionModule.amount?.asset.symbol,
+          assetAddress: openActionModule.amount?.asset.contract.address,
+          assetDecimals: openActionModule.amount?.asset.decimals,
           rate: openActionModule.amount?.rate?.value
         },
         recipient: openActionModule.recipient,
@@ -26,7 +33,22 @@ export const getCollectModuleOutput = (openActionModule: OpenActionModule) => {
         endsAt: openActionModule.endsAt,
         followerOnly: openActionModule.followerOnly
       }
-
+    case 'MultirecipientFeeCollectOpenActionSettings':
+      return {
+        ...output,
+        collectLimit: openActionModule.collectLimit,
+        amount: {
+          value: openActionModule.amount?.value,
+          assetSymbol: openActionModule.amount?.asset.symbol,
+          assetAddress: openActionModule.amount?.asset.contract.address,
+          assetDecimals: openActionModule.amount?.asset.decimals,
+          rate: openActionModule.amount?.rate?.value
+        },
+        recipients: openActionModule.recipients,
+        referralFee: openActionModule.referralFee,
+        endsAt: openActionModule.endsAt,
+        followerOnly: openActionModule.followerOnly
+      }
     default:
       break
   }

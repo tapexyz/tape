@@ -87,13 +87,13 @@ export const getCollectModuleConfig = (collectModule: string) => {
   switch (collectModule) {
     case 'MultirecipientFeeCollectOpenActionModule':
       return {
-        type: 'collectModule',
+        type: 'openActionModule',
         description:
           'Allow you to collect any publication which splits collect revenue with multiple recipients.'
       }
     case 'SimpleCollectOpenActionModule':
       return {
-        type: 'collectModule',
+        type: 'openActionModule',
         description:
           'Allow you to collect any publication including paid collects, limited and timed free collects and more!'
       }

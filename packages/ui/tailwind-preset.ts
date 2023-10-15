@@ -15,6 +15,7 @@ module.exports = {
         ultrawide: '1800px'
       },
       colors: {
+        bunker: '#09171c',
         brand: {
           50: '#eff9ff',
           100: '#dff2ff',

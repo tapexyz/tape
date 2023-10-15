@@ -3,7 +3,12 @@
 @tailwind utilities;
 
 body {
-  @apply min-h-screen bg-white bg-fixed text-black antialiased dark:bg-[#0B222C] dark:text-white;
+  @apply min-h-screen bg-white bg-fixed text-black antialiased dark:bg-bunker dark:text-white;
+}
+
+/* Override for Radix */
+button {
+  @apply !cursor-pointer;
 }
 
 .tape-border {

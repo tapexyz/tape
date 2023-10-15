@@ -111,10 +111,7 @@ const GlobalSearch: FC<Props> = ({ onSearchResults }) => {
       <div className="relative">
         {showSearchBar ? (
           <>
-            <TextField.Root
-              color="gray"
-              className="absolute z-20 w-[250px] lg:w-[800px]"
-            >
+            <TextField.Root className="dark:bg-bunker absolute z-20 w-[250px] bg-white lg:w-[800px]">
               <TextField.Slot>
                 <SearchOutline className="h-3 w-3" />
               </TextField.Slot>

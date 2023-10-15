@@ -27,7 +27,7 @@ const Navbar = () => {
       initial={{ y: -200 }}
       animate={{ y: 0 }}
       transition={{ ease: 'linear' }}
-      className="ultrawide:p-8 laptop:p-6 fixed z-10 flex h-20 w-full items-center bg-white/70 p-4 backdrop-blur-2xl dark:bg-black/70"
+      className="ultrawide:px-8 laptop:px-6 dark:bg-bunker/50 fixed z-10 flex h-16 w-full items-center bg-white/50 px-4 backdrop-blur-2xl"
     >
       <div className="flex w-full items-center justify-between">
         <Link href="/" className="flex items-center md:w-1/5">
