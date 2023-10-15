@@ -1,6 +1,7 @@
 import { Input } from '@components/UIElements/Input'
 import { Trans } from '@lingui/macro'
 import { Button, Text } from '@radix-ui/themes'
+import { trimify } from '@tape.xyz/generic'
 import type {
   CollectModuleType,
   UploadedVideo
@@ -66,6 +67,12 @@ const CollectDuration: FC<Props> = ({ uploadedVideo, setCollectType }) => {
             type="number"
             min="1"
             size="3"
+            onBlur={(e) => {
+              const { value } = e.target
+              setCollectType({
+                timeLimit: !trimify(value) || Number(value) <= 0 ? '1' : value
+              })
+            }}
             onChange={(e) => {
               const { value } = e.target
               setCollectType({

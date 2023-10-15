@@ -97,7 +97,12 @@ const CreateSteps = () => {
     )
   }
 
+  const resetToDefaults = () => {
+    setUploadedVideo(UPLOADED_VIDEO_FORM_DEFAULTS)
+  }
+
   const redirectToWatchPage = (videoId: string) => {
+    resetToDefaults()
     router.push(`/watch/${videoId}`)
   }
 
@@ -114,10 +119,6 @@ const CreateSteps = () => {
       ])
     }
     redirectToChannelPage()
-  }
-
-  const resetToDefaults = () => {
-    setUploadedVideo(UPLOADED_VIDEO_FORM_DEFAULTS)
   }
 
   useEffect(() => {
