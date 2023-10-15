@@ -1,10 +1,17 @@
 import CollectorsList from '@components/Common/CollectorsList'
 import CollectOutline from '@components/Common/Icons/CollectOutline'
 import MirrorOutline from '@components/Common/Icons/MirrorOutline'
+import TimesOutline from '@components/Common/Icons/TimesOutline'
 import MirroredList from '@components/Common/MirroredList'
-import Modal from '@components/UIElements/Modal'
 import { getDateString, getRelativeTime } from '@lib/formatTime'
-import { t, Trans } from '@lingui/macro'
+import { Trans } from '@lingui/macro'
+import {
+  Dialog,
+  DialogClose,
+  Flex,
+  IconButton,
+  ScrollArea
+} from '@radix-ui/themes'
 import { getPublicationMediaCid } from '@tape.xyz/generic'
 import type { MirrorablePublication } from '@tape.xyz/lens'
 import type { FC } from 'react'
@@ -23,26 +30,53 @@ const VideoMeta: FC<Props> = ({ video }) => {
   return (
     <div className="flex flex-wrap items-center opacity-70">
       <div className="flex items-center">
-        <Modal
-          title={t`Collected By`}
-          onClose={() => setShowCollectsModal(false)}
-          show={showCollectsModal}
-          panelClassName="max-w-md"
+        <Dialog.Root
+          open={showCollectsModal}
+          onOpenChange={(b) => setShowCollectsModal(b)}
         >
-          <div className="no-scrollbar max-h-[40vh] overflow-y-auto">
-            <CollectorsList videoId={video.id} />
-          </div>
-        </Modal>
-        <Modal
-          title={t`Mirrored By`}
-          onClose={() => setShowMirrorsModal(false)}
-          show={showMirrorsModal}
-          panelClassName="max-w-md"
+          <Dialog.Content style={{ maxWidth: 450 }}>
+            <Flex gap="3" justify="between" pb="2">
+              <Dialog.Title size="6">Collectors</Dialog.Title>
+              <DialogClose>
+                <IconButton variant="ghost" color="gray">
+                  <TimesOutline outlined={false} className="h-4 w-4" />
+                </IconButton>
+              </DialogClose>
+            </Flex>
+
+            <ScrollArea
+              type="hover"
+              scrollbars="vertical"
+              style={{ height: 400 }}
+            >
+              <CollectorsList videoId={video.id} />
+            </ScrollArea>
+          </Dialog.Content>
+        </Dialog.Root>
+        <Dialog.Root
+          open={showMirrorsModal}
+          onOpenChange={(b) => setShowMirrorsModal(b)}
         >
-          <div className="no-scrollbar max-h-[40vh] overflow-y-auto">
-            <MirroredList videoId={video.id} />
-          </div>
-        </Modal>
+          <Dialog.Content style={{ maxWidth: 450 }}>
+            <Flex gap="3" justify="between" pb="2">
+              <Dialog.Title size="6">Mirrors</Dialog.Title>
+              <DialogClose>
+                <IconButton variant="ghost" color="gray">
+                  <TimesOutline outlined={false} className="h-4 w-4" />
+                </IconButton>
+              </DialogClose>
+            </Flex>
+
+            <ScrollArea
+              type="hover"
+              scrollbars="vertical"
+              style={{ height: 400 }}
+            >
+              <MirroredList videoId={video.id} />
+            </ScrollArea>
+          </Dialog.Content>
+        </Dialog.Root>
+
         <ViewCount cid={getPublicationMediaCid(video.metadata)} />
         <button
           type="button"

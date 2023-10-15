@@ -1,4 +1,4 @@
-import Modal from '@components/UIElements/Modal'
+import { Dialog } from '@radix-ui/themes'
 import {
   getPublication,
   getPublicationMediaUrl,
@@ -18,8 +18,6 @@ type Props = {
 
 const CommentMedia: FC<Props> = ({ comment }) => {
   const [imageSrc, setImageSrc] = useState('')
-  const [showLighBox, setShowLighBox] = useState(false)
-
   const targetComment = getPublication(comment)
 
   const media = getPublicationMediaUrl(targetComment.metadata)
@@ -42,45 +40,38 @@ const CommentMedia: FC<Props> = ({ comment }) => {
 
   return (
     <div className="my-2">
-      <Modal
-        show={showLighBox}
-        panelClassName="!p-0 !rounded-none !shadow-none !bg-transparent"
-        onClose={() => setShowLighBox(false)}
-      >
-        <div
-          role="button"
-          tabIndex={0}
-          onClick={() => setShowLighBox(false)}
-          className="flex cursor-default justify-center"
-        >
-          <img
-            src={imageSrc}
-            className="object-contain"
-            alt="attachment"
-            draggable={false}
-          />
-        </div>
-      </Modal>
       <div className="flex flex-wrap items-center gap-2">
         {getIsVideoComment() ? (
           <VideoComment comment={targetComment as Comment} />
         ) : getIsAudioComment() ? (
           <AudioComment media={media} />
         ) : getIsImageComment() ? (
-          <button
-            className="focus:outline-none"
-            onClick={() => {
-              setImageSrc(imageCdn(sanitizeDStorageUrl(media)))
-              setShowLighBox(true)
-            }}
-          >
-            <img
-              className="h-20 w-20 rounded-xl bg-white object-cover dark:bg-black"
-              src={imageCdn(sanitizeDStorageUrl(media), 'AVATAR_LG')}
-              alt={'attachment'}
-              draggable={false}
-            />
-          </button>
+          <Dialog.Root>
+            <Dialog.Trigger>
+              <button
+                className="focus:outline-none"
+                onClick={() => {
+                  setImageSrc(imageCdn(sanitizeDStorageUrl(media)))
+                }}
+              >
+                <img
+                  className="h-20 w-20 rounded-xl bg-white object-cover dark:bg-black"
+                  src={imageCdn(sanitizeDStorageUrl(media), 'AVATAR_LG')}
+                  alt={'attachment'}
+                  draggable={false}
+                />
+              </button>
+            </Dialog.Trigger>
+
+            <Dialog.Content style={{ maxWidth: 650 }}>
+              <img
+                src={imageSrc}
+                className="object-contain"
+                alt="attachment"
+                draggable={false}
+              />
+            </Dialog.Content>
+          </Dialog.Root>
         ) : null}
       </div>
     </div>

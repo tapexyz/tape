@@ -59,7 +59,7 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
   if (collectors?.length === 0) {
     return (
       <div className="pt-5">
-        <NoDataFound text="No collectors yet" isCenter />
+        <NoDataFound withImage isCenter />
       </div>
     )
   }
