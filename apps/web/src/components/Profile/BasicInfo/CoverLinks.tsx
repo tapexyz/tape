@@ -97,7 +97,7 @@ const CoverLinks = ({ metadata }: { metadata: ProfileMetadata }) => {
           )}`}
           target="_blank"
           rel="noreferer noreferrer"
-          className="rounded-lg bg-white bg-opacity-80 p-1.5 dark:bg-gray-900"
+          className="flex items-center justify-center rounded-lg bg-white bg-opacity-80 p-1.5 dark:bg-gray-900"
         >
           {resolvedTheme === 'dark' ? (
             <img
@@ -105,7 +105,7 @@ const CoverLinks = ({ metadata }: { metadata: ProfileMetadata }) => {
                 `${STATIC_ASSETS}/images/social/x-white.png`,
                 'AVATAR'
               )}
-              className="h-4 w-4"
+              className="h-3.5 w-3.5"
               height={16}
               width={16}
               alt="X Logo"
@@ -117,7 +117,7 @@ const CoverLinks = ({ metadata }: { metadata: ProfileMetadata }) => {
                 `${STATIC_ASSETS}/images/social/x-black.png`,
                 'AVATAR'
               )}
-              className="h-4 w-4"
+              className="h-3.5 w-3.5"
               height={16}
               width={16}
               alt="X Logo"
