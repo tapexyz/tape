@@ -17,12 +17,11 @@ import React, { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 
 interface Props {
-  label: string
   file: File | null
 }
 
 const DEFAULT_THUMBNAIL_INDEX = 0
-export const THUMBNAIL_GENERATE_COUNT = 9
+export const THUMBNAIL_GENERATE_COUNT = 7
 
 type Thumbnail = {
   blobUrl: string
@@ -30,7 +29,7 @@ type Thumbnail = {
   mimeType: string
 }
 
-const ChooseThumbnail: FC<Props> = ({ label, file }) => {
+const ChooseThumbnail: FC<Props> = ({ file }) => {
   const [thumbnails, setThumbnails] = useState<Thumbnail[]>([])
   const [selectedThumbnailIndex, setSelectedThumbnailIndex] = useState(-1)
   const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
@@ -138,75 +137,64 @@ const ChooseThumbnail: FC<Props> = ({ label, file }) => {
   }
 
   return (
-    <div className="w-full">
-      {label && (
-        <div className="mb-1 flex items-center space-x-1.5">
-          <div className="text-[11px] font-semibold uppercase opacity-70">
-            {label}
-          </div>
-        </div>
-      )}
-      <Grid columns="5" gap="3">
-        <label
-          htmlFor="chooseThumbnail"
-          className="max-w-32 flex h-full w-full flex-none cursor-pointer flex-col items-center justify-center rounded-xl border border-gray-300 opacity-80 focus:outline-none dark:border-gray-700"
-        >
-          <input
-            id="chooseThumbnail"
-            type="file"
-            accept=".png, .jpg, .jpeg"
-            className="hidden w-full"
-            onChange={handleUpload}
-          />
-          <AddImageOutline className="mb-1 h-4 w-4 flex-none" />
-          <span className="text-xs">
-            <Trans>Upload</Trans>
-          </span>
-        </label>
-        {!thumbnails.length && uploadedVideo.file?.size ? (
-          <ThumbnailsShimmer />
-        ) : null}
-        {thumbnails.map((thumbnail, idx) => {
-          return (
-            <button
-              key={idx}
-              type="button"
-              disabled={uploadedVideo.uploadingThumbnail}
-              onClick={() => onSelectThumbnail(idx)}
-              className={clsx(
-                'relative w-full flex-none overflow-hidden rounded-lg ring-1 ring-white focus:outline-none dark:ring-black',
-                {
-                  '!ring-brand-500 !ring':
-                    thumbnail.ipfsUrl &&
-                    selectedThumbnailIndex === idx &&
-                    thumbnail.ipfsUrl === uploadedVideo.thumbnail
-                }
-              )}
-            >
-              <AspectRatio ratio={16 / 9}>
-                <img
-                  className={clsx(
-                    'h-full w-full rounded-lg',
-                    uploadedVideo.isByteVideo
-                      ? 'object-contain'
-                      : 'object-cover'
-                  )}
-                  src={thumbnail.blobUrl}
-                  alt="thumbnail"
-                  draggable={false}
-                />
-              </AspectRatio>
-              {uploadedVideo.uploadingThumbnail &&
-                selectedThumbnailIndex === idx && (
-                  <div className="absolute inset-0 grid place-items-center bg-gray-100 bg-opacity-10 backdrop-blur-md">
-                    <Loader size="sm" />
-                  </div>
+    <Grid columns="4" gap="3">
+      <label
+        htmlFor="chooseThumbnail"
+        className="max-w-32 flex h-full w-full flex-none cursor-pointer flex-col items-center justify-center rounded-xl border border-gray-300 opacity-80 focus:outline-none dark:border-gray-700"
+      >
+        <input
+          id="chooseThumbnail"
+          type="file"
+          accept=".png, .jpg, .jpeg"
+          className="hidden w-full"
+          onChange={handleUpload}
+        />
+        <AddImageOutline className="mb-1 h-4 w-4 flex-none" />
+        <span className="text-xs">
+          <Trans>Upload</Trans>
+        </span>
+      </label>
+      {!thumbnails.length && uploadedVideo.file?.size ? (
+        <ThumbnailsShimmer />
+      ) : null}
+      {thumbnails.map((thumbnail, idx) => {
+        return (
+          <button
+            key={idx}
+            type="button"
+            disabled={uploadedVideo.uploadingThumbnail}
+            onClick={() => onSelectThumbnail(idx)}
+            className={clsx(
+              'relative w-full flex-none overflow-hidden rounded-lg ring-1 ring-white focus:outline-none disabled:!cursor-not-allowed dark:ring-black',
+              {
+                '!ring-brand-500 !ring':
+                  thumbnail.ipfsUrl &&
+                  selectedThumbnailIndex === idx &&
+                  thumbnail.ipfsUrl === uploadedVideo.thumbnail
+              }
+            )}
+          >
+            <AspectRatio ratio={16 / 9}>
+              <img
+                className={clsx(
+                  'h-full w-full rounded-lg',
+                  uploadedVideo.isByteVideo ? 'object-contain' : 'object-cover'
                 )}
-            </button>
-          )
-        })}
-      </Grid>
-    </div>
+                src={thumbnail.blobUrl}
+                alt="thumbnail"
+                draggable={false}
+              />
+            </AspectRatio>
+            {uploadedVideo.uploadingThumbnail &&
+              selectedThumbnailIndex === idx && (
+                <div className="absolute inset-0 grid place-items-center bg-gray-100 bg-opacity-10 backdrop-blur-md">
+                  <Loader size="sm" />
+                </div>
+              )}
+          </button>
+        )
+      })}
+    </Grid>
   )
 }
 

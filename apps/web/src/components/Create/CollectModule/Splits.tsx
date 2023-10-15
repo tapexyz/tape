@@ -4,13 +4,13 @@ import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import { Trans } from '@lingui/macro'
-import { Text } from '@radix-ui/themes'
+import { IconButton, Text } from '@radix-ui/themes'
 import {
   IS_MAINNET,
   TAPE_ADMIN_ADDRESS,
   TAPE_APP_NAME
 } from '@tape.xyz/constants'
-import { splitNumber } from '@tape.xyz/generic'
+import { splitNumber, trimLensHandle } from '@tape.xyz/generic'
 import { type RecipientDataInput, useProfileLazyQuery } from '@tape.xyz/lens'
 import clsx from 'clsx'
 import type { FC, RefObject } from 'react'
@@ -64,11 +64,11 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
         const { data } = await resolveHandleAddress({
           variables: {
             request: {
-              forHandle: value
+              forHandle: `test/@${trimLensHandle(value as string)}`
             }
           }
         })
-        const resolvedAddress = data?.profile?.ownedBy ?? ''
+        const resolvedAddress = data?.profile?.ownedBy.address ?? ''
         changedSplit[key] = resolvedAddress
       }
     }
@@ -83,18 +83,21 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
     }, 50)
   }
 
-  const addRecipient = () => {
-    const splits = splitRecipients
-    splits.push({ recipient: '', split: 1 })
-    setSplitRecipients([...splits])
-    scrollToSubmit()
-  }
-
   const addDonation = () => {
     const splits = splitRecipients
     splits.push({ recipient: TAPE_ADMIN_ADDRESS, split: 2 })
     setSplitRecipients([...splits])
     scrollToSubmit()
+  }
+
+  const addRecipient = () => {
+    const splits = splitRecipients
+    splits.push({ recipient: '', split: 1 })
+    setSplitRecipients([...splits])
+    scrollToSubmit()
+    if (!isIncludesDonationAddress) {
+      addDonation()
+    }
   }
 
   const removeRecipient = (index: number) => {
@@ -119,15 +122,12 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
   return (
     <div className="space-y-1">
       <div className="flex items-center">
-        <Text as="div" size="2">
+        <Text size="2" weight="medium">
           Split revenue
         </Text>
-        <Tooltip
-          content="Split video revenue with multiple accounts."
-          placement="top"
-        >
+        <Tooltip content="Split revenue with anyone" placement="top">
           <span>
-            <InfoOutline className="mx-1 my-0.5 h-3 w-3 opacity-70" />
+            <InfoOutline className="mx-1 h-3 w-3 opacity-70" />
           </span>
         </Tooltip>
       </div>
@@ -139,15 +139,23 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
                 getIsHandle(splitRecipient.recipient) &&
                 'animate-pulse'
             )}
-            placeholder="0x1234...89 or handle.lens"
+            size="3"
+            placeholder={`0x12345...89 or handle${
+              IS_MAINNET ? '.lens' : '.test'
+            }`}
             value={splitRecipient.recipient}
             onChange={(e) => onChangeSplit('recipient', e.target.value, i)}
             autoFocus
             autoComplete="off"
             spellCheck="false"
-            suffix={
+            title={
               splitRecipient.recipient === TAPE_ADMIN_ADDRESS
                 ? TAPE_APP_NAME
+                : undefined
+            }
+            suffix={
+              splitRecipient.recipient === TAPE_ADMIN_ADDRESS
+                ? `${TAPE_APP_NAME}.xyz`.toLowerCase()
                 : ''
             }
             disabled={splitRecipient.recipient === TAPE_ADMIN_ADDRESS}
@@ -160,21 +168,21 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
             <Input
               type="number"
               placeholder="2"
+              size="3"
               suffix="%"
               value={splitRecipient.split}
               onChange={(e) => onChangeSplit('split', e.target.value, i)}
             />
           </div>
-          <button
+          <IconButton
+            variant="soft"
             type="button"
-            className="flex w-10 items-center justify-center rounded-xl border px-1 text-[10px] font-semibold uppercase tracking-wider dark:border-gray-600"
+            color="red"
+            size="3"
             onClick={() => removeRecipient(i)}
           >
-            <TimesOutline
-              className="h-4 w-4 p-1 opacity-70 hover:text-red-500"
-              outlined={false}
-            />
-          </button>
+            <TimesOutline className="h-4 w-4 p-0.5" outlined={false} />
+          </IconButton>
         </div>
       ))}
       <div className="flex items-center justify-between space-x-1.5 pt-1">

@@ -1,10 +1,9 @@
-import CheckOutline from '@components/Common/Icons/CheckOutline'
 import { Trans } from '@lingui/macro'
+import { Button, Text } from '@radix-ui/themes'
 import type {
   CollectModuleType,
   UploadedVideo
 } from '@tape.xyz/lens/custom-types'
-import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
 
@@ -15,13 +14,23 @@ type Props = {
 
 const PermissionQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
   return (
-    <div className="space-y-2">
-      <h6>
-        <Trans>Who can collect this video?</Trans>
-      </h6>
+    <div className="space-y-1">
+      <Text size="2" weight="medium">
+        <Trans>Who can collect?</Trans>
+      </Text>
       <div className="flex flex-wrap gap-1.5 md:flex-nowrap">
-        <button
+        <Button
+          className="flex-1"
           type="button"
+          highContrast
+          color={
+            !uploadedVideo.collectModule.followerOnlyCollect &&
+            !uploadedVideo.collectModule.isRevertCollect
+              ? 'blue'
+              : 'gray'
+          }
+          variant="surface"
+          size="3"
           onClick={() =>
             setCollectType({
               isSimpleCollect: true,
@@ -29,25 +38,21 @@ const PermissionQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
               followerOnlyCollect: false
             })
           }
-          className={clsx(
-            'flex w-full items-center justify-between rounded-xl border border-gray-300 px-4 py-2 text-sm focus:outline-none dark:border-gray-700',
-            {
-              '!border-brand-500':
-                !uploadedVideo.collectModule.followerOnlyCollect &&
-                !uploadedVideo.collectModule.isRevertCollect
-            }
-          )}
         >
-          <span>
-            <Trans>Anyone</Trans>
-          </span>
-          {!uploadedVideo.collectModule.followerOnlyCollect &&
-            !uploadedVideo.collectModule.isRevertCollect && (
-              <CheckOutline className="h-3 w-3" />
-            )}
-        </button>
-        <button
+          <Trans>Anyone</Trans>
+        </Button>
+        <Button
+          className="flex-1"
           type="button"
+          size="3"
+          color={
+            uploadedVideo.collectModule.followerOnlyCollect &&
+            !uploadedVideo.collectModule.isRevertCollect
+              ? 'blue'
+              : 'gray'
+          }
+          variant="surface"
+          highContrast
           onClick={() =>
             setCollectType({
               isSimpleCollect: true,
@@ -55,45 +60,9 @@ const PermissionQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
               isRevertCollect: false
             })
           }
-          className={clsx(
-            'flex w-full items-center justify-between rounded-xl border border-gray-300 px-4 py-1 text-sm focus:outline-none dark:border-gray-700',
-            {
-              '!border-brand-500':
-                uploadedVideo.collectModule.followerOnlyCollect &&
-                !uploadedVideo.collectModule.isRevertCollect
-            }
-          )}
         >
-          <span>
-            <Trans>Subscribers</Trans>
-          </span>
-          {uploadedVideo.collectModule.followerOnlyCollect &&
-            !uploadedVideo.collectModule.isRevertCollect && (
-              <CheckOutline className="h-3 w-3" />
-            )}
-        </button>
-        <button
-          type="button"
-          onClick={() =>
-            setCollectType({
-              isSimpleCollect: false,
-              isRevertCollect: true
-            })
-          }
-          className={clsx(
-            'flex w-full items-center justify-between rounded-xl border border-gray-300 px-4 py-1 text-sm focus:outline-none dark:border-gray-700',
-            {
-              '!border-brand-500': uploadedVideo.collectModule.isRevertCollect
-            }
-          )}
-        >
-          <span>
-            <Trans>None</Trans>
-          </span>
-          {uploadedVideo.collectModule.isRevertCollect && (
-            <CheckOutline className="h-3 w-3" />
-          )}
-        </button>
+          <Trans>Only Followers</Trans>
+        </Button>
       </div>
     </div>
   )

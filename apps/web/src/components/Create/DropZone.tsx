@@ -67,13 +67,13 @@ const DropZone = () => {
   }
 
   return (
-    <div className="relative flex w-full flex-1 flex-col">
+    <div className="relative mt-2 flex w-full flex-1 flex-col">
       <label
         className={clsx(
           'grid w-full place-items-center rounded-3xl border border-dashed p-10 text-center focus:outline-none md:p-20',
           dragOver ? 'border-green-500' : 'border-gray-500'
         )}
-        htmlFor="dropVideo"
+        htmlFor="dropMedia"
         onDragOver={onDragOver}
         onDragLeave={onDragLeave}
         onDrop={onDrop}
@@ -82,13 +82,13 @@ const DropZone = () => {
           type="file"
           className="hidden"
           onChange={onChooseFile}
-          id="dropVideo"
+          id="dropMedia"
           accept={ALLOWED_VIDEO_TYPES.join(',')}
         />
         <span className="mb-6 flex justify-center opacity-80">
           <UploadOutline className="h-10 w-10" />
         </span>
-        <span className="space-y-10 md:space-y-14">
+        <span className="space-y-10">
           <div className="space-y-4">
             <p className="text-2xl md:text-4xl">
               <Trans>Drag and drop</Trans>
@@ -98,8 +98,8 @@ const DropZone = () => {
             </p>
           </div>
           <Box>
-            <Button size="4" highContrast className="!px-0" type="button">
-              <label htmlFor="chooseMedia" className="cursor-pointer p-10">
+            <Button size="2" highContrast className="!px-0" type="button">
+              <label htmlFor="chooseMedia" className="cursor-pointer p-6">
                 <Trans>Choose</Trans>
                 <input
                   id="chooseMedia"

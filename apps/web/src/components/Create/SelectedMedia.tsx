@@ -43,7 +43,7 @@ const SelectedMedia = () => {
 
   return (
     <div className="flex w-full flex-col">
-      <div className="relative w-full overflow-hidden rounded-xl rounded-b-none">
+      <div className="md:rounded-large rounded-small group relative w-full overflow-hidden">
         <video
           ref={videoRef}
           className="aspect-[16/9] w-full"
@@ -51,18 +51,20 @@ const SelectedMedia = () => {
           disableRemotePlayback
           controlsList="nodownload noplaybackrate"
           poster={sanitizeDStorageUrl(uploadedVideo.thumbnail)}
-          controls
+          controls={false}
+          autoPlay
+          onClick={() =>
+            videoRef.current?.paused
+              ? videoRef.current?.play()
+              : videoRef.current?.pause()
+          }
           src={uploadedVideo.preview}
-        >
-          <source
-            src={uploadedVideo.preview}
-            type={uploadedVideo.videoType || 'video/mp4'}
-          />
-        </video>
+        />
         <Badge
           variant="solid"
-          color="tomato"
-          className="absolute left-2 top-2 rounded-full bg-orange-200 px-2 py-0.5 text-xs uppercase text-black"
+          radius="full"
+          highContrast
+          className="absolute left-2 top-2"
         >
           {uploadedVideo.file?.size && (
             <span className="whitespace-nowrap font-semibold">
@@ -70,22 +72,24 @@ const SelectedMedia = () => {
             </span>
           )}
         </Badge>
+        {Boolean(uploadedVideo.percent) ? (
+          <Tooltip content={`Uploaded (${uploadedVideo.percent}%)`}>
+            <div className="absolute bottom-0 w-full overflow-hidden bg-gray-200">
+              <div
+                className={clsx(
+                  'h-[6px]',
+                  uploadedVideo.percent !== 0
+                    ? 'bg-brand-500'
+                    : 'bg-gray-300 dark:bg-gray-800'
+                )}
+                style={{
+                  width: `${uploadedVideo.percent}%`
+                }}
+              />
+            </div>
+          </Tooltip>
+        ) : null}
       </div>
-      <Tooltip content={`Uploaded (${uploadedVideo.percent}%)`}>
-        <div className="w-full overflow-hidden rounded-b-full bg-gray-200">
-          <div
-            className={clsx(
-              'h-[6px]',
-              uploadedVideo.percent !== 0
-                ? 'bg-brand-500'
-                : 'bg-gray-300 dark:bg-gray-800'
-            )}
-            style={{
-              width: `${uploadedVideo.percent}%`
-            }}
-          />
-        </div>
-      </Tooltip>
       {getIsFeatureEnabled(
         FEATURE_FLAGS.POST_WITH_SOURCE_URL,
         selectedSimpleProfile?.id
@@ -105,7 +109,7 @@ const SelectedMedia = () => {
         </div>
       )}
       <div className="mt-4">
-        <ChooseThumbnail label="Thumbnail" file={uploadedVideo.file} />
+        <ChooseThumbnail file={uploadedVideo.file} />
       </div>
       <div className="rounded-lg">
         <UploadMethod />

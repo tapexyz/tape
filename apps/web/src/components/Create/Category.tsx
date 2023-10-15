@@ -1,74 +1,37 @@
-import CheckOutline from '@components/Common/Icons/CheckOutline'
-import { Listbox, Transition } from '@headlessui/react'
 import useAppStore from '@lib/store'
 import { Trans } from '@lingui/macro'
+import { Select, Text } from '@radix-ui/themes'
 import { CREATOR_VIDEO_CATEGORIES } from '@tape.xyz/constants'
-import React, { Fragment } from 'react'
+import { getCategoryByTag } from '@tape.xyz/generic'
+import React from 'react'
 
 const Category = () => {
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
   const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
 
   return (
-    <>
-      <div className="mb-1 flex items-center space-x-1.5">
-        <div className="text-[11px] font-semibold uppercase opacity-70">
-          <Trans>Category</Trans>
-        </div>
-      </div>
-      <Listbox
-        value={uploadedVideo.videoCategory}
-        onChange={(category) => setUploadedVideo({ videoCategory: category })}
+    <div className="space-y-1">
+      <Text size="2" weight="medium">
+        <Trans>Select Category</Trans>
+      </Text>
+
+      <Select.Root
+        size="3"
+        value={uploadedVideo.videoCategory.tag}
+        onValueChange={(tag) =>
+          setUploadedVideo({ videoCategory: getCategoryByTag(tag) })
+        }
       >
-        <div className="relative mt-1">
-          <Listbox.Button className="relative w-full rounded-xl border border-gray-300 py-2.5 pl-4 pr-10 text-left focus:outline-none dark:border-gray-700 sm:text-sm">
-            <span className="block truncate">
-              {uploadedVideo.videoCategory.name}
-            </span>
-            <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4">
-              <CheckOutline className="h-3 w-3" />
-            </span>
-          </Listbox.Button>
-          <Transition
-            as={Fragment}
-            leave="transition ease-in duration-100"
-            leaveFrom="opacity-100"
-            leaveTo="opacity-0"
-          >
-            <Listbox.Options className="absolute z-[1] mt-1 max-h-52 w-full overflow-auto rounded-xl bg-white py-1 text-base shadow ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-gray-900 sm:text-sm">
-              {CREATOR_VIDEO_CATEGORIES.map((category, categoryIdx) => (
-                <Listbox.Option
-                  key={categoryIdx}
-                  className={({ active }) =>
-                    `relative cursor-default select-none py-2 pl-10 pr-4 ${
-                      active ? 'bg-gray-100 dark:bg-gray-800' : ''
-                    }`
-                  }
-                  value={category}
-                >
-                  {({ selected }) => (
-                    <>
-                      <span
-                        className={`block truncate ${
-                          selected ? 'font-medium' : 'font-normal'
-                        }`}
-                      >
-                        {category.name}
-                      </span>
-                      {selected ? (
-                        <span className="absolute inset-y-0 left-0 flex items-center pl-3">
-                          <CheckOutline className="h-3 w-3" />
-                        </span>
-                      ) : null}
-                    </>
-                  )}
-                </Listbox.Option>
-              ))}
-            </Listbox.Options>
-          </Transition>
-        </div>
-      </Listbox>
-    </>
+        <Select.Trigger className="w-full" />
+        <Select.Content highContrast>
+          {CREATOR_VIDEO_CATEGORIES.map((category) => (
+            <Select.Item key={category.tag} value={category.tag}>
+              {category.name}
+            </Select.Item>
+          ))}
+        </Select.Content>
+      </Select.Root>
+    </div>
   )
 }
 

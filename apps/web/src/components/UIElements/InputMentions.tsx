@@ -1,5 +1,6 @@
+import { Text } from '@radix-ui/themes'
 import { LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
-import { getProfilePicture } from '@tape.xyz/generic'
+import { getProfilePicture, trimLensHandle } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { LimitType, useSearchProfilesLazyQuery } from '@tape.xyz/lens'
 import clsx from 'clsx'
@@ -70,9 +71,9 @@ const InputMentions: FC<Props> = ({
     <label className="w-full" htmlFor={id}>
       {label && (
         <div className="mb-1 flex items-center space-x-1.5">
-          <div className="text-[11px] font-semibold uppercase opacity-70">
+          <Text size="2" weight="medium">
             {label}
-          </div>
+          </Text>
         </div>
       )}
       <div className="flex">
@@ -85,7 +86,7 @@ const InputMentions: FC<Props> = ({
         >
           <Mention
             trigger="@"
-            displayTransform={(handle) => `@${handle} `}
+            displayTransform={(handle) => `@${trimLensHandle(handle)} `}
             markup=" @__id__ "
             appendSpaceOnAdd
             renderSuggestion={(
@@ -104,7 +105,7 @@ const InputMentions: FC<Props> = ({
                 picture={suggestion.picture as string}
                 handle={suggestion.id as string}
                 className={clsx({
-                  'bg-theme-50 rounded dark:bg-black': focused
+                  'bg-brand-50 rounded dark:bg-black': focused
                 })}
                 subscribersCount={suggestion.followers as number}
               />

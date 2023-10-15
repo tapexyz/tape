@@ -1,4 +1,4 @@
-import CheckOutline from '@components/Common/Icons/CheckOutline'
+import ChevronRightOutline from '@components/Common/Icons/ChevronRightOutline'
 import SplitOutline from '@components/Common/Icons/SplitOutline'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
@@ -10,9 +10,9 @@ import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
 import React, { useState } from 'react'
 
 import ChargeQuestion from './ChargeQuestion'
+import CollectDuration from './CollectDuration'
+import EditionSize from './EditionSize'
 import FeeCollectForm from './FeeCollectForm'
-import LimitDurationQuestion from './LimitDurationQuestion'
-import LimitQuestion from './LimitQuestion'
 import PermissionQuestion from './PermissionQuestion'
 
 const CollectModule = () => {
@@ -75,76 +75,78 @@ const CollectModule = () => {
   }
 
   return (
-    <>
-      <div className="mb-1 flex items-center space-x-1.5">
-        <div className="text-[11px] font-semibold uppercase opacity-70">
-          <Trans>Collect Type</Trans>
-        </div>
-      </div>
+    <div className="mt-2 pb-2">
       <Dialog.Root open={showModal} onOpenChange={setShowModal}>
         <Dialog.Trigger>
-          <button
+          <Button
+            variant="surface"
+            size="3"
             type="button"
             onClick={() => setShowModal(true)}
-            className="flex w-full items-center justify-between rounded-xl border border-gray-300 px-4 py-2.5 text-left text-sm focus:outline-none dark:border-gray-700"
+            className="w-full"
           >
-            <span>{getSelectedCollectType()}</span>
-            <CheckOutline className="h-3 w-3" />
-          </button>
+            <Flex align="center" width="100%" justify="between">
+              <span>{getSelectedCollectType()}</span>
+              <ChevronRightOutline className="h-3 w-3" />
+            </Flex>
+          </Button>
         </Dialog.Trigger>
 
-        <Dialog.Content style={{ maxWidth: 450 }}>
-          <Dialog.Title>Collect Settings</Dialog.Title>
+        <Dialog.Content style={{ maxWidth: 550 }}>
+          <Dialog.Title>Collectible</Dialog.Title>
           <Flex direction="column" gap="3">
-            <div className="no-scrollbar mt-2 max-h-[80vh] space-y-4 overflow-y-auto p-0.5">
+            <div className="no-scrollbar max-h-[80vh] space-y-2 overflow-y-auto p-0.5">
               <PermissionQuestion
                 setCollectType={setCollectType}
                 uploadedVideo={uploadedVideo}
               />
               {!uploadedVideo.collectModule.isRevertCollect && (
-                <LimitDurationQuestion
+                <CollectDuration
                   setCollectType={setCollectType}
                   uploadedVideo={uploadedVideo}
                 />
               )}
               {!uploadedVideo.collectModule.isRevertCollect && (
-                <LimitQuestion
+                <EditionSize
                   setCollectType={setCollectType}
                   uploadedVideo={uploadedVideo}
                 />
               )}
               {!uploadedVideo.collectModule.isRevertCollect && (
-                <ChargeQuestion
-                  setCollectType={setCollectType}
-                  uploadedVideo={uploadedVideo}
-                />
-              )}
-              {(uploadedVideo.collectModule.isFeeCollect ||
-                uploadedVideo.collectModule.collectLimitEnabled) &&
-              !uploadedVideo.collectModule.isRevertCollect &&
-              enabledCurrencies ? (
-                <FeeCollectForm
-                  setCollectType={setCollectType}
-                  uploadedVideo={uploadedVideo}
-                  setShowModal={setShowModal}
-                  enabledCurrencies={enabledCurrencies.currencies.items}
-                />
-              ) : (
-                <div className="flex justify-end">
-                  <Button
-                    type="button"
-                    highContrast
-                    onClick={() => setShowModal(false)}
-                  >
-                    <Trans>Set Collect Type</Trans>
-                  </Button>
+                <div className="space-y-2">
+                  <ChargeQuestion
+                    setCollectType={setCollectType}
+                    uploadedVideo={uploadedVideo}
+                  />
+                  {(uploadedVideo.collectModule.isFeeCollect ||
+                    uploadedVideo.collectModule.collectLimitEnabled) &&
+                  !uploadedVideo.collectModule.isRevertCollect &&
+                  enabledCurrencies ? (
+                    <FeeCollectForm
+                      setCollectType={setCollectType}
+                      uploadedVideo={uploadedVideo}
+                      setShowModal={setShowModal}
+                      enabledCurrencies={enabledCurrencies.currencies.items}
+                    />
+                  ) : (
+                    <div className="flex justify-end pt-4">
+                      <Button
+                        type="button"
+                        size="3"
+                        highContrast
+                        onClick={() => setShowModal(false)}
+                      >
+                        <Trans>Set Collect Type</Trans>
+                      </Button>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
           </Flex>
         </Dialog.Content>
       </Dialog.Root>
-    </>
+    </div>
   )
 }
 

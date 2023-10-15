@@ -1,11 +1,10 @@
 import EmojiPicker from '@components/UIElements/EmojiPicker'
 import InputMentions from '@components/UIElements/InputMentions'
-import { Toggle } from '@components/UIElements/Toggle'
 import Tooltip from '@components/UIElements/Tooltip'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useAppStore from '@lib/store'
 import { t, Trans } from '@lingui/macro'
-import { Button, Flex, RadioGroup, Text } from '@radix-ui/themes'
+import { Button, Flex, Switch, Text } from '@radix-ui/themes'
 import { checkIsBytesVideo } from '@tape.xyz/generic'
 import clsx from 'clsx'
 import type { FC } from 'react'
@@ -100,9 +99,12 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
               />
               <div className="absolute right-1 top-0 mt-1 flex items-center justify-end">
                 <span
-                  className={clsx('text-[10px] opacity-50', {
-                    'text-red-500 !opacity-100': watch('title')?.length > 100
-                  })}
+                  className={clsx(
+                    'text-xs',
+                    watch('title')?.length > 100
+                      ? 'text-red-500 opacity-100'
+                      : ' opacity-70'
+                  )}
                 >
                   {watch('title')?.length}/100
                 </span>
@@ -122,7 +124,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                 rows={5}
                 mentionsSelector="input-mentions-textarea"
               />
-              <div className="absolute bottom-1.5 right-1.5">
+              <div className="absolute right-1.5 top-8">
                 <EmojiPicker
                   onEmojiSelect={(emoji) =>
                     setValue(
@@ -135,82 +137,95 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
               <div className="absolute right-1 top-0 mt-1 flex items-center justify-end">
                 <span
                   className={clsx(
-                    'text-[10px]',
+                    'text-xs',
                     watch('description')?.length > 5000
-                      ? 'text-red-500'
-                      : 'opacity-50'
+                      ? 'text-red-500 opacity-100'
+                      : ' opacity-70'
                   )}
                 >
                   {watch('description')?.length}/5000
                 </span>
               </div>
             </div>
-            <Tooltip
-              visible={!isByteSizeVideo}
-              content={t`Please note that only videos under 2 minutes in length can be uploaded as bytes.`}
-            >
-              <div
-                className={clsx(
-                  'mt-2',
-                  !isByteSizeVideo && 'cursor-not-allowed opacity-50'
-                )}
-              >
-                <Toggle
-                  label={t`Upload this video as short-form bytes`}
-                  enabled={Boolean(uploadedVideo.isByteVideo)}
-                  setEnabled={(b) => toggleUploadAsByte(b)}
-                  size="sm"
-                  disabled={!isByteSizeVideo}
-                />
-              </div>
-            </Tooltip>
+
             <div className="mt-4">
-              <CollectModule />
+              <Flex gap="2">
+                <Category />
+                <ReferenceModule />
+              </Flex>
             </div>
+
             <div className="mt-4">
-              <Category />
-            </div>
-            <div className="mt-4">
-              <ReferenceModule />
-            </div>
-            <div className="mt-4">
-              <span>
-                <Trans>
-                  Does this media content contain sensitive information that may
-                  not be suitable for a general audience?
-                </Trans>
-              </span>
-              <RadioGroup.Root
-                mt="2"
-                defaultValue="NO"
-                highContrast
-                value={watch('isSensitiveContent') ? 'YES' : 'NO'}
-                onValueChange={(value) =>
-                  setValue('isSensitiveContent', value === 'YES')
-                }
-              >
-                <Flex gap="2" direction="column">
-                  <label>
-                    <Flex gap="2" align="center">
-                      <RadioGroup.Item value="YES" />
-                      <Text size="2">Yes</Text>
-                    </Flex>
-                  </label>
-                  <label>
-                    <Flex gap="2" align="center">
-                      <RadioGroup.Item value="NO" />
-                      <Text size="2">No</Text>
-                    </Flex>
-                  </label>
+              <Text as="label">
+                <Flex gap="2" align="center">
+                  <Switch
+                    highContrast
+                    checked={!uploadedVideo.collectModule.isRevertCollect}
+                    onCheckedChange={(canCollect) =>
+                      setUploadedVideo({
+                        collectModule: {
+                          ...uploadedVideo.collectModule,
+                          isRevertCollect: !canCollect
+                        }
+                      })
+                    }
+                  />
+                  <Trans>Collectible</Trans>
                 </Flex>
-              </RadioGroup.Root>
+              </Text>
+              {!uploadedVideo.collectModule.isRevertCollect && (
+                <CollectModule />
+              )}
+            </div>
+
+            {uploadedVideo.file && (
+              <Tooltip
+                visible={!isByteSizeVideo}
+                content={t`Please note that only videos under 2 minutes in length can be uploaded as bytes.`}
+              >
+                <div
+                  className={clsx(
+                    'mt-2',
+                    !isByteSizeVideo && 'cursor-not-allowed opacity-50'
+                  )}
+                >
+                  <Text as="label">
+                    <Flex gap="2" align="center">
+                      <Switch
+                        highContrast
+                        checked={Boolean(uploadedVideo.isByteVideo)}
+                        onCheckedChange={(b) => toggleUploadAsByte(b)}
+                      />
+                      <Trans>Upload this video as short-form bytes</Trans>
+                    </Flex>
+                  </Text>
+                </div>
+              </Tooltip>
+            )}
+
+            <div className="mt-2">
+              <Text as="label">
+                <Flex gap="2" align="center">
+                  <Switch
+                    highContrast
+                    checked={Boolean(watch('isSensitiveContent'))}
+                    onCheckedChange={(value) =>
+                      setValue('isSensitiveContent', value)
+                    }
+                  />
+                  <Trans>Sensitive content for a general audience</Trans>
+                </Flex>
+              </Text>
             </div>
           </div>
         </div>
       </div>
+
       <div className="mt-4 flex items-center justify-end space-x-2">
         <Button
+          type="button"
           color="gray"
+          size="3"
           variant="soft"
           disabled={uploadedVideo.loading}
           onClick={() => onCancel()}
@@ -221,6 +236,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
           highContrast
           disabled={uploadedVideo.loading || uploadedVideo.uploadingThumbnail}
           type="submit"
+          size="3"
         >
           {uploadedVideo.uploadingThumbnail
             ? t`Uploading thumbnail`

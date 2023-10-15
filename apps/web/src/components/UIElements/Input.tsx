@@ -30,13 +30,13 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
     <label className="w-full" htmlFor={id}>
       {label && (
         <div className="mb-1 flex items-center">
-          <Text as="div" size="2">
+          <Text as="div" size="2" weight="medium">
             {label}
           </Text>
           {info && (
             <Tooltip content={info} placement="top">
               <span>
-                <InfoOutline className="mx-1 my-0.5 h-3 w-3 opacity-70" />
+                <InfoOutline className="mx-1 h-3 w-3 opacity-70" />
               </span>
             </Tooltip>
           )}
@@ -46,7 +46,9 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
         <TextField.Root className="w-full">
           {prefix && (
             <TextField.Slot>
-              <Text size="2">{prefix}</Text>
+              <Text weight="medium" size="2">
+                {prefix}
+              </Text>
             </TextField.Slot>
           )}
           <TextField.Input
@@ -57,7 +59,9 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
           />
           {suffix && (
             <TextField.Slot>
-              <Text size="2">{suffix}</Text>
+              <Text weight="medium" size="2">
+                {suffix}
+              </Text>
             </TextField.Slot>
           )}
         </TextField.Root>

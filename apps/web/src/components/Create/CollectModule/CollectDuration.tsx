@@ -1,0 +1,85 @@
+import { Input } from '@components/UIElements/Input'
+import { Trans } from '@lingui/macro'
+import { Button, Text } from '@radix-ui/themes'
+import type {
+  CollectModuleType,
+  UploadedVideo
+} from '@tape.xyz/lens/custom-types'
+import type { FC } from 'react'
+import React, { useState } from 'react'
+
+type Props = {
+  uploadedVideo: UploadedVideo
+  setCollectType: (data: CollectModuleType) => void
+}
+
+const CollectDuration: FC<Props> = ({ uploadedVideo, setCollectType }) => {
+  const [showDayPicker, setShowDayPicker] = useState(
+    uploadedVideo.collectModule.timeLimitEnabled
+  )
+  return (
+    <div className="space-y-1">
+      <Text size="2" weight="medium">
+        <Trans>Collect duration</Trans>
+      </Text>
+      <div className="flex flex-wrap gap-1.5 md:flex-nowrap">
+        <Button
+          size="3"
+          type="button"
+          highContrast
+          color={
+            !uploadedVideo.collectModule.timeLimitEnabled ? 'blue' : 'gray'
+          }
+          variant="surface"
+          className="flex-1"
+          onClick={() => {
+            setCollectType({
+              timeLimitEnabled: false,
+              isSimpleCollect: true
+            })
+            setShowDayPicker(false)
+          }}
+        >
+          <Trans>Forever</Trans>
+        </Button>
+        <Button
+          size="3"
+          type="button"
+          onClick={() => {
+            setCollectType({
+              timeLimitEnabled: true,
+              isSimpleCollect: true
+            })
+            setShowDayPicker(true)
+          }}
+          highContrast
+          color={uploadedVideo.collectModule.timeLimitEnabled ? 'blue' : 'gray'}
+          variant="surface"
+          className="flex-1"
+        >
+          <Trans>Custom</Trans>
+        </Button>
+      </div>
+      {showDayPicker && (
+        <div>
+          <Input
+            type="number"
+            min="1"
+            size="3"
+            onChange={(e) => {
+              const { value } = e.target
+              setCollectType({
+                timeLimit: Number(value) <= 0 ? '' : value
+              })
+            }}
+            value={uploadedVideo.collectModule.timeLimit}
+            placeholder="Number of days"
+            suffix="days"
+          />
+        </div>
+      )}
+    </div>
+  )
+}
+
+export default CollectDuration

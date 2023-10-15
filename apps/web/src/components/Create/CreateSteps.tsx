@@ -527,7 +527,7 @@ const CreateSteps = () => {
   return (
     <div className="mx-auto my-10 gap-5">
       <MetaTags title="Create" />
-      <div className="container mx-auto mt-10">
+      <div className="container mx-auto mt-10 max-w-[70rem]">
         <Details onCancel={resetToDefaults} onUpload={onUpload} />
       </div>
     </div>

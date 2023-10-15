@@ -187,6 +187,7 @@ const Authenticate = () => {
                     <Avatar
                       src={getProfilePicture(profile)}
                       fallback={trimLensHandle(profile.handle)[0]}
+                      radius="full"
                       size="1"
                     />
                     <Text>{profile.handle}</Text>

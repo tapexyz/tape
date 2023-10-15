@@ -1,10 +1,9 @@
-import CheckOutline from '@components/Common/Icons/CheckOutline'
 import { Trans } from '@lingui/macro'
+import { Button, Text } from '@radix-ui/themes'
 import type {
   CollectModuleType,
   UploadedVideo
 } from '@tape.xyz/lens/custom-types'
-import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
 
@@ -15,13 +14,18 @@ type Props = {
 
 const ChargeQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
   return (
-    <div className="space-y-2">
-      <h6>
-        <Trans>Would you like to set collect price for this video?</Trans>
-      </h6>
+    <div className="space-y-1">
+      <Text size="2" weight="medium">
+        <Trans>Price</Trans>
+      </Text>
       <div className="flex flex-wrap gap-1.5 md:flex-nowrap">
-        <button
+        <Button
+          className="flex-1"
           type="button"
+          size="3"
+          highContrast
+          color={!uploadedVideo.collectModule.isFeeCollect ? 'blue' : 'gray'}
+          variant="surface"
           onClick={() =>
             setCollectType({
               isSimpleCollect: true,
@@ -29,42 +33,25 @@ const ChargeQuestion: FC<Props> = ({ uploadedVideo, setCollectType }) => {
               isFeeCollect: false
             })
           }
-          className={clsx(
-            'flex w-full items-center justify-between rounded-xl border border-gray-200 px-4 py-2 text-sm focus:outline-none dark:border-gray-800',
-            {
-              '!border-brand-500': !uploadedVideo.collectModule.isFeeCollect
-            }
-          )}
         >
-          <span>
-            <Trans>Collect for Free</Trans>
-          </span>
-          {!uploadedVideo.collectModule.isFeeCollect && (
-            <CheckOutline className="h-3 w-3" />
-          )}
-        </button>
-        <button
+          <Trans>Free</Trans>
+        </Button>
+        <Button
+          className="flex-1"
           type="button"
+          size="3"
+          highContrast
+          color={uploadedVideo.collectModule.isFeeCollect ? 'blue' : 'gray'}
+          variant="surface"
           onClick={() =>
             setCollectType({
               isSimpleCollect: true,
               isFeeCollect: true
             })
           }
-          className={clsx(
-            'flex w-full items-center justify-between rounded-xl border border-gray-200 px-4 py-2 text-sm focus:outline-none dark:border-gray-800',
-            {
-              '!border-brand-500': uploadedVideo.collectModule.isFeeCollect
-            }
-          )}
         >
-          <span>
-            <Trans>Yes, Some Price</Trans>
-          </span>
-          {uploadedVideo.collectModule.isFeeCollect && (
-            <CheckOutline className="h-3 w-3" />
-          )}
-        </button>
+          <Trans>Set Price</Trans>
+        </Button>
       </div>
     </div>
   )
