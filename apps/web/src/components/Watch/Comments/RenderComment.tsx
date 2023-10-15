@@ -158,7 +158,7 @@ const RenderComment: FC<Props> = ({ comment }) => {
               {comment.stats.comments ? (
                 <button
                   onClick={() => setShowReplies(!showReplies)}
-                  className="bg-brand-100 dark:bg-brand-900/30 rounded-full px-2 py-1 text-xs focus:outline-none"
+                  className="bg-brand-100 dark:bg-brand-900/30 rounded-full px-2 py-0.5 text-xs focus:outline-none"
                 >
                   {comment.stats.comments} <Trans>replies</Trans>
                 </button>
