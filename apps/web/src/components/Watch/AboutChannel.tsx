@@ -82,7 +82,7 @@ const AboutChannel: FC<Props> = ({ video }) => {
                       transition: { duration: 0.2, ease: 'linear' }
                     }}
                     type="button"
-                    className="btn-hover flex items-center space-x-2 overflow-hidden px-4 py-1.5"
+                    className="hover:bg-brand-100 dark:hover:bg-brand-900 flex items-center space-x-2 overflow-hidden rounded-full px-4 py-1.5 focus:outline-none disabled:bg-opacity-50"
                   >
                     <MirrorOutline className="h-5 w-5 flex-none" />
                     <span className="invisible group-hover:visible">

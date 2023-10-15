@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply min-h-screen bg-white bg-fixed text-black antialiased dark:bg-bunker dark:text-white;
+  @apply dark:bg-bunker min-h-screen bg-white bg-fixed text-black antialiased dark:text-white;
 }
 
 /* Override for Radix */
@@ -13,22 +13,6 @@ button {
 
 .tape-border {
   @apply border border-[#00000010] dark:border-[#ffffff10];
-}
-
-.btn-primary {
-  @apply bg-brand-500 rounded-full text-white focus:outline-none disabled:bg-opacity-50;
-}
-
-.btn-danger {
-  @apply rounded-full bg-red-500 text-white focus:outline-none disabled:bg-opacity-50;
-}
-
-.btn-hover {
-  @apply hover:bg-brand-100 dark:hover:bg-brand-900 rounded-full focus:outline-none disabled:bg-opacity-50;
-}
-
-.btn-outline {
-  @apply rounded-xl border border-gray-300 hover:border-black focus:outline-none disabled:opacity-50 dark:border-gray-700 dark:hover:border-white;
 }
 
 .no-scrollbar::-webkit-scrollbar {
@@ -70,7 +54,7 @@ input[type='number'] {
 }
 .input-mentions-textarea textarea,
 .input-mentions-single textarea {
-  @apply focus:ring-gray-300 w-full resize-y rounded-lg border border-gray-300 bg-white px-2.5 pt-1.5 outline-none focus:ring-1 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700 dark:bg-gray-900;
+  @apply w-full resize-y rounded-lg border border-gray-300 bg-white px-2.5 pt-1.5 outline-none focus:ring-1 focus:ring-gray-300 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700 dark:bg-gray-900;
 }
 .input-mentions-textarea__suggestions,
 .input-mentions-single__suggestions {
