@@ -46,7 +46,7 @@ const Publications: FC<Props> = ({ results, loading, clearSearch }) => {
         return (
           <div
             key={publication.id}
-            className="relative cursor-default select-none rounded-md pl-3 pr-4 hover:bg-gray-100 dark:hover:bg-gray-900"
+            className="hover:bg-brand-50 rounded-small relative cursor-default select-none pl-3 pr-4 dark:hover:bg-gray-800"
           >
             <Link
               href={`/watch/${publication?.id}`}

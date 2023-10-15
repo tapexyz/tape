@@ -111,9 +111,9 @@ const GlobalSearch: FC<Props> = ({ onSearchResults }) => {
       <div className="relative">
         {showSearchBar ? (
           <>
-            <TextField.Root className="dark:bg-bunker absolute z-20 w-[250px] bg-white lg:w-[800px]">
-              <TextField.Slot>
-                <SearchOutline className="h-3 w-3" />
+            <TextField.Root className="dark:bg-bunker absolute z-20 w-[250px] rounded-md bg-white lg:w-[800px]">
+              <TextField.Slot px="3">
+                <SearchOutline className="h-4 w-4" />
               </TextField.Slot>
               <TextField.Input
                 autoFocus
@@ -125,47 +125,53 @@ const GlobalSearch: FC<Props> = ({ onSearchResults }) => {
             </TextField.Root>
             <div
               className={clsx(
-                'z-10 mt-1 h-[80vh] w-full rounded-md bg-white text-base shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-black md:absolute',
+                'dark:bg-bunker rounded-small z-10 mt-1 w-full border bg-white text-base shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none dark:border-gray-700 md:absolute',
                 { hidden: debouncedValue.length === 0 }
               )}
             >
-              <ScrollArea className="p-5" type="hover" scrollbars="vertical">
-                {profilesLoading || publicationsLoading ? (
-                  <div className="flex justify-center p-5">
-                    <Loader />
-                  </div>
-                ) : (
-                  <>
-                    <div className="space-y-2 pb-2 focus:outline-none">
-                      <Text size="3" weight="bold">
-                        Creators
-                      </Text>
-                      {profiles?.length ? (
-                        <Profiles
-                          results={profiles}
-                          loading={profilesLoading}
-                          clearSearch={clearSearch}
-                        />
-                      ) : (
-                        <NoDataFound isCenter />
-                      )}
+              <ScrollArea
+                type="hover"
+                style={{ maxHeight: '80vh' }}
+                scrollbars="vertical"
+              >
+                <div className="p-4">
+                  {profilesLoading || publicationsLoading ? (
+                    <div className="flex justify-center p-5">
+                      <Loader />
                     </div>
-                    <div className="space-y-2 focus:outline-none">
-                      <Text size="3" weight="bold">
-                        Releases
-                      </Text>
-                      {publications?.length ? (
-                        <Publications
-                          results={publications}
-                          loading={publicationsLoading}
-                          clearSearch={clearSearch}
-                        />
-                      ) : (
-                        <NoDataFound isCenter />
-                      )}
-                    </div>
-                  </>
-                )}
+                  ) : (
+                    <>
+                      <div className="space-y-2 pb-2 focus:outline-none">
+                        <Text size="3" weight="bold">
+                          Creators
+                        </Text>
+                        {profiles?.length ? (
+                          <Profiles
+                            results={profiles}
+                            loading={profilesLoading}
+                            clearSearch={clearSearch}
+                          />
+                        ) : (
+                          <NoDataFound isCenter />
+                        )}
+                      </div>
+                      <div className="space-y-2 focus:outline-none">
+                        <Text size="3" weight="bold">
+                          Releases
+                        </Text>
+                        {publications?.length ? (
+                          <Publications
+                            results={publications}
+                            loading={publicationsLoading}
+                            clearSearch={clearSearch}
+                          />
+                        ) : (
+                          <NoDataFound isCenter />
+                        )}
+                      </div>
+                    </>
+                  )}
+                </div>
               </ScrollArea>
             </div>
           </>
