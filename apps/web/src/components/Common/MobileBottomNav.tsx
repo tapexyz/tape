@@ -43,7 +43,7 @@ const MobileBottomNav = () => {
           </span>
         </Link>
         <Link
-          href="/upload"
+          href="/create"
           className={clsx(
             'flex w-full flex-col items-center justify-center space-y-1 rounded-lg bg-transparent text-sm font-medium text-gray-700 dark:text-gray-100 dark:hover:text-gray-100 md:grid'
           )}

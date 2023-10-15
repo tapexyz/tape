@@ -1,4 +1,4 @@
-import { THUMBNAIL_GENERATE_COUNT } from '@components/Upload/ChooseThumbnail'
+import { THUMBNAIL_GENERATE_COUNT } from '@components/Create/ChooseThumbnail'
 import { AspectRatio } from '@radix-ui/themes'
 import React, { useMemo } from 'react'
 

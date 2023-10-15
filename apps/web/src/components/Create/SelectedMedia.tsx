@@ -16,7 +16,7 @@ import React, { useEffect, useRef } from 'react'
 import ChooseThumbnail from './ChooseThumbnail'
 import UploadMethod from './UploadMethod'
 
-const Video = () => {
+const SelectedMedia = () => {
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
@@ -114,4 +114,4 @@ const Video = () => {
   )
 }
 
-export default Video
+export default SelectedMedia

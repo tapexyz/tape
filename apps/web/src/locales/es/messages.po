@@ -24,6 +24,7 @@ msgstr "Mirror"
 
 #: src/components/Bytes/ByteActions.tsx
 #: src/components/Home/OpenActions/Zora/ZoraNft.tsx
+#: src/components/Watch/OpenActions/CollectPublication/index.tsx
 msgid "Collect"
 msgstr "Recoger"
 
@@ -80,6 +81,11 @@ msgstr ""
 #~ msgstr "Suscriptor"
 
 #: src/components/Channel/BasicInfo/index.tsx
+#: src/components/Channel/BasicInfo/index.tsx
+msgid "Unblocked successfully"
+msgstr ""
+
+#: src/components/Channel/BasicInfo/index.tsx
 msgid "Sybil Verified"
 msgstr "Síbil verificado"
 
@@ -90,6 +96,10 @@ msgstr "Prueba de la humanidad"
 #: src/components/Channel/BasicInfo/index.tsx
 msgid "Proof of Personhood"
 msgstr "Prueba de Personalidad"
+
+#: src/components/Channel/BasicInfo/index.tsx
+msgid "Unblock"
+msgstr ""
 
 #: src/components/Channel/BasicInfo/index.tsx
 msgid "Block"
@@ -115,19 +125,6 @@ msgstr "No se encontraron vídeos guardados"
 #: src/components/Channel/SavedList.tsx
 msgid "Saved Videos"
 msgstr "Vídeos guardados"
-
-#: src/components/Channel/Tabs/ChannelBytes.tsx
-msgid "No bytes found"
-msgstr "No se encontraron bytes"
-
-#: src/components/Channel/Tabs/ChannelVideos.tsx
-#: src/components/Explore/Category/index.tsx
-#: src/components/Explore/Feed.tsx
-#: src/components/Explore/Hashtag/index.tsx
-#: src/components/Home/Feed.tsx
-#: src/components/Mod/Recents.tsx
-msgid "No videos found"
-msgstr "No hay vídeos"
 
 #: src/components/Channel/Tabs/CollectedNFTs.tsx
 msgid "No NFTs found"
@@ -159,13 +156,29 @@ msgid "Unpinning video..."
 msgstr "Desanclando vídeo..."
 
 #: src/components/Channel/Tabs/PinnedVideo.tsx
-#: src/components/Home/LatestBytes.tsx
+msgid "Featured"
+msgstr ""
+
+#: src/components/Channel/Tabs/PinnedVideo.tsx
 msgid "likes"
 msgstr "gustos"
 
 #: src/components/Channel/Tabs/PinnedVideo.tsx
 msgid "View more"
 msgstr "Ver más"
+
+#: src/components/Channel/Tabs/ProfileBytes.tsx
+msgid "No bytes found"
+msgstr "No se encontraron bytes"
+
+#: src/components/Channel/Tabs/ProfileVideos.tsx
+#: src/components/Explore/Category/index.tsx
+#: src/components/Explore/Feed.tsx
+#: src/components/Explore/Hashtag/index.tsx
+#: src/components/Home/Feed.tsx
+#: src/components/Mod/Recents.tsx
+msgid "No videos found"
+msgstr "No hay vídeos"
 
 #: src/components/Channel/Tabs/SharedLinks.tsx
 msgid "No links found"
@@ -180,26 +193,20 @@ msgstr "No hay enlaces"
 #~ msgstr "About"
 
 #: src/components/Channel/Tabs/index.tsx
-msgid "Videos"
-msgstr "Vídeos"
+#~ msgid "Videos"
+#~ msgstr "Vídeos"
 
 #: src/components/Channel/Tabs/index.tsx
-#: src/components/Common/MobileBottomNav.tsx
-#: src/components/Common/Sidebar.tsx
-msgid "Bytes"
-msgstr "Bytes"
+#~ msgid "Mirrors"
+#~ msgstr "Mirores"
 
 #: src/components/Channel/Tabs/index.tsx
-msgid "Mirrors"
-msgstr "Mirores"
+#~ msgid "Links"
+#~ msgstr "Enlaces"
 
 #: src/components/Channel/Tabs/index.tsx
-msgid "Links"
-msgstr "Enlaces"
-
-#: src/components/Channel/Tabs/index.tsx
-msgid "Channels"
-msgstr "Canales"
+#~ msgid "Channels"
+#~ msgstr "Canales"
 
 #: src/components/Common/Auth/ConnectWalletButton.tsx
 #~ msgid "Sign In"
@@ -218,8 +225,8 @@ msgstr "Canales"
 #~ msgstr "Switch network"
 
 #: src/components/Common/Auth/ConnectWalletButton.tsx
-msgid "Connect"
-msgstr "Conectar"
+#~ msgid "Connect"
+#~ msgstr "Conectar"
 
 #: src/components/Common/Auth/Login.tsx
 #: src/components/Common/Auth/Login.tsx
@@ -263,13 +270,8 @@ msgstr "Conectar"
 #~ msgstr ""
 
 #: src/components/Common/Auth/SelectProfile.tsx
-#: src/components/Login/Authenticate.tsx
-msgid "Please connect to your wallet"
-msgstr "Por favor, conéctese a su cartera"
-
-#: src/components/Common/Auth/SelectProfile.tsx
-msgid "Sign in as..."
-msgstr ""
+#~ msgid "Sign in as..."
+#~ msgstr ""
 
 #: src/components/Common/Badge.tsx
 msgid "Verified"
@@ -277,7 +279,6 @@ msgstr "Verificado"
 
 #: src/components/Common/CategoryFilters.tsx
 #: src/components/Common/MobileBottomNav.tsx
-#: src/components/Common/Sidebar.tsx
 #: src/components/Explore/index.tsx
 msgid "Explore"
 msgstr "Explorar"
@@ -357,16 +358,16 @@ msgstr "Privacidad"
 #~ msgstr "Nuevo vídeo"
 
 #: src/components/Common/Header.tsx
-msgid "Create"
-msgstr "Crear"
+#~ msgid "Create"
+#~ msgstr "Crear"
 
 #: src/components/Common/Header.tsx
-msgid "New Upload"
-msgstr "Nueva subida"
+#~ msgid "New Upload"
+#~ msgstr "Nueva subida"
 
 #: src/components/Common/Header.tsx
-msgid "Share Drop"
-msgstr "Compartir soltar"
+#~ msgid "Share Drop"
+#~ msgstr "Compartir soltar"
 
 #: src/components/Common/MirrorVideo.tsx
 #: src/components/Watch/Comments/NewComment.tsx
@@ -390,13 +391,18 @@ msgid "Mirroring"
 msgstr "Mirroring"
 
 #: src/components/Common/MobileBottomNav.tsx
-#: src/components/Common/Sidebar.tsx
+#: src/components/Common/Navbar.tsx
 #: src/components/Home/index.tsx
 msgid "Home"
 msgstr "Inicio"
 
 #: src/components/Common/MobileBottomNav.tsx
-#: src/components/Common/Sidebar.tsx
+#: src/components/Common/Navbar.tsx
+msgid "Bytes"
+msgstr "Bytes"
+
+#: src/components/Common/MobileBottomNav.tsx
+#: src/components/Common/Navbar.tsx
 msgid "Feed"
 msgstr "Alimentación"
 
@@ -420,13 +426,13 @@ msgstr "Compartir un borrado"
 msgid "Only zora links are supported at the moment."
 msgstr "Sólo los enlaces de zora son soportados en este momento."
 
+#: src/components/Common/Search/GlobalSearch.tsx
+msgid "Search"
+msgstr "Buscar"
+
 #: src/components/Common/Search/GlobalSearchBar.tsx
 #~ msgid "Search by channel / hashtag"
 #~ msgstr "Buscar por canal / hashtag"
-
-#: src/components/Common/Search/GlobalSearchBar.tsx
-msgid "Search"
-msgstr "Buscar"
 
 #: src/components/Common/Search/Profiles.tsx
 #: src/components/Common/Search/Publications.tsx
@@ -664,6 +670,10 @@ msgstr ""
 #: src/components/Home/WelcomeAlert.tsx
 msgid "Discover a new era of content sharing on Lens with Tape. A decentralized, user-centric approach to online media."
 msgstr "Descubra una nueva era de compartir contenidos en la lente con Tape. Un enfoque descentralizado y centrado en el usuario de los medios en línea."
+
+#: src/components/Login/Authenticate.tsx
+msgid "Please connect to your wallet"
+msgstr "Por favor, conéctese a su cartera"
 
 #: src/components/Mod/index.tsx
 #~ msgid "Lenstube Stats"
@@ -937,9 +947,44 @@ msgstr ""
 #~ msgid "Channel image updated"
 #~ msgstr "Imagen del canal actualizada"
 
-#: src/components/Settings/DangerZone.tsx
+#: src/components/Settings/DangerZone/Delete.tsx
 msgid "Channel deleted"
 msgstr "Canal eliminado"
+
+#: src/components/Settings/DangerZone/Delete.tsx
+msgid "Delete Profile"
+msgstr ""
+
+#: src/components/Settings/DangerZone/Delete.tsx
+msgid "Delete your profile and its data."
+msgstr ""
+
+#: src/components/Settings/DangerZone/Delete.tsx
+msgid "It can not be reverted"
+msgstr ""
+
+#: src/components/Settings/DangerZone/Guardian.tsx
+msgid "Disable profile guardian"
+msgstr ""
+
+#: src/components/Settings/DangerZone/Guardian.tsx
+msgid "Disabling..."
+msgstr ""
+
+#: src/components/Settings/DangerZone/Guardian.tsx
+#: src/components/Settings/Membership.tsx
+#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx
+msgid "Disable"
+msgstr "Desactivar"
+
+#: src/components/Settings/DangerZone/Guardian.tsx
+msgid "Enabling..."
+msgstr ""
+
+#: src/components/Settings/DangerZone/Guardian.tsx
+#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx
+msgid "Enable"
+msgstr "Activar"
 
 #: src/components/Settings/Membership.tsx
 #~ msgid "You can set up a subscription fee for your channel and provide exclusive offers and perks to the subscribers, also people can pay and support your work."
@@ -972,7 +1017,7 @@ msgstr "Token"
 
 #: src/components/Settings/Membership.tsx
 #: src/components/Settings/Membership.tsx
-#: src/components/Watch/CollectVideo/CollectModal.tsx
+#: src/components/Watch/OpenActions/CollectPublication/index.tsx
 msgid "Recipient"
 msgstr "Destinatario"
 
@@ -982,31 +1027,22 @@ msgid "Cancel"
 msgstr "Cancelar"
 
 #: src/components/Settings/Membership.tsx
-#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx
-msgid "Disable"
-msgstr "Desactivar"
-
-#: src/components/Settings/Membership.tsx
 msgid "Update"
 msgstr "Actualizar"
 
 #: src/components/Settings/Permissions/Dispatcher/Toggle.tsx
-#: src/components/Watch/CollectVideo/PermissionAlert.tsx
+#: src/components/Watch/OpenActions/CollectPublication/PermissionAlert.tsx
 msgid "disabled"
 msgstr "deshabilitado"
 
 #: src/components/Settings/Permissions/Dispatcher/Toggle.tsx
-#: src/components/Watch/CollectVideo/PermissionAlert.tsx
+#: src/components/Watch/OpenActions/CollectPublication/PermissionAlert.tsx
 msgid "enabled"
 msgstr "activado"
 
 #: src/components/Settings/Permissions/Dispatcher/Toggle.tsx
 msgid "Upgrade"
 msgstr "Mejorar"
-
-#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx
-msgid "Enable"
-msgstr "Activar"
 
 #: src/components/Settings/Permissions/Dispatcher/Toggle.tsx
 msgid "dispatcher"
@@ -1222,6 +1258,10 @@ msgid "Set Collect Type"
 msgstr "Establecer tipo de colección"
 
 #: src/components/Upload/CollectModule/LimitDurationQuestion.tsx
+#~ msgid "Limit to 24 hours sale"
+#~ msgstr "Limitar a 24 horas de venta"
+
+#: src/components/Upload/CollectModule/LimitDurationQuestion.tsx
 msgid "Would you like to limit the collect duration?"
 msgstr "¿Le gustaría limitar la duración de la recogida?"
 
@@ -1230,8 +1270,8 @@ msgid "Unlimited duration"
 msgstr "Duración ilimitada"
 
 #: src/components/Upload/CollectModule/LimitDurationQuestion.tsx
-msgid "Limit to 24 hours sale"
-msgstr "Limitar a 24 horas de venta"
+msgid "Custom"
+msgstr ""
 
 #: src/components/Upload/CollectModule/LimitQuestion.tsx
 msgid "Would you like to limit the collectibles?"
@@ -1257,7 +1297,6 @@ msgstr "Cualquier persona"
 
 #: src/components/Upload/CollectModule/PermissionQuestion.tsx
 #: src/components/Upload/CollectModule/index.tsx
-#: src/components/Watch/CollectVideo/CollectModal.tsx
 msgid "Subscribers"
 msgstr "Suscriptores"
 
@@ -1286,6 +1325,10 @@ msgstr "Dividir uniformemente"
 #~ msgstr "Seleccionar tipo de colección"
 
 #: src/components/Upload/CollectModule/index.tsx
+#~ msgid "within 24hrs"
+#~ msgstr "dentro de las 24 horas"
+
+#: src/components/Upload/CollectModule/index.tsx
 msgid "No one can collect this publication"
 msgstr "Nadie puede recoger esta publicación"
 
@@ -1302,8 +1345,8 @@ msgid "for free"
 msgstr "gratis"
 
 #: src/components/Upload/CollectModule/index.tsx
-msgid "within 24hrs"
-msgstr "dentro de las 24 horas"
+msgid "within {timeLimit} days"
+msgstr ""
 
 #: src/components/Upload/CollectModule/index.tsx
 msgid "Collect Type"
@@ -1386,6 +1429,10 @@ msgstr "Reiniciar"
 #~ msgstr "o elegir vídeo"
 
 #: src/components/Upload/DropZone.tsx
+#~ msgid "or choose one"
+#~ msgstr ""
+
+#: src/components/Upload/DropZone.tsx
 msgid "Error uploading file"
 msgstr "Error al cargar el archivo"
 
@@ -1402,7 +1449,7 @@ msgid "media to upload"
 msgstr ""
 
 #: src/components/Upload/DropZone.tsx
-msgid "or choose one"
+msgid "Choose Media"
 msgstr ""
 
 #: src/components/Upload/IrysInfo.tsx
@@ -1546,70 +1593,29 @@ msgstr "Omitir la subida de vídeo (¡Úsalo si sabes lo que haces!)"
 msgid "Upload from Source Url"
 msgstr "Subir desde la Url de origen"
 
-#: src/components/Watch/CollectVideo/BalanceAlert.tsx
-msgid "Not enough"
-msgstr "No suficiente"
-
-#: src/components/Watch/CollectVideo/BalanceAlert.tsx
-msgid "token balance"
-msgstr "saldo del token"
-
-#: src/components/Watch/CollectVideo/BalanceAlert.tsx
-msgid "Swap"
-msgstr "Intercambiar"
+#: src/components/Watch/CollectVideo/CollectModal.tsx
+#~ msgid "Collect Video"
+#~ msgstr "Recoger vídeo"
 
 #: src/components/Watch/CollectVideo/CollectModal.tsx
-msgid "Collect Video"
-msgstr "Recoger vídeo"
+#~ msgid "Only"
+#~ msgstr "Sólo"
 
 #: src/components/Watch/CollectVideo/CollectModal.tsx
-msgid "Total Collects"
-msgstr "Colecciones totales"
+#~ msgid "Members"
+#~ msgstr "Miembros"
 
 #: src/components/Watch/CollectVideo/CollectModal.tsx
-msgid "Price"
-msgstr "Precio"
+#~ msgid "can collect this publication"
+#~ msgstr "puede recoger esta publicación"
 
 #: src/components/Watch/CollectVideo/CollectModal.tsx
-msgid "Ends At"
-msgstr "Termina en"
+#~ msgid "Collect for free"
+#~ msgstr "Recoger gratis"
 
 #: src/components/Watch/CollectVideo/CollectModal.tsx
-#: src/components/Watch/CollectVideo/CollectModal.tsx
-msgid "Revenue"
-msgstr "Ingresos"
-
-#: src/components/Watch/CollectVideo/CollectModal.tsx
-msgid "Referral Fee"
-msgstr "Tarifa de referencia"
-
-#: src/components/Watch/CollectVideo/CollectModal.tsx
-msgid "Recipients"
-msgstr "Destinatarios"
-
-#: src/components/Watch/CollectVideo/CollectModal.tsx
-msgid "Only"
-msgstr "Sólo"
-
-#: src/components/Watch/CollectVideo/CollectModal.tsx
-msgid "Members"
-msgstr "Miembros"
-
-#: src/components/Watch/CollectVideo/CollectModal.tsx
-msgid "can collect this publication"
-msgstr "puede recoger esta publicación"
-
-#: src/components/Watch/CollectVideo/CollectModal.tsx
-msgid "Collect for free"
-msgstr "Recoger gratis"
-
-#: src/components/Watch/CollectVideo/CollectModal.tsx
-msgid "Collect Now"
-msgstr "Recoge ahora"
-
-#: src/components/Watch/CollectVideo/PermissionAlert.tsx
-msgid "Allow Collect"
-msgstr "Permitir recolección"
+#~ msgid "Collect Now"
+#~ msgstr "Recoge ahora"
 
 #: src/components/Watch/CollectVideo/index.tsx
 #~ msgid "Collect as NFT for"
@@ -1620,16 +1626,12 @@ msgstr "Permitir recolección"
 #~ msgstr "Recoger como NFT"
 
 #: src/components/Watch/CollectVideo/index.tsx
-msgid "Collected as NFT"
-msgstr "Recogido como NFT"
+#~ msgid "Collecting"
+#~ msgstr "Recolectando"
 
 #: src/components/Watch/CollectVideo/index.tsx
-msgid "Collecting"
-msgstr "Recolectando"
-
-#: src/components/Watch/CollectVideo/index.tsx
-msgid "Already Collected"
-msgstr "Ya recogido"
+#~ msgid "Already Collected"
+#~ msgstr "Ya recogido"
 
 #: src/components/Watch/Comments/CommentOptions.tsx
 msgid "Comment deleted"
@@ -1724,6 +1726,55 @@ msgstr "Ver metadatos"
 msgid "View Proof"
 msgstr "Ver prueba"
 
+#: src/components/Watch/OpenActions/CollectPublication/BalanceAlert.tsx
+msgid "Not enough"
+msgstr "No suficiente"
+
+#: src/components/Watch/OpenActions/CollectPublication/BalanceAlert.tsx
+msgid "token balance"
+msgstr "saldo del token"
+
+#: src/components/Watch/OpenActions/CollectPublication/BalanceAlert.tsx
+msgid "Swap"
+msgstr "Intercambiar"
+
+#: src/components/Watch/OpenActions/CollectPublication/PermissionAlert.tsx
+msgid "Allow Collect"
+msgstr "Permitir recolección"
+
+#: src/components/Watch/OpenActions/CollectPublication/index.tsx
+msgid "Collected as NFT"
+msgstr "Recogido como NFT"
+
+#: src/components/Watch/OpenActions/CollectPublication/index.tsx
+msgid "Total Collects"
+msgstr "Colecciones totales"
+
+#: src/components/Watch/OpenActions/CollectPublication/index.tsx
+msgid "Price"
+msgstr "Precio"
+
+#: src/components/Watch/OpenActions/CollectPublication/index.tsx
+msgid "Ends At"
+msgstr "Termina en"
+
+#: src/components/Watch/OpenActions/CollectPublication/index.tsx
+#: src/components/Watch/OpenActions/CollectPublication/index.tsx
+msgid "Revenue"
+msgstr "Ingresos"
+
+#: src/components/Watch/OpenActions/CollectPublication/index.tsx
+msgid "Referral Fee"
+msgstr "Tarifa de referencia"
+
+#: src/components/Watch/OpenActions/CollectPublication/index.tsx
+msgid "Recipients"
+msgstr "Destinatarios"
+
+#: src/components/Watch/OpenActions/CollectPublication/index.tsx
+msgid "Only followers can collect this publication"
+msgstr ""
+
 #: src/components/Watch/PublicationReaction.tsx
 #~ msgid "Dislike"
 #~ msgstr "Dislike"
@@ -1789,16 +1840,16 @@ msgid "Watch"
 msgstr "Vigilar"
 
 #: src/pages/auth.tsx
-msgid "Login"
-msgstr "Ingresar"
+#~ msgid "Login"
+#~ msgstr "Ingresar"
 
 #: src/pages/auth.tsx
-msgid "Sign In Required"
-msgstr "Inicio de sesión requerido"
+#~ msgid "Sign In Required"
+#~ msgstr "Inicio de sesión requerido"
 
 #: src/pages/auth.tsx
-msgid "Connect Wallet & Sign with Lens to continue,"
-msgstr "Conecte Wallet y Firmar con la lente para continuar,"
+#~ msgid "Connect Wallet & Sign with Lens to continue,"
+#~ msgstr "Conecte Wallet y Firmar con la lente para continuar,"
 
 #: src/pages/privacy.tsx
 #~ msgid "Privacy Policy"

@@ -63,7 +63,7 @@ import { useAccount, useContractWrite, useSignTypedData } from 'wagmi'
 import type { VideoFormData } from './Details'
 import Details from './Details'
 
-const UploadSteps = () => {
+const CreateSteps = () => {
   const getIrysInstance = useAppStore((state) => state.getIrysInstance)
   const setIrysData = useAppStore((state) => state.setIrysData)
   const irysData = useAppStore((state) => state.irysData)
@@ -526,12 +526,12 @@ const UploadSteps = () => {
 
   return (
     <div className="mx-auto my-10 gap-5">
-      <MetaTags title="Video Details" />
-      <div className="mt-10">
+      <MetaTags title="Create" />
+      <div className="container mx-auto mt-10">
         <Details onCancel={resetToDefaults} onUpload={onUpload} />
       </div>
     </div>
   )
 }
 
-export default UploadSteps
+export default CreateSteps

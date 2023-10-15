@@ -81,8 +81,8 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
 
   const validateAuthentication = () => {
     if (!selectedSimpleProfile && AUTH_ROUTES.includes(pathname)) {
-      // Redirect to signin page
-      replace(`/auth?next=${asPath}`)
+      // Redirect to login page
+      replace(`/login?next=${asPath}`)
     }
     const ownerAddress = selectedSimpleProfile?.ownedBy.address
     const isSwitchedAccount =

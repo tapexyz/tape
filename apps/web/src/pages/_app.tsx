@@ -26,7 +26,7 @@ const App = ({ Component, pageProps }: AppProps) => {
 
   useEffect(() => {
     if (!selectedSimpleProfile?.id && AUTH_ROUTES.includes(pathname)) {
-      replace(`/auth?next=${asPath}`)
+      replace(`/login?next=${asPath}`)
     }
   }, [selectedSimpleProfile, pathname, asPath, replace])
 

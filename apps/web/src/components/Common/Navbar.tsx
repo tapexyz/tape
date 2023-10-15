@@ -14,10 +14,10 @@ import GlobalSearch from './Search/GlobalSearch'
 import UserMenu from './UserMenu'
 
 const Navbar = () => {
-  const router = useRouter()
+  const { pathname, asPath } = useRouter()
   const { resolvedTheme } = useTheme()
 
-  const isActivePath = (path: string) => router.pathname === path
+  const isActivePath = (path: string) => pathname === path
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
@@ -81,7 +81,7 @@ const Navbar = () => {
           <GlobalSearch />
           {selectedSimpleProfile?.id ? (
             <>
-              <Link href="/upload" className="hidden md:block">
+              <Link href="/create" className="hidden md:block">
                 <Button highContrast>
                   <UploadOutline className="h-3.5 w-3.5" />
                   Create
@@ -90,7 +90,7 @@ const Navbar = () => {
               <UserMenu />
             </>
           ) : (
-            <Link href="/login">
+            <Link href={`/login?next=${asPath}`}>
               <Button highContrast>Login</Button>
             </Link>
           )}

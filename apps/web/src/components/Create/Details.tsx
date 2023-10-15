@@ -17,8 +17,9 @@ import { boolean, object, string } from 'zod'
 
 import Category from './Category'
 import CollectModule from './CollectModule'
+import DropZone from './DropZone'
 import ReferenceModule from './ReferenceModule'
-import Video from './Video'
+import SelectedMedia from './SelectedMedia'
 
 const formSchema = object({
   title: string()
@@ -79,6 +80,9 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
   return (
     <form onSubmit={handleSubmit(onSubmitForm)}>
       <div className="grid h-full gap-5 md:grid-cols-2">
+        <div className="flex flex-col items-start justify-between">
+          {uploadedVideo.file ? <SelectedMedia /> : <DropZone />}
+        </div>
         <div className="flex flex-col justify-between">
           <div>
             <div className="relative">
@@ -202,9 +206,6 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
               </RadioGroup.Root>
             </div>
           </div>
-        </div>
-        <div className="flex flex-col items-start justify-between">
-          <Video />
         </div>
       </div>
       <div className="mt-4 flex items-center justify-end space-x-2">

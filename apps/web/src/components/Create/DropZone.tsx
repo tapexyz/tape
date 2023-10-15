@@ -1,5 +1,4 @@
 import UploadOutline from '@components/Common/Icons/UploadOutline'
-import MetaTags from '@components/Common/MetaTags'
 import useAppStore from '@lib/store'
 import { t, Trans } from '@lingui/macro'
 import { Box, Button } from '@radix-ui/themes'
@@ -68,56 +67,55 @@ const DropZone = () => {
   }
 
   return (
-    <div>
-      <MetaTags title={t`Upload`} />
-      <div className="relative my-20 flex flex-1 flex-col items-center justify-center">
-        <label
-          className={clsx(
-            'grid w-full place-items-center rounded-3xl border-2 border-dashed border-gray-500 p-10 text-center focus:outline-none md:w-2/3 md:p-20',
-            { '!border-green-500': dragOver }
+    <div className="relative flex w-full flex-1 flex-col">
+      <label
+        className={clsx(
+          'grid w-full place-items-center rounded-3xl border border-dashed p-10 text-center focus:outline-none md:p-20',
+          dragOver ? 'border-green-500' : 'border-gray-500'
+        )}
+        htmlFor="dropVideo"
+        onDragOver={onDragOver}
+        onDragLeave={onDragLeave}
+        onDrop={onDrop}
+      >
+        <input
+          type="file"
+          className="hidden"
+          onChange={onChooseFile}
+          id="dropVideo"
+          accept={ALLOWED_VIDEO_TYPES.join(',')}
+        />
+        <span className="mb-6 flex justify-center opacity-80">
+          <UploadOutline className="h-10 w-10" />
+        </span>
+        <span className="space-y-10 md:space-y-14">
+          <div className="space-y-4">
+            <p className="text-2xl md:text-4xl">
+              <Trans>Drag and drop</Trans>
+            </p>
+            <p>
+              <Trans>Select multimedia from your device.</Trans>
+            </p>
+          </div>
+          <Box>
+            <Button size="4" highContrast className="!px-0" type="button">
+              <label htmlFor="chooseMedia" className="cursor-pointer p-10">
+                <Trans>Choose</Trans>
+                <input
+                  id="chooseMedia"
+                  onChange={onChooseFile}
+                  type="file"
+                  className="hidden"
+                  accept={ALLOWED_VIDEO_TYPES.join(',')}
+                />
+              </label>
+            </Button>
+          </Box>
+          {fileDropError && (
+            <div className="font-medium text-red-500">{fileDropError}</div>
           )}
-          htmlFor="dropVideo"
-          onDragOver={onDragOver}
-          onDragLeave={onDragLeave}
-          onDrop={onDrop}
-        >
-          <input
-            type="file"
-            className="hidden"
-            onChange={onChooseFile}
-            id="dropVideo"
-            accept={ALLOWED_VIDEO_TYPES.join(',')}
-          />
-          <span className="mb-6 flex justify-center opacity-80">
-            <UploadOutline className="h-14 w-14" />
-          </span>
-          <span className="space-y-10 md:space-y-14">
-            <div className="text-2xl font-semibold md:text-4xl">
-              <span>
-                <Trans>Drag and drop</Trans> <br />
-                <Trans>media to upload</Trans>
-              </span>
-            </div>
-            <Box>
-              <Button size="4" highContrast className="!px-0">
-                <label htmlFor="chooseVideo" className="p-10">
-                  <Trans>or choose one</Trans>
-                  <input
-                    id="chooseVideo"
-                    onChange={onChooseFile}
-                    type="file"
-                    className="hidden"
-                    accept={ALLOWED_VIDEO_TYPES.join(',')}
-                  />
-                </label>
-              </Button>
-            </Box>
-            {fileDropError && (
-              <div className="font-medium text-red-500">{fileDropError}</div>
-            )}
-          </span>
-        </label>
-      </div>
+        </span>
+      </label>
     </div>
   )
 }
