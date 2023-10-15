@@ -128,11 +128,11 @@ const UserMenu = () => {
                   </Text>
                 </Flex>
               </DropdownMenu.Item>
-              <DropdownMenu.Item onClick={() => push('/u/saved')}>
+              <DropdownMenu.Item onClick={() => push('/bookmarks')}>
                 <Flex gap="2" align="center">
                   <SaveToListOutline className="h-4 w-4" />
                   <Text as="p" className="truncate whitespace-nowrap">
-                    <Trans>Saved Items</Trans>
+                    <Trans>Bookmarks</Trans>
                   </Text>
                 </Flex>
               </DropdownMenu.Item>

@@ -1,6 +1,6 @@
-import MirroredVideoCard from '@components/Channel/MirroredVideoCard'
 import VideoCard from '@components/Common/VideoCard'
 import QueuedVideo from '@components/Common/VideoCard/QueuedVideo'
+import MirroredVideoCard from '@components/Profile/MirroredVideoCard'
 import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
 import { getPublication, trimLensHandle } from '@tape.xyz/generic'

@@ -25,7 +25,7 @@ import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 
-const SavedList: FC = () => {
+const Bookmarks: FC = () => {
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
@@ -93,4 +93,4 @@ const SavedList: FC = () => {
   )
 }
 
-export default SavedList
+export default Bookmarks

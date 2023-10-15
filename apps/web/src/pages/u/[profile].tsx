@@ -1,3 +1,3 @@
-import Channel from '@components/Channel'
+import Channel from '@components/Profile'
 
 export default Channel

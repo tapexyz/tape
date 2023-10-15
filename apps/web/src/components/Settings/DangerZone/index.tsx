@@ -1,5 +1,5 @@
-import Stats from '@components/Channel/BasicInfo/Stats'
 import Badge from '@components/Common/Badge'
+import Stats from '@components/Profile/BasicInfo/Stats'
 import useChannelStore from '@lib/store/channel'
 import { Avatar, Card, Flex } from '@radix-ui/themes'
 import { getProfilePicture, trimLensHandle } from '@tape.xyz/generic'
