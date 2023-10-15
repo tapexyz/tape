@@ -344,10 +344,7 @@ const VideoOptions: FC<Props> = ({ video }) => {
           <div className="flex w-40 flex-col rounded-lg transition duration-150 ease-in-out">
             <Dialog.Root>
               <Dialog.Trigger>
-                <button
-                  className="cursor-default rounded px-3 py-1.5 hover:bg-gray-500/20"
-                  onClick={() => onClickReport()}
-                >
+                <button className="cursor-default rounded px-3 py-1.5 hover:bg-gray-500/20">
                   <Flex align="center" gap="2">
                     <ShareOutline className="h-3.5 w-3.5" />
                     <Text size="2" className="whitespace-nowrap">
@@ -425,7 +422,7 @@ const VideoOptions: FC<Props> = ({ video }) => {
                 <Dialog.Root>
                   <Dialog.Trigger>
                     <button
-                      className="cursor-default rounded px-3 py-1.5 hover:bg-red-500/50"
+                      className="cursor-default rounded px-3 py-1.5 hover:bg-gray-500/20"
                       onClick={() => onClickReport()}
                     >
                       <Flex align="center" gap="2">

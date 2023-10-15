@@ -72,10 +72,7 @@ const ReportPublication: FC<Props> = ({ publication }) => {
       <MetaTags title={t`Report Publication`} />
       <div className="flex justify-center">
         <div className="w-full">
-          <div className="opacity-60">
-            <h1>{targetPublication.metadata.marketplace?.name}</h1>
-            <span className="text-sm">by {targetPublication.by.handle}</span>
-          </div>
+          <h1>{targetPublication.metadata.marketplace?.name}</h1>
           <div className="mt-4 flex flex-col space-y-4">
             <Flex direction="column">
               <Text weight="medium">

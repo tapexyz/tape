@@ -105,7 +105,7 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
           </div>
         </div>
       </div>
-      <Box pt="1">
+      <Box pt="2">
         <VideoOptions video={video} />
       </Box>
     </div>

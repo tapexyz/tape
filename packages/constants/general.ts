@@ -130,7 +130,7 @@ export const TAPE_STATUS_PAGE = 'https://status.tape.xyz'
 export const TAPE_ROADMAP_URL = 'https://roadmap.tape.xyz'
 
 // admin
-export const ADMIN_IDS = IS_MAINNET ? ['0x2d'] : ['0x2f']
+export const ADMIN_IDS = IS_MAINNET ? ['0x2d'] : ['0x34']
 export const MOD_IDS = IS_MAINNET ? [...ADMIN_IDS, '0x24'] : ['0x2f']
 export const TAPE_ADMIN_ADDRESS = '0xB89560D7b33ea8d787EaaEfbcE1268f8991Db9E1'
 

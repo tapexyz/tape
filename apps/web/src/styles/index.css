@@ -31,10 +31,6 @@ button {
   @apply rounded-xl border border-gray-300 hover:border-black focus:outline-none disabled:opacity-50 dark:border-gray-700 dark:hover:border-white;
 }
 
-.bg-secondary {
-  @apply bg-white dark:bg-[#050506];
-}
-
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }

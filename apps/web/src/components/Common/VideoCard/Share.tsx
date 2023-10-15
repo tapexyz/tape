@@ -44,8 +44,11 @@ const Share: FC<Props> = ({ video }) => {
           href={getSharableLink('hey', video)}
         >
           <img
-            src={imageCdn(`${STATIC_ASSETS}/images/hey-logo.svg`, 'AVATAR_LG')}
-            className="h-10 w-10 max-w-none rounded-full"
+            src={imageCdn(
+              `${STATIC_ASSETS}/images/social/hey-logo.svg`,
+              'AVATAR_LG'
+            )}
+            className="h-10 w-10 max-w-none"
             loading="eager"
             alt="hey"
             draggable={false}

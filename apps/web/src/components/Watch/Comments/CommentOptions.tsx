@@ -1,10 +1,12 @@
 import FlagOutline from '@components/Common/Icons/FlagOutline'
 import ThreeDotsOutline from '@components/Common/Icons/ThreeDotsOutline'
 import TrashOutline from '@components/Common/Icons/TrashOutline'
+import ReportPublication from '@components/ReportPublication'
 import Confirm from '@components/UIElements/Confirm'
-import DropMenu from '@components/UIElements/DropMenu'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import useAuthPersistStore from '@lib/store/auth'
 import { t, Trans } from '@lingui/macro'
+import { Box, Dialog, DropdownMenu, Flex, Text } from '@radix-ui/themes'
 import { Analytics, TRACK } from '@tape.xyz/browser'
 import type { Comment } from '@tape.xyz/lens'
 import { useHidePublicationMutation } from '@tape.xyz/lens'
@@ -18,6 +20,8 @@ type Props = {
 
 const CommentOptions: FC<Props> = ({ comment }) => {
   const [showConfirm, setShowConfirm] = useState(false)
+  const handleWrongNetwork = useHandleWrongNetwork()
+
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
@@ -43,6 +47,15 @@ const CommentOptions: FC<Props> = ({ comment }) => {
     hideComment({ variables: { request: { for: comment?.id } } })
   }
 
+  const onClickReport = () => {
+    if (!selectedSimpleProfile?.id) {
+      return toast.error('Sign in to proceed')
+    }
+    if (handleWrongNetwork()) {
+      return
+    }
+  }
+
   return (
     <>
       <Confirm
@@ -50,39 +63,54 @@ const CommentOptions: FC<Props> = ({ comment }) => {
         setShowConfirm={setShowConfirm}
         action={onHideComment}
       />
-      <DropMenu
-        trigger={
-          <div className="p-1">
+      <DropdownMenu.Root>
+        <DropdownMenu.Trigger>
+          <Box>
             <ThreeDotsOutline className="h-3.5 w-3.5" />
+          </Box>
+        </DropdownMenu.Trigger>
+        <DropdownMenu.Content sideOffset={10} variant="soft" align="end">
+          <div className="w-36 overflow-hidden">
+            <div className="flex flex-col rounded-lg text-sm transition duration-150 ease-in-out">
+              {selectedSimpleProfile?.id === comment?.by?.id && (
+                <DropdownMenu.Item
+                  onClick={() => setShowConfirm(true)}
+                  color="red"
+                >
+                  <Flex align="center" gap="2">
+                    <TrashOutline className="h-3.5 w-3.5" />
+                    <span className="whitespace-nowrap">
+                      <Trans>Delete</Trans>
+                    </span>
+                  </Flex>
+                </DropdownMenu.Item>
+              )}
+
+              <Dialog.Root>
+                <Dialog.Trigger>
+                  <button
+                    className="cursor-default rounded px-3 py-1.5 hover:bg-gray-500/20"
+                    onClick={() => onClickReport()}
+                  >
+                    <Flex align="center" gap="2">
+                      <FlagOutline className="h-3.5 w-3.5" />
+                      <Text size="2" className="whitespace-nowrap">
+                        <Trans>Report</Trans>
+                      </Text>
+                    </Flex>
+                  </button>
+                </Dialog.Trigger>
+
+                <Dialog.Content style={{ maxWidth: 450 }}>
+                  <Dialog.Title>Report</Dialog.Title>
+
+                  <ReportPublication publication={comment} />
+                </Dialog.Content>
+              </Dialog.Root>
+            </div>
           </div>
-        }
-      >
-        <div className="bg-secondary mt-0.5 w-36 overflow-hidden rounded-xl border border-gray-200 p-1 shadow dark:border-gray-800">
-          <div className="flex flex-col rounded-lg text-sm transition duration-150 ease-in-out">
-            {selectedSimpleProfile?.id === comment?.by?.id && (
-              <button
-                type="button"
-                onClick={() => setShowConfirm(true)}
-                className="inline-flex items-center space-x-2 rounded-lg px-3 py-1.5 hover:bg-red-100 dark:hover:bg-red-900"
-              >
-                <TrashOutline className="h-3.5 w-3.5" />
-                <span className="whitespace-nowrap">
-                  <Trans>Delete</Trans>
-                </span>
-              </button>
-            )}
-            <button
-              type="button"
-              className="inline-flex items-center space-x-2 rounded-lg px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
-            >
-              <FlagOutline className="h-3.5 w-3.5" />
-              <span className="whitespace-nowrap">
-                <Trans>Report</Trans>
-              </span>
-            </button>
-          </div>
-        </div>
-      </DropMenu>
+        </DropdownMenu.Content>
+      </DropdownMenu.Root>
     </>
   )
 }
