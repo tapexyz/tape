@@ -383,7 +383,7 @@ const NewComment: FC<Props> = ({
             mentionsSelector="input-mentions-single"
           />
           {!hideEmojiPicker && (
-            <div className="absolute right-2.5 top-2">
+            <div className="absolute right-2 top-2.5">
               <EmojiPicker
                 onEmojiSelect={(emoji) =>
                   setValue('comment', `${getValues('comment')}${emoji}`)
