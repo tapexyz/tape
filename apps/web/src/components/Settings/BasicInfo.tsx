@@ -40,7 +40,8 @@ import {
 import type { OnchainSetProfileMetadataRequest, Profile } from '@tape.xyz/lens'
 import {
   useBroadcastOnchainMutation,
-  useCreateOnchainSetProfileMetadataTypedDataMutation
+  useCreateOnchainSetProfileMetadataTypedDataMutation,
+  useSetProfileMetadataMutation
 } from '@tape.xyz/lens'
 import type {
   CustomErrorWithData,
@@ -127,8 +128,13 @@ const BasicInfo = ({ channel }: Props) => {
     setLoading(false)
   }
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
-    if (__typename === 'RelayError') {
+  const onCompleted = (
+    __typename?: 'RelayError' | 'RelaySuccess' | 'LensProfileManagerRelayError'
+  ) => {
+    if (
+      __typename === 'RelayError' ||
+      __typename === 'LensProfileManagerRelayError'
+    ) {
       return
     }
     setLoading(false)
@@ -154,7 +160,7 @@ const BasicInfo = ({ channel }: Props) => {
       onCompleted(broadcastOnchain.__typename)
   })
 
-  const [createSetProfileMetadataTypedData] =
+  const [createOnchainSetProfileMetadataTypedData] =
     useCreateOnchainSetProfileMetadataTypedDataMutation({
       onCompleted: async ({ createOnchainSetProfileMetadataTypedData }) => {
         const { typedData, id } = createOnchainSetProfileMetadataTypedData
@@ -175,6 +181,12 @@ const BasicInfo = ({ channel }: Props) => {
       onError
     })
 
+  const [setProfileMetadata] = useSetProfileMetadataMutation({
+    onCompleted: ({ setProfileMetadata }) =>
+      onCompleted(setProfileMetadata.__typename),
+    onError
+  })
+
   const otherAttributes =
     (channel.metadata?.attributes
       ?.filter(
@@ -189,8 +201,8 @@ const BasicInfo = ({ channel }: Props) => {
     if (handleWrongNetwork()) {
       return
     }
-    setLoading(true)
     try {
+      setLoading(true)
       const profileMetadata: ProfileOptions = {
         appId: TAPE_APP_ID,
         coverPicture: data.coverImage ?? coverImage,
@@ -257,11 +269,24 @@ const BasicInfo = ({ channel }: Props) => {
       const request: OnchainSetProfileMetadataRequest = {
         metadataURI: metadataUri
       }
+
       if (canUseRelay) {
-        await createSetProfileMetadataTypedData({
+        const { data } = await setProfileMetadata({
           variables: { request }
         })
+        if (
+          data?.setProfileMetadata?.__typename ===
+          'LensProfileManagerRelayError'
+        ) {
+          return await createOnchainSetProfileMetadataTypedData({
+            variables: { request }
+          })
+        }
+        return
       }
+      return await createOnchainSetProfileMetadataTypedData({
+        variables: { request }
+      })
     } catch {
       setLoading(false)
     }
@@ -471,7 +496,7 @@ const BasicInfo = ({ channel }: Props) => {
         </div>
         <div className="mt-4 flex justify-end">
           <Button disabled={loading} highContrast>
-            <Trans>Save Profile</Trans>
+            <Trans>Update Profile</Trans>
           </Button>
         </div>
       </form>

@@ -37,7 +37,8 @@ import type {
 import {
   useBroadcastOnchainMutation,
   useCreateOnchainSetProfileMetadataTypedDataMutation,
-  usePublicationQuery
+  usePublicationQuery,
+  useSetProfileMetadataMutation
 } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import VideoPlayer from '@tape.xyz/ui/VideoPlayer'
@@ -96,8 +97,13 @@ const PinnedVideo: FC<Props> = ({ id }) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
   }
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
-    if (__typename === 'RelayError') {
+  const onCompleted = (
+    __typename?: 'RelayError' | 'RelaySuccess' | 'LensProfileManagerRelayError'
+  ) => {
+    if (
+      __typename === 'RelayError' ||
+      __typename === 'LensProfileManagerRelayError'
+    ) {
       return
     }
     toast.success(t`Transaction submitted`)
@@ -122,7 +128,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
       onCompleted(broadcastOnchain.__typename)
   })
 
-  const [createSetProfileMetadataTypedData] =
+  const [createOnchainSetProfileMetadataTypedData] =
     useCreateOnchainSetProfileMetadataTypedDataMutation({
       onCompleted: async ({ createOnchainSetProfileMetadataTypedData }) => {
         const { typedData, id } = createOnchainSetProfileMetadataTypedData
@@ -140,6 +146,12 @@ const PinnedVideo: FC<Props> = ({ id }) => {
       },
       onError
     })
+
+  const [setProfileMetadata] = useSetProfileMetadataMutation({
+    onCompleted: ({ setProfileMetadata }) =>
+      onCompleted(setProfileMetadata.__typename),
+    onError
+  })
 
   const unpinVideo = async () => {
     if (!activeChannel) {
@@ -171,13 +183,25 @@ const PinnedVideo: FC<Props> = ({ id }) => {
       const request: OnchainSetProfileMetadataRequest = {
         metadataURI
       }
-
       const canUseRelay = activeChannel?.lensManager && activeChannel?.sponsor
-      if (!canUseRelay) {
-        return createSetProfileMetadataTypedData({
+
+      if (canUseRelay) {
+        const { data } = await setProfileMetadata({
           variables: { request }
         })
+        if (
+          data?.setProfileMetadata?.__typename ===
+          'LensProfileManagerRelayError'
+        ) {
+          return await createOnchainSetProfileMetadataTypedData({
+            variables: { request }
+          })
+        }
+        return
       }
+      return createOnchainSetProfileMetadataTypedData({
+        variables: { request }
+      })
     } catch {}
   }
 

@@ -32,7 +32,11 @@ import {
   getValueFromKeyInAttributes,
   uploadToAr
 } from '@tape.xyz/generic'
-import type { MirrorablePublication, Profile } from '@tape.xyz/lens'
+import type {
+  MirrorablePublication,
+  OnchainSetProfileMetadataRequest,
+  Profile
+} from '@tape.xyz/lens'
 import {
   useAddPublicationBookmarkMutation,
   useAddPublicationNotInterestedMutation,
@@ -40,6 +44,7 @@ import {
   useCreateOnchainSetProfileMetadataTypedDataMutation,
   useHidePublicationMutation,
   useRemovePublicationBookmarkMutation,
+  useSetProfileMetadataMutation,
   useUndoPublicationNotInterestedMutation
 } from '@tape.xyz/lens'
 import { useApolloClient } from '@tape.xyz/lens/apollo'
@@ -118,8 +123,13 @@ const VideoOptions: FC<Props> = ({ video }) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
   }
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
-    if (__typename === 'RelayError') {
+  const onCompleted = (
+    __typename?: 'RelayError' | 'RelaySuccess' | 'LensProfileManagerRelayError'
+  ) => {
+    if (
+      __typename === 'RelayError' ||
+      __typename === 'LensProfileManagerRelayError'
+    ) {
       return
     }
     toast.success(t`Transaction submitted`)
@@ -144,7 +154,7 @@ const VideoOptions: FC<Props> = ({ video }) => {
       onCompleted(broadcastOnchain.__typename)
   })
 
-  const [createSetProfileMetadataTypedData] =
+  const [createOnchainSetProfileMetadataTypedData] =
     useCreateOnchainSetProfileMetadataTypedDataMutation({
       onCompleted: async ({ createOnchainSetProfileMetadataTypedData }) => {
         const { typedData, id } = createOnchainSetProfileMetadataTypedData
@@ -162,6 +172,12 @@ const VideoOptions: FC<Props> = ({ video }) => {
       },
       onError
     })
+
+  const [setProfileMetadata] = useSetProfileMetadataMutation({
+    onCompleted: ({ setProfileMetadata }) =>
+      onCompleted(setProfileMetadata.__typename),
+    onError
+  })
 
   const onPinVideo = async () => {
     if (!activeChannel) {
@@ -195,13 +211,29 @@ const VideoOptions: FC<Props> = ({ video }) => {
         ]
       })
       const metadataUri = await uploadToAr(metadata)
-      const canUseDispatcher =
-        activeChannel?.lensManager && activeChannel.sponsor
-      if (!canUseDispatcher) {
-        return createSetProfileMetadataTypedData({
-          variables: { request: { metadataURI: metadataUri } }
-        })
+      const canUseRelay = activeChannel?.lensManager && activeChannel.sponsor
+      const request: OnchainSetProfileMetadataRequest = {
+        metadataURI: metadataUri
       }
+
+      if (canUseRelay) {
+        const { data } = await setProfileMetadata({
+          variables: { request }
+        })
+        if (
+          data?.setProfileMetadata?.__typename ===
+          'LensProfileManagerRelayError'
+        ) {
+          return await createOnchainSetProfileMetadataTypedData({
+            variables: { request }
+          })
+        }
+        return
+      }
+
+      return createOnchainSetProfileMetadataTypedData({
+        variables: { request }
+      })
     } catch {}
   }
 
