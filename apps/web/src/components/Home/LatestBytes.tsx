@@ -77,7 +77,7 @@ const LatestBytes = () => {
             </Link>
             <div className="invisible flex items-center p-1 group-hover:visible">
               <Link
-                href={`/channel/${trimLensHandle(byte.by?.handle)}`}
+                href={`/u/${trimLensHandle(byte.by?.handle)}`}
                 className="flex items-center space-x-1"
               >
                 <img

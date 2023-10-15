@@ -379,7 +379,7 @@ const BasicInfo = ({ channel }: Props) => {
               </div>
               <div className="flex items-center space-x-2">
                 <span>
-                  {TAPE_WEBSITE_URL}/channel/
+                  {TAPE_WEBSITE_URL}/u/
                   {trimLensHandle(channel.handle)}
                 </span>
                 <Tooltip content="Copy" placement="top">
@@ -387,7 +387,7 @@ const BasicInfo = ({ channel }: Props) => {
                     className="hover:opacity-60 focus:outline-none"
                     onClick={async () =>
                       await copy(
-                        `${TAPE_WEBSITE_URL}/channel/${trimLensHandle(
+                        `${TAPE_WEBSITE_URL}/u/${trimLensHandle(
                           channel.handle
                         )}`
                       )

@@ -69,7 +69,7 @@ const MutualFollowers: FC<Props> = ({ viewing }) => {
       )}
       {mutualFollowers?.map((channel: Profile) => (
         <Link
-          href={`/channel/${trimLensHandle(channel?.handle)}`}
+          href={`/u/${trimLensHandle(channel?.handle)}`}
           className="font-base flex items-center justify-between"
           key={channel?.id}
         >

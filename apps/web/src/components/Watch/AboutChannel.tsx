@@ -40,7 +40,7 @@ const AboutChannel: FC<Props> = ({ video }) => {
 
   return (
     <div className="flex w-full items-start justify-between">
-      <Link href={`/channel/${trimLensHandle(channel?.handle)}`}>
+      <Link href={`/u/${trimLensHandle(channel?.handle)}`}>
         <div className="mr-3 flex-none cursor-pointer">
           <img
             src={getProfilePicture(channel, 'AVATAR')}
@@ -56,7 +56,7 @@ const AboutChannel: FC<Props> = ({ video }) => {
             <div className="flex flex-col items-start">
               <HoverableProfile profile={channel}>
                 <Link
-                  href={`/channel/${trimLensHandle(channel?.handle)}`}
+                  href={`/u/${trimLensHandle(channel?.handle)}`}
                   className="flex items-center space-x-1 font-semibold"
                 >
                   <span className="leading-snug">

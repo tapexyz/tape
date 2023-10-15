@@ -27,7 +27,7 @@ const BottomOverlay: FC<Props> = ({ video }) => {
       <div className="flex items-center justify-between">
         <div className="min-w-0">
           <Link
-            href={`/channel/${trimLensHandle(profile?.handle)}`}
+            href={`/u/${trimLensHandle(profile?.handle)}`}
             className="flex flex-none cursor-pointer items-center space-x-2"
           >
             <img

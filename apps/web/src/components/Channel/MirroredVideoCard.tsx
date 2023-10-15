@@ -58,7 +58,7 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
       <div className="py-2">
         <div className="flex items-start space-x-2.5">
           <Link
-            href={`/channel/${mirrorOn.by?.handle}`}
+            href={`/u/${trimLensHandle(mirrorOn.by?.handle)}`}
             className="mt-0.5 flex-none"
           >
             <img
@@ -79,7 +79,7 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
               </Link>
             </div>
             <Link
-              href={`/channel/${trimLensHandle(mirrorOn.by?.handle)}`}
+              href={`/u/${trimLensHandle(mirrorOn.by?.handle)}`}
               className="flex w-fit items-center space-x-0.5 text-[13px] opacity-70 hover:opacity-100"
             >
               <span>{trimLensHandle(mirrorOn.by?.handle)}</span>

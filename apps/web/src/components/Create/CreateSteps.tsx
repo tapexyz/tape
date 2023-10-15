@@ -92,8 +92,8 @@ const CreateSteps = () => {
   const redirectToChannelPage = () => {
     router.push(
       uploadedVideo.isByteVideo
-        ? `/channel/${trimLensHandle(activeChannel?.handle)}?tab=bytes`
-        : `/channel/${trimLensHandle(activeChannel?.handle)}`
+        ? `/u/${trimLensHandle(activeChannel?.handle)}?tab=bytes`
+        : `/u/${trimLensHandle(activeChannel?.handle)}`
     )
   }
 
@@ -322,7 +322,7 @@ const CreateSteps = () => {
         marketplace: {
           attributes,
           animation_url: uploadedVideo.videoSource,
-          external_url: `${TAPE_WEBSITE_URL}/channel/${activeChannel?.handle}`,
+          external_url: `${TAPE_WEBSITE_URL}/u/${activeChannel?.handle}`,
           image: uploadedVideo.thumbnail,
           name: uploadedVideo.title,
           description: trimify(uploadedVideo.description)

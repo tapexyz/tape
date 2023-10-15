@@ -20,13 +20,13 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(400).json({ success: false })
   }
 
-  const isChannel = path.includes('/channel/')
+  const isProfile = path.includes('/u/')
   const isVideo = path.includes('/watch/')
   const isByte = path.includes('/bytes/')
 
   try {
-    if (isChannel) {
-      const handle = path.replace('/channel/', '')
+    if (isProfile) {
+      const handle = path.replace('/u/', '')
       return await getProfileMeta(res, trimLensHandle(handle, true))
     }
 

@@ -8,7 +8,7 @@ body {
 
 /* Override for Radix */
 button {
-  @apply !cursor-pointer;
+  @apply !cursor-pointer disabled:!cursor-not-allowed;
 }
 
 .tape-border {
@@ -63,7 +63,7 @@ input[type='number'] {
 
 /* interweave linkify */
 .interweave-content a {
-  @apply text-brand-500;
+  @apply text-brand-500 align-middle;
 }
 
 .input-mentions-single {

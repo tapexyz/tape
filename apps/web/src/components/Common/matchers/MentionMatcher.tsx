@@ -9,16 +9,18 @@ import type { MentionProps } from './utils'
 const ChannelLink = ({ ...props }: any) => {
   return (
     <Link
-      href={`/channel/${trimLensHandle(props.display?.slice(1))}`}
+      href={`/u/${trimLensHandle(props.display?.slice(1))}`}
       className="inline-flex items-center space-x-1 rounded-full bg-gray-200 px-2 text-sm font-medium dark:bg-gray-800"
     >
       <img
         src={`${STATIC_ASSETS}/brand/logo.svg`}
-        className="h-3 w-3"
+        className="h-4 w-4"
         draggable={false}
         alt={TAPE_APP_NAME}
       />
-      <span>{trimLensHandle(props.display.replace('@', ''))}</span>
+      <span className="-mt-[1px]">
+        {trimLensHandle(props.display.replace('@', ''))}
+      </span>
     </Link>
   )
 }

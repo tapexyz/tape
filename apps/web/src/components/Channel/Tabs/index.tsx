@@ -19,7 +19,7 @@ const ProfileTabs: FC<Props> = ({ profile }) => {
 
   const handleTabChange = (tab: string) => {
     if (tab) {
-      const nextUrl = `${location.origin}/channel/${trimLensHandle(
+      const nextUrl = `${location.origin}/u/${trimLensHandle(
         profile.handle
       )}?tab=${tab}`
       history.replaceState({ path: nextUrl }, '', nextUrl)

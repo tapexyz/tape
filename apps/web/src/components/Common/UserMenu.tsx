@@ -118,9 +118,7 @@ const UserMenu = () => {
             <>
               <DropdownMenu.Item
                 onClick={() =>
-                  push(
-                    `/channel/${trimLensHandle(selectedSimpleProfile?.handle)}`
-                  )
+                  push(`/u/${trimLensHandle(selectedSimpleProfile?.handle)}`)
                 }
               >
                 <Flex gap="2" align="center">
@@ -130,7 +128,7 @@ const UserMenu = () => {
                   </Text>
                 </Flex>
               </DropdownMenu.Item>
-              <DropdownMenu.Item onClick={() => push('/channel/saved')}>
+              <DropdownMenu.Item onClick={() => push('/u/saved')}>
                 <Flex gap="2" align="center">
                   <SaveToListOutline className="h-4 w-4" />
                   <Text as="p" className="truncate whitespace-nowrap">

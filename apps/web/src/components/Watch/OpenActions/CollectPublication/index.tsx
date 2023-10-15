@@ -193,9 +193,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
               ))}
             >
               {defaultProfile?.handle ? (
-                <Link
-                  href={`/channel/${trimLensHandle(defaultProfile.handle)}`}
-                >
+                <Link href={`/u/${trimLensHandle(defaultProfile.handle)}`}>
                   {trimLensHandle(label)}
                 </Link>
               ) : (

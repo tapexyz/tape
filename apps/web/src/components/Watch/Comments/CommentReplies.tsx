@@ -128,7 +128,7 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
             <div key={comment.id} className="flex items-start justify-between">
               <div className="flex w-full items-start">
                 <Link
-                  href={`/channel/${trimLensHandle(comment.by?.handle)}`}
+                  href={`/u/${trimLensHandle(comment.by?.handle)}`}
                   className="mr-3 mt-0.5 flex-none"
                 >
                   <img
@@ -141,7 +141,7 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
                 <div className="mr-2 flex w-full flex-col items-start">
                   <span className="mb-1 flex items-center space-x-2">
                     <Link
-                      href={`/channel/${trimLensHandle(comment.by?.handle)}`}
+                      href={`/u/${trimLensHandle(comment.by?.handle)}`}
                       className="flex items-center space-x-1 text-sm font-medium"
                     >
                       <span>{trimLensHandle(comment?.by?.handle)}</span>

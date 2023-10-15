@@ -21,7 +21,7 @@ const VideoOverlay: FC<Props> = ({ video, clicked }) => {
         <div className="flex flex-1 items-center">
           <Link
             className="mr-3 flex-none cursor-pointer"
-            href={`${TAPE_WEBSITE_URL}/channel/${video?.by?.handle}`}
+            href={`${TAPE_WEBSITE_URL}/u/${trimLensHandle(video?.by?.handle)}`}
             target="_blank"
           >
             <img
@@ -43,7 +43,7 @@ const VideoOverlay: FC<Props> = ({ video, clicked }) => {
             </Link>
             <Link
               className="line-clamp-1 break-words leading-3"
-              href={`${TAPE_WEBSITE_URL}/channel/${video?.by.handle}`}
+              href={`${TAPE_WEBSITE_URL}/u/${trimLensHandle(video?.by.handle)}`}
               target="_blank"
             >
               <span className="text-sm">

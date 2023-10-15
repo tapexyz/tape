@@ -4,7 +4,12 @@ import {
   TAPE_EMBED_URL,
   TAPE_WEBSITE_URL
 } from '@tape.xyz/constants'
-import { getThumbnailUrl, imageCdn, truncate } from '@tape.xyz/generic'
+import {
+  getThumbnailUrl,
+  imageCdn,
+  trimLensHandle,
+  truncate
+} from '@tape.xyz/generic'
 import type { AnyPublication, MirrorablePublication } from '@tape.xyz/lens'
 import { PublicationDocument } from '@tape.xyz/lens'
 import { apolloClient } from '@tape.xyz/lens/apollo'
@@ -33,7 +38,7 @@ const getPublicationOembed = async (publicationId: string, format: string) => {
       return {
         title,
         author_name: video.by?.handle,
-        author_url: `${TAPE_WEBSITE_URL}/channel/${video.by?.handle}`,
+        author_url: `${TAPE_WEBSITE_URL}/u/${video.by?.handle}`,
         type: 'video',
         height: 113,
         width: 200,
@@ -50,7 +55,9 @@ const getPublicationOembed = async (publicationId: string, format: string) => {
       return `<oembed>
               <title>${title}</title>
               <author_name>${video.by?.handle}</author_name>
-              <author_url>${TAPE_WEBSITE_URL}/channel/${video.by?.handle}</author_url>
+              <author_url>${TAPE_WEBSITE_URL}/u/${trimLensHandle(
+                video.by?.handle
+              )}</author_url>
               <type>video</type>
               <height>113</height>
               <width>200</width>
@@ -61,7 +68,9 @@ const getPublicationOembed = async (publicationId: string, format: string) => {
               <thumbnail_width>480</thumbnail_width>
               <thumbnail_url>${thumbnail}</thumbnail_url>
               <html>
-                <iframe width="200" height="113" src="${TAPE_EMBED_URL}/${video.id}" title="${TAPE_APP_NAME} video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;" allowfullscreen="true"></iframe>
+                <iframe width="200" height="113" src="${TAPE_EMBED_URL}/${
+                  video.id
+                }" title="${TAPE_APP_NAME} video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;" allowfullscreen="true"></iframe>
               </html>
               </oembed>`
     }

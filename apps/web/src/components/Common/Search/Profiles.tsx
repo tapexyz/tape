@@ -28,7 +28,7 @@ const Profiles: FC<Props> = ({ results, loading, clearSearch }) => {
         >
           <Link
             onClick={() => clearSearch()}
-            href={`/channel/${trimLensHandle(channel?.handle)}`}
+            href={`/u/${trimLensHandle(channel?.handle)}`}
             key={channel?.handle}
             className="flex flex-col justify-center space-y-1 py-2"
           >

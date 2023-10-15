@@ -3,7 +3,7 @@ main = "src/index.ts"
 compatibility_date = "2023-01-25"
 
 routes = [
-  "tape.xyz/channel/*",
+  "tape.xyz/u/*",
   "tape.xyz/watch/*",
   "tape.xyz/bytes/*"
 ]

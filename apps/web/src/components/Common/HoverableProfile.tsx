@@ -29,7 +29,7 @@ const HoverableProfile: FC<Props> = ({ profile, fontSize = '2', children }) => {
     <HoverCard.Root>
       <HoverCard.Trigger>
         {children ?? (
-          <Link href={`/channel/${trimLensHandle(profile.handle)}`}>
+          <Link href={`/u/${trimLensHandle(profile.handle)}`}>
             <Flex align="center" gap="1">
               <Text size={fontSize} color="gray">
                 {trimLensHandle(profile.handle) ?? profile.id}
@@ -65,7 +65,7 @@ const HoverableProfile: FC<Props> = ({ profile, fontSize = '2', children }) => {
         </div>
         <div className="p-2 pl-4 pt-2.5">
           <Link
-            href={`/channel/${trimLensHandle(profile?.handle)}`}
+            href={`/u/${trimLensHandle(profile?.handle)}`}
             className="flex items-center space-x-1"
           >
             <span className="text-2xl font-semibold leading-tight">

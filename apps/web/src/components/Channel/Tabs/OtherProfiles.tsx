@@ -44,7 +44,7 @@ const OtherProfiles: FC<Props> = ({ profile }) => {
               key={profile.id}
               className="flex w-44 flex-col items-center justify-center rounded-xl border border-gray-200 py-3 dark:border-gray-800"
             >
-              <Link href={`/channel/${profile.handle}`}>
+              <Link href={`/u/${trimLensHandle(profile.handle)}`}>
                 <img
                   className="h-24 w-24 rounded-full object-cover"
                   src={getProfilePicture(profile, 'AVATAR_LG')}
@@ -55,7 +55,7 @@ const OtherProfiles: FC<Props> = ({ profile }) => {
               <div className="w-full px-1.5 py-2">
                 <div className="flex-1 text-center">
                   <Link
-                    href={`/channel/${trimLensHandle(profile.handle)}`}
+                    href={`/u/${trimLensHandle(profile.handle)}`}
                     className="block truncate font-medium"
                   >
                     <div className="flex items-center justify-center space-x-1">

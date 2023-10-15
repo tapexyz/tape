@@ -36,7 +36,7 @@ export const getMetaTags = ({
     image: image ?? OG_IMAGE,
     url: isVideo
       ? `${TAPE_WEBSITE_URL}/watch/${pubId}`
-      : `${TAPE_WEBSITE_URL}/channel/${handle}`
+      : `${TAPE_WEBSITE_URL}/u/${handle}`
   }
 
   let defaultMeta = `<title>${meta.title}</title>
