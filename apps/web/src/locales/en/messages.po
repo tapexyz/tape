@@ -143,6 +143,7 @@ msgid "No other channels found"
 msgstr "No other channels found"
 
 #: src/components/Channel/Tabs/OtherProfiles.tsx
+#: src/components/UIElements/ChannelSuggestions.tsx
 msgid "followers"
 msgstr "followers"
 
@@ -590,6 +591,320 @@ msgstr "Report"
 msgid "Watch Now"
 msgstr "Watch Now"
 
+#: src/components/Create/Category.tsx
+msgid "Select Category"
+msgstr "Select Category"
+
+#: src/components/Create/ChooseThumbnail.tsx
+msgid "Failed to upload thumbnail"
+msgstr "Failed to upload thumbnail"
+
+#: src/components/Create/ChooseThumbnail.tsx
+msgid "Please upload a custom thumbnail"
+msgstr "Please upload a custom thumbnail"
+
+#: src/components/Create/ChooseThumbnail.tsx
+#: src/components/Create/Details.tsx
+msgid "Uploading thumbnail"
+msgstr "Uploading thumbnail"
+
+#: src/components/Create/ChooseThumbnail.tsx
+msgid "Upload"
+msgstr "Upload"
+
+#: src/components/Create/CollectModule/ChargeQuestion.tsx
+#: src/components/Watch/OpenActions/CollectPublication/index.tsx
+msgid "Price"
+msgstr "Price"
+
+#: src/components/Create/CollectModule/ChargeQuestion.tsx
+msgid "Free"
+msgstr "Free"
+
+#: src/components/Create/CollectModule/ChargeQuestion.tsx
+msgid "Set Price"
+msgstr "Set Price"
+
+#: src/components/Create/CollectModule/CollectDuration.tsx
+msgid "Collect duration"
+msgstr "Collect duration"
+
+#: src/components/Create/CollectModule/CollectDuration.tsx
+msgid "Forever"
+msgstr "Forever"
+
+#: src/components/Create/CollectModule/CollectDuration.tsx
+msgid "Custom"
+msgstr "Custom"
+
+#: src/components/Create/CollectModule/EditionSize.tsx
+msgid "Edition Size"
+msgstr "Edition Size"
+
+#: src/components/Create/CollectModule/EditionSize.tsx
+msgid "Open"
+msgstr "Open"
+
+#: src/components/Create/CollectModule/EditionSize.tsx
+msgid "Fixed"
+msgstr "Fixed"
+
+#: src/components/Create/CollectModule/FeeCollectForm.tsx
+msgid "Invalid amount"
+msgstr "Invalid amount"
+
+#: src/components/Create/CollectModule/FeeCollectForm.tsx
+msgid "Percentage should be 0 to 100"
+msgstr "Percentage should be 0 to 100"
+
+#: src/components/Create/CollectModule/FeeCollectForm.tsx
+msgid "Should to greater than or equal to zero"
+msgstr "Should to greater than or equal to zero"
+
+#: src/components/Create/CollectModule/FeeCollectForm.tsx
+msgid "Amount should be greater than 0"
+msgstr "Amount should be greater than 0"
+
+#: src/components/Create/CollectModule/FeeCollectForm.tsx
+msgid "Only 5 splits supported"
+msgstr "Only 5 splits supported"
+
+#: src/components/Create/CollectModule/FeeCollectForm.tsx
+msgid "Invalid split recipient address"
+msgstr "Invalid split recipient address"
+
+#: src/components/Create/CollectModule/FeeCollectForm.tsx
+msgid "Split addresses should be unique"
+msgstr "Split addresses should be unique"
+
+#: src/components/Create/CollectModule/FeeCollectForm.tsx
+msgid "Sum of all splits should be 100%"
+msgstr "Sum of all splits should be 100%"
+
+#: src/components/Create/CollectModule/FeeCollectForm.tsx
+msgid "Referral Percentage"
+msgstr "Referral Percentage"
+
+#: src/components/Create/CollectModule/FeeCollectForm.tsx
+msgid "Percent of collect revenue can be shared with anyone who mirrors your content."
+msgstr "Percent of collect revenue can be shared with anyone who mirrors your content."
+
+#: src/components/Create/CollectModule/FeeCollectForm.tsx
+#: src/components/Create/CollectModule/index.tsx
+msgid "Set Collect Type"
+msgstr "Set Collect Type"
+
+#: src/components/Create/CollectModule/PermissionQuestion.tsx
+msgid "Who can collect?"
+msgstr "Who can collect?"
+
+#: src/components/Create/CollectModule/PermissionQuestion.tsx
+#: src/components/Create/CollectModule/index.tsx
+msgid "Anyone"
+msgstr "Anyone"
+
+#: src/components/Create/CollectModule/PermissionQuestion.tsx
+msgid "Only Followers"
+msgstr "Only Followers"
+
+#: src/components/Create/CollectModule/Splits.tsx
+msgid "Add recipient"
+msgstr "Add recipient"
+
+#: src/components/Create/CollectModule/Splits.tsx
+msgid "Add Donation"
+msgstr "Add Donation"
+
+#: src/components/Create/CollectModule/Splits.tsx
+msgid "Split evenly"
+msgstr "Split evenly"
+
+#: src/components/Create/CollectModule/index.tsx
+msgid "No one can collect this publication"
+msgstr "No one can collect this publication"
+
+#: src/components/Create/CollectModule/index.tsx
+msgid "Subscribers"
+msgstr "Subscribers"
+
+#: src/components/Create/CollectModule/index.tsx
+msgid "can collect"
+msgstr "can collect"
+
+#: src/components/Create/CollectModule/index.tsx
+msgid "for given fees"
+msgstr "for given fees"
+
+#: src/components/Create/CollectModule/index.tsx
+msgid "for free"
+msgstr "for free"
+
+#: src/components/Create/CollectModule/index.tsx
+msgid "within {timeLimit} days"
+msgstr "within {timeLimit} days"
+
+#: src/components/Create/CreateSteps.tsx
+msgid "Post Video"
+msgstr "Post Video"
+
+#: src/components/Create/CreateSteps.tsx
+msgid "Storing metadata"
+msgstr "Storing metadata"
+
+#: src/components/Create/CreateSteps.tsx
+msgid "Posting video"
+msgstr "Posting video"
+
+#: src/components/Create/CreateSteps.tsx
+msgid "Uploading to IPFS"
+msgstr "Uploading to IPFS"
+
+#: src/components/Create/CreateSteps.tsx
+msgid "IPFS Upload failed"
+msgstr "IPFS Upload failed"
+
+#: src/components/Create/CreateSteps.tsx
+msgid "Video not uploaded correctly"
+msgstr "Video not uploaded correctly"
+
+#: src/components/Create/CreateSteps.tsx
+msgid "Insufficient storage balance"
+msgstr "Insufficient storage balance"
+
+#: src/components/Create/CreateSteps.tsx
+msgid "Uploading to Arweave"
+msgstr "Uploading to Arweave"
+
+#: src/components/Create/CreateSteps.tsx
+msgid "Failed to upload video to Arweave"
+msgstr "Failed to upload video to Arweave"
+
+#: src/components/Create/Details.tsx
+msgid "Title should be atleast 5 characters"
+msgstr "Title should be atleast 5 characters"
+
+#: src/components/Create/Details.tsx
+msgid "Title should not exceed 100 characters"
+msgstr "Title should not exceed 100 characters"
+
+#: src/components/Create/Details.tsx
+msgid "Description should be atleast 5 characters"
+msgstr "Description should be atleast 5 characters"
+
+#: src/components/Create/Details.tsx
+msgid "Description should not exceed 5000 characters"
+msgstr "Description should not exceed 5000 characters"
+
+#: src/components/Create/Details.tsx
+msgid "Please select or upload a thumbnail"
+msgstr "Please select or upload a thumbnail"
+
+#: src/components/Create/Details.tsx
+msgid "Title"
+msgstr "Title"
+
+#: src/components/Create/Details.tsx
+msgid "Title that describes your content"
+msgstr "Title that describes your content"
+
+#: src/components/Create/Details.tsx
+msgid "Description"
+msgstr "Description"
+
+#: src/components/Create/Details.tsx
+msgid "Describe more about your content, can also be @profile, #hashtags or chapters (00:20 - Intro)"
+msgstr "Describe more about your content, can also be @profile, #hashtags or chapters (00:20 - Intro)"
+
+#: src/components/Create/Details.tsx
+msgid "Collectible"
+msgstr "Collectible"
+
+#: src/components/Create/Details.tsx
+msgid "Please note that only videos under 2 minutes in length can be uploaded as bytes."
+msgstr "Please note that only videos under 2 minutes in length can be uploaded as bytes."
+
+#: src/components/Create/Details.tsx
+msgid "Upload this video as short-form bytes"
+msgstr "Upload this video as short-form bytes"
+
+#: src/components/Create/Details.tsx
+msgid "Sensitive content for a general audience"
+msgstr "Sensitive content for a general audience"
+
+#: src/components/Create/Details.tsx
+msgid "Reset"
+msgstr "Reset"
+
+#: src/components/Create/DropZone.tsx
+msgid "Error uploading file"
+msgstr "Error uploading file"
+
+#: src/components/Create/DropZone.tsx
+msgid "Video format not supported"
+msgstr "Video format not supported"
+
+#: src/components/Create/DropZone.tsx
+msgid "Drag and drop"
+msgstr "Drag and drop"
+
+#: src/components/Create/DropZone.tsx
+msgid "Select multimedia from your device."
+msgstr "Select multimedia from your device."
+
+#: src/components/Create/DropZone.tsx
+#: src/components/Settings/BasicInfo.tsx
+msgid "Choose"
+msgstr "Choose"
+
+#: src/components/Create/IrysInfo.tsx
+msgid "Upload cost estimation failed"
+msgstr "Upload cost estimation failed"
+
+#: src/components/Create/IrysInfo.tsx
+msgid "Enter deposit amount"
+msgstr "Enter deposit amount"
+
+#: src/components/Create/IrysInfo.tsx
+msgid "Invalid deposit amount"
+msgstr "Invalid deposit amount"
+
+#: src/components/Create/IrysInfo.tsx
+msgid "Failed to deposit storage balance"
+msgstr "Failed to deposit storage balance"
+
+#: src/components/Create/IrysInfo.tsx
+msgid "Your storage balance"
+msgstr "Your storage balance"
+
+#: src/components/Create/IrysInfo.tsx
+#: src/components/Create/IrysInfo.tsx
+msgid "Deposit"
+msgstr "Deposit"
+
+#: src/components/Create/IrysInfo.tsx
+msgid "Amount to deposit (MATIC)"
+msgstr "Amount to deposit (MATIC)"
+
+#: src/components/Create/IrysInfo.tsx
+msgid "Estimated cost to upload"
+msgstr "Estimated cost to upload"
+
+#: src/components/Create/ReferenceModule/index.tsx
+msgid "Who can comment and mirror?"
+msgstr "Who can comment and mirror?"
+
+#: src/components/Create/SelectedMedia.tsx
+msgid "Skip the video upload (Only use this if you know what your doing!)"
+msgstr "Skip the video upload (Only use this if you know what your doing!)"
+
+#: src/components/Create/SelectedMedia.tsx
+msgid "Upload from Source Url"
+msgstr "Upload from Source URL"
+
+#: src/components/Create/UploadMethod.tsx
+msgid "Please note that your media exceeds the free limit ({IPFS_FREE_UPLOAD_LIMIT} mb), and you can proceed with the upload by paying the storage fee."
+msgstr "Please note that your media exceeds the free limit ({IPFS_FREE_UPLOAD_LIMIT} mb), and you can proceed with the upload by paying the storage fee."
+
 #: src/components/Explore/Feed.tsx
 msgid "Trending"
 msgstr "Trending"
@@ -908,10 +1223,6 @@ msgstr "Offensive"
 #~ msgstr "More about your channel"
 
 #: src/components/Settings/BasicInfo.tsx
-msgid "Choose"
-msgstr "Choose"
-
-#: src/components/Settings/BasicInfo.tsx
 msgid "Profile"
 msgstr "Profile"
 
@@ -1125,11 +1436,6 @@ msgstr "Subscriptions"
 #~ msgid "Thanks for supporting our community!"
 #~ msgstr "Thanks for supporting our community!"
 
-#: src/components/UIElements/ChannelSuggestions.tsx
-#: src/components/Watch/AboutChannel.tsx
-msgid "subscribers"
-msgstr "subscribers"
-
 #: src/components/UIElements/Confirm.tsx
 #~ msgid "Are you sure want to continue?"
 #~ msgstr "Are you sure want to continue?"
@@ -1159,166 +1465,80 @@ msgstr "Confirm"
 #~ msgstr "No"
 
 #: src/components/Upload/Category.tsx
-msgid "Category"
-msgstr "Category"
-
-#: src/components/Upload/ChooseThumbnail.tsx
-msgid "Failed to upload thumbnail"
-msgstr "Failed to upload thumbnail"
-
-#: src/components/Upload/ChooseThumbnail.tsx
-msgid "Please upload a custom thumbnail"
-msgstr "Please upload a custom thumbnail"
-
-#: src/components/Upload/ChooseThumbnail.tsx
-#: src/components/Upload/Details.tsx
-msgid "Uploading thumbnail"
-msgstr "Uploading thumbnail"
-
-#: src/components/Upload/ChooseThumbnail.tsx
-#: src/components/Upload/DropZone.tsx
-msgid "Upload"
-msgstr "Upload"
+#~ msgid "Category"
+#~ msgstr "Category"
 
 #: src/components/Upload/CollectModule/ChargeQuestion.tsx
-msgid "Would you like to set collect price for this video?"
-msgstr "Would you like to set collect price for this video?"
+#~ msgid "Would you like to set collect price for this video?"
+#~ msgstr "Would you like to set collect price for this video?"
 
 #: src/components/Upload/CollectModule/ChargeQuestion.tsx
-msgid "Collect for Free"
-msgstr "Collect for Free"
+#~ msgid "Collect for Free"
+#~ msgstr "Collect for Free"
 
 #: src/components/Upload/CollectModule/ChargeQuestion.tsx
-msgid "Yes, Some Price"
-msgstr "Yes, Some Price"
+#~ msgid "Yes, Some Price"
+#~ msgstr "Yes, Some Price"
 
 #: src/components/Upload/CollectModule/FeeCollectForm.tsx
-msgid "Invalid amount"
-msgstr "Invalid amount"
+#~ msgid "Invalid collect limit"
+#~ msgstr "Invalid collect limit"
 
 #: src/components/Upload/CollectModule/FeeCollectForm.tsx
-msgid "Invalid collect limit"
-msgstr "Invalid collect limit"
+#~ msgid "Collect limit should be greater than 0"
+#~ msgstr "Collect limit should be greater than 0"
 
 #: src/components/Upload/CollectModule/FeeCollectForm.tsx
-msgid "Percentage should be 0 to 100"
-msgstr "Percentage should be 0 to 100"
+#~ msgid "Total Collectibles"
+#~ msgstr "Total Collectibles"
 
 #: src/components/Upload/CollectModule/FeeCollectForm.tsx
-msgid "Should to greater than or equal to zero"
-msgstr "Should to greater than or equal to zero"
+#~ msgid "Collect Currency"
+#~ msgstr "Collect Currency"
 
 #: src/components/Upload/CollectModule/FeeCollectForm.tsx
-msgid "Amount should be greater than 0"
-msgstr "Amount should be greater than 0"
+#~ msgid "Price of each collect"
+#~ msgstr "Price of each collect"
 
 #: src/components/Upload/CollectModule/FeeCollectForm.tsx
-msgid "Only 5 splits supported"
-msgstr "Only 5 splits supported"
-
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx
-msgid "Invalid split recipient address"
-msgstr "Invalid split recipient address"
-
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx
-msgid "Split addresses should be unique"
-msgstr "Split addresses should be unique"
-
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx
-msgid "Sum of all splits should be 100%"
-msgstr "Sum of all splits should be 100%"
-
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx
-msgid "Collect limit should be greater than 0"
-msgstr "Collect limit should be greater than 0"
-
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx
-msgid "Total Collectibles"
-msgstr "Total Collectibles"
-
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx
-msgid "Collect Currency"
-msgstr "Collect Currency"
-
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx
-msgid "Price of each collect"
-msgstr "Price of each collect"
-
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx
-msgid "Referral Percentage"
-msgstr "Referral Percentage"
-
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx
-msgid "Percent of collect revenue can be shared with anyone who mirrors this video."
-msgstr "Percent of collect revenue can be shared with anyone who mirrors this video."
-
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx
-#: src/components/Upload/CollectModule/index.tsx
-msgid "Set Collect Type"
-msgstr "Set Collect Type"
+#~ msgid "Percent of collect revenue can be shared with anyone who mirrors this video."
+#~ msgstr "Percent of collect revenue can be shared with anyone who mirrors this video."
 
 #: src/components/Upload/CollectModule/LimitDurationQuestion.tsx
 #~ msgid "Limit to 24 hours sale"
 #~ msgstr "Limit to 24 hours sale"
 
 #: src/components/Upload/CollectModule/LimitDurationQuestion.tsx
-msgid "Would you like to limit the collect duration?"
-msgstr "Would you like to limit the collect duration?"
+#~ msgid "Would you like to limit the collect duration?"
+#~ msgstr "Would you like to limit the collect duration?"
 
 #: src/components/Upload/CollectModule/LimitDurationQuestion.tsx
-msgid "Unlimited duration"
-msgstr "Unlimited duration"
-
-#: src/components/Upload/CollectModule/LimitDurationQuestion.tsx
-msgid "Custom"
-msgstr "Custom"
+#~ msgid "Unlimited duration"
+#~ msgstr "Unlimited duration"
 
 #: src/components/Upload/CollectModule/LimitQuestion.tsx
-msgid "Would you like to limit the collectibles?"
-msgstr "Would you like to limit the collectibles?"
+#~ msgid "Would you like to limit the collectibles?"
+#~ msgstr "Would you like to limit the collectibles?"
 
 #: src/components/Upload/CollectModule/LimitQuestion.tsx
-msgid "Unlimited collects"
-msgstr "Unlimited collects"
+#~ msgid "Unlimited collects"
+#~ msgstr "Unlimited collects"
 
 #: src/components/Upload/CollectModule/LimitQuestion.tsx
-msgid "Limited collect"
-msgstr "Limited collect"
+#~ msgid "Limited collect"
+#~ msgstr "Limited collect"
 
 #: src/components/Upload/CollectModule/PermissionQuestion.tsx
-msgid "Who can collect this video?"
-msgstr "Who can collect this video?"
+#~ msgid "Who can collect this video?"
+#~ msgstr "Who can collect this video?"
 
 #: src/components/Upload/CollectModule/PermissionQuestion.tsx
-#: src/components/Upload/CollectModule/index.tsx
-#: src/components/Upload/ReferenceModule/index.tsx
-msgid "Anyone"
-msgstr "Anyone"
-
-#: src/components/Upload/CollectModule/PermissionQuestion.tsx
-#: src/components/Upload/CollectModule/index.tsx
-msgid "Subscribers"
-msgstr "Subscribers"
-
-#: src/components/Upload/CollectModule/PermissionQuestion.tsx
-msgid "None"
-msgstr "None"
+#~ msgid "None"
+#~ msgstr "None"
 
 #: src/components/Upload/CollectModule/Splits.tsx
 #~ msgid "Split revenue"
 #~ msgstr "Split revenue"
-
-#: src/components/Upload/CollectModule/Splits.tsx
-msgid "Add recipient"
-msgstr "Add recipient"
-
-#: src/components/Upload/CollectModule/Splits.tsx
-msgid "Add Donation"
-msgstr "Add Donation"
-
-#: src/components/Upload/CollectModule/Splits.tsx
-msgid "Split evenly"
-msgstr "Split evenly"
 
 #: src/components/Upload/CollectModule/index.tsx
 #~ msgid "Select collect type"
@@ -1329,28 +1549,8 @@ msgstr "Split evenly"
 #~ msgstr "within 24hrs"
 
 #: src/components/Upload/CollectModule/index.tsx
-msgid "No one can collect this publication"
-msgstr "No one can collect this publication"
-
-#: src/components/Upload/CollectModule/index.tsx
-msgid "can collect"
-msgstr "can collect"
-
-#: src/components/Upload/CollectModule/index.tsx
-msgid "for given fees"
-msgstr "for given fees"
-
-#: src/components/Upload/CollectModule/index.tsx
-msgid "for free"
-msgstr "for free"
-
-#: src/components/Upload/CollectModule/index.tsx
-msgid "within {timeLimit} days"
-msgstr "within {timeLimit} days"
-
-#: src/components/Upload/CollectModule/index.tsx
-msgid "Collect Type"
-msgstr "Collect Type"
+#~ msgid "Collect Type"
+#~ msgstr "Collect Type"
 
 #: src/components/Upload/Details.tsx
 #~ msgid "Title that describes your video"
@@ -1365,56 +1565,8 @@ msgstr "Collect Type"
 #~ msgstr "Does this video contain sensitive information that targets an adult audience?"
 
 #: src/components/Upload/Details.tsx
-msgid "Title should be atleast 5 characters"
-msgstr "Title should be atleast 5 characters"
-
-#: src/components/Upload/Details.tsx
-msgid "Title should not exceed 100 characters"
-msgstr "Title should not exceed 100 characters"
-
-#: src/components/Upload/Details.tsx
-msgid "Description should be atleast 5 characters"
-msgstr "Description should be atleast 5 characters"
-
-#: src/components/Upload/Details.tsx
-msgid "Description should not exceed 5000 characters"
-msgstr "Description should not exceed 5000 characters"
-
-#: src/components/Upload/Details.tsx
-msgid "Please select or upload a thumbnail"
-msgstr "Please select or upload a thumbnail"
-
-#: src/components/Upload/Details.tsx
-msgid "Title"
-msgstr "Title"
-
-#: src/components/Upload/Details.tsx
-msgid "Title that describes your content"
-msgstr "Title that describes your content"
-
-#: src/components/Upload/Details.tsx
-msgid "Description"
-msgstr "Description"
-
-#: src/components/Upload/Details.tsx
-msgid "Describe more about your content, can also be @profile, #hashtags or chapters (00:20 - Intro)"
-msgstr "Describe more about your content, can also be @profile, #hashtags or chapters (00:20 - Intro)"
-
-#: src/components/Upload/Details.tsx
-msgid "Please note that only videos under 2 minutes in length can be uploaded as bytes."
-msgstr "Please note that only videos under 2 minutes in length can be uploaded as bytes."
-
-#: src/components/Upload/Details.tsx
-msgid "Upload this video as short-form bytes"
-msgstr "Upload this video as short-form bytes"
-
-#: src/components/Upload/Details.tsx
-msgid "Does this media content contain sensitive information that may not be suitable for a general audience?"
-msgstr "Does this media content contain sensitive information that may not be suitable for a general audience?"
-
-#: src/components/Upload/Details.tsx
-msgid "Reset"
-msgstr "Reset"
+#~ msgid "Does this media content contain sensitive information that may not be suitable for a general audience?"
+#~ msgstr "Does this media content contain sensitive information that may not be suitable for a general audience?"
 
 #: src/components/Upload/DropZone.tsx
 #~ msgid "Select Video"
@@ -1433,24 +1585,12 @@ msgstr "Reset"
 #~ msgstr "or choose one"
 
 #: src/components/Upload/DropZone.tsx
-msgid "Error uploading file"
-msgstr "Error uploading file"
+#~ msgid "media to upload"
+#~ msgstr "media to upload"
 
 #: src/components/Upload/DropZone.tsx
-msgid "Video format not supported"
-msgstr "Video format not supported"
-
-#: src/components/Upload/DropZone.tsx
-msgid "Drag and drop"
-msgstr "Drag and drop"
-
-#: src/components/Upload/DropZone.tsx
-msgid "media to upload"
-msgstr "media to upload"
-
-#: src/components/Upload/DropZone.tsx
-msgid "Choose Media"
-msgstr "Choose Media"
+#~ msgid "Choose Media"
+#~ msgstr "Choose Media"
 
 #: src/components/Upload/IrysInfo.tsx
 #~ msgid "Your Storage Balance"
@@ -1460,62 +1600,29 @@ msgstr "Choose Media"
 #~ msgid "Estimated Cost to Upload"
 #~ msgstr "Estimated Cost to Upload"
 
-#: src/components/Upload/IrysInfo.tsx
-msgid "Upload cost estimation failed"
-msgstr "Upload cost estimation failed"
-
-#: src/components/Upload/IrysInfo.tsx
-msgid "Enter deposit amount"
-msgstr "Enter deposit amount"
-
-#: src/components/Upload/IrysInfo.tsx
-msgid "Invalid deposit amount"
-msgstr "Invalid deposit amount"
-
-#: src/components/Upload/IrysInfo.tsx
-msgid "Failed to deposit storage balance"
-msgstr "Failed to deposit storage balance"
-
-#: src/components/Upload/IrysInfo.tsx
-msgid "Your storage balance"
-msgstr "Your storage balance"
-
-#: src/components/Upload/IrysInfo.tsx
-#: src/components/Upload/IrysInfo.tsx
-msgid "Deposit"
-msgstr "Deposit"
-
-#: src/components/Upload/IrysInfo.tsx
-msgid "Amount to deposit (MATIC)"
-msgstr "Amount to deposit (MATIC)"
-
-#: src/components/Upload/IrysInfo.tsx
-msgid "Estimated cost to upload"
-msgstr "Estimated cost to upload"
+#: src/components/Upload/ReferenceModule/index.tsx
+#~ msgid "Anyone can comment and mirror"
+#~ msgstr "Anyone can comment and mirror"
 
 #: src/components/Upload/ReferenceModule/index.tsx
-msgid "Anyone can comment and mirror"
-msgstr "Anyone can comment and mirror"
+#~ msgid "Only my subscribers can comment and mirror"
+#~ msgstr "Only my subscribers can comment and mirror"
 
 #: src/components/Upload/ReferenceModule/index.tsx
-msgid "Only my subscribers can comment and mirror"
-msgstr "Only my subscribers can comment and mirror"
+#~ msgid "Comments and Mirrors"
+#~ msgstr "Comments and Mirrors"
 
 #: src/components/Upload/ReferenceModule/index.tsx
-msgid "Comments and Mirrors"
-msgstr "Comments and Mirrors"
+#~ msgid "Only channels that I subscribed and their subscriptions, so on upto"
+#~ msgstr "Only channels that I subscribed and their subscriptions, so on upto"
 
 #: src/components/Upload/ReferenceModule/index.tsx
-msgid "Only channels that I subscribed and their subscriptions, so on upto"
-msgstr "Only channels that I subscribed and their subscriptions, so on upto"
+#~ msgid "degrees away from my network"
+#~ msgstr "degrees away from my network"
 
 #: src/components/Upload/ReferenceModule/index.tsx
-msgid "degrees away from my network"
-msgstr "degrees away from my network"
-
-#: src/components/Upload/ReferenceModule/index.tsx
-msgid "Set Preference"
-msgstr "Set Preference"
+#~ msgid "Set Preference"
+#~ msgstr "Set Preference"
 
 #: src/components/Upload/UploadMethod.tsx
 #~ msgid "Upload to Arweave"
@@ -1526,48 +1633,12 @@ msgstr "Set Preference"
 #~ msgstr "Upload to IPFS"
 
 #: src/components/Upload/UploadMethod.tsx
-msgid "Please note that your media exceeds the free limit, and you can proceed with the upload by paying the storage fee."
-msgstr "Please note that your media exceeds the free limit, and you can proceed with the upload by paying the storage fee."
+#~ msgid "Please note that your media exceeds the free limit, and you can proceed with the upload by paying the storage fee."
+#~ msgstr "Please note that your media exceeds the free limit, and you can proceed with the upload by paying the storage fee."
 
 #: src/components/Upload/UploadSteps.tsx
 #~ msgid "Insufficient balance"
 #~ msgstr ""
-
-#: src/components/Upload/UploadSteps.tsx
-msgid "Post Video"
-msgstr "Post Video"
-
-#: src/components/Upload/UploadSteps.tsx
-msgid "Storing metadata"
-msgstr "Storing metadata"
-
-#: src/components/Upload/UploadSteps.tsx
-msgid "Posting video"
-msgstr "Posting video"
-
-#: src/components/Upload/UploadSteps.tsx
-msgid "Uploading to IPFS"
-msgstr "Uploading to IPFS"
-
-#: src/components/Upload/UploadSteps.tsx
-msgid "IPFS Upload failed"
-msgstr "IPFS Upload failed"
-
-#: src/components/Upload/UploadSteps.tsx
-msgid "Video not uploaded correctly"
-msgstr "Video not uploaded correctly"
-
-#: src/components/Upload/UploadSteps.tsx
-msgid "Insufficient storage balance"
-msgstr "Insufficient storage balance"
-
-#: src/components/Upload/UploadSteps.tsx
-msgid "Uploading to Arweave"
-msgstr "Uploading to Arweave"
-
-#: src/components/Upload/UploadSteps.tsx
-msgid "Failed to upload video to Arweave"
-msgstr "Failed to upload video to Arweave"
 
 #: src/components/Upload/Video.tsx
 #~ msgid "Video source copied"
@@ -1585,13 +1656,9 @@ msgstr "Failed to upload video to Arweave"
 #~ msgid "Video will be stored permanently on-chain and can't be updated"
 #~ msgstr "Video will be stored permanently on-chain and can't be updated"
 
-#: src/components/Upload/Video.tsx
-msgid "Skip the video upload (Only use this if you know what your doing!)"
-msgstr "Skip the video upload (Only use this if you know what your doing!)"
-
-#: src/components/Upload/Video.tsx
-msgid "Upload from Source Url"
-msgstr "Upload from Source URL"
+#: src/components/Watch/AboutChannel.tsx
+msgid "subscribers"
+msgstr "subscribers"
 
 #: src/components/Watch/CollectVideo/CollectModal.tsx
 #~ msgid "Collect Video"
@@ -1749,10 +1816,6 @@ msgstr "Collected as NFT"
 #: src/components/Watch/OpenActions/CollectPublication/index.tsx
 msgid "Total Collects"
 msgstr "Total Collects"
-
-#: src/components/Watch/OpenActions/CollectPublication/index.tsx
-msgid "Price"
-msgstr "Price"
 
 #: src/components/Watch/OpenActions/CollectPublication/index.tsx
 msgid "Ends At"

@@ -143,6 +143,7 @@ msgid "No other channels found"
 msgstr "未找到其他频道"
 
 #: src/components/Channel/Tabs/OtherProfiles.tsx
+#: src/components/UIElements/ChannelSuggestions.tsx
 msgid "followers"
 msgstr ""
 
@@ -590,6 +591,320 @@ msgstr "报告"
 msgid "Watch Now"
 msgstr "立即查看"
 
+#: src/components/Create/Category.tsx
+msgid "Select Category"
+msgstr ""
+
+#: src/components/Create/ChooseThumbnail.tsx
+msgid "Failed to upload thumbnail"
+msgstr "上传缩略图失败"
+
+#: src/components/Create/ChooseThumbnail.tsx
+msgid "Please upload a custom thumbnail"
+msgstr "请上传一个自定义缩略图"
+
+#: src/components/Create/ChooseThumbnail.tsx
+#: src/components/Create/Details.tsx
+msgid "Uploading thumbnail"
+msgstr "正在上传缩略图"
+
+#: src/components/Create/ChooseThumbnail.tsx
+msgid "Upload"
+msgstr "上传"
+
+#: src/components/Create/CollectModule/ChargeQuestion.tsx
+#: src/components/Watch/OpenActions/CollectPublication/index.tsx
+msgid "Price"
+msgstr "价格"
+
+#: src/components/Create/CollectModule/ChargeQuestion.tsx
+msgid "Free"
+msgstr ""
+
+#: src/components/Create/CollectModule/ChargeQuestion.tsx
+msgid "Set Price"
+msgstr ""
+
+#: src/components/Create/CollectModule/CollectDuration.tsx
+msgid "Collect duration"
+msgstr ""
+
+#: src/components/Create/CollectModule/CollectDuration.tsx
+msgid "Forever"
+msgstr ""
+
+#: src/components/Create/CollectModule/CollectDuration.tsx
+msgid "Custom"
+msgstr ""
+
+#: src/components/Create/CollectModule/EditionSize.tsx
+msgid "Edition Size"
+msgstr ""
+
+#: src/components/Create/CollectModule/EditionSize.tsx
+msgid "Open"
+msgstr ""
+
+#: src/components/Create/CollectModule/EditionSize.tsx
+msgid "Fixed"
+msgstr ""
+
+#: src/components/Create/CollectModule/FeeCollectForm.tsx
+msgid "Invalid amount"
+msgstr "无效金额"
+
+#: src/components/Create/CollectModule/FeeCollectForm.tsx
+msgid "Percentage should be 0 to 100"
+msgstr "百分比应为0到100"
+
+#: src/components/Create/CollectModule/FeeCollectForm.tsx
+msgid "Should to greater than or equal to zero"
+msgstr "应大于或等于0"
+
+#: src/components/Create/CollectModule/FeeCollectForm.tsx
+msgid "Amount should be greater than 0"
+msgstr "金额必须大于 0"
+
+#: src/components/Create/CollectModule/FeeCollectForm.tsx
+msgid "Only 5 splits supported"
+msgstr "仅支持 5 拆分"
+
+#: src/components/Create/CollectModule/FeeCollectForm.tsx
+msgid "Invalid split recipient address"
+msgstr "无效的分割收件人地址"
+
+#: src/components/Create/CollectModule/FeeCollectForm.tsx
+msgid "Split addresses should be unique"
+msgstr "拆分地址应该是唯一的"
+
+#: src/components/Create/CollectModule/FeeCollectForm.tsx
+msgid "Sum of all splits should be 100%"
+msgstr "所有分割的总和应该是 100%"
+
+#: src/components/Create/CollectModule/FeeCollectForm.tsx
+msgid "Referral Percentage"
+msgstr "推荐百分比"
+
+#: src/components/Create/CollectModule/FeeCollectForm.tsx
+msgid "Percent of collect revenue can be shared with anyone who mirrors your content."
+msgstr ""
+
+#: src/components/Create/CollectModule/FeeCollectForm.tsx
+#: src/components/Create/CollectModule/index.tsx
+msgid "Set Collect Type"
+msgstr "设置收藏类型"
+
+#: src/components/Create/CollectModule/PermissionQuestion.tsx
+msgid "Who can collect?"
+msgstr ""
+
+#: src/components/Create/CollectModule/PermissionQuestion.tsx
+#: src/components/Create/CollectModule/index.tsx
+msgid "Anyone"
+msgstr "任何人"
+
+#: src/components/Create/CollectModule/PermissionQuestion.tsx
+msgid "Only Followers"
+msgstr ""
+
+#: src/components/Create/CollectModule/Splits.tsx
+msgid "Add recipient"
+msgstr "添加收件人"
+
+#: src/components/Create/CollectModule/Splits.tsx
+msgid "Add Donation"
+msgstr "添加捐款"
+
+#: src/components/Create/CollectModule/Splits.tsx
+msgid "Split evenly"
+msgstr "平均拆分"
+
+#: src/components/Create/CollectModule/index.tsx
+msgid "No one can collect this publication"
+msgstr "没有人能够收集这个出版物"
+
+#: src/components/Create/CollectModule/index.tsx
+msgid "Subscribers"
+msgstr "订阅者"
+
+#: src/components/Create/CollectModule/index.tsx
+msgid "can collect"
+msgstr "可以收集"
+
+#: src/components/Create/CollectModule/index.tsx
+msgid "for given fees"
+msgstr "给定费用"
+
+#: src/components/Create/CollectModule/index.tsx
+msgid "for free"
+msgstr "免费的"
+
+#: src/components/Create/CollectModule/index.tsx
+msgid "within {timeLimit} days"
+msgstr ""
+
+#: src/components/Create/CreateSteps.tsx
+msgid "Post Video"
+msgstr "发布视频"
+
+#: src/components/Create/CreateSteps.tsx
+msgid "Storing metadata"
+msgstr "存储元数据"
+
+#: src/components/Create/CreateSteps.tsx
+msgid "Posting video"
+msgstr "发布视频"
+
+#: src/components/Create/CreateSteps.tsx
+msgid "Uploading to IPFS"
+msgstr "上传到 IPFS"
+
+#: src/components/Create/CreateSteps.tsx
+msgid "IPFS Upload failed"
+msgstr "IPFS 上传失败"
+
+#: src/components/Create/CreateSteps.tsx
+msgid "Video not uploaded correctly"
+msgstr "视频上传不正确"
+
+#: src/components/Create/CreateSteps.tsx
+msgid "Insufficient storage balance"
+msgstr "存储余额不足"
+
+#: src/components/Create/CreateSteps.tsx
+msgid "Uploading to Arweave"
+msgstr "正在上传到Arweeve"
+
+#: src/components/Create/CreateSteps.tsx
+msgid "Failed to upload video to Arweave"
+msgstr "上传视频到 Arweeve 失败"
+
+#: src/components/Create/Details.tsx
+msgid "Title should be atleast 5 characters"
+msgstr "标题应至少5个字符"
+
+#: src/components/Create/Details.tsx
+msgid "Title should not exceed 100 characters"
+msgstr "标题不能超过 100 个字符"
+
+#: src/components/Create/Details.tsx
+msgid "Description should be atleast 5 characters"
+msgstr ""
+
+#: src/components/Create/Details.tsx
+msgid "Description should not exceed 5000 characters"
+msgstr "描述不能超过 5000 个字符"
+
+#: src/components/Create/Details.tsx
+msgid "Please select or upload a thumbnail"
+msgstr "请选择或上传缩略图"
+
+#: src/components/Create/Details.tsx
+msgid "Title"
+msgstr "标题"
+
+#: src/components/Create/Details.tsx
+msgid "Title that describes your content"
+msgstr ""
+
+#: src/components/Create/Details.tsx
+msgid "Description"
+msgstr "描述"
+
+#: src/components/Create/Details.tsx
+msgid "Describe more about your content, can also be @profile, #hashtags or chapters (00:20 - Intro)"
+msgstr ""
+
+#: src/components/Create/Details.tsx
+msgid "Collectible"
+msgstr ""
+
+#: src/components/Create/Details.tsx
+msgid "Please note that only videos under 2 minutes in length can be uploaded as bytes."
+msgstr "请注意，只有2分钟以下的视频才能以字节的形式上传。"
+
+#: src/components/Create/Details.tsx
+msgid "Upload this video as short-form bytes"
+msgstr "上传这个视频作为短表格字节"
+
+#: src/components/Create/Details.tsx
+msgid "Sensitive content for a general audience"
+msgstr ""
+
+#: src/components/Create/Details.tsx
+msgid "Reset"
+msgstr "Reset"
+
+#: src/components/Create/DropZone.tsx
+msgid "Error uploading file"
+msgstr "上传文件出错"
+
+#: src/components/Create/DropZone.tsx
+msgid "Video format not supported"
+msgstr "视频格式不被支持"
+
+#: src/components/Create/DropZone.tsx
+msgid "Drag and drop"
+msgstr "拖动"
+
+#: src/components/Create/DropZone.tsx
+msgid "Select multimedia from your device."
+msgstr ""
+
+#: src/components/Create/DropZone.tsx
+#: src/components/Settings/BasicInfo.tsx
+msgid "Choose"
+msgstr ""
+
+#: src/components/Create/IrysInfo.tsx
+msgid "Upload cost estimation failed"
+msgstr "上传成本估计失败"
+
+#: src/components/Create/IrysInfo.tsx
+msgid "Enter deposit amount"
+msgstr "输入存款金额"
+
+#: src/components/Create/IrysInfo.tsx
+msgid "Invalid deposit amount"
+msgstr "无效的存款金额"
+
+#: src/components/Create/IrysInfo.tsx
+msgid "Failed to deposit storage balance"
+msgstr "保存存储余额失败"
+
+#: src/components/Create/IrysInfo.tsx
+msgid "Your storage balance"
+msgstr ""
+
+#: src/components/Create/IrysInfo.tsx
+#: src/components/Create/IrysInfo.tsx
+msgid "Deposit"
+msgstr "存款"
+
+#: src/components/Create/IrysInfo.tsx
+msgid "Amount to deposit (MATIC)"
+msgstr "存入金额 (MATIC)"
+
+#: src/components/Create/IrysInfo.tsx
+msgid "Estimated cost to upload"
+msgstr ""
+
+#: src/components/Create/ReferenceModule/index.tsx
+msgid "Who can comment and mirror?"
+msgstr ""
+
+#: src/components/Create/SelectedMedia.tsx
+msgid "Skip the video upload (Only use this if you know what your doing!)"
+msgstr "跳过视频上传 (只有当你知道你在做什么！)"
+
+#: src/components/Create/SelectedMedia.tsx
+msgid "Upload from Source Url"
+msgstr "从源网址上传"
+
+#: src/components/Create/UploadMethod.tsx
+msgid "Please note that your media exceeds the free limit ({IPFS_FREE_UPLOAD_LIMIT} mb), and you can proceed with the upload by paying the storage fee."
+msgstr ""
+
 #: src/components/Explore/Feed.tsx
 msgid "Trending"
 msgstr "热门主题"
@@ -908,10 +1223,6 @@ msgstr "攻击性的"
 #~ msgstr "更多关于您的频道"
 
 #: src/components/Settings/BasicInfo.tsx
-msgid "Choose"
-msgstr ""
-
-#: src/components/Settings/BasicInfo.tsx
 msgid "Profile"
 msgstr ""
 
@@ -1125,11 +1436,6 @@ msgstr "订阅"
 #~ msgid "Thanks for supporting our community!"
 #~ msgstr "感谢支持我们的社区！"
 
-#: src/components/UIElements/ChannelSuggestions.tsx
-#: src/components/Watch/AboutChannel.tsx
-msgid "subscribers"
-msgstr "订阅者"
-
 #: src/components/UIElements/Confirm.tsx
 #~ msgid "Are you sure want to continue?"
 #~ msgstr "Are you sure want to continue?"
@@ -1159,166 +1465,80 @@ msgstr "确认"
 #~ msgstr "否"
 
 #: src/components/Upload/Category.tsx
-msgid "Category"
-msgstr "类别"
-
-#: src/components/Upload/ChooseThumbnail.tsx
-msgid "Failed to upload thumbnail"
-msgstr "上传缩略图失败"
-
-#: src/components/Upload/ChooseThumbnail.tsx
-msgid "Please upload a custom thumbnail"
-msgstr "请上传一个自定义缩略图"
-
-#: src/components/Upload/ChooseThumbnail.tsx
-#: src/components/Upload/Details.tsx
-msgid "Uploading thumbnail"
-msgstr "正在上传缩略图"
-
-#: src/components/Upload/ChooseThumbnail.tsx
-#: src/components/Upload/DropZone.tsx
-msgid "Upload"
-msgstr "上传"
+#~ msgid "Category"
+#~ msgstr "类别"
 
 #: src/components/Upload/CollectModule/ChargeQuestion.tsx
-msgid "Would you like to set collect price for this video?"
-msgstr "您想为此视频设置采集价格吗？"
+#~ msgid "Would you like to set collect price for this video?"
+#~ msgstr "您想为此视频设置采集价格吗？"
 
 #: src/components/Upload/CollectModule/ChargeQuestion.tsx
-msgid "Collect for Free"
-msgstr "免费收藏"
+#~ msgid "Collect for Free"
+#~ msgstr "免费收藏"
 
 #: src/components/Upload/CollectModule/ChargeQuestion.tsx
-msgid "Yes, Some Price"
-msgstr "是的，一些价格"
+#~ msgid "Yes, Some Price"
+#~ msgstr "是的，一些价格"
 
 #: src/components/Upload/CollectModule/FeeCollectForm.tsx
-msgid "Invalid amount"
-msgstr "无效金额"
+#~ msgid "Invalid collect limit"
+#~ msgstr "无效的收集限制"
 
 #: src/components/Upload/CollectModule/FeeCollectForm.tsx
-msgid "Invalid collect limit"
-msgstr "无效的收集限制"
+#~ msgid "Collect limit should be greater than 0"
+#~ msgstr "收集限制应该大于 0"
 
 #: src/components/Upload/CollectModule/FeeCollectForm.tsx
-msgid "Percentage should be 0 to 100"
-msgstr "百分比应为0到100"
+#~ msgid "Total Collectibles"
+#~ msgstr "收藏品总数"
 
 #: src/components/Upload/CollectModule/FeeCollectForm.tsx
-msgid "Should to greater than or equal to zero"
-msgstr "应大于或等于0"
+#~ msgid "Collect Currency"
+#~ msgstr "收集货币"
 
 #: src/components/Upload/CollectModule/FeeCollectForm.tsx
-msgid "Amount should be greater than 0"
-msgstr "金额必须大于 0"
+#~ msgid "Price of each collect"
+#~ msgstr "每个收集的价格"
 
 #: src/components/Upload/CollectModule/FeeCollectForm.tsx
-msgid "Only 5 splits supported"
-msgstr "仅支持 5 拆分"
-
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx
-msgid "Invalid split recipient address"
-msgstr "无效的分割收件人地址"
-
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx
-msgid "Split addresses should be unique"
-msgstr "拆分地址应该是唯一的"
-
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx
-msgid "Sum of all splits should be 100%"
-msgstr "所有分割的总和应该是 100%"
-
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx
-msgid "Collect limit should be greater than 0"
-msgstr "收集限制应该大于 0"
-
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx
-msgid "Total Collectibles"
-msgstr "收藏品总数"
-
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx
-msgid "Collect Currency"
-msgstr "收集货币"
-
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx
-msgid "Price of each collect"
-msgstr "每个收集的价格"
-
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx
-msgid "Referral Percentage"
-msgstr "推荐百分比"
-
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx
-msgid "Percent of collect revenue can be shared with anyone who mirrors this video."
-msgstr "税收的百分比可以分享给镜像此视频的任何人。"
-
-#: src/components/Upload/CollectModule/FeeCollectForm.tsx
-#: src/components/Upload/CollectModule/index.tsx
-msgid "Set Collect Type"
-msgstr "设置收藏类型"
+#~ msgid "Percent of collect revenue can be shared with anyone who mirrors this video."
+#~ msgstr "税收的百分比可以分享给镜像此视频的任何人。"
 
 #: src/components/Upload/CollectModule/LimitDurationQuestion.tsx
 #~ msgid "Limit to 24 hours sale"
 #~ msgstr "限制24小时销售"
 
 #: src/components/Upload/CollectModule/LimitDurationQuestion.tsx
-msgid "Would you like to limit the collect duration?"
-msgstr "您想要限制收集持续时间吗？"
+#~ msgid "Would you like to limit the collect duration?"
+#~ msgstr "您想要限制收集持续时间吗？"
 
 #: src/components/Upload/CollectModule/LimitDurationQuestion.tsx
-msgid "Unlimited duration"
-msgstr "无限制持续时间"
-
-#: src/components/Upload/CollectModule/LimitDurationQuestion.tsx
-msgid "Custom"
-msgstr ""
+#~ msgid "Unlimited duration"
+#~ msgstr "无限制持续时间"
 
 #: src/components/Upload/CollectModule/LimitQuestion.tsx
-msgid "Would you like to limit the collectibles?"
-msgstr "您想要限制收藏夹吗？"
+#~ msgid "Would you like to limit the collectibles?"
+#~ msgstr "您想要限制收藏夹吗？"
 
 #: src/components/Upload/CollectModule/LimitQuestion.tsx
-msgid "Unlimited collects"
-msgstr "无限收藏"
+#~ msgid "Unlimited collects"
+#~ msgstr "无限收藏"
 
 #: src/components/Upload/CollectModule/LimitQuestion.tsx
-msgid "Limited collect"
-msgstr "有限采集量"
+#~ msgid "Limited collect"
+#~ msgstr "有限采集量"
 
 #: src/components/Upload/CollectModule/PermissionQuestion.tsx
-msgid "Who can collect this video?"
-msgstr "谁可以收集此视频？"
+#~ msgid "Who can collect this video?"
+#~ msgstr "谁可以收集此视频？"
 
 #: src/components/Upload/CollectModule/PermissionQuestion.tsx
-#: src/components/Upload/CollectModule/index.tsx
-#: src/components/Upload/ReferenceModule/index.tsx
-msgid "Anyone"
-msgstr "任何人"
-
-#: src/components/Upload/CollectModule/PermissionQuestion.tsx
-#: src/components/Upload/CollectModule/index.tsx
-msgid "Subscribers"
-msgstr "订阅者"
-
-#: src/components/Upload/CollectModule/PermissionQuestion.tsx
-msgid "None"
-msgstr "无"
+#~ msgid "None"
+#~ msgstr "无"
 
 #: src/components/Upload/CollectModule/Splits.tsx
 #~ msgid "Split revenue"
 #~ msgstr "拆分收入"
-
-#: src/components/Upload/CollectModule/Splits.tsx
-msgid "Add recipient"
-msgstr "添加收件人"
-
-#: src/components/Upload/CollectModule/Splits.tsx
-msgid "Add Donation"
-msgstr "添加捐款"
-
-#: src/components/Upload/CollectModule/Splits.tsx
-msgid "Split evenly"
-msgstr "平均拆分"
 
 #: src/components/Upload/CollectModule/index.tsx
 #~ msgid "Select collect type"
@@ -1329,28 +1549,8 @@ msgstr "平均拆分"
 #~ msgstr "24小时内"
 
 #: src/components/Upload/CollectModule/index.tsx
-msgid "No one can collect this publication"
-msgstr "没有人能够收集这个出版物"
-
-#: src/components/Upload/CollectModule/index.tsx
-msgid "can collect"
-msgstr "可以收集"
-
-#: src/components/Upload/CollectModule/index.tsx
-msgid "for given fees"
-msgstr "给定费用"
-
-#: src/components/Upload/CollectModule/index.tsx
-msgid "for free"
-msgstr "免费的"
-
-#: src/components/Upload/CollectModule/index.tsx
-msgid "within {timeLimit} days"
-msgstr ""
-
-#: src/components/Upload/CollectModule/index.tsx
-msgid "Collect Type"
-msgstr "收藏类型"
+#~ msgid "Collect Type"
+#~ msgstr "收藏类型"
 
 #: src/components/Upload/Details.tsx
 #~ msgid "Title that describes your video"
@@ -1365,56 +1565,8 @@ msgstr "收藏类型"
 #~ msgstr "此视频是否包含针对成年听众的敏感信息？"
 
 #: src/components/Upload/Details.tsx
-msgid "Title should be atleast 5 characters"
-msgstr "标题应至少5个字符"
-
-#: src/components/Upload/Details.tsx
-msgid "Title should not exceed 100 characters"
-msgstr "标题不能超过 100 个字符"
-
-#: src/components/Upload/Details.tsx
-msgid "Description should be atleast 5 characters"
-msgstr ""
-
-#: src/components/Upload/Details.tsx
-msgid "Description should not exceed 5000 characters"
-msgstr "描述不能超过 5000 个字符"
-
-#: src/components/Upload/Details.tsx
-msgid "Please select or upload a thumbnail"
-msgstr "请选择或上传缩略图"
-
-#: src/components/Upload/Details.tsx
-msgid "Title"
-msgstr "标题"
-
-#: src/components/Upload/Details.tsx
-msgid "Title that describes your content"
-msgstr ""
-
-#: src/components/Upload/Details.tsx
-msgid "Description"
-msgstr "描述"
-
-#: src/components/Upload/Details.tsx
-msgid "Describe more about your content, can also be @profile, #hashtags or chapters (00:20 - Intro)"
-msgstr ""
-
-#: src/components/Upload/Details.tsx
-msgid "Please note that only videos under 2 minutes in length can be uploaded as bytes."
-msgstr "请注意，只有2分钟以下的视频才能以字节的形式上传。"
-
-#: src/components/Upload/Details.tsx
-msgid "Upload this video as short-form bytes"
-msgstr "上传这个视频作为短表格字节"
-
-#: src/components/Upload/Details.tsx
-msgid "Does this media content contain sensitive information that may not be suitable for a general audience?"
-msgstr ""
-
-#: src/components/Upload/Details.tsx
-msgid "Reset"
-msgstr "Reset"
+#~ msgid "Does this media content contain sensitive information that may not be suitable for a general audience?"
+#~ msgstr ""
 
 #: src/components/Upload/DropZone.tsx
 #~ msgid "Select Video"
@@ -1433,24 +1585,12 @@ msgstr "Reset"
 #~ msgstr ""
 
 #: src/components/Upload/DropZone.tsx
-msgid "Error uploading file"
-msgstr "上传文件出错"
+#~ msgid "media to upload"
+#~ msgstr ""
 
 #: src/components/Upload/DropZone.tsx
-msgid "Video format not supported"
-msgstr "视频格式不被支持"
-
-#: src/components/Upload/DropZone.tsx
-msgid "Drag and drop"
-msgstr "拖动"
-
-#: src/components/Upload/DropZone.tsx
-msgid "media to upload"
-msgstr ""
-
-#: src/components/Upload/DropZone.tsx
-msgid "Choose Media"
-msgstr ""
+#~ msgid "Choose Media"
+#~ msgstr ""
 
 #: src/components/Upload/IrysInfo.tsx
 #~ msgid "Your Storage Balance"
@@ -1460,62 +1600,29 @@ msgstr ""
 #~ msgid "Estimated Cost to Upload"
 #~ msgstr "估计上传费用"
 
-#: src/components/Upload/IrysInfo.tsx
-msgid "Upload cost estimation failed"
-msgstr "上传成本估计失败"
-
-#: src/components/Upload/IrysInfo.tsx
-msgid "Enter deposit amount"
-msgstr "输入存款金额"
-
-#: src/components/Upload/IrysInfo.tsx
-msgid "Invalid deposit amount"
-msgstr "无效的存款金额"
-
-#: src/components/Upload/IrysInfo.tsx
-msgid "Failed to deposit storage balance"
-msgstr "保存存储余额失败"
-
-#: src/components/Upload/IrysInfo.tsx
-msgid "Your storage balance"
-msgstr ""
-
-#: src/components/Upload/IrysInfo.tsx
-#: src/components/Upload/IrysInfo.tsx
-msgid "Deposit"
-msgstr "存款"
-
-#: src/components/Upload/IrysInfo.tsx
-msgid "Amount to deposit (MATIC)"
-msgstr "存入金额 (MATIC)"
-
-#: src/components/Upload/IrysInfo.tsx
-msgid "Estimated cost to upload"
-msgstr ""
+#: src/components/Upload/ReferenceModule/index.tsx
+#~ msgid "Anyone can comment and mirror"
+#~ msgstr "任何人都可以评论和镜像"
 
 #: src/components/Upload/ReferenceModule/index.tsx
-msgid "Anyone can comment and mirror"
-msgstr "任何人都可以评论和镜像"
+#~ msgid "Only my subscribers can comment and mirror"
+#~ msgstr "只有我的订阅者可以评论和镜像"
 
 #: src/components/Upload/ReferenceModule/index.tsx
-msgid "Only my subscribers can comment and mirror"
-msgstr "只有我的订阅者可以评论和镜像"
+#~ msgid "Comments and Mirrors"
+#~ msgstr "评论和镜像"
 
 #: src/components/Upload/ReferenceModule/index.tsx
-msgid "Comments and Mirrors"
-msgstr "评论和镜像"
+#~ msgid "Only channels that I subscribed and their subscriptions, so on upto"
+#~ msgstr "只有我订阅的频道和他们的订阅才能达到最高值"
 
 #: src/components/Upload/ReferenceModule/index.tsx
-msgid "Only channels that I subscribed and their subscriptions, so on upto"
-msgstr "只有我订阅的频道和他们的订阅才能达到最高值"
+#~ msgid "degrees away from my network"
+#~ msgstr "远离我的网络"
 
 #: src/components/Upload/ReferenceModule/index.tsx
-msgid "degrees away from my network"
-msgstr "远离我的网络"
-
-#: src/components/Upload/ReferenceModule/index.tsx
-msgid "Set Preference"
-msgstr "设置首选项"
+#~ msgid "Set Preference"
+#~ msgstr "设置首选项"
 
 #: src/components/Upload/UploadMethod.tsx
 #~ msgid "Upload to Arweave"
@@ -1526,48 +1633,12 @@ msgstr "设置首选项"
 #~ msgstr "上传到 IPFS"
 
 #: src/components/Upload/UploadMethod.tsx
-msgid "Please note that your media exceeds the free limit, and you can proceed with the upload by paying the storage fee."
-msgstr ""
+#~ msgid "Please note that your media exceeds the free limit, and you can proceed with the upload by paying the storage fee."
+#~ msgstr ""
 
 #: src/components/Upload/UploadSteps.tsx
 #~ msgid "Insufficient balance"
 #~ msgstr ""
-
-#: src/components/Upload/UploadSteps.tsx
-msgid "Post Video"
-msgstr "发布视频"
-
-#: src/components/Upload/UploadSteps.tsx
-msgid "Storing metadata"
-msgstr "存储元数据"
-
-#: src/components/Upload/UploadSteps.tsx
-msgid "Posting video"
-msgstr "发布视频"
-
-#: src/components/Upload/UploadSteps.tsx
-msgid "Uploading to IPFS"
-msgstr "上传到 IPFS"
-
-#: src/components/Upload/UploadSteps.tsx
-msgid "IPFS Upload failed"
-msgstr "IPFS 上传失败"
-
-#: src/components/Upload/UploadSteps.tsx
-msgid "Video not uploaded correctly"
-msgstr "视频上传不正确"
-
-#: src/components/Upload/UploadSteps.tsx
-msgid "Insufficient storage balance"
-msgstr "存储余额不足"
-
-#: src/components/Upload/UploadSteps.tsx
-msgid "Uploading to Arweave"
-msgstr "正在上传到Arweeve"
-
-#: src/components/Upload/UploadSteps.tsx
-msgid "Failed to upload video to Arweave"
-msgstr "上传视频到 Arweeve 失败"
 
 #: src/components/Upload/Video.tsx
 #~ msgid "Video source copied"
@@ -1585,13 +1656,9 @@ msgstr "上传视频到 Arweeve 失败"
 #~ msgid "Video will be stored permanently on-chain and can't be updated"
 #~ msgstr "视频将在链上永久存储，不能更新"
 
-#: src/components/Upload/Video.tsx
-msgid "Skip the video upload (Only use this if you know what your doing!)"
-msgstr "跳过视频上传 (只有当你知道你在做什么！)"
-
-#: src/components/Upload/Video.tsx
-msgid "Upload from Source Url"
-msgstr "从源网址上传"
+#: src/components/Watch/AboutChannel.tsx
+msgid "subscribers"
+msgstr "订阅者"
 
 #: src/components/Watch/CollectVideo/CollectModal.tsx
 #~ msgid "Collect Video"
@@ -1749,10 +1816,6 @@ msgstr "以 NFT 方式收集"
 #: src/components/Watch/OpenActions/CollectPublication/index.tsx
 msgid "Total Collects"
 msgstr "总收藏量"
-
-#: src/components/Watch/OpenActions/CollectPublication/index.tsx
-msgid "Price"
-msgstr "价格"
 
 #: src/components/Watch/OpenActions/CollectPublication/index.tsx
 msgid "Ends At"
