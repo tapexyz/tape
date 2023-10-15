@@ -11,6 +11,7 @@ import type {
   PublicationsRequest
 } from '@tape.xyz/lens'
 import {
+  CommentRankingFilterType,
   LimitType,
   PublicationsOrderByType,
   usePublicationsQuery
@@ -35,7 +36,10 @@ const NonRelevantComments: FC<Props> = ({ video, className }) => {
     where: {
       customFilters: LENS_CUSTOM_FILTERS,
       commentOn: {
-        id: video.id
+        id: video.id,
+        ranking: {
+          filter: CommentRankingFilterType.NoneRelevant
+        }
       }
     },
     orderBy: PublicationsOrderByType.CommentOfQueryRanking

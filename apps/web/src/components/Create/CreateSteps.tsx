@@ -133,7 +133,7 @@ const CreateSteps = () => {
 
   const stopLoading = () => {
     setUploadedVideo({
-      buttonText: t`Post Video`,
+      buttonText: t`Post Now`,
       loading: false
     })
   }
@@ -402,7 +402,9 @@ const CreateSteps = () => {
           })
         }
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log('🚀 ~ Create ~ error:', error)
+    }
   }
 
   const uploadVideoToIpfs = async () => {

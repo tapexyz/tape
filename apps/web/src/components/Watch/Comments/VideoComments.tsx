@@ -3,7 +3,6 @@ import CommentOutline from '@components/Common/Icons/CommentOutline'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'
 import { LENS_CUSTOM_FILTERS, SCROLL_ROOT_MARGIN } from '@tape.xyz/constants'
@@ -14,19 +13,16 @@ import type {
   PublicationsRequest
 } from '@tape.xyz/lens'
 import {
-  CommentRankingFilterType,
   LimitType,
   PublicationsOrderByType,
   TriStateValue,
   usePublicationsQuery
 } from '@tape.xyz/lens'
-import { CustomCommentsFilterEnum } from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 
-import CommentsFilter from './CommentsFilter'
 import NewComment from './NewComment'
 import QueuedComment from './QueuedComment'
 import RenderComment from './RenderComment'
@@ -41,9 +37,6 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
     (state) => state.selectedSimpleProfile
   )
   const queuedComments = usePersistStore((state) => state.queuedComments)
-  const selectedCommentFilter = useChannelStore(
-    (state) => state.selectedCommentFilter
-  )
 
   const isFollowerOnlyReferenceModule =
     video?.referenceModule?.__typename === 'FollowOnlyReferenceModuleSettings'
@@ -57,13 +50,13 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
     where: {
       customFilters: LENS_CUSTOM_FILTERS,
       commentOn: {
-        id: video.id,
-        ranking: {
-          filter:
-            selectedCommentFilter === CustomCommentsFilterEnum.RELEVANT_COMMENTS
-              ? CommentRankingFilterType.Relevant
-              : CommentRankingFilterType.NoneRelevant
-        }
+        id: video.id
+        // ranking: {
+        //   filter:
+        //     selectedCommentFilter === CustomCommentsFilterEnum.RELEVANT_COMMENTS
+        //       ? CommentRankingFilterType.Relevant
+        //       : CommentRankingFilterType.NoneRelevant
+        // }
       }
     },
     orderBy: PublicationsOrderByType.Latest
@@ -106,7 +99,7 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
                 {video.stats.comments ? `( ${video.stats.comments} )` : null}
               </span>
             </h1>
-            <CommentsFilter />
+            {/* <CommentsFilter /> */}
           </>
         )}
       </div>

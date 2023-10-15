@@ -1,4 +1,3 @@
-import { Button } from '@components/UIElements/Button'
 import EmojiPicker from '@components/UIElements/EmojiPicker'
 import InputMentions from '@components/UIElements/InputMentions'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -9,6 +8,7 @@ import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'
+import { Button } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { Analytics, getUserLocale, TRACK } from '@tape.xyz/browser'
 import {
@@ -348,7 +348,7 @@ const NewComment: FC<Props> = ({
         }
       }
     } catch (error) {
-      console.error('🚀 ~ ', error)
+      console.error('🚀 ~ NewComment ', error)
     }
   }
 
@@ -361,7 +361,7 @@ const NewComment: FC<Props> = ({
       onSubmit={handleSubmit(submitComment)}
       className="mb-2 flex w-full flex-wrap items-start justify-end gap-2"
     >
-      <div className="flex flex-1 items-center space-x-2 md:space-x-3">
+      <div className="flex flex-1 items-start space-x-2 md:space-x-3">
         <div className="flex-none">
           <img
             src={getProfilePicture(activeChannel, 'AVATAR')}
@@ -383,7 +383,7 @@ const NewComment: FC<Props> = ({
             mentionsSelector="input-mentions-single"
           />
           {!hideEmojiPicker && (
-            <div className="absolute bottom-2 right-2">
+            <div className="absolute right-2.5 top-2">
               <EmojiPicker
                 onEmojiSelect={(emoji) =>
                   setValue('comment', `${getValues('comment')}${emoji}`)
@@ -393,7 +393,7 @@ const NewComment: FC<Props> = ({
           )}
         </div>
       </div>
-      <Button variant="outline" loading={loading}>
+      <Button variant="surface" size="3" disabled={loading}>
         <Trans>Comment</Trans>
       </Button>
     </form>

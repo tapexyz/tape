@@ -234,7 +234,11 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
         </Button>
         <Button
           highContrast
-          disabled={uploadedVideo.loading || uploadedVideo.uploadingThumbnail}
+          disabled={
+            uploadedVideo.loading ||
+            uploadedVideo.uploadingThumbnail ||
+            uploadedVideo.durationInSeconds === 0
+          }
           type="submit"
           size="3"
         >

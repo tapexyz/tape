@@ -43,7 +43,7 @@ const SelectedMedia = () => {
 
   return (
     <div className="flex w-full flex-col">
-      <div className="md:rounded-large rounded-small group relative w-full overflow-hidden">
+      <div className="md:rounded-large rounded-small group relative w-full overflow-hidden border dark:border-gray-800">
         <video
           ref={videoRef}
           className="aspect-[16/9] w-full"
@@ -72,6 +72,18 @@ const SelectedMedia = () => {
             </span>
           )}
         </Badge>
+        {uploadedVideo.durationInSeconds === 0 && (
+          <Badge
+            variant="solid"
+            radius="full"
+            color="red"
+            className="absolute right-3 top-3"
+          >
+            <span className="whitespace-nowrap font-semibold">
+              Only media files longer than 1 second are allowed
+            </span>
+          </Badge>
+        )}
         {Boolean(uploadedVideo.percent) ? (
           <Tooltip content={`Uploaded (${uploadedVideo.percent}%)`}>
             <div className="absolute bottom-0 w-full overflow-hidden bg-gray-200">
