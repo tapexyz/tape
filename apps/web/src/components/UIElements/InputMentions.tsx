@@ -1,6 +1,6 @@
 import { Text } from '@radix-ui/themes'
 import { LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
-import { getProfilePicture, trimLensHandle } from '@tape.xyz/generic'
+import { getProfilePicture } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { LimitType, useSearchProfilesLazyQuery } from '@tape.xyz/lens'
 import clsx from 'clsx'
@@ -86,7 +86,7 @@ const InputMentions: FC<Props> = ({
         >
           <Mention
             trigger="@"
-            displayTransform={(handle) => `@${trimLensHandle(handle)} `}
+            displayTransform={(handle) => `@${handle} `}
             markup=" @__id__ "
             appendSpaceOnAdd
             renderSuggestion={(

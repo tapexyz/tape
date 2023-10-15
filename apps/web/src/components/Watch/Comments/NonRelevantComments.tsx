@@ -34,8 +34,9 @@ const NonRelevantComments: FC<Props> = ({ video, className }) => {
     limit: LimitType.TwentyFive,
     where: {
       customFilters: LENS_CUSTOM_FILTERS,
-
-      commentOn: video.id
+      commentOn: {
+        id: video.id
+      }
     },
     orderBy: PublicationsOrderByType.CommentOfQueryRanking
   }

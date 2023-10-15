@@ -1,6 +1,6 @@
 import useAuthPersistStore from '@lib/store/auth'
 import { Trans } from '@lingui/macro'
-import { Button } from '@radix-ui/themes'
+import { Button, IconButton } from '@radix-ui/themes'
 import { STATIC_ASSETS } from '@tape.xyz/constants'
 import clsx from 'clsx'
 import { motion } from 'framer-motion'
@@ -9,6 +9,7 @@ import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
 import React from 'react'
 
+import BellOutline from './Icons/BellOutline'
 import UploadOutline from './Icons/UploadOutline'
 import GlobalSearch from './Search/GlobalSearch'
 import UserMenu from './UserMenu'
@@ -77,10 +78,15 @@ const Navbar = () => {
             <Trans>Bytes</Trans>
           </Link>
         </div>
-        <div className="flex w-1/5 items-center justify-end space-x-4">
+        <div className="flex w-1/5 items-center justify-end space-x-3">
           <GlobalSearch />
           {selectedSimpleProfile?.id ? (
             <>
+              <Link href="/notifications" className="hidden md:block">
+                <IconButton radius="full" highContrast variant="soft">
+                  <BellOutline className="h-3.5 w-3.5" />
+                </IconButton>
+              </Link>
               <Link href="/create" className="hidden md:block">
                 <Button highContrast>
                   <UploadOutline className="h-3.5 w-3.5" />

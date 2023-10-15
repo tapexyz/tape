@@ -11,6 +11,7 @@ import { LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
 import { getProfilePicture, trimLensHandle } from '@tape.xyz/generic'
 import {
   type Comment,
+  CommentRankingFilterType,
   LimitType,
   type Profile,
   type PublicationsRequest,
@@ -82,7 +83,12 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
     limit: LimitType.Ten,
     where: {
       customFilters: LENS_CUSTOM_FILTERS,
-      commentOn: comment.id
+      commentOn: {
+        id: comment.id,
+        ranking: {
+          filter: CommentRankingFilterType.All
+        }
+      }
     }
   }
 
