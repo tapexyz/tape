@@ -30,9 +30,6 @@ fragment CommentFields on Comment {
   commentOn {
     ...PrimaryPublicationFields
   }
-  firstComment {
-    ...PrimaryPublicationFields
-  }
   referenceModule {
     ...ReferenceModuleFields
   }
