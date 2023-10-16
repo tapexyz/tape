@@ -23,7 +23,7 @@ const Navbar = () => {
   )
 
   return (
-    <div className="ultrawide:px-8 laptop:px-6 dark:bg-bunker/50 fixed z-10 flex h-16 w-[calc(100%-var(--removed-body-scroll-bar-size,0px))] items-center bg-white/50 px-4 backdrop-blur-2xl">
+    <div className="ultrawide:px-8 laptop:px-6 dark:bg-bunker/70 fixed z-10 flex h-16 w-[calc(100%-var(--removed-body-scroll-bar-size,0px))] items-center bg-white/50 px-4 backdrop-blur-2xl">
       <div className="flex w-full items-center justify-between">
         <div className="flex items-center md:w-1/5">
           <Link href="/" className="inline-flex">
@@ -48,7 +48,7 @@ const Navbar = () => {
             className={clsx(
               isActivePath('/')
                 ? 'font-bold opacity-100'
-                : 'font-medium opacity-30 hover:opacity-90'
+                : 'font-medium opacity-60 hover:opacity-90'
             )}
           >
             <Trans>Home</Trans>
@@ -58,7 +58,7 @@ const Navbar = () => {
             className={clsx(
               isActivePath('/feed')
                 ? 'font-bold opacity-100'
-                : 'font-medium opacity-30 hover:opacity-90'
+                : 'font-medium opacity-60 hover:opacity-90'
             )}
           >
             <Trans>Feed</Trans>
@@ -68,7 +68,7 @@ const Navbar = () => {
             className={clsx(
               isActivePath('/bytes')
                 ? 'font-bold opacity-100'
-                : 'font-medium opacity-30 hover:opacity-90'
+                : 'font-medium opacity-60 hover:opacity-90'
             )}
           >
             <Trans>Bytes</Trans>
