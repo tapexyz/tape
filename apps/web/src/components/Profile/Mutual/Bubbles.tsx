@@ -10,7 +10,7 @@ import {
   ScrollArea,
   Text
 } from '@radix-ui/themes'
-import { getProfilePicture, trimLensHandle } from '@tape.xyz/generic'
+import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { LimitType, useMutualFollowersQuery } from '@tape.xyz/lens'
 import type { FC } from 'react'
@@ -58,11 +58,10 @@ const Bubbles: FC<Props> = ({ viewing }) => {
             {mutualFollowers.slice(0, 3)?.map((profile: Profile) => (
               <HoverableProfile profile={profile} key={profile?.id}>
                 <img
-                  title={profile?.handle}
                   className="h-5 w-5 rounded-full border dark:border-gray-700/80"
                   src={getProfilePicture(profile, 'AVATAR')}
                   draggable={false}
-                  alt={profile?.handle}
+                  alt={getProfile(profile)?.slug}
                 />
               </HoverableProfile>
             ))}
@@ -72,9 +71,7 @@ const Bubbles: FC<Props> = ({ viewing }) => {
             {mutualFollowers
               .slice(0, 3)
               ?.map((profile: Profile) => (
-                <Text key={profile?.id}>
-                  {trimLensHandle(profile?.handle)},
-                </Text>
+                <Text key={profile?.id}>{getProfile(profile)?.slug},</Text>
               ))}
             {mutualFollowers.length > FETCH_COUNT && (
               <Text size="2">and few others</Text>

@@ -1,10 +1,6 @@
 import Badge from '@components/Common/Badge'
 import FollowActions from '@components/Common/FollowActions'
-import {
-  formatNumber,
-  getProfilePicture,
-  trimLensHandle
-} from '@tape.xyz/generic'
+import { formatNumber, getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { MirrorablePublication } from '@tape.xyz/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -27,20 +23,18 @@ const BottomOverlay: FC<Props> = ({ video }) => {
       <div className="flex items-center justify-between">
         <div className="min-w-0">
           <Link
-            href={`/u/${trimLensHandle(profile?.handle)}`}
+            href={`/u/${getProfile(video.by)?.slug}`}
             className="flex flex-none cursor-pointer items-center space-x-2"
           >
             <img
               src={getProfilePicture(profile, 'AVATAR')}
               className="h-9 w-9 rounded-full"
               draggable={false}
-              alt={trimLensHandle(profile?.handle)}
+              alt={getProfile(video.by)?.slug}
             />
             <div className="flex min-w-0 flex-col items-start text-white">
               <h6 className="flex max-w-full items-center space-x-1">
-                <span className="truncate">
-                  {trimLensHandle(profile?.handle)}
-                </span>
+                <span className="truncate">{getProfile(video.by)?.slug}</span>
                 <Badge
                   id={profile?.id}
                   color="text-gray-300 dark:text-gray-300"

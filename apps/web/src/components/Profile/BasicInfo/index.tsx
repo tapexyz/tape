@@ -23,12 +23,12 @@ import { useCopyToClipboard } from '@tape.xyz/browser'
 import { MISUSED_CHANNELS, STATIC_ASSETS } from '@tape.xyz/constants'
 import {
   getChannelCoverPicture,
+  getProfile,
   getProfilePicture,
   getValueFromKeyInAttributes,
   imageCdn,
   sanitizeDStorageUrl,
-  shortenAddress,
-  trimLensHandle
+  shortenAddress
 } from '@tape.xyz/generic'
 import {
   type Profile,
@@ -111,7 +111,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
             className="ultrawide:h-32 ultrawide:w-32 h-24 w-24 flex-none rounded-lg border-2 border-white bg-white shadow-2xl dark:bg-gray-900"
             src={getProfilePicture(profile, 'AVATAR_LG')}
             draggable={false}
-            alt={profile?.handle}
+            alt={getProfile(profile)?.slug}
           />
           <Flex direction="column" gap="4" align="end">
             {profile.metadata && <CoverLinks metadata={profile.metadata} />}
@@ -154,10 +154,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
               className="flex items-center space-x-1.5 text-lg md:text-2xl"
               weight="bold"
             >
-              <span>
-                {profile.metadata?.displayName ||
-                  trimLensHandle(profile?.handle)}
-              </span>
+              <span>{getProfile(profile)?.displayName}</span>
               <Badge id={profile?.id} size="md" />
             </Text>
             <Flex align="center" gap="4">

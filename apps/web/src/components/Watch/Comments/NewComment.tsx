@@ -19,6 +19,7 @@ import {
   TAPE_WEBSITE_URL
 } from '@tape.xyz/constants'
 import {
+  getProfile,
   getProfilePicture,
   getPublication,
   getSignature,
@@ -28,7 +29,8 @@ import {
 import type {
   AnyPublication,
   CreateMomokaCommentEip712TypedData,
-  CreateOnchainCommentEip712TypedData
+  CreateOnchainCommentEip712TypedData,
+  Profile
 } from '@tape.xyz/lens'
 import {
   PublicationDocument,
@@ -56,6 +58,7 @@ type Props = {
   defaultValue?: string
   placeholder?: string
   hideEmojiPicker?: boolean
+  resetReply?: () => void
 }
 
 const formSchema = object({
@@ -70,7 +73,8 @@ const NewComment: FC<Props> = ({
   video,
   defaultValue = '',
   placeholder = t`How's this video?`,
-  hideEmojiPicker = false
+  hideEmojiPicker = false,
+  resetReply
 }) => {
   const { cache } = useApolloClient()
 
@@ -128,6 +132,7 @@ const NewComment: FC<Props> = ({
       publication_state: targetVideo.momoka?.proof ? 'DATA_ONLY' : 'ON_CHAIN'
     })
     reset()
+    resetReply?.()
     setLoading(false)
   }
 
@@ -281,7 +286,7 @@ const NewComment: FC<Props> = ({
         {
           type: MetadataAttributeType.STRING,
           key: 'creator',
-          value: `${activeProfile?.handle}`
+          value: `${getProfile(activeProfile as Profile)?.slug}`
         },
         {
           type: MetadataAttributeType.STRING,
@@ -296,7 +301,9 @@ const NewComment: FC<Props> = ({
         content: trimify(formData.comment),
         locale: getUserLocale(),
         marketplace: {
-          name: `${activeProfile?.handle}'s comment on video ${targetVideo.metadata.marketplace?.name}`,
+          name: `${getProfile(activeProfile as Profile)
+            ?.slug}'s comment on video ${targetVideo.metadata.marketplace
+            ?.name}`,
           attributes,
           description: trimify(formData.comment),
           external_url: `${TAPE_WEBSITE_URL}/watch/${video?.id}`
@@ -367,7 +374,7 @@ const NewComment: FC<Props> = ({
             src={getProfilePicture(activeProfile, 'AVATAR')}
             className="h-9 w-9 rounded-full"
             draggable={false}
-            alt={activeProfile?.handle}
+            alt={getProfile(activeProfile)?.slug}
           />
         </div>
         <div className="relative w-full">

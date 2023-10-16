@@ -9,7 +9,7 @@ import {
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE
 } from '@tape.xyz/constants'
-import { getSignature } from '@tape.xyz/generic'
+import { getProfile, getSignature } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import {
   useBroadcastOnchainMutation,
@@ -49,10 +49,10 @@ const Follow: FC<Props> = ({ profile, onSubscribe, size = '2' }) => {
     }
     onSubscribe()
     setLoading(false)
-    toast.success(`Followed ${profile.handle}`)
+    toast.success(`Followed ${getProfile(profile)?.displayName}`)
     Analytics.track(TRACK.CHANNEL.SUBSCRIBE, {
       channel_id: profile.id,
-      channel_name: profile.handle
+      channel_name: getProfile(profile)?.slug
     })
   }
 

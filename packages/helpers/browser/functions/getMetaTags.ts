@@ -14,8 +14,8 @@ import {
 } from '@tape.xyz/generic'
 import type { AnyPublication } from '@tape.xyz/lens'
 
-type Args = {
-  title: string
+type Props = {
+  title?: string
   description: string
   image: string
   page?: 'PROFILE' | 'VIDEO'
@@ -60,7 +60,7 @@ export const getMetaTags = ({
   handle,
   pubId,
   publication
-}: Args) => {
+}: Props) => {
   const isVideo = page === 'VIDEO'
   const meta = {
     title: title ?? TAPE_APP_NAME,

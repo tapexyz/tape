@@ -17,6 +17,7 @@ import {
 } from '@tape.xyz/constants'
 import {
   getOpenActionNftMetadata,
+  getProfile,
   getSignature,
   getURLs,
   trimify,
@@ -25,7 +26,8 @@ import {
 } from '@tape.xyz/generic'
 import type {
   CreateMomokaPostEip712TypedData,
-  CreateOnchainPostEip712TypedData
+  CreateOnchainPostEip712TypedData,
+  Profile
 } from '@tape.xyz/lens'
 import {
   useBroadcastOnMomokaMutation,
@@ -209,7 +211,7 @@ const PostLinkModal: FC<Props> = ({ show, setShow }) => {
       content: `Check out this drop 📼 \n${linkText}`,
       locale: getUserLocale(),
       marketplace: {
-        name: `Link by @${activeProfile?.handle}`,
+        name: `Link by @${getProfile(activeProfile as Profile)?.slug}`,
         attributes,
         description: linkText,
         external_url: TAPE_WEBSITE_URL

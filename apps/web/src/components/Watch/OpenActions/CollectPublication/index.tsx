@@ -10,6 +10,7 @@ import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { ERROR_MESSAGE, LENSHUB_PROXY_ADDRESS } from '@tape.xyz/constants'
 import {
   formatNumber,
+  getProfile,
   getProfilePicture,
   getRandomProfilePicture,
   getSignature,
@@ -173,7 +174,8 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
         'AVATAR'
       )
       const label =
-        defaultProfile?.handle ?? shortenAddress(splitRecipient?.recipient)
+        getProfile(defaultProfile)?.slug ??
+        shortenAddress(splitRecipient?.recipient)
       const hasManyProfiles =
         getProfilesByAddress(splitRecipient.recipient)?.length > 1
       const handles = getProfilesByAddress(splitRecipient.recipient)
@@ -193,7 +195,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
               ))}
             >
               {defaultProfile?.handle ? (
-                <Link href={`/u/${trimLensHandle(defaultProfile.handle)}`}>
+                <Link href={`/u/${getProfile(defaultProfile)?.slug}`}>
                   {trimLensHandle(label)}
                 </Link>
               ) : (

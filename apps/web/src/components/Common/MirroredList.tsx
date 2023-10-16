@@ -1,5 +1,5 @@
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { getProfilePicture, trimLensHandle } from '@tape.xyz/generic'
+import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import {
   LimitType,
   type Profile,
@@ -64,20 +64,20 @@ const MirroredList: FC<Props> = ({ videoId }) => {
   return (
     <div className="mt-2 space-y-3">
       {mirroredByProfiles?.map((profile: Profile) => (
-        <div className="flex flex-col" key={profile.ownedBy.address}>
+        <div className="flex flex-col" key={getProfile(profile)?.slug}>
           <Link
-            href={`/u/${trimLensHandle(profile?.handle)}`}
+            href={`/u/${getProfile(profile)?.slug}`}
             className="font-base flex items-center justify-between"
           >
             <div className="flex items-center space-x-1.5">
               <img
                 className="h-5 w-5 rounded-full"
                 src={getProfilePicture(profile, 'AVATAR')}
-                alt={profile.handle}
+                alt={getProfile(profile)?.slug}
                 draggable={false}
               />
               <div className="flex items-center space-x-1">
-                <span>{trimLensHandle(profile?.handle)}</span>
+                <span>{getProfile(profile)?.slug}</span>
                 <Badge id={profile?.id} size="xs" />
               </div>
             </div>

@@ -1,6 +1,6 @@
 import { Text } from '@radix-ui/themes'
 import { LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
-import { getProfilePicture } from '@tape.xyz/generic'
+import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { LimitType, useSearchProfilesLazyQuery } from '@tape.xyz/lens'
 import clsx from 'clsx'
@@ -53,12 +53,12 @@ const InputMentions: FC<Props> = ({
       })
       if (data?.searchProfiles.__typename === 'PaginatedProfileResult') {
         const profiles = data?.searchProfiles?.items as Profile[]
-        const channels = profiles?.map((channel: Profile) => ({
-          id: channel.handle,
-          display: channel.handle,
-          profileId: channel.id,
-          picture: getProfilePicture(channel),
-          followers: channel.stats.followers
+        const channels = profiles?.map((profile: Profile) => ({
+          id: profile.handle,
+          display: getProfile(profile)?.displayName,
+          profileId: profile.id,
+          picture: getProfilePicture(profile),
+          followers: profile.stats.followers
         }))
         callback(channels)
       }

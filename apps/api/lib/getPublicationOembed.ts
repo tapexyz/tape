@@ -5,9 +5,9 @@ import {
   TAPE_WEBSITE_URL
 } from '@tape.xyz/constants'
 import {
+  getProfile,
   getThumbnailUrl,
   imageCdn,
-  trimLensHandle,
   truncate
 } from '@tape.xyz/generic'
 import type { AnyPublication, MirrorablePublication } from '@tape.xyz/lens'
@@ -37,8 +37,8 @@ const getPublicationOembed = async (publicationId: string, format: string) => {
     if (format === 'json') {
       return {
         title,
-        author_name: video.by?.handle,
-        author_url: `${TAPE_WEBSITE_URL}/u/${video.by?.handle}`,
+        author_name: getProfile(video.by)?.slug,
+        author_url: `${TAPE_WEBSITE_URL}/u/${getProfile(video.by)?.slug}`,
         type: 'video',
         height: 113,
         width: 200,
@@ -54,10 +54,9 @@ const getPublicationOembed = async (publicationId: string, format: string) => {
     if (format === 'xml') {
       return `<oembed>
               <title>${title}</title>
-              <author_name>${video.by?.handle}</author_name>
-              <author_url>${TAPE_WEBSITE_URL}/u/${trimLensHandle(
-                video.by?.handle
-              )}</author_url>
+              <author_name>${getProfile(video.by)?.slug}</author_name>
+              <author_url>${TAPE_WEBSITE_URL}/u/${getProfile(video.by)
+                ?.slug}</author_url>
               <type>video</type>
               <height>113</height>
               <width>200</width>

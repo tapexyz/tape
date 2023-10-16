@@ -1,6 +1,6 @@
 import useAuthPersistStore, { signOut } from '@lib/store/auth'
 import { Avatar, Button, Flex, Text } from '@radix-ui/themes'
-import { getProfilePicture, trimLensHandle } from '@tape.xyz/generic'
+import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import Link from 'next/link'
@@ -28,11 +28,11 @@ const Authenticated = () => {
       <Avatar
         size="7"
         src={getProfilePicture(selectedSimpleProfile as Profile)}
-        fallback={trimLensHandle(selectedSimpleProfile.handle)[0]}
-        alt={trimLensHandle(selectedSimpleProfile.handle)}
+        fallback={getProfile(selectedSimpleProfile as Profile)?.slug[0] ?? ''}
+        alt={getProfile(selectedSimpleProfile as Profile)?.slug}
       />
       <Text as="p" weight="bold">
-        {trimLensHandle(selectedSimpleProfile.handle)}
+        {getProfile(selectedSimpleProfile as Profile)?.slug}
       </Text>
       <Flex gap="3" mt="5">
         <Link href="/">

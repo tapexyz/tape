@@ -1,9 +1,5 @@
 import { Trans } from '@lingui/macro'
-import {
-  formatNumber,
-  getProfilePicture,
-  trimLensHandle
-} from '@tape.xyz/generic'
+import { formatNumber, getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -21,40 +17,40 @@ interface Props {
 const Profiles: FC<Props> = ({ results, loading, clearSearch }) => {
   return (
     <div>
-      {results?.map((channel: Profile) => (
+      {results?.map((profile: Profile) => (
         <div
-          key={channel.id}
+          key={profile.id}
           className="hover:bg-brand-50 rounded-small relative cursor-default select-none pl-3 pr-4 dark:hover:bg-gray-800"
         >
           <Link
             onClick={() => clearSearch()}
-            href={`/u/${trimLensHandle(channel?.handle)}`}
-            key={channel?.handle}
+            href={`/u/${getProfile(profile)?.slug}`}
+            key={getProfile(profile)?.slug}
             className="flex flex-col justify-center space-y-1 py-2"
           >
             <span className="flex items-center justify-between">
               <div className="inline-flex w-3/4 items-center space-x-2">
                 <img
                   className="h-5 w-5 rounded-full"
-                  src={getProfilePicture(channel, 'AVATAR')}
+                  src={getProfilePicture(profile, 'AVATAR')}
                   draggable={false}
                   alt="pfp"
                 />
                 <div className="flex items-center space-x-1">
                   <p className="line-clamp-1 truncate text-base">
-                    <span>{trimLensHandle(channel?.handle)}</span>
+                    <span>{getProfile(profile)?.slug}</span>
                   </p>
-                  <Badge id={channel?.id} size="xs" />
+                  <Badge id={profile?.id} size="xs" />
                 </div>
               </div>
               <span className="inline-flex items-center space-x-1 whitespace-nowrap text-xs opacity-60">
                 <UserOutline className="h-2.5 w-2.5" />
-                <span>{formatNumber(channel.stats.followers)}</span>
+                <span>{formatNumber(profile.stats.followers)}</span>
               </span>
             </span>
-            {channel.metadata?.bio && (
+            {profile.metadata?.bio && (
               <p className="truncate text-sm opacity-60">
-                {channel.metadata?.bio}
+                {profile.metadata?.bio}
               </p>
             )}
           </Link>

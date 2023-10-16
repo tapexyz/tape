@@ -1,6 +1,6 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
 import CommentOutline from '@components/Common/Icons/CommentOutline'
-import { getProfilePicture } from '@tape.xyz/generic'
+import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { CommentNotification } from '@tape.xyz/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -20,11 +20,10 @@ const Commented: FC<Props> = ({ notification: { comment } }) => {
         <span className="flex cursor-pointer -space-x-1.5">
           <HoverableProfile profile={comment.by} key={comment.by?.id}>
             <img
-              title={comment.by?.handle}
               className="h-7 w-7 rounded-full border dark:border-gray-700/80"
               src={getProfilePicture(comment.by)}
               draggable={false}
-              alt={comment.by?.handle}
+              alt={getProfile(comment.by)?.slug}
             />
           </HoverableProfile>
         </span>

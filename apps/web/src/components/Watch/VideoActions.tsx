@@ -3,7 +3,7 @@ import VideoOptions from '@components/Common/VideoCard/VideoOptions'
 import { Trans } from '@lingui/macro'
 import { Dialog } from '@radix-ui/themes'
 import { Analytics, TRACK } from '@tape.xyz/browser'
-import { trimLensHandle } from '@tape.xyz/generic'
+import { getProfile } from '@tape.xyz/generic'
 import type { MirrorablePublication } from '@tape.xyz/lens'
 import { TriStateValue } from '@tape.xyz/lens'
 import type { FC } from 'react'
@@ -47,7 +47,7 @@ const VideoActions: FC<Props> = ({ video }) => {
 
           <Dialog.Content style={{ maxWidth: 450 }}>
             <Dialog.Title>
-              <Trans>Tip</Trans> {trimLensHandle(video.by?.handle)}
+              <Trans>Tip</Trans> {getProfile(video.by)?.displayName}
             </Dialog.Title>
             <Dialog.Description size="2" mb="4">
               <Trans>Show appreciation with a comment and tip.</Trans>

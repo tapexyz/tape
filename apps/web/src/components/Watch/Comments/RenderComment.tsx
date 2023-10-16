@@ -14,9 +14,9 @@ import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'
 import {
   checkValueInAttributes,
+  getProfile,
   getProfilePicture,
-  getValueFromKeyInAttributes,
-  trimLensHandle
+  getValueFromKeyInAttributes
 } from '@tape.xyz/generic'
 import type { Comment } from '@tape.xyz/lens'
 import clsx from 'clsx'
@@ -64,23 +64,23 @@ const RenderComment: FC<Props> = ({ comment }) => {
     <div className="flex items-start justify-between">
       <div className="flex w-full items-start">
         <Link
-          href={`/u/${trimLensHandle(comment.by?.handle)}`}
+          href={`/u/${getProfile(comment.by)?.slug}`}
           className="mr-3 mt-0.5 flex-none"
         >
           <img
             src={getProfilePicture(comment.by, 'AVATAR')}
             className="h-7 w-7 rounded-full"
             draggable={false}
-            alt={comment.by?.handle}
+            alt={getProfile(comment.by)?.slug}
           />
         </Link>
         <div className="mr-2 flex w-full flex-col items-start">
           <span className="mb-1 flex items-center space-x-2">
             <Link
-              href={`/u/${trimLensHandle(comment.by?.handle)}`}
+              href={`/u/${getProfile(comment.by)?.slug}`}
               className="flex items-center space-x-1 text-sm font-medium"
             >
-              <span>{trimLensHandle(comment?.by?.handle)}</span>
+              <span>{getProfile(comment.by)?.slug}</span>
               <Badge id={comment?.by.id} />
             </Link>
             {checkValueInAttributes(
@@ -202,6 +202,10 @@ const RenderComment: FC<Props> = ({ comment }) => {
                 defaultValue={defaultComment}
                 placeholder={t`Write a reply`}
                 hideEmojiPicker
+                resetReply={() => {
+                  setDefaultComment('')
+                  setShowNewComment(false)
+                }}
               />
             )}
           </div>

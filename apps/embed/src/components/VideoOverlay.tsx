@@ -3,7 +3,7 @@ import {
   TAPE_APP_NAME,
   TAPE_WEBSITE_URL
 } from '@tape.xyz/constants'
-import { getProfilePicture, trimLensHandle } from '@tape.xyz/generic'
+import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { MirrorablePublication } from '@tape.xyz/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -21,14 +21,14 @@ const VideoOverlay: FC<Props> = ({ video, clicked }) => {
         <div className="flex flex-1 items-center">
           <Link
             className="mr-3 flex-none cursor-pointer"
-            href={`${TAPE_WEBSITE_URL}/u/${trimLensHandle(video?.by?.handle)}`}
+            href={`${TAPE_WEBSITE_URL}/u/${getProfile(video.by)?.slug}`}
             target="_blank"
           >
             <img
-              src={getProfilePicture(video.by.handle)}
+              src={getProfilePicture(video.by)}
               className="h-9 w-9 rounded-full"
               draggable={false}
-              alt={video.by.handle}
+              alt={getProfile(video.by)?.slug}
             />
           </Link>
           <div className="flex flex-col">
@@ -43,12 +43,10 @@ const VideoOverlay: FC<Props> = ({ video, clicked }) => {
             </Link>
             <Link
               className="line-clamp-1 break-words leading-3"
-              href={`${TAPE_WEBSITE_URL}/u/${trimLensHandle(video?.by.handle)}`}
+              href={`${TAPE_WEBSITE_URL}/u/${getProfile(video.by)?.slug}`}
               target="_blank"
             >
-              <span className="text-sm">
-                {trimLensHandle(video?.by.handle)}
-              </span>
+              <span className="text-sm">{getProfile(video.by)?.slug}</span>
             </Link>
           </div>
         </div>

@@ -94,7 +94,7 @@ const Video: FC<Props> = ({ video }) => {
             style={{
               backgroundColor: backgroundColor && `${backgroundColor}95`
             }}
-            alt={video.metadata.marketplace?.description ?? video.by.handle}
+            alt="thumbnail"
             draggable={false}
           />
           <div

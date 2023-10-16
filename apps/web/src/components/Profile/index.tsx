@@ -1,7 +1,11 @@
 import MetaTags from '@components/Common/MetaTags'
 import ChannelShimmer from '@components/Shimmers/ChannelShimmer'
 import { Analytics, TRACK } from '@tape.xyz/browser'
-import { getValueFromKeyInAttributes, trimLensHandle } from '@tape.xyz/generic'
+import {
+  getProfile,
+  getValueFromKeyInAttributes,
+  trimLensHandle
+} from '@tape.xyz/generic'
 import { type Profile, useProfileQuery } from '@tape.xyz/lens'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
@@ -45,7 +49,7 @@ const Channel = () => {
 
   return (
     <>
-      <MetaTags title={profile?.handle} />
+      <MetaTags title={getProfile(profile)?.displayName} />
       {!loading && !error && profile ? (
         <>
           <BasicInfo profile={profile} />

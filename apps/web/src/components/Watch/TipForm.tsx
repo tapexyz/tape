@@ -18,6 +18,7 @@ import {
   TAPE_WEBSITE_URL
 } from '@tape.xyz/constants'
 import {
+  getProfile,
   getPublication,
   getSignature,
   imageCdn,
@@ -27,7 +28,8 @@ import {
 import type {
   AnyPublication,
   CreateMomokaCommentEip712TypedData,
-  CreateOnchainCommentEip712TypedData
+  CreateOnchainCommentEip712TypedData,
+  Profile
 } from '@tape.xyz/lens'
 import {
   PublicationDocument,
@@ -260,7 +262,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
         {
           type: MetadataAttributeType.STRING,
           key: 'creator',
-          value: `${activeProfile?.handle}`
+          value: `${getProfile(activeProfile as Profile)?.slug}`
         },
         {
           type: MetadataAttributeType.STRING,
@@ -285,7 +287,9 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
         content: getValues('message'),
         locale: getUserLocale(),
         marketplace: {
-          name: `${activeProfile?.handle}'s comment on video ${targetVideo.metadata.marketplace?.name}`,
+          name: `${getProfile(activeProfile as Profile)
+            ?.slug}'s comment on video ${targetVideo.metadata.marketplace
+            ?.name}`,
           attributes,
           description: getValues('message'),
           external_url: `${TAPE_WEBSITE_URL}/watch/${video?.id}`

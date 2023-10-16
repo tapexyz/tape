@@ -1,6 +1,6 @@
 import { Box, Tabs } from '@radix-ui/themes'
 import { Analytics, TRACK } from '@tape.xyz/browser'
-import { trimLensHandle } from '@tape.xyz/generic'
+import { getProfile } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
@@ -19,9 +19,8 @@ const ProfileTabs: FC<Props> = ({ profile }) => {
 
   const handleTabChange = (tab: string) => {
     if (tab) {
-      const nextUrl = `${location.origin}/u/${trimLensHandle(
-        profile.handle
-      )}?tab=${tab}`
+      const nextUrl = `${location.origin}/u/${getProfile(profile)
+        ?.slug}?tab=${tab}`
       history.replaceState({ path: nextUrl }, '', nextUrl)
     }
   }

@@ -6,6 +6,7 @@ import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'
 import { LENS_CUSTOM_FILTERS, SCROLL_ROOT_MARGIN } from '@tape.xyz/constants'
+import { getProfile } from '@tape.xyz/generic'
 import type {
   AnyPublication,
   Comment,
@@ -112,9 +113,10 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
             <Alert variant="warning">
               <span className="text-sm">
                 {isFollowerOnlyReferenceModule
-                  ? t`Only subscribers can comment on this publication`
+                  ? t`Only followers can comment on this publication`
                   : isDegreesOfSeparationReferenceModule
-                  ? `Only subscribers within ${video.by.handle}'s preferred network can comment`
+                  ? `Only followers within ${getProfile(video.by)
+                      ?.displayName}'s preferred network can comment`
                   : null}
               </span>
             </Alert>

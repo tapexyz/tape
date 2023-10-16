@@ -3,7 +3,7 @@ import InterweaveContent from '@components/Common/InterweaveContent'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
-import { getProfilePicture, trimLensHandle } from '@tape.xyz/generic'
+import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import {
   LensTransactionStatusType,
@@ -120,23 +120,23 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
     <div className="flex items-start justify-between">
       <div className="flex items-start justify-between">
         <Link
-          href={`/u/${trimLensHandle(selectedSimpleProfile?.handle)}`}
+          href={`/u/${getProfile(selectedSimpleProfile as Profile)?.slug}`}
           className="mr-3 mt-0.5 flex-none"
         >
           <img
             src={getProfilePicture(selectedSimpleProfile as Profile, 'AVATAR')}
             className="h-7 w-7 rounded-full"
             draggable={false}
-            alt={selectedSimpleProfile?.handle}
+            alt={getProfile(selectedSimpleProfile as Profile)?.slug}
           />
         </Link>
         <div className="mr-2 flex flex-col items-start">
           <span className="mb-1 flex items-center space-x-1">
             <Link
-              href={`/u/${trimLensHandle(selectedSimpleProfile.handle)}`}
+              href={`/u/${getProfile(selectedSimpleProfile as Profile)?.slug}`}
               className="flex items-center space-x-1 text-sm font-medium"
             >
-              <span>{trimLensHandle(selectedSimpleProfile?.handle)}</span>
+              <span>{getProfile(selectedSimpleProfile as Profile)?.slug}</span>
               <Badge id={selectedSimpleProfile.id} />
             </Link>
           </span>

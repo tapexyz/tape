@@ -9,7 +9,7 @@ import {
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE
 } from '@tape.xyz/constants'
-import { getSignature, trimLensHandle } from '@tape.xyz/generic'
+import { getProfile, getSignature } from '@tape.xyz/generic'
 import type { FeeFollowModuleSettings, Profile } from '@tape.xyz/lens'
 import {
   FollowModuleType,
@@ -59,11 +59,11 @@ const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
     }
     onJoin()
     setOpen(false)
-    toast.success(`Followed ${profile.handle}`)
+    toast.success(`Followed ${getProfile(profile)?.displayName}`)
     setLoading(false)
     Analytics.track(TRACK.CHANNEL.JOIN, {
       channel_id: profile.id,
-      channel_name: profile.handle
+      channel_name: getProfile(profile)?.slug
     })
   }
 
@@ -226,7 +226,7 @@ const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
 
         <Flex gap="2" align="baseline">
           <Text as="div" size="4">
-            Follow {trimLensHandle(profile.handle)} for
+            Follow {getProfile(profile)?.displayName} for
           </Text>
           <Flex gap="1" align="center">
             <Text as="div" size="6">

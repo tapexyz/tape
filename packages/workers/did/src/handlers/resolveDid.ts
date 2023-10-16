@@ -25,13 +25,13 @@ const PROFILES_QUERY = `query AllProfiles($ownedBy: [EthereumAddress!]) {
 }`
 
 const replaceAddressesWithHandles = (
-  profiles: { ownedBy: string; handle: string }[],
+  profiles: { ownedBy: string; handle: string; id: string }[],
   addresses: string[]
 ) => {
   const handleMap = profiles.reduce(
     (acc: { [address: string]: string }, profile) => {
       if (!acc[profile.ownedBy]) {
-        acc[profile.ownedBy] = profile.handle
+        acc[profile.ownedBy] = profile.handle || profile.id
       }
       return acc
     },

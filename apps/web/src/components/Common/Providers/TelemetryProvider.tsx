@@ -4,6 +4,8 @@ import {
   MIXPANEL_API_HOST,
   MIXPANEL_TOKEN
 } from '@tape.xyz/constants'
+import { getProfile } from '@tape.xyz/generic'
+import type { Profile } from '@tape.xyz/lens'
 import mixpanel from 'mixpanel-browser'
 import type { FC } from 'react'
 import { useEffect } from 'react'
@@ -24,7 +26,7 @@ const TelemetryProvider: FC = () => {
     if (IS_PRODUCTION && selectedSimpleProfile?.id) {
       mixpanel.identify(selectedSimpleProfile?.id)
       mixpanel.people.set({
-        $name: selectedSimpleProfile?.handle,
+        $name: getProfile(selectedSimpleProfile as Profile)?.slug,
         $last_active: new Date()
       })
       mixpanel.people.set_once({

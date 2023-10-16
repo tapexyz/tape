@@ -1,9 +1,5 @@
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import {
-  formatNumber,
-  getProfilePicture,
-  trimLensHandle
-} from '@tape.xyz/generic'
+import { formatNumber, getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { Profile, WhoActedOnPublicationRequest } from '@tape.xyz/lens'
 import {
   LimitType,
@@ -69,18 +65,18 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
       {collectors?.map((profile: Profile) => (
         <div className="flex flex-col" key={profile.ownedBy.address}>
           <Link
-            href={`/u/${trimLensHandle(profile?.handle)}`}
+            href={`/u/${getProfile(profile)?.slug}`}
             className="font-base flex items-center justify-between"
           >
             <div className="flex items-center space-x-1.5">
               <img
                 className="h-5 w-5 rounded-full"
                 src={getProfilePicture(profile, 'AVATAR')}
-                alt={profile.handle}
+                alt={getProfile(profile)?.displayName}
                 draggable={false}
               />
               <div className="flex items-center space-x-1">
-                <span>{trimLensHandle(profile?.handle)}</span>
+                <span>{getProfile(profile)?.slug}</span>
                 <Badge id={profile?.id} size="xs" />
               </div>
             </div>

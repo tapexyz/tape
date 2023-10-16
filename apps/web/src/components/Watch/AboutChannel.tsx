@@ -6,11 +6,7 @@ import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import MirrorVideo from '@components/Common/MirrorVideo'
 import { Trans } from '@lingui/macro'
-import {
-  formatNumber,
-  getProfilePicture,
-  trimLensHandle
-} from '@tape.xyz/generic'
+import { formatNumber, getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { MirrorablePublication, VideoMetadataV3 } from '@tape.xyz/lens'
 import clsx from 'clsx'
 import { motion } from 'framer-motion'
@@ -26,7 +22,7 @@ type Props = {
 }
 
 const AboutChannel: FC<Props> = ({ video }) => {
-  const channel = video?.by
+  const profile = video?.by
   const [clamped, setClamped] = useState(false)
   const [showMore, setShowMore] = useState(false)
   const metadata = video.metadata as VideoMetadataV3
@@ -40,13 +36,13 @@ const AboutChannel: FC<Props> = ({ video }) => {
 
   return (
     <div className="flex w-full items-start justify-between">
-      <Link href={`/u/${trimLensHandle(channel?.handle)}`}>
+      <Link href={`/u/${getProfile(profile)?.slug}`}>
         <div className="mr-3 flex-none cursor-pointer">
           <img
-            src={getProfilePicture(channel, 'AVATAR')}
+            src={getProfilePicture(profile, 'AVATAR')}
             className="h-10 w-10 rounded-full"
             draggable={false}
-            alt={channel?.handle}
+            alt={getProfile(profile)?.displayName}
           />
         </div>
       </Link>
@@ -54,19 +50,19 @@ const AboutChannel: FC<Props> = ({ video }) => {
         <div className="flex flex-wrap justify-between gap-y-2">
           <div className="flex items-center space-x-5">
             <div className="flex flex-col items-start">
-              <HoverableProfile profile={channel}>
+              <HoverableProfile profile={profile}>
                 <Link
-                  href={`/u/${trimLensHandle(channel?.handle)}`}
+                  href={`/u/${getProfile(profile)?.slug}`}
                   className="flex items-center space-x-1 font-semibold"
                 >
                   <span className="leading-snug">
-                    {trimLensHandle(channel?.handle)}
+                    {getProfile(profile)?.slug}
                   </span>
-                  <Badge id={channel?.id} />
+                  <Badge id={profile?.id} />
                 </Link>
               </HoverableProfile>
               <span className="inline-flex items-center space-x-1 text-xs">
-                {formatNumber(channel?.stats.followers)}{' '}
+                {formatNumber(profile?.stats.followers)}{' '}
                 <Trans>subscribers</Trans>
               </span>
             </div>

@@ -8,7 +8,10 @@ import Tooltip from '@components/UIElements/Tooltip'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import type { MetadataAttribute, ProfileOptions } from '@lens-protocol/metadata'
-import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
+import {
+  MetadataAttributeType,
+  profile as profileMetadata
+} from '@lens-protocol/metadata'
 import useProfileStore from '@lib/store/profile'
 import { t, Trans } from '@lingui/macro'
 import { Button, Flex, IconButton } from '@radix-ui/themes'
@@ -28,13 +31,13 @@ import {
 } from '@tape.xyz/constants'
 import {
   getChannelCoverPicture,
+  getProfile,
   getProfilePicture,
   getSignature,
   getValueFromKeyInAttributes,
   imageCdn,
   sanitizeDStorageUrl,
   trimify,
-  trimLensHandle,
   uploadToAr
 } from '@tape.xyz/generic'
 import type { OnchainSetProfileMetadataRequest, Profile } from '@tape.xyz/lens'
@@ -58,7 +61,7 @@ import type { z } from 'zod'
 import { object, string, union } from 'zod'
 
 type Props = {
-  channel: Profile
+  profile: Profile
 }
 
 const formSchema = object({
@@ -81,10 +84,10 @@ const formSchema = object({
 })
 type FormData = z.infer<typeof formSchema> & { coverImage?: string }
 
-const BasicInfo = ({ channel }: Props) => {
+const BasicInfo = ({ profile }: Props) => {
   const [copy] = useCopyToClipboard()
   const [loading, setLoading] = useState(false)
-  const [coverImage, setCoverImage] = useState(getChannelCoverPicture(channel))
+  const [coverImage, setCoverImage] = useState(getChannelCoverPicture(profile))
   const [selectedPfp, setSelectedPfp] = useState('')
   const [uploading, setUploading] = useState({ pfp: false, cover: false })
   const handleWrongNetwork = useHandleWrongNetwork()
@@ -101,23 +104,23 @@ const BasicInfo = ({ channel }: Props) => {
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      displayName: channel.metadata?.displayName ?? '',
-      description: channel.metadata?.bio ?? '',
+      displayName: profile.metadata?.displayName ?? '',
+      description: profile.metadata?.bio ?? '',
       location: getValueFromKeyInAttributes(
-        channel.metadata?.attributes,
+        profile.metadata?.attributes,
         'location'
       ),
-      x: getValueFromKeyInAttributes(channel.metadata?.attributes, 'x'),
+      x: getValueFromKeyInAttributes(profile.metadata?.attributes, 'x'),
       youtube: getValueFromKeyInAttributes(
-        channel.metadata?.attributes,
+        profile.metadata?.attributes,
         'youtube'
       ),
       spotify: getValueFromKeyInAttributes(
-        channel.metadata?.attributes,
+        profile.metadata?.attributes,
         'spotify'
       ),
       website: getValueFromKeyInAttributes(
-        channel.metadata?.attributes,
+        profile.metadata?.attributes,
         'website'
       )
     }
@@ -188,7 +191,7 @@ const BasicInfo = ({ channel }: Props) => {
   })
 
   const otherAttributes =
-    (channel.metadata?.attributes
+    (profile.metadata?.attributes
       ?.filter(
         (attr) =>
           !['website', 'location', 'x', 'youtube', 'spotify', 'app'].includes(
@@ -203,7 +206,7 @@ const BasicInfo = ({ channel }: Props) => {
     }
     try {
       setLoading(true)
-      const profileMetadata: ProfileOptions = {
+      const metadata: ProfileOptions = {
         appId: TAPE_APP_ID,
         coverPicture: data.coverImage ?? coverImage,
         id: uuidv4(),
@@ -241,31 +244,30 @@ const BasicInfo = ({ channel }: Props) => {
           }
         ]
       }
-      profileMetadata.attributes = profileMetadata.attributes?.filter((m) =>
+      metadata.attributes = metadata.attributes?.filter((m) =>
         Boolean(trimify(m.value))
       )
       if (Boolean(trimify(data.description))) {
-        profileMetadata.bio = trimify(data.description)
+        metadata.bio = trimify(data.description)
       }
       if (Boolean(selectedPfp)) {
-        profileMetadata.picture = trimify(selectedPfp)
+        metadata.picture = trimify(selectedPfp)
       }
       if (Boolean(trimify(data.displayName))) {
-        profileMetadata.name = trimify(data.displayName)
+        metadata.name = trimify(data.displayName)
       }
       if (
         Boolean(
           trimify(getProfilePicture(activeProfile as Profile, 'AVATAR', false))
         )
       ) {
-        profileMetadata.picture = getProfilePicture(
+        metadata.picture = getProfilePicture(
           activeProfile as Profile,
           'AVATAR',
           false
         )
       }
-      const metadata = profile(profileMetadata)
-      const metadataUri = await uploadToAr(metadata)
+      const metadataUri = await uploadToAr(profileMetadata(metadata))
       const request: OnchainSetProfileMetadataRequest = {
         metadataURI: metadataUri
       }
@@ -305,13 +307,13 @@ const BasicInfo = ({ channel }: Props) => {
             src={
               sanitizeDStorageUrl(coverImage) ??
               imageCdn(
-                sanitizeDStorageUrl(getChannelCoverPicture(channel)),
+                sanitizeDStorageUrl(getChannelCoverPicture(profile)),
                 'THUMBNAIL'
               )
             }
             className="rounded-small h-48 w-full bg-white object-cover object-center dark:bg-gray-900 md:h-56"
             draggable={false}
-            alt={`${channel.handle}'s cover`}
+            alt={`${getProfile(profile)?.slug}'s cover`}
           />
           <div className="absolute bottom-2 right-2 cursor-pointer text-sm dark:bg-black">
             <Button
@@ -348,11 +350,11 @@ const BasicInfo = ({ channel }: Props) => {
               src={
                 selectedPfp
                   ? sanitizeDStorageUrl(selectedPfp)
-                  : getProfilePicture(channel, 'AVATAR_LG')
+                  : getProfilePicture(profile, 'AVATAR_LG')
               }
               className="h-32 w-32 rounded-full border-2 object-cover"
               draggable={false}
-              alt={selectedPfp ? activeProfile?.handle : channel.handle}
+              alt="cover"
             />
             <label
               htmlFor="choosePfp"
@@ -392,8 +394,8 @@ const BasicInfo = ({ channel }: Props) => {
             </div>
             <div className="flex items-center space-x-3">
               <h6 className="flex items-center space-x-1">
-                <span>{channel?.handle}</span>
-                <Badge id={channel?.id} size="xs" />
+                <span>{getProfile(profile)?.slug}</span>
+                <Badge id={profile?.id} size="xs" />
               </h6>
             </div>
             <div className="mt-4">
@@ -405,16 +407,14 @@ const BasicInfo = ({ channel }: Props) => {
               <div className="flex items-center space-x-2">
                 <span>
                   {TAPE_WEBSITE_URL}/u/
-                  {trimLensHandle(channel.handle)}
+                  {getProfile(profile)?.slug}
                 </span>
                 <Tooltip content="Copy" placement="top">
                   <IconButton
                     className="hover:opacity-60 focus:outline-none"
                     onClick={async () =>
                       await copy(
-                        `${TAPE_WEBSITE_URL}/u/${trimLensHandle(
-                          channel.handle
-                        )}`
+                        `${TAPE_WEBSITE_URL}/u/${getProfile(profile)?.slug}`
                       )
                     }
                     variant="ghost"

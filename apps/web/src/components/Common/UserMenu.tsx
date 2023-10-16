@@ -4,7 +4,7 @@ import { t, Trans } from '@lingui/macro'
 import { Avatar, DropdownMenu, Flex, Text } from '@radix-ui/themes'
 import { Analytics, TRACK } from '@tape.xyz/browser'
 import { ADMIN_IDS } from '@tape.xyz/constants'
-import { getProfilePicture, trimLensHandle } from '@tape.xyz/generic'
+import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { useProfilesQuery } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
@@ -86,7 +86,9 @@ const UserMenu = () => {
             size="2"
             radius="full"
             src={getProfilePicture(selectedSimpleProfile as Profile)}
-            fallback={trimLensHandle(selectedSimpleProfile?.handle)[0]}
+            fallback={
+              getProfile(selectedSimpleProfile as Profile)?.slug[0] ?? ''
+            }
           />
         </div>
       </DropdownMenu.Trigger>
@@ -97,10 +99,12 @@ const UserMenu = () => {
               size="1"
               radius="full"
               src={getProfilePicture(selectedSimpleProfile as Profile)}
-              fallback={trimLensHandle(selectedSimpleProfile?.handle)[0]}
+              fallback={
+                getProfile(selectedSimpleProfile as Profile)?.slug[0] ?? ''
+              }
             />
             <Text as="p" weight="bold" className="line-clamp-1">
-              {trimLensHandle(selectedSimpleProfile?.handle)}
+              {getProfile(selectedSimpleProfile as Profile)?.slug}
             </Text>
           </Flex>
           {isAdmin && (
@@ -117,7 +121,9 @@ const UserMenu = () => {
             <>
               <DropdownMenu.Item
                 onClick={() =>
-                  push(`/u/${trimLensHandle(selectedSimpleProfile?.handle)}`)
+                  push(
+                    `/u/${getProfile(selectedSimpleProfile as Profile)?.slug}`
+                  )
                 }
               >
                 <Flex gap="2" align="center">
@@ -156,10 +162,12 @@ const UserMenu = () => {
                           size="1"
                           radius="full"
                           src={getProfilePicture(profile)}
-                          fallback={trimLensHandle(profile?.handle)[0]}
+                          fallback={
+                            getProfile(profile as Profile)?.displayName[0] ?? ''
+                          }
                         />
                         <Text as="p" className="truncate whitespace-nowrap">
-                          {trimLensHandle(profile.handle)}
+                          {getProfile(profile)?.slug}
                         </Text>
                       </Flex>
                     </DropdownMenu.Item>

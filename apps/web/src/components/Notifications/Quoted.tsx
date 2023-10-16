@@ -1,6 +1,6 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
 import FollowOutline from '@components/Common/Icons/FollowOutline'
-import { getProfilePicture } from '@tape.xyz/generic'
+import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { QuoteNotification } from '@tape.xyz/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -20,11 +20,10 @@ const Quoted: FC<Props> = ({ notification: { quote } }) => {
         <span className="flex cursor-pointer -space-x-1.5">
           <HoverableProfile profile={quote.by} key={quote.by?.id}>
             <img
-              title={quote.by?.handle}
               className="h-7 w-7 rounded-full border dark:border-gray-700/80"
               src={getProfilePicture(quote.by)}
               draggable={false}
-              alt={quote.by?.handle}
+              alt={getProfile(quote.by)?.displayName}
             />
           </HoverableProfile>
         </span>

@@ -8,7 +8,7 @@ import { Button } from '@components/UIElements/Button'
 import { getRelativeTime } from '@lib/formatTime'
 import { Trans } from '@lingui/macro'
 import { LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
-import { getProfilePicture, trimLensHandle } from '@tape.xyz/generic'
+import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import {
   type Comment,
   CommentRankingFilterType,
@@ -128,23 +128,23 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
             <div key={comment.id} className="flex items-start justify-between">
               <div className="flex w-full items-start">
                 <Link
-                  href={`/u/${trimLensHandle(comment.by?.handle)}`}
+                  href={`/u/${getProfile(comment.by)?.slug}`}
                   className="mr-3 mt-0.5 flex-none"
                 >
                   <img
                     src={getProfilePicture(comment.by, 'AVATAR')}
                     className="h-7 w-7 rounded-full"
                     draggable={false}
-                    alt={comment.by?.handle}
+                    alt={getProfile(comment.by)?.slug}
                   />
                 </Link>
                 <div className="mr-2 flex w-full flex-col items-start">
                   <span className="mb-1 flex items-center space-x-2">
                     <Link
-                      href={`/u/${trimLensHandle(comment.by?.handle)}`}
+                      href={`/u/${getProfile(comment.by)?.slug}`}
                       className="flex items-center space-x-1 text-sm font-medium"
                     >
-                      <span>{trimLensHandle(comment?.by?.handle)}</span>
+                      <span>{getProfile(comment.by)?.slug}</span>
                       <Badge id={comment?.by.id} />
                     </Link>
                     <span className="text-xs opacity-70">

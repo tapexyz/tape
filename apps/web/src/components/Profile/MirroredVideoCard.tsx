@@ -9,9 +9,9 @@ import {
 import { Trans } from '@lingui/macro'
 import {
   getIsSensitiveContent,
+  getProfile,
   getProfilePicture,
-  getValueFromKeyInAttributes,
-  trimLensHandle
+  getValueFromKeyInAttributes
 } from '@tape.xyz/generic'
 import type {
   MetadataAttribute,
@@ -58,13 +58,13 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
       <div className="py-2">
         <div className="flex items-start space-x-2.5">
           <Link
-            href={`/u/${trimLensHandle(mirrorOn.by?.handle)}`}
+            href={`/u/${getProfile(mirrorOn.by)?.slug}`}
             className="mt-0.5 flex-none"
           >
             <img
               className="h-8 w-8 rounded-full"
               src={getProfilePicture(mirrorOn.by, 'AVATAR')}
-              alt={mirrorOn.by.handle}
+              alt={getProfile(mirrorOn.by)?.displayName}
               draggable={false}
             />
           </Link>
@@ -79,10 +79,10 @@ const MirroredVideoCard: FC<Props> = ({ video }) => {
               </Link>
             </div>
             <Link
-              href={`/u/${trimLensHandle(mirrorOn.by?.handle)}`}
+              href={`/u/${getProfile(mirrorOn.by)?.slug}`}
               className="flex w-fit items-center space-x-0.5 text-[13px] opacity-70 hover:opacity-100"
             >
-              <span>{trimLensHandle(mirrorOn.by?.handle)}</span>
+              <span>{getProfile(mirrorOn.by)?.slug}</span>
               <Badge id={mirrorOn.by?.id} size="xs" />
             </Link>
           </div>

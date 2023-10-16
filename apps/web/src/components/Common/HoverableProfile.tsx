@@ -2,10 +2,10 @@ import { useProfileStore } from '@lib/store/profile'
 import { Avatar, Flex, HoverCard, Link, Text } from '@radix-ui/themes'
 import {
   getChannelCoverPicture,
+  getProfile,
   getProfilePicture,
   imageCdn,
-  sanitizeDStorageUrl,
-  trimLensHandle
+  sanitizeDStorageUrl
 } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import type { FC, ReactElement } from 'react'
@@ -29,10 +29,10 @@ const HoverableProfile: FC<Props> = ({ profile, fontSize = '2', children }) => {
     <HoverCard.Root>
       <HoverCard.Trigger>
         {children ?? (
-          <Link href={`/u/${trimLensHandle(profile.handle)}`}>
+          <Link href={`/u/${getProfile(profile)?.slug}`}>
             <Flex align="center" gap="1">
               <Text size={fontSize} color="gray">
-                {trimLensHandle(profile.handle) ?? profile.id}
+                {getProfile(profile)?.slug}
               </Text>
               <Badge id={profile?.id} size="xs" />
             </Flex>
@@ -52,7 +52,7 @@ const HoverableProfile: FC<Props> = ({ profile, fontSize = '2', children }) => {
             <Avatar
               className="border-2 border-white bg-white object-cover dark:bg-gray-900"
               size="3"
-              fallback={trimLensHandle(profile.handle)?.[0]}
+              fallback={getProfile(profile)?.displayName.charAt(0) ?? ''}
               radius="medium"
               src={getProfilePicture(profile, 'AVATAR')}
             />
@@ -65,11 +65,11 @@ const HoverableProfile: FC<Props> = ({ profile, fontSize = '2', children }) => {
         </div>
         <div className="p-2 pl-4 pt-2.5">
           <Link
-            href={`/u/${trimLensHandle(profile?.handle)}`}
+            href={`/u/${getProfile(profile)?.slug}`}
             className="flex items-center space-x-1"
           >
             <span className="text-2xl font-semibold leading-tight">
-              {trimLensHandle(profile?.handle) ?? profile.id}
+              {getProfile(profile)?.slug}
             </span>
             <Badge id={profile?.id} size="lg" />
           </Link>

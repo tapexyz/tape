@@ -8,10 +8,10 @@ import { Avatar, Button, Callout, Flex, Select, Text } from '@radix-ui/themes'
 import { Analytics, TRACK } from '@tape.xyz/browser'
 import { ERROR_MESSAGE } from '@tape.xyz/constants'
 import {
+  getProfile,
   getProfilePicture,
   logger,
-  shortenAddress,
-  trimLensHandle
+  shortenAddress
 } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import {
@@ -186,11 +186,11 @@ const Authenticate = () => {
                   <Flex gap="2">
                     <Avatar
                       src={getProfilePicture(profile)}
-                      fallback={trimLensHandle(profile.handle)[0]}
+                      fallback={getProfile(profile)?.displayName[0] ?? ''}
                       radius="full"
                       size="1"
                     />
-                    <Text>{profile.handle}</Text>
+                    <Text>{getProfile(profile)?.slug}</Text>
                   </Flex>
                 </Select.Item>
               ))}

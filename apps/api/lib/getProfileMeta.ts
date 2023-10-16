@@ -4,7 +4,7 @@ import {
   TAPE_APP_DESCRIPTION,
   TAPE_APP_NAME
 } from '@tape.xyz/constants'
-import { getProfilePicture } from '@tape.xyz/generic'
+import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { ProfileDocument } from '@tape.xyz/lens'
 import { apolloClient } from '@tape.xyz/lens/apollo'
@@ -20,7 +20,7 @@ const getProfileMeta = async (res: NextApiResponse, handle: string) => {
     })
 
     const profile: Profile = data?.profile
-    const title = profile?.metadata?.displayName ?? profile?.handle
+    const title = getProfile(profile)?.displayName
     const description = profile?.metadata?.bio || TAPE_APP_DESCRIPTION
     const image = getProfilePicture(profile, 'AVATAR_LG')
 

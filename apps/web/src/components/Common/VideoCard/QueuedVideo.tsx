@@ -6,10 +6,10 @@ import { t } from '@lingui/macro'
 import { useAverageColor } from '@tape.xyz/browser'
 import { STATIC_ASSETS } from '@tape.xyz/constants'
 import {
+  getProfile,
   getProfilePicture,
   imageCdn,
-  sanitizeDStorageUrl,
-  trimLensHandle
+  sanitizeDStorageUrl
 } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import {
@@ -142,7 +142,7 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
           <img
             className="h-8 w-8 rounded-full"
             src={getProfilePicture(selectedSimpleProfile as Profile)}
-            alt={selectedSimpleProfile?.handle}
+            alt={getProfile(selectedSimpleProfile as Profile)?.slug}
             draggable={false}
           />
           <div className="grid flex-1">
@@ -163,7 +163,7 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
               </div>
             </div>
             <span className="flex w-fit items-center space-x-0.5 text-[13px] opacity-70">
-              <span>{trimLensHandle(selectedSimpleProfile?.handle)}</span>
+              <span>{getProfile(selectedSimpleProfile as Profile)?.slug}</span>
               <Badge id={selectedSimpleProfile?.id} size="xs" />
             </span>
           </div>

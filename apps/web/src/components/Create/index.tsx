@@ -33,15 +33,16 @@ import {
 } from '@tape.xyz/constants'
 import {
   canUploadedToIpfs,
+  getProfile,
   getSignature,
   logger,
   trimify,
-  trimLensHandle,
   uploadToAr
 } from '@tape.xyz/generic'
 import type {
   CreateMomokaPostEip712TypedData,
   CreateOnchainPostEip712TypedData,
+  Profile,
   ReferenceModuleInput
 } from '@tape.xyz/lens'
 import {
@@ -92,8 +93,8 @@ const CreateSteps = () => {
   const redirectToChannelPage = () => {
     router.push(
       uploadedVideo.isByteVideo
-        ? `/u/${trimLensHandle(activeProfile?.handle)}?tab=bytes`
-        : `/u/${trimLensHandle(activeProfile?.handle)}`
+        ? `/u/${getProfile(activeProfile as Profile)?.slug}?tab=bytes`
+        : `/u/${getProfile(activeProfile as Profile)?.slug}`
     )
   }
 
@@ -291,7 +292,7 @@ const CreateSteps = () => {
         {
           type: MetadataAttributeType.STRING,
           key: 'creator',
-          value: `${activeProfile?.handle}`
+          value: `${getProfile(activeProfile as Profile)?.slug}`
         },
         {
           type: MetadataAttributeType.STRING,
@@ -322,7 +323,9 @@ const CreateSteps = () => {
         marketplace: {
           attributes,
           animation_url: uploadedVideo.videoSource,
-          external_url: `${TAPE_WEBSITE_URL}/u/${activeProfile?.handle}`,
+          external_url: `${TAPE_WEBSITE_URL}/u/${getProfile(
+            activeProfile as Profile
+          )?.slug}`,
           image: uploadedVideo.thumbnail,
           name: uploadedVideo.title,
           description: trimify(uploadedVideo.description)

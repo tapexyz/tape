@@ -3,11 +3,7 @@ import FollowActions from '@components/Common/FollowActions'
 import OtherChannelsShimmer from '@components/Shimmers/OtherChannelsShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { t, Trans } from '@lingui/macro'
-import {
-  formatNumber,
-  getProfilePicture,
-  trimLensHandle
-} from '@tape.xyz/generic'
+import { formatNumber, getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { useProfilesQuery } from '@tape.xyz/lens'
 import Link from 'next/link'
@@ -44,22 +40,22 @@ const OtherProfiles: FC<Props> = ({ profile }) => {
               key={profile.id}
               className="flex w-44 flex-col items-center justify-center rounded-xl border border-gray-200 py-3 dark:border-gray-800"
             >
-              <Link href={`/u/${trimLensHandle(profile.handle)}`}>
+              <Link href={`/u/${getProfile(profile)?.slug}`}>
                 <img
                   className="h-24 w-24 rounded-full object-cover"
                   src={getProfilePicture(profile, 'AVATAR_LG')}
-                  alt={profile?.handle}
+                  alt={getProfile(profile)?.slug}
                   draggable={false}
                 />
               </Link>
               <div className="w-full px-1.5 py-2">
                 <div className="flex-1 text-center">
                   <Link
-                    href={`/u/${trimLensHandle(profile.handle)}`}
+                    href={`/u/${getProfile(profile)?.slug}`}
                     className="block truncate font-medium"
                   >
                     <div className="flex items-center justify-center space-x-1">
-                      <span>{trimLensHandle(profile.handle)}</span>
+                      <span>{getProfile(profile)?.slug}</span>
                       <Badge id={profile?.id} />
                     </div>
                   </Link>

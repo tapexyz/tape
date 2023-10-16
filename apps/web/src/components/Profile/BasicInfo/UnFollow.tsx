@@ -9,7 +9,7 @@ import {
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE
 } from '@tape.xyz/constants'
-import { getSignature } from '@tape.xyz/generic'
+import { getProfile, getSignature } from '@tape.xyz/generic'
 import type { CreateUnfollowBroadcastItemResult, Profile } from '@tape.xyz/lens'
 import {
   useBroadcastOnchainMutation,
@@ -50,10 +50,10 @@ const UnFollow: FC<Props> = ({ profile, onUnSubscribe, size = '2' }) => {
 
     setLoading(false)
     onUnSubscribe()
-    toast.success(`Unsubscribed ${profile.handle}`)
+    toast.success(`Unsubscribed ${getProfile(profile)?.displayName}`)
     Analytics.track(TRACK.CHANNEL.UNSUBSCRIBE, {
       channel_id: profile.id,
-      channel_name: profile.handle
+      channel_name: getProfile(profile)?.slug
     })
   }
 

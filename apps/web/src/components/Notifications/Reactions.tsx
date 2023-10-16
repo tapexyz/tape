@@ -1,6 +1,6 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
 import HeartOutline from '@components/Common/Icons/HeartOutline'
-import { getProfilePicture } from '@tape.xyz/generic'
+import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { ProfileReactedResult, ReactionNotification } from '@tape.xyz/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -21,11 +21,10 @@ const Reactions: FC<Props> = ({ notification: { publication, reactions } }) => {
           {reactions?.map(({ profile }: ProfileReactedResult) => (
             <HoverableProfile profile={profile} key={profile?.id}>
               <img
-                title={profile?.handle}
                 className="h-7 w-7 rounded-full border dark:border-gray-700/80"
                 src={getProfilePicture(profile)}
                 draggable={false}
-                alt={profile?.handle}
+                alt={getProfile(profile)?.displayName}
               />
             </HoverableProfile>
           ))}

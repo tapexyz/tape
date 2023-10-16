@@ -2,7 +2,7 @@ import Badge from '@components/Common/Badge'
 import Stats from '@components/Profile/BasicInfo/Stats'
 import useProfileStore from '@lib/store/profile'
 import { Avatar, Flex } from '@radix-ui/themes'
-import { getProfilePicture, trimLensHandle } from '@tape.xyz/generic'
+import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import React from 'react'
 import Custom404 from 'src/pages/404'
 
@@ -23,21 +23,21 @@ const DangerZone = () => {
           <div className="mr-3 mt-0.5 flex-none">
             <Avatar
               src={getProfilePicture(activeProfile, 'AVATAR')}
-              fallback={trimLensHandle(activeProfile?.handle)[0]}
+              fallback={getProfile(activeProfile)?.displayName[0] ?? ';)'}
               radius="full"
               className="h-9 w-9 rounded-full"
               draggable={false}
-              alt={activeProfile?.handle}
+              alt={getProfile(activeProfile)?.displayName}
             />
           </div>
           <div className="flex flex-col">
             {activeProfile.metadata?.displayName && (
               <h6 className="font-medium">
-                {activeProfile.metadata?.displayName}
+                {getProfile(activeProfile)?.displayName}
               </h6>
             )}
             <span className="flex items-center space-x-1">
-              <span className="text-sm">{activeProfile?.handle}</span>
+              <p>{getProfile(activeProfile)?.slug}</p>
               <Badge id={activeProfile?.id} size="xs" />
             </span>
           </div>

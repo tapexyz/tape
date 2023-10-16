@@ -1,6 +1,10 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
 import CollectOutline from '@components/Common/Icons/CollectOutline'
-import { getProfilePicture, getPublication } from '@tape.xyz/generic'
+import {
+  getProfile,
+  getProfilePicture,
+  getPublication
+} from '@tape.xyz/generic'
 import type { ActedNotification, OpenActionProfileActed } from '@tape.xyz/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -23,11 +27,10 @@ const Acted: FC<Props> = ({ notification: { publication, actions } }) => {
           {actions?.map(({ by }: OpenActionProfileActed) => (
             <HoverableProfile profile={by} key={by?.id}>
               <img
-                title={by?.handle}
                 className="h-7 w-7 rounded-full border dark:border-gray-700/80"
                 src={getProfilePicture(by)}
                 draggable={false}
-                alt={by?.handle}
+                alt={getProfile(by)?.slug}
               />
             </HoverableProfile>
           ))}

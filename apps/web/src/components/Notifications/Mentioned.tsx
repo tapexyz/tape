@@ -1,6 +1,6 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
 import MentionOutline from '@components/Common/Icons/MentionOutline'
-import { getProfilePicture } from '@tape.xyz/generic'
+import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { MentionNotification } from '@tape.xyz/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -20,11 +20,10 @@ const Mentioned: FC<Props> = ({ notification: { publication } }) => {
         <span className="flex cursor-pointer -space-x-1.5">
           <HoverableProfile profile={publication.by} key={publication.by?.id}>
             <img
-              title={publication.by?.handle}
               className="h-7 w-7 rounded-full border dark:border-gray-700/80"
               src={getProfilePicture(publication.by)}
               draggable={false}
-              alt={publication.by?.handle}
+              alt={getProfile(publication.by)?.displayName}
             />
           </HoverableProfile>
         </span>

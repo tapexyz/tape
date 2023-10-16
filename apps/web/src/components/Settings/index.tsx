@@ -35,9 +35,9 @@ const Settings = () => {
 
   const { data, loading, error } = useProfileQuery({
     variables: {
-      request: { forHandle: selectedSimpleProfile?.handle }
+      request: { forProfileId: selectedSimpleProfile?.id }
     },
-    skip: !selectedSimpleProfile?.handle
+    skip: !selectedSimpleProfile?.id
   })
 
   if (error) {
@@ -62,7 +62,7 @@ const Settings = () => {
             <SideNav />
           </div>
           <div className="md:col-span-3">
-            {router.pathname === SETTINGS && <BasicInfo channel={channel} />}
+            {router.pathname === SETTINGS && <BasicInfo profile={channel} />}
             {router.pathname === SETTINGS_MEMBERSHIP && (
               <Membership channel={channel} />
             )}

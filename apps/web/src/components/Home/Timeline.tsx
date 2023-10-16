@@ -3,8 +3,8 @@ import QueuedVideo from '@components/Common/VideoCard/QueuedVideo'
 import MirroredVideoCard from '@components/Profile/MirroredVideoCard'
 import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
-import { getPublication, trimLensHandle } from '@tape.xyz/generic'
-import type { AnyPublication, Mirror } from '@tape.xyz/lens'
+import { getProfile, getPublication } from '@tape.xyz/generic'
+import type { AnyPublication, Mirror, Profile } from '@tape.xyz/lens'
 import type { FC } from 'react'
 import React from 'react'
 
@@ -20,12 +20,13 @@ const Timeline: FC<Props> = ({ videos, videoType = 'Post' }) => {
   )
 
   const isMirror = videoType === 'Mirror'
-  const isChannelPage =
-    location.pathname === `/u/${trimLensHandle(selectedSimpleProfile?.handle)}`
+  const isProfilePage =
+    location.pathname ===
+    `/u/${getProfile(selectedSimpleProfile as Profile)?.slug}`
 
   return (
     <div className="laptop:grid-cols-5 ultrawide:grid-cols-6 grid-col-1 grid gap-x-4 gap-y-2 md:grid-cols-3 md:gap-y-8">
-      {isChannelPage &&
+      {isProfilePage &&
         queuedVideos?.map((queuedVideo) => (
           <QueuedVideo
             key={queuedVideo?.thumbnailUrl}

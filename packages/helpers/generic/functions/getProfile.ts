@@ -10,13 +10,14 @@ export const getProfile = (
   slugWithPrefix: string
   displayName: string
   link: string
+  address: string
 } | null => {
   if (!profile) {
     return null
   }
 
   const prefix = profile.handle ? '@' : '#'
-  const slug = trimLensHandle(profile.handle) || profile.id
+  const slug: string = trimLensHandle(profile.handle) || profile.id
 
   return {
     prefix,
@@ -25,6 +26,7 @@ export const getProfile = (
     displayName: profile.metadata?.displayName || slug,
     link: profile.handle
       ? `/u/${trimLensHandle(profile.handle)}`
-      : `/profile/${profile.id}`
+      : `/profile/${profile.id}`,
+    address: profile.ownedBy.address
   }
 }

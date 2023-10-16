@@ -3,10 +3,10 @@ import LatestBytesShimmer from '@components/Shimmers/LatestBytesShimmer'
 import { getShortHandTime } from '@lib/formatTime'
 import { FALLBACK_COVER_URL, LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
 import {
+  getProfile,
   getProfilePicture,
   getThumbnailUrl,
-  imageCdn,
-  trimLensHandle
+  imageCdn
 } from '@tape.xyz/generic'
 import type {
   ExplorePublicationRequest,
@@ -77,17 +77,17 @@ const LatestBytes = () => {
             </Link>
             <div className="invisible flex items-center p-1 group-hover:visible">
               <Link
-                href={`/u/${trimLensHandle(byte.by?.handle)}`}
+                href={`/u/${getProfile(byte.by)?.slug}`}
                 className="flex items-center space-x-1"
               >
                 <img
                   className="h-4 w-4 rounded-full bg-gray-200 dark:bg-gray-800"
                   src={getProfilePicture(byte.by, 'AVATAR')}
-                  alt={byte.by?.handle}
+                  alt={getProfile(byte.by)?.slug}
                   draggable={false}
                 />
                 <span className="font-medium">
-                  {trimLensHandle(byte.by?.handle)} <Badge id={byte.by.id} />
+                  {getProfile(byte.by)?.slug} <Badge id={byte.by.id} />
                 </span>
               </Link>
               <span className="middot" />

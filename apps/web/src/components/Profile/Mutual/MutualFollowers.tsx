@@ -2,7 +2,7 @@ import Badge from '@components/Common/Badge'
 import UserOutline from '@components/Common/Icons/UserOutline'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAuthPersistStore from '@lib/store/auth'
-import { getProfilePicture, trimLensHandle } from '@tape.xyz/generic'
+import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { MutualFollowersRequest, Profile } from '@tape.xyz/lens'
 import { LimitType, useMutualFollowersQuery } from '@tape.xyz/lens'
 import { Loader } from '@tape.xyz/ui'
@@ -67,27 +67,27 @@ const MutualFollowers: FC<Props> = ({ viewing }) => {
           <NoDataFound withImage isCenter />
         </div>
       )}
-      {mutualFollowers?.map((channel: Profile) => (
+      {mutualFollowers?.map((profile: Profile) => (
         <Link
-          href={`/u/${trimLensHandle(channel?.handle)}`}
+          href={`/u/${getProfile(profile)?.slug}`}
           className="font-base flex items-center justify-between"
-          key={channel?.id}
+          key={profile?.id}
         >
           <div className="flex items-center space-x-1.5">
             <img
               className="h-5 w-5 rounded-full"
-              src={getProfilePicture(channel)}
-              alt={channel.handle}
+              src={getProfilePicture(profile)}
+              alt={getProfile(profile)?.slug}
               draggable={false}
             />
             <div className="flex items-center space-x-1">
-              <span>{trimLensHandle(channel?.handle) ?? channel?.id}</span>
-              <Badge id={channel?.id} size="xs" />
+              <span>{getProfile(profile)?.slug}</span>
+              <Badge id={profile?.id} size="xs" />
             </div>
           </div>
           <div className="flex items-center space-x-1 whitespace-nowrap text-xs opacity-80">
             <UserOutline className="h-2.5 w-2.5 opacity-60" />
-            <span>{channel.stats.followers}</span>
+            <span>{profile.stats.followers}</span>
           </div>
         </Link>
       ))}
