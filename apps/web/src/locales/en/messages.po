@@ -830,12 +830,16 @@ msgid "You got no videos in your feed, explore!"
 msgstr "You got no videos in your feed, explore!"
 
 #: src/components/Home/DispatcherAlert.tsx
-msgid "Upgrade your dispatcher to the latest version for better, faster signless transactions."
-msgstr "Upgrade your dispatcher to the latest version for better, faster signless transactions."
+#~ msgid "Upgrade your dispatcher to the latest version for better, faster signless transactions."
+#~ msgstr "Upgrade your dispatcher to the latest version for better, faster signless transactions."
 
 #: src/components/Home/DispatcherAlert.tsx
-msgid "Action Required"
-msgstr "Action Required"
+#~ msgid "Action Required"
+#~ msgstr "Action Required"
+
+#: src/components/Home/DispatcherAlert.tsx
+msgid "Update your dispatcher to the latest version for better, faster signless transactions."
+msgstr "Update your dispatcher to the latest version for better, faster signless transactions."
 
 #: src/components/Home/GitcoinAlert.tsx
 #~ msgid "Support Lenstube on"
@@ -1044,7 +1048,6 @@ msgid "Super Follow"
 msgstr "Super Follow"
 
 #: src/components/Profile/BasicInfo/SuperFollow.tsx
-#: src/components/Settings/Permissions/Modules/index.tsx
 #: src/components/Settings/Permissions/Modules/index.tsx
 msgid "Allow"
 msgstr "Allow"
@@ -1363,6 +1366,10 @@ msgid "Update"
 msgstr "Update"
 
 #: src/components/Settings/Permissions/Dispatcher/Toggle.tsx
+#~ msgid "Upgrade"
+#~ msgstr "Upgrade"
+
+#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx
 #: src/components/Watch/OpenActions/CollectPublication/PermissionAlert.tsx
 msgid "disabled"
 msgstr "disabled"
@@ -1373,16 +1380,20 @@ msgid "enabled"
 msgstr "enabled"
 
 #: src/components/Settings/Permissions/Dispatcher/Toggle.tsx
-msgid "Upgrade"
-msgstr "Upgrade"
-
-#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx
 msgid "dispatcher"
 msgstr "dispatcher"
 
 #: src/components/Settings/Permissions/Dispatcher/index.tsx
-msgid "Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions."
-msgstr "Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions."
+#~ msgid "Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions."
+#~ msgstr "Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions."
+
+#: src/components/Settings/Permissions/Dispatcher/index.tsx
+#~ msgid "Enable your dispatcher to the latest version for better, faster, stronger signless transactions."
+#~ msgstr "Enable your dispatcher to the latest version for better, faster, stronger signless transactions."
+
+#: src/components/Settings/Permissions/Dispatcher/index.tsx
+msgid "Enable your dispatcher to the latest version for better, faster signless transactions."
+msgstr "Enable your dispatcher to the latest version for better, faster signless transactions."
 
 #: src/components/Settings/Permissions/Dispatcher/index.tsx
 msgid "Dispatcher"

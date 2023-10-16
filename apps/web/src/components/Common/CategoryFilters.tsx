@@ -42,13 +42,13 @@ const CategoryFilters = () => {
         <div className="space-x-2">
           <button
             onClick={() => scroll(-scrollOffset)}
-            className="rounded-full p-2 backdrop-blur-xl hover:bg-gray-100 focus:outline-none dark:hover:bg-gray-900"
+            className="rounded-full p-2 backdrop-blur-xl hover:bg-gray-100 focus:outline-none dark:hover:bg-gray-800"
           >
             <ChevronLeftOutline className="h-4 w-4" />
           </button>
           <button
             onClick={() => scroll(scrollOffset)}
-            className="rounded-full p-2 backdrop-blur-xl hover:bg-gray-100 focus:outline-none dark:hover:bg-gray-900"
+            className="rounded-full p-2 backdrop-blur-xl hover:bg-gray-100 focus:outline-none dark:hover:bg-gray-800"
           >
             <ChevronRightOutline className="h-4 w-4" />
           </button>

@@ -11,7 +11,7 @@ const DispatcherPermissions = () => {
 
   const getDescription = () => {
     if (usingOldDispatcher) {
-      return t`Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions.`
+      return t`Enable your dispatcher to the latest version for better, faster signless transactions.`
     }
     return `Dispacher helps interact with ${TAPE_APP_NAME} without signing any of your transactions.`
   }

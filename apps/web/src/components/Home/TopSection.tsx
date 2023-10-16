@@ -4,6 +4,8 @@ import useAuthPersistStore from '@lib/store/auth'
 import { Trans } from '@lingui/macro'
 import React, { useRef } from 'react'
 
+import DispatcherAlert from './DispatcherAlert'
+import GitcoinAlert from './GitcoinAlert'
 import LatestBytes from './LatestBytes'
 import WelcomeAlert from './WelcomeAlert'
 
@@ -36,13 +38,13 @@ const TopSection = () => {
         <div className="space-x-2">
           <button
             onClick={() => scroll(-scrollOffset)}
-            className="rounded-full p-2 backdrop-blur-xl hover:bg-gray-100 focus:outline-none dark:hover:bg-gray-900"
+            className="rounded-full p-2 backdrop-blur-xl hover:bg-gray-100 focus:outline-none dark:hover:bg-gray-800"
           >
             <ChevronLeftOutline className="h-4 w-4" />
           </button>
           <button
             onClick={() => scroll(scrollOffset)}
-            className="rounded-full p-2 backdrop-blur-xl hover:bg-gray-100 focus:outline-none dark:hover:bg-gray-900"
+            className="rounded-full p-2 backdrop-blur-xl hover:bg-gray-100 focus:outline-none dark:hover:bg-gray-800"
           >
             <ChevronRightOutline className="h-4 w-4" />
           </button>
@@ -53,6 +55,8 @@ const TopSection = () => {
         className="no-scrollbar ultrawide:pt-8 laptop:pt-6 relative flex touch-pan-x items-start space-x-4 overflow-x-auto overflow-y-hidden scroll-smooth pt-4"
       >
         {!selectedSimpleProfile?.id && <WelcomeAlert />}
+        <GitcoinAlert />
+        <DispatcherAlert />
         <LatestBytes />
       </div>
     </div>

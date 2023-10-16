@@ -43,12 +43,7 @@ class AppDocument extends Document {
           <meta name="theme-color" content="#000000" />
           <link
             rel="manifest"
-            href={`${STATIC_ASSETS}/brand/favicons/site.webmanifest`}
-          />
-          <link
-            rel="mask-icon"
-            href={`${STATIC_ASSETS}/brand/favicons/safari-pinned-tab.svg`}
-            color="#ffffff"
+            href={`${STATIC_ASSETS}/brand/favicons/manifest.json`}
           />
         </Head>
         <body>

@@ -7,7 +7,6 @@ import { getIsFeatureEnabled } from '@tape.xyz/generic'
 import type { NextPage } from 'next'
 import React, { useEffect } from 'react'
 
-import DispatcherAlert from './DispatcherAlert'
 import Feed from './Feed'
 import OpenActions from './OpenActions'
 import TopSection from './TopSection'
@@ -23,8 +22,6 @@ const Home: NextPage = () => {
   return (
     <>
       <MetaTags title={t`Home`} />
-      <DispatcherAlert />
-      {/* <GitcoinAlert /> */}
       {/* <WhatsPopping /> */}
       {getIsFeatureEnabled(
         FEATURE_FLAGS.OPEN_ACTIONS,

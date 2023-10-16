@@ -2,7 +2,7 @@ import {
   LensTransactionStatusType,
   useLensTransactionStatusQuery
 } from '@tape.xyz/lens'
-import { useCallback, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 
 type Props = {
@@ -11,38 +11,40 @@ type Props = {
 }
 
 const usePendingTxn = ({ txHash, txId }: Props) => {
+  const [indexed, setIndexed] = useState(false)
+
   const { data, loading, stopPolling } = useLensTransactionStatusQuery({
     variables: {
       request: { forTxHash: txHash, forTxId: txId }
     },
     skip: !txHash && !txHash?.length && !txId && !txId?.length,
     pollInterval: 1000,
-    notifyOnNetworkStatusChange: true
+    notifyOnNetworkStatusChange: true,
+    onCompleted: (data) => {
+      if (data?.lensTransactionStatus?.reason) {
+        stopPolling()
+        return toast.error(
+          `Relay Error - ${data?.lensTransactionStatus?.reason}`
+        )
+      }
+      if (
+        data?.lensTransactionStatus?.__typename === 'LensTransactionResult' &&
+        data?.lensTransactionStatus?.txHash &&
+        data.lensTransactionStatus.status === LensTransactionStatusType.Complete
+      ) {
+        stopPolling()
+        setIndexed(true)
+      }
+    }
   })
 
-  const checkIsIndexed = useCallback(() => {
-    if (
-      data?.lensTransactionStatus?.__typename === 'LensTransactionResult' &&
-      data?.lensTransactionStatus?.txHash &&
-      data.lensTransactionStatus.status === LensTransactionStatusType.Complete
-    ) {
-      stopPolling()
-    }
-    if (data?.lensTransactionStatus?.reason) {
-      stopPolling()
-      return toast.error(`Relay Error - ${data?.lensTransactionStatus?.reason}`)
-    }
-  }, [stopPolling, data?.lensTransactionStatus])
-
   useEffect(() => {
-    checkIsIndexed()
-  }, [data, checkIsIndexed])
+    setIndexed(false)
+  }, [txHash, txId])
 
   return {
     data,
-    indexed:
-      data?.lensTransactionStatus?.__typename === 'LensTransactionResult' &&
-      data?.lensTransactionStatus?.txHash,
+    indexed,
     loading
   }
 }

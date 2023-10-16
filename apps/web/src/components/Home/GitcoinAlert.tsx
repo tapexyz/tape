@@ -8,7 +8,7 @@ import React from 'react'
 
 const GitcoinAlert = () => {
   return (
-    <div className="mb-4 w-full">
+    <div className="tape-border rounded-large ultrawide:h-[400px] relative flex h-[350px] w-[500px] flex-none overflow-hidden">
       <div className="relative flex flex-col overflow-hidden rounded-xl p-6 lg:p-8">
         <div className="absolute inset-0 h-full w-full bg-gray-100 bg-gradient-to-b dark:from-gray-800 dark:to-gray-900" />
         <div className="relative z-[1] flex flex-col items-start space-y-4 text-left">

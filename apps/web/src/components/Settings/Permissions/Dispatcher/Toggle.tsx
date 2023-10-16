@@ -10,27 +10,28 @@ import {
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE
 } from '@tape.xyz/constants'
-import { getIsDispatcherEnabled, getSignature } from '@tape.xyz/generic'
+import { getSignature } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import {
   useBroadcastOnchainMutation,
-  useCreateChangeProfileManagersTypedDataMutation,
-  useProfileLazyQuery
+  useCreateChangeProfileManagersTypedDataMutation
 } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+import { Loader } from '@tape.xyz/ui'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
 const Toggle = () => {
   const [loading, setLoading] = useState(false)
+
   const activeChannel = useChannelStore((state) => state.activeChannel)
   const setActiveChannel = useChannelStore((state) => state.setActiveChannel)
   const userSigNonce = useChannelStore((state) => state.userSigNonce)
   const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
-  const canUseRelay = getIsDispatcherEnabled(activeChannel)
-  const usingOldDispatcher = activeChannel?.lensManager === false
   const handleWrongNetwork = useHandleWrongNetwork()
+
+  const isLensManagerEnabled = activeChannel?.lensManager || false
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.message ?? ERROR_MESSAGE)
@@ -66,22 +67,14 @@ const Toggle = () => {
         : undefined
   })
 
-  const [refetchChannel] = useProfileLazyQuery({
-    onCompleted: (data) => {
-      const channel = data?.profile as Profile
-      setActiveChannel(channel)
-    }
-  })
-
   useEffect(() => {
     if (indexed) {
-      toast.success(`Dispatcher ${canUseRelay ? t`disabled` : t`enabled`}`)
-      refetchChannel({
-        variables: {
-          request: { forHandle: activeChannel?.handle }
-        },
-        fetchPolicy: 'no-cache'
-      })
+      toast.success(
+        `Dispatcher ${isLensManagerEnabled ? t`disabled` : t`enabled`}`
+      )
+      const channel = { ...activeChannel }
+      channel.lensManager = isLensManagerEnabled ? false : true
+      setActiveChannel(channel as Profile)
       setLoading(false)
       Analytics.track(TRACK.DISPATCHER.TOGGLE)
     }
@@ -130,16 +123,14 @@ const Toggle = () => {
     toggleLensManager({
       variables: {
         request: {
-          approveLensManager: !canUseRelay
+          approveLensManager: !isLensManagerEnabled
         }
       }
     })
   }
 
   const getButtonText = () => {
-    if (usingOldDispatcher) {
-      return t`Upgrade`
-    } else if (canUseRelay) {
+    if (isLensManagerEnabled) {
       return t`Disable`
     } else {
       return t`Enable`
@@ -148,12 +139,13 @@ const Toggle = () => {
 
   return (
     <Button
-      color={canUseRelay ? 'red' : 'gray'}
-      highContrast={!canUseRelay}
+      color={isLensManagerEnabled ? 'red' : 'gray'}
+      highContrast={!isLensManagerEnabled}
       size="3"
       onClick={onClick}
       disabled={loading}
     >
+      {loading && <Loader size="sm" />}
       {getButtonText()} <Trans>dispatcher</Trans>
     </Button>
   )

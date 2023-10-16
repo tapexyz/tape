@@ -8,6 +8,7 @@ import type {
 import {
   useAddProfileInterestsMutation,
   useProfileInterestsOptionsQuery,
+  useProfileQuery,
   useRemoveProfileInterestsMutation
 } from '@tape.xyz/lens'
 import { useApolloClient } from '@tape.xyz/lens/apollo'
@@ -28,6 +29,10 @@ const Topics = () => {
   const { data, loading } = useProfileInterestsOptionsQuery()
   const [addProfileInterests] = useAddProfileInterestsMutation()
   const [removeProfileInterests] = useRemoveProfileInterestsMutation()
+  const { data: profileData } = useProfileQuery({
+    variables: { request: { forProfileId: activeChannel?.id } },
+    skip: !activeChannel?.id
+  })
 
   const updateCache = (interests: string[]) => {
     cache.modify({
@@ -37,14 +42,14 @@ const Topics = () => {
   }
 
   const interestsData = data?.profileInterestsOptions as ProfileInterestTypes[]
-  const selectedTopics = activeChannel?.interests ?? []
+  const selectedTopics = profileData?.profile?.interests ?? []
 
   const onSelectTopic = (topic: ProfileInterestTypes) => {
     try {
       const request: ProfileInterestsRequest = {
         interests: [topic]
       }
-      if (!selectedTopics.includes(topic)) {
+      if (!selectedTopics?.includes(topic)) {
         const interests = [...selectedTopics, topic]
         updateCache(interests)
         Analytics.track(TRACK.PROFILE_INTERESTS.ADD)
@@ -71,7 +76,7 @@ const Topics = () => {
               <button
                 type="button"
                 className={clsx(
-                  'flex items-center justify-between rounded-md border border-gray-300 px-3 py-0.5 text-sm capitalize focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700',
+                  'tape-border flex items-center justify-between rounded-md px-3 py-0.5 text-sm capitalize focus:outline-none disabled:cursor-not-allowed disabled:opacity-50',
                   {
                     '!border-brand-500 text-brand-500': selectedTopics.includes(
                       category.id
