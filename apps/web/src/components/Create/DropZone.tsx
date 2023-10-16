@@ -98,7 +98,13 @@ const DropZone = () => {
             </p>
           </div>
           <Box>
-            <Button size="2" highContrast className="!px-0" type="button">
+            <Button
+              size="3"
+              highContrast
+              variant="surface"
+              className="!px-0"
+              type="button"
+            >
               <label htmlFor="chooseMedia" className="cursor-pointer p-6">
                 <Trans>Choose</Trans>
                 <input

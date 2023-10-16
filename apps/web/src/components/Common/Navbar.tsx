@@ -79,13 +79,13 @@ const Navbar = () => {
           {selectedSimpleProfile?.id ? (
             <>
               <Link href="/notifications" className="hidden md:block">
-                <IconButton radius="full" highContrast variant="soft">
-                  <BellOutline className="h-3.5 w-3.5" />
+                <IconButton radius="full" highContrast size="3" variant="soft">
+                  <BellOutline className="h-4 w-4" />
                 </IconButton>
               </Link>
               <Link href="/create" className="hidden md:block">
-                <Button highContrast>
-                  <UploadOutline className="h-3.5 w-3.5" />
+                <Button highContrast size="3">
+                  <UploadOutline className="h-4 w-4" />
                   Create
                 </Button>
               </Link>
@@ -93,7 +93,9 @@ const Navbar = () => {
             </>
           ) : (
             <Link href={`/login?next=${asPath}`}>
-              <Button highContrast>Login</Button>
+              <Button size="3" highContrast>
+                Login
+              </Button>
             </Link>
           )}
         </div>

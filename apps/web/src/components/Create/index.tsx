@@ -415,7 +415,7 @@ const CreateSteps = () => {
       uploadedVideo.file as File,
       (percentCompleted) => {
         setUploadedVideo({
-          buttonText: t`Uploading to IPFS`,
+          buttonText: t`Uploading video`,
           loading: true,
           percent: percentCompleted
         })
@@ -450,7 +450,7 @@ const CreateSteps = () => {
     try {
       setUploadedVideo({
         loading: true,
-        buttonText: t`Uploading to Arweave`
+        buttonText: t`Uploading video`
       })
       const instance = irysData.instance
       const tags = [
