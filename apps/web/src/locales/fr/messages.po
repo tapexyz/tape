@@ -28,10 +28,6 @@ msgstr "Miroir"
 msgid "Collect"
 msgstr "Collecter"
 
-#: src/components/Channel/BasicInfo/Follow.tsx
-msgid "Follow"
-msgstr ""
-
 #: src/components/Channel/BasicInfo/JoinChannel.tsx
 #~ msgid "Pay Membership of"
 #~ msgstr "Payer l'adhésion à"
@@ -41,32 +37,9 @@ msgstr ""
 #~ msgid "Join Channel"
 #~ msgstr "Rejoindre le canal"
 
-#: src/components/Channel/BasicInfo/Stats/Followers.tsx
-msgid "Followers"
-msgstr ""
-
-#: src/components/Channel/BasicInfo/Stats/Following.tsx
-msgid "Followings"
-msgstr ""
-
 #: src/components/Channel/BasicInfo/Subscribe.tsx
 #~ msgid "Subscribe"
 #~ msgstr "S'abonner"
-
-#: src/components/Channel/BasicInfo/SuperFollow.tsx
-#: src/components/Channel/BasicInfo/SuperFollow.tsx
-msgid "Super Follow"
-msgstr ""
-
-#: src/components/Channel/BasicInfo/SuperFollow.tsx
-#: src/components/Settings/Permissions/Modules/index.tsx
-#: src/components/Settings/Permissions/Modules/index.tsx
-msgid "Allow"
-msgstr "Autoriser"
-
-#: src/components/Channel/BasicInfo/UnFollow.tsx
-msgid "Unfollow"
-msgstr ""
 
 #: src/components/Channel/BasicInfo/UnSubscribe.tsx
 #~ msgid "Unsubscribe"
@@ -80,110 +53,13 @@ msgstr ""
 #~ msgid "Subscriber"
 #~ msgstr "Abonné"
 
-#: src/components/Channel/BasicInfo/index.tsx
-#: src/components/Channel/BasicInfo/index.tsx
-msgid "Unblocked successfully"
-msgstr ""
-
-#: src/components/Channel/BasicInfo/index.tsx
-msgid "Sybil Verified"
-msgstr "Sybil vérifié"
-
-#: src/components/Channel/BasicInfo/index.tsx
-msgid "Proof of Humanity"
-msgstr "Preuve d’humanité"
-
-#: src/components/Channel/BasicInfo/index.tsx
-msgid "Proof of Personhood"
-msgstr "Preuve de personnalité"
-
-#: src/components/Channel/BasicInfo/index.tsx
-msgid "Unblock"
-msgstr ""
-
-#: src/components/Channel/BasicInfo/index.tsx
-msgid "Block"
-msgstr ""
-
-#: src/components/Channel/MirroredVideoCard.tsx
-#: src/components/Common/VideoCard/ThumbnailOverlays.tsx
-msgid "Sensitive Content"
-msgstr "Contenu sensible"
-
-#: src/components/Channel/MirroredVideoCard.tsx
-msgid "Mirrored"
-msgstr "Miroir"
-
 #: src/components/Channel/Mutual/MutualSubscribers.tsx
 #~ msgid "People you may know"
 #~ msgstr "Personnes que vous connaissez peut-être"
 
-#: src/components/Channel/SavedList.tsx
-msgid "No saved videos found"
-msgstr "Aucune vidéo enregistrée trouvée"
-
-#: src/components/Channel/SavedList.tsx
-msgid "Saved Videos"
-msgstr "Vidéos enregistrées"
-
-#: src/components/Channel/Tabs/CollectedNFTs.tsx
-msgid "No NFTs found"
-msgstr "Aucun NFT trouvé"
-
 #: src/components/Channel/Tabs/CommentedVideos.tsx
 #~ msgid "No comments on videos"
 #~ msgstr "No comments on videos"
-
-#: src/components/Channel/Tabs/MirroredVideos.tsx
-msgid "No mirrors found"
-msgstr "Aucun miroir trouvé"
-
-#: src/components/Channel/Tabs/OtherProfiles.tsx
-msgid "No other channels found"
-msgstr "Aucune autre chaîne trouvée"
-
-#: src/components/Channel/Tabs/OtherProfiles.tsx
-#: src/components/UIElements/ChannelSuggestions.tsx
-msgid "followers"
-msgstr ""
-
-#: src/components/Channel/Tabs/PinnedVideo.tsx
-#: src/components/Common/VideoCard/VideoOptions.tsx
-msgid "Transaction submitted"
-msgstr "Transaction soumise"
-
-#: src/components/Channel/Tabs/PinnedVideo.tsx
-msgid "Unpinning video..."
-msgstr "Annulation de la vidéo..."
-
-#: src/components/Channel/Tabs/PinnedVideo.tsx
-msgid "Featured"
-msgstr ""
-
-#: src/components/Channel/Tabs/PinnedVideo.tsx
-msgid "likes"
-msgstr "J'aime"
-
-#: src/components/Channel/Tabs/PinnedVideo.tsx
-msgid "View more"
-msgstr "Voir plus"
-
-#: src/components/Channel/Tabs/ProfileBytes.tsx
-msgid "No bytes found"
-msgstr "Aucun octet trouvé"
-
-#: src/components/Channel/Tabs/ProfileVideos.tsx
-#: src/components/Explore/Category/index.tsx
-#: src/components/Explore/Feed.tsx
-#: src/components/Explore/Hashtag/index.tsx
-#: src/components/Home/Feed.tsx
-#: src/components/Mod/Recents.tsx
-msgid "No videos found"
-msgstr "Aucune vidéo trouvée"
-
-#: src/components/Channel/Tabs/SharedLinks.tsx
-msgid "No links found"
-msgstr "Aucun lien trouvé"
 
 #: src/components/Channel/Tabs/index.tsx
 #~ msgid "Commented"
@@ -404,6 +280,7 @@ msgstr "Octets"
 
 #: src/components/Common/MobileBottomNav.tsx
 #: src/components/Common/Navbar.tsx
+#: src/components/Feed/index.tsx
 msgid "Feed"
 msgstr "Flux"
 
@@ -469,6 +346,10 @@ msgstr "Aucun résultat trouvé"
 #~ msgstr "Some services are offline"
 
 #: src/components/Common/UserMenu.tsx
+#~ msgid "Saved Items"
+#~ msgstr ""
+
+#: src/components/Common/UserMenu.tsx
 msgid "App Info"
 msgstr "Infos sur l'application"
 
@@ -477,7 +358,7 @@ msgid "My Profile"
 msgstr ""
 
 #: src/components/Common/UserMenu.tsx
-msgid "Saved Items"
+msgid "Bookmarks"
 msgstr ""
 
 #: src/components/Common/UserMenu.tsx
@@ -508,6 +389,11 @@ msgstr "Indexation, veuillez patienter..."
 #~ msgid "Permalink copied to clipboard"
 #~ msgstr "Permalien copié dans le presse-papiers"
 
+#: src/components/Common/VideoCard/ThumbnailOverlays.tsx
+#: src/components/Profile/MirroredVideoCard.tsx
+msgid "Sensitive Content"
+msgstr "Contenu sensible"
+
 #: src/components/Common/VideoCard/VideoOptions.tsx
 #~ msgid "Video marked as interested"
 #~ msgstr ""
@@ -531,6 +417,11 @@ msgstr "Indexation, veuillez patienter..."
 #: src/components/Common/VideoCard/VideoOptions.tsx
 msgid "Video deleted"
 msgstr "Vidéo supprimée"
+
+#: src/components/Common/VideoCard/VideoOptions.tsx
+#: src/components/Profile/Tabs/PinnedVideo.tsx
+msgid "Transaction submitted"
+msgstr "Transaction soumise"
 
 #: src/components/Common/VideoCard/VideoOptions.tsx
 msgid "Pinning video..."
@@ -588,8 +479,8 @@ msgid "Report"
 msgstr "Rapporter"
 
 #: src/components/Common/matchers/UrlMatcher.tsx
-msgid "Watch Now"
-msgstr "Regarder maintenant"
+#~ msgid "Watch Now"
+#~ msgstr "Regarder maintenant"
 
 #: src/components/Create/Category.tsx
 msgid "Select Category"
@@ -744,40 +635,8 @@ msgid "within {timeLimit} days"
 msgstr ""
 
 #: src/components/Create/CreateSteps.tsx
-msgid "Post Video"
-msgstr "Publier une vidéo"
-
-#: src/components/Create/CreateSteps.tsx
-msgid "Storing metadata"
-msgstr "Stockage des métadonnées"
-
-#: src/components/Create/CreateSteps.tsx
-msgid "Posting video"
-msgstr "Envoi de la vidéo"
-
-#: src/components/Create/CreateSteps.tsx
-msgid "Uploading to IPFS"
-msgstr "Envoi vers IPFS"
-
-#: src/components/Create/CreateSteps.tsx
-msgid "IPFS Upload failed"
-msgstr "Échec du téléchargement IPFS"
-
-#: src/components/Create/CreateSteps.tsx
-msgid "Video not uploaded correctly"
-msgstr "La vidéo n'est pas correctement téléchargée"
-
-#: src/components/Create/CreateSteps.tsx
-msgid "Insufficient storage balance"
-msgstr "Solde de stockage insuffisant"
-
-#: src/components/Create/CreateSteps.tsx
-msgid "Uploading to Arweave"
-msgstr "Envoi vers Arweave"
-
-#: src/components/Create/CreateSteps.tsx
-msgid "Failed to upload video to Arweave"
-msgstr "Impossible de télécharger la vidéo vers Arweave"
+#~ msgid "Post Video"
+#~ msgstr "Publier une vidéo"
 
 #: src/components/Create/Details.tsx
 msgid "Title should be atleast 5 characters"
@@ -905,6 +764,51 @@ msgstr "Télécharger depuis l'URL de la source"
 msgid "Please note that your media exceeds the free limit ({IPFS_FREE_UPLOAD_LIMIT} mb), and you can proceed with the upload by paying the storage fee."
 msgstr ""
 
+#: src/components/Create/index.tsx
+msgid "Post Now"
+msgstr ""
+
+#: src/components/Create/index.tsx
+msgid "Storing metadata"
+msgstr "Stockage des métadonnées"
+
+#: src/components/Create/index.tsx
+msgid "Posting video"
+msgstr "Envoi de la vidéo"
+
+#: src/components/Create/index.tsx
+msgid "Uploading to IPFS"
+msgstr "Envoi vers IPFS"
+
+#: src/components/Create/index.tsx
+msgid "IPFS Upload failed"
+msgstr "Échec du téléchargement IPFS"
+
+#: src/components/Create/index.tsx
+msgid "Video not uploaded correctly"
+msgstr "La vidéo n'est pas correctement téléchargée"
+
+#: src/components/Create/index.tsx
+msgid "Insufficient storage balance"
+msgstr "Solde de stockage insuffisant"
+
+#: src/components/Create/index.tsx
+msgid "Uploading to Arweave"
+msgstr "Envoi vers Arweave"
+
+#: src/components/Create/index.tsx
+msgid "Failed to upload video to Arweave"
+msgstr "Impossible de télécharger la vidéo vers Arweave"
+
+#: src/components/Explore/Category/index.tsx
+#: src/components/Explore/Feed.tsx
+#: src/components/Explore/Hashtag/index.tsx
+#: src/components/Home/Feed.tsx
+#: src/components/Mod/Recents.tsx
+#: src/components/Profile/Tabs/ProfileVideos.tsx
+msgid "No videos found"
+msgstr "Aucune vidéo trouvée"
+
 #: src/components/Explore/Feed.tsx
 msgid "Trending"
 msgstr "Tendance"
@@ -916,6 +820,10 @@ msgstr "Populaire"
 #: src/components/Explore/Feed.tsx
 msgid "Interesting"
 msgstr "Intéressant"
+
+#: src/components/Feed/index.tsx
+msgid "You got no videos in your feed, explore!"
+msgstr "Vous n'avez pas de vidéos dans votre flux, explorez !"
 
 #: src/components/Home/DispatcherAlert.tsx
 msgid "Upgrade your dispatcher to the latest version for better, faster signless transactions."
@@ -1114,6 +1022,111 @@ msgstr "Toutes les notifications"
 msgid "No Notifications"
 msgstr "Aucune notification"
 
+#: src/components/Profile/BasicInfo/Follow.tsx
+msgid "Follow"
+msgstr ""
+
+#: src/components/Profile/BasicInfo/Stats/Followers.tsx
+msgid "Followers"
+msgstr ""
+
+#: src/components/Profile/BasicInfo/Stats/Following.tsx
+msgid "Followings"
+msgstr ""
+
+#: src/components/Profile/BasicInfo/SuperFollow.tsx
+#: src/components/Profile/BasicInfo/SuperFollow.tsx
+msgid "Super Follow"
+msgstr ""
+
+#: src/components/Profile/BasicInfo/SuperFollow.tsx
+#: src/components/Settings/Permissions/Modules/index.tsx
+#: src/components/Settings/Permissions/Modules/index.tsx
+msgid "Allow"
+msgstr "Autoriser"
+
+#: src/components/Profile/BasicInfo/UnFollow.tsx
+msgid "Unfollow"
+msgstr ""
+
+#: src/components/Profile/BasicInfo/index.tsx
+#: src/components/Profile/BasicInfo/index.tsx
+msgid "Unblocked successfully"
+msgstr ""
+
+#: src/components/Profile/BasicInfo/index.tsx
+msgid "Sybil Verified"
+msgstr "Sybil vérifié"
+
+#: src/components/Profile/BasicInfo/index.tsx
+msgid "Proof of Humanity"
+msgstr "Preuve d’humanité"
+
+#: src/components/Profile/BasicInfo/index.tsx
+msgid "Proof of Personhood"
+msgstr "Preuve de personnalité"
+
+#: src/components/Profile/BasicInfo/index.tsx
+msgid "Unblock"
+msgstr ""
+
+#: src/components/Profile/BasicInfo/index.tsx
+msgid "Block"
+msgstr ""
+
+#: src/components/Profile/Bookmarks.tsx
+msgid "No saved videos found"
+msgstr "Aucune vidéo enregistrée trouvée"
+
+#: src/components/Profile/Bookmarks.tsx
+msgid "Saved Videos"
+msgstr "Vidéos enregistrées"
+
+#: src/components/Profile/MirroredVideoCard.tsx
+msgid "Mirrored"
+msgstr "Miroir"
+
+#: src/components/Profile/Tabs/CollectedNFTs.tsx
+msgid "No NFTs found"
+msgstr "Aucun NFT trouvé"
+
+#: src/components/Profile/Tabs/MirroredVideos.tsx
+msgid "No mirrors found"
+msgstr "Aucun miroir trouvé"
+
+#: src/components/Profile/Tabs/OtherProfiles.tsx
+msgid "No other channels found"
+msgstr "Aucune autre chaîne trouvée"
+
+#: src/components/Profile/Tabs/OtherProfiles.tsx
+#: src/components/UIElements/ChannelSuggestions.tsx
+msgid "followers"
+msgstr ""
+
+#: src/components/Profile/Tabs/PinnedVideo.tsx
+msgid "Unpinning video..."
+msgstr "Annulation de la vidéo..."
+
+#: src/components/Profile/Tabs/PinnedVideo.tsx
+msgid "Featured"
+msgstr ""
+
+#: src/components/Profile/Tabs/PinnedVideo.tsx
+msgid "likes"
+msgstr "J'aime"
+
+#: src/components/Profile/Tabs/PinnedVideo.tsx
+msgid "View more"
+msgstr "Voir plus"
+
+#: src/components/Profile/Tabs/ProfileBytes.tsx
+msgid "No bytes found"
+msgstr "Aucun octet trouvé"
+
+#: src/components/Profile/Tabs/SharedLinks.tsx
+msgid "No links found"
+msgstr "Aucun lien trouvé"
+
 #: src/components/ReportPublication/index.tsx
 #~ msgid "Publication reported successfully."
 #~ msgstr "Publication signalée avec succès."
@@ -1223,6 +1236,10 @@ msgstr "Offensif"
 #~ msgstr "En savoir plus sur votre chaîne"
 
 #: src/components/Settings/BasicInfo.tsx
+#~ msgid "Save Profile"
+#~ msgstr ""
+
+#: src/components/Settings/BasicInfo.tsx
 msgid "Profile"
 msgstr ""
 
@@ -1251,7 +1268,7 @@ msgid "Location"
 msgstr "Localisation"
 
 #: src/components/Settings/BasicInfo.tsx
-msgid "Save Profile"
+msgid "Update Profile"
 msgstr ""
 
 #: src/components/Settings/ChannelPicture.tsx
@@ -1424,13 +1441,9 @@ msgstr "En direct"
 msgid "From the frens"
 msgstr "Depuis les franges"
 
-#: src/components/Subscriptions/Feed.tsx
-msgid "You got no videos in your feed, explore!"
-msgstr "Vous n'avez pas de vidéos dans votre flux, explorez !"
-
 #: src/components/Subscriptions/index.tsx
-msgid "Subscriptions"
-msgstr "Abonnements"
+#~ msgid "Subscriptions"
+#~ msgstr "Abonnements"
 
 #: src/components/Thanks/index.tsx
 #~ msgid "Thanks for supporting our community!"
@@ -1441,12 +1454,12 @@ msgstr "Abonnements"
 #~ msgstr "Are you sure want to continue?"
 
 #: src/components/UIElements/Confirm.tsx
-msgid "Confirmation"
-msgstr "Valider"
+#~ msgid "Confirmation"
+#~ msgstr "Valider"
 
 #: src/components/UIElements/Confirm.tsx
-msgid "Are you sure you want to continue?"
-msgstr "Êtes-vous sûr de vouloir continuer ?"
+#~ msgid "Are you sure you want to continue?"
+#~ msgstr "Êtes-vous sûr de vouloir continuer ?"
 
 #: src/components/UIElements/Confirm.tsx
 msgid "This cannot be reverted."
@@ -1883,12 +1896,12 @@ msgid "Show appreciation with a comment and tip."
 msgstr ""
 
 #: src/components/Watch/VideoMeta.tsx
-msgid "Collected By"
-msgstr "Collecté par"
+#~ msgid "Collected By"
+#~ msgstr "Collecté par"
 
 #: src/components/Watch/VideoMeta.tsx
-msgid "Mirrored By"
-msgstr "Miroir par"
+#~ msgid "Mirrored By"
+#~ msgstr "Miroir par"
 
 #: src/components/Watch/VideoMeta.tsx
 msgid "mirrors"

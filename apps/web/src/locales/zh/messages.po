@@ -28,10 +28,6 @@ msgstr "镜像"
 msgid "Collect"
 msgstr "收集"
 
-#: src/components/Channel/BasicInfo/Follow.tsx
-msgid "Follow"
-msgstr ""
-
 #: src/components/Channel/BasicInfo/JoinChannel.tsx
 #~ msgid "Pay Membership of"
 #~ msgstr "会员支付"
@@ -41,32 +37,9 @@ msgstr ""
 #~ msgid "Join Channel"
 #~ msgstr "加入频道"
 
-#: src/components/Channel/BasicInfo/Stats/Followers.tsx
-msgid "Followers"
-msgstr ""
-
-#: src/components/Channel/BasicInfo/Stats/Following.tsx
-msgid "Followings"
-msgstr ""
-
 #: src/components/Channel/BasicInfo/Subscribe.tsx
 #~ msgid "Subscribe"
 #~ msgstr "订阅"
-
-#: src/components/Channel/BasicInfo/SuperFollow.tsx
-#: src/components/Channel/BasicInfo/SuperFollow.tsx
-msgid "Super Follow"
-msgstr ""
-
-#: src/components/Channel/BasicInfo/SuperFollow.tsx
-#: src/components/Settings/Permissions/Modules/index.tsx
-#: src/components/Settings/Permissions/Modules/index.tsx
-msgid "Allow"
-msgstr "允许"
-
-#: src/components/Channel/BasicInfo/UnFollow.tsx
-msgid "Unfollow"
-msgstr ""
 
 #: src/components/Channel/BasicInfo/UnSubscribe.tsx
 #~ msgid "Unsubscribe"
@@ -80,110 +53,13 @@ msgstr ""
 #~ msgid "Subscriber"
 #~ msgstr "订阅者"
 
-#: src/components/Channel/BasicInfo/index.tsx
-#: src/components/Channel/BasicInfo/index.tsx
-msgid "Unblocked successfully"
-msgstr ""
-
-#: src/components/Channel/BasicInfo/index.tsx
-msgid "Sybil Verified"
-msgstr "Sybil 验证"
-
-#: src/components/Channel/BasicInfo/index.tsx
-msgid "Proof of Humanity"
-msgstr "人类证据"
-
-#: src/components/Channel/BasicInfo/index.tsx
-msgid "Proof of Personhood"
-msgstr "人格证明"
-
-#: src/components/Channel/BasicInfo/index.tsx
-msgid "Unblock"
-msgstr ""
-
-#: src/components/Channel/BasicInfo/index.tsx
-msgid "Block"
-msgstr ""
-
-#: src/components/Channel/MirroredVideoCard.tsx
-#: src/components/Common/VideoCard/ThumbnailOverlays.tsx
-msgid "Sensitive Content"
-msgstr "敏感内容"
-
-#: src/components/Channel/MirroredVideoCard.tsx
-msgid "Mirrored"
-msgstr "镜像"
-
 #: src/components/Channel/Mutual/MutualSubscribers.tsx
 #~ msgid "People you may know"
 #~ msgstr "您可能知道的人"
 
-#: src/components/Channel/SavedList.tsx
-msgid "No saved videos found"
-msgstr "未找到保存的视频"
-
-#: src/components/Channel/SavedList.tsx
-msgid "Saved Videos"
-msgstr "保存的视频"
-
-#: src/components/Channel/Tabs/CollectedNFTs.tsx
-msgid "No NFTs found"
-msgstr "未找到NFTs"
-
 #: src/components/Channel/Tabs/CommentedVideos.tsx
 #~ msgid "No comments on videos"
 #~ msgstr "No comments on videos"
-
-#: src/components/Channel/Tabs/MirroredVideos.tsx
-msgid "No mirrors found"
-msgstr "未找到镜像"
-
-#: src/components/Channel/Tabs/OtherProfiles.tsx
-msgid "No other channels found"
-msgstr "未找到其他频道"
-
-#: src/components/Channel/Tabs/OtherProfiles.tsx
-#: src/components/UIElements/ChannelSuggestions.tsx
-msgid "followers"
-msgstr ""
-
-#: src/components/Channel/Tabs/PinnedVideo.tsx
-#: src/components/Common/VideoCard/VideoOptions.tsx
-msgid "Transaction submitted"
-msgstr "交易已提交"
-
-#: src/components/Channel/Tabs/PinnedVideo.tsx
-msgid "Unpinning video..."
-msgstr "取消置顶视频..."
-
-#: src/components/Channel/Tabs/PinnedVideo.tsx
-msgid "Featured"
-msgstr ""
-
-#: src/components/Channel/Tabs/PinnedVideo.tsx
-msgid "likes"
-msgstr "赞"
-
-#: src/components/Channel/Tabs/PinnedVideo.tsx
-msgid "View more"
-msgstr "查看更多"
-
-#: src/components/Channel/Tabs/ProfileBytes.tsx
-msgid "No bytes found"
-msgstr "未找到字节"
-
-#: src/components/Channel/Tabs/ProfileVideos.tsx
-#: src/components/Explore/Category/index.tsx
-#: src/components/Explore/Feed.tsx
-#: src/components/Explore/Hashtag/index.tsx
-#: src/components/Home/Feed.tsx
-#: src/components/Mod/Recents.tsx
-msgid "No videos found"
-msgstr "未找到视频"
-
-#: src/components/Channel/Tabs/SharedLinks.tsx
-msgid "No links found"
-msgstr "没有找到链接"
 
 #: src/components/Channel/Tabs/index.tsx
 #~ msgid "Commented"
@@ -404,6 +280,7 @@ msgstr "字节"
 
 #: src/components/Common/MobileBottomNav.tsx
 #: src/components/Common/Navbar.tsx
+#: src/components/Feed/index.tsx
 msgid "Feed"
 msgstr "订阅源"
 
@@ -469,6 +346,10 @@ msgstr "未找到结果"
 #~ msgstr "Some services are offline"
 
 #: src/components/Common/UserMenu.tsx
+#~ msgid "Saved Items"
+#~ msgstr ""
+
+#: src/components/Common/UserMenu.tsx
 msgid "App Info"
 msgstr "应用信息"
 
@@ -477,7 +358,7 @@ msgid "My Profile"
 msgstr ""
 
 #: src/components/Common/UserMenu.tsx
-msgid "Saved Items"
+msgid "Bookmarks"
 msgstr ""
 
 #: src/components/Common/UserMenu.tsx
@@ -508,6 +389,11 @@ msgstr "正在索引，请稍候..."
 #~ msgid "Permalink copied to clipboard"
 #~ msgstr "永久链接已复制到剪贴板"
 
+#: src/components/Common/VideoCard/ThumbnailOverlays.tsx
+#: src/components/Profile/MirroredVideoCard.tsx
+msgid "Sensitive Content"
+msgstr "敏感内容"
+
 #: src/components/Common/VideoCard/VideoOptions.tsx
 #~ msgid "Video marked as interested"
 #~ msgstr ""
@@ -531,6 +417,11 @@ msgstr "正在索引，请稍候..."
 #: src/components/Common/VideoCard/VideoOptions.tsx
 msgid "Video deleted"
 msgstr "视频已删除"
+
+#: src/components/Common/VideoCard/VideoOptions.tsx
+#: src/components/Profile/Tabs/PinnedVideo.tsx
+msgid "Transaction submitted"
+msgstr "交易已提交"
 
 #: src/components/Common/VideoCard/VideoOptions.tsx
 msgid "Pinning video..."
@@ -588,8 +479,8 @@ msgid "Report"
 msgstr "报告"
 
 #: src/components/Common/matchers/UrlMatcher.tsx
-msgid "Watch Now"
-msgstr "立即查看"
+#~ msgid "Watch Now"
+#~ msgstr "立即查看"
 
 #: src/components/Create/Category.tsx
 msgid "Select Category"
@@ -744,40 +635,8 @@ msgid "within {timeLimit} days"
 msgstr ""
 
 #: src/components/Create/CreateSteps.tsx
-msgid "Post Video"
-msgstr "发布视频"
-
-#: src/components/Create/CreateSteps.tsx
-msgid "Storing metadata"
-msgstr "存储元数据"
-
-#: src/components/Create/CreateSteps.tsx
-msgid "Posting video"
-msgstr "发布视频"
-
-#: src/components/Create/CreateSteps.tsx
-msgid "Uploading to IPFS"
-msgstr "上传到 IPFS"
-
-#: src/components/Create/CreateSteps.tsx
-msgid "IPFS Upload failed"
-msgstr "IPFS 上传失败"
-
-#: src/components/Create/CreateSteps.tsx
-msgid "Video not uploaded correctly"
-msgstr "视频上传不正确"
-
-#: src/components/Create/CreateSteps.tsx
-msgid "Insufficient storage balance"
-msgstr "存储余额不足"
-
-#: src/components/Create/CreateSteps.tsx
-msgid "Uploading to Arweave"
-msgstr "正在上传到Arweeve"
-
-#: src/components/Create/CreateSteps.tsx
-msgid "Failed to upload video to Arweave"
-msgstr "上传视频到 Arweeve 失败"
+#~ msgid "Post Video"
+#~ msgstr "发布视频"
 
 #: src/components/Create/Details.tsx
 msgid "Title should be atleast 5 characters"
@@ -905,6 +764,51 @@ msgstr "从源网址上传"
 msgid "Please note that your media exceeds the free limit ({IPFS_FREE_UPLOAD_LIMIT} mb), and you can proceed with the upload by paying the storage fee."
 msgstr ""
 
+#: src/components/Create/index.tsx
+msgid "Post Now"
+msgstr ""
+
+#: src/components/Create/index.tsx
+msgid "Storing metadata"
+msgstr "存储元数据"
+
+#: src/components/Create/index.tsx
+msgid "Posting video"
+msgstr "发布视频"
+
+#: src/components/Create/index.tsx
+msgid "Uploading to IPFS"
+msgstr "上传到 IPFS"
+
+#: src/components/Create/index.tsx
+msgid "IPFS Upload failed"
+msgstr "IPFS 上传失败"
+
+#: src/components/Create/index.tsx
+msgid "Video not uploaded correctly"
+msgstr "视频上传不正确"
+
+#: src/components/Create/index.tsx
+msgid "Insufficient storage balance"
+msgstr "存储余额不足"
+
+#: src/components/Create/index.tsx
+msgid "Uploading to Arweave"
+msgstr "正在上传到Arweeve"
+
+#: src/components/Create/index.tsx
+msgid "Failed to upload video to Arweave"
+msgstr "上传视频到 Arweeve 失败"
+
+#: src/components/Explore/Category/index.tsx
+#: src/components/Explore/Feed.tsx
+#: src/components/Explore/Hashtag/index.tsx
+#: src/components/Home/Feed.tsx
+#: src/components/Mod/Recents.tsx
+#: src/components/Profile/Tabs/ProfileVideos.tsx
+msgid "No videos found"
+msgstr "未找到视频"
+
 #: src/components/Explore/Feed.tsx
 msgid "Trending"
 msgstr "热门主题"
@@ -916,6 +820,10 @@ msgstr "热门的"
 #: src/components/Explore/Feed.tsx
 msgid "Interesting"
 msgstr "有趣的"
+
+#: src/components/Feed/index.tsx
+msgid "You got no videos in your feed, explore!"
+msgstr "你在你的新闻源中没有视频，探索！"
 
 #: src/components/Home/DispatcherAlert.tsx
 msgid "Upgrade your dispatcher to the latest version for better, faster signless transactions."
@@ -1114,6 +1022,111 @@ msgstr "所有通知"
 msgid "No Notifications"
 msgstr "无通知"
 
+#: src/components/Profile/BasicInfo/Follow.tsx
+msgid "Follow"
+msgstr ""
+
+#: src/components/Profile/BasicInfo/Stats/Followers.tsx
+msgid "Followers"
+msgstr ""
+
+#: src/components/Profile/BasicInfo/Stats/Following.tsx
+msgid "Followings"
+msgstr ""
+
+#: src/components/Profile/BasicInfo/SuperFollow.tsx
+#: src/components/Profile/BasicInfo/SuperFollow.tsx
+msgid "Super Follow"
+msgstr ""
+
+#: src/components/Profile/BasicInfo/SuperFollow.tsx
+#: src/components/Settings/Permissions/Modules/index.tsx
+#: src/components/Settings/Permissions/Modules/index.tsx
+msgid "Allow"
+msgstr "允许"
+
+#: src/components/Profile/BasicInfo/UnFollow.tsx
+msgid "Unfollow"
+msgstr ""
+
+#: src/components/Profile/BasicInfo/index.tsx
+#: src/components/Profile/BasicInfo/index.tsx
+msgid "Unblocked successfully"
+msgstr ""
+
+#: src/components/Profile/BasicInfo/index.tsx
+msgid "Sybil Verified"
+msgstr "Sybil 验证"
+
+#: src/components/Profile/BasicInfo/index.tsx
+msgid "Proof of Humanity"
+msgstr "人类证据"
+
+#: src/components/Profile/BasicInfo/index.tsx
+msgid "Proof of Personhood"
+msgstr "人格证明"
+
+#: src/components/Profile/BasicInfo/index.tsx
+msgid "Unblock"
+msgstr ""
+
+#: src/components/Profile/BasicInfo/index.tsx
+msgid "Block"
+msgstr ""
+
+#: src/components/Profile/Bookmarks.tsx
+msgid "No saved videos found"
+msgstr "未找到保存的视频"
+
+#: src/components/Profile/Bookmarks.tsx
+msgid "Saved Videos"
+msgstr "保存的视频"
+
+#: src/components/Profile/MirroredVideoCard.tsx
+msgid "Mirrored"
+msgstr "镜像"
+
+#: src/components/Profile/Tabs/CollectedNFTs.tsx
+msgid "No NFTs found"
+msgstr "未找到NFTs"
+
+#: src/components/Profile/Tabs/MirroredVideos.tsx
+msgid "No mirrors found"
+msgstr "未找到镜像"
+
+#: src/components/Profile/Tabs/OtherProfiles.tsx
+msgid "No other channels found"
+msgstr "未找到其他频道"
+
+#: src/components/Profile/Tabs/OtherProfiles.tsx
+#: src/components/UIElements/ChannelSuggestions.tsx
+msgid "followers"
+msgstr ""
+
+#: src/components/Profile/Tabs/PinnedVideo.tsx
+msgid "Unpinning video..."
+msgstr "取消置顶视频..."
+
+#: src/components/Profile/Tabs/PinnedVideo.tsx
+msgid "Featured"
+msgstr ""
+
+#: src/components/Profile/Tabs/PinnedVideo.tsx
+msgid "likes"
+msgstr "赞"
+
+#: src/components/Profile/Tabs/PinnedVideo.tsx
+msgid "View more"
+msgstr "查看更多"
+
+#: src/components/Profile/Tabs/ProfileBytes.tsx
+msgid "No bytes found"
+msgstr "未找到字节"
+
+#: src/components/Profile/Tabs/SharedLinks.tsx
+msgid "No links found"
+msgstr "没有找到链接"
+
 #: src/components/ReportPublication/index.tsx
 #~ msgid "Publication reported successfully."
 #~ msgstr "发布报告成功"
@@ -1223,6 +1236,10 @@ msgstr "攻击性的"
 #~ msgstr "更多关于您的频道"
 
 #: src/components/Settings/BasicInfo.tsx
+#~ msgid "Save Profile"
+#~ msgstr ""
+
+#: src/components/Settings/BasicInfo.tsx
 msgid "Profile"
 msgstr ""
 
@@ -1251,7 +1268,7 @@ msgid "Location"
 msgstr "地点"
 
 #: src/components/Settings/BasicInfo.tsx
-msgid "Save Profile"
+msgid "Update Profile"
 msgstr ""
 
 #: src/components/Settings/ChannelPicture.tsx
@@ -1424,13 +1441,9 @@ msgstr "实时模式"
 msgid "From the frens"
 msgstr "来自法国的"
 
-#: src/components/Subscriptions/Feed.tsx
-msgid "You got no videos in your feed, explore!"
-msgstr "你在你的新闻源中没有视频，探索！"
-
 #: src/components/Subscriptions/index.tsx
-msgid "Subscriptions"
-msgstr "订阅"
+#~ msgid "Subscriptions"
+#~ msgstr "订阅"
 
 #: src/components/Thanks/index.tsx
 #~ msgid "Thanks for supporting our community!"
@@ -1441,12 +1454,12 @@ msgstr "订阅"
 #~ msgstr "Are you sure want to continue?"
 
 #: src/components/UIElements/Confirm.tsx
-msgid "Confirmation"
-msgstr "确认"
+#~ msgid "Confirmation"
+#~ msgstr "确认"
 
 #: src/components/UIElements/Confirm.tsx
-msgid "Are you sure you want to continue?"
-msgstr "您确定要继续吗？"
+#~ msgid "Are you sure you want to continue?"
+#~ msgstr "您确定要继续吗？"
 
 #: src/components/UIElements/Confirm.tsx
 msgid "This cannot be reverted."
@@ -1883,12 +1896,12 @@ msgid "Show appreciation with a comment and tip."
 msgstr ""
 
 #: src/components/Watch/VideoMeta.tsx
-msgid "Collected By"
-msgstr "收集者"
+#~ msgid "Collected By"
+#~ msgstr "收集者"
 
 #: src/components/Watch/VideoMeta.tsx
-msgid "Mirrored By"
-msgstr "镜像者"
+#~ msgid "Mirrored By"
+#~ msgstr "镜像者"
 
 #: src/components/Watch/VideoMeta.tsx
 msgid "mirrors"
