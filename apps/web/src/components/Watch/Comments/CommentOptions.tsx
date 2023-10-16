@@ -89,7 +89,7 @@ const CommentOptions: FC<Props> = ({ comment }) => {
               <Dialog.Root>
                 <Dialog.Trigger>
                   <button
-                    className="!cursor-default rounded px-3 py-1.5 hover:bg-gray-500/20"
+                    className="!cursor-default rounded-md px-3 py-1.5 hover:bg-gray-500/20"
                     onClick={() => onClickReport()}
                   >
                     <Flex align="center" gap="2">
