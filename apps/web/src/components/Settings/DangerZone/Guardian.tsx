@@ -1,6 +1,6 @@
 import useChannelStore from '@lib/store/channel'
 import { Trans } from '@lingui/macro'
-import { Button, Card } from '@radix-ui/themes'
+import { Button } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { ERROR_MESSAGE, LENSHUB_PROXY_ADDRESS } from '@tape.xyz/constants'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
@@ -66,7 +66,7 @@ const Guardian: FC = () => {
   }
 
   return (
-    <Card mb="4" size="3">
+    <div className="py-6">
       <div className="space-y-2">
         <h1 className="text-xl font-bold text-red-500">
           <Trans>Disable profile guardian</Trans>
@@ -89,16 +89,26 @@ const Guardian: FC = () => {
 
       <div className="flex justify-end pt-6">
         {guardianEnabled ? (
-          <Button color="red" disabled={loading} onClick={() => toggle()}>
+          <Button
+            size="3"
+            color="red"
+            disabled={loading}
+            onClick={() => toggle()}
+          >
             {loading ? <Trans>Disabling...</Trans> : <Trans>Disable</Trans>}
           </Button>
         ) : (
-          <Button disabled={loading} highContrast onClick={() => toggle()}>
+          <Button
+            size="3"
+            disabled={loading}
+            highContrast
+            onClick={() => toggle()}
+          >
             {loading ? <Trans> Enabling...</Trans> : <Trans>Enable</Trans>}
           </Button>
         )}
       </div>
-    </Card>
+    </div>
   )
 }
 

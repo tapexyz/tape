@@ -71,7 +71,7 @@ const Topics = () => {
               <button
                 type="button"
                 className={clsx(
-                  'flex items-center justify-between rounded-full border border-gray-300 px-3 py-0.5 text-sm capitalize focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700',
+                  'flex items-center justify-between rounded-md border border-gray-300 px-3 py-0.5 text-sm capitalize focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700',
                   {
                     '!border-brand-500 text-brand-500': selectedTopics.includes(
                       category.id
@@ -95,7 +95,7 @@ const Topics = () => {
                       selectedTopics.length === MAX_TOPICS_ALLOWED
                     }
                     className={clsx(
-                      'flex items-center justify-between rounded-full border border-gray-300 px-3 py-0.5 text-sm capitalize focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700',
+                      'tape-border flex items-center justify-between rounded-md px-3 py-0.5 text-sm capitalize focus:outline-none disabled:cursor-not-allowed disabled:opacity-50',
                       {
                         '!border-brand-500 text-brand-500':
                           selectedTopics.includes(subCategory.id)

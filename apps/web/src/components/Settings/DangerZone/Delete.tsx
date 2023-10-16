@@ -2,7 +2,7 @@ import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import { signOut } from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
-import { Button, Card } from '@radix-ui/themes'
+import { Button } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   LENSHUB_PROXY_ADDRESS,
@@ -63,24 +63,27 @@ const Delete = () => {
   }
 
   return (
-    <Card size="3">
-      <div className="flex flex-wrap items-center justify-between">
-        <div className="space-y-2">
-          <h1 className="text-xl font-bold text-red-500">
-            <Trans>Delete Profile</Trans>
-          </h1>
-          <p>
-            <Trans>Delete your profile and its data.</Trans>
-            <span className="ml-1 text-red-500">
-              <Trans>It can not be reverted</Trans>
-            </span>
-          </p>
-        </div>
-        <Button color="red" disabled={loading} onClick={() => onClickDelete()}>
-          Delete
-        </Button>
+    <div className="flex flex-wrap items-center justify-between pt-6">
+      <div className="space-y-2">
+        <h1 className="text-xl font-bold text-red-500">
+          <Trans>Delete Profile</Trans>
+        </h1>
+        <p>
+          <Trans>Delete your profile and its data.</Trans>
+          <span className="ml-1 text-red-500">
+            <Trans>It can not be reverted</Trans>
+          </span>
+        </p>
       </div>
-    </Card>
+      <Button
+        size="3"
+        color="red"
+        disabled={loading}
+        onClick={() => onClickDelete()}
+      >
+        Delete
+      </Button>
+    </div>
   )
 }
 

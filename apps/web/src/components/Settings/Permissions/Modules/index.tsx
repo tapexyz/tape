@@ -119,6 +119,7 @@ const ModulePermissions = () => {
         {!gettingSettings && data && (
           <div className="flex justify-end py-6">
             <Select.Root
+              size="3"
               value={currency}
               onValueChange={(value) => setCurrency(value)}
             >
@@ -149,16 +150,15 @@ const ModulePermissions = () => {
                 className="flex items-center rounded-md pb-4"
               >
                 <div className="flex-1">
-                  <h6 className="text-base">
-                    <Trans>Allow</Trans> {moduleItem.moduleName}
-                  </h6>
-                  <p className="text-sm opacity-70">
+                  <h6 className="font-medium">{moduleItem.moduleName}</h6>
+                  <p className="opacity-70">
                     {getCollectModuleConfig(moduleItem.moduleName).description}
                   </p>
                 </div>
                 <div className="ml-2 flex flex-none items-center space-x-2">
                   {moduleItem?.allowance.value === '0x00' ? (
                     <Button
+                      size="3"
                       highContrast
                       disabled={loadingModule === moduleItem.moduleName}
                       onClick={() => handleClick(true, moduleItem.moduleName)}
@@ -167,6 +167,7 @@ const ModulePermissions = () => {
                     </Button>
                   ) : (
                     <Button
+                      size="3"
                       color="red"
                       onClick={() => handleClick(false, moduleItem.moduleName)}
                       disabled={loadingModule === moduleItem.moduleName}

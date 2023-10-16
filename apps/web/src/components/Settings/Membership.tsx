@@ -193,7 +193,7 @@ const Membership = ({ channel }: Props) => {
   }
 
   return (
-    <Card size="3">
+    <div className="dark:bg-bunker tape-border rounded-medium bg-white p-5">
       <div className="mb-5 space-y-2">
         <h1 className="text-brand-400 text-xl font-bold">
           <Trans>Grow with Lens</Trans>
@@ -213,7 +213,7 @@ const Membership = ({ channel }: Props) => {
       )}
 
       {activeFollowModule?.amount && (
-        <Card className="mb-6 w-full rounded-xl border bg-gradient-to-r from-[#41AAD4]/20 to-[#41EAD4]/20 p-6 transition-all dark:border-gray-800">
+        <Card className="tape-border from-brand-100 to-brand-200 mb-6 w-full rounded-xl bg-gradient-to-br p-6 transition-all">
           <div className="grid gap-y-4 md:grid-cols-3">
             <div>
               <span className="text-xs font-medium uppercase opacity-50">
@@ -245,7 +245,7 @@ const Membership = ({ channel }: Props) => {
                   onClick={() => copy(activeFollowModule.recipient)}
                 >
                   <span className="block text-xl font-bold outline-none">
-                    {shortenAddress(activeFollowModule.recipient)}
+                    {shortenAddress(activeFollowModule.recipient, 6)}
                   </span>
                 </Button>
               </Tooltip>
@@ -262,6 +262,7 @@ const Membership = ({ channel }: Props) => {
                 Currency
               </Text>
               <Select.Root
+                size="3"
                 value={watch('token')}
                 onValueChange={(value) => setValue('token', value)}
               >
@@ -269,7 +270,7 @@ const Membership = ({ channel }: Props) => {
                   className="w-full"
                   placeholder="Select preferred currency"
                 />
-                <Select.Content variant="soft">
+                <Select.Content highContrast>
                   {enabledCurrencies?.currencies.items?.map(
                     ({ contract, name }) => (
                       <Select.Item
@@ -292,6 +293,7 @@ const Membership = ({ channel }: Props) => {
               <Input
                 label={t`Amount`}
                 type="number"
+                size="3"
                 step="any"
                 placeholder="10"
                 autoComplete="off"
@@ -302,6 +304,7 @@ const Membership = ({ channel }: Props) => {
             <div>
               <Input
                 label={t`Recipient`}
+                size="3"
                 placeholder="0x00..."
                 autoComplete="off"
                 validationError={errors.recipient?.message}
@@ -315,7 +318,7 @@ const Membership = ({ channel }: Props) => {
                 <Trans>Cancel</Trans>
               </Button>
             )}
-            <Button highContrast disabled={loading}>
+            <Button size="3" highContrast disabled={loading}>
               Set Membership
             </Button>
           </div>
@@ -325,6 +328,7 @@ const Membership = ({ channel }: Props) => {
         <div className="flex items-center justify-end space-x-2">
           <Button
             color="red"
+            size="3"
             disabled={loading}
             onClick={() => setMembership(true)}
           >
@@ -332,12 +336,12 @@ const Membership = ({ channel }: Props) => {
               <Trans>Disable</Trans>
             </span>
           </Button>
-          <Button highContrast onClick={() => setShowForm(true)}>
+          <Button highContrast size="3" onClick={() => setShowForm(true)}>
             <Trans>Update</Trans>
           </Button>
         </div>
       )}
-    </Card>
+    </div>
   )
 }
 

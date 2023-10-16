@@ -54,7 +54,7 @@ const Settings = () => {
   const channel = data?.profile as Profile
 
   return (
-    <div className="container mx-auto">
+    <div className="ultrawide:max-w-[100rem] container mx-auto">
       <MetaTags title={t`Channel Settings`} />
       {!loading && !error && channel ? (
         <div className="grid gap-4 md:grid-cols-4">

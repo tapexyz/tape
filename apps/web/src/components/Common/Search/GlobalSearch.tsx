@@ -180,6 +180,7 @@ const GlobalSearch: FC<Props> = ({ onSearchResults }) => {
             onClick={() => setShowSearchBar(true)}
             radius="full"
             variant="soft"
+            highContrast
           >
             <SearchOutline className="h-3.5 w-3.5" />
           </IconButton>

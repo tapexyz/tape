@@ -89,19 +89,19 @@ export const getCollectModuleConfig = (collectModule: string) => {
       return {
         type: 'openActionModule',
         description:
-          'Allow you to collect any publication which splits collect revenue with multiple recipients.'
+          'Collect any publication which splits collect revenue with multiple recipients.'
       }
     case 'SimpleCollectOpenActionModule':
       return {
         type: 'openActionModule',
         description:
-          'Allow you to collect any publication including paid collects, limited and timed free collects and more!'
+          'Collect any publication including paid collects, limited and timed free collects and more!'
       }
     case 'FeeFollowModule':
       return {
         type: 'followModule',
         description:
-          'Allows you to join any channel by paying a fee specified by the channel owner.'
+          'Super follow any profile by paying a fee specified by the profile owner.'
       }
     default:
       return {

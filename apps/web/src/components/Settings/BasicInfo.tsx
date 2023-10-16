@@ -11,7 +11,7 @@ import type { MetadataAttribute, ProfileOptions } from '@lens-protocol/metadata'
 import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
-import { Button, Card, Flex, IconButton } from '@radix-ui/themes'
+import { Button, Flex, IconButton } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   Analytics,
@@ -293,7 +293,7 @@ const BasicInfo = ({ channel }: Props) => {
   }
 
   return (
-    <Card size="3">
+    <div className="dark:bg-bunker tape-border rounded-medium bg-white p-5">
       <form onSubmit={handleSubmit(onSaveBasicInfo)}>
         <div className="relative w-full flex-none">
           {uploading.cover && (
@@ -309,11 +309,11 @@ const BasicInfo = ({ channel }: Props) => {
                 'THUMBNAIL'
               )
             }
-            className="h-48 w-full rounded-md bg-white object-cover object-center dark:bg-gray-900 md:h-56"
+            className="rounded-small h-48 w-full bg-white object-cover object-center dark:bg-gray-900 md:h-56"
             draggable={false}
             alt={`${channel.handle}'s cover`}
           />
-          <div className="absolute bottom-2 right-2 cursor-pointer rounded-md text-sm dark:bg-black">
+          <div className="absolute bottom-2 right-2 cursor-pointer text-sm dark:bg-black">
             <Button
               highContrast
               type="button"
@@ -431,6 +431,7 @@ const BasicInfo = ({ channel }: Props) => {
         <div className="mt-6">
           <Input
             label={t`Name`}
+            size="3"
             placeholder="John Doe"
             validationError={errors.displayName?.message}
             {...register('displayName')}
@@ -439,6 +440,7 @@ const BasicInfo = ({ channel }: Props) => {
         <div className="relative mt-4">
           <TextArea
             label={t`Bio`}
+            size="3"
             placeholder={t`More about you and what you do!`}
             validationError={errors.description?.message}
             {...register('description')}
@@ -453,6 +455,7 @@ const BasicInfo = ({ channel }: Props) => {
         </div>
         <div className="mt-4">
           <Input
+            size="3"
             label={t`Website`}
             placeholder="https://johndoe.xyz"
             validationError={errors.website?.message}
@@ -462,6 +465,7 @@ const BasicInfo = ({ channel }: Props) => {
         <div className="mt-4">
           <Input
             label="Youtube"
+            size="3"
             placeholder="channel"
             validationError={errors.youtube?.message}
             prefix="https://youtube.com/"
@@ -471,6 +475,7 @@ const BasicInfo = ({ channel }: Props) => {
         <div className="mt-4">
           <Input
             label="Spotify"
+            size="3"
             placeholder="artist/6xl0mjD1B4paRyfPDUOynf"
             validationError={errors.spotify?.message}
             prefix="https://open.spotify.com/"
@@ -480,6 +485,7 @@ const BasicInfo = ({ channel }: Props) => {
         <div className="mt-4">
           <Input
             label="X"
+            size="3"
             placeholder="profile"
             validationError={errors.x?.message}
             prefix="https://x.com/"
@@ -489,18 +495,19 @@ const BasicInfo = ({ channel }: Props) => {
         <div className="mt-4">
           <Input
             label={t`Location`}
+            size="3"
             placeholder="Metaverse"
             validationError={errors.location?.message}
             {...register('location')}
           />
         </div>
-        <div className="mt-4 flex justify-end">
-          <Button disabled={loading} highContrast>
+        <div className="mt-6 flex justify-end">
+          <Button size="3" disabled={loading} highContrast>
             <Trans>Update Profile</Trans>
           </Button>
         </div>
       </form>
-    </Card>
+    </div>
   )
 }
 

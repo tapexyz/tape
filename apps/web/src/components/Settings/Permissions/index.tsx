@@ -1,4 +1,3 @@
-import { Card } from '@radix-ui/themes'
 import React from 'react'
 
 import DispatcherPermissions from './Dispatcher'
@@ -6,10 +5,10 @@ import ModulePermissions from './Modules'
 
 const Permissions = () => {
   return (
-    <Card size="3">
+    <div className="dark:bg-bunker tape-border rounded-medium bg-white p-5">
       <DispatcherPermissions />
       <ModulePermissions />
-    </Card>
+    </div>
   )
 }
 

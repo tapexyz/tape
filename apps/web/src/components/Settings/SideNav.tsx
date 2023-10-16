@@ -25,8 +25,8 @@ const SideNav = () => {
       <Link
         href={SETTINGS}
         className={clsx(
-          'flex items-center space-x-2 rounded-md p-3 hover:bg-gray-100 hover:dark:bg-gray-800',
-          { 'bg-gray-100 dark:bg-gray-800': isActivePath(SETTINGS) }
+          'rounded-small flex items-center space-x-2 p-3 hover:bg-gray-100 hover:dark:bg-black',
+          { 'bg-gray-100 dark:bg-black': isActivePath(SETTINGS) }
         )}
       >
         <UserOutline className="h-4 w-4" />{' '}
@@ -37,9 +37,9 @@ const SideNav = () => {
       <Link
         href={SETTINGS_MEMBERSHIP}
         className={clsx(
-          'flex items-center space-x-2 rounded-md p-3 hover:bg-gray-100 hover:dark:bg-gray-800',
+          'rounded-small flex items-center space-x-2 p-3 hover:bg-gray-100 hover:dark:bg-black',
           {
-            'bg-gray-100 dark:bg-gray-800': isActivePath(SETTINGS_MEMBERSHIP)
+            'bg-gray-100 dark:bg-black': isActivePath(SETTINGS_MEMBERSHIP)
           }
         )}
       >
@@ -51,9 +51,9 @@ const SideNav = () => {
       <Link
         href={SETTINGS_PERMISSIONS}
         className={clsx(
-          'flex items-center space-x-2 rounded-md p-3 hover:bg-gray-100 hover:dark:bg-gray-800',
+          'rounded-small flex items-center space-x-2 p-3 hover:bg-gray-100 hover:dark:bg-black',
           {
-            'bg-gray-100 dark:bg-gray-800': isActivePath(SETTINGS_PERMISSIONS)
+            'bg-gray-100 dark:bg-black': isActivePath(SETTINGS_PERMISSIONS)
           }
         )}
       >
@@ -65,9 +65,9 @@ const SideNav = () => {
       <Link
         href={SETTINGS_INTERESTS}
         className={clsx(
-          'flex items-center space-x-2 rounded-md p-3 hover:bg-gray-100 hover:dark:bg-gray-800',
+          'rounded-small flex items-center space-x-2 p-3 hover:bg-gray-100 hover:dark:bg-black',
           {
-            'bg-gray-100 dark:bg-gray-800': isActivePath(SETTINGS_INTERESTS)
+            'bg-gray-100 dark:bg-black': isActivePath(SETTINGS_INTERESTS)
           }
         )}
       >
@@ -79,7 +79,7 @@ const SideNav = () => {
       <Link
         href={SETTINGS_DANGER_ZONE}
         className={clsx(
-          'flex items-center space-x-2 rounded-md p-3 text-red-500 hover:bg-red-100 hover:dark:bg-red-900/60',
+          'rounded-small flex items-center space-x-2 p-3 text-red-500 hover:bg-red-100 hover:dark:bg-red-900/60',
           {
             'bg-red-100 dark:bg-red-900/60': isActivePath(SETTINGS_DANGER_ZONE)
           }
