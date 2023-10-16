@@ -23,7 +23,7 @@ const Navbar = () => {
   )
 
   return (
-    <div className="ultrawide:px-8 laptop:px-6 dark:bg-bunker/70 fixed z-10 flex h-16 w-[calc(100%-var(--removed-body-scroll-bar-size,0px))] items-center bg-white/50 px-4 backdrop-blur-2xl">
+    <div className="ultrawide:px-8 laptop:px-6 dark:bg-bunker/70 sticky top-0 z-10 flex h-16 w-full items-center bg-white/50 px-4 backdrop-blur-2xl">
       <div className="flex w-full items-center justify-between">
         <div className="flex items-center md:w-1/5">
           <Link href="/" className="inline-flex">

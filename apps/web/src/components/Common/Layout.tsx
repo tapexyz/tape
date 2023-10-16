@@ -119,7 +119,7 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
         className={clsx(
           'relative',
           !skipPadding &&
-            'ultrawide:px-8 ultrawide:pb-8 laptop:px-6 laptop:pb-6 px-4 pb-4 pt-20'
+            'ultrawide:px-8 ultrawide:pb-8 laptop:px-6 laptop:pb-6 px-4 pb-4 pt-5'
         )}
       >
         {children}

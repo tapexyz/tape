@@ -60,7 +60,7 @@ const VideoCard: FC<Props> = ({ video }) => {
                   {metadata.marketplace?.name}
                 </Link>
               </div>
-              <div className="pt-2">
+              <div className="pr-2 pt-2">
                 <VideoOptions video={video} />
               </div>
             </div>
