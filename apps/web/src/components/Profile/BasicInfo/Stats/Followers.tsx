@@ -54,11 +54,11 @@ const Followers: FC<Props> = ({ stats, profileId }) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <Flex direction="column" align="end" gap="1" justify="center">
+        <Flex gap="1" align="end">
           <Text weight="bold" size="4">
             {formatNumber(stats.followers)}
           </Text>
-          <Text trim="both">
+          <Text size="4">
             <Trans>Followers</Trans>
           </Text>
         </Flex>
@@ -89,7 +89,7 @@ const Followers: FC<Props> = ({ stats, profileId }) => {
                 align="center"
                 key={profile.ownedBy.address}
               >
-                <HoverableProfile profile={profile} />
+                <HoverableProfile profile={profile} fontSize="3" />
                 <div className="flex items-center space-x-1 whitespace-nowrap text-xs opacity-80">
                   <UserOutline className="h-2.5 w-2.5 opacity-60" />
                   <span>{formatNumber(profile.stats.followers)}</span>

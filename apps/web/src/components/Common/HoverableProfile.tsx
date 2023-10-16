@@ -17,7 +17,7 @@ import InterweaveContent from './InterweaveContent'
 
 type Props = {
   profile: Profile
-  fontSize?: '1' | '2'
+  fontSize?: '1' | '2' | '3'
   children?: ReactElement
 }
 
