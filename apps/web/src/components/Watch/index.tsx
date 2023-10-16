@@ -56,7 +56,7 @@ const VideoDetails = () => {
     <>
       <MetaTags title={video?.metadata.marketplace?.name ?? t`Watch`} />
       {!loading && !error && video ? (
-        <div className="grid grid-cols-1 gap-y-4 md:gap-4 xl:grid-cols-4">
+        <div className="mx-auto grid max-w-[130rem] grid-cols-1 gap-y-4 md:gap-4 xl:grid-cols-4">
           <div className="col-span-3 space-y-3.5">
             <Video video={video} />
             <hr className="border-[0.5px] border-gray-200 dark:border-gray-800" />

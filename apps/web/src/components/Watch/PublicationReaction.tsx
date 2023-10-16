@@ -20,6 +20,7 @@ type Props = {
   textSize?: 'sm' | 'base'
   isVertical?: boolean
   showLabel?: boolean
+  className?: string
 }
 
 const PublicationReaction: FC<Props> = ({
@@ -27,7 +28,8 @@ const PublicationReaction: FC<Props> = ({
   iconSize = 'sm',
   textSize = 'sm',
   isVertical = false,
-  showLabel = true
+  showLabel = true,
+  className
 }) => {
   const targetPublication = getPublication(publication)
 
@@ -82,49 +84,46 @@ const PublicationReaction: FC<Props> = ({
   }
 
   return (
-    <div
+    <button
       className={clsx(
-        'flex items-center justify-end',
-        isVertical ? 'flex-col space-y-2.5 px-3 md:space-y-4' : 'space-x-5'
+        'flex items-center justify-end focus:outline-none disabled:opacity-50',
+        isVertical ? 'flex-col space-y-2.5 px-3 md:space-y-4' : 'space-x-5',
+        className
       )}
+      onClick={() => likeVideo()}
     >
-      <button
-        className="focus:outline-none disabled:opacity-50"
-        onClick={() => likeVideo()}
+      <span
+        className={clsx(
+          'flex items-center focus:outline-none',
+          isVertical ? 'flex-col space-y-2' : 'space-x-1.5',
+          {
+            'text-brand-500 font-semibold': reaction.isLiked
+          }
+        )}
       >
-        <span
-          className={clsx(
-            'flex items-center focus:outline-none',
-            isVertical ? 'flex-col space-y-2' : 'space-x-1.5',
-            {
-              'text-brand-500 font-semibold': reaction.isLiked
-            }
-          )}
-        >
-          <HeartOutline
+        <HeartOutline
+          className={clsx({
+            'h-3.5 w-3.5': iconSize === 'sm',
+            'h-6 w-6': iconSize === 'lg',
+            'h-4 w-4': iconSize === 'base',
+            'text-brand-500': reaction.isLiked
+          })}
+        />
+        {showLabel && (
+          <span
             className={clsx({
-              'h-3.5 w-3.5': iconSize === 'sm',
-              'h-6 w-6': iconSize === 'lg',
-              'h-4 w-4': iconSize === 'base',
+              'text-xs': textSize === 'sm',
+              'text-base': textSize === 'base',
               'text-brand-500': reaction.isLiked
             })}
-          />
-          {showLabel && (
-            <span
-              className={clsx({
-                'text-xs': textSize === 'sm',
-                'text-base': textSize === 'base',
-                'text-brand-500': reaction.isLiked
-              })}
-            >
-              {reaction.likeCount > 0
-                ? formatNumber(reaction.likeCount)
-                : t`Like`}
-            </span>
-          )}
-        </span>
-      </button>
-    </div>
+          >
+            {reaction.likeCount > 0
+              ? formatNumber(reaction.likeCount)
+              : t`Like`}
+          </span>
+        )}
+      </span>
+    </button>
   )
 }
 

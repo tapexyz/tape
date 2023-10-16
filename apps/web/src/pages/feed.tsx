@@ -1,3 +1,3 @@
-import Subscriptions from '@components/Subscriptions'
+import Feed from '@components/Feed'
 
-export default Subscriptions
+export default Feed

@@ -9,14 +9,7 @@ import {
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
 import { t, Trans } from '@lingui/macro'
-import {
-  Box,
-  Dialog,
-  DropdownMenu,
-  Flex,
-  IconButton,
-  Text
-} from '@radix-ui/themes'
+import { Dialog, DropdownMenu, Flex, IconButton, Text } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { Analytics, TRACK } from '@tape.xyz/browser'
 import {
@@ -67,9 +60,10 @@ import Share from './Share'
 
 type Props = {
   video: MirrorablePublication
+  variant?: 'soft' | 'solid' | 'classic' | 'surface' | 'outline' | 'ghost'
 }
 
-const VideoOptions: FC<Props> = ({ video }) => {
+const VideoOptions: FC<Props> = ({ video, variant = 'ghost' }) => {
   const handleWrongNetwork = useHandleWrongNetwork()
   const [showConfirm, setShowConfirm] = useState(false)
 
@@ -336,15 +330,15 @@ const VideoOptions: FC<Props> = ({ video }) => {
       />
       <DropdownMenu.Root>
         <DropdownMenu.Trigger>
-          <Box>
+          <IconButton radius="full" variant={variant} size="2">
             <ThreeDotsOutline className="h-3.5 w-3.5" />
-          </Box>
+          </IconButton>
         </DropdownMenu.Trigger>
         <DropdownMenu.Content sideOffset={10} variant="soft" align="end">
           <div className="flex w-40 flex-col rounded-lg transition duration-150 ease-in-out">
             <Dialog.Root>
               <Dialog.Trigger>
-                <button className="cursor-default rounded px-3 py-1.5 hover:bg-gray-500/20">
+                <button className="!cursor-default rounded px-3 py-1.5 hover:bg-gray-500/20">
                   <Flex align="center" gap="2">
                     <ShareOutline className="h-3.5 w-3.5" />
                     <Text size="2" className="whitespace-nowrap">
@@ -422,7 +416,7 @@ const VideoOptions: FC<Props> = ({ video }) => {
                 <Dialog.Root>
                   <Dialog.Trigger>
                     <button
-                      className="cursor-default rounded px-3 py-1.5 hover:bg-gray-500/20"
+                      className="!cursor-default rounded px-3 py-1.5 hover:bg-gray-500/20"
                       onClick={() => onClickReport()}
                     >
                       <Flex align="center" gap="2">

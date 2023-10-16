@@ -1,3 +1,4 @@
+import MetaTags from '@components/Common/MetaTags'
 import VideoCard from '@components/Common/VideoCard'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
@@ -20,7 +21,7 @@ import React from 'react'
 import { useInView } from 'react-cool-inview'
 import Custom500 from 'src/pages/500'
 
-const Subscriptions = () => {
+const Feed = () => {
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
@@ -78,6 +79,7 @@ const Subscriptions = () => {
 
   return (
     <div>
+      <MetaTags title={t`Feed`} />
       {loading && <TimelineShimmer />}
       {!error && !loading && (
         <>
@@ -103,4 +105,4 @@ const Subscriptions = () => {
   )
 }
 
-export default Subscriptions
+export default Feed

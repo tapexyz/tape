@@ -28,25 +28,27 @@ const Navbar = () => {
       initial={{ y: -200 }}
       animate={{ y: 0 }}
       transition={{ ease: 'linear' }}
-      className="ultrawide:px-8 laptop:px-6 dark:bg-bunker/50 fixed z-10 flex h-16 w-full items-center bg-white/50 px-4 backdrop-blur-2xl"
+      className="ultrawide:px-8 laptop:px-6 dark:bg-bunker/50 fixed z-10 flex h-16 w-[calc(100%-var(--removed-body-scroll-bar-size,0px))] items-center bg-white/50 px-4 backdrop-blur-2xl"
     >
       <div className="flex w-full items-center justify-between">
-        <Link href="/" className="flex items-center md:w-1/5">
-          {resolvedTheme === 'dark' ? (
-            <img
-              src={`${STATIC_ASSETS}/brand/light-logo-text.png`}
-              className="-mb-1 h-6"
-              alt="tape"
-            />
-          ) : (
-            <img
-              src={`${STATIC_ASSETS}/brand/dark-logo-text.png`}
-              className="-mb-1 h-6"
-              alt="tape"
-            />
-          )}
-        </Link>
-        <div className="hidden space-x-7 pl-1 md:flex">
+        <div className="flex items-center md:w-1/5">
+          <Link href="/" className="inline-flex">
+            {resolvedTheme === 'dark' ? (
+              <img
+                src={`${STATIC_ASSETS}/brand/light-logo-text.png`}
+                className="-mb-1 h-6"
+                alt="tape"
+              />
+            ) : (
+              <img
+                src={`${STATIC_ASSETS}/brand/dark-logo-text.png`}
+                className="-mb-1 h-6"
+                alt="tape"
+              />
+            )}
+          </Link>
+        </div>
+        <div className="hidden space-x-7 md:flex">
           <Link
             href="/"
             className={clsx(

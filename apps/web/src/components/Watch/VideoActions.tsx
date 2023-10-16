@@ -20,32 +20,29 @@ const VideoActions: FC<Props> = ({ video }) => {
   const [showTip, setShowTip] = useState(false)
   return (
     <div className="mt-4 flex items-center justify-end space-x-1 md:mt-2">
-      <div className="rounded-full bg-indigo-100/50 px-4 py-1 backdrop-blur-xl dark:bg-indigo-900/30">
-        <PublicationReaction
-          publication={video}
-          textSize="base"
-          iconSize="base"
-        />
-      </div>
+      <PublicationReaction
+        className="bg-brand-50 dark:bg-brand-950 rounded-full px-4 py-1 backdrop-blur-xl"
+        publication={video}
+        textSize="base"
+        iconSize="base"
+      />
       {video.operations.canComment === TriStateValue.Yes && (
         <Dialog.Root open={showTip}>
           <Dialog.Trigger>
-            <div className="flex items-center rounded-full bg-indigo-100/50 px-4 py-1 backdrop-blur-xl dark:bg-indigo-900/30">
-              <button
-                className="focus:outline-none"
-                onClick={() => {
-                  setShowTip(true)
-                  Analytics.track(TRACK.PUBLICATION.TIP.OPEN)
-                }}
-              >
-                <span className="flex items-center space-x-1.5 text-base">
-                  <TipOutline className="h-4 w-4" />
-                  <span>
-                    <Trans>Thanks</Trans>
-                  </span>
+            <button
+              className="dark:bg-brand-950 bg-brand-50 flex items-center rounded-full px-4 py-1 backdrop-blur-xl focus:outline-none"
+              onClick={() => {
+                setShowTip(true)
+                Analytics.track(TRACK.PUBLICATION.TIP.OPEN)
+              }}
+            >
+              <span className="flex items-center space-x-1.5 text-base">
+                <TipOutline className="h-4 w-4" />
+                <span>
+                  <Trans>Thanks</Trans>
                 </span>
-              </button>
-            </div>
+              </span>
+            </button>
           </Dialog.Trigger>
 
           <Dialog.Content style={{ maxWidth: 450 }}>
@@ -61,9 +58,7 @@ const VideoActions: FC<Props> = ({ video }) => {
         </Dialog.Root>
       )}
 
-      <div className="rounded-full bg-indigo-100/50 px-3 py-2 backdrop-blur-xl dark:bg-indigo-900/30">
-        <VideoOptions video={video} />
-      </div>
+      <VideoOptions video={video} variant="soft" />
     </div>
   )
 }

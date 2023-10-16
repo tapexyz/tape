@@ -8,7 +8,6 @@ import { getProfilePicture, trimLensHandle } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { useProfilesQuery } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
 import React from 'react'
@@ -91,7 +90,7 @@ const UserMenu = () => {
           />
         </div>
       </DropdownMenu.Trigger>
-      <DropdownMenu.Content sideOffset={10} variant="soft" align="center">
+      <DropdownMenu.Content sideOffset={10} variant="soft" align="end">
         <div className="w-48">
           <Flex gap="2" px="2" py="1" pb="3" align="center">
             <Avatar
@@ -105,13 +104,13 @@ const UserMenu = () => {
             </Text>
           </Flex>
           {isAdmin && (
-            <DropdownMenu.Item>
-              <Link href="/mod">
+            <DropdownMenu.Item onClick={() => push('/mod')}>
+              <Flex gap="2" align="center">
                 <GraphOutline className="h-4 w-4" />
                 <Text as="p" className="truncate whitespace-nowrap">
                   <Trans>App Info</Trans>
                 </Text>
-              </Link>
+              </Flex>
             </DropdownMenu.Item>
           )}
           {selectedSimpleProfile && (
