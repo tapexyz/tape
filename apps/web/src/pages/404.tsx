@@ -1,4 +1,4 @@
-import { Button } from '@components/UIElements/Button'
+import { Button } from '@radix-ui/themes'
 import { STATIC_ASSETS, TAPE_APP_NAME } from '@tape.xyz/constants'
 import Head from 'next/head'
 import Link from 'next/link'
@@ -23,7 +23,9 @@ export default function Custom404() {
         <h1 className="text-4xl font-bold">404</h1>
         <div className="mb-6">This page could not be found.</div>
         <Link href="/">
-          <Button>Go Home</Button>
+          <Button highContrast size="3">
+            Go Home
+          </Button>
         </Link>
       </div>
     </>
