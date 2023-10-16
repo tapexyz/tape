@@ -56,7 +56,10 @@ const Channel = () => {
 
   return (
     <>
-      <MetaTags title={getProfile(profile)?.displayName} />
+      <MetaTags
+        title={`${getProfile(profile)?.displayName} (${getProfile(profile)
+          ?.slugWithPrefix})`}
+      />
       {!loading && !error && profile ? (
         <>
           <BasicInfo profile={profile} />

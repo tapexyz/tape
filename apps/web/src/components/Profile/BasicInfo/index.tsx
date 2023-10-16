@@ -102,9 +102,9 @@ const BasicInfo: FC<Props> = ({ profile }) => {
     <>
       <div
         style={{
-          backgroundImage: `url(${coverImage})`
+          backgroundImage: `url("${coverImage}")`
         }}
-        className="ultrawide:h-[25vh] relative flex h-44 w-full justify-center bg-white bg-cover bg-center bg-no-repeat dark:bg-gray-900 md:h-[20vw]"
+        className="ultrawide:h-[25vh] bg-brand-500 relative flex h-44 w-full justify-center bg-cover bg-center bg-no-repeat md:h-[20vw]"
       >
         <div className="container absolute bottom-4 mx-auto flex max-w-[70rem] items-end justify-between px-2 xl:px-0">
           <img

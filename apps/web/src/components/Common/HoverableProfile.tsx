@@ -46,7 +46,7 @@ const HoverableProfile: FC<Props> = ({ profile, fontSize = '2', children }) => {
               sanitizeDStorageUrl(getProfileCoverPicture(profile))
             )})`
           }}
-          className="relative h-20 w-full bg-white bg-cover bg-center bg-no-repeat dark:bg-gray-900"
+          className="bg-brand-500 relative h-20 w-full bg-cover bg-center bg-no-repeat"
         >
           <div className="absolute bottom-2 left-2 flex-none">
             <Avatar

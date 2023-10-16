@@ -311,7 +311,7 @@ const BasicInfo = ({ profile }: Props) => {
                 'THUMBNAIL'
               )
             }
-            className="rounded-small h-48 w-full bg-white object-cover object-center dark:bg-gray-900 md:h-56"
+            className="rounded-small bg-brand-500 h-48 w-full object-cover object-center md:h-56"
             draggable={false}
             alt={`${getProfile(profile)?.slug}'s cover`}
           />
