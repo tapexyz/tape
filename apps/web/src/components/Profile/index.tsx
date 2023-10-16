@@ -6,7 +6,8 @@ import {
   getValueFromKeyInAttributes,
   trimLensHandle
 } from '@tape.xyz/generic'
-import { type Profile, useProfileQuery } from '@tape.xyz/lens'
+import type { Profile, ProfileRequest } from '@tape.xyz/lens'
+import { useProfileQuery } from '@tape.xyz/lens'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import Custom404 from 'src/pages/404'
@@ -18,15 +19,21 @@ import PinnedVideo from './Tabs/PinnedVideo'
 
 const Channel = () => {
   const { query } = useRouter()
-  const handle = query.profile ?? ''
+  const handle = query.profile as string
+  const isId = handle.startsWith('0x')
 
   useEffect(() => {
     Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.CHANNEL })
   }, [])
 
+  const request: ProfileRequest = {
+    forProfileId: isId ? handle : undefined,
+    forHandle: !isId ? `test/@${trimLensHandle(handle)}` : undefined
+  }
+
   const { data, loading, error } = useProfileQuery({
     variables: {
-      request: { forHandle: `test/@${trimLensHandle(handle as string)}` }
+      request
     },
     skip: !handle
   })
