@@ -2,7 +2,7 @@ import { TAPE_APP_NAME } from '@tape.xyz/constants'
 import Link from 'next/link'
 import React from 'react'
 
-const terms = () => {
+const privacy = () => {
   return (
     <div className="relative overflow-hidden py-[5rem]">
       <div className="px-2">
@@ -162,4 +162,4 @@ const terms = () => {
   )
 }
 
-export default terms
+export default privacy
