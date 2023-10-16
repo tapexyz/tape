@@ -1,3 +1,3 @@
-import CreatePage from '@components/Create'
+import CreateSteps from '@components/Create'
 
-export default CreatePage
+export default CreateSteps
