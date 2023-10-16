@@ -15,9 +15,9 @@ export const SuggestedVideosShimmer = () => {
   )
 }
 
-export const VideoDetailShimmer = () => {
+export const WatchShimmer = () => {
   return (
-    <div className="grid grid-cols-1 gap-y-4 md:gap-4 xl:grid-cols-4">
+    <div className="mx-auto grid max-w-[130rem] grid-cols-1 gap-y-4 md:gap-4 xl:grid-cols-4">
       <div className="col-span-3">
         <CardShimmer />
         <div className="mt-3 flex flex-1 animate-pulse flex-col space-y-3.5">
@@ -32,8 +32,6 @@ export const VideoDetailShimmer = () => {
           <div className="my-4 flex items-center justify-end space-x-3">
             <div className="h-6 w-10 rounded-md bg-gray-300 dark:bg-gray-700" />
             <div className="h-6 w-10 rounded-md bg-gray-300 dark:bg-gray-700" />
-            <div className="h-6 w-10 rounded-md bg-gray-300 dark:bg-gray-700" />
-            <div className="h-6 w-20 rounded-md bg-gray-300 dark:bg-gray-700" />
             <div className="h-6 w-20 rounded-md bg-gray-300 dark:bg-gray-700" />
           </div>
           <hr className="border border-gray-200 dark:border-gray-800" />
@@ -47,15 +45,8 @@ export const VideoDetailShimmer = () => {
             </span>
             <span className="flex flex-1 items-center justify-end space-x-2">
               <div className="h-10 w-10 rounded-full bg-gray-300 dark:bg-gray-700" />
-              <div className="h-10 w-10 rounded-full bg-gray-300 dark:bg-gray-700" />
               <div className="h-10 w-1/2 rounded-xl bg-gray-300 dark:bg-gray-700 md:w-1/3" />
             </span>
-          </div>
-          <div className="ml-12 mt-4 space-y-3">
-            <div className="h-3 rounded bg-gray-300 dark:bg-gray-700" />
-            <div className="h-3 w-2/3 rounded bg-gray-300 dark:bg-gray-700" />
-            <div className="h-3 rounded bg-gray-300 dark:bg-gray-700" />
-            <div className="h-3 w-1/2 rounded bg-gray-300 dark:bg-gray-700" />
           </div>
         </div>
       </div>

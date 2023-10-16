@@ -1,5 +1,5 @@
 import MetaTags from '@components/Common/MetaTags'
-import { VideoDetailShimmer } from '@components/Shimmers/VideoDetailShimmer'
+import { WatchShimmer } from '@components/Shimmers/VideoDetailShimmer'
 import useAppStore from '@lib/store'
 import { t } from '@lingui/macro'
 import { Analytics, TRACK } from '@tape.xyz/browser'
@@ -37,8 +37,9 @@ const VideoDetails = () => {
     },
     skip: !id
   })
+
   if (loading || !data) {
-    return <VideoDetailShimmer />
+    return <WatchShimmer />
   }
 
   if (error) {

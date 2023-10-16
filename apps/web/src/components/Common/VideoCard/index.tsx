@@ -51,21 +51,23 @@ const VideoCard: FC<Props> = ({ video }) => {
           </HoverableProfile>
 
           <Flex direction="column" justify="between" width="100%">
-            <div className="flex w-full min-w-0 items-start justify-between space-x-1.5 pb-1">
+            <div className="flex w-full min-w-0 items-start justify-between space-x-1.5">
               <div className="flex items-center space-x-2">
                 <Link
-                  className="ultrawide:line-clamp-1 ultrawide:break-all line-clamp-2 break-words font-semibold"
+                  className="ultrawide:break-all line-clamp-1 break-words font-semibold"
                   href={href}
                 >
                   {metadata.marketplace?.name}
                 </Link>
               </div>
-              <div className="pr-2 pt-2">
+              <div className="pr-2 pt-1">
                 <VideoOptions video={video} />
               </div>
             </div>
 
             <Flex align="center" className="text-xs">
+              <HoverableProfile profile={video.by} />
+              <span className="middot" />
               <Flex align="center" gap="1">
                 <HeartOutline className="h-3 w-3" />
                 {formatNumber(video.stats?.reactions)}

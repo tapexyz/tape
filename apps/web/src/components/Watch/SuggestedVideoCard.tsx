@@ -51,7 +51,7 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
             <div className="relative">
               <img
                 className={clsx(
-                  'h-20 w-36 bg-gray-300 object-center transition-all duration-500 hover:scale-105 dark:bg-gray-700',
+                  'h-24 w-44 bg-gray-300 object-center transition-all duration-500 hover:scale-105 dark:bg-gray-700',
                   isBytesVideo ? 'object-contain' : 'object-cover'
                 )}
                 src={imageCdn(
@@ -80,13 +80,13 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
             <div className="grid w-full overflow-hidden break-words">
               <Link
                 href={`/watch/${video.id}`}
-                className="line-clamp-2 text-sm font-medium"
+                className="line-clamp-2 font-medium"
                 title={video.metadata.marketplace?.name ?? ''}
               >
                 {video.metadata.marketplace?.name}
               </Link>
             </div>
-            <div className="py-0.5">
+            <div className="py-1">
               <HoverableProfile profile={video.by} fontSize="1" />
             </div>
             <div className="flex items-center overflow-hidden text-xs opacity-80">
