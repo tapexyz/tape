@@ -5,10 +5,3 @@
 .radix-themes {
   --default-font-family: var(--font-inter);
 }
-
-#tape-cursor {
-  cursor:
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewport='0 0 100 100' style='fill:black;font-size:100px;'><text y='100%'>📼</text></svg>")
-      16 0,
-    auto;
-}
