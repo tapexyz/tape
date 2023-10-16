@@ -3,7 +3,6 @@ import { Trans } from '@lingui/macro'
 import { Button, IconButton } from '@radix-ui/themes'
 import { STATIC_ASSETS } from '@tape.xyz/constants'
 import clsx from 'clsx'
-import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
@@ -24,12 +23,7 @@ const Navbar = () => {
   )
 
   return (
-    <motion.div
-      initial={{ y: -200 }}
-      animate={{ y: 0 }}
-      transition={{ ease: 'linear' }}
-      className="ultrawide:px-8 laptop:px-6 dark:bg-bunker/50 fixed z-10 flex h-16 w-[calc(100%-var(--removed-body-scroll-bar-size,0px))] items-center bg-white/50 px-4 backdrop-blur-2xl"
-    >
+    <div className="ultrawide:px-8 laptop:px-6 dark:bg-bunker/50 fixed z-10 flex h-16 w-[calc(100%-var(--removed-body-scroll-bar-size,0px))] items-center bg-white/50 px-4 backdrop-blur-2xl">
       <div className="flex w-full items-center justify-between">
         <div className="flex items-center md:w-1/5">
           <Link href="/" className="inline-flex">
@@ -104,7 +98,7 @@ const Navbar = () => {
           )}
         </div>
       </div>
-    </motion.div>
+    </div>
   )
 }
 

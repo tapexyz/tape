@@ -54,8 +54,8 @@ const CollectModule = () => {
         <span>
           {followerOnlyCollect ? t`Subscribers` : t`Anyone`}{' '}
           <Trans>can collect</Trans>{' '}
-          {collectLimitEnabled ? `maximum of ${collectLimit}` : ''}{' '}
-          {isFeeCollect ? t`for given fees` : t`for free`}{' '}
+          {collectLimitEnabled ? `the ${collectLimit} editions` : ''}{' '}
+          {isFeeCollect ? t`for set price` : t`for free`}{' '}
           {timeLimitEnabled ? t`within ${timeLimit} days` : ''}
         </span>
         {uploadedVideo.collectModule.isMultiRecipientFeeCollect && (
