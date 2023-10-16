@@ -21,7 +21,7 @@ const NO_PADDING_PATHS = [
   '/login',
   '/bytes',
   '/bytes/[id]',
-  '/400',
+  '/404',
   '/500'
 ]
 
