@@ -1,5 +1,5 @@
 import MetaTags from '@components/Common/MetaTags'
-import ChannelShimmer from '@components/Shimmers/ChannelShimmer'
+import ProfilePageShimmer from '@components/Shimmers/ProfilePageShimmer'
 import { Analytics, TRACK } from '@tape.xyz/browser'
 import {
   getProfile,
@@ -42,7 +42,7 @@ const Channel = () => {
     return <Custom500 />
   }
   if (loading) {
-    return <ChannelShimmer />
+    return <ProfilePageShimmer />
   }
   if (!data?.profile) {
     return <Custom404 />

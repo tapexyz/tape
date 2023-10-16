@@ -1,6 +1,6 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
 import TimesOutline from '@components/Common/Icons/TimesOutline'
-import ChannelCirclesShimmer from '@components/Shimmers/ChannelCirclesShimmer'
+import BubblesShimmer from '@components/Shimmers/BubblesShimmer'
 import useAuthPersistStore from '@lib/store/auth'
 import {
   Dialog,
@@ -43,7 +43,7 @@ const Bubbles: FC<Props> = ({ viewing }) => {
   const mutualFollowers = data?.mutualFollowers?.items as Profile[]
 
   if (loading) {
-    return <ChannelCirclesShimmer />
+    return <BubblesShimmer />
   }
 
   if (!mutualFollowers?.length) {
@@ -53,7 +53,7 @@ const Bubbles: FC<Props> = ({ viewing }) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <Flex pt="3" align="center" gap="1">
+        <Flex mt="3" align="center" gap="1">
           <button type="button" className="flex cursor-pointer -space-x-1.5">
             {mutualFollowers.slice(0, 3)?.map((profile: Profile) => (
               <HoverableProfile profile={profile} key={profile?.id}>
@@ -68,11 +68,12 @@ const Bubbles: FC<Props> = ({ viewing }) => {
           </button>
           <div className="flex items-center space-x-1.5">
             <Text size="2">Followed by</Text>
-            {mutualFollowers
-              .slice(0, 3)
-              ?.map((profile: Profile) => (
-                <Text key={profile?.id}>{getProfile(profile)?.slug},</Text>
-              ))}
+            {mutualFollowers.slice(0, 3)?.map((profile: Profile, i) => (
+              <Text key={profile?.id}>
+                {getProfile(profile)?.slug}
+                {mutualFollowers.length === i + 1 ? '' : ','}
+              </Text>
+            ))}
             {mutualFollowers.length > FETCH_COUNT && (
               <Text size="2">and few others</Text>
             )}
