@@ -35,7 +35,7 @@ export const UPLOADED_VIDEO_FORM_DEFAULTS = {
   loading: false,
   uploadingThumbnail: false,
   buttonText: 'Post Now',
-  durationInSeconds: 0,
+  durationInSeconds: 1,
   videoCategory: CREATOR_VIDEO_CATEGORIES[0],
   isByteVideo: false,
   collectModule: {

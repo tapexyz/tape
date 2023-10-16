@@ -72,7 +72,7 @@ const SelectedMedia = () => {
             </span>
           )}
         </Badge>
-        {uploadedVideo.durationInSeconds === 0 && (
+        {uploadedVideo.durationInSeconds === 0 ? (
           <Badge
             variant="solid"
             radius="full"
@@ -83,7 +83,7 @@ const SelectedMedia = () => {
               Only media files longer than 1 second are allowed
             </span>
           </Badge>
-        )}
+        ) : null}
         {Boolean(uploadedVideo.percent) ? (
           <Tooltip content={`Uploaded (${uploadedVideo.percent}%)`}>
             <div className="absolute bottom-0 w-full overflow-hidden bg-gray-200">

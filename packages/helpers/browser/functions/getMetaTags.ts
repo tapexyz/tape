@@ -7,7 +7,11 @@ import {
   TAPE_WEBSITE_URL,
   TAPE_X_HANDLE
 } from '@tape.xyz/constants'
-import { getPublication, getPublicationMediaUrl } from '@tape.xyz/generic'
+import {
+  getPublication,
+  getPublicationMediaUrl,
+  getValueFromKeyInAttributes
+} from '@tape.xyz/generic'
 import type { AnyPublication } from '@tape.xyz/lens'
 
 type Args = {
@@ -18,6 +22,34 @@ type Args = {
   handle?: string
   pubId?: string
   publication?: AnyPublication
+}
+
+const secondsToISO = (seconds: string | undefined) => {
+  const SECONDS_PER_SECOND = 1
+  const SECONDS_PER_MINUTE = 60
+  const SECONDS_PER_HOUR = 60 * SECONDS_PER_MINUTE
+  const SECONDS_PER_DAY = 24 * SECONDS_PER_HOUR
+
+  const designations = [
+    ['D', SECONDS_PER_DAY],
+    ['H', SECONDS_PER_HOUR],
+    ['M', SECONDS_PER_MINUTE],
+    ['S', SECONDS_PER_SECOND]
+  ]
+  let duration = 'P'
+  let remainder = seconds ? Number(seconds ?? 0) : 0
+
+  designations.forEach(([sign, seconds]) => {
+    const value = Math.floor(remainder / (seconds as number))
+    remainder = remainder % (seconds as number)
+    if (value) {
+      duration += `${value}${sign}`
+    }
+  })
+  if (duration == 'P') {
+    duration = 'P0S'
+  }
+  return duration // ex: P2M47S
 }
 
 export const getMetaTags = ({
@@ -83,13 +115,13 @@ export const getMetaTags = ({
       name: meta.title,
       description,
       thumbnailUrl: meta.image,
-      uploadDate: publication.createdAt,
-      // duration: secondsToISO(
-      //   getValueFromTraitType(
-      //     publication.metadata.attributes as Attribute[],
-      //     'durationInSeconds'
-      //   )
-      // ),
+      uploadDate: target.createdAt,
+      duration: secondsToISO(
+        getValueFromKeyInAttributes(
+          target.metadata.attributes,
+          'durationInSeconds'
+        )
+      ),
       contentUrl,
       embedUrl,
       interactionStatistic: {
