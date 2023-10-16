@@ -108,7 +108,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
       >
         <div className="container absolute bottom-4 mx-auto flex max-w-[70rem] items-end justify-between px-2 xl:px-0">
           <img
-            className="ultrawide:h-32 ultrawide:w-32 h-24 w-24 flex-none rounded-lg border-2 border-white bg-white shadow-2xl dark:bg-gray-900"
+            className="ultrawide:h-32 ultrawide:w-32 rounded-small h-24 w-24 flex-none border-2 border-white bg-white shadow-2xl dark:bg-gray-900"
             src={getProfilePicture(profile, 'AVATAR_LG')}
             draggable={false}
             alt={getProfile(profile)?.slug}
