@@ -21,12 +21,12 @@ export const getSharableLink = (link: Link, video: MirrorablePublication) => {
   } else if (link === 'hey') {
     return `${HEY_WEBSITE_URL}/?url=${getViewUrl(video)}&text=${
       (metadata?.marketplace?.name as string) ?? ''
-    } by @${handle}&hashtags=Lenstube&preview=true`
+    } by @${handle}&hashtags=${TAPE_APP_NAME}&preview=true`
   } else if (link === 'x') {
     return encodeURI(
       `https://x.com/intent/tweet?url=${getViewUrl(video)}&text=${
         (metadata.marketplace?.name as string) ?? ''
-      } by @${handle}&via=${TAPE_X_HANDLE}&related=Lenstube&hashtags=Lenstube`
+      } by @${handle}&via=${TAPE_X_HANDLE}&related=${TAPE_APP_NAME}&hashtags=${TAPE_APP_NAME}`
     )
   } else if (link === 'reddit') {
     return `https://www.reddit.com/submit?url=${getViewUrl(video)}&title=${

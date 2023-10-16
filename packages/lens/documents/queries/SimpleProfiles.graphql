@@ -9,7 +9,7 @@ query SimpleProfiles($request: ProfilesRequest!) {
       stats {
         followers
       }
-      metadata(request: { appId: "lenstube", useFallback: true }) {
+      metadata(request: { appId: "tape", useFallback: true }) {
         picture {
           ... on ImageSet {
             ...ImageSetFields

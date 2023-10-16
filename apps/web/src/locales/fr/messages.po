@@ -611,6 +611,10 @@ msgid "Split evenly"
 msgstr "Séparer uniformément"
 
 #: src/components/Create/CollectModule/index.tsx
+#~ msgid "for given fees"
+#~ msgstr "pour des frais donnés"
+
+#: src/components/Create/CollectModule/index.tsx
 msgid "No one can collect this publication"
 msgstr "Personne ne peut collecter cette publication"
 
@@ -623,8 +627,8 @@ msgid "can collect"
 msgstr "peut collecter"
 
 #: src/components/Create/CollectModule/index.tsx
-msgid "for given fees"
-msgstr "pour des frais donnés"
+msgid "for set price"
+msgstr ""
 
 #: src/components/Create/CollectModule/index.tsx
 msgid "for free"

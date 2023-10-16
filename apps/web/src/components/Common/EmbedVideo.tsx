@@ -55,7 +55,7 @@ const EmbedVideo: FC<Props> = ({ videoId }) => {
               sandbox="allow-scripts allow-same-origin"
               className="aspect-[16/9] w-full"
               src={`${TAPE_EMBED_URL}/${videoId}`}
-              title="Lenstube video player"
+              title={`${TAPE_APP_NAME} video player`}
               allow="accelerometer; autoplay; clipboard-write; gyroscope;"
               allowFullScreen
             />
