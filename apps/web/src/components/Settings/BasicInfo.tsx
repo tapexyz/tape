@@ -30,8 +30,8 @@ import {
   TAPE_WEBSITE_URL
 } from '@tape.xyz/constants'
 import {
-  getChannelCoverPicture,
   getProfile,
+  getProfileCoverPicture,
   getProfilePicture,
   getSignature,
   getValueFromKeyInAttributes,
@@ -87,7 +87,7 @@ type FormData = z.infer<typeof formSchema> & { coverImage?: string }
 const BasicInfo = ({ profile }: Props) => {
   const [copy] = useCopyToClipboard()
   const [loading, setLoading] = useState(false)
-  const [coverImage, setCoverImage] = useState(getChannelCoverPicture(profile))
+  const [coverImage, setCoverImage] = useState(getProfileCoverPicture(profile))
   const [selectedPfp, setSelectedPfp] = useState('')
   const [uploading, setUploading] = useState({ pfp: false, cover: false })
   const handleWrongNetwork = useHandleWrongNetwork()
@@ -307,7 +307,7 @@ const BasicInfo = ({ profile }: Props) => {
             src={
               sanitizeDStorageUrl(coverImage) ??
               imageCdn(
-                sanitizeDStorageUrl(getChannelCoverPicture(profile)),
+                sanitizeDStorageUrl(getProfileCoverPicture(profile)),
                 'THUMBNAIL'
               )
             }

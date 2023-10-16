@@ -22,8 +22,8 @@ import {
 import { useCopyToClipboard } from '@tape.xyz/browser'
 import { MISUSED_CHANNELS, STATIC_ASSETS } from '@tape.xyz/constants'
 import {
-  getChannelCoverPicture,
   getProfile,
+  getProfileCoverPicture,
   getProfilePicture,
   getValueFromKeyInAttributes,
   imageCdn,
@@ -62,7 +62,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
 
   const isOwnChannel = profile?.id === selectedSimpleProfile?.id
   const coverImage = imageCdn(
-    sanitizeDStorageUrl(getChannelCoverPicture(profile))
+    sanitizeDStorageUrl(getProfileCoverPicture(profile))
   )
 
   const misused = MISUSED_CHANNELS.find((c) => c.id === profile?.id)

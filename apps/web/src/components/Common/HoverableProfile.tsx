@@ -1,8 +1,8 @@
 import { useProfileStore } from '@lib/store/profile'
 import { Avatar, Flex, HoverCard, Link, Text } from '@radix-ui/themes'
 import {
-  getChannelCoverPicture,
   getProfile,
+  getProfileCoverPicture,
   getProfilePicture,
   imageCdn,
   sanitizeDStorageUrl
@@ -43,7 +43,7 @@ const HoverableProfile: FC<Props> = ({ profile, fontSize = '2', children }) => {
         <div
           style={{
             backgroundImage: `url(${imageCdn(
-              sanitizeDStorageUrl(getChannelCoverPicture(profile))
+              sanitizeDStorageUrl(getProfileCoverPicture(profile))
             )})`
           }}
           className="relative h-20 w-full bg-white bg-cover bg-center bg-no-repeat dark:bg-gray-900"

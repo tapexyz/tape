@@ -17,8 +17,8 @@ import {
   TAPE_APP_ID
 } from '@tape.xyz/constants'
 import {
-  getChannelCoverPicture,
   getIsSensitiveContent,
+  getProfileCoverPicture,
   getProfilePicture,
   getPublicationMediaUrl,
   getSignature,
@@ -166,7 +166,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
       const metadata = profile({
         appId: TAPE_APP_ID,
         bio: activeProfile?.metadata?.bio,
-        coverPicture: getChannelCoverPicture(activeProfile),
+        coverPicture: getProfileCoverPicture(activeProfile),
         id: uuidv4(),
         name: activeProfile?.metadata?.displayName ?? '',
         picture: getProfilePicture(activeProfile as Profile),
