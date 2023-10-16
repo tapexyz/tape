@@ -854,20 +854,20 @@ msgstr ""
 #~ msgstr ""
 
 #: src/components/Home/GitcoinAlert.tsx
-msgid "GG18 is Live"
-msgstr "GG18 是实时的"
+#~ msgid "GG18 is Live"
+#~ msgstr "GG18 是实时的"
 
 #: src/components/Home/GitcoinAlert.tsx
-msgid "Gitcoin Grants"
-msgstr "Gitcoin Grants"
+#~ msgid "Gitcoin Grants"
+#~ msgstr "Gitcoin Grants"
 
 #: src/components/Home/GitcoinAlert.tsx
-msgid "Round 18"
-msgstr "第18圆桌会议"
+#~ msgid "Round 18"
+#~ msgstr "第18圆桌会议"
 
 #: src/components/Home/GitcoinAlert.tsx
-msgid "Contribute Now"
-msgstr "立即捐款"
+#~ msgid "Contribute Now"
+#~ msgstr "立即捐款"
 
 #: src/components/Home/OpenActions/Zora/Collect.tsx
 #~ msgid "{nftPriceInEth} ETH + {platformFeesInEth} ETH mint fees"

@@ -1,6 +1,7 @@
 import CheckOutline from '@components/Common/Icons/CheckOutline'
+import WarningOutline from '@components/Common/Icons/WarningOutline'
 import useAuthPersistStore from '@lib/store/auth'
-import { Button, Flex } from '@radix-ui/themes'
+import { Button, Callout, Flex } from '@radix-ui/themes'
 import { POLYGON_CHAIN_ID } from '@tape.xyz/constants'
 import React from 'react'
 import { useAccount, useConnect } from 'wagmi'
@@ -11,7 +12,7 @@ import Authenticated from './Authenticated'
 const Connectors = () => {
   const { connector: connected } = useAccount()
 
-  const { connectors, connectAsync, isLoading } = useConnect({
+  const { connectors, connectAsync, isLoading, error } = useConnect({
     chainId: POLYGON_CHAIN_ID
   })
 
@@ -42,6 +43,14 @@ const Connectors = () => {
           </Button>
         ))}
       </Flex>
+      {error?.message ? (
+        <Callout.Root color="red">
+          <Callout.Icon>
+            <WarningOutline className="h-4 w-4" />
+          </Callout.Icon>
+          <Callout.Text>{error?.message ?? 'Failed to connect'}</Callout.Text>
+        </Callout.Root>
+      ) : null}
       <Authenticate />
     </Flex>
   )

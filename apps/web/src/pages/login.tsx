@@ -1,13 +1,18 @@
 import MetaTags from '@components/Common/MetaTags'
 import Connectors from '@components/Login/Connectors'
 import { STATIC_ASSETS } from '@tape.xyz/constants'
+import Link from 'next/link'
 import React from 'react'
 
 const login = () => {
   return (
     <div className="flex h-screen w-screen overflow-hidden">
       <MetaTags title="Login" />
-      <div id="tape-cursor" className="hidden w-1/2 bg-black p-8 md:block">
+      <Link
+        href="/"
+        id="tape-cursor"
+        className="hidden w-1/2 bg-black p-8 md:block"
+      >
         <div
           style={{
             backgroundImage: `url("${STATIC_ASSETS}/brand/login-bg.svg")`
@@ -16,7 +21,7 @@ const login = () => {
         >
           <h1 className="text-2xl font-bold">〖tape〗</h1>
         </div>
-      </div>
+      </Link>
       <div className="relative grid h-full w-full place-items-center md:w-1/2">
         <div className="container mx-auto max-w-md space-y-3 text-center">
           <h2 className="text-2xl font-semibold">Welcome back</h2>

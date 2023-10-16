@@ -35,7 +35,7 @@ export const STAGING_API_URL =
   'https://staging-api-social-mumbai.lens.crtlkey.com'
 export const LENS_API_URL = IS_MAINNET ? MAINNET_API_URL : TESTNET_API_URL
 
-// API urls
+// api urls
 export const TAPE_MAINNET_API_URL = 'https://api.tape.xyz'
 export const TAPE_TESTNET_API_URL = 'https://api-testnet.tape.xyz'
 export const TAPE_EMBED_URL = IS_MAINNET
@@ -46,7 +46,7 @@ export const TAPE_API_URL = IS_MAINNET
   ? TAPE_MAINNET_API_URL
   : TAPE_TESTNET_API_URL
 
-// contracts
+// addresses
 export const LENSHUB_PROXY_ADDRESS = IS_MAINNET
   ? '0xDb46d1Dc155634FbC732f92E853b10B288AD5a1d'
   : '0xC1E77eE73403B8a7478884915aA599932A677870'
@@ -113,13 +113,13 @@ export const ERROR_MESSAGE = 'Oops, something went wrong!'
 export const TAPE_APP_ID = 'tape'
 export const LENSTUBE_BYTES_APP_ID = 'lenstube-bytes'
 export const ALLOWED_APP_IDS = [
-  'lenster',
-  'lenstube',
-  'orb',
-  'hey',
-  'buttrfly',
-  'lensplay',
-  'diversehq'
+  'lenstube'
+  // 'lenster',
+  // 'orb',
+  // 'hey',
+  // 'buttrfly',
+  // 'lensplay',
+  // 'diversehq'
 ]
 
 // official
@@ -163,33 +163,16 @@ export const HEY_WEBSITE_URL = IS_MAINNET
 // analytics
 export const MIXPANEL_API_HOST = '/collect'
 export const MIXPANEL_TOKEN = '928986a6551f5a12132e63c8bdd4451e'
-export const MUX_DATA_KEY = '2h11sq1qeahiaejrjegjti847'
+
+// banners
+export const SHOW_GITCOIN_BANNER = false
+export const GITCOIN_LIVE_ROUND = 19
 
 // vercel
 export const GIT_DEPLOYED_COMMIT_SHA =
   process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA
 export const GIT_DEPLOYED_BRANCH = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF
 export const VERCEL_DEPLOYED_ENV = process.env.NEXT_PUBLIC_VERCEL_ENV
-
-// misc
-export const ALLOWED_HEX_CHARACTERS = [
-  0,
-  1,
-  2,
-  3,
-  4,
-  5,
-  6,
-  7,
-  8,
-  9,
-  'A',
-  'B',
-  'C',
-  'D',
-  'E',
-  'F'
-]
 
 // open actions
 export const ZORA_MAINNET_CHAINS = ['eth', 'oeth', 'base', 'zora']

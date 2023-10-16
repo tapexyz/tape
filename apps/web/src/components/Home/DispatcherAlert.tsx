@@ -2,6 +2,7 @@ import Toggle from '@components/Settings/Permissions/Dispatcher/Toggle'
 import SignalWaveGraphic from '@components/UIElements/SignalWaveGraphic'
 import useProfileStore from '@lib/store/profile'
 import { t } from '@lingui/macro'
+import { Flex } from '@radix-ui/themes'
 import { TAPE_APP_NAME } from '@tape.xyz/constants'
 import { getIsDispatcherEnabled } from '@tape.xyz/generic'
 import React from 'react'
@@ -32,9 +33,9 @@ const DispatcherAlert = () => {
         <p className="md:text-md max-w-2xl text-sm lg:text-lg">
           {getDescription()}
         </p>
-        <div>
+        <Flex>
           <Toggle />
-        </div>
+        </Flex>
       </div>
 
       <SignalWaveGraphic />

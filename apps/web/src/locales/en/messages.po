@@ -854,20 +854,20 @@ msgstr "Update your dispatcher to the latest version for better, faster signless
 #~ msgstr ""
 
 #: src/components/Home/GitcoinAlert.tsx
-msgid "GG18 is Live"
-msgstr "GG18 is Live"
+#~ msgid "GG18 is Live"
+#~ msgstr "GG18 is Live"
 
 #: src/components/Home/GitcoinAlert.tsx
-msgid "Gitcoin Grants"
-msgstr "Gitcoin Grants"
+#~ msgid "Gitcoin Grants"
+#~ msgstr "Gitcoin Grants"
 
 #: src/components/Home/GitcoinAlert.tsx
-msgid "Round 18"
-msgstr "Round 18"
+#~ msgid "Round 18"
+#~ msgstr "Round 18"
 
 #: src/components/Home/GitcoinAlert.tsx
-msgid "Contribute Now"
-msgstr "Contribute Now"
+#~ msgid "Contribute Now"
+#~ msgstr "Contribute Now"
 
 #: src/components/Home/OpenActions/Zora/Collect.tsx
 #~ msgid "{nftPriceInEth} ETH + {platformFeesInEth} ETH mint fees"

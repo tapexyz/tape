@@ -854,20 +854,20 @@ msgstr ""
 #~ msgstr ""
 
 #: src/components/Home/GitcoinAlert.tsx
-msgid "GG18 is Live"
-msgstr "GG18 est en direct"
+#~ msgid "GG18 is Live"
+#~ msgstr "GG18 est en direct"
 
 #: src/components/Home/GitcoinAlert.tsx
-msgid "Gitcoin Grants"
-msgstr "Attributions Gitcoin"
+#~ msgid "Gitcoin Grants"
+#~ msgstr "Attributions Gitcoin"
 
 #: src/components/Home/GitcoinAlert.tsx
-msgid "Round 18"
-msgstr "Tour 18"
+#~ msgid "Round 18"
+#~ msgstr "Tour 18"
 
 #: src/components/Home/GitcoinAlert.tsx
-msgid "Contribute Now"
-msgstr "Contribuer maintenant"
+#~ msgid "Contribute Now"
+#~ msgstr "Contribuer maintenant"
 
 #: src/components/Home/OpenActions/Zora/Collect.tsx
 #~ msgid "{nftPriceInEth} ETH + {platformFeesInEth} ETH mint fees"

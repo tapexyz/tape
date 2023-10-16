@@ -1,5 +1,4 @@
 import { useHeaderHeight } from '@react-navigation/elements'
-import { ALLOWED_HEX_CHARACTERS } from '@tape.xyz/constants'
 import { LinearGradient } from 'expo-linear-gradient'
 import type { FC, PropsWithChildren } from 'react'
 import React from 'react'
@@ -13,6 +12,25 @@ const styles = StyleSheet.create({
     flex: 1
   }
 })
+
+const ALLOWED_HEX_CHARACTERS = [
+  0,
+  1,
+  2,
+  3,
+  4,
+  5,
+  6,
+  7,
+  8,
+  9,
+  'A',
+  'B',
+  'C',
+  'D',
+  'E',
+  'F'
+]
 
 const Container: FC<PropsWithChildren> = ({ children }) => {
   const headerHeight = useHeaderHeight()
