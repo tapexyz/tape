@@ -4,8 +4,8 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import type { MetadataAttribute } from '@lens-protocol/metadata'
 import { MetadataAttributeType, textOnly } from '@lens-protocol/metadata'
 import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
+import { useProfileStore } from '@lib/store/profile'
 import { t, Trans } from '@lingui/macro'
 import { Button, Flex } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
@@ -90,8 +90,8 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
   )
   const queuedComments = usePersistStore((state) => state.queuedComments)
   const setQueuedComments = usePersistStore((state) => state.setQueuedComments)
-  const activeChannel = useChannelStore((state) => state.activeChannel)
-  const canUseRelay = activeChannel?.lensManager && activeChannel?.sponsor
+  const activeProfile = useProfileStore((state) => state.activeProfile)
+  const canUseRelay = activeProfile?.lensManager && activeProfile?.sponsor
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error.message)
@@ -260,7 +260,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
         {
           type: MetadataAttributeType.STRING,
           key: 'creator',
-          value: `${activeChannel?.handle}`
+          value: `${activeProfile?.handle}`
         },
         {
           type: MetadataAttributeType.STRING,
@@ -285,7 +285,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
         content: getValues('message'),
         locale: getUserLocale(),
         marketplace: {
-          name: `${activeChannel?.handle}'s comment on video ${targetVideo.metadata.marketplace?.name}`,
+          name: `${activeProfile?.handle}'s comment on video ${targetVideo.metadata.marketplace?.name}`,
           attributes,
           description: getValues('message'),
           external_url: `${TAPE_WEBSITE_URL}/watch/${video?.id}`
@@ -345,7 +345,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
     if (!selectedSimpleProfile?.id) {
       return toast.error('Sign in to proceed')
     }
-    if (video.momoka?.proof && !activeChannel?.sponsor) {
+    if (video.momoka?.proof && !activeProfile?.sponsor) {
       return toast.error(
         t`Momoka is currently in beta - during this time certain actions are not available to all profiles.`
       )

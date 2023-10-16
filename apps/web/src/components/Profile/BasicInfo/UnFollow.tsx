@@ -1,6 +1,6 @@
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
+import { useProfileStore } from '@lib/store/profile'
 import { Trans } from '@lingui/macro'
 import { Button } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
@@ -35,8 +35,8 @@ const UnFollow: FC<Props> = ({ profile, onUnSubscribe, size = '2' }) => {
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
-  const activeChannel = useChannelStore((state) => state.activeChannel)
-  const canUseRelay = activeChannel?.lensManager && activeChannel?.sponsor
+  const activeProfile = useProfileStore((state) => state.activeProfile)
+  const canUseRelay = activeProfile?.lensManager && activeProfile?.sponsor
   const handleWrongNetwork = useHandleWrongNetwork()
 
   const onError = (error: CustomErrorWithData) => {

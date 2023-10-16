@@ -1,5 +1,5 @@
 import useAuthPersistStore, { signOut } from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
+import useProfileStore from '@lib/store/profile'
 import { t, Trans } from '@lingui/macro'
 import { Avatar, DropdownMenu, Flex, Text } from '@radix-ui/themes'
 import { Analytics, TRACK } from '@tape.xyz/browser'
@@ -27,7 +27,7 @@ const UserMenu = () => {
   const { theme, setTheme } = useTheme()
   const { push } = useRouter()
 
-  const setActiveChannel = useChannelStore((state) => state.setActiveChannel)
+  const setActiveProfile = useProfileStore((state) => state.setActiveProfile)
 
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
@@ -57,7 +57,7 @@ const UserMenu = () => {
   const isAdmin = ADMIN_IDS.includes(selectedSimpleProfile?.id)
 
   const onSelectChannel = (profile: Profile) => {
-    setActiveChannel(profile)
+    setActiveProfile(profile)
     // hand picked attributes to persist, to not bloat storage
     setSelectedSimpleProfile({
       handle: profile.handle,
@@ -73,7 +73,7 @@ const UserMenu = () => {
   const logout = () => {
     disconnect?.()
     signOut()
-    setActiveChannel(null)
+    setActiveProfile(null)
     setSelectedSimpleProfile(null)
     Analytics.track(TRACK.AUTH.SIGN_OUT)
   }

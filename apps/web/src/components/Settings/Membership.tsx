@@ -3,7 +3,7 @@ import Tooltip from '@components/UIElements/Tooltip'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import usePendingTxn from '@hooks/usePendingTxn'
-import useChannelStore from '@lib/store/channel'
+import useProfileStore from '@lib/store/profile'
 import { t, Trans } from '@lingui/macro'
 import { Button, Card, Flex, Select, Text } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
@@ -55,8 +55,8 @@ const Membership = ({ channel }: Props) => {
 
   const [loading, setLoading] = useState(false)
   const [showForm, setShowForm] = useState(false)
-  const userSigNonce = useChannelStore((state) => state.userSigNonce)
-  const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
+  const userSigNonce = useProfileStore((state) => state.userSigNonce)
+  const setUserSigNonce = useProfileStore((state) => state.setUserSigNonce)
   const handleWrongNetwork = useHandleWrongNetwork()
 
   const {

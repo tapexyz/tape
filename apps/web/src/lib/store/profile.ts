@@ -2,27 +2,27 @@ import type { Profile } from '@tape.xyz/lens'
 import { CustomCommentsFilterEnum } from '@tape.xyz/lens/custom-types'
 import { create } from 'zustand'
 
-interface ChannelState {
+interface ProfileState {
   hasNewNotification: boolean
   userSigNonce: number
-  activeChannel: Profile | null
+  activeProfile: Profile | null
   selectedCommentFilter: CustomCommentsFilterEnum
-  setActiveChannel: (channel: Profile | null) => void
+  setActiveProfile: (profile: Profile | null) => void
   setUserSigNonce: (userSigNonce: number) => void
   setHasNewNotification: (value: boolean) => void
   setSelectedCommentFilter: (filter: CustomCommentsFilterEnum) => void
 }
 
-export const useChannelStore = create<ChannelState>((set) => ({
+export const useProfileStore = create<ProfileState>((set) => ({
   hasNewNotification: false,
-  activeChannel: null,
+  activeProfile: null,
   userSigNonce: 0,
   selectedCommentFilter: CustomCommentsFilterEnum.RELEVANT_COMMENTS,
   setSelectedCommentFilter: (selectedCommentFilter) =>
     set({ selectedCommentFilter }),
-  setActiveChannel: (activeChannel) => set({ activeChannel }),
+  setActiveProfile: (activeProfile) => set({ activeProfile }),
   setUserSigNonce: (userSigNonce) => set({ userSigNonce }),
-  setHasNewNotification: (b) => set({ hasNewNotification: b })
+  setHasNewNotification: (hasNewNotification) => set({ hasNewNotification })
 }))
 
-export default useChannelStore
+export default useProfileStore

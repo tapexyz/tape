@@ -2,7 +2,7 @@ import useAuthPersistStore, {
   hydrateAuthTokens,
   signOut
 } from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
+import useProfileStore from '@lib/store/profile'
 import { getToastOptions, useIsMounted } from '@tape.xyz/browser'
 import { AUTH_ROUTES } from '@tape.xyz/constants'
 import type { Profile } from '@tape.xyz/lens'
@@ -28,7 +28,7 @@ interface Props {
 }
 
 const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
-  const { setUserSigNonce, setActiveChannel } = useChannelStore()
+  const { setUserSigNonce, setActiveProfile } = useProfileStore()
   const { selectedSimpleProfile, setSelectedSimpleProfile } =
     useAuthPersistStore()
 
@@ -46,7 +46,7 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
   })
 
   const resetAuthState = () => {
-    setActiveChannel(null)
+    setActiveProfile(null)
     setSelectedSimpleProfile(null)
   }
 
@@ -70,12 +70,12 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
       }
       const profile = channels.find((ch) => ch.id === selectedSimpleProfile?.id)
       if (profile) {
-        setActiveChannel(profile ?? channels[0])
+        setActiveProfile(profile ?? channels[0])
       }
     },
     onError: () => {
       setSelectedSimpleProfile(null)
-      setActiveChannel(null)
+      setActiveProfile(null)
     }
   })
 

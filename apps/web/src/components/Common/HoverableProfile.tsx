@@ -1,4 +1,4 @@
-import useChannelStore from '@lib/store/channel'
+import { useProfileStore } from '@lib/store/profile'
 import { Avatar, Flex, HoverCard, Link, Text } from '@radix-ui/themes'
 import {
   getChannelCoverPicture,
@@ -22,8 +22,8 @@ type Props = {
 }
 
 const HoverableProfile: FC<Props> = ({ profile, fontSize = '2', children }) => {
-  const activeChannel = useChannelStore((state) => state.activeChannel)
-  const isMyProfile = activeChannel?.id === profile.id
+  const activeProfile = useProfileStore((state) => state.activeProfile)
+  const isMyProfile = activeProfile?.id === profile.id
 
   return (
     <HoverCard.Root>

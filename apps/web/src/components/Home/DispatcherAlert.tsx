@@ -1,16 +1,16 @@
 import Toggle from '@components/Settings/Permissions/Dispatcher/Toggle'
 import SignalWaveGraphic from '@components/UIElements/SignalWaveGraphic'
-import useChannelStore from '@lib/store/channel'
+import useProfileStore from '@lib/store/profile'
 import { t } from '@lingui/macro'
 import { TAPE_APP_NAME } from '@tape.xyz/constants'
 import { getIsDispatcherEnabled } from '@tape.xyz/generic'
 import React from 'react'
 
 const DispatcherAlert = () => {
-  const activeChannel = useChannelStore((state) => state.activeChannel)
+  const activeProfile = useProfileStore((state) => state.activeProfile)
 
-  const isDispatcherEnabled = getIsDispatcherEnabled(activeChannel)
-  const usingOldDispatcher = activeChannel?.lensManager === false
+  const isDispatcherEnabled = getIsDispatcherEnabled(activeProfile)
+  const usingOldDispatcher = activeProfile?.lensManager === false
 
   const getDescription = () => {
     if (usingOldDispatcher) {
@@ -19,7 +19,7 @@ const DispatcherAlert = () => {
     return `You can enable dispatcher to interact with ${TAPE_APP_NAME} without signing any of your transactions.`
   }
 
-  if (!activeChannel || isDispatcherEnabled) {
+  if (!activeProfile || isDispatcherEnabled) {
     return null
   }
 

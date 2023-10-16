@@ -5,8 +5,8 @@ import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import type { MetadataAttribute } from '@lens-protocol/metadata'
 import { MetadataAttributeType, textOnly } from '@lens-protocol/metadata'
 import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
+import useProfileStore from '@lib/store/profile'
 import { t, Trans } from '@lingui/macro'
 import { Button } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
@@ -75,14 +75,14 @@ const NewComment: FC<Props> = ({
   const { cache } = useApolloClient()
 
   const [loading, setLoading] = useState(false)
-  const activeChannel = useChannelStore((state) => state.activeChannel)
+  const activeProfile = useProfileStore((state) => state.activeProfile)
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
   const handleWrongNetwork = useHandleWrongNetwork()
   const queuedComments = usePersistStore((state) => state.queuedComments)
   const setQueuedComments = usePersistStore((state) => state.setQueuedComments)
-  const canUseRelay = activeChannel?.lensManager && activeChannel?.sponsor
+  const canUseRelay = activeProfile?.lensManager && activeProfile?.sponsor
   const targetVideo = getPublication(video)
 
   const {
@@ -262,7 +262,7 @@ const NewComment: FC<Props> = ({
   })
 
   const submitComment = async (formData: FormData) => {
-    if (video.momoka?.proof && !activeChannel?.sponsor) {
+    if (video.momoka?.proof && !activeProfile?.sponsor) {
       return toast.error(
         t`Momoka is currently in beta - during this time certain actions are not available to all profiles.`
       )
@@ -281,7 +281,7 @@ const NewComment: FC<Props> = ({
         {
           type: MetadataAttributeType.STRING,
           key: 'creator',
-          value: `${activeChannel?.handle}`
+          value: `${activeProfile?.handle}`
         },
         {
           type: MetadataAttributeType.STRING,
@@ -296,7 +296,7 @@ const NewComment: FC<Props> = ({
         content: trimify(formData.comment),
         locale: getUserLocale(),
         marketplace: {
-          name: `${activeChannel?.handle}'s comment on video ${targetVideo.metadata.marketplace?.name}`,
+          name: `${activeProfile?.handle}'s comment on video ${targetVideo.metadata.marketplace?.name}`,
           attributes,
           description: trimify(formData.comment),
           external_url: `${TAPE_WEBSITE_URL}/watch/${video?.id}`
@@ -352,7 +352,7 @@ const NewComment: FC<Props> = ({
     }
   }
 
-  if (!activeChannel || !selectedSimpleProfile?.id) {
+  if (!activeProfile || !selectedSimpleProfile?.id) {
     return null
   }
 
@@ -364,10 +364,10 @@ const NewComment: FC<Props> = ({
       <div className="flex flex-1 items-start space-x-2 md:space-x-3">
         <div className="flex-none">
           <img
-            src={getProfilePicture(activeChannel, 'AVATAR')}
+            src={getProfilePicture(activeProfile, 'AVATAR')}
             className="h-9 w-9 rounded-full"
             draggable={false}
-            alt={activeChannel?.handle}
+            alt={activeProfile?.handle}
           />
         </div>
         <div className="relative w-full">

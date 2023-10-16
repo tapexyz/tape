@@ -1,4 +1,4 @@
-import useChannelStore from '@lib/store/channel'
+import { useProfileStore } from '@lib/store/profile'
 import { Analytics, TRACK } from '@tape.xyz/browser'
 import { sanitizeProfileInterests } from '@tape.xyz/generic'
 import type {
@@ -19,7 +19,7 @@ import React, { useEffect } from 'react'
 const MAX_TOPICS_ALLOWED = 12
 
 const Topics = () => {
-  const activeChannel = useChannelStore((state) => state.activeChannel)
+  const activeProfile = useProfileStore((state) => state.activeProfile)
 
   useEffect(() => {
     Analytics.track(TRACK.PROFILE_INTERESTS.VIEW)
@@ -30,13 +30,13 @@ const Topics = () => {
   const [addProfileInterests] = useAddProfileInterestsMutation()
   const [removeProfileInterests] = useRemoveProfileInterestsMutation()
   const { data: profileData } = useProfileQuery({
-    variables: { request: { forProfileId: activeChannel?.id } },
-    skip: !activeChannel?.id
+    variables: { request: { forProfileId: activeProfile?.id } },
+    skip: !activeProfile?.id
   })
 
   const updateCache = (interests: string[]) => {
     cache.modify({
-      id: `Profile:${activeChannel?.id}`,
+      id: `Profile:${activeProfile?.id}`,
       fields: { interests: () => interests }
     })
   }

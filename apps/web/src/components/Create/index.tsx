@@ -12,8 +12,8 @@ import {
 } from '@lens-protocol/metadata'
 import { getCollectModuleInput } from '@lib/getCollectModuleInput'
 import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
-import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
+import { useProfileStore } from '@lib/store/profile'
 import { t } from '@lingui/macro'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
@@ -69,7 +69,7 @@ const CreateSteps = () => {
   const irysData = useAppStore((state) => state.irysData)
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
   const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
-  const activeChannel = useChannelStore((state) => state.activeChannel)
+  const activeProfile = useProfileStore((state) => state.activeProfile)
 
   const queuedVideos = usePersistStore((state) => state.queuedVideos)
   const setQueuedVideos = usePersistStore((state) => state.setQueuedVideos)
@@ -87,13 +87,13 @@ const CreateSteps = () => {
     ? ReferenceModuleType.FollowerOnlyReferenceModule
     : null
 
-  const canUseRelay = activeChannel?.lensManager && activeChannel?.sponsor
+  const canUseRelay = activeProfile?.lensManager && activeProfile?.sponsor
 
   const redirectToChannelPage = () => {
     router.push(
       uploadedVideo.isByteVideo
-        ? `/u/${trimLensHandle(activeChannel?.handle)}?tab=bytes`
-        : `/u/${trimLensHandle(activeChannel?.handle)}`
+        ? `/u/${trimLensHandle(activeProfile?.handle)}?tab=bytes`
+        : `/u/${trimLensHandle(activeProfile?.handle)}`
     )
   }
 
@@ -162,7 +162,7 @@ const CreateSteps = () => {
         .referenceModule.degreesOfSeparationReferenceModule
         ? degreesOfSeparation
         : null,
-      user_id: activeChannel?.id
+      user_id: activeProfile?.id
     })
     return stopLoading()
   }
@@ -291,7 +291,7 @@ const CreateSteps = () => {
         {
           type: MetadataAttributeType.STRING,
           key: 'creator',
-          value: `${activeChannel?.handle}`
+          value: `${activeProfile?.handle}`
         },
         {
           type: MetadataAttributeType.STRING,
@@ -322,7 +322,7 @@ const CreateSteps = () => {
         marketplace: {
           attributes,
           animation_url: uploadedVideo.videoSource,
-          external_url: `${TAPE_WEBSITE_URL}/u/${activeChannel?.handle}`,
+          external_url: `${TAPE_WEBSITE_URL}/u/${activeProfile?.handle}`,
           image: uploadedVideo.thumbnail,
           name: uploadedVideo.title,
           description: trimify(uploadedVideo.description)
@@ -453,7 +453,7 @@ const CreateSteps = () => {
       const tags = [
         { name: 'Content-Type', value: uploadedVideo.videoType || 'video/mp4' },
         { name: 'App-Name', value: TAPE_APP_NAME },
-        { name: 'Profile-Id', value: activeChannel?.id },
+        { name: 'Profile-Id', value: activeProfile?.id },
         // ANS-110 standard
         { name: 'Title', value: trimify(uploadedVideo.title) },
         { name: 'Type', value: 'video' },

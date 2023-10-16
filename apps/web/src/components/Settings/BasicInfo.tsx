@@ -9,7 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import type { MetadataAttribute, ProfileOptions } from '@lens-protocol/metadata'
 import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
-import useChannelStore from '@lib/store/channel'
+import useProfileStore from '@lib/store/profile'
 import { t, Trans } from '@lingui/macro'
 import { Button, Flex, IconButton } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
@@ -89,8 +89,8 @@ const BasicInfo = ({ channel }: Props) => {
   const [uploading, setUploading] = useState({ pfp: false, cover: false })
   const handleWrongNetwork = useHandleWrongNetwork()
 
-  const activeChannel = useChannelStore((state) => state.activeChannel)
-  const canUseRelay = activeChannel?.lensManager && activeChannel?.sponsor
+  const activeProfile = useProfileStore((state) => state.activeProfile)
+  const canUseRelay = activeProfile?.lensManager && activeProfile?.sponsor
 
   const {
     register,
@@ -255,11 +255,11 @@ const BasicInfo = ({ channel }: Props) => {
       }
       if (
         Boolean(
-          trimify(getProfilePicture(activeChannel as Profile, 'AVATAR', false))
+          trimify(getProfilePicture(activeProfile as Profile, 'AVATAR', false))
         )
       ) {
         profileMetadata.picture = getProfilePicture(
-          activeChannel as Profile,
+          activeProfile as Profile,
           'AVATAR',
           false
         )
@@ -352,7 +352,7 @@ const BasicInfo = ({ channel }: Props) => {
               }
               className="h-32 w-32 rounded-full border-2 object-cover"
               draggable={false}
-              alt={selectedPfp ? activeChannel?.handle : channel.handle}
+              alt={selectedPfp ? activeProfile?.handle : channel.handle}
             />
             <label
               htmlFor="choosePfp"

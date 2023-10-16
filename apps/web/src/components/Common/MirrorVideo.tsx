@@ -1,7 +1,7 @@
 import Tooltip from '@components/UIElements/Tooltip'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
+import useProfileStore from '@lib/store/profile'
 import { t } from '@lingui/macro'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { Analytics, TRACK } from '@tape.xyz/browser'
@@ -44,9 +44,8 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
-  const activeChannel = useChannelStore((state) => state.activeChannel)
-
-  const canUseRelay = activeChannel?.lensManager && activeChannel?.sponsor
+  const activeProfile = useProfileStore((state) => state.activeProfile)
+  const canUseRelay = activeProfile?.lensManager && activeProfile?.sponsor
 
   const getReferralFee = () => {
     const action = video.openActionModules?.[0]
@@ -172,7 +171,7 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
       return
     }
 
-    if (video.momoka?.proof && !activeChannel?.sponsor) {
+    if (video.momoka?.proof && !activeProfile?.sponsor) {
       return toast.error(
         t`Momoka is currently in beta - during this time certain actions are not available to all profiles.`
       )

@@ -1,6 +1,6 @@
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import usePendingTxn from '@hooks/usePendingTxn'
-import useChannelStore from '@lib/store/channel'
+import useProfileStore from '@lib/store/profile'
 import { t, Trans } from '@lingui/macro'
 import { Button } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
@@ -25,13 +25,13 @@ import { useContractWrite, useSignTypedData } from 'wagmi'
 const Toggle = () => {
   const [loading, setLoading] = useState(false)
 
-  const activeChannel = useChannelStore((state) => state.activeChannel)
-  const setActiveChannel = useChannelStore((state) => state.setActiveChannel)
-  const userSigNonce = useChannelStore((state) => state.userSigNonce)
-  const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
+  const activeProfile = useProfileStore((state) => state.activeProfile)
+  const setActiveProfile = useProfileStore((state) => state.setActiveProfile)
+  const userSigNonce = useProfileStore((state) => state.userSigNonce)
+  const setUserSigNonce = useProfileStore((state) => state.setUserSigNonce)
   const handleWrongNetwork = useHandleWrongNetwork()
 
-  const isLensManagerEnabled = activeChannel?.lensManager || false
+  const isLensManagerEnabled = activeProfile?.lensManager || false
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.message ?? ERROR_MESSAGE)
@@ -72,9 +72,9 @@ const Toggle = () => {
       toast.success(
         `Dispatcher ${isLensManagerEnabled ? t`disabled` : t`enabled`}`
       )
-      const channel = { ...activeChannel }
+      const channel = { ...activeProfile }
       channel.lensManager = isLensManagerEnabled ? false : true
-      setActiveChannel(channel as Profile)
+      setActiveProfile(channel as Profile)
       setLoading(false)
       Analytics.track(TRACK.DISPATCHER.TOGGLE)
     }

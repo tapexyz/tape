@@ -7,7 +7,7 @@ import {
   profile
 } from '@lens-protocol/metadata'
 import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
+import useProfileStore from '@lib/store/profile'
 import { t, Trans } from '@lingui/macro'
 import { Dialog, DropdownMenu, Flex, IconButton, Text } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
@@ -69,13 +69,13 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost' }) => {
 
   const { cache } = useApolloClient()
 
-  const activeChannel = useChannelStore((state) => state.activeChannel)
+  const activeProfile = useProfileStore((state) => state.activeProfile)
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
-  const isVideoOwner = activeChannel?.id === video?.by?.id
+  const isVideoOwner = activeProfile?.id === video?.by?.id
   const pinnedVideoId = getValueFromKeyInAttributes(
-    activeChannel?.metadata?.attributes,
+    activeProfile?.metadata?.attributes,
     'pinnedPublicationId'
   )
 
@@ -106,7 +106,7 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost' }) => {
     }
   }
 
-  const otherAttributes = activeChannel?.metadata?.attributes
+  const otherAttributes = activeProfile?.metadata?.attributes
     ?.filter((attr) => !['pinnedPublicationId', 'app'].includes(attr.key))
     .map(({ key, value }) => ({
       key,
@@ -174,7 +174,7 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost' }) => {
   })
 
   const onPinVideo = async () => {
-    if (!activeChannel) {
+    if (!activeProfile) {
       return toast.error('Sign in to proceed')
     }
     if (handleWrongNetwork()) {
@@ -185,11 +185,11 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost' }) => {
       toast.loading(t`Pinning video...`)
       const metadata = profile({
         appId: TAPE_APP_ID,
-        bio: activeChannel?.metadata?.bio,
-        coverPicture: getChannelCoverPicture(activeChannel),
+        bio: activeProfile?.metadata?.bio,
+        coverPicture: getChannelCoverPicture(activeProfile),
         id: uuidv4(),
-        name: activeChannel?.metadata?.displayName ?? '',
-        picture: getProfilePicture(activeChannel as Profile),
+        name: activeProfile?.metadata?.displayName ?? '',
+        picture: getProfilePicture(activeProfile as Profile),
         attributes: [
           ...otherAttributes,
           {
@@ -205,7 +205,7 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost' }) => {
         ]
       })
       const metadataUri = await uploadToAr(metadata)
-      const canUseRelay = activeChannel?.lensManager && activeChannel.sponsor
+      const canUseRelay = activeProfile?.lensManager && activeProfile.sponsor
       const request: OnchainSetProfileMetadataRequest = {
         metadataURI: metadataUri
       }

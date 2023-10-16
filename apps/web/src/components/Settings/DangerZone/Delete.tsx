@@ -1,6 +1,6 @@
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import { signOut } from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
+import useProfileStore from '@lib/store/profile'
 import { t, Trans } from '@lingui/macro'
 import { Button } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
@@ -17,7 +17,7 @@ import { useContractWrite, useWaitForTransaction } from 'wagmi'
 const Delete = () => {
   const [loading, setLoading] = useState(false)
   const [txnHash, setTxnHash] = useState<`0x${string}`>()
-  const activeChannel = useChannelStore((state) => state.activeChannel)
+  const activeProfile = useProfileStore((state) => state.activeProfile)
   const handleWrongNetwork = useHandleWrongNetwork()
 
   const onError = (error: CustomErrorWithData) => {
@@ -52,13 +52,13 @@ const Delete = () => {
     setLoading(true)
     try {
       toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-      write?.({ args: [activeChannel?.id] })
+      write?.({ args: [activeProfile?.id] })
     } catch {
       setLoading(false)
     }
   }
 
-  if (!activeChannel) {
+  if (!activeProfile) {
     return <Custom404 />
   }
 

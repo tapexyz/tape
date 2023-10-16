@@ -3,7 +3,7 @@ import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
 import Tooltip from '@components/UIElements/Tooltip'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import { getCollectModuleOutput } from '@lib/getCollectModuleOutput'
-import useChannelStore from '@lib/store/channel'
+import useProfileStore from '@lib/store/profile'
 import { t, Trans } from '@lingui/macro'
 import { Button, Callout } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
@@ -53,9 +53,9 @@ type Props = {
 }
 
 const CollectPublication: FC<Props> = ({ publication, action }) => {
-  const activeChannel = useChannelStore((state) => state.activeChannel)
-  const userSigNonce = useChannelStore((state) => state.userSigNonce)
-  const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
+  const activeProfile = useProfileStore((state) => state.activeProfile)
+  const userSigNonce = useProfileStore((state) => state.userSigNonce)
+  const setUserSigNonce = useProfileStore((state) => state.setUserSigNonce)
 
   const handleWrongNetwork = useHandleWrongNetwork()
 
@@ -83,7 +83,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
   })
 
   const { data: balanceData, isLoading: balanceLoading } = useBalance({
-    address: activeChannel?.ownedBy.address,
+    address: activeProfile?.ownedBy.address,
     token: assetAddress,
     formatUnits: assetDecimals,
     watch: Boolean(details?.amount.value),
@@ -112,7 +112,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
         referenceModules: []
       }
     },
-    skip: !assetAddress || !activeChannel?.id,
+    skip: !assetAddress || !activeProfile?.id,
     onCompleted: (data) => {
       setIsAllowed(
         data.approvedModuleAllowanceAmount[0].allowance.value !== '0x00'
@@ -131,7 +131,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
     } else {
       setHaveEnoughBalance(true)
     }
-    if (assetAddress && activeChannel?.id) {
+    if (assetAddress && activeProfile?.id) {
       refetchAllowance()
     }
   }, [
@@ -139,7 +139,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
     assetAddress,
     details?.amount.value,
     refetchAllowance,
-    activeChannel
+    activeProfile
   ])
 
   const getDefaultProfileByAddress = (address: string) => {
@@ -269,7 +269,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
   }
 
   const collectNow = async () => {
-    if (!activeChannel?.id) {
+    if (!activeProfile?.id) {
       return toast.error('Sign in to proceed')
     }
 

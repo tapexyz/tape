@@ -1,5 +1,5 @@
 import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
+import useProfileStore from '@lib/store/profile'
 import { Trans } from '@lingui/macro'
 import { Button } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
@@ -33,11 +33,10 @@ const Follow: FC<Props> = ({ profile, onSubscribe, size = '2' }) => {
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
-
-  const activeChannel = useChannelStore((state) => state.activeChannel)
-  const userSigNonce = useChannelStore((state) => state.userSigNonce)
-  const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
-  const canUseRelay = activeChannel?.lensManager && activeChannel?.sponsor
+  const activeProfile = useProfileStore((state) => state.activeProfile)
+  const userSigNonce = useProfileStore((state) => state.userSigNonce)
+  const setUserSigNonce = useProfileStore((state) => state.setUserSigNonce)
+  const canUseRelay = activeProfile?.lensManager && activeProfile?.sponsor
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)

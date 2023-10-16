@@ -1,4 +1,4 @@
-import useChannelStore from '@lib/store/channel'
+import useProfileStore from '@lib/store/profile'
 import { t, Trans } from '@lingui/macro'
 import { TAPE_APP_NAME } from '@tape.xyz/constants'
 import React from 'react'
@@ -6,8 +6,8 @@ import React from 'react'
 import Toggle from './Toggle'
 
 const DispatcherPermissions = () => {
-  const activeChannel = useChannelStore((state) => state.activeChannel)
-  const usingOldDispatcher = activeChannel?.lensManager === false
+  const activeProfile = useProfileStore((state) => state.activeProfile)
+  const usingOldDispatcher = activeProfile?.lensManager === false
 
   const getDescription = () => {
     if (usingOldDispatcher) {

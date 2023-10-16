@@ -2,17 +2,17 @@ import SortOutline from '@components/Common/Icons/SortOutline'
 import DropMenu from '@components/UIElements/DropMenu'
 import Tooltip from '@components/UIElements/Tooltip'
 import { Menu } from '@headlessui/react'
-import useChannelStore from '@lib/store/channel'
+import useProfileStore from '@lib/store/profile'
 import { Trans } from '@lingui/macro'
 import { CustomCommentsFilterEnum } from '@tape.xyz/lens/custom-types'
 import clsx from 'clsx'
 import React from 'react'
 
 const CommentsFilter = () => {
-  const selectedCommentFilter = useChannelStore(
+  const selectedCommentFilter = useProfileStore(
     (state) => state.selectedCommentFilter
   )
-  const setSelectedCommentFilter = useChannelStore(
+  const setSelectedCommentFilter = useProfileStore(
     (state) => state.setSelectedCommentFilter
   )
 

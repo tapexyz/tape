@@ -1,5 +1,5 @@
 import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
+import useProfileStore from '@lib/store/profile'
 import { Trans } from '@lingui/macro'
 import { Button, Dialog, Flex, Text } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
@@ -45,8 +45,8 @@ const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
-  const userSigNonce = useChannelStore((state) => state.userSigNonce)
-  const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
+  const userSigNonce = useProfileStore((state) => state.userSigNonce)
+  const setUserSigNonce = useProfileStore((state) => state.setUserSigNonce)
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)

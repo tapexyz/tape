@@ -1,4 +1,4 @@
-import useChannelStore from '@lib/store/channel'
+import useProfileStore from '@lib/store/profile'
 import { Trans } from '@lingui/macro'
 import { Button } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
@@ -11,7 +11,7 @@ import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork'
 import { useContractWrite, useWaitForTransaction } from 'wagmi'
 
 const Guardian: FC = () => {
-  const activeChannel = useChannelStore((state) => state.activeChannel)
+  const activeProfile = useProfileStore((state) => state.activeProfile)
 
   const [loading, setLoading] = useState(false)
   const handleWrongNetwork = useHandleWrongNetwork()
@@ -43,10 +43,10 @@ const Guardian: FC = () => {
     enabled: Boolean(disableData?.hash.length ?? enableData?.hash.length)
   })
 
-  const guardianEnabled = activeChannel?.guardian?.protected
+  const guardianEnabled = activeProfile?.guardian?.protected
 
   const toggle = async () => {
-    if (!activeChannel?.id) {
+    if (!activeProfile?.id) {
       return toast.error('Sign in to proceed')
     }
 

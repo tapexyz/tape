@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import type { MetadataAttribute } from '@lens-protocol/metadata'
 import { link, MetadataAttributeType } from '@lens-protocol/metadata'
-import useChannelStore from '@lib/store/channel'
+import useProfileStore from '@lib/store/profile'
 import { Trans } from '@lingui/macro'
 import { Button, Dialog, Flex } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
@@ -68,8 +68,8 @@ const PostLinkModal: FC<Props> = ({ show, setShow }) => {
   const [loading, setLoading] = useState(false)
   const handleWrongNetwork = useHandleWrongNetwork()
 
-  const activeChannel = useChannelStore((state) => state.activeChannel)
-  const canUseRelay = activeChannel?.lensManager && activeChannel?.sponsor
+  const activeProfile = useProfileStore((state) => state.activeProfile)
+  const canUseRelay = activeProfile?.lensManager && activeProfile?.sponsor
 
   const {
     register,
@@ -125,7 +125,7 @@ const PostLinkModal: FC<Props> = ({ show, setShow }) => {
     Analytics.track(TRACK.PUBLICATION.NEW_POST, {
       type: 'link',
       publication_state: canUseRelay ? 'MOMOKA' : 'ON_CHAIN',
-      user_id: activeChannel?.id
+      user_id: activeProfile?.id
     })
   }
 
@@ -209,7 +209,7 @@ const PostLinkModal: FC<Props> = ({ show, setShow }) => {
       content: `Check out this drop 📼 \n${linkText}`,
       locale: getUserLocale(),
       marketplace: {
-        name: `Link by @${activeChannel?.handle}`,
+        name: `Link by @${activeProfile?.handle}`,
         attributes,
         description: linkText,
         external_url: TAPE_WEBSITE_URL

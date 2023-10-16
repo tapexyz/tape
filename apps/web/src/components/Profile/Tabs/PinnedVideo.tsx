@@ -4,7 +4,7 @@ import type { MetadataAttribute } from '@lens-protocol/metadata'
 import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
 import { getRelativeTime } from '@lib/formatTime'
 import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
+import useProfileStore from '@lib/store/profile'
 import { t, Trans } from '@lingui/macro'
 import { Button } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
@@ -56,7 +56,7 @@ type Props = {
 const PinnedVideo: FC<Props> = ({ id }) => {
   const handleWrongNetwork = useHandleWrongNetwork()
 
-  const activeChannel = useChannelStore((state) => state.activeChannel)
+  const activeProfile = useProfileStore((state) => state.activeProfile)
 
   const { data, error, loading } = usePublicationQuery({
     variables: {
@@ -75,7 +75,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
 
   const isBytesVideo =
     pinnedPublication?.publishedOn?.id === LENSTUBE_BYTES_APP_ID
-  const isVideoOwner = activeChannel?.id === pinnedPublication?.by.id
+  const isVideoOwner = activeProfile?.id === pinnedPublication?.by.id
 
   const isSensitiveContent = getIsSensitiveContent(
     pinnedPublication?.metadata,
@@ -86,7 +86,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
     isBytesVideo ? 'THUMBNAIL_V' : 'THUMBNAIL'
   )
 
-  const otherAttributes = activeChannel?.metadata?.attributes
+  const otherAttributes = activeProfile?.metadata?.attributes
     ?.filter((attr) => !['pinnedPublicationId', 'app'].includes(attr.key))
     .map(({ key, value }) => ({
       key,
@@ -154,7 +154,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
   })
 
   const unpinVideo = async () => {
-    if (!activeChannel) {
+    if (!activeProfile) {
       return toast.error('Sign in to proceed')
     }
     if (handleWrongNetwork()) {
@@ -165,11 +165,11 @@ const PinnedVideo: FC<Props> = ({ id }) => {
       toast.loading(t`Unpinning video...`)
       const metadata = profile({
         appId: TAPE_APP_ID,
-        bio: activeChannel?.metadata?.bio,
-        coverPicture: getChannelCoverPicture(activeChannel),
+        bio: activeProfile?.metadata?.bio,
+        coverPicture: getChannelCoverPicture(activeProfile),
         id: uuidv4(),
-        name: activeChannel?.metadata?.displayName ?? '',
-        picture: getProfilePicture(activeChannel as Profile),
+        name: activeProfile?.metadata?.displayName ?? '',
+        picture: getProfilePicture(activeProfile as Profile),
         attributes: [
           ...otherAttributes,
           {
@@ -183,7 +183,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
       const request: OnchainSetProfileMetadataRequest = {
         metadataURI
       }
-      const canUseRelay = activeChannel?.lensManager && activeChannel?.sponsor
+      const canUseRelay = activeProfile?.lensManager && activeProfile?.sponsor
 
       if (canUseRelay) {
         const { data } = await setProfileMetadata({

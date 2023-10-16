@@ -2,7 +2,7 @@ import KeyOutline from '@components/Common/Icons/KeyOutline'
 import WarningOutline from '@components/Common/Icons/WarningOutline'
 import ButtonShimmer from '@components/Shimmers/ButtonShimmer'
 import useAuthPersistStore, { signIn, signOut } from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
+import useProfileStore from '@lib/store/profile'
 import { t } from '@lingui/macro'
 import { Avatar, Button, Callout, Flex, Select, Text } from '@radix-ui/themes'
 import { Analytics, TRACK } from '@tape.xyz/browser'
@@ -34,14 +34,14 @@ const Authenticate = () => {
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
-  const setActiveChannel = useChannelStore((state) => state.setActiveChannel)
+  const setActiveProfile = useProfileStore((state) => state.setActiveProfile)
   const setSelectedSimpleProfile = useAuthPersistStore(
     (state) => state.setSelectedSimpleProfile
   )
 
   const onError = () => {
     signOut()
-    setActiveChannel(null)
+    setActiveProfile(null)
   }
 
   const router = useRouter()
@@ -116,7 +116,7 @@ const Authenticate = () => {
         !profilesData?.profiles ||
         profilesData?.profiles?.items.length === 0
       ) {
-        setActiveChannel(null)
+        setActiveProfile(null)
         setSelectedSimpleProfile(null)
         toast.error('No profile found')
       } else {
@@ -151,7 +151,7 @@ const Authenticate = () => {
     authenticate,
     isReadyToSign,
     loadChallenge,
-    setActiveChannel,
+    setActiveProfile,
     signMessageAsync,
     selectedProfileId,
     getAllSimpleProfiles,

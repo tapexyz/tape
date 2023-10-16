@@ -2,8 +2,8 @@ import MetaTags from '@components/Common/MetaTags'
 import NotificationsShimmer from '@components/Shimmers/NotificationsShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { Tab } from '@headlessui/react'
-import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
+import useProfileStore from '@lib/store/profile'
 import { t, Trans } from '@lingui/macro'
 import {
   IS_MAINNET,
@@ -29,7 +29,7 @@ import Quoted from './Quoted'
 import Reactions from './Reactions'
 
 const Notifications = () => {
-  const setHasNewNotification = useChannelStore(
+  const setHasNewNotification = useProfileStore(
     (state) => state.setHasNewNotification
   )
   const selectedNotificationsFilter = usePersistStore(

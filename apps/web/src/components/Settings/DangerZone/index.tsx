@@ -1,6 +1,6 @@
 import Badge from '@components/Common/Badge'
 import Stats from '@components/Profile/BasicInfo/Stats'
-import useChannelStore from '@lib/store/channel'
+import useProfileStore from '@lib/store/profile'
 import { Avatar, Flex } from '@radix-ui/themes'
 import { getProfilePicture, trimLensHandle } from '@tape.xyz/generic'
 import React from 'react'
@@ -10,9 +10,9 @@ import Delete from './Delete'
 import Guardian from './Guardian'
 
 const DangerZone = () => {
-  const activeChannel = useChannelStore((state) => state.activeChannel)
+  const activeProfile = useProfileStore((state) => state.activeProfile)
 
-  if (!activeChannel) {
+  if (!activeProfile) {
     return <Custom404 />
   }
 
@@ -22,28 +22,28 @@ const DangerZone = () => {
         <div className="flex items-center">
           <div className="mr-3 mt-0.5 flex-none">
             <Avatar
-              src={getProfilePicture(activeChannel, 'AVATAR')}
-              fallback={trimLensHandle(activeChannel?.handle)[0]}
+              src={getProfilePicture(activeProfile, 'AVATAR')}
+              fallback={trimLensHandle(activeProfile?.handle)[0]}
               radius="full"
               className="h-9 w-9 rounded-full"
               draggable={false}
-              alt={activeChannel?.handle}
+              alt={activeProfile?.handle}
             />
           </div>
           <div className="flex flex-col">
-            {activeChannel.metadata?.displayName && (
+            {activeProfile.metadata?.displayName && (
               <h6 className="font-medium">
-                {activeChannel.metadata?.displayName}
+                {activeProfile.metadata?.displayName}
               </h6>
             )}
             <span className="flex items-center space-x-1">
-              <span className="text-sm">{activeChannel?.handle}</span>
-              <Badge id={activeChannel?.id} size="xs" />
+              <span className="text-sm">{activeProfile?.handle}</span>
+              <Badge id={activeProfile?.id} size="xs" />
             </span>
           </div>
         </div>
         <div className="flex space-x-2">
-          <Stats profile={activeChannel} />
+          <Stats profile={activeProfile} />
         </div>
       </Flex>
       <Guardian />
