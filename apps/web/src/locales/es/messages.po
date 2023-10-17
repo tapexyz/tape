@@ -37,10 +37,6 @@ msgstr "Recoger"
 #~ msgid "Join Channel"
 #~ msgstr "Unirse al canal"
 
-#: src/components/Channel/BasicInfo/Subscribe.tsx
-#~ msgid "Subscribe"
-#~ msgstr "Suscribirse"
-
 #: src/components/Channel/BasicInfo/UnSubscribe.tsx
 #~ msgid "Unsubscribe"
 #~ msgstr "Unsubscribe"
@@ -769,6 +765,14 @@ msgid "Please note that your media exceeds the free limit ({IPFS_FREE_UPLOAD_LIM
 msgstr ""
 
 #: src/components/Create/index.tsx
+#~ msgid "Uploading to IPFS"
+#~ msgstr "Subiendo a IPFS"
+
+#: src/components/Create/index.tsx
+#~ msgid "Uploading to Arweave"
+#~ msgstr "Subiendo a Artisar"
+
+#: src/components/Create/index.tsx
 msgid "Post Now"
 msgstr ""
 
@@ -781,8 +785,9 @@ msgid "Posting video"
 msgstr "Publicando vídeo"
 
 #: src/components/Create/index.tsx
-msgid "Uploading to IPFS"
-msgstr "Subiendo a IPFS"
+#: src/components/Create/index.tsx
+msgid "Uploading video"
+msgstr ""
 
 #: src/components/Create/index.tsx
 msgid "IPFS Upload failed"
@@ -795,10 +800,6 @@ msgstr "El vídeo no se ha subido correctamente"
 #: src/components/Create/index.tsx
 msgid "Insufficient storage balance"
 msgstr "Balance de almacenamiento insuficiente"
-
-#: src/components/Create/index.tsx
-msgid "Uploading to Arweave"
-msgstr "Subiendo a Artisar"
 
 #: src/components/Create/index.tsx
 msgid "Failed to upload video to Arweave"
@@ -1044,7 +1045,15 @@ msgstr ""
 
 #: src/components/Profile/BasicInfo/SuperFollow.tsx
 #: src/components/Profile/BasicInfo/SuperFollow.tsx
-msgid "Super Follow"
+#~ msgid "Super Follow"
+#~ msgstr ""
+
+#: src/components/Profile/BasicInfo/SuperFollow.tsx
+msgid "Subscribe"
+msgstr "Suscribirse"
+
+#: src/components/Profile/BasicInfo/SuperFollow.tsx
+msgid "Subscribe Now"
 msgstr ""
 
 #: src/components/Profile/BasicInfo/SuperFollow.tsx
@@ -1797,12 +1806,16 @@ msgid "Watch Video"
 msgstr "Ver vídeo"
 
 #: src/components/Watch/Comments/VideoComments.tsx
+#~ msgid "Only subscribers can comment on this publication"
+#~ msgstr "Sólo los suscriptores pueden comentar en esta publicación"
+
+#: src/components/Watch/Comments/VideoComments.tsx
 msgid "Comments"
 msgstr "Comentarios"
 
 #: src/components/Watch/Comments/VideoComments.tsx
-msgid "Only subscribers can comment on this publication"
-msgstr "Sólo los suscriptores pueden comentar en esta publicación"
+msgid "Only followers can comment on this publication"
+msgstr ""
 
 #: src/components/Watch/Comments/VideoComments.tsx
 msgid "Be the first to comment"

@@ -37,10 +37,6 @@ msgstr "收集"
 #~ msgid "Join Channel"
 #~ msgstr "加入频道"
 
-#: src/components/Channel/BasicInfo/Subscribe.tsx
-#~ msgid "Subscribe"
-#~ msgstr "订阅"
-
 #: src/components/Channel/BasicInfo/UnSubscribe.tsx
 #~ msgid "Unsubscribe"
 #~ msgstr "Unsubscribe"
@@ -769,6 +765,14 @@ msgid "Please note that your media exceeds the free limit ({IPFS_FREE_UPLOAD_LIM
 msgstr ""
 
 #: src/components/Create/index.tsx
+#~ msgid "Uploading to IPFS"
+#~ msgstr "上传到 IPFS"
+
+#: src/components/Create/index.tsx
+#~ msgid "Uploading to Arweave"
+#~ msgstr "正在上传到Arweeve"
+
+#: src/components/Create/index.tsx
 msgid "Post Now"
 msgstr ""
 
@@ -781,8 +785,9 @@ msgid "Posting video"
 msgstr "发布视频"
 
 #: src/components/Create/index.tsx
-msgid "Uploading to IPFS"
-msgstr "上传到 IPFS"
+#: src/components/Create/index.tsx
+msgid "Uploading video"
+msgstr ""
 
 #: src/components/Create/index.tsx
 msgid "IPFS Upload failed"
@@ -795,10 +800,6 @@ msgstr "视频上传不正确"
 #: src/components/Create/index.tsx
 msgid "Insufficient storage balance"
 msgstr "存储余额不足"
-
-#: src/components/Create/index.tsx
-msgid "Uploading to Arweave"
-msgstr "正在上传到Arweeve"
 
 #: src/components/Create/index.tsx
 msgid "Failed to upload video to Arweave"
@@ -1044,7 +1045,15 @@ msgstr ""
 
 #: src/components/Profile/BasicInfo/SuperFollow.tsx
 #: src/components/Profile/BasicInfo/SuperFollow.tsx
-msgid "Super Follow"
+#~ msgid "Super Follow"
+#~ msgstr ""
+
+#: src/components/Profile/BasicInfo/SuperFollow.tsx
+msgid "Subscribe"
+msgstr "订阅"
+
+#: src/components/Profile/BasicInfo/SuperFollow.tsx
+msgid "Subscribe Now"
 msgstr ""
 
 #: src/components/Profile/BasicInfo/SuperFollow.tsx
@@ -1797,12 +1806,16 @@ msgid "Watch Video"
 msgstr "观看视频"
 
 #: src/components/Watch/Comments/VideoComments.tsx
+#~ msgid "Only subscribers can comment on this publication"
+#~ msgstr "只有订阅者可以评论这个发布"
+
+#: src/components/Watch/Comments/VideoComments.tsx
 msgid "Comments"
 msgstr "评论"
 
 #: src/components/Watch/Comments/VideoComments.tsx
-msgid "Only subscribers can comment on this publication"
-msgstr "只有订阅者可以评论这个发布"
+msgid "Only followers can comment on this publication"
+msgstr ""
 
 #: src/components/Watch/Comments/VideoComments.tsx
 msgid "Be the first to comment"

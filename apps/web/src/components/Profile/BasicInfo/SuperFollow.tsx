@@ -214,12 +214,12 @@ const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
           size={size}
           disabled={loading}
         >
-          <Trans>Super Follow</Trans>
+          <Trans>Subscribe</Trans>
         </Button>
       </Dialog.Trigger>
 
       <Dialog.Content style={{ maxWidth: 450 }}>
-        <Dialog.Title>Super Follow</Dialog.Title>
+        <Dialog.Title>Subscribe</Dialog.Title>
         <Dialog.Description size="2" mb="4">
           Support creator for their contributions on the platform.
         </Dialog.Description>
@@ -230,10 +230,10 @@ const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
           </Text>
           <Flex gap="1" align="center">
             <Text as="div" size="6">
-              $
+              {followModule?.amount.value}
             </Text>
             <Text as="div" size="7" weight="bold">
-              {followModule?.amount.rate?.value}
+              {followModule?.amount.asset.symbol}
             </Text>
           </Flex>
         </Flex>
@@ -250,7 +250,7 @@ const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
               onClick={() => superFollow()}
               disabled={loading}
             >
-              <Trans>Super Follow</Trans>
+              <Trans>Subscribe Now</Trans>
             </Button>
           ) : (
             <Button highContrast onClick={() => allow()} disabled={loading}>
