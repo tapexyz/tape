@@ -18,6 +18,9 @@ export const getPublicationMediaUrl = (metadata: PublicationMetadata) => {
   if (metadata.__typename === 'VideoMetadataV3' && metadata.asset.video) {
     url = metadata.asset.video.optimized?.uri ?? metadata.asset.video.raw?.uri
   }
+  if (metadata.__typename === 'LiveStreamMetadataV3' && metadata.playbackURL) {
+    url = metadata.playbackURL
+  }
   if (metadata.__typename === 'ImageMetadataV3' && metadata.asset.image) {
     url = metadata.asset.image.raw?.uri
   }
