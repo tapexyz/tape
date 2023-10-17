@@ -1,6 +1,7 @@
 import InterestsOutline from '@components/Common/Icons/InterestsOutline'
 import KeyOutline from '@components/Common/Icons/KeyOutline'
 import LockOutline from '@components/Common/Icons/LockOutline'
+import ProfileBanOutline from '@components/Common/Icons/ProfileBanOutline'
 import SubscribeOutline from '@components/Common/Icons/SubscribeOutline'
 import UserOutline from '@components/Common/Icons/UserOutline'
 import WarningOutline from '@components/Common/Icons/WarningOutline'
@@ -12,11 +13,12 @@ import React from 'react'
 
 import {
   SETTINGS,
+  SETTINGS_BLOCKED,
   SETTINGS_DANGER_ZONE,
   SETTINGS_INTERESTS,
-  SETTINGS_MEMBERSHIP,
   SETTINGS_PERMISSIONS,
-  SETTINGS_SESSIONS
+  SETTINGS_SESSIONS,
+  SETTINGS_SUBSCRIPTION
 } from '.'
 
 const SideNav = () => {
@@ -39,17 +41,17 @@ const SideNav = () => {
         </span>
       </Link>
       <Link
-        href={SETTINGS_MEMBERSHIP}
+        href={SETTINGS_SUBSCRIPTION}
         className={clsx(
           'rounded-small flex items-center space-x-3 p-3 hover:bg-gray-100 hover:dark:bg-black',
           {
-            'bg-gray-100 dark:bg-black': isActivePath(SETTINGS_MEMBERSHIP)
+            'bg-gray-100 dark:bg-black': isActivePath(SETTINGS_SUBSCRIPTION)
           }
         )}
       >
         <SubscribeOutline className="h-4 w-4" />
         <span>
-          <Trans>Membership</Trans>
+          <Trans>Subscription</Trans>
         </span>
       </Link>
       <Link
@@ -92,6 +94,20 @@ const SideNav = () => {
         <InterestsOutline className="h-4 w-4" />
         <span>
           <Trans>Interests</Trans>
+        </span>
+      </Link>
+      <Link
+        href={SETTINGS_BLOCKED}
+        className={clsx(
+          'rounded-small flex items-center space-x-3 p-3 hover:bg-gray-100 hover:dark:bg-black',
+          {
+            'bg-gray-100 dark:bg-black': isActivePath(SETTINGS_BLOCKED)
+          }
+        )}
+      >
+        <ProfileBanOutline className="h-4 w-4" />
+        <span>
+          <Trans>Blocked</Trans>
         </span>
       </Link>
       <Link

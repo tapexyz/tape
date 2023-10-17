@@ -1,4 +1,5 @@
 import Badge from '@components/Common/Badge'
+import MetaTags from '@components/Common/MetaTags'
 import Stats from '@components/Profile/BasicInfo/Stats'
 import useProfileStore from '@lib/store/profile'
 import { Avatar, Flex } from '@radix-ui/themes'
@@ -18,6 +19,7 @@ const DangerZone = () => {
 
   return (
     <div className="dark:bg-bunker tape-border rounded-medium mb-4 divide-y bg-white p-5 dark:divide-gray-800">
+      <MetaTags title="Danger Zone" />
       <Flex align="center" justify="between" mb="6">
         <div className="flex items-center">
           <div className="mr-3 mt-0.5 flex-none">
