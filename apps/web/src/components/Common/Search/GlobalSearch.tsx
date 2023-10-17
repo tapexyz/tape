@@ -117,6 +117,7 @@ const GlobalSearch: FC<Props> = ({ onSearchResults }) => {
               </TextField.Slot>
               <TextField.Input
                 size="3"
+                radius="full"
                 autoFocus
                 type="search"
                 value={keyword}
