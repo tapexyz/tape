@@ -11,20 +11,24 @@ export const getPublicationRawMediaUrl = (
 }
 
 export const getPublicationMediaUrl = (metadata: PublicationMetadata) => {
-  let url = ''
-  if (metadata.__typename === 'AudioMetadataV3' && metadata.asset.audio) {
-    url = metadata.asset.audio.optimized?.uri ?? metadata.asset.audio.raw?.uri
+  switch (metadata.__typename) {
+    case 'VideoMetadataV3':
+      return (
+        metadata.asset.video.optimized?.uri ?? metadata.asset.video.raw?.uri
+      )
+    case 'LiveStreamMetadataV3':
+      return metadata.playbackURL
+    case 'AudioMetadataV3':
+      return (
+        metadata.asset.audio.optimized?.uri ?? metadata.asset.audio.raw?.uri
+      )
+    case 'ImageMetadataV3':
+      return (
+        metadata.asset.image.optimized?.uri ?? metadata.asset.image.raw?.uri
+      )
+    default:
+      return ''
   }
-  if (metadata.__typename === 'VideoMetadataV3' && metadata.asset.video) {
-    url = metadata.asset.video.optimized?.uri ?? metadata.asset.video.raw?.uri
-  }
-  if (metadata.__typename === 'LiveStreamMetadataV3' && metadata.playbackURL) {
-    url = metadata.playbackURL
-  }
-  if (metadata.__typename === 'ImageMetadataV3' && metadata.asset.image) {
-    url = metadata.asset.image.raw?.uri
-  }
-  return url
 }
 
 export const getPublicationMediaCid = (
