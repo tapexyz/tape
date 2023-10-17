@@ -19,20 +19,17 @@ import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 
 const List = () => {
-  const [revoking, setRevoking] = useState(false)
   const [revokingSessionId, setRevokingSessionId] = useState('')
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
 
   const onError = (error: any) => {
-    setRevoking(false)
     setRevokingSessionId('')
     toast.error(error)
   }
 
   const onCompleted = () => {
-    setRevoking(false)
     setRevokingSessionId('')
     toast.success('Session revoked successfully!')
   }
@@ -61,9 +58,7 @@ const List = () => {
 
   const revoke = async (authorizationId: string) => {
     try {
-      setRevoking(true)
       setRevokingSessionId(authorizationId)
-
       return await revokeAuthentication({
         variables: { request: { authorizationId } }
       })
@@ -109,8 +104,7 @@ const List = () => {
                   onClick={() => revoke(session.authorizationId)}
                   color="red"
                   disabled={
-                    (revoking &&
-                      revokingSessionId === session.authorizationId) ||
+                    revokingSessionId === session.authorizationId ||
                     isCurrentSession
                   }
                 >

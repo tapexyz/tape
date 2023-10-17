@@ -23,20 +23,17 @@ import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 
 const List = () => {
-  const [unblocking, setUnblocking] = useState(false)
   const [unblockingProfileId, setUnblockingProfileId] = useState('')
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
 
   const onError = (error: any) => {
-    setUnblocking(false)
     setUnblockingProfileId('')
     toast.error(error)
   }
 
   const onCompleted = () => {
-    setUnblocking(false)
     setUnblockingProfileId('')
     toast.success(t`Unblocked successfully`)
   }
@@ -65,17 +62,22 @@ const List = () => {
   }
 
   const onClickUnblock = async (profileId: string) => {
-    await unBlock({
-      variables: {
-        request: {
-          profiles: [profileId]
+    try {
+      setUnblockingProfileId(profileId)
+      await unBlock({
+        variables: {
+          request: {
+            profiles: [profileId]
+          }
         }
-      }
-    })
+      })
+    } catch (error) {
+      onError(error)
+    }
   }
 
   return (
-    <div className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:grid-cols-4">
+    <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
       {blockedProfiles.map((profile) => (
         <div
           key={profile.id}
@@ -101,7 +103,7 @@ const List = () => {
             <div className="absolute bottom-2 right-2 flex-none">
               <Button
                 onClick={() => onClickUnblock(profile.id)}
-                disabled={unblocking && unblockingProfileId === profile.id}
+                disabled={unblockingProfileId === profile.id}
                 highContrast
                 size="1"
               >
