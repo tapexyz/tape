@@ -115,6 +115,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
     },
     skip: !assetAddress || !activeProfile?.id,
     onCompleted: (data) => {
+      console.log('🚀 ~ file: index.tsx:118 ~ data:', data)
       setIsAllowed(
         data.approvedModuleAllowanceAmount[0].allowance.value !== '0x00'
       )

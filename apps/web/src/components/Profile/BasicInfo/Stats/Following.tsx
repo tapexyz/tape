@@ -55,10 +55,8 @@ const Following: FC<Props> = ({ stats, profileId }) => {
     <Dialog.Root>
       <Dialog.Trigger>
         <Flex gap="1" align="end">
-          <Text weight="bold" size="4">
-            {formatNumber(stats.following)}
-          </Text>
-          <Text size="4">
+          <Text weight="bold">{formatNumber(stats.following)}</Text>
+          <Text>
             <Trans>Followings</Trans>
           </Text>
         </Flex>
