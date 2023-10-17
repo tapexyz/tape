@@ -10,21 +10,23 @@ export const getPublicationRawMediaUrl = (
   return metadata?.cover?.raw?.uri
 }
 
-export const getPublicationMediaUrl = (metadata: PublicationMetadata) => {
+export const getPublicationMediaUrl = (
+  metadata: PublicationMetadata
+): string => {
   switch (metadata.__typename) {
     case 'VideoMetadataV3':
       return (
-        metadata.asset.video.optimized?.uri ?? metadata.asset.video.raw?.uri
+        metadata.asset.video.optimized?.uri || metadata.asset.video.raw?.uri
       )
     case 'LiveStreamMetadataV3':
       return metadata.playbackURL
     case 'AudioMetadataV3':
       return (
-        metadata.asset.audio.optimized?.uri ?? metadata.asset.audio.raw?.uri
+        metadata.asset.audio.optimized?.uri || metadata.asset.audio.raw?.uri
       )
     case 'ImageMetadataV3':
       return (
-        metadata.asset.image.optimized?.uri ?? metadata.asset.image.raw?.uri
+        metadata.asset.image.optimized?.uri || metadata.asset.image.raw?.uri
       )
     default:
       return ''

@@ -1,4 +1,4 @@
-import type { AnyPublication, MirrorablePublication } from '@tape.xyz/lens'
+import type { AnyPublication, PrimaryPublication } from '@tape.xyz/lens'
 
 export type Typename<T = string> = { [key in '__typename']?: T }
 
@@ -18,18 +18,10 @@ export const isMirrorPublication = <T extends AnyPublication>(
 
 export const getPublication = (
   publication: AnyPublication
-): MirrorablePublication => {
+): PrimaryPublication => {
   if (!publication) {
     return publication
   }
-  const isMirror = isMirrorPublication(publication)
-
-  return isMirror ? publication?.mirrorOn : publication
-}
-
-export const getPublicationMedia = (
-  publication: AnyPublication
-): MirrorablePublication => {
   const isMirror = isMirrorPublication(publication)
 
   return isMirror ? publication?.mirrorOn : publication

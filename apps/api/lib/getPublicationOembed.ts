@@ -10,7 +10,11 @@ import {
   imageCdn,
   truncate
 } from '@tape.xyz/generic'
-import type { AnyPublication, MirrorablePublication } from '@tape.xyz/lens'
+import type {
+  AnyPublication,
+  MirrorablePublication,
+  PublicationRequest
+} from '@tape.xyz/lens'
 import { PublicationDocument } from '@tape.xyz/lens'
 import { apolloClient } from '@tape.xyz/lens/apollo'
 
@@ -20,7 +24,9 @@ const getPublicationOembed = async (publicationId: string, format: string) => {
   try {
     const { data } = await client.query({
       query: PublicationDocument,
-      variables: { request: { publicationId } }
+      variables: {
+        request: { forId: publicationId } as PublicationRequest
+      }
     })
     const publication = data?.publication as AnyPublication
     const video =

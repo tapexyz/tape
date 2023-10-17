@@ -1,19 +1,18 @@
 import { Trans } from '@lingui/macro'
 import { STATIC_ASSETS, TAPE_APP_NAME } from '@tape.xyz/constants'
-import type { Comment } from '@tape.xyz/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
 
 type Props = {
-  comment: Comment
+  commentId: string
 }
 
-const VideoComment: FC<Props> = ({ comment }) => {
+const VideoComment: FC<Props> = ({ commentId }) => {
   return (
     <div className="my-2 rounded-xl border border-gray-300 px-4 py-3 dark:border-gray-700">
       <Link
-        href={`/watch/${comment.id}`}
+        href={`/watch/${commentId}`}
         className="flex items-center space-x-2.5"
         target="_blank"
       >

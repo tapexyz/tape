@@ -5,7 +5,7 @@ import {
   imageCdn,
   sanitizeDStorageUrl
 } from '@tape.xyz/generic'
-import type { AnyPublication, Comment } from '@tape.xyz/lens'
+import type { AnyPublication } from '@tape.xyz/lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 
@@ -20,9 +20,9 @@ const CommentMedia: FC<Props> = ({ comment }) => {
   const [imageSrc, setImageSrc] = useState('')
   const targetComment = getPublication(comment)
 
-  const media = getPublicationMediaUrl(targetComment.metadata)
+  const uri = getPublicationMediaUrl(targetComment.metadata)
 
-  if (!media.length) {
+  if (!uri.length) {
     return null
   }
 
@@ -42,21 +42,21 @@ const CommentMedia: FC<Props> = ({ comment }) => {
     <div className="my-2">
       <div className="flex flex-wrap items-center gap-2">
         {getIsVideoComment() ? (
-          <VideoComment comment={targetComment as Comment} />
+          <VideoComment commentId={targetComment.id} />
         ) : getIsAudioComment() ? (
-          <AudioComment media={media} />
+          <AudioComment uri={uri} />
         ) : getIsImageComment() ? (
           <Dialog.Root>
             <Dialog.Trigger>
               <button
                 className="focus:outline-none"
                 onClick={() => {
-                  setImageSrc(imageCdn(sanitizeDStorageUrl(media)))
+                  setImageSrc(imageCdn(sanitizeDStorageUrl(uri)))
                 }}
               >
                 <img
                   className="h-20 w-20 rounded-xl bg-white object-cover dark:bg-black"
-                  src={imageCdn(sanitizeDStorageUrl(media), 'AVATAR_LG')}
+                  src={imageCdn(sanitizeDStorageUrl(uri), 'AVATAR_LG')}
                   alt={'attachment'}
                   draggable={false}
                 />

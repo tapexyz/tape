@@ -4,17 +4,16 @@ import {
   TAPE_WEBSITE_URL
 } from '@tape.xyz/constants'
 import { getProfile, getProfilePicture } from '@tape.xyz/generic'
-import type { MirrorablePublication } from '@tape.xyz/lens'
+import type { PrimaryPublication } from '@tape.xyz/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
 
 type Props = {
-  video: MirrorablePublication
-  clicked: boolean
+  video: PrimaryPublication
 }
 
-const VideoOverlay: FC<Props> = ({ video, clicked }) => {
+const VideoOverlay: FC<Props> = ({ video }) => {
   return (
     <div className="absolute top-0 z-10 w-full text-white">
       <div className="flex items-center justify-between space-x-6 bg-gradient-to-b from-black/80 via-black/30 to-transparent p-3.5 pb-6">
@@ -50,23 +49,21 @@ const VideoOverlay: FC<Props> = ({ video, clicked }) => {
             </Link>
           </div>
         </div>
-        {clicked && (
-          <div className="flex items-center justify-self-end">
-            <Link
-              className="flex items-center space-x-1.5"
-              title={`Watch on ${TAPE_APP_NAME}`}
-              href={`${TAPE_WEBSITE_URL}/watch/${video?.id}`}
-              target="_blank"
-            >
-              <img
-                src={`${STATIC_ASSETS}/brand/logo.png`}
-                draggable={false}
-                className="ml-0.5 h-8 w-8 rounded-full"
-                alt={TAPE_APP_NAME}
-              />
-            </Link>
-          </div>
-        )}
+        <div className="flex items-center justify-self-end">
+          <Link
+            className="flex items-center space-x-1.5"
+            title={`Watch on ${TAPE_APP_NAME}`}
+            href={`${TAPE_WEBSITE_URL}/watch/${video?.id}`}
+            target="_blank"
+          >
+            <img
+              src={`${STATIC_ASSETS}/brand/logo.png`}
+              draggable={false}
+              className="ml-0.5 h-8 w-8 rounded-full"
+              alt={TAPE_APP_NAME}
+            />
+          </Link>
+        </div>
       </div>
     </div>
   )

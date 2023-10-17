@@ -4,8 +4,12 @@ import {
   TAPE_APP_DESCRIPTION,
   TAPE_APP_NAME
 } from '@tape.xyz/constants'
-import { getProfile, getProfilePicture } from '@tape.xyz/generic'
-import type { Profile } from '@tape.xyz/lens'
+import {
+  getProfile,
+  getProfilePicture,
+  trimLensHandle
+} from '@tape.xyz/generic'
+import type { Profile, ProfileRequest } from '@tape.xyz/lens'
 import { ProfileDocument } from '@tape.xyz/lens'
 import { apolloClient } from '@tape.xyz/lens/apollo'
 import type { NextApiResponse } from 'next'
@@ -14,9 +18,17 @@ const client = apolloClient()
 
 const getProfileMeta = async (res: NextApiResponse, handle: string) => {
   try {
+    const isId = handle.startsWith('0x')
+    const request: ProfileRequest = {
+      forProfileId: isId ? handle : undefined,
+      forHandle: !isId ? `test/@${trimLensHandle(handle)}` : undefined
+    }
+
     const { data } = await client.query({
       query: ProfileDocument,
-      variables: { request: { handle } }
+      variables: {
+        request
+      }
     })
 
     const profile: Profile = data?.profile

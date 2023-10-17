@@ -1,5 +1,5 @@
 import Video from '@components/Video'
-import type { AnyPublication } from '@tape.xyz/lens'
+import type { AnyPublication, PublicationRequest } from '@tape.xyz/lens'
 import { PublicationDocument } from '@tape.xyz/lens'
 import { apolloClient } from '@tape.xyz/lens/apollo'
 import type { GetServerSideProps } from 'next'
@@ -19,7 +19,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
   const { data, error } = await client.query({
     query: PublicationDocument,
     variables: {
-      request: { publicationId }
+      request: { forId: publicationId } as PublicationRequest
     }
   })
   if (!data?.publication || error) {

@@ -4,7 +4,6 @@ import {
   TAPE_APP_DESCRIPTION,
   TAPE_APP_NAME
 } from '@tape.xyz/constants'
-import { trimLensHandle } from '@tape.xyz/generic'
 import getProfileMeta from 'lib/getProfileMeta'
 import getPublicationMeta from 'lib/getPublicationMeta'
 import type { NextApiRequest, NextApiResponse } from 'next'
@@ -27,7 +26,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     if (isProfile) {
       const handle = path.replace('/u/', '')
-      return await getProfileMeta(res, trimLensHandle(handle, true))
+      return await getProfileMeta(res, handle)
     }
 
     if (isVideo || isByte) {

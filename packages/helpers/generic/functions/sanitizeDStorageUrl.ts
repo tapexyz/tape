@@ -9,10 +9,10 @@ export const sanitizeDStorageUrl = (url: string) => {
 
   return url
     .replace(/^Qm[1-9A-Za-z]{44}/gm, `${ipfsGateway}/${url}`)
-    .replace('https://ipfs.io/ipfs', ipfsGateway)
-    .replace('https://ipfs.infura.io/ipfs', ipfsGateway)
-    .replace('https://gateway.pinata.cloud/ipfs', ipfsGateway)
-    .replace('https://gw.ipfs-lens.dev/ipfs', ipfsGateway)
+    .replace('https://ipfs.io/ipfs/', ipfsGateway)
+    .replace('https://ipfs.infura.io/ipfs/', ipfsGateway)
+    .replace('https://gateway.pinata.cloud/ipfs/', ipfsGateway)
+    .replace('https://gw.ipfs-lens.dev/ipfs/', ipfsGateway)
     .replace('ipfs://ipfs/', ipfsGateway)
     .replace('ar://', arweaveGateway)
     .replace('ipfs://', ipfsGateway)
