@@ -1,9 +1,9 @@
 import Alert from '@components/Common/Alert'
 import Badge from '@components/Common/Badge'
 import FollowActions from '@components/Common/FollowActions'
-import ForbiddenOutline from '@components/Common/Icons/ForbiddenOutline'
 import InfoOutline from '@components/Common/Icons/InfoOutline'
 import LocationOutline from '@components/Common/Icons/LocationOutline'
+import ProfileBanOutline from '@components/Common/Icons/ProfileBanOutline'
 import ThreeDotsOutline from '@components/Common/Icons/ThreeDotsOutline'
 import WalletOutline from '@components/Common/Icons/WalletOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
@@ -35,6 +35,7 @@ import {
   useBlockMutation,
   useUnblockMutation
 } from '@tape.xyz/lens'
+import { useApolloClient } from '@tape.xyz/lens/apollo'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
@@ -72,9 +73,21 @@ const BasicInfo: FC<Props> = ({ profile }) => {
     profile.metadata?.attributes,
     'location'
   )
-
+  const { cache } = useApolloClient()
   const [block] = useBlockMutation()
   const [unBlock] = useUnblockMutation()
+
+  const updateCache = (value: boolean) => {
+    cache.modify({
+      id: `Profile:${profile?.id}`,
+      fields: {
+        operations: () => ({
+          ...profile.operations,
+          isBlockedByMe: { value }
+        })
+      }
+    })
+  }
 
   const toggleBlockProfile = async () => {
     if (isBlockedByMe) {
@@ -85,6 +98,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
           }
         }
       })
+      updateCache(false)
       toast.success(t`Unblocked successfully`)
     } else {
       await block({
@@ -94,7 +108,8 @@ const BasicInfo: FC<Props> = ({ profile }) => {
           }
         }
       })
-      toast.success(t`Unblocked successfully`)
+      updateCache(true)
+      toast.success(t`Blocked successfully`)
     }
   }
 
@@ -240,7 +255,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
                   onClick={() => toggleBlockProfile()}
                 >
                   <Flex align="center" gap="2">
-                    <ForbiddenOutline className="h-3.5 w-3.5" />
+                    <ProfileBanOutline className="h-4 w-4" />
                     <span className="whitespace-nowrap">
                       {isBlockedByMe ? (
                         <Trans>Unblock</Trans>
