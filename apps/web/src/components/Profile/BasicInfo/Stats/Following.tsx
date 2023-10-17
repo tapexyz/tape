@@ -1,6 +1,5 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
 import TimesOutline from '@components/Common/Icons/TimesOutline'
-import UserOutline from '@components/Common/Icons/UserOutline'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { Trans } from '@lingui/macro'
 import {
@@ -81,18 +80,11 @@ const Following: FC<Props> = ({ stats, profileId }) => {
           )}
           <div className="space-y-2">
             {followings?.map((profile) => (
-              <Flex
-                justify="between"
-                width="100%"
-                align="center"
-                key={profile.ownedBy.address}
-              >
-                <HoverableProfile profile={profile} fontSize="3" />
-                <div className="flex items-center space-x-1 whitespace-nowrap text-xs opacity-80">
-                  <UserOutline className="h-2.5 w-2.5 opacity-60" />
-                  <span>{formatNumber(profile.stats.followers)}</span>
-                </div>
-              </Flex>
+              <div key={profile.id}>
+                <span className="inline-flex">
+                  <HoverableProfile profile={profile} fontSize="3" />
+                </span>
+              </div>
             ))}
           </div>
           {pageInfo?.next && (
