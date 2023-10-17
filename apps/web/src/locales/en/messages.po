@@ -1072,9 +1072,13 @@ msgid "Unfollow"
 msgstr "Unfollow"
 
 #: src/components/Profile/BasicInfo/index.tsx
-#: src/components/Profile/BasicInfo/index.tsx
+#: src/components/Settings/Blocked/List.tsx
 msgid "Unblocked successfully"
 msgstr "Unblocked successfully"
+
+#: src/components/Profile/BasicInfo/index.tsx
+msgid "Blocked successfully"
+msgstr "Blocked successfully"
 
 #: src/components/Profile/BasicInfo/index.tsx
 msgid "Sybil Verified"
@@ -1113,8 +1117,8 @@ msgid "No NFTs found"
 msgstr "No NFTs found"
 
 #: src/components/Profile/Tabs/MirroredVideos.tsx
-msgid "No mirrors found"
-msgstr "No mirrors found"
+#~ msgid "No mirrors found"
+#~ msgstr "No mirrors found"
 
 #: src/components/Profile/Tabs/OtherProfiles.tsx
 msgid "No other channels found"
@@ -1293,6 +1297,14 @@ msgstr "Location"
 msgid "Update Profile"
 msgstr "Update Profile"
 
+#: src/components/Settings/Blocked/index.tsx
+msgid "Blocked Profiles"
+msgstr "Blocked Profiles"
+
+#: src/components/Settings/Blocked/index.tsx
+msgid "Here is a list of profiles that have been blocked. You have the option to unblock them whenever you wish."
+msgstr "Here is a list of profiles that have been blocked. You have the option to unblock them whenever you wish."
+
 #: src/components/Settings/ChannelPicture.tsx
 #~ msgid "Channel image updated"
 #~ msgstr "Channel image updated"
@@ -1322,8 +1334,8 @@ msgid "Disabling..."
 msgstr "Disabling..."
 
 #: src/components/Settings/DangerZone/Guardian.tsx
-#: src/components/Settings/Membership.tsx
 #: src/components/Settings/Permissions/Dispatcher/Toggle.tsx
+#: src/components/Settings/Subscription/index.tsx
 msgid "Disable"
 msgstr "Disable"
 
@@ -1345,40 +1357,8 @@ msgstr "Enable"
 #~ msgstr "Currency"
 
 #: src/components/Settings/Membership.tsx
-msgid "Membership updated"
-msgstr "Membership updated"
-
-#: src/components/Settings/Membership.tsx
-msgid "Grow with Lens"
-msgstr "Grow with Lens"
-
-#: src/components/Settings/Membership.tsx
-msgid "You can set up a follow fee for your profile and provide exclusive offers and perks to the followers, also people can pay and support your work."
-msgstr "You can set up a follow fee for your profile and provide exclusive offers and perks to the followers, also people can pay and support your work."
-
-#: src/components/Settings/Membership.tsx
-#: src/components/Settings/Membership.tsx
-msgid "Amount"
-msgstr "Amount"
-
-#: src/components/Settings/Membership.tsx
-msgid "Token"
-msgstr "Token"
-
-#: src/components/Settings/Membership.tsx
-#: src/components/Settings/Membership.tsx
-#: src/components/Watch/OpenActions/CollectPublication/index.tsx
-msgid "Recipient"
-msgstr "Recipient"
-
-#: src/components/Settings/Membership.tsx
-#: src/components/UIElements/Confirm.tsx
-msgid "Cancel"
-msgstr "Cancel"
-
-#: src/components/Settings/Membership.tsx
-msgid "Update"
-msgstr "Update"
+#~ msgid "Membership updated"
+#~ msgstr "Membership updated"
 
 #: src/components/Settings/Permissions/Dispatcher/Toggle.tsx
 #~ msgid "Upgrade"
@@ -1443,21 +1423,77 @@ msgstr "Revoke"
 msgid "Interests"
 msgstr "Interests"
 
+#: src/components/Settings/Sessions/index.tsx
+msgid "Authorized Sessions"
+msgstr "Authorized Sessions"
+
+#: src/components/Settings/Sessions/index.tsx
+msgid "Here is a list of devices that have logged into your account. If any of these sessions seem unfamiliar to you, kindly revoke their access."
+msgstr "Here is a list of devices that have logged into your account. If any of these sessions seem unfamiliar to you, kindly revoke their access."
+
+#: src/components/Settings/SideNav.tsx
+#~ msgid "Membership"
+#~ msgstr "Membership"
+
 #: src/components/Settings/SideNav.tsx
 msgid "Basic Info"
 msgstr "Basic Info"
 
 #: src/components/Settings/SideNav.tsx
-msgid "Membership"
-msgstr "Membership"
+msgid "Subscription"
+msgstr "Subscription"
 
 #: src/components/Settings/SideNav.tsx
 msgid "Permissions"
 msgstr "Permissions"
 
 #: src/components/Settings/SideNav.tsx
+msgid "Sessions"
+msgstr "Sessions"
+
+#: src/components/Settings/SideNav.tsx
+msgid "Blocked"
+msgstr "Blocked"
+
+#: src/components/Settings/SideNav.tsx
 msgid "Danger Zone"
 msgstr "Danger Zone"
+
+#: src/components/Settings/Subscription/index.tsx
+msgid "Subscription updated"
+msgstr "Subscription updated"
+
+#: src/components/Settings/Subscription/index.tsx
+msgid "Grow with Lens"
+msgstr "Grow with Lens"
+
+#: src/components/Settings/Subscription/index.tsx
+msgid "You can set up a follow fee for your profile and provide exclusive offers and perks to the followers, also people can pay and support your work."
+msgstr "You can set up a follow fee for your profile and provide exclusive offers and perks to the followers, also people can pay and support your work."
+
+#: src/components/Settings/Subscription/index.tsx
+#: src/components/Settings/Subscription/index.tsx
+msgid "Amount"
+msgstr "Amount"
+
+#: src/components/Settings/Subscription/index.tsx
+msgid "Token"
+msgstr "Token"
+
+#: src/components/Settings/Subscription/index.tsx
+#: src/components/Settings/Subscription/index.tsx
+#: src/components/Watch/OpenActions/CollectPublication/index.tsx
+msgid "Recipient"
+msgstr "Recipient"
+
+#: src/components/Settings/Subscription/index.tsx
+#: src/components/UIElements/Confirm.tsx
+msgid "Cancel"
+msgstr "Cancel"
+
+#: src/components/Settings/Subscription/index.tsx
+msgid "Update"
+msgstr "Update"
 
 #: src/components/Settings/index.tsx
 msgid "Channel Settings"

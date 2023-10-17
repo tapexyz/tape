@@ -1072,8 +1072,12 @@ msgid "Unfollow"
 msgstr ""
 
 #: src/components/Profile/BasicInfo/index.tsx
-#: src/components/Profile/BasicInfo/index.tsx
+#: src/components/Settings/Blocked/List.tsx
 msgid "Unblocked successfully"
+msgstr ""
+
+#: src/components/Profile/BasicInfo/index.tsx
+msgid "Blocked successfully"
 msgstr ""
 
 #: src/components/Profile/BasicInfo/index.tsx
@@ -1113,8 +1117,8 @@ msgid "No NFTs found"
 msgstr "未找到NFTs"
 
 #: src/components/Profile/Tabs/MirroredVideos.tsx
-msgid "No mirrors found"
-msgstr "未找到镜像"
+#~ msgid "No mirrors found"
+#~ msgstr "未找到镜像"
 
 #: src/components/Profile/Tabs/OtherProfiles.tsx
 msgid "No other channels found"
@@ -1293,6 +1297,14 @@ msgstr "地点"
 msgid "Update Profile"
 msgstr ""
 
+#: src/components/Settings/Blocked/index.tsx
+msgid "Blocked Profiles"
+msgstr ""
+
+#: src/components/Settings/Blocked/index.tsx
+msgid "Here is a list of profiles that have been blocked. You have the option to unblock them whenever you wish."
+msgstr ""
+
 #: src/components/Settings/ChannelPicture.tsx
 #~ msgid "Channel image updated"
 #~ msgstr "频道图像已更新"
@@ -1322,8 +1334,8 @@ msgid "Disabling..."
 msgstr ""
 
 #: src/components/Settings/DangerZone/Guardian.tsx
-#: src/components/Settings/Membership.tsx
 #: src/components/Settings/Permissions/Dispatcher/Toggle.tsx
+#: src/components/Settings/Subscription/index.tsx
 msgid "Disable"
 msgstr "禁用"
 
@@ -1345,40 +1357,8 @@ msgstr "启用"
 #~ msgstr "货币"
 
 #: src/components/Settings/Membership.tsx
-msgid "Membership updated"
-msgstr "会员已更新"
-
-#: src/components/Settings/Membership.tsx
-msgid "Grow with Lens"
-msgstr "放大镜头"
-
-#: src/components/Settings/Membership.tsx
-msgid "You can set up a follow fee for your profile and provide exclusive offers and perks to the followers, also people can pay and support your work."
-msgstr ""
-
-#: src/components/Settings/Membership.tsx
-#: src/components/Settings/Membership.tsx
-msgid "Amount"
-msgstr "金额"
-
-#: src/components/Settings/Membership.tsx
-msgid "Token"
-msgstr "令牌"
-
-#: src/components/Settings/Membership.tsx
-#: src/components/Settings/Membership.tsx
-#: src/components/Watch/OpenActions/CollectPublication/index.tsx
-msgid "Recipient"
-msgstr "收款人"
-
-#: src/components/Settings/Membership.tsx
-#: src/components/UIElements/Confirm.tsx
-msgid "Cancel"
-msgstr "取消"
-
-#: src/components/Settings/Membership.tsx
-msgid "Update"
-msgstr "更新"
+#~ msgid "Membership updated"
+#~ msgstr "会员已更新"
 
 #: src/components/Settings/Permissions/Dispatcher/Toggle.tsx
 #~ msgid "Upgrade"
@@ -1443,21 +1423,77 @@ msgstr "Revoke"
 msgid "Interests"
 msgstr "兴趣"
 
+#: src/components/Settings/Sessions/index.tsx
+msgid "Authorized Sessions"
+msgstr ""
+
+#: src/components/Settings/Sessions/index.tsx
+msgid "Here is a list of devices that have logged into your account. If any of these sessions seem unfamiliar to you, kindly revoke their access."
+msgstr ""
+
+#: src/components/Settings/SideNav.tsx
+#~ msgid "Membership"
+#~ msgstr "成员"
+
 #: src/components/Settings/SideNav.tsx
 msgid "Basic Info"
 msgstr "基本信息"
 
 #: src/components/Settings/SideNav.tsx
-msgid "Membership"
-msgstr "成员"
+msgid "Subscription"
+msgstr ""
 
 #: src/components/Settings/SideNav.tsx
 msgid "Permissions"
 msgstr "权限"
 
 #: src/components/Settings/SideNav.tsx
+msgid "Sessions"
+msgstr ""
+
+#: src/components/Settings/SideNav.tsx
+msgid "Blocked"
+msgstr ""
+
+#: src/components/Settings/SideNav.tsx
 msgid "Danger Zone"
 msgstr "危险区域"
+
+#: src/components/Settings/Subscription/index.tsx
+msgid "Subscription updated"
+msgstr ""
+
+#: src/components/Settings/Subscription/index.tsx
+msgid "Grow with Lens"
+msgstr "放大镜头"
+
+#: src/components/Settings/Subscription/index.tsx
+msgid "You can set up a follow fee for your profile and provide exclusive offers and perks to the followers, also people can pay and support your work."
+msgstr ""
+
+#: src/components/Settings/Subscription/index.tsx
+#: src/components/Settings/Subscription/index.tsx
+msgid "Amount"
+msgstr "金额"
+
+#: src/components/Settings/Subscription/index.tsx
+msgid "Token"
+msgstr "令牌"
+
+#: src/components/Settings/Subscription/index.tsx
+#: src/components/Settings/Subscription/index.tsx
+#: src/components/Watch/OpenActions/CollectPublication/index.tsx
+msgid "Recipient"
+msgstr "收款人"
+
+#: src/components/Settings/Subscription/index.tsx
+#: src/components/UIElements/Confirm.tsx
+msgid "Cancel"
+msgstr "取消"
+
+#: src/components/Settings/Subscription/index.tsx
+msgid "Update"
+msgstr "更新"
 
 #: src/components/Settings/index.tsx
 msgid "Channel Settings"
