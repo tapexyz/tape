@@ -43,7 +43,7 @@ const SelectedMedia = () => {
 
   return (
     <div className="flex w-full flex-col">
-      <div className="md:rounded-large rounded-small group relative w-full overflow-hidden border dark:border-gray-800">
+      <div className="md:rounded-large rounded-small group relative w-full cursor-pointer overflow-hidden border dark:border-gray-800">
         <video
           ref={videoRef}
           className="aspect-[16/9] w-full"

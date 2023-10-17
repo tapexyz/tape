@@ -1,4 +1,4 @@
-import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
+import LatestBytesShimmer from '@components/Shimmers/LatestBytesShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { t } from '@lingui/macro'
 import {
@@ -60,7 +60,7 @@ const ProfileBytes: FC<Props> = ({ profileId }) => {
   })
 
   if (loading) {
-    return <TimelineShimmer />
+    return <LatestBytesShimmer count={4} />
   }
 
   if (data?.publications?.items?.length === 0) {
@@ -70,7 +70,7 @@ const ProfileBytes: FC<Props> = ({ profileId }) => {
   return (
     <div className="w-full">
       {!error && !loading && (
-        <div className="laptop:grid-cols-5 grid-col-2 grid gap-x-4 gap-y-2 md:grid-cols-4 md:gap-y-6">
+        <div className="grid-col-2 grid gap-x-4 gap-y-2 md:grid-cols-4 md:gap-y-6">
           {bytes.map((byte) => {
             const thumbnailUrl = imageCdn(getThumbnailUrl(byte), 'THUMBNAIL_V')
             return (

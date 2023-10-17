@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 
-const LatestBytesShimmer = () => {
-  const cards = useMemo(() => Array(15).fill(1), [])
+const LatestBytesShimmer = ({ count = 15 }) => {
+  const cards = useMemo(() => Array(count).fill(1), [count])
   return (
     <div className="animate-pulse">
       <div className="no-scrollbar relative mb-8 flex items-start space-x-4 overflow-x-auto scroll-smooth">
