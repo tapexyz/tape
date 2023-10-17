@@ -196,7 +196,12 @@ const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
             {
               profileId: profile?.id,
               followModule: {
-                feeFollowModule: true
+                feeFollowModule: {
+                  amount: {
+                    currency: followModule?.amount.asset.contract.address,
+                    value: followModule?.amount.value
+                  }
+                }
               }
             }
           ]

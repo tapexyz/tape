@@ -15,11 +15,13 @@ import DangerZone from './DangerZone'
 import Membership from './Membership'
 import Permissions from './Permissions'
 import ProfileInterests from './ProfileInterests'
+import Sessions from './Sessions'
 import SideNav from './SideNav'
 
 export const SETTINGS_MEMBERSHIP = '/settings/membership'
 export const SETTINGS_INTERESTS = '/settings/interests'
 export const SETTINGS_PERMISSIONS = '/settings/permissions'
+export const SETTINGS_SESSIONS = '/settings/sessions'
 export const SETTINGS_DANGER_ZONE = '/settings/danger'
 export const SETTINGS = '/settings'
 
@@ -68,6 +70,7 @@ const Settings = () => {
             )}
             {router.pathname === SETTINGS_PERMISSIONS && <Permissions />}
             {router.pathname === SETTINGS_INTERESTS && <ProfileInterests />}
+            {router.pathname === SETTINGS_SESSIONS && <Sessions />}
             {router.pathname === SETTINGS_DANGER_ZONE && <DangerZone />}
           </div>
         </div>

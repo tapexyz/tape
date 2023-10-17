@@ -150,7 +150,9 @@ const ModulePermissions = () => {
                 className="flex items-center rounded-md pb-4"
               >
                 <div className="flex-1">
-                  <h6 className="font-medium">{moduleItem.moduleName}</h6>
+                  <h6 className="font-medium">
+                    {getCollectModuleConfig(moduleItem.moduleName).label}
+                  </h6>
                   <p className="opacity-70">
                     {getCollectModuleConfig(moduleItem.moduleName).description}
                   </p>

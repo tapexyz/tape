@@ -1,5 +1,6 @@
 import InterestsOutline from '@components/Common/Icons/InterestsOutline'
 import KeyOutline from '@components/Common/Icons/KeyOutline'
+import LockOutline from '@components/Common/Icons/LockOutline'
 import SubscribeOutline from '@components/Common/Icons/SubscribeOutline'
 import UserOutline from '@components/Common/Icons/UserOutline'
 import WarningOutline from '@components/Common/Icons/WarningOutline'
@@ -9,11 +10,14 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
 
-export const SETTINGS_MEMBERSHIP = '/settings/membership'
-export const SETTINGS_INTERESTS = '/settings/interests'
-export const SETTINGS_PERMISSIONS = '/settings/permissions'
-export const SETTINGS_DANGER_ZONE = '/settings/danger'
-export const SETTINGS = '/settings'
+import {
+  SETTINGS,
+  SETTINGS_DANGER_ZONE,
+  SETTINGS_INTERESTS,
+  SETTINGS_MEMBERSHIP,
+  SETTINGS_PERMISSIONS,
+  SETTINGS_SESSIONS
+} from '.'
 
 const SideNav = () => {
   const router = useRouter()
@@ -21,15 +25,15 @@ const SideNav = () => {
   const isActivePath = (path: string) => router.pathname === path
 
   return (
-    <div className="m-1 flex flex-col space-y-1 text-sm">
+    <div className="m-1 flex flex-col space-y-1">
       <Link
         href={SETTINGS}
         className={clsx(
-          'rounded-small flex items-center space-x-2 p-3 hover:bg-gray-100 hover:dark:bg-black',
+          'rounded-small flex items-center space-x-3 p-3 hover:bg-gray-100 hover:dark:bg-black',
           { 'bg-gray-100 dark:bg-black': isActivePath(SETTINGS) }
         )}
       >
-        <UserOutline className="h-4 w-4" />{' '}
+        <UserOutline className="h-4 w-4" />
         <span>
           <Trans>Basic Info</Trans>
         </span>
@@ -37,13 +41,13 @@ const SideNav = () => {
       <Link
         href={SETTINGS_MEMBERSHIP}
         className={clsx(
-          'rounded-small flex items-center space-x-2 p-3 hover:bg-gray-100 hover:dark:bg-black',
+          'rounded-small flex items-center space-x-3 p-3 hover:bg-gray-100 hover:dark:bg-black',
           {
             'bg-gray-100 dark:bg-black': isActivePath(SETTINGS_MEMBERSHIP)
           }
         )}
       >
-        <SubscribeOutline className="h-4 w-4" />{' '}
+        <SubscribeOutline className="h-4 w-4" />
         <span>
           <Trans>Membership</Trans>
         </span>
@@ -51,27 +55,41 @@ const SideNav = () => {
       <Link
         href={SETTINGS_PERMISSIONS}
         className={clsx(
-          'rounded-small flex items-center space-x-2 p-3 hover:bg-gray-100 hover:dark:bg-black',
+          'rounded-small flex items-center space-x-3 p-3 hover:bg-gray-100 hover:dark:bg-black',
           {
             'bg-gray-100 dark:bg-black': isActivePath(SETTINGS_PERMISSIONS)
           }
         )}
       >
-        <KeyOutline className="h-4 w-4" />{' '}
+        <LockOutline className="h-4 w-4" />{' '}
         <span>
           <Trans>Permissions</Trans>
         </span>
       </Link>
       <Link
+        href={SETTINGS_SESSIONS}
+        className={clsx(
+          'rounded-small flex items-center space-x-3 p-3 hover:bg-gray-100 hover:dark:bg-black',
+          {
+            'bg-gray-100 dark:bg-black': isActivePath(SETTINGS_SESSIONS)
+          }
+        )}
+      >
+        <KeyOutline className="h-4 w-4" />
+        <span>
+          <Trans>Sessions</Trans>
+        </span>
+      </Link>
+      <Link
         href={SETTINGS_INTERESTS}
         className={clsx(
-          'rounded-small flex items-center space-x-2 p-3 hover:bg-gray-100 hover:dark:bg-black',
+          'rounded-small flex items-center space-x-3 p-3 hover:bg-gray-100 hover:dark:bg-black',
           {
             'bg-gray-100 dark:bg-black': isActivePath(SETTINGS_INTERESTS)
           }
         )}
       >
-        <InterestsOutline className="h-4 w-4" />{' '}
+        <InterestsOutline className="h-4 w-4" />
         <span>
           <Trans>Interests</Trans>
         </span>
@@ -79,13 +97,13 @@ const SideNav = () => {
       <Link
         href={SETTINGS_DANGER_ZONE}
         className={clsx(
-          'rounded-small flex items-center space-x-2 p-3 text-red-500 hover:bg-red-100 hover:dark:bg-red-900/60',
+          'rounded-small flex items-center space-x-3 p-3 text-red-500 hover:bg-red-100 hover:dark:bg-red-900/60',
           {
             'bg-red-100 dark:bg-red-900/60': isActivePath(SETTINGS_DANGER_ZONE)
           }
         )}
       >
-        <WarningOutline className="h-4 w-4" />{' '}
+        <WarningOutline className="h-4 w-4" />
         <span>
           <Trans>Danger Zone</Trans>
         </span>
