@@ -1,12 +1,11 @@
 import useAppStore from '@lib/store'
-import { Trans } from '@lingui/macro'
+import { t, Trans } from '@lingui/macro'
 import { Analytics, TRACK } from '@tape.xyz/browser'
 import { CREATOR_VIDEO_CATEGORIES } from '@tape.xyz/constants'
 import clsx from 'clsx'
 import React, { useRef } from 'react'
 
-import ChevronLeftOutline from './Icons/ChevronLeftOutline'
-import ChevronRightOutline from './Icons/ChevronRightOutline'
+import HorizantalScroller from './HorizantalScroller'
 
 const CategoryFilters = () => {
   const sectionRef = useRef<HTMLDivElement>(null)
@@ -30,30 +29,11 @@ const CategoryFilters = () => {
 
   return (
     <div className="laptop:pt-6 pt-4">
-      <div className="flex items-center justify-between">
-        <div className="flex items-center space-x-3 text-xl">
-          <h1 className="text-brand-400 font-bold">
-            <Trans>Explore</Trans>
-          </h1>
-          <h1>
-            <Trans>Categories</Trans>
-          </h1>
-        </div>
-        <div className="space-x-2">
-          <button
-            onClick={() => scroll(-scrollOffset)}
-            className="rounded-full p-2 backdrop-blur-xl hover:bg-gray-100 focus:outline-none dark:hover:bg-gray-800"
-          >
-            <ChevronLeftOutline className="h-4 w-4" />
-          </button>
-          <button
-            onClick={() => scroll(scrollOffset)}
-            className="rounded-full p-2 backdrop-blur-xl hover:bg-gray-100 focus:outline-none dark:hover:bg-gray-800"
-          >
-            <ChevronRightOutline className="h-4 w-4" />
-          </button>
-        </div>
-      </div>
+      <HorizantalScroller
+        sectionRef={sectionRef}
+        heading={t`Explore`}
+        subheading={t`Categories`}
+      />
       <div
         ref={sectionRef}
         className="no-scrollbar ultrawide:py-8 laptop:py-6 sticky top-72 flex touch-pan-x items-center overflow-x-auto scroll-smooth py-4 md:mx-auto"

@@ -870,6 +870,16 @@ msgstr ""
 #~ msgid "Contribute Now"
 #~ msgstr "立即捐款"
 
+#: src/components/Home/LiveSection.tsx
+#: src/components/Stream/index.tsx
+msgid "Live"
+msgstr "实时模式"
+
+#: src/components/Home/LiveSection.tsx
+#: src/components/Home/Popping/index.tsx
+msgid "What's Popping?"
+msgstr "什么是弹出？"
+
 #: src/components/Home/OpenActions/Zora/Collect.tsx
 #~ msgid "{nftPriceInEth} ETH + {platformFeesInEth} ETH mint fees"
 #~ msgstr ""
@@ -886,10 +896,6 @@ msgstr "ETH"
 #: src/components/Home/OpenActions/index.tsx
 msgid "Cross Chain Collects"
 msgstr ""
-
-#: src/components/Home/Popping/index.tsx
-msgid "What's Popping?"
-msgstr "什么是弹出？"
 
 #: src/components/Home/TopSection.tsx
 msgid "Today"
@@ -1456,10 +1462,6 @@ msgstr "危险区域"
 #: src/components/Settings/index.tsx
 msgid "Channel Settings"
 msgstr "频道设置"
-
-#: src/components/Stream/index.tsx
-msgid "Live"
-msgstr "实时模式"
 
 #: src/components/Stream/index.tsx
 msgid "From the frens"

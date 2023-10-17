@@ -43,8 +43,9 @@ const CommentOptions: FC<Props> = ({ comment }) => {
     }
   })
 
-  const onHideComment = () => {
-    hideComment({ variables: { request: { for: comment?.id } } })
+  const onHideComment = async () => {
+    await hideComment({ variables: { request: { for: comment?.id } } })
+    setShowConfirm(false)
   }
 
   const onClickReport = () => {

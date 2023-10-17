@@ -39,8 +39,7 @@ const LatestBytes = () => {
     variables: { request }
   })
 
-  const bytes = data?.explorePublications
-    ?.items as unknown as PrimaryPublication[]
+  const bytes = data?.explorePublications?.items as PrimaryPublication[]
 
   if (loading) {
     return <LatestBytesShimmer />

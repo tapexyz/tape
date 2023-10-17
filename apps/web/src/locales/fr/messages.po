@@ -870,6 +870,16 @@ msgstr ""
 #~ msgid "Contribute Now"
 #~ msgstr "Contribuer maintenant"
 
+#: src/components/Home/LiveSection.tsx
+#: src/components/Stream/index.tsx
+msgid "Live"
+msgstr "En direct"
+
+#: src/components/Home/LiveSection.tsx
+#: src/components/Home/Popping/index.tsx
+msgid "What's Popping?"
+msgstr "Qu'est-ce que le Popping ?"
+
 #: src/components/Home/OpenActions/Zora/Collect.tsx
 #~ msgid "{nftPriceInEth} ETH + {platformFeesInEth} ETH mint fees"
 #~ msgstr ""
@@ -886,10 +896,6 @@ msgstr "ETH"
 #: src/components/Home/OpenActions/index.tsx
 msgid "Cross Chain Collects"
 msgstr ""
-
-#: src/components/Home/Popping/index.tsx
-msgid "What's Popping?"
-msgstr "Qu'est-ce que le Popping ?"
 
 #: src/components/Home/TopSection.tsx
 msgid "Today"
@@ -1456,10 +1462,6 @@ msgstr "Zone de danger"
 #: src/components/Settings/index.tsx
 msgid "Channel Settings"
 msgstr "Paramètres du canal"
-
-#: src/components/Stream/index.tsx
-msgid "Live"
-msgstr "En direct"
 
 #: src/components/Stream/index.tsx
 msgid "From the frens"

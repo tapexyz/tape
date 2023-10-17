@@ -93,8 +93,9 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost' }) => {
     }
   })
 
-  const onHideVideo = () => {
-    hideVideo({ variables: { request: { for: video?.id } } })
+  const onHideVideo = async () => {
+    await hideVideo({ variables: { request: { for: video?.id } } })
+    setShowConfirm(false)
   }
 
   const onClickReport = () => {
@@ -330,7 +331,7 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost' }) => {
       />
       <DropdownMenu.Root>
         <DropdownMenu.Trigger>
-          <IconButton radius="full" variant={variant} size="2">
+          <IconButton radius="full" variant={variant} highContrast size="2">
             <ThreeDotsOutline className="h-3.5 w-3.5" />
           </IconButton>
         </DropdownMenu.Trigger>

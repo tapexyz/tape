@@ -1,3 +1,4 @@
+import VideoOptions from '@components/Common/VideoCard/VideoOptions'
 import LatestBytesShimmer from '@components/Shimmers/LatestBytesShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { t } from '@lingui/macro'
@@ -94,6 +95,9 @@ const ProfileBytes: FC<Props> = ({ profileId }) => {
                   <h1 className="line-clamp-2 break-words font-semibold">
                     {byte.metadata.marketplace?.name}
                   </h1>
+                </div>
+                <div className="absolute right-2 top-2">
+                  <VideoOptions video={byte} variant="solid" />
                 </div>
               </Link>
             )

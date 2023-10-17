@@ -870,6 +870,16 @@ msgstr "Update your dispatcher to the latest version for better, faster signless
 #~ msgid "Contribute Now"
 #~ msgstr "Contribute Now"
 
+#: src/components/Home/LiveSection.tsx
+#: src/components/Stream/index.tsx
+msgid "Live"
+msgstr ""
+
+#: src/components/Home/LiveSection.tsx
+#: src/components/Home/Popping/index.tsx
+msgid "What's Popping?"
+msgstr ""
+
 #: src/components/Home/OpenActions/Zora/Collect.tsx
 #~ msgid "{nftPriceInEth} ETH + {platformFeesInEth} ETH mint fees"
 #~ msgstr ""
@@ -885,10 +895,6 @@ msgstr "ETH"
 
 #: src/components/Home/OpenActions/index.tsx
 msgid "Cross Chain Collects"
-msgstr ""
-
-#: src/components/Home/Popping/index.tsx
-msgid "What's Popping?"
 msgstr ""
 
 #: src/components/Home/TopSection.tsx
@@ -1456,10 +1462,6 @@ msgstr "Danger Zone"
 #: src/components/Settings/index.tsx
 msgid "Channel Settings"
 msgstr "Channel Settings"
-
-#: src/components/Stream/index.tsx
-msgid "Live"
-msgstr ""
 
 #: src/components/Stream/index.tsx
 msgid "From the frens"
