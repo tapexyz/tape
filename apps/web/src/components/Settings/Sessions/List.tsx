@@ -8,7 +8,7 @@ import {
   AccordionItem,
   AccordionTrigger
 } from '@radix-ui/react-accordion'
-import { Blockquote, Button } from '@radix-ui/themes'
+import { Badge, Blockquote, Button } from '@radix-ui/themes'
 import {
   LimitType,
   useApprovedAuthenticationQuery,
@@ -80,7 +80,8 @@ const List = () => {
       collapsible
     >
       {sessions?.map((session) => {
-        const currentSession = session.authorizationId === getCurrentSessionId()
+        const isCurrentSession =
+          session.authorizationId === getCurrentSessionId()
         return (
           <AccordionItem
             className="bg-brand-50 dark:bg-brand-950/30 rounded-small group p-5"
@@ -90,7 +91,10 @@ const List = () => {
             <AccordionTrigger className="w-full text-left">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="font-semibold">{session.origin}</p>
+                  <div className="flex items-center space-x-2">
+                    <p className="font-semibold">{session.origin} </p>
+                    {isCurrentSession && <Badge color="grass">Current</Badge>}
+                  </div>
                   <span className="text-sm">{session.os}</span>
                 </div>
                 <ChevronDownOutline className="h-4 w-4 opacity-60 group-data-[state=open]:rotate-180" />
@@ -107,7 +111,7 @@ const List = () => {
                   disabled={
                     (revoking &&
                       revokingSessionId === session.authorizationId) ||
-                    currentSession
+                    isCurrentSession
                   }
                 >
                   Revoke
