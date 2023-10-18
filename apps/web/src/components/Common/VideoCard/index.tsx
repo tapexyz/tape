@@ -6,7 +6,7 @@ import {
   getProfilePicture,
   getRandomProfilePicture
 } from '@tape.xyz/generic'
-import type { MirrorablePublication, VideoMetadataV3 } from '@tape.xyz/lens'
+import type { PrimaryPublication, VideoMetadataV3 } from '@tape.xyz/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
@@ -19,7 +19,7 @@ import ThumbnailOverlays from './ThumbnailOverlays'
 import VideoOptions from './VideoOptions'
 
 type Props = {
-  video: MirrorablePublication
+  video: PrimaryPublication
 }
 
 const VideoCard: FC<Props> = ({ video }) => {
