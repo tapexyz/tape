@@ -273,7 +273,10 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost' }) => {
 
   const [removeVideoFromList] = useRemovePublicationBookmarkMutation({
     onError,
-    onCompleted: () => modifyListCache(false)
+    onCompleted: () => modifyListCache(false),
+    update: (cache) => {
+      cache.evict({})
+    }
   })
 
   const notInterested = () => {

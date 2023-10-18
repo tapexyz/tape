@@ -72,7 +72,14 @@ const Bookmarks: FC = () => {
   }
 
   if (!data?.publicationBookmarks?.items?.length) {
-    return <NoDataFound isCenter withImage text={t`No saved videos found`} />
+    return (
+      <NoDataFound
+        isCenter
+        withImage
+        text={t`No videos found`}
+        className="my-20"
+      />
+    )
   }
 
   return (
