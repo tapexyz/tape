@@ -69,7 +69,7 @@ const LatestBytes = () => {
                 }}
               />
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-b from-transparent to-black/30 px-4 py-2 text-white">
-                <h1 className="line-clamp-1 break-words">
+                <h1 className="line-clamp-2 break-words font-medium">
                   {byte.metadata.marketplace?.name}
                 </h1>
               </div>
