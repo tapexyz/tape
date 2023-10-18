@@ -10,7 +10,7 @@ const Category = () => {
   const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
 
   return (
-    <div className="space-y-1">
+    <div className="flex-1 space-y-1">
       <Text size="2" weight="medium">
         <Trans>Select Category</Trans>
       </Text>

@@ -57,7 +57,7 @@ const Publications: FC<Props> = ({ results, loading, clearSearch }) => {
               <div className="flex items-center space-x-3">
                 <img
                   className={clsx(
-                    'h-16 w-28 rounded-md bg-gray-300 object-center dark:bg-gray-700',
+                    'rounded-small h-16 w-28 bg-gray-300 object-center dark:bg-gray-700',
                     isBytesVideo ? 'object-contain' : 'object-cover'
                   )}
                   src={imageCdn(

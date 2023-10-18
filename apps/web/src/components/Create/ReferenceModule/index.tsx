@@ -32,7 +32,7 @@ const ReferenceModule = () => {
   }
 
   return (
-    <div className="space-y-1">
+    <div className="flex-1 space-y-1">
       <Text size="2" weight="medium">
         <Trans>Who can comment and mirror?</Trans>
       </Text>

@@ -1,6 +1,5 @@
 import KeyOutline from '@components/Common/Icons/KeyOutline'
 import WarningOutline from '@components/Common/Icons/WarningOutline'
-import ButtonShimmer from '@components/Shimmers/ButtonShimmer'
 import useAuthPersistStore, { signIn, signOut } from '@lib/store/auth'
 import useProfileStore from '@lib/store/profile'
 import { t } from '@lingui/macro'
@@ -22,6 +21,7 @@ import {
   useSimpleProfilesLazyQuery
 } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+import { Loader } from '@tape.xyz/ui'
 import { useRouter } from 'next/router'
 import React, { useCallback, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -163,7 +163,7 @@ const Authenticate = () => {
   }
 
   if (profilesLoading) {
-    return <ButtonShimmer />
+    return <Loader />
   }
 
   const profiles = data?.profilesManaged.items as Profile[]
