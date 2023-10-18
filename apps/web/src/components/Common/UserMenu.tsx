@@ -14,7 +14,6 @@ import React from 'react'
 import { toast } from 'react-hot-toast'
 import { useAccount, useDisconnect } from 'wagmi'
 
-import ChannelOutline from './Icons/ChannelOutline'
 import CogOutline from './Icons/CogOutline'
 import GraphOutline from './Icons/GraphOutline'
 import HandWaveOutline from './Icons/HandWaveOutline'
@@ -22,6 +21,7 @@ import MoonOutline from './Icons/MoonOutline'
 import SaveToListOutline from './Icons/SaveToListOutline'
 import SunOutline from './Icons/SunOutline'
 import SwitchChannelOutline from './Icons/SwitchChannelOutline'
+import UserOutline from './Icons/UserOutline'
 
 const UserMenu = () => {
   const { theme, setTheme } = useTheme()
@@ -112,7 +112,7 @@ const UserMenu = () => {
               <Flex gap="2" align="center">
                 <GraphOutline className="h-4 w-4" />
                 <Text as="p" className="truncate whitespace-nowrap">
-                  <Trans>App Info</Trans>
+                  <Trans>Mod</Trans>
                 </Text>
               </Flex>
             </DropdownMenu.Item>
@@ -127,7 +127,7 @@ const UserMenu = () => {
                 }
               >
                 <Flex gap="2" align="center">
-                  <ChannelOutline className="h-4 w-4" />
+                  <UserOutline className="h-4 w-4" />
                   <Text as="p" className="truncate whitespace-nowrap">
                     <Trans>My Profile</Trans>
                   </Text>

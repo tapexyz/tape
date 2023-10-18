@@ -62,7 +62,7 @@ const Recents = () => {
   })
   if (loading) {
     return (
-      <div className="pt-9">
+      <div className="pt-3">
         <TimelineShimmer />
       </div>
     )
@@ -72,7 +72,7 @@ const Recents = () => {
   }
 
   return (
-    <div className="pt-9">
+    <div className="pt-3">
       {!error && !loading && videos?.length ? (
         <>
           <Timeline videos={videos} />
