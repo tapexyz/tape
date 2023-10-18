@@ -23,7 +23,7 @@ msgid "Mirror"
 msgstr "镜像"
 
 #: src/components/Bytes/ByteActions.tsx
-#: src/components/Home/OpenActions/Zora/ZoraNft.tsx
+#: src/components/Home/FEOpenActions/Zora/ZoraNft.tsx
 #: src/components/Watch/OpenActions/CollectPublication/index.tsx
 msgid "Collect"
 msgstr "收集"
@@ -151,7 +151,6 @@ msgid "Verified"
 msgstr "已验证"
 
 #: src/components/Common/CategoryFilters.tsx
-#: src/components/Common/MobileBottomNav.tsx
 #: src/components/Explore/index.tsx
 msgid "Explore"
 msgstr "浏览"
@@ -263,22 +262,18 @@ msgstr "全镜像视频"
 msgid "Mirroring"
 msgstr "镜像"
 
-#: src/components/Common/MobileBottomNav.tsx
 #: src/components/Common/Navbar.tsx
-#: src/components/Home/index.tsx
 msgid "Home"
 msgstr "首页"
 
-#: src/components/Common/MobileBottomNav.tsx
-#: src/components/Common/Navbar.tsx
-msgid "Bytes"
-msgstr "字节"
-
-#: src/components/Common/MobileBottomNav.tsx
 #: src/components/Common/Navbar.tsx
 #: src/components/Feed/index.tsx
 msgid "Feed"
 msgstr "订阅源"
+
+#: src/components/Common/Navbar.tsx
+msgid "Bytes"
+msgstr "字节"
 
 #: src/components/Common/PostLinkModal.tsx
 #~ msgid "Share a Collect"
@@ -346,8 +341,12 @@ msgstr "未找到结果"
 #~ msgstr ""
 
 #: src/components/Common/UserMenu.tsx
-msgid "App Info"
-msgstr "应用信息"
+#~ msgid "App Info"
+#~ msgstr "应用信息"
+
+#: src/components/Common/UserMenu.tsx
+msgid "Mod"
+msgstr ""
 
 #: src/components/Common/UserMenu.tsx
 msgid "My Profile"
@@ -810,6 +809,7 @@ msgstr "上传视频到 Arweeve 失败"
 #: src/components/Explore/Hashtag/index.tsx
 #: src/components/Home/Feed.tsx
 #: src/components/Mod/Recents.tsx
+#: src/components/Profile/Bookmarks.tsx
 #: src/components/Profile/Tabs/ProfileVideos.tsx
 msgid "No videos found"
 msgstr "未找到视频"
@@ -827,8 +827,20 @@ msgid "Interesting"
 msgstr "有趣的"
 
 #: src/components/Feed/index.tsx
-msgid "You got no videos in your feed, explore!"
-msgstr "你在你的新闻源中没有视频，探索！"
+#~ msgid "You got no videos in your feed, explore!"
+#~ msgstr "你在你的新闻源中没有视频，探索！"
+
+#: src/components/Feed/index.tsx
+msgid "No videos in your feed, explore!"
+msgstr ""
+
+#: src/components/Feed/index.tsx
+msgid "Your Feed"
+msgstr ""
+
+#: src/components/Feed/index.tsx
+msgid "Your Friends' Stories"
+msgstr ""
 
 #: src/components/Home/DispatcherAlert.tsx
 #~ msgid "Upgrade your dispatcher to the latest version for better, faster signless transactions."
@@ -840,6 +852,19 @@ msgstr "你在你的新闻源中没有视频，探索！"
 
 #: src/components/Home/DispatcherAlert.tsx
 msgid "Update your dispatcher to the latest version for better, faster signless transactions."
+msgstr ""
+
+#: src/components/Home/FEOpenActions/Zora/Metadata.tsx
+#: src/components/Watch/VideoMeta.tsx
+msgid "collects"
+msgstr "收藏"
+
+#: src/components/Home/FEOpenActions/Zora/Metadata.tsx
+msgid "ETH"
+msgstr "ETH"
+
+#: src/components/Home/FEOpenActions/index.tsx
+msgid "Cross Chain Collects"
 msgstr ""
 
 #: src/components/Home/GitcoinAlert.tsx
@@ -883,19 +908,6 @@ msgstr "什么是弹出？"
 #: src/components/Home/OpenActions/Zora/Collect.tsx
 #~ msgid "{nftPriceInEth} ETH + {platformFeesInEth} ETH mint fees"
 #~ msgstr ""
-
-#: src/components/Home/OpenActions/Zora/Metadata.tsx
-#: src/components/Watch/VideoMeta.tsx
-msgid "collects"
-msgstr "收藏"
-
-#: src/components/Home/OpenActions/Zora/Metadata.tsx
-msgid "ETH"
-msgstr "ETH"
-
-#: src/components/Home/OpenActions/index.tsx
-msgid "Cross Chain Collects"
-msgstr ""
 
 #: src/components/Home/TopSection.tsx
 msgid "Today"
@@ -1101,8 +1113,8 @@ msgid "Block"
 msgstr ""
 
 #: src/components/Profile/Bookmarks.tsx
-msgid "No saved videos found"
-msgstr "未找到保存的视频"
+#~ msgid "No saved videos found"
+#~ msgstr "未找到保存的视频"
 
 #: src/components/Profile/Bookmarks.tsx
 msgid "Saved Videos"

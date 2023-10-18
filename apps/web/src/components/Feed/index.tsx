@@ -64,7 +64,7 @@ const Feed = () => {
       <NoDataFound
         isCenter
         withImage
-        text={t`You got no videos in your feed, explore!`}
+        text={t`No videos in your feed, explore!`}
       />
     )
   }

@@ -11,18 +11,19 @@ export const NoDataFound = ({
 }) => {
   return (
     <div
-      className={clsx('flex flex-col space-y-1 rounded-lg p-6', className, {
+      className={clsx('flex flex-col space-y-6 rounded-lg p-6', className, {
         'items-center justify-center': isCenter
       })}
     >
       {withImage && (
         <img
           src={imageCdn(
-            `${STATIC_ASSETS}/mobile/icons/ice-cubes.png`,
+            `${STATIC_ASSETS}/images/illustrations/404.gif`,
             'AVATAR'
           )}
-          className="w-24"
-          alt="no results"
+          height={70}
+          width={70}
+          alt="zero trace!"
           draggable={false}
         />
       )}
