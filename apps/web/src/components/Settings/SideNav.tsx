@@ -96,7 +96,6 @@ const SideNav = () => {
           <Trans>Sessions</Trans>
         </span>
       </Link>
-
       <Link
         href={SETTINGS_BLOCKED}
         className={clsx(
