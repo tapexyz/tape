@@ -6,7 +6,7 @@ import React from 'react'
 
 import type { MentionProps } from './utils'
 
-const ChannelLink = ({ ...props }: any) => {
+const ProfileLink = ({ ...props }: any) => {
   return (
     <Link
       href={`/u/${trimLensHandle(props.display?.slice(1))}`}
@@ -27,7 +27,7 @@ const ChannelLink = ({ ...props }: any) => {
 
 export class MentionMatcher extends Matcher<MentionProps> {
   replaceWith(match: string, props: MentionProps) {
-    return React.createElement(ChannelLink, props, match)
+    return React.createElement(ProfileLink, props, match)
   }
 
   asTag(): string {
