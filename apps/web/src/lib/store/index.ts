@@ -22,7 +22,7 @@ export const UPLOADED_VIDEO_IRYS_DEFAULTS = {
 export const UPLOADED_VIDEO_FORM_DEFAULTS = {
   stream: null,
   preview: '',
-  videoType: '',
+  mediaType: '',
   file: null,
   title: '',
   description: '',

@@ -34,7 +34,7 @@ const DropZone = () => {
         setUploadedVideo({
           stream: fileReaderStream(file),
           preview,
-          videoType: file?.type || 'video/mp4',
+          mediaType: file?.type || 'video/mp4',
           file,
           isUploadToIpfs: isUnderFreeLimit
         })

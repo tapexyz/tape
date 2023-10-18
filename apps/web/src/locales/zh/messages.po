@@ -654,6 +654,10 @@ msgid "Description should not exceed 5000 characters"
 msgstr "描述不能超过 5000 个字符"
 
 #: src/components/Create/Details.tsx
+msgid "Please choose a media to upload"
+msgstr ""
+
+#: src/components/Create/Details.tsx
 msgid "Please select or upload a thumbnail"
 msgstr "请选择或上传缩略图"
 

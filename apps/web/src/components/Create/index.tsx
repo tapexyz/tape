@@ -151,7 +151,7 @@ const CreateSteps = () => {
       return
     }
     Analytics.track(TRACK.PUBLICATION.NEW_POST, {
-      video_format: uploadedVideo.videoType,
+      video_format: uploadedVideo.mediaType,
       video_type: uploadedVideo.isByteVideo ? 'SHORT_FORM' : 'LONG_FORM',
       publication_state: uploadedVideo.collectModule.isRevertCollect
         ? 'DATA_ONLY'
@@ -455,7 +455,7 @@ const CreateSteps = () => {
       })
       const instance = irysData.instance
       const tags = [
-        { name: 'Content-Type', value: uploadedVideo.videoType || 'video/mp4' },
+        { name: 'Content-Type', value: uploadedVideo.mediaType || 'video/mp4' },
         { name: 'App-Name', value: TAPE_APP_NAME },
         { name: 'Profile-Id', value: activeProfile?.id },
         // ANS-110 standard

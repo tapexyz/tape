@@ -1,25 +1,22 @@
 import VideoCard from '@components/Common/VideoCard'
 import QueuedVideo from '@components/Common/VideoCard/QueuedVideo'
-import MirroredVideoCard from '@components/Profile/MirroredVideoCard'
 import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
 import { getProfile, getPublication } from '@tape.xyz/generic'
-import type { AnyPublication, Mirror, Profile } from '@tape.xyz/lens'
+import type { AnyPublication, Profile } from '@tape.xyz/lens'
 import type { FC } from 'react'
 import React from 'react'
 
 type Props = {
   videos: AnyPublication[]
-  videoType?: 'Post' | 'Mirror' | 'Comment'
 }
 
-const Timeline: FC<Props> = ({ videos, videoType = 'Post' }) => {
+const Timeline: FC<Props> = ({ videos }) => {
   const queuedVideos = usePersistStore((state) => state.queuedVideos)
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
 
-  const isMirror = videoType === 'Mirror'
   const isProfilePage =
     location.pathname ===
     `/u/${getProfile(selectedSimpleProfile as Profile)?.slug}`
@@ -34,19 +31,9 @@ const Timeline: FC<Props> = ({ videos, videoType = 'Post' }) => {
           />
         ))}
       {videos?.map((video: AnyPublication, i) => {
-        const isPub = video.__typename === videoType
         const targetPublication = getPublication(video)
 
-        return isPub && isMirror ? (
-          <MirroredVideoCard
-            key={`${video?.id}_${i}`}
-            video={video as Mirror}
-          />
-        ) : (
-          isPub && (
-            <VideoCard key={`${video?.id}_${i}`} video={targetPublication} />
-          )
-        )
+        return <VideoCard key={`${video?.id}_${i}`} video={targetPublication} />
       })}
     </div>
   )

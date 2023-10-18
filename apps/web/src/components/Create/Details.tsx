@@ -62,6 +62,9 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
   })
 
   const onSubmitForm = (data: VideoFormData) => {
+    if (!uploadedVideo.file) {
+      return toast.error(t`Please choose a media to upload`)
+    }
     if (!uploadedVideo.thumbnail?.length) {
       return toast.error(t`Please select or upload a thumbnail`)
     }
