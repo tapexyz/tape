@@ -88,21 +88,21 @@ export const getCollectModuleConfig = (collectModule: string) => {
     case 'MultirecipientFeeCollectOpenActionModule':
       return {
         type: 'openActionModule',
-        label: 'Multi recipient collect',
+        label: 'Multi recipient collects',
         description:
           'Collect any publication which splits collect revenue with multiple recipients.'
       }
     case 'SimpleCollectOpenActionModule':
       return {
         type: 'openActionModule',
-        label: 'Simple collect',
+        label: 'Simple collects',
         description:
           'Collect any publication including paid collects, limited and timed free collects and more!'
       }
     case 'FeeFollowModule':
       return {
         type: 'followModule',
-        label: 'Subscribe',
+        label: 'Subscribe Profiles',
         description:
           'Subscribe any profile by paying a fee specified by the profile owner.'
       }

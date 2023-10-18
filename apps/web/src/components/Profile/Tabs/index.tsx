@@ -28,7 +28,7 @@ const ProfileTabs: FC<Props> = ({ profile }) => {
   const activeTab = (router.query.tab ?? 'videos') as string
 
   return (
-    <div className="container mx-auto my-4 w-full max-w-[70rem] md:my-5">
+    <div className="my-4 w-full md:my-5">
       <Tabs.Root defaultValue={activeTab}>
         <Tabs.List>
           <Tabs.Trigger

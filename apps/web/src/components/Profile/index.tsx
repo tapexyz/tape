@@ -14,6 +14,7 @@ import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
 
 import BasicInfo from './BasicInfo'
+import Cover from './Cover'
 import ProfileTabs from './Tabs'
 import PinnedVideo from './Tabs/PinnedVideo'
 
@@ -53,7 +54,6 @@ const Channel = () => {
     profile?.metadata?.attributes,
     'pinnedPublicationId'
   )
-
   return (
     <>
       <MetaTags
@@ -62,9 +62,12 @@ const Channel = () => {
       />
       {!loading && !error && profile ? (
         <>
-          <BasicInfo profile={profile} />
-          {pinnedVideoId?.length ? <PinnedVideo id={pinnedVideoId} /> : null}
-          <ProfileTabs profile={profile} />
+          <Cover profile={profile} />
+          <div className="container mx-auto max-w-screen-xl">
+            <BasicInfo profile={profile} />
+            {pinnedVideoId?.length ? <PinnedVideo id={pinnedVideoId} /> : null}
+            <ProfileTabs profile={profile} />
+          </div>
         </>
       ) : null}
     </>
