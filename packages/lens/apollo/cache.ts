@@ -22,10 +22,7 @@ const cache = new InMemoryCache({
           ['orderBy', 'limit', 'where']
         ]),
         nfts: cursorBasedPagination(['request', ['limit', 'where']]),
-        notifications: cursorBasedPagination([
-          'request',
-          ['profileId', 'notificationTypes', 'highSignalFilter']
-        ]),
+        notifications: cursorBasedPagination(['request', ['where']]),
         followers: cursorBasedPagination(['request', ['limit', 'of']]),
         following: cursorBasedPagination(['request', ['limit', 'for']]),
         searchProfiles: cursorBasedPagination([
