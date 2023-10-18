@@ -79,7 +79,9 @@ const NewComment: FC<Props> = ({
   const { cache } = useApolloClient()
 
   const [loading, setLoading] = useState(false)
-  const activeProfile = useProfileStore((state) => state.activeProfile)
+  const activeProfile = useProfileStore(
+    (state) => state.activeProfile
+  ) as Profile
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
@@ -286,7 +288,7 @@ const NewComment: FC<Props> = ({
         {
           type: MetadataAttributeType.STRING,
           key: 'creator',
-          value: `${getProfile(activeProfile as Profile)?.slug}`
+          value: `${getProfile(activeProfile)?.slug}`
         },
         {
           type: MetadataAttributeType.STRING,
@@ -301,7 +303,7 @@ const NewComment: FC<Props> = ({
         content: trimify(formData.comment),
         locale: getUserLocale(),
         marketplace: {
-          name: `${getProfile(activeProfile as Profile)
+          name: `${getProfile(activeProfile)
             ?.slug}'s comment on video ${targetVideo.metadata.marketplace
             ?.name}`,
           attributes,

@@ -25,7 +25,7 @@ type Props = {
 const QueuedComment: FC<Props> = ({ queuedComment }) => {
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
-  )
+  ) as Profile
   const queuedComments = usePersistStore((state) => state.queuedComments)
   const setQueuedComments = usePersistStore((state) => state.setQueuedComments)
 
@@ -120,23 +120,23 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
     <div className="flex items-start justify-between">
       <div className="flex items-start justify-between">
         <Link
-          href={`/u/${getProfile(selectedSimpleProfile as Profile)?.slug}`}
+          href={`/u/${getProfile(selectedSimpleProfile)?.slug}`}
           className="mr-3 mt-0.5 flex-none"
         >
           <img
-            src={getProfilePicture(selectedSimpleProfile as Profile, 'AVATAR')}
+            src={getProfilePicture(selectedSimpleProfile, 'AVATAR')}
             className="h-7 w-7 rounded-full"
             draggable={false}
-            alt={getProfile(selectedSimpleProfile as Profile)?.slug}
+            alt={getProfile(selectedSimpleProfile)?.slug}
           />
         </Link>
         <div className="mr-2 flex flex-col items-start">
           <span className="mb-1 flex items-center space-x-1">
             <Link
-              href={`/u/${getProfile(selectedSimpleProfile as Profile)?.slug}`}
+              href={`/u/${getProfile(selectedSimpleProfile)?.slug}`}
               className="flex items-center space-x-1 text-sm font-medium"
             >
-              <span>{getProfile(selectedSimpleProfile as Profile)?.slug}</span>
+              <span>{getProfile(selectedSimpleProfile)?.slug}</span>
               <Badge id={selectedSimpleProfile.id} />
             </Link>
           </span>

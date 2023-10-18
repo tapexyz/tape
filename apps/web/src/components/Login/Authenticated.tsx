@@ -17,7 +17,7 @@ const Authenticated = () => {
 
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
-  )
+  ) as Profile
 
   if (!selectedSimpleProfile) {
     return
@@ -27,12 +27,12 @@ const Authenticated = () => {
     <Flex className="py-10" direction="column" align="center">
       <Avatar
         size="7"
-        src={getProfilePicture(selectedSimpleProfile as Profile)}
-        fallback={getProfile(selectedSimpleProfile as Profile)?.slug[0] ?? ''}
-        alt={getProfile(selectedSimpleProfile as Profile)?.slug}
+        src={getProfilePicture(selectedSimpleProfile)}
+        fallback={getProfile(selectedSimpleProfile)?.slug[0] ?? ';)'}
+        alt={getProfile(selectedSimpleProfile)?.slug}
       />
       <Text as="p" weight="bold">
-        {getProfile(selectedSimpleProfile as Profile)?.slug}
+        {getProfile(selectedSimpleProfile)?.slug}
       </Text>
       <Flex gap="3" mt="5">
         <Link href="/">

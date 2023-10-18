@@ -20,13 +20,13 @@ if (IS_PRODUCTION) {
 const TelemetryProvider: FC = () => {
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
-  )
+  ) as Profile
 
   useEffect(() => {
     if (IS_PRODUCTION && selectedSimpleProfile?.id) {
       mixpanel.identify(selectedSimpleProfile?.id)
       mixpanel.people.set({
-        $name: getProfile(selectedSimpleProfile as Profile)?.slug,
+        $name: getProfile(selectedSimpleProfile)?.slug,
         $last_active: new Date()
       })
       mixpanel.people.set_once({

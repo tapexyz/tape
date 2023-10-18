@@ -70,7 +70,9 @@ const PostLinkModal: FC<Props> = ({ show, setShow }) => {
   const [loading, setLoading] = useState(false)
   const handleWrongNetwork = useHandleWrongNetwork()
 
-  const activeProfile = useProfileStore((state) => state.activeProfile)
+  const activeProfile = useProfileStore(
+    (state) => state.activeProfile
+  ) as Profile
   const canUseRelay = activeProfile?.lensManager && activeProfile?.sponsor
 
   const {
@@ -211,7 +213,7 @@ const PostLinkModal: FC<Props> = ({ show, setShow }) => {
       content: `Check out this drop 📼 \n${linkText}`,
       locale: getUserLocale(),
       marketplace: {
-        name: `Link by @${getProfile(activeProfile as Profile)?.slug}`,
+        name: `Link by @${getProfile(activeProfile)?.slug}`,
         attributes,
         description: linkText,
         external_url: TAPE_WEBSITE_URL

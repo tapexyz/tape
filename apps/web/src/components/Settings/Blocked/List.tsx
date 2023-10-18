@@ -95,7 +95,7 @@ const List = () => {
               <Avatar
                 className="border-2 border-white bg-white object-cover dark:bg-gray-900"
                 size="3"
-                fallback={getProfile(profile)?.displayName.charAt(0) ?? ''}
+                fallback={getProfile(profile)?.displayName[0] ?? ';)'}
                 radius="medium"
                 src={getProfilePicture(profile, 'AVATAR')}
               />

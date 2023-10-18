@@ -186,7 +186,7 @@ const Authenticate = () => {
                   <Flex gap="2">
                     <Avatar
                       src={getProfilePicture(profile)}
-                      fallback={getProfile(profile)?.displayName[0] ?? ''}
+                      fallback={getProfile(profile)?.displayName[0] ?? ';)'}
                       radius="full"
                       size="1"
                     />

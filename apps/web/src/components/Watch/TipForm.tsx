@@ -92,7 +92,9 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
   )
   const queuedComments = usePersistStore((state) => state.queuedComments)
   const setQueuedComments = usePersistStore((state) => state.setQueuedComments)
-  const activeProfile = useProfileStore((state) => state.activeProfile)
+  const activeProfile = useProfileStore(
+    (state) => state.activeProfile
+  ) as Profile
   const canUseRelay = activeProfile?.lensManager && activeProfile?.sponsor
 
   const onError = (error: CustomErrorWithData) => {
@@ -262,7 +264,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
         {
           type: MetadataAttributeType.STRING,
           key: 'creator',
-          value: `${getProfile(activeProfile as Profile)?.slug}`
+          value: `${getProfile(activeProfile)?.slug}`
         },
         {
           type: MetadataAttributeType.STRING,
@@ -287,7 +289,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
         content: getValues('message'),
         locale: getUserLocale(),
         marketplace: {
-          name: `${getProfile(activeProfile as Profile)
+          name: `${getProfile(activeProfile)
             ?.slug}'s comment on video ${targetVideo.metadata.marketplace
             ?.name}`,
           attributes,

@@ -74,7 +74,7 @@ const LatestBytes = () => {
                 </h1>
               </div>
             </Link>
-            <div className="invisible flex items-center p-1 group-hover:visible">
+            <div className="invisible flex items-center p-1 transition-all duration-150 ease-in-out group-hover:visible">
               <Link
                 href={`/u/${getProfile(byte.by)?.slug}`}
                 className="flex items-center space-x-1"

@@ -31,7 +31,7 @@ const UserMenu = () => {
 
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
-  )
+  ) as Profile
   const setSelectedSimpleProfile = useAuthPersistStore(
     (state) => state.setSelectedSimpleProfile
   )
@@ -85,10 +85,8 @@ const UserMenu = () => {
           <Avatar
             size="3"
             radius="full"
-            src={getProfilePicture(selectedSimpleProfile as Profile)}
-            fallback={
-              getProfile(selectedSimpleProfile as Profile)?.slug[0] ?? ''
-            }
+            src={getProfilePicture(selectedSimpleProfile)}
+            fallback={getProfile(selectedSimpleProfile)?.slug[0] ?? ''}
           />
         </div>
       </DropdownMenu.Trigger>
@@ -98,13 +96,11 @@ const UserMenu = () => {
             <Avatar
               size="1"
               radius="full"
-              src={getProfilePicture(selectedSimpleProfile as Profile)}
-              fallback={
-                getProfile(selectedSimpleProfile as Profile)?.slug[0] ?? ''
-              }
+              src={getProfilePicture(selectedSimpleProfile)}
+              fallback={getProfile(selectedSimpleProfile)?.slug[0] ?? ''}
             />
             <Text as="p" weight="bold" className="line-clamp-1">
-              {getProfile(selectedSimpleProfile as Profile)?.slug}
+              {getProfile(selectedSimpleProfile)?.slug}
             </Text>
           </Flex>
           {isAdmin && (
@@ -121,9 +117,7 @@ const UserMenu = () => {
             <>
               <DropdownMenu.Item
                 onClick={() =>
-                  push(
-                    `/u/${getProfile(selectedSimpleProfile as Profile)?.slug}`
-                  )
+                  push(`/u/${getProfile(selectedSimpleProfile)?.slug}`)
                 }
               >
                 <Flex gap="2" align="center">
@@ -162,9 +156,7 @@ const UserMenu = () => {
                           size="1"
                           radius="full"
                           src={getProfilePicture(profile)}
-                          fallback={
-                            getProfile(profile as Profile)?.displayName[0] ?? ''
-                          }
+                          fallback={getProfile(profile)?.displayName[0] ?? ''}
                         />
                         <Text as="p" className="truncate whitespace-nowrap">
                           {getProfile(profile)?.slug}

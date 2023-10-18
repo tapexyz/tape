@@ -70,7 +70,9 @@ const CreateSteps = () => {
   const irysData = useAppStore((state) => state.irysData)
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
   const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
-  const activeProfile = useProfileStore((state) => state.activeProfile)
+  const activeProfile = useProfileStore(
+    (state) => state.activeProfile
+  ) as Profile
 
   const queuedVideos = usePersistStore((state) => state.queuedVideos)
   const setQueuedVideos = usePersistStore((state) => state.setQueuedVideos)
@@ -93,8 +95,8 @@ const CreateSteps = () => {
   const redirectToChannelPage = () => {
     router.push(
       uploadedVideo.isByteVideo
-        ? `/u/${getProfile(activeProfile as Profile)?.slug}?tab=bytes`
-        : `/u/${getProfile(activeProfile as Profile)?.slug}`
+        ? `/u/${getProfile(activeProfile)?.slug}?tab=bytes`
+        : `/u/${getProfile(activeProfile)?.slug}`
     )
   }
 
@@ -292,7 +294,7 @@ const CreateSteps = () => {
         {
           type: MetadataAttributeType.STRING,
           key: 'creator',
-          value: `${getProfile(activeProfile as Profile)?.slug}`
+          value: `${getProfile(activeProfile)?.slug}`
         },
         {
           type: MetadataAttributeType.STRING,
@@ -323,9 +325,8 @@ const CreateSteps = () => {
         marketplace: {
           attributes,
           animation_url: uploadedVideo.videoSource,
-          external_url: `${TAPE_WEBSITE_URL}/u/${getProfile(
-            activeProfile as Profile
-          )?.slug}`,
+          external_url: `${TAPE_WEBSITE_URL}/u/${getProfile(activeProfile)
+            ?.slug}`,
           image: uploadedVideo.thumbnail,
           name: uploadedVideo.title,
           description: trimify(uploadedVideo.description)

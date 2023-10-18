@@ -33,7 +33,7 @@ type Props = {
 const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
-  )
+  ) as Profile
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
   const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
 
@@ -141,8 +141,8 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
         <div className="flex items-start space-x-2.5">
           <img
             className="h-8 w-8 rounded-full"
-            src={getProfilePicture(selectedSimpleProfile as Profile)}
-            alt={getProfile(selectedSimpleProfile as Profile)?.slug}
+            src={getProfilePicture(selectedSimpleProfile)}
+            alt={getProfile(selectedSimpleProfile)?.slug}
             draggable={false}
           />
           <div className="grid flex-1">
@@ -163,7 +163,7 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
               </div>
             </div>
             <span className="flex w-fit items-center space-x-0.5 text-[13px] opacity-70">
-              <span>{getProfile(selectedSimpleProfile as Profile)?.slug}</span>
+              <span>{getProfile(selectedSimpleProfile)?.slug}</span>
               <Badge id={selectedSimpleProfile?.id} size="xs" />
             </span>
           </div>

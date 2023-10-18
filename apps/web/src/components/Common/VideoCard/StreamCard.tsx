@@ -11,7 +11,6 @@ import type { FC } from 'react'
 import React from 'react'
 
 import HoverableProfile from '../HoverableProfile'
-import CommentOutline from '../Icons/CommentOutline'
 import HeartOutline from '../Icons/HeartOutline'
 import ThumbnailImage from './ThumbnailImage'
 import VideoOptions from './VideoOptions'
@@ -69,11 +68,6 @@ const StreamCard: FC<Props> = ({ stream }) => {
               <Flex align="center" gap="1">
                 <HeartOutline className="h-3 w-3" />
                 {formatNumber(stream.stats?.reactions)}
-              </Flex>
-              <span className="middot" />
-              <Flex align="center" gap="1">
-                <CommentOutline className="h-3 w-3" />
-                {formatNumber(stream.stats?.comments)}
               </Flex>
               <span className="middot" />
               <span>{getShortHandTime(stream.createdAt)}</span>

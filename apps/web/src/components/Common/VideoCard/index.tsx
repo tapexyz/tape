@@ -1,18 +1,13 @@
 import { getShortHandTime } from '@lib/formatTime'
 import { AspectRatio, Avatar, Flex } from '@radix-ui/themes'
 import { LENSTUBE_BYTES_APP_ID } from '@tape.xyz/constants'
-import {
-  formatNumber,
-  getProfilePicture,
-  getRandomProfilePicture
-} from '@tape.xyz/generic'
+import { formatNumber, getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { PrimaryPublication, VideoMetadataV3 } from '@tape.xyz/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
 
 import HoverableProfile from '../HoverableProfile'
-import CommentOutline from '../Icons/CommentOutline'
 import HeartOutline from '../Icons/HeartOutline'
 import ThumbnailImage from './ThumbnailImage'
 import ThumbnailOverlays from './ThumbnailOverlays'
@@ -43,9 +38,9 @@ const VideoCard: FC<Props> = ({ video }) => {
         <Flex gap="2">
           <Avatar
             src={getProfilePicture(video.by)}
-            size="1"
+            size="2"
             radius="full"
-            fallback={getRandomProfilePicture(video.by.ownedBy.address)}
+            fallback={getProfile(video.by)?.displayName[0] ?? ';)'}
           />
 
           <Flex direction="column" justify="between" width="100%">
@@ -69,11 +64,6 @@ const VideoCard: FC<Props> = ({ video }) => {
               <Flex align="center" gap="1">
                 <HeartOutline className="h-3 w-3" />
                 {formatNumber(video.stats?.reactions)}
-              </Flex>
-              <span className="middot" />
-              <Flex align="center" gap="1">
-                <CommentOutline className="h-3 w-3" />
-                {formatNumber(video.stats?.comments)}
               </Flex>
               <span className="middot" />
               <span>{getShortHandTime(video.createdAt)}</span>
