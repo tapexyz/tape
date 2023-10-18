@@ -11,9 +11,16 @@ export const getProfile = (
   displayName: string
   link: string
   address: string
-} | null => {
+} => {
   if (!profile) {
-    return null
+    return {
+      prefix: '@',
+      slug: '',
+      slugWithPrefix: '',
+      displayName: '',
+      link: '',
+      address: ''
+    }
   }
 
   const prefix = profile.handle ? '@' : '#'

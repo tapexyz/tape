@@ -8,19 +8,20 @@ import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { useProfilesQuery } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
 import React from 'react'
 import { toast } from 'react-hot-toast'
 import { useAccount, useDisconnect } from 'wagmi'
 
+import BookmarkOutline from './Icons/BookmarkOutline'
 import CogOutline from './Icons/CogOutline'
 import GraphOutline from './Icons/GraphOutline'
 import HandWaveOutline from './Icons/HandWaveOutline'
 import MoonOutline from './Icons/MoonOutline'
-import SaveToListOutline from './Icons/SaveToListOutline'
 import SunOutline from './Icons/SunOutline'
-import SwitchChannelOutline from './Icons/SwitchChannelOutline'
+import SwitchProfileOutline from './Icons/SwitchProfileOutline'
 import UserOutline from './Icons/UserOutline'
 
 const UserMenu = () => {
@@ -92,17 +93,19 @@ const UserMenu = () => {
       </DropdownMenu.Trigger>
       <DropdownMenu.Content sideOffset={10} variant="soft" align="end">
         <div className="w-48">
-          <Flex gap="2" px="2" py="1" pb="3" align="center">
-            <Avatar
-              size="1"
-              radius="full"
-              src={getProfilePicture(selectedSimpleProfile)}
-              fallback={getProfile(selectedSimpleProfile)?.slug[0] ?? ''}
-            />
-            <Text as="p" weight="bold" className="line-clamp-1">
-              {getProfile(selectedSimpleProfile)?.slug}
-            </Text>
-          </Flex>
+          <Link href={getProfile(selectedSimpleProfile)?.link}>
+            <Flex gap="2" px="2" py="1" pb="3" align="center">
+              <Avatar
+                size="1"
+                radius="full"
+                src={getProfilePicture(selectedSimpleProfile)}
+                fallback={getProfile(selectedSimpleProfile)?.slug[0] ?? ''}
+              />
+              <Text as="p" weight="bold" className="line-clamp-1">
+                {getProfile(selectedSimpleProfile)?.slug}
+              </Text>
+            </Flex>
+          </Link>
           {isAdmin && (
             <DropdownMenu.Item onClick={() => push('/mod')}>
               <Flex gap="2" align="center">
@@ -129,7 +132,7 @@ const UserMenu = () => {
               </DropdownMenu.Item>
               <DropdownMenu.Item onClick={() => push('/bookmarks')}>
                 <Flex gap="2" align="center">
-                  <SaveToListOutline className="h-4 w-4" />
+                  <BookmarkOutline className="h-4 w-4" />
                   <Text as="p" className="truncate whitespace-nowrap">
                     <Trans>Bookmarks</Trans>
                   </Text>
@@ -139,7 +142,7 @@ const UserMenu = () => {
               <DropdownMenu.Sub>
                 <DropdownMenu.SubTrigger>
                   <Flex align="center" gap="2">
-                    <SwitchChannelOutline className="h-4 w-4" />
+                    <SwitchProfileOutline className="h-4 w-4" />
                     <Text as="p" className="truncate whitespace-nowrap">
                       <Trans>Switch Profile</Trans>
                     </Text>

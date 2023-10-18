@@ -48,10 +48,10 @@ import toast from 'react-hot-toast'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
+import BookmarkOutline from '../Icons/BookmarkOutline'
 import FlagOutline from '../Icons/FlagOutline'
 import ForbiddenOutline from '../Icons/ForbiddenOutline'
 import PinOutline from '../Icons/PinOutline'
-import SaveToListOutline from '../Icons/SaveToListOutline'
 import ShareOutline from '../Icons/ShareOutline'
 import ThreeDotsOutline from '../Icons/ThreeDotsOutline'
 import TimesOutline from '../Icons/TimesOutline'
@@ -395,7 +395,7 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost' }) => {
               <>
                 <DropdownMenu.Item onClick={() => saveToList()}>
                   <Flex align="center" gap="2">
-                    <SaveToListOutline className="h-3.5 w-3.5 flex-none" />
+                    <BookmarkOutline className="h-3.5 w-3.5 flex-none" />
                     <span className="truncate whitespace-nowrap">
                       {video.operations.hasBookmarked ? (
                         <Trans>Unsave</Trans>
