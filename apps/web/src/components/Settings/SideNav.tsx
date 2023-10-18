@@ -27,7 +27,7 @@ const SideNav = () => {
   const isActivePath = (path: string) => router.pathname === path
 
   return (
-    <div className="m-1 flex flex-col space-y-1">
+    <div className="m-1 flex w-3/4 flex-col space-y-1">
       <Link
         href={SETTINGS}
         className={clsx(
