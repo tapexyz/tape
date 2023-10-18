@@ -1,5 +1,6 @@
 import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { getDateString } from '@lib/formatTime'
 import getCurrentSessionId from '@lib/getCurrentSessionId'
 import useAuthPersistStore from '@lib/store/auth'
 import {
@@ -98,7 +99,8 @@ const List = () => {
             <AccordionContent className="pt-5">
               <div className="flex items-center justify-between">
                 <Blockquote>
-                  {session.browser}, created at {session.createdAt}
+                  {session.browser}, created at{' '}
+                  {getDateString(session.createdAt)}
                 </Blockquote>
                 <Button
                   onClick={() => revoke(session.authorizationId)}
