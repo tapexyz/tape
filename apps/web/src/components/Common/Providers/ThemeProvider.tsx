@@ -14,7 +14,7 @@ type Props = {
 const ThemeProvider: FC<Props> = ({ children }) => {
   const { isMobile, isTablet } = useScreenSize()
   return (
-    <NextTheme defaultTheme="dark" attribute="class">
+    <NextTheme defaultTheme="light" attribute="class">
       <Theme
         accentColor="gray"
         scaling={isMobile ? '90%' : isTablet ? '95%' : '100%'}

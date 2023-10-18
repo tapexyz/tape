@@ -8,8 +8,7 @@ import type { NextPage } from 'next'
 import React, { useEffect } from 'react'
 
 import Feed from './Feed'
-import LiveSection from './LiveSection'
-import OpenActions from './OpenActions'
+import OpenActions from './FEOpenActions'
 import TopSection from './TopSection'
 
 const Home: NextPage = () => {
@@ -30,7 +29,7 @@ const Home: NextPage = () => {
       ) && <OpenActions />}
 
       <TopSection />
-      <LiveSection />
+      {/* <LiveSection /> */}
       <Feed />
     </>
   )

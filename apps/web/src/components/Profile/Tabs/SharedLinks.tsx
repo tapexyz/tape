@@ -1,4 +1,4 @@
-import SharedLink from '@components/Home/OpenActions/SharedLink'
+import SharedLink from '@components/Home/FEOpenActions/SharedLink'
 import OpenActionsShimmer from '@components/Shimmers/OpenActionsShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { t } from '@lingui/macro'

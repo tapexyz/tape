@@ -7,7 +7,7 @@ import { getOpenActionNftMetadata, getURLs } from '@tape.xyz/generic'
 import type { BasicNftMetadata } from '@tape.xyz/lens/custom-types'
 import React, { useRef } from 'react'
 
-import ZoraNft from '../OpenActions/Zora/ZoraNft'
+import ZoraNft from '../FEOpenActions/Zora/ZoraNft'
 import UnlonelyStreams from './UnlonelyStreams'
 
 const WhatsPopping = () => {
