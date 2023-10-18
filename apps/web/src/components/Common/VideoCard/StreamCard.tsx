@@ -1,5 +1,5 @@
 import { getShortHandTime } from '@lib/formatTime'
-import { AspectRatio, Avatar, Badge, Flex } from '@radix-ui/themes'
+import { AspectRatio, Avatar, Badge, Flex, Text } from '@radix-ui/themes'
 import {
   formatNumber,
   getProfilePicture,
@@ -25,7 +25,7 @@ const StreamCard: FC<Props> = ({ stream }) => {
   const href = `/watch/${stream.id}`
 
   return (
-    <div className="group w-80">
+    <div className="ultrawide:w-[23rem] group w-80">
       <Link href={href}>
         <AspectRatio
           ratio={16 / 9}
@@ -34,7 +34,7 @@ const StreamCard: FC<Props> = ({ stream }) => {
           <ThumbnailImage video={stream} />
           <div className="absolute bottom-2 right-2">
             <Badge size="2" color="red">
-              Live
+              <Text weight="bold">Live</Text>
             </Badge>
           </div>
         </AspectRatio>
