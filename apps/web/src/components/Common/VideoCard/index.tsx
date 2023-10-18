@@ -41,14 +41,12 @@ const VideoCard: FC<Props> = ({ video }) => {
       </Link>
       <div className="py-2">
         <Flex gap="2">
-          <HoverableProfile profile={video.by}>
-            <Avatar
-              src={getProfilePicture(video.by)}
-              size="1"
-              radius="full"
-              fallback={getRandomProfilePicture(video.by.ownedBy.address)}
-            />
-          </HoverableProfile>
+          <Avatar
+            src={getProfilePicture(video.by)}
+            size="1"
+            radius="full"
+            fallback={getRandomProfilePicture(video.by.ownedBy.address)}
+          />
 
           <Flex direction="column" justify="between" width="100%">
             <div className="flex w-full min-w-0 items-start justify-between space-x-1.5">

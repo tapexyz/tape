@@ -27,7 +27,7 @@ const CategoryFilters = () => {
       />
       <div
         ref={sectionRef}
-        className="no-scrollbar ultrawide:py-8 laptop:py-6 sticky top-72 flex touch-pan-x items-center overflow-x-auto scroll-smooth py-4 md:mx-auto"
+        className="no-scrollbar laptop:py-6 sticky top-72 flex touch-pan-x items-center overflow-x-auto scroll-smooth py-4 md:mx-auto"
       >
         <button
           className={clsx(
