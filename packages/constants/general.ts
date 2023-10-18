@@ -138,12 +138,20 @@ export const TAPE_ADMIN_ADDRESS = '0xB89560D7b33ea8d787EaaEfbcE1268f8991Db9E1'
 
 // lens
 export const LENS_CUSTOM_FILTERS = [CustomFiltersType.Gardeners]
-export const ALLOWED_VIDEO_TYPES = [
+export const ALLOWED_VIDEO_MIME_TYPES = [
   'video/mp4',
   'video/mpeg',
   'video/webm',
   'video/quicktime',
   'video/mov'
+]
+export const ALLOWED_AUDIO_MIME_TYPES = [
+  'audio/mp3',
+  'audio/mpeg',
+  'audio/mp4',
+  'audio/wav',
+  'audio/vnd.wave',
+  'audio/webm'
 ]
 
 // i18n

@@ -21,7 +21,7 @@ interface Props {
 }
 
 const DEFAULT_THUMBNAIL_INDEX = 0
-export const THUMBNAIL_GENERATE_COUNT = 7
+export const THUMBNAIL_GENERATE_COUNT = 9
 
 type Thumbnail = {
   blobUrl: string
@@ -50,6 +50,9 @@ const ChooseThumbnail: FC<Props> = ({ file }) => {
   }
 
   const onSelectThumbnail = async (index: number) => {
+    if (uploadedVideo.durationInSeconds === 0) {
+      return
+    }
     setSelectedThumbnailIndex(index)
     if (thumbnails[index]?.ipfsUrl === '') {
       setUploadedVideo({ uploadingThumbnail: true })
@@ -137,10 +140,10 @@ const ChooseThumbnail: FC<Props> = ({ file }) => {
   }
 
   return (
-    <Grid columns="4" gap="3">
+    <Grid columns="5" gap="2">
       <label
         htmlFor="chooseThumbnail"
-        className="max-w-32 flex h-full w-full flex-none cursor-pointer flex-col items-center justify-center rounded-xl border border-gray-300 opacity-80 focus:outline-none dark:border-gray-700"
+        className="flex h-full w-full flex-none cursor-pointer flex-col items-center justify-center rounded-xl border border-gray-300 opacity-80 focus:outline-none dark:border-gray-700"
       >
         <input
           id="chooseThumbnail"

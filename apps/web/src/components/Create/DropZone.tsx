@@ -3,7 +3,7 @@ import useAppStore from '@lib/store'
 import { t, Trans } from '@lingui/macro'
 import { Box, Button } from '@radix-ui/themes'
 import { Analytics, TRACK, useDragAndDrop } from '@tape.xyz/browser'
-import { ALLOWED_VIDEO_TYPES } from '@tape.xyz/constants'
+import { ALLOWED_VIDEO_MIME_TYPES } from '@tape.xyz/constants'
 import { canUploadedToIpfs, logger } from '@tape.xyz/generic'
 import clsx from 'clsx'
 import fileReaderStream from 'filereader-stream'
@@ -46,7 +46,7 @@ const DropZone = () => {
   }
 
   const validateFile = (file: File) => {
-    if (!ALLOWED_VIDEO_TYPES.includes(file?.type)) {
+    if (!ALLOWED_VIDEO_MIME_TYPES.includes(file?.type)) {
       const errorMessage = t`Video format not supported`
       toast.error(errorMessage)
       return setFileDropError(errorMessage)
@@ -83,7 +83,7 @@ const DropZone = () => {
           className="hidden"
           onChange={onChooseFile}
           id="dropMedia"
-          accept={ALLOWED_VIDEO_TYPES.join(',')}
+          accept={ALLOWED_VIDEO_MIME_TYPES.join(',')}
         />
         <span className="mb-6 flex justify-center opacity-80">
           <UploadOutline className="h-10 w-10" />
@@ -112,7 +112,7 @@ const DropZone = () => {
                   onChange={onChooseFile}
                   type="file"
                   className="hidden"
-                  accept={ALLOWED_VIDEO_TYPES.join(',')}
+                  accept={ALLOWED_VIDEO_MIME_TYPES.join(',')}
                 />
               </label>
             </Button>
