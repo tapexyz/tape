@@ -1,5 +1,5 @@
 import MetaTags from '@components/Common/MetaTags'
-import { WatchShimmer } from '@components/Shimmers/VideoDetailShimmer'
+import { WatchShimmer } from '@components/Shimmers/WatchShimmer'
 import useAppStore from '@lib/store'
 import { t } from '@lingui/macro'
 import { Analytics, TRACK } from '@tape.xyz/browser'

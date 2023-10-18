@@ -1,4 +1,4 @@
-import { SuggestedVideosShimmer } from '@components/Shimmers/VideoDetailShimmer'
+import { SuggestedVideosShimmer } from '@components/Shimmers/WatchShimmer'
 import useAuthPersistStore from '@lib/store/auth'
 import {
   ALLOWED_APP_IDS,

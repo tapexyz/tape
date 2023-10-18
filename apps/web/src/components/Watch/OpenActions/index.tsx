@@ -35,21 +35,6 @@ const OpenActions: FC<Props> = ({ publication, variant = 'solid', text }) => {
   const renderAction = (action: OpenActionModule) => {
     switch (action.__typename) {
       case 'SimpleCollectOpenActionSettings':
-        return (
-          <AccordionItem value="item-1">
-            <AccordionTrigger className="w-full text-left">
-              <span className="text-brand-500 font-semibold">
-                Collect publication
-              </span>
-            </AccordionTrigger>
-            <AccordionContent>
-              <CollectPublication
-                publication={targetPublication}
-                action={action}
-              />
-            </AccordionContent>
-          </AccordionItem>
-        )
       case 'MultirecipientFeeCollectOpenActionSettings':
         return (
           <AccordionItem value="item-1">
