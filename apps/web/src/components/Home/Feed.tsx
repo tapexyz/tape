@@ -69,20 +69,22 @@ const Feed = () => {
   return (
     <div>
       <CategoryFilters />
-      {loading && <TimelineShimmer />}
-      {!error && !loading && videos.length > 0 && (
-        <>
-          <Timeline videos={videos} />
-          {pageInfo?.next && (
-            <span ref={observe} className="flex justify-center p-10">
-              <Loader />
-            </span>
-          )}
-        </>
-      )}
-      {videos?.length === 0 && (
-        <NoDataFound isCenter withImage text={t`No videos found`} />
-      )}
+      <div className="laptop:pt-4 pt-4">
+        {loading && <TimelineShimmer />}
+        {!error && !loading && videos.length > 0 && (
+          <>
+            <Timeline videos={videos} />
+            {pageInfo?.next && (
+              <span ref={observe} className="flex justify-center p-10">
+                <Loader />
+              </span>
+            )}
+          </>
+        )}
+        {videos?.length === 0 && (
+          <NoDataFound isCenter withImage text={t`No videos found`} />
+        )}
+      </div>
     </div>
   )
 }

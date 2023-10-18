@@ -19,7 +19,7 @@ const CategoryFilters = () => {
   }
 
   return (
-    <div className="laptop:pt-6 pt-4">
+    <div className="laptop:pt-6 dark:bg-bunker sticky -top-4 z-[9] bg-white pt-4">
       <HorizantalScroller
         sectionRef={sectionRef}
         heading={t`Explore`}
@@ -27,7 +27,7 @@ const CategoryFilters = () => {
       />
       <div
         ref={sectionRef}
-        className="no-scrollbar laptop:py-6 sticky top-72 flex touch-pan-x items-center overflow-x-auto scroll-smooth py-4 md:mx-auto"
+        className="no-scrollbar laptop:pt-6 flex touch-pan-x items-center overflow-x-auto scroll-smooth pt-4 md:mx-auto"
       >
         <button
           className={clsx(
