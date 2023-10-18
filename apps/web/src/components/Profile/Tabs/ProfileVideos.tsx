@@ -6,9 +6,9 @@ import usePersistStore from '@lib/store/persist'
 import { t } from '@lingui/macro'
 import {
   ALLOWED_APP_IDS,
+  INFINITE_SCROLL_ROOT_MARGIN,
   IS_MAINNET,
   LENS_CUSTOM_FILTERS,
-  SCROLL_ROOT_MARGIN,
   TAPE_APP_ID
 } from '@tape.xyz/constants'
 import type { Post, Profile, PublicationsRequest } from '@tape.xyz/lens'
@@ -54,7 +54,7 @@ const ProfileVideos: FC<Props> = ({ profile }) => {
   const pageInfo = data?.publications?.pageInfo
 
   const { observe } = useInView({
-    rootMargin: SCROLL_ROOT_MARGIN,
+    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
     onEnter: async () => {
       await fetchMore({
         variables: {

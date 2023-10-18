@@ -5,7 +5,10 @@ import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'
-import { LENS_CUSTOM_FILTERS, SCROLL_ROOT_MARGIN } from '@tape.xyz/constants'
+import {
+  INFINITE_SCROLL_ROOT_MARGIN,
+  LENS_CUSTOM_FILTERS
+} from '@tape.xyz/constants'
 import { getProfile } from '@tape.xyz/generic'
 import type {
   AnyPublication,
@@ -72,7 +75,7 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
   const pageInfo = data?.publications?.pageInfo
 
   const { observe } = useInView({
-    rootMargin: SCROLL_ROOT_MARGIN,
+    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
     onEnter: async () => {
       await fetchMore({
         variables: {
@@ -84,6 +87,7 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
       })
     }
   })
+
   const showReferenceModuleAlert =
     selectedSimpleProfile?.id &&
     (isFollowerOnlyReferenceModule || isDegreesOfSeparationReferenceModule)

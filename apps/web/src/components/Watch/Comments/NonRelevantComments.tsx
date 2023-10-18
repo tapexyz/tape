@@ -3,7 +3,10 @@ import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { Button } from '@components/UIElements/Button'
 import { t } from '@lingui/macro'
-import { LENS_CUSTOM_FILTERS, SCROLL_ROOT_MARGIN } from '@tape.xyz/constants'
+import {
+  INFINITE_SCROLL_ROOT_MARGIN,
+  LENS_CUSTOM_FILTERS
+} from '@tape.xyz/constants'
 import type {
   AnyPublication,
   Comment,
@@ -53,7 +56,7 @@ const NonRelevantComments: FC<Props> = ({ video, className }) => {
   const pageInfo = data?.publications?.pageInfo
 
   const { observe } = useInView({
-    rootMargin: SCROLL_ROOT_MARGIN,
+    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
     onEnter: async () => {
       await fetchMore({
         variables: {

@@ -1,6 +1,4 @@
-import MetaTags from '@components/Common/MetaTags'
 import useAuthPersistStore from '@lib/store/auth'
-import { t } from '@lingui/macro'
 import { Analytics, TRACK } from '@tape.xyz/browser'
 import { FEATURE_FLAGS } from '@tape.xyz/constants'
 import { getIsFeatureEnabled } from '@tape.xyz/generic'
@@ -21,7 +19,6 @@ const Home: NextPage = () => {
 
   return (
     <>
-      <MetaTags title={t`Home`} />
       {/* <WhatsPopping /> */}
       {getIsFeatureEnabled(
         FEATURE_FLAGS.OPEN_ACTIONS,

@@ -6,10 +6,10 @@ import useAuthPersistStore from '@lib/store/auth'
 import { t } from '@lingui/macro'
 import {
   ALLOWED_APP_IDS,
+  INFINITE_SCROLL_ROOT_MARGIN,
   IS_MAINNET,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_BYTES_APP_ID,
-  SCROLL_ROOT_MARGIN,
   TAPE_APP_ID
 } from '@tape.xyz/constants'
 import { getCategoryName } from '@tape.xyz/generic'
@@ -65,7 +65,7 @@ const ExploreCategory = () => {
   const pageInfo = data?.explorePublications?.pageInfo
 
   const { observe } = useInView({
-    rootMargin: SCROLL_ROOT_MARGIN,
+    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
     onEnter: async () => {
       await fetchMore({
         variables: {

@@ -3,7 +3,10 @@ import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import MetaTags from '@components/Common/MetaTags'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { Analytics, TRACK } from '@tape.xyz/browser'
-import { LENS_CUSTOM_FILTERS, SCROLL_ROOT_MARGIN } from '@tape.xyz/constants'
+import {
+  INFINITE_SCROLL_ROOT_MARGIN,
+  LENS_CUSTOM_FILTERS
+} from '@tape.xyz/constants'
 import type {
   AnyPublication,
   ExplorePublicationRequest,
@@ -87,7 +90,8 @@ const Bytes = () => {
   }, [router.isReady])
 
   const { observe } = useInView({
-    rootMargin: SCROLL_ROOT_MARGIN,
+    threshold: 0.25,
+    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
     onEnter: async () => {
       await fetchMore({
         variables: {

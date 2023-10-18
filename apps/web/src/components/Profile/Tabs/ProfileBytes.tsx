@@ -4,8 +4,8 @@ import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { t } from '@lingui/macro'
 import {
   FALLBACK_COVER_URL,
-  LENS_CUSTOM_FILTERS,
-  SCROLL_ROOT_MARGIN
+  INFINITE_SCROLL_ROOT_MARGIN,
+  LENS_CUSTOM_FILTERS
 } from '@tape.xyz/constants'
 import { getThumbnailUrl, imageCdn } from '@tape.xyz/generic'
 import type { Post, PublicationsRequest } from '@tape.xyz/lens'
@@ -47,7 +47,7 @@ const ProfileBytes: FC<Props> = ({ profileId }) => {
   const pageInfo = data?.publications?.pageInfo
 
   const { observe } = useInView({
-    rootMargin: SCROLL_ROOT_MARGIN,
+    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
     onEnter: async () => {
       await fetchMore({
         variables: {

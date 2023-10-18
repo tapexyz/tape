@@ -3,8 +3,8 @@ import OpenActionsShimmer from '@components/Shimmers/OpenActionsShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { t } from '@lingui/macro'
 import {
+  INFINITE_SCROLL_ROOT_MARGIN,
   LENS_CUSTOM_FILTERS,
-  SCROLL_ROOT_MARGIN,
   TAPE_APP_ID
 } from '@tape.xyz/constants'
 import type {
@@ -50,7 +50,7 @@ const SharedLinks: FC<Props> = ({ profileId }) => {
   const pageInfo = data?.publications?.pageInfo
 
   const { observe } = useInView({
-    rootMargin: SCROLL_ROOT_MARGIN,
+    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
     onEnter: async () => {
       await fetchMore({
         variables: {

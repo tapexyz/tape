@@ -5,7 +5,7 @@ import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAppStore from '@lib/store'
 import useAuthPersistStore from '@lib/store/auth'
 import { t, Trans } from '@lingui/macro'
-import { SCROLL_ROOT_MARGIN } from '@tape.xyz/constants'
+import { INFINITE_SCROLL_ROOT_MARGIN } from '@tape.xyz/constants'
 import type { FeedItem, FeedRequest, PrimaryPublication } from '@tape.xyz/lens'
 import {
   FeedEventItemType,
@@ -46,7 +46,7 @@ const Feed = () => {
   const pageInfo = data?.feed?.pageInfo
 
   const { observe } = useInView({
-    rootMargin: SCROLL_ROOT_MARGIN,
+    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
     onEnter: async () => {
       await fetchMore({
         variables: {
