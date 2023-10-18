@@ -18,15 +18,6 @@ const CategoryFilters = () => {
     Analytics.track(TRACK.FILTER_CATEGORIES)
   }
 
-  const sectionOffsetWidth = sectionRef.current?.offsetWidth ?? 1000
-  const scrollOffset = sectionOffsetWidth / 1.2
-
-  const scroll = (offset: number) => {
-    if (sectionRef.current) {
-      sectionRef.current.scrollLeft += offset
-    }
-  }
-
   return (
     <div className="laptop:pt-6 pt-4">
       <HorizantalScroller

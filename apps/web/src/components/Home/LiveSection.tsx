@@ -42,7 +42,7 @@ const LiveSection = () => {
   }
 
   return (
-    <div className="flex flex-col">
+    <div className="laptop:pt-6 flex flex-col pt-4">
       <HorizantalScroller
         sectionRef={sectionRef}
         heading={t`Live`}
