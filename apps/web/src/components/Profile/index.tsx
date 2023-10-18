@@ -63,7 +63,7 @@ const Channel = () => {
       {!loading && !error && profile ? (
         <>
           <Cover profile={profile} />
-          <div className="container mx-auto max-w-screen-xl">
+          <div className="container mx-auto max-w-screen-xl px-2 xl:px-0">
             <BasicInfo profile={profile} />
             {pinnedVideoId?.length ? <PinnedVideo id={pinnedVideoId} /> : null}
             <ProfileTabs profile={profile} />
