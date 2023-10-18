@@ -55,6 +55,20 @@ const SideNav = () => {
         </span>
       </Link>
       <Link
+        href={SETTINGS_INTERESTS}
+        className={clsx(
+          'rounded-small flex items-center space-x-3 p-3 hover:bg-gray-100 hover:dark:bg-black',
+          {
+            'bg-gray-100 dark:bg-black': isActivePath(SETTINGS_INTERESTS)
+          }
+        )}
+      >
+        <InterestsOutline className="h-4 w-4" />
+        <span>
+          <Trans>Interests</Trans>
+        </span>
+      </Link>
+      <Link
         href={SETTINGS_PERMISSIONS}
         className={clsx(
           'rounded-small flex items-center space-x-3 p-3 hover:bg-gray-100 hover:dark:bg-black',
@@ -82,20 +96,7 @@ const SideNav = () => {
           <Trans>Sessions</Trans>
         </span>
       </Link>
-      <Link
-        href={SETTINGS_INTERESTS}
-        className={clsx(
-          'rounded-small flex items-center space-x-3 p-3 hover:bg-gray-100 hover:dark:bg-black',
-          {
-            'bg-gray-100 dark:bg-black': isActivePath(SETTINGS_INTERESTS)
-          }
-        )}
-      >
-        <InterestsOutline className="h-4 w-4" />
-        <span>
-          <Trans>Interests</Trans>
-        </span>
-      </Link>
+
       <Link
         href={SETTINGS_BLOCKED}
         className={clsx(

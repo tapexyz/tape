@@ -47,7 +47,7 @@ const List = () => {
     onCompleted,
     onError,
     update: (cache) => {
-      cache.evict({ id: 'ROOT_QUERY' })
+      cache.evict({})
     }
   })
 
