@@ -201,17 +201,29 @@ msgstr "Tous"
 #~ msgstr "Copié dans le presse-papiers"
 
 #: src/components/Common/Footer.tsx
+#~ msgid "Status"
+#~ msgstr "Statut"
+
+#: src/components/Common/Footer.tsx
+msgid "Brand Kit"
+msgstr ""
+
+#: src/components/Common/Footer.tsx
 msgid "Feedback"
 msgstr "Vos commentaires"
 
 #: src/components/Common/Footer.tsx
-msgid "Status"
-msgstr "Statut"
+msgid "Roadmap"
+msgstr ""
 
 #: src/components/Common/Footer.tsx
 #: src/components/Watch/VideoActions.tsx
 msgid "Thanks"
 msgstr "Remerciements"
+
+#: src/components/Common/Footer.tsx
+msgid "System Status"
+msgstr ""
 
 #: src/components/Common/Footer.tsx
 msgid "Terms"
@@ -1314,11 +1326,15 @@ msgid "Update Profile"
 msgstr ""
 
 #: src/components/Settings/Blocked/index.tsx
+#~ msgid "Here is a list of profiles that have been blocked. You have the option to unblock them whenever you wish."
+#~ msgstr ""
+
+#: src/components/Settings/Blocked/index.tsx
 msgid "Blocked Profiles"
 msgstr ""
 
 #: src/components/Settings/Blocked/index.tsx
-msgid "Here is a list of profiles that have been blocked. You have the option to unblock them whenever you wish."
+msgid "Here is a list of profiles that you have blocked. You have the option to unblock them whenever you wish."
 msgstr ""
 
 #: src/components/Settings/ChannelPicture.tsx

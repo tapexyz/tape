@@ -14,7 +14,7 @@ const Blocked = () => {
         </h1>
         <p className="text opacity-80">
           <Trans>
-            Here is a list of profiles that have been blocked. You have the
+            Here is a list of profiles that you have blocked. You have the
             option to unblock them whenever you wish.
           </Trans>
         </p>
