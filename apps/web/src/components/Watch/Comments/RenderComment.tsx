@@ -1,19 +1,18 @@
 import Badge from '@components/Common/Badge'
+import HoverableProfile from '@components/Common/HoverableProfile'
 import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
 import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import HeartOutline from '@components/Common/Icons/HeartOutline'
 import ReplyOutline from '@components/Common/Icons/ReplyOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
-import HashExplorerLink from '@components/Common/Links/HashExplorerLink'
 import Tooltip from '@components/UIElements/Tooltip'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import type { MetadataAttribute } from '@lens-protocol/metadata'
-import { getRelativeTime } from '@lib/formatTime'
+import { getShortHandTime } from '@lib/formatTime'
 import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'
 import {
-  checkValueInAttributes,
   getProfile,
   getProfilePicture,
   getValueFromKeyInAttributes
@@ -75,36 +74,29 @@ const RenderComment: FC<Props> = ({ comment }) => {
           />
         </Link>
         <div className="mr-2 flex w-full flex-col items-start">
-          <span className="mb-1 flex items-center space-x-2">
-            <Link
-              href={`/u/${getProfile(comment.by)?.slug}`}
-              className="flex items-center space-x-1 text-sm font-medium"
-            >
-              <span>{getProfile(comment.by)?.slug}</span>
-              <Badge id={comment?.by.id} />
-            </Link>
-            {checkValueInAttributes(
-              comment?.metadata.marketplace?.attributes as MetadataAttribute[],
-              'tip'
+          <span className="mb-1 flex items-center">
+            <HoverableProfile profile={comment.by}>
+              <Link
+                href={getProfile(comment.by)?.link}
+                className="flex items-center space-x-1 text-sm font-medium"
+              >
+                <span>{getProfile(comment.by)?.slug}</span>
+                <Badge id={comment?.by.id} />
+              </Link>
+            </HoverableProfile>
+            {getValueFromKeyInAttributes(
+              comment?.metadata?.attributes as MetadataAttribute[],
+              'hash'
             ) && (
-              <Tooltip placement="top" content="Tipper">
-                <span>
-                  <HashExplorerLink
-                    hash={
-                      getValueFromKeyInAttributes(
-                        comment?.metadata.marketplace
-                          ?.attributes as MetadataAttribute[],
-                        'hash'
-                      ) || ''
-                    }
-                  >
-                    <HeartOutline className="h-3 w-3 text-red-500" />
-                  </HashExplorerLink>
+              <Tooltip placement="top" content="Supporter">
+                <span className="pl-2">
+                  <HeartOutline className="h-3 w-3 text-red-500" />
                 </span>
               </Tooltip>
             )}
+            <span className="middot" />
             <span className="text-xs opacity-70">
-              {getRelativeTime(comment.createdAt)}
+              {getShortHandTime(comment.createdAt)}
             </span>
           </span>
           <div className={clsx({ 'line-clamp-2': clamped })}>

@@ -1,7 +1,10 @@
+import MirrorOutline from '@components/Common/Icons/MirrorOutline'
+import ThreeDotsOutline from '@components/Common/Icons/ThreeDotsOutline'
 import TipOutline from '@components/Common/Icons/TipOutline'
+import MirrorVideo from '@components/Common/MirrorVideo'
 import VideoOptions from '@components/Common/VideoCard/VideoOptions'
 import { Trans } from '@lingui/macro'
-import { Dialog } from '@radix-ui/themes'
+import { Button, Dialog, IconButton } from '@radix-ui/themes'
 import { Analytics, TRACK } from '@tape.xyz/browser'
 import { getProfile } from '@tape.xyz/generic'
 import type { MirrorablePublication } from '@tape.xyz/lens'
@@ -9,6 +12,7 @@ import { TriStateValue } from '@tape.xyz/lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 
+import OpenActions from './OpenActions'
 import PublicationReaction from './PublicationReaction'
 import TipForm from './TipForm'
 
@@ -21,7 +25,7 @@ const VideoActions: FC<Props> = ({ video }) => {
   return (
     <div className="mt-4 flex items-center justify-end space-x-1 md:mt-2">
       <PublicationReaction
-        className="bg-brand-50 dark:bg-brand-950 rounded-full px-4 py-1 backdrop-blur-xl"
+        className="mx-2"
         publication={video}
         textSize="base"
         iconSize="base"
@@ -29,20 +33,17 @@ const VideoActions: FC<Props> = ({ video }) => {
       {video.operations.canComment === TriStateValue.Yes && (
         <Dialog.Root open={showTip}>
           <Dialog.Trigger>
-            <button
-              className="dark:bg-brand-950 bg-brand-50 flex items-center rounded-full px-4 py-1 backdrop-blur-xl focus:outline-none"
+            <Button
+              variant="surface"
+              highContrast
               onClick={() => {
                 setShowTip(true)
                 Analytics.track(TRACK.PUBLICATION.TIP.OPEN)
               }}
             >
-              <span className="flex items-center space-x-1.5 text-base">
-                <TipOutline className="h-4 w-4" />
-                <span>
-                  <Trans>Thanks</Trans>
-                </span>
-              </span>
-            </button>
+              <TipOutline className="h-4 w-4" />
+              <Trans>Thanks</Trans>
+            </Button>
           </Dialog.Trigger>
 
           <Dialog.Content style={{ maxWidth: 450 }}>
@@ -57,8 +58,23 @@ const VideoActions: FC<Props> = ({ video }) => {
           </Dialog.Content>
         </Dialog.Root>
       )}
+      <div className="flex items-center space-x-2 px-1">
+        <div className="hidden md:block">
+          <MirrorVideo video={video}>
+            <Button variant="surface" highContrast>
+              <MirrorOutline className="h-4 w-4 flex-none" />
+              Mirror
+            </Button>
+          </MirrorVideo>
+        </div>
+        <OpenActions publication={video} text="Collect" />
+      </div>
 
-      <VideoOptions video={video} variant="soft" />
+      <VideoOptions video={video}>
+        <IconButton variant="surface" highContrast>
+          <ThreeDotsOutline className="h-4 w-4" />
+        </IconButton>
+      </VideoOptions>
     </div>
   )
 }

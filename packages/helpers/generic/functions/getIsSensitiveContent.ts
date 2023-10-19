@@ -6,9 +6,7 @@ export const getIsSensitiveContent = (
   videoId: string
 ): boolean => {
   return (
-    Boolean(
-      metadata?.marketplace?.attributes?.find((el) => el.value === 'sensitive')
-    ) ||
+    Boolean(metadata?.attributes?.find((el) => el.value === 'sensitive')) ||
     SENSITIVE_CONTENT.includes(videoId) ||
     Boolean(metadata?.contentWarning)
   )

@@ -36,7 +36,7 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
 
   const { color: backgroundColor } = useAverageColor(thumbnailUrl, isBytesVideo)
   const videoDuration = getValueFromKeyInAttributes(
-    video.metadata.marketplace?.attributes as MetadataAttribute[],
+    video.metadata?.attributes as MetadataAttribute[],
     'durationInSeconds'
   )
 

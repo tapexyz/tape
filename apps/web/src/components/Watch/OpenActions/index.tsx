@@ -60,7 +60,7 @@ const OpenActions: FC<Props> = ({ publication, variant = 'solid', text }) => {
     <Dialog.Root>
       <Dialog.Trigger>
         <Button variant={variant} highContrast>
-          <CollectOutline className="h-5 w-5" />
+          <CollectOutline className="h-4 w-4" />
           {text}
         </Button>
       </Dialog.Trigger>
@@ -69,7 +69,7 @@ const OpenActions: FC<Props> = ({ publication, variant = 'solid', text }) => {
         <Flex gap="3" justify="between" pb="2">
           <Dialog.Title>
             <Flex align="center" gap="2">
-              <CollectOutline className="h-5 w-5" /> <span>Act</span>
+              <CollectOutline className="h-4 w-4" /> <span>Act</span>
             </Flex>
           </Dialog.Title>
           <DialogClose>

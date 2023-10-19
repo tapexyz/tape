@@ -1,4 +1,3 @@
-import Tooltip from '@components/UIElements/Tooltip'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import useAuthPersistStore from '@lib/store/auth'
 import useProfileStore from '@lib/store/profile'
@@ -46,26 +45,6 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
   )
   const activeProfile = useProfileStore((state) => state.activeProfile)
   const canUseRelay = activeProfile?.lensManager && activeProfile?.sponsor
-
-  const getReferralFee = () => {
-    const action = video.openActionModules?.[0]
-    if (
-      action?.__typename === 'SimpleCollectOpenActionSettings' ||
-      action?.__typename === 'MultirecipientFeeCollectOpenActionSettings' ||
-      action?.__typename === 'LegacyFeeCollectModuleSettings' ||
-      action?.__typename === 'LegacyLimitedFeeCollectModuleSettings' ||
-      action?.__typename === 'LegacyLimitedTimedFeeCollectModuleSettings' ||
-      action?.__typename === 'LegacyTimedFeeCollectModuleSettings' ||
-      action?.__typename === 'LegacyMultirecipientFeeCollectModuleSettings' ||
-      action?.__typename === 'LegacySimpleCollectModuleSettings' ||
-      action?.__typename === 'LegacyERC4626FeeCollectModuleSettings' ||
-      action?.__typename === 'LegacyAaveFeeCollectModuleSettings'
-    ) {
-      return action.referralFee
-    }
-  }
-
-  const referralFee = getReferralFee()
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
@@ -226,23 +205,17 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
     return null
   }
 
-  const tooltipContent = referralFee
-    ? `Mirror video for ${referralFee}% referral fee`
-    : t`Mirror video across Lens`
-
   return (
-    <Tooltip placement="top" content={loading ? t`Mirroring` : tooltipContent}>
-      <div className="inline-flex">
-        <button
-          type="button"
-          className="disabled:opacity-50"
-          disabled={loading}
-          onClick={() => mirrorVideo()}
-        >
-          {children}
-        </button>
-      </div>
-    </Tooltip>
+    <div className="inline-flex">
+      <button
+        type="button"
+        className="disabled:opacity-50"
+        disabled={loading}
+        onClick={() => mirrorVideo()}
+      >
+        {children}
+      </button>
+    </div>
   )
 }
 

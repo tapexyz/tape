@@ -2,20 +2,16 @@ import Badge from '@components/Common/Badge'
 import HoverableProfile from '@components/Common/HoverableProfile'
 import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
 import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
-import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
-import MirrorVideo from '@components/Common/MirrorVideo'
 import { Trans } from '@lingui/macro'
 import { formatNumber, getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { MirrorablePublication, VideoMetadataV3 } from '@tape.xyz/lens'
 import clsx from 'clsx'
-import { motion } from 'framer-motion'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 
 import MetaInfo from './MetaInfo'
-import OpenActions from './OpenActions'
 
 type Props = {
   video: MirrorablePublication
@@ -48,47 +44,22 @@ const AboutChannel: FC<Props> = ({ video }) => {
       </Link>
       <div className="flex flex-1 flex-col overflow-hidden break-words">
         <div className="flex flex-wrap justify-between gap-y-2">
-          <div className="flex items-center space-x-5">
-            <div className="flex flex-col items-start">
-              <HoverableProfile profile={profile}>
-                <Link
-                  href={`/u/${getProfile(profile)?.slug}`}
-                  className="flex items-center space-x-1 font-bold"
-                >
-                  <span className="leading-snug">
-                    {getProfile(profile)?.slug}
-                  </span>
-                  <Badge id={profile?.id} />
-                </Link>
-              </HoverableProfile>
-              <span className="inline-flex items-center space-x-1 text-xs">
-                {formatNumber(profile?.stats.followers)}{' '}
-                <Trans>subscribers</Trans>
-              </span>
-            </div>
-          </div>
-          <div className="flex items-center space-x-2">
-            <div className="hidden md:block">
-              <MirrorVideo video={video}>
-                <div className="group">
-                  <motion.button
-                    initial={{ width: 45 }}
-                    whileHover={{
-                      width: 105,
-                      transition: { duration: 0.2, ease: 'linear' }
-                    }}
-                    type="button"
-                    className="hover:bg-brand-100 dark:hover:bg-brand-900 flex items-center space-x-2 overflow-hidden rounded-full px-4 py-1.5 focus:outline-none disabled:bg-opacity-50"
-                  >
-                    <MirrorOutline className="h-5 w-5 flex-none" />
-                    <span className="invisible group-hover:visible">
-                      Mirror
-                    </span>
-                  </motion.button>
-                </div>
-              </MirrorVideo>
-            </div>
-            <OpenActions publication={video} text="Collect" />
+          <div className="flex flex-col items-start">
+            <HoverableProfile profile={profile}>
+              <Link
+                href={`/u/${getProfile(profile)?.slug}`}
+                className="flex items-center space-x-1 font-bold"
+              >
+                <span className="leading-snug">
+                  {getProfile(profile)?.slug}
+                </span>
+                <Badge id={profile?.id} />
+              </Link>
+            </HoverableProfile>
+            <span className="inline-flex items-center space-x-1 text-xs">
+              {formatNumber(profile?.stats.followers)}{' '}
+              <Trans>subscribers</Trans>
+            </span>
           </div>
         </div>
         {metadata.marketplace?.description || metadata.content ? (

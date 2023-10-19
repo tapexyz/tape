@@ -42,7 +42,7 @@ import {
 } from '@tape.xyz/lens'
 import { useApolloClient } from '@tape.xyz/lens/apollo'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import type { FC } from 'react'
+import type { FC, ReactNode } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { v4 as uuidv4 } from 'uuid'
@@ -60,10 +60,11 @@ import Share from './Share'
 
 type Props = {
   video: MirrorablePublication
+  children?: ReactNode
   variant?: 'soft' | 'solid' | 'classic' | 'surface' | 'outline' | 'ghost'
 }
 
-const VideoOptions: FC<Props> = ({ video, variant = 'ghost' }) => {
+const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
   const handleWrongNetwork = useHandleWrongNetwork()
   const [showConfirm, setShowConfirm] = useState(false)
 
@@ -334,9 +335,11 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost' }) => {
       />
       <DropdownMenu.Root>
         <DropdownMenu.Trigger>
-          <IconButton radius="full" variant={variant} highContrast size="2">
-            <ThreeDotsOutline className="h-3.5 w-3.5" />
-          </IconButton>
+          {children ?? (
+            <IconButton radius="full" variant={variant} highContrast size="2">
+              <ThreeDotsOutline className="h-3.5 w-3.5" />
+            </IconButton>
+          )}
         </DropdownMenu.Trigger>
         <DropdownMenu.Content sideOffset={10} variant="soft" align="end">
           <div className="flex w-40 flex-col transition duration-150 ease-in-out">

@@ -1,7 +1,6 @@
 import { Input } from '@components/UIElements/Input'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
-import type { MetadataAttribute } from '@lens-protocol/metadata'
 import { MetadataAttributeType, textOnly } from '@lens-protocol/metadata'
 import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
@@ -255,7 +254,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
   const submitComment = async (txnHash: string) => {
     try {
       setLoading(true)
-      const attributes: MetadataAttribute[] = [
+      const attributes = [
         {
           type: MetadataAttributeType.STRING,
           key: 'publication',
