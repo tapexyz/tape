@@ -10,7 +10,6 @@ query EnabledCurrencies($request: PaginatedOffsetRequest!) {
       }
     }
     pageInfo {
-      prev
       next
     }
   }

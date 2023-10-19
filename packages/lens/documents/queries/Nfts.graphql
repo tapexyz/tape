@@ -46,7 +46,6 @@ query Nfts($request: NftsRequest!) {
       }
     }
     pageInfo {
-      prev
       next
     }
   }

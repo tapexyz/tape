@@ -13,6 +13,7 @@ import Custom500 from 'src/pages/500'
 import BasicInfo from './BasicInfo'
 import Blocked from './Blocked'
 import DangerZone from './DangerZone'
+import ProfileManager from './Manager'
 import Permissions from './Permissions'
 import ProfileInterests from './ProfileInterests'
 import Sessions from './Sessions'
@@ -22,6 +23,7 @@ import Subscription from './Subscription'
 export const SETTINGS_SUBSCRIPTION = '/settings/subscription'
 export const SETTINGS_INTERESTS = '/settings/interests'
 export const SETTINGS_PERMISSIONS = '/settings/permissions'
+export const SETTINGS_MANAGER = '/settings/manager'
 export const SETTINGS_SESSIONS = '/settings/sessions'
 export const SETTINGS_BLOCKED = '/settings/blocked'
 export const SETTINGS_DANGER_ZONE = '/settings/danger'
@@ -59,7 +61,7 @@ const Settings = () => {
 
   return (
     <div className="ultrawide:max-w-screen-xl container mx-auto">
-      <MetaTags title={t`Channel Settings`} />
+      <MetaTags title={t`Profile Settings`} />
       {!loading && !error && channel ? (
         <div className="grid gap-4 md:grid-cols-4">
           <div className="md:col-span-1">
@@ -73,6 +75,7 @@ const Settings = () => {
             {router.pathname === SETTINGS_PERMISSIONS && <Permissions />}
             {router.pathname === SETTINGS_INTERESTS && <ProfileInterests />}
             {router.pathname === SETTINGS_SESSIONS && <Sessions />}
+            {router.pathname === SETTINGS_MANAGER && <ProfileManager />}
             {router.pathname === SETTINGS_BLOCKED && <Blocked />}
             {router.pathname === SETTINGS_DANGER_ZONE && <DangerZone />}
           </div>

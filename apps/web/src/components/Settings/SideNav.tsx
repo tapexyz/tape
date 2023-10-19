@@ -2,6 +2,7 @@ import InterestsOutline from '@components/Common/Icons/InterestsOutline'
 import KeyOutline from '@components/Common/Icons/KeyOutline'
 import LockOutline from '@components/Common/Icons/LockOutline'
 import ProfileBanOutline from '@components/Common/Icons/ProfileBanOutline'
+import ProfileManagerOutline from '@components/Common/Icons/ProfileManagerOutline'
 import SubscribeOutline from '@components/Common/Icons/SubscribeOutline'
 import UserOutline from '@components/Common/Icons/UserOutline'
 import WarningOutline from '@components/Common/Icons/WarningOutline'
@@ -16,6 +17,7 @@ import {
   SETTINGS_BLOCKED,
   SETTINGS_DANGER_ZONE,
   SETTINGS_INTERESTS,
+  SETTINGS_MANAGER,
   SETTINGS_PERMISSIONS,
   SETTINGS_SESSIONS,
   SETTINGS_SUBSCRIPTION
@@ -69,6 +71,20 @@ const SideNav = () => {
         </span>
       </Link>
       <Link
+        href={SETTINGS_MANAGER}
+        className={clsx(
+          'rounded-small flex items-center space-x-3 p-3 hover:bg-gray-100 hover:dark:bg-black',
+          {
+            'bg-gray-100 dark:bg-black': isActivePath(SETTINGS_MANAGER)
+          }
+        )}
+      >
+        <ProfileManagerOutline className="h-4 w-4" />
+        <span>
+          <Trans>Manager</Trans>
+        </span>
+      </Link>
+      <Link
         href={SETTINGS_PERMISSIONS}
         className={clsx(
           'rounded-small flex items-center space-x-3 p-3 hover:bg-gray-100 hover:dark:bg-black',
@@ -77,23 +93,9 @@ const SideNav = () => {
           }
         )}
       >
-        <LockOutline className="h-4 w-4" />{' '}
+        <LockOutline className="h-4 w-4" />
         <span>
           <Trans>Permissions</Trans>
-        </span>
-      </Link>
-      <Link
-        href={SETTINGS_SESSIONS}
-        className={clsx(
-          'rounded-small flex items-center space-x-3 p-3 hover:bg-gray-100 hover:dark:bg-black',
-          {
-            'bg-gray-100 dark:bg-black': isActivePath(SETTINGS_SESSIONS)
-          }
-        )}
-      >
-        <KeyOutline className="h-4 w-4" />
-        <span>
-          <Trans>Sessions</Trans>
         </span>
       </Link>
       <Link
@@ -108,6 +110,20 @@ const SideNav = () => {
         <ProfileBanOutline className="h-4 w-4" />
         <span>
           <Trans>Blocked</Trans>
+        </span>
+      </Link>
+      <Link
+        href={SETTINGS_SESSIONS}
+        className={clsx(
+          'rounded-small flex items-center space-x-3 p-3 hover:bg-gray-100 hover:dark:bg-black',
+          {
+            'bg-gray-100 dark:bg-black': isActivePath(SETTINGS_SESSIONS)
+          }
+        )}
+      >
+        <KeyOutline className="h-4 w-4" />
+        <span>
+          <Trans>Sessions</Trans>
         </span>
       </Link>
       <Link

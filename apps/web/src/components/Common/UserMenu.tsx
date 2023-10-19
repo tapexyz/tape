@@ -87,7 +87,7 @@ const UserMenu = () => {
             size="3"
             radius="full"
             src={getProfilePicture(selectedSimpleProfile)}
-            fallback={getProfile(selectedSimpleProfile)?.slug[0] ?? ''}
+            fallback={getProfile(selectedSimpleProfile)?.slug[0] ?? ';)'}
           />
         </div>
       </DropdownMenu.Trigger>
@@ -99,7 +99,7 @@ const UserMenu = () => {
                 size="1"
                 radius="full"
                 src={getProfilePicture(selectedSimpleProfile)}
-                fallback={getProfile(selectedSimpleProfile)?.slug[0] ?? ''}
+                fallback={getProfile(selectedSimpleProfile)?.slug[0] ?? ';)'}
               />
               <Text as="p" weight="bold" className="line-clamp-1">
                 {getProfile(selectedSimpleProfile)?.slug}
@@ -159,7 +159,7 @@ const UserMenu = () => {
                           size="1"
                           radius="full"
                           src={getProfilePicture(profile)}
-                          fallback={getProfile(profile)?.displayName[0] ?? ''}
+                          fallback={getProfile(profile)?.displayName[0] ?? ';)'}
                         />
                         <Text as="p" className="truncate whitespace-nowrap">
                           {getProfile(profile)?.slug}
