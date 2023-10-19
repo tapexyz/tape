@@ -8,7 +8,6 @@ import type {
 import {
   useAddProfileInterestsMutation,
   useProfileInterestsOptionsQuery,
-  useProfileQuery,
   useRemoveProfileInterestsMutation
 } from '@tape.xyz/lens'
 import { useApolloClient } from '@tape.xyz/lens/apollo'
@@ -26,13 +25,12 @@ const Topics = () => {
   }, [])
 
   const { cache } = useApolloClient()
-  const { data, loading } = useProfileInterestsOptionsQuery()
-  const [addProfileInterests] = useAddProfileInterestsMutation()
-  const [removeProfileInterests] = useRemoveProfileInterestsMutation()
-  const { data: profileData } = useProfileQuery({
+  const { data, loading } = useProfileInterestsOptionsQuery({
     variables: { request: { forProfileId: activeProfile?.id } },
     skip: !activeProfile?.id
   })
+  const [addProfileInterests] = useAddProfileInterestsMutation()
+  const [removeProfileInterests] = useRemoveProfileInterestsMutation()
 
   const updateCache = (interests: string[]) => {
     cache.modify({
@@ -42,7 +40,7 @@ const Topics = () => {
   }
 
   const interestsData = data?.profileInterestsOptions as ProfileInterestTypes[]
-  const selectedTopics = profileData?.profile?.interests ?? []
+  const selectedTopics = data?.profile?.interests ?? []
 
   const onSelectTopic = (topic: ProfileInterestTypes) => {
     try {
