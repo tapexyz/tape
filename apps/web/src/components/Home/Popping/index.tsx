@@ -26,7 +26,7 @@ const WhatsPopping = () => {
       <div className="mb-4 flex items-center justify-between">
         <div className="flex items-center space-x-2">
           <ExploreOutline className="h-4 w-4" />
-          <h1 className="text-xl font-semibold">
+          <h1 className="text-xl font-bold">
             <Trans>What's Popping?</Trans>
           </h1>
         </div>

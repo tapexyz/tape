@@ -13,7 +13,7 @@ const Meta = ({ live, channel }: any) => {
       <div className="flex items-center justify-between space-x-2.5">
         <div className="w-3/4">
           <div className="flex w-full min-w-0 items-start justify-between space-x-1.5">
-            <div className="ultrawide:break-all line-clamp-2 break-words text-xl font-semibold">
+            <div className="ultrawide:break-all line-clamp-2 break-words text-xl font-bold">
               {name}
             </div>
           </div>

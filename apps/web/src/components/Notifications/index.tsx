@@ -83,7 +83,7 @@ const Notifications = () => {
     <div className="mx-auto my-2 px-2 md:container md:max-w-3xl md:p-0">
       <MetaTags title={t`Notifications`} />
       <Tab.Group as="div" className="w-full">
-        <div className="mb-4 flex items-center justify-between font-semibold md:mb-6">
+        <div className="mb-4 flex items-center justify-between font-bold md:mb-6">
           <span className="whitespace-nowrap text-xl">
             <Trans>All Notifications</Trans>
           </span>

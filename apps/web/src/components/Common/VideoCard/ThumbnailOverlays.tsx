@@ -26,7 +26,7 @@ const ThumbnailOverlays: FC<Props> = ({ video }) => {
       )}
       {videoDuration ? (
         <div>
-          <span className="absolute bottom-2 right-2 rounded bg-black px-1 py-0.5 text-xs font-semibold text-white">
+          <span className="absolute bottom-2 right-2 rounded bg-black px-1 py-0.5 text-xs font-bold text-white">
             {getTimeFromSeconds(String(videoDuration))}
           </span>
         </div>

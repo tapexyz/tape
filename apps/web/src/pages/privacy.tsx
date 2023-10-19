@@ -16,7 +16,7 @@ const privacy = () => {
         </div>
       </div>
       <div className="relative px-2">
-        <div className="prose-sm md:prose prose-slate dark:prose-invert prose-a:font-semibold prose-a:text-brand-500 hover:prose-a:text-brand-600 mx-auto max-w-4xl">
+        <div className="prose-sm md:prose prose-slate dark:prose-invert prose-a:font-bold prose-a:text-brand-500 hover:prose-a:text-brand-600 mx-auto max-w-4xl">
           <h2>1. Overview</h2>
           <p>
             By accessing the Site, you agree to not only this Privacy Policy,

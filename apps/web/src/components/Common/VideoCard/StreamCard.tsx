@@ -51,7 +51,7 @@ const StreamCard: FC<Props> = ({ stream }) => {
             <div className="flex w-full min-w-0 items-start justify-between space-x-1.5">
               <div className="flex items-center space-x-2">
                 <Link
-                  className="ultrawide:break-all line-clamp-1 break-words font-semibold"
+                  className="ultrawide:break-all line-clamp-1 break-words font-bold"
                   href={href}
                 >
                   {metadata.marketplace?.name}

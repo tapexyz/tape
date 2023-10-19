@@ -42,7 +42,7 @@ const Unlonely = ({ channel }: { channel: string }) => {
       {!isLive && (
         <Alert>
           <div className="flex w-full items-center justify-between">
-            <span className="font-semibold">
+            <span className="font-bold">
               Oops! This stream has ended. But don't worry, there's plenty more
               to explore!
             </span>

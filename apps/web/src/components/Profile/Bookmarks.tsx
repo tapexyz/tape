@@ -85,7 +85,7 @@ const Bookmarks: FC = () => {
   return (
     <>
       <MetaTags title={t`Saved Videos`} />
-      <h1 className="mb-6 font-semibold md:text-2xl">Saved Videos</h1>
+      <h1 className="mb-6 font-bold md:text-2xl">Saved Videos</h1>
       {!error && !loading && (
         <>
           <Timeline videos={savedVideos} />

@@ -106,7 +106,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
         >
           <span className="inline-flex items-center space-x-1 rounded-full bg-red-500 px-3 py-1">
             <InfoOutline className="h-4 w-4 text-white" />
-            <span className="font-semibold text-white">{misused.type}</span>
+            <span className="font-bold text-white">{misused.type}</span>
           </span>
           <InterweaveContent content={misused.description} />
         </Alert>

@@ -148,7 +148,7 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
           <div className="grid flex-1">
             <div className="flex w-full min-w-0 items-start justify-between space-x-1.5 pb-1">
               <span
-                className="ultrawide:line-clamp-1 ultrawide:break-all line-clamp-2 break-words font-semibold"
+                className="ultrawide:line-clamp-1 ultrawide:break-all line-clamp-2 break-words font-bold"
                 title={queuedVideo.title}
               >
                 {queuedVideo.title}

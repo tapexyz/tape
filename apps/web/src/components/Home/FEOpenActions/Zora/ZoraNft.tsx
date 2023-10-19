@@ -75,7 +75,7 @@ const ZoraNft: FC<Props> = ({ nftMetadata }) => {
         />
       </div>
       <div className="pt-2">
-        <h1 className="ultrawide:break-all line-clamp-2 break-words font-semibold">
+        <h1 className="ultrawide:break-all line-clamp-2 break-words font-bold">
           {zoraNft?.name}
         </h1>
         <div className="flex items-center text-sm opacity-50">

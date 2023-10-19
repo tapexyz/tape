@@ -116,7 +116,7 @@ const List = () => {
               href={`/u/${getProfile(profile)?.slug}`}
               className="flex items-center space-x-1"
             >
-              <span className="text-2xl font-semibold leading-tight">
+              <span className="text-2xl font-bold leading-tight">
                 {getProfile(profile)?.slug}
               </span>
               <Badge id={profile?.id} size="lg" />

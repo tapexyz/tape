@@ -36,7 +36,7 @@ const VideoOverlay: FC<Props> = ({ video }) => {
               href={`${TAPE_WEBSITE_URL}/watch/${video?.id}`}
               target="_blank"
             >
-              <h1 className="font-semibold md:text-lg">
+              <h1 className="font-bold md:text-lg">
                 {video?.metadata.marketplace?.name}
               </h1>
             </Link>

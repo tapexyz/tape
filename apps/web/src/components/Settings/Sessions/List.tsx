@@ -88,7 +88,7 @@ const List = () => {
               <div className="flex items-center justify-between">
                 <div>
                   <div className="flex items-center space-x-2">
-                    <p className="font-semibold">{session.origin}</p>
+                    <p className="font-bold">{session.origin}</p>
                     {isCurrentSession && <Badge color="grass">Current</Badge>}
                   </div>
                   <span className="text-sm">{session.os}</span>

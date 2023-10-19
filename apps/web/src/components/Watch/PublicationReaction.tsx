@@ -97,7 +97,7 @@ const PublicationReaction: FC<Props> = ({
           'flex items-center focus:outline-none',
           isVertical ? 'flex-col space-y-2' : 'space-x-1.5',
           {
-            'text-brand-500 font-semibold': reaction.isLiked
+            'text-brand-500 font-bold': reaction.isLiked
           }
         )}
       >

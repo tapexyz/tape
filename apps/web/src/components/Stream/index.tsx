@@ -40,7 +40,7 @@ const StreamDetails = () => {
             <div className="mb-4 flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 <CollectOutline className="h-4 w-4" />
-                <h1 className="text-xl font-semibold">
+                <h1 className="text-xl font-bold">
                   <Trans>From the frens</Trans>
                 </h1>
               </div>

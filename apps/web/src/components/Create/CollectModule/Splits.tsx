@@ -191,7 +191,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
           <button
             type="button"
             className={clsx(
-              'rounded border border-gray-700 px-1 text-[10px] font-semibold uppercase tracking-wider opacity-70 dark:border-gray-300',
+              'rounded border border-gray-700 px-1 text-[10px] font-bold uppercase tracking-wider opacity-70 dark:border-gray-300',
               splitRecipients.length >= 5 && 'invisible'
             )}
             onClick={() => addRecipient()}
@@ -206,7 +206,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
               <button
                 type="button"
                 className={clsx(
-                  'rounded border border-gray-700 px-1 text-[10px] font-semibold uppercase tracking-wider opacity-70 dark:border-gray-300',
+                  'rounded border border-gray-700 px-1 text-[10px] font-bold uppercase tracking-wider opacity-70 dark:border-gray-300',
                   splitRecipients.length >= 5 && 'invisible'
                 )}
                 onClick={() => addDonation()}
@@ -219,7 +219,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
         {splitRecipients?.length > 1 && (
           <button
             type="button"
-            className="rounded border border-gray-700 px-1 text-[10px] font-semibold uppercase tracking-wider opacity-70 dark:border-gray-300"
+            className="rounded border border-gray-700 px-1 text-[10px] font-bold uppercase tracking-wider opacity-70 dark:border-gray-300"
             onClick={() => splitEvenly()}
           >
             <Trans>Split evenly</Trans>

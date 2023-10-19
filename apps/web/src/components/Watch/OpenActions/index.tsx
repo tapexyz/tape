@@ -39,7 +39,7 @@ const OpenActions: FC<Props> = ({ publication, variant = 'solid', text }) => {
         return (
           <AccordionItem value="item-1">
             <AccordionTrigger className="w-full text-left">
-              <span className="text-brand-500 font-semibold">
+              <span className="text-brand-500 font-bold">
                 Collect publication
               </span>
             </AccordionTrigger>

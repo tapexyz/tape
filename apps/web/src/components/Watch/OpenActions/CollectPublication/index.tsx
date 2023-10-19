@@ -294,7 +294,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
       {!allowanceLoading ? (
         <>
           <div className="mb-3 flex flex-col">
-            <span className="text-sm font-semibold">
+            <span className="text-sm font-bold">
               <Trans>Total Collects</Trans>
             </span>
             <span className="space-x-1">
@@ -308,7 +308,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
           </div>
           {details?.amount.value ? (
             <div className="mb-3 flex flex-col">
-              <span className="text-sm font-semibold">
+              <span className="text-sm font-bold">
                 <Trans>Price</Trans>
               </span>
               <span className="space-x-1">
@@ -321,7 +321,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
           ) : null}
           {details?.endsAt ? (
             <div className="mb-3 flex flex-col">
-              <span className="mb-0.5 text-sm font-semibold">
+              <span className="mb-0.5 text-sm font-bold">
                 <Trans>Ends At</Trans>
               </span>
               <span className="text-lg">
@@ -332,11 +332,11 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
           ) : null}
           {revenueData?.revenueFromPublication?.revenue[0] ? (
             <div className="mb-3 flex flex-col">
-              <span className="text-sm font-semibold">
+              <span className="text-sm font-bold">
                 <Trans>Revenue</Trans>
               </span>
               <span className="space-x-1">
-                <span className="text-2xl font-semibold">
+                <span className="text-2xl font-bold">
                   {revenueData?.revenueFromPublication?.revenue[0].total
                     .value ?? 0}
                 </span>
@@ -351,7 +351,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
           ) : null}
           {details?.referralFee ? (
             <div className="mb-3 flex flex-col">
-              <span className="mb-0.5 text-sm font-semibold">
+              <span className="mb-0.5 text-sm font-bold">
                 <Trans>Referral Fee</Trans>
               </span>
               <span className="text-2xl">{details?.referralFee} %</span>
@@ -359,7 +359,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
           ) : null}
           {isRecipientAvailable ? (
             <div className="mb-3 flex flex-col">
-              <span className="mb-0.5 text-sm font-semibold">
+              <span className="mb-0.5 text-sm font-bold">
                 <Trans>Revenue</Trans>{' '}
                 {details.recipients?.length ? t`Recipients` : t`Recipient`}
               </span>

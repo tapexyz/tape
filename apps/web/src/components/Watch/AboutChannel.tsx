@@ -53,7 +53,7 @@ const AboutChannel: FC<Props> = ({ video }) => {
               <HoverableProfile profile={profile}>
                 <Link
                   href={`/u/${getProfile(profile)?.slug}`}
-                  className="flex items-center space-x-1 font-semibold"
+                  className="flex items-center space-x-1 font-bold"
                 >
                   <span className="leading-snug">
                     {getProfile(profile)?.slug}

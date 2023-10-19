@@ -77,7 +77,7 @@ const ExploreHashtag = () => {
     <>
       <MetaTags title={hashtag?.toString()} />
       <div>
-        <h1 className="font-semibold md:text-2xl">#{hashtag}</h1>
+        <h1 className="font-bold md:text-2xl">#{hashtag}</h1>
         <div className="my-4">
           {loading && <TimelineShimmer />}
           {videos?.length === 0 && (

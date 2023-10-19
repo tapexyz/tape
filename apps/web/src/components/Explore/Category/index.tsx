@@ -86,7 +86,7 @@ const ExploreCategory = () => {
     <>
       <MetaTags title={categoryName?.toString() || ''} />
       <div>
-        <h1 className="font-semibold capitalize md:text-2xl">
+        <h1 className="font-bold capitalize md:text-2xl">
           {getCategoryName(categoryName)}
         </h1>
         <div className="my-4">

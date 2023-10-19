@@ -272,7 +272,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
             </p>
           </div>
           <Link
-            className="text-brand-500 text-xs font-semibold"
+            className="text-brand-500 text-xs font-bold"
             href={`/watch/${pinnedPublication.id}`}
           >
             <Trans>View more</Trans>

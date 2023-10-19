@@ -67,7 +67,7 @@ const SelectedMedia = () => {
           className="absolute left-2 top-2"
         >
           {uploadedVideo.file?.size && (
-            <span className="whitespace-nowrap font-semibold">
+            <span className="whitespace-nowrap font-bold">
               {formatBytes(uploadedVideo.file?.size)}
             </span>
           )}
@@ -79,7 +79,7 @@ const SelectedMedia = () => {
             color="red"
             className="absolute right-3 top-3"
           >
-            <span className="whitespace-nowrap font-semibold">
+            <span className="whitespace-nowrap font-bold">
               Only media files longer than 1 second are allowed
             </span>
           </Badge>

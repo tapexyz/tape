@@ -57,7 +57,7 @@ const Metadata = ({ nft, link }: { nft: ZoraNft; link: string }) => {
         <p className="line-clamp-4 break-words" title={nft.description}>
           {nft?.description}
         </p>
-        <div className="space-y-2 font-semibold">
+        <div className="space-y-2 font-bold">
           <div className="flex items-center space-x-2 outline-none">
             <CollectOutline className="h-4 w-4" />
             <span>
