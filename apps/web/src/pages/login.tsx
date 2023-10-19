@@ -1,5 +1,6 @@
 import MetaTags from '@components/Common/MetaTags'
 import Connectors from '@components/Login/Connectors'
+import SignalWaveGraphic from '@components/UIElements/SignalWaveGraphic'
 import Link from 'next/link'
 import React from 'react'
 
@@ -10,10 +11,11 @@ const login = () => {
       <Link
         href="/"
         id="tape-cursor"
-        className="hidden w-1/2 bg-black md:block"
+        className="relative hidden w-1/2 bg-black dark:bg-white md:block"
       >
-        <div className="flex h-full flex-col items-center justify-center text-white">
-          <h1 className="text-2xl font-bold">〖tape〗</h1>
+        <SignalWaveGraphic />
+        <div className="dark:text-bunker flex h-full flex-col items-center justify-center text-white">
+          <h1 className="text-4xl font-bold">〖 TAPE 〗</h1>
         </div>
       </Link>
       <div className="relative grid h-full w-full place-items-center md:w-1/2">

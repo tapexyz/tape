@@ -61,7 +61,7 @@ const StreamDetails = () => {
             </div>
             <div
               ref={sectionRef}
-              className="no-scrollbar relative mb-3 flex touch-pan-x items-start space-x-4 overflow-x-auto overflow-y-hidden scroll-smooth"
+              className="no-scrollbar relative mb-3 flex items-start space-x-4 overflow-x-auto overflow-y-hidden scroll-smooth"
             >
               {FEATURED_ZORA_COLLECTS.map((url, i) => {
                 const urls = getURLs(url)

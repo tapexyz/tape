@@ -50,7 +50,7 @@ const LiveSection = () => {
       />
       <div
         ref={sectionRef}
-        className="no-scrollbar ultrawide:pt-8 laptop:pt-6 relative flex touch-pan-x items-start space-x-4 overflow-x-auto overflow-y-hidden scroll-smooth pt-4"
+        className="no-scrollbar ultrawide:pt-8 laptop:pt-6 relative flex items-start space-x-4 overflow-x-auto overflow-y-hidden scroll-smooth pt-4"
       >
         {loading && <TimelineShimmer count={10} />}
         {!error && !loading && (
