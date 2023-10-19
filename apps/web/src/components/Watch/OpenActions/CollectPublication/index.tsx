@@ -40,7 +40,6 @@ import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import { formatEther } from 'viem'
 import { useBalance, useContractWrite, useSignTypedData } from 'wagmi'
 
 import BalanceAlert from './BalanceAlert'
@@ -125,8 +124,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
     if (
       balanceData &&
       details?.amount.value &&
-      parseFloat(balanceData?.formatted) <
-        parseFloat(formatEther(BigInt(details?.amount.value)))
+      parseFloat(balanceData?.formatted) < parseFloat(details?.amount.value)
     ) {
       setHaveEnoughBalance(false)
     } else {
@@ -315,7 +313,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
               </span>
               <span className="space-x-1">
                 <span className="text-2xl font-semibold">
-                  {formatEther(BigInt(details?.amount.value))}
+                  {details?.amount.value}
                 </span>
                 <span>{details?.amount.assetSymbol}</span>
               </span>

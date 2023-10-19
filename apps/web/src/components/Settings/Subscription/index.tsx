@@ -33,7 +33,6 @@ import { Loader } from '@tape.xyz/ui'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import { formatUnits } from 'viem'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 import type { z } from 'zod'
 import { number, object, string } from 'zod'
@@ -222,10 +221,7 @@ const Subscription = ({ channel }: Props) => {
                 <Trans>Amount</Trans>
               </span>
               <h6 className="text-xl font-bold">
-                {formatUnits(
-                  BigInt(activeFollowModule.amount?.value),
-                  activeFollowModule.amount?.asset.decimals
-                )}{' '}
+                {activeFollowModule.amount?.value}{' '}
                 {activeFollowModule.amount?.asset?.symbol}
               </h6>
             </div>
