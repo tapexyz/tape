@@ -23,12 +23,12 @@ type Props = {
 const VideoActions: FC<Props> = ({ video }) => {
   const [showTip, setShowTip] = useState(false)
   return (
-    <div className="mt-4 flex items-center justify-end space-x-1 md:mt-2">
+    <div className="mt-4 flex items-center justify-end space-x-2 md:mt-2">
       <PublicationReaction
-        className="mx-2"
         publication={video}
         textSize="base"
         iconSize="base"
+        variant="surface"
       />
       {video.operations.canComment === TriStateValue.Yes && (
         <Dialog.Root open={showTip}>
@@ -58,18 +58,13 @@ const VideoActions: FC<Props> = ({ video }) => {
           </Dialog.Content>
         </Dialog.Root>
       )}
-      <div className="flex items-center space-x-2 px-1">
-        <div className="hidden md:block">
-          <MirrorVideo video={video}>
-            <Button variant="surface" highContrast>
-              <MirrorOutline className="h-4 w-4 flex-none" />
-              Mirror
-            </Button>
-          </MirrorVideo>
-        </div>
-        <OpenActions publication={video} text="Collect" />
-      </div>
-
+      <MirrorVideo video={video}>
+        <Button variant="surface" highContrast>
+          <MirrorOutline className="h-4 w-4 flex-none" />
+          Mirror
+        </Button>
+      </MirrorVideo>
+      <OpenActions publication={video} text="Collect" />
       <VideoOptions video={video}>
         <IconButton variant="surface" highContrast>
           <ThreeDotsOutline className="h-4 w-4" />

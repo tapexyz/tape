@@ -2,6 +2,7 @@ import Badge from '@components/Common/Badge'
 import HoverableProfile from '@components/Common/HoverableProfile'
 import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
 import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
+import CommentOutline from '@components/Common/Icons/CommentOutline'
 import HeartOutline from '@components/Common/Icons/HeartOutline'
 import ReplyOutline from '@components/Common/Icons/ReplyOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
@@ -12,6 +13,7 @@ import { getShortHandTime } from '@lib/formatTime'
 import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'
+import { Button, Flex } from '@radix-ui/themes'
 import {
   getProfile,
   getProfilePicture,
@@ -127,9 +129,11 @@ const RenderComment: FC<Props> = ({ comment }) => {
           )}
           <CommentMedia comment={comment} />
           {!comment.isHidden && (
-            <div className="mt-2 flex items-center space-x-4">
+            <Flex mt="2" gap="4">
               <PublicationReaction publication={comment} />
-              <button
+              <Button
+                variant="ghost"
+                highContrast
                 onClick={() => {
                   if (!selectedSimpleProfile?.id) {
                     return toast.error('Sign in to proceed')
@@ -140,22 +144,25 @@ const RenderComment: FC<Props> = ({ comment }) => {
                   setShowNewComment(!showNewComment)
                   setDefaultComment('')
                 }}
-                className="inline-flex items-center space-x-1.5 text-xs focus:outline-none"
               >
-                <ReplyOutline className="h-3.5 w-3.5" />{' '}
-                <span>
+                <ReplyOutline className="h-3.5 w-3.5" />
+                <span className="text-xs">
                   <Trans>Reply</Trans>
                 </span>
-              </button>
+              </Button>
               {comment.stats.comments ? (
-                <button
+                <Button
+                  color="blue"
+                  variant="ghost"
                   onClick={() => setShowReplies(!showReplies)}
-                  className="bg-brand-100 dark:bg-brand-900/30 rounded-full px-2 py-0.5 text-xs focus:outline-none"
                 >
-                  {comment.stats.comments} <Trans>replies</Trans>
-                </button>
+                  <CommentOutline className="h-3.5 w-3.5" />
+                  <span className="text-xs">
+                    {comment.stats.comments} <Trans>replies</Trans>
+                  </span>
+                </Button>
               ) : null}
-            </div>
+            </Flex>
           )}
           <div
             className={clsx(

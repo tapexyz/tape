@@ -4,9 +4,9 @@ import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import ReplyOutline from '@components/Common/Icons/ReplyOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
-import { Button } from '@components/UIElements/Button'
-import { getRelativeTime } from '@lib/formatTime'
+import { getShortHandTime } from '@lib/formatTime'
 import { Trans } from '@lingui/macro'
+import { Button, Flex } from '@radix-ui/themes'
 import { LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
 import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import {
@@ -139,32 +139,34 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
                   />
                 </Link>
                 <div className="mr-2 flex w-full flex-col items-start">
-                  <span className="mb-1 flex items-center space-x-2">
+                  <span className="mb-1 flex items-center">
                     <Link
-                      href={`/u/${getProfile(comment.by)?.slug}`}
+                      href={getProfile(comment.by)?.link}
                       className="flex items-center space-x-1 text-sm font-medium"
                     >
                       <span>{getProfile(comment.by)?.slug}</span>
                       <Badge id={comment?.by.id} />
                     </Link>
+                    <span className="middot" />
                     <span className="text-xs opacity-70">
-                      {getRelativeTime(comment.createdAt)}
+                      {getShortHandTime(comment.createdAt)}
                     </span>
                   </span>
                   <ReplyContent comment={comment as Comment} />
                   {!comment.isHidden && (
-                    <div className="mt-2 flex items-center space-x-4">
+                    <Flex mt="2" gap="4">
                       <PublicationReaction publication={comment} />
-                      <button
+                      <Button
+                        variant="ghost"
+                        highContrast
                         onClick={() => replyTo(comment.by)}
-                        className="inline-flex items-center space-x-1.5 text-xs focus:outline-none"
                       >
                         <ReplyOutline className="h-3.5 w-3.5" />{' '}
-                        <span>
+                        <span className="text-xs">
                           <Trans>Reply</Trans>
                         </span>
-                      </button>
-                    </div>
+                      </Button>
+                    </Flex>
                   )}
                 </div>
               </div>
@@ -176,10 +178,10 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
       )}
       {pageInfo?.next && hasMore ? (
         <Button
+          highContrast
           className="group w-full text-center"
           onClick={loadMore}
-          variant="outline"
-          size="lg"
+          variant="soft"
         >
           <span className="flex items-center space-x-2 opacity-70 group-hover:opacity-100">
             <Trans>Show more replies</Trans>

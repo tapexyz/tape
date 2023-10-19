@@ -120,23 +120,21 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
     }
   })
 
-  const [createMomokaCommentTypedData] = useCreateMomokaMirrorTypedDataMutation(
-    {
-      onCompleted: async ({ createMomokaMirrorTypedData }) => {
-        const { typedData, id } = createMomokaMirrorTypedData
-        try {
-          const signature = await getSignatureFromTypedData(typedData)
-          const { data } = await broadcastOnMomoka({
-            variables: { request: { id, signature } }
-          })
-          if (data?.broadcastOnMomoka?.__typename === 'RelayError') {
-            return write?.({ args: [typedData.value] })
-          }
-        } catch {}
-      },
-      onError
-    }
-  )
+  const [createMomokaMirrorTypedData] = useCreateMomokaMirrorTypedDataMutation({
+    onCompleted: async ({ createMomokaMirrorTypedData }) => {
+      const { typedData, id } = createMomokaMirrorTypedData
+      try {
+        const signature = await getSignatureFromTypedData(typedData)
+        const { data } = await broadcastOnMomoka({
+          variables: { request: { id, signature } }
+        })
+        if (data?.broadcastOnMomoka?.__typename === 'RelayError') {
+          return write?.({ args: [typedData.value] })
+        }
+      } catch {}
+    },
+    onError
+  })
 
   const [mirrorOnMomoka] = useMirrorOnMomokaMutation({
     onCompleted: () => onCompleted()
@@ -160,8 +158,8 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
       setLoading(true)
 
       // MOMOKA
-      if (canUseRelay) {
-        if (video.momoka?.proof) {
+      if (video.momoka?.proof) {
+        if (canUseRelay) {
           return await mirrorOnMomoka({
             variables: {
               request: {
@@ -169,17 +167,16 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
               }
             }
           })
-        } else {
-          return await createMomokaCommentTypedData({
-            variables: {
-              request: {
-                mirrorOn: video.id
-              }
-            }
-          })
         }
+        return await createMomokaMirrorTypedData({
+          variables: {
+            request: {
+              mirrorOn: video.id
+            }
+          }
+        })
       } else {
-        //   // ON-CHAIN
+        //  ON-CHAIN
         if (canUseRelay) {
           return await mirrorOnChain({
             variables: {
@@ -188,15 +185,14 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
               }
             }
           })
-        } else {
-          return await createOnChainMirrorTypedData({
-            variables: {
-              request: {
-                mirrorOn: video.id
-              }
-            }
-          })
         }
+        return await createOnChainMirrorTypedData({
+          variables: {
+            request: {
+              mirrorOn: video.id
+            }
+          }
+        })
       }
     } catch {}
   }

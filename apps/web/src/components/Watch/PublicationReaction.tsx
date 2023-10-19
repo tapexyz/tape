@@ -1,6 +1,7 @@
 import HeartOutline from '@components/Common/Icons/HeartOutline'
 import useAuthPersistStore from '@lib/store/auth'
 import { t } from '@lingui/macro'
+import { Button } from '@radix-ui/themes'
 import { Analytics, TRACK } from '@tape.xyz/browser'
 import { formatNumber, getPublication } from '@tape.xyz/generic'
 import type { AnyPublication } from '@tape.xyz/lens'
@@ -20,7 +21,7 @@ type Props = {
   textSize?: 'sm' | 'base'
   isVertical?: boolean
   showLabel?: boolean
-  className?: string
+  variant?: 'ghost' | 'surface'
 }
 
 const PublicationReaction: FC<Props> = ({
@@ -29,7 +30,7 @@ const PublicationReaction: FC<Props> = ({
   textSize = 'sm',
   isVertical = false,
   showLabel = true,
-  className
+  variant = 'ghost'
 }) => {
   const targetPublication = getPublication(publication)
 
@@ -84,20 +85,13 @@ const PublicationReaction: FC<Props> = ({
   }
 
   return (
-    <button
-      className={clsx(
-        'flex items-center justify-end focus:outline-none disabled:opacity-50',
-        isVertical ? 'flex-col space-y-2.5 px-3 md:space-y-4' : 'space-x-5',
-        className
-      )}
-      onClick={() => likeVideo()}
-    >
+    <Button variant={variant} highContrast onClick={() => likeVideo()}>
       <span
         className={clsx(
           'flex items-center focus:outline-none',
-          isVertical ? 'flex-col space-y-2' : 'space-x-1.5',
+          isVertical ? 'flex-col space-y-1' : 'space-x-1',
           {
-            'text-brand-500 font-bold': reaction.isLiked
+            'text-brand-400': reaction.isLiked
           }
         )}
       >
@@ -106,7 +100,7 @@ const PublicationReaction: FC<Props> = ({
             'h-3.5 w-3.5': iconSize === 'sm',
             'h-6 w-6': iconSize === 'lg',
             'h-4 w-4': iconSize === 'base',
-            'text-brand-500': reaction.isLiked
+            'text-brand-400': reaction.isLiked
           })}
         />
         {showLabel && (
@@ -114,7 +108,7 @@ const PublicationReaction: FC<Props> = ({
             className={clsx({
               'text-xs': textSize === 'sm',
               'text-base': textSize === 'base',
-              'text-brand-500': reaction.isLiked
+              'text-brand-400': reaction.isLiked
             })}
           >
             {reaction.likeCount > 0
@@ -123,7 +117,7 @@ const PublicationReaction: FC<Props> = ({
           </span>
         )}
       </span>
-    </button>
+    </Button>
   )
 }
 
