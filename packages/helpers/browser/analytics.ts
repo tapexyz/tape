@@ -98,6 +98,8 @@ export const TRACK = {
       GITHUB: 'Click Github',
       DISCORD: 'Click Discord',
       THANKS: 'Click Thanks',
+      FEEDBACK: 'Click Feedback',
+      BRAND_KIT: 'Click Brand Kit',
       ROADMAP: 'Click Roadmap',
       TERMS: 'Click Terms',
       PRIVACY: 'Click Privacy',

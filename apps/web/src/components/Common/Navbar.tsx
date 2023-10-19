@@ -1,6 +1,6 @@
 import useAuthPersistStore from '@lib/store/auth'
 import { Trans } from '@lingui/macro'
-import { Button, IconButton } from '@radix-ui/themes'
+import { Button, HoverCard, IconButton } from '@radix-ui/themes'
 import { STATIC_ASSETS } from '@tape.xyz/constants'
 import clsx from 'clsx'
 import Link from 'next/link'
@@ -8,7 +8,9 @@ import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
 import React from 'react'
 
+import Footer from './Footer'
 import BellOutline from './Icons/BellOutline'
+import ThreeDotsOutline from './Icons/ThreeDotsOutline'
 import UploadOutline from './Icons/UploadOutline'
 import GlobalSearch from './Search/GlobalSearch'
 import UserMenu from './UserMenu'
@@ -25,7 +27,7 @@ const Navbar = () => {
   return (
     <div className="ultrawide:px-8 laptop:px-6 dark:bg-bunker/80 sticky top-0 z-10 flex h-16 w-full items-center bg-white/80 px-4 backdrop-blur-2xl">
       <div className="flex w-full items-center justify-between">
-        <div className="flex items-center md:w-1/5">
+        <div className="flex items-center space-x-2 md:w-1/5">
           <Link href="/" className="inline-flex">
             {resolvedTheme === 'dark' ? (
               <img
@@ -41,6 +43,22 @@ const Navbar = () => {
               />
             )}
           </Link>
+          <HoverCard.Root>
+            <HoverCard.Trigger>
+              <IconButton
+                variant="ghost"
+                radius="large"
+                className="opacity-40 hover:opacity-100"
+              >
+                <ThreeDotsOutline className="h-4 w-4" />
+              </IconButton>
+            </HoverCard.Trigger>
+            <HoverCard.Content className="w-72 !p-0">
+              <div className="dark:bg-bunker bg-white p-5">
+                <Footer />
+              </div>
+            </HoverCard.Content>
+          </HoverCard.Root>
         </div>
         <div className="hidden space-x-7 md:flex">
           <Link
