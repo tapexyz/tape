@@ -47,15 +47,16 @@ const ModulePermissions = () => {
         ]
       }
     },
-    skip: !selectedSimpleProfile?.id
+    skip: !selectedSimpleProfile?.id,
+    fetchPolicy: 'no-cache'
   })
 
   useWaitForTransaction({
     hash: txData?.hash,
     onSuccess: () => {
+      refetch()
       toast.success(t`Permission updated`)
       setLoadingModule('')
-      refetch()
     },
     onError(error: CustomErrorWithData) {
       toast.error(error?.data?.message ?? error?.message)
@@ -82,12 +83,10 @@ const ModulePermissions = () => {
           request: {
             allowance: {
               currency,
-              value: isAllow ? Number.MAX_SAFE_INTEGER.toString() : '0',
-              [getCollectModuleConfig(selectedModule).type]: selectedModule
+              value: isAllow ? Number.MAX_SAFE_INTEGER.toString() : '0'
             },
             module: {
-              openActionModule:
-                OpenActionModuleType.SimpleCollectOpenActionModule
+              [getCollectModuleConfig(selectedModule).type]: selectedModule
             }
           }
         }

@@ -158,6 +158,7 @@ const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
     useGenerateModuleCurrencyApprovalDataLazyQuery()
 
   const allow = async () => {
+    setLoading(true)
     const { data: allowanceData } = await generateAllowanceQuery({
       variables: {
         request: {
@@ -234,11 +235,8 @@ const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
             Follow {getProfile(profile)?.displayName} for
           </Text>
           <Flex gap="1" align="center">
-            <Text as="div" size="6">
-              {followModule?.amount.value}
-            </Text>
-            <Text as="div" size="7" weight="bold">
-              {followModule?.amount.asset.symbol}
+            <Text as="div" size="4">
+              {followModule?.amount.value} {followModule?.amount.asset.symbol}
             </Text>
           </Flex>
         </Flex>

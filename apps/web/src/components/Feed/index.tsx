@@ -87,7 +87,7 @@ const Feed = () => {
               <Trans>Your Friends' Stories</Trans>
             </h1>
           </div>
-          <div className="laptop:grid-cols-5 ultrawide:pt-8 laptop:pt-6 ultrawide:grid-cols-6 grid-col-1 grid gap-x-4 gap-y-2 pt-4 md:grid-cols-3 md:gap-y-8">
+          <div className="laptop:grid-cols-5 ultrawide:pt-8 laptop:pt-6 ultrawide:grid-cols-6 grid-col-1 desktop:grid-cols-4 tablet:grid-cols-3 grid gap-x-4 gap-y-2 pt-4 md:gap-y-8">
             {feedItems?.map((feedItem: FeedItem) => {
               const video = feedItem.root
               return (
