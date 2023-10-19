@@ -11,10 +11,10 @@ const Explore = () => {
   }, [])
 
   return (
-    <>
+    <div className="max-w-screen-ultrawide container mx-auto">
       <MetaTags title={t`Explore`} />
       <ExploreFeed />
-    </>
+    </div>
   )
 }
 

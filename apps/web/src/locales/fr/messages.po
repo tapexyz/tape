@@ -1294,11 +1294,15 @@ msgstr "Offensif"
 #~ msgstr ""
 
 #: src/components/Settings/BasicInfo.tsx
+#~ msgid "Profile URL"
+#~ msgstr ""
+
+#: src/components/Settings/BasicInfo.tsx
 msgid "Profile"
 msgstr ""
 
 #: src/components/Settings/BasicInfo.tsx
-msgid "Profile URL"
+msgid "URL"
 msgstr ""
 
 #: src/components/Settings/BasicInfo.tsx
@@ -1383,6 +1387,18 @@ msgstr ""
 #: src/components/Settings/Permissions/Dispatcher/Toggle.tsx
 msgid "Enable"
 msgstr "Activer"
+
+#: src/components/Settings/Manager/Managers.tsx
+msgid "Remove"
+msgstr ""
+
+#: src/components/Settings/Manager/Managers.tsx
+msgid "New Manager"
+msgstr ""
+
+#: src/components/Settings/Manager/Managers.tsx
+msgid "This delegates permission to the address to perform all social operations on your behalf."
+msgstr ""
 
 #: src/components/Settings/Membership.tsx
 #~ msgid "You can set up a subscription fee for your channel and provide exclusive offers and perks to the subscribers, also people can pay and support your work."
@@ -1480,15 +1496,19 @@ msgid "Subscription"
 msgstr ""
 
 #: src/components/Settings/SideNav.tsx
+msgid "Manager"
+msgstr ""
+
+#: src/components/Settings/SideNav.tsx
 msgid "Permissions"
 msgstr "Permissions"
 
 #: src/components/Settings/SideNav.tsx
-msgid "Sessions"
+msgid "Blocked"
 msgstr ""
 
 #: src/components/Settings/SideNav.tsx
-msgid "Blocked"
+msgid "Sessions"
 msgstr ""
 
 #: src/components/Settings/SideNav.tsx
@@ -1532,8 +1552,12 @@ msgid "Update"
 msgstr "Mise à jour"
 
 #: src/components/Settings/index.tsx
-msgid "Channel Settings"
-msgstr "Paramètres du canal"
+#~ msgid "Channel Settings"
+#~ msgstr "Paramètres du canal"
+
+#: src/components/Settings/index.tsx
+msgid "Profile Settings"
+msgstr ""
 
 #: src/components/Stream/index.tsx
 msgid "From the frens"

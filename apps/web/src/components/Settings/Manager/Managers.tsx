@@ -9,6 +9,7 @@ import { Button, Dialog, Flex, Table } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   ERROR_MESSAGE,
+  LENS_MANAGER_ADDRESS,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE
 } from '@tape.xyz/constants'
@@ -38,22 +39,24 @@ type FormData = z.infer<typeof formSchema>
 
 const Entry = ({
   address,
-  removing,
+  removingAddress,
   onRemove
 }: {
   address: string
-  removing: boolean
+  removingAddress: string
   onRemove: (address: string) => void
 }) => {
   const { did } = useDid({ address })
   return (
     <Table.Row key={address}>
       <Table.RowHeaderCell>{address}</Table.RowHeaderCell>
-      <Table.RowHeaderCell width="200px">{did || '-'}</Table.RowHeaderCell>
+      <Table.RowHeaderCell width="200px">
+        {address === LENS_MANAGER_ADDRESS ? 'Lens Manager' : did || '-'}
+      </Table.RowHeaderCell>
       <Table.Cell justify="end">
         <Button
           onClick={() => onRemove(address)}
-          disabled={removing}
+          disabled={removingAddress === address}
           color="red"
           size="1"
           variant="soft"
@@ -67,7 +70,7 @@ const Entry = ({
 
 const Managers = () => {
   const [submitting, setSubmitting] = useState(false)
-  const [removing, setRemoving] = useState(false)
+  const [removingAddress, setRemovingAddress] = useState('')
   const [showModal, setShowModal] = useState(false)
 
   const {
@@ -96,7 +99,7 @@ const Managers = () => {
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.message ?? ERROR_MESSAGE)
     setSubmitting(false)
-    setRemoving(false)
+    setRemovingAddress('')
   }
 
   const { signTypedDataAsync } = useSignTypedData({
@@ -196,7 +199,7 @@ const Managers = () => {
     if (handleWrongNetwork()) {
       return
     }
-    setRemoving(true)
+    setRemovingAddress(address)
     toggleLensManager({
       variables: {
         request: {
@@ -272,7 +275,7 @@ const Managers = () => {
             <Table.Header>
               <Table.Row>
                 <Table.ColumnHeaderCell>Address</Table.ColumnHeaderCell>
-                <Table.ColumnHeaderCell>DID</Table.ColumnHeaderCell>
+                <Table.ColumnHeaderCell>Name</Table.ColumnHeaderCell>
                 <Table.ColumnHeaderCell justify="end">
                   Action
                 </Table.ColumnHeaderCell>
@@ -284,7 +287,7 @@ const Managers = () => {
                 <Entry
                   key={address}
                   address={address}
-                  removing={removing}
+                  removingAddress={removingAddress}
                   onRemove={(address) => removeManager(address)}
                 />
               ))}

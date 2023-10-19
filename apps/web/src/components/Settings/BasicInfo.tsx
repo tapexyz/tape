@@ -14,7 +14,7 @@ import {
 } from '@lens-protocol/metadata'
 import useProfileStore from '@lib/store/profile'
 import { t, Trans } from '@lingui/macro'
-import { Button, Flex, IconButton } from '@radix-ui/themes'
+import { Button, Flex, IconButton, Text } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   Analytics,
@@ -387,11 +387,9 @@ const BasicInfo = ({ profile }: Props) => {
             </label>
           </div>
           <div>
-            <div className="mb-1 flex items-center">
-              <div className="text-[11px] font-semibold uppercase opacity-60">
-                <Trans>Profile</Trans>
-              </div>
-            </div>
+            <Text as="div" size="2" weight="medium">
+              <Trans>Profile</Trans>
+            </Text>
             <div className="flex items-center space-x-3">
               <h6 className="flex items-center space-x-1">
                 <span>{getProfile(profile)?.slug}</span>
@@ -399,11 +397,9 @@ const BasicInfo = ({ profile }: Props) => {
               </h6>
             </div>
             <div className="mt-4">
-              <div className="mb-1 flex items-center">
-                <div className="text-[11px] font-semibold uppercase opacity-60">
-                  <Trans>Profile URL</Trans>
-                </div>
-              </div>
+              <Text as="div" size="2" weight="medium">
+                <Trans>URL</Trans>
+              </Text>
               <div className="flex items-center space-x-2">
                 <span>
                   {TAPE_WEBSITE_URL}/u/

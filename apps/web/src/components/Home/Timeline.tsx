@@ -22,7 +22,7 @@ const Timeline: FC<Props> = ({ videos }) => {
     `/u/${getProfile(selectedSimpleProfile as Profile)?.slug}`
 
   return (
-    <div className="laptop:grid-cols-5 ultrawide:grid-cols-6 grid-col-1 grid gap-x-4 gap-y-2 md:grid-cols-3 md:gap-y-8">
+    <div className="ultrawide:grid-cols-6 grid-col-1 laptop:grid-cols-4 grid gap-x-4 gap-y-2 md:grid-cols-3 md:gap-y-8">
       {isProfilePage &&
         queuedVideos?.map((queuedVideo) => (
           <QueuedVideo

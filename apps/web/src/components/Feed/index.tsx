@@ -74,7 +74,7 @@ const Feed = () => {
   }
 
   return (
-    <div>
+    <div className="max-w-screen-ultrawide container mx-auto">
       <MetaTags title={t`Your Feed`} />
       {loading && <TimelineShimmer />}
       {!error && !loading && (

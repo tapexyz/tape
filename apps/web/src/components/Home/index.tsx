@@ -18,7 +18,7 @@ const Home: NextPage = () => {
   )
 
   return (
-    <>
+    <div className="max-w-screen-ultrawide container mx-auto">
       {/* <WhatsPopping /> */}
       {getIsFeatureEnabled(
         FEATURE_FLAGS.OPEN_ACTIONS,
@@ -28,7 +28,7 @@ const Home: NextPage = () => {
       <TopSection />
       {/* <LiveSection /> */}
       <Feed />
-    </>
+    </div>
   )
 }
 
