@@ -152,7 +152,6 @@ const RenderComment: FC<Props> = ({ comment }) => {
               </Button>
               {comment.stats.comments ? (
                 <Button
-                  color="blue"
                   variant="ghost"
                   onClick={() => setShowReplies(!showReplies)}
                 >

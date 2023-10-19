@@ -56,6 +56,9 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
   const activeProfile = useProfileStore((state) => state.activeProfile)
   const userSigNonce = useProfileStore((state) => state.userSigNonce)
   const setUserSigNonce = useProfileStore((state) => state.setUserSigNonce)
+  const [alreadyCollected, setAlreadyCollected] = useState(
+    publication.operations.hasActed.value
+  )
 
   const handleWrongNetwork = useHandleWrongNetwork()
 
@@ -219,7 +222,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
       return
     }
     setCollecting(false)
-    // setAlreadyCollected(true)
+    setAlreadyCollected(true)
     toast.success(t`Collected as NFT`)
   }
   const { signTypedDataAsync } = useSignTypedData({ onError })
@@ -290,7 +293,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
   }
 
   return (
-    <div className="pt-3">
+    <div className="pt-5">
       {!allowanceLoading ? (
         <>
           <div className="mb-3 flex flex-col">
@@ -395,10 +398,14 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
               ) : haveEnoughBalance ? (
                 <Button
                   highContrast
-                  disabled={collecting}
-                  onClick={() => collectNow()}
+                  disabled={collecting || alreadyCollected}
+                  onClick={() => (!alreadyCollected ? collectNow() : null)}
                 >
-                  <Trans>Collect</Trans>
+                  {alreadyCollected ? (
+                    <Trans>Already Collected</Trans>
+                  ) : (
+                    <Trans>Collect</Trans>
+                  )}
                 </Button>
               ) : (
                 <BalanceAlert action={action} />

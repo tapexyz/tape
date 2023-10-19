@@ -28,7 +28,7 @@ const VideoMeta: FC<Props> = ({ video }) => {
   const [showMirrorsModal, setShowMirrorsModal] = useState(false)
 
   return (
-    <div className="flex flex-wrap items-center opacity-70">
+    <div className="flex flex-wrap items-center">
       <div className="flex items-center">
         <Dialog.Root
           open={showCollectsModal}

@@ -58,13 +58,17 @@ const VideoActions: FC<Props> = ({ video }) => {
           </Dialog.Content>
         </Dialog.Root>
       )}
-      <MirrorVideo video={video}>
-        <Button variant="surface" highContrast>
-          <MirrorOutline className="h-4 w-4 flex-none" />
-          Mirror
-        </Button>
-      </MirrorVideo>
-      <OpenActions publication={video} text="Collect" />
+      {video.operations.canMirror && (
+        <MirrorVideo video={video}>
+          <Button variant="surface" highContrast>
+            <MirrorOutline className="h-4 w-4 flex-none" />
+            Mirror
+          </Button>
+        </MirrorVideo>
+      )}
+      {video.operations.canAct && (
+        <OpenActions publication={video} text="Collect" />
+      )}
       <VideoOptions video={video}>
         <IconButton variant="surface" highContrast>
           <ThreeDotsOutline className="h-4 w-4" />

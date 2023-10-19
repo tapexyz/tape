@@ -62,7 +62,7 @@ const Video: FC<Props> = ({ video }) => {
           isSensitiveContent={isSensitiveContent}
         />
       </div>
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between pb-2">
         <div>
           <h1 className="mt-4 line-clamp-2 text-xl font-medium">
             <InterweaveContent
