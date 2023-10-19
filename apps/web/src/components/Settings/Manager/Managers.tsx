@@ -200,6 +200,7 @@ const Managers = () => {
     toggleLensManager({
       variables: {
         request: {
+          approveLensManager: true,
           changeManagers: [
             {
               address,
