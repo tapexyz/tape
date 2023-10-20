@@ -10,6 +10,7 @@ export const getProfile = (
   slugWithPrefix: string
   displayName: string
   link: string
+  id: string
   address: string
 } => {
   if (!profile) {
@@ -19,6 +20,7 @@ export const getProfile = (
       slugWithPrefix: '',
       displayName: '',
       link: '',
+      id: '',
       address: ''
     }
   }
@@ -31,6 +33,7 @@ export const getProfile = (
     slug,
     slugWithPrefix: `${prefix}${slug}`,
     displayName: profile.metadata?.displayName || slug,
+    id: profile.id,
     link: profile.handle
       ? `/u/${trimLensHandle(profile.handle)}`
       : `/profile/${profile.id}`,

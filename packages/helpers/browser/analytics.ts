@@ -58,7 +58,6 @@ export const TRACK = {
     CLICK_CHANNEL_STATS: 'Click Channel Stats',
     CLICK_CHANNEL_ABOUT: 'Click Channel About',
     CLICK_CHANNEL_COVER_LINKS: 'Click Channel Cover Links',
-    SWITCH: 'Switch Channel',
     UPDATE: 'Update Channel',
     SUBSCRIBE: 'Subscribe Channel',
     JOIN: 'Join Channel',

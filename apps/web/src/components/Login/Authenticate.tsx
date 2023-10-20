@@ -28,6 +28,10 @@ import toast from 'react-hot-toast'
 import { useAccount, useDisconnect, useSignMessage } from 'wagmi'
 
 const Authenticate = () => {
+  const {
+    query: { as }
+  } = useRouter()
+
   const [selectedProfileId, setSelectedProfileId] = useState<string>()
   const [loading, setLoading] = useState(false)
 
@@ -46,7 +50,6 @@ const Authenticate = () => {
 
   const router = useRouter()
   const { address, connector, isConnected } = useAccount()
-  const isReadyToSign = isConnected && !selectedSimpleProfile?.id
 
   const { data, loading: profilesLoading } = useProfilesManagedQuery({
     variables: {
@@ -56,7 +59,7 @@ const Authenticate = () => {
     onCompleted: (data) => {
       const profile = data?.profilesManaged.items?.[0]
       if (profile) {
-        setSelectedProfileId(profile.id)
+        setSelectedProfileId(as ?? profile.id)
       }
     }
   })
@@ -79,7 +82,7 @@ const Authenticate = () => {
   const [getAllSimpleProfiles] = useSimpleProfilesLazyQuery()
 
   const handleSign = useCallback(async () => {
-    if (!isReadyToSign) {
+    if (!isConnected) {
       disconnect?.()
       signOut()
       return toast.error(t`Please connect to your wallet`)
@@ -135,7 +138,6 @@ const Authenticate = () => {
       }
       Analytics.track(TRACK.AUTH.SIGN_IN_WITH_LENS)
     } catch (error) {
-      signOut()
       logger.error('[Error Sign In]', {
         error,
         connector: connector?.name
@@ -149,7 +151,7 @@ const Authenticate = () => {
     connector,
     disconnect,
     authenticate,
-    isReadyToSign,
+    isConnected,
     loadChallenge,
     setActiveProfile,
     signMessageAsync,
@@ -157,6 +159,10 @@ const Authenticate = () => {
     getAllSimpleProfiles,
     setSelectedSimpleProfile
   ])
+
+  if (as === selectedSimpleProfile?.id) {
+    return null
+  }
 
   if (!isConnected) {
     return
@@ -166,22 +172,23 @@ const Authenticate = () => {
     return <Loader />
   }
 
-  const profiles = data?.profilesManaged.items as Profile[]
-  const profile = profiles?.[0]
+  const profilesManaged = data?.profilesManaged.items as Profile[]
+  const profile = profilesManaged?.[0]
 
   return (
-    <div>
+    <div className="text-left">
+      {as && <p className="pb-1">Login as</p>}
       {profile ? (
         <Flex direction="column" gap="2">
           <Select.Root
             size="3"
-            defaultValue={profile?.id}
+            defaultValue={as ?? profile?.id}
             value={selectedProfileId}
             onValueChange={(value) => setSelectedProfileId(value)}
           >
             <Select.Trigger className="w-full" />
             <Select.Content highContrast>
-              {profiles?.map((profile) => (
+              {profilesManaged?.map((profile) => (
                 <Select.Item key={profile.id} value={profile.id}>
                   <Flex gap="2">
                     <Avatar

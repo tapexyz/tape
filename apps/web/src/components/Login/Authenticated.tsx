@@ -1,19 +1,17 @@
-import useAuthPersistStore, { signOut } from '@lib/store/auth'
-import { Avatar, Button, Flex, Text } from '@radix-ui/themes'
+import useAuthPersistStore from '@lib/store/auth'
+import { Avatar, Badge, Flex, Text } from '@radix-ui/themes'
 import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import React from 'react'
-import toast from 'react-hot-toast'
-import { useDisconnect } from 'wagmi'
+
+import Authenticate from './Authenticate'
 
 const Authenticated = () => {
-  const { disconnect } = useDisconnect({
-    onError(error: CustomErrorWithData) {
-      toast.error(error?.data?.message ?? error?.message)
-    }
-  })
+  const {
+    query: { as }
+  } = useRouter()
 
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
@@ -24,31 +22,35 @@ const Authenticated = () => {
   }
 
   return (
-    <Flex className="py-10" direction="column" align="center">
-      <Avatar
-        size="7"
-        src={getProfilePicture(selectedSimpleProfile)}
-        fallback={getProfile(selectedSimpleProfile)?.slug[0] ?? ';)'}
-        alt={getProfile(selectedSimpleProfile)?.slug}
-      />
-      <Text as="p" weight="bold">
-        {getProfile(selectedSimpleProfile)?.slug}
-      </Text>
-      <Flex gap="3" mt="5">
-        <Link href="/">
-          <Button highContrast>Go Home</Button>
-        </Link>
-        <Button
-          onClick={() => {
-            signOut()
-            disconnect?.()
-          }}
-          color="red"
-        >
-          Logout
-        </Button>
-      </Flex>
-    </Flex>
+    <div>
+      <div className="rounded-small tape-border my-6 p-3">
+        <Flex gap="2" align="center" justify="between">
+          <Flex gap="3">
+            <Avatar
+              size="5"
+              src={getProfilePicture(selectedSimpleProfile)}
+              fallback={getProfile(selectedSimpleProfile)?.slug[0] ?? ';)'}
+              alt={getProfile(selectedSimpleProfile)?.slug}
+            />
+            <div className="text-left">
+              <Text as="p" weight="bold" size="6">
+                {getProfile(selectedSimpleProfile)?.displayName}
+              </Text>
+              <Link href={getProfile(selectedSimpleProfile)?.link}>
+                <Text as="p" size="4">
+                  {getProfile(selectedSimpleProfile)?.slug} (
+                  {getProfile(selectedSimpleProfile)?.id})
+                </Text>
+              </Link>
+            </div>
+          </Flex>
+          <Badge size="1" color="green">
+            Active
+          </Badge>
+        </Flex>
+      </div>
+      {as && <Authenticate />}
+    </div>
   )
 }
 

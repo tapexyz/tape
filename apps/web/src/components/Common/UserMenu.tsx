@@ -6,7 +6,7 @@ import { Analytics, TRACK } from '@tape.xyz/browser'
 import { ADMIN_IDS } from '@tape.xyz/constants'
 import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
-import { useProfilesQuery } from '@tape.xyz/lens'
+import { LimitType, useProfilesManagedQuery } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -44,32 +44,14 @@ const UserMenu = () => {
     }
   })
 
-  const { data } = useProfilesQuery({
+  const { data } = useProfilesManagedQuery({
     variables: {
-      request: {
-        where: {
-          ownedBy: [address]
-        }
-      }
+      request: { for: address, includeOwned: true, limit: LimitType.Fifty }
     }
   })
-  const allProfiles = data?.profiles.items as Profile[]
+  const profilesManaged = data?.profilesManaged.items as Profile[]
 
   const isAdmin = ADMIN_IDS.includes(selectedSimpleProfile?.id)
-
-  const onSelectChannel = (profile: Profile) => {
-    setActiveProfile(profile)
-    // hand picked attributes to persist, to not bloat storage
-    setSelectedSimpleProfile({
-      handle: profile.handle,
-      id: profile.id,
-      ownedBy: profile.ownedBy,
-      sponsor: profile.sponsor,
-      metadata: profile.metadata,
-      stats: profile.stats
-    })
-    Analytics.track(TRACK.CHANNEL.SWITCH)
-  }
 
   const logout = () => {
     disconnect?.()
@@ -149,24 +131,29 @@ const UserMenu = () => {
                   </Flex>
                 </DropdownMenu.SubTrigger>
                 <DropdownMenu.SubContent>
-                  {allProfiles?.map((profile) => (
-                    <DropdownMenu.Item
-                      key={profile.id}
-                      onClick={() => onSelectChannel(profile)}
-                    >
-                      <Flex gap="2" align="center">
-                        <Avatar
-                          size="1"
-                          radius="full"
-                          src={getProfilePicture(profile)}
-                          fallback={getProfile(profile)?.displayName[0] ?? ';)'}
-                        />
-                        <Text as="p" className="truncate whitespace-nowrap">
-                          {getProfile(profile)?.slug}
-                        </Text>
-                      </Flex>
-                    </DropdownMenu.Item>
-                  ))}
+                  {profilesManaged?.map(
+                    (profile) =>
+                      profile.id !== selectedSimpleProfile.id && (
+                        <DropdownMenu.Item
+                          key={profile.id}
+                          onClick={() => push(`/login?as=${profile.id}`)}
+                        >
+                          <Flex gap="2" align="center">
+                            <Avatar
+                              size="1"
+                              radius="full"
+                              src={getProfilePicture(profile)}
+                              fallback={
+                                getProfile(profile)?.displayName[0] ?? ';)'
+                              }
+                            />
+                            <Text as="p" className="truncate whitespace-nowrap">
+                              {getProfile(profile)?.slug}
+                            </Text>
+                          </Flex>
+                        </DropdownMenu.Item>
+                      )
+                  )}
                 </DropdownMenu.SubContent>
               </DropdownMenu.Sub>
             </>
