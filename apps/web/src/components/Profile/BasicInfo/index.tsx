@@ -128,7 +128,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
                 className="flex items-center"
               >
                 <Button variant="ghost">
-                  <LocationOutline className="h-4 w-4" />
+                  <LocationOutline className="h-4" />
                   <span>{location}</span>
                 </Button>
               </Link>
