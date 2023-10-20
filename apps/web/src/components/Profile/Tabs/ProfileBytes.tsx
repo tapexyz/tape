@@ -71,14 +71,14 @@ const ProfileBytes: FC<Props> = ({ profileId }) => {
   return (
     <div className="w-full">
       {!error && !loading && (
-        <div className="grid-col-2 laptop:grid-cols-5 grid justify-center gap-x-3 gap-y-2 sm:grid-cols-2 md:grid-cols-3 md:gap-y-6">
-          {bytes.map((byte) => {
+        <div className="laptop:grid-cols-5 grid grid-cols-2 justify-center gap-2 md:grid-cols-3">
+          {[...bytes, ...bytes].map((byte) => {
             const thumbnailUrl = imageCdn(getThumbnailUrl(byte), 'THUMBNAIL_V')
             return (
               <Link
                 key={byte.id}
                 href={`/bytes/${byte.id}`}
-                className="ultrawide:w-[240px] hover:border-brand-500 rounded-large ultrawide:h-[360px] tape-border relative aspect-[9/16] h-[340px] w-[220px] flex-none place-self-center overflow-hidden"
+                className="hover:border-brand-500 rounded-large tape-border relative aspect-[9/16] w-full flex-none place-self-center overflow-hidden md:h-[360px]"
               >
                 <img
                   className="h-full object-cover"
