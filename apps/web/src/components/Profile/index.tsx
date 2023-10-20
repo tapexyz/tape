@@ -1,11 +1,8 @@
 import MetaTags from '@components/Common/MetaTags'
 import ProfilePageShimmer from '@components/Shimmers/ProfilePageShimmer'
 import { Analytics, TRACK } from '@tape.xyz/browser'
-import {
-  getProfile,
-  getValueFromKeyInAttributes,
-  trimLensHandle
-} from '@tape.xyz/generic'
+import { HANDLE_PREFIX } from '@tape.xyz/constants'
+import { getProfile, getValueFromKeyInAttributes } from '@tape.xyz/generic'
 import type { Profile, ProfileRequest } from '@tape.xyz/lens'
 import { useProfileQuery } from '@tape.xyz/lens'
 import { useRouter } from 'next/router'
@@ -18,25 +15,24 @@ import Cover from './Cover'
 import ProfileTabs from './Tabs'
 import PinnedVideo from './Tabs/PinnedVideo'
 
-const Channel = () => {
+const ViewProfile = () => {
   const { query } = useRouter()
   const handle = query.profile as string
-  const isId = handle.startsWith('0x')
+  const id = query.id as string
 
   useEffect(() => {
     Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.CHANNEL })
   }, [])
 
   const request: ProfileRequest = {
-    forProfileId: isId ? handle : undefined,
-    forHandle: !isId ? `test/@${trimLensHandle(handle)}` : undefined
+    ...(id ? { forProfileId: id } : { forHandle: `${HANDLE_PREFIX}${handle}` })
   }
 
   const { data, loading, error } = useProfileQuery({
     variables: {
       request
     },
-    skip: !handle
+    skip: id ? !id : !handle
   })
 
   if (error) {
@@ -74,4 +70,4 @@ const Channel = () => {
   )
 }
 
-export default Channel
+export default ViewProfile

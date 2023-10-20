@@ -1,4 +1,4 @@
-import { createPublicClient, http } from 'viem'
+import { createPublicClient, http, isAddress } from 'viem'
 import { mainnet } from 'viem/chains'
 import { array, object, string } from 'zod'
 
@@ -62,7 +62,7 @@ const resolveAllAddresses = async (
 ): Promise<string[]> => {
   const resolvedAddresses = await Promise.all(
     transformedAddresses.map(async (addrOrHandle) => {
-      if (addrOrHandle.startsWith('0x')) {
+      if (isAddress(addrOrHandle)) {
         return await resolveENS(addrOrHandle)
       }
       return addrOrHandle

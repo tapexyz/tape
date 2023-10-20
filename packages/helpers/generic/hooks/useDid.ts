@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
+import { isAddress } from 'viem'
 
 import { resolveDid } from '../functions/resolveDid'
 import { shortenAddress } from '../functions/shortenAddress'
@@ -19,7 +20,7 @@ export const useDid = ({
   const loadDetails = async () => {
     const data = await resolveDid([address])
     let item = data[0]
-    if (item.startsWith('0x')) {
+    if (isAddress(item)) {
       item = shortenAddress(address)
     }
     return item.length ? item : shortenAddress(address)

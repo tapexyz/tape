@@ -6,11 +6,12 @@ import useAppStore from '@lib/store'
 import { Trans } from '@lingui/macro'
 import { IconButton, Text } from '@radix-ui/themes'
 import {
+  HANDLE_PREFIX,
   IS_MAINNET,
   TAPE_ADMIN_ADDRESS,
   TAPE_APP_NAME
 } from '@tape.xyz/constants'
-import { splitNumber, trimLensHandle } from '@tape.xyz/generic'
+import { splitNumber } from '@tape.xyz/generic'
 import type { RecipientDataInput } from '@tape.xyz/lens'
 import { useProfileLazyQuery } from '@tape.xyz/lens'
 import clsx from 'clsx'
@@ -65,7 +66,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
         const { data } = await resolveHandleAddress({
           variables: {
             request: {
-              forHandle: `test/@${trimLensHandle(value as string)}`
+              forHandle: `${HANDLE_PREFIX}${value}`
             }
           }
         })

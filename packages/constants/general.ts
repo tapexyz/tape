@@ -163,6 +163,7 @@ export const SUPPORTED_LOCALES: Record<string, string> = {
 export const DEFAULT_LOCALE = 'en'
 export const LENSPROTOCOL_HANDLE = 'lensprotocol'
 export const HANDLE_SUFFIX = IS_MAINNET ? '.lens' : '.test'
+export const HANDLE_PREFIX = IS_MAINNET ? 'lens/@' : 'test/@'
 
 // other apps
 export const HEY_WEBSITE_URL = IS_MAINNET
