@@ -17,7 +17,7 @@ const Layout = lazy(() => import('../components/Common/Layout'))
 
 const NO_NAV_PATHS = ['/login']
 const NO_PADDING_PATHS = [
-  '/u/[profile]',
+  '/u/[handle]',
   '/profile/[id]',
   '/login',
   '/bytes',
