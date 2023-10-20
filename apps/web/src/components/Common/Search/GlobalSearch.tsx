@@ -127,7 +127,7 @@ const GlobalSearch: FC<Props> = ({ onSearchResults }) => {
             </TextField.Root>
             <div
               className={clsx(
-                'dark:bg-bunker rounded-small z-10 mt-1 w-full border bg-white text-base shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none dark:border-gray-700 md:absolute',
+                'dark:bg-bunker rounded-large z-10 mt-1 w-full border bg-white text-base shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none dark:border-gray-700 md:absolute',
                 { hidden: debouncedValue.length === 0 }
               )}
             >
