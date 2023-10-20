@@ -160,7 +160,7 @@ const Authenticate = () => {
     setSelectedSimpleProfile
   ])
 
-  if (as === selectedSimpleProfile?.id) {
+  if (as && as === selectedSimpleProfile?.id) {
     return null
   }
 

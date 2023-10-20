@@ -80,7 +80,7 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
   })
 
   const validateAuthentication = () => {
-    if (!selectedSimpleProfile && AUTH_ROUTES.includes(pathname)) {
+    if (!selectedSimpleProfile?.id && AUTH_ROUTES.includes(pathname)) {
       // Redirect to login page
       replace(`/login?next=${asPath}`)
     }
