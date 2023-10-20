@@ -18,7 +18,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
 ) => {
   const handle = context.query.handle as string
   const id = context.query.id as string
-  const forHandle = id ? id : `${HANDLE_PREFIX}/${handle}`
+  const forHandle = id ? id : `${HANDLE_PREFIX}${handle}`
   const { data, error } = await client.query({
     query: ProfileDocument,
     variables: {
