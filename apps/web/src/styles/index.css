@@ -13,7 +13,8 @@ html {
 body[style] {
   margin: 0 auto !important;
 }
-button {
+button,
+div[type='button'] {
   @apply !cursor-pointer disabled:!cursor-not-allowed;
 }
 /* Override for Radix Ends*/

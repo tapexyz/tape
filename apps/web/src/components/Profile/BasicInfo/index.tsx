@@ -125,11 +125,12 @@ const BasicInfo: FC<Props> = ({ profile }) => {
               <Link
                 href={`https://www.google.com/maps/search/?api=1&query=${location}`}
                 target="_blank"
+                className="flex items-center"
               >
-                <Flex gap="1" align="center">
+                <Button variant="ghost">
                   <LocationOutline className="h-4 w-4" />
                   <span>{location}</span>
-                </Flex>
+                </Button>
               </Link>
             )}
             <Button
