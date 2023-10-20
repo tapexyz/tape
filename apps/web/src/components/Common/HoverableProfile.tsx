@@ -53,7 +53,7 @@ const HoverableProfile: FC<Props> = ({ profile, fontSize = '2', children }) => {
               className="border-2 border-white bg-white object-cover dark:bg-gray-900"
               size="3"
               fallback={getProfile(profile)?.displayName[0] ?? ';)'}
-              radius="medium"
+              radius="large"
               src={getProfilePicture(profile, 'AVATAR')}
             />
           </div>
@@ -65,11 +65,11 @@ const HoverableProfile: FC<Props> = ({ profile, fontSize = '2', children }) => {
         </div>
         <div className="p-2 pl-4 pt-2.5">
           <Link
-            href={`/u/${getProfile(profile)?.slug}`}
+            href={getProfile(profile)?.link}
             className="flex items-center space-x-1"
           >
             <span className="text-2xl font-bold leading-tight">
-              {getProfile(profile)?.slug}
+              {getProfile(profile)?.displayName}
             </span>
             <Badge id={profile?.id} size="lg" />
           </Link>

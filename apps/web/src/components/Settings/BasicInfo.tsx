@@ -315,7 +315,7 @@ const BasicInfo = ({ profile }: Props) => {
             draggable={false}
             alt={`${getProfile(profile)?.slug}'s cover`}
           />
-          <div className="absolute bottom-2 right-2 cursor-pointer text-sm dark:bg-black">
+          <div className="absolute bottom-2 right-2 cursor-pointer text-sm">
             <Button
               highContrast
               type="button"
@@ -387,7 +387,7 @@ const BasicInfo = ({ profile }: Props) => {
             </label>
           </div>
           <div>
-            <Text as="div" size="2" weight="medium">
+            <Text as="div" className="opacity-70" size="2" weight="medium">
               <Trans>Profile</Trans>
             </Text>
             <div className="flex items-center space-x-3">
@@ -397,8 +397,8 @@ const BasicInfo = ({ profile }: Props) => {
               </h6>
             </div>
             <div className="mt-4">
-              <Text as="div" size="2" weight="medium">
-                <Trans>URL</Trans>
+              <Text as="div" className="opacity-70" size="2" weight="medium">
+                <Trans>Permalink</Trans>
               </Text>
               <div className="flex items-center space-x-2">
                 <span>

@@ -43,6 +43,7 @@ const Connectors = () => {
           </Button>
         ))}
       </Flex>
+      <Authenticate />
       {error?.message ? (
         <Callout.Root color="red">
           <Callout.Icon>
@@ -51,7 +52,6 @@ const Connectors = () => {
           <Callout.Text>{error?.message ?? 'Failed to connect'}</Callout.Text>
         </Callout.Root>
       ) : null}
-      <Authenticate />
     </Flex>
   )
 }
