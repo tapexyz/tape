@@ -59,10 +59,8 @@ const Navbar = () => {
                 <ThreeDotsOutline className="h-4 w-4" />
               </IconButton>
             </HoverCard.Trigger>
-            <HoverCard.Content className="w-72 !p-0">
-              <div className="dark:bg-bunker bg-white p-5">
-                <Footer />
-              </div>
+            <HoverCard.Content className="dark:bg-bunker w-72 bg-white">
+              <Footer />
             </HoverCard.Content>
           </HoverCard.Root>
         </div>

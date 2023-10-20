@@ -11,7 +11,7 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <div className="grid grid-cols-2 text-sm">
+    <div className="grid grid-cols-2">
       <Link
         className="rounded-lg px-2.5 py-1.5"
         href={`https://github.com/${TAPE_GITHUB_HANDLE}/brand-kit`}
