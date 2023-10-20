@@ -13,7 +13,7 @@ const login = () => {
         className="hidden w-1/2 bg-black dark:bg-white md:block"
       >
         <div className="dark:text-bunker flex h-full flex-col items-center justify-center text-white">
-          <h1 className="text-4xl font-bold">〖 Tape 〗</h1>
+          <h1 className="text-4xl font-bold">〖 tape 〗</h1>
         </div>
       </Link>
       <div className="relative grid h-full w-full place-items-center md:w-1/2">

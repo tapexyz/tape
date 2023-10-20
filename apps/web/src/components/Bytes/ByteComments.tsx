@@ -9,7 +9,7 @@ type Props = {
 
 const ByteComments: FC<Props> = ({ video }) => {
   return (
-    <div className="no-scrollbar max-h-[40vh] overflow-y-auto pt-3">
+    <div className="no-scrollbar max-h-[40vh] overflow-y-auto">
       <VideoComments video={video} hideTitle />
       {/* {selectedCommentFilter === CustomCommentsFilterEnum.RELEVANT_COMMENTS ? (
         <NonRelevantComments video={video} className="pt-4" />

@@ -17,7 +17,7 @@ import {
 } from '@radix-ui/themes'
 import { getPublication } from '@tape.xyz/generic'
 import type { AnyPublication, OpenActionModule } from '@tape.xyz/lens'
-import type { FC } from 'react'
+import type { FC, ReactNode } from 'react'
 import React from 'react'
 
 import CollectPublication from './CollectPublication'
@@ -26,9 +26,15 @@ type Props = {
   publication: AnyPublication
   variant?: 'classic' | 'solid' | 'soft' | 'surface' | 'outline' | 'ghost'
   text?: string
+  children?: ReactNode
 }
 
-const OpenActions: FC<Props> = ({ publication, variant = 'solid', text }) => {
+const OpenActions: FC<Props> = ({
+  publication,
+  variant = 'solid',
+  text,
+  children
+}) => {
   const targetPublication = getPublication(publication)
   const openActions = targetPublication.openActionModules
 
@@ -57,10 +63,12 @@ const OpenActions: FC<Props> = ({ publication, variant = 'solid', text }) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <Button variant={variant} highContrast>
-          <CollectOutline className="h-4 w-4" />
-          {text}
-        </Button>
+        {children ?? (
+          <Button variant={variant} highContrast>
+            <CollectOutline className="h-4 w-4" />
+            {text}
+          </Button>
+        )}
       </Dialog.Trigger>
 
       <Dialog.Content>

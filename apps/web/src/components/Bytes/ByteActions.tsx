@@ -1,3 +1,4 @@
+import CollectOutline from '@components/Common/Icons/CollectOutline'
 import CommentOutline from '@components/Common/Icons/CommentOutline'
 import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import TimesOutline from '@components/Common/Icons/TimesOutline'
@@ -5,8 +6,8 @@ import MirrorVideo from '@components/Common/MirrorVideo'
 import VideoOptions from '@components/Common/VideoCard/VideoOptions'
 import OpenActions from '@components/Watch/OpenActions'
 import PublicationReaction from '@components/Watch/PublicationReaction'
-import { t } from '@lingui/macro'
-import { Dialog, DialogClose, Flex, IconButton } from '@radix-ui/themes'
+import { Trans } from '@lingui/macro'
+import { Button, Dialog, DialogClose, Flex, IconButton } from '@radix-ui/themes'
 import type { MirrorablePublication } from '@tape.xyz/lens'
 import type { FC } from 'react'
 import React from 'react'
@@ -19,13 +20,14 @@ type Props = {
 
 const ByteActions: FC<Props> = ({ video }) => {
   return (
-    <div className="flex w-14 flex-col items-center justify-between">
+    <div className="flex w-16 flex-col items-center justify-between">
       <div className="pt-2">
         <VideoOptions video={video} />
       </div>
       <div className="items-center pt-2.5 md:flex md:flex-col">
         <div className="pb-2">
           <PublicationReaction
+            className="w-7"
             publication={video}
             iconSize="lg"
             isVertical
@@ -36,43 +38,56 @@ const ByteActions: FC<Props> = ({ video }) => {
           <div className="w-full text-center">
             <Dialog.Root>
               <Dialog.Trigger>
-                <div className="flex flex-col items-center">
-                  <CommentOutline className="h-5 w-5" />
-                  <div className="pt-1 text-xs">
-                    {video.stats.comments || 'Wdyt'}
-                  </div>
-                </div>
+                <Button variant="ghost" className="w-7">
+                  <Flex
+                    direction="column"
+                    className="text-black dark:text-white"
+                    align="center"
+                  >
+                    <CommentOutline className="h-5 w-5" />
+                    <span className="pt-1 text-xs">
+                      {video.stats.comments || 'Wdyt'}
+                    </span>
+                  </Flex>
+                </Button>
               </Dialog.Trigger>
 
-              <Dialog.Content style={{ maxWidth: 450 }}>
+              <Dialog.Content style={{ maxWidth: 550 }}>
                 <Flex gap="3" justify="between" pb="2">
                   <Dialog.Title size="6">Comments</Dialog.Title>
                   <DialogClose>
-                    <IconButton variant="ghost" color="gray">
+                    <IconButton variant="ghost" className="w-7" color="gray">
                       <TimesOutline outlined={false} className="h-4 w-4" />
                     </IconButton>
                   </DialogClose>
                 </Flex>
-
                 <ByteComments video={video} />
               </Dialog.Content>
             </Dialog.Root>
           </div>
           <div className="w-full text-center">
             <MirrorVideo video={video}>
-              <div className="flex flex-col items-center">
-                <MirrorOutline className="h-5 w-5" />
-                <div className="pt-1 text-xs">
-                  {video.stats?.mirrors || t`Mirror`}
-                </div>
-              </div>
+              <Button variant="ghost" className="w-7" highContrast>
+                <Flex direction="column" align="center">
+                  <MirrorOutline className="h-5 w-5" />
+                  <span className="pt-1 text-xs">
+                    {video.stats?.mirrors || <Trans>Mirror</Trans>}
+                  </span>
+                </Flex>
+              </Button>
             </MirrorVideo>
           </div>
           <div className="w-full text-center">
-            <OpenActions publication={video} variant="ghost" />
-            <div className="text-center text-xs leading-3">
-              {video.stats?.countOpenActions || t`Collect`}
-            </div>
+            <OpenActions publication={video}>
+              <Button variant="ghost" className="w-7" highContrast>
+                <Flex direction="column" align="center">
+                  <CollectOutline className="h-5 w-5" />
+                  <span className="pt-1 text-xs">
+                    {video.stats?.countOpenActions || <Trans>Collect</Trans>}
+                  </span>
+                </Flex>
+              </Button>
+            </OpenActions>
           </div>
         </div>
       </div>

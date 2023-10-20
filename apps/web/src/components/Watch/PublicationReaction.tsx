@@ -21,6 +21,7 @@ type Props = {
   textSize?: 'sm' | 'base'
   isVertical?: boolean
   showLabel?: boolean
+  className?: string
   variant?: 'ghost' | 'surface'
 }
 
@@ -30,7 +31,8 @@ const PublicationReaction: FC<Props> = ({
   textSize = 'sm',
   isVertical = false,
   showLabel = true,
-  variant = 'ghost'
+  variant = 'ghost',
+  className
 }) => {
   const targetPublication = getPublication(publication)
 
@@ -85,7 +87,12 @@ const PublicationReaction: FC<Props> = ({
   }
 
   return (
-    <Button variant={variant} highContrast onClick={() => likeVideo()}>
+    <Button
+      variant={variant}
+      className={className}
+      highContrast
+      onClick={() => likeVideo()}
+    >
       <span
         className={clsx(
           'flex items-center focus:outline-none',
