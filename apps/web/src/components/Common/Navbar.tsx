@@ -1,4 +1,5 @@
 import useAuthPersistStore from '@lib/store/auth'
+import usePersistStore from '@lib/store/persist'
 import { Trans } from '@lingui/macro'
 import { Button, HoverCard, IconButton } from '@radix-ui/themes'
 import { STATIC_ASSETS } from '@tape.xyz/constants'
@@ -23,6 +24,11 @@ const Navbar = () => {
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
+  const {
+    latestNotificationId,
+    setLastOpenedNotificationId,
+    lastOpenedNotificationId
+  } = usePersistStore()
 
   return (
     <div className="ultrawide:px-8 laptop:px-6 dark:bg-bunker/80 sticky top-0 z-10 flex h-16 w-full items-center bg-white/80 px-4 backdrop-blur-2xl">
@@ -96,10 +102,21 @@ const Navbar = () => {
           <GlobalSearch />
           {selectedSimpleProfile?.id ? (
             <>
-              <Link href="/notifications" className="hidden md:block">
+              <Link
+                onClick={() => {
+                  if (latestNotificationId) {
+                    setLastOpenedNotificationId(latestNotificationId)
+                  }
+                }}
+                href="/notifications"
+                className="relative hidden md:block"
+              >
                 <IconButton radius="full" highContrast size="3" variant="soft">
                   <BellOutline className="h-4 w-4" />
                 </IconButton>
+                {lastOpenedNotificationId !== latestNotificationId ? (
+                  <span className="absolute right-1 top-0 h-2 w-2 rounded-full bg-red-500" />
+                ) : null}
               </Link>
               <Link href="/create" className="hidden md:block">
                 <Button highContrast size="3">

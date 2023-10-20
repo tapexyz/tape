@@ -1,5 +1,5 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
-import FollowOutline from '@components/Common/Icons/FollowOutline'
+import QuoteOutline from '@components/Common/Icons/QuoteOutline'
 import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { QuoteNotification } from '@tape.xyz/lens'
 import Link from 'next/link'
@@ -14,7 +14,7 @@ const Quoted: FC<Props> = ({ notification: { quote } }) => {
   return (
     <span className="flex space-x-4">
       <div className="p-1">
-        <FollowOutline className="h-5 w-5" />
+        <QuoteOutline className="h-5 w-5" />
       </div>
       <div>
         <span className="flex cursor-pointer -space-x-1.5">

@@ -12,6 +12,7 @@ import { useEffect } from 'react'
 import ErrorBoundary from '../ErrorBoundary'
 import ThemeProvider from './ThemeProvider'
 import Web3Provider from './Web3Provider'
+import WebSocketProvider from './WebSocketProvider'
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnWindowFocus: false } }
@@ -30,6 +31,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
             <ThemeProvider>
               <ApolloProvider client={apolloClient(authLink)}>
                 <QueryClientProvider client={queryClient}>
+                  <WebSocketProvider />
                   {children}
                 </QueryClientProvider>
               </ApolloProvider>

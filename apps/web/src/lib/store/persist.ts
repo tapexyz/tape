@@ -7,11 +7,13 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
 interface AppPerisistState {
+  lastOpenedNotificationId: string
+  setLastOpenedNotificationId: (id: string) => void
   latestNotificationId: string
+  setLatestNotificationId: (id: string) => void
   queuedVideos: QueuedVideoType[]
   queuedComments: QueuedCommentType[]
   selectedNotificationsFilter: CustomNotificationsFilterEnum
-  setLatestNotificationId: (id: string) => void
   setQueuedComments: (queuedComments: QueuedCommentType[]) => void
   setQueuedVideos: (queuedVideos: QueuedVideoType[]) => void
   setSelectedNotificationsFilter: (
@@ -23,12 +25,16 @@ export const usePersistStore = create(
   persist<AppPerisistState>(
     (set) => ({
       latestNotificationId: '',
+      setLatestNotificationId: (latestNotificationId) =>
+        set({ latestNotificationId }),
+      lastOpenedNotificationId: '',
+      setLastOpenedNotificationId: (id) =>
+        set({ lastOpenedNotificationId: id }),
       queuedComments: [],
       queuedVideos: [],
       setQueuedVideos: (queuedVideos) => set({ queuedVideos }),
       setQueuedComments: (queuedComments) => set({ queuedComments }),
-      setLatestNotificationId: (latestNotificationId) =>
-        set({ latestNotificationId }),
+
       selectedNotificationsFilter: CustomNotificationsFilterEnum.HIGH_SIGNAL,
       setSelectedNotificationsFilter: (selectedNotificationsFilter) =>
         set({ selectedNotificationsFilter })
