@@ -13,7 +13,7 @@ type Props = {
 const Mentioned: FC<Props> = ({ notification: { publication } }) => {
   return (
     <span className="flex space-x-4">
-      <div className="p-1.5">
+      <div className="p-1">
         <MentionOutline className="h-5 w-5" />
       </div>
       <div>

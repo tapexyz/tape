@@ -19,7 +19,7 @@ const Acted: FC<Props> = ({ notification: { publication, actions } }) => {
 
   return (
     <span className="flex space-x-4">
-      <div className="p-1.5">
+      <div className="p-1">
         <CollectOutline className="h-5 w-5" />
       </div>
       <div>

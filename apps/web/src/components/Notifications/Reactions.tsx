@@ -13,7 +13,7 @@ type Props = {
 const Reactions: FC<Props> = ({ notification: { publication, reactions } }) => {
   return (
     <span className="flex space-x-5">
-      <div className="p-1.5">
+      <div className="p-1">
         <HeartOutline className="h-5 w-5" />
       </div>
       <div>
