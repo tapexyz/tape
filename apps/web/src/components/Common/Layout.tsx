@@ -13,13 +13,14 @@ import {
   useProfilesManagedQuery
 } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+import { watchAccount } from '@wagmi/core'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
 import type { FC, ReactNode } from 'react'
 import React, { useEffect } from 'react'
 import { toast, Toaster } from 'react-hot-toast'
-import { useAccount, useDisconnect, useNetwork } from 'wagmi'
+import { useAccount, useDisconnect } from 'wagmi'
 
 import FullPageLoader from './FullPageLoader'
 import MobileBottomNav from './MobileBottomNav'
@@ -42,7 +43,6 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
   const { selectedSimpleProfile, setSelectedSimpleProfile } =
     useAuthPersistStore()
 
-  const { chain } = useNetwork()
   const { resolvedTheme } = useTheme()
   const { mounted } = useIsMounted()
   const { address } = useAccount()
@@ -58,6 +58,12 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
   const resetAuthState = () => {
     setActiveProfile(null)
     setSelectedSimpleProfile(null)
+  }
+
+  const logout = () => {
+    resetAuthState()
+    signOut()
+    disconnect?.()
   }
 
   useCurrentUserSigNoncesQuery({
@@ -105,16 +111,24 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
     }
     const { accessToken } = hydrateAuthTokens()
     if (!accessToken && selectedSimpleProfile?.id) {
-      resetAuthState()
-      signOut()
-      disconnect?.()
+      logout()
     }
   }
 
   useEffect(() => {
     validateAuthentication()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [address, chain, disconnect, selectedSimpleProfile])
+  }, [disconnect, selectedSimpleProfile])
+
+  useEffect(() => {
+    const unwatch = watchAccount(() => {
+      if (selectedSimpleProfile?.id) {
+        logout()
+      }
+    })
+    return () => unwatch()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   if (!mounted) {
     return <FullPageLoader />
