@@ -344,7 +344,7 @@ const CreateSteps = () => {
         uploadedVideo.isByteVideo ? shortVideoMetadata : longVideoMetadata
       )
       setUploadedVideo({
-        buttonText: t`Posting video`,
+        buttonText: t`Posting...`,
         loading: true
       })
 
@@ -417,7 +417,7 @@ const CreateSteps = () => {
       uploadedVideo.file as File,
       (percentCompleted) => {
         setUploadedVideo({
-          buttonText: t`Uploading video`,
+          buttonText: t`Uploading...`,
           loading: true,
           percent: percentCompleted
         })
@@ -443,7 +443,7 @@ const CreateSteps = () => {
     }
     if (!uploadedVideo.stream) {
       stopLoading()
-      return toast.error(t`Video not uploaded correctly`)
+      return toast.error(t`Media not uploaded correctly`)
     }
     if (parseFloat(irysData.balance) < parseFloat(irysData.estimatedPrice)) {
       stopLoading()
@@ -452,16 +452,16 @@ const CreateSteps = () => {
     try {
       setUploadedVideo({
         loading: true,
-        buttonText: t`Uploading video`
+        buttonText: t`Uploading...`
       })
       const instance = irysData.instance
       const tags = [
-        { name: 'Content-Type', value: uploadedVideo.mediaType || 'video/mp4' },
+        { name: 'Content-Type', value: uploadedVideo.mediaType },
         { name: 'App-Name', value: TAPE_APP_NAME },
         { name: 'Profile-Id', value: activeProfile?.id },
         // ANS-110 standard
         { name: 'Title', value: trimify(uploadedVideo.title) },
-        { name: 'Type', value: 'video' },
+        { name: 'Type', value: uploadedVideo.type.toLowerCase() },
         { name: 'Topic', value: uploadedVideo.videoCategory.name },
         {
           name: 'Description',
@@ -500,8 +500,8 @@ const CreateSteps = () => {
         videoSource: `ar://${response.data.id}`
       })
     } catch (error) {
-      toast.error(t`Failed to upload video to Arweave`)
-      logger.error('[Error Irys Upload Video]', error)
+      toast.error(t`Failed to upload media to Arweave`)
+      logger.error('[Error Irys Upload Media]', error)
       return stopLoading()
     }
   }

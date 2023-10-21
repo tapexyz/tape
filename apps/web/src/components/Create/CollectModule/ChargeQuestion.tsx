@@ -2,13 +2,13 @@ import { Trans } from '@lingui/macro'
 import { Button, Text } from '@radix-ui/themes'
 import type {
   CollectModuleType,
-  UploadedVideo
+  UploadedMedia
 } from '@tape.xyz/lens/custom-types'
 import type { FC } from 'react'
 import React from 'react'
 
 type Props = {
-  uploadedVideo: UploadedVideo
+  uploadedVideo: UploadedMedia
   setCollectType: (data: CollectModuleType) => void
 }
 

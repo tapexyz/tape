@@ -709,12 +709,16 @@ msgid "Reset"
 msgstr "Reset"
 
 #: src/components/Create/DropZone.tsx
+#~ msgid "Video format not supported"
+#~ msgstr "Format vidéo non pris en charge"
+
+#: src/components/Create/DropZone.tsx
 msgid "Error uploading file"
 msgstr "Erreur lors du chargement du fichier"
 
 #: src/components/Create/DropZone.tsx
-msgid "Video format not supported"
-msgstr "Format vidéo non pris en charge"
+msgid "Media format ({0}) not supported"
+msgstr ""
 
 #: src/components/Create/DropZone.tsx
 msgid "Drag and drop"
@@ -767,8 +771,12 @@ msgid "Who can comment and mirror?"
 msgstr ""
 
 #: src/components/Create/SelectedMedia.tsx
-msgid "Skip the video upload (Only use this if you know what your doing!)"
-msgstr "Ignorer le téléchargement de la vidéo (n'utilisez cette option que si vous savez ce que vous faites!)"
+#~ msgid "Skip the video upload (Only use this if you know what your doing!)"
+#~ msgstr "Ignorer le téléchargement de la vidéo (n'utilisez cette option que si vous savez ce que vous faites!)"
+
+#: src/components/Create/SelectedMedia.tsx
+msgid "Skip the media upload (Only use this if you know what you are doing!)"
+msgstr ""
 
 #: src/components/Create/SelectedMedia.tsx
 msgid "Upload from Source Url"
@@ -787,6 +795,15 @@ msgstr ""
 #~ msgstr "Envoi vers Arweave"
 
 #: src/components/Create/index.tsx
+#~ msgid "Posting video"
+#~ msgstr "Envoi de la vidéo"
+
+#: src/components/Create/index.tsx
+#: src/components/Create/index.tsx
+#~ msgid "Uploading video"
+#~ msgstr ""
+
+#: src/components/Create/index.tsx
 msgid "Post Now"
 msgstr ""
 
@@ -795,12 +812,12 @@ msgid "Storing metadata"
 msgstr "Stockage des métadonnées"
 
 #: src/components/Create/index.tsx
-msgid "Posting video"
-msgstr "Envoi de la vidéo"
+msgid "Posting..."
+msgstr ""
 
 #: src/components/Create/index.tsx
 #: src/components/Create/index.tsx
-msgid "Uploading video"
+msgid "Uploading..."
 msgstr ""
 
 #: src/components/Create/index.tsx

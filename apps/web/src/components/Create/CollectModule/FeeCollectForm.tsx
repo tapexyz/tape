@@ -7,7 +7,7 @@ import { WMATIC_TOKEN_ADDRESS } from '@tape.xyz/constants'
 import type { Erc20 } from '@tape.xyz/lens'
 import type {
   CollectModuleType,
-  UploadedVideo
+  UploadedMedia
 } from '@tape.xyz/lens/custom-types'
 import type { Dispatch, FC } from 'react'
 import React, { useRef } from 'react'
@@ -20,7 +20,7 @@ import { number, object, string } from 'zod'
 import Splits from './Splits'
 
 type Props = {
-  uploadedVideo: UploadedVideo
+  uploadedVideo: UploadedMedia
   setCollectType: (data: CollectModuleType) => void
   setShowModal: Dispatch<boolean>
   enabledCurrencies: Erc20[]

@@ -26,7 +26,7 @@ const DropZone = () => {
     Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.UPLOAD.DROPZONE })
   }, [])
 
-  const uploadVideo = (file: File) => {
+  const handleUploadedMedia = (file: File) => {
     try {
       if (file) {
         const preview = URL.createObjectURL(file)
@@ -34,24 +34,24 @@ const DropZone = () => {
         setUploadedVideo({
           stream: fileReaderStream(file),
           preview,
-          mediaType: file?.type || 'video/mp4',
+          mediaType: file?.type,
           file,
           isUploadToIpfs: isUnderFreeLimit
         })
       }
     } catch (error) {
       toast.error(t`Error uploading file`)
-      logger.error('[Error Upload Video]', error)
+      logger.error('[Error Upload Media]', error)
     }
   }
 
   const validateFile = (file: File) => {
     if (!ALLOWED_VIDEO_MIME_TYPES.includes(file?.type)) {
-      const errorMessage = t`Video format not supported`
+      const errorMessage = t`Media format (${file?.type}) not supported`
       toast.error(errorMessage)
       return setFileDropError(errorMessage)
     }
-    uploadVideo(file)
+    handleUploadedMedia(file)
   }
 
   const onDrop = (e: React.DragEvent<HTMLLabelElement>) => {

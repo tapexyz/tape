@@ -4,13 +4,13 @@ import { Button, Text } from '@radix-ui/themes'
 import { trimify } from '@tape.xyz/generic'
 import type {
   CollectModuleType,
-  UploadedVideo
+  UploadedMedia
 } from '@tape.xyz/lens/custom-types'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 
 type Props = {
-  uploadedVideo: UploadedVideo
+  uploadedVideo: UploadedMedia
   setCollectType: (data: CollectModuleType) => void
 }
 

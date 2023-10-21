@@ -709,12 +709,16 @@ msgid "Reset"
 msgstr "Reset"
 
 #: src/components/Create/DropZone.tsx
+#~ msgid "Video format not supported"
+#~ msgstr "视频格式不被支持"
+
+#: src/components/Create/DropZone.tsx
 msgid "Error uploading file"
 msgstr "上传文件出错"
 
 #: src/components/Create/DropZone.tsx
-msgid "Video format not supported"
-msgstr "视频格式不被支持"
+msgid "Media format ({0}) not supported"
+msgstr ""
 
 #: src/components/Create/DropZone.tsx
 msgid "Drag and drop"
@@ -767,8 +771,12 @@ msgid "Who can comment and mirror?"
 msgstr ""
 
 #: src/components/Create/SelectedMedia.tsx
-msgid "Skip the video upload (Only use this if you know what your doing!)"
-msgstr "跳过视频上传 (只有当你知道你在做什么！)"
+#~ msgid "Skip the video upload (Only use this if you know what your doing!)"
+#~ msgstr "跳过视频上传 (只有当你知道你在做什么！)"
+
+#: src/components/Create/SelectedMedia.tsx
+msgid "Skip the media upload (Only use this if you know what you are doing!)"
+msgstr ""
 
 #: src/components/Create/SelectedMedia.tsx
 msgid "Upload from Source Url"
@@ -787,6 +795,15 @@ msgstr ""
 #~ msgstr "正在上传到Arweeve"
 
 #: src/components/Create/index.tsx
+#~ msgid "Posting video"
+#~ msgstr "发布视频"
+
+#: src/components/Create/index.tsx
+#: src/components/Create/index.tsx
+#~ msgid "Uploading video"
+#~ msgstr ""
+
+#: src/components/Create/index.tsx
 msgid "Post Now"
 msgstr ""
 
@@ -795,12 +812,12 @@ msgid "Storing metadata"
 msgstr "存储元数据"
 
 #: src/components/Create/index.tsx
-msgid "Posting video"
-msgstr "发布视频"
+msgid "Posting..."
+msgstr ""
 
 #: src/components/Create/index.tsx
 #: src/components/Create/index.tsx
-msgid "Uploading video"
+msgid "Uploading..."
 msgstr ""
 
 #: src/components/Create/index.tsx

@@ -709,12 +709,16 @@ msgid "Reset"
 msgstr "Reset"
 
 #: src/components/Create/DropZone.tsx
+#~ msgid "Video format not supported"
+#~ msgstr "Video format not supported"
+
+#: src/components/Create/DropZone.tsx
 msgid "Error uploading file"
 msgstr "Error uploading file"
 
 #: src/components/Create/DropZone.tsx
-msgid "Video format not supported"
-msgstr "Video format not supported"
+msgid "Media format ({0}) not supported"
+msgstr "Media format ({0}) not supported"
 
 #: src/components/Create/DropZone.tsx
 msgid "Drag and drop"
@@ -767,8 +771,12 @@ msgid "Who can comment and mirror?"
 msgstr "Who can comment and mirror?"
 
 #: src/components/Create/SelectedMedia.tsx
-msgid "Skip the video upload (Only use this if you know what your doing!)"
-msgstr "Skip the video upload (Only use this if you know what your doing!)"
+#~ msgid "Skip the video upload (Only use this if you know what your doing!)"
+#~ msgstr "Skip the video upload (Only use this if you know what your doing!)"
+
+#: src/components/Create/SelectedMedia.tsx
+msgid "Skip the media upload (Only use this if you know what you are doing!)"
+msgstr "Skip the media upload (Only use this if you know what you are doing!)"
 
 #: src/components/Create/SelectedMedia.tsx
 msgid "Upload from Source Url"
@@ -787,6 +795,15 @@ msgstr "Please note that your media exceeds the free limit ({IPFS_FREE_UPLOAD_LI
 #~ msgstr "Uploading to Arweave"
 
 #: src/components/Create/index.tsx
+#~ msgid "Posting video"
+#~ msgstr "Posting video"
+
+#: src/components/Create/index.tsx
+#: src/components/Create/index.tsx
+#~ msgid "Uploading video"
+#~ msgstr "Uploading video"
+
+#: src/components/Create/index.tsx
 msgid "Post Now"
 msgstr "Post Now"
 
@@ -795,13 +812,13 @@ msgid "Storing metadata"
 msgstr "Storing metadata"
 
 #: src/components/Create/index.tsx
-msgid "Posting video"
-msgstr "Posting video"
+msgid "Posting..."
+msgstr "Posting..."
 
 #: src/components/Create/index.tsx
 #: src/components/Create/index.tsx
-msgid "Uploading video"
-msgstr "Uploading video"
+msgid "Uploading..."
+msgstr "Uploading..."
 
 #: src/components/Create/index.tsx
 msgid "IPFS Upload failed"

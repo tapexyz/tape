@@ -709,12 +709,16 @@ msgid "Reset"
 msgstr "Reiniciar"
 
 #: src/components/Create/DropZone.tsx
+#~ msgid "Video format not supported"
+#~ msgstr "Formato de vídeo no soportado"
+
+#: src/components/Create/DropZone.tsx
 msgid "Error uploading file"
 msgstr "Error al cargar el archivo"
 
 #: src/components/Create/DropZone.tsx
-msgid "Video format not supported"
-msgstr "Formato de vídeo no soportado"
+msgid "Media format ({0}) not supported"
+msgstr ""
 
 #: src/components/Create/DropZone.tsx
 msgid "Drag and drop"
@@ -767,8 +771,12 @@ msgid "Who can comment and mirror?"
 msgstr ""
 
 #: src/components/Create/SelectedMedia.tsx
-msgid "Skip the video upload (Only use this if you know what your doing!)"
-msgstr "Omitir la subida de vídeo (¡Úsalo si sabes lo que haces!)"
+#~ msgid "Skip the video upload (Only use this if you know what your doing!)"
+#~ msgstr "Omitir la subida de vídeo (¡Úsalo si sabes lo que haces!)"
+
+#: src/components/Create/SelectedMedia.tsx
+msgid "Skip the media upload (Only use this if you know what you are doing!)"
+msgstr ""
 
 #: src/components/Create/SelectedMedia.tsx
 msgid "Upload from Source Url"
@@ -787,6 +795,15 @@ msgstr ""
 #~ msgstr "Subiendo a Artisar"
 
 #: src/components/Create/index.tsx
+#~ msgid "Posting video"
+#~ msgstr "Publicando vídeo"
+
+#: src/components/Create/index.tsx
+#: src/components/Create/index.tsx
+#~ msgid "Uploading video"
+#~ msgstr ""
+
+#: src/components/Create/index.tsx
 msgid "Post Now"
 msgstr ""
 
@@ -795,12 +812,12 @@ msgid "Storing metadata"
 msgstr "Almacenando metadatos"
 
 #: src/components/Create/index.tsx
-msgid "Posting video"
-msgstr "Publicando vídeo"
+msgid "Posting..."
+msgstr ""
 
 #: src/components/Create/index.tsx
 #: src/components/Create/index.tsx
-msgid "Uploading video"
+msgid "Uploading..."
 msgstr ""
 
 #: src/components/Create/index.tsx

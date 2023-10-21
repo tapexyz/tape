@@ -72,9 +72,7 @@ export const POLYGON_CHAIN_ID = IS_MAINNET ? 137 : 80001
 
 // ipfs
 export const IPFS_FREE_UPLOAD_LIMIT = IS_MAINNET ? 10000 : 100 // in MB
-export const IPFS_GATEWAY_URL = IS_MAINNET
-  ? 'https://ipfs.tape.xyz/ipfs'
-  : 'https://lens.infura-ipfs.io/ipfs'
+export const IPFS_GATEWAY_URL = 'https://gateway.4everland.link/ipfs'
 export const EVER_ENDPOINT = 'https://endpoint.4everland.co'
 export const EVER_REGION = 'us-west-2'
 
@@ -150,6 +148,10 @@ export const ALLOWED_AUDIO_MIME_TYPES = [
   'audio/wav',
   'audio/vnd.wave',
   'audio/webm'
+]
+export const ALLOWED_UPLOAD_MIME_TYPES = [
+  ...ALLOWED_AUDIO_MIME_TYPES,
+  ...ALLOWED_VIDEO_MIME_TYPES
 ]
 
 // i18n

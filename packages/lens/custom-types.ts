@@ -52,7 +52,8 @@ export type ReferenceModuleType = {
   } | null
 }
 
-export type UploadedVideo = {
+export type UploadedMedia = {
+  type: 'VIDEO' | 'AUDIO'
   stream: FileReaderStreamType | null
   preview: string
   mediaType: string

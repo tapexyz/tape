@@ -6,8 +6,10 @@ import type { Notification, UserSigNonces } from '@tape.xyz/lens'
 import { NewNotificationDocument, UserSigNoncesDocument } from '@tape.xyz/lens'
 import { useEffect } from 'react'
 import useWebSocket from 'react-use-websocket'
+import { useAccount } from 'wagmi'
 
 const SubscriptionProvider = () => {
+  const { address } = useAccount()
   const activeProfile = useProfileStore((state) => state.activeProfile)
   const {
     setLensHubOnchainSigNonce,
@@ -38,7 +40,7 @@ const SubscriptionProvider = () => {
         id: '2',
         type: 'start',
         payload: {
-          variables: { address: activeProfile.ownedBy.address },
+          variables: { address },
           query: UserSigNoncesDocument
         }
       })

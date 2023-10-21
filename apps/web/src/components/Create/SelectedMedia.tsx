@@ -1,15 +1,19 @@
+import AddImageOutline from '@components/Common/Icons/AddImageOutline'
 import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import useAuthPersistStore from '@lib/store/auth'
 import { t } from '@lingui/macro'
-import { Badge } from '@radix-ui/themes'
-import { FEATURE_FLAGS } from '@tape.xyz/constants'
+import { AspectRatio, Badge } from '@radix-ui/themes'
+import { uploadToIPFS } from '@tape.xyz/browser'
+import { ALLOWED_AUDIO_MIME_TYPES, FEATURE_FLAGS } from '@tape.xyz/constants'
 import {
   formatBytes,
   getIsFeatureEnabled,
   sanitizeDStorageUrl
 } from '@tape.xyz/generic'
+import type { IPFSUploadResult } from '@tape.xyz/lens/custom-types'
+import { Loader } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import React, { useEffect, useRef, useState } from 'react'
 
@@ -18,6 +22,7 @@ import UploadMethod from './UploadMethod'
 
 const SelectedMedia = () => {
   const [interacted, setInteracted] = useState(false)
+  const [posterPreview, setPosterPreview] = useState('')
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
@@ -42,76 +47,140 @@ const SelectedMedia = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [videoRef])
 
+  const isAudio = ALLOWED_AUDIO_MIME_TYPES.includes(uploadedVideo.mediaType)
+
   return (
     <div className="flex w-full flex-col">
-      <div className="md:rounded-large rounded-small group relative w-full cursor-pointer overflow-hidden border dark:border-gray-800">
-        <video
-          ref={videoRef}
-          className="aspect-[16/9] w-full"
-          disablePictureInPicture
-          disableRemotePlayback
-          controlsList="nodownload noplaybackrate"
-          poster={sanitizeDStorageUrl(uploadedVideo.thumbnail)}
-          controls={false}
-          autoPlay={interacted}
-          muted={!interacted}
-          onClick={() => {
-            setInteracted(true)
-            videoRef.current?.paused
-              ? videoRef.current?.play()
-              : videoRef.current?.pause()
-          }}
-          src={uploadedVideo.preview}
-        />
-        <Badge
-          variant="solid"
-          radius="full"
-          highContrast
-          className="absolute left-2 top-2"
-        >
-          {uploadedVideo.file?.size && (
-            <span className="whitespace-nowrap font-bold">
-              {formatBytes(uploadedVideo.file?.size)}
-            </span>
-          )}
-        </Badge>
-        {uploadedVideo.durationInSeconds === 0 ? (
+      {isAudio ? (
+        <div className="flex w-full justify-end">
+          <div className="md:rounded-large rounded-small w-3/5 space-y-2 overflow-hidden border p-2 dark:border-gray-800">
+            <AspectRatio ratio={1 / 1} className="group relative">
+              {posterPreview ? (
+                <img
+                  src={posterPreview}
+                  className="h-full w-full object-cover"
+                  draggable={false}
+                  alt="poster"
+                />
+              ) : null}
+              <label
+                htmlFor="choosePoster"
+                className={clsx(
+                  'invisible absolute top-0 grid h-full w-full cursor-pointer place-items-center rounded-full bg-white bg-opacity-70 backdrop-blur-lg group-hover:visible dark:bg-black',
+                  {
+                    '!visible':
+                      uploadedVideo.uploadingThumbnail ||
+                      !uploadedVideo.thumbnail.length
+                  }
+                )}
+              >
+                {uploadedVideo.uploadingThumbnail ? (
+                  <Loader />
+                ) : (
+                  <span className="inline-flex flex-col items-center space-y-2">
+                    <AddImageOutline className="h-5 w-5" />
+                    <span>Upload Poster</span>
+                  </span>
+                )}
+                <input
+                  id="choosePoster"
+                  type="file"
+                  accept=".png, .jpg, .jpeg, .svg, .gif"
+                  className="hidden w-full"
+                  onChange={async (e) => {
+                    if (e.target.files?.length) {
+                      const file = e.target.files[0]
+                      setUploadedVideo({ uploadingThumbnail: true })
+                      const preview = URL.createObjectURL(file)
+                      setPosterPreview(preview)
+                      const { url }: IPFSUploadResult = await uploadToIPFS(file)
+                      setUploadedVideo({
+                        uploadingThumbnail: false,
+                        thumbnail: url
+                      })
+                    }
+                  }}
+                />
+              </label>
+            </AspectRatio>
+            <audio
+              controls
+              controlsList="nodownload noplaybackrate"
+              className="w-full"
+              src={uploadedVideo.preview}
+            />
+          </div>
+        </div>
+      ) : (
+        <div className="md:rounded-large rounded-small relative w-full cursor-pointer overflow-hidden border dark:border-gray-800">
+          <video
+            ref={videoRef}
+            className="aspect-[16/9] w-full"
+            disablePictureInPicture
+            disableRemotePlayback
+            controlsList="nodownload noplaybackrate"
+            poster={sanitizeDStorageUrl(uploadedVideo.thumbnail)}
+            controls={false}
+            autoPlay={interacted}
+            muted={!interacted}
+            onClick={() => {
+              setInteracted(true)
+              videoRef.current?.paused
+                ? videoRef.current?.play()
+                : videoRef.current?.pause()
+            }}
+            src={uploadedVideo.preview}
+          />
           <Badge
             variant="solid"
             radius="full"
-            color="red"
-            className="absolute right-3 top-3"
+            highContrast
+            className="absolute left-2 top-2"
           >
-            <span className="whitespace-nowrap font-bold">
-              Only media files longer than 1 second are allowed
-            </span>
+            {uploadedVideo.file?.size && (
+              <span className="whitespace-nowrap font-bold">
+                {formatBytes(uploadedVideo.file?.size)}
+              </span>
+            )}
           </Badge>
-        ) : null}
-        {Boolean(uploadedVideo.percent) ? (
-          <Tooltip content={`Uploaded (${uploadedVideo.percent}%)`}>
-            <div className="absolute bottom-0 w-full overflow-hidden bg-gray-200">
-              <div
-                className={clsx(
-                  'h-[6px]',
-                  uploadedVideo.percent !== 0
-                    ? 'bg-brand-500'
-                    : 'bg-gray-300 dark:bg-gray-800'
-                )}
-                style={{
-                  width: `${uploadedVideo.percent}%`
-                }}
-              />
-            </div>
-          </Tooltip>
-        ) : null}
-      </div>
+          {uploadedVideo.durationInSeconds === 0 ? (
+            <Badge
+              variant="solid"
+              radius="full"
+              color="red"
+              className="absolute right-3 top-3"
+            >
+              <span className="whitespace-nowrap font-bold">
+                Only media files longer than 1 second are allowed
+              </span>
+            </Badge>
+          ) : null}
+          {Boolean(uploadedVideo.percent) ? (
+            <Tooltip content={`Uploaded (${uploadedVideo.percent}%)`}>
+              <div className="absolute bottom-0 w-full overflow-hidden bg-gray-200">
+                <div
+                  className={clsx(
+                    'h-[6px]',
+                    uploadedVideo.percent !== 0
+                      ? 'bg-brand-500'
+                      : 'bg-gray-300 dark:bg-gray-800'
+                  )}
+                  style={{
+                    width: `${uploadedVideo.percent}%`
+                  }}
+                />
+              </div>
+            </Tooltip>
+          ) : null}
+        </div>
+      )}
       {getIsFeatureEnabled(
         FEATURE_FLAGS.POST_WITH_SOURCE_URL,
         selectedSimpleProfile?.id
       ) && (
         <div className="mt-4">
           <Input
-            info={t`Skip the video upload (Only use this if you know what your doing!)`}
+            info={t`Skip the media upload (Only use this if you know what you are doing!)`}
             label={t`Upload from Source Url`}
             placeholder="ar:// or ipfs://"
             value={uploadedVideo.videoSource}
@@ -123,9 +192,11 @@ const SelectedMedia = () => {
           />
         </div>
       )}
-      <div className="mt-4">
-        <ChooseThumbnail file={uploadedVideo.file} />
-      </div>
+      {!isAudio && (
+        <div className="mt-4">
+          <ChooseThumbnail file={uploadedVideo.file} />
+        </div>
+      )}
       <div className="rounded-lg">
         <UploadMethod />
       </div>
