@@ -1,12 +1,13 @@
 import type { IMAGE_TRANSFORMATIONS } from '@tape.xyz/constants'
 import type { Profile } from '@tape.xyz/lens'
+import type { SimpleProfile } from '@tape.xyz/lens/custom-types'
 
 import { getRandomProfilePicture } from './getRandomProfilePicture'
 import { imageCdn } from './imageCdn'
 import { sanitizeDStorageUrl } from './sanitizeDStorageUrl'
 
 export const getProfilePicture = (
-  profile: Profile,
+  profile: Profile | SimpleProfile,
   type?: keyof typeof IMAGE_TRANSFORMATIONS,
   withFallback = true
 ): string => {

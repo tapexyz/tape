@@ -17,8 +17,7 @@ import {
   LimitType,
   useAuthenticateMutation,
   useChallengeLazyQuery,
-  useProfilesManagedQuery,
-  useSimpleProfilesLazyQuery
+  useProfilesManagedQuery
 } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
@@ -35,13 +34,9 @@ const Authenticate = () => {
   const [selectedProfileId, setSelectedProfileId] = useState<string>()
   const [loading, setLoading] = useState(false)
 
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
   const setActiveProfile = useProfileStore((state) => state.setActiveProfile)
-  const setSelectedSimpleProfile = useAuthPersistStore(
-    (state) => state.setSelectedSimpleProfile
-  )
+  const { selectedSimpleProfile, setSelectedSimpleProfile } =
+    useAuthPersistStore()
 
   const onError = () => {
     signOut()
@@ -64,6 +59,9 @@ const Authenticate = () => {
     }
   })
 
+  const profilesManaged = data?.profilesManaged.items as Profile[]
+  const profile = profilesManaged?.[0]
+
   const { signMessageAsync } = useSignMessage({
     onError
   })
@@ -79,7 +77,6 @@ const Authenticate = () => {
     onError
   })
   const [authenticate] = useAuthenticateMutation()
-  const [getAllSimpleProfiles] = useSimpleProfilesLazyQuery()
 
   const handleSign = useCallback(async () => {
     if (!isConnected) {
@@ -109,26 +106,24 @@ const Authenticate = () => {
       const accessToken = result.data?.authenticate.accessToken
       const refreshToken = result.data?.authenticate.refreshToken
       signIn({ accessToken, refreshToken })
-      const { data: profilesData } = await getAllSimpleProfiles({
-        variables: {
-          request: { where: { ownedBy: [address] } }
-        },
-        fetchPolicy: 'no-cache'
-      })
-      if (
-        !profilesData?.profiles ||
-        profilesData?.profiles?.items.length === 0
-      ) {
+      if (profilesManaged.length === 0) {
         setActiveProfile(null)
         setSelectedSimpleProfile(null)
         toast.error('No profile found')
       } else {
-        const profiles = profilesData?.profiles?.items as Profile[]
-        const profile = profiles.find(
+        const profile = profilesManaged.find(
           (profile) => profile.id === selectedProfileId
         )
         if (profile) {
-          setSelectedSimpleProfile(profile)
+          setSelectedSimpleProfile({
+            id: profile.id,
+            ownedBy: profile.ownedBy,
+            handle: profile.handle,
+            sponsor: profile.sponsor,
+            metadata: profile.metadata,
+            stats: profile.stats,
+            managed: profile.ownedBy.address !== address
+          })
         }
         if (router.query?.next) {
           router.push(router.query?.next as string)
@@ -153,10 +148,10 @@ const Authenticate = () => {
     authenticate,
     isConnected,
     loadChallenge,
+    profilesManaged,
     setActiveProfile,
     signMessageAsync,
     selectedProfileId,
-    getAllSimpleProfiles,
     setSelectedSimpleProfile
   ])
 
@@ -171,9 +166,6 @@ const Authenticate = () => {
   if (profilesLoading) {
     return <Loader />
   }
-
-  const profilesManaged = data?.profilesManaged.items as Profile[]
-  const profile = profilesManaged?.[0]
 
   return (
     <div className="text-left">

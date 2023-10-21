@@ -1,5 +1,6 @@
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import usePendingTxn from '@hooks/usePendingTxn'
+import useNonceStore from '@lib/store/nonce'
 import useProfileStore from '@lib/store/profile'
 import { t, Trans } from '@lingui/macro'
 import { Button } from '@radix-ui/themes'
@@ -25,10 +26,8 @@ import { useContractWrite, useSignTypedData } from 'wagmi'
 const Toggle = () => {
   const [loading, setLoading] = useState(false)
 
-  const activeProfile = useProfileStore((state) => state.activeProfile)
-  const setActiveProfile = useProfileStore((state) => state.setActiveProfile)
-  const userSigNonce = useProfileStore((state) => state.userSigNonce)
-  const setUserSigNonce = useProfileStore((state) => state.setUserSigNonce)
+  const { activeProfile, setActiveProfile } = useProfileStore()
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
   const handleWrongNetwork = useHandleWrongNetwork()
 
   const isLensManagerEnabled = activeProfile?.lensManager || false
@@ -47,11 +46,11 @@ const Toggle = () => {
     abi: LENSHUB_PROXY_ABI,
     functionName: 'changeDelegatedExecutorsConfig',
     onSuccess: () => {
-      setUserSigNonce(userSigNonce + 1)
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
     },
     onError: (error) => {
       onError(error)
-      setUserSigNonce(userSigNonce - 1)
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
     }
   })
 
@@ -122,6 +121,7 @@ const Toggle = () => {
     setLoading(true)
     toggleLensManager({
       variables: {
+        options: { overrideSigNonce: lensHubOnchainSigNonce },
         request: {
           approveLensManager: !isLensManagerEnabled
         }

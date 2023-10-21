@@ -3,6 +3,7 @@ import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import usePendingTxn from '@hooks/usePendingTxn'
+import useNonceStore from '@lib/store/nonce'
 import useProfileStore from '@lib/store/profile'
 import { Trans } from '@lingui/macro'
 import { Button, Dialog, Flex, Table } from '@radix-ui/themes'
@@ -82,8 +83,7 @@ const Managers = () => {
     resolver: zodResolver(formSchema)
   })
 
-  const userSigNonce = useProfileStore((state) => state.userSigNonce)
-  const setUserSigNonce = useProfileStore((state) => state.setUserSigNonce)
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
   const activeProfile = useProfileStore(
     (state) => state.activeProfile
   ) as Profile
@@ -111,11 +111,11 @@ const Managers = () => {
     abi: LENSHUB_PROXY_ABI,
     functionName: 'changeDelegatedExecutorsConfig',
     onSuccess: () => {
-      setUserSigNonce(userSigNonce + 1)
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
     },
     onError: (error) => {
       onError(error)
-      setUserSigNonce(userSigNonce - 1)
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
     }
   })
 

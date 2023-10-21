@@ -6,8 +6,15 @@ import { Analytics, TRACK } from '@tape.xyz/browser'
 import { ADMIN_IDS } from '@tape.xyz/constants'
 import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
-import { LimitType, useProfilesManagedQuery } from '@tape.xyz/lens'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+import {
+  LimitType,
+  useProfilesManagedQuery,
+  useRevokeAuthenticationMutation
+} from '@tape.xyz/lens'
+import type {
+  CustomErrorWithData,
+  SimpleProfile
+} from '@tape.xyz/lens/custom-types'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
@@ -32,7 +39,7 @@ const UserMenu = () => {
 
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
-  ) as Profile
+  ) as SimpleProfile
   const setSelectedSimpleProfile = useAuthPersistStore(
     (state) => state.setSelectedSimpleProfile
   )
@@ -50,16 +57,17 @@ const UserMenu = () => {
     }
   })
   const profilesManaged = data?.profilesManaged.items as Profile[]
-
   const isAdmin = ADMIN_IDS.includes(selectedSimpleProfile?.id)
 
-  const logout = () => {
-    disconnect?.()
-    signOut()
-    setActiveProfile(null)
-    setSelectedSimpleProfile(null)
-    Analytics.track(TRACK.AUTH.SIGN_OUT)
-  }
+  const [revokeAuthentication] = useRevokeAuthenticationMutation({
+    onCompleted: () => {
+      disconnect?.()
+      signOut()
+      setActiveProfile(null)
+      setSelectedSimpleProfile(null)
+      Analytics.track(TRACK.AUTH.SIGN_OUT)
+    }
+  })
 
   return (
     <DropdownMenu.Root>
@@ -187,7 +195,7 @@ const UserMenu = () => {
               </Text>
             </Flex>
           </DropdownMenu.Item>
-          <DropdownMenu.Item color="red" onClick={() => logout()}>
+          <DropdownMenu.Item color="red" onClick={() => revokeAuthentication()}>
             <Flex align="center" gap="2">
               <HandWaveOutline className="h-4 w-4" />
               <Text as="p" className="truncate whitespace-nowrap">

@@ -3,6 +3,7 @@ import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
 import Tooltip from '@components/UIElements/Tooltip'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import { getCollectModuleOutput } from '@lib/getCollectModuleOutput'
+import useNonceStore from '@lib/store/nonce'
 import useProfileStore from '@lib/store/profile'
 import { t, Trans } from '@lingui/macro'
 import { Button, Callout } from '@radix-ui/themes'
@@ -54,8 +55,10 @@ type Props = {
 
 const CollectPublication: FC<Props> = ({ publication, action }) => {
   const activeProfile = useProfileStore((state) => state.activeProfile)
-  const userSigNonce = useProfileStore((state) => state.userSigNonce)
-  const setUserSigNonce = useProfileStore((state) => state.setUserSigNonce)
+  const {
+    lensPublicActProxyOnchainSigNonce,
+    setLensPublicActProxyOnchainSigNonce
+  } = useNonceStore()
   const [alreadyCollected, setAlreadyCollected] = useState(
     publication.operations.hasActed.value
   )
@@ -233,11 +236,15 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
     functionName: 'act',
     onSuccess: () => {
       onCompleted()
-      setUserSigNonce(userSigNonce + 1)
+      setLensPublicActProxyOnchainSigNonce(
+        lensPublicActProxyOnchainSigNonce + 1
+      )
     },
     onError: (error) => {
       onError(error)
-      setUserSigNonce(userSigNonce - 1)
+      setLensPublicActProxyOnchainSigNonce(
+        lensPublicActProxyOnchainSigNonce - 1
+      )
     }
   })
 
@@ -250,6 +257,9 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
       onCompleted: async ({ createActOnOpenActionTypedData }) => {
         const { id, typedData } = createActOnOpenActionTypedData
         const signature = await signTypedDataAsync(getSignature(typedData))
+        setLensPublicActProxyOnchainSigNonce(
+          lensPublicActProxyOnchainSigNonce + 1
+        )
         const { data } = await broadcastOnchain({
           variables: { request: { id, signature } }
         })
@@ -283,7 +293,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
     setCollecting(true)
     return await createActOnOpenActionTypedData({
       variables: {
-        options: { overrideSigNonce: userSigNonce },
+        options: { overrideSigNonce: lensPublicActProxyOnchainSigNonce },
         request: {
           for: publication?.id,
           actOn: { [getOpenActionActOnKey(action?.type)]: true }

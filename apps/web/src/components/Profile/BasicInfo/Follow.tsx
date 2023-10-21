@@ -1,4 +1,5 @@
 import useAuthPersistStore from '@lib/store/auth'
+import useNonceStore from '@lib/store/nonce'
 import useProfileStore from '@lib/store/profile'
 import { Trans } from '@lingui/macro'
 import { Button } from '@radix-ui/themes'
@@ -34,8 +35,8 @@ const Follow: FC<Props> = ({ profile, onSubscribe, size = '2' }) => {
     (state) => state.selectedSimpleProfile
   )
   const activeProfile = useProfileStore((state) => state.activeProfile)
-  const userSigNonce = useProfileStore((state) => state.userSigNonce)
-  const setUserSigNonce = useProfileStore((state) => state.setUserSigNonce)
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
+
   const canUseRelay = activeProfile?.lensManager && activeProfile?.sponsor
 
   const onError = (error: CustomErrorWithData) => {
@@ -80,7 +81,7 @@ const Follow: FC<Props> = ({ profile, onSubscribe, size = '2' }) => {
       try {
         toast.loading(REQUESTING_SIGNATURE_MESSAGE)
         const signature = await signTypedDataAsync(getSignature(typedData))
-        setUserSigNonce(userSigNonce + 1)
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
@@ -132,7 +133,7 @@ const Follow: FC<Props> = ({ profile, onSubscribe, size = '2' }) => {
     }
     return await createFollowTypedData({
       variables: {
-        options: { overrideSigNonce: userSigNonce },
+        options: { overrideSigNonce: lensHubOnchainSigNonce },
         request: {
           follow: [
             {

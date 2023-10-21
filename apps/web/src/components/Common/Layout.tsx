@@ -2,11 +2,16 @@ import useAuthPersistStore, {
   hydrateAuthTokens,
   signOut
 } from '@lib/store/auth'
+import useNonceStore from '@lib/store/nonce'
 import useProfileStore from '@lib/store/profile'
 import { getToastOptions, useIsMounted } from '@tape.xyz/browser'
 import { AUTH_ROUTES } from '@tape.xyz/constants'
 import type { Profile } from '@tape.xyz/lens'
-import { useProfilesQuery, useUserSigNoncesQuery } from '@tape.xyz/lens'
+import {
+  LimitType,
+  useCurrentUserSigNoncesQuery,
+  useProfilesManagedQuery
+} from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
@@ -28,7 +33,12 @@ interface Props {
 }
 
 const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
-  const { setUserSigNonce, setActiveProfile } = useProfileStore()
+  const {
+    setLensHubOnchainSigNonce,
+    setLensPublicActProxyOnchainSigNonce,
+    setLensTokenHandleRegistryOnchainSigNonce
+  } = useNonceStore()
+  const setActiveProfile = useProfileStore((state) => state.setActiveProfile)
   const { selectedSimpleProfile, setSelectedSimpleProfile } =
     useAuthPersistStore()
 
@@ -50,27 +60,36 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
     setSelectedSimpleProfile(null)
   }
 
-  useUserSigNoncesQuery({
+  useCurrentUserSigNoncesQuery({
     skip: !selectedSimpleProfile?.id,
     onCompleted: ({ userSigNonces }) => {
-      setUserSigNonce(userSigNonces.lensHubOnchainSigNonce)
-    },
-    pollInterval: 10_000
+      setLensHubOnchainSigNonce(userSigNonces.lensHubOnchainSigNonce)
+      setLensTokenHandleRegistryOnchainSigNonce(
+        userSigNonces.lensTokenHandleRegistryOnchainSigNonce
+      )
+      setLensPublicActProxyOnchainSigNonce(
+        userSigNonces.lensPublicActProxyOnchainSigNonce
+      )
+    }
   })
 
-  useProfilesQuery({
+  useProfilesManagedQuery({
     variables: {
-      request: { where: { ownedBy: [address] } }
+      request: {
+        for: selectedSimpleProfile?.ownedBy.address,
+        includeOwned: true,
+        limit: LimitType.Fifty
+      }
     },
     skip: !selectedSimpleProfile,
-    onCompleted: ({ profiles }) => {
-      const channels = profiles?.items as Profile[]
-      if (!channels.length) {
+    onCompleted: ({ profilesManaged }) => {
+      const profiles = profilesManaged?.items as Profile[]
+      if (!profiles.length) {
         return resetAuthState()
       }
-      const profile = channels.find((ch) => ch.id === selectedSimpleProfile?.id)
+      const profile = profiles.find((ch) => ch.id === selectedSimpleProfile?.id)
       if (profile) {
-        setActiveProfile(profile ?? channels[0])
+        setActiveProfile(profile ?? profiles[0])
       }
     },
     onError: () => {
@@ -86,7 +105,7 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
     }
     const ownerAddress = selectedSimpleProfile?.ownedBy.address
     const isSwitchedAccount =
-      ownerAddress !== undefined && ownerAddress !== address
+      ownerAddress !== address && !selectedSimpleProfile?.managed
     const { accessToken } = hydrateAuthTokens()
     const shouldLogout = !accessToken || isSwitchedAccount
 

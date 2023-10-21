@@ -4,7 +4,7 @@ import Tooltip from '@components/UIElements/Tooltip'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import usePendingTxn from '@hooks/usePendingTxn'
-import useProfileStore from '@lib/store/profile'
+import useNonceStore from '@lib/store/nonce'
 import { t, Trans } from '@lingui/macro'
 import { Button, Card, Flex, Select, Text } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
@@ -55,8 +55,8 @@ const Subscription = ({ channel }: Props) => {
 
   const [loading, setLoading] = useState(false)
   const [showForm, setShowForm] = useState(false)
-  const userSigNonce = useProfileStore((state) => state.userSigNonce)
-  const setUserSigNonce = useProfileStore((state) => state.setUserSigNonce)
+
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
   const handleWrongNetwork = useHandleWrongNetwork()
 
   const {
@@ -145,7 +145,7 @@ const Subscription = ({ channel }: Props) => {
         try {
           toast.loading(REQUESTING_SIGNATURE_MESSAGE)
           const signature = await signTypedDataAsync(getSignature(typedData))
-          setUserSigNonce(userSigNonce + 1)
+          setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
@@ -170,7 +170,7 @@ const Subscription = ({ channel }: Props) => {
     setLoading(true)
     createSetFollowModuleTypedData({
       variables: {
-        options: { overrideSigNonce: userSigNonce },
+        options: { overrideSigNonce: lensHubOnchainSigNonce },
         request: {
           followModule: freeFollowModule
             ? { freeFollowModule: true }

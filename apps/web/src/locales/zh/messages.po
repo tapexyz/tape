@@ -261,18 +261,18 @@ msgstr "隐私"
 #~ msgstr "Momoka目前处于测试版中 - 在此期间某些操作不能用于所有频道。"
 
 #: src/components/Common/MirrorVideo.tsx
+#~ msgid "Mirror video across Lens"
+#~ msgstr "全镜像视频"
+
+#: src/components/Common/MirrorVideo.tsx
+#~ msgid "Mirroring"
+#~ msgstr "镜像"
+
+#: src/components/Common/MirrorVideo.tsx
 #: src/components/Watch/Comments/NewComment.tsx
 #: src/components/Watch/TipForm.tsx
 msgid "Momoka is currently in beta - during this time certain actions are not available to all profiles."
 msgstr ""
-
-#: src/components/Common/MirrorVideo.tsx
-msgid "Mirror video across Lens"
-msgstr "全镜像视频"
-
-#: src/components/Common/MirrorVideo.tsx
-msgid "Mirroring"
-msgstr "镜像"
 
 #: src/components/Common/Navbar.tsx
 msgid "Home"
@@ -397,7 +397,6 @@ msgstr "正在索引，请稍候..."
 #~ msgstr "永久链接已复制到剪贴板"
 
 #: src/components/Common/VideoCard/ThumbnailOverlays.tsx
-#: src/components/Profile/MirroredVideoCard.tsx
 msgid "Sensitive Content"
 msgstr "敏感内容"
 
@@ -1137,8 +1136,8 @@ msgid "Saved Videos"
 msgstr "保存的视频"
 
 #: src/components/Profile/MirroredVideoCard.tsx
-msgid "Mirrored"
-msgstr "镜像"
+#~ msgid "Mirrored"
+#~ msgstr "镜像"
 
 #: src/components/Profile/Tabs/CollectedNFTs.tsx
 msgid "No NFTs found"
@@ -1298,11 +1297,15 @@ msgstr "攻击性的"
 #~ msgstr ""
 
 #: src/components/Settings/BasicInfo.tsx
+#~ msgid "URL"
+#~ msgstr ""
+
+#: src/components/Settings/BasicInfo.tsx
 msgid "Profile"
 msgstr ""
 
 #: src/components/Settings/BasicInfo.tsx
-msgid "URL"
+msgid "Permalink"
 msgstr ""
 
 #: src/components/Settings/BasicInfo.tsx
@@ -1831,10 +1834,6 @@ msgstr "订阅者"
 #~ msgid "Collecting"
 #~ msgstr "收集中"
 
-#: src/components/Watch/CollectVideo/index.tsx
-#~ msgid "Already Collected"
-#~ msgstr "已经收集"
-
 #: src/components/Watch/Comments/CommentOptions.tsx
 msgid "Comment deleted"
 msgstr "评论已删除"
@@ -1976,6 +1975,10 @@ msgstr "收件人"
 #: src/components/Watch/OpenActions/CollectPublication/index.tsx
 msgid "Only followers can collect this publication"
 msgstr ""
+
+#: src/components/Watch/OpenActions/CollectPublication/index.tsx
+msgid "Already Collected"
+msgstr "已经收集"
 
 #: src/components/Watch/PublicationReaction.tsx
 #~ msgid "Dislike"

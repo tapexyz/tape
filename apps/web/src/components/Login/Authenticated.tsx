@@ -1,7 +1,7 @@
 import useAuthPersistStore from '@lib/store/auth'
 import { Avatar, Badge, Flex, Text } from '@radix-ui/themes'
 import { getProfile, getProfilePicture } from '@tape.xyz/generic'
-import type { Profile } from '@tape.xyz/lens'
+import type { SimpleProfile } from '@tape.xyz/lens/custom-types'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
@@ -15,7 +15,7 @@ const Authenticated = () => {
 
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
-  ) as Profile
+  ) as SimpleProfile
 
   if (!selectedSimpleProfile) {
     return

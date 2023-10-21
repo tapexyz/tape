@@ -261,18 +261,18 @@ msgstr "Privacidad"
 #~ msgstr "Momoka está actualmente en fase beta - durante este tiempo determinadas acciones no están disponibles para todos los canales."
 
 #: src/components/Common/MirrorVideo.tsx
+#~ msgid "Mirror video across Lens"
+#~ msgstr "Vídeo de espejo a través de la lente"
+
+#: src/components/Common/MirrorVideo.tsx
+#~ msgid "Mirroring"
+#~ msgstr "Mirroring"
+
+#: src/components/Common/MirrorVideo.tsx
 #: src/components/Watch/Comments/NewComment.tsx
 #: src/components/Watch/TipForm.tsx
 msgid "Momoka is currently in beta - during this time certain actions are not available to all profiles."
 msgstr ""
-
-#: src/components/Common/MirrorVideo.tsx
-msgid "Mirror video across Lens"
-msgstr "Vídeo de espejo a través de la lente"
-
-#: src/components/Common/MirrorVideo.tsx
-msgid "Mirroring"
-msgstr "Mirroring"
 
 #: src/components/Common/Navbar.tsx
 msgid "Home"
@@ -397,7 +397,6 @@ msgstr "Indexando, por favor espere..."
 #~ msgstr "Permalink copiado al portapapeles"
 
 #: src/components/Common/VideoCard/ThumbnailOverlays.tsx
-#: src/components/Profile/MirroredVideoCard.tsx
 msgid "Sensitive Content"
 msgstr "Contenido sensible"
 
@@ -1137,8 +1136,8 @@ msgid "Saved Videos"
 msgstr "Vídeos guardados"
 
 #: src/components/Profile/MirroredVideoCard.tsx
-msgid "Mirrored"
-msgstr "Mirado"
+#~ msgid "Mirrored"
+#~ msgstr "Mirado"
 
 #: src/components/Profile/Tabs/CollectedNFTs.tsx
 msgid "No NFTs found"
@@ -1298,11 +1297,15 @@ msgstr "Ofensivo"
 #~ msgstr ""
 
 #: src/components/Settings/BasicInfo.tsx
+#~ msgid "URL"
+#~ msgstr ""
+
+#: src/components/Settings/BasicInfo.tsx
 msgid "Profile"
 msgstr ""
 
 #: src/components/Settings/BasicInfo.tsx
-msgid "URL"
+msgid "Permalink"
 msgstr ""
 
 #: src/components/Settings/BasicInfo.tsx
@@ -1831,10 +1834,6 @@ msgstr "suscriptores"
 #~ msgid "Collecting"
 #~ msgstr "Recolectando"
 
-#: src/components/Watch/CollectVideo/index.tsx
-#~ msgid "Already Collected"
-#~ msgstr "Ya recogido"
-
 #: src/components/Watch/Comments/CommentOptions.tsx
 msgid "Comment deleted"
 msgstr "Comentario eliminado"
@@ -1976,6 +1975,10 @@ msgstr "Destinatarios"
 #: src/components/Watch/OpenActions/CollectPublication/index.tsx
 msgid "Only followers can collect this publication"
 msgstr ""
+
+#: src/components/Watch/OpenActions/CollectPublication/index.tsx
+msgid "Already Collected"
+msgstr "Ya recogido"
 
 #: src/components/Watch/PublicationReaction.tsx
 #~ msgid "Dislike"

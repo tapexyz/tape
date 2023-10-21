@@ -1,9 +1,10 @@
 import type { Profile } from '@tape.xyz/lens'
+import type { SimpleProfile } from '@tape.xyz/lens/custom-types'
 
 import { trimLensHandle } from './trimLensHandle'
 
 export const getProfile = (
-  profile: Profile
+  profile: Profile | SimpleProfile
 ): {
   prefix: '@' | '#'
   slug: string

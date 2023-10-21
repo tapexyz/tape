@@ -11,7 +11,6 @@ import {
   imageCdn,
   sanitizeDStorageUrl
 } from '@tape.xyz/generic'
-import type { Profile } from '@tape.xyz/lens'
 import {
   PublicationDocument,
   usePublicationLazyQuery,
@@ -19,7 +18,10 @@ import {
   useTxIdToTxHashLazyQuery
 } from '@tape.xyz/lens'
 import { useApolloClient } from '@tape.xyz/lens/apollo'
-import type { QueuedVideoType } from '@tape.xyz/lens/custom-types'
+import type {
+  QueuedVideoType,
+  SimpleProfile
+} from '@tape.xyz/lens/custom-types'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
@@ -33,7 +35,7 @@ type Props = {
 const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
-  ) as Profile
+  ) as SimpleProfile
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
   const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
 

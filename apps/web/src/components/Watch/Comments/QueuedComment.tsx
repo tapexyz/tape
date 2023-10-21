@@ -4,7 +4,6 @@ import Tooltip from '@components/UIElements/Tooltip'
 import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
 import { getProfile, getProfilePicture } from '@tape.xyz/generic'
-import type { Profile } from '@tape.xyz/lens'
 import {
   LensTransactionStatusType,
   PublicationDocument,
@@ -13,7 +12,10 @@ import {
   useTxIdToTxHashLazyQuery
 } from '@tape.xyz/lens'
 import { useApolloClient } from '@tape.xyz/lens/apollo'
-import type { QueuedCommentType } from '@tape.xyz/lens/custom-types'
+import type {
+  QueuedCommentType,
+  SimpleProfile
+} from '@tape.xyz/lens/custom-types'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
@@ -25,9 +27,8 @@ type Props = {
 const QueuedComment: FC<Props> = ({ queuedComment }) => {
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
-  ) as Profile
-  const queuedComments = usePersistStore((state) => state.queuedComments)
-  const setQueuedComments = usePersistStore((state) => state.setQueuedComments)
+  ) as SimpleProfile
+  const { queuedComments, setQueuedComments } = usePersistStore()
 
   const { cache } = useApolloClient()
   const [getTxnHash] = useTxIdToTxHashLazyQuery()

@@ -5,7 +5,7 @@ import {
   MIXPANEL_TOKEN
 } from '@tape.xyz/constants'
 import { getProfile } from '@tape.xyz/generic'
-import type { Profile } from '@tape.xyz/lens'
+import type { SimpleProfile } from '@tape.xyz/lens/custom-types'
 import mixpanel from 'mixpanel-browser'
 import type { FC } from 'react'
 import { useEffect } from 'react'
@@ -20,7 +20,7 @@ if (IS_PRODUCTION) {
 const TelemetryProvider: FC = () => {
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
-  ) as Profile
+  ) as SimpleProfile
 
   useEffect(() => {
     if (IS_PRODUCTION && selectedSimpleProfile?.id) {
