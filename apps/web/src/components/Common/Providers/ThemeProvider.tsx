@@ -1,5 +1,3 @@
-'use client'
-
 import '@radix-ui/themes/styles.css'
 
 import { Theme } from '@radix-ui/themes'

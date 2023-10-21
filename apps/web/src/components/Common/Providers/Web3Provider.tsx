@@ -1,6 +1,4 @@
-'use client'
-
-import { IS_MAINNET, TAPE_APP_NAME, WC_PROJECT_ID } from '@tape.xyz/constants'
+import { TAPE_APP_NAME, WC_PROJECT_ID } from '@tape.xyz/constants'
 import { CoinbaseWalletConnector } from '@wagmi/connectors/coinbaseWallet'
 import { InjectedConnector } from '@wagmi/connectors/injected'
 import { WalletConnectConnector } from '@wagmi/connectors/walletConnect'
@@ -22,7 +20,6 @@ import { publicProvider } from 'wagmi/providers/public'
 
 const { chains, publicClient } = configureChains(
   [
-    IS_MAINNET ? polygon : polygonMumbai,
     polygon,
     polygonMumbai,
     mainnet,
