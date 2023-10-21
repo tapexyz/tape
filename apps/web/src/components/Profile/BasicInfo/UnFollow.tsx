@@ -17,6 +17,7 @@ import {
   useUnfollowMutation
 } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+import { Loader } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -136,6 +137,7 @@ const UnFollow: FC<Props> = ({ profile, onUnSubscribe, size = '2' }) => {
       highContrast
       disabled={loading}
     >
+      {loading && <Loader size="sm" />}
       <Trans>Unfollow</Trans>
     </Button>
   )

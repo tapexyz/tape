@@ -20,6 +20,7 @@ import {
   useProfileFollowModuleQuery
 } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+import { Loader } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -219,6 +220,7 @@ const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
           size={size}
           disabled={loading}
         >
+          {loading && <Loader size="sm" />}
           <Trans>Subscribe</Trans>
         </Button>
       </Dialog.Trigger>
@@ -252,10 +254,12 @@ const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
               onClick={() => superFollow()}
               disabled={loading}
             >
+              {loading && <Loader size="sm" />}
               <Trans>Subscribe Now</Trans>
             </Button>
           ) : (
             <Button highContrast onClick={() => allow()} disabled={loading}>
+              {loading && <Loader size="sm" />}
               <Trans>Allow</Trans>
             </Button>
           )}

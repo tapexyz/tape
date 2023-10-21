@@ -330,9 +330,8 @@ const Subscription = ({ channel }: Props) => {
             disabled={loading}
             onClick={() => setMembership(true)}
           >
-            <span className="text-white">
-              <Trans>Disable</Trans>
-            </span>
+            {loading && <Loader size="sm" />}
+            <Trans>Disable</Trans>
           </Button>
           <Button highContrast size="3" onClick={() => setShowForm(true)}>
             <Trans>Update</Trans>

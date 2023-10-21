@@ -9,6 +9,7 @@ import {
   REQUESTING_SIGNATURE_MESSAGE
 } from '@tape.xyz/constants'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+import { Loader } from '@tape.xyz/ui'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import Custom404 from 'src/pages/404'
@@ -81,7 +82,8 @@ const Delete = () => {
         disabled={loading}
         onClick={() => onClickDelete()}
       >
-        Delete
+        {loading && <Loader size="sm" />}
+        <Trans>Delete</Trans>
       </Button>
     </div>
   )

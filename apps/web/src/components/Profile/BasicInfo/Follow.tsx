@@ -18,6 +18,7 @@ import {
   useFollowMutation
 } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+import { Loader } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -152,6 +153,7 @@ const Follow: FC<Props> = ({ profile, onSubscribe, size = '2' }) => {
       onClick={() => follow()}
       highContrast
     >
+      {loading && <Loader size="sm" />}
       <Trans>Follow</Trans>
     </Button>
   )

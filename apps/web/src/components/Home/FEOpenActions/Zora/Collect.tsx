@@ -1,4 +1,4 @@
-import { Button } from '@components/UIElements/Button'
+import { Button } from '@radix-ui/themes'
 import { ZoraCreator1155Impl, ZoraERC721Drop } from '@tape.xyz/abis'
 import { Analytics, TRACK } from '@tape.xyz/browser'
 import { TAPE_ADMIN_ADDRESS, TAPE_APP_NAME } from '@tape.xyz/constants'
@@ -125,7 +125,7 @@ const Collect = ({ nft, link }: { nft: ZoraNft; link: string }) => {
           Connect Wallet
         </Button>
       ) : chain !== nft.chainId ? (
-        <Button onClick={() => switchNetwork?.(nft.chainId)} variant="danger">
+        <Button onClick={() => switchNetwork?.(nft.chainId)} color="red">
           Switch to {getZoraChainInfo(nft.chainId).name}
         </Button>
       ) : isPrepareFetching ? (
@@ -135,7 +135,7 @@ const Collect = ({ nft, link }: { nft: ZoraNft; link: string }) => {
       ) : isPrepareError ? (
         noBalanceError ? (
           <Link href="https://buy.moonpay.com" target="_blank">
-            <Button variant="danger">Not enough balance</Button>
+            <Button color="red">Not enough balance</Button>
           </Link>
         ) : maxMintExceededError ? (
           <span className="font-bold text-red-500">

@@ -499,6 +499,7 @@ const BasicInfo = ({ profile }: Props) => {
         </div>
         <div className="mt-6 flex justify-end">
           <Button size="3" disabled={loading} highContrast>
+            {loading && <Loader size="sm" />}
             <Trans>Update Profile</Trans>
           </Button>
         </div>

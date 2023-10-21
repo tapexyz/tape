@@ -1,8 +1,8 @@
 import CollectOutline from '@components/Common/Icons/CollectOutline'
 import ExternalOutline from '@components/Common/Icons/ExternalOutline'
 import TagOutline from '@components/Common/Icons/TagOutline'
-import { Button } from '@components/UIElements/Button'
 import { Trans } from '@lingui/macro'
+import { Button } from '@radix-ui/themes'
 import { Analytics, TRACK } from '@tape.xyz/browser'
 import {
   getRandomProfilePicture,
@@ -86,7 +86,7 @@ const Metadata = ({ nft, link }: { nft: ZoraNft; link: string }) => {
       ) : (
         <div className="mt-4 flex justify-end md:mt-8">
           <Link href={link} target="_blank">
-            <Button>Collect</Button>
+            <Button highContrast>Collect</Button>
           </Link>
         </div>
       )}

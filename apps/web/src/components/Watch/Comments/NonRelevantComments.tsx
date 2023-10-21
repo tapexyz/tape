@@ -1,8 +1,8 @@
 import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
 import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
-import { Button } from '@components/UIElements/Button'
 import { t } from '@lingui/macro'
+import { Button } from '@radix-ui/themes'
 import {
   INFINITE_SCROLL_ROOT_MARGIN,
   LENS_CUSTOM_FILTERS
@@ -83,7 +83,7 @@ const NonRelevantComments: FC<Props> = ({ video, className }) => {
         className="group w-full text-center"
         onClick={() => onToggle()}
         variant="outline"
-        size="lg"
+        highContrast
       >
         <span className="flex items-center space-x-2">
           <span className="opacity-70 group-hover:opacity-100">
