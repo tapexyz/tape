@@ -76,7 +76,7 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
   useProfilesManagedQuery({
     variables: {
       request: {
-        for: selectedSimpleProfile?.ownedBy.address,
+        for: address,
         includeOwned: true,
         limit: LimitType.Fifty
       }

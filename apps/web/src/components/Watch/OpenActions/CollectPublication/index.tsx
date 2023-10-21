@@ -41,7 +41,12 @@ import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import { useBalance, useContractWrite, useSignTypedData } from 'wagmi'
+import {
+  useAccount,
+  useBalance,
+  useContractWrite,
+  useSignTypedData
+} from 'wagmi'
 
 import BalanceAlert from './BalanceAlert'
 import PermissionAlert from './PermissionAlert'
@@ -64,6 +69,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
   )
 
   const handleWrongNetwork = useHandleWrongNetwork()
+  const { address } = useAccount()
 
   const [collecting, setCollecting] = useState(false)
   const [isAllowed, setIsAllowed] = useState(true)
@@ -89,7 +95,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
   })
 
   const { data: balanceData, isLoading: balanceLoading } = useBalance({
-    address: activeProfile?.ownedBy.address,
+    address,
     token: assetAddress,
     formatUnits: assetDecimals,
     watch: Boolean(details?.amount.value),

@@ -1,3 +1,4 @@
+import getCurrentSessionId from '@lib/getCurrentSessionId'
 import useAuthPersistStore, { signOut } from '@lib/store/auth'
 import useProfileStore from '@lib/store/profile'
 import { t, Trans } from '@lingui/macro'
@@ -195,7 +196,16 @@ const UserMenu = () => {
               </Text>
             </Flex>
           </DropdownMenu.Item>
-          <DropdownMenu.Item color="red" onClick={() => revokeAuthentication()}>
+          <DropdownMenu.Item
+            color="red"
+            onClick={async () =>
+              await revokeAuthentication({
+                variables: {
+                  request: { authorizationId: getCurrentSessionId() }
+                }
+              })
+            }
+          >
             <Flex align="center" gap="2">
               <HandWaveOutline className="h-4 w-4" />
               <Text as="p" className="truncate whitespace-nowrap">
