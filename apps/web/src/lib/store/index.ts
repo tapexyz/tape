@@ -92,7 +92,7 @@ export const useAppStore = create<AppState>((set) => ({
         token: IRYS_CURRENCY,
         wallet: {
           rpcUrl: POLYGON_RPC_URL,
-          name: 'rainbowkitv1',
+          name: 'viem',
           provider: signer
         }
       })
