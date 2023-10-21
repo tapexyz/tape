@@ -25,10 +25,10 @@ const Managed = () => {
       <p>Profiles managed by you.</p>
       <div className="mt-3">
         {loading && <Loader className="my-10" />}
-        {((!loading && !profilesManaged?.length) || error) && (
+        {(!loading && !profilesManaged?.length) || error ? (
           <NoDataFound withImage isCenter />
-        )}
-        {profilesManaged?.length && (
+        ) : null}
+        {profilesManaged?.length ? (
           <Table.Root>
             <Table.Header>
               <Table.Row>
@@ -65,7 +65,7 @@ const Managed = () => {
               ))}
             </Table.Body>
           </Table.Root>
-        )}
+        ) : null}
       </div>
     </div>
   )

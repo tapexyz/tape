@@ -268,10 +268,10 @@ const Managers = () => {
       </div>
       <div className="mt-3">
         {loading && <Loader className="my-10" />}
-        {((!loading && !profileManagers?.length) || error) && (
+        {(!loading && !profileManagers?.length) || error ? (
           <NoDataFound withImage isCenter />
-        )}
-        {profileManagers?.length && (
+        ) : null}
+        {profileManagers?.length ? (
           <Table.Root>
             <Table.Header>
               <Table.Row>
@@ -294,7 +294,7 @@ const Managers = () => {
               ))}
             </Table.Body>
           </Table.Root>
-        )}
+        ) : null}
       </div>
     </div>
   )
