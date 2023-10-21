@@ -1,6 +1,7 @@
 import { Input } from '@components/UIElements/Input'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useDid } from '@hooks/useDid'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import usePendingTxn from '@hooks/usePendingTxn'
 import useNonceStore from '@lib/store/nonce'
@@ -14,7 +15,7 @@ import {
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE
 } from '@tape.xyz/constants'
-import { getSignature, useDid } from '@tape.xyz/generic'
+import { getSignature } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import {
   ChangeProfileManagerActionType,

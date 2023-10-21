@@ -28,11 +28,11 @@ export const useZoraNft = ({
     return response.data?.nft
   }
 
-  const { data, isLoading, error } = useQuery(
-    ['zoraNftMetadata', chain, address, token],
-    () => loadNftDetails().then((res) => res),
-    { enabled }
-  )
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['zoraNftMetadata', chain, address, token],
+    queryFn: loadNftDetails,
+    enabled
+  })
 
   return { data, loading: isLoading, error }
 }

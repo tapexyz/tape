@@ -21,13 +21,11 @@ const CollectedNFTs: FC<Props> = ({ profile }) => {
     return data?.result
   }
 
-  const { data, isLoading, error } = useQuery(
-    ['nfts', profile.handle],
-    () => fetchNfts().then((res) => res),
-    {
-      enabled: true
-    }
-  )
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['nfts'],
+    queryFn: fetchNfts,
+    enabled: true
+  })
 
   const nfts = data?.items
 

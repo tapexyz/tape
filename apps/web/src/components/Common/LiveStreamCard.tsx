@@ -1,10 +1,7 @@
+import { useDid } from '@hooks/useDid'
 import { getShortHandTime } from '@lib/formatTime'
 import { FALLBACK_COVER_URL } from '@tape.xyz/constants'
-import {
-  getRandomProfilePicture,
-  trimLensHandle,
-  useDid
-} from '@tape.xyz/generic'
+import { getRandomProfilePicture, trimLensHandle } from '@tape.xyz/generic'
 import Link from 'next/link'
 import type { FC, ReactNode } from 'react'
 import React from 'react'

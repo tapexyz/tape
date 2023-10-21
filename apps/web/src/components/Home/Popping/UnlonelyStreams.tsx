@@ -17,7 +17,9 @@ const UnlonelyStreams = () => {
     data: liveItems,
     isLoading,
     error
-  } = useQuery(['unlonely'], () => fetchStreams().then((res) => res), {
+  } = useQuery({
+    queryKey: ['unlonely'],
+    queryFn: fetchStreams,
     enabled: true,
     refetchInterval: 10_000
   })

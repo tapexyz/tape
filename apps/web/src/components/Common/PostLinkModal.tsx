@@ -1,6 +1,7 @@
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
+import { useZoraNft } from '@hooks/useZoraNft'
 import type { MetadataAttribute } from '@lens-protocol/metadata'
 import { link, MetadataAttributeType } from '@lens-protocol/metadata'
 import useProfileStore from '@lib/store/profile'
@@ -21,8 +22,7 @@ import {
   getSignature,
   getURLs,
   trimify,
-  uploadToAr,
-  useZoraNft
+  uploadToAr
 } from '@tape.xyz/generic'
 import type {
   CreateMomokaPostEip712TypedData,

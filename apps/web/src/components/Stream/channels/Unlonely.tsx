@@ -21,7 +21,9 @@ const Unlonely = ({ channel }: { channel: string }) => {
     data: liveItem,
     isLoading,
     error
-  } = useQuery(['unlonelyChannel'], () => fetchNfts().then((res) => res), {
+  } = useQuery({
+    queryKey: ['unlonelyChannel'],
+    queryFn: fetchNfts,
     enabled: true
   })
 

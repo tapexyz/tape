@@ -1,8 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
+import { resolveDid } from '@tape.xyz/generic/functions/resolveDid'
+import { shortenAddress } from '@tape.xyz/generic/functions/shortenAddress'
 import { isAddress } from 'viem'
-
-import { resolveDid } from '../functions/resolveDid'
-import { shortenAddress } from '../functions/shortenAddress'
 
 interface UseDidProps {
   address: string
@@ -26,11 +25,11 @@ export const useDid = ({
     return item.length ? item : shortenAddress(address)
   }
 
-  const { data, isLoading, error } = useQuery(
-    ['didResolve', address],
-    () => loadDetails().then((res) => res),
-    { enabled }
-  )
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['didResolve', address],
+    queryFn: loadDetails,
+    enabled
+  })
 
   return { did: data, loading: isLoading, error }
 }
