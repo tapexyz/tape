@@ -1,66 +1,46 @@
 import SortOutline from '@components/Common/Icons/SortOutline'
-import DropMenu from '@components/UIElements/DropMenu'
 import Tooltip from '@components/UIElements/Tooltip'
-import { Menu } from '@headlessui/react'
 import useProfileStore from '@lib/store/profile'
 import { Trans } from '@lingui/macro'
+import { DropdownMenu } from '@radix-ui/themes'
 import { CustomCommentsFilterEnum } from '@tape.xyz/lens/custom-types'
-import clsx from 'clsx'
 import React from 'react'
 
 const CommentsFilter = () => {
-  const selectedCommentFilter = useProfileStore(
-    (state) => state.selectedCommentFilter
-  )
   const setSelectedCommentFilter = useProfileStore(
     (state) => state.setSelectedCommentFilter
   )
 
   return (
-    <DropMenu
-      trigger={
+    <DropdownMenu.Root>
+      <DropdownMenu.Trigger>
         <Tooltip content="Sort by" placement="top">
           <span>
             <SortOutline className="h-5 w-5" />
           </span>
         </Tooltip>
-      }
-    >
-      <div className="bg-secondary mt-1 overflow-hidden rounded-xl border border-gray-200 p-1 text-sm shadow dark:border-gray-800">
-        <Menu.Item
-          className={clsx(
-            'w-full rounded-lg px-3 py-1.5 text-left',
-            selectedCommentFilter === CustomCommentsFilterEnum.RELEVANT_COMMENTS
-              ? 'bg-gray-100 dark:bg-gray-800'
-              : 'opacity-60 hover:opacity-100'
-          )}
+      </DropdownMenu.Trigger>
+      <DropdownMenu.Content>
+        <DropdownMenu.Item
           onClick={() =>
             setSelectedCommentFilter(CustomCommentsFilterEnum.RELEVANT_COMMENTS)
           }
-          as="button"
         >
           <span className="whitespace-nowrap">
             <Trans>Relevant</Trans>
           </span>
-        </Menu.Item>
-        <Menu.Item
-          className={clsx(
-            'w-full rounded-lg px-3 py-1.5 text-left',
-            selectedCommentFilter === CustomCommentsFilterEnum.NEWEST_COMMENTS
-              ? 'bg-gray-100 dark:bg-gray-800'
-              : 'opacity-60 hover:opacity-100'
-          )}
+        </DropdownMenu.Item>
+        <DropdownMenu.Item
           onClick={() =>
             setSelectedCommentFilter(CustomCommentsFilterEnum.NEWEST_COMMENTS)
           }
-          as="button"
         >
           <span className="whitespace-nowrap">
             <Trans>Newest first</Trans>
           </span>
-        </Menu.Item>
-      </div>
-    </DropMenu>
+        </DropdownMenu.Item>
+      </DropdownMenu.Content>
+    </DropdownMenu.Root>
   )
 }
 

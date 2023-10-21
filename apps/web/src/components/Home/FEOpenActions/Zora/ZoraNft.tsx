@@ -1,5 +1,4 @@
-import Modal from '@components/UIElements/Modal'
-import { t } from '@lingui/macro'
+import { Dialog } from '@radix-ui/themes'
 import { Analytics, TRACK } from '@tape.xyz/browser'
 import {
   STATIC_ASSETS,
@@ -10,7 +9,7 @@ import { trimLensHandle, useDid, useZoraNft } from '@tape.xyz/generic'
 import type { BasicNftMetadata } from '@tape.xyz/lens/custom-types'
 import Link from 'next/link'
 import type { FC } from 'react'
-import React, { useState } from 'react'
+import React from 'react'
 
 import Metadata from './Metadata'
 
@@ -19,8 +18,6 @@ type Props = {
 }
 
 const ZoraNft: FC<Props> = ({ nftMetadata }) => {
-  const [showMintModal, setShowMintModal] = useState(false)
-
   const { chain, address, token } = nftMetadata
 
   const { data: zoraNft, loading } = useZoraNft({
@@ -48,32 +45,31 @@ const ZoraNft: FC<Props> = ({ nftMetadata }) => {
 
   return (
     <div className="w-72 flex-none">
-      <Modal
-        title={t`Collect`}
-        show={showMintModal}
-        onClose={() => setShowMintModal(false)}
-        panelClassName="max-w-6xl max-h-[95vh]"
-      >
-        <Metadata nft={zoraNft} link={zoraLink} />
-      </Modal>
-      <div
-        role="button"
-        onClick={() => setShowMintModal(true)}
-        className="aspect-h-9 aspect-w-16 relative overflow-hidden rounded-xl"
-      >
-        <div
-          style={{
-            backgroundImage: `url("${coverImage}")`
-          }}
-          className="aspect-h-9 aspect-w-16 z-0 bg-cover bg-no-repeat blur-xl"
-        />
-        <img
-          src={coverImage}
-          className="h-full w-full object-contain object-center lg:h-full lg:w-full"
-          alt="thumbnail"
-          draggable={false}
-        />
-      </div>
+      <Dialog.Root>
+        <Dialog.Trigger>
+          <div className="aspect-h-9 aspect-w-16 relative overflow-hidden rounded-xl">
+            <div
+              style={{
+                backgroundImage: `url("${coverImage}")`
+              }}
+              className="aspect-h-9 aspect-w-16 z-0 bg-cover bg-no-repeat blur-xl"
+            />
+            <img
+              src={coverImage}
+              className="h-full w-full object-contain object-center lg:h-full lg:w-full"
+              alt="thumbnail"
+              draggable={false}
+            />
+          </div>
+        </Dialog.Trigger>
+
+        <Dialog.Content style={{ maxWidth: 450 }}>
+          <Dialog.Title>Collect</Dialog.Title>
+
+          <Metadata nft={zoraNft} link={zoraLink} />
+        </Dialog.Content>
+      </Dialog.Root>
+
       <div className="pt-2">
         <h1 className="ultrawide:break-all line-clamp-2 break-words font-bold">
           {zoraNft?.name}

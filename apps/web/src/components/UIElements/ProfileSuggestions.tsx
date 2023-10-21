@@ -14,7 +14,7 @@ type Props = {
   subscribersCount: number
 }
 
-const ChannelSuggestions: FC<Props> = ({
+const ProfileSuggestions: FC<Props> = ({
   className,
   picture,
   handle,
@@ -46,4 +46,4 @@ const ChannelSuggestions: FC<Props> = ({
   )
 }
 
-export default ChannelSuggestions
+export default ProfileSuggestions

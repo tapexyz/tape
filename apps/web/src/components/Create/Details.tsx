@@ -125,7 +125,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                 rows={5}
                 mentionsSelector="input-mentions-textarea"
               />
-              <div className="absolute right-1.5 top-8">
+              <div className="absolute right-2 top-8">
                 <EmojiPicker
                   onEmojiSelect={(emoji) =>
                     setValue(
