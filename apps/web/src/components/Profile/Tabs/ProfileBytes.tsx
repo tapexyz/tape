@@ -96,7 +96,10 @@ const ProfileBytes: FC<Props> = ({ profileId }) => {
                     {byte.metadata.marketplace?.name}
                   </h1>
                 </div>
-                <div className="absolute right-2 top-2">
+                <div
+                  className="absolute right-2 top-2"
+                  onClick={(e) => e.stopPropagation()}
+                >
                   <VideoOptions video={byte} variant="solid" />
                 </div>
               </Link>
