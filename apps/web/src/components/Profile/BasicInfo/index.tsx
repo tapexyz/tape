@@ -1,17 +1,24 @@
-import Alert from '@components/Common/Alert'
 import Badge from '@components/Common/Badge'
 import FollowActions from '@components/Common/FollowActions'
-import InfoOutline from '@components/Common/Icons/InfoOutline'
 import LocationOutline from '@components/Common/Icons/LocationOutline'
 import ProfileBanOutline from '@components/Common/Icons/ProfileBanOutline'
 import ThreeDotsOutline from '@components/Common/Icons/ThreeDotsOutline'
 import WalletOutline from '@components/Common/Icons/WalletOutline'
+import WarningOutline from '@components/Common/Icons/WarningOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAuthPersistStore from '@lib/store/auth'
 import useNonceStore from '@lib/store/nonce'
 import { t, Trans } from '@lingui/macro'
-import { Button, DropdownMenu, Flex, IconButton, Text } from '@radix-ui/themes'
+import {
+  Badge as BadgeUI,
+  Button,
+  Callout,
+  DropdownMenu,
+  Flex,
+  IconButton,
+  Text
+} from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { useCopyToClipboard } from '@tape.xyz/browser'
 import {
@@ -99,7 +106,6 @@ const BasicInfo: FC<Props> = ({ profile }) => {
   const onCompleted = (
     __typename?: 'RelayError' | 'RelaySuccess' | 'LensProfileManagerRelayError'
   ) => {
-    console.log('🚀 ~ file: index.tsx:102 ~ __typename:', __typename)
     if (
       __typename === 'RelayError' ||
       __typename === 'LensProfileManagerRelayError'
@@ -109,7 +115,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
     setLoading(false)
     updateCache(!isBlockedByMe)
     toast.success(
-      `${isBlockedByMe ? 'Unblocked' : 'Blocked'} ${getProfile(profile)
+      `${isBlockedByMe ? t`Unblocked` : `Blocked`} ${getProfile(profile)
         ?.displayName}`
     )
   }
@@ -219,16 +225,17 @@ const BasicInfo: FC<Props> = ({ profile }) => {
   return (
     <div className="px-2 xl:px-0">
       {misused?.description && (
-        <Alert
-          variant="danger"
-          className="mx-auto mt-4 flex max-w-screen-xl flex-wrap gap-2 bg-white font-medium dark:bg-black"
-        >
-          <span className="inline-flex items-center space-x-1 rounded-full bg-red-500 px-3 py-1">
-            <InfoOutline className="h-4 w-4 text-white" />
-            <span className="font-bold text-white">{misused.type}</span>
-          </span>
-          <InterweaveContent content={misused.description} />
-        </Alert>
+        <Callout.Root color="red" mt="4">
+          <Callout.Icon>
+            <WarningOutline className="h-5 w-5" />
+          </Callout.Icon>
+          <Callout.Text>
+            <Flex gap="2" align="center">
+              <BadgeUI>{misused.type}</BadgeUI>
+              <InterweaveContent content={misused.description} />
+            </Flex>
+          </Callout.Text>
+        </Callout.Root>
       )}
       <div className="flex flex-1 flex-wrap justify-between py-2 md:space-x-5 md:py-4">
         <div className="mr-3 flex flex-col items-start space-y-1.5">

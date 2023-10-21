@@ -804,6 +804,14 @@ msgstr ""
 #~ msgstr ""
 
 #: src/components/Create/index.tsx
+#~ msgid "Video not uploaded correctly"
+#~ msgstr "El vídeo no se ha subido correctamente"
+
+#: src/components/Create/index.tsx
+#~ msgid "Failed to upload video to Arweave"
+#~ msgstr "No se pudo subir el vídeo a Arweave"
+
+#: src/components/Create/index.tsx
 msgid "Post Now"
 msgstr ""
 
@@ -825,16 +833,16 @@ msgid "IPFS Upload failed"
 msgstr "Error al subir IPFS"
 
 #: src/components/Create/index.tsx
-msgid "Video not uploaded correctly"
-msgstr "El vídeo no se ha subido correctamente"
+msgid "Media not uploaded correctly"
+msgstr ""
 
 #: src/components/Create/index.tsx
 msgid "Insufficient storage balance"
 msgstr "Balance de almacenamiento insuficiente"
 
 #: src/components/Create/index.tsx
-msgid "Failed to upload video to Arweave"
-msgstr "No se pudo subir el vídeo a Arweave"
+msgid "Failed to upload media to Arweave"
+msgstr ""
 
 #: src/components/Explore/Category/index.tsx
 #: src/components/Explore/Feed.tsx
@@ -1116,12 +1124,11 @@ msgid "Unfollow"
 msgstr ""
 
 #: src/components/Profile/BasicInfo/index.tsx
-#: src/components/Settings/Blocked/List.tsx
-msgid "Unblocked successfully"
-msgstr ""
+#~ msgid "Blocked successfully"
+#~ msgstr ""
 
 #: src/components/Profile/BasicInfo/index.tsx
-msgid "Blocked successfully"
+msgid "Unblocked"
 msgstr ""
 
 #: src/components/Profile/BasicInfo/index.tsx
@@ -1347,6 +1354,10 @@ msgstr "Ubicación"
 
 #: src/components/Settings/BasicInfo.tsx
 msgid "Update Profile"
+msgstr ""
+
+#: src/components/Settings/Blocked/List.tsx
+msgid "Unblocked successfully"
 msgstr ""
 
 #: src/components/Settings/Blocked/index.tsx

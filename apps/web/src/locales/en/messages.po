@@ -804,6 +804,14 @@ msgstr "Please note that your media exceeds the free limit ({IPFS_FREE_UPLOAD_LI
 #~ msgstr "Uploading video"
 
 #: src/components/Create/index.tsx
+#~ msgid "Video not uploaded correctly"
+#~ msgstr "Video not uploaded correctly"
+
+#: src/components/Create/index.tsx
+#~ msgid "Failed to upload video to Arweave"
+#~ msgstr "Failed to upload video to Arweave"
+
+#: src/components/Create/index.tsx
 msgid "Post Now"
 msgstr "Post Now"
 
@@ -825,16 +833,16 @@ msgid "IPFS Upload failed"
 msgstr "IPFS Upload failed"
 
 #: src/components/Create/index.tsx
-msgid "Video not uploaded correctly"
-msgstr "Video not uploaded correctly"
+msgid "Media not uploaded correctly"
+msgstr "Media not uploaded correctly"
 
 #: src/components/Create/index.tsx
 msgid "Insufficient storage balance"
 msgstr "Insufficient storage balance"
 
 #: src/components/Create/index.tsx
-msgid "Failed to upload video to Arweave"
-msgstr "Failed to upload video to Arweave"
+msgid "Failed to upload media to Arweave"
+msgstr "Failed to upload media to Arweave"
 
 #: src/components/Explore/Category/index.tsx
 #: src/components/Explore/Feed.tsx
@@ -1116,13 +1124,12 @@ msgid "Unfollow"
 msgstr "Unfollow"
 
 #: src/components/Profile/BasicInfo/index.tsx
-#: src/components/Settings/Blocked/List.tsx
-msgid "Unblocked successfully"
-msgstr "Unblocked successfully"
+#~ msgid "Blocked successfully"
+#~ msgstr "Blocked successfully"
 
 #: src/components/Profile/BasicInfo/index.tsx
-msgid "Blocked successfully"
-msgstr "Blocked successfully"
+msgid "Unblocked"
+msgstr "Unblocked"
 
 #: src/components/Profile/BasicInfo/index.tsx
 msgid "Sybil Verified"
@@ -1348,6 +1355,10 @@ msgstr "Location"
 #: src/components/Settings/BasicInfo.tsx
 msgid "Update Profile"
 msgstr "Update Profile"
+
+#: src/components/Settings/Blocked/List.tsx
+msgid "Unblocked successfully"
+msgstr "Unblocked successfully"
 
 #: src/components/Settings/Blocked/index.tsx
 #~ msgid "Here is a list of profiles that have been blocked. You have the option to unblock them whenever you wish."
