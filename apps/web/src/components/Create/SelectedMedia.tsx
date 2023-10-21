@@ -11,12 +11,13 @@ import {
   sanitizeDStorageUrl
 } from '@tape.xyz/generic'
 import clsx from 'clsx'
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import ChooseThumbnail from './ChooseThumbnail'
 import UploadMethod from './UploadMethod'
 
 const SelectedMedia = () => {
+  const [interacted, setInteracted] = useState(false)
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
@@ -52,12 +53,14 @@ const SelectedMedia = () => {
           controlsList="nodownload noplaybackrate"
           poster={sanitizeDStorageUrl(uploadedVideo.thumbnail)}
           controls={false}
-          autoPlay
-          onClick={() =>
+          autoPlay={interacted}
+          muted={!interacted}
+          onClick={() => {
+            setInteracted(true)
             videoRef.current?.paused
               ? videoRef.current?.play()
               : videoRef.current?.pause()
-          }
+          }}
           src={uploadedVideo.preview}
         />
         <Badge

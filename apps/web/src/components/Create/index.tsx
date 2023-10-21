@@ -92,16 +92,17 @@ const CreateSteps = () => {
 
   const canUseRelay = activeProfile?.lensManager && activeProfile?.sponsor
 
+  const resetToDefaults = () => {
+    setUploadedVideo(UPLOADED_VIDEO_FORM_DEFAULTS)
+  }
+
   const redirectToChannelPage = () => {
+    resetToDefaults()
     router.push(
       uploadedVideo.isByteVideo
         ? `/u/${getProfile(activeProfile)?.slug}?tab=bytes`
         : `/u/${getProfile(activeProfile)?.slug}`
     )
-  }
-
-  const resetToDefaults = () => {
-    setUploadedVideo(UPLOADED_VIDEO_FORM_DEFAULTS)
   }
 
   const redirectToWatchPage = (videoId: string) => {
