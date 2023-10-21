@@ -13,7 +13,6 @@ import {
   useProfilesManagedQuery
 } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { watchAccount } from '@wagmi/core'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
@@ -45,7 +44,7 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
 
   const { resolvedTheme } = useTheme()
   const { mounted } = useIsMounted()
-  const { address } = useAccount()
+  const { address, connector } = useAccount()
 
   const { pathname, replace, asPath } = useRouter()
 
@@ -121,12 +120,11 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
   }, [disconnect, selectedSimpleProfile])
 
   useEffect(() => {
-    const unwatch = watchAccount(() => {
+    connector?.addListener('change', () => {
       if (selectedSimpleProfile?.id) {
         logout()
       }
     })
-    return () => unwatch()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
