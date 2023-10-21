@@ -60,7 +60,7 @@ const UserMenu = () => {
   const profilesManaged = data?.profilesManaged.items as Profile[]
   const isAdmin = ADMIN_IDS.includes(selectedSimpleProfile?.id)
 
-  const [revokeAuthentication] = useRevokeAuthenticationMutation({
+  const [revokeAuthentication, { loading }] = useRevokeAuthenticationMutation({
     onCompleted: () => {
       disconnect?.()
       signOut()
@@ -197,6 +197,8 @@ const UserMenu = () => {
             </Flex>
           </DropdownMenu.Item>
           <DropdownMenu.Item
+            asChild
+            disabled={loading}
             color="red"
             onClick={async () =>
               await revokeAuthentication({
