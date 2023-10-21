@@ -121,8 +121,7 @@ const Authenticate = () => {
             handle: profile.handle,
             sponsor: profile.sponsor,
             metadata: profile.metadata,
-            stats: profile.stats,
-            managed: profile.ownedBy.address !== address
+            stats: profile.stats
           })
         }
         if (router.query?.next) {

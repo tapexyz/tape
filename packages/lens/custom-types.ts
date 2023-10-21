@@ -188,7 +188,7 @@ export interface CustomNftItemType {
 export type SimpleProfile = Pick<
   Profile,
   'id' | 'handle' | 'ownedBy' | 'sponsor' | 'stats' | 'metadata'
-> & { managed: boolean }
+>
 
 export interface NftProvider {
   provider: 'zora' | 'basepaint'

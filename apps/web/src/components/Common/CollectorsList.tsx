@@ -63,7 +63,7 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
   return (
     <div className="mt-2 space-y-3">
       {collectors?.map((profile: Profile) => (
-        <div className="flex flex-col" key={profile.ownedBy.address}>
+        <div className="flex flex-col" key={profile.id}>
           <Link
             href={`/u/${getProfile(profile)?.slug}`}
             className="font-base flex items-center justify-between"

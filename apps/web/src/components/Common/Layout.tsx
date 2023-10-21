@@ -103,13 +103,8 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
       // Redirect to login page
       replace(`/login?next=${asPath}`)
     }
-    const ownerAddress = selectedSimpleProfile?.ownedBy.address
-    const isSwitchedAccount =
-      ownerAddress !== address && !selectedSimpleProfile?.managed
     const { accessToken } = hydrateAuthTokens()
-    const shouldLogout = !accessToken || isSwitchedAccount
-
-    if (shouldLogout && selectedSimpleProfile?.id) {
+    if (!accessToken && selectedSimpleProfile?.id) {
       resetAuthState()
       signOut()
       disconnect?.()

@@ -1,6 +1,5 @@
 import { getRelativeTime } from '@lib/formatTime'
 import { Badge as BadgeUI, Flex } from '@radix-ui/themes'
-import { useCopyToClipboard } from '@tape.xyz/browser'
 import {
   getProfile,
   getProfileCoverPicture,
@@ -19,7 +18,6 @@ type Props = {
 }
 
 const Cover: FC<Props> = ({ profile }) => {
-  const [copy] = useCopyToClipboard()
   const coverImage = imageCdn(
     sanitizeDStorageUrl(getProfileCoverPicture(profile))
   )
@@ -44,18 +42,12 @@ const Cover: FC<Props> = ({ profile }) => {
             {profile.metadata && <CoverLinks metadata={profile.metadata} />}
 
             <Flex gap="1">
-              <BadgeUI
-                className="!bg-white !text-black"
-                onClick={() => copy(profile.ownedBy.address)}
-              >
+              <BadgeUI className="!bg-white !text-black">
                 <span className="bg-white text-black">
                   # {parseInt(profile.id)}
                 </span>
               </BadgeUI>
-              <BadgeUI
-                className="!bg-white !text-black"
-                onClick={() => copy(profile.ownedBy.address)}
-              >
+              <BadgeUI className="!bg-white !text-black">
                 Joined {getRelativeTime(profile.createdAt)}
               </BadgeUI>
             </Flex>
