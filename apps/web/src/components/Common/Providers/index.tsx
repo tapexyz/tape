@@ -10,6 +10,7 @@ import type { ReactNode } from 'react'
 import { useEffect } from 'react'
 
 import ErrorBoundary from '../ErrorBoundary'
+import GlobalDialogs from '../GlobalDialogs'
 import SubscriptionProvider from './SubscriptionProvider'
 import ThemeProvider from './ThemeProvider'
 import Web3Provider from './Web3Provider'
@@ -32,6 +33,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
               <ApolloProvider client={apolloClient(authLink)}>
                 <QueryClientProvider client={queryClient}>
                   <SubscriptionProvider />
+                  <GlobalDialogs />
                   {children}
                 </QueryClientProvider>
               </ApolloProvider>
