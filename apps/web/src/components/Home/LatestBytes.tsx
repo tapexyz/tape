@@ -52,7 +52,7 @@ const LatestBytes = () => {
   return (
     <>
       {bytes.map((byte) => {
-        const thumbnailUrl = getThumbnailUrl(byte)
+        const thumbnailUrl = getThumbnailUrl(byte.metadata)
         return (
           <div className="group flex flex-col" key={byte.id}>
             <Link

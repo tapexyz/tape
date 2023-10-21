@@ -32,7 +32,7 @@ const ByteVideo: FC<Props> = ({
   const targetPublication = getPublication(video)
 
   const thumbnailUrl = imageCdn(
-    sanitizeDStorageUrl(getThumbnailUrl(targetPublication, true)),
+    sanitizeDStorageUrl(getThumbnailUrl(targetPublication.metadata, true)),
     'THUMBNAIL_V'
   )
   const selectedSimpleProfile = useAuthPersistStore(

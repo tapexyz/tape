@@ -73,7 +73,10 @@ const ProfileBytes: FC<Props> = ({ profileId }) => {
       {!error && !loading && (
         <div className="laptop:grid-cols-5 grid grid-cols-2 justify-center gap-2 md:grid-cols-3">
           {[...bytes, ...bytes].map((byte) => {
-            const thumbnailUrl = imageCdn(getThumbnailUrl(byte), 'THUMBNAIL_V')
+            const thumbnailUrl = imageCdn(
+              getThumbnailUrl(byte.metadata),
+              'THUMBNAIL_V'
+            )
             return (
               <Link
                 key={byte.id}

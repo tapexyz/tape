@@ -36,7 +36,7 @@ const Video: FC<Props> = ({ video }) => {
 
   const isBytesVideo = video.publishedOn?.id === LENSTUBE_BYTES_APP_ID
   const thumbnailUrl = imageCdn(
-    sanitizeDStorageUrl(getThumbnailUrl(video, true)),
+    sanitizeDStorageUrl(getThumbnailUrl(video.metadata, true)),
     isBytesVideo ? 'THUMBNAIL_V' : 'THUMBNAIL'
   )
 

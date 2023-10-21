@@ -38,7 +38,10 @@ const getPublicationOembed = async (publicationId: string, format: string) => {
       video?.metadata?.marketplace?.name as string,
       100
     ).replaceAll('"', "'")
-    const thumbnail = imageCdn(getThumbnailUrl(video) || OG_IMAGE, 'THUMBNAIL')
+    const thumbnail = imageCdn(
+      getThumbnailUrl(video.metadata) || OG_IMAGE,
+      'THUMBNAIL'
+    )
 
     if (format === 'json') {
       return {

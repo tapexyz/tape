@@ -17,6 +17,7 @@ import { Button, Flex } from '@radix-ui/themes'
 import {
   getProfile,
   getProfilePicture,
+  getPublicationData,
   getValueFromKeyInAttributes
 } from '@tape.xyz/generic'
 import type { Comment } from '@tape.xyz/lens'
@@ -49,13 +50,14 @@ const RenderComment: FC<Props> = ({ comment }) => {
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
+  const metadata = getPublicationData(comment.metadata)
 
   useEffect(() => {
-    if (comment?.metadata?.marketplace?.description.trim().length > 500) {
+    if (metadata?.content && metadata?.content?.trim().length > 500) {
       setClamped(true)
       setShowMore(true)
     }
-  }, [comment?.metadata])
+  }, [metadata])
 
   const getIsReplyQueuedComment = () => {
     return Boolean(queuedComments.filter((c) => c.pubId === comment.id)?.length)
@@ -65,7 +67,7 @@ const RenderComment: FC<Props> = ({ comment }) => {
     <div className="flex items-start justify-between">
       <div className="flex w-full items-start">
         <Link
-          href={`/u/${getProfile(comment.by)?.slug}`}
+          href={getProfile(comment.by)?.link}
           className="mr-3 mt-0.5 flex-none"
         >
           <img
@@ -102,9 +104,7 @@ const RenderComment: FC<Props> = ({ comment }) => {
             </span>
           </span>
           <div className={clsx({ 'line-clamp-2': clamped })}>
-            <InterweaveContent
-              content={comment?.metadata?.marketplace?.description}
-            />
+            <InterweaveContent content={metadata?.content ?? ''} />
           </div>
           {showMore && (
             <div className="mt-3 inline-flex">

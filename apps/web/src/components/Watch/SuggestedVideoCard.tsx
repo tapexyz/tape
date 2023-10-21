@@ -32,7 +32,7 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
   const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
   const thumbnailUrl = isSensitiveContent
     ? `${STATIC_ASSETS}/images/sensor-blur.png`
-    : getThumbnailUrl(video, true)
+    : getThumbnailUrl(video.metadata, true)
 
   const { color: backgroundColor } = useAverageColor(thumbnailUrl, isBytesVideo)
   const videoDuration = getValueFromKeyInAttributes(

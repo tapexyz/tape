@@ -39,7 +39,10 @@ const getPublicationMeta = async (
       video?.metadata?.marketplace?.description as string,
       100
     )
-    const thumbnail = imageCdn(getThumbnailUrl(video) || OG_IMAGE, 'THUMBNAIL')
+    const thumbnail = imageCdn(
+      getThumbnailUrl(video.metadata) || OG_IMAGE,
+      'THUMBNAIL'
+    )
 
     return res
       .setHeader('Content-Type', 'text/html')

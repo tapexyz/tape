@@ -31,7 +31,7 @@ const ThumbnailImage: FC<Props> = ({ video }) => {
 
   const thumbnailUrl = isSensitiveContent
     ? `${STATIC_ASSETS}/images/sensor-blur.png`
-    : getThumbnailUrl(targetPublication, true)
+    : getThumbnailUrl(targetPublication.metadata, true)
   const { color: backgroundColor } = useAverageColor(thumbnailUrl, isBytesVideo)
 
   return (

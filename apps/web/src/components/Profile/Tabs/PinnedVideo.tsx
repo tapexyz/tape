@@ -82,7 +82,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
     pinnedPublication?.id
   )
   const thumbnailUrl = imageCdn(
-    sanitizeDStorageUrl(getThumbnailUrl(pinnedPublication, true)),
+    sanitizeDStorageUrl(getThumbnailUrl(pinnedPublication.metadata, true)),
     isBytesVideo ? 'THUMBNAIL_V' : 'THUMBNAIL'
   )
 

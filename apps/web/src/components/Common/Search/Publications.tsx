@@ -41,7 +41,7 @@ const Publications: FC<Props> = ({ results, loading, clearSearch }) => {
           publication.publishedOn?.id === LENSTUBE_BYTES_APP_ID
         const thumbnailUrl = isSensitiveContent
           ? `${STATIC_ASSETS}/images/sensor-blur.png`
-          : getThumbnailUrl(publication, true)
+          : getThumbnailUrl(publication.metadata, true)
 
         return (
           <div
