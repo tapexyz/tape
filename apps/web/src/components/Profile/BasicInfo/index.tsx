@@ -9,25 +9,43 @@ import WalletOutline from '@components/Common/Icons/WalletOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAuthPersistStore from '@lib/store/auth'
+import useNonceStore from '@lib/store/nonce'
 import { t, Trans } from '@lingui/macro'
 import { Button, DropdownMenu, Flex, IconButton, Text } from '@radix-ui/themes'
+import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { useCopyToClipboard } from '@tape.xyz/browser'
-import { MISUSED_CHANNELS, STATIC_ASSETS } from '@tape.xyz/constants'
+import {
+  ERROR_MESSAGE,
+  LENSHUB_PROXY_ADDRESS,
+  MISUSED_CHANNELS,
+  REQUESTING_SIGNATURE_MESSAGE,
+  STATIC_ASSETS
+} from '@tape.xyz/constants'
 import {
   getProfile,
+  getSignature,
   getValueFromKeyInAttributes,
   shortenAddress
 } from '@tape.xyz/generic'
+import type {
+  CreateBlockProfilesBroadcastItemResult,
+  CreateUnblockProfilesBroadcastItemResult,
+  Profile
+} from '@tape.xyz/lens'
 import {
-  type Profile,
   useBlockMutation,
+  useBroadcastOnchainMutation,
+  useCreateBlockProfilesTypedDataMutation,
+  useCreateUnblockProfilesTypedDataMutation,
   useUnblockMutation
 } from '@tape.xyz/lens'
 import { useApolloClient } from '@tape.xyz/lens/apollo'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import Link from 'next/link'
 import type { FC } from 'react'
-import React from 'react'
+import React, { useState } from 'react'
 import toast from 'react-hot-toast'
+import { useContractWrite, useSignTypedData } from 'wagmi'
 
 import Bubbles from '../Mutual/Bubbles'
 import Stats from './Stats'
@@ -38,7 +56,9 @@ type Props = {
 
 const BasicInfo: FC<Props> = ({ profile }) => {
   const [copy] = useCopyToClipboard()
+  const [loading, setLoading] = useState(false)
 
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
@@ -58,8 +78,6 @@ const BasicInfo: FC<Props> = ({ profile }) => {
     'location'
   )
   const { cache } = useApolloClient()
-  const [block] = useBlockMutation()
-  const [unBlock] = useUnblockMutation()
 
   const updateCache = (value: boolean) => {
     cache.modify({
@@ -73,7 +91,111 @@ const BasicInfo: FC<Props> = ({ profile }) => {
     })
   }
 
+  const onError = (error: CustomErrorWithData) => {
+    toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
+    setLoading(false)
+  }
+
+  const onCompleted = (
+    __typename?: 'RelayError' | 'RelaySuccess' | 'LensProfileManagerRelayError'
+  ) => {
+    console.log('🚀 ~ file: index.tsx:102 ~ __typename:', __typename)
+    if (
+      __typename === 'RelayError' ||
+      __typename === 'LensProfileManagerRelayError'
+    ) {
+      return
+    }
+    setLoading(false)
+    updateCache(!isBlockedByMe)
+    toast.success(
+      `${isBlockedByMe ? 'Unblocked' : 'Blocked'} ${getProfile(profile)
+        ?.displayName}`
+    )
+  }
+
+  const { signTypedDataAsync } = useSignTypedData({
+    onError
+  })
+
+  const { write } = useContractWrite({
+    address: LENSHUB_PROXY_ADDRESS,
+    abi: LENSHUB_PROXY_ABI,
+    functionName: 'setBlockStatus',
+    onSuccess: () => onCompleted(),
+    onError
+  })
+
+  const [broadcast] = useBroadcastOnchainMutation({
+    onCompleted: ({ broadcastOnchain }) =>
+      onCompleted(broadcastOnchain.__typename),
+    onError
+  })
+
+  const broadcastTypedData = async (
+    typedDataResult:
+      | CreateBlockProfilesBroadcastItemResult
+      | CreateUnblockProfilesBroadcastItemResult
+  ) => {
+    const { typedData, id } = typedDataResult
+    try {
+      toast.loading(REQUESTING_SIGNATURE_MESSAGE)
+      const signature = await signTypedDataAsync(getSignature(typedData))
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
+      const { data } = await broadcast({
+        variables: { request: { id, signature } }
+      })
+      if (data?.broadcastOnchain?.__typename === 'RelayError') {
+        const { byProfileId, idsOfProfilesToSetBlockStatus, blockStatus } =
+          typedData.value
+        write?.({
+          args: [byProfileId, idsOfProfilesToSetBlockStatus, blockStatus]
+        })
+      }
+    } catch {
+      setLoading(false)
+    }
+  }
+
+  const [createBlockTypedData] = useCreateBlockProfilesTypedDataMutation({
+    onCompleted: async ({ createBlockProfilesTypedData }) => {
+      broadcastTypedData(createBlockProfilesTypedData)
+    },
+    onError
+  })
+
+  const [createUnBlockTypedData] = useCreateUnblockProfilesTypedDataMutation({
+    onCompleted: async ({ createUnblockProfilesTypedData }) => {
+      broadcastTypedData(createUnblockProfilesTypedData)
+    },
+    onError
+  })
+
+  const [block] = useBlockMutation({
+    onCompleted: async ({ block }) => {
+      onCompleted(block.__typename)
+      if (block.__typename === 'LensProfileManagerRelayError') {
+        return await createBlockTypedData({
+          variables: { request: { profiles: [profile.id] } }
+        })
+      }
+    },
+    onError
+  })
+  const [unBlock] = useUnblockMutation({
+    onCompleted: async ({ unblock }) => {
+      onCompleted(unblock.__typename)
+      if (unblock.__typename === 'LensProfileManagerRelayError') {
+        return await createUnBlockTypedData({
+          variables: { request: { profiles: [profile.id] } }
+        })
+      }
+    },
+    onError
+  })
+
   const toggleBlockProfile = async () => {
+    setLoading(true)
     if (isBlockedByMe) {
       await unBlock({
         variables: {
@@ -82,8 +204,6 @@ const BasicInfo: FC<Props> = ({ profile }) => {
           }
         }
       })
-      updateCache(false)
-      toast.success(t`Unblocked successfully`)
     } else {
       await block({
         variables: {
@@ -92,9 +212,8 @@ const BasicInfo: FC<Props> = ({ profile }) => {
           }
         }
       })
-      updateCache(true)
-      toast.success(t`Blocked successfully`)
     }
+    setLoading(false)
   }
 
   return (
@@ -201,6 +320,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
             <DropdownMenu.Content sideOffset={10} variant="soft" align="end">
               <DropdownMenu.Item
                 color="red"
+                disabled={loading}
                 onClick={() => toggleBlockProfile()}
               >
                 <Flex align="center" gap="2">
