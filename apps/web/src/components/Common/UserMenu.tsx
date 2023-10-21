@@ -34,7 +34,7 @@ import UserOutline from './Icons/UserOutline'
 
 const UserMenu = () => {
   const { theme, setTheme } = useTheme()
-  const { push } = useRouter()
+  const { push, asPath } = useRouter()
 
   const setActiveProfile = useProfileStore((state) => state.setActiveProfile)
 
@@ -145,7 +145,9 @@ const UserMenu = () => {
                       profile.id !== selectedSimpleProfile.id && (
                         <DropdownMenu.Item
                           key={profile.id}
-                          onClick={() => push(`/login?as=${profile.id}`)}
+                          onClick={() =>
+                            push(`/login?as=${profile.id}&next=${asPath}`)
+                          }
                         >
                           <Flex gap="2" align="center">
                             <Avatar
