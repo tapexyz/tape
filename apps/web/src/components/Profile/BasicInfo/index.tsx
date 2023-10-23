@@ -1,5 +1,6 @@
 import Badge from '@components/Common/Badge'
 import FollowActions from '@components/Common/FollowActions'
+import LinkOutline from '@components/Common/Icons/LinkOutline'
 import LocationOutline from '@components/Common/Icons/LocationOutline'
 import ProfileBanOutline from '@components/Common/Icons/ProfileBanOutline'
 import ThreeDotsOutline from '@components/Common/Icons/ThreeDotsOutline'
@@ -26,7 +27,8 @@ import {
   LENSHUB_PROXY_ADDRESS,
   MISUSED_CHANNELS,
   REQUESTING_SIGNATURE_MESSAGE,
-  STATIC_ASSETS
+  STATIC_ASSETS,
+  TAPE_WEBSITE_URL
 } from '@tape.xyz/constants'
 import {
   getProfile,
@@ -326,21 +328,33 @@ const BasicInfo: FC<Props> = ({ profile }) => {
             </DropdownMenu.Trigger>
             <DropdownMenu.Content sideOffset={10} variant="soft" align="end">
               <DropdownMenu.Item
-                color="red"
-                disabled={loading}
-                onClick={() => toggleBlockProfile()}
+                onClick={() =>
+                  copy(`${TAPE_WEBSITE_URL}${getProfile(profile).link}`)
+                }
               >
                 <Flex align="center" gap="2">
-                  <ProfileBanOutline className="h-4 w-4" />
-                  <span className="whitespace-nowrap">
-                    {isBlockedByMe ? (
-                      <Trans>Unblock</Trans>
-                    ) : (
-                      <Trans>Block</Trans>
-                    )}
-                  </span>
+                  <LinkOutline className="h-3.5 w-3.5" />
+                  <span className="whitespace-nowrap">Permalink</span>
                 </Flex>
               </DropdownMenu.Item>
+              {profile.operations.canBlock && (
+                <DropdownMenu.Item
+                  color="red"
+                  disabled={loading}
+                  onClick={() => toggleBlockProfile()}
+                >
+                  <Flex align="center" gap="2">
+                    <ProfileBanOutline className="h-4 w-4" />
+                    <span className="whitespace-nowrap">
+                      {isBlockedByMe ? (
+                        <Trans>Unblock</Trans>
+                      ) : (
+                        <Trans>Block</Trans>
+                      )}
+                    </span>
+                  </Flex>
+                </DropdownMenu.Item>
+              )}
             </DropdownMenu.Content>
           </DropdownMenu.Root>
           <FollowActions size="3" profile={profile} />

@@ -211,6 +211,10 @@ const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
     })
   }
 
+  if (!profile.operations.canFollow) {
+    return null
+  }
+
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>

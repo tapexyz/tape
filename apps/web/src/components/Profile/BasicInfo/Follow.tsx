@@ -146,6 +146,10 @@ const Follow: FC<Props> = ({ profile, onSubscribe, size = '2' }) => {
     })
   }
 
+  if (!profile.operations.canFollow) {
+    return null
+  }
+
   return (
     <Button
       size={size}

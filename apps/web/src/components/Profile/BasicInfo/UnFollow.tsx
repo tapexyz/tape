@@ -130,6 +130,10 @@ const UnFollow: FC<Props> = ({ profile, onUnSubscribe, size = '2' }) => {
     })
   }
 
+  if (!profile.operations.canUnfollow) {
+    return null
+  }
+
   return (
     <Button
       size={size}
