@@ -110,6 +110,10 @@ const Guardian: FC = () => {
             After Profile Guardian is effectively disabled, you will be able to
             execute approvals and transfers without restrictions.
           </li>
+          <li>
+            Disabling for one profile, disables guardian for other profiles that
+            your wallet holds.
+          </li>
         </ul>
       </div>
 
