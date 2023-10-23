@@ -4,7 +4,12 @@ import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
 import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import { Trans } from '@lingui/macro'
-import { formatNumber, getProfile, getProfilePicture } from '@tape.xyz/generic'
+import {
+  formatNumber,
+  getProfile,
+  getProfilePicture,
+  getPublicationData
+} from '@tape.xyz/generic'
 import type { MirrorablePublication, VideoMetadataV3 } from '@tape.xyz/lens'
 import clsx from 'clsx'
 import Link from 'next/link'
@@ -62,10 +67,10 @@ const AboutChannel: FC<Props> = ({ video }) => {
             </span>
           </div>
         </div>
-        {metadata.marketplace?.description || metadata.content ? (
+        {getPublicationData(metadata)?.content ? (
           <p className={clsx('mt-4', { 'line-clamp-3': clamped })}>
             <InterweaveContent
-              content={metadata.marketplace?.description || metadata.content}
+              content={getPublicationData(metadata)?.content || ''}
             />
           </p>
         ) : null}

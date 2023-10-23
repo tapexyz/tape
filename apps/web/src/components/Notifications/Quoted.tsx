@@ -1,6 +1,10 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
 import QuoteOutline from '@components/Common/Icons/QuoteOutline'
-import { getProfile, getProfilePicture } from '@tape.xyz/generic'
+import {
+  getProfile,
+  getProfilePicture,
+  getPublicationData
+} from '@tape.xyz/generic'
 import type { QuoteNotification } from '@tape.xyz/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -29,7 +33,7 @@ const Quoted: FC<Props> = ({ notification: { quote } }) => {
         </span>
         <div className="py-2">quoted your publication</div>
         <Link href={`/watch/${quote.id}`} className="font-medium opacity-50">
-          {quote.quoteOn.metadata.marketplace?.description}
+          {getPublicationData(quote.metadata)?.content}
         </Link>
       </div>
     </span>

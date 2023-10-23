@@ -5,12 +5,13 @@ import useAuthPersistStore from '@lib/store/auth'
 import { LENSTUBE_BYTES_APP_ID } from '@tape.xyz/constants'
 import {
   getIsSensitiveContent,
+  getPublicationData,
   getPublicationMediaUrl,
   getThumbnailUrl,
   imageCdn,
   sanitizeDStorageUrl
 } from '@tape.xyz/generic'
-import type { MirrorablePublication } from '@tape.xyz/lens'
+import type { PrimaryPublication } from '@tape.xyz/lens'
 import dynamic from 'next/dynamic'
 import type { FC } from 'react'
 import React from 'react'
@@ -24,7 +25,7 @@ const VideoPlayer = dynamic(() => import('@tape.xyz/ui/VideoPlayer'), {
 })
 
 type Props = {
-  video: MirrorablePublication
+  video: PrimaryPublication
 }
 
 const Video: FC<Props> = ({ video }) => {
@@ -66,7 +67,7 @@ const Video: FC<Props> = ({ video }) => {
         <div>
           <h1 className="mt-4 line-clamp-2 text-xl font-medium">
             <InterweaveContent
-              content={video.metadata.marketplace?.name as string}
+              content={getPublicationData(video.metadata)?.title || ''}
             />
           </h1>
           <VideoMeta video={video} />

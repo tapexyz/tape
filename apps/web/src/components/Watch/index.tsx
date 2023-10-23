@@ -3,7 +3,11 @@ import { WatchShimmer } from '@components/Shimmers/WatchShimmer'
 import useAppStore from '@lib/store'
 import { t } from '@lingui/macro'
 import { Analytics, TRACK } from '@tape.xyz/browser'
-import { getPublication, isWatchable } from '@tape.xyz/generic'
+import {
+  getPublication,
+  getPublicationData,
+  isWatchable
+} from '@tape.xyz/generic'
 import type { AnyPublication } from '@tape.xyz/lens'
 import { usePublicationQuery } from '@tape.xyz/lens'
 import { useRouter } from 'next/router'
@@ -55,7 +59,9 @@ const VideoDetails = () => {
 
   return (
     <>
-      <MetaTags title={video?.metadata.marketplace?.name ?? t`Watch`} />
+      <MetaTags
+        title={getPublicationData(video?.metadata)?.title || t`Watch`}
+      />
       {!loading && !error && video ? (
         <div className="max-w-screen-ultrawide mx-auto grid grid-cols-1 gap-y-4 md:gap-4 xl:grid-cols-4">
           <div className="col-span-3 space-y-3.5">

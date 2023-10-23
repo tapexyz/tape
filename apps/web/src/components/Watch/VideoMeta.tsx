@@ -13,14 +13,14 @@ import {
   ScrollArea
 } from '@radix-ui/themes'
 import { getPublicationMediaCid } from '@tape.xyz/generic'
-import type { MirrorablePublication } from '@tape.xyz/lens'
+import type { PrimaryPublication } from '@tape.xyz/lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 
 import ViewCount from './ViewCount'
 
 type Props = {
-  video: MirrorablePublication
+  video: PrimaryPublication
 }
 
 const VideoMeta: FC<Props> = ({ video }) => {
