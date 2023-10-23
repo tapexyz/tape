@@ -480,7 +480,7 @@ const BasicInfo = ({ profile }: Props) => {
         </div>
         <div className="mt-4">
           <Input
-            label="X"
+            label="X (Twitter)"
             size="3"
             placeholder="profile"
             validationError={errors.x?.message}
