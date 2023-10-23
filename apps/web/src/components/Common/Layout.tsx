@@ -78,7 +78,8 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
       setLensPublicActProxyOnchainSigNonce(
         userSigNonces.lensPublicActProxyOnchainSigNonce
       )
-    }
+    },
+    onError: () => logout()
   })
 
   useProfilesManagedQuery({
