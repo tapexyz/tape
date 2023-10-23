@@ -974,8 +974,12 @@ msgid "New & Trending"
 msgstr ""
 
 #: src/components/Home/WelcomeAlert.tsx
-msgid "Discover a new era of content sharing on Lens with Tape. A decentralized, user-centric approach to online media."
-msgstr "发现与 Tape 共享内容的新时代。对在线媒体采取分散的、以用户为中心的方法。"
+#~ msgid "Discover a new era of content sharing on Lens with Tape. A decentralized, user-centric approach to online media."
+#~ msgstr "发现与 Tape 共享内容的新时代。对在线媒体采取分散的、以用户为中心的方法。"
+
+#: src/components/Home/WelcomeAlert.tsx
+msgid "Discover a new era of media sharing on Lens with Tape. A decentralized, user-centric approach to online media."
+msgstr ""
 
 #: src/components/Login/Authenticate.tsx
 msgid "Please connect to your wallet"

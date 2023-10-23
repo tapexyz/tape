@@ -974,8 +974,12 @@ msgid "New & Trending"
 msgstr "New & Trending"
 
 #: src/components/Home/WelcomeAlert.tsx
-msgid "Discover a new era of content sharing on Lens with Tape. A decentralized, user-centric approach to online media."
-msgstr "Discover a new era of content sharing on Lens with Tape. A decentralized, user-centric approach to online media."
+#~ msgid "Discover a new era of content sharing on Lens with Tape. A decentralized, user-centric approach to online media."
+#~ msgstr "Discover a new era of content sharing on Lens with Tape. A decentralized, user-centric approach to online media."
+
+#: src/components/Home/WelcomeAlert.tsx
+msgid "Discover a new era of media sharing on Lens with Tape. A decentralized, user-centric approach to online media."
+msgstr "Discover a new era of media sharing on Lens with Tape. A decentralized, user-centric approach to online media."
 
 #: src/components/Login/Authenticate.tsx
 msgid "Please connect to your wallet"

@@ -20,7 +20,7 @@ const WelcomeAlert = () => {
         </div>
         <p className="md:text-md max-w-2xl text-sm lg:text-lg">
           <Trans>
-            Discover a new era of content sharing on Lens with Tape. A
+            Discover a new era of media sharing on Lens with Tape. A
             decentralized, user-centric approach to online media.
           </Trans>
         </p>

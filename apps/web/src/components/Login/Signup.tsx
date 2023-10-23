@@ -1,0 +1,104 @@
+import WarningOutline from '@components/Common/Icons/WarningOutline'
+import { Input } from '@components/UIElements/Input'
+import { zodResolver } from '@hookform/resolvers/zod'
+import usePendingTxn from '@hooks/usePendingTxn'
+import { Button, Callout } from '@radix-ui/themes'
+import { COMMON_REGEX, ERROR_MESSAGE } from '@tape.xyz/constants'
+import { shortenAddress } from '@tape.xyz/generic'
+import { useCreateProfileWithHandleMutation } from '@tape.xyz/lens'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+import { Loader } from '@tape.xyz/ui'
+import React, { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
+import { useAccount } from 'wagmi'
+import type { z } from 'zod'
+import { object, string } from 'zod'
+
+const formSchema = object({
+  handle: string()
+    .min(5, { message: 'Handle should be at least 5 characters' })
+    .max(31, { message: 'Handle should not exceed 31 characters' })
+    .regex(COMMON_REGEX.HANDLE, {
+      message: 'Handle should only contain alphanumeric characters'
+    })
+})
+type FormData = z.infer<typeof formSchema>
+
+const Signup = ({ onSuccess }: { onSuccess: () => void }) => {
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    reset
+  } = useForm<FormData>({
+    resolver: zodResolver(formSchema)
+  })
+
+  const [creating, setCreating] = useState(false)
+  const { address } = useAccount()
+
+  const onError = (error: CustomErrorWithData) => {
+    setCreating(false)
+    toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
+  }
+
+  const [createProfileWithHandle, { data }] =
+    useCreateProfileWithHandleMutation({ onError })
+
+  const { indexed } = usePendingTxn({
+    txId:
+      data?.createProfileWithHandle.__typename === 'RelaySuccess'
+        ? data?.createProfileWithHandle?.txId
+        : undefined
+  })
+
+  useEffect(() => {
+    if (indexed) {
+      onSuccess()
+      reset()
+      toast.success('Profile created')
+      setCreating(false)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [indexed])
+
+  const signup = async ({ handle }: FormData) => {
+    setCreating(true)
+    await createProfileWithHandle({
+      variables: { request: { handle: handle.toLowerCase(), to: address } }
+    })
+  }
+
+  return (
+    <div className="space-y-2">
+      <Callout.Root color="red">
+        <Callout.Icon>
+          <WarningOutline className="h-4 w-4" />
+        </Callout.Icon>
+        <Callout.Text>
+          We couldn't find any profiles linked to the connected address. (
+          {shortenAddress(address as string)})
+        </Callout.Text>
+      </Callout.Root>
+      <form
+        onSubmit={handleSubmit(signup)}
+        className="flex items-end justify-end space-x-2"
+      >
+        <Input
+          label="Handle"
+          autoComplete="off"
+          size="3"
+          validationError={errors.handle?.message}
+          {...register('handle')}
+        />
+        <Button disabled={creating} highContrast size="3">
+          {creating && <Loader size="sm" />}
+          Sign up
+        </Button>
+      </form>
+    </div>
+  )
+}
+
+export default Signup

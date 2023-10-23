@@ -23,9 +23,7 @@ const usePendingTxn = ({ txHash, txId }: Props) => {
     onCompleted: (data) => {
       if (data?.lensTransactionStatus?.reason) {
         stopPolling()
-        return toast.error(
-          `Relay Error - ${data?.lensTransactionStatus?.reason}`
-        )
+        return toast.error(data?.lensTransactionStatus?.reason)
       }
       if (
         data?.lensTransactionStatus?.__typename === 'LensTransactionResult' &&
@@ -45,7 +43,8 @@ const usePendingTxn = ({ txHash, txId }: Props) => {
   return {
     data,
     indexed,
-    loading
+    loading,
+    error: data?.lensTransactionStatus?.reason
   }
 }
 

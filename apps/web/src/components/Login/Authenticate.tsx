@@ -1,17 +1,11 @@
 import KeyOutline from '@components/Common/Icons/KeyOutline'
-import WarningOutline from '@components/Common/Icons/WarningOutline'
 import useAuthPersistStore, { signIn, signOut } from '@lib/store/auth'
 import useProfileStore from '@lib/store/profile'
 import { t } from '@lingui/macro'
-import { Avatar, Button, Callout, Flex, Select, Text } from '@radix-ui/themes'
+import { Avatar, Button, Flex, Select, Text } from '@radix-ui/themes'
 import { Analytics, TRACK } from '@tape.xyz/browser'
 import { ERROR_MESSAGE } from '@tape.xyz/constants'
-import {
-  getProfile,
-  getProfilePicture,
-  logger,
-  shortenAddress
-} from '@tape.xyz/generic'
+import { getProfile, getProfilePicture, logger } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import {
   LimitType,
@@ -25,6 +19,8 @@ import { useRouter } from 'next/router'
 import React, { useCallback, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useAccount, useDisconnect, useSignMessage } from 'wagmi'
+
+import Signup from './Signup'
 
 const Authenticate = () => {
   const {
@@ -46,7 +42,11 @@ const Authenticate = () => {
   const router = useRouter()
   const { address, connector, isConnected } = useAccount()
 
-  const { data, loading: profilesLoading } = useProfilesManagedQuery({
+  const {
+    data,
+    loading: profilesLoading,
+    refetch
+  } = useProfilesManagedQuery({
     variables: {
       request: { for: address, includeOwned: true, limit: LimitType.Fifty }
     },
@@ -206,15 +206,7 @@ const Authenticate = () => {
           </Button>
         </Flex>
       ) : (
-        <Callout.Root color="red">
-          <Callout.Icon>
-            <WarningOutline className="h-4 w-4" />
-          </Callout.Icon>
-          <Callout.Text>
-            We couldn't find any profiles linked to the connected address. (
-            {shortenAddress(address as string)})
-          </Callout.Text>
-        </Callout.Root>
+        <Signup onSuccess={() => refetch()} />
       )}
     </div>
   )
