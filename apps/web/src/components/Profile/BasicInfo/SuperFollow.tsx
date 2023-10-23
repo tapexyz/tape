@@ -186,7 +186,7 @@ const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
     }
     if (!isAllowed) {
       return toast.error(
-        `Goto Settings -> Permissions and allow fee follow module for ${followModule?.amount?.asset?.symbol}.`
+        `Goto Settings -> Allowance and allow fee follow module for ${followModule?.amount?.asset?.symbol}.`
       )
     }
     setLoading(true)

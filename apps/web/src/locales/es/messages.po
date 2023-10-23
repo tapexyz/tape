@@ -1139,7 +1139,7 @@ msgid "Subscribe Now"
 msgstr ""
 
 #: src/components/Profile/BasicInfo/SuperFollow.tsx
-#: src/components/Settings/Permissions/Modules/index.tsx
+#: src/components/Settings/Allowance/Modules/index.tsx
 msgid "Allow"
 msgstr "Permitir"
 
@@ -1309,6 +1309,23 @@ msgstr "NSFW"
 msgid "Offensive"
 msgstr "Ofensivo"
 
+#: src/components/Settings/Allowance/Modules/index.tsx
+msgid "Permission updated"
+msgstr "Permiso actualizado"
+
+#: src/components/Settings/Allowance/Modules/index.tsx
+#: src/components/Settings/SideNav.tsx
+msgid "Allowance"
+msgstr ""
+
+#: src/components/Settings/Allowance/Modules/index.tsx
+msgid "These are the collect modules which you allowed / need to allow to use collect feature. You can allow and revoke access anytime."
+msgstr "Estos son los módulos de recogida que has permitido / necesitas permitir el uso de la función de recogida. Puedes permitir y revocar el acceso en cualquier momento."
+
+#: src/components/Settings/Allowance/Modules/index.tsx
+msgid "Revoke"
+msgstr "Revoke"
+
 #: src/components/Settings/BasicInfo.tsx
 #~ msgid "Change"
 #~ msgstr "Cambiar"
@@ -1446,7 +1463,7 @@ msgid "Disabling"
 msgstr ""
 
 #: src/components/Settings/DangerZone/Guardian.tsx
-#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx
+#: src/components/Settings/Manager/Dispatcher/ToggleDispatcher.tsx
 #: src/components/Settings/Subscription/index.tsx
 msgid "Disable"
 msgstr "Desactivar"
@@ -1456,9 +1473,31 @@ msgid "Enabling"
 msgstr ""
 
 #: src/components/Settings/DangerZone/Guardian.tsx
-#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx
+#: src/components/Settings/Manager/Dispatcher/ToggleDispatcher.tsx
 msgid "Enable"
 msgstr "Activar"
+
+#: src/components/Settings/Manager/Dispatcher/ToggleDispatcher.tsx
+#: src/components/Watch/OpenActions/CollectPublication/PermissionAlert.tsx
+msgid "disabled"
+msgstr "deshabilitado"
+
+#: src/components/Settings/Manager/Dispatcher/ToggleDispatcher.tsx
+#: src/components/Watch/OpenActions/CollectPublication/PermissionAlert.tsx
+msgid "enabled"
+msgstr "activado"
+
+#: src/components/Settings/Manager/Dispatcher/ToggleDispatcher.tsx
+msgid "dispatcher"
+msgstr "despachador"
+
+#: src/components/Settings/Manager/Dispatcher/index.tsx
+msgid "Enable your dispatcher to the latest version for better, faster signless transactions."
+msgstr ""
+
+#: src/components/Settings/Manager/Dispatcher/index.tsx
+msgid "Dispatcher"
+msgstr "Despachador"
 
 #: src/components/Settings/Manager/Managers.tsx
 msgid "Remove"
@@ -1488,20 +1527,6 @@ msgstr ""
 #~ msgid "Upgrade"
 #~ msgstr "Mejorar"
 
-#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx
-#: src/components/Watch/OpenActions/CollectPublication/PermissionAlert.tsx
-msgid "disabled"
-msgstr "deshabilitado"
-
-#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx
-#: src/components/Watch/OpenActions/CollectPublication/PermissionAlert.tsx
-msgid "enabled"
-msgstr "activado"
-
-#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx
-msgid "dispatcher"
-msgstr "despachador"
-
 #: src/components/Settings/Permissions/Dispatcher/index.tsx
 #~ msgid "Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions."
 #~ msgstr "Actualice su despachador a la última versión para realizar transacciones sin señales más rápidas y rápidas."
@@ -1510,29 +1535,9 @@ msgstr "despachador"
 #~ msgid "Enable your dispatcher to the latest version for better, faster, stronger signless transactions."
 #~ msgstr ""
 
-#: src/components/Settings/Permissions/Dispatcher/index.tsx
-msgid "Enable your dispatcher to the latest version for better, faster signless transactions."
-msgstr ""
-
-#: src/components/Settings/Permissions/Dispatcher/index.tsx
-msgid "Dispatcher"
-msgstr "Despachador"
-
 #: src/components/Settings/Permissions/Modules/index.tsx
-msgid "Permission updated"
-msgstr "Permiso actualizado"
-
-#: src/components/Settings/Permissions/Modules/index.tsx
-msgid "Access permissions"
-msgstr "Permisos de acceso"
-
-#: src/components/Settings/Permissions/Modules/index.tsx
-msgid "These are the collect modules which you allowed / need to allow to use collect feature. You can allow and revoke access anytime."
-msgstr "Estos son los módulos de recogida que has permitido / necesitas permitir el uso de la función de recogida. Puedes permitir y revocar el acceso en cualquier momento."
-
-#: src/components/Settings/Permissions/Modules/index.tsx
-msgid "Revoke"
-msgstr "Revoke"
+#~ msgid "Access permissions"
+#~ msgstr "Permisos de acceso"
 
 #: src/components/Settings/ProfileInterests/index.tsx
 #~ msgid "There is so much good content on Lenstube, it may be hard to find what's most relevant to you from time to time. That's where profile interests can help curate content the way you like."
@@ -1560,6 +1565,10 @@ msgstr ""
 #~ msgstr "Membresía"
 
 #: src/components/Settings/SideNav.tsx
+#~ msgid "Permissions"
+#~ msgstr "Permisos"
+
+#: src/components/Settings/SideNav.tsx
 msgid "Basic Info"
 msgstr "Información básica"
 
@@ -1570,10 +1579,6 @@ msgstr ""
 #: src/components/Settings/SideNav.tsx
 msgid "Manager"
 msgstr ""
-
-#: src/components/Settings/SideNav.tsx
-msgid "Permissions"
-msgstr "Permisos"
 
 #: src/components/Settings/SideNav.tsx
 msgid "Blocked"
@@ -2017,6 +2022,10 @@ msgid "Allow Collect"
 msgstr "Permitir recolección"
 
 #: src/components/Watch/OpenActions/CollectPublication/index.tsx
+#~ msgid "Already Collected"
+#~ msgstr "Ya recogido"
+
+#: src/components/Watch/OpenActions/CollectPublication/index.tsx
 msgid "Collected as NFT"
 msgstr "Recogido como NFT"
 
@@ -2046,8 +2055,8 @@ msgid "Only followers can collect this publication"
 msgstr ""
 
 #: src/components/Watch/OpenActions/CollectPublication/index.tsx
-msgid "Already Collected"
-msgstr "Ya recogido"
+msgid "Collected"
+msgstr ""
 
 #: src/components/Watch/PublicationReaction.tsx
 #~ msgid "Dislike"

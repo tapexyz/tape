@@ -10,11 +10,11 @@ import React, { useEffect } from 'react'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
 
+import Allowance from './Allowance'
 import BasicInfo from './BasicInfo'
 import Blocked from './Blocked'
 import DangerZone from './DangerZone'
 import ProfileManager from './Manager'
-import Permissions from './Permissions'
 import ProfileInterests from './ProfileInterests'
 import Sessions from './Sessions'
 import SideNav from './SideNav'
@@ -22,7 +22,7 @@ import Subscription from './Subscription'
 
 export const SETTINGS_SUBSCRIPTION = '/settings/subscription'
 export const SETTINGS_INTERESTS = '/settings/interests'
-export const SETTINGS_PERMISSIONS = '/settings/permissions'
+export const SETTINGS_ALLOWANCE = '/settings/allowance'
 export const SETTINGS_MANAGER = '/settings/manager'
 export const SETTINGS_SESSIONS = '/settings/sessions'
 export const SETTINGS_BLOCKED = '/settings/blocked'
@@ -72,7 +72,7 @@ const Settings = () => {
             {router.pathname === SETTINGS_SUBSCRIPTION && (
               <Subscription channel={channel} />
             )}
-            {router.pathname === SETTINGS_PERMISSIONS && <Permissions />}
+            {router.pathname === SETTINGS_ALLOWANCE && <Allowance />}
             {router.pathname === SETTINGS_INTERESTS && <ProfileInterests />}
             {router.pathname === SETTINGS_SESSIONS && <Sessions />}
             {router.pathname === SETTINGS_MANAGER && <ProfileManager />}

@@ -14,11 +14,11 @@ import React from 'react'
 
 import {
   SETTINGS,
+  SETTINGS_ALLOWANCE,
   SETTINGS_BLOCKED,
   SETTINGS_DANGER_ZONE,
   SETTINGS_INTERESTS,
   SETTINGS_MANAGER,
-  SETTINGS_PERMISSIONS,
   SETTINGS_SESSIONS,
   SETTINGS_SUBSCRIPTION
 } from '.'
@@ -85,17 +85,17 @@ const SideNav = () => {
         </span>
       </Link>
       <Link
-        href={SETTINGS_PERMISSIONS}
+        href={SETTINGS_ALLOWANCE}
         className={clsx(
           'rounded-small flex items-center space-x-3 p-3 hover:bg-gray-100 hover:dark:bg-black',
           {
-            'bg-gray-100 dark:bg-black': isActivePath(SETTINGS_PERMISSIONS)
+            'bg-gray-100 dark:bg-black': isActivePath(SETTINGS_ALLOWANCE)
           }
         )}
       >
         <LockOutline className="h-4 w-4" />
         <span>
-          <Trans>Permissions</Trans>
+          <Trans>Allowance</Trans>
         </span>
       </Link>
       <Link

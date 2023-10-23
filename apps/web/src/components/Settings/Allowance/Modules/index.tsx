@@ -18,7 +18,7 @@ import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useSendTransaction, useWaitForTransaction } from 'wagmi'
 
-const ModulePermissions = () => {
+const ModuleAllowance = () => {
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
@@ -105,7 +105,7 @@ const ModulePermissions = () => {
     <div>
       <div className="space-y-2">
         <h1 className="text-brand-400 text-xl font-bold">
-          <Trans>Access permissions</Trans>
+          <Trans>Allowance</Trans>
         </h1>
         <p className="opacity-80">
           <Trans>
@@ -185,4 +185,4 @@ const ModulePermissions = () => {
   )
 }
 
-export default ModulePermissions
+export default ModuleAllowance

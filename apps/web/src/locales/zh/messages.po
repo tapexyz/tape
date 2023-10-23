@@ -1139,7 +1139,7 @@ msgid "Subscribe Now"
 msgstr ""
 
 #: src/components/Profile/BasicInfo/SuperFollow.tsx
-#: src/components/Settings/Permissions/Modules/index.tsx
+#: src/components/Settings/Allowance/Modules/index.tsx
 msgid "Allow"
 msgstr "允许"
 
@@ -1309,6 +1309,23 @@ msgstr "NSFW"
 msgid "Offensive"
 msgstr "攻击性的"
 
+#: src/components/Settings/Allowance/Modules/index.tsx
+msgid "Permission updated"
+msgstr "权限已更新"
+
+#: src/components/Settings/Allowance/Modules/index.tsx
+#: src/components/Settings/SideNav.tsx
+msgid "Allowance"
+msgstr ""
+
+#: src/components/Settings/Allowance/Modules/index.tsx
+msgid "These are the collect modules which you allowed / need to allow to use collect feature. You can allow and revoke access anytime."
+msgstr "这些是您允许/允许使用收集功能的收集模块。您可以随时允许并撤销访问。"
+
+#: src/components/Settings/Allowance/Modules/index.tsx
+msgid "Revoke"
+msgstr "Revoke"
+
 #: src/components/Settings/BasicInfo.tsx
 #~ msgid "Change"
 #~ msgstr "更改"
@@ -1446,7 +1463,7 @@ msgid "Disabling"
 msgstr ""
 
 #: src/components/Settings/DangerZone/Guardian.tsx
-#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx
+#: src/components/Settings/Manager/Dispatcher/ToggleDispatcher.tsx
 #: src/components/Settings/Subscription/index.tsx
 msgid "Disable"
 msgstr "禁用"
@@ -1456,9 +1473,31 @@ msgid "Enabling"
 msgstr ""
 
 #: src/components/Settings/DangerZone/Guardian.tsx
-#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx
+#: src/components/Settings/Manager/Dispatcher/ToggleDispatcher.tsx
 msgid "Enable"
 msgstr "启用"
+
+#: src/components/Settings/Manager/Dispatcher/ToggleDispatcher.tsx
+#: src/components/Watch/OpenActions/CollectPublication/PermissionAlert.tsx
+msgid "disabled"
+msgstr "已禁用"
+
+#: src/components/Settings/Manager/Dispatcher/ToggleDispatcher.tsx
+#: src/components/Watch/OpenActions/CollectPublication/PermissionAlert.tsx
+msgid "enabled"
+msgstr "已启用"
+
+#: src/components/Settings/Manager/Dispatcher/ToggleDispatcher.tsx
+msgid "dispatcher"
+msgstr "调度器"
+
+#: src/components/Settings/Manager/Dispatcher/index.tsx
+msgid "Enable your dispatcher to the latest version for better, faster signless transactions."
+msgstr ""
+
+#: src/components/Settings/Manager/Dispatcher/index.tsx
+msgid "Dispatcher"
+msgstr "调度器"
 
 #: src/components/Settings/Manager/Managers.tsx
 msgid "Remove"
@@ -1488,20 +1527,6 @@ msgstr ""
 #~ msgid "Upgrade"
 #~ msgstr "升级"
 
-#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx
-#: src/components/Watch/OpenActions/CollectPublication/PermissionAlert.tsx
-msgid "disabled"
-msgstr "已禁用"
-
-#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx
-#: src/components/Watch/OpenActions/CollectPublication/PermissionAlert.tsx
-msgid "enabled"
-msgstr "已启用"
-
-#: src/components/Settings/Permissions/Dispatcher/Toggle.tsx
-msgid "dispatcher"
-msgstr "调度器"
-
 #: src/components/Settings/Permissions/Dispatcher/index.tsx
 #~ msgid "Upgrade your dispatcher to the latest version for better, faster, stronger signless transactions."
 #~ msgstr "将您的调度程序升级到最新版本，以获得更好、更快、更强大的无符号交易。"
@@ -1510,29 +1535,9 @@ msgstr "调度器"
 #~ msgid "Enable your dispatcher to the latest version for better, faster, stronger signless transactions."
 #~ msgstr ""
 
-#: src/components/Settings/Permissions/Dispatcher/index.tsx
-msgid "Enable your dispatcher to the latest version for better, faster signless transactions."
-msgstr ""
-
-#: src/components/Settings/Permissions/Dispatcher/index.tsx
-msgid "Dispatcher"
-msgstr "调度器"
-
 #: src/components/Settings/Permissions/Modules/index.tsx
-msgid "Permission updated"
-msgstr "权限已更新"
-
-#: src/components/Settings/Permissions/Modules/index.tsx
-msgid "Access permissions"
-msgstr "访问权限"
-
-#: src/components/Settings/Permissions/Modules/index.tsx
-msgid "These are the collect modules which you allowed / need to allow to use collect feature. You can allow and revoke access anytime."
-msgstr "这些是您允许/允许使用收集功能的收集模块。您可以随时允许并撤销访问。"
-
-#: src/components/Settings/Permissions/Modules/index.tsx
-msgid "Revoke"
-msgstr "Revoke"
+#~ msgid "Access permissions"
+#~ msgstr "访问权限"
 
 #: src/components/Settings/ProfileInterests/index.tsx
 #~ msgid "There is so much good content on Lenstube, it may be hard to find what's most relevant to you from time to time. That's where profile interests can help curate content the way you like."
@@ -1560,6 +1565,10 @@ msgstr ""
 #~ msgstr "成员"
 
 #: src/components/Settings/SideNav.tsx
+#~ msgid "Permissions"
+#~ msgstr "权限"
+
+#: src/components/Settings/SideNav.tsx
 msgid "Basic Info"
 msgstr "基本信息"
 
@@ -1570,10 +1579,6 @@ msgstr ""
 #: src/components/Settings/SideNav.tsx
 msgid "Manager"
 msgstr ""
-
-#: src/components/Settings/SideNav.tsx
-msgid "Permissions"
-msgstr "权限"
 
 #: src/components/Settings/SideNav.tsx
 msgid "Blocked"
@@ -2017,6 +2022,10 @@ msgid "Allow Collect"
 msgstr "允许收藏"
 
 #: src/components/Watch/OpenActions/CollectPublication/index.tsx
+#~ msgid "Already Collected"
+#~ msgstr "已经收集"
+
+#: src/components/Watch/OpenActions/CollectPublication/index.tsx
 msgid "Collected as NFT"
 msgstr "以 NFT 方式收集"
 
@@ -2046,8 +2055,8 @@ msgid "Only followers can collect this publication"
 msgstr ""
 
 #: src/components/Watch/OpenActions/CollectPublication/index.tsx
-msgid "Already Collected"
-msgstr "已经收集"
+msgid "Collected"
+msgstr ""
 
 #: src/components/Watch/PublicationReaction.tsx
 #~ msgid "Dislike"
