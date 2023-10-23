@@ -47,7 +47,7 @@ const MetaInfo: FC<Props> = ({ video }) => {
             <div className="whitespace-nowrap text-sm">
               <Trans>View Metadata</Trans>
             </div>
-            <ExternalOutline className="h-3.5 w-3.5" />
+            <ExternalOutline className="h-3 w-3" />
           </div>
         </IPFSLink>
       ) : (
@@ -61,7 +61,7 @@ const MetaInfo: FC<Props> = ({ video }) => {
             <div className="whitespace-nowrap text-sm">
               <Trans>View Metadata</Trans>
             </div>
-            <ExternalOutline className="h-3.5 w-3.5" />
+            <ExternalOutline className="h-3 w-3" />
           </div>
         </ArweaveExplorerLink>
       )}
@@ -78,7 +78,7 @@ const MetaInfo: FC<Props> = ({ video }) => {
               <div className="whitespace-nowrap text-sm">
                 <Trans>View Proof</Trans>
               </div>
-              <ExternalOutline className="h-3.5 w-3.5" />
+              <ExternalOutline className="h-3 w-3" />
             </div>
           </ArweaveExplorerLink>
         </div>
