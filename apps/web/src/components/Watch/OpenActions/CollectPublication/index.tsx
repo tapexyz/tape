@@ -60,10 +60,7 @@ type Props = {
 
 const CollectPublication: FC<Props> = ({ publication, action }) => {
   const activeProfile = useProfileStore((state) => state.activeProfile)
-  const {
-    lensPublicActProxyOnchainSigNonce,
-    setLensPublicActProxyOnchainSigNonce
-  } = useNonceStore()
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
   const [alreadyCollected, setAlreadyCollected] = useState(
     publication.operations.hasActed.value
   )
@@ -242,15 +239,11 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
     functionName: 'act',
     onSuccess: () => {
       onCompleted()
-      setLensPublicActProxyOnchainSigNonce(
-        lensPublicActProxyOnchainSigNonce + 1
-      )
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
     },
     onError: (error) => {
       onError(error)
-      setLensPublicActProxyOnchainSigNonce(
-        lensPublicActProxyOnchainSigNonce - 1
-      )
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
     }
   })
 
@@ -263,9 +256,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
       onCompleted: async ({ createActOnOpenActionTypedData }) => {
         const { id, typedData } = createActOnOpenActionTypedData
         const signature = await signTypedDataAsync(getSignature(typedData))
-        setLensPublicActProxyOnchainSigNonce(
-          lensPublicActProxyOnchainSigNonce + 1
-        )
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
         const { data } = await broadcastOnchain({
           variables: { request: { id, signature } }
         })
@@ -299,7 +290,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
     setCollecting(true)
     return await createActOnOpenActionTypedData({
       variables: {
-        options: { overrideSigNonce: lensPublicActProxyOnchainSigNonce },
+        options: { overrideSigNonce: lensHubOnchainSigNonce },
         request: {
           for: publication?.id,
           actOn: { [getOpenActionActOnKey(action?.type)]: true }
@@ -418,7 +409,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
                   onClick={() => (!alreadyCollected ? collectNow() : null)}
                 >
                   {alreadyCollected ? (
-                    <Trans>Already Collected</Trans>
+                    <Trans>Collected</Trans>
                   ) : (
                     <Trans>Collect</Trans>
                   )}
