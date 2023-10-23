@@ -68,6 +68,9 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
   useCurrentUserSigNoncesQuery({
     skip: !selectedSimpleProfile?.id,
     onCompleted: ({ userSigNonces }) => {
+      if (!userSigNonces) {
+        return logout()
+      }
       setLensHubOnchainSigNonce(userSigNonces.lensHubOnchainSigNonce)
       setLensTokenHandleRegistryOnchainSigNonce(
         userSigNonces.lensTokenHandleRegistryOnchainSigNonce
