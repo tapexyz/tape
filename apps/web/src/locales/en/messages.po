@@ -1200,6 +1200,7 @@ msgid "No other channels found"
 msgstr "No other channels found"
 
 #: src/components/Profile/Tabs/OtherProfiles.tsx
+#: src/components/Settings/Manager/Managed.tsx
 #: src/components/UIElements/ProfileSuggestions.tsx
 #: src/components/Watch/AboutProfile.tsx
 msgid "followers"
@@ -1502,6 +1503,10 @@ msgstr "Dispatcher"
 #: src/components/Settings/Manager/Managers.tsx
 msgid "Remove"
 msgstr "Remove"
+
+#: src/components/Settings/Manager/Managers.tsx
+msgid "Accounts managing your profile, can perform any social actions on your behalf."
+msgstr "Accounts managing your profile, can perform any social actions on your behalf."
 
 #: src/components/Settings/Manager/Managers.tsx
 msgid "New Manager"

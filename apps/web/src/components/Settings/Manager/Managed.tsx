@@ -1,6 +1,7 @@
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useProfileStore from '@lib/store/profile'
-import { Avatar, Flex, Separator, Table } from '@radix-ui/themes'
+import { Trans } from '@lingui/macro'
+import { Avatar, Flex, Table } from '@radix-ui/themes'
 import { formatNumber, getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { useProfilesManagedQuery } from '@tape.xyz/lens'
@@ -29,34 +30,32 @@ const Managed = () => {
           <NoDataFound withImage isCenter />
         ) : null}
         {profilesManaged?.length ? (
-          <>
-            <Separator orientation="horizontal" size="4" />
-            <Table.Root>
-              <Table.Body>
-                {profilesManaged?.map((profile) => (
-                  <Table.Row key={profile.id}>
-                    <Table.RowHeaderCell>
-                      <Flex gap="2" align="center">
-                        <Avatar
-                          radius="full"
-                          size="1"
-                          src={getProfilePicture(profile)}
-                          fallback={getProfile(profile)?.displayName[0] ?? ';)'}
-                        />
-                        <Link href={getProfile(profile).link}>
-                          {getProfile(profile).displayName}
-                        </Link>
-                      </Flex>
-                    </Table.RowHeaderCell>
-                    <Table.Cell>{profile.id}</Table.Cell>
-                    <Table.Cell>
-                      {formatNumber(profile.stats.followers)}
-                    </Table.Cell>
-                  </Table.Row>
-                ))}
-              </Table.Body>
-            </Table.Root>
-          </>
+          <Table.Root mt="4">
+            <Table.Body>
+              {profilesManaged?.map((profile) => (
+                <Table.Row key={profile.id}>
+                  <Table.RowHeaderCell>
+                    <Flex gap="2" align="center">
+                      <Avatar
+                        radius="full"
+                        size="1"
+                        src={getProfilePicture(profile)}
+                        fallback={getProfile(profile)?.displayName[0] ?? ';)'}
+                      />
+                      <Link href={getProfile(profile).link}>
+                        {getProfile(profile).displayName}
+                      </Link>
+                    </Flex>
+                  </Table.RowHeaderCell>
+                  <Table.Cell>{profile.id}</Table.Cell>
+                  <Table.Cell>
+                    {formatNumber(profile.stats.followers)}{' '}
+                    <Trans>followers</Trans>
+                  </Table.Cell>
+                </Table.Row>
+              ))}
+            </Table.Body>
+          </Table.Root>
         ) : null}
       </div>
     </div>

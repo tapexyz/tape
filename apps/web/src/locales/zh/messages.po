@@ -1200,6 +1200,7 @@ msgid "No other channels found"
 msgstr "未找到其他频道"
 
 #: src/components/Profile/Tabs/OtherProfiles.tsx
+#: src/components/Settings/Manager/Managed.tsx
 #: src/components/UIElements/ProfileSuggestions.tsx
 #: src/components/Watch/AboutProfile.tsx
 msgid "followers"
@@ -1501,6 +1502,10 @@ msgstr "调度器"
 
 #: src/components/Settings/Manager/Managers.tsx
 msgid "Remove"
+msgstr ""
+
+#: src/components/Settings/Manager/Managers.tsx
+msgid "Accounts managing your profile, can perform any social actions on your behalf."
 msgstr ""
 
 #: src/components/Settings/Manager/Managers.tsx

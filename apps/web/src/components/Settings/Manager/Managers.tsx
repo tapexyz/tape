@@ -1,3 +1,5 @@
+import ExternalOutline from '@components/Common/Icons/ExternalOutline'
+import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
 import { Input } from '@components/UIElements/Input'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -7,7 +9,7 @@ import usePendingTxn from '@hooks/usePendingTxn'
 import useNonceStore from '@lib/store/nonce'
 import useProfileStore from '@lib/store/profile'
 import { Trans } from '@lingui/macro'
-import { Button, Dialog, Flex, Separator, Table } from '@radix-ui/themes'
+import { Button, Dialog, Flex, Table } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   ERROR_MESSAGE,
@@ -15,7 +17,7 @@ import {
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE
 } from '@tape.xyz/constants'
-import { getSignature } from '@tape.xyz/generic'
+import { getSignature, shortenAddress } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import {
   ChangeProfileManagerActionType,
@@ -51,7 +53,14 @@ const Entry = ({
   const { did } = useDid({ address })
   return (
     <Table.Row key={address}>
-      <Table.RowHeaderCell>{address}</Table.RowHeaderCell>
+      <Table.RowHeaderCell>
+        <AddressExplorerLink address={address}>
+          <Flex align="center" gap="1">
+            <span>{shortenAddress(address)}</span>
+            <ExternalOutline className="h-3 w-3" />
+          </Flex>
+        </AddressExplorerLink>
+      </Table.RowHeaderCell>
       <Table.RowHeaderCell width="200px">
         {address === LENS_MANAGER_ADDRESS ? 'Lens Manager' : did || '-'}
       </Table.RowHeaderCell>
@@ -220,12 +229,14 @@ const Managers = () => {
     <div>
       <div className="flex items-center justify-between">
         <p>
-          Accounts managing your profile. These accounts can perform any social
-          actions on your behalf.
+          <Trans>
+            Accounts managing your profile, can perform any social actions on
+            your behalf.
+          </Trans>
         </p>
         <Dialog.Root open={showModal} onOpenChange={setShowModal}>
           <Dialog.Trigger>
-            <Button highContrast>
+            <Button highContrast variant="surface">
               <Trans>New Manager</Trans>
             </Button>
           </Dialog.Trigger>
@@ -272,21 +283,18 @@ const Managers = () => {
           <NoDataFound withImage isCenter />
         ) : null}
         {profileManagers?.length ? (
-          <>
-            <Separator orientation="horizontal" size="4" />
-            <Table.Root>
-              <Table.Body>
-                {profileManagers?.map(({ address }) => (
-                  <Entry
-                    key={address}
-                    address={address}
-                    removingAddress={removingAddress}
-                    onRemove={(address) => removeManager(address)}
-                  />
-                ))}
-              </Table.Body>
-            </Table.Root>
-          </>
+          <Table.Root mt="4">
+            <Table.Body>
+              {profileManagers?.map(({ address }) => (
+                <Entry
+                  key={address}
+                  address={address}
+                  removingAddress={removingAddress}
+                  onRemove={(address) => removeManager(address)}
+                />
+              ))}
+            </Table.Body>
+          </Table.Root>
         ) : null}
       </div>
     </div>
