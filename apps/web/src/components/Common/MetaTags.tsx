@@ -19,11 +19,11 @@ type Props = {
 }
 
 const MetaTags: FC<Props> = (props) => {
-  const { description, title, image } = props
   const router = useRouter()
+  const { description, title, image } = props
 
   const meta = {
-    title: title ?? TAPE_APP_NAME,
+    title: title ? `${title} • ${TAPE_APP_NAME}` : TAPE_APP_NAME,
     description: description ?? TAPE_APP_DESCRIPTION,
     image: image ?? OG_IMAGE,
     type: 'website'

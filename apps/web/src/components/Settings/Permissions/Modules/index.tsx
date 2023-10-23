@@ -102,7 +102,7 @@ const ModulePermissions = () => {
   }
 
   return (
-    <div className="pt-6">
+    <div>
       <div className="space-y-2">
         <h1 className="text-brand-400 text-xl font-bold">
           <Trans>Access permissions</Trans>

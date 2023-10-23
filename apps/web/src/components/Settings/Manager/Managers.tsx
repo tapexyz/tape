@@ -7,7 +7,7 @@ import usePendingTxn from '@hooks/usePendingTxn'
 import useNonceStore from '@lib/store/nonce'
 import useProfileStore from '@lib/store/profile'
 import { Trans } from '@lingui/macro'
-import { Button, Dialog, Flex, Table } from '@radix-ui/themes'
+import { Button, Dialog, Flex, Separator, Table } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   ERROR_MESSAGE,
@@ -271,18 +271,9 @@ const Managers = () => {
         {(!loading && !profileManagers?.length) || error ? (
           <NoDataFound withImage isCenter />
         ) : null}
+        <Separator orientation="horizontal" size="4" />
         {profileManagers?.length ? (
           <Table.Root>
-            <Table.Header>
-              <Table.Row>
-                <Table.ColumnHeaderCell>Address</Table.ColumnHeaderCell>
-                <Table.ColumnHeaderCell>Name</Table.ColumnHeaderCell>
-                <Table.ColumnHeaderCell justify="end">
-                  Action
-                </Table.ColumnHeaderCell>
-              </Table.Row>
-            </Table.Header>
-
             <Table.Body>
               {profileManagers?.map(({ address }) => (
                 <Entry

@@ -1,4 +1,4 @@
-import ToggleDispatcher from '@components/Settings/Permissions/Dispatcher/ToggleDispatcher'
+import ToggleDispatcher from '@components/Settings/Manager/Dispatcher/ToggleDispatcher'
 import SignalWaveGraphic from '@components/UIElements/SignalWaveGraphic'
 import useProfileStore from '@lib/store/profile'
 import { t } from '@lingui/macro'

@@ -1,6 +1,6 @@
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useProfileStore from '@lib/store/profile'
-import { Avatar, Table } from '@radix-ui/themes'
+import { Avatar, Flex, Separator, Table } from '@radix-ui/themes'
 import { formatNumber, getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { useProfilesManagedQuery } from '@tape.xyz/lens'
@@ -28,36 +28,26 @@ const Managed = () => {
         {(!loading && !profilesManaged?.length) || error ? (
           <NoDataFound withImage isCenter />
         ) : null}
+        <Separator orientation="horizontal" size="4" />
         {profilesManaged?.length ? (
           <Table.Root>
-            <Table.Header>
-              <Table.Row>
-                <Table.ColumnHeaderCell>Avatar</Table.ColumnHeaderCell>
-                <Table.ColumnHeaderCell>Id</Table.ColumnHeaderCell>
-                <Table.ColumnHeaderCell>Name</Table.ColumnHeaderCell>
-                <Table.ColumnHeaderCell>Handle</Table.ColumnHeaderCell>
-                <Table.ColumnHeaderCell>Followers</Table.ColumnHeaderCell>
-              </Table.Row>
-            </Table.Header>
-
             <Table.Body>
               {profilesManaged?.map((profile) => (
                 <Table.Row key={profile.id}>
                   <Table.RowHeaderCell>
-                    <Avatar
-                      radius="full"
-                      size="1"
-                      src={getProfilePicture(profile)}
-                      fallback={getProfile(profile)?.displayName[0] ?? ';)'}
-                    />
+                    <Flex gap="2" align="center">
+                      <Avatar
+                        radius="full"
+                        size="1"
+                        src={getProfilePicture(profile)}
+                        fallback={getProfile(profile)?.displayName[0] ?? ';)'}
+                      />
+                      <Link href={getProfile(profile).link}>
+                        {getProfile(profile).displayName}
+                      </Link>
+                    </Flex>
                   </Table.RowHeaderCell>
                   <Table.Cell>{profile.id}</Table.Cell>
-                  <Table.Cell>{getProfile(profile).displayName}</Table.Cell>
-                  <Table.Cell>
-                    <Link href={`${getProfile(profile).link}`}>
-                      {getProfile(profile).slug}
-                    </Link>
-                  </Table.Cell>
                   <Table.Cell>
                     {formatNumber(profile.stats.followers)}
                   </Table.Cell>
