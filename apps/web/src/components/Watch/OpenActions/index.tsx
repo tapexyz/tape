@@ -16,7 +16,11 @@ import {
   ScrollArea
 } from '@radix-ui/themes'
 import { getPublication } from '@tape.xyz/generic'
-import type { AnyPublication, OpenActionModule } from '@tape.xyz/lens'
+import {
+  type AnyPublication,
+  type OpenActionModule,
+  TriStateValue
+} from '@tape.xyz/lens'
 import type { FC, ReactNode } from 'react'
 import React from 'react'
 
@@ -58,6 +62,10 @@ const OpenActions: FC<Props> = ({
       default:
         break
     }
+  }
+
+  if (targetPublication.operations.canAct === TriStateValue.No) {
+    return null
   }
 
   return (
