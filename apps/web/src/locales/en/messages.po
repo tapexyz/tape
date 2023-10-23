@@ -1406,8 +1406,12 @@ msgstr "Here is a list of profiles that you have been blocked. You have the opti
 #~ msgstr "Channel image updated"
 
 #: src/components/Settings/DangerZone/Delete.tsx
-msgid "Channel deleted"
-msgstr "Channel deleted"
+#~ msgid "Channel deleted"
+#~ msgstr "Channel deleted"
+
+#: src/components/Settings/DangerZone/Delete.tsx
+msgid "Profile deleted"
+msgstr "Profile deleted"
 
 #: src/components/Settings/DangerZone/Delete.tsx
 msgid "Delete Profile"
@@ -1432,6 +1436,10 @@ msgstr "It can not be reverted"
 #: src/components/Settings/DangerZone/Guardian.tsx
 msgid "Disable profile guardian"
 msgstr "Disable profile guardian"
+
+#: src/components/Settings/DangerZone/Guardian.tsx
+msgid "Cooldown period ends in:"
+msgstr "Cooldown period ends in:"
 
 #: src/components/Settings/DangerZone/Guardian.tsx
 msgid "Disabling"

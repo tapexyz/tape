@@ -70,7 +70,7 @@ const ProfileTabs: FC<Props> = ({ profile }) => {
           </Tabs.Content>
 
           <Tabs.Content value="channels">
-            <OtherProfiles profile={profile} />
+            <OtherProfiles currentProfile={profile} />
           </Tabs.Content>
         </Box>
       </Tabs.Root>

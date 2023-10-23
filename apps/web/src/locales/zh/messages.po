@@ -1406,8 +1406,12 @@ msgstr ""
 #~ msgstr "频道图像已更新"
 
 #: src/components/Settings/DangerZone/Delete.tsx
-msgid "Channel deleted"
-msgstr "频道已删除"
+#~ msgid "Channel deleted"
+#~ msgstr "频道已删除"
+
+#: src/components/Settings/DangerZone/Delete.tsx
+msgid "Profile deleted"
+msgstr ""
 
 #: src/components/Settings/DangerZone/Delete.tsx
 msgid "Delete Profile"
@@ -1431,6 +1435,10 @@ msgstr ""
 
 #: src/components/Settings/DangerZone/Guardian.tsx
 msgid "Disable profile guardian"
+msgstr ""
+
+#: src/components/Settings/DangerZone/Guardian.tsx
+msgid "Cooldown period ends in:"
 msgstr ""
 
 #: src/components/Settings/DangerZone/Guardian.tsx

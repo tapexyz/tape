@@ -11,31 +11,31 @@ import type { FC } from 'react'
 import React from 'react'
 
 type Props = {
-  profile: Profile
+  currentProfile: Profile
 }
 
-const OtherProfiles: FC<Props> = ({ profile }) => {
+const OtherProfiles: FC<Props> = ({ currentProfile }) => {
   const { data, loading } = useProfilesQuery({
     variables: {
-      request: { where: { ownedBy: [profile?.ownedBy.address] } }
+      request: { where: { ownedBy: [currentProfile?.ownedBy.address] } }
     },
-    skip: !profile?.ownedBy
+    skip: !currentProfile?.ownedBy
   })
-  const allChannels = data?.profiles?.items as Profile[]
+  const allProfiles = data?.profiles?.items as Profile[]
 
   if (loading) {
     return <OtherChannelsShimmer />
   }
 
-  if (allChannels?.length === 1) {
+  if (allProfiles?.length === 1) {
     return <NoDataFound isCenter withImage text={t`No other channels found`} />
   }
 
   return (
     <div className="flex flex-wrap justify-center gap-3 md:justify-start">
-      {allChannels?.map(
-        (p) =>
-          p.id !== profile.id && (
+      {allProfiles?.map(
+        (profile) =>
+          profile.id !== currentProfile.id && (
             <div
               key={profile.id}
               className="flex w-44 flex-col items-center justify-center rounded-xl border border-gray-200 py-3 dark:border-gray-800"
