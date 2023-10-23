@@ -12,14 +12,13 @@ export const getProfilePicture = (
   withFallback = true
 ): string => {
   const url =
-    profile.metadata?.picture &&
-    profile.metadata?.picture.__typename === 'ImageSet'
+    profile.metadata?.picture?.__typename === 'ImageSet'
       ? profile.metadata?.picture?.optimized?.uri
       : profile.metadata?.picture?.__typename === 'NftImage'
       ? profile?.metadata.picture.image?.optimized?.uri
       : withFallback
       ? getRandomProfilePicture(profile?.ownedBy.address)
-      : ''
+      : null
   const sanitized = sanitizeDStorageUrl(url)
   return imageCdn(sanitized, type)
 }

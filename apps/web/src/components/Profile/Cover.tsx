@@ -19,7 +19,7 @@ type Props = {
 
 const Cover: FC<Props> = ({ profile }) => {
   const coverImage = imageCdn(
-    sanitizeDStorageUrl(getProfileCoverPicture(profile))
+    sanitizeDStorageUrl(getProfileCoverPicture(profile, true))
   )
 
   return (

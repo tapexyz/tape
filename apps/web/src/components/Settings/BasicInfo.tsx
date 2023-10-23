@@ -303,7 +303,7 @@ const BasicInfo = ({ profile }: Props) => {
           )}
           <img
             src={
-              sanitizeDStorageUrl(coverImage) ??
+              sanitizeDStorageUrl(coverImage) ||
               imageCdn(
                 sanitizeDStorageUrl(getProfileCoverPicture(profile)),
                 'THUMBNAIL'
@@ -311,7 +311,7 @@ const BasicInfo = ({ profile }: Props) => {
             }
             className="rounded-small bg-brand-500 h-48 w-full object-cover object-center md:h-56"
             draggable={false}
-            alt={`${getProfile(profile)?.slug}'s cover`}
+            alt="No cover found"
           />
           <div className="absolute bottom-2 right-2 cursor-pointer text-sm">
             <Button
@@ -352,7 +352,7 @@ const BasicInfo = ({ profile }: Props) => {
               }
               className="h-32 w-32 rounded-full border-2 object-cover"
               draggable={false}
-              alt="cover"
+              alt="No PFP"
             />
             <label
               htmlFor="choosePfp"
