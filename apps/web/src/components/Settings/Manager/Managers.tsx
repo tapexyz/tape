@@ -70,7 +70,6 @@ const Entry = ({
           disabled={removingAddress === address}
           color="red"
           size="1"
-          variant="soft"
         >
           <Trans>Remove</Trans>
         </Button>
@@ -227,7 +226,7 @@ const Managers = () => {
 
   return (
     <div>
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between space-x-2">
         <p>
           <Trans>
             Accounts managing your profile, can perform any social actions on
