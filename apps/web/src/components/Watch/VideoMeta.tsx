@@ -83,7 +83,7 @@ const VideoMeta: FC<Props> = ({ video }) => {
           onClick={() => setShowCollectsModal(true)}
           className="flex items-center space-x-1 outline-none"
         >
-          <CollectOutline className="h-3 w-3" />
+          <CollectOutline className="h-4 w-4" />
           <span>
             {video.stats?.countOpenActions} <Trans>collects</Trans>
           </span>
@@ -94,7 +94,7 @@ const VideoMeta: FC<Props> = ({ video }) => {
           onClick={() => setShowMirrorsModal(true)}
           className="flex items-center space-x-1 outline-none"
         >
-          <MirrorOutline className="h-3 w-3" />
+          <MirrorOutline className="h-4 w-4" />
           <span>
             {video.stats?.mirrors} <Trans>mirrors</Trans>
           </span>
