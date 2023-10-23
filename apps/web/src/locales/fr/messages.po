@@ -621,12 +621,16 @@ msgstr "Séparer uniformément"
 #~ msgstr "pour des frais donnés"
 
 #: src/components/Create/CollectModule/index.tsx
+#~ msgid "Subscribers"
+#~ msgstr "Abonnés"
+
+#: src/components/Create/CollectModule/index.tsx
 msgid "No one can collect this publication"
 msgstr "Personne ne peut collecter cette publication"
 
 #: src/components/Create/CollectModule/index.tsx
-msgid "Subscribers"
-msgstr "Abonnés"
+msgid "Only followers"
+msgstr ""
 
 #: src/components/Create/CollectModule/index.tsx
 msgid "can collect"
@@ -771,7 +775,11 @@ msgid "Estimated cost to upload"
 msgstr ""
 
 #: src/components/Create/ReferenceModule/index.tsx
-msgid "Who can comment and mirror?"
+#~ msgid "Who can comment and mirror?"
+#~ msgstr ""
+
+#: src/components/Create/ReferenceModule/index.tsx
+msgid "Who can comment, quote and mirror?"
 msgstr ""
 
 #: src/components/Create/SelectedMedia.tsx

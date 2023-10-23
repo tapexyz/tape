@@ -1,20 +1,19 @@
 import { Input } from '@components/UIElements/Input'
+import useAppStore from '@lib/store'
 import { Trans } from '@lingui/macro'
 import { Button, Text } from '@radix-ui/themes'
 import { trimify } from '@tape.xyz/generic'
-import type {
-  CollectModuleType,
-  UploadedMedia
-} from '@tape.xyz/lens/custom-types'
+import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 
 type Props = {
-  uploadedVideo: UploadedMedia
   setCollectType: (data: CollectModuleType) => void
 }
 
-const CollectDuration: FC<Props> = ({ uploadedVideo, setCollectType }) => {
+const CollectDuration: FC<Props> = ({ setCollectType }) => {
+  const uploadedVideo = useAppStore((state) => state.uploadedVideo)
+
   const [showDayPicker, setShowDayPicker] = useState(
     uploadedVideo.collectModule.timeLimitEnabled
   )

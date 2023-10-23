@@ -1,14 +1,12 @@
 import { Input } from '@components/UIElements/Input'
 import { zodResolver } from '@hookform/resolvers/zod'
+import useAppStore from '@lib/store'
 import useAuthPersistStore from '@lib/store/auth'
 import { t, Trans } from '@lingui/macro'
 import { Button, Flex, Select } from '@radix-ui/themes'
 import { WMATIC_TOKEN_ADDRESS } from '@tape.xyz/constants'
 import type { Erc20 } from '@tape.xyz/lens'
-import type {
-  CollectModuleType,
-  UploadedMedia
-} from '@tape.xyz/lens/custom-types'
+import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
 import type { Dispatch, FC } from 'react'
 import React, { useRef } from 'react'
 import { useForm } from 'react-hook-form'
@@ -20,7 +18,6 @@ import { number, object, string } from 'zod'
 import Splits from './Splits'
 
 type Props = {
-  uploadedVideo: UploadedMedia
   setCollectType: (data: CollectModuleType) => void
   setShowModal: Dispatch<boolean>
   enabledCurrencies: Erc20[]
@@ -38,12 +35,13 @@ const formSchema = object({
 export type FormData = z.infer<typeof formSchema>
 
 const FeeCollectForm: FC<Props> = ({
-  uploadedVideo,
   setCollectType,
   setShowModal,
   enabledCurrencies
 }) => {
   const submitContainerRef = useRef<HTMLDivElement>(null)
+
+  const uploadedVideo = useAppStore((state) => state.uploadedVideo)
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )

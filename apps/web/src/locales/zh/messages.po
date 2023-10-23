@@ -621,12 +621,16 @@ msgstr "平均拆分"
 #~ msgstr "给定费用"
 
 #: src/components/Create/CollectModule/index.tsx
+#~ msgid "Subscribers"
+#~ msgstr "订阅者"
+
+#: src/components/Create/CollectModule/index.tsx
 msgid "No one can collect this publication"
 msgstr "没有人能够收集这个出版物"
 
 #: src/components/Create/CollectModule/index.tsx
-msgid "Subscribers"
-msgstr "订阅者"
+msgid "Only followers"
+msgstr ""
 
 #: src/components/Create/CollectModule/index.tsx
 msgid "can collect"
@@ -771,7 +775,11 @@ msgid "Estimated cost to upload"
 msgstr ""
 
 #: src/components/Create/ReferenceModule/index.tsx
-msgid "Who can comment and mirror?"
+#~ msgid "Who can comment and mirror?"
+#~ msgstr ""
+
+#: src/components/Create/ReferenceModule/index.tsx
+msgid "Who can comment, quote and mirror?"
 msgstr ""
 
 #: src/components/Create/SelectedMedia.tsx

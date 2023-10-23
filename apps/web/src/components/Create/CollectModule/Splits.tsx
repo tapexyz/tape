@@ -8,6 +8,7 @@ import { IconButton, Text } from '@radix-ui/themes'
 import {
   HANDLE_PREFIX,
   IS_MAINNET,
+  LENSPROTOCOL_HANDLE,
   TAPE_ADMIN_ADDRESS,
   TAPE_APP_NAME
 } from '@tape.xyz/constants'
@@ -46,9 +47,9 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
     splitRecipients.filter((el) => el.recipient === TAPE_ADMIN_ADDRESS).length >
     0
   const getIsHandle = (value: string) => {
-    return IS_MAINNET && value === 'lensprotocol'
+    return IS_MAINNET && value === LENSPROTOCOL_HANDLE
       ? true
-      : value.includes(IS_MAINNET ? '.lens' : '.test')
+      : value.includes(HANDLE_PREFIX)
   }
 
   const onChangeSplit = async (
@@ -66,7 +67,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
         const { data } = await resolveHandleAddress({
           variables: {
             request: {
-              forHandle: `${HANDLE_PREFIX}${value}`
+              forHandle: value
             }
           }
         })
@@ -142,9 +143,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
                 'animate-pulse'
             )}
             size="3"
-            placeholder={`0x12345...89 or handle${
-              IS_MAINNET ? '.lens' : '.test'
-            }`}
+            placeholder={`0x12345...89 or ${HANDLE_PREFIX}tape`}
             value={splitRecipient.recipient}
             onChange={(e) => onChangeSplit('recipient', e.target.value, i)}
             autoFocus

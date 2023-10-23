@@ -5,12 +5,6 @@ import type {
   RecipientDataInput
 } from '@tape.xyz/lens'
 
-export type VideoDraft = {
-  preview: string
-  title: string
-  description: string
-}
-
 export type IrysDataState = {
   instance: WebIrys | null
   balance: string
@@ -18,13 +12,6 @@ export type IrysDataState = {
   deposit: string | null
   depositing: boolean
   showDeposit: boolean
-}
-
-export type FileReaderStreamType = NodeJS.ReadableStream & {
-  name: string
-  size: number
-  type: string
-  lastModified: string
 }
 
 export type CollectModuleType = {
@@ -51,6 +38,13 @@ export type ReferenceModuleType = {
     quotesRestricted: boolean
     degreesOfSeparation: number
   } | null
+}
+
+type FileReaderStreamType = NodeJS.ReadableStream & {
+  name: string
+  size: number
+  type: string
+  lastModified: string
 }
 
 export type UploadedMedia = {
@@ -80,14 +74,6 @@ export type UploadedMedia = {
 export type IPFSUploadResult = {
   url: string
   type: string
-}
-
-export type VideoUploadForm = {
-  videoThumbnail: IPFSUploadResult | null
-  videoSource: string | null
-  title: string
-  description: string
-  adultContent: boolean
 }
 
 export interface CustomErrorWithData extends Error {

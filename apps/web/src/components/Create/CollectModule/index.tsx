@@ -52,7 +52,7 @@ const CollectModule = () => {
     return (
       <div className="flex items-center space-x-1">
         <span>
-          {followerOnlyCollect ? t`Subscribers` : t`Anyone`}{' '}
+          {followerOnlyCollect ? t`Only followers` : t`Anyone`}{' '}
           <Trans>can collect</Trans>{' '}
           {collectLimitEnabled ? `the ${collectLimit} editions` : ''}{' '}
           {isFeeCollect ? t`for set price` : t`for free`}{' '}
@@ -96,35 +96,22 @@ const CollectModule = () => {
           <Dialog.Title>Collectible</Dialog.Title>
           <Flex direction="column" gap="3">
             <div className="no-scrollbar max-h-[80vh] space-y-2 overflow-y-auto p-0.5">
-              <PermissionQuestion
-                setCollectType={setCollectType}
-                uploadedVideo={uploadedVideo}
-              />
+              <PermissionQuestion setCollectType={setCollectType} />
               {!uploadedVideo.collectModule.isRevertCollect && (
-                <CollectDuration
-                  setCollectType={setCollectType}
-                  uploadedVideo={uploadedVideo}
-                />
+                <CollectDuration setCollectType={setCollectType} />
               )}
               {!uploadedVideo.collectModule.isRevertCollect && (
-                <EditionSize
-                  setCollectType={setCollectType}
-                  uploadedVideo={uploadedVideo}
-                />
+                <EditionSize setCollectType={setCollectType} />
               )}
               {!uploadedVideo.collectModule.isRevertCollect && (
                 <div className="space-y-2">
-                  <ChargeQuestion
-                    setCollectType={setCollectType}
-                    uploadedVideo={uploadedVideo}
-                  />
+                  <ChargeQuestion setCollectType={setCollectType} />
                   {(uploadedVideo.collectModule.isFeeCollect ||
                     uploadedVideo.collectModule.collectLimitEnabled) &&
                   !uploadedVideo.collectModule.isRevertCollect &&
                   enabledCurrencies ? (
                     <FeeCollectForm
                       setCollectType={setCollectType}
-                      uploadedVideo={uploadedVideo}
                       setShowModal={setShowModal}
                       enabledCurrencies={enabledCurrencies.currencies.items}
                     />

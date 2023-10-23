@@ -621,12 +621,16 @@ msgstr "Split evenly"
 #~ msgstr "for given fees"
 
 #: src/components/Create/CollectModule/index.tsx
+#~ msgid "Subscribers"
+#~ msgstr "Subscribers"
+
+#: src/components/Create/CollectModule/index.tsx
 msgid "No one can collect this publication"
 msgstr "No one can collect this publication"
 
 #: src/components/Create/CollectModule/index.tsx
-msgid "Subscribers"
-msgstr "Subscribers"
+msgid "Only followers"
+msgstr "Only followers"
 
 #: src/components/Create/CollectModule/index.tsx
 msgid "can collect"
@@ -771,8 +775,12 @@ msgid "Estimated cost to upload"
 msgstr "Estimated cost to upload"
 
 #: src/components/Create/ReferenceModule/index.tsx
-msgid "Who can comment and mirror?"
-msgstr "Who can comment and mirror?"
+#~ msgid "Who can comment and mirror?"
+#~ msgstr "Who can comment and mirror?"
+
+#: src/components/Create/ReferenceModule/index.tsx
+msgid "Who can comment, quote and mirror?"
+msgstr "Who can comment, quote and mirror?"
 
 #: src/components/Create/SelectedMedia.tsx
 #~ msgid "Skip the video upload (Only use this if you know what your doing!)"
