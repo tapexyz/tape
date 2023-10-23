@@ -111,7 +111,7 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
       {loading && <CommentsShimmer />}
       {!loading && video ? (
         <>
-          {video?.operations.canComment === TriStateValue.Yes ? (
+          {video?.operations.canComment !== TriStateValue.No ? (
             <NewComment video={video} />
           ) : showReferenceModuleAlert ? (
             <Alert variant="warning">

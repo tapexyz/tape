@@ -198,7 +198,7 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
     } catch {}
   }
 
-  if (video?.operations.canMirror !== TriStateValue.Yes) {
+  if (video?.operations.canMirror === TriStateValue.No) {
     return null
   }
 

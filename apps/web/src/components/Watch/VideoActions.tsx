@@ -30,7 +30,7 @@ const VideoActions: FC<Props> = ({ video }) => {
         iconSize="base"
         variant="surface"
       />
-      {video.operations.canComment === TriStateValue.Yes && (
+      {video.operations.canComment !== TriStateValue.No && (
         <Dialog.Root open={showTip}>
           <Dialog.Trigger>
             <Button
