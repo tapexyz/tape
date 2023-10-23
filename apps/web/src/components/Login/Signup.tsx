@@ -2,7 +2,8 @@ import WarningOutline from '@components/Common/Icons/WarningOutline'
 import { Input } from '@components/UIElements/Input'
 import { zodResolver } from '@hookform/resolvers/zod'
 import usePendingTxn from '@hooks/usePendingTxn'
-import { Button, Callout } from '@radix-ui/themes'
+import { Trans } from '@lingui/macro'
+import { Button, Callout, Text } from '@radix-ui/themes'
 import { COMMON_REGEX, ERROR_MESSAGE } from '@tape.xyz/constants'
 import { shortenAddress } from '@tape.xyz/generic'
 import { useCreateProfileWithHandleMutation } from '@tape.xyz/lens'
@@ -44,9 +45,20 @@ const Signup = ({ onSuccess }: { onSuccess: () => void }) => {
   }
 
   const [createProfileWithHandle, { data }] =
-    useCreateProfileWithHandleMutation({ onError })
+    useCreateProfileWithHandleMutation({
+      onError,
+      onCompleted: ({ createProfileWithHandle }) => {
+        if (
+          createProfileWithHandle.__typename ===
+          'CreateProfileWithHandleErrorResult'
+        ) {
+          setCreating(false)
+          toast.error(createProfileWithHandle.reason)
+        }
+      }
+    })
 
-  const { indexed } = usePendingTxn({
+  const { indexed, error } = usePendingTxn({
     txId:
       data?.createProfileWithHandle.__typename === 'RelaySuccess'
         ? data?.createProfileWithHandle?.txId
@@ -61,7 +73,7 @@ const Signup = ({ onSuccess }: { onSuccess: () => void }) => {
       setCreating(false)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [indexed])
+  }, [indexed, error])
 
   const signup = async ({ handle }: FormData) => {
     setCreating(true)
@@ -71,7 +83,7 @@ const Signup = ({ onSuccess }: { onSuccess: () => void }) => {
   }
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-4">
       <Callout.Root color="red">
         <Callout.Icon>
           <WarningOutline className="h-4 w-4" />
@@ -81,22 +93,27 @@ const Signup = ({ onSuccess }: { onSuccess: () => void }) => {
           {shortenAddress(address as string)})
         </Callout.Text>
       </Callout.Root>
-      <form
-        onSubmit={handleSubmit(signup)}
-        className="flex items-end justify-end space-x-2"
-      >
-        <Input
-          label="Handle"
-          autoComplete="off"
-          size="3"
-          validationError={errors.handle?.message}
-          {...register('handle')}
-        />
-        <Button disabled={creating} highContrast size="3">
-          {creating && <Loader size="sm" />}
-          Sign up
-        </Button>
-      </form>
+      <div className="space-y-1">
+        <Text as="div" size="3" weight="medium">
+          <Trans>Create Profile</Trans>
+        </Text>
+        <form
+          onSubmit={handleSubmit(signup)}
+          className="flex justify-end space-x-2"
+        >
+          <Input
+            placeholder="gilfoyle"
+            autoComplete="off"
+            size="3"
+            validationError={errors.handle?.message}
+            {...register('handle')}
+          />
+          <Button disabled={creating} highContrast size="3">
+            {creating && <Loader size="sm" />}
+            Sign up
+          </Button>
+        </form>
+      </div>
     </div>
   )
 }

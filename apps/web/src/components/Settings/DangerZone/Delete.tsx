@@ -16,10 +16,12 @@ import Custom404 from 'src/pages/404'
 import { useContractWrite, useWaitForTransaction } from 'wagmi'
 
 const Delete = () => {
-  const [loading, setLoading] = useState(false)
-  const [txnHash, setTxnHash] = useState<`0x${string}`>()
   const activeProfile = useProfileStore((state) => state.activeProfile)
   const handleWrongNetwork = useHandleWrongNetwork()
+  const guardianEnabled = activeProfile?.guardian?.protected
+
+  const [loading, setLoading] = useState(false)
+  const [txnHash, setTxnHash] = useState<`0x${string}`>()
 
   const onError = (error: CustomErrorWithData) => {
     setLoading(false)
@@ -38,7 +40,7 @@ const Delete = () => {
     enabled: txnHash && txnHash.length > 0,
     hash: txnHash,
     onSuccess: () => {
-      toast.success(t`Channel deleted`)
+      toast.success(t`Profile deleted`)
       setLoading(false)
       signOut()
       location.href = '/'
@@ -46,7 +48,15 @@ const Delete = () => {
     onError
   })
 
+  const isCooldownEnded = () => {
+    const cooldownDate = activeProfile?.guardian?.cooldownEndsOn
+    return new Date(cooldownDate).getTime() < Date.now()
+  }
+
   const onClickDelete = () => {
+    if (guardianEnabled || !isCooldownEnded()) {
+      return toast.error('Profile Guardian enabled')
+    }
     if (handleWrongNetwork()) {
       return
     }

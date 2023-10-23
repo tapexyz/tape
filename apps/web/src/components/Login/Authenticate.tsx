@@ -50,11 +50,12 @@ const Authenticate = () => {
     variables: {
       request: { for: address, includeOwned: true, limit: LimitType.Fifty }
     },
+    notifyOnNetworkStatusChange: true,
     skip: !address,
     onCompleted: (data) => {
       const profile = data?.profilesManaged.items?.[0]
       if (profile) {
-        setSelectedProfileId(as ?? profile.id)
+        setSelectedProfileId(as || profile.id)
       }
     }
   })

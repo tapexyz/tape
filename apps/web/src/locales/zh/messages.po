@@ -985,6 +985,10 @@ msgstr ""
 msgid "Please connect to your wallet"
 msgstr "请连接到你的钱包"
 
+#: src/components/Login/Signup.tsx
+msgid "Create Profile"
+msgstr ""
+
 #: src/components/Mod/index.tsx
 #~ msgid "Lenstube Stats"
 #~ msgstr "Lenstube Stats"
@@ -1418,11 +1422,19 @@ msgid "It can not be reverted"
 msgstr ""
 
 #: src/components/Settings/DangerZone/Guardian.tsx
+#~ msgid "Disabling..."
+#~ msgstr ""
+
+#: src/components/Settings/DangerZone/Guardian.tsx
+#~ msgid "Enabling..."
+#~ msgstr ""
+
+#: src/components/Settings/DangerZone/Guardian.tsx
 msgid "Disable profile guardian"
 msgstr ""
 
 #: src/components/Settings/DangerZone/Guardian.tsx
-msgid "Disabling..."
+msgid "Disabling"
 msgstr ""
 
 #: src/components/Settings/DangerZone/Guardian.tsx
@@ -1432,7 +1444,7 @@ msgid "Disable"
 msgstr "禁用"
 
 #: src/components/Settings/DangerZone/Guardian.tsx
-msgid "Enabling..."
+msgid "Enabling"
 msgstr ""
 
 #: src/components/Settings/DangerZone/Guardian.tsx

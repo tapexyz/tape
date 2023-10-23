@@ -23,6 +23,7 @@ const usePendingTxn = ({ txHash, txId }: Props) => {
     onCompleted: (data) => {
       if (data?.lensTransactionStatus?.reason) {
         stopPolling()
+        setIndexed(false)
         return toast.error(data?.lensTransactionStatus?.reason)
       }
       if (

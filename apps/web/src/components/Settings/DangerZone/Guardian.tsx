@@ -1,9 +1,11 @@
+import { Countdown } from '@components/UIElements/CountDown'
 import useProfileStore from '@lib/store/profile'
 import { Trans } from '@lingui/macro'
 import { Button } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { ERROR_MESSAGE, LENSHUB_PROXY_ADDRESS } from '@tape.xyz/constants'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+import clsx from 'clsx'
 import type { FC } from 'react'
 import { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -14,6 +16,9 @@ const Guardian: FC = () => {
   const activeProfile = useProfileStore((state) => state.activeProfile)
 
   const [loading, setLoading] = useState(false)
+  const [guardianEnabled, setGuardianEnabled] = useState(
+    activeProfile?.guardian?.protected
+  )
   const handleWrongNetwork = useHandleWrongNetwork()
 
   const onError = (error: CustomErrorWithData) => {
@@ -38,12 +43,11 @@ const Guardian: FC = () => {
   useWaitForTransaction({
     hash: disableData?.hash ?? enableData?.hash,
     onSuccess: () => {
-      location.reload()
+      setGuardianEnabled(!guardianEnabled)
+      setLoading(false)
     },
     enabled: Boolean(disableData?.hash.length ?? enableData?.hash.length)
   })
-
-  const guardianEnabled = activeProfile?.guardian?.protected
 
   const toggle = async () => {
     if (!activeProfile?.id) {
@@ -63,6 +67,11 @@ const Guardian: FC = () => {
     } catch (error) {
       onError(error as any)
     }
+  }
+
+  const isCooldownEnded = () => {
+    const cooldownDate = activeProfile?.guardian?.cooldownEndsOn
+    return new Date(cooldownDate).getTime() < Date.now()
   }
 
   return (
@@ -87,7 +96,20 @@ const Guardian: FC = () => {
         </ul>
       </div>
 
-      <div className="flex justify-end pt-6">
+      <div
+        className={clsx(
+          'flex items-center pt-6',
+          isCooldownEnded() ? 'justify-end' : 'justify-between'
+        )}
+      >
+        {!isCooldownEnded() && (
+          <span className="flex items-center space-x-2">
+            <span>
+              <Trans>Cooldown period ends in:</Trans>{' '}
+            </span>
+            <Countdown timestamp={activeProfile?.guardian?.cooldownEndsOn} />
+          </span>
+        )}
         {guardianEnabled ? (
           <Button
             size="3"
@@ -95,7 +117,7 @@ const Guardian: FC = () => {
             disabled={loading}
             onClick={() => toggle()}
           >
-            {loading ? <Trans>Disabling...</Trans> : <Trans>Disable</Trans>}
+            {loading ? <Trans>Disabling</Trans> : <Trans>Disable</Trans>}
           </Button>
         ) : (
           <Button
@@ -104,7 +126,7 @@ const Guardian: FC = () => {
             highContrast
             onClick={() => toggle()}
           >
-            {loading ? <Trans> Enabling...</Trans> : <Trans>Enable</Trans>}
+            {loading ? <Trans> Enabling</Trans> : <Trans>Enable</Trans>}
           </Button>
         )}
       </div>

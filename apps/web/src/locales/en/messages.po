@@ -985,6 +985,10 @@ msgstr "Discover a new era of media sharing on Lens with Tape. A decentralized, 
 msgid "Please connect to your wallet"
 msgstr "Please connect to your wallet"
 
+#: src/components/Login/Signup.tsx
+msgid "Create Profile"
+msgstr "Create Profile"
+
 #: src/components/Mod/index.tsx
 #~ msgid "Lenstube Stats"
 #~ msgstr "Lenstube Stats"
@@ -1418,12 +1422,20 @@ msgid "It can not be reverted"
 msgstr "It can not be reverted"
 
 #: src/components/Settings/DangerZone/Guardian.tsx
+#~ msgid "Disabling..."
+#~ msgstr "Disabling..."
+
+#: src/components/Settings/DangerZone/Guardian.tsx
+#~ msgid "Enabling..."
+#~ msgstr "Enabling..."
+
+#: src/components/Settings/DangerZone/Guardian.tsx
 msgid "Disable profile guardian"
 msgstr "Disable profile guardian"
 
 #: src/components/Settings/DangerZone/Guardian.tsx
-msgid "Disabling..."
-msgstr "Disabling..."
+msgid "Disabling"
+msgstr "Disabling"
 
 #: src/components/Settings/DangerZone/Guardian.tsx
 #: src/components/Settings/Permissions/Dispatcher/Toggle.tsx
@@ -1432,8 +1444,8 @@ msgid "Disable"
 msgstr "Disable"
 
 #: src/components/Settings/DangerZone/Guardian.tsx
-msgid "Enabling..."
-msgstr "Enabling..."
+msgid "Enabling"
+msgstr "Enabling"
 
 #: src/components/Settings/DangerZone/Guardian.tsx
 #: src/components/Settings/Permissions/Dispatcher/Toggle.tsx
