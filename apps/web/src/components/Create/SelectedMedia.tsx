@@ -49,6 +49,13 @@ const SelectedMedia = () => {
 
   const isAudio = ALLOWED_AUDIO_MIME_TYPES.includes(uploadedVideo.mediaType)
 
+  const onClickVideo = () => {
+    setInteracted(true)
+    videoRef.current?.paused
+      ? videoRef.current?.play()
+      : videoRef.current?.pause()
+  }
+
   return (
     <div className="flex w-full flex-col">
       {isAudio ? (
@@ -123,14 +130,18 @@ const SelectedMedia = () => {
             controls={false}
             autoPlay={interacted}
             muted={!interacted}
-            onClick={() => {
-              setInteracted(true)
-              videoRef.current?.paused
-                ? videoRef.current?.play()
-                : videoRef.current?.pause()
-            }}
+            onClick={() => onClickVideo()}
             src={uploadedVideo.preview}
           />
+          <Badge
+            onClick={() => onClickVideo()}
+            variant="solid"
+            radius="full"
+            highContrast
+            className="absolute right-2 top-2"
+          >
+            Play/Pause
+          </Badge>
           <Badge
             variant="solid"
             radius="full"

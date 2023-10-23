@@ -2,7 +2,7 @@ import useAppStore from '@lib/store'
 import { Trans } from '@lingui/macro'
 import { Text } from '@radix-ui/themes'
 import { IPFS_FREE_UPLOAD_LIMIT } from '@tape.xyz/constants'
-import { canUploadedToIpfs } from '@tape.xyz/generic'
+import { canUploadedToIpfs, formatMB } from '@tape.xyz/generic'
 import React, { useEffect } from 'react'
 
 import IrysInfo from './IrysInfo'
@@ -28,8 +28,8 @@ const UploadMethod = () => {
       <Text weight="medium">
         <Trans>
           Please note that your media exceeds the free limit (
-          {IPFS_FREE_UPLOAD_LIMIT} mb), and you can proceed with the upload by
-          paying the storage fee.
+          {formatMB(IPFS_FREE_UPLOAD_LIMIT)}), and you can proceed with the
+          upload by paying the storage fee.
         </Trans>
       </Text>
       <IrysInfo />

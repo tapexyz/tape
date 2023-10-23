@@ -1,6 +1,7 @@
 export * from './functions/canUploadedToIpfs'
 export * from './functions/checkIsBytesVideo'
 export * from './functions/formatBytes'
+export * from './functions/formatMB'
 export * from './functions/formatNumber'
 export * from './functions/getAttachmentsData'
 export * from './functions/getCategoryName'
