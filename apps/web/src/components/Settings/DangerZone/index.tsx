@@ -5,7 +5,6 @@ import useProfileStore from '@lib/store/profile'
 import { Avatar, Flex } from '@radix-ui/themes'
 import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import React from 'react'
-import Custom404 from 'src/pages/404'
 
 import Delete from './Delete'
 import Guardian from './Guardian'
@@ -14,7 +13,7 @@ const DangerZone = () => {
   const activeProfile = useProfileStore((state) => state.activeProfile)
 
   if (!activeProfile) {
-    return <Custom404 />
+    return null
   }
 
   return (

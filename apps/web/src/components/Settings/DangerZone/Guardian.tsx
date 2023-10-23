@@ -4,6 +4,8 @@ import { Trans } from '@lingui/macro'
 import { Button } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { ERROR_MESSAGE, LENSHUB_PROXY_ADDRESS } from '@tape.xyz/constants'
+import type { Profile } from '@tape.xyz/lens'
+import { useProfileLazyQuery } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import clsx from 'clsx'
 import type { FC } from 'react'
@@ -13,13 +15,27 @@ import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork'
 import { useContractWrite, useWaitForTransaction } from 'wagmi'
 
 const Guardian: FC = () => {
-  const activeProfile = useProfileStore((state) => state.activeProfile)
+  const { activeProfile, setActiveProfile } = useProfileStore()
 
   const [loading, setLoading] = useState(false)
   const [guardianEnabled, setGuardianEnabled] = useState(
     activeProfile?.guardian?.protected
   )
   const handleWrongNetwork = useHandleWrongNetwork()
+
+  const [fetchProfile] = useProfileLazyQuery({
+    variables: {
+      request: {
+        forHandle: activeProfile?.handle
+      }
+    },
+    fetchPolicy: 'no-cache',
+    onCompleted: ({ profile }) => {
+      if (profile) {
+        setActiveProfile(profile as Profile)
+      }
+    }
+  })
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
@@ -45,6 +61,7 @@ const Guardian: FC = () => {
     onSuccess: () => {
       setGuardianEnabled(!guardianEnabled)
       setLoading(false)
+      fetchProfile()
     },
     enabled: Boolean(disableData?.hash.length ?? enableData?.hash.length)
   })
