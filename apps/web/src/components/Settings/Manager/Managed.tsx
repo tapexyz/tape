@@ -28,33 +28,35 @@ const Managed = () => {
         {(!loading && !profilesManaged?.length) || error ? (
           <NoDataFound withImage isCenter />
         ) : null}
-        <Separator orientation="horizontal" size="4" />
         {profilesManaged?.length ? (
-          <Table.Root>
-            <Table.Body>
-              {profilesManaged?.map((profile) => (
-                <Table.Row key={profile.id}>
-                  <Table.RowHeaderCell>
-                    <Flex gap="2" align="center">
-                      <Avatar
-                        radius="full"
-                        size="1"
-                        src={getProfilePicture(profile)}
-                        fallback={getProfile(profile)?.displayName[0] ?? ';)'}
-                      />
-                      <Link href={getProfile(profile).link}>
-                        {getProfile(profile).displayName}
-                      </Link>
-                    </Flex>
-                  </Table.RowHeaderCell>
-                  <Table.Cell>{profile.id}</Table.Cell>
-                  <Table.Cell>
-                    {formatNumber(profile.stats.followers)}
-                  </Table.Cell>
-                </Table.Row>
-              ))}
-            </Table.Body>
-          </Table.Root>
+          <>
+            <Separator orientation="horizontal" size="4" />
+            <Table.Root>
+              <Table.Body>
+                {profilesManaged?.map((profile) => (
+                  <Table.Row key={profile.id}>
+                    <Table.RowHeaderCell>
+                      <Flex gap="2" align="center">
+                        <Avatar
+                          radius="full"
+                          size="1"
+                          src={getProfilePicture(profile)}
+                          fallback={getProfile(profile)?.displayName[0] ?? ';)'}
+                        />
+                        <Link href={getProfile(profile).link}>
+                          {getProfile(profile).displayName}
+                        </Link>
+                      </Flex>
+                    </Table.RowHeaderCell>
+                    <Table.Cell>{profile.id}</Table.Cell>
+                    <Table.Cell>
+                      {formatNumber(profile.stats.followers)}
+                    </Table.Cell>
+                  </Table.Row>
+                ))}
+              </Table.Body>
+            </Table.Root>
+          </>
         ) : null}
       </div>
     </div>

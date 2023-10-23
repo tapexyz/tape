@@ -271,20 +271,22 @@ const Managers = () => {
         {(!loading && !profileManagers?.length) || error ? (
           <NoDataFound withImage isCenter />
         ) : null}
-        <Separator orientation="horizontal" size="4" />
         {profileManagers?.length ? (
-          <Table.Root>
-            <Table.Body>
-              {profileManagers?.map(({ address }) => (
-                <Entry
-                  key={address}
-                  address={address}
-                  removingAddress={removingAddress}
-                  onRemove={(address) => removeManager(address)}
-                />
-              ))}
-            </Table.Body>
-          </Table.Root>
+          <>
+            <Separator orientation="horizontal" size="4" />
+            <Table.Root>
+              <Table.Body>
+                {profileManagers?.map(({ address }) => (
+                  <Entry
+                    key={address}
+                    address={address}
+                    removingAddress={removingAddress}
+                    onRemove={(address) => removeManager(address)}
+                  />
+                ))}
+              </Table.Body>
+            </Table.Root>
+          </>
         ) : null}
       </div>
     </div>
