@@ -3,7 +3,7 @@ import { t, Trans } from '@lingui/macro'
 import { TAPE_APP_NAME } from '@tape.xyz/constants'
 import React from 'react'
 
-import Toggle from './Toggle'
+import ToggleDispatcher from './ToggleDispatcher'
 
 const DispatcherPermissions = () => {
   const activeProfile = useProfileStore((state) => state.activeProfile)
@@ -25,7 +25,7 @@ const DispatcherPermissions = () => {
         <p className="opacity-80">{getDescription()}</p>
       </div>
       <div className="mt-3 flex justify-end">
-        <Toggle />
+        <ToggleDispatcher />
       </div>
     </div>
   )

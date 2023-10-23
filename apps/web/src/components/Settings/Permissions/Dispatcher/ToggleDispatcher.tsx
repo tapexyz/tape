@@ -23,7 +23,7 @@ import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
-const Toggle = () => {
+const ToggleDispatcher = () => {
   const [loading, setLoading] = useState(false)
 
   const { activeProfile, setActiveProfile } = useProfileStore()
@@ -151,4 +151,4 @@ const Toggle = () => {
   )
 }
 
-export default Toggle
+export default ToggleDispatcher

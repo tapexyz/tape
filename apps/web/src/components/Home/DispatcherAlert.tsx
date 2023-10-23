@@ -1,4 +1,4 @@
-import Toggle from '@components/Settings/Permissions/Dispatcher/Toggle'
+import ToggleDispatcher from '@components/Settings/Permissions/Dispatcher/ToggleDispatcher'
 import SignalWaveGraphic from '@components/UIElements/SignalWaveGraphic'
 import useProfileStore from '@lib/store/profile'
 import { t } from '@lingui/macro'
@@ -34,7 +34,7 @@ const DispatcherAlert = () => {
           {getDescription()}
         </p>
         <Flex>
-          <Toggle />
+          <ToggleDispatcher />
         </Flex>
       </div>
 
