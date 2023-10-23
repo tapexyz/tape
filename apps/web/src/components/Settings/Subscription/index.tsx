@@ -6,7 +6,7 @@ import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import usePendingTxn from '@hooks/usePendingTxn'
 import useNonceStore from '@lib/store/nonce'
 import { t, Trans } from '@lingui/macro'
-import { Button, Card, Flex, Select, Text } from '@radix-ui/themes'
+import { Button, Flex, Select, Text } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { useCopyToClipboard } from '@tape.xyz/browser'
 import {
@@ -214,7 +214,7 @@ const Subscription = ({ channel }: Props) => {
       )}
 
       {activeFollowModule?.amount && (
-        <Card className="tape-border from-brand-100 to-brand-200 mb-6 w-full rounded-xl bg-gradient-to-br p-6 transition-all">
+        <div className="tape-border bg-brand-50 dark:bg-brand-950/30 mb-6 w-full rounded-xl bg-gradient-to-br p-6 transition-all">
           <div className="grid gap-y-4 md:grid-cols-3">
             <div>
               <span className="text-xs font-medium uppercase opacity-50">
@@ -249,7 +249,7 @@ const Subscription = ({ channel }: Props) => {
               </Tooltip>
             </div>
           </div>
-        </Card>
+        </div>
       )}
 
       {showForm && !moduleLoading ? (
@@ -312,11 +312,15 @@ const Subscription = ({ channel }: Props) => {
           </Flex>
           <div className="mt-6 flex justify-end space-x-2">
             {activeFollowModule && (
-              <Button variant="soft" onClick={() => setShowForm(false)}>
+              <Button
+                variant="surface"
+                size="3"
+                onClick={() => setShowForm(false)}
+              >
                 <Trans>Cancel</Trans>
               </Button>
             )}
-            <Button size="3" highContrast disabled={loading}>
+            <Button size="3" variant="surface" highContrast disabled={loading}>
               Set Membership
             </Button>
           </div>
@@ -325,6 +329,7 @@ const Subscription = ({ channel }: Props) => {
       {!moduleLoading && !showForm && (
         <div className="flex items-center justify-end space-x-2">
           <Button
+            variant="surface"
             color="red"
             size="3"
             disabled={loading}
@@ -333,7 +338,12 @@ const Subscription = ({ channel }: Props) => {
             {loading && <Loader size="sm" />}
             <Trans>Disable</Trans>
           </Button>
-          <Button highContrast size="3" onClick={() => setShowForm(true)}>
+          <Button
+            variant="surface"
+            highContrast
+            size="3"
+            onClick={() => setShowForm(true)}
+          >
             <Trans>Update</Trans>
           </Button>
         </div>

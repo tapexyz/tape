@@ -250,7 +250,14 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
   const modifyListCache = (saved: boolean) => {
     cache.modify({
       id: `Post:${video?.id}`,
-      fields: { bookmarked: () => saved }
+      fields: {
+        operations: () => {
+          return {
+            ...video.operations,
+            hasBookmarked: saved
+          }
+        }
+      }
     })
     toast.success(
       saved ? t`Video added to your list` : t`Video removed from your list`
@@ -275,10 +282,7 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
 
   const [removeVideoFromList] = useRemovePublicationBookmarkMutation({
     onError,
-    onCompleted: () => modifyListCache(false),
-    update: (cache) => {
-      cache.evict({})
-    }
+    onCompleted: () => modifyListCache(false)
   })
 
   const notInterested = () => {

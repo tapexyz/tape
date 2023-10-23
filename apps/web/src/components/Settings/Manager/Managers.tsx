@@ -69,6 +69,7 @@ const Entry = ({
           onClick={() => onRemove(address)}
           disabled={removingAddress === address}
           color="red"
+          variant="surface"
           size="1"
         >
           <Trans>Remove</Trans>

@@ -2,40 +2,76 @@ import Badge from '@components/Common/Badge'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAuthPersistStore from '@lib/store/auth'
+import useNonceStore from '@lib/store/nonce'
 import { t } from '@lingui/macro'
 import { Avatar, Button } from '@radix-ui/themes'
+import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
+import {
+  ERROR_MESSAGE,
+  LENSHUB_PROXY_ADDRESS,
+  REQUESTING_SIGNATURE_MESSAGE
+} from '@tape.xyz/constants'
 import {
   getProfile,
   getProfileCoverPicture,
   getProfilePicture,
+  getSignature,
   imageCdn,
   sanitizeDStorageUrl
 } from '@tape.xyz/generic'
-import type { Profile } from '@tape.xyz/lens'
+import type {
+  CreateUnblockProfilesBroadcastItemResult,
+  Profile
+} from '@tape.xyz/lens'
 import {
   LimitType,
+  useBroadcastOnchainMutation,
+  useCreateUnblockProfilesTypedDataMutation,
   useUnblockMutation,
   useWhoHaveBlockedQuery
 } from '@tape.xyz/lens'
+import { useApolloClient } from '@tape.xyz/lens/apollo'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
+import { useContractWrite, useSignTypedData } from 'wagmi'
 
 const List = () => {
   const [unblockingProfileId, setUnblockingProfileId] = useState('')
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
+  const { cache } = useApolloClient()
 
-  const onError = (error: any) => {
+  const onError = (error: CustomErrorWithData) => {
     setUnblockingProfileId('')
-    toast.error(error)
+    toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
   }
 
-  const onCompleted = () => {
-    setUnblockingProfileId('')
+  const updateCache = () => {
+    const normalizedId = cache.identify({
+      id: unblockingProfileId,
+      __typename: 'Profile'
+    })
+    cache.evict({ id: normalizedId })
+    cache.gc()
+  }
+
+  const onCompleted = (
+    __typename?: 'RelayError' | 'RelaySuccess' | 'LensProfileManagerRelayError'
+  ) => {
+    if (
+      __typename === 'RelayError' ||
+      __typename === 'LensProfileManagerRelayError'
+    ) {
+      return
+    }
+    updateCache()
     toast.success(t`Unblocked successfully`)
+    setUnblockingProfileId('')
   }
 
   const { data, loading, error } = useWhoHaveBlockedQuery({
@@ -43,12 +79,64 @@ const List = () => {
     skip: !selectedSimpleProfile?.id
   })
 
-  const [unBlock] = useUnblockMutation({
-    onCompleted,
-    onError,
-    update: (cache) => {
-      cache.evict({})
+  const { signTypedDataAsync } = useSignTypedData({
+    onError
+  })
+
+  const { write } = useContractWrite({
+    address: LENSHUB_PROXY_ADDRESS,
+    abi: LENSHUB_PROXY_ABI,
+    functionName: 'setBlockStatus',
+    onSuccess: () => onCompleted(),
+    onError
+  })
+
+  const [broadcast] = useBroadcastOnchainMutation({
+    onCompleted: ({ broadcastOnchain }) =>
+      onCompleted(broadcastOnchain.__typename),
+    onError
+  })
+
+  const broadcastTypedData = async (
+    typedDataResult: CreateUnblockProfilesBroadcastItemResult
+  ) => {
+    const { typedData, id } = typedDataResult
+    try {
+      toast.loading(REQUESTING_SIGNATURE_MESSAGE)
+      const signature = await signTypedDataAsync(getSignature(typedData))
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
+      const { data } = await broadcast({
+        variables: { request: { id, signature } }
+      })
+      if (data?.broadcastOnchain?.__typename === 'RelayError') {
+        const { byProfileId, idsOfProfilesToSetBlockStatus, blockStatus } =
+          typedData.value
+        write?.({
+          args: [byProfileId, idsOfProfilesToSetBlockStatus, blockStatus]
+        })
+      }
+    } catch {
+      setUnblockingProfileId('')
     }
+  }
+
+  const [createUnBlockTypedData] = useCreateUnblockProfilesTypedDataMutation({
+    onCompleted: async ({ createUnblockProfilesTypedData }) => {
+      broadcastTypedData(createUnblockProfilesTypedData)
+    },
+    onError
+  })
+
+  const [unBlock] = useUnblockMutation({
+    onCompleted: async ({ unblock }) => {
+      if (unblock.__typename === 'LensProfileManagerRelayError') {
+        return await createUnBlockTypedData({
+          variables: { request: { profiles: [unblockingProfileId] } }
+        })
+      }
+      onCompleted(unblock.__typename)
+    },
+    onError
   })
 
   const blockedProfiles = data?.whoHaveBlocked?.items as Profile[]
@@ -62,6 +150,10 @@ const List = () => {
   }
 
   const onClickUnblock = async (profileId: string) => {
+    console.log(
+      '🚀 ~ file: List.tsx:154 ~ onClickUnblock ~ profileId:',
+      profileId
+    )
     try {
       setUnblockingProfileId(profileId)
       await unBlock({
@@ -71,13 +163,13 @@ const List = () => {
           }
         }
       })
-    } catch (error) {
+    } catch (error: any) {
       onError(error)
     }
   }
 
   return (
-    <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+    <div className="grid grid-cols-2 gap-3 lg:grid-cols-3">
       {blockedProfiles.map((profile) => (
         <div
           key={profile.id}

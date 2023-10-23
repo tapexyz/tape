@@ -160,6 +160,7 @@ const ModuleAllowance = () => {
                   {moduleItem?.allowance.value === '0x00' ? (
                     <Button
                       size="3"
+                      variant="surface"
                       highContrast
                       disabled={loadingModule === moduleItem.moduleName}
                       onClick={() => handleClick(true, moduleItem.moduleName)}
@@ -169,6 +170,7 @@ const ModuleAllowance = () => {
                   ) : (
                     <Button
                       size="3"
+                      variant="surface"
                       color="red"
                       onClick={() => handleClick(false, moduleItem.moduleName)}
                       disabled={loadingModule === moduleItem.moduleName}

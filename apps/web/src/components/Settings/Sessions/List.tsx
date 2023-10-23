@@ -104,6 +104,7 @@ const List = () => {
                 </Blockquote>
                 <Button
                   onClick={() => revoke(session.authorizationId)}
+                  variant="surface"
                   color="red"
                   disabled={
                     revokingSessionId === session.authorizationId ||
