@@ -34,7 +34,7 @@ const ReferenceModule = () => {
   return (
     <div className="flex-1 space-y-1">
       <Text size="2" weight="medium">
-        <Trans>Who can comment and mirror?</Trans>
+        <Trans>Who can comment, quote and mirror?</Trans>
       </Text>
 
       <Select.Root
@@ -48,6 +48,7 @@ const ReferenceModule = () => {
                 ? {
                     commentsRestricted: true,
                     mirrorsRestricted: true,
+                    quotesRestricted: true,
                     degreesOfSeparation: 4
                   }
                 : null

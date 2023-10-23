@@ -48,6 +48,7 @@ export type ReferenceModuleType = {
   degreesOfSeparationReferenceModule?: {
     commentsRestricted: boolean
     mirrorsRestricted: boolean
+    quotesRestricted: boolean
     degreesOfSeparation: number
   } | null
 }

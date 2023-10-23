@@ -23,7 +23,6 @@ msgid "Mirror"
 msgstr "Mirror"
 
 #: src/components/Bytes/ByteActions.tsx
-#: src/components/Home/FEOpenActions/Zora/ZoraNft.tsx
 #: src/components/Watch/OpenActions/CollectPublication/index.tsx
 msgid "Collect"
 msgstr "Recoger"
@@ -458,6 +457,7 @@ msgid "Pin Video"
 msgstr "Fijar vídeo"
 
 #: src/components/Common/VideoCard/VideoOptions.tsx
+#: src/components/Settings/DangerZone/Delete.tsx
 #: src/components/Watch/Comments/CommentOptions.tsx
 msgid "Delete"
 msgstr "Eliminar"
@@ -750,6 +750,10 @@ msgid "Failed to deposit storage balance"
 msgstr "Error al depositar el saldo"
 
 #: src/components/Create/IrysInfo.tsx
+msgid "Not enough storage balance available, deposit to continue."
+msgstr ""
+
+#: src/components/Create/IrysInfo.tsx
 msgid "Your storage balance"
 msgstr ""
 
@@ -783,7 +787,11 @@ msgid "Upload from Source Url"
 msgstr "Subir desde la Url de origen"
 
 #: src/components/Create/UploadMethod.tsx
-msgid "Please note that your media exceeds the free limit ({IPFS_FREE_UPLOAD_LIMIT} mb), and you can proceed with the upload by paying the storage fee."
+#~ msgid "Please note that your media exceeds the free limit ({IPFS_FREE_UPLOAD_LIMIT} mb), and you can proceed with the upload by paying the storage fee."
+#~ msgstr ""
+
+#: src/components/Create/UploadMethod.tsx
+msgid "Please note that your media exceeds the free limit ({0}), and you can proceed with the upload by paying the storage fee."
 msgstr ""
 
 #: src/components/Create/index.tsx
@@ -1176,7 +1184,8 @@ msgid "No other channels found"
 msgstr "No se encontraron otros canales"
 
 #: src/components/Profile/Tabs/OtherProfiles.tsx
-#: src/components/UIElements/ChannelSuggestions.tsx
+#: src/components/UIElements/ProfileSuggestions.tsx
+#: src/components/Watch/AboutProfile.tsx
 msgid "followers"
 msgstr ""
 
@@ -1823,8 +1832,8 @@ msgstr "Confirmar"
 #~ msgstr "El vídeo se almacenará permanentemente en la cadena y no se podrá actualizar"
 
 #: src/components/Watch/AboutChannel.tsx
-msgid "subscribers"
-msgstr "suscriptores"
+#~ msgid "subscribers"
+#~ msgstr "suscriptores"
 
 #: src/components/Watch/CollectVideo/CollectModal.tsx
 #~ msgid "Collect Video"
