@@ -15,7 +15,7 @@ import React, { useEffect } from 'react'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
 
-import AboutChannel from './AboutChannel'
+import AboutProfile from './AboutProfile'
 import VideoComments from './Comments/VideoComments'
 import SuggestedVideos from './SuggestedVideos'
 import Video from './Video'
@@ -67,7 +67,7 @@ const VideoDetails = () => {
           <div className="col-span-3 space-y-3.5">
             <Video video={video} />
             <hr className="border-[0.5px] border-gray-200 dark:border-gray-800" />
-            <AboutChannel video={video} />
+            <AboutProfile video={video} />
             <hr className="border-[0.5px] border-gray-200 dark:border-gray-800" />
             <VideoComments video={video} />
             {/* {selectedCommentFilter ===

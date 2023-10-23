@@ -22,18 +22,18 @@ type Props = {
   video: MirrorablePublication
 }
 
-const AboutChannel: FC<Props> = ({ video }) => {
+const AboutProfile: FC<Props> = ({ video }) => {
   const profile = video?.by
   const [clamped, setClamped] = useState(false)
   const [showMore, setShowMore] = useState(false)
   const metadata = video.metadata as VideoMetadataV3
 
   useEffect(() => {
-    if (metadata.marketplace?.description?.trim().length > 500) {
+    if (metadata?.content?.trim().length > 500) {
       setClamped(true)
       setShowMore(true)
     }
-  }, [metadata.marketplace?.description])
+  }, [metadata?.content])
 
   return (
     <div className="flex w-full items-start justify-between">
@@ -62,8 +62,7 @@ const AboutChannel: FC<Props> = ({ video }) => {
               </Link>
             </HoverableProfile>
             <span className="inline-flex items-center space-x-1 text-xs">
-              {formatNumber(profile?.stats.followers)}{' '}
-              <Trans>subscribers</Trans>
+              {formatNumber(profile?.stats.followers)} <Trans>followers</Trans>
             </span>
           </div>
         </div>
@@ -101,4 +100,4 @@ const AboutChannel: FC<Props> = ({ video }) => {
   )
 }
 
-export default AboutChannel
+export default AboutProfile

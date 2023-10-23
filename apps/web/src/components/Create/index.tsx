@@ -308,7 +308,7 @@ const CreateSteps = () => {
         video: {
           item: uploadedVideo.videoSource,
           type: MediaVideoMimeType.MP4,
-          altTag: uploadedVideo.title,
+          altTag: trimify(uploadedVideo.title),
           attributes,
           cover: uploadedVideo.thumbnail,
           duration: uploadedVideo.durationInSeconds,
@@ -317,9 +317,7 @@ const CreateSteps = () => {
         appId: TAPE_APP_ID,
         id: uuidv4(),
         attributes,
-        content: trimify(
-          `${uploadedVideo.title}\n\n${uploadedVideo.description}`
-        ),
+        content: trimify(uploadedVideo.description),
         tags: [uploadedVideo.videoCategory.tag],
         locale: getUserLocale(),
         title: uploadedVideo.title,
