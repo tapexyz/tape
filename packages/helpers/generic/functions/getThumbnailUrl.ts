@@ -6,15 +6,11 @@ import { sanitizeDStorageUrl } from './sanitizeDStorageUrl'
 const getCover = (metadata: PublicationMetadata) => {
   switch (metadata.__typename) {
     case 'VideoMetadataV3':
-      return (
-        metadata.asset.cover?.optimized?.uri || metadata.asset.cover?.raw?.uri
-      )
+      return metadata.asset.cover?.optimized?.uri
     case 'LiveStreamMetadataV3':
       return metadata.playbackURL
     case 'AudioMetadataV3':
-      return (
-        metadata.asset.cover?.optimized?.uri || metadata.asset.cover?.raw?.uri
-      )
+      return metadata.asset.cover?.optimized?.uri
     default:
       return ''
   }

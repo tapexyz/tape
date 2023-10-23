@@ -1,9 +1,13 @@
-import { STATIC_ASSETS } from '@tape.xyz/constants'
 import type { Profile } from '@tape.xyz/lens'
 
-export const getProfileCoverPicture = (profile: Profile): string => {
+export const getProfileCoverPicture = (
+  profile: Profile,
+  withFallback: boolean = false
+): string => {
   return profile.metadata?.coverPicture &&
-    profile.metadata?.coverPicture.raw.uri
-    ? profile?.metadata.coverPicture.raw.uri
-    : `${STATIC_ASSETS}/images/fallback-cover.svg`
+    profile.metadata?.coverPicture.optimized?.uri
+    ? profile?.metadata.coverPicture.optimized.uri
+    : withFallback
+    ? 'ipfs://bafkreihn5v4hpuxgcysnpb4pgcerkmhwddxq65qswmit6j4nj44btyzdou' //`${STATIC_ASSETS}/images/fallback-cover.svg`
+    : null
 }

@@ -1,36 +1,26 @@
-import type {
-  PublicationMetadata,
-  PublicationMetadataMediaAudio,
-  PublicationMetadataMediaVideo
-} from '@tape.xyz/lens'
+import type { PublicationMetadata } from '@tape.xyz/lens'
 
-export const getPublicationRawMediaUrl = (
-  metadata: PublicationMetadataMediaAudio | PublicationMetadataMediaVideo
-) => {
-  return metadata?.cover?.raw?.uri
+import { sanitizeDStorageUrl } from './sanitizeDStorageUrl'
+
+const getOptimizedUri = (metadata: PublicationMetadata) => {
+  switch (metadata.__typename) {
+    case 'VideoMetadataV3':
+      return metadata.asset.video.optimized?.uri
+    case 'LiveStreamMetadataV3':
+      return metadata.playbackURL
+    case 'AudioMetadataV3':
+      return metadata.asset.audio.optimized?.uri
+    case 'ImageMetadataV3':
+      return metadata.asset.image.optimized?.uri
+    default:
+      return ''
+  }
 }
 
 export const getPublicationMediaUrl = (
   metadata: PublicationMetadata
 ): string => {
-  switch (metadata.__typename) {
-    case 'VideoMetadataV3':
-      return (
-        metadata.asset.video.optimized?.uri || metadata.asset.video.raw?.uri
-      )
-    case 'LiveStreamMetadataV3':
-      return metadata.playbackURL
-    case 'AudioMetadataV3':
-      return (
-        metadata.asset.audio.optimized?.uri || metadata.asset.audio.raw?.uri
-      )
-    case 'ImageMetadataV3':
-      return (
-        metadata.asset.image.optimized?.uri || metadata.asset.image.raw?.uri
-      )
-    default:
-      return ''
-  }
+  return sanitizeDStorageUrl(getOptimizedUri(metadata))
 }
 
 export const getPublicationMediaCid = (

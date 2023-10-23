@@ -87,8 +87,14 @@ type FormData = z.infer<typeof formSchema> & { coverImage?: string }
 const BasicInfo = ({ profile }: Props) => {
   const [copy] = useCopyToClipboard()
   const [loading, setLoading] = useState(false)
-  const [coverImage, setCoverImage] = useState(getProfileCoverPicture(profile))
-  const [selectedPfp, setSelectedPfp] = useState('')
+  const [coverImage, setCoverImage] = useState<string>(
+    profile.metadata?.coverPicture?.raw.uri
+  )
+  const [selectedPfp, setSelectedPfp] = useState<string | null>(
+    profile.metadata?.picture?.__typename === 'ImageSet'
+      ? profile.metadata?.picture.raw.uri
+      : null
+  )
   const [uploading, setUploading] = useState({ pfp: false, cover: false })
   const handleWrongNetwork = useHandleWrongNetwork()
 
@@ -208,7 +214,6 @@ const BasicInfo = ({ profile }: Props) => {
       setLoading(true)
       const metadata: ProfileOptions = {
         appId: TAPE_APP_ID,
-        coverPicture: data.coverImage ?? coverImage,
         id: uuidv4(),
         attributes: [
           ...otherAttributes,
@@ -250,23 +255,16 @@ const BasicInfo = ({ profile }: Props) => {
       if (Boolean(trimify(data.description))) {
         metadata.bio = trimify(data.description)
       }
-      if (Boolean(selectedPfp)) {
-        metadata.picture = trimify(selectedPfp)
+      if (selectedPfp && Boolean(selectedPfp)) {
+        metadata.picture = selectedPfp
+      }
+      if (coverImage && Boolean(coverImage)) {
+        metadata.coverPicture = coverImage
       }
       if (Boolean(trimify(data.displayName))) {
         metadata.name = trimify(data.displayName)
       }
-      if (
-        Boolean(
-          trimify(getProfilePicture(activeProfile as Profile, 'AVATAR', false))
-        )
-      ) {
-        metadata.picture = getProfilePicture(
-          activeProfile as Profile,
-          'AVATAR',
-          false
-        )
-      }
+
       const metadataUri = await uploadToAr(profileMetadata(metadata))
       const request: OnchainSetProfileMetadataRequest = {
         metadataURI: metadataUri

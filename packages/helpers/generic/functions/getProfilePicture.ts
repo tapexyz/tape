@@ -14,9 +14,9 @@ export const getProfilePicture = (
   const url =
     profile.metadata?.picture &&
     profile.metadata?.picture.__typename === 'ImageSet'
-      ? profile.metadata?.picture?.raw?.uri
+      ? profile.metadata?.picture?.optimized?.uri
       : profile.metadata?.picture?.__typename === 'NftImage'
-      ? profile?.metadata.picture.image?.raw.uri
+      ? profile?.metadata.picture.image?.optimized?.uri
       : withFallback
       ? getRandomProfilePicture(profile?.ownedBy.address)
       : ''
