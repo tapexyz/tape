@@ -7,7 +7,8 @@ import { Analytics, TRACK } from '@tape.xyz/browser'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
-  REQUESTING_SIGNATURE_MESSAGE
+  REQUESTING_SIGNATURE_MESSAGE,
+  SIGN_IN_REQUIRED
 } from '@tape.xyz/constants'
 import { getSignature } from '@tape.xyz/generic'
 import type {
@@ -142,7 +143,7 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
 
   const mirrorVideo = async () => {
     if (!selectedSimpleProfile?.id) {
-      return toast.error('Sign in to proceed')
+      return toast.error(SIGN_IN_REQUIRED)
     }
     if (handleWrongNetwork()) {
       return

@@ -8,7 +8,11 @@ import useProfileStore from '@lib/store/profile'
 import { t, Trans } from '@lingui/macro'
 import { Button, Callout } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
-import { ERROR_MESSAGE, LENSHUB_PROXY_ADDRESS } from '@tape.xyz/constants'
+import {
+  ERROR_MESSAGE,
+  LENSHUB_PROXY_ADDRESS,
+  SIGN_IN_REQUIRED
+} from '@tape.xyz/constants'
 import {
   formatNumber,
   getProfile,
@@ -280,7 +284,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
 
   const collectNow = async () => {
     if (!activeProfile?.id) {
-      return toast.error('Sign in to proceed')
+      return toast.error(SIGN_IN_REQUIRED)
     }
 
     if (handleWrongNetwork()) {

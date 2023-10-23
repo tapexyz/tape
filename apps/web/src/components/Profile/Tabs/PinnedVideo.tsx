@@ -14,6 +14,7 @@ import {
   LENSHUB_PROXY_ADDRESS,
   LENSTUBE_BYTES_APP_ID,
   REQUESTING_SIGNATURE_MESSAGE,
+  SIGN_IN_REQUIRED,
   TAPE_APP_ID
 } from '@tape.xyz/constants'
 import {
@@ -155,7 +156,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
 
   const unpinVideo = async () => {
     if (!activeProfile) {
-      return toast.error('Sign in to proceed')
+      return toast.error(SIGN_IN_REQUIRED)
     }
     if (handleWrongNetwork()) {
       return

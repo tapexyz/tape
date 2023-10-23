@@ -16,6 +16,7 @@ import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
+  SIGN_IN_REQUIRED,
   TAPE_APP_ID
 } from '@tape.xyz/constants'
 import {
@@ -101,7 +102,7 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
 
   const onClickReport = () => {
     if (!selectedSimpleProfile?.id) {
-      return toast.error('Sign in to proceed')
+      return toast.error(SIGN_IN_REQUIRED)
     }
     if (handleWrongNetwork()) {
       return
@@ -177,7 +178,7 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
 
   const onPinVideo = async () => {
     if (!activeProfile) {
-      return toast.error('Sign in to proceed')
+      return toast.error(SIGN_IN_REQUIRED)
     }
     if (handleWrongNetwork()) {
       return
@@ -282,7 +283,7 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
 
   const notInterested = () => {
     if (!selectedSimpleProfile?.id) {
-      return toast.error('Sign in to proceed')
+      return toast.error(SIGN_IN_REQUIRED)
     }
     if (video.operations.isNotInterested) {
       addNotInterested({
@@ -305,7 +306,7 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
 
   const saveToList = () => {
     if (!selectedSimpleProfile?.id) {
-      return toast.error('Sign in to proceed')
+      return toast.error(SIGN_IN_REQUIRED)
     }
     if (video.operations.hasBookmarked) {
       removeVideoFromList({

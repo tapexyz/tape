@@ -6,7 +6,6 @@ import { getZoraChainInfo } from '@tape.xyz/generic'
 import type { ZoraNft } from '@tape.xyz/lens/custom-types'
 import Link from 'next/link'
 import React, { useState } from 'react'
-import toast from 'react-hot-toast'
 import { encodeAbiParameters, parseAbiParameters, parseEther } from 'viem'
 import type { Address } from 'wagmi'
 import {
@@ -121,9 +120,9 @@ const Collect = ({ nft, link }: { nft: ZoraNft; link: string }) => {
         </div>
       </div>
       {isDisconnected ? (
-        <Button onClick={() => toast.error('Sign in to proceed')}>
-          Connect Wallet
-        </Button>
+        <Link href="/login">
+          <Button>Connect Wallet</Button>
+        </Link>
       ) : chain !== nft.chainId ? (
         <Button onClick={() => switchNetwork?.(nft.chainId)} color="red">
           Switch to {getZoraChainInfo(nft.chainId).name}

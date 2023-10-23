@@ -12,6 +12,7 @@ import { Analytics, getUserLocale, TRACK } from '@tape.xyz/browser'
 import {
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
+  SIGN_IN_REQUIRED,
   STATIC_ASSETS,
   TAPE_APP_ID,
   TAPE_WEBSITE_URL
@@ -348,7 +349,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
 
   const onSendTip = async () => {
     if (!selectedSimpleProfile?.id) {
-      return toast.error('Sign in to proceed')
+      return toast.error(SIGN_IN_REQUIRED)
     }
     if (video.momoka?.proof && !activeProfile?.sponsor) {
       return toast.error(

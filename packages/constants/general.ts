@@ -106,6 +106,7 @@ export const REQUESTING_SIGNATURE_MESSAGE = 'Requesting signature...'
 
 // error messages
 export const ERROR_MESSAGE = 'Oops, something went wrong!'
+export const SIGN_IN_REQUIRED = 'Login to continue'
 
 // App Ids
 export const TAPE_APP_ID = 'tape'

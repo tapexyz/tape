@@ -3,7 +3,11 @@ import useProfileStore from '@lib/store/profile'
 import { Trans } from '@lingui/macro'
 import { Button } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
-import { ERROR_MESSAGE, LENSHUB_PROXY_ADDRESS } from '@tape.xyz/constants'
+import {
+  ERROR_MESSAGE,
+  LENSHUB_PROXY_ADDRESS,
+  SIGN_IN_REQUIRED
+} from '@tape.xyz/constants'
 import type { Profile } from '@tape.xyz/lens'
 import { useProfileLazyQuery } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
@@ -68,7 +72,7 @@ const Guardian: FC = () => {
 
   const toggle = async () => {
     if (!activeProfile?.id) {
-      return toast.error('Sign in to proceed')
+      return toast.error(SIGN_IN_REQUIRED)
     }
 
     if (handleWrongNetwork()) {

@@ -3,6 +3,7 @@ import useAuthPersistStore from '@lib/store/auth'
 import { t } from '@lingui/macro'
 import { Button } from '@radix-ui/themes'
 import { Analytics, TRACK } from '@tape.xyz/browser'
+import { SIGN_IN_REQUIRED } from '@tape.xyz/constants'
 import { formatNumber, getPublication } from '@tape.xyz/generic'
 import type { AnyPublication } from '@tape.xyz/lens'
 import {
@@ -58,7 +59,7 @@ const PublicationReaction: FC<Props> = ({
 
   const likeVideo = () => {
     if (!selectedSimpleProfile?.id) {
-      return toast.error('Sign in to proceed')
+      return toast.error(SIGN_IN_REQUIRED)
     }
     setReaction((prev) => ({
       likeCount: prev.isLiked ? prev.likeCount - 1 : prev.likeCount + 1,

@@ -14,6 +14,7 @@ import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
 import { t, Trans } from '@lingui/macro'
 import { Button, Flex } from '@radix-ui/themes'
+import { SIGN_IN_REQUIRED } from '@tape.xyz/constants'
 import {
   getProfile,
   getProfilePicture,
@@ -136,7 +137,7 @@ const RenderComment: FC<Props> = ({ comment }) => {
                 highContrast
                 onClick={() => {
                   if (!selectedSimpleProfile?.id) {
-                    return toast.error('Sign in to proceed')
+                    return toast.error(SIGN_IN_REQUIRED)
                   }
                   if (handleWrongNetwork()) {
                     return
@@ -184,7 +185,7 @@ const RenderComment: FC<Props> = ({ comment }) => {
                 comment={comment}
                 replyTo={(profile) => {
                   if (!selectedSimpleProfile?.id) {
-                    return toast.error('Sign in to proceed')
+                    return toast.error(SIGN_IN_REQUIRED)
                   }
                   if (handleWrongNetwork()) {
                     return

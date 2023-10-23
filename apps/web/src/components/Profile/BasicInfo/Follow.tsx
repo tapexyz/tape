@@ -8,7 +8,8 @@ import { Analytics, TRACK } from '@tape.xyz/browser'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
-  REQUESTING_SIGNATURE_MESSAGE
+  REQUESTING_SIGNATURE_MESSAGE,
+  SIGN_IN_REQUIRED
 } from '@tape.xyz/constants'
 import { getProfile, getSignature } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
@@ -116,7 +117,7 @@ const Follow: FC<Props> = ({ profile, onSubscribe, size = '2' }) => {
 
   const follow = async () => {
     if (!selectedSimpleProfile?.id) {
-      return toast.error('Sign in to proceed')
+      return toast.error(SIGN_IN_REQUIRED)
     }
     setLoading(true)
     if (canUseRelay) {
