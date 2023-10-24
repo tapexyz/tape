@@ -1,0 +1,23 @@
+{
+  "name": "@workers/tower",
+  "version": "0.0.0",
+  "license": "AGPL-3.0",
+  "private": true,
+  "scripts": {
+    "worker:dev": "wrangler dev",
+    "worker:deploy": "wrangler deploy"
+  },
+  "dependencies": {
+    "itty-router": "^4.0.23",
+    "ua-parser-js": "^1.0.36",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20231016.0",
+    "@tape.xyz/config": "*",
+    "@tape.xyz/generic": "*",
+    "@types/ua-parser-js": "^0.7.38",
+    "typescript": "^5.2.2",
+    "wrangler": "3.14.0"
+  }
+}
