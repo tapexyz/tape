@@ -29,7 +29,7 @@ const HoverableProfile: FC<Props> = ({ profile, fontSize = '2', children }) => {
     <HoverCard.Root>
       <HoverCard.Trigger>
         {children ?? (
-          <Link href={`/u/${getProfile(profile)?.slug}`}>
+          <Link href={getProfile(profile)?.link}>
             <Flex align="center" gap="1">
               <Text size={fontSize} color="gray">
                 {getProfile(profile)?.slug}

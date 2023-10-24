@@ -89,6 +89,7 @@ const Delete = () => {
       <Button
         size="3"
         color="red"
+        variant="surface"
         disabled={loading}
         onClick={() => onClickDelete()}
       >

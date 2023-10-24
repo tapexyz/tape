@@ -138,6 +138,7 @@ const Guardian: FC = () => {
         {guardianEnabled ? (
           <Button
             size="3"
+            variant="surface"
             color="red"
             disabled={loading}
             onClick={() => toggle()}
@@ -147,6 +148,7 @@ const Guardian: FC = () => {
         ) : (
           <Button
             size="3"
+            variant="surface"
             disabled={loading}
             highContrast
             onClick={() => toggle()}
