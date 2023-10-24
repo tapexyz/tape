@@ -1,9 +1,14 @@
+import getCurrentSessionId from '@lib/getCurrentSessionId'
 import useNonceStore from '@lib/store/nonce'
 import usePersistStore from '@lib/store/persist'
 import useProfileStore from '@lib/store/profile'
 import { LENS_API_URL } from '@tape.xyz/constants'
 import type { Notification, UserSigNonces } from '@tape.xyz/lens'
-import { NewNotificationDocument, UserSigNoncesDocument } from '@tape.xyz/lens'
+import {
+  AuthorizationRecordRevokedDocument,
+  NewNotificationDocument,
+  UserSigNoncesDocument
+} from '@tape.xyz/lens'
 import { useEffect } from 'react'
 import useWebSocket from 'react-use-websocket'
 import { useAccount } from 'wagmi'
@@ -27,6 +32,11 @@ const SubscriptionProvider = () => {
   )
 
   useEffect(() => {
+    sendJsonMessage({ type: 'connection_init' })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
     if (readyState === 1 && activeProfile?.id) {
       sendJsonMessage({
         id: '1',
@@ -42,6 +52,14 @@ const SubscriptionProvider = () => {
         payload: {
           variables: { address },
           query: UserSigNoncesDocument
+        }
+      })
+      sendJsonMessage({
+        id: '3',
+        type: 'start',
+        payload: {
+          variables: { authorizationId: getCurrentSessionId() },
+          query: AuthorizationRecordRevokedDocument
         }
       })
     }
