@@ -17,7 +17,7 @@ import {
   TAPE_APP_ID
 } from '@tape.xyz/constants'
 import {
-  Analytics,
+  EVENTS,
   getIsSensitiveContent,
   getProfileCoverPicture,
   getProfilePicture,
@@ -27,7 +27,7 @@ import {
   imageCdn,
   isWatchable,
   sanitizeDStorageUrl,
-  TRACK,
+  Tower,
   uploadToAr
 } from '@tape.xyz/generic'
 import type {
@@ -109,7 +109,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
       return
     }
     toast.success(t`Transaction submitted`)
-    Analytics.track(TRACK.PUBLICATION.UNPIN)
+    Tower.track(EVENTS.PUBLICATION.UNPIN)
   }
 
   const { signTypedDataAsync } = useSignTypedData({

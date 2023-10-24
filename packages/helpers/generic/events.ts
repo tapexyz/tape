@@ -1,16 +1,22 @@
-import { IS_MAINNET, IS_PRODUCTION } from '@tape.xyz/constants'
-import type { Dict } from 'mixpanel-browser'
-import mixpanel from 'mixpanel-browser'
-
-export const Analytics = {
-  track: (eventName: string, payload?: Dict) => {
-    if (IS_PRODUCTION && IS_MAINNET) {
-      mixpanel.track(eventName, payload)
-    }
-  }
-}
-
-export const TRACK = {
+export const EVENTS = {
+  PAGEVIEW: 'Pageview',
+  PAGE_VIEW: {
+    HOME: 'Home Page',
+    EXPLORE: 'Explore Page',
+    CHANNEL: 'Channel Page',
+    EXPLORE_TRENDING: 'Trending Page',
+    EXPLORE_INTERESTING: 'Interesting Page',
+    EXPLORE_POPULAR: 'Popular Page',
+    THANKS: 'Thanks Page',
+    UPLOAD: {
+      DROPZONE: 'DropZone Page',
+      STEPS: 'Upload Steps Page'
+    },
+    SETTINGS: 'Settings Page',
+    WATCH: 'Watch Page',
+    BYTES: 'Bytes Page',
+    NOTIFICATIONS: 'Notifications Page'
+  },
   DISPATCHER: {
     TOGGLE: 'Toggle dispatcher'
   },
@@ -48,31 +54,24 @@ export const TRACK = {
     SIGN_IN_WITH_LENS: 'Sign in with Lens',
     SIGN_OUT: 'Sign Out'
   },
-  CHANNEL: {
-    CLICK_CHANNEL_VIDEOS: 'Click Channel Videos',
-    CLICK_CHANNEL_BYTES: 'Click Channel Bytes',
-    CLICK_CHANNEL_MIRRORS: 'Click Channel Mirrors',
-    CLICK_CHANNEL_LINKS: 'Click Channel Links',
-    CLICK_CHANNEL_NFTS: 'Click Channel NFTs',
-    CLICK_OTHER_CHANNELS: 'Click Other Channels',
-    CLICK_CHANNEL_STATS: 'Click Channel Stats',
-    CLICK_CHANNEL_ABOUT: 'Click Channel About',
-    CLICK_CHANNEL_COVER_LINKS: 'Click Channel Cover Links',
-    UPDATE: 'Update Channel',
-    SUBSCRIBE: 'Subscribe Channel',
-    JOIN: 'Join Channel',
-    UNSUBSCRIBE: 'Unsubscribe Channel'
+  PROFILE: {
+    CLICK_PROFILE_VIDEOS: 'Click Profile Videos',
+    CLICK_PROFILE_BYTES: 'Click Profile Bytes',
+    CLICK_OTHER_CHANNELS: 'Click Other Profiles',
+    CLICK_PROFILE_COVER_LINKS: 'Click Profile Cover Links',
+    UPDATE: 'Update Profile',
+    FOLLOW: 'Follow',
+    SUPER_FOLLOW: 'Super Follow',
+    UNFOLLOW: 'Unfollow'
   },
   DEPOSIT_MATIC: 'Deposit Matic',
   FILTER_CATEGORIES: 'Filter Categories',
-  PLAY_BYTE_VIDEO: 'Play Byte Video',
   EMBED_VIDEO: {
     OPEN: 'Open Embed',
     COPY: 'Copy Embed',
     LOADED: 'Embed Video Loaded',
     WATCH_ON_TAPE: 'Watch on Tape',
-    CLICK_EMBED_TITLE: 'Click Embed Title',
-    CLICK_EMBED_CHANNEL: 'Click Embed Channel'
+    CLICK_EMBED_TITLE: 'Click Embed Title'
   },
   PROFILE_INTERESTS: {
     ADD: 'Add Profile Interest',
@@ -105,23 +104,6 @@ export const TRACK = {
       STATUS: 'Click Status',
       X: 'Click X'
     }
-  },
-  PAGE_VIEW: {
-    HOME: 'Home Page',
-    EXPLORE: 'Explore Page',
-    CHANNEL: 'Channel Page',
-    EXPLORE_TRENDING: 'Trending Page',
-    EXPLORE_INTERESTING: 'Interesting Page',
-    EXPLORE_POPULAR: 'Popular Page',
-    THANKS: 'Thanks Page',
-    UPLOAD: {
-      DROPZONE: 'DropZone Page',
-      STEPS: 'Upload Steps Page'
-    },
-    SETTINGS: 'Settings Page',
-    WATCH: 'Watch Page',
-    BYTES: 'Bytes Page',
-    NOTIFICATIONS: 'Notifications Page'
   }
 }
 

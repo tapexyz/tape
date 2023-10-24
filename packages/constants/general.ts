@@ -91,6 +91,7 @@ export const WORKER_RECS_URL = 'https://recs.tape.xyz'
 export const WORKER_NFTS_URL = 'https://nfts.tape.xyz'
 export const WORKER_DID_URL = 'https://did.tape.xyz'
 export const WORKER_LIVE_URL = 'https://live.tape.xyz'
+export const WORKER_TOWER_URL = 'https://tower.tape.xyz'
 
 export const SB_STORAGE_URL =
   'https://hdpmuwmctxbkykamcvpl.supabase.co/storage/v1/object/public/waves'
@@ -170,10 +171,6 @@ export const HANDLE_PREFIX = IS_MAINNET ? 'lens/@' : 'test/@'
 export const HEY_WEBSITE_URL = IS_MAINNET
   ? 'https://hey.xyz'
   : 'https://testnet.hey.xyz'
-
-// analytics
-export const MIXPANEL_API_HOST = '/collect'
-export const MIXPANEL_TOKEN = '928986a6551f5a12132e63c8bdd4451e'
 
 // banners
 export const SHOW_GITCOIN_BANNER = false

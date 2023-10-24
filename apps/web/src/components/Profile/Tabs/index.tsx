@@ -1,5 +1,5 @@
 import { Box, Tabs } from '@radix-ui/themes'
-import { Analytics, getProfile, TRACK } from '@tape.xyz/generic'
+import { EVENTS, getProfile, Tower } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
@@ -33,7 +33,7 @@ const ProfileTabs: FC<Props> = ({ profile }) => {
           <Tabs.Trigger
             onClick={() => {
               handleTabChange('videos')
-              Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_VIDEOS)
+              Tower.track(EVENTS.PROFILE.CLICK_PROFILE_VIDEOS)
             }}
             value="videos"
           >
@@ -42,7 +42,7 @@ const ProfileTabs: FC<Props> = ({ profile }) => {
           <Tabs.Trigger
             onClick={() => {
               handleTabChange('bytes')
-              Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_BYTES)
+              Tower.track(EVENTS.PROFILE.CLICK_PROFILE_BYTES)
             }}
             value="bytes"
           >
@@ -51,7 +51,7 @@ const ProfileTabs: FC<Props> = ({ profile }) => {
           <Tabs.Trigger
             onClick={() => {
               handleTabChange('channels')
-              Analytics.track(TRACK.CHANNEL.CLICK_OTHER_CHANNELS)
+              Tower.track(EVENTS.PROFILE.CLICK_OTHER_CHANNELS)
             }}
             value="channels"
           >

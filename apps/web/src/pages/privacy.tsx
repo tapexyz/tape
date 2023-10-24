@@ -92,17 +92,8 @@ const privacy = () => {
           </p>
           <h2>5. Analytics</h2>
           <p>
-            We use Mixpanel to collect various events from user actions to
+            We use in-house tool to collect various events from user actions to
             analyse and make decisions for Site improvements.
-          </p>
-          <p>
-            All the data are anonymous and we don't track user details such as
-            name, handle, email, wallet address and so on.
-          </p>
-          <p>
-            We may change to other third-party analytics service provider. The
-            Privacy Policy of Analytics subjects to the every provider. You
-            should review everything before using the Site.
           </p>
           <h2>6. Your Rights and Choices</h2>
           <div>

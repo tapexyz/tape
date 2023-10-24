@@ -3,12 +3,7 @@ import useAuthPersistStore from '@lib/store/auth'
 import { t } from '@lingui/macro'
 import { Button } from '@radix-ui/themes'
 import { SIGN_IN_REQUIRED } from '@tape.xyz/constants'
-import {
-  Analytics,
-  formatNumber,
-  getPublication,
-  TRACK
-} from '@tape.xyz/generic'
+import { EVENTS, formatNumber, getPublication, Tower } from '@tape.xyz/generic'
 import type { AnyPublication } from '@tape.xyz/lens'
 import {
   PublicationReactionType,
@@ -79,7 +74,6 @@ const PublicationReaction: FC<Props> = ({
         }
       })
     } else {
-      Analytics.track(TRACK.PUBLICATION.LIKE)
       addReaction({
         variables: {
           request: {
@@ -88,6 +82,7 @@ const PublicationReaction: FC<Props> = ({
           }
         }
       })
+      Tower.track(EVENTS.PUBLICATION.LIKE)
     }
   }
 

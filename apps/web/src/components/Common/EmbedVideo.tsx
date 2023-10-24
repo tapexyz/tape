@@ -2,7 +2,7 @@ import Tooltip from '@components/UIElements/Tooltip'
 import { Card, Dialog, Flex, IconButton } from '@radix-ui/themes'
 import { useCopyToClipboard } from '@tape.xyz/browser'
 import { TAPE_APP_NAME, TAPE_EMBED_URL } from '@tape.xyz/constants'
-import { Analytics, TRACK } from '@tape.xyz/generic'
+import { EVENTS, Tower } from '@tape.xyz/generic'
 import type { FC } from 'react'
 import React from 'react'
 
@@ -20,12 +20,12 @@ const EmbedVideo: FC<Props> = ({ videoId }) => {
   const iframeCode = `<iframe width="560" height="315" src="${TAPE_EMBED_URL}/${videoId}?autoplay=1&t=0&loop=0" title="${TAPE_APP_NAME} video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;" allowfullscreen></iframe>`
 
   const onCopyCode = () => {
-    Analytics.track(TRACK.EMBED_VIDEO.COPY)
     copy(iframeCode)
+    Tower.track(EVENTS.EMBED_VIDEO.COPY)
   }
 
   const openModal = () => {
-    Analytics.track(TRACK.EMBED_VIDEO.OPEN)
+    Tower.track(EVENTS.EMBED_VIDEO.OPEN)
   }
 
   return (

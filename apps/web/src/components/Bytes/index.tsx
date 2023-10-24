@@ -6,7 +6,7 @@ import {
   INFINITE_SCROLL_ROOT_MARGIN,
   LENS_CUSTOM_FILTERS
 } from '@tape.xyz/constants'
-import { Analytics, TRACK } from '@tape.xyz/generic'
+import { EVENTS, Tower } from '@tape.xyz/generic'
 import type {
   AnyPublication,
   ExplorePublicationRequest,
@@ -84,7 +84,7 @@ const Bytes = () => {
   useEffect(() => {
     if (router.isReady) {
       fetchSingleByte()
-      Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.BYTES })
+      Tower.track(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.BYTES })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.isReady])

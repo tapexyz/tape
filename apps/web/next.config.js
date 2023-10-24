@@ -28,10 +28,6 @@ const moduleExports = {
       {
         source: '/sitemaps/:match*',
         destination: 'https://static.tape.xyz/sitemaps/:match*'
-      },
-      {
-        source: '/collect/:match*',
-        destination: 'https://api.mixpanel.com/:match*'
       }
     ]
   },

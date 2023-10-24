@@ -24,7 +24,6 @@ import { useAccount, useDisconnect } from 'wagmi'
 import FullPageLoader from './FullPageLoader'
 import MobileBottomNav from './MobileBottomNav'
 import Navbar from './Navbar'
-import TelemetryProvider from './Providers/TelemetryProvider'
 
 interface Props {
   children: ReactNode
@@ -142,7 +141,6 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
         position="bottom-right"
         toastOptions={getToastOptions(resolvedTheme)}
       />
-      <TelemetryProvider />
       <MobileBottomNav />
       {!skipNav && <Navbar />}
       <div

@@ -17,12 +17,12 @@ import {
   TAPE_WEBSITE_URL
 } from '@tape.xyz/constants'
 import {
-  Analytics,
+  EVENTS,
   getOpenActionNftMetadata,
   getProfile,
   getSignature,
   getURLs,
-  TRACK,
+  Tower,
   trimify,
   uploadToAr
 } from '@tape.xyz/generic'
@@ -128,7 +128,7 @@ const PostLinkModal: FC<Props> = ({ show, setShow }) => {
     setBasicNftMetadata(defaults)
     toast.success('Link posted')
     setShow(false)
-    Analytics.track(TRACK.PUBLICATION.NEW_POST, {
+    Tower.track(EVENTS.PUBLICATION.NEW_POST, {
       type: 'link',
       publication_state: canUseRelay ? 'MOMOKA' : 'ON_CHAIN',
       user_id: activeProfile?.id

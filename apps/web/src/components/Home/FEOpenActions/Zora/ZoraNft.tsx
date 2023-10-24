@@ -6,7 +6,7 @@ import {
   TAPE_ADMIN_ADDRESS,
   ZORA_MAINNET_CHAINS
 } from '@tape.xyz/constants'
-import { Analytics, TRACK, trimLensHandle } from '@tape.xyz/generic'
+import { EVENTS, Tower, trimLensHandle } from '@tape.xyz/generic'
 import type { BasicNftMetadata } from '@tape.xyz/lens/custom-types'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -79,7 +79,7 @@ const ZoraNft: FC<Props> = ({ nftMetadata }) => {
           <span className="whitespace-nowrap">{trimLensHandle(did)}</span>
           <span className="middot" />
           <Link
-            onClick={() => Analytics.track(TRACK.OPEN_ACTIONS.OPEN_IN_ZORA)}
+            onClick={() => Tower.track(EVENTS.OPEN_ACTIONS.OPEN_IN_ZORA)}
             href={zoraLink}
             target="_blank"
             className="flex items-center space-x-1 font-medium hover:text-indigo-500"

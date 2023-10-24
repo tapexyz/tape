@@ -25,7 +25,7 @@ import {
   TAPE_WEBSITE_URL
 } from '@tape.xyz/constants'
 import {
-  Analytics,
+  EVENTS,
   getProfile,
   getProfileCoverPicture,
   getProfilePicture,
@@ -33,7 +33,7 @@ import {
   getValueFromKeyInAttributes,
   imageCdn,
   sanitizeDStorageUrl,
-  TRACK,
+  Tower,
   trimify,
   uploadToAr
 } from '@tape.xyz/generic'
@@ -145,7 +145,7 @@ const BasicInfo = ({ profile }: Props) => {
     }
     setLoading(false)
     toast.success('Profile updated')
-    Analytics.track(TRACK.CHANNEL.UPDATE)
+    Tower.track(EVENTS.PROFILE.UPDATE)
   }
 
   const { signTypedDataAsync } = useSignTypedData({

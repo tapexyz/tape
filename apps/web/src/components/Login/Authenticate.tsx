@@ -5,11 +5,11 @@ import { t } from '@lingui/macro'
 import { Avatar, Button, Flex, Select, Text } from '@radix-ui/themes'
 import { ERROR_MESSAGE } from '@tape.xyz/constants'
 import {
-  Analytics,
+  EVENTS,
   getProfile,
   getProfilePicture,
   logger,
-  TRACK
+  Tower
 } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import {
@@ -136,7 +136,7 @@ const Authenticate = () => {
           router.push('/')
         }
       }
-      Analytics.track(TRACK.AUTH.SIGN_IN_WITH_LENS)
+      Tower.track(EVENTS.AUTH.SIGN_IN_WITH_LENS)
     } catch (error) {
       logger.error('[Error Sign In]', {
         error,

@@ -1,4 +1,4 @@
-import { Analytics, TRACK } from '@tape.xyz/generic'
+import { EVENTS, Tower } from '@tape.xyz/generic'
 import VideoPlayer from '@tape.xyz/ui/VideoPlayer'
 import type { FC } from 'react'
 import React, { useEffect } from 'react'
@@ -10,7 +10,7 @@ type Props = {
 
 const LiveVideo: FC<Props> = ({ playbackUrl, thumbnailUrl }) => {
   useEffect(() => {
-    Analytics.track(TRACK.OPEN_ACTIONS.OPEN_IN_UNLONELY)
+    Tower.track(EVENTS.OPEN_ACTIONS.OPEN_IN_UNLONELY)
   }, [])
 
   return (

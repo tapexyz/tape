@@ -1,7 +1,7 @@
 import ExternalOutline from '@components/Common/Icons/ExternalOutline'
 import { getShortHandTime } from '@lib/formatTime'
 import { STATIC_ASSETS } from '@tape.xyz/constants'
-import { Analytics, TRACK } from '@tape.xyz/generic'
+import { EVENTS, Tower } from '@tape.xyz/generic'
 import Link from 'next/link'
 import React from 'react'
 
@@ -29,7 +29,7 @@ const Meta = ({ live, channel }: any) => {
           )}
           <span className="middot" />
           <Link
-            onClick={() => Analytics.track(TRACK.OPEN_ACTIONS.OPEN_IN_UNLONELY)}
+            onClick={() => Tower.track(EVENTS.OPEN_ACTIONS.OPEN_IN_UNLONELY)}
             href={`https://www.unlonely.app/channels/${channel}`}
             target="_blank"
             className="flex items-center space-x-1 font-medium hover:text-indigo-500"

@@ -1,7 +1,7 @@
 import { Button } from '@radix-ui/themes'
 import { ZoraCreator1155Impl, ZoraERC721Drop } from '@tape.xyz/abis'
 import { TAPE_ADMIN_ADDRESS, TAPE_APP_NAME } from '@tape.xyz/constants'
-import { Analytics, getZoraChainInfo, TRACK } from '@tape.xyz/generic'
+import { EVENTS, getZoraChainInfo, Tower } from '@tape.xyz/generic'
 import type { ZoraNft } from '@tape.xyz/lens/custom-types'
 import Link from 'next/link'
 import React, { useState } from 'react'
@@ -81,7 +81,7 @@ const Collect = ({ nft, link }: { nft: ZoraNft; link: string }) => {
   } = useContractWrite({
     ...config,
     onSuccess: () => {
-      Analytics.track(TRACK.OPEN_ACTIONS.COLLECT_ZORA)
+      Tower.track(EVENTS.OPEN_ACTIONS.COLLECT_ZORA)
     }
   })
   const { isLoading, isSuccess } = useWaitForTransaction({

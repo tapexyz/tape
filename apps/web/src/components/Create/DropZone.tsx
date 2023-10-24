@@ -4,7 +4,7 @@ import { t, Trans } from '@lingui/macro'
 import { Box, Button } from '@radix-ui/themes'
 import { useDragAndDrop } from '@tape.xyz/browser'
 import { ALLOWED_VIDEO_MIME_TYPES } from '@tape.xyz/constants'
-import { Analytics, canUploadedToIpfs, logger, TRACK } from '@tape.xyz/generic'
+import { canUploadedToIpfs, EVENTS, logger, Tower } from '@tape.xyz/generic'
 import clsx from 'clsx'
 import fileReaderStream from 'filereader-stream'
 import React, { useEffect } from 'react'
@@ -23,7 +23,7 @@ const DropZone = () => {
   } = useDragAndDrop()
 
   useEffect(() => {
-    Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.UPLOAD.DROPZONE })
+    Tower.track(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.UPLOAD.DROPZONE })
   }, [])
 
   const handleUploadedMedia = (file: File) => {

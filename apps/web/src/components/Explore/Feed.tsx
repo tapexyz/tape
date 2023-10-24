@@ -16,7 +16,7 @@ import {
   LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
 } from '@tape.xyz/constants'
-import { Analytics, TRACK } from '@tape.xyz/generic'
+import { EVENTS, Tower } from '@tape.xyz/generic'
 import type {
   ExplorePublicationRequest,
   PrimaryPublication
@@ -107,8 +107,8 @@ const ExploreFeed = () => {
         <Tab
           onClick={() => {
             setActiveCriteria({ ...initialCriteria })
-            Analytics.track('Pageview', {
-              path: TRACK.PAGE_VIEW.EXPLORE_TRENDING
+            Tower.track(EVENTS.PAGEVIEW, {
+              page: EVENTS.PAGE_VIEW.EXPLORE_TRENDING
             })
           }}
           className={({ selected }) =>
@@ -130,8 +130,8 @@ const ExploreFeed = () => {
               popular: true,
               trending: false
             })
-            Analytics.track('Pageview', {
-              path: TRACK.PAGE_VIEW.EXPLORE_POPULAR
+            Tower.track(EVENTS.PAGEVIEW, {
+              page: EVENTS.PAGE_VIEW.EXPLORE_POPULAR
             })
           }}
           className={({ selected }) =>
@@ -153,8 +153,8 @@ const ExploreFeed = () => {
               interesting: true,
               trending: false
             })
-            Analytics.track('Pageview', {
-              path: TRACK.PAGE_VIEW.EXPLORE_INTERESTING
+            Tower.track(EVENTS.PAGEVIEW, {
+              page: EVENTS.PAGE_VIEW.EXPLORE_INTERESTING
             })
           }}
           className={({ selected }) =>

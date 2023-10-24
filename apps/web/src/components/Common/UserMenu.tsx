@@ -4,12 +4,7 @@ import useProfileStore from '@lib/store/profile'
 import { t, Trans } from '@lingui/macro'
 import { Avatar, DropdownMenu, Flex, Text } from '@radix-ui/themes'
 import { ADMIN_IDS } from '@tape.xyz/constants'
-import {
-  Analytics,
-  getProfile,
-  getProfilePicture,
-  TRACK
-} from '@tape.xyz/generic'
+import { EVENTS, getProfile, getProfilePicture, Tower } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import {
   LimitType,
@@ -70,7 +65,7 @@ const UserMenu = () => {
       signOut()
       setActiveProfile(null)
       setSelectedSimpleProfile(null)
-      Analytics.track(TRACK.AUTH.SIGN_OUT)
+      Tower.track(EVENTS.AUTH.SIGN_OUT)
     }
   })
 
@@ -186,7 +181,7 @@ const UserMenu = () => {
             onClick={() => {
               const selected = theme === 'dark' ? 'light' : 'dark'
               setTheme(selected)
-              Analytics.track(TRACK.SYSTEM.TOGGLE_THEME, {
+              Tower.track(EVENTS.SYSTEM.TOGGLE_THEME, {
                 selected_theme: selected
               })
             }}

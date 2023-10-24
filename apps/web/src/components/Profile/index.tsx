@@ -2,10 +2,10 @@ import MetaTags from '@components/Common/MetaTags'
 import ProfilePageShimmer from '@components/Shimmers/ProfilePageShimmer'
 import { HANDLE_PREFIX } from '@tape.xyz/constants'
 import {
-  Analytics,
+  EVENTS,
   getProfile,
   getValueFromKeyInAttributes,
-  TRACK
+  Tower
 } from '@tape.xyz/generic'
 import type { Profile, ProfileRequest } from '@tape.xyz/lens'
 import { useProfileQuery } from '@tape.xyz/lens'
@@ -25,7 +25,7 @@ const ViewProfile = () => {
   const id = query.id as string
 
   useEffect(() => {
-    Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.CHANNEL })
+    Tower.track(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.CHANNEL })
   }, [])
 
   const request: ProfileRequest = {

@@ -2,7 +2,7 @@ import { storeLocale } from '@lib/i18n'
 import { useLingui } from '@lingui/react'
 import { DropdownMenu, Text } from '@radix-ui/themes'
 import { SUPPORTED_LOCALES } from '@tape.xyz/constants'
-import { Analytics, TRACK } from '@tape.xyz/generic'
+import { EVENTS, Tower } from '@tape.xyz/generic'
 import React from 'react'
 
 import GlobeOutline from './Icons/GlobeOutline'
@@ -24,7 +24,7 @@ const Locale = () => {
             key={key}
             onClick={() => {
               storeLocale(key)
-              Analytics.track(TRACK.SYSTEM.SELECT_LOCALE, {
+              Tower.track(EVENTS.SYSTEM.SELECT_LOCALE, {
                 locale: key
               })
             }}

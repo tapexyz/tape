@@ -1,12 +1,10 @@
 import useAuthPersistStore from '@lib/store/auth'
 import {
-  Analytics,
   getPublication,
   getPublicationMediaUrl,
   getThumbnailUrl,
   imageCdn,
-  sanitizeDStorageUrl,
-  TRACK
+  sanitizeDStorageUrl
 } from '@tape.xyz/generic'
 import type { AnyPublication } from '@tape.xyz/lens'
 import VideoPlayer from '@tape.xyz/ui/VideoPlayer'
@@ -48,7 +46,6 @@ const ByteVideo: FC<Props> = ({
     videoRef.current.volume = 1
     videoRef.current.autoplay = true
     videoRef.current?.play().catch(() => {})
-    Analytics.track(TRACK.PLAY_BYTE_VIDEO)
   }
 
   const observer = new IntersectionObserver((data) => {

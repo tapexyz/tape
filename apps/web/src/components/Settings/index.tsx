@@ -2,7 +2,7 @@ import MetaTags from '@components/Common/MetaTags'
 import SettingsShimmer from '@components/Shimmers/SettingsShimmer'
 import useAuthPersistStore from '@lib/store/auth'
 import { t } from '@lingui/macro'
-import { Analytics, TRACK } from '@tape.xyz/generic'
+import { EVENTS, Tower } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { useProfileQuery } from '@tape.xyz/lens'
 import { useRouter } from 'next/router'
@@ -36,7 +36,7 @@ const Settings = () => {
   )
 
   useEffect(() => {
-    Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.SETTINGS })
+    Tower.track(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.SETTINGS })
   }, [])
 
   const { data, loading, error } = useProfileQuery({

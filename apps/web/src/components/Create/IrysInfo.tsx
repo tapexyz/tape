@@ -11,7 +11,7 @@ import { t, Trans } from '@lingui/macro'
 import { Button, Callout, Flex, IconButton, Text } from '@radix-ui/themes'
 import { useIsMounted } from '@tape.xyz/browser'
 import { IRYS_CURRENCY, POLYGON_CHAIN_ID } from '@tape.xyz/constants'
-import { Analytics, logger, TRACK } from '@tape.xyz/generic'
+import { EVENTS, logger, Tower } from '@tape.xyz/generic'
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
 import { formatEther, parseEther, parseUnits } from 'viem'
@@ -136,7 +136,7 @@ const IrysInfo = () => {
             BigInt(fundResult?.quantity)
           )} is done and it will be reflected in few seconds.`
         )
-        Analytics.track(TRACK.DEPOSIT_MATIC)
+        Tower.track(EVENTS.DEPOSIT_MATIC)
       }
     } catch (error) {
       toast.error(t`Failed to deposit storage balance`)

@@ -10,7 +10,7 @@ import {
   REQUESTING_SIGNATURE_MESSAGE,
   SIGN_IN_REQUIRED
 } from '@tape.xyz/constants'
-import { Analytics, getProfile, getSignature, TRACK } from '@tape.xyz/generic'
+import { EVENTS, getProfile, getSignature, Tower } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import {
   useBroadcastOnchainMutation,
@@ -52,9 +52,9 @@ const Follow: FC<Props> = ({ profile, onSubscribe, size = '2' }) => {
     onSubscribe()
     setLoading(false)
     toast.success(`Followed ${getProfile(profile)?.displayName}`)
-    Analytics.track(TRACK.CHANNEL.SUBSCRIBE, {
-      channel_id: profile.id,
-      channel_name: getProfile(profile)?.slug
+    Tower.track(EVENTS.PROFILE.FOLLOW, {
+      profile_id: profile.id,
+      profile_name: getProfile(profile)?.slug
     })
   }
 

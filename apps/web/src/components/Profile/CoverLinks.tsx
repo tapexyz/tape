@@ -1,10 +1,10 @@
 import GlobeOutline from '@components/Common/Icons/GlobeOutline'
 import { STATIC_ASSETS } from '@tape.xyz/constants'
 import {
-  Analytics,
+  EVENTS,
   getValueFromKeyInAttributes,
   imageCdn,
-  TRACK
+  Tower
 } from '@tape.xyz/generic'
 import type { ProfileMetadata } from '@tape.xyz/lens'
 import Link from 'next/link'
@@ -18,9 +18,7 @@ const CoverLinks = ({ metadata }: { metadata: ProfileMetadata }) => {
     <div className="flex space-x-2">
       {getValueFromKeyInAttributes(metadata?.attributes, 'website') && (
         <Link
-          onClick={() =>
-            Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_COVER_LINKS)
-          }
+          onClick={() => Tower.track(EVENTS.PROFILE.CLICK_PROFILE_COVER_LINKS)}
           href={`https://${getValueFromKeyInAttributes(
             metadata?.attributes,
             'website'
@@ -36,9 +34,7 @@ const CoverLinks = ({ metadata }: { metadata: ProfileMetadata }) => {
       )}
       {getValueFromKeyInAttributes(metadata?.attributes, 'spotify') && (
         <Link
-          onClick={() =>
-            Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_COVER_LINKS)
-          }
+          onClick={() => Tower.track(EVENTS.PROFILE.CLICK_PROFILE_COVER_LINKS)}
           href={`https://open.spotify.com/${getValueFromKeyInAttributes(
             metadata?.attributes,
             'spotify'
@@ -64,9 +60,7 @@ const CoverLinks = ({ metadata }: { metadata: ProfileMetadata }) => {
       )}
       {getValueFromKeyInAttributes(metadata?.attributes, 'youtube') && (
         <Link
-          onClick={() =>
-            Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_COVER_LINKS)
-          }
+          onClick={() => Tower.track(EVENTS.PROFILE.CLICK_PROFILE_COVER_LINKS)}
           href={`https://youtube.com/${getValueFromKeyInAttributes(
             metadata?.attributes,
             'youtube'
@@ -92,9 +86,7 @@ const CoverLinks = ({ metadata }: { metadata: ProfileMetadata }) => {
       )}
       {getValueFromKeyInAttributes(metadata?.attributes, 'x') && (
         <Link
-          onClick={() =>
-            Analytics.track(TRACK.CHANNEL.CLICK_CHANNEL_COVER_LINKS)
-          }
+          onClick={() => Tower.track(EVENTS.PROFILE.CLICK_PROFILE_COVER_LINKS)}
           href={`https://x.com/${getValueFromKeyInAttributes(
             metadata?.attributes,
             'x'

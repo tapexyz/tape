@@ -5,11 +5,11 @@ import { useDid } from '@hooks/useDid'
 import { Trans } from '@lingui/macro'
 import { Button } from '@radix-ui/themes'
 import {
-  Analytics,
+  EVENTS,
   getRandomProfilePicture,
   sanitizeDStorageUrl,
   shortenAddress,
-  TRACK,
+  Tower,
   trimLensHandle
 } from '@tape.xyz/generic'
 import type { ZoraNft } from '@tape.xyz/lens/custom-types'
@@ -72,7 +72,7 @@ const Metadata = ({ nft, link }: { nft: ZoraNft; link: string }) => {
             </span>
           </div>
           <Link
-            onClick={() => Analytics.track(TRACK.OPEN_ACTIONS.OPEN_IN_ZORA)}
+            onClick={() => Tower.track(EVENTS.OPEN_ACTIONS.OPEN_IN_ZORA)}
             href={link}
             target="_blank"
             className="inline-flex flex-wrap items-center space-x-2 outline-none"

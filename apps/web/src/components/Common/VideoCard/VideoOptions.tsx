@@ -19,12 +19,12 @@ import {
   TAPE_APP_ID
 } from '@tape.xyz/constants'
 import {
-  Analytics,
+  EVENTS,
   getProfileCoverPicture,
   getProfilePicture,
   getSignature,
   getValueFromKeyInAttributes,
-  TRACK,
+  Tower,
   uploadToAr
 } from '@tape.xyz/generic'
 import type {
@@ -90,7 +90,7 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
     },
     onCompleted: () => {
       toast.success(t`Video deleted`)
-      Analytics.track(TRACK.PUBLICATION.DELETE, {
+      Tower.track(EVENTS.PUBLICATION.DELETE, {
         publication_type: video.__typename?.toLowerCase()
       })
     }
@@ -131,7 +131,7 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
       return
     }
     toast.success(t`Transaction submitted`)
-    Analytics.track(TRACK.PUBLICATION.PIN)
+    Tower.track(EVENTS.PUBLICATION.PIN)
   }
 
   const { signTypedDataAsync } = useSignTypedData({
@@ -245,7 +245,7 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
         ? t`Video marked as not interested`
         : t`Video removed from not interested`
     )
-    Analytics.track(TRACK.PUBLICATION.TOGGLE_INTEREST)
+    Tower.track(EVENTS.PUBLICATION.TOGGLE_INTEREST)
   }
 
   const modifyListCache = (saved: boolean) => {
@@ -263,7 +263,7 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
     toast.success(
       saved ? t`Video added to your list` : t`Video removed from your list`
     )
-    Analytics.track(TRACK.PUBLICATION.TOGGLE_INTEREST)
+    Tower.track(EVENTS.PUBLICATION.TOGGLE_INTEREST)
   }
 
   const [addNotInterested] = useAddPublicationNotInterestedMutation({

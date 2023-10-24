@@ -1,6 +1,6 @@
 import UAParser from 'ua-parser-js'
 import { any, object, string } from 'zod'
-import { ALL_EVENTS } from '@tape.xyz/generic'
+import { ALL_EVENTS } from '@tape.xyz/generic/events'
 
 import checkEventExistence from '../helpers/checkEventExistence'
 import type { WorkerRequest } from '../types'

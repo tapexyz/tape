@@ -2,7 +2,7 @@ import Tooltip from '@components/UIElements/Tooltip'
 import { IconButton } from '@radix-ui/themes'
 import { useCopyToClipboard } from '@tape.xyz/browser'
 import { STATIC_ASSETS, TAPE_WEBSITE_URL } from '@tape.xyz/constants'
-import { Analytics, getSharableLink, imageCdn, TRACK } from '@tape.xyz/generic'
+import { EVENTS, getSharableLink, imageCdn, Tower } from '@tape.xyz/generic'
 import type { PrimaryPublication } from '@tape.xyz/lens'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
@@ -24,7 +24,7 @@ const Share: FC<Props> = ({ video }) => {
 
   const onCopyVideoUrl = async () => {
     await copy(`${TAPE_WEBSITE_URL}/watch/${video.id}`)
-    Analytics.track(TRACK.PUBLICATION.PERMALINK)
+    Tower.track(EVENTS.PUBLICATION.PERMALINK)
   }
 
   return (
@@ -40,7 +40,7 @@ const Share: FC<Props> = ({ video }) => {
           className="rounded-full"
           target="_blank"
           rel="noreferrer"
-          onClick={() => Analytics.track(TRACK.PUBLICATION.SHARE.HEY)}
+          onClick={() => Tower.track(EVENTS.PUBLICATION.SHARE.HEY)}
           href={getSharableLink('hey', video)}
         >
           <img
@@ -60,7 +60,7 @@ const Share: FC<Props> = ({ video }) => {
           target="_blank"
           rel="noreferrer"
           href={getSharableLink('x', video)}
-          onClick={() => Analytics.track(TRACK.PUBLICATION.SHARE.X)}
+          onClick={() => Tower.track(EVENTS.PUBLICATION.SHARE.X)}
         >
           <div className="rounded-full bg-gray-200 p-3 dark:bg-gray-800">
             {resolvedTheme === 'dark' ? (
@@ -92,7 +92,7 @@ const Share: FC<Props> = ({ video }) => {
         </Link>
         <Link
           href={getSharableLink('reddit', video)}
-          onClick={() => Analytics.track(TRACK.PUBLICATION.SHARE.REDDIT)}
+          onClick={() => Tower.track(EVENTS.PUBLICATION.SHARE.REDDIT)}
           target="_blank"
           rel="noreferrer"
         >
@@ -110,7 +110,7 @@ const Share: FC<Props> = ({ video }) => {
         <Link
           href={getSharableLink('linkedin', video)}
           target="_blank"
-          onClick={() => Analytics.track(TRACK.PUBLICATION.SHARE.LINKEDIN)}
+          onClick={() => Tower.track(EVENTS.PUBLICATION.SHARE.LINKEDIN)}
           rel="noreferrer"
         >
           <img

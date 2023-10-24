@@ -4,11 +4,11 @@ import ArweaveExplorerLink from '@components/Common/Links/ArweaveExplorerLink'
 import IPFSLink from '@components/Common/Links/IPFSLink'
 import { Trans } from '@lingui/macro'
 import {
-  Analytics,
+  EVENTS,
   getCategoryName,
   getIsIPFSUrl,
   getMetadataCid,
-  TRACK
+  Tower
 } from '@tape.xyz/generic'
 import type { MirrorablePublication } from '@tape.xyz/lens'
 import Link from 'next/link'
@@ -40,7 +40,7 @@ const MetaInfo: FC<Props> = ({ video }) => {
       {isIPFS ? (
         <IPFSLink hash={getMetadataCid(video)}>
           <div
-            onClick={() => Analytics.track(TRACK.CLICK_VIEW_METADATA)}
+            onClick={() => Tower.track(EVENTS.CLICK_VIEW_METADATA)}
             className="flex items-center space-x-1"
             tabIndex={0}
             role="button"
@@ -54,7 +54,7 @@ const MetaInfo: FC<Props> = ({ video }) => {
       ) : (
         <ArweaveExplorerLink txId={getMetadataCid(video)}>
           <div
-            onClick={() => Analytics.track(TRACK.CLICK_VIEW_METADATA)}
+            onClick={() => Tower.track(EVENTS.CLICK_VIEW_METADATA)}
             tabIndex={0}
             className="flex items-center space-x-1"
             role="button"
@@ -68,7 +68,7 @@ const MetaInfo: FC<Props> = ({ video }) => {
       )}
       {video.momoka?.proof && (
         <div
-          onClick={() => Analytics.track(TRACK.CLICK_VIEW_PROOF)}
+          onClick={() => Tower.track(EVENTS.CLICK_VIEW_PROOF)}
           tabIndex={0}
           className="hidden items-center space-x-1 md:flex"
           role="button"

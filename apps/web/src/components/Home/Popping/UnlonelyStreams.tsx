@@ -2,7 +2,7 @@ import LiveStreamCard from '@components/Common/LiveStreamCard'
 import WhatsPoppingSectionShimmer from '@components/Shimmers/WhatsPoppingSectionShimmer'
 import { useQuery } from '@tanstack/react-query'
 import { STATIC_ASSETS, WORKER_LIVE_URL } from '@tape.xyz/constants'
-import { Analytics, TRACK } from '@tape.xyz/generic'
+import { EVENTS, Tower } from '@tape.xyz/generic'
 import axios from 'axios'
 import Link from 'next/link'
 import React from 'react'
@@ -47,9 +47,7 @@ const UnlonelyStreams = () => {
           slug={`unlonely:${live.slug}`}
           app={
             <Link
-              onClick={() =>
-                Analytics.track(TRACK.OPEN_ACTIONS.OPEN_IN_UNLONELY)
-              }
+              onClick={() => Tower.track(EVENTS.OPEN_ACTIONS.OPEN_IN_UNLONELY)}
               href={`https://www.unlonely.app/channels/${live.slug}`}
               target="_blank"
               className="flex items-center space-x-1 font-medium hover:text-indigo-500"

@@ -3,11 +3,11 @@ import { WatchShimmer } from '@components/Shimmers/WatchShimmer'
 import useAppStore from '@lib/store'
 import { t } from '@lingui/macro'
 import {
-  Analytics,
+  EVENTS,
   getPublication,
   getPublicationData,
   isWatchable,
-  TRACK
+  Tower
 } from '@tape.xyz/generic'
 import type { AnyPublication } from '@tape.xyz/lens'
 import { usePublicationQuery } from '@tape.xyz/lens'
@@ -29,7 +29,7 @@ const VideoDetails = () => {
   const setVideoWatchTime = useAppStore((state) => state.setVideoWatchTime)
 
   useEffect(() => {
-    Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.WATCH })
+    Tower.track(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.WATCH })
   }, [])
 
   useEffect(() => {

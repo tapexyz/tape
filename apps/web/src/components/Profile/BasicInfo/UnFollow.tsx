@@ -9,7 +9,7 @@ import {
   REQUESTING_SIGNATURE_MESSAGE,
   SIGN_IN_REQUIRED
 } from '@tape.xyz/constants'
-import { Analytics, getProfile, getSignature, TRACK } from '@tape.xyz/generic'
+import { EVENTS, getProfile, getSignature, Tower } from '@tape.xyz/generic'
 import type { CreateUnfollowBroadcastItemResult, Profile } from '@tape.xyz/lens'
 import {
   useBroadcastOnchainMutation,
@@ -51,10 +51,10 @@ const UnFollow: FC<Props> = ({ profile, onUnSubscribe, size = '2' }) => {
 
     setLoading(false)
     onUnSubscribe()
-    toast.success(`Unsubscribed ${getProfile(profile)?.displayName}`)
-    Analytics.track(TRACK.CHANNEL.UNSUBSCRIBE, {
-      channel_id: profile.id,
-      channel_name: getProfile(profile)?.slug
+    toast.success(`Unfollowed ${getProfile(profile)?.displayName}`)
+    Tower.track(EVENTS.PROFILE.UNFOLLOW, {
+      profile_id: profile.id,
+      profile_name: getProfile(profile)?.slug
     })
   }
 

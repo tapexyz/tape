@@ -18,13 +18,13 @@ import {
   TAPE_WEBSITE_URL
 } from '@tape.xyz/constants'
 import {
-  Analytics,
+  EVENTS,
   getProfile,
   getPublication,
   getSignature,
   imageCdn,
   logger,
-  TRACK,
+  Tower,
   uploadToAr
 } from '@tape.xyz/generic'
 import type {
@@ -130,13 +130,13 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
       return
     }
     toast.success(t`Tipped successfully`)
-    Analytics.track(TRACK.PUBLICATION.NEW_COMMENT, {
-      publication_id: targetVideo.id,
-      comment_type: 'tip',
-      publication_state: targetVideo.momoka?.proof ? 'DATA_ONLY' : 'ON_CHAIN'
-    })
     setLoading(false)
     setShow(false)
+    Tower.track(EVENTS.PUBLICATION.NEW_COMMENT, {
+      publication_id: targetVideo.id,
+      comment_type: 'tip',
+      publication_state: targetVideo.momoka?.proof ? 'MOMOKA' : 'ON_CHAIN'
+    })
   }
 
   const { write } = useContractWrite({
@@ -368,7 +368,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
       if (data?.hash) {
         await submitComment(data.hash)
       }
-      Analytics.track(TRACK.PUBLICATION.TIP.SENT)
+      Tower.track(EVENTS.PUBLICATION.TIP.SENT)
     } catch (error) {
       setLoading(false)
       logger.error('[Error Send Tip]', error)

@@ -19,12 +19,12 @@ import {
   TAPE_WEBSITE_URL
 } from '@tape.xyz/constants'
 import {
-  Analytics,
+  EVENTS,
   getProfile,
   getProfilePicture,
   getPublication,
   getSignature,
-  TRACK,
+  Tower,
   trimify,
   uploadToAr
 } from '@tape.xyz/generic'
@@ -131,7 +131,7 @@ const NewComment: FC<Props> = ({
     if (__typename === 'RelayError') {
       return
     }
-    Analytics.track(TRACK.PUBLICATION.NEW_COMMENT, {
+    Tower.track(EVENTS.PUBLICATION.NEW_COMMENT, {
       publication_id: targetVideo.id,
       publication_state: targetVideo.momoka?.proof ? 'DATA_ONLY' : 'ON_CHAIN'
     })

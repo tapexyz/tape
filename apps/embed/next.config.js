@@ -8,14 +8,6 @@ const nextConfig = {
     '@tape.xyz/ui'
   ],
   reactStrictMode: true,
-  async rewrites() {
-    return [
-      {
-        source: '/collect/:match*',
-        destination: 'https://api.mixpanel.com/:match*'
-      }
-    ]
-  },
   async headers() {
     return [
       {

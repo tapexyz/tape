@@ -1,5 +1,5 @@
 import { useProfileStore } from '@lib/store/profile'
-import { Analytics, sanitizeProfileInterests, TRACK } from '@tape.xyz/generic'
+import { EVENTS, sanitizeProfileInterests, Tower } from '@tape.xyz/generic'
 import type {
   ProfileInterestsRequest,
   ProfileInterestTypes
@@ -20,7 +20,7 @@ const Topics = () => {
   const activeProfile = useProfileStore((state) => state.activeProfile)
 
   useEffect(() => {
-    Analytics.track(TRACK.PROFILE_INTERESTS.VIEW)
+    Tower.track(EVENTS.PROFILE_INTERESTS.VIEW)
   }, [])
 
   const { cache } = useApolloClient()
@@ -49,13 +49,13 @@ const Topics = () => {
       if (!selectedTopics?.includes(topic)) {
         const interests = [...selectedTopics, topic]
         updateCache(interests)
-        Analytics.track(TRACK.PROFILE_INTERESTS.ADD)
+        Tower.track(EVENTS.PROFILE_INTERESTS.ADD)
         return addProfileInterests({ variables: { request } })
       }
       const topics = [...selectedTopics]
       topics.splice(topics.indexOf(topic), 1)
       updateCache(topics)
-      Analytics.track(TRACK.PROFILE_INTERESTS.REMOVE)
+      Tower.track(EVENTS.PROFILE_INTERESTS.REMOVE)
       removeProfileInterests({ variables: { request } })
     } catch {}
   }

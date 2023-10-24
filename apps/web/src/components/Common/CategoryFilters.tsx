@@ -1,7 +1,7 @@
 import useAppStore from '@lib/store'
 import { t, Trans } from '@lingui/macro'
 import { CREATOR_VIDEO_CATEGORIES } from '@tape.xyz/constants'
-import { Analytics, TRACK } from '@tape.xyz/generic'
+import { EVENTS, Tower } from '@tape.xyz/generic'
 import clsx from 'clsx'
 import React, { useRef } from 'react'
 
@@ -15,7 +15,7 @@ const CategoryFilters = () => {
 
   const onFilter = (tag: string) => {
     setActiveTagFilter(tag)
-    Analytics.track(TRACK.FILTER_CATEGORIES)
+    Tower.track(EVENTS.FILTER_CATEGORIES)
   }
 
   return (

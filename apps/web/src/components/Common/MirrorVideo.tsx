@@ -9,7 +9,7 @@ import {
   REQUESTING_SIGNATURE_MESSAGE,
   SIGN_IN_REQUIRED
 } from '@tape.xyz/constants'
-import { Analytics, getSignature, TRACK } from '@tape.xyz/generic'
+import { EVENTS, getSignature, Tower } from '@tape.xyz/generic'
 import type {
   CreateMomokaMirrorEip712TypedData,
   CreateOnchainMirrorEip712TypedData,
@@ -58,9 +58,9 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
     onMirrorSuccess?.()
     toast.success('Mirrored video across lens.')
     setLoading(false)
-    Analytics.track(TRACK.PUBLICATION.MIRROR, {
+    Tower.track(EVENTS.PUBLICATION.MIRROR, {
       publication_id: video.id,
-      publication_state: video.momoka?.proof ? 'DATA_ONLY' : 'ON_CHAIN'
+      publication_state: video.momoka?.proof ? 'MOMOKA' : 'ON_CHAIN'
     })
   }
 

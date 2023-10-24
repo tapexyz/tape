@@ -5,7 +5,7 @@ import {
   TAPE_STATUS_PAGE,
   TAPE_X_HANDLE
 } from '@tape.xyz/constants'
-import { Analytics, TRACK } from '@tape.xyz/generic'
+import { EVENTS, Tower } from '@tape.xyz/generic'
 import Link from 'next/link'
 import React from 'react'
 
@@ -17,7 +17,7 @@ const Footer = () => {
         href={`https://github.com/${TAPE_GITHUB_HANDLE}/brand-kit`}
         target="_blank"
         onClick={() => {
-          Analytics.track(TRACK.SYSTEM.MORE_MENU.BRAND_KIT)
+          Tower.track(EVENTS.SYSTEM.MORE_MENU.BRAND_KIT)
         }}
       >
         <Trans>Brand Kit</Trans>
@@ -26,7 +26,7 @@ const Footer = () => {
         className="rounded-lg px-2.5 py-1.5"
         href={`https://github.com/${TAPE_GITHUB_HANDLE}`}
         onClick={() => {
-          Analytics.track(TRACK.SYSTEM.MORE_MENU.GITHUB)
+          Tower.track(EVENTS.SYSTEM.MORE_MENU.GITHUB)
         }}
         target="_blank"
       >
@@ -36,7 +36,7 @@ const Footer = () => {
         className="rounded-lg px-2.5 py-1.5"
         href={`${TAPE_FEEDBACK_URL}/feature-requests`}
         onClick={() => {
-          Analytics.track(TRACK.SYSTEM.MORE_MENU.FEEDBACK)
+          Tower.track(EVENTS.SYSTEM.MORE_MENU.FEEDBACK)
         }}
         target="_blank"
       >
@@ -46,7 +46,7 @@ const Footer = () => {
         className="rounded-lg px-2.5 py-1.5"
         href={TAPE_FEEDBACK_URL}
         onClick={() => {
-          Analytics.track(TRACK.SYSTEM.MORE_MENU.ROADMAP)
+          Tower.track(EVENTS.SYSTEM.MORE_MENU.ROADMAP)
         }}
         target="_blank"
       >
@@ -57,7 +57,7 @@ const Footer = () => {
         className="rounded-lg px-2.5 py-1.5"
         href={`https://x.com/${TAPE_X_HANDLE}`}
         onClick={() => {
-          Analytics.track(TRACK.SYSTEM.MORE_MENU.X)
+          Tower.track(EVENTS.SYSTEM.MORE_MENU.X)
         }}
         target="_blank"
       >
@@ -67,7 +67,7 @@ const Footer = () => {
         className="rounded-lg px-2.5 py-1.5"
         href="/discord"
         onClick={() => {
-          Analytics.track(TRACK.SYSTEM.MORE_MENU.DISCORD)
+          Tower.track(EVENTS.SYSTEM.MORE_MENU.DISCORD)
         }}
         target="_blank"
       >
@@ -79,7 +79,7 @@ const Footer = () => {
         href="/thanks"
         target="_blank"
         onClick={() => {
-          Analytics.track(TRACK.SYSTEM.MORE_MENU.THANKS)
+          Tower.track(EVENTS.SYSTEM.MORE_MENU.THANKS)
         }}
       >
         <Trans>Thanks</Trans>
@@ -88,7 +88,7 @@ const Footer = () => {
         className="rounded-lg px-2.5 py-1.5"
         href={TAPE_STATUS_PAGE}
         onClick={() => {
-          Analytics.track(TRACK.SYSTEM.MORE_MENU.STATUS)
+          Tower.track(EVENTS.SYSTEM.MORE_MENU.STATUS)
         }}
         target="_blank"
       >
@@ -99,7 +99,7 @@ const Footer = () => {
         className="rounded-lg px-2.5 py-1.5"
         target="_blank"
         onClick={() => {
-          Analytics.track(TRACK.SYSTEM.MORE_MENU.TERMS)
+          Tower.track(EVENTS.SYSTEM.MORE_MENU.TERMS)
         }}
         href="/terms"
       >
@@ -109,7 +109,7 @@ const Footer = () => {
         className="rounded-lg px-2.5 py-1.5"
         target="_blank"
         onClick={() => {
-          Analytics.track(TRACK.SYSTEM.MORE_MENU.PRIVACY)
+          Tower.track(EVENTS.SYSTEM.MORE_MENU.PRIVACY)
         }}
         href="/privacy"
       >

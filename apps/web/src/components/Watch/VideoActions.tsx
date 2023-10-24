@@ -5,7 +5,7 @@ import MirrorVideo from '@components/Common/MirrorVideo'
 import VideoOptions from '@components/Common/VideoCard/VideoOptions'
 import { Trans } from '@lingui/macro'
 import { Button, Dialog, IconButton } from '@radix-ui/themes'
-import { Analytics, getProfile, TRACK } from '@tape.xyz/generic'
+import { EVENTS, getProfile, Tower } from '@tape.xyz/generic'
 import type { MirrorablePublication } from '@tape.xyz/lens'
 import { TriStateValue } from '@tape.xyz/lens'
 import type { FC } from 'react'
@@ -37,7 +37,7 @@ const VideoActions: FC<Props> = ({ video }) => {
               highContrast
               onClick={() => {
                 setShowTip(true)
-                Analytics.track(TRACK.PUBLICATION.TIP.OPEN)
+                Tower.track(EVENTS.PUBLICATION.TIP.OPEN)
               }}
             >
               <TipOutline className="h-4 w-4" />

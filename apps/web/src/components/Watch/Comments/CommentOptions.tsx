@@ -8,7 +8,7 @@ import useAuthPersistStore from '@lib/store/auth'
 import { t, Trans } from '@lingui/macro'
 import { Box, Dialog, DropdownMenu, Flex, Text } from '@radix-ui/themes'
 import { SIGN_IN_REQUIRED } from '@tape.xyz/constants'
-import { Analytics, TRACK } from '@tape.xyz/generic'
+import { EVENTS, Tower } from '@tape.xyz/generic'
 import type { Comment } from '@tape.xyz/lens'
 import { useHidePublicationMutation } from '@tape.xyz/lens'
 import type { FC } from 'react'
@@ -38,7 +38,7 @@ const CommentOptions: FC<Props> = ({ comment }) => {
     },
     onCompleted: () => {
       toast.success(t`Comment deleted`)
-      Analytics.track(TRACK.PUBLICATION.DELETE, {
+      Tower.track(EVENTS.PUBLICATION.DELETE, {
         publication_type: comment.__typename?.toLowerCase()
       })
     }

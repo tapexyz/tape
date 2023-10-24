@@ -10,7 +10,7 @@ import {
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE
 } from '@tape.xyz/constants'
-import { Analytics, getSignature, TRACK } from '@tape.xyz/generic'
+import { EVENTS, getSignature, Tower } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import {
   useBroadcastOnchainMutation,
@@ -74,7 +74,7 @@ const ToggleDispatcher = () => {
       channel.lensManager = isLensManagerEnabled ? false : true
       setActiveProfile(channel as Profile)
       setLoading(false)
-      Analytics.track(TRACK.DISPATCHER.TOGGLE)
+      Tower.track(EVENTS.DISPATCHER.TOGGLE)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indexed])

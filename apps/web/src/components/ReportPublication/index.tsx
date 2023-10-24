@@ -2,7 +2,7 @@ import MetaTags from '@components/Common/MetaTags'
 import { t, Trans } from '@lingui/macro'
 import { Button, Dialog, Flex, Select, Text } from '@radix-ui/themes'
 import { ERROR_MESSAGE } from '@tape.xyz/constants'
-import { Analytics, getPublication, TRACK } from '@tape.xyz/generic'
+import { EVENTS, getPublication, Tower } from '@tape.xyz/generic'
 import type { AnyPublication } from '@tape.xyz/lens'
 import { useReportPublicationMutation } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
@@ -24,7 +24,7 @@ const ReportPublication: FC<Props> = ({ publication }) => {
     },
     onCompleted: () => {
       toast.success(t`Publication reported.`)
-      Analytics.track(TRACK.PUBLICATION.REPORT, {
+      Tower.track(EVENTS.PUBLICATION.REPORT, {
         publication_id: targetPublication.id,
         publication_type: targetPublication.__typename?.toLowerCase()
       })

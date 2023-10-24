@@ -27,12 +27,12 @@ import {
   TAPE_WEBSITE_URL
 } from '@tape.xyz/constants'
 import {
-  Analytics,
   canUploadedToIpfs,
+  EVENTS,
   getProfile,
   getSignature,
   logger,
-  TRACK,
+  Tower,
   trimify,
   uploadToAr
 } from '@tape.xyz/generic'
@@ -123,7 +123,7 @@ const CreateSteps = () => {
   }
 
   useEffect(() => {
-    Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.UPLOAD.STEPS })
+    Tower.track(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.UPLOAD.STEPS })
   }, [])
 
   useEffect(() => {
@@ -148,11 +148,11 @@ const CreateSteps = () => {
     if (__typename === 'RelayError') {
       return
     }
-    Analytics.track(TRACK.PUBLICATION.NEW_POST, {
+    Tower.track(EVENTS.PUBLICATION.NEW_POST, {
       video_format: uploadedVideo.mediaType,
       video_type: uploadedVideo.isByteVideo ? 'SHORT_FORM' : 'LONG_FORM',
       publication_state: uploadedVideo.collectModule.isRevertCollect
-        ? 'DATA_ONLY'
+        ? 'MOMOKA'
         : 'ON_CHAIN',
       video_storage: uploadedVideo.isUploadToIpfs ? 'IPFS' : 'ARWEAVE',
       publication_collect_module: Object.keys(

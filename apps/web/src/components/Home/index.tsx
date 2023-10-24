@@ -1,6 +1,6 @@
 import useAuthPersistStore from '@lib/store/auth'
 import { FEATURE_FLAGS } from '@tape.xyz/constants'
-import { Analytics, getIsFeatureEnabled, TRACK } from '@tape.xyz/generic'
+import { EVENTS, getIsFeatureEnabled, Tower } from '@tape.xyz/generic'
 import type { NextPage } from 'next'
 import React, { useEffect } from 'react'
 
@@ -10,8 +10,9 @@ import TopSection from './TopSection'
 
 const Home: NextPage = () => {
   useEffect(() => {
-    Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.HOME })
+    Tower.track(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.HOME })
   }, [])
+
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )

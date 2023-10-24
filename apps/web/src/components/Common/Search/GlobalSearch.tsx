@@ -3,7 +3,7 @@ import { t } from '@lingui/macro'
 import { IconButton, ScrollArea, Text, TextField } from '@radix-ui/themes'
 import { useDebounce, useOutsideClick } from '@tape.xyz/browser'
 import { LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
-import { Analytics, TRACK } from '@tape.xyz/generic'
+import { EVENTS, Tower } from '@tape.xyz/generic'
 import type {
   PrimaryPublication,
   Profile,
@@ -84,7 +84,7 @@ const GlobalSearch: FC<Props> = ({ onSearchResults }) => {
           request: profileSearchRequest
         }
       })
-      Analytics.track(TRACK.SEARCH)
+      Tower.track(EVENTS.SEARCH)
     }
   }
 
