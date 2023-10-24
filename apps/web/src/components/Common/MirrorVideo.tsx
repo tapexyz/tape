@@ -3,14 +3,13 @@ import useAuthPersistStore from '@lib/store/auth'
 import useProfileStore from '@lib/store/profile'
 import { t } from '@lingui/macro'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
-import { Analytics, TRACK } from '@tape.xyz/browser'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
   SIGN_IN_REQUIRED
 } from '@tape.xyz/constants'
-import { getSignature } from '@tape.xyz/generic'
+import { Analytics, getSignature, TRACK } from '@tape.xyz/generic'
 import type {
   CreateMomokaMirrorEip712TypedData,
   CreateOnchainMirrorEip712TypedData,

@@ -1,8 +1,12 @@
 import MetaTags from '@components/Common/MetaTags'
 import ProfilePageShimmer from '@components/Shimmers/ProfilePageShimmer'
-import { Analytics, TRACK } from '@tape.xyz/browser'
 import { HANDLE_PREFIX } from '@tape.xyz/constants'
-import { getProfile, getValueFromKeyInAttributes } from '@tape.xyz/generic'
+import {
+  Analytics,
+  getProfile,
+  getValueFromKeyInAttributes,
+  TRACK
+} from '@tape.xyz/generic'
 import type { Profile, ProfileRequest } from '@tape.xyz/lens'
 import { useProfileQuery } from '@tape.xyz/lens'
 import { useRouter } from 'next/router'

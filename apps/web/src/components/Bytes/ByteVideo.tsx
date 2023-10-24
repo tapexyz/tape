@@ -1,11 +1,12 @@
 import useAuthPersistStore from '@lib/store/auth'
-import { Analytics, TRACK } from '@tape.xyz/browser'
 import {
+  Analytics,
   getPublication,
   getPublicationMediaUrl,
   getThumbnailUrl,
   imageCdn,
-  sanitizeDStorageUrl
+  sanitizeDStorageUrl,
+  TRACK
 } from '@tape.xyz/generic'
 import type { AnyPublication } from '@tape.xyz/lens'
 import VideoPlayer from '@tape.xyz/ui/VideoPlayer'

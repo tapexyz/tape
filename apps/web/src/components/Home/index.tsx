@@ -1,7 +1,6 @@
 import useAuthPersistStore from '@lib/store/auth'
-import { Analytics, TRACK } from '@tape.xyz/browser'
 import { FEATURE_FLAGS } from '@tape.xyz/constants'
-import { getIsFeatureEnabled } from '@tape.xyz/generic'
+import { Analytics, getIsFeatureEnabled, TRACK } from '@tape.xyz/generic'
 import type { NextPage } from 'next'
 import React, { useEffect } from 'react'
 

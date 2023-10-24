@@ -1,4 +1,4 @@
-import { Analytics, TRACK } from '@tape.xyz/browser'
+import { Analytics, TRACK } from '@tape.xyz/generic'
 import VideoPlayer from '@tape.xyz/ui/VideoPlayer'
 import type { FC } from 'react'
 import React, { useEffect } from 'react'

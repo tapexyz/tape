@@ -1,7 +1,7 @@
 import useAppStore from '@lib/store'
 import { t, Trans } from '@lingui/macro'
-import { Analytics, TRACK } from '@tape.xyz/browser'
 import { CREATOR_VIDEO_CATEGORIES } from '@tape.xyz/constants'
+import { Analytics, TRACK } from '@tape.xyz/generic'
 import clsx from 'clsx'
 import React, { useRef } from 'react'
 

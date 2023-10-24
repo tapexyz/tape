@@ -1,7 +1,8 @@
 import Tooltip from '@components/UIElements/Tooltip'
 import { Card, Dialog, Flex, IconButton } from '@radix-ui/themes'
-import { Analytics, TRACK, useCopyToClipboard } from '@tape.xyz/browser'
+import { useCopyToClipboard } from '@tape.xyz/browser'
 import { TAPE_APP_NAME, TAPE_EMBED_URL } from '@tape.xyz/constants'
+import { Analytics, TRACK } from '@tape.xyz/generic'
 import type { FC } from 'react'
 import React from 'react'
 

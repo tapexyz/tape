@@ -1,13 +1,12 @@
 import { useDid } from '@hooks/useDid'
 import { useZoraNft } from '@hooks/useZoraNft'
 import { Dialog } from '@radix-ui/themes'
-import { Analytics, TRACK } from '@tape.xyz/browser'
 import {
   STATIC_ASSETS,
   TAPE_ADMIN_ADDRESS,
   ZORA_MAINNET_CHAINS
 } from '@tape.xyz/constants'
-import { trimLensHandle } from '@tape.xyz/generic'
+import { Analytics, TRACK, trimLensHandle } from '@tape.xyz/generic'
 import type { BasicNftMetadata } from '@tape.xyz/lens/custom-types'
 import Link from 'next/link'
 import type { FC } from 'react'

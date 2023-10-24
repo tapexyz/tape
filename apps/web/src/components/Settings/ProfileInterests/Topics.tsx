@@ -1,6 +1,5 @@
 import { useProfileStore } from '@lib/store/profile'
-import { Analytics, TRACK } from '@tape.xyz/browser'
-import { sanitizeProfileInterests } from '@tape.xyz/generic'
+import { Analytics, sanitizeProfileInterests, TRACK } from '@tape.xyz/generic'
 import type {
   ProfileInterestsRequest,
   ProfileInterestTypes

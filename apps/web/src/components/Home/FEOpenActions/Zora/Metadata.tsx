@@ -4,11 +4,12 @@ import TagOutline from '@components/Common/Icons/TagOutline'
 import { useDid } from '@hooks/useDid'
 import { Trans } from '@lingui/macro'
 import { Button } from '@radix-ui/themes'
-import { Analytics, TRACK } from '@tape.xyz/browser'
 import {
+  Analytics,
   getRandomProfilePicture,
   sanitizeDStorageUrl,
   shortenAddress,
+  TRACK,
   trimLensHandle
 } from '@tape.xyz/generic'
 import type { ZoraNft } from '@tape.xyz/lens/custom-types'

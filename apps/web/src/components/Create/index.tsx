@@ -16,12 +16,7 @@ import usePersistStore from '@lib/store/persist'
 import { useProfileStore } from '@lib/store/profile'
 import { t } from '@lingui/macro'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
-import {
-  Analytics,
-  getUserLocale,
-  TRACK,
-  uploadToIPFS
-} from '@tape.xyz/browser'
+import { getUserLocale, uploadToIPFS } from '@tape.xyz/browser'
 import {
   ERROR_MESSAGE,
   IRYS_CONNECT_MESSAGE,
@@ -32,10 +27,12 @@ import {
   TAPE_WEBSITE_URL
 } from '@tape.xyz/constants'
 import {
+  Analytics,
   canUploadedToIpfs,
   getProfile,
   getSignature,
   logger,
+  TRACK,
   trimify,
   uploadToAr
 } from '@tape.xyz/generic'

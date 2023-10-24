@@ -1,8 +1,8 @@
 import { storeLocale } from '@lib/i18n'
 import { useLingui } from '@lingui/react'
 import { DropdownMenu, Text } from '@radix-ui/themes'
-import { Analytics, TRACK } from '@tape.xyz/browser'
 import { SUPPORTED_LOCALES } from '@tape.xyz/constants'
+import { Analytics, TRACK } from '@tape.xyz/generic'
 import React from 'react'
 
 import GlobeOutline from './Icons/GlobeOutline'

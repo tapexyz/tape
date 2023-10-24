@@ -1,6 +1,5 @@
 import { Box, Tabs } from '@radix-ui/themes'
-import { Analytics, TRACK } from '@tape.xyz/browser'
-import { getProfile } from '@tape.xyz/generic'
+import { Analytics, getProfile, TRACK } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'

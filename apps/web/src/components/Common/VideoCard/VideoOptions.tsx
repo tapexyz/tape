@@ -11,7 +11,6 @@ import useProfileStore from '@lib/store/profile'
 import { t, Trans } from '@lingui/macro'
 import { Dialog, DropdownMenu, Flex, IconButton, Text } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
-import { Analytics, TRACK } from '@tape.xyz/browser'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
@@ -20,10 +19,12 @@ import {
   TAPE_APP_ID
 } from '@tape.xyz/constants'
 import {
+  Analytics,
   getProfileCoverPicture,
   getProfilePicture,
   getSignature,
   getValueFromKeyInAttributes,
+  TRACK,
   uploadToAr
 } from '@tape.xyz/generic'
 import type {

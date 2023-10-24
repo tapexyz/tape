@@ -2,11 +2,11 @@ import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
 import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import MetaTags from '@components/Common/MetaTags'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { Analytics, TRACK } from '@tape.xyz/browser'
 import {
   INFINITE_SCROLL_ROOT_MARGIN,
   LENS_CUSTOM_FILTERS
 } from '@tape.xyz/constants'
+import { Analytics, TRACK } from '@tape.xyz/generic'
 import type {
   AnyPublication,
   ExplorePublicationRequest,

@@ -3,11 +3,12 @@ import TagOutline from '@components/Common/Icons/TagOutline'
 import ArweaveExplorerLink from '@components/Common/Links/ArweaveExplorerLink'
 import IPFSLink from '@components/Common/Links/IPFSLink'
 import { Trans } from '@lingui/macro'
-import { Analytics, TRACK } from '@tape.xyz/browser'
 import {
+  Analytics,
   getCategoryName,
   getIsIPFSUrl,
-  getMetadataCid
+  getMetadataCid,
+  TRACK
 } from '@tape.xyz/generic'
 import type { MirrorablePublication } from '@tape.xyz/lens'
 import Link from 'next/link'

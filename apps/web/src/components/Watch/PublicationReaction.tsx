@@ -2,9 +2,13 @@ import HeartOutline from '@components/Common/Icons/HeartOutline'
 import useAuthPersistStore from '@lib/store/auth'
 import { t } from '@lingui/macro'
 import { Button } from '@radix-ui/themes'
-import { Analytics, TRACK } from '@tape.xyz/browser'
 import { SIGN_IN_REQUIRED } from '@tape.xyz/constants'
-import { formatNumber, getPublication } from '@tape.xyz/generic'
+import {
+  Analytics,
+  formatNumber,
+  getPublication,
+  TRACK
+} from '@tape.xyz/generic'
 import type { AnyPublication } from '@tape.xyz/lens'
 import {
   PublicationReactionType,

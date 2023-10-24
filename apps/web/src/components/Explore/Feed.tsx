@@ -8,7 +8,6 @@ import { Tab } from '@headlessui/react'
 import useAppStore from '@lib/store'
 import useAuthPersistStore from '@lib/store/auth'
 import { t, Trans } from '@lingui/macro'
-import { Analytics, TRACK } from '@tape.xyz/browser'
 import {
   ALLOWED_APP_IDS,
   INFINITE_SCROLL_ROOT_MARGIN,
@@ -17,6 +16,7 @@ import {
   LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
 } from '@tape.xyz/constants'
+import { Analytics, TRACK } from '@tape.xyz/generic'
 import type {
   ExplorePublicationRequest,
   PrimaryPublication

@@ -2,11 +2,12 @@ import MetaTags from '@components/Common/MetaTags'
 import { WatchShimmer } from '@components/Shimmers/WatchShimmer'
 import useAppStore from '@lib/store'
 import { t } from '@lingui/macro'
-import { Analytics, TRACK } from '@tape.xyz/browser'
 import {
+  Analytics,
   getPublication,
   getPublicationData,
-  isWatchable
+  isWatchable,
+  TRACK
 } from '@tape.xyz/generic'
 import type { AnyPublication } from '@tape.xyz/lens'
 import { usePublicationQuery } from '@tape.xyz/lens'

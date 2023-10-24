@@ -1,7 +1,7 @@
 import ExternalOutline from '@components/Common/Icons/ExternalOutline'
 import { getShortHandTime } from '@lib/formatTime'
-import { Analytics, TRACK } from '@tape.xyz/browser'
 import { STATIC_ASSETS } from '@tape.xyz/constants'
+import { Analytics, TRACK } from '@tape.xyz/generic'
 import Link from 'next/link'
 import React from 'react'
 

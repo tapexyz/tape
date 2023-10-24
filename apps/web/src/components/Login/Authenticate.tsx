@@ -3,9 +3,14 @@ import useAuthPersistStore, { signIn, signOut } from '@lib/store/auth'
 import useProfileStore from '@lib/store/profile'
 import { t } from '@lingui/macro'
 import { Avatar, Button, Flex, Select, Text } from '@radix-ui/themes'
-import { Analytics, TRACK } from '@tape.xyz/browser'
 import { ERROR_MESSAGE } from '@tape.xyz/constants'
-import { getProfile, getProfilePicture, logger } from '@tape.xyz/generic'
+import {
+  Analytics,
+  getProfile,
+  getProfilePicture,
+  logger,
+  TRACK
+} from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import {
   LimitType,

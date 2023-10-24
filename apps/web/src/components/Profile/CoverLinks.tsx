@@ -1,7 +1,11 @@
 import GlobeOutline from '@components/Common/Icons/GlobeOutline'
-import { Analytics, TRACK } from '@tape.xyz/browser'
 import { STATIC_ASSETS } from '@tape.xyz/constants'
-import { getValueFromKeyInAttributes, imageCdn } from '@tape.xyz/generic'
+import {
+  Analytics,
+  getValueFromKeyInAttributes,
+  imageCdn,
+  TRACK
+} from '@tape.xyz/generic'
 import type { ProfileMetadata } from '@tape.xyz/lens'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'

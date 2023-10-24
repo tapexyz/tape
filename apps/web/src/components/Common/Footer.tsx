@@ -1,11 +1,11 @@
 import { Trans } from '@lingui/macro'
-import { Analytics, TRACK } from '@tape.xyz/browser'
 import {
   TAPE_FEEDBACK_URL,
   TAPE_GITHUB_HANDLE,
   TAPE_STATUS_PAGE,
   TAPE_X_HANDLE
 } from '@tape.xyz/constants'
+import { Analytics, TRACK } from '@tape.xyz/generic'
 import Link from 'next/link'
 import React from 'react'
 

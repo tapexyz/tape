@@ -8,7 +8,7 @@ import { useProfileStore } from '@lib/store/profile'
 import { t, Trans } from '@lingui/macro'
 import { Button, Flex } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
-import { Analytics, getUserLocale, TRACK } from '@tape.xyz/browser'
+import { getUserLocale } from '@tape.xyz/browser'
 import {
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
@@ -18,11 +18,13 @@ import {
   TAPE_WEBSITE_URL
 } from '@tape.xyz/constants'
 import {
+  Analytics,
   getProfile,
   getPublication,
   getSignature,
   imageCdn,
   logger,
+  TRACK,
   uploadToAr
 } from '@tape.xyz/generic'
 import type {

@@ -4,13 +4,12 @@ import { useProfileStore } from '@lib/store/profile'
 import { Trans } from '@lingui/macro'
 import { Button } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
-import { Analytics, TRACK } from '@tape.xyz/browser'
 import {
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
   SIGN_IN_REQUIRED
 } from '@tape.xyz/constants'
-import { getProfile, getSignature } from '@tape.xyz/generic'
+import { Analytics, getProfile, getSignature, TRACK } from '@tape.xyz/generic'
 import type { CreateUnfollowBroadcastItemResult, Profile } from '@tape.xyz/lens'
 import {
   useBroadcastOnchainMutation,

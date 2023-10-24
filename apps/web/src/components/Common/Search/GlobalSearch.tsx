@@ -1,13 +1,9 @@
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { t } from '@lingui/macro'
 import { IconButton, ScrollArea, Text, TextField } from '@radix-ui/themes'
-import {
-  Analytics,
-  TRACK,
-  useDebounce,
-  useOutsideClick
-} from '@tape.xyz/browser'
+import { useDebounce, useOutsideClick } from '@tape.xyz/browser'
 import { LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
+import { Analytics, TRACK } from '@tape.xyz/generic'
 import type {
   PrimaryPublication,
   Profile,

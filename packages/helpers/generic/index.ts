@@ -1,3 +1,4 @@
+export * from './analytics'
 export * from './functions/canUploadedToIpfs'
 export * from './functions/checkIsBytesVideo'
 export * from './functions/formatBytes'

@@ -16,12 +16,7 @@ import useProfileStore from '@lib/store/profile'
 import { t, Trans } from '@lingui/macro'
 import { Button, Flex, IconButton, Text } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
-import {
-  Analytics,
-  TRACK,
-  uploadToIPFS,
-  useCopyToClipboard
-} from '@tape.xyz/browser'
+import { uploadToIPFS, useCopyToClipboard } from '@tape.xyz/browser'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
@@ -30,6 +25,7 @@ import {
   TAPE_WEBSITE_URL
 } from '@tape.xyz/constants'
 import {
+  Analytics,
   getProfile,
   getProfileCoverPicture,
   getProfilePicture,
@@ -37,6 +33,7 @@ import {
   getValueFromKeyInAttributes,
   imageCdn,
   sanitizeDStorageUrl,
+  TRACK,
   trimify,
   uploadToAr
 } from '@tape.xyz/generic'

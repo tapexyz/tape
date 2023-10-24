@@ -1,4 +1,4 @@
-import { IS_MAINNET, IS_PRODUCTION } from '@tape.xyz/constants/general'
+import { IS_MAINNET, IS_PRODUCTION } from '@tape.xyz/constants'
 import type { Dict } from 'mixpanel-browser'
 import mixpanel from 'mixpanel-browser'
 
@@ -124,3 +124,5 @@ export const TRACK = {
     NOTIFICATIONS: 'Notifications Page'
   }
 }
+
+export const ALL_EVENTS = {}
