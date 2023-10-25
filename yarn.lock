@@ -3515,7 +3515,7 @@
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
 
-"@lens-protocol/metadata@^0.1.0-alpha.30":
+"@lens-protocol/metadata@^0.1.0-alpha.31":
   version "0.1.0-alpha.31"
   resolved "https://registry.yarnpkg.com/@lens-protocol/metadata/-/metadata-0.1.0-alpha.31.tgz#3e9ecaf56da05dce9e8bea04e96a60f71d3c7dab"
   integrity sha512-9GvNGgBM0JvQhP7RjB+V57HwcJt5TJP+sK2kqTgATnaQzDuPtvlp6llygeuMPn6yGl9EVCAHI8ISjUB+/Nn8lQ==
