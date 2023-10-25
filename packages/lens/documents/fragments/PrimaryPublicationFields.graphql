@@ -3,9 +3,9 @@ fragment PrimaryPublicationFields on PrimaryPublication {
     ...PostFields
   }
   ... on Comment {
-    ...CommentBaseFields
+    ...CommentFields
   }
   ... on Quote {
-    ...QuoteBaseFields
+    ...QuoteFields
   }
 }
