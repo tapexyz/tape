@@ -7,7 +7,6 @@ import useProfileStore from '@lib/store/profile'
 import { t, Trans } from '@lingui/macro'
 import {
   INFINITE_SCROLL_ROOT_MARGIN,
-  IS_MAINNET,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
@@ -51,7 +50,7 @@ const Notifications = () => {
         NotificationType.Mirrored,
         NotificationType.Quoted
       ],
-      publishedOn: IS_MAINNET ? [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID] : undefined
+      publishedOn: [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID]
     }
   }
 
