@@ -44,7 +44,7 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
     (state) => state.selectedSimpleProfile
   )
   const activeProfile = useProfileStore((state) => state.activeProfile)
-  const canUseRelay = activeProfile?.lensManager && activeProfile?.sponsor
+  const canUseRelay = activeProfile?.signless && activeProfile?.sponsor
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)

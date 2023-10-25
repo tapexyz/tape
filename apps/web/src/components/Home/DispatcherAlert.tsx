@@ -11,7 +11,7 @@ const DispatcherAlert = () => {
   const activeProfile = useProfileStore((state) => state.activeProfile)
 
   const isDispatcherEnabled = getIsDispatcherEnabled(activeProfile)
-  const usingOldDispatcher = activeProfile?.lensManager === false
+  const usingOldDispatcher = activeProfile?.signless === false
 
   const getDescription = () => {
     if (usingOldDispatcher) {

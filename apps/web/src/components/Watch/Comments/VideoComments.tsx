@@ -16,12 +16,7 @@ import type {
   MirrorablePublication,
   PublicationsRequest
 } from '@tape.xyz/lens'
-import {
-  LimitType,
-  PublicationsOrderByType,
-  TriStateValue,
-  usePublicationsQuery
-} from '@tape.xyz/lens'
+import { LimitType, TriStateValue, usePublicationsQuery } from '@tape.xyz/lens'
 import { Loader } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React from 'react'
@@ -62,8 +57,7 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
         //       : CommentRankingFilterType.NoneRelevant
         // }
       }
-    },
-    orderBy: PublicationsOrderByType.Latest
+    }
   }
 
   const { data, loading, error, fetchMore } = usePublicationsQuery({

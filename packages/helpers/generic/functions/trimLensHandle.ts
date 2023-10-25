@@ -1,4 +1,4 @@
-import { LENSPROTOCOL_HANDLE } from '@tape.xyz/constants'
+import { HANDLE_PREFIX, LENSPROTOCOL_HANDLE } from '@tape.xyz/constants'
 
 export const trimLensHandle = (handle: string) => {
   if (!handle) {
@@ -12,7 +12,6 @@ export const trimLensHandle = (handle: string) => {
   return handle
     .replace('.lens', '')
     .replace('.test', '')
-    .replace('test/@', '')
-    .replace('lens/@', '')
+    .replace(HANDLE_PREFIX, '')
     .replace('.eth', '')
 }

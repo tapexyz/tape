@@ -8,7 +8,6 @@ import ReplyOutline from '@components/Common/Icons/ReplyOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import Tooltip from '@components/UIElements/Tooltip'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import type { MetadataAttribute } from '@lens-protocol/metadata'
 import { getShortHandTime } from '@lib/formatTime'
 import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
@@ -90,7 +89,7 @@ const RenderComment: FC<Props> = ({ comment }) => {
               </Link>
             </HoverableProfile>
             {getValueFromKeyInAttributes(
-              comment?.metadata?.attributes as MetadataAttribute[],
+              comment?.metadata?.attributes,
               'hash'
             ) && (
               <Tooltip placement="top" content="Supporter">

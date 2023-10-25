@@ -54,7 +54,7 @@ const InputMentions: FC<Props> = ({
       if (data?.searchProfiles.__typename === 'PaginatedProfileResult') {
         const profiles = data?.searchProfiles?.items as Profile[]
         const channels = profiles?.map((profile: Profile) => ({
-          id: profile.handle,
+          id: profile.handle?.fullHandle,
           display: getProfile(profile)?.displayName,
           profileId: profile.id,
           picture: getProfilePicture(profile),

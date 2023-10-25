@@ -185,7 +185,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
       const request: OnchainSetProfileMetadataRequest = {
         metadataURI
       }
-      const canUseRelay = activeProfile?.lensManager && activeProfile?.sponsor
+      const canUseRelay = activeProfile?.signless && activeProfile?.sponsor
 
       if (canUseRelay) {
         const { data } = await setProfileMetadata({

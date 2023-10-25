@@ -1,5 +1,5 @@
-query ApprovedAuthentication($request: ApprovedAuthenticationRequest!) {
-  approvedAuthentication(request: $request) {
+query ApprovedAuthentications($request: ApprovedAuthenticationRequest!) {
+  approvedAuthentications(request: $request) {
     items {
       authorizationId
       browser

@@ -7,7 +7,7 @@ import ToggleDispatcher from './ToggleDispatcher'
 
 const DispatcherPermissions = () => {
   const activeProfile = useProfileStore((state) => state.activeProfile)
-  const usingOldDispatcher = activeProfile?.lensManager === false
+  const usingOldDispatcher = activeProfile?.signless === false
 
   const getDescription = () => {
     if (usingOldDispatcher) {

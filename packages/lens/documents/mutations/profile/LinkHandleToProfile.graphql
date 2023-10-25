@@ -1,8 +1,8 @@
-mutation CreateHandleLinkToProfileTypedData(
+mutation CreateLinkHandleToProfileTypedData(
   $options: TypedDataOptions
-  $request: HandleLinkToProfileRequest!
+  $request: LinkHandleToProfileRequest!
 ) {
-  createHandleLinkToProfileTypedData(options: $options, request: $request) {
+  createLinkHandleToProfileTypedData(options: $options, request: $request) {
     id
     expiresAt
     typedData {
@@ -28,8 +28,8 @@ mutation CreateHandleLinkToProfileTypedData(
   }
 }
 
-mutation HandleLinkToProfile($request: HandleLinkToProfileRequest!) {
-  handleLinkToProfile(request: $request) {
+mutation LinkHandleToProfile($request: LinkHandleToProfileRequest!) {
+  linkHandleToProfile(request: $request) {
     ... on RelaySuccess {
       txHash
       txId

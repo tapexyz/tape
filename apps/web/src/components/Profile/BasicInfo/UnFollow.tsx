@@ -37,7 +37,7 @@ const UnFollow: FC<Props> = ({ profile, onUnSubscribe, size = '2' }) => {
     (state) => state.selectedSimpleProfile
   )
   const activeProfile = useProfileStore((state) => state.activeProfile)
-  const canUseRelay = activeProfile?.lensManager && activeProfile?.sponsor
+  const canUseRelay = activeProfile?.signless && activeProfile?.sponsor
   const handleWrongNetwork = useHandleWrongNetwork()
 
   const onError = (error: CustomErrorWithData) => {

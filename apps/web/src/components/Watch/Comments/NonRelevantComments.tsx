@@ -16,7 +16,6 @@ import type {
 import {
   CommentRankingFilterType,
   LimitType,
-  PublicationsOrderByType,
   usePublicationsQuery
 } from '@tape.xyz/lens'
 import { Loader } from '@tape.xyz/ui'
@@ -44,8 +43,7 @@ const NonRelevantComments: FC<Props> = ({ video, className }) => {
           filter: CommentRankingFilterType.NoneRelevant
         }
       }
-    },
-    orderBy: PublicationsOrderByType.CommentOfQueryRanking
+    }
   }
 
   const { data, loading, fetchMore } = usePublicationsQuery({

@@ -213,7 +213,7 @@ const Managers = () => {
     toggleLensManager({
       variables: {
         request: {
-          approveLensManager: true,
+          approveSignless: true,
           changeManagers: [
             {
               address,

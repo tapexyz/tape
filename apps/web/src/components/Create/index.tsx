@@ -87,7 +87,7 @@ const CreateSteps = () => {
     ? ReferenceModuleType.FollowerOnlyReferenceModule
     : null
 
-  const canUseRelay = activeProfile?.lensManager && activeProfile?.sponsor
+  const canUseRelay = activeProfile?.signless && activeProfile?.sponsor
 
   const resetToDefaults = () => {
     setUploadedVideo(UPLOADED_VIDEO_FORM_DEFAULTS)

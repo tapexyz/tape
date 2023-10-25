@@ -1,8 +1,8 @@
-mutation CreateHandleUnlinkFromProfileTypedData(
+mutation CreateUnlinkHandleFromProfileTypedData(
   $options: TypedDataOptions
-  $request: HandleUnlinkFromProfileRequest!
+  $request: UnlinkHandleFromProfileRequest!
 ) {
-  createHandleUnlinkFromProfileTypedData(options: $options, request: $request) {
+  createUnlinkHandleFromProfileTypedData(options: $options, request: $request) {
     id
     expiresAt
     typedData {
@@ -28,8 +28,8 @@ mutation CreateHandleUnlinkFromProfileTypedData(
   }
 }
 
-mutation HandleUnlinkFromProfile($request: HandleUnlinkFromProfileRequest!) {
-  handleUnlinkFromProfile(request: $request) {
+mutation UnlinkHandleFromProfile($request: UnlinkHandleFromProfileRequest!) {
+  unlinkHandleFromProfile(request: $request) {
     ... on RelaySuccess {
       txHash
       txId

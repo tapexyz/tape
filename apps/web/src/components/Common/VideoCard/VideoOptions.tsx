@@ -209,7 +209,7 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
         ]
       })
       const metadataUri = await uploadToAr(metadata)
-      const canUseRelay = activeProfile?.lensManager && activeProfile.sponsor
+      const canUseRelay = activeProfile?.signless && activeProfile.sponsor
       const request: OnchainSetProfileMetadataRequest = {
         metadataURI: metadataUri
       }

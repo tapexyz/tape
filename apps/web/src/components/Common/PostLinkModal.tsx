@@ -75,7 +75,7 @@ const PostLinkModal: FC<Props> = ({ show, setShow }) => {
   const activeProfile = useProfileStore(
     (state) => state.activeProfile
   ) as Profile
-  const canUseRelay = activeProfile?.lensManager && activeProfile?.sponsor
+  const canUseRelay = activeProfile?.signless && activeProfile?.sponsor
 
   const {
     register,

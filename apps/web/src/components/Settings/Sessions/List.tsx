@@ -12,7 +12,7 @@ import {
 import { Badge, Blockquote, Button } from '@radix-ui/themes'
 import {
   LimitType,
-  useApprovedAuthenticationQuery,
+  useApprovedAuthenticationsQuery,
   useRevokeAuthenticationMutation
 } from '@tape.xyz/lens'
 import { Loader } from '@tape.xyz/ui'
@@ -35,11 +35,11 @@ const List = () => {
     toast.success('Session revoked successfully!')
   }
 
-  const { data, loading, error } = useApprovedAuthenticationQuery({
+  const { data, loading, error } = useApprovedAuthenticationsQuery({
     variables: { request: { limit: LimitType.Fifty } },
     skip: !selectedSimpleProfile?.id
   })
-  const sessions = data?.approvedAuthentication?.items
+  const sessions = data?.approvedAuthentications?.items
 
   const [revokeAuthentication] = useRevokeAuthenticationMutation({
     onCompleted,

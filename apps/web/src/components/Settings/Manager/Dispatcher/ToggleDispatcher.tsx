@@ -29,7 +29,7 @@ const ToggleDispatcher = () => {
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
   const handleWrongNetwork = useHandleWrongNetwork()
 
-  const isLensManagerEnabled = activeProfile?.lensManager || false
+  const isLensManagerEnabled = activeProfile?.signless || false
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.message ?? ERROR_MESSAGE)
@@ -71,7 +71,7 @@ const ToggleDispatcher = () => {
         `Dispatcher ${isLensManagerEnabled ? t`disabled` : t`enabled`}`
       )
       const channel = { ...activeProfile }
-      channel.lensManager = isLensManagerEnabled ? false : true
+      channel.signless = isLensManagerEnabled ? false : true
       setActiveProfile(channel as Profile)
       setLoading(false)
       Tower.track(EVENTS.DISPATCHER.TOGGLE)
@@ -121,7 +121,7 @@ const ToggleDispatcher = () => {
     toggleLensManager({
       variables: {
         request: {
-          approveLensManager: !isLensManagerEnabled
+          approveSignless: !isLensManagerEnabled
         }
       }
     })

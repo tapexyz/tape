@@ -90,7 +90,7 @@ const NewComment: FC<Props> = ({
   const handleWrongNetwork = useHandleWrongNetwork()
   const queuedComments = usePersistStore((state) => state.queuedComments)
   const setQueuedComments = usePersistStore((state) => state.setQueuedComments)
-  const canUseRelay = activeProfile?.lensManager && activeProfile?.sponsor
+  const canUseRelay = activeProfile?.signless && activeProfile?.sponsor
   const targetVideo = getPublication(video)
 
   const {

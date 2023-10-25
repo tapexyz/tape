@@ -24,6 +24,7 @@ import {
   trimLensHandle
 } from '@tape.xyz/generic'
 import type {
+  HandleInfo,
   MultirecipientFeeCollectOpenActionSettings,
   PrimaryPublication,
   Profile,
@@ -168,7 +169,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
       const handles = profiles
         .filter((p) => p.ownedBy.address === address)
         .map((p) => p.handle)
-      return handles as string[]
+      return handles as HandleInfo[]
     }
     return []
   }
@@ -202,7 +203,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
               placement="bottom-start"
               visible={hasManyProfiles}
               content={handles?.map((handle) => (
-                <p key={handle}>{trimLensHandle(handle)}</p>
+                <p key={handle.id}>{handle.fullHandle}</p>
               ))}
             >
               {defaultProfile?.handle ? (

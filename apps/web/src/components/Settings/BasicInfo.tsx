@@ -96,7 +96,7 @@ const BasicInfo = ({ profile }: Props) => {
   const handleWrongNetwork = useHandleWrongNetwork()
 
   const activeProfile = useProfileStore((state) => state.activeProfile)
-  const canUseRelay = activeProfile?.lensManager && activeProfile?.sponsor
+  const canUseRelay = activeProfile?.signless && activeProfile?.sponsor
 
   const {
     register,

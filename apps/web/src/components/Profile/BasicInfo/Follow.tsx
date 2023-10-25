@@ -38,7 +38,7 @@ const Follow: FC<Props> = ({ profile, onSubscribe, size = '2' }) => {
   const activeProfile = useProfileStore((state) => state.activeProfile)
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
 
-  const canUseRelay = activeProfile?.lensManager && activeProfile?.sponsor
+  const canUseRelay = activeProfile?.signless && activeProfile?.sponsor
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
