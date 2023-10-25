@@ -1,5 +1,6 @@
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import useAuthPersistStore from '@lib/store/auth'
+import useNonceStore from '@lib/store/nonce'
 import useProfileStore from '@lib/store/profile'
 import { t } from '@lingui/macro'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
@@ -39,6 +40,7 @@ type Props = {
 const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
   const [loading, setLoading] = useState(false)
   const handleWrongNetwork = useHandleWrongNetwork()
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
 
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
@@ -72,8 +74,14 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
     address: LENSHUB_PROXY_ADDRESS,
     abi: LENSHUB_PROXY_ABI,
     functionName: 'mirror',
-    onError,
-    onSuccess: () => onCompleted()
+    onSuccess: () => {
+      onCompleted()
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
+    },
+    onError: (error) => {
+      onError(error)
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
+    }
   })
 
   const getSignatureFromTypedData = async (
@@ -188,6 +196,7 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
         }
         return await createOnChainMirrorTypedData({
           variables: {
+            options: { overrideSigNonce: lensHubOnchainSigNonce },
             request: {
               mirrorOn: video.id
             }
