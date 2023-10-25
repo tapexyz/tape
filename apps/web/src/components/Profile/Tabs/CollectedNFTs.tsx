@@ -17,7 +17,9 @@ type Props = {
 
 const CollectedNFTs: FC<Props> = ({ profile }) => {
   const fetchNfts = async () => {
-    const { data } = await axios.get(`${WORKER_NFTS_URL}/${profile.handle}/200`)
+    const { data } = await axios.get(
+      `${WORKER_NFTS_URL}/${profile.handle?.localName}/200`
+    )
     return data?.result
   }
 

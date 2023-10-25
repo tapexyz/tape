@@ -190,7 +190,7 @@ const RenderComment: FC<Props> = ({ comment }) => {
                     return
                   }
                   setShowNewComment(true)
-                  setDefaultComment(`@${profile.handle} `)
+                  setDefaultComment(`@${profile.handle?.fullHandle} `)
                 }}
               />
             )}
