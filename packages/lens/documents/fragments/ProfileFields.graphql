@@ -50,20 +50,6 @@ fragment ProfileFields on Profile {
     ...FollowModuleFields
   }
   handle {
-    id
-    fullHandle
-    namespace
-    localName
-    suggestedFormatted {
-      full
-      localName
-    }
-    linkedTo {
-      contract {
-        ...NetworkAddressFields
-      }
-      nftTokenId
-    }
-    ownedBy
+    ...HandleInfoFields
   }
 }
