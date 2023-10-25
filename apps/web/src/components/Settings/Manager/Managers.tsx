@@ -147,7 +147,6 @@ const Managers = () => {
       refetch()
       setShowModal(false)
       setSubmitting(false)
-      toast.success('Profile Manager added')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indexed])
@@ -213,7 +212,6 @@ const Managers = () => {
     toggleLensManager({
       variables: {
         request: {
-          approveSignless: true,
           changeManagers: [
             {
               address,

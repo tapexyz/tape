@@ -41,7 +41,10 @@ const cache = new InMemoryCache({
         mutualFollowersProfiles: cursorBasedPagination([
           'request',
           ['limit', 'viewing', 'observer']
-        ])
+        ]),
+        approvedAuthentication: cursorBasedPagination(['request', ['limit']]),
+        profileManagers: cursorBasedPagination(['request', ['cursor', 'for']]),
+        profilesManaged: cursorBasedPagination(['request', ['cursor', 'for']])
       }
     }
   }
