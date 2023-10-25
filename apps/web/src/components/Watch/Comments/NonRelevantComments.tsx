@@ -13,11 +13,7 @@ import type {
   MirrorablePublication,
   PublicationsRequest
 } from '@tape.xyz/lens'
-import {
-  CommentRankingFilterType,
-  LimitType,
-  usePublicationsQuery
-} from '@tape.xyz/lens'
+import { LimitType, usePublicationsQuery } from '@tape.xyz/lens'
 import { Loader } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React, { useState } from 'react'
@@ -38,10 +34,10 @@ const NonRelevantComments: FC<Props> = ({ video, className }) => {
     where: {
       customFilters: LENS_CUSTOM_FILTERS,
       commentOn: {
-        id: video.id,
-        ranking: {
-          filter: CommentRankingFilterType.NoneRelevant
-        }
+        id: video.id
+        // ranking: {
+        //   filter: CommentRankingFilterType.NoneRelevant
+        // }
       }
     }
   }
