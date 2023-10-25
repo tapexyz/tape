@@ -20,8 +20,7 @@ import {
   getRandomProfilePicture,
   getSignature,
   imageCdn,
-  shortenAddress,
-  trimLensHandle
+  shortenAddress
 } from '@tape.xyz/generic'
 import type {
   HandleInfo,
@@ -207,9 +206,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
               ))}
             >
               {defaultProfile?.handle ? (
-                <Link href={`/u/${getProfile(defaultProfile)?.slug}`}>
-                  {trimLensHandle(label)}
-                </Link>
+                <Link href={getProfile(defaultProfile).link}>{label}</Link>
               ) : (
                 <AddressExplorerLink address={splitRecipient?.recipient}>
                   <span>{label}</span>

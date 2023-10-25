@@ -15,23 +15,26 @@ const validationSchema = object({
   })
 })
 
-const PROFILES_QUERY = `query AllProfiles($ownedBy: [EthereumAddress!]) {
-  profiles(request: { ownedBy: $ownedBy }) {
+const PROFILES_QUERY = `query Profiles($ownedBy: [EvmAddress!]) {
+  profiles(request: { where: { ownedBy: $ownedBy } }) {
     items {
-      handle
-      ownedBy
+      id
+      handle {
+        fullHandle
+        ownedBy
+      }
     }
   }
 }`
 
 const replaceAddressesWithHandles = (
-  profiles: { ownedBy: string; handle: string; id: string }[],
+  profiles: { handle: { fullHandle: string; ownedBy: string }; id: string }[],
   addresses: string[]
 ) => {
   const handleMap = profiles.reduce(
     (acc: { [address: string]: string }, profile) => {
-      if (!acc[profile.ownedBy]) {
-        acc[profile.ownedBy] = profile.handle || profile.id
+      if (!acc[profile.handle.ownedBy]) {
+        acc[profile.handle.ownedBy] = profile.handle.fullHandle || profile.id
       }
       return acc
     },
@@ -90,14 +93,14 @@ export default async (request: WorkerRequest) => {
   const { addresses } = body as ExtensionRequest
 
   try {
-    const response = await fetch('https://api.lens.dev/', {
+    const response = await fetch('https://api-v2-mumbai.lens.dev/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         'User-Agent': 'Tape'
       },
       body: JSON.stringify({
-        operationName: 'AllProfiles',
+        operationName: 'Profiles',
         query: PROFILES_QUERY,
         variables: {
           ownedBy: addresses

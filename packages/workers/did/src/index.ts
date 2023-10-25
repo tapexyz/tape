@@ -2,7 +2,7 @@ import { createCors, error, Router, status } from 'itty-router'
 
 import resolveDid from './handlers/resolveDid'
 import buildRequest from './helpers/buildRequest'
-import type { Env, WorkerRequest } from './types'
+import type { Env } from './types'
 
 const { preflight, corsify } = createCors({
   origins: ['*'],

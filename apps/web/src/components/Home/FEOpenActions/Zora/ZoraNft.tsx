@@ -6,7 +6,7 @@ import {
   TAPE_ADMIN_ADDRESS,
   ZORA_MAINNET_CHAINS
 } from '@tape.xyz/constants'
-import { EVENTS, Tower, trimLensHandle } from '@tape.xyz/generic'
+import { EVENTS, Tower } from '@tape.xyz/generic'
 import type { BasicNftMetadata } from '@tape.xyz/lens/custom-types'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -76,7 +76,7 @@ const ZoraNft: FC<Props> = ({ nftMetadata }) => {
           {zoraNft?.name}
         </h1>
         <div className="flex items-center text-sm opacity-50">
-          <span className="whitespace-nowrap">{trimLensHandle(did)}</span>
+          <span className="whitespace-nowrap">{did}</span>
           <span className="middot" />
           <Link
             onClick={() => Tower.track(EVENTS.OPEN_ACTIONS.OPEN_IN_ZORA)}

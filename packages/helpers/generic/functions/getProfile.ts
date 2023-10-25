@@ -1,8 +1,6 @@
 import type { Profile } from '@tape.xyz/lens'
 import type { SimpleProfile } from '@tape.xyz/lens/custom-types'
 
-import { trimLensHandle } from './trimLensHandle'
-
 export const getProfile = (
   profile: Profile | SimpleProfile
 ): {
@@ -36,7 +34,7 @@ export const getProfile = (
     displayName: profile.metadata?.displayName || slug,
     id: profile.id,
     link: profile.handle
-      ? `/u/${trimLensHandle(profile.handle.localName)}`
+      ? `/u/${profile.handle.localName}`
       : `/profile/${profile.id}`,
     address: profile.ownedBy.address
   }

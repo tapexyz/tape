@@ -1,7 +1,7 @@
 import Badge from '@components/Common/Badge'
 import { Trans } from '@lingui/macro'
 import { Avatar } from '@radix-ui/themes'
-import { formatNumber, trimLensHandle } from '@tape.xyz/generic'
+import { formatNumber } from '@tape.xyz/generic'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
@@ -28,14 +28,12 @@ const ProfileSuggestions: FC<Props> = ({
         size="2"
         radius="full"
         className="mt-1 h-6 w-6 rounded-full"
-        fallback={trimLensHandle(handle)[0]}
+        fallback={handle[0]}
         draggable={false}
       />
       <div className="overflow-hidden">
         <div className="flex items-center space-x-0.5">
-          <p className="truncate text-sm font-medium leading-4">
-            {trimLensHandle(handle)}
-          </p>
+          <p className="truncate text-sm font-medium leading-4">{handle}</p>
           <Badge id={id} size="xs" />
         </div>
         <span className="text-xs opacity-80">

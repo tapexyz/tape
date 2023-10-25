@@ -9,8 +9,7 @@ import {
   getRandomProfilePicture,
   sanitizeDStorageUrl,
   shortenAddress,
-  Tower,
-  trimLensHandle
+  Tower
 } from '@tape.xyz/generic'
 import type { ZoraNft } from '@tape.xyz/lens/custom-types'
 import VideoPlayer from '@tape.xyz/ui/VideoPlayer'
@@ -53,7 +52,7 @@ const Metadata = ({ nft, link }: { nft: ZoraNft; link: string }) => {
             className="h-5 w-5 rounded-full"
             alt=""
           />
-          <span> {trimLensHandle(did) ?? shortenAddress(nft.creator)}</span>
+          <span> {did ?? shortenAddress(nft.creator)}</span>
         </div>
         <p className="line-clamp-4 break-words" title={nft.description}>
           {nft?.description}

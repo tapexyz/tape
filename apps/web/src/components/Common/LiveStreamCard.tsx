@@ -1,7 +1,7 @@
 import { useDid } from '@hooks/useDid'
 import { getShortHandTime } from '@lib/formatTime'
 import { FALLBACK_COVER_URL } from '@tape.xyz/constants'
-import { getRandomProfilePicture, trimLensHandle } from '@tape.xyz/generic'
+import { getRandomProfilePicture } from '@tape.xyz/generic'
 import Link from 'next/link'
 import type { FC, ReactNode } from 'react'
 import React from 'react'
@@ -69,7 +69,7 @@ const LiveStreamCard: FC<Props> = ({
             </div>
             <p className="line-clamp-1">{description}</p>
             <div className="flex items-center overflow-hidden text-xs opacity-70">
-              <span>{trimLensHandle(did) ?? username}</span>
+              <span>{did ?? username}</span>
               <span className="middot" />
               {app}
               <span className="middot" />

@@ -1,5 +1,4 @@
 import { COMMON_REGEX, STATIC_ASSETS, TAPE_APP_NAME } from '@tape.xyz/constants'
-import { trimLensHandle } from '@tape.xyz/generic'
 import { Matcher } from 'interweave'
 import Link from 'next/link'
 import React from 'react'
@@ -9,7 +8,7 @@ import type { MentionProps } from './utils'
 const ProfileLink = ({ ...props }: any) => {
   return (
     <Link
-      href={`/u/${trimLensHandle(props.display?.slice(1))}`}
+      href={`/u/${props.display?.slice(1)}`}
       className="inline-flex items-center space-x-1 rounded-full bg-gray-200 px-2 text-sm font-medium dark:bg-gray-800"
     >
       <img
@@ -18,9 +17,7 @@ const ProfileLink = ({ ...props }: any) => {
         draggable={false}
         alt={TAPE_APP_NAME}
       />
-      <span className="-mt-[1px]">
-        {trimLensHandle(props.display.replace('@', ''))}
-      </span>
+      <span className="-mt-[1px]">{props.display.replace('@', '')}</span>
     </Link>
   )
 }
