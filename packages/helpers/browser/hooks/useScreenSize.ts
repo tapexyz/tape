@@ -9,8 +9,8 @@ type ScreenSize = {
 
 export const useScreenSize = (): ScreenSize => {
   const [screenSize, setScreenSize] = useState<ScreenSize>({
-    width: window.innerWidth,
-    height: window.innerHeight,
+    width: 0,
+    height: 0,
     isMobile: false,
     isTablet: false
   })
@@ -46,7 +46,9 @@ export const useScreenSize = (): ScreenSize => {
     setScreenSize((prevScreenSize) => ({
       ...prevScreenSize,
       isMobile,
-      isTablet
+      isTablet,
+      width: window.innerWidth,
+      height: window.innerHeight
     }))
   }, [])
 
