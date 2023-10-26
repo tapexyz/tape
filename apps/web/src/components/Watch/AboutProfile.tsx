@@ -41,7 +41,7 @@ const AboutProfile: FC<Props> = ({ video }) => {
             <button
               type="button"
               onClick={() => setClamped(!clamped)}
-              className="text-brand-800 dark:text-brand-200 flex items-center text-sm opacity-80 outline-none hover:opacity-100"
+              className="flex items-center text-sm opacity-80 outline-none hover:opacity-100"
             >
               {clamped ? (
                 <>
