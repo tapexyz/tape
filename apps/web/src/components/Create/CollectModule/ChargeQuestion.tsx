@@ -1,5 +1,4 @@
 import useAppStore from '@lib/store'
-import { Trans } from '@lingui/macro'
 import { Button, Text } from '@radix-ui/themes'
 import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
 import type { FC } from 'react'
@@ -15,7 +14,7 @@ const ChargeQuestion: FC<Props> = ({ setCollectType }) => {
   return (
     <div className="space-y-1">
       <Text size="2" weight="medium">
-        <Trans>Price</Trans>
+        Price
       </Text>
       <div className="flex flex-wrap gap-1.5 md:flex-nowrap">
         <Button
@@ -33,7 +32,7 @@ const ChargeQuestion: FC<Props> = ({ setCollectType }) => {
             })
           }
         >
-          <Trans>Free</Trans>
+          Free
         </Button>
         <Button
           className="flex-1"
@@ -49,7 +48,7 @@ const ChargeQuestion: FC<Props> = ({ setCollectType }) => {
             })
           }
         >
-          <Trans>Set Price</Trans>
+          Set Price
         </Button>
       </div>
     </div>

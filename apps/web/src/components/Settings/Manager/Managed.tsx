@@ -1,6 +1,5 @@
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useProfileStore from '@lib/store/profile'
-import { Trans } from '@lingui/macro'
 import { Avatar, Flex, Table } from '@radix-ui/themes'
 import { formatNumber, getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
@@ -49,8 +48,7 @@ const Managed = () => {
                   </Table.RowHeaderCell>
                   <Table.Cell>{profile.id}</Table.Cell>
                   <Table.Cell>
-                    {formatNumber(profile.stats.followers)}{' '}
-                    <Trans>followers</Trans>
+                    {formatNumber(profile.stats.followers)} followers
                   </Table.Cell>
                 </Table.Row>
               ))}

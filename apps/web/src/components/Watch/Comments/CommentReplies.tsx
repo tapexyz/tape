@@ -5,7 +5,6 @@ import ReplyOutline from '@components/Common/Icons/ReplyOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { getShortHandTime } from '@lib/formatTime'
-import { Trans } from '@lingui/macro'
 import { Button, Flex } from '@radix-ui/themes'
 import { LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
 import { getProfile, getProfilePicture } from '@tape.xyz/generic'
@@ -55,13 +54,11 @@ const ReplyContent: FC<ReplyContentProps> = ({ comment }) => {
           >
             {clamped ? (
               <>
-                <Trans>Show more</Trans>{' '}
-                <ChevronDownOutline className="ml-1 h-3 w-3" />
+                Show more <ChevronDownOutline className="ml-1 h-3 w-3" />
               </>
             ) : (
               <>
-                <Trans>Show less</Trans>{' '}
-                <ChevronUpOutline className="ml-1 h-3 w-3" />
+                Show less <ChevronUpOutline className="ml-1 h-3 w-3" />
               </>
             )}
           </button>
@@ -161,9 +158,7 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
                         onClick={() => replyTo(comment.by)}
                       >
                         <ReplyOutline className="h-3.5 w-3.5" />{' '}
-                        <span className="text-xs">
-                          <Trans>Reply</Trans>
-                        </span>
+                        <span className="text-xs">Reply</span>
                       </Button>
                     </Flex>
                   )}
@@ -183,7 +178,7 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
           variant="soft"
         >
           <span className="flex items-center space-x-2 opacity-70 group-hover:opacity-100">
-            <Trans>Show more replies</Trans>
+            Show more replies
           </span>
         </Button>
       ) : null}

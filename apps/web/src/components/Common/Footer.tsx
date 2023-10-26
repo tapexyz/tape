@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro'
 import {
   TAPE_FEEDBACK_URL,
   TAPE_GITHUB_HANDLE,
@@ -20,7 +19,7 @@ const Footer = () => {
           Tower.track(EVENTS.SYSTEM.MORE_MENU.BRAND_KIT)
         }}
       >
-        <Trans>Brand Kit</Trans>
+        Brand Kit
       </Link>
       <Link
         className="rounded-lg px-2.5 py-1.5"
@@ -40,7 +39,7 @@ const Footer = () => {
         }}
         target="_blank"
       >
-        <Trans>Feedback</Trans>
+        Feedback
       </Link>
       <Link
         className="rounded-lg px-2.5 py-1.5"
@@ -50,7 +49,7 @@ const Footer = () => {
         }}
         target="_blank"
       >
-        <Trans>Roadmap</Trans>
+        Roadmap
       </Link>
 
       <Link
@@ -82,7 +81,7 @@ const Footer = () => {
           Tower.track(EVENTS.SYSTEM.MORE_MENU.THANKS)
         }}
       >
-        <Trans>Thanks</Trans>
+        Thanks
       </Link>
       <Link
         className="rounded-lg px-2.5 py-1.5"
@@ -92,7 +91,7 @@ const Footer = () => {
         }}
         target="_blank"
       >
-        <Trans>System Status</Trans>
+        System Status
       </Link>
 
       <Link
@@ -103,7 +102,7 @@ const Footer = () => {
         }}
         href="/terms"
       >
-        <Trans>Terms</Trans>
+        Terms
       </Link>
       <Link
         className="rounded-lg px-2.5 py-1.5"
@@ -113,7 +112,7 @@ const Footer = () => {
         }}
         href="/privacy"
       >
-        <Trans>Privacy</Trans>
+        Privacy
       </Link>
     </div>
   )

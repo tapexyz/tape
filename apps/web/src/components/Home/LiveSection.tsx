@@ -1,7 +1,6 @@
 import HorizantalScroller from '@components/Common/HorizantalScroller'
 import StreamCard from '@components/Common/VideoCard/StreamCard'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
-import { t } from '@lingui/macro'
 import { LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
 import type {
   ExplorePublicationRequest,
@@ -45,8 +44,8 @@ const LiveSection = () => {
     <div className="laptop:pt-6 flex flex-col pt-4">
       <HorizantalScroller
         sectionRef={sectionRef}
-        heading={t`Live`}
-        subheading={t`What's Popping?`}
+        heading={`Live`}
+        subheading={`What's Popping?`}
       />
       <div
         ref={sectionRef}

@@ -3,7 +3,6 @@ import PinnedVideoShimmer from '@components/Shimmers/PinnedVideoShimmer'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import usePersistStore from '@lib/store/persist'
-import { t } from '@lingui/macro'
 import {
   ALLOWED_APP_IDS,
   INFINITE_SCROLL_ROOT_MARGIN,
@@ -77,7 +76,7 @@ const ProfileVideos: FC<Props> = ({ profile }) => {
   }
 
   if (data?.publications?.items?.length === 0 && queuedVideos.length === 0) {
-    return <NoDataFound isCenter withImage text={t`No videos found`} />
+    return <NoDataFound isCenter withImage text={`No videos found`} />
   }
 
   return !error && !loading ? (

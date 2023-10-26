@@ -1,5 +1,4 @@
 import useAppStore from '@lib/store'
-import { Trans } from '@lingui/macro'
 import { Select, Text } from '@radix-ui/themes'
 import { CREATOR_VIDEO_CATEGORIES } from '@tape.xyz/constants'
 import { getCategoryByTag } from '@tape.xyz/generic'
@@ -12,7 +11,7 @@ const Category = () => {
   return (
     <div className="flex-1 space-y-1">
       <Text size="2" weight="medium">
-        <Trans>Select Category</Trans>
+        Select Category
       </Text>
 
       <Select.Root

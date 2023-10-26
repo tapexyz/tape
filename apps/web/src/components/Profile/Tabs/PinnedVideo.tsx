@@ -5,7 +5,6 @@ import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
 import { getRelativeTime } from '@lib/formatTime'
 import useAuthPersistStore from '@lib/store/auth'
 import useProfileStore from '@lib/store/profile'
-import { t, Trans } from '@lingui/macro'
 import { Button } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
@@ -108,7 +107,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
     ) {
       return
     }
-    toast.success(t`Transaction submitted`)
+    toast.success(`Transaction submitted`)
     Tower.track(EVENTS.PUBLICATION.UNPIN)
   }
 
@@ -164,7 +163,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
     }
 
     try {
-      toast.loading(t`Unpinning video...`)
+      toast.loading(`Unpinning video...`)
       const metadata = profile({
         appId: TAPE_APP_ID,
         bio: activeProfile?.metadata?.bio,
@@ -217,9 +216,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
 
   return (
     <div className="mb-4 mt-6">
-      <h1 className="text-brand-400 pb-4 text-xl font-bold">
-        <Trans>Featured</Trans>
-      </h1>
+      <h1 className="text-brand-400 pb-4 text-xl font-bold">Featured</h1>
       <div className="grid grid-cols-3 overflow-hidden md:space-x-5">
         <div className="overflow-hidden md:rounded-xl">
           <VideoPlayer
@@ -260,7 +257,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
             </div>
             <div className="flex items-center overflow-hidden opacity-70">
               <span className="whitespace-nowrap">
-                {pinnedPublication.stats?.reactions} <Trans>likes</Trans>
+                {pinnedPublication.stats?.reactions} likes
               </span>
               <span className="middot" />
               {pinnedPublication.createdAt && (
@@ -277,7 +274,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
             className="text-brand-500 text-xs font-bold"
             href={`/watch/${pinnedPublication.id}`}
           >
-            <Trans>View more</Trans>
+            View more
           </Link>
         </div>
       </div>

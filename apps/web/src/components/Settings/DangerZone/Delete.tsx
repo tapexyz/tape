@@ -1,7 +1,6 @@
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import { signOut } from '@lib/store/auth'
 import useProfileStore from '@lib/store/profile'
-import { t, Trans } from '@lingui/macro'
 import { Button } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
@@ -40,7 +39,7 @@ const Delete = () => {
     enabled: txnHash && txnHash.length > 0,
     hash: txnHash,
     onSuccess: () => {
-      toast.success(t`Profile deleted`)
+      toast.success(`Profile deleted`)
       setLoading(false)
       signOut()
       location.href = '/'
@@ -76,14 +75,10 @@ const Delete = () => {
   return (
     <div className="flex flex-wrap items-center justify-between pt-6">
       <div className="space-y-2">
-        <h1 className="text-xl font-bold text-red-500">
-          <Trans>Delete Profile</Trans>
-        </h1>
+        <h1 className="text-xl font-bold text-red-500">Delete Profile</h1>
         <p>
-          <Trans>Delete your profile and its data.</Trans>
-          <span className="ml-1 text-red-500">
-            <Trans>It can not be reverted</Trans>
-          </span>
+          Delete your profile and its data.
+          <span className="ml-1 text-red-500">It can not be reverted</span>
         </p>
       </div>
       <Button
@@ -94,7 +89,7 @@ const Delete = () => {
         onClick={() => onClickDelete()}
       >
         {loading && <Loader size="sm" />}
-        <Trans>Delete</Trans>
+        Delete
       </Button>
     </div>
   )

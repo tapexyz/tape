@@ -1,6 +1,5 @@
 import HeartOutline from '@components/Common/Icons/HeartOutline'
 import useAuthPersistStore from '@lib/store/auth'
-import { t } from '@lingui/macro'
 import { Button } from '@radix-ui/themes'
 import { SIGN_IN_REQUIRED } from '@tape.xyz/constants'
 import { EVENTS, formatNumber, getPublication, Tower } from '@tape.xyz/generic'
@@ -118,9 +117,7 @@ const PublicationReaction: FC<Props> = ({
               'text-brand-400': reaction.isLiked
             })}
           >
-            {reaction.likeCount > 0
-              ? formatNumber(reaction.likeCount)
-              : t`Like`}
+            {reaction.likeCount > 0 ? formatNumber(reaction.likeCount) : 'Like'}
           </span>
         )}
       </span>

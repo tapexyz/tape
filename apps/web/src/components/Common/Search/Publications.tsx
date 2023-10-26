@@ -1,5 +1,4 @@
 import { getShortHandTime } from '@lib/formatTime'
-import { Trans } from '@lingui/macro'
 import { Flex } from '@radix-ui/themes'
 import {
   FALLBACK_COVER_URL,
@@ -98,7 +97,7 @@ const Publications: FC<Props> = ({ results, loading, clearSearch }) => {
       })}
       {!results?.length && !loading && (
         <div className="relative cursor-default select-none p-5 text-center">
-          <Trans>No results found</Trans>
+          No results found
         </div>
       )}
     </div>

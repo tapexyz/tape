@@ -1,6 +1,5 @@
 import HorizantalScroller from '@components/Common/HorizantalScroller'
 import useAuthPersistStore from '@lib/store/auth'
-import { t } from '@lingui/macro'
 import React, { useRef } from 'react'
 
 import DispatcherAlert from './DispatcherAlert'
@@ -18,8 +17,8 @@ const TopSection = () => {
     <div className="flex flex-col">
       <HorizantalScroller
         sectionRef={sectionRef}
-        heading={t`Today`}
-        subheading={t`New & Trending`}
+        heading="Today"
+        subheading="New & Trending"
       />
       <div
         ref={sectionRef}

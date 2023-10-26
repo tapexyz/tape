@@ -2,7 +2,6 @@ import Badge from '@components/Common/Badge'
 import FollowActions from '@components/Common/FollowActions'
 import OtherChannelsShimmer from '@components/Shimmers/OtherChannelsShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { t, Trans } from '@lingui/macro'
 import { formatNumber, getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { useProfilesQuery } from '@tape.xyz/lens'
@@ -28,7 +27,7 @@ const OtherProfiles: FC<Props> = ({ currentProfile }) => {
   }
 
   if (allProfiles?.length === 1) {
-    return <NoDataFound isCenter withImage text={t`No other channels found`} />
+    return <NoDataFound isCenter withImage text="No other channels found" />
   }
 
   return (
@@ -61,8 +60,7 @@ const OtherProfiles: FC<Props> = ({ currentProfile }) => {
                   </Link>
                 </div>
                 <div className="text-center text-xs opacity-70">
-                  {formatNumber(profile.stats.followers)}{' '}
-                  <Trans>followers</Trans>
+                  {formatNumber(profile.stats.followers)} followers
                 </div>
               </div>
               <FollowActions profile={profile} />

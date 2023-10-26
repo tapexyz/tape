@@ -3,7 +3,6 @@ import InputMentions from '@components/UIElements/InputMentions'
 import Tooltip from '@components/UIElements/Tooltip'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useAppStore from '@lib/store'
-import { t, Trans } from '@lingui/macro'
 import { Button, Flex, Switch, Text } from '@radix-ui/themes'
 import { checkIsBytesVideo } from '@tape.xyz/generic'
 import clsx from 'clsx'
@@ -23,12 +22,12 @@ import SelectedMedia from './SelectedMedia'
 const formSchema = object({
   title: string()
     .trim()
-    .min(5, { message: t`Title should be atleast 5 characters` })
-    .max(100, { message: t`Title should not exceed 100 characters` }),
+    .min(5, { message: `Title should be atleast 5 characters` })
+    .max(100, { message: `Title should not exceed 100 characters` }),
   description: string()
     .trim()
-    .min(5, { message: t`Description should be atleast 5 characters` })
-    .max(5000, { message: t`Description should not exceed 5000 characters` }),
+    .min(5, { message: `Description should be atleast 5 characters` })
+    .max(5000, { message: `Description should not exceed 5000 characters` }),
   isSensitiveContent: boolean()
 })
 
@@ -62,10 +61,10 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
 
   const onSubmitForm = (data: VideoFormData) => {
     if (!uploadedVideo.file) {
-      return toast.error(t`Please choose a media to upload`)
+      return toast.error(`Please choose a media to upload`)
     }
     if (!uploadedVideo.thumbnail?.length) {
-      return toast.error(t`Please select or upload a thumbnail`)
+      return toast.error(`Please select or upload a thumbnail`)
     }
     onUpload(data)
   }
@@ -87,8 +86,8 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
           <div>
             <div className="relative">
               <InputMentions
-                label={t`Title`}
-                placeholder={t`Title that describes your content`}
+                label="Title"
+                placeholder="Title that describes your content"
                 autoComplete="off"
                 validationError={errors.title?.message}
                 value={watch('title')}
@@ -113,8 +112,8 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
             </div>
             <div className="relative mt-4">
               <InputMentions
-                label={t`Description`}
-                placeholder={t`Describe more about your content, can also be @profile, #hashtags or chapters (00:20 - Intro)`}
+                label="Description"
+                placeholder="Describe more about your content, can also be @profile, #hashtags or chapters (00:20 - Intro)"
                 autoComplete="off"
                 validationError={errors.description?.message}
                 value={watch('description')}
@@ -171,7 +170,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                       })
                     }
                   />
-                  <Trans>Collectible</Trans>
+                  Collectible
                 </Flex>
               </Text>
               {!uploadedVideo.collectModule.isRevertCollect && (
@@ -182,7 +181,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
             {uploadedVideo.file && (
               <Tooltip
                 visible={!isByteSizeVideo}
-                content={t`Please note that only videos under 2 minutes in length can be uploaded as bytes.`}
+                content="Please note that only videos under 2 minutes in length can be uploaded as bytes"
               >
                 <div
                   className={clsx(
@@ -197,7 +196,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                         checked={Boolean(uploadedVideo.isByteVideo)}
                         onCheckedChange={(b) => toggleUploadAsByte(b)}
                       />
-                      <Trans>Upload this video as short-form bytes</Trans>
+                      Upload this video as short-form bytes
                     </Flex>
                   </Text>
                 </div>
@@ -214,7 +213,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                       setValue('isSensitiveContent', value)
                     }
                   />
-                  <Trans>Sensitive content for a general audience</Trans>
+                  Sensitive content for a general audience
                 </Flex>
               </Text>
             </div>
@@ -231,7 +230,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
           disabled={uploadedVideo.loading}
           onClick={() => onCancel()}
         >
-          <Trans>Reset</Trans>
+          Reset
         </Button>
         <Button
           highContrast
@@ -244,7 +243,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
           size="3"
         >
           {uploadedVideo.uploadingThumbnail
-            ? t`Uploading thumbnail`
+            ? 'Uploading thumbnail'
             : uploadedVideo.buttonText}
         </Button>
       </div>

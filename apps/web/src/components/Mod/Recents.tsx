@@ -1,7 +1,6 @@
 import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { t } from '@lingui/macro'
 import {
   INFINITE_SCROLL_ROOT_MARGIN,
   LENS_CUSTOM_FILTERS,
@@ -68,7 +67,7 @@ const Recents = () => {
     )
   }
   if (!videos.length || error) {
-    return <NoDataFound isCenter withImage text={t`No videos found`} />
+    return <NoDataFound isCenter withImage text={`No videos found`} />
   }
 
   return (

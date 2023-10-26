@@ -5,7 +5,6 @@ import { MetadataAttributeType, textOnly } from '@lens-protocol/metadata'
 import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
 import { useProfileStore } from '@lib/store/profile'
-import { t, Trans } from '@lingui/macro'
 import { Button, Flex } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { getUserLocale } from '@tape.xyz/browser'
@@ -62,10 +61,10 @@ type Props = {
 
 const formSchema = object({
   tipQuantity: number()
-    .nonnegative({ message: t`Tip should to greater than zero` })
-    .max(100, { message: t`Tip should be less than or equal to 100 MATIC` })
-    .refine((n) => n > 0, { message: t`Tip should be greater than 0 MATIC` }),
-  message: string().min(1, { message: t`Tip message is requried` })
+    .nonnegative({ message: `Tip should to greater than zero` })
+    .max(100, { message: `Tip should be less than or equal to 100 MATIC` })
+    .refine((n) => n > 0, { message: `Tip should be greater than 0 MATIC` }),
+  message: string().min(1, { message: `Tip message is requried` })
 })
 type FormData = z.infer<typeof formSchema>
 
@@ -82,7 +81,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       tipQuantity: 1,
-      message: t`Thanks for making this video!`
+      message: `Thanks for making this video!`
     }
   })
   const watchTipQuantity = watch('tipQuantity', 1)
@@ -129,9 +128,9 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
     if (__typename === 'RelayError') {
       return
     }
-    toast.success(t`Tipped successfully`)
     setLoading(false)
     setShow(false)
+    toast.success(`Tipped successfully`)
     Tower.track(EVENTS.PUBLICATION.NEW_COMMENT, {
       publication_id: targetVideo.id,
       comment_type: 'tip',
@@ -355,7 +354,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
     }
     if (video.momoka?.proof && !activeProfile?.sponsor) {
       return toast.error(
-        t`Momoka is currently in beta - during this time certain actions are not available to all profiles.`
+        'Momoka is currently in beta - during this time certain actions are not available to all profiles.'
       )
     }
     setLoading(true)
@@ -408,7 +407,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
           rows={3}
         />
         <div className="mx-1 mt-1 text-[11px] opacity-50">
-          <Trans>This will be published as a public comment.</Trans>
+          This will be published as a public comment
         </div>
       </div>
 

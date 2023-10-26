@@ -8,7 +8,6 @@ import {
 } from '@lens-protocol/metadata'
 import useAuthPersistStore from '@lib/store/auth'
 import useProfileStore from '@lib/store/profile'
-import { t, Trans } from '@lingui/macro'
 import { Dialog, DropdownMenu, Flex, IconButton, Text } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
@@ -89,7 +88,7 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
       cache.gc()
     },
     onCompleted: () => {
-      toast.success(t`Video deleted`)
+      toast.success(`Video deleted`)
       Tower.track(EVENTS.PUBLICATION.DELETE, {
         publication_type: video.__typename?.toLowerCase()
       })
@@ -130,7 +129,7 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
     ) {
       return
     }
-    toast.success(t`Transaction submitted`)
+    toast.success(`Transaction submitted`)
     Tower.track(EVENTS.PUBLICATION.PIN)
   }
 
@@ -186,7 +185,7 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
     }
 
     try {
-      toast.loading(t`Pinning video...`)
+      toast.loading(`Pinning video...`)
       const metadata = profile({
         appId: TAPE_APP_ID,
         bio: activeProfile?.metadata?.bio,
@@ -242,8 +241,8 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
     })
     toast.success(
       notInterested
-        ? t`Video marked as not interested`
-        : t`Video removed from not interested`
+        ? `Video marked as not interested`
+        : `Video removed from not interested`
     )
     Tower.track(EVENTS.PUBLICATION.TOGGLE_INTEREST)
   }
@@ -261,7 +260,7 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
       }
     })
     toast.success(
-      saved ? t`Video added to your list` : t`Video removed from your list`
+      saved ? `Video added to your list` : `Video removed from your list`
     )
     Tower.track(EVENTS.PUBLICATION.TOGGLE_INTEREST)
   }
@@ -355,7 +354,7 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
                   <Flex align="center" gap="2">
                     <ShareOutline className="h-3.5 w-3.5" />
                     <Text size="2" className="whitespace-nowrap">
-                      <Trans>Share</Trans>
+                      Share
                     </Text>
                   </Flex>
                 </button>
@@ -380,9 +379,7 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
                   <DropdownMenu.Item onClick={() => onPinVideo()}>
                     <Flex align="center" gap="2">
                       <PinOutline className="h-3.5 w-3.5" />
-                      <span className="whitespace-nowrap">
-                        <Trans>Pin Video</Trans>
-                      </span>
+                      <span className="whitespace-nowrap">Pin Video</span>
                     </Flex>
                   </DropdownMenu.Item>
                 )}
@@ -392,9 +389,7 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
                 >
                   <Flex align="center" gap="2">
                     <TrashOutline className="h-3.5 w-3.5" />
-                    <span className="whitespace-nowrap">
-                      <Trans>Delete</Trans>
-                    </span>
+                    <span className="whitespace-nowrap">Delete</span>
                   </Flex>
                 </DropdownMenu.Item>
               </>
@@ -406,11 +401,7 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
                   <Flex align="center" gap="2">
                     <BookmarkOutline className="h-3.5 w-3.5 flex-none" />
                     <span className="truncate whitespace-nowrap">
-                      {video.operations.hasBookmarked ? (
-                        <Trans>Unsave</Trans>
-                      ) : (
-                        <Trans>Save</Trans>
-                      )}
+                      {video.operations.hasBookmarked ? 'Unsave' : 'Save'}
                     </span>
                   </Flex>
                 </DropdownMenu.Item>
@@ -418,11 +409,9 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
                   <Flex align="center" gap="2">
                     <ForbiddenOutline className="h-3.5 w-3.5" />
                     <span className="whitespace-nowrap">
-                      {video.operations.isNotInterested ? (
-                        <Trans>Interested</Trans>
-                      ) : (
-                        <Trans>Not Interested</Trans>
-                      )}
+                      {video.operations.isNotInterested
+                        ? 'Interested'
+                        : 'Not Interested'}
                     </span>
                   </Flex>
                 </DropdownMenu.Item>
@@ -435,7 +424,7 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
                       <Flex align="center" gap="2">
                         <FlagOutline className="h-3.5 w-3.5" />
                         <Text size="2" className="whitespace-nowrap">
-                          <Trans>Report</Trans>
+                          Report
                         </Text>
                       </Flex>
                     </button>
@@ -443,7 +432,6 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
 
                   <Dialog.Content style={{ maxWidth: 450 }}>
                     <Dialog.Title>Report</Dialog.Title>
-
                     <ReportPublication publication={video} />
                   </Dialog.Content>
                 </Dialog.Root>

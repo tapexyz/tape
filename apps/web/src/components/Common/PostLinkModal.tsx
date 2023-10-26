@@ -5,7 +5,6 @@ import { useZoraNft } from '@hooks/useZoraNft'
 import type { MetadataAttribute } from '@lens-protocol/metadata'
 import { link, MetadataAttributeType } from '@lens-protocol/metadata'
 import useProfileStore from '@lib/store/profile'
-import { Trans } from '@lingui/macro'
 import { Button, Dialog, Flex } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { getUserLocale } from '@tape.xyz/browser'
@@ -247,11 +246,9 @@ const PostLinkModal: FC<Props> = ({ show, setShow }) => {
     <div>
       <Dialog.Root open={show} onOpenChange={setShow}>
         <Dialog.Content>
-          <Dialog.Title>
-            <Trans>Share a Drop</Trans>
-          </Dialog.Title>
+          <Dialog.Title>Share a Drop</Dialog.Title>
           <Dialog.Description size="2" mb="4">
-            <Trans>Only zora links are supported at the moment.</Trans>
+            Only zora links are supported at the moment.
           </Dialog.Description>
           <div className="no-scrollbar max-h-[40vh] overflow-y-auto p-0.5">
             <form className="mt-2" onSubmit={handleSubmit(onSubmit)}>

@@ -1,6 +1,5 @@
 import { Countdown } from '@components/UIElements/CountDown'
 import useProfileStore from '@lib/store/profile'
-import { Trans } from '@lingui/macro'
 import { Button } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
@@ -99,7 +98,7 @@ const Guardian: FC = () => {
     <div className="py-6">
       <div className="space-y-2">
         <h1 className="text-xl font-bold text-red-500">
-          <Trans>Disable profile guardian</Trans>
+          Disable profile guardian
         </h1>
         <p>
           This will disable the Profile Guardian and allow you to do some
@@ -129,9 +128,7 @@ const Guardian: FC = () => {
       >
         {!isCooldownEnded() && (
           <span className="flex items-center space-x-2">
-            <span>
-              <Trans>Cooldown period ends in:</Trans>{' '}
-            </span>
+            <span>Cooldown period ends in: </span>
             <Countdown timestamp={activeProfile?.guardian?.cooldownEndsOn} />
           </span>
         )}
@@ -143,7 +140,7 @@ const Guardian: FC = () => {
             disabled={loading}
             onClick={() => toggle()}
           >
-            {loading ? <Trans>Disabling</Trans> : <Trans>Disable</Trans>}
+            {loading ? 'Disabling' : 'Disable'}
           </Button>
         ) : (
           <Button
@@ -153,7 +150,7 @@ const Guardian: FC = () => {
             highContrast
             onClick={() => toggle()}
           >
-            {loading ? <Trans> Enabling</Trans> : <Trans>Enable</Trans>}
+            {loading ? 'Enabling' : 'Enable'}
           </Button>
         )}
       </div>

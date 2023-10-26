@@ -3,7 +3,6 @@ import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import useAuthPersistStore from '@lib/store/auth'
-import { t } from '@lingui/macro'
 import { AspectRatio, Badge } from '@radix-ui/themes'
 import { uploadToIPFS } from '@tape.xyz/browser'
 import { ALLOWED_AUDIO_MIME_TYPES, FEATURE_FLAGS } from '@tape.xyz/constants'
@@ -191,8 +190,8 @@ const SelectedMedia = () => {
       ) && (
         <div className="mt-4">
           <Input
-            info={t`Skip the media upload (Only use this if you know what you are doing!)`}
-            label={t`Upload from Source Url`}
+            label="Upload from Source URL"
+            info="Skip the media upload (Only use this if you know what you are doing!)"
             placeholder="ar:// or ipfs://"
             value={uploadedVideo.videoSource}
             onChange={(e) =>

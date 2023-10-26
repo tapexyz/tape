@@ -1,6 +1,5 @@
 import { getCollectModuleConfig } from '@lib/getCollectModuleInput'
 import useAuthPersistStore from '@lib/store/auth'
-import { t, Trans } from '@lingui/macro'
 import { Button, Select } from '@radix-ui/themes'
 import { WMATIC_TOKEN_ADDRESS } from '@tape.xyz/constants'
 import type { ApprovedAllowanceAmountResult, Erc20 } from '@tape.xyz/lens'
@@ -55,7 +54,7 @@ const ModuleAllowance = () => {
     hash: txData?.hash,
     onSuccess: () => {
       refetch()
-      toast.success(t`Permission updated`)
+      toast.success(`Permission updated`)
       setLoadingModule('')
     },
     onError(error: CustomErrorWithData) {
@@ -104,14 +103,10 @@ const ModuleAllowance = () => {
   return (
     <div>
       <div className="space-y-2">
-        <h1 className="text-brand-400 text-xl font-bold">
-          <Trans>Allowance</Trans>
-        </h1>
+        <h1 className="text-brand-400 text-xl font-bold">Allowance</h1>
         <p className="opacity-80">
-          <Trans>
-            These are the collect modules which you allowed / need to allow to
-            use collect feature. You can allow and revoke access anytime.
-          </Trans>
+          These are the collect modules which you allowed / need to allow to use
+          collect feature. You can allow and revoke access anytime.
         </p>
       </div>
       <div>
@@ -165,7 +160,7 @@ const ModuleAllowance = () => {
                       disabled={loadingModule === moduleItem.moduleName}
                       onClick={() => handleClick(true, moduleItem.moduleName)}
                     >
-                      <Trans>Allow</Trans>
+                      Allow
                     </Button>
                   ) : (
                     <Button
@@ -175,7 +170,7 @@ const ModuleAllowance = () => {
                       onClick={() => handleClick(false, moduleItem.moduleName)}
                       disabled={loadingModule === moduleItem.moduleName}
                     >
-                      <Trans>Revoke</Trans>
+                      Revoke
                     </Button>
                   )}
                 </div>

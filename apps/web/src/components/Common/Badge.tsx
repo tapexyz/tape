@@ -1,5 +1,4 @@
 import Tooltip from '@components/UIElements/Tooltip'
-import { t } from '@lingui/macro'
 import { MISUSED_CHANNELS, VERIFIED_CHANNELS } from '@tape.xyz/constants'
 import clsx from 'clsx'
 import type { FC } from 'react'
@@ -21,7 +20,7 @@ const Badge: FC<Props> = ({ id, size = 'sm', color }) => {
   return (
     <>
       {isVerified && (
-        <Tooltip content={t`Verified`} placement="top">
+        <Tooltip content="Verified" placement="top">
           <span>
             <VerifiedSolid
               className={clsx(

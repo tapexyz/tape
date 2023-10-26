@@ -2,7 +2,6 @@ import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import usePendingTxn from '@hooks/usePendingTxn'
 import useNonceStore from '@lib/store/nonce'
 import useProfileStore from '@lib/store/profile'
-import { t, Trans } from '@lingui/macro'
 import { Button } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
@@ -68,7 +67,7 @@ const ToggleDispatcher = () => {
   useEffect(() => {
     if (indexed) {
       toast.success(
-        `Dispatcher ${isLensManagerEnabled ? t`disabled` : t`enabled`}`
+        `Dispatcher ${isLensManagerEnabled ? `disabled` : `enabled`}`
       )
       const channel = { ...activeProfile }
       channel.signless = isLensManagerEnabled ? false : true
@@ -129,9 +128,9 @@ const ToggleDispatcher = () => {
 
   const getButtonText = () => {
     if (isLensManagerEnabled) {
-      return t`Disable`
+      return `Disable`
     } else {
-      return t`Enable`
+      return `Enable`
     }
   }
 
@@ -145,7 +144,7 @@ const ToggleDispatcher = () => {
       disabled={loading}
     >
       {loading && <Loader size="sm" />}
-      {getButtonText()} <Trans>dispatcher</Trans>
+      {getButtonText()} dispatcher
     </Button>
   )
 }

@@ -1,5 +1,4 @@
 import { getCollectModuleConfig } from '@lib/getCollectModuleInput'
-import { t, Trans } from '@lingui/macro'
 import { Button } from '@radix-ui/themes'
 import type { ApprovedAllowanceAmountResult } from '@tape.xyz/lens'
 import { useGenerateModuleCurrencyApprovalDataLazyQuery } from '@tape.xyz/lens'
@@ -36,7 +35,7 @@ const PermissionAlert: FC<Props> = ({
     hash: txData?.hash,
     onSuccess: () => {
       toast.success(
-        `Module ${isAllowed ? t`disabled` : t`enabled`} successfully!`
+        `Module ${isAllowed ? `disabled` : `enabled`} successfully!`
       )
       setIsAllowed(!isAllowed)
     },
@@ -74,7 +73,7 @@ const PermissionAlert: FC<Props> = ({
         onClick={() => handleAllowance()}
         highContrast
       >
-        <Trans>Allow Collect</Trans>
+        Allow Collect
       </Button>
     </div>
   )

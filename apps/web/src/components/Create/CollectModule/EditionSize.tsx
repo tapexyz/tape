@@ -1,6 +1,5 @@
 import { Input } from '@components/UIElements/Input'
 import useAppStore from '@lib/store'
-import { Trans } from '@lingui/macro'
 import { Button, Text } from '@radix-ui/themes'
 import { trimify } from '@tape.xyz/generic'
 import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
@@ -20,7 +19,7 @@ const EditionSize: FC<Props> = ({ setCollectType }) => {
   return (
     <div className="space-y-1">
       <Text size="2" weight="medium">
-        <Trans>Edition Size</Trans>
+        Edition Size
       </Text>
       <div className="flex flex-wrap gap-1.5 md:flex-nowrap">
         <Button
@@ -40,7 +39,7 @@ const EditionSize: FC<Props> = ({ setCollectType }) => {
           variant="surface"
           className="flex-1"
         >
-          <Trans>Open</Trans>
+          Open
         </Button>
         <Button
           type="button"
@@ -59,7 +58,7 @@ const EditionSize: FC<Props> = ({ setCollectType }) => {
           variant="surface"
           className="flex-1"
         >
-          <Trans>Fixed</Trans>
+          Fixed
         </Button>
       </div>
       {showSizePicker && (

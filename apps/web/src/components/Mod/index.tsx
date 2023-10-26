@@ -1,6 +1,5 @@
 import MetaTags from '@components/Common/MetaTags'
 import useAuthPersistStore from '@lib/store/auth'
-import { t } from '@lingui/macro'
 import { ADMIN_IDS } from '@tape.xyz/constants'
 import React from 'react'
 import Custom404 from 'src/pages/404'
@@ -19,7 +18,7 @@ const Mod = () => {
 
   return (
     <>
-      <MetaTags title={t`Stats`} />
+      <MetaTags title="Stats" />
       <Deployment />
       <Recents />
     </>

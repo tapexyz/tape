@@ -4,7 +4,6 @@ import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAppStore from '@lib/store'
 import useAuthPersistStore from '@lib/store/auth'
-import { t, Trans } from '@lingui/macro'
 import { INFINITE_SCROLL_ROOT_MARGIN } from '@tape.xyz/constants'
 import type { FeedItem, FeedRequest, PrimaryPublication } from '@tape.xyz/lens'
 import {
@@ -61,11 +60,7 @@ const Feed = () => {
 
   if (feedItems?.length === 0) {
     return (
-      <NoDataFound
-        isCenter
-        withImage
-        text={t`No videos in your feed, explore!`}
-      />
+      <NoDataFound isCenter withImage text="No videos in your feed, explore!" />
     )
   }
 
@@ -75,17 +70,13 @@ const Feed = () => {
 
   return (
     <div className="max-w-screen-ultrawide container mx-auto">
-      <MetaTags title={t`Your Feed`} />
+      <MetaTags title={`Your Feed`} />
       {loading && <TimelineShimmer />}
       {!error && !loading && (
         <>
           <div className="flex items-center space-x-3 text-xl">
-            <h1 className="text-brand-400 font-bold">
-              <Trans>Feed</Trans>
-            </h1>
-            <h1>
-              <Trans>Your Friends' Stories</Trans>
-            </h1>
+            <h1 className="text-brand-400 font-bold">Feed</h1>
+            <h1>Your Friends' Stories</h1>
           </div>
           <div className="laptop:grid-cols-5 ultrawide:pt-8 laptop:pt-6 ultrawide:grid-cols-6 grid-col-1 desktop:grid-cols-4 tablet:grid-cols-3 grid gap-x-4 gap-y-2 pt-4 md:gap-y-6">
             {feedItems?.map((feedItem: FeedItem) => {

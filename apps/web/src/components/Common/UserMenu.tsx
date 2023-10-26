@@ -1,7 +1,6 @@
 import getCurrentSessionId from '@lib/getCurrentSessionId'
 import useAuthPersistStore, { signOut } from '@lib/store/auth'
 import useProfileStore from '@lib/store/profile'
-import { t, Trans } from '@lingui/macro'
 import { Avatar, DropdownMenu, Flex, Text } from '@radix-ui/themes'
 import { ADMIN_IDS } from '@tape.xyz/constants'
 import { EVENTS, getProfile, getProfilePicture, Tower } from '@tape.xyz/generic'
@@ -101,7 +100,7 @@ const UserMenu = () => {
               <Flex gap="2" align="center">
                 <GraphOutline className="h-4 w-4" />
                 <Text as="p" className="truncate whitespace-nowrap">
-                  <Trans>Mod</Trans>
+                  Mod
                 </Text>
               </Flex>
             </DropdownMenu.Item>
@@ -116,7 +115,7 @@ const UserMenu = () => {
                 <Flex gap="2" align="center">
                   <UserOutline className="h-4 w-4" />
                   <Text as="p" className="truncate whitespace-nowrap">
-                    <Trans>My Profile</Trans>
+                    My Profile
                   </Text>
                 </Flex>
               </DropdownMenu.Item>
@@ -124,7 +123,7 @@ const UserMenu = () => {
                 <Flex gap="2" align="center">
                   <BookmarkOutline className="h-4 w-4" />
                   <Text as="p" className="truncate whitespace-nowrap">
-                    <Trans>Bookmarks</Trans>
+                    Bookmarks
                   </Text>
                 </Flex>
               </DropdownMenu.Item>
@@ -134,7 +133,7 @@ const UserMenu = () => {
                   <Flex align="center" gap="2">
                     <SwitchProfileOutline className="h-4 w-4" />
                     <Text as="p" className="truncate whitespace-nowrap">
-                      <Trans>Switch Profile</Trans>
+                      Switch Profile
                     </Text>
                   </Flex>
                 </DropdownMenu.SubTrigger>
@@ -172,7 +171,7 @@ const UserMenu = () => {
             <Flex gap="2" align="center">
               <CogOutline className="h-4 w-4" />
               <Text as="p" className="truncate whitespace-nowrap">
-                <Trans>My Settings</Trans>
+                My Settings
               </Text>
             </Flex>
           </DropdownMenu.Item>
@@ -193,7 +192,7 @@ const UserMenu = () => {
                 <MoonOutline className="h-4 w-4" />
               )}
               <Text as="p" className="truncate whitespace-nowrap">
-                {theme === 'light' ? t`Switch to Dark` : t`Switch to Light`}
+                {theme === 'light' ? `Switch to Dark` : `Switch to Light`}
               </Text>
             </Flex>
           </DropdownMenu.Item>
@@ -212,7 +211,7 @@ const UserMenu = () => {
             <Flex align="center" gap="2">
               <HandWaveOutline className="h-4 w-4" />
               <Text as="p" className="truncate whitespace-nowrap">
-                <Trans>Sign out</Trans>
+                Sign out
               </Text>
             </Flex>
           </DropdownMenu.Item>

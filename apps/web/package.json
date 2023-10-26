@@ -9,8 +9,7 @@
     "export": "next export",
     "start": "yarn build && next start --port 4783",
     "typecheck": "tsc --pretty",
-    "lint": "eslint . --ext .js,.ts,.tsx",
-    "extract": "lingui compile; lingui extract"
+    "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "3.433.0",
@@ -20,7 +19,6 @@
     "@hookform/resolvers": "^3.3.2",
     "@irys/sdk": "^0.0.4",
     "@lens-protocol/metadata": "^0.1.0-alpha.31",
-    "@lingui/react": "^4.4.0",
     "@livepeer/react": "^3.0.1",
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/themes": "^2.0.0-rc.3",
@@ -53,10 +51,6 @@
     "zustand": "^4.4.4"
   },
   "devDependencies": {
-    "@lingui/cli": "^4.4.0",
-    "@lingui/loader": "^4.4.0",
-    "@lingui/macro": "^4.4.0",
-    "@lingui/swc-plugin": "4.0.4",
     "@tailwindcss/typography": "^0.5.10",
     "@tape.xyz/browser": "*",
     "@tape.xyz/config": "*",

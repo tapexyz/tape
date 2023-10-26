@@ -2,7 +2,6 @@ import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
 import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
-import { t } from '@lingui/macro'
 import { useAverageColor } from '@tape.xyz/browser'
 import { STATIC_ASSETS } from '@tape.xyz/constants'
 import {
@@ -123,7 +122,7 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
 
   return (
     <div className="cursor-wait">
-      <Tooltip content={t`Indexing, please wait...`} placement="top">
+      <Tooltip content={`Indexing, please wait...`} placement="top">
         <div className="aspect-w-16 aspect-h-9 relative overflow-hidden">
           <img
             src={thumbnailUrl}

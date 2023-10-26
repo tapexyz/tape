@@ -3,7 +3,6 @@ import InterweaveContent from '@components/Common/InterweaveContent'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAuthPersistStore from '@lib/store/auth'
 import useNonceStore from '@lib/store/nonce'
-import { t } from '@lingui/macro'
 import { Avatar, Button } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
@@ -70,7 +69,7 @@ const List = () => {
       return
     }
     updateCache()
-    toast.success(t`Unblocked successfully`)
+    toast.success(`Unblocked successfully`)
     setUnblockingProfileId('')
   }
 

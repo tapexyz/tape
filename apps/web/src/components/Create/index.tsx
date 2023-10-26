@@ -14,7 +14,6 @@ import { getCollectModuleInput } from '@lib/getCollectModuleInput'
 import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import { useProfileStore } from '@lib/store/profile'
-import { t } from '@lingui/macro'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { getUserLocale, uploadToIPFS } from '@tape.xyz/browser'
 import {
@@ -134,7 +133,7 @@ const CreateSteps = () => {
 
   const stopLoading = () => {
     setUploadedVideo({
-      buttonText: t`Post Now`,
+      buttonText: 'Post Now',
       loading: false
     })
   }
@@ -279,7 +278,7 @@ const CreateSteps = () => {
   }) => {
     try {
       setUploadedVideo({
-        buttonText: t`Storing metadata`,
+        buttonText: 'Storing metadata',
         loading: true
       })
       uploadedVideo.videoSource = videoSource
@@ -339,7 +338,7 @@ const CreateSteps = () => {
         uploadedVideo.isByteVideo ? shortVideoMetadata : longVideoMetadata
       )
       setUploadedVideo({
-        buttonText: t`Posting...`,
+        buttonText: 'Posting...',
         loading: true
       })
 
@@ -412,7 +411,7 @@ const CreateSteps = () => {
       uploadedVideo.file as File,
       (percentCompleted) => {
         setUploadedVideo({
-          buttonText: t`Uploading...`,
+          buttonText: 'Uploading...',
           loading: true,
           percent: percentCompleted
         })
@@ -420,7 +419,7 @@ const CreateSteps = () => {
     )
     if (!result.url) {
       stopLoading()
-      return toast.error(t`IPFS Upload failed`)
+      return toast.error('IPFS Upload failed')
     }
     setUploadedVideo({
       percent: 100,
@@ -438,16 +437,16 @@ const CreateSteps = () => {
     }
     if (!uploadedVideo.stream) {
       stopLoading()
-      return toast.error(t`Media not uploaded correctly`)
+      return toast.error('Media not uploaded correctly')
     }
     if (parseFloat(irysData.balance) < parseFloat(irysData.estimatedPrice)) {
       stopLoading()
-      return toast.error(t`Insufficient storage balance`)
+      return toast.error('Insufficient storage balance')
     }
     try {
       setUploadedVideo({
         loading: true,
-        buttonText: t`Uploading...`
+        buttonText: 'Uploading...'
       })
       const instance = irysData.instance
       const tags = [
@@ -495,7 +494,7 @@ const CreateSteps = () => {
         videoSource: `ar://${response.data.id}`
       })
     } catch (error) {
-      toast.error(t`Failed to upload media to Arweave`)
+      toast.error('Failed to upload media to Arweave')
       logger.error('[Error Irys Upload Media]', error)
       return stopLoading()
     }

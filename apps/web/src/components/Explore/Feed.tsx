@@ -7,7 +7,6 @@ import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { Tab } from '@headlessui/react'
 import useAppStore from '@lib/store'
 import useAuthPersistStore from '@lib/store/auth'
-import { t, Trans } from '@lingui/macro'
 import {
   ALLOWED_APP_IDS,
   INFINITE_SCROLL_ROOT_MARGIN,
@@ -119,9 +118,7 @@ const ExploreFeed = () => {
           }
         >
           <FireOutline className="h-3.5 w-3.5" />
-          <span>
-            <Trans>Trending</Trans>
-          </span>
+          <span>Trending</span>
         </Tab>
         <Tab
           onClick={() => {
@@ -142,9 +139,7 @@ const ExploreFeed = () => {
           }
         >
           <CommentOutline className="h-3.5 w-3.5" />
-          <span>
-            <Trans>Popular</Trans>
-          </span>
+          <span>Popular</span>
         </Tab>
         <Tab
           onClick={() => {
@@ -165,15 +160,13 @@ const ExploreFeed = () => {
           }
         >
           <MirrorOutline className="h-3.5 w-3.5" />
-          <span>
-            <Trans>Interesting</Trans>
-          </span>
+          <span>Interesting</span>
         </Tab>
       </Tab.List>
       <Tab.Panels className="my-3">
         {loading && <TimelineShimmer />}
         {videos?.length === 0 && (
-          <NoDataFound isCenter withImage text={t`No videos found`} />
+          <NoDataFound isCenter withImage text={`No videos found`} />
         )}
         {!error && !loading && videos?.length ? (
           <>

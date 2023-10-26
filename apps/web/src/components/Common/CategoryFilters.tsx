@@ -1,5 +1,4 @@
 import useAppStore from '@lib/store'
-import { t, Trans } from '@lingui/macro'
 import { CREATOR_VIDEO_CATEGORIES } from '@tape.xyz/constants'
 import { EVENTS, Tower } from '@tape.xyz/generic'
 import clsx from 'clsx'
@@ -22,8 +21,8 @@ const CategoryFilters = () => {
     <div className="laptop:pt-6 dark:bg-bunker sticky -top-4 z-[9] bg-white pt-4">
       <HorizantalScroller
         sectionRef={sectionRef}
-        heading={t`Explore`}
-        subheading={t`Categories`}
+        heading="Explore"
+        subheading="Categories"
       />
       <div
         ref={sectionRef}
@@ -38,7 +37,7 @@ const CategoryFilters = () => {
           )}
           onClick={() => onFilter('all')}
         >
-          <Trans>All</Trans>
+          All
         </button>
         {CREATOR_VIDEO_CATEGORIES.map((category) => (
           <button

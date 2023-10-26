@@ -4,7 +4,6 @@ import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
-import { t, Trans } from '@lingui/macro'
 import {
   INFINITE_SCROLL_ROOT_MARGIN,
   LENS_CUSTOM_FILTERS
@@ -94,7 +93,7 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
             <h1 className="m-2 flex items-center space-x-2 text-lg">
               <CommentOutline className="h-5 w-5" />
               <span className="font-medium">
-                <Trans>Comments</Trans>{' '}
+                Comments{' '}
                 {video.stats.comments ? `( ${video.stats.comments} )` : null}
               </span>
             </h1>
@@ -111,7 +110,7 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
             <Alert variant="warning">
               <span className="text-sm">
                 {isFollowerOnlyReferenceModule
-                  ? t`Only followers can comment on this publication`
+                  ? `Only followers can comment on this publication`
                   : isDegreesOfSeparationReferenceModule
                   ? `Only followers within ${getProfile(video.by)
                       ?.displayName}'s preferred network can comment`
@@ -121,11 +120,7 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
           ) : null}
           {!comments?.length && !queuedComments.length ? (
             <span className="py-5">
-              <NoDataFound
-                text={t`Be the first to comment`}
-                withImage
-                isCenter
-              />
+              <NoDataFound text="Be the first to comment" withImage isCenter />
             </span>
           ) : null}
           {!error && (queuedComments.length || comments?.length) ? (

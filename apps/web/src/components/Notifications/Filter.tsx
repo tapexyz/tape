@@ -1,6 +1,5 @@
 import CogOutline from '@components/Common/Icons/CogOutline'
 import usePersistStore from '@lib/store/persist'
-import { Trans } from '@lingui/macro'
 import { Box, DropdownMenu, Text } from '@radix-ui/themes'
 import { CustomNotificationsFilterEnum } from '@tape.xyz/lens/custom-types'
 import React from 'react'
@@ -37,7 +36,7 @@ const NotificationsFilter = () => {
             }
             className="whitespace-nowrap"
           >
-            <Trans>High signal</Trans>
+            High signal
           </Text>
         </DropdownMenu.Item>
         <DropdownMenu.Item
@@ -56,7 +55,7 @@ const NotificationsFilter = () => {
             }
             className="whitespace-nowrap"
           >
-            <Trans>Show all</Trans>
+            Show all
           </Text>
         </DropdownMenu.Item>
       </DropdownMenu.Content>

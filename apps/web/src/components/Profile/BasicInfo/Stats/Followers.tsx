@@ -1,7 +1,6 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
 import TimesOutline from '@components/Common/Icons/TimesOutline'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { Trans } from '@lingui/macro'
 import {
   Dialog,
   DialogClose,
@@ -55,9 +54,7 @@ const Followers: FC<Props> = ({ stats, profileId }) => {
       <Dialog.Trigger>
         <Flex gap="1" align="end">
           <Text weight="bold">{formatNumber(stats.followers)}</Text>
-          <Text>
-            <Trans>Followers</Trans>
-          </Text>
+          <Text>Followers</Text>
         </Flex>
       </Dialog.Trigger>
       <Dialog.Content style={{ maxWidth: 450 }}>

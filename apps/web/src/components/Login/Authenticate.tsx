@@ -1,7 +1,6 @@
 import KeyOutline from '@components/Common/Icons/KeyOutline'
 import useAuthPersistStore, { signIn, signOut } from '@lib/store/auth'
 import useProfileStore from '@lib/store/profile'
-import { t } from '@lingui/macro'
 import { Avatar, Button, Flex, Select, Text } from '@radix-ui/themes'
 import { ERROR_MESSAGE } from '@tape.xyz/constants'
 import {
@@ -88,7 +87,7 @@ const Authenticate = () => {
     if (!isConnected) {
       disconnect?.()
       signOut()
-      return toast.error(t`Please connect to your wallet`)
+      return toast.error('Please connect to your wallet')
     }
     try {
       setLoading(true)

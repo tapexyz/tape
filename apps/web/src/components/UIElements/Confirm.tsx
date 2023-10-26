@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro'
 import { Button, Dialog } from '@radix-ui/themes'
 import type { Dispatch, FC } from 'react'
 import React from 'react'
@@ -20,14 +19,14 @@ const Confirm: FC<Props> = ({ showConfirm, setShowConfirm, action }) => {
 
         <div>
           <span className="text-red-500 opacity-75">
-            <Trans>This cannot be reverted.</Trans>
+            This cannot be reverted
           </span>
           <div className="flex justify-end space-x-2 pt-2">
             <Button variant="soft" onClick={() => setShowConfirm(false)}>
-              <Trans>Cancel</Trans>
+              Cancel
             </Button>
             <Button highContrast onClick={action}>
-              <Trans>Confirm</Trans>
+              Confirm
             </Button>
           </div>
         </div>

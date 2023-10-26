@@ -5,7 +5,6 @@ import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import { getCollectModuleOutput } from '@lib/getCollectModuleOutput'
 import useNonceStore from '@lib/store/nonce'
 import useProfileStore from '@lib/store/profile'
-import { t, Trans } from '@lingui/macro'
 import { Button, Callout } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
@@ -231,7 +230,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
     }
     setCollecting(false)
     setAlreadyCollected(true)
-    toast.success(t`Collected as NFT`)
+    toast.success('Collected as NFT')
   }
   const { signTypedDataAsync } = useSignTypedData({ onError })
 
@@ -306,9 +305,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
       {!allowanceLoading ? (
         <>
           <div className="mb-3 flex flex-col">
-            <span className="text-sm font-bold">
-              <Trans>Total Collects</Trans>
-            </span>
+            <span className="text-sm font-bold">Total Collects</span>
             <span className="space-x-1">
               <span className="text-2xl font-bold">
                 {formatNumber(publication?.stats.countOpenActions)}
@@ -320,9 +317,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
           </div>
           {details?.amount.value ? (
             <div className="mb-3 flex flex-col">
-              <span className="text-sm font-bold">
-                <Trans>Price</Trans>
-              </span>
+              <span className="text-sm font-bold">Price</span>
               <span className="space-x-1">
                 <span className="text-2xl font-semibold">
                   {details?.amount.value}
@@ -333,9 +328,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
           ) : null}
           {details?.endsAt ? (
             <div className="mb-3 flex flex-col">
-              <span className="mb-0.5 text-sm font-bold">
-                <Trans>Ends At</Trans>
-              </span>
+              <span className="mb-0.5 text-sm font-bold">Ends At</span>
               <span className="text-lg">
                 {dayjs(details?.endsAt).format('MMMM DD, YYYY')} at{' '}
                 {dayjs(details?.endsAt).format('hh:mm a')}
@@ -344,9 +337,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
           ) : null}
           {revenueData?.revenueFromPublication?.revenue[0] ? (
             <div className="mb-3 flex flex-col">
-              <span className="text-sm font-bold">
-                <Trans>Revenue</Trans>
-              </span>
+              <span className="text-sm font-bold">Revenue</span>
               <span className="space-x-1">
                 <span className="text-2xl font-bold">
                   {revenueData?.revenueFromPublication?.revenue[0].total
@@ -363,17 +354,15 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
           ) : null}
           {details?.referralFee ? (
             <div className="mb-3 flex flex-col">
-              <span className="mb-0.5 text-sm font-bold">
-                <Trans>Referral Fee</Trans>
-              </span>
+              <span className="mb-0.5 text-sm font-bold">Referral Fee</span>
               <span className="text-2xl">{details?.referralFee} %</span>
             </div>
           ) : null}
           {isRecipientAvailable ? (
             <div className="mb-3 flex flex-col">
               <span className="mb-0.5 text-sm font-bold">
-                <Trans>Revenue</Trans>{' '}
-                {details.recipients?.length ? t`Recipients` : t`Recipient`}
+                Revenue{' '}
+                {details.recipients?.length ? `Recipients` : `Recipient`}
               </span>
               {details.recipient &&
                 renderRecipients([
@@ -396,7 +385,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
                       <InfoOutline />
                     </Callout.Icon>
                     <Callout.Text>
-                      <Trans>Only followers can collect this publication</Trans>
+                      Only followers can collect this publication
                     </Callout.Text>
                   </Callout.Root>
                 </div>
@@ -410,11 +399,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
                   disabled={collecting || alreadyCollected}
                   onClick={() => (!alreadyCollected ? collectNow() : null)}
                 >
-                  {alreadyCollected ? (
-                    <Trans>Collected</Trans>
-                  ) : (
-                    <Trans>Collect</Trans>
-                  )}
+                  {alreadyCollected ? 'Collected' : 'Collect'}
                 </Button>
               ) : (
                 <BalanceAlert action={action} />

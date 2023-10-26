@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro'
 import { useVideoViews } from '@tape.xyz/browser'
 import React from 'react'
 
@@ -7,9 +6,7 @@ const ViewCount = ({ cid }: { cid: string }) => {
 
   return (
     <>
-      <span>
-        {views} <Trans>views</Trans>
-      </span>
+      <span>{views} views</span>
       <span className="middot px-1" />
     </>
   )

@@ -1,7 +1,6 @@
 import ToggleDispatcher from '@components/Settings/Manager/Dispatcher/ToggleDispatcher'
 import SignalWaveGraphic from '@components/UIElements/SignalWaveGraphic'
 import useProfileStore from '@lib/store/profile'
-import { t } from '@lingui/macro'
 import { Flex } from '@radix-ui/themes'
 import { TAPE_APP_NAME } from '@tape.xyz/constants'
 import { getIsDispatcherEnabled } from '@tape.xyz/generic'
@@ -15,7 +14,7 @@ const DispatcherAlert = () => {
 
   const getDescription = () => {
     if (usingOldDispatcher) {
-      return t`Update your dispatcher to the latest version for better, faster signless transactions.`
+      return `Update your dispatcher to the latest version for better, faster signless transactions.`
     }
     return `You can enable dispatcher to interact with ${TAPE_APP_NAME} without signing any of your transactions.`
   }

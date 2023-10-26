@@ -3,7 +3,6 @@ import TimesOutline from '@components/Common/Icons/TimesOutline'
 import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
-import { Trans } from '@lingui/macro'
 import { IconButton, Text } from '@radix-ui/themes'
 import {
   HANDLE_PREFIX,
@@ -196,7 +195,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
             )}
             onClick={() => addRecipient()}
           >
-            <Trans>Add recipient</Trans>
+            Add recipient
           </button>
           {!isIncludesDonationAddress && (
             <Tooltip
@@ -211,7 +210,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
                 )}
                 onClick={() => addDonation()}
               >
-                <Trans>Add Donation</Trans>
+                Add Donation
               </button>
             </Tooltip>
           )}
@@ -222,7 +221,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
             className="rounded border border-gray-700 px-1 text-[10px] font-bold uppercase tracking-wider opacity-70 dark:border-gray-300"
             onClick={() => splitEvenly()}
           >
-            <Trans>Split evenly</Trans>
+            Split evenly
           </button>
         )}
       </div>

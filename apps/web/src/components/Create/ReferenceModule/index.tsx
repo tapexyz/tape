@@ -1,5 +1,4 @@
 import useAppStore from '@lib/store'
-import { Trans } from '@lingui/macro'
 import { Select, Text } from '@radix-ui/themes'
 import type { ReferenceModuleType } from '@tape.xyz/lens/custom-types'
 import React from 'react'
@@ -34,7 +33,7 @@ const ReferenceModule = () => {
   return (
     <div className="flex-1 space-y-1">
       <Text size="2" weight="medium">
-        <Trans>Who can comment, quote and mirror?</Trans>
+        Who can comment, quote and mirror?
       </Text>
 
       <Select.Root

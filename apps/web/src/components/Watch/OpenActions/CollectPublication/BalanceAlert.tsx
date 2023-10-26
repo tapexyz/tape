@@ -1,5 +1,4 @@
 import WarningOutline from '@components/Common/Icons/WarningOutline'
-import { Trans } from '@lingui/macro'
 import { Callout } from '@radix-ui/themes'
 import { IS_MAINNET } from '@tape.xyz/constants'
 import type {
@@ -32,8 +31,7 @@ const BalanceAlert: FC<Props> = ({ action }) => {
         <Callout.Text>
           <div className="flex w-full flex-1 items-center justify-between space-x-2 text-sm">
             <span>
-              <Trans>Not enough</Trans> {action?.amount?.asset?.symbol}{' '}
-              <Trans>token balance</Trans>
+              Not enough {action?.amount?.asset?.symbol} token balance
             </span>
             <Link
               href={getUniswapURL(
@@ -44,7 +42,7 @@ const BalanceAlert: FC<Props> = ({ action }) => {
               target="_blank"
               className="text-brand-500"
             >
-              <Trans>Swap</Trans>
+              Swap
             </Link>
           </div>
         </Callout.Text>

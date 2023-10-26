@@ -1,5 +1,4 @@
 import Badge from '@components/Common/Badge'
-import { Trans } from '@lingui/macro'
 import { Avatar } from '@radix-ui/themes'
 import { formatNumber } from '@tape.xyz/generic'
 import clsx from 'clsx'
@@ -37,7 +36,7 @@ const ProfileSuggestions: FC<Props> = ({
           <Badge id={id} size="xs" />
         </div>
         <span className="text-xs opacity-80">
-          {formatNumber(subscribersCount)} <Trans>followers</Trans>
+          {formatNumber(subscribersCount)} followers
         </span>
       </div>
     </div>

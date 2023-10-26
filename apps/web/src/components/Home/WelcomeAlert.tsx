@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro'
 import { Button, Flex } from '@radix-ui/themes'
 import { STATIC_ASSETS } from '@tape.xyz/constants'
 import Link from 'next/link'
@@ -19,10 +18,8 @@ const WelcomeAlert = () => {
           Welcome to <b>Tape</b>
         </div>
         <p className="md:text-md max-w-2xl text-sm lg:text-lg">
-          <Trans>
-            Discover a new era of media sharing on Lens with Tape. A
-            decentralized, user-centric approach to online media.
-          </Trans>
+          Discover a new era of media sharing on Lens with Tape. A
+          decentralized, user-centric approach to online media.
         </p>
         <Flex gap="3">
           <Link href="/login">

@@ -1,6 +1,5 @@
 import CollectOutline from '@components/Common/Icons/CollectOutline'
 import OpenActionsShimmer from '@components/Shimmers/OpenActionsShimmer'
-import { Trans } from '@lingui/macro'
 import { LENS_CUSTOM_FILTERS, TAPE_APP_ID } from '@tape.xyz/constants'
 import type {
   ExplorePublicationRequest,
@@ -50,9 +49,7 @@ const OpenActionCollects = () => {
       <div className="mb-4 flex items-center justify-between">
         <div className="flex items-center space-x-2">
           <CollectOutline className="h-4 w-4" />
-          <h1 className="text-xl font-bold">
-            <Trans>Cross Chain Collects</Trans>
-          </h1>
+          <h1 className="text-xl font-bold">Cross Chain Collects</h1>
         </div>
       </div>
       <div className="grid gap-x-4 gap-y-2 md:grid-cols-4 md:gap-y-8 lg:grid-cols-5">

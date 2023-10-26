@@ -1,5 +1,4 @@
 import { getTimeFromSeconds } from '@lib/formatTime'
-import { Trans } from '@lingui/macro'
 import { getIsSensitiveContent, getPublication } from '@tape.xyz/generic'
 import type { AnyPublication, VideoMetadataV3 } from '@tape.xyz/lens'
 import type { FC } from 'react'
@@ -20,7 +19,7 @@ const ThumbnailOverlays: FC<Props> = ({ video }) => {
       {isSensitiveContent && (
         <div>
           <span className="absolute left-2 top-2 rounded-full bg-white px-2 py-0.5 text-xs text-black">
-            <Trans>Sensitive Content</Trans>
+            Sensitive Content
           </span>
         </div>
       )}

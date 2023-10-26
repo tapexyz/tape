@@ -2,7 +2,6 @@ import { Input } from '@components/UIElements/Input'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useAppStore from '@lib/store'
 import useAuthPersistStore from '@lib/store/auth'
-import { t, Trans } from '@lingui/macro'
 import { Button, Flex, Select } from '@radix-ui/themes'
 import { WMATIC_TOKEN_ADDRESS } from '@tape.xyz/constants'
 import type { Erc20 } from '@tape.xyz/lens'
@@ -25,12 +24,10 @@ type Props = {
 
 const formSchema = object({
   currency: string(),
-  amount: string()
-    .min(1, { message: t`Invalid amount` })
-    .optional(),
+  amount: string().min(1, { message: `Invalid amount` }).optional(),
   referralPercent: number()
-    .max(100, { message: t`Percentage should be 0 to 100` })
-    .nonnegative({ message: t`Should to greater than or equal to zero` })
+    .max(100, { message: `Percentage should be 0 to 100` })
+    .nonnegative({ message: `Should to greater than or equal to zero` })
 })
 export type FormData = z.infer<typeof formSchema>
 
@@ -81,11 +78,11 @@ const FeeCollectForm: FC<Props> = ({
     if (isFeeCollect) {
       if (amount === 0) {
         return setError('amount', {
-          message: t`Amount should be greater than 0`
+          message: `Amount should be greater than 0`
         })
       }
       if (splitRecipients.length > 5) {
-        return toast.error(t`Only 5 splits supported`)
+        return toast.error(`Only 5 splits supported`)
       }
       const splitsSum = splitRecipients.reduce(
         (total, obj) => obj.split + total,
@@ -95,17 +92,17 @@ const FeeCollectForm: FC<Props> = ({
         (splitRecipient) => !isAddress(splitRecipient.recipient)
       )
       if (invalidSplitAddresses.length) {
-        return toast.error(t`Invalid split recipient address`)
+        return toast.error(`Invalid split recipient address`)
       }
       const uniqueValues = new Set(splitRecipients.map((v) => v.recipient))
       if (uniqueValues.size < splitRecipients.length) {
-        return toast.error(t`Split addresses should be unique`)
+        return toast.error(`Split addresses should be unique`)
       }
       if (
         uploadedVideo.collectModule.isMultiRecipientFeeCollect &&
         splitsSum !== 100
       ) {
-        return toast.error(t`Sum of all splits should be 100%`)
+        return toast.error(`Sum of all splits should be 100%`)
       }
       data.amount = String(amount)
     }
@@ -154,12 +151,12 @@ const FeeCollectForm: FC<Props> = ({
           </Flex>
           <div>
             <Input
-              label={t`Referral Percentage`}
+              label="Referral Percentage"
               type="number"
               placeholder="2"
               suffix="%"
               size="3"
-              info={t`Percent of collect revenue can be shared with anyone who mirrors your content.`}
+              info="Percent of collect revenue can be shared with anyone who mirrors your content."
               {...register('referralPercent', { valueAsNumber: true })}
               validationError={errors.referralPercent?.message}
             />
@@ -174,7 +171,7 @@ const FeeCollectForm: FC<Props> = ({
           type="button"
           onClick={() => handleSubmit(validateInputs)()}
         >
-          <Trans>Set Collect Type</Trans>
+          Set Collect Type
         </Button>
       </div>
     </form>

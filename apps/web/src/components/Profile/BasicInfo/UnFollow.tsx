@@ -1,7 +1,6 @@
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import useAuthPersistStore from '@lib/store/auth'
 import { useProfileStore } from '@lib/store/profile'
-import { Trans } from '@lingui/macro'
 import { Button } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
@@ -142,7 +141,7 @@ const UnFollow: FC<Props> = ({ profile, onUnSubscribe, size = '2' }) => {
       disabled={loading}
     >
       {loading && <Loader size="sm" />}
-      <Trans>Unfollow</Trans>
+      Unfollow
     </Button>
   )
 }

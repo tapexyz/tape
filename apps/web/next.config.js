@@ -1,5 +1,3 @@
-const linguiConfig = require('./lingui.config')
-
 /** @type {import('next').NextConfig} */
 const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }]
 const moduleExports = {
@@ -12,12 +10,7 @@ const moduleExports = {
   reactStrictMode: process.env.NODE_ENV === 'production',
   experimental: {
     scrollRestoration: true,
-    newNextLinkBehavior: true,
-    swcPlugins: [['@lingui/swc-plugin', {}]]
-  },
-  i18n: {
-    locales: linguiConfig.locales,
-    defaultLocale: linguiConfig.sourceLocale
+    newNextLinkBehavior: true
   },
   async rewrites() {
     return [

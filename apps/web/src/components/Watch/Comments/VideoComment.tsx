@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro'
 import { STATIC_ASSETS, TAPE_APP_NAME } from '@tape.xyz/constants'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -22,9 +21,7 @@ const VideoComment: FC<Props> = ({ commentId }) => {
           draggable={false}
           alt={TAPE_APP_NAME}
         />
-        <span>
-          <Trans>Watch Video</Trans>
-        </span>
+        <span>Watch Video</span>
       </Link>
     </div>
   )

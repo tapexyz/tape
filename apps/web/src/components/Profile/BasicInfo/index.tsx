@@ -10,7 +10,6 @@ import InterweaveContent from '@components/Common/InterweaveContent'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAuthPersistStore from '@lib/store/auth'
 import useNonceStore from '@lib/store/nonce'
-import { t, Trans } from '@lingui/macro'
 import {
   Badge as BadgeUI,
   Button,
@@ -117,7 +116,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
     setLoading(false)
     updateCache(!isBlockedByMe)
     toast.success(
-      `${isBlockedByMe ? t`Unblocked` : `Blocked`} ${getProfile(profile)
+      `${isBlockedByMe ? `Unblocked` : `Blocked`} ${getProfile(profile)
         ?.displayName}`
     )
   }
@@ -286,7 +285,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
                   </Tooltip>
                 )}
                 {profile?.onchainIdentity?.sybilDotOrg.verified && (
-                  <Tooltip content={t`Sybil Verified`} placement="top">
+                  <Tooltip content={`Sybil Verified`} placement="top">
                     <img
                       src={`${STATIC_ASSETS}/images/social/sybil.png`}
                       alt="sybil"
@@ -296,7 +295,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
                   </Tooltip>
                 )}
                 {profile?.onchainIdentity?.proofOfHumanity && (
-                  <Tooltip content={t`Proof of Humanity`} placement="top">
+                  <Tooltip content={`Proof of Humanity`} placement="top">
                     <img
                       src={`${STATIC_ASSETS}/images/social/poh.png`}
                       alt="poh"
@@ -306,7 +305,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
                   </Tooltip>
                 )}
                 {profile?.onchainIdentity?.worldcoin.isHuman && (
-                  <Tooltip content={t`Proof of Personhood`} placement="top">
+                  <Tooltip content={`Proof of Personhood`} placement="top">
                     <img
                       src={`${STATIC_ASSETS}/images/social/worldcoin.png`}
                       alt="worldcoin"
@@ -346,11 +345,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
                   <Flex align="center" gap="2">
                     <ProfileBanOutline className="h-4 w-4" />
                     <span className="whitespace-nowrap">
-                      {isBlockedByMe ? (
-                        <Trans>Unblock</Trans>
-                      ) : (
-                        <Trans>Block</Trans>
-                      )}
+                      {isBlockedByMe ? 'Unblock' : 'Block'}
                     </span>
                   </Flex>
                 </DropdownMenu.Item>

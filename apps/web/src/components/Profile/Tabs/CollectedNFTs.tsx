@@ -1,6 +1,5 @@
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { t } from '@lingui/macro'
 import { useQuery } from '@tanstack/react-query'
 import { WORKER_NFTS_URL } from '@tape.xyz/constants'
 import type { Profile } from '@tape.xyz/lens'
@@ -36,7 +35,7 @@ const CollectedNFTs: FC<Props> = ({ profile }) => {
   }
 
   if (nfts?.length === 0) {
-    return <NoDataFound isCenter withImage text={t`No NFTs found`} />
+    return <NoDataFound isCenter withImage text="No NFTs found" />
   }
 
   return (

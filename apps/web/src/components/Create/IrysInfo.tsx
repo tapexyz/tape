@@ -7,7 +7,6 @@ import Tooltip from '@components/UIElements/Tooltip'
 import useEthersWalletClient from '@hooks/useEthersWalletClient'
 import type { WebIrys } from '@irys/sdk'
 import useAppStore from '@lib/store'
-import { t, Trans } from '@lingui/macro'
 import { Button, Callout, Flex, IconButton, Text } from '@radix-ui/themes'
 import { useIsMounted } from '@tape.xyz/browser'
 import { IRYS_CURRENCY, POLYGON_CHAIN_ID } from '@tape.xyz/constants'
@@ -43,7 +42,7 @@ const IrysInfo = () => {
 
   const estimatePrice = async (irys: WebIrys) => {
     if (!uploadedVideo.stream) {
-      return toast.error(t`Upload cost estimation failed`)
+      return toast.error('Upload cost estimation failed')
     }
     return await irys.utils.getPrice(IRYS_CURRENCY, uploadedVideo.stream?.size)
   }
@@ -93,12 +92,12 @@ const IrysInfo = () => {
       return await initIrys()
     }
     if (!irysData.deposit) {
-      return toast.error(t`Enter deposit amount`)
+      return toast.error('Enter deposit amount')
     }
     const depositAmount = parseFloat(irysData.deposit)
     const value = parseUnits(depositAmount.toString() as `${number}`, 9)
     if (!value || Number(value) < 1) {
-      return toast.error(t`Invalid deposit amount`)
+      return toast.error('Invalid deposit amount')
     }
     if (
       userBalance?.formatted &&
@@ -139,7 +138,7 @@ const IrysInfo = () => {
         Tower.track(EVENTS.DEPOSIT_MATIC)
       }
     } catch (error) {
-      toast.error(t`Failed to deposit storage balance`)
+      toast.error('Failed to deposit storage balance')
       logger.error('[Error Irys Deposit]', error)
     } finally {
       await fetchBalance()
@@ -168,18 +167,14 @@ const IrysInfo = () => {
             <WarningOutline className="h-4 w-4" />
           </Callout.Icon>
           <Callout.Text>
-            <Trans>
-              Not enough storage balance available, deposit to continue.
-            </Trans>
+            Not enough storage balance available, deposit to continue.
           </Callout.Text>
         </Callout.Root>
       )}
       <div className="flex flex-col">
         <div className="inline-flex items-center justify-between rounded font-medium opacity-80">
           <span className="flex items-center space-x-1.5">
-            <Text>
-              <Trans>Your storage balance</Trans>
-            </Text>
+            <Text>Your storage balance</Text>
             <Tooltip content="Refresh balance" placement="top">
               <IconButton
                 size="1"
@@ -203,9 +198,7 @@ const IrysInfo = () => {
                 })
               }
             >
-              <Text>
-                <Trans>Deposit</Trans>
-              </Text>
+              <Text>Deposit</Text>
               {irysData.showDeposit ? (
                 <ChevronUpOutline className="ml-1 h-3 w-3" />
               ) : (
@@ -226,9 +219,7 @@ const IrysInfo = () => {
       </div>
       {irysData.showDeposit && (
         <div className="space-y-1">
-          <Text weight="medium">
-            <Trans>Amount to deposit (MATIC)</Trans>
-          </Text>
+          <Text weight="medium">Amount to deposit (MATIC)</Text>
           <Flex gap="2">
             <Input
               type="number"
@@ -250,15 +241,13 @@ const IrysInfo = () => {
               disabled={irysData.depositing}
               onClick={() => depositToIrys()}
             >
-              <Trans>Deposit</Trans>
+              Deposit
             </Button>
           </Flex>
         </div>
       )}
       <div className="space-y-1">
-        <Text weight="medium">
-          <Trans>Estimated cost to upload</Trans>
-        </Text>
+        <Text weight="medium">Estimated cost to upload</Text>
         <div className="flex justify-between">
           {irysData.estimatedPrice !== '0' ? (
             <Text weight="bold" size="4">

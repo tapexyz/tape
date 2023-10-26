@@ -1,7 +1,6 @@
 import useAuthPersistStore from '@lib/store/auth'
 import useNonceStore from '@lib/store/nonce'
 import useProfileStore from '@lib/store/profile'
-import { Trans } from '@lingui/macro'
 import { Button } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
@@ -158,7 +157,7 @@ const Follow: FC<Props> = ({ profile, onSubscribe, size = '2' }) => {
       highContrast
     >
       {loading && <Loader size="sm" />}
-      <Trans>Follow</Trans>
+      Follow
     </Button>
   )
 }

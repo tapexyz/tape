@@ -1,7 +1,6 @@
 import ChevronLeftOutline from '@components/Common/Icons/ChevronLeftOutline'
 import ChevronRightOutline from '@components/Common/Icons/ChevronRightOutline'
 import ExploreOutline from '@components/Common/Icons/ExploreOutline'
-import { Trans } from '@lingui/macro'
 import { FEATURED_ZORA_COLLECTS } from '@tape.xyz/constants'
 import { getOpenActionNftMetadata, getURLs } from '@tape.xyz/generic'
 import type { BasicNftMetadata } from '@tape.xyz/lens/custom-types'
@@ -26,9 +25,7 @@ const WhatsPopping = () => {
       <div className="mb-4 flex items-center justify-between">
         <div className="flex items-center space-x-2">
           <ExploreOutline className="h-4 w-4" />
-          <h1 className="text-xl font-bold">
-            <Trans>What's Popping?</Trans>
-          </h1>
+          <h1 className="text-xl font-bold">What's Popping?</h1>
         </div>
         <div className="flex justify-end space-x-3">
           <button

@@ -1,6 +1,5 @@
 import UploadOutline from '@components/Common/Icons/UploadOutline'
 import useAppStore from '@lib/store'
-import { t, Trans } from '@lingui/macro'
 import { Box, Button } from '@radix-ui/themes'
 import { useDragAndDrop } from '@tape.xyz/browser'
 import { ALLOWED_VIDEO_MIME_TYPES } from '@tape.xyz/constants'
@@ -40,14 +39,14 @@ const DropZone = () => {
         })
       }
     } catch (error) {
-      toast.error(t`Error uploading file`)
+      toast.error('Error uploading file')
       logger.error('[Error Upload Media]', error)
     }
   }
 
   const validateFile = (file: File) => {
     if (!ALLOWED_VIDEO_MIME_TYPES.includes(file?.type)) {
-      const errorMessage = t`Media format (${file?.type}) not supported`
+      const errorMessage = `Media format (${file?.type}) not supported`
       toast.error(errorMessage)
       return setFileDropError(errorMessage)
     }
@@ -90,12 +89,8 @@ const DropZone = () => {
         </span>
         <span className="space-y-10">
           <div className="space-y-4">
-            <p className="text-2xl md:text-4xl">
-              <Trans>Drag and drop</Trans>
-            </p>
-            <p>
-              <Trans>Select multimedia from your device.</Trans>
-            </p>
+            <p className="text-2xl md:text-4xl">Drag and drop</p>
+            <p>Select multimedia from your device.</p>
           </div>
           <Box>
             <Button
@@ -106,7 +101,7 @@ const DropZone = () => {
               type="button"
             >
               <label htmlFor="chooseMedia" className="cursor-pointer p-6">
-                <Trans>Choose</Trans>
+                Choose
                 <input
                   id="chooseMedia"
                   onChange={onChooseFile}

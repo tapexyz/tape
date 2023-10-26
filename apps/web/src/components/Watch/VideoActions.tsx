@@ -3,7 +3,6 @@ import ThreeDotsOutline from '@components/Common/Icons/ThreeDotsOutline'
 import TipOutline from '@components/Common/Icons/TipOutline'
 import MirrorVideo from '@components/Common/MirrorVideo'
 import VideoOptions from '@components/Common/VideoCard/VideoOptions'
-import { Trans } from '@lingui/macro'
 import { Button, Dialog, IconButton } from '@radix-ui/themes'
 import { EVENTS, getProfile, Tower } from '@tape.xyz/generic'
 import type { MirrorablePublication } from '@tape.xyz/lens'
@@ -41,16 +40,14 @@ const VideoActions: FC<Props> = ({ video }) => {
               }}
             >
               <TipOutline className="h-4 w-4" />
-              <Trans>Thanks</Trans>
+              Thanks
             </Button>
           </Dialog.Trigger>
 
           <Dialog.Content style={{ maxWidth: 450 }}>
-            <Dialog.Title>
-              <Trans>Tip</Trans> {getProfile(video.by)?.displayName}
-            </Dialog.Title>
+            <Dialog.Title>Tip {getProfile(video.by)?.displayName}</Dialog.Title>
             <Dialog.Description size="2" mb="4">
-              <Trans>Show appreciation with a comment and tip.</Trans>
+              Show appreciation with a comment and tip.
             </Dialog.Description>
 
             <TipForm video={video} setShow={setShowTip} />

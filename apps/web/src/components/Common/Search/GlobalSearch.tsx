@@ -1,5 +1,4 @@
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { t } from '@lingui/macro'
 import { IconButton, ScrollArea, Text, TextField } from '@radix-ui/themes'
 import { useDebounce, useOutsideClick } from '@tape.xyz/browser'
 import { LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
@@ -118,7 +117,7 @@ const GlobalSearch: FC<Props> = ({ onSearchResults }) => {
                 type="search"
                 value={keyword}
                 onChange={(event) => setKeyword(event.target.value)}
-                placeholder={t`Search`}
+                placeholder="Search"
               />
             </TextField.Root>
             <div

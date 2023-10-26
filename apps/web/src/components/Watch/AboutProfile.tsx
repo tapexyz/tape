@@ -3,7 +3,6 @@ import HoverableProfile from '@components/Common/HoverableProfile'
 import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
 import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
-import { Trans } from '@lingui/macro'
 import {
   formatNumber,
   getProfile,
@@ -62,7 +61,7 @@ const AboutProfile: FC<Props> = ({ video }) => {
               </Link>
             </HoverableProfile>
             <span className="inline-flex items-center space-x-1 text-xs">
-              {formatNumber(profile?.stats.followers)} <Trans>followers</Trans>
+              {formatNumber(profile?.stats.followers)} followers
             </span>
           </div>
         </div>

@@ -1,7 +1,6 @@
 import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
 import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
-import { t } from '@lingui/macro'
 import { Button } from '@radix-ui/themes'
 import {
   INFINITE_SCROLL_ROOT_MARGIN,
@@ -81,7 +80,7 @@ const NonRelevantComments: FC<Props> = ({ video, className }) => {
       >
         <span className="flex items-center space-x-2">
           <span className="opacity-70 group-hover:opacity-100">
-            {showSection ? t`Hide more comments` : t`Show more comments`}
+            {showSection ? 'Hide more comments' : 'Show more comments'}
           </span>
           {showSection ? (
             <ChevronUpOutline className="h-3 w-3" />

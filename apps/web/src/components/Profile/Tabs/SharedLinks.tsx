@@ -1,7 +1,6 @@
 import SharedLink from '@components/Home/FEOpenActions/SharedLink'
 import OpenActionsShimmer from '@components/Shimmers/OpenActionsShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { t } from '@lingui/macro'
 import {
   INFINITE_SCROLL_ROOT_MARGIN,
   LENS_CUSTOM_FILTERS,
@@ -68,7 +67,7 @@ const SharedLinks: FC<Props> = ({ profileId }) => {
   }
 
   if (data?.publications?.items?.length === 0) {
-    return <NoDataFound isCenter withImage text={t`No links found`} />
+    return <NoDataFound isCenter withImage text={`No links found`} />
   }
 
   return (

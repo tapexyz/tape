@@ -4,7 +4,6 @@ import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import TimesOutline from '@components/Common/Icons/TimesOutline'
 import MirroredList from '@components/Common/MirroredList'
 import { getDateString, getRelativeTime } from '@lib/formatTime'
-import { Trans } from '@lingui/macro'
 import {
   Dialog,
   DialogClose,
@@ -84,9 +83,7 @@ const VideoMeta: FC<Props> = ({ video }) => {
           className="flex items-center space-x-1 outline-none"
         >
           <CollectOutline className="h-4 w-4" />
-          <span>
-            {video.stats?.countOpenActions} <Trans>collects</Trans>
-          </span>
+          <span>{video.stats?.countOpenActions} collects</span>
         </button>
         <span className="middot px-1" />
         <button
@@ -95,9 +92,7 @@ const VideoMeta: FC<Props> = ({ video }) => {
           className="flex items-center space-x-1 outline-none"
         >
           <MirrorOutline className="h-4 w-4" />
-          <span>
-            {video.stats?.mirrors} <Trans>mirrors</Trans>
-          </span>
+          <span>{video.stats?.mirrors} mirrors</span>
         </button>
       </div>
       <span className="middot px-1" />

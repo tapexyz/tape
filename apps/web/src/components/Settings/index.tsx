@@ -1,7 +1,6 @@
 import MetaTags from '@components/Common/MetaTags'
 import SettingsShimmer from '@components/Shimmers/SettingsShimmer'
 import useAuthPersistStore from '@lib/store/auth'
-import { t } from '@lingui/macro'
 import { EVENTS, Tower } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { useProfileQuery } from '@tape.xyz/lens'
@@ -61,7 +60,7 @@ const Settings = () => {
 
   return (
     <div className="ultrawide:max-w-screen-xl container mx-auto">
-      <MetaTags title={t`Profile Settings`} />
+      <MetaTags title={`Profile Settings`} />
       {!loading && !error && channel ? (
         <div className="grid gap-4 md:grid-cols-4">
           <div className="md:col-span-1">

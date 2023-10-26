@@ -8,7 +8,6 @@ import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import usePendingTxn from '@hooks/usePendingTxn'
 import useNonceStore from '@lib/store/nonce'
 import useProfileStore from '@lib/store/profile'
-import { Trans } from '@lingui/macro'
 import { Button, Dialog, Flex, Table } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
@@ -72,7 +71,7 @@ const Entry = ({
           variant="surface"
           size="1"
         >
-          <Trans>Remove</Trans>
+          Remove
         </Button>
       </Table.Cell>
     </Table.Row>
@@ -227,25 +226,21 @@ const Managers = () => {
     <div>
       <div className="flex items-center justify-between space-x-2">
         <p>
-          <Trans>
-            Accounts managing your profile, can perform any social actions on
-            your behalf.
-          </Trans>
+          Accounts managing your profile, can perform any social actions on your
+          behalf.
         </p>
         <Dialog.Root open={showModal} onOpenChange={setShowModal}>
           <Dialog.Trigger>
             <Button highContrast variant="surface">
-              <Trans>New Manager</Trans>
+              New Manager
             </Button>
           </Dialog.Trigger>
 
           <Dialog.Content style={{ maxWidth: 550 }}>
             <Dialog.Title>Add new Manager</Dialog.Title>
             <Dialog.Description size="2" mb="4">
-              <Trans>
-                This delegates permission to the address to perform all social
-                operations on your behalf.
-              </Trans>
+              This delegates permission to the address to perform all social
+              operations on your behalf.
             </Dialog.Description>
 
             <form onSubmit={handleSubmit(addManager)}>

@@ -1,7 +1,6 @@
 import VideoOptions from '@components/Common/VideoCard/VideoOptions'
 import LatestBytesShimmer from '@components/Shimmers/LatestBytesShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { t } from '@lingui/macro'
 import {
   FALLBACK_COVER_URL,
   INFINITE_SCROLL_ROOT_MARGIN,
@@ -65,7 +64,7 @@ const ProfileBytes: FC<Props> = ({ profileId }) => {
   }
 
   if (data?.publications?.items?.length === 0) {
-    return <NoDataFound isCenter withImage text={t`No bytes found`} />
+    return <NoDataFound isCenter withImage text={`No bytes found`} />
   }
 
   return (

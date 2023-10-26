@@ -7,7 +7,6 @@ import { MetadataAttributeType, textOnly } from '@lens-protocol/metadata'
 import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
 import useProfileStore from '@lib/store/profile'
-import { t, Trans } from '@lingui/macro'
 import { Button } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { getUserLocale } from '@tape.xyz/browser'
@@ -64,17 +63,17 @@ type Props = {
 }
 
 const formSchema = object({
-  comment: string({ required_error: t`Enter valid comment` })
+  comment: string({ required_error: `Enter valid comment` })
     .trim()
-    .min(1, { message: t`Enter valid comment` })
-    .max(5000, { message: t`Comment should not exceed 5000 characters` })
+    .min(1, { message: `Enter valid comment` })
+    .max(5000, { message: `Comment should not exceed 5000 characters` })
 })
 type FormData = z.infer<typeof formSchema>
 
 const NewComment: FC<Props> = ({
   video,
   defaultValue = '',
-  placeholder = t`How's this video?`,
+  placeholder = "How's this video?",
   hideEmojiPicker = false,
   resetReply
 }) => {
@@ -273,7 +272,7 @@ const NewComment: FC<Props> = ({
   const submitComment = async (formData: FormData) => {
     if (video.momoka?.proof && !activeProfile?.sponsor) {
       return toast.error(
-        t`Momoka is currently in beta - during this time certain actions are not available to all profiles.`
+        'Momoka is currently in beta - during this time certain actions are not available to all profiles.'
       )
     }
     try {
@@ -405,7 +404,7 @@ const NewComment: FC<Props> = ({
         </div>
       </div>
       <Button variant="surface" size="3" disabled={loading}>
-        <Trans>Comment</Trans>
+        Comment
       </Button>
     </form>
   )

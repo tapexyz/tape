@@ -4,7 +4,6 @@ import CollectOutline from '@components/Common/Icons/CollectOutline'
 import MetaTags from '@components/Common/MetaTags'
 import ZoraNft from '@components/Home/FEOpenActions/Zora/ZoraNft'
 import SuggestedVideos from '@components/Watch/SuggestedVideos'
-import { t, Trans } from '@lingui/macro'
 import { FEATURED_ZORA_COLLECTS } from '@tape.xyz/constants'
 import { getOpenActionNftMetadata, getURLs } from '@tape.xyz/generic'
 import type { BasicNftMetadata } from '@tape.xyz/lens/custom-types'
@@ -32,7 +31,7 @@ const StreamDetails = () => {
 
   return (
     <>
-      <MetaTags title={t`Live`} />
+      <MetaTags title="Live" />
       <div className="grid grid-cols-1 gap-y-4 md:gap-4 xl:grid-cols-4">
         <div className="col-span-3">
           <Unlonely channel={channel} />
@@ -40,9 +39,7 @@ const StreamDetails = () => {
             <div className="mb-4 flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 <CollectOutline className="h-4 w-4" />
-                <h1 className="text-xl font-bold">
-                  <Trans>From the frens</Trans>
-                </h1>
+                <h1 className="text-xl font-bold">From the frens</h1>
               </div>
               <div className="flex justify-end space-x-3">
                 <button

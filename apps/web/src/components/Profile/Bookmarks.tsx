@@ -3,7 +3,6 @@ import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAuthPersistStore from '@lib/store/auth'
-import { t } from '@lingui/macro'
 import {
   ALLOWED_APP_IDS,
   INFINITE_SCROLL_ROOT_MARGIN,
@@ -76,7 +75,7 @@ const Bookmarks: FC = () => {
       <NoDataFound
         isCenter
         withImage
-        text={t`No videos found`}
+        text="No videos found"
         className="my-20"
       />
     )
@@ -84,7 +83,7 @@ const Bookmarks: FC = () => {
 
   return (
     <>
-      <MetaTags title={t`Saved Videos`} />
+      <MetaTags title={`Saved Videos`} />
       <h1 className="mb-6 font-bold md:text-2xl">Saved Videos</h1>
       {!error && !loading && (
         <>

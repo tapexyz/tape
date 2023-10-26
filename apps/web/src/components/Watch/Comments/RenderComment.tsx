@@ -11,7 +11,6 @@ import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import { getShortHandTime } from '@lib/formatTime'
 import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
-import { t, Trans } from '@lingui/macro'
 import { Button, Flex } from '@radix-ui/themes'
 import { SIGN_IN_REQUIRED } from '@tape.xyz/constants'
 import {
@@ -115,13 +114,11 @@ const RenderComment: FC<Props> = ({ comment }) => {
               >
                 {clamped ? (
                   <>
-                    <Trans>Show more</Trans>{' '}
-                    <ChevronDownOutline className="ml-1 h-3 w-3" />
+                    Show more <ChevronDownOutline className="ml-1 h-3 w-3" />
                   </>
                 ) : (
                   <>
-                    <Trans>Show less</Trans>{' '}
-                    <ChevronUpOutline className="ml-1 h-3 w-3" />
+                    Show less <ChevronUpOutline className="ml-1 h-3 w-3" />
                   </>
                 )}
               </button>
@@ -146,9 +143,7 @@ const RenderComment: FC<Props> = ({ comment }) => {
                 }}
               >
                 <ReplyOutline className="h-3.5 w-3.5" />
-                <span className="text-xs">
-                  <Trans>Reply</Trans>
-                </span>
+                <span className="text-xs">Reply</span>
               </Button>
               {comment.stats.comments ? (
                 <Button
@@ -157,7 +152,7 @@ const RenderComment: FC<Props> = ({ comment }) => {
                 >
                   <CommentOutline className="h-3.5 w-3.5" />
                   <span className="text-xs">
-                    {comment.stats.comments} <Trans>replies</Trans>
+                    {comment.stats.comments} replies
                   </span>
                 </Button>
               ) : null}
@@ -198,7 +193,7 @@ const RenderComment: FC<Props> = ({ comment }) => {
               <NewComment
                 video={comment}
                 defaultValue={defaultComment}
-                placeholder={t`Write a reply`}
+                placeholder="Write a reply"
                 hideEmojiPicker
                 resetReply={() => {
                   setDefaultComment('')

@@ -5,7 +5,6 @@ import ReportPublication from '@components/ReportPublication'
 import Confirm from '@components/UIElements/Confirm'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import useAuthPersistStore from '@lib/store/auth'
-import { t, Trans } from '@lingui/macro'
 import { Box, Dialog, DropdownMenu, Flex, Text } from '@radix-ui/themes'
 import { SIGN_IN_REQUIRED } from '@tape.xyz/constants'
 import { EVENTS, Tower } from '@tape.xyz/generic'
@@ -37,7 +36,7 @@ const CommentOptions: FC<Props> = ({ comment }) => {
       cache.gc()
     },
     onCompleted: () => {
-      toast.success(t`Comment deleted`)
+      toast.success(`Comment deleted`)
       Tower.track(EVENTS.PUBLICATION.DELETE, {
         publication_type: comment.__typename?.toLowerCase()
       })
@@ -81,9 +80,7 @@ const CommentOptions: FC<Props> = ({ comment }) => {
                 >
                   <Flex align="center" gap="2">
                     <TrashOutline className="h-3.5 w-3.5" />
-                    <span className="whitespace-nowrap">
-                      <Trans>Delete</Trans>
-                    </span>
+                    <span className="whitespace-nowrap">Delete</span>
                   </Flex>
                 </DropdownMenu.Item>
               )}
@@ -97,7 +94,7 @@ const CommentOptions: FC<Props> = ({ comment }) => {
                     <Flex align="center" gap="2">
                       <FlagOutline className="h-3.5 w-3.5" />
                       <Text size="2" className="whitespace-nowrap">
-                        <Trans>Report</Trans>
+                        Report
                       </Text>
                     </Flex>
                   </button>

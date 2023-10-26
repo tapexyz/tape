@@ -1,5 +1,4 @@
 import MetaTags from '@components/Common/MetaTags'
-import { t, Trans } from '@lingui/macro'
 import { Button, Dialog, Flex, Select, Text } from '@radix-ui/themes'
 import { ERROR_MESSAGE } from '@tape.xyz/constants'
 import { EVENTS, getPublication, Tower } from '@tape.xyz/generic'
@@ -23,7 +22,7 @@ const ReportPublication: FC<Props> = ({ publication }) => {
       toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     },
     onCompleted: () => {
-      toast.success(t`Publication reported.`)
+      toast.success(`Publication reported.`)
       Tower.track(EVENTS.PUBLICATION.REPORT, {
         publication_id: targetPublication.id,
         publication_type: targetPublication.__typename?.toLowerCase()
@@ -68,15 +67,13 @@ const ReportPublication: FC<Props> = ({ publication }) => {
 
   return (
     <>
-      <MetaTags title={t`Report Publication`} />
+      <MetaTags title={`Report Publication`} />
       <div className="flex justify-center">
         <div className="w-full">
           <h1>{targetPublication.metadata.marketplace?.name}</h1>
           <div className="mt-4 flex flex-col space-y-4">
             <Flex direction="column">
-              <Text weight="medium">
-                <Trans>Reason</Trans>
-              </Text>
+              <Text weight="medium">Reason</Text>
               <Select.Root
                 onValueChange={(value) => setReason(value)}
                 value={reason}
@@ -86,61 +83,53 @@ const ReportPublication: FC<Props> = ({ publication }) => {
                   <Select.Group>
                     <Select.Label>Spam</Select.Label>
                     <Select.Item value="SPAM-FAKE_ENGAGEMENT">
-                      <Trans>Fake Engagement</Trans>
+                      Fake Engagement
                     </Select.Item>
                     <Select.Item value="SPAM-MANIPULATION_ALGO">
-                      <Trans>Algorithm Manipulation</Trans>
+                      Algorithm Manipulation
                     </Select.Item>
                     <Select.Item value="SPAM-MISLEADING">
-                      <Trans>Misleading</Trans>
+                      Misleading
                     </Select.Item>
                     <Select.Item value="SPAM-MISUSE_HASHTAGS">
-                      <Trans>Misuse Hashtags</Trans>
+                      Misuse Hashtags
                     </Select.Item>
                     <Select.Item value="SPAM-REPETITIVE">
-                      <Trans>Repetitive</Trans>
+                      Repetitive
                     </Select.Item>
-                    <Select.Item value="SPAM-UNRELATED">
-                      <Trans>Unrelated</Trans>
-                    </Select.Item>
+                    <Select.Item value="SPAM-UNRELATED">Unrelated</Select.Item>
                     <Select.Item value="SPAM-SOMETHING_ELSE">
-                      <Trans>Something Else</Trans>
+                      Something Else
                     </Select.Item>
                   </Select.Group>
                   <Select.Group>
                     <Select.Label>Illegal</Select.Label>
                     <Select.Item value="ILLEGAL-ANIMAL_ABUSE">
-                      <Trans>Animal Abuse</Trans>
+                      Animal Abuse
                     </Select.Item>
                     <Select.Item value="ILLEGAL-HUMAN_ABUSE">
-                      <Trans>Human Abuse</Trans>
+                      Human Abuse
                     </Select.Item>
                     <Select.Item value="ILLEGAL-DIRECT_THREAT">
-                      <Trans>Direct threat</Trans>
+                      Direct threat
                     </Select.Item>
                     <Select.Item value="ILLEGAL-THREAT_INDIVIDUAL">
-                      <Trans>Threat Individual</Trans>
+                      Threat Individual
                     </Select.Item>
-                    <Select.Item value="ILLEGAL-VIOLENCE">
-                      <Trans>Violence</Trans>
-                    </Select.Item>
+                    <Select.Item value="ILLEGAL-VIOLENCE">Violence</Select.Item>
                   </Select.Group>
                   <Select.Group>
                     <Select.Label>Fraud</Select.Label>
-                    <Select.Item value="FRAUD-SCAM">
-                      <Trans>Scam</Trans>
-                    </Select.Item>
+                    <Select.Item value="FRAUD-SCAM">Scam</Select.Item>
                     <Select.Item value="FRAUD-IMPERSONATION">
-                      <Trans>Impersonation</Trans>
+                      Impersonation
                     </Select.Item>
                   </Select.Group>
                   <Select.Group>
                     <Select.Label>Sensitive</Select.Label>
-                    <Select.Item value="SENSITIVE-NSFW">
-                      <Trans>NSFW</Trans>
-                    </Select.Item>
+                    <Select.Item value="SENSITIVE-NSFW">NSFW</Select.Item>
                     <Select.Item value="SENSITIVE-OFFENSIVE">
-                      <Trans>Offensive</Trans>
+                      Offensive
                     </Select.Item>
                   </Select.Group>
                 </Select.Content>
@@ -158,7 +147,7 @@ const ReportPublication: FC<Props> = ({ publication }) => {
                   disabled={reporting}
                   onClick={() => onReport()}
                 >
-                  <Trans>Report</Trans>
+                  Report
                 </Button>
               </Dialog.Close>
             </Flex>

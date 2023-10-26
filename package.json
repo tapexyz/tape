@@ -19,7 +19,6 @@
     "prepare": "husky install",
     "workers:deploy": "turbo run worker:deploy --parallel",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "i18n:extract": "turbo run extract",
     "mobile": "cd apps/mobile && yarn mobile:start"
   },
   "devDependencies": {

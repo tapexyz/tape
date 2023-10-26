@@ -13,7 +13,6 @@ import {
   profile as profileMetadata
 } from '@lens-protocol/metadata'
 import useProfileStore from '@lib/store/profile'
-import { t, Trans } from '@lingui/macro'
 import { Button, Flex, IconButton, Text } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { uploadToIPFS, useCopyToClipboard } from '@tape.xyz/browser'
@@ -318,7 +317,7 @@ const BasicInfo = ({ profile }: Props) => {
               className="!px-0"
             >
               <label htmlFor="chooseCover" className="p-3">
-                <Trans>Choose</Trans>
+                Choose
                 <input
                   id="chooseCover"
                   type="file"
@@ -383,7 +382,7 @@ const BasicInfo = ({ profile }: Props) => {
           </div>
           <div>
             <Text as="div" className="opacity-70" size="2" weight="medium">
-              <Trans>Profile</Trans>
+              Profile
             </Text>
             <div className="flex items-center space-x-3">
               <h6 className="flex items-center space-x-1">
@@ -393,7 +392,7 @@ const BasicInfo = ({ profile }: Props) => {
             </div>
             <div className="mt-4">
               <Text as="div" className="opacity-70" size="2" weight="medium">
-                <Trans>Permalink</Trans>
+                Permalink
               </Text>
               <div className="flex items-center space-x-2">
                 <span>
@@ -421,7 +420,7 @@ const BasicInfo = ({ profile }: Props) => {
 
         <div className="mt-6">
           <Input
-            label={t`Name`}
+            label="Name"
             size="3"
             placeholder="John Doe"
             validationError={errors.displayName?.message}
@@ -430,9 +429,9 @@ const BasicInfo = ({ profile }: Props) => {
         </div>
         <div className="relative mt-4">
           <TextArea
-            label={t`Bio`}
+            label="Bio"
             size="3"
-            placeholder={t`More about you and what you do!`}
+            placeholder="More about you and what you do!"
             validationError={errors.description?.message}
             {...register('description')}
           />
@@ -447,7 +446,7 @@ const BasicInfo = ({ profile }: Props) => {
         <div className="mt-4">
           <Input
             size="3"
-            label={t`Website`}
+            label="Website"
             placeholder="https://johndoe.xyz"
             validationError={errors.website?.message}
             {...register('website')}
@@ -485,7 +484,7 @@ const BasicInfo = ({ profile }: Props) => {
         </div>
         <div className="mt-4">
           <Input
-            label={t`Location`}
+            label="Location"
             size="3"
             placeholder="Metaverse"
             validationError={errors.location?.message}
@@ -495,7 +494,7 @@ const BasicInfo = ({ profile }: Props) => {
         <div className="mt-6 flex justify-end">
           <Button size="3" disabled={loading} highContrast>
             {loading && <Loader size="sm" />}
-            <Trans>Update Profile</Trans>
+            Update Profile
           </Button>
         </div>
       </form>

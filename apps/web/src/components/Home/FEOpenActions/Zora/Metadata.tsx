@@ -2,7 +2,6 @@ import CollectOutline from '@components/Common/Icons/CollectOutline'
 import ExternalOutline from '@components/Common/Icons/ExternalOutline'
 import TagOutline from '@components/Common/Icons/TagOutline'
 import { useDid } from '@hooks/useDid'
-import { Trans } from '@lingui/macro'
 import { Button } from '@radix-ui/themes'
 import {
   EVENTS,
@@ -60,15 +59,11 @@ const Metadata = ({ nft, link }: { nft: ZoraNft; link: string }) => {
         <div className="space-y-2 font-bold">
           <div className="flex items-center space-x-2 outline-none">
             <CollectOutline className="h-4 w-4" />
-            <span>
-              {nft.totalMinted} <Trans>collects</Trans>
-            </span>
+            <span>{nft.totalMinted} collects</span>
           </div>
           <div className="flex items-center space-x-2 outline-none">
             <TagOutline className="h-4 w-4" />
-            <span>
-              {formatEther(BigInt(nft.price ?? 0))} <Trans>ETH</Trans>
-            </span>
+            <span>{formatEther(BigInt(nft.price ?? 0))} ETH</span>
           </div>
           <Link
             onClick={() => Tower.track(EVENTS.OPEN_ACTIONS.OPEN_IN_ZORA)}

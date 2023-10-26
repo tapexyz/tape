@@ -1,7 +1,6 @@
 import SortOutline from '@components/Common/Icons/SortOutline'
 import Tooltip from '@components/UIElements/Tooltip'
 import useProfileStore from '@lib/store/profile'
-import { Trans } from '@lingui/macro'
 import { DropdownMenu } from '@radix-ui/themes'
 import { CustomCommentsFilterEnum } from '@tape.xyz/lens/custom-types'
 import React from 'react'
@@ -26,18 +25,14 @@ const CommentsFilter = () => {
             setSelectedCommentFilter(CustomCommentsFilterEnum.RELEVANT_COMMENTS)
           }
         >
-          <span className="whitespace-nowrap">
-            <Trans>Relevant</Trans>
-          </span>
+          <span className="whitespace-nowrap">Relevant</span>
         </DropdownMenu.Item>
         <DropdownMenu.Item
           onClick={() =>
             setSelectedCommentFilter(CustomCommentsFilterEnum.NEWEST_COMMENTS)
           }
         >
-          <span className="whitespace-nowrap">
-            <Trans>Newest first</Trans>
-          </span>
+          <span className="whitespace-nowrap">Newest first</span>
         </DropdownMenu.Item>
       </DropdownMenu.Content>
     </DropdownMenu.Root>

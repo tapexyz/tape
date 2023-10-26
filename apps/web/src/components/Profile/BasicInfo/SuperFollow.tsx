@@ -1,6 +1,5 @@
 import useAuthPersistStore from '@lib/store/auth'
 import useNonceStore from '@lib/store/nonce'
-import { Trans } from '@lingui/macro'
 import { Button, Dialog, Flex, Text } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
@@ -225,7 +224,7 @@ const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
           disabled={loading}
         >
           {loading && <Loader size="sm" />}
-          <Trans>Subscribe</Trans>
+          Subscribe
         </Button>
       </Dialog.Trigger>
 
@@ -259,12 +258,12 @@ const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
               disabled={loading}
             >
               {loading && <Loader size="sm" />}
-              <Trans>Subscribe Now</Trans>
+              Subscribe Now
             </Button>
           ) : (
             <Button highContrast onClick={() => allow()} disabled={loading}>
               {loading && <Loader size="sm" />}
-              <Trans>Allow</Trans>
+              Allow
             </Button>
           )}
         </Flex>

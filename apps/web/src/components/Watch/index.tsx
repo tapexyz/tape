@@ -1,7 +1,6 @@
 import MetaTags from '@components/Common/MetaTags'
 import { WatchShimmer } from '@components/Shimmers/WatchShimmer'
 import useAppStore from '@lib/store'
-import { t } from '@lingui/macro'
 import {
   EVENTS,
   getPublication,
@@ -60,9 +59,7 @@ const VideoDetails = () => {
 
   return (
     <>
-      <MetaTags
-        title={getPublicationData(video?.metadata)?.title || t`Watch`}
-      />
+      <MetaTags title={getPublicationData(video?.metadata)?.title || `Watch`} />
       {!loading && !error && video ? (
         <div className="max-w-screen-ultrawide mx-auto grid grid-cols-1 gap-y-4 md:gap-4 xl:grid-cols-4">
           <div className="col-span-3 space-y-3.5">

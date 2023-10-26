@@ -6,7 +6,6 @@ import MirrorVideo from '@components/Common/MirrorVideo'
 import VideoOptions from '@components/Common/VideoCard/VideoOptions'
 import OpenActions from '@components/Watch/OpenActions'
 import PublicationReaction from '@components/Watch/PublicationReaction'
-import { Trans } from '@lingui/macro'
 import { Button, Dialog, DialogClose, Flex, IconButton } from '@radix-ui/themes'
 import type { MirrorablePublication } from '@tape.xyz/lens'
 import type { FC } from 'react'
@@ -71,7 +70,7 @@ const ByteActions: FC<Props> = ({ video }) => {
                 <Flex direction="column" align="center">
                   <MirrorOutline className="h-5 w-5" />
                   <span className="pt-1 text-xs">
-                    {video.stats?.mirrors || <Trans>Mirror</Trans>}
+                    {video.stats?.mirrors || 'Mirror'}
                   </span>
                 </Flex>
               </Button>
@@ -83,7 +82,7 @@ const ByteActions: FC<Props> = ({ video }) => {
                 <Flex direction="column" align="center">
                   <CollectOutline className="h-5 w-5" />
                   <span className="pt-1 text-xs">
-                    {video.stats?.countOpenActions || <Trans>Collect</Trans>}
+                    {video.stats?.countOpenActions || 'Collect'}
                   </span>
                 </Flex>
               </Button>

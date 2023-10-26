@@ -2,7 +2,6 @@ import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import useAuthPersistStore from '@lib/store/auth'
 import useNonceStore from '@lib/store/nonce'
 import useProfileStore from '@lib/store/profile'
-import { t } from '@lingui/macro'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   ERROR_MESSAGE,
@@ -158,7 +157,7 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
 
     if (video.momoka?.proof && !activeProfile?.sponsor) {
       return toast.error(
-        t`Momoka is currently in beta - during this time certain actions are not available to all profiles.`
+        'Momoka is currently in beta - during this time certain actions are not available to all profiles.'
       )
     }
 

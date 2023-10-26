@@ -5,7 +5,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import usePendingTxn from '@hooks/usePendingTxn'
 import useNonceStore from '@lib/store/nonce'
-import { t, Trans } from '@lingui/macro'
 import { Button, Flex, Select, Text } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { useCopyToClipboard } from '@tape.xyz/browser'
@@ -130,7 +129,7 @@ const Subscription = ({ channel }: Props) => {
   useEffect(() => {
     if (indexed) {
       setLoading(false)
-      toast.success(t`Subscription updated`)
+      toast.success('Subscription updated')
       setShowForm(false)
       refetch({ request: { forProfileId: channel?.id } })
     }
@@ -196,15 +195,11 @@ const Subscription = ({ channel }: Props) => {
     <div className="dark:bg-bunker tape-border rounded-medium bg-white p-5">
       <MetaTags title="Subscription" />
       <div className="mb-5 space-y-2">
-        <h1 className="text-brand-400 text-xl font-bold">
-          <Trans>Grow with Lens</Trans>
-        </h1>
+        <h1 className="text-brand-400 text-xl font-bold">Grow with Lens</h1>
         <p className="text opacity-80">
-          <Trans>
-            You can set up a follow fee for your profile and provide exclusive
-            offers and perks to the followers, also people can pay and support
-            your work.
-          </Trans>
+          You can set up a follow fee for your profile and provide exclusive
+          offers and perks to the followers, also people can pay and support
+          your work.
         </p>
       </div>
       {moduleLoading && (
@@ -218,7 +213,7 @@ const Subscription = ({ channel }: Props) => {
           <div className="grid gap-y-4 md:grid-cols-3">
             <div>
               <span className="text-xs font-medium uppercase opacity-50">
-                <Trans>Amount</Trans>
+                Amount
               </span>
               <h6 className="text-xl font-bold">
                 {activeFollowModule.amount?.value}{' '}
@@ -227,7 +222,7 @@ const Subscription = ({ channel }: Props) => {
             </div>
             <div>
               <span className="text-xs font-medium uppercase opacity-50">
-                <Trans>Token</Trans>
+                Token
               </span>
               <h6 className="text-xl font-bold">
                 {activeFollowModule.amount?.asset?.name}
@@ -235,7 +230,7 @@ const Subscription = ({ channel }: Props) => {
             </div>
             <div>
               <div className="mb-1 text-xs font-medium uppercase opacity-50">
-                <Trans>Recipient</Trans>
+                Recipient
               </div>
               <Tooltip content="Copy Address" placement="top">
                 <Button
@@ -289,7 +284,7 @@ const Subscription = ({ channel }: Props) => {
             </div>
             <div>
               <Input
-                label={t`Amount`}
+                label="Amount"
                 type="number"
                 size="3"
                 step="any"
@@ -301,7 +296,7 @@ const Subscription = ({ channel }: Props) => {
             </div>
             <div>
               <Input
-                label={t`Recipient`}
+                label="Recipient"
                 size="3"
                 placeholder="0x00..."
                 autoComplete="off"
@@ -317,7 +312,7 @@ const Subscription = ({ channel }: Props) => {
                 size="3"
                 onClick={() => setShowForm(false)}
               >
-                <Trans>Cancel</Trans>
+                Cancel
               </Button>
             )}
             <Button size="3" variant="surface" highContrast disabled={loading}>
@@ -336,7 +331,7 @@ const Subscription = ({ channel }: Props) => {
             onClick={() => setMembership(true)}
           >
             {loading && <Loader size="sm" />}
-            <Trans>Disable</Trans>
+            Disable
           </Button>
           <Button
             variant="surface"
@@ -344,7 +339,7 @@ const Subscription = ({ channel }: Props) => {
             size="3"
             onClick={() => setShowForm(true)}
           >
-            <Trans>Update</Trans>
+            Update
           </Button>
         </div>
       )}

@@ -1,4 +1,3 @@
-import { Trans } from '@lingui/macro'
 import { formatNumber, getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import Link from 'next/link'
@@ -58,7 +57,7 @@ const Profiles: FC<Props> = ({ results, loading, clearSearch }) => {
       ))}
       {!results?.length && !loading && (
         <div className="relative cursor-default select-none p-5 text-center">
-          <Trans>No results found</Trans>
+          No results found
         </div>
       )}
     </div>

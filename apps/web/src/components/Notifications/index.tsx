@@ -4,7 +4,6 @@ import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { Tab } from '@headlessui/react'
 import usePersistStore from '@lib/store/persist'
 import useProfileStore from '@lib/store/profile'
-import { t, Trans } from '@lingui/macro'
 import {
   INFINITE_SCROLL_ROOT_MARGIN,
   LENS_CUSTOM_FILTERS,
@@ -80,18 +79,16 @@ const Notifications = () => {
 
   return (
     <div className="mx-auto my-2 px-2 md:container md:max-w-3xl md:p-0">
-      <MetaTags title={t`Notifications`} />
+      <MetaTags title={`Notifications`} />
       <Tab.Group as="div" className="w-full">
         <div className="mb-4 flex items-center justify-between font-bold md:mb-6">
-          <span className="whitespace-nowrap text-xl">
-            <Trans>All Notifications</Trans>
-          </span>
+          <span className="whitespace-nowrap text-xl">All Notifications</span>
           <NotificationsFilter />
         </div>
         <Tab.Panels>
           {loading && <NotificationsShimmer />}
           {notifications?.length === 0 && (
-            <NoDataFound isCenter withImage text={t`No Notifications`} />
+            <NoDataFound isCenter withImage text={`No Notifications`} />
           )}
           {notifications?.map((notification: Notification, index: number) => (
             <div className="pb-6" key={`${notification.id}_${index}`}>

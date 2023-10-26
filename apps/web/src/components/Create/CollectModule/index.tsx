@@ -3,7 +3,6 @@ import SplitOutline from '@components/Common/Icons/SplitOutline'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import useAuthPersistStore from '@lib/store/auth'
-import { t, Trans } from '@lingui/macro'
 import { Button, Dialog, Flex } from '@radix-ui/themes'
 import { LimitType, useEnabledCurrenciesQuery } from '@tape.xyz/lens'
 import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
@@ -47,16 +46,15 @@ const CollectModule = () => {
     const timeLimit = uploadedVideo.collectModule.timeLimit
     const multiRecipients = uploadedVideo.collectModule.multiRecipients
     if (uploadedVideo.collectModule.isRevertCollect) {
-      return t`No one can collect this publication`
+      return `No one can collect this publication`
     }
     return (
       <div className="flex items-center space-x-1">
         <span>
-          {followerOnlyCollect ? t`Only followers` : t`Anyone`}{' '}
-          <Trans>can collect</Trans>{' '}
+          {followerOnlyCollect ? `Only followers` : `Anyone`} can collect{' '}
           {collectLimitEnabled ? `the ${collectLimit} editions` : ''}{' '}
-          {isFeeCollect ? t`for set price` : t`for free`}{' '}
-          {timeLimitEnabled ? t`within ${timeLimit} days` : ''}
+          {isFeeCollect ? `for set price` : `for free`}{' '}
+          {timeLimitEnabled ? `within ${timeLimit} days` : ''}
         </span>
         {uploadedVideo.collectModule.isMultiRecipientFeeCollect && (
           <Tooltip
@@ -123,7 +121,7 @@ const CollectModule = () => {
                         highContrast
                         onClick={() => setShowModal(false)}
                       >
-                        <Trans>Set Collect Type</Trans>
+                        Set Collect Type
                       </Button>
                     </div>
                   )}

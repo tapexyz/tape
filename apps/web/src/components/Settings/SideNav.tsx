@@ -6,7 +6,6 @@ import ProfileManagerOutline from '@components/Common/Icons/ProfileManagerOutlin
 import SubscribeOutline from '@components/Common/Icons/SubscribeOutline'
 import UserOutline from '@components/Common/Icons/UserOutline'
 import WarningOutline from '@components/Common/Icons/WarningOutline'
-import { Trans } from '@lingui/macro'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -38,9 +37,7 @@ const SideNav = () => {
         )}
       >
         <UserOutline className="h-4 w-4" />
-        <span>
-          <Trans>Basic Info</Trans>
-        </span>
+        <span>Basic Info</span>
       </Link>
       <Link
         href={SETTINGS_SUBSCRIPTION}
@@ -52,9 +49,7 @@ const SideNav = () => {
         )}
       >
         <SubscribeOutline className="h-4 w-4" />
-        <span>
-          <Trans>Subscription</Trans>
-        </span>
+        <span>Subscription</span>
       </Link>
       <Link
         href={SETTINGS_INTERESTS}
@@ -66,9 +61,7 @@ const SideNav = () => {
         )}
       >
         <InterestsOutline className="h-4 w-4" />
-        <span>
-          <Trans>Interests</Trans>
-        </span>
+        <span>Interests</span>
       </Link>
       <Link
         href={SETTINGS_MANAGER}
@@ -80,9 +73,7 @@ const SideNav = () => {
         )}
       >
         <ProfileManagerOutline className="h-4 w-4" />
-        <span>
-          <Trans>Manager</Trans>
-        </span>
+        <span>Manager</span>
       </Link>
       <Link
         href={SETTINGS_ALLOWANCE}
@@ -94,9 +85,7 @@ const SideNav = () => {
         )}
       >
         <LockOutline className="h-4 w-4" />
-        <span>
-          <Trans>Allowance</Trans>
-        </span>
+        <span>Allowance</span>
       </Link>
       <Link
         href={SETTINGS_BLOCKED}
@@ -108,9 +97,7 @@ const SideNav = () => {
         )}
       >
         <ProfileBanOutline className="h-4 w-4" />
-        <span>
-          <Trans>Blocked</Trans>
-        </span>
+        <span>Blocked</span>
       </Link>
       <Link
         href={SETTINGS_SESSIONS}
@@ -122,9 +109,7 @@ const SideNav = () => {
         )}
       >
         <KeyOutline className="h-4 w-4" />
-        <span>
-          <Trans>Sessions</Trans>
-        </span>
+        <span>Sessions</span>
       </Link>
       <Link
         href={SETTINGS_DANGER_ZONE}
@@ -136,9 +121,7 @@ const SideNav = () => {
         )}
       >
         <WarningOutline className="h-4 w-4" />
-        <span>
-          <Trans>Danger Zone</Trans>
-        </span>
+        <span>Danger Zone</span>
       </Link>
     </div>
   )

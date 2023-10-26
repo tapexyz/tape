@@ -3,7 +3,6 @@ import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAppStore from '@lib/store'
-import { t } from '@lingui/macro'
 import {
   ALLOWED_APP_IDS,
   INFINITE_SCROLL_ROOT_MARGIN,
@@ -82,7 +81,7 @@ const Feed = () => {
           </>
         )}
         {videos?.length === 0 && (
-          <NoDataFound isCenter withImage text={t`No videos found`} />
+          <NoDataFound isCenter withImage text={`No videos found`} />
         )}
       </div>
     </div>

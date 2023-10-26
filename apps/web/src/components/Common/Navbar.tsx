@@ -1,6 +1,5 @@
 import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
-import { Trans } from '@lingui/macro'
 import { Button, HoverCard, IconButton } from '@radix-ui/themes'
 import { STATIC_ASSETS } from '@tape.xyz/constants'
 import clsx from 'clsx'
@@ -73,7 +72,7 @@ const Navbar = () => {
                 : 'font-medium opacity-60 hover:opacity-90'
             )}
           >
-            <Trans>Home</Trans>
+            Home
           </Link>
           <Link
             href="/feed"
@@ -83,7 +82,7 @@ const Navbar = () => {
                 : 'font-medium opacity-60 hover:opacity-90'
             )}
           >
-            <Trans>Feed</Trans>
+            Feed
           </Link>
           <Link
             href="/bytes"
@@ -93,7 +92,7 @@ const Navbar = () => {
                 : 'font-medium opacity-60 hover:opacity-90'
             )}
           >
-            <Trans>Bytes</Trans>
+            Bytes
           </Link>
         </div>
         <div className="flex w-1/5 items-center justify-end space-x-3">

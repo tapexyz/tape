@@ -1,5 +1,4 @@
 import useAppStore from '@lib/store'
-import { Trans } from '@lingui/macro'
 import { Button, Text } from '@radix-ui/themes'
 import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
 import type { FC } from 'react'
@@ -15,7 +14,7 @@ const PermissionQuestion: FC<Props> = ({ setCollectType }) => {
   return (
     <div className="space-y-1">
       <Text size="2" weight="medium">
-        <Trans>Who can collect?</Trans>
+        Who can collect?
       </Text>
       <div className="flex flex-wrap gap-1.5 md:flex-nowrap">
         <Button
@@ -38,7 +37,7 @@ const PermissionQuestion: FC<Props> = ({ setCollectType }) => {
             })
           }
         >
-          <Trans>Anyone</Trans>
+          Anyone
         </Button>
         <Button
           className="flex-1"
@@ -60,7 +59,7 @@ const PermissionQuestion: FC<Props> = ({ setCollectType }) => {
             })
           }
         >
-          <Trans>Only Followers</Trans>
+          Only Followers
         </Button>
       </div>
     </div>

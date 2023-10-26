@@ -2,7 +2,6 @@ import ExternalOutline from '@components/Common/Icons/ExternalOutline'
 import TagOutline from '@components/Common/Icons/TagOutline'
 import ArweaveExplorerLink from '@components/Common/Links/ArweaveExplorerLink'
 import IPFSLink from '@components/Common/Links/IPFSLink'
-import { Trans } from '@lingui/macro'
 import {
   EVENTS,
   getCategoryName,
@@ -45,9 +44,7 @@ const MetaInfo: FC<Props> = ({ video }) => {
             tabIndex={0}
             role="button"
           >
-            <div className="whitespace-nowrap text-sm">
-              <Trans>View Metadata</Trans>
-            </div>
+            <div className="whitespace-nowrap text-sm">View Metadata</div>
             <ExternalOutline className="h-3 w-3" />
           </div>
         </IPFSLink>
@@ -59,9 +56,7 @@ const MetaInfo: FC<Props> = ({ video }) => {
             className="flex items-center space-x-1"
             role="button"
           >
-            <div className="whitespace-nowrap text-sm">
-              <Trans>View Metadata</Trans>
-            </div>
+            <div className="whitespace-nowrap text-sm">View Metadata</div>
             <ExternalOutline className="h-3 w-3" />
           </div>
         </ArweaveExplorerLink>
@@ -76,9 +71,7 @@ const MetaInfo: FC<Props> = ({ video }) => {
           <span className="middot" />
           <ArweaveExplorerLink txId={video.momoka?.proof?.replace('ar://', '')}>
             <div className="flex items-center space-x-1">
-              <div className="whitespace-nowrap text-sm">
-                <Trans>View Proof</Trans>
-              </div>
+              <div className="whitespace-nowrap text-sm">View Proof</div>
               <ExternalOutline className="h-3 w-3" />
             </div>
           </ArweaveExplorerLink>

@@ -2,7 +2,6 @@ import WarningOutline from '@components/Common/Icons/WarningOutline'
 import { Input } from '@components/UIElements/Input'
 import { zodResolver } from '@hookform/resolvers/zod'
 import usePendingTxn from '@hooks/usePendingTxn'
-import { Trans } from '@lingui/macro'
 import { Button, Callout, Text } from '@radix-ui/themes'
 import { COMMON_REGEX, ERROR_MESSAGE } from '@tape.xyz/constants'
 import { shortenAddress } from '@tape.xyz/generic'
@@ -95,7 +94,7 @@ const Signup = ({ onSuccess }: { onSuccess: () => void }) => {
       </Callout.Root>
       <div className="space-y-1">
         <Text as="div" size="3" weight="medium">
-          <Trans>Create Profile</Trans>
+          Create Profile
         </Text>
         <form
           onSubmit={handleSubmit(signup)}
