@@ -11,7 +11,7 @@ import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import { getShortHandTime } from '@lib/formatTime'
 import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
-import { Button, Flex } from '@radix-ui/themes'
+import { Button, Flex, Text } from '@radix-ui/themes'
 import { SIGN_IN_REQUIRED } from '@tape.xyz/constants'
 import {
   getProfile,
@@ -71,7 +71,7 @@ const RenderComment: FC<Props> = ({ comment }) => {
         >
           <img
             src={getProfilePicture(comment.by, 'AVATAR')}
-            className="h-7 w-7 rounded-full"
+            className="h-9 w-9 rounded-full"
             draggable={false}
             alt={getProfile(comment.by)?.slug}
           />
@@ -81,7 +81,7 @@ const RenderComment: FC<Props> = ({ comment }) => {
             <HoverableProfile profile={comment.by}>
               <Link
                 href={getProfile(comment.by)?.link}
-                className="flex items-center space-x-1 text-sm font-medium"
+                className="flex items-center space-x-1 font-medium"
               >
                 <span>{getProfile(comment.by)?.slug}</span>
                 <Badge id={comment?.by.id} />
@@ -98,7 +98,7 @@ const RenderComment: FC<Props> = ({ comment }) => {
               </Tooltip>
             )}
             <span className="middot" />
-            <span className="text-xs opacity-70">
+            <span className="text-sm">
               {getShortHandTime(comment.createdAt)}
             </span>
           </span>
@@ -106,11 +106,11 @@ const RenderComment: FC<Props> = ({ comment }) => {
             <InterweaveContent content={metadata?.content ?? ''} />
           </div>
           {showMore && (
-            <div className="mt-3 inline-flex">
+            <div className="mt-2 inline-flex">
               <button
                 type="button"
                 onClick={() => setClamped(!clamped)}
-                className="mt-2 flex items-center text-xs opacity-80 outline-none hover:opacity-100"
+                className="flex items-center text-sm opacity-80 outline-none hover:opacity-100"
               >
                 {clamped ? (
                   <>
@@ -151,9 +151,9 @@ const RenderComment: FC<Props> = ({ comment }) => {
                   onClick={() => setShowReplies(!showReplies)}
                 >
                   <CommentOutline className="h-3.5 w-3.5" />
-                  <span className="text-xs">
+                  <Text size="1" highContrast color="gray">
                     {comment.stats.comments} replies
-                  </span>
+                  </Text>
                 </Button>
               ) : null}
             </Flex>

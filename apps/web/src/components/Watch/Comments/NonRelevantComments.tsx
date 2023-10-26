@@ -79,7 +79,7 @@ const NonRelevantComments: FC<Props> = ({ video, className }) => {
         highContrast
       >
         <span className="flex items-center space-x-2">
-          <span className="opacity-70 group-hover:opacity-100">
+          <span className="opacity-80 group-hover:opacity-100">
             {showSection ? 'Hide more comments' : 'Show more comments'}
           </span>
           {showSection ? (

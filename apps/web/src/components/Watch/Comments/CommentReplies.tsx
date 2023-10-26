@@ -50,7 +50,7 @@ const ReplyContent: FC<ReplyContentProps> = ({ comment }) => {
           <button
             type="button"
             onClick={() => setClamped(!clamped)}
-            className="my-2 flex items-center text-xs opacity-80 outline-none hover:opacity-100"
+            className="my-2 flex items-center text-sm opacity-80 outline-none hover:opacity-100"
           >
             {clamped ? (
               <>
@@ -129,7 +129,7 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
                 >
                   <img
                     src={getProfilePicture(comment.by, 'AVATAR')}
-                    className="h-7 w-7 rounded-full"
+                    className="h-9 w-9 rounded-full"
                     draggable={false}
                     alt={getProfile(comment.by)?.slug}
                   />
@@ -138,13 +138,13 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
                   <span className="mb-1 flex items-center">
                     <Link
                       href={getProfile(comment.by)?.link}
-                      className="flex items-center space-x-1 text-sm font-medium"
+                      className="flex items-center space-x-1 font-medium"
                     >
                       <span>{getProfile(comment.by)?.slug}</span>
                       <Badge id={comment?.by.id} />
                     </Link>
                     <span className="middot" />
-                    <span className="text-xs opacity-70">
+                    <span className="text-sm opacity-70">
                       {getShortHandTime(comment.createdAt)}
                     </span>
                   </span>
