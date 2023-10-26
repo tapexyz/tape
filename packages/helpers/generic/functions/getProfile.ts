@@ -4,7 +4,6 @@ import type { SimpleProfile } from '@tape.xyz/lens/custom-types'
 export const getProfile = (
   profile: Profile | SimpleProfile
 ): {
-  prefix: '@' | '#'
   slug: string
   slugWithPrefix: string
   displayName: string
@@ -14,7 +13,6 @@ export const getProfile = (
 } => {
   if (!profile) {
     return {
-      prefix: '@',
       slug: '',
       slugWithPrefix: '',
       displayName: '',
@@ -28,11 +26,10 @@ export const getProfile = (
   const slug: string = profile.handle?.localName || profile.id
 
   return {
-    prefix,
+    id: profile.id,
     slug,
     slugWithPrefix: `${prefix}${slug}`,
     displayName: profile.metadata?.displayName || slug,
-    id: profile.id,
     link: profile.handle
       ? `/u/${profile.handle.localName}`
       : `/profile/${profile.id}`,

@@ -62,9 +62,7 @@ const VideoActions: FC<Props> = ({ video }) => {
           </Button>
         </MirrorVideo>
       )}
-      {video.operations.canAct && (
-        <OpenActions publication={video} text="Collect" />
-      )}
+      <OpenActions publication={video} text="Collect" />
       <VideoOptions video={video}>
         <IconButton variant="surface" highContrast>
           <ThreeDotsOutline className="h-4 w-4" />

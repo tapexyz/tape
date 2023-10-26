@@ -78,6 +78,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
 
   const assetAddress = details?.amount?.assetAddress
   const assetDecimals = details?.amount?.assetDecimals
+  const amount = parseFloat(details?.amount?.value || '0')
 
   const isRecipientAvailable = details?.recipients?.length || details?.recipient
 
@@ -127,7 +128,8 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
     skip: !assetAddress || !activeProfile?.id,
     onCompleted: (data) => {
       setIsAllowed(
-        data.approvedModuleAllowanceAmount[0].allowance.value !== '0x00'
+        parseFloat(data.approvedModuleAllowanceAmount[0].allowance.value) >
+          amount
       )
     }
   })

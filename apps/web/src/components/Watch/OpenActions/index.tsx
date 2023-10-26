@@ -16,11 +16,7 @@ import {
   ScrollArea
 } from '@radix-ui/themes'
 import { getPublication } from '@tape.xyz/generic'
-import {
-  type AnyPublication,
-  type OpenActionModule,
-  TriStateValue
-} from '@tape.xyz/lens'
+import { type AnyPublication, type OpenActionModule } from '@tape.xyz/lens'
 import type { FC, ReactNode } from 'react'
 import React from 'react'
 
@@ -64,10 +60,6 @@ const OpenActions: FC<Props> = ({
     }
   }
 
-  if (targetPublication.operations.canAct === TriStateValue.No) {
-    return null
-  }
-
   return (
     <Dialog.Root>
       <Dialog.Trigger>
@@ -83,7 +75,7 @@ const OpenActions: FC<Props> = ({
         <Flex gap="3" justify="between" pb="2">
           <Dialog.Title>
             <Flex align="center" gap="2">
-              <CollectOutline className="h-4 w-4" /> <span>Act</span>
+              <CollectOutline className="h-5 w-5" /> <span>Collect</span>
             </Flex>
           </Dialog.Title>
           <DialogClose>

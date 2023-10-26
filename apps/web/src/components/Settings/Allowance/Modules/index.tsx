@@ -152,7 +152,7 @@ const ModuleAllowance = () => {
                   </p>
                 </div>
                 <div className="ml-2 flex flex-none items-center space-x-2">
-                  {moduleItem?.allowance.value === '0x00' ? (
+                  {parseFloat(moduleItem?.allowance.value) === 0 ? (
                     <Button
                       size="3"
                       variant="surface"

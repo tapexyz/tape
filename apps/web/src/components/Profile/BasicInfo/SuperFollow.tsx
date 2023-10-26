@@ -91,6 +91,7 @@ const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
 
   const followModule = followModuleData?.profile
     ?.followModule as FeeFollowModuleSettings
+  const amount = parseFloat(followModule?.amount?.value || '0')
 
   const { refetch } = useApprovedModuleAllowanceAmountQuery({
     variables: {
@@ -105,7 +106,9 @@ const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
       !followModule?.amount?.asset?.contract.address ||
       !selectedSimpleProfile?.id,
     onCompleted: ({ approvedModuleAllowanceAmount }) => {
-      setIsAllowed(approvedModuleAllowanceAmount[0].allowance.value !== '0x00')
+      setIsAllowed(
+        parseFloat(approvedModuleAllowanceAmount[0].allowance.value) > amount
+      )
     }
   })
 
