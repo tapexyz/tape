@@ -391,6 +391,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
           <span>x</span>
           <Input
             type="number"
+            size="3"
             className="w-14"
             step="any"
             {...register('tipQuantity', { valueAsNumber: true })}
@@ -403,10 +404,10 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
           {...register('message')}
           placeholder="Say something nice"
           autoComplete="off"
-          className="w-full rounded-xl border border-gray-200 text-sm outline-none focus:ring-1 focus:ring-indigo-500 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-800"
+          className="w-full rounded-xl border border-gray-200 outline-none focus:ring-1 focus:ring-indigo-500 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-800"
           rows={3}
         />
-        <div className="mx-1 mt-1 text-[11px] opacity-50">
+        <div className="mt-1 text-xs opacity-70">
           This will be published as a public comment
         </div>
       </div>
@@ -425,12 +426,12 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
           <Button
             type="button"
             variant="soft"
-            color="gray"
+            size="3"
             onClick={() => setShow(false)}
           >
             Cancel
           </Button>
-          <Button highContrast disabled={!isValid || loading}>
+          <Button highContrast size="3" disabled={!isValid || loading}>
             {`Tip ${
               isNaN(Number(watchTipQuantity) * 1) ||
               Number(watchTipQuantity) < 0

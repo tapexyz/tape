@@ -24,15 +24,17 @@ const VideoActions: FC<Props> = ({ video }) => {
     <div className="mt-4 flex items-center justify-end space-x-2 md:mt-2">
       <PublicationReaction
         publication={video}
-        textSize="base"
+        textSize="inherit"
         iconSize="base"
         variant="surface"
+        color="blue"
       />
       {video.operations.canComment !== TriStateValue.No && (
         <Dialog.Root open={showTip}>
           <Dialog.Trigger>
             <Button
               variant="surface"
+              color="blue"
               highContrast
               onClick={() => {
                 setShowTip(true)
@@ -56,15 +58,15 @@ const VideoActions: FC<Props> = ({ video }) => {
       )}
       {video.operations.canMirror && (
         <MirrorVideo video={video}>
-          <Button variant="surface" highContrast>
+          <Button variant="surface" color="blue" highContrast>
             <MirrorOutline className="h-4 w-4 flex-none" />
             Mirror
           </Button>
         </MirrorVideo>
       )}
-      <OpenActions publication={video} text="Collect" variant="surface" />
+      <OpenActions publication={video} text="Collect" />
       <VideoOptions video={video}>
-        <IconButton variant="surface" highContrast>
+        <IconButton variant="surface" color="blue" highContrast>
           <ThreeDotsOutline className="h-4 w-4" />
         </IconButton>
       </VideoOptions>

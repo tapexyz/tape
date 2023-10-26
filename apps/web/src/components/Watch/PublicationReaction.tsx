@@ -1,3 +1,4 @@
+import HeartFilled from '@components/Common/Icons/HeartFilled'
 import HeartOutline from '@components/Common/Icons/HeartOutline'
 import useAuthPersistStore from '@lib/store/auth'
 import { Button } from '@radix-ui/themes'
@@ -17,11 +18,12 @@ import toast from 'react-hot-toast'
 type Props = {
   publication: AnyPublication
   iconSize?: 'sm' | 'base' | 'lg'
-  textSize?: 'sm' | 'base'
+  textSize?: 'sm' | 'inherit'
   isVertical?: boolean
   showLabel?: boolean
   className?: string
-  variant?: 'ghost' | 'surface'
+  variant?: 'ghost' | 'surface' | 'soft'
+  color?: 'blue' | 'crimson'
 }
 
 const PublicationReaction: FC<Props> = ({
@@ -31,7 +33,8 @@ const PublicationReaction: FC<Props> = ({
   isVertical = false,
   showLabel = true,
   variant = 'ghost',
-  className
+  className,
+  color
 }) => {
   const targetPublication = getPublication(publication)
 
@@ -88,6 +91,7 @@ const PublicationReaction: FC<Props> = ({
   return (
     <Button
       variant={variant}
+      color={color}
       className={className}
       highContrast
       onClick={() => likeVideo()}
@@ -97,23 +101,32 @@ const PublicationReaction: FC<Props> = ({
           'flex items-center focus:outline-none',
           isVertical ? 'flex-col space-y-1' : 'space-x-1',
           {
-            'text-brand-400': reaction.isLiked
+            'text-red-500': reaction.isLiked
           }
         )}
       >
-        <HeartOutline
-          className={clsx({
-            'h-3.5 w-3.5': iconSize === 'sm',
-            'h-6 w-6': iconSize === 'lg',
-            'h-4 w-4': iconSize === 'base',
-            'text-brand-400': reaction.isLiked
-          })}
-        />
+        {reaction.isLiked ? (
+          <HeartFilled
+            className={clsx({
+              'h-3.5 w-3.5': iconSize === 'sm',
+              'h-6 w-6': iconSize === 'lg',
+              'h-4 w-4': iconSize === 'base'
+            })}
+          />
+        ) : (
+          <HeartOutline
+            className={clsx({
+              'h-3.5 w-3.5': iconSize === 'sm',
+              'h-6 w-6': iconSize === 'lg',
+              'h-4 w-4': iconSize === 'base'
+            })}
+          />
+        )}
         {showLabel && (
           <span
             className={clsx({
               'text-xs': textSize === 'sm',
-              'text-base': textSize === 'base',
+              'text-inherit': textSize === 'inherit',
               'text-brand-400': reaction.isLiked
             })}
           >

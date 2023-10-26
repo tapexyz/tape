@@ -237,7 +237,7 @@ const Managers = () => {
 
           <Dialog.Content style={{ maxWidth: 550 }}>
             <Dialog.Title>New Manager</Dialog.Title>
-            <Dialog.Description mb="4">
+            <Dialog.Description size="2" mb="4">
               This delegates permission to the address to perform all social
               operations on your behalf.
             </Dialog.Description>
