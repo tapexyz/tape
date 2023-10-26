@@ -7,12 +7,12 @@ body {
 }
 
 /* Override for Radix Starts */
-html {
+/* html {
   scrollbar-gutter: stable;
 }
 body[style] {
   margin: 0 auto !important;
-}
+} */
 button,
 div[type='button'] {
   @apply !cursor-pointer disabled:!cursor-not-allowed;

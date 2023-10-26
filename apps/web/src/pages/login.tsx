@@ -19,7 +19,7 @@ const login = () => {
       <div className="relative grid h-full w-full place-items-center md:w-1/2">
         <div className="container mx-auto max-w-md space-y-3 text-center">
           <h2 className="text-2xl font-bold">Welcome back</h2>
-          <p>Discover a new era of media sharing with Tape.</p>
+          <p>Discover the new era of media sharing with Tape.</p>
           <Connectors />
         </div>
       </div>

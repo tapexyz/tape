@@ -14,11 +14,9 @@ const WelcomeAlert = () => {
         alt=""
       />
       <div className="ultrawide:p-8 relative flex h-full flex-col justify-end space-y-4 p-4 text-left text-white md:p-6">
-        <div className="text-3xl">
-          Welcome to <b>Tape</b>
-        </div>
+        <div className="text-3xl font-bold">Welcome to Tape</div>
         <p className="md:text-md max-w-2xl text-sm lg:text-lg">
-          Discover a new era of media sharing on Lens with Tape. A
+          Discover the new era of media sharing on Lens with Tape. A
           decentralized, user-centric approach to online media.
         </p>
         <Flex gap="3">
@@ -27,9 +25,6 @@ const WelcomeAlert = () => {
               Login
             </Button>
           </Link>
-          <Button size="3" highContrast variant="surface">
-            Learn More
-          </Button>
         </Flex>
       </div>
     </div>
