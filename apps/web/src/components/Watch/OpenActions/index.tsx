@@ -43,11 +43,14 @@ const OpenActions: FC<Props> = ({
       case 'SimpleCollectOpenActionSettings':
       case 'MultirecipientFeeCollectOpenActionSettings':
         return (
-          <AccordionItem value="item-1">
+          <AccordionItem
+            value="item-1"
+            className="rounded-small border dark:border-gray-700"
+          >
             <AccordionTrigger className="bg-brand-50/50 dark:bg-brand-950/30 rounded-small w-full p-3 text-left">
               <span className="text-brand-500">Collect publication</span>
             </AccordionTrigger>
-            <AccordionContent>
+            <AccordionContent className="p-3">
               <CollectPublication
                 publication={targetPublication}
                 action={action}

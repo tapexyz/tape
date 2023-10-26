@@ -17,6 +17,10 @@ button,
 div[type='button'] {
   @apply !cursor-pointer disabled:!cursor-not-allowed;
 }
+.rt-DialogContent,
+.rt-BaseMenuContent {
+  @apply dark:!bg-bunker;
+}
 /* Override for Radix Ends*/
 
 .tape-border {

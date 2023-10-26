@@ -303,7 +303,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
   }
 
   return (
-    <div className="pt-5">
+    <div className="pt-2">
       {!allowanceLoading ? (
         <>
           <div className="mb-3 flex flex-col">
