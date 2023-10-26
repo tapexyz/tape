@@ -156,14 +156,6 @@ export const ALLOWED_UPLOAD_MIME_TYPES = [
   ...ALLOWED_VIDEO_MIME_TYPES
 ]
 
-// i18n
-export const SUPPORTED_LOCALES: Record<string, string> = {
-  en: 'English',
-  es: 'Spanish',
-  fr: 'French',
-  zh: 'Chinese'
-}
-export const DEFAULT_LOCALE = 'en'
 export const LENSPROTOCOL_HANDLE = 'lensprotocol'
 export const HANDLE_PREFIX = IS_MAINNET ? 'lens/' : 'test/'
 
