@@ -56,7 +56,7 @@ const RenderComment: FC<Props> = ({ comment }) => {
       setClamped(true)
       setShowMore(true)
     }
-  }, [metadata])
+  }, [metadata?.content])
 
   const getIsReplyQueuedComment = () => {
     return Boolean(queuedComments.filter((c) => c.pubId === comment.id)?.length)
