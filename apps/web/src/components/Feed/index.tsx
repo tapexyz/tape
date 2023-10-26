@@ -60,7 +60,12 @@ const Feed = () => {
 
   if (feedItems?.length === 0) {
     return (
-      <NoDataFound isCenter withImage text="No videos in your feed, explore!" />
+      <NoDataFound
+        className="my-20"
+        isCenter
+        withImage
+        text="No videos in your feed, follow!"
+      />
     )
   }
 

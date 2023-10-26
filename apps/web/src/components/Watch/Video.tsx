@@ -65,7 +65,7 @@ const Video: FC<Props> = ({ video }) => {
       </div>
       <div className="flex items-center justify-between pb-2">
         <div>
-          <h1 className="mt-4 line-clamp-2 text-xl font-medium">
+          <h1 className="mt-4 line-clamp-2 text-xl font-bold">
             <InterweaveContent
               content={getPublicationData(video.metadata)?.title || ''}
             />

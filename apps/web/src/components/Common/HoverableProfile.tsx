@@ -19,9 +19,15 @@ type Props = {
   profile: Profile
   fontSize?: '1' | '2' | '3'
   children?: ReactElement
+  pfp?: ReactElement
 }
 
-const HoverableProfile: FC<Props> = ({ profile, fontSize = '2', children }) => {
+const HoverableProfile: FC<Props> = ({
+  profile,
+  fontSize = '2',
+  children,
+  pfp
+}) => {
   const activeProfile = useProfileStore((state) => state.activeProfile)
   const isMyProfile = activeProfile?.id === profile.id
 
@@ -31,7 +37,8 @@ const HoverableProfile: FC<Props> = ({ profile, fontSize = '2', children }) => {
         {children ?? (
           <Link href={getProfile(profile)?.link}>
             <Flex align="center" gap="1">
-              <Text size={fontSize} color="gray">
+              {pfp}
+              <Text size={fontSize} color="gray" highContrast>
                 {getProfile(profile)?.slug}
               </Text>
               <Badge id={profile?.id} size="xs" />

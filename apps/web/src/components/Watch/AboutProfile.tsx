@@ -1,28 +1,20 @@
-import Badge from '@components/Common/Badge'
-import HoverableProfile from '@components/Common/HoverableProfile'
 import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
 import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
+import TagOutline from '@components/Common/Icons/TagOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
-import {
-  formatNumber,
-  getProfile,
-  getProfilePicture,
-  getPublicationData
-} from '@tape.xyz/generic'
+import { getDateString, getRelativeTime } from '@lib/formatTime'
+import { getCategoryName, getPublicationData } from '@tape.xyz/generic'
 import type { MirrorablePublication, VideoMetadataV3 } from '@tape.xyz/lens'
 import clsx from 'clsx'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 
-import MetaInfo from './MetaInfo'
-
 type Props = {
   video: MirrorablePublication
 }
 
 const AboutProfile: FC<Props> = ({ video }) => {
-  const profile = video?.by
   const [clamped, setClamped] = useState(false)
   const [showMore, setShowMore] = useState(false)
   const metadata = video.metadata as VideoMetadataV3
@@ -36,37 +28,9 @@ const AboutProfile: FC<Props> = ({ video }) => {
 
   return (
     <div className="flex w-full items-start justify-between">
-      <Link href={`/u/${getProfile(profile)?.slug}`}>
-        <div className="mr-3 flex-none cursor-pointer">
-          <img
-            src={getProfilePicture(profile, 'AVATAR')}
-            className="h-10 w-10 rounded-full"
-            draggable={false}
-            alt={getProfile(profile)?.displayName}
-          />
-        </div>
-      </Link>
       <div className="flex flex-1 flex-col overflow-hidden break-words">
-        <div className="flex flex-wrap justify-between gap-y-2">
-          <div className="flex flex-col items-start">
-            <HoverableProfile profile={profile}>
-              <Link
-                href={`/u/${getProfile(profile)?.slug}`}
-                className="flex items-center space-x-1 font-bold"
-              >
-                <span className="leading-snug">
-                  {getProfile(profile)?.slug}
-                </span>
-                <Badge id={profile?.id} />
-              </Link>
-            </HoverableProfile>
-            <span className="inline-flex items-center space-x-1 text-xs">
-              {formatNumber(profile?.stats.followers)} followers
-            </span>
-          </div>
-        </div>
         {getPublicationData(metadata)?.content ? (
-          <p className={clsx('mt-4', { 'line-clamp-3': clamped })}>
+          <p className={clsx({ 'line-clamp-3': clamped })}>
             <InterweaveContent
               content={getPublicationData(metadata)?.content || ''}
             />
@@ -91,8 +55,22 @@ const AboutProfile: FC<Props> = ({ video }) => {
             </button>
           </div>
         )}
-        <div className="mt-5 flex justify-end">
-          <MetaInfo video={video} />
+        <div className="mt-3 flex items-center justify-end">
+          {video?.metadata?.tags && (
+            <Link
+              href={`/explore/${video.metadata.tags[0]}`}
+              className="flex items-center space-x-1"
+            >
+              <TagOutline className="h-4 w-4" />
+              <span className="whitespace-nowrap">
+                {getCategoryName(video.metadata.tags[0])}
+              </span>
+            </Link>
+          )}
+          <span className="middot px-1" />
+          <span title={getDateString(video.createdAt)}>
+            Uploaded {getRelativeTime(video.createdAt)}
+          </span>
         </div>
       </div>
     </div>

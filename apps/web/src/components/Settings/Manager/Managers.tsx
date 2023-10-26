@@ -100,8 +100,7 @@ const Managers = () => {
 
   const { data, refetch, error, loading } = useProfileManagersQuery({
     variables: { request: { for: activeProfile?.id } },
-    skip: !activeProfile?.id,
-    fetchPolicy: 'no-cache'
+    skip: !activeProfile?.id
   })
   const profileManagers = data?.profileManagers.items
 
@@ -237,23 +236,25 @@ const Managers = () => {
           </Dialog.Trigger>
 
           <Dialog.Content style={{ maxWidth: 550 }}>
-            <Dialog.Title>Add new Manager</Dialog.Title>
-            <Dialog.Description size="2" mb="4">
+            <Dialog.Title>New Manager</Dialog.Title>
+            <Dialog.Description mb="4">
               This delegates permission to the address to perform all social
               operations on your behalf.
             </Dialog.Description>
 
             <form onSubmit={handleSubmit(addManager)}>
               <Input
+                size="3"
                 label="Address"
                 placeholder="0x00..."
                 validationError={errors.address?.message}
                 {...register('address')}
               />
-              <Flex gap="3" mt="4" justify="end">
+              <Flex gap="2" mt="4" justify="end">
                 <Dialog.Close>
                   <Button
                     onClick={() => reset()}
+                    size="3"
                     type="button"
                     variant="soft"
                     color="gray"
@@ -261,7 +262,7 @@ const Managers = () => {
                     Cancel
                   </Button>
                 </Dialog.Close>
-                <Button disabled={submitting} highContrast>
+                <Button size="3" disabled={submitting} highContrast>
                   {submitting && <Loader size="sm" />}
                   Submit
                 </Button>

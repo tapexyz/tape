@@ -60,6 +60,10 @@ const OpenActions: FC<Props> = ({
     }
   }
 
+  if (targetPublication.openActionModules?.length === 0) {
+    return null
+  }
+
   return (
     <Dialog.Root>
       <Dialog.Trigger>

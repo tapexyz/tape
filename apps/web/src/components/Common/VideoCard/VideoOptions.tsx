@@ -19,6 +19,8 @@ import {
 } from '@tape.xyz/constants'
 import {
   EVENTS,
+  getIsIPFSUrl,
+  getMetadataCid,
   getProfileCoverPicture,
   getProfilePicture,
   getSignature,
@@ -50,6 +52,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
 import BookmarkOutline from '../Icons/BookmarkOutline'
+import ExternalOutline from '../Icons/ExternalOutline'
 import FlagOutline from '../Icons/FlagOutline'
 import ForbiddenOutline from '../Icons/ForbiddenOutline'
 import PinOutline from '../Icons/PinOutline'
@@ -57,6 +60,8 @@ import ShareOutline from '../Icons/ShareOutline'
 import ThreeDotsOutline from '../Icons/ThreeDotsOutline'
 import TimesOutline from '../Icons/TimesOutline'
 import TrashOutline from '../Icons/TrashOutline'
+import ArweaveExplorerLink from '../Links/ArweaveExplorerLink'
+import IPFSLink from '../Links/IPFSLink'
 import Share from './Share'
 
 type Props = {
@@ -435,6 +440,44 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
                     <ReportPublication publication={video} />
                   </Dialog.Content>
                 </Dialog.Root>
+
+                {getIsIPFSUrl(video.metadata.rawURI) ? (
+                  <IPFSLink hash={getMetadataCid(video)}>
+                    <DropdownMenu.Item
+                      onClick={() => Tower.track(EVENTS.CLICK_VIEW_METADATA)}
+                    >
+                      <Flex align="center" gap="2">
+                        <ExternalOutline className="h-3.5 w-3.5" />
+                        <span className="whitespace-nowrap">View metadata</span>
+                      </Flex>
+                    </DropdownMenu.Item>
+                  </IPFSLink>
+                ) : (
+                  <ArweaveExplorerLink txId={getMetadataCid(video)}>
+                    <DropdownMenu.Item
+                      onClick={() => Tower.track(EVENTS.CLICK_VIEW_METADATA)}
+                    >
+                      <Flex align="center" gap="2">
+                        <ExternalOutline className="h-3.5 w-3.5" />
+                        <span className="whitespace-nowrap">View metadata</span>
+                      </Flex>
+                    </DropdownMenu.Item>
+                  </ArweaveExplorerLink>
+                )}
+                {video.momoka?.proof && (
+                  <ArweaveExplorerLink
+                    txId={video.momoka?.proof?.replace('ar://', '')}
+                  >
+                    <DropdownMenu.Item
+                      onClick={() => Tower.track(EVENTS.CLICK_VIEW_PROOF)}
+                    >
+                      <Flex align="center" gap="2">
+                        <ExternalOutline className="h-3.5 w-3.5" />
+                        <span className="whitespace-nowrap">View proof</span>
+                      </Flex>
+                    </DropdownMenu.Item>
+                  </ArweaveExplorerLink>
+                )}
               </>
             )}
           </div>
