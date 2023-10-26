@@ -127,7 +127,7 @@ const PublicationReaction: FC<Props> = ({
             className={clsx({
               'text-xs': textSize === 'sm',
               'text-inherit': textSize === 'inherit',
-              'text-brand-400': reaction.isLiked
+              'text-red-400': reaction.isLiked
             })}
           >
             {reaction.likeCount > 0 ? formatNumber(reaction.likeCount) : 'Like'}
