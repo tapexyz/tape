@@ -34,7 +34,7 @@ const Commented: FC<Props> = ({ notification: { comment } }) => {
         <div className="py-2">commented on your publication</div>
         <Link
           href={`/watch/${comment.root.id}`}
-          className="line-clamp-2 font-medium opacity-50"
+          className="text-dust line-clamp-2 font-medium"
         >
           {getPublicationData(comment.metadata)?.content}
         </Link>

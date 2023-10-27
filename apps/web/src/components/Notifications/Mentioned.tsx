@@ -36,7 +36,7 @@ const Mentioned: FC<Props> = ({ notification: { publication } }) => {
         <div className="py-2">mentioned you</div>
         <Link
           href={`/watch/${videoId}`}
-          className="line-clamp-2 font-medium opacity-50"
+          className="text-dust line-clamp-2 font-medium"
         >
           {getPublicationData(publication.metadata)?.content}
         </Link>

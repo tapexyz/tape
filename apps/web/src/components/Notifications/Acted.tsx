@@ -39,7 +39,7 @@ const Acted: FC<Props> = ({ notification: { publication, actions } }) => {
         <div className="py-2">acted on your publication</div>
         <Link
           href={`/watch/${publication.id}`}
-          className="line-clamp-2 font-medium opacity-50"
+          className="text-dust line-clamp-2 font-medium"
         >
           {getPublicationData(targetPublication.metadata)?.content}
         </Link>

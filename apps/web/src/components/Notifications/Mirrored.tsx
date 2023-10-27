@@ -36,7 +36,7 @@ const Mirrored: FC<Props> = ({ notification: { mirrors, publication } }) => {
         <div className="py-2">mirrored your publication</div>
         <Link
           href={`/watch/${publication.id}`}
-          className="font-medium opacity-50"
+          className="text-dust line-clamp-2 font-medium"
         >
           {getPublicationData(publication.metadata)?.content}
         </Link>

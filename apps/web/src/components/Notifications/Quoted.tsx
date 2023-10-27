@@ -34,7 +34,7 @@ const Quoted: FC<Props> = ({ notification: { quote } }) => {
         <div className="py-2">quoted your publication</div>
         <Link
           href={`/watch/${quote.id}`}
-          className="line-clamp-2 font-medium opacity-50"
+          className="text-dust line-clamp-2 font-medium"
         >
           {getPublicationData(quote.metadata)?.content}
         </Link>
