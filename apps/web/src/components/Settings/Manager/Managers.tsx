@@ -192,6 +192,7 @@ const Managers = () => {
     setSubmitting(true)
     toggleLensManager({
       variables: {
+        options: { overrideSigNonce: lensHubOnchainSigNonce },
         request: {
           changeManagers: [
             {
@@ -211,6 +212,7 @@ const Managers = () => {
     setRemovingAddress(address)
     toggleLensManager({
       variables: {
+        options: { overrideSigNonce: lensHubOnchainSigNonce },
         request: {
           changeManagers: [
             {

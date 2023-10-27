@@ -86,6 +86,7 @@ const Subscription = ({ channel }: Props) => {
   } = useProfileFollowModuleQuery({
     variables: { request: { forProfileId: channel?.id } },
     skip: !channel?.id,
+    notifyOnNetworkStatusChange: true,
     onCompleted: ({ profile }) => {
       const activeFollowModule =
         profile?.followModule as FeeFollowModuleSettings
@@ -129,9 +130,8 @@ const Subscription = ({ channel }: Props) => {
   useEffect(() => {
     if (indexed) {
       setLoading(false)
+      refetch()
       toast.success('Subscription updated')
-      setShowForm(false)
-      refetch({ request: { forProfileId: channel?.id } })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indexed])
@@ -162,7 +162,7 @@ const Subscription = ({ channel }: Props) => {
       onError
     })
 
-  const setMembership = (freeFollowModule: boolean) => {
+  const updateSubscription = (disable: boolean) => {
     if (handleWrongNetwork()) {
       return
     }
@@ -171,7 +171,7 @@ const Subscription = ({ channel }: Props) => {
       variables: {
         options: { overrideSigNonce: lensHubOnchainSigNonce },
         request: {
-          followModule: freeFollowModule
+          followModule: disable
             ? { freeFollowModule: true }
             : {
                 feeFollowModule: {
@@ -188,7 +188,7 @@ const Subscription = ({ channel }: Props) => {
   }
 
   const onSubmitForm = () => {
-    setMembership(false)
+    updateSubscription(false)
   }
 
   return (
@@ -209,29 +209,23 @@ const Subscription = ({ channel }: Props) => {
       )}
 
       {activeFollowModule?.amount && (
-        <div className="tape-border bg-brand-50 dark:bg-brand-950/30 mb-6 w-full rounded-xl bg-gradient-to-br p-6 transition-all">
+        <div className="tape-border mb-6 w-full rounded-xl bg-gradient-to-br p-6 transition-all">
           <div className="grid gap-y-4 md:grid-cols-3">
             <div>
-              <span className="text-xs font-medium uppercase opacity-50">
-                Amount
-              </span>
+              <Text>Amount</Text>
               <h6 className="text-xl font-bold">
                 {activeFollowModule.amount?.value}{' '}
                 {activeFollowModule.amount?.asset?.symbol}
               </h6>
             </div>
             <div>
-              <span className="text-xs font-medium uppercase opacity-50">
-                Token
-              </span>
+              <Text>Asset</Text>
               <h6 className="text-xl font-bold">
                 {activeFollowModule.amount?.asset?.name}
               </h6>
             </div>
             <div>
-              <div className="mb-1 text-xs font-medium uppercase opacity-50">
-                Recipient
-              </div>
+              <Text>Recipient</Text>
               <Tooltip content="Copy Address" placement="top">
                 <Button
                   variant="ghost"
@@ -321,7 +315,7 @@ const Subscription = ({ channel }: Props) => {
             variant="surface"
             color="red"
             disabled={loading}
-            onClick={() => setMembership(true)}
+            onClick={() => updateSubscription(true)}
           >
             {loading && <Loader size="sm" />}
             Disable

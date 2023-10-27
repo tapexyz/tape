@@ -183,7 +183,10 @@ const BasicInfo: FC<Props> = ({ profile }) => {
       onCompleted(block.__typename)
       if (block.__typename === 'LensProfileManagerRelayError') {
         return await createBlockTypedData({
-          variables: { request: { profiles: [profile.id] } }
+          variables: {
+            options: { overrideSigNonce: lensHubOnchainSigNonce },
+            request: { profiles: [profile.id] }
+          }
         })
       }
     },
@@ -194,7 +197,10 @@ const BasicInfo: FC<Props> = ({ profile }) => {
       onCompleted(unblock.__typename)
       if (unblock.__typename === 'LensProfileManagerRelayError') {
         return await createUnBlockTypedData({
-          variables: { request: { profiles: [profile.id] } }
+          variables: {
+            options: { overrideSigNonce: lensHubOnchainSigNonce },
+            request: { profiles: [profile.id] }
+          }
         })
       }
     },

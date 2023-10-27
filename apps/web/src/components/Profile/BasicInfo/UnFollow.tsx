@@ -1,5 +1,6 @@
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import useAuthPersistStore from '@lib/store/auth'
+import useNonceStore from '@lib/store/nonce'
 import { useProfileStore } from '@lib/store/profile'
 import { Button } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
@@ -35,6 +36,7 @@ const UnFollow: FC<Props> = ({ profile, onUnSubscribe, size = '2' }) => {
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
   const activeProfile = useProfileStore((state) => state.activeProfile)
   const canUseRelay = activeProfile?.signless && activeProfile?.sponsor
   const handleWrongNetwork = useHandleWrongNetwork()
@@ -82,6 +84,7 @@ const UnFollow: FC<Props> = ({ profile, onUnSubscribe, size = '2' }) => {
       try {
         toast.loading(REQUESTING_SIGNATURE_MESSAGE)
         const signature = await signTypedDataAsync(getSignature(typedData))
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
@@ -124,6 +127,7 @@ const UnFollow: FC<Props> = ({ profile, onUnSubscribe, size = '2' }) => {
     }
     return createUnfollowTypedData({
       variables: {
+        options: { overrideSigNonce: lensHubOnchainSigNonce },
         request: { unfollow: [profile?.id] }
       }
     })

@@ -119,6 +119,7 @@ const ToggleDispatcher = () => {
     setLoading(true)
     toggleLensManager({
       variables: {
+        options: { overrideSigNonce: lensHubOnchainSigNonce },
         request: {
           approveSignless: !isLensManagerEnabled
         }

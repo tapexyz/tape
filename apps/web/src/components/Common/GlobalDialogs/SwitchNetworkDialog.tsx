@@ -12,7 +12,7 @@ const SwitchNetworkDialog = () => {
 
   return (
     <Dialog.Root open={showSwitchNetwork} onOpenChange={setShowSwitchNetwork}>
-      <Dialog.Content style={{ maxWidth: 650 }}>
+      <Dialog.Content style={{ maxWidth: 450 }}>
         <Flex justify="between" pb="2" align="center">
           <Dialog.Title mb="0">Change network</Dialog.Title>
           <Dialog.Close>

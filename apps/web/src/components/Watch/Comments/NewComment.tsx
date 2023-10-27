@@ -5,6 +5,7 @@ import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import type { MetadataAttribute } from '@lens-protocol/metadata'
 import { MetadataAttributeType, textOnly } from '@lens-protocol/metadata'
 import useAuthPersistStore from '@lib/store/auth'
+import useNonceStore from '@lib/store/nonce'
 import usePersistStore from '@lib/store/persist'
 import useProfileStore from '@lib/store/profile'
 import { Button } from '@radix-ui/themes'
@@ -86,6 +87,7 @@ const NewComment: FC<Props> = ({
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
   const handleWrongNetwork = useHandleWrongNetwork()
   const queuedComments = usePersistStore((state) => state.queuedComments)
   const setQueuedComments = usePersistStore((state) => state.setQueuedComments)
@@ -154,11 +156,15 @@ const NewComment: FC<Props> = ({
     functionName: 'comment',
     onSuccess: (data) => {
       onCompleted()
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
       if (data.hash) {
         setToQueue({ txnHash: data.hash })
       }
     },
-    onError
+    onError: (error) => {
+      onError(error)
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
+    }
   })
 
   const [getComment] = usePublicationLazyQuery()
@@ -349,6 +355,7 @@ const NewComment: FC<Props> = ({
         } else {
           return await createOnchainCommentTypedData({
             variables: {
+              options: { overrideSigNonce: lensHubOnchainSigNonce },
               request: {
                 commentOn: targetVideo.id,
                 contentURI: metadataUri

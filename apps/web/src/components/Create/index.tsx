@@ -12,6 +12,7 @@ import {
 } from '@lens-protocol/metadata'
 import { getCollectModuleInput } from '@lib/getCollectModuleInput'
 import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
+import useNonceStore from '@lib/store/nonce'
 import usePersistStore from '@lib/store/persist'
 import { useProfileStore } from '@lib/store/profile'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
@@ -70,8 +71,8 @@ const CreateSteps = () => {
     (state) => state.activeProfile
   ) as Profile
 
-  const queuedVideos = usePersistStore((state) => state.queuedVideos)
-  const setQueuedVideos = usePersistStore((state) => state.setQueuedVideos)
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
+  const { queuedVideos, setQueuedVideos } = usePersistStore()
   const { address } = useAccount()
   const { data: signer } = useEthersWalletClient()
   const router = useRouter()
@@ -187,11 +188,15 @@ const CreateSteps = () => {
     functionName: 'post',
     onSuccess: (data) => {
       stopLoading()
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
       if (data.hash) {
         setToQueue({ txnHash: data.hash })
       }
     },
-    onError
+    onError: (error) => {
+      onError(error)
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
+    }
   })
 
   const getSignatureFromTypedData = async (
@@ -397,7 +402,10 @@ const CreateSteps = () => {
           })
         } else {
           return await createOnchainPostTypedData({
-            variables: { request }
+            variables: {
+              options: { overrideSigNonce: lensHubOnchainSigNonce },
+              request
+            }
           })
         }
       }
