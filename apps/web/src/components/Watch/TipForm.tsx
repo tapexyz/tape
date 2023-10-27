@@ -321,27 +321,27 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
             }
           })
         }
+      }
+
+      // ON-CHAIN
+      if (canUseRelay) {
+        return await commentOnchain({
+          variables: {
+            request: {
+              commentOn: targetVideo.id,
+              contentURI: metadataUri
+            }
+          }
+        })
       } else {
-        // ON-CHAIN
-        if (canUseRelay) {
-          return await commentOnchain({
-            variables: {
-              request: {
-                commentOn: targetVideo.id,
-                contentURI: metadataUri
-              }
+        return await createOnchainCommentTypedData({
+          variables: {
+            request: {
+              commentOn: targetVideo.id,
+              contentURI: metadataUri
             }
-          })
-        } else {
-          return await createOnchainCommentTypedData({
-            variables: {
-              request: {
-                commentOn: targetVideo.id,
-                contentURI: metadataUri
-              }
-            }
-          })
-        }
+          }
+        })
       }
     } catch (error) {
       console.error('🚀 ~ ', error)

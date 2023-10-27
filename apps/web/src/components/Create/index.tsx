@@ -376,38 +376,38 @@ const CreateSteps = () => {
             }
           })
         }
-      } else {
-        // ON-CHAIN
-        const referenceModule: ReferenceModuleInput = {
-          degreesOfSeparationReferenceModule: {
-            ...referenceModuleDegrees
+      }
+
+      // ON-CHAIN
+      const referenceModule: ReferenceModuleInput = {
+        degreesOfSeparationReferenceModule: {
+          ...referenceModuleDegrees
+        }
+      }
+      if (uploadedVideo.referenceModule?.followerOnlyReferenceModule) {
+        referenceModule.followerOnlyReferenceModule =
+          uploadedVideo.referenceModule?.followerOnlyReferenceModule
+      }
+      const request = {
+        contentURI: metadataUri,
+        openActionModules: [
+          {
+            ...getCollectModuleInput(uploadedVideo.collectModule)
           }
-        }
-        if (uploadedVideo.referenceModule?.followerOnlyReferenceModule) {
-          referenceModule.followerOnlyReferenceModule =
-            uploadedVideo.referenceModule?.followerOnlyReferenceModule
-        }
-        const request = {
-          contentURI: metadataUri,
-          openActionModules: [
-            {
-              ...getCollectModuleInput(uploadedVideo.collectModule)
-            }
-          ],
-          referenceModule
-        }
-        if (canUseRelay) {
-          return await postOnchain({
-            variables: { request }
-          })
-        } else {
-          return await createOnchainPostTypedData({
-            variables: {
-              options: { overrideSigNonce: lensHubOnchainSigNonce },
-              request
-            }
-          })
-        }
+        ],
+        referenceModule
+      }
+      if (canUseRelay) {
+        return await postOnchain({
+          variables: { request }
+        })
+      } else {
+        return await createOnchainPostTypedData({
+          variables: {
+            options: { overrideSigNonce: lensHubOnchainSigNonce },
+            request
+          }
+        })
       }
     } catch (error) {
       console.log('🚀 ~ Create ~ error:', error)

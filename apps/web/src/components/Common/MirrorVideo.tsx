@@ -194,26 +194,26 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
             }
           }
         })
-      } else {
-        //  ON-CHAIN
-        if (canUseRelay) {
-          return await mirrorOnChain({
-            variables: {
-              request: {
-                mirrorOn: video.id
-              }
-            }
-          })
-        }
-        return await createOnChainMirrorTypedData({
+      }
+
+      //  ON-CHAIN
+      if (canUseRelay) {
+        return await mirrorOnChain({
           variables: {
-            options: { overrideSigNonce: lensHubOnchainSigNonce },
             request: {
               mirrorOn: video.id
             }
           }
         })
       }
+      return await createOnChainMirrorTypedData({
+        variables: {
+          options: { overrideSigNonce: lensHubOnchainSigNonce },
+          request: {
+            mirrorOn: video.id
+          }
+        }
+      })
     } catch {}
   }
 
