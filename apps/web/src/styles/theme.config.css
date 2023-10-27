@@ -2,3 +2,19 @@
 .radix-themes {
   --default-font-family: var(--font-inter);
 }
+
+/* html {
+  scrollbar-gutter: stable;
+}
+body[style] {
+  margin: 0 auto !important;
+} */
+button,
+div[type='button'] {
+  @apply !cursor-pointer disabled:!cursor-not-allowed;
+}
+.rt-DialogContent,
+.rt-SelectContent,
+.rt-BaseMenuContent {
+  @apply dark:!bg-black;
+} 

@@ -5,12 +5,10 @@ import '../styles/theme.config.css'
 
 import FullPageLoader from '@components/Common/FullPageLoader'
 import MetaTags from '@components/Common/MetaTags'
-import useAuthPersistStore from '@lib/store/auth'
 import { tapeFont } from '@tape.xyz/browser/font'
-import { AUTH_ROUTES } from '@tape.xyz/constants'
 import type { AppProps } from 'next/app'
 import { useRouter } from 'next/router'
-import React, { lazy, Suspense, useEffect } from 'react'
+import React, { lazy, Suspense } from 'react'
 
 const Providers = lazy(() => import('../components/Common/Providers'))
 const Layout = lazy(() => import('../components/Common/Layout'))
@@ -27,16 +25,7 @@ const NO_PADDING_PATHS = [
 ]
 
 const App = ({ Component, pageProps }: AppProps) => {
-  const { pathname, replace, asPath } = useRouter()
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
-
-  useEffect(() => {
-    if (!selectedSimpleProfile?.id && AUTH_ROUTES.includes(pathname)) {
-      replace(`/login?next=${asPath}`)
-    }
-  }, [selectedSimpleProfile, pathname, asPath, replace])
+  const { pathname } = useRouter()
 
   return (
     <>

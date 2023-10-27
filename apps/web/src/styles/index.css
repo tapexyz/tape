@@ -6,24 +6,6 @@ body {
   @apply min-h-screen bg-white bg-fixed text-black antialiased dark:bg-black dark:text-white;
 }
 
-/* Override for Radix Starts */
-/* html {
-  scrollbar-gutter: stable;
-}
-body[style] {
-  margin: 0 auto !important;
-} */
-button,
-div[type='button'] {
-  @apply !cursor-pointer disabled:!cursor-not-allowed;
-}
-.rt-DialogContent,
-.rt-SelectContent,
-.rt-BaseMenuContent {
-  @apply dark:!bg-black;
-}
-/* Override for Radix Ends*/
-
 .tape-border {
   @apply border border-[#00000020] dark:border-[#ffffff20];
 }

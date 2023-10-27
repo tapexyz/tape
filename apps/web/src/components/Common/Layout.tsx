@@ -5,7 +5,8 @@ import useAuthPersistStore, {
 import useNonceStore from '@lib/store/nonce'
 import useProfileStore from '@lib/store/profile'
 import { getToastOptions, useIsMounted } from '@tape.xyz/browser'
-import { AUTH_ROUTES } from '@tape.xyz/constants'
+import { AUTH_ROUTES, OWNER_ONLY_ROUTES } from '@tape.xyz/constants'
+import { getIsProfileOwner } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import {
   LimitType,
@@ -37,7 +38,7 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
     setLensPublicActProxyOnchainSigNonce,
     setLensTokenHandleRegistryOnchainSigNonce
   } = useNonceStore()
-  const setActiveProfile = useProfileStore((state) => state.setActiveProfile)
+  const { activeProfile, setActiveProfile } = useProfileStore()
   const { selectedSimpleProfile, setSelectedSimpleProfile } =
     useAuthPersistStore()
 
@@ -106,11 +107,26 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
     }
   })
 
-  const validateAuthentication = () => {
+  const validateAuthRoutes = () => {
     if (!selectedSimpleProfile?.id && AUTH_ROUTES.includes(pathname)) {
-      // Redirect to login page
       replace(`/login?next=${asPath}`)
     }
+    if (
+      activeProfile &&
+      address &&
+      !getIsProfileOwner(activeProfile, address) &&
+      OWNER_ONLY_ROUTES.includes(pathname)
+    ) {
+      replace('/settings')
+    }
+  }
+
+  useEffect(() => {
+    validateAuthRoutes()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [asPath, selectedSimpleProfile, activeProfile])
+
+  const validateAuthentication = () => {
     const { accessToken } = hydrateAuthTokens()
     if (!accessToken && selectedSimpleProfile?.id) {
       logout()

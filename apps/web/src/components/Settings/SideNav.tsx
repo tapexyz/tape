@@ -6,10 +6,13 @@ import ProfileManagerOutline from '@components/Common/Icons/ProfileManagerOutlin
 import SubscribeOutline from '@components/Common/Icons/SubscribeOutline'
 import UserOutline from '@components/Common/Icons/UserOutline'
 import WarningOutline from '@components/Common/Icons/WarningOutline'
+import useProfileStore from '@lib/store/profile'
+import { getIsProfileOwner } from '@tape.xyz/generic'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
+import { useAccount } from 'wagmi'
 
 import {
   SETTINGS,
@@ -24,8 +27,13 @@ import {
 
 const SideNav = () => {
   const router = useRouter()
-
+  const { address } = useAccount()
+  const activeProfile = useProfileStore((state) => state.activeProfile)
   const isActivePath = (path: string) => router.pathname === path
+
+  if (!activeProfile || !address) {
+    return null
+  }
 
   return (
     <div className="m-1 flex flex-col space-y-1">
@@ -59,16 +67,18 @@ const SideNav = () => {
         <InterestsOutline className="h-4 w-4" />
         <span>Interests</span>
       </Link>
-      <Link
-        href={SETTINGS_MANAGER}
-        className={clsx(
-          'rounded-small hover:dark:bg-smoke hover:bg-gallery flex items-center space-x-3 p-3',
-          isActivePath(SETTINGS_MANAGER) ? 'font-bold' : 'text-dust'
-        )}
-      >
-        <ProfileManagerOutline className="h-4 w-4" />
-        <span>Manager</span>
-      </Link>
+      {getIsProfileOwner(activeProfile, address) && (
+        <Link
+          href={SETTINGS_MANAGER}
+          className={clsx(
+            'rounded-small hover:dark:bg-smoke hover:bg-gallery flex items-center space-x-3 p-3',
+            isActivePath(SETTINGS_MANAGER) ? 'font-bold' : 'text-dust'
+          )}
+        >
+          <ProfileManagerOutline className="h-4 w-4" />
+          <span>Manager</span>
+        </Link>
+      )}
       <Link
         href={SETTINGS_ALLOWANCE}
         className={clsx(
@@ -99,16 +109,18 @@ const SideNav = () => {
         <KeyOutline className="h-4 w-4" />
         <span>Sessions</span>
       </Link>
-      <Link
-        href={SETTINGS_DANGER_ZONE}
-        className={clsx(
-          'rounded-small hover:dark:bg-smoke hover:bg-gallery flex items-center space-x-3 p-3',
-          isActivePath(SETTINGS_DANGER_ZONE) ? 'font-bold' : 'text-dust'
-        )}
-      >
-        <WarningOutline className="h-4 w-4" />
-        <span>Danger Zone</span>
-      </Link>
+      {getIsProfileOwner(activeProfile, address) && (
+        <Link
+          href={SETTINGS_DANGER_ZONE}
+          className={clsx(
+            'rounded-small hover:dark:bg-smoke hover:bg-gallery flex items-center space-x-3 p-3',
+            isActivePath(SETTINGS_DANGER_ZONE) ? 'font-bold' : 'text-dust'
+          )}
+        >
+          <WarningOutline className="h-4 w-4" />
+          <span>Danger Zone</span>
+        </Link>
+      )}
     </div>
   )
 }
