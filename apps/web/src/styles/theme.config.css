@@ -17,4 +17,4 @@ div[type='button'] {
 .rt-SelectContent,
 .rt-BaseMenuContent {
   @apply dark:!bg-black;
-} 
+}
