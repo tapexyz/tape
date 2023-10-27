@@ -8,7 +8,7 @@ import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import usePendingTxn from '@hooks/usePendingTxn'
 import useNonceStore from '@lib/store/nonce'
 import useProfileStore from '@lib/store/profile'
-import { Button, Dialog, Flex, Table } from '@radix-ui/themes'
+import { Button, Dialog, Flex } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   ERROR_MESSAGE,
@@ -51,30 +51,31 @@ const Entry = ({
 }) => {
   const { did } = useDid({ address })
   return (
-    <Table.Row key={address}>
-      <Table.RowHeaderCell>
+    <div
+      key={address}
+      className="tape-border rounded-small flex items-center justify-between px-4 py-3"
+    >
+      <div>
+        <span>
+          {address === LENS_MANAGER_ADDRESS ? 'Lens Manager' : did || '-'}
+        </span>
         <AddressExplorerLink address={address}>
           <Flex align="center" gap="1">
             <span>{shortenAddress(address)}</span>
             <ExternalOutline className="h-3 w-3" />
           </Flex>
         </AddressExplorerLink>
-      </Table.RowHeaderCell>
-      <Table.RowHeaderCell width="200px">
-        {address === LENS_MANAGER_ADDRESS ? 'Lens Manager' : did || '-'}
-      </Table.RowHeaderCell>
-      <Table.Cell justify="end">
-        <Button
-          onClick={() => onRemove(address)}
-          disabled={removingAddress === address}
-          color="red"
-          variant="surface"
-          size="1"
-        >
-          Remove
-        </Button>
-      </Table.Cell>
-    </Table.Row>
+      </div>
+      <Button
+        onClick={() => onRemove(address)}
+        disabled={removingAddress === address}
+        color="red"
+        variant="surface"
+        size="1"
+      >
+        Remove
+      </Button>
+    </div>
   )
 }
 
@@ -142,6 +143,7 @@ const Managers = () => {
   useEffect(() => {
     if (indexed) {
       reset()
+      setRemovingAddress('')
       refetch()
       setShowModal(false)
       setSubmitting(false)
@@ -277,18 +279,16 @@ const Managers = () => {
           <NoDataFound withImage isCenter />
         ) : null}
         {profileManagers?.length ? (
-          <Table.Root mt="4">
-            <Table.Body>
-              {profileManagers?.map(({ address }) => (
-                <Entry
-                  key={address}
-                  address={address}
-                  removingAddress={removingAddress}
-                  onRemove={(address) => removeManager(address)}
-                />
-              ))}
-            </Table.Body>
-          </Table.Root>
+          <div className="mt-4 grid gap-3 md:grid-cols-2">
+            {profileManagers?.map(({ address }) => (
+              <Entry
+                key={address}
+                address={address}
+                removingAddress={removingAddress}
+                onRemove={(address) => removeManager(address)}
+              />
+            ))}
+          </div>
         ) : null}
       </div>
     </div>

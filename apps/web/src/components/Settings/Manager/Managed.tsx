@@ -1,6 +1,6 @@
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useProfileStore from '@lib/store/profile'
-import { Avatar, Flex, Table } from '@radix-ui/themes'
+import { Avatar, Flex } from '@radix-ui/themes'
 import { formatNumber, getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { useProfilesManagedQuery } from '@tape.xyz/lens'
@@ -29,31 +29,27 @@ const Managed = () => {
           <NoDataFound withImage isCenter />
         ) : null}
         {profilesManaged?.length ? (
-          <Table.Root mt="4">
-            <Table.Body>
-              {profilesManaged?.map((profile) => (
-                <Table.Row key={profile.id}>
-                  <Table.RowHeaderCell>
-                    <Flex gap="2" align="center">
-                      <Avatar
-                        radius="full"
-                        size="1"
-                        src={getProfilePicture(profile)}
-                        fallback={getProfile(profile)?.displayName[0] ?? ';)'}
-                      />
-                      <Link href={getProfile(profile).link}>
-                        {getProfile(profile).displayName}
-                      </Link>
-                    </Flex>
-                  </Table.RowHeaderCell>
-                  <Table.Cell>{profile.id}</Table.Cell>
-                  <Table.Cell>
-                    {formatNumber(profile.stats.followers)} followers
-                  </Table.Cell>
-                </Table.Row>
-              ))}
-            </Table.Body>
-          </Table.Root>
+          <div className="mt-4 grid gap-3 md:grid-cols-2">
+            {profilesManaged?.map((profile) => (
+              <div
+                key={profile.id}
+                className="tape-border rounded-small flex items-center justify-between px-4 py-3"
+              >
+                <Flex gap="2" align="center">
+                  <Avatar
+                    radius="full"
+                    size="1"
+                    src={getProfilePicture(profile)}
+                    fallback={getProfile(profile)?.displayName[0] ?? ';)'}
+                  />
+                  <Link href={getProfile(profile).link}>
+                    {getProfile(profile).displayName} ({profile.id})
+                  </Link>
+                </Flex>
+                <span>{formatNumber(profile.stats.followers)} followers</span>
+              </div>
+            ))}
+          </div>
         ) : null}
       </div>
     </div>
