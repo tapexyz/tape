@@ -24,7 +24,7 @@ const Custom500 = () => {
           free to contact us. In the meantime, try refreshing.
         </div>
         <Link href="/">
-          <Button highContrast size="3">
+          <Button highContrast variant="surface" size="3">
             Go Home
           </Button>
         </Link>

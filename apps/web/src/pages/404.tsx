@@ -21,7 +21,7 @@ const Custom404 = () => {
         <h1 className="text-4xl font-bold">404</h1>
         <div className="mb-6">This page could not be found.</div>
         <Link href="/">
-          <Button highContrast size="3">
+          <Button highContrast variant="surface" size="3">
             Go Home
           </Button>
         </Link>
