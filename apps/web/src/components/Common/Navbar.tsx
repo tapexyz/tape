@@ -68,8 +68,8 @@ const Navbar = () => {
             href="/"
             className={clsx(
               isActivePath('/')
-                ? 'font-bold opacity-100'
-                : 'font-medium opacity-60 hover:opacity-90'
+                ? 'font-bold'
+                : 'text-dust font-medium hover:opacity-90'
             )}
           >
             Home
@@ -78,8 +78,8 @@ const Navbar = () => {
             href="/feed"
             className={clsx(
               isActivePath('/feed')
-                ? 'font-bold opacity-100'
-                : 'font-medium opacity-60 hover:opacity-90'
+                ? 'font-bold'
+                : 'text-dust font-medium hover:opacity-90'
             )}
           >
             Feed
@@ -88,8 +88,8 @@ const Navbar = () => {
             href="/bytes"
             className={clsx(
               isActivePath('/bytes')
-                ? 'font-bold opacity-100'
-                : 'font-medium opacity-60 hover:opacity-90'
+                ? 'font-bold'
+                : 'text-dust font-medium hover:opacity-90'
             )}
           >
             Bytes

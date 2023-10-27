@@ -15,9 +15,12 @@ module.exports = {
         ultrawide: '1800px'
       },
       colors: {
+        // card bg in dark
         cod: '#0a0a0a',
-        smoke: '#1a1a1a',
+        // secondary color
         dust: '#999999',
+        // hover states
+        smoke: '#1a1a1a',
         gallery: '#eaeaea',
         brand: {
           50: '#eff9ff',
