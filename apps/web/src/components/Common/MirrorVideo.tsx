@@ -91,10 +91,6 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
     return signature
   }
 
-  const [mirrorOnChain] = useMirrorOnchainMutation({
-    onCompleted: () => onCompleted()
-  })
-
   const [broadcastOnchain] = useBroadcastOnchainMutation({
     onCompleted: ({ broadcastOnchain }) => {
       if (broadcastOnchain.__typename === 'RelaySuccess') {
@@ -119,6 +115,22 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
       },
       onError
     })
+
+  const [mirrorOnChain] = useMirrorOnchainMutation({
+    onCompleted: async (data) => {
+      if (data?.mirrorOnchain.__typename === 'LensProfileManagerRelayError') {
+        return await createOnChainMirrorTypedData({
+          variables: {
+            options: { overrideSigNonce: lensHubOnchainSigNonce },
+            request: {
+              mirrorOn: video.id
+            }
+          }
+        })
+      }
+      onCompleted()
+    }
+  })
 
   const [broadcastOnMomoka] = useBroadcastOnMomokaMutation({
     onCompleted: ({ broadcastOnMomoka }) => {
