@@ -25,7 +25,7 @@ const Authenticated = () => {
     <div>
       <div className="rounded-small tape-border my-6 p-3">
         <Flex gap="2" align="center" justify="between">
-          <Flex gap="3">
+          <Flex gap="3" align="center">
             <Avatar
               size="5"
               src={getProfilePicture(selectedSimpleProfile)}
