@@ -17,7 +17,7 @@ const Reactions: FC<Props> = ({ notification: { publication, reactions } }) => {
         <HeartOutline className="h-5 w-5" />
       </div>
       <div>
-        <span className="flex cursor-pointer -space-x-1.5">
+        <span className="flex -space-x-1.5">
           {reactions?.map(({ profile }: ProfileReactedResult) => (
             <HoverableProfile profile={profile} key={profile?.id}>
               <img

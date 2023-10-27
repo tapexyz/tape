@@ -17,7 +17,7 @@ const Commented: FC<Props> = ({ notification: { comment } }) => {
         <CommentOutline className="h-5 w-5" />
       </div>
       <div>
-        <span className="flex cursor-pointer -space-x-1.5">
+        <span className="flex -space-x-1.5">
           <HoverableProfile profile={comment.by} key={comment.by?.id}>
             <img
               className="h-7 w-7 rounded-full border dark:border-gray-700/80"
