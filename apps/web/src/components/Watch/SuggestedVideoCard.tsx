@@ -13,6 +13,7 @@ import {
 import {
   formatNumber,
   getIsSensitiveContent,
+  getPublicationData,
   getThumbnailUrl,
   getValueFromKeyInAttributes,
   imageCdn
@@ -81,9 +82,9 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
               <Link
                 href={`/watch/${video.id}`}
                 className="line-clamp-2 font-medium"
-                title={video.metadata.marketplace?.name ?? ''}
+                title={getPublicationData(video.metadata)?.title ?? ''}
               >
-                {video.metadata.marketplace?.name}
+                {getPublicationData(video.metadata)?.title}
               </Link>
             </div>
             <div className="py-1">

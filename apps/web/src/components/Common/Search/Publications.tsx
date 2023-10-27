@@ -6,6 +6,7 @@ import {
 import {
   getIsSensitiveContent,
   getPublication,
+  getPublicationData,
   getThumbnailUrl,
   imageCdn
 } from '@tape.xyz/generic'
@@ -39,7 +40,7 @@ const Publications: FC<Props> = ({ results, loading, clearSearch }) => {
         return (
           <div
             key={publication.id}
-            className="hover:bg-galley dark:hover:bg-smoke relative cursor-default select-none rounded-md pl-3 pr-4"
+            className="hover:bg-gallery dark:hover:bg-smoke relative cursor-default select-none rounded-md pl-3 pr-4"
           >
             <Link
               href={`/watch/${publication?.id}`}
@@ -50,7 +51,7 @@ const Publications: FC<Props> = ({ results, loading, clearSearch }) => {
               <div className="flex items-center space-x-3">
                 <img
                   className={clsx(
-                    'rounded-small h-16 w-28 bg-gray-300 object-center dark:bg-gray-700',
+                    'h-16 w-28 rounded-md bg-gray-300 object-center dark:bg-gray-700',
                     isBytesVideo ? 'object-contain' : 'object-cover'
                   )}
                   src={imageCdn(
@@ -65,10 +66,10 @@ const Publications: FC<Props> = ({ results, loading, clearSearch }) => {
                 />
                 <div className="space-y-0.5">
                   <p className="line-clamp-1 font-medium">
-                    {publication?.metadata.marketplace?.name}
+                    {getPublicationData(publication.metadata)?.title}
                   </p>
                   <p className="line-clamp-1 text-sm">
-                    {publication?.metadata.marketplace?.description}
+                    {getPublicationData(publication.metadata)?.content}
                   </p>
                 </div>
               </div>

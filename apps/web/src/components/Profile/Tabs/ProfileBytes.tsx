@@ -6,7 +6,11 @@ import {
   INFINITE_SCROLL_ROOT_MARGIN,
   LENS_CUSTOM_FILTERS
 } from '@tape.xyz/constants'
-import { getThumbnailUrl, imageCdn } from '@tape.xyz/generic'
+import {
+  getPublicationData,
+  getThumbnailUrl,
+  imageCdn
+} from '@tape.xyz/generic'
 import type { Post, PublicationsRequest } from '@tape.xyz/lens'
 import {
   LimitType,
@@ -95,7 +99,7 @@ const ProfileBytes: FC<Props> = ({ profileId }) => {
                 />
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-b from-transparent to-black/30 px-4 py-2 text-white">
                   <h1 className="line-clamp-2 break-words font-bold">
-                    {byte.metadata.marketplace?.name}
+                    {getPublicationData(byte.metadata)?.title}
                   </h1>
                 </div>
                 <div

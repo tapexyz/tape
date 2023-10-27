@@ -1,6 +1,10 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
 import MentionOutline from '@components/Common/Icons/MentionOutline'
-import { getProfile, getProfilePicture } from '@tape.xyz/generic'
+import {
+  getProfile,
+  getProfilePicture,
+  getPublicationData
+} from '@tape.xyz/generic'
 import type { MentionNotification } from '@tape.xyz/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -30,9 +34,9 @@ const Mentioned: FC<Props> = ({ notification: { publication } }) => {
         <div className="py-2">mentioned you</div>
         <Link
           href={`/watch/${publication.id}`}
-          className="font-medium opacity-50"
+          className="line-clamp-2 font-medium opacity-50"
         >
-          {publication.metadata.marketplace?.description}
+          {getPublicationData(publication.metadata)?.content}
         </Link>
       </div>
     </span>

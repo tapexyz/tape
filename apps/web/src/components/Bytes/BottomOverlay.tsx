@@ -1,6 +1,11 @@
 import Badge from '@components/Common/Badge'
 import FollowActions from '@components/Common/FollowActions'
-import { formatNumber, getProfile, getProfilePicture } from '@tape.xyz/generic'
+import {
+  formatNumber,
+  getProfile,
+  getProfilePicture,
+  getPublicationData
+} from '@tape.xyz/generic'
 import type { MirrorablePublication } from '@tape.xyz/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -17,7 +22,7 @@ const BottomOverlay: FC<Props> = ({ video }) => {
     <div className="rounded-b-large absolute bottom-0 left-0 right-0 z-[1] bg-gradient-to-t from-gray-900 to-transparent px-3 pb-3 pt-5">
       <div className="pb-2">
         <h1 className="line-clamp-2 text-white">
-          {video.metadata.marketplace?.name}
+          {getPublicationData(video.metadata)?.title}
         </h1>
       </div>
       <div className="flex items-center justify-between">

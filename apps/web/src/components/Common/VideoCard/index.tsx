@@ -1,7 +1,12 @@
 import { getShortHandTime } from '@lib/formatTime'
 import { AspectRatio, Avatar, Flex } from '@radix-ui/themes'
 import { LENSTUBE_BYTES_APP_ID } from '@tape.xyz/constants'
-import { formatNumber, getProfile, getProfilePicture } from '@tape.xyz/generic'
+import {
+  formatNumber,
+  getProfile,
+  getProfilePicture,
+  getPublicationData
+} from '@tape.xyz/generic'
 import type { PrimaryPublication, VideoMetadataV3 } from '@tape.xyz/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -50,7 +55,7 @@ const VideoCard: FC<Props> = ({ video }) => {
                   className="ultrawide:break-all line-clamp-1 break-words font-bold"
                   href={href}
                 >
-                  {metadata.marketplace?.name}
+                  {getPublicationData(metadata)?.title}
                 </Link>
               </div>
               <div className="pr-2 pt-1">

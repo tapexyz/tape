@@ -1,6 +1,7 @@
 import { useAverageColor } from '@tape.xyz/browser'
 import { LENSTUBE_BYTES_APP_ID } from '@tape.xyz/constants'
 import {
+  getPublicationData,
   getPublicationMediaUrl,
   getThumbnailUrl,
   imageCdn,
@@ -60,9 +61,12 @@ const Video: FC<Props> = ({ video }) => {
   return (
     <div className="group relative h-screen w-screen overflow-x-hidden">
       <MetaTags
-        title={truncate(video?.metadata?.marketplace?.name as string, 60)}
+        title={truncate(
+          getPublicationData(video.metadata)?.title as string,
+          60
+        )}
         description={truncate(
-          video?.metadata?.marketplace?.description as string,
+          getPublicationData(video.metadata)?.content as string,
           100
         )}
         image={thumbnailUrl}

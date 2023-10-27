@@ -1,6 +1,10 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
 import HeartOutline from '@components/Common/Icons/HeartOutline'
-import { getProfile, getProfilePicture } from '@tape.xyz/generic'
+import {
+  getProfile,
+  getProfilePicture,
+  getPublicationData
+} from '@tape.xyz/generic'
 import type { ProfileReactedResult, ReactionNotification } from '@tape.xyz/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -34,7 +38,7 @@ const Reactions: FC<Props> = ({ notification: { publication, reactions } }) => {
           href={`/watch/${publication.id}`}
           className="font-medium opacity-50"
         >
-          {publication.metadata.marketplace?.name}
+          {getPublicationData(publication.metadata)?.title}
         </Link>
       </div>
     </span>

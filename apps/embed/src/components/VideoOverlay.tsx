@@ -3,7 +3,11 @@ import {
   TAPE_APP_NAME,
   TAPE_WEBSITE_URL
 } from '@tape.xyz/constants'
-import { getProfile, getProfilePicture } from '@tape.xyz/generic'
+import {
+  getProfile,
+  getProfilePicture,
+  getPublicationData
+} from '@tape.xyz/generic'
 import type { PrimaryPublication } from '@tape.xyz/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -37,7 +41,7 @@ const VideoOverlay: FC<Props> = ({ video }) => {
               target="_blank"
             >
               <h1 className="font-bold md:text-lg">
-                {video?.metadata.marketplace?.name}
+                {getPublicationData(video.metadata)?.title}
               </h1>
             </Link>
             <Link

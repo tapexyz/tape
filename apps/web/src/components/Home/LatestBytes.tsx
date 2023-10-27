@@ -5,6 +5,7 @@ import { FALLBACK_COVER_URL, LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
 import {
   getProfile,
   getProfilePicture,
+  getPublicationData,
   getThumbnailUrl,
   imageCdn
 } from '@tape.xyz/generic'
@@ -70,7 +71,7 @@ const LatestBytes = () => {
               />
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-b from-transparent to-black/30 px-4 py-2 text-white">
                 <h1 className="line-clamp-2 break-words font-medium">
-                  {byte.metadata.marketplace?.name}
+                  {getPublicationData(byte.metadata)?.title}
                 </h1>
               </div>
             </Link>

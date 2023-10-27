@@ -20,6 +20,7 @@ import {
   getIsSensitiveContent,
   getProfileCoverPicture,
   getProfilePicture,
+  getPublicationData,
   getPublicationMediaUrl,
   getSignature,
   getThumbnailUrl,
@@ -238,9 +239,11 @@ const PinnedVideo: FC<Props> = ({ id }) => {
               <Link
                 className="inline break-words text-lg font-medium"
                 href={`/watch/${pinnedPublication.id}`}
-                title={pinnedPublication.metadata?.marketplace?.name ?? ''}
+                title={
+                  getPublicationData(pinnedPublication.metadata)?.title ?? ''
+                }
               >
-                {pinnedPublication.metadata?.marketplace?.name}
+                {getPublicationData(pinnedPublication.metadata)?.title}
               </Link>
               {isVideoOwner && (
                 <Button
@@ -267,7 +270,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
               )}
             </div>
             <p className="line-clamp-6 text-sm">
-              {pinnedPublication.metadata?.marketplace?.description}
+              {getPublicationData(pinnedPublication.metadata)?.content}
             </p>
           </div>
           <Link

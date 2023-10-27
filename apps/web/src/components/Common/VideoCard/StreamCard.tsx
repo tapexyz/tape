@@ -3,6 +3,7 @@ import { AspectRatio, Avatar, Badge, Flex, Text } from '@radix-ui/themes'
 import {
   formatNumber,
   getProfilePicture,
+  getPublicationData,
   getRandomProfilePicture
 } from '@tape.xyz/generic'
 import type { LiveStreamMetadataV3, PrimaryPublication } from '@tape.xyz/lens'
@@ -54,7 +55,7 @@ const StreamCard: FC<Props> = ({ stream }) => {
                   className="ultrawide:break-all line-clamp-1 break-words font-bold"
                   href={href}
                 >
-                  {metadata.marketplace?.name}
+                  {getPublicationData(metadata)?.title}
                 </Link>
               </div>
               <div className="pr-2 pt-1">

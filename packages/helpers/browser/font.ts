@@ -16,5 +16,6 @@ export const tapeFont = localFont({
     }
   ],
   fallback: ['system-ui', 'sans-serif'],
-  preload: true
+  preload: true,
+  variable: '--font-tape'
 })

@@ -1,6 +1,10 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
 import MirrorOutline from '@components/Common/Icons/MirrorOutline'
-import { getProfile, getProfilePicture } from '@tape.xyz/generic'
+import {
+  getProfile,
+  getProfilePicture,
+  getPublicationData
+} from '@tape.xyz/generic'
 import type { MirrorNotification, ProfileMirrorResult } from '@tape.xyz/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -34,7 +38,7 @@ const Mirrored: FC<Props> = ({ notification: { mirrors, publication } }) => {
           href={`/watch/${publication.id}`}
           className="font-medium opacity-50"
         >
-          {publication.metadata.marketplace?.description}
+          {getPublicationData(publication.metadata)?.content}
         </Link>
       </div>
     </span>

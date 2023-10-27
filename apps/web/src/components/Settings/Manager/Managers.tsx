@@ -226,10 +226,7 @@ const Managers = () => {
   return (
     <div>
       <div className="flex items-center justify-between space-x-2">
-        <p>
-          Accounts managing your profile, can perform any social actions on your
-          behalf.
-        </p>
+        <p>Accounts managing your profile.</p>
         <Dialog.Root open={showModal} onOpenChange={setShowModal}>
           <Dialog.Trigger>
             <Button highContrast variant="surface">

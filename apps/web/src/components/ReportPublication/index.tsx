@@ -1,7 +1,12 @@
 import MetaTags from '@components/Common/MetaTags'
 import { Button, Dialog, Flex, Select, Text } from '@radix-ui/themes'
 import { ERROR_MESSAGE } from '@tape.xyz/constants'
-import { EVENTS, getPublication, Tower } from '@tape.xyz/generic'
+import {
+  EVENTS,
+  getPublication,
+  getPublicationData,
+  Tower
+} from '@tape.xyz/generic'
 import type { AnyPublication } from '@tape.xyz/lens'
 import { useReportPublicationMutation } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
@@ -70,7 +75,7 @@ const ReportPublication: FC<Props> = ({ publication }) => {
       <MetaTags title={`Report Publication`} />
       <div className="flex justify-center">
         <div className="w-full">
-          <h1>{targetPublication.metadata.marketplace?.name}</h1>
+          <h1>{getPublicationData(targetPublication.metadata)?.title}</h1>
           <div className="mt-4 flex flex-col space-y-4">
             <Flex direction="column">
               <Text weight="medium">Reason</Text>

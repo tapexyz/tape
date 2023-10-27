@@ -4,7 +4,12 @@ import {
   TAPE_APP_DESCRIPTION,
   TAPE_APP_NAME
 } from '@tape.xyz/constants'
-import { getThumbnailUrl, imageCdn, truncate } from '@tape.xyz/generic'
+import {
+  getPublicationData,
+  getThumbnailUrl,
+  imageCdn,
+  truncate
+} from '@tape.xyz/generic'
 import type {
   AnyPublication,
   MirrorablePublication,
@@ -34,9 +39,12 @@ const getPublicationMeta = async (
         ? publication.mirrorOn
         : (publication as MirrorablePublication)
 
-    const title = truncate(video?.metadata?.marketplace?.name as string, 100)
+    const title = truncate(
+      getPublicationData(video.metadata)?.title as string,
+      100
+    )
     const description = truncate(
-      video?.metadata?.marketplace?.description as string,
+      getPublicationData(video.metadata)?.content as string,
       100
     )
     const thumbnail = imageCdn(

@@ -3,7 +3,8 @@ import CollectOutline from '@components/Common/Icons/CollectOutline'
 import {
   getProfile,
   getProfilePicture,
-  getPublication
+  getPublication,
+  getPublicationData
 } from '@tape.xyz/generic'
 import type { ActedNotification, OpenActionProfileActed } from '@tape.xyz/lens'
 import Link from 'next/link'
@@ -38,9 +39,9 @@ const Acted: FC<Props> = ({ notification: { publication, actions } }) => {
         <div className="py-2">acted on your publication</div>
         <Link
           href={`/watch/${publication.id}`}
-          className="font-medium opacity-50"
+          className="line-clamp-2 font-medium opacity-50"
         >
-          {targetPublication.metadata.marketplace?.description}
+          {getPublicationData(targetPublication.metadata)?.content}
         </Link>
       </div>
     </span>

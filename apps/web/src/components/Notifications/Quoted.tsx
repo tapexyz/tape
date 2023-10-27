@@ -32,7 +32,10 @@ const Quoted: FC<Props> = ({ notification: { quote } }) => {
           </HoverableProfile>
         </span>
         <div className="py-2">quoted your publication</div>
-        <Link href={`/watch/${quote.id}`} className="font-medium opacity-50">
+        <Link
+          href={`/watch/${quote.id}`}
+          className="line-clamp-2 font-medium opacity-50"
+        >
           {getPublicationData(quote.metadata)?.content}
         </Link>
       </div>

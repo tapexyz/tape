@@ -1,6 +1,10 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
 import CommentOutline from '@components/Common/Icons/CommentOutline'
-import { getProfile, getProfilePicture } from '@tape.xyz/generic'
+import {
+  getProfile,
+  getProfilePicture,
+  getPublicationData
+} from '@tape.xyz/generic'
 import type { CommentNotification } from '@tape.xyz/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -30,9 +34,9 @@ const Commented: FC<Props> = ({ notification: { comment } }) => {
         <div className="py-2">commented on your publication</div>
         <Link
           href={`/watch/${comment.commentOn.id}`}
-          className="font-medium opacity-50"
+          className="line-clamp-2 font-medium opacity-50"
         >
-          {comment.metadata.marketplace?.description}
+          {getPublicationData(comment.metadata)?.content}
         </Link>
       </div>
     </span>

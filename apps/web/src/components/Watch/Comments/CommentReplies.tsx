@@ -7,7 +7,11 @@ import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { getShortHandTime } from '@lib/formatTime'
 import { Button, Flex } from '@radix-ui/themes'
 import { LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
-import { getProfile, getProfilePicture } from '@tape.xyz/generic'
+import {
+  getProfile,
+  getProfilePicture,
+  getPublicationData
+} from '@tape.xyz/generic'
 import {
   type Comment,
   LimitType,
@@ -31,19 +35,20 @@ type ReplyContentProps = {
 const ReplyContent: FC<ReplyContentProps> = ({ comment }) => {
   const [clamped, setClamped] = useState(false)
   const [showMore, setShowMore] = useState(false)
+
+  const content = getPublicationData(comment?.metadata)?.content || ''
+
   useEffect(() => {
-    if (comment?.metadata?.marketplace?.description.trim().length > 500) {
+    if (content && content.trim().length > 500) {
       setClamped(true)
       setShowMore(true)
     }
-  }, [comment?.metadata?.marketplace?.description])
+  }, [content])
 
   return (
     <>
       <div className={clsx({ 'line-clamp-2': clamped })}>
-        <InterweaveContent
-          content={comment?.metadata?.marketplace?.description}
-        />
+        <InterweaveContent content={content} />
       </div>
       {showMore && (
         <div className="inline-flex">

@@ -6,6 +6,7 @@ import {
 } from '@tape.xyz/constants'
 import {
   getProfile,
+  getPublicationData,
   getThumbnailUrl,
   imageCdn,
   truncate
@@ -35,7 +36,7 @@ const getPublicationOembed = async (publicationId: string, format: string) => {
         : (publication as MirrorablePublication)
 
     const title = truncate(
-      video?.metadata?.marketplace?.name as string,
+      getPublicationData(video.metadata)?.title as string,
       100
     ).replaceAll('"', "'")
     const thumbnail = imageCdn(
