@@ -121,7 +121,6 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
       if (data?.mirrorOnchain.__typename === 'LensProfileManagerRelayError') {
         return await createOnChainMirrorTypedData({
           variables: {
-            options: { overrideSigNonce: lensHubOnchainSigNonce },
             request: {
               mirrorOn: video.id
             }
