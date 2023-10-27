@@ -249,7 +249,7 @@ const Subscription = ({ channel }: Props) => {
 
       {showForm && !moduleLoading ? (
         <form onSubmit={handleSubmit(onSubmitForm)}>
-          <Flex direction="column" className="w-1/2" gap="4">
+          <Flex direction="column" className="laptop:w-1/2" gap="4">
             <div>
               <Text as="div" size="2" mb="1">
                 Currency

@@ -16,7 +16,7 @@ const DispatcherPermissions = () => {
   }
 
   return (
-    <div className="flex flex-wrap items-center justify-end md:justify-between">
+    <div className="flex flex-wrap items-center justify-between">
       <div className="mb-2 space-y-2">
         <h1 className="text-brand-400 text-xl font-bold">Dispatcher</h1>
         <p className="opacity-80">{getDescription()}</p>
