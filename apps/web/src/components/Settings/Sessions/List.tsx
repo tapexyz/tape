@@ -1,7 +1,6 @@
 import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { getDateString } from '@lib/formatTime'
-import getCurrentSessionId from '@lib/getCurrentSessionId'
 import useAuthPersistStore from '@lib/store/auth'
 import {
   Accordion,
@@ -9,7 +8,7 @@ import {
   AccordionItem,
   AccordionTrigger
 } from '@radix-ui/react-accordion'
-import { Badge, Blockquote, Button } from '@radix-ui/themes'
+import { Blockquote, Button } from '@radix-ui/themes'
 import {
   LimitType,
   useApprovedAuthenticationsQuery,
@@ -76,8 +75,6 @@ const List = () => {
       collapsible
     >
       {sessions?.map((session) => {
-        const isCurrentSession =
-          session.authorizationId === getCurrentSessionId()
         return (
           <AccordionItem
             className="bg-brand-50 dark:bg-brand-950/30 rounded-small group p-5"
@@ -89,7 +86,6 @@ const List = () => {
                 <div>
                   <div className="flex items-center space-x-2">
                     <p className="font-bold">{session.origin}</p>
-                    {isCurrentSession && <Badge color="grass">Current</Badge>}
                   </div>
                   <span className="text-sm">{session.os}</span>
                 </div>
@@ -106,10 +102,7 @@ const List = () => {
                   onClick={() => revoke(session.authorizationId)}
                   variant="surface"
                   color="red"
-                  disabled={
-                    revokingSessionId === session.authorizationId ||
-                    isCurrentSession
-                  }
+                  disabled={revokingSessionId === session.authorizationId}
                 >
                   Revoke
                 </Button>
