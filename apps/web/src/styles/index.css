@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply dark:bg-bunker min-h-screen bg-white bg-fixed text-black antialiased dark:text-white;
+  @apply min-h-screen bg-white bg-fixed text-black antialiased dark:bg-black dark:text-white;
 }
 
 /* Override for Radix Starts */
@@ -18,13 +18,14 @@ div[type='button'] {
   @apply !cursor-pointer disabled:!cursor-not-allowed;
 }
 .rt-DialogContent,
+.rt-SelectContent,
 .rt-BaseMenuContent {
-  @apply dark:!bg-bunker;
+  @apply dark:!bg-black;
 }
 /* Override for Radix Ends*/
 
 .tape-border {
-  @apply border border-[#00000010] dark:border-[#ffffff10];
+  @apply border border-[#00000020] dark:border-[#ffffff20];
 }
 
 #tape-cursor {

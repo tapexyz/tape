@@ -106,7 +106,7 @@ const GlobalSearch: FC<Props> = ({ onSearchResults }) => {
       <div className="relative">
         {showSearchBar ? (
           <>
-            <TextField.Root className="dark:bg-bunker absolute z-20 w-[250px] rounded-md bg-white lg:w-[800px]">
+            <TextField.Root className="absolute z-20 w-[250px] rounded-md bg-white dark:bg-black lg:w-[800px]">
               <TextField.Slot px="3">
                 <SearchOutline className="h-4 w-4" />
               </TextField.Slot>
@@ -122,7 +122,7 @@ const GlobalSearch: FC<Props> = ({ onSearchResults }) => {
             </TextField.Root>
             <div
               className={clsx(
-                'dark:bg-bunker rounded-large z-10 mt-1 w-full border bg-white text-base shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none dark:border-gray-700 md:absolute',
+                'rounded-medium tape-border z-10 mt-1 w-full bg-white text-base shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-black md:absolute',
                 { hidden: debouncedValue.length === 0 }
               )}
             >

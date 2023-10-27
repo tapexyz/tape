@@ -192,7 +192,7 @@ const Subscription = ({ channel }: Props) => {
   }
 
   return (
-    <div className="dark:bg-bunker tape-border rounded-medium bg-white p-5">
+    <div className="tape-border rounded-medium bg-white p-5 dark:bg-black">
       <MetaTags title="Subscription" />
       <div className="mb-5 space-y-2">
         <h1 className="text-brand-400 text-xl font-bold">Grow with Lens</h1>

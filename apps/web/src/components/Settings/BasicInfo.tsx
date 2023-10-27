@@ -289,7 +289,7 @@ const BasicInfo = ({ profile }: Props) => {
   }
 
   return (
-    <div className="dark:bg-bunker tape-border rounded-medium bg-white p-5">
+    <div className="tape-border rounded-medium bg-white p-5 dark:bg-black">
       <form onSubmit={handleSubmit(onSaveBasicInfo)}>
         <div className="relative w-full flex-none">
           {uploading.cover && (

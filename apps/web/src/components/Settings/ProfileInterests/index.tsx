@@ -6,7 +6,7 @@ import Topics from './Topics'
 
 const ProfileInterests = () => {
   return (
-    <div className="dark:bg-bunker tape-border rounded-medium bg-white p-5">
+    <div className="tape-border rounded-medium bg-white p-5 dark:bg-black">
       <MetaTags title="Profile Interests" />
       <div className="mb-5 space-y-2">
         <h1 className="text-brand-400 text-xl font-bold">Interests</h1>

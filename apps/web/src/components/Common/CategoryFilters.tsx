@@ -18,7 +18,7 @@ const CategoryFilters = () => {
   }
 
   return (
-    <div className="laptop:pt-6 dark:bg-bunker sticky -top-4 z-[9] bg-white pt-4">
+    <div className="laptop:pt-6 sticky -top-4 z-[9] bg-white pt-4 dark:bg-black">
       <HorizantalScroller
         sectionRef={sectionRef}
         heading="Explore"

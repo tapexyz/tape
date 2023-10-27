@@ -30,7 +30,7 @@ const Navbar = () => {
   } = usePersistStore()
 
   return (
-    <div className="ultrawide:px-8 laptop:px-6 dark:bg-bunker/80 sticky top-0 z-10 flex h-16 w-full items-center bg-white/80 px-4 backdrop-blur-2xl">
+    <div className="ultrawide:px-8 laptop:px-6 sticky top-0 z-10 flex h-16 w-full items-center bg-white/80 px-4 backdrop-blur-2xl dark:bg-black/80">
       <div className="flex w-full items-center justify-between">
         <div className="flex items-center space-x-2 md:w-1/5">
           <Link href="/" className="inline-flex">
@@ -58,7 +58,7 @@ const Navbar = () => {
                 <ThreeDotsOutline className="h-4 w-4" />
               </IconButton>
             </HoverCard.Trigger>
-            <HoverCard.Content className="dark:bg-bunker w-72 bg-white">
+            <HoverCard.Content className="w-72 bg-white dark:bg-black">
               <Footer />
             </HoverCard.Content>
           </HoverCard.Root>

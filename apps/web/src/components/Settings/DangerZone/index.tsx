@@ -17,7 +17,7 @@ const DangerZone = () => {
   }
 
   return (
-    <div className="dark:bg-bunker tape-border rounded-medium mb-4 divide-y bg-white p-5 dark:divide-gray-800">
+    <div className="tape-border rounded-medium mb-4 divide-y bg-white p-5 dark:divide-gray-800 dark:bg-black">
       <MetaTags title="Danger Zone" />
       <Flex align="center" justify="between" mb="6">
         <div className="flex items-center">

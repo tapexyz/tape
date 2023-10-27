@@ -5,7 +5,7 @@ import List from './List'
 
 const Blocked = () => {
   return (
-    <div className="dark:bg-bunker tape-border rounded-medium bg-white p-5">
+    <div className="tape-border rounded-medium bg-white p-5 dark:bg-black">
       <MetaTags title="Blocked Profiles" />
       <div className="mb-5 space-y-2">
         <h1 className="text-brand-400 text-xl font-bold">Blocked Profiles</h1>

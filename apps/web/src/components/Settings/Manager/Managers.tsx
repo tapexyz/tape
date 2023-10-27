@@ -277,7 +277,7 @@ const Managers = () => {
           <NoDataFound withImage isCenter />
         ) : null}
         {profileManagers?.length ? (
-          <Table.Root mt="4" variant="surface">
+          <Table.Root mt="4">
             <Table.Body>
               {profileManagers?.map(({ address }) => (
                 <Entry

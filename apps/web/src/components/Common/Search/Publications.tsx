@@ -1,12 +1,9 @@
-import { getShortHandTime } from '@lib/formatTime'
-import { Flex } from '@radix-ui/themes'
 import {
   FALLBACK_COVER_URL,
   LENSTUBE_BYTES_APP_ID,
   STATIC_ASSETS
 } from '@tape.xyz/constants'
 import {
-  formatNumber,
   getIsSensitiveContent,
   getPublication,
   getThumbnailUrl,
@@ -17,9 +14,6 @@ import clsx from 'clsx'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
-
-import CommentOutline from '../Icons/CommentOutline'
-import HeartOutline from '../Icons/HeartOutline'
 
 interface Props {
   results: AnyPublication[]
@@ -45,7 +39,7 @@ const Publications: FC<Props> = ({ results, loading, clearSearch }) => {
         return (
           <div
             key={publication.id}
-            className="hover:bg-brand-50 rounded-small relative cursor-default select-none pl-3 pr-4 dark:hover:bg-gray-800"
+            className="hover:bg-galley dark:hover:bg-smoke relative cursor-default select-none rounded-md pl-3 pr-4"
           >
             <Link
               href={`/watch/${publication?.id}`}
@@ -76,19 +70,6 @@ const Publications: FC<Props> = ({ results, loading, clearSearch }) => {
                   <p className="line-clamp-1 text-sm">
                     {publication?.metadata.marketplace?.description}
                   </p>
-                  <div className="flex items-center overflow-hidden text-xs opacity-80">
-                    <Flex align="center" gap="1">
-                      <HeartOutline className="h-2.5 w-2.5" />
-                      {formatNumber(publication.stats?.reactions)}
-                    </Flex>
-                    <span className="middot" />
-                    <Flex align="center" gap="1">
-                      <CommentOutline className="h-2.5 w-2.5" />
-                      {formatNumber(publication.stats?.comments)}
-                    </Flex>
-                    <span className="middot" />
-                    <span>{getShortHandTime(publication.createdAt)}</span>
-                  </div>
                 </div>
               </div>
             </Link>

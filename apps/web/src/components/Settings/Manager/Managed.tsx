@@ -29,7 +29,7 @@ const Managed = () => {
           <NoDataFound withImage isCenter />
         ) : null}
         {profilesManaged?.length ? (
-          <Table.Root mt="4" variant="surface">
+          <Table.Root mt="4">
             <Table.Body>
               {profilesManaged?.map((profile) => (
                 <Table.Row key={profile.id}>

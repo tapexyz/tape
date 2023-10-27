@@ -32,8 +32,8 @@ const SideNav = () => {
       <Link
         href={SETTINGS}
         className={clsx(
-          'rounded-small flex items-center space-x-3 p-3 hover:bg-gray-100 hover:dark:bg-black',
-          { 'bg-gray-100 dark:bg-black': isActivePath(SETTINGS) }
+          'rounded-small hover:dark:bg-smoke hover:bg-gallery flex items-center space-x-3 p-3',
+          isActivePath(SETTINGS) ? 'font-bold' : 'text-dust'
         )}
       >
         <UserOutline className="h-4 w-4" />
@@ -42,10 +42,8 @@ const SideNav = () => {
       <Link
         href={SETTINGS_SUBSCRIPTION}
         className={clsx(
-          'rounded-small flex items-center space-x-3 p-3 hover:bg-gray-100 hover:dark:bg-black',
-          {
-            'bg-gray-100 dark:bg-black': isActivePath(SETTINGS_SUBSCRIPTION)
-          }
+          'rounded-small hover:dark:bg-smoke hover:bg-gallery flex items-center space-x-3 p-3',
+          isActivePath(SETTINGS_SUBSCRIPTION) ? 'font-bold' : 'text-dust'
         )}
       >
         <SubscribeOutline className="h-4 w-4" />
@@ -54,10 +52,8 @@ const SideNav = () => {
       <Link
         href={SETTINGS_INTERESTS}
         className={clsx(
-          'rounded-small flex items-center space-x-3 p-3 hover:bg-gray-100 hover:dark:bg-black',
-          {
-            'bg-gray-100 dark:bg-black': isActivePath(SETTINGS_INTERESTS)
-          }
+          'rounded-small hover:dark:bg-smoke hover:bg-gallery flex items-center space-x-3 p-3',
+          isActivePath(SETTINGS_INTERESTS) ? 'font-bold' : 'text-dust'
         )}
       >
         <InterestsOutline className="h-4 w-4" />
@@ -66,10 +62,8 @@ const SideNav = () => {
       <Link
         href={SETTINGS_MANAGER}
         className={clsx(
-          'rounded-small flex items-center space-x-3 p-3 hover:bg-gray-100 hover:dark:bg-black',
-          {
-            'bg-gray-100 dark:bg-black': isActivePath(SETTINGS_MANAGER)
-          }
+          'rounded-small hover:dark:bg-smoke hover:bg-gallery flex items-center space-x-3 p-3',
+          isActivePath(SETTINGS_MANAGER) ? 'font-bold' : 'text-dust'
         )}
       >
         <ProfileManagerOutline className="h-4 w-4" />
@@ -78,10 +72,8 @@ const SideNav = () => {
       <Link
         href={SETTINGS_ALLOWANCE}
         className={clsx(
-          'rounded-small flex items-center space-x-3 p-3 hover:bg-gray-100 hover:dark:bg-black',
-          {
-            'bg-gray-100 dark:bg-black': isActivePath(SETTINGS_ALLOWANCE)
-          }
+          'rounded-small hover:dark:bg-smoke hover:bg-gallery flex items-center space-x-3 p-3',
+          isActivePath(SETTINGS_ALLOWANCE) ? 'font-bold' : 'text-dust'
         )}
       >
         <LockOutline className="h-4 w-4" />
@@ -90,10 +82,8 @@ const SideNav = () => {
       <Link
         href={SETTINGS_BLOCKED}
         className={clsx(
-          'rounded-small flex items-center space-x-3 p-3 hover:bg-gray-100 hover:dark:bg-black',
-          {
-            'bg-gray-100 dark:bg-black': isActivePath(SETTINGS_BLOCKED)
-          }
+          'rounded-small hover:dark:bg-smoke hover:bg-gallery flex items-center space-x-3 p-3',
+          isActivePath(SETTINGS_BLOCKED) ? 'font-bold' : 'text-dust'
         )}
       >
         <ProfileBanOutline className="h-4 w-4" />
@@ -102,10 +92,8 @@ const SideNav = () => {
       <Link
         href={SETTINGS_SESSIONS}
         className={clsx(
-          'rounded-small flex items-center space-x-3 p-3 hover:bg-gray-100 hover:dark:bg-black',
-          {
-            'bg-gray-100 dark:bg-black': isActivePath(SETTINGS_SESSIONS)
-          }
+          'rounded-small hover:dark:bg-smoke hover:bg-gallery flex items-center space-x-3 p-3',
+          isActivePath(SETTINGS_SESSIONS) ? 'font-bold' : 'text-dust'
         )}
       >
         <KeyOutline className="h-4 w-4" />
@@ -114,10 +102,8 @@ const SideNav = () => {
       <Link
         href={SETTINGS_DANGER_ZONE}
         className={clsx(
-          'rounded-small flex items-center space-x-3 p-3 text-red-500 hover:bg-red-100 hover:dark:bg-red-900/60',
-          {
-            'bg-red-100 dark:bg-red-900/60': isActivePath(SETTINGS_DANGER_ZONE)
-          }
+          'rounded-small hover:dark:bg-smoke hover:bg-gallery flex items-center space-x-3 p-3',
+          isActivePath(SETTINGS_DANGER_ZONE) ? 'font-bold' : 'text-dust'
         )}
       >
         <WarningOutline className="h-4 w-4" />
