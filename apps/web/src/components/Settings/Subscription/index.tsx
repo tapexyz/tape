@@ -302,7 +302,7 @@ const Subscription = ({ channel }: Props) => {
                 Cancel
               </Button>
             )}
-            <Button highContrast disabled={loading}>
+            <Button highContrast variant="surface" disabled={loading}>
               {loading && <Loader size="sm" />}
               Set Membership
             </Button>

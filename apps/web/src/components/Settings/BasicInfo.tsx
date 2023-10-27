@@ -293,7 +293,7 @@ const BasicInfo = ({ profile }: Props) => {
       <form onSubmit={handleSubmit(onSaveBasicInfo)}>
         <div className="relative w-full flex-none">
           {uploading.cover && (
-            <div className="absolute z-10 flex h-full w-full items-center justify-center rounded bg-black opacity-40">
+            <div className="rounded-small absolute z-10 flex h-full w-full items-center justify-center bg-black opacity-40">
               <Loader />
             </div>
           )}
@@ -429,6 +429,7 @@ const BasicInfo = ({ profile }: Props) => {
         <div className="relative mt-4">
           <TextArea
             label="Bio"
+            rows={5}
             placeholder="More about you and what you do!"
             validationError={errors.description?.message}
             {...register('description')}
@@ -479,13 +480,13 @@ const BasicInfo = ({ profile }: Props) => {
         <div className="mt-4">
           <Input
             label="Location"
-            placeholder="Metaverse"
+            placeholder="Cybertron"
             validationError={errors.location?.message}
             {...register('location')}
           />
         </div>
         <div className="mt-6 flex justify-end">
-          <Button disabled={loading} highContrast>
+          <Button disabled={loading} variant="surface" highContrast>
             {loading && <Loader size="sm" />}
             Update Profile
           </Button>
