@@ -225,7 +225,6 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
         <Button
           type="button"
           color="gray"
-          size="3"
           variant="soft"
           disabled={uploadedVideo.loading}
           onClick={() => onCancel()}
@@ -240,7 +239,6 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
             uploadedVideo.durationInSeconds === 0
           }
           type="submit"
-          size="3"
         >
           {uploadedVideo.uploadingThumbnail
             ? 'Uploading thumbnail'

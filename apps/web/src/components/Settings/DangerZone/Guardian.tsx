@@ -95,8 +95,8 @@ const Guardian: FC = () => {
   }
 
   return (
-    <div className="py-6">
-      <div className="space-y-2">
+    <div className="tape-border rounded-medium dark:bg-cod mb-4 bg-white">
+      <div className="space-y-2 p-5">
         <h1 className="text-xl font-bold text-red-500">
           Disable profile guardian
         </h1>
@@ -122,7 +122,7 @@ const Guardian: FC = () => {
 
       <div
         className={clsx(
-          'flex items-center pt-6',
+          'rounded-b-medium flex border-b-0 bg-red-100 px-5 py-3 dark:bg-red-900/20',
           isCooldownEnded() ? 'justify-end' : 'justify-between'
         )}
       >
@@ -133,18 +133,11 @@ const Guardian: FC = () => {
           </span>
         )}
         {guardianEnabled ? (
-          <Button
-            size="3"
-            variant="surface"
-            color="red"
-            disabled={loading}
-            onClick={() => toggle()}
-          >
+          <Button color="red" disabled={loading} onClick={() => toggle()}>
             {loading ? 'Disabling' : 'Disable'}
           </Button>
         ) : (
           <Button
-            size="3"
             variant="surface"
             disabled={loading}
             highContrast

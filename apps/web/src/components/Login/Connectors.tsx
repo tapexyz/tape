@@ -30,7 +30,6 @@ const Connectors = () => {
         {connectors.map((c) => (
           <Button
             key={c.id}
-            size="3"
             highContrast
             variant="soft"
             onClick={async () => await connectAsync({ connector: c })}

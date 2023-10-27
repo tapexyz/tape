@@ -93,7 +93,7 @@ const Signup = ({ onSuccess }: { onSuccess: () => void }) => {
         </Callout.Text>
       </Callout.Root>
       <div className="space-y-1">
-        <Text as="div" size="3" weight="medium">
+        <Text as="div" weight="medium">
           Create Profile
         </Text>
         <form
@@ -103,11 +103,10 @@ const Signup = ({ onSuccess }: { onSuccess: () => void }) => {
           <Input
             placeholder="gilfoyle"
             autoComplete="off"
-            size="3"
             validationError={errors.handle?.message}
             {...register('handle')}
           />
-          <Button disabled={creating} highContrast size="3">
+          <Button disabled={creating} highContrast>
             {creating && <Loader size="sm" />}
             Sign up
           </Button>

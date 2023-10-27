@@ -134,7 +134,7 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
                 >
                   <img
                     src={getProfilePicture(comment.by, 'AVATAR')}
-                    className="h-9 w-9 rounded-full"
+                    className="h-8 w-8 rounded-full"
                     draggable={false}
                     alt={getProfile(comment.by)?.slug}
                   />

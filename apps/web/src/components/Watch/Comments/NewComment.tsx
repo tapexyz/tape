@@ -375,7 +375,7 @@ const NewComment: FC<Props> = ({
         <div className="flex-none">
           <img
             src={getProfilePicture(activeProfile, 'AVATAR')}
-            className="h-9 w-9 rounded-full"
+            className="h-8 w-8 rounded-full"
             draggable={false}
             alt={getProfile(activeProfile)?.slug}
           />
@@ -390,10 +390,10 @@ const NewComment: FC<Props> = ({
               setValue('comment', value)
               clearErrors('comment')
             }}
-            mentionsSelector="input-mentions-single !pb-2"
+            mentionsSelector="input-mentions-single !pb-1"
           />
           {!hideEmojiPicker && (
-            <div className="absolute right-2 top-2.5">
+            <div className="absolute right-2 top-1.5">
               <EmojiPicker
                 onEmojiSelect={(emoji) =>
                   setValue('comment', `${getValues('comment')}${emoji}`)
@@ -403,7 +403,7 @@ const NewComment: FC<Props> = ({
           )}
         </div>
       </div>
-      <Button variant="surface" size="3" disabled={loading}>
+      <Button variant="surface" disabled={loading}>
         Comment
       </Button>
     </form>

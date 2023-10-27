@@ -5,7 +5,7 @@ import ModuleAllowance from './Modules'
 
 const Allowance = () => {
   return (
-    <div className="tape-border rounded-medium bg-white p-5 dark:bg-black">
+    <div className="tape-border rounded-medium dark:bg-cod bg-white p-5">
       <MetaTags title="Allowance" />
       <ModuleAllowance />
     </div>

@@ -29,13 +29,13 @@ const HorizantalScroller: FC<Props> = ({ heading, subheading, sectionRef }) => {
       <div className="space-x-2">
         <button
           onClick={() => scroll(-scrollOffset)}
-          className="rounded-full p-2 backdrop-blur-xl hover:bg-gray-100 focus:outline-none dark:hover:bg-gray-800"
+          className="hover:bg-gallery dark:hover:bg-smoke rounded-full p-2 backdrop-blur-xl focus:outline-none"
         >
           <ChevronLeftOutline className="h-4 w-4" />
         </button>
         <button
           onClick={() => scroll(scrollOffset)}
-          className="rounded-full p-2 backdrop-blur-xl hover:bg-gray-100 focus:outline-none dark:hover:bg-gray-800"
+          className="hover:bg-gallery dark:hover:bg-smoke rounded-full p-2 backdrop-blur-xl focus:outline-none"
         >
           <ChevronRightOutline className="h-4 w-4" />
         </button>

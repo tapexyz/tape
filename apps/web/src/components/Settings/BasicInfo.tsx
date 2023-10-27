@@ -289,7 +289,7 @@ const BasicInfo = ({ profile }: Props) => {
   }
 
   return (
-    <div className="tape-border rounded-medium bg-white p-5 dark:bg-black">
+    <div className="tape-border rounded-medium dark:bg-cod bg-white p-5">
       <form onSubmit={handleSubmit(onSaveBasicInfo)}>
         <div className="relative w-full flex-none">
           {uploading.cover && (
@@ -421,7 +421,6 @@ const BasicInfo = ({ profile }: Props) => {
         <div className="mt-6">
           <Input
             label="Name"
-            size="3"
             placeholder="John Doe"
             validationError={errors.displayName?.message}
             {...register('displayName')}
@@ -430,7 +429,6 @@ const BasicInfo = ({ profile }: Props) => {
         <div className="relative mt-4">
           <TextArea
             label="Bio"
-            size="3"
             placeholder="More about you and what you do!"
             validationError={errors.description?.message}
             {...register('description')}
@@ -445,7 +443,6 @@ const BasicInfo = ({ profile }: Props) => {
         </div>
         <div className="mt-4">
           <Input
-            size="3"
             label="Website"
             placeholder="https://johndoe.xyz"
             validationError={errors.website?.message}
@@ -455,7 +452,6 @@ const BasicInfo = ({ profile }: Props) => {
         <div className="mt-4">
           <Input
             label="Youtube"
-            size="3"
             placeholder="channel"
             validationError={errors.youtube?.message}
             prefix="https://youtube.com/"
@@ -465,7 +461,6 @@ const BasicInfo = ({ profile }: Props) => {
         <div className="mt-4">
           <Input
             label="Spotify"
-            size="3"
             placeholder="artist/6xl0mjD1B4paRyfPDUOynf"
             validationError={errors.spotify?.message}
             prefix="https://open.spotify.com/"
@@ -475,7 +470,6 @@ const BasicInfo = ({ profile }: Props) => {
         <div className="mt-4">
           <Input
             label="X (Twitter)"
-            size="3"
             placeholder="profile"
             validationError={errors.x?.message}
             prefix="https://x.com/"
@@ -485,14 +479,13 @@ const BasicInfo = ({ profile }: Props) => {
         <div className="mt-4">
           <Input
             label="Location"
-            size="3"
             placeholder="Metaverse"
             validationError={errors.location?.message}
             {...register('location')}
           />
         </div>
         <div className="mt-6 flex justify-end">
-          <Button size="3" disabled={loading} highContrast>
+          <Button disabled={loading} highContrast>
             {loading && <Loader size="sm" />}
             Update Profile
           </Button>

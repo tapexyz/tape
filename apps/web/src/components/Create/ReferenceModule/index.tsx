@@ -37,7 +37,6 @@ const ReferenceModule = () => {
       </Text>
 
       <Select.Root
-        size="3"
         value={getSelectedReferenceTypeValue()}
         onValueChange={(value) => {
           setReferenceType({

@@ -26,9 +26,7 @@ const GitcoinAlert = () => {
         </p>
         <Flex>
           <Link href="/gitcoin" target="_blank">
-            <Button size="3" highContrast>
-              Contribute
-            </Button>
+            <Button highContrast>Contribute</Button>
           </Link>
         </Flex>
       </div>

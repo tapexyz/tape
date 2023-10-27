@@ -28,7 +28,6 @@ const PermissionQuestion: FC<Props> = ({ setCollectType }) => {
               : 'gray'
           }
           variant="surface"
-          size="3"
           onClick={() =>
             setCollectType({
               isSimpleCollect: true,
@@ -42,7 +41,6 @@ const PermissionQuestion: FC<Props> = ({ setCollectType }) => {
         <Button
           className="flex-1"
           type="button"
-          size="3"
           color={
             uploadedVideo.collectModule.followerOnlyCollect &&
             !uploadedVideo.collectModule.isRevertCollect

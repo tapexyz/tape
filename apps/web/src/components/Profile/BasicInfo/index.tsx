@@ -352,7 +352,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
               )}
             </DropdownMenu.Content>
           </DropdownMenu.Root>
-          <FollowActions size="3" profile={profile} />
+          <FollowActions profile={profile} />
         </Flex>
       </div>
       <Flex justify="between" align="center" gap="3">

@@ -117,7 +117,6 @@ const FeeCollectForm: FC<Props> = ({
             <Input
               type="number"
               placeholder="1.5"
-              size="3"
               min="0"
               autoComplete="off"
               max="100000"
@@ -127,7 +126,6 @@ const FeeCollectForm: FC<Props> = ({
               })}
             />
             <Select.Root
-              size="3"
               {...register('currency')}
               value={uploadedVideo.collectModule.amount?.currency}
               onValueChange={(value) => {
@@ -155,7 +153,6 @@ const FeeCollectForm: FC<Props> = ({
               type="number"
               placeholder="2"
               suffix="%"
-              size="3"
               info="Percent of collect revenue can be shared with anyone who mirrors your content."
               {...register('referralPercent', { valueAsNumber: true })}
               validationError={errors.referralPercent?.message}
@@ -167,7 +164,6 @@ const FeeCollectForm: FC<Props> = ({
       <div className="flex justify-end pt-4" ref={submitContainerRef}>
         <Button
           highContrast
-          size="3"
           type="button"
           onClick={() => handleSubmit(validateInputs)()}
         >

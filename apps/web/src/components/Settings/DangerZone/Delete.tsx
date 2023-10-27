@@ -73,24 +73,20 @@ const Delete = () => {
   }
 
   return (
-    <div className="flex flex-wrap items-center justify-between pt-6">
-      <div className="space-y-2">
+    <div className="tape-border rounded-medium dark:bg-cod mb-4 bg-white">
+      <div className="space-y-2 p-5">
         <h1 className="text-xl font-bold text-red-500">Delete Profile</h1>
         <p>
           Delete your profile and its data.
           <span className="ml-1 text-red-500">It can not be reverted</span>
         </p>
       </div>
-      <Button
-        size="3"
-        color="red"
-        variant="surface"
-        disabled={loading}
-        onClick={() => onClickDelete()}
-      >
-        {loading && <Loader size="sm" />}
-        Delete
-      </Button>
+      <div className="rounded-b-medium flex justify-end border-b-0 bg-red-100 px-5 py-3 dark:bg-red-900/20">
+        <Button color="red" disabled={loading} onClick={() => onClickDelete()}>
+          {loading && <Loader size="sm" />}
+          Delete
+        </Button>
+      </div>
     </div>
   )
 }

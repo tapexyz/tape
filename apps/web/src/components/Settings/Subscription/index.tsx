@@ -192,7 +192,7 @@ const Subscription = ({ channel }: Props) => {
   }
 
   return (
-    <div className="tape-border rounded-medium bg-white p-5 dark:bg-black">
+    <div className="tape-border rounded-medium dark:bg-cod bg-white p-5">
       <MetaTags title="Subscription" />
       <div className="mb-5 space-y-2">
         <h1 className="text-brand-400 text-xl font-bold">Grow with Lens</h1>
@@ -255,7 +255,6 @@ const Subscription = ({ channel }: Props) => {
                 Currency
               </Text>
               <Select.Root
-                size="3"
                 value={watch('token')}
                 onValueChange={(value) => setValue('token', value)}
               >
@@ -286,7 +285,6 @@ const Subscription = ({ channel }: Props) => {
               <Input
                 label="Amount"
                 type="number"
-                size="3"
                 step="any"
                 placeholder="10"
                 autoComplete="off"
@@ -297,7 +295,6 @@ const Subscription = ({ channel }: Props) => {
             <div>
               <Input
                 label="Recipient"
-                size="3"
                 placeholder="0x00..."
                 autoComplete="off"
                 validationError={errors.recipient?.message}
@@ -307,15 +304,12 @@ const Subscription = ({ channel }: Props) => {
           </Flex>
           <div className="mt-6 flex justify-end space-x-2">
             {activeFollowModule && (
-              <Button
-                variant="surface"
-                size="3"
-                onClick={() => setShowForm(false)}
-              >
+              <Button variant="surface" onClick={() => setShowForm(false)}>
                 Cancel
               </Button>
             )}
-            <Button size="3" variant="surface" highContrast disabled={loading}>
+            <Button highContrast disabled={loading}>
+              {loading && <Loader size="sm" />}
               Set Membership
             </Button>
           </div>
@@ -326,7 +320,6 @@ const Subscription = ({ channel }: Props) => {
           <Button
             variant="surface"
             color="red"
-            size="3"
             disabled={loading}
             onClick={() => setMembership(true)}
           >
@@ -336,7 +329,6 @@ const Subscription = ({ channel }: Props) => {
           <Button
             variant="surface"
             highContrast
-            size="3"
             onClick={() => setShowForm(true)}
           >
             Update

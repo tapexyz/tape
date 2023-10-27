@@ -139,7 +139,6 @@ const ToggleDispatcher = () => {
       color={isLensManagerEnabled ? 'red' : 'gray'}
       highContrast={!isLensManagerEnabled}
       variant="surface"
-      size="3"
       onClick={onClick}
       disabled={loading}
     >

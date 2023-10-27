@@ -78,7 +78,6 @@ const CollectModule = () => {
         <Dialog.Trigger>
           <Button
             variant="surface"
-            size="3"
             type="button"
             onClick={() => setShowModal(true)}
             className="w-full"
@@ -117,7 +116,6 @@ const CollectModule = () => {
                     <div className="flex justify-end pt-4">
                       <Button
                         type="button"
-                        size="3"
                         highContrast
                         onClick={() => setShowModal(false)}
                       >

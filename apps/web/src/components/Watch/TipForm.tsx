@@ -391,7 +391,6 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
           <span>x</span>
           <Input
             type="number"
-            size="3"
             className="w-14"
             step="any"
             {...register('tipQuantity', { valueAsNumber: true })}
@@ -423,15 +422,10 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
           )}
         </span>
         <Flex gap="2">
-          <Button
-            type="button"
-            variant="soft"
-            size="3"
-            onClick={() => setShow(false)}
-          >
+          <Button type="button" variant="soft" onClick={() => setShow(false)}>
             Cancel
           </Button>
-          <Button highContrast size="3" disabled={!isValid || loading}>
+          <Button highContrast disabled={!isValid || loading}>
             {`Tip ${
               isNaN(Number(watchTipQuantity) * 1) ||
               Number(watchTipQuantity) < 0

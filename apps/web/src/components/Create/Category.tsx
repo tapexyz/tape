@@ -15,7 +15,6 @@ const Category = () => {
       </Text>
 
       <Select.Root
-        size="3"
         value={uploadedVideo.videoCategory.tag}
         onValueChange={(tag) =>
           setUploadedVideo({ videoCategory: getCategoryByTag(tag) })

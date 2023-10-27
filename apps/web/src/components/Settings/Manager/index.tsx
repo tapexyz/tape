@@ -10,11 +10,11 @@ const ProfileManager = () => {
   return (
     <div className="space-y-4">
       <MetaTags title="Manager" />
-      <div className="tape-border rounded-medium bg-white p-5 dark:bg-black">
+      <div className="tape-border rounded-medium dark:bg-cod bg-white p-5">
         <DispatcherPermissions />
       </div>
 
-      <div className="tape-border rounded-medium bg-white p-5 dark:bg-black">
+      <div className="tape-border rounded-medium dark:bg-cod bg-white p-5">
         <Tabs.Root defaultValue="managers">
           <Tabs.List>
             <Tabs.Trigger value="managers">Managers</Tabs.Trigger>

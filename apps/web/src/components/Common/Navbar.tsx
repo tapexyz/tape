@@ -10,7 +10,7 @@ import React from 'react'
 
 import Footer from './Footer'
 import BellOutline from './Icons/BellOutline'
-import GlobeOutline from './Icons/GlobeOutline'
+import ChevronDownOutline from './Icons/ChevronDownOutline'
 import UploadOutline from './Icons/UploadOutline'
 import GlobalSearch from './Search/GlobalSearch'
 import UserMenu from './UserMenu'
@@ -55,7 +55,7 @@ const Navbar = () => {
                 radius="full"
                 className="opacity-50 hover:opacity-100"
               >
-                <GlobeOutline className="h-3 w-3" />
+                <ChevronDownOutline className="h-3 w-3" />
               </IconButton>
             </HoverCard.Trigger>
             <HoverCard.Content className="w-72 bg-white dark:bg-black">
@@ -108,16 +108,16 @@ const Navbar = () => {
                 href="/notifications"
                 className="relative hidden md:block"
               >
-                <IconButton radius="full" highContrast size="3" variant="soft">
-                  <BellOutline className="h-4 w-4" />
+                <IconButton radius="full" highContrast variant="soft">
+                  <BellOutline className="h-3.5 w-3.5" />
                 </IconButton>
                 {lastOpenedNotificationId !== latestNotificationId ? (
-                  <span className="absolute right-1 top-0 h-2 w-2 rounded-full bg-red-500" />
+                  <span className="absolute right-0.5 top-0 h-2 w-2 rounded-full bg-red-500" />
                 ) : null}
               </Link>
               <Link href="/create" className="hidden md:block">
-                <Button highContrast size="3">
-                  <UploadOutline className="h-4 w-4" />
+                <Button highContrast>
+                  <UploadOutline className="h-3.5 w-3.5" />
                   Create
                 </Button>
               </Link>
@@ -125,9 +125,7 @@ const Navbar = () => {
             </>
           ) : (
             <Link href={`/login?next=${asPath}`}>
-              <Button size="3" highContrast>
-                Login
-              </Button>
+              <Button highContrast>Login</Button>
             </Link>
           )}
         </div>

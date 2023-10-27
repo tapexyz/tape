@@ -31,7 +31,6 @@ const EditionSize: FC<Props> = ({ setCollectType }) => {
             })
             setShowSizePicker(false)
           }}
-          size="3"
           highContrast
           color={
             !uploadedVideo.collectModule.collectLimitEnabled ? 'blue' : 'gray'
@@ -50,7 +49,6 @@ const EditionSize: FC<Props> = ({ setCollectType }) => {
             })
             setShowSizePicker(true)
           }}
-          size="3"
           highContrast
           color={
             uploadedVideo.collectModule.collectLimitEnabled ? 'blue' : 'gray'
@@ -68,7 +66,6 @@ const EditionSize: FC<Props> = ({ setCollectType }) => {
             placeholder="5000"
             suffix="editions"
             min="0"
-            size="3"
             onBlur={(e) => {
               const { value } = e.target
               setCollectType({

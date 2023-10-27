@@ -111,9 +111,9 @@ const GlobalSearch: FC<Props> = ({ onSearchResults }) => {
                 <SearchOutline className="h-4 w-4" />
               </TextField.Slot>
               <TextField.Input
-                size="3"
                 radius="full"
                 autoFocus
+                variant="surface"
                 type="search"
                 value={keyword}
                 onChange={(event) => setKeyword(event.target.value)}
@@ -139,9 +139,7 @@ const GlobalSearch: FC<Props> = ({ onSearchResults }) => {
                   ) : (
                     <>
                       <div className="space-y-2 pb-2 focus:outline-none">
-                        <Text size="3" weight="bold">
-                          Creators
-                        </Text>
+                        <Text weight="bold">Creators</Text>
                         {profiles?.length ? (
                           <Profiles
                             results={profiles}
@@ -153,9 +151,7 @@ const GlobalSearch: FC<Props> = ({ onSearchResults }) => {
                         )}
                       </div>
                       <div className="space-y-2 focus:outline-none">
-                        <Text size="3" weight="bold">
-                          Releases
-                        </Text>
+                        <Text weight="bold">Releases</Text>
                         {publications?.length ? (
                           <Publications
                             results={publications}
@@ -177,10 +173,9 @@ const GlobalSearch: FC<Props> = ({ onSearchResults }) => {
             onClick={() => setShowSearchBar(true)}
             radius="full"
             variant="soft"
-            size="3"
             highContrast
           >
-            <SearchOutline className="h-4 w-4" />
+            <SearchOutline className="h-3.5 w-3.5" />
           </IconButton>
         )}
       </div>

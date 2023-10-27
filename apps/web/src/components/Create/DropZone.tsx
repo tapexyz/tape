@@ -94,7 +94,6 @@ const DropZone = () => {
           </div>
           <Box>
             <Button
-              size="3"
               highContrast
               variant="surface"
               className="!px-0"

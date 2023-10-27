@@ -23,7 +23,6 @@ const CollectDuration: FC<Props> = ({ setCollectType }) => {
       </Text>
       <div className="flex flex-wrap gap-1.5 md:flex-nowrap">
         <Button
-          size="3"
           type="button"
           highContrast
           color={
@@ -42,7 +41,6 @@ const CollectDuration: FC<Props> = ({ setCollectType }) => {
           Forever
         </Button>
         <Button
-          size="3"
           type="button"
           onClick={() => {
             setCollectType({
@@ -64,7 +62,6 @@ const CollectDuration: FC<Props> = ({ setCollectType }) => {
           <Input
             type="number"
             min="1"
-            size="3"
             onBlur={(e) => {
               const { value } = e.target
               setCollectType({

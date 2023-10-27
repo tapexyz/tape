@@ -30,7 +30,6 @@ const SwitchNetworkDialog = () => {
         </div>
         <Flex justify="end">
           <Button
-            size="3"
             color="red"
             onClick={async () => {
               await switchNetworkAsync?.(POLYGON_CHAIN_ID)

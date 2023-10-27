@@ -177,7 +177,6 @@ const Authenticate = () => {
       {profile ? (
         <Flex direction="column" gap="2">
           <Select.Root
-            size="3"
             defaultValue={as ?? profile?.id}
             value={selectedProfileId}
             onValueChange={(value) => setSelectedProfileId(value)}
@@ -202,7 +201,6 @@ const Authenticate = () => {
           <Button
             className="w-full"
             highContrast
-            size="4"
             onClick={handleSign}
             disabled={loading || !selectedProfileId}
           >

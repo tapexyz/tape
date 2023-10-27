@@ -113,7 +113,6 @@ const ModuleAllowance = () => {
         {!gettingSettings && data && (
           <div className="flex justify-end py-6">
             <Select.Root
-              size="3"
               value={currency}
               onValueChange={(value) => setCurrency(value)}
             >
@@ -154,7 +153,6 @@ const ModuleAllowance = () => {
                 <div className="ml-2 flex flex-none items-center space-x-2">
                   {parseFloat(moduleItem?.allowance.value) === 0 ? (
                     <Button
-                      size="3"
                       variant="surface"
                       highContrast
                       disabled={loadingModule === moduleItem.moduleName}
@@ -164,7 +162,6 @@ const ModuleAllowance = () => {
                     </Button>
                   ) : (
                     <Button
-                      size="3"
                       variant="surface"
                       color="red"
                       onClick={() => handleClick(false, moduleItem.moduleName)}

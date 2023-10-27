@@ -21,9 +21,7 @@ const WelcomeAlert = () => {
         </p>
         <Flex gap="3">
           <Link href="/login">
-            <Button size="3" highContrast>
-              Login
-            </Button>
+            <Button highContrast>Login</Button>
           </Link>
         </Flex>
       </div>

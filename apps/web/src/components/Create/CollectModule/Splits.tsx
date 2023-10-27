@@ -141,7 +141,6 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
                 getIsHandle(splitRecipient.recipient) &&
                 'animate-pulse'
             )}
-            size="3"
             placeholder={`0x12345...89 or ${HANDLE_PREFIX}tape`}
             value={splitRecipient.recipient}
             onChange={(e) => onChangeSplit('recipient', e.target.value, i)}
@@ -168,7 +167,6 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
             <Input
               type="number"
               placeholder="2"
-              size="3"
               suffix="%"
               value={splitRecipient.split}
               onChange={(e) => onChangeSplit('split', e.target.value, i)}
@@ -178,7 +176,6 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
             variant="soft"
             type="button"
             color="red"
-            size="3"
             onClick={() => removeRecipient(i)}
           >
             <TimesOutline className="h-4 w-4 p-0.5" outlined={false} />

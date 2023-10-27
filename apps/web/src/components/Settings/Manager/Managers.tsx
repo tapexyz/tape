@@ -243,7 +243,6 @@ const Managers = () => {
 
             <form onSubmit={handleSubmit(addManager)}>
               <Input
-                size="3"
                 label="Address"
                 placeholder="0x00..."
                 validationError={errors.address?.message}
@@ -253,7 +252,6 @@ const Managers = () => {
                 <Dialog.Close>
                   <Button
                     onClick={() => reset()}
-                    size="3"
                     type="button"
                     variant="soft"
                     color="gray"
@@ -261,7 +259,7 @@ const Managers = () => {
                     Cancel
                   </Button>
                 </Dialog.Close>
-                <Button size="3" disabled={submitting} highContrast>
+                <Button disabled={submitting} highContrast>
                   {submitting && <Loader size="sm" />}
                   Submit
                 </Button>
