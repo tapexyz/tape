@@ -23,11 +23,10 @@
   },
   "devDependencies": {
     "husky": "^8.0.3",
-    "ts-node": "latest",
     "turbo": "1.10.16"
   },
   "engines": {
-    "node": ">=16.18.1 <=19.0.0"
+    "node": ">=18.17.0"
   },
   "packageManager": "yarn@1.22.19"
 }
