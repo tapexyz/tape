@@ -17,7 +17,7 @@ const login = () => {
         </div>
       </Link>
       <div className="relative grid h-full w-full place-items-center md:w-1/2">
-        <div className="container mx-auto max-w-md space-y-3 text-center">
+        <div className="container mx-auto max-w-sm space-y-3 text-center">
           <h2 className="text-2xl font-bold">Welcome back</h2>
           <p>Discover the new era of media sharing with Tape.</p>
           <Connectors />

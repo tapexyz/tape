@@ -185,14 +185,14 @@ const Authenticate = () => {
             <Select.Content highContrast>
               {profilesManaged?.map((profile) => (
                 <Select.Item key={profile.id} value={profile.id}>
-                  <Flex gap="2">
+                  <Flex gap="2" align="center">
                     <Avatar
                       src={getProfilePicture(profile)}
                       fallback={getProfile(profile)?.displayName[0] ?? ';)'}
                       radius="full"
                       size="1"
                     />
-                    <Text>{getProfile(profile)?.slug}</Text>
+                    <Text>{getProfile(profile)?.slugWithPrefix}</Text>
                   </Flex>
                 </Select.Item>
               ))}
