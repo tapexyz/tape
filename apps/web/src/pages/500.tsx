@@ -1,15 +1,13 @@
+import MetaTags from '@components/Common/MetaTags'
 import { Button } from '@radix-ui/themes'
 import { STATIC_ASSETS, TAPE_APP_NAME } from '@tape.xyz/constants'
-import Head from 'next/head'
 import Link from 'next/link'
 import React from 'react'
 
-export default function Custom500() {
+const Custom500 = () => {
   return (
     <>
-      <Head>
-        <title>500 - Server Error</title>
-      </Head>
+      <MetaTags title="500" />
       <div className="flex h-[calc(100vh-4rem)] flex-col items-center justify-center space-y-4 text-center">
         <div className="mb-10">
           <img
@@ -34,3 +32,5 @@ export default function Custom500() {
     </>
   )
 }
+
+export default Custom500
