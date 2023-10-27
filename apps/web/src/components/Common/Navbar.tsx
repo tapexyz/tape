@@ -10,7 +10,7 @@ import React from 'react'
 
 import Footer from './Footer'
 import BellOutline from './Icons/BellOutline'
-import ThreeDotsOutline from './Icons/ThreeDotsOutline'
+import GlobeOutline from './Icons/GlobeOutline'
 import UploadOutline from './Icons/UploadOutline'
 import GlobalSearch from './Search/GlobalSearch'
 import UserMenu from './UserMenu'
@@ -37,13 +37,13 @@ const Navbar = () => {
             {resolvedTheme === 'dark' ? (
               <img
                 src={`${STATIC_ASSETS}/brand/light-logo-text.png`}
-                className="-mb-1 h-6"
+                className="-mb-0.5 h-6"
                 alt="tape"
               />
             ) : (
               <img
                 src={`${STATIC_ASSETS}/brand/dark-logo-text.png`}
-                className="-mb-1 h-6"
+                className="-mb-0.5 h-6"
                 alt="tape"
               />
             )}
@@ -52,10 +52,10 @@ const Navbar = () => {
             <HoverCard.Trigger>
               <IconButton
                 variant="ghost"
-                radius="large"
-                className="opacity-40 hover:opacity-100"
+                radius="full"
+                className="opacity-50 hover:opacity-100"
               >
-                <ThreeDotsOutline className="h-4 w-4" />
+                <GlobeOutline className="h-3 w-3" />
               </IconButton>
             </HoverCard.Trigger>
             <HoverCard.Content className="w-72 bg-white dark:bg-black">
