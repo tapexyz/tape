@@ -86,8 +86,9 @@ const LatestBytes = () => {
                   alt={getProfile(byte.by)?.slug}
                   draggable={false}
                 />
-                <span className="font-medium">
-                  {getProfile(byte.by)?.slug} <Badge id={byte.by.id} />
+                <span className="flex items-center font-medium">
+                  {getProfile(byte.by)?.slug}{' '}
+                  <Badge id={byte.by.id} size="xs" />
                 </span>
               </Link>
               <span className="middot" />
