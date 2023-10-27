@@ -8,7 +8,7 @@ const Custom404 = () => {
   return (
     <>
       <MetaTags title="Not found" />
-      <div className="flex h-[calc(100vh-4rem)] flex-col items-center justify-center space-y-4 text-center">
+      <div className="flex h-[calc(100vh-8rem)] flex-col items-center justify-center space-y-4 text-center">
         <div className="mb-10">
           <img
             src={`${STATIC_ASSETS}/images/illustrations/404.gif`}

@@ -33,6 +33,6 @@ export const getProfile = (
     link: profile.handle
       ? `/u/${profile.handle.localName}`
       : `/profile/${profile.id}`,
-    address: profile.ownedBy.address
+    address: profile.ownedBy?.address
   }
 }
