@@ -15,6 +15,8 @@ type Props = {
 }
 
 const Mentioned: FC<Props> = ({ notification: { publication } }) => {
+  const videoId =
+    publication.__typename === 'Comment' ? publication.root.id : publication.id
   return (
     <span className="flex space-x-4">
       <div className="p-1">
@@ -33,7 +35,7 @@ const Mentioned: FC<Props> = ({ notification: { publication } }) => {
         </span>
         <div className="py-2">mentioned you</div>
         <Link
-          href={`/watch/${publication.id}`}
+          href={`/watch/${videoId}`}
           className="line-clamp-2 font-medium opacity-50"
         >
           {getPublicationData(publication.metadata)?.content}
