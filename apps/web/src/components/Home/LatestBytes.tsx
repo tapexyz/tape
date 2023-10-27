@@ -55,10 +55,10 @@ const LatestBytes = () => {
       {bytes.map((byte) => {
         const thumbnailUrl = getThumbnailUrl(byte.metadata)
         return (
-          <div className="group flex flex-col" key={byte.id}>
+          <div className="flex flex-col" key={byte.id}>
             <Link
               href={`/bytes/${byte.id}`}
-              className="ultrawide:w-[260px] hover:border-brand-500 rounded-large ultrawide:h-[400px] tape-border relative aspect-[9/16] h-[350px] w-[220px] flex-none overflow-hidden transition-all duration-150 ease-in-out"
+              className="ultrawide:w-[260px] rounded-large ultrawide:h-[400px] relative aspect-[9/16] h-[350px] w-[220px] flex-none overflow-hidden"
             >
               <img
                 className="h-full object-cover"
@@ -75,7 +75,7 @@ const LatestBytes = () => {
                 </h1>
               </div>
             </Link>
-            <div className="invisible flex items-center px-3 py-1 transition-all duration-150 ease-in-out group-hover:visible">
+            <div className="flex items-center px-3 py-1">
               <Link
                 href={`/u/${getProfile(byte.by)?.slug}`}
                 className="flex items-center space-x-1"
