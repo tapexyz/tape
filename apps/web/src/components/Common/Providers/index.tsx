@@ -28,6 +28,8 @@ const NO_PADDING_PATHS = [
   '/500'
 ]
 
+const client = apolloClient(authLink)
+
 const Providers = ({ children }: { children: ReactNode }) => {
   const { pathname } = useRouter()
 
@@ -36,7 +38,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
       <LivepeerConfig client={getLivepeerClient()} theme={videoPlayerTheme}>
         <Web3Provider>
           <ThemeProvider>
-            <ApolloProvider client={apolloClient(authLink)}>
+            <ApolloProvider client={client}>
               <QueryClientProvider client={queryClient}>
                 <SubscriptionProvider />
                 <GlobalDialogs />
