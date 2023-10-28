@@ -43,10 +43,9 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
   const { selectedSimpleProfile, setSelectedSimpleProfile } =
     useAuthPersistStore()
 
+  const isMounted = useIsMounted()
   const { resolvedTheme } = useTheme()
-  const { mounted } = useIsMounted()
   const { address, connector } = useAccount()
-
   const { pathname, replace, asPath } = useRouter()
 
   const { disconnect } = useDisconnect({
@@ -148,7 +147,7 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  if (!mounted) {
+  if (!isMounted()) {
     return <FullPageLoader />
   }
 

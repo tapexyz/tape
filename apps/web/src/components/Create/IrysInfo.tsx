@@ -22,23 +22,21 @@ import {
 } from 'wagmi'
 
 const IrysInfo = () => {
+  const isMounted = useIsMounted()
   const { address } = useAccount()
   const { data: signer } = useEthersWalletClient()
-
-  const uploadedVideo = useAppStore((state) => state.uploadedVideo)
-  const getIrysInstance = useAppStore((state) => state.getIrysInstance)
-  const irysData = useAppStore((state) => state.irysData)
-  const setIrysData = useAppStore((state) => state.setIrysData)
-
   const { sendTransactionAsync } = useSendTransaction()
   const { config } = usePrepareSendTransaction()
-
-  const { mounted } = useIsMounted()
   const { data: userBalance } = useBalance({
     address,
     chainId: POLYGON_CHAIN_ID,
     watch: true
   })
+
+  const uploadedVideo = useAppStore((state) => state.uploadedVideo)
+  const getIrysInstance = useAppStore((state) => state.getIrysInstance)
+  const irysData = useAppStore((state) => state.irysData)
+  const setIrysData = useAppStore((state) => state.setIrysData)
 
   const estimatePrice = async (irys: WebIrys) => {
     if (!uploadedVideo.stream) {
@@ -74,14 +72,14 @@ const IrysInfo = () => {
   }
 
   useEffect(() => {
-    if (signer && mounted) {
+    if (signer && isMounted()) {
       initIrys().catch((error) => logger.error('[Error Init Irys]', error))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [signer, mounted])
+  }, [signer, isMounted()])
 
   useEffect(() => {
-    if (irysData.instance && mounted) {
+    if (irysData.instance && isMounted()) {
       fetchBalance(irysData.instance).catch(() => {})
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
