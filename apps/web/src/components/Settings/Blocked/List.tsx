@@ -7,6 +7,7 @@ import { Avatar, Button } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   ERROR_MESSAGE,
+  INFINITE_SCROLL_ROOT_MARGIN,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE
 } from '@tape.xyz/constants'
@@ -20,7 +21,8 @@ import {
 } from '@tape.xyz/generic'
 import type {
   CreateUnblockProfilesBroadcastItemResult,
-  Profile
+  Profile,
+  WhoHaveBlockedRequest
 } from '@tape.xyz/lens'
 import {
   LimitType,
@@ -34,6 +36,7 @@ import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
 import Link from 'next/link'
 import React, { useState } from 'react'
+import { useInView } from 'react-cool-inview'
 import toast from 'react-hot-toast'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
@@ -73,9 +76,26 @@ const List = () => {
     setUnblockingProfileId('')
   }
 
-  const { data, loading, error } = useWhoHaveBlockedQuery({
-    variables: { request: { limit: LimitType.Fifty } },
+  const request: WhoHaveBlockedRequest = { limit: LimitType.Fifty }
+  const { data, loading, error, fetchMore } = useWhoHaveBlockedQuery({
+    variables: { request },
     skip: !selectedSimpleProfile?.id
+  })
+  const pageInfo = data?.whoHaveBlocked?.pageInfo
+
+  const { observe } = useInView({
+    threshold: 0.25,
+    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
+    onEnter: async () => {
+      await fetchMore({
+        variables: {
+          request: {
+            ...request,
+            cursor: pageInfo?.next
+          }
+        }
+      })
+    }
   })
 
   const { signTypedDataAsync } = useSignTypedData({
@@ -149,10 +169,6 @@ const List = () => {
   }
 
   const onClickUnblock = async (profileId: string) => {
-    console.log(
-      '🚀 ~ file: List.tsx:154 ~ onClickUnblock ~ profileId:',
-      profileId
-    )
     try {
       setUnblockingProfileId(profileId)
       await unBlock({
@@ -220,6 +236,11 @@ const List = () => {
           </div>
         </div>
       ))}
+      {pageInfo?.next && (
+        <span ref={observe} className="flex justify-center p-10">
+          <Loader />
+        </span>
+      )}
     </div>
   )
 }

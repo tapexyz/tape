@@ -9,6 +9,8 @@ import {
   AccordionTrigger
 } from '@radix-ui/react-accordion'
 import { Blockquote, Button } from '@radix-ui/themes'
+import { INFINITE_SCROLL_ROOT_MARGIN } from '@tape.xyz/constants'
+import type { ApprovedAuthenticationRequest } from '@tape.xyz/lens'
 import {
   LimitType,
   useApprovedAuthenticationsQuery,
@@ -16,6 +18,7 @@ import {
 } from '@tape.xyz/lens'
 import { Loader } from '@tape.xyz/ui'
 import React, { useState } from 'react'
+import { useInView } from 'react-cool-inview'
 import toast from 'react-hot-toast'
 
 const List = () => {
@@ -34,11 +37,29 @@ const List = () => {
     toast.success('Session revoked successfully!')
   }
 
-  const { data, loading, error } = useApprovedAuthenticationsQuery({
-    variables: { request: { limit: LimitType.Fifty } },
+  const request: ApprovedAuthenticationRequest = { limit: LimitType.Fifty }
+  const { data, loading, error, fetchMore } = useApprovedAuthenticationsQuery({
+    variables: { request },
     skip: !selectedSimpleProfile?.id
   })
   const sessions = data?.approvedAuthentications?.items
+
+  const pageInfo = data?.approvedAuthentications?.pageInfo
+
+  const { observe } = useInView({
+    threshold: 0.25,
+    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
+    onEnter: async () => {
+      await fetchMore({
+        variables: {
+          request: {
+            ...request,
+            cursor: pageInfo?.next
+          }
+        }
+      })
+    }
+  })
 
   const [revokeAuthentication] = useRevokeAuthenticationMutation({
     onCompleted,
@@ -111,6 +132,11 @@ const List = () => {
           </AccordionItem>
         )
       })}
+      {pageInfo?.next && (
+        <span ref={observe} className="flex justify-center p-10">
+          <Loader />
+        </span>
+      )}
     </Accordion>
   )
 }
