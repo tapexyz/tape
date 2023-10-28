@@ -23,6 +23,7 @@ import { toast, Toaster } from 'react-hot-toast'
 import { useAccount, useDisconnect } from 'wagmi'
 
 import FullPageLoader from './FullPageLoader'
+import MetaTags from './MetaTags'
 import MobileBottomNav from './MobileBottomNav'
 import Navbar from './Navbar'
 
@@ -153,6 +154,7 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
 
   return (
     <>
+      <MetaTags />
       <Toaster
         position="bottom-right"
         toastOptions={getToastOptions(resolvedTheme)}
