@@ -35,24 +35,27 @@ const Providers = ({ children }: { children: ReactNode }) => {
 
   return (
     <ErrorBoundary>
-      <LivepeerConfig client={getLivepeerClient()} theme={videoPlayerTheme}>
-        <Web3Provider>
-          <ThemeProvider>
-            <ApolloProvider client={client}>
-              <QueryClientProvider client={queryClient}>
-                <SubscriptionProvider />
-                <GlobalDialogs />
+      <Web3Provider>
+        <ApolloProvider client={client}>
+          <QueryClientProvider client={queryClient}>
+            <ThemeProvider>
+              <SubscriptionProvider />
+              <GlobalDialogs />
+              <LivepeerConfig
+                client={getLivepeerClient()}
+                theme={videoPlayerTheme}
+              >
                 <Layout
                   skipNav={NO_NAV_PATHS.includes(pathname)}
                   skipPadding={NO_PADDING_PATHS.includes(pathname)}
                 >
                   {children}
                 </Layout>
-              </QueryClientProvider>
-            </ApolloProvider>
-          </ThemeProvider>
-        </Web3Provider>
-      </LivepeerConfig>
+              </LivepeerConfig>
+            </ThemeProvider>
+          </QueryClientProvider>
+        </ApolloProvider>
+      </Web3Provider>
     </ErrorBoundary>
   )
 }
