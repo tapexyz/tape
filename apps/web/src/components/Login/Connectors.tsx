@@ -4,6 +4,7 @@ import useAuthPersistStore from '@lib/store/auth'
 import { Button, Callout, Flex } from '@radix-ui/themes'
 import { POLYGON_CHAIN_ID } from '@tape.xyz/constants'
 import React from 'react'
+import type { Connector } from 'wagmi'
 import { useAccount, useConnect } from 'wagmi'
 
 import Authenticate from './Authenticate'
@@ -24,6 +25,12 @@ const Connectors = () => {
     return <Authenticated />
   }
 
+  const onChooseConnector = async (connector: Connector) => {
+    try {
+      await connectAsync({ connector })
+    } catch {}
+  }
+
   return (
     <Flex className="py-10" direction="column" gap="6">
       <Flex direction="column" gap="3">
@@ -32,7 +39,7 @@ const Connectors = () => {
             key={c.id}
             highContrast
             variant="soft"
-            onClick={async () => await connectAsync({ connector: c })}
+            onClick={() => onChooseConnector(c)}
             disabled={c.id === connected?.id || isLoading}
           >
             <Flex justify="between" align="center" className="w-full">

@@ -42,6 +42,11 @@ const cache = new InMemoryCache({
           'request',
           ['limit', 'viewing', 'observer']
         ]),
+        whoActedOnPublication: cursorBasedPagination([
+          'request',
+          ['where', 'on']
+        ]),
+        whoHaveBlocked: cursorBasedPagination(['request', ['limit']]),
         approvedAuthentication: cursorBasedPagination(['request', ['limit']]),
         profileManagers: cursorBasedPagination(['request', ['cursor', 'for']]),
         profilesManaged: cursorBasedPagination(['request', ['cursor', 'for']])
