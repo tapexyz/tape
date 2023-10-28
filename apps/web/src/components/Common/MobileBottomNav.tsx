@@ -1,4 +1,3 @@
-import useAuthPersistStore from '@lib/store/auth'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -12,9 +11,6 @@ import PlusOutline from './Icons/PlusOutline'
 
 const MobileBottomNav = () => {
   const router = useRouter()
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
 
   const isActivePath = (path: string) => router.pathname === path
 
@@ -39,17 +35,15 @@ const MobileBottomNav = () => {
         >
           <BytesOutline className="h-6 w-6" />
         </Link>
-        {selectedSimpleProfile?.id && (
-          <Link
-            href="/create"
-            className={clsx(
-              'flex w-full flex-col items-center justify-center bg-transparent text-sm font-medium text-gray-700 dark:text-gray-100 dark:hover:text-gray-100 md:grid',
-              isActivePath('/create') ? 'opacity-100' : 'opacity-70'
-            )}
-          >
-            <PlusOutline className="h-7 w-7" />
-          </Link>
-        )}
+        <Link
+          href="/create"
+          className={clsx(
+            'flex w-full flex-col items-center justify-center bg-transparent text-sm font-medium text-gray-700 dark:text-gray-100 dark:hover:text-gray-100 md:grid',
+            isActivePath('/create') ? 'opacity-100' : 'opacity-70'
+          )}
+        >
+          <PlusOutline className="h-7 w-7" />
+        </Link>
         <Link
           href="/notifications"
           className={clsx(

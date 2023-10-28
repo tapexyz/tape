@@ -12,7 +12,7 @@ const login = () => {
         id="tape-cursor"
         className="hidden w-1/2 bg-black dark:bg-white md:block"
       >
-        <div className="dark:text-bunker flex h-full flex-col items-center justify-center text-white">
+        <div className="dark:text-bunker flex h-full flex-col items-center justify-center text-white dark:text-black">
           <h1 className="text-4xl font-bold">〖 tape 〗</h1>
         </div>
       </Link>
