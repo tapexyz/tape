@@ -1,12 +1,14 @@
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useProfileStore from '@lib/store/profile'
 import { Avatar, Flex } from '@radix-ui/themes'
+import { INFINITE_SCROLL_ROOT_MARGIN } from '@tape.xyz/constants'
 import { formatNumber, getProfile, getProfilePicture } from '@tape.xyz/generic'
-import type { Profile } from '@tape.xyz/lens'
+import type { Profile, ProfilesManagedRequest } from '@tape.xyz/lens'
 import { useProfilesManagedQuery } from '@tape.xyz/lens'
 import { Loader } from '@tape.xyz/ui'
 import Link from 'next/link'
 import React from 'react'
+import { useInView } from 'react-cool-inview'
 
 const Managed = () => {
   const activeProfile = useProfileStore(
@@ -14,11 +16,28 @@ const Managed = () => {
   ) as Profile
   const address = getProfile(activeProfile).address
 
-  const { data, loading, error } = useProfilesManagedQuery({
-    variables: { request: { for: address } },
+  const request: ProfilesManagedRequest = { for: address }
+  const { data, loading, error, fetchMore } = useProfilesManagedQuery({
+    variables: { request },
     skip: !address
   })
   const profilesManaged = data?.profilesManaged.items as Profile[]
+  const pageInfo = data?.profilesManaged?.pageInfo
+
+  const { observe } = useInView({
+    threshold: 0.25,
+    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
+    onEnter: async () => {
+      await fetchMore({
+        variables: {
+          request: {
+            ...request,
+            cursor: pageInfo?.next
+          }
+        }
+      })
+    }
+  })
 
   return (
     <div>
@@ -51,6 +70,11 @@ const Managed = () => {
             ))}
           </div>
         ) : null}
+        {pageInfo?.next && (
+          <span ref={observe} className="flex justify-center p-10">
+            <Loader />
+          </span>
+        )}
       </div>
     </div>
   )

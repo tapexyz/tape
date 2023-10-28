@@ -12,12 +12,13 @@ import { Button, Dialog, Flex } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   ERROR_MESSAGE,
+  INFINITE_SCROLL_ROOT_MARGIN,
   LENS_MANAGER_ADDRESS,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE
 } from '@tape.xyz/constants'
 import { getSignature, shortenAddress } from '@tape.xyz/generic'
-import type { Profile } from '@tape.xyz/lens'
+import type { Profile, ProfileManagersRequest } from '@tape.xyz/lens'
 import {
   ChangeProfileManagerActionType,
   useBroadcastOnchainMutation,
@@ -27,6 +28,7 @@ import {
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
 import React, { useEffect, useState } from 'react'
+import { useInView } from 'react-cool-inview'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { isAddress } from 'viem'
@@ -99,11 +101,13 @@ const Managers = () => {
   ) as Profile
   const handleWrongNetwork = useHandleWrongNetwork()
 
-  const { data, refetch, error, loading } = useProfileManagersQuery({
-    variables: { request: { for: activeProfile?.id } },
+  const request: ProfileManagersRequest = { for: activeProfile?.id }
+  const { data, refetch, error, loading, fetchMore } = useProfileManagersQuery({
+    variables: { request },
     skip: !activeProfile?.id
   })
   const profileManagers = data?.profileManagers.items
+  const pageInfo = data?.profileManagers?.pageInfo
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.message ?? ERROR_MESSAGE)
@@ -225,6 +229,21 @@ const Managers = () => {
     })
   }
 
+  const { observe } = useInView({
+    threshold: 0.25,
+    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
+    onEnter: async () => {
+      await fetchMore({
+        variables: {
+          request: {
+            ...request,
+            cursor: pageInfo?.next
+          }
+        }
+      })
+    }
+  })
+
   return (
     <div>
       <div className="flex items-center justify-between space-x-2">
@@ -287,6 +306,11 @@ const Managers = () => {
             ))}
           </div>
         ) : null}
+        {pageInfo?.next && (
+          <span ref={observe} className="flex justify-center p-10">
+            <Loader />
+          </span>
+        )}
       </div>
     </div>
   )

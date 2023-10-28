@@ -3,14 +3,17 @@ import SignalWaveGraphic from '@components/UIElements/SignalWaveGraphic'
 import useProfileStore from '@lib/store/profile'
 import { Flex } from '@radix-ui/themes'
 import { TAPE_APP_NAME } from '@tape.xyz/constants'
-import { getIsDispatcherEnabled } from '@tape.xyz/generic'
+import { getIsDispatcherEnabled, getIsProfileOwner } from '@tape.xyz/generic'
 import React from 'react'
+import { useAccount } from 'wagmi'
 
 const DispatcherAlert = () => {
+  const { address } = useAccount()
   const activeProfile = useProfileStore((state) => state.activeProfile)
 
   const isDispatcherEnabled = getIsDispatcherEnabled(activeProfile)
   const usingOldDispatcher = activeProfile?.signless === false
+  const isOwner = activeProfile && getIsProfileOwner(activeProfile, address)
 
   const getDescription = () => {
     if (usingOldDispatcher) {
@@ -19,7 +22,7 @@ const DispatcherAlert = () => {
     return `You can enable dispatcher to interact with ${TAPE_APP_NAME} without signing any of your transactions.`
   }
 
-  if (!activeProfile || isDispatcherEnabled) {
+  if (!activeProfile || isDispatcherEnabled || !isOwner) {
     return null
   }
 
