@@ -39,14 +39,16 @@ const ViewProfile = () => {
     skip: id ? !id : !handle
   })
 
-  if (error) {
-    return <Custom500 />
-  }
-  if (loading) {
+  if (loading || !data) {
     return <ProfilePageShimmer />
   }
+
   if (!data?.profile) {
     return <Custom404 />
+  }
+
+  if (error) {
+    return <Custom500 />
   }
 
   const profile = data?.profile as Profile

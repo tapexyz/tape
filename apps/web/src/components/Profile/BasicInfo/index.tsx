@@ -1,10 +1,8 @@
 import Badge from '@components/Common/Badge'
 import FollowActions from '@components/Common/FollowActions'
 import LinkOutline from '@components/Common/Icons/LinkOutline'
-import LocationOutline from '@components/Common/Icons/LocationOutline'
 import ProfileBanOutline from '@components/Common/Icons/ProfileBanOutline'
 import ThreeDotsOutline from '@components/Common/Icons/ThreeDotsOutline'
-import WalletOutline from '@components/Common/Icons/WalletOutline'
 import WarningOutline from '@components/Common/Icons/WarningOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import Tooltip from '@components/UIElements/Tooltip'
@@ -12,7 +10,6 @@ import useAuthPersistStore from '@lib/store/auth'
 import useNonceStore from '@lib/store/nonce'
 import {
   Badge as BadgeUI,
-  Button,
   Callout,
   DropdownMenu,
   Flex,
@@ -29,12 +26,7 @@ import {
   STATIC_ASSETS,
   TAPE_WEBSITE_URL
 } from '@tape.xyz/constants'
-import {
-  getProfile,
-  getSignature,
-  getValueFromKeyInAttributes,
-  shortenAddress
-} from '@tape.xyz/generic'
+import { getProfile, getSignature } from '@tape.xyz/generic'
 import type {
   CreateBlockProfilesBroadcastItemResult,
   CreateUnblockProfilesBroadcastItemResult,
@@ -49,7 +41,6 @@ import {
 } from '@tape.xyz/lens'
 import { useApolloClient } from '@tape.xyz/lens/apollo'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -81,10 +72,6 @@ const BasicInfo: FC<Props> = ({ profile }) => {
   const misused = MISUSED_CHANNELS.find((c) => c.id === profile?.id)
   const isBlockedByMe = profile.operations.isBlockedByMe.value
 
-  const location = getValueFromKeyInAttributes(
-    profile.metadata?.attributes,
-    'location'
-  )
   const { cache } = useApolloClient()
 
   const updateCache = (value: boolean) => {
@@ -244,7 +231,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
           </Callout.Text>
         </Callout.Root>
       )}
-      <div className="flex flex-1 flex-wrap justify-between py-2 md:space-x-5 md:py-4">
+      <div className="flex flex-1 flex-wrap justify-between py-4 md:gap-5">
         <div className="mr-3 flex flex-col items-start space-y-1.5">
           <Text
             className="flex items-center space-x-1.5 text-lg md:text-2xl"
@@ -253,28 +240,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
             <span>{getProfile(profile)?.displayName}</span>
             <Badge id={profile?.id} size="md" />
           </Text>
-          <Flex align="center" gap="4">
-            {location && (
-              <Link
-                href={`https://www.google.com/maps/search/?api=1&query=${location}`}
-                target="_blank"
-                className="flex items-center"
-              >
-                <Button variant="ghost">
-                  <LocationOutline className="h-4" />
-                  <span>{location}</span>
-                </Button>
-              </Link>
-            )}
-            <Button
-              variant="ghost"
-              onClick={() => copy(profile.ownedBy.address)}
-            >
-              <WalletOutline className="h-4 w-4" />
-              <Tooltip content="Copy Address" placement="top">
-                <span>{shortenAddress(profile.ownedBy.address)}</span>
-              </Tooltip>
-            </Button>
+          <div className="hidden items-center md:flex">
             {hasOnChainId && (
               <div className="flex items-center space-x-2 py-2">
                 {profile.onchainIdentity?.ens?.name && (
@@ -322,7 +288,10 @@ const BasicInfo: FC<Props> = ({ profile }) => {
                 )}
               </div>
             )}
-          </Flex>
+            {profile?.id && !isOwnChannel ? (
+              <Bubbles viewing={profile.id} />
+            ) : null}
+          </div>
         </div>
         <Flex gap="3" align="center">
           <DropdownMenu.Root>
@@ -361,15 +330,14 @@ const BasicInfo: FC<Props> = ({ profile }) => {
           <FollowActions profile={profile} />
         </Flex>
       </div>
-      <Flex justify="between" align="center" gap="3">
+      <div className="flex flex-wrap items-center justify-between gap-3">
         {profile.metadata?.bio && (
           <div className="line-clamp-2">
             <InterweaveContent content={profile.metadata?.bio} />
           </div>
         )}
         <Stats profile={profile} />
-      </Flex>
-      {profile?.id && !isOwnChannel ? <Bubbles viewing={profile.id} /> : null}
+      </div>
     </div>
   )
 }

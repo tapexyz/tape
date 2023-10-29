@@ -58,7 +58,6 @@ export const EVENTS = {
     CLICK_PROFILE_VIDEOS: 'Click Profile Videos',
     CLICK_PROFILE_BYTES: 'Click Profile Bytes',
     CLICK_OTHER_CHANNELS: 'Click Other Profiles',
-    CLICK_PROFILE_COVER_LINKS: 'Click Profile Cover Links',
     UPDATE: 'Update Profile',
     FOLLOW: 'Follow',
     SUPER_FOLLOW: 'Super Follow',

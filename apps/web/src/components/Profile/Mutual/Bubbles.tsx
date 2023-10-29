@@ -7,8 +7,7 @@ import {
   DialogClose,
   Flex,
   IconButton,
-  ScrollArea,
-  Text
+  ScrollArea
 } from '@radix-ui/themes'
 import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
@@ -21,8 +20,6 @@ import MutualFollowers from './MutualFollowers'
 type Props = {
   viewing: string
 }
-
-const FETCH_COUNT = 5
 
 const Bubbles: FC<Props> = ({ viewing }) => {
   const selectedSimpleProfile = useAuthPersistStore(
@@ -53,31 +50,30 @@ const Bubbles: FC<Props> = ({ viewing }) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <Flex mt="3" align="center" gap="1">
-          <button type="button" className="flex cursor-pointer -space-x-1.5">
+        <Flex align="center" gap="1">
+          <span className="middot" />
+          <button
+            type="button"
+            className="ml-2 flex cursor-pointer -space-x-1.5"
+          >
             {mutualFollowers.slice(0, 3)?.map((profile: Profile) => (
               <HoverableProfile profile={profile} key={profile?.id}>
                 <img
-                  className="h-5 w-5 rounded-full border dark:border-gray-700/80"
+                  className="h-7 w-7 flex-none rounded-full border dark:border-gray-700/80"
                   src={getProfilePicture(profile, 'AVATAR')}
                   draggable={false}
                   alt={getProfile(profile)?.slug}
                 />
               </HoverableProfile>
             ))}
-          </button>
-          <div className="flex items-center space-x-1.5">
-            <Text size="2">Followed by</Text>
-            {mutualFollowers.slice(0, 3)?.map((profile: Profile, i) => (
-              <Text key={profile?.id}>
-                {getProfile(profile)?.slug}
-                {mutualFollowers.length === i + 1 ? '' : ','}
-              </Text>
-            ))}
-            {mutualFollowers.length > FETCH_COUNT && (
-              <Text size="2">and few others</Text>
+            {mutualFollowers.length > 4 && (
+              <div className="flex h-7 w-7 flex-none items-center justify-center rounded-full border border-gray-300 bg-gray-200 dark:border-gray-600 dark:bg-gray-800">
+                <span role="img" className="text-sm">
+                  👀
+                </span>
+              </div>
             )}
-          </div>
+          </button>
         </Flex>
       </Dialog.Trigger>
       <Dialog.Content style={{ maxWidth: 450 }}>

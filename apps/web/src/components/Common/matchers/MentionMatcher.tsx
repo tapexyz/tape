@@ -6,9 +6,13 @@ import React from 'react'
 import type { MentionProps } from './utils'
 
 const ProfileLink = ({ ...props }: any) => {
+  const namespace = props.display?.slice(1)
+  const splited = namespace.split('/')
+  const handle = splited[splited.length - 1]
+
   return (
     <Link
-      href={`/u/${props.display?.slice(1)}`}
+      href={`/u/${handle}`}
       className="inline-flex items-center space-x-1 rounded-full bg-gray-200 px-2 text-sm font-medium dark:bg-gray-800"
     >
       <img
@@ -17,7 +21,7 @@ const ProfileLink = ({ ...props }: any) => {
         draggable={false}
         alt={TAPE_APP_NAME}
       />
-      <span className="-mt-[1px]">{props.display.replace('@', '')}</span>
+      <span className="-mt-[1px]">{handle}</span>
     </Link>
   )
 }

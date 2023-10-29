@@ -54,7 +54,7 @@ const MutualFollowers: FC<Props> = ({ viewing }) => {
   if (mutualFollowers?.length === 0) {
     return (
       <div className="pt-5">
-        <NoDataFound text="No subscribers" isCenter />
+        <NoDataFound text="No mutual followers" withImage isCenter />
       </div>
     )
   }
