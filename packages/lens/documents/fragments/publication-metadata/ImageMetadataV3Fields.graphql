@@ -1,14 +1,9 @@
 fragment ImageMetadataV3Fields on ImageMetadataV3 {
   id
   rawURI
-  locale
   tags
   contentWarning
-  hideFromFeed
   appId
-  marketplace {
-    ...MarketplaceMetadataFields
-  }
   attributes {
     ...MetadataAttributeFields
   }
@@ -17,18 +12,6 @@ fragment ImageMetadataV3Fields on ImageMetadataV3 {
   }
   asset {
     ...PublicationMetadataMediaImageFields
-  }
-  asset {
-    image {
-      raw {
-        uri
-      }
-      optimized {
-        uri
-      }
-    }
-    license
-    altTag
   }
   title
   content

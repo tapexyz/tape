@@ -23,6 +23,7 @@ import {
   getProfile,
   getProfilePicture,
   getPublication,
+  getPublicationData,
   getSignature,
   Tower,
   trimify,
@@ -311,8 +312,9 @@ const NewComment: FC<Props> = ({
         locale: getUserLocale(),
         marketplace: {
           name: `${getProfile(activeProfile)
-            ?.slug}'s comment on video ${targetVideo.metadata.marketplace
-            ?.name}`,
+            ?.slug}'s comment on video ${getPublicationData(
+            targetVideo.metadata
+          )?.title}`,
           attributes,
           description: trimify(formData.comment),
           external_url: `${TAPE_WEBSITE_URL}/watch/${video?.id}`

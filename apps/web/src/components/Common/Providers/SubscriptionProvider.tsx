@@ -5,9 +5,9 @@ import useProfileStore from '@lib/store/profile'
 import { LENS_API_URL } from '@tape.xyz/constants'
 import type { Notification, UserSigNonces } from '@tape.xyz/lens'
 import {
-  AuthorizationRecordRevokedDocument,
-  NewNotificationDocument,
-  UserSigNoncesDocument
+  AuthorizationRecordRevokedSubscriptionDocument,
+  NewNotificationSubscriptionDocument,
+  UserSigNoncesSubscriptionDocument
 } from '@tape.xyz/lens'
 import { useEffect } from 'react'
 import useWebSocket from 'react-use-websocket'
@@ -43,7 +43,7 @@ const SubscriptionProvider = () => {
         type: 'start',
         payload: {
           variables: { for: activeProfile?.id },
-          query: NewNotificationDocument
+          query: NewNotificationSubscriptionDocument
         }
       })
       sendJsonMessage({
@@ -51,7 +51,7 @@ const SubscriptionProvider = () => {
         type: 'start',
         payload: {
           variables: { address },
-          query: UserSigNoncesDocument
+          query: UserSigNoncesSubscriptionDocument
         }
       })
       sendJsonMessage({
@@ -59,7 +59,7 @@ const SubscriptionProvider = () => {
         type: 'start',
         payload: {
           variables: { authorizationId: getCurrentSessionId() },
-          query: AuthorizationRecordRevokedDocument
+          query: AuthorizationRecordRevokedSubscriptionDocument
         }
       })
     }

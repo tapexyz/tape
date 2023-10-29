@@ -16,6 +16,4 @@ fragment PublicationMetadataMediaVideoFields on PublicationMetadataMediaVideo {
     }
   }
   duration
-  license
-  altTag
 }
