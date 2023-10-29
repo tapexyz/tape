@@ -231,14 +231,14 @@ const BasicInfo: FC<Props> = ({ profile }) => {
           </Callout.Text>
         </Callout.Root>
       )}
-      <div className="flex flex-1 flex-wrap justify-between py-4 md:gap-5">
+      <div className="flex flex-1 flex-wrap justify-between pb-1 pt-4 md:gap-5">
         <div className="flex flex-col items-start">
           <Text
             className="flex items-center space-x-1.5 text-lg md:text-3xl"
             weight="bold"
           >
             <span>{getProfile(profile)?.displayName}</span>
-            <Badge id={profile?.id} size="md" />
+            <Badge id={profile?.id} size="xl" />
           </Text>
           <div className="hidden items-center md:flex">
             {hasOnChainId && (
