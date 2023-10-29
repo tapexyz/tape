@@ -18,10 +18,6 @@ query Notifications($request: NotificationRequest!) {
           profile {
             ...ProfileFields
           }
-          reactions {
-            reactedAt
-            reaction
-          }
         }
       }
       ... on CommentNotification {
@@ -34,7 +30,6 @@ query Notifications($request: NotificationRequest!) {
         id
         mirrors {
           mirrorId
-          mirroredAt
           profile {
             ...ProfileFields
           }
@@ -63,15 +58,6 @@ query Notifications($request: NotificationRequest!) {
           actedAt
           by {
             ...ProfileFields
-          }
-          action {
-            ... on KnownCollectOpenActionResult {
-              type
-            }
-            ... on UnknownOpenActionResult {
-              address
-              category
-            }
           }
         }
         publication {
