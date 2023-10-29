@@ -1,7 +1,8 @@
 export const getToastOptions = (theme: string | undefined) => ({
   style: {
     background: theme === 'dark' ? '#393a3e' : '',
-    color: theme === 'dark' ? '#fff' : ''
+    color: theme === 'dark' ? '#fff' : '',
+    wordBreak: 'break-word'
   },
   className: '!border-2 !rounded-xl !px-4 !border-brand-500 overflow-hidden',
   success: {
