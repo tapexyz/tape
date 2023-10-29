@@ -130,9 +130,9 @@ const Authenticate = () => {
           })
         }
         if (router.query?.next) {
-          router.push(router.query?.next as string)
+          location.href = router.query?.next as string
         } else {
-          router.push('/')
+          location.href = '/'
         }
       }
       Tower.track(EVENTS.AUTH.SIGN_IN_WITH_LENS)
