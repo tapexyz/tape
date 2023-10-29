@@ -4,11 +4,7 @@ fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
   locale
   tags
   contentWarning
-  hideFromFeed
   appId
-  marketplace {
-    ...MarketplaceMetadataFields
-  }
   attributes {
     ...MetadataAttributeFields
   }

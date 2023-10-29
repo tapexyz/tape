@@ -4,11 +4,7 @@ fragment ImageMetadataV3Fields on ImageMetadataV3 {
   locale
   tags
   contentWarning
-  hideFromFeed
   appId
-  marketplace {
-    ...MarketplaceMetadataFields
-  }
   attributes {
     ...MetadataAttributeFields
   }

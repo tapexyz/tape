@@ -1,5 +1,11 @@
 fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
   artist
+  duration
+  license
+  genre
+  recordLabel
+  credits
+  lyrics
   audio {
     raw {
       uri
@@ -16,10 +22,4 @@ fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
       uri
     }
   }
-  duration
-  license
-  genre
-  recordLabel
-  credits
-  lyrics
 }
