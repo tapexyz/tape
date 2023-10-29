@@ -31,8 +31,8 @@ export const IMAGE_TRANSFORMATIONS = {
 }
 
 // lens
-export const MAINNET_API_URL = 'https://api.lens.dev'
-export const TESTNET_API_URL = 'https://api-v2-mumbai.lens.dev'
+export const MAINNET_API_URL = 'https://api-v2.lens.dev'
+export const TESTNET_API_URL = 'https://api-v2-mumbai-live.lens.dev'
 export const STAGING_API_URL =
   'https://staging-api-social-mumbai.lens.crtlkey.com'
 export const LENS_API_URL = IS_MAINNET ? MAINNET_API_URL : TESTNET_API_URL
