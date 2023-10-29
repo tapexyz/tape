@@ -1,6 +1,6 @@
 import { CustomFiltersTypes } from '@tape.xyz/lens'
 
-export const TAPE_APP_NAME = 'Tape'
+export const TAPE_APP_NAME = 'Live'
 export const TAPE_APP_DESCRIPTION = 'Talk, Amplify, Post, Explore'
 
 export const LENS_ENV = process.env.NEXT_PUBLIC_ENVIRONMENT ?? 'mainnet'
@@ -116,7 +116,7 @@ export const REQUESTING_SIGNATURE_MESSAGE = 'Requesting signature...'
 export const ERROR_MESSAGE = 'Oops, something went wrong!'
 
 // App Ids
-export const TAPE_APP_ID = 'tape'
+export const TAPE_APP_ID = 'Live'
 export const LENSTUBE_BYTES_APP_ID = 'lenstube-bytes'
 export const ALLOWED_APP_IDS = [
   'lenster',
@@ -163,7 +163,7 @@ export const HANDLE_SUFFIX = IS_MAINNET ? '.lens' : '.test'
 
 // other apps
 export const HEY_WEBSITE_URL = IS_MAINNET
-  ? 'https://hey.xyz'
+  ? 'https://goodgainslive.vercel.com'
   : 'https://testnet.hey.xyz'
 
 // analytics

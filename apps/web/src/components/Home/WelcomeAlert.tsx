@@ -15,12 +15,12 @@ const WelcomeAlert = () => {
         />
         <div className="relative z-[1] flex flex-col items-start space-y-4 p-6 text-left text-white md:px-8 md:py-10">
           <div className="text-2xl">
-            Welcome to <b>Tape</b>
+            Welcome to <b>GoodGains Live</b>
           </div>
           <div className="flex w-full flex-1 flex-wrap items-center justify-between gap-y-3 dark:text-gray-100">
             <p className="md:text-md max-w-2xl text-sm lg:text-lg">
               <Trans>
-                Discover a new era of content sharing on Lens with Tape. A
+                Discover a new era of content sharing on Lens with Live. A
                 decentralized, user-centric approach to online media.
               </Trans>
             </p>
