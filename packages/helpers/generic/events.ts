@@ -89,7 +89,6 @@ export const EVENTS = {
   OPEN_COLLECT: 'Open Collect',
   SEARCH: 'Search',
   SYSTEM: {
-    SELECT_LOCALE: 'Select locale',
     TOGGLE_THEME: 'Toggle Theme',
     MORE_MENU: {
       OPEN: 'Open More Menu',

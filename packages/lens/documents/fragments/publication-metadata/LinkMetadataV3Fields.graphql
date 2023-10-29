@@ -1,7 +1,6 @@
 fragment LinkMetadataV3Fields on LinkMetadataV3 {
   id
   rawURI
-  locale
   tags
   contentWarning
   appId

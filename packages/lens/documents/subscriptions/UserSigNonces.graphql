@@ -1,4 +1,4 @@
-subscription UserSigNonces($address: EvmAddress!) {
+subscription UserSigNoncesSubscription($address: EvmAddress!) {
   userSigNonces(address: $address) {
     lensHubOnchainSigNonce
     lensTokenHandleRegistryOnchainSigNonce

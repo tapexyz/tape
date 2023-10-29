@@ -1,7 +1,6 @@
 fragment MintMetadataV3Fields on MintMetadataV3 {
   id
   rawURI
-  locale
   tags
   contentWarning
   appId

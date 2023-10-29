@@ -1,7 +1,6 @@
 fragment AudioMetadataV3Fields on AudioMetadataV3 {
   id
   rawURI
-  locale
   tags
   contentWarning
   appId

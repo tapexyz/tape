@@ -1,5 +1,4 @@
 fragment PublicationMetadataMediaImageFields on PublicationMetadataMediaImage {
-  license
   image {
     raw {
       uri
@@ -8,5 +7,4 @@ fragment PublicationMetadataMediaImageFields on PublicationMetadataMediaImage {
       uri
     }
   }
-  altTag
 }
