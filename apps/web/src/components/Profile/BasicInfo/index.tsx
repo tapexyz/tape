@@ -289,7 +289,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
               </div>
             )}
             {profile?.id && !isOwnChannel ? (
-              <Bubbles viewing={profile.id} />
+              <Bubbles viewing={profile.id} showSeparator={hasOnChainId} />
             ) : null}
           </div>
         </div>

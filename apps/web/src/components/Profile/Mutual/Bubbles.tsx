@@ -19,9 +19,10 @@ import MutualFollowers from './MutualFollowers'
 
 type Props = {
   viewing: string
+  showSeparator?: boolean
 }
 
-const Bubbles: FC<Props> = ({ viewing }) => {
+const Bubbles: FC<Props> = ({ viewing, showSeparator }) => {
   const selectedSimpleProfile = useAuthPersistStore(
     (state) => state.selectedSimpleProfile
   )
@@ -50,31 +51,30 @@ const Bubbles: FC<Props> = ({ viewing }) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <Flex align="center" gap="1">
-          <span className="middot" />
-          <button
-            type="button"
-            className="ml-2 flex cursor-pointer -space-x-1.5"
-          >
-            {mutualFollowers.slice(0, 3)?.map((profile: Profile) => (
-              <HoverableProfile profile={profile} key={profile?.id}>
-                <img
-                  className="h-7 w-7 flex-none rounded-full border dark:border-gray-700/80"
-                  src={getProfilePicture(profile, 'AVATAR')}
-                  draggable={false}
-                  alt={getProfile(profile)?.slug}
-                />
-              </HoverableProfile>
-            ))}
-            {mutualFollowers.length > 4 && (
-              <div className="flex h-7 w-7 flex-none items-center justify-center rounded-full border border-gray-300 bg-gray-200 dark:border-gray-600 dark:bg-gray-800">
-                <span role="img" className="text-sm">
-                  👀
-                </span>
-              </div>
-            )}
-          </button>
-        </Flex>
+        <>
+          {showSeparator && <span className="middot px-1" />}
+          <Flex align="center" gap="1">
+            <button type="button" className="flex cursor-pointer -space-x-1.5">
+              {mutualFollowers.slice(0, 3)?.map((profile: Profile) => (
+                <HoverableProfile profile={profile} key={profile?.id}>
+                  <img
+                    className="h-7 w-7 flex-none rounded-full border bg-white dark:border-gray-700/80"
+                    src={getProfilePicture(profile, 'AVATAR')}
+                    draggable={false}
+                    alt={getProfile(profile)?.slug}
+                  />
+                </HoverableProfile>
+              ))}
+              {mutualFollowers.length > 4 && (
+                <div className="flex h-7 w-7 flex-none items-center justify-center rounded-full border border-gray-300 bg-gray-200 dark:border-gray-600 dark:bg-gray-800">
+                  <span role="img" className="text-sm">
+                    👀
+                  </span>
+                </div>
+              )}
+            </button>
+          </Flex>
+        </>
       </Dialog.Trigger>
       <Dialog.Content style={{ maxWidth: 450 }}>
         <Flex gap="3" justify="between" pb="2">
