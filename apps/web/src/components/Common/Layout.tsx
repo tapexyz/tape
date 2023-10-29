@@ -156,6 +156,7 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
       <MetaTags />
       <Toaster
         position="bottom-right"
+        containerStyle={{ wordBreak: 'break-word' }}
         toastOptions={getToastOptions(resolvedTheme)}
       />
       <MobileBottomNav />
