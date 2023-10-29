@@ -13,7 +13,7 @@ const ThumbnailsShimmer = () => {
           key={`${e}_${i}`}
           className="w-full animate-pulse rounded-lg"
         >
-          <div className="h-full rounded-lg bg-gray-300 dark:bg-gray-700" />
+          <div className="h-full rounded-lg bg-gray-200 dark:bg-gray-800" />
         </AspectRatio>
       ))}
     </>
