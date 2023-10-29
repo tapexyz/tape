@@ -5,7 +5,6 @@ export const TAPE_APP_DESCRIPTION = 'Talk, Amplify, Post, Explore'
 
 export const LENS_ENV = process.env.NEXT_PUBLIC_ENVIRONMENT ?? 'mainnet'
 export const IS_MAINNET = LENS_ENV === 'mainnet'
-export const IS_SANDBOX = LENS_ENV === 'sandbox'
 
 export const IS_DEVELOPMENT = process.env.NODE_ENV === 'development'
 export const IS_PRODUCTION = !IS_DEVELOPMENT
@@ -33,8 +32,6 @@ export const IMAGE_TRANSFORMATIONS = {
 // lens
 export const MAINNET_API_URL = 'https://api-v2.lens.dev'
 export const TESTNET_API_URL = 'https://api-v2-mumbai.lens.dev'
-export const STAGING_API_URL =
-  'https://staging-api-social-mumbai.lens.crtlkey.com'
 export const LENS_API_URL = IS_MAINNET ? MAINNET_API_URL : TESTNET_API_URL
 
 // api urls
