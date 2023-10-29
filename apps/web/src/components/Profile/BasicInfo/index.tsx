@@ -232,9 +232,9 @@ const BasicInfo: FC<Props> = ({ profile }) => {
         </Callout.Root>
       )}
       <div className="flex flex-1 flex-wrap justify-between py-4 md:gap-5">
-        <div className="mr-3 flex flex-col items-start space-y-1.5">
+        <div className="flex flex-col items-start">
           <Text
-            className="flex items-center space-x-1.5 text-lg md:text-2xl"
+            className="flex items-center space-x-1.5 text-lg md:text-3xl"
             weight="bold"
           >
             <span>{getProfile(profile)?.displayName}</span>

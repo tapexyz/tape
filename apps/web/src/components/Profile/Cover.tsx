@@ -1,4 +1,4 @@
-import { getRelativeTime } from '@lib/formatTime'
+import { getDateString, getRelativeTime } from '@lib/formatTime'
 import { Badge as BadgeUI, Flex } from '@radix-ui/themes'
 import {
   getProfile,
@@ -42,12 +42,15 @@ const Cover: FC<Props> = ({ profile }) => {
             {profile.metadata && <CoverLinks metadata={profile.metadata} />}
 
             <Flex gap="1">
-              <BadgeUI className="!bg-white !text-black">
+              <BadgeUI title={profile.id} className="!bg-white !text-black">
                 <span className="bg-white text-black">
                   # {parseInt(profile.id)}
                 </span>
               </BadgeUI>
-              <BadgeUI className="!bg-white !text-black">
+              <BadgeUI
+                title={getDateString(profile.createdAt)}
+                className="!bg-white !text-black"
+              >
                 Joined {getRelativeTime(profile.createdAt)}
               </BadgeUI>
             </Flex>
