@@ -2,14 +2,13 @@ import { Input } from '@components/UIElements/Input'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useAppStore from '@lib/store'
 import useAuthPersistStore from '@lib/store/auth'
-import { Button, Flex, Select } from '@radix-ui/themes'
+import { Button, Flex, Select, Text } from '@radix-ui/themes'
 import { WMATIC_TOKEN_ADDRESS } from '@tape.xyz/constants'
 import type { Erc20 } from '@tape.xyz/lens'
 import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
 import type { Dispatch, FC } from 'react'
-import React, { useRef } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
-import { toast } from 'react-hot-toast'
 import { isAddress } from 'viem'
 import type { z } from 'zod'
 import { number, object, string } from 'zod'
@@ -37,6 +36,7 @@ const FeeCollectForm: FC<Props> = ({
   enabledCurrencies
 }) => {
   const submitContainerRef = useRef<HTMLDivElement>(null)
+  const [validationError, setValidationError] = useState('')
 
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
   const selectedSimpleProfile = useAuthPersistStore(
@@ -60,6 +60,10 @@ const FeeCollectForm: FC<Props> = ({
     }
   })
 
+  useEffect(() => {
+    setValidationError('')
+  }, [uploadedVideo.collectModule.multiRecipients])
+
   const onSubmit = (data: FormData) => {
     setCollectType({
       amount: {
@@ -82,7 +86,7 @@ const FeeCollectForm: FC<Props> = ({
         })
       }
       if (splitRecipients.length > 5) {
-        return toast.error(`Only 5 splits supported`)
+        return setValidationError('Only 5 splits supported')
       }
       const splitsSum = splitRecipients.reduce(
         (total, obj) => obj.split + total,
@@ -92,17 +96,17 @@ const FeeCollectForm: FC<Props> = ({
         (splitRecipient) => !isAddress(splitRecipient.recipient)
       )
       if (invalidSplitAddresses.length) {
-        return toast.error(`Invalid split recipient address`)
+        return setValidationError('Invalid split recipient address')
       }
       const uniqueValues = new Set(splitRecipients.map((v) => v.recipient))
       if (uniqueValues.size < splitRecipients.length) {
-        return toast.error(`Split addresses should be unique`)
+        return setValidationError('Split addresses should be unique')
       }
       if (
         uploadedVideo.collectModule.isMultiRecipientFeeCollect &&
         splitsSum !== 100
       ) {
-        return toast.error(`Sum of all splits should be 100%`)
+        return setValidationError('Sum of all splits should be 100%')
       }
       data.amount = String(amount)
     }
@@ -163,7 +167,10 @@ const FeeCollectForm: FC<Props> = ({
           </div>
         </>
       ) : null}
-      <div className="flex justify-end pt-4" ref={submitContainerRef}>
+      <div className="flex justify-between pt-4" ref={submitContainerRef}>
+        <Text color="red" weight="medium">
+          {validationError}
+        </Text>
         <Button
           highContrast
           type="button"
