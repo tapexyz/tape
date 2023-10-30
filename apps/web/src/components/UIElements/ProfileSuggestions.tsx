@@ -7,23 +7,23 @@ import React from 'react'
 
 type Props = {
   className?: string
-  picture: string
+  pfp: string
   handle: string
   id: string
-  subscribersCount: number
+  followers: number
 }
 
 const ProfileSuggestions: FC<Props> = ({
   className,
-  picture,
+  pfp,
   handle,
   id,
-  subscribersCount
+  followers
 }) => {
   return (
     <div className={clsx('flex space-x-2 truncate px-1.5 py-1.5', className)}>
       <Avatar
-        src={picture}
+        src={pfp}
         size="2"
         radius="full"
         className="mt-1 h-6 w-6 rounded-full"
@@ -36,7 +36,7 @@ const ProfileSuggestions: FC<Props> = ({
           <Badge id={id} size="xs" />
         </div>
         <span className="text-xs opacity-80">
-          {formatNumber(subscribersCount)} followers
+          {formatNumber(followers)} followers
         </span>
       </div>
     </div>

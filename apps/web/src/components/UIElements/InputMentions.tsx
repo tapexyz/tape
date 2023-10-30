@@ -102,12 +102,12 @@ const InputMentions: FC<Props> = ({
             ) => (
               <ProfileSuggestions
                 id={suggestion.profileId as string}
-                picture={suggestion.picture as string}
+                pfp={suggestion.picture as string}
                 handle={suggestion.id as string}
+                followers={suggestion.followers as number}
                 className={clsx({
                   'bg-brand-50 rounded dark:bg-black': focused
                 })}
-                subscribersCount={suggestion.followers as number}
               />
             )}
             data={fetchSuggestions}
