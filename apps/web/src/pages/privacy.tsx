@@ -11,7 +11,7 @@ const privacy = () => {
             Privacy policy
           </h1>
           <p className="mt-4 text-base leading-7 text-slate-600 dark:text-slate-400">
-            Last updated on May 09, 2023
+            Last updated on Oct 31, 2023
           </p>
         </div>
       </div>
@@ -92,9 +92,25 @@ const privacy = () => {
           </p>
           <h2>5. Analytics</h2>
           <p>
-            We use in-house tool to collect various events from user actions to
-            analyse and make decisions for Site improvements.
+            We use in-house self hosted instance of Metabase and Clickhouse for
+            event collection and analysis for Site improvements.
           </p>
+          <p>
+            We collect events related to user actions, as well as user profile
+            IDs. This helps us to understand:
+          </p>
+          <li>Which areas of the site may need improvements.</li>
+          <li>Which features users engage with most frequently.</li>
+          <p>
+            The main goal of collecting this data is to enhance the
+            functionality and user experience. By understanding how users engage
+            with site, we can make more tailored decisions about where to focus
+            our improvement efforts.
+          </p>
+          <li>Your data never leaves our controlled environment.</li>
+          <li>
+            We do not share this data with third-party analytics providers.
+          </li>
           <h2>6. Your Rights and Choices</h2>
           <div>
             <li>
