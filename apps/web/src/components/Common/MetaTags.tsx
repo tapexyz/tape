@@ -21,7 +21,7 @@ const MetaTags: FC<Props> = (props) => {
 
   const meta = {
     title: title ? `${title} • ${TAPE_APP_NAME}` : TAPE_APP_NAME,
-    description: `${TAPE_APP_DESCRIPTION} • 📼`,
+    description: TAPE_APP_DESCRIPTION,
     image: OG_IMAGE,
     type: 'website'
   }
