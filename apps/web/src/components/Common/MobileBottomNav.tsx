@@ -25,6 +25,7 @@ const MobileBottomNav = () => {
           )}
         >
           <HomeOutline className="h-6 w-6" />
+          <span className="sr-only">Home</span>
         </Link>
         <Link
           href="/bytes"
@@ -34,6 +35,7 @@ const MobileBottomNav = () => {
           )}
         >
           <BytesOutline className="h-6 w-6" />
+          <span className="sr-only">Bytes</span>
         </Link>
         <Link
           href="/create"
@@ -43,6 +45,7 @@ const MobileBottomNav = () => {
           )}
         >
           <PlusOutline className="h-7 w-7" />
+          <span className="sr-only">Create</span>
         </Link>
         <Link
           href="/notifications"
@@ -52,6 +55,7 @@ const MobileBottomNav = () => {
           )}
         >
           <BellOutline className="h-6 w-6" />
+          <span className="sr-only">Explore</span>
         </Link>
         <Link
           href="/feed"
@@ -61,6 +65,7 @@ const MobileBottomNav = () => {
           )}
         >
           <FeedOutline className="h-6 w-6" />
+          <span className="sr-only">Feed</span>
         </Link>
       </div>
     </div>
