@@ -11,7 +11,7 @@ const terms = () => {
             Terms and Conditions
           </h1>
           <p className="mt-4 text-base leading-7 text-slate-600 dark:text-slate-400">
-            Last updated on May 09, 2023
+            Last updated on Oct 31, 2023
           </p>
         </div>
       </div>
@@ -59,7 +59,7 @@ const terms = () => {
           </p>
           <h2>3. Services</h2>
           <p>
-            User Lens profile is referred to as the “Channel” in the “Site”.
+            User Lens profile is referred to as the “Profile” in the “Site”.
           </p>
           <p>
             The Site allows you to interact with the Lens Protocol, including
@@ -67,21 +67,21 @@ const terms = () => {
           </p>
           <p>
             We reserve the right - but are not obligated to - limit the
-            provision of Channels or Services to any person, geographic region
+            provision of Profiles or Services to any person, geographic region
             or jurisdiction. We may exercise this right on a case-by-case basis
             in our sole discretion.
           </p>
-          <li>Your Channel your responsibility.</li>
+          <li>Your Profile your responsibility.</li>
           <li>
             You are responsible for securing the wallet that contains your
-            channel.
+            profile.
           </li>
           <li>
             You bear sole responsibility for evaluating the Site and features
             before using them.
           </li>
           <li>
-            You are responsible for content been published on the channel.
+            You are responsible for content been published on the profile.
           </li>
           <p>
             It is important to understand that neither we nor any affiliated
@@ -151,36 +151,36 @@ const terms = () => {
           <p>
             User Content may embody, comprise or otherwise be associated with
             certain characters, artwork, or other work of authorship ("Artwork")
-            made available by Channels (who may represent artists, musicians and
+            made available by Profiles (who may represent artists, musicians and
             other creators) for collecting in the form of non-fungible tokens (a
             “Token" or “Tokens”).
           </p>
           <p>
             All transactions related to the Service, including making a Token
             available for collecting are effected and recorded solely through
-            the interactions of the Channel with the blockchain based networks,
+            the interactions of the Profile with the blockchain based networks,
             which are not under the control of or affiliated with the Service.
             The Service does not hold, and cannot purchase, sell, or trade any
             tokens, nor can the Service set, change or enforce any conditions
-            for collecting set by the Channel.
+            for collecting set by the Profile.
           </p>
           <p>
             Upon you collecting a Token, although the Token is owned by you, the
             Artwork embodied thereby is licensed and not transferred or sold to
             you. Ownership means that the ownership of the Token is recoded on
             blockchain-based networks. Subject to your lawful acquisition, and
-            continued ownership of a Token, the user controlling the Channel
+            continued ownership of a Token, the user controlling the Profile
             grants you a worldwide, non-exclusive, revocable, royalty-free
             license, with no right to sublicense, on as-is basis, to display the
             Artwork embodied by such Token(s), unless a more expansive license
             is granted to you in accordance with the Token metadata. For the
             avoidance of doubt, to be granted the license above, you must
-            independently verify the right of the user controlling the Channel
+            independently verify the right of the user controlling the Profile
             to make the Token available for collecting (including, without
             limitation, copyright).
           </p>
           <p>
-            All Tokens are provided by the Channels on an as-is basis without
+            All Tokens are provided by the Profiles on an as-is basis without
             any warranty or representation of any kind, express or implied. The
             Tokens may contain errors and it is the responsibility of the
             acquiring user to independently verify the accuracy, completeness
@@ -303,7 +303,7 @@ const terms = () => {
           <h2>6. Accuracy, Completeness and Timeliness of information</h2>
           <p>
             We are not responsible for any mistakes or inaccuracies on contents
-            published on this Site. Channel's are fully responsible for what
+            published on this Site. Profile's are fully responsible for what
             they are doing in the Site.
           </p>
           <p>
