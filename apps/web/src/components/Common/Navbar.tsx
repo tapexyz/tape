@@ -37,6 +37,7 @@ const Navbar = () => {
                 src={`${STATIC_ASSETS}/brand/light-logo-text.png`}
                 className="-mb-0.5 h-6"
                 alt="tape"
+                height={30}
               />
             ) : (
               <img

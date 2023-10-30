@@ -44,6 +44,8 @@ const ThumbnailImage: FC<Props> = ({ video }) => {
       style={{
         backgroundColor: backgroundColor && `${backgroundColor}95`
       }}
+      width={1000}
+      height={600}
       alt="thumbnail"
       draggable={false}
       onError={({ currentTarget }) => {

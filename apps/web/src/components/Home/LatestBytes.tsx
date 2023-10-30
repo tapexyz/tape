@@ -64,6 +64,8 @@ const LatestBytes = () => {
                 className="h-full object-cover"
                 src={thumbnailUrl ? imageCdn(thumbnailUrl, 'THUMBNAIL_V') : ''}
                 alt="thumbnail"
+                height={1000}
+                width={600}
                 draggable={false}
                 onError={({ currentTarget }) => {
                   currentTarget.src = FALLBACK_COVER_URL
@@ -83,6 +85,8 @@ const LatestBytes = () => {
                 <img
                   className="h-4 w-4 rounded-full bg-gray-200 dark:bg-gray-800"
                   src={getProfilePicture(byte.by, 'AVATAR')}
+                  height={50}
+                  width={50}
                   alt={`${getProfile(byte.by)?.slug}'s PFP`}
                   draggable={false}
                 />
