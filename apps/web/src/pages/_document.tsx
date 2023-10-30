@@ -1,4 +1,4 @@
-import { STATIC_ASSETS } from '@tape.xyz/constants'
+import { STATIC_ASSETS, TAPE_APP_NAME } from '@tape.xyz/constants'
 import Document, { Head, Html, Main, NextScript } from 'next/document'
 import React from 'react'
 
@@ -48,7 +48,7 @@ class AppDocument extends Document {
             name="apple-mobile-web-app-status-bar-style"
             content="default"
           />
-          <meta name="apple-mobile-web-app-title" content="Tape" />
+          <meta name="apple-mobile-web-app-title" content={TAPE_APP_NAME} />
         </Head>
         <body>
           <Main />
