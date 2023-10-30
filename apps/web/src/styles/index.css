@@ -10,6 +10,10 @@ body {
   @apply border border-[#00000010] dark:border-[#ffffff20];
 }
 
+.text-dust {
+  @apply text-[#666666] dark:text-[#888888];
+}
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }

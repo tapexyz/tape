@@ -17,8 +17,6 @@ module.exports = {
       colors: {
         // card bg in dark
         cod: '#0a0a0a',
-        // secondary color
-        dust: '#999999',
         // hover states
         smoke: '#1a1a1a',
         gallery: '#eaeaea',
