@@ -83,7 +83,7 @@ const LatestBytes = () => {
                 <img
                   className="h-4 w-4 rounded-full bg-gray-200 dark:bg-gray-800"
                   src={getProfilePicture(byte.by, 'AVATAR')}
-                  alt={getProfile(byte.by)?.slug}
+                  alt={`${getProfile(byte.by)?.slug}'s PFP`}
                   draggable={false}
                 />
                 <span className="flex items-center space-x-1 font-medium">
