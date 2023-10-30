@@ -89,7 +89,7 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
 
   const validateAuthentication = () => {
     const { accessToken } = hydrateAuthTokens()
-    if (!accessToken && currentSessionProfileId) {
+    if (!accessToken) {
       logout()
     }
   }
@@ -129,7 +129,6 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
         containerStyle={{ wordBreak: 'break-word' }}
         toastOptions={getToastOptions(resolvedTheme)}
       />
-      <MobileBottomNav />
       {!skipNav && <Navbar />}
       <div
         className={clsx(
@@ -140,6 +139,7 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
       >
         {children}
       </div>
+      <MobileBottomNav />
     </>
   )
 }
