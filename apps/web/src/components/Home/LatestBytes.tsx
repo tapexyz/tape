@@ -58,7 +58,7 @@ const LatestBytes = () => {
           <div className="flex flex-col" key={byte.id}>
             <Link
               href={`/bytes/${byte.id}`}
-              className="ultrawide:w-[260px] rounded-large ultrawide:h-[400px] relative aspect-[9/16] h-[350px] w-[220px] flex-none overflow-hidden hover:shadow-xl"
+              className="ultrawide:w-[260px] rounded-large ultrawide:h-[400px] relative aspect-[9/16] h-[350px] w-[220px] flex-none overflow-hidden"
             >
               <img
                 className="h-full object-cover"
