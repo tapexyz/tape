@@ -35,7 +35,7 @@ const MetaTags: FC<Props> = (props) => {
       <meta content={meta.description} name="description" />
       <meta
         name="viewport"
-        content="width=device-width, initial-scale=1, maximum-scale=5"
+        content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
       />
       <link
         rel="canonical"
