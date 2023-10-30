@@ -179,6 +179,7 @@ const Authenticate = () => {
                       fallback={getProfile(profile)?.displayName[0] ?? ';)'}
                       radius="full"
                       size="1"
+                      alt={getProfile(profile)?.displayName}
                     />
                     <Text>{getProfile(profile)?.slugWithPrefix}</Text>
                   </Flex>

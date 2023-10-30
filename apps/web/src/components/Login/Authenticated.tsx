@@ -27,7 +27,7 @@ const Authenticated = () => {
               size="5"
               src={getProfilePicture(activeProfile)}
               fallback={getProfile(activeProfile)?.slug[0] ?? ';)'}
-              alt={getProfile(activeProfile)?.slug}
+              alt={getProfile(activeProfile)?.displayName}
             />
             <div className="text-left">
               <Text as="p" weight="bold" size="6">

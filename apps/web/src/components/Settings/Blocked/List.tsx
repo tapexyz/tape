@@ -204,6 +204,7 @@ const List = () => {
                 fallback={getProfile(profile)?.displayName[0] ?? ';)'}
                 radius="medium"
                 src={getProfilePicture(profile, 'AVATAR')}
+                alt={getProfile(profile)?.displayName}
               />
             </div>
             <div className="absolute bottom-2 right-2 flex-none">

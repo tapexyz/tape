@@ -2,6 +2,7 @@ import { getShortHandTime } from '@lib/formatTime'
 import { AspectRatio, Avatar, Badge, Flex, Text } from '@radix-ui/themes'
 import {
   formatNumber,
+  getProfile,
   getProfilePicture,
   getPublicationData,
   getRandomProfilePicture
@@ -46,6 +47,7 @@ const StreamCard: FC<Props> = ({ stream }) => {
             size="1"
             radius="full"
             fallback={getRandomProfilePicture(stream.by.ownedBy.address)}
+            alt={getProfile(stream.by).displayName}
           />
 
           <Flex direction="column" justify="between" width="100%">

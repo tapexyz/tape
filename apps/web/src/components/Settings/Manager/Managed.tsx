@@ -60,6 +60,7 @@ const Managed = () => {
                     size="1"
                     src={getProfilePicture(profile)}
                     fallback={getProfile(profile)?.displayName[0] ?? ';)'}
+                    alt={getProfile(profile)?.displayName}
                   />
                   <Link href={getProfile(profile).link}>
                     {getProfile(profile).displayName} ({profile.id})

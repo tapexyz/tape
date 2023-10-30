@@ -64,6 +64,7 @@ const UserMenu = () => {
             radius="full"
             src={getProfilePicture(activeProfile)}
             fallback={getProfile(activeProfile)?.slug[0] ?? ';)'}
+            alt={getProfile(activeProfile)?.displayName}
           />
         </div>
       </DropdownMenu.Trigger>
@@ -76,6 +77,7 @@ const UserMenu = () => {
                 radius="full"
                 src={getProfilePicture(activeProfile)}
                 fallback={getProfile(activeProfile)?.slug[0] ?? ';)'}
+                alt={getProfile(activeProfile)?.displayName}
               />
               <Text as="p" weight="bold" className="line-clamp-1">
                 {getProfile(activeProfile)?.slug}
@@ -140,6 +142,7 @@ const UserMenu = () => {
                               fallback={
                                 getProfile(profile)?.displayName[0] ?? ';)'
                               }
+                              alt={getProfile(activeProfile)?.displayName}
                             />
                             <Text as="p" className="truncate whitespace-nowrap">
                               {getProfile(profile)?.slug}

@@ -29,6 +29,7 @@ const ProfileSuggestion: FC<Props> = ({
         className="mt-1 h-6 w-6 rounded-full"
         fallback={handle[0]}
         draggable={false}
+        alt={handle}
       />
       <div className="overflow-hidden">
         <div className="flex items-center space-x-0.5">

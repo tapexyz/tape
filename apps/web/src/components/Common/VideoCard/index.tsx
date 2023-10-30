@@ -46,6 +46,7 @@ const VideoCard: FC<Props> = ({ video }) => {
             size="2"
             radius="full"
             fallback={getProfile(video.by)?.displayName[0] ?? ';)'}
+            alt={getProfile(video.by)?.displayName}
           />
 
           <Flex direction="column" justify="between" width="100%">
