@@ -114,7 +114,7 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
   }, [])
 
   if (!isMounted()) {
-    return null
+    return <MetaTags />
   }
 
   if (loading) {
