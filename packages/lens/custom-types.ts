@@ -107,6 +107,11 @@ export enum CustomNotificationsFilterEnum {
   ALL_NOTIFICATIONS = 'AllNotifications'
 }
 
+export enum LocalStore {
+  TAPE_AUTH_STORE = 'tape.auth.store',
+  TAPE_STORE = 'tape.store'
+}
+
 // MOBILE
 
 export enum TimelineFeedType {

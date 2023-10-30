@@ -3,6 +3,7 @@ import {
   IS_PRODUCTION,
   WORKER_TOWER_URL
 } from '@tape.xyz/constants'
+import { LocalStore } from '@tape.xyz/lens/custom-types'
 
 import { parseJwt } from './functions/parseJwt'
 
@@ -16,7 +17,7 @@ export const Tower = {
   track: (name: string, properties?: Record<string, unknown>) => {
     if (IS_MAINNET && IS_PRODUCTION) {
       const tokenState = JSON.parse(
-        localStorage.getItem('tape.auth.store') ||
+        localStorage.getItem(LocalStore.TAPE_AUTH_STORE) ||
           JSON.stringify({ state: { accessToken: '' } })
       )
       const actorId = parseJwt(tokenState.state.accessToken)?.id

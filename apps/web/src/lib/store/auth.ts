@@ -1,3 +1,4 @@
+import { LocalStore } from '@tape.xyz/lens/custom-types'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
@@ -22,8 +23,8 @@ export const useAuthPersistStore = create(
       signIn: ({ accessToken, refreshToken }) =>
         set({ accessToken, refreshToken }),
       signOut: () => {
-        localStorage.removeItem('tape.store')
-        localStorage.removeItem('tape.auth.store')
+        localStorage.removeItem(LocalStore.TAPE_STORE)
+        localStorage.removeItem(LocalStore.TAPE_AUTH_STORE)
       },
       hydrateAuthTokens: () => {
         return {
@@ -33,7 +34,7 @@ export const useAuthPersistStore = create(
       }
     }),
     {
-      name: 'tape.auth.store'
+      name: LocalStore.TAPE_AUTH_STORE
     }
   )
 )
