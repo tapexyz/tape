@@ -16,11 +16,7 @@ import { useAccount } from 'wagmi'
 const SubscriptionProvider = () => {
   const { address } = useAccount()
   const activeProfile = useProfileStore((state) => state.activeProfile)
-  const {
-    setLensHubOnchainSigNonce,
-    setLensPublicActProxyOnchainSigNonce,
-    setLensTokenHandleRegistryOnchainSigNonce
-  } = useNonceStore()
+  const { setLensHubOnchainSigNonce } = useNonceStore()
 
   const setLatestNotificationId = usePersistStore(
     (state) => state.setLatestNotificationId
@@ -78,12 +74,6 @@ const SubscriptionProvider = () => {
       if (jsonData.id === '2') {
         const userSigNonces = data.userSigNonces as UserSigNonces
         setLensHubOnchainSigNonce(userSigNonces.lensHubOnchainSigNonce)
-        setLensTokenHandleRegistryOnchainSigNonce(
-          userSigNonces.lensTokenHandleRegistryOnchainSigNonce
-        )
-        setLensPublicActProxyOnchainSigNonce(
-          userSigNonces.lensPublicActProxyOnchainSigNonce
-        )
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

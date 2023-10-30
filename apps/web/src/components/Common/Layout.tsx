@@ -28,11 +28,7 @@ interface Props {
 }
 
 const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
-  const {
-    setLensHubOnchainSigNonce,
-    setLensPublicActProxyOnchainSigNonce,
-    setLensTokenHandleRegistryOnchainSigNonce
-  } = useNonceStore()
+  const { setLensHubOnchainSigNonce } = useNonceStore()
   const { activeProfile, setActiveProfile } = useProfileStore()
 
   const isMounted = useIsMounted()
@@ -63,12 +59,6 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
 
       setActiveProfile(profile as Profile)
       setLensHubOnchainSigNonce(userSigNonces.lensHubOnchainSigNonce)
-      setLensTokenHandleRegistryOnchainSigNonce(
-        userSigNonces.lensTokenHandleRegistryOnchainSigNonce
-      )
-      setLensPublicActProxyOnchainSigNonce(
-        userSigNonces.lensPublicActProxyOnchainSigNonce
-      )
     },
     onError: () => logout()
   })
@@ -96,13 +86,9 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
 
   useEffect(() => {
     validateAuthRoutes()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [asPath, currentSessionProfileId, activeProfile])
-
-  useEffect(() => {
     validateAuthentication()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [disconnect, currentSessionProfileId])
+  }, [asPath, currentSessionProfileId, activeProfile])
 
   useEffect(() => {
     connector?.addListener('change', () => {
