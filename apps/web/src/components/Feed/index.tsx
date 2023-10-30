@@ -78,7 +78,7 @@ const Feed = () => {
       {!error && !loading && (
         <>
           <div className="flex items-center space-x-3 text-xl">
-            <h1 className="text-brand-400 font-bold">Feed</h1>
+            <h1 className="text-brand-500 font-bold">Feed</h1>
             <h1>Your Friends' Stories</h1>
           </div>
           <div className="laptop:grid-cols-5 ultrawide:pt-8 laptop:pt-6 ultrawide:grid-cols-6 grid-col-1 desktop:grid-cols-4 tablet:grid-cols-3 grid gap-x-4 gap-y-2 pt-4 md:gap-y-6">
