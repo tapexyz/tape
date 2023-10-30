@@ -6,7 +6,6 @@ import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { Tab } from '@headlessui/react'
 import useAppStore from '@lib/store'
-import useAuthPersistStore from '@lib/store/auth'
 import {
   ALLOWED_APP_IDS,
   INFINITE_SCROLL_ROOT_MARGIN,
@@ -41,9 +40,6 @@ const initialCriteria = {
 const ExploreFeed = () => {
   const [activeCriteria, setActiveCriteria] = useState(initialCriteria)
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
 
   const getCriteria = () => {
     if (activeCriteria.trending) {
@@ -93,8 +89,7 @@ const ExploreFeed = () => {
           request: {
             ...request,
             cursor: pageInfo?.next
-          },
-          channelId: selectedSimpleProfile?.id ?? null
+          }
         }
       })
     }

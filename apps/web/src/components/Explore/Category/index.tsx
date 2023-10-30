@@ -2,7 +2,6 @@ import MetaTags from '@components/Common/MetaTags'
 import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import useAuthPersistStore from '@lib/store/auth'
 import {
   ALLOWED_APP_IDS,
   INFINITE_SCROLL_ROOT_MARGIN,
@@ -32,9 +31,6 @@ import Custom404 from 'src/pages/404'
 const ExploreCategory = () => {
   const { query } = useRouter()
   const categoryName = query.category as string
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
 
   const request: ExplorePublicationRequest = {
     where: {
@@ -71,8 +67,7 @@ const ExploreCategory = () => {
           request: {
             cursor: pageInfo?.next,
             ...request
-          },
-          channelId: selectedSimpleProfile?.id ?? null
+          }
         }
       })
     }

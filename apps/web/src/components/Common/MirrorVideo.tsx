@@ -1,5 +1,4 @@
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import useAuthPersistStore from '@lib/store/auth'
 import useNonceStore from '@lib/store/nonce'
 import useProfileStore from '@lib/store/profile'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
@@ -41,9 +40,6 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
   const handleWrongNetwork = useHandleWrongNetwork()
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
 
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
   const activeProfile = useProfileStore((state) => state.activeProfile)
   const canUseRelay = activeProfile?.signless && activeProfile?.sponsor
 
@@ -160,7 +156,7 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
   })
 
   const mirrorVideo = async () => {
-    if (!selectedSimpleProfile?.id) {
+    if (!activeProfile?.id) {
       return toast.error(SIGN_IN_REQUIRED)
     }
     if (handleWrongNetwork()) {

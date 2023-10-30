@@ -1,7 +1,7 @@
 import { Input } from '@components/UIElements/Input'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useAppStore from '@lib/store'
-import useAuthPersistStore from '@lib/store/auth'
+import useProfileStore from '@lib/store/profile'
 import { Button, Flex, Select, Text } from '@radix-ui/themes'
 import { WMATIC_TOKEN_ADDRESS } from '@tape.xyz/constants'
 import type { Erc20 } from '@tape.xyz/lens'
@@ -39,9 +39,7 @@ const FeeCollectForm: FC<Props> = ({
   const [validationError, setValidationError] = useState('')
 
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
+  const activeProfile = useProfileStore((state) => state.activeProfile)
 
   const splitRecipients = uploadedVideo.collectModule.multiRecipients ?? []
 
@@ -71,7 +69,7 @@ const FeeCollectForm: FC<Props> = ({
         value: data.amount || '0'
       },
       referralFee: data.referralPercent,
-      recipient: selectedSimpleProfile?.ownedBy.address
+      recipient: activeProfile?.ownedBy.address
     })
     setShowModal(false)
   }

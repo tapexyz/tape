@@ -2,7 +2,7 @@ import AddImageOutline from '@components/Common/Icons/AddImageOutline'
 import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
-import useAuthPersistStore from '@lib/store/auth'
+import useProfileStore from '@lib/store/profile'
 import { AspectRatio, Badge } from '@radix-ui/themes'
 import { uploadToIPFS } from '@tape.xyz/browser'
 import { ALLOWED_AUDIO_MIME_TYPES, FEATURE_FLAGS } from '@tape.xyz/constants'
@@ -20,14 +20,11 @@ import ChooseThumbnail from './ChooseThumbnail'
 import UploadMethod from './UploadMethod'
 
 const SelectedMedia = () => {
+  const videoRef = useRef<HTMLVideoElement>(null)
   const [interacted, setInteracted] = useState(false)
   const [posterPreview, setPosterPreview] = useState('')
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
-  const uploadedVideo = useAppStore((state) => state.uploadedVideo)
-  const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
-  const videoRef = useRef<HTMLVideoElement>(null)
+  const activeProfile = useProfileStore((state) => state.activeProfile)
+  const { uploadedVideo, setUploadedVideo } = useAppStore()
 
   const onDataLoaded = () => {
     if (videoRef.current?.duration && videoRef.current?.duration !== Infinity) {
@@ -186,7 +183,7 @@ const SelectedMedia = () => {
       )}
       {getIsFeatureEnabled(
         FEATURE_FLAGS.POST_WITH_SOURCE_URL,
-        selectedSimpleProfile?.id
+        activeProfile?.id
       ) && (
         <div className="mt-4">
           <Input

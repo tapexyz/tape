@@ -5,7 +5,7 @@ import type { NextPage } from 'next'
 import React, { useEffect } from 'react'
 
 import Feed from './Feed'
-import OpenActions from './FEOpenActions'
+import FEOpenActions from './FEOpenActions'
 import TopSection from './TopSection'
 
 const Home: NextPage = () => {
@@ -23,7 +23,7 @@ const Home: NextPage = () => {
       {getIsFeatureEnabled(
         FEATURE_FLAGS.OPEN_ACTIONS,
         selectedSimpleProfile?.id
-      ) && <OpenActions />}
+      ) && <FEOpenActions />}
 
       <TopSection />
       {/* <LiveSection /> */}

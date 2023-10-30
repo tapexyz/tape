@@ -2,7 +2,7 @@ import ChevronRightOutline from '@components/Common/Icons/ChevronRightOutline'
 import SplitOutline from '@components/Common/Icons/SplitOutline'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
-import useAuthPersistStore from '@lib/store/auth'
+import useProfileStore from '@lib/store/profile'
 import { Button, Dialog, Flex } from '@radix-ui/themes'
 import { LimitType, useEnabledCurrenciesQuery } from '@tape.xyz/lens'
 import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
@@ -18,9 +18,7 @@ const CollectModule = () => {
   const [showModal, setShowModal] = useState(false)
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
   const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
+  const activeProfile = useProfileStore((state) => state.activeProfile)
 
   const setCollectType = (data: CollectModuleType) => {
     setUploadedVideo({
@@ -34,7 +32,7 @@ const CollectModule = () => {
         limit: LimitType.Fifty
       }
     },
-    skip: !selectedSimpleProfile?.id
+    skip: !activeProfile?.id
   })
 
   const getSelectedCollectType = () => {

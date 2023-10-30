@@ -97,7 +97,8 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
       }
       const profile = profiles.find((ch) => ch.id === selectedSimpleProfile?.id)
       if (profile) {
-        setActiveProfile(profile ?? profiles[0])
+        setSelectedSimpleProfile(profile)
+        setActiveProfile(profile)
       }
     },
     onError: () => {

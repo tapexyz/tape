@@ -6,7 +6,6 @@ import {
   MetadataAttributeType,
   profile
 } from '@lens-protocol/metadata'
-import useAuthPersistStore from '@lib/store/auth'
 import useProfileStore from '@lib/store/profile'
 import { Dialog, DropdownMenu, Flex, IconButton, Text } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
@@ -75,11 +74,8 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
   const [showConfirm, setShowConfirm] = useState(false)
 
   const { cache } = useApolloClient()
-
   const activeProfile = useProfileStore((state) => state.activeProfile)
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
+
   const isVideoOwner = activeProfile?.id === video?.by?.id
   const pinnedVideoId = getValueFromKeyInAttributes(
     activeProfile?.metadata?.attributes,
@@ -106,7 +102,7 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
   }
 
   const onClickReport = () => {
-    if (!selectedSimpleProfile?.id) {
+    if (!activeProfile?.id) {
       return toast.error(SIGN_IN_REQUIRED)
     }
     if (handleWrongNetwork()) {
@@ -291,7 +287,7 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
   })
 
   const notInterested = () => {
-    if (!selectedSimpleProfile?.id) {
+    if (!activeProfile?.id) {
       return toast.error(SIGN_IN_REQUIRED)
     }
     if (video.operations.isNotInterested) {
@@ -314,7 +310,7 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
   }
 
   const saveToList = () => {
-    if (!selectedSimpleProfile?.id) {
+    if (!activeProfile?.id) {
       return toast.error(SIGN_IN_REQUIRED)
     }
     if (video.operations.hasBookmarked) {
