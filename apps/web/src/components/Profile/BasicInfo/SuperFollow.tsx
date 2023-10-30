@@ -1,5 +1,5 @@
-import useAuthPersistStore from '@lib/store/auth'
 import useNonceStore from '@lib/store/nonce'
+import useProfileStore from '@lib/store/profile'
 import { Button, Dialog, Flex, Text } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
@@ -38,13 +38,11 @@ type Props = {
 }
 
 const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
+  const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const [isAllowed, setIsAllowed] = useState(false)
-  const [open, setOpen] = useState(false)
 
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
+  const { activeProfile } = useProfileStore()
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
 
   const onError = (error: CustomErrorWithData) => {
@@ -102,9 +100,7 @@ const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
         referenceModules: []
       }
     },
-    skip:
-      !followModule?.amount?.asset?.contract.address ||
-      !selectedSimpleProfile?.id,
+    skip: !followModule?.amount?.asset?.contract.address || !activeProfile?.id,
     onCompleted: ({ approvedModuleAllowanceAmount }) => {
       setIsAllowed(
         parseFloat(approvedModuleAllowanceAmount[0].allowance.value) > amount
@@ -182,7 +178,7 @@ const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
   }
 
   const superFollow = async () => {
-    if (!selectedSimpleProfile?.id) {
+    if (!activeProfile?.id) {
       return toast.error(SIGN_IN_REQUIRED)
     }
     if (!isAllowed) {

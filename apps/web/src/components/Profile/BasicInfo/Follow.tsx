@@ -1,4 +1,3 @@
-import useAuthPersistStore from '@lib/store/auth'
 import useNonceStore from '@lib/store/nonce'
 import useProfileStore from '@lib/store/profile'
 import { Button } from '@radix-ui/themes'
@@ -31,10 +30,8 @@ type Props = {
 
 const Follow: FC<Props> = ({ profile, onSubscribe, size = '2' }) => {
   const [loading, setLoading] = useState(false)
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
-  const activeProfile = useProfileStore((state) => state.activeProfile)
+  const { activeProfile } = useProfileStore()
+
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
 
   const canUseRelay = activeProfile?.signless && activeProfile?.sponsor
@@ -114,7 +111,7 @@ const Follow: FC<Props> = ({ profile, onSubscribe, size = '2' }) => {
   })
 
   const follow = async () => {
-    if (!selectedSimpleProfile?.id) {
+    if (!activeProfile?.id) {
       return toast.error(SIGN_IN_REQUIRED)
     }
     setLoading(true)

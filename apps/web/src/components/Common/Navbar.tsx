@@ -1,5 +1,5 @@
-import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
+import useProfileStore from '@lib/store/profile'
 import { Button, HoverCard, IconButton } from '@radix-ui/themes'
 import { STATIC_ASSETS } from '@tape.xyz/constants'
 import clsx from 'clsx'
@@ -20,9 +20,7 @@ const Navbar = () => {
   const { resolvedTheme } = useTheme()
 
   const isActivePath = (path: string) => pathname === path
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
+  const { activeProfile } = useProfileStore()
   const {
     latestNotificationId,
     setLastOpenedNotificationId,
@@ -97,7 +95,7 @@ const Navbar = () => {
         </div>
         <div className="flex w-1/5 items-center justify-end space-x-3">
           <GlobalSearch />
-          {selectedSimpleProfile?.id ? (
+          {activeProfile?.id ? (
             <>
               <Link
                 onClick={() => {

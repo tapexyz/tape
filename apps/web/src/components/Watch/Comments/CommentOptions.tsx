@@ -4,7 +4,7 @@ import TrashOutline from '@components/Common/Icons/TrashOutline'
 import ReportPublication from '@components/ReportPublication'
 import Confirm from '@components/UIElements/Confirm'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import useAuthPersistStore from '@lib/store/auth'
+import useProfileStore from '@lib/store/profile'
 import { Box, Dialog, DropdownMenu, Flex, Text } from '@radix-ui/themes'
 import { SIGN_IN_REQUIRED } from '@tape.xyz/constants'
 import { EVENTS, Tower } from '@tape.xyz/generic'
@@ -22,9 +22,7 @@ const CommentOptions: FC<Props> = ({ comment }) => {
   const [showConfirm, setShowConfirm] = useState(false)
   const handleWrongNetwork = useHandleWrongNetwork()
 
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
+  const { activeProfile } = useProfileStore()
 
   const [hideComment] = useHidePublicationMutation({
     update(cache) {
@@ -49,7 +47,7 @@ const CommentOptions: FC<Props> = ({ comment }) => {
   }
 
   const onClickReport = () => {
-    if (!selectedSimpleProfile?.id) {
+    if (!activeProfile?.id) {
       return toast.error(SIGN_IN_REQUIRED)
     }
     if (handleWrongNetwork()) {
@@ -73,7 +71,7 @@ const CommentOptions: FC<Props> = ({ comment }) => {
         <DropdownMenu.Content sideOffset={10} variant="soft" align="end">
           <div className="w-36 overflow-hidden">
             <div className="flex flex-col rounded-lg text-sm transition duration-150 ease-in-out">
-              {selectedSimpleProfile?.id === comment?.by?.id && (
+              {activeProfile?.id === comment?.by?.id && (
                 <DropdownMenu.Item
                   onClick={() => setShowConfirm(true)}
                   color="red"

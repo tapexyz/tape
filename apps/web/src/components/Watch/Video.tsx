@@ -1,7 +1,7 @@
 import InterweaveContent from '@components/Common/InterweaveContent'
 import { CardShimmer } from '@components/Shimmers/VideoCardShimmer'
 import useAppStore from '@lib/store'
-import useAuthPersistStore from '@lib/store/auth'
+import useProfileStore from '@lib/store/profile'
 import { LENSTUBE_BYTES_APP_ID } from '@tape.xyz/constants'
 import {
   getIsSensitiveContent,
@@ -31,9 +31,7 @@ type Props = {
 const Video: FC<Props> = ({ video }) => {
   const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
   const videoWatchTime = useAppStore((state) => state.videoWatchTime)
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
+  const { activeProfile } = useProfileStore()
 
   const isBytesVideo = video.publishedOn?.id === LENSTUBE_BYTES_APP_ID
   const thumbnailUrl = imageCdn(
@@ -51,7 +49,7 @@ const Video: FC<Props> = ({ video }) => {
     <div>
       <div className="rounded-large overflow-hidden">
         <VideoPlayer
-          address={selectedSimpleProfile?.ownedBy.address}
+          address={activeProfile?.ownedBy.address}
           refCallback={refCallback}
           currentTime={videoWatchTime}
           url={getPublicationMediaUrl(video.metadata)}

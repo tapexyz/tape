@@ -1,7 +1,0 @@
-query CurrentUserSigNonces {
-  userSigNonces {
-    lensHubOnchainSigNonce
-    lensTokenHandleRegistryOnchainSigNonce
-    lensPublicActProxyOnchainSigNonce
-  }
-}

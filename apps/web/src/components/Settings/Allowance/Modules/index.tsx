@@ -1,5 +1,5 @@
 import { getCollectModuleConfig } from '@lib/getCollectModuleInput'
-import useAuthPersistStore from '@lib/store/auth'
+import useProfileStore from '@lib/store/profile'
 import { Button, Select } from '@radix-ui/themes'
 import { WMATIC_TOKEN_ADDRESS } from '@tape.xyz/constants'
 import type { ApprovedAllowanceAmountResult, Erc20 } from '@tape.xyz/lens'
@@ -18,9 +18,8 @@ import toast from 'react-hot-toast'
 import { useSendTransaction, useWaitForTransaction } from 'wagmi'
 
 const ModuleAllowance = () => {
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
+  const { activeProfile } = useProfileStore()
+
   const [currency, setCurrency] = useState(WMATIC_TOKEN_ADDRESS)
   const [loadingModule, setLoadingModule] = useState('')
 
@@ -46,7 +45,7 @@ const ModuleAllowance = () => {
         ]
       }
     },
-    skip: !selectedSimpleProfile?.id,
+    skip: !activeProfile?.id,
     fetchPolicy: 'no-cache'
   })
 

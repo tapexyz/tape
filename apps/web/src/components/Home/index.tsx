@@ -1,4 +1,4 @@
-import useAuthPersistStore from '@lib/store/auth'
+import useProfileStore from '@lib/store/profile'
 import { FEATURE_FLAGS } from '@tape.xyz/constants'
 import { EVENTS, getIsFeatureEnabled, Tower } from '@tape.xyz/generic'
 import type { NextPage } from 'next'
@@ -13,17 +13,14 @@ const Home: NextPage = () => {
     Tower.track(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.HOME })
   }, [])
 
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
+  const { activeProfile } = useProfileStore()
 
   return (
     <div className="max-w-screen-ultrawide container mx-auto">
       {/* <WhatsPopping /> */}
-      {getIsFeatureEnabled(
-        FEATURE_FLAGS.OPEN_ACTIONS,
-        selectedSimpleProfile?.id
-      ) && <FEOpenActions />}
+      {getIsFeatureEnabled(FEATURE_FLAGS.OPEN_ACTIONS, activeProfile?.id) && (
+        <FEOpenActions />
+      )}
 
       <TopSection />
       {/* <LiveSection /> */}

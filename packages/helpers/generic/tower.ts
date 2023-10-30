@@ -4,6 +4,8 @@ import {
   WORKER_TOWER_URL
 } from '@tape.xyz/constants'
 
+import { parseJwt } from './functions/parseJwt'
+
 let worker: Worker
 
 if (typeof Worker !== 'undefined') {
@@ -13,17 +15,18 @@ if (typeof Worker !== 'undefined') {
 export const Tower = {
   track: (name: string, properties?: Record<string, unknown>) => {
     if (IS_MAINNET && IS_PRODUCTION) {
-      const user = JSON.parse(
+      const token = JSON.parse(
         localStorage.getItem('tape.auth.store') ||
-          JSON.stringify({ state: { selectedSimpleProfile: { id: null } } })
+          JSON.stringify({ state: { accessToken: '' } })
       )
+      const actorId = parseJwt(token)?.id
       const { referrer } = document
       const referrerDomain = referrer ? new URL(referrer).hostname : null
 
       worker.postMessage({
         name,
         properties,
-        actor: user.state?.selectedSimpleProfile?.id,
+        actor: actorId,
         referrer: referrerDomain,
         url: location.href,
         platform: 'web'

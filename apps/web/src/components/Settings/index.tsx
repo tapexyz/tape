@@ -1,6 +1,6 @@
 import MetaTags from '@components/Common/MetaTags'
 import SettingsShimmer from '@components/Shimmers/SettingsShimmer'
-import useAuthPersistStore from '@lib/store/auth'
+import useProfileStore from '@lib/store/profile'
 import { EVENTS, Tower } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { useProfileQuery } from '@tape.xyz/lens'
@@ -30,9 +30,7 @@ export const SETTINGS = '/settings'
 
 const Settings = () => {
   const router = useRouter()
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
+  const { activeProfile } = useProfileStore()
 
   useEffect(() => {
     Tower.track(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.SETTINGS })
@@ -40,9 +38,9 @@ const Settings = () => {
 
   const { data, loading, error } = useProfileQuery({
     variables: {
-      request: { forProfileId: selectedSimpleProfile?.id }
+      request: { forProfileId: activeProfile?.id }
     },
-    skip: !selectedSimpleProfile?.id
+    skip: !activeProfile?.id
   })
 
   if (error) {
@@ -52,7 +50,7 @@ const Settings = () => {
     return <SettingsShimmer />
   }
 
-  if (!data?.profile || (!selectedSimpleProfile && router.isReady)) {
+  if (!data?.profile || (!activeProfile && router.isReady)) {
     return <Custom404 />
   }
 

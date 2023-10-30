@@ -1,8 +1,8 @@
 import Badge from '@components/Common/Badge'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import useAuthPersistStore from '@lib/store/auth'
 import useNonceStore from '@lib/store/nonce'
+import useProfileStore from '@lib/store/profile'
 import { Avatar, Button } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
@@ -42,9 +42,8 @@ import { useContractWrite, useSignTypedData } from 'wagmi'
 
 const List = () => {
   const [unblockingProfileId, setUnblockingProfileId] = useState('')
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
+
+  const { activeProfile } = useProfileStore()
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
   const { cache } = useApolloClient()
 
@@ -79,7 +78,7 @@ const List = () => {
   const request: WhoHaveBlockedRequest = { limit: LimitType.Fifty }
   const { data, loading, error, fetchMore } = useWhoHaveBlockedQuery({
     variables: { request },
-    skip: !selectedSimpleProfile?.id
+    skip: !activeProfile?.id
   })
   const pageInfo = data?.whoHaveBlocked?.pageInfo
 

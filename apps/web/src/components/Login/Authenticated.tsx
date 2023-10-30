@@ -1,7 +1,6 @@
-import useAuthPersistStore from '@lib/store/auth'
+import useProfileStore from '@lib/store/profile'
 import { Avatar, Badge, Flex, Text } from '@radix-ui/themes'
 import { getProfile, getProfilePicture } from '@tape.xyz/generic'
-import type { SimpleProfile } from '@tape.xyz/lens/custom-types'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
@@ -13,11 +12,9 @@ const Authenticated = () => {
     query: { as }
   } = useRouter()
 
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  ) as SimpleProfile
+  const { activeProfile } = useProfileStore()
 
-  if (!selectedSimpleProfile) {
+  if (!activeProfile) {
     return
   }
 
@@ -28,18 +25,18 @@ const Authenticated = () => {
           <Flex gap="3" align="center">
             <Avatar
               size="5"
-              src={getProfilePicture(selectedSimpleProfile)}
-              fallback={getProfile(selectedSimpleProfile)?.slug[0] ?? ';)'}
-              alt={getProfile(selectedSimpleProfile)?.slug}
+              src={getProfilePicture(activeProfile)}
+              fallback={getProfile(activeProfile)?.slug[0] ?? ';)'}
+              alt={getProfile(activeProfile)?.slug}
             />
             <div className="text-left">
               <Text as="p" weight="bold" size="6">
-                {getProfile(selectedSimpleProfile)?.displayName}
+                {getProfile(activeProfile)?.displayName}
               </Text>
-              <Link href={getProfile(selectedSimpleProfile)?.link}>
+              <Link href={getProfile(activeProfile)?.link}>
                 <Text as="p" size="4">
-                  {getProfile(selectedSimpleProfile)?.slug} (
-                  {getProfile(selectedSimpleProfile)?.id})
+                  {getProfile(activeProfile)?.slug} (
+                  {getProfile(activeProfile)?.id})
                 </Text>
               </Link>
             </div>

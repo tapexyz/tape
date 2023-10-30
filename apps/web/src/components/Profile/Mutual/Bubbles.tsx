@@ -1,7 +1,7 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
 import TimesOutline from '@components/Common/Icons/TimesOutline'
 import BubblesShimmer from '@components/Shimmers/BubblesShimmer'
-import useAuthPersistStore from '@lib/store/auth'
+import useProfileStore from '@lib/store/profile'
 import {
   Dialog,
   DialogClose,
@@ -23,19 +23,17 @@ type Props = {
 }
 
 const Bubbles: FC<Props> = ({ viewing, showSeparator }) => {
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
+  const { activeProfile } = useProfileStore()
 
   const { data, loading } = useMutualFollowersQuery({
     variables: {
       request: {
-        observer: selectedSimpleProfile?.id,
+        observer: activeProfile?.id,
         viewing,
         limit: LimitType.Ten
       }
     },
-    skip: !viewing || !selectedSimpleProfile?.id
+    skip: !viewing || !activeProfile?.id
   })
 
   const mutualFollowers = data?.mutualFollowers?.items as Profile[]

@@ -1,7 +1,7 @@
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
-import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
+import useProfileStore from '@lib/store/profile'
 import { useAverageColor } from '@tape.xyz/browser'
 import { STATIC_ASSETS } from '@tape.xyz/constants'
 import {
@@ -17,10 +17,7 @@ import {
   useTxIdToTxHashLazyQuery
 } from '@tape.xyz/lens'
 import { useApolloClient } from '@tape.xyz/lens/apollo'
-import type {
-  QueuedVideoType,
-  SimpleProfile
-} from '@tape.xyz/lens/custom-types'
+import type { QueuedVideoType } from '@tape.xyz/lens/custom-types'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
@@ -32,14 +29,9 @@ type Props = {
 }
 
 const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  ) as SimpleProfile
-  const uploadedVideo = useAppStore((state) => state.uploadedVideo)
-  const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
-
-  const queuedVideos = usePersistStore((state) => state.queuedVideos)
-  const setQueuedVideos = usePersistStore((state) => state.setQueuedVideos)
+  const { activeProfile } = useProfileStore()
+  const { uploadedVideo, setUploadedVideo } = useAppStore()
+  const { queuedVideos, setQueuedVideos } = usePersistStore()
 
   const { cache } = useApolloClient()
   const [getTxnHash] = useTxIdToTxHashLazyQuery()
@@ -142,8 +134,8 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
         <div className="flex items-start space-x-2.5">
           <img
             className="h-8 w-8 rounded-full"
-            src={getProfilePicture(selectedSimpleProfile)}
-            alt={getProfile(selectedSimpleProfile)?.slug}
+            src={getProfilePicture(activeProfile)}
+            alt={getProfile(activeProfile)?.slug}
             draggable={false}
           />
           <div className="grid flex-1">
@@ -164,8 +156,8 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
               </div>
             </div>
             <span className="flex w-fit items-center space-x-0.5 text-[13px] opacity-70">
-              <span>{getProfile(selectedSimpleProfile)?.slug}</span>
-              <Badge id={selectedSimpleProfile?.id} size="xs" />
+              <span>{getProfile(activeProfile)?.slug}</span>
+              <Badge id={activeProfile?.id} size="xs" />
             </span>
           </div>
         </div>

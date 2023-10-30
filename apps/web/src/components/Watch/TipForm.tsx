@@ -2,7 +2,6 @@ import { Input } from '@components/UIElements/Input'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { MetadataAttributeType, textOnly } from '@lens-protocol/metadata'
-import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
 import { useProfileStore } from '@lib/store/profile'
 import { Button, Flex } from '@radix-ui/themes'
@@ -29,8 +28,7 @@ import {
 import type {
   AnyPublication,
   CreateMomokaCommentEip712TypedData,
-  CreateOnchainCommentEip712TypedData,
-  Profile
+  CreateOnchainCommentEip712TypedData
 } from '@tape.xyz/lens'
 import {
   PublicationDocument,
@@ -88,14 +86,11 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
 
   const { cache } = useApolloClient()
   const [loading, setLoading] = useState(false)
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
+
+  const { activeProfile } = useProfileStore()
   const queuedComments = usePersistStore((state) => state.queuedComments)
   const setQueuedComments = usePersistStore((state) => state.setQueuedComments)
-  const activeProfile = useProfileStore(
-    (state) => state.activeProfile
-  ) as Profile
+
   const canUseRelay = activeProfile?.signless && activeProfile?.sponsor
 
   const onError = (error: CustomErrorWithData) => {
@@ -349,7 +344,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
   }
 
   const onSendTip = async () => {
-    if (!selectedSimpleProfile?.id) {
+    if (!activeProfile?.id) {
       return toast.error(SIGN_IN_REQUIRED)
     }
     if (video.momoka?.proof && !activeProfile?.sponsor) {

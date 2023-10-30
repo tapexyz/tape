@@ -4,7 +4,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import type { MetadataAttribute } from '@lens-protocol/metadata'
 import { MetadataAttributeType, textOnly } from '@lens-protocol/metadata'
-import useAuthPersistStore from '@lib/store/auth'
 import useNonceStore from '@lib/store/nonce'
 import usePersistStore from '@lib/store/persist'
 import useProfileStore from '@lib/store/profile'
@@ -32,8 +31,7 @@ import {
 import type {
   AnyPublication,
   CreateMomokaCommentEip712TypedData,
-  CreateOnchainCommentEip712TypedData,
-  Profile
+  CreateOnchainCommentEip712TypedData
 } from '@tape.xyz/lens'
 import {
   PublicationDocument,
@@ -80,18 +78,14 @@ const NewComment: FC<Props> = ({
   resetReply
 }) => {
   const { cache } = useApolloClient()
-
   const [loading, setLoading] = useState(false)
-  const activeProfile = useProfileStore(
-    (state) => state.activeProfile
-  ) as Profile
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
+
+  const { activeProfile } = useProfileStore()
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
   const handleWrongNetwork = useHandleWrongNetwork()
   const queuedComments = usePersistStore((state) => state.queuedComments)
   const setQueuedComments = usePersistStore((state) => state.setQueuedComments)
+
   const canUseRelay = activeProfile?.signless && activeProfile?.sponsor
   const targetVideo = getPublication(video)
 
@@ -371,7 +365,7 @@ const NewComment: FC<Props> = ({
     }
   }
 
-  if (!activeProfile || !selectedSimpleProfile?.id) {
+  if (!activeProfile?.id) {
     return null
   }
 

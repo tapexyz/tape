@@ -1,4 +1,4 @@
-import useAuthPersistStore from '@lib/store/auth'
+import useProfileStore from '@lib/store/profile'
 import {
   getPublication,
   getPublicationMediaUrl,
@@ -30,12 +30,10 @@ const ByteVideo: FC<Props> = ({
   const intersectionRef = useRef<HTMLDivElement>(null)
   const targetPublication = getPublication(video)
 
+  const { activeProfile } = useProfileStore()
   const thumbnailUrl = imageCdn(
     sanitizeDStorageUrl(getThumbnailUrl(targetPublication.metadata, true)),
     'THUMBNAIL_V'
-  )
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
   )
 
   const playVideo = () => {
@@ -102,7 +100,7 @@ const ByteVideo: FC<Props> = ({
             id={targetPublication?.id}
           />
           <VideoPlayer
-            address={selectedSimpleProfile?.ownedBy.address}
+            address={activeProfile?.ownedBy.address}
             refCallback={refCallback}
             url={getPublicationMediaUrl(targetPublication.metadata)}
             posterUrl={thumbnailUrl}

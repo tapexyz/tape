@@ -6,8 +6,8 @@ import ThreeDotsOutline from '@components/Common/Icons/ThreeDotsOutline'
 import WarningOutline from '@components/Common/Icons/WarningOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import Tooltip from '@components/UIElements/Tooltip'
-import useAuthPersistStore from '@lib/store/auth'
 import useNonceStore from '@lib/store/nonce'
+import useProfileStore from '@lib/store/profile'
 import {
   Badge as BadgeUI,
   Callout,
@@ -58,16 +58,15 @@ const BasicInfo: FC<Props> = ({ profile }) => {
   const [loading, setLoading] = useState(false)
 
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
+  const { activeProfile } = useProfileStore()
+
   const hasOnChainId =
     profile.onchainIdentity?.ens?.name ||
     profile.onchainIdentity?.proofOfHumanity ||
     profile.onchainIdentity?.worldcoin.isHuman ||
     profile.onchainIdentity?.sybilDotOrg.verified
 
-  const isOwnChannel = profile?.id === selectedSimpleProfile?.id
+  const isOwnChannel = profile?.id === activeProfile?.id
 
   const misused = MISUSED_CHANNELS.find((c) => c.id === profile?.id)
   const isBlockedByMe = profile.operations.isBlockedByMe.value

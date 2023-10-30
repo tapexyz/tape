@@ -1,5 +1,4 @@
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import useAuthPersistStore from '@lib/store/auth'
 import useNonceStore from '@lib/store/nonce'
 import { useProfileStore } from '@lib/store/profile'
 import { Button } from '@radix-ui/themes'
@@ -33,11 +32,9 @@ type Props = {
 
 const UnFollow: FC<Props> = ({ profile, onUnSubscribe, size = '2' }) => {
   const [loading, setLoading] = useState(false)
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
+
+  const { activeProfile } = useProfileStore()
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
-  const activeProfile = useProfileStore((state) => state.activeProfile)
   const canUseRelay = activeProfile?.signless && activeProfile?.sponsor
   const handleWrongNetwork = useHandleWrongNetwork()
 
@@ -108,7 +105,7 @@ const UnFollow: FC<Props> = ({ profile, onUnSubscribe, size = '2' }) => {
   })
 
   const unfollow = async () => {
-    if (!selectedSimpleProfile?.id) {
+    if (!activeProfile?.id) {
       return toast.error(SIGN_IN_REQUIRED)
     }
     if (handleWrongNetwork()) {

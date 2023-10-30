@@ -1,6 +1,6 @@
 import CheckOutline from '@components/Common/Icons/CheckOutline'
 import WarningOutline from '@components/Common/Icons/WarningOutline'
-import useAuthPersistStore from '@lib/store/auth'
+import useProfileStore from '@lib/store/profile'
 import { Button, Callout, Flex } from '@radix-ui/themes'
 import { POLYGON_CHAIN_ID } from '@tape.xyz/constants'
 import React from 'react'
@@ -17,11 +17,9 @@ const Connectors = () => {
     chainId: POLYGON_CHAIN_ID
   })
 
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
+  const { activeProfile } = useProfileStore()
 
-  if (selectedSimpleProfile?.id) {
+  if (activeProfile?.id) {
     return <Authenticated />
   }
 

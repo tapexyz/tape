@@ -1,9 +1,8 @@
 import { HANDLE_PREFIX } from '@tape.xyz/constants'
 import type { Profile } from '@tape.xyz/lens'
-import type { SimpleProfile } from '@tape.xyz/lens/custom-types'
 
 export const getProfile = (
-  profile: Profile | SimpleProfile
+  profile: Profile | null
 ): {
   slug: string
   slugWithPrefix: string

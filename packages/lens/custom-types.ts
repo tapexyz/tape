@@ -1,9 +1,5 @@
 import type { WebIrys } from '@irys/sdk'
-import type {
-  Profile,
-  ProfileInterestTypes,
-  RecipientDataInput
-} from '@tape.xyz/lens'
+import type { ProfileInterestTypes, RecipientDataInput } from '@tape.xyz/lens'
 
 export type IrysDataState = {
   instance: WebIrys | null
@@ -171,11 +167,6 @@ export interface CustomNftItemType {
   chainId: string
   address: string
 }
-
-export type SimpleProfile = Pick<
-  Profile,
-  'id' | 'handle' | 'ownedBy' | 'sponsor' | 'stats' | 'metadata'
->
 
 export interface NftProvider {
   provider: 'zora' | 'basepaint'

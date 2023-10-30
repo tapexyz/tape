@@ -1,8 +1,8 @@
 import Badge from '@components/Common/Badge'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import Tooltip from '@components/UIElements/Tooltip'
-import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
+import useProfileStore from '@lib/store/profile'
 import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import {
   LensTransactionStatusType,
@@ -12,10 +12,7 @@ import {
   useTxIdToTxHashLazyQuery
 } from '@tape.xyz/lens'
 import { useApolloClient } from '@tape.xyz/lens/apollo'
-import type {
-  QueuedCommentType,
-  SimpleProfile
-} from '@tape.xyz/lens/custom-types'
+import type { QueuedCommentType } from '@tape.xyz/lens/custom-types'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
@@ -25,9 +22,7 @@ type Props = {
 }
 
 const QueuedComment: FC<Props> = ({ queuedComment }) => {
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  ) as SimpleProfile
+  const { activeProfile } = useProfileStore()
   const { queuedComments, setQueuedComments } = usePersistStore()
 
   const { cache } = useApolloClient()
@@ -110,10 +105,7 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
     }
   })
 
-  if (
-    (!queuedComment?.txnId && !queuedComment?.txnHash) ||
-    !selectedSimpleProfile
-  ) {
+  if ((!queuedComment?.txnId && !queuedComment?.txnHash) || !activeProfile) {
     return null
   }
 
@@ -121,24 +113,24 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
     <div className="flex items-start justify-between">
       <div className="flex items-start justify-between">
         <Link
-          href={`/u/${getProfile(selectedSimpleProfile)?.slug}`}
+          href={`/u/${getProfile(activeProfile)?.slug}`}
           className="mr-3 mt-0.5 flex-none"
         >
           <img
-            src={getProfilePicture(selectedSimpleProfile, 'AVATAR')}
+            src={getProfilePicture(activeProfile, 'AVATAR')}
             className="h-7 w-7 rounded-full"
             draggable={false}
-            alt={getProfile(selectedSimpleProfile)?.slug}
+            alt={getProfile(activeProfile)?.slug}
           />
         </Link>
         <div className="mr-2 flex flex-col items-start">
           <span className="mb-1 flex items-center space-x-1">
             <Link
-              href={`/u/${getProfile(selectedSimpleProfile)?.slug}`}
+              href={`/u/${getProfile(activeProfile)?.slug}`}
               className="flex items-center space-x-1 text-sm font-medium"
             >
-              <span>{getProfile(selectedSimpleProfile)?.slug}</span>
-              <Badge id={selectedSimpleProfile.id} />
+              <span>{getProfile(activeProfile)?.slug}</span>
+              <Badge id={activeProfile.id} />
             </Link>
           </span>
           <InterweaveContent content={queuedComment.comment} />

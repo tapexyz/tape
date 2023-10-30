@@ -1,5 +1,5 @@
 import HorizantalScroller from '@components/Common/HorizantalScroller'
-import useAuthPersistStore from '@lib/store/auth'
+import useProfileStore from '@lib/store/profile'
 import React, { useRef } from 'react'
 
 import DispatcherAlert from './DispatcherAlert'
@@ -9,9 +9,7 @@ import WelcomeAlert from './WelcomeAlert'
 
 const TopSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null)
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
+  const { activeProfile } = useProfileStore()
 
   return (
     <div className="flex flex-col">
@@ -24,7 +22,7 @@ const TopSection = () => {
         ref={sectionRef}
         className="no-scrollbar ultrawide:pt-8 laptop:pt-6 relative flex items-start space-x-4 overflow-x-auto overflow-y-hidden scroll-smooth pt-4"
       >
-        {!selectedSimpleProfile?.id && <WelcomeAlert />}
+        {!activeProfile?.id && <WelcomeAlert />}
         <GitcoinAlert />
         <DispatcherAlert />
         <LatestBytes />

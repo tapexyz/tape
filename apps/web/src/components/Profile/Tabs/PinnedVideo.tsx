@@ -3,7 +3,6 @@ import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import type { MetadataAttribute } from '@lens-protocol/metadata'
 import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
 import { getRelativeTime } from '@lib/formatTime'
-import useAuthPersistStore from '@lib/store/auth'
 import useProfileStore from '@lib/store/profile'
 import { Button } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
@@ -56,9 +55,8 @@ type Props = {
 }
 
 const PinnedVideo: FC<Props> = ({ id }) => {
+  const { activeProfile } = useProfileStore()
   const handleWrongNetwork = useHandleWrongNetwork()
-
-  const activeProfile = useProfileStore((state) => state.activeProfile)
 
   const { data, error, loading } = usePublicationQuery({
     variables: {
@@ -66,9 +64,6 @@ const PinnedVideo: FC<Props> = ({ id }) => {
     },
     skip: !id
   })
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
   const publication = data?.publication as AnyPublication
   const pinnedPublication =
     publication?.__typename === 'Mirror'
@@ -221,7 +216,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
       <div className="grid grid-cols-3 overflow-hidden md:space-x-5">
         <div className="overflow-hidden md:rounded-xl">
           <VideoPlayer
-            address={selectedSimpleProfile?.ownedBy.address}
+            address={activeProfile?.ownedBy.address}
             url={getPublicationMediaUrl(pinnedPublication.metadata)}
             posterUrl={thumbnailUrl}
             isSensitiveContent={isSensitiveContent}

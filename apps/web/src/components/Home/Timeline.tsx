@@ -1,10 +1,9 @@
 import VideoCard from '@components/Common/VideoCard'
 import QueuedVideo from '@components/Common/VideoCard/QueuedVideo'
-import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
+import useProfileStore from '@lib/store/profile'
 import { getProfile, getPublication } from '@tape.xyz/generic'
 import type { AnyPublication } from '@tape.xyz/lens'
-import type { SimpleProfile } from '@tape.xyz/lens/custom-types'
 import type { FC } from 'react'
 import React from 'react'
 
@@ -14,12 +13,9 @@ type Props = {
 
 const Timeline: FC<Props> = ({ videos }) => {
   const queuedVideos = usePersistStore((state) => state.queuedVideos)
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  ) as SimpleProfile
+  const { activeProfile } = useProfileStore()
 
-  const isProfilePage =
-    location.pathname === getProfile(selectedSimpleProfile).link
+  const isProfilePage = location.pathname === getProfile(activeProfile).link
 
   return (
     <div className="ultrawide:grid-cols-6 grid-col-1 desktop:grid-cols-4 tablet:grid-cols-3 grid gap-x-4 gap-y-2 md:gap-y-6">

@@ -1,18 +1,12 @@
-import useAuthPersistStore, {
-  hydrateAuthTokens,
-  signOut
-} from '@lib/store/auth'
+import getCurrentSessionUserId from '@lib/getCurrentSessionUserId'
+import { hydrateAuthTokens, signOut } from '@lib/store/auth'
 import useNonceStore from '@lib/store/nonce'
 import useProfileStore from '@lib/store/profile'
-import { getToastOptions, useIsMounted } from '@tape.xyz/browser'
+import { getToastOptions } from '@tape.xyz/browser'
 import { AUTH_ROUTES, OWNER_ONLY_ROUTES } from '@tape.xyz/constants'
 import { getIsProfileOwner } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
-import {
-  LimitType,
-  useCurrentUserSigNoncesQuery,
-  useProfilesManagedQuery
-} from '@tape.xyz/lens'
+import { useCurrentProfileQuery } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
@@ -22,6 +16,7 @@ import React, { useEffect } from 'react'
 import { toast, Toaster } from 'react-hot-toast'
 import { useAccount, useDisconnect } from 'wagmi'
 
+import FullPageLoader from './FullPageLoader'
 import MetaTags from './MetaTags'
 import MobileBottomNav from './MobileBottomNav'
 import Navbar from './Navbar'
@@ -39,13 +34,11 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
     setLensTokenHandleRegistryOnchainSigNonce
   } = useNonceStore()
   const { activeProfile, setActiveProfile } = useProfileStore()
-  const { selectedSimpleProfile, setSelectedSimpleProfile } =
-    useAuthPersistStore()
 
-  const isMounted = useIsMounted()
   const { resolvedTheme } = useTheme()
   const { address, connector } = useAccount()
   const { pathname, replace, asPath } = useRouter()
+  const currentSessionUserId = getCurrentSessionUserId()
 
   const { disconnect } = useDisconnect({
     onError(error: CustomErrorWithData) {
@@ -53,23 +46,20 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
     }
   })
 
-  const resetAuthState = () => {
-    setActiveProfile(null)
-    setSelectedSimpleProfile(null)
-  }
-
   const logout = () => {
-    resetAuthState()
+    setActiveProfile(null)
     signOut()
     disconnect?.()
   }
 
-  useCurrentUserSigNoncesQuery({
-    skip: !selectedSimpleProfile?.id,
-    onCompleted: ({ userSigNonces }) => {
-      if (!userSigNonces) {
+  const { loading } = useCurrentProfileQuery({
+    skip: !currentSessionUserId,
+    onCompleted: ({ userSigNonces, profile }) => {
+      if (!profile) {
         return logout()
       }
+
+      setActiveProfile(profile as Profile)
       setLensHubOnchainSigNonce(userSigNonces.lensHubOnchainSigNonce)
       setLensTokenHandleRegistryOnchainSigNonce(
         userSigNonces.lensTokenHandleRegistryOnchainSigNonce
@@ -81,34 +71,8 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
     onError: () => logout()
   })
 
-  useProfilesManagedQuery({
-    variables: {
-      request: {
-        for: address,
-        includeOwned: true,
-        limit: LimitType.Fifty
-      }
-    },
-    skip: !selectedSimpleProfile,
-    onCompleted: ({ profilesManaged }) => {
-      const profiles = profilesManaged?.items as Profile[]
-      if (!profiles.length) {
-        return resetAuthState()
-      }
-      const profile = profiles.find((ch) => ch.id === selectedSimpleProfile?.id)
-      if (profile) {
-        setSelectedSimpleProfile(profile)
-        setActiveProfile(profile)
-      }
-    },
-    onError: () => {
-      setSelectedSimpleProfile(null)
-      setActiveProfile(null)
-    }
-  })
-
   const validateAuthRoutes = () => {
-    if (!selectedSimpleProfile?.id && AUTH_ROUTES.includes(pathname)) {
+    if (!currentSessionUserId && AUTH_ROUTES.includes(pathname)) {
       replace(`/login?next=${asPath}`)
     }
     if (
@@ -121,34 +85,34 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
     }
   }
 
-  useEffect(() => {
-    validateAuthRoutes()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [asPath, selectedSimpleProfile, activeProfile])
-
   const validateAuthentication = () => {
     const { accessToken } = hydrateAuthTokens()
-    if (!accessToken && selectedSimpleProfile?.id) {
+    if (!accessToken && currentSessionUserId) {
       logout()
     }
   }
 
   useEffect(() => {
+    validateAuthRoutes()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [asPath, currentSessionUserId, activeProfile])
+
+  useEffect(() => {
     validateAuthentication()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [disconnect, selectedSimpleProfile])
+  }, [disconnect, currentSessionUserId])
 
   useEffect(() => {
     connector?.addListener('change', () => {
-      if (selectedSimpleProfile?.id) {
+      if (currentSessionUserId) {
         logout()
       }
     })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  if (!isMounted()) {
-    return null
+  if (loading) {
+    return <FullPageLoader />
   }
 
   return (

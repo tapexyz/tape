@@ -3,7 +3,7 @@ import VideoCard from '@components/Common/VideoCard'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAppStore from '@lib/store'
-import useAuthPersistStore from '@lib/store/auth'
+import useProfileStore from '@lib/store/profile'
 import { INFINITE_SCROLL_ROOT_MARGIN } from '@tape.xyz/constants'
 import type { FeedItem, FeedRequest, PrimaryPublication } from '@tape.xyz/lens'
 import {
@@ -17,15 +17,13 @@ import { useInView } from 'react-cool-inview'
 import Custom500 from 'src/pages/500'
 
 const Feed = () => {
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
+  const { activeProfile } = useProfileStore()
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
 
   const request: FeedRequest = {
     where: {
       feedEventItemTypes: [FeedEventItemType.Post],
-      for: selectedSimpleProfile?.id,
+      for: activeProfile?.id,
       metadata: {
         tags:
           activeTagFilter !== 'all' ? { oneOf: [activeTagFilter] } : undefined,
@@ -38,7 +36,7 @@ const Feed = () => {
     variables: {
       request
     },
-    skip: !selectedSimpleProfile?.id
+    skip: !activeProfile?.id
   })
 
   const feedItems = data?.feed?.items as FeedItem[]

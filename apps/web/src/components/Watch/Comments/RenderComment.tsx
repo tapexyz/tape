@@ -9,8 +9,8 @@ import InterweaveContent from '@components/Common/InterweaveContent'
 import Tooltip from '@components/UIElements/Tooltip'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import { getShortHandTime } from '@lib/formatTime'
-import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
+import useProfileStore from '@lib/store/profile'
 import { Button, Flex, Text } from '@radix-ui/themes'
 import { SIGN_IN_REQUIRED } from '@tape.xyz/constants'
 import {
@@ -46,9 +46,8 @@ const RenderComment: FC<Props> = ({ comment }) => {
   const handleWrongNetwork = useHandleWrongNetwork()
 
   const queuedComments = usePersistStore((state) => state.queuedComments)
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
+  const { activeProfile } = useProfileStore()
+
   const metadata = getPublicationData(comment.metadata)
 
   useEffect(() => {
@@ -132,7 +131,7 @@ const RenderComment: FC<Props> = ({ comment }) => {
                 variant="ghost"
                 highContrast
                 onClick={() => {
-                  if (!selectedSimpleProfile?.id) {
+                  if (!activeProfile?.id) {
                     return toast.error(SIGN_IN_REQUIRED)
                   }
                   if (handleWrongNetwork()) {
@@ -178,7 +177,7 @@ const RenderComment: FC<Props> = ({ comment }) => {
               <CommentReplies
                 comment={comment}
                 replyTo={(profile) => {
-                  if (!selectedSimpleProfile?.id) {
+                  if (!activeProfile?.id) {
                     return toast.error(SIGN_IN_REQUIRED)
                   }
                   if (handleWrongNetwork()) {

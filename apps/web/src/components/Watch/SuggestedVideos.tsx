@@ -1,5 +1,5 @@
 import { SuggestedVideosShimmer } from '@components/Shimmers/WatchShimmer'
-import useAuthPersistStore from '@lib/store/auth'
+import useProfileStore from '@lib/store/profile'
 import {
   ALLOWED_APP_IDS,
   INFINITE_SCROLL_ROOT_MARGIN,
@@ -46,9 +46,7 @@ const SuggestedVideos = () => {
     query: { id }
   } = useRouter()
 
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
+  const { activeProfile } = useProfileStore()
 
   const { data, loading, error, fetchMore, refetch } =
     useExplorePublicationsQuery({
@@ -74,7 +72,7 @@ const SuggestedVideos = () => {
             ...request,
             cursor: pageInfo?.next
           },
-          channelId: selectedSimpleProfile?.id ?? null
+          channelId: activeProfile?.id ?? null
         }
       })
     }

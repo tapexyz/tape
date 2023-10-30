@@ -1,5 +1,5 @@
 import getCurrentSessionId from '@lib/getCurrentSessionId'
-import useAuthPersistStore, { signOut } from '@lib/store/auth'
+import { signOut } from '@lib/store/auth'
 import useProfileStore from '@lib/store/profile'
 import { Avatar, DropdownMenu, Flex, Text } from '@radix-ui/themes'
 import { ADMIN_IDS } from '@tape.xyz/constants'
@@ -10,10 +10,7 @@ import {
   useProfilesManagedQuery,
   useRevokeAuthenticationMutation
 } from '@tape.xyz/lens'
-import type {
-  CustomErrorWithData,
-  SimpleProfile
-} from '@tape.xyz/lens/custom-types'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
@@ -33,22 +30,13 @@ import UserOutline from './Icons/UserOutline'
 const UserMenu = () => {
   const { theme, setTheme } = useTheme()
   const { push, asPath } = useRouter()
-
-  const setActiveProfile = useProfileStore((state) => state.setActiveProfile)
-
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  ) as SimpleProfile
-  const setSelectedSimpleProfile = useAuthPersistStore(
-    (state) => state.setSelectedSimpleProfile
-  )
-
   const { address } = useAccount()
   const { disconnect } = useDisconnect({
     onError(error: CustomErrorWithData) {
       toast.error(error?.data?.message || error?.message)
     }
   })
+  const { activeProfile, setActiveProfile } = useProfileStore()
 
   const { data } = useProfilesManagedQuery({
     variables: {
@@ -56,14 +44,13 @@ const UserMenu = () => {
     }
   })
   const profilesManaged = data?.profilesManaged.items as Profile[]
-  const isAdmin = ADMIN_IDS.includes(selectedSimpleProfile?.id)
+  const isAdmin = ADMIN_IDS.includes(activeProfile?.id)
 
   const [revokeAuthentication, { loading }] = useRevokeAuthenticationMutation({
     onCompleted: () => {
       disconnect?.()
       signOut()
       setActiveProfile(null)
-      setSelectedSimpleProfile(null)
       Tower.track(EVENTS.AUTH.SIGN_OUT)
     }
   })
@@ -75,23 +62,23 @@ const UserMenu = () => {
           <Avatar
             size="2"
             radius="full"
-            src={getProfilePicture(selectedSimpleProfile)}
-            fallback={getProfile(selectedSimpleProfile)?.slug[0] ?? ';)'}
+            src={getProfilePicture(activeProfile)}
+            fallback={getProfile(activeProfile)?.slug[0] ?? ';)'}
           />
         </div>
       </DropdownMenu.Trigger>
       <DropdownMenu.Content sideOffset={10} variant="soft" align="end">
         <div className="w-48">
-          <Link href={getProfile(selectedSimpleProfile)?.link}>
+          <Link href={getProfile(activeProfile)?.link}>
             <Flex gap="2" px="2" py="1" pb="3" align="center">
               <Avatar
                 size="1"
                 radius="full"
-                src={getProfilePicture(selectedSimpleProfile)}
-                fallback={getProfile(selectedSimpleProfile)?.slug[0] ?? ';)'}
+                src={getProfilePicture(activeProfile)}
+                fallback={getProfile(activeProfile)?.slug[0] ?? ';)'}
               />
               <Text as="p" weight="bold" className="line-clamp-1">
-                {getProfile(selectedSimpleProfile)?.slug}
+                {getProfile(activeProfile)?.slug}
               </Text>
             </Flex>
           </Link>
@@ -105,12 +92,10 @@ const UserMenu = () => {
               </Flex>
             </DropdownMenu.Item>
           )}
-          {selectedSimpleProfile && (
+          {activeProfile && (
             <>
               <DropdownMenu.Item
-                onClick={() =>
-                  push(`/u/${getProfile(selectedSimpleProfile)?.slug}`)
-                }
+                onClick={() => push(getProfile(activeProfile)?.link)}
               >
                 <Flex gap="2" align="center">
                   <UserOutline className="h-4 w-4" />
@@ -140,7 +125,7 @@ const UserMenu = () => {
                 <DropdownMenu.SubContent>
                   {profilesManaged?.map(
                     (profile) =>
-                      profile.id !== selectedSimpleProfile.id && (
+                      profile.id !== activeProfile.id && (
                         <DropdownMenu.Item
                           key={profile.id}
                           onClick={() =>

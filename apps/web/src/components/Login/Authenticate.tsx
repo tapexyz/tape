@@ -1,5 +1,5 @@
 import KeyOutline from '@components/Common/Icons/KeyOutline'
-import useAuthPersistStore, { signIn, signOut } from '@lib/store/auth'
+import { signIn, signOut } from '@lib/store/auth'
 import useProfileStore from '@lib/store/profile'
 import { Avatar, Button, Flex, Select, Text } from '@radix-ui/themes'
 import { ERROR_MESSAGE } from '@tape.xyz/constants'
@@ -31,12 +31,9 @@ const Authenticate = () => {
     query: { as }
   } = useRouter()
 
-  const [selectedProfileId, setSelectedProfileId] = useState<string>()
   const [loading, setLoading] = useState(false)
-
-  const setActiveProfile = useProfileStore((state) => state.setActiveProfile)
-  const { selectedSimpleProfile, setSelectedSimpleProfile } =
-    useAuthPersistStore()
+  const [selectedProfileId, setSelectedProfileId] = useState<string>()
+  const { activeProfile, setActiveProfile } = useProfileStore()
 
   const onError = () => {
     signOut()
@@ -113,21 +110,13 @@ const Authenticate = () => {
       signIn({ accessToken, refreshToken })
       if (profilesManaged.length === 0) {
         setActiveProfile(null)
-        setSelectedSimpleProfile(null)
         toast.error('No profile found')
       } else {
         const profile = profilesManaged.find(
           (profile) => profile.id === selectedProfileId
         )
         if (profile) {
-          setSelectedSimpleProfile({
-            id: profile.id,
-            ownedBy: profile.ownedBy,
-            handle: profile.handle,
-            sponsor: profile.sponsor,
-            metadata: profile.metadata,
-            stats: profile.stats
-          })
+          setActiveProfile(profile)
         }
         if (router.query?.next) {
           location.href = router.query?.next as string
@@ -155,11 +144,10 @@ const Authenticate = () => {
     profilesManaged,
     setActiveProfile,
     signMessageAsync,
-    selectedProfileId,
-    setSelectedSimpleProfile
+    selectedProfileId
   ])
 
-  if (as && as === selectedSimpleProfile?.id) {
+  if (as && as === activeProfile?.id) {
     return null
   }
 

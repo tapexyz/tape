@@ -1,7 +1,7 @@
 import Badge from '@components/Common/Badge'
 import UserOutline from '@components/Common/Icons/UserOutline'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import useAuthPersistStore from '@lib/store/auth'
+import useProfileStore from '@lib/store/profile'
 import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { MutualFollowersRequest, Profile } from '@tape.xyz/lens'
 import { LimitType, useMutualFollowersQuery } from '@tape.xyz/lens'
@@ -16,12 +16,11 @@ type Props = {
 }
 
 const MutualFollowers: FC<Props> = ({ viewing }) => {
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
+  const { activeProfile } = useProfileStore()
+
   const request: MutualFollowersRequest = {
     viewing,
-    observer: selectedSimpleProfile?.id,
+    observer: activeProfile?.id,
     limit: LimitType.TwentyFive
   }
 

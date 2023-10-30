@@ -2,8 +2,8 @@ import Alert from '@components/Common/Alert'
 import CommentOutline from '@components/Common/Icons/CommentOutline'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
+import useProfileStore from '@lib/store/profile'
 import {
   INFINITE_SCROLL_ROOT_MARGIN,
   LENS_CUSTOM_FILTERS
@@ -31,9 +31,7 @@ type Props = {
 }
 
 const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
+  const { activeProfile } = useProfileStore()
   const queuedComments = usePersistStore((state) => state.queuedComments)
 
   const isFollowerOnlyReferenceModule =
@@ -82,7 +80,7 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
   })
 
   const showReferenceModuleAlert =
-    selectedSimpleProfile?.id &&
+    activeProfile?.id &&
     (isFollowerOnlyReferenceModule || isDegreesOfSeparationReferenceModule)
 
   return (

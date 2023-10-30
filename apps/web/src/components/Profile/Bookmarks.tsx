@@ -2,7 +2,7 @@ import MetaTags from '@components/Common/MetaTags'
 import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import useAuthPersistStore from '@lib/store/auth'
+import useProfileStore from '@lib/store/profile'
 import {
   ALLOWED_APP_IDS,
   INFINITE_SCROLL_ROOT_MARGIN,
@@ -25,9 +25,7 @@ import React from 'react'
 import { useInView } from 'react-cool-inview'
 
 const Bookmarks: FC = () => {
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
+  const { activeProfile } = useProfileStore()
 
   const request: PublicationBookmarksRequest = {
     limit: LimitType.Fifty,
@@ -45,7 +43,7 @@ const Bookmarks: FC = () => {
     variables: {
       request
     },
-    skip: !selectedSimpleProfile?.id
+    skip: !activeProfile?.id
   })
 
   const savedVideos = data?.publicationBookmarks?.items as AnyPublication[]
@@ -60,7 +58,7 @@ const Bookmarks: FC = () => {
             ...request,
             cursor: pageInfo?.next
           },
-          channelId: selectedSimpleProfile?.id ?? null
+          channelId: activeProfile?.id ?? null
         }
       })
     }

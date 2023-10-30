@@ -1,7 +1,7 @@
 import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { getDateString } from '@lib/formatTime'
-import useAuthPersistStore from '@lib/store/auth'
+import useProfileStore from '@lib/store/profile'
 import {
   Accordion,
   AccordionContent,
@@ -23,9 +23,7 @@ import toast from 'react-hot-toast'
 
 const List = () => {
   const [revokingSessionId, setRevokingSessionId] = useState('')
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
+  const { activeProfile } = useProfileStore()
 
   const onError = (error: any) => {
     setRevokingSessionId('')
@@ -40,7 +38,7 @@ const List = () => {
   const request: ApprovedAuthenticationRequest = { limit: LimitType.Fifty }
   const { data, loading, error, fetchMore } = useApprovedAuthenticationsQuery({
     variables: { request },
-    skip: !selectedSimpleProfile?.id
+    skip: !activeProfile?.id
   })
   const sessions = data?.approvedAuthentications?.items
 
