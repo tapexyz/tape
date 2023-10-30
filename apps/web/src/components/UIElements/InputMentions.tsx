@@ -9,7 +9,7 @@ import React, { useId } from 'react'
 import type { SuggestionDataItem } from 'react-mentions'
 import { Mention, MentionsInput } from 'react-mentions'
 
-import ProfileSuggestions from './ProfileSuggestions'
+import ProfileSuggestion from './ProfileSuggestion'
 
 interface Props extends ComponentProps<'textarea'> {
   label?: string
@@ -100,7 +100,7 @@ const InputMentions: FC<Props> = ({
               _index,
               focused
             ) => (
-              <ProfileSuggestions
+              <ProfileSuggestion
                 id={suggestion.profileId as string}
                 pfp={suggestion.picture as string}
                 handle={suggestion.id as string}

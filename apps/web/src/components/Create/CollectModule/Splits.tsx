@@ -1,22 +1,30 @@
 import InfoOutline from '@components/Common/Icons/InfoOutline'
 import TimesOutline from '@components/Common/Icons/TimesOutline'
 import { Input } from '@components/UIElements/Input'
+import { NoDataFound } from '@components/UIElements/NoDataFound'
+import ProfileSuggestion from '@components/UIElements/ProfileSuggestion'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import { IconButton, Text } from '@radix-ui/themes'
+import { useDebounce, useOutsideClick } from '@tape.xyz/browser'
 import {
   HANDLE_PREFIX,
-  IS_MAINNET,
-  LENSPROTOCOL_HANDLE,
+  LENS_CUSTOM_FILTERS,
   TAPE_ADMIN_ADDRESS,
   TAPE_APP_NAME
 } from '@tape.xyz/constants'
-import { splitNumber } from '@tape.xyz/generic'
-import type { RecipientDataInput } from '@tape.xyz/lens'
-import { useProfileLazyQuery } from '@tape.xyz/lens'
+import {
+  getProfile,
+  getProfilePicture,
+  splitNumber,
+  trimify
+} from '@tape.xyz/generic'
+import type { Profile, RecipientDataInput } from '@tape.xyz/lens'
+import { LimitType, useSearchProfilesLazyQuery } from '@tape.xyz/lens'
+import { Loader } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import type { FC, RefObject } from 'react'
-import React from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { isAddress } from 'viem'
 
 type Props = {
@@ -27,8 +35,12 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
   const uploadedVideo = useAppStore((state) => state.uploadedVideo)
   const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
   const splitRecipients = uploadedVideo.collectModule.multiRecipients ?? []
+  const [searchKeyword, setSearchKeyword] = useState('')
+  const debouncedValue = useDebounce<string>(searchKeyword, 500)
 
-  const [resolveHandleAddress, { loading: resolving }] = useProfileLazyQuery()
+  const [searchProfiles, { data: profilesData, loading: profilesLoading }] =
+    useSearchProfilesLazyQuery()
+  const profiles = profilesData?.searchProfiles?.items as Profile[]
 
   const setSplitRecipients = (multiRecipients: RecipientDataInput[]) => {
     const enabled = Boolean(splitRecipients.length)
@@ -45,11 +57,32 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
   const isIncludesDonationAddress =
     splitRecipients.filter((el) => el.recipient === TAPE_ADMIN_ADDRESS).length >
     0
-  const getIsHandle = (value: string) => {
-    return IS_MAINNET && value === LENSPROTOCOL_HANDLE
-      ? true
-      : value.includes(HANDLE_PREFIX)
+
+  const resultsRef = useRef(null)
+  useOutsideClick(resultsRef, () => {
+    setSearchKeyword('')
+  })
+
+  const onDebounce = () => {
+    if (trimify(searchKeyword).length) {
+      searchProfiles({
+        variables: {
+          request: {
+            limit: LimitType.Ten,
+            query: searchKeyword,
+            where: {
+              customFilters: LENS_CUSTOM_FILTERS
+            }
+          }
+        }
+      })
+    }
   }
+
+  useEffect(() => {
+    onDebounce()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedValue])
 
   const onChangeSplit = async (
     key: 'recipient' | 'split',
@@ -62,16 +95,8 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
       changedSplit[key] = Number(Number(value).toFixed(2))
     } else {
       changedSplit[key] = value
-      if (!getIsValidAddress(value) && getIsHandle(value)) {
-        const { data } = await resolveHandleAddress({
-          variables: {
-            request: {
-              forHandle: value
-            }
-          }
-        })
-        const resolvedAddress = data?.profile?.ownedBy.address ?? ''
-        changedSplit[key] = resolvedAddress
+      if (!getIsValidAddress(value)) {
+        setSearchKeyword(value)
       }
     }
     splits[index] = changedSplit
@@ -132,34 +157,62 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
       </div>
       {splitRecipients.map((splitRecipient, i) => (
         <div className="flex gap-1.5" key={i}>
-          <Input
-            className={clsx(
-              resolving &&
-                getIsHandle(splitRecipient.recipient) &&
-                'animate-pulse'
-            )}
-            placeholder={`0x12345...89 or ${HANDLE_PREFIX}tape`}
-            value={splitRecipient.recipient}
-            onChange={(e) => onChangeSplit('recipient', e.target.value, i)}
-            autoFocus
-            autoComplete="off"
-            spellCheck="false"
-            title={
-              splitRecipient.recipient === TAPE_ADMIN_ADDRESS
-                ? TAPE_APP_NAME
-                : undefined
-            }
-            suffix={
-              splitRecipient.recipient === TAPE_ADMIN_ADDRESS
-                ? `${TAPE_APP_NAME}.xyz`.toLowerCase()
-                : ''
-            }
-            disabled={splitRecipient.recipient === TAPE_ADMIN_ADDRESS}
-            validationError={
-              getIsValidAddress(splitRecipient.recipient) ? '' : ' '
-            }
-            showErrorLabel={false}
-          />
+          <div className="relative w-full">
+            <Input
+              placeholder={`0x12345...89 or ${HANDLE_PREFIX}tape`}
+              value={splitRecipient.recipient}
+              onChange={(e) => onChangeSplit('recipient', e.target.value, i)}
+              autoFocus
+              autoComplete="off"
+              spellCheck="false"
+              title={
+                splitRecipient.recipient === TAPE_ADMIN_ADDRESS
+                  ? TAPE_APP_NAME
+                  : undefined
+              }
+              suffix={
+                splitRecipient.recipient === TAPE_ADMIN_ADDRESS
+                  ? `${TAPE_APP_NAME}.xyz`.toLowerCase()
+                  : ''
+              }
+              disabled={splitRecipient.recipient === TAPE_ADMIN_ADDRESS}
+              validationError={
+                getIsValidAddress(splitRecipient.recipient) ? '' : ' '
+              }
+              showErrorLabel={false}
+            />
+            {searchKeyword.length &&
+            !getIsValidAddress(splitRecipients[i].recipient) ? (
+              <div
+                ref={resultsRef}
+                className="tape-border z-10 mt-1 w-full overflow-hidden rounded-md bg-white focus:outline-none dark:bg-black md:absolute"
+              >
+                {profilesLoading && <Loader className="my-4" />}
+                {!profiles?.length && !profilesLoading ? (
+                  <NoDataFound isCenter text="No profiles found" />
+                ) : null}
+                {profiles?.slice(0, 2)?.map((profile) => (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      onChangeSplit('recipient', getProfile(profile).address, i)
+                      setSearchKeyword('')
+                    }}
+                    className="w-full"
+                    key={profile.id}
+                  >
+                    <ProfileSuggestion
+                      id={profile.id}
+                      pfp={getProfilePicture(profile)}
+                      handle={getProfile(profile).slug}
+                      followers={profile.stats.followers}
+                      className="hover:bg-brand-50 text-left dark:hover:bg-black"
+                    />
+                  </button>
+                ))}
+              </div>
+            ) : null}
+          </div>
           <div className="w-1/3">
             <Input
               type="number"
@@ -192,21 +245,16 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
             Add recipient
           </button>
           {!isIncludesDonationAddress && (
-            <Tooltip
-              content={`Help ${TAPE_APP_NAME} continue to grow by adding a donation.`}
-              placement="top"
+            <button
+              type="button"
+              className={clsx(
+                'rounded border border-gray-700 px-1 text-[10px] font-bold uppercase tracking-wider opacity-70 dark:border-gray-300',
+                splitRecipients.length >= 5 && 'invisible'
+              )}
+              onClick={() => addDonation()}
             >
-              <button
-                type="button"
-                className={clsx(
-                  'rounded border border-gray-700 px-1 text-[10px] font-bold uppercase tracking-wider opacity-70 dark:border-gray-300',
-                  splitRecipients.length >= 5 && 'invisible'
-                )}
-                onClick={() => addDonation()}
-              >
-                Add Donation
-              </button>
-            </Tooltip>
+              Add Donation
+            </button>
           )}
         </div>
         {splitRecipients?.length > 1 && (

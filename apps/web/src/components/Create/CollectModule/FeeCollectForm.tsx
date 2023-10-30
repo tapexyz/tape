@@ -147,6 +147,9 @@ const FeeCollectForm: FC<Props> = ({
               </Select.Content>
             </Select.Root>
           </Flex>
+
+          <Splits submitContainerRef={submitContainerRef} />
+
           <div>
             <Input
               label="Referral Percentage"
@@ -158,7 +161,6 @@ const FeeCollectForm: FC<Props> = ({
               validationError={errors.referralPercent?.message}
             />
           </div>
-          <Splits submitContainerRef={submitContainerRef} />
         </>
       ) : null}
       <div className="flex justify-end pt-4" ref={submitContainerRef}>

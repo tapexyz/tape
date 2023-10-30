@@ -13,7 +13,7 @@ type Props = {
   followers: number
 }
 
-const ProfileSuggestions: FC<Props> = ({
+const ProfileSuggestion: FC<Props> = ({
   className,
   pfp,
   handle,
@@ -43,4 +43,4 @@ const ProfileSuggestions: FC<Props> = ({
   )
 }
 
-export default ProfileSuggestions
+export default ProfileSuggestion
