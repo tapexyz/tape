@@ -34,7 +34,7 @@ const Publications: FC<Props> = ({ results, loading, clearSearch }) => {
         const isBytesVideo =
           publication.publishedOn?.id === LENSTUBE_BYTES_APP_ID
         const thumbnailUrl = isSensitiveContent
-          ? `${STATIC_ASSETS}/images/sensor-blur.png`
+          ? `${STATIC_ASSETS}/images/sensor-blur.webp`
           : getThumbnailUrl(publication.metadata, true)
 
         return (

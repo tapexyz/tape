@@ -38,7 +38,7 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
 
   const thumbnailUrl = imageCdn(
     uploadedVideo.isSensitiveContent
-      ? `${STATIC_ASSETS}/images/sensor-blur.png`
+      ? `${STATIC_ASSETS}/images/sensor-blur.webp`
       : sanitizeDStorageUrl(queuedVideo.thumbnailUrl),
     uploadedVideo.isByteVideo ? 'THUMBNAIL_V' : 'THUMBNAIL'
   )

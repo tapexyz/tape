@@ -32,7 +32,7 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
   const isBytesVideo = video.publishedOn?.id === LENSTUBE_BYTES_APP_ID
   const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
   const thumbnailUrl = isSensitiveContent
-    ? `${STATIC_ASSETS}/images/sensor-blur.png`
+    ? `${STATIC_ASSETS}/images/sensor-blur.webp`
     : getThumbnailUrl(video.metadata, true)
 
   const { color: backgroundColor } = useAverageColor(thumbnailUrl, isBytesVideo)

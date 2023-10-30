@@ -30,7 +30,7 @@ const ThumbnailImage: FC<Props> = ({ video }) => {
     targetPublication.publishedOn?.id === LENSTUBE_BYTES_APP_ID
 
   const thumbnailUrl = isSensitiveContent
-    ? `${STATIC_ASSETS}/images/sensor-blur.png`
+    ? `${STATIC_ASSETS}/images/sensor-blur.webp`
     : getThumbnailUrl(targetPublication.metadata, true)
   const { color: backgroundColor } = useAverageColor(thumbnailUrl, isBytesVideo)
 
