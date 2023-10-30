@@ -141,7 +141,6 @@ export const getMetaTags = ({
       <meta name="twitter:player" content="${embedUrl}" />
       <meta property="twitter:player:width" content="1280" />
       <meta property="twitter:player:height" content="720" />
-      <link rel="iframely player" type="text/html" href="${embedUrl}" media="(aspect-ratio: 1280/720)" />
       <link rel="alternate" type="text/xml+oembed" href="${TAPE_API_URL}/oembed?format=xml&id=${pubId}" title="${title}" />
       <link rel="alternate" type="application/json+oembed" href="${TAPE_API_URL}/oembed?format=json&id=${pubId}" title="${title}" />
 
