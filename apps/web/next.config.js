@@ -27,12 +27,12 @@ const moduleExports = {
     return [
       {
         source: '/channel/:handle(.+).lens',
-        destination: '/channel/:handle',
+        destination: '/u/:handle',
         permanent: true
       },
       {
         source: '/channel/:handle(.+).test',
-        destination: '/channel/:handle',
+        destination: '/u/:handle',
         permanent: true
       },
       {
