@@ -8,11 +8,11 @@ import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
 import React from 'react'
 
-import Footer from './Footer'
 import BellOutline from './Icons/BellOutline'
 import ChevronDownOutline from './Icons/ChevronDownOutline'
 import UploadOutline from './Icons/UploadOutline'
 import GlobalSearch from './Search/GlobalSearch'
+import TapeMenu from './TapeMenu'
 import UserMenu from './UserMenu'
 
 const Navbar = () => {
@@ -55,11 +55,11 @@ const Navbar = () => {
                 className="opacity-50 hover:opacity-100"
               >
                 <ChevronDownOutline className="h-3 w-3" />
-                <span className="sr-only">Footer</span>
+                <span className="sr-only">Tape Menu</span>
               </IconButton>
             </HoverCard.Trigger>
             <HoverCard.Content className="w-72 bg-white dark:bg-black">
-              <Footer />
+              <TapeMenu />
             </HoverCard.Content>
           </HoverCard.Root>
         </div>

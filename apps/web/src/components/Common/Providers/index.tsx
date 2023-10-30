@@ -3,19 +3,17 @@ import { LivepeerConfig } from '@livepeer/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { getLivepeerClient, videoPlayerTheme } from '@tape.xyz/browser'
 import { apolloClient, ApolloProvider } from '@tape.xyz/lens/apollo'
+import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import type { ReactNode } from 'react'
 
 import ErrorBoundary from '../ErrorBoundary'
-import GlobalDialogs from '../GlobalDialogs'
-import Layout from '../Layout'
-import SubscriptionProvider from './SubscriptionProvider'
 import ThemeProvider from './ThemeProvider'
-import Web3Provider from './Web3Provider'
 
-const queryClient = new QueryClient({
-  defaultOptions: { queries: { refetchOnWindowFocus: false } }
-})
+const SubscriptionProvider = dynamic(() => import('./SubscriptionProvider'))
+const Web3Provider = dynamic(() => import('./Web3Provider'))
+const GlobalDialogs = dynamic(() => import('../GlobalDialogs'))
+const Layout = dynamic(() => import('../Layout'))
 
 const NO_NAV_PATHS = ['/login']
 const NO_PADDING_PATHS = [
@@ -28,7 +26,11 @@ const NO_PADDING_PATHS = [
   '/500'
 ]
 
-const client = apolloClient(authLink)
+const apolloQueryClient = apolloClient(authLink)
+const livepeerClient = getLivepeerClient()
+const reactQueryClient = new QueryClient({
+  defaultOptions: { queries: { refetchOnWindowFocus: false } }
+})
 
 const Providers = ({ children }: { children: ReactNode }) => {
   const { pathname } = useRouter()
@@ -36,15 +38,12 @@ const Providers = ({ children }: { children: ReactNode }) => {
   return (
     <ErrorBoundary>
       <Web3Provider>
-        <ApolloProvider client={client}>
-          <QueryClientProvider client={queryClient}>
+        <ApolloProvider client={apolloQueryClient}>
+          <QueryClientProvider client={reactQueryClient}>
             <ThemeProvider>
               <SubscriptionProvider />
               <GlobalDialogs />
-              <LivepeerConfig
-                client={getLivepeerClient()}
-                theme={videoPlayerTheme}
-              >
+              <LivepeerConfig client={livepeerClient} theme={videoPlayerTheme}>
                 <Layout
                   skipNav={NO_NAV_PATHS.includes(pathname)}
                   skipPadding={NO_PADDING_PATHS.includes(pathname)}

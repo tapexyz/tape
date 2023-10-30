@@ -8,7 +8,7 @@ import { EVENTS, Tower } from '@tape.xyz/generic'
 import Link from 'next/link'
 import React from 'react'
 
-const Footer = () => {
+const TapeMenu = () => {
   return (
     <div className="grid grid-cols-2">
       <Link
@@ -118,4 +118,4 @@ const Footer = () => {
   )
 }
 
-export default Footer
+export default TapeMenu
