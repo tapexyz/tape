@@ -70,7 +70,7 @@ const ProfileVideos: FC<Props> = ({ profile }) => {
     return (
       <>
         <PinnedVideoShimmer />
-        <TimelineShimmer />
+        <TimelineShimmer className="lg:!grid-cols-4" count={4} />
       </>
     )
   }
