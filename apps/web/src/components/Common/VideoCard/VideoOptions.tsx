@@ -344,6 +344,7 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
           {children ?? (
             <IconButton radius="full" variant={variant} highContrast size="2">
               <ThreeDotsOutline className="h-3.5 w-3.5" />
+              <span className="sr-only">Video Options</span>
             </IconButton>
           )}
         </DropdownMenu.Trigger>

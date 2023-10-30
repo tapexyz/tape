@@ -54,6 +54,7 @@ const Navbar = () => {
                 className="opacity-50 hover:opacity-100"
               >
                 <ChevronDownOutline className="h-3 w-3" />
+                <span className="sr-only">Footer</span>
               </IconButton>
             </HoverCard.Trigger>
             <HoverCard.Content className="w-72 bg-white dark:bg-black">

@@ -109,6 +109,7 @@ const GlobalSearch: FC<Props> = ({ onSearchResults }) => {
             <TextField.Root className="absolute z-20 w-[250px] rounded-md bg-white dark:bg-black lg:w-[800px]">
               <TextField.Slot px="3">
                 <SearchOutline className="h-4 w-4" />
+                <span className="sr-only">Search</span>
               </TextField.Slot>
               <TextField.Input
                 radius="full"
