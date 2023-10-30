@@ -39,9 +39,9 @@ const Delete = () => {
     enabled: txnHash && txnHash.length > 0,
     hash: txnHash,
     onSuccess: () => {
-      toast.success(`Profile deleted`)
-      setLoading(false)
       signOut()
+      setLoading(false)
+      toast.success(`Profile deleted`)
       location.href = '/'
     },
     onError

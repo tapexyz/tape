@@ -1,4 +1,4 @@
-import getCurrentSessionUserId from '@lib/getCurrentSessionUserId'
+import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId'
 import { hydrateAuthTokens, signOut } from '@lib/store/auth'
 import useNonceStore from '@lib/store/nonce'
 import useProfileStore from '@lib/store/profile'
@@ -39,7 +39,7 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
   const { resolvedTheme } = useTheme()
   const { address, connector } = useAccount()
   const { pathname, replace, asPath } = useRouter()
-  const currentSessionUserId = getCurrentSessionUserId()
+  const currentSessionProfileId = getCurrentSessionProfileId()
 
   const { disconnect } = useDisconnect({
     onError(error: CustomErrorWithData) {
@@ -54,8 +54,8 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
   }
 
   const { loading } = useCurrentProfileQuery({
-    variables: { request: { forProfileId: currentSessionUserId } },
-    skip: trimify(currentSessionUserId).length === 0,
+    variables: { request: { forProfileId: currentSessionProfileId } },
+    skip: trimify(currentSessionProfileId).length === 0,
     onCompleted: ({ userSigNonces, profile }) => {
       if (!profile) {
         return logout()
@@ -74,7 +74,7 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
   })
 
   const validateAuthRoutes = () => {
-    if (!currentSessionUserId && AUTH_ROUTES.includes(pathname)) {
+    if (!currentSessionProfileId && AUTH_ROUTES.includes(pathname)) {
       replace(`/login?next=${asPath}`)
     }
     if (
@@ -89,7 +89,7 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
 
   const validateAuthentication = () => {
     const { accessToken } = hydrateAuthTokens()
-    if (!accessToken && currentSessionUserId) {
+    if (!accessToken && currentSessionProfileId) {
       logout()
     }
   }
@@ -97,16 +97,16 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
   useEffect(() => {
     validateAuthRoutes()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [asPath, currentSessionUserId, activeProfile])
+  }, [asPath, currentSessionProfileId, activeProfile])
 
   useEffect(() => {
     validateAuthentication()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [disconnect, currentSessionUserId])
+  }, [disconnect, currentSessionProfileId])
 
   useEffect(() => {
     connector?.addListener('change', () => {
-      if (currentSessionUserId) {
+      if (currentSessionProfileId) {
         logout()
       }
     })
