@@ -1,3 +1,4 @@
+import MetaTags from '@components/Common/MetaTags'
 import { STATIC_ASSETS } from '@tape.xyz/constants'
 import Document, { Head, Html, Main, NextScript } from 'next/document'
 import React from 'react'
@@ -47,6 +48,7 @@ class AppDocument extends Document {
           />
         </Head>
         <body>
+          <MetaTags />
           <Main />
           <NextScript />
         </body>
