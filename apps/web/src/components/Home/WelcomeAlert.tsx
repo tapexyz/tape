@@ -1,5 +1,5 @@
 import { Button, Flex } from '@radix-ui/themes'
-import { STATIC_ASSETS } from '@tape.xyz/constants'
+import { STATIC_ASSETS, TAPE_APP_NAME } from '@tape.xyz/constants'
 import Link from 'next/link'
 import React from 'react'
 
@@ -14,9 +14,9 @@ const WelcomeAlert = () => {
         alt=""
       />
       <div className="ultrawide:p-8 relative flex h-full flex-col justify-end space-y-4 p-4 text-left text-white md:p-6">
-        <div className="text-3xl font-bold">Welcome to Tape</div>
+        <div className="text-3xl font-bold">Welcome to {TAPE_APP_NAME}</div>
         <p className="md:text-md max-w-2xl text-sm lg:text-lg">
-          Discover the new era of media sharing on Lens with Tape. A
+          Discover the new era of media sharing on Lens with {TAPE_APP_NAME}. A
           decentralized, user-centric approach to online media.
         </p>
         <Flex gap="3">

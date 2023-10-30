@@ -97,9 +97,6 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
     splits.push({ recipient: '', split: 1 })
     setSplitRecipients([...splits])
     scrollToSubmit()
-    if (!isIncludesDonationAddress) {
-      addDonation()
-    }
   }
 
   const removeRecipient = (index: number) => {

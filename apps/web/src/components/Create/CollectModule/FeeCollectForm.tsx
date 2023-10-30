@@ -135,7 +135,7 @@ const FeeCollectForm: FC<Props> = ({
               }}
             >
               <Select.Trigger />
-              <Select.Content variant="soft" color="blue">
+              <Select.Content highContrast>
                 {enabledCurrencies?.map((currency) => (
                   <Select.Item
                     key={currency.contract.address}
