@@ -21,22 +21,24 @@ import PinnedVideo from './Tabs/PinnedVideo'
 
 const ViewProfile = () => {
   const { query } = useRouter()
-  const handle = query.handle as string
-  const id = query.id as string
+  const handle = query.handle as string[]
+  const forProfileId = query.id as string
 
   useEffect(() => {
-    Tower.track(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.CHANNEL })
+    Tower.track(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.PROFILE })
   }, [])
 
+  const forHandle =
+    handle?.length > 1 ? handle.join('/') : `${HANDLE_PREFIX}${handle}`
   const request: ProfileRequest = {
-    ...(id ? { forProfileId: id } : { forHandle: `${HANDLE_PREFIX}${handle}` })
+    ...(forProfileId ? { forProfileId } : { forHandle })
   }
 
   const { data, loading, error } = useProfileQuery({
     variables: {
       request
     },
-    skip: id ? !id : !handle
+    skip: !forProfileId && !handle
   })
 
   if (loading || !data) {

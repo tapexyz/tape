@@ -51,7 +51,7 @@ const ProfileTabs: FC<Props> = ({ profile }) => {
           <Tabs.Trigger
             onClick={() => {
               handleTabChange('channels')
-              Tower.track(EVENTS.PROFILE.CLICK_OTHER_CHANNELS)
+              Tower.track(EVENTS.PROFILE.CLICK_OTHER_PROFILES)
             }}
             value="channels"
           >

@@ -1,4 +1,9 @@
-import { COMMON_REGEX, STATIC_ASSETS, TAPE_APP_NAME } from '@tape.xyz/constants'
+import {
+  COMMON_REGEX,
+  HANDLE_PREFIX,
+  STATIC_ASSETS,
+  TAPE_APP_NAME
+} from '@tape.xyz/constants'
 import { Matcher } from 'interweave'
 import Link from 'next/link'
 import React from 'react'
@@ -6,9 +11,8 @@ import React from 'react'
 import type { MentionProps } from './utils'
 
 const ProfileLink = ({ ...props }: any) => {
-  const namespace = props.display?.slice(1)
-  const splited = namespace.split('/')
-  const handle = splited[splited.length - 1]
+  const namespace = props.display?.slice(1) as string
+  const handle = namespace.replace(HANDLE_PREFIX, '')
 
   return (
     <Link
