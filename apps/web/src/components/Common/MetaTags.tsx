@@ -33,7 +33,7 @@ const MetaTags: FC<Props> = (props) => {
       <meta content={meta.description} name="description" />
       <meta
         name="viewport"
-        content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, user-scalable=no, viewport-fit=cover"
+        content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, maximum-scale=5, viewport-fit=cover"
       />
       <link rel="canonical" href={`https://tape.xyz${router.asPath}`} />
       <meta property="og:url" content={`https://tape.xyz${router.asPath}`} />
