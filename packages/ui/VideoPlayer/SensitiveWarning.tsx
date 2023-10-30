@@ -11,12 +11,12 @@ const SensitiveWarning: FC<Props> = ({ acceptWarning }) => {
       <div className="flex flex-col">
         <div className="text-base">
           The following video has sensitive content and may be inappropriate or
-          offensive to some audiences. <div>Viewer discretion is advised.</div>
+          offensive to some audiences. <b>Viewer discretion is advised.</b>
         </div>
         <div>
           <button
             type="button"
-            className="mt-5 rounded-md bg-gray-800 px-5 py-2 text-sm text-white outline-none"
+            className="mt-5 rounded-md bg-gray-800 px-5 py-2 text-sm font-medium text-white outline-none"
             onClick={() => acceptWarning()}
           >
             I understand & wish to proceed
