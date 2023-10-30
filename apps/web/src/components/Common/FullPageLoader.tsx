@@ -2,12 +2,9 @@ import { STATIC_ASSETS, TAPE_APP_NAME } from '@tape.xyz/constants'
 import { imageCdn } from '@tape.xyz/generic'
 import React from 'react'
 
-import MetaTags from './MetaTags'
-
 const FullPageLoader = () => {
   return (
     <div className="grid h-screen place-items-center">
-      <MetaTags />
       <img
         src={imageCdn(`${STATIC_ASSETS}/brand/logo.svg`)}
         draggable={false}
