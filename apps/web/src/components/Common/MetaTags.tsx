@@ -13,18 +13,16 @@ import React from 'react'
 
 type Props = {
   title?: string
-  description?: string
-  image?: string
 }
 
 const MetaTags: FC<Props> = (props) => {
   const router = useRouter()
-  const { description, title, image } = props
+  const { title } = props
 
   const meta = {
     title: title ? `${title} • ${TAPE_APP_NAME}` : TAPE_APP_NAME,
-    description: description ?? TAPE_APP_DESCRIPTION,
-    image: image ?? OG_IMAGE,
+    description: `${TAPE_APP_DESCRIPTION} • Where media meet social • 📼`,
+    image: OG_IMAGE,
     type: 'website'
   }
 
