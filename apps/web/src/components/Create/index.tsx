@@ -8,7 +8,6 @@ import type {
 } from '@lens-protocol/metadata'
 import {
   MetadataAttributeType,
-  MetadataLicenseType,
   PublicationContentWarning,
   shortVideo,
   video
@@ -295,7 +294,7 @@ const CreateSteps = () => {
         {
           type: MetadataAttributeType.STRING,
           key: 'category',
-          value: uploadedVideo.videoCategory.tag
+          value: uploadedVideo.mediaCategory.tag
         },
         {
           type: MetadataAttributeType.STRING,
@@ -319,13 +318,13 @@ const CreateSteps = () => {
           attributes,
           cover: uploadedVideo.thumbnail,
           duration: uploadedVideo.durationInSeconds,
-          license: MetadataLicenseType.CCO
+          license: uploadedVideo.mediaLicense
         },
         appId: TAPE_APP_ID,
         id: uuidv4(),
         attributes,
         content: trimify(uploadedVideo.description),
-        tags: [uploadedVideo.videoCategory.tag],
+        tags: [uploadedVideo.mediaCategory.tag],
         locale: getUserLocale(),
         title: uploadedVideo.title,
         marketplace: {
@@ -470,7 +469,7 @@ const CreateSteps = () => {
         // ANS-110 standard
         { name: 'Title', value: trimify(uploadedVideo.title) },
         { name: 'Type', value: uploadedVideo.type.toLowerCase() },
-        { name: 'Topic', value: uploadedVideo.videoCategory.name },
+        { name: 'Topic', value: uploadedVideo.mediaCategory.name },
         {
           name: 'Description',
           value: trimify(uploadedVideo.description)

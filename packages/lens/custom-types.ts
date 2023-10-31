@@ -1,4 +1,5 @@
 import type { WebIrys } from '@irys/sdk'
+import type { MetadataLicenseType } from '@lens-protocol/metadata'
 import type { ProfileInterestTypes, RecipientDataInput } from '@tape.xyz/lens'
 
 export type IrysDataState = {
@@ -53,7 +54,8 @@ export type UploadedMedia = {
   description: string
   thumbnail: string
   thumbnailType: string
-  videoCategory: { tag: string; name: string }
+  mediaCategory: { tag: string; name: string }
+  mediaLicense: MetadataLicenseType
   percent: number
   isSensitiveContent: boolean
   isUploadToIpfs: boolean

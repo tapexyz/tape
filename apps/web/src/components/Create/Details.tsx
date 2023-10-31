@@ -13,9 +13,10 @@ import { toast } from 'react-hot-toast'
 import type { z } from 'zod'
 import { boolean, object, string } from 'zod'
 
-import Category from './Category'
 import CollectModule from './CollectModule'
 import DropZone from './DropZone'
+import MediaCategory from './MediaCategory'
+import MediaLicense from './MediaLicense'
 import ReferenceModule from './ReferenceModule'
 import SelectedMedia from './SelectedMedia'
 
@@ -150,9 +151,13 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
 
             <div className="mt-4">
               <Flex gap="2">
-                <Category />
+                <MediaCategory />
                 <ReferenceModule />
               </Flex>
+            </div>
+
+            <div className="mt-2">
+              <MediaLicense />
             </div>
 
             <div className="mt-4">

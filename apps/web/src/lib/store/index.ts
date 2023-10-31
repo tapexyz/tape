@@ -1,4 +1,5 @@
 import { WebIrys } from '@irys/sdk'
+import { MetadataLicenseType } from '@lens-protocol/metadata'
 import {
   CREATOR_VIDEO_CATEGORIES,
   IRYS_CURRENCY,
@@ -37,7 +38,8 @@ export const UPLOADED_VIDEO_FORM_DEFAULTS: UploadedMedia = {
   uploadingThumbnail: false,
   buttonText: 'Post Now',
   durationInSeconds: 1,
-  videoCategory: CREATOR_VIDEO_CATEGORIES[0],
+  mediaCategory: CREATOR_VIDEO_CATEGORIES[0],
+  mediaLicense: MetadataLicenseType.CC_BY,
   isByteVideo: false,
   collectModule: {
     followerOnlyCollect: false,

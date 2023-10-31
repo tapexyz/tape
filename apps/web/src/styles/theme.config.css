@@ -15,6 +15,7 @@ div[type='button'] {
 }
 .rt-DialogContent,
 .rt-SelectContent,
+.rt-HoverCardContent,
 .rt-BaseMenuContent {
   @apply dark:!bg-black;
 }
