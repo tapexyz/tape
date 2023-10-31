@@ -78,11 +78,11 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
 
   return (
     <form onSubmit={handleSubmit(onSubmitForm)}>
-      <div className="grid h-full gap-5 md:grid-cols-2">
-        <div className="flex flex-col items-start justify-between">
+      <div className="flex h-full flex-row flex-wrap gap-4">
+        <div className="w-full md:w-2/5">
           {uploadedVideo.file ? <SelectedMedia /> : <DropZone />}
         </div>
-        <div className="flex flex-col justify-between">
+        <div className="flex flex-1 flex-col justify-between">
           <div>
             <div className="relative">
               <InputMentions

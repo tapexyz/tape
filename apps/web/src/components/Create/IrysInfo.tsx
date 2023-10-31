@@ -11,7 +11,7 @@ import { Button, Callout, Flex, IconButton, Text } from '@radix-ui/themes'
 import { useIsMounted } from '@tape.xyz/browser'
 import { IRYS_CURRENCY, POLYGON_CHAIN_ID } from '@tape.xyz/constants'
 import { EVENTS, logger, Tower } from '@tape.xyz/generic'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { formatEther, parseEther, parseUnits } from 'viem'
 import {
@@ -37,6 +37,7 @@ const IrysInfo = () => {
   const getIrysInstance = useAppStore((state) => state.getIrysInstance)
   const irysData = useAppStore((state) => state.irysData)
   const setIrysData = useAppStore((state) => state.setIrysData)
+  const [fetchingBalance, setFetchingBalance] = useState(false)
 
   const estimatePrice = async (irys: WebIrys) => {
     if (!uploadedVideo.stream) {
@@ -46,6 +47,7 @@ const IrysInfo = () => {
   }
 
   const fetchBalance = async (irys?: WebIrys) => {
+    setFetchingBalance(true)
     try {
       const instance = irys || irysData.instance
       if (address && instance) {
@@ -56,7 +58,9 @@ const IrysInfo = () => {
           estimatedPrice: formatEther(BigInt(price.toString()))
         })
       }
+      setFetchingBalance(false)
     } catch (error) {
+      setFetchingBalance(false)
       logger.error('[Error Fetch Irys Balance]', error)
     }
   }
@@ -159,7 +163,7 @@ const IrysInfo = () => {
 
   return (
     <div className="mt-4 w-full space-y-4">
-      {!isEnoughBalanceAvailable && (
+      {!isEnoughBalanceAvailable && !fetchingBalance ? (
         <Callout.Root color="red">
           <Callout.Icon>
             <WarningOutline className="h-4 w-4" />
@@ -168,7 +172,7 @@ const IrysInfo = () => {
             Not enough storage balance available, deposit to continue.
           </Callout.Text>
         </Callout.Root>
-      )}
+      ) : null}
       <div className="flex flex-col">
         <div className="inline-flex items-center justify-between rounded font-medium opacity-80">
           <span className="flex items-center space-x-1.5">
@@ -206,7 +210,7 @@ const IrysInfo = () => {
           </span>
         </div>
         <div className="flex justify-between">
-          {irysData.balance !== '0' ? (
+          {!fetchingBalance ? (
             <Text weight="bold" size="4">
               {Number(irysData.balance).toFixed(2)} matic
             </Text>
@@ -247,7 +251,7 @@ const IrysInfo = () => {
       <div className="space-y-1">
         <Text weight="medium">Estimated cost to upload</Text>
         <div className="flex justify-between">
-          {irysData.estimatedPrice !== '0' ? (
+          {!fetchingBalance ? (
             <Text weight="bold" size="4">
               {Number(irysData.estimatedPrice).toFixed(2)} matic
             </Text>

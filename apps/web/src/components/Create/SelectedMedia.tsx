@@ -53,10 +53,10 @@ const SelectedMedia = () => {
   }
 
   return (
-    <div className="flex w-full flex-col">
+    <div className="flex flex-col">
       {isAudio ? (
         <div className="flex w-full justify-end">
-          <div className="md:rounded-large rounded-small w-3/5 space-y-2 overflow-hidden border p-2 dark:border-gray-800">
+          <div className="md:rounded-large rounded-small w-full space-y-2 overflow-hidden border p-2 dark:border-gray-800">
             <AspectRatio ratio={1 / 1} className="group relative">
               {posterPreview ? (
                 <img
@@ -69,7 +69,7 @@ const SelectedMedia = () => {
               <label
                 htmlFor="choosePoster"
                 className={clsx(
-                  'invisible absolute top-0 grid h-full w-full cursor-pointer place-items-center rounded-full bg-white bg-opacity-70 backdrop-blur-lg group-hover:visible dark:bg-black',
+                  'rounded-small invisible absolute top-0 grid h-full w-full cursor-pointer place-items-center overflow-hidden bg-gray-100 bg-opacity-70 backdrop-blur-lg group-hover:visible dark:bg-black',
                   {
                     '!visible':
                       uploadedVideo.uploadingThumbnail ||
