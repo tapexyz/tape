@@ -1,9 +1,12 @@
 import MetaTags from '@components/Common/MetaTags'
 import useEthersWalletClient from '@hooks/useEthersWalletClient'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import type { MetadataAttribute, VideoOptions } from '@lens-protocol/metadata'
-import {
+import type {
   MediaVideoMimeType,
+  MetadataAttribute,
+  VideoOptions
+} from '@lens-protocol/metadata'
+import {
   MetadataAttributeType,
   MetadataLicenseType,
   PublicationContentWarning,
@@ -31,6 +34,7 @@ import {
   EVENTS,
   getProfile,
   getSignature,
+  getUploadedMediaType,
   logger,
   Tower,
   trimify,
@@ -308,7 +312,9 @@ const CreateSteps = () => {
       const publicationMetadata: VideoOptions = {
         video: {
           item: uploadedVideo.videoSource,
-          type: MediaVideoMimeType.MP4,
+          type: getUploadedMediaType(
+            uploadedVideo.mediaType
+          ) as MediaVideoMimeType,
           altTag: trimify(uploadedVideo.title),
           attributes,
           cover: uploadedVideo.thumbnail,
