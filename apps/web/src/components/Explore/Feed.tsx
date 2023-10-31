@@ -4,8 +4,8 @@ import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { Tab } from '@headlessui/react'
 import useAppStore from '@lib/store'
+import { Tabs } from '@radix-ui/themes'
 import {
   ALLOWED_APP_IDS,
   INFINITE_SCROLL_ROOT_MARGIN,
@@ -27,7 +27,6 @@ import {
   useExplorePublicationsQuery
 } from '@tape.xyz/lens'
 import { Loader } from '@tape.xyz/ui'
-import clsx from 'clsx'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 
@@ -96,26 +95,23 @@ const ExploreFeed = () => {
   })
 
   return (
-    <Tab.Group as="div" className="col-span-9 w-full">
-      <Tab.List className="no-scrollbar flex overflow-x-auto">
-        <Tab
+    <Tabs.Root defaultValue="trending">
+      <Tabs.List>
+        <Tabs.Trigger
           onClick={() => {
             setActiveCriteria({ ...initialCriteria })
             Tower.track(EVENTS.PAGEVIEW, {
               page: EVENTS.PAGE_VIEW.EXPLORE_TRENDING
             })
           }}
-          className={({ selected }) =>
-            clsx(
-              'flex items-center space-x-2 whitespace-nowrap border-b-2 px-4 py-2 focus:outline-none',
-              selected ? 'border-brand-500' : 'border-transparent'
-            )
-          }
+          value="trending"
         >
-          <FireOutline className="h-3.5 w-3.5" />
-          <span>Trending</span>
-        </Tab>
-        <Tab
+          <span className="flex items-center space-x-1">
+            <FireOutline className="h-3.5 w-3.5" />
+            <span>Trending</span>
+          </span>
+        </Tabs.Trigger>
+        <Tabs.Trigger
           onClick={() => {
             setActiveCriteria({
               ...initialCriteria,
@@ -126,17 +122,14 @@ const ExploreFeed = () => {
               page: EVENTS.PAGE_VIEW.EXPLORE_POPULAR
             })
           }}
-          className={({ selected }) =>
-            clsx(
-              'flex items-center space-x-2 border-b-2 px-4 py-2 focus:outline-none',
-              selected ? 'border-brand-500' : 'border-transparent'
-            )
-          }
+          value="popular"
         >
-          <CommentOutline className="h-3.5 w-3.5" />
-          <span>Popular</span>
-        </Tab>
-        <Tab
+          <span className="flex items-center space-x-1">
+            <CommentOutline className="h-3.5 w-3.5" />
+            <span>Popular</span>
+          </span>
+        </Tabs.Trigger>
+        <Tabs.Trigger
           onClick={() => {
             setActiveCriteria({
               ...initialCriteria,
@@ -147,18 +140,16 @@ const ExploreFeed = () => {
               page: EVENTS.PAGE_VIEW.EXPLORE_INTERESTING
             })
           }}
-          className={({ selected }) =>
-            clsx(
-              'flex items-center space-x-2 border-b-2 px-4 py-2 focus:outline-none',
-              selected ? 'border-brand-500' : 'border-transparent'
-            )
-          }
+          value="interesting"
         >
-          <MirrorOutline className="h-3.5 w-3.5" />
-          <span>Interesting</span>
-        </Tab>
-      </Tab.List>
-      <Tab.Panels className="my-3">
+          <span className="flex items-center space-x-1">
+            <MirrorOutline className="h-3.5 w-3.5" />
+            <span>Interesting</span>
+          </span>
+        </Tabs.Trigger>
+      </Tabs.List>
+
+      <Tabs.Content className="my-3" value="trending">
         {loading && <TimelineShimmer />}
         {videos?.length === 0 && (
           <NoDataFound isCenter withImage text={`No videos found`} />
@@ -173,8 +164,8 @@ const ExploreFeed = () => {
             )}
           </>
         ) : null}
-      </Tab.Panels>
-    </Tab.Group>
+      </Tabs.Content>
+    </Tabs.Root>
   )
 }
 

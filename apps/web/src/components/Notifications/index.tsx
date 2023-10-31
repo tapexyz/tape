@@ -1,7 +1,6 @@
 import MetaTags from '@components/Common/MetaTags'
 import NotificationsShimmer from '@components/Shimmers/NotificationsShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { Tab } from '@headlessui/react'
 import usePersistStore from '@lib/store/persist'
 import useProfileStore from '@lib/store/profile'
 import {
@@ -80,48 +79,46 @@ const Notifications = () => {
   return (
     <div className="mx-auto my-2 px-2 md:container md:max-w-3xl md:p-0">
       <MetaTags title={`Notifications`} />
-      <Tab.Group as="div" className="w-full">
-        <div className="mb-4 flex items-center justify-between font-bold md:mb-6">
-          <span className="whitespace-nowrap text-xl">All Notifications</span>
-          <NotificationsFilter />
-        </div>
-        <Tab.Panels>
-          {loading && <NotificationsShimmer />}
-          {notifications?.length === 0 && (
-            <NoDataFound isCenter withImage text={`No Notifications`} />
-          )}
-          {notifications?.map((notification: Notification, index: number) => (
-            <div className="pb-6" key={`${notification.id}_${index}`}>
-              {notification?.__typename === 'MentionNotification' && (
-                <Mentioned notification={notification} />
-              )}
-              {notification?.__typename === 'FollowNotification' && (
-                <Followed notification={notification} />
-              )}
-              {notification?.__typename === 'MirrorNotification' && (
-                <Mirrored notification={notification} />
-              )}
-              {notification?.__typename === 'QuoteNotification' && (
-                <Quoted notification={notification} />
-              )}
-              {notification?.__typename === 'ActedNotification' && (
-                <Acted notification={notification} />
-              )}
-              {notification?.__typename === 'CommentNotification' && (
-                <Commented notification={notification} />
-              )}
-              {notification?.__typename === 'ReactionNotification' && (
-                <Reactions notification={notification} />
-              )}
-            </div>
-          ))}
-          {pageInfo?.next && (
-            <span ref={observe} className="flex justify-center p-10">
-              <Loader />
-            </span>
-          )}
-        </Tab.Panels>
-      </Tab.Group>
+      <div className="mb-4 flex items-center justify-between font-bold md:mb-6">
+        <span className="whitespace-nowrap text-xl">All Notifications</span>
+        <NotificationsFilter />
+      </div>
+      <div>
+        {loading && <NotificationsShimmer />}
+        {notifications?.length === 0 && (
+          <NoDataFound isCenter withImage text={`No Notifications`} />
+        )}
+        {notifications?.map((notification: Notification, index: number) => (
+          <div className="pb-6" key={`${notification.id}_${index}`}>
+            {notification?.__typename === 'MentionNotification' && (
+              <Mentioned notification={notification} />
+            )}
+            {notification?.__typename === 'FollowNotification' && (
+              <Followed notification={notification} />
+            )}
+            {notification?.__typename === 'MirrorNotification' && (
+              <Mirrored notification={notification} />
+            )}
+            {notification?.__typename === 'QuoteNotification' && (
+              <Quoted notification={notification} />
+            )}
+            {notification?.__typename === 'ActedNotification' && (
+              <Acted notification={notification} />
+            )}
+            {notification?.__typename === 'CommentNotification' && (
+              <Commented notification={notification} />
+            )}
+            {notification?.__typename === 'ReactionNotification' && (
+              <Reactions notification={notification} />
+            )}
+          </div>
+        ))}
+        {pageInfo?.next && (
+          <span ref={observe} className="flex justify-center p-10">
+            <Loader />
+          </span>
+        )}
+      </div>
     </div>
   )
 }
