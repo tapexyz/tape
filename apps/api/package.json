@@ -11,7 +11,7 @@
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "next": "14.0.0"
+    "next": "14.0.1"
   },
   "devDependencies": {
     "@tape.xyz/browser": "*",
