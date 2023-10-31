@@ -70,13 +70,15 @@ const EditionSize: FC<Props> = ({ setCollectType }) => {
               const { value } = e.target
               setCollectType({
                 collectLimit:
-                  !trimify(value) || Number(value) <= 0 ? '0' : value
+                  !trimify(value) || Number(value) <= 0
+                    ? '0'
+                    : String(parseInt(value))
               })
             }}
             onChange={(e) => {
               const { value } = e.target
               setCollectType({
-                collectLimit: Number(value) <= 0 ? '' : value
+                collectLimit: Number(value) <= 0 ? '' : String(parseInt(value))
               })
             }}
             value={uploadedVideo.collectModule.collectLimit}
