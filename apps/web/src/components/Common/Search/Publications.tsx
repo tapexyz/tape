@@ -51,7 +51,7 @@ const Publications: FC<Props> = ({ results, loading, clearSearch }) => {
               <div className="flex items-center space-x-3">
                 <img
                   className={clsx(
-                    'h-16 w-28 rounded-md bg-gray-300 object-center dark:bg-gray-700',
+                    'h-16 w-28 flex-none rounded-md bg-gray-300 object-center dark:bg-gray-700',
                     isBytesVideo ? 'object-contain' : 'object-cover'
                   )}
                   src={imageCdn(
@@ -68,7 +68,7 @@ const Publications: FC<Props> = ({ results, loading, clearSearch }) => {
                   <p className="line-clamp-1 font-medium">
                     {getPublicationData(publication.metadata)?.title}
                   </p>
-                  <p className="line-clamp-1 text-sm">
+                  <p className="text-dust line-clamp-2">
                     {getPublicationData(publication.metadata)?.content}
                   </p>
                 </div>
