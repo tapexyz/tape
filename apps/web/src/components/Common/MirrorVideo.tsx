@@ -41,7 +41,6 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
 
   const activeProfile = useProfileStore((state) => state.activeProfile)
-  console.log('🚀 ~ file: MirrorVideo.tsx:44 ~ activeProfile:', activeProfile)
   const canUseRelay = activeProfile?.signless && activeProfile?.sponsor
 
   const onError = (error: CustomErrorWithData) => {

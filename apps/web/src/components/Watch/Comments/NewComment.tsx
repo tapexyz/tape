@@ -110,17 +110,15 @@ const NewComment: FC<Props> = ({
   }, [defaultValue])
 
   const setToQueue = (txn: { txnId?: string; txnHash?: string }) => {
-    if (txn?.txnId) {
-      setQueuedComments([
-        {
-          comment: getValues('comment'),
-          txnId: txn.txnId,
-          txnHash: txn.txnHash,
-          pubId: targetVideo.id
-        },
-        ...(queuedComments || [])
-      ])
-    }
+    setQueuedComments([
+      {
+        comment: getValues('comment'),
+        txnId: txn.txnId,
+        txnHash: txn.txnHash,
+        pubId: targetVideo.id
+      },
+      ...(queuedComments || [])
+    ])
   }
 
   const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
@@ -150,11 +148,11 @@ const NewComment: FC<Props> = ({
     abi: LENSHUB_PROXY_ABI,
     functionName: 'comment',
     onSuccess: (data) => {
-      onCompleted()
       setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
       if (data.hash) {
         setToQueue({ txnHash: data.hash })
       }
+      onCompleted()
     },
     onError: (error) => {
       onError(error)
