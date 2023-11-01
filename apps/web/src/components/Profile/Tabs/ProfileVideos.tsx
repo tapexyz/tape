@@ -1,4 +1,5 @@
 import VideoCard from '@components/Common/VideoCard'
+import QueuedVideo from '@components/Common/VideoCard/QueuedVideo'
 import PinnedVideoShimmer from '@components/Shimmers/PinnedVideoShimmer'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
@@ -81,6 +82,12 @@ const ProfileVideos: FC<Props> = ({ profile }) => {
 
   return !error && !loading ? (
     <div className="laptop:grid-cols-4 grid-col-1 grid gap-x-4 gap-y-2 md:grid-cols-3 md:gap-y-6">
+      {queuedVideos?.map((queuedVideo) => (
+        <QueuedVideo
+          key={queuedVideo?.thumbnailUrl}
+          queuedVideo={queuedVideo}
+        />
+      ))}
       {videos?.map((video: Post, i) => {
         return <VideoCard key={`${video?.id}_${i}`} video={video} />
       })}
