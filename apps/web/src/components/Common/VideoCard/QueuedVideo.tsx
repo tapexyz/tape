@@ -1,4 +1,5 @@
 import Tooltip from '@components/UIElements/Tooltip'
+import usePendingTxn from '@hooks/usePendingTxn'
 import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
 import usePersistStore from '@lib/store/persist'
 import useProfileStore from '@lib/store/profile'
@@ -12,9 +13,8 @@ import {
 } from '@tape.xyz/generic'
 import {
   PublicationDocument,
-  usePublicationLazyQuery,
   usePublicationQuery,
-  useTxIdToTxHashLazyQuery
+  useTxIdToTxHashQuery
 } from '@tape.xyz/lens'
 import { useApolloClient } from '@tape.xyz/lens/apollo'
 import type { QueuedVideoType } from '@tape.xyz/lens/custom-types'
@@ -34,7 +34,6 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
   const { queuedVideos, setQueuedVideos } = usePersistStore()
 
   const { cache } = useApolloClient()
-  const [getTxnHash] = useTxIdToTxHashLazyQuery()
 
   const thumbnailUrl = imageCdn(
     uploadedVideo.isSensitiveContent
@@ -57,9 +56,27 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
     setQueuedVideos(queuedVideos.filter((q) => q.txnId !== queuedVideo.txnId))
   }
 
-  const [getPublication] = usePublicationLazyQuery({
-    onCompleted: (data) => {
-      if (data.publication) {
+  const { indexed } = usePendingTxn({
+    txId: queuedVideo.txnId
+  })
+
+  const { data: txHashData } = useTxIdToTxHashQuery({
+    variables: {
+      for: queuedVideo.txnId
+    },
+    skip: !indexed || !queuedVideo.txnId?.length
+  })
+
+  const { stopPolling } = usePublicationQuery({
+    variables: {
+      request: { forTxHash: txHashData?.txIdToTxHash || queuedVideo.txnHash }
+    },
+    skip: !txHashData?.txIdToTxHash?.length && !queuedVideo.txnHash?.length,
+    pollInterval: 1000,
+    notifyOnNetworkStatusChange: true,
+    onCompleted: async (data) => {
+      if (data?.publication?.txHash) {
+        stopPolling()
         cache.modify({
           fields: {
             publications() {
@@ -75,46 +92,13 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
     }
   })
 
-  const getVideoByTxnId = async () => {
-    const { data } = await getTxnHash({
-      variables: {
-        for: queuedVideo.txnId
-      }
-    })
-    if (data?.txIdToTxHash) {
-      getPublication({
-        variables: { request: { forTxHash: data?.txIdToTxHash } }
-      })
-    }
-  }
-
-  const { stopPolling } = usePublicationQuery({
-    variables: {
-      request: { forId: queuedVideo?.txnId, forTxHash: queuedVideo?.txnHash }
-    },
-    skip: !queuedVideo?.txnId?.length && !queuedVideo?.txnHash?.length,
-    pollInterval: 1000,
-    notifyOnNetworkStatusChange: true,
-    onCompleted: async (data) => {
-      if (data?.publication?.txHash) {
-        stopPolling()
-        if (queuedVideo.txnHash) {
-          return getPublication({
-            variables: { request: { forTxHash: queuedVideo?.txnHash } }
-          })
-        }
-        await getVideoByTxnId()
-      }
-    }
-  })
-
   if (!queuedVideo?.txnId && !queuedVideo?.txnHash) {
     return null
   }
 
   return (
     <div className="cursor-wait">
-      <Tooltip content={`Indexing, please wait...`} placement="top">
+      <Tooltip content="Indexing, please wait..." placement="top">
         <div className="aspect-w-16 aspect-h-9 relative overflow-hidden">
           <img
             src={thumbnailUrl}
