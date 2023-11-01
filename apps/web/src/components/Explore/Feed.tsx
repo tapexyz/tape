@@ -5,7 +5,7 @@ import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAppStore from '@lib/store'
-import { Tabs } from '@radix-ui/themes'
+import { Button } from '@radix-ui/themes'
 import {
   ALLOWED_APP_IDS,
   INFINITE_SCROLL_ROOT_MARGIN,
@@ -95,23 +95,28 @@ const ExploreFeed = () => {
   })
 
   return (
-    <Tabs.Root defaultValue="trending">
-      <Tabs.List>
-        <Tabs.Trigger
+    <div className="laptop:pt-6 pt-4">
+      <div className="space-x-2">
+        <Button
+          radius="full"
+          highContrast
+          variant={activeCriteria.trending ? 'solid' : 'surface'}
           onClick={() => {
             setActiveCriteria({ ...initialCriteria })
             Tower.track(EVENTS.PAGEVIEW, {
               page: EVENTS.PAGE_VIEW.EXPLORE_TRENDING
             })
           }}
-          value="trending"
         >
           <span className="flex items-center space-x-1">
             <FireOutline className="h-3.5 w-3.5" />
             <span>Trending</span>
           </span>
-        </Tabs.Trigger>
-        <Tabs.Trigger
+        </Button>
+        <Button
+          radius="full"
+          highContrast
+          variant={activeCriteria.popular ? 'solid' : 'surface'}
           onClick={() => {
             setActiveCriteria({
               ...initialCriteria,
@@ -122,14 +127,16 @@ const ExploreFeed = () => {
               page: EVENTS.PAGE_VIEW.EXPLORE_POPULAR
             })
           }}
-          value="popular"
         >
           <span className="flex items-center space-x-1">
             <CommentOutline className="h-3.5 w-3.5" />
             <span>Popular</span>
           </span>
-        </Tabs.Trigger>
-        <Tabs.Trigger
+        </Button>
+        <Button
+          radius="full"
+          highContrast
+          variant={activeCriteria.interesting ? 'solid' : 'surface'}
           onClick={() => {
             setActiveCriteria({
               ...initialCriteria,
@@ -140,16 +147,15 @@ const ExploreFeed = () => {
               page: EVENTS.PAGE_VIEW.EXPLORE_INTERESTING
             })
           }}
-          value="interesting"
         >
           <span className="flex items-center space-x-1">
             <MirrorOutline className="h-3.5 w-3.5" />
             <span>Interesting</span>
           </span>
-        </Tabs.Trigger>
-      </Tabs.List>
+        </Button>
+      </div>
 
-      <Tabs.Content className="my-3" value="trending">
+      <div className="my-4">
         {loading && <TimelineShimmer />}
         {videos?.length === 0 && (
           <NoDataFound isCenter withImage text={`No videos found`} />
@@ -164,8 +170,8 @@ const ExploreFeed = () => {
             )}
           </>
         ) : null}
-      </Tabs.Content>
-    </Tabs.Root>
+      </div>
+    </div>
   )
 }
 

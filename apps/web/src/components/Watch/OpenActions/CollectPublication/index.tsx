@@ -394,7 +394,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
                     <Callout.Icon>
                       <InfoOutline />
                     </Callout.Icon>
-                    <Callout.Text weight="bold" highContrast>
+                    <Callout.Text highContrast>
                       <Flex gap="2" align="center">
                         <UserOutline className="h-3.5 w-3.5" />
                         This publication can only be collected by the creator's

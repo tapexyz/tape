@@ -2,15 +2,19 @@ import useAppStore from '@lib/store'
 import { CREATOR_VIDEO_CATEGORIES } from '@tape.xyz/constants'
 import { EVENTS, Tower } from '@tape.xyz/generic'
 import clsx from 'clsx'
+import type { FC } from 'react'
 import React, { useRef } from 'react'
 
 import HorizantalScroller from './HorizantalScroller'
 
-const CategoryFilters = () => {
-  const sectionRef = useRef<HTMLDivElement>(null)
+type Props = {
+  heading?: string
+  subheading?: string
+}
 
-  const activeTagFilter = useAppStore((state) => state.activeTagFilter)
-  const setActiveTagFilter = useAppStore((state) => state.setActiveTagFilter)
+const CategoryFilters: FC<Props> = ({ heading, subheading }) => {
+  const sectionRef = useRef<HTMLDivElement>(null)
+  const { activeTagFilter, setActiveTagFilter } = useAppStore()
 
   const onFilter = (tag: string) => {
     setActiveTagFilter(tag)
@@ -18,11 +22,11 @@ const CategoryFilters = () => {
   }
 
   return (
-    <div className="laptop:pt-6 sticky -top-4 z-[9] bg-white pt-4 dark:bg-black">
+    <div className="sticky top-0 z-[9] bg-white dark:bg-black">
       <HorizantalScroller
         sectionRef={sectionRef}
-        heading="Explore"
-        subheading="Categories"
+        heading={heading ?? 'Explore'}
+        subheading={subheading ?? 'Categories'}
       />
       <div
         ref={sectionRef}

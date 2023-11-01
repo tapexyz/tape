@@ -66,7 +66,7 @@ const Feed = () => {
   })
 
   return (
-    <div>
+    <div className="laptop:pt-6 pt-4">
       <CategoryFilters />
       <div className="laptop:pt-4 pt-4">
         {loading && <TimelineShimmer />}

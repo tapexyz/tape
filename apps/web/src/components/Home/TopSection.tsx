@@ -20,7 +20,7 @@ const TopSection = () => {
       />
       <div
         ref={sectionRef}
-        className="no-scrollbar ultrawide:pt-8 laptop:pt-6 relative flex items-start space-x-4 overflow-x-auto overflow-y-hidden scroll-smooth pt-4"
+        className="no-scrollbar laptop:pt-6 relative flex items-start space-x-4 overflow-x-auto overflow-y-hidden scroll-smooth pt-4"
       >
         {!activeProfile?.id && <WelcomeAlert />}
         <GitcoinAlert />

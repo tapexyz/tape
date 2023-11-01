@@ -222,7 +222,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
           <Callout.Icon>
             <WarningOutline className="h-5 w-5" />
           </Callout.Icon>
-          <Callout.Text weight="bold" highContrast>
+          <Callout.Text highContrast>
             <Flex gap="2" align="center">
               <BadgeUI>{misused.type}</BadgeUI>
               <InterweaveContent content={misused.description} />

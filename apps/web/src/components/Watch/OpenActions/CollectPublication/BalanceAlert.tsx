@@ -23,7 +23,7 @@ const BalanceAlert: FC<Props> = ({ action }) => {
         <Callout.Icon>
           <WarningOutline className="h-4 w-4" />
         </Callout.Icon>
-        <Callout.Text weight="bold" highContrast>
+        <Callout.Text highContrast>
           <div className="flex w-full flex-1 items-center justify-between space-x-2 text-sm">
             <span>
               Not enough {action?.amount?.asset?.symbol} token balance
