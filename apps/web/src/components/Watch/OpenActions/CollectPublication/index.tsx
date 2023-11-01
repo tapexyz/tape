@@ -374,12 +374,6 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
               </span>
             </div>
           ) : null}
-          {details?.referralFee ? (
-            <div className="mb-3 flex flex-col">
-              <span className="mb-0.5 font-bold">Referral Fee</span>
-              <span className="text-2xl">{details?.referralFee} %</span>
-            </div>
-          ) : null}
           {isRecipientAvailable ? (
             <div className="mb-3 flex flex-col">
               <span className="mb-0.5 font-bold">Creator</span>
