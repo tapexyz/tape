@@ -191,6 +191,8 @@ const Subscription = ({ channel }: Props) => {
     updateSubscription(false)
   }
 
+  const currencies = enabledCurrencies?.currencies.items
+
   return (
     <div className="tape-border rounded-medium dark:bg-cod bg-white p-5">
       <MetaTags title="Subscription" />
@@ -257,16 +259,14 @@ const Subscription = ({ channel }: Props) => {
                   placeholder="Select preferred currency"
                 />
                 <Select.Content highContrast>
-                  {enabledCurrencies?.currencies.items?.map(
-                    ({ contract, name }) => (
-                      <Select.Item
-                        key={contract.address}
-                        value={contract.address}
-                      >
-                        {name}
-                      </Select.Item>
-                    )
-                  )}
+                  {currencies?.map(({ contract, name }) => (
+                    <Select.Item
+                      key={contract.address}
+                      value={contract.address}
+                    >
+                      {name}
+                    </Select.Item>
+                  ))}
                 </Select.Content>
               </Select.Root>
               {errors.token?.message && (
