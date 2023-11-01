@@ -1,7 +1,9 @@
 import InfoOutline from '@components/Common/Icons/InfoOutline'
 import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
+import { Countdown } from '@components/UIElements/CountDown'
 import Tooltip from '@components/UIElements/Tooltip'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
+import { getRelativeTime } from '@lib/formatTime'
 import { getCollectModuleOutput } from '@lib/getCollectModuleOutput'
 import useNonceStore from '@lib/store/nonce'
 import useProfileStore from '@lib/store/profile'
@@ -40,7 +42,6 @@ import {
 } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
-import dayjs from 'dayjs'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
@@ -333,8 +334,10 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
             <div className="mb-3 flex flex-col">
               <span className="mb-0.5 font-bold">Collect Ends</span>
               <span className="text-lg">
-                {dayjs(details?.endsAt).format('MMMM DD, YYYY')} at{' '}
-                {dayjs(details?.endsAt).format('hh:mm a')}
+                <Countdown
+                  timestamp={details.endsAt}
+                  endText={`Ended ${getRelativeTime(details.endsAt)}`}
+                />
               </span>
             </div>
           ) : null}

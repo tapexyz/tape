@@ -129,7 +129,10 @@ const Guardian: FC = () => {
         {!isCooldownEnded() && (
           <span className="flex items-center space-x-2">
             <span>Cooldown period ends in: </span>
-            <Countdown timestamp={activeProfile?.guardian?.cooldownEndsOn} />
+            <Countdown
+              timestamp={activeProfile?.guardian?.cooldownEndsOn}
+              endText="Cooldown period ended"
+            />
           </span>
         )}
         {guardianEnabled ? (
