@@ -38,6 +38,7 @@ import {
   useBroadcastOnchainMutation,
   useCreateActOnOpenActionTypedDataMutation,
   useProfilesQuery,
+  usePublicationQuery,
   useRevenueFromPublicationQuery
 } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
@@ -84,6 +85,15 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
 
   const isRecipientAvailable =
     Boolean(details?.recipients?.length) || details?.recipient !== ZERO_ADDRESS
+
+  usePublicationQuery({
+    variables: { request: { forId: publication.id } },
+    onCompleted: ({ publication }) => {
+      const { operations } = publication as PrimaryPublication
+      setAlreadyCollected(operations.hasActed.value)
+    },
+    fetchPolicy: 'cache-and-network'
+  })
 
   const { data: recipientProfilesData } = useProfilesQuery({
     variables: {
