@@ -41,9 +41,7 @@ const ModuleAllowance = () => {
         followModules: [FollowModuleType.FeeFollowModule],
         openActionModules: [
           OpenActionModuleType.SimpleCollectOpenActionModule,
-          OpenActionModuleType.MultirecipientFeeCollectOpenActionModule,
-          OpenActionModuleType.LegacySimpleCollectModule,
-          OpenActionModuleType.LegacyMultirecipientFeeCollectModule
+          OpenActionModuleType.MultirecipientFeeCollectOpenActionModule
         ]
       }
     },
