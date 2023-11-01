@@ -91,9 +91,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
     variables: { request: { forId: publication.id } },
     onCompleted: ({ publication }) => {
       const { operations } = publication as PrimaryPublication
-      setAlreadyCollected(
-        operations.hasActed.value || operations.hasActed.isFinalisedOnchain
-      )
+      setAlreadyCollected(operations.hasActed.value)
     },
     fetchPolicy: 'cache-and-network'
   })
