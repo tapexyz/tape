@@ -81,7 +81,8 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
   const assetDecimals = details?.amount?.assetDecimals
   const amount = parseFloat(details?.amount?.value || '0')
 
-  const isRecipientAvailable = details?.recipients?.length || details?.recipient
+  const isRecipientAvailable =
+    Boolean(details?.recipients?.length) || details?.recipient !== ZERO_ADDRESS
 
   const { data: recipientProfilesData } = useProfilesQuery({
     variables: {
@@ -101,7 +102,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
     token: assetAddress,
     formatUnits: assetDecimals,
     watch: Boolean(details?.amount.value),
-    enabled: Boolean(details?.amount.value)
+    enabled: Boolean(details?.amount.value) && assetAddress !== ZERO_ADDRESS
   })
 
   const { data: revenueData } = useRevenueFromPublicationQuery({
@@ -255,6 +256,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
     onCompleted: ({ broadcastOnchain }) =>
       onCompleted(broadcastOnchain.__typename)
   })
+
   const [createActOnOpenActionTypedData] =
     useCreateActOnOpenActionTypedDataMutation({
       onCompleted: async ({ createActOnOpenActionTypedData }) => {
@@ -329,7 +331,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
           ) : null}
           {details?.endsAt ? (
             <div className="mb-3 flex flex-col">
-              <span className="mb-0.5 font-bold">Collect Ends At</span>
+              <span className="mb-0.5 font-bold">Collect Ends</span>
               <span className="text-lg">
                 {dayjs(details?.endsAt).format('MMMM DD, YYYY')} at{' '}
                 {dayjs(details?.endsAt).format('hh:mm a')}
@@ -363,15 +365,15 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
             <div className="mb-3 flex flex-col">
               <span className="mb-0.5 font-bold">
                 Revenue{' '}
-                {details.recipients?.length ? `Recipients` : `Recipient`}
+                {details?.recipients?.length ? `Recipients` : `Recipient`}
               </span>
-              {details.recipient &&
+              {details?.recipient &&
                 renderRecipients([
                   { recipient: details.recipient, split: 100 }
                 ])}
               {action.type ===
                 OpenActionModuleType.MultirecipientFeeCollectOpenActionModule &&
-              details.recipients?.length
+              details?.recipients?.length
                 ? renderRecipients(details.recipients)
                 : null}
             </div>
