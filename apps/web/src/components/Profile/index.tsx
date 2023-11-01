@@ -58,6 +58,7 @@ const ViewProfile = () => {
     profile?.metadata?.attributes,
     'pinnedPublicationId'
   )
+
   return (
     <>
       <MetaTags

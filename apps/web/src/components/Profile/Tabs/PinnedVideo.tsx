@@ -1,6 +1,5 @@
 import PinnedVideoShimmer from '@components/Shimmers/PinnedVideoShimmer'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import type { MetadataAttribute } from '@lens-protocol/metadata'
 import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
 import { getRelativeTime } from '@lib/formatTime'
 import useProfileStore from '@lib/store/profile'
@@ -19,19 +18,20 @@ import {
   getIsSensitiveContent,
   getProfileCoverPicture,
   getProfilePicture,
+  getPublication,
   getPublicationData,
   getPublicationMediaUrl,
   getSignature,
   getThumbnailUrl,
   imageCdn,
   isWatchable,
+  logger,
   sanitizeDStorageUrl,
   Tower,
   uploadToAr
 } from '@tape.xyz/generic'
 import type {
   AnyPublication,
-  MirrorablePublication,
   OnchainSetProfileMetadataRequest,
   Profile
 } from '@tape.xyz/lens'
@@ -61,34 +61,8 @@ const PinnedVideo: FC<Props> = ({ id }) => {
   const { data, error, loading } = usePublicationQuery({
     variables: {
       request: { forId: id }
-    },
-    skip: !id
+    }
   })
-  const publication = data?.publication as AnyPublication
-  const pinnedPublication =
-    publication?.__typename === 'Mirror'
-      ? (publication.mirrorOn as MirrorablePublication)
-      : (publication as MirrorablePublication)
-
-  const isBytesVideo =
-    pinnedPublication?.publishedOn?.id === LENSTUBE_BYTES_APP_ID
-  const isVideoOwner = activeProfile?.id === pinnedPublication?.by.id
-
-  const isSensitiveContent = getIsSensitiveContent(
-    pinnedPublication?.metadata,
-    pinnedPublication?.id
-  )
-  const thumbnailUrl = imageCdn(
-    sanitizeDStorageUrl(getThumbnailUrl(pinnedPublication.metadata, true)),
-    isBytesVideo ? 'THUMBNAIL_V' : 'THUMBNAIL'
-  )
-
-  const otherAttributes = activeProfile?.metadata?.attributes
-    ?.filter((attr) => !['pinnedPublicationId', 'app'].includes(attr.key))
-    .map(({ key, value }) => ({
-      key,
-      value
-    })) as MetadataAttribute[]
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
@@ -150,6 +124,15 @@ const PinnedVideo: FC<Props> = ({ id }) => {
     onError
   })
 
+  const otherAttributes =
+    activeProfile?.metadata?.attributes
+      ?.filter((attr) => !['pinnedPublicationId', 'app'].includes(attr.key))
+      .map(({ key, value, type }) => ({
+        key,
+        value,
+        type: MetadataAttributeType[type] as any
+      })) ?? []
+
   const unpinVideo = async () => {
     if (!activeProfile) {
       return toast.error(SIGN_IN_REQUIRED)
@@ -162,7 +145,12 @@ const PinnedVideo: FC<Props> = ({ id }) => {
       toast.loading(`Unpinning video...`)
       const metadata = profile({
         appId: TAPE_APP_ID,
-        bio: activeProfile?.metadata?.bio,
+        ...(activeProfile?.metadata?.displayName && {
+          name: activeProfile?.metadata?.displayName
+        }),
+        ...(activeProfile?.metadata?.bio && {
+          bio: activeProfile?.metadata?.bio
+        }),
         coverPicture: getProfileCoverPicture(activeProfile),
         id: uuidv4(),
         name: activeProfile?.metadata?.displayName ?? '',
@@ -199,16 +187,34 @@ const PinnedVideo: FC<Props> = ({ id }) => {
       return createOnchainSetProfileMetadataTypedData({
         variables: { request }
       })
-    } catch {}
+    } catch (error) {
+      logger.error('[UnPin Video]', error)
+    }
   }
 
   if (loading) {
     return <PinnedVideoShimmer />
   }
 
-  if (error || !pinnedPublication || !isWatchable(pinnedPublication)) {
+  const publication = data?.publication as AnyPublication
+  const pinnedPublication = getPublication(publication)
+
+  if (error || !publication || !isWatchable(pinnedPublication)) {
     return null
   }
+
+  const isBytesVideo =
+    pinnedPublication?.publishedOn?.id === LENSTUBE_BYTES_APP_ID
+  const isVideoOwner = activeProfile?.id === pinnedPublication?.by.id
+
+  const isSensitiveContent = getIsSensitiveContent(
+    pinnedPublication?.metadata,
+    pinnedPublication?.id
+  )
+  const thumbnailUrl = imageCdn(
+    sanitizeDStorageUrl(getThumbnailUrl(pinnedPublication?.metadata, true)),
+    isBytesVideo ? 'THUMBNAIL_V' : 'THUMBNAIL'
+  )
 
   return (
     <div className="mb-4 mt-6">

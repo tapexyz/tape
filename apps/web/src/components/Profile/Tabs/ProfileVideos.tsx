@@ -1,6 +1,5 @@
 import VideoCard from '@components/Common/VideoCard'
 import QueuedVideo from '@components/Common/VideoCard/QueuedVideo'
-import PinnedVideoShimmer from '@components/Shimmers/PinnedVideoShimmer'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import usePersistStore from '@lib/store/persist'
@@ -68,12 +67,7 @@ const ProfileVideos: FC<Props> = ({ profile }) => {
   })
 
   if (loading) {
-    return (
-      <>
-        <PinnedVideoShimmer />
-        <TimelineShimmer className="lg:!grid-cols-4" count={4} />
-      </>
-    )
+    return <TimelineShimmer className="lg:!grid-cols-4" count={4} />
   }
 
   if (data?.publications?.items?.length === 0 && queuedVideos.length === 0) {

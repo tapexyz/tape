@@ -7,12 +7,11 @@ import { TextArea } from '@components/UIElements/TextArea'
 import Tooltip from '@components/UIElements/Tooltip'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import type { MetadataAttribute, ProfileOptions } from '@lens-protocol/metadata'
+import type { ProfileOptions } from '@lens-protocol/metadata'
 import {
   MetadataAttributeType,
   profile as profileMetadata
 } from '@lens-protocol/metadata'
-import useProfileStore from '@lib/store/profile'
 import { Button, Flex, IconButton, Text } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { uploadToIPFS, useCopyToClipboard } from '@tape.xyz/browser'
@@ -31,6 +30,7 @@ import {
   getSignature,
   getValueFromKeyInAttributes,
   imageCdn,
+  logger,
   sanitizeDStorageUrl,
   Tower,
   trimify,
@@ -94,8 +94,7 @@ const BasicInfo = ({ profile }: Props) => {
   const [uploading, setUploading] = useState({ pfp: false, cover: false })
   const handleWrongNetwork = useHandleWrongNetwork()
 
-  const activeProfile = useProfileStore((state) => state.activeProfile)
-  const canUseRelay = activeProfile?.signless && activeProfile?.sponsor
+  const canUseRelay = profile?.signless && profile?.sponsor
 
   const {
     register,
@@ -193,14 +192,18 @@ const BasicInfo = ({ profile }: Props) => {
   })
 
   const otherAttributes =
-    (profile.metadata?.attributes
+    profile.metadata?.attributes
       ?.filter(
         (attr) =>
           !['website', 'location', 'x', 'youtube', 'spotify', 'app'].includes(
             attr.key
           )
       )
-      .map(({ key, value }) => ({ key, value })) as MetadataAttribute[]) ?? []
+      .map(({ key, value, type }) => ({
+        key,
+        value,
+        type: MetadataAttributeType[type] as any
+      })) ?? []
 
   const onSaveBasicInfo = async (data: FormData) => {
     if (handleWrongNetwork()) {
@@ -283,8 +286,9 @@ const BasicInfo = ({ profile }: Props) => {
       return await createOnchainSetProfileMetadataTypedData({
         variables: { request }
       })
-    } catch {
+    } catch (error) {
       setLoading(false)
+      logger.error('[On Save Basic Info]', error)
     }
   }
 
@@ -486,7 +490,7 @@ const BasicInfo = ({ profile }: Props) => {
           />
         </div>
         <div className="mt-6 flex justify-end">
-          <Button disabled={loading} variant="surface" highContrast>
+          <Button disabled={loading} highContrast>
             {loading && <Loader size="sm" />}
             Update Profile
           </Button>

@@ -1,11 +1,7 @@
 import ReportPublication from '@components/ReportPublication'
 import Confirm from '@components/UIElements/Confirm'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import {
-  type MetadataAttribute,
-  MetadataAttributeType,
-  profile
-} from '@lens-protocol/metadata'
+import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
 import useProfileStore from '@lib/store/profile'
 import { Dialog, DropdownMenu, Flex, IconButton, Text } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
@@ -24,6 +20,7 @@ import {
   getProfilePicture,
   getSignature,
   getValueFromKeyInAttributes,
+  logger,
   Tower,
   uploadToAr
 } from '@tape.xyz/generic'
@@ -110,13 +107,6 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
     }
   }
 
-  const otherAttributes = activeProfile?.metadata?.attributes
-    ?.filter((attr) => !['pinnedPublicationId', 'app'].includes(attr.key))
-    .map(({ key, value }) => ({
-      key,
-      value
-    })) as MetadataAttribute[]
-
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
   }
@@ -177,6 +167,15 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
     onError
   })
 
+  const otherAttributes =
+    activeProfile?.metadata?.attributes
+      ?.filter((attr) => !['pinnedPublicationId', 'app'].includes(attr.key))
+      .map(({ key, value, type }) => ({
+        key,
+        value,
+        type: MetadataAttributeType[type] as any
+      })) ?? []
+
   const onPinVideo = async () => {
     if (!activeProfile) {
       return toast.error(SIGN_IN_REQUIRED)
@@ -189,10 +188,14 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
       toast.loading(`Pinning video...`)
       const metadata = profile({
         appId: TAPE_APP_ID,
-        bio: activeProfile?.metadata?.bio,
         coverPicture: getProfileCoverPicture(activeProfile),
         id: uuidv4(),
-        name: activeProfile?.metadata?.displayName ?? '',
+        ...(activeProfile?.metadata?.displayName && {
+          name: activeProfile?.metadata?.displayName
+        }),
+        ...(activeProfile?.metadata?.bio && {
+          bio: activeProfile?.metadata?.bio
+        }),
         picture: getProfilePicture(activeProfile as Profile),
         attributes: [
           ...otherAttributes,
@@ -232,7 +235,9 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
       return createOnchainSetProfileMetadataTypedData({
         variables: { request }
       })
-    } catch {}
+    } catch (error) {
+      logger.error('[On Pin Video]', error)
+    }
   }
 
   const modifyInterestCache = (notInterested: boolean) => {

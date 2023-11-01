@@ -414,7 +414,7 @@ const CreateSteps = () => {
         }
       })
     } catch (error) {
-      console.log('🚀 ~ Create ~ error:', error)
+      logger.error('[Create Publication]', error)
     }
   }
 
