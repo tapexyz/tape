@@ -1,4 +1,8 @@
-import type { OpenActionModuleInput, RecipientDataInput } from '@tape.xyz/lens'
+import {
+  type OpenActionModuleInput,
+  OpenActionModuleType,
+  type RecipientDataInput
+} from '@tape.xyz/lens'
 import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
 
 import { getAddedDaysFromToday } from './formatTime'
@@ -85,19 +89,33 @@ export const getCollectModuleInput = (
 
 export const getCollectModuleConfig = (collectModule: string) => {
   switch (collectModule) {
-    case 'MultirecipientFeeCollectOpenActionModule':
+    case OpenActionModuleType.SimpleCollectOpenActionModule:
+      return {
+        type: 'openActionModule',
+        label: 'Simple collects',
+        description:
+          'Collect any publication including paid collects, limited and timed free collects and more!'
+      }
+    case OpenActionModuleType.MultirecipientFeeCollectOpenActionModule:
       return {
         type: 'openActionModule',
         label: 'Multi recipient collects',
         description:
           'Collect any publication which splits collect revenue with multiple recipients.'
       }
-    case 'SimpleCollectOpenActionModule':
+    case OpenActionModuleType.LegacySimpleCollectModule:
       return {
         type: 'openActionModule',
-        label: 'Simple collects',
+        label: 'Simple collects (Legacy v1)',
         description:
-          'Collect any publication including paid collects, limited and timed free collects and more!'
+          'Collect v1 publications including paid collects, limited and timed free collects and more!'
+      }
+    case OpenActionModuleType.LegacyMultirecipientFeeCollectModule:
+      return {
+        type: 'openActionModule',
+        label: 'Multi recipient collects (Legacy v1)',
+        description:
+          'Collect v1 publications which splits collect revenue with multiple recipients.'
       }
     case 'FeeFollowModule':
       return {

@@ -1,6 +1,6 @@
 import { getTimeFromSeconds } from '@lib/formatTime'
-import { getPublication } from '@tape.xyz/generic'
-import type { AnyPublication, VideoMetadataV3 } from '@tape.xyz/lens'
+import { getPublication, getPublicationData } from '@tape.xyz/generic'
+import type { AnyPublication } from '@tape.xyz/lens'
 import type { FC } from 'react'
 import React from 'react'
 
@@ -10,8 +10,8 @@ type Props = {
 
 const ThumbnailOverlays: FC<Props> = ({ video }) => {
   const targetPublication = getPublication(video)
-  const metadata = targetPublication.metadata as VideoMetadataV3
-  const videoDuration = metadata.asset.duration
+  const metadata = getPublicationData(targetPublication.metadata)
+  const videoDuration = metadata?.asset?.duration
 
   if (!videoDuration) {
     return null

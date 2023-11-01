@@ -10,15 +10,14 @@ export const getPublicationData = (
   title?: string
   content?: string
   asset?: {
-    type: 'IMAGE' | 'VIDEO' | 'AUDIO'
     uri: string
     cover?: string
     artist?: string
     title?: string
+    duration?: number
   }
   attachments?: {
     uri: string
-    type: 'IMAGE' | 'VIDEO' | 'AUDIO'
   }[]
 } | null => {
   switch (metadata.__typename) {
@@ -38,8 +37,7 @@ export const getPublicationData = (
         title: metadata.title,
         content: metadata.content,
         asset: {
-          uri: getPublicationMediaUrl(metadata),
-          type: 'IMAGE'
+          uri: getPublicationMediaUrl(metadata)
         },
         attachments: getAttachmentsData(metadata.attachments)
       }
@@ -52,7 +50,7 @@ export const getPublicationData = (
           cover: getThumbnailUrl(metadata),
           artist: metadata.asset.artist,
           title: metadata.title,
-          type: 'AUDIO'
+          duration: metadata.asset.duration || 0
         }
       }
     case 'VideoMetadataV3':
@@ -61,8 +59,8 @@ export const getPublicationData = (
         content: metadata.content,
         asset: {
           uri: getPublicationMediaUrl(metadata),
-          cover: getThumbnailUrl(metadata),
-          type: 'VIDEO'
+          duration: metadata.asset.duration || 0,
+          cover: getThumbnailUrl(metadata)
         },
         attachments: getAttachmentsData(metadata.attachments)
       }

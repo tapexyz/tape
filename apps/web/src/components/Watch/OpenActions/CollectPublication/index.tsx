@@ -27,11 +27,9 @@ import {
 } from '@tape.xyz/generic'
 import type {
   HandleInfo,
-  MultirecipientFeeCollectOpenActionSettings,
   PrimaryPublication,
   Profile,
-  RecipientDataOutput,
-  SimpleCollectOpenActionSettings
+  RecipientDataOutput
 } from '@tape.xyz/lens'
 import {
   OpenActionModuleType,
@@ -42,7 +40,10 @@ import {
   usePublicationQuery,
   useRevenueFromPublicationQuery
 } from '@tape.xyz/lens'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+import type {
+  CustomErrorWithData,
+  SupportedOpenActionModuleType
+} from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -59,9 +60,7 @@ import BalanceAlert from './BalanceAlert'
 import PermissionAlert from './PermissionAlert'
 
 type Props = {
-  action:
-    | SimpleCollectOpenActionSettings
-    | MultirecipientFeeCollectOpenActionSettings
+  action: SupportedOpenActionModuleType
   publication: PrimaryPublication
 }
 

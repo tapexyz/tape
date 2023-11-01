@@ -1,10 +1,7 @@
 import WarningOutline from '@components/Common/Icons/WarningOutline'
 import { Callout } from '@radix-ui/themes'
 import { IS_MAINNET } from '@tape.xyz/constants'
-import type {
-  MultirecipientFeeCollectOpenActionSettings,
-  SimpleCollectOpenActionSettings
-} from '@tape.xyz/lens'
+import type { SupportedOpenActionModuleType } from '@tape.xyz/lens/custom-types'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
@@ -16,9 +13,7 @@ const getUniswapURL = (amount: number, outputCurrency: string): string => {
 }
 
 type Props = {
-  action:
-    | SimpleCollectOpenActionSettings
-    | MultirecipientFeeCollectOpenActionSettings
+  action: SupportedOpenActionModuleType
 }
 
 const BalanceAlert: FC<Props> = ({ action }) => {

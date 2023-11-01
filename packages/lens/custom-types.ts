@@ -1,6 +1,13 @@
 import type { WebIrys } from '@irys/sdk'
 import type { MetadataLicenseType } from '@lens-protocol/metadata'
-import type { ProfileInterestTypes, RecipientDataInput } from '@tape.xyz/lens'
+import type {
+  LegacyMultirecipientFeeCollectModuleSettings,
+  LegacySimpleCollectModuleSettings,
+  MultirecipientFeeCollectOpenActionSettings,
+  ProfileInterestTypes,
+  RecipientDataInput,
+  SimpleCollectOpenActionSettings
+} from '@tape.xyz/lens'
 
 export type IrysDataState = {
   instance: WebIrys | null
@@ -114,51 +121,6 @@ export enum LocalStore {
   TAPE_STORE = 'tape.store'
 }
 
-// MOBILE
-
-export enum TimelineFeedType {
-  CURATED = 'CURATED',
-  FOLLOWING = 'FOLLOWING',
-  HIGHLIGHTS = 'HIGHLIGHTS',
-  ALGORITHM = 'ALGORITHM'
-}
-
-export enum AlgoType {
-  K3L_RECOMMENDED = 'K3L_RECOMMENDED',
-  K3L_POPULAR = 'K3L_POPULAR',
-  K3L_CROWDSOURCED = 'K3L_CROWDSOURCED'
-}
-
-export enum ALGO_PROVIDER {
-  K3L = 'K3L'
-}
-
-export const MOBILE_PROFILE_ITEMS = [
-  'Clan',
-  'Media',
-  'Bytes',
-  'Replies',
-  'Gallery'
-] as const
-
-export type MobileProfileTabItemType = (typeof MOBILE_PROFILE_ITEMS)[number]
-
-export interface MobileThemeConfig {
-  textColor: string
-  secondaryTextColor: string
-  backgroudColor: string
-  backgroudColor2: string
-  backgroudColor3: string
-  sheetBackgroundColor: string
-  borderColor: string
-  contrastBorderColor: string
-  sheetBorderColor: string
-  contrastBackgroundColor: string
-  contrastTextColor: string
-  buttonBackgroundColor: string
-  buttonTextColor: string
-}
-
 export interface CustomNftItemType {
   contentValue: {
     video: string
@@ -207,3 +169,56 @@ export type ZoraNft = {
     | 'ERC1155_COLLECTION_TOKEN'
   contractStandard: 'ERC721' | 'ERC1155'
 }
+
+export type SupportedOpenActionModuleType =
+  | SimpleCollectOpenActionSettings
+  | MultirecipientFeeCollectOpenActionSettings
+  | LegacySimpleCollectModuleSettings
+  | LegacyMultirecipientFeeCollectModuleSettings
+
+// ------------------------------------------------------------------------MOBILE STARTS---------------------------------------------------------------------------------------------------------------
+
+export enum TimelineFeedType {
+  CURATED = 'CURATED',
+  FOLLOWING = 'FOLLOWING',
+  HIGHLIGHTS = 'HIGHLIGHTS',
+  ALGORITHM = 'ALGORITHM'
+}
+
+export enum AlgoType {
+  K3L_RECOMMENDED = 'K3L_RECOMMENDED',
+  K3L_POPULAR = 'K3L_POPULAR',
+  K3L_CROWDSOURCED = 'K3L_CROWDSOURCED'
+}
+
+export enum ALGO_PROVIDER {
+  K3L = 'K3L'
+}
+
+export const MOBILE_PROFILE_ITEMS = [
+  'Clan',
+  'Media',
+  'Bytes',
+  'Replies',
+  'Gallery'
+] as const
+
+export type MobileProfileTabItemType = (typeof MOBILE_PROFILE_ITEMS)[number]
+
+export interface MobileThemeConfig {
+  textColor: string
+  secondaryTextColor: string
+  backgroudColor: string
+  backgroudColor2: string
+  backgroudColor3: string
+  sheetBackgroundColor: string
+  borderColor: string
+  contrastBorderColor: string
+  sheetBorderColor: string
+  contrastBackgroundColor: string
+  contrastTextColor: string
+  buttonBackgroundColor: string
+  buttonTextColor: string
+}
+
+// ------------------------------------------------------------------------MOBILE ENDS---------------------------------------------------------------------------------------------------------------
