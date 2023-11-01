@@ -29,7 +29,7 @@ const Guardian: FC = () => {
   const [fetchProfile] = useProfileLazyQuery({
     variables: {
       request: {
-        forHandle: activeProfile?.handle
+        forHandle: activeProfile?.handle?.fullHandle
       }
     },
     fetchPolicy: 'no-cache',
