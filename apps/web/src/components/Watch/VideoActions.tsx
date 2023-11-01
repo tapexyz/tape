@@ -56,7 +56,7 @@ const VideoActions: FC<Props> = ({ video }) => {
           </Dialog.Content>
         </Dialog.Root>
       )}
-      {video.operations.canMirror && (
+      {video.operations.canMirror !== TriStateValue.No && (
         <MirrorVideo video={video}>
           <Button variant="surface" color="blue" highContrast>
             <MirrorOutline className="h-4 w-4 flex-none" />
