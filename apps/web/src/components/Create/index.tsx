@@ -406,14 +406,13 @@ const CreateSteps = () => {
         return await postOnchain({
           variables: { request }
         })
-      } else {
-        return await createOnchainPostTypedData({
-          variables: {
-            options: { overrideSigNonce: lensHubOnchainSigNonce },
-            request
-          }
-        })
       }
+      return await createOnchainPostTypedData({
+        variables: {
+          options: { overrideSigNonce: lensHubOnchainSigNonce },
+          request
+        }
+      })
     } catch (error) {
       console.log('🚀 ~ Create ~ error:', error)
     }
