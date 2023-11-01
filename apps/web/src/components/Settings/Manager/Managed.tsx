@@ -1,8 +1,17 @@
+import Badge from '@components/Common/Badge'
+import InterweaveContent from '@components/Common/InterweaveContent'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useProfileStore from '@lib/store/profile'
-import { Avatar, Flex } from '@radix-ui/themes'
+import { Avatar } from '@radix-ui/themes'
 import { INFINITE_SCROLL_ROOT_MARGIN } from '@tape.xyz/constants'
-import { formatNumber, getProfile, getProfilePicture } from '@tape.xyz/generic'
+import {
+  formatNumber,
+  getProfile,
+  getProfileCoverPicture,
+  getProfilePicture,
+  imageCdn,
+  sanitizeDStorageUrl
+} from '@tape.xyz/generic'
 import type { Profile, ProfilesManagedRequest } from '@tape.xyz/lens'
 import { useProfilesManagedQuery } from '@tape.xyz/lens'
 import { Loader } from '@tape.xyz/ui'
@@ -48,25 +57,48 @@ const Managed = () => {
           <NoDataFound withImage isCenter />
         ) : null}
         {profilesManaged?.length ? (
-          <div className="mt-4 grid gap-3 md:grid-cols-2">
+          <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
             {profilesManaged?.map((profile) => (
               <div
                 key={profile.id}
-                className="tape-border rounded-small flex items-center justify-between px-4 py-3"
+                className="tape-border rounded-small overflow-hidden"
               >
-                <Flex gap="2" align="center">
-                  <Avatar
-                    radius="full"
-                    size="1"
-                    src={getProfilePicture(profile)}
-                    fallback={getProfile(profile)?.displayName[0] ?? ';)'}
-                    alt={getProfile(profile)?.displayName}
-                  />
-                  <Link href={getProfile(profile).link}>
-                    {getProfile(profile).displayName} ({profile.id})
+                <div
+                  style={{
+                    backgroundImage: `url(${imageCdn(
+                      sanitizeDStorageUrl(getProfileCoverPicture(profile, true))
+                    )})`
+                  }}
+                  className="bg-brand-500 relative h-20 w-full bg-cover bg-center bg-no-repeat"
+                >
+                  <div className="absolute bottom-2 left-2 flex-none">
+                    <Avatar
+                      className="border-2 border-white bg-white object-cover dark:bg-gray-900"
+                      size="3"
+                      fallback={getProfile(profile)?.displayName[0] ?? ';)'}
+                      radius="medium"
+                      src={getProfilePicture(profile, 'AVATAR')}
+                      alt={getProfile(profile)?.displayName}
+                    />
+                  </div>
+                </div>
+                <div className="p-2 pl-4 pt-2.5">
+                  <Link
+                    href={getProfile(profile)?.link}
+                    className="flex items-center space-x-1"
+                  >
+                    <span className="text-2xl font-bold leading-tight">
+                      {getProfile(profile)?.slug}
+                    </span>
+                    <Badge id={profile?.id} size="lg" />
                   </Link>
-                </Flex>
-                <span>{formatNumber(profile.stats.followers)} followers</span>
+                  <span>{formatNumber(profile.stats.followers)} followers</span>
+                  {profile.metadata?.bio && (
+                    <div className="line-clamp-2 py-2">
+                      <InterweaveContent content={profile.metadata?.bio} />
+                    </div>
+                  )}
+                </div>
               </div>
             ))}
           </div>

@@ -183,7 +183,7 @@ const List = () => {
   }
 
   return (
-    <div className="grid grid-cols-2 gap-3 lg:grid-cols-3">
+    <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
       {blockedProfiles.map((profile) => (
         <div
           key={profile.id}
@@ -220,7 +220,7 @@ const List = () => {
           </div>
           <div className="p-2 pl-4 pt-2.5">
             <Link
-              href={`/u/${getProfile(profile)?.slug}`}
+              href={getProfile(profile)?.link}
               className="flex items-center space-x-1"
             >
               <span className="text-2xl font-bold leading-tight">
@@ -229,7 +229,7 @@ const List = () => {
               <Badge id={profile?.id} size="lg" />
             </Link>
             {profile.metadata?.bio && (
-              <div className="line-clamp-1 py-2">
+              <div className="line-clamp-2 py-2">
                 <InterweaveContent content={profile.metadata?.bio} />
               </div>
             )}
