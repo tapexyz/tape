@@ -87,7 +87,7 @@ const Signup = ({ onSuccess }: { onSuccess: () => void }) => {
         <Callout.Icon>
           <WarningOutline className="h-4 w-4" />
         </Callout.Icon>
-        <Callout.Text>
+        <Callout.Text weight="bold" highContrast>
           We couldn't find any profiles linked to the connected address. (
           {shortenAddress(address as string)})
         </Callout.Text>

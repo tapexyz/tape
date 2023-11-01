@@ -102,7 +102,7 @@ const OpenActions: FC<Props> = ({
         <ScrollArea
           type="hover"
           scrollbars="vertical"
-          style={{ maxHeight: 400 }}
+          style={{ maxHeight: 500 }}
         >
           <Accordion
             type="single"

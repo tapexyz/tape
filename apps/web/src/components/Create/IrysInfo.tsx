@@ -168,7 +168,7 @@ const IrysInfo = () => {
           <Callout.Icon>
             <WarningOutline className="h-4 w-4" />
           </Callout.Icon>
-          <Callout.Text>
+          <Callout.Text weight="bold" highContrast>
             Not enough storage balance available, deposit to continue.
           </Callout.Text>
         </Callout.Root>

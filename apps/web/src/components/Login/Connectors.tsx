@@ -53,7 +53,9 @@ const Connectors = () => {
           <Callout.Icon>
             <WarningOutline className="h-4 w-4" />
           </Callout.Icon>
-          <Callout.Text>{error?.message ?? 'Failed to connect'}</Callout.Text>
+          <Callout.Text weight="bold" highContrast>
+            {error?.message ?? 'Failed to connect'}
+          </Callout.Text>
         </Callout.Root>
       ) : null}
     </Flex>

@@ -1,4 +1,5 @@
 import InfoOutline from '@components/Common/Icons/InfoOutline'
+import UserOutline from '@components/Common/Icons/UserOutline'
 import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
 import { Countdown } from '@components/UIElements/CountDown'
 import Tooltip from '@components/UIElements/Tooltip'
@@ -7,7 +8,7 @@ import { getRelativeTime } from '@lib/formatTime'
 import { getCollectModuleOutput } from '@lib/getCollectModuleOutput'
 import useNonceStore from '@lib/store/nonce'
 import useProfileStore from '@lib/store/profile'
-import { Button, Callout } from '@radix-ui/themes'
+import { Button, Callout, Flex } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   ERROR_MESSAGE,
@@ -90,7 +91,9 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
     variables: { request: { forId: publication.id } },
     onCompleted: ({ publication }) => {
       const { operations } = publication as PrimaryPublication
-      setAlreadyCollected(operations.hasActed.value)
+      setAlreadyCollected(
+        operations.hasActed.value || operations.hasActed.isFinalisedOnchain
+      )
     },
     fetchPolicy: 'cache-and-network'
   })
@@ -208,9 +211,9 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
       return (
         <div
           key={splitRecipient.recipient}
-          className="flex items-center justify-between py-1"
+          className="flex items-center space-x-2 py-1"
         >
-          <div className="flex items-center space-x-2">
+          <div className="flex items-center space-x-1">
             <img className="h-4 w-4 rounded-full" src={pfp} alt="pfp" />
             <Tooltip
               placement="bottom-start"
@@ -220,7 +223,9 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
               ))}
             >
               {defaultProfile?.handle ? (
-                <Link href={getProfile(defaultProfile).link}>{label}</Link>
+                <Link href={getProfile(defaultProfile).link} target="_blank">
+                  {label}
+                </Link>
               ) : (
                 <AddressExplorerLink address={splitRecipient?.recipient}>
                   <span>{label}</span>
@@ -228,7 +233,9 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
               )}
             </Tooltip>
           </div>
-          <span>{splitRecipient?.split}%</span>
+          {splitRecipient?.split ? (
+            <span className="text-sm">({splitRecipient?.split}%)</span>
+          ) : null}
         </div>
       )
     })
@@ -377,14 +384,9 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
           ) : null}
           {isRecipientAvailable ? (
             <div className="mb-3 flex flex-col">
-              <span className="mb-0.5 font-bold">
-                Revenue{' '}
-                {details?.recipients?.length ? `Recipients` : `Recipient`}
-              </span>
+              <span className="mb-0.5 font-bold">Creator</span>
               {details?.recipient &&
-                renderRecipients([
-                  { recipient: details.recipient, split: 100 }
-                ])}
+                renderRecipients([{ recipient: details.recipient, split: 0 }])}
               {action.type ===
                 OpenActionModuleType.MultirecipientFeeCollectOpenActionModule &&
               details?.recipients?.length
@@ -401,8 +403,12 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
                     <Callout.Icon>
                       <InfoOutline />
                     </Callout.Icon>
-                    <Callout.Text>
-                      Only followers can collect this publication
+                    <Callout.Text weight="bold" highContrast>
+                      <Flex gap="2" align="center">
+                        <UserOutline className="h-3.5 w-3.5" />
+                        This publication can only be collected by the creator's
+                        followers.
+                      </Flex>
                     </Callout.Text>
                   </Callout.Root>
                 </div>
@@ -433,7 +439,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
           </div>
         </>
       ) : (
-        <div className="py-6">
+        <div className="my-20">
           <Loader />
         </div>
       )}
