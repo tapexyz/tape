@@ -10,7 +10,8 @@ import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
-  SIGN_IN_REQUIRED
+  SIGN_IN_REQUIRED,
+  ZERO_ADDRESS
 } from '@tape.xyz/constants'
 import {
   formatNumber,
@@ -92,7 +93,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
         }
       }
     },
-    skip: !isRecipientAvailable
+    skip: !isRecipientAvailable || details?.recipient === ZERO_ADDRESS
   })
 
   const { data: balanceData, isLoading: balanceLoading } = useBalance({
@@ -125,7 +126,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
         referenceModules: []
       }
     },
-    skip: !assetAddress || !activeProfile?.id,
+    skip: !assetAddress || assetAddress === ZERO_ADDRESS || !activeProfile?.id,
     onCompleted: (data) => {
       setIsAllowed(
         parseFloat(data.approvedModuleAllowanceAmount[0].allowance.value) >
@@ -144,7 +145,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
     } else {
       setHaveEnoughBalance(true)
     }
-    if (assetAddress && activeProfile?.id) {
+    if (assetAddress && assetAddress !== ZERO_ADDRESS && activeProfile?.id) {
       refetchAllowance()
     }
   }, [
@@ -203,7 +204,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
               placement="bottom-start"
               visible={hasManyProfiles}
               content={handles?.map((handle) => (
-                <p key={handle.id}>{handle.fullHandle}</p>
+                <p key={handle?.id}>{handle?.fullHandle}</p>
               ))}
             >
               {defaultProfile?.handle ? (
@@ -307,9 +308,9 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
       {!allowanceLoading ? (
         <>
           <div className="mb-3 flex flex-col">
-            <span className="text-sm font-bold">Total Collects</span>
+            <span className="font-bold">Total Collects</span>
             <span className="space-x-1">
-              <span className="text-2xl font-bold">
+              <span className="text-2xl">
                 {formatNumber(publication?.stats.countOpenActions)}
                 {details?.collectLimit && (
                   <span> / {details?.collectLimit}</span>
@@ -317,20 +318,18 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
               </span>
             </span>
           </div>
-          {details?.amount.value ? (
+          {amount ? (
             <div className="mb-3 flex flex-col">
-              <span className="text-sm font-bold">Price</span>
+              <span className="font-bold">Price</span>
               <span className="space-x-1">
-                <span className="text-2xl font-semibold">
-                  {details?.amount.value}
-                </span>
+                <span className="text-2xl">{details?.amount.value}</span>
                 <span>{details?.amount.assetSymbol}</span>
               </span>
             </div>
           ) : null}
           {details?.endsAt ? (
             <div className="mb-3 flex flex-col">
-              <span className="mb-0.5 text-sm font-bold">Ends At</span>
+              <span className="mb-0.5 font-bold">Collect Ends At</span>
               <span className="text-lg">
                 {dayjs(details?.endsAt).format('MMMM DD, YYYY')} at{' '}
                 {dayjs(details?.endsAt).format('hh:mm a')}
@@ -339,7 +338,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
           ) : null}
           {revenueData?.revenueFromPublication?.revenue[0] ? (
             <div className="mb-3 flex flex-col">
-              <span className="text-sm font-bold">Revenue</span>
+              <span className="font-bold">Revenue</span>
               <span className="space-x-1">
                 <span className="text-2xl font-bold">
                   {revenueData?.revenueFromPublication?.revenue[0].total
@@ -356,13 +355,13 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
           ) : null}
           {details?.referralFee ? (
             <div className="mb-3 flex flex-col">
-              <span className="mb-0.5 text-sm font-bold">Referral Fee</span>
+              <span className="mb-0.5 font-bold">Referral Fee</span>
               <span className="text-2xl">{details?.referralFee} %</span>
             </div>
           ) : null}
           {isRecipientAvailable ? (
             <div className="mb-3 flex flex-col">
-              <span className="mb-0.5 text-sm font-bold">
+              <span className="mb-0.5 font-bold">
                 Revenue{' '}
                 {details.recipients?.length ? `Recipients` : `Recipient`}
               </span>
