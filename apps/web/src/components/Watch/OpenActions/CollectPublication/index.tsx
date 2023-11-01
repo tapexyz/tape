@@ -327,12 +327,13 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
               <span className="space-x-1">
                 <span className="text-2xl">{details?.amount.value}</span>
                 <span>{details?.amount.assetSymbol}</span>
+                <span>( ${details?.amount.rate} )</span>
               </span>
             </div>
           ) : null}
           {details?.endsAt ? (
             <div className="mb-3 flex flex-col">
-              <span className="mb-0.5 font-bold">Collect Ends</span>
+              <span className="mb-0.5 font-bold">Collect Ends in</span>
               <span className="text-lg">
                 <Countdown
                   timestamp={details.endsAt}

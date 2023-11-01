@@ -1,5 +1,6 @@
 import CollectOutline from '@components/Common/Icons/CollectOutline'
 import TimesOutline from '@components/Common/Icons/TimesOutline'
+import { getCollectModuleOutput } from '@lib/getCollectModuleOutput'
 import {
   Accordion,
   AccordionContent,
@@ -15,7 +16,7 @@ import {
   IconButton,
   ScrollArea
 } from '@radix-ui/themes'
-import { getPublication } from '@tape.xyz/generic'
+import { formatNumber, getPublication } from '@tape.xyz/generic'
 import { type AnyPublication, type OpenActionModule } from '@tape.xyz/lens'
 import type { FC, ReactNode } from 'react'
 import React from 'react'
@@ -42,13 +43,19 @@ const OpenActions: FC<Props> = ({
     switch (action.__typename) {
       case 'SimpleCollectOpenActionSettings':
       case 'MultirecipientFeeCollectOpenActionSettings':
+        const details = getCollectModuleOutput(action)
         return (
           <AccordionItem
             value="item-1"
-            className="rounded-small border dark:border-gray-700"
+            className="rounded-small group border dark:border-gray-700"
           >
-            <AccordionTrigger className="bg-brand-50/50 dark:bg-brand-950/30 rounded-small w-full p-3 text-left">
-              <span className="text-brand-500">Collect publication</span>
+            <AccordionTrigger className="bg-brand-50/50 dark:bg-brand-950/30 rounded-small w-full px-4 py-3 text-left">
+              <Flex justify="between" align="center">
+                <span className="text-brand-500">Collect publication</span>
+                <span className="group-data-[state=open]:hidden">
+                  $<b> {formatNumber(Number(details?.amount.rate))}</b>
+                </span>
+              </Flex>
             </AccordionTrigger>
             <AccordionContent className="p-3">
               <CollectPublication
