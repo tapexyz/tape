@@ -3,7 +3,7 @@ import HoverableProfile from '@components/Common/HoverableProfile'
 import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
 import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import CommentOutline from '@components/Common/Icons/CommentOutline'
-import HeartOutline from '@components/Common/Icons/HeartOutline'
+import HeartFilled from '@components/Common/Icons/HeartFilled'
 import ReplyOutline from '@components/Common/Icons/ReplyOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import Tooltip from '@components/UIElements/Tooltip'
@@ -91,8 +91,8 @@ const RenderComment: FC<Props> = ({ comment }) => {
               'hash'
             ) && (
               <Tooltip placement="top" content="Supporter">
-                <span className="pl-2">
-                  <HeartOutline className="h-3 w-3 text-red-500" />
+                <span className="pl-1.5">
+                  <HeartFilled className="h-3 w-3 text-red-500" />
                 </span>
               </Tooltip>
             )}
