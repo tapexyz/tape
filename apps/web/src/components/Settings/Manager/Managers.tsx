@@ -168,6 +168,13 @@ const Managers = () => {
         configNumber,
         switchToGivenConfig
       } = typedData.value
+      const args = [
+        delegatorProfileId,
+        delegatedExecutors,
+        approvals,
+        configNumber,
+        switchToGivenConfig
+      ]
       try {
         toast.loading(REQUESTING_SIGNATURE_MESSAGE)
         if (canBroadcast) {
@@ -177,25 +184,13 @@ const Managers = () => {
           })
           if (data?.broadcastOnchain?.__typename === 'RelayError') {
             return write?.({
-              args: [
-                delegatorProfileId,
-                delegatedExecutors,
-                approvals,
-                configNumber,
-                switchToGivenConfig
-              ]
+              args
             })
           }
           return
         }
         return write?.({
-          args: [
-            delegatorProfileId,
-            delegatedExecutors,
-            approvals,
-            configNumber,
-            switchToGivenConfig
-          ]
+          args
         })
       } catch {
         setSubmitting(false)
@@ -204,12 +199,12 @@ const Managers = () => {
     onError
   })
 
-  const addManager = ({ address }: FormData) => {
+  const addManager = async ({ address }: FormData) => {
     if (handleWrongNetwork()) {
       return
     }
     setSubmitting(true)
-    toggleLensManager({
+    return await toggleLensManager({
       variables: {
         options: { overrideSigNonce: lensHubOnchainSigNonce },
         request: {
@@ -224,12 +219,12 @@ const Managers = () => {
     })
   }
 
-  const removeManager = (address: string) => {
+  const removeManager = async (address: string) => {
     if (handleWrongNetwork()) {
       return
     }
     setRemovingAddress(address)
-    toggleLensManager({
+    return await toggleLensManager({
       variables: {
         options: { overrideSigNonce: lensHubOnchainSigNonce },
         request: {

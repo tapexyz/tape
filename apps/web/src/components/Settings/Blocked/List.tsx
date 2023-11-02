@@ -1,6 +1,7 @@
 import Badge from '@components/Common/Badge'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import useNonceStore from '@lib/store/nonce'
 import useProfileStore from '@lib/store/profile'
 import { Avatar, Button } from '@radix-ui/themes'
@@ -9,7 +10,8 @@ import {
   ERROR_MESSAGE,
   INFINITE_SCROLL_ROOT_MARGIN,
   LENSHUB_PROXY_ADDRESS,
-  REQUESTING_SIGNATURE_MESSAGE
+  REQUESTING_SIGNATURE_MESSAGE,
+  SIGN_IN_REQUIRED
 } from '@tape.xyz/constants'
 import {
   checkDispatcherPermissions,
@@ -48,6 +50,7 @@ const List = () => {
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
   const { cache } = useApolloClient()
   const { canBroadcast } = checkDispatcherPermissions(activeProfile)
+  const handleWrongNetwork = useHandleWrongNetwork()
 
   const onError = (error: CustomErrorWithData) => {
     setUnblockingProfileId('')
@@ -176,6 +179,13 @@ const List = () => {
   }
 
   const onClickUnblock = async (profileId: string) => {
+    if (!activeProfile?.id) {
+      return toast.error(SIGN_IN_REQUIRED)
+    }
+    if (handleWrongNetwork()) {
+      return
+    }
+
     try {
       setUnblockingProfileId(profileId)
       await unBlock({

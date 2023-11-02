@@ -1,3 +1,4 @@
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import useNonceStore from '@lib/store/nonce'
 import useProfileStore from '@lib/store/profile'
 import { Button } from '@radix-ui/themes'
@@ -40,6 +41,7 @@ const Follow: FC<Props> = ({ profile, onSubscribe, size = '2' }) => {
   const { activeProfile } = useProfileStore()
   const { canUseLensManager, canBroadcast } =
     checkDispatcherPermissions(activeProfile)
+  const handleWrongNetwork = useHandleWrongNetwork()
 
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
 
@@ -146,6 +148,10 @@ const Follow: FC<Props> = ({ profile, onSubscribe, size = '2' }) => {
     if (!activeProfile?.id) {
       return toast.error(SIGN_IN_REQUIRED)
     }
+    if (handleWrongNetwork()) {
+      return
+    }
+
     setLoading(true)
     const request = {
       follow: [
