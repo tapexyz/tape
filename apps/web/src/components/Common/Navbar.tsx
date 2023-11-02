@@ -34,16 +34,19 @@ const Navbar = () => {
           <Link href="/" className="inline-flex">
             {resolvedTheme === 'dark' ? (
               <img
-                src={`${STATIC_ASSETS}/brand/light-logo-text.png`}
+                src={`${STATIC_ASSETS}/brand/logo-with-text-light.webp`}
                 className="-mb-0.5 h-6"
                 alt="tape"
                 height={30}
+                draggable={false}
               />
             ) : (
               <img
-                src={`${STATIC_ASSETS}/brand/dark-logo-text.png`}
+                src={`${STATIC_ASSETS}/brand/logo-with-text-dark.webp`}
                 className="-mb-0.5 h-6"
+                height={30}
                 alt="tape"
+                draggable={false}
               />
             )}
           </Link>
