@@ -82,7 +82,7 @@ const HoverableProfile: FC<Props> = ({
             <Badge id={profile?.id} size="lg" />
           </Link>
           {profile.metadata?.bio && (
-            <div className="line-clamp-4 py-2">
+            <div className="line-clamp-3 py-2">
               <InterweaveContent content={profile.metadata?.bio} />
             </div>
           )}

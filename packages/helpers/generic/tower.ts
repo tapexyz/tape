@@ -20,14 +20,14 @@ export const Tower = {
         localStorage.getItem(LocalStore.TAPE_AUTH_STORE) ||
           JSON.stringify({ state: { accessToken: '' } })
       )
-      const actorId = parseJwt(tokenState.state.accessToken)?.id
+      const actor = parseJwt(tokenState.state.accessToken)?.id
       const { referrer } = document
       const referrerDomain = referrer ? new URL(referrer).hostname : null
 
       worker.postMessage({
         name,
         properties,
-        actor: actorId,
+        actor,
         referrer: referrerDomain,
         url: location.href,
         platform: 'web'
