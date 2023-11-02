@@ -1,8 +1,6 @@
 import type { WebIrys } from '@irys/sdk'
 import type { MetadataLicenseType } from '@lens-protocol/metadata'
 import type {
-  LegacyMultirecipientFeeCollectModuleSettings,
-  LegacySimpleCollectModuleSettings,
   MultirecipientFeeCollectOpenActionSettings,
   ProfileInterestTypes,
   RecipientDataInput,
@@ -173,8 +171,6 @@ export type ZoraNft = {
 export type SupportedOpenActionModuleType =
   | SimpleCollectOpenActionSettings
   | MultirecipientFeeCollectOpenActionSettings
-  | LegacySimpleCollectModuleSettings
-  | LegacyMultirecipientFeeCollectModuleSettings
 
 // ------------------------------------------------------------------------MOBILE STARTS---------------------------------------------------------------------------------------------------------------
 

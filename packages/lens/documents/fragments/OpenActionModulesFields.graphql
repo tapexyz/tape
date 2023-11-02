@@ -40,42 +40,9 @@ fragment OpenActionModulesFields on OpenActionModule {
   }
   ... on LegacyMultirecipientFeeCollectModuleSettings {
     type
-    contract {
-      ...NetworkAddressFields
-    }
-    collectNft
-    amount {
-      ...AmountFields
-      rate(request: { for: USD }) {
-        ...FiatAmountFields
-      }
-    }
-    collectLimit
-    referralFee
-    followerOnly
-    endsAt
-    recipients {
-      recipient
-      split
-    }
   }
   ... on LegacySimpleCollectModuleSettings {
     type
-    contract {
-      ...NetworkAddressFields
-    }
-    collectNft
-    amount {
-      ...AmountFields
-      rate(request: { for: USD }) {
-        ...FiatAmountFields
-      }
-    }
-    collectLimit
-    followerOnly
-    recipient
-    referralFee
-    endsAt
   }
   ... on LegacyFreeCollectModuleSettings {
     type

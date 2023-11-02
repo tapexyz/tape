@@ -17,6 +17,7 @@ import {
   ScrollArea
 } from '@radix-ui/themes'
 import { formatNumber, getPublication } from '@tape.xyz/generic'
+import isOpenActionAllowed from '@tape.xyz/generic/functions/isOpenActionAllowed'
 import { type AnyPublication, type OpenActionModule } from '@tape.xyz/lens'
 import type { FC, ReactNode } from 'react'
 import React from 'react'
@@ -38,13 +39,12 @@ const OpenActions: FC<Props> = ({
 }) => {
   const targetPublication = getPublication(publication)
   const openActions = targetPublication.openActionModules
+  const hasOpenActions = (targetPublication.openActionModules?.length || 0) > 0
 
   const renderAction = (action: OpenActionModule) => {
     switch (action.__typename) {
       case 'SimpleCollectOpenActionSettings':
       case 'MultirecipientFeeCollectOpenActionSettings':
-      case 'LegacySimpleCollectModuleSettings':
-      case 'LegacyMultirecipientFeeCollectModuleSettings':
         const details = getCollectModuleOutput(action)
         return (
           <AccordionItem
@@ -72,7 +72,10 @@ const OpenActions: FC<Props> = ({
     }
   }
 
-  if (targetPublication.openActionModules?.length === 0) {
+  const canAct =
+    hasOpenActions && isOpenActionAllowed(targetPublication.openActionModules)
+
+  if (!canAct) {
     return null
   }
 
