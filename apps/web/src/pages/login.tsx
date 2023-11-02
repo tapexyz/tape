@@ -21,7 +21,7 @@ const Login = () => {
             {resolvedTheme === 'dark' ? (
               <img
                 src={`${STATIC_ASSETS}/brand/logo-with-text-dark.webp`}
-                className="-mb-0.5 h-9"
+                className="h-10"
                 alt="tape"
                 height={30}
                 draggable={false}
@@ -29,7 +29,7 @@ const Login = () => {
             ) : (
               <img
                 src={`${STATIC_ASSETS}/brand/logo-with-text-light.webp`}
-                className="-mb-0.5 h-9"
+                className="h-10"
                 alt="tape"
                 height={30}
                 draggable={false}
