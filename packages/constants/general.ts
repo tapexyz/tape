@@ -155,8 +155,7 @@ export const ALLOWED_UPLOAD_MIME_TYPES = [
   ...ALLOWED_VIDEO_MIME_TYPES
 ]
 
-export const LENSPROTOCOL_HANDLE = 'lensprotocol'
-export const HANDLE_PREFIX = IS_MAINNET ? 'lens/' : 'test/'
+export const LENS_NAMESPACE_PREFIX = IS_MAINNET ? 'lens/' : 'test/'
 
 // other apps
 export const HEY_WEBSITE_URL = IS_MAINNET

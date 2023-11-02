@@ -1,6 +1,6 @@
 import { getMetaTags } from '@tape.xyz/browser'
 import {
-  HANDLE_PREFIX,
+  LENS_NAMESPACE_PREFIX,
   OG_IMAGE,
   TAPE_APP_DESCRIPTION,
   TAPE_APP_NAME
@@ -16,7 +16,7 @@ const client = apolloClient()
 const getProfileMeta = async (res: NextApiResponse, handle: string) => {
   try {
     const request: ProfileRequest = {
-      forHandle: `${HANDLE_PREFIX}${handle}`
+      forHandle: `${LENS_NAMESPACE_PREFIX}${handle}`
     }
 
     const { data } = await client.query({

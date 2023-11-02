@@ -1,6 +1,6 @@
 import {
   COMMON_REGEX,
-  HANDLE_PREFIX,
+  LENS_NAMESPACE_PREFIX,
   STATIC_ASSETS,
   TAPE_APP_NAME
 } from '@tape.xyz/constants'
@@ -12,7 +12,7 @@ import type { MentionProps } from './utils'
 
 const ProfileLink = ({ ...props }: any) => {
   const namespace = props.display?.slice(1) as string
-  const handle = namespace.replace(HANDLE_PREFIX, '')
+  const handle = namespace.replace(LENS_NAMESPACE_PREFIX, '')
 
   return (
     <Link

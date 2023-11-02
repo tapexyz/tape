@@ -8,8 +8,8 @@ import useAppStore from '@lib/store'
 import { IconButton, Text } from '@radix-ui/themes'
 import { useDebounce, useOutsideClick } from '@tape.xyz/browser'
 import {
-  HANDLE_PREFIX,
   LENS_CUSTOM_FILTERS,
+  LENS_NAMESPACE_PREFIX,
   TAPE_ADMIN_ADDRESS,
   TAPE_APP_NAME
 } from '@tape.xyz/constants'
@@ -159,7 +159,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
         <div className="flex gap-1.5" key={i}>
           <div className="relative w-full">
             <Input
-              placeholder={`0x12345...89 or ${HANDLE_PREFIX}tape`}
+              placeholder={`0x12345...89 or ${LENS_NAMESPACE_PREFIX}tape`}
               value={splitRecipient.recipient}
               onChange={(e) => onChangeSplit('recipient', e.target.value, i)}
               autoFocus

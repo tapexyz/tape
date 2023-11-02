@@ -1,4 +1,4 @@
-import { HANDLE_PREFIX } from '@tape.xyz/constants'
+import { LENS_NAMESPACE_PREFIX } from '@tape.xyz/constants'
 import type { Profile } from '@tape.xyz/lens'
 
 export const getProfile = (
@@ -24,7 +24,7 @@ export const getProfile = (
 
   const prefix = profile.handle ? '@' : '#'
   let slug: string = profile.handle?.fullHandle || profile.id
-  slug = slug.replace(HANDLE_PREFIX, '')
+  slug = slug.replace(LENS_NAMESPACE_PREFIX, '')
 
   return {
     id: profile.id,

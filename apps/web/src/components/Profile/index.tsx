@@ -1,6 +1,6 @@
 import MetaTags from '@components/Common/MetaTags'
 import ProfilePageShimmer from '@components/Shimmers/ProfilePageShimmer'
-import { HANDLE_PREFIX } from '@tape.xyz/constants'
+import { LENS_NAMESPACE_PREFIX } from '@tape.xyz/constants'
 import {
   EVENTS,
   getProfile,
@@ -29,7 +29,7 @@ const ViewProfile = () => {
   }, [])
 
   const forHandle =
-    handle?.length > 1 ? handle.join('/') : `${HANDLE_PREFIX}${handle}`
+    handle?.length > 1 ? handle.join('/') : `${LENS_NAMESPACE_PREFIX}${handle}`
   const request: ProfileRequest = {
     ...(forProfileId ? { forProfileId } : { forHandle })
   }
