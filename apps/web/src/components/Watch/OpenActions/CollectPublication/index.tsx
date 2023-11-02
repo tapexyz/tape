@@ -26,16 +26,21 @@ import {
   shortenAddress
 } from '@tape.xyz/generic'
 import type {
+  ActOnOpenActionLensManagerRequest,
   HandleInfo,
+  LegacyCollectRequest,
   PrimaryPublication,
   Profile,
   RecipientDataOutput
 } from '@tape.xyz/lens'
 import {
   OpenActionModuleType,
+  useActOnOpenActionMutation,
   useApprovedModuleAllowanceAmountQuery,
   useBroadcastOnchainMutation,
   useCreateActOnOpenActionTypedDataMutation,
+  useCreateLegacyCollectTypedDataMutation,
+  useLegacyCollectMutation,
   useProfilesQuery,
   usePublicationQuery,
   useRevenueFromPublicationQuery
@@ -82,6 +87,11 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
   const assetAddress = details?.amount?.assetAddress
   const assetDecimals = details?.amount?.assetDecimals
   const amount = parseFloat(details?.amount?.value || '0')
+  const isLegacyCollectModule =
+    action.__typename === 'LegacySimpleCollectModuleSettings' ||
+    action.__typename === 'LegacyMultirecipientFeeCollectModuleSettings'
+  const canUseRelay = activeProfile?.signless && activeProfile?.sponsor
+  const isFreeForAnyone = !action?.followerOnly && !amount
 
   const isRecipientAvailable =
     Boolean(details?.recipients?.length) || details?.recipient !== ZERO_ADDRESS
@@ -243,8 +253,13 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
     setCollecting(false)
   }
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
-    if (__typename === 'RelayError') {
+  const onCompleted = (
+    __typename?: 'RelayError' | 'RelaySuccess' | 'LensProfileManagerRelayError'
+  ) => {
+    if (
+      __typename === 'RelayError' ||
+      __typename === 'LensProfileManagerRelayError'
+    ) {
       return
     }
     setCollecting(false)
@@ -256,7 +271,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
   const { write } = useContractWrite({
     address: LENSHUB_PROXY_ADDRESS,
     abi: LENSHUB_PROXY_ABI,
-    functionName: 'act',
+    functionName: isLegacyCollectModule ? 'collectLegacy' : 'act',
     onSuccess: () => {
       onCompleted()
       setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
@@ -288,6 +303,36 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
       onError
     })
 
+  // Legacy Collect
+  const [createLegacyCollectTypedData] =
+    useCreateLegacyCollectTypedDataMutation({
+      onCompleted: async ({ createLegacyCollectTypedData }) => {
+        const { id, typedData } = createLegacyCollectTypedData
+        const signature = await signTypedDataAsync(getSignature(typedData))
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
+        const { data } = await broadcastOnchain({
+          variables: { request: { id, signature } }
+        })
+        if (data?.broadcastOnchain.__typename === 'RelayError') {
+          return write?.({ args: [typedData.value] })
+        }
+      },
+      onError
+    })
+
+  // Act
+  const [actOnOpenAction] = useActOnOpenActionMutation({
+    onCompleted: ({ actOnOpenAction }) =>
+      onCompleted(actOnOpenAction.__typename),
+    onError
+  })
+
+  // Legacy Collect
+  const [legacyCollect] = useLegacyCollectMutation({
+    onCompleted: ({ legacyCollect }) => onCompleted(legacyCollect.__typename),
+    onError
+  })
+
   const getOpenActionActOnKey = (name: string): string => {
     switch (name) {
       case OpenActionModuleType.SimpleCollectOpenActionModule:
@@ -296,6 +341,40 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
         return 'multirecipientCollectOpenAction'
       default:
         return 'unknownOpenAction'
+    }
+  }
+
+  // Act via Lens Manager
+  const actViaLensManager = async (
+    request: ActOnOpenActionLensManagerRequest
+  ) => {
+    const { data, errors } = await actOnOpenAction({ variables: { request } })
+
+    if (errors?.toString().includes('has already acted on')) {
+      return
+    }
+
+    if (
+      !data?.actOnOpenAction ||
+      data?.actOnOpenAction.__typename === 'LensProfileManagerRelayError'
+    ) {
+      return await createActOnOpenActionTypedData({ variables: { request } })
+    }
+  }
+
+  // Collect via Lens Manager
+  const legacyCollectViaLensManager = async (request: LegacyCollectRequest) => {
+    const { data, errors } = await legacyCollect({ variables: { request } })
+
+    if (errors?.toString().includes('has already collected on')) {
+      return
+    }
+
+    if (
+      !data?.legacyCollect ||
+      data?.legacyCollect.__typename === 'LensProfileManagerRelayError'
+    ) {
+      return await createLegacyCollectTypedData({ variables: { request } })
     }
   }
 
@@ -309,13 +388,37 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
     }
 
     setCollecting(true)
+
+    if (isLegacyCollectModule) {
+      const legcayCollectRequest: LegacyCollectRequest = {
+        on: publication?.id
+      }
+
+      if (canUseRelay && isFreeForAnyone) {
+        return await legacyCollectViaLensManager(legcayCollectRequest)
+      }
+
+      return await createLegacyCollectTypedData({
+        variables: {
+          options: { overrideSigNonce: lensHubOnchainSigNonce },
+          request: legcayCollectRequest
+        }
+      })
+    }
+
+    const actOnRequest: ActOnOpenActionLensManagerRequest = {
+      for: publication?.id,
+      actOn: { [getOpenActionActOnKey(action?.type)]: true }
+    }
+
+    if (canUseRelay && isFreeForAnyone) {
+      return await actViaLensManager(actOnRequest)
+    }
+
     return await createActOnOpenActionTypedData({
       variables: {
         options: { overrideSigNonce: lensHubOnchainSigNonce },
-        request: {
-          for: publication?.id,
-          actOn: { [getOpenActionActOnKey(action?.type)]: true }
-        }
+        request: actOnRequest
       }
     })
   }

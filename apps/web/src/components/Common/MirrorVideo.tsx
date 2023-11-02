@@ -193,10 +193,6 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
       }
 
       //  ON-CHAIN
-      console.log(
-        '🚀 ~ file: MirrorVideo.tsx:197 ~ mirrorVideo ~ canUseRelay:',
-        canUseRelay
-      )
       if (canUseRelay) {
         return await mirrorOnChain({
           variables: {
