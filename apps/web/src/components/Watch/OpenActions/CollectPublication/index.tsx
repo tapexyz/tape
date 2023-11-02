@@ -292,6 +292,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
     useCreateActOnOpenActionTypedDataMutation({
       onCompleted: async ({ createActOnOpenActionTypedData }) => {
         const { id, typedData } = createActOnOpenActionTypedData
+        const args = [typedData.value]
         if (canBroadcast) {
           const signature = await signTypedDataAsync(getSignature(typedData))
           setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
@@ -299,11 +300,11 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
             variables: { request: { id, signature } }
           })
           if (data?.broadcastOnchain.__typename === 'RelayError') {
-            return write?.({ args: [typedData.value] })
+            return write({ args })
           }
           return
         }
-        return write?.({ args: [typedData.value] })
+        return write({ args })
       },
       onError
     })
@@ -313,6 +314,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
     useCreateLegacyCollectTypedDataMutation({
       onCompleted: async ({ createLegacyCollectTypedData }) => {
         const { id, typedData } = createLegacyCollectTypedData
+        const args = [typedData.value]
         if (canBroadcast) {
           const signature = await signTypedDataAsync(getSignature(typedData))
           setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
@@ -320,11 +322,11 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
             variables: { request: { id, signature } }
           })
           if (data?.broadcastOnchain.__typename === 'RelayError') {
-            return write?.({ args: [typedData.value] })
+            return write({ args })
           }
           return
         }
-        return write?.({ args: [typedData.value] })
+        return write({ args })
       },
       onError
     })

@@ -126,6 +126,7 @@ const List = () => {
     const { typedData, id } = typedDataResult
     const { byProfileId, idsOfProfilesToSetBlockStatus, blockStatus } =
       typedData.value
+    const args = [byProfileId, idsOfProfilesToSetBlockStatus, blockStatus]
     try {
       if (canBroadcast) {
         toast.loading(REQUESTING_SIGNATURE_MESSAGE)
@@ -135,15 +136,11 @@ const List = () => {
           variables: { request: { id, signature } }
         })
         if (data?.broadcastOnchain?.__typename === 'RelayError') {
-          return write?.({
-            args: [byProfileId, idsOfProfilesToSetBlockStatus, blockStatus]
-          })
+          return write({ args })
         }
         return
       }
-      return write?.({
-        args: [byProfileId, idsOfProfilesToSetBlockStatus, blockStatus]
-      })
+      return write({ args })
     } catch {
       setUnblockingProfileId('')
     }
@@ -168,7 +165,7 @@ const List = () => {
     onError
   })
 
-  const blockedProfiles = data?.whoHaveBlocked?.items as Profile[]
+  const blockedProfiles = data?.whoHaveBlocked.items as Profile[]
 
   if (loading) {
     return <Loader className="my-20" />

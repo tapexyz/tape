@@ -176,11 +176,11 @@ const PostLinkModal: FC<Props> = ({ show, setShow }) => {
             variables: { request: { id, signature } }
           })
           if (data?.broadcastOnMomoka?.__typename === 'RelayError') {
-            return write?.({ args: [typedData.value] })
+            return write({ args: [typedData.value] })
           }
           return
         }
-        return write?.({ args: [typedData.value] })
+        return write({ args: [typedData.value] })
       } catch {}
     },
     onError

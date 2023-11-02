@@ -62,7 +62,7 @@ const Delete = () => {
     setLoading(true)
     try {
       toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-      write?.({ args: [activeProfile?.id] })
+      write({ args: [activeProfile?.id] })
     } catch {
       setLoading(false)
     }

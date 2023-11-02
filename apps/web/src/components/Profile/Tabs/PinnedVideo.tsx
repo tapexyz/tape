@@ -106,8 +106,9 @@ const PinnedVideo: FC<Props> = ({ id }) => {
     useCreateOnchainSetProfileMetadataTypedDataMutation({
       onCompleted: async ({ createOnchainSetProfileMetadataTypedData }) => {
         const { typedData, id } = createOnchainSetProfileMetadataTypedData
+        const { profileId, metadataURI } = typedData.value
+        const args = [profileId, metadataURI]
         try {
-          const { profileId, metadataURI } = typedData.value
           toast.loading(REQUESTING_SIGNATURE_MESSAGE)
           if (canBroadcast) {
             const signature = await signTypedDataAsync(getSignature(typedData))
@@ -115,11 +116,11 @@ const PinnedVideo: FC<Props> = ({ id }) => {
               variables: { request: { id, signature } }
             })
             if (data?.broadcastOnchain?.__typename === 'RelayError') {
-              return write?.({ args: [profileId, metadataURI] })
+              return write({ args })
             }
             return
           }
-          return write?.({ args: [profileId, metadataURI] })
+          return write({ args })
         } catch {}
       },
       onError

@@ -138,6 +138,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
     const { typedData, id } = typedDataResult
     const { byProfileId, idsOfProfilesToSetBlockStatus, blockStatus } =
       typedData.value
+    const args = [byProfileId, idsOfProfilesToSetBlockStatus, blockStatus]
     try {
       toast.loading(REQUESTING_SIGNATURE_MESSAGE)
       if (canBroadcast) {
@@ -146,16 +147,12 @@ const BasicInfo: FC<Props> = ({ profile }) => {
         const { data } = await broadcast({
           variables: { request: { id, signature } }
         })
-        if (data?.broadcastOnchain?.__typename === 'RelayError') {
-          write?.({
-            args: [byProfileId, idsOfProfilesToSetBlockStatus, blockStatus]
-          })
+        if (data?.broadcastOnchain.__typename === 'RelayError') {
+          write({ args })
         }
         return
       }
-      write?.({
-        args: [byProfileId, idsOfProfilesToSetBlockStatus, blockStatus]
-      })
+      write({ args })
     } catch {
       setLoading(false)
     }

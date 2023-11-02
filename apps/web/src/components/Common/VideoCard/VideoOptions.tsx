@@ -158,11 +158,11 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
               variables: { request: { id, signature } }
             })
             if (data?.broadcastOnchain?.__typename === 'RelayError') {
-              return write?.({ args: [profileId, metadataURI] })
+              return write({ args: [profileId, metadataURI] })
             }
             return
           }
-          return write?.({ args: [profileId, metadataURI] })
+          return write({ args: [profileId, metadataURI] })
         } catch {}
       },
       onError

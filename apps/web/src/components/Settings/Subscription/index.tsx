@@ -148,9 +148,10 @@ const Subscription = ({ channel }: Props) => {
       onCompleted: async ({ createSetFollowModuleTypedData }) => {
         const { typedData, id } =
           createSetFollowModuleTypedData as CreateSetFollowModuleBroadcastItemResult
+        const { profileId, followModule, followModuleInitData } =
+          typedData.value
+        const args = [profileId, followModule, followModuleInitData]
         try {
-          const { profileId, followModule, followModuleInitData } =
-            typedData.value
           toast.loading(REQUESTING_SIGNATURE_MESSAGE)
           if (canBroadcast) {
             const signature = await signTypedDataAsync(getSignature(typedData))
@@ -159,15 +160,11 @@ const Subscription = ({ channel }: Props) => {
               variables: { request: { id, signature } }
             })
             if (data?.broadcastOnchain?.__typename === 'RelayError') {
-              return write?.({
-                args: [profileId, followModule, followModuleInitData]
-              })
+              return write({ args })
             }
             return
           }
-          return write?.({
-            args: [profileId, followModule, followModuleInitData]
-          })
+          return write({ args })
         } catch {
           setLoading(false)
         }

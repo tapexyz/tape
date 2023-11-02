@@ -136,6 +136,12 @@ const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
         followTokenIds,
         datas
       } = typedData.value
+      const args = [
+        followerProfileId,
+        idsOfProfilesToFollow,
+        followTokenIds,
+        datas
+      ]
       try {
         toast.loading(REQUESTING_SIGNATURE_MESSAGE)
         if (canBroadcast) {
@@ -145,25 +151,11 @@ const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
             variables: { request: { id, signature } }
           })
           if (data?.broadcastOnchain.__typename === 'RelayError') {
-            return write?.({
-              args: [
-                followerProfileId,
-                idsOfProfilesToFollow,
-                followTokenIds,
-                datas
-              ]
-            })
+            return write({ args })
           }
           return
         }
-        return write?.({
-          args: [
-            followerProfileId,
-            idsOfProfilesToFollow,
-            followTokenIds,
-            datas
-          ]
-        })
+        return write({ args })
       } catch {
         setLoading(false)
       }

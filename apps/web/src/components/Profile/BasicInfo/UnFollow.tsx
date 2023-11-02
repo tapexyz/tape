@@ -86,8 +86,9 @@ const UnFollow: FC<Props> = ({ profile, onUnSubscribe, size = '2' }) => {
     onCompleted: async ({ createUnfollowTypedData }) => {
       const { typedData, id } =
         createUnfollowTypedData as CreateUnfollowBroadcastItemResult
+      const { idsOfProfilesToUnfollow, unfollowerProfileId } = typedData.value
+      const args = [unfollowerProfileId, idsOfProfilesToUnfollow]
       try {
-        const { idsOfProfilesToUnfollow, unfollowerProfileId } = typedData.value
         toast.loading(REQUESTING_SIGNATURE_MESSAGE)
         if (canBroadcast) {
           const signature = await signTypedDataAsync(getSignature(typedData))
@@ -96,15 +97,11 @@ const UnFollow: FC<Props> = ({ profile, onUnSubscribe, size = '2' }) => {
             variables: { request: { id, signature } }
           })
           if (data?.broadcastOnchain?.__typename === 'RelayError') {
-            return write?.({
-              args: [unfollowerProfileId, idsOfProfilesToUnfollow]
-            })
+            return write({ args })
           }
           return
         }
-        return write?.({
-          args: [unfollowerProfileId, idsOfProfilesToUnfollow]
-        })
+        return write({ args })
       } catch {
         setLoading(false)
       }

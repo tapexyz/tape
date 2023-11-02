@@ -211,6 +211,7 @@ const NewComment: FC<Props> = ({
     useCreateOnchainCommentTypedDataMutation({
       onCompleted: async ({ createOnchainCommentTypedData }) => {
         const { typedData, id } = createOnchainCommentTypedData
+        const args = [typedData.value]
         try {
           if (canBroadcast) {
             const signature = await getSignatureFromTypedData(typedData)
@@ -218,11 +219,11 @@ const NewComment: FC<Props> = ({
               variables: { request: { id, signature } }
             })
             if (data?.broadcastOnchain?.__typename === 'RelayError') {
-              return write?.({ args: [typedData.value] })
+              return write({ args })
             }
             return
           }
-          return write?.({ args: [typedData.value] })
+          return write({ args })
         } catch {}
       },
       onError
@@ -251,6 +252,7 @@ const NewComment: FC<Props> = ({
     useCreateMomokaCommentTypedDataMutation({
       onCompleted: async ({ createMomokaCommentTypedData }) => {
         const { typedData, id } = createMomokaCommentTypedData
+        const args = [typedData.value]
         try {
           if (canBroadcast) {
             const signature = await getSignatureFromTypedData(typedData)
@@ -258,11 +260,11 @@ const NewComment: FC<Props> = ({
               variables: { request: { id, signature } }
             })
             if (data?.broadcastOnMomoka?.__typename === 'RelayError') {
-              return write?.({ args: [typedData.value] })
+              return write({ args })
             }
             return
           }
-          return write?.({ args: [typedData.value] })
+          return write({ args })
         } catch {}
       },
       onError

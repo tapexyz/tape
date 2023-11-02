@@ -193,6 +193,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
     useCreateOnchainCommentTypedDataMutation({
       onCompleted: async ({ createOnchainCommentTypedData }) => {
         const { typedData, id } = createOnchainCommentTypedData
+        const args = [typedData.value]
         try {
           if (canBroadcast) {
             const signature = await getSignatureFromTypedData(typedData)
@@ -200,11 +201,11 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
               variables: { request: { id, signature } }
             })
             if (data?.broadcastOnchain?.__typename === 'RelayError') {
-              return write?.({ args: [typedData.value] })
+              return write({ args })
             }
             return
           }
-          return write?.({ args: [typedData.value] })
+          return write({ args })
         } catch {}
       },
       onError
@@ -232,6 +233,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
     useCreateMomokaCommentTypedDataMutation({
       onCompleted: async ({ createMomokaCommentTypedData }) => {
         const { typedData, id } = createMomokaCommentTypedData
+        const args = [typedData.value]
         try {
           if (canBroadcast) {
             const signature = await getSignatureFromTypedData(typedData)
@@ -239,11 +241,11 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
               variables: { request: { id, signature } }
             })
             if (data?.broadcastOnMomoka?.__typename === 'RelayError') {
-              return write?.({ args: [typedData.value] })
+              return write({ args })
             }
             return
           }
-          return write?.({ args: [typedData.value] })
+          return write({ args })
         } catch {}
       },
       onError

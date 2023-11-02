@@ -94,6 +94,13 @@ const ToggleDispatcher = () => {
         configNumber,
         switchToGivenConfig
       } = typedData.value
+      const args = [
+        delegatorProfileId,
+        delegatedExecutors,
+        approvals,
+        configNumber,
+        switchToGivenConfig
+      ]
       try {
         toast.loading(REQUESTING_SIGNATURE_MESSAGE)
         if (canBroadcast) {
@@ -102,27 +109,11 @@ const ToggleDispatcher = () => {
             variables: { request: { id, signature } }
           })
           if (data?.broadcastOnchain?.__typename === 'RelayError') {
-            return write?.({
-              args: [
-                delegatorProfileId,
-                delegatedExecutors,
-                approvals,
-                configNumber,
-                switchToGivenConfig
-              ]
-            })
+            return write({ args })
           }
           return
         }
-        return write?.({
-          args: [
-            delegatorProfileId,
-            delegatedExecutors,
-            approvals,
-            configNumber,
-            switchToGivenConfig
-          ]
-        })
+        return write({ args })
       } catch {
         setLoading(false)
       }
