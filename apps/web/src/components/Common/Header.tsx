@@ -163,7 +163,7 @@ const Header: FC<Props> = ({ className }) => {
                     </div>
                   </DropMenu>
                 ) : (
-                  <Tooltip content="New posts are disabled for few hours till v2 upgrade.">
+                  <Tooltip content="V2 upgrade in progress - New posts are disabled for few hours.">
                     <Link href="/upload">
                       <Button
                         disabled
