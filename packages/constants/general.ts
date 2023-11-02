@@ -15,7 +15,7 @@ export const STATIC_ASSETS = 'https://static.tape.xyz'
 export const TAPE_WEBSITE_URL = IS_MAINNET
   ? 'https://tape.xyz'
   : 'https://testnet.tape.xyz'
-export const FALLBACK_COVER_URL = `${STATIC_ASSETS}/brand/fallback.png`
+export const FALLBACK_COVER_URL = `${STATIC_ASSETS}/images/fallback-thumbnail.webp`
 export const OG_IMAGE = `${STATIC_ASSETS}/brand/og.png`
 export const SCROLL_ROOT_MARGIN = '60% 0px'
 export const LENS_IMAGEKIT_SNAPSHOT_URL =
