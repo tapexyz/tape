@@ -135,7 +135,7 @@ const ToggleDispatcher = () => {
       return
     }
     setLoading(true)
-    toggleLensManager({
+    return toggleLensManager({
       variables: {
         options: { overrideSigNonce: lensHubOnchainSigNonce },
         request: {

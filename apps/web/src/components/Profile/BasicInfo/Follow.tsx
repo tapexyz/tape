@@ -15,7 +15,7 @@ import {
   getSignature,
   Tower
 } from '@tape.xyz/generic'
-import type { Profile } from '@tape.xyz/lens'
+import type { FollowLensManagerRequest, Profile } from '@tape.xyz/lens'
 import {
   TriStateValue,
   useBroadcastOnchainMutation,
@@ -129,34 +129,40 @@ const Follow: FC<Props> = ({ profile, onSubscribe, size = '2' }) => {
     onError
   })
 
+  const followViaLensManager = async (request: FollowLensManagerRequest) => {
+    const { data } = await followMutation({ variables: { request } })
+
+    if (data?.follow.__typename === 'LensProfileManagerRelayError') {
+      return await createFollowTypedData({
+        variables: {
+          options: { overrideSigNonce: lensHubOnchainSigNonce },
+          request
+        }
+      })
+    }
+  }
+
   const follow = async () => {
     if (!activeProfile?.id) {
       return toast.error(SIGN_IN_REQUIRED)
     }
     setLoading(true)
-    if (canUseLensManager) {
-      return await followMutation({
-        variables: {
-          request: {
-            follow: [
-              {
-                profileId: profile.id
-              }
-            ]
-          }
+    const request = {
+      follow: [
+        {
+          profileId: profile.id
         }
-      })
+      ]
     }
+
+    if (canUseLensManager) {
+      return await followViaLensManager(request)
+    }
+
     return await createFollowTypedData({
       variables: {
         options: { overrideSigNonce: lensHubOnchainSigNonce },
-        request: {
-          follow: [
-            {
-              profileId: profile.id
-            }
-          ]
-        }
+        request
       }
     })
   }

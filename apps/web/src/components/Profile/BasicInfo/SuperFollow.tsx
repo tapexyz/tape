@@ -206,7 +206,7 @@ const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
       )
     }
     setLoading(true)
-    await createFollowTypedData({
+    return await createFollowTypedData({
       variables: {
         options: { overrideSigNonce: lensHubOnchainSigNonce },
         request: {
