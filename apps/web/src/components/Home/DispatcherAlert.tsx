@@ -11,14 +11,14 @@ const DispatcherAlert = () => {
   const { address } = useAccount()
   const activeProfile = useProfileStore((state) => state.activeProfile)
 
-  const isDispatcherEnabled = activeProfile?.signless && activeProfile.sponsor
+  const canUseRelay = activeProfile?.signless && activeProfile.sponsor
   const isOwner = activeProfile && getIsProfileOwner(activeProfile, address)
 
   const getDescription = () => {
     return `Enable dispatcher to interact with ${TAPE_APP_NAME} without signing any of your transactions.`
   }
 
-  if (!activeProfile || isDispatcherEnabled || !isOwner) {
+  if (!activeProfile || canUseRelay || !isOwner) {
     return null
   }
 

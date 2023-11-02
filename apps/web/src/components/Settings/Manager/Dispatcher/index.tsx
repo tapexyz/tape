@@ -6,10 +6,9 @@ import ToggleDispatcher from './ToggleDispatcher'
 
 const DispatcherPermissions = () => {
   const activeProfile = useProfileStore((state) => state.activeProfile)
-  const usingOldDispatcher = activeProfile?.signless === false
 
   const getDescription = () => {
-    if (usingOldDispatcher) {
+    if (!activeProfile?.signless) {
       return `Enable your dispatcher to the latest version for better, faster signless transactions.`
     }
     return `Dispacher helps interact with ${TAPE_APP_NAME} without signing any of your transactions.`
