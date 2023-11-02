@@ -1,6 +1,7 @@
 import { Button } from '@components/UIElements/Button'
 import DropMenu, { NextLink } from '@components/UIElements/DropMenu'
 import Modal from '@components/UIElements/Modal'
+import Tooltip from '@components/UIElements/Tooltip'
 import { Menu } from '@headlessui/react'
 import useAuthPersistStore from '@lib/store/auth'
 import useChannelStore from '@lib/store/channel'
@@ -162,16 +163,19 @@ const Header: FC<Props> = ({ className }) => {
                     </div>
                   </DropMenu>
                 ) : (
-                  <Link href="/upload">
-                    <Button
-                      className="hidden md:block"
-                      icon={<NewVideoOutline className="h-4 w-4" />}
-                    >
-                      <span>
-                        <Trans>New video</Trans>
-                      </span>
-                    </Button>
-                  </Link>
+                  <Tooltip content="New posts are disabled for few hours till v2 upgrade.">
+                    <Link href="/upload">
+                      <Button
+                        disabled
+                        className="hidden md:block"
+                        icon={<NewVideoOutline className="h-4 w-4" />}
+                      >
+                        <span>
+                          <Trans>New video</Trans>
+                        </span>
+                      </Button>
+                    </Link>
+                  </Tooltip>
                 )}
               </>
             ) : null}
