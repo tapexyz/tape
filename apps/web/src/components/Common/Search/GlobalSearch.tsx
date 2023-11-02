@@ -18,18 +18,13 @@ import {
 } from '@tape.xyz/lens'
 import { Loader } from '@tape.xyz/ui'
 import clsx from 'clsx'
-import type { FC } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
 
 import SearchOutline from '../Icons/SearchOutline'
 import Profiles from './Profiles'
 import Publications from './Publications'
 
-interface Props {
-  onSearchResults?: () => void
-}
-
-const GlobalSearch: FC<Props> = ({ onSearchResults }) => {
+const GlobalSearch = () => {
   const [showSearchBar, setShowSearchBar] = useState(false)
   const [keyword, setKeyword] = useState('')
 
@@ -96,90 +91,89 @@ const GlobalSearch: FC<Props> = ({ onSearchResults }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedValue])
 
-  const clearSearch = () => {
-    setKeyword('')
-    onSearchResults?.()
-  }
+  const Trigger = () => (
+    <IconButton
+      onClick={() => setShowSearchBar(true)}
+      radius="full"
+      variant="soft"
+      highContrast
+    >
+      <SearchOutline className="h-3.5 w-3.5" />
+      <span className="sr-only">Search</span>
+    </IconButton>
+  )
 
-  return (
-    <div ref={resultsRef}>
-      <div className="relative">
-        {showSearchBar ? (
-          <>
-            <TextField.Root className="absolute z-20 w-[250px] rounded-md bg-white dark:bg-black lg:w-[800px]">
-              <TextField.Slot px="3">
-                <SearchOutline className="h-4 w-4" />
-                <span className="sr-only">Search</span>
-              </TextField.Slot>
-              <TextField.Input
-                radius="full"
-                autoFocus
-                variant="surface"
-                type="search"
-                value={keyword}
-                onChange={(event) => setKeyword(event.target.value)}
-                placeholder="Search"
-              />
-            </TextField.Root>
-            <div
-              className={clsx(
-                'rounded-medium tape-border z-10 mt-1 w-full bg-white text-base shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-black md:absolute',
-                { hidden: debouncedValue.length === 0 }
-              )}
-            >
-              <ScrollArea
-                type="hover"
-                style={{ maxHeight: '80vh' }}
-                scrollbars="vertical"
-              >
-                <div className="p-4">
-                  {profilesLoading || publicationsLoading ? (
-                    <div className="flex justify-center p-5">
-                      <Loader />
-                    </div>
+  const Content = () => (
+    <>
+      <TextField.Root className="laptop:w-[800px] absolute z-20 hidden w-[500px] rounded-md bg-white dark:bg-black">
+        <TextField.Slot px="3">
+          <SearchOutline className="h-4 w-4" />
+          <span className="sr-only">Search</span>
+        </TextField.Slot>
+        <TextField.Input
+          radius="full"
+          autoFocus
+          variant="surface"
+          type="search"
+          value={keyword}
+          onChange={(event) => setKeyword(event.target.value)}
+          placeholder="Search"
+        />
+      </TextField.Root>
+      <div
+        className={clsx(
+          'rounded-medium tape-border z-10 mt-1 w-full bg-white text-base shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-black md:absolute',
+          { hidden: debouncedValue.length === 0 }
+        )}
+      >
+        <ScrollArea
+          type="hover"
+          style={{ maxHeight: '80vh', display: 'block' }}
+          scrollbars="vertical"
+        >
+          <div className="p-4">
+            {profilesLoading || publicationsLoading ? (
+              <div className="flex justify-center p-5">
+                <Loader />
+              </div>
+            ) : (
+              <>
+                <div className="space-y-2 pb-2 focus:outline-none">
+                  <Text weight="bold">Creators</Text>
+                  {profiles?.length ? (
+                    <Profiles
+                      results={profiles}
+                      loading={profilesLoading}
+                      clearSearch={() => setKeyword('')}
+                    />
                   ) : (
-                    <>
-                      <div className="space-y-2 pb-2 focus:outline-none">
-                        <Text weight="bold">Creators</Text>
-                        {profiles?.length ? (
-                          <Profiles
-                            results={profiles}
-                            loading={profilesLoading}
-                            clearSearch={clearSearch}
-                          />
-                        ) : (
-                          <NoDataFound isCenter />
-                        )}
-                      </div>
-                      <div className="space-y-2 focus:outline-none">
-                        <Text weight="bold">Releases</Text>
-                        {publications?.length ? (
-                          <Publications
-                            results={publications}
-                            loading={publicationsLoading}
-                            clearSearch={clearSearch}
-                          />
-                        ) : (
-                          <NoDataFound isCenter />
-                        )}
-                      </div>
-                    </>
+                    <NoDataFound isCenter />
                   )}
                 </div>
-              </ScrollArea>
-            </div>
-          </>
-        ) : (
-          <IconButton
-            onClick={() => setShowSearchBar(true)}
-            radius="full"
-            variant="soft"
-            highContrast
-          >
-            <SearchOutline className="h-3.5 w-3.5" />
-            <span className="sr-only">Search</span>
-          </IconButton>
-        )}
+                <div className="space-y-2 focus:outline-none">
+                  <Text weight="bold">Releases</Text>
+                  {publications?.length ? (
+                    <Publications
+                      results={publications}
+                      loading={publicationsLoading}
+                      clearSearch={() => setKeyword('')}
+                    />
+                  ) : (
+                    <NoDataFound isCenter />
+                  )}
+                </div>
+              </>
+            )}
+          </div>
+        </ScrollArea>
+      </div>
+    </>
+  )
+
+  return (
+    <div>
+      <div className="relative hidden md:block" ref={resultsRef}>
+        {showSearchBar ? <Content /> : <Trigger />}
       </div>
     </div>
   )

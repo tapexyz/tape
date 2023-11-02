@@ -389,7 +389,10 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
             {isVideoOwner && (
               <>
                 {pinnedVideoId !== video.id && (
-                  <DropdownMenu.Item onClick={() => onPinVideo()}>
+                  <DropdownMenu.Item
+                    disabled={!activeProfile?.id}
+                    onClick={() => onPinVideo()}
+                  >
                     <Flex align="center" gap="2">
                       <PinOutline className="h-3.5 w-3.5" />
                       <span className="whitespace-nowrap">Pin Video</span>
@@ -410,7 +413,10 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
 
             {!isVideoOwner && (
               <>
-                <DropdownMenu.Item onClick={() => saveToList()}>
+                <DropdownMenu.Item
+                  disabled={!activeProfile?.id}
+                  onClick={() => saveToList()}
+                >
                   <Flex align="center" gap="2">
                     <BookmarkOutline className="h-3.5 w-3.5 flex-none" />
                     <span className="truncate whitespace-nowrap">
@@ -418,7 +424,10 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
                     </span>
                   </Flex>
                 </DropdownMenu.Item>
-                <DropdownMenu.Item onClick={() => notInterested()}>
+                <DropdownMenu.Item
+                  disabled={!activeProfile?.id}
+                  onClick={() => notInterested()}
+                >
                   <Flex align="center" gap="2">
                     <ForbiddenOutline className="h-3.5 w-3.5" />
                     <span className="whitespace-nowrap">
@@ -430,8 +439,8 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
                 </DropdownMenu.Item>
                 <Dialog.Root>
                   <Dialog.Trigger>
-                    <button
-                      className="!cursor-default rounded-md px-3 py-1.5 hover:bg-gray-500/20"
+                    <DropdownMenu.Item
+                      disabled={!activeProfile?.id}
                       onClick={() => onClickReport()}
                     >
                       <Flex align="center" gap="2">
@@ -440,7 +449,7 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
                           Report
                         </Text>
                       </Flex>
-                    </button>
+                    </DropdownMenu.Item>
                   </Dialog.Trigger>
 
                   <Dialog.Content style={{ maxWidth: 450 }}>
