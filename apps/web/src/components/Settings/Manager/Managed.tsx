@@ -1,5 +1,4 @@
 import Badge from '@components/Common/Badge'
-import InterweaveContent from '@components/Common/InterweaveContent'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useProfileStore from '@lib/store/profile'
 import { Avatar } from '@radix-ui/themes'
@@ -71,7 +70,7 @@ const Managed = () => {
                   }}
                   className="bg-brand-500 relative h-20 w-full bg-cover bg-center bg-no-repeat"
                 >
-                  <div className="absolute bottom-2 left-2 flex-none">
+                  <div className="absolute bottom-2 left-3 flex-none">
                     <Avatar
                       className="border-2 border-white bg-white object-cover dark:bg-gray-900"
                       size="3"
@@ -95,7 +94,7 @@ const Managed = () => {
                   <span>{formatNumber(profile.stats.followers)} followers</span>
                   {profile.metadata?.bio && (
                     <div className="line-clamp-2 py-2">
-                      <InterweaveContent content={profile.metadata?.bio} />
+                      {profile.metadata?.bio}
                     </div>
                   )}
                 </div>

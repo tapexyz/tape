@@ -172,12 +172,12 @@ const Subscription = ({ channel }: Props) => {
       onError
     })
 
-  const updateSubscription = (disable: boolean) => {
+  const updateSubscription = async (disable: boolean) => {
     if (handleWrongNetwork()) {
       return
     }
     setLoading(true)
-    createSetFollowModuleTypedData({
+    return await createSetFollowModuleTypedData({
       variables: {
         options: { overrideSigNonce: lensHubOnchainSigNonce },
         request: {

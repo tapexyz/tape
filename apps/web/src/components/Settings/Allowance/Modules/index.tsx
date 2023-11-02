@@ -74,6 +74,7 @@ const ModuleAllowance = () => {
       }
     }
   })
+  const currencies = enabledCurrencies?.currencies.items
 
   const handleClick = async (isAllow: boolean, selectedModule: string) => {
     try {
@@ -119,12 +120,12 @@ const ModuleAllowance = () => {
             >
               <Select.Trigger className="w-full" />
               <Select.Content highContrast>
-                {enabledCurrencies?.currencies.items?.map((token: Erc20) => (
+                {currencies?.map((token: Erc20) => (
                   <Select.Item
                     key={token.contract.address}
                     value={token.contract.address}
                   >
-                    {token.symbol}
+                    {token.name}
                   </Select.Item>
                 ))}
               </Select.Content>
