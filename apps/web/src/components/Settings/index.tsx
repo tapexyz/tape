@@ -46,11 +46,11 @@ const Settings = () => {
   if (error) {
     return <Custom500 />
   }
-  if (loading || !data) {
+  if (loading) {
     return <SettingsShimmer />
   }
 
-  if (!data?.profile || (!activeProfile && router.isReady)) {
+  if (!data?.profile) {
     return <Custom404 />
   }
 
