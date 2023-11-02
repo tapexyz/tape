@@ -30,6 +30,7 @@ import {
 } from '@tape.xyz/constants'
 import {
   canUploadedToIpfs,
+  checkDispatcherPermissions,
   EVENTS,
   getProfile,
   getSignature,
@@ -80,6 +81,8 @@ const CreateSteps = () => {
   const { data: signer } = useEthersWalletClient()
   const router = useRouter()
   const handleWrongNetwork = useHandleWrongNetwork()
+  const { canUseRelay, canBroadcast } =
+    checkDispatcherPermissions(activeProfile)
 
   const degreesOfSeparation = uploadedVideo.referenceModule
     ?.degreesOfSeparationReferenceModule?.degreesOfSeparation as number
@@ -89,8 +92,6 @@ const CreateSteps = () => {
     : uploadedVideo.referenceModule.followerOnlyReferenceModule
     ? ReferenceModuleType.FollowerOnlyReferenceModule
     : null
-
-  const canUseRelay = activeProfile?.signless && activeProfile?.sponsor
 
   const resetToDefaults = () => {
     setUploadedVideo(UPLOADED_VIDEO_FORM_DEFAULTS)
@@ -232,13 +233,17 @@ const CreateSteps = () => {
     onCompleted: async ({ createOnchainPostTypedData }) => {
       const { typedData, id } = createOnchainPostTypedData
       try {
-        const signature = await getSignatureFromTypedData(typedData)
-        const { data } = await broadcastOnchain({
-          variables: { request: { id, signature } }
-        })
-        if (data?.broadcastOnchain?.__typename === 'RelayError') {
-          return write?.({ args: [typedData.value] })
+        if (canBroadcast) {
+          const signature = await getSignatureFromTypedData(typedData)
+          const { data } = await broadcastOnchain({
+            variables: { request: { id, signature } }
+          })
+          if (data?.broadcastOnchain?.__typename === 'RelayError') {
+            return write?.({ args: [typedData.value] })
+          }
+          return
         }
+        return write?.({ args: [typedData.value] })
       } catch {}
     },
     onError
@@ -258,13 +263,17 @@ const CreateSteps = () => {
     onCompleted: async ({ createMomokaPostTypedData }) => {
       const { typedData, id } = createMomokaPostTypedData
       try {
-        const signature = await getSignatureFromTypedData(typedData)
-        const { data } = await broadcastOnMomoka({
-          variables: { request: { id, signature } }
-        })
-        if (data?.broadcastOnMomoka?.__typename === 'RelayError') {
-          return write?.({ args: [typedData.value] })
+        if (canBroadcast) {
+          const signature = await getSignatureFromTypedData(typedData)
+          const { data } = await broadcastOnMomoka({
+            variables: { request: { id, signature } }
+          })
+          if (data?.broadcastOnMomoka?.__typename === 'RelayError') {
+            return write?.({ args: [typedData.value] })
+          }
+          return
         }
+        return write?.({ args: [typedData.value] })
       } catch {}
     },
     onError

@@ -8,7 +8,12 @@ import {
   REQUESTING_SIGNATURE_MESSAGE,
   SIGN_IN_REQUIRED
 } from '@tape.xyz/constants'
-import { EVENTS, getSignature, Tower } from '@tape.xyz/generic'
+import {
+  checkDispatcherPermissions,
+  EVENTS,
+  getSignature,
+  Tower
+} from '@tape.xyz/generic'
 import type {
   CreateMomokaMirrorEip712TypedData,
   CreateOnchainMirrorEip712TypedData,
@@ -41,7 +46,8 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
 
   const activeProfile = useProfileStore((state) => state.activeProfile)
-  const canUseRelay = activeProfile?.signless && activeProfile?.sponsor
+  const { canUseRelay, canBroadcast } =
+    checkDispatcherPermissions(activeProfile)
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
@@ -100,13 +106,17 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
       onCompleted: async ({ createOnchainMirrorTypedData }) => {
         const { typedData, id } = createOnchainMirrorTypedData
         try {
-          const signature = await getSignatureFromTypedData(typedData)
-          const { data } = await broadcastOnchain({
-            variables: { request: { id, signature } }
-          })
-          if (data?.broadcastOnchain?.__typename === 'RelayError') {
-            return write?.({ args: [typedData.value] })
+          if (canBroadcast) {
+            const signature = await getSignatureFromTypedData(typedData)
+            const { data } = await broadcastOnchain({
+              variables: { request: { id, signature } }
+            })
+            if (data?.broadcastOnchain?.__typename === 'RelayError') {
+              return write?.({ args: [typedData.value] })
+            }
+            return
           }
+          return write?.({ args: [typedData.value] })
         } catch {}
       },
       onError
@@ -139,13 +149,17 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
     onCompleted: async ({ createMomokaMirrorTypedData }) => {
       const { typedData, id } = createMomokaMirrorTypedData
       try {
-        const signature = await getSignatureFromTypedData(typedData)
-        const { data } = await broadcastOnMomoka({
-          variables: { request: { id, signature } }
-        })
-        if (data?.broadcastOnMomoka?.__typename === 'RelayError') {
-          return write?.({ args: [typedData.value] })
+        if (canBroadcast) {
+          const signature = await getSignatureFromTypedData(typedData)
+          const { data } = await broadcastOnMomoka({
+            variables: { request: { id, signature } }
+          })
+          if (data?.broadcastOnMomoka?.__typename === 'RelayError') {
+            return write?.({ args: [typedData.value] })
+          }
+          return
         }
+        return write?.({ args: [typedData.value] })
       } catch {}
     },
     onError

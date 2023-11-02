@@ -23,6 +23,7 @@ import {
   TAPE_WEBSITE_URL
 } from '@tape.xyz/constants'
 import {
+  checkDispatcherPermissions,
   EVENTS,
   getProfile,
   getProfileCoverPicture,
@@ -93,8 +94,7 @@ const BasicInfo = ({ profile }: Props) => {
   )
   const [uploading, setUploading] = useState({ pfp: false, cover: false })
   const handleWrongNetwork = useHandleWrongNetwork()
-
-  const canUseRelay = profile?.signless && profile?.sponsor
+  const { canUseRelay, canBroadcast } = checkDispatcherPermissions(profile)
 
   const {
     register,
@@ -169,15 +169,19 @@ const BasicInfo = ({ profile }: Props) => {
       onCompleted: async ({ createOnchainSetProfileMetadataTypedData }) => {
         const { typedData, id } = createOnchainSetProfileMetadataTypedData
         try {
+          const { profileId, metadataURI } = typedData.value
           toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-          const signature = await signTypedDataAsync(getSignature(typedData))
-          const { data } = await broadcast({
-            variables: { request: { id, signature } }
-          })
-          if (data?.broadcastOnchain?.__typename === 'RelayError') {
-            const { profileId, metadataURI } = typedData.value
-            return write?.({ args: [profileId, metadataURI] })
+          if (canBroadcast) {
+            const signature = await signTypedDataAsync(getSignature(typedData))
+            const { data } = await broadcast({
+              variables: { request: { id, signature } }
+            })
+            if (data?.broadcastOnchain?.__typename === 'RelayError') {
+              return write?.({ args: [profileId, metadataURI] })
+            }
+            return
           }
+          return write?.({ args: [profileId, metadataURI] })
         } catch {
           setLoading(false)
         }

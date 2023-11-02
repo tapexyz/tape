@@ -14,6 +14,7 @@ import {
   TAPE_APP_ID
 } from '@tape.xyz/constants'
 import {
+  checkDispatcherPermissions,
   EVENTS,
   getIsSensitiveContent,
   getProfileCoverPicture,
@@ -57,6 +58,8 @@ type Props = {
 const PinnedVideo: FC<Props> = ({ id }) => {
   const { activeProfile } = useProfileStore()
   const handleWrongNetwork = useHandleWrongNetwork()
+  const { canUseRelay, canBroadcast } =
+    checkDispatcherPermissions(activeProfile)
 
   const { data, error, loading } = usePublicationQuery({
     variables: {
@@ -104,15 +107,19 @@ const PinnedVideo: FC<Props> = ({ id }) => {
       onCompleted: async ({ createOnchainSetProfileMetadataTypedData }) => {
         const { typedData, id } = createOnchainSetProfileMetadataTypedData
         try {
+          const { profileId, metadataURI } = typedData.value
           toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-          const signature = await signTypedDataAsync(getSignature(typedData))
-          const { data } = await broadcast({
-            variables: { request: { id, signature } }
-          })
-          if (data?.broadcastOnchain?.__typename === 'RelayError') {
-            const { profileId, metadataURI } = typedData.value
-            return write?.({ args: [profileId, metadataURI] })
+          if (canBroadcast) {
+            const signature = await signTypedDataAsync(getSignature(typedData))
+            const { data } = await broadcast({
+              variables: { request: { id, signature } }
+            })
+            if (data?.broadcastOnchain?.__typename === 'RelayError') {
+              return write?.({ args: [profileId, metadataURI] })
+            }
+            return
           }
+          return write?.({ args: [profileId, metadataURI] })
         } catch {}
       },
       onError
@@ -168,7 +175,6 @@ const PinnedVideo: FC<Props> = ({ id }) => {
       const request: OnchainSetProfileMetadataRequest = {
         metadataURI
       }
-      const canUseRelay = activeProfile?.signless && activeProfile?.sponsor
 
       if (canUseRelay) {
         const { data } = await setProfileMetadata({

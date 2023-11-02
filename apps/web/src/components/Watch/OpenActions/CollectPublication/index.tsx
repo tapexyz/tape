@@ -17,6 +17,7 @@ import {
   ZERO_ADDRESS
 } from '@tape.xyz/constants'
 import {
+  checkDispatcherPermissions,
   formatNumber,
   getProfile,
   getProfilePicture,
@@ -90,7 +91,9 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
   const isLegacyCollectModule =
     action.__typename === 'LegacySimpleCollectModuleSettings' ||
     action.__typename === 'LegacyMultirecipientFeeCollectModuleSettings'
-  const canUseRelay = activeProfile?.signless && activeProfile?.sponsor
+
+  const { canUseRelay, canBroadcast } =
+    checkDispatcherPermissions(activeProfile)
   const isFreeForAnyone = !action?.followerOnly && !amount
 
   const isRecipientAvailable =
@@ -291,14 +294,18 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
     useCreateActOnOpenActionTypedDataMutation({
       onCompleted: async ({ createActOnOpenActionTypedData }) => {
         const { id, typedData } = createActOnOpenActionTypedData
-        const signature = await signTypedDataAsync(getSignature(typedData))
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
-        const { data } = await broadcastOnchain({
-          variables: { request: { id, signature } }
-        })
-        if (data?.broadcastOnchain.__typename === 'RelayError') {
-          return write?.({ args: [typedData.value] })
+        if (canBroadcast) {
+          const signature = await signTypedDataAsync(getSignature(typedData))
+          setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
+          const { data } = await broadcastOnchain({
+            variables: { request: { id, signature } }
+          })
+          if (data?.broadcastOnchain.__typename === 'RelayError') {
+            return write?.({ args: [typedData.value] })
+          }
+          return
         }
+        return write?.({ args: [typedData.value] })
       },
       onError
     })
@@ -308,14 +315,18 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
     useCreateLegacyCollectTypedDataMutation({
       onCompleted: async ({ createLegacyCollectTypedData }) => {
         const { id, typedData } = createLegacyCollectTypedData
-        const signature = await signTypedDataAsync(getSignature(typedData))
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
-        const { data } = await broadcastOnchain({
-          variables: { request: { id, signature } }
-        })
-        if (data?.broadcastOnchain.__typename === 'RelayError') {
-          return write?.({ args: [typedData.value] })
+        if (canBroadcast) {
+          const signature = await signTypedDataAsync(getSignature(typedData))
+          setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
+          const { data } = await broadcastOnchain({
+            variables: { request: { id, signature } }
+          })
+          if (data?.broadcastOnchain.__typename === 'RelayError') {
+            return write?.({ args: [typedData.value] })
+          }
+          return
         }
+        return write?.({ args: [typedData.value] })
       },
       onError
     })

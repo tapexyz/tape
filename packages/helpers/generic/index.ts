@@ -1,5 +1,6 @@
 export * from './events'
 export * from './functions/canUploadedToIpfs'
+export * from './functions/checkDispatcherPermissions'
 export * from './functions/checkIsBytesVideo'
 export * from './functions/formatBytes'
 export * from './functions/formatMB'

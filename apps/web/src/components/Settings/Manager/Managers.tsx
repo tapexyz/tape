@@ -17,8 +17,12 @@ import {
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE
 } from '@tape.xyz/constants'
-import { getSignature, shortenAddress } from '@tape.xyz/generic'
-import type { Profile, ProfileManagersRequest } from '@tape.xyz/lens'
+import {
+  checkDispatcherPermissions,
+  getSignature,
+  shortenAddress
+} from '@tape.xyz/generic'
+import type { ProfileManagersRequest } from '@tape.xyz/lens'
 import {
   ChangeProfileManagerActionType,
   useBroadcastOnchainMutation,
@@ -96,10 +100,9 @@ const Managers = () => {
   })
 
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
-  const activeProfile = useProfileStore(
-    (state) => state.activeProfile
-  ) as Profile
+  const activeProfile = useProfileStore((state) => state.activeProfile)
   const handleWrongNetwork = useHandleWrongNetwork()
+  const { canBroadcast } = checkDispatcherPermissions(activeProfile)
 
   const request: ProfileManagersRequest = { for: activeProfile?.id }
   const { data, refetch, error, loading, fetchMore } = useProfileManagersQuery({
@@ -158,30 +161,42 @@ const Managers = () => {
   const [toggleLensManager] = useCreateChangeProfileManagersTypedDataMutation({
     onCompleted: async ({ createChangeProfileManagersTypedData }) => {
       const { id, typedData } = createChangeProfileManagersTypedData
+      const {
+        delegatorProfileId,
+        delegatedExecutors,
+        approvals,
+        configNumber,
+        switchToGivenConfig
+      } = typedData.value
       try {
         toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-        const signature = await signTypedDataAsync(getSignature(typedData))
-        const { data } = await broadcast({
-          variables: { request: { id, signature } }
-        })
-        if (data?.broadcastOnchain?.__typename === 'RelayError') {
-          const {
+        if (canBroadcast) {
+          const signature = await signTypedDataAsync(getSignature(typedData))
+          const { data } = await broadcast({
+            variables: { request: { id, signature } }
+          })
+          if (data?.broadcastOnchain?.__typename === 'RelayError') {
+            return write?.({
+              args: [
+                delegatorProfileId,
+                delegatedExecutors,
+                approvals,
+                configNumber,
+                switchToGivenConfig
+              ]
+            })
+          }
+          return
+        }
+        return write?.({
+          args: [
             delegatorProfileId,
             delegatedExecutors,
             approvals,
             configNumber,
             switchToGivenConfig
-          } = typedData.value
-          return write?.({
-            args: [
-              delegatorProfileId,
-              delegatedExecutors,
-              approvals,
-              configNumber,
-              switchToGivenConfig
-            ]
-          })
-        }
+          ]
+        })
       } catch {
         setSubmitting(false)
       }

@@ -16,6 +16,7 @@ import {
   TAPE_WEBSITE_URL
 } from '@tape.xyz/constants'
 import {
+  checkDispatcherPermissions,
   EVENTS,
   getOpenActionNftMetadata,
   getProfile,
@@ -74,7 +75,8 @@ const PostLinkModal: FC<Props> = ({ show, setShow }) => {
   const activeProfile = useProfileStore(
     (state) => state.activeProfile
   ) as Profile
-  const canUseRelay = activeProfile?.signless && activeProfile?.sponsor
+  const { canUseRelay, canBroadcast } =
+    checkDispatcherPermissions(activeProfile)
 
   const {
     register,
@@ -168,13 +170,17 @@ const PostLinkModal: FC<Props> = ({ show, setShow }) => {
     onCompleted: async ({ createMomokaPostTypedData }) => {
       const { typedData, id } = createMomokaPostTypedData
       try {
-        const signature = await getSignatureFromTypedData(typedData)
-        const { data } = await broadcastOnMomoka({
-          variables: { request: { id, signature } }
-        })
-        if (data?.broadcastOnMomoka?.__typename === 'RelayError') {
-          return write?.({ args: [typedData.value] })
+        if (canBroadcast) {
+          const signature = await getSignatureFromTypedData(typedData)
+          const { data } = await broadcastOnMomoka({
+            variables: { request: { id, signature } }
+          })
+          if (data?.broadcastOnMomoka?.__typename === 'RelayError') {
+            return write?.({ args: [typedData.value] })
+          }
+          return
         }
+        return write?.({ args: [typedData.value] })
       } catch {}
     },
     onError

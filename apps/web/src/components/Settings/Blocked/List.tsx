@@ -12,6 +12,7 @@ import {
   REQUESTING_SIGNATURE_MESSAGE
 } from '@tape.xyz/constants'
 import {
+  checkDispatcherPermissions,
   getProfile,
   getProfileCoverPicture,
   getProfilePicture,
@@ -46,6 +47,7 @@ const List = () => {
   const { activeProfile } = useProfileStore()
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
   const { cache } = useApolloClient()
+  const { canBroadcast } = checkDispatcherPermissions(activeProfile)
 
   const onError = (error: CustomErrorWithData) => {
     setUnblockingProfileId('')
@@ -119,20 +121,26 @@ const List = () => {
     typedDataResult: CreateUnblockProfilesBroadcastItemResult
   ) => {
     const { typedData, id } = typedDataResult
+    const { byProfileId, idsOfProfilesToSetBlockStatus, blockStatus } =
+      typedData.value
     try {
-      toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-      const signature = await signTypedDataAsync(getSignature(typedData))
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
-      const { data } = await broadcast({
-        variables: { request: { id, signature } }
-      })
-      if (data?.broadcastOnchain?.__typename === 'RelayError') {
-        const { byProfileId, idsOfProfilesToSetBlockStatus, blockStatus } =
-          typedData.value
-        write?.({
-          args: [byProfileId, idsOfProfilesToSetBlockStatus, blockStatus]
+      if (canBroadcast) {
+        toast.loading(REQUESTING_SIGNATURE_MESSAGE)
+        const signature = await signTypedDataAsync(getSignature(typedData))
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
+        const { data } = await broadcast({
+          variables: { request: { id, signature } }
         })
+        if (data?.broadcastOnchain?.__typename === 'RelayError') {
+          return write?.({
+            args: [byProfileId, idsOfProfilesToSetBlockStatus, blockStatus]
+          })
+        }
+        return
       }
+      return write?.({
+        args: [byProfileId, idsOfProfilesToSetBlockStatus, blockStatus]
+      })
     } catch {
       setUnblockingProfileId('')
     }

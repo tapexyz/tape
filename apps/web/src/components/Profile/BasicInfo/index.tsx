@@ -26,7 +26,11 @@ import {
   STATIC_ASSETS,
   TAPE_WEBSITE_URL
 } from '@tape.xyz/constants'
-import { getProfile, getSignature } from '@tape.xyz/generic'
+import {
+  checkDispatcherPermissions,
+  getProfile,
+  getSignature
+} from '@tape.xyz/generic'
 import type {
   CreateBlockProfilesBroadcastItemResult,
   CreateUnblockProfilesBroadcastItemResult,
@@ -59,6 +63,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
 
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
   const { activeProfile } = useProfileStore()
+  const { canBroadcast } = checkDispatcherPermissions(activeProfile)
 
   const hasOnChainId =
     profile.onchainIdentity?.ens?.name ||
@@ -131,20 +136,26 @@ const BasicInfo: FC<Props> = ({ profile }) => {
       | CreateUnblockProfilesBroadcastItemResult
   ) => {
     const { typedData, id } = typedDataResult
+    const { byProfileId, idsOfProfilesToSetBlockStatus, blockStatus } =
+      typedData.value
     try {
       toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-      const signature = await signTypedDataAsync(getSignature(typedData))
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
-      const { data } = await broadcast({
-        variables: { request: { id, signature } }
-      })
-      if (data?.broadcastOnchain?.__typename === 'RelayError') {
-        const { byProfileId, idsOfProfilesToSetBlockStatus, blockStatus } =
-          typedData.value
-        write?.({
-          args: [byProfileId, idsOfProfilesToSetBlockStatus, blockStatus]
+      if (canBroadcast) {
+        const signature = await signTypedDataAsync(getSignature(typedData))
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
+        const { data } = await broadcast({
+          variables: { request: { id, signature } }
         })
+        if (data?.broadcastOnchain?.__typename === 'RelayError') {
+          write?.({
+            args: [byProfileId, idsOfProfilesToSetBlockStatus, blockStatus]
+          })
+        }
+        return
       }
+      write?.({
+        args: [byProfileId, idsOfProfilesToSetBlockStatus, blockStatus]
+      })
     } catch {
       setLoading(false)
     }

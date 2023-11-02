@@ -16,6 +16,7 @@ import {
   TAPE_WEBSITE_URL
 } from '@tape.xyz/constants'
 import {
+  checkDispatcherPermissions,
   EVENTS,
   getProfile,
   getPublication,
@@ -91,7 +92,8 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
   const queuedComments = usePersistStore((state) => state.queuedComments)
   const setQueuedComments = usePersistStore((state) => state.setQueuedComments)
 
-  const canUseRelay = activeProfile?.signless && activeProfile?.sponsor
+  const { canUseRelay, canBroadcast } =
+    checkDispatcherPermissions(activeProfile)
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error.message)
@@ -192,13 +194,17 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
       onCompleted: async ({ createOnchainCommentTypedData }) => {
         const { typedData, id } = createOnchainCommentTypedData
         try {
-          const signature = await getSignatureFromTypedData(typedData)
-          const { data } = await broadcastOnchain({
-            variables: { request: { id, signature } }
-          })
-          if (data?.broadcastOnchain?.__typename === 'RelayError') {
-            return write?.({ args: [typedData.value] })
+          if (canBroadcast) {
+            const signature = await getSignatureFromTypedData(typedData)
+            const { data } = await broadcastOnchain({
+              variables: { request: { id, signature } }
+            })
+            if (data?.broadcastOnchain?.__typename === 'RelayError') {
+              return write?.({ args: [typedData.value] })
+            }
+            return
           }
+          return write?.({ args: [typedData.value] })
         } catch {}
       },
       onError
@@ -227,13 +233,17 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
       onCompleted: async ({ createMomokaCommentTypedData }) => {
         const { typedData, id } = createMomokaCommentTypedData
         try {
-          const signature = await getSignatureFromTypedData(typedData)
-          const { data } = await broadcastOnMomoka({
-            variables: { request: { id, signature } }
-          })
-          if (data?.broadcastOnMomoka?.__typename === 'RelayError') {
-            return write?.({ args: [typedData.value] })
+          if (canBroadcast) {
+            const signature = await getSignatureFromTypedData(typedData)
+            const { data } = await broadcastOnMomoka({
+              variables: { request: { id, signature } }
+            })
+            if (data?.broadcastOnMomoka?.__typename === 'RelayError') {
+              return write?.({ args: [typedData.value] })
+            }
+            return
           }
+          return write?.({ args: [typedData.value] })
         } catch {}
       },
       onError
