@@ -45,6 +45,8 @@ const OpenActions: FC<Props> = ({
     switch (action.__typename) {
       case 'SimpleCollectOpenActionSettings':
       case 'MultirecipientFeeCollectOpenActionSettings':
+      case 'LegacySimpleCollectModuleSettings':
+      case 'LegacyMultirecipientFeeCollectModuleSettings':
         const details = getCollectModuleOutput(action)
         return (
           <AccordionItem

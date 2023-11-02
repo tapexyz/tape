@@ -1,8 +1,14 @@
-import type { Maybe, OpenActionModule } from '@tape.xyz/lens'
+import {
+  type Maybe,
+  type OpenActionModule,
+  OpenActionModuleType
+} from '@tape.xyz/lens'
 
 const allowedTypes = [
-  'SimpleCollectOpenActionModule',
-  'MultirecipientFeeCollectOpenActionModule'
+  OpenActionModuleType.SimpleCollectOpenActionModule,
+  OpenActionModuleType.MultirecipientFeeCollectOpenActionModule,
+  OpenActionModuleType.LegacySimpleCollectModule,
+  OpenActionModuleType.LegacyMultirecipientFeeCollectModule
 ]
 
 const isOpenActionAllowed = (
