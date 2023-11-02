@@ -103,6 +103,20 @@ export const getCollectModuleConfig = (collectModule: string) => {
         description:
           'Collect any publication which splits collect revenue with multiple recipients.'
       }
+    case OpenActionModuleType.LegacySimpleCollectModule:
+      return {
+        type: 'openActionModule',
+        label: 'Legacy - Simple collects',
+        description:
+          'Collect any publication including paid collects, limited and timed free collects and more!'
+      }
+    case OpenActionModuleType.LegacyMultirecipientFeeCollectModule:
+      return {
+        type: 'openActionModule',
+        label: 'Legacy - Multi recipient collects',
+        description:
+          'Collect any publication which splits collect revenue with multiple recipients.'
+      }
     case 'FeeFollowModule':
       return {
         type: 'followModule',

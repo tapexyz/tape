@@ -4,7 +4,8 @@ import MetaTags from '@components/Common/MetaTags'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import {
   INFINITE_SCROLL_ROOT_MARGIN,
-  LENS_CUSTOM_FILTERS
+  LENS_CUSTOM_FILTERS,
+  LENSTUBE_BYTES_APP_ID
 } from '@tape.xyz/constants'
 import { EVENTS, Tower } from '@tape.xyz/generic'
 import type {
@@ -16,7 +17,6 @@ import {
   ExplorePublicationsOrderByType,
   ExplorePublicationType,
   LimitType,
-  PublicationMetadataMainFocusType,
   useExplorePublicationsLazyQuery,
   usePublicationLazyQuery
 } from '@tape.xyz/lens'
@@ -31,7 +31,8 @@ const request: ExplorePublicationRequest = {
   where: {
     publicationTypes: [ExplorePublicationType.Post],
     metadata: {
-      mainContentFocus: [PublicationMetadataMainFocusType.ShortVideo]
+      // mainContentFocus: [PublicationMetadataMainFocusType.ShortVideo],
+      publishedOn: [LENSTUBE_BYTES_APP_ID]
     },
     customFilters: LENS_CUSTOM_FILTERS
   },

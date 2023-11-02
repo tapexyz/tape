@@ -4,7 +4,8 @@ import { NoDataFound } from '@components/UIElements/NoDataFound'
 import {
   FALLBACK_COVER_URL,
   INFINITE_SCROLL_ROOT_MARGIN,
-  LENS_CUSTOM_FILTERS
+  LENS_CUSTOM_FILTERS,
+  LENSTUBE_BYTES_APP_ID
 } from '@tape.xyz/constants'
 import {
   getPublicationData,
@@ -14,7 +15,6 @@ import {
 import type { Post, PublicationsRequest } from '@tape.xyz/lens'
 import {
   LimitType,
-  PublicationMetadataMainFocusType,
   PublicationType,
   usePublicationsQuery
 } from '@tape.xyz/lens'
@@ -32,7 +32,8 @@ const ProfileBytes: FC<Props> = ({ profileId }) => {
   const request: PublicationsRequest = {
     where: {
       metadata: {
-        mainContentFocus: [PublicationMetadataMainFocusType.ShortVideo]
+        // mainContentFocus: [PublicationMetadataMainFocusType.ShortVideo],
+        publishedOn: [LENSTUBE_BYTES_APP_ID]
       },
       publicationTypes: [PublicationType.Post],
       customFilters: LENS_CUSTOM_FILTERS,

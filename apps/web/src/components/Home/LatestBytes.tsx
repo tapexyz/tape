@@ -1,7 +1,11 @@
 import Badge from '@components/Common/Badge'
 import LatestBytesShimmer from '@components/Shimmers/LatestBytesShimmer'
 import { getShortHandTime } from '@lib/formatTime'
-import { FALLBACK_COVER_URL, LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
+import {
+  FALLBACK_COVER_URL,
+  LENS_CUSTOM_FILTERS,
+  LENSTUBE_BYTES_APP_ID
+} from '@tape.xyz/constants'
 import {
   getProfile,
   getProfilePicture,
@@ -17,7 +21,6 @@ import {
   ExplorePublicationsOrderByType,
   ExplorePublicationType,
   LimitType,
-  PublicationMetadataMainFocusType,
   useExplorePublicationsQuery
 } from '@tape.xyz/lens'
 import Link from 'next/link'
@@ -28,7 +31,8 @@ const request: ExplorePublicationRequest = {
     publicationTypes: [ExplorePublicationType.Post],
     customFilters: LENS_CUSTOM_FILTERS,
     metadata: {
-      mainContentFocus: [PublicationMetadataMainFocusType.ShortVideo]
+      // mainContentFocus: [PublicationMetadataMainFocusType.ShortVideo],
+      publishedOn: [LENSTUBE_BYTES_APP_ID]
     }
   },
   orderBy: ExplorePublicationsOrderByType.LensCurated,
