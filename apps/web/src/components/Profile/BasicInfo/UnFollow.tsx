@@ -41,7 +41,7 @@ const UnFollow: FC<Props> = ({ profile, onUnSubscribe, size = '2' }) => {
 
   const { activeProfile } = useProfileStore()
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
-  const { canUseRelay, canBroadcast } =
+  const { canUseLensManager, canBroadcast } =
     checkDispatcherPermissions(activeProfile)
 
   const handleWrongNetwork = useHandleWrongNetwork()
@@ -126,7 +126,7 @@ const UnFollow: FC<Props> = ({ profile, onUnSubscribe, size = '2' }) => {
     }
 
     setLoading(true)
-    if (canUseRelay) {
+    if (canUseLensManager) {
       return await unFollowMutation({
         variables: {
           request: {

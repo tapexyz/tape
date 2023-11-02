@@ -87,7 +87,7 @@ const NewComment: FC<Props> = ({
   const queuedComments = usePersistStore((state) => state.queuedComments)
   const setQueuedComments = usePersistStore((state) => state.setQueuedComments)
 
-  const { canUseRelay, canBroadcast } =
+  const { canUseLensManager, canBroadcast } =
     checkDispatcherPermissions(activeProfile)
   const targetVideo = getPublication(video)
 
@@ -326,7 +326,7 @@ const NewComment: FC<Props> = ({
 
       if (video.momoka?.proof) {
         // MOMOKA
-        if (canUseRelay) {
+        if (canUseLensManager) {
           return await commentOnMomoka({
             variables: {
               request: {
@@ -335,20 +335,20 @@ const NewComment: FC<Props> = ({
               }
             }
           })
-        } else {
-          return await createMomokaCommentTypedData({
-            variables: {
-              request: {
-                contentURI: metadataUri,
-                commentOn: video.id
-              }
-            }
-          })
         }
+
+        return await createMomokaCommentTypedData({
+          variables: {
+            request: {
+              contentURI: metadataUri,
+              commentOn: video.id
+            }
+          }
+        })
       }
 
       // ON-CHAIN
-      if (canUseRelay) {
+      if (canUseLensManager) {
         return await commentOnchain({
           variables: {
             request: {
@@ -357,17 +357,17 @@ const NewComment: FC<Props> = ({
             }
           }
         })
-      } else {
-        return await createOnchainCommentTypedData({
-          variables: {
-            options: { overrideSigNonce: lensHubOnchainSigNonce },
-            request: {
-              commentOn: targetVideo.id,
-              contentURI: metadataUri
-            }
-          }
-        })
       }
+
+      return await createOnchainCommentTypedData({
+        variables: {
+          options: { overrideSigNonce: lensHubOnchainSigNonce },
+          request: {
+            commentOn: targetVideo.id,
+            contentURI: metadataUri
+          }
+        }
+      })
     } catch (error) {
       console.error('🚀 ~ NewComment ', error)
     }

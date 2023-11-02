@@ -4,12 +4,12 @@ export const checkDispatcherPermissions = (
   profile: Profile | null
 ): {
   canBroadcast: boolean
-  canUseRelay: boolean
+  canUseLensManager: boolean
 } => {
   if (!profile) {
-    return { canBroadcast: false, canUseRelay: false }
+    return { canBroadcast: false, canUseLensManager: false }
   }
-  const canUseRelay = profile?.signless && profile?.sponsor
+  const canUseLensManager = profile?.signless && profile?.sponsor
   const canBroadcast = profile?.sponsor
-  return { canBroadcast, canUseRelay }
+  return { canBroadcast, canUseLensManager }
 }

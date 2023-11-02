@@ -38,7 +38,7 @@ type Props = {
 const Follow: FC<Props> = ({ profile, onSubscribe, size = '2' }) => {
   const [loading, setLoading] = useState(false)
   const { activeProfile } = useProfileStore()
-  const { canUseRelay, canBroadcast } =
+  const { canUseLensManager, canBroadcast } =
     checkDispatcherPermissions(activeProfile)
 
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
@@ -134,7 +134,7 @@ const Follow: FC<Props> = ({ profile, onSubscribe, size = '2' }) => {
       return toast.error(SIGN_IN_REQUIRED)
     }
     setLoading(true)
-    if (canUseRelay) {
+    if (canUseLensManager) {
       return await followMutation({
         variables: {
           request: {

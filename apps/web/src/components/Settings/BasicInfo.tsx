@@ -94,7 +94,8 @@ const BasicInfo = ({ profile }: Props) => {
   )
   const [uploading, setUploading] = useState({ pfp: false, cover: false })
   const handleWrongNetwork = useHandleWrongNetwork()
-  const { canUseRelay, canBroadcast } = checkDispatcherPermissions(profile)
+  const { canUseLensManager, canBroadcast } =
+    checkDispatcherPermissions(profile)
 
   const {
     register,
@@ -273,7 +274,7 @@ const BasicInfo = ({ profile }: Props) => {
         metadataURI: metadataUri
       }
 
-      if (canUseRelay) {
+      if (canUseLensManager) {
         const { data } = await setProfileMetadata({
           variables: { request }
         })

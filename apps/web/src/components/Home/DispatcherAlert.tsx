@@ -15,13 +15,13 @@ const DispatcherAlert = () => {
   const activeProfile = useProfileStore((state) => state.activeProfile)
 
   const isOwner = activeProfile && getIsProfileOwner(activeProfile, address)
-  const { canUseRelay } = checkDispatcherPermissions(activeProfile)
+  const { canUseLensManager } = checkDispatcherPermissions(activeProfile)
 
   const getDescription = () => {
     return `Enable dispatcher to interact with ${TAPE_APP_NAME} without signing any of your transactions.`
   }
 
-  if (!activeProfile || canUseRelay || !isOwner) {
+  if (!activeProfile || canUseLensManager || !isOwner) {
     return null
   }
 

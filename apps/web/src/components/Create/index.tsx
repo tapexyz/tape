@@ -81,7 +81,7 @@ const CreateSteps = () => {
   const { data: signer } = useEthersWalletClient()
   const router = useRouter()
   const handleWrongNetwork = useHandleWrongNetwork()
-  const { canUseRelay, canBroadcast } =
+  const { canUseLensManager, canBroadcast } =
     checkDispatcherPermissions(activeProfile)
 
   const degreesOfSeparation = uploadedVideo.referenceModule
@@ -373,7 +373,7 @@ const CreateSteps = () => {
 
       if (isRevertCollect) {
         // MOMOKA
-        if (canUseRelay) {
+        if (canUseLensManager) {
           return await postOnMomoka({
             variables: {
               request: {
@@ -411,7 +411,7 @@ const CreateSteps = () => {
         ],
         referenceModule
       }
-      if (canUseRelay) {
+      if (canUseLensManager) {
         return await postOnchain({
           variables: { request }
         })

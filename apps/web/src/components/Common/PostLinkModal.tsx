@@ -75,7 +75,7 @@ const PostLinkModal: FC<Props> = ({ show, setShow }) => {
   const activeProfile = useProfileStore(
     (state) => state.activeProfile
   ) as Profile
-  const { canUseRelay, canBroadcast } =
+  const { canUseLensManager, canBroadcast } =
     checkDispatcherPermissions(activeProfile)
 
   const {
@@ -131,7 +131,7 @@ const PostLinkModal: FC<Props> = ({ show, setShow }) => {
     setShow(false)
     Tower.track(EVENTS.PUBLICATION.NEW_POST, {
       type: 'link',
-      publication_state: canUseRelay ? 'MOMOKA' : 'ON_CHAIN',
+      publication_state: canUseLensManager ? 'MOMOKA' : 'ON_CHAIN',
       user_id: activeProfile?.id
     })
   }
@@ -229,7 +229,7 @@ const PostLinkModal: FC<Props> = ({ show, setShow }) => {
     })
 
     const metadataUri = await uploadToAr(linkMetadata)
-    if (canUseRelay) {
+    if (canUseLensManager) {
       return await postOnMomoka({
         variables: {
           request: {

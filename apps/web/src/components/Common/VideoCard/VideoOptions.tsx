@@ -73,7 +73,7 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
 
   const { cache } = useApolloClient()
   const activeProfile = useProfileStore((state) => state.activeProfile)
-  const { canUseRelay, canBroadcast } =
+  const { canUseLensManager, canBroadcast } =
     checkDispatcherPermissions(activeProfile)
 
   const isVideoOwner = activeProfile?.id === video?.by?.id
@@ -223,7 +223,7 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
         metadataURI: metadataUri
       }
 
-      if (canUseRelay) {
+      if (canUseLensManager) {
         const { data } = await setProfileMetadata({
           variables: { request }
         })

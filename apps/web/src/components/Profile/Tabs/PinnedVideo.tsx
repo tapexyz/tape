@@ -58,7 +58,7 @@ type Props = {
 const PinnedVideo: FC<Props> = ({ id }) => {
   const { activeProfile } = useProfileStore()
   const handleWrongNetwork = useHandleWrongNetwork()
-  const { canUseRelay, canBroadcast } =
+  const { canUseLensManager, canBroadcast } =
     checkDispatcherPermissions(activeProfile)
 
   const { data, error, loading } = usePublicationQuery({
@@ -176,7 +176,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
         metadataURI
       }
 
-      if (canUseRelay) {
+      if (canUseLensManager) {
         const { data } = await setProfileMetadata({
           variables: { request }
         })

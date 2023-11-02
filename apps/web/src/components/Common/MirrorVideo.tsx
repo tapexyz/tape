@@ -46,7 +46,7 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
 
   const activeProfile = useProfileStore((state) => state.activeProfile)
-  const { canUseRelay, canBroadcast } =
+  const { canUseLensManager, canBroadcast } =
     checkDispatcherPermissions(activeProfile)
 
   const onError = (error: CustomErrorWithData) => {
@@ -188,7 +188,7 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
 
       // MOMOKA
       if (video.momoka?.proof) {
-        if (canUseRelay) {
+        if (canUseLensManager) {
           return await mirrorOnMomoka({
             variables: {
               request: {
@@ -207,7 +207,7 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
       }
 
       //  ON-CHAIN
-      if (canUseRelay) {
+      if (canUseLensManager) {
         return await mirrorOnChain({
           variables: {
             request: {

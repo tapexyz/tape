@@ -92,7 +92,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
     action.__typename === 'LegacySimpleCollectModuleSettings' ||
     action.__typename === 'LegacyMultirecipientFeeCollectModuleSettings'
 
-  const { canUseRelay, canBroadcast } =
+  const { canUseLensManager, canBroadcast } =
     checkDispatcherPermissions(activeProfile)
   const isFreeForAnyone = !action?.followerOnly && !amount
 
@@ -405,7 +405,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
         on: publication?.id
       }
 
-      if (canUseRelay && isFreeForAnyone) {
+      if (canUseLensManager && isFreeForAnyone) {
         return await legacyCollectViaLensManager(legcayCollectRequest)
       }
 
@@ -422,7 +422,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
       actOn: { [getOpenActionActOnKey(action?.type)]: true }
     }
 
-    if (canUseRelay && isFreeForAnyone) {
+    if (canUseLensManager && isFreeForAnyone) {
       return await actViaLensManager(actOnRequest)
     }
 
