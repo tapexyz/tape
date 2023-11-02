@@ -18,6 +18,7 @@ export const getCollectModuleOutput = (openActionModule: OpenActionModule) => {
   }
   switch (openActionModule.__typename) {
     case 'SimpleCollectOpenActionSettings':
+    case 'LegacySimpleCollectModuleSettings':
       return {
         ...output,
         collectLimit: openActionModule.collectLimit,
@@ -34,6 +35,7 @@ export const getCollectModuleOutput = (openActionModule: OpenActionModule) => {
         followerOnly: openActionModule.followerOnly
       }
     case 'MultirecipientFeeCollectOpenActionSettings':
+    case 'LegacyMultirecipientFeeCollectModuleSettings':
       return {
         ...output,
         collectLimit: openActionModule.collectLimit,
