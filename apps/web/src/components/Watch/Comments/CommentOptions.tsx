@@ -84,9 +84,8 @@ const CommentOptions: FC<Props> = ({ comment }) => {
               )}
 
               <Dialog.Root>
-                <Dialog.Trigger>
-                  <DropdownMenu.Item
-                    disabled={!activeProfile?.id}
+                <Dialog.Trigger disabled={!activeProfile?.id}>
+                  <button
                     className="!cursor-default rounded-md px-3 py-1.5 hover:bg-gray-500/20"
                     onClick={() => onClickReport()}
                   >
@@ -96,7 +95,7 @@ const CommentOptions: FC<Props> = ({ comment }) => {
                         Report
                       </Text>
                     </Flex>
-                  </DropdownMenu.Item>
+                  </button>
                 </Dialog.Trigger>
 
                 <Dialog.Content style={{ maxWidth: 450 }}>

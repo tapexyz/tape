@@ -51,10 +51,10 @@ const ReportPublication: FC<Props> = ({ publication }) => {
     return 'illegalReason'
   }
 
-  const onReport = () => {
+  const onReport = async () => {
     const type = reason.split('-')[0]
     const subReason = reason.split('-')[1]
-    createReport({
+    await createReport({
       variables: {
         request: {
           for: targetPublication.id,

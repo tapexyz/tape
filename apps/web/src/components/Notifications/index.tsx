@@ -86,7 +86,7 @@ const Notifications = () => {
       <div>
         {loading && <NotificationsShimmer />}
         {notifications?.length === 0 && (
-          <NoDataFound isCenter withImage text={`No Notifications`} />
+          <NoDataFound className="my-20" isCenter withImage />
         )}
         {notifications?.map((notification: Notification, index: number) => (
           <div className="pb-6" key={`${notification.id}_${index}`}>
