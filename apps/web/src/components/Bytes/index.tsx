@@ -45,8 +45,10 @@ const Bytes = () => {
   const bytesContainer = useRef<HTMLDivElement>(null)
   const [currentViewingId, setCurrentViewingId] = useState('')
 
-  const [fetchPublication, { data: singleByte, loading: singleByteLoading }] =
-    usePublicationLazyQuery()
+  const [
+    fetchPublication,
+    { data: singleByteData, loading: singleByteLoading }
+  ] = usePublicationLazyQuery()
 
   const [fetchAllBytes, { data, loading, error, fetchMore }] =
     useExplorePublicationsLazyQuery({
@@ -65,8 +67,7 @@ const Bytes = () => {
 
   const bytes = data?.explorePublications?.items as unknown as AnyPublication[]
   const pageInfo = data?.explorePublications?.pageInfo
-  const singleBytePublication =
-    singleByte?.publication as unknown as PrimaryPublication
+  const singleByte = singleByteData?.publication as PrimaryPublication
 
   const fetchSingleByte = async () => {
     const publicationId = router.query.id
@@ -113,7 +114,7 @@ const Bytes = () => {
     )
   }
 
-  if (error) {
+  if (error || (!bytes?.length && !singleByte)) {
     return (
       <div className="grid h-[80vh] place-items-center">
         <NoDataFound isCenter withImage />
@@ -130,14 +131,14 @@ const Bytes = () => {
       >
         {singleByte && (
           <ByteVideo
-            video={singleBytePublication}
+            video={singleByte}
             currentViewingId={currentViewingId}
             intersectionCallback={(id) => setCurrentViewingId(id)}
           />
         )}
         {bytes?.map(
           (video, index) =>
-            singleByte?.publication?.id !== video.id && (
+            singleByte?.id !== video.id && (
               <ByteVideo
                 video={video}
                 currentViewingId={currentViewingId}

@@ -69,11 +69,15 @@ const SubscriptionProvider = () => {
     if (activeProfile?.id && data) {
       if (jsonData.id === '1') {
         const notification = data.newNotification as Notification
-        setLatestNotificationId(notification.id)
+        if (notification) {
+          setLatestNotificationId(notification?.id)
+        }
       }
       if (jsonData.id === '2') {
         const userSigNonces = data.userSigNonces as UserSigNonces
-        setLensHubOnchainSigNonce(userSigNonces.lensHubOnchainSigNonce)
+        if (userSigNonces) {
+          setLensHubOnchainSigNonce(userSigNonces.lensHubOnchainSigNonce)
+        }
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -119,9 +119,9 @@ const Authenticate = () => {
           setActiveProfile(profile)
         }
         if (router.query?.next) {
-          location.href = router.query?.next as string
+          router.push(router.query?.next as string)
         } else {
-          location.href = '/'
+          router.push('/')
         }
       }
       Tower.track(EVENTS.AUTH.SIGN_IN_WITH_LENS)
