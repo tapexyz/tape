@@ -13,8 +13,7 @@ import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
-  SIGN_IN_REQUIRED,
-  ZERO_ADDRESS
+  SIGN_IN_REQUIRED
 } from '@tape.xyz/constants'
 import {
   checkDispatcherPermissions,
@@ -94,10 +93,8 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
 
   const { canUseLensManager, canBroadcast } =
     checkDispatcherPermissions(activeProfile)
-  const isFreeForAnyone = !action?.followerOnly && !amount
-
-  const isRecipientAvailable =
-    Boolean(details?.recipients?.length) || details?.recipient !== ZERO_ADDRESS
+  const isFreeCollect = !amount
+  const isFreeForAnyone = !action?.followerOnly && isFreeCollect
 
   usePublicationQuery({
     variables: { request: { forId: publication.id } },
@@ -118,7 +115,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
         }
       }
     },
-    skip: !isRecipientAvailable || details?.recipient === ZERO_ADDRESS
+    skip: !Boolean(details?.recipients?.length) || isFreeCollect
   })
 
   const { data: balanceData, isLoading: balanceLoading } = useBalance({
@@ -126,7 +123,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
     token: assetAddress,
     formatUnits: assetDecimals,
     watch: Boolean(details?.amount.value),
-    enabled: Boolean(details?.amount.value) && assetAddress !== ZERO_ADDRESS
+    enabled: Boolean(details?.amount.value) && !isFreeCollect
   })
 
   const { data: revenueData } = useRevenueFromPublicationQuery({
@@ -151,7 +148,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
         referenceModules: []
       }
     },
-    skip: !assetAddress || assetAddress === ZERO_ADDRESS || !activeProfile?.id,
+    skip: !assetAddress || isFreeCollect || !activeProfile?.id,
     onCompleted: (data) => {
       setIsAllowed(
         parseFloat(data.approvedModuleAllowanceAmount[0].allowance.value) >
@@ -170,7 +167,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
     } else {
       setHaveEnoughBalance(true)
     }
-    if (assetAddress && assetAddress !== ZERO_ADDRESS && activeProfile?.id) {
+    if (assetAddress && !isFreeCollect && activeProfile?.id) {
       refetchAllowance()
     }
   }, [
@@ -178,7 +175,8 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
     assetAddress,
     details?.amount.value,
     refetchAllowance,
-    activeProfile
+    activeProfile,
+    isFreeCollect
   ])
 
   const getDefaultProfileByAddress = (address: string) => {
@@ -487,11 +485,9 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
               </span>
             </div>
           ) : null}
-          {isRecipientAvailable ? (
+          {details?.recipients?.length ? (
             <div className="mb-3 flex flex-col">
-              <span className="mb-0.5 font-bold">Creator</span>
-              {details?.recipient &&
-                renderRecipients([{ recipient: details.recipient, split: 0 }])}
+              <span className="mb-0.5 font-bold">Recipients</span>
               {action.type ===
                 OpenActionModuleType.MultirecipientFeeCollectOpenActionModule &&
               details?.recipients?.length
