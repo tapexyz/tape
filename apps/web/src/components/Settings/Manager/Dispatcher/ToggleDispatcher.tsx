@@ -9,7 +9,12 @@ import {
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE
 } from '@tape.xyz/constants'
-import { EVENTS, getSignature, Tower } from '@tape.xyz/generic'
+import {
+  checkDispatcherPermissions,
+  EVENTS,
+  getSignature,
+  Tower
+} from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import {
   useBroadcastOnchainMutation,
@@ -27,6 +32,7 @@ const ToggleDispatcher = () => {
   const { activeProfile, setActiveProfile } = useProfileStore()
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
   const handleWrongNetwork = useHandleWrongNetwork()
+  const { canBroadcast } = checkDispatcherPermissions(activeProfile)
 
   const isLensManagerEnabled = activeProfile?.signless || false
 
@@ -81,30 +87,42 @@ const ToggleDispatcher = () => {
   const [toggleLensManager] = useCreateChangeProfileManagersTypedDataMutation({
     onCompleted: async ({ createChangeProfileManagersTypedData }) => {
       const { id, typedData } = createChangeProfileManagersTypedData
+      const {
+        delegatorProfileId,
+        delegatedExecutors,
+        approvals,
+        configNumber,
+        switchToGivenConfig
+      } = typedData.value
       try {
         toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-        const signature = await signTypedDataAsync(getSignature(typedData))
-        const { data } = await broadcast({
-          variables: { request: { id, signature } }
-        })
-        if (data?.broadcastOnchain?.__typename === 'RelayError') {
-          const {
+        if (canBroadcast) {
+          const signature = await signTypedDataAsync(getSignature(typedData))
+          const { data } = await broadcast({
+            variables: { request: { id, signature } }
+          })
+          if (data?.broadcastOnchain?.__typename === 'RelayError') {
+            return write?.({
+              args: [
+                delegatorProfileId,
+                delegatedExecutors,
+                approvals,
+                configNumber,
+                switchToGivenConfig
+              ]
+            })
+          }
+          return
+        }
+        return write?.({
+          args: [
             delegatorProfileId,
             delegatedExecutors,
             approvals,
             configNumber,
             switchToGivenConfig
-          } = typedData.value
-          return write?.({
-            args: [
-              delegatorProfileId,
-              delegatedExecutors,
-              approvals,
-              configNumber,
-              switchToGivenConfig
-            ]
-          })
-        }
+          ]
+        })
       } catch {
         setLoading(false)
       }

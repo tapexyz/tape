@@ -8,7 +8,13 @@ import {
   REQUESTING_SIGNATURE_MESSAGE,
   SIGN_IN_REQUIRED
 } from '@tape.xyz/constants'
-import { EVENTS, getProfile, getSignature, Tower } from '@tape.xyz/generic'
+import {
+  checkDispatcherPermissions,
+  EVENTS,
+  getProfile,
+  getSignature,
+  Tower
+} from '@tape.xyz/generic'
 import type { CreateUnfollowBroadcastItemResult, Profile } from '@tape.xyz/lens'
 import {
   useBroadcastOnchainMutation,
@@ -35,7 +41,9 @@ const UnFollow: FC<Props> = ({ profile, onUnSubscribe, size = '2' }) => {
 
   const { activeProfile } = useProfileStore()
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
-  const canUseRelay = activeProfile?.signless && activeProfile?.sponsor
+  const { canUseRelay, canBroadcast } =
+    checkDispatcherPermissions(activeProfile)
+
   const handleWrongNetwork = useHandleWrongNetwork()
 
   const onError = (error: CustomErrorWithData) => {
@@ -79,19 +87,24 @@ const UnFollow: FC<Props> = ({ profile, onUnSubscribe, size = '2' }) => {
       const { typedData, id } =
         createUnfollowTypedData as CreateUnfollowBroadcastItemResult
       try {
+        const { idsOfProfilesToUnfollow, unfollowerProfileId } = typedData.value
         toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-        const signature = await signTypedDataAsync(getSignature(typedData))
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
-        const { data } = await broadcast({
-          variables: { request: { id, signature } }
-        })
-        if (data?.broadcastOnchain?.__typename === 'RelayError') {
-          const { idsOfProfilesToUnfollow, unfollowerProfileId } =
-            typedData.value
-          return write?.({
-            args: [unfollowerProfileId, idsOfProfilesToUnfollow]
+        if (canBroadcast) {
+          const signature = await signTypedDataAsync(getSignature(typedData))
+          setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
+          const { data } = await broadcast({
+            variables: { request: { id, signature } }
           })
+          if (data?.broadcastOnchain?.__typename === 'RelayError') {
+            return write?.({
+              args: [unfollowerProfileId, idsOfProfilesToUnfollow]
+            })
+          }
+          return
         }
+        return write?.({
+          args: [unfollowerProfileId, idsOfProfilesToUnfollow]
+        })
       } catch {
         setLoading(false)
       }

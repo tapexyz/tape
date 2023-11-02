@@ -13,6 +13,7 @@ import {
   TAPE_APP_ID
 } from '@tape.xyz/constants'
 import {
+  checkDispatcherPermissions,
   EVENTS,
   getIsIPFSUrl,
   getMetadataCid,
@@ -72,6 +73,8 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
 
   const { cache } = useApolloClient()
   const activeProfile = useProfileStore((state) => state.activeProfile)
+  const { canUseRelay, canBroadcast } =
+    checkDispatcherPermissions(activeProfile)
 
   const isVideoOwner = activeProfile?.id === video?.by?.id
   const pinnedVideoId = getValueFromKeyInAttributes(
@@ -146,16 +149,20 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
     useCreateOnchainSetProfileMetadataTypedDataMutation({
       onCompleted: async ({ createOnchainSetProfileMetadataTypedData }) => {
         const { typedData, id } = createOnchainSetProfileMetadataTypedData
+        const { profileId, metadataURI } = typedData.value
         try {
           toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-          const signature = await signTypedDataAsync(getSignature(typedData))
-          const { data } = await broadcast({
-            variables: { request: { id, signature } }
-          })
-          if (data?.broadcastOnchain?.__typename === 'RelayError') {
-            const { profileId, metadataURI } = typedData.value
-            return write?.({ args: [profileId, metadataURI] })
+          if (canBroadcast) {
+            const signature = await signTypedDataAsync(getSignature(typedData))
+            const { data } = await broadcast({
+              variables: { request: { id, signature } }
+            })
+            if (data?.broadcastOnchain?.__typename === 'RelayError') {
+              return write?.({ args: [profileId, metadataURI] })
+            }
+            return
           }
+          return write?.({ args: [profileId, metadataURI] })
         } catch {}
       },
       onError
@@ -212,7 +219,6 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
         ]
       })
       const metadataUri = await uploadToAr(metadata)
-      const canUseRelay = activeProfile?.signless && activeProfile.sponsor
       const request: OnchainSetProfileMetadataRequest = {
         metadataURI: metadataUri
       }

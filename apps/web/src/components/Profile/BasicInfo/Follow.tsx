@@ -8,7 +8,13 @@ import {
   REQUESTING_SIGNATURE_MESSAGE,
   SIGN_IN_REQUIRED
 } from '@tape.xyz/constants'
-import { EVENTS, getProfile, getSignature, Tower } from '@tape.xyz/generic'
+import {
+  checkDispatcherPermissions,
+  EVENTS,
+  getProfile,
+  getSignature,
+  Tower
+} from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import {
   TriStateValue,
@@ -32,10 +38,10 @@ type Props = {
 const Follow: FC<Props> = ({ profile, onSubscribe, size = '2' }) => {
   const [loading, setLoading] = useState(false)
   const { activeProfile } = useProfileStore()
+  const { canUseRelay, canBroadcast } =
+    checkDispatcherPermissions(activeProfile)
 
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
-
-  const canUseRelay = activeProfile?.signless && activeProfile?.sponsor
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
@@ -76,29 +82,41 @@ const Follow: FC<Props> = ({ profile, onSubscribe, size = '2' }) => {
   const [createFollowTypedData] = useCreateFollowTypedDataMutation({
     onCompleted: async ({ createFollowTypedData }) => {
       const { typedData, id } = createFollowTypedData
+      const {
+        followerProfileId,
+        idsOfProfilesToFollow,
+        followTokenIds,
+        datas
+      } = typedData.value
+
       try {
         toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-        const signature = await signTypedDataAsync(getSignature(typedData))
-        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
-        const { data } = await broadcast({
-          variables: { request: { id, signature } }
-        })
-        if (data?.broadcastOnchain?.__typename === 'RelayError') {
-          const {
+        if (canBroadcast) {
+          const signature = await signTypedDataAsync(getSignature(typedData))
+          setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
+          const { data } = await broadcast({
+            variables: { request: { id, signature } }
+          })
+          if (data?.broadcastOnchain?.__typename === 'RelayError') {
+            return write?.({
+              args: [
+                followerProfileId,
+                idsOfProfilesToFollow,
+                followTokenIds,
+                datas
+              ]
+            })
+          }
+          return
+        }
+        return write?.({
+          args: [
             followerProfileId,
             idsOfProfilesToFollow,
             followTokenIds,
             datas
-          } = typedData.value
-          write?.({
-            args: [
-              followerProfileId,
-              idsOfProfilesToFollow,
-              followTokenIds,
-              datas
-            ]
-          })
-        }
+          ]
+        })
       } catch {
         setLoading(false)
       }

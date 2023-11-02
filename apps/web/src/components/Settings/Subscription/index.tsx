@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import usePendingTxn from '@hooks/usePendingTxn'
 import useNonceStore from '@lib/store/nonce'
+import useProfileStore from '@lib/store/profile'
 import { Button, Flex, Select, Text } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { useCopyToClipboard } from '@tape.xyz/browser'
@@ -14,7 +15,11 @@ import {
   REQUESTING_SIGNATURE_MESSAGE,
   WMATIC_TOKEN_ADDRESS
 } from '@tape.xyz/constants'
-import { getSignature, shortenAddress } from '@tape.xyz/generic'
+import {
+  checkDispatcherPermissions,
+  getSignature,
+  shortenAddress
+} from '@tape.xyz/generic'
 import type {
   CreateSetFollowModuleBroadcastItemResult,
   FeeFollowModuleSettings,
@@ -57,6 +62,8 @@ const Subscription = ({ channel }: Props) => {
 
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
   const handleWrongNetwork = useHandleWrongNetwork()
+  const { activeProfile } = useProfileStore()
+  const { canBroadcast } = checkDispatcherPermissions(activeProfile)
 
   const {
     register,
@@ -142,19 +149,25 @@ const Subscription = ({ channel }: Props) => {
         const { typedData, id } =
           createSetFollowModuleTypedData as CreateSetFollowModuleBroadcastItemResult
         try {
+          const { profileId, followModule, followModuleInitData } =
+            typedData.value
           toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-          const signature = await signTypedDataAsync(getSignature(typedData))
-          setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
-          const { data } = await broadcast({
-            variables: { request: { id, signature } }
-          })
-          if (data?.broadcastOnchain?.__typename === 'RelayError') {
-            const { profileId, followModule, followModuleInitData } =
-              typedData.value
-            return write?.({
-              args: [profileId, followModule, followModuleInitData]
+          if (canBroadcast) {
+            const signature = await signTypedDataAsync(getSignature(typedData))
+            setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
+            const { data } = await broadcast({
+              variables: { request: { id, signature } }
             })
+            if (data?.broadcastOnchain?.__typename === 'RelayError') {
+              return write?.({
+                args: [profileId, followModule, followModuleInitData]
+              })
+            }
+            return
           }
+          return write?.({
+            args: [profileId, followModule, followModuleInitData]
+          })
         } catch {
           setLoading(false)
         }
