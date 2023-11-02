@@ -1,6 +1,5 @@
 import Badge from '@components/Common/Badge'
 import LatestBytesShimmer from '@components/Shimmers/LatestBytesShimmer'
-import { getShortHandTime } from '@lib/formatTime'
 import {
   FALLBACK_COVER_URL,
   LENS_CUSTOM_FILTERS,
@@ -81,29 +80,23 @@ const LatestBytes = () => {
                 </h1>
               </div>
             </Link>
-            <div className="flex items-center px-3 py-1">
-              <Link
-                href={`/u/${getProfile(byte.by)?.slug}`}
-                className="flex items-center space-x-1"
-              >
-                <img
-                  className="h-4 w-4 rounded-full bg-gray-200 dark:bg-gray-800"
-                  src={getProfilePicture(byte.by, 'AVATAR')}
-                  height={50}
-                  width={50}
-                  alt={`${getProfile(byte.by)?.slug}'s PFP`}
-                  draggable={false}
-                />
-                <span className="flex items-center space-x-1 font-medium">
-                  <span>{getProfile(byte.by)?.slug}</span>
-                  <Badge id={byte.by.id} size="xs" />
-                </span>
-              </Link>
-              <span className="middot" />
-              <p className="text-xs opacity-80">
-                {getShortHandTime(byte.createdAt)}
-              </p>
-            </div>
+            <Link
+              href={`/u/${getProfile(byte.by)?.slug}`}
+              className="flex items-center space-x-1 p-1"
+            >
+              <img
+                className="h-4 w-4 rounded-full bg-gray-200 dark:bg-gray-800"
+                src={getProfilePicture(byte.by, 'AVATAR')}
+                height={50}
+                width={50}
+                alt={`${getProfile(byte.by)?.slug}'s PFP`}
+                draggable={false}
+              />
+              <span className="flex items-center space-x-1 font-medium">
+                <span>{getProfile(byte.by)?.slug}</span>
+                <Badge id={byte.by.id} size="xs" />
+              </span>
+            </Link>
           </div>
         )
       })}

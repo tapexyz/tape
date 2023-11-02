@@ -15,7 +15,7 @@ const DispatcherAlert = () => {
   const isOwner = activeProfile && getIsProfileOwner(activeProfile, address)
 
   const getDescription = () => {
-    return `You can enable dispatcher to interact with ${TAPE_APP_NAME} without signing any of your transactions.`
+    return `Enable dispatcher to interact with ${TAPE_APP_NAME} without signing any of your transactions.`
   }
 
   if (!activeProfile || isDispatcherEnabled || !isOwner) {
