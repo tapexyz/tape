@@ -1,5 +1,13 @@
 export const EVENTS = {
   PAGEVIEW: 'Pageview',
+  DEPOSIT_MATIC: 'Deposit Matic',
+  FILTER_CATEGORIES: 'Filter Categories',
+  CLICK_VIEW_METADATA: 'Click View Metadata',
+  CLICK_VIEW_TOKEN: 'Click View Token',
+  CLICK_VIEW_PROOF: 'Click View Proof',
+  CLICK_USER_MENU: 'Click User Menu',
+  OPEN_COLLECT: 'Open Collect',
+  SEARCH: 'Search',
   PAGE_VIEW: {
     HOME: 'Home Page',
     EXPLORE: 'Explore Page',
@@ -30,18 +38,18 @@ export const EVENTS = {
     DELETE: 'Delete publication',
     REPORT: 'Report Publication',
     TOGGLE_INTEREST: 'Toggle Publication Interest',
+    PERMALINK: 'Permalink publication',
+    COLLECT: 'Collect publication',
     TIP: {
       OPEN: 'Open Tip Modal',
       SENT: 'Tip Sent'
     },
-    PERMALINK: 'Permalink publication',
     SHARE: {
       HEY: 'Share to Hey',
       X: 'Share to X',
       REDDIT: 'Share to Reddit',
       LINKEDIN: 'Share to LinkedIn'
-    },
-    COLLECT: 'Collect publication'
+    }
   },
   OPEN_ACTIONS: {
     COLLECT_ZORA: 'Collect Zora',
@@ -63,8 +71,6 @@ export const EVENTS = {
     SUPER_FOLLOW: 'Super Follow',
     UNFOLLOW: 'Unfollow'
   },
-  DEPOSIT_MATIC: 'Deposit Matic',
-  FILTER_CATEGORIES: 'Filter Categories',
   EMBED_VIDEO: {
     OPEN: 'Open Embed',
     COPY: 'Copy Embed',
@@ -77,16 +83,10 @@ export const EVENTS = {
     REMOVE: 'Remove Profile Interest',
     VIEW: 'View Profile Interests'
   },
-  CLICK_VIEW_METADATA: 'Click View Metadata',
-  CLICK_VIEW_TOKEN: 'Click View Token',
-  CLICK_VIEW_PROOF: 'Click View Proof',
   NOTIFICATIONS: {
     SWITCH_NOTIFICATION_TAB: 'Switch notifications tab',
     CLICK_NOTIFICATIONS: 'Click Notifications'
   },
-  CLICK_USER_MENU: 'Click User Menu',
-  OPEN_COLLECT: 'Open Collect',
-  SEARCH: 'Search',
   SYSTEM: {
     TOGGLE_THEME: 'Toggle Theme',
     MORE_MENU: {
@@ -108,6 +108,7 @@ export const EVENTS = {
 export const ALL_EVENTS = {
   ...EVENTS,
   ...EVENTS.PAGE_VIEW,
+  ...EVENTS.PAGE_VIEW.UPLOAD,
   ...EVENTS.DISPATCHER,
   ...EVENTS.PUBLICATION,
   ...EVENTS.PUBLICATION.TIP,

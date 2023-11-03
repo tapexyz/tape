@@ -10,11 +10,12 @@ import {
   LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
 } from '@tape.xyz/constants'
+import { EVENTS, Tower } from '@tape.xyz/generic'
 import type { Notification, NotificationRequest } from '@tape.xyz/lens'
 import { useNotificationsQuery } from '@tape.xyz/lens'
 import { CustomNotificationsFilterEnum } from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useInView } from 'react-cool-inview'
 
 import Acted from './Acted'
@@ -33,6 +34,10 @@ const Notifications = () => {
   const selectedNotificationsFilter = usePersistStore(
     (state) => state.selectedNotificationsFilter
   )
+
+  useEffect(() => {
+    Tower.track(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.NOTIFICATIONS })
+  }, [])
 
   const request: NotificationRequest = {
     where: {
