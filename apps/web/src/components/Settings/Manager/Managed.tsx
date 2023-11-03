@@ -81,7 +81,7 @@ const Managed = () => {
                     />
                   </div>
                 </div>
-                <div className="p-2 pl-4 pt-2.5">
+                <div className="px-3 py-2.5">
                   <Link
                     href={getProfile(profile)?.link}
                     className="flex items-center space-x-1"

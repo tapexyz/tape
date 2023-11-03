@@ -1,5 +1,5 @@
 import { useProfileStore } from '@lib/store/profile'
-import { Avatar, Flex, HoverCard, Link, Text } from '@radix-ui/themes'
+import { Avatar, Flex, HoverCard, Text } from '@radix-ui/themes'
 import {
   getProfile,
   getProfileCoverPicture,
@@ -8,12 +8,12 @@ import {
   sanitizeDStorageUrl
 } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
+import Link from 'next/link'
 import type { FC, ReactElement } from 'react'
 import React from 'react'
 
 import Badge from './Badge'
 import FollowActions from './FollowActions'
-import InterweaveContent from './InterweaveContent'
 
 type Props = {
   profile: Profile
@@ -55,7 +55,7 @@ const HoverableProfile: FC<Props> = ({
           }}
           className="bg-brand-500 relative h-20 w-full bg-cover bg-center bg-no-repeat"
         >
-          <div className="absolute bottom-2 left-2 flex-none">
+          <div className="absolute bottom-2 left-3 flex-none">
             <Avatar
               className="border-2 border-white bg-white object-cover dark:bg-gray-900"
               src={getProfilePicture(profile, 'AVATAR')}
@@ -65,26 +65,24 @@ const HoverableProfile: FC<Props> = ({
               alt={getProfile(activeProfile)?.displayName}
             />
           </div>
-          <div className="absolute bottom-2 right-2 flex-none">
+          <div className="absolute bottom-2 right-3 flex-none">
             {!profile.operations.isFollowedByMe.value && !isMyProfile ? (
               <FollowActions profile={profile} />
             ) : null}
           </div>
         </div>
-        <div className="p-2 pl-4 pt-2.5">
+        <div className="px-3 py-2.5">
           <Link
             href={getProfile(profile)?.link}
             className="flex items-center space-x-1"
           >
-            <span className="text-2xl font-bold leading-tight">
+            <span className="truncate text-xl font-bold">
               {getProfile(profile)?.displayName}
             </span>
             <Badge id={profile?.id} size="lg" />
           </Link>
           {profile.metadata?.bio && (
-            <div className="line-clamp-3 py-2">
-              <InterweaveContent content={profile.metadata?.bio} />
-            </div>
+            <div className="line-clamp-3 py-1">{profile.metadata?.bio}</div>
           )}
         </div>
       </HoverCard.Content>
