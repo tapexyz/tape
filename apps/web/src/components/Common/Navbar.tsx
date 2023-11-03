@@ -1,6 +1,6 @@
 import usePersistStore from '@lib/store/persist'
 import useProfileStore from '@lib/store/profile'
-import { Button, HoverCard, IconButton } from '@radix-ui/themes'
+import { Button, DropdownMenu, IconButton } from '@radix-ui/themes'
 import { STATIC_ASSETS } from '@tape.xyz/constants'
 import clsx from 'clsx'
 import Link from 'next/link'
@@ -50,8 +50,8 @@ const Navbar = () => {
               />
             )}
           </Link>
-          <HoverCard.Root>
-            <HoverCard.Trigger>
+          <DropdownMenu.Root>
+            <DropdownMenu.Trigger>
               <IconButton
                 variant="ghost"
                 radius="full"
@@ -60,11 +60,11 @@ const Navbar = () => {
                 <ChevronDownOutline className="h-3 w-3" />
                 <span className="sr-only">Tape Menu</span>
               </IconButton>
-            </HoverCard.Trigger>
-            <HoverCard.Content className="w-72 bg-white dark:bg-black">
+            </DropdownMenu.Trigger>
+            <DropdownMenu.Content className="w-72 bg-white dark:bg-black">
               <TapeMenu />
-            </HoverCard.Content>
-          </HoverCard.Root>
+            </DropdownMenu.Content>
+          </DropdownMenu.Root>
         </div>
         <div className="hidden space-x-7 md:flex">
           <Link

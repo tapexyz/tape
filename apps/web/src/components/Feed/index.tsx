@@ -5,7 +5,12 @@ import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAppStore from '@lib/store'
 import useProfileStore from '@lib/store/profile'
-import { INFINITE_SCROLL_ROOT_MARGIN } from '@tape.xyz/constants'
+import {
+  INFINITE_SCROLL_ROOT_MARGIN,
+  LENSTUBE_APP_ID,
+  LENSTUBE_BYTES_APP_ID,
+  TAPE_APP_ID
+} from '@tape.xyz/constants'
 import { EVENTS, Tower } from '@tape.xyz/generic'
 import type { FeedItem, FeedRequest, PrimaryPublication } from '@tape.xyz/lens'
 import {
@@ -31,6 +36,7 @@ const Feed = () => {
       feedEventItemTypes: [FeedEventItemType.Post],
       for: activeProfile?.id,
       metadata: {
+        publishedOn: [TAPE_APP_ID, LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
         tags:
           activeTagFilter !== 'all' ? { oneOf: [activeTagFilter] } : undefined,
         mainContentFocus: [PublicationMetadataMainFocusType.Video]
@@ -85,7 +91,7 @@ const Feed = () => {
       {loading && <TimelineShimmer className="laptop:pt-6 pt-4" />}
       {!error && !loading && (
         <>
-          <div className="laptop:pt-6 ultrawide:grid-cols-6 grid-col-1 desktop:grid-cols-4 tablet:grid-cols-3 grid gap-x-4 gap-y-2 md:gap-y-6">
+          <div className="laptop:pt-6 ultrawide:grid-cols-6 grid-col-1 desktop:grid-cols-4 tablet:grid-cols-3 grid gap-x-4 gap-y-2 pt-4 md:gap-y-6">
             {feedItems?.map((feedItem: FeedItem) => {
               const video = feedItem.root
               return (
