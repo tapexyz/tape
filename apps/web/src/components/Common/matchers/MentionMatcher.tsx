@@ -1,4 +1,8 @@
-import { COMMON_REGEX, LENS_NAMESPACE_PREFIX } from '@tape.xyz/constants'
+import {
+  COMMON_REGEX,
+  LEGACY_LENS_HANDLE_SUFFIX,
+  LENS_NAMESPACE_PREFIX
+} from '@tape.xyz/constants'
 import { Matcher } from 'interweave'
 import Link from 'next/link'
 import React from 'react'
@@ -7,7 +11,9 @@ import type { MentionProps } from './utils'
 
 const ProfileLink = ({ ...props }: any) => {
   const namespace = props.display?.slice(1) as string
-  const handle = namespace.replace(LENS_NAMESPACE_PREFIX, '')
+  const handle = namespace
+    .replace(LENS_NAMESPACE_PREFIX, '')
+    .replace(LEGACY_LENS_HANDLE_SUFFIX, '')
 
   return (
     <Link

@@ -158,6 +158,7 @@ export const ALLOWED_UPLOAD_MIME_TYPES = [
 ]
 
 export const LENS_NAMESPACE_PREFIX = IS_MAINNET ? 'lens/' : 'test/'
+export const LEGACY_LENS_HANDLE_SUFFIX = IS_MAINNET ? '.lens' : '.test'
 
 // other apps
 export const HEY_WEBSITE_URL = IS_MAINNET
