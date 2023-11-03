@@ -112,17 +112,15 @@ const CreateSteps = () => {
   }
 
   const setToQueue = (txn: { txnId?: string; txnHash?: string }) => {
-    if (txn?.txnId) {
-      setQueuedVideos([
-        {
-          thumbnailUrl: uploadedVideo.thumbnail,
-          title: uploadedVideo.title,
-          txnId: txn.txnId,
-          txnHash: txn.txnHash
-        },
-        ...(queuedVideos || [])
-      ])
-    }
+    setQueuedVideos([
+      {
+        thumbnailUrl: uploadedVideo.thumbnail,
+        title: uploadedVideo.title,
+        txnId: txn.txnId,
+        txnHash: txn.txnHash
+      },
+      ...(queuedVideos || [])
+    ])
     redirectToChannelPage()
   }
 
@@ -191,11 +189,11 @@ const CreateSteps = () => {
     abi: LENSHUB_PROXY_ABI,
     functionName: 'post',
     onSuccess: (data) => {
-      stopLoading()
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
       if (data.hash) {
         setToQueue({ txnHash: data.hash })
       }
+      stopLoading()
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
     },
     onError: (error) => {
       onError(error)

@@ -108,17 +108,15 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
   })
 
   const setToQueue = (txn: { txnId?: string; txnHash?: string }) => {
-    if (txn?.txnId) {
-      setQueuedComments([
-        {
-          comment: getValues('message'),
-          txnId: txn.txnId,
-          txnHash: txn.txnHash,
-          pubId: targetVideo.id
-        },
-        ...(queuedComments || [])
-      ])
-    }
+    setQueuedComments([
+      {
+        comment: getValues('message'),
+        txnId: txn.txnId,
+        txnHash: txn.txnHash,
+        pubId: targetVideo.id
+      },
+      ...(queuedComments || [])
+    ])
   }
 
   const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
