@@ -76,7 +76,7 @@ const VideoDetails = () => {
             <VideoComments video={video} />
             {selectedCommentFilter ===
             CustomCommentsFilterEnum.RELEVANT_COMMENTS ? (
-              <NonRelevantComments video={video} className="pt-4" />
+              <NonRelevantComments video={video} />
             ) : null}
           </div>
           <div className="col-span-1">

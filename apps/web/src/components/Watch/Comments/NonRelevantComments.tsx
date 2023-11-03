@@ -95,7 +95,7 @@ const NonRelevantComments: FC<Props> = ({ video, className }) => {
       </Button>
       {showSection ? (
         <>
-          <div className="space-y-4 pt-6">
+          <div className="space-y-4 py-6">
             {loading && <CommentsShimmer />}
             {comments?.map(
               (comment) =>

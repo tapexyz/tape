@@ -19,7 +19,7 @@ const ByteComments: FC<Props> = ({ video }) => {
     <div className="no-scrollbar max-h-[40vh] overflow-y-auto">
       <VideoComments video={video} hideTitle />
       {selectedCommentFilter === CustomCommentsFilterEnum.RELEVANT_COMMENTS ? (
-        <NonRelevantComments video={video} className="pt-4" />
+        <NonRelevantComments video={video} />
       ) : null}
     </div>
   )
