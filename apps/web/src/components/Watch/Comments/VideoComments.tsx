@@ -49,7 +49,7 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
     'DegreesOfSeparationReferenceModuleSettings'
 
   const request: PublicationsRequest = {
-    limit: LimitType.TwentyFive,
+    limit: LimitType.Fifty,
     where: {
       customFilters: LENS_CUSTOM_FILTERS,
       commentOn: {

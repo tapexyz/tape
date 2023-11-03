@@ -33,7 +33,7 @@ const NonRelevantComments: FC<Props> = ({ video, className }) => {
   const [showSection, setShowSection] = useState(false)
 
   const request: PublicationsRequest = {
-    limit: LimitType.TwentyFive,
+    limit: LimitType.Fifty,
     where: {
       customFilters: LENS_CUSTOM_FILTERS,
       commentOn: {

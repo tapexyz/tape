@@ -82,7 +82,7 @@ type Props = {
 
 const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
   const request: PublicationsRequest = {
-    limit: LimitType.Ten,
+    limit: LimitType.Fifty,
     where: {
       customFilters: LENS_CUSTOM_FILTERS,
       commentOn: {

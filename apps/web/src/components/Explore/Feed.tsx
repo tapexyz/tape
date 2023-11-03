@@ -67,7 +67,7 @@ const ExploreFeed = () => {
       }
     },
     orderBy: getCriteria(),
-    limit: LimitType.TwentyFive
+    limit: LimitType.Fifty
   }
 
   const { data, loading, error, fetchMore } = useExplorePublicationsQuery({

@@ -39,7 +39,7 @@ const ProfileVideos: FC<Props> = ({ profile }) => {
       customFilters: LENS_CUSTOM_FILTERS,
       from: profile.id
     },
-    limit: LimitType.TwentyFive
+    limit: LimitType.Fifty
   }
 
   const { data, loading, error, fetchMore } = usePublicationsQuery({

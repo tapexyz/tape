@@ -24,7 +24,7 @@ const MirroredList: FC<Props> = ({ videoId }) => {
     where: {
       whoMirroredPublication: videoId
     },
-    limit: LimitType.TwentyFive
+    limit: LimitType.Fifty
   }
 
   const { data, loading, fetchMore } = useProfilesQuery({

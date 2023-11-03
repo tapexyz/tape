@@ -45,7 +45,7 @@ const ExploreCategory = () => {
       }
     },
     orderBy: ExplorePublicationsOrderByType.Latest,
-    limit: LimitType.TwentyFive
+    limit: LimitType.Fifty
   }
 
   const { data, loading, error, fetchMore } = useExplorePublicationsQuery({

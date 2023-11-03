@@ -25,7 +25,7 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
       anyOf: [{ category: OpenActionCategoryType.Collect }]
     },
     on: videoId,
-    limit: LimitType.TwentyFive
+    limit: LimitType.Fifty
   }
 
   const { data, loading, fetchMore } = useWhoActedOnPublicationQuery({

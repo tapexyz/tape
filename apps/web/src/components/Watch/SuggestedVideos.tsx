@@ -27,7 +27,7 @@ import { useInView } from 'react-cool-inview'
 import SuggestedVideoCard from './SuggestedVideoCard'
 
 const request: ExplorePublicationRequest = {
-  limit: LimitType.TwentyFive,
+  limit: LimitType.Fifty,
   orderBy: ExplorePublicationsOrderByType.LensCurated,
   where: {
     customFilters: LENS_CUSTOM_FILTERS,

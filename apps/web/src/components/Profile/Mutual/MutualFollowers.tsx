@@ -21,7 +21,7 @@ const MutualFollowers: FC<Props> = ({ viewing }) => {
   const request: MutualFollowersRequest = {
     viewing,
     observer: activeProfile?.id,
-    limit: LimitType.TwentyFive
+    limit: LimitType.Fifty
   }
 
   const { data, loading, fetchMore } = useMutualFollowersQuery({
