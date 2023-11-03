@@ -173,6 +173,18 @@ const IrysInfo = () => {
           </Callout.Text>
         </Callout.Root>
       ) : null}
+      <div className="space-y-1">
+        <Text weight="medium">Estimated cost to upload</Text>
+        <div className="flex justify-between">
+          {!fetchingBalance ? (
+            <Text weight="bold" size="5">
+              {Number(irysData.estimatedPrice).toFixed(2)} matic
+            </Text>
+          ) : (
+            <span className="mt-[6px] h-[22px] w-1/2 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700" />
+          )}
+        </div>
+      </div>
       <div className="flex flex-col">
         <div className="inline-flex items-center justify-between rounded font-medium opacity-80">
           <span className="flex items-center space-x-1.5">
@@ -211,7 +223,7 @@ const IrysInfo = () => {
         </div>
         <div className="flex justify-between">
           {!fetchingBalance ? (
-            <Text weight="bold" size="4">
+            <Text weight="bold" size="5">
               {Number(irysData.balance).toFixed(2)} matic
             </Text>
           ) : (
@@ -230,7 +242,10 @@ const IrysInfo = () => {
               autoComplete="off"
               min={0}
               value={
-                irysData.deposit || Number(irysData.estimatedPrice).toFixed(2)
+                irysData.deposit ||
+                (
+                  Number(irysData.estimatedPrice) - Number(irysData.balance)
+                ).toFixed(2)
               }
               onChange={(e) => {
                 setIrysData({ deposit: e.target.value })
@@ -238,7 +253,7 @@ const IrysInfo = () => {
             />
             <Button
               type="button"
-              variant="outline"
+              variant="surface"
               highContrast
               disabled={irysData.depositing}
               onClick={() => depositToIrys()}
@@ -248,18 +263,6 @@ const IrysInfo = () => {
           </Flex>
         </div>
       )}
-      <div className="space-y-1">
-        <Text weight="medium">Estimated cost to upload</Text>
-        <div className="flex justify-between">
-          {!fetchingBalance ? (
-            <Text weight="bold" size="4">
-              {Number(irysData.estimatedPrice).toFixed(2)} matic
-            </Text>
-          ) : (
-            <span className="mt-[6px] h-[22px] w-1/2 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700" />
-          )}
-        </div>
-      </div>
     </div>
   )
 }

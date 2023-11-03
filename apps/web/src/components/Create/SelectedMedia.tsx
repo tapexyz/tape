@@ -1,6 +1,7 @@
 import AddImageOutline from '@components/Common/Icons/AddImageOutline'
 import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
+import { getTimeFromSeconds } from '@lib/formatTime'
 import useAppStore from '@lib/store'
 import useProfileStore from '@lib/store/profile'
 import { AspectRatio, Badge } from '@radix-ui/themes'
@@ -145,8 +146,11 @@ const SelectedMedia = () => {
             className="absolute bottom-2 left-2"
           >
             {uploadedVideo.file?.size && (
-              <span className="whitespace-nowrap font-bold">
-                {formatBytes(uploadedVideo.file?.size)}
+              <span className="space-x-1 whitespace-nowrap font-bold">
+                <span>
+                  {getTimeFromSeconds(String(uploadedVideo.durationInSeconds))}
+                </span>
+                <span>({formatBytes(uploadedVideo.file?.size)})</span>
               </span>
             )}
           </Badge>
