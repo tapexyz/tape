@@ -1,38 +1,52 @@
 import SortOutline from '@components/Common/Icons/SortOutline'
-import Tooltip from '@components/UIElements/Tooltip'
 import useProfileStore from '@lib/store/profile'
-import { DropdownMenu } from '@radix-ui/themes'
+import { Box, DropdownMenu, Text } from '@radix-ui/themes'
 import { CustomCommentsFilterEnum } from '@tape.xyz/lens/custom-types'
 import React from 'react'
 
 const CommentsFilter = () => {
-  const setSelectedCommentFilter = useProfileStore(
-    (state) => state.setSelectedCommentFilter
-  )
+  const { selectedCommentFilter, setSelectedCommentFilter } = useProfileStore()
 
   return (
     <DropdownMenu.Root>
       <DropdownMenu.Trigger>
-        <Tooltip content="Sort by" placement="top">
-          <span>
-            <SortOutline className="h-5 w-5" />
-          </span>
-        </Tooltip>
+        <Box>
+          <SortOutline className="h-5 w-5" />
+        </Box>
       </DropdownMenu.Trigger>
-      <DropdownMenu.Content>
+      <DropdownMenu.Content align="end" variant="soft" sideOffset={10}>
         <DropdownMenu.Item
           onClick={() =>
             setSelectedCommentFilter(CustomCommentsFilterEnum.RELEVANT_COMMENTS)
           }
         >
-          <span className="whitespace-nowrap">Relevant</span>
+          <Text
+            weight={
+              selectedCommentFilter ===
+              CustomCommentsFilterEnum.RELEVANT_COMMENTS
+                ? 'bold'
+                : 'regular'
+            }
+            className="whitespace-nowrap"
+          >
+            Relevant
+          </Text>
         </DropdownMenu.Item>
         <DropdownMenu.Item
           onClick={() =>
             setSelectedCommentFilter(CustomCommentsFilterEnum.NEWEST_COMMENTS)
           }
         >
-          <span className="whitespace-nowrap">Newest first</span>
+          <Text
+            weight={
+              selectedCommentFilter === CustomCommentsFilterEnum.NEWEST_COMMENTS
+                ? 'bold'
+                : 'regular'
+            }
+            className="whitespace-nowrap"
+          >
+            Newest first
+          </Text>
         </DropdownMenu.Item>
       </DropdownMenu.Content>
     </DropdownMenu.Root>

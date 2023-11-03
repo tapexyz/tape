@@ -110,9 +110,10 @@ export const SIGN_IN_REQUIRED = 'Login to continue'
 
 // App Ids
 export const TAPE_APP_ID = 'tape'
+export const LENSTUBE_APP_ID = 'lenstube'
 export const LENSTUBE_BYTES_APP_ID = 'lenstube-bytes'
 export const ALLOWED_APP_IDS = [
-  'lenstube'
+  LENSTUBE_APP_ID
   // 'lenster',
   // 'orb',
   // 'hey',

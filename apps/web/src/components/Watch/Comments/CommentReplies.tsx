@@ -14,6 +14,7 @@ import {
 } from '@tape.xyz/generic'
 import {
   type Comment,
+  CommentRankingFilterType,
   LimitType,
   type Profile,
   type PublicationsRequest,
@@ -85,10 +86,10 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
     where: {
       customFilters: LENS_CUSTOM_FILTERS,
       commentOn: {
-        id: comment.id
-        // ranking: {
-        //   filter: CommentRankingFilterType.All
-        // }
+        id: comment.id,
+        ranking: {
+          filter: CommentRankingFilterType.All
+        }
       }
     }
   }

@@ -22,7 +22,7 @@ const Reactions: FC<Props> = ({ notification: { publication, reactions } }) => {
       </div>
       <div>
         <span className="flex -space-x-1.5">
-          {reactions?.map(({ profile }: ProfileReactedResult) => (
+          {reactions.slice(0, 30).map(({ profile }: ProfileReactedResult) => (
             <HoverableProfile profile={profile} key={profile?.id}>
               <img
                 className="h-7 w-7 rounded-full border dark:border-gray-700/80"

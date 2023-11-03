@@ -17,7 +17,7 @@ const Followed: FC<Props> = ({ notification: { followers } }) => {
       </div>
       <div>
         <span className="flex -space-x-1.5">
-          {followers?.map((profile: Profile) => (
+          {followers.slice(0, 30).map((profile: Profile) => (
             <HoverableProfile profile={profile} key={profile?.id}>
               <img
                 className="h-7 w-7 rounded-full border dark:border-gray-700/80"

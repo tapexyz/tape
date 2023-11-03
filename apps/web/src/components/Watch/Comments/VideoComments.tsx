@@ -15,12 +15,19 @@ import type {
   MirrorablePublication,
   PublicationsRequest
 } from '@tape.xyz/lens'
-import { LimitType, TriStateValue, usePublicationsQuery } from '@tape.xyz/lens'
+import {
+  CommentRankingFilterType,
+  LimitType,
+  TriStateValue,
+  usePublicationsQuery
+} from '@tape.xyz/lens'
+import { CustomCommentsFilterEnum } from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 
+import CommentsFilter from './CommentsFilter'
 import NewComment from './NewComment'
 import QueuedComment from './QueuedComment'
 import RenderComment from './RenderComment'
@@ -31,7 +38,7 @@ type Props = {
 }
 
 const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
-  const { activeProfile } = useProfileStore()
+  const { activeProfile, selectedCommentFilter } = useProfileStore()
   const queuedComments = usePersistStore((state) => state.queuedComments)
 
   const isFollowerOnlyReferenceModule =
@@ -46,13 +53,13 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
     where: {
       customFilters: LENS_CUSTOM_FILTERS,
       commentOn: {
-        id: video.id
-        // ranking: {
-        //   filter:
-        //     selectedCommentFilter === CustomCommentsFilterEnum.RELEVANT_COMMENTS
-        //       ? CommentRankingFilterType.Relevant
-        //       : CommentRankingFilterType.NoneRelevant
-        // }
+        id: video.id,
+        ranking: {
+          filter:
+            selectedCommentFilter === CustomCommentsFilterEnum.RELEVANT_COMMENTS
+              ? CommentRankingFilterType.Relevant
+              : CommentRankingFilterType.NoneRelevant
+        }
       }
     }
   }
@@ -95,7 +102,7 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
                 {video.stats.comments ? `( ${video.stats.comments} )` : null}
               </span>
             </h1>
-            {/* <CommentsFilter /> */}
+            <CommentsFilter />
           </>
         )}
       </div>

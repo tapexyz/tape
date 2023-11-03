@@ -6,11 +6,12 @@ import useProfileStore from '@lib/store/profile'
 import {
   INFINITE_SCROLL_ROOT_MARGIN,
   LENS_CUSTOM_FILTERS,
+  LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
 } from '@tape.xyz/constants'
 import type { Notification, NotificationRequest } from '@tape.xyz/lens'
-import { NotificationType, useNotificationsQuery } from '@tape.xyz/lens'
+import { useNotificationsQuery } from '@tape.xyz/lens'
 import { CustomNotificationsFilterEnum } from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
 import React from 'react'
@@ -39,16 +40,7 @@ const Notifications = () => {
       highSignalFilter:
         selectedNotificationsFilter ===
         CustomNotificationsFilterEnum.HIGH_SIGNAL,
-      notificationTypes: [
-        NotificationType.Acted,
-        NotificationType.Commented,
-        NotificationType.Followed,
-        NotificationType.Mentioned,
-        NotificationType.Reacted,
-        NotificationType.Mirrored,
-        NotificationType.Quoted
-      ],
-      publishedOn: [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID]
+      publishedOn: [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID, LENSTUBE_APP_ID]
     }
   }
 

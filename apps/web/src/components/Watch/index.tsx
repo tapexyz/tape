@@ -1,6 +1,7 @@
 import MetaTags from '@components/Common/MetaTags'
 import { WatchShimmer } from '@components/Shimmers/WatchShimmer'
 import useAppStore from '@lib/store'
+import useProfileStore from '@lib/store/profile'
 import {
   EVENTS,
   getPublication,
@@ -10,12 +11,14 @@ import {
 } from '@tape.xyz/generic'
 import type { AnyPublication } from '@tape.xyz/lens'
 import { usePublicationQuery } from '@tape.xyz/lens'
+import { CustomCommentsFilterEnum } from '@tape.xyz/lens/custom-types'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
 
 import AboutProfile from './AboutProfile'
+import NonRelevantComments from './Comments/NonRelevantComments'
 import VideoComments from './Comments/VideoComments'
 import SuggestedVideos from './SuggestedVideos'
 import Video from './Video'
@@ -26,6 +29,9 @@ const VideoDetails = () => {
   } = useRouter()
 
   const setVideoWatchTime = useAppStore((state) => state.setVideoWatchTime)
+  const selectedCommentFilter = useProfileStore(
+    (state) => state.selectedCommentFilter
+  )
 
   useEffect(() => {
     Tower.track(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.WATCH })
@@ -68,10 +74,10 @@ const VideoDetails = () => {
             <AboutProfile video={video} />
             <hr className="border-[0.5px] border-gray-200 dark:border-gray-800" />
             <VideoComments video={video} />
-            {/* {selectedCommentFilter ===
+            {selectedCommentFilter ===
             CustomCommentsFilterEnum.RELEVANT_COMMENTS ? (
               <NonRelevantComments video={video} className="pt-4" />
-            ) : null} */}
+            ) : null}
           </div>
           <div className="col-span-1">
             <SuggestedVideos />

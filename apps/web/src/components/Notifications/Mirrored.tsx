@@ -22,7 +22,7 @@ const Mirrored: FC<Props> = ({ notification: { mirrors, publication } }) => {
       </div>
       <div>
         <span className="flex -space-x-1.5">
-          {mirrors?.map(({ profile }: ProfileMirrorResult) => (
+          {mirrors.slice(0, 30).map(({ profile }: ProfileMirrorResult) => (
             <HoverableProfile profile={profile} key={profile?.id}>
               <img
                 className="h-7 w-7 rounded-full border dark:border-gray-700/80"

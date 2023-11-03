@@ -38,7 +38,8 @@ export const usePersistStore = create(
       setQueuedVideos: (queuedVideos) => set({ queuedVideos }),
       setQueuedComments: (queuedComments) => set({ queuedComments }),
 
-      selectedNotificationsFilter: CustomNotificationsFilterEnum.HIGH_SIGNAL,
+      selectedNotificationsFilter:
+        CustomNotificationsFilterEnum.ALL_NOTIFICATIONS,
       setSelectedNotificationsFilter: (selectedNotificationsFilter) =>
         set({ selectedNotificationsFilter })
     }),
