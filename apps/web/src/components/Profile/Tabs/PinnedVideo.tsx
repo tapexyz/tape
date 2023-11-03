@@ -1,5 +1,6 @@
 import PinnedVideoShimmer from '@components/Shimmers/PinnedVideoShimmer'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
+import type { ProfileOptions } from '@lens-protocol/metadata'
 import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
 import { getRelativeTime } from '@lib/formatTime'
 import useProfileStore from '@lib/store/profile'
@@ -29,6 +30,7 @@ import {
   logger,
   sanitizeDStorageUrl,
   Tower,
+  trimify,
   uploadToAr
 } from '@tape.xyz/generic'
 import type {
@@ -151,7 +153,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
 
     try {
       toast.loading(`Unpinning video...`)
-      const metadata = profile({
+      const metadata: ProfileOptions = {
         appId: TAPE_APP_ID,
         ...(activeProfile?.metadata?.displayName && {
           name: activeProfile?.metadata?.displayName
@@ -171,8 +173,11 @@ const PinnedVideo: FC<Props> = ({ id }) => {
             value: TAPE_APP_ID
           }
         ]
-      })
-      const metadataURI = await uploadToAr(metadata)
+      }
+      metadata.attributes = metadata.attributes?.filter((m) =>
+        Boolean(trimify(m.value))
+      )
+      const metadataURI = await uploadToAr(profile(metadata))
       const request: OnchainSetProfileMetadataRequest = {
         metadataURI
       }

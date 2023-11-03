@@ -1,6 +1,7 @@
 import ReportPublication from '@components/ReportPublication'
 import Confirm from '@components/UIElements/Confirm'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
+import type { ProfileOptions } from '@lens-protocol/metadata'
 import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
 import useProfileStore from '@lib/store/profile'
 import { Dialog, DropdownMenu, Flex, IconButton, Text } from '@radix-ui/themes'
@@ -23,6 +24,7 @@ import {
   getValueFromKeyInAttributes,
   logger,
   Tower,
+  trimify,
   uploadToAr
 } from '@tape.xyz/generic'
 import type {
@@ -193,7 +195,7 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
 
     try {
       toast.loading(`Pinning video...`)
-      const metadata = profile({
+      const metadata: ProfileOptions = {
         appId: TAPE_APP_ID,
         coverPicture: getProfileCoverPicture(activeProfile),
         id: uuidv4(),
@@ -217,8 +219,11 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
             value: TAPE_APP_ID
           }
         ]
-      })
-      const metadataUri = await uploadToAr(metadata)
+      }
+      metadata.attributes = metadata.attributes?.filter((m) =>
+        Boolean(trimify(m.value))
+      )
+      const metadataUri = await uploadToAr(profile(metadata))
       const request: OnchainSetProfileMetadataRequest = {
         metadataURI: metadataUri
       }
