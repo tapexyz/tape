@@ -10,6 +10,8 @@ export const EVENTS = {
   SEARCH: 'Search',
   PAGE_VIEW: {
     HOME: 'Home Page',
+    FEED: 'Feed Page',
+    LOGIN: 'Login Page',
     EXPLORE: 'Explore Page',
     PROFILE: 'Profile Page',
     EXPLORE_TRENDING: 'Trending Page',

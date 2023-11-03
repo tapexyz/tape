@@ -6,6 +6,7 @@ import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAppStore from '@lib/store'
 import useProfileStore from '@lib/store/profile'
 import { INFINITE_SCROLL_ROOT_MARGIN } from '@tape.xyz/constants'
+import { EVENTS, Tower } from '@tape.xyz/generic'
 import type { FeedItem, FeedRequest, PrimaryPublication } from '@tape.xyz/lens'
 import {
   FeedEventItemType,
@@ -13,13 +14,17 @@ import {
   useFeedQuery
 } from '@tape.xyz/lens'
 import { Loader } from '@tape.xyz/ui'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useInView } from 'react-cool-inview'
 import Custom500 from 'src/pages/500'
 
 const Feed = () => {
   const { activeProfile } = useProfileStore()
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
+
+  useEffect(() => {
+    Tower.track(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.FEED })
+  }, [])
 
   const request: FeedRequest = {
     where: {
