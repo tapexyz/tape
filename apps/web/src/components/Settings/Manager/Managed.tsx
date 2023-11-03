@@ -70,7 +70,7 @@ const Managed = () => {
                   }}
                   className="bg-brand-500 relative h-20 w-full bg-cover bg-center bg-no-repeat"
                 >
-                  <div className="absolute bottom-2 left-3 flex-none">
+                  <div className="absolute bottom-3 left-3 flex-none">
                     <Avatar
                       className="border-2 border-white bg-white object-cover dark:bg-gray-900"
                       size="3"

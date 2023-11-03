@@ -1,5 +1,5 @@
 import { useProfileStore } from '@lib/store/profile'
-import { Avatar, Flex, HoverCard, Text } from '@radix-ui/themes'
+import { Avatar, Flex, HoverCard, Inset, Text } from '@radix-ui/themes'
 import {
   getProfile,
   getProfileCoverPicture,
@@ -46,32 +46,34 @@ const HoverableProfile: FC<Props> = ({
           </Link>
         )}
       </HoverCard.Trigger>
-      <HoverCard.Content className="w-80 !p-0">
-        <div
-          style={{
-            backgroundImage: `url(${imageCdn(
-              sanitizeDStorageUrl(getProfileCoverPicture(profile, true))
-            )})`
-          }}
-          className="bg-brand-500 relative h-20 w-full bg-cover bg-center bg-no-repeat"
-        >
-          <div className="absolute bottom-2 left-3 flex-none">
-            <Avatar
-              className="border-2 border-white bg-white object-cover dark:bg-gray-900"
-              src={getProfilePicture(profile, 'AVATAR')}
-              size="3"
-              fallback={getProfile(profile)?.displayName[0] ?? ';)'}
-              radius="large"
-              alt={getProfile(activeProfile)?.displayName}
-            />
+      <HoverCard.Content className="w-80">
+        <Inset side="top" pb="current">
+          <div
+            style={{
+              backgroundImage: `url(${imageCdn(
+                sanitizeDStorageUrl(getProfileCoverPicture(profile, true))
+              )})`
+            }}
+            className="bg-brand-500 relative h-24 w-full bg-cover bg-center bg-no-repeat"
+          >
+            <div className="absolute bottom-3 left-3 flex-none">
+              <Avatar
+                className="border-2 border-white bg-white object-cover dark:bg-gray-900"
+                src={getProfilePicture(profile, 'AVATAR')}
+                size="3"
+                fallback={getProfile(profile)?.displayName[0] ?? ';)'}
+                radius="large"
+                alt={getProfile(activeProfile)?.displayName}
+              />
+            </div>
+            <div className="absolute bottom-3 right-3 flex-none">
+              {!profile.operations.isFollowedByMe.value && !isMyProfile ? (
+                <FollowActions profile={profile} />
+              ) : null}
+            </div>
           </div>
-          <div className="absolute bottom-2 right-3 flex-none">
-            {!profile.operations.isFollowedByMe.value && !isMyProfile ? (
-              <FollowActions profile={profile} />
-            ) : null}
-          </div>
-        </div>
-        <div className="px-3 py-2.5">
+        </Inset>
+        <div>
           <Link
             href={getProfile(profile)?.link}
             className="flex items-center space-x-1"
