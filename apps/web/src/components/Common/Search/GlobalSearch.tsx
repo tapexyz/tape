@@ -1,7 +1,12 @@
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { IconButton, ScrollArea, Text, TextField } from '@radix-ui/themes'
 import { useDebounce, useOutsideClick } from '@tape.xyz/browser'
-import { LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
+import {
+  LENS_CUSTOM_FILTERS,
+  LENSTUBE_APP_ID,
+  LENSTUBE_BYTES_APP_ID,
+  TAPE_APP_ID
+} from '@tape.xyz/constants'
 import { EVENTS, Tower } from '@tape.xyz/generic'
 import type {
   PrimaryPublication,
@@ -51,7 +56,8 @@ const GlobalSearch = () => {
         mainContentFocus: [
           PublicationMetadataMainFocusType.Video,
           PublicationMetadataMainFocusType.ShortVideo
-        ]
+        ],
+        publishedOn: [TAPE_APP_ID, LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID]
       },
       publicationTypes: [SearchPublicationType.Post],
       customFilters: LENS_CUSTOM_FILTERS
@@ -128,7 +134,7 @@ const GlobalSearch = () => {
       >
         <ScrollArea
           type="hover"
-          style={{ maxHeight: '80vh', display: 'block' }}
+          style={{ maxHeight: '80vh' }}
           scrollbars="vertical"
         >
           <div className="p-4">
