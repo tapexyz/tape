@@ -20,7 +20,7 @@ import {
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
 import { useRouter } from 'next/router'
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useAccount, useDisconnect, useSignMessage } from 'wagmi'
 
@@ -54,15 +54,21 @@ const Authenticate = () => {
     notifyOnNetworkStatusChange: true,
     skip: !address,
     onCompleted: (data) => {
-      const profile = data?.profilesManaged.items?.[0]
-      if (profile) {
+      const profiles = data?.profilesManaged.items
+      if (profiles.length) {
+        const profile = profiles.reverse()[0]
         setSelectedProfileId(as || profile.id)
       }
     }
   })
 
   const profilesManaged = data?.profilesManaged.items as Profile[]
-  const profile = profilesManaged?.[0]
+  const reversedProfilesManaged = useMemo(() => {
+    // Use the spread operator to create a new array and sort it by the "handle" key
+    return [...(profilesManaged || [])].reverse()
+  }, [profilesManaged])
+
+  const profile = reversedProfilesManaged?.[0]
 
   const { signMessageAsync } = useSignMessage({
     onError
@@ -171,7 +177,7 @@ const Authenticate = () => {
           >
             <Select.Trigger className="w-full" />
             <Select.Content highContrast>
-              {profilesManaged?.map((profile) => (
+              {reversedProfilesManaged?.map((profile) => (
                 <Select.Item key={profile.id} value={profile.id}>
                   <Flex gap="2" align="center">
                     <Avatar
