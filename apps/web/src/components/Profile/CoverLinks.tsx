@@ -71,10 +71,7 @@ const CoverLinks = ({ metadata }: { metadata: ProfileMetadata }) => {
           className="rounded-lg bg-white bg-opacity-80 p-1.5 dark:bg-gray-900"
         >
           <img
-            src={imageCdn(
-              `${STATIC_ASSETS}/images/social/youtube.png`,
-              'AVATAR'
-            )}
+            src={`${STATIC_ASSETS}/images/social/youtube.png`}
             className="h-4 w-4 object-contain"
             height={16}
             width={16}
