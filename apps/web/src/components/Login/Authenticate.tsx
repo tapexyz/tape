@@ -17,6 +17,7 @@ import {
   useChallengeLazyQuery,
   useProfilesManagedQuery
 } from '@tape.xyz/lens'
+import { useApolloClient } from '@tape.xyz/lens/apollo'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
 import { useRouter } from 'next/router'
@@ -35,13 +36,14 @@ const Authenticate = () => {
   const [selectedProfileId, setSelectedProfileId] = useState<string>()
   const { activeProfile, setActiveProfile } = useProfileStore()
 
+  const router = useRouter()
+  const { address, connector, isConnected } = useAccount()
+  const { resetStore: resetApolloStore } = useApolloClient()
+
   const onError = () => {
     signOut()
     setActiveProfile(null)
   }
-
-  const router = useRouter()
-  const { address, connector, isConnected } = useAccount()
 
   const {
     data,
@@ -130,6 +132,7 @@ const Authenticate = () => {
           router.push('/')
         }
       }
+      resetApolloStore()
       Tower.track(EVENTS.AUTH.SIGN_IN_WITH_LENS)
     } catch (error) {
       logger.error('[Error Sign In]', {
@@ -139,6 +142,7 @@ const Authenticate = () => {
     } finally {
       setLoading(false)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     router,
     address,
@@ -148,8 +152,6 @@ const Authenticate = () => {
     isConnected,
     loadChallenge,
     profilesManaged,
-    setActiveProfile,
-    signMessageAsync,
     selectedProfileId
   ])
 
