@@ -5,7 +5,12 @@ import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAppStore from '@lib/store'
 import useProfileStore from '@lib/store/profile'
-import { INFINITE_SCROLL_ROOT_MARGIN } from '@tape.xyz/constants'
+import {
+  INFINITE_SCROLL_ROOT_MARGIN,
+  LENSTUBE_APP_ID,
+  LENSTUBE_BYTES_APP_ID,
+  TAPE_APP_ID
+} from '@tape.xyz/constants'
 import { EVENTS, Tower } from '@tape.xyz/generic'
 import type { FeedItem, FeedRequest, PrimaryPublication } from '@tape.xyz/lens'
 import {
@@ -31,6 +36,7 @@ const Feed = () => {
       feedEventItemTypes: [FeedEventItemType.Post],
       for: activeProfile?.id,
       metadata: {
+        publishedOn: [TAPE_APP_ID, LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
         tags:
           activeTagFilter !== 'all' ? { oneOf: [activeTagFilter] } : undefined,
         mainContentFocus: [PublicationMetadataMainFocusType.Video]
