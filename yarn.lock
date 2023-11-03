@@ -30,10 +30,10 @@
     "@jridgewell/gen-mapping" "^0.3.0"
     "@jridgewell/trace-mapping" "^0.3.9"
 
-"@apollo/client@3.8.6":
-  version "3.8.6"
-  resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.8.6.tgz#d90f2a9b0147d8fc96c7a867588b5b2165cc4085"
-  integrity sha512-FnHg3vhQP8tQzgBs6oTJCFFIbovelDGYujj6MK7CJneiHf62TJstCIO0Ot4A1h7XrgFEtgl8a/OgajQWqrTuYw==
+"@apollo/client@3.8.7":
+  version "3.8.7"
+  resolved "https://registry.yarnpkg.com/@apollo/client/-/client-3.8.7.tgz#090b1518f513503b9a6a690ee3eaec49529822e1"
+  integrity sha512-DnQtFkQrCyxHTSa9gR84YRLmU/al6HeXcLZazVe+VxKBmx/Hj4rV8xWtzfWYX5ijartsqDR7SJgV037MATEecA==
   dependencies:
     "@graphql-typed-document-node/core" "^3.1.1"
     "@wry/context" "^0.7.3"
@@ -3539,12 +3539,12 @@
   dependencies:
     "@lit-labs/ssr-dom-shim" "^1.0.0"
 
-"@livepeer/core-react@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@livepeer/core-react/-/core-react-2.0.1.tgz#8f62d2ef3f0bbf14c1ead0cb0f17f2b23e70654b"
-  integrity sha512-4NsR62ikthhApQVugsm4BQ3flYyOa8pVRp1EaexH+XFYBsT/fFSpOr71I6fbosgoZwYws5lhZfdw1jHiRJajJQ==
+"@livepeer/core-react@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@livepeer/core-react/-/core-react-2.0.2.tgz#d7f438d47e9fda71a92921f886d2e1fa9e603bfa"
+  integrity sha512-OYNJ80mvKmuQMg8TXaRZ7lL9mTV15zO84qjgpje7/R8H2JWn0XIuYf/rBRbnhur13SGz86+rkcvvJNF4GWpT1A==
   dependencies:
-    "@livepeer/core" "^2.0.1"
+    "@livepeer/core" "^2.0.2"
     "@tanstack/query-async-storage-persister" "4.29.23"
     "@tanstack/query-core" "4.29.23"
     "@tanstack/react-query" "4.29.23"
@@ -3552,12 +3552,12 @@
     use-sync-external-store "^1.2.0"
     zustand "^4.3.9"
 
-"@livepeer/core-web@^3.0.1":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@livepeer/core-web/-/core-web-3.0.1.tgz#f6ea5ed4d3463e2fd904f929fd41ccfa30b3590f"
-  integrity sha512-050XvO2Rk9JZmjHdnJYpK5VMZ9XFEc4vTRbPlumXY7RmzR88poCGwzvLLajDU1TU/iACO1RHlLE7WJtdkRCkWA==
+"@livepeer/core-web@^3.0.2":
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/@livepeer/core-web/-/core-web-3.0.2.tgz#4a4b2d0e55a08bc98e7da920472127665be46428"
+  integrity sha512-5RLRpVb2VLVeG016b0XQ87rhhZ/EQXWoqZCdH5pv/3HoeiXFCrGhW4EW5GCW1NUfS1Zxx5WtqDnQSnOqZh84HQ==
   dependencies:
-    "@livepeer/core" "^2.0.1"
+    "@livepeer/core" "^2.0.2"
     "@stitches/core" "^1.2.8"
     core-js "^3.31.1"
     cross-fetch "^4.0.0"
@@ -3566,10 +3566,10 @@
     tus-js-client "^3.1.0"
     zustand "^4.3.9"
 
-"@livepeer/core@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@livepeer/core/-/core-2.0.1.tgz#2de8a7571157057bac42fa52653c554a69001844"
-  integrity sha512-gWu1pXARnQtU3t8xRhPPrzlYdbboE0cB7FbBHRJW+McpA4IfHD8xoRxb4d7kF0ap28pG6VsHWu6q0hxaPgAswg==
+"@livepeer/core@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@livepeer/core/-/core-2.0.2.tgz#b504f28447a7bff7b70905dd3f90c830ebe3be3d"
+  integrity sha512-S5WeQF+C18oYXdB9DKk2vUKYrCfXQ9VPdiUfEN0lqQOerQAN6YA7gowri16MVm3j9HFDykz5euTgNA+hX6SnIg==
   dependencies:
     cross-fetch "^4.0.0"
     ms "^3.0.0-canary.1"
@@ -3577,23 +3577,23 @@
     tus-js-client "^3.1.0"
     zustand "^4.3.9"
 
-"@livepeer/react-native@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@livepeer/react-native/-/react-native-2.0.1.tgz#465c9655634b264a4c9080d8ddc56ca2fc45d98a"
-  integrity sha512-jZsgMIzPauSKMDgtVipWSrXoCrC+AWLSKWu6QkfjINZA0WHetYH7CB+J3JfbXiDUcT3PICTWu3aJoE+P/nnA+w==
+"@livepeer/react-native@^2.0.2":
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/@livepeer/react-native/-/react-native-2.0.2.tgz#f157a0e4dde5230ca0b0c7ee05f19ce41336d20e"
+  integrity sha512-PYTNbwfciB1lbH8PSbZ1eFnebvh+4BNldBp1zMkEicPzMTUsyIdwmyT+INijp0F1Z/4d7On/lrfkbrIaHUGOQw==
   dependencies:
-    "@livepeer/core-react" "^2.0.1"
+    "@livepeer/core-react" "^2.0.2"
     react-native-url-polyfill "^2.0.0"
     stitches-native "^0.4.0"
     zustand "^4.3.9"
 
-"@livepeer/react@^3.0.1":
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/@livepeer/react/-/react-3.0.1.tgz#1d5f41594a7899291c41b6fa21956a4291a7c43c"
-  integrity sha512-iSEVjaBervJpoS3+XxwNR4mtZdObuMz0xMAWEGCP0yJTPyMTZUhQf6/pG8mdCv1+nLyhp0HouaDUaMku0pORwQ==
+"@livepeer/react@^3.0.2":
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/@livepeer/react/-/react-3.0.2.tgz#27f505a2f0b60ccf8427d5772be6a875fc86ea06"
+  integrity sha512-1+uJwTefkQVQlIz42UZtXpk6gwzfzhG/pF/S/f5vVwmyvv84IxWnZridj6xlNly9u+++oeVvR1CfXfg3ezydbw==
   dependencies:
-    "@livepeer/core-react" "^2.0.1"
-    "@livepeer/core-web" "^3.0.1"
+    "@livepeer/core-react" "^2.0.2"
+    "@livepeer/core-web" "^3.0.2"
     "@radix-ui/react-dialog" "^1.0.4"
     "@radix-ui/react-popover" "^1.0.6"
     "@radix-ui/react-select" "^1.2.2"
@@ -18045,10 +18045,24 @@ vary@~1.1.2:
   resolved "https://registry.yarnpkg.com/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
   integrity sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==
 
-viem@^1.0.0, viem@^1.18.1:
+viem@^1.0.0:
   version "1.18.3"
   resolved "https://registry.yarnpkg.com/viem/-/viem-1.18.3.tgz#be0ea4ecf0cf22419cb9772720cbd8b1cf6afd35"
   integrity sha512-r27eb39MHEXul/k2jZnRVNJY8QhoS816Kqh0guaLVLRJkGGIutryh7z5sKIuhKHU1yz2+CoPaiRn08gGKrfskw==
+  dependencies:
+    "@adraffy/ens-normalize" "1.9.4"
+    "@noble/curves" "1.2.0"
+    "@noble/hashes" "1.3.2"
+    "@scure/bip32" "1.3.2"
+    "@scure/bip39" "1.2.1"
+    abitype "0.9.8"
+    isows "1.0.3"
+    ws "8.13.0"
+
+viem@^1.18.4:
+  version "1.18.4"
+  resolved "https://registry.yarnpkg.com/viem/-/viem-1.18.4.tgz#2bb17c6e7c4082f06cd8a6ed8a34eedf6e4a3bc9"
+  integrity sha512-im+y30k+IGT6VtfD/q1V0RX5PaiHPsFTHkKqvTjTqV+ZT8RgJXzOGPXr5E0uPIm2cbJAJp6A9nR9BCHY7BKR2Q==
   dependencies:
     "@adraffy/ens-normalize" "1.9.4"
     "@noble/curves" "1.2.0"
@@ -18637,9 +18651,16 @@ zod@^3.20.6, zod@^3.22.2, zod@^3.22.4:
   resolved "https://registry.yarnpkg.com/zod/-/zod-3.22.4.tgz#f31c3a9386f61b1f228af56faa9255e845cf3fff"
   integrity sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==
 
-zustand@^4.3.1, zustand@^4.3.9, zustand@^4.4.4:
+zustand@^4.3.1, zustand@^4.3.9:
   version "4.4.5"
   resolved "https://registry.yarnpkg.com/zustand/-/zustand-4.4.5.tgz#0d5571affb30906b0c07c16557f2779ede9f4d8c"
   integrity sha512-jgIrBBLKncQW74PA2Lclct3gwD4aPughwGE4FqlXrv3rDqQox7JCn8rwUiFK6ygJcbBAvfTf8fF+ICg7HLD2FQ==
+  dependencies:
+    use-sync-external-store "1.2.0"
+
+zustand@^4.4.6:
+  version "4.4.6"
+  resolved "https://registry.yarnpkg.com/zustand/-/zustand-4.4.6.tgz#03c78e3e2686c47095c93714c0c600b72a6512bd"
+  integrity sha512-Rb16eW55gqL4W2XZpJh0fnrATxYEG3Apl2gfHTyDSE965x/zxslTikpNch0JgNjJA9zK6gEFW8Fl6d1rTZaqgg==
   dependencies:
     use-sync-external-store "1.2.0"

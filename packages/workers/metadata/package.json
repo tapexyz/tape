@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "base64url": "^3.0.1",
-    "viem": "^1.18.1"
+    "viem": "^1.18.4"
   },
   "devDependencies": {
     "@tape.xyz/config": "*",
