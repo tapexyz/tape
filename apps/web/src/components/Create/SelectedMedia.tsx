@@ -89,7 +89,7 @@ const SelectedMedia = () => {
                 <input
                   id="choosePoster"
                   type="file"
-                  accept=".png, .jpg, .jpeg, .svg, .gif"
+                  accept=".png, .jpg, .jpeg, .svg, .gif, .webp"
                   className="hidden w-full"
                   onChange={async (e) => {
                     if (e.target.files?.length) {

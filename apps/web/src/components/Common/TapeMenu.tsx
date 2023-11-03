@@ -10,7 +10,7 @@ import React from 'react'
 
 const TapeMenu = () => {
   return (
-    <div className="grid grid-cols-2">
+    <div className="grid grid-cols-2 py-1 pl-1">
       <Link
         className="rounded-lg px-2.5 py-1.5"
         href={`https://github.com/${TAPE_GITHUB_HANDLE}/brand-kit`}

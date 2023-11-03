@@ -63,9 +63,9 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
     setSearchKeyword('')
   })
 
-  const onDebounce = () => {
+  const onDebounce = async () => {
     if (trimify(searchKeyword).length) {
-      searchProfiles({
+      await searchProfiles({
         variables: {
           request: {
             limit: LimitType.Ten,
