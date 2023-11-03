@@ -21,7 +21,7 @@ type Props = {
 const VideoActions: FC<Props> = ({ video }) => {
   const [showTip, setShowTip] = useState(false)
   return (
-    <div className="mt-4 flex items-center justify-end space-x-2 md:mt-2">
+    <div className="flex items-center justify-end space-x-2">
       <PublicationReaction
         publication={video}
         textSize="inherit"

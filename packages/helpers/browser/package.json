@@ -11,6 +11,7 @@
     "typescript": "5.2.2"
   },
   "dependencies": {
-    "fast-average-color": "^9.4.0"
+    "fast-average-color": "^9.4.0",
+    "@rajesh896/broprint.js": "^2.1.1"
   }
 }

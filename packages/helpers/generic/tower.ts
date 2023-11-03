@@ -23,11 +23,15 @@ export const Tower = {
       const actor = parseJwt(tokenState.state.accessToken)?.id
       const { referrer } = document
       const referrerDomain = referrer ? new URL(referrer).hostname : null
+      const storedFingerprint = localStorage.getItem(
+        LocalStore.TAPE_FINGERPRINT
+      )
 
       worker.postMessage({
         name,
         properties,
         actor,
+        fingerprint: storedFingerprint,
         referrer: referrerDomain,
         url: location.href,
         platform: 'web'

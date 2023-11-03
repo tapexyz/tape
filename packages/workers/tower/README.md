@@ -20,7 +20,12 @@ CREATE TABLE events (
   utm_campaign Nullable(String),
   utm_term Nullable(String),
   utm_content Nullable(String),
-  created DateTime DEFAULT now()
+  created DateTime DEFAULT now(),
+  fingerprint Nullable(String)
 ) ENGINE = MergeTree
 ORDER BY created;
+```
+
+```sql
+ALTER TABLE events ADD COLUMN fingerprint Nullable(String);
 ```

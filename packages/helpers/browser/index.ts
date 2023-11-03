@@ -1,6 +1,7 @@
 export * from './font'
 export * from './functions/generateVideoThumbnails'
 export * from './functions/getFileFromDataURL'
+export * from './functions/getFingerprint'
 export * from './functions/getMetaTags'
 export * from './functions/getToastOptions'
 export * from './functions/getUserLocale'

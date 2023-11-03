@@ -4689,6 +4689,11 @@
     "@radix-ui/react-visually-hidden" "^1.0.3"
     classnames "^2.3.2"
 
+"@rajesh896/broprint.js@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@rajesh896/broprint.js/-/broprint.js-2.1.1.tgz#f38870f62539035f318ebb9b6ba01fcc7ed76605"
+  integrity sha512-34L0SFrOLHWAhF4ZU7QS32zItGOKdu3BY0DmMwoW6zekLuJWSuCIK07Xzgyy2AqCCUByd2VHMr2wbHousid+qg==
+
 "@randlabs/communication-bridge@1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@randlabs/communication-bridge/-/communication-bridge-1.0.1.tgz#d1ecfc29157afcbb0ca2d73122d67905eecb5bf3"
