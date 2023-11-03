@@ -13,6 +13,7 @@ type ExtensionRequest = {
   user_agent?: string
   platform: 'web' | 'mobile'
   properties?: string
+  fingerprint?: string
 }
 
 const validationSchema = object({
@@ -38,7 +39,7 @@ export default async (request: WorkerRequest) => {
     )
   }
 
-  const { name, actor, url, referrer, platform, properties } =
+  const { name, actor, url, referrer, platform, properties, fingerprint } =
     body as ExtensionRequest
 
   if (!checkEventExistence(ALL_EVENTS, name)) {
@@ -96,7 +97,8 @@ export default async (request: WorkerRequest) => {
           utm_medium,
           utm_campaign,
           utm_term,
-          utm_content
+          utm_content,
+          fingerprint
         ) VALUES (
           '${name}',
           ${actor ? `'${actor}'` : null},
@@ -114,7 +116,8 @@ export default async (request: WorkerRequest) => {
           ${utmMedium ? `'${utmMedium}'` : null},
           ${utmCampaign ? `'${utmCampaign}'` : null},
           ${utmTerm ? `'${utmTerm}'` : null},
-          ${utmContent ? `'${utmContent}'` : null}
+          ${utmContent ? `'${utmContent}'` : null},
+          ${fingerprint ? `'${fingerprint}'` : null},
         )
       `
     })
