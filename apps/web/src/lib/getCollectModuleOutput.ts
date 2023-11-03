@@ -44,7 +44,7 @@ export const getCollectModuleOutput = (openActionModule: OpenActionModule) => {
           assetSymbol: openActionModule.amount?.asset.symbol,
           assetAddress: openActionModule.amount?.asset.contract.address,
           assetDecimals: openActionModule.amount?.asset.decimals,
-          rate: openActionModule.amount?.rate?.value
+          rate: openActionModule.amount?.rate?.value ?? 0
         },
         recipients: openActionModule.recipients,
         referralFee: openActionModule.referralFee,
