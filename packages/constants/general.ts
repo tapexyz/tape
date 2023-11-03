@@ -90,9 +90,6 @@ export const WORKER_DID_URL = 'https://did.tape.xyz'
 export const WORKER_LIVE_URL = 'https://live.tape.xyz'
 export const WORKER_TOWER_URL = 'https://tower.tape.xyz'
 
-export const SB_STORAGE_URL =
-  'https://hdpmuwmctxbkykamcvpl.supabase.co/storage/v1/object/public/waves'
-
 // irys
 export const IRYS_NODE_URL = IS_MAINNET
   ? 'https://node1.irys.xyz'

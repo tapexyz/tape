@@ -160,7 +160,7 @@ const Authenticate = () => {
   }
 
   if (!isConnected) {
-    return
+    return null
   }
 
   if (profilesLoading) {

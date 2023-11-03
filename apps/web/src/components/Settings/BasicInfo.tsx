@@ -331,7 +331,7 @@ const BasicInfo = ({ profile }: Props) => {
                 <input
                   id="chooseCover"
                   type="file"
-                  accept=".png, .jpg, .jpeg, .svg"
+                  accept=".png, .jpg, .jpeg, .svg, .webp"
                   className="hidden w-full"
                   onChange={async (e) => {
                     if (e.target.files?.length) {
@@ -375,7 +375,7 @@ const BasicInfo = ({ profile }: Props) => {
               <input
                 id="choosePfp"
                 type="file"
-                accept=".png, .jpg, .jpeg, .svg, .gif"
+                accept=".png, .jpg, .jpeg, .svg, .gif, .webp"
                 className="hidden w-full"
                 onChange={async (e) => {
                   if (e.target.files?.length) {

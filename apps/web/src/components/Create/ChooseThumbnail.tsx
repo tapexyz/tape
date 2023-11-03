@@ -147,7 +147,7 @@ const ChooseThumbnail: FC<Props> = ({ file }) => {
         <input
           id="chooseThumbnail"
           type="file"
-          accept=".png, .jpg, .jpeg"
+          accept=".png, .jpg, .jpeg, .webp"
           className="hidden w-full"
           onChange={handleUpload}
         />
