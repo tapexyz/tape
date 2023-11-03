@@ -38,7 +38,7 @@ const Authenticate = () => {
 
   const router = useRouter()
   const { address, connector, isConnected } = useAccount()
-  const { cache } = useApolloClient()
+  const { resetStore: resetApolloStore } = useApolloClient()
 
   const onError = () => {
     signOut()
@@ -116,7 +116,8 @@ const Authenticate = () => {
       const accessToken = result.data?.authenticate.accessToken
       const refreshToken = result.data?.authenticate.refreshToken
       signIn({ accessToken, refreshToken })
-      cache.reset()
+      resetApolloStore()
+      Tower.track(EVENTS.AUTH.SIGN_IN_WITH_LENS)
       if (profilesManaged.length === 0) {
         setActiveProfile(null)
         toast.error('No profile found')
@@ -133,7 +134,6 @@ const Authenticate = () => {
           router.push('/')
         }
       }
-      Tower.track(EVENTS.AUTH.SIGN_IN_WITH_LENS)
     } catch (error) {
       logger.error('[Error Sign In]', {
         error,
