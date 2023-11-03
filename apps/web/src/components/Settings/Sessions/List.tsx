@@ -87,12 +87,7 @@ const List = () => {
   }
 
   return (
-    <Accordion
-      type="single"
-      className="w-full space-y-3"
-      defaultValue={sessions?.[0]?.authorizationId}
-      collapsible
-    >
+    <Accordion type="single" className="w-full space-y-3" collapsible>
       {sessions?.map((session) => {
         return (
           <AccordionItem

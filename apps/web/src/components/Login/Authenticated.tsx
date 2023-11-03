@@ -30,9 +30,9 @@ const Authenticated = () => {
               alt={getProfile(activeProfile)?.displayName}
             />
             <div className="text-left">
-              <Text as="p" weight="bold" size="6">
+              <h6 className="truncate text-xl font-bold">
                 {getProfile(activeProfile)?.displayName}
-              </Text>
+              </h6>
               <Link href={getProfile(activeProfile)?.link}>
                 <Text as="p" size="4">
                   {getProfile(activeProfile)?.slug} (
