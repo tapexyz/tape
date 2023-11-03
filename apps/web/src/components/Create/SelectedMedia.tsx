@@ -134,7 +134,7 @@ const SelectedMedia = () => {
             variant="solid"
             radius="full"
             highContrast
-            className="absolute right-2 top-2"
+            className="absolute bottom-2 right-2"
           >
             Play/Pause
           </Badge>
@@ -142,7 +142,7 @@ const SelectedMedia = () => {
             variant="solid"
             radius="full"
             highContrast
-            className="absolute left-2 top-2"
+            className="absolute bottom-2 left-2"
           >
             {uploadedVideo.file?.size && (
               <span className="whitespace-nowrap font-bold">
