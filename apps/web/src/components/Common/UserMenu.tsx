@@ -46,14 +46,19 @@ const UserMenu = () => {
   const profilesManaged = data?.profilesManaged.items as Profile[]
   const isAdmin = ADMIN_IDS.includes(activeProfile?.id)
 
-  const [revokeAuthentication, { loading }] = useRevokeAuthenticationMutation({
-    onCompleted: () => {
-      disconnect?.()
-      signOut()
-      setActiveProfile(null)
-      Tower.track(EVENTS.AUTH.SIGN_OUT)
-    }
-  })
+  const [revokeAuthentication, { loading }] = useRevokeAuthenticationMutation()
+
+  const onClickSignout = async () => {
+    disconnect?.()
+    signOut()
+    setActiveProfile(null)
+    await revokeAuthentication({
+      variables: {
+        request: { authorizationId: getCurrentSessionId() }
+      }
+    })
+    Tower.track(EVENTS.AUTH.SIGN_OUT)
+  }
 
   return (
     <DropdownMenu.Root>
@@ -188,13 +193,7 @@ const UserMenu = () => {
             asChild
             disabled={loading}
             color="red"
-            onClick={async () =>
-              await revokeAuthentication({
-                variables: {
-                  request: { authorizationId: getCurrentSessionId() }
-                }
-              })
-            }
+            onClick={() => onClickSignout()}
           >
             <Flex align="center" gap="2">
               <HandWaveOutline className="h-4 w-4" />
