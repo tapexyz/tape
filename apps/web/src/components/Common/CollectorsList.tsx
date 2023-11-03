@@ -1,14 +1,11 @@
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { formatNumber, getProfile, getProfilePicture } from '@tape.xyz/generic'
+import type { Profile, WhoActedOnPublicationRequest } from '@tape.xyz/lens'
 import {
-  formatNumber,
-  getProfilePicture,
-  getRandomProfilePicture,
-  imageCdn,
-  shortenAddress,
-  trimLensHandle
-} from '@tape.xyz/generic'
-import type { Wallet } from '@tape.xyz/lens'
-import { useCollectorsQuery } from '@tape.xyz/lens'
+  LimitType,
+  OpenActionCategoryType,
+  useWhoActedOnPublicationQuery
+} from '@tape.xyz/lens'
 import { Loader } from '@tape.xyz/ui'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -17,22 +14,27 @@ import { useInView } from 'react-cool-inview'
 
 import Badge from './Badge'
 import UserOutline from './Icons/UserOutline'
-import AddressExplorerLink from './Links/AddressExplorerLink'
 
 type Props = {
   videoId: string
 }
 
 const CollectorsList: FC<Props> = ({ videoId }) => {
-  const request = { publicationId: videoId, limit: 30 }
+  const request: WhoActedOnPublicationRequest = {
+    where: {
+      anyOf: [{ category: OpenActionCategoryType.Collect }]
+    },
+    on: videoId,
+    limit: LimitType.Fifty
+  }
 
-  const { data, loading, fetchMore } = useCollectorsQuery({
+  const { data, loading, fetchMore } = useWhoActedOnPublicationQuery({
     variables: { request },
     skip: !videoId
   })
 
-  const collectors = data?.whoCollectedPublication?.items as Wallet[]
-  const pageInfo = data?.whoCollectedPublication?.pageInfo
+  const collectors = data?.whoActedOnPublication?.items as Profile[]
+  const pageInfo = data?.whoActedOnPublication?.pageInfo
 
   const { observe } = useInView({
     onEnter: async () => {
@@ -53,57 +55,36 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
   if (collectors?.length === 0) {
     return (
       <div className="pt-5">
-        <NoDataFound text="No collectors yet" isCenter />
+        <NoDataFound withImage isCenter />
       </div>
     )
   }
 
   return (
     <div className="mt-2 space-y-3">
-      {collectors?.map((wallet: Wallet) => (
-        <div className="flex flex-col" key={wallet.address}>
-          {wallet?.defaultProfile ? (
-            <Link
-              href={`/channel/${trimLensHandle(
-                wallet?.defaultProfile?.handle
-              )}`}
-              className="font-base flex items-center justify-between"
-            >
-              <div className="flex items-center space-x-1.5">
-                <img
-                  className="h-5 w-5 rounded-full"
-                  src={getProfilePicture(wallet?.defaultProfile, 'AVATAR')}
-                  alt={wallet.defaultProfile.handle}
-                  draggable={false}
-                />
-                <div className="flex items-center space-x-1">
-                  <span>{trimLensHandle(wallet?.defaultProfile?.handle)}</span>
-                  <Badge id={wallet?.defaultProfile?.id} size="xs" />
-                </div>
+      {collectors?.map((profile: Profile) => (
+        <div className="flex flex-col" key={profile.id}>
+          <Link
+            href={`/u/${getProfile(profile)?.slug}`}
+            className="font-base flex items-center justify-between"
+          >
+            <div className="flex items-center space-x-1.5">
+              <img
+                className="h-5 w-5 rounded-full"
+                src={getProfilePicture(profile, 'AVATAR')}
+                alt={getProfile(profile)?.displayName}
+                draggable={false}
+              />
+              <div className="flex items-center space-x-1">
+                <span>{getProfile(profile)?.slug}</span>
+                <Badge id={profile?.id} size="xs" />
               </div>
-              <div className="flex items-center space-x-1 whitespace-nowrap text-xs opacity-80">
-                <UserOutline className="h-2.5 w-2.5 opacity-60" />
-                <span>
-                  {formatNumber(wallet.defaultProfile.stats.totalFollowers)}
-                </span>
-              </div>
-            </Link>
-          ) : (
-            <AddressExplorerLink address={wallet?.address}>
-              <div className="font-base flex items-center space-x-1.5">
-                <img
-                  className="h-5 w-5 rounded-full"
-                  src={imageCdn(
-                    getRandomProfilePicture(wallet.address),
-                    'AVATAR'
-                  )}
-                  alt={wallet.address.handle}
-                  draggable={false}
-                />
-                <div>{shortenAddress(wallet?.address)}</div>
-              </div>
-            </AddressExplorerLink>
-          )}
+            </div>
+            <div className="flex items-center space-x-1 whitespace-nowrap text-xs opacity-80">
+              <UserOutline className="h-2.5 w-2.5 opacity-60" />
+              <span>{formatNumber(profile.stats.followers)}</span>
+            </div>
+          </Link>
         </div>
       ))}
       {pageInfo?.next && (

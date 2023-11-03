@@ -1,20 +1,23 @@
 import MetaTags from '@components/Common/MetaTags'
-import { VideoDetailShimmer } from '@components/Shimmers/VideoDetailShimmer'
+import { WatchShimmer } from '@components/Shimmers/WatchShimmer'
 import useAppStore from '@lib/store'
-import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
-import { t } from '@lingui/macro'
-import { Analytics, TRACK } from '@tape.xyz/browser'
-import { isWatchable } from '@tape.xyz/generic'
-import type { Publication } from '@tape.xyz/lens'
-import { usePublicationDetailsQuery } from '@tape.xyz/lens'
+import useProfileStore from '@lib/store/profile'
+import {
+  EVENTS,
+  getPublication,
+  getPublicationData,
+  isWatchable,
+  Tower
+} from '@tape.xyz/generic'
+import type { AnyPublication } from '@tape.xyz/lens'
+import { usePublicationQuery } from '@tape.xyz/lens'
 import { CustomCommentsFilterEnum } from '@tape.xyz/lens/custom-types'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
 
-import AboutChannel from './AboutChannel'
+import AboutProfile from './AboutProfile'
 import NonRelevantComments from './Comments/NonRelevantComments'
 import VideoComments from './Comments/VideoComments'
 import SuggestedVideos from './SuggestedVideos'
@@ -24,61 +27,56 @@ const VideoDetails = () => {
   const {
     query: { id, t: time }
   } = useRouter()
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
+
   const setVideoWatchTime = useAppStore((state) => state.setVideoWatchTime)
-  const selectedCommentFilter = useChannelStore(
+  const selectedCommentFilter = useProfileStore(
     (state) => state.selectedCommentFilter
   )
 
   useEffect(() => {
-    Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.WATCH })
+    Tower.track(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.WATCH })
   }, [])
-
-  const { data, error, loading } = usePublicationDetailsQuery({
-    variables: {
-      request: { publicationId: id },
-      reactionRequest: selectedSimpleProfile
-        ? { profileId: selectedSimpleProfile?.id }
-        : null,
-      channelId: selectedSimpleProfile?.id ?? null
-    },
-    skip: !id
-  })
-
-  const publication = data?.publication as Publication
-  const video =
-    publication?.__typename === 'Mirror' ? publication.mirrorOf : publication
 
   useEffect(() => {
     setVideoWatchTime(Number(time))
   }, [time, setVideoWatchTime])
 
+  const { data, error, loading } = usePublicationQuery({
+    variables: {
+      request: { forId: id }
+    },
+    skip: !id
+  })
+
+  if (loading || !data) {
+    return <WatchShimmer />
+  }
+
   if (error) {
     return <Custom500 />
   }
-  if (loading || !data) {
-    return <VideoDetailShimmer />
-  }
+
+  const publication = data?.publication as AnyPublication
+  const video = getPublication(publication)
+
   if (!isWatchable(video)) {
     return <Custom404 />
   }
 
   return (
     <>
-      <MetaTags title={video?.metadata?.name ?? t`Watch`} />
+      <MetaTags title={getPublicationData(video?.metadata)?.title || `Watch`} />
       {!loading && !error && video ? (
-        <div className="grid grid-cols-1 gap-y-4 md:gap-4 xl:grid-cols-4">
+        <div className="max-w-screen-ultrawide mx-auto grid grid-cols-1 gap-y-4 md:gap-4 xl:grid-cols-4">
           <div className="col-span-3 space-y-3.5">
             <Video video={video} />
             <hr className="border-[0.5px] border-gray-200 dark:border-gray-800" />
-            <AboutChannel video={video} />
+            <AboutProfile video={video} />
             <hr className="border-[0.5px] border-gray-200 dark:border-gray-800" />
             <VideoComments video={video} />
             {selectedCommentFilter ===
             CustomCommentsFilterEnum.RELEVANT_COMMENTS ? (
-              <NonRelevantComments video={video} className="pt-4" />
+              <NonRelevantComments video={video} />
             ) : null}
           </div>
           <div className="col-span-1">

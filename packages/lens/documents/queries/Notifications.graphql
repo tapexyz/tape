@@ -1,114 +1,96 @@
 query Notifications($request: NotificationRequest!) {
   notifications(request: $request) {
     items {
-      ... on NewFollowerNotification {
-        notificationId
-        wallet {
-          address
-          defaultProfile {
+      ... on ReactionNotification {
+        id
+        publication {
+          ... on Post {
+            ...PostFields
+          }
+          ... on Comment {
+            ...CommentFields
+          }
+          ... on Quote {
+            ...QuoteFields
+          }
+        }
+        reactions {
+          profile {
             ...ProfileFields
           }
         }
-        createdAt
       }
-      ... on NewMentionNotification {
-        notificationId
-        mentionPublication {
-          ... on Post {
-            id
-            profile {
-              ...ProfileFields
-            }
-          }
-          ... on Comment {
-            id
-            profile {
-              ...ProfileFields
-            }
-          }
-        }
-        createdAt
-      }
-      ... on NewCommentNotification {
-        notificationId
-        profile {
-          ...ProfileFields
-        }
+      ... on CommentNotification {
+        id
         comment {
-          id
-          metadata {
-            content
-          }
-          commentOn {
-            ... on Post {
-              id
-            }
-            ... on Comment {
-              id
-            }
-            ... on Mirror {
-              id
-            }
-          }
+          ...CommentFields
         }
-        createdAt
       }
-      ... on NewMirrorNotification {
-        notificationId
-        profile {
-          ...ProfileFields
-        }
-        publication {
-          ... on Post {
-            id
-          }
-          ... on Comment {
-            id
-          }
-        }
-        createdAt
-      }
-      ... on NewCollectNotification {
-        notificationId
-        wallet {
-          address
-          defaultProfile {
+      ... on MirrorNotification {
+        id
+        mirrors {
+          mirrorId
+          profile {
             ...ProfileFields
           }
         }
-        collectedPublication {
-          ... on Post {
-            id
-          }
-          ... on Comment {
-            id
-          }
-        }
-        createdAt
-      }
-      ... on NewReactionNotification {
-        notificationId
-        profile {
-          ...ProfileFields
-        }
-        reaction
         publication {
-          ... on Comment {
-            id
-            mainPost {
-              ... on Post {
-                id
-              }
-            }
-          }
           ... on Post {
-            id
+            ...PostFields
+          }
+          ... on Comment {
+            ...CommentFields
+          }
+          ... on Quote {
+            ...QuoteFields
+          }
+        }
+      }
+      ... on QuoteNotification {
+        id
+        quote {
+          ...QuoteFields
+        }
+      }
+      ... on ActedNotification {
+        id
+        actions {
+          actedAt
+          by {
+            ...ProfileFields
+          }
+        }
+        publication {
+          ... on Post {
+            ...PostFields
+          }
+          ... on Comment {
+            ...CommentFields
           }
           ... on Mirror {
-            id
+            ...MirrorFields
           }
         }
-        createdAt
+      }
+      ... on FollowNotification {
+        id
+        followers {
+          ...ProfileFields
+        }
+      }
+      ... on MentionNotification {
+        id
+        publication {
+          ... on Post {
+            ...PostFields
+          }
+          ... on Comment {
+            ...CommentFields
+          }
+          ... on Quote {
+            ...QuoteFields
+          }
+        }
       }
     }
     pageInfo {

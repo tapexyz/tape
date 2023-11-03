@@ -4,7 +4,6 @@ import {
   TAPE_APP_DESCRIPTION,
   TAPE_APP_NAME
 } from '@tape.xyz/constants'
-import { trimLensHandle } from '@tape.xyz/generic'
 import getProfileMeta from 'lib/getProfileMeta'
 import getPublicationMeta from 'lib/getPublicationMeta'
 import type { NextApiRequest, NextApiResponse } from 'next'
@@ -20,14 +19,14 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     return res.status(400).json({ success: false })
   }
 
-  const isChannel = path.includes('/channel/')
+  const isProfile = path.includes('/u/')
   const isVideo = path.includes('/watch/')
   const isByte = path.includes('/bytes/')
 
   try {
-    if (isChannel) {
-      const handle = path.replace('/channel/', '')
-      return await getProfileMeta(res, trimLensHandle(handle, true))
+    if (isProfile) {
+      const handle = path.replace('/u/', '')
+      return await getProfileMeta(res, handle)
     }
 
     if (isVideo || isByte) {

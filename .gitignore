@@ -40,10 +40,6 @@ yarn-error.log*
 dist
 .gitsigners
 
-test-results/
-playwright-report/
-playwright/.cache/
-
 # cloudflare workers
 .dev.vars
-
+.wrangler

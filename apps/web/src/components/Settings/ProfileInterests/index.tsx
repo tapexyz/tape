@@ -1,4 +1,4 @@
-import { Trans } from '@lingui/macro'
+import MetaTags from '@components/Common/MetaTags'
 import { TAPE_APP_NAME } from '@tape.xyz/constants'
 import React from 'react'
 
@@ -6,11 +6,10 @@ import Topics from './Topics'
 
 const ProfileInterests = () => {
   return (
-    <div className="space-y-6 rounded-xl bg-white p-5 dark:bg-black">
-      <div className="mb-5">
-        <h1 className="mb-1 text-xl font-semibold">
-          <Trans>Interests</Trans>
-        </h1>
+    <div className="tape-border rounded-medium dark:bg-cod bg-white p-5">
+      <MetaTags title="Profile Interests" />
+      <div className="mb-5 space-y-2">
+        <h1 className="text-brand-400 text-xl font-bold">Interests</h1>
         <p className="text opacity-80">
           There is so much good content on {TAPE_APP_NAME}, it may be hard to
           find what's most relevant to you from time to time. That's where

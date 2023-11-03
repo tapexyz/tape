@@ -1,116 +1,61 @@
 import authLink from '@lib/authLink'
-import { loadLocale } from '@lib/i18n'
-import { i18n } from '@lingui/core'
-import { I18nProvider } from '@lingui/react'
 import { LivepeerConfig } from '@livepeer/react'
-import { connectorsForWallets } from '@rainbow-me/rainbowkit'
-import {
-  coinbaseWallet,
-  injectedWallet,
-  ledgerWallet,
-  metaMaskWallet,
-  rainbowWallet,
-  walletConnectWallet
-} from '@rainbow-me/rainbowkit/wallets'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { getLivepeerClient, videoPlayerTheme } from '@tape.xyz/browser'
-import { IS_MAINNET, TAPE_APP_NAME, WC_PROJECT_ID } from '@tape.xyz/constants'
 import { apolloClient, ApolloProvider } from '@tape.xyz/lens/apollo'
-import { ThemeProvider } from 'next-themes'
+import dynamic from 'next/dynamic'
+import { useRouter } from 'next/router'
 import type { ReactNode } from 'react'
-import React, { useEffect } from 'react'
-import { configureChains, createConfig, WagmiConfig } from 'wagmi'
-import {
-  base,
-  baseGoerli,
-  goerli,
-  mainnet,
-  optimism,
-  optimismGoerli,
-  polygon,
-  polygonMumbai,
-  zora,
-  zoraTestnet
-} from 'wagmi/chains'
-import { publicProvider } from 'wagmi/providers/public'
 
 import ErrorBoundary from '../ErrorBoundary'
-import RainbowKit from './RainbowKit'
+import ThemeProvider from './ThemeProvider'
 
-// TEMP: Duplicate to fix signTypedData_v4 issue. Remove once fixed on WC+WAGMI end.
-const preferredChains = [
-  IS_MAINNET ? polygon : polygonMumbai,
-  IS_MAINNET ? polygon : polygonMumbai,
-  mainnet,
-  goerli,
-  zora,
-  zoraTestnet,
-  optimism,
-  optimismGoerli,
-  base,
-  baseGoerli
+const SubscriptionProvider = dynamic(() => import('./SubscriptionProvider'))
+const Web3Provider = dynamic(() => import('./Web3Provider'))
+const GlobalDialogs = dynamic(() => import('../GlobalDialogs'))
+const Layout = dynamic(() => import('../Layout'))
+
+const NO_NAV_PATHS = ['/login']
+const NO_PADDING_PATHS = [
+  '/u/[[...handle]]',
+  '/profile/[id]',
+  '/login',
+  '/bytes',
+  '/bytes/[id]',
+  '/404',
+  '/500'
 ]
 
-const { chains, publicClient } = configureChains(preferredChains, [
-  publicProvider()
-])
-
-const connectors = connectorsForWallets([
-  {
-    groupName: 'Popular',
-    wallets: [
-      metaMaskWallet({ chains, projectId: WC_PROJECT_ID }),
-      rainbowWallet({ chains, projectId: WC_PROJECT_ID }),
-      ledgerWallet({ chains, projectId: WC_PROJECT_ID }),
-      coinbaseWallet({ appName: TAPE_APP_NAME, chains }),
-      walletConnectWallet({
-        chains,
-        projectId: WC_PROJECT_ID,
-        options: {
-          qrModalOptions: {
-            explorerExcludedWalletIds: 'ALL'
-          },
-          projectId: WC_PROJECT_ID
-        }
-      }),
-      injectedWallet({ chains, shimDisconnect: true })
-    ]
-  }
-])
-
-const queryClient = new QueryClient({
+const apolloQueryClient = apolloClient(authLink)
+const livepeerClient = getLivepeerClient()
+const reactQueryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnWindowFocus: false } }
 })
 
-const wagmiConfig = createConfig({
-  autoConnect: true,
-  connectors,
-  publicClient
-})
-
 const Providers = ({ children }: { children: ReactNode }) => {
-  useEffect(() => {
-    loadLocale()
-  }, [])
+  const { pathname } = useRouter()
 
   return (
-    <I18nProvider i18n={i18n}>
-      <ErrorBoundary>
-        <LivepeerConfig client={getLivepeerClient()} theme={videoPlayerTheme}>
-          <WagmiConfig config={wagmiConfig}>
-            <ThemeProvider defaultTheme="dark" attribute="class">
-              <RainbowKit chains={chains}>
-                <ApolloProvider client={apolloClient(authLink)}>
-                  <QueryClientProvider client={queryClient}>
-                    {children}
-                  </QueryClientProvider>
-                </ApolloProvider>
-              </RainbowKit>
+    <ErrorBoundary>
+      <Web3Provider>
+        <ApolloProvider client={apolloQueryClient}>
+          <QueryClientProvider client={reactQueryClient}>
+            <ThemeProvider>
+              <SubscriptionProvider />
+              <GlobalDialogs />
+              <LivepeerConfig client={livepeerClient} theme={videoPlayerTheme}>
+                <Layout
+                  skipNav={NO_NAV_PATHS.includes(pathname)}
+                  skipPadding={NO_PADDING_PATHS.includes(pathname)}
+                >
+                  {children}
+                </Layout>
+              </LivepeerConfig>
             </ThemeProvider>
-          </WagmiConfig>
-        </LivepeerConfig>
-      </ErrorBoundary>
-    </I18nProvider>
+          </QueryClientProvider>
+        </ApolloProvider>
+      </Web3Provider>
+    </ErrorBoundary>
   )
 }
 

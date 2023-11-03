@@ -1,11 +1,11 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { useNavigation } from '@react-navigation/native'
 import {
-  getPublicationHlsUrl,
+  getPublicationMediaUrl,
   getThumbnailUrl,
   imageCdn
 } from '@tape.xyz/generic'
-import type { Publication } from '@tape.xyz/lens'
+import type { PrimaryPublication } from '@tape.xyz/lens'
 import type { MobileThemeConfig } from '@tape.xyz/lens/custom-types'
 import { ResizeMode, Video } from 'expo-av'
 import type { FC } from 'react'
@@ -15,7 +15,7 @@ import { Pressable, StyleSheet, View } from 'react-native'
 import { useMobileTheme } from '~/hooks'
 
 type Props = {
-  video: Publication
+  video: PrimaryPublication
 }
 
 const styles = (themeConfig: MobileThemeConfig) =>
@@ -51,7 +51,7 @@ const VideoPlayer: FC<Props> = ({ video }) => {
         isLooping={false}
         resizeMode={ResizeMode.CONTAIN}
         source={{
-          uri: getPublicationHlsUrl(video)
+          uri: getPublicationMediaUrl(video.metadata)
         }}
         posterSource={{ uri: imageCdn(getThumbnailUrl(video, true)) }}
         style={{

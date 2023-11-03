@@ -1,0 +1,3 @@
+{
+  "extends": "@tape.xyz/config/base.tsconfig.json"
+}

@@ -1,84 +1,86 @@
-import { LENS_PERIPHERY_ABI } from '@abis/LensPeriphery'
+import ReportPublication from '@components/ReportPublication'
 import Confirm from '@components/UIElements/Confirm'
-import DropMenu from '@components/UIElements/DropMenu'
-import { Menu } from '@headlessui/react'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
-import { t, Trans } from '@lingui/macro'
-import { useConnectModal } from '@rainbow-me/rainbowkit'
-import { Analytics, TRACK } from '@tape.xyz/browser'
+import type { ProfileOptions } from '@lens-protocol/metadata'
+import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
+import useProfileStore from '@lib/store/profile'
+import { Dialog, DropdownMenu, Flex, IconButton, Text } from '@radix-ui/themes'
+import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   ERROR_MESSAGE,
-  LENS_PERIPHERY_ADDRESS,
+  LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
+  SIGN_IN_REQUIRED,
   TAPE_APP_ID
 } from '@tape.xyz/constants'
 import {
-  getChannelCoverPicture,
+  checkDispatcherPermissions,
+  EVENTS,
+  getIsIPFSUrl,
+  getMetadataCid,
+  getProfileCoverPicture,
+  getProfilePicture,
   getSignature,
   getValueFromKeyInAttributes,
+  logger,
+  Tower,
+  trimify,
   uploadToAr
 } from '@tape.xyz/generic'
 import type {
-  Attribute,
-  CreatePublicSetProfileMetadataUriRequest,
-  Publication
+  MirrorablePublication,
+  OnchainSetProfileMetadataRequest,
+  Profile
 } from '@tape.xyz/lens'
 import {
-  PublicationMetadataDisplayTypes,
+  useAddPublicationBookmarkMutation,
   useAddPublicationNotInterestedMutation,
-  useAddPublicationToBookmarkMutation,
-  useBroadcastMutation,
-  useCreateSetProfileMetadataTypedDataMutation,
-  useCreateSetProfileMetadataViaDispatcherMutation,
+  useBroadcastOnchainMutation,
+  useCreateOnchainSetProfileMetadataTypedDataMutation,
   useHidePublicationMutation,
-  useRemovePublicationFromBookmarkMutation,
-  useRemovePublicationNotInterestedMutation
+  useRemovePublicationBookmarkMutation,
+  useSetProfileMetadataMutation,
+  useUndoPublicationNotInterestedMutation
 } from '@tape.xyz/lens'
 import { useApolloClient } from '@tape.xyz/lens/apollo'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import clsx from 'clsx'
-import type { FC } from 'react'
+import type { FC, ReactNode } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
+import BookmarkOutline from '../Icons/BookmarkOutline'
+import ExternalOutline from '../Icons/ExternalOutline'
 import FlagOutline from '../Icons/FlagOutline'
 import ForbiddenOutline from '../Icons/ForbiddenOutline'
 import PinOutline from '../Icons/PinOutline'
-import SaveToListOutline from '../Icons/SaveToListOutline'
 import ShareOutline from '../Icons/ShareOutline'
 import ThreeDotsOutline from '../Icons/ThreeDotsOutline'
+import TimesOutline from '../Icons/TimesOutline'
 import TrashOutline from '../Icons/TrashOutline'
+import ArweaveExplorerLink from '../Links/ArweaveExplorerLink'
+import IPFSLink from '../Links/IPFSLink'
+import Share from './Share'
 
 type Props = {
-  video: Publication
-  setShowShare: React.Dispatch<boolean>
-  setShowReport: React.Dispatch<boolean>
-  showOnHover?: boolean
+  video: MirrorablePublication
+  children?: ReactNode
+  variant?: 'soft' | 'solid' | 'classic' | 'surface' | 'outline' | 'ghost'
 }
 
-const VideoOptions: FC<Props> = ({
-  video,
-  setShowShare,
-  setShowReport,
-  showOnHover = true
-}) => {
-  const { openConnectModal } = useConnectModal()
+const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
   const handleWrongNetwork = useHandleWrongNetwork()
   const [showConfirm, setShowConfirm] = useState(false)
 
   const { cache } = useApolloClient()
+  const activeProfile = useProfileStore((state) => state.activeProfile)
+  const { canUseLensManager, canBroadcast } =
+    checkDispatcherPermissions(activeProfile)
 
-  const activeChannel = useChannelStore((state) => state.activeChannel)
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
-  const isVideoOwner = activeChannel?.id === video?.profile?.id
+  const isVideoOwner = activeProfile?.id === video?.by?.id
   const pinnedVideoId = getValueFromKeyInAttributes(
-    activeChannel?.attributes,
+    activeProfile?.metadata?.attributes,
     'pinnedPublicationId'
   )
 
@@ -89,48 +91,42 @@ const VideoOptions: FC<Props> = ({
       cache.gc()
     },
     onCompleted: () => {
-      toast.success(t`Video deleted`)
-      Analytics.track(TRACK.PUBLICATION.DELETE, {
+      toast.success(`Video deleted`)
+      Tower.track(EVENTS.PUBLICATION.DELETE, {
         publication_type: video.__typename?.toLowerCase()
       })
     }
   })
 
-  const onHideVideo = () => {
-    hideVideo({ variables: { request: { publicationId: video?.id } } })
+  const onHideVideo = async () => {
+    await hideVideo({ variables: { request: { for: video?.id } } })
+    setShowConfirm(false)
   }
 
   const onClickReport = () => {
-    if (!selectedSimpleProfile?.id) {
-      return openConnectModal?.()
+    if (!activeProfile?.id) {
+      return toast.error(SIGN_IN_REQUIRED)
     }
     if (handleWrongNetwork()) {
       return
     }
-
-    setShowReport(true)
   }
-
-  const otherAttributes =
-    (activeChannel?.attributes as Attribute[])
-      ?.filter((attr) => !['pinnedPublicationId', 'app'].includes(attr.key))
-      .map(({ traitType, key, value, displayType }) => ({
-        traitType,
-        key,
-        value,
-        displayType
-      })) ?? []
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
   }
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
-    if (__typename === 'RelayError') {
+  const onCompleted = (
+    __typename?: 'RelayError' | 'RelaySuccess' | 'LensProfileManagerRelayError'
+  ) => {
+    if (
+      __typename === 'RelayError' ||
+      __typename === 'LensProfileManagerRelayError'
+    ) {
       return
     }
-    toast.success(t`Transaction submitted`)
-    Analytics.track(TRACK.PUBLICATION.PIN)
+    toast.success(`Transaction submitted`)
+    Tower.track(EVENTS.PUBLICATION.PIN)
   }
 
   const { signTypedDataAsync } = useSignTypedData({
@@ -138,109 +134,121 @@ const VideoOptions: FC<Props> = ({
   })
 
   const { write } = useContractWrite({
-    address: LENS_PERIPHERY_ADDRESS,
-    abi: LENS_PERIPHERY_ABI,
+    address: LENSHUB_PROXY_ADDRESS,
+    abi: LENSHUB_PROXY_ABI,
     functionName: 'setProfileMetadataURI',
     onError,
     onSuccess: () => onCompleted()
   })
 
-  const [broadcast] = useBroadcastMutation({
+  const [broadcast] = useBroadcastOnchainMutation({
     onError,
-    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
+    onCompleted: ({ broadcastOnchain }) =>
+      onCompleted(broadcastOnchain.__typename)
   })
 
-  const [createSetProfileMetadataViaDispatcher] =
-    useCreateSetProfileMetadataViaDispatcherMutation({
-      onError,
-      onCompleted: ({ createSetProfileMetadataViaDispatcher }) =>
-        onCompleted(createSetProfileMetadataViaDispatcher.__typename)
-    })
-
-  const [createSetProfileMetadataTypedData] =
-    useCreateSetProfileMetadataTypedDataMutation({
-      onCompleted: async (data) => {
-        const { typedData, id } = data.createSetProfileMetadataTypedData
+  const [createOnchainSetProfileMetadataTypedData] =
+    useCreateOnchainSetProfileMetadataTypedDataMutation({
+      onCompleted: async ({ createOnchainSetProfileMetadataTypedData }) => {
+        const { typedData, id } = createOnchainSetProfileMetadataTypedData
+        const { profileId, metadataURI } = typedData.value
         try {
           toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-          const signature = await signTypedDataAsync(getSignature(typedData))
-          const { data } = await broadcast({
-            variables: { request: { id, signature } }
-          })
-          if (data?.broadcast?.__typename === 'RelayError') {
-            const { profileId, metadata } = typedData.value
-            return write?.({ args: [profileId, metadata] })
+          if (canBroadcast) {
+            const signature = await signTypedDataAsync(getSignature(typedData))
+            const { data } = await broadcast({
+              variables: { request: { id, signature } }
+            })
+            if (data?.broadcastOnchain?.__typename === 'RelayError') {
+              return write({ args: [profileId, metadataURI] })
+            }
+            return
           }
+          return write({ args: [profileId, metadataURI] })
         } catch {}
       },
       onError
     })
 
-  const createTypedData = (
-    request: CreatePublicSetProfileMetadataUriRequest
-  ) => {
-    createSetProfileMetadataTypedData({
-      variables: { request }
-    })
-  }
+  const [setProfileMetadata] = useSetProfileMetadataMutation({
+    onCompleted: ({ setProfileMetadata }) =>
+      onCompleted(setProfileMetadata.__typename),
+    onError
+  })
 
-  const createViaDispatcher = async (
-    request: CreatePublicSetProfileMetadataUriRequest
-  ) => {
-    const { data } = await createSetProfileMetadataViaDispatcher({
-      variables: { request }
-    })
-    if (
-      data?.createSetProfileMetadataViaDispatcher.__typename === 'RelayError'
-    ) {
-      createTypedData(request)
-    }
-  }
+  const otherAttributes =
+    activeProfile?.metadata?.attributes
+      ?.filter((attr) => !['pinnedPublicationId', 'app'].includes(attr.key))
+      .map(({ key, value, type }) => ({
+        key,
+        value,
+        type: MetadataAttributeType[type] as any
+      })) ?? []
 
   const onPinVideo = async () => {
-    if (!activeChannel) {
-      return openConnectModal?.()
+    if (!activeProfile) {
+      return toast.error(SIGN_IN_REQUIRED)
     }
     if (handleWrongNetwork()) {
       return
     }
 
     try {
-      toast.loading(t`Pinning video...`)
-      const metadataUri = await uploadToAr({
-        version: '1.0.0',
-        metadata_id: uuidv4(),
-        name: activeChannel?.name ?? '',
-        bio: activeChannel?.bio ?? '',
-        cover_picture: getChannelCoverPicture(activeChannel),
+      toast.loading(`Pinning video...`)
+      const metadata: ProfileOptions = {
+        appId: TAPE_APP_ID,
+        coverPicture: getProfileCoverPicture(activeProfile),
+        id: uuidv4(),
+        ...(activeProfile?.metadata?.displayName && {
+          name: activeProfile?.metadata?.displayName
+        }),
+        ...(activeProfile?.metadata?.bio && {
+          bio: activeProfile?.metadata?.bio
+        }),
+        picture: getProfilePicture(activeProfile as Profile),
         attributes: [
           ...otherAttributes,
           {
-            displayType: PublicationMetadataDisplayTypes.String,
-            traitType: 'pinnedPublicationId',
+            type: MetadataAttributeType.STRING,
             key: 'pinnedPublicationId',
             value: video.id
           },
           {
-            displayType: PublicationMetadataDisplayTypes.String,
-            traitType: 'app',
+            type: MetadataAttributeType.STRING,
             key: 'app',
             value: TAPE_APP_ID
           }
         ]
+      }
+      metadata.attributes = metadata.attributes?.filter((m) =>
+        Boolean(trimify(m.value))
+      )
+      const metadataUri = await uploadToAr(profile(metadata))
+      const request: OnchainSetProfileMetadataRequest = {
+        metadataURI: metadataUri
+      }
+
+      if (canUseLensManager) {
+        const { data } = await setProfileMetadata({
+          variables: { request }
+        })
+        if (
+          data?.setProfileMetadata?.__typename ===
+          'LensProfileManagerRelayError'
+        ) {
+          return await createOnchainSetProfileMetadataTypedData({
+            variables: { request }
+          })
+        }
+        return
+      }
+
+      return createOnchainSetProfileMetadataTypedData({
+        variables: { request }
       })
-      const request = {
-        profileId: activeChannel?.id,
-        metadata: metadataUri
-      }
-      const canUseDispatcher =
-        activeChannel?.dispatcher?.canUseRelay &&
-        activeChannel.dispatcher.sponsor
-      if (!canUseDispatcher) {
-        return createTypedData(request)
-      }
-      createViaDispatcher(request)
-    } catch {}
+    } catch (error) {
+      logger.error('[On Pin Video]', error)
+    }
   }
 
   const modifyInterestCache = (notInterested: boolean) => {
@@ -250,21 +258,28 @@ const VideoOptions: FC<Props> = ({
     })
     toast.success(
       notInterested
-        ? t`Video marked as not interested`
-        : t`Video removed from not interested`
+        ? `Video marked as not interested`
+        : `Video removed from not interested`
     )
-    Analytics.track(TRACK.PUBLICATION.TOGGLE_INTEREST)
+    Tower.track(EVENTS.PUBLICATION.TOGGLE_INTEREST)
   }
 
   const modifyListCache = (saved: boolean) => {
     cache.modify({
       id: `Post:${video?.id}`,
-      fields: { bookmarked: () => saved }
+      fields: {
+        operations: () => {
+          return {
+            ...video.operations,
+            hasBookmarked: saved
+          }
+        }
+      }
     })
     toast.success(
-      saved ? t`Video added to your list` : t`Video removed from your list`
+      saved ? `Video added to your list` : `Video removed from your list`
     )
-    Analytics.track(TRACK.PUBLICATION.TOGGLE_INTEREST)
+    Tower.track(EVENTS.PUBLICATION.TOGGLE_INTEREST)
   }
 
   const [addNotInterested] = useAddPublicationNotInterestedMutation({
@@ -272,41 +287,38 @@ const VideoOptions: FC<Props> = ({
     onCompleted: () => modifyInterestCache(true)
   })
 
-  const [removeNotInterested] = useRemovePublicationNotInterestedMutation({
+  const [removeNotInterested] = useUndoPublicationNotInterestedMutation({
     onError,
     onCompleted: () => modifyInterestCache(false)
   })
 
-  const [saveVideoToList] = useAddPublicationToBookmarkMutation({
+  const [saveVideoToList] = useAddPublicationBookmarkMutation({
     onError,
     onCompleted: () => modifyListCache(true)
   })
 
-  const [removeVideoFromList] = useRemovePublicationFromBookmarkMutation({
+  const [removeVideoFromList] = useRemovePublicationBookmarkMutation({
     onError,
     onCompleted: () => modifyListCache(false)
   })
 
   const notInterested = () => {
-    if (!selectedSimpleProfile?.id) {
-      return openConnectModal?.()
+    if (!activeProfile?.id) {
+      return toast.error(SIGN_IN_REQUIRED)
     }
-
-    if (video.notInterested) {
-      removeNotInterested({
+    if (video.operations.isNotInterested) {
+      addNotInterested({
         variables: {
           request: {
-            profileId: selectedSimpleProfile?.id,
-            publicationId: video.id
+            on: video.id
           }
         }
       })
     } else {
-      addNotInterested({
+      removeNotInterested({
         variables: {
           request: {
-            profileId: selectedSimpleProfile?.id,
-            publicationId: video.id
+            on: video.id
           }
         }
       })
@@ -314,15 +326,14 @@ const VideoOptions: FC<Props> = ({
   }
 
   const saveToList = () => {
-    if (!selectedSimpleProfile?.id) {
-      return openConnectModal?.()
+    if (!activeProfile?.id) {
+      return toast.error(SIGN_IN_REQUIRED)
     }
-    if (video.bookmarked) {
+    if (video.operations.hasBookmarked) {
       removeVideoFromList({
         variables: {
           request: {
-            profileId: selectedSimpleProfile?.id,
-            publicationId: video.id
+            on: video.id
           }
         }
       })
@@ -330,8 +341,7 @@ const VideoOptions: FC<Props> = ({
       saveVideoToList({
         variables: {
           request: {
-            profileId: selectedSimpleProfile?.id,
-            publicationId: video.id
+            on: video.id
           }
         }
       })
@@ -345,103 +355,156 @@ const VideoOptions: FC<Props> = ({
         setShowConfirm={setShowConfirm}
         action={onHideVideo}
       />
-      <DropMenu
-        trigger={
-          <div
-            className={clsx(
-              'py-1 group-hover:visible dark:text-white md:text-inherit',
-              showOnHover && 'lg:invisible'
-            )}
-            role="button"
-          >
-            <ThreeDotsOutline className="h-3.5 w-3.5" />
-          </div>
-        }
-      >
-        <div className="bg-secondary mt-0.5 w-40 overflow-hidden rounded-xl border border-gray-200 p-1 shadow dark:border-gray-800">
-          <div className="flex flex-col rounded-lg text-sm transition duration-150 ease-in-out">
+      <DropdownMenu.Root>
+        <DropdownMenu.Trigger>
+          {children ?? (
+            <IconButton radius="full" variant={variant} highContrast size="2">
+              <ThreeDotsOutline className="h-3.5 w-3.5" />
+              <span className="sr-only">Video Options</span>
+            </IconButton>
+          )}
+        </DropdownMenu.Trigger>
+        <DropdownMenu.Content sideOffset={10} variant="soft" align="end">
+          <div className="flex w-40 flex-col transition duration-150 ease-in-out">
+            <Dialog.Root>
+              <Dialog.Trigger>
+                <button className="!cursor-default rounded-md px-3 py-1.5 hover:bg-gray-500/20">
+                  <Flex align="center" gap="2">
+                    <ShareOutline className="h-3.5 w-3.5" />
+                    <Text size="2" className="whitespace-nowrap">
+                      Share
+                    </Text>
+                  </Flex>
+                </button>
+              </Dialog.Trigger>
+
+              <Dialog.Content style={{ maxWidth: 450 }}>
+                <Flex justify="between" pb="5" align="center">
+                  <Dialog.Title mb="0">Share</Dialog.Title>
+                  <Dialog.Close>
+                    <IconButton variant="ghost" color="gray">
+                      <TimesOutline outlined={false} className="h-4 w-4" />
+                    </IconButton>
+                  </Dialog.Close>
+                </Flex>
+
+                <Share video={video} />
+              </Dialog.Content>
+            </Dialog.Root>
             {isVideoOwner && (
               <>
                 {pinnedVideoId !== video.id && (
-                  <Menu.Item
-                    as="button"
-                    className="flex items-center space-x-2 rounded-lg px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
+                  <DropdownMenu.Item
+                    disabled={!activeProfile?.id}
                     onClick={() => onPinVideo()}
                   >
-                    <PinOutline className="h-3.5 w-3.5" />
-                    <span className="whitespace-nowrap">
-                      <Trans>Pin Video</Trans>
-                    </span>
-                  </Menu.Item>
+                    <Flex align="center" gap="2">
+                      <PinOutline className="h-3.5 w-3.5" />
+                      <span className="whitespace-nowrap">Pin Video</span>
+                    </Flex>
+                  </DropdownMenu.Item>
                 )}
-                <Menu.Item
-                  as="button"
-                  className="inline-flex items-center space-x-2 rounded-lg px-3 py-1.5 text-red-500 opacity-100 hover:bg-red-100 dark:hover:bg-red-900"
+                <DropdownMenu.Item
+                  color="red"
                   onClick={() => setShowConfirm(true)}
                 >
-                  <TrashOutline className="h-3.5 w-3.5" />
-                  <span className="whitespace-nowrap">
-                    <Trans>Delete</Trans>
-                  </span>
-                </Menu.Item>
+                  <Flex align="center" gap="2">
+                    <TrashOutline className="h-3.5 w-3.5" />
+                    <span className="whitespace-nowrap">Delete</span>
+                  </Flex>
+                </DropdownMenu.Item>
               </>
             )}
-            <Menu.Item
-              as="button"
-              onClick={() => setShowShare(true)}
-              className="inline-flex items-center space-x-2 rounded-lg px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
-            >
-              <ShareOutline className="h-3.5 w-3.5" />
-              <span className="whitespace-nowrap">
-                <Trans>Share</Trans>
-              </span>
-            </Menu.Item>
 
             {!isVideoOwner && (
               <>
-                <Menu.Item
-                  as="button"
-                  onClick={() => onClickReport()}
-                  className="hhover:opacity-100 inline-flex items-center space-x-2 rounded-lg px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
-                >
-                  <FlagOutline className="h-3.5 w-3.5" />
-                  <span className="whitespace-nowrap">
-                    <Trans>Report</Trans>
-                  </span>
-                </Menu.Item>
-                <Menu.Item
-                  as="button"
+                <DropdownMenu.Item
+                  disabled={!activeProfile?.id}
                   onClick={() => saveToList()}
-                  className="inline-flex items-center space-x-2 rounded-lg px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
                 >
-                  <SaveToListOutline className="h-3.5 w-3.5 flex-none" />
-                  <span className="truncate whitespace-nowrap">
-                    {video.bookmarked ? (
-                      <Trans>Remove from List</Trans>
-                    ) : (
-                      <Trans>Save to List</Trans>
-                    )}
-                  </span>
-                </Menu.Item>
-                <Menu.Item
-                  as="button"
+                  <Flex align="center" gap="2">
+                    <BookmarkOutline className="h-3.5 w-3.5 flex-none" />
+                    <span className="truncate whitespace-nowrap">
+                      {video.operations.hasBookmarked ? 'Unsave' : 'Save'}
+                    </span>
+                  </Flex>
+                </DropdownMenu.Item>
+                <DropdownMenu.Item
+                  disabled={!activeProfile?.id}
                   onClick={() => notInterested()}
-                  className="inline-flex items-center space-x-2 rounded-lg px-3 py-1.5 hover:bg-gray-100 dark:hover:bg-gray-800"
                 >
-                  <ForbiddenOutline className="h-3.5 w-3.5" />
-                  <span className="whitespace-nowrap">
-                    {video.notInterested ? (
-                      <Trans>Undo Interest</Trans>
-                    ) : (
-                      <Trans>Not Interested</Trans>
-                    )}
-                  </span>
-                </Menu.Item>
+                  <Flex align="center" gap="2">
+                    <ForbiddenOutline className="h-3.5 w-3.5" />
+                    <span className="whitespace-nowrap">
+                      {video.operations.isNotInterested
+                        ? 'Interested'
+                        : 'Not Interested'}
+                    </span>
+                  </Flex>
+                </DropdownMenu.Item>
+                <Dialog.Root>
+                  <Dialog.Trigger disabled={!activeProfile?.id}>
+                    <button
+                      className="!cursor-default rounded-md px-3 py-1.5 hover:bg-gray-500/20"
+                      onClick={() => onClickReport()}
+                    >
+                      <Flex align="center" gap="2">
+                        <FlagOutline className="h-3.5 w-3.5" />
+                        <Text size="2" className="whitespace-nowrap">
+                          Report
+                        </Text>
+                      </Flex>
+                    </button>
+                  </Dialog.Trigger>
+
+                  <Dialog.Content style={{ maxWidth: 450 }}>
+                    <Dialog.Title>Report</Dialog.Title>
+                    <ReportPublication publication={video} />
+                  </Dialog.Content>
+                </Dialog.Root>
+
+                {getIsIPFSUrl(video.metadata.rawURI) ? (
+                  <IPFSLink hash={getMetadataCid(video)}>
+                    <DropdownMenu.Item
+                      onClick={() => Tower.track(EVENTS.CLICK_VIEW_METADATA)}
+                    >
+                      <Flex align="center" gap="2">
+                        <ExternalOutline className="h-3.5 w-3.5" />
+                        <span className="whitespace-nowrap">View metadata</span>
+                      </Flex>
+                    </DropdownMenu.Item>
+                  </IPFSLink>
+                ) : (
+                  <ArweaveExplorerLink txId={getMetadataCid(video)}>
+                    <DropdownMenu.Item
+                      onClick={() => Tower.track(EVENTS.CLICK_VIEW_METADATA)}
+                    >
+                      <Flex align="center" gap="2">
+                        <ExternalOutline className="h-3.5 w-3.5" />
+                        <span className="whitespace-nowrap">View metadata</span>
+                      </Flex>
+                    </DropdownMenu.Item>
+                  </ArweaveExplorerLink>
+                )}
+                {video.momoka?.proof && (
+                  <ArweaveExplorerLink
+                    txId={video.momoka?.proof?.replace('ar://', '')}
+                  >
+                    <DropdownMenu.Item
+                      onClick={() => Tower.track(EVENTS.CLICK_VIEW_PROOF)}
+                    >
+                      <Flex align="center" gap="2">
+                        <ExternalOutline className="h-3.5 w-3.5" />
+                        <span className="whitespace-nowrap">View proof</span>
+                      </Flex>
+                    </DropdownMenu.Item>
+                  </ArweaveExplorerLink>
+                )}
               </>
             )}
           </div>
-        </div>
-      </DropMenu>
+        </DropdownMenu.Content>
+      </DropdownMenu.Root>
     </>
   )
 }

@@ -19,7 +19,7 @@ export const getSecondsFromTime = (time: string) => {
 }
 
 export const getTimeFromSeconds = (seconds: string) => {
-  if (seconds === 'Infinity') {
+  if (seconds === 'Infinity' || !seconds) {
     return null
   }
   const parsed = parseFloat(seconds)
@@ -43,32 +43,4 @@ export const getAddedDaysFromToday = (days: number) => {
 
 export const getDateString = (timestamp: string) => {
   return dayjs(timestamp).format('dddd, MMMM D, YYYY h:mm A')
-}
-
-export const secondsToISO = (seconds: string | undefined) => {
-  const SECONDS_PER_SECOND = 1
-  const SECONDS_PER_MINUTE = 60
-  const SECONDS_PER_HOUR = 60 * SECONDS_PER_MINUTE
-  const SECONDS_PER_DAY = 24 * SECONDS_PER_HOUR
-
-  const designations = [
-    ['D', SECONDS_PER_DAY],
-    ['H', SECONDS_PER_HOUR],
-    ['M', SECONDS_PER_MINUTE],
-    ['S', SECONDS_PER_SECOND]
-  ]
-  let duration = 'P'
-  let remainder = seconds ? Number(seconds ?? 0) : 0
-
-  designations.forEach(([sign, seconds]) => {
-    const value = Math.floor(remainder / (seconds as number))
-    remainder = remainder % (seconds as number)
-    if (value) {
-      duration += `${value}${sign}`
-    }
-  })
-  if (duration == 'P') {
-    duration = 'P0S'
-  }
-  return duration // ex: P2M47S
 }

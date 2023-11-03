@@ -1,0 +1,6 @@
+fragment HandleInfoFields on HandleInfo {
+  id
+  fullHandle
+  localName
+  ownedBy
+}

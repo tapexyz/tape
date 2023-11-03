@@ -1,5 +1,5 @@
 import { getRelativeTime, trimNewLines } from '@lenstube/generic'
-import { type Publication, PublicationMainFocus } from '@lenstube/lens'
+import type { MirrorablePublication } from '@lenstube/lens'
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import type { FC } from 'react'
 import React, { memo } from 'react'
@@ -13,7 +13,7 @@ import RenderMarkdown from './markdown/RenderMarkdown'
 import UserProfile from './UserProfile'
 
 type Props = {
-  publication: Publication
+  publication: MirrorablePublication
 }
 
 const BORDER_RADIUS = 10
@@ -60,18 +60,24 @@ const RenderPublication: FC<Props> = ({ publication }) => {
   const { themeConfig } = useMobileTheme()
   const style = styles(themeConfig)
 
-  const media = publication.metadata?.media
+  const media =
+    publication.metadata.__typename !== 'TextOnlyMetadataV3' &&
+    publication.metadata.__typename !== 'StoryMetadataV3' &&
+    publication.metadata.__typename !== 'LegacyPublicationMetadata'
+      ? publication.metadata.attachments
+      : publication.metadata.conditionalMedia
+
   const isTextPost =
-    publication.metadata.mainContentFocus === PublicationMainFocus.TextOnly ||
-    publication.metadata.mainContentFocus === PublicationMainFocus.Article ||
-    publication.metadata.mainContentFocus === PublicationMainFocus.Link
+    publication.metadata.__typename === 'TextOnlyMetadataV3' ||
+    publication.metadata.__typename === 'ArticleMetadataV3' ||
+    publication.metadata.__typename === 'LinkMetadataV3'
 
   return (
     <Pressable style={{ gap: 15 }}>
       {Boolean(media?.length) && <ImageSlider images={media} />}
 
       <View>
-        {publication.metadata?.content && (
+        {publication.metadata?.marketplace?.description && (
           <View
             style={{
               backgroundColor: isTextPost
@@ -86,18 +92,18 @@ const RenderPublication: FC<Props> = ({ publication }) => {
           >
             {isTextPost ? (
               <RenderMarkdown
-                content={publication.metadata.content ?? ''}
+                content={publication.metadata?.marketplace?.description ?? ''}
                 textStyle={style.textContent}
               />
             ) : (
               <Text style={style.textContent} numberOfLines={3}>
-                {trimNewLines(publication.metadata.content)}
+                {trimNewLines(publication.metadata.marketplace?.description)}
               </Text>
             )}
           </View>
         )}
         <View style={style.otherInfoContainer}>
-          <UserProfile profile={publication.profile} size={15} radius={3} />
+          <UserProfile profile={publication.by} size={15} radius={3} />
           <Text
             style={{
               color: themeConfig.secondaryTextColor,
@@ -107,7 +113,7 @@ const RenderPublication: FC<Props> = ({ publication }) => {
             {'\u2B24'}
           </Text>
           <Text style={style.otherInfo}>
-            {publication.stats.totalUpvotes} likes
+            {publication.stats.reactions} likes
           </Text>
           <Text style={{ color: themeConfig.secondaryTextColor, fontSize: 3 }}>
             {'\u2B24'}

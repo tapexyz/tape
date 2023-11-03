@@ -1,12 +1,22 @@
+import type {
+  AudioMetadata,
+  LinkMetadata,
+  ProfileMetadata,
+  TextOnlyMetadata,
+  VideoMetadata
+} from '@lens-protocol/metadata'
 import { WORKER_IRYS_METADATA_UPLOAD_URL } from '@tape.xyz/constants'
-import type { PublicationMetadataV2Input } from '@tape.xyz/lens'
-import type { ProfileMetadata } from '@tape.xyz/lens/custom-types'
 import axios from 'axios'
 
 import { logger } from '../logger'
 
 export const uploadToAr = async (
-  data: PublicationMetadataV2Input | ProfileMetadata
+  data:
+    | VideoMetadata
+    | AudioMetadata
+    | ProfileMetadata
+    | TextOnlyMetadata
+    | LinkMetadata
 ): Promise<string> => {
   try {
     const response = await axios.post(WORKER_IRYS_METADATA_UPLOAD_URL, data)

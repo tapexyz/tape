@@ -4,9 +4,19 @@ import {
   TAPE_EMBED_URL,
   TAPE_WEBSITE_URL
 } from '@tape.xyz/constants'
-import { getThumbnailUrl, imageCdn, truncate } from '@tape.xyz/generic'
-import type { Publication } from '@tape.xyz/lens'
-import { PublicationDetailsDocument } from '@tape.xyz/lens'
+import {
+  getProfile,
+  getPublicationData,
+  getThumbnailUrl,
+  imageCdn,
+  truncate
+} from '@tape.xyz/generic'
+import type {
+  AnyPublication,
+  MirrorablePublication,
+  PublicationRequest
+} from '@tape.xyz/lens'
+import { PublicationDocument } from '@tape.xyz/lens'
 import { apolloClient } from '@tape.xyz/lens/apollo'
 
 const client = apolloClient()
@@ -14,24 +24,31 @@ const client = apolloClient()
 const getPublicationOembed = async (publicationId: string, format: string) => {
   try {
     const { data } = await client.query({
-      query: PublicationDetailsDocument,
-      variables: { request: { publicationId } }
+      query: PublicationDocument,
+      variables: {
+        request: { forId: publicationId } as PublicationRequest
+      }
     })
-    const publication = data?.publication as Publication
+    const publication = data?.publication as AnyPublication
     const video =
-      publication?.__typename === 'Mirror' ? publication.mirrorOf : publication
+      publication?.__typename === 'Mirror'
+        ? publication.mirrorOn
+        : (publication as MirrorablePublication)
 
-    const title = truncate(video?.metadata?.name as string, 100).replaceAll(
-      '"',
-      "'"
+    const title = truncate(
+      getPublicationData(video.metadata)?.title as string,
+      100
+    ).replaceAll('"', "'")
+    const thumbnail = imageCdn(
+      getThumbnailUrl(video.metadata) || OG_IMAGE,
+      'THUMBNAIL'
     )
-    const thumbnail = imageCdn(getThumbnailUrl(video) || OG_IMAGE, 'THUMBNAIL')
 
     if (format === 'json') {
       return {
         title,
-        author_name: video.profile?.handle,
-        author_url: `${TAPE_WEBSITE_URL}/channel/${video.profile?.handle}`,
+        author_name: getProfile(video.by)?.slug,
+        author_url: `${TAPE_WEBSITE_URL}/u/${getProfile(video.by)?.slug}`,
         type: 'video',
         height: 113,
         width: 200,
@@ -47,8 +64,9 @@ const getPublicationOembed = async (publicationId: string, format: string) => {
     if (format === 'xml') {
       return `<oembed>
               <title>${title}</title>
-              <author_name>${video.profile?.handle}</author_name>
-              <author_url>${TAPE_WEBSITE_URL}/channel/${video.profile?.handle}</author_url>
+              <author_name>${getProfile(video.by)?.slug}</author_name>
+              <author_url>${TAPE_WEBSITE_URL}/u/${getProfile(video.by)
+                ?.slug}</author_url>
               <type>video</type>
               <height>113</height>
               <width>200</width>
@@ -59,7 +77,9 @@ const getPublicationOembed = async (publicationId: string, format: string) => {
               <thumbnail_width>480</thumbnail_width>
               <thumbnail_url>${thumbnail}</thumbnail_url>
               <html>
-                <iframe width="200" height="113" src="${TAPE_EMBED_URL}/${video.id}" title="${TAPE_APP_NAME} video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;" allowfullscreen="true"></iframe>
+                <iframe width="200" height="113" src="${TAPE_EMBED_URL}/${
+                  video.id
+                }" title="${TAPE_APP_NAME} video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;" allowfullscreen="true"></iframe>
               </html>
               </oembed>`
     }

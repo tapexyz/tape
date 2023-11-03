@@ -22,20 +22,20 @@ export const MISUSED_CHANNELS: {
     id: '0xd3a4',
     type: MisuseType.Impersonated,
     description:
-      'Original account owner has established a new channel: @lufo.lens'
+      'Original account owner has established a new profile: @lens/@lufo'
   },
   {
     // web3academy.lens
     id: '0x661b',
     type: MisuseType.Impersonated,
     description:
-      'Original account owner has established a new channel: @web3academy_.lens'
+      'Original account owner has established a new profile: @lens/@web3academy_'
   },
   {
     // xmtp_.lens
     id: '0xc358',
     type: MisuseType.TrademarkViolation,
-    description: 'Original account is @xmtplabs.lens'
+    description: 'Original account is @lens/@xmtplabs.lens'
   },
   {
     // safewallet.lens

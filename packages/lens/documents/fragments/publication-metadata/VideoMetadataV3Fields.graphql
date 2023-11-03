@@ -1,0 +1,19 @@
+fragment VideoMetadataV3Fields on VideoMetadataV3 {
+  id
+  rawURI
+  tags
+  contentWarning
+  appId
+  attributes {
+    ...MetadataAttributeFields
+  }
+  asset {
+    ...PublicationMetadataMediaVideoFields
+  }
+  attachments {
+    ...PublicationMetadataMediaFields
+  }
+  title
+  content
+  isShortVideo
+}

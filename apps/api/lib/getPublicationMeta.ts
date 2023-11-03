@@ -4,9 +4,18 @@ import {
   TAPE_APP_DESCRIPTION,
   TAPE_APP_NAME
 } from '@tape.xyz/constants'
-import { getThumbnailUrl, imageCdn, truncate } from '@tape.xyz/generic'
-import type { Publication } from '@tape.xyz/lens'
-import { PublicationDetailsDocument } from '@tape.xyz/lens'
+import {
+  getPublicationData,
+  getThumbnailUrl,
+  imageCdn,
+  truncate
+} from '@tape.xyz/generic'
+import type {
+  AnyPublication,
+  MirrorablePublication,
+  PublicationRequest
+} from '@tape.xyz/lens'
+import { PublicationDocument } from '@tape.xyz/lens'
 import { apolloClient } from '@tape.xyz/lens/apollo'
 import type { NextApiResponse } from 'next'
 
@@ -18,17 +27,30 @@ const getPublicationMeta = async (
 ) => {
   try {
     const { data } = await client.query({
-      query: PublicationDetailsDocument,
-      variables: { request: { publicationId } }
+      query: PublicationDocument,
+      variables: {
+        request: { forId: publicationId } as PublicationRequest
+      }
     })
 
-    const publication = data?.publication as Publication
+    const publication = data?.publication as AnyPublication
     const video =
-      publication?.__typename === 'Mirror' ? publication.mirrorOf : publication
+      publication?.__typename === 'Mirror'
+        ? publication.mirrorOn
+        : (publication as MirrorablePublication)
 
-    const title = truncate(video?.metadata?.name as string, 100)
-    const description = truncate(video?.metadata?.description as string, 100)
-    const thumbnail = imageCdn(getThumbnailUrl(video) || OG_IMAGE, 'THUMBNAIL')
+    const title = truncate(
+      getPublicationData(video.metadata)?.title as string,
+      100
+    )
+    const description = truncate(
+      getPublicationData(video.metadata)?.content as string,
+      100
+    )
+    const thumbnail = imageCdn(
+      getThumbnailUrl(video.metadata) || OG_IMAGE,
+      'THUMBNAIL'
+    )
 
     return res
       .setHeader('Content-Type', 'text/html')

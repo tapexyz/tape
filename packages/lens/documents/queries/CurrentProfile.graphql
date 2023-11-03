@@ -1,0 +1,8 @@
+query CurrentProfile($request: ProfileRequest!) {
+  profile(request: $request) {
+    ...ProfileFields
+  }
+  userSigNonces {
+    lensHubOnchainSigNonce
+  }
+}

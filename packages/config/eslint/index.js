@@ -22,7 +22,6 @@ module.exports = {
     'react/prop-types': 'off',
     'react/no-unescaped-entities': 'off',
     'react/jsx-no-useless-fragment': 2,
-    'react/react-in-jsx-scope': 'error',
     'no-use-before-define': ['error'],
     'no-unused-vars': 'off',
     'unused-imports/no-unused-imports': 'error',

@@ -1,7 +1,11 @@
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { getProfilePicture, trimLensHandle } from '@tape.xyz/generic'
-import type { Profile } from '@tape.xyz/lens'
-import { useAllProfilesQuery } from '@tape.xyz/lens'
+import { getProfile, getProfilePicture } from '@tape.xyz/generic'
+import {
+  LimitType,
+  type Profile,
+  type ProfilesRequest,
+  useProfilesQuery
+} from '@tape.xyz/lens'
 import { Loader } from '@tape.xyz/ui'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -16,9 +20,14 @@ type Props = {
 }
 
 const MirroredList: FC<Props> = ({ videoId }) => {
-  const request = { whoMirroredPublicationId: videoId, limit: 30 }
+  const request: ProfilesRequest = {
+    where: {
+      whoMirroredPublication: videoId
+    },
+    limit: LimitType.Fifty
+  }
 
-  const { data, loading, fetchMore } = useAllProfilesQuery({
+  const { data, loading, fetchMore } = useProfilesQuery({
     variables: {
       request
     },
@@ -55,26 +64,26 @@ const MirroredList: FC<Props> = ({ videoId }) => {
   return (
     <div className="mt-2 space-y-3">
       {mirroredByProfiles?.map((profile: Profile) => (
-        <div className="flex flex-col" key={profile.ownedBy}>
+        <div className="flex flex-col" key={getProfile(profile)?.slug}>
           <Link
-            href={`/channel/${trimLensHandle(profile?.handle)}`}
+            href={`/u/${getProfile(profile)?.slug}`}
             className="font-base flex items-center justify-between"
           >
             <div className="flex items-center space-x-1.5">
               <img
                 className="h-5 w-5 rounded-full"
                 src={getProfilePicture(profile, 'AVATAR')}
-                alt={profile.handle}
+                alt={getProfile(profile)?.slug}
                 draggable={false}
               />
               <div className="flex items-center space-x-1">
-                <span>{trimLensHandle(profile?.handle)}</span>
+                <span>{getProfile(profile)?.slug}</span>
                 <Badge id={profile?.id} size="xs" />
               </div>
             </div>
             <div className="flex items-center space-x-1 whitespace-nowrap text-xs opacity-80">
               <UserOutline className="h-2.5 w-2.5 opacity-60" />
-              <span>{profile.stats.totalFollowers}</span>
+              <span>{profile.stats.followers}</span>
             </div>
           </Link>
         </div>

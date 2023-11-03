@@ -4,7 +4,6 @@ import {
   TAPE_API_URL,
   TAPE_APP_DESCRIPTION,
   TAPE_APP_NAME,
-  TAPE_EMBED_URL,
   TAPE_X_HANDLE
 } from '@tape.xyz/constants'
 import Head from 'next/head'
@@ -14,18 +13,16 @@ import React from 'react'
 
 type Props = {
   title?: string
-  description?: string
-  image?: string
 }
 
 const MetaTags: FC<Props> = (props) => {
-  const { description, title, image } = props
   const router = useRouter()
+  const { title } = props
 
   const meta = {
-    title: title ?? TAPE_APP_NAME,
-    description: description ?? TAPE_APP_DESCRIPTION,
-    image: image ?? OG_IMAGE,
+    title: title ? `${title} • ${TAPE_APP_NAME}` : TAPE_APP_NAME,
+    description: TAPE_APP_DESCRIPTION,
+    image: OG_IMAGE,
     type: 'website'
   }
 
@@ -36,7 +33,7 @@ const MetaTags: FC<Props> = (props) => {
       <meta content={meta.description} name="description" />
       <meta
         name="viewport"
-        content="width=device-width, initial-scale=1, maximum-scale=5, viewport-fit=cover"
+        content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, maximum-scale=5, viewport-fit=cover"
       />
       <link rel="canonical" href={`https://tape.xyz${router.asPath}`} />
       <meta property="og:url" content={`https://tape.xyz${router.asPath}`} />
@@ -57,12 +54,6 @@ const MetaTags: FC<Props> = (props) => {
       <meta property="twitter:creator" content={TAPE_X_HANDLE} />
       {router.pathname === '/watch/[id]' && router.query?.id && (
         <>
-          <link
-            rel="iframely player"
-            type="text/html"
-            href={`${TAPE_EMBED_URL}/${router.query?.id}`}
-            media="(aspect-ratio: 1280/720)"
-          />
           <link
             rel="alternate"
             type="text/xml+oembed"

@@ -4,7 +4,7 @@ import {
   imageCdn,
   trimify
 } from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
+import type { MirrorablePublication } from '@lenstube/lens'
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
@@ -61,7 +61,7 @@ const styles = (themeConfig: MobileThemeConfig) =>
   })
 
 type Props = {
-  audio: Publication
+  audio: MirrorablePublication
 }
 
 const Item: FC<Props> = ({ audio }) => {
@@ -78,14 +78,14 @@ const Item: FC<Props> = ({ audio }) => {
         }}
       >
         <Text numberOfLines={1} style={style.title}>
-          {trimify(audio.metadata.name ?? '')}
+          {trimify(audio.metadata.marketplace?.name ?? '')}
         </Text>
         <View style={style.otherInfoContainer}>
-          <UserProfile profile={audio.profile} size={15} radius={3} />
+          <UserProfile profile={audio.by} size={15} radius={3} />
           <Text style={{ color: themeConfig.secondaryTextColor, fontSize: 3 }}>
             {'\u2B24'}
           </Text>
-          <Text style={style.otherInfo}>{audio.stats.totalUpvotes} likes</Text>
+          <Text style={style.otherInfo}>{audio.stats.reactions} likes</Text>
           <Text style={{ color: themeConfig.secondaryTextColor, fontSize: 3 }}>
             {'\u2B24'}
           </Text>

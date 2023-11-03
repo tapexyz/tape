@@ -1,11 +1,15 @@
 import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@lenstube/constants'
 import { getThumbnailUrl, imageCdn, trimify } from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
+import type {
+  ExplorePublicationRequest,
+  MirrorablePublication
+} from '@lenstube/lens'
 import {
-  PublicationMainFocus,
-  PublicationSortCriteria,
-  PublicationTypes,
-  useExploreQuery
+  ExplorePublicationsOrderByType,
+  ExplorePublicationType,
+  LimitType,
+  PublicationMetadataMainFocusType,
+  useExplorePublicationsQuery
 } from '@lenstube/lens'
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { useNavigation } from '@react-navigation/native'
@@ -92,23 +96,28 @@ const PopularVideos = () => {
   )
   const homeGradientColor = useMobileStore((state) => state.homeGradientColor)
 
-  const request = {
-    publicationTypes: [PublicationTypes.Post],
-    limit: 5,
-    sortCriteria: PublicationSortCriteria.TopCollected,
-    customFilters: LENS_CUSTOM_FILTERS,
-    metadata: {
-      mainContentFocus: [PublicationMainFocus.Audio, PublicationMainFocus.Video]
+  const request: ExplorePublicationRequest = {
+    limit: LimitType.TwentyFive,
+    orderBy: ExplorePublicationsOrderByType.TopCollectedOpenAction,
+    where: {
+      publicationTypes: [ExplorePublicationType.Post],
+      customFilters: LENS_CUSTOM_FILTERS,
+      metadata: {
+        mainContentFocus: [
+          PublicationMetadataMainFocusType.Audio,
+          PublicationMetadataMainFocusType.Video
+        ]
+      }
     }
   }
 
-  const { data, loading, error } = useExploreQuery({
+  const { data, loading, error } = useExplorePublicationsQuery({
     variables: {
-      request,
-      channelId: selectedProfile?.id ?? null
+      request
     }
   })
-  const publications = data?.explorePublications?.items as Publication[]
+  const publications = data?.explorePublications
+    ?.items as MirrorablePublication[]
 
   if (error || !publications?.length) {
     return <ServerError />
@@ -127,8 +136,8 @@ const PopularVideos = () => {
             height={CAROUSEL_HEIGHT}
             borderRadius={BORDER_RADIUS}
             data={publications}
-            renderItem={({ item }: { item: Publication }) => {
-              const isBytes = item.appId === LENSTUBE_BYTES_APP_ID
+            renderItem={({ item }: { item: MirrorablePublication }) => {
+              const isBytes = item.publishedOn?.id === LENSTUBE_BYTES_APP_ID
               const thumbnailUrl = imageCdn(
                 getThumbnailUrl(item, true),
                 isBytes ? 'THUMBNAIL_V' : 'THUMBNAIL'
@@ -150,13 +159,9 @@ const PopularVideos = () => {
                       style={style.gradient}
                     >
                       <Text numberOfLines={1} style={style.title}>
-                        {trimify(item.metadata.name ?? '')}
+                        {trimify(item.metadata.marketplace?.name ?? '')}
                       </Text>
-                      <UserProfile
-                        profile={item.profile}
-                        size={15}
-                        radius={3}
-                      />
+                      <UserProfile profile={item.by} size={15} radius={3} />
                     </LinearGradient>
                     <ExpoImage
                       source={{

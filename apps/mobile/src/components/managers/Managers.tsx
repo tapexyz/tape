@@ -1,7 +1,7 @@
 import { LENSTUBE_ADDRESS } from '@lenstube/constants'
 import { getRandomProfilePicture, shortenAddress } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
-import { useAllProfilesQuery } from '@lenstube/lens'
+import { useProfilesQuery } from '@lenstube/lens'
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { FlashList } from '@shopify/flash-list'
 import { Image as ExpoImage } from 'expo-image'
@@ -130,10 +130,12 @@ const Managers = () => {
     (state) => state.selectedProfile
   )
 
-  const { data } = useAllProfilesQuery({
+  const { data } = useProfilesQuery({
     variables: {
       request: {
-        ownedBy: [selectedProfile?.ownedBy]
+        where: {
+          ownedBy: [selectedProfile?.ownedBy]
+        }
       }
     }
   })

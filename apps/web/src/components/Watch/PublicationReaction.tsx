@@ -1,13 +1,12 @@
-import DislikeOutline from '@components/Common/Icons/DislikeOutline'
-import LikeOutline from '@components/Common/Icons/LikeOutline'
-import useAuthPersistStore from '@lib/store/auth'
-import { t, Trans } from '@lingui/macro'
-import { useConnectModal } from '@rainbow-me/rainbowkit'
-import { Analytics, TRACK } from '@tape.xyz/browser'
-import { formatNumber } from '@tape.xyz/generic'
-import type { Publication } from '@tape.xyz/lens'
+import HeartFilled from '@components/Common/Icons/HeartFilled'
+import HeartOutline from '@components/Common/Icons/HeartOutline'
+import useProfileStore from '@lib/store/profile'
+import { Button } from '@radix-ui/themes'
+import { SIGN_IN_REQUIRED } from '@tape.xyz/constants'
+import { EVENTS, formatNumber, getPublication, Tower } from '@tape.xyz/generic'
+import type { AnyPublication } from '@tape.xyz/lens'
 import {
-  ReactionTypes,
+  PublicationReactionType,
   useAddReactionMutation,
   useRemoveReactionMutation
 } from '@tape.xyz/lens'
@@ -17,11 +16,14 @@ import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 
 type Props = {
-  publication: Publication
+  publication: AnyPublication
   iconSize?: 'sm' | 'base' | 'lg'
-  textSize?: 'sm' | 'base'
+  textSize?: 'sm' | 'inherit'
   isVertical?: boolean
   showLabel?: boolean
+  className?: string
+  variant?: 'ghost' | 'surface' | 'soft'
+  color?: 'blue' | 'crimson'
 }
 
 const PublicationReaction: FC<Props> = ({
@@ -29,18 +31,18 @@ const PublicationReaction: FC<Props> = ({
   iconSize = 'sm',
   textSize = 'sm',
   isVertical = false,
-  showLabel = true
+  showLabel = true,
+  variant = 'ghost',
+  className,
+  color
 }) => {
-  const { openConnectModal } = useConnectModal()
+  const targetPublication = getPublication(publication)
 
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
+  const { activeProfile } = useProfileStore()
 
   const [reaction, setReaction] = useState({
-    isLiked: publication.reaction === 'UPVOTE',
-    isDisliked: publication.reaction === 'DOWNVOTE',
-    likeCount: publication.stats?.totalUpvotes
+    isLiked: targetPublication.operations.hasReacted,
+    likeCount: targetPublication.stats?.reactions
   })
 
   const [addReaction] = useAddReactionMutation({
@@ -55,22 +57,19 @@ const PublicationReaction: FC<Props> = ({
   })
 
   const likeVideo = () => {
-    if (!selectedSimpleProfile?.id) {
-      return openConnectModal?.()
+    if (!activeProfile?.id) {
+      return toast.error(SIGN_IN_REQUIRED)
     }
-    Analytics.track(TRACK.PUBLICATION.LIKE)
     setReaction((prev) => ({
       likeCount: prev.isLiked ? prev.likeCount - 1 : prev.likeCount + 1,
-      isLiked: !prev.isLiked,
-      isDisliked: false
+      isLiked: !prev.isLiked
     }))
     if (reaction.isLiked) {
       removeReaction({
         variables: {
           request: {
-            profileId: selectedSimpleProfile?.id,
-            reaction: ReactionTypes.Upvote,
-            publicationId: publication.id
+            for: publication.id,
+            reaction: PublicationReactionType.Upvote
           }
         }
       })
@@ -78,126 +77,62 @@ const PublicationReaction: FC<Props> = ({
       addReaction({
         variables: {
           request: {
-            profileId: selectedSimpleProfile?.id,
-            reaction: ReactionTypes.Upvote,
-            publicationId: publication.id
+            for: publication.id,
+            reaction: PublicationReactionType.Upvote
           }
         }
       })
-    }
-  }
-
-  const dislikeVideo = () => {
-    if (!selectedSimpleProfile?.id) {
-      return openConnectModal?.()
-    }
-    Analytics.track(TRACK.PUBLICATION.DISLIKE)
-    setReaction((prev) => ({
-      likeCount: prev.isLiked ? prev.likeCount - 1 : prev.likeCount,
-      isLiked: false,
-      isDisliked: !prev.isDisliked
-    }))
-    if (reaction.isDisliked) {
-      removeReaction({
-        variables: {
-          request: {
-            profileId: selectedSimpleProfile?.id,
-            reaction: ReactionTypes.Downvote,
-            publicationId: publication.id
-          }
-        }
-      })
-    } else {
-      addReaction({
-        variables: {
-          request: {
-            profileId: selectedSimpleProfile?.id,
-            reaction: ReactionTypes.Downvote,
-            publicationId: publication.id
-          }
-        }
-      })
+      Tower.track(EVENTS.PUBLICATION.LIKE)
     }
   }
 
   return (
-    <div
-      className={clsx(
-        'flex items-center justify-end',
-        isVertical ? 'flex-col space-y-2.5 px-3 md:space-y-4' : 'space-x-5'
-      )}
+    <Button
+      variant={variant}
+      color={color}
+      className={className}
+      highContrast
+      onClick={() => likeVideo()}
     >
-      <button
-        className="focus:outline-none disabled:opacity-50"
-        onClick={() => likeVideo()}
+      <span
+        className={clsx(
+          'flex items-center focus:outline-none',
+          isVertical ? 'flex-col space-y-1' : 'space-x-1',
+          {
+            'text-red-500': reaction.isLiked
+          }
+        )}
       >
-        <span
-          className={clsx(
-            'flex items-center focus:outline-none',
-            isVertical ? 'flex-col space-y-2' : 'space-x-1.5',
-            {
-              'text-brand-500 font-semibold': reaction.isLiked
-            }
-          )}
-        >
-          <LikeOutline
+        {reaction.isLiked ? (
+          <HeartFilled
             className={clsx({
               'h-3.5 w-3.5': iconSize === 'sm',
               'h-6 w-6': iconSize === 'lg',
-              'h-4 w-4': iconSize === 'base',
-              'text-brand-500': reaction.isLiked
+              'h-4 w-4': iconSize === 'base'
             })}
           />
-          {showLabel && (
-            <span
-              className={clsx({
-                'text-xs': textSize === 'sm',
-                'text-base': textSize === 'base',
-                'text-brand-500': reaction.isLiked
-              })}
-            >
-              {reaction.likeCount > 0
-                ? formatNumber(reaction.likeCount)
-                : t`Like`}
-            </span>
-          )}
-        </span>
-      </button>
-      <button
-        className="focus:outline-none disabled:opacity-50"
-        onClick={() => dislikeVideo()}
-      >
-        <span
-          className={clsx(
-            'flex items-center focus:outline-none',
-            isVertical ? 'flex-col space-y-2' : 'space-x-1.5',
-            {
-              'text-brand-500': reaction.isDisliked
-            }
-          )}
-        >
-          <DislikeOutline
+        ) : (
+          <HeartOutline
             className={clsx({
               'h-3.5 w-3.5': iconSize === 'sm',
               'h-6 w-6': iconSize === 'lg',
-              'h-4 w-4': iconSize === 'base',
-              'text-brand-500': reaction.isDisliked
+              'h-4 w-4': iconSize === 'base'
             })}
           />
-          {showLabel && (
-            <span
-              className={clsx({
-                'text-xs': textSize === 'sm',
-                'text-base': textSize === 'base',
-                'text-brand-500': reaction.isDisliked
-              })}
-            >
-              <Trans>Dislike</Trans>
-            </span>
-          )}
-        </span>
-      </button>
-    </div>
+        )}
+        {showLabel && (
+          <span
+            className={clsx({
+              'text-xs': textSize === 'sm',
+              'text-inherit': textSize === 'inherit',
+              'text-red-400': reaction.isLiked
+            })}
+          >
+            {reaction.likeCount > 0 ? formatNumber(reaction.likeCount) : 'Like'}
+          </span>
+        )}
+      </span>
+    </Button>
   )
 }
 

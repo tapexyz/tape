@@ -1,5 +1,5 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
-import { PublicationMainFocus } from '@lenstube/lens'
+import { PublicationMetadataMainFocusType } from '@lenstube/lens'
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import * as DocumentPicker from 'expo-document-picker'
 import { Image as ExpoImage } from 'expo-image'
@@ -87,13 +87,13 @@ const Attachments = () => {
   }
 
   const openPicker = () => {
-    if (mainFocus === PublicationMainFocus.Video) {
+    if (mainFocus === PublicationMetadataMainFocusType.Video) {
       return openMediaPicker(ImagePicker.MediaTypeOptions.Videos)
     }
-    if (mainFocus === PublicationMainFocus.Image) {
+    if (mainFocus === PublicationMetadataMainFocusType.Image) {
       return openMediaPicker(ImagePicker.MediaTypeOptions.Images)
     }
-    if (mainFocus === PublicationMainFocus.Audio) {
+    if (mainFocus === PublicationMetadataMainFocusType.Audio) {
       openDocumentPicker()
     }
   }

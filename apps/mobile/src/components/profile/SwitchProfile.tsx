@@ -7,7 +7,7 @@ import {
   trimLensHandle
 } from '@lenstube/generic'
 import type { Profile } from '@lenstube/lens'
-import { useAllProfilesQuery } from '@lenstube/lens'
+import { useProfilesQuery } from '@lenstube/lens'
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { Image as ExpoImage } from 'expo-image'
 import { Skeleton } from 'moti/skeleton'
@@ -73,9 +73,13 @@ const SwitchProfile = () => {
     (state) => state.setSelectedProfile
   )
 
-  const { data, loading, error } = useAllProfilesQuery({
+  const { data, loading, error } = useProfilesQuery({
     variables: {
-      request: { ownedBy: [selectedProfile?.ownedBy] }
+      request: {
+        where: {
+          ownedBy: [selectedProfile?.ownedBy]
+        }
+      }
     }
   })
 
@@ -126,11 +130,10 @@ const SwitchProfile = () => {
               setSelectedProfile({
                 handle: profile.handle,
                 id: profile.id,
-                isDefault: profile.isDefault,
                 ownedBy: profile.ownedBy,
                 stats: profile.stats,
-                dispatcher: profile.dispatcher,
-                picture: profile.picture
+                sponsor: profile.sponsor,
+                metadata: profile.metadata
               })
             }}
           >
@@ -147,7 +150,7 @@ const SwitchProfile = () => {
                 {trimLensHandle(profile.handle)}
               </Text>
               <Text style={style.otherInfo}>
-                {formatNumber(profile.stats.totalFollowers)} followers
+                {formatNumber(profile.stats.followers)} followers
               </Text>
             </View>
           </AnimatedPressable>

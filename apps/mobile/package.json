@@ -10,13 +10,13 @@
     "ios": "expo mobile:start --ios",
     "web": "expo mobile:start --web",
     "devtools": "react-devtools",
-    "lint": "eslint . --ext .js,.ts,.tsx",
+    "mobile:lint": "eslint . --ext .js,.ts,.tsx",
     "eas:build:internal": "eas build --profile preview --platform ios --local"
   },
   "dependencies": {
     "@gorhom/bottom-sheet": "^4.4.7",
     "@hookform/resolvers": "^3.3.2",
-    "@livepeer/react-native": "^2.0.1",
+    "@livepeer/react-native": "^2.0.2",
     "@react-native-async-storage/async-storage": "1.19.3",
     "@react-native-community/netinfo": "9.3.10",
     "@react-navigation/bottom-tabs": "^6.5.7",
@@ -62,9 +62,9 @@
     "react-native-view-shot": "3.7.0",
     "swr": "^2.2.4",
     "uuid": "^3.4.0",
-    "viem": "^1.17.1",
+    "viem": "^1.18.4",
     "zod": "^3.22.2",
-    "zustand": "^4.4.4"
+    "zustand": "^4.4.6"
   },
   "devDependencies": {
     "@babel/core": "^7.22.11",
@@ -78,7 +78,7 @@
     "@tape.xyz/config": "*",
     "@tape.xyz/generic": "*",
     "@tape.xyz/lens": "*",
-    "@types/node": "20.8.9",
+    "@types/node": "20.8.10",
     "@types/qrcode": "^1.5.4",
     "@welldone-software/why-did-you-render": "^7.0.1",
     "babel-plugin-module-resolver": "^5.0.0",

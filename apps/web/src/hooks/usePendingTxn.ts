@@ -1,5 +1,8 @@
-import { useHasTxHashBeenIndexedQuery } from '@tape.xyz/lens'
-import { useCallback, useEffect } from 'react'
+import {
+  LensTransactionStatusType,
+  useLensTransactionStatusQuery
+} from '@tape.xyz/lens'
+import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 
 type Props = {
@@ -8,43 +11,41 @@ type Props = {
 }
 
 const usePendingTxn = ({ txHash, txId }: Props) => {
-  const { data, loading, stopPolling } = useHasTxHashBeenIndexedQuery({
+  const [indexed, setIndexed] = useState(false)
+
+  const { data, loading, stopPolling } = useLensTransactionStatusQuery({
     variables: {
-      request: { txHash, txId }
+      request: { forTxHash: txHash, forTxId: txId }
     },
     skip: !txHash && !txHash?.length && !txId && !txId?.length,
     pollInterval: 1000,
-    notifyOnNetworkStatusChange: true
-  })
-
-  const checkIsIndexed = useCallback(() => {
-    if (data?.hasTxHashBeenIndexed?.__typename) {
+    notifyOnNetworkStatusChange: true,
+    onCompleted: (data) => {
+      if (data?.lensTransactionStatus?.reason) {
+        stopPolling()
+        setIndexed(false)
+        return toast.error(data?.lensTransactionStatus?.reason)
+      }
       if (
-        data?.hasTxHashBeenIndexed?.__typename === 'TransactionIndexedResult' &&
-        data?.hasTxHashBeenIndexed?.indexed
+        data?.lensTransactionStatus?.__typename === 'LensTransactionResult' &&
+        data?.lensTransactionStatus?.txHash &&
+        data.lensTransactionStatus.status === LensTransactionStatusType.Complete
       ) {
         stopPolling()
-      }
-
-      if (data?.hasTxHashBeenIndexed?.__typename === 'TransactionError') {
-        stopPolling()
-        return toast.error(
-          `Relay Error - ${data?.hasTxHashBeenIndexed?.reason}`
-        )
+        setIndexed(true)
       }
     }
-  }, [stopPolling, data?.hasTxHashBeenIndexed])
+  })
 
   useEffect(() => {
-    checkIsIndexed()
-  }, [data, checkIsIndexed])
+    setIndexed(false)
+  }, [txHash, txId])
 
   return {
     data,
-    indexed:
-      data?.hasTxHashBeenIndexed?.__typename === 'TransactionIndexedResult' &&
-      data.hasTxHashBeenIndexed.indexed,
-    loading
+    indexed,
+    loading,
+    error: data?.lensTransactionStatus?.reason
   }
 }
 

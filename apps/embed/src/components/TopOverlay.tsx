@@ -1,4 +1,4 @@
-import type { Publication } from '@tape.xyz/lens'
+import type { PrimaryPublication } from '@tape.xyz/lens'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 
@@ -6,11 +6,10 @@ import VideoOverlay from './VideoOverlay'
 
 type OverlayProps = {
   playerRef: HTMLMediaElement | undefined
-  video: Publication
-  clicked: boolean
+  video: PrimaryPublication
 }
 
-const TopOverlay: FC<OverlayProps> = ({ playerRef, video, clicked }) => {
+const TopOverlay: FC<OverlayProps> = ({ playerRef, video }) => {
   const [showVideoOverlay, setShowVideoOverlay] = useState(true)
 
   useEffect(() => {
@@ -30,7 +29,7 @@ const TopOverlay: FC<OverlayProps> = ({ playerRef, video, clicked }) => {
         showVideoOverlay ? 'visible' : 'invisible'
       } transition-all duration-200 ease-in-out group-hover:visible`}
     >
-      <VideoOverlay video={video} clicked={clicked} />
+      <VideoOverlay video={video} />
     </div>
   )
 }

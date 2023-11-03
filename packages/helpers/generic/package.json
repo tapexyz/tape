@@ -2,15 +2,18 @@
   "name": "@tape.xyz/generic",
   "version": "0.0.0",
   "license": "AGPL-3.0",
-  "main": "./index.ts",
+  "main": "index.ts",
   "scripts": {
     "lint": "eslint . --ext .js,.ts,.tsx",
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "dayjs-twitter": "^0.5.0"
+    "@lens-protocol/metadata": "^1.0.2",
+    "dayjs-twitter": "^0.5.0",
+    "viem": "^1.18.4"
   },
   "devDependencies": {
+    "@tape.xyz/constants": "*",
     "typescript": "5.2.2"
   }
 }

@@ -1,11 +1,11 @@
-import type { Publication } from '@tape.xyz/lens'
-import { PublicationMainFocus } from '@tape.xyz/lens'
+import type { MirrorablePublication } from '@tape.xyz/lens'
 
-export const isWatchable = (publication: Publication) => {
+export const isWatchable = (publication: MirrorablePublication) => {
   const canWatch =
     publication &&
-    publication.metadata?.mainContentFocus === PublicationMainFocus.Video &&
-    !publication?.hidden
+    (publication.metadata.__typename === 'VideoMetadataV3' ||
+      publication.metadata.__typename === 'LiveStreamMetadataV3') &&
+    !publication?.isHidden
 
   return canWatch
 }

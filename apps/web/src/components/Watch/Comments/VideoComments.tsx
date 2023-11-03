@@ -2,16 +2,24 @@ import Alert from '@components/Common/Alert'
 import CommentOutline from '@components/Common/Icons/CommentOutline'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
 import usePersistStore from '@lib/store/persist'
-import { t, Trans } from '@lingui/macro'
-import { LENS_CUSTOM_FILTERS, SCROLL_ROOT_MARGIN } from '@tape.xyz/constants'
-import type { Publication } from '@tape.xyz/lens'
+import useProfileStore from '@lib/store/profile'
 import {
-  CommentOrderingTypes,
-  CommentRankingFilter,
-  useCommentsQuery
+  INFINITE_SCROLL_ROOT_MARGIN,
+  LENS_CUSTOM_FILTERS
+} from '@tape.xyz/constants'
+import { getProfile } from '@tape.xyz/generic'
+import type {
+  AnyPublication,
+  Comment,
+  MirrorablePublication,
+  PublicationsRequest
+} from '@tape.xyz/lens'
+import {
+  CommentRankingFilterType,
+  LimitType,
+  TriStateValue,
+  usePublicationsQuery
 } from '@tape.xyz/lens'
 import { CustomCommentsFilterEnum } from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
@@ -19,73 +27,56 @@ import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 
-import Comment from './Comment'
 import CommentsFilter from './CommentsFilter'
 import NewComment from './NewComment'
 import QueuedComment from './QueuedComment'
+import RenderComment from './RenderComment'
 
 type Props = {
-  video: Publication
+  video: MirrorablePublication
   hideTitle?: boolean
 }
 
 const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
+  const { activeProfile, selectedCommentFilter } = useProfileStore()
   const queuedComments = usePersistStore((state) => state.queuedComments)
-  const selectedCommentFilter = useChannelStore(
-    (state) => state.selectedCommentFilter
-  )
 
   const isFollowerOnlyReferenceModule =
     video?.referenceModule?.__typename === 'FollowOnlyReferenceModuleSettings'
 
-  const getCommentFilters = () => {
-    if (selectedCommentFilter === CustomCommentsFilterEnum.RELEVANT_COMMENTS) {
-      return {
-        commentsOfOrdering: CommentOrderingTypes.Ranking,
-        commentsRankingFilter: CommentRankingFilter.Relevant
+  const isDegreesOfSeparationReferenceModule =
+    video?.referenceModule?.__typename ===
+    'DegreesOfSeparationReferenceModuleSettings'
+
+  const request: PublicationsRequest = {
+    limit: LimitType.Fifty,
+    where: {
+      customFilters: LENS_CUSTOM_FILTERS,
+      commentOn: {
+        id: video.id,
+        ranking: {
+          filter:
+            selectedCommentFilter === CustomCommentsFilterEnum.RELEVANT_COMMENTS
+              ? CommentRankingFilterType.Relevant
+              : CommentRankingFilterType.NoneRelevant
+        }
       }
-    } else if (
-      selectedCommentFilter === CustomCommentsFilterEnum.NEWEST_COMMENTS
-    ) {
-      return {
-        commentsOfOrdering: CommentOrderingTypes.Desc
-      }
-    } else {
-      return {}
     }
   }
 
-  const request = {
-    limit: 30,
-    customFilters: LENS_CUSTOM_FILTERS,
-    commentsOf: video.id,
-    ...getCommentFilters()
-  }
-  const variables = {
-    request,
-    reactionRequest: selectedSimpleProfile
-      ? { profileId: selectedSimpleProfile?.id }
-      : null,
-    channelId: selectedSimpleProfile?.id ?? null
-  }
-
-  const { data, loading, error, fetchMore } = useCommentsQuery({
-    variables,
+  const { data, loading, error, fetchMore } = usePublicationsQuery({
+    variables: { request },
     skip: !video.id
   })
 
-  const comments = data?.publications?.items as Publication[]
+  const comments = data?.publications?.items as AnyPublication[]
   const pageInfo = data?.publications?.pageInfo
 
   const { observe } = useInView({
-    rootMargin: SCROLL_ROOT_MARGIN,
+    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
     onEnter: async () => {
       await fetchMore({
         variables: {
-          ...variables,
           request: {
             ...request,
             cursor: pageInfo?.next
@@ -95,6 +86,10 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
     }
   })
 
+  const showReferenceModuleAlert =
+    activeProfile?.id &&
+    (isFollowerOnlyReferenceModule || isDegreesOfSeparationReferenceModule)
+
   return (
     <>
       <div className="flex items-center justify-between">
@@ -103,10 +98,8 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
             <h1 className="m-2 flex items-center space-x-2 text-lg">
               <CommentOutline className="h-5 w-5" />
               <span className="font-medium">
-                <Trans>Comments</Trans>{' '}
-                {video.stats.totalAmountOfComments
-                  ? `( ${video.stats.totalAmountOfComments} )`
-                  : null}
+                Comments{' '}
+                {video.stats.comments ? `( ${video.stats.comments} )` : null}
               </span>
             </h1>
             <CommentsFilter />
@@ -116,27 +109,26 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
       {loading && <CommentsShimmer />}
       {!loading && video ? (
         <>
-          {video?.canComment.result ? (
+          {video?.operations.canComment !== TriStateValue.No ? (
             <NewComment video={video} />
-          ) : selectedSimpleProfile?.id ? (
+          ) : showReferenceModuleAlert ? (
             <Alert variant="warning">
               <span className="text-sm">
                 {isFollowerOnlyReferenceModule
-                  ? t`Only subscribers can comment on this publication`
-                  : `Only subscribers within ${video.profile.handle}'s preferred network can comment`}
+                  ? `Only followers can comment on this publication`
+                  : isDegreesOfSeparationReferenceModule
+                  ? `Only followers within ${getProfile(video.by)
+                      ?.displayName}'s preferred network can comment`
+                  : null}
               </span>
             </Alert>
           ) : null}
-          {!comments.length && !queuedComments.length ? (
+          {!comments?.length && !queuedComments.length ? (
             <span className="py-5">
-              <NoDataFound
-                text={t`Be the first to comment`}
-                withImage
-                isCenter
-              />
+              <NoDataFound text="Be the first to comment" withImage isCenter />
             </span>
           ) : null}
-          {!error && (queuedComments.length || comments.length) ? (
+          {!error && (queuedComments.length || comments?.length) ? (
             <>
               <div className="space-y-4 py-4">
                 {queuedComments?.map(
@@ -149,11 +141,11 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
                     )
                 )}
                 {comments?.map(
-                  (comment: Publication) =>
-                    !comment.hidden && (
-                      <Comment
+                  (comment) =>
+                    !comment.isHidden && (
+                      <RenderComment
                         key={`${comment?.id}_${comment.createdAt}`}
-                        comment={comment}
+                        comment={comment as Comment}
                       />
                     )
                 )}

@@ -31,7 +31,6 @@ export default async (channel?: string) => {
 
     return response
   } catch (error) {
-    console.log('🚀 ~ file: getUnlonelyStream.ts:34 ~ error:', error)
     throw error
   }
 }

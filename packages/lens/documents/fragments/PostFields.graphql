@@ -1,36 +1,27 @@
 fragment PostFields on Post {
   id
-  reaction(request: $reactionRequest)
-  profile {
+  publishedOn {
+    id
+  }
+  isHidden
+  momoka {
+    proof
+  }
+  txHash
+  createdAt
+  by {
     ...ProfileFields
   }
-  referenceModule {
-    __typename
-  }
-  canComment(profileId: $channelId) {
-    result
-  }
-  canMirror(profileId: $channelId) {
-    result
-  }
-  collectModule {
-    ...CollectFields
-  }
-  collectNftAddress
-  onChainContentURI
-  isGated
-  notInterested(by: $channelId)
-  bookmarked(by: $channelId)
-  isDataAvailability
-  dataAvailabilityProofs
-  hidden
-  hasCollectedByMe
   stats {
     ...PublicationStatsFields
   }
-  metadata {
-    ...MetadataFields
+  operations {
+    ...PublicationOperationFields
   }
-  createdAt
-  appId
+  metadata {
+    ...AnyPublicationMetadataFields
+  }
+  openActionModules {
+    ...OpenActionModulesFields
+  }
 }

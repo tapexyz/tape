@@ -1,79 +1,70 @@
-import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
-import Tooltip from '@components/UIElements/Tooltip'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import useAuthPersistStore from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
-import { t } from '@lingui/macro'
-import { useConnectModal } from '@rainbow-me/rainbowkit'
-import { Analytics, TRACK } from '@tape.xyz/browser'
+import useNonceStore from '@lib/store/nonce'
+import useProfileStore from '@lib/store/profile'
+import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
-  REQUESTING_SIGNATURE_MESSAGE
+  REQUESTING_SIGNATURE_MESSAGE,
+  SIGN_IN_REQUIRED
 } from '@tape.xyz/constants'
-import { getSignature } from '@tape.xyz/generic'
+import {
+  checkDispatcherPermissions,
+  EVENTS,
+  getSignature,
+  Tower
+} from '@tape.xyz/generic'
 import type {
-  CreateMirrorBroadcastItemResult,
-  CreateMirrorRequest,
-  Publication
+  CreateMomokaMirrorEip712TypedData,
+  CreateOnchainMirrorEip712TypedData,
+  MirrorablePublication,
+  MomokaMirrorRequest
 } from '@tape.xyz/lens'
 import {
-  useBroadcastMutation,
-  useCreateDataAvailabilityMirrorViaDispatcherMutation,
-  useCreateMirrorTypedDataMutation,
-  useCreateMirrorViaDispatcherMutation
+  TriStateValue,
+  useBroadcastOnchainMutation,
+  useBroadcastOnMomokaMutation,
+  useCreateMomokaMirrorTypedDataMutation,
+  useCreateOnchainMirrorTypedDataMutation,
+  useMirrorOnchainMutation,
+  useMirrorOnMomokaMutation
 } from '@tape.xyz/lens'
-import type {
-  CustomCollectModule,
-  CustomErrorWithData
-} from '@tape.xyz/lens/custom-types'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
 type Props = {
-  video: Publication
+  video: MirrorablePublication
   onMirrorSuccess?: () => void
   children: React.ReactNode
 }
 
 const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
   const [loading, setLoading] = useState(false)
-  const { openConnectModal } = useConnectModal()
   const handleWrongNetwork = useHandleWrongNetwork()
+  const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
 
-  const userSigNonce = useChannelStore((state) => state.userSigNonce)
-  const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
-  const activeChannel = useChannelStore((state) => state.activeChannel)
-
-  // Dispatcher
-  const canUseRelay = activeChannel?.dispatcher?.canUseRelay
-  const isSponsored = activeChannel?.dispatcher?.sponsor
-
-  const collectModule =
-    video?.__typename === 'Post'
-      ? (video?.collectModule as CustomCollectModule)
-      : null
+  const activeProfile = useProfileStore((state) => state.activeProfile)
+  const { canUseLensManager, canBroadcast } =
+    checkDispatcherPermissions(activeProfile)
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     setLoading(false)
   }
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
     if (__typename === 'RelayError') {
       return
     }
     onMirrorSuccess?.()
     toast.success('Mirrored video across lens.')
     setLoading(false)
-    Analytics.track(TRACK.PUBLICATION.MIRROR, {
+    Tower.track(EVENTS.PUBLICATION.MIRROR, {
       publication_id: video.id,
-      publication_state: video.isDataAvailability ? 'DATA_ONLY' : 'ON_CHAIN'
+      publication_state: video.momoka?.proof ? 'MOMOKA' : 'ON_CHAIN'
     })
   }
 
@@ -81,135 +72,171 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
     onError
   })
 
-  const [createDataAvailabilityMirrorViaDispatcher] =
-    useCreateDataAvailabilityMirrorViaDispatcherMutation({
-      onCompleted: () => onCompleted(),
-      onError
-    })
-
-  const [createMirrorViaDispatcher] = useCreateMirrorViaDispatcherMutation({
-    onError,
-    onCompleted: ({ createMirrorViaDispatcher }) =>
-      onCompleted(createMirrorViaDispatcher.__typename)
-  })
-
   const { write } = useContractWrite({
     address: LENSHUB_PROXY_ADDRESS,
     abi: LENSHUB_PROXY_ABI,
     functionName: 'mirror',
-    onError,
-    onSuccess: () => onCompleted()
+    onSuccess: () => {
+      onCompleted()
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
+    },
+    onError: (error) => {
+      onError(error)
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
+    }
   })
 
-  const [broadcast] = useBroadcastMutation({
-    onError,
-    onCompleted: ({ broadcast }) => onCompleted(broadcast.__typename)
-  })
+  const getSignatureFromTypedData = async (
+    data: CreateMomokaMirrorEip712TypedData | CreateOnchainMirrorEip712TypedData
+  ) => {
+    toast.loading(REQUESTING_SIGNATURE_MESSAGE)
+    const signature = await signTypedDataAsync(getSignature(data))
+    return signature
+  }
 
-  const [createMirrorTypedData] = useCreateMirrorTypedDataMutation({
-    onCompleted: async ({ createMirrorTypedData }) => {
-      const { id, typedData } =
-        createMirrorTypedData as CreateMirrorBroadcastItemResult
-      try {
-        toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-        const signature = await signTypedDataAsync(getSignature(typedData))
-        setUserSigNonce(userSigNonce + 1)
-        const { data } = await broadcast({
-          variables: { request: { id, signature } }
-        })
-        if (data?.broadcast?.__typename === 'RelayError') {
-          write?.({ args: [typedData.value] })
-        }
-      } catch {
-        setLoading(false)
+  const [broadcastOnchain] = useBroadcastOnchainMutation({
+    onCompleted: ({ broadcastOnchain }) => {
+      if (broadcastOnchain.__typename === 'RelaySuccess') {
+        onCompleted()
       }
+    }
+  })
+
+  const [createOnChainMirrorTypedData] =
+    useCreateOnchainMirrorTypedDataMutation({
+      onCompleted: async ({ createOnchainMirrorTypedData }) => {
+        const { typedData, id } = createOnchainMirrorTypedData
+        try {
+          if (canBroadcast) {
+            const signature = await getSignatureFromTypedData(typedData)
+            const { data } = await broadcastOnchain({
+              variables: { request: { id, signature } }
+            })
+            if (data?.broadcastOnchain?.__typename === 'RelayError') {
+              return write({ args: [typedData.value] })
+            }
+            return
+          }
+          return write({ args: [typedData.value] })
+        } catch {}
+      },
+      onError
+    })
+
+  const [mirrorOnChain] = useMirrorOnchainMutation({
+    onCompleted: async (data) => {
+      if (data?.mirrorOnchain.__typename === 'LensProfileManagerRelayError') {
+        return await createOnChainMirrorTypedData({
+          variables: {
+            options: { overrideSigNonce: lensHubOnchainSigNonce },
+            request: {
+              mirrorOn: video.id
+            }
+          }
+        })
+      }
+      onCompleted()
+    }
+  })
+
+  const [broadcastOnMomoka] = useBroadcastOnMomokaMutation({
+    onCompleted: ({ broadcastOnMomoka }) => {
+      if (broadcastOnMomoka.__typename === 'CreateMomokaPublicationResult') {
+      }
+    }
+  })
+
+  const [createMomokaMirrorTypedData] = useCreateMomokaMirrorTypedDataMutation({
+    onCompleted: async ({ createMomokaMirrorTypedData }) => {
+      const { typedData, id } = createMomokaMirrorTypedData
+      try {
+        if (canBroadcast) {
+          const signature = await getSignatureFromTypedData(typedData)
+          const { data } = await broadcastOnMomoka({
+            variables: { request: { id, signature } }
+          })
+          if (data?.broadcastOnMomoka?.__typename === 'RelayError') {
+            return write({ args: [typedData.value] })
+          }
+          return
+        }
+        return write({ args: [typedData.value] })
+      } catch {}
     },
     onError
   })
 
-  const createTypedData = async (request: CreateMirrorRequest) => {
-    await createMirrorTypedData({
-      variables: {
-        options: { overrideSigNonce: userSigNonce },
-        request
-      }
-    })
-  }
-
-  const createViaDispatcher = async (request: CreateMirrorRequest) => {
-    const { data } = await createMirrorViaDispatcher({
-      variables: { request }
-    })
-    if (data?.createMirrorViaDispatcher.__typename === 'RelayError') {
-      await createTypedData(request)
-    }
-  }
+  const [mirrorOnMomoka] = useMirrorOnMomokaMutation({
+    onCompleted: () => onCompleted()
+  })
 
   const mirrorVideo = async () => {
-    if (!selectedSimpleProfile?.id) {
-      return openConnectModal?.()
+    if (!activeProfile?.id) {
+      return toast.error(SIGN_IN_REQUIRED)
     }
     if (handleWrongNetwork()) {
       return
     }
 
-    if (video.isDataAvailability && !isSponsored) {
+    if (video.momoka?.proof && !activeProfile?.sponsor) {
       return toast.error(
-        t`Momoka is currently in beta - during this time certain actions are not available to all channels.`
+        'Momoka is currently in beta - during this time certain actions are not available to all profiles.'
       )
     }
 
-    setLoading(true)
-    const request: CreateMirrorRequest = {
-      profileId: activeChannel?.id,
-      publicationId: video?.id,
-      referenceModule: {
-        followerOnlyReferenceModule: false
+    try {
+      setLoading(true)
+      const request: MomokaMirrorRequest = {
+        mirrorOn: video.id
       }
-    }
-
-    // Payload for the data availability mirror
-    const dataAvailablityRequest = {
-      from: activeChannel?.id,
-      mirror: video?.id
-    }
-
-    if (canUseRelay) {
-      if (video.isDataAvailability && isSponsored) {
-        return await createDataAvailabilityMirrorViaDispatcher({
-          variables: { request: dataAvailablityRequest }
+      // MOMOKA
+      if (video.momoka?.proof) {
+        if (canUseLensManager) {
+          return await mirrorOnMomoka({
+            variables: {
+              request
+            }
+          })
+        }
+        return await createMomokaMirrorTypedData({
+          variables: {
+            request
+          }
         })
       }
 
-      return await createViaDispatcher(request)
-    }
-
-    return await createTypedData(request)
+      //  ON-CHAIN
+      if (canUseLensManager) {
+        return await mirrorOnChain({
+          variables: {
+            request
+          }
+        })
+      }
+      return await createOnChainMirrorTypedData({
+        variables: {
+          options: { overrideSigNonce: lensHubOnchainSigNonce },
+          request
+        }
+      })
+    } catch {}
   }
 
-  if (!video?.canMirror.result) {
+  if (video?.operations.canMirror === TriStateValue.No) {
     return null
   }
 
-  const referralFee =
-    collectModule?.referralFee ?? collectModule?.fee?.referralFee
-  const tooltipContent = referralFee
-    ? `Mirror video for ${referralFee}% referral fee`
-    : t`Mirror video across Lens`
-
   return (
-    <Tooltip placement="top" content={loading ? t`Mirroring` : tooltipContent}>
-      <div className="inline-flex">
-        <button
-          type="button"
-          className="disabled:opacity-50"
-          disabled={loading}
-          onClick={() => mirrorVideo()}
-        >
-          {children}
-        </button>
-      </div>
-    </Tooltip>
+    <div className="inline-flex">
+      <button
+        type="button"
+        className="disabled:opacity-50"
+        disabled={loading}
+        onClick={() => mirrorVideo()}
+      >
+        {children}
+      </button>
+    </div>
   )
 }
 

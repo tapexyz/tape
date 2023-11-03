@@ -1,6 +1,6 @@
 import Alert from '@components/Common/Alert'
 import VideoCardShimmer from '@components/Shimmers/VideoCardShimmer'
-import { Button } from '@components/UIElements/Button'
+import { Button } from '@radix-ui/themes'
 import { useQuery } from '@tanstack/react-query'
 import { WORKER_LIVE_URL } from '@tape.xyz/constants'
 import axios from 'axios'
@@ -21,7 +21,9 @@ const Unlonely = ({ channel }: { channel: string }) => {
     data: liveItem,
     isLoading,
     error
-  } = useQuery(['unlonelyChannel'], () => fetchNfts().then((res) => res), {
+  } = useQuery({
+    queryKey: ['unlonelyChannel'],
+    queryFn: fetchNfts,
     enabled: true
   })
 
@@ -42,12 +44,12 @@ const Unlonely = ({ channel }: { channel: string }) => {
       {!isLive && (
         <Alert>
           <div className="flex w-full items-center justify-between">
-            <span className="font-semibold">
+            <span className="font-bold">
               Oops! This stream has ended. But don't worry, there's plenty more
               to explore!
             </span>
             <Link href="/">
-              <Button size="sm">Go Home</Button>
+              <Button highContrast>Go Home</Button>
             </Link>
           </div>
         </Alert>

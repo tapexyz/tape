@@ -1,14 +1,15 @@
+import { Text } from '@radix-ui/themes'
 import { LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
-import { getProfilePicture } from '@tape.xyz/generic'
+import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
-import { SearchRequestTypes, useSearchProfilesLazyQuery } from '@tape.xyz/lens'
+import { LimitType, useSearchProfilesLazyQuery } from '@tape.xyz/lens'
 import clsx from 'clsx'
 import type { ComponentProps, FC } from 'react'
 import React, { useId } from 'react'
 import type { SuggestionDataItem } from 'react-mentions'
 import { Mention, MentionsInput } from 'react-mentions'
 
-import ChannelSuggestions from './ChannelSuggestions'
+import ProfileSuggestion from './ProfileSuggestion'
 
 interface Props extends ComponentProps<'textarea'> {
   label?: string
@@ -29,7 +30,7 @@ const InputMentions: FC<Props> = ({
   ...props
 }) => {
   const id = useId()
-  const [searchChannels] = useSearchProfilesLazyQuery()
+  const [searchProfiles] = useSearchProfilesLazyQuery()
 
   const fetchSuggestions = async (
     query: string,
@@ -39,24 +40,25 @@ const InputMentions: FC<Props> = ({
       return
     }
     try {
-      const { data } = await searchChannels({
+      const { data } = await searchProfiles({
         variables: {
           request: {
-            type: SearchRequestTypes.Profile,
             query,
-            limit: 5,
-            customFilters: LENS_CUSTOM_FILTERS
+            limit: LimitType.Ten,
+            where: {
+              customFilters: LENS_CUSTOM_FILTERS
+            }
           }
         }
       })
-      if (data?.search.__typename === 'ProfileSearchResult') {
-        const profiles = data?.search?.items as Profile[]
-        const channels = profiles?.map((channel: Profile) => ({
-          id: channel.handle,
-          display: channel.handle,
-          profileId: channel.id,
-          picture: getProfilePicture(channel),
-          followers: channel.stats.totalFollowers
+      if (data?.searchProfiles.__typename === 'PaginatedProfileResult') {
+        const profiles = data?.searchProfiles?.items as Profile[]
+        const channels = profiles?.map((profile: Profile) => ({
+          id: profile.handle?.fullHandle,
+          display: getProfile(profile)?.displayName,
+          profileId: profile.id,
+          picture: getProfilePicture(profile),
+          followers: profile.stats.followers
         }))
         callback(channels)
       }
@@ -69,9 +71,9 @@ const InputMentions: FC<Props> = ({
     <label className="w-full" htmlFor={id}>
       {label && (
         <div className="mb-1 flex items-center space-x-1.5">
-          <div className="text-[11px] font-semibold uppercase opacity-70">
+          <Text size="2" weight="medium">
             {label}
-          </div>
+          </Text>
         </div>
       )}
       <div className="flex">
@@ -98,14 +100,14 @@ const InputMentions: FC<Props> = ({
               _index,
               focused
             ) => (
-              <ChannelSuggestions
+              <ProfileSuggestion
                 id={suggestion.profileId as string}
-                picture={suggestion.picture as string}
+                pfp={suggestion.picture as string}
                 handle={suggestion.id as string}
+                followers={suggestion.followers as number}
                 className={clsx({
                   'bg-brand-50 rounded dark:bg-black': focused
                 })}
-                subscribersCount={suggestion.followers as number}
               />
             )}
             data={fetchSuggestions}

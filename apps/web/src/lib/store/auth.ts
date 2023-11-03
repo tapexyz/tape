@@ -1,4 +1,4 @@
-import type { SimpleProfile } from '@tape.xyz/lens/custom-types'
+import { LocalStore } from '@tape.xyz/lens/custom-types'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
@@ -10,8 +10,6 @@ type Tokens = {
 interface AuthPerisistState {
   accessToken: Tokens['accessToken']
   refreshToken: Tokens['refreshToken']
-  selectedSimpleProfile: SimpleProfile | null
-  setSelectedSimpleProfile: (profile: SimpleProfile | null) => void
   signIn: (tokens: { accessToken: string; refreshToken: string }) => void
   signOut: () => void
   hydrateAuthTokens: () => Tokens
@@ -22,15 +20,11 @@ export const useAuthPersistStore = create(
     (set, get) => ({
       accessToken: null,
       refreshToken: null,
-      selectedSimpleProfile: null,
-      setSelectedSimpleProfile: (selectedSimpleProfile) =>
-        set({ selectedSimpleProfile }),
       signIn: ({ accessToken, refreshToken }) =>
         set({ accessToken, refreshToken }),
       signOut: () => {
-        localStorage.removeItem('tape.store')
-        localStorage.removeItem('tape.auth.store')
-        set({ selectedSimpleProfile: null })
+        localStorage.removeItem(LocalStore.TAPE_STORE)
+        localStorage.removeItem(LocalStore.TAPE_AUTH_STORE)
       },
       hydrateAuthTokens: () => {
         return {
@@ -40,7 +34,7 @@ export const useAuthPersistStore = create(
       }
     }),
     {
-      name: 'tape.auth.store'
+      name: LocalStore.TAPE_AUTH_STORE
     }
   )
 )

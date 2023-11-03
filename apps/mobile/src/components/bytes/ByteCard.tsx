@@ -5,7 +5,7 @@ import {
   imageCdn,
   logger
 } from '@tape.xyz/generic'
-import type { Publication } from '@tape.xyz/lens'
+import type { AnyPublication } from '@tape.xyz/lens'
 import { ResizeMode, Video } from 'expo-av'
 import type { FC } from 'react'
 import React, { useEffect, useRef } from 'react'
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
 })
 
 type Props = {
-  byte: Publication
+  byte: AnyPublication
   isActive: boolean
 }
 

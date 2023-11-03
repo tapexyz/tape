@@ -1,9 +1,9 @@
-import Badge from '@components/Common/Badge'
-import ReportModal from '@components/Common/VideoCard/ReportModal'
-import ShareModal from '@components/Common/VideoCard/ShareModal'
+import HoverableProfile from '@components/Common/HoverableProfile'
+import CommentOutline from '@components/Common/Icons/CommentOutline'
+import HeartOutline from '@components/Common/Icons/HeartOutline'
 import VideoOptions from '@components/Common/VideoCard/VideoOptions'
-import { getRelativeTime, getTimeFromSeconds } from '@lib/formatTime'
-import { Trans } from '@lingui/macro'
+import { getShortHandTime, getTimeFromSeconds } from '@lib/formatTime'
+import { Box, Flex } from '@radix-ui/themes'
 import { useAverageColor } from '@tape.xyz/browser'
 import {
   FALLBACK_COVER_URL,
@@ -11,66 +11,54 @@ import {
   STATIC_ASSETS
 } from '@tape.xyz/constants'
 import {
+  formatNumber,
   getIsSensitiveContent,
+  getPublicationData,
   getThumbnailUrl,
-  getValueFromTraitType,
-  imageCdn,
-  trimLensHandle
+  getValueFromKeyInAttributes,
+  imageCdn
 } from '@tape.xyz/generic'
-import type { Attribute, Publication } from '@tape.xyz/lens'
+import type { MetadataAttribute, MirrorablePublication } from '@tape.xyz/lens'
 import clsx from 'clsx'
 import Link from 'next/link'
 import type { FC } from 'react'
-import React, { useState } from 'react'
+import React from 'react'
 
 type Props = {
-  video: Publication
+  video: MirrorablePublication
 }
 
 const SuggestedVideoCard: FC<Props> = ({ video }) => {
-  const [showReport, setShowReport] = useState(false)
-  const [showShare, setShowShare] = useState(false)
-
-  const isBytesVideo = video.appId === LENSTUBE_BYTES_APP_ID
+  const isBytesVideo = video.publishedOn?.id === LENSTUBE_BYTES_APP_ID
   const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
   const thumbnailUrl = isSensitiveContent
-    ? `${STATIC_ASSETS}/images/sensor-blur.png`
-    : getThumbnailUrl(video)
+    ? `${STATIC_ASSETS}/images/sensor-blur.webp`
+    : getThumbnailUrl(video.metadata, true)
 
   const { color: backgroundColor } = useAverageColor(thumbnailUrl, isBytesVideo)
-  const videoDuration = getValueFromTraitType(
-    video.metadata?.attributes as Attribute[],
+  const videoDuration = getValueFromKeyInAttributes(
+    video.metadata?.attributes as MetadataAttribute[],
     'durationInSeconds'
   )
 
   return (
     <div className="group flex justify-between">
-      <ShareModal video={video} show={showShare} setShowShare={setShowShare} />
-      <ReportModal
-        video={video}
-        show={showReport}
-        setShowReport={setShowReport}
-      />
       <div className="flex justify-between">
-        <div className="flex-none overflow-hidden rounded-lg">
+        <div className="rounded-small flex-none overflow-hidden">
           <Link
             href={`/watch/${video.id}`}
-            className="cursor-pointer rounded-lg"
+            className="cursor-pointer rounded-md"
           >
             <div className="relative">
               <img
                 className={clsx(
-                  'h-20 w-36 bg-gray-300 object-center dark:bg-gray-700',
+                  'h-24 w-44 bg-gray-300 object-center dark:bg-gray-700',
                   isBytesVideo ? 'object-contain' : 'object-cover'
                 )}
-                src={
-                  thumbnailUrl
-                    ? imageCdn(
-                        thumbnailUrl,
-                        isBytesVideo ? 'THUMBNAIL_V' : 'THUMBNAIL'
-                      )
-                    : ''
-                }
+                src={imageCdn(
+                  thumbnailUrl,
+                  isBytesVideo ? 'THUMBNAIL_V' : 'THUMBNAIL'
+                )}
                 style={{ backgroundColor: `${backgroundColor}95` }}
                 alt="thumbnail"
                 draggable={false}
@@ -93,38 +81,34 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
             <div className="grid w-full overflow-hidden break-words">
               <Link
                 href={`/watch/${video.id}`}
-                className="line-clamp-2 text-sm font-medium"
-                title={video.metadata?.name ?? ''}
+                className="line-clamp-2 font-medium"
+                title={getPublicationData(video.metadata)?.title ?? ''}
               >
-                {video.metadata?.name}
+                {getPublicationData(video.metadata)?.title}
               </Link>
             </div>
-            <div className="truncate">
-              <Link
-                href={`/channel/${trimLensHandle(video.profile?.handle)}`}
-                className="truncate text-[13px] opacity-70 hover:opacity-100"
-              >
-                <div className="flex items-center space-x-0.5">
-                  <span>{trimLensHandle(video?.profile?.handle)}</span>
-                  <Badge id={video?.profile.id} size="xs" />
-                </div>
-              </Link>
+            <div className="py-1">
+              <HoverableProfile profile={video.by} fontSize="1" />
             </div>
-            <div className="mt-0.5 flex items-center truncate text-xs opacity-70">
-              <span className="whitespace-nowrap">
-                {video.stats?.totalUpvotes} <Trans>likes</Trans>
-              </span>
+            <div className="flex items-center overflow-hidden text-xs opacity-80">
+              <Flex align="center" gap="1">
+                <HeartOutline className="h-2.5 w-2.5" />
+                {formatNumber(video.stats?.reactions)}
+              </Flex>
               <span className="middot" />
-              <span>{getRelativeTime(video.createdAt)}</span>
+              <Flex align="center" gap="1">
+                <CommentOutline className="h-2.5 w-2.5" />
+                {formatNumber(video.stats?.comments)}
+              </Flex>
+              <span className="middot" />
+              <span>{getShortHandTime(video.createdAt)}</span>
             </div>
           </div>
         </div>
       </div>
-      <VideoOptions
-        video={video}
-        setShowReport={setShowReport}
-        setShowShare={setShowShare}
-      />
+      <Box pt="2">
+        <VideoOptions video={video} />
+      </Box>
     </div>
   )
 }

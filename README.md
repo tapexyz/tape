@@ -7,7 +7,7 @@
 </div>
 <br>
 <div align="center">
-    <a href="https://tape.xyz/channel/sasicodes.lens">
+    <a href="https://tape.xyz/u/sasicodes.lens">
         <img src="https://lens-badge.vercel.app/api/badge/sasicodes.lens" alt="Lens">
     </a>
     <a href="https://www.gitpoap.io/gh/lenstube-xyz/lenstube">

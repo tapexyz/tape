@@ -1,21 +1,32 @@
-import { STATIC_ASSETS, TAPE_APP_NAME } from '@tape.xyz/constants'
-import { imageCdn } from '@tape.xyz/generic'
+import { STATIC_ASSETS } from '@tape.xyz/constants'
+import { useTheme } from 'next-themes'
 import React from 'react'
 
 import MetaTags from './MetaTags'
 
 const FullPageLoader = () => {
+  const { resolvedTheme } = useTheme()
+
   return (
     <div className="grid h-screen place-items-center">
       <MetaTags />
-      <div className="animate-bounce">
+      {resolvedTheme === 'dark' ? (
         <img
-          src={imageCdn(`${STATIC_ASSETS}/brand/logo.svg`)}
+          src={`${STATIC_ASSETS}/brand/logo-with-text-light.webp`}
+          className="h-10"
+          alt="tape"
+          height={50}
           draggable={false}
-          className="h-12 w-12 md:h-16 md:w-16"
-          alt={TAPE_APP_NAME}
         />
-      </div>
+      ) : (
+        <img
+          src={`${STATIC_ASSETS}/brand/logo-with-text-dark.webp`}
+          className="h-10"
+          height={50}
+          alt="tape"
+          draggable={false}
+        />
+      )}
     </div>
   )
 }

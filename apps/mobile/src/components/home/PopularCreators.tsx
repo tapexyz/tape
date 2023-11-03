@@ -1,7 +1,6 @@
 import { RECS_URL } from '@lenstube/constants'
 import { getProfilePicture, shuffleArray } from '@lenstube/generic'
-import type { Profile } from '@lenstube/lens'
-import { useAllProfilesQuery } from '@lenstube/lens'
+import { type Profile, useProfilesQuery } from '@lenstube/lens'
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { useNavigation } from '@react-navigation/native'
 import { Image as ExpoImage } from 'expo-image'
@@ -64,10 +63,12 @@ const PopularCreators = () => {
     (url: string) => fetch(url).then((res) => res.json())
   )
 
-  const { data, loading: profilesLoading } = useAllProfilesQuery({
+  const { data, loading: profilesLoading } = useProfilesQuery({
     variables: {
       request: {
-        handles: recsData?.items
+        where: {
+          handles: recsData?.items
+        }
       }
     },
     skip: recsLoading

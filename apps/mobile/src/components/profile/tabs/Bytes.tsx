@@ -1,11 +1,15 @@
 import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@lenstube/constants'
 import { getThumbnailUrl, imageCdn } from '@lenstube/generic'
 import type {
+  MirrorablePublication,
   Profile,
-  Publication,
-  PublicationsQueryRequest
+  PublicationsRequest
 } from '@lenstube/lens'
-import { PublicationTypes, useProfilePostsQuery } from '@lenstube/lens'
+import {
+  LimitType,
+  PublicationType,
+  usePublicationsQuery
+} from '@lenstube/lens'
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
@@ -51,15 +55,19 @@ const Bytes: FC<Props> = ({ profile, scrollHandler }) => {
   const style = styles(themeConfig)
   const { height, width } = useWindowDimensions()
 
-  const request: PublicationsQueryRequest = {
-    publicationTypes: [PublicationTypes.Post],
-    limit: 10,
-    sources: [LENSTUBE_BYTES_APP_ID],
-    customFilters: LENS_CUSTOM_FILTERS,
-    profileId: profile?.id
+  const request: PublicationsRequest = {
+    where: {
+      publicationTypes: [PublicationType.Post],
+      from: profile?.id,
+      customFilters: LENS_CUSTOM_FILTERS,
+      metadata: {
+        publishedOn: [LENSTUBE_BYTES_APP_ID]
+      }
+    },
+    limit: LimitType.Ten
   }
 
-  const { data, loading, fetchMore, refetch } = useProfilePostsQuery({
+  const { data, loading, fetchMore, refetch } = usePublicationsQuery({
     variables: {
       request
     },
@@ -67,7 +75,7 @@ const Bytes: FC<Props> = ({ profile, scrollHandler }) => {
     notifyOnNetworkStatusChange: true
   })
 
-  const bytes = data?.publications?.items as Publication[]
+  const bytes = data?.publications?.items as MirrorablePublication[]
   const pageInfo = data?.publications?.pageInfo
 
   const fetchMorePublications = async () => {
@@ -82,7 +90,7 @@ const Bytes: FC<Props> = ({ profile, scrollHandler }) => {
   }
 
   const renderItem = useCallback(
-    ({ item, index }: { item: Publication; index: number }) => (
+    ({ item, index }: { item: MirrorablePublication; index: number }) => (
       <View
         style={{
           marginRight: index % NUM_COLUMNS !== NUM_COLUMNS - 1 ? GRID_GAP : 0,

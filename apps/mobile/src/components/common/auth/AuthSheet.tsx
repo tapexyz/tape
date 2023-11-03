@@ -48,6 +48,9 @@ const AuthSheet: FC<Props> = ({ sheetRef }) => {
   const { themeConfig } = useMobileTheme()
 
   const { signIn: persistSignin } = useMobilePersistStore()
+  const selectedProfile = useMobilePersistStore(
+    (state) => state.selectedProfile
+  )
   const setSelectedProfile = useMobilePersistStore(
     (state) => state.setSelectedProfile
   )
@@ -68,7 +71,7 @@ const AuthSheet: FC<Props> = ({ sheetRef }) => {
     }
     try {
       const challenge = await loadChallenge({
-        variables: { request: { address } }
+        variables: { request: { for: selectedProfile?.id, signedBy: address } }
       })
       const client = createWalletClient({
         chain: polygon,
@@ -79,14 +82,18 @@ const AuthSheet: FC<Props> = ({ sheetRef }) => {
         message: challenge?.data?.challenge?.text as SignableMessage
       })
       const { data } = await authenticate({
-        variables: { request: { address, signature } }
+        variables: { request: { signature, id: challenge.data?.challenge.id } }
       })
       const accessToken = data?.authenticate.accessToken
       const refreshToken = data?.authenticate.refreshToken
       persistSignin({ accessToken, refreshToken })
       const { data: profilesData } = await getAllSimpleProfiles({
         variables: {
-          request: { ownedBy: [address] }
+          request: {
+            where: {
+              ownedBy: [address]
+            }
+          }
         }
       })
       if (
@@ -96,8 +103,7 @@ const AuthSheet: FC<Props> = ({ sheetRef }) => {
         return persistSignin({ accessToken: null, refreshToken: null })
       }
       const profiles = profilesData?.profiles?.items as Profile[]
-      const defaultProfile = profiles.find((profile) => profile.isDefault)
-      setSelectedProfile(defaultProfile ?? profiles[0])
+      setSelectedProfile(profiles[0])
       sheetRef.current?.close()
     } catch (error) {
       logger.error('SIGN IN ERROR 🔒', error)

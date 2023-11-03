@@ -1,37 +1,28 @@
-import MetaTags from '@components/Common/MetaTags'
-import { t, Trans } from '@lingui/macro'
-import { Analytics, TRACK } from '@tape.xyz/browser'
 import { STATIC_ASSETS, TAPE_APP_NAME } from '@tape.xyz/constants'
 import Link from 'next/link'
-import React, { useEffect } from 'react'
 
 const Thanks = () => {
-  useEffect(() => {
-    Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.THANKS })
-  }, [])
-
   return (
-    <div className="space-y-5 md:py-10">
-      <MetaTags title={t`Thanks`} />
-      <div className="bg-brand-500 flex h-48 w-full items-center justify-center">
+    <div className="space-y-5">
+      <div className="flex h-[25vh] w-full items-center justify-center">
         <div className="relative text-center">
           <div className="flex items-center space-x-2 text-3xl font-bold md:text-4xl">
-            <Trans>Thanks for supporting our community!</Trans>
+            Thanks for supporting our community!
           </div>
         </div>
       </div>
       <div className="mx-auto grid max-w-xl grid-cols-2 place-items-start gap-12">
         <Link
-          href={`https://livepeer.studio/?utm_source=${TAPE_APP_NAME}`}
+          href={`https://cloudflare.com/?utm_source=${TAPE_APP_NAME}`}
           className="col-span-1 flex items-center justify-center md:col-span-2 lg:col-span-1"
         >
           <img
-            src={`${STATIC_ASSETS}/images/livepeer.png`}
-            alt="lvpr"
+            src={`${STATIC_ASSETS}/images/cloudflare.svg`}
+            alt="cloudflare"
             className="h-20 w-20 flex-none rounded-full"
             draggable={false}
           />
-          <div className="px-5">Livepeer</div>
+          <h6 className="px-5 text-xl">Cloudflare</h6>
         </Link>
         <Link
           href={`https://4everland.org/?utm_source=${TAPE_APP_NAME}`}
@@ -43,7 +34,19 @@ const Thanks = () => {
             className="h-20 w-20 flex-none rounded-full"
             draggable={false}
           />
-          <div className="px-5">4everland</div>
+          <h6 className="px-5 text-xl">4everland</h6>
+        </Link>
+        <Link
+          href={`https://livepeer.studio/?utm_source=${TAPE_APP_NAME}`}
+          className="col-span-1 flex items-center justify-center md:col-span-2 lg:col-span-1"
+        >
+          <img
+            src={`${STATIC_ASSETS}/images/livepeer.png`}
+            alt="lvpr"
+            className="h-20 w-20 flex-none rounded-full"
+            draggable={false}
+          />
+          <h6 className="px-5 text-xl">Livepeer</h6>
         </Link>
         <Link
           href={`https://betteruptime.com/?utm_source=${TAPE_APP_NAME}`}
@@ -55,7 +58,7 @@ const Thanks = () => {
             className="h-20 w-20 flex-none rounded-full"
             draggable={false}
           />
-          <div className="px-5">Better Uptime</div>
+          <h6 className="px-5 text-xl">Better Uptime</h6>
         </Link>
       </div>
     </div>

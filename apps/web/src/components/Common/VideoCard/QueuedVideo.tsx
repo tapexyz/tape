@@ -1,22 +1,20 @@
 import Tooltip from '@components/UIElements/Tooltip'
+import usePendingTxn from '@hooks/usePendingTxn'
 import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
-import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
-import { t } from '@lingui/macro'
+import useProfileStore from '@lib/store/profile'
 import { useAverageColor } from '@tape.xyz/browser'
 import { STATIC_ASSETS } from '@tape.xyz/constants'
 import {
+  getProfile,
   getProfilePicture,
   imageCdn,
-  sanitizeDStorageUrl,
-  trimLensHandle
+  sanitizeDStorageUrl
 } from '@tape.xyz/generic'
-import type { Profile } from '@tape.xyz/lens'
 import {
-  PublicationDetailsDocument,
-  useHasTxHashBeenIndexedQuery,
-  usePublicationDetailsLazyQuery,
-  useTxIdToTxHashLazyQuery
+  PublicationDocument,
+  usePublicationQuery,
+  useTxIdToTxHashQuery
 } from '@tape.xyz/lens'
 import { useApolloClient } from '@tape.xyz/lens/apollo'
 import type { QueuedVideoType } from '@tape.xyz/lens/custom-types'
@@ -31,21 +29,15 @@ type Props = {
 }
 
 const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
-  const uploadedVideo = useAppStore((state) => state.uploadedVideo)
-  const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
-
-  const queuedVideos = usePersistStore((state) => state.queuedVideos)
-  const setQueuedVideos = usePersistStore((state) => state.setQueuedVideos)
+  const { activeProfile } = useProfileStore()
+  const { uploadedVideo, setUploadedVideo } = useAppStore()
+  const { queuedVideos, setQueuedVideos } = usePersistStore()
 
   const { cache } = useApolloClient()
-  const [getTxnHash] = useTxIdToTxHashLazyQuery()
 
   const thumbnailUrl = imageCdn(
     uploadedVideo.isSensitiveContent
-      ? `${STATIC_ASSETS}/images/sensor-blur.png`
+      ? `${STATIC_ASSETS}/images/sensor-blur.webp`
       : sanitizeDStorageUrl(queuedVideo.thumbnailUrl),
     uploadedVideo.isByteVideo ? 'THUMBNAIL_V' : 'THUMBNAIL'
   )
@@ -64,59 +56,38 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
     setQueuedVideos(queuedVideos.filter((q) => q.txnId !== queuedVideo.txnId))
   }
 
-  const [getPublication] = usePublicationDetailsLazyQuery({
-    onCompleted: (data) => {
-      if (data.publication) {
+  const { indexed } = usePendingTxn({
+    txId: queuedVideo.txnId
+  })
+
+  const { data: txHashData } = useTxIdToTxHashQuery({
+    variables: {
+      for: queuedVideo.txnId
+    },
+    skip: !indexed || !queuedVideo.txnId?.length
+  })
+
+  const { stopPolling } = usePublicationQuery({
+    variables: {
+      request: { forTxHash: txHashData?.txIdToTxHash || queuedVideo.txnHash }
+    },
+    skip: !txHashData?.txIdToTxHash?.length && !queuedVideo.txnHash?.length,
+    pollInterval: 1000,
+    notifyOnNetworkStatusChange: true,
+    onCompleted: async (data) => {
+      if (data?.publication?.txHash) {
+        stopPolling()
         cache.modify({
           fields: {
             publications() {
               cache.writeQuery({
                 data: { publication: data?.publication },
-                query: PublicationDetailsDocument
+                query: PublicationDocument
               })
             }
           }
         })
         removeFromQueue()
-      }
-    }
-  })
-
-  const getVideoByTxnId = async () => {
-    const { data } = await getTxnHash({
-      variables: {
-        txId: queuedVideo.txnId
-      }
-    })
-    if (data?.txIdToTxHash) {
-      getPublication({
-        variables: { request: { txHash: data?.txIdToTxHash } }
-      })
-    }
-  }
-
-  const { stopPolling } = useHasTxHashBeenIndexedQuery({
-    variables: {
-      request: { txId: queuedVideo?.txnId, txHash: queuedVideo?.txnHash }
-    },
-    skip: !queuedVideo?.txnId?.length && !queuedVideo?.txnHash?.length,
-    pollInterval: 1000,
-    notifyOnNetworkStatusChange: true,
-    onCompleted: async (data) => {
-      if (data.hasTxHashBeenIndexed.__typename === 'TransactionError') {
-        return removeFromQueue()
-      }
-      if (
-        data?.hasTxHashBeenIndexed?.__typename === 'TransactionIndexedResult' &&
-        data?.hasTxHashBeenIndexed?.indexed
-      ) {
-        stopPolling()
-        if (queuedVideo.txnHash) {
-          return getPublication({
-            variables: { request: { txHash: queuedVideo?.txnHash } }
-          })
-        }
-        await getVideoByTxnId()
       }
     }
   })
@@ -127,7 +98,7 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
 
   return (
     <div className="cursor-wait">
-      <Tooltip content={t`Indexing, please wait...`} placement="top">
+      <Tooltip content="Indexing, please wait..." placement="top">
         <div className="aspect-w-16 aspect-h-9 relative overflow-hidden">
           <img
             src={thumbnailUrl}
@@ -147,14 +118,14 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
         <div className="flex items-start space-x-2.5">
           <img
             className="h-8 w-8 rounded-full"
-            src={getProfilePicture(selectedSimpleProfile as Profile)}
-            alt={selectedSimpleProfile?.handle}
+            src={getProfilePicture(activeProfile)}
+            alt={getProfile(activeProfile)?.slug}
             draggable={false}
           />
           <div className="grid flex-1">
             <div className="flex w-full min-w-0 items-start justify-between space-x-1.5 pb-1">
               <span
-                className="ultrawide:line-clamp-1 ultrawide:break-all line-clamp-2 break-words text-sm font-semibold"
+                className="ultrawide:line-clamp-1 ultrawide:break-all line-clamp-2 break-words font-bold"
                 title={queuedVideo.title}
               >
                 {queuedVideo.title}
@@ -169,8 +140,8 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
               </div>
             </div>
             <span className="flex w-fit items-center space-x-0.5 text-[13px] opacity-70">
-              <span>{trimLensHandle(selectedSimpleProfile?.handle)}</span>
-              <Badge id={selectedSimpleProfile?.id} size="xs" />
+              <span>{getProfile(activeProfile)?.slug}</span>
+              <Badge id={activeProfile?.id} size="xs" />
             </span>
           </div>
         </div>

@@ -10,7 +10,7 @@ import {
   trimify,
   trimNewLines
 } from '@lenstube/generic'
-import type { Attribute, Publication } from '@lenstube/lens'
+import type { Attribute, MirrorablePublication } from '@lenstube/lens'
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { useNavigation } from '@react-navigation/native'
 import { Image as ExpoImage } from 'expo-image'
@@ -30,7 +30,7 @@ import { useMobileTheme } from '~/hooks'
 import UserProfile from './UserProfile'
 
 type Props = {
-  video: Publication
+  video: MirrorablePublication
 }
 
 const BORDER_RADIUS = 10
@@ -95,7 +95,7 @@ const VideoCard: FC<Props> = ({ video }) => {
   const { themeConfig } = useMobileTheme()
   const style = styles(themeConfig)
 
-  const isBytes = video.appId === LENSTUBE_BYTES_APP_ID
+  const isBytes = video.publishedOn?.id === LENSTUBE_BYTES_APP_ID
   const isSensitiveContent = getIsSensitiveContent(video?.metadata, video.id)
   const thumbnailUrl = imageCdn(
     isSensitiveContent
@@ -104,7 +104,7 @@ const VideoCard: FC<Props> = ({ video }) => {
     isBytes ? 'THUMBNAIL_V' : 'THUMBNAIL'
   )
   const videoDuration = getValueFromTraitType(
-    video.metadata?.attributes as Attribute[],
+    video.metadata?.marketplace?.attributes as Attribute[],
     'durationInSeconds'
   )
 
@@ -145,19 +145,19 @@ const VideoCard: FC<Props> = ({ video }) => {
 
       <View style={{ paddingVertical: 10, paddingHorizontal: 5, gap: 7 }}>
         <Text numberOfLines={3} style={style.title}>
-          {trimify(video.metadata?.name ?? '')}
+          {trimify(video.metadata?.marketplace?.name ?? '')}
         </Text>
-        {video.metadata?.description && (
+        {video.metadata?.marketplace?.description && (
           <Text numberOfLines={3} style={style.description}>
-            {trimNewLines(video.metadata.description)}
+            {trimNewLines(video.metadata.marketplace?.description)}
           </Text>
         )}
         <View style={style.otherInfoContainer}>
-          <UserProfile profile={video.profile} size={15} radius={3} />
+          <UserProfile profile={video.by} size={15} radius={3} />
           <Text style={{ color: themeConfig.secondaryTextColor, fontSize: 3 }}>
             {'\u2B24'}
           </Text>
-          <Text style={style.otherInfo}>{video.stats?.totalUpvotes} likes</Text>
+          <Text style={style.otherInfo}>{video.stats?.reactions} likes</Text>
           <Text style={{ color: themeConfig.secondaryTextColor, fontSize: 3 }}>
             {'\u2B24'}
           </Text>

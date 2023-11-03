@@ -1,10 +1,7 @@
+import { useDid } from '@hooks/useDid'
 import { getShortHandTime } from '@lib/formatTime'
 import { FALLBACK_COVER_URL } from '@tape.xyz/constants'
-import {
-  getRandomProfilePicture,
-  trimLensHandle,
-  useDid
-} from '@tape.xyz/generic'
+import { getRandomProfilePicture } from '@tape.xyz/generic'
 import Link from 'next/link'
 import type { FC, ReactNode } from 'react'
 import React from 'react'
@@ -49,7 +46,7 @@ const LiveStreamCard: FC<Props> = ({
           />
           {isLive && (
             <div>
-              <span className="absolute bottom-1 right-1 rounded-xl bg-red-500 px-2 text-sm font-semibold text-white">
+              <span className="absolute bottom-1 right-1 rounded-xl bg-red-500 px-2 text-sm font-bold text-white">
                 Live
               </span>
             </div>
@@ -66,13 +63,13 @@ const LiveStreamCard: FC<Props> = ({
           />
           <div className="grid flex-1">
             <div className="flex w-full min-w-0 items-start justify-between space-x-1.5">
-              <div className="ultrawide:line-clamp-1 ultrawide:break-all line-clamp-2 break-words font-semibold">
+              <div className="ultrawide:line-clamp-1 ultrawide:break-all line-clamp-2 break-words font-bold">
                 {name}
               </div>
             </div>
             <p className="line-clamp-1">{description}</p>
             <div className="flex items-center overflow-hidden text-xs opacity-70">
-              <span>{trimLensHandle(did) ?? username}</span>
+              <span>{did ?? username}</span>
               <span className="middot" />
               {app}
               <span className="middot" />

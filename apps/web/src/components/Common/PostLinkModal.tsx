@@ -1,12 +1,13 @@
-import { LENSHUB_PROXY_ABI } from '@abis/LensHubProxy'
-import { Button } from '@components/UIElements/Button'
-import Modal from '@components/UIElements/Modal'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import useChannelStore from '@lib/store/channel'
-import { t } from '@lingui/macro'
-import { Analytics, getUserLocale, TRACK } from '@tape.xyz/browser'
+import { useZoraNft } from '@hooks/useZoraNft'
+import type { MetadataAttribute } from '@lens-protocol/metadata'
+import { link, MetadataAttributeType } from '@lens-protocol/metadata'
+import useProfileStore from '@lib/store/profile'
+import { Button, Dialog, Flex } from '@radix-ui/themes'
+import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
+import { getUserLocale } from '@tape.xyz/browser'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
@@ -15,27 +16,25 @@ import {
   TAPE_WEBSITE_URL
 } from '@tape.xyz/constants'
 import {
+  checkDispatcherPermissions,
+  EVENTS,
   getOpenActionNftMetadata,
+  getProfile,
   getSignature,
   getURLs,
+  Tower,
   trimify,
-  uploadToAr,
-  useZoraNft
+  uploadToAr
 } from '@tape.xyz/generic'
 import type {
-  CreateDataAvailabilityPostRequest,
-  CreatePostBroadcastItemResult,
-  CreatePublicPostRequest
+  CreateMomokaPostEip712TypedData,
+  CreateOnchainPostEip712TypedData,
+  Profile
 } from '@tape.xyz/lens'
 import {
-  PublicationMainFocus,
-  PublicationMetadataDisplayTypes,
-  useBroadcastDataAvailabilityMutation,
-  useBroadcastMutation,
-  useCreateDataAvailabilityPostTypedDataMutation,
-  useCreateDataAvailabilityPostViaDispatcherMutation,
-  useCreatePostTypedDataMutation,
-  useCreatePostViaDispatcherMutation
+  useBroadcastOnMomokaMutation,
+  useCreateMomokaPostTypedDataMutation,
+  usePostOnMomokaMutation
 } from '@tape.xyz/lens'
 import type {
   BasicNftMetadata,
@@ -73,9 +72,11 @@ const PostLinkModal: FC<Props> = ({ show, setShow }) => {
   const [loading, setLoading] = useState(false)
   const handleWrongNetwork = useHandleWrongNetwork()
 
-  const activeChannel = useChannelStore((state) => state.activeChannel)
-  const canUseRelay = activeChannel?.dispatcher?.canUseRelay
-  const isSponsored = activeChannel?.dispatcher?.sponsor
+  const activeProfile = useProfileStore(
+    (state) => state.activeProfile
+  ) as Profile
+  const { canUseLensManager, canBroadcast } =
+    checkDispatcherPermissions(activeProfile)
 
   const {
     register,
@@ -96,11 +97,11 @@ const PostLinkModal: FC<Props> = ({ show, setShow }) => {
     enabled: Boolean(basicNftMetadata?.address)
   })
 
-  const link = watch('link')
+  const linkText = watch('link')
 
   useEffect(() => {
-    if (trimify(link)?.length) {
-      const urls = getURLs(link)
+    if (trimify(linkText)?.length) {
+      const urls = getURLs(linkText)
       const nftMetadata = getOpenActionNftMetadata(urls)
       if (nftMetadata) {
         clearErrors()
@@ -112,37 +113,31 @@ const PostLinkModal: FC<Props> = ({ show, setShow }) => {
       setBasicNftMetadata(defaults)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [link])
+  }, [linkText])
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     setLoading(false)
   }
 
-  const onCompleted = (__typename?: 'RelayError' | 'RelayerResult') => {
+  const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
     if (__typename === 'RelayError') {
       return
     }
-    Analytics.track(TRACK.PUBLICATION.NEW_POST, {
-      type: 'link',
-      publication_state: canUseRelay && isSponsored ? 'MOMOKA' : 'ON_CHAIN',
-      user_id: activeChannel?.id
-    })
     setLoading(false)
     reset()
     setBasicNftMetadata(defaults)
     toast.success('Link posted')
     setShow(false)
+    Tower.track(EVENTS.PUBLICATION.NEW_POST, {
+      type: 'link',
+      publication_state: canUseLensManager ? 'MOMOKA' : 'ON_CHAIN',
+      user_id: activeProfile?.id
+    })
   }
 
   const { signTypedDataAsync } = useSignTypedData({
     onError
-  })
-
-  const [broadcast] = useBroadcastMutation({
-    onCompleted: ({ broadcast }) => {
-      onCompleted(broadcast.__typename)
-    }
   })
 
   const { write } = useContractWrite({
@@ -150,203 +145,145 @@ const PostLinkModal: FC<Props> = ({ show, setShow }) => {
     abi: LENSHUB_PROXY_ABI,
     functionName: 'post',
     onSuccess: () => {
-      setLoading(false)
+      onCompleted()
     },
     onError
   })
 
   const getSignatureFromTypedData = async (
-    data: CreatePostBroadcastItemResult
+    data: CreateMomokaPostEip712TypedData | CreateOnchainPostEip712TypedData
   ) => {
-    const { typedData } = data
     toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-    const signature = await signTypedDataAsync(getSignature(typedData))
+    const signature = await signTypedDataAsync(getSignature(data))
     return signature
   }
 
-  /**
-   * DATA AVAILABILITY STARTS
-   */
-  const [broadcastDataAvailabilityPost] = useBroadcastDataAvailabilityMutation({
-    onCompleted: ({ broadcastDataAvailability }) => {
-      onCompleted()
-      if (broadcastDataAvailability.__typename === 'RelayError') {
-        return toast.error(ERROR_MESSAGE)
+  const [broadcastOnMomoka] = useBroadcastOnMomokaMutation({
+    onCompleted: ({ broadcastOnMomoka }) => {
+      if (broadcastOnMomoka.__typename === 'CreateMomokaPublicationResult') {
+        onCompleted()
       }
-    },
-    onError
-  })
-
-  const [createDataAvailabilityPostTypedData] =
-    useCreateDataAvailabilityPostTypedDataMutation({
-      onCompleted: async ({ createDataAvailabilityPostTypedData }) => {
-        const { id } = createDataAvailabilityPostTypedData
-        const signature = await getSignatureFromTypedData(
-          createDataAvailabilityPostTypedData
-        )
-        return await broadcastDataAvailabilityPost({
-          variables: { request: { id, signature } }
-        })
-      }
-    })
-
-  const [createDataAvailabilityPostViaDispatcher] =
-    useCreateDataAvailabilityPostViaDispatcherMutation({
-      onCompleted: ({ createDataAvailabilityPostViaDispatcher }) => {
-        if (
-          createDataAvailabilityPostViaDispatcher?.__typename === 'RelayError'
-        ) {
-          return
-        }
-        if (
-          createDataAvailabilityPostViaDispatcher.__typename ===
-          'CreateDataAvailabilityPublicationResult'
-        ) {
-          onCompleted()
-        }
-      },
-      onError
-    })
-  /**
-   * DATA AVAILABILITY ENDS
-   */
-
-  const [createPostViaDispatcher] = useCreatePostViaDispatcherMutation({
-    onError,
-    onCompleted: ({ createPostViaDispatcher }) => {
-      onCompleted(createPostViaDispatcher.__typename)
     }
   })
 
-  const [createPostTypedData] = useCreatePostTypedDataMutation({
-    onCompleted: async ({ createPostTypedData }) => {
-      const { typedData, id } =
-        createPostTypedData as CreatePostBroadcastItemResult
+  const [createMomokaPostTypedData] = useCreateMomokaPostTypedDataMutation({
+    onCompleted: async ({ createMomokaPostTypedData }) => {
+      const { typedData, id } = createMomokaPostTypedData
       try {
-        const signature = await getSignatureFromTypedData(createPostTypedData)
-        const { data } = await broadcast({
-          variables: { request: { id, signature } }
-        })
-        if (data?.broadcast?.__typename === 'RelayError') {
-          return write?.({ args: [typedData.value] })
+        if (canBroadcast) {
+          const signature = await getSignatureFromTypedData(typedData)
+          const { data } = await broadcastOnMomoka({
+            variables: { request: { id, signature } }
+          })
+          if (data?.broadcastOnMomoka?.__typename === 'RelayError') {
+            return write({ args: [typedData.value] })
+          }
+          return
         }
+        return write({ args: [typedData.value] })
       } catch {}
     },
     onError
   })
 
-  const createTypedData = async (request: CreatePublicPostRequest) => {
-    await createPostTypedData({
-      variables: { request }
-    })
-  }
-
-  const createViaDispatcher = async (request: CreatePublicPostRequest) => {
-    const { data } = await createPostViaDispatcher({
-      variables: { request }
-    })
-    if (data?.createPostViaDispatcher.__typename === 'RelayError') {
-      await createTypedData(request)
+  const [postOnMomoka] = usePostOnMomokaMutation({
+    onError,
+    onCompleted: ({ postOnMomoka }) => {
+      if (postOnMomoka.__typename === 'CreateMomokaPublicationResult') {
+        onCompleted()
+      }
     }
-  }
-
-  const createViaDataAvailablityDispatcher = async (
-    request: CreateDataAvailabilityPostRequest
-  ) => {
-    const variables = { request }
-
-    const { data } = await createDataAvailabilityPostViaDispatcher({
-      variables
-    })
-
-    if (
-      data?.createDataAvailabilityPostViaDispatcher?.__typename === 'RelayError'
-    ) {
-      return await createDataAvailabilityPostTypedData({ variables })
-    }
-  }
+  })
 
   const onSubmit = async () => {
     if (handleWrongNetwork()) {
       return
     }
     setLoading(true)
-    const metadata = {
-      version: '2.0.0',
-      metadata_id: uuidv4(),
-      locale: getUserLocale(),
-      mainContentFocus: PublicationMainFocus.Link,
-      external_url: TAPE_WEBSITE_URL,
-      name: `${activeChannel?.handle} shared a link`,
-      attributes: [
-        {
-          displayType: PublicationMetadataDisplayTypes.String,
-          traitType: 'publication',
-          value: 'link'
-        },
-        {
-          displayType: PublicationMetadataDisplayTypes.String,
-          traitType: 'app',
-          value: TAPE_APP_ID
-        }
-      ],
-      content: `Check out this drop 📼 \n${link}`,
-      image: null,
-      media: [],
-      appId: TAPE_APP_ID
-    }
 
-    const metadataUri = await uploadToAr(metadata)
-
-    const dataAvailablityRequest: CreateDataAvailabilityPostRequest = {
-      from: activeChannel?.id,
-      contentURI: metadataUri
-    }
-    const request: CreatePublicPostRequest = {
-      profileId: activeChannel?.id,
-      contentURI: metadataUri,
-      collectModule: { revertCollectModule: true }
-    }
-    if (canUseRelay) {
-      if (isSponsored) {
-        return await createViaDataAvailablityDispatcher(dataAvailablityRequest)
+    const attributes: MetadataAttribute[] = [
+      {
+        type: MetadataAttributeType.STRING,
+        key: 'publication',
+        value: 'link'
+      },
+      {
+        type: MetadataAttributeType.STRING,
+        key: 'app',
+        value: TAPE_APP_ID
       }
-      return await createViaDispatcher(request)
+    ]
+    const linkMetadata = link({
+      sharingLink: linkText,
+      appId: TAPE_WEBSITE_URL,
+      id: uuidv4(),
+      content: `Check out this drop 📼 \n${linkText}`,
+      locale: getUserLocale(),
+      marketplace: {
+        name: `Link by @${getProfile(activeProfile)?.slug}`,
+        attributes,
+        description: linkText,
+        external_url: TAPE_WEBSITE_URL
+      },
+      attributes
+    })
+
+    const metadataUri = await uploadToAr(linkMetadata)
+    if (canUseLensManager) {
+      return await postOnMomoka({
+        variables: {
+          request: {
+            contentURI: metadataUri
+          }
+        }
+      })
+    } else {
+      return await createMomokaPostTypedData({
+        variables: {
+          request: {
+            contentURI: metadataUri
+          }
+        }
+      })
     }
-    return await createTypedData(request)
   }
 
   return (
     <div>
-      <Modal
-        title={t`Share a Drop`}
-        description={t`Only zora links are supported at the moment.`}
-        onClose={() => setShow(false)}
-        show={show}
-        panelClassName="max-w-lg"
-      >
-        <div className="no-scrollbar max-h-[40vh] overflow-y-auto p-0.5">
-          <form className="mt-2" onSubmit={handleSubmit(onSubmit)}>
-            <TextArea
-              label="Absolute URL"
-              placeholder="https://..."
-              {...register('link')}
-              validationError={errors.link?.message}
-            />
-            {data && (
-              <div className="mt-4 rounded-xl border border-gray-200 p-5 dark:border-gray-800">
-                <h6 className="text-xl font-bold">{data.name}</h6>
-                <p className="line-clamp-2">{data.description}</p>
-              </div>
-            )}
-            <div className="mt-4 flex items-center justify-end">
-              <Button disabled={!isValid || !data || loading} loading={loading}>
-                Post Link
-              </Button>
-            </div>
-          </form>
-        </div>
-      </Modal>
+      <Dialog.Root open={show} onOpenChange={setShow}>
+        <Dialog.Content>
+          <Dialog.Title>Share a Drop</Dialog.Title>
+          <Dialog.Description size="2" mb="4">
+            Only zora links are supported at the moment.
+          </Dialog.Description>
+          <div className="no-scrollbar max-h-[40vh] overflow-y-auto p-0.5">
+            <form className="mt-2" onSubmit={handleSubmit(onSubmit)}>
+              <TextArea
+                label="Absolute URL"
+                placeholder="https://..."
+                {...register('link')}
+                validationError={errors.link?.message}
+              />
+              {data && (
+                <div className="mt-4 rounded-xl border border-gray-200 p-5 dark:border-gray-800">
+                  <h6 className="text-xl font-bold">{data.name}</h6>
+                  <p className="line-clamp-2">{data.description}</p>
+                </div>
+              )}
+              <Flex gap="3" mt="4" justify="end">
+                <Dialog.Close>
+                  <Button variant="soft" color="gray">
+                    Cancel
+                  </Button>
+                </Dialog.Close>
+                <Button highContrast disabled={!isValid || !data || loading}>
+                  Post Link
+                </Button>
+              </Flex>
+            </form>
+          </div>
+        </Dialog.Content>
+      </Dialog.Root>
     </div>
   )
 }

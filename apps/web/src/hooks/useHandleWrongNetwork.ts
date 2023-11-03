@@ -14,7 +14,6 @@ const useHandleWrongNetwork = () => {
       setShowSwitchNetwork(true)
       return true
     }
-
     return false
   }, [chain, setShowSwitchNetwork])
 

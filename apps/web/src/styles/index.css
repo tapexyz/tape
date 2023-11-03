@@ -3,27 +3,15 @@
 @tailwind utilities;
 
 body {
-  @apply min-h-screen bg-gradient-to-bl from-brand-100 via-gray-100 to-gray-50 bg-fixed text-black antialiased dark:from-gray-800 dark:to-gray-900 dark:text-white;
+  @apply min-h-screen bg-white bg-fixed text-black antialiased dark:bg-black dark:text-white;
 }
 
-.btn-primary {
-  @apply rounded-full bg-brand-500 text-white focus:outline-none disabled:bg-opacity-50;
+.tape-border {
+  @apply border border-[#00000010] dark:border-[#ffffff20];
 }
 
-.btn-danger {
-  @apply rounded-full bg-red-500 text-white focus:outline-none disabled:bg-opacity-50;
-}
-
-.btn-hover {
-  @apply rounded-full hover:bg-brand-100 focus:outline-none disabled:bg-opacity-50 dark:hover:bg-brand-900;
-}
-
-.btn-outline {
-  @apply rounded-xl border border-gray-300 hover:border-black focus:outline-none disabled:opacity-50 dark:border-gray-700 dark:hover:border-white;
-}
-
-.bg-secondary {
-  @apply bg-white dark:bg-[#050506];
+.text-dust {
+  @apply text-[#666666] dark:text-[#888888];
 }
 
 .no-scrollbar::-webkit-scrollbar {
@@ -58,14 +46,14 @@ input[type='number'] {
 }
 
 .input-mentions-single {
-  @apply min-h-[2.4rem] w-full text-sm;
+  @apply min-h-[2rem] w-full;
 }
 .input-mentions-textarea {
-  @apply min-h-[7rem] w-full text-sm;
+  @apply min-h-[7rem] w-full;
 }
 .input-mentions-textarea textarea,
 .input-mentions-single textarea {
-  @apply w-full resize-y rounded-xl border border-gray-300 bg-white px-2.5 pt-2 text-sm outline-none focus:ring-1 focus:ring-brand-500 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700 dark:bg-gray-900;
+  @apply w-full resize-y rounded-lg border border-gray-300 bg-white px-2.5 pt-0.5 outline-none focus:ring-1 focus:ring-gray-300 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700 dark:bg-gray-900;
 }
 .input-mentions-textarea__suggestions,
 .input-mentions-single__suggestions {
@@ -80,12 +68,14 @@ input[type='number'] {
   @apply outline-none;
 }
 
-/* RainbowKit font override */
-[data-rk] {
-  --rk-fonts-body: inherit !important;
-}
-
 /* User Preview tippy override */
 .preview-tippy-content > div {
   @apply !px-0 !py-0;
+}
+
+#tape-cursor {
+  cursor:
+    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='70' height='70' viewport='0 0 70 70' style='fill:black;font-size:70px;'><text y='70%'>📼</text></svg>")
+      16 0,
+    auto;
 }

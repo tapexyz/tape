@@ -1,24 +1,13 @@
 import type { WebIrys } from '@irys/sdk'
+import type { MetadataLicenseType } from '@lens-protocol/metadata'
 import type {
-  AaveFeeCollectModuleSettings,
-  Attribute,
-  FeeCollectModuleSettings,
-  FreeCollectModuleSettings,
-  LimitedFeeCollectModuleSettings,
-  LimitedTimedFeeCollectModuleSettings,
-  MultirecipientFeeCollectModuleSettings,
-  Profile,
+  LegacyMultirecipientFeeCollectModuleSettings,
+  LegacySimpleCollectModuleSettings,
+  MultirecipientFeeCollectOpenActionSettings,
+  ProfileInterestTypes,
   RecipientDataInput,
-  RevertCollectModuleSettings,
-  SimpleCollectModuleSettings,
-  TimedFeeCollectModuleSettings
+  SimpleCollectOpenActionSettings
 } from '@tape.xyz/lens'
-
-export type VideoDraft = {
-  preview: string
-  title: string
-  description: string
-}
 
 export type IrysDataState = {
   instance: WebIrys | null
@@ -27,13 +16,6 @@ export type IrysDataState = {
   deposit: string | null
   depositing: boolean
   showDeposit: boolean
-}
-
-export type FileReaderStreamType = NodeJS.ReadableStream & {
-  name: string
-  size: number
-  type: string
-  lastModified: string
 }
 
 export type CollectModuleType = {
@@ -57,20 +39,30 @@ export type ReferenceModuleType = {
   degreesOfSeparationReferenceModule?: {
     commentsRestricted: boolean
     mirrorsRestricted: boolean
+    quotesRestricted: boolean
     degreesOfSeparation: number
   } | null
 }
 
-export type UploadedVideo = {
+type FileReaderStreamType = NodeJS.ReadableStream & {
+  name: string
+  size: number
+  type: string
+  lastModified: string
+}
+
+export type UploadedMedia = {
+  type: 'VIDEO' | 'AUDIO'
   stream: FileReaderStreamType | null
   preview: string
-  videoType: string
+  mediaType: string
   file: File | null
   title: string
   description: string
   thumbnail: string
   thumbnailType: string
-  videoCategory: { tag: string; name: string }
+  mediaCategory: { tag: string; name: string }
+  mediaLicense: MetadataLicenseType
   percent: number
   isSensitiveContent: boolean
   isUploadToIpfs: boolean
@@ -78,7 +70,7 @@ export type UploadedVideo = {
   uploadingThumbnail: boolean
   videoSource: string
   buttonText: string
-  durationInSeconds: string | null
+  durationInSeconds: number
   collectModule: CollectModuleType
   referenceModule: ReferenceModuleType
   isByteVideo: boolean
@@ -89,39 +81,6 @@ export type IPFSUploadResult = {
   type: string
 }
 
-export type VideoUploadForm = {
-  videoThumbnail: IPFSUploadResult | null
-  videoSource: string | null
-  title: string
-  description: string
-  adultContent: boolean
-}
-
-export type ProfileMetadata = {
-  version: string
-  metadata_id: string
-  name: string | null
-  bio: string | null
-  cover_picture: string | null
-  attributes: Attribute[]
-}
-
-type MultiRecipientFeeCollectModuleSettings =
-  MultirecipientFeeCollectModuleSettings & {
-    optionalEndTimestamp?: string
-    optionalCollectLimit?: string
-  }
-
-export type CustomCollectModule = FreeCollectModuleSettings &
-  FeeCollectModuleSettings &
-  RevertCollectModuleSettings &
-  TimedFeeCollectModuleSettings &
-  LimitedFeeCollectModuleSettings &
-  LimitedTimedFeeCollectModuleSettings &
-  MultiRecipientFeeCollectModuleSettings &
-  SimpleCollectModuleSettings &
-  AaveFeeCollectModuleSettings
-
 export interface CustomErrorWithData extends Error {
   data?: {
     message: string
@@ -129,8 +88,8 @@ export interface CustomErrorWithData extends Error {
 }
 
 export interface ProfileInterest {
-  category: { label: string; id: string }
-  subCategories: Array<{ label: string; id: string }>
+  category: { label: string; id: ProfileInterestTypes }
+  subCategories: Array<{ label: string; id: ProfileInterestTypes }>
 }
 
 export type QueuedVideoType = {
@@ -157,7 +116,68 @@ export enum CustomNotificationsFilterEnum {
   ALL_NOTIFICATIONS = 'AllNotifications'
 }
 
-// MOBILE
+export enum LocalStore {
+  TAPE_AUTH_STORE = 'tape.auth.store',
+  TAPE_STORE = 'tape.store',
+  TAPE_FINGERPRINT = 'tape.fingerprint'
+}
+
+export interface CustomNftItemType {
+  contentValue: {
+    video: string
+    audio: string
+  }
+  metaData: {
+    name: string
+    image: string
+    description: string
+  }
+  tokenId: string
+  blockchain: string
+  chainId: string
+  address: string
+}
+
+export interface NftProvider {
+  provider: 'zora' | 'basepaint'
+}
+
+export interface BasicNftMetadata extends NftProvider {
+  chain: string
+  address: string
+  token: string
+}
+
+export type ZoraNft = {
+  chainId: number
+  name: string
+  description: string
+  coverImageUrl: string
+  mediaUrl: string
+  tokenId: string
+  address: `0x${string}`
+  owner: `0x${string}`
+  creator: `0x${string}`
+  maxSupply: number
+  remainingSupply: number
+  totalMinted: number
+  isOpenEdition: boolean
+  price: string
+  contractType:
+    | 'ERC721_DROP'
+    | 'ERC721_SINGLE_EDITION'
+    | 'ERC1155_COLLECTION'
+    | 'ERC1155_COLLECTION_TOKEN'
+  contractStandard: 'ERC721' | 'ERC1155'
+}
+
+export type SupportedOpenActionModuleType =
+  | SimpleCollectOpenActionSettings
+  | MultirecipientFeeCollectOpenActionSettings
+  | LegacySimpleCollectModuleSettings
+  | LegacyMultirecipientFeeCollectModuleSettings
+
+// ------------------------------------------------------------------------MOBILE STARTS---------------------------------------------------------------------------------------------------------------
 
 export enum TimelineFeedType {
   CURATED = 'CURATED',
@@ -202,56 +222,4 @@ export interface MobileThemeConfig {
   buttonTextColor: string
 }
 
-export interface CustomNftItemType {
-  contentValue: {
-    video: string
-    audio: string
-  }
-  metaData: {
-    name: string
-    image: string
-    description: string
-  }
-  tokenId: string
-  blockchain: string
-  chainId: string
-  address: string
-}
-
-export type SimpleProfile = Pick<
-  Profile,
-  'id' | 'handle' | 'ownedBy' | 'isDefault' | 'dispatcher' | 'stats' | 'picture'
->
-
-export interface NftProvider {
-  provider: 'zora' | 'basepaint'
-}
-
-export interface BasicNftMetadata extends NftProvider {
-  chain: string
-  address: string
-  token: string
-}
-
-export type ZoraNft = {
-  chainId: number
-  name: string
-  description: string
-  coverImageUrl: string
-  mediaUrl: string
-  tokenId: string
-  address: `0x${string}`
-  owner: `0x${string}`
-  creator: `0x${string}`
-  maxSupply: number
-  remainingSupply: number
-  totalMinted: number
-  isOpenEdition: boolean
-  price: string
-  contractType:
-    | 'ERC721_DROP'
-    | 'ERC721_SINGLE_EDITION'
-    | 'ERC1155_COLLECTION'
-    | 'ERC1155_COLLECTION_TOKEN'
-  contractStandard: 'ERC721' | 'ERC1155'
-}
+// ------------------------------------------------------------------------MOBILE ENDS---------------------------------------------------------------------------------------------------------------

@@ -1,10 +1,11 @@
 import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
-import type { ExplorePublicationRequest, Publication } from '@lenstube/lens'
+import type { ExplorePublicationRequest, Post } from '@lenstube/lens'
 import {
-  PublicationMainFocus,
-  PublicationSortCriteria,
-  PublicationTypes,
-  useExploreQuery
+  ExplorePublicationsOrderByType,
+  ExplorePublicationType,
+  LimitType,
+  PublicationMetadataMainFocusType,
+  useExplorePublicationsQuery
 } from '@lenstube/lens'
 import { FlashList } from '@shopify/flash-list'
 import React, { useCallback } from 'react'
@@ -25,21 +26,24 @@ const styles = StyleSheet.create({
 
 export const PodcastModal = () => {
   const request: ExplorePublicationRequest = {
-    sortCriteria: PublicationSortCriteria.CuratedProfiles,
-    limit: 50,
-    noRandomize: false,
-    publicationTypes: [PublicationTypes.Post],
-    customFilters: LENS_CUSTOM_FILTERS,
-    metadata: {
-      tags: { oneOf: ['podcast'] },
-      mainContentFocus: [PublicationMainFocus.Video]
-    }
+    limit: LimitType.TwentyFive,
+    where: {
+      metadata: {
+        tags: { oneOf: ['podcast'] },
+        mainContentFocus: [PublicationMetadataMainFocusType.Video]
+      },
+      customFilters: LENS_CUSTOM_FILTERS,
+      publicationTypes: [ExplorePublicationType.Post]
+    },
+    orderBy: ExplorePublicationsOrderByType.LensCurated
   }
-  const { data, fetchMore, loading, error, refetch } = useExploreQuery({
-    variables: { request }
-  })
 
-  const publications = data?.explorePublications?.items as Publication[]
+  const { data, fetchMore, loading, error, refetch } =
+    useExplorePublicationsQuery({
+      variables: { request }
+    })
+
+  const publications = data?.explorePublications?.items as Post[]
   const pageInfo = data?.explorePublications?.pageInfo
 
   const fetchMorePublications = async () => {
@@ -54,7 +58,7 @@ export const PodcastModal = () => {
   }
 
   const renderItem = useCallback(
-    ({ item }: { item: Publication }) => (
+    ({ item }: { item: Post }) => (
       <View style={{ marginBottom: 30 }}>
         <VideoCard video={item} />
       </View>

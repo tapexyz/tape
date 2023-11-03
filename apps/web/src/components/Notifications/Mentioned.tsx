@@ -1,64 +1,54 @@
-import Badge from '@components/Common/Badge'
-import { getRelativeTime } from '@lib/formatTime'
-import { Trans } from '@lingui/macro'
-import { getProfilePicture, trimLensHandle } from '@tape.xyz/generic'
-import type { NewMentionNotification } from '@tape.xyz/lens'
+import HoverableProfile from '@components/Common/HoverableProfile'
+import MentionOutline from '@components/Common/Icons/MentionOutline'
+import { getShortHandTime } from '@lib/formatTime'
+import {
+  getProfile,
+  getProfilePicture,
+  getPublicationData
+} from '@tape.xyz/generic'
+import type { MentionNotification } from '@tape.xyz/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
 
-interface Props {
-  notification: NewMentionNotification
+type Props = {
+  notification: MentionNotification
 }
 
-const MentionedNotification: FC<Props> = ({ notification }) => {
+const Mentioned: FC<Props> = ({ notification: { publication } }) => {
+  const videoId =
+    publication.__typename === 'Comment' ? publication.root.id : publication.id
   return (
-    <>
-      <div className="flex items-center space-x-3">
-        <Link
-          href={`/channel/${trimLensHandle(
-            notification?.mentionPublication?.profile?.handle
-          )}`}
-          className="font-base inline-flex items-center space-x-1.5"
-        >
-          <img
-            className="h-5 w-5 rounded-full"
-            src={getProfilePicture(
-              notification?.mentionPublication.profile,
-              'AVATAR'
-            )}
-            alt={notification?.mentionPublication?.profile?.handle}
-            draggable={false}
-          />
-          <div className="flex items-center space-x-0.5">
-            <span>
-              {trimLensHandle(
-                notification?.mentionPublication?.profile?.handle
-              )}
-            </span>
-            <Badge
-              id={notification?.mentionPublication?.profile?.id}
-              size="xs"
-            />
-          </div>
-        </Link>
-      </div>
-      <div className="flex items-center justify-between">
-        <span className="truncate text-gray-600 dark:text-gray-400">
-          <Link
-            href={`/watch/${notification?.mentionPublication.id}`}
-            className="text-brand-500 mr-1"
-          >
-            <Trans>mentioned</Trans>
-          </Link>
-          <Trans>your channel</Trans>
-        </span>
-        <div className="flex flex-none items-center space-x-1 text-gray-600 dark:text-gray-400">
-          <span>{getRelativeTime(notification?.createdAt)}</span>
+    <div className="flex justify-between">
+      <span className="flex space-x-4">
+        <div className="p-1">
+          <MentionOutline className="h-5 w-5" />
         </div>
-      </div>
-    </>
+        <div>
+          <span className="flex -space-x-1.5">
+            <HoverableProfile profile={publication.by} key={publication.by?.id}>
+              <img
+                className="h-7 w-7 rounded-full border dark:border-gray-700/80"
+                src={getProfilePicture(publication.by)}
+                draggable={false}
+                alt={getProfile(publication.by)?.displayName}
+              />
+            </HoverableProfile>
+          </span>
+          <div className="py-2">mentioned you</div>
+          <Link
+            href={`/watch/${videoId}`}
+            className="text-dust line-clamp-2 font-medium"
+          >
+            {getPublicationData(publication.metadata)?.content}
+          </Link>
+        </div>
+      </span>
+      <span className="text-dust text-sm">
+        {getShortHandTime(publication.createdAt)}
+      </span>
+    </div>
   )
 }
 
-export default MentionedNotification
+export default Mentioned

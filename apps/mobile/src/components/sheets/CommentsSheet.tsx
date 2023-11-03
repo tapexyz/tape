@@ -1,10 +1,11 @@
 import type { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
 import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
-import {
-  type Publication,
-  type PublicationsQueryRequest,
-  useCommentsQuery
+import type {
+  AnyPublication,
+  Comment,
+  PublicationsRequest
 } from '@lenstube/lens'
+import { LimitType, usePublicationsQuery } from '@lenstube/lens'
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { FlashList } from '@shopify/flash-list'
 import type { FC } from 'react'
@@ -22,7 +23,7 @@ import { useMobileTheme } from '~/hooks'
 
 import NotFound from '../ui/NotFound'
 import Sheet from '../ui/Sheet'
-import Comment from '../watch/Comment'
+import RenderComment from '../watch/RenderComment'
 
 type Props = {
   id: string
@@ -44,17 +45,21 @@ const CommentsSheet: FC<Props> = ({ id, commentsSheetRef }) => {
   const { themeConfig } = useMobileTheme()
   const style = styles(themeConfig)
 
-  const request: PublicationsQueryRequest = {
-    limit: 10,
-    customFilters: LENS_CUSTOM_FILTERS,
-    commentsOf: id
+  const request: PublicationsRequest = {
+    where: {
+      commentOn: {
+        id
+      },
+      customFilters: LENS_CUSTOM_FILTERS
+    },
+    limit: LimitType.Ten
   }
 
-  const { data, fetchMore, loading, refetch } = useCommentsQuery({
+  const { data, fetchMore, loading, refetch } = usePublicationsQuery({
     variables: { request },
     skip: !id
   })
-  const comments = data?.publications?.items as Publication[]
+  const comments = data?.publications?.items as AnyPublication[]
   const pageInfo = data?.publications?.pageInfo
 
   const fetchMoreComments = async () => {
@@ -69,9 +74,9 @@ const CommentsSheet: FC<Props> = ({ id, commentsSheetRef }) => {
   }
 
   const renderItem = useCallback(
-    ({ item }: { item: Publication }) => (
+    ({ item }: { item: AnyPublication }) => (
       <View style={{ marginTop: 20 }}>
-        <Comment comment={item} richText />
+        <RenderComment comment={item as Comment} richText />
       </View>
     ),
     []

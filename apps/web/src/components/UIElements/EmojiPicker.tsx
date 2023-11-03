@@ -1,12 +1,11 @@
 import EmojiOutline from '@components/Common/Icons/EmojiOutline'
 import Picker from '@emoji-mart/react'
+import { Popover } from '@radix-ui/themes'
 import { STATIC_ASSETS } from '@tape.xyz/constants'
 import axios from 'axios'
 import { useTheme } from 'next-themes'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
-
-import DropMenu from './DropMenu'
 
 type EmojiData = {
   aliases: Object
@@ -33,14 +32,13 @@ const EmojiPicker: FC<Props> = ({ onEmojiSelect }) => {
   }, [])
 
   return (
-    <DropMenu
-      trigger={
-        <div className="hidden text-inherit opacity-50 hover:opacity-100 group-hover:visible md:block">
+    <Popover.Root>
+      <Popover.Trigger>
+        <span className="cursor-pointer">
           <EmojiOutline className="h-5 w-5" />
-        </div>
-      }
-    >
-      <div className="pt-2">
+        </span>
+      </Popover.Trigger>
+      <Popover.Content align="end" className="!p-0">
         <Picker
           data={data}
           navPosition="bottom"
@@ -58,8 +56,8 @@ const EmojiPicker: FC<Props> = ({ onEmojiSelect }) => {
             'rgba(211,209,255,.7)'
           ]}
         />
-      </div>
-    </DropMenu>
+      </Popover.Content>
+    </Popover.Root>
   )
 }
 

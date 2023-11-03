@@ -1,0 +1,6 @@
+fragment QuoteFields on Quote {
+  ...QuoteBaseFields
+  quoteOn {
+    ...PrimaryPublicationFields
+  }
+}

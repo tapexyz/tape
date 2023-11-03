@@ -6,15 +6,21 @@ import { imageCdn } from './imageCdn'
 import { sanitizeDStorageUrl } from './sanitizeDStorageUrl'
 
 export const getProfilePicture = (
-  channel: Profile,
-  type?: keyof typeof IMAGE_TRANSFORMATIONS
+  profile: Profile | null,
+  type?: keyof typeof IMAGE_TRANSFORMATIONS,
+  withFallback = true
 ): string => {
+  if (!profile) {
+    return ''
+  }
   const url =
-    channel.picture && channel.picture.__typename === 'MediaSet'
-      ? channel?.picture?.original?.url
-      : channel.picture?.__typename === 'NftImage'
-      ? channel?.picture?.uri
-      : getRandomProfilePicture(channel?.ownedBy)
+    profile.metadata?.picture?.__typename === 'ImageSet'
+      ? profile.metadata?.picture?.optimized?.uri
+      : profile.metadata?.picture?.__typename === 'NftImage'
+      ? profile?.metadata.picture.image?.optimized?.uri
+      : withFallback
+      ? getRandomProfilePicture(profile?.ownedBy.address)
+      : null
   const sanitized = sanitizeDStorageUrl(url)
   return imageCdn(sanitized, type)
 }

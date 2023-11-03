@@ -1,5 +1,5 @@
-import type { Publication } from '@lenstube/lens'
-import { usePublicationDetailsQuery } from '@lenstube/lens'
+import type { AnyPublication } from '@lenstube/lens'
+import { usePublicationQuery } from '@lenstube/lens'
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import React from 'react'
 import {
@@ -14,7 +14,6 @@ import ServerError from '~/components/ui/ServerError'
 import MoreVideos from '~/components/watch/MoreVideos'
 import VideoPlayer from '~/components/watch/Player'
 import { useMobileTheme } from '~/hooks'
-import { useMobilePersistStore } from '~/store/persist'
 
 const styles = (themeConfig: MobileThemeConfig) =>
   StyleSheet.create({
@@ -31,24 +30,17 @@ export const WatchScreen = (props: WatchScreenProps) => {
   const { height: windowHeight } = useWindowDimensions()
 
   const videoId = props.route.params.id
-  const selectedProfile = useMobilePersistStore(
-    (state) => state.selectedProfile
-  )
 
-  const { data, error, loading } = usePublicationDetailsQuery({
+  const { data, error, loading } = usePublicationQuery({
     variables: {
-      request: { publicationId: videoId },
-      reactionRequest: selectedProfile
-        ? { profileId: selectedProfile?.id }
-        : null,
-      channelId: selectedProfile?.id ?? null
+      request: { forId: videoId }
     },
     skip: !videoId
   })
 
-  const publication = data?.publication as Publication
+  const publication = data?.publication as AnyPublication
   const video =
-    publication?.__typename === 'Mirror' ? publication.mirrorOf : publication
+    publication?.__typename === 'Mirror' ? publication.mirrorOn : publication
 
   if (error) {
     return <ServerError />

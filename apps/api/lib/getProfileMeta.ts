@@ -1,11 +1,12 @@
 import { getMetaTags } from '@tape.xyz/browser'
 import {
+  LENS_NAMESPACE_PREFIX,
   OG_IMAGE,
   TAPE_APP_DESCRIPTION,
   TAPE_APP_NAME
 } from '@tape.xyz/constants'
-import { getProfilePicture } from '@tape.xyz/generic'
-import type { Profile } from '@tape.xyz/lens'
+import { getProfile, getProfilePicture } from '@tape.xyz/generic'
+import type { Profile, ProfileRequest } from '@tape.xyz/lens'
 import { ProfileDocument } from '@tape.xyz/lens'
 import { apolloClient } from '@tape.xyz/lens/apollo'
 import type { NextApiResponse } from 'next'
@@ -14,14 +15,20 @@ const client = apolloClient()
 
 const getProfileMeta = async (res: NextApiResponse, handle: string) => {
   try {
+    const request: ProfileRequest = {
+      forHandle: `${LENS_NAMESPACE_PREFIX}${handle}`
+    }
+
     const { data } = await client.query({
       query: ProfileDocument,
-      variables: { request: { handle } }
+      variables: {
+        request
+      }
     })
 
     const profile: Profile = data?.profile
-    const title = profile?.name ?? profile?.handle
-    const description = profile?.bio || TAPE_APP_DESCRIPTION
+    const title = getProfile(profile)?.displayName
+    const description = profile?.metadata?.bio || TAPE_APP_DESCRIPTION
     const image = getProfilePicture(profile, 'AVATAR_LG')
 
     return res

@@ -1,118 +1,63 @@
 import useAppStore from '@lib/store'
-import { Trans } from '@lingui/macro'
-import { Analytics, TRACK, useHorizontalScroll } from '@tape.xyz/browser'
 import { CREATOR_VIDEO_CATEGORIES } from '@tape.xyz/constants'
+import { EVENTS, Tower } from '@tape.xyz/generic'
 import clsx from 'clsx'
-import React, { useEffect, useState } from 'react'
+import type { FC } from 'react'
+import React, { useRef } from 'react'
 
-import ChevronLeftOutline from './Icons/ChevronLeftOutline'
-import ChevronRightOutline from './Icons/ChevronRightOutline'
+import HorizantalScroller from './HorizantalScroller'
 
-const CategoryFilters = () => {
-  const activeTagFilter = useAppStore((state) => state.activeTagFilter)
-  const setActiveTagFilter = useAppStore((state) => state.setActiveTagFilter)
+type Props = {
+  heading?: string
+  subheading?: string
+}
 
-  const [scrollX, setScrollX] = useState(0)
-  const [scrollEnd, setScrollEnd] = useState(false)
-
-  const scrollRef = useHorizontalScroll()
+const CategoryFilters: FC<Props> = ({ heading, subheading }) => {
+  const sectionRef = useRef<HTMLDivElement>(null)
+  const { activeTagFilter, setActiveTagFilter } = useAppStore()
 
   const onFilter = (tag: string) => {
     setActiveTagFilter(tag)
-    Analytics.track(TRACK.FILTER_CATEGORIES)
-  }
-
-  const sectionOffsetWidth = scrollRef.current?.offsetWidth ?? 1000
-  const scrollOffset = sectionOffsetWidth / 1.2
-
-  useEffect(() => {
-    if (
-      scrollRef.current &&
-      scrollRef?.current?.scrollWidth === scrollRef?.current?.offsetWidth
-    ) {
-      setScrollEnd(true)
-    } else {
-      setScrollEnd(false)
-    }
-  }, [scrollRef])
-
-  const slide = (shift: number) => {
-    if (scrollRef.current) {
-      const scrolled = scrollRef.current.scrollLeft + shift
-      scrollRef.current.scrollLeft += shift
-
-      setScrollX(scrolled <= 0 ? 0 : scrollX + shift)
-
-      if (
-        Math.floor(scrollRef.current.scrollWidth - scrolled) <=
-        scrollRef.current.offsetWidth
-      ) {
-        setScrollEnd(true)
-      } else {
-        setScrollEnd(false)
-      }
-    }
+    Tower.track(EVENTS.FILTER_CATEGORIES)
   }
 
   return (
-    <div
-      className="ultrawide:max-w-[90rem] relative mx-auto flex pt-4"
-      data-testid="category-filters"
-    >
-      {scrollX !== 0 && (
-        <div className="ultrawide:pl-0 sticky bottom-0 right-0 bg-transparent px-2 ">
-          <button
-            type="button"
-            className="hidden rounded-full p-2 backdrop-blur-xl hover:bg-gray-500 hover:bg-opacity-20 focus:outline-none md:block"
-            onClick={() => slide(-scrollOffset)}
-          >
-            <ChevronLeftOutline className="h-4 w-4" />
-          </button>
-        </div>
-      )}
+    <div className="sticky top-0 z-[9] bg-white dark:bg-black">
+      <HorizantalScroller
+        sectionRef={sectionRef}
+        heading={heading ?? 'Explore'}
+        subheading={subheading ?? 'Categories'}
+      />
       <div
-        ref={scrollRef}
-        className="no-scrollbar ultrawide:px-0 flex touch-pan-x items-center gap-2 overflow-x-auto scroll-smooth px-2 md:mx-auto"
+        ref={sectionRef}
+        className="no-scrollbar laptop:pt-6 flex items-center overflow-x-auto scroll-smooth pt-4 md:mx-auto"
       >
         <button
-          type="button"
-          onClick={() => onFilter('all')}
           className={clsx(
-            'whitespace-nowrap rounded-full border border-gray-200 px-3.5 py-1 text-xs capitalize dark:border-gray-700',
+            'whitespace-nowrap px-10 py-2.5 font-medium',
             activeTagFilter === 'all'
-              ? 'bg-black text-white'
-              : 'bg-gray-100 dark:bg-gray-800'
+              ? 'from-brand-50 border-brand-400 dark:from-brand-950 border-b-2 bg-gradient-to-t to-transparent'
+              : 'text-dust border-b dark:border-gray-800'
           )}
+          onClick={() => onFilter('all')}
         >
-          <Trans>All</Trans>
+          All
         </button>
         {CREATOR_VIDEO_CATEGORIES.map((category) => (
           <button
-            type="button"
-            onClick={() => onFilter(category.tag)}
             key={category.tag}
             className={clsx(
-              'whitespace-nowrap rounded-full border border-gray-200 px-3.5 py-1 text-xs capitalize dark:border-gray-700',
+              'whitespace-nowrap px-6 py-2.5 font-medium',
               activeTagFilter === category.tag
-                ? 'bg-black text-white'
-                : 'bg-gray-100 dark:bg-gray-800'
+                ? 'from-brand-50 border-brand-400 dark:from-brand-950 border-b-2 bg-gradient-to-t to-transparent'
+                : 'text-dust border-b dark:border-gray-800'
             )}
+            onClick={() => onFilter(category.tag)}
           >
             {category.name}
           </button>
         ))}
       </div>
-      {!scrollEnd && (
-        <div className="ultrawide:pr-0 sticky bottom-0 right-0 bg-transparent px-2">
-          <button
-            type="button"
-            className="hidden rounded-full p-2 backdrop-blur-xl hover:bg-gray-500 hover:bg-opacity-20 focus:outline-none md:block"
-            onClick={() => slide(scrollOffset)}
-          >
-            <ChevronRightOutline className="h-4 w-4" />
-          </button>
-        </div>
-      )}
     </div>
   )
 }

@@ -1,0 +1,11 @@
+fragment TextOnlyMetadataV3Fields on TextOnlyMetadataV3 {
+  id
+  rawURI
+  tags
+  contentWarning
+  appId
+  attributes {
+    ...MetadataAttributeFields
+  }
+  content
+}

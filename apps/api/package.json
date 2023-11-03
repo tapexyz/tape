@@ -11,7 +11,7 @@
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "next": "13.4.19"
+    "next": "14.0.1"
   },
   "devDependencies": {
     "@tape.xyz/browser": "*",
@@ -19,7 +19,7 @@
     "@tape.xyz/constants": "*",
     "@tape.xyz/generic": "*",
     "@tape.xyz/lens": "*",
-    "@types/node": "20.8.9",
+    "@types/node": "20.8.10",
     "typescript": "5.2.2"
   }
 }

@@ -1,0 +1,17 @@
+fragment FollowModuleFields on FollowModule {
+  ... on FeeFollowModuleSettings {
+    amount {
+      ...AmountFields
+      rate(request: { for: USD }) {
+        ...FiatAmountFields
+      }
+    }
+    recipient
+  }
+  ... on RevertFollowModuleSettings {
+    type
+  }
+  ... on UnknownFollowModuleSettings {
+    type
+  }
+}

@@ -1,16 +1,26 @@
 import '../styles/index.css'
 
 import { LivepeerConfig } from '@livepeer/react'
-import { bloomer, getLivepeerClient, videoPlayerTheme } from '@tape.xyz/browser'
+import {
+  getLivepeerClient,
+  setFingerprint,
+  videoPlayerTheme
+} from '@tape.xyz/browser'
+import { tapeFont } from '@tape.xyz/browser/font'
 import type { AppProps } from 'next/app'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
+  useEffect(() => {
+    setFingerprint()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   return (
     <LivepeerConfig client={getLivepeerClient()} theme={videoPlayerTheme}>
       <style jsx global>{`
         body {
-          font-family: ${bloomer.style.fontFamily};
+          font-family: ${tapeFont.style.fontFamily};
         }
       `}</style>
       <Component {...pageProps} />

@@ -1,79 +1,77 @@
 import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import useAuthPersistStore from '@lib/store/auth'
-import { t } from '@lingui/macro'
 import {
+  INFINITE_SCROLL_ROOT_MARGIN,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_BYTES_APP_ID,
-  SCROLL_ROOT_MARGIN,
   TAPE_APP_ID
 } from '@tape.xyz/constants'
-import type { Publication } from '@tape.xyz/lens'
+import type {
+  ExplorePublicationRequest,
+  PrimaryPublication
+} from '@tape.xyz/lens'
 import {
-  PublicationMainFocus,
-  PublicationSortCriteria,
-  PublicationTypes,
-  useExploreQuery
+  ExplorePublicationsOrderByType,
+  ExplorePublicationType,
+  LimitType,
+  PublicationMetadataMainFocusType,
+  useExplorePublicationsQuery
 } from '@tape.xyz/lens'
 import { Loader } from '@tape.xyz/ui'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 
-const Recents = () => {
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
-
-  const request = {
-    sortCriteria: PublicationSortCriteria.Latest,
-    limit: 32,
-    noRandomize: true,
-    sources: [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID],
-    publicationTypes: [PublicationTypes.Post],
+const request: ExplorePublicationRequest = {
+  where: {
+    publicationTypes: [ExplorePublicationType.Post],
     customFilters: LENS_CUSTOM_FILTERS,
     metadata: {
-      mainContentFocus: [PublicationMainFocus.Video]
+      publishedOn: [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID],
+      mainContentFocus: [PublicationMetadataMainFocusType.Video]
     }
-  }
+  },
+  orderBy: ExplorePublicationsOrderByType.Latest,
+  limit: LimitType.Fifty
+}
 
-  const { data, loading, error, fetchMore } = useExploreQuery({
+const Recents = () => {
+  const { data, loading, error, fetchMore } = useExplorePublicationsQuery({
     variables: {
-      request,
-      channelId: selectedSimpleProfile?.id ?? null
+      request
     }
   })
 
-  const videos = data?.explorePublications?.items as Publication[]
+  const videos = data?.explorePublications
+    ?.items as unknown as PrimaryPublication[]
   const pageInfo = data?.explorePublications?.pageInfo
 
   const { observe } = useInView({
-    rootMargin: SCROLL_ROOT_MARGIN,
+    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
     onEnter: async () => {
       await fetchMore({
         variables: {
           request: {
             ...request,
             cursor: pageInfo?.next
-          },
-          channelId: selectedSimpleProfile?.id ?? null
+          }
         }
       })
     }
   })
   if (loading) {
     return (
-      <div className="pt-9">
+      <div className="pt-3">
         <TimelineShimmer />
       </div>
     )
   }
   if (!videos.length || error) {
-    return <NoDataFound isCenter withImage text={t`No videos found`} />
+    return <NoDataFound isCenter withImage text={`No videos found`} />
   }
 
   return (
-    <div className="pt-9">
+    <div className="pt-3">
       {!error && !loading && videos?.length ? (
         <>
           <Timeline videos={videos} />

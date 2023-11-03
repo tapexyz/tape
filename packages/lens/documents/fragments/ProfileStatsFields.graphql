@@ -1,7 +1,13 @@
 fragment ProfileStatsFields on ProfileStats {
-  totalFollowers
-  totalPosts
-  totalComments
-  totalMirrors
-  totalCollects
+  id
+  followers
+  following
+  comments
+  posts
+  mirrors
+  quotes
+  publications
+  reactions
+  reacted
+  countOpenActions
 }

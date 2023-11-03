@@ -1,6 +1,6 @@
 import { SB_STORAGE_URL } from '@lenstube/constants'
 import { getPublicationMediaCid } from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
+import type { MirrorablePublication } from '@lenstube/lens'
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import type { FC } from 'react'
 import React, { useMemo } from 'react'
@@ -32,7 +32,7 @@ const styles = (themeConfig: MobileThemeConfig) =>
   })
 
 type Props = {
-  audio: Publication
+  audio: MirrorablePublication
 }
 
 const WaveForm: FC<Props> = ({ audio }) => {

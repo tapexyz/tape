@@ -16,21 +16,21 @@ jobs:
 
       steps:
         - uses: actions/checkout@v3
-        - uses: oven-sh/setup-bun@v1
+          with: 
+            fetch-depth: 2
+        - uses: actions/setup-node@v3
+          with:
+            node-version-file: '.nvmrc'
+            cache: 'yarn'
  
         - name: Install dependencies 🧳
-          run: bun install
-
-        - name: Install Playwright Browsers 🕹️
-          run: bunx playwright install --with-deps
-
+          run: yarn install --frozen-lockfile
+          
         - name: Check Lint 💅🏻
-          run: bun run lint && bun run typecheck
+          run: yarn run lint && yarn run typecheck
 
         - name: Run Build 🔨
-          run: bun run build
+          run: yarn run build
  
-        - name: Run Tests 🧪
-          run: bun run e2e:test
         
           

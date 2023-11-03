@@ -1,0 +1,112 @@
+fragment OpenActionModulesFields on OpenActionModule {
+  ... on SimpleCollectOpenActionSettings {
+    type
+    contract {
+      ...NetworkAddressFields
+    }
+    amount {
+      ...AmountFields
+      rate(request: { for: USD }) {
+        ...FiatAmountFields
+      }
+    }
+    collectLimit
+    followerOnly
+    recipient
+    referralFee
+    collectNft
+    endsAt
+  }
+  ... on MultirecipientFeeCollectOpenActionSettings {
+    type
+    contract {
+      ...NetworkAddressFields
+    }
+    amount {
+      ...AmountFields
+      rate(request: { for: USD }) {
+        ...FiatAmountFields
+      }
+    }
+    collectLimit
+    referralFee
+    followerOnly
+    collectNft
+    endsAt
+    recipients {
+      recipient
+      split
+    }
+  }
+  ... on LegacyMultirecipientFeeCollectModuleSettings {
+    type
+    contract {
+      ...NetworkAddressFields
+    }
+    collectNft
+    amount {
+      ...AmountFields
+      rate(request: { for: USD }) {
+        ...FiatAmountFields
+      }
+    }
+    collectLimit
+    referralFee
+    followerOnly
+    endsAt
+    recipients {
+      recipient
+      split
+    }
+  }
+  ... on LegacySimpleCollectModuleSettings {
+    type
+    contract {
+      ...NetworkAddressFields
+    }
+    collectNft
+    amount {
+      ...AmountFields
+      rate(request: { for: USD }) {
+        ...FiatAmountFields
+      }
+    }
+    collectLimit
+    followerOnly
+    recipient
+    referralFee
+    endsAt
+  }
+  ... on LegacyFreeCollectModuleSettings {
+    type
+  }
+  ... on LegacyFeeCollectModuleSettings {
+    type
+  }
+  ... on LegacyLimitedFeeCollectModuleSettings {
+    type
+  }
+  ... on LegacyLimitedTimedFeeCollectModuleSettings {
+    type
+  }
+  ... on LegacyRevertCollectModuleSettings {
+    type
+  }
+  ... on LegacyTimedFeeCollectModuleSettings {
+    type
+  }
+  ... on LegacyERC4626FeeCollectModuleSettings {
+    type
+  }
+  ... on LegacyAaveFeeCollectModuleSettings {
+    type
+  }
+  ... on UnknownOpenActionModuleSettings {
+    type
+    collectNft
+    contract {
+      ...NetworkAddressFields
+    }
+    openActionModuleReturnData
+  }
+}

@@ -1,6 +1,6 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { getCategoryName } from '@lenstube/generic'
-import { PublicationSortCriteria } from '@lenstube/lens'
+import { ExplorePublicationsOrderByType } from '@lenstube/lens'
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { useNavigation } from '@react-navigation/native'
 import React from 'react'
@@ -44,13 +44,13 @@ const Filters = () => {
     (state) => state.selectedExploreFilter
   )
 
-  const getCriteriaTextLabel = (criteria: PublicationSortCriteria) => {
+  const getCriteriaTextLabel = (criteria: ExplorePublicationsOrderByType) => {
     switch (criteria) {
-      case PublicationSortCriteria.TopCollected:
+      case ExplorePublicationsOrderByType.TopCollectedOpenAction:
         return 'Top Collected'
-      case PublicationSortCriteria.TopCommented:
+      case ExplorePublicationsOrderByType.TopCommented:
         return 'Top Commented'
-      case PublicationSortCriteria.TopMirrored:
+      case ExplorePublicationsOrderByType.TopMirrored:
         return 'Top Mirrored'
     }
   }

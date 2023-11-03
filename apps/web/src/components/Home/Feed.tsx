@@ -1,88 +1,91 @@
+import CategoryFilters from '@components/Common/CategoryFilters'
 import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useAppStore from '@lib/store'
-import useAuthPersistStore from '@lib/store/auth'
-import { t } from '@lingui/macro'
 import {
   ALLOWED_APP_IDS,
+  INFINITE_SCROLL_ROOT_MARGIN,
   IS_MAINNET,
   LENS_CUSTOM_FILTERS,
-  SCROLL_ROOT_MARGIN,
   TAPE_APP_ID
 } from '@tape.xyz/constants'
-import type { Publication } from '@tape.xyz/lens'
+import type {
+  ExplorePublicationRequest,
+  PrimaryPublication
+} from '@tape.xyz/lens'
 import {
-  PublicationMainFocus,
-  PublicationSortCriteria,
-  PublicationTypes,
-  useExploreQuery
+  ExplorePublicationsOrderByType,
+  ExplorePublicationType,
+  LimitType,
+  PublicationMetadataMainFocusType,
+  useExplorePublicationsQuery
 } from '@tape.xyz/lens'
 import { Loader } from '@tape.xyz/ui'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 
-const HomeFeed = () => {
+const Feed = () => {
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
 
-  const request = {
-    sortCriteria: PublicationSortCriteria.CuratedProfiles,
-    limit: 32,
-    noRandomize: false,
-    sources: IS_MAINNET ? [TAPE_APP_ID, ...ALLOWED_APP_IDS] : undefined,
-    publicationTypes: [PublicationTypes.Post],
-    customFilters: LENS_CUSTOM_FILTERS,
-    metadata: {
-      tags:
-        activeTagFilter !== 'all' ? { oneOf: [activeTagFilter] } : undefined,
-      mainContentFocus: [PublicationMainFocus.Video]
-    }
+  const request: ExplorePublicationRequest = {
+    where: {
+      publicationTypes: [ExplorePublicationType.Post],
+      customFilters: LENS_CUSTOM_FILTERS,
+      metadata: {
+        publishedOn: IS_MAINNET ? [TAPE_APP_ID, ...ALLOWED_APP_IDS] : undefined,
+        tags:
+          activeTagFilter !== 'all' ? { oneOf: [activeTagFilter] } : undefined,
+        mainContentFocus: [PublicationMetadataMainFocusType.Video]
+      }
+    },
+    orderBy: ExplorePublicationsOrderByType.LensCurated,
+    limit: LimitType.Fifty
   }
 
-  const { data, loading, error, fetchMore } = useExploreQuery({
-    variables: { request, channelId: selectedSimpleProfile?.id ?? null }
+  const { data, loading, error, fetchMore } = useExplorePublicationsQuery({
+    variables: { request }
   })
 
   const pageInfo = data?.explorePublications?.pageInfo
-  const videos = data?.explorePublications?.items as Publication[]
+  const videos = data?.explorePublications
+    ?.items as unknown as PrimaryPublication[]
 
   const { observe } = useInView({
-    rootMargin: SCROLL_ROOT_MARGIN,
+    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
     onEnter: async () => {
       await fetchMore({
         variables: {
           request: {
             ...request,
             cursor: pageInfo?.next
-          },
-          channelId: selectedSimpleProfile?.id ?? null
+          }
         }
       })
     }
   })
 
-  if (videos?.length === 0) {
-    return <NoDataFound isCenter withImage text={t`No videos found`} />
-  }
-
   return (
-    <div>
-      {loading && <TimelineShimmer />}
-      {!error && !loading && videos && (
-        <>
-          <Timeline videos={videos} />
-          {pageInfo?.next && (
-            <span ref={observe} className="flex justify-center p-10">
-              <Loader />
-            </span>
-          )}
-        </>
-      )}
+    <div className="laptop:pt-6 pt-4">
+      <CategoryFilters />
+      <div className="laptop:pt-4 pt-4">
+        {loading && <TimelineShimmer />}
+        {!error && !loading && videos.length > 0 && (
+          <>
+            <Timeline videos={videos} />
+            {pageInfo?.next && (
+              <span ref={observe} className="flex justify-center p-10">
+                <Loader />
+              </span>
+            )}
+          </>
+        )}
+        {videos?.length === 0 && (
+          <NoDataFound isCenter withImage text={`No videos found`} />
+        )}
+      </div>
     </div>
   )
 }
 
-export default HomeFeed
+export default Feed

@@ -1,4 +1,5 @@
-import { THUMBNAIL_GENERATE_COUNT } from '@components/Upload/ChooseThumbnail'
+import { THUMBNAIL_GENERATE_COUNT } from '@components/Create/ChooseThumbnail'
+import { AspectRatio } from '@radix-ui/themes'
 import React, { useMemo } from 'react'
 
 const ThumbnailsShimmer = () => {
@@ -7,9 +8,13 @@ const ThumbnailsShimmer = () => {
   return (
     <>
       {thumbnails.map((e, i) => (
-        <div key={`${e}_${i}`} className="h-16 w-full animate-pulse rounded-lg">
-          <div className="h-16 rounded-lg bg-gray-300 dark:bg-gray-700" />
-        </div>
+        <AspectRatio
+          ratio={16 / 9}
+          key={`${e}_${i}`}
+          className="w-full animate-pulse rounded-lg"
+        >
+          <div className="h-full rounded-lg bg-gray-200 dark:bg-gray-800" />
+        </AspectRatio>
       ))}
     </>
   )

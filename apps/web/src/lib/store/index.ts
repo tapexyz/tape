@@ -1,4 +1,5 @@
 import { WebIrys } from '@irys/sdk'
+import { MetadataLicenseType } from '@lens-protocol/metadata'
 import {
   CREATOR_VIDEO_CATEGORIES,
   IRYS_CURRENCY,
@@ -7,7 +8,7 @@ import {
   WMATIC_TOKEN_ADDRESS
 } from '@tape.xyz/constants'
 import { logger } from '@tape.xyz/generic'
-import type { IrysDataState, UploadedVideo } from '@tape.xyz/lens/custom-types'
+import type { IrysDataState, UploadedMedia } from '@tape.xyz/lens/custom-types'
 import { create } from 'zustand'
 
 export const UPLOADED_VIDEO_IRYS_DEFAULTS = {
@@ -19,10 +20,11 @@ export const UPLOADED_VIDEO_IRYS_DEFAULTS = {
   showDeposit: false
 }
 
-export const UPLOADED_VIDEO_FORM_DEFAULTS = {
+export const UPLOADED_VIDEO_FORM_DEFAULTS: UploadedMedia = {
+  type: 'VIDEO',
   stream: null,
   preview: '',
-  videoType: '',
+  mediaType: '',
   file: null,
   title: '',
   description: '',
@@ -34,12 +36,12 @@ export const UPLOADED_VIDEO_FORM_DEFAULTS = {
   isUploadToIpfs: false,
   loading: false,
   uploadingThumbnail: false,
-  buttonText: 'Post Video',
-  durationInSeconds: null,
-  videoCategory: CREATOR_VIDEO_CATEGORIES[0],
+  buttonText: 'Post Now',
+  durationInSeconds: 1,
+  mediaCategory: CREATOR_VIDEO_CATEGORIES[0],
+  mediaLicense: MetadataLicenseType.CC_BY,
   isByteVideo: false,
   collectModule: {
-    type: 'revertCollectModule',
     followerOnlyCollect: false,
     amount: { currency: WMATIC_TOKEN_ADDRESS, value: '' },
     referralFee: 0,
@@ -59,11 +61,11 @@ export const UPLOADED_VIDEO_FORM_DEFAULTS = {
 }
 
 interface AppState {
-  uploadedVideo: UploadedVideo
+  uploadedVideo: UploadedMedia
   irysData: IrysDataState
   videoWatchTime: number
   activeTagFilter: string
-  setUploadedVideo: (videoProps: Partial<UploadedVideo>) => void
+  setUploadedVideo: (mediaProps: Partial<UploadedMedia>) => void
   setActiveTagFilter: (activeTagFilter: string) => void
   setVideoWatchTime: (videoWatchTime: number) => void
   setIrysData: (irysProps: Partial<IrysDataState>) => void
@@ -81,9 +83,9 @@ export const useAppStore = create<AppState>((set) => ({
   setVideoWatchTime: (videoWatchTime) => set({ videoWatchTime }),
   setIrysData: (props) =>
     set((state) => ({ irysData: { ...state.irysData, ...props } })),
-  setUploadedVideo: (videoProps) =>
+  setUploadedVideo: (mediaProps) =>
     set((state) => ({
-      uploadedVideo: { ...state.uploadedVideo, ...videoProps }
+      uploadedVideo: { ...state.uploadedVideo, ...mediaProps }
     })),
   getIrysInstance: async (signer) => {
     try {
@@ -92,7 +94,7 @@ export const useAppStore = create<AppState>((set) => ({
         token: IRYS_CURRENCY,
         wallet: {
           rpcUrl: POLYGON_RPC_URL,
-          name: 'rainbowkitv1',
+          name: 'viem',
           provider: signer
         }
       })

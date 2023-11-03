@@ -1,13 +1,15 @@
 import { useNavigation } from '@react-navigation/native'
 import {
-  getRelativeTime,
   getThumbnailUrl,
-  getValueFromTraitType,
+  getValueFromKeyInAttributes,
   imageCdn,
   trimify,
   trimNewLines
 } from '@tape.xyz/generic'
-import type { Attribute, Publication } from '@tape.xyz/lens'
+import type {
+  MirrorablePublication,
+  PublicationMarketplaceMetadataAttribute
+} from '@tape.xyz/lens'
 import type { MobileThemeConfig } from '@tape.xyz/lens/custom-types'
 import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
@@ -27,7 +29,7 @@ import UserProfile from './UserProfile'
 import WaveForm from './WaveForm'
 
 type Props = {
-  audio: Publication
+  audio: MirrorablePublication
 }
 const styles = (themeConfig: MobileThemeConfig) =>
   StyleSheet.create({
@@ -100,11 +102,12 @@ const AudioCard: FC<Props> = ({ audio }) => {
           <View style={style.audioInfoContainer}>
             <View style={{ gap: 5 }}>
               <Text style={style.title} numberOfLines={2}>
-                {trimify(audio.metadata.name ?? '')}
+                {trimify(audio.metadata.marketplace?.name ?? '')}
               </Text>
               <Text style={style.author}>
-                {getValueFromTraitType(
-                  audio.metadata.attributes as Attribute[],
+                {getValueFromKeyInAttributes(
+                  audio.metadata.marketplace
+                    ?.attributes as PublicationMarketplaceMetadataAttribute[],
                   'author'
                 )}
               </Text>
@@ -113,21 +116,19 @@ const AudioCard: FC<Props> = ({ audio }) => {
           </View>
         </View>
         <View style={{ paddingVertical: 10, paddingHorizontal: 5 }}>
-          {audio.metadata.description && (
+          {audio.metadata.marketplace?.description && (
             <Text numberOfLines={3} style={style.description}>
-              {trimNewLines(audio.metadata.description)}
+              {trimNewLines(audio.metadata.marketplace?.description)}
             </Text>
           )}
           <View style={style.otherInfoContainer}>
-            <UserProfile profile={audio.profile} size={15} radius={3} />
+            <UserProfile profile={audio.by} size={15} radius={3} />
             <Text
               style={{ color: themeConfig.secondaryTextColor, fontSize: 3 }}
             >
               {'\u2B24'}
             </Text>
-            <Text style={style.otherInfo}>
-              {audio.stats.totalUpvotes} likes
-            </Text>
+            <Text style={style.otherInfo}>{audio.stats.reactions} likes</Text>
             <Text
               style={{ color: themeConfig.secondaryTextColor, fontSize: 3 }}
             >

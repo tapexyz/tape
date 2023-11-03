@@ -1,57 +1,62 @@
-import { SuggestedVideosShimmer } from '@components/Shimmers/VideoDetailShimmer'
-import useAuthPersistStore from '@lib/store/auth'
+import { SuggestedVideosShimmer } from '@components/Shimmers/WatchShimmer'
+import useProfileStore from '@lib/store/profile'
 import {
   ALLOWED_APP_IDS,
+  INFINITE_SCROLL_ROOT_MARGIN,
   IS_MAINNET,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_BYTES_APP_ID,
-  SCROLL_ROOT_MARGIN,
   TAPE_APP_ID
 } from '@tape.xyz/constants'
-import type { Publication } from '@tape.xyz/lens'
+import type {
+  ExplorePublicationRequest,
+  MirrorablePublication
+} from '@tape.xyz/lens'
 import {
-  PublicationMainFocus,
-  PublicationSortCriteria,
-  PublicationTypes,
-  useExploreQuery
+  ExplorePublicationsOrderByType,
+  ExplorePublicationType,
+  LimitType,
+  PublicationMetadataMainFocusType,
+  useExplorePublicationsQuery
 } from '@tape.xyz/lens'
 import { Loader } from '@tape.xyz/ui'
 import { useRouter } from 'next/router'
-import type { FC } from 'react'
 import React, { useEffect } from 'react'
 import { useInView } from 'react-cool-inview'
 
 import SuggestedVideoCard from './SuggestedVideoCard'
 
-const request = {
-  sortCriteria: PublicationSortCriteria.CuratedProfiles,
-  limit: 30,
-  sources: IS_MAINNET
-    ? [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
-    : undefined,
-  publicationTypes: [PublicationTypes.Post],
-  metadata: { mainContentFocus: [PublicationMainFocus.Video] },
-  noRandomize: false,
-  customFilters: LENS_CUSTOM_FILTERS
+const request: ExplorePublicationRequest = {
+  limit: LimitType.Fifty,
+  orderBy: ExplorePublicationsOrderByType.LensCurated,
+  where: {
+    customFilters: LENS_CUSTOM_FILTERS,
+    publicationTypes: [ExplorePublicationType.Post],
+    metadata: {
+      publishedOn: IS_MAINNET
+        ? [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
+        : undefined,
+      mainContentFocus: [PublicationMetadataMainFocusType.Video]
+    }
+  }
 }
 
-const SuggestedVideos: FC = () => {
+const SuggestedVideos = () => {
   const {
     query: { id }
   } = useRouter()
 
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
+  const { activeProfile } = useProfileStore()
 
-  const { data, loading, error, fetchMore, refetch } = useExploreQuery({
-    variables: {
-      request,
-      channelId: selectedSimpleProfile?.id ?? null
-    }
-  })
+  const { data, loading, error, fetchMore, refetch } =
+    useExplorePublicationsQuery({
+      variables: {
+        request
+      }
+    })
 
-  const videos = data?.explorePublications?.items as Publication[]
+  const videos = data?.explorePublications
+    ?.items as unknown as MirrorablePublication[]
   const pageInfo = data?.explorePublications?.pageInfo
 
   useEffect(() => {
@@ -59,7 +64,7 @@ const SuggestedVideos: FC = () => {
   }, [id, refetch])
 
   const { observe } = useInView({
-    rootMargin: SCROLL_ROOT_MARGIN,
+    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
     onEnter: async () => {
       await fetchMore({
         variables: {
@@ -67,7 +72,7 @@ const SuggestedVideos: FC = () => {
             ...request,
             cursor: pageInfo?.next
           },
-          channelId: selectedSimpleProfile?.id ?? null
+          channelId: activeProfile?.id ?? null
         }
       })
     }
@@ -78,13 +83,10 @@ const SuggestedVideos: FC = () => {
       {loading && <SuggestedVideosShimmer />}
       {!error && !loading && videos.length ? (
         <div className="pb-3">
-          <div
-            className="space-y-3 md:grid md:grid-cols-2 md:gap-3 lg:flex lg:flex-col lg:gap-0"
-            data-testid="watch-video-suggestions"
-          >
+          <div className="space-y-3 md:grid md:grid-cols-2 md:gap-3 lg:flex lg:flex-col lg:gap-0">
             {videos?.map(
-              (video: Publication) =>
-                !video.hidden &&
+              (video) =>
+                !video.isHidden &&
                 video.id !== id && (
                   <SuggestedVideoCard video={video} key={video?.id} />
                 )

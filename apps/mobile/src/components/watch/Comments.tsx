@@ -1,7 +1,11 @@
 import type { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
-import type { Publication, PublicationsQueryRequest } from '@lenstube/lens'
-import { useCommentsQuery } from '@lenstube/lens'
+import type {
+  AnyPublication,
+  Comment,
+  PublicationsRequest
+} from '@lenstube/lens'
+import { LimitType, usePublicationsQuery } from '@lenstube/lens'
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { Skeleton } from 'moti/skeleton'
 import type { FC } from 'react'
@@ -11,8 +15,8 @@ import { Pressable, StyleSheet, View } from 'react-native'
 import { useMobileTheme } from '~/hooks'
 
 import CommentsSheet from '../sheets/CommentsSheet'
-import Comment from './Comment'
 import CommentButton from './CommentButton'
+import RenderComment from './RenderComment'
 
 // fixed height to fix CLS between comment and comment button
 const CONTAINER_HEIGHT = 80
@@ -41,17 +45,21 @@ const Comments: FC<Props> = ({ id }) => {
 
   const commentsSheetRef = useRef<BottomSheetModal>(null)
 
-  const request: PublicationsQueryRequest = {
-    limit: 1,
-    customFilters: LENS_CUSTOM_FILTERS,
-    commentsOf: id
+  const request: PublicationsRequest = {
+    limit: LimitType.Ten,
+    where: {
+      customFilters: LENS_CUSTOM_FILTERS,
+      commentOn: {
+        id
+      }
+    }
   }
 
-  const { data, loading } = useCommentsQuery({
+  const { data, loading } = usePublicationsQuery({
     variables: { request },
     skip: !id
   })
-  const comments = data?.publications?.items as Publication[]
+  const comments = data?.publications?.items as AnyPublication[]
 
   return (
     <>
@@ -71,7 +79,10 @@ const Comments: FC<Props> = ({ id }) => {
             onPress={() => commentsSheetRef.current?.present()}
           >
             {comments?.length ? (
-              <Comment comment={comments[0]} numberOfLines={1} />
+              <RenderComment
+                comment={comments[0] as Comment}
+                numberOfLines={1}
+              />
             ) : (
               <CommentButton />
             )}

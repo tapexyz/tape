@@ -1,8 +1,8 @@
 import { SENSITIVE_CONTENT } from '@tape.xyz/constants'
-import type { MetadataOutput } from '@tape.xyz/lens'
+import type { PublicationMetadata } from '@tape.xyz/lens'
 
 export const getIsSensitiveContent = (
-  metadata: MetadataOutput | null,
+  metadata: PublicationMetadata | null,
   videoId: string
 ): boolean => {
   return (

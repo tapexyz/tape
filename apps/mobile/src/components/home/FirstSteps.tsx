@@ -1,7 +1,11 @@
 import { LENSTUBE_BYTES_APP_ID, STATIC_ASSETS } from '@lenstube/constants'
 import { getIsDispatcherEnabled, imageCdn } from '@lenstube/generic'
-import type { Profile, Publication } from '@lenstube/lens'
-import { PublicationTypes, useProfilePostsQuery } from '@lenstube/lens'
+import type { MirrorablePublication, Profile } from '@lenstube/lens'
+import {
+  LimitType,
+  PublicationType,
+  usePublicationsQuery
+} from '@lenstube/lens'
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { useWalletConnectModal } from '@walletconnect/modal-react-native'
 import { Image as ExpoImage } from 'expo-image'
@@ -73,18 +77,22 @@ const FirstSteps = () => {
     (state) => state.selectedProfile
   )
 
-  const { data } = useProfilePostsQuery({
+  const { data } = usePublicationsQuery({
     variables: {
       request: {
-        publicationTypes: [PublicationTypes.Post],
-        limit: 1,
-        sources: [LENSTUBE_BYTES_APP_ID],
-        profileId: selectedProfile?.id
+        limit: LimitType.Ten,
+        where: {
+          publicationTypes: [PublicationType.Post],
+          from: [selectedProfile?.id],
+          metadata: {
+            publishedOn: [LENSTUBE_BYTES_APP_ID]
+          }
+        }
       }
     },
     skip: !selectedProfile?.id
   })
-  const bytes = data?.publications?.items as Publication[]
+  const bytes = data?.publications?.items as MirrorablePublication[]
 
   const dispatcherEnabled = getIsDispatcherEnabled(selectedProfile as Profile)
   const sharedByte = Boolean(bytes?.length)

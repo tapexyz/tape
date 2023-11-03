@@ -2,71 +2,72 @@ import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
 import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import MetaTags from '@components/Common/MetaTags'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import useAuthPersistStore from '@lib/store/auth'
-import { t } from '@lingui/macro'
-import { Analytics, TRACK } from '@tape.xyz/browser'
 import {
+  INFINITE_SCROLL_ROOT_MARGIN,
   LENS_CUSTOM_FILTERS,
-  LENSTUBE_BYTES_APP_ID,
-  SCROLL_ROOT_MARGIN
+  LENSTUBE_BYTES_APP_ID
 } from '@tape.xyz/constants'
-import type { Publication } from '@tape.xyz/lens'
+import { EVENTS, Tower } from '@tape.xyz/generic'
+import type {
+  AnyPublication,
+  ExplorePublicationRequest,
+  PrimaryPublication
+} from '@tape.xyz/lens'
 import {
-  PublicationSortCriteria,
-  PublicationTypes,
-  useExploreLazyQuery,
-  usePublicationDetailsLazyQuery
+  ExplorePublicationsOrderByType,
+  ExplorePublicationType,
+  LimitType,
+  useExplorePublicationsLazyQuery,
+  usePublicationLazyQuery
 } from '@tape.xyz/lens'
 import { Loader } from '@tape.xyz/ui'
-import Head from 'next/head'
 import { useRouter } from 'next/router'
 import React, { useEffect, useRef, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 
 import ByteVideo from './ByteVideo'
 
-const request = {
-  sortCriteria: PublicationSortCriteria.CuratedProfiles,
-  limit: 50,
-  noRandomize: false,
-  sources: [LENSTUBE_BYTES_APP_ID],
-  publicationTypes: [PublicationTypes.Post],
-  customFilters: LENS_CUSTOM_FILTERS
+const request: ExplorePublicationRequest = {
+  where: {
+    publicationTypes: [ExplorePublicationType.Post],
+    metadata: {
+      // mainContentFocus: [PublicationMetadataMainFocusType.ShortVideo],
+      publishedOn: [LENSTUBE_BYTES_APP_ID]
+    },
+    customFilters: LENS_CUSTOM_FILTERS
+  },
+  orderBy: ExplorePublicationsOrderByType.LensCurated,
+  limit: LimitType.Fifty
 }
 
 const Bytes = () => {
   const router = useRouter()
   const bytesContainer = useRef<HTMLDivElement>(null)
   const [currentViewingId, setCurrentViewingId] = useState('')
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
 
-  const [fetchPublication, { data: singleByte, loading: singleByteLoading }] =
-    usePublicationDetailsLazyQuery()
+  const [
+    fetchPublication,
+    { data: singleByteData, loading: singleByteLoading }
+  ] = usePublicationLazyQuery()
 
   const [fetchAllBytes, { data, loading, error, fetchMore }] =
-    useExploreLazyQuery({
+    useExplorePublicationsLazyQuery({
       variables: {
-        request,
-        reactionRequest: selectedSimpleProfile
-          ? { profileId: selectedSimpleProfile?.id }
-          : null,
-        channelId: selectedSimpleProfile?.id ?? null
+        request
       },
       onCompleted: ({ explorePublications }) => {
-        const items = explorePublications?.items as Publication[]
+        const items = explorePublications?.items as unknown as AnyPublication[]
         const publicationId = router.query.id
-        if (!publicationId) {
+        if (!publicationId && items[0]?.id) {
           const nextUrl = `${location.origin}/bytes/${items[0]?.id}`
           history.pushState({ path: nextUrl }, '', nextUrl)
         }
       }
     })
 
-  const bytes = data?.explorePublications?.items as Publication[]
+  const bytes = data?.explorePublications?.items as unknown as AnyPublication[]
   const pageInfo = data?.explorePublications?.pageInfo
-  const singleBytePublication = singleByte?.publication as Publication
+  const singleByte = singleByteData?.publication as PrimaryPublication
 
   const fetchSingleByte = async () => {
     const publicationId = router.query.id
@@ -75,11 +76,7 @@ const Bytes = () => {
     }
     await fetchPublication({
       variables: {
-        request: { publicationId },
-        reactionRequest: selectedSimpleProfile
-          ? { profileId: selectedSimpleProfile?.id }
-          : null,
-        channelId: selectedSimpleProfile?.id ?? null
+        request: { forId: publicationId }
       },
       onCompleted: () => fetchAllBytes(),
       fetchPolicy: 'network-only'
@@ -89,13 +86,14 @@ const Bytes = () => {
   useEffect(() => {
     if (router.isReady) {
       fetchSingleByte()
-      Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.BYTES })
+      Tower.track(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.BYTES })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.isReady])
 
   const { observe } = useInView({
-    rootMargin: SCROLL_ROOT_MARGIN,
+    threshold: 0.25,
+    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
     onEnter: async () => {
       await fetchMore({
         variables: {
@@ -116,34 +114,31 @@ const Bytes = () => {
     )
   }
 
-  if (error) {
+  if (error || (!bytes?.length && !singleByte)) {
     return (
       <div className="grid h-[80vh] place-items-center">
-        <NoDataFound isCenter withImage text={t`No bytes found`} />
+        <NoDataFound isCenter withImage />
       </div>
     )
   }
 
   return (
     <div className="overflow-y-hidden">
-      <Head>
-        <meta name="theme-color" content="#000000" />
-      </Head>
       <MetaTags title="Bytes" />
       <div
         ref={bytesContainer}
-        className="no-scrollbar h-screen snap-y snap-mandatory overflow-y-scroll scroll-smooth md:h-[calc(100vh-70px)]"
+        className="no-scrollbar h-[calc(100vh-4rem)] snap-y snap-mandatory overflow-y-scroll scroll-smooth pt-4"
       >
         {singleByte && (
           <ByteVideo
-            video={singleBytePublication}
+            video={singleByte}
             currentViewingId={currentViewingId}
             intersectionCallback={(id) => setCurrentViewingId(id)}
           />
         )}
         {bytes?.map(
-          (video: Publication, index) =>
-            singleByte?.publication?.id !== video.id && (
+          (video, index) =>
+            singleByte?.id !== video.id && (
               <ByteVideo
                 video={video}
                 currentViewingId={currentViewingId}
@@ -157,15 +152,15 @@ const Bytes = () => {
             <Loader />
           </span>
         )}
-        <div className="bottom-7 right-4 hidden flex-col space-y-3 lg:absolute lg:flex">
+        <div className="laptop:right-6 ultrawide:right-8 bottom-4 right-4 hidden flex-col space-y-2 lg:absolute lg:flex">
           <button
-            className="rounded-full bg-gray-300 p-3 focus:outline-none dark:bg-gray-700"
+            className="rounded-full p-3 hover:bg-gray-200 focus:outline-none dark:bg-gray-800"
             onClick={() => bytesContainer.current?.scrollBy({ top: -30 })}
           >
             <ChevronUpOutline className="h-5 w-5" />
           </button>
           <button
-            className="rounded-full bg-gray-300 p-3 focus:outline-none dark:bg-gray-700"
+            className="rounded-full p-3 hover:bg-gray-200 focus:outline-none dark:bg-gray-800"
             onClick={() => bytesContainer.current?.scrollBy({ top: 30 })}
           >
             <ChevronDownOutline className="h-5 w-5" />

@@ -1,9 +1,13 @@
 import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
-import type { ExplorePublicationRequest, Publication } from '@lenstube/lens'
+import type {
+  ExplorePublicationRequest,
+  MirrorablePublication
+} from '@lenstube/lens'
 import {
-  PublicationMainFocus,
-  PublicationTypes,
-  useExploreQuery
+  ExplorePublicationType,
+  LimitType,
+  PublicationMetadataMainFocusType,
+  useExplorePublicationsQuery
 } from '@lenstube/lens'
 import { useScrollToTop } from '@react-navigation/native'
 import { FlashList } from '@shopify/flash-list'
@@ -31,7 +35,7 @@ const styles = StyleSheet.create({
 })
 
 const Timeline = () => {
-  const scrollRef = useRef<FlashList<Publication>>(null)
+  const scrollRef = useRef<FlashList<MirrorablePublication>>(null)
   // @ts-expect-error FlashList as type is not supported
   useScrollToTop(scrollRef)
 
@@ -42,26 +46,31 @@ const Timeline = () => {
   )
 
   const request: ExplorePublicationRequest = {
-    sortCriteria: selectedExploreFilter.criteria,
-    limit: 10,
-    noRandomize: false,
-    publicationTypes: [PublicationTypes.Post],
-    customFilters: LENS_CUSTOM_FILTERS,
-    metadata: {
-      tags:
-        selectedExploreFilter.category &&
-        selectedExploreFilter.category !== 'all'
-          ? { oneOf: [selectedExploreFilter.category] }
-          : undefined,
-      mainContentFocus: [PublicationMainFocus.Audio, PublicationMainFocus.Video]
+    limit: LimitType.TwentyFive,
+    orderBy: selectedExploreFilter.criteria,
+    where: {
+      publicationTypes: [ExplorePublicationType.Post],
+      customFilters: LENS_CUSTOM_FILTERS,
+      metadata: {
+        tags:
+          selectedExploreFilter.category &&
+          selectedExploreFilter.category !== 'all'
+            ? { oneOf: [selectedExploreFilter.category] }
+            : undefined,
+        mainContentFocus: [
+          PublicationMetadataMainFocusType.Audio,
+          PublicationMetadataMainFocusType.Video
+        ]
+      }
     }
   }
 
-  const { data, fetchMore, loading } = useExploreQuery({
+  const { data, fetchMore, loading } = useExplorePublicationsQuery({
     variables: { request }
   })
 
-  const publications = data?.explorePublications?.items as Publication[]
+  const publications = data?.explorePublications
+    ?.items as MirrorablePublication[]
   const pageInfo = data?.explorePublications?.pageInfo
 
   const fetchMorePublications = async () => {
@@ -76,9 +85,9 @@ const Timeline = () => {
   }
 
   const renderItem = useCallback(
-    ({ item }: { item: Publication }) => (
+    ({ item }: { item: MirrorablePublication }) => (
       <View style={{ marginBottom: 30 }}>
-        {item.metadata.mainContentFocus === PublicationMainFocus.Audio ? (
+        {item.metadata.__typename === 'AudioMetadataV3' ? (
           <AudioCard audio={item} />
         ) : (
           <VideoCard video={item} />

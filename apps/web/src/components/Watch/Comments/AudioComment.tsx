@@ -1,20 +1,16 @@
 import { sanitizeDStorageUrl } from '@tape.xyz/generic'
-import type { MediaSet } from '@tape.xyz/lens'
 import type { FC } from 'react'
 import React from 'react'
 
 type Props = {
-  media: MediaSet
+  uri: string
 }
 
-const AudioComment: FC<Props> = ({ media }) => {
+const AudioComment: FC<Props> = ({ uri }) => {
   return (
     <div className="my-2">
       <audio controls controlsList="nodownload noplaybackrate">
-        <source
-          src={sanitizeDStorageUrl(media.original.url)}
-          type="audio/mpeg"
-        />
+        <source src={sanitizeDStorageUrl(uri)} type="audio/mpeg" />
         Your browser does not support the audio element.
       </audio>
     </div>

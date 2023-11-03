@@ -1,5 +1,4 @@
 import Tooltip from '@components/UIElements/Tooltip'
-import { t } from '@lingui/macro'
 import { MISUSED_CHANNELS, VERIFIED_CHANNELS } from '@tape.xyz/constants'
 import clsx from 'clsx'
 import type { FC } from 'react'
@@ -10,7 +9,7 @@ import VerifiedSolid from './Icons/VerifiedSolid'
 
 type Props = {
   id: string
-  size?: 'xs' | 'sm' | 'md' | 'lg'
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
   color?: string
 }
 
@@ -19,18 +18,19 @@ const Badge: FC<Props> = ({ id, size = 'sm', color }) => {
   const misused = MISUSED_CHANNELS.find((c) => c.id === id)
 
   return (
-    <div>
+    <>
       {isVerified && (
-        <Tooltip content={t`Verified`} placement="top">
+        <Tooltip content="Verified" placement="top">
           <span>
             <VerifiedSolid
               className={clsx(
-                'text-brand-500 ml-0.5',
+                'text-brand-500 -mb-0.5 ml-0.5',
                 {
                   'h-2.5 w-2.5': size === 'xs',
                   'h-3 w-3': size === 'sm',
                   'h-3.5 w-3.5': size === 'md',
-                  'h-4 w-4': size === 'lg'
+                  'h-4 w-4': size === 'lg',
+                  'h-5 w-5': size === 'xl'
                 },
                 color
               )}
@@ -56,7 +56,7 @@ const Badge: FC<Props> = ({ id, size = 'sm', color }) => {
           </span>
         </Tooltip>
       )}
-    </div>
+    </>
   )
 }
 

@@ -1,17 +1,17 @@
 import InterweaveContent from '@components/Common/InterweaveContent'
 import { CardShimmer } from '@components/Shimmers/VideoCardShimmer'
 import useAppStore from '@lib/store'
-import useAuthPersistStore from '@lib/store/auth'
+import useProfileStore from '@lib/store/profile'
 import { LENSTUBE_BYTES_APP_ID } from '@tape.xyz/constants'
 import {
   getIsSensitiveContent,
-  getPublicationHlsUrl,
-  getPublicationRawMediaUrl,
+  getPublicationData,
+  getPublicationMediaUrl,
   getThumbnailUrl,
   imageCdn,
   sanitizeDStorageUrl
 } from '@tape.xyz/generic'
-import type { Publication } from '@tape.xyz/lens'
+import type { PrimaryPublication } from '@tape.xyz/lens'
 import dynamic from 'next/dynamic'
 import type { FC } from 'react'
 import React from 'react'
@@ -25,19 +25,17 @@ const VideoPlayer = dynamic(() => import('@tape.xyz/ui/VideoPlayer'), {
 })
 
 type Props = {
-  video: Publication
+  video: PrimaryPublication
 }
 
 const Video: FC<Props> = ({ video }) => {
   const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
   const videoWatchTime = useAppStore((state) => state.videoWatchTime)
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
+  const { activeProfile } = useProfileStore()
 
-  const isBytesVideo = video.appId === LENSTUBE_BYTES_APP_ID
+  const isBytesVideo = video.publishedOn?.id === LENSTUBE_BYTES_APP_ID
   const thumbnailUrl = imageCdn(
-    sanitizeDStorageUrl(getThumbnailUrl(video, true)),
+    sanitizeDStorageUrl(getThumbnailUrl(video.metadata, true)),
     isBytesVideo ? 'THUMBNAIL_V' : 'THUMBNAIL'
   )
 
@@ -49,13 +47,12 @@ const Video: FC<Props> = ({ video }) => {
 
   return (
     <div>
-      <div className="overflow-hidden rounded-xl">
+      <div className="rounded-large overflow-hidden">
         <VideoPlayer
-          address={selectedSimpleProfile?.ownedBy}
+          address={activeProfile?.ownedBy.address}
           refCallback={refCallback}
           currentTime={videoWatchTime}
-          permanentUrl={getPublicationRawMediaUrl(video)}
-          hlsUrl={getPublicationHlsUrl(video)}
+          url={getPublicationMediaUrl(video.metadata)}
           posterUrl={thumbnailUrl}
           options={{
             loadingSpinner: true,
@@ -64,13 +61,12 @@ const Video: FC<Props> = ({ video }) => {
           isSensitiveContent={isSensitiveContent}
         />
       </div>
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between pb-2">
         <div>
-          <h1
-            className="mt-4 line-clamp-2 text-lg font-medium"
-            data-testid="watch-video-title"
-          >
-            <InterweaveContent content={video.metadata?.name as string} />
+          <h1 className="mt-4 line-clamp-2 font-bold md:text-xl">
+            <InterweaveContent
+              content={getPublicationData(video.metadata)?.title || ''}
+            />
           </h1>
           <VideoMeta video={video} />
         </div>

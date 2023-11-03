@@ -1,52 +1,45 @@
-import useAuthPersistStore, {
-  hydrateAuthTokens,
-  signOut
-} from '@lib/store/auth'
-import useChannelStore from '@lib/store/channel'
-import usePersistStore from '@lib/store/persist'
-import { getShowFullScreen, getToastOptions } from '@tape.xyz/browser'
-import { AUTH_ROUTES } from '@tape.xyz/constants'
-import { useIsMounted } from '@tape.xyz/generic'
+import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId'
+import { hydrateAuthTokens, signOut } from '@lib/store/auth'
+import useNonceStore from '@lib/store/nonce'
+import useProfileStore from '@lib/store/profile'
+import {
+  getToastOptions,
+  setFingerprint,
+  useIsMounted
+} from '@tape.xyz/browser'
+import { AUTH_ROUTES, OWNER_ONLY_ROUTES } from '@tape.xyz/constants'
+import { getIsProfileOwner, trimify } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
-import { useAllProfilesQuery, useUserSigNoncesQuery } from '@tape.xyz/lens'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+import { useCurrentProfileQuery } from '@tape.xyz/lens'
+import { type CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import clsx from 'clsx'
-import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
 import type { FC, ReactNode } from 'react'
 import React, { useEffect } from 'react'
 import { toast, Toaster } from 'react-hot-toast'
-import { useAccount, useDisconnect, useNetwork } from 'wagmi'
+import { useAccount, useDisconnect } from 'wagmi'
 
 import FullPageLoader from './FullPageLoader'
-import Header from './Header'
-import TelemetryProvider from './Providers/TelemetryProvider'
-import Sidebar from './Sidebar'
+import MetaTags from './MetaTags'
+import MobileBottomNav from './MobileBottomNav'
+import Navbar from './Navbar'
 
 interface Props {
   children: ReactNode
+  skipNav?: boolean
+  skipPadding?: boolean
 }
 
-const NO_HEADER_PATHS = ['/auth']
+const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
+  const { setLensHubOnchainSigNonce } = useNonceStore()
+  const { activeProfile, setActiveProfile } = useProfileStore()
 
-const Layout: FC<Props> = ({ children }) => {
-  const setUserSigNonce = useChannelStore((state) => state.setUserSigNonce)
-  const setActiveChannel = useChannelStore((state) => state.setActiveChannel)
-  const sidebarCollapsed = usePersistStore((state) => state.sidebarCollapsed)
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
-  const setSelectedSimpleProfile = useAuthPersistStore(
-    (state) => state.setSelectedSimpleProfile
-  )
-
-  const { chain } = useNetwork()
+  const isMounted = useIsMounted()
   const { resolvedTheme } = useTheme()
-  const { mounted } = useIsMounted()
-  const { address } = useAccount()
-
+  const { address, connector } = useAccount()
   const { pathname, replace, asPath } = useRouter()
+  const currentSessionProfileId = getCurrentSessionProfileId()
 
   const { disconnect } = useDisconnect({
     onError(error: CustomErrorWithData) {
@@ -54,106 +47,90 @@ const Layout: FC<Props> = ({ children }) => {
     }
   })
 
-  const showFullScreen = getShowFullScreen(pathname)
-
-  const resetAuthState = () => {
-    setActiveChannel(null)
-    setSelectedSimpleProfile(null)
+  const logout = () => {
+    setActiveProfile(null)
+    signOut()
+    disconnect?.()
   }
 
-  useUserSigNoncesQuery({
-    skip: !selectedSimpleProfile?.id,
-    onCompleted: ({ userSigNonces }) => {
-      setUserSigNonce(userSigNonces.lensHubOnChainSigNonce)
+  const { loading } = useCurrentProfileQuery({
+    variables: { request: { forProfileId: currentSessionProfileId } },
+    skip: trimify(currentSessionProfileId).length === 0,
+    onCompleted: ({ userSigNonces, profile }) => {
+      if (!profile) {
+        return logout()
+      }
+
+      setActiveProfile(profile as Profile)
+      setLensHubOnchainSigNonce(userSigNonces.lensHubOnchainSigNonce)
     },
-    pollInterval: 10_000
+    onError: () => logout()
   })
 
-  useAllProfilesQuery({
-    variables: {
-      request: { ownedBy: [address] }
-    },
-    skip: !selectedSimpleProfile,
-    onCompleted: (data) => {
-      const channels = data?.profiles?.items as Profile[]
-      if (!channels.length) {
-        return resetAuthState()
-      }
-      const profile = channels.find((ch) => ch.id === selectedSimpleProfile?.id)
-      if (profile) {
-        setActiveChannel(profile ?? channels[0])
-      }
-    },
-    onError: () => {
-      setSelectedSimpleProfile(null)
-      setActiveChannel(null)
+  const validateAuthRoutes = () => {
+    if (!currentSessionProfileId && AUTH_ROUTES.includes(pathname)) {
+      replace(`/login?next=${asPath}`)
     }
-  })
+    if (
+      activeProfile &&
+      address &&
+      !getIsProfileOwner(activeProfile, address) &&
+      OWNER_ONLY_ROUTES.includes(pathname)
+    ) {
+      replace('/settings')
+    }
+  }
 
   const validateAuthentication = () => {
-    if (!selectedSimpleProfile && AUTH_ROUTES.includes(pathname)) {
-      // Redirect to signin page
-      replace(`/auth?next=${asPath}`)
-    }
-    const ownerAddress = selectedSimpleProfile?.ownedBy
-    const isSwitchedAccount =
-      ownerAddress !== undefined && ownerAddress !== address
     const { accessToken } = hydrateAuthTokens()
-    const shouldLogout = !accessToken || isSwitchedAccount
-
-    if (shouldLogout && selectedSimpleProfile?.id) {
-      resetAuthState()
-      signOut()
-      disconnect?.()
+    if (!accessToken) {
+      logout()
     }
   }
 
   useEffect(() => {
+    validateAuthRoutes()
     validateAuthentication()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [address, chain, disconnect, selectedSimpleProfile])
+  }, [asPath, currentSessionProfileId, activeProfile])
 
-  if (!mounted) {
+  useEffect(() => {
+    setFingerprint()
+    connector?.addListener('change', () => {
+      if (currentSessionProfileId) {
+        logout()
+      }
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  if (!isMounted()) {
+    return <MetaTags />
+  }
+
+  if (loading) {
     return <FullPageLoader />
   }
 
   return (
     <>
-      <Head>
-        <meta
-          name="theme-color"
-          content={resolvedTheme === 'dark' ? '#000000' : '#ffffff'}
-        />
-      </Head>
+      <MetaTags />
       <Toaster
         position="bottom-right"
+        containerStyle={{ wordBreak: 'break-word' }}
         toastOptions={getToastOptions(resolvedTheme)}
       />
-      <TelemetryProvider />
-      <div className={clsx('flex pb-10 md:pb-0', showFullScreen && '!pb-0')}>
-        <Sidebar />
-        <div
-          className={clsx(
-            'w-full',
-            showFullScreen && 'px-0',
-            sidebarCollapsed ? 'md:pl-[90px]' : 'md:pl-[180px]'
-          )}
-        >
-          {!NO_HEADER_PATHS.includes(pathname) && (
-            <Header className={clsx(showFullScreen && 'hidden md:flex')} />
-          )}
-          <div
-            className={clsx(
-              'ultrawide:px-0',
-              showFullScreen && '!p-0',
-              pathname !== '/channel/[channel]' &&
-                'ultrawide:max-w-[90rem] mx-auto px-2 py-4 md:px-3 2xl:py-6'
-            )}
-          >
-            {children}
-          </div>
-        </div>
+      {!skipNav && <Navbar />}
+      <div
+        className={clsx(
+          'relative',
+          !skipPadding &&
+            'ultrawide:px-8 ultrawide:pb-8 laptop:px-6 px-4 pb-14 pt-5 md:pb-6'
+        )}
+      >
+        {children}
       </div>
+      <MobileBottomNav />
     </>
   )
 }

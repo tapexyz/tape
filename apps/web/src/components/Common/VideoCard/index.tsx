@@ -1,107 +1,77 @@
-import { getRelativeTime } from '@lib/formatTime'
-import { Trans } from '@lingui/macro'
+import { getShortHandTime } from '@lib/formatTime'
+import { AspectRatio, Avatar, Flex } from '@radix-ui/themes'
 import { LENSTUBE_BYTES_APP_ID } from '@tape.xyz/constants'
-import { getProfilePicture, trimLensHandle } from '@tape.xyz/generic'
-import type { Publication } from '@tape.xyz/lens'
+import {
+  formatNumber,
+  getProfile,
+  getProfilePicture,
+  getPublicationData
+} from '@tape.xyz/generic'
+import type { PrimaryPublication, VideoMetadataV3 } from '@tape.xyz/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
-import React, { useState } from 'react'
+import React from 'react'
 
-import Badge from '../Badge'
-import ReportModal from './ReportModal'
-import ShareModal from './ShareModal'
+import HoverableProfile from '../HoverableProfile'
+import HeartOutline from '../Icons/HeartOutline'
 import ThumbnailImage from './ThumbnailImage'
 import ThumbnailOverlays from './ThumbnailOverlays'
 import VideoOptions from './VideoOptions'
 
 type Props = {
-  video: Publication
+  video: PrimaryPublication
 }
 
 const VideoCard: FC<Props> = ({ video }) => {
-  const [showShare, setShowShare] = useState(false)
-  const [showReport, setShowReport] = useState(false)
-  const isBytes = video.appId === LENSTUBE_BYTES_APP_ID
+  const isBytes = video.publishedOn?.id === LENSTUBE_BYTES_APP_ID
 
   const href = isBytes ? `/bytes/${video.id}` : `/watch/${video.id}`
+  const metadata = video.metadata as VideoMetadataV3
 
   return (
-    <div className="group" data-testid="video-card">
-      {video.hidden ? (
-        <div className="grid h-full place-items-center">
-          <span className="text-xs">Video Hidden by User</span>
-        </div>
-      ) : (
-        <>
-          <ShareModal
-            video={video}
-            show={showShare}
-            setShowShare={setShowShare}
+    <div className="group">
+      <Link href={href}>
+        <AspectRatio
+          ratio={16 / 9}
+          className="rounded-medium tape-border relative overflow-hidden"
+        >
+          <ThumbnailImage video={video} />
+          <ThumbnailOverlays video={video} />
+        </AspectRatio>
+      </Link>
+      <div className="py-2">
+        <Flex gap="2">
+          <Avatar
+            src={getProfilePicture(video.by)}
+            size="2"
+            radius="full"
+            fallback={getProfile(video.by)?.displayName[0] ?? ';)'}
+            alt={getProfile(video.by)?.displayName}
           />
-          <ReportModal
-            video={video}
-            show={showReport}
-            setShowReport={setShowReport}
-          />
-          <Link href={href}>
-            <div className="aspect-w-16 aspect-h-9 relative overflow-hidden">
-              <ThumbnailImage video={video} />
-              <ThumbnailOverlays video={video} />
-            </div>
-          </Link>
-          <div className="py-2">
-            <div className="flex items-start space-x-2.5">
-              <Link
-                href={`/channel/${trimLensHandle(video.profile?.handle)}`}
-                className="mt-0.5 flex-none"
-              >
-                <img
-                  className="h-8 w-8 rounded-full"
-                  src={getProfilePicture(video.profile)}
-                  alt={video.profile?.handle}
-                  draggable={false}
-                />
+
+          <Flex direction="column" justify="between" gap="1" width="100%">
+            <div className="flex w-full min-w-0 items-start justify-between space-x-1.5">
+              <Link className="line-clamp-2 break-words font-bold" href={href}>
+                {getPublicationData(metadata)?.title}
               </Link>
-              <div className="grid flex-1">
-                <div className="flex w-full min-w-0 items-start justify-between space-x-1.5 pb-1">
-                  <Link
-                    className="ultrawide:line-clamp-1 ultrawide:break-all line-clamp-2 break-words text-sm font-semibold"
-                    href={href}
-                    title={video.metadata?.name ?? ''}
-                    data-testid="video-card-title"
-                  >
-                    {video.metadata?.name}
-                  </Link>
-                  <VideoOptions
-                    video={video}
-                    setShowShare={setShowShare}
-                    setShowReport={setShowReport}
-                  />
-                </div>
-                <Link
-                  href={`/channel/${trimLensHandle(video.profile?.handle)}`}
-                  className="flex w-fit items-center space-x-0.5 text-[13px] opacity-70 hover:opacity-100"
-                  data-testid="video-card-channel"
-                >
-                  <span>{trimLensHandle(video.profile?.handle)}</span>
-                  <Badge id={video.profile?.id} size="xs" />
-                </Link>
-                <div className="flex items-center overflow-hidden text-xs opacity-70">
-                  <span className="whitespace-nowrap">
-                    {video.stats?.totalUpvotes} <Trans>likes</Trans>
-                  </span>
-                  <span className="middot" />
-                  {video.createdAt && (
-                    <span className="whitespace-nowrap">
-                      {getRelativeTime(video.createdAt)}
-                    </span>
-                  )}
-                </div>
+              <div className="flex pr-1 pt-1">
+                <VideoOptions video={video} />
               </div>
             </div>
-          </div>
-        </>
-      )}
+
+            <Flex align="center" className="text-xs">
+              <HoverableProfile profile={video.by} />
+              <span className="middot" />
+              <Flex align="center" gap="1">
+                <HeartOutline className="h-3 w-3" />
+                {formatNumber(video.stats?.reactions)}
+              </Flex>
+              <span className="middot" />
+              <span>{getShortHandTime(video.createdAt)}</span>
+            </Flex>
+          </Flex>
+        </Flex>
+      </div>
     </div>
   )
 }

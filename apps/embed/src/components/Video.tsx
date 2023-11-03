@@ -1,15 +1,16 @@
 import { useAverageColor } from '@tape.xyz/browser'
 import { LENSTUBE_BYTES_APP_ID } from '@tape.xyz/constants'
 import {
-  getPublicationHlsUrl,
+  EVENTS,
+  getPublicationData,
   getPublicationMediaUrl,
-  getPublicationRawMediaUrl,
   getThumbnailUrl,
   imageCdn,
   sanitizeDStorageUrl,
+  Tower,
   truncate
 } from '@tape.xyz/generic'
-import type { Publication } from '@tape.xyz/lens'
+import type { MirrorablePublication } from '@tape.xyz/lens'
 import VideoPlayer from '@tape.xyz/ui/VideoPlayer'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
@@ -21,7 +22,7 @@ import PlayOutline from './PlayOutline'
 import TopOverlay from './TopOverlay'
 
 type Props = {
-  video: Publication
+  video: MirrorablePublication
 }
 
 const Video: FC<Props> = ({ video }) => {
@@ -34,12 +35,16 @@ const Video: FC<Props> = ({ video }) => {
 
   const [clicked, setClicked] = useState(isAutoPlay || currentTime !== 0)
 
-  const isBytesVideo = video.appId === LENSTUBE_BYTES_APP_ID
+  const isBytesVideo = video.publishedOn?.id === LENSTUBE_BYTES_APP_ID
   const thumbnailUrl = imageCdn(
-    sanitizeDStorageUrl(getThumbnailUrl(video, true)),
+    sanitizeDStorageUrl(getThumbnailUrl(video.metadata, true)),
     isBytesVideo ? 'THUMBNAIL_V' : 'THUMBNAIL'
   )
   const { color: backgroundColor } = useAverageColor(thumbnailUrl, isBytesVideo)
+
+  useEffect(() => {
+    Tower.track(EVENTS.EMBED_VIDEO.LOADED)
+  }, [])
 
   const refCallback = (ref: HTMLMediaElement) => {
     if (!ref) {
@@ -62,16 +67,21 @@ const Video: FC<Props> = ({ video }) => {
   return (
     <div className="group relative h-screen w-screen overflow-x-hidden">
       <MetaTags
-        title={truncate(video?.metadata?.name as string, 60)}
-        description={truncate(video?.metadata?.description as string, 100)}
+        title={truncate(
+          getPublicationData(video.metadata)?.title as string,
+          60
+        )}
+        description={truncate(
+          getPublicationData(video.metadata)?.content as string,
+          100
+        )}
         image={thumbnailUrl}
-        videoUrl={getPublicationMediaUrl(video)}
+        videoUrl={getPublicationMediaUrl(video.metadata)}
       />
       {clicked ? (
         <VideoPlayer
           refCallback={refCallback}
-          permanentUrl={getPublicationRawMediaUrl(video)}
-          hlsUrl={getPublicationHlsUrl(video)}
+          url={getPublicationMediaUrl(video.metadata)}
           posterUrl={thumbnailUrl}
           currentTime={currentTime}
           options={{
@@ -94,7 +104,7 @@ const Video: FC<Props> = ({ video }) => {
             style={{
               backgroundColor: backgroundColor && `${backgroundColor}95`
             }}
-            alt={video.metadata.name ?? video.profile.handle}
+            alt="thumbnail"
             draggable={false}
           />
           <div
@@ -103,13 +113,13 @@ const Video: FC<Props> = ({ video }) => {
             onClick={onClickOverlay}
             role="button"
           >
-            <button className="from-brand-300 to-brand-700 rounded-full bg-gradient-to-r p-2 shadow-2xl xl:p-5">
+            <button className="from-brand-300 to-brand-600 rounded-full bg-gradient-to-r p-2 shadow-2xl xl:p-5">
               <PlayOutline className="h-6 w-6 pl-0.5 text-white" />
             </button>
           </div>
         </div>
       )}
-      <TopOverlay playerRef={playerRef} video={video} clicked={clicked} />
+      <TopOverlay playerRef={playerRef} video={video} />
     </div>
   )
 }

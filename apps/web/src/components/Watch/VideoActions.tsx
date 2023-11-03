@@ -1,65 +1,75 @@
-import HeartOutline from '@components/Common/Icons/HeartOutline'
-import ReportModal from '@components/Common/VideoCard/ReportModal'
-import ShareModal from '@components/Common/VideoCard/ShareModal'
+import MirrorOutline from '@components/Common/Icons/MirrorOutline'
+import ThreeDotsOutline from '@components/Common/Icons/ThreeDotsOutline'
+import TipOutline from '@components/Common/Icons/TipOutline'
+import MirrorVideo from '@components/Common/MirrorVideo'
 import VideoOptions from '@components/Common/VideoCard/VideoOptions'
-import { Trans } from '@lingui/macro'
-import { Analytics, TRACK } from '@tape.xyz/browser'
-import type { Publication } from '@tape.xyz/lens'
+import { Button, Dialog, IconButton } from '@radix-ui/themes'
+import { EVENTS, getProfile, Tower } from '@tape.xyz/generic'
+import type { MirrorablePublication } from '@tape.xyz/lens'
+import { TriStateValue } from '@tape.xyz/lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 
+import OpenActions from './OpenActions'
 import PublicationReaction from './PublicationReaction'
-import TipModal from './TipModal'
+import TipForm from './TipForm'
 
 type Props = {
-  video: Publication
+  video: MirrorablePublication
 }
 
 const VideoActions: FC<Props> = ({ video }) => {
-  const [showShare, setShowShare] = useState(false)
-  const [showReport, setShowReport] = useState(false)
   const [showTip, setShowTip] = useState(false)
-
   return (
-    <div className="mt-4 flex items-center justify-end space-x-1 md:mt-2">
-      <TipModal show={showTip} setShowTip={setShowTip} video={video} />
-      <ShareModal video={video} show={showShare} setShowShare={setShowShare} />
-      <ReportModal
-        show={showReport}
-        setShowReport={setShowReport}
-        video={video}
+    <div className="flex items-center justify-end space-x-2">
+      <PublicationReaction
+        publication={video}
+        textSize="inherit"
+        iconSize="base"
+        variant="surface"
+        color="blue"
       />
-      <div className="bg-brand-100/50 dark:bg-brand-900/30 rounded-full px-4 py-1 backdrop-blur-xl">
-        <PublicationReaction
-          publication={video}
-          textSize="base"
-          iconSize="base"
-        />
-      </div>
-      <div className="bg-brand-100/50 dark:bg-brand-900/30 flex items-center rounded-full px-4 py-1 backdrop-blur-xl">
-        <button
-          className="focus:outline-none"
-          onClick={() => {
-            Analytics.track(TRACK.PUBLICATION.TIP.OPEN)
-            setShowTip(true)
-          }}
-        >
-          <span className="flex items-center space-x-1.5 text-base">
-            <HeartOutline className="h-4 w-4" />
-            <span>
-              <Trans>Thanks</Trans>
-            </span>
-          </span>
-        </button>
-      </div>
-      <div className="bg-brand-100/50 dark:bg-brand-900/30 rounded-full px-3 py-1.5 backdrop-blur-xl">
-        <VideoOptions
-          video={video}
-          setShowShare={setShowShare}
-          setShowReport={setShowReport}
-          showOnHover={false}
-        />
-      </div>
+      {video.operations.canComment !== TriStateValue.No && (
+        <Dialog.Root open={showTip}>
+          <Dialog.Trigger>
+            <Button
+              variant="surface"
+              color="blue"
+              highContrast
+              onClick={() => {
+                setShowTip(true)
+                Tower.track(EVENTS.PUBLICATION.TIP.OPEN)
+              }}
+            >
+              <TipOutline className="h-4 w-4" />
+              Thanks
+            </Button>
+          </Dialog.Trigger>
+
+          <Dialog.Content style={{ maxWidth: 450 }}>
+            <Dialog.Title>Tip {getProfile(video.by)?.displayName}</Dialog.Title>
+            <Dialog.Description size="2" mb="4">
+              Show appreciation with a comment and tip.
+            </Dialog.Description>
+
+            <TipForm video={video} setShow={setShowTip} />
+          </Dialog.Content>
+        </Dialog.Root>
+      )}
+      {video.operations.canMirror !== TriStateValue.No && (
+        <MirrorVideo video={video}>
+          <Button variant="surface" color="blue" highContrast>
+            <MirrorOutline className="h-4 w-4 flex-none" />
+            Mirror
+          </Button>
+        </MirrorVideo>
+      )}
+      <OpenActions publication={video} text="Collect" />
+      <VideoOptions video={video}>
+        <IconButton variant="surface" color="blue" highContrast>
+          <ThreeDotsOutline className="h-4 w-4" />
+        </IconButton>
+      </VideoOptions>
     </div>
   )
 }

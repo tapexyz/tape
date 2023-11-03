@@ -1,31 +1,29 @@
-import { Trans } from '@lingui/macro'
-import { STATIC_ASSETS } from '@tape.xyz/constants'
+import { Button, Flex } from '@radix-ui/themes'
+import { STATIC_ASSETS, TAPE_APP_NAME } from '@tape.xyz/constants'
+import Link from 'next/link'
 import React from 'react'
 
 const WelcomeAlert = () => {
   return (
-    <div className="mb-6 w-full">
-      <div className="relative flex flex-col overflow-hidden rounded-2xl">
-        <div className="absolute inset-0 h-full w-full bg-[#29ABE2]" />
-        <div className="absolute inset-0 h-full w-full bg-gradient-to-b from-[#316FC9] to-transparent" />
-        <img
-          src={`${STATIC_ASSETS}/brand/transparent-bg.svg`}
-          alt=""
-          className="absolute -left-2"
-        />
-        <div className="relative z-[1] flex flex-col items-start space-y-4 p-6 text-left text-white md:px-8 md:py-10">
-          <div className="text-2xl">
-            Welcome to <b>Tape</b>
-          </div>
-          <div className="flex w-full flex-1 flex-wrap items-center justify-between gap-y-3 dark:text-gray-100">
-            <p className="md:text-md max-w-2xl text-sm lg:text-lg">
-              <Trans>
-                Discover a new era of content sharing on Lens with Tape. A
-                decentralized, user-centric approach to online media.
-              </Trans>
-            </p>
-          </div>
-        </div>
+    <div className="tape-border rounded-large ultrawide:h-[400px] relative flex h-[350px] w-[500px] flex-none overflow-hidden">
+      <div className="bg-brand-400 absolute inset-0 h-full w-full" />
+      <div className="from-brand-600 absolute inset-0 h-full w-full bg-gradient-to-b to-transparent" />
+      <img
+        src={`${STATIC_ASSETS}/brand/transparent-bg-large.svg`}
+        className="ultrawide:px-8 ultrawide:-top-10 absolute -top-20 px-4 md:px-6"
+        alt="cover"
+      />
+      <div className="ultrawide:p-8 relative flex h-full flex-col justify-end space-y-4 p-4 text-left text-white md:p-6">
+        <div className="text-3xl font-bold">Welcome to {TAPE_APP_NAME}</div>
+        <p className="md:text-md max-w-2xl text-sm lg:text-lg">
+          Discover the new era of media sharing on Lens with {TAPE_APP_NAME}. A
+          decentralized, user-centric approach to online media.
+        </p>
+        <Flex gap="3">
+          <Link href="/login">
+            <Button highContrast>Login</Button>
+          </Link>
+        </Flex>
       </div>
     </div>
   )

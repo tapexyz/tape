@@ -2,18 +2,21 @@ import type {
   QueuedCommentType,
   QueuedVideoType
 } from '@tape.xyz/lens/custom-types'
-import { CustomNotificationsFilterEnum } from '@tape.xyz/lens/custom-types'
+import {
+  CustomNotificationsFilterEnum,
+  LocalStore
+} from '@tape.xyz/lens/custom-types'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
 interface AppPerisistState {
-  sidebarCollapsed: boolean
+  lastOpenedNotificationId: string
+  setLastOpenedNotificationId: (id: string) => void
   latestNotificationId: string
+  setLatestNotificationId: (id: string) => void
   queuedVideos: QueuedVideoType[]
   queuedComments: QueuedCommentType[]
   selectedNotificationsFilter: CustomNotificationsFilterEnum
-  setLatestNotificationId: (id: string) => void
-  setSidebarCollapsed: (collapsed: boolean) => void
   setQueuedComments: (queuedComments: QueuedCommentType[]) => void
   setQueuedVideos: (queuedVideos: QueuedVideoType[]) => void
   setSelectedNotificationsFilter: (
@@ -24,21 +27,24 @@ interface AppPerisistState {
 export const usePersistStore = create(
   persist<AppPerisistState>(
     (set) => ({
-      sidebarCollapsed: true,
       latestNotificationId: '',
+      setLatestNotificationId: (latestNotificationId) =>
+        set({ latestNotificationId }),
+      lastOpenedNotificationId: '',
+      setLastOpenedNotificationId: (id) =>
+        set({ lastOpenedNotificationId: id }),
       queuedComments: [],
       queuedVideos: [],
       setQueuedVideos: (queuedVideos) => set({ queuedVideos }),
       setQueuedComments: (queuedComments) => set({ queuedComments }),
-      setSidebarCollapsed: (sidebarCollapsed) => set({ sidebarCollapsed }),
-      setLatestNotificationId: (latestNotificationId) =>
-        set({ latestNotificationId }),
-      selectedNotificationsFilter: CustomNotificationsFilterEnum.HIGH_SIGNAL,
+
+      selectedNotificationsFilter:
+        CustomNotificationsFilterEnum.ALL_NOTIFICATIONS,
       setSelectedNotificationsFilter: (selectedNotificationsFilter) =>
         set({ selectedNotificationsFilter })
     }),
     {
-      name: 'tape.store'
+      name: LocalStore.TAPE_STORE
     }
   )
 )

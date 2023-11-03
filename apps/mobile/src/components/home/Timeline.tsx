@@ -3,19 +3,20 @@ import type {
   ExplorePublicationRequest,
   FeedHighlightsRequest,
   FeedItem,
-  FeedItemRoot,
   FeedRequest,
-  Publication
+  MirrorablePublication,
+  PrimaryPublication
 } from '@lenstube/lens'
 import {
+  ExplorePublicationsOrderByType,
+  ExplorePublicationType,
   FeedEventItemType,
-  PublicationMainFocus,
-  PublicationSortCriteria,
-  PublicationTypes,
-  useExploreQuery,
+  LimitType,
+  PublicationMetadataMainFocusType,
+  useExplorePublicationsQuery,
   useFeedHighlightsQuery,
   useFeedQuery,
-  useProfilePostsQuery
+  usePublicationsQuery
 } from '@lenstube/lens'
 import { AlgoType, TimelineFeedType } from '@lenstube/lens/custom-types'
 import { useScrollToTop } from '@react-navigation/native'
@@ -60,7 +61,7 @@ const Timeline = () => {
     (state) => state.selectedProfile
   )
 
-  const scrollRef = useRef<FlashList<Publication | FeedItem>>(null)
+  const scrollRef = useRef<FlashList<MirrorablePublication | FeedItem>>(null)
   //@ts-expect-error FlashList as type is not supported
   useScrollToTop(scrollRef)
 
@@ -72,31 +73,41 @@ const Timeline = () => {
   }, [selectedProfile])
 
   const feedRequest: FeedRequest = {
-    limit: 50,
-    feedEventItemTypes: [FeedEventItemType.Post],
-    profileId: selectedProfile?.id,
-    metadata: {
-      mainContentFocus: [PublicationMainFocus.Video]
+    where: {
+      metadata: {
+        mainContentFocus: [PublicationMetadataMainFocusType.Video]
+      },
+      feedEventItemTypes: [FeedEventItemType.Post],
+      for: selectedProfile?.id
     }
   }
 
   const curatedRequest: ExplorePublicationRequest = {
-    sortCriteria: PublicationSortCriteria.CuratedProfiles,
-    limit: 10,
-    noRandomize: false,
-    publicationTypes: [PublicationTypes.Post],
-    customFilters: LENS_CUSTOM_FILTERS,
-    metadata: {
-      mainContentFocus: [PublicationMainFocus.Audio, PublicationMainFocus.Video]
-    }
+    where: {
+      publicationTypes: [ExplorePublicationType.Post],
+      customFilters: LENS_CUSTOM_FILTERS,
+      metadata: {
+        mainContentFocus: [
+          PublicationMetadataMainFocusType.Audio,
+          PublicationMetadataMainFocusType.Video
+        ]
+      }
+    },
+    orderBy: ExplorePublicationsOrderByType.LensCurated,
+    limit: LimitType.Ten
   }
 
   const highlightsRequest: FeedHighlightsRequest = {
-    profileId: selectedProfile?.id,
-    limit: 10,
-    metadata: {
-      mainContentFocus: [PublicationMainFocus.Audio, PublicationMainFocus.Video]
-    }
+    where: {
+      for: selectedProfile?.id,
+      metadata: {
+        mainContentFocus: [
+          PublicationMetadataMainFocusType.Audio,
+          PublicationMetadataMainFocusType.Video
+        ]
+      }
+    },
+    limit: LimitType.Ten
   }
 
   const {
@@ -104,7 +115,7 @@ const Timeline = () => {
     fetchMore: fetchMoreCurated,
     loading,
     error
-  } = useExploreQuery({
+  } = useExplorePublicationsQuery({
     variables: {
       request: curatedRequest
     }
@@ -143,13 +154,9 @@ const Timeline = () => {
 
   const publicationIds = recsData?.items as string[]
 
-  const { data, loading: recsLoading } = useProfilePostsQuery({
+  const { data, loading: recsLoading } = usePublicationsQuery({
     variables: {
-      request: { publicationIds, limit: 50 },
-      reactionRequest: selectedProfile?.id
-        ? { profileId: selectedProfile?.id }
-        : null,
-      channelId: selectedProfile?.id ?? null
+      request: { where: { publicationIds }, limit: LimitType.Fifty }
     },
     skip: !publicationIds,
     fetchPolicy: 'no-cache'
@@ -157,12 +164,12 @@ const Timeline = () => {
 
   const publications =
     selectedFeedType === TimelineFeedType.ALGORITHM
-      ? (data?.publications.items as Publication[])
+      ? (data?.publications.items as MirrorablePublication[])
       : selectedFeedType === TimelineFeedType.HIGHLIGHTS
-      ? (feedHighlightsData?.feedHighlights.items as Publication[])
+      ? (feedHighlightsData?.feedHighlights.items as MirrorablePublication[])
       : selectedFeedType === TimelineFeedType.FOLLOWING
       ? (feedData?.feed?.items as FeedItem[])
-      : (curatedData?.explorePublications?.items as Publication[])
+      : (curatedData?.explorePublications?.items as MirrorablePublication[])
 
   const pageInfo =
     selectedFeedType === TimelineFeedType.CURATED
@@ -205,16 +212,15 @@ const Timeline = () => {
   }
 
   const renderItem = useCallback(
-    ({ item }: { item: Publication | FeedItem }) => {
+    ({ item }: { item: MirrorablePublication | FeedItem }) => {
       const publication =
         item?.__typename === 'FeedItem'
-          ? (item.root as FeedItemRoot)
-          : (item as Publication)
+          ? (item.root as PrimaryPublication)
+          : (item as MirrorablePublication)
       return (
         // Added extra 'View' this to fix issue with ItemSeparator rendering
         <View style={{ marginBottom: 30 }} key={publication.id}>
-          {publication.metadata.mainContentFocus ===
-          PublicationMainFocus.Audio ? (
+          {publication.metadata.__typename === 'AudioMetadataV3' ? (
             <AudioCard audio={publication} />
           ) : (
             <VideoCard video={publication} />

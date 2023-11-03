@@ -1,38 +1,28 @@
 import { getTimeFromSeconds } from '@lib/formatTime'
-import { Trans } from '@lingui/macro'
-import { getIsSensitiveContent, getValueFromTraitType } from '@tape.xyz/generic'
-import type { Attribute, Publication } from '@tape.xyz/lens'
+import { getPublication, getPublicationData } from '@tape.xyz/generic'
+import type { AnyPublication } from '@tape.xyz/lens'
 import type { FC } from 'react'
 import React from 'react'
 
 type Props = {
-  video: Publication
+  video: AnyPublication
 }
 
 const ThumbnailOverlays: FC<Props> = ({ video }) => {
-  const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
-  const videoDuration = getValueFromTraitType(
-    video.metadata?.attributes as Attribute[],
-    'durationInSeconds'
-  )
+  const targetPublication = getPublication(video)
+  const metadata = getPublicationData(targetPublication.metadata)
+  const videoDuration = metadata?.asset?.duration
+
+  if (!videoDuration) {
+    return null
+  }
 
   return (
-    <>
-      {isSensitiveContent && (
-        <div>
-          <span className="absolute left-2 top-2 rounded-full bg-white px-2 py-0.5 text-xs text-black">
-            <Trans>Sensitive Content</Trans>
-          </span>
-        </div>
-      )}
-      {!isSensitiveContent && videoDuration ? (
-        <div>
-          <span className="absolute bottom-2 right-2 rounded bg-black px-1 py-0.5 text-xs font-semibold text-white">
-            {getTimeFromSeconds(videoDuration)}
-          </span>
-        </div>
-      ) : null}
-    </>
+    <div>
+      <span className="absolute bottom-2 right-2 rounded bg-black px-1 py-0.5 text-xs font-bold text-white">
+        {getTimeFromSeconds(String(videoDuration))}
+      </span>
+    </div>
   )
 }
 

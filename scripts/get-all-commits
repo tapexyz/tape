@@ -1,0 +1,27 @@
+#!/bin/bash
+
+author=$(git config user.name)
+
+remote_url=$(git config --get remote.origin.url)
+
+github_url=$(echo "$remote_url" | sed -n 's/.*github.com[:/]\(.*\)\.git/\1/p')
+
+git_log_command="git log --since='midnight' --author='$author' --format='%h|%s'"
+output=$(eval "$git_log_command")
+
+IFS=$'\n' read -rd '' -a commit_lines <<< "$output"
+
+declare -a commits
+
+for line in "${commit_lines[@]}"; do
+    if [[ $line ]]; then
+        IFS='|' read -r commit_hash commit_message <<< "$line"
+        commit_url="https://github.com/$github_url/commit/$commit_hash"
+        commits+=("$commit_message|$commit_url")
+    fi
+done
+
+for commit in "${commits[@]}"; do
+    IFS='|' read -r message url <<< "$commit"
+    echo "$message <$url>"
+done

@@ -129,13 +129,13 @@ const ShareSheet: FC<Props> = ({ sheetRef, profile }) => {
                 >
                   <View style={{ alignItems: 'flex-end' }}>
                     <Text style={style.boldText}>
-                      {formatNumber(profile.stats.totalFollowers)}
+                      {formatNumber(profile.stats.followers)}
                     </Text>
                     <Text style={style.hintText}>followers</Text>
                   </View>
                   <View style={{ alignItems: 'flex-end' }}>
                     <Text style={style.boldText}>
-                      {formatNumber(profile.stats.totalPosts)}
+                      {formatNumber(profile.stats.posts)}
                     </Text>
                     <Text style={style.hintText}>posts</Text>
                   </View>

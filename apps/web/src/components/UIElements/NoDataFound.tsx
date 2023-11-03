@@ -1,27 +1,25 @@
 import { STATIC_ASSETS } from '@tape.xyz/constants'
-import { imageCdn } from '@tape.xyz/generic'
 import clsx from 'clsx'
 import React from 'react'
 
 export const NoDataFound = ({
-  text = 'No data found',
+  text = 'Zero trace!',
   withImage = false,
-  isCenter = false
+  isCenter = false,
+  className = ''
 }) => {
   return (
     <div
-      className={clsx('flex flex-col space-y-1 rounded-lg p-6', {
+      className={clsx('flex flex-col space-y-6 rounded-lg p-6', className, {
         'items-center justify-center': isCenter
       })}
     >
       {withImage && (
         <img
-          src={imageCdn(
-            `${STATIC_ASSETS}/images/illustrations/no-results.png`,
-            'SQUARE'
-          )}
-          className="w-32 md:w-36"
-          alt="no results"
+          src={`${STATIC_ASSETS}/images/illustrations/404.gif`}
+          height={70}
+          width={70}
+          alt="zero trace!"
           draggable={false}
         />
       )}

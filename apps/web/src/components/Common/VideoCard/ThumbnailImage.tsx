@@ -6,48 +6,50 @@ import {
 } from '@tape.xyz/constants'
 import {
   getIsSensitiveContent,
+  getPublication,
   getThumbnailUrl,
   imageCdn
 } from '@tape.xyz/generic'
-import type { Publication } from '@tape.xyz/lens'
+import type { AnyPublication } from '@tape.xyz/lens'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
 
 type Props = {
-  video: Publication
+  video: AnyPublication
 }
 
 const ThumbnailImage: FC<Props> = ({ video }) => {
-  const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
-  const isBytesVideo = video.appId === LENSTUBE_BYTES_APP_ID
+  const targetPublication = getPublication(video)
+
+  const isSensitiveContent = getIsSensitiveContent(
+    targetPublication.metadata,
+    video.id
+  )
+  const isBytesVideo =
+    targetPublication.publishedOn?.id === LENSTUBE_BYTES_APP_ID
 
   const thumbnailUrl = isSensitiveContent
-    ? `${STATIC_ASSETS}/images/sensor-blur.png`
-    : getThumbnailUrl(video, true)
+    ? `${STATIC_ASSETS}/images/sensor-blur.webp`
+    : getThumbnailUrl(targetPublication.metadata, true)
   const { color: backgroundColor } = useAverageColor(thumbnailUrl, isBytesVideo)
 
   return (
     <img
       src={imageCdn(thumbnailUrl, isBytesVideo ? 'THUMBNAIL_V' : 'THUMBNAIL')}
       className={clsx(
-        'h-full w-full rounded-xl bg-gray-100 object-center dark:bg-gray-900 lg:h-full lg:w-full',
+        'h-full w-full rounded-lg bg-gray-100 object-center dark:bg-gray-900 lg:h-full lg:w-full',
         isBytesVideo ? 'object-contain' : 'object-cover'
       )}
       style={{
         backgroundColor: backgroundColor && `${backgroundColor}95`
       }}
+      width={1000}
+      height={600}
       alt="thumbnail"
       draggable={false}
       onError={({ currentTarget }) => {
         currentTarget.src = FALLBACK_COVER_URL
-        // const thumbnail = await generateVideoThumbnail(
-        //   getPublicationMediaUrl(video)
-        // )
-        // currentTarget.onerror = null
-        // if (thumbnail?.includes('base64')) {
-        //   currentTarget.src = thumbnail
-        // }
       }}
     />
   )

@@ -1,9 +1,13 @@
 import MetaTags from '@components/Common/MetaTags'
-import { Button } from '@components/UIElements/Button'
-import { t, Trans } from '@lingui/macro'
-import { Analytics, TRACK } from '@tape.xyz/browser'
+import { Button, Dialog, Flex, Select, Text } from '@radix-ui/themes'
 import { ERROR_MESSAGE } from '@tape.xyz/constants'
-import type { Publication } from '@tape.xyz/lens'
+import {
+  EVENTS,
+  getPublication,
+  getPublicationData,
+  Tower
+} from '@tape.xyz/generic'
+import type { AnyPublication } from '@tape.xyz/lens'
 import { useReportPublicationMutation } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import type { FC } from 'react'
@@ -11,11 +15,11 @@ import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 
 type Props = {
-  publication: Publication
-  onSuccess: () => void
+  publication: AnyPublication
 }
 
-const ReportPublication: FC<Props> = ({ publication, onSuccess }) => {
+const ReportPublication: FC<Props> = ({ publication }) => {
+  const targetPublication = getPublication(publication)
   const [reason, setReason] = useState('SPAM-FAKE_ENGAGEMENT')
 
   const [createReport, { loading: reporting }] = useReportPublicationMutation({
@@ -23,11 +27,10 @@ const ReportPublication: FC<Props> = ({ publication, onSuccess }) => {
       toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     },
     onCompleted: () => {
-      toast.success(t`Publication reported successfully.`)
-      onSuccess()
-      Analytics.track(TRACK.PUBLICATION.REPORT, {
-        publication_id: publication.id,
-        publication_type: publication.__typename?.toLowerCase()
+      toast.success(`Publication reported.`)
+      Tower.track(EVENTS.PUBLICATION.REPORT, {
+        publication_id: targetPublication.id,
+        publication_type: targetPublication.__typename?.toLowerCase()
       })
     }
   })
@@ -48,13 +51,13 @@ const ReportPublication: FC<Props> = ({ publication, onSuccess }) => {
     return 'illegalReason'
   }
 
-  const onReport = () => {
+  const onReport = async () => {
     const type = reason.split('-')[0]
     const subReason = reason.split('-')[1]
-    createReport({
+    await createReport({
       variables: {
         request: {
-          publicationId: publication.id,
+          for: targetPublication.id,
           reason: {
             [getReasonType(type)]: {
               reason: type,
@@ -67,97 +70,92 @@ const ReportPublication: FC<Props> = ({ publication, onSuccess }) => {
     })
   }
 
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setReason(e.target.value)
-  }
-
   return (
     <>
-      <MetaTags title={t`Report Publication`} />
+      <MetaTags title={`Report Publication`} />
       <div className="flex justify-center">
         <div className="w-full">
-          <div className="opacity-60">
-            <h1>{publication.metadata.name}</h1>
-            <span className="text-sm">by {publication.profile.handle}</span>
-          </div>
-          <div className="mt-4">
-            <label
-              className="block text-xs font-semibold uppercase opacity-70"
-              htmlFor="report"
-            >
-              <Trans>Reason</Trans>
-            </label>
-            <div className="mt-1">
-              <select
-                onChange={(e) => handleChange(e)}
+          <h1>{getPublicationData(targetPublication.metadata)?.title}</h1>
+          <div className="mt-4 flex flex-col space-y-4">
+            <Flex direction="column">
+              <Text weight="medium">Reason</Text>
+              <Select.Root
+                onValueChange={(value) => setReason(value)}
                 value={reason}
-                name="report"
-                className="w-full rounded-xl border border-gray-200 bg-white p-2.5 text-sm outline-none disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-800 dark:bg-gray-900"
-                id="report"
               >
-                <optgroup label="SPAM">
-                  <option value="SPAM-FAKE_ENGAGEMENT">
-                    <Trans>Fake Engagement</Trans>
-                  </option>
-                  <option value="SPAM-MANIPULATION_ALGO">
-                    <Trans>Algorithm Manipulation</Trans>
-                  </option>
-                  <option value="SPAM-MISLEADING">
-                    <Trans>Misleading</Trans>
-                  </option>
-                  <option value="SPAM-MISUSE_HASHTAGS">
-                    <Trans>Misuse Hashtags</Trans>
-                  </option>
-                  <option value="SPAM-REPETITIVE">
-                    <Trans>Repetitive</Trans>
-                  </option>
-                  <option value="SPAM-UNRELATED">
-                    <Trans>Unrelated</Trans>
-                  </option>
-                  <option value="SPAM-SOMETHING_ELSE">
-                    <Trans>Something Else</Trans>
-                  </option>
-                </optgroup>
-                <optgroup label="ILLEGAL">
-                  <option value="ILLEGAL-ANIMAL_ABUSE">
-                    <Trans>Animal Abuse</Trans>
-                  </option>
-                  <option value="ILLEGAL-HUMAN_ABUSE">
-                    <Trans>Human Abuse</Trans>
-                  </option>
-                  <option value="ILLEGAL-DIRECT_THREAT">
-                    <Trans>Direct threat</Trans>
-                  </option>
-                  <option value="ILLEGAL-THREAT_INDIVIDUAL">
-                    <Trans>Threat Individual</Trans>
-                  </option>
-                  <option value="ILLEGAL-VIOLENCE">
-                    <Trans>Violence</Trans>
-                  </option>
-                </optgroup>
-                <optgroup label="FRAUD">
-                  <option value="FRAUD-SCAM">
-                    <Trans>Scam</Trans>
-                  </option>
-                  <option value="FRAUD-IMPERSONATION">
-                    <Trans>Impersonation</Trans>
-                  </option>
-                </optgroup>
-                <optgroup label="SENSITIVE">
-                  <option value="SENSITIVE-NSFW">
-                    <Trans>NSFW</Trans>
-                  </option>
-                  <option value="SENSITIVE-OFFENSIVE">
-                    <Trans>Offensive</Trans>
-                  </option>
-                </optgroup>
-              </select>
-            </div>
-            <div className="mb-1 mt-4 flex justify-end">
-              <Button loading={reporting} onClick={() => onReport()}>
-                <Trans>Report</Trans>
-              </Button>
-            </div>
+                <Select.Trigger placeholder="Select a reason" />
+                <Select.Content variant="soft">
+                  <Select.Group>
+                    <Select.Label>Spam</Select.Label>
+                    <Select.Item value="SPAM-FAKE_ENGAGEMENT">
+                      Fake Engagement
+                    </Select.Item>
+                    <Select.Item value="SPAM-MANIPULATION_ALGO">
+                      Algorithm Manipulation
+                    </Select.Item>
+                    <Select.Item value="SPAM-MISLEADING">
+                      Misleading
+                    </Select.Item>
+                    <Select.Item value="SPAM-MISUSE_HASHTAGS">
+                      Misuse Hashtags
+                    </Select.Item>
+                    <Select.Item value="SPAM-REPETITIVE">
+                      Repetitive
+                    </Select.Item>
+                    <Select.Item value="SPAM-UNRELATED">Unrelated</Select.Item>
+                    <Select.Item value="SPAM-SOMETHING_ELSE">
+                      Something Else
+                    </Select.Item>
+                  </Select.Group>
+                  <Select.Group>
+                    <Select.Label>Illegal</Select.Label>
+                    <Select.Item value="ILLEGAL-ANIMAL_ABUSE">
+                      Animal Abuse
+                    </Select.Item>
+                    <Select.Item value="ILLEGAL-HUMAN_ABUSE">
+                      Human Abuse
+                    </Select.Item>
+                    <Select.Item value="ILLEGAL-DIRECT_THREAT">
+                      Direct threat
+                    </Select.Item>
+                    <Select.Item value="ILLEGAL-THREAT_INDIVIDUAL">
+                      Threat Individual
+                    </Select.Item>
+                    <Select.Item value="ILLEGAL-VIOLENCE">Violence</Select.Item>
+                  </Select.Group>
+                  <Select.Group>
+                    <Select.Label>Fraud</Select.Label>
+                    <Select.Item value="FRAUD-SCAM">Scam</Select.Item>
+                    <Select.Item value="FRAUD-IMPERSONATION">
+                      Impersonation
+                    </Select.Item>
+                  </Select.Group>
+                  <Select.Group>
+                    <Select.Label>Sensitive</Select.Label>
+                    <Select.Item value="SENSITIVE-NSFW">NSFW</Select.Item>
+                    <Select.Item value="SENSITIVE-OFFENSIVE">
+                      Offensive
+                    </Select.Item>
+                  </Select.Group>
+                </Select.Content>
+              </Select.Root>
+            </Flex>
+            <Flex mt="4" gap="2" justify="end">
+              <Dialog.Close>
+                <Button variant="soft" color="gray">
+                  Cancel
+                </Button>
+              </Dialog.Close>
+              <Dialog.Close>
+                <Button
+                  color="red"
+                  disabled={reporting}
+                  onClick={() => onReport()}
+                >
+                  Report
+                </Button>
+              </Dialog.Close>
+            </Flex>
           </div>
         </div>
       </div>

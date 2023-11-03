@@ -1,0 +1,11 @@
+fragment PrimaryPublicationFields on PrimaryPublication {
+  ... on Post {
+    ...PostFields
+  }
+  ... on Comment {
+    ...CommentBaseFields
+  }
+  ... on Quote {
+    ...QuoteBaseFields
+  }
+}

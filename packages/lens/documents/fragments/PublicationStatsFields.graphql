@@ -1,8 +1,8 @@
 fragment PublicationStatsFields on PublicationStats {
-  totalUpvotes
-  totalAmountOfMirrors
-  totalAmountOfCollects
-  totalAmountOfComments
-  totalBookmarks
-  commentsTotal(customFilters: GARDENERS)
+  id
+  comments
+  mirrors
+  quotes
+  reactions(request: { type: UPVOTE })
+  countOpenActions
 }

@@ -1,6 +1,9 @@
+import type { ProfileInterestTypes } from '@tape.xyz/lens'
 import type { ProfileInterest } from '@tape.xyz/lens/custom-types'
 
-export const sanitizeProfileInterests = (profileInterests: string[]) => {
+export const sanitizeProfileInterests = (
+  profileInterests: ProfileInterestTypes[]
+) => {
   if (!profileInterests) {
     return []
   }

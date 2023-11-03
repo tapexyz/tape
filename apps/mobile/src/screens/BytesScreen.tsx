@@ -1,10 +1,11 @@
 import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@lenstube/constants'
-import type { ExplorePublicationRequest, Publication } from '@lenstube/lens'
+import type { AnyPublication, ExplorePublicationRequest } from '@lenstube/lens'
 import {
-  PublicationMainFocus,
-  PublicationSortCriteria,
-  PublicationTypes,
-  useExploreQuery
+  ExplorePublicationsOrderByType,
+  ExplorePublicationType,
+  LimitType,
+  PublicationMetadataMainFocusType,
+  useExplorePublicationsQuery
 } from '@lenstube/lens'
 import { useScrollToTop } from '@react-navigation/native'
 import { FlashList } from '@shopify/flash-list'
@@ -18,14 +19,14 @@ export const BytesScreen = (props: BytesScreenProps): JSX.Element => {
   const {
     navigation: {}
   } = props
-  const scrollRef = useRef<FlashList<Publication>>(null)
+  const scrollRef = useRef<FlashList<AnyPublication>>(null)
   //@ts-expect-error FlashList as type is not supported
   useScrollToTop(scrollRef)
 
   const [activeVideoIndex, setActiveVideoIndex] = useState(0)
 
   const renderItem = useCallback(
-    ({ item, index }: { item: Publication; index: number }) => (
+    ({ item, index }: { item: AnyPublication; index: number }) => (
       <ByteCard byte={item} isActive={activeVideoIndex === index} />
     ),
     [activeVideoIndex]
@@ -46,20 +47,22 @@ export const BytesScreen = (props: BytesScreenProps): JSX.Element => {
   )
 
   const request: ExplorePublicationRequest = {
-    sortCriteria: PublicationSortCriteria.CuratedProfiles,
-    limit: 50,
-    noRandomize: false,
-    sources: [LENSTUBE_BYTES_APP_ID],
-    publicationTypes: [PublicationTypes.Post],
-    customFilters: LENS_CUSTOM_FILTERS,
-    metadata: {
-      mainContentFocus: [PublicationMainFocus.Video]
-    }
+    where: {
+      publicationTypes: [ExplorePublicationType.Post],
+      customFilters: LENS_CUSTOM_FILTERS,
+      metadata: {
+        publishedOn: [LENSTUBE_BYTES_APP_ID],
+        mainContentFocus: [PublicationMetadataMainFocusType.Video]
+      }
+    },
+    limit: LimitType.Fifty,
+    orderBy: ExplorePublicationsOrderByType.LensCurated
   }
-  const { data, loading, fetchMore } = useExploreQuery({
+
+  const { data, loading, fetchMore } = useExplorePublicationsQuery({
     variables: { request }
   })
-  const bytes = data?.explorePublications?.items as Publication[]
+  const bytes = data?.explorePublications?.items as unknown as AnyPublication[]
   const pageInfo = data?.explorePublications?.pageInfo
 
   const fetchMoreVideos = async () => {

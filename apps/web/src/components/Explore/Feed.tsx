@@ -4,28 +4,29 @@ import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { Tab } from '@headlessui/react'
 import useAppStore from '@lib/store'
-import useAuthPersistStore from '@lib/store/auth'
-import { t, Trans } from '@lingui/macro'
-import { Analytics, TRACK } from '@tape.xyz/browser'
+import { Button } from '@radix-ui/themes'
 import {
   ALLOWED_APP_IDS,
+  INFINITE_SCROLL_ROOT_MARGIN,
   IS_MAINNET,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_BYTES_APP_ID,
-  SCROLL_ROOT_MARGIN,
   TAPE_APP_ID
 } from '@tape.xyz/constants'
-import type { Publication } from '@tape.xyz/lens'
+import { EVENTS, Tower } from '@tape.xyz/generic'
+import type {
+  ExplorePublicationRequest,
+  PrimaryPublication
+} from '@tape.xyz/lens'
 import {
-  PublicationMainFocus,
-  PublicationSortCriteria,
-  PublicationTypes,
-  useExploreQuery
+  ExplorePublicationsOrderByType,
+  ExplorePublicationType,
+  LimitType,
+  PublicationMetadataMainFocusType,
+  useExplorePublicationsQuery
 } from '@tape.xyz/lens'
 import { Loader } from '@tape.xyz/ui'
-import clsx from 'clsx'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 
@@ -38,137 +39,126 @@ const initialCriteria = {
 const ExploreFeed = () => {
   const [activeCriteria, setActiveCriteria] = useState(initialCriteria)
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
 
   const getCriteria = () => {
     if (activeCriteria.trending) {
-      return PublicationSortCriteria.TopCollected
+      return ExplorePublicationsOrderByType.TopCollectedOpenAction
     }
     if (activeCriteria.popular) {
-      return PublicationSortCriteria.TopCommented
+      return ExplorePublicationsOrderByType.TopCommented
     }
     if (activeCriteria.interesting) {
-      return PublicationSortCriteria.TopMirrored
+      return ExplorePublicationsOrderByType.TopMirrored
     }
-    return PublicationSortCriteria.TopCollected
+    return ExplorePublicationsOrderByType.TopCollectedOpenAction
   }
 
-  const request = {
-    sortCriteria: getCriteria(),
-    limit: 32,
-    noRandomize: true,
-    sources: IS_MAINNET
-      ? [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
-      : undefined,
-    publicationTypes: [PublicationTypes.Post],
-    customFilters: LENS_CUSTOM_FILTERS,
-    metadata: {
-      tags:
-        activeTagFilter !== 'all' ? { oneOf: [activeTagFilter] } : undefined,
-      mainContentFocus: [PublicationMainFocus.Video]
-    }
+  const request: ExplorePublicationRequest = {
+    where: {
+      customFilters: LENS_CUSTOM_FILTERS,
+      publicationTypes: [ExplorePublicationType.Post],
+      metadata: {
+        tags:
+          activeTagFilter !== 'all' ? { oneOf: [activeTagFilter] } : undefined,
+        mainContentFocus: [PublicationMetadataMainFocusType.Video],
+        publishedOn: IS_MAINNET
+          ? [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
+          : undefined
+      }
+    },
+    orderBy: getCriteria(),
+    limit: LimitType.Fifty
   }
 
-  const { data, loading, error, fetchMore } = useExploreQuery({
+  const { data, loading, error, fetchMore } = useExplorePublicationsQuery({
     variables: {
-      request,
-      channelId: selectedSimpleProfile?.id ?? null
+      request
     }
   })
 
-  const videos = data?.explorePublications?.items as Publication[]
+  const videos = data?.explorePublications
+    ?.items as unknown as PrimaryPublication[]
   const pageInfo = data?.explorePublications?.pageInfo
 
   const { observe } = useInView({
-    rootMargin: SCROLL_ROOT_MARGIN,
+    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
     onEnter: async () => {
       await fetchMore({
         variables: {
           request: {
             ...request,
             cursor: pageInfo?.next
-          },
-          channelId: selectedSimpleProfile?.id ?? null
+          }
         }
       })
     }
   })
 
   return (
-    <Tab.Group as="div" className="col-span-9 w-full">
-      <Tab.List className="no-scrollbar flex overflow-x-auto">
-        <Tab
+    <div className="laptop:pt-6 pt-4">
+      <div className="space-x-2">
+        <Button
+          radius="full"
+          highContrast
+          variant={activeCriteria.trending ? 'solid' : 'surface'}
           onClick={() => {
             setActiveCriteria({ ...initialCriteria })
-            Analytics.track('Pageview', {
-              path: TRACK.PAGE_VIEW.EXPLORE_TRENDING
+            Tower.track(EVENTS.PAGEVIEW, {
+              page: EVENTS.PAGE_VIEW.EXPLORE_TRENDING
             })
           }}
-          className={({ selected }) =>
-            clsx(
-              'flex items-center space-x-2 whitespace-nowrap border-b-2 px-4 py-2 focus:outline-none',
-              selected ? 'border-brand-500' : 'border-transparent'
-            )
-          }
         >
-          <FireOutline className="h-3.5 w-3.5" />
-          <span>
-            <Trans>Trending</Trans>
+          <span className="flex items-center space-x-1">
+            <FireOutline className="h-3.5 w-3.5" />
+            <span>Trending</span>
           </span>
-        </Tab>
-        <Tab
+        </Button>
+        <Button
+          radius="full"
+          highContrast
+          variant={activeCriteria.popular ? 'solid' : 'surface'}
           onClick={() => {
             setActiveCriteria({
               ...initialCriteria,
               popular: true,
               trending: false
             })
-            Analytics.track('Pageview', {
-              path: TRACK.PAGE_VIEW.EXPLORE_POPULAR
+            Tower.track(EVENTS.PAGEVIEW, {
+              page: EVENTS.PAGE_VIEW.EXPLORE_POPULAR
             })
           }}
-          className={({ selected }) =>
-            clsx(
-              'flex items-center space-x-2 border-b-2 px-4 py-2 focus:outline-none',
-              selected ? 'border-brand-500' : 'border-transparent'
-            )
-          }
         >
-          <CommentOutline className="h-3.5 w-3.5" />
-          <span>
-            <Trans>Popular</Trans>
+          <span className="flex items-center space-x-1">
+            <CommentOutline className="h-3.5 w-3.5" />
+            <span>Popular</span>
           </span>
-        </Tab>
-        <Tab
+        </Button>
+        <Button
+          radius="full"
+          highContrast
+          variant={activeCriteria.interesting ? 'solid' : 'surface'}
           onClick={() => {
             setActiveCriteria({
               ...initialCriteria,
               interesting: true,
               trending: false
             })
-            Analytics.track('Pageview', {
-              path: TRACK.PAGE_VIEW.EXPLORE_INTERESTING
+            Tower.track(EVENTS.PAGEVIEW, {
+              page: EVENTS.PAGE_VIEW.EXPLORE_INTERESTING
             })
           }}
-          className={({ selected }) =>
-            clsx(
-              'flex items-center space-x-2 border-b-2 px-4 py-2 focus:outline-none',
-              selected ? 'border-brand-500' : 'border-transparent'
-            )
-          }
         >
-          <MirrorOutline className="h-3.5 w-3.5" />
-          <span>
-            <Trans>Interesting</Trans>
+          <span className="flex items-center space-x-1">
+            <MirrorOutline className="h-3.5 w-3.5" />
+            <span>Interesting</span>
           </span>
-        </Tab>
-      </Tab.List>
-      <Tab.Panels className="my-3">
+        </Button>
+      </div>
+
+      <div className="my-4">
         {loading && <TimelineShimmer />}
         {videos?.length === 0 && (
-          <NoDataFound isCenter withImage text={t`No videos found`} />
+          <NoDataFound isCenter withImage text={`No videos found`} />
         )}
         {!error && !loading && videos?.length ? (
           <>
@@ -180,8 +170,8 @@ const ExploreFeed = () => {
             )}
           </>
         ) : null}
-      </Tab.Panels>
-    </Tab.Group>
+      </div>
+    </div>
   )
 }
 

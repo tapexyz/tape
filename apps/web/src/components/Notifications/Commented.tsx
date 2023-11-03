@@ -1,64 +1,52 @@
-import Badge from '@components/Common/Badge'
-import { getRelativeTime } from '@lib/formatTime'
-import { Trans } from '@lingui/macro'
-import { getProfilePicture, trimLensHandle } from '@tape.xyz/generic'
-import type { NewCommentNotification } from '@tape.xyz/lens'
+import HoverableProfile from '@components/Common/HoverableProfile'
+import CommentOutline from '@components/Common/Icons/CommentOutline'
+import { getShortHandTime } from '@lib/formatTime'
+import {
+  getProfile,
+  getProfilePicture,
+  getPublicationData
+} from '@tape.xyz/generic'
+import type { CommentNotification } from '@tape.xyz/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
 
-interface Props {
-  notification: NewCommentNotification
+type Props = {
+  notification: CommentNotification
 }
 
-const CommentedNotification: FC<Props> = ({ notification }) => {
+const Commented: FC<Props> = ({ notification: { comment } }) => {
   return (
-    <>
-      <div className="flex items-center space-x-2">
-        <Link
-          href={`/channel/${trimLensHandle(notification?.profile?.handle)}`}
-          className="font-base inline-flex items-center space-x-1.5"
-        >
-          <img
-            className="h-5 w-5 rounded-full"
-            src={getProfilePicture(notification?.profile, 'AVATAR')}
-            alt={notification?.profile?.handle}
-            draggable={false}
-          />
-          <div className="flex items-center space-x-0.5">
-            <span>{trimLensHandle(notification?.profile?.handle)}</span>
-            <Badge id={notification?.profile?.id} size="xs" />
-          </div>
-        </Link>
-        <span className="truncate text-gray-600 dark:text-gray-400">
-          <Trans>commented on your</Trans>
-          <Link
-            href={`/watch/${
-              notification?.comment?.commentOn &&
-              notification?.comment?.commentOn?.id
-            }`}
-            className="text-brand-500 ml-1"
-          >
-            <Trans>video</Trans>
-          </Link>
-        </span>
-      </div>
-      <div className="flex items-center justify-between">
-        <Link
-          href={`/watch/${
-            notification?.comment?.commentOn &&
-            notification?.comment?.commentOn?.id
-          }`}
-          className="truncate py-1 text-gray-600 dark:text-gray-400"
-        >
-          {notification?.comment?.metadata?.content}
-        </Link>
-        <div className="flex flex-none items-center text-gray-600 dark:text-gray-400">
-          <span>{getRelativeTime(notification?.createdAt)}</span>
+    <div className="flex justify-between">
+      <span className="flex space-x-4">
+        <div className="p-1">
+          <CommentOutline className="h-5 w-5" />
         </div>
-      </div>
-    </>
+        <div>
+          <span className="flex -space-x-1.5">
+            <HoverableProfile profile={comment.by} key={comment.by?.id}>
+              <img
+                className="h-7 w-7 rounded-full border dark:border-gray-700/80"
+                src={getProfilePicture(comment.by)}
+                draggable={false}
+                alt={getProfile(comment.by)?.slug}
+              />
+            </HoverableProfile>
+          </span>
+          <div className="py-2">commented on your publication</div>
+          <Link
+            href={`/watch/${comment.root.id}`}
+            className="text-dust line-clamp-2 font-medium"
+          >
+            {getPublicationData(comment.metadata)?.content}
+          </Link>
+        </div>
+      </span>
+      <span className="text-dust text-sm">
+        {getShortHandTime(comment.createdAt)}
+      </span>
+    </div>
   )
 }
 
-export default CommentedNotification
+export default Commented

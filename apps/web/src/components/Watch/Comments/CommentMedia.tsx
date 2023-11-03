@@ -1,10 +1,11 @@
-import Modal from '@components/UIElements/Modal'
-import { imageCdn, sanitizeDStorageUrl } from '@tape.xyz/generic'
+import { Dialog } from '@radix-ui/themes'
 import {
-  type MediaSet,
-  type Publication,
-  PublicationMainFocus
-} from '@tape.xyz/lens'
+  getPublication,
+  getPublicationMediaUrl,
+  imageCdn,
+  sanitizeDStorageUrl
+} from '@tape.xyz/generic'
+import type { AnyPublication } from '@tape.xyz/lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 
@@ -12,78 +13,66 @@ import AudioComment from './AudioComment'
 import VideoComment from './VideoComment'
 
 type Props = {
-  comment: Publication
+  comment: AnyPublication
 }
+
 const CommentMedia: FC<Props> = ({ comment }) => {
   const [imageSrc, setImageSrc] = useState('')
-  const [showLighBox, setShowLighBox] = useState(false)
+  const targetComment = getPublication(comment)
 
-  const media: MediaSet[] = comment.metadata.media
+  const uri = getPublicationMediaUrl(targetComment.metadata)
 
-  if (!media.length) {
+  if (!uri.length) {
     return null
   }
 
   const getIsVideoComment = () => {
-    return comment.metadata.mainContentFocus === PublicationMainFocus.Video
+    return targetComment.metadata.__typename === 'VideoMetadataV3'
   }
 
   const getIsAudioComment = () => {
-    return comment.metadata.mainContentFocus === PublicationMainFocus.Audio
+    return targetComment.metadata.__typename === 'AudioMetadataV3'
   }
 
   const getIsImageComment = () => {
-    return comment.metadata.mainContentFocus === PublicationMainFocus.Image
+    return targetComment.metadata.__typename === 'ImageMetadataV3'
   }
 
   return (
     <div className="my-2">
-      <Modal
-        show={showLighBox}
-        panelClassName="!p-0 !rounded-none max-w-7xl !shadow-none !bg-transparent"
-        onClose={() => setShowLighBox(false)}
-      >
-        <div
-          role="button"
-          tabIndex={0}
-          onClick={() => setShowLighBox(false)}
-          className="flex cursor-default justify-center"
-        >
-          <img
-            src={imageSrc}
-            className="object-contain"
-            alt="attachment"
-            draggable={false}
-          />
-        </div>
-      </Modal>
       <div className="flex flex-wrap items-center gap-2">
-        {media.map((media, i) =>
-          getIsVideoComment() ? (
-            <VideoComment key={i} comment={comment} />
-          ) : getIsAudioComment() ? (
-            <AudioComment key={i} media={media} />
-          ) : getIsImageComment() ? (
-            <button
-              key={i}
-              className="focus:outline-none"
-              onClick={() => {
-                setImageSrc(imageCdn(sanitizeDStorageUrl(media.original.url)))
-                setShowLighBox(true)
-              }}
-            >
+        {getIsVideoComment() ? (
+          <VideoComment commentId={targetComment.id} />
+        ) : getIsAudioComment() ? (
+          <AudioComment uri={uri} />
+        ) : getIsImageComment() ? (
+          <Dialog.Root>
+            <Dialog.Trigger>
+              <button
+                className="focus:outline-none"
+                onClick={() => {
+                  setImageSrc(imageCdn(sanitizeDStorageUrl(uri)))
+                }}
+              >
+                <img
+                  className="h-20 w-20 rounded-xl bg-white object-cover dark:bg-black"
+                  src={imageCdn(sanitizeDStorageUrl(uri), 'AVATAR_LG')}
+                  alt={'attachment'}
+                  draggable={false}
+                />
+              </button>
+            </Dialog.Trigger>
+
+            <Dialog.Content style={{ maxWidth: 650 }}>
               <img
-                className="h-20 w-20 rounded-xl bg-white object-cover dark:bg-black"
-                src={imageCdn(
-                  sanitizeDStorageUrl(media.original.url),
-                  'AVATAR_LG'
-                )}
-                alt={media.original.altTag ?? 'attachment'}
+                src={imageSrc}
+                className="object-contain"
+                alt="attachment"
                 draggable={false}
               />
-            </button>
-          ) : null
-        )}
+            </Dialog.Content>
+          </Dialog.Root>
+        ) : null}
       </div>
     </div>
   )

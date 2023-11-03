@@ -1,15 +1,12 @@
-import CollectVideo from '@components/Watch/CollectVideo'
-import useAuthPersistStore from '@lib/store/auth'
-import { t } from '@lingui/macro'
-import { Analytics, TRACK, useAverageColor } from '@tape.xyz/browser'
+import useProfileStore from '@lib/store/profile'
 import {
-  getPublicationHlsUrl,
-  getPublicationRawMediaUrl,
+  getPublication,
+  getPublicationMediaUrl,
   getThumbnailUrl,
   imageCdn,
   sanitizeDStorageUrl
 } from '@tape.xyz/generic'
-import type { Publication } from '@tape.xyz/lens'
+import type { AnyPublication } from '@tape.xyz/lens'
 import VideoPlayer from '@tape.xyz/ui/VideoPlayer'
 import type { FC } from 'react'
 import React, { useEffect, useRef } from 'react'
@@ -19,7 +16,7 @@ import ByteActions from './ByteActions'
 import TopOverlay from './TopOverlay'
 
 type Props = {
-  video: Publication
+  video: AnyPublication
   currentViewingId: string
   intersectionCallback: (id: string) => void
 }
@@ -31,13 +28,12 @@ const ByteVideo: FC<Props> = ({
 }) => {
   const videoRef = useRef<HTMLMediaElement>()
   const intersectionRef = useRef<HTMLDivElement>(null)
+  const targetPublication = getPublication(video)
+
+  const { activeProfile } = useProfileStore()
   const thumbnailUrl = imageCdn(
-    sanitizeDStorageUrl(getThumbnailUrl(video, true)),
+    sanitizeDStorageUrl(getThumbnailUrl(targetPublication.metadata, true)),
     'THUMBNAIL_V'
-  )
-  const { color: backgroundColor } = useAverageColor(thumbnailUrl, true)
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
   )
 
   const playVideo = () => {
@@ -48,13 +44,12 @@ const ByteVideo: FC<Props> = ({
     videoRef.current.volume = 1
     videoRef.current.autoplay = true
     videoRef.current?.play().catch(() => {})
-    Analytics.track(TRACK.PLAY_BYTE_VIDEO)
   }
 
   const observer = new IntersectionObserver((data) => {
     if (data[0].target.id && data[0].isIntersecting) {
       intersectionCallback(data[0].target.id)
-      const nextUrl = `${location.origin}/bytes/${video?.id}`
+      const nextUrl = `${location.origin}/bytes/${targetPublication?.id}`
       history.replaceState({ path: nextUrl }, '', nextUrl)
     }
   })
@@ -96,81 +91,34 @@ const ByteVideo: FC<Props> = ({
   }
 
   return (
-    <div
-      className="flex snap-center justify-center md:mt-6"
-      data-testid="byte-video"
-    >
+    <div className="mb-6 flex snap-center justify-center md:ml-16">
       <div className="relative">
-        <div
-          className="ultrawide:w-[650px] flex h-screen w-screen min-w-[250px] items-center overflow-hidden bg-black md:h-[calc(100vh-145px)] md:w-[400px] md:rounded-xl"
-          style={{
-            backgroundColor: backgroundColor ? backgroundColor : undefined
-          }}
-        >
+        <div className="ultrawide:w-[650px] rounded-large flex h-[calc(100vh-10rem)] w-[calc(100vw-80px)] items-center overflow-hidden bg-black md:h-[calc(100vh-120px)] md:w-[420px]">
           <div
             className="absolute top-[50%]"
             ref={intersectionRef}
-            id={video?.id}
+            id={targetPublication?.id}
           />
-          {currentViewingId === video.id ? (
-            <VideoPlayer
-              address={selectedSimpleProfile?.ownedBy}
-              refCallback={refCallback}
-              permanentUrl={getPublicationRawMediaUrl(video)}
-              hlsUrl={getPublicationHlsUrl(video)}
-              posterUrl={thumbnailUrl}
-              ratio="9to16"
-              showControls={false}
-              options={{
-                autoPlay: false,
-                muted: false,
-                loop: true,
-                loadingSpinner: false,
-                isCurrentlyShown: currentViewingId === video.id
-              }}
-            />
-          ) : (
-            <div className="h-full w-full">
-              <img
-                className="w-full object-cover"
-                src={thumbnailUrl}
-                alt="thumbnail"
-                draggable={false}
-              />
-              <span className="invisible absolute">
-                <VideoPlayer
-                  permanentUrl={getPublicationRawMediaUrl(video)}
-                  hlsUrl={getPublicationHlsUrl(video)}
-                  showControls={false}
-                  options={{
-                    autoPlay: false,
-                    muted: true,
-                    loadingSpinner: false,
-                    isCurrentlyShown: currentViewingId === video.id
-                  }}
-                />
-              </span>
-            </div>
-          )}
+          <VideoPlayer
+            address={activeProfile?.ownedBy.address}
+            refCallback={refCallback}
+            url={getPublicationMediaUrl(targetPublication.metadata)}
+            posterUrl={thumbnailUrl}
+            ratio="9to16"
+            showControls={false}
+            options={{
+              autoPlay: currentViewingId === targetPublication.id,
+              muted: currentViewingId !== targetPublication.id,
+              loop: true,
+              loadingSpinner: false,
+              isCurrentlyShown: currentViewingId === video.id
+            }}
+          />
         </div>
         <TopOverlay onClickVideo={onClickVideo} />
-        <BottomOverlay video={video} />
-        <div className="absolute bottom-[15%] right-2 z-[1] md:hidden">
-          <ByteActions video={video} />
-          {video?.collectModule?.__typename !==
-            'RevertCollectModuleSettings' && (
-            <div className="pt-3 text-center text-white md:text-gray-500">
-              <CollectVideo video={video} variant="none" />
-              <div className="text-xs">
-                {video.stats?.totalAmountOfCollects || t`Collect`}
-              </div>
-            </div>
-          )}
-        </div>
+        <BottomOverlay video={targetPublication} />
       </div>
-      <div className="hidden md:flex">
-        <ByteActions video={video} />
-      </div>
+      <ByteActions video={targetPublication} />
     </div>
   )
 }

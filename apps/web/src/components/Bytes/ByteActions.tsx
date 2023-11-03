@@ -1,40 +1,32 @@
+import CollectOutline from '@components/Common/Icons/CollectOutline'
 import CommentOutline from '@components/Common/Icons/CommentOutline'
 import MirrorOutline from '@components/Common/Icons/MirrorOutline'
+import TimesOutline from '@components/Common/Icons/TimesOutline'
 import MirrorVideo from '@components/Common/MirrorVideo'
-import ReportModal from '@components/Common/VideoCard/ReportModal'
-import ShareModal from '@components/Common/VideoCard/ShareModal'
 import VideoOptions from '@components/Common/VideoCard/VideoOptions'
-import Tooltip from '@components/UIElements/Tooltip'
-import CollectVideo from '@components/Watch/CollectVideo'
+import OpenActions from '@components/Watch/OpenActions'
 import PublicationReaction from '@components/Watch/PublicationReaction'
-import { t } from '@lingui/macro'
-import type { Publication } from '@tape.xyz/lens'
+import { Button, Dialog, DialogClose, Flex, IconButton } from '@radix-ui/themes'
+import type { MirrorablePublication } from '@tape.xyz/lens'
 import type { FC } from 'react'
-import React, { useState } from 'react'
+import React from 'react'
 
-import CommentModal from './CommentModal'
+import ByteComments from './ByteComments'
 
 type Props = {
-  video: Publication
+  video: MirrorablePublication
 }
 
 const ByteActions: FC<Props> = ({ video }) => {
-  const [showShare, setShowShare] = useState(false)
-  const [showReport, setShowReport] = useState(false)
-
   return (
-    <div className="w-12 flex-col items-center justify-between md:flex md:w-14">
-      <div className="flex justify-center space-y-4 p-2 md:flex-col">
-        <VideoOptions
-          video={video}
-          setShowShare={setShowShare}
-          setShowReport={setShowReport}
-          showOnHover={false}
-        />
+    <div className="flex w-16 flex-col items-center justify-between">
+      <div className="pt-2">
+        <VideoOptions video={video} />
       </div>
       <div className="items-center pt-2.5 md:flex md:flex-col">
-        <div className="pb-3 text-white md:text-inherit">
+        <div className="pb-2">
           <PublicationReaction
+            className="w-7"
             publication={video}
             iconSize="lg"
             isVertical
@@ -42,48 +34,62 @@ const ByteActions: FC<Props> = ({ video }) => {
           />
         </div>
         <div className="space-y-4 py-2">
-          <div className="w-full text-center text-white md:text-inherit">
-            <CommentModal
-              trigger={
-                <Tooltip content="What do you think?" placement="top">
-                  <div className="flex flex-col items-center">
+          <div className="w-full text-center">
+            <Dialog.Root>
+              <Dialog.Trigger>
+                <Button variant="ghost" className="w-7">
+                  <Flex
+                    direction="column"
+                    className="text-black dark:text-white"
+                    align="center"
+                  >
                     <CommentOutline className="h-5 w-5" />
-                    <div className="pt-1 text-xs">
-                      {video.stats.totalAmountOfComments || 'Wdyt'}
-                    </div>
-                  </div>
-                </Tooltip>
-              }
-              video={video}
-            />
+                    <span className="pt-1 text-xs">
+                      {video.stats.comments || 'Wdyt'}
+                    </span>
+                  </Flex>
+                </Button>
+              </Dialog.Trigger>
+
+              <Dialog.Content style={{ maxWidth: 550 }}>
+                <Flex gap="3" justify="between" pb="2">
+                  <Dialog.Title size="6">Comments</Dialog.Title>
+                  <DialogClose>
+                    <IconButton variant="ghost" className="w-7" color="gray">
+                      <TimesOutline outlined={false} className="h-4 w-4" />
+                    </IconButton>
+                  </DialogClose>
+                </Flex>
+                <ByteComments video={video} />
+              </Dialog.Content>
+            </Dialog.Root>
           </div>
-          <div className="w-full text-center text-white md:text-inherit">
+          <div className="w-full text-center">
             <MirrorVideo video={video}>
-              <div className="flex flex-col items-center">
-                <MirrorOutline className="h-5 w-5" />
-                <div className="pt-1 text-xs">
-                  {video.stats?.totalAmountOfMirrors || t`Mirror`}
-                </div>
-              </div>
+              <Button variant="ghost" className="w-7" highContrast>
+                <Flex direction="column" align="center">
+                  <MirrorOutline className="h-5 w-5" />
+                  <span className="pt-1 text-xs">
+                    {video.stats?.mirrors || 'Mirror'}
+                  </span>
+                </Flex>
+              </Button>
             </MirrorVideo>
           </div>
-          {video?.collectModule?.__typename !==
-            'RevertCollectModuleSettings' && (
-            <div className="hidden w-full text-center md:block">
-              <CollectVideo video={video} variant="none" />
-              <div className="text-center text-xs leading-3">
-                {video.stats?.totalAmountOfCollects || t`Collect`}
-              </div>
-            </div>
-          )}
+          <div className="w-full text-center">
+            <OpenActions publication={video}>
+              <Button variant="ghost" className="w-7" highContrast>
+                <Flex direction="column" align="center">
+                  <CollectOutline className="h-5 w-5" />
+                  <span className="pt-1 text-xs">
+                    {video.stats?.countOpenActions || 'Collect'}
+                  </span>
+                </Flex>
+              </Button>
+            </OpenActions>
+          </div>
         </div>
       </div>
-      <ShareModal video={video} show={showShare} setShowShare={setShowShare} />
-      <ReportModal
-        video={video}
-        show={showReport}
-        setShowReport={setShowReport}
-      />
     </div>
   )
 }

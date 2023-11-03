@@ -1,6 +1,6 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { getPublicationMediaUrl } from '@lenstube/generic'
-import type { Publication } from '@lenstube/lens'
+import type { MirrorablePublication } from '@lenstube/lens'
 import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import type { AVPlaybackStatus } from 'expo-av'
 import { Audio } from 'expo-av'
@@ -28,7 +28,7 @@ const styles = (themeConfig: MobileThemeConfig) =>
   })
 
 type Props = {
-  audio: Publication
+  audio: MirrorablePublication
 }
 
 const Player: FC<Props> = ({ audio }) => {

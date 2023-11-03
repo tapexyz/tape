@@ -3,6 +3,11 @@ module.exports = {
   darkMode: 'class',
   theme: {
     extend: {
+      borderRadius: {
+        small: '12px',
+        medium: '16px',
+        large: '20px'
+      },
       screens: {
         tablet: '640px',
         laptop: '1024px',
@@ -10,6 +15,11 @@ module.exports = {
         ultrawide: '1800px'
       },
       colors: {
+        // card bg in dark
+        cod: '#0a0a0a',
+        // hover states
+        smoke: '#1a1a1a',
+        gallery: '#eaeaea',
         brand: {
           50: '#eff9ff',
           100: '#dff2ff',

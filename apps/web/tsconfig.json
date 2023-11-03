@@ -4,14 +4,32 @@
     "baseUrl": ".",
     "noEmit": true,
     "paths": {
-      "@components*": ["src/components*"],
-      "@hooks*": ["src/hooks*"],
-      "@lib*": ["src/lib*"],
-      "@ui*": ["src/components/ui*"],
-      "@abis*": ["src/abis*"],
-      "@gql*": ["src/gql*"]
+      "@components*": [
+        "src/components*"
+      ],
+      "@hooks*": [
+        "src/hooks*"
+      ],
+      "@lib*": [
+        "src/lib*"
+      ],
+      "@ui*": [
+        "src/components/ui*"
+      ]
     },
-    "isolatedModules": true
+    "isolatedModules": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "strictNullChecks": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/styles/index.css"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/styles/index.css",
+    ".next/types/**/*.ts"
+  ]
 }

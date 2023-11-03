@@ -1,0 +1,17 @@
+query Feed($request: FeedRequest!) {
+  feed(request: $request) {
+    items {
+      root {
+        ... on Post {
+          ...PostFields
+        }
+        ... on Comment {
+          ...CommentFields
+        }
+      }
+    }
+    pageInfo {
+      next
+    }
+  }
+}

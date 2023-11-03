@@ -1,14 +1,14 @@
 import Badge from '@components/Common/Badge'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import Tooltip from '@components/UIElements/Tooltip'
-import useAuthPersistStore from '@lib/store/auth'
 import usePersistStore from '@lib/store/persist'
-import { getProfilePicture, trimLensHandle } from '@tape.xyz/generic'
-import type { Profile } from '@tape.xyz/lens'
+import useProfileStore from '@lib/store/profile'
+import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import {
-  PublicationDetailsDocument,
-  useHasTxHashBeenIndexedQuery,
-  usePublicationDetailsLazyQuery,
+  LensTransactionStatusType,
+  PublicationDocument,
+  useLensTransactionStatusQuery,
+  usePublicationLazyQuery,
   useTxIdToTxHashLazyQuery
 } from '@tape.xyz/lens'
 import { useApolloClient } from '@tape.xyz/lens/apollo'
@@ -22,11 +22,8 @@ type Props = {
 }
 
 const QueuedComment: FC<Props> = ({ queuedComment }) => {
-  const selectedSimpleProfile = useAuthPersistStore(
-    (state) => state.selectedSimpleProfile
-  )
-  const queuedComments = usePersistStore((state) => state.queuedComments)
-  const setQueuedComments = usePersistStore((state) => state.setQueuedComments)
+  const { activeProfile } = useProfileStore()
+  const { queuedComments, setQueuedComments } = usePersistStore()
 
   const { cache } = useApolloClient()
   const [getTxnHash] = useTxIdToTxHashLazyQuery()
@@ -42,7 +39,7 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
     )
   }
 
-  const [getPublication] = usePublicationDetailsLazyQuery({
+  const [getPublication] = usePublicationLazyQuery({
     onCompleted: (data) => {
       if (data.publication) {
         cache.modify({
@@ -50,7 +47,7 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
             publications() {
               cache.writeQuery({
                 data: { publication: data?.publication },
-                query: PublicationDetailsDocument
+                query: PublicationDocument
               })
             }
           }
@@ -63,35 +60,44 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
   const getCommentByTxnId = async () => {
     const { data } = await getTxnHash({
       variables: {
-        txId: queuedComment?.txnId
+        for: queuedComment?.txnId
       }
     })
     if (data?.txIdToTxHash) {
       getPublication({
-        variables: { request: { txHash: data?.txIdToTxHash } }
+        variables: { request: { forTxHash: data?.txIdToTxHash } }
       })
     }
   }
 
-  const { stopPolling } = useHasTxHashBeenIndexedQuery({
+  const { stopPolling } = useLensTransactionStatusQuery({
     variables: {
-      request: { txId: queuedComment?.txnId, txHash: queuedComment?.txnHash }
+      request: {
+        forTxId: queuedComment?.txnId,
+        forTxHash: queuedComment?.txnHash
+      }
     },
     skip: !queuedComment?.txnId?.length && !queuedComment?.txnHash?.length,
     pollInterval: 1000,
     notifyOnNetworkStatusChange: true,
     onCompleted: async (data) => {
-      if (data.hasTxHashBeenIndexed.__typename === 'TransactionError') {
+      if (
+        data?.lensTransactionStatus?.__typename === 'LensTransactionResult' &&
+        data?.lensTransactionStatus?.reason
+      ) {
         return removeFromQueue()
       }
       if (
-        data?.hasTxHashBeenIndexed?.__typename === 'TransactionIndexedResult' &&
-        data?.hasTxHashBeenIndexed?.indexed
+        data?.lensTransactionStatus?.__typename === 'LensTransactionResult' &&
+        data?.lensTransactionStatus?.status ===
+          LensTransactionStatusType.Complete
       ) {
         stopPolling()
         if (queuedComment.txnHash) {
           return getPublication({
-            variables: { request: { txHash: queuedComment?.txnHash } }
+            variables: {
+              request: { forTxHash: queuedComment.txnHash }
+            }
           })
         }
         await getCommentByTxnId()
@@ -99,10 +105,7 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
     }
   })
 
-  if (
-    (!queuedComment?.txnId && !queuedComment?.txnHash) ||
-    !selectedSimpleProfile
-  ) {
+  if ((!queuedComment?.txnId && !queuedComment?.txnHash) || !activeProfile) {
     return null
   }
 
@@ -110,24 +113,24 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
     <div className="flex items-start justify-between">
       <div className="flex items-start justify-between">
         <Link
-          href={`/channel/${trimLensHandle(selectedSimpleProfile?.handle)}`}
+          href={`/u/${getProfile(activeProfile)?.slug}`}
           className="mr-3 mt-0.5 flex-none"
         >
           <img
-            src={getProfilePicture(selectedSimpleProfile as Profile, 'AVATAR')}
+            src={getProfilePicture(activeProfile, 'AVATAR')}
             className="h-7 w-7 rounded-full"
             draggable={false}
-            alt={selectedSimpleProfile?.handle}
+            alt={getProfile(activeProfile)?.slug}
           />
         </Link>
         <div className="mr-2 flex flex-col items-start">
           <span className="mb-1 flex items-center space-x-1">
             <Link
-              href={`/channel/${trimLensHandle(selectedSimpleProfile.handle)}`}
+              href={`/u/${getProfile(activeProfile)?.slug}`}
               className="flex items-center space-x-1 text-sm font-medium"
             >
-              <span>{trimLensHandle(selectedSimpleProfile?.handle)}</span>
-              <Badge id={selectedSimpleProfile.id} />
+              <span>{getProfile(activeProfile)?.slug}</span>
+              <Badge id={activeProfile.id} />
             </Link>
           </span>
           <InterweaveContent content={queuedComment.comment} />

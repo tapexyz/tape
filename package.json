@@ -7,8 +7,7 @@
     "apps/*",
     "packages/*",
     "packages/workers/*",
-    "packages/helpers/*",
-    "tests"
+    "packages/helpers/*"
   ],
   "scripts": {
     "build": "turbo run build --parallel",
@@ -20,15 +19,10 @@
     "prepare": "husky install",
     "workers:deploy": "turbo run worker:deploy --parallel",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "dev:test": "turbo run dev:test",
-    "e2e:test": "start-server-and-test start 4783 dev:test",
-    "i18n:extract": "turbo run extract",
     "mobile": "cd apps/mobile && yarn mobile:start"
   },
   "devDependencies": {
     "husky": "^8.0.3",
-    "start-server-and-test": "^2.0.1",
-    "ts-node": "latest",
     "turbo": "1.10.16"
   },
   "engines": {

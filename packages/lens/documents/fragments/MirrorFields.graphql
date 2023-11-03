@@ -1,44 +1,15 @@
 fragment MirrorFields on Mirror {
   id
-  reaction(request: $reactionRequest)
-  profile {
-    ...ProfileFields
+  publishedOn {
+    id
   }
-  referenceModule {
-    __typename
+  isHidden
+  momoka {
+    proof
   }
-  canComment(profileId: $channelId) {
-    result
-  }
-  canMirror(profileId: $channelId) {
-    result
-  }
-  collectModule {
-    ...CollectFields
-  }
-  collectNftAddress
-  onChainContentURI
-  hidden
-  notInterested(by: $channelId)
-  bookmarked(by: $channelId)
-  isGated
-  isDataAvailability
-  dataAvailabilityProofs
-  hasCollectedByMe
-  stats {
-    ...PublicationStatsFields
-  }
-  metadata {
-    ...MetadataFields
-  }
-  mirrorOf {
-    ... on Post {
-      ...PostFields
-    }
-    ... on Comment {
-      ...CommentFields
-    }
-  }
+  txHash
   createdAt
-  appId
+  mirrorOn {
+    ...PrimaryPublicationFields
+  }
 }

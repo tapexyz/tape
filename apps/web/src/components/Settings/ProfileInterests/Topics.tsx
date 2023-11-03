@@ -1,10 +1,13 @@
-import useChannelStore from '@lib/store/channel'
-import { Analytics, TRACK } from '@tape.xyz/browser'
-import { sanitizeProfileInterests } from '@tape.xyz/generic'
+import { useProfileStore } from '@lib/store/profile'
+import { EVENTS, sanitizeProfileInterests, Tower } from '@tape.xyz/generic'
+import type {
+  ProfileInterestsRequest,
+  ProfileInterestTypes
+} from '@tape.xyz/lens'
 import {
-  useAddProfileInterestMutation,
-  useProfileInterestsQuery,
-  useRemoveProfileInterestMutation
+  useAddProfileInterestsMutation,
+  useProfileInterestsOptionsQuery,
+  useRemoveProfileInterestsMutation
 } from '@tape.xyz/lens'
 import { useApolloClient } from '@tape.xyz/lens/apollo'
 import { Loader } from '@tape.xyz/ui'
@@ -14,46 +17,46 @@ import React, { useEffect } from 'react'
 const MAX_TOPICS_ALLOWED = 12
 
 const Topics = () => {
-  const activeChannel = useChannelStore((state) => state.activeChannel)
+  const activeProfile = useProfileStore((state) => state.activeProfile)
 
   useEffect(() => {
-    Analytics.track(TRACK.PROFILE_INTERESTS.VIEW)
+    Tower.track(EVENTS.PROFILE_INTERESTS.VIEW)
   }, [])
 
   const { cache } = useApolloClient()
-  const { data, loading } = useProfileInterestsQuery()
-  const [addProfileInterests] = useAddProfileInterestMutation()
-  const [removeProfileInterests] = useRemoveProfileInterestMutation()
+  const { data, loading } = useProfileInterestsOptionsQuery({
+    variables: { request: { forProfileId: activeProfile?.id } },
+    skip: !activeProfile?.id
+  })
+  const [addProfileInterests] = useAddProfileInterestsMutation()
+  const [removeProfileInterests] = useRemoveProfileInterestsMutation()
 
   const updateCache = (interests: string[]) => {
     cache.modify({
-      id: `Profile:${activeChannel?.id}`,
+      id: `Profile:${activeProfile?.id}`,
       fields: { interests: () => interests }
     })
   }
 
-  const interestsData = (data?.profileInterests as string[]) || []
-  const selectedTopics = activeChannel?.interests ?? []
+  const interestsData = data?.profileInterestsOptions as ProfileInterestTypes[]
+  const selectedTopics = data?.profile?.interests ?? []
 
-  const onSelectTopic = (topic: string) => {
+  const onSelectTopic = (topic: ProfileInterestTypes) => {
     try {
-      const variables = {
-        request: {
-          profileId: activeChannel?.id,
-          interests: [topic]
-        }
+      const request: ProfileInterestsRequest = {
+        interests: [topic]
       }
-      if (!selectedTopics.includes(topic)) {
+      if (!selectedTopics?.includes(topic)) {
         const interests = [...selectedTopics, topic]
         updateCache(interests)
-        Analytics.track(TRACK.PROFILE_INTERESTS.ADD)
-        return addProfileInterests({ variables })
+        Tower.track(EVENTS.PROFILE_INTERESTS.ADD)
+        return addProfileInterests({ variables: { request } })
       }
       const topics = [...selectedTopics]
       topics.splice(topics.indexOf(topic), 1)
       updateCache(topics)
-      Analytics.track(TRACK.PROFILE_INTERESTS.REMOVE)
-      removeProfileInterests({ variables })
+      Tower.track(EVENTS.PROFILE_INTERESTS.REMOVE)
+      removeProfileInterests({ variables: { request } })
     } catch {}
   }
 
@@ -63,12 +66,12 @@ const Topics = () => {
       {sanitizeProfileInterests(interestsData)?.map(
         ({ category, subCategories }) => (
           <div className="w-full space-y-2" key={category.id}>
-            <h2 className="text-sm font-medium capitalize">{category.label}</h2>
+            <h2 className="text-sm font-bold capitalize">{category.label}</h2>
             <div className="flex flex-wrap items-center gap-2">
               <button
                 type="button"
                 className={clsx(
-                  'flex items-center justify-between rounded-full border border-gray-300 px-3 py-0.5 text-sm capitalize focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700',
+                  'tape-border flex items-center justify-between rounded-md px-3 py-0.5 text-sm capitalize focus:outline-none disabled:cursor-not-allowed disabled:opacity-50',
                   {
                     '!border-brand-500 text-brand-500': selectedTopics.includes(
                       category.id
@@ -84,7 +87,7 @@ const Topics = () => {
                 {category.label}
               </button>
               {subCategories?.map(
-                (subCategory: { id: string; label: string }) => (
+                (subCategory: { id: ProfileInterestTypes; label: string }) => (
                   <button
                     type="button"
                     disabled={
@@ -92,7 +95,7 @@ const Topics = () => {
                       selectedTopics.length === MAX_TOPICS_ALLOWED
                     }
                     className={clsx(
-                      'flex items-center justify-between rounded-full border border-gray-300 px-3 py-0.5 text-sm capitalize focus:outline-none disabled:cursor-not-allowed disabled:opacity-50 dark:border-gray-700',
+                      'tape-border flex items-center justify-between rounded-md px-3 py-0.5 text-sm capitalize focus:outline-none disabled:cursor-not-allowed disabled:opacity-50',
                       {
                         '!border-brand-500 text-brand-500':
                           selectedTopics.includes(subCategory.id)

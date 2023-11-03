@@ -1,20 +1,21 @@
+import CategoryFilters from '@components/Common/CategoryFilters'
 import MetaTags from '@components/Common/MetaTags'
-import { t } from '@lingui/macro'
-import { Analytics, TRACK } from '@tape.xyz/browser'
+import { EVENTS, Tower } from '@tape.xyz/generic'
 import React, { useEffect } from 'react'
 
 import ExploreFeed from './Feed'
 
 const Explore = () => {
   useEffect(() => {
-    Analytics.track('Pageview', { path: TRACK.PAGE_VIEW.EXPLORE })
+    Tower.track(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.EXPLORE })
   }, [])
 
   return (
-    <>
-      <MetaTags title={t`Explore`} />
+    <div className="max-w-screen-ultrawide container mx-auto">
+      <MetaTags title="Explore" />
+      <CategoryFilters subheading="Everything" />
       <ExploreFeed />
-    </>
+    </div>
   )
 }
 

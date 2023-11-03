@@ -1,23 +1,26 @@
 query LatestNotificationId($request: NotificationRequest!) {
   notifications(request: $request) {
     items {
-      ... on NewFollowerNotification {
-        notificationId
+      ... on ReactionNotification {
+        id
       }
-      ... on NewMentionNotification {
-        notificationId
+      ... on CommentNotification {
+        id
       }
-      ... on NewCommentNotification {
-        notificationId
+      ... on MirrorNotification {
+        id
       }
-      ... on NewMirrorNotification {
-        notificationId
+      ... on QuoteNotification {
+        id
       }
-      ... on NewCollectNotification {
-        notificationId
+      ... on ActedNotification {
+        id
       }
-      ... on NewReactionNotification {
-        notificationId
+      ... on FollowNotification {
+        id
+      }
+      ... on MentionNotification {
+        id
       }
     }
   }

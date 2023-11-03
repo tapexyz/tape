@@ -4,7 +4,7 @@ import CommentItemShimmer from './CommentItemShimmer'
 
 const CommentsShimmer = () => {
   return (
-    <div>
+    <div className="space-y-2">
       <CommentItemShimmer />
       <CommentItemShimmer />
     </div>

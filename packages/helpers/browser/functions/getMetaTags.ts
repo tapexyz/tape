@@ -7,17 +7,49 @@ import {
   TAPE_WEBSITE_URL,
   TAPE_X_HANDLE
 } from '@tape.xyz/constants'
-import { getPublicationMediaUrl } from '@tape.xyz/generic'
-import type { Publication } from '@tape.xyz/lens'
+import {
+  getPublication,
+  getPublicationMediaUrl,
+  getValueFromKeyInAttributes
+} from '@tape.xyz/generic'
+import type { AnyPublication } from '@tape.xyz/lens'
 
-type Args = {
-  title: string
+type Props = {
+  title?: string
   description: string
   image: string
   page?: 'PROFILE' | 'VIDEO'
   handle?: string
   pubId?: string
-  publication?: Publication
+  publication?: AnyPublication
+}
+
+const secondsToISO = (seconds: string | undefined) => {
+  const SECONDS_PER_SECOND = 1
+  const SECONDS_PER_MINUTE = 60
+  const SECONDS_PER_HOUR = 60 * SECONDS_PER_MINUTE
+  const SECONDS_PER_DAY = 24 * SECONDS_PER_HOUR
+
+  const designations = [
+    ['D', SECONDS_PER_DAY],
+    ['H', SECONDS_PER_HOUR],
+    ['M', SECONDS_PER_MINUTE],
+    ['S', SECONDS_PER_SECOND]
+  ]
+  let duration = 'P'
+  let remainder = seconds ? Number(seconds ?? 0) : 0
+
+  designations.forEach(([sign, seconds]) => {
+    const value = Math.floor(remainder / (seconds as number))
+    remainder = remainder % (seconds as number)
+    if (value) {
+      duration += `${value}${sign}`
+    }
+  })
+  if (duration == 'P') {
+    duration = 'P0S'
+  }
+  return duration // ex: P2M47S
 }
 
 export const getMetaTags = ({
@@ -28,7 +60,7 @@ export const getMetaTags = ({
   handle,
   pubId,
   publication
-}: Args) => {
+}: Props) => {
   const isVideo = page === 'VIDEO'
   const meta = {
     title: title ?? TAPE_APP_NAME,
@@ -36,7 +68,7 @@ export const getMetaTags = ({
     image: image ?? OG_IMAGE,
     url: isVideo
       ? `${TAPE_WEBSITE_URL}/watch/${pubId}`
-      : `${TAPE_WEBSITE_URL}/channel/${handle}`
+      : `${TAPE_WEBSITE_URL}/u/${handle}`
   }
 
   let defaultMeta = `<title>${meta.title}</title>
@@ -71,6 +103,10 @@ export const getMetaTags = ({
               }" />`
 
   if (isVideo && publication) {
+    const target = getPublication(publication as AnyPublication)
+
+    const contentUrl = getPublicationMediaUrl(target.metadata)
+
     const embedUrl = `${TAPE_EMBED_URL}/${pubId}`
     // TODO: add `hasPart`
     const schemaObject = {
@@ -79,19 +115,19 @@ export const getMetaTags = ({
       name: meta.title,
       description,
       thumbnailUrl: meta.image,
-      uploadDate: publication.createdAt,
-      // duration: secondsToISO(
-      //   getValueFromTraitType(
-      //     publication.metadata.attributes as Attribute[],
-      //     'durationInSeconds'
-      //   )
-      // ),
-      contentUrl: getPublicationMediaUrl(publication),
+      uploadDate: target.createdAt,
+      duration: secondsToISO(
+        getValueFromKeyInAttributes(
+          target.metadata.attributes,
+          'durationInSeconds'
+        )
+      ),
+      contentUrl,
       embedUrl,
       interactionStatistic: {
         '@type': 'InteractionCounter',
         interactionType: { '@type': 'LikeAction' },
-        userInteractionCount: publication?.stats.totalUpvotes
+        userInteractionCount: target?.stats.reactions
       }
     }
     defaultMeta += `<meta property="og:video" content="${embedUrl}" />
@@ -105,7 +141,6 @@ export const getMetaTags = ({
       <meta name="twitter:player" content="${embedUrl}" />
       <meta property="twitter:player:width" content="1280" />
       <meta property="twitter:player:height" content="720" />
-      <link rel="iframely player" type="text/html" href="${embedUrl}" media="(aspect-ratio: 1280/720)" />
       <link rel="alternate" type="text/xml+oembed" href="${TAPE_API_URL}/oembed?format=xml&id=${pubId}" title="${title}" />
       <link rel="alternate" type="application/json+oembed" href="${TAPE_API_URL}/oembed?format=json&id=${pubId}" title="${title}" />
 

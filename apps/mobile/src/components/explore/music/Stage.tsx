@@ -1,11 +1,13 @@
 import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
 import { getThumbnailUrl, imageCdn } from '@lenstube/generic'
-import type { ExplorePublicationRequest, Publication } from '@lenstube/lens'
 import {
-  PublicationMainFocus,
-  PublicationSortCriteria,
-  PublicationTypes,
-  useExploreQuery
+  type ExplorePublicationRequest,
+  ExplorePublicationsOrderByType,
+  ExplorePublicationType,
+  LimitType,
+  type MirrorablePublication,
+  PublicationMetadataMainFocusType,
+  useExplorePublicationsQuery
 } from '@lenstube/lens'
 import { FlashList } from '@shopify/flash-list'
 import React, { useCallback, useState } from 'react'
@@ -53,7 +55,9 @@ const Stage = () => {
   const [activeAudioIndex, setActiveAudioIndex] = useState(0)
 
   const renderItem = useCallback(
-    ({ item: audio }: { item: Publication }) => <Item audio={audio} />,
+    ({ item: audio }: { item: MirrorablePublication }) => (
+      <Item audio={audio} />
+    ),
     []
   )
 
@@ -72,16 +76,18 @@ const Stage = () => {
   )
 
   const request: ExplorePublicationRequest = {
-    sortCriteria: PublicationSortCriteria.CuratedProfiles,
-    limit: 50,
-    noRandomize: false,
-    publicationTypes: [PublicationTypes.Post],
-    customFilters: LENS_CUSTOM_FILTERS,
-    metadata: {
-      mainContentFocus: [PublicationMainFocus.Audio]
+    limit: LimitType.Fifty,
+    orderBy: ExplorePublicationsOrderByType.LensCurated,
+    where: {
+      metadata: {
+        mainContentFocus: [PublicationMetadataMainFocusType.Audio]
+      },
+      publicationTypes: [ExplorePublicationType.Post],
+      customFilters: LENS_CUSTOM_FILTERS
     }
   }
-  const { data, loading, error, fetchMore } = useExploreQuery({
+
+  const { data, loading, error, fetchMore } = useExplorePublicationsQuery({
     variables: { request }
   })
 
@@ -93,7 +99,7 @@ const Stage = () => {
     return <ServerError />
   }
 
-  const audios = data?.explorePublications?.items as Publication[]
+  const audios = data?.explorePublications?.items as MirrorablePublication[]
   const pageInfo = data?.explorePublications?.pageInfo
 
   const fetchMoreAudio = async () => {

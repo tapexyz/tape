@@ -7,19 +7,15 @@ import { ActivityIndicator, Text } from 'react-native'
 
 import NotFound from '~/components/ui/NotFound'
 import { useMobileTheme, usePushNotifications } from '~/hooks'
-import { useMobilePersistStore } from '~/store/persist'
 
 export const NotificationsModal = (): JSX.Element => {
   usePushNotifications()
   const { themeConfig } = useMobileTheme()
 
-  const selectedProfile = useMobilePersistStore(
-    (state) => state.selectedProfile
-  )
   const request: NotificationRequest = {
-    limit: 50,
-    customFilters: LENS_CUSTOM_FILTERS,
-    profileId: selectedProfile?.id
+    where: {
+      customFilters: LENS_CUSTOM_FILTERS
+    }
   }
 
   const { data, loading, fetchMore, refetch } = useNotificationsQuery({
@@ -58,7 +54,7 @@ export const NotificationsModal = (): JSX.Element => {
       renderItem={renderItem}
       estimatedItemSize={notifications.length}
       showsVerticalScrollIndicator={false}
-      keyExtractor={(item, i) => `${item.notificationId}_${i}`}
+      keyExtractor={(item, i) => `${item.id}_${i}`}
       onEndReached={pageInfo?.next ? fetchMoreNotifications : null}
       onEndReachedThreshold={0.8}
       ListFooterComponent={() =>
