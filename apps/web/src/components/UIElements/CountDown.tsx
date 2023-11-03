@@ -36,6 +36,7 @@ export const Countdown = ({
     return () => {
       clearInterval(interval)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [timestamp])
 
   const formatTime = (time: number) => {
