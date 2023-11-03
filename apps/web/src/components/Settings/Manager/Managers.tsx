@@ -13,7 +13,6 @@ import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   ERROR_MESSAGE,
   INFINITE_SCROLL_ROOT_MARGIN,
-  LENS_MANAGER_ADDRESS,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE
 } from '@tape.xyz/constants'
@@ -49,10 +48,12 @@ type FormData = z.infer<typeof formSchema>
 const Entry = ({
   address,
   removingAddress,
+  isLensManager,
   onRemove
 }: {
   address: string
   removingAddress: string
+  isLensManager: boolean
   onRemove: (address: string) => void
 }) => {
   const { did } = useDid({ address })
@@ -62,8 +63,8 @@ const Entry = ({
       className="tape-border rounded-small flex items-center justify-between px-4 py-3"
     >
       <div>
-        <span>
-          {address === LENS_MANAGER_ADDRESS ? 'Lens Manager' : did || '-'}
+        <span className="font-bold">
+          {isLensManager ? 'Lens Manager' : did || '-'}
         </span>
         <AddressExplorerLink address={address}>
           <Flex align="center" gap="1">
@@ -302,10 +303,11 @@ const Managers = () => {
         ) : null}
         {profileManagers?.length ? (
           <div className="mt-4 grid gap-3 md:grid-cols-2">
-            {profileManagers?.map(({ address }) => (
+            {profileManagers?.map(({ address, isLensManager }) => (
               <Entry
                 key={address}
                 address={address}
+                isLensManager={isLensManager}
                 removingAddress={removingAddress}
                 onRemove={(address) => removeManager(address)}
               />
