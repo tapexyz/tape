@@ -3,7 +3,7 @@ import { Input } from '@components/UIElements/Input'
 import { zodResolver } from '@hookform/resolvers/zod'
 import usePendingTxn from '@hooks/usePendingTxn'
 import { Button, Callout, Text } from '@radix-ui/themes'
-import { COMMON_REGEX, ERROR_MESSAGE } from '@tape.xyz/constants'
+import { COMMON_REGEX, ERROR_MESSAGE, IS_MAINNET } from '@tape.xyz/constants'
 import { shortenAddress } from '@tape.xyz/generic'
 import { useCreateProfileWithHandleMutation } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
@@ -92,26 +92,28 @@ const Signup = ({ onSuccess }: { onSuccess: () => void }) => {
           {shortenAddress(address as string)})
         </Callout.Text>
       </Callout.Root>
-      <div className="space-y-1">
-        <Text as="div" weight="medium">
-          Create Profile
-        </Text>
-        <form
-          onSubmit={handleSubmit(signup)}
-          className="flex justify-end space-x-2"
-        >
-          <Input
-            placeholder="gilfoyle"
-            autoComplete="off"
-            validationError={errors.handle?.message}
-            {...register('handle')}
-          />
-          <Button disabled={creating} highContrast>
-            {creating && <Loader size="sm" />}
-            Sign up
-          </Button>
-        </form>
-      </div>
+      {!IS_MAINNET && (
+        <div className="space-y-1">
+          <Text as="div" weight="medium">
+            Create Profile
+          </Text>
+          <form
+            onSubmit={handleSubmit(signup)}
+            className="flex justify-end space-x-2"
+          >
+            <Input
+              placeholder="gilfoyle"
+              autoComplete="off"
+              validationError={errors.handle?.message}
+              {...register('handle')}
+            />
+            <Button disabled={creating} highContrast>
+              {creating && <Loader size="sm" />}
+              Sign up
+            </Button>
+          </form>
+        </div>
+      )}
     </div>
   )
 }
