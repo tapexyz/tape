@@ -42,7 +42,7 @@ input[type='number'] {
 
 /* interweave linkify */
 .interweave-content a {
-  @apply text-brand-500 align-middle;
+  @apply text-brand-500;
 }
 
 .input-mentions-single {

@@ -1,9 +1,4 @@
-import {
-  COMMON_REGEX,
-  LENS_NAMESPACE_PREFIX,
-  STATIC_ASSETS,
-  TAPE_APP_NAME
-} from '@tape.xyz/constants'
+import { COMMON_REGEX, LENS_NAMESPACE_PREFIX } from '@tape.xyz/constants'
 import { Matcher } from 'interweave'
 import Link from 'next/link'
 import React from 'react'
@@ -17,15 +12,9 @@ const ProfileLink = ({ ...props }: any) => {
   return (
     <Link
       href={`/u/${handle}`}
-      className="inline-flex items-center space-x-1 rounded-full bg-gray-200 px-2 text-sm font-medium dark:bg-gray-800"
+      className="inline-flex items-center space-x-1 rounded-full font-medium"
     >
-      <img
-        src={`${STATIC_ASSETS}/brand/logo.svg`}
-        className="h-4 w-4"
-        draggable={false}
-        alt={TAPE_APP_NAME}
-      />
-      <span className="-mt-[1px]">{handle}</span>
+      @{handle}
     </Link>
   )
 }

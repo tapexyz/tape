@@ -85,13 +85,11 @@ const ProfileBytes: FC<Props> = ({ profileId }) => {
               <Link
                 key={byte.id}
                 href={`/bytes/${byte.id}`}
-                className="hover:border-brand-500 rounded-large tape-border relative aspect-[9/16] w-full flex-none place-self-center overflow-hidden md:h-[360px]"
+                className="hover:border-brand-500 rounded-large tape-border relative aspect-[9/16] w-full flex-none place-self-center overflow-hidden md:h-[380px]"
               >
                 <img
-                  className="h-full object-cover"
-                  src={
-                    thumbnailUrl ? imageCdn(thumbnailUrl, 'THUMBNAIL_V') : ''
-                  }
+                  className="h-full w-full object-cover"
+                  src={imageCdn(thumbnailUrl, 'THUMBNAIL_V')}
                   alt="thumbnail"
                   draggable={false}
                   onError={({ currentTarget }) => {
