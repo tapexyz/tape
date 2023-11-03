@@ -14,10 +14,6 @@ const moduleExports = {
   async rewrites() {
     return [
       {
-        source: '/sitemap.xml',
-        destination: 'https://static.tape.xyz/sitemaps/sitemap.xml'
-      },
-      {
         source: '/sitemaps/:match*',
         destination: 'https://static.tape.xyz/sitemaps/:match*'
       }
