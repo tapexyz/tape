@@ -1,5 +1,4 @@
 import { STATIC_ASSETS } from '@tape.xyz/constants'
-import { imageCdn } from '@tape.xyz/generic'
 import clsx from 'clsx'
 import React from 'react'
 
@@ -17,10 +16,7 @@ export const NoDataFound = ({
     >
       {withImage && (
         <img
-          src={imageCdn(
-            `${STATIC_ASSETS}/images/illustrations/404.gif`,
-            'AVATAR'
-          )}
+          src={`${STATIC_ASSETS}/images/illustrations/404.gif`}
           height={70}
           width={70}
           alt="zero trace!"

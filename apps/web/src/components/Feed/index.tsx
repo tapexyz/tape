@@ -85,7 +85,7 @@ const Feed = () => {
       {loading && <TimelineShimmer className="laptop:pt-6 pt-4" />}
       {!error && !loading && (
         <>
-          <div className="laptop:grid-cols-5 laptop:pt-6 ultrawide:grid-cols-6 grid-col-1 desktop:grid-cols-4 tablet:grid-cols-3 grid gap-x-4 gap-y-2 md:gap-y-6">
+          <div className="laptop:pt-6 ultrawide:grid-cols-6 grid-col-1 desktop:grid-cols-4 tablet:grid-cols-3 grid gap-x-4 gap-y-2 md:gap-y-6">
             {feedItems?.map((feedItem: FeedItem) => {
               const video = feedItem.root
               return (
