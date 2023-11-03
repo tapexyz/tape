@@ -112,15 +112,17 @@ const CreateSteps = () => {
   }
 
   const setToQueue = (txn: { txnId?: string; txnHash?: string }) => {
-    setQueuedVideos([
-      {
-        thumbnailUrl: uploadedVideo.thumbnail,
-        title: uploadedVideo.title,
-        txnId: txn.txnId,
-        txnHash: txn.txnHash
-      },
-      ...(queuedVideos || [])
-    ])
+    if (txn.txnHash || txn.txnId) {
+      setQueuedVideos([
+        {
+          thumbnailUrl: uploadedVideo.thumbnail,
+          title: uploadedVideo.title,
+          txnId: txn.txnId,
+          txnHash: txn.txnHash
+        },
+        ...(queuedVideos || [])
+      ])
+    }
     redirectToChannelPage()
   }
 

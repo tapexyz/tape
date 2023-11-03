@@ -112,15 +112,17 @@ const NewComment: FC<Props> = ({
   }, [defaultValue])
 
   const setToQueue = (txn: { txnId?: string; txnHash?: string }) => {
-    setQueuedComments([
-      {
-        comment: getValues('comment'),
-        txnId: txn.txnId,
-        txnHash: txn.txnHash,
-        pubId: targetVideo.id
-      },
-      ...(queuedComments || [])
-    ])
+    if (txn.txnHash || txn.txnId) {
+      setQueuedComments([
+        {
+          comment: getValues('comment'),
+          txnId: txn.txnId,
+          txnHash: txn.txnHash,
+          pubId: targetVideo.id
+        },
+        ...(queuedComments || [])
+      ])
+    }
   }
 
   const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
