@@ -6067,11 +6067,6 @@
   resolved "https://registry.yarnpkg.com/@types/minimatch/-/minimatch-5.1.2.tgz#07508b45797cb81ec3f273011b054cd0755eddca"
   integrity sha512-K0VQKziLUWkVKiRVrx4a40iPaxTUefQmjtkQofBkYRcoaaL/8rhwDWww9qWbrgicNOgnpIsMxyNIUM4+n6dUIA==
 
-"@types/mixpanel-browser@^2.47.4":
-  version "2.47.4"
-  resolved "https://registry.yarnpkg.com/@types/mixpanel-browser/-/mixpanel-browser-2.47.4.tgz#38f0382ae51ca509a6686312ce40cc322cede1ca"
-  integrity sha512-wAwhSaIk//XY+O5Y8vnlb0Dc9Rpt0s+yHRXf1cGIYM4G5efzRjNeqWEqROf4qzP9FUgVE2M0Z8Pg9BV8Dt46yw==
-
 "@types/ms@*":
   version "0.7.33"
   resolved "https://registry.yarnpkg.com/@types/ms/-/ms-0.7.33.tgz#80bf1da64b15f21fd8c1dc387c31929317d99ee9"
