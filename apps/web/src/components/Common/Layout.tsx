@@ -3,18 +3,15 @@ import { hydrateAuthTokens, signOut } from '@lib/store/auth'
 import useNonceStore from '@lib/store/nonce'
 import useProfileStore from '@lib/store/profile'
 import {
-  getFingerprint,
   getToastOptions,
+  setFingerprint,
   useIsMounted
 } from '@tape.xyz/browser'
 import { AUTH_ROUTES, OWNER_ONLY_ROUTES } from '@tape.xyz/constants'
 import { getIsProfileOwner, trimify } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { useCurrentProfileQuery } from '@tape.xyz/lens'
-import {
-  type CustomErrorWithData,
-  LocalStore
-} from '@tape.xyz/lens/custom-types'
+import { type CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
@@ -96,16 +93,6 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
     validateAuthentication()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [asPath, currentSessionProfileId, activeProfile])
-
-  const setFingerprint = async () => {
-    const storedFingerprint = localStorage.getItem(LocalStore.TAPE_FINGERPRINT)
-    if (!storedFingerprint) {
-      const fingerprint = await getFingerprint()
-      if (fingerprint) {
-        localStorage.setItem(LocalStore.TAPE_FINGERPRINT, fingerprint)
-      }
-    }
-  }
 
   useEffect(() => {
     setFingerprint()

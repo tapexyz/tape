@@ -75,8 +75,9 @@ export const EVENTS = {
     OPEN: 'Open Embed',
     COPY: 'Copy Embed',
     LOADED: 'Embed Video Loaded',
-    WATCH_ON_TAPE: 'Watch on Tape',
-    CLICK_EMBED_TITLE: 'Click Embed Title'
+    CLICK_WATCH_ON_TAPE: 'Click Watch on Tape',
+    CLICK_EMBED_TITLE: 'Click Embed Title',
+    CLICK_EMBED_PROFILE: 'Click Embed Profile'
   },
   PROFILE_INTERESTS: {
     ADD: 'Add Profile Interest',

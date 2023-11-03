@@ -4,9 +4,11 @@ import {
   TAPE_WEBSITE_URL
 } from '@tape.xyz/constants'
 import {
+  EVENTS,
   getProfile,
   getProfilePicture,
-  getPublicationData
+  getPublicationData,
+  Tower
 } from '@tape.xyz/generic'
 import type { PrimaryPublication } from '@tape.xyz/lens'
 import Link from 'next/link'
@@ -26,6 +28,7 @@ const VideoOverlay: FC<Props> = ({ video }) => {
             className="mr-3 flex-none cursor-pointer"
             href={`${TAPE_WEBSITE_URL}/u/${getProfile(video.by)?.slug}`}
             target="_blank"
+            onClick={() => Tower.track(EVENTS.EMBED_VIDEO.CLICK_EMBED_PROFILE)}
           >
             <img
               src={getProfilePicture(video.by)}
@@ -39,6 +42,7 @@ const VideoOverlay: FC<Props> = ({ video }) => {
               className="line-clamp-1 break-words leading-5"
               href={`${TAPE_WEBSITE_URL}/watch/${video?.id}`}
               target="_blank"
+              onClick={() => Tower.track(EVENTS.EMBED_VIDEO.CLICK_EMBED_TITLE)}
             >
               <h1 className="font-bold md:text-lg">
                 {getPublicationData(video.metadata)?.title}
@@ -48,6 +52,9 @@ const VideoOverlay: FC<Props> = ({ video }) => {
               className="line-clamp-1 break-words leading-3"
               href={`${TAPE_WEBSITE_URL}/u/${getProfile(video.by)?.slug}`}
               target="_blank"
+              onClick={() =>
+                Tower.track(EVENTS.EMBED_VIDEO.CLICK_EMBED_PROFILE)
+              }
             >
               <span className="text-sm">{getProfile(video.by)?.slug}</span>
             </Link>
@@ -59,6 +66,7 @@ const VideoOverlay: FC<Props> = ({ video }) => {
             title={`Watch on ${TAPE_APP_NAME}`}
             href={`${TAPE_WEBSITE_URL}/watch/${video?.id}`}
             target="_blank"
+            onClick={() => Tower.track(EVENTS.EMBED_VIDEO.CLICK_WATCH_ON_TAPE)}
           >
             <img
               src={`${STATIC_ASSETS}/brand/logo.png`}

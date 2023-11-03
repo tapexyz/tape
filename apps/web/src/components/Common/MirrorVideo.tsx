@@ -17,7 +17,8 @@ import {
 import type {
   CreateMomokaMirrorEip712TypedData,
   CreateOnchainMirrorEip712TypedData,
-  MirrorablePublication
+  MirrorablePublication,
+  MomokaMirrorRequest
 } from '@tape.xyz/lens'
 import {
   TriStateValue,
@@ -185,23 +186,21 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
 
     try {
       setLoading(true)
-
+      const request: MomokaMirrorRequest = {
+        mirrorOn: video.id
+      }
       // MOMOKA
       if (video.momoka?.proof) {
         if (canUseLensManager) {
           return await mirrorOnMomoka({
             variables: {
-              request: {
-                mirrorOn: video.id
-              }
+              request
             }
           })
         }
         return await createMomokaMirrorTypedData({
           variables: {
-            request: {
-              mirrorOn: video.id
-            }
+            request
           }
         })
       }
@@ -210,18 +209,14 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
       if (canUseLensManager) {
         return await mirrorOnChain({
           variables: {
-            request: {
-              mirrorOn: video.id
-            }
+            request
           }
         })
       }
       return await createOnChainMirrorTypedData({
         variables: {
           options: { overrideSigNonce: lensHubOnchainSigNonce },
-          request: {
-            mirrorOn: video.id
-          }
+          request
         }
       })
     } catch {}

@@ -1,11 +1,13 @@
 import { useAverageColor } from '@tape.xyz/browser'
 import { LENSTUBE_BYTES_APP_ID } from '@tape.xyz/constants'
 import {
+  EVENTS,
   getPublicationData,
   getPublicationMediaUrl,
   getThumbnailUrl,
   imageCdn,
   sanitizeDStorageUrl,
+  Tower,
   truncate
 } from '@tape.xyz/generic'
 import type { MirrorablePublication } from '@tape.xyz/lens'
@@ -39,6 +41,10 @@ const Video: FC<Props> = ({ video }) => {
     isBytesVideo ? 'THUMBNAIL_V' : 'THUMBNAIL'
   )
   const { color: backgroundColor } = useAverageColor(thumbnailUrl, isBytesVideo)
+
+  useEffect(() => {
+    Tower.track(EVENTS.EMBED_VIDEO.LOADED)
+  }, [])
 
   const refCallback = (ref: HTMLMediaElement) => {
     if (!ref) {
