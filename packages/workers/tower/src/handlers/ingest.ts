@@ -76,10 +76,7 @@ export default async (request: WorkerRequest) => {
     const utmTerm = parsedUrl.searchParams.get('utm_term') || null
     const utmContent = parsedUrl.searchParams.get('utm_content') || null
 
-    const clickhouseResponse = await fetch(request.env.INGEST_REST_ENDPOINT, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: `
+    const body = `
         INSERT INTO events (
           name,
           actor,
@@ -117,9 +114,14 @@ export default async (request: WorkerRequest) => {
           ${utmCampaign ? `'${utmCampaign}'` : null},
           ${utmTerm ? `'${utmTerm}'` : null},
           ${utmContent ? `'${utmContent}'` : null},
-          ${fingerprint ? `'${fingerprint}'` : null},
+          ${fingerprint ? `'${fingerprint}'` : null}
         )
       `
+
+    const clickhouseResponse = await fetch(request.env.INGEST_REST_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body
     })
 
     if (clickhouseResponse.status !== 200) {

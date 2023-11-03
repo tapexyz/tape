@@ -42,4 +42,4 @@ dist
 
 # cloudflare workers
 .dev.vars
-
+.wrangler
