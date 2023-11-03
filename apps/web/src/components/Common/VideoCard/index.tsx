@@ -49,17 +49,12 @@ const VideoCard: FC<Props> = ({ video }) => {
             alt={getProfile(video.by)?.displayName}
           />
 
-          <Flex direction="column" justify="between" width="100%">
+          <Flex direction="column" justify="between" gap="1" width="100%">
             <div className="flex w-full min-w-0 items-start justify-between space-x-1.5">
-              <div className="flex items-center space-x-2">
-                <Link
-                  className="ultrawide:break-all line-clamp-1 break-words font-bold"
-                  href={href}
-                >
-                  {getPublicationData(metadata)?.title}
-                </Link>
-              </div>
-              <div className="pr-2 pt-1">
+              <Link className="line-clamp-2 break-words font-bold" href={href}>
+                {getPublicationData(metadata)?.title}
+              </Link>
+              <div className="flex pr-1 pt-1">
                 <VideoOptions video={video} />
               </div>
             </div>

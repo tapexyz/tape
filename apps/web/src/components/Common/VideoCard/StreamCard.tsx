@@ -54,13 +54,13 @@ const StreamCard: FC<Props> = ({ stream }) => {
             <div className="flex w-full min-w-0 items-start justify-between space-x-1.5">
               <div className="flex items-center space-x-2">
                 <Link
-                  className="ultrawide:break-all line-clamp-1 break-words font-bold"
+                  className="line-clamp-2 break-words font-bold"
                   href={href}
                 >
                   {getPublicationData(metadata)?.title}
                 </Link>
               </div>
-              <div className="pr-2 pt-1">
+              <div className="flex pr-1 pt-1">
                 <VideoOptions video={stream} />
               </div>
             </div>
