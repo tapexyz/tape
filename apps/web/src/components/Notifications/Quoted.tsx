@@ -1,5 +1,6 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
 import QuoteOutline from '@components/Common/Icons/QuoteOutline'
+import { getShortHandTime } from '@lib/formatTime'
 import {
   getProfile,
   getProfilePicture,
@@ -16,30 +17,35 @@ type Props = {
 
 const Quoted: FC<Props> = ({ notification: { quote } }) => {
   return (
-    <span className="flex space-x-4">
-      <div className="p-1">
-        <QuoteOutline className="h-5 w-5" />
-      </div>
-      <div>
-        <span className="flex -space-x-1.5">
-          <HoverableProfile profile={quote.by} key={quote.by?.id}>
-            <img
-              className="h-7 w-7 rounded-full border dark:border-gray-700/80"
-              src={getProfilePicture(quote.by)}
-              draggable={false}
-              alt={getProfile(quote.by)?.displayName}
-            />
-          </HoverableProfile>
-        </span>
-        <div className="py-2">quoted your publication</div>
-        <Link
-          href={`/watch/${quote.id}`}
-          className="text-dust line-clamp-2 font-medium"
-        >
-          {getPublicationData(quote.metadata)?.content}
-        </Link>
-      </div>
-    </span>
+    <div className="flex justify-between">
+      <span className="flex space-x-4">
+        <div className="p-1">
+          <QuoteOutline className="h-5 w-5" />
+        </div>
+        <div>
+          <span className="flex -space-x-1.5">
+            <HoverableProfile profile={quote.by} key={quote.by?.id}>
+              <img
+                className="h-7 w-7 rounded-full border dark:border-gray-700/80"
+                src={getProfilePicture(quote.by)}
+                draggable={false}
+                alt={getProfile(quote.by)?.displayName}
+              />
+            </HoverableProfile>
+          </span>
+          <div className="py-2">quoted your publication</div>
+          <Link
+            href={`/watch/${quote.id}`}
+            className="text-dust line-clamp-2 font-medium"
+          >
+            {getPublicationData(quote.metadata)?.content}
+          </Link>
+        </div>
+      </span>
+      <span className="text-dust text-sm">
+        {getShortHandTime(quote.createdAt)}
+      </span>
+    </div>
   )
 }
 
