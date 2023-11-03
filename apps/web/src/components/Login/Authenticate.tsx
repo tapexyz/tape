@@ -55,8 +55,8 @@ const Authenticate = () => {
     skip: !address,
     onCompleted: (data) => {
       const profiles = data?.profilesManaged.items
-      if (profiles.length) {
-        const profile = profiles.reverse()[0]
+      if (profiles?.length) {
+        const profile = [...profiles].reverse()[0]
         setSelectedProfileId(as || profile.id)
       }
     }
