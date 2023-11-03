@@ -15,8 +15,9 @@ export const TAPE_WEBSITE_URL = IS_MAINNET
   : 'https://testnet.tape.xyz'
 export const FALLBACK_COVER_URL = `${STATIC_ASSETS}/images/fallback-thumbnail.webp`
 export const OG_IMAGE = `${STATIC_ASSETS}/brand/og.png`
-export const LENS_IMAGEKIT_SNAPSHOT_URL =
-  'https://ik.imagekit.io/lens/media-snapshot'
+// export const LENS_IMAGEKIT_SNAPSHOT_URL =
+//   'https://ik.imagekit.io/lens/media-snapshot'
+export const LENS_IMAGEKIT_SNAPSHOT_URL = 'https://ik.imagekit.io/lenstube'
 
 // infinite scroll
 export const INFINITE_SCROLL_ROOT_MARGIN = '500px'

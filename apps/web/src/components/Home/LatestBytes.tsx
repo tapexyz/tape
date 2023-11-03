@@ -74,15 +74,15 @@ const LatestBytes = () => {
                   currentTarget.src = FALLBACK_COVER_URL
                 }}
               />
-              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-b from-transparent to-black/30 px-4 py-2 text-white">
-                <h1 className="line-clamp-2 break-words font-medium">
+              <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-b from-transparent to-black px-4 py-2">
+                <h1 className="line-clamp-2 break-all font-bold text-white">
                   {getPublicationData(byte.metadata)?.title}
                 </h1>
               </div>
             </Link>
             <Link
               href={`/u/${getProfile(byte.by)?.slug}`}
-              className="flex items-center space-x-1 p-1"
+              className="flex items-center space-x-1 px-3 py-1"
             >
               <img
                 className="h-4 w-4 rounded-full bg-gray-200 dark:bg-gray-800"

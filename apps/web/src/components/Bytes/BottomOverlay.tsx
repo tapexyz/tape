@@ -19,12 +19,10 @@ const BottomOverlay: FC<Props> = ({ video }) => {
   const profile = video.by
 
   return (
-    <div className="rounded-b-large absolute bottom-0 left-0 right-0 z-[1] bg-gradient-to-t from-gray-900 to-transparent px-3 pb-3 pt-5">
-      <div className="pb-2">
-        <h1 className="line-clamp-2 text-white">
-          {getPublicationData(video.metadata)?.title}
-        </h1>
-      </div>
+    <div className="rounded-b-large absolute bottom-0 left-0 right-0 z-[1] bg-gradient-to-b from-transparent to-black px-3 pb-3 pt-5">
+      <h1 className="line-clamp-2 break-all pb-2 font-bold text-white">
+        {getPublicationData(video.metadata)?.title}
+      </h1>
       <div className="flex items-center justify-between">
         <div className="min-w-0">
           <Link
