@@ -87,7 +87,6 @@ const Feed = () => {
     <div className="max-w-screen-ultrawide container mx-auto">
       <MetaTags title="Your Feed" />
       <CategoryFilters heading="Feed" subheading="Your Friends' Stories" />
-
       {loading && <TimelineShimmer className="laptop:pt-6 pt-4" />}
       {!error && !loading && (
         <>
