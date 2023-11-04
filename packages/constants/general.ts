@@ -20,7 +20,7 @@ export const OG_IMAGE = `${STATIC_ASSETS}/brand/og.png`
 export const LENS_IMAGEKIT_SNAPSHOT_URL = 'https://ik.imagekit.io/lenstube'
 
 // infinite scroll
-export const INFINITE_SCROLL_ROOT_MARGIN = '500px'
+export const INFINITE_SCROLL_ROOT_MARGIN = '800px'
 
 export const IMAGE_TRANSFORMATIONS = {
   AVATAR: 'tr:w-60,h-60',
