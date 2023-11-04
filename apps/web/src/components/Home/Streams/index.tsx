@@ -84,9 +84,11 @@ const Streams = () => {
                   </Link>
                 </div>
               </div>
-              <Link href={`/stream/123`}>
-                <Button color="tomato">Watch Now</Button>
-              </Link>
+              <span>
+                <Link href={`/stream/123`}>
+                  <Button color="tomato">Watch Now</Button>
+                </Link>
+              </span>
             </div>
             <div className="ultrawide:h-[500px] relative aspect-[16/9] md:h-[380px]">
               <div className="absolute inset-0 z-[5] bg-gradient-to-r from-black via-transparent to-transparent" />

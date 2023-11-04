@@ -80,23 +80,25 @@ const LatestBytes = () => {
                 </h1>
               </div>
             </Link>
-            <Link
-              href={getProfile(byte.by)?.link}
-              className="inline-flex items-center space-x-1 px-3 py-1"
-            >
-              <img
-                className="h-4 w-4 rounded-full bg-gray-200 dark:bg-gray-800"
-                src={getProfilePicture(byte.by, 'AVATAR')}
-                height={50}
-                width={50}
-                alt={`${getProfile(byte.by)?.slug}'s PFP`}
-                draggable={false}
-              />
-              <span className="flex items-center space-x-1 font-medium">
-                <span>{getProfile(byte.by)?.slug}</span>
-                <Badge id={byte.by.id} size="xs" />
-              </span>
-            </Link>
+            <span>
+              <Link
+                href={getProfile(byte.by)?.link}
+                className="inline-flex items-center space-x-1 px-3 py-1"
+              >
+                <img
+                  className="h-4 w-4 rounded-full bg-gray-200 dark:bg-gray-800"
+                  src={getProfilePicture(byte.by, 'AVATAR')}
+                  height={50}
+                  width={50}
+                  alt={`${getProfile(byte.by)?.slug}'s PFP`}
+                  draggable={false}
+                />
+                <span className="flex items-center space-x-1 font-medium">
+                  <span>{getProfile(byte.by)?.slug}</span>
+                  <Badge id={byte.by.id} size="xs" />
+                </span>
+              </Link>
+            </span>
           </div>
         )
       })}
