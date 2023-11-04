@@ -11,6 +11,7 @@ const moduleExports = {
   experimental: {
     scrollRestoration: true
   },
+  productionBrowserSourceMaps: true,
   async rewrites() {
     return [
       {
