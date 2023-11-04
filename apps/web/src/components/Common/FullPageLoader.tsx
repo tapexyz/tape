@@ -16,6 +16,7 @@ const FullPageLoader = () => {
           className="h-10"
           alt="tape"
           height={50}
+          width={200}
           draggable={false}
         />
       ) : (
@@ -23,6 +24,7 @@ const FullPageLoader = () => {
           src={`${STATIC_ASSETS}/brand/logo-with-text-dark.webp`}
           className="h-10"
           height={50}
+          width={200}
           alt="tape"
           draggable={false}
         />
