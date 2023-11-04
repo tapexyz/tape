@@ -2,7 +2,11 @@ import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId'
 import { hydrateAuthTokens, signOut } from '@lib/store/auth'
 import useNonceStore from '@lib/store/nonce'
 import useProfileStore from '@lib/store/profile'
-import { getToastOptions, setFingerprint } from '@tape.xyz/browser'
+import {
+  getToastOptions,
+  setFingerprint,
+  useIsMounted
+} from '@tape.xyz/browser'
 import { AUTH_ROUTES, OWNER_ONLY_ROUTES } from '@tape.xyz/constants'
 import { getIsProfileOwner, trimify } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
@@ -31,7 +35,7 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
   const { setLensHubOnchainSigNonce } = useNonceStore()
   const { activeProfile, setActiveProfile } = useProfileStore()
 
-  // const isMounted = useIsMounted()
+  const isMounted = useIsMounted()
   const { resolvedTheme } = useTheme()
   const { address, connector } = useAccount()
   const { pathname, replace, asPath } = useRouter()
@@ -100,9 +104,9 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  // if (!isMounted()) {
-  //   return <MetaTags />
-  // }
+  if (!isMounted()) {
+    return <MetaTags />
+  }
 
   if (loading) {
     return <FullPageLoader />
