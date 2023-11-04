@@ -17,7 +17,7 @@ export interface PlayerProps {
     loop?: boolean
     maxHeight?: boolean
     loadingSpinner: boolean
-    isCurrentlyShown: boolean
+    isCurrentlyShown?: boolean
   }
 }
 
@@ -46,7 +46,7 @@ const PlayerInstance: FC<PlayerProps> = ({
       controls={{ defaultVolume: 1 }}
       autoPlay={options.autoPlay ?? false}
       showLoadingSpinner={options.loadingSpinner}
-      _isCurrentlyShown={options.isCurrentlyShown}
+      _isCurrentlyShown={options.isCurrentlyShown ?? true}
       autoUrlUpload={{
         fallback: true,
         ipfsGateway: IPFS_GATEWAY_URL,

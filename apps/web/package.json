@@ -32,6 +32,7 @@
     "framer-motion": "^10.16.4",
     "graphql": "^16.8.1",
     "interweave": "^13.1.0",
+    "keen-slider": "^6.8.6",
     "make-plural": "^7.3.0",
     "next": "14.0.1",
     "next-themes": "^0.2.1",

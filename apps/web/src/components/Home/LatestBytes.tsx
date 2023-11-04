@@ -81,8 +81,8 @@ const LatestBytes = () => {
               </div>
             </Link>
             <Link
-              href={`/u/${getProfile(byte.by)?.slug}`}
-              className="flex items-center space-x-1 px-3 py-1"
+              href={getProfile(byte.by)?.link}
+              className="inline-flex items-center space-x-1 px-3 py-1"
             >
               <img
                 className="h-4 w-4 rounded-full bg-gray-200 dark:bg-gray-800"
