@@ -57,7 +57,7 @@ const InputMentions: FC<Props> = ({
           id: profile.handle?.fullHandle,
           display: getProfile(profile)?.displayName,
           profileId: profile.id,
-          picture: getProfilePicture(profile),
+          picture: getProfilePicture(profile, 'AVATAR'),
           followers: profile.stats.followers
         }))
         callback(channels)

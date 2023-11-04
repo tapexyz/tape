@@ -19,7 +19,7 @@ import {
   getIsIPFSUrl,
   getMetadataCid,
   getProfileCoverPicture,
-  getProfilePicture,
+  getProfilePictureUri,
   getSignature,
   getValueFromKeyInAttributes,
   logger,
@@ -205,7 +205,7 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
         ...(activeProfile?.metadata?.bio && {
           bio: activeProfile?.metadata?.bio
         }),
-        picture: getProfilePicture(activeProfile as Profile),
+        picture: getProfilePictureUri(activeProfile as Profile),
         attributes: [
           ...otherAttributes,
           {

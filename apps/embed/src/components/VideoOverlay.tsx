@@ -31,7 +31,7 @@ const VideoOverlay: FC<Props> = ({ video }) => {
             onClick={() => Tower.track(EVENTS.EMBED_VIDEO.CLICK_EMBED_PROFILE)}
           >
             <img
-              src={getProfilePicture(video.by)}
+              src={getProfilePicture(video.by, 'AVATAR')}
               className="h-9 w-9 rounded-full"
               draggable={false}
               alt={getProfile(video.by)?.slug}

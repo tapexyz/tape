@@ -183,7 +183,7 @@ const Authenticate = () => {
                 <Select.Item key={profile.id} value={profile.id}>
                   <Flex gap="2" align="center">
                     <Avatar
-                      src={getProfilePicture(profile)}
+                      src={getProfilePicture(profile, 'AVATAR')}
                       fallback={getProfile(profile)?.displayName[0] ?? ';)'}
                       radius="full"
                       size="1"

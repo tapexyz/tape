@@ -29,7 +29,7 @@ const Acted: FC<Props> = ({ notification: { publication, actions } }) => {
             <HoverableProfile profile={by} key={by?.id}>
               <img
                 className="h-7 w-7 rounded-full border dark:border-gray-700/80"
-                src={getProfilePicture(by)}
+                src={getProfilePicture(by, 'AVATAR')}
                 draggable={false}
                 alt={getProfile(by)?.slug}
               />

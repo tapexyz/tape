@@ -19,7 +19,7 @@ import {
   EVENTS,
   getIsSensitiveContent,
   getProfileCoverPicture,
-  getProfilePicture,
+  getProfilePictureUri,
   getPublication,
   getPublicationData,
   getPublicationMediaUrl,
@@ -164,7 +164,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
         coverPicture: getProfileCoverPicture(activeProfile),
         id: uuidv4(),
         name: activeProfile?.metadata?.displayName ?? '',
-        picture: getProfilePicture(activeProfile as Profile),
+        picture: getProfilePictureUri(activeProfile as Profile),
         attributes: [
           ...otherAttributes,
           {
