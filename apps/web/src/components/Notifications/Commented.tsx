@@ -27,7 +27,7 @@ const Commented: FC<Props> = ({ notification: { comment } }) => {
             <HoverableProfile profile={comment.by} key={comment.by?.id}>
               <img
                 className="h-7 w-7 rounded-full border dark:border-gray-700/80"
-                src={getProfilePicture(comment.by)}
+                src={getProfilePicture(comment.by, 'AVATAR')}
                 draggable={false}
                 alt={getProfile(comment.by)?.slug}
               />

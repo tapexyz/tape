@@ -19,7 +19,7 @@ import {
   getIsIPFSUrl,
   getMetadataCid,
   getProfileCoverPicture,
-  getProfilePicture,
+  getProfilePictureUri,
   getSignature,
   getValueFromKeyInAttributes,
   logger,
@@ -195,17 +195,20 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
 
     try {
       toast.loading(`Pinning video...`)
+      const pfp = getProfilePictureUri(activeProfile as Profile)
       const metadata: ProfileOptions = {
+        ...(activeProfile?.metadata?.displayName && {
+          name: activeProfile?.metadata.displayName
+        }),
+        ...(activeProfile?.metadata?.bio && {
+          bio: activeProfile?.metadata.bio
+        }),
+        ...(pfp && {
+          picture: pfp
+        }),
         appId: TAPE_APP_ID,
         coverPicture: getProfileCoverPicture(activeProfile),
         id: uuidv4(),
-        ...(activeProfile?.metadata?.displayName && {
-          name: activeProfile?.metadata?.displayName
-        }),
-        ...(activeProfile?.metadata?.bio && {
-          bio: activeProfile?.metadata?.bio
-        }),
-        picture: getProfilePicture(activeProfile as Profile),
         attributes: [
           ...otherAttributes,
           {

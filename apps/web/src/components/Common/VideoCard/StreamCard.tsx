@@ -43,7 +43,7 @@ const StreamCard: FC<Props> = ({ stream }) => {
       <div className="py-2">
         <Flex gap="2">
           <Avatar
-            src={getProfilePicture(stream.by)}
+            src={getProfilePicture(stream.by, 'AVATAR')}
             size="1"
             radius="full"
             fallback={getRandomProfilePicture(stream.by.ownedBy.address)}

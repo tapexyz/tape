@@ -27,7 +27,7 @@ const Quoted: FC<Props> = ({ notification: { quote } }) => {
             <HoverableProfile profile={quote.by} key={quote.by?.id}>
               <img
                 className="h-7 w-7 rounded-full border dark:border-gray-700/80"
-                src={getProfilePicture(quote.by)}
+                src={getProfilePicture(quote.by, 'AVATAR')}
                 draggable={false}
                 alt={getProfile(quote.by)?.displayName}
               />

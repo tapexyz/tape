@@ -42,7 +42,7 @@ const VideoCard: FC<Props> = ({ video }) => {
       <div className="py-2">
         <Flex gap="2">
           <Avatar
-            src={getProfilePicture(video.by)}
+            src={getProfilePicture(video.by, 'AVATAR')}
             size="2"
             radius="full"
             fallback={getProfile(video.by)?.displayName[0] ?? ';)'}

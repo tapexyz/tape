@@ -24,3 +24,16 @@ export const getProfilePicture = (
   const sanitized = sanitizeDStorageUrl(url)
   return imageCdn(sanitized, type)
 }
+
+export const getProfilePictureUri = (profile: Profile | null): string => {
+  if (!profile) {
+    return ''
+  }
+  const url =
+    profile.metadata?.picture?.__typename === 'ImageSet'
+      ? profile.metadata?.picture?.raw?.uri
+      : profile.metadata?.picture?.__typename === 'NftImage'
+      ? profile?.metadata.picture.image?.raw?.uri
+      : null
+  return url
+}

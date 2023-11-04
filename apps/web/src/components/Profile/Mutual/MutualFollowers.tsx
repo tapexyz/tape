@@ -75,7 +75,7 @@ const MutualFollowers: FC<Props> = ({ viewing }) => {
           <div className="flex items-center space-x-1.5">
             <img
               className="h-5 w-5 rounded-full"
-              src={getProfilePicture(profile)}
+              src={getProfilePicture(profile, 'AVATAR')}
               alt={getProfile(profile)?.slug}
               draggable={false}
             />

@@ -21,7 +21,7 @@ const Followed: FC<Props> = ({ notification: { followers } }) => {
             <HoverableProfile profile={profile} key={profile?.id}>
               <img
                 className="h-7 w-7 rounded-full border dark:border-gray-700/80"
-                src={getProfilePicture(profile)}
+                src={getProfilePicture(profile, 'AVATAR')}
                 draggable={false}
                 alt={getProfile(profile)?.displayName}
               />

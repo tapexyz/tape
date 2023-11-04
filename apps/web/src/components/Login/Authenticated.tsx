@@ -25,7 +25,7 @@ const Authenticated = () => {
           <Flex gap="3" align="center">
             <Avatar
               size="5"
-              src={getProfilePicture(activeProfile)}
+              src={getProfilePicture(activeProfile, 'AVATAR')}
               fallback={getProfile(activeProfile)?.slug[0] ?? ';)'}
               alt={getProfile(activeProfile)?.displayName}
             />

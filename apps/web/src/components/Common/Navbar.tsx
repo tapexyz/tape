@@ -38,6 +38,7 @@ const Navbar = () => {
                 className="-mb-0.5 h-6"
                 alt="tape"
                 height={30}
+                width={110}
                 draggable={false}
               />
             ) : (
@@ -45,6 +46,7 @@ const Navbar = () => {
                 src={`${STATIC_ASSETS}/brand/logo-with-text-dark.webp`}
                 className="-mb-0.5 h-6"
                 height={30}
+                width={110}
                 alt="tape"
                 draggable={false}
               />

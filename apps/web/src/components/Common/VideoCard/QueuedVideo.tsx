@@ -118,7 +118,7 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
         <div className="flex items-start space-x-2.5">
           <img
             className="h-8 w-8 rounded-full"
-            src={getProfilePicture(activeProfile)}
+            src={getProfilePicture(activeProfile, 'AVATAR')}
             alt={getProfile(activeProfile)?.slug}
             draggable={false}
           />

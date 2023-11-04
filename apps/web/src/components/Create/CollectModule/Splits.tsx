@@ -203,7 +203,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
                   >
                     <ProfileSuggestion
                       id={profile.id}
-                      pfp={getProfilePicture(profile)}
+                      pfp={getProfilePicture(profile, 'AVATAR')}
                       handle={getProfile(profile).slug}
                       followers={profile.stats.followers}
                       className="hover:bg-brand-50 text-left dark:hover:bg-black"

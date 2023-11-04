@@ -67,7 +67,7 @@ const UserMenu = () => {
           <Avatar
             size="2"
             radius="full"
-            src={getProfilePicture(activeProfile)}
+            src={getProfilePicture(activeProfile, 'AVATAR')}
             fallback={getProfile(activeProfile)?.slug[0] ?? ';)'}
             alt={getProfile(activeProfile)?.displayName}
           />
@@ -80,7 +80,7 @@ const UserMenu = () => {
               <Avatar
                 size="1"
                 radius="full"
-                src={getProfilePicture(activeProfile)}
+                src={getProfilePicture(activeProfile, 'AVATAR')}
                 fallback={getProfile(activeProfile)?.slug[0] ?? ';)'}
                 alt={getProfile(activeProfile)?.displayName}
               />

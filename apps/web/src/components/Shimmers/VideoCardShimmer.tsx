@@ -21,13 +21,11 @@ const VideoCardShimmer = () => {
     <div className="w-full rounded-xl">
       <div className="flex animate-pulse flex-col">
         <div className="aspect-w-16 aspect-h-9 rounded-medium bg-gray-200 dark:bg-gray-800" />
-        <div className="flex space-x-2 py-3">
-          <div className="flex-1 space-y-2">
-            <div className="flex items-center space-x-2">
-              <div className="h-6 w-6 rounded-full bg-gray-200 dark:bg-gray-800" />
-              <div className="h-3 w-full flex-1 rounded bg-gray-200 dark:bg-gray-800" />
-            </div>
-            <div className="h-3 rounded bg-gray-200 dark:bg-gray-800" />
+        <div className="flex space-x-2 py-2">
+          <div className="h-8 w-8 flex-none rounded-full bg-gray-200 dark:bg-gray-800" />
+          <div className="flex w-full flex-col space-y-2">
+            <div className="h-3 w-full rounded-md bg-gray-200 dark:bg-gray-800" />
+            <div className="h-3 w-full rounded-md bg-gray-200 dark:bg-gray-800" />
           </div>
         </div>
       </div>

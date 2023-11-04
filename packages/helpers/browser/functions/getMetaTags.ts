@@ -37,7 +37,7 @@ const secondsToISO = (seconds: string | undefined) => {
     ['S', SECONDS_PER_SECOND]
   ]
   let duration = 'P'
-  let remainder = seconds ? Number(seconds ?? 0) : 0
+  let remainder = seconds ? Math.abs(Number(seconds ?? 0)) : 0 // Use Math.abs to ensure a positive value
 
   designations.forEach(([sign, seconds]) => {
     const value = Math.floor(remainder / (seconds as number))
