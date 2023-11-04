@@ -153,18 +153,21 @@ const PinnedVideo: FC<Props> = ({ id }) => {
 
     try {
       toast.loading(`Unpinning video...`)
+      const pfp = getProfilePictureUri(activeProfile as Profile)
       const metadata: ProfileOptions = {
-        appId: TAPE_APP_ID,
         ...(activeProfile?.metadata?.displayName && {
           name: activeProfile?.metadata?.displayName
         }),
         ...(activeProfile?.metadata?.bio && {
           bio: activeProfile?.metadata?.bio
         }),
+        ...(pfp && {
+          picture: pfp
+        }),
+        appId: TAPE_APP_ID,
         coverPicture: getProfileCoverPicture(activeProfile),
         id: uuidv4(),
         name: activeProfile?.metadata?.displayName ?? '',
-        picture: getProfilePictureUri(activeProfile as Profile),
         attributes: [
           ...otherAttributes,
           {
