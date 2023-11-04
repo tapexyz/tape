@@ -31,9 +31,9 @@ export const getProfilePictureUri = (profile: Profile | null): string => {
   }
   const url =
     profile.metadata?.picture?.__typename === 'ImageSet'
-      ? profile.metadata?.picture?.optimized?.uri
+      ? profile.metadata?.picture?.raw?.uri
       : profile.metadata?.picture?.__typename === 'NftImage'
-      ? profile?.metadata.picture.image?.optimized?.uri
+      ? profile?.metadata.picture.image?.raw?.uri
       : null
   return url
 }
