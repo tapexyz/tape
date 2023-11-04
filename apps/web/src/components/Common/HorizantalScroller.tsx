@@ -24,7 +24,7 @@ const HorizantalScroller: FC<Props> = ({ heading, subheading, sectionRef }) => {
     <div className="flex items-center justify-between">
       <div className="flex items-center space-x-3 text-xl">
         <h1 className="text-brand-500 font-bold">{heading}</h1>
-        <h1>{subheading}</h1>
+        <p>{subheading}</p>
       </div>
       <div className="space-x-2">
         <button
