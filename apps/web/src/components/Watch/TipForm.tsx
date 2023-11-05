@@ -16,7 +16,7 @@ import {
   TAPE_WEBSITE_URL
 } from '@tape.xyz/constants'
 import {
-  checkDispatcherPermissions,
+  checkLensManagerPermissions,
   EVENTS,
   getProfile,
   getPublication,
@@ -93,7 +93,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
   const setQueuedComments = usePersistStore((state) => state.setQueuedComments)
 
   const { canUseLensManager, canBroadcast } =
-    checkDispatcherPermissions(activeProfile)
+    checkLensManagerPermissions(activeProfile)
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error.message)

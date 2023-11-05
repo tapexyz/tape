@@ -27,7 +27,7 @@ import {
   TAPE_WEBSITE_URL
 } from '@tape.xyz/constants'
 import {
-  checkDispatcherPermissions,
+  checkLensManagerPermissions,
   getProfile,
   getSignature
 } from '@tape.xyz/generic'
@@ -63,7 +63,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
 
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
   const { activeProfile } = useProfileStore()
-  const { canBroadcast } = checkDispatcherPermissions(activeProfile)
+  const { canBroadcast } = checkLensManagerPermissions(activeProfile)
 
   const hasOnChainId =
     profile.onchainIdentity?.ens?.name ||

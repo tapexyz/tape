@@ -18,7 +18,7 @@ import {
   TAPE_WEBSITE_URL
 } from '@tape.xyz/constants'
 import {
-  checkDispatcherPermissions,
+  checkLensManagerPermissions,
   EVENTS,
   getProfile,
   getProfilePicture,
@@ -88,7 +88,7 @@ const NewComment: FC<Props> = ({
   const setQueuedComments = usePersistStore((state) => state.setQueuedComments)
 
   const { canUseLensManager, canBroadcast } =
-    checkDispatcherPermissions(activeProfile)
+    checkLensManagerPermissions(activeProfile)
   const targetVideo = getPublication(video)
 
   const {

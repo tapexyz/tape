@@ -23,7 +23,7 @@ import {
   TAPE_WEBSITE_URL
 } from '@tape.xyz/constants'
 import {
-  checkDispatcherPermissions,
+  checkLensManagerPermissions,
   EVENTS,
   getProfile,
   getProfileCoverPicture,
@@ -95,7 +95,7 @@ const BasicInfo = ({ profile }: Props) => {
   const [uploading, setUploading] = useState({ pfp: false, cover: false })
   const handleWrongNetwork = useHandleWrongNetwork()
   const { canUseLensManager, canBroadcast } =
-    checkDispatcherPermissions(profile)
+    checkLensManagerPermissions(profile)
 
   const {
     register,

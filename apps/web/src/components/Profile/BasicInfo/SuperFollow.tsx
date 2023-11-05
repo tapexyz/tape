@@ -9,7 +9,7 @@ import {
   SIGN_IN_REQUIRED
 } from '@tape.xyz/constants'
 import {
-  checkDispatcherPermissions,
+  checkLensManagerPermissions,
   EVENTS,
   getProfile,
   getSignature,
@@ -50,7 +50,7 @@ const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
 
   const { activeProfile } = useProfileStore()
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
-  const { canBroadcast } = checkDispatcherPermissions(activeProfile)
+  const { canBroadcast } = checkLensManagerPermissions(activeProfile)
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)

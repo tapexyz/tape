@@ -1,6 +1,6 @@
 import type { Profile } from '@tape.xyz/lens'
 
-export const checkDispatcherPermissions = (
+export const checkLensManagerPermissions = (
   profile: Profile | null
 ): {
   canBroadcast: boolean

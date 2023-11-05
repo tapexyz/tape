@@ -27,8 +27,8 @@ export const EVENTS = {
     BYTES: 'Bytes Page',
     NOTIFICATIONS: 'Notifications Page'
   },
-  DISPATCHER: {
-    TOGGLE: 'Toggle dispatcher'
+  MANAGER: {
+    TOGGLE: 'Toggle Lens Manager'
   },
   PUBLICATION: {
     NEW_POST: 'New post',
@@ -112,7 +112,7 @@ export const ALL_EVENTS = {
   ...EVENTS,
   ...EVENTS.PAGE_VIEW,
   ...EVENTS.PAGE_VIEW.UPLOAD,
-  ...EVENTS.DISPATCHER,
+  ...EVENTS.MANAGER,
   ...EVENTS.PUBLICATION,
   ...EVENTS.PUBLICATION.TIP,
   ...EVENTS.PUBLICATION.SHARE,

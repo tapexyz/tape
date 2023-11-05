@@ -30,7 +30,7 @@ import {
 } from '@tape.xyz/constants'
 import {
   canUploadedToIpfs,
-  checkDispatcherPermissions,
+  checkLensManagerPermissions,
   EVENTS,
   getProfile,
   getSignature,
@@ -82,7 +82,7 @@ const CreateSteps = () => {
   const router = useRouter()
   const handleWrongNetwork = useHandleWrongNetwork()
   const { canUseLensManager, canBroadcast } =
-    checkDispatcherPermissions(activeProfile)
+    checkLensManagerPermissions(activeProfile)
 
   const degreesOfSeparation = uploadedVideo.referenceModule
     ?.degreesOfSeparationReferenceModule?.degreesOfSeparation as number
