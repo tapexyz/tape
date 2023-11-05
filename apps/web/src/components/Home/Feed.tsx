@@ -66,9 +66,9 @@ const Feed = ({ showFilter = true }) => {
   })
 
   return (
-    <div className="laptop:pt-6 pt-4">
+    <div className="laptop:pt-6 space-y-4 pt-4">
       {showFilter && (
-        <div className="laptop:pt-4 pt-4">
+        <div>
           <CategoryFilters />
         </div>
       )}
