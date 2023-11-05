@@ -15,7 +15,7 @@ import {
   TAPE_APP_ID
 } from '@tape.xyz/constants'
 import {
-  checkDispatcherPermissions,
+  checkLensManagerPermissions,
   EVENTS,
   getIsSensitiveContent,
   getProfileCoverPicture,
@@ -61,7 +61,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
   const { activeProfile } = useProfileStore()
   const handleWrongNetwork = useHandleWrongNetwork()
   const { canUseLensManager, canBroadcast } =
-    checkDispatcherPermissions(activeProfile)
+    checkLensManagerPermissions(activeProfile)
 
   const { data, error, loading } = usePublicationQuery({
     variables: {

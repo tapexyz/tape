@@ -2,9 +2,9 @@ import HorizantalScroller from '@components/Common/HorizantalScroller'
 import useProfileStore from '@lib/store/profile'
 import React, { useRef } from 'react'
 
-import DispatcherAlert from './DispatcherAlert'
 import GitcoinAlert from './GitcoinAlert'
 import LatestBytes from './LatestBytes'
+import LensManagerAlert from './LensManagerAlert'
 import WelcomeAlert from './WelcomeAlert'
 
 const TopSection = () => {
@@ -24,7 +24,7 @@ const TopSection = () => {
       >
         {!activeProfile?.id && <WelcomeAlert />}
         <GitcoinAlert />
-        <DispatcherAlert />
+        <LensManagerAlert />
         <LatestBytes />
       </div>
     </div>

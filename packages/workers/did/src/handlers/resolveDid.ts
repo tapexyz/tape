@@ -93,7 +93,7 @@ export default async (request: WorkerRequest) => {
   const { addresses } = body as ExtensionRequest
 
   try {
-    const response = await fetch('https://api-v2-mumbai.lens.dev/', {
+    const response = await fetch('https://api-v2.lens.dev/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

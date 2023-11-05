@@ -10,7 +10,7 @@ import {
   REQUESTING_SIGNATURE_MESSAGE
 } from '@tape.xyz/constants'
 import {
-  checkDispatcherPermissions,
+  checkLensManagerPermissions,
   EVENTS,
   getSignature,
   Tower
@@ -26,13 +26,13 @@ import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
-const ToggleDispatcher = () => {
+const ToggleLensManager = () => {
   const [loading, setLoading] = useState(false)
 
   const { activeProfile, setActiveProfile } = useProfileStore()
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
   const handleWrongNetwork = useHandleWrongNetwork()
-  const { canBroadcast } = checkDispatcherPermissions(activeProfile)
+  const { canBroadcast } = checkLensManagerPermissions(activeProfile)
 
   const isLensManagerEnabled = activeProfile?.signless || false
 
@@ -73,13 +73,13 @@ const ToggleDispatcher = () => {
   useEffect(() => {
     if (indexed) {
       toast.success(
-        `Dispatcher ${isLensManagerEnabled ? `disabled` : `enabled`}`
+        `Lens Manager ${isLensManagerEnabled ? `disabled` : `enabled`}`
       )
       const channel = { ...activeProfile }
       channel.signless = isLensManagerEnabled ? false : true
       setActiveProfile(channel as Profile)
       setLoading(false)
-      Tower.track(EVENTS.DISPATCHER.TOGGLE)
+      Tower.track(EVENTS.MANAGER.TOGGLE, { enabled: channel.signless })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indexed])
@@ -153,9 +153,9 @@ const ToggleDispatcher = () => {
       disabled={loading}
     >
       {loading && <Loader size="sm" />}
-      {getButtonText()} dispatcher
+      {getButtonText()}
     </Button>
   )
 }
 
-export default ToggleDispatcher
+export default ToggleLensManager

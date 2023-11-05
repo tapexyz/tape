@@ -16,7 +16,7 @@ import {
   SIGN_IN_REQUIRED
 } from '@tape.xyz/constants'
 import {
-  checkDispatcherPermissions,
+  checkLensManagerPermissions,
   formatNumber,
   getProfile,
   getProfilePicture,
@@ -92,7 +92,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
     action.__typename === 'LegacyMultirecipientFeeCollectModuleSettings'
 
   const { canUseLensManager, canBroadcast } =
-    checkDispatcherPermissions(activeProfile)
+    checkLensManagerPermissions(activeProfile)
   const isFreeCollect = !amount
   const isFreeForAnyone = !action?.followerOnly && isFreeCollect
 
