@@ -49,7 +49,7 @@ const Bubbles: FC<Props> = ({ viewing, showSeparator }) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <>
+        <span className="flex items-center">
           {showSeparator && <span className="middot px-1" />}
           <Flex align="center" gap="1">
             <button type="button" className="flex cursor-pointer -space-x-1.5">
@@ -72,7 +72,7 @@ const Bubbles: FC<Props> = ({ viewing, showSeparator }) => {
               )}
             </button>
           </Flex>
-        </>
+        </span>
       </Dialog.Trigger>
       <Dialog.Content style={{ maxWidth: 450 }}>
         <Flex gap="3" justify="between" pb="2">

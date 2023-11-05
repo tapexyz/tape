@@ -18,7 +18,6 @@ import {
 import type { FeeFollowModuleSettings, Profile } from '@tape.xyz/lens'
 import {
   FollowModuleType,
-  TriStateValue,
   useApprovedModuleAllowanceAmountQuery,
   useBroadcastOnchainMutation,
   useCreateFollowTypedDataMutation,
@@ -218,10 +217,6 @@ const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
         }
       }
     })
-  }
-
-  if (profile.operations.canFollow === TriStateValue.No) {
-    return null
   }
 
   return (

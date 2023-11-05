@@ -2,7 +2,7 @@ import Badge from '@components/Common/Badge'
 import UserOutline from '@components/Common/Icons/UserOutline'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useProfileStore from '@lib/store/profile'
-import { getProfile, getProfilePicture } from '@tape.xyz/generic'
+import { formatNumber, getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { MutualFollowersRequest, Profile } from '@tape.xyz/lens'
 import { LimitType, useMutualFollowersQuery } from '@tape.xyz/lens'
 import { Loader } from '@tape.xyz/ui'
@@ -86,7 +86,7 @@ const MutualFollowers: FC<Props> = ({ viewing }) => {
           </div>
           <div className="flex items-center space-x-1 whitespace-nowrap text-xs opacity-80">
             <UserOutline className="h-2.5 w-2.5 opacity-60" />
-            <span>{profile.stats.followers}</span>
+            <span>{formatNumber(profile.stats.followers)}</span>
           </div>
         </Link>
       ))}

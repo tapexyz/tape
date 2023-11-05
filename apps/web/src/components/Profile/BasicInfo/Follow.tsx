@@ -18,7 +18,6 @@ import {
 } from '@tape.xyz/generic'
 import type { FollowLensManagerRequest, Profile } from '@tape.xyz/lens'
 import {
-  TriStateValue,
   useBroadcastOnchainMutation,
   useCreateFollowTypedDataMutation,
   useFollowMutation
@@ -162,10 +161,6 @@ const Follow: FC<Props> = ({ profile, onSubscribe, size = '2' }) => {
         request
       }
     })
-  }
-
-  if (profile.operations.canFollow === TriStateValue.No) {
-    return null
   }
 
   return (

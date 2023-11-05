@@ -25,7 +25,7 @@ import { Loader } from '@tape.xyz/ui'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 
-const Feed = () => {
+const Feed = ({ showFilter = true }) => {
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
 
   const request: ExplorePublicationRequest = {
@@ -66,9 +66,13 @@ const Feed = () => {
   })
 
   return (
-    <div className="laptop:pt-6 pt-4">
-      <CategoryFilters />
-      <div className="laptop:pt-4 pt-4">
+    <div className="laptop:pt-6 space-y-4 pt-4">
+      {showFilter && (
+        <div>
+          <CategoryFilters />
+        </div>
+      )}
+      <div>
         {loading && <TimelineShimmer />}
         {!error && !loading && videos.length > 0 && (
           <>
