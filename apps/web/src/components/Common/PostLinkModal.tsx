@@ -16,7 +16,7 @@ import {
   TAPE_WEBSITE_URL
 } from '@tape.xyz/constants'
 import {
-  checkDispatcherPermissions,
+  checkLensManagerPermissions,
   EVENTS,
   getOpenActionNftMetadata,
   getProfile,
@@ -76,7 +76,7 @@ const PostLinkModal: FC<Props> = ({ show, setShow }) => {
     (state) => state.activeProfile
   ) as Profile
   const { canUseLensManager, canBroadcast } =
-    checkDispatcherPermissions(activeProfile)
+    checkLensManagerPermissions(activeProfile)
 
   const {
     register,

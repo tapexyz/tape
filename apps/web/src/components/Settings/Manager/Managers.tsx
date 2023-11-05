@@ -17,7 +17,7 @@ import {
   REQUESTING_SIGNATURE_MESSAGE
 } from '@tape.xyz/constants'
 import {
-  checkDispatcherPermissions,
+  checkLensManagerPermissions,
   getSignature,
   shortenAddress
 } from '@tape.xyz/generic'
@@ -30,7 +30,7 @@ import {
 } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -48,12 +48,10 @@ type FormData = z.infer<typeof formSchema>
 const Entry = ({
   address,
   removingAddress,
-  isLensManager,
   onRemove
 }: {
   address: string
   removingAddress: string
-  isLensManager: boolean
   onRemove: (address: string) => void
 }) => {
   const { did } = useDid({ address })
@@ -63,9 +61,7 @@ const Entry = ({
       className="tape-border rounded-small flex items-center justify-between px-4 py-3"
     >
       <div>
-        <span className="font-bold">
-          {isLensManager ? 'Lens Manager' : did || '-'}
-        </span>
+        <span className="font-bold">{did || shortenAddress(address)}</span>
         <AddressExplorerLink address={address}>
           <Flex align="center" gap="1">
             <span>{shortenAddress(address)}</span>
@@ -103,20 +99,38 @@ const Managers = () => {
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
   const activeProfile = useProfileStore((state) => state.activeProfile)
   const handleWrongNetwork = useHandleWrongNetwork()
-  const { canBroadcast } = checkDispatcherPermissions(activeProfile)
+  const { canBroadcast } = checkLensManagerPermissions(activeProfile)
 
   const request: ProfileManagersRequest = { for: activeProfile?.id }
   const { data, refetch, error, loading, fetchMore } = useProfileManagersQuery({
     variables: { request },
     skip: !activeProfile?.id
   })
-  const profileManagers = data?.profileManagers.items
+  const profileManagersWithoutLensManager = useMemo(() => {
+    if (!data?.profileManagers?.items) {
+      return []
+    }
+    return data.profileManagers.items.filter((m) => !m.isLensManager)
+  }, [data?.profileManagers])
+
   const pageInfo = data?.profileManagers?.pageInfo
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.message ?? ERROR_MESSAGE)
     setSubmitting(false)
     setRemovingAddress('')
+  }
+
+  const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
+    if (__typename === 'RelayError') {
+      return
+    }
+
+    reset()
+    refetch()
+    setRemovingAddress('')
+    setShowModal(false)
+    setSubmitting(false)
   }
 
   const { signTypedDataAsync } = useSignTypedData({
@@ -137,7 +151,9 @@ const Managers = () => {
   })
 
   const [broadcast, { data: broadcastData }] = useBroadcastOnchainMutation({
-    onError
+    onError,
+    onCompleted: ({ broadcastOnchain }) =>
+      onCompleted(broadcastOnchain.__typename)
   })
 
   const { indexed } = usePendingTxn({
@@ -150,11 +166,7 @@ const Managers = () => {
 
   useEffect(() => {
     if (indexed) {
-      reset()
-      setRemovingAddress('')
-      refetch()
-      setShowModal(false)
-      setSubmitting(false)
+      onCompleted()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indexed])
@@ -183,10 +195,10 @@ const Managers = () => {
           const { data } = await broadcast({
             variables: { request: { id, signature } }
           })
-          if (data?.broadcastOnchain?.__typename === 'RelayError') {
+          if (data?.broadcastOnchain.__typename === 'RelayError') {
             return write({ args })
           }
-          return
+          return onCompleted(data?.broadcastOnchain.__typename)
         }
         return write({ args })
       } catch {
@@ -298,16 +310,15 @@ const Managers = () => {
       </div>
       <div className="mt-3">
         {loading && <Loader className="my-10" />}
-        {(!loading && !profileManagers?.length) || error ? (
+        {(!loading && !profileManagersWithoutLensManager?.length) || error ? (
           <NoDataFound withImage isCenter />
         ) : null}
-        {profileManagers?.length ? (
+        {profileManagersWithoutLensManager?.length ? (
           <div className="mt-4 grid gap-3 md:grid-cols-2">
-            {profileManagers?.map(({ address, isLensManager }) => (
+            {profileManagersWithoutLensManager?.map(({ address }) => (
               <Entry
                 key={address}
                 address={address}
-                isLensManager={isLensManager}
                 removingAddress={removingAddress}
                 onRemove={(address) => removeManager(address)}
               />

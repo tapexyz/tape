@@ -10,7 +10,7 @@ import {
   SIGN_IN_REQUIRED
 } from '@tape.xyz/constants'
 import {
-  checkDispatcherPermissions,
+  checkLensManagerPermissions,
   EVENTS,
   getProfile,
   getSignature,
@@ -40,7 +40,7 @@ const Follow: FC<Props> = ({ profile, onSubscribe, size = '2' }) => {
   const [loading, setLoading] = useState(false)
   const { activeProfile } = useProfileStore()
   const { canUseLensManager, canBroadcast } =
-    checkDispatcherPermissions(activeProfile)
+    checkLensManagerPermissions(activeProfile)
   const handleWrongNetwork = useHandleWrongNetwork()
 
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()

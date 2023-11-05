@@ -14,7 +14,7 @@ import {
   TAPE_APP_ID
 } from '@tape.xyz/constants'
 import {
-  checkDispatcherPermissions,
+  checkLensManagerPermissions,
   EVENTS,
   getIsIPFSUrl,
   getMetadataCid,
@@ -76,7 +76,7 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
   const { cache } = useApolloClient()
   const activeProfile = useProfileStore((state) => state.activeProfile)
   const { canUseLensManager, canBroadcast } =
-    checkDispatcherPermissions(activeProfile)
+    checkLensManagerPermissions(activeProfile)
 
   const isVideoOwner = activeProfile?.id === video?.by?.id
   const pinnedVideoId = getValueFromKeyInAttributes(

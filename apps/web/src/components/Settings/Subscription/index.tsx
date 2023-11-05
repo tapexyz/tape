@@ -16,7 +16,7 @@ import {
   WMATIC_TOKEN_ADDRESS
 } from '@tape.xyz/constants'
 import {
-  checkDispatcherPermissions,
+  checkLensManagerPermissions,
   getSignature,
   shortenAddress
 } from '@tape.xyz/generic'
@@ -63,7 +63,7 @@ const Subscription = ({ channel }: Props) => {
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
   const handleWrongNetwork = useHandleWrongNetwork()
   const { activeProfile } = useProfileStore()
-  const { canBroadcast } = checkDispatcherPermissions(activeProfile)
+  const { canBroadcast } = checkLensManagerPermissions(activeProfile)
 
   const {
     register,

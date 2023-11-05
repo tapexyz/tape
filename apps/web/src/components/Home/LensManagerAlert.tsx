@@ -1,24 +1,24 @@
-import ToggleDispatcher from '@components/Settings/Manager/Dispatcher/ToggleDispatcher'
+import ToggleLensManager from '@components/Settings/Manager/LensManager/ToggleLensManager'
 import SignalWaveGraphic from '@components/UIElements/SignalWaveGraphic'
 import useProfileStore from '@lib/store/profile'
 import { Flex } from '@radix-ui/themes'
 import { TAPE_APP_NAME } from '@tape.xyz/constants'
 import {
-  checkDispatcherPermissions,
+  checkLensManagerPermissions,
   getIsProfileOwner
 } from '@tape.xyz/generic'
 import React from 'react'
 import { useAccount } from 'wagmi'
 
-const DispatcherAlert = () => {
+const LensManagerAlert = () => {
   const { address } = useAccount()
   const activeProfile = useProfileStore((state) => state.activeProfile)
 
   const isOwner = activeProfile && getIsProfileOwner(activeProfile, address)
-  const { canUseLensManager } = checkDispatcherPermissions(activeProfile)
+  const { canUseLensManager } = checkLensManagerPermissions(activeProfile)
 
   const getDescription = () => {
-    return `Enable dispatcher to interact with ${TAPE_APP_NAME} without signing any of your transactions.`
+    return `Enable your Lens manager for seamless interaction with ${TAPE_APP_NAME}, allowing for faster and easier transactions without the need for signing.`
   }
 
   if (!activeProfile || canUseLensManager || !isOwner) {
@@ -34,7 +34,7 @@ const DispatcherAlert = () => {
           {getDescription()}
         </p>
         <Flex>
-          <ToggleDispatcher />
+          <ToggleLensManager />
         </Flex>
       </div>
 
@@ -43,4 +43,4 @@ const DispatcherAlert = () => {
   )
 }
 
-export default DispatcherAlert
+export default LensManagerAlert
