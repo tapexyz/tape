@@ -8,6 +8,8 @@ import { useKeenSlider } from 'keen-slider/react'
 import Link from 'next/link'
 import React from 'react'
 
+import Creators from './Creators'
+
 const Streams = () => {
   const autoSwitchPlugin = (slider: KeenSliderInstance) => {
     if (slider.slides.length <= 1) {
@@ -86,7 +88,13 @@ const Streams = () => {
               </div>
               <span>
                 <Link href="/stream/channel/rad">
-                  <Button color="tomato">Watch Now</Button>
+                  <Button color="gray" highContrast>
+                    <span className="relative flex h-2 w-2 items-center justify-center">
+                      <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500 opacity-75" />
+                      <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-red-500" />
+                    </span>
+                    Watch Now
+                  </Button>
                 </Link>
               </span>
             </div>
@@ -108,9 +116,7 @@ const Streams = () => {
           {/* <div className="keen-slider__slide">2</div> */}
         </div>
       </div>
-      <div className="rounded-medium tape-border flex-1">
-        <h1 className="px-5 py-4 text-lg font-bold">Creators to follow</h1>
-      </div>
+      <Creators />
     </div>
   )
 }

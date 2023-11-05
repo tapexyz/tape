@@ -1,6 +1,6 @@
 import VideoPlayer from '@tape.xyz/ui/VideoPlayer'
 import type { FC } from 'react'
-import React from 'react'
+import React, { memo } from 'react'
 
 type Props = {
   playback: string
@@ -24,4 +24,4 @@ const LiveVideo: FC<Props> = ({ playback, poster }) => {
   )
 }
 
-export default LiveVideo
+export default memo(LiveVideo)
