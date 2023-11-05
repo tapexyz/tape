@@ -50,15 +50,15 @@ const Streams = () => {
       <div className="w-full md:w-3/4">
         <div
           ref={sliderRef}
-          className="keen-slider rounded-medium tape-border bg-black text-white"
+          className="keen-slider rounded-medium tape-border ultrawide:h-[500px] bg-black text-white md:h-[400px]"
         >
           <div className="keen-slider__slide relative flex justify-between">
-            <div className="absolute z-[5] flex h-full flex-col justify-center space-y-6 bg-black bg-opacity-50 p-6 lg:static">
+            <div className="absolute z-[6] flex h-full flex-col justify-evenly space-y-6 bg-black bg-opacity-50 p-6 lg:static">
               <div className="space-y-3">
                 <h1 className="laptop:text-4xl text-2xl font-bold">
                   Watch ETH India, Exclusively on Tape
                 </h1>
-                <p className="line-clamp-1 md:line-clamp-3">
+                <p className="ultrawide:line-clamp-5 line-clamp-1 md:line-clamp-3">
                   ETHIndia Online is a 3-day virtual hackathon that brings
                   together developers, designers, and entrepreneurs to build
                   decentralized applications and services using Ethereum, IPFS,
@@ -85,12 +85,12 @@ const Streams = () => {
                 </div>
               </div>
               <span>
-                <Link href={`/stream/123`}>
+                <Link href="/stream/channel/rad">
                   <Button color="tomato">Watch Now</Button>
                 </Link>
               </span>
             </div>
-            <div className="ultrawide:h-[500px] relative aspect-[16/9] md:h-[380px]">
+            <div className="relative aspect-[16/9]">
               <div className="absolute inset-0 z-[5] bg-gradient-to-r from-black via-transparent to-transparent" />
               <VideoPlayer
                 url="https://gw.ipfs-lens.dev/ipfs/bafybeiem5h5h2fj56ip7qbbmbay5qqiqp7qd6av6jpex2gc3jxu6ai4yv4"

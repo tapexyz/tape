@@ -3,6 +3,7 @@ import { createCors, error, Router, status } from 'itty-router'
 import type { Env } from './types'
 import buildRequest from './helper/buildRequest'
 import getUnlonelyStream from './handlers/getUnlonelyStream'
+import getRadStream from './handlers/getRadStream'
 
 const { preflight, corsify } = createCors({
   origins: ['*'],
@@ -16,6 +17,7 @@ router
   .head('*', () => status(200))
   .get('/', () => new Response('gm 👋'))
   .get('/unlonely/:channel?', ({ params }) => getUnlonelyStream(params.channel))
+  .get('/rad', () => getRadStream())
   .all('*', () => error(404))
 
 export default {

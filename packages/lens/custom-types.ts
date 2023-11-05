@@ -177,6 +177,11 @@ export type SupportedOpenActionModuleType =
   | LegacySimpleCollectModuleSettings
   | LegacyMultirecipientFeeCollectModuleSettings
 
+export enum StreamChannelType {
+  Unlonely = 'unlonely',
+  Rad = 'rad'
+}
+
 // ------------------------------------------------------------------------MOBILE STARTS---------------------------------------------------------------------------------------------------------------
 
 export enum TimelineFeedType {

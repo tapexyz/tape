@@ -8,13 +8,15 @@ import Link from 'next/link'
 import React from 'react'
 import Custom404 from 'src/pages/404'
 
-import LiveVideo from '../LiveVideo'
 import Meta from '../Meta'
+import LiveVideo from './LiveVideo'
 
 const Unlonely = ({ channel }: { channel: string }) => {
-  const fetchNfts = async () => {
-    const { data } = await axios.get(`${WORKER_LIVE_URL}/unlonely/${channel}`)
-    return data?.items[0]
+  const profile = channel.split(';')[1]
+
+  const fetchUnlonelyStreams = async () => {
+    const { data } = await axios.get(`${WORKER_LIVE_URL}/unlonely/${profile}`)
+    return data?.items[0] ?? null
   }
 
   const {
@@ -23,8 +25,8 @@ const Unlonely = ({ channel }: { channel: string }) => {
     error
   } = useQuery({
     queryKey: ['unlonelyChannel'],
-    queryFn: fetchNfts,
-    enabled: true
+    queryFn: fetchUnlonelyStreams,
+    enabled: Boolean(profile)
   })
 
   if (isLoading) {
@@ -39,7 +41,7 @@ const Unlonely = ({ channel }: { channel: string }) => {
 
   return (
     <div className="space-y-3.5">
-      <LiveVideo thumbnailUrl={thumbnailUrl} playbackUrl={playbackUrl} />
+      <LiveVideo poster={thumbnailUrl} playback={playbackUrl} />
       <Meta live={liveItem} channel={channel} />
       {!isLive && (
         <Alert>
