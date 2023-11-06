@@ -71,7 +71,10 @@ export const EVENTS = {
     UPDATE: 'Update Profile',
     FOLLOW: 'Follow',
     SUPER_FOLLOW: 'Super Follow',
-    UNFOLLOW: 'Unfollow'
+    UNFOLLOW: 'Unfollow',
+    SETTINGS: {
+      TOGGLE_REVERT_FOLLOW: 'Toggle Revert Follow'
+    }
   },
   EMBED_VIDEO: {
     OPEN: 'Open Embed',
@@ -119,6 +122,7 @@ export const ALL_EVENTS = {
   ...EVENTS.OPEN_ACTIONS,
   ...EVENTS.AUTH,
   ...EVENTS.PROFILE,
+  ...EVENTS.PROFILE.SETTINGS,
   ...EVENTS.SYSTEM,
   ...EVENTS.SYSTEM.MORE_MENU,
   ...EVENTS.NOTIFICATIONS,

@@ -19,10 +19,10 @@ import {
   SETTINGS_ALLOWANCE,
   SETTINGS_BLOCKED,
   SETTINGS_DANGER_ZONE,
+  SETTINGS_FOLLOW,
   SETTINGS_INTERESTS,
   SETTINGS_MANAGER,
-  SETTINGS_SESSIONS,
-  SETTINGS_SUBSCRIPTION
+  SETTINGS_SESSIONS
 } from '.'
 
 const SideNav = () => {
@@ -48,16 +48,14 @@ const SideNav = () => {
         <span>Basic Info</span>
       </Link>
       <Link
-        href={SETTINGS_SUBSCRIPTION}
+        href={SETTINGS_FOLLOW}
         className={clsx(
           'hover:dark:bg-smoke hover:bg-gallery flex items-center space-x-3 rounded-lg px-3 py-2',
-          isActivePath(SETTINGS_SUBSCRIPTION)
-            ? 'font-bold'
-            : 'text-dust font-medium'
+          isActivePath(SETTINGS_FOLLOW) ? 'font-bold' : 'text-dust font-medium'
         )}
       >
         <SubscribeOutline className="h-4 w-4" />
-        <span>Subscription</span>
+        <span>Set Follow</span>
       </Link>
       <Link
         href={SETTINGS_INTERESTS}
