@@ -141,7 +141,7 @@ const RevertFollow = ({ profile }: Props) => {
   return (
     <div className="tape-border rounded-medium dark:bg-cod bg-white p-5">
       <div className="mb-5 space-y-2">
-        <h1 className="text-brand-400 text-xl font-bold">Turn off Follow</h1>
+        <h1 className="text-brand-400 text-xl font-bold">Disable Follow</h1>
         <p className="text opacity-80">
           You're in complete control of your online presence and profile. You
           can choose to be off the radar and no one can follow.
