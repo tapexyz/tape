@@ -1,4 +1,3 @@
-import MetaTags from '@components/Common/MetaTags'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import usePendingTxn from '@hooks/usePendingTxn'
 import useNonceStore from '@lib/store/nonce'
@@ -141,9 +140,8 @@ const RevertFollow = ({ profile }: Props) => {
 
   return (
     <div className="tape-border rounded-medium dark:bg-cod bg-white p-5">
-      <MetaTags title="Off the Radar" />
       <div className="mb-5 space-y-2">
-        <h1 className="text-brand-400 text-xl font-bold">Off the Radar</h1>
+        <h1 className="text-brand-400 text-xl font-bold">Turn off Follow</h1>
         <p className="text opacity-80">
           You're in complete control of your online presence and profile. You
           can choose to be off the radar and no one can follow.
@@ -158,7 +156,7 @@ const RevertFollow = ({ profile }: Props) => {
             onClick={() => toggleRevert(false)}
           >
             {loading && <Loader size="sm" />}
-            Disable
+            Enable Follow
           </Button>
         ) : (
           <Button
@@ -169,7 +167,7 @@ const RevertFollow = ({ profile }: Props) => {
             onClick={() => toggleRevert(true)}
           >
             {loading && <Loader size="sm" />}
-            Enable
+            Disable Follow
           </Button>
         )}
       </div>
