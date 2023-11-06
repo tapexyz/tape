@@ -172,7 +172,7 @@ const FeeFollow = ({ profile }: Props) => {
       onError
     })
 
-  const updateFollow = async (disable: boolean) => {
+  const updateFeeFollow = async (disable: boolean) => {
     if (handleWrongNetwork()) {
       return
     }
@@ -198,7 +198,7 @@ const FeeFollow = ({ profile }: Props) => {
   }
 
   const onSubmitForm = () => {
-    updateFollow(false)
+    updateFeeFollow(false)
   }
 
   const currencies = enabledCurrencies?.currencies.items
@@ -324,7 +324,7 @@ const FeeFollow = ({ profile }: Props) => {
             variant="surface"
             color="red"
             disabled={loading}
-            onClick={() => updateFollow(true)}
+            onClick={() => updateFeeFollow(true)}
           >
             {loading && <Loader size="sm" />}
             Disable
