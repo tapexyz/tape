@@ -5,6 +5,9 @@ import buildRequest from './helper/buildRequest'
 import getUnlonelyStream from './handlers/getUnlonelyStream'
 import getChannelInfo from './handlers/getChannelInfo'
 import getAllStreams from './handlers/getAllStreams'
+import getLiveUrl from './handlers/getLiveUrl'
+import getPlaybackUrl from './handlers/getPlaybackUrl'
+import getIsLive from './handlers/getIsLive'
 
 const { preflight, corsify } = createCors({
   origins: ['*'],
@@ -18,7 +21,14 @@ router
   .head('*', () => status(200))
   .get('/', () => new Response('gm'))
   .get('/streams', () => getAllStreams())
-  .get('/channel/:channelId', ({ params }) => getChannelInfo(params.channelId))
+  .get('/stream/:channelId/playbackUrl', ({ params }) =>
+    getPlaybackUrl(params.channelId)
+  )
+  .get('/stream/:channelId/liveUrl', ({ params }) =>
+    getLiveUrl(params.channelId)
+  )
+  .get('/stream/:channelId/isLive', ({ params }) => getIsLive(params.channelId))
+  .get('/stream/:channelId', ({ params }) => getChannelInfo(params.channelId))
   .get('/unlonely/:channel?', ({ params }) => getUnlonelyStream(params.channel))
   .all('*', () => error(404))
 

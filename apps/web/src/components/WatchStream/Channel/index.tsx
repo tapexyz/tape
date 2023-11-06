@@ -14,7 +14,7 @@ import LiveVideo from './LiveVideo'
 
 const Channel = ({ id }: { id: string }) => {
   const fetchChannelStream = async () => {
-    const { data } = await axios.get(`${WORKER_STREAM_URL}/channel/${id}`)
+    const { data } = await axios.get(`${WORKER_STREAM_URL}/stream/${id}`)
     return data?.item ?? null
   }
 
