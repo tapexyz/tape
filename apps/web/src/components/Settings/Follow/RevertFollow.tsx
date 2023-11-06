@@ -51,7 +51,7 @@ const RevertFollow = ({ profile }: Props) => {
   const { canBroadcast } = checkLensManagerPermissions(activeProfile)
 
   const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
-    if (__typename !== 'RelaySuccess') {
+    if (__typename === 'RelayError') {
       return
     }
     setLoading(false)
