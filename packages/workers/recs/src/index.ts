@@ -11,7 +11,7 @@ const { preflight, corsify } = createCors({
 const router = Router()
 
 router.all('*', preflight)
-router.get('/', () => new Response('gm 👋'))
+router.get('/', () => new Response('gm'))
 router.get('/:provider/:strategy/:limit?/:offset?', (request) =>
   getListByAlgorithm(request)
 )

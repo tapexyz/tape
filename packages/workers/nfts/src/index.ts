@@ -15,7 +15,7 @@ const router = Router()
 router
   .all('*', preflight)
   .head('*', () => status(200))
-  .get('/', () => new Response('gm 👋'))
+  .get('/', () => new Response('gm'))
   .get('/zora', getZoraNft)
   .get('/:handle/:limit/:cursor?', ({ params }, env) =>
     getNfts(env, params.handle, params.limit)
