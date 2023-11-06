@@ -1,4 +1,3 @@
-import MetaTags from '@components/Common/MetaTags'
 import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -17,6 +16,7 @@ import {
 } from '@tape.xyz/constants'
 import {
   checkLensManagerPermissions,
+  getProfile,
   getSignature,
   shortenAddress
 } from '@tape.xyz/generic'
@@ -42,7 +42,7 @@ import type { z } from 'zod'
 import { number, object, string } from 'zod'
 
 type Props = {
-  channel: Profile
+  profile: Profile
 }
 
 const formSchema = object({
@@ -54,7 +54,7 @@ const formSchema = object({
 })
 type FormData = z.infer<typeof formSchema>
 
-const Subscription = ({ channel }: Props) => {
+const FeeFollow = ({ profile }: Props) => {
   const [copy] = useCopyToClipboard()
 
   const [loading, setLoading] = useState(false)
@@ -75,7 +75,7 @@ const Subscription = ({ channel }: Props) => {
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      recipient: channel.ownedBy.address,
+      recipient: getProfile(profile).address,
       amount: 2,
       token: WMATIC_TOKEN_ADDRESS
     }
@@ -91,8 +91,8 @@ const Subscription = ({ channel }: Props) => {
     refetch,
     loading: moduleLoading
   } = useProfileFollowModuleQuery({
-    variables: { request: { forProfileId: channel?.id } },
-    skip: !channel?.id,
+    variables: { request: { forProfileId: profile?.id } },
+    skip: !profile?.id,
     notifyOnNetworkStatusChange: true,
     onCompleted: ({ profile }) => {
       const activeFollowModule =
@@ -112,7 +112,7 @@ const Subscription = ({ channel }: Props) => {
         limit: LimitType.Fifty
       }
     },
-    skip: !channel?.id
+    skip: !profile?.id
   })
 
   const [broadcast, { data: broadcastData }] = useBroadcastOnchainMutation({
@@ -138,7 +138,7 @@ const Subscription = ({ channel }: Props) => {
     if (indexed) {
       setLoading(false)
       refetch()
-      toast.success('Subscription updated')
+      toast.success('Follow settings updated')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indexed])
@@ -172,7 +172,7 @@ const Subscription = ({ channel }: Props) => {
       onError
     })
 
-  const updateSubscription = async (disable: boolean) => {
+  const updateFollow = async (disable: boolean) => {
     if (handleWrongNetwork()) {
       return
     }
@@ -198,14 +198,13 @@ const Subscription = ({ channel }: Props) => {
   }
 
   const onSubmitForm = () => {
-    updateSubscription(false)
+    updateFollow(false)
   }
 
   const currencies = enabledCurrencies?.currencies.items
 
   return (
     <div className="tape-border rounded-medium dark:bg-cod bg-white p-5">
-      <MetaTags title="Subscription" />
       <div className="mb-5 space-y-2">
         <h1 className="text-brand-400 text-xl font-bold">Grow with Lens</h1>
         <p className="text opacity-80">
@@ -325,7 +324,7 @@ const Subscription = ({ channel }: Props) => {
             variant="surface"
             color="red"
             disabled={loading}
-            onClick={() => updateSubscription(true)}
+            onClick={() => updateFollow(true)}
           >
             {loading && <Loader size="sm" />}
             Disable
@@ -343,4 +342,4 @@ const Subscription = ({ channel }: Props) => {
   )
 }
 
-export default Subscription
+export default FeeFollow

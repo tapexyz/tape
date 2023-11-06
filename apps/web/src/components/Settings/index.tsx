@@ -13,13 +13,13 @@ import Allowance from './Allowance'
 import BasicInfo from './BasicInfo'
 import Blocked from './Blocked'
 import DangerZone from './DangerZone'
+import FollowSettings from './Follow'
 import ProfileManager from './Manager'
 import ProfileInterests from './ProfileInterests'
 import Sessions from './Sessions'
 import SideNav from './SideNav'
-import Subscription from './Subscription'
 
-export const SETTINGS_SUBSCRIPTION = '/settings/subscription'
+export const SETTINGS_FOLLOW = '/settings/follow'
 export const SETTINGS_INTERESTS = '/settings/interests'
 export const SETTINGS_ALLOWANCE = '/settings/allowance'
 export const SETTINGS_MANAGER = '/settings/manager'
@@ -54,20 +54,20 @@ const Settings = () => {
     return <Custom404 />
   }
 
-  const channel = data?.profile as Profile
+  const profile = data?.profile as Profile
 
   return (
     <div className="ultrawide:max-w-screen-xl container mx-auto">
       <MetaTags title={`Profile Settings`} />
-      {!loading && !error && channel ? (
+      {!loading && !error && profile ? (
         <div className="grid gap-4 md:grid-cols-4">
           <div className="md:col-span-1">
             <SideNav />
           </div>
           <div className="md:col-span-3">
-            {router.pathname === SETTINGS && <BasicInfo profile={channel} />}
-            {router.pathname === SETTINGS_SUBSCRIPTION && (
-              <Subscription channel={channel} />
+            {router.pathname === SETTINGS && <BasicInfo profile={profile} />}
+            {router.pathname === SETTINGS_FOLLOW && (
+              <FollowSettings profile={profile} />
             )}
             {router.pathname === SETTINGS_ALLOWANCE && <Allowance />}
             {router.pathname === SETTINGS_INTERESTS && <ProfileInterests />}
