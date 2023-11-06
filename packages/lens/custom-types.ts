@@ -182,6 +182,18 @@ export enum StreamChannelType {
   Rad = 'rad'
 }
 
+export type ChannelStreamType = {
+  title: string
+  content: string
+  posterUrl: string
+  playbackUrl: string
+  liveUrl: string
+  uid: string
+  pid: string
+  streamer: string
+  channel: string
+}
+
 // ------------------------------------------------------------------------MOBILE STARTS---------------------------------------------------------------------------------------------------------------
 
 export enum TimelineFeedType {
