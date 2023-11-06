@@ -28,7 +28,7 @@
     "@tape.xyz/lens": "*",
     "@tape.xyz/ui": "*",
     "@types/node": "20.8.10",
-    "@types/react": "18.2.34",
+    "@types/react": "18.2.36",
     "@types/react-dom": "18.2.14",
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.29",
