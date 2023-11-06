@@ -87,7 +87,7 @@ export const WORKER_STS_TOKEN_URL = 'https://sts.tape.xyz'
 export const WORKER_RECS_URL = 'https://recs.tape.xyz'
 export const WORKER_NFTS_URL = 'https://nfts.tape.xyz'
 export const WORKER_DID_URL = 'https://did.tape.xyz'
-export const WORKER_LIVE_URL = 'https://live.tape.xyz'
+export const WORKER_STREAM_URL = 'https://stream.tape.xyz'
 export const WORKER_TOWER_URL = 'https://tower.tape.xyz'
 
 // irys

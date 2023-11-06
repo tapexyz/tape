@@ -38,7 +38,7 @@ const HoverableProfile: FC<Props> = ({
           <Link href={getProfile(profile)?.link}>
             <Flex align="center" gap="1">
               {pfp}
-              <Text size={fontSize} color="gray" highContrast>
+              <Text size={fontSize} highContrast>
                 {getProfile(profile)?.slug}
               </Text>
               <Badge id={profile?.id} size="xs" />

@@ -1,7 +1,7 @@
-name = "live"
+name = "stream"
 main = "src/index.ts"
 compatibility_date = "2023-01-25"
 routes = [
-	{ pattern = "live.tape.xyz", custom_domain = true }
+	{ pattern = "stream.tape.xyz", custom_domain = true }
 ]
 keep_vars = true

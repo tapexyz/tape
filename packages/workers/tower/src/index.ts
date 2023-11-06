@@ -14,7 +14,7 @@ const router = Router()
 router
   .all('*', preflight)
   .head('*', () => status(200))
-  .get('/', () => new Response('gm 👋'))
+  .get('/', () => new Response('gm'))
   .post('/ingest', ingest)
   .all('*', () => error(404))
 
