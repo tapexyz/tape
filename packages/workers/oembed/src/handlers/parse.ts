@@ -9,11 +9,7 @@ export default async (request: WorkerRequest) => {
   }
 
   try {
-    const response = await fetch(url, {
-      headers: {
-        'User-Agent': 'bot'
-      }
-    })
+    const response = await fetch(url, { headers: { 'User-Agent': 'bot' } })
     const html = await response.text()
     const { document } = parseHTML(html)
 
