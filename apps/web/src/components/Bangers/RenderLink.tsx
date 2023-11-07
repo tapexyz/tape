@@ -10,7 +10,7 @@ const RenderLink = ({ link }: { link: string }) => {
     const { data } = await axios.get(`${WORKER_OEMBED_URL}/parse`, {
       params: { url: link }
     })
-    return data
+    return data.og
   }
 
   const {

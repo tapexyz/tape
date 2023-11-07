@@ -6,7 +6,7 @@ import parse from './handlers/parse'
 
 const { preflight, corsify } = createCors({
   origins: ['*'],
-  methods: ['HEAD', 'GET', 'POST']
+  methods: ['HEAD', 'GET']
 })
 
 const router = Router()
