@@ -1,10 +1,11 @@
 import InterweaveContent from '@components/Common/InterweaveContent'
 import UserProfile from '@components/Common/UserProfile'
 import VideoCardShimmer from '@components/Shimmers/VideoCardShimmer'
+import VideoActions from '@components/Watch/VideoActions'
 import { useQuery } from '@tanstack/react-query'
 import { WORKER_STREAM_URL } from '@tape.xyz/constants'
-import type { Profile } from '@tape.xyz/lens'
-import { useProfileQuery } from '@tape.xyz/lens'
+import type { PrimaryPublication, Profile } from '@tape.xyz/lens'
+import { useProfileQuery, usePublicationQuery } from '@tape.xyz/lens'
 import axios from 'axios'
 import React from 'react'
 import Custom404 from 'src/pages/404'
@@ -37,6 +38,16 @@ const Channel = ({ id }: { id: string }) => {
   })
   const profile = data?.profile as Profile
 
+  const { data: publicationData } = usePublicationQuery({
+    variables: {
+      request: {
+        forId: streamData?.pid
+      }
+    },
+    skip: !streamData?.pid
+  })
+  const publication = publicationData?.publication as PrimaryPublication
+
   if (isLoading) {
     return <VideoCardShimmer />
   }
@@ -57,8 +68,9 @@ const Channel = ({ id }: { id: string }) => {
       <p>
         <InterweaveContent content={streamData.content} />
       </p>
-      <div className="flex items-center">
+      <div className="flex items-center justify-between">
         <UserProfile profile={profile} />
+        {publication && <VideoActions video={publication} />}
       </div>
       <MoreVideos />
     </div>

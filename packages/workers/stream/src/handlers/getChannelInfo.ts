@@ -10,7 +10,7 @@ export default async (channelId?: string) => {
       liveUrl:
         'https://gw.ipfs-lens.dev/ipfs/bafybeiem5h5h2fj56ip7qbbmbay5qqiqp7qd6av6jpex2gc3jxu6ai4yv4',
       uid: '23de4f5a-5c0a-4c0a-8b0a-5c0a4c0a8b0a',
-      pid: '0x2d-0xee',
+      pid: '0x0ace-0x8b',
       streamer: 'lens/streameth',
       channel: channelId
     }
