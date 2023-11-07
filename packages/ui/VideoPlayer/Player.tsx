@@ -52,6 +52,7 @@ const PlayerInstance: FC<PlayerProps> = ({
         ipfsGateway: IPFS_GATEWAY_URL,
         arweaveGateway: ARWEAVE_GATEWAY_URL
       }}
+      refetchPlaybackInfoInterval={1000 * 60 * 60 * 24 * 7} // to disable hls refetching every second
     >
       {/* eslint-disable-next-line react/jsx-no-useless-fragment */}
       {!showControls ? <></> : null}
