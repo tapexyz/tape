@@ -79,7 +79,7 @@ const New = () => {
     }
     setLoading(false)
     reset()
-    toast.success('Banger posted')
+    toast.success('Posted successfully!')
     Tower.track(EVENTS.PUBLICATION.NEW_POST, {
       type: 'banger',
       publication_state: canUseLensManager ? 'MOMOKA' : 'ON_CHAIN',
@@ -217,7 +217,7 @@ const New = () => {
               validationError={errors.link?.message}
               {...register('link')}
             />
-            <Button size="3" highContrast>
+            <Button size="3" disabled={loading} highContrast>
               {loading && <Loader size="sm" />}
               Post
             </Button>

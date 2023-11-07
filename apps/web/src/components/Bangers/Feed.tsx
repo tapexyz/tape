@@ -17,6 +17,7 @@ import {
   PublicationMetadataMainFocusType,
   useExplorePublicationsQuery
 } from '@tape.xyz/lens'
+import { Loader } from '@tape.xyz/ui'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 
@@ -62,17 +63,22 @@ const Feed = () => {
     }
   })
 
-  if (!loading) {
+  if (loading) {
     return <BangersShimmer />
   }
 
-  if ((!loading && !posts.length) || error) {
+  if ((!loading && !posts?.length) || error) {
     return <NoDataFound withImage isCenter className="my-20" />
   }
 
   return (
     <div>
       {posts?.map((post) => <RenderBanger key={post.id} post={post} />)}
+      {pageInfo?.next && (
+        <span ref={observe} className="flex justify-center p-10">
+          <Loader />
+        </span>
+      )}
     </div>
   )
 }

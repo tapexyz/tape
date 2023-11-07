@@ -10,9 +10,9 @@ const BangersShimmer = () => {
       <div className="space-y-2">
         <div className="flex items-center justify-between">
           <div className="flex items-center -space-x-2">
-            <div className="tape-border h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-800" />
-            <div className="tape-border h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-800" />
-            <div className="tape-border h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-800" />
+            <div className="tape-border h-10 w-10 rounded-full bg-gray-200 dark:bg-gray-800" />
+            <div className="tape-border h-10 w-10 rounded-full bg-gray-200 dark:bg-gray-800" />
+            <div className="tape-border h-10 w-10 rounded-full bg-gray-200 dark:bg-gray-800" />
           </div>
           <ButtonShimmer className="h-8" />
         </div>
@@ -26,9 +26,9 @@ const BangersShimmer = () => {
       <div className="space-y-2">
         <div className="flex items-center justify-between">
           <div className="flex items-center -space-x-2">
-            <div className="tape-border h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-800" />
-            <div className="tape-border h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-800" />
-            <div className="tape-border h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-800" />
+            <div className="tape-border h-10 w-10 rounded-full bg-gray-200 dark:bg-gray-800" />
+            <div className="tape-border h-10 w-10 rounded-full bg-gray-200 dark:bg-gray-800" />
+            <div className="tape-border h-10 w-10 rounded-full bg-gray-200 dark:bg-gray-800" />
           </div>
           <ButtonShimmer className="h-8" />
         </div>

@@ -90,6 +90,7 @@ export const WORKER_NFTS_URL = 'https://nfts.tape.xyz'
 export const WORKER_DID_URL = 'https://did.tape.xyz'
 export const WORKER_STREAM_URL = 'https://stream.tape.xyz'
 export const WORKER_TOWER_URL = 'https://tower.tape.xyz'
+export const WORKER_OEMBED_URL = 'https://oembed.tape.xyz'
 
 // irys
 export const IRYS_NODE_URL = IS_MAINNET
