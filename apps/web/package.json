@@ -44,7 +44,7 @@
     "react-mentions": "^4.4.10",
     "react-use-websocket": "^4.5.0",
     "uuid": "^9.0.1",
-    "viem": "^1.18.6",
+    "viem": "^1.18.8",
     "wagmi": "^1.4.5",
     "zod": "^3.22.2",
     "zustand": "^4.4.6"
