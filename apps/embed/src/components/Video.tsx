@@ -113,7 +113,7 @@ const Video: FC<Props> = ({ video }) => {
             onClick={onClickOverlay}
             role="button"
           >
-            <button className="from-brand-300 to-brand-600 rounded-full bg-gradient-to-r p-3 shadow-2xl xl:p-5">
+            <button className="from-brand-300 to-brand-600 rounded-full bg-gradient-to-r p-4 shadow-2xl xl:p-5">
               <PlayOutline className="h-6 w-6 pl-0.5 text-white" />
             </button>
           </div>
