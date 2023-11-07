@@ -1,12 +1,200 @@
 import { Input } from '@components/UIElements/Input'
+import { zodResolver } from '@hookform/resolvers/zod'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
+import type { MetadataAttribute } from '@lens-protocol/metadata'
+import { link, MetadataAttributeType } from '@lens-protocol/metadata'
 import useProfileStore from '@lib/store/profile'
 import { Button } from '@radix-ui/themes'
-import { FALLBACK_COVER_URL } from '@tape.xyz/constants'
-import { imageCdn } from '@tape.xyz/generic'
-import React from 'react'
+import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
+import { getUserLocale } from '@tape.xyz/browser'
+import {
+  ERROR_MESSAGE,
+  FALLBACK_COVER_URL,
+  LENSHUB_PROXY_ADDRESS,
+  OG_IMAGE,
+  REQUESTING_SIGNATURE_MESSAGE,
+  TAPE_APP_ID,
+  TAPE_WEBSITE_URL
+} from '@tape.xyz/constants'
+import {
+  checkLensManagerPermissions,
+  EVENTS,
+  getProfile,
+  getSignature,
+  imageCdn,
+  Tower,
+  trimify,
+  uploadToAr
+} from '@tape.xyz/generic'
+import type {
+  CreateMomokaPostEip712TypedData,
+  CreateOnchainPostEip712TypedData
+} from '@tape.xyz/lens'
+import {
+  useBroadcastOnMomokaMutation,
+  useCreateMomokaPostTypedDataMutation,
+  usePostOnMomokaMutation
+} from '@tape.xyz/lens'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+import { Loader } from '@tape.xyz/ui'
+import React, { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
+import { v4 as uuidv4 } from 'uuid'
+import { useContractWrite, useSignTypedData } from 'wagmi'
+import type { z } from 'zod'
+import { object, string } from 'zod'
+
+const formSchema = object({
+  link: string().url({ message: 'Invalid URL' })
+})
+type FormData = z.infer<typeof formSchema>
 
 const New = () => {
+  const {
+    register,
+    handleSubmit,
+    getValues,
+    reset,
+    formState: { errors }
+  } = useForm<FormData>({
+    resolver: zodResolver(formSchema)
+  })
+  const [loading, setLoading] = useState(false)
   const activeProfile = useProfileStore((state) => state.activeProfile)
+  const handleWrongNetwork = useHandleWrongNetwork()
+  const { canUseLensManager, canBroadcast } =
+    checkLensManagerPermissions(activeProfile)
+
+  const onError = (error: CustomErrorWithData) => {
+    toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
+    setLoading(false)
+  }
+
+  const onCompleted = (
+    __typename?: 'RelayError' | 'RelaySuccess' | 'CreateMomokaPublicationResult'
+  ) => {
+    if (__typename === 'RelayError') {
+      return
+    }
+    setLoading(false)
+    reset()
+    toast.success('Banger posted')
+    Tower.track(EVENTS.PUBLICATION.NEW_POST, {
+      type: 'banger',
+      publication_state: canUseLensManager ? 'MOMOKA' : 'ON_CHAIN',
+      user_id: activeProfile?.id
+    })
+  }
+
+  const { signTypedDataAsync } = useSignTypedData({
+    onError
+  })
+
+  const { write } = useContractWrite({
+    address: LENSHUB_PROXY_ADDRESS,
+    abi: LENSHUB_PROXY_ABI,
+    functionName: 'post',
+    onSuccess: () => {
+      onCompleted()
+    },
+    onError
+  })
+
+  const getSignatureFromTypedData = async (
+    data: CreateMomokaPostEip712TypedData | CreateOnchainPostEip712TypedData
+  ) => {
+    toast.loading(REQUESTING_SIGNATURE_MESSAGE)
+    const signature = await signTypedDataAsync(getSignature(data))
+    return signature
+  }
+
+  const [broadcastOnMomoka] = useBroadcastOnMomokaMutation({
+    onCompleted: ({ broadcastOnMomoka }) => {
+      if (broadcastOnMomoka.__typename === 'CreateMomokaPublicationResult') {
+        onCompleted()
+      }
+    }
+  })
+
+  const [createMomokaPostTypedData] = useCreateMomokaPostTypedDataMutation({
+    onCompleted: async ({ createMomokaPostTypedData }) => {
+      const { typedData, id } = createMomokaPostTypedData
+      try {
+        if (canBroadcast) {
+          const signature = await getSignatureFromTypedData(typedData)
+          const { data } = await broadcastOnMomoka({
+            variables: { request: { id, signature } }
+          })
+          if (data?.broadcastOnMomoka?.__typename === 'RelayError') {
+            return write({ args: [typedData.value] })
+          }
+          return onCompleted(data?.broadcastOnMomoka?.__typename)
+        }
+        return write({ args: [typedData.value] })
+      } catch {}
+    },
+    onError
+  })
+
+  const [postOnMomoka] = usePostOnMomokaMutation({
+    onError,
+    onCompleted: ({ postOnMomoka }) => {
+      if (postOnMomoka.__typename === 'CreateMomokaPublicationResult') {
+        onCompleted()
+      }
+    }
+  })
+
+  const onSubmit = async () => {
+    if (handleWrongNetwork()) {
+      return
+    }
+    setLoading(true)
+    const linkText = trimify(getValues('link'))
+    const attributes: MetadataAttribute[] = [
+      {
+        type: MetadataAttributeType.STRING,
+        key: 'publication',
+        value: 'banger'
+      }
+    ]
+    const linkMetadata = link({
+      sharingLink: linkText,
+      appId: TAPE_APP_ID,
+      id: uuidv4(),
+      content: `Only Bangers by Tape 📼 \n${TAPE_WEBSITE_URL}/bangers`,
+      locale: getUserLocale(),
+      tags: ['banger'],
+      marketplace: {
+        name: `Banger by @${getProfile(activeProfile)?.slug}`,
+        attributes,
+        description: linkText,
+        image: OG_IMAGE,
+        external_url: `${TAPE_WEBSITE_URL}/bangers`
+      },
+      attributes
+    })
+
+    const metadataUri = await uploadToAr(linkMetadata)
+    if (canUseLensManager) {
+      return await postOnMomoka({
+        variables: {
+          request: {
+            contentURI: metadataUri
+          }
+        }
+      })
+    }
+
+    return await createMomokaPostTypedData({
+      variables: {
+        request: {
+          contentURI: metadataUri
+        }
+      }
+    })
+  }
 
   return (
     <div
@@ -16,13 +204,23 @@ const New = () => {
       className="relative h-44 w-full bg-gray-300 bg-cover bg-center bg-no-repeat dark:bg-gray-700 md:h-[20vh]"
     >
       <fieldset
-        disabled={!activeProfile}
+        disabled={!activeProfile || loading}
         className="container mx-auto flex h-full max-w-screen-md flex-col justify-center px-4 md:px-0"
       >
-        <form>
-          <div className="flex items-end space-x-2">
-            <Input label="Post a banger" placeholder="Paste a link" />
-            <Button highContrast>Post</Button>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="flex space-x-2">
+            <Input
+              placeholder="Paste a link to a banger"
+              size="3"
+              autoComplete="off"
+              showErrorLabel={false}
+              validationError={errors.link?.message}
+              {...register('link')}
+            />
+            <Button size="3" highContrast>
+              {loading && <Loader size="sm" />}
+              Post
+            </Button>
           </div>
         </form>
       </fieldset>
