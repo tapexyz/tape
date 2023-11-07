@@ -25,7 +25,7 @@ import {
   SETTINGS_SESSIONS
 } from '.'
 
-const SideNav = () => {
+const SettingsSidebar = () => {
   const router = useRouter()
   const { address } = useAccount()
   const activeProfile = useProfileStore((state) => state.activeProfile)
@@ -135,4 +135,4 @@ const SideNav = () => {
   )
 }
 
-export default SideNav
+export default SettingsSidebar
