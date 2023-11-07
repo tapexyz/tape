@@ -385,7 +385,12 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
       !data?.legacyCollect ||
       data?.legacyCollect.__typename === 'LensProfileManagerRelayError'
     ) {
-      return await createLegacyCollectTypedData({ variables: { request } })
+      return await createLegacyCollectTypedData({
+        variables: {
+          options: { overrideSigNonce: lensHubOnchainSigNonce },
+          request
+        }
+      })
     }
   }
 
@@ -401,18 +406,18 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
     setCollecting(true)
 
     if (isLegacyCollectModule) {
-      const legcayCollectRequest: LegacyCollectRequest = {
+      const legacyCollectRequest: LegacyCollectRequest = {
         on: publication?.id
       }
 
       if (canUseLensManager && isFreeForAnyone) {
-        return await legacyCollectViaLensManager(legcayCollectRequest)
+        return await legacyCollectViaLensManager(legacyCollectRequest)
       }
 
       return await createLegacyCollectTypedData({
         variables: {
           options: { overrideSigNonce: lensHubOnchainSigNonce },
-          request: legcayCollectRequest
+          request: legacyCollectRequest
         }
       })
     }
