@@ -1,6 +1,6 @@
 import { useAverageColor } from '@tape.xyz/browser'
 import {
-  FALLBACK_COVER_URL,
+  FALLBACK_THUMBNAIL_URL,
   LENSTUBE_BYTES_APP_ID,
   STATIC_ASSETS
 } from '@tape.xyz/constants'
@@ -49,7 +49,7 @@ const ThumbnailImage: FC<Props> = ({ video }) => {
       alt="thumbnail"
       draggable={false}
       onError={({ currentTarget }) => {
-        currentTarget.src = FALLBACK_COVER_URL
+        currentTarget.src = FALLBACK_THUMBNAIL_URL
       }}
     />
   )

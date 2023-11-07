@@ -18,6 +18,7 @@ const Layout = dynamic(() => import('../Layout'))
 const NO_NAV_PATHS = ['/login']
 const NO_PADDING_PATHS = [
   '/u/[[...handle]]',
+  '/bangers',
   '/profile/[id]',
   '/login',
   '/bytes',

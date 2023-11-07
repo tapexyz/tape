@@ -2,7 +2,7 @@ import VideoOptions from '@components/Common/VideoCard/VideoOptions'
 import LatestBytesShimmer from '@components/Shimmers/LatestBytesShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import {
-  FALLBACK_COVER_URL,
+  FALLBACK_THUMBNAIL_URL,
   INFINITE_SCROLL_ROOT_MARGIN,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_BYTES_APP_ID
@@ -93,7 +93,7 @@ const ProfileBytes: FC<Props> = ({ profileId }) => {
                   alt="thumbnail"
                   draggable={false}
                   onError={({ currentTarget }) => {
-                    currentTarget.src = FALLBACK_COVER_URL
+                    currentTarget.src = FALLBACK_THUMBNAIL_URL
                   }}
                 />
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-b from-transparent to-black/30 px-4 py-2 text-white">

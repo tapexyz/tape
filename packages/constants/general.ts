@@ -13,7 +13,8 @@ export const STATIC_ASSETS = 'https://static.tape.xyz'
 export const TAPE_WEBSITE_URL = IS_MAINNET
   ? 'https://tape.xyz'
   : 'https://testnet.tape.xyz'
-export const FALLBACK_COVER_URL = `${STATIC_ASSETS}/images/fallback-thumbnail.webp`
+export const FALLBACK_THUMBNAIL_URL = `${STATIC_ASSETS}/images/fallback-thumbnail.webp`
+export const FALLBACK_COVER_URL = `${STATIC_ASSETS}/images/fallback-cover.svg`
 export const OG_IMAGE = `${STATIC_ASSETS}/brand/og.png`
 // export const LENS_IMAGEKIT_SNAPSHOT_URL =
 //   'https://ik.imagekit.io/lens/media-snapshot'

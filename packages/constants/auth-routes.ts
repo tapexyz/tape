@@ -3,7 +3,7 @@ export const AUTH_ROUTES = [
   '/create',
   '/settings',
   '/feed',
-  '/settings/subscription',
+  '/settings/follow',
   '/settings/sessions',
   '/settings/allowance',
   '/settings/interests',
