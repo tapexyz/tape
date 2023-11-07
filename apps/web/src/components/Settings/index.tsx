@@ -17,7 +17,7 @@ import FollowSettings from './Follow'
 import ProfileManager from './Manager'
 import ProfileInterests from './ProfileInterests'
 import Sessions from './Sessions'
-import SideNav from './SideNav'
+import SettingsSidebar from './SettingsSidebar'
 
 export const SETTINGS_FOLLOW = '/settings/follow'
 export const SETTINGS_INTERESTS = '/settings/interests'
@@ -62,7 +62,7 @@ const Settings = () => {
       {!loading && !error && profile ? (
         <div className="grid gap-4 md:grid-cols-4">
           <div className="md:col-span-1">
-            <SideNav />
+            <SettingsSidebar />
           </div>
           <div className="md:col-span-3">
             {router.pathname === SETTINGS && <BasicInfo profile={profile} />}

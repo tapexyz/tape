@@ -68,17 +68,6 @@ const Feed = () => {
     }
   })
 
-  if (feedItems?.length === 0) {
-    return (
-      <NoDataFound
-        className="my-20"
-        isCenter
-        withImage
-        text="No videos in your feed, follow!"
-      />
-    )
-  }
-
   if (!loading && error) {
     return <Custom500 />
   }
@@ -88,6 +77,14 @@ const Feed = () => {
       <MetaTags title="Your Feed" />
       <CategoryFilters heading="Feed" subheading="Your Friends' Stories" />
       {loading && <TimelineShimmer className="laptop:pt-6 pt-4" />}
+      {!loading && !feedItems?.length ? (
+        <NoDataFound
+          className="my-20"
+          isCenter
+          withImage
+          text="No videos found!"
+        />
+      ) : null}
       {!error && !loading && (
         <>
           <div className="laptop:pt-6 ultrawide:grid-cols-6 grid-col-1 desktop:grid-cols-4 tablet:grid-cols-3 grid gap-x-4 gap-y-2 pt-4 md:gap-y-6">

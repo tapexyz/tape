@@ -80,16 +80,6 @@ const Navbar = () => {
             Home
           </Link>
           <Link
-            href="/feed"
-            className={clsx(
-              isActivePath('/feed')
-                ? 'font-bold'
-                : 'text-dust font-medium hover:opacity-90'
-            )}
-          >
-            Feed
-          </Link>
-          <Link
             href="/bytes"
             className={clsx(
               isActivePath('/bytes')
@@ -98,6 +88,16 @@ const Navbar = () => {
             )}
           >
             Bytes
+          </Link>
+          <Link
+            href="/feed"
+            className={clsx(
+              isActivePath('/feed')
+                ? 'font-bold'
+                : 'text-dust font-medium hover:opacity-90'
+            )}
+          >
+            Feed
           </Link>
         </div>
         <div className="flex w-1/5 items-center justify-end space-x-3">
