@@ -28,7 +28,7 @@ const Login = () => {
                 src={`${STATIC_ASSETS}/brand/logo-with-text-dark.webp`}
                 className="h-10"
                 alt="tape"
-                width={200}
+                width={180}
                 height={30}
                 draggable={false}
               />
@@ -37,7 +37,7 @@ const Login = () => {
                 src={`${STATIC_ASSETS}/brand/logo-with-text-light.webp`}
                 className="h-10"
                 alt="tape"
-                width={200}
+                width={180}
                 height={30}
                 draggable={false}
               />

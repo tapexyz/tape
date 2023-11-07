@@ -39,10 +39,7 @@ const connectors: any = [
   new CoinbaseWalletConnector({ options: { appName: TAPE_APP_NAME } }),
   new WalletConnectConnector({
     options: {
-      projectId: WC_PROJECT_ID,
-      qrModalOptions: {
-        explorerExcludedWalletIds: 'ALL'
-      }
+      projectId: WC_PROJECT_ID
     },
     chains
   })
