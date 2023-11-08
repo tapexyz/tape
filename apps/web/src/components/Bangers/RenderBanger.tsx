@@ -1,4 +1,5 @@
 import SignOutline from '@components/Common/Icons/SignOutline'
+import MirrorVideo from '@components/Common/MirrorVideo'
 import PublicationReaction from '@components/Watch/PublicationReaction'
 import { Button } from '@radix-ui/themes'
 import { TAPE_WEBSITE_URL } from '@tape.xyz/constants'
@@ -25,12 +26,16 @@ const RenderBanger = ({ post }: { post: PrimaryPublication }) => {
             />
           </div>
         </div>
-        <div className="flex items-center justify-end space-x-2">
+        <div className="mr-2 flex items-center justify-end space-x-4">
           <PublicationReaction publication={post} />
-          <Button size="1" highContrast variant="ghost">
-            Co-sign
-            <SignOutline className="h-3.5 w-3.5" />
-          </Button>
+          <MirrorVideo video={post}>
+            <div className="flex">
+              <Button size="1" highContrast variant="ghost">
+                Co-sign
+                <SignOutline className="h-3.5 w-3.5" />
+              </Button>
+            </div>
+          </MirrorVideo>
         </div>
       </div>
     </div>
