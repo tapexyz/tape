@@ -94,15 +94,15 @@ const TopOverlay: FC<OverlayProps> = ({ playerRef, video }) => {
           </div>
           <button
             onClick={() => onCopyVideoUrl()}
-            className="rounded-full bg-black/50 p-3"
+            className="invisible rounded-full bg-black/50 p-3 transition-all duration-200 ease-in-out group-hover:visible"
           >
-            <CopyOutline className="h-4 w-4" />
+            <CopyOutline className="h-3.5 w-3.5" />
           </button>
         </div>
       </div>
       <div className="absolute bottom-2 right-0 md:bottom-4">
         <Link
-          className="flex items-center space-x-1.5 rounded-l-lg bg-black/50 px-3 py-1 text-white"
+          className="rounded-l-small flex items-center space-x-1.5 bg-black/50 px-3 py-1.5 text-white"
           title={`Watch on ${TAPE_APP_NAME}`}
           href={`${TAPE_WEBSITE_URL}/watch/${video?.id}`}
           target="_blank"
