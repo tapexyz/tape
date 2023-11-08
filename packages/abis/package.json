@@ -9,8 +9,8 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "typescript": "^5.2.2",
-    "@types/node": "^20.8.0",
-    "@tape.xyz/config": "*"
+    "@tape.xyz/config": "*",
+    "@types/node": "^20.9.0",
+    "typescript": "^5.2.2"
   }
 }
