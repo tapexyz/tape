@@ -177,8 +177,8 @@ const PinnedVideo: FC<Props> = ({ id }) => {
           }
         ]
       }
-      metadata.attributes = metadata.attributes?.filter((m) =>
-        Boolean(trimify(m.value))
+      metadata.attributes = metadata.attributes?.filter(
+        (m) => Boolean(trimify(m.key)) && Boolean(trimify(m.value))
       )
       const metadataURI = await uploadToAr(profile(metadata))
       const request: OnchainSetProfileMetadataRequest = {

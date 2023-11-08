@@ -254,8 +254,8 @@ const BasicInfo = ({ profile }: Props) => {
           }
         ]
       }
-      metadata.attributes = metadata.attributes?.filter((m) =>
-        Boolean(trimify(m.value))
+      metadata.attributes = metadata.attributes?.filter(
+        (m) => Boolean(trimify(m.key)) && Boolean(trimify(m.value))
       )
       if (Boolean(trimify(data.description))) {
         metadata.bio = trimify(data.description)

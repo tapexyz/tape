@@ -61,8 +61,7 @@ const Guardian: FC = () => {
   })
 
   const { isSuccess } = useWaitForTransaction({
-    hash: disableData?.hash ?? enableData?.hash,
-    enabled: Boolean(disableData?.hash.length ?? enableData?.hash.length)
+    hash: disableData?.hash ?? enableData?.hash
   })
 
   useEffect(() => {
@@ -152,6 +151,7 @@ const Guardian: FC = () => {
             highContrast
             onClick={() => toggle()}
           >
+            {loading && <Loader size="sm" />}
             {loading ? 'Enabling' : 'Enable'}
           </Button>
         )}
