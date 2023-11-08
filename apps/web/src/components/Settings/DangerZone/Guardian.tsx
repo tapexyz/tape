@@ -10,9 +10,10 @@ import {
 import type { Profile } from '@tape.xyz/lens'
 import { useProfileLazyQuery } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+import { Loader } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import type { FC } from 'react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork'
 import { useContractWrite, useWaitForTransaction } from 'wagmi'
@@ -59,15 +60,19 @@ const Guardian: FC = () => {
     onError
   })
 
-  useWaitForTransaction({
+  const { isSuccess } = useWaitForTransaction({
     hash: disableData?.hash ?? enableData?.hash,
-    onSuccess: () => {
+    enabled: Boolean(disableData?.hash.length ?? enableData?.hash.length)
+  })
+
+  useEffect(() => {
+    if (isSuccess) {
       setGuardianEnabled(!guardianEnabled)
       setLoading(false)
       fetchProfile()
-    },
-    enabled: Boolean(disableData?.hash.length ?? enableData?.hash.length)
-  })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccess])
 
   const toggle = async () => {
     if (!activeProfile?.id) {
@@ -137,6 +142,7 @@ const Guardian: FC = () => {
         )}
         {guardianEnabled ? (
           <Button color="red" disabled={loading} onClick={() => toggle()}>
+            {loading && <Loader size="sm" />}
             {loading ? 'Disabling' : 'Disable'}
           </Button>
         ) : (
