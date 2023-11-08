@@ -9,6 +9,7 @@ import { Button } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { getUserLocale } from '@tape.xyz/browser'
 import {
+  COMMON_REGEX,
   ERROR_MESSAGE,
   FALLBACK_COVER_URL,
   LENSHUB_PROXY_ADDRESS,
@@ -48,8 +49,14 @@ import { useContractWrite, useSignTypedData } from 'wagmi'
 import type { z } from 'zod'
 import { object, string } from 'zod'
 
+const VALID_URL_REGEX = new RegExp(
+  `${COMMON_REGEX.YOUTUBE_WATCH.source}|${COMMON_REGEX.TAPE_WATCH.source}`
+)
+
 const formSchema = object({
-  link: string().url({ message: 'Invalid URL' })
+  link: string()
+    .url({ message: 'Invalid URL' })
+    .regex(VALID_URL_REGEX, { message: 'Invalid YouTube or Tape URL' })
 })
 type FormData = z.infer<typeof formSchema>
 
@@ -234,7 +241,6 @@ const New = () => {
               size="3"
               autoComplete="off"
               className="bg-white dark:bg-black"
-              showErrorLabel={false}
               validationError={errors.link?.message}
               {...register('link')}
             />

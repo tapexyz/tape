@@ -1,10 +1,7 @@
+import { COMMON_REGEX } from '../helpers/constants'
 import extractOgTags from '../helpers/extractOgTags'
 import type { WorkerRequest } from '../types'
 import { parseHTML } from 'linkedom'
-
-const REGEX = {
-  TAPE: /^https?:\/\/tape\.xyz\/watch\/[\dA-Za-z-]+(\?si=[\dA-Za-z]+)?$/
-}
 
 export default async (request: WorkerRequest) => {
   const urlObject = new URL(request.url)
@@ -16,7 +13,7 @@ export default async (request: WorkerRequest) => {
   }
 
   try {
-    if (REGEX.TAPE.test(url)) {
+    if (COMMON_REGEX.TAPE_WATCH.test(url)) {
       // Fetch metatags directly from tape.xyz
       const path = new URL(url).pathname
       url = `https://api.tape.xyz/metatags?path=${path}`

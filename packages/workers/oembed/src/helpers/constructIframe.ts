@@ -1,11 +1,7 @@
 import { Document } from 'linkedom'
+import { COMMON_REGEX } from './constants'
 
 const ALLOWED_SITES = ['youtube.com', 'youtu.be', 'embed.tape.xyz']
-
-const REGEX = {
-  YOUTUBE:
-    /^https?:\/\/(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([\w-]+)(?:\?.*)?$/
-}
 
 const constructIframe = (document: Document) => {
   const ogURLTag =
@@ -24,7 +20,7 @@ const constructIframe = (document: Document) => {
     return null
   }
 
-  if (REGEX.YOUTUBE.test(embedUrl)) {
+  if (COMMON_REGEX.YOUTUBE_WATCH.test(embedUrl)) {
     urlObj.searchParams.append('color', 'white')
     urlObj.searchParams.append('modestbranding', '1')
     urlObj.searchParams.append('rel', '0')
