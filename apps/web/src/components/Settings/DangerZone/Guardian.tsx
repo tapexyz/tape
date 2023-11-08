@@ -10,6 +10,7 @@ import {
 import type { Profile } from '@tape.xyz/lens'
 import { useProfileLazyQuery } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+import { Loader } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import { useState } from 'react'
@@ -137,6 +138,7 @@ const Guardian: FC = () => {
         )}
         {guardianEnabled ? (
           <Button color="red" disabled={loading} onClick={() => toggle()}>
+            {loading && <Loader size="sm" />}
             {loading ? 'Disabling' : 'Disable'}
           </Button>
         ) : (
