@@ -19,7 +19,7 @@
     "@tape.xyz/constants": "*",
     "@tape.xyz/generic": "*",
     "@tape.xyz/lens": "*",
-    "@types/node": "20.8.10",
+    "@types/node": "20.9.0",
     "typescript": "5.2.2"
   }
 }
