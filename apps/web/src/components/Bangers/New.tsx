@@ -233,6 +233,7 @@ const New = () => {
               placeholder="Paste a link to a banger"
               size="3"
               autoComplete="off"
+              className="bg-white dark:bg-black"
               showErrorLabel={false}
               validationError={errors.link?.message}
               {...register('link')}
