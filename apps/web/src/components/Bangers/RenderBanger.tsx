@@ -1,14 +1,10 @@
-import HoverableProfile from '@components/Common/HoverableProfile'
-import { Avatar, Button } from '@radix-ui/themes'
+import { Button } from '@radix-ui/themes'
 import { TAPE_WEBSITE_URL } from '@tape.xyz/constants'
-import {
-  getProfile,
-  getProfilePicture,
-  getPublicationData
-} from '@tape.xyz/generic'
+import { getPublicationData } from '@tape.xyz/generic'
 import type { PrimaryPublication } from '@tape.xyz/lens'
 import React from 'react'
 
+import Mirrors from './Mirrors'
 import RenderLink from './RenderLink'
 
 const RenderBanger = ({ post }: { post: PrimaryPublication }) => {
@@ -16,16 +12,7 @@ const RenderBanger = ({ post }: { post: PrimaryPublication }) => {
     <div className="ultrawide:space-y-8 space-y-6 py-5">
       <div className="space-y-2">
         <div className="flex items-center justify-between">
-          <div className="flex items-center -space-x-2">
-            <HoverableProfile profile={post.by}>
-              <Avatar
-                radius="full"
-                src={getProfilePicture(post.by)}
-                fallback={getProfile(post.by)?.displayName}
-                alt={getProfile(post.by)?.displayName}
-              />
-            </HoverableProfile>
-          </div>
+          <Mirrors post={post} />
           <Button highContrast variant="soft">
             Youtube
           </Button>

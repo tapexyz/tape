@@ -3,6 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import type { MetadataAttribute } from '@lens-protocol/metadata'
 import { link, MetadataAttributeType } from '@lens-protocol/metadata'
+import useNonceStore from '@lib/store/nonce'
 import useProfileStore from '@lib/store/profile'
 import { Button } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
@@ -14,7 +15,8 @@ import {
   OG_IMAGE,
   REQUESTING_SIGNATURE_MESSAGE,
   TAPE_APP_ID,
-  TAPE_WEBSITE_URL
+  TAPE_WEBSITE_URL,
+  USDC_TOKEN_ADDRESS
 } from '@tape.xyz/constants'
 import {
   checkLensManagerPermissions,
@@ -28,12 +30,13 @@ import {
 } from '@tape.xyz/generic'
 import type {
   CreateMomokaPostEip712TypedData,
-  CreateOnchainPostEip712TypedData
+  CreateOnchainPostEip712TypedData,
+  OnchainPostRequest
 } from '@tape.xyz/lens'
 import {
-  useBroadcastOnMomokaMutation,
-  useCreateMomokaPostTypedDataMutation,
-  usePostOnMomokaMutation
+  useBroadcastOnchainMutation,
+  useCreateOnchainPostTypedDataMutation,
+  usePostOnchainMutation
 } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
@@ -65,6 +68,12 @@ const New = () => {
   const handleWrongNetwork = useHandleWrongNetwork()
   const { canUseLensManager, canBroadcast } =
     checkLensManagerPermissions(activeProfile)
+  const lensHubOnchainSigNonce = useNonceStore(
+    (state) => state.lensHubOnchainSigNonce
+  )
+  const setLensHubOnchainSigNonce = useNonceStore(
+    (state) => state.setLensHubOnchainSigNonce
+  )
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
@@ -96,9 +105,13 @@ const New = () => {
     abi: LENSHUB_PROXY_ABI,
     functionName: 'post',
     onSuccess: () => {
-      onCompleted()
+      setLoading(false)
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
     },
-    onError
+    onError: (error) => {
+      onError(error)
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
+    }
   })
 
   const getSignatureFromTypedData = async (
@@ -109,27 +122,25 @@ const New = () => {
     return signature
   }
 
-  const [broadcastOnMomoka] = useBroadcastOnMomokaMutation({
-    onCompleted: ({ broadcastOnMomoka }) => {
-      if (broadcastOnMomoka.__typename === 'CreateMomokaPublicationResult') {
-        onCompleted()
-      }
+  const [broadcastOnchain] = useBroadcastOnchainMutation({
+    onCompleted: ({ broadcastOnchain }) => {
+      onCompleted(broadcastOnchain.__typename)
     }
   })
 
-  const [createMomokaPostTypedData] = useCreateMomokaPostTypedDataMutation({
-    onCompleted: async ({ createMomokaPostTypedData }) => {
-      const { typedData, id } = createMomokaPostTypedData
+  const [createOnchainPostTypedData] = useCreateOnchainPostTypedDataMutation({
+    onCompleted: async ({ createOnchainPostTypedData }) => {
+      const { typedData, id } = createOnchainPostTypedData
       try {
         if (canBroadcast) {
           const signature = await getSignatureFromTypedData(typedData)
-          const { data } = await broadcastOnMomoka({
+          const { data } = await broadcastOnchain({
             variables: { request: { id, signature } }
           })
-          if (data?.broadcastOnMomoka?.__typename === 'RelayError') {
+          if (data?.broadcastOnchain?.__typename === 'RelayError') {
             return write({ args: [typedData.value] })
           }
-          return onCompleted(data?.broadcastOnMomoka?.__typename)
+          return
         }
         return write({ args: [typedData.value] })
       } catch {}
@@ -137,11 +148,11 @@ const New = () => {
     onError
   })
 
-  const [postOnMomoka] = usePostOnMomokaMutation({
+  const [postOnchain] = usePostOnchainMutation({
     onError,
-    onCompleted: ({ postOnMomoka }) => {
-      if (postOnMomoka.__typename === 'CreateMomokaPublicationResult') {
-        onCompleted()
+    onCompleted: ({ postOnchain }) => {
+      if (postOnchain.__typename === 'RelaySuccess') {
+        onCompleted(postOnchain.__typename)
       }
     }
   })
@@ -175,23 +186,32 @@ const New = () => {
       },
       attributes
     })
-
     const metadataUri = await uploadToAr(linkMetadata)
-    if (canUseLensManager) {
-      return await postOnMomoka({
-        variables: {
-          request: {
-            contentURI: metadataUri
+
+    const request: OnchainPostRequest = {
+      contentURI: metadataUri,
+      openActionModules: [
+        {
+          collectOpenAction: {
+            simpleCollectOpenAction: {
+              followerOnly: false,
+              amount: { value: '1', currency: USDC_TOKEN_ADDRESS },
+              referralFee: 10
+            }
           }
         }
+      ]
+    }
+    if (canUseLensManager) {
+      return await postOnchain({
+        variables: { request }
       })
     }
 
-    return await createMomokaPostTypedData({
+    return await createOnchainPostTypedData({
       variables: {
-        request: {
-          contentURI: metadataUri
-        }
+        options: { overrideSigNonce: lensHubOnchainSigNonce },
+        request
       }
     })
   }
@@ -205,7 +225,7 @@ const New = () => {
     >
       <fieldset
         disabled={!activeProfile || loading}
-        className="container mx-auto flex h-full max-w-screen-md flex-col justify-center px-4 md:px-0"
+        className="container mx-auto flex h-full max-w-screen-sm flex-col justify-center px-4 md:px-0"
       >
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="flex space-x-2">

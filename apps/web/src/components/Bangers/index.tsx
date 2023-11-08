@@ -12,7 +12,7 @@ const Bangers = () => {
   return (
     <div>
       <New />
-      <div className="container mx-auto max-w-screen-md">
+      <div className="container mx-auto max-w-screen-sm">
         <Feed />
       </div>
     </div>

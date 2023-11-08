@@ -1,6 +1,5 @@
 import BangersShimmer from '@components/Shimmers/BangersShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import useProfileStore from '@lib/store/profile'
 import {
   INFINITE_SCROLL_ROOT_MARGIN,
   LENS_CUSTOM_FILTERS,
@@ -24,8 +23,6 @@ import { useInView } from 'react-cool-inview'
 import RenderBanger from './RenderBanger'
 
 const Feed = () => {
-  const activeProfile = useProfileStore((state) => state.activeProfile)
-
   const request: ExplorePublicationRequest = {
     where: {
       publicationTypes: [ExplorePublicationType.Post],
@@ -35,15 +32,14 @@ const Feed = () => {
       },
       customFilters: LENS_CUSTOM_FILTERS
     },
-    orderBy: ExplorePublicationsOrderByType.LensCurated,
+    orderBy: ExplorePublicationsOrderByType.Latest,
     limit: LimitType.Fifty
   }
 
   const { data, loading, error, fetchMore } = useExplorePublicationsQuery({
     variables: {
       request
-    },
-    skip: !activeProfile?.id
+    }
   })
 
   const posts = data?.explorePublications?.items as PrimaryPublication[]
