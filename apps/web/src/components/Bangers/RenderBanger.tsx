@@ -12,16 +12,18 @@ import RenderLink from './RenderLink'
 const RenderBanger = ({ post }: { post: PrimaryPublication }) => {
   return (
     <div className="ultrawide:space-y-8 hover:bg-gallery/50 hover:dark:bg-smoke space-y-6 p-5">
-      <div className="space-y-2">
-        <div className="flex items-center justify-between">
-          <Mirrors post={post} />
-        </div>
-        <div className="rounded-small overflow-hidden">
-          <RenderLink
-            link={
-              getPublicationData(post.metadata)?.content ?? TAPE_WEBSITE_URL
-            }
-          />
+      <div className="space-y-4">
+        <div className="space-y-2">
+          <div className="flex items-center justify-between">
+            <Mirrors post={post} />
+          </div>
+          <div className="rounded-small overflow-hidden">
+            <RenderLink
+              link={
+                getPublicationData(post.metadata)?.content ?? TAPE_WEBSITE_URL
+              }
+            />
+          </div>
         </div>
         <div className="flex items-center justify-end space-x-2">
           <PublicationReaction publication={post} />
