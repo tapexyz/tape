@@ -60,7 +60,7 @@ const HoverableProfile: FC<Props> = ({
               <Avatar
                 className="border-2 border-white bg-white object-cover dark:bg-gray-900"
                 src={getProfilePicture(profile, 'AVATAR')}
-                size="3"
+                size="4"
                 fallback={getProfile(profile)?.displayName[0] ?? ';)'}
                 radius="large"
                 alt={getProfile(activeProfile)?.displayName}
