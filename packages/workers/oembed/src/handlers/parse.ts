@@ -20,7 +20,13 @@ export default async (request: WorkerRequest) => {
     }
 
     // Fetch metatags from URL
-    const response = await fetch(url, { headers: { 'User-Agent': 'bot' } })
+    const response = await fetch(url, {
+      headers: { 'User-Agent': 'bot' },
+      cf: {
+        cacheTtl: 60 * 60 * 24 * 7,
+        cacheEverything: true
+      }
+    })
     const html = await response.text()
     const { document } = parseHTML(html)
 
