@@ -1,0 +1,17 @@
+query OwnedHandles($request: OwnedHandlesRequest!) {
+  ownedHandles(request: $request) {
+    items {
+      id
+      linkedTo {
+        nftTokenId
+        contract {
+          address
+        }
+      }
+      fullHandle
+    }
+    pageInfo {
+      next
+    }
+  }
+}

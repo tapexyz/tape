@@ -14,12 +14,14 @@ import BasicInfo from './BasicInfo'
 import Blocked from './Blocked'
 import DangerZone from './DangerZone'
 import FollowSettings from './Follow'
+import Handles from './Handles'
 import ProfileManager from './Manager'
 import ProfileInterests from './ProfileInterests'
 import Sessions from './Sessions'
 import SettingsSidebar from './SettingsSidebar'
 
 export const SETTINGS_FOLLOW = '/settings/follow'
+export const SETTINGS_HANDLES = '/settings/handles'
 export const SETTINGS_INTERESTS = '/settings/interests'
 export const SETTINGS_ALLOWANCE = '/settings/allowance'
 export const SETTINGS_MANAGER = '/settings/manager'
@@ -73,6 +75,7 @@ const Settings = () => {
             {router.pathname === SETTINGS_INTERESTS && <ProfileInterests />}
             {router.pathname === SETTINGS_SESSIONS && <Sessions />}
             {router.pathname === SETTINGS_MANAGER && <ProfileManager />}
+            {router.pathname === SETTINGS_HANDLES && <Handles />}
             {router.pathname === SETTINGS_BLOCKED && <Blocked />}
             {router.pathname === SETTINGS_DANGER_ZONE && <DangerZone />}
           </div>
