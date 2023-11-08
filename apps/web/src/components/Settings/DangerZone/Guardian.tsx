@@ -13,7 +13,7 @@ import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import type { FC } from 'react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork'
 import { useContractWrite, useWaitForTransaction } from 'wagmi'
@@ -60,15 +60,18 @@ const Guardian: FC = () => {
     onError
   })
 
-  useWaitForTransaction({
-    hash: disableData?.hash ?? enableData?.hash,
-    onSuccess: () => {
+  const { isSuccess } = useWaitForTransaction({
+    hash: disableData?.hash ?? enableData?.hash
+  })
+
+  useEffect(() => {
+    if (isSuccess) {
       setGuardianEnabled(!guardianEnabled)
       setLoading(false)
       fetchProfile()
-    },
-    enabled: Boolean(disableData?.hash.length ?? enableData?.hash.length)
-  })
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccess])
 
   const toggle = async () => {
     if (!activeProfile?.id) {
@@ -148,6 +151,7 @@ const Guardian: FC = () => {
             highContrast
             onClick={() => toggle()}
           >
+            {loading && <Loader size="sm" />}
             {loading ? 'Enabling' : 'Enable'}
           </Button>
         )}

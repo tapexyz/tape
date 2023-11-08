@@ -223,8 +223,8 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
           }
         ]
       }
-      metadata.attributes = metadata.attributes?.filter((m) =>
-        Boolean(trimify(m.value))
+      metadata.attributes = metadata.attributes?.filter(
+        (m) => Boolean(trimify(m.key)) && Boolean(trimify(m.value))
       )
       const metadataUri = await uploadToAr(profile(metadata))
       const request: OnchainSetProfileMetadataRequest = {
