@@ -17,7 +17,7 @@ export const BangersBubbles = () => {
 const BangersShimmer = () => {
   return (
     <div className="ultrawide:space-y-8 animate-pulse space-y-6 p-5">
-      <div className="space-y-2">
+      <div className="space-y-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center -space-x-2">
             <div className="tape-border h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-800" />
@@ -33,7 +33,7 @@ const BangersShimmer = () => {
         </div>
       </div>
 
-      <div className="space-y-2">
+      <div className="space-y-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center -space-x-2">
             <div className="tape-border h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-800" />
@@ -49,7 +49,7 @@ const BangersShimmer = () => {
         </div>
       </div>
 
-      <div className="space-y-2">
+      <div className="space-y-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center -space-x-2">
             <div className="tape-border h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-800" />
