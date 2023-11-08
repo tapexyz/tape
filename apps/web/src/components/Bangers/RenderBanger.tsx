@@ -14,7 +14,7 @@ const RenderBanger = ({ post }: { post: PrimaryPublication }) => {
         <div className="flex items-center justify-between">
           <Mirrors post={post} />
           <Button highContrast variant="soft">
-            Youtube
+            Banger
           </Button>
         </div>
         <div className="rounded-small overflow-hidden">
