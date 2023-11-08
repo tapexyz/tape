@@ -14,7 +14,7 @@ import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { toast } from 'react-hot-toast'
 import { useAccount, useDisconnect } from 'wagmi'
 
@@ -43,7 +43,15 @@ const UserMenu = () => {
       request: { for: address, includeOwned: true, limit: LimitType.Fifty }
     }
   })
-  const profilesManaged = data?.profilesManaged.items as Profile[]
+  const profilesManagedWithoutActiveProfile = useMemo(() => {
+    if (!data?.profilesManaged?.items) {
+      return []
+    }
+    return data.profilesManaged.items.filter(
+      (p) => p.id !== activeProfile?.id
+    ) as Profile[]
+  }, [data?.profilesManaged, activeProfile])
+
   const isAdmin = ADMIN_IDS.includes(activeProfile?.id)
 
   const [revokeAuthentication, { loading }] = useRevokeAuthenticationMutation()
@@ -120,44 +128,49 @@ const UserMenu = () => {
                 </Flex>
               </DropdownMenu.Item>
 
-              <DropdownMenu.Sub>
-                <DropdownMenu.SubTrigger>
-                  <Flex align="center" gap="2">
-                    <SwitchProfileOutline className="h-4 w-4" />
-                    <Text as="p" className="truncate whitespace-nowrap">
-                      Switch Profile
-                    </Text>
-                  </Flex>
-                </DropdownMenu.SubTrigger>
-                <DropdownMenu.SubContent>
-                  {profilesManaged?.map(
-                    (profile) =>
-                      profile.id !== activeProfile.id && (
-                        <DropdownMenu.Item
-                          key={profile.id}
-                          onClick={() =>
-                            push(`/login?as=${profile.id}&next=${asPath}`)
-                          }
-                        >
-                          <Flex gap="2" align="center">
-                            <Avatar
-                              size="1"
-                              radius="full"
-                              src={getProfilePicture(profile)}
-                              fallback={
-                                getProfile(profile)?.displayName[0] ?? ';)'
-                              }
-                              alt={getProfile(activeProfile)?.displayName}
-                            />
-                            <Text as="p" className="truncate whitespace-nowrap">
-                              {getProfile(profile)?.slug}
-                            </Text>
-                          </Flex>
-                        </DropdownMenu.Item>
-                      )
-                  )}
-                </DropdownMenu.SubContent>
-              </DropdownMenu.Sub>
+              {profilesManagedWithoutActiveProfile.length ? (
+                <DropdownMenu.Sub>
+                  <DropdownMenu.SubTrigger>
+                    <Flex align="center" gap="2">
+                      <SwitchProfileOutline className="h-4 w-4" />
+                      <Text as="p" className="truncate whitespace-nowrap">
+                        Switch Profile
+                      </Text>
+                    </Flex>
+                  </DropdownMenu.SubTrigger>
+                  <DropdownMenu.SubContent>
+                    {profilesManagedWithoutActiveProfile?.map(
+                      (profile) =>
+                        profile.id !== activeProfile.id && (
+                          <DropdownMenu.Item
+                            key={profile.id}
+                            onClick={() =>
+                              push(`/login?as=${profile.id}&next=${asPath}`)
+                            }
+                          >
+                            <Flex gap="2" align="center">
+                              <Avatar
+                                size="1"
+                                radius="full"
+                                src={getProfilePicture(profile)}
+                                fallback={
+                                  getProfile(profile)?.displayName[0] ?? ';)'
+                                }
+                                alt={getProfile(activeProfile)?.displayName}
+                              />
+                              <Text
+                                as="p"
+                                className="truncate whitespace-nowrap"
+                              >
+                                {getProfile(profile)?.slug}
+                              </Text>
+                            </Flex>
+                          </DropdownMenu.Item>
+                        )
+                    )}
+                  </DropdownMenu.SubContent>
+                </DropdownMenu.Sub>
+              ) : null}
             </>
           )}
           <DropdownMenu.Item onClick={() => push('/settings')}>
