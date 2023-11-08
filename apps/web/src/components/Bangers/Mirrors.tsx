@@ -44,22 +44,22 @@ const Mirrors = ({ post }: { post: PrimaryPublication }) => {
   const mirroredByProfiles = data?.profiles?.items as Profile[]
 
   return (
-    <div className="flex items-center -space-x-2">
+    <div className="no-scrollbar flex items-center -space-x-2 overflow-x-auto">
       <HoverableProfile profile={post.by}>
         <Avatar
           size="2"
           radius="full"
+          className="z-[1]"
           src={getProfilePicture(post.by)}
           fallback={getProfile(post.by)?.displayName}
           alt={getProfile(post.by)?.displayName}
         />
       </HoverableProfile>
-      {mirroredByProfiles?.map((profile) => (
+      {mirroredByProfiles?.slice(0, 20)?.map((profile) => (
         <HoverableProfile profile={profile} key={profile.id}>
           <Avatar
             size="2"
             radius="full"
-            className="-z-[1]"
             src={getProfilePicture(profile)}
             fallback={getProfile(profile)?.displayName}
             alt={getProfile(profile)?.displayName}
