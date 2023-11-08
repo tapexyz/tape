@@ -1,6 +1,7 @@
 import InterestsOutline from '@components/Common/Icons/InterestsOutline'
 import KeyOutline from '@components/Common/Icons/KeyOutline'
 import LockOutline from '@components/Common/Icons/LockOutline'
+import MentionOutline from '@components/Common/Icons/MentionOutline'
 import ProfileBanOutline from '@components/Common/Icons/ProfileBanOutline'
 import ProfileManagerOutline from '@components/Common/Icons/ProfileManagerOutline'
 import SubscribeOutline from '@components/Common/Icons/SubscribeOutline'
@@ -20,6 +21,7 @@ import {
   SETTINGS_BLOCKED,
   SETTINGS_DANGER_ZONE,
   SETTINGS_FOLLOW,
+  SETTINGS_HANDLES,
   SETTINGS_INTERESTS,
   SETTINGS_MANAGER,
   SETTINGS_SESSIONS
@@ -56,6 +58,16 @@ const SettingsSidebar = () => {
       >
         <SubscribeOutline className="h-4 w-4" />
         <span>Set Follow</span>
+      </Link>
+      <Link
+        href={SETTINGS_HANDLES}
+        className={clsx(
+          'hover:dark:bg-smoke hover:bg-gallery flex items-center space-x-3 rounded-lg px-3 py-2',
+          isActivePath(SETTINGS_HANDLES) ? 'font-bold' : 'text-dust font-medium'
+        )}
+      >
+        <MentionOutline className="h-4 w-4" />
+        <span>Handles</span>
       </Link>
       <Link
         href={SETTINGS_INTERESTS}
