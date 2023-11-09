@@ -283,7 +283,9 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
     },
     onError: (error) => {
       onError(error)
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
+      if (lensHubOnchainSigNonce) {
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
+      }
     }
   })
 
