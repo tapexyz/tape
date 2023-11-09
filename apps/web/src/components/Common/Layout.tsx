@@ -8,7 +8,7 @@ import {
   useIsMounted
 } from '@tape.xyz/browser'
 import { AUTH_ROUTES, OWNER_ONLY_ROUTES } from '@tape.xyz/constants'
-import { getIsProfileOwner, trimify } from '@tape.xyz/generic'
+import { getIsProfileOwner } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { useCurrentProfileQuery } from '@tape.xyz/lens'
 import { type CustomErrorWithData } from '@tape.xyz/lens/custom-types'
@@ -18,6 +18,7 @@ import { useTheme } from 'next-themes'
 import type { FC, ReactNode } from 'react'
 import React, { useEffect } from 'react'
 import { toast, Toaster } from 'react-hot-toast'
+import { isAddress } from 'viem'
 import { useAccount, useDisconnect } from 'wagmi'
 
 import FullPageLoader from './FullPageLoader'
@@ -55,12 +56,8 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
 
   const { loading } = useCurrentProfileQuery({
     variables: { request: { forProfileId: currentSessionProfileId } },
-    skip: trimify(currentSessionProfileId).length === 0,
+    skip: isAddress(currentSessionProfileId),
     onCompleted: ({ userSigNonces, profile }) => {
-      if (!profile) {
-        return logout()
-      }
-
       setActiveProfile(profile as Profile)
       setLensHubOnchainSigNonce(userSigNonces.lensHubOnchainSigNonce)
     },

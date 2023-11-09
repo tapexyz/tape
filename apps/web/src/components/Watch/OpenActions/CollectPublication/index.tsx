@@ -6,6 +6,7 @@ import Tooltip from '@components/UIElements/Tooltip'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import { getRelativeTime } from '@lib/formatTime'
 import { getCollectModuleOutput } from '@lib/getCollectModuleOutput'
+import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId'
 import useNonceStore from '@lib/store/nonce'
 import useProfileStore from '@lib/store/profile'
 import { Button, Callout, Flex } from '@radix-ui/themes'
@@ -51,6 +52,7 @@ import type {
 } from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -71,6 +73,7 @@ type Props = {
 
 const CollectPublication: FC<Props> = ({ publication, action }) => {
   const activeProfile = useProfileStore((state) => state.activeProfile)
+  const currentSessionProfileId = getCurrentSessionProfileId()
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
   const [alreadyCollected, setAlreadyCollected] = useState(
     publication.operations.hasActed.value
@@ -78,6 +81,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
 
   const handleWrongNetwork = useHandleWrongNetwork()
   const { address } = useAccount()
+  const { asPath } = useRouter()
 
   const [collecting, setCollecting] = useState(false)
   const [isAllowed, setIsAllowed] = useState(true)
@@ -395,7 +399,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
   }
 
   const collectNow = async () => {
-    if (!activeProfile?.id) {
+    if (!currentSessionProfileId) {
       return toast.error(SIGN_IN_REQUIRED)
     }
 
@@ -503,46 +507,52 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
             </div>
           ) : null}
           <div className="flex justify-end space-x-2">
-            {isAllowed ? (
-              action?.followerOnly &&
-              !publication.by.operations.isFollowedByMe.value ? (
-                <div className="flex-1">
-                  <Callout.Root>
-                    <Callout.Icon>
-                      <InfoOutline />
-                    </Callout.Icon>
-                    <Callout.Text highContrast weight="medium">
-                      <Flex gap="2" align="center">
-                        <UserOutline className="h-3.5 w-3.5" />
-                        This publication can only be collected by the creator's
-                        followers.
-                      </Flex>
-                    </Callout.Text>
-                  </Callout.Root>
-                </div>
-              ) : balanceLoading && !haveEnoughBalance ? (
-                <div className="flex w-full justify-center py-2">
-                  <Loader />
-                </div>
-              ) : haveEnoughBalance ? (
-                <Button
-                  highContrast
-                  disabled={collecting || alreadyCollected}
-                  onClick={() => (!alreadyCollected ? collectNow() : null)}
-                >
-                  {alreadyCollected ? 'Collected' : 'Collect'}
-                </Button>
+            {currentSessionProfileId ? (
+              isAllowed ? (
+                action?.followerOnly &&
+                !publication.by.operations.isFollowedByMe.value ? (
+                  <div className="flex-1">
+                    <Callout.Root>
+                      <Callout.Icon>
+                        <InfoOutline />
+                      </Callout.Icon>
+                      <Callout.Text highContrast weight="medium">
+                        <Flex gap="2" align="center">
+                          <UserOutline className="h-3.5 w-3.5" />
+                          This publication can only be collected by the
+                          creator's followers.
+                        </Flex>
+                      </Callout.Text>
+                    </Callout.Root>
+                  </div>
+                ) : balanceLoading && !haveEnoughBalance ? (
+                  <div className="flex w-full justify-center py-2">
+                    <Loader />
+                  </div>
+                ) : haveEnoughBalance ? (
+                  <Button
+                    highContrast
+                    disabled={collecting || alreadyCollected}
+                    onClick={() => (!alreadyCollected ? collectNow() : null)}
+                  >
+                    {alreadyCollected ? 'Collected' : 'Collect'}
+                  </Button>
+                ) : (
+                  <BalanceAlert action={action} />
+                )
               ) : (
-                <BalanceAlert action={action} />
+                <PermissionAlert
+                  isAllowed={isAllowed}
+                  setIsAllowed={setIsAllowed}
+                  allowanceModule={
+                    allowanceData?.approvedModuleAllowanceAmount[0] as any
+                  }
+                />
               )
             ) : (
-              <PermissionAlert
-                isAllowed={isAllowed}
-                setIsAllowed={setIsAllowed}
-                allowanceModule={
-                  allowanceData?.approvedModuleAllowanceAmount[0] as any
-                }
-              />
+              <Link href={`/login?next=${asPath}`}>
+                <Button highContrast>Login</Button>
+              </Link>
             )}
           </div>
         </>

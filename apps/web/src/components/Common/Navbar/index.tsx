@@ -1,3 +1,4 @@
+import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId'
 import usePersistStore from '@lib/store/persist'
 import useProfileStore from '@lib/store/profile'
 import { Button, DropdownMenu, IconButton } from '@radix-ui/themes'
@@ -7,17 +8,20 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
 import React from 'react'
+import { isAddress } from 'viem'
 
-import BellOutline from './Icons/BellOutline'
-import ChevronDownOutline from './Icons/ChevronDownOutline'
-import UploadOutline from './Icons/UploadOutline'
-import GlobalSearch from './Search/GlobalSearch'
-import TapeMenu from './TapeMenu'
-import UserMenu from './UserMenu'
+import BellOutline from '../Icons/BellOutline'
+import ChevronDownOutline from '../Icons/ChevronDownOutline'
+import UploadOutline from '../Icons/UploadOutline'
+import GlobalSearch from '../Search/GlobalSearch'
+import TapeMenu from '../TapeMenu'
+import UserMenu from '../UserMenu'
+import WalletUser from './WalletUser'
 
 const Navbar = () => {
   const { pathname, asPath } = useRouter()
   const { resolvedTheme } = useTheme()
+  const currentSessionProfileId = getCurrentSessionProfileId()
 
   const isActivePath = (path: string) => pathname === path
   const { activeProfile } = useProfileStore()
@@ -89,16 +93,18 @@ const Navbar = () => {
           >
             Bytes
           </Link>
-          <Link
-            href="/feed"
-            className={clsx(
-              isActivePath('/feed')
-                ? 'font-bold'
-                : 'text-dust font-medium hover:opacity-90'
-            )}
-          >
-            Feed
-          </Link>
+          {!isAddress(currentSessionProfileId) && (
+            <Link
+              href="/feed"
+              className={clsx(
+                isActivePath('/feed')
+                  ? 'font-bold'
+                  : 'text-dust font-medium hover:opacity-90'
+              )}
+            >
+              Feed
+            </Link>
+          )}
           <Link
             href="/explore"
             className={clsx(
@@ -112,7 +118,7 @@ const Navbar = () => {
         </div>
         <div className="flex w-1/5 items-center justify-end space-x-3">
           <GlobalSearch />
-          {activeProfile?.id ? (
+          {!isAddress(currentSessionProfileId) && activeProfile?.id ? (
             <>
               <Link
                 onClick={() => {
@@ -138,6 +144,8 @@ const Navbar = () => {
               </Link>
               <UserMenu />
             </>
+          ) : isAddress(currentSessionProfileId) ? (
+            <WalletUser />
           ) : (
             <Link href={`/login?next=${asPath}`}>
               <Button highContrast>Login</Button>

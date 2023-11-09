@@ -97,7 +97,12 @@ const Authenticate = () => {
     try {
       setLoading(true)
       const challenge = await loadChallenge({
-        variables: { request: { for: selectedProfileId, signedBy: address } }
+        variables: {
+          request: {
+            ...(selectedProfileId && { for: selectedProfileId }),
+            signedBy: address
+          }
+        }
       })
       if (!challenge?.data?.challenge?.text) {
         return toast.error(ERROR_MESSAGE)
@@ -116,21 +121,17 @@ const Authenticate = () => {
       const accessToken = result.data?.authenticate.accessToken
       const refreshToken = result.data?.authenticate.refreshToken
       signIn({ accessToken, refreshToken })
-      if (profilesManaged.length === 0) {
-        setActiveProfile(null)
-        toast.error('No profile found')
+
+      const profile = profilesManaged.find(
+        (profile) => profile.id === selectedProfileId
+      )
+      if (profile) {
+        setActiveProfile(profile)
+      }
+      if (router.query?.next) {
+        router.push(router.query?.next as string)
       } else {
-        const profile = profilesManaged.find(
-          (profile) => profile.id === selectedProfileId
-        )
-        if (profile) {
-          setActiveProfile(profile)
-        }
-        if (router.query?.next) {
-          router.push(router.query?.next as string)
-        } else {
-          router.push('/')
-        }
+        router.push('/')
       }
       resetApolloStore()
       Tower.track(EVENTS.AUTH.SIGN_IN_WITH_LENS)
@@ -170,8 +171,9 @@ const Authenticate = () => {
   return (
     <div className="text-left">
       {as && <p className="pb-1">Login as</p>}
-      {profile ? (
-        <Flex direction="column" gap="2">
+      {/* {profile ? ( */}
+      <Flex direction="column" gap="2">
+        {profile ? (
           <Select.Root
             defaultValue={as ?? profile?.id}
             value={selectedProfileId}
@@ -195,19 +197,18 @@ const Authenticate = () => {
               ))}
             </Select.Content>
           </Select.Root>
-          <Button
-            className="w-full"
-            highContrast
-            onClick={handleSign}
-            disabled={loading || !selectedProfileId}
-          >
-            <KeyOutline className="h-4 w-4" />
-            Sign message
-          </Button>
-        </Flex>
-      ) : (
-        <Signup onSuccess={() => refetch()} />
-      )}
+        ) : null}
+        <Button
+          className="w-full"
+          highContrast
+          onClick={handleSign}
+          disabled={loading}
+        >
+          <KeyOutline className="h-4 w-4" />
+          Sign message
+        </Button>
+      </Flex>
+      <Signup onSuccess={() => refetch()} />
     </div>
   )
 }

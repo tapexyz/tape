@@ -1,10 +1,8 @@
-import WarningOutline from '@components/Common/Icons/WarningOutline'
 import { Input } from '@components/UIElements/Input'
 import { zodResolver } from '@hookform/resolvers/zod'
 import usePendingTxn from '@hooks/usePendingTxn'
-import { Button, Callout, Text } from '@radix-ui/themes'
+import { Button, Text } from '@radix-ui/themes'
 import { COMMON_REGEX, ERROR_MESSAGE, IS_MAINNET } from '@tape.xyz/constants'
-import { shortenAddress } from '@tape.xyz/generic'
 import { useCreateProfileWithHandleMutation } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
@@ -82,16 +80,7 @@ const Signup = ({ onSuccess }: { onSuccess: () => void }) => {
   }
 
   return (
-    <div className="space-y-4">
-      <Callout.Root color="red">
-        <Callout.Icon>
-          <WarningOutline className="h-4 w-4" />
-        </Callout.Icon>
-        <Callout.Text highContrast>
-          We couldn't find any profiles linked to the connected address. (
-          {shortenAddress(address as string)})
-        </Callout.Text>
-      </Callout.Root>
+    <div className="mt-6">
       {!IS_MAINNET && (
         <div className="space-y-1">
           <Text as="div" weight="medium">
