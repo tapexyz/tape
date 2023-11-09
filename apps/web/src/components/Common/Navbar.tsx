@@ -99,6 +99,16 @@ const Navbar = () => {
           >
             Feed
           </Link>
+          <Link
+            href="/explore"
+            className={clsx(
+              isActivePath('/explore')
+                ? 'font-bold'
+                : 'text-dust font-medium hover:opacity-90'
+            )}
+          >
+            Explore
+          </Link>
         </div>
         <div className="flex w-1/5 items-center justify-end space-x-3">
           <GlobalSearch />
