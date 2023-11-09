@@ -54,7 +54,7 @@ const VALID_URL_REGEX = new RegExp(
 const formSchema = object({
   link: string()
     .url({ message: 'Invalid URL' })
-    .regex(VALID_URL_REGEX, { message: 'Invalid YouTube or Tape URL' })
+    .regex(VALID_URL_REGEX, { message: 'Invalid YouTube or Tape video URL' })
 })
 type FormData = z.infer<typeof formSchema>
 

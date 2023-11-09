@@ -32,7 +32,7 @@ export default async (request: WorkerRequest) => {
 
     const ogData = extractOgTags(document)
 
-    return new Response(JSON.stringify({ success: false, og: ogData }), {
+    return new Response(JSON.stringify({ success: true, og: ogData }), {
       headers: { 'Content-Type': 'application/json' }
     })
   } catch (error) {
