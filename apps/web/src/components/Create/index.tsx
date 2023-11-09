@@ -362,12 +362,6 @@ const CreateSteps = () => {
       })
 
       const isRestricted = Boolean(degreesOfSeparation)
-      const referenceModuleDegrees = {
-        commentsRestricted: isRestricted,
-        mirrorsRestricted: isRestricted,
-        degreesOfSeparation: degreesOfSeparation ?? 0,
-        quotesRestricted: isRestricted
-      }
 
       const { isRevertCollect } = uploadedVideo.collectModule
 
@@ -393,15 +387,18 @@ const CreateSteps = () => {
       }
 
       // ON-CHAIN
+      const referenceModuleDegrees = {
+        commentsRestricted: isRestricted,
+        mirrorsRestricted: isRestricted,
+        degreesOfSeparation: degreesOfSeparation ?? 0,
+        quotesRestricted: isRestricted
+      }
       const referenceModule: ReferenceModuleInput = {
-        degreesOfSeparationReferenceModule: {
-          ...referenceModuleDegrees
-        }
+        ...(uploadedVideo.referenceModule?.followerOnlyReferenceModule
+          ? { followerOnlyReferenceModule: true }
+          : { degreesOfSeparationReferenceModule: referenceModuleDegrees })
       }
-      if (uploadedVideo.referenceModule?.followerOnlyReferenceModule) {
-        referenceModule.followerOnlyReferenceModule =
-          uploadedVideo.referenceModule?.followerOnlyReferenceModule
-      }
+
       const request = {
         contentURI: metadataUri,
         openActionModules: [
