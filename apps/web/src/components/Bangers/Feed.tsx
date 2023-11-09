@@ -32,7 +32,7 @@ const Feed = () => {
       },
       customFilters: LENS_CUSTOM_FILTERS
     },
-    orderBy: ExplorePublicationsOrderByType.Latest,
+    orderBy: ExplorePublicationsOrderByType.TopMirrored,
     limit: LimitType.Fifty
   }
 
