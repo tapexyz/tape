@@ -149,7 +149,7 @@ const New = () => {
           if (data?.broadcastOnMomoka?.__typename === 'RelayError') {
             return write({ args: [typedData.value] })
           }
-          return onCompleted(data?.broadcastOnMomoka?.__typename)
+          return
         }
         return write({ args: [typedData.value] })
       } catch {}
