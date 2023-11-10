@@ -100,6 +100,16 @@ const Navbar = () => {
             Feed
           </Link>
           <Link
+            href="/explore"
+            className={clsx(
+              isActivePath('/explore')
+                ? 'font-bold'
+                : 'text-dust font-medium hover:opacity-90'
+            )}
+          >
+            Explore
+          </Link>
+          <Link
             href="/bangers"
             className={clsx(
               isActivePath('/bangers')

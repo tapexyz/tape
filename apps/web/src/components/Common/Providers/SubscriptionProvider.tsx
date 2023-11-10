@@ -1,7 +1,8 @@
 import getCurrentSessionId from '@lib/getCurrentSessionId'
+import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId'
+import { signOut } from '@lib/store/auth'
 import useNonceStore from '@lib/store/nonce'
 import usePersistStore from '@lib/store/persist'
-import useProfileStore from '@lib/store/profile'
 import { LENS_API_URL } from '@tape.xyz/constants'
 import type { Notification, UserSigNonces } from '@tape.xyz/lens'
 import {
@@ -9,14 +10,17 @@ import {
   NewNotificationSubscriptionDocument,
   UserSigNoncesSubscriptionDocument
 } from '@tape.xyz/lens'
+import { useApolloClient } from '@tape.xyz/lens/apollo'
 import { useEffect } from 'react'
 import useWebSocket from 'react-use-websocket'
+import { isAddress } from 'viem'
 import { useAccount } from 'wagmi'
 
 const SubscriptionProvider = () => {
   const { address } = useAccount()
-  const activeProfile = useProfileStore((state) => state.activeProfile)
   const { setLensHubOnchainSigNonce } = useNonceStore()
+  const { resetStore: resetApolloStore } = useApolloClient()
+  const currentSessionProfileId = getCurrentSessionProfileId()
 
   const setLatestNotificationId = usePersistStore(
     (state) => state.setLatestNotificationId
@@ -33,15 +37,17 @@ const SubscriptionProvider = () => {
   }, [])
 
   useEffect(() => {
-    if (readyState === 1 && activeProfile?.id) {
-      sendJsonMessage({
-        id: '1',
-        type: 'start',
-        payload: {
-          variables: { for: activeProfile?.id },
-          query: NewNotificationSubscriptionDocument
-        }
-      })
+    if (readyState === 1 && currentSessionProfileId) {
+      if (!isAddress(currentSessionProfileId)) {
+        sendJsonMessage({
+          id: '1',
+          type: 'start',
+          payload: {
+            variables: { for: currentSessionProfileId },
+            query: NewNotificationSubscriptionDocument
+          }
+        })
+      }
       sendJsonMessage({
         id: '2',
         type: 'start',
@@ -60,13 +66,13 @@ const SubscriptionProvider = () => {
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [readyState, activeProfile?.id])
+  }, [readyState, currentSessionProfileId])
 
   useEffect(() => {
     const jsonData = JSON.parse(lastMessage?.data || '{}')
     const data = jsonData?.payload?.data
 
-    if (activeProfile?.id && data) {
+    if (currentSessionProfileId && data) {
       if (jsonData.id === '1') {
         const notification = data.newNotification as Notification
         if (notification) {
@@ -79,9 +85,13 @@ const SubscriptionProvider = () => {
           setLensHubOnchainSigNonce(userSigNonces.lensHubOnchainSigNonce)
         }
       }
+      if (jsonData.id === '3') {
+        signOut()
+        resetApolloStore()
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lastMessage, activeProfile?.id])
+  }, [lastMessage, currentSessionProfileId])
 
   return null
 }

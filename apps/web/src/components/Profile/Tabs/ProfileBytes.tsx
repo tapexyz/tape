@@ -76,7 +76,7 @@ const ProfileBytes: FC<Props> = ({ profileId }) => {
     <div className="w-full">
       {!error && !loading && (
         <div className="laptop:grid-cols-5 grid grid-cols-2 justify-center gap-2 md:grid-cols-3">
-          {[...bytes, ...bytes].map((byte) => {
+          {bytes.map((byte) => {
             const thumbnailUrl = imageCdn(
               getThumbnailUrl(byte.metadata),
               'THUMBNAIL_V'
@@ -85,7 +85,7 @@ const ProfileBytes: FC<Props> = ({ profileId }) => {
               <Link
                 key={byte.id}
                 href={`/bytes/${byte.id}`}
-                className="hover:border-brand-500 rounded-large tape-border relative aspect-[9/16] w-full flex-none place-self-center overflow-hidden md:h-[380px]"
+                className="hover:border-brand-500 rounded-large tape-border relative aspect-[9/16] w-full flex-none place-self-center overflow-hidden md:h-[400px]"
               >
                 <img
                   className="h-full w-full object-cover"
@@ -96,8 +96,8 @@ const ProfileBytes: FC<Props> = ({ profileId }) => {
                     currentTarget.src = FALLBACK_THUMBNAIL_URL
                   }}
                 />
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-b from-transparent to-black/30 px-4 py-2 text-white">
-                  <h1 className="line-clamp-2 break-words font-bold">
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-b from-transparent to-black px-4 py-2">
+                  <h1 className="line-clamp-2 break-words font-bold text-white">
                     {getPublicationData(byte.metadata)?.title}
                   </h1>
                 </div>
