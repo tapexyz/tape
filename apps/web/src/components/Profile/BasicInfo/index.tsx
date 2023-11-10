@@ -29,7 +29,8 @@ import {
 import {
   checkLensManagerPermissions,
   getProfile,
-  getSignature
+  getSignature,
+  trimify
 } from '@tape.xyz/generic'
 import type {
   CreateBlockProfilesBroadcastItemResult,
@@ -339,8 +340,10 @@ const BasicInfo: FC<Props> = ({ profile }) => {
       </div>
       <div className="flex flex-wrap items-center justify-between gap-3">
         {profile.metadata?.bio && (
-          <div className="line-clamp-2">
-            <InterweaveContent content={profile.metadata?.bio} />
+          <div className="line-clamp-5">
+            <InterweaveContent
+              content={trimify(profile.metadata.bio).replaceAll('\n', ' ')}
+            />
           </div>
         )}
         <Stats profile={profile} />
