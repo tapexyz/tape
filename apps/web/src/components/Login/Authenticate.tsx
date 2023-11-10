@@ -128,11 +128,13 @@ const Authenticate = () => {
       if (profile) {
         setActiveProfile(profile)
       }
-      if (router.query?.next) {
-        router.push(router.query?.next as string)
+      const next = router.query?.next as string
+      if (next && next.startsWith('/') && !next.startsWith('//')) {
+        router.push(next)
       } else {
         router.push('/')
       }
+
       resetApolloStore()
       Tower.track(EVENTS.AUTH.SIGN_IN_WITH_LENS)
     } catch (error) {

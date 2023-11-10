@@ -48,7 +48,7 @@ import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import VideoPlayer from '@tape.xyz/ui/VideoPlayer'
 import Link from 'next/link'
 import type { FC } from 'react'
-import React from 'react'
+import React, { memo } from 'react'
 import toast from 'react-hot-toast'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
@@ -290,10 +290,10 @@ const PinnedVideo: FC<Props> = ({ id }) => {
             </p>
           </div>
           <Link
-            className="text-brand-500 text-xs font-bold"
+            className="text-brand-500 font-medium"
             href={`/watch/${pinnedPublication.id}`}
           >
-            View more
+            Watch video
           </Link>
         </div>
       </div>
@@ -301,4 +301,4 @@ const PinnedVideo: FC<Props> = ({ id }) => {
   )
 }
 
-export default PinnedVideo
+export default memo(PinnedVideo)
