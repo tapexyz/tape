@@ -21,7 +21,6 @@ import type {
   MomokaMirrorRequest
 } from '@tape.xyz/lens'
 import {
-  TriStateValue,
   useBroadcastOnchainMutation,
   useBroadcastOnMomokaMutation,
   useCreateMomokaMirrorTypedDataMutation,
@@ -220,10 +219,6 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
         }
       })
     } catch {}
-  }
-
-  if (video?.operations.canMirror === TriStateValue.No) {
-    return null
   }
 
   return (
