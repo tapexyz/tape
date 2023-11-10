@@ -8,7 +8,7 @@ import {
   useIsMounted
 } from '@tape.xyz/browser'
 import { AUTH_ROUTES, OWNER_ONLY_ROUTES } from '@tape.xyz/constants'
-import { getIsProfileOwner, trimify } from '@tape.xyz/generic'
+import { getIsProfileOwner } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { useCurrentProfileQuery } from '@tape.xyz/lens'
 import { type CustomErrorWithData } from '@tape.xyz/lens/custom-types'
@@ -33,7 +33,8 @@ interface Props {
 
 const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
   const { setLensHubOnchainSigNonce } = useNonceStore()
-  const { activeProfile, setActiveProfile } = useProfileStore()
+  const activeProfile = useProfileStore((state) => state.activeProfile)
+  const setActiveProfile = useProfileStore((state) => state.setActiveProfile)
 
   const isMounted = useIsMounted()
   const { resolvedTheme } = useTheme()
@@ -54,8 +55,8 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
   }
 
   const { loading } = useCurrentProfileQuery({
-    variables: { request: { forProfileId: currentSessionProfileId } },
-    skip: trimify(currentSessionProfileId).length === 0,
+    variables: { request: { forProfileId: activeProfile?.id } },
+    skip: !activeProfile?.id,
     onCompleted: ({ userSigNonces, profile }) => {
       if (!profile) {
         return logout()
@@ -68,7 +69,7 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
   })
 
   const validateAuthRoutes = () => {
-    if (!currentSessionProfileId && AUTH_ROUTES.includes(pathname)) {
+    if (!activeProfile?.id && AUTH_ROUTES.includes(pathname)) {
       replace(`/login?next=${asPath}`)
     }
     if (
@@ -97,7 +98,7 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
   useEffect(() => {
     setFingerprint()
     connector?.addListener('change', () => {
-      if (currentSessionProfileId) {
+      if (activeProfile?.id) {
         logout()
       }
     })
