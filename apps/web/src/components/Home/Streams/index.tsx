@@ -58,6 +58,10 @@ const Streams = () => {
 
   const [sliderRef] = useKeenSlider({ loop: true }, [autoSwitchPlugin])
 
+  if (!streams?.length) {
+    return null
+  }
+
   return (
     <div className="laptop:pt-6 flex flex-wrap gap-4 pt-4">
       <div className="w-full md:w-3/4">
