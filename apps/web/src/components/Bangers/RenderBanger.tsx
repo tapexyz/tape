@@ -30,7 +30,7 @@ const RenderBanger = ({ post }: { post: PrimaryPublication }) => {
         <div className="mx-2 flex items-center justify-between space-x-2">
           <div className="flex items-center justify-between space-x-4">
             <PublicationReaction publication={post} />
-            <MirrorVideo video={post}>
+            <MirrorVideo video={post} successToast="Co-signed successfully.">
               <div className="flex">
                 <Button size="1" highContrast variant="ghost">
                   <SignOutline className="h-3.5 w-3.5" />
