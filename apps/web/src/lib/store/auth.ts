@@ -25,6 +25,7 @@ export const useAuthPersistStore = create(
       signOut: () => {
         localStorage.removeItem(LocalStore.TAPE_STORE)
         localStorage.removeItem(LocalStore.TAPE_AUTH_STORE)
+        set({ accessToken: null, refreshToken: null })
       },
       hydrateAuthTokens: () => {
         return {
