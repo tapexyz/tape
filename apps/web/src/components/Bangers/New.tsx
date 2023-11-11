@@ -225,19 +225,18 @@ const New = () => {
     >
       <fieldset
         disabled={!activeProfile || loading}
-        className="container mx-auto flex h-full max-w-screen-sm flex-col justify-center px-4 md:px-0"
+        className="container mx-auto flex h-full max-w-screen-sm flex-col items-center justify-center px-4 md:px-0"
       >
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full">
           <div className="flex space-x-2">
             <Input
               placeholder="Paste a link to a banger"
-              size="3"
               autoComplete="off"
               className="bg-white dark:bg-black"
               validationError={errors.link?.message}
               {...register('link')}
             />
-            <Button size="3" disabled={loading} highContrast>
+            <Button disabled={loading} highContrast>
               {loading && <Loader size="sm" />}
               Post
             </Button>

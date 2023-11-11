@@ -41,7 +41,6 @@ type Props = {
 
 const Details: FC<Props> = ({ onUpload, onCancel }) => {
   const { uploadedVideo, setUploadedVideo } = useAppStore()
-
   const isByteSizeVideo = checkIsBytesVideo(uploadedVideo.durationInSeconds)
 
   const {
@@ -225,7 +224,6 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
           </div>
         </div>
       </div>
-
       <div className="mt-4 flex items-center justify-end space-x-2">
         <Button
           type="button"
