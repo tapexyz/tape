@@ -1,6 +1,8 @@
+import MetaTags from '@components/Common/MetaTags'
 import useProfileStore from '@lib/store/profile'
 import {
   getPublication,
+  getPublicationData,
   getPublicationMediaUrl,
   getThumbnailUrl,
   imageCdn,
@@ -91,9 +93,10 @@ const ByteVideo: FC<Props> = ({
   }
 
   return (
-    <div className="mb-6 flex snap-center justify-center md:ml-16">
+    <div className="keen-slider__slide flex snap-center justify-center focus-visible:outline-none md:ml-16">
+      <MetaTags title={getPublicationData(targetPublication.metadata)?.title} />
       <div className="relative">
-        <div className="ultrawide:w-[650px] rounded-large flex h-[calc(100vh-10rem)] w-[calc(100vw-80px)] items-center overflow-hidden bg-black md:h-[calc(100vh-120px)] md:w-[420px]">
+        <div className="ultrawide:w-[650px] rounded-large flex h-full w-[calc(100vw-80px)] items-center overflow-hidden bg-black md:w-[420px]">
           <div
             className="absolute top-[50%]"
             ref={intersectionRef}

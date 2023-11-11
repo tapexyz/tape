@@ -3,7 +3,7 @@
 @tailwind utilities;
 
 body {
-  @apply min-h-screen bg-white bg-fixed text-black antialiased dark:bg-black dark:text-white;
+  @apply min-h-screen bg-white text-black antialiased dark:bg-black dark:text-white;
 }
 
 .tape-border {
