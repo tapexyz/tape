@@ -83,7 +83,6 @@ const KeyboardControls: KeenSliderPlugin = (slider) => {
       slider.container.removeEventListener('blur', eventBlur)
       slider.container.removeEventListener('keydown', eventKeydown)
       slider.container.removeEventListener('mouseover', handleFocus)
-      slider.container.removeEventListener('mouseover', handleFocus)
     }
   })
 }
