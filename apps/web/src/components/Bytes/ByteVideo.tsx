@@ -113,7 +113,7 @@ const ByteVideo: FC<Props> = ({
               autoPlay: currentViewingId === targetPublication.id,
               muted: currentViewingId !== targetPublication.id,
               loop: true,
-              loadingSpinner: false,
+              loadingSpinner: true,
               isCurrentlyShown: currentViewingId === video.id
             }}
           />

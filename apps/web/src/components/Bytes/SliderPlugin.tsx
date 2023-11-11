@@ -2,7 +2,7 @@ import type { KeenSliderPlugin } from 'keen-slider'
 
 const WheelControls: KeenSliderPlugin = (slider) => {
   let timeoutId: ReturnType<typeof setTimeout> | null = null
-  const debounceDuration: number = 100 // Adjust this duration based on testing
+  const debounceDuration: number = 100
 
   const handleWheelEvent = (e: WheelEvent) => {
     e.preventDefault()
