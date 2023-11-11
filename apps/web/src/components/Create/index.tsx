@@ -311,15 +311,15 @@ const CreateSteps = () => {
             }
           }
         })
-      } else {
-        return await createMomokaPostTypedData({
-          variables: {
-            request: {
-              contentURI: metadataUri
-            }
-          }
-        })
       }
+
+      return await createMomokaPostTypedData({
+        variables: {
+          request: {
+            contentURI: metadataUri
+          }
+        }
+      })
     }
 
     // ON-CHAIN
