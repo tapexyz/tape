@@ -9,7 +9,7 @@ type Props = {
 }
 
 const PermissionQuestion: FC<Props> = ({ setCollectType }) => {
-  const uploadedVideo = useAppStore((state) => state.uploadedVideo)
+  const uploadedMedia = useAppStore((state) => state.uploadedMedia)
 
   return (
     <div className="space-y-1">
@@ -22,8 +22,8 @@ const PermissionQuestion: FC<Props> = ({ setCollectType }) => {
           type="button"
           highContrast
           color={
-            !uploadedVideo.collectModule.followerOnlyCollect &&
-            !uploadedVideo.collectModule.isRevertCollect
+            !uploadedMedia.collectModule.followerOnlyCollect &&
+            !uploadedMedia.collectModule.isRevertCollect
               ? 'blue'
               : 'gray'
           }
@@ -42,8 +42,8 @@ const PermissionQuestion: FC<Props> = ({ setCollectType }) => {
           className="flex-1"
           type="button"
           color={
-            uploadedVideo.collectModule.followerOnlyCollect &&
-            !uploadedVideo.collectModule.isRevertCollect
+            uploadedMedia.collectModule.followerOnlyCollect &&
+            !uploadedMedia.collectModule.isRevertCollect
               ? 'blue'
               : 'gray'
           }

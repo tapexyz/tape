@@ -7,8 +7,8 @@ import Link from 'next/link'
 import React from 'react'
 
 const MediaLicense = () => {
-  const uploadedVideo = useAppStore((state) => state.uploadedVideo)
-  const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
+  const uploadedMedia = useAppStore((state) => state.uploadedMedia)
+  const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
 
   return (
     <div className="flex-1 space-y-1">
@@ -37,9 +37,9 @@ const MediaLicense = () => {
         </HoverCard.Root>
       </Flex>
       <Select.Root
-        value={uploadedVideo.mediaLicense}
+        value={uploadedMedia.mediaLicense}
         onValueChange={(mediaLicense: MetadataLicenseType) =>
-          setUploadedVideo({ mediaLicense })
+          setUploadedMedia({ mediaLicense })
         }
       >
         <Select.Trigger className="w-full" />

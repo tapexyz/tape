@@ -30,24 +30,26 @@ type Props = {
 
 const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
   const { activeProfile } = useProfileStore()
-  const { uploadedVideo, setUploadedVideo } = useAppStore()
-  const { queuedVideos, setQueuedVideos } = usePersistStore()
+  const uploadedMedia = useAppStore((state) => state.uploadedMedia)
+  const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
+  const queuedVideos = usePersistStore((state) => state.queuedVideos)
+  const setQueuedVideos = usePersistStore((state) => state.setQueuedVideos)
 
   const { cache } = useApolloClient()
 
   const thumbnailUrl = imageCdn(
-    uploadedVideo.isSensitiveContent
+    uploadedMedia.isSensitiveContent
       ? `${STATIC_ASSETS}/images/sensor-blur.webp`
       : sanitizeDStorageUrl(queuedVideo.thumbnailUrl),
-    uploadedVideo.isByteVideo ? 'THUMBNAIL_V' : 'THUMBNAIL'
+    uploadedMedia.isByteVideo ? 'THUMBNAIL_V' : 'THUMBNAIL'
   )
   const { color: backgroundColor } = useAverageColor(
     thumbnailUrl,
-    uploadedVideo.isByteVideo
+    uploadedMedia.isByteVideo
   )
 
   const removeFromQueue = () => {
-    setUploadedVideo(UPLOADED_VIDEO_FORM_DEFAULTS)
+    setUploadedMedia(UPLOADED_VIDEO_FORM_DEFAULTS)
     if (!queuedVideo.txnId) {
       return setQueuedVideos(
         queuedVideos.filter((q) => q.txnHash !== queuedVideo.txnHash)
@@ -104,7 +106,7 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
             src={thumbnailUrl}
             className={clsx(
               'h-full w-full bg-gray-100 object-center dark:bg-gray-900 md:rounded-xl lg:h-full lg:w-full',
-              uploadedVideo.isByteVideo ? 'object-contain' : 'object-cover'
+              uploadedMedia.isByteVideo ? 'object-contain' : 'object-cover'
             )}
             style={{
               backgroundColor: backgroundColor && `${backgroundColor}95`

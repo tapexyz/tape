@@ -11,9 +11,9 @@ type Props = {
 }
 
 const EditionSize: FC<Props> = ({ setCollectType }) => {
-  const uploadedVideo = useAppStore((state) => state.uploadedVideo)
+  const uploadedMedia = useAppStore((state) => state.uploadedMedia)
   const [showSizePicker, setShowSizePicker] = useState(
-    uploadedVideo.collectModule.collectLimitEnabled
+    uploadedMedia.collectModule.collectLimitEnabled
   )
 
   return (
@@ -33,7 +33,7 @@ const EditionSize: FC<Props> = ({ setCollectType }) => {
           }}
           highContrast
           color={
-            !uploadedVideo.collectModule.collectLimitEnabled ? 'blue' : 'gray'
+            !uploadedMedia.collectModule.collectLimitEnabled ? 'blue' : 'gray'
           }
           variant="surface"
           className="flex-1"
@@ -51,7 +51,7 @@ const EditionSize: FC<Props> = ({ setCollectType }) => {
           }}
           highContrast
           color={
-            uploadedVideo.collectModule.collectLimitEnabled ? 'blue' : 'gray'
+            uploadedMedia.collectModule.collectLimitEnabled ? 'blue' : 'gray'
           }
           variant="surface"
           className="flex-1"
@@ -81,7 +81,7 @@ const EditionSize: FC<Props> = ({ setCollectType }) => {
                 collectLimit: Number(value) <= 0 ? '' : String(parseInt(value))
               })
             }}
-            value={uploadedVideo.collectModule.collectLimit}
+            value={uploadedMedia.collectModule.collectLimit}
             autoComplete="off"
           />
         </div>

@@ -5,9 +5,8 @@ import { getCategoryByTag } from '@tape.xyz/generic'
 import React from 'react'
 
 const MediaCategory = () => {
-  const uploadedVideo = useAppStore((state) => state.uploadedVideo)
-  const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
-
+  const uploadedMedia = useAppStore((state) => state.uploadedMedia)
+  const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
   return (
     <div className="flex-1 space-y-1">
       <Text size="2" weight="medium">
@@ -15,9 +14,9 @@ const MediaCategory = () => {
       </Text>
 
       <Select.Root
-        value={uploadedVideo.mediaCategory.tag}
+        value={uploadedMedia.mediaCategory.tag}
         onValueChange={(tag) =>
-          setUploadedVideo({ mediaCategory: getCategoryByTag(tag) })
+          setUploadedMedia({ mediaCategory: getCategoryByTag(tag) })
         }
       >
         <Select.Trigger className="w-full" />
