@@ -4,20 +4,20 @@ import type { ReferenceModuleType } from '@tape.xyz/lens/custom-types'
 import React from 'react'
 
 const ReferenceModule = () => {
-  const uploadedVideo = useAppStore((state) => state.uploadedVideo)
-  const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
+  const uploadedMedia = useAppStore((state) => state.uploadedMedia)
+  const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
 
   const setReferenceType = (data: ReferenceModuleType) => {
-    setUploadedVideo({
-      referenceModule: { ...uploadedVideo.collectModule, ...data }
+    setUploadedMedia({
+      referenceModule: { ...uploadedMedia.collectModule, ...data }
     })
   }
 
   const getSelectedReferenceTypeValue = () => {
     const followerOnlyReferenceModule =
-      uploadedVideo?.referenceModule?.followerOnlyReferenceModule
+      uploadedMedia?.referenceModule?.followerOnlyReferenceModule
     const degreesOfSeparationReferenceModule =
-      uploadedVideo?.referenceModule?.degreesOfSeparationReferenceModule
+      uploadedMedia?.referenceModule?.degreesOfSeparationReferenceModule
     if (!followerOnlyReferenceModule && !degreesOfSeparationReferenceModule) {
       return 'ANYONE'
     } else if (followerOnlyReferenceModule) {

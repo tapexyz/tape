@@ -11,10 +11,10 @@ type Props = {
 }
 
 const CollectDuration: FC<Props> = ({ setCollectType }) => {
-  const uploadedVideo = useAppStore((state) => state.uploadedVideo)
+  const uploadedMedia = useAppStore((state) => state.uploadedMedia)
 
   const [showDayPicker, setShowDayPicker] = useState(
-    uploadedVideo.collectModule.timeLimitEnabled
+    uploadedMedia.collectModule.timeLimitEnabled
   )
   return (
     <div className="space-y-1">
@@ -26,7 +26,7 @@ const CollectDuration: FC<Props> = ({ setCollectType }) => {
           type="button"
           highContrast
           color={
-            !uploadedVideo.collectModule.timeLimitEnabled ? 'blue' : 'gray'
+            !uploadedMedia.collectModule.timeLimitEnabled ? 'blue' : 'gray'
           }
           variant="surface"
           className="flex-1"
@@ -50,7 +50,7 @@ const CollectDuration: FC<Props> = ({ setCollectType }) => {
             setShowDayPicker(true)
           }}
           highContrast
-          color={uploadedVideo.collectModule.timeLimitEnabled ? 'blue' : 'gray'}
+          color={uploadedMedia.collectModule.timeLimitEnabled ? 'blue' : 'gray'}
           variant="surface"
           className="flex-1"
         >
@@ -74,7 +74,7 @@ const CollectDuration: FC<Props> = ({ setCollectType }) => {
                 timeLimit: Number(value) <= 0 ? '' : value
               })
             }}
-            value={uploadedVideo.collectModule.timeLimit}
+            value={uploadedMedia.collectModule.timeLimit}
             placeholder="Number of days"
             suffix="days"
           />

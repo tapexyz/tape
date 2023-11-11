@@ -31,16 +31,16 @@ type Thumbnail = {
 const ChooseThumbnail: FC<Props> = ({ file }) => {
   const [thumbnails, setThumbnails] = useState<Thumbnail[]>([])
   const [selectedThumbnailIndex, setSelectedThumbnailIndex] = useState(-1)
-  const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
-  const uploadedVideo = useAppStore((state) => state.uploadedVideo)
+  const uploadedMedia = useAppStore((state) => state.uploadedMedia)
+  const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
 
   const uploadThumbnailToIpfs = async (fileToUpload: File) => {
-    setUploadedVideo({ uploadingThumbnail: true })
+    setUploadedMedia({ uploadingThumbnail: true })
     const result: IPFSUploadResult = await uploadToIPFS(fileToUpload)
     if (!result.url) {
       toast.error(`Failed to upload thumbnail`)
     }
-    setUploadedVideo({
+    setUploadedMedia({
       thumbnail: result.url,
       thumbnailType: fileToUpload.type || 'image/jpeg',
       uploadingThumbnail: false
@@ -49,12 +49,12 @@ const ChooseThumbnail: FC<Props> = ({ file }) => {
   }
 
   const onSelectThumbnail = async (index: number) => {
-    if (uploadedVideo.durationInSeconds === 0) {
+    if (uploadedMedia.durationInSeconds === 0) {
       return
     }
     setSelectedThumbnailIndex(index)
     if (thumbnails[index]?.ipfsUrl === '') {
-      setUploadedVideo({ uploadingThumbnail: true })
+      setUploadedMedia({ uploadingThumbnail: true })
       getFileFromDataURL(
         thumbnails[index].blobUrl,
         'thumbnail.jpeg',
@@ -74,7 +74,7 @@ const ChooseThumbnail: FC<Props> = ({ file }) => {
         }
       )
     } else {
-      setUploadedVideo({
+      setUploadedMedia({
         thumbnail: thumbnails[index]?.ipfsUrl,
         thumbnailType: thumbnails[index]?.mimeType || 'image/jpeg',
         uploadingThumbnail: false
@@ -154,7 +154,7 @@ const ChooseThumbnail: FC<Props> = ({ file }) => {
         <AddImageOutline className="mb-1 h-4 w-4 flex-none" />
         <span className="text-xs">Upload</span>
       </label>
-      {!thumbnails.length && uploadedVideo.file?.size ? (
+      {!thumbnails.length && uploadedMedia.file?.size ? (
         <ThumbnailsShimmer />
       ) : null}
       {thumbnails.map((thumbnail, idx) => {
@@ -162,7 +162,7 @@ const ChooseThumbnail: FC<Props> = ({ file }) => {
           <button
             key={idx}
             type="button"
-            disabled={uploadedVideo.uploadingThumbnail}
+            disabled={uploadedMedia.uploadingThumbnail}
             onClick={() => onSelectThumbnail(idx)}
             className={clsx(
               'relative w-full flex-none overflow-hidden rounded-lg ring-1 ring-white focus:outline-none disabled:!cursor-not-allowed dark:ring-black',
@@ -170,7 +170,7 @@ const ChooseThumbnail: FC<Props> = ({ file }) => {
                 '!ring-brand-500 !ring':
                   thumbnail.ipfsUrl &&
                   selectedThumbnailIndex === idx &&
-                  thumbnail.ipfsUrl === uploadedVideo.thumbnail
+                  thumbnail.ipfsUrl === uploadedMedia.thumbnail
               }
             )}
           >
@@ -178,14 +178,14 @@ const ChooseThumbnail: FC<Props> = ({ file }) => {
               <img
                 className={clsx(
                   'h-full w-full rounded-lg',
-                  uploadedVideo.isByteVideo ? 'object-contain' : 'object-cover'
+                  uploadedMedia.isByteVideo ? 'object-contain' : 'object-cover'
                 )}
                 src={thumbnail.blobUrl}
                 alt="thumbnail"
                 draggable={false}
               />
             </AspectRatio>
-            {uploadedVideo.uploadingThumbnail &&
+            {uploadedMedia.uploadingThumbnail &&
               selectedThumbnailIndex === idx && (
                 <div className="absolute inset-0 grid place-items-center bg-gray-100 bg-opacity-10 backdrop-blur-md">
                   <Loader size="sm" />

@@ -30,7 +30,7 @@ export const UPLOADED_VIDEO_FORM_DEFAULTS: UploadedMedia = {
   description: '',
   thumbnail: '',
   thumbnailType: '',
-  videoSource: '',
+  dUrl: '',
   percent: 0,
   isSensitiveContent: false,
   isUploadToIpfs: false,
@@ -61,11 +61,11 @@ export const UPLOADED_VIDEO_FORM_DEFAULTS: UploadedMedia = {
 }
 
 interface AppState {
-  uploadedVideo: UploadedMedia
+  uploadedMedia: UploadedMedia
   irysData: IrysDataState
   videoWatchTime: number
   activeTagFilter: string
-  setUploadedVideo: (mediaProps: Partial<UploadedMedia>) => void
+  setUploadedMedia: (mediaProps: Partial<UploadedMedia>) => void
   setActiveTagFilter: (activeTagFilter: string) => void
   setVideoWatchTime: (videoWatchTime: number) => void
   setIrysData: (irysProps: Partial<IrysDataState>) => void
@@ -78,14 +78,14 @@ export const useAppStore = create<AppState>((set) => ({
   videoWatchTime: 0,
   activeTagFilter: 'all',
   irysData: UPLOADED_VIDEO_IRYS_DEFAULTS,
-  uploadedVideo: UPLOADED_VIDEO_FORM_DEFAULTS,
+  uploadedMedia: UPLOADED_VIDEO_FORM_DEFAULTS,
   setActiveTagFilter: (activeTagFilter) => set({ activeTagFilter }),
   setVideoWatchTime: (videoWatchTime) => set({ videoWatchTime }),
   setIrysData: (props) =>
     set((state) => ({ irysData: { ...state.irysData, ...props } })),
-  setUploadedVideo: (mediaProps) =>
+  setUploadedMedia: (mediaProps) =>
     set((state) => ({
-      uploadedVideo: { ...state.uploadedVideo, ...mediaProps }
+      uploadedMedia: { ...state.uploadedMedia, ...mediaProps }
     })),
   getIrysInstance: async (signer) => {
     try {

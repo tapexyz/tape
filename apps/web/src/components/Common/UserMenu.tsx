@@ -57,14 +57,14 @@ const UserMenu = () => {
   const [revokeAuthentication, { loading }] = useRevokeAuthenticationMutation()
 
   const onClickSignout = async () => {
-    disconnect?.()
-    signOut()
-    setActiveProfile(null)
     await revokeAuthentication({
       variables: {
         request: { authorizationId: getCurrentSessionId() }
       }
     })
+    signOut()
+    setActiveProfile(null)
+    disconnect?.()
     Tower.track(EVENTS.AUTH.SIGN_OUT)
   }
 

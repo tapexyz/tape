@@ -33,17 +33,17 @@ const IrysInfo = () => {
     watch: true
   })
 
-  const uploadedVideo = useAppStore((state) => state.uploadedVideo)
+  const uploadedMedia = useAppStore((state) => state.uploadedMedia)
   const getIrysInstance = useAppStore((state) => state.getIrysInstance)
   const irysData = useAppStore((state) => state.irysData)
   const setIrysData = useAppStore((state) => state.setIrysData)
   const [fetchingBalance, setFetchingBalance] = useState(false)
 
   const estimatePrice = async (irys: WebIrys) => {
-    if (!uploadedVideo.stream) {
+    if (!uploadedMedia.stream) {
       return toast.error('Upload cost estimation failed')
     }
-    return await irys.utils.getPrice(IRYS_CURRENCY, uploadedVideo.stream?.size)
+    return await irys.utils.getPrice(IRYS_CURRENCY, uploadedMedia.stream?.size)
   }
 
   const fetchBalance = async (irys?: WebIrys) => {

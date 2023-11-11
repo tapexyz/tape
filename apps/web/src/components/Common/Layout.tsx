@@ -68,7 +68,7 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
   })
 
   const validateAuthRoutes = () => {
-    if (!activeProfile?.id && AUTH_ROUTES.includes(pathname)) {
+    if (!currentSessionProfileId && AUTH_ROUTES.includes(pathname)) {
       replace(`/login?next=${asPath}`)
     }
     if (
@@ -125,7 +125,7 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
         className={clsx(
           'relative',
           !skipPadding &&
-            'ultrawide:px-8 ultrawide:pb-8 laptop:px-6 px-4 pb-14 pt-5 md:pb-6'
+            'ultrawide:px-8 ultrawide:pb-8 laptop:px-6 px-4 pb-16 pt-5 md:pb-6'
         )}
       >
         {children}
