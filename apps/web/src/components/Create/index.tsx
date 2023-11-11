@@ -2,11 +2,14 @@ import MetaTags from '@components/Common/MetaTags'
 import useEthersWalletClient from '@hooks/useEthersWalletClient'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import type {
+  AudioOptions,
+  MediaAudioMimeType,
   MediaVideoMimeType,
   MetadataAttribute,
   VideoOptions
 } from '@lens-protocol/metadata'
 import {
+  audio,
   MetadataAttributeType,
   PublicationContentWarning,
   shortVideo,
@@ -288,137 +291,201 @@ const CreateSteps = () => {
     }
   })
 
-  const createPublication = async ({
-    videoSource
-  }: {
-    videoSource: string
-  }) => {
-    try {
-      setUploadedMedia({
-        buttonText: 'Storing metadata',
-        loading: true
-      })
-      uploadedMedia.videoSource = videoSource
-      const attributes: MetadataAttribute[] = [
-        {
-          type: MetadataAttributeType.STRING,
-          key: 'category',
-          value: uploadedMedia.mediaCategory.tag
-        },
-        {
-          type: MetadataAttributeType.STRING,
-          key: 'creator',
-          value: `${getProfile(activeProfile)?.slug}`
-        },
-        {
-          type: MetadataAttributeType.STRING,
-          key: 'app',
-          value: TAPE_WEBSITE_URL
-        }
-      ]
+  const createPost = async (metadataUri: string) => {
+    setUploadedMedia({
+      buttonText: 'Posting...',
+      loading: true
+    })
 
-      const publicationMetadata: VideoOptions = {
-        video: {
-          item: uploadedMedia.videoSource,
-          type: getUploadedMediaType(
-            uploadedMedia.mediaType
-          ) as MediaVideoMimeType,
-          altTag: trimify(uploadedMedia.title),
-          attributes,
-          cover: uploadedMedia.thumbnail,
-          duration: uploadedMedia.durationInSeconds,
-          license: uploadedMedia.mediaLicense
-        },
-        appId: TAPE_APP_ID,
-        id: uuidv4(),
-        attributes,
-        content: trimify(uploadedMedia.description),
-        tags: [uploadedMedia.mediaCategory.tag],
-        locale: getUserLocale(),
-        title: uploadedMedia.title,
-        marketplace: {
-          attributes,
-          animation_url: uploadedMedia.videoSource,
-          external_url: `${TAPE_WEBSITE_URL}/u/${getProfile(activeProfile)
-            ?.slug}`,
-          image: uploadedMedia.thumbnail,
-          name: uploadedMedia.title,
-          description: trimify(uploadedMedia.description)
-        }
-      }
+    const isRestricted = Boolean(degreesOfSeparation)
 
-      if (uploadedMedia.isSensitiveContent) {
-        publicationMetadata.contentWarning = PublicationContentWarning.SENSITIVE
-      }
+    const { isRevertCollect } = uploadedMedia.collectModule
 
-      const shortVideoMetadata = shortVideo(publicationMetadata)
-      const longVideoMetadata = video(publicationMetadata)
-      const metadataUri = await uploadToAr(
-        uploadedMedia.isByteVideo ? shortVideoMetadata : longVideoMetadata
-      )
-      setUploadedMedia({
-        buttonText: 'Posting...',
-        loading: true
-      })
-
-      const isRestricted = Boolean(degreesOfSeparation)
-
-      const { isRevertCollect } = uploadedMedia.collectModule
-
-      if (isRevertCollect) {
-        // MOMOKA
-        if (canUseLensManager) {
-          return await postOnMomoka({
-            variables: {
-              request: {
-                contentURI: metadataUri
-              }
-            }
-          })
-        } else {
-          return await createMomokaPostTypedData({
-            variables: {
-              request: {
-                contentURI: metadataUri
-              }
-            }
-          })
-        }
-      }
-
-      // ON-CHAIN
-      const referenceModuleDegrees = {
-        commentsRestricted: isRestricted,
-        mirrorsRestricted: isRestricted,
-        degreesOfSeparation: degreesOfSeparation ?? 0,
-        quotesRestricted: isRestricted
-      }
-      const referenceModule: ReferenceModuleInput = {
-        ...(uploadedMedia.referenceModule?.followerOnlyReferenceModule
-          ? { followerOnlyReferenceModule: true }
-          : { degreesOfSeparationReferenceModule: referenceModuleDegrees })
-      }
-
-      const request = {
-        contentURI: metadataUri,
-        openActionModules: [
-          {
-            ...getCollectModuleInput(uploadedMedia.collectModule)
-          }
-        ],
-        referenceModule
-      }
+    if (isRevertCollect) {
+      // MOMOKA
       if (canUseLensManager) {
-        return await postOnchain({
-          variables: { request }
+        return await postOnMomoka({
+          variables: {
+            request: {
+              contentURI: metadataUri
+            }
+          }
+        })
+      } else {
+        return await createMomokaPostTypedData({
+          variables: {
+            request: {
+              contentURI: metadataUri
+            }
+          }
         })
       }
-      return await createOnchainPostTypedData({
-        variables: {
-          options: { overrideSigNonce: lensHubOnchainSigNonce },
-          request
+    }
+
+    // ON-CHAIN
+    const referenceModuleDegrees = {
+      commentsRestricted: isRestricted,
+      mirrorsRestricted: isRestricted,
+      degreesOfSeparation: degreesOfSeparation ?? 0,
+      quotesRestricted: isRestricted
+    }
+    const referenceModule: ReferenceModuleInput = {
+      ...(uploadedMedia.referenceModule?.followerOnlyReferenceModule
+        ? { followerOnlyReferenceModule: true }
+        : { degreesOfSeparationReferenceModule: referenceModuleDegrees })
+    }
+
+    const request = {
+      contentURI: metadataUri,
+      openActionModules: [
+        {
+          ...getCollectModuleInput(uploadedMedia.collectModule)
         }
+      ],
+      referenceModule
+    }
+    if (canUseLensManager) {
+      return await postOnchain({
+        variables: { request }
       })
+    }
+    return await createOnchainPostTypedData({
+      variables: {
+        options: { overrideSigNonce: lensHubOnchainSigNonce },
+        request
+      }
+    })
+  }
+
+  const constructVideoMetadata = async () => {
+    const attributes: MetadataAttribute[] = [
+      {
+        type: MetadataAttributeType.STRING,
+        key: 'category',
+        value: uploadedMedia.mediaCategory.tag
+      },
+      {
+        type: MetadataAttributeType.STRING,
+        key: 'creator',
+        value: `${getProfile(activeProfile)?.slug}`
+      },
+      {
+        type: MetadataAttributeType.STRING,
+        key: 'app',
+        value: TAPE_WEBSITE_URL
+      }
+    ]
+
+    const publicationMetadata: VideoOptions = {
+      video: {
+        item: uploadedMedia.dUrl,
+        type: getUploadedMediaType(
+          uploadedMedia.mediaType
+        ) as MediaVideoMimeType,
+        altTag: trimify(uploadedMedia.title),
+        attributes,
+        cover: uploadedMedia.thumbnail,
+        duration: uploadedMedia.durationInSeconds,
+        license: uploadedMedia.mediaLicense
+      },
+      appId: TAPE_APP_ID,
+      id: uuidv4(),
+      attributes,
+      content: trimify(uploadedMedia.description),
+      tags: [uploadedMedia.mediaCategory.tag],
+      locale: getUserLocale(),
+      title: uploadedMedia.title,
+      marketplace: {
+        attributes,
+        animation_url: uploadedMedia.dUrl,
+        external_url: `${TAPE_WEBSITE_URL}/u/${getProfile(activeProfile)
+          ?.slug}`,
+        image: uploadedMedia.thumbnail,
+        name: uploadedMedia.title,
+        description: trimify(uploadedMedia.description)
+      }
+    }
+
+    if (uploadedMedia.isSensitiveContent) {
+      publicationMetadata.contentWarning = PublicationContentWarning.SENSITIVE
+    }
+
+    const shortVideoMetadata = shortVideo(publicationMetadata)
+    const longVideoMetadata = video(publicationMetadata)
+    const metadataUri = await uploadToAr(
+      uploadedMedia.isByteVideo ? shortVideoMetadata : longVideoMetadata
+    )
+    await createPost(metadataUri)
+  }
+
+  const constructAudioMetadata = async () => {
+    const attributes: MetadataAttribute[] = [
+      {
+        type: MetadataAttributeType.STRING,
+        key: 'category',
+        value: uploadedMedia.mediaCategory.tag
+      },
+      {
+        type: MetadataAttributeType.STRING,
+        key: 'creator',
+        value: `${getProfile(activeProfile)?.slug}`
+      },
+      {
+        type: MetadataAttributeType.STRING,
+        key: 'app',
+        value: TAPE_WEBSITE_URL
+      }
+    ]
+
+    const audioMetadata: AudioOptions = {
+      audio: {
+        item: uploadedMedia.dUrl,
+        type: getUploadedMediaType(
+          uploadedMedia.mediaType
+        ) as MediaAudioMimeType,
+        artist: `${getProfile(activeProfile)?.slug}`,
+        attributes,
+        cover: uploadedMedia.thumbnail,
+        duration: uploadedMedia.durationInSeconds,
+        license: uploadedMedia.mediaLicense
+      },
+      appId: TAPE_APP_ID,
+      id: uuidv4(),
+      attributes,
+      content: trimify(uploadedMedia.description),
+      tags: [uploadedMedia.mediaCategory.tag],
+      locale: getUserLocale(),
+      title: uploadedMedia.title,
+      marketplace: {
+        attributes,
+        animation_url: uploadedMedia.dUrl,
+        external_url: `${TAPE_WEBSITE_URL}/u/${getProfile(activeProfile)
+          ?.slug}`,
+        image: uploadedMedia.thumbnail,
+        name: uploadedMedia.title,
+        description: trimify(uploadedMedia.description)
+      }
+    }
+
+    if (uploadedMedia.isSensitiveContent) {
+      audioMetadata.contentWarning = PublicationContentWarning.SENSITIVE
+    }
+
+    const metadataUri = await uploadToAr(audio(audioMetadata))
+    await createPost(metadataUri)
+  }
+
+  const create = async ({ dUrl }: { dUrl: string }) => {
+    try {
+      setUploadedMedia({
+        buttonText: 'Storing metadata...',
+        loading: true
+      })
+      uploadedMedia.dUrl = dUrl
+      if (uploadedMedia.type === 'AUDIO') {
+        return await constructAudioMetadata()
+      }
+      await constructVideoMetadata()
     } catch (error) {
       logger.error('[Create Publication]', error)
     }
@@ -441,10 +508,10 @@ const CreateSteps = () => {
     }
     setUploadedMedia({
       percent: 100,
-      videoSource: result.url
+      dUrl: result.url
     })
-    return await createPublication({
-      videoSource: result.url
+    return await create({
+      dUrl: result.url
     })
   }
 
@@ -506,10 +573,10 @@ const CreateSteps = () => {
       const response = await upload
       setUploadedMedia({
         loading: false,
-        videoSource: `ar://${response.data.id}`
+        dUrl: `ar://${response.data.id}`
       })
-      return await createPublication({
-        videoSource: `ar://${response.data.id}`
+      return await create({
+        dUrl: `ar://${response.data.id}`
       })
     } catch (error) {
       toast.error('Failed to upload media to Arweave')
@@ -526,12 +593,12 @@ const CreateSteps = () => {
     setUploadedMedia({ ...uploadedMedia })
     // Upload video directly from source without uploading again
     if (
-      uploadedMedia.videoSource.length &&
-      (uploadedMedia.videoSource.includes('ar://') ||
-        uploadedMedia.videoSource.includes('ipfs://'))
+      uploadedMedia.dUrl?.length &&
+      (uploadedMedia.dUrl.includes('ar://') ||
+        uploadedMedia.dUrl.includes('ipfs://'))
     ) {
-      return await createPublication({
-        videoSource: uploadedMedia.videoSource
+      return await create({
+        dUrl: uploadedMedia.dUrl
       })
     }
     if (
@@ -545,9 +612,9 @@ const CreateSteps = () => {
   }
 
   return (
-    <div className="mx-auto my-10 gap-5">
+    <div className="mx-auto gap-5 md:my-10">
       <MetaTags title="Create" />
-      <div className="container mx-auto mt-10 max-w-screen-xl">
+      <div className="container mx-auto max-w-screen-xl md:mt-10">
         <Details onCancel={resetToDefaults} onUpload={onUpload} />
       </div>
     </div>

@@ -21,7 +21,7 @@ import ChooseThumbnail from './ChooseThumbnail'
 import UploadMethod from './UploadMethod'
 
 const SelectedMedia = () => {
-  const videoRef = useRef<HTMLVideoElement>(null)
+  const mediaRef = useRef<HTMLVideoElement>(null)
   const [interacted, setInteracted] = useState(false)
   const [posterPreview, setPosterPreview] = useState('')
   const activeProfile = useProfileStore((state) => state.activeProfile)
@@ -29,29 +29,29 @@ const SelectedMedia = () => {
   const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
 
   const onDataLoaded = () => {
-    if (videoRef.current?.duration && videoRef.current?.duration !== Infinity) {
+    if (mediaRef.current?.duration && mediaRef.current?.duration !== Infinity) {
       setUploadedMedia({
-        durationInSeconds: videoRef.current.duration
-          ? Math.floor(videoRef.current.duration)
+        durationInSeconds: mediaRef.current.duration
+          ? Math.floor(mediaRef.current.duration)
           : 0
       })
     }
   }
 
   useEffect(() => {
-    if (videoRef.current) {
-      videoRef.current.onloadeddata = onDataLoaded
+    if (mediaRef.current) {
+      mediaRef.current.onloadeddata = onDataLoaded
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [videoRef])
+  }, [mediaRef])
 
   const isAudio = ALLOWED_AUDIO_MIME_TYPES.includes(uploadedMedia.mediaType)
 
   const onClickVideo = () => {
     setInteracted(true)
-    videoRef.current?.paused
-      ? videoRef.current?.play()
-      : videoRef.current?.pause()
+    mediaRef.current?.paused
+      ? mediaRef.current?.play()
+      : mediaRef.current?.pause()
   }
 
   return (
@@ -63,7 +63,7 @@ const SelectedMedia = () => {
               {posterPreview ? (
                 <img
                   src={posterPreview}
-                  className="h-full w-full object-cover"
+                  className="rounded-small h-full w-full object-cover"
                   draggable={false}
                   alt="poster"
                 />
@@ -84,7 +84,7 @@ const SelectedMedia = () => {
                 ) : (
                   <span className="inline-flex flex-col items-center space-y-2">
                     <AddImageOutline className="h-5 w-5" />
-                    <span>Upload Poster</span>
+                    <span>Select Poster</span>
                   </span>
                 )}
                 <input
@@ -109,17 +109,18 @@ const SelectedMedia = () => {
               </label>
             </AspectRatio>
             <audio
-              controls
-              controlsList="nodownload noplaybackrate"
-              className="w-full"
+              ref={mediaRef}
               src={uploadedMedia.preview}
+              className="w-full"
+              controlsList="nodownload noplaybackrate"
+              controls
             />
           </div>
         </div>
       ) : (
         <div className="md:rounded-large rounded-small relative w-full cursor-pointer overflow-hidden border dark:border-gray-800">
           <video
-            ref={videoRef}
+            ref={mediaRef}
             className="aspect-[16/9] w-full"
             disablePictureInPicture
             disableRemotePlayback
@@ -195,10 +196,10 @@ const SelectedMedia = () => {
             label="Upload from Source URL"
             info="Skip the media upload (Only use this if you know what you are doing!)"
             placeholder="ar:// or ipfs://"
-            value={uploadedMedia.videoSource}
+            value={uploadedMedia.dUrl}
             onChange={(e) =>
               setUploadedMedia({
-                videoSource: e.target.value
+                dUrl: e.target.value
               })
             }
           />

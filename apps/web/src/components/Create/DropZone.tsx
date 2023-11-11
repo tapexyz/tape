@@ -2,7 +2,11 @@ import UploadOutline from '@components/Common/Icons/UploadOutline'
 import useAppStore from '@lib/store'
 import { Box, Button } from '@radix-ui/themes'
 import { useDragAndDrop } from '@tape.xyz/browser'
-import { ALLOWED_UPLOAD_MIME_TYPES } from '@tape.xyz/constants'
+import {
+  ALLOWED_AUDIO_MIME_TYPES,
+  ALLOWED_UPLOAD_MIME_TYPES,
+  CREATOR_VIDEO_CATEGORIES
+} from '@tape.xyz/constants'
 import { canUploadedToIpfs, EVENTS, logger, Tower } from '@tape.xyz/generic'
 import clsx from 'clsx'
 import fileReaderStream from 'filereader-stream'
@@ -29,12 +33,17 @@ const DropZone = () => {
     try {
       if (file) {
         const preview = URL.createObjectURL(file)
+        const isAudio = ALLOWED_AUDIO_MIME_TYPES.includes(file?.type)
         const isUnderFreeLimit = canUploadedToIpfs(file?.size)
         setUploadedMedia({
           stream: fileReaderStream(file),
           preview,
           mediaType: file?.type,
           file,
+          type: isAudio ? 'AUDIO' : 'VIDEO',
+          mediaCategory: isAudio
+            ? CREATOR_VIDEO_CATEGORIES[1]
+            : CREATOR_VIDEO_CATEGORIES[0],
           isUploadToIpfs: isUnderFreeLimit
         })
       }

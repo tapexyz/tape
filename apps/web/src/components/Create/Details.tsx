@@ -183,7 +183,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
               )}
             </div>
 
-            {uploadedMedia.file && (
+            {uploadedMedia.file && uploadedMedia.type === 'VIDEO' ? (
               <Tooltip
                 visible={!isByteSizeVideo}
                 content="Please note that only videos under 2 minutes in length can be uploaded as bytes"
@@ -206,7 +206,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                   </Text>
                 </div>
               </Tooltip>
-            )}
+            ) : null}
 
             <div className="mt-2">
               <Text as="label">
@@ -246,7 +246,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
           type="submit"
         >
           {uploadedMedia.uploadingThumbnail
-            ? 'Uploading thumbnail'
+            ? 'Uploading image...'
             : uploadedMedia.buttonText}
         </Button>
       </div>
