@@ -20,15 +20,22 @@ const WheelControls: KeenSliderPlugin = (slider) => {
     }, debounceDuration)
   }
 
+  const handleFocus = () => {
+    slider.container.focus()
+  }
+
   slider.on('created', () => {
+    slider.container.setAttribute('tabindex', '0')
     slider.container.addEventListener('wheel', handleWheelEvent, {
       passive: false
     })
+    slider.container.addEventListener('mouseover', handleFocus)
   })
 
   slider.on('destroyed', () => {
     if (slider.container) {
       slider.container.removeEventListener('wheel', handleWheelEvent)
+      slider.container.removeEventListener('mouseover', handleFocus)
     }
   })
 }
@@ -58,11 +65,26 @@ const KeyboardControls: KeenSliderPlugin = (slider) => {
     }
   }
 
+  const handleFocus = () => {
+    slider.container.focus()
+  }
+
   slider.on('created', () => {
     slider.container.setAttribute('tabindex', '0')
     slider.container.addEventListener('focus', eventFocus)
     slider.container.addEventListener('blur', eventBlur)
     slider.container.addEventListener('keydown', eventKeydown)
+    slider.container.addEventListener('mouseover', handleFocus)
+  })
+
+  slider.on('destroyed', () => {
+    if (slider.container) {
+      slider.container.removeEventListener('focus', eventFocus)
+      slider.container.removeEventListener('blur', eventBlur)
+      slider.container.removeEventListener('keydown', eventKeydown)
+      slider.container.removeEventListener('mouseover', handleFocus)
+      slider.container.removeEventListener('mouseover', handleFocus)
+    }
   })
 }
 
