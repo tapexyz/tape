@@ -15,4 +15,5 @@ fragment PublicationMetadataMediaAudioFields on PublicationMetadataMediaAudio {
       uri
     }
   }
+  duration
 }

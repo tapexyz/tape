@@ -95,7 +95,7 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
       <div className="flex items-center justify-between">
         {!hideTitle && (
           <>
-            <h1 className="m-2 flex items-center space-x-2 text-lg">
+            <h1 className="my-2 flex items-center space-x-2 text-lg">
               <CommentOutline className="h-5 w-5" />
               <span className="font-medium">
                 Comments{' '}

@@ -109,9 +109,12 @@ const CreateSteps = () => {
     )
   }
 
-  const redirectToWatchPage = (videoId: string) => {
+  const redirectToWatchPage = (pubId: string) => {
     resetToDefaults()
-    router.push(`/watch/${videoId}`)
+    if (uploadedMedia.type === 'AUDIO') {
+      router.push(`/listen/${pubId}`)
+    }
+    router.push(`/watch/${pubId}`)
   }
 
   const setToQueue = (txn: { txnId?: string; txnHash?: string }) => {
