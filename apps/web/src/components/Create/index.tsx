@@ -112,7 +112,7 @@ const CreateSteps = () => {
   const redirectToWatchPage = (pubId: string) => {
     resetToDefaults()
     if (uploadedMedia.type === 'AUDIO') {
-      router.push(`/listen/${pubId}`)
+      return router.push(`/listen/${pubId}`)
     }
     router.push(`/watch/${pubId}`)
   }
