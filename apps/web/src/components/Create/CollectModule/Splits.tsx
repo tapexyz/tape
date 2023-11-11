@@ -32,9 +32,9 @@ type Props = {
 }
 
 const Splits: FC<Props> = ({ submitContainerRef }) => {
-  const uploadedVideo = useAppStore((state) => state.uploadedVideo)
-  const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
-  const splitRecipients = uploadedVideo.collectModule.multiRecipients ?? []
+  const uploadedMedia = useAppStore((state) => state.uploadedMedia)
+  const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
+  const splitRecipients = uploadedMedia.collectModule.multiRecipients ?? []
   const [searchKeyword, setSearchKeyword] = useState('')
   const debouncedValue = useDebounce<string>(searchKeyword, 500)
 
@@ -44,9 +44,9 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
 
   const setSplitRecipients = (multiRecipients: RecipientDataInput[]) => {
     const enabled = Boolean(splitRecipients.length)
-    setUploadedVideo({
+    setUploadedMedia({
       collectModule: {
-        ...uploadedVideo.collectModule,
+        ...uploadedMedia.collectModule,
         multiRecipients,
         isMultiRecipientFeeCollect: enabled
       }

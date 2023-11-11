@@ -69,8 +69,8 @@ const CreateSteps = () => {
   const getIrysInstance = useAppStore((state) => state.getIrysInstance)
   const setIrysData = useAppStore((state) => state.setIrysData)
   const irysData = useAppStore((state) => state.irysData)
-  const uploadedVideo = useAppStore((state) => state.uploadedVideo)
-  const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
+  const uploadedMedia = useAppStore((state) => state.uploadedMedia)
+  const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
   const activeProfile = useProfileStore(
     (state) => state.activeProfile
   ) as Profile
@@ -84,23 +84,23 @@ const CreateSteps = () => {
   const { canUseLensManager, canBroadcast } =
     checkLensManagerPermissions(activeProfile)
 
-  const degreesOfSeparation = uploadedVideo.referenceModule
+  const degreesOfSeparation = uploadedMedia.referenceModule
     ?.degreesOfSeparationReferenceModule?.degreesOfSeparation as number
-  const enabledReferenceModule = uploadedVideo.referenceModule
+  const enabledReferenceModule = uploadedMedia.referenceModule
     ?.degreesOfSeparationReferenceModule
     ? ReferenceModuleType.DegreesOfSeparationReferenceModule
-    : uploadedVideo.referenceModule.followerOnlyReferenceModule
+    : uploadedMedia.referenceModule.followerOnlyReferenceModule
     ? ReferenceModuleType.FollowerOnlyReferenceModule
     : null
 
   const resetToDefaults = () => {
-    setUploadedVideo(UPLOADED_VIDEO_FORM_DEFAULTS)
+    setUploadedMedia(UPLOADED_VIDEO_FORM_DEFAULTS)
   }
 
   const redirectToChannelPage = () => {
     resetToDefaults()
     router.push(
-      uploadedVideo.isByteVideo
+      uploadedMedia.isByteVideo
         ? `/u/${getProfile(activeProfile)?.slug}?tab=bytes`
         : `/u/${getProfile(activeProfile)?.slug}`
     )
@@ -115,8 +115,8 @@ const CreateSteps = () => {
     if (txn.txnHash || txn.txnId) {
       setQueuedVideos([
         {
-          thumbnailUrl: uploadedVideo.thumbnail,
-          title: uploadedVideo.title,
+          thumbnailUrl: uploadedMedia.thumbnail,
+          title: uploadedMedia.title,
           txnId: txn.txnId,
           txnHash: txn.txnHash
         },
@@ -137,7 +137,7 @@ const CreateSteps = () => {
   }, [handleWrongNetwork])
 
   const stopLoading = () => {
-    setUploadedVideo({
+    setUploadedMedia({
       buttonText: 'Post Now',
       loading: false
     })
@@ -153,17 +153,17 @@ const CreateSteps = () => {
       return
     }
     Tower.track(EVENTS.PUBLICATION.NEW_POST, {
-      video_format: uploadedVideo.mediaType,
-      video_type: uploadedVideo.isByteVideo ? 'SHORT_FORM' : 'LONG_FORM',
-      publication_state: uploadedVideo.collectModule.isRevertCollect
+      video_format: uploadedMedia.mediaType,
+      video_type: uploadedMedia.isByteVideo ? 'SHORT_FORM' : 'LONG_FORM',
+      publication_state: uploadedMedia.collectModule.isRevertCollect
         ? 'MOMOKA'
         : 'ON_CHAIN',
-      video_storage: uploadedVideo.isUploadToIpfs ? 'IPFS' : 'ARWEAVE',
+      video_storage: uploadedMedia.isUploadToIpfs ? 'IPFS' : 'ARWEAVE',
       publication_collect_module: Object.keys(
-        getCollectModuleInput(uploadedVideo.collectModule)
+        getCollectModuleInput(uploadedMedia.collectModule)
       )[0],
       publication_reference_module: enabledReferenceModule,
-      publication_reference_module_degrees_of_separation: uploadedVideo
+      publication_reference_module_degrees_of_separation: uploadedMedia
         .referenceModule.degreesOfSeparationReferenceModule
         ? degreesOfSeparation
         : null,
@@ -294,16 +294,16 @@ const CreateSteps = () => {
     videoSource: string
   }) => {
     try {
-      setUploadedVideo({
+      setUploadedMedia({
         buttonText: 'Storing metadata',
         loading: true
       })
-      uploadedVideo.videoSource = videoSource
+      uploadedMedia.videoSource = videoSource
       const attributes: MetadataAttribute[] = [
         {
           type: MetadataAttributeType.STRING,
           key: 'category',
-          value: uploadedVideo.mediaCategory.tag
+          value: uploadedMedia.mediaCategory.tag
         },
         {
           type: MetadataAttributeType.STRING,
@@ -319,51 +319,51 @@ const CreateSteps = () => {
 
       const publicationMetadata: VideoOptions = {
         video: {
-          item: uploadedVideo.videoSource,
+          item: uploadedMedia.videoSource,
           type: getUploadedMediaType(
-            uploadedVideo.mediaType
+            uploadedMedia.mediaType
           ) as MediaVideoMimeType,
-          altTag: trimify(uploadedVideo.title),
+          altTag: trimify(uploadedMedia.title),
           attributes,
-          cover: uploadedVideo.thumbnail,
-          duration: uploadedVideo.durationInSeconds,
-          license: uploadedVideo.mediaLicense
+          cover: uploadedMedia.thumbnail,
+          duration: uploadedMedia.durationInSeconds,
+          license: uploadedMedia.mediaLicense
         },
         appId: TAPE_APP_ID,
         id: uuidv4(),
         attributes,
-        content: trimify(uploadedVideo.description),
-        tags: [uploadedVideo.mediaCategory.tag],
+        content: trimify(uploadedMedia.description),
+        tags: [uploadedMedia.mediaCategory.tag],
         locale: getUserLocale(),
-        title: uploadedVideo.title,
+        title: uploadedMedia.title,
         marketplace: {
           attributes,
-          animation_url: uploadedVideo.videoSource,
+          animation_url: uploadedMedia.videoSource,
           external_url: `${TAPE_WEBSITE_URL}/u/${getProfile(activeProfile)
             ?.slug}`,
-          image: uploadedVideo.thumbnail,
-          name: uploadedVideo.title,
-          description: trimify(uploadedVideo.description)
+          image: uploadedMedia.thumbnail,
+          name: uploadedMedia.title,
+          description: trimify(uploadedMedia.description)
         }
       }
 
-      if (uploadedVideo.isSensitiveContent) {
+      if (uploadedMedia.isSensitiveContent) {
         publicationMetadata.contentWarning = PublicationContentWarning.SENSITIVE
       }
 
       const shortVideoMetadata = shortVideo(publicationMetadata)
       const longVideoMetadata = video(publicationMetadata)
       const metadataUri = await uploadToAr(
-        uploadedVideo.isByteVideo ? shortVideoMetadata : longVideoMetadata
+        uploadedMedia.isByteVideo ? shortVideoMetadata : longVideoMetadata
       )
-      setUploadedVideo({
+      setUploadedMedia({
         buttonText: 'Posting...',
         loading: true
       })
 
       const isRestricted = Boolean(degreesOfSeparation)
 
-      const { isRevertCollect } = uploadedVideo.collectModule
+      const { isRevertCollect } = uploadedMedia.collectModule
 
       if (isRevertCollect) {
         // MOMOKA
@@ -394,7 +394,7 @@ const CreateSteps = () => {
         quotesRestricted: isRestricted
       }
       const referenceModule: ReferenceModuleInput = {
-        ...(uploadedVideo.referenceModule?.followerOnlyReferenceModule
+        ...(uploadedMedia.referenceModule?.followerOnlyReferenceModule
           ? { followerOnlyReferenceModule: true }
           : { degreesOfSeparationReferenceModule: referenceModuleDegrees })
       }
@@ -403,7 +403,7 @@ const CreateSteps = () => {
         contentURI: metadataUri,
         openActionModules: [
           {
-            ...getCollectModuleInput(uploadedVideo.collectModule)
+            ...getCollectModuleInput(uploadedMedia.collectModule)
           }
         ],
         referenceModule
@@ -426,9 +426,9 @@ const CreateSteps = () => {
 
   const uploadVideoToIpfs = async () => {
     const result = await uploadToIPFS(
-      uploadedVideo.file as File,
+      uploadedMedia.file as File,
       (percentCompleted) => {
-        setUploadedVideo({
+        setUploadedMedia({
           buttonText: 'Uploading...',
           loading: true,
           percent: percentCompleted
@@ -439,7 +439,7 @@ const CreateSteps = () => {
       stopLoading()
       return toast.error('IPFS Upload failed')
     }
-    setUploadedVideo({
+    setUploadedMedia({
       percent: 100,
       videoSource: result.url
     })
@@ -453,7 +453,7 @@ const CreateSteps = () => {
       stopLoading()
       return await initIrys()
     }
-    if (!uploadedVideo.stream) {
+    if (!uploadedMedia.stream) {
       stopLoading()
       return toast.error('Media not uploaded correctly')
     }
@@ -462,25 +462,25 @@ const CreateSteps = () => {
       return toast.error('Insufficient storage balance')
     }
     try {
-      setUploadedVideo({
+      setUploadedMedia({
         loading: true,
         buttonText: 'Uploading...'
       })
       const instance = irysData.instance
       const tags = [
-        { name: 'Content-Type', value: uploadedVideo.mediaType },
+        { name: 'Content-Type', value: uploadedMedia.mediaType },
         { name: 'App-Name', value: TAPE_APP_NAME },
         { name: 'Profile-Id', value: activeProfile?.id },
         // ANS-110 standard
-        { name: 'Title', value: trimify(uploadedVideo.title) },
-        { name: 'Type', value: uploadedVideo.type.toLowerCase() },
-        { name: 'Topic', value: uploadedVideo.mediaCategory.name },
+        { name: 'Title', value: trimify(uploadedMedia.title) },
+        { name: 'Type', value: uploadedMedia.type.toLowerCase() },
+        { name: 'Topic', value: uploadedMedia.mediaCategory.name },
         {
           name: 'Description',
-          value: trimify(uploadedVideo.description)
+          value: trimify(uploadedMedia.description)
         }
       ]
-      const fileSize = uploadedVideo?.file?.size as number
+      const fileSize = uploadedMedia?.file?.size as number
       const uploader = instance.uploader.chunkedUploader
       const chunkSize = 10000000 // 10 MB
       uploader.setChunkSize(chunkSize)
@@ -495,16 +495,16 @@ const CreateSteps = () => {
         const percentCompleted = Math.round(
           (chunkInfo.totalUploaded * 100) / fileSize
         )
-        setUploadedVideo({
+        setUploadedMedia({
           loading: true,
           percent: percentCompleted
         })
       })
-      const upload = uploader.uploadData(uploadedVideo.stream as any, {
+      const upload = uploader.uploadData(uploadedMedia.stream as any, {
         tags
       })
       const response = await upload
-      setUploadedVideo({
+      setUploadedMedia({
         loading: false,
         videoSource: `ar://${response.data.id}`
       })
@@ -519,24 +519,24 @@ const CreateSteps = () => {
   }
 
   const onUpload = async (data: VideoFormData) => {
-    uploadedVideo.title = data.title
-    uploadedVideo.loading = true
-    uploadedVideo.description = data.description
-    uploadedVideo.isSensitiveContent = data.isSensitiveContent
-    setUploadedVideo({ ...uploadedVideo })
+    uploadedMedia.title = data.title
+    uploadedMedia.loading = true
+    uploadedMedia.description = data.description
+    uploadedMedia.isSensitiveContent = data.isSensitiveContent
+    setUploadedMedia({ ...uploadedMedia })
     // Upload video directly from source without uploading again
     if (
-      uploadedVideo.videoSource.length &&
-      (uploadedVideo.videoSource.includes('ar://') ||
-        uploadedVideo.videoSource.includes('ipfs://'))
+      uploadedMedia.videoSource.length &&
+      (uploadedMedia.videoSource.includes('ar://') ||
+        uploadedMedia.videoSource.includes('ipfs://'))
     ) {
       return await createPublication({
-        videoSource: uploadedVideo.videoSource
+        videoSource: uploadedMedia.videoSource
       })
     }
     if (
-      canUploadedToIpfs(uploadedVideo.file?.size) &&
-      uploadedVideo.isUploadToIpfs
+      canUploadedToIpfs(uploadedMedia.file?.size) &&
+      uploadedMedia.isUploadToIpfs
     ) {
       return await uploadVideoToIpfs()
     } else {

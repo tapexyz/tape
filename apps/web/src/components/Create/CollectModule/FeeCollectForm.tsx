@@ -38,10 +38,10 @@ const FeeCollectForm: FC<Props> = ({
   const submitContainerRef = useRef<HTMLDivElement>(null)
   const [validationError, setValidationError] = useState('')
 
-  const uploadedVideo = useAppStore((state) => state.uploadedVideo)
+  const uploadedMedia = useAppStore((state) => state.uploadedMedia)
   const activeProfile = useProfileStore((state) => state.activeProfile)
 
-  const splitRecipients = uploadedVideo.collectModule.multiRecipients ?? []
+  const splitRecipients = uploadedMedia.collectModule.multiRecipients ?? []
 
   const {
     register,
@@ -51,16 +51,16 @@ const FeeCollectForm: FC<Props> = ({
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      referralPercent: Number(uploadedVideo.collectModule.referralFee || 0),
+      referralPercent: Number(uploadedMedia.collectModule.referralFee || 0),
       currency:
-        uploadedVideo.collectModule.amount?.currency ?? WMATIC_TOKEN_ADDRESS,
-      amount: uploadedVideo.collectModule.amount?.value || '0'
+        uploadedMedia.collectModule.amount?.currency ?? WMATIC_TOKEN_ADDRESS,
+      amount: uploadedMedia.collectModule.amount?.value || '0'
     }
   })
 
   useEffect(() => {
     setValidationError('')
-  }, [uploadedVideo.collectModule.multiRecipients])
+  }, [uploadedMedia.collectModule.multiRecipients])
 
   const onSubmit = (data: FormData) => {
     setCollectType({
@@ -76,7 +76,7 @@ const FeeCollectForm: FC<Props> = ({
 
   const validateInputs = (data: FormData) => {
     const amount = Number(data.amount)
-    const { isFeeCollect } = uploadedVideo.collectModule
+    const { isFeeCollect } = uploadedMedia.collectModule
     if (isFeeCollect) {
       if (amount === 0) {
         return setError('amount', {
@@ -101,7 +101,7 @@ const FeeCollectForm: FC<Props> = ({
         return setValidationError('Split addresses should be unique')
       }
       if (
-        uploadedVideo.collectModule.isMultiRecipientFeeCollect &&
+        uploadedMedia.collectModule.isMultiRecipientFeeCollect &&
         splitsSum !== 100
       ) {
         return setValidationError('Sum of all splits should be 100%')
@@ -113,7 +113,7 @@ const FeeCollectForm: FC<Props> = ({
 
   return (
     <form className="space-y-3">
-      {uploadedVideo.collectModule.isFeeCollect ? (
+      {uploadedMedia.collectModule.isFeeCollect ? (
         <>
           <Flex align="start" gap="2">
             <Input
@@ -129,7 +129,7 @@ const FeeCollectForm: FC<Props> = ({
             />
             <Select.Root
               {...register('currency')}
-              value={uploadedVideo.collectModule.amount?.currency}
+              value={uploadedMedia.collectModule.amount?.currency}
               onValueChange={(value) => {
                 setCollectType({
                   amount: { currency: value, value: '' }
