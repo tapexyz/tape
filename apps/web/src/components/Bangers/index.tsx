@@ -1,3 +1,4 @@
+import MetaTags from '@components/Common/MetaTags'
 import { EVENTS, Tower } from '@tape.xyz/generic'
 import React, { useEffect } from 'react'
 
@@ -11,6 +12,7 @@ const Bangers = () => {
 
   return (
     <div>
+      <MetaTags title="Only Bangers" />
       <New />
       <div className="tape-border container mx-auto max-w-screen-sm !border-y-0">
         <Feed />
