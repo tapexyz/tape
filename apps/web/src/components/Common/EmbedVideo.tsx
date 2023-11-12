@@ -42,10 +42,10 @@ const EmbedVideo: FC<Props> = ({ videoId }) => {
 
       <Dialog.Content style={{ maxWidth: 650 }}>
         <Flex justify="between" pb="5" align="center">
-          <Dialog.Title mb="0">Embed Video</Dialog.Title>
+          <Dialog.Title mb="0">Embed Media</Dialog.Title>
           <Dialog.Close>
             <IconButton variant="ghost" color="gray">
-              <TimesOutline outlined={false} className="h-4 w-4" />
+              <TimesOutline outlined={false} className="h-3 w-3" />
             </IconButton>
           </Dialog.Close>
         </Flex>

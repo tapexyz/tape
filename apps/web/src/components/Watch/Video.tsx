@@ -16,7 +16,7 @@ import dynamic from 'next/dynamic'
 import type { FC } from 'react'
 import React from 'react'
 
-import VideoActions from './VideoActions'
+import PublicationActions from '../Common/Publication/PublicationActions'
 import VideoMeta from './VideoMeta'
 
 const VideoPlayer = dynamic(() => import('@tape.xyz/ui/VideoPlayer'), {
@@ -71,7 +71,7 @@ const Video: FC<Props> = ({ video }) => {
           <VideoMeta video={video} />
         </div>
       </div>
-      <VideoActions video={video} />
+      <PublicationActions publication={video} />
     </div>
   )
 }

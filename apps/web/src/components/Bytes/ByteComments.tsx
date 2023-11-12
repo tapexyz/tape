@@ -1,5 +1,5 @@
+import PublicationComments from '@components/Common/Publication/PublicationComments'
 import NonRelevantComments from '@components/Watch/Comments/NonRelevantComments'
-import VideoComments from '@components/Watch/Comments/VideoComments'
 import useProfileStore from '@lib/store/profile'
 import type { MirrorablePublication } from '@tape.xyz/lens'
 import { CustomCommentsFilterEnum } from '@tape.xyz/lens/custom-types'
@@ -17,7 +17,7 @@ const ByteComments: FC<Props> = ({ video }) => {
 
   return (
     <div className="no-scrollbar max-h-[40vh] overflow-y-auto">
-      <VideoComments video={video} hideTitle />
+      <PublicationComments publication={video} hideTitle />
       {selectedCommentFilter === CustomCommentsFilterEnum.RELEVANT_COMMENTS ? (
         <NonRelevantComments video={video} />
       ) : null}

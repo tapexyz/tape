@@ -123,7 +123,7 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
       {!skipNav && <Navbar />}
       <div
         className={clsx(
-          'relative',
+          'relative focus-visible:outline-none',
           !skipPadding &&
             'ultrawide:px-8 ultrawide:pb-8 laptop:px-6 px-4 pb-16 pt-5 md:pb-6'
         )}

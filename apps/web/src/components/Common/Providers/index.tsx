@@ -19,6 +19,7 @@ const NO_NAV_PATHS = ['/login']
 const NO_PADDING_PATHS = [
   '/u/[[...handle]]',
   '/profile/[id]',
+  '/listen/[id]',
   '/login',
   '/bytes',
   '/bytes/[id]',

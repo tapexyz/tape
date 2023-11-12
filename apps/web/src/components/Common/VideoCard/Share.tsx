@@ -15,23 +15,27 @@ import MirrorOutline from '../Icons/MirrorOutline'
 import MirrorVideo from '../MirrorVideo'
 
 type Props = {
-  video: PrimaryPublication
+  publication: PrimaryPublication
 }
 
-const Share: FC<Props> = ({ video }) => {
+const Share: FC<Props> = ({ publication }) => {
   const [copy] = useCopyToClipboard()
   const { resolvedTheme } = useTheme()
+  const isAudio = publication.metadata?.__typename === 'AudioMetadataV3'
+  const url = `${TAPE_WEBSITE_URL}/${isAudio ? 'listen' : 'watch'}/${
+    publication.id
+  }`
 
   const onCopyVideoUrl = async () => {
-    await copy(`${TAPE_WEBSITE_URL}/watch/${video.id}`)
+    await copy(url)
     Tower.track(EVENTS.PUBLICATION.PERMALINK)
   }
 
   return (
     <div>
       <div className="no-scrollbar mb-4 flex flex-nowrap items-center space-x-3 overflow-x-auto">
-        <EmbedVideo videoId={video.id} />
-        <MirrorVideo video={video}>
+        <EmbedVideo videoId={publication.id} />
+        <MirrorVideo video={publication}>
           <div className="rounded-full bg-gray-200 p-3 dark:bg-gray-800">
             <MirrorOutline className="h-5 w-5" />
           </div>
@@ -41,7 +45,7 @@ const Share: FC<Props> = ({ video }) => {
           target="_blank"
           rel="noreferrer"
           onClick={() => Tower.track(EVENTS.PUBLICATION.SHARE.HEY)}
-          href={getSharableLink('hey', video)}
+          href={getSharableLink('hey', publication)}
         >
           <img
             src={imageCdn(
@@ -59,7 +63,7 @@ const Share: FC<Props> = ({ video }) => {
           className="rounded-full"
           target="_blank"
           rel="noreferrer"
-          href={getSharableLink('x', video)}
+          href={getSharableLink('x', publication)}
           onClick={() => Tower.track(EVENTS.PUBLICATION.SHARE.X)}
         >
           <div className="rounded-full bg-gray-200 p-3 dark:bg-gray-800">
@@ -91,7 +95,7 @@ const Share: FC<Props> = ({ video }) => {
           </div>
         </Link>
         <Link
-          href={getSharableLink('reddit', video)}
+          href={getSharableLink('reddit', publication)}
           onClick={() => Tower.track(EVENTS.PUBLICATION.SHARE.REDDIT)}
           target="_blank"
           rel="noreferrer"
@@ -108,7 +112,7 @@ const Share: FC<Props> = ({ video }) => {
           />
         </Link>
         <Link
-          href={getSharableLink('linkedin', video)}
+          href={getSharableLink('linkedin', publication)}
           target="_blank"
           onClick={() => Tower.track(EVENTS.PUBLICATION.SHARE.LINKEDIN)}
           rel="noreferrer"
@@ -126,9 +130,7 @@ const Share: FC<Props> = ({ video }) => {
         </Link>
       </div>
       <div className="flex items-center justify-between rounded-lg border border-gray-200 p-2 dark:border-gray-800">
-        <div className="select-all truncate text-sm">
-          {TAPE_WEBSITE_URL}/watch/{video.id}
-        </div>
+        <div className="select-all truncate text-sm">{url}</div>
         <Tooltip content="Copy" placement="top">
           <IconButton
             variant="soft"

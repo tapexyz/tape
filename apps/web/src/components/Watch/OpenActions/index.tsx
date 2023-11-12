@@ -92,7 +92,7 @@ const OpenActions: FC<Props> = ({
         )}
       </Dialog.Trigger>
 
-      <Dialog.Content>
+      <Dialog.Content style={{ maxWidth: 450 }}>
         <Flex gap="3" justify="between" pb="2">
           <Dialog.Title>
             <Flex align="center" gap="2">
@@ -101,7 +101,7 @@ const OpenActions: FC<Props> = ({
           </Dialog.Title>
           <DialogClose>
             <IconButton variant="ghost" color="gray">
-              <TimesOutline outlined={false} className="h-4 w-4" />
+              <TimesOutline outlined={false} className="h-3 w-3" />
             </IconButton>
           </DialogClose>
         </Flex>

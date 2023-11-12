@@ -74,7 +74,7 @@ type FormData = z.infer<typeof formSchema>
 const NewComment: FC<Props> = ({
   video,
   defaultValue = '',
-  placeholder = "How's this video?",
+  placeholder = 'What do you think?',
   hideEmojiPicker = false,
   resetReply
 }) => {

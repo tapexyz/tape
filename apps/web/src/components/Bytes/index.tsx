@@ -21,11 +21,13 @@ import {
   usePublicationLazyQuery
 } from '@tape.xyz/lens'
 import { Loader } from '@tape.xyz/ui'
+import { useKeenSlider } from 'keen-slider/react'
 import { useRouter } from 'next/router'
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 
 import ByteVideo from './ByteVideo'
+import { KeyboardControls, WheelControls } from './SliderPlugin'
 
 const request: ExplorePublicationRequest = {
   where: {
@@ -42,8 +44,15 @@ const request: ExplorePublicationRequest = {
 
 const Bytes = () => {
   const router = useRouter()
-  const bytesContainer = useRef<HTMLDivElement>(null)
   const [currentViewingId, setCurrentViewingId] = useState('')
+
+  const [sliderRef, { current: slider }] = useKeenSlider(
+    {
+      vertical: true,
+      slides: { perView: 1, spacing: 10 }
+    },
+    [WheelControls, KeyboardControls]
+  )
 
   const [
     fetchPublication,
@@ -123,11 +132,11 @@ const Bytes = () => {
   }
 
   return (
-    <div className="overflow-y-hidden">
+    <div className="relative h-[calc(100vh-7rem)] overflow-y-hidden focus-visible:outline-none md:h-[calc(100vh-4rem)]">
       <MetaTags title="Bytes" />
       <div
-        ref={bytesContainer}
-        className="no-scrollbar h-[calc(100vh-4rem)] snap-y snap-mandatory overflow-y-scroll scroll-smooth pt-4"
+        ref={sliderRef}
+        className="keen-slider h-[calc(100vh-7rem)] snap-y snap-mandatory focus-visible:outline-none md:h-[calc(100vh-4rem)]"
       >
         {singleByte && (
           <ByteVideo
@@ -147,25 +156,25 @@ const Bytes = () => {
               />
             )
         )}
-        {pageInfo?.next && (
-          <span ref={observe} className="flex justify-center p-10">
-            <Loader />
-          </span>
-        )}
-        <div className="laptop:right-6 ultrawide:right-8 bottom-4 right-4 hidden flex-col space-y-2 lg:absolute lg:flex">
-          <button
-            className="rounded-full p-3 hover:bg-gray-200 focus:outline-none dark:bg-gray-800"
-            onClick={() => bytesContainer.current?.scrollBy({ top: -30 })}
-          >
-            <ChevronUpOutline className="h-5 w-5" />
-          </button>
-          <button
-            className="rounded-full p-3 hover:bg-gray-200 focus:outline-none dark:bg-gray-800"
-            onClick={() => bytesContainer.current?.scrollBy({ top: 30 })}
-          >
-            <ChevronDownOutline className="h-5 w-5" />
-          </button>
-        </div>
+      </div>
+      {pageInfo?.next && (
+        <span ref={observe} className="flex justify-center p-10">
+          <Loader />
+        </span>
+      )}
+      <div className="laptop:right-6 ultrawide:right-8 bottom-2 right-4 hidden flex-col space-y-2 md:absolute md:flex">
+        <button
+          className="bg-gallery rounded-full p-3 focus:outline-none dark:bg-gray-800"
+          onClick={() => slider?.prev()}
+        >
+          <ChevronUpOutline className="h-5 w-5" />
+        </button>
+        <button
+          className="bg-gallery rounded-full p-3 focus:outline-none dark:bg-gray-800"
+          onClick={() => slider?.next()}
+        >
+          <ChevronDownOutline className="h-5 w-5" />
+        </button>
       </div>
     </div>
   )

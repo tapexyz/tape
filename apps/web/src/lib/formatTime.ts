@@ -29,6 +29,16 @@ export const getTimeFromSeconds = (seconds: string) => {
   return new Date(parsed * 1000)?.toISOString().slice(11, 19)
 }
 
+export const getReadableTimeFromSeconds = (seconds: string) => {
+  if (seconds === 'Infinity' || !seconds) {
+    return null
+  }
+  const totalSeconds = parseInt(seconds, 10)
+  const minutes = Math.floor(totalSeconds / 60)
+  const remainingSeconds = totalSeconds % 60
+  return `${minutes}m ${remainingSeconds}s`
+}
+
 export const getRelativeTime = (timeString: string) => {
   return dayjs(new Date(timeString)).fromNow()
 }
