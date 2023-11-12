@@ -27,25 +27,26 @@ import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 
-import CommentsFilter from './CommentsFilter'
-import NewComment from './NewComment'
-import QueuedComment from './QueuedComment'
-import RenderComment from './RenderComment'
+import CommentsFilter from '../../Watch/Comments/CommentsFilter'
+import NewComment from '../../Watch/Comments/NewComment'
+import QueuedComment from '../../Watch/Comments/QueuedComment'
+import RenderComment from '../../Watch/Comments/RenderComment'
 
 type Props = {
-  video: MirrorablePublication
+  publication: MirrorablePublication
   hideTitle?: boolean
 }
 
-const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
+const PublicationComments: FC<Props> = ({ publication, hideTitle = false }) => {
   const { activeProfile, selectedCommentFilter } = useProfileStore()
   const queuedComments = usePersistStore((state) => state.queuedComments)
 
   const isFollowerOnlyReferenceModule =
-    video?.referenceModule?.__typename === 'FollowOnlyReferenceModuleSettings'
+    publication?.referenceModule?.__typename ===
+    'FollowOnlyReferenceModuleSettings'
 
   const isDegreesOfSeparationReferenceModule =
-    video?.referenceModule?.__typename ===
+    publication?.referenceModule?.__typename ===
     'DegreesOfSeparationReferenceModuleSettings'
 
   const request: PublicationsRequest = {
@@ -53,7 +54,7 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
     where: {
       customFilters: LENS_CUSTOM_FILTERS,
       commentOn: {
-        id: video.id,
+        id: publication.id,
         ranking: {
           filter:
             selectedCommentFilter === CustomCommentsFilterEnum.RELEVANT_COMMENTS
@@ -66,7 +67,7 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
 
   const { data, loading, error, fetchMore } = usePublicationsQuery({
     variables: { request },
-    skip: !video.id
+    skip: !publication.id
   })
 
   const comments = data?.publications?.items as AnyPublication[]
@@ -99,7 +100,9 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
               <CommentOutline className="h-5 w-5" />
               <span className="font-medium">
                 Comments{' '}
-                {video.stats.comments ? `( ${video.stats.comments} )` : null}
+                {publication.stats.comments
+                  ? `( ${publication.stats.comments} )`
+                  : null}
               </span>
             </h1>
             <CommentsFilter />
@@ -107,17 +110,17 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
         )}
       </div>
       {loading && <CommentsShimmer />}
-      {!loading && video ? (
+      {!loading && publication ? (
         <>
-          {video?.operations.canComment !== TriStateValue.No ? (
-            <NewComment video={video} />
+          {publication?.operations.canComment !== TriStateValue.No ? (
+            <NewComment video={publication} />
           ) : showReferenceModuleAlert ? (
             <Alert variant="warning">
               <span className="text-sm">
                 {isFollowerOnlyReferenceModule
                   ? `Only followers can comment on this publication`
                   : isDegreesOfSeparationReferenceModule
-                  ? `Only followers within ${getProfile(video.by)
+                  ? `Only followers within ${getProfile(publication.by)
                       ?.displayName}'s preferred network can comment`
                   : null}
               </span>
@@ -133,7 +136,7 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
               <div className="space-y-4 py-4">
                 {queuedComments?.map(
                   (queuedComment) =>
-                    queuedComment?.pubId === video?.id && (
+                    queuedComment?.pubId === publication?.id && (
                       <QueuedComment
                         key={queuedComment?.pubId}
                         queuedComment={queuedComment}
@@ -163,4 +166,4 @@ const VideoComments: FC<Props> = ({ video, hideTitle = false }) => {
   )
 }
 
-export default VideoComments
+export default PublicationComments

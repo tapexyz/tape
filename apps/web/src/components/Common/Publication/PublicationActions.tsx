@@ -10,26 +10,26 @@ import { TriStateValue } from '@tape.xyz/lens'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 
-import OpenActions from './OpenActions'
+import OpenActions from '../../Watch/OpenActions'
+import TipForm from '../../Watch/TipForm'
 import PublicationReaction from './PublicationReaction'
-import TipForm from './TipForm'
 
 type Props = {
-  video: MirrorablePublication
+  publication: MirrorablePublication
 }
 
-const VideoActions: FC<Props> = ({ video }) => {
+const PublicationActions: FC<Props> = ({ publication }) => {
   const [showTip, setShowTip] = useState(false)
   return (
     <div className="flex items-center justify-end space-x-2">
       <PublicationReaction
-        publication={video}
+        publication={publication}
         textSize="inherit"
         iconSize="base"
         variant="surface"
         color="blue"
       />
-      {video.operations.canComment !== TriStateValue.No && (
+      {publication.operations.canComment !== TriStateValue.No && (
         <Dialog.Root open={showTip}>
           <Dialog.Trigger>
             <Button
@@ -47,25 +47,27 @@ const VideoActions: FC<Props> = ({ video }) => {
           </Dialog.Trigger>
 
           <Dialog.Content style={{ maxWidth: 450 }}>
-            <Dialog.Title>Tip {getProfile(video.by)?.displayName}</Dialog.Title>
+            <Dialog.Title>
+              Tip @{getProfile(publication.by)?.displayName}
+            </Dialog.Title>
             <Dialog.Description size="2" mb="4">
               Show appreciation with a comment and tip.
             </Dialog.Description>
 
-            <TipForm video={video} setShow={setShowTip} />
+            <TipForm video={publication} setShow={setShowTip} />
           </Dialog.Content>
         </Dialog.Root>
       )}
-      {video.operations.canMirror !== TriStateValue.No && (
-        <MirrorVideo video={video}>
+      {publication.operations.canMirror !== TriStateValue.No && (
+        <MirrorVideo video={publication}>
           <Button variant="surface" color="blue" highContrast>
             <MirrorOutline className="h-4 w-4 flex-none" />
             Mirror
           </Button>
         </MirrorVideo>
       )}
-      <OpenActions publication={video} text="Collect" />
-      <VideoOptions video={video}>
+      <OpenActions publication={publication} text="Collect" />
+      <VideoOptions video={publication}>
         <IconButton variant="surface" color="blue" highContrast>
           <ThreeDotsOutline className="h-4 w-4" />
         </IconButton>
@@ -74,4 +76,4 @@ const VideoActions: FC<Props> = ({ video }) => {
   )
 }
 
-export default VideoActions
+export default PublicationActions

@@ -57,9 +57,7 @@ const Listen = () => {
       {audio ? (
         <div>
           <Background audio={audio}>
-            <div className="max-w-screen-laptop mx-auto flex justify-center">
-              <Audio audio={audio} />
-            </div>
+            <Audio audio={audio} />
           </Background>
           <div className="max-w-screen-laptop mx-auto">
             <Details audio={audio} />

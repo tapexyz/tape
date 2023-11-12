@@ -80,7 +80,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       tipQuantity: 1,
-      message: `Thanks for making this video!`
+      message: `Thanks for creating this content!`
     }
   })
   const watchTipQuantity = watch('tipQuantity', 1)
@@ -318,16 +318,16 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
               }
             }
           })
-        } else {
-          return await createMomokaCommentTypedData({
-            variables: {
-              request: {
-                contentURI: metadataUri,
-                commentOn: targetVideo.id
-              }
-            }
-          })
         }
+
+        return await createMomokaCommentTypedData({
+          variables: {
+            request: {
+              contentURI: metadataUri,
+              commentOn: targetVideo.id
+            }
+          }
+        })
       }
 
       // ON-CHAIN
@@ -340,16 +340,16 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
             }
           }
         })
-      } else {
-        return await createOnchainCommentTypedData({
-          variables: {
-            request: {
-              commentOn: targetVideo.id,
-              contentURI: metadataUri
-            }
-          }
-        })
       }
+
+      return await createOnchainCommentTypedData({
+        variables: {
+          request: {
+            commentOn: targetVideo.id,
+            contentURI: metadataUri
+          }
+        }
+      })
     } catch (error) {
       console.error('🚀 ~ ', error)
     }

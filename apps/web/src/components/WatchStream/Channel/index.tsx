@@ -1,7 +1,7 @@
 import InterweaveContent from '@components/Common/InterweaveContent'
+import PublicationActions from '@components/Common/Publication/PublicationActions'
 import UserProfile from '@components/Common/UserProfile'
 import VideoCardShimmer from '@components/Shimmers/VideoCardShimmer'
-import VideoActions from '@components/Watch/VideoActions'
 import { useQuery } from '@tanstack/react-query'
 import { WORKER_STREAM_URL } from '@tape.xyz/constants'
 import type { PrimaryPublication, Profile } from '@tape.xyz/lens'
@@ -70,7 +70,7 @@ const Channel = ({ id }: { id: string }) => {
       </p>
       <div className="flex items-center justify-between">
         <UserProfile profile={profile} />
-        {publication && <VideoActions video={publication} />}
+        {publication && <PublicationActions publication={publication} />}
       </div>
       <MoreVideos />
     </div>
