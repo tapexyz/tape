@@ -30,7 +30,7 @@ export default async (request: WorkerRequest) => {
     const html = await response.text()
     const { document } = parseHTML(html)
 
-    const ogData = extractOgTags(document)
+    const ogData = await extractOgTags(document, url)
 
     return new Response(JSON.stringify({ success: true, og: ogData }), {
       headers: { 'Content-Type': 'application/json' }
