@@ -14,6 +14,7 @@ export const EVENTS = {
     BANGERS: 'Bangers Page',
     LOGIN: 'Login Page',
     EXPLORE: 'Explore Page',
+    LISTEN: 'Listen Page',
     PROFILE: 'Profile Page',
     EXPLORE_TRENDING: 'Trending Page',
     EXPLORE_INTERESTING: 'Interesting Page',

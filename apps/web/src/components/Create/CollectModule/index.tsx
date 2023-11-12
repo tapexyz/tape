@@ -16,13 +16,13 @@ import PermissionQuestion from './PermissionQuestion'
 
 const CollectModule = () => {
   const [showModal, setShowModal] = useState(false)
-  const uploadedVideo = useAppStore((state) => state.uploadedVideo)
-  const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
+  const uploadedMedia = useAppStore((state) => state.uploadedMedia)
+  const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
   const activeProfile = useProfileStore((state) => state.activeProfile)
 
   const setCollectType = (data: CollectModuleType) => {
-    setUploadedVideo({
-      collectModule: { ...uploadedVideo.collectModule, ...data }
+    setUploadedMedia({
+      collectModule: { ...uploadedMedia.collectModule, ...data }
     })
   }
 
@@ -36,14 +36,14 @@ const CollectModule = () => {
   })
 
   const getSelectedCollectType = () => {
-    const followerOnlyCollect = uploadedVideo.collectModule.followerOnlyCollect
-    const timeLimitEnabled = uploadedVideo.collectModule.timeLimitEnabled
-    const collectLimitEnabled = uploadedVideo.collectModule.collectLimitEnabled
-    const isFeeCollect = uploadedVideo.collectModule.isFeeCollect
-    const collectLimit = uploadedVideo.collectModule.collectLimit
-    const timeLimit = uploadedVideo.collectModule.timeLimit
-    const multiRecipients = uploadedVideo.collectModule.multiRecipients
-    if (uploadedVideo.collectModule.isRevertCollect) {
+    const followerOnlyCollect = uploadedMedia.collectModule.followerOnlyCollect
+    const timeLimitEnabled = uploadedMedia.collectModule.timeLimitEnabled
+    const collectLimitEnabled = uploadedMedia.collectModule.collectLimitEnabled
+    const isFeeCollect = uploadedMedia.collectModule.isFeeCollect
+    const collectLimit = uploadedMedia.collectModule.collectLimit
+    const timeLimit = uploadedMedia.collectModule.timeLimit
+    const multiRecipients = uploadedMedia.collectModule.multiRecipients
+    if (uploadedMedia.collectModule.isRevertCollect) {
       return `No one can collect this publication`
     }
     return (
@@ -54,7 +54,7 @@ const CollectModule = () => {
           {isFeeCollect ? `for set price` : `for free`}{' '}
           {timeLimitEnabled ? `within ${timeLimit} days` : ''}
         </span>
-        {uploadedVideo.collectModule.isMultiRecipientFeeCollect && (
+        {uploadedMedia.collectModule.isMultiRecipientFeeCollect && (
           <Tooltip
             content={`Split revenue enabled with ${multiRecipients?.length} recipients`}
           >
@@ -92,18 +92,18 @@ const CollectModule = () => {
           <Flex direction="column" gap="3">
             <div className="no-scrollbar max-h-[80vh] space-y-2 overflow-y-auto p-0.5">
               <PermissionQuestion setCollectType={setCollectType} />
-              {!uploadedVideo.collectModule.isRevertCollect && (
+              {!uploadedMedia.collectModule.isRevertCollect && (
                 <CollectDuration setCollectType={setCollectType} />
               )}
-              {!uploadedVideo.collectModule.isRevertCollect && (
+              {!uploadedMedia.collectModule.isRevertCollect && (
                 <EditionSize setCollectType={setCollectType} />
               )}
-              {!uploadedVideo.collectModule.isRevertCollect && (
+              {!uploadedMedia.collectModule.isRevertCollect && (
                 <div className="space-y-2">
                   <ChargeQuestion setCollectType={setCollectType} />
-                  {(uploadedVideo.collectModule.isFeeCollect ||
-                    uploadedVideo.collectModule.collectLimitEnabled) &&
-                  !uploadedVideo.collectModule.isRevertCollect &&
+                  {(uploadedMedia.collectModule.isFeeCollect ||
+                    uploadedMedia.collectModule.collectLimitEnabled) &&
+                  !uploadedMedia.collectModule.isRevertCollect &&
                   enabledCurrencies ? (
                     <FeeCollectForm
                       setCollectType={setCollectType}

@@ -9,7 +9,7 @@ type Props = {
 }
 
 const ChargeQuestion: FC<Props> = ({ setCollectType }) => {
-  const uploadedVideo = useAppStore((state) => state.uploadedVideo)
+  const uploadedMedia = useAppStore((state) => state.uploadedMedia)
 
   return (
     <div className="space-y-1">
@@ -21,7 +21,7 @@ const ChargeQuestion: FC<Props> = ({ setCollectType }) => {
           className="flex-1"
           type="button"
           highContrast
-          color={!uploadedVideo.collectModule.isFeeCollect ? 'blue' : 'gray'}
+          color={!uploadedMedia.collectModule.isFeeCollect ? 'blue' : 'gray'}
           variant="surface"
           onClick={() =>
             setCollectType({
@@ -37,7 +37,7 @@ const ChargeQuestion: FC<Props> = ({ setCollectType }) => {
           className="flex-1"
           type="button"
           highContrast
-          color={uploadedVideo.collectModule.isFeeCollect ? 'blue' : 'gray'}
+          color={uploadedMedia.collectModule.isFeeCollect ? 'blue' : 'gray'}
           variant="surface"
           onClick={() =>
             setCollectType({

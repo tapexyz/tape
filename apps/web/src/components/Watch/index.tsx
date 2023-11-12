@@ -17,9 +17,9 @@ import React, { useEffect } from 'react'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
 
+import PublicationComments from '../Common/Publication/PublicationComments'
 import AboutProfile from './AboutProfile'
 import NonRelevantComments from './Comments/NonRelevantComments'
-import VideoComments from './Comments/VideoComments'
 import SuggestedVideos from './SuggestedVideos'
 import Video from './Video'
 
@@ -73,7 +73,7 @@ const VideoDetails = () => {
             <hr className="border-[0.5px] border-gray-200 dark:border-gray-800" />
             <AboutProfile video={video} />
             <hr className="border-[0.5px] border-gray-200 dark:border-gray-800" />
-            <VideoComments video={video} />
+            <PublicationComments publication={video} />
             {selectedCommentFilter ===
             CustomCommentsFilterEnum.RELEVANT_COMMENTS ? (
               <NonRelevantComments video={video} />

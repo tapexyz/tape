@@ -15,10 +15,9 @@ import {
   getIsSensitiveContent,
   getPublicationData,
   getThumbnailUrl,
-  getValueFromKeyInAttributes,
   imageCdn
 } from '@tape.xyz/generic'
-import type { MetadataAttribute, MirrorablePublication } from '@tape.xyz/lens'
+import type { MirrorablePublication } from '@tape.xyz/lens'
 import clsx from 'clsx'
 import Link from 'next/link'
 import type { FC } from 'react'
@@ -36,10 +35,7 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
     : getThumbnailUrl(video.metadata, true)
 
   const { color: backgroundColor } = useAverageColor(thumbnailUrl, isBytesVideo)
-  const videoDuration = getValueFromKeyInAttributes(
-    video.metadata?.attributes as MetadataAttribute[],
-    'durationInSeconds'
-  )
+  const videoDuration = getPublicationData(video.metadata)?.asset?.duration
 
   return (
     <div className="group flex justify-between">
@@ -69,7 +65,7 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
               {!isSensitiveContent && videoDuration ? (
                 <div>
                   <span className="absolute bottom-1 right-1 rounded bg-black px-1 text-[10px] text-white">
-                    {getTimeFromSeconds(videoDuration)}
+                    {getTimeFromSeconds(String(videoDuration))}
                   </span>
                 </div>
               ) : null}

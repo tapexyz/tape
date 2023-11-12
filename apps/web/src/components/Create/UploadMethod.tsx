@@ -7,16 +7,16 @@ import React, { useEffect } from 'react'
 import IrysInfo from './IrysInfo'
 
 const UploadMethod = () => {
-  const uploadedVideo = useAppStore((state) => state.uploadedVideo)
-  const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
+  const uploadedMedia = useAppStore((state) => state.uploadedMedia)
+  const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
 
-  const isUnderFreeLimit = canUploadedToIpfs(uploadedVideo.file?.size)
+  const isUnderFreeLimit = canUploadedToIpfs(uploadedMedia.file?.size)
 
   useEffect(() => {
     if (!isUnderFreeLimit) {
-      setUploadedVideo({ isUploadToIpfs: false })
+      setUploadedMedia({ isUploadToIpfs: false })
     }
-  }, [isUnderFreeLimit, setUploadedVideo])
+  }, [isUnderFreeLimit, setUploadedMedia])
 
   if (isUnderFreeLimit) {
     return null

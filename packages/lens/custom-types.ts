@@ -68,7 +68,7 @@ export type UploadedMedia = {
   isUploadToIpfs: boolean
   loading: boolean
   uploadingThumbnail: boolean
-  videoSource: string
+  dUrl: string
   buttonText: string
   durationInSeconds: number
   collectModule: CollectModuleType

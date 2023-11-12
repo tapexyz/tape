@@ -64,7 +64,7 @@ const Following: FC<Props> = ({ stats, profileId }) => {
           </Dialog.Title>
           <DialogClose>
             <IconButton variant="ghost" color="gray">
-              <TimesOutline outlined={false} className="h-4 w-4" />
+              <TimesOutline outlined={false} className="h-3 w-3" />
             </IconButton>
           </DialogClose>
         </Flex>

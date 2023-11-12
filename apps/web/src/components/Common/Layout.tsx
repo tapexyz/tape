@@ -8,7 +8,7 @@ import {
   useIsMounted
 } from '@tape.xyz/browser'
 import { AUTH_ROUTES, OWNER_ONLY_ROUTES } from '@tape.xyz/constants'
-import { getIsProfileOwner } from '@tape.xyz/generic'
+import { getIsProfileOwner, trimify } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { useCurrentProfileQuery } from '@tape.xyz/lens'
 import { type CustomErrorWithData } from '@tape.xyz/lens/custom-types'
@@ -55,8 +55,8 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
   }
 
   const { loading } = useCurrentProfileQuery({
-    variables: { request: { forProfileId: activeProfile?.id } },
-    skip: !activeProfile?.id,
+    variables: { request: { forProfileId: currentSessionProfileId } },
+    skip: trimify(currentSessionProfileId).length === 0,
     onCompleted: ({ userSigNonces, profile }) => {
       if (!profile) {
         return logout()
@@ -69,7 +69,7 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
   })
 
   const validateAuthRoutes = () => {
-    if (!activeProfile?.id && AUTH_ROUTES.includes(pathname)) {
+    if (!currentSessionProfileId && AUTH_ROUTES.includes(pathname)) {
       replace(`/login?next=${asPath}`)
     }
     if (
@@ -124,9 +124,9 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
       {!skipNav && <Navbar />}
       <div
         className={clsx(
-          'relative',
+          'relative focus-visible:outline-none',
           !skipPadding &&
-            'ultrawide:px-8 ultrawide:pb-8 laptop:px-6 px-4 pb-14 pt-5 md:pb-6'
+            'ultrawide:px-8 ultrawide:pb-8 laptop:px-6 px-4 pb-16 pt-5 md:pb-6'
         )}
       >
         {children}

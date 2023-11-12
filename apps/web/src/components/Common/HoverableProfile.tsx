@@ -17,7 +17,7 @@ import FollowActions from './FollowActions'
 
 type Props = {
   profile: Profile
-  fontSize?: '1' | '2' | '3'
+  fontSize?: '1' | '2' | '3' | '4' | '5'
   children?: ReactElement
   pfp?: ReactElement
 }

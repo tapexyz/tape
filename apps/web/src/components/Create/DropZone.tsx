@@ -2,7 +2,11 @@ import UploadOutline from '@components/Common/Icons/UploadOutline'
 import useAppStore from '@lib/store'
 import { Box, Button } from '@radix-ui/themes'
 import { useDragAndDrop } from '@tape.xyz/browser'
-import { ALLOWED_VIDEO_MIME_TYPES } from '@tape.xyz/constants'
+import {
+  ALLOWED_AUDIO_MIME_TYPES,
+  ALLOWED_UPLOAD_MIME_TYPES,
+  CREATOR_VIDEO_CATEGORIES
+} from '@tape.xyz/constants'
 import { canUploadedToIpfs, EVENTS, logger, Tower } from '@tape.xyz/generic'
 import clsx from 'clsx'
 import fileReaderStream from 'filereader-stream'
@@ -10,7 +14,7 @@ import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
 
 const DropZone = () => {
-  const setUploadedVideo = useAppStore((state) => state.setUploadedVideo)
+  const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
 
   const {
     dragOver,
@@ -29,12 +33,17 @@ const DropZone = () => {
     try {
       if (file) {
         const preview = URL.createObjectURL(file)
+        const isAudio = ALLOWED_AUDIO_MIME_TYPES.includes(file?.type)
         const isUnderFreeLimit = canUploadedToIpfs(file?.size)
-        setUploadedVideo({
+        setUploadedMedia({
           stream: fileReaderStream(file),
           preview,
           mediaType: file?.type,
           file,
+          type: isAudio ? 'AUDIO' : 'VIDEO',
+          mediaCategory: isAudio
+            ? CREATOR_VIDEO_CATEGORIES[1]
+            : CREATOR_VIDEO_CATEGORIES[0],
           isUploadToIpfs: isUnderFreeLimit
         })
       }
@@ -45,7 +54,7 @@ const DropZone = () => {
   }
 
   const validateFile = (file: File) => {
-    if (!ALLOWED_VIDEO_MIME_TYPES.includes(file?.type)) {
+    if (!ALLOWED_UPLOAD_MIME_TYPES.includes(file?.type)) {
       const errorMessage = `Media format (${file?.type}) not supported`
       toast.error(errorMessage)
       return setFileDropError(errorMessage)
@@ -82,7 +91,7 @@ const DropZone = () => {
           className="hidden"
           onChange={onChooseFile}
           id="dropMedia"
-          accept={ALLOWED_VIDEO_MIME_TYPES.join(',')}
+          accept={ALLOWED_UPLOAD_MIME_TYPES.join(',')}
         />
         <span className="mb-6 flex justify-center opacity-80">
           <UploadOutline className="h-10 w-10" />
@@ -106,7 +115,7 @@ const DropZone = () => {
                   onChange={onChooseFile}
                   type="file"
                   className="hidden"
-                  accept={ALLOWED_VIDEO_MIME_TYPES.join(',')}
+                  accept={ALLOWED_UPLOAD_MIME_TYPES.join(',')}
                 />
               </label>
             </Button>

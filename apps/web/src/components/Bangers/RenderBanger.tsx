@@ -1,6 +1,6 @@
 import SignOutline from '@components/Common/Icons/SignOutline'
 import MirrorVideo from '@components/Common/MirrorVideo'
-import PublicationReaction from '@components/Watch/PublicationReaction'
+import PublicationReaction from '@components/Common/Publication/PublicationReaction'
 import { getDateString, getRelativeTime } from '@lib/formatTime'
 import { Button, Text } from '@radix-ui/themes'
 import { TAPE_WEBSITE_URL } from '@tape.xyz/constants'

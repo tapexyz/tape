@@ -40,8 +40,9 @@ type Props = {
 }
 
 const Details: FC<Props> = ({ onUpload, onCancel }) => {
-  const { uploadedVideo, setUploadedVideo } = useAppStore()
-  const isByteSizeVideo = checkIsBytesVideo(uploadedVideo.durationInSeconds)
+  const uploadedMedia = useAppStore((state) => state.uploadedMedia)
+  const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
+  const isByteSizeVideo = checkIsBytesVideo(uploadedMedia.durationInSeconds)
 
   const {
     handleSubmit,
@@ -53,17 +54,17 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
   } = useForm<VideoFormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      isSensitiveContent: uploadedVideo.isSensitiveContent ?? false,
-      title: uploadedVideo.title,
-      description: uploadedVideo.description
+      isSensitiveContent: uploadedMedia.isSensitiveContent ?? false,
+      title: uploadedMedia.title,
+      description: uploadedMedia.description
     }
   })
 
   const onSubmitForm = (data: VideoFormData) => {
-    if (!uploadedVideo.file) {
+    if (!uploadedMedia.file) {
       return toast.error(`Please choose a media to upload`)
     }
-    if (!uploadedVideo.thumbnail?.length) {
+    if (!uploadedMedia.thumbnail?.length) {
       return toast.error(`Please select or upload a thumbnail`)
     }
     onUpload(data)
@@ -71,16 +72,16 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
 
   const toggleUploadAsByte = (enable: boolean) => {
     if (isByteSizeVideo && enable) {
-      return setUploadedVideo({ isByteVideo: true })
+      return setUploadedMedia({ isByteVideo: true })
     }
-    setUploadedVideo({ isByteVideo: false })
+    setUploadedMedia({ isByteVideo: false })
   }
 
   return (
     <form onSubmit={handleSubmit(onSubmitForm)}>
       <div className="flex h-full flex-row flex-wrap gap-4">
         <div className="w-full md:w-2/5">
-          {uploadedVideo.file ? <SelectedMedia /> : <DropZone />}
+          {uploadedMedia.file ? <SelectedMedia /> : <DropZone />}
         </div>
         <div className="flex flex-1 flex-col justify-between">
           <div>
@@ -164,11 +165,11 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                 <Flex gap="2" align="center">
                   <Switch
                     highContrast
-                    checked={!uploadedVideo.collectModule.isRevertCollect}
+                    checked={!uploadedMedia.collectModule.isRevertCollect}
                     onCheckedChange={(canCollect) =>
-                      setUploadedVideo({
+                      setUploadedMedia({
                         collectModule: {
-                          ...uploadedVideo.collectModule,
+                          ...uploadedMedia.collectModule,
                           isRevertCollect: !canCollect
                         }
                       })
@@ -177,12 +178,12 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                   Collectible
                 </Flex>
               </Text>
-              {!uploadedVideo.collectModule.isRevertCollect && (
+              {!uploadedMedia.collectModule.isRevertCollect && (
                 <CollectModule />
               )}
             </div>
 
-            {uploadedVideo.file && (
+            {uploadedMedia.file && uploadedMedia.type === 'VIDEO' ? (
               <Tooltip
                 visible={!isByteSizeVideo}
                 content="Please note that only videos under 2 minutes in length can be uploaded as bytes"
@@ -197,7 +198,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                     <Flex gap="2" align="center">
                       <Switch
                         highContrast
-                        checked={Boolean(uploadedVideo.isByteVideo)}
+                        checked={Boolean(uploadedMedia.isByteVideo)}
                         onCheckedChange={(b) => toggleUploadAsByte(b)}
                       />
                       Upload this video as short-form bytes
@@ -205,7 +206,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                   </Text>
                 </div>
               </Tooltip>
-            )}
+            ) : null}
 
             <div className="mt-2">
               <Text as="label">
@@ -229,7 +230,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
           type="button"
           color="gray"
           variant="soft"
-          disabled={uploadedVideo.loading}
+          disabled={uploadedMedia.loading}
           onClick={() => onCancel()}
         >
           Reset
@@ -237,15 +238,15 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
         <Button
           highContrast
           disabled={
-            uploadedVideo.loading ||
-            uploadedVideo.uploadingThumbnail ||
-            uploadedVideo.durationInSeconds === 0
+            uploadedMedia.loading ||
+            uploadedMedia.uploadingThumbnail ||
+            uploadedMedia.durationInSeconds === 0
           }
           type="submit"
         >
-          {uploadedVideo.uploadingThumbnail
-            ? 'Uploading thumbnail'
-            : uploadedVideo.buttonText}
+          {uploadedMedia.uploadingThumbnail
+            ? 'Uploading image...'
+            : uploadedMedia.buttonText}
         </Button>
       </div>
     </form>

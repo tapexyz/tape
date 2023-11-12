@@ -55,7 +55,7 @@ const VideoMeta: FC<Props> = ({ video }) => {
               <Dialog.Title size="6">Collectors</Dialog.Title>
               <DialogClose>
                 <IconButton variant="ghost" color="gray">
-                  <TimesOutline outlined={false} className="h-4 w-4" />
+                  <TimesOutline outlined={false} className="h-3 w-3" />
                 </IconButton>
               </DialogClose>
             </Flex>
@@ -78,7 +78,7 @@ const VideoMeta: FC<Props> = ({ video }) => {
               <Dialog.Title size="6">Mirrors</Dialog.Title>
               <DialogClose>
                 <IconButton variant="ghost" color="gray">
-                  <TimesOutline outlined={false} className="h-4 w-4" />
+                  <TimesOutline outlined={false} className="h-3 w-3" />
                 </IconButton>
               </DialogClose>
             </Flex>
