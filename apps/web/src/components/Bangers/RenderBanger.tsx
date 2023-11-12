@@ -19,7 +19,7 @@ const RenderBanger = ({ post }: { post: PrimaryPublication }) => {
           <div className="flex items-center justify-between">
             <Mirrors post={post} />
           </div>
-          <div className="rounded-small overflow-hidden">
+          <div>
             <RenderLink
               link={
                 getPublicationData(post.metadata)?.content ?? TAPE_WEBSITE_URL

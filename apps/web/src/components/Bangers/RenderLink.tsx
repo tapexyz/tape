@@ -32,9 +32,13 @@ const RenderLink = ({ link }: { link: string }) => {
   }
 
   return ogData?.html ? (
-    <div dangerouslySetInnerHTML={{ __html: ogData.html as string }} />
+    <div
+      className="tape-border rounded-small overflow-hidden"
+      dangerouslySetInnerHTML={{ __html: ogData.html as string }}
+    />
   ) : (
     <Link
+      className="hover:text-brand-500"
       href={link}
       target={link.includes(location.host) ? '_self' : '_blank'}
       rel="noreferrer noopener"
