@@ -1,7 +1,12 @@
 import { Document } from 'linkedom'
 import { COMMON_REGEX } from './constants'
 
-const ALLOWED_SITES = ['youtube.com', 'youtu.be', 'embed.tape.xyz']
+const ALLOWED_EMBEDS = [
+  'youtube.com',
+  'youtu.be',
+  'embed.tape.xyz',
+  'player.vimeo.com'
+]
 
 const constructIframe = (document: Document) => {
   const ogURLTag =
@@ -16,7 +21,7 @@ const constructIframe = (document: Document) => {
   const urlObj = new URL(embedUrl)
   const hostname = urlObj.hostname.replace('www.', '')
 
-  if (!ALLOWED_SITES.includes(hostname)) {
+  if (!ALLOWED_EMBEDS.includes(hostname)) {
     return null
   }
 
