@@ -11,8 +11,8 @@ import type { FC } from 'react'
 import React, { useState } from 'react'
 
 import OpenActions from '../../Watch/OpenActions'
-import PublicationReaction from '../../Watch/PublicationReaction'
 import TipForm from '../../Watch/TipForm'
+import PublicationReaction from './PublicationReaction'
 
 type Props = {
   publication: MirrorablePublication

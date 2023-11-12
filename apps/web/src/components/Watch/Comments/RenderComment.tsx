@@ -26,7 +26,7 @@ import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 
-import PublicationReaction from '../PublicationReaction'
+import PublicationReaction from '../../Common/Publication/PublicationReaction'
 import CommentMedia from './CommentMedia'
 import CommentOptions from './CommentOptions'
 import CommentReplies from './CommentReplies'
