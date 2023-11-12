@@ -6,6 +6,7 @@ const extractOgTags = async (document: Document, url: string) => {
   const ogTags = {
     title: '',
     description: '',
+    image: '',
     html: '' as string | null
   }
 
@@ -16,6 +17,9 @@ const extractOgTags = async (document: Document, url: string) => {
   ogTags.description = descriptionTag
     ? descriptionTag.getAttribute('content') || ''
     : ''
+  
+  const imageTag = document.querySelector('meta[property="og:image"]')
+  ogTags.image = imageTag ? imageTag.getAttribute('content') || '' : ''
 
   const iframeHTML = await constructIframe(document, url)
   ogTags.html = iframeHTML

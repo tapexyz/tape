@@ -37,14 +37,25 @@ const RenderLink = ({ link }: { link: string }) => {
       dangerouslySetInnerHTML={{ __html: ogData.html as string }}
     />
   ) : (
-    <Link
-      className="hover:text-brand-500"
-      href={link}
-      target={link.includes(location.host) ? '_self' : '_blank'}
-      rel="noreferrer noopener"
-    >
-      {link}
-    </Link>
+    <div className="tape-border rounded-small group space-y-2 overflow-hidden">
+      <Link
+        href={link}
+        target={link.includes(location.host) ? '_self' : '_blank'}
+        rel="noreferrer noopener"
+      >
+        <div className="p-4">
+          <h1 className="font-medium">{ogData.title}</h1>
+          <p className="text-dust text-sm">{ogData.description}</p>
+        </div>
+        {ogData.image && (
+          <img
+            src={ogData.image}
+            className="rounded-b-small aspect-[16/9]"
+            alt="link image"
+          />
+        )}
+      </Link>
+    </div>
   )
 }
 

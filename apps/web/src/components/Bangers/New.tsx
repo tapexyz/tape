@@ -50,7 +50,7 @@ import type { z } from 'zod'
 import { object, string } from 'zod'
 
 const VALID_URL_REGEX = new RegExp(
-  `${COMMON_REGEX.YOUTUBE_WATCH.source}|${COMMON_REGEX.TAPE_WATCH.source}|${COMMON_REGEX.VIMEO_WATCH.source}`
+  `${COMMON_REGEX.YOUTUBE_WATCH.source}|${COMMON_REGEX.TAPE_WATCH.source}|${COMMON_REGEX.VIMEO_WATCH.source}|${COMMON_REGEX.TIKTOK_WATCH.source}`
 )
 
 const formSchema = object({
@@ -223,7 +223,7 @@ const New = () => {
       style={{
         backgroundImage: `url("${imageCdn(FALLBACK_COVER_URL)}")`
       }}
-      className="relative h-44 w-full bg-gray-300 bg-cover bg-center bg-no-repeat dark:bg-gray-700 md:h-[20vh]"
+      className="relative h-44 w-full bg-gray-300 bg-cover bg-center bg-no-repeat dark:bg-gray-700 md:h-[30vh]"
     >
       <fieldset
         disabled={!activeProfile || loading}
