@@ -38,9 +38,14 @@ const constructIframe = async (document: Document, url: string) => {
   }
 
   if (COMMON_REGEX.YOUTUBE_WATCH.test(embedUrl)) {
-    urlObj.searchParams.append('color', 'white')
-    urlObj.searchParams.append('modestbranding', '1')
-    urlObj.searchParams.append('rel', '0')
+    urlObj.searchParams.set('color', 'white')
+    urlObj.searchParams.set('modestbranding', '1')
+    urlObj.searchParams.set('rel', '0')
+    embedUrl = urlObj.href
+  }
+
+  if (COMMON_REGEX.VIMEO_WATCH.test(embedUrl)) {
+    urlObj.searchParams.set('autoplay', '0')
     embedUrl = urlObj.href
   }
 
