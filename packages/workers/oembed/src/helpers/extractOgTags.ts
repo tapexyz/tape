@@ -17,7 +17,7 @@ const extractOgTags = async (document: Document, url: string) => {
   ogTags.description = descriptionTag
     ? descriptionTag.getAttribute('content') || ''
     : ''
-  
+
   const imageTag = document.querySelector('meta[property="og:image"]')
   ogTags.image = imageTag ? imageTag.getAttribute('content') || '' : ''
 

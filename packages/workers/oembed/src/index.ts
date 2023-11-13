@@ -1,5 +1,5 @@
 import { createCors, error, Router, status } from 'itty-router'
- 
+
 import buildRequest from './helpers/buildRequest'
 import type { Env } from './types'
 import parse from './handlers/parse'
