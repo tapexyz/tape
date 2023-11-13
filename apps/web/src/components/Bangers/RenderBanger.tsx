@@ -28,7 +28,7 @@ const RenderBanger = ({ post }: { post: PrimaryPublication }) => {
         </div>
         <div className="mx-2 flex items-center justify-between space-x-2">
           <div className="flex items-center justify-between space-x-4">
-            <MirrorPublication video={post} successToast="It's a banger.">
+            <MirrorPublication video={post} successToast="Shared as Banger">
               <div className="flex">
                 <Button size="1" highContrast variant="ghost">
                   <FireOutline className="h-3.5 w-3.5" />
