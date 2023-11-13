@@ -1,19 +1,20 @@
 import type { FC } from 'react'
-import React, { memo, useEffect, useRef, useState } from 'react'
+import React, { memo, useEffect, useRef } from 'react'
 import WaveSurfer from 'wavesurfer.js'
 
 type Props = {
   url: string
   progressColor?: string
   waveColor?: string
+  isPlaying?: boolean
 }
 
 const AudioPlayer: FC<Props> = (props) => {
   const waveformRef = useRef<HTMLDivElement | null>(null)
-  const [waveSurfer, setWaveSurfer] = useState<WaveSurfer | null>(null)
+  const waveSurferRef = useRef<WaveSurfer | null>(null)
 
   useEffect(() => {
-    if (waveformRef.current) {
+    if (waveformRef.current && !waveSurferRef.current) {
       const ws = WaveSurfer.create({
         container: waveformRef.current,
         waveColor: props.waveColor ?? 'white',
@@ -66,12 +67,27 @@ const AudioPlayer: FC<Props> = (props) => {
         ws.play()
       })
 
-      setWaveSurfer(ws)
+      waveSurferRef.current = ws
+
+      return () => {
+        ws.destroy()
+        waveSurferRef.current = null
+      }
     }
 
-    return () => waveSurfer?.destroy()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [props.url])
+
+  useEffect(() => {
+    if (waveSurferRef.current) {
+      if (props.isPlaying) {
+        waveSurferRef.current.play()
+      } else {
+        waveSurferRef.current.pause()
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.isPlaying])
 
   return <div id="waveform" ref={waveformRef} />
 }

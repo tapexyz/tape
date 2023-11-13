@@ -1,5 +1,8 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
+import PauseOutline from '@components/Common/Icons/PauseOutline'
+import PlayOutline from '@components/Common/Icons/PlayOutline'
 import { getReadableTimeFromSeconds } from '@lib/formatTime'
+import { IconButton } from '@radix-ui/themes'
 import {
   getProfile,
   getProfilePicture,
@@ -11,13 +14,14 @@ import {
 import type { PrimaryPublication } from '@tape.xyz/lens'
 import AudioPlayer from '@tape.xyz/ui/AudioPlayer'
 import type { FC } from 'react'
-import React from 'react'
+import React, { useState } from 'react'
 
 type Props = {
   audio: PrimaryPublication
 }
 
 const Audio: FC<Props> = ({ audio }) => {
+  const [isPlaying, setIsPlaying] = useState(false)
   const coverUrl = imageCdn(
     sanitizeDStorageUrl(getThumbnailUrl(audio.metadata, true)),
     'SQUARE'
@@ -28,16 +32,31 @@ const Audio: FC<Props> = ({ audio }) => {
   return (
     <div>
       <div className="max-w-screen-laptop mx-auto grid place-items-center gap-6 py-10 md:grid-cols-2">
-        <div className="flex justify-center">
+        <div className="relative flex aspect-[1/1] w-[250px] justify-center md:w-[350px]">
           <img
             src={coverUrl}
-            className="rounded-small tape-border aspect-[1/1] w-3/4 object-cover"
+            className="rounded-small tape-border h-full w-full object-cover"
             alt="audio cover"
+            height={500}
+            width={500}
             draggable={false}
           />
+          <div className="absolute inset-0 flex items-end justify-end space-x-1 p-3">
+            <IconButton
+              onClick={() => setIsPlaying(!isPlaying)}
+              size="3"
+              highContrast
+            >
+              {isPlaying ? (
+                <PauseOutline className="h-5 w-5" />
+              ) : (
+                <PlayOutline className="h-5 w-5" />
+              )}
+            </IconButton>
+          </div>
         </div>
         <div className="flex w-full flex-col items-center space-y-4 text-white lg:items-start">
-          <h1 className="line-clamp-5 text-4xl font-bold leading-normal">
+          <h1 className="line-clamp-1 text-4xl font-bold leading-normal">
             {metadata?.title}
           </h1>
           <div className="flex items-center space-x-1">
@@ -64,6 +83,7 @@ const Audio: FC<Props> = ({ audio }) => {
       </div>
       <div className="pb-4">
         <AudioPlayer
+          isPlaying={isPlaying}
           url={getPublicationData(audio.metadata)?.asset?.uri ?? ''}
         />
       </div>
