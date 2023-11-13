@@ -35,7 +35,11 @@ const Listen = () => {
   })
 
   if (loading || !data) {
-    return <Loader />
+    return (
+      <div className="grid h-[80vh] place-items-center">
+        <Loader />
+      </div>
+    )
   }
 
   if (error) {

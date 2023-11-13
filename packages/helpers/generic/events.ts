@@ -83,6 +83,7 @@ export const EVENTS = {
     COPY: 'Copy Embed',
     LOADED: 'Embed Video Loaded',
     CLICK_WATCH_ON_TAPE: 'Click Watch on Tape',
+    CLICK_LISTEN_ON_TAPE: 'Click Listen on Tape',
     CLICK_EMBED_TITLE: 'Click Embed Title',
     CLICK_EMBED_PROFILE: 'Click Embed Profile',
     CLICK_COPY_URL: 'Click Embed Copy Url'
