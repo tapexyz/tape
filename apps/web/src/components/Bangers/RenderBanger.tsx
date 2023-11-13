@@ -1,6 +1,5 @@
-import SignOutline from '@components/Common/Icons/SignOutline'
+import FireOutline from '@components/Common/Icons/FireOutline'
 import MirrorPublication from '@components/Common/MirrorPublication'
-import PublicationReaction from '@components/Common/Publication/PublicationReaction'
 import { getDateString, getRelativeTime } from '@lib/formatTime'
 import { Button, Text } from '@radix-ui/themes'
 import { TAPE_WEBSITE_URL } from '@tape.xyz/constants'
@@ -29,15 +28,11 @@ const RenderBanger = ({ post }: { post: PrimaryPublication }) => {
         </div>
         <div className="mx-2 flex items-center justify-between space-x-2">
           <div className="flex items-center justify-between space-x-4">
-            <PublicationReaction publication={post} />
-            <MirrorPublication
-              video={post}
-              successToast="Co-signed successfully."
-            >
+            <MirrorPublication video={post} successToast="It's a banger.">
               <div className="flex">
                 <Button size="1" highContrast variant="ghost">
-                  <SignOutline className="h-3.5 w-3.5" />
-                  Co-sign
+                  <FireOutline className="h-3.5 w-3.5" />
+                  Banger
                 </Button>
               </div>
             </MirrorPublication>
