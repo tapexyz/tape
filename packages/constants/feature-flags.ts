@@ -3,7 +3,8 @@ import { CORE_MEMBERS } from './verified'
 export enum FEATURE_FLAGS {
   POST_WITH_SOURCE_URL = 'PostWithSource',
   PROFILE_NFTS = 'ProfileNfts',
-  STREAMS = 'Streams'
+  STREAMS = 'Streams',
+  BANGERS = 'Bangers'
 }
 
 type FeatureFlag = {
@@ -22,6 +23,10 @@ export const featureFlags: FeatureFlag[] = [
   },
   {
     flag: FEATURE_FLAGS.STREAMS,
+    enabledFor: CORE_MEMBERS
+  },
+  {
+    flag: FEATURE_FLAGS.BANGERS,
     enabledFor: CORE_MEMBERS
   }
 ]
