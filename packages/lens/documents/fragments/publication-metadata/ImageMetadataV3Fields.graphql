@@ -3,7 +3,6 @@ fragment ImageMetadataV3Fields on ImageMetadataV3 {
   rawURI
   tags
   contentWarning
-  appId
   attributes {
     ...MetadataAttributeFields
   }
