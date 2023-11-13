@@ -1,4 +1,4 @@
-import VideoOptions from '@components/Common/VideoCard/VideoOptions'
+import PublicationOptions from '@components/Common/Publication/PublicationOptions'
 import LatestBytesShimmer from '@components/Shimmers/LatestBytesShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import {
@@ -105,7 +105,7 @@ const ProfileBytes: FC<Props> = ({ profileId }) => {
                   className="absolute right-2 top-2"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  <VideoOptions video={byte} variant="solid" />
+                  <PublicationOptions publication={byte} variant="solid" />
                 </div>
               </Link>
             )

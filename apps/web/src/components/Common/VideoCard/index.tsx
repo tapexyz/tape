@@ -14,9 +14,9 @@ import React from 'react'
 
 import HoverableProfile from '../HoverableProfile'
 import HeartOutline from '../Icons/HeartOutline'
+import PublicationOptions from '../Publication/PublicationOptions'
 import ThumbnailImage from './ThumbnailImage'
 import ThumbnailOverlays from './ThumbnailOverlays'
-import VideoOptions from './VideoOptions'
 
 type Props = {
   video: PrimaryPublication
@@ -55,7 +55,7 @@ const VideoCard: FC<Props> = ({ video }) => {
                 {getPublicationData(metadata)?.title}
               </Link>
               <div className="flex pr-1 pt-1">
-                <VideoOptions video={video} />
+                <PublicationOptions publication={video} />
               </div>
             </div>
 

@@ -28,8 +28,8 @@ import {
   uploadToAr
 } from '@tape.xyz/generic'
 import type {
-  MirrorablePublication,
   OnchainSetProfileMetadataRequest,
+  PrimaryPublication,
   Profile
 } from '@tape.xyz/lens'
 import {
@@ -61,15 +61,19 @@ import TimesOutline from '../Icons/TimesOutline'
 import TrashOutline from '../Icons/TrashOutline'
 import ArweaveExplorerLink from '../Links/ArweaveExplorerLink'
 import IPFSLink from '../Links/IPFSLink'
-import Share from './Share'
+import Share from '../VideoCard/Share'
 
 type Props = {
-  video: MirrorablePublication
+  publication: PrimaryPublication
   children?: ReactNode
   variant?: 'soft' | 'solid' | 'classic' | 'surface' | 'outline' | 'ghost'
 }
 
-const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
+const PublicationOptions: FC<Props> = ({
+  publication,
+  variant = 'ghost',
+  children
+}) => {
   const handleWrongNetwork = useHandleWrongNetwork()
   const [showConfirm, setShowConfirm] = useState(false)
 
@@ -78,7 +82,7 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
   const { canUseLensManager, canBroadcast } =
     checkLensManagerPermissions(activeProfile)
 
-  const isVideoOwner = activeProfile?.id === video?.by?.id
+  const isVideoOwner = activeProfile?.id === publication?.by?.id
   const pinnedVideoId = getValueFromKeyInAttributes(
     activeProfile?.metadata?.attributes,
     'pinnedPublicationId'
@@ -86,20 +90,23 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
 
   const [hideVideo] = useHidePublicationMutation({
     update(cache) {
-      const normalizedId = cache.identify({ id: video?.id, __typename: 'Post' })
+      const normalizedId = cache.identify({
+        id: publication?.id,
+        __typename: 'Post'
+      })
       cache.evict({ id: normalizedId })
       cache.gc()
     },
     onCompleted: () => {
       toast.success(`Video deleted`)
       Tower.track(EVENTS.PUBLICATION.DELETE, {
-        publication_type: video.__typename?.toLowerCase()
+        publication_type: publication.__typename?.toLowerCase()
       })
     }
   })
 
   const onHideVideo = async () => {
-    await hideVideo({ variables: { request: { for: video?.id } } })
+    await hideVideo({ variables: { request: { for: publication?.id } } })
     setShowConfirm(false)
   }
 
@@ -214,7 +221,7 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
           {
             type: MetadataAttributeType.STRING,
             key: 'pinnedPublicationId',
-            value: video.id
+            value: publication.id
           },
           {
             type: MetadataAttributeType.STRING,
@@ -256,24 +263,24 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
 
   const modifyInterestCache = (notInterested: boolean) => {
     cache.modify({
-      id: `Post:${video?.id}`,
+      id: `Post:${publication?.id}`,
       fields: { notInterested: () => notInterested }
     })
     toast.success(
       notInterested
-        ? `Video marked as not interested`
-        : `Video removed from not interested`
+        ? `Publication marked as not interested`
+        : `Publication removed from not interested`
     )
     Tower.track(EVENTS.PUBLICATION.TOGGLE_INTEREST)
   }
 
   const modifyListCache = (saved: boolean) => {
     cache.modify({
-      id: `Post:${video?.id}`,
+      id: `Post:${publication?.id}`,
       fields: {
         operations: () => {
           return {
-            ...video.operations,
+            ...publication.operations,
             hasBookmarked: saved
           }
         }
@@ -309,11 +316,11 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
     if (!activeProfile?.id) {
       return toast.error(SIGN_IN_REQUIRED)
     }
-    if (video.operations.isNotInterested) {
+    if (publication.operations.isNotInterested) {
       addNotInterested({
         variables: {
           request: {
-            on: video.id
+            on: publication.id
           }
         }
       })
@@ -321,7 +328,7 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
       removeNotInterested({
         variables: {
           request: {
-            on: video.id
+            on: publication.id
           }
         }
       })
@@ -332,11 +339,11 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
     if (!activeProfile?.id) {
       return toast.error(SIGN_IN_REQUIRED)
     }
-    if (video.operations.hasBookmarked) {
+    if (publication.operations.hasBookmarked) {
       removeVideoFromList({
         variables: {
           request: {
-            on: video.id
+            on: publication.id
           }
         }
       })
@@ -344,7 +351,7 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
       saveVideoToList({
         variables: {
           request: {
-            on: video.id
+            on: publication.id
           }
         }
       })
@@ -391,12 +398,12 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
                   </Dialog.Close>
                 </Flex>
 
-                <Share publication={video} />
+                <Share publication={publication} />
               </Dialog.Content>
             </Dialog.Root>
             {isVideoOwner && (
               <>
-                {pinnedVideoId !== video.id && (
+                {pinnedVideoId !== publication.id && (
                   <DropdownMenu.Item
                     disabled={!activeProfile?.id}
                     onClick={() => onPinVideo()}
@@ -428,7 +435,7 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
                   <Flex align="center" gap="2">
                     <BookmarkOutline className="h-3.5 w-3.5 flex-none" />
                     <span className="truncate whitespace-nowrap">
-                      {video.operations.hasBookmarked ? 'Unsave' : 'Save'}
+                      {publication.operations.hasBookmarked ? 'Unsave' : 'Save'}
                     </span>
                   </Flex>
                 </DropdownMenu.Item>
@@ -439,7 +446,7 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
                   <Flex align="center" gap="2">
                     <ForbiddenOutline className="h-3.5 w-3.5" />
                     <span className="whitespace-nowrap">
-                      {video.operations.isNotInterested
+                      {publication.operations.isNotInterested
                         ? 'Interested'
                         : 'Not Interested'}
                     </span>
@@ -462,12 +469,12 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
 
                   <Dialog.Content style={{ maxWidth: 450 }}>
                     <Dialog.Title>Report</Dialog.Title>
-                    <ReportPublication publication={video} />
+                    <ReportPublication publication={publication} />
                   </Dialog.Content>
                 </Dialog.Root>
 
-                {getIsIPFSUrl(video.metadata.rawURI) ? (
-                  <IPFSLink hash={getMetadataCid(video)}>
+                {getIsIPFSUrl(publication.metadata.rawURI) ? (
+                  <IPFSLink hash={getMetadataCid(publication)}>
                     <DropdownMenu.Item
                       onClick={() => Tower.track(EVENTS.CLICK_VIEW_METADATA)}
                     >
@@ -478,7 +485,7 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
                     </DropdownMenu.Item>
                   </IPFSLink>
                 ) : (
-                  <ArweaveExplorerLink txId={getMetadataCid(video)}>
+                  <ArweaveExplorerLink txId={getMetadataCid(publication)}>
                     <DropdownMenu.Item
                       onClick={() => Tower.track(EVENTS.CLICK_VIEW_METADATA)}
                     >
@@ -489,9 +496,9 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
                     </DropdownMenu.Item>
                   </ArweaveExplorerLink>
                 )}
-                {video.momoka?.proof && (
+                {publication.momoka?.proof && (
                   <ArweaveExplorerLink
-                    txId={video.momoka?.proof?.replace('ar://', '')}
+                    txId={publication.momoka?.proof?.replace('ar://', '')}
                   >
                     <DropdownMenu.Item
                       onClick={() => Tower.track(EVENTS.CLICK_VIEW_PROOF)}
@@ -512,4 +519,4 @@ const VideoOptions: FC<Props> = ({ video, variant = 'ghost', children }) => {
   )
 }
 
-export default VideoOptions
+export default PublicationOptions
