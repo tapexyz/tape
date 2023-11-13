@@ -1,3 +1,4 @@
+import { IS_MAINNET } from './general'
 import { CORE_MEMBERS } from './verified'
 
 export enum FEATURE_FLAGS {
@@ -27,6 +28,6 @@ export const featureFlags: FeatureFlag[] = [
   },
   {
     flag: FEATURE_FLAGS.BANGERS,
-    enabledFor: CORE_MEMBERS
+    enabledFor: IS_MAINNET ? ['0x5c95', ...CORE_MEMBERS] : CORE_MEMBERS
   }
 ]

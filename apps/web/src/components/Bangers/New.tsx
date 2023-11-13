@@ -263,7 +263,7 @@ const New = () => {
               </p>
               <div className="mt-4 flex justify-end">
                 <Link href="/create">
-                  <Button highContrast>Upload Now</Button>
+                  <Button highContrast>Continue to Upload</Button>
                 </Link>
               </div>
             </div>
