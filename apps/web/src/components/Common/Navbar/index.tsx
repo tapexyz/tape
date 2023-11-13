@@ -2,7 +2,8 @@ import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId'
 import usePersistStore from '@lib/store/persist'
 import useProfileStore from '@lib/store/profile'
 import { Button, DropdownMenu, IconButton } from '@radix-ui/themes'
-import { STATIC_ASSETS } from '@tape.xyz/constants'
+import { FEATURE_FLAGS, STATIC_ASSETS } from '@tape.xyz/constants'
+import { getIsFeatureEnabled } from '@tape.xyz/generic'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -115,6 +116,18 @@ const Navbar = () => {
           >
             Explore
           </Link>
+          {getIsFeatureEnabled(FEATURE_FLAGS.BANGERS, activeProfile?.id) && (
+            <Link
+              href="/bangers"
+              className={clsx(
+                isActivePath('/bangers')
+                  ? 'font-bold'
+                  : 'text-dust font-medium hover:opacity-90'
+              )}
+            >
+              Bangers
+            </Link>
+          )}
         </div>
         <div className="flex w-1/5 items-center justify-end space-x-3">
           <GlobalSearch />

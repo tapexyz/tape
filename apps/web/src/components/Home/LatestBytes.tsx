@@ -1,7 +1,7 @@
 import Badge from '@components/Common/Badge'
 import LatestBytesShimmer from '@components/Shimmers/LatestBytesShimmer'
 import {
-  FALLBACK_COVER_URL,
+  FALLBACK_THUMBNAIL_URL,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_BYTES_APP_ID
 } from '@tape.xyz/constants'
@@ -71,7 +71,7 @@ const LatestBytes = () => {
                 width={600}
                 draggable={false}
                 onError={({ currentTarget }) => {
-                  currentTarget.src = FALLBACK_COVER_URL
+                  currentTarget.src = FALLBACK_THUMBNAIL_URL
                 }}
               />
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-b from-transparent to-black px-4 py-2">

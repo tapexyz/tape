@@ -1,8 +1,8 @@
 import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import ThreeDotsOutline from '@components/Common/Icons/ThreeDotsOutline'
 import TipOutline from '@components/Common/Icons/TipOutline'
-import MirrorVideo from '@components/Common/MirrorVideo'
-import VideoOptions from '@components/Common/VideoCard/VideoOptions'
+import MirrorPublication from '@components/Common/MirrorPublication'
+import PublicationOptions from '@components/Common/Publication/PublicationOptions'
 import { Button, Dialog, IconButton } from '@radix-ui/themes'
 import { EVENTS, getProfile, Tower } from '@tape.xyz/generic'
 import type { MirrorablePublication } from '@tape.xyz/lens'
@@ -58,20 +58,18 @@ const PublicationActions: FC<Props> = ({ publication }) => {
           </Dialog.Content>
         </Dialog.Root>
       )}
-      {publication.operations.canMirror !== TriStateValue.No && (
-        <MirrorVideo video={publication}>
-          <Button variant="surface" color="blue" highContrast>
-            <MirrorOutline className="h-4 w-4 flex-none" />
-            Mirror
-          </Button>
-        </MirrorVideo>
-      )}
+      <MirrorPublication video={publication}>
+        <Button variant="surface" color="blue" highContrast>
+          <MirrorOutline className="h-4 w-4 flex-none" />
+          Mirror
+        </Button>
+      </MirrorPublication>
       <OpenActions publication={publication} text="Collect" />
-      <VideoOptions video={publication}>
+      <PublicationOptions publication={publication}>
         <IconButton variant="surface" color="blue" highContrast>
           <ThreeDotsOutline className="h-4 w-4" />
         </IconButton>
-      </VideoOptions>
+      </PublicationOptions>
     </div>
   )
 }

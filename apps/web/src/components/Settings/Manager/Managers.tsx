@@ -198,7 +198,7 @@ const Managers = () => {
           if (data?.broadcastOnchain.__typename === 'RelayError') {
             return write({ args })
           }
-          return onCompleted(data?.broadcastOnchain.__typename)
+          return
         }
         return write({ args })
       } catch {

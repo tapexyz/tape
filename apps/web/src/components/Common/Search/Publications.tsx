@@ -1,5 +1,5 @@
 import {
-  FALLBACK_COVER_URL,
+  FALLBACK_THUMBNAIL_URL,
   LENSTUBE_BYTES_APP_ID,
   STATIC_ASSETS
 } from '@tape.xyz/constants'
@@ -61,7 +61,7 @@ const Publications: FC<Props> = ({ results, loading, clearSearch }) => {
                   alt="thumbnail"
                   draggable={false}
                   onError={({ currentTarget }) => {
-                    currentTarget.src = FALLBACK_COVER_URL
+                    currentTarget.src = FALLBACK_THUMBNAIL_URL
                   }}
                 />
                 <div className="space-y-0.5">

@@ -6,6 +6,7 @@ import type { FC } from 'react'
 import React from 'react'
 
 import OtherProfiles from './OtherProfiles'
+import ProfileAudios from './ProfileAudios'
 import ProfileBytes from './ProfileBytes'
 import ProfileVideos from './ProfileVideos'
 
@@ -41,6 +42,15 @@ const ProfileTabs: FC<Props> = ({ profile }) => {
           </Tabs.Trigger>
           <Tabs.Trigger
             onClick={() => {
+              handleTabChange('audios')
+              Tower.track(EVENTS.PROFILE.CLICK_PROFILE_AUDIOS)
+            }}
+            value="audios"
+          >
+            Audios
+          </Tabs.Trigger>
+          <Tabs.Trigger
+            onClick={() => {
               handleTabChange('bytes')
               Tower.track(EVENTS.PROFILE.CLICK_PROFILE_BYTES)
             }}
@@ -62,6 +72,10 @@ const ProfileTabs: FC<Props> = ({ profile }) => {
         <Box pt="3">
           <Tabs.Content value="videos">
             <ProfileVideos profile={profile} />
+          </Tabs.Content>
+
+          <Tabs.Content value="audios">
+            <ProfileAudios profile={profile} />
           </Tabs.Content>
 
           <Tabs.Content value="bytes">

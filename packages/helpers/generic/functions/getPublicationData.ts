@@ -28,9 +28,12 @@ export const getPublicationData = (
         attachments: getAttachmentsData(metadata.attachments)
       }
     case 'TextOnlyMetadataV3':
-    case 'LinkMetadataV3':
       return {
         content: metadata.content
+      }
+    case 'LinkMetadataV3':
+      return {
+        content: metadata.sharingLink
       }
     case 'ImageMetadataV3':
       return {
