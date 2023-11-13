@@ -1,4 +1,4 @@
-import { CURRENT_STREAMS } from "../helper/constants"
+import { CURRENT_STREAMS } from '../helper/constants'
 
 export default async () => {
   try {
