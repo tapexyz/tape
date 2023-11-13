@@ -13,19 +13,17 @@ type Props = {
   title?: string
   description?: string
   image?: string
-  videoUrl: string
 }
 
 const MetaTags: FC<Props> = (props) => {
-  const { description, title, image, videoUrl } = props
+  const { description, title, image } = props
   const router = useRouter()
 
   const meta = {
     title: title ?? TAPE_APP_NAME,
     description: description ?? TAPE_APP_DESCRIPTION,
     image: image ?? OG_IMAGE,
-    type: 'video.other',
-    videoUrl
+    type: 'video.other'
   }
 
   return (

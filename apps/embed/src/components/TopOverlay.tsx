@@ -16,7 +16,7 @@ import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 
-import CopyOutline from './CopyOutline'
+import CopyOutline from './icons/CopyOutline'
 
 type OverlayProps = {
   playerRef: HTMLMediaElement | undefined
