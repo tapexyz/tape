@@ -79,7 +79,7 @@ const getPublicationOembed = async (publicationId: string, format: string) => {
               <html>
                 <iframe width="200" height="113" src="${TAPE_EMBED_URL}/${
                   video.id
-                }" title="${TAPE_APP_NAME} video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;" allowfullscreen="true"></iframe>
+                }" title="${TAPE_APP_NAME} player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;" allowfullscreen="true"></iframe>
               </html>
               </oembed>`
     }

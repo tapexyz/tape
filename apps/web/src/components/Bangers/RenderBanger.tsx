@@ -1,5 +1,5 @@
 import SignOutline from '@components/Common/Icons/SignOutline'
-import MirrorVideo from '@components/Common/MirrorVideo'
+import MirrorPublication from '@components/Common/MirrorPublication'
 import PublicationReaction from '@components/Common/Publication/PublicationReaction'
 import { getDateString, getRelativeTime } from '@lib/formatTime'
 import { Button, Text } from '@radix-ui/themes'
@@ -30,14 +30,17 @@ const RenderBanger = ({ post }: { post: PrimaryPublication }) => {
         <div className="mx-2 flex items-center justify-between space-x-2">
           <div className="flex items-center justify-between space-x-4">
             <PublicationReaction publication={post} />
-            <MirrorVideo video={post} successToast="Co-signed successfully.">
+            <MirrorPublication
+              video={post}
+              successToast="Co-signed successfully."
+            >
               <div className="flex">
                 <Button size="1" highContrast variant="ghost">
                   <SignOutline className="h-3.5 w-3.5" />
                   Co-sign
                 </Button>
               </div>
-            </MirrorVideo>
+            </MirrorPublication>
           </div>
           <Text size="1" title={getDateString(post.createdAt)}>
             {getRelativeTime(post.createdAt)}
