@@ -7,7 +7,7 @@ import { WORKER_STREAM_URL } from '@tape.xyz/constants'
 import type { PrimaryPublication, Profile } from '@tape.xyz/lens'
 import { useProfileQuery, usePublicationQuery } from '@tape.xyz/lens'
 import axios from 'axios'
-import React from 'react'
+import React, { memo } from 'react'
 import Custom404 from 'src/pages/404'
 
 import MoreVideos from '../MoreVideos'
@@ -77,4 +77,4 @@ const Channel = ({ id }: { id: string }) => {
   )
 }
 
-export default Channel
+export default memo(Channel)

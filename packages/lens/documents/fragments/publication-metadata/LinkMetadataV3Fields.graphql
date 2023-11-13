@@ -3,7 +3,6 @@ fragment LinkMetadataV3Fields on LinkMetadataV3 {
   rawURI
   tags
   contentWarning
-  appId
   attributes {
     ...MetadataAttributeFields
   }
