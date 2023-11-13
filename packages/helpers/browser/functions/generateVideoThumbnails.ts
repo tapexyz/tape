@@ -1,4 +1,4 @@
-import { FALLBACK_COVER_URL } from '@tape.xyz/constants'
+import { FALLBACK_THUMBNAIL_URL } from '@tape.xyz/constants'
 import { logger } from '@tape.xyz/generic'
 
 const canvasImageFromVideo = (
@@ -81,7 +81,7 @@ export const generateVideoThumbnail = (url: string): Promise<string> => {
       }
     } catch (error) {
       logger.error('[Error Generate Thumbnail From Video Url]', error)
-      resolve(FALLBACK_COVER_URL)
+      resolve(FALLBACK_THUMBNAIL_URL)
     }
   })
 }

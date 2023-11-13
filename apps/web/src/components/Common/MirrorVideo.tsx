@@ -21,7 +21,6 @@ import type {
   MomokaMirrorRequest
 } from '@tape.xyz/lens'
 import {
-  TriStateValue,
   useBroadcastOnchainMutation,
   useBroadcastOnMomokaMutation,
   useCreateMomokaMirrorTypedDataMutation,
@@ -39,9 +38,15 @@ type Props = {
   video: MirrorablePublication
   onMirrorSuccess?: () => void
   children: React.ReactNode
+  successToast?: string
 }
 
-const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
+const MirrorVideo: FC<Props> = ({
+  video,
+  children,
+  onMirrorSuccess,
+  successToast = 'Mirrored video across lens.'
+}) => {
   const [loading, setLoading] = useState(false)
   const handleWrongNetwork = useHandleWrongNetwork()
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
@@ -60,8 +65,8 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
       return
     }
     onMirrorSuccess?.()
-    toast.success('Mirrored video across lens.')
     setLoading(false)
+    toast.success(successToast)
     Tower.track(EVENTS.PUBLICATION.MIRROR, {
       publication_id: video.id,
       publication_state: video.momoka?.proof ? 'MOMOKA' : 'ON_CHAIN'
@@ -220,10 +225,6 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
         }
       })
     } catch {}
-  }
-
-  if (video?.operations.canMirror === TriStateValue.No) {
-    return null
   }
 
   return (

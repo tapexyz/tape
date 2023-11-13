@@ -1,7 +1,24 @@
-import React from 'react'
+import MetaTags from '@components/Common/MetaTags'
+import { EVENTS, Tower } from '@tape.xyz/generic'
+import React, { useEffect } from 'react'
+
+import Feed from './Feed'
+import New from './New'
 
 const Bangers = () => {
-  return <div>Bangers</div>
+  useEffect(() => {
+    Tower.track(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.FEED })
+  }, [])
+
+  return (
+    <div>
+      <MetaTags title="Only Bangers" />
+      <New />
+      <div className="tape-border container mx-auto max-w-screen-sm !border-y-0">
+        <Feed />
+      </div>
+    </div>
+  )
 }
 
 export default Bangers

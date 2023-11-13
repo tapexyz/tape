@@ -1,7 +1,7 @@
 async function handleRequest(request: Request) {
   const userAgent = request.headers.get('User-Agent') || ''
   const regex =
-    /bot|telegram|baidu|bing|yandex|iframely|whatsapp|metainspector/i
+    /bot|telegram|baidu|bing|yandex|iframely|whatsapp|facebook|metainspector/i
 
   if (regex.test(userAgent)) {
     const url = new URL(request.url)

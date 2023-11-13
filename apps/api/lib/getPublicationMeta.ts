@@ -5,16 +5,13 @@ import {
   TAPE_APP_NAME
 } from '@tape.xyz/constants'
 import {
+  getPublication,
   getPublicationData,
   getThumbnailUrl,
   imageCdn,
   truncate
 } from '@tape.xyz/generic'
-import type {
-  AnyPublication,
-  MirrorablePublication,
-  PublicationRequest
-} from '@tape.xyz/lens'
+import type { AnyPublication, PublicationRequest } from '@tape.xyz/lens'
 import { PublicationDocument } from '@tape.xyz/lens'
 import { apolloClient } from '@tape.xyz/lens/apollo'
 import type { NextApiResponse } from 'next'
@@ -34,21 +31,19 @@ const getPublicationMeta = async (
     })
 
     const publication = data?.publication as AnyPublication
-    const video =
-      publication?.__typename === 'Mirror'
-        ? publication.mirrorOn
-        : (publication as MirrorablePublication)
+    const target = getPublication(publication)
+    const isAudio = target.metadata.__typename === 'AudioMetadataV3'
 
     const title = truncate(
-      getPublicationData(video.metadata)?.title as string,
+      getPublicationData(target.metadata)?.title as string,
       100
     )
     const description = truncate(
-      getPublicationData(video.metadata)?.content as string,
+      getPublicationData(target.metadata)?.content as string,
       100
     )
     const thumbnail = imageCdn(
-      getThumbnailUrl(video.metadata) || OG_IMAGE,
+      getThumbnailUrl(target.metadata) || OG_IMAGE,
       'THUMBNAIL'
     )
 
@@ -60,9 +55,9 @@ const getPublicationMeta = async (
           title,
           description: description.replaceAll('\n', ' '),
           image: thumbnail,
-          page: 'VIDEO',
-          pubId: video.id,
-          publication: video
+          page: isAudio ? 'AUDIO' : 'VIDEO',
+          pubId: target.id,
+          publication: target
         })
       )
   } catch {
