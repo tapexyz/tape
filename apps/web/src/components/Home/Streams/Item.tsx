@@ -5,7 +5,7 @@ import { useProfileQuery } from '@tape.xyz/lens'
 import type { ChannelStreamType } from '@tape.xyz/lens/custom-types'
 import VideoPlayer from '@tape.xyz/ui/VideoPlayer'
 import Link from 'next/link'
-import React from 'react'
+import React, { memo } from 'react'
 
 const Item = ({ stream }: { stream: ChannelStreamType }) => {
   const { data } = useProfileQuery({
@@ -62,4 +62,4 @@ const Item = ({ stream }: { stream: ChannelStreamType }) => {
   )
 }
 
-export default Item
+export default memo(Item)
