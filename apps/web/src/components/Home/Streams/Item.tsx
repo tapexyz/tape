@@ -33,10 +33,12 @@ const Item = ({ stream }: { stream: ChannelStreamType }) => {
         <span>
           <Link href={`/stream/channel/${stream.channel}`}>
             <Button color="gray" highContrast>
-              <span className="relative flex h-2 w-2 items-center justify-center">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500 opacity-75" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-red-500" />
-              </span>
+              {stream.isLive && (
+                <span className="relative flex h-2 w-2 items-center justify-center">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500 opacity-75" />
+                  <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-red-500" />
+                </span>
+              )}
               Watch Now
             </Button>
           </Link>

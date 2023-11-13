@@ -7,7 +7,7 @@ export default async (channelId?: string) => {
      if (!stream) {
        return
      }
-    const destinationURL = stream.playbackUrl
+    const destinationURL = stream.posterUrl
     const statusCode = 302
     return Response.redirect(destinationURL, statusCode)
   } catch (error) {

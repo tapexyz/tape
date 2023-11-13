@@ -4,14 +4,17 @@ import { useQuery } from '@tanstack/react-query'
 import { WORKER_STREAM_URL } from '@tape.xyz/constants'
 import type { ChannelStreamType } from '@tape.xyz/lens/custom-types'
 import axios from 'axios'
+import clsx from 'clsx'
 import type { KeenSliderInstance } from 'keen-slider/react'
 import { useKeenSlider } from 'keen-slider/react'
-import React from 'react'
+import React, { useState } from 'react'
 
 import Creators from './Creators'
 import Item from './Item'
 
 const Streams = () => {
+  const [currentSlide, setCurrentSlide] = useState(0)
+
   const fetchStreams = async () => {
     const { data } = await axios.get(`${WORKER_STREAM_URL}/streams`)
     return data?.items ?? []
@@ -23,7 +26,7 @@ const Streams = () => {
   })
 
   const autoSwitchPlugin = (slider: KeenSliderInstance) => {
-    if (slider.slides.length <= 1) {
+    if (slider.slides.length === 1) {
       return
     }
     let timeout: ReturnType<typeof setTimeout>
@@ -56,7 +59,15 @@ const Streams = () => {
     slider.on('updated', nextTimeout)
   }
 
-  const [sliderRef] = useKeenSlider({ loop: true }, [autoSwitchPlugin])
+  const [sliderRef] = useKeenSlider(
+    {
+      loop: true,
+      slideChanged: (slider) => {
+        setCurrentSlide(slider.track.details.rel)
+      }
+    },
+    [autoSwitchPlugin]
+  )
 
   if (!streams?.length) {
     return null
@@ -67,11 +78,28 @@ const Streams = () => {
       <div className="w-full md:w-3/4">
         <div
           ref={sliderRef}
-          className="keen-slider rounded-medium tape-border bg-black text-white md:h-[400px]"
+          className="keen-slider rounded-medium tape-border relative bg-black text-white md:h-[400px]"
         >
           {streams?.map((stream: ChannelStreamType) => (
             <Item key={stream.uid} stream={stream} />
           ))}
+          {streams?.length > 1 && (
+            <div className="absolute bottom-2 z-[1] w-full">
+              <div className="flex justify-center space-x-1">
+                {streams?.map((stream: ChannelStreamType, index: number) => (
+                  <button
+                    className={clsx(
+                      'h-1 rounded-full',
+                      currentSlide === index
+                        ? 'bg-brand-400 w-6'
+                        : 'w-2 bg-white'
+                    )}
+                    key={stream.uid}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </div>
       <Creators />
