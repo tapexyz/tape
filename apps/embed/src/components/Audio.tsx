@@ -50,11 +50,16 @@ const Audio: FC<Props> = ({ audio }) => {
         image={coverImage}
       />
       <div
-        className="rounded-large relative max-h-[350px] overflow-hidden p-6"
-        style={{ backgroundColor }}
+        className="md:rounded-large rounded-small relative max-h-[350px] overflow-hidden p-4 md:p-6"
+        style={{
+          backgroundColor,
+          backgroundImage: `url("${imageCdn(
+            `${STATIC_ASSETS}/images/fallback-cover.svg`
+          )}")`
+        }}
       >
         <div className="flex items-center space-x-6">
-          <div className="aspect-[1/1] w-[150px] flex-none shadow-2xl md:w-[250px]">
+          <div className="rounded-small aspect-[1/1] w-[150px] flex-none shadow-2xl md:w-[250px]">
             <img
               src={coverImage}
               className="rounded-small tape-border object-cover"
