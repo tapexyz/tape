@@ -4,18 +4,10 @@
     "baseUrl": ".",
     "noEmit": true,
     "paths": {
-      "@components*": [
-        "src/components*"
-      ],
-      "@hooks*": [
-        "src/hooks*"
-      ],
-      "@lib*": [
-        "src/lib*"
-      ],
-      "@ui*": [
-        "src/components/ui*"
-      ]
+      "@components*": ["src/components*"],
+      "@hooks*": ["src/hooks*"],
+      "@lib*": ["src/lib*"],
+      "@ui*": ["src/components/ui*"]
     },
     "isolatedModules": true,
     "plugins": [

@@ -10,19 +10,19 @@ import {
   Tower,
   truncate
 } from '@tape.xyz/generic'
-import type { MirrorablePublication } from '@tape.xyz/lens'
+import type { PrimaryPublication } from '@tape.xyz/lens'
 import VideoPlayer from '@tape.xyz/ui/VideoPlayer'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 
+import PlayOutline from './icons/PlayOutline'
 import MetaTags from './MetaTags'
-import PlayOutline from './PlayOutline'
 import TopOverlay from './TopOverlay'
 
 type Props = {
-  video: MirrorablePublication
+  video: PrimaryPublication
 }
 
 const Video: FC<Props> = ({ video }) => {
@@ -76,7 +76,6 @@ const Video: FC<Props> = ({ video }) => {
           100
         )}
         image={thumbnailUrl}
-        videoUrl={getPublicationMediaUrl(video.metadata)}
       />
       {clicked ? (
         <VideoPlayer
