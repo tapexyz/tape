@@ -59,7 +59,12 @@ const Audio: FC<Props> = ({ audio }) => {
         }}
       >
         <div className="flex items-center space-x-6">
-          <div className="rounded-small aspect-[1/1] w-[150px] flex-none shadow-2xl md:w-[250px]">
+          <Link
+            title={`Listen on ${TAPE_APP_NAME}`}
+            href={`${TAPE_WEBSITE_URL}/listen/${audio?.id}`}
+            onClick={() => Tower.track(EVENTS.EMBED_VIDEO.CLICK_LISTEN_ON_TAPE)}
+            className="rounded-small aspect-[1/1] w-[150px] flex-none shadow-2xl md:w-[250px]"
+          >
             <img
               src={coverImage}
               className="rounded-small tape-border object-cover"
@@ -68,11 +73,18 @@ const Audio: FC<Props> = ({ audio }) => {
               width={500}
               draggable={false}
             />
-          </div>
+          </Link>
           <div className="w-full text-white md:space-y-4">
-            <h1 className="line-clamp-1 text-xl font-bold leading-normal md:text-4xl">
+            <Link
+              title={`Listen on ${TAPE_APP_NAME}`}
+              href={`${TAPE_WEBSITE_URL}/listen/${audio?.id}`}
+              onClick={() =>
+                Tower.track(EVENTS.EMBED_VIDEO.CLICK_LISTEN_ON_TAPE)
+              }
+              className="line-clamp-1 inline-block text-xl font-bold leading-normal md:text-4xl"
+            >
               {getPublicationData(audio.metadata)?.title}
-            </h1>
+            </Link>
             <p className="line-clamp-1 md:line-clamp-2">
               {getPublicationData(audio.metadata)?.content}
             </p>
