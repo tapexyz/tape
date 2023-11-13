@@ -21,7 +21,6 @@ import type {
   MomokaMirrorRequest
 } from '@tape.xyz/lens'
 import {
-  TriStateValue,
   useBroadcastOnchainMutation,
   useBroadcastOnMomokaMutation,
   useCreateMomokaMirrorTypedDataMutation,
@@ -41,7 +40,7 @@ type Props = {
   children: React.ReactNode
 }
 
-const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
+const MirrorPublication: FC<Props> = ({ video, children, onMirrorSuccess }) => {
   const [loading, setLoading] = useState(false)
   const handleWrongNetwork = useHandleWrongNetwork()
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
@@ -170,7 +169,7 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
     onCompleted: () => onCompleted()
   })
 
-  const mirrorVideo = async () => {
+  const mirrorPublication = async () => {
     if (!activeProfile?.id) {
       return toast.error(SIGN_IN_REQUIRED)
     }
@@ -222,17 +221,13 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
     } catch {}
   }
 
-  if (video?.operations.canMirror === TriStateValue.No) {
-    return null
-  }
-
   return (
     <div className="inline-flex">
       <button
         type="button"
         className="disabled:opacity-50"
         disabled={loading}
-        onClick={() => mirrorVideo()}
+        onClick={() => mirrorPublication()}
       >
         {children}
       </button>
@@ -240,4 +235,4 @@ const MirrorVideo: FC<Props> = ({ video, children, onMirrorSuccess }) => {
   )
 }
 
-export default MirrorVideo
+export default MirrorPublication

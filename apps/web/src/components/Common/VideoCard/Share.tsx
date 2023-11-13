@@ -9,10 +9,10 @@ import { useTheme } from 'next-themes'
 import type { FC } from 'react'
 import React from 'react'
 
-import EmbedVideo from '../EmbedVideo'
+import EmbedMedia from '../EmbedMedia'
 import CopyOutline from '../Icons/CopyOutline'
 import MirrorOutline from '../Icons/MirrorOutline'
-import MirrorVideo from '../MirrorVideo'
+import MirrorPublication from '../MirrorPublication'
 
 type Props = {
   publication: PrimaryPublication
@@ -34,12 +34,12 @@ const Share: FC<Props> = ({ publication }) => {
   return (
     <div>
       <div className="no-scrollbar mb-4 flex flex-nowrap items-center space-x-3 overflow-x-auto">
-        <EmbedVideo videoId={publication.id} />
-        <MirrorVideo video={publication}>
+        <EmbedMedia publicationId={publication.id} isAudio={isAudio} />
+        <MirrorPublication video={publication}>
           <div className="rounded-full bg-gray-200 p-3 dark:bg-gray-800">
             <MirrorOutline className="h-5 w-5" />
           </div>
-        </MirrorVideo>
+        </MirrorPublication>
         <Link
           className="rounded-full"
           target="_blank"

@@ -1,6 +1,6 @@
 {
   "name": "@tape.xyz/embed",
-  "description": "Embed Video Player",
+  "description": "Embed Player",
   "version": "0.0.0",
   "private": true,
   "scripts": {
