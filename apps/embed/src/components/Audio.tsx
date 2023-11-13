@@ -81,7 +81,7 @@ const Audio: FC<Props> = ({ audio }) => {
               onClick={() =>
                 Tower.track(EVENTS.EMBED_VIDEO.CLICK_LISTEN_ON_TAPE)
               }
-              className="line-clamp-1 inline-block text-xl font-bold leading-normal md:text-4xl"
+              className="line-clamp-1 inline-block text-xl font-bold !leading-normal md:text-4xl"
             >
               {getPublicationData(audio.metadata)?.title}
             </Link>
@@ -109,7 +109,7 @@ const Audio: FC<Props> = ({ audio }) => {
           </div>
         </div>
 
-        <div className="absolute right-6 top-5">
+        <div className="absolute right-4 top-4 md:right-6 md:top-5">
           <Link
             title={`Listen on ${TAPE_APP_NAME}`}
             href={`${TAPE_WEBSITE_URL}/listen/${audio?.id}`}
