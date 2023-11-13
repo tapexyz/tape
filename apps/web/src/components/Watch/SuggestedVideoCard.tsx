@@ -1,7 +1,7 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
 import CommentOutline from '@components/Common/Icons/CommentOutline'
 import HeartOutline from '@components/Common/Icons/HeartOutline'
-import VideoOptions from '@components/Common/VideoCard/VideoOptions'
+import PublicationOptions from '@components/Common/Publication/PublicationOptions'
 import { getShortHandTime, getTimeFromSeconds } from '@lib/formatTime'
 import { Box, Flex } from '@radix-ui/themes'
 import { useAverageColor } from '@tape.xyz/browser'
@@ -103,7 +103,7 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
         </div>
       </div>
       <Box pt="2">
-        <VideoOptions video={video} />
+        <PublicationOptions publication={video} />
       </Box>
     </div>
   )

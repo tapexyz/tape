@@ -14,8 +14,8 @@ import React from 'react'
 
 import HoverableProfile from '../HoverableProfile'
 import HeartOutline from '../Icons/HeartOutline'
+import PublicationOptions from '../Publication/PublicationOptions'
 import ThumbnailImage from './ThumbnailImage'
-import VideoOptions from './VideoOptions'
 
 type Props = {
   stream: PrimaryPublication
@@ -61,7 +61,7 @@ const StreamCard: FC<Props> = ({ stream }) => {
                 </Link>
               </div>
               <div className="flex pr-1 pt-1">
-                <VideoOptions video={stream} />
+                <PublicationOptions publication={stream} />
               </div>
             </div>
 
