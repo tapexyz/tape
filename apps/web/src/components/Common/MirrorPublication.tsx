@@ -41,7 +41,7 @@ type Props = {
   successToast?: string
 }
 
-const MirrorVideo: FC<Props> = ({
+const MirrorPublication: FC<Props> = ({
   video,
   children,
   onMirrorSuccess,
@@ -175,7 +175,7 @@ const MirrorVideo: FC<Props> = ({
     onCompleted: () => onCompleted()
   })
 
-  const mirrorVideo = async () => {
+  const mirrorPublication = async () => {
     if (!activeProfile?.id) {
       return toast.error(SIGN_IN_REQUIRED)
     }
@@ -233,7 +233,7 @@ const MirrorVideo: FC<Props> = ({
         type="button"
         className="disabled:opacity-50"
         disabled={loading}
-        onClick={() => mirrorVideo()}
+        onClick={() => mirrorPublication()}
       >
         {children}
       </button>
@@ -241,4 +241,4 @@ const MirrorVideo: FC<Props> = ({
   )
 }
 
-export default MirrorVideo
+export default MirrorPublication

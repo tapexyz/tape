@@ -3,6 +3,7 @@ import { Card, Dialog, Flex, IconButton } from '@radix-ui/themes'
 import { useCopyToClipboard } from '@tape.xyz/browser'
 import { TAPE_APP_NAME, TAPE_EMBED_URL } from '@tape.xyz/constants'
 import { EVENTS, Tower } from '@tape.xyz/generic'
+import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
 
@@ -11,13 +12,18 @@ import CopyOutline from './Icons/CopyOutline'
 import TimesOutline from './Icons/TimesOutline'
 
 type Props = {
-  videoId: string
+  publicationId: string
+  isAudio: boolean
 }
 
-const EmbedVideo: FC<Props> = ({ videoId }) => {
+const EmbedMedia: FC<Props> = ({ publicationId, isAudio }) => {
   const [copy] = useCopyToClipboard()
 
-  const iframeCode = `<iframe width="560" height="315" src="${TAPE_EMBED_URL}/${videoId}?autoplay=1&t=0&loop=0" title="${TAPE_APP_NAME} video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;" allowfullscreen></iframe>`
+  let iframeCode = `<iframe width="560" height="315" src="${TAPE_EMBED_URL}/${publicationId}?autoplay=1&t=0&loop=0" title="${TAPE_APP_NAME} player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;" allowfullscreen></iframe>`
+
+  if (isAudio) {
+    iframeCode = `<iframe width="100%" height="300" src="${TAPE_EMBED_URL}/${publicationId}" title="${TAPE_APP_NAME} player" frameborder="0"></iframe>`
+  }
 
   const onCopyCode = () => {
     copy(iframeCode)
@@ -54,9 +60,12 @@ const EmbedVideo: FC<Props> = ({ videoId }) => {
           <div className="w-full">
             <iframe
               sandbox="allow-scripts allow-same-origin"
-              className="aspect-[16/9] w-full"
-              src={`${TAPE_EMBED_URL}/${videoId}`}
-              title={`${TAPE_APP_NAME} video player`}
+              className={clsx(
+                'w-full',
+                isAudio ? 'min-h-[200px]' : 'aspect-[16/9] '
+              )}
+              src={`${TAPE_EMBED_URL}/${publicationId}`}
+              title={`${TAPE_APP_NAME} player`}
               allow="accelerometer; autoplay; clipboard-write; gyroscope;"
               allowFullScreen
             />
@@ -85,4 +94,4 @@ const EmbedVideo: FC<Props> = ({ videoId }) => {
   )
 }
 
-export default EmbedVideo
+export default EmbedMedia
