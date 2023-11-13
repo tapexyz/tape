@@ -18,7 +18,7 @@ type Props = {
   title?: string
   description: string
   image: string
-  page?: 'PROFILE' | 'VIDEO'
+  page?: 'PROFILE' | 'VIDEO' | 'AUDIO'
   handle?: string
   pubId?: string
   publication?: AnyPublication
@@ -62,11 +62,14 @@ export const getMetaTags = ({
   publication
 }: Props) => {
   const isVideo = page === 'VIDEO'
+  const isAudio = page === 'AUDIO'
   const meta = {
     title: title ?? TAPE_APP_NAME,
     description: description || TAPE_APP_DESCRIPTION,
     image: image ?? OG_IMAGE,
-    url: isVideo
+    url: isAudio
+      ? `${TAPE_WEBSITE_URL}/listen/${pubId}`
+      : isVideo
       ? `${TAPE_WEBSITE_URL}/watch/${pubId}`
       : `${TAPE_WEBSITE_URL}/u/${handle}`
   }

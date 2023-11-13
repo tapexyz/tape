@@ -2,7 +2,7 @@ import PlayOutline from '@components/Common/Icons/PlayOutline'
 import StopOutline from '@components/Common/Icons/StopOutline'
 import {
   ETHERSCAN_URL,
-  FALLBACK_COVER_URL,
+  FALLBACK_THUMBNAIL_URL,
   POLYGONSCAN_URL
 } from '@tape.xyz/constants'
 import { sanitizeDStorageUrl } from '@tape.xyz/generic'
@@ -66,13 +66,13 @@ const NFTCard: FC<Props> = ({ nft }) => {
             />
             <img
               src={sanitizeDStorageUrl(
-                nft.metaData.image || FALLBACK_COVER_URL
+                nft.metaData.image || FALLBACK_THUMBNAIL_URL
               )}
               className="object-contain"
               alt={nft.metaData.name}
               draggable={false}
               onError={({ currentTarget }) => {
-                currentTarget.src = FALLBACK_COVER_URL
+                currentTarget.src = FALLBACK_THUMBNAIL_URL
               }}
             />
           </>

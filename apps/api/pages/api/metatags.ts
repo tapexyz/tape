@@ -21,6 +21,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
   const isProfile = path.includes('/u/')
   const isVideo = path.includes('/watch/')
+  const isAudio = path.includes('/listen/')
   const isByte = path.includes('/bytes/')
 
   try {
@@ -29,10 +30,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       return await getProfileMeta(res, handle)
     }
 
-    if (isVideo || isByte) {
+    if (isVideo || isByte || isAudio) {
       const pubId = isByte
         ? path.replace('/bytes/', '')
-        : path.replace('/watch/', '')
+        : path.replace('/watch/', '').replace('/listen/', '')
       return await getPublicationMeta(res, pubId)
     }
 

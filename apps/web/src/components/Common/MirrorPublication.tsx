@@ -38,9 +38,15 @@ type Props = {
   video: MirrorablePublication
   onMirrorSuccess?: () => void
   children: React.ReactNode
+  successToast?: string
 }
 
-const MirrorPublication: FC<Props> = ({ video, children, onMirrorSuccess }) => {
+const MirrorPublication: FC<Props> = ({
+  video,
+  children,
+  onMirrorSuccess,
+  successToast = 'Mirrored video across lens.'
+}) => {
   const [loading, setLoading] = useState(false)
   const handleWrongNetwork = useHandleWrongNetwork()
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
@@ -59,8 +65,8 @@ const MirrorPublication: FC<Props> = ({ video, children, onMirrorSuccess }) => {
       return
     }
     onMirrorSuccess?.()
-    toast.success('Mirrored video across lens.')
     setLoading(false)
+    toast.success(successToast)
     Tower.track(EVENTS.PUBLICATION.MIRROR, {
       publication_id: video.id,
       publication_state: video.momoka?.proof ? 'MOMOKA' : 'ON_CHAIN'

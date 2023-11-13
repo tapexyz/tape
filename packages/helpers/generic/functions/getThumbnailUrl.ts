@@ -1,4 +1,4 @@
-import { FALLBACK_COVER_URL } from '@tape.xyz/constants'
+import { FALLBACK_THUMBNAIL_URL } from '@tape.xyz/constants'
 import type { PublicationMetadata } from '@tape.xyz/lens'
 
 import { sanitizeDStorageUrl } from './sanitizeDStorageUrl'
@@ -23,7 +23,7 @@ export const getThumbnailUrl = (
   let url = getCover(metadata)
 
   if (withFallback) {
-    url = url || FALLBACK_COVER_URL
+    url = url || FALLBACK_THUMBNAIL_URL
   }
 
   return sanitizeDStorageUrl(url)
