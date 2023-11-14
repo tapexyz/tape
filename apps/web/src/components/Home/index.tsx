@@ -16,10 +16,10 @@ const Home: NextPage = () => {
 
   return (
     <div className="max-w-screen-ultrawide container mx-auto">
-      <TopSection />
       {getIsFeatureEnabled(FEATURE_FLAGS.STREAMS, activeProfile?.id) && (
         <Streams />
       )}
+      <TopSection />
       <Feed />
     </div>
   )
