@@ -248,57 +248,63 @@ const BasicInfo: FC<Props> = ({ profile }) => {
             <span>{getProfile(profile)?.displayName}</span>
             <Badge id={profile?.id} size="xl" />
           </Text>
-          <div className="hidden items-center md:flex">
-            {hasOnChainId && (
-              <div className="flex items-center space-x-2 py-2">
-                {profile.onchainIdentity?.ens?.name && (
-                  <Tooltip
-                    content={profile.onchainIdentity?.ens?.name}
-                    placement="top"
-                  >
-                    <img
-                      src={`${STATIC_ASSETS}/images/social/ens.svg`}
-                      alt="ens"
-                      className="h-6 w-6"
-                      draggable={false}
-                    />
-                  </Tooltip>
-                )}
-                {profile?.onchainIdentity?.sybilDotOrg.verified && (
-                  <Tooltip content={`Sybil Verified`} placement="top">
-                    <img
-                      src={`${STATIC_ASSETS}/images/social/sybil.png`}
-                      alt="sybil"
-                      className="h-7 w-7"
-                      draggable={false}
-                    />
-                  </Tooltip>
-                )}
-                {profile?.onchainIdentity?.proofOfHumanity && (
-                  <Tooltip content={`Proof of Humanity`} placement="top">
-                    <img
-                      src={`${STATIC_ASSETS}/images/social/poh.png`}
-                      alt="poh"
-                      className="h-7 w-7"
-                      draggable={false}
-                    />
-                  </Tooltip>
-                )}
-                {profile?.onchainIdentity?.worldcoin.isHuman && (
-                  <Tooltip content={`Proof of Personhood`} placement="top">
-                    <img
-                      src={`${STATIC_ASSETS}/images/social/worldcoin.png`}
-                      alt="worldcoin"
-                      className="h-7 w-7"
-                      draggable={false}
-                    />
-                  </Tooltip>
-                )}
-              </div>
+
+          <div className="flex items-center space-x-2">
+            {profile.operations.isFollowingMe.value && (
+              <BadgeUI>Follows you</BadgeUI>
             )}
-            {profile?.id && !isOwnChannel ? (
-              <Bubbles viewing={profile.id} showSeparator={hasOnChainId} />
-            ) : null}
+            <div className="hidden items-center md:flex">
+              {hasOnChainId && (
+                <div className="flex items-center space-x-0.5 py-2">
+                  {profile.onchainIdentity?.ens?.name && (
+                    <Tooltip
+                      content={profile.onchainIdentity?.ens?.name}
+                      placement="top"
+                    >
+                      <img
+                        src={`${STATIC_ASSETS}/images/social/ens.svg`}
+                        alt="ens"
+                        className="h-6 w-6"
+                        draggable={false}
+                      />
+                    </Tooltip>
+                  )}
+                  {profile?.onchainIdentity?.sybilDotOrg.verified && (
+                    <Tooltip content={`Sybil Verified`} placement="top">
+                      <img
+                        src={`${STATIC_ASSETS}/images/social/sybil.png`}
+                        alt="sybil"
+                        className="h-7 w-7"
+                        draggable={false}
+                      />
+                    </Tooltip>
+                  )}
+                  {profile?.onchainIdentity?.proofOfHumanity && (
+                    <Tooltip content={`Proof of Humanity`} placement="top">
+                      <img
+                        src={`${STATIC_ASSETS}/images/social/poh.png`}
+                        alt="poh"
+                        className="h-7 w-7"
+                        draggable={false}
+                      />
+                    </Tooltip>
+                  )}
+                  {profile?.onchainIdentity?.worldcoin.isHuman && (
+                    <Tooltip content={`Proof of Personhood`} placement="top">
+                      <img
+                        src={`${STATIC_ASSETS}/images/social/worldcoin.png`}
+                        alt="worldcoin"
+                        className="h-7 w-7"
+                        draggable={false}
+                      />
+                    </Tooltip>
+                  )}
+                </div>
+              )}
+              {profile?.id && !isOwnChannel ? (
+                <Bubbles viewing={profile.id} showSeparator={hasOnChainId} />
+              ) : null}
+            </div>
           </div>
         </div>
         <Flex gap="3" align="center">

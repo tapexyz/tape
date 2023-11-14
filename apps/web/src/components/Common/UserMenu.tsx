@@ -66,6 +66,7 @@ const UserMenu = () => {
     setActiveProfile(null)
     disconnect?.()
     Tower.track(EVENTS.AUTH.SIGN_OUT)
+    location.reload()
   }
 
   return (

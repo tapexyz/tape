@@ -1,3 +1,4 @@
+import FollowActions from '@components/Common/FollowActions'
 import UserProfile from '@components/Common/UserProfile'
 import { CREATORS } from '@tape.xyz/constants/verified/creators'
 import { shuffleArray } from '@tape.xyz/generic'
@@ -29,7 +30,10 @@ const Creators = () => {
         )}
         {!loading &&
           profiles?.map((profile) => (
-            <UserProfile key={profile.id} profile={profile} />
+            <div key={profile.id} className="flex items-center justify-between">
+              <UserProfile profile={profile} />
+              <FollowActions profile={profile} size="1" showUnfollow={false} />
+            </div>
           ))}
       </div>
     </div>
