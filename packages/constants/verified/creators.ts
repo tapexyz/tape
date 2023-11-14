@@ -2,6 +2,7 @@ import { IS_MAINNET } from '../general'
 
 export const CREATORS = IS_MAINNET
   ? [
+      '0x01bb35', // maearth
       '0x017597', // gitcoin
       '0x01ce77', // web3academy_
       '0x01a860', // coinage_media
