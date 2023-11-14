@@ -16,7 +16,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, Props>(
       <label className="w-full" htmlFor={id}>
         {label && (
           <div className="mb-1 flex items-center space-x-1.5">
-            <Text as="div" size="2" mb="1">
+            <Text as="div" size="2" weight="medium">
               {label}
             </Text>
           </div>

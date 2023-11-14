@@ -38,6 +38,7 @@ const Video: FC<Props> = ({ video }) => {
     sanitizeDStorageUrl(getThumbnailUrl(video.metadata, true)),
     isBytesVideo ? 'THUMBNAIL_V' : 'THUMBNAIL'
   )
+  const videoUrl = getPublicationMediaUrl(video.metadata)
 
   const refCallback = (ref: HTMLMediaElement) => {
     if (ref) {
@@ -52,7 +53,7 @@ const Video: FC<Props> = ({ video }) => {
           address={activeProfile?.ownedBy.address}
           refCallback={refCallback}
           currentTime={videoWatchTime}
-          url={getPublicationMediaUrl(video.metadata)}
+          url={videoUrl}
           posterUrl={thumbnailUrl}
           options={{
             loadingSpinner: true,
