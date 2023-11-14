@@ -24,7 +24,7 @@ export const CURRENT_STREAMS = [
   //   liveUrl:
   //     'https://gw.ipfs-lens.dev/ipfs/bafybeiem5h5h2fj56ip7qbbmbay5qqiqp7qd6av6jpex2gc3jxu6ai4yv4',
   //   uid: '23de4f5a-5c0a-4c0a-8b0a-5c0a4c0a8b0a',
-  //   pid: '0x01-0x01',
+  //   pid: '0x01e3a9-0x01',
   //   streamer: 'lens/streameth',
   //   channel: 2,
   //   isLive: true
