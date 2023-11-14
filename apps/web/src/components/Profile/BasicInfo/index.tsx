@@ -250,7 +250,9 @@ const BasicInfo: FC<Props> = ({ profile }) => {
           </Text>
 
           <div className="flex items-center space-x-2">
-            {profile.operations.isFollowingMe && <BadgeUI>Follows you</BadgeUI>}
+            {profile.operations.isFollowingMe.value && (
+              <BadgeUI>Follows you</BadgeUI>
+            )}
             <div className="hidden items-center md:flex">
               {hasOnChainId && (
                 <div className="flex items-center space-x-0.5 py-2">
