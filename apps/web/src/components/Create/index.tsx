@@ -250,7 +250,12 @@ const CreateSteps = () => {
           return
         }
         return write({ args: [typedData.value] })
-      } catch {}
+      } catch {
+        setUploadedMedia({
+          buttonText: 'Post Now',
+          loading: false
+        })
+      }
     },
     onError
   })
@@ -280,7 +285,12 @@ const CreateSteps = () => {
           return
         }
         return write({ args: [typedData.value] })
-      } catch {}
+      } catch {
+        setUploadedMedia({
+          buttonText: 'Post Now',
+          loading: false
+        })
+      }
     },
     onError
   })

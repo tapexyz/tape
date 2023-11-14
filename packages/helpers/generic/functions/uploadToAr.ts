@@ -1,6 +1,7 @@
 import type {
   AudioMetadata,
   LinkMetadata,
+  LiveStreamMetadata,
   ProfileMetadata,
   TextOnlyMetadata,
   VideoMetadata
@@ -17,6 +18,7 @@ export const uploadToAr = async (
     | ProfileMetadata
     | TextOnlyMetadata
     | LinkMetadata
+    | LiveStreamMetadata
 ): Promise<string> => {
   try {
     const response = await axios.post(WORKER_IRYS_METADATA_UPLOAD_URL, data)

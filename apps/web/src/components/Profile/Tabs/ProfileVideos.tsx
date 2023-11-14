@@ -32,7 +32,10 @@ const ProfileVideos: FC<Props> = ({ profile }) => {
   const request: PublicationsRequest = {
     where: {
       metadata: {
-        mainContentFocus: [PublicationMetadataMainFocusType.Video],
+        mainContentFocus: [
+          PublicationMetadataMainFocusType.Video,
+          PublicationMetadataMainFocusType.Livestream
+        ],
         publishedOn: IS_MAINNET ? [TAPE_APP_ID, ...ALLOWED_APP_IDS] : undefined
       },
       publicationTypes: [PublicationType.Post],

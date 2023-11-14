@@ -81,7 +81,11 @@ export const getPublicationData = (
       return {
         title: metadata.title,
         content: metadata.content,
-        attachments: getAttachmentsData(metadata.attachments)
+        attachments: getAttachmentsData(metadata.attachments),
+        asset: {
+          uri: getPublicationMediaUrl(metadata),
+          cover: getThumbnailUrl(metadata)
+        }
       }
     default:
       return null
