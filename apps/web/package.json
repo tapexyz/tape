@@ -12,13 +12,13 @@
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "3.449.0",
-    "@aws-sdk/lib-storage": "3.449.0",
+    "@aws-sdk/client-s3": "3.450.0",
+    "@aws-sdk/lib-storage": "3.450.0",
     "@emoji-mart/react": "^1.1.1",
     "@hookform/resolvers": "^3.3.2",
     "@irys/sdk": "^0.0.4",
     "@lens-protocol/metadata": "^1.0.5",
-    "@livepeer/react": "^3.0.2",
+    "@livepeer/react": "^3.0.3",
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/themes": "^2.0.0-rc.3",
     "@tailwindcss/aspect-ratio": "^0.4.2",
@@ -44,7 +44,7 @@
     "react-mentions": "^4.4.10",
     "react-use-websocket": "^4.5.0",
     "uuid": "^9.0.1",
-    "viem": "^1.19.0",
+    "viem": "^1.19.1",
     "wagmi": "^1.4.6",
     "zod": "^3.22.2",
     "zustand": "^4.4.6"

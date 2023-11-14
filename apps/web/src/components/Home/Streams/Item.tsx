@@ -26,7 +26,7 @@ const Item = ({ stream }: { stream: ChannelStreamType }) => {
           <p className="ultrawide:line-clamp-5 line-clamp-1 md:line-clamp-3">
             {stream.content}
           </p>
-          <div>
+          <div className="inline-block">
             <UserProfile profile={profile} />
           </div>
         </div>

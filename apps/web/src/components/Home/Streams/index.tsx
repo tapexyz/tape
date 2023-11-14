@@ -59,7 +59,7 @@ const Streams = () => {
     slider.on('updated', nextTimeout)
   }
 
-  const [sliderRef] = useKeenSlider(
+  const [sliderRef, { current: slider }] = useKeenSlider(
     {
       loop: true,
       slideChanged: (slider) => {
@@ -74,8 +74,8 @@ const Streams = () => {
   }
 
   return (
-    <div className="laptop:pt-6 flex flex-wrap gap-4 pt-4">
-      <div className="w-full md:w-3/4">
+    <div className="laptop:pb-6 flex flex-wrap gap-4 pb-4">
+      <div className="w-full lg:w-3/4">
         <div
           ref={sliderRef}
           className="keen-slider rounded-medium tape-border relative bg-black text-white md:h-[400px]"
@@ -94,6 +94,7 @@ const Streams = () => {
                         ? 'bg-brand-400 w-6'
                         : 'w-2 bg-white'
                     )}
+                    onClick={() => slider?.moveToIdx(index)}
                     key={stream.uid}
                   />
                 ))}
