@@ -7,11 +7,11 @@
 </div>
 <br>
 <div align="center">
-    <a href="https://tape.xyz/u/sasicodes.lens">
+    <a href="https://tape.xyz/u/sasicodes">
         <img src="https://lens-badge.vercel.app/api/badge/lens/sasicodes" alt="Lens">
     </a>
-    <a href="https://www.gitpoap.io/gh/lenstube-xyz/lenstube">
-        <img src="https://public-api.gitpoap.io/v1/repo/lenstube-xyz/lenstube/badge" alt="Gitpoap">
+    <a href="https://www.gitpoap.io/gh/lenstube-xyz/tape">
+        <img src="https://public-api.gitpoap.io/v1/repo/lenstube-xyz/tape/badge" alt="Gitpoap">
     </a>
     <a href="https://tape.xyz/discord">
        <img src="https://img.shields.io/discord/980882088783913010.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2" alt="Discord">
@@ -24,9 +24,6 @@
     </a>
      <a href="https://status.tape.xyz">
         <img src="https://betteruptime.com/status-badges/v1/monitor/dfaw.svg" alt="Better Uptime">
-    </a>
-    <a title="Crowdin" target="_blank" href="https://crowdin.com/project/lenstube">
-        <img src="https://badges.crowdin.net/lenstube/localized.svg">
     </a>
     <span>
         <img src="https://img.shields.io/github/stars/tapexyz/tape" alt="Stargazers">
