@@ -32,7 +32,7 @@ const Creators = () => {
           profiles?.map((profile) => (
             <div key={profile.id} className="flex items-center justify-between">
               <UserProfile profile={profile} />
-              <FollowActions profile={profile} size="1" />
+              <FollowActions profile={profile} size="1" showUnfollow={false} />
             </div>
           ))}
       </div>
