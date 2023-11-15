@@ -36,10 +36,7 @@ const Feed = ({ showFilter = true }) => {
         publishedOn: IS_MAINNET ? [TAPE_APP_ID, ...ALLOWED_APP_IDS] : undefined,
         tags:
           activeTagFilter !== 'all' ? { oneOf: [activeTagFilter] } : undefined,
-        mainContentFocus: [
-          PublicationMetadataMainFocusType.Video,
-          PublicationMetadataMainFocusType.Livestream
-        ]
+        mainContentFocus: [PublicationMetadataMainFocusType.Video]
       }
     },
     orderBy: ExplorePublicationsOrderByType.LensCurated,
