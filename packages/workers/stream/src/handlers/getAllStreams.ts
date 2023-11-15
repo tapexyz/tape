@@ -5,7 +5,6 @@ export default async () => {
     const items = CURRENT_STREAMS
     const response = new Response(JSON.stringify({ success: true, items }))
 
-    response.headers.set('Cache-Control', 'max-age=1000')
     response.headers.set('Content-Type', 'application/json')
 
     return response

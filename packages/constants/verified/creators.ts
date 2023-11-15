@@ -12,7 +12,6 @@ export const CREATORS = IS_MAINNET
       '0x01a5c1', // thesymmetrical
       '0x01c5b9', // galverse
       '0x012ba5', // pooltogether
-      '0xc01c', // lenstubelogs
       '0x01615e', // livepeer
       '0x0102b5', // ufoclub
       '0x0115ca', // erikamoji
@@ -46,6 +45,7 @@ export const CREATORS = IS_MAINNET
       '0x8b61', // bankless
       '0x1c19', // gabriel
       '0x0160', // ethglobal
-      '0x9797' // ethdubai
+      '0x9797', // ethdubai
+      '0xc01c' // tape
     ]
   : []

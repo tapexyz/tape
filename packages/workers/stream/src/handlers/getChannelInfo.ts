@@ -11,7 +11,6 @@ export default async (channelId?: string) => {
       })
     )
 
-    response.headers.set('Cache-Control', 'max-age=1000')
     response.headers.set('Content-Type', 'application/json')
 
     return response
