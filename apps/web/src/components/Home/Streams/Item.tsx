@@ -1,3 +1,4 @@
+import InterweaveContent from '@components/Common/InterweaveContent'
 import UserProfile from '@components/Common/UserProfile'
 import { Button } from '@radix-ui/themes'
 import type { Profile } from '@tape.xyz/lens'
@@ -20,18 +21,23 @@ const Item = ({ stream }: { stream: ChannelStreamType }) => {
 
   return (
     <div className="keen-slider__slide relative flex justify-between">
-      <div className="absolute z-[6] flex h-full w-full flex-col justify-evenly space-y-6 bg-black bg-opacity-50 p-6 lg:static">
-        <div className="space-y-3">
-          <h1 className="laptop:text-4xl text-2xl font-bold">{stream.title}</h1>
-          <p className="ultrawide:line-clamp-5 line-clamp-1 md:line-clamp-3">
-            {stream.content}
-          </p>
+      <div className="absolute z-[6] flex h-full w-full flex-col justify-between space-y-6 bg-black bg-opacity-50 p-8 lg:static">
+        <div className="space-y-4">
+          <div className="space-y-2">
+            <h1 className="laptop:text-4xl text-2xl font-bold">
+              {stream.title}
+            </h1>
+            <p className="ultrawide:line-clamp-5 line-clamp-1 md:line-clamp-4">
+              <InterweaveContent content={stream.content} />
+            </p>
+          </div>
           <div className="inline-block">
             <UserProfile profile={profile} />
           </div>
         </div>
         <span>
-          <Link href={`/stream/channel/${stream.channel}`}>
+          <Link href={`/watch/${stream.pid}`}>
+            {/* <Link href={`/stream/channel/${stream.channel}`}> */}
             <Button color="gray" highContrast>
               {stream.isLive && (
                 <span className="relative flex h-2 w-2 items-center justify-center">

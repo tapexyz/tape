@@ -8,6 +8,7 @@ import getAllStreams from './handlers/getAllStreams'
 import getLiveUrl from './handlers/getLiveUrl'
 import getPlaybackUrl from './handlers/getPlaybackUrl'
 import getIsLive from './handlers/getIsLive'
+import getTest from './handlers/getTest'
 
 const { preflight, corsify } = createCors({
   origins: ['*'],
@@ -20,6 +21,7 @@ router
   .all('*', preflight)
   .head('*', () => status(200))
   .get('/', () => new Response('gm'))
+  .get('/test', ({ params }) => getTest(params.channelId))
   .get('/streams', () => getAllStreams())
   .get('/stream/:channelId/playbackUrl', ({ params }) =>
     getPlaybackUrl(params.channelId)
