@@ -8,7 +8,7 @@ const WatchStream = () => {
   const {
     query: { slug }
   } = useRouter()
-  const channelId = (slug as string[])[1]
+  const channelId = (slug as string[])?.[1]
 
   return (
     <>
