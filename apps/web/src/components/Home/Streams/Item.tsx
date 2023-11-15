@@ -27,7 +27,7 @@ const Item = ({ stream }: { stream: ChannelStreamType }) => {
             <h1 className="laptop:text-4xl text-2xl font-bold">
               {stream.title}
             </h1>
-            <p className="ultrawide:line-clamp-5 line-clamp-1 md:line-clamp-3">
+            <p className="ultrawide:line-clamp-5 line-clamp-1 md:line-clamp-4">
               <InterweaveContent content={stream.content} />
             </p>
           </div>
