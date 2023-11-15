@@ -2,7 +2,7 @@ export const CURRENT_STREAMS = [
   {
     title: 'rAAVE İstanbul 2023',
     content:
-      'Live streaming till 4 AM with Veronika Fleyta, GALLiVANTER, Henri Bergmann b2b Jamiie and Jimi Jules.',
+      'Dance with Ronnie from anywhere in the globe featuring Veronika Fleyta, GALLiVANTER, Henri Bergmann, Jamiie and Jimi Jules. \n\n Livestream at 5PM UTC: https://rad.lol/stream',
     posterUrl: 'https://static.tape.xyz/images/fallback-thumbnail.webp',
     playbackUrl:
       'https://gw.ipfs-lens.dev/ipfs/bafybeia6adey4ywft3ta5nz6nf73krvcj5reckyjvpxo6ugt6znbcuk7dy',
