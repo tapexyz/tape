@@ -1,5 +1,6 @@
 import InterweaveContent from '@components/Common/InterweaveContent'
 import PublicationActions from '@components/Common/Publication/PublicationActions'
+import PublicationComments from '@components/Common/Publication/PublicationComments'
 import UserProfile from '@components/Common/UserProfile'
 import VideoCardShimmer from '@components/Shimmers/VideoCardShimmer'
 import { useQuery } from '@tanstack/react-query'
@@ -57,21 +58,28 @@ const Channel = ({ id }: { id: string }) => {
   }
 
   return (
-    <div className="space-y-3.5">
+    <div className="space-y-5">
       <LiveVideo
         poster={streamData.posterUrl}
         playback={streamData.playbackUrl}
       />
-      <h1 className="line-clamp-2 font-bold md:text-xl">
-        <InterweaveContent content={streamData.title} />
-      </h1>
-      <p>
-        <InterweaveContent content={streamData.content} />
-      </p>
+      <div className="space-y-1">
+        <h1 className="line-clamp-2 font-bold md:text-xl">
+          <InterweaveContent content={streamData.title} />
+        </h1>
+        <p>
+          <InterweaveContent content={streamData.content} />
+        </p>
+      </div>
       <div className="flex items-center justify-between">
         <UserProfile profile={profile} />
         {publication && <PublicationActions publication={publication} />}
       </div>
+      {publication && (
+        <div>
+          <PublicationComments publication={publication} />
+        </div>
+      )}
       <MoreVideos />
     </div>
   )
