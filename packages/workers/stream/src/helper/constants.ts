@@ -2,8 +2,7 @@ export const CURRENT_STREAMS = [
   {
     title: "Let's rAAVE",
     content: 'Hosting decentralized parties since 2021.',
-    posterUrl:
-      'https://gw.ipfs-lens.dev/ipfs/bafkreid2mlomtqkdl2cha5tqfhluts3ug2h2tgsm6asrsbqrf43lmpvq3u',
+    posterUrl: 'https://static.tape.xyz/images/fallback-thumbnail.webp',
     playbackUrl:
       'https://gw.ipfs-lens.dev/ipfs/bafybeia6adey4ywft3ta5nz6nf73krvcj5reckyjvpxo6ugt6znbcuk7dy',
     liveUrl:
@@ -13,20 +12,17 @@ export const CURRENT_STREAMS = [
     streamer: 'lens/letsraave',
     channel: 1,
     isLive: true
+  },
+  {
+    title: 'Rad',
+    content: 'Rad is a live stream of curated content from the internet.',
+    posterUrl: 'https://static.tape.xyz/images/fallback-thumbnail.webp',
+    playbackUrl: 'https://livepeercdn.studio/hls/ac8dk2zj53sdnybu/index.m3u8',
+    liveUrl: 'https://livepeercdn.studio/hls/ac8dk2zj53sdnybu/index.m3u8',
+    uid: '23de4f5a-5c0a-4c0a-8b0a-5c0a4c0a8b0a',
+    pid: '0x98e0-0x0a-DA-91406d88',
+    streamer: 'lens/pablov',
+    channel: 2,
+    isLive: true
   }
-  // {
-  //   title: 'Rad',
-  //   content: 'Rad is a live stream of curated content from the internet.',
-  //   posterUrl:
-  //     'https://gw.ipfs-lens.dev/ipfs/bafybeigjzxth756zl32nfrb3nbjyqeb2tne2hdqj5aqhjz3l47o2zzivhu',
-  //   playbackUrl:
-  //     'https://gw.ipfs-lens.dev/ipfs/bafybeiem5h5h2fj56ip7qbbmbay5qqiqp7qd6av6jpex2gc3jxu6ai4yv4',
-  //   liveUrl:
-  //     'https://gw.ipfs-lens.dev/ipfs/bafybeiem5h5h2fj56ip7qbbmbay5qqiqp7qd6av6jpex2gc3jxu6ai4yv4',
-  //   uid: '23de4f5a-5c0a-4c0a-8b0a-5c0a4c0a8b0a',
-  //   pid: '0x01e3a9-0x01',
-  //   streamer: 'lens/streameth',
-  //   channel: 2,
-  //   isLive: true
-  // }
 ]
