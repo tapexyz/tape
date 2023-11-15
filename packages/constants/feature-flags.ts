@@ -24,7 +24,7 @@ export const featureFlags: FeatureFlag[] = [
   },
   {
     flag: FEATURE_FLAGS.STREAMS,
-    enabledFor: CORE_MEMBERS
+    enabledFor: IS_MAINNET ? ['0xd543', ...CORE_MEMBERS] : CORE_MEMBERS
   },
   {
     flag: FEATURE_FLAGS.BANGERS,
