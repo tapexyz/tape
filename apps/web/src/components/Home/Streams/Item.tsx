@@ -36,7 +36,8 @@ const Item = ({ stream }: { stream: ChannelStreamType }) => {
           </div>
         </div>
         <span>
-          <Link href={`/stream/channel/${stream.channel}`}>
+          <Link href={`/watch/${stream.pid}`}>
+            {/* <Link href={`/stream/channel/${stream.channel}`}> */}
             <Button color="gray" highContrast>
               {stream.isLive && (
                 <span className="relative flex h-2 w-2 items-center justify-center">
