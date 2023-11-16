@@ -3,7 +3,6 @@ import type { NextPage } from 'next'
 import React, { useEffect } from 'react'
 
 import Feed from './Feed'
-import Streams from './Streams'
 import TopSection from './TopSection'
 
 const Home: NextPage = () => {
@@ -13,7 +12,7 @@ const Home: NextPage = () => {
 
   return (
     <div className="max-w-screen-ultrawide container mx-auto">
-      <Streams />
+      {/* <Streams /> */}
       <TopSection />
       <Feed />
     </div>
