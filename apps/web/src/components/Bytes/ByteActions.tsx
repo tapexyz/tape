@@ -30,7 +30,6 @@ const ByteActions: FC<Props> = ({ video }) => {
             publication={video}
             iconSize="lg"
             isVertical
-            showLabel
           />
         </div>
         <div className="space-y-4 py-2">

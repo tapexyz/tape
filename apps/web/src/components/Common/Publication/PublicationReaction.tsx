@@ -20,7 +20,7 @@ type Props = {
   iconSize?: 'sm' | 'base' | 'lg'
   textSize?: 'sm' | 'inherit'
   isVertical?: boolean
-  showLabel?: boolean
+  label?: string
   className?: string
   variant?: 'ghost' | 'surface' | 'soft'
   color?: 'blue' | 'crimson'
@@ -31,7 +31,7 @@ const PublicationReaction: FC<Props> = ({
   iconSize = 'sm',
   textSize = 'sm',
   isVertical = false,
-  showLabel = true,
+  label,
   variant = 'ghost',
   className,
   color
@@ -120,7 +120,17 @@ const PublicationReaction: FC<Props> = ({
             })}
           />
         )}
-        {showLabel && (
+        {label ? (
+          <span
+            className={clsx({
+              'text-xs': textSize === 'sm',
+              'text-inherit': textSize === 'inherit',
+              'text-red-400': reaction.isLiked
+            })}
+          >
+            {label}
+          </span>
+        ) : (
           <span
             className={clsx({
               'text-xs': textSize === 'sm',

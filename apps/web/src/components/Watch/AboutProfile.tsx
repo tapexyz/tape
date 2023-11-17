@@ -57,17 +57,19 @@ const AboutProfile: FC<Props> = ({ video }) => {
         )}
         <div className="mt-3 flex items-center justify-end">
           {video?.metadata?.tags && (
-            <Link
-              href={`/explore/${video.metadata.tags[0]}`}
-              className="flex items-center space-x-1"
-            >
-              <TagOutline className="h-4 w-4" />
-              <span className="whitespace-nowrap">
-                {getCategoryName(video.metadata.tags[0])}
-              </span>
-            </Link>
+            <>
+              <Link
+                href={`/explore/${video.metadata.tags[0]}`}
+                className="flex items-center space-x-1"
+              >
+                <TagOutline className="h-4 w-4" />
+                <span className="whitespace-nowrap">
+                  {getCategoryName(video.metadata.tags[0])}
+                </span>
+              </Link>
+              <span className="middot px-1" />
+            </>
           )}
-          <span className="middot px-1" />
           <span title={getDateString(video.createdAt)}>
             Uploaded {getRelativeTime(video.createdAt)}
           </span>
