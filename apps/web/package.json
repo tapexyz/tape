@@ -12,8 +12,8 @@
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "3.451.0",
-    "@aws-sdk/lib-storage": "3.451.0",
+    "@aws-sdk/client-s3": "3.454.0",
+    "@aws-sdk/lib-storage": "3.454.0",
     "@emoji-mart/react": "^1.1.1",
     "@hookform/resolvers": "^3.3.2",
     "@irys/sdk": "^0.0.4",
