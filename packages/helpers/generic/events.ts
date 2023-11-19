@@ -112,7 +112,9 @@ export const EVENTS = {
       TERMS: 'Click Terms',
       PRIVACY: 'Click Privacy',
       STATUS: 'Click Status',
-      X: 'Click X'
+      X: 'Click X',
+      SPATIAL: 'Click Spatial',
+      DECENTRALAND: 'Click Decentraland'
     }
   }
 }

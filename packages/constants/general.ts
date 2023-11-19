@@ -1,7 +1,8 @@
 import { CustomFiltersType } from '@dragverse/lens'
 
-export const TAPE_APP_NAME = 'Tape'
-export const TAPE_APP_DESCRIPTION = 'Talk, Amplify, Post, Explore'
+export const TAPE_APP_NAME = 'Dragverse'
+export const TAPE_APP_DESCRIPTION =
+  'Empowering Drag Creators to Talk, Amplify, Post, Explore'
 
 export const LENS_ENV = process.env.NEXT_PUBLIC_ENVIRONMENT ?? 'mainnet'
 export const IS_MAINNET = LENS_ENV === 'mainnet'
@@ -9,13 +10,11 @@ export const IS_MAINNET = LENS_ENV === 'mainnet'
 export const IS_DEVELOPMENT = process.env.NODE_ENV === 'development'
 export const IS_PRODUCTION = !IS_DEVELOPMENT
 
-export const STATIC_ASSETS = 'https://static.dragverse.app'
+export const STATIC_ASSETS = 'https://dragverse.4everland.store'
 export const TAPE_WEBSITE_URL = IS_MAINNET
   ? 'https://dragverse.app'
   : 'https://testnet.dragverse.app'
-export const FALLBACK_THUMBNAIL_URL = `${STATIC_ASSETS}/images/fallback-thumbnail.webp`
-export const FALLBACK_COVER_URL = `${STATIC_ASSETS}/images/fallback-cover.svg`
-export const OG_IMAGE = `${STATIC_ASSETS}/brand/og.png`
+
 // export const LENS_IMAGEKIT_SNAPSHOT_URL =
 //   'https://ik.imagekit.io/lens/media-snapshot'
 export const LENS_IMAGEKIT_SNAPSHOT_URL = 'https://ik.imagekit.io/lenstube'
@@ -106,10 +105,12 @@ export const ERROR_MESSAGE = 'Oops, something went wrong!'
 export const SIGN_IN_REQUIRED = 'Login to continue'
 
 // App Ids
-export const TAPE_APP_ID = 'tape'
-export const LENSTUBE_APP_ID = 'lenstube'
-export const LENSTUBE_BYTES_APP_ID = 'lenstube-bytes'
+export const TAPE_APP_ID = 'dragverse'
+export const TAPE_BYTES_APP_ID = 'dragverse-bytes'
+export const LENSTUBE_APP_ID = 'tape'
+export const LENSTUBE_BYTES_APP_ID = 'tape-bytes'
 export const ALLOWED_APP_IDS = [
+  TAPE_APP_ID,
   LENSTUBE_APP_ID
   // 'lenster',
   // 'orb',
@@ -120,11 +121,32 @@ export const ALLOWED_APP_IDS = [
 ]
 
 // official
-export const TAPE_X_HANDLE = 'dragverse'
+export const TAPE_X_HANDLE = 'metadragverse'
 export const TAPE_GITHUB_HANDLE = 'dragverse'
-export const TAPE_LOGO = `${STATIC_ASSETS}/brand/logo.svg`
-export const TAPE_STATUS_PAGE = 'https://status.dragverse.app'
-export const TAPE_FEEDBACK_URL = 'https://feedback.dragverse.app'
+export const TAPE_LOGO = `${STATIC_ASSETS}/dragverse.svg`
+export const TAPE_STATUS_PAGE = 'https://dragverse.canny.io'
+export const TAPE_FEEDBACK_URL = 'https://dragverse.canny.io'
+
+// dragverse
+export const DRAGVERSE_SPATIAL_URL =
+  'https://www.spatial.io/s/Dragverse-6330ebb42e62cd0001922a97?share=6796815018867406198'
+export const DRAGVERSE_DECENTRALAND_URL =
+  'https://play.decentraland.org/?realm=dragverse.dcl.eth'
+
+// fallback
+export const FALLBACK_THUMBNAIL_URL = `${TAPE_LOGO}`
+export const FALLBACK_COVER_URL = `${TAPE_LOGO}`
+export const OG_IMAGE = `${TAPE_LOGO}`
+export const DRAGVERSE_BANNER_URL = `${STATIC_ASSETS}/dragverse-banner.jpeg`
+export const BUILDING_PROUDLY_URL = `${STATIC_ASSETS}/building-proudly.jpeg`
+export const BASE_LIVESTREAM_VIDEO_URL = `${STATIC_ASSETS}/dragverse-base-live-video.mp4`
+export const LENSTER_ICON_URL = `${STATIC_ASSETS}/lenster-logo.svg`
+export const TWITTER_ICON_URL = `${STATIC_ASSETS}/twitter-logo.jpeg`
+export const LINKEDIN_ICON_URL = `${STATIC_ASSETS}/linkedin-logo.png`
+export const REDDIT_ICON_URL = `${STATIC_ASSETS}/reddit-logo.png`
+export const ENS_ICON_URL = `${STATIC_ASSETS}/ens-logo.svg`
+export const MOUNTAINS_BACKGROUND_URL = `${STATIC_ASSETS}/mountains_background.jpeg`
+export const WINDOW_BACKGROUND_URL = `${STATIC_ASSETS}/windows_background.jpeg`
 
 // admin
 export const ADMIN_IDS = IS_MAINNET ? ['0x2d'] : ['0x34']

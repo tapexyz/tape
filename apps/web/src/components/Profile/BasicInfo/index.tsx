@@ -9,6 +9,7 @@ import Tooltip from '@components/UIElements/Tooltip'
 import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
 import { useCopyToClipboard } from '@dragverse/browser'
 import {
+  ENS_ICON_URL,
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   MISUSED_CHANNELS,
@@ -262,7 +263,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
                       placement="top"
                     >
                       <img
-                        src={`${STATIC_ASSETS}/images/social/ens.svg`}
+                        src={`${ENS_ICON_URL}`}
                         alt="ens"
                         className="h-6 w-6"
                         draggable={false}

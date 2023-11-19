@@ -39,19 +39,29 @@ const moduleExports = {
       },
       {
         source: '/discord',
-        destination:
-          'https://discord.com/servers/tape-formerly-lenstube-980882088783913010',
+        destination: 'https://discord.gg/TbjTTgTh',
         permanent: true
       },
       {
         source: '/donate',
-        destination: 'https://giveth.io/project/tape',
+        destination: 'https://giveth.io/project/dragverse',
         permanent: true
       },
       {
         source: '/gitcoin',
         destination:
-          'https://explorer.gitcoin.co/#/round/424/0xd4cc0dd193c7dc1d665ae244ce12d7fab337a008/0xd4cc0dd193c7dc1d665ae244ce12d7fab337a008-5',
+          'https://explorer.gitcoin.co/#/round/424/0x98720dd1925d34a2453ebc1f91c9d48e7e89ec29/0x98720dd1925d34a2453ebc1f91c9d48e7e89ec29-226',
+        permanent: true
+      },
+      {
+        source: '/decentraland',
+        destination: 'https://play.decentraland.org/?realm=dragverse.dcl.eth',
+        permanent: true
+      },
+      {
+        source: '/spatial',
+        destination:
+          'https://www.spatial.io/s/Dragverse-6330ebb42e62cd0001922a97?share=6796815018867406198',
         permanent: true
       }
     ]

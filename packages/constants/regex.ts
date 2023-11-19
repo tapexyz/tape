@@ -4,7 +4,7 @@ export const COMMON_REGEX = {
   MENTION_MATCHER_REGEX: /(@[a-zA-Z0-9-_.]+(?:\/[a-zA-Z0-9-_.]+)?)/,
   HANDLE: /^[\da-z]+$/g,
   TAPE_WATCH:
-    /^https?:\/\/tape\.xyz\/watch\/([\dA-Za-z-]+)(\?si=[\dA-Za-z]+)?$/,
+    /^https?:\/\/dragverse\.app\/watch\/([\dA-Za-z-]+)(\?si=[\dA-Za-z]+)?$/,
   YOUTUBE_WATCH:
     /^https?:\/\/(?:www\.)?(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)[\w-]+(?:\?.*)?$/,
   VIMEO_WATCH: /^https?:\/\/(?:www\.)?vimeo\.com\/[\d]+(?:\?.*)?$/,

@@ -1,17 +1,15 @@
-import { STATIC_ASSETS } from '@lenstube/constants'
-import { imageCdn } from '@lenstube/generic'
-import type { ProfileOnchainIdentity } from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
-import { Image as ExpoImage } from 'expo-image'
-import type { FC } from 'react'
-import React from 'react'
-import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
-
-import haptic from '~/helpers/haptic'
-import normalizeFont from '~/helpers/normalize-font'
-import { useMobileTheme } from '~/hooks'
-
-import { useToast } from '../common/toast'
+import { ENS_ICON_URL, STATIC_ASSETS } from '@dragverse/constants';
+import { imageCdn } from '@dragverse/generic';
+import { ProfileOnchainIdentity } from '@dragverse/lens';
+import { MobileThemeConfig } from '@dragverse/lens/custom-types';
+import { Image as ExpoImage } from 'expo-image';
+import type { FC } from 'react';
+import React from 'react';
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import haptic from '~/helpers/haptic';
+import normalizeFont from '~/helpers/normalize-font';
+import { useMobileTheme } from '~/hooks';
+import { useToast } from '../common/toast';
 
 type Props = {
   identity: ProfileOnchainIdentity
@@ -61,10 +59,7 @@ const OnChainInfo: FC<Props> = ({ identity }) => {
         <View style={style.badge}>
           <ExpoImage
             source={{
-              uri: imageCdn(
-                `${STATIC_ASSETS}/mobile/images/products/ens.png`,
-                'AVATAR'
-              )
+              uri: imageCdn(`${ENS_ICON_URL}`, 'AVATAR')
             }}
             transition={300}
             style={style.image}

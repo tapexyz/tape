@@ -1,4 +1,4 @@
-import { AssumeRoleCommand, STSClient } from '@aws-sdk/client-sts'
+import { AssumeRoleCommand, STSClient } from '@aws-sdk/client-sts';
 
 type EnvType = {
   EVER_ACCESS_KEY: string
@@ -9,7 +9,7 @@ const headers = {
   'Access-Control-Allow-Origin': '*',
   'Content-Type': 'application/json'
 }
-const bucketName = 'tape'
+const bucketName = 'dragverse'
 const everEndpoint = 'https://endpoint.4everland.co'
 
 const params = {

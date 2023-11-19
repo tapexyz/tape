@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "Tape",
-    "slug": "tape",
+    "name": "Dragverse",
+    "slug": "dragverse",
     "version": "0.0.1",
     "orientation": "portrait",
-    "owner": "sasicodes",
-    "scheme": "tape",
+    "owner": "wcordelo",
+    "scheme": "dragverse",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
     "assetBundlePatterns": ["assets/**"],

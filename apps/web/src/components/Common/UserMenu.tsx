@@ -18,7 +18,6 @@ import useProfileStore from '@lib/store/profile'
 import { Avatar, DropdownMenu, Flex, Text } from '@radix-ui/themes'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useTheme } from 'next-themes'
 import { useMemo } from 'react'
 import { toast } from 'react-hot-toast'
 import { useAccount, useDisconnect } from 'wagmi'
@@ -27,13 +26,10 @@ import BookmarkOutline from './Icons/BookmarkOutline'
 import CogOutline from './Icons/CogOutline'
 import GraphOutline from './Icons/GraphOutline'
 import HandWaveOutline from './Icons/HandWaveOutline'
-import MoonOutline from './Icons/MoonOutline'
-import SunOutline from './Icons/SunOutline'
 import SwitchProfileOutline from './Icons/SwitchProfileOutline'
 import UserOutline from './Icons/UserOutline'
 
 const UserMenu = () => {
-  const { theme, setTheme } = useTheme()
   const { push, asPath } = useRouter()
   const { address } = useAccount()
   const { disconnect } = useDisconnect({
@@ -188,26 +184,6 @@ const UserMenu = () => {
             </Flex>
           </DropdownMenu.Item>
           <DropdownMenu.Separator />
-          <DropdownMenu.Item
-            onClick={() => {
-              const selected = theme === 'dark' ? 'light' : 'dark'
-              setTheme(selected)
-              Tower.track(EVENTS.SYSTEM.TOGGLE_THEME, {
-                selected_theme: selected
-              })
-            }}
-          >
-            <Flex align="center" gap="2">
-              {theme === 'dark' ? (
-                <SunOutline className="h-4 w-4" />
-              ) : (
-                <MoonOutline className="h-4 w-4" />
-              )}
-              <Text as="p" className="truncate whitespace-nowrap">
-                {theme === 'light' ? `Switch to Dark` : `Switch to Light`}
-              </Text>
-            </Flex>
-          </DropdownMenu.Item>
           <DropdownMenu.Item
             asChild
             disabled={loading}

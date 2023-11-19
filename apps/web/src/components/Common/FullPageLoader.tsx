@@ -1,4 +1,4 @@
-import { STATIC_ASSETS } from '@dragverse/constants'
+import { TAPE_LOGO } from '@dragverse/constants'
 import { useTheme } from 'next-themes'
 
 import MetaTags from './MetaTags'
@@ -11,20 +11,20 @@ const FullPageLoader = () => {
       <MetaTags />
       {resolvedTheme === 'dark' ? (
         <img
-          src={`${STATIC_ASSETS}/brand/logo-with-text-light.webp`}
+          src={`${TAPE_LOGO}`}
           className="h-10"
-          alt="tape"
+          alt="dragverse"
           height={50}
           width={180}
           draggable={false}
         />
       ) : (
         <img
-          src={`${STATIC_ASSETS}/brand/logo-with-text-dark.webp`}
+          src={`${TAPE_LOGO}`}
           className="h-10"
           height={50}
           width={180}
-          alt="tape"
+          alt="dragverse"
           draggable={false}
         />
       )}

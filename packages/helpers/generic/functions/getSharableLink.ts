@@ -8,7 +8,7 @@ import type { MirrorablePublication } from '@dragverse/lens'
 
 import { getPublicationData } from './getPublicationData'
 
-type Link = 'tape' | 'hey' | 'x' | 'reddit' | 'linkedin'
+type Link = 'dragverse' | 'tape' | 'hey' | 'x' | 'reddit' | 'linkedin'
 
 export const getSharableLink = (
   link: Link,
@@ -22,7 +22,7 @@ export const getSharableLink = (
     publication.id
   }`
 
-  if (link === 'tape') {
+  if (link === 'tape' || link === 'dragverse') {
     return `${TAPE_WEBSITE_URL}/watch/${publication.id}`
   } else if (link === 'hey') {
     return `${HEY_WEBSITE_URL}/?url=${url}&text=${

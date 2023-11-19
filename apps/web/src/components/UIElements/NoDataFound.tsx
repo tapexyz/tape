@@ -1,8 +1,8 @@
-import { STATIC_ASSETS } from '@dragverse/constants'
+import { TAPE_LOGO } from '@dragverse/constants'
 import clsx from 'clsx'
 
 export const NoDataFound = ({
-  text = 'Zero trace!',
+  text = 'No Data Found',
   withImage = false,
   isCenter = false,
   className = ''
@@ -15,7 +15,7 @@ export const NoDataFound = ({
     >
       {withImage && (
         <img
-          src={`${STATIC_ASSETS}/images/illustrations/404.gif`}
+          src={`${TAPE_LOGO}`}
           height={70}
           width={70}
           alt="zero trace!"

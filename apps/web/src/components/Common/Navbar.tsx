@@ -1,4 +1,4 @@
-import { FEATURE_FLAGS, STATIC_ASSETS } from '@dragverse/constants'
+import { FEATURE_FLAGS, TAPE_LOGO } from '@dragverse/constants'
 import { getIsFeatureEnabled } from '@dragverse/generic'
 import usePersistStore from '@lib/store/persist'
 import useProfileStore from '@lib/store/profile'
@@ -34,20 +34,20 @@ const Navbar = () => {
           <Link href="/" className="inline-flex">
             {resolvedTheme === 'dark' ? (
               <img
-                src={`${STATIC_ASSETS}/brand/logo-with-text-light.webp`}
-                className="-mb-0.5 h-6"
-                alt="tape"
+                src={`${TAPE_LOGO}`}
+                className="-mb-0.5 h-20 w-20"
+                alt="dragverse"
                 height={30}
                 width={110}
                 draggable={false}
               />
             ) : (
               <img
-                src={`${STATIC_ASSETS}/brand/logo-with-text-dark.webp`}
-                className="-mb-0.5 h-6"
+                src={`${TAPE_LOGO}`}
+                className="-mb-0.5 h-20 w-20"
                 height={30}
                 width={110}
-                alt="tape"
+                alt="dragverse"
                 draggable={false}
               />
             )}

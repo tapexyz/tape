@@ -45,7 +45,7 @@ const everland = async (
     )
     const fileKey = uuidv4()
     const params = {
-      Bucket: 'tape',
+      Bucket: 'dragverse',
       Key: fileKey,
       Body: file,
       ContentType: file.type

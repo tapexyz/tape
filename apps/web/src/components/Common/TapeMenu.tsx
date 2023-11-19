@@ -1,45 +1,10 @@
-import {
-  TAPE_FEEDBACK_URL,
-  TAPE_GITHUB_HANDLE,
-  TAPE_STATUS_PAGE,
-  TAPE_X_HANDLE
-} from '@dragverse/constants'
+import { TAPE_FEEDBACK_URL, TAPE_X_HANDLE } from '@dragverse/constants'
 import { EVENTS, Tower } from '@dragverse/generic'
 import Link from 'next/link'
 
 const TapeMenu = () => {
   return (
     <div className="grid grid-cols-2 py-1 pl-1">
-      <Link
-        className="rounded-lg px-2.5 py-1.5"
-        href={`https://github.com/${TAPE_GITHUB_HANDLE}/brand-kit`}
-        target="_blank"
-        onClick={() => {
-          Tower.track(EVENTS.SYSTEM.MORE_MENU.BRAND_KIT)
-        }}
-      >
-        Brand Kit
-      </Link>
-      <Link
-        className="rounded-lg px-2.5 py-1.5"
-        href={`https://github.com/${TAPE_GITHUB_HANDLE}`}
-        onClick={() => {
-          Tower.track(EVENTS.SYSTEM.MORE_MENU.GITHUB)
-        }}
-        target="_blank"
-      >
-        Source Code
-      </Link>
-      <Link
-        className="rounded-lg px-2.5 py-1.5"
-        href={`${TAPE_FEEDBACK_URL}/feature-requests`}
-        onClick={() => {
-          Tower.track(EVENTS.SYSTEM.MORE_MENU.FEEDBACK)
-        }}
-        target="_blank"
-      >
-        Feedback
-      </Link>
       <Link
         className="rounded-lg px-2.5 py-1.5"
         href={TAPE_FEEDBACK_URL}
@@ -50,7 +15,6 @@ const TapeMenu = () => {
       >
         Roadmap
       </Link>
-
       <Link
         className="rounded-lg px-2.5 py-1.5"
         href={`https://x.com/${TAPE_X_HANDLE}`}
@@ -63,36 +27,24 @@ const TapeMenu = () => {
       </Link>
       <Link
         className="rounded-lg px-2.5 py-1.5"
-        href="/discord"
+        href={`/spatial`}
         onClick={() => {
-          Tower.track(EVENTS.SYSTEM.MORE_MENU.DISCORD)
+          Tower.track(EVENTS.SYSTEM.MORE_MENU.SPATIAL)
         }}
         target="_blank"
       >
-        Discord
-      </Link>
-
-      <Link
-        className="rounded-lg px-2.5 py-1.5"
-        href="/thanks"
-        target="_blank"
-        onClick={() => {
-          Tower.track(EVENTS.SYSTEM.MORE_MENU.THANKS)
-        }}
-      >
-        Thanks
+        Spatial
       </Link>
       <Link
         className="rounded-lg px-2.5 py-1.5"
-        href={TAPE_STATUS_PAGE}
+        href={`/decentraland`}
         onClick={() => {
-          Tower.track(EVENTS.SYSTEM.MORE_MENU.STATUS)
+          Tower.track(EVENTS.SYSTEM.MORE_MENU.DECENTRALAND)
         }}
         target="_blank"
       >
-        System Status
+        Decentraland
       </Link>
-
       <Link
         className="rounded-lg px-2.5 py-1.5"
         target="_blank"

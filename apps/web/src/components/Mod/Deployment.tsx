@@ -25,7 +25,7 @@ const Deployment = () => {
       {GIT_DEPLOYED_COMMIT_SHA && (
         <span className="rounded-lg bg-gray-200 bg-opacity-70 p-1 px-3 text-xs backdrop-blur-xl dark:bg-black">
           <Link
-            href={`https://github.com/dragverse/tape/commit/${GIT_DEPLOYED_COMMIT_SHA}`}
+            href={`https://github.com/dragverse/marsha-v2/commit/${GIT_DEPLOYED_COMMIT_SHA}`}
             target="_blank"
             rel="noreferer noreferrer"
           >

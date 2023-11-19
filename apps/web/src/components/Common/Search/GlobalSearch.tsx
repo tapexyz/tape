@@ -4,7 +4,8 @@ import {
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
-  TAPE_APP_ID
+  TAPE_APP_ID,
+  TAPE_BYTES_APP_ID
 } from '@dragverse/constants'
 import { EVENTS, Tower } from '@dragverse/generic'
 import type {
@@ -57,7 +58,12 @@ const GlobalSearch = () => {
           PublicationMetadataMainFocusType.Video,
           PublicationMetadataMainFocusType.ShortVideo
         ],
-        publishedOn: [TAPE_APP_ID, LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID]
+        publishedOn: [
+          TAPE_APP_ID,
+          TAPE_BYTES_APP_ID,
+          LENSTUBE_APP_ID,
+          LENSTUBE_BYTES_APP_ID
+        ]
       },
       publicationTypes: [SearchPublicationType.Post],
       customFilters: LENS_CUSTOM_FILTERS
@@ -111,7 +117,7 @@ const GlobalSearch = () => {
 
   const Content = () => (
     <>
-      <TextField.Root className="laptop:w-[800px] absolute z-20 hidden w-[500px] rounded-full bg-white dark:bg-black">
+      <TextField.Root className="laptop:w-[800px] z-20 w-[500px] rounded-full bg-white dark:bg-black">
         <TextField.Slot px="3">
           <SearchOutline className="h-4 w-4" />
           <span className="sr-only">Search</span>

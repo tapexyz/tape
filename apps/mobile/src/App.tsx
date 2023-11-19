@@ -1,31 +1,32 @@
-import 'react-native-reanimated'
+import 'react-native-reanimated';
 // eslint-disable-next-line import/no-duplicates
-import 'react-native-gesture-handler'
+import 'react-native-gesture-handler';
 
 import {
-    LIVEPEER_STUDIO_API_KEY,
-    TAPE_APP_DESCRIPTION,
-    TAPE_APP_NAME,
-    TAPE_WEBSITE_URL,
-    WC_PROJECT_ID
-} from '@dragverse/constants'
-import { ApolloProvider, apolloClient } from '@dragverse/lens/apollo'
+  LIVEPEER_STUDIO_API_KEY,
+  TAPE_APP_DESCRIPTION,
+  TAPE_APP_NAME,
+  TAPE_LOGO,
+  TAPE_WEBSITE_URL,
+  WC_PROJECT_ID
+} from '@dragverse/constants';
+import { ApolloProvider, apolloClient } from '@dragverse/lens/apollo';
 import {
-    LivepeerConfig,
-    createReactClient,
-    studioProvider
-} from '@livepeer/react-native'
-import { WalletConnectModal } from '@walletconnect/modal-react-native'
-import React from 'react'
-import { StyleSheet } from 'react-native'
+  LivepeerConfig,
+  createReactClient,
+  studioProvider
+} from '@livepeer/react-native';
+import { WalletConnectModal } from '@walletconnect/modal-react-native';
+import React from 'react';
+import { StyleSheet } from 'react-native';
 // eslint-disable-next-line import/no-duplicates
-import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import { SafeAreaProvider } from 'react-native-safe-area-context'
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-import AppLoading from './components/common/AppLoading'
-import { ToastProvider } from './components/common/toast'
-import mobileAuthLink from './helpers/auth-link'
-import { Navigation } from './navigation'
+import AppLoading from './components/common/AppLoading';
+import { ToastProvider } from './components/common/toast';
+import mobileAuthLink from './helpers/auth-link';
+import { Navigation } from './navigation';
 
 const styles = StyleSheet.create({
   gestureHandlerRootView: {
@@ -37,9 +38,9 @@ const providerMetadata = {
   name: TAPE_APP_NAME,
   description: TAPE_APP_DESCRIPTION,
   url: TAPE_WEBSITE_URL,
-  icons: ['https://static.dragverse.app/brand/logo.svg'],
+  icons: [TAPE_LOGO],
   redirect: {
-    native: 'tape://',
+    native: 'dragverse://',
     universal: 'dragverse.app'
   }
 }

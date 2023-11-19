@@ -32,12 +32,12 @@ This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. I
 
 ### Apps
 
-| Name     | Description                         |
-| -------- | ----------------------------------- |
-| `web`    | NextJs dragverse website            |
-| `mobile` | React Native tape mobile app        |
-| `embed`  | NextJs application for video embeds |
-| `api`    | NextJs serverless functions         |
+| Name     | Description                              |
+| -------- | -----------------------------------      |
+| `web`    | NextJs dragverse website                 |
+| `mobile` | React Native dragverse mobile app        |
+| `embed`  | NextJs application for video embeds      |
+| `api`    | NextJs serverless functions              |
 
 ### Packages
 

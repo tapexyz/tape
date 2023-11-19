@@ -159,7 +159,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
         <div className="flex gap-1.5" key={i}>
           <div className="relative w-full">
             <Input
-              placeholder={`0x12345...89 or ${LENS_NAMESPACE_PREFIX}tape`}
+              placeholder={`0x12345...89 or ${LENS_NAMESPACE_PREFIX}dragverse`}
               value={splitRecipient.recipient}
               onChange={(e) => onChangeSplit('recipient', e.target.value, i)}
               autoFocus
@@ -185,7 +185,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
             !getIsValidAddress(splitRecipients[i].recipient) ? (
               <div
                 ref={resultsRef}
-                className="tape-border z-10 mt-1 w-full overflow-hidden rounded-md bg-white focus:outline-none dark:bg-black md:absolute"
+                className="dragverse-border z-10 mt-1 w-full overflow-hidden rounded-md bg-white focus:outline-none dark:bg-black md:absolute"
               >
                 {profilesLoading && <Loader className="my-4" />}
                 {!profiles?.length && !profilesLoading ? (

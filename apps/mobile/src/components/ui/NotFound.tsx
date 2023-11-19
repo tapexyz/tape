@@ -1,12 +1,12 @@
-import { STATIC_ASSETS } from '@lenstube/constants'
-import { imageCdn } from '@lenstube/generic'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
-import { Image as ExpoImage } from 'expo-image'
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { STATIC_ASSETS } from '@lenstube/constants';
+import { imageCdn } from '@lenstube/generic';
+import type { MobileThemeConfig } from '@lenstube/lens/custom-types';
+import { Image as ExpoImage } from 'expo-image';
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
-import normalizeFont from '~/helpers/normalize-font'
-import { useMobileTheme } from '~/hooks'
+import normalizeFont from '~/helpers/normalize-font';
+import { useMobileTheme } from '~/hooks';
 
 const styles = (themeConfig: MobileThemeConfig) =>
   StyleSheet.create({
@@ -37,7 +37,7 @@ const NotFound = () => {
         contentFit="cover"
         style={{ width: 50, height: 50, borderRadius: 25 }}
       />
-      <Text style={style.text}>Zero trace!</Text>
+      <Text style={style.text}>Not Found</Text>
     </View>
   )
 }
