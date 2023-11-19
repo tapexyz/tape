@@ -1,6 +1,6 @@
 <div align="center">
     <h1>Dragverse</h1>
-    <p>Decentralized livestreaming and video-sharing social media platform inspired by Tape.</p>
+    <p>Decentralized social media platform for drag creators inspired by Tape.</p>
     <a href="https://dragverse.io">dragverse.io</a>
 </div>
 <br>
