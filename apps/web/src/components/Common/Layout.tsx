@@ -2,28 +2,28 @@ import {
   getToastOptions,
   setFingerprint,
   useIsMounted
-} from '@dragverse/browser';
-import { AUTH_ROUTES, OWNER_ONLY_ROUTES } from '@dragverse/constants';
-import { getIsProfileOwner, trimify } from '@dragverse/generic';
-import type { Profile } from '@dragverse/lens';
-import { useCurrentProfileQuery } from '@dragverse/lens';
-import { type CustomErrorWithData } from '@dragverse/lens/custom-types';
-import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId';
-import { hydrateAuthTokens, signOut } from '@lib/store/auth';
-import useNonceStore from '@lib/store/nonce';
-import useProfileStore from '@lib/store/profile';
-import clsx from 'clsx';
-import { useTheme } from 'next-themes';
-import { useRouter } from 'next/router';
-import type { FC, ReactNode } from 'react';
-import { useEffect } from 'react';
-import { Toaster, toast } from 'react-hot-toast';
-import { useAccount, useDisconnect } from 'wagmi';
+} from '@dragverse/browser'
+import { AUTH_ROUTES, OWNER_ONLY_ROUTES } from '@dragverse/constants'
+import { getIsProfileOwner, trimify } from '@dragverse/generic'
+import type { Profile } from '@dragverse/lens'
+import { useCurrentProfileQuery } from '@dragverse/lens'
+import { type CustomErrorWithData } from '@dragverse/lens/custom-types'
+import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId'
+import { hydrateAuthTokens, signOut } from '@lib/store/auth'
+import useNonceStore from '@lib/store/nonce'
+import useProfileStore from '@lib/store/profile'
+import clsx from 'clsx'
+import { useRouter } from 'next/router'
+import { useTheme } from 'next-themes'
+import type { FC, ReactNode } from 'react'
+import { useEffect } from 'react'
+import { toast, Toaster } from 'react-hot-toast'
+import { useAccount, useDisconnect } from 'wagmi'
 
-import FullPageLoader from './FullPageLoader';
-import MetaTags from './MetaTags';
-import MobileBottomNav from './MobileBottomNav';
-import Navbar from './Navbar';
+import FullPageLoader from './FullPageLoader'
+import MetaTags from './MetaTags'
+import MobileBottomNav from './MobileBottomNav'
+import Navbar from './Navbar'
 
 interface Props {
   children: ReactNode
@@ -49,7 +49,9 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
   })
 
   useEffect(() => {
-    if (resolvedTheme === 'dark') return
+    if (resolvedTheme === 'dark') {
+      return
+    }
     setTheme('dark')
   }, [])
 
