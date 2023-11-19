@@ -15,8 +15,7 @@ const WelcomeAlert = () => {
       <div className="ultrawide:p-8 relative flex h-full flex-col justify-end space-y-4 p-4 text-left text-white md:p-6">
         <div className="text-3xl font-bold">Welcome to {TAPE_APP_NAME}</div>
         <p className="md:text-md max-w-2xl text-sm lg:text-lg">
-          Discover the new era of media sharing on Lens with {TAPE_APP_NAME}. A
-          decentralized, user-centric approach to online media.
+          Empowering drag creators on Lens with {TAPE_APP_NAME}!
         </p>
         <Flex gap="3">
           <Link href="/login">
