@@ -1,13 +1,13 @@
-import { MOBILE_PROFILE_ITEMS } from '@lenstube/lens/custom-types'
+import { MOBILE_PROFILE_ITEMS } from '@dragverse/lens/custom-types'
 import type { FC } from 'react'
 import React, { memo, useCallback, useEffect, useRef } from 'react'
 import {
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  useWindowDimensions,
-  View
+    Pressable,
+    ScrollView,
+    StyleSheet,
+    Text,
+    View,
+    useWindowDimensions
 } from 'react-native'
 
 import haptic from '~/helpers/haptic'

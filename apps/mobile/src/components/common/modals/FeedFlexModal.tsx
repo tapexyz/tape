@@ -1,17 +1,17 @@
+import { FEED_ALGORITHMS } from '@dragverse/constants'
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
+import { TimelineFeedType } from '@dragverse/lens/custom-types'
 import Ionicons from '@expo/vector-icons/Ionicons'
-import { FEED_ALGORITHMS } from '@lenstube/constants'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
-import { TimelineFeedType } from '@lenstube/lens/custom-types'
 import { useNavigation } from '@react-navigation/native'
 import { BlurView } from 'expo-blur'
 import React from 'react'
 import {
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  useWindowDimensions,
-  View
+    Pressable,
+    ScrollView,
+    StyleSheet,
+    Text,
+    useWindowDimensions,
+    View
 } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 

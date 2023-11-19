@@ -1,16 +1,16 @@
-import { RECS_URL } from '@lenstube/constants'
-import { getProfilePicture, shuffleArray } from '@lenstube/generic'
-import { type Profile, useProfilesQuery } from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
+import { RECS_URL } from '@dragverse/constants'
+import { getProfilePicture, shuffleArray } from '@dragverse/generic'
+import { useProfilesQuery, type Profile } from '@dragverse/lens'
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
 import { useNavigation } from '@react-navigation/native'
 import { Image as ExpoImage } from 'expo-image'
 import React, { useMemo } from 'react'
 import {
-  ActivityIndicator,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View
+    ActivityIndicator,
+    ScrollView,
+    StyleSheet,
+    Text,
+    View
 } from 'react-native'
 import Animated, { FadeInRight } from 'react-native-reanimated'
 import useSWR from 'swr'

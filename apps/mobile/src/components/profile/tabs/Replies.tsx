@@ -1,18 +1,18 @@
-import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
-import type { Comment, Profile, PublicationsQueryRequest } from '@lenstube/lens'
+import { LENS_CUSTOM_FILTERS } from '@dragverse/constants'
+import type { Comment, Profile, PublicationsQueryRequest } from '@dragverse/lens'
 import {
-  PublicationMainFocus,
-  PublicationTypes,
-  useCommentsQuery
-} from '@lenstube/lens'
+    PublicationMainFocus,
+    PublicationTypes,
+    useCommentsQuery
+} from '@dragverse/lens'
 import type { FC } from 'react'
 import React, { memo, useCallback } from 'react'
 import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native'
 import {
-  ActivityIndicator,
-  StyleSheet,
-  useWindowDimensions,
-  View
+    ActivityIndicator,
+    StyleSheet,
+    View,
+    useWindowDimensions
 } from 'react-native'
 import Animated from 'react-native-reanimated'
 

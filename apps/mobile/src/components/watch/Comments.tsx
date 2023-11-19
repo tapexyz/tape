@@ -1,12 +1,12 @@
-import type { BottomSheetModal } from '@gorhom/bottom-sheet'
-import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
+import { LENS_CUSTOM_FILTERS } from '@dragverse/constants'
 import type {
-  AnyPublication,
-  Comment,
-  PublicationsRequest
-} from '@lenstube/lens'
-import { LimitType, usePublicationsQuery } from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
+    AnyPublication,
+    Comment,
+    PublicationsRequest
+} from '@dragverse/lens'
+import { LimitType, usePublicationsQuery } from '@dragverse/lens'
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
+import type { BottomSheetModal } from '@gorhom/bottom-sheet'
 import { Skeleton } from 'moti/skeleton'
 import type { FC } from 'react'
 import React, { useRef } from 'react'

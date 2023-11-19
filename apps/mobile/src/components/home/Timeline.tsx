@@ -1,24 +1,24 @@
-import { LENS_CUSTOM_FILTERS, RECS_URL } from '@lenstube/constants'
+import { LENS_CUSTOM_FILTERS, RECS_URL } from '@dragverse/constants'
 import type {
-  ExplorePublicationRequest,
-  FeedHighlightsRequest,
-  FeedItem,
-  FeedRequest,
-  MirrorablePublication,
-  PrimaryPublication
-} from '@lenstube/lens'
+    ExplorePublicationRequest,
+    FeedHighlightsRequest,
+    FeedItem,
+    FeedRequest,
+    MirrorablePublication,
+    PrimaryPublication
+} from '@dragverse/lens'
 import {
-  ExplorePublicationsOrderByType,
-  ExplorePublicationType,
-  FeedEventItemType,
-  LimitType,
-  PublicationMetadataMainFocusType,
-  useExplorePublicationsQuery,
-  useFeedHighlightsQuery,
-  useFeedQuery,
-  usePublicationsQuery
-} from '@lenstube/lens'
-import { AlgoType, TimelineFeedType } from '@lenstube/lens/custom-types'
+    ExplorePublicationType,
+    ExplorePublicationsOrderByType,
+    FeedEventItemType,
+    LimitType,
+    PublicationMetadataMainFocusType,
+    useExplorePublicationsQuery,
+    useFeedHighlightsQuery,
+    useFeedQuery,
+    usePublicationsQuery
+} from '@dragverse/lens'
+import { AlgoType, TimelineFeedType } from '@dragverse/lens/custom-types'
 import { useScrollToTop } from '@react-navigation/native'
 import { FlashList } from '@shopify/flash-list'
 import React, { useCallback, useEffect, useMemo, useRef } from 'react'

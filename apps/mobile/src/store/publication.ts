@@ -1,4 +1,4 @@
-import { PublicationMetadataMainFocusType } from '@lenstube/lens'
+import { PublicationMetadataMainFocusType } from '@dragverse/lens'
 import type { DocumentPickerResult } from 'expo-document-picker'
 import type { ImagePickerResult } from 'expo-image-picker'
 import { create } from 'zustand'

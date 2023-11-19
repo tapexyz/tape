@@ -1,4 +1,4 @@
-import { logger } from '@lenstube/generic'
+import { logger } from '@dragverse/generic'
 import Constants from 'expo-constants'
 import * as Device from 'expo-device'
 import * as Notifications from 'expo-notifications'

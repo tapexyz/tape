@@ -1,23 +1,23 @@
 import {
-  formatNumber,
-  getChannelCoverPicture,
-  getProfilePicture,
-  imageCdn,
-  sanitizeDStorageUrl,
-  trimLensHandle
-} from '@lenstube/generic'
-import type { Profile } from '@lenstube/lens'
-import { useProfilesQuery } from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
+    formatNumber,
+    getChannelCoverPicture,
+    getProfilePicture,
+    imageCdn,
+    sanitizeDStorageUrl,
+    trimLensHandle
+} from '@dragverse/generic'
+import type { Profile } from '@dragverse/lens'
+import { useProfilesQuery } from '@dragverse/lens'
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
 import { Image as ExpoImage } from 'expo-image'
 import { Skeleton } from 'moti/skeleton'
 import React, { memo, useCallback, useMemo } from 'react'
 import {
-  ImageBackground,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View
+    ImageBackground,
+    ScrollView,
+    StyleSheet,
+    Text,
+    View
 } from 'react-native'
 
 import haptic from '~/helpers/haptic'

@@ -1,7 +1,7 @@
+import { getShortHandTime, trimify } from '@dragverse/generic'
+import type { Comment } from '@dragverse/lens'
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
 import Ionicons from '@expo/vector-icons/Ionicons'
-import { getShortHandTime, trimify } from '@lenstube/generic'
-import type { Comment } from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import React from 'react'
 import { StyleSheet, Text, useWindowDimensions, View } from 'react-native'
 

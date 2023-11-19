@@ -1,12 +1,12 @@
-import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
-import type { ExplorePublicationRequest, Post } from '@lenstube/lens'
+import { LENS_CUSTOM_FILTERS } from '@dragverse/constants'
+import type { ExplorePublicationRequest, Post } from '@dragverse/lens'
 import {
-  ExplorePublicationsOrderByType,
-  ExplorePublicationType,
-  LimitType,
-  PublicationMetadataMainFocusType,
-  useExplorePublicationsQuery
-} from '@lenstube/lens'
+    ExplorePublicationType,
+    ExplorePublicationsOrderByType,
+    LimitType,
+    PublicationMetadataMainFocusType,
+    useExplorePublicationsQuery
+} from '@dragverse/lens'
 import { FlashList } from '@shopify/flash-list'
 import React, { useCallback } from 'react'
 import { ActivityIndicator, StyleSheet, View } from 'react-native'

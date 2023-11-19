@@ -1,5 +1,5 @@
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
 import Ionicons from '@expo/vector-icons/Ionicons'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import type { FC } from 'react'
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'

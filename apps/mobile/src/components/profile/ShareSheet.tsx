@@ -1,14 +1,14 @@
+import { LENSTUBE_LOGO, LENSTUBE_WEBSITE_URL } from '@dragverse/constants'
+import {
+    formatNumber,
+    getProfilePicture,
+    imageCdn,
+    logger
+} from '@dragverse/generic'
+import type { Profile } from '@dragverse/lens'
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import type { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
-import { LENSTUBE_LOGO, LENSTUBE_WEBSITE_URL } from '@lenstube/constants'
-import {
-  formatNumber,
-  getProfilePicture,
-  imageCdn,
-  logger
-} from '@lenstube/generic'
-import type { Profile } from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { Image as ExpoImage } from 'expo-image'
 import * as Sharing from 'expo-sharing'
 import type { FC } from 'react'

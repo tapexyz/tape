@@ -1,15 +1,15 @@
+import { ExplorePublicationsOrderByType } from '@dragverse/lens'
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
 import Ionicons from '@expo/vector-icons/Ionicons'
-import { ExplorePublicationsOrderByType } from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { useNavigation } from '@react-navigation/native'
 import { BlurView } from 'expo-blur'
 import React from 'react'
 import {
-  Pressable,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View
+    Pressable,
+    StyleSheet,
+    Text,
+    TouchableOpacity,
+    View
 } from 'react-native'
 import Animated, { SlideInDown } from 'react-native-reanimated'
 

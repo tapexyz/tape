@@ -1,27 +1,27 @@
-import Ionicons from '@expo/vector-icons/Ionicons'
-import { LENSTUBE_BYTES_APP_ID, STATIC_ASSETS } from '@lenstube/constants'
+import { LENSTUBE_BYTES_APP_ID, STATIC_ASSETS } from '@dragverse/constants'
 import {
-  getIsSensitiveContent,
-  getRelativeTime,
-  getThumbnailUrl,
-  getTimeFromSeconds,
-  getValueFromTraitType,
-  imageCdn,
-  trimify,
-  trimNewLines
-} from '@lenstube/generic'
-import type { Attribute, MirrorablePublication } from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
+    getIsSensitiveContent,
+    getRelativeTime,
+    getThumbnailUrl,
+    getTimeFromSeconds,
+    getValueFromTraitType,
+    imageCdn,
+    trimNewLines,
+    trimify
+} from '@dragverse/generic'
+import type { Attribute, MirrorablePublication } from '@dragverse/lens'
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
+import Ionicons from '@expo/vector-icons/Ionicons'
 import { useNavigation } from '@react-navigation/native'
 import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
 import React, { memo } from 'react'
 import {
-  ImageBackground,
-  Pressable,
-  StyleSheet,
-  Text,
-  View
+    ImageBackground,
+    Pressable,
+    StyleSheet,
+    Text,
+    View
 } from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'

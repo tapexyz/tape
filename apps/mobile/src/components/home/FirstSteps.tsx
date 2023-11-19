@@ -1,12 +1,12 @@
-import { LENSTUBE_BYTES_APP_ID, STATIC_ASSETS } from '@lenstube/constants'
-import { getIsDispatcherEnabled, imageCdn } from '@lenstube/generic'
-import type { MirrorablePublication, Profile } from '@lenstube/lens'
+import { LENSTUBE_BYTES_APP_ID, STATIC_ASSETS } from '@dragverse/constants'
+import { getIsDispatcherEnabled, imageCdn } from '@dragverse/generic'
+import type { MirrorablePublication, Profile } from '@dragverse/lens'
 import {
-  LimitType,
-  PublicationType,
-  usePublicationsQuery
-} from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
+    LimitType,
+    PublicationType,
+    usePublicationsQuery
+} from '@dragverse/lens'
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
 import { useWalletConnectModal } from '@walletconnect/modal-react-native'
 import { Image as ExpoImage } from 'expo-image'
 import React from 'react'

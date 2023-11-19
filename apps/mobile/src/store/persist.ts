@@ -1,9 +1,9 @@
-import type { SimpleProfile } from '@lenstube/lens/custom-types'
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import { create } from 'zustand'
-import { createJSONStorage, persist } from 'zustand/middleware'
+import type { SimpleProfile } from '@dragverse/lens/custom-types';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { create } from 'zustand';
+import { createJSONStorage, persist } from 'zustand/middleware';
 
-import type { theme } from '~/helpers/theme'
+import type { theme } from '~/helpers/theme';
 
 type Tokens = {
   accessToken: string | null
@@ -53,7 +53,7 @@ export const useMobilePersistStore = create(
       setTheme: (theme) => set({ theme })
     }),
     {
-      name: '@lenstube/mobile/store',
+      name: '@dragverse/mobile/store',
       storage: createJSONStorage(() => AsyncStorage)
     }
   )

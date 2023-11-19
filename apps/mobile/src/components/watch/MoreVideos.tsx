@@ -1,12 +1,12 @@
-import { RECS_URL, STATIC_ASSETS } from '@lenstube/constants'
-import { imageCdn } from '@lenstube/generic'
+import { RECS_URL, STATIC_ASSETS } from '@dragverse/constants'
+import { imageCdn } from '@dragverse/generic'
 import type {
-  AnyPublication,
-  MirrorablePublication,
-  PublicationsRequest
-} from '@lenstube/lens'
-import { LimitType, usePublicationsQuery } from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
+    AnyPublication,
+    MirrorablePublication,
+    PublicationsRequest
+} from '@dragverse/lens'
+import { LimitType, usePublicationsQuery } from '@dragverse/lens'
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
 import { FlashList } from '@shopify/flash-list'
 import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'

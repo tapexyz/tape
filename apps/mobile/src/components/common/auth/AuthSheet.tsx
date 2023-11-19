@@ -1,17 +1,17 @@
+import { STATIC_ASSETS } from '@dragverse/constants'
+import {
+    getRandomProfilePicture,
+    imageCdn,
+    logger,
+    shortenAddress
+} from '@dragverse/generic'
+import type { Profile } from '@dragverse/lens'
+import {
+    useAuthenticateMutation,
+    useChallengeLazyQuery,
+    useSimpleProfilesLazyQuery
+} from '@dragverse/lens'
 import type { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
-import { STATIC_ASSETS } from '@lenstube/constants'
-import {
-  getRandomProfilePicture,
-  imageCdn,
-  logger,
-  shortenAddress
-} from '@lenstube/generic'
-import type { Profile } from '@lenstube/lens'
-import {
-  useAuthenticateMutation,
-  useChallengeLazyQuery,
-  useSimpleProfilesLazyQuery
-} from '@lenstube/lens'
 import { useWalletConnectModal } from '@walletconnect/modal-react-native'
 import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'

@@ -1,13 +1,13 @@
-import { imageCdn, sanitizeDStorageUrl } from '@lenstube/generic'
-import type { MediaSet } from '@lenstube/lens'
+import { imageCdn, sanitizeDStorageUrl } from '@dragverse/generic'
+import type { MediaSet } from '@dragverse/lens'
 import { Image as ExpoImage } from 'expo-image'
 import React, { memo, useState } from 'react'
 import {
-  ImageBackground,
-  Pressable,
-  StyleSheet,
-  Text,
-  View
+    ImageBackground,
+    Pressable,
+    StyleSheet,
+    Text,
+    View
 } from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'

@@ -1,5 +1,5 @@
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
 import Ionicons from '@expo/vector-icons/Ionicons'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import type { BarCodeEvent } from 'expo-barcode-scanner'
 import { BarCodeScanner } from 'expo-barcode-scanner'
 import * as Linking from 'expo-linking'

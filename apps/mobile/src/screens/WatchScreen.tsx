@@ -1,11 +1,11 @@
-import type { AnyPublication } from '@lenstube/lens'
-import { usePublicationQuery } from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
+import type { AnyPublication } from '@dragverse/lens'
+import { usePublicationQuery } from '@dragverse/lens'
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
 import React from 'react'
 import {
-  ActivityIndicator,
-  StyleSheet,
-  useWindowDimensions
+    ActivityIndicator,
+    StyleSheet,
+    useWindowDimensions
 } from 'react-native'
 import Animated, { FadeInDown } from 'react-native-reanimated'
 import { SafeAreaView } from 'react-native-safe-area-context'

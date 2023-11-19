@@ -1,4 +1,4 @@
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
 import type { FC, PropsWithChildren } from 'react'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'

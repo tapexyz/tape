@@ -1,28 +1,28 @@
-import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@lenstube/constants'
-import { getThumbnailUrl, imageCdn, trimify } from '@lenstube/generic'
+import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@dragverse/constants'
+import { getThumbnailUrl, imageCdn, trimify } from '@dragverse/generic'
 import type {
-  ExplorePublicationRequest,
-  MirrorablePublication
-} from '@lenstube/lens'
+    ExplorePublicationRequest,
+    MirrorablePublication
+} from '@dragverse/lens'
 import {
-  ExplorePublicationsOrderByType,
-  ExplorePublicationType,
-  LimitType,
-  PublicationMetadataMainFocusType,
-  useExplorePublicationsQuery
-} from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
+    ExplorePublicationsOrderByType,
+    ExplorePublicationType,
+    LimitType,
+    PublicationMetadataMainFocusType,
+    useExplorePublicationsQuery
+} from '@dragverse/lens'
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
 import { useNavigation } from '@react-navigation/native'
 import { Image as ExpoImage } from 'expo-image'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Skeleton } from 'moti/skeleton'
 import React from 'react'
 import {
-  ImageBackground,
-  Pressable,
-  StyleSheet,
-  Text,
-  View
+    ImageBackground,
+    Pressable,
+    StyleSheet,
+    Text,
+    View
 } from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'

@@ -1,6 +1,6 @@
-import { LENS_API_URL, LENSTUBE_WEBSITE_URL } from '@lenstube/constants'
-import { logger, parseJwt } from '@lenstube/generic'
-import { ApolloLink, fromPromise, toPromise } from '@lenstube/lens/apollo'
+import { LENS_API_URL, LENSTUBE_WEBSITE_URL } from '@dragverse/constants'
+import { logger, parseJwt } from '@dragverse/generic'
+import { ApolloLink, fromPromise, toPromise } from '@dragverse/lens/apollo'
 import axios from 'axios'
 
 import { hydrateAuthTokens, signIn, signOut } from '~/store/persist'

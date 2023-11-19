@@ -1,11 +1,11 @@
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
 import { zodResolver } from '@hookform/resolvers/zod'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import React, { useRef } from 'react'
 import {
-  Animated,
-  KeyboardAvoidingView,
-  ScrollView,
-  StyleSheet
+    Animated,
+    KeyboardAvoidingView,
+    ScrollView,
+    StyleSheet
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import type { z } from 'zod'

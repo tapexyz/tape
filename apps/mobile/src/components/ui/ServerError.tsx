@@ -1,4 +1,4 @@
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 

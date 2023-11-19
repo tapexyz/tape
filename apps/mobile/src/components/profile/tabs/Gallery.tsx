@@ -1,19 +1,19 @@
-import { NFTS_URL } from '@lenstube/constants'
-import { imageCdn, sanitizeDStorageUrl } from '@lenstube/generic'
-import { type Profile } from '@lenstube/lens'
+import { NFTS_URL } from '@dragverse/constants'
+import { imageCdn, sanitizeDStorageUrl } from '@dragverse/generic'
+import { type Profile } from '@dragverse/lens'
 import type {
-  CustomNftItemType,
-  MobileThemeConfig
-} from '@lenstube/lens/custom-types'
+    CustomNftItemType,
+    MobileThemeConfig
+} from '@dragverse/lens/custom-types'
 import { ResizeMode, Video } from 'expo-av'
 import type { FC } from 'react'
 import React, { memo, useCallback } from 'react'
 import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native'
 import {
-  ActivityIndicator,
-  StyleSheet,
-  useWindowDimensions,
-  View
+    ActivityIndicator,
+    StyleSheet,
+    View,
+    useWindowDimensions
 } from 'react-native'
 import Animated from 'react-native-reanimated'
 import useSWR from 'swr'

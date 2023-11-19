@@ -1,5 +1,5 @@
-import { REFERENCE_TEMPLATES } from '@lenstube/constants'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
+import { REFERENCE_TEMPLATES } from '@dragverse/constants'
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
 import React from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 

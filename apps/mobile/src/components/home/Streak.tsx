@@ -1,30 +1,30 @@
+import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@dragverse/constants'
+import {
+    getPublicationMediaUrl,
+    getShortHandTime,
+    getThumbnailUrl,
+    imageCdn
+} from '@dragverse/generic'
+import type { MirrorablePublication, PublicationsRequest } from '@dragverse/lens'
+import {
+    LimitType,
+    PublicationMetadataMainFocusType,
+    PublicationType,
+    usePublicationsQuery
+} from '@dragverse/lens'
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
 import Ionicons from '@expo/vector-icons/Ionicons'
-import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@lenstube/constants'
-import {
-  getPublicationMediaUrl,
-  getShortHandTime,
-  getThumbnailUrl,
-  imageCdn
-} from '@lenstube/generic'
-import type { MirrorablePublication, PublicationsRequest } from '@lenstube/lens'
-import {
-  LimitType,
-  PublicationMetadataMainFocusType,
-  PublicationType,
-  usePublicationsQuery
-} from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { useNavigation } from '@react-navigation/native'
 import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
 import React, { memo, useCallback, useMemo } from 'react'
 import type { ListRenderItemInfo } from 'react-native'
 import {
-  ActivityIndicator,
-  ImageBackground,
-  StyleSheet,
-  Text,
-  View
+    ActivityIndicator,
+    ImageBackground,
+    StyleSheet,
+    Text,
+    View
 } from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'

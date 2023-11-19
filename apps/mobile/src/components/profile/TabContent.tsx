@@ -1,21 +1,21 @@
-import type { Profile } from '@lenstube/lens'
+import type { Profile } from '@dragverse/lens'
 import {
-  MOBILE_PROFILE_ITEMS,
-  type MobileProfileTabItemType
-} from '@lenstube/lens/custom-types'
+    MOBILE_PROFILE_ITEMS,
+    type MobileProfileTabItemType
+} from '@dragverse/lens/custom-types'
 import type { FC } from 'react'
 import React, { memo, useCallback, useRef, useState } from 'react'
 import type {
-  NativeScrollEvent,
-  NativeSyntheticEvent,
-  ViewToken
+    NativeScrollEvent,
+    NativeSyntheticEvent,
+    ViewToken
 } from 'react-native'
-import { FlatList, useWindowDimensions, View } from 'react-native'
+import { FlatList, View, useWindowDimensions } from 'react-native'
 import type { SharedValue } from 'react-native-reanimated'
 import Animated, {
-  Extrapolate,
-  interpolate,
-  useAnimatedStyle
+    Extrapolate,
+    interpolate,
+    useAnimatedStyle
 } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 

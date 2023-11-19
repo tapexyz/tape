@@ -1,26 +1,26 @@
-import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
-import { trimLensHandle } from '@lenstube/generic'
+import { LENS_CUSTOM_FILTERS } from '@dragverse/constants'
+import { trimLensHandle } from '@dragverse/generic'
 import type {
-  MirrorablePublication,
-  Profile,
-  PublicationsRequest
-} from '@lenstube/lens'
+    MirrorablePublication,
+    Profile,
+    PublicationsRequest
+} from '@dragverse/lens'
 import {
-  LimitType,
-  PublicationMetadataMainFocusType,
-  PublicationType,
-  usePublicationsQuery
-} from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
+    LimitType,
+    PublicationMetadataMainFocusType,
+    PublicationType,
+    usePublicationsQuery
+} from '@dragverse/lens'
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
 import type { FC } from 'react'
 import React, { memo, useCallback } from 'react'
 import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native'
 import {
-  ActivityIndicator,
-  StyleSheet,
-  Text,
-  useWindowDimensions,
-  View
+    ActivityIndicator,
+    StyleSheet,
+    Text,
+    View,
+    useWindowDimensions
 } from 'react-native'
 import Animated from 'react-native-reanimated'
 

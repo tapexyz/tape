@@ -1,17 +1,17 @@
-import { LENSTUBE_ADDRESS } from '@lenstube/constants'
-import { getRandomProfilePicture, shortenAddress } from '@lenstube/generic'
-import type { Profile } from '@lenstube/lens'
-import { useProfilesQuery } from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
+import { LENSTUBE_ADDRESS } from '@dragverse/constants'
+import { getRandomProfilePicture, shortenAddress } from '@dragverse/generic'
+import type { Profile } from '@dragverse/lens'
+import { useProfilesQuery } from '@dragverse/lens'
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
 import { FlashList } from '@shopify/flash-list'
 import { Image as ExpoImage } from 'expo-image'
 import React, { useCallback, useState } from 'react'
 import {
-  FlatList,
-  StyleSheet,
-  Text,
-  useWindowDimensions,
-  View
+    FlatList,
+    StyleSheet,
+    Text,
+    View,
+    useWindowDimensions
 } from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'

@@ -1,22 +1,22 @@
-import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
+import { LENS_CUSTOM_FILTERS } from '@dragverse/constants'
 import type {
-  ExplorePublicationRequest,
-  MirrorablePublication
-} from '@lenstube/lens'
+    ExplorePublicationRequest,
+    MirrorablePublication
+} from '@dragverse/lens'
 import {
-  ExplorePublicationType,
-  LimitType,
-  PublicationMetadataMainFocusType,
-  useExplorePublicationsQuery
-} from '@lenstube/lens'
+    ExplorePublicationType,
+    LimitType,
+    PublicationMetadataMainFocusType,
+    useExplorePublicationsQuery
+} from '@dragverse/lens'
 import { useScrollToTop } from '@react-navigation/native'
 import { FlashList } from '@shopify/flash-list'
 import React, { useCallback, useMemo, useRef } from 'react'
 import {
-  ActivityIndicator,
-  StyleSheet,
-  useWindowDimensions,
-  View
+    ActivityIndicator,
+    StyleSheet,
+    View,
+    useWindowDimensions
 } from 'react-native'
 
 import useMobileStore from '~/store'

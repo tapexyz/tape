@@ -1,22 +1,22 @@
-import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
-import { getThumbnailUrl, imageCdn } from '@lenstube/generic'
+import { LENS_CUSTOM_FILTERS } from '@dragverse/constants'
+import { getThumbnailUrl, imageCdn } from '@dragverse/generic'
 import {
-  type ExplorePublicationRequest,
-  ExplorePublicationsOrderByType,
-  ExplorePublicationType,
-  LimitType,
-  type MirrorablePublication,
-  PublicationMetadataMainFocusType,
-  useExplorePublicationsQuery
-} from '@lenstube/lens'
+    ExplorePublicationType,
+    ExplorePublicationsOrderByType,
+    LimitType,
+    PublicationMetadataMainFocusType,
+    useExplorePublicationsQuery,
+    type ExplorePublicationRequest,
+    type MirrorablePublication
+} from '@dragverse/lens'
 import { FlashList } from '@shopify/flash-list'
 import React, { useCallback, useState } from 'react'
 import type { ViewToken } from 'react-native'
 import {
-  ActivityIndicator,
-  ImageBackground,
-  StyleSheet,
-  View
+    ActivityIndicator,
+    ImageBackground,
+    StyleSheet,
+    View
 } from 'react-native'
 import Animated, { FadeIn, FadeInDown } from 'react-native-reanimated'
 

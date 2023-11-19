@@ -1,31 +1,31 @@
+import {
+    formatNumber,
+    getChannelCoverPicture,
+    imageCdn,
+    sanitizeDStorageUrl,
+    trimLensHandle,
+    trimNewLines
+} from '@dragverse/generic'
+import type { Profile } from '@dragverse/lens'
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import type { BottomSheetModal } from '@gorhom/bottom-sheet'
-import {
-  formatNumber,
-  getChannelCoverPicture,
-  imageCdn,
-  sanitizeDStorageUrl,
-  trimLensHandle,
-  trimNewLines
-} from '@lenstube/generic'
-import type { Profile } from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { useNavigation } from '@react-navigation/native'
 import type { Dispatch, FC } from 'react'
 import React, { memo, useRef, useState } from 'react'
 import {
-  ImageBackground,
-  Pressable,
-  StyleSheet,
-  Text,
-  useWindowDimensions,
-  View
+    ImageBackground,
+    Pressable,
+    StyleSheet,
+    Text,
+    View,
+    useWindowDimensions
 } from 'react-native'
 import type { SharedValue } from 'react-native-reanimated'
 import Animated, {
-  Extrapolate,
-  interpolate,
-  useAnimatedStyle
+    Extrapolate,
+    interpolate,
+    useAnimatedStyle
 } from 'react-native-reanimated'
 import { SafeAreaView } from 'react-native-safe-area-context'
 

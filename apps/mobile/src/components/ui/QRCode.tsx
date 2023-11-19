@@ -1,15 +1,15 @@
-import { LENSTUBE_LOGO } from '@lenstube/constants'
-import { imageCdn } from '@lenstube/generic'
+import { LENSTUBE_LOGO } from '@dragverse/constants'
+import { imageCdn } from '@dragverse/generic'
 import QRCodeUtil from 'qrcode'
 import type { FC } from 'react'
 import React, { memo, useMemo } from 'react'
 import Svg, {
-  Circle,
-  ClipPath,
-  Defs,
-  G,
-  Image as SvgImage,
-  Rect
+    Circle,
+    ClipPath,
+    Defs,
+    G,
+    Rect,
+    Image as SvgImage
 } from 'react-native-svg'
 
 import { colors } from '~/helpers/theme'

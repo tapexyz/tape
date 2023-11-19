@@ -1,11 +1,11 @@
-import type { Profile } from '@lenstube/lens'
-import { useProfileQuery } from '@lenstube/lens'
+import type { Profile } from '@dragverse/lens'
+import { useProfileQuery } from '@dragverse/lens'
 import { useNavigation } from '@react-navigation/native'
 import React, { useEffect, useState } from 'react'
-import { ActivityIndicator, useWindowDimensions, View } from 'react-native'
+import { ActivityIndicator, View, useWindowDimensions } from 'react-native'
 import {
-  useAnimatedScrollHandler,
-  useSharedValue
+    useAnimatedScrollHandler,
+    useSharedValue
 } from 'react-native-reanimated'
 
 import Info from '~/components/profile/Info'

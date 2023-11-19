@@ -1,15 +1,15 @@
-import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@lenstube/constants'
-import { getThumbnailUrl, imageCdn } from '@lenstube/generic'
+import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@dragverse/constants'
+import { getThumbnailUrl, imageCdn } from '@dragverse/generic'
 import {
-  type ExplorePublicationRequest,
-  ExplorePublicationsOrderByType,
-  ExplorePublicationType,
-  LimitType,
-  type MirrorablePublication,
-  PublicationMetadataMainFocusType,
-  useExplorePublicationsQuery
-} from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
+    ExplorePublicationsOrderByType,
+    ExplorePublicationType,
+    LimitType,
+    PublicationMetadataMainFocusType,
+    useExplorePublicationsQuery,
+    type ExplorePublicationRequest,
+    type MirrorablePublication
+} from '@dragverse/lens'
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
 import { useNavigation } from '@react-navigation/native'
 import { Image as ExpoImage } from 'expo-image'
 import { Gyroscope } from 'expo-sensors'
@@ -17,11 +17,11 @@ import { Skeleton } from 'moti/skeleton'
 import React, { useCallback, useEffect } from 'react'
 import { Pressable, StyleSheet, View } from 'react-native'
 import Animated, {
-  interpolate,
-  useAnimatedStyle,
-  useDerivedValue,
-  useSharedValue,
-  withSpring
+    interpolate,
+    useAnimatedStyle,
+    useDerivedValue,
+    useSharedValue,
+    withSpring
 } from 'react-native-reanimated'
 
 import haptic from '~/helpers/haptic'
