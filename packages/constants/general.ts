@@ -77,7 +77,7 @@ export const EVER_REGION = 'us-west-2'
 export const WC_PROJECT_ID = 'bf790b6b57570b99567abd1677b7415d'
 
 // livepeer
-export const LIVEPEER_STUDIO_API_KEY = ''
+export const LIVEPEER_STUDIO_API_KEY = '7b13484c-aa01-4b3b-bf17-b6548dd5b6b1'
 
 // workers
 export const WORKER_LIVEPEER_VIEWS_URL = 'https://views.dragverse.app'
