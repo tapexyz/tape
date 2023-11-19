@@ -1,27 +1,27 @@
 import KeyOutline from '@components/Common/Icons/KeyOutline'
-import { signIn, signOut } from '@lib/store/auth'
-import useProfileStore from '@lib/store/profile'
-import { Avatar, Button, Flex, Select, Text } from '@radix-ui/themes'
-import { ERROR_MESSAGE } from '@tape.xyz/constants'
+import { ERROR_MESSAGE } from '@dragverse/constants'
 import {
   EVENTS,
   getProfile,
   getProfilePicture,
   logger,
   Tower
-} from '@tape.xyz/generic'
-import type { Profile } from '@tape.xyz/lens'
+} from '@dragverse/generic'
+import type { Profile } from '@dragverse/lens'
 import {
   LimitType,
   useAuthenticateMutation,
   useChallengeLazyQuery,
   useProfilesManagedQuery
-} from '@tape.xyz/lens'
-import { useApolloClient } from '@tape.xyz/lens/apollo'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { Loader } from '@tape.xyz/ui'
+} from '@dragverse/lens'
+import { useApolloClient } from '@dragverse/lens/apollo'
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
+import { Loader } from '@dragverse/ui'
+import { signIn, signOut } from '@lib/store/auth'
+import useProfileStore from '@lib/store/profile'
+import { Avatar, Button, Flex, Select, Text } from '@radix-ui/themes'
 import { useRouter } from 'next/router'
-import React, { useCallback, useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useAccount, useDisconnect, useSignMessage } from 'wagmi'
 

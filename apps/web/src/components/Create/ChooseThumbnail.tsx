@@ -1,18 +1,18 @@
 import AddImageOutline from '@components/Common/Icons/AddImageOutline'
 import ThumbnailsShimmer from '@components/Shimmers/ThumbnailsShimmer'
-import useAppStore from '@lib/store'
-import { AspectRatio, Grid } from '@radix-ui/themes'
 import {
   generateVideoThumbnails,
   getFileFromDataURL,
   uploadToIPFS
-} from '@tape.xyz/browser'
-import { logger } from '@tape.xyz/generic'
-import type { IPFSUploadResult } from '@tape.xyz/lens/custom-types'
-import { Loader } from '@tape.xyz/ui'
+} from '@dragverse/browser'
+import { logger } from '@dragverse/generic'
+import type { IPFSUploadResult } from '@dragverse/lens/custom-types'
+import { Loader } from '@dragverse/ui'
+import useAppStore from '@lib/store'
+import { AspectRatio, Grid } from '@radix-ui/themes'
 import clsx from 'clsx'
 import type { ChangeEvent, FC } from 'react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 
 interface Props {

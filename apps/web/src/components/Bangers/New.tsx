@@ -1,14 +1,7 @@
 import TimesOutline from '@components/Common/Icons/TimesOutline'
 import { Input } from '@components/UIElements/Input'
-import { zodResolver } from '@hookform/resolvers/zod'
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import type { MetadataAttribute } from '@lens-protocol/metadata'
-import { link, MetadataAttributeType } from '@lens-protocol/metadata'
-import useNonceStore from '@lib/store/nonce'
-import useProfileStore from '@lib/store/profile'
-import { Button, Dialog, DialogClose, Flex, IconButton } from '@radix-ui/themes'
-import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
-import { getUserLocale } from '@tape.xyz/browser'
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
+import { getUserLocale } from '@dragverse/browser'
 import {
   COMMON_REGEX,
   ERROR_MESSAGE,
@@ -18,7 +11,7 @@ import {
   REQUESTING_SIGNATURE_MESSAGE,
   TAPE_APP_ID,
   TAPE_WEBSITE_URL
-} from '@tape.xyz/constants'
+} from '@dragverse/constants'
 import {
   checkLensManagerPermissions,
   EVENTS,
@@ -28,20 +21,27 @@ import {
   Tower,
   trimify,
   uploadToAr
-} from '@tape.xyz/generic'
+} from '@dragverse/generic'
 import type {
   CreateMomokaPostEip712TypedData,
   CreateOnchainPostEip712TypedData
-} from '@tape.xyz/lens'
+} from '@dragverse/lens'
 import {
   useBroadcastOnMomokaMutation,
   useCreateMomokaPostTypedDataMutation,
   usePostOnMomokaMutation
-} from '@tape.xyz/lens'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { Loader } from '@tape.xyz/ui'
+} from '@dragverse/lens'
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
+import { Loader } from '@dragverse/ui'
+import { zodResolver } from '@hookform/resolvers/zod'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
+import type { MetadataAttribute } from '@lens-protocol/metadata'
+import { link, MetadataAttributeType } from '@lens-protocol/metadata'
+import useNonceStore from '@lib/store/nonce'
+import useProfileStore from '@lib/store/profile'
+import { Button, Dialog, DialogClose, Flex, IconButton } from '@radix-ui/themes'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { v4 as uuidv4 } from 'uuid'

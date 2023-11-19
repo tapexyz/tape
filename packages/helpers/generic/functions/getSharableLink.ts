@@ -3,8 +3,8 @@ import {
   TAPE_APP_NAME,
   TAPE_WEBSITE_URL,
   TAPE_X_HANDLE
-} from '@tape.xyz/constants'
-import type { MirrorablePublication } from '@tape.xyz/lens'
+} from '@dragverse/constants'
+import type { MirrorablePublication } from '@dragverse/lens'
 
 import { getPublicationData } from './getPublicationData'
 

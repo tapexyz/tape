@@ -2,8 +2,8 @@ import {
   type OpenActionModuleInput,
   OpenActionModuleType,
   type RecipientDataInput
-} from '@tape.xyz/lens'
-import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
+} from '@dragverse/lens'
+import type { CollectModuleType } from '@dragverse/lens/custom-types'
 
 import { getAddedDaysFromToday } from './formatTime'
 

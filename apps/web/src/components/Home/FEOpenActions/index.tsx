@@ -1,19 +1,18 @@
 import CollectOutline from '@components/Common/Icons/CollectOutline'
 import OpenActionsShimmer from '@components/Shimmers/OpenActionsShimmer'
-import { LENS_CUSTOM_FILTERS, TAPE_APP_ID } from '@tape.xyz/constants'
+import { LENS_CUSTOM_FILTERS, TAPE_APP_ID } from '@dragverse/constants'
 import type {
   ExplorePublicationRequest,
   LinkMetadataV3,
   PrimaryPublication
-} from '@tape.xyz/lens'
+} from '@dragverse/lens'
 import {
   ExplorePublicationsOrderByType,
   ExplorePublicationType,
   LimitType,
   PublicationMetadataMainFocusType,
   useExplorePublicationsQuery
-} from '@tape.xyz/lens'
-import React from 'react'
+} from '@dragverse/lens'
 
 import SharedLink from './SharedLink'
 

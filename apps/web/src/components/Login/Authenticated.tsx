@@ -1,9 +1,8 @@
+import { getProfile, getProfilePicture } from '@dragverse/generic'
 import useProfileStore from '@lib/store/profile'
 import { Avatar, Badge, Flex, Text } from '@radix-ui/themes'
-import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import React from 'react'
 
 import Authenticate from './Authenticate'
 

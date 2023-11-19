@@ -4,12 +4,12 @@ import {
   ETHERSCAN_URL,
   FALLBACK_THUMBNAIL_URL,
   POLYGONSCAN_URL
-} from '@tape.xyz/constants'
-import { sanitizeDStorageUrl } from '@tape.xyz/generic'
-import type { CustomNftItemType } from '@tape.xyz/lens/custom-types'
+} from '@dragverse/constants'
+import { sanitizeDStorageUrl } from '@dragverse/generic'
+import type { CustomNftItemType } from '@dragverse/lens/custom-types'
 import Link from 'next/link'
 import type { FC } from 'react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 type Props = {
   nft: CustomNftItemType

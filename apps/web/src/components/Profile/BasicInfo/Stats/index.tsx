@@ -1,7 +1,6 @@
+import type { Profile } from '@dragverse/lens'
 import { Flex } from '@radix-ui/themes'
-import type { Profile } from '@tape.xyz/lens'
 import type { FC } from 'react'
-import React from 'react'
 
 import Followers from './Followers'
 import Following from './Following'

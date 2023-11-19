@@ -1,16 +1,15 @@
-import { getShortHandTime } from '@lib/formatTime'
-import { AspectRatio, Avatar, Flex } from '@radix-ui/themes'
-import { LENSTUBE_BYTES_APP_ID } from '@tape.xyz/constants'
+import { LENSTUBE_BYTES_APP_ID } from '@dragverse/constants'
 import {
   formatNumber,
   getProfile,
   getProfilePicture,
   getPublicationData
-} from '@tape.xyz/generic'
-import type { PrimaryPublication, VideoMetadataV3 } from '@tape.xyz/lens'
+} from '@dragverse/generic'
+import type { PrimaryPublication, VideoMetadataV3 } from '@dragverse/lens'
+import { getShortHandTime } from '@lib/formatTime'
+import { AspectRatio, Avatar, Flex } from '@radix-ui/themes'
 import Link from 'next/link'
 import type { FC } from 'react'
-import React from 'react'
 
 import HoverableProfile from '../HoverableProfile'
 import HeartOutline from '../Icons/HeartOutline'

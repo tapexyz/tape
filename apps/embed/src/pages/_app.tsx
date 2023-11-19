@@ -1,14 +1,14 @@
 import '../styles/index.css'
 
-import { LivepeerConfig } from '@livepeer/react'
 import {
   getLivepeerClient,
   setFingerprint,
   videoPlayerTheme
-} from '@tape.xyz/browser'
-import { tapeFont } from '@tape.xyz/browser/font'
+} from '@dragverse/browser'
+import { tapeFont } from '@dragverse/browser/font'
+import { LivepeerConfig } from '@livepeer/react'
 import type { AppProps } from 'next/app'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   useEffect(() => {

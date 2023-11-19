@@ -1,22 +1,14 @@
 import EmojiPicker from '@components/UIElements/EmojiPicker'
 import InputMentions from '@components/UIElements/InputMentions'
-import { zodResolver } from '@hookform/resolvers/zod'
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import type { MetadataAttribute } from '@lens-protocol/metadata'
-import { MetadataAttributeType, textOnly } from '@lens-protocol/metadata'
-import useNonceStore from '@lib/store/nonce'
-import usePersistStore from '@lib/store/persist'
-import useProfileStore from '@lib/store/profile'
-import { Button } from '@radix-ui/themes'
-import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
-import { getUserLocale } from '@tape.xyz/browser'
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
+import { getUserLocale } from '@dragverse/browser'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
   TAPE_APP_ID,
   TAPE_WEBSITE_URL
-} from '@tape.xyz/constants'
+} from '@dragverse/constants'
 import {
   checkLensManagerPermissions,
   EVENTS,
@@ -28,12 +20,12 @@ import {
   Tower,
   trimify,
   uploadToAr
-} from '@tape.xyz/generic'
+} from '@dragverse/generic'
 import type {
   AnyPublication,
   CreateMomokaCommentEip712TypedData,
   CreateOnchainCommentEip712TypedData
-} from '@tape.xyz/lens'
+} from '@dragverse/lens'
 import {
   PublicationDocument,
   useBroadcastOnchainMutation,
@@ -43,11 +35,19 @@ import {
   useCreateMomokaCommentTypedDataMutation,
   useCreateOnchainCommentTypedDataMutation,
   usePublicationLazyQuery
-} from '@tape.xyz/lens'
-import { useApolloClient } from '@tape.xyz/lens/apollo'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+} from '@dragverse/lens'
+import { useApolloClient } from '@dragverse/lens/apollo'
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
+import { zodResolver } from '@hookform/resolvers/zod'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
+import type { MetadataAttribute } from '@lens-protocol/metadata'
+import { MetadataAttributeType, textOnly } from '@lens-protocol/metadata'
+import useNonceStore from '@lib/store/nonce'
+import usePersistStore from '@lib/store/persist'
+import useProfileStore from '@lib/store/profile'
+import { Button } from '@radix-ui/themes'
 import type { FC } from 'react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { v4 as uuidv4 } from 'uuid'

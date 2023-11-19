@@ -1,12 +1,11 @@
-import '../styles/index.css'
-import 'tippy.js/dist/tippy.css'
 import '@radix-ui/themes/styles.css'
+import 'tippy.js/dist/tippy.css'
+import '../styles/index.css'
 import '../styles/theme.config.css'
 
 import Providers from '@components/Common/Providers'
-import { tapeFont } from '@tape.xyz/browser/font'
+import { tapeFont } from '@dragverse/browser/font'
 import type { AppProps } from 'next/app'
-import React from 'react'
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (

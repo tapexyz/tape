@@ -2,8 +2,8 @@ import {
   IS_MAINNET,
   IS_PRODUCTION,
   WORKER_TOWER_URL
-} from '@tape.xyz/constants'
-import { LocalStore } from '@tape.xyz/lens/custom-types'
+} from '@dragverse/constants'
+import { LocalStore } from '@dragverse/lens/custom-types'
 
 import { parseJwt } from './functions/parseJwt'
 

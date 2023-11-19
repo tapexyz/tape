@@ -1,16 +1,15 @@
-import { useDid } from '@hooks/useDid'
-import { useZoraNft } from '@hooks/useZoraNft'
-import { Dialog } from '@radix-ui/themes'
 import {
   STATIC_ASSETS,
   TAPE_ADMIN_ADDRESS,
   ZORA_MAINNET_CHAINS
-} from '@tape.xyz/constants'
-import { EVENTS, Tower } from '@tape.xyz/generic'
-import type { BasicNftMetadata } from '@tape.xyz/lens/custom-types'
+} from '@dragverse/constants'
+import { EVENTS, Tower } from '@dragverse/generic'
+import type { BasicNftMetadata } from '@dragverse/lens/custom-types'
+import { useDid } from '@hooks/useDid'
+import { useZoraNft } from '@hooks/useZoraNft'
+import { Dialog } from '@radix-ui/themes'
 import Link from 'next/link'
 import type { FC } from 'react'
-import React from 'react'
 
 import Metadata from './Metadata'
 

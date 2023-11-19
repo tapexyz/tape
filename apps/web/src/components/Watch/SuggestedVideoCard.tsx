@@ -2,22 +2,22 @@ import HoverableProfile from '@components/Common/HoverableProfile'
 import CommentOutline from '@components/Common/Icons/CommentOutline'
 import HeartOutline from '@components/Common/Icons/HeartOutline'
 import PublicationOptions from '@components/Common/Publication/PublicationOptions'
-import { getShortHandTime, getTimeFromSeconds } from '@lib/formatTime'
-import { Box, Flex } from '@radix-ui/themes'
-import { useAverageColor } from '@tape.xyz/browser'
+import { useAverageColor } from '@dragverse/browser'
 import {
   FALLBACK_THUMBNAIL_URL,
   LENSTUBE_BYTES_APP_ID,
   STATIC_ASSETS
-} from '@tape.xyz/constants'
+} from '@dragverse/constants'
 import {
   formatNumber,
   getIsSensitiveContent,
   getPublicationData,
   getThumbnailUrl,
   imageCdn
-} from '@tape.xyz/generic'
-import type { MirrorablePublication } from '@tape.xyz/lens'
+} from '@dragverse/generic'
+import type { MirrorablePublication } from '@dragverse/lens'
+import { getShortHandTime, getTimeFromSeconds } from '@lib/formatTime'
+import { Box, Flex } from '@radix-ui/themes'
 import clsx from 'clsx'
 import Link from 'next/link'
 import type { FC } from 'react'

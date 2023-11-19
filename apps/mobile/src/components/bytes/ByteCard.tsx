@@ -1,15 +1,15 @@
-import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 import {
-  getPublicationMediaUrl,
-  getThumbnailUrl,
-  imageCdn,
-  logger
-} from '@tape.xyz/generic'
-import type { AnyPublication } from '@tape.xyz/lens'
+    getPublicationMediaUrl,
+    getThumbnailUrl,
+    imageCdn,
+    logger
+} from '@dragverse/generic'
+import type { AnyPublication } from '@dragverse/lens'
+import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs'
 import { ResizeMode, Video } from 'expo-av'
 import type { FC } from 'react'
 import React, { useEffect, useRef } from 'react'
-import { StyleSheet, useWindowDimensions, View } from 'react-native'
+import { StyleSheet, View, useWindowDimensions } from 'react-native'
 
 import { colors } from '~/helpers/theme'
 import { useIsFocused } from '~/hooks/navigation'

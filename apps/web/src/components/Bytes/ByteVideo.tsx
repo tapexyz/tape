@@ -1,5 +1,4 @@
 import MetaTags from '@components/Common/MetaTags'
-import useProfileStore from '@lib/store/profile'
 import {
   getPublication,
   getPublicationData,
@@ -7,9 +6,10 @@ import {
   getThumbnailUrl,
   imageCdn,
   sanitizeDStorageUrl
-} from '@tape.xyz/generic'
-import type { AnyPublication } from '@tape.xyz/lens'
-import VideoPlayer from '@tape.xyz/ui/VideoPlayer'
+} from '@dragverse/generic'
+import type { AnyPublication } from '@dragverse/lens'
+import VideoPlayer from '@dragverse/ui/VideoPlayer'
+import useProfileStore from '@lib/store/profile'
 import type { FC } from 'react'
 import React, { useEffect, useRef } from 'react'
 

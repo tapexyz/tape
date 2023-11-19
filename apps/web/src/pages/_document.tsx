@@ -1,6 +1,5 @@
-import { STATIC_ASSETS, TAPE_APP_NAME } from '@tape.xyz/constants'
+import { STATIC_ASSETS, TAPE_APP_NAME } from '@dragverse/constants'
 import Document, { Head, Html, Main, NextScript } from 'next/document'
-import React from 'react'
 
 class AppDocument extends Document {
   render() {

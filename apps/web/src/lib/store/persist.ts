@@ -1,11 +1,11 @@
 import type {
   QueuedCommentType,
   QueuedVideoType
-} from '@tape.xyz/lens/custom-types'
+} from '@dragverse/lens/custom-types'
 import {
   CustomNotificationsFilterEnum,
   LocalStore
-} from '@tape.xyz/lens/custom-types'
+} from '@dragverse/lens/custom-types'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 

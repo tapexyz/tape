@@ -1,29 +1,29 @@
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { IconButton, ScrollArea, Text, TextField } from '@radix-ui/themes'
-import { useDebounce, useOutsideClick } from '@tape.xyz/browser'
+import { useDebounce, useOutsideClick } from '@dragverse/browser'
 import {
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
-} from '@tape.xyz/constants'
-import { EVENTS, Tower } from '@tape.xyz/generic'
+} from '@dragverse/constants'
+import { EVENTS, Tower } from '@dragverse/generic'
 import type {
   PrimaryPublication,
   Profile,
   ProfileSearchRequest,
   PublicationSearchRequest
-} from '@tape.xyz/lens'
+} from '@dragverse/lens'
 import {
   LimitType,
   PublicationMetadataMainFocusType,
   SearchPublicationType,
   useSearchProfilesLazyQuery,
   useSearchPublicationsLazyQuery
-} from '@tape.xyz/lens'
-import { Loader } from '@tape.xyz/ui'
+} from '@dragverse/lens'
+import { Loader } from '@dragverse/ui'
+import { IconButton, ScrollArea, Text, TextField } from '@radix-ui/themes'
 import clsx from 'clsx'
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import SearchOutline from '../Icons/SearchOutline'
 import Profiles from './Profiles'

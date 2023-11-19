@@ -1,19 +1,18 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
 import { BangersBubbles } from '@components/Shimmers/BangersShimmer'
-import { Avatar } from '@radix-ui/themes'
-import { COMMON_REGEX } from '@tape.xyz/constants'
+import { COMMON_REGEX } from '@dragverse/constants'
 import {
   getProfile,
   getProfilePicture,
   getPublicationData
-} from '@tape.xyz/generic'
+} from '@dragverse/generic'
 import type {
   PrimaryPublication,
   Profile,
   ProfilesRequest
-} from '@tape.xyz/lens'
-import { LimitType, useProfilesQuery } from '@tape.xyz/lens'
-import React from 'react'
+} from '@dragverse/lens'
+import { LimitType, useProfilesQuery } from '@dragverse/lens'
+import { Avatar } from '@radix-ui/themes'
 
 const Mirrors = ({ post }: { post: PrimaryPublication }) => {
   const parsePublicationId = () => {

@@ -2,12 +2,11 @@ import Badge from '@components/Common/Badge'
 import FollowActions from '@components/Common/FollowActions'
 import OtherChannelsShimmer from '@components/Shimmers/OtherChannelsShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { formatNumber, getProfile, getProfilePicture } from '@tape.xyz/generic'
-import type { Profile } from '@tape.xyz/lens'
-import { useProfilesQuery } from '@tape.xyz/lens'
+import { formatNumber, getProfile, getProfilePicture } from '@dragverse/generic'
+import type { Profile } from '@dragverse/lens'
+import { useProfilesQuery } from '@dragverse/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
-import React from 'react'
 
 type Props = {
   currentProfile: Profile

@@ -1,10 +1,10 @@
 import MetaTags from '@components/Common/MetaTags'
 import Connectors from '@components/Login/Connectors'
-import { STATIC_ASSETS } from '@tape.xyz/constants'
-import { EVENTS, Tower } from '@tape.xyz/generic'
+import { STATIC_ASSETS } from '@dragverse/constants'
+import { EVENTS, Tower } from '@dragverse/generic'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 
 const Login = () => {
   const { resolvedTheme } = useTheme()

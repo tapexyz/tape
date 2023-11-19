@@ -1,20 +1,20 @@
-import { useCopyToClipboard } from '@tape.xyz/browser'
+import { useCopyToClipboard } from '@dragverse/browser'
 import {
   STATIC_ASSETS,
   TAPE_APP_NAME,
   TAPE_WEBSITE_URL
-} from '@tape.xyz/constants'
+} from '@dragverse/constants'
 import {
   EVENTS,
   getProfile,
   getProfilePicture,
   getPublicationData,
   Tower
-} from '@tape.xyz/generic'
-import type { PrimaryPublication } from '@tape.xyz/lens'
+} from '@dragverse/generic'
+import type { PrimaryPublication } from '@dragverse/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import CopyOutline from './icons/CopyOutline'
 

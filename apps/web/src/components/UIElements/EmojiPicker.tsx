@@ -1,11 +1,11 @@
 import EmojiOutline from '@components/Common/Icons/EmojiOutline'
+import { STATIC_ASSETS } from '@dragverse/constants'
 import Picker from '@emoji-mart/react'
 import { Popover } from '@radix-ui/themes'
-import { STATIC_ASSETS } from '@tape.xyz/constants'
 import axios from 'axios'
 import { useTheme } from 'next-themes'
 import type { FC } from 'react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 type EmojiData = {
   aliases: Object

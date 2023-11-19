@@ -4,7 +4,7 @@ export interface Env {
 
 const logtailApiURL = 'https://in.logtail.com/'
 // A list of allowed origins that can access our backend API
-const allowedOrigins = ['https://tape.xyz', 'https://www.tape.xyz']
+const allowedOrigins = ['https://dragverse.app', 'https://www.dragverse.app']
 
 // A function that returns a set of CORS headers
 const corsHeaders = (origin: string) => ({
@@ -65,7 +65,7 @@ const handleRequest = async (request: Request, env: Env) => {
 
   // Redirect any other requests to a different URL, such as
   // your deployed React application
-  return Response.redirect('https://tape.xyz')
+  return Response.redirect('https://dragverse.app')
 }
 
 export default {

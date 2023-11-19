@@ -1,19 +1,19 @@
-import { getMetaTags } from '@tape.xyz/browser'
+import { getMetaTags } from '@dragverse/browser'
 import {
   OG_IMAGE,
   TAPE_APP_DESCRIPTION,
   TAPE_APP_NAME
-} from '@tape.xyz/constants'
+} from '@dragverse/constants'
 import {
   getPublication,
   getPublicationData,
   getThumbnailUrl,
   imageCdn,
   truncate
-} from '@tape.xyz/generic'
-import type { AnyPublication, PublicationRequest } from '@tape.xyz/lens'
-import { PublicationDocument } from '@tape.xyz/lens'
-import { apolloClient } from '@tape.xyz/lens/apollo'
+} from '@dragverse/generic'
+import type { AnyPublication, PublicationRequest } from '@dragverse/lens'
+import { PublicationDocument } from '@dragverse/lens'
+import { apolloClient } from '@dragverse/lens/apollo'
 import type { NextApiResponse } from 'next'
 
 const client = apolloClient()

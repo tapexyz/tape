@@ -1,9 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   transpilePackages: [
-    '@tape.xyz/browser',
-    '@tape.xyz/generic',
-    '@tape.xyz/lens'
+    '@dragverse/browser',
+    '@dragverse/generic',
+    '@dragverse/lens'
   ],
   reactStrictMode: true,
   async rewrites() {

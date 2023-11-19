@@ -1,4 +1,4 @@
-import type { Profile } from '@tape.xyz/lens'
+import type { Profile } from '@dragverse/lens'
 
 export const getProfileCoverPicture = (
   profile: Profile,

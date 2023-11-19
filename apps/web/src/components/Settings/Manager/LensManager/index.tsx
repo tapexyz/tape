@@ -1,6 +1,5 @@
+import { TAPE_APP_NAME } from '@dragverse/constants'
 import useProfileStore from '@lib/store/profile'
-import { TAPE_APP_NAME } from '@tape.xyz/constants'
-import React from 'react'
 
 import ToggleLensManager from './ToggleLensManager'
 

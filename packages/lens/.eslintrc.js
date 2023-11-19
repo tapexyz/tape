@@ -1,4 +1,4 @@
 module.exports = {
-  extends: [require.resolve('@tape.xyz/config/eslint/index.js')],
+  extends: [require.resolve('@dragverse/config/eslint/index.js')],
   ignorePatterns: ['generated.ts']
 }

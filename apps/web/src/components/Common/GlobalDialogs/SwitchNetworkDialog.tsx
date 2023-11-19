@@ -1,7 +1,6 @@
+import { POLYGON_CHAIN_ID } from '@dragverse/constants'
 import useNetworkStore from '@lib/store/network'
 import { Button, Dialog, Flex, IconButton } from '@radix-ui/themes'
-import { POLYGON_CHAIN_ID } from '@tape.xyz/constants'
-import React from 'react'
 import { useSwitchNetwork } from 'wagmi'
 
 import TimesOutline from '../Icons/TimesOutline'

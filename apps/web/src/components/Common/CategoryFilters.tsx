@@ -1,9 +1,9 @@
+import { CREATOR_VIDEO_CATEGORIES } from '@dragverse/constants'
+import { EVENTS, Tower } from '@dragverse/generic'
 import useAppStore from '@lib/store'
-import { CREATOR_VIDEO_CATEGORIES } from '@tape.xyz/constants'
-import { EVENTS, Tower } from '@tape.xyz/generic'
 import clsx from 'clsx'
 import type { FC } from 'react'
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 
 import HorizantalScroller from './HorizantalScroller'
 

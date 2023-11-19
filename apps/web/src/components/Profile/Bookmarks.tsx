@@ -2,26 +2,25 @@ import MetaTags from '@components/Common/MetaTags'
 import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import useProfileStore from '@lib/store/profile'
 import {
   ALLOWED_APP_IDS,
   INFINITE_SCROLL_ROOT_MARGIN,
   IS_MAINNET,
   LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
-} from '@tape.xyz/constants'
+} from '@dragverse/constants'
 import type {
   AnyPublication,
   PublicationBookmarksRequest
-} from '@tape.xyz/lens'
+} from '@dragverse/lens'
 import {
   LimitType,
   PublicationMetadataMainFocusType,
   usePublicationBookmarksQuery
-} from '@tape.xyz/lens'
-import { Loader } from '@tape.xyz/ui'
+} from '@dragverse/lens'
+import { Loader } from '@dragverse/ui'
+import useProfileStore from '@lib/store/profile'
 import type { FC } from 'react'
-import React from 'react'
 import { useInView } from 'react-cool-inview'
 
 const Bookmarks: FC = () => {

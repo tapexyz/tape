@@ -1,8 +1,7 @@
+import { getPublication, getPublicationData } from '@dragverse/generic'
+import type { AnyPublication } from '@dragverse/lens'
 import { getTimeFromSeconds } from '@lib/formatTime'
-import { getPublication, getPublicationData } from '@tape.xyz/generic'
-import type { AnyPublication } from '@tape.xyz/lens'
 import type { FC } from 'react'
-import React from 'react'
 
 type Props = {
   video: AnyPublication

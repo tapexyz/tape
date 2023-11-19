@@ -1,4 +1,4 @@
-import type { AnyPublication } from '@tape.xyz/lens'
+import type { AnyPublication } from '@dragverse/lens'
 
 import { getPublication } from './getPublication'
 

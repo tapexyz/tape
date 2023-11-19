@@ -1,5 +1,4 @@
 import { SuggestedVideosShimmer } from '@components/Shimmers/WatchShimmer'
-import useProfileStore from '@lib/store/profile'
 import {
   ALLOWED_APP_IDS,
   INFINITE_SCROLL_ROOT_MARGIN,
@@ -7,21 +6,22 @@ import {
   LENS_CUSTOM_FILTERS,
   LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
-} from '@tape.xyz/constants'
+} from '@dragverse/constants'
 import type {
   ExplorePublicationRequest,
   MirrorablePublication
-} from '@tape.xyz/lens'
+} from '@dragverse/lens'
 import {
   ExplorePublicationsOrderByType,
   ExplorePublicationType,
   LimitType,
   PublicationMetadataMainFocusType,
   useExplorePublicationsQuery
-} from '@tape.xyz/lens'
-import { Loader } from '@tape.xyz/ui'
+} from '@dragverse/lens'
+import { Loader } from '@dragverse/ui'
+import useProfileStore from '@lib/store/profile'
 import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { useInView } from 'react-cool-inview'
 
 import SuggestedVideoCard from './SuggestedVideoCard'

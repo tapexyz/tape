@@ -5,7 +5,7 @@ keep_vars = true
 node_compat = true
 
 routes = [
-	{ pattern = "tower.tape.xyz", custom_domain = true }
+	{ pattern = "tower.dragverse.app", custom_domain = true }
 ]
 
 [env.production.vars]

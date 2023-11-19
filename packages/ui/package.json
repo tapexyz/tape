@@ -1,16 +1,16 @@
 {
-  "name": "@tape.xyz/ui",
+  "name": "@dragverse/ui",
   "version": "0.0.0",
   "license": "AGPL-3.0",
   "main": "./index.ts",
   "scripts": {
-    "lint": "eslint . --ext .js,.ts,.tsx",
+    "lint": "eslint . --ext .js,.ts,.tsx --fix",
     "typecheck": "tsc --pretty"
   },
   "devDependencies": {
-    "@tape.xyz/browser": "*",
-    "@tape.xyz/constants": "*",
-    "@tape.xyz/generic": "*",
+    "@dragverse/browser": "*",
+    "@dragverse/constants": "*",
+    "@dragverse/generic": "*",
     "prettier-plugin-tailwindcss": "^0.5.7",
     "typescript": "5.2.2"
   },

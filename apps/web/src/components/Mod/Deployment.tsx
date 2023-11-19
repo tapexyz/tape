@@ -3,9 +3,8 @@ import {
   GIT_DEPLOYED_COMMIT_SHA,
   IS_MAINNET,
   VERCEL_DEPLOYED_ENV
-} from '@tape.xyz/constants'
+} from '@dragverse/constants'
 import Link from 'next/link'
-import React from 'react'
 
 const Deployment = () => {
   return (
@@ -26,7 +25,7 @@ const Deployment = () => {
       {GIT_DEPLOYED_COMMIT_SHA && (
         <span className="rounded-lg bg-gray-200 bg-opacity-70 p-1 px-3 text-xs backdrop-blur-xl dark:bg-black">
           <Link
-            href={`https://github.com/tapexyz/tape/commit/${GIT_DEPLOYED_COMMIT_SHA}`}
+            href={`https://github.com/dragverse/tape/commit/${GIT_DEPLOYED_COMMIT_SHA}`}
             target="_blank"
             rel="noreferer noreferrer"
           >

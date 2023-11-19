@@ -1,15 +1,14 @@
-import { getDateString, getRelativeTime } from '@lib/formatTime'
-import { Badge as BadgeUI, Flex } from '@radix-ui/themes'
 import {
   getProfile,
   getProfileCoverPicture,
   getProfilePicture,
   imageCdn,
   sanitizeDStorageUrl
-} from '@tape.xyz/generic'
-import type { Profile } from '@tape.xyz/lens'
+} from '@dragverse/generic'
+import type { Profile } from '@dragverse/lens'
+import { getDateString, getRelativeTime } from '@lib/formatTime'
+import { Badge as BadgeUI, Flex } from '@radix-ui/themes'
 import type { FC } from 'react'
-import React from 'react'
 
 import CoverLinks from './CoverLinks'
 

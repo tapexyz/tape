@@ -1,5 +1,5 @@
 {
-  "name": "@tape.xyz/mobile",
+  "name": "@dragverse/mobile",
   "version": "0.0.1",
   "main": "index.tsx",
   "private": true,
@@ -10,7 +10,7 @@
     "ios": "expo mobile:start --ios",
     "web": "expo mobile:start --web",
     "devtools": "react-devtools",
-    "mobile:lint": "eslint . --ext .js,.ts,.tsx",
+    "mobile:lint": "eslint . --ext .js,.ts,.tsx --fix",
     "eas:build:internal": "eas build --profile preview --platform ios --local"
   },
   "dependencies": {
@@ -75,9 +75,9 @@
     "@babel/plugin-transform-template-literals": "^7.22.5",
     "@expo/metro-config": "^0.10.7",
     "@expo/webpack-config": "^19.0.0",
-    "@tape.xyz/config": "*",
-    "@tape.xyz/generic": "*",
-    "@tape.xyz/lens": "*",
+    "@dragverse/config": "*",
+    "@dragverse/generic": "*",
+    "@dragverse/lens": "*",
     "@types/node": "20.9.2",
     "@types/qrcode": "^1.5.5",
     "@welldone-software/why-did-you-render": "^7.0.1",

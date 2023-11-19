@@ -1,7 +1,7 @@
 import {
   LensTransactionStatusType,
   useLensTransactionStatusQuery
-} from '@tape.xyz/lens'
+} from '@dragverse/lens'
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 

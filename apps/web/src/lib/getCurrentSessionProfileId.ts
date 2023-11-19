@@ -1,4 +1,4 @@
-import { parseJwt } from '@tape.xyz/generic'
+import { parseJwt } from '@dragverse/generic'
 
 import { hydrateAuthTokens } from './store/auth'
 

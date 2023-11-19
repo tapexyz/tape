@@ -1,10 +1,9 @@
 import PublicationComments from '@components/Common/Publication/PublicationComments'
 import NonRelevantComments from '@components/Watch/Comments/NonRelevantComments'
+import type { MirrorablePublication } from '@dragverse/lens'
+import { CustomCommentsFilterEnum } from '@dragverse/lens/custom-types'
 import useProfileStore from '@lib/store/profile'
-import type { MirrorablePublication } from '@tape.xyz/lens'
-import { CustomCommentsFilterEnum } from '@tape.xyz/lens/custom-types'
 import type { FC } from 'react'
-import React from 'react'
 
 type Props = {
   video: MirrorablePublication

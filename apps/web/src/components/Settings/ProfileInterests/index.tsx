@@ -1,6 +1,5 @@
 import MetaTags from '@components/Common/MetaTags'
-import { TAPE_APP_NAME } from '@tape.xyz/constants'
-import React from 'react'
+import { TAPE_APP_NAME } from '@dragverse/constants'
 
 import Topics from './Topics'
 

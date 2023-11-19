@@ -1,16 +1,15 @@
-import { useProfileStore } from '@lib/store/profile'
-import { Avatar, Flex, HoverCard, Inset, Text } from '@radix-ui/themes'
 import {
   getProfile,
   getProfileCoverPicture,
   getProfilePicture,
   imageCdn,
   sanitizeDStorageUrl
-} from '@tape.xyz/generic'
-import type { Profile } from '@tape.xyz/lens'
+} from '@dragverse/generic'
+import type { Profile } from '@dragverse/lens'
+import { useProfileStore } from '@lib/store/profile'
+import { Avatar, Flex, HoverCard, Inset, Text } from '@radix-ui/themes'
 import Link from 'next/link'
 import type { FC, ReactElement } from 'react'
-import React from 'react'
 
 import Badge from './Badge'
 import FollowActions from './FollowActions'

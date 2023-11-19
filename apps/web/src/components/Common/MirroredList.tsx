@@ -1,15 +1,14 @@
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { getProfile, getProfilePicture } from '@tape.xyz/generic'
+import { getProfile, getProfilePicture } from '@dragverse/generic'
 import {
   LimitType,
   type Profile,
   type ProfilesRequest,
   useProfilesQuery
-} from '@tape.xyz/lens'
-import { Loader } from '@tape.xyz/ui'
+} from '@dragverse/lens'
+import { Loader } from '@dragverse/ui'
 import Link from 'next/link'
 import type { FC } from 'react'
-import React from 'react'
 import { useInView } from 'react-cool-inview'
 
 import Badge from './Badge'

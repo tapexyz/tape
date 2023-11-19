@@ -1,4 +1,4 @@
-import type { PublicationMetadata } from '@tape.xyz/lens'
+import type { PublicationMetadata } from '@dragverse/lens'
 
 import { sanitizeDStorageUrl } from './sanitizeDStorageUrl'
 

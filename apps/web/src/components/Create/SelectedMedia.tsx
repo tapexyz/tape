@@ -1,21 +1,21 @@
 import AddImageOutline from '@components/Common/Icons/AddImageOutline'
 import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
-import { getTimeFromSeconds } from '@lib/formatTime'
-import useAppStore from '@lib/store'
-import useProfileStore from '@lib/store/profile'
-import { AspectRatio, Badge } from '@radix-ui/themes'
-import { uploadToIPFS } from '@tape.xyz/browser'
-import { ALLOWED_AUDIO_MIME_TYPES, FEATURE_FLAGS } from '@tape.xyz/constants'
+import { uploadToIPFS } from '@dragverse/browser'
+import { ALLOWED_AUDIO_MIME_TYPES, FEATURE_FLAGS } from '@dragverse/constants'
 import {
   formatBytes,
   getIsFeatureEnabled,
   sanitizeDStorageUrl
-} from '@tape.xyz/generic'
-import type { IPFSUploadResult } from '@tape.xyz/lens/custom-types'
-import { Loader } from '@tape.xyz/ui'
+} from '@dragverse/generic'
+import type { IPFSUploadResult } from '@dragverse/lens/custom-types'
+import { Loader } from '@dragverse/ui'
+import { getTimeFromSeconds } from '@lib/formatTime'
+import useAppStore from '@lib/store'
+import useProfileStore from '@lib/store/profile'
+import { AspectRatio, Badge } from '@radix-ui/themes'
 import clsx from 'clsx'
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import ChooseThumbnail from './ChooseThumbnail'
 import UploadMethod from './UploadMethod'

@@ -1,6 +1,6 @@
+import { resolveDid } from '@dragverse/generic/functions/resolveDid'
+import { shortenAddress } from '@dragverse/generic/functions/shortenAddress'
 import { useQuery } from '@tanstack/react-query'
-import { resolveDid } from '@tape.xyz/generic/functions/resolveDid'
-import { shortenAddress } from '@tape.xyz/generic/functions/shortenAddress'
 import { isAddress } from 'viem'
 
 interface UseDidProps {

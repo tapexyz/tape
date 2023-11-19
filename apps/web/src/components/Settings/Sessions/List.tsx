@@ -1,5 +1,13 @@
 import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { INFINITE_SCROLL_ROOT_MARGIN } from '@dragverse/constants'
+import type { ApprovedAuthenticationRequest } from '@dragverse/lens'
+import {
+  LimitType,
+  useApprovedAuthenticationsQuery,
+  useRevokeAuthenticationMutation
+} from '@dragverse/lens'
+import { Loader } from '@dragverse/ui'
 import { getDateString } from '@lib/formatTime'
 import useProfileStore from '@lib/store/profile'
 import {
@@ -9,15 +17,7 @@ import {
   AccordionTrigger
 } from '@radix-ui/react-accordion'
 import { Blockquote, Button } from '@radix-ui/themes'
-import { INFINITE_SCROLL_ROOT_MARGIN } from '@tape.xyz/constants'
-import type { ApprovedAuthenticationRequest } from '@tape.xyz/lens'
-import {
-  LimitType,
-  useApprovedAuthenticationsQuery,
-  useRevokeAuthenticationMutation
-} from '@tape.xyz/lens'
-import { Loader } from '@tape.xyz/ui'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import toast from 'react-hot-toast'
 

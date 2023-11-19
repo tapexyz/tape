@@ -1,25 +1,22 @@
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import useNonceStore from '@lib/store/nonce'
-import useProfileStore from '@lib/store/profile'
-import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
   SIGN_IN_REQUIRED
-} from '@tape.xyz/constants'
+} from '@dragverse/constants'
 import {
   checkLensManagerPermissions,
   EVENTS,
   getSignature,
   Tower
-} from '@tape.xyz/generic'
+} from '@dragverse/generic'
 import type {
   CreateMomokaMirrorEip712TypedData,
   CreateOnchainMirrorEip712TypedData,
   MirrorablePublication,
   MomokaMirrorRequest
-} from '@tape.xyz/lens'
+} from '@dragverse/lens'
 import {
   useBroadcastOnchainMutation,
   useBroadcastOnMomokaMutation,
@@ -27,8 +24,11 @@ import {
   useCreateOnchainMirrorTypedDataMutation,
   useMirrorOnchainMutation,
   useMirrorOnMomokaMutation
-} from '@tape.xyz/lens'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+} from '@dragverse/lens'
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
+import useNonceStore from '@lib/store/nonce'
+import useProfileStore from '@lib/store/profile'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'

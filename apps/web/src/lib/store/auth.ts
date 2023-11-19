@@ -1,4 +1,4 @@
-import { LocalStore } from '@tape.xyz/lens/custom-types'
+import { LocalStore } from '@dragverse/lens/custom-types'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 

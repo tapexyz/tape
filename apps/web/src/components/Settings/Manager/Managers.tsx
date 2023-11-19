@@ -2,6 +2,27 @@ import ExternalOutline from '@components/Common/Icons/ExternalOutline'
 import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
 import { Input } from '@components/UIElements/Input'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
+import {
+  ERROR_MESSAGE,
+  INFINITE_SCROLL_ROOT_MARGIN,
+  LENSHUB_PROXY_ADDRESS,
+  REQUESTING_SIGNATURE_MESSAGE
+} from '@dragverse/constants'
+import {
+  checkLensManagerPermissions,
+  getSignature,
+  shortenAddress
+} from '@dragverse/generic'
+import type { ProfileManagersRequest } from '@dragverse/lens'
+import {
+  ChangeProfileManagerActionType,
+  useBroadcastOnchainMutation,
+  useCreateChangeProfileManagersTypedDataMutation,
+  useProfileManagersQuery
+} from '@dragverse/lens'
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
+import { Loader } from '@dragverse/ui'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useDid } from '@hooks/useDid'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
@@ -9,28 +30,7 @@ import usePendingTxn from '@hooks/usePendingTxn'
 import useNonceStore from '@lib/store/nonce'
 import useProfileStore from '@lib/store/profile'
 import { Button, Dialog, Flex } from '@radix-ui/themes'
-import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
-import {
-  ERROR_MESSAGE,
-  INFINITE_SCROLL_ROOT_MARGIN,
-  LENSHUB_PROXY_ADDRESS,
-  REQUESTING_SIGNATURE_MESSAGE
-} from '@tape.xyz/constants'
-import {
-  checkLensManagerPermissions,
-  getSignature,
-  shortenAddress
-} from '@tape.xyz/generic'
-import type { ProfileManagersRequest } from '@tape.xyz/lens'
-import {
-  ChangeProfileManagerActionType,
-  useBroadcastOnchainMutation,
-  useCreateChangeProfileManagersTypedDataMutation,
-  useProfileManagersQuery
-} from '@tape.xyz/lens'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { Loader } from '@tape.xyz/ui'
-import React, { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'

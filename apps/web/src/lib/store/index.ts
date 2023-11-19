@@ -1,14 +1,14 @@
-import { WebIrys } from '@irys/sdk'
-import { MetadataLicenseType } from '@lens-protocol/metadata'
 import {
   CREATOR_VIDEO_CATEGORIES,
   IRYS_CURRENCY,
   IRYS_NODE_URL,
   POLYGON_RPC_URL,
   WMATIC_TOKEN_ADDRESS
-} from '@tape.xyz/constants'
-import { logger } from '@tape.xyz/generic'
-import type { IrysDataState, UploadedMedia } from '@tape.xyz/lens/custom-types'
+} from '@dragverse/constants'
+import { logger } from '@dragverse/generic'
+import type { IrysDataState, UploadedMedia } from '@dragverse/lens/custom-types'
+import { WebIrys } from '@irys/sdk'
+import { MetadataLicenseType } from '@lens-protocol/metadata'
 import { create } from 'zustand'
 
 export const UPLOADED_VIDEO_IRYS_DEFAULTS = {

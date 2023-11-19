@@ -1,10 +1,9 @@
 import InfoOutline from '@components/Common/Icons/InfoOutline'
+import { TAPE_APP_NAME } from '@dragverse/constants'
 import { MetadataLicenseType } from '@lens-protocol/metadata'
 import useAppStore from '@lib/store'
 import { Flex, HoverCard, Select, Text } from '@radix-ui/themes'
-import { TAPE_APP_NAME } from '@tape.xyz/constants'
 import Link from 'next/link'
-import React from 'react'
 
 const MediaLicense = () => {
   const uploadedMedia = useAppStore((state) => state.uploadedMedia)

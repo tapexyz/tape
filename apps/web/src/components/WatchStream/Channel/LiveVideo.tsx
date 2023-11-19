@@ -1,6 +1,6 @@
-import VideoPlayer from '@tape.xyz/ui/VideoPlayer'
+import VideoPlayer from '@dragverse/ui/VideoPlayer'
 import type { FC } from 'react'
-import React, { memo } from 'react'
+import { memo } from 'react'
 
 type Props = {
   playback: string

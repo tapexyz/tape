@@ -1,12 +1,11 @@
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { WORKER_NFTS_URL } from '@dragverse/constants'
+import type { Profile } from '@dragverse/lens'
+import type { CustomNftItemType } from '@dragverse/lens/custom-types'
 import { useQuery } from '@tanstack/react-query'
-import { WORKER_NFTS_URL } from '@tape.xyz/constants'
-import type { Profile } from '@tape.xyz/lens'
-import type { CustomNftItemType } from '@tape.xyz/lens/custom-types'
 import axios from 'axios'
 import type { FC } from 'react'
-import React from 'react'
 
 import NFTCard from './NFTCard'
 

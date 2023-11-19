@@ -1,5 +1,5 @@
-import { COMMON_REGEX } from '@tape.xyz/constants'
-import type { BasicNftMetadata } from '@tape.xyz/lens/custom-types'
+import { COMMON_REGEX } from '@dragverse/constants'
+import type { BasicNftMetadata } from '@dragverse/lens/custom-types'
 
 const knownSites = ['zora.co', 'testnet.zora.co']
 

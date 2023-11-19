@@ -1,11 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   transpilePackages: [
-    '@tape.xyz/lens',
-    '@tape.xyz/browser',
-    '@tape.xyz/generic',
-    '@tape.xyz/config',
-    '@tape.xyz/ui'
+    '@dragverse/lens',
+    '@dragverse/browser',
+    '@dragverse/generic',
+    '@dragverse/config',
+    '@dragverse/ui'
   ],
   reactStrictMode: true,
   async headers() {

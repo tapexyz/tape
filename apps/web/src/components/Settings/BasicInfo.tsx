@@ -5,23 +5,15 @@ import EmojiPicker from '@components/UIElements/EmojiPicker'
 import { Input } from '@components/UIElements/Input'
 import { TextArea } from '@components/UIElements/TextArea'
 import Tooltip from '@components/UIElements/Tooltip'
-import { zodResolver } from '@hookform/resolvers/zod'
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import type { ProfileOptions } from '@lens-protocol/metadata'
-import {
-  MetadataAttributeType,
-  profile as profileMetadata
-} from '@lens-protocol/metadata'
-import { Button, Flex, IconButton, Text } from '@radix-ui/themes'
-import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
-import { uploadToIPFS, useCopyToClipboard } from '@tape.xyz/browser'
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
+import { uploadToIPFS, useCopyToClipboard } from '@dragverse/browser'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
   TAPE_APP_ID,
   TAPE_WEBSITE_URL
-} from '@tape.xyz/constants'
+} from '@dragverse/constants'
 import {
   checkLensManagerPermissions,
   EVENTS,
@@ -36,20 +28,28 @@ import {
   Tower,
   trimify,
   uploadToAr
-} from '@tape.xyz/generic'
-import type { OnchainSetProfileMetadataRequest, Profile } from '@tape.xyz/lens'
+} from '@dragverse/generic'
+import type { OnchainSetProfileMetadataRequest, Profile } from '@dragverse/lens'
 import {
   useBroadcastOnchainMutation,
   useCreateOnchainSetProfileMetadataTypedDataMutation,
   useSetProfileMetadataMutation
-} from '@tape.xyz/lens'
+} from '@dragverse/lens'
 import type {
   CustomErrorWithData,
   IPFSUploadResult
-} from '@tape.xyz/lens/custom-types'
-import { Loader } from '@tape.xyz/ui'
+} from '@dragverse/lens/custom-types'
+import { Loader } from '@dragverse/ui'
+import { zodResolver } from '@hookform/resolvers/zod'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
+import type { ProfileOptions } from '@lens-protocol/metadata'
+import {
+  MetadataAttributeType,
+  profile as profileMetadata
+} from '@lens-protocol/metadata'
+import { Button, Flex, IconButton, Text } from '@radix-ui/themes'
 import clsx from 'clsx'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { v4 as uuidv4 } from 'uuid'

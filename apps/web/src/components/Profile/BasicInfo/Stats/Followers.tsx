@@ -1,6 +1,10 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
 import TimesOutline from '@components/Common/Icons/TimesOutline'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { formatNumber } from '@dragverse/generic'
+import type { FollowersRequest, Profile, ProfileStats } from '@dragverse/lens'
+import { LimitType, useFollowersQuery } from '@dragverse/lens'
+import { Loader } from '@dragverse/ui'
 import {
   Dialog,
   DialogClose,
@@ -9,12 +13,7 @@ import {
   ScrollArea,
   Text
 } from '@radix-ui/themes'
-import { formatNumber } from '@tape.xyz/generic'
-import type { FollowersRequest, Profile, ProfileStats } from '@tape.xyz/lens'
-import { LimitType, useFollowersQuery } from '@tape.xyz/lens'
-import { Loader } from '@tape.xyz/ui'
 import type { FC } from 'react'
-import React from 'react'
 import { useInView } from 'react-cool-inview'
 
 type Props = {

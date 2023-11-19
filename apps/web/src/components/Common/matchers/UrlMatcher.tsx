@@ -1,4 +1,4 @@
-import { STATIC_ASSETS, TAPE_APP_NAME } from '@tape.xyz/constants'
+import { STATIC_ASSETS, TAPE_APP_NAME } from '@dragverse/constants'
 import type { ChildrenNode, MatchResponse, Node } from 'interweave'
 import { Matcher } from 'interweave'
 import Link from 'next/link'
@@ -16,7 +16,8 @@ const Url = ({ children, url, ...props }: UrlProps) => {
     href = `http://${href}`
   }
 
-  return href?.includes('tape.xyz/watch') || href?.includes('tape.xyz/u') ? (
+  return href?.includes('dragverse.app/watch') ||
+    href?.includes('dragverse.app/u') ? (
     <Link
       href={href}
       className="inline-flex items-center space-x-1 rounded-full bg-gray-200 px-2 text-sm font-medium dark:bg-gray-800"

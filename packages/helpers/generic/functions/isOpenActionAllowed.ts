@@ -2,7 +2,7 @@ import {
   type Maybe,
   type OpenActionModule,
   OpenActionModuleType
-} from '@tape.xyz/lens'
+} from '@dragverse/lens'
 
 const allowedTypes = [
   OpenActionModuleType.SimpleCollectOpenActionModule,

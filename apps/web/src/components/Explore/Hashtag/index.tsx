@@ -9,19 +9,18 @@ import {
   LENS_CUSTOM_FILTERS,
   LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
-} from '@tape.xyz/constants'
+} from '@dragverse/constants'
 import type {
   PrimaryPublication,
   PublicationSearchRequest
-} from '@tape.xyz/lens'
+} from '@dragverse/lens'
 import {
   LimitType,
   PublicationMetadataMainFocusType,
   useSearchPublicationsQuery
-} from '@tape.xyz/lens'
-import { Loader } from '@tape.xyz/ui'
+} from '@dragverse/lens'
+import { Loader } from '@dragverse/ui'
 import { useRouter } from 'next/router'
-import React from 'react'
 import { useInView } from 'react-cool-inview'
 import Custom404 from 'src/pages/404'
 

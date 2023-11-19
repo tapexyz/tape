@@ -1,13 +1,12 @@
 import ToggleLensManager from '@components/Settings/Manager/LensManager/ToggleLensManager'
 import SignalWaveGraphic from '@components/UIElements/SignalWaveGraphic'
-import useProfileStore from '@lib/store/profile'
-import { Flex } from '@radix-ui/themes'
-import { TAPE_APP_NAME } from '@tape.xyz/constants'
+import { TAPE_APP_NAME } from '@dragverse/constants'
 import {
   checkLensManagerPermissions,
   getIsProfileOwner
-} from '@tape.xyz/generic'
-import React from 'react'
+} from '@dragverse/generic'
+import useProfileStore from '@lib/store/profile'
+import { Flex } from '@radix-ui/themes'
 import { useAccount } from 'wagmi'
 
 const LensManagerAlert = () => {

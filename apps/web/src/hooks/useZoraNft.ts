@@ -1,6 +1,6 @@
+import { WORKER_NFTS_URL } from '@dragverse/constants'
+import type { ZoraNft } from '@dragverse/lens/custom-types'
 import { useQuery } from '@tanstack/react-query'
-import { WORKER_NFTS_URL } from '@tape.xyz/constants'
-import type { ZoraNft } from '@tape.xyz/lens/custom-types'
 import axios from 'axios'
 
 interface UseZoraNftProps {

@@ -1,21 +1,18 @@
-import useNonceStore from '@lib/store/nonce'
-import useProfileStore from '@lib/store/profile'
-import { Button, Dialog, Flex, Text } from '@radix-ui/themes'
-import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
   SIGN_IN_REQUIRED
-} from '@tape.xyz/constants'
+} from '@dragverse/constants'
 import {
   checkLensManagerPermissions,
   EVENTS,
   getProfile,
   getSignature,
   Tower
-} from '@tape.xyz/generic'
-import type { FeeFollowModuleSettings, Profile } from '@tape.xyz/lens'
+} from '@dragverse/generic'
+import type { FeeFollowModuleSettings, Profile } from '@dragverse/lens'
 import {
   FollowModuleType,
   useApprovedModuleAllowanceAmountQuery,
@@ -23,11 +20,14 @@ import {
   useCreateFollowTypedDataMutation,
   useGenerateModuleCurrencyApprovalDataLazyQuery,
   useProfileFollowModuleQuery
-} from '@tape.xyz/lens'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { Loader } from '@tape.xyz/ui'
+} from '@dragverse/lens'
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
+import { Loader } from '@dragverse/ui'
+import useNonceStore from '@lib/store/nonce'
+import useProfileStore from '@lib/store/profile'
+import { Button, Dialog, Flex, Text } from '@radix-ui/themes'
 import type { FC } from 'react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   useContractWrite,

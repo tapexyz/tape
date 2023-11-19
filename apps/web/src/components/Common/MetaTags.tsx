@@ -5,11 +5,10 @@ import {
   TAPE_APP_DESCRIPTION,
   TAPE_APP_NAME,
   TAPE_X_HANDLE
-} from '@tape.xyz/constants'
+} from '@dragverse/constants'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
-import React from 'react'
 
 type Props = {
   title?: string
@@ -35,8 +34,11 @@ const MetaTags: FC<Props> = (props) => {
         name="viewport"
         content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, maximum-scale=5, viewport-fit=cover"
       />
-      <link rel="canonical" href={`https://tape.xyz${router.asPath}`} />
-      <meta property="og:url" content={`https://tape.xyz${router.asPath}`} />
+      <link rel="canonical" href={`https://dragverse.app${router.asPath}`} />
+      <meta
+        property="og:url"
+        content={`https://dragverse.app${router.asPath}`}
+      />
       <meta property="og:type" content={meta.type} />
       <meta property="og:site_name" content={TAPE_APP_NAME} />
       <meta property="og:description" content={meta.description} />
@@ -47,7 +49,7 @@ const MetaTags: FC<Props> = (props) => {
       <meta name="twitter:card" content="summary_large_image" />
       <meta property="twitter:image:width" content="400" />
       <meta property="twitter:image:height" content="400" />
-      <meta name="twitter:site" content="@tapexyz" />
+      <meta name="twitter:site" content="@dragverse" />
       <meta name="twitter:title" content={meta.title} />
       <meta name="twitter:description" content={meta.description} />
       <meta property="twitter:image" content={meta.image} />

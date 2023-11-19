@@ -1,6 +1,6 @@
-import { EVENTS, Tower } from '@tape.xyz/generic'
+import { EVENTS, Tower } from '@dragverse/generic'
 import type { NextPage } from 'next'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 
 import Feed from './Feed'
 import TopSection from './TopSection'

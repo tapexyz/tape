@@ -2,10 +2,10 @@
 const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }]
 const moduleExports = {
   transpilePackages: [
-    '@tape.xyz/lens',
-    '@tape.xyz/browser',
-    '@tape.xyz/generic',
-    '@tape.xyz/ui'
+    '@dragverse/lens',
+    '@dragverse/browser',
+    '@dragverse/generic',
+    '@dragverse/ui'
   ],
   reactStrictMode: process.env.NODE_ENV === 'production',
   experimental: {
@@ -16,7 +16,7 @@ const moduleExports = {
     return [
       {
         source: '/sitemaps/:match*',
-        destination: 'https://static.tape.xyz/sitemaps/:match*'
+        destination: 'https://static.dragverse.app/sitemaps/:match*'
       }
     ]
   },

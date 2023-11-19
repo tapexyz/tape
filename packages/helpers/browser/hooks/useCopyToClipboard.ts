@@ -1,4 +1,4 @@
-import { logger } from '@tape.xyz/generic'
+import { logger } from '@dragverse/generic'
 import { useState } from 'react'
 
 type CopiedValue = string | null

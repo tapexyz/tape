@@ -1,6 +1,5 @@
-import { sanitizeDStorageUrl } from '@tape.xyz/generic'
+import { sanitizeDStorageUrl } from '@dragverse/generic'
 import type { FC } from 'react'
-import React from 'react'
 
 type Props = {
   uri: string

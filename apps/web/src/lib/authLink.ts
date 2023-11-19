@@ -1,7 +1,7 @@
+import { LENS_API_URL } from '@dragverse/constants'
+import { logger, parseJwt } from '@dragverse/generic'
+import { ApolloLink, fromPromise, toPromise } from '@dragverse/lens/apollo'
 import { hydrateAuthTokens, signIn, signOut } from '@lib/store/auth'
-import { LENS_API_URL } from '@tape.xyz/constants'
-import { logger, parseJwt } from '@tape.xyz/generic'
-import { ApolloLink, fromPromise, toPromise } from '@tape.xyz/lens/apollo'
 import axios from 'axios'
 
 const REFRESH_AUTHENTICATION_MUTATION = `

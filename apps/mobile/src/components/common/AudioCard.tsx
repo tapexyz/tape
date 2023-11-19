@@ -1,25 +1,25 @@
-import { useNavigation } from '@react-navigation/native'
 import {
-  getThumbnailUrl,
-  getValueFromKeyInAttributes,
-  imageCdn,
-  trimify,
-  trimNewLines
-} from '@tape.xyz/generic'
+    getThumbnailUrl,
+    getValueFromKeyInAttributes,
+    imageCdn,
+    trimify,
+    trimNewLines
+} from '@dragverse/generic'
 import type {
-  MirrorablePublication,
-  PublicationMarketplaceMetadataAttribute
-} from '@tape.xyz/lens'
-import type { MobileThemeConfig } from '@tape.xyz/lens/custom-types'
+    MirrorablePublication,
+    PublicationMarketplaceMetadataAttribute
+} from '@dragverse/lens'
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
+import { useNavigation } from '@react-navigation/native'
 import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
 import React, { memo } from 'react'
 import {
-  Pressable,
-  StyleSheet,
-  Text,
-  useWindowDimensions,
-  View
+    Pressable,
+    StyleSheet,
+    Text,
+    useWindowDimensions,
+    View
 } from 'react-native'
 
 import normalizeFont from '~/helpers/normalize-font'

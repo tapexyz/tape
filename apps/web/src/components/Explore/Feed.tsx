@@ -4,8 +4,6 @@ import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import useAppStore from '@lib/store'
-import { Button } from '@radix-ui/themes'
 import {
   ALLOWED_APP_IDS,
   INFINITE_SCROLL_ROOT_MARGIN,
@@ -13,21 +11,23 @@ import {
   LENS_CUSTOM_FILTERS,
   LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
-} from '@tape.xyz/constants'
-import { EVENTS, Tower } from '@tape.xyz/generic'
+} from '@dragverse/constants'
+import { EVENTS, Tower } from '@dragverse/generic'
 import type {
   ExplorePublicationRequest,
   PrimaryPublication
-} from '@tape.xyz/lens'
+} from '@dragverse/lens'
 import {
   ExplorePublicationsOrderByType,
   ExplorePublicationType,
   LimitType,
   PublicationMetadataMainFocusType,
   useExplorePublicationsQuery
-} from '@tape.xyz/lens'
-import { Loader } from '@tape.xyz/ui'
-import React, { useState } from 'react'
+} from '@dragverse/lens'
+import { Loader } from '@dragverse/ui'
+import useAppStore from '@lib/store'
+import { Button } from '@radix-ui/themes'
+import { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 
 const initialCriteria = {

@@ -1,25 +1,25 @@
 import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
 import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
-import { Button } from '@radix-ui/themes'
 import {
   INFINITE_SCROLL_ROOT_MARGIN,
   LENS_CUSTOM_FILTERS
-} from '@tape.xyz/constants'
+} from '@dragverse/constants'
 import type {
   AnyPublication,
   Comment,
   MirrorablePublication,
   PublicationsRequest
-} from '@tape.xyz/lens'
+} from '@dragverse/lens'
 import {
   CommentRankingFilterType,
   LimitType,
   usePublicationsQuery
-} from '@tape.xyz/lens'
-import { Loader } from '@tape.xyz/ui'
+} from '@dragverse/lens'
+import { Loader } from '@dragverse/ui'
+import { Button } from '@radix-ui/themes'
 import type { FC } from 'react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 
 import RenderComment from './RenderComment'

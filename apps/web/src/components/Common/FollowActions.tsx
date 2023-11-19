@@ -1,9 +1,9 @@
 import Follow from '@components/Profile/BasicInfo/Follow'
 import SuperFollow from '@components/Profile/BasicInfo/SuperFollow'
 import UnFollow from '@components/Profile/BasicInfo/UnFollow'
-import { FollowModuleType, type Profile } from '@tape.xyz/lens'
+import { FollowModuleType, type Profile } from '@dragverse/lens'
 import type { FC } from 'react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 type Props = {
   size?: '1' | '2' | '3'

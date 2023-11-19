@@ -1,5 +1,5 @@
 import type { FieldPolicy, StoreValue } from '@apollo/client/core'
-import type { PaginatedResultInfo } from '@tape.xyz/lens'
+import type { PaginatedResultInfo } from '@dragverse/lens'
 
 type CursorBasedPagination<T = StoreValue> = {
   items: T[]

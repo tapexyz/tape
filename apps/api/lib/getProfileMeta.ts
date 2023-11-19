@@ -1,14 +1,14 @@
-import { getMetaTags } from '@tape.xyz/browser'
+import { getMetaTags } from '@dragverse/browser'
 import {
   LENS_NAMESPACE_PREFIX,
   OG_IMAGE,
   TAPE_APP_DESCRIPTION,
   TAPE_APP_NAME
-} from '@tape.xyz/constants'
-import { getProfile, getProfilePicture } from '@tape.xyz/generic'
-import type { Profile, ProfileRequest } from '@tape.xyz/lens'
-import { ProfileDocument } from '@tape.xyz/lens'
-import { apolloClient } from '@tape.xyz/lens/apollo'
+} from '@dragverse/constants'
+import { getProfile, getProfilePicture } from '@dragverse/generic'
+import type { Profile, ProfileRequest } from '@dragverse/lens'
+import { ProfileDocument } from '@dragverse/lens'
+import { apolloClient } from '@dragverse/lens/apollo'
 import type { NextApiResponse } from 'next'
 
 const client = apolloClient()

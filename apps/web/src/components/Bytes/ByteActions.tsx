@@ -6,10 +6,9 @@ import MirrorPublication from '@components/Common/MirrorPublication'
 import PublicationOptions from '@components/Common/Publication/PublicationOptions'
 import PublicationReaction from '@components/Common/Publication/PublicationReaction'
 import OpenActions from '@components/Watch/OpenActions'
+import type { MirrorablePublication } from '@dragverse/lens'
 import { Button, Dialog, DialogClose, Flex, IconButton } from '@radix-ui/themes'
-import type { MirrorablePublication } from '@tape.xyz/lens'
 import type { FC } from 'react'
-import React from 'react'
 
 import ByteComments from './ByteComments'
 

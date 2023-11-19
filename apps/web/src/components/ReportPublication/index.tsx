@@ -1,17 +1,17 @@
 import MetaTags from '@components/Common/MetaTags'
-import { Button, Dialog, Flex, Select, Text } from '@radix-ui/themes'
-import { ERROR_MESSAGE } from '@tape.xyz/constants'
+import { ERROR_MESSAGE } from '@dragverse/constants'
 import {
   EVENTS,
   getPublication,
   getPublicationData,
   Tower
-} from '@tape.xyz/generic'
-import type { AnyPublication } from '@tape.xyz/lens'
-import { useReportPublicationMutation } from '@tape.xyz/lens'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+} from '@dragverse/generic'
+import type { AnyPublication } from '@dragverse/lens'
+import { useReportPublicationMutation } from '@dragverse/lens'
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
+import { Button, Dialog, Flex, Select, Text } from '@radix-ui/themes'
 import type { FC } from 'react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import toast from 'react-hot-toast'
 
 type Props = {

@@ -1,5 +1,5 @@
 {
-  "extends": "@tape.xyz/config/react.tsconfig.json",
+  "extends": "@dragverse/config/react.tsconfig.json",
   "compilerOptions": {
     "jsx": "react-native",
     "paths": {

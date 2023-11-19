@@ -5,20 +5,20 @@ import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import TimesOutline from '@components/Common/Icons/TimesOutline'
 import MirroredList from '@components/Common/MirroredList'
 import {
+  getProfile,
+  getProfilePicture,
+  getPublicationMediaCid
+} from '@dragverse/generic'
+import type { PrimaryPublication } from '@dragverse/lens'
+import {
   Dialog,
   DialogClose,
   Flex,
   IconButton,
   ScrollArea
 } from '@radix-ui/themes'
-import {
-  getProfile,
-  getProfilePicture,
-  getPublicationMediaCid
-} from '@tape.xyz/generic'
-import type { PrimaryPublication } from '@tape.xyz/lens'
 import type { FC } from 'react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import ViewCount from './ViewCount'
 

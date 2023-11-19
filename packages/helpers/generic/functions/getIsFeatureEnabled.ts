@@ -1,5 +1,5 @@
-import type { FEATURE_FLAGS } from '@tape.xyz/constants'
-import { featureFlags } from '@tape.xyz/constants'
+import type { FEATURE_FLAGS } from '@dragverse/constants'
+import { featureFlags } from '@dragverse/constants'
 
 export const getIsFeatureEnabled = (flag: FEATURE_FLAGS, profileId: string) => {
   if (!profileId) {

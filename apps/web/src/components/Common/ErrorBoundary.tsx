@@ -1,6 +1,6 @@
-import { logger } from '@tape.xyz/generic'
+import { logger } from '@dragverse/generic'
 import type { ReactNode } from 'react'
-import React, { Component } from 'react'
+import { Component } from 'react'
 import Custom500 from 'src/pages/500'
 
 interface Props {

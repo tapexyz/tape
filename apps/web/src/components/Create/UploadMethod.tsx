@@ -1,8 +1,8 @@
+import { IPFS_FREE_UPLOAD_LIMIT } from '@dragverse/constants'
+import { canUploadedToIpfs, formatMB } from '@dragverse/generic'
 import useAppStore from '@lib/store'
 import { Text } from '@radix-ui/themes'
-import { IPFS_FREE_UPLOAD_LIMIT } from '@tape.xyz/constants'
-import { canUploadedToIpfs, formatMB } from '@tape.xyz/generic'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 
 import IrysInfo from './IrysInfo'
 

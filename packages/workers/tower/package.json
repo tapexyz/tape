@@ -14,8 +14,8 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20231025.0",
-    "@tape.xyz/config": "*",
-    "@tape.xyz/generic": "*",
+    "@dragverse/config": "*",
+    "@dragverse/generic": "*",
     "@types/ua-parser-js": "^0.7.39",
     "typescript": "^5.2.2",
     "wrangler": "3.16.0"

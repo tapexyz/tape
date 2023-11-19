@@ -1,8 +1,7 @@
 import VideoCard from '@components/Common/VideoCard'
-import { getPublication } from '@tape.xyz/generic'
-import type { AnyPublication } from '@tape.xyz/lens'
+import { getPublication } from '@dragverse/generic'
+import type { AnyPublication } from '@dragverse/lens'
 import type { FC } from 'react'
-import React from 'react'
 
 type Props = {
   videos: AnyPublication[]

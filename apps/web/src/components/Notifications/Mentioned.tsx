@@ -1,15 +1,14 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
 import MentionOutline from '@components/Common/Icons/MentionOutline'
-import { getShortHandTime } from '@lib/formatTime'
 import {
   getProfile,
   getProfilePicture,
   getPublicationData
-} from '@tape.xyz/generic'
-import type { MentionNotification } from '@tape.xyz/lens'
+} from '@dragverse/generic'
+import type { MentionNotification } from '@dragverse/lens'
+import { getShortHandTime } from '@lib/formatTime'
 import Link from 'next/link'
 import type { FC } from 'react'
-import React from 'react'
 
 type Props = {
   notification: MentionNotification

@@ -1,4 +1,4 @@
-import { type OpenActionModule } from '@tape.xyz/lens'
+import { type OpenActionModule } from '@dragverse/lens'
 
 export const getCollectModuleOutput = (openActionModule: OpenActionModule) => {
   const output = {

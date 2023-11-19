@@ -1,5 +1,5 @@
 {
-  "name": "@tape.xyz/web",
+  "name": "@dragverse/web",
   "description": "Web application",
   "version": "0.0.0",
   "license": "AGPL-3.0",
@@ -9,7 +9,7 @@
     "export": "next export",
     "start": "yarn build && next start --port 4783",
     "typecheck": "tsc --pretty",
-    "lint": "eslint . --ext .js,.ts,.tsx"
+    "lint": "eslint . --ext .js,.ts,.tsx --fix"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "3.454.0",
@@ -51,12 +51,12 @@
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.10",
-    "@tape.xyz/browser": "*",
-    "@tape.xyz/config": "*",
-    "@tape.xyz/constants": "*",
-    "@tape.xyz/generic": "*",
-    "@tape.xyz/lens": "*",
-    "@tape.xyz/ui": "*",
+    "@dragverse/browser": "*",
+    "@dragverse/config": "*",
+    "@dragverse/constants": "*",
+    "@dragverse/generic": "*",
+    "@dragverse/lens": "*",
+    "@dragverse/ui": "*",
     "@types/node": "20.9.2",
     "@types/react": "18.2.37",
     "@types/react-dom": "18.2.15",

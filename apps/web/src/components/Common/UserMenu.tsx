@@ -1,20 +1,25 @@
-import getCurrentSessionId from '@lib/getCurrentSessionId'
-import { signOut } from '@lib/store/auth'
-import useProfileStore from '@lib/store/profile'
-import { Avatar, DropdownMenu, Flex, Text } from '@radix-ui/themes'
-import { ADMIN_IDS } from '@tape.xyz/constants'
-import { EVENTS, getProfile, getProfilePicture, Tower } from '@tape.xyz/generic'
-import type { Profile } from '@tape.xyz/lens'
+import { ADMIN_IDS } from '@dragverse/constants'
+import {
+  EVENTS,
+  getProfile,
+  getProfilePicture,
+  Tower
+} from '@dragverse/generic'
+import type { Profile } from '@dragverse/lens'
 import {
   LimitType,
   useProfilesManagedQuery,
   useRevokeAuthenticationMutation
-} from '@tape.xyz/lens'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+} from '@dragverse/lens'
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
+import getCurrentSessionId from '@lib/getCurrentSessionId'
+import { signOut } from '@lib/store/auth'
+import useProfileStore from '@lib/store/profile'
+import { Avatar, DropdownMenu, Flex, Text } from '@radix-ui/themes'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { toast } from 'react-hot-toast'
 import { useAccount, useDisconnect } from 'wagmi'
 

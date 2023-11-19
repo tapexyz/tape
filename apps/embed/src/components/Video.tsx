@@ -1,5 +1,5 @@
-import { useAverageColor } from '@tape.xyz/browser'
-import { LENSTUBE_BYTES_APP_ID } from '@tape.xyz/constants'
+import { useAverageColor } from '@dragverse/browser'
+import { LENSTUBE_BYTES_APP_ID } from '@dragverse/constants'
 import {
   EVENTS,
   getPublicationData,
@@ -9,13 +9,13 @@ import {
   sanitizeDStorageUrl,
   Tower,
   truncate
-} from '@tape.xyz/generic'
-import type { PrimaryPublication } from '@tape.xyz/lens'
-import VideoPlayer from '@tape.xyz/ui/VideoPlayer'
+} from '@dragverse/generic'
+import type { PrimaryPublication } from '@dragverse/lens'
+import VideoPlayer from '@dragverse/ui/VideoPlayer'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import PlayOutline from './icons/PlayOutline'
 import MetaTags from './MetaTags'

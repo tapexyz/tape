@@ -1,3 +1,4 @@
+import { WORKER_IRYS_METADATA_UPLOAD_URL } from '@dragverse/constants'
 import type {
   AudioMetadata,
   LinkMetadata,
@@ -6,7 +7,6 @@ import type {
   TextOnlyMetadata,
   VideoMetadata
 } from '@lens-protocol/metadata'
-import { WORKER_IRYS_METADATA_UPLOAD_URL } from '@tape.xyz/constants'
 import axios from 'axios'
 
 import { logger } from '../logger'

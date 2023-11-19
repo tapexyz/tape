@@ -1,10 +1,9 @@
-import { Document } from 'linkedom'
 import { COMMON_REGEX } from './constants'
 
 const ALLOWED_EMBEDS = [
   'youtube.com',
   'youtu.be',
-  'embed.tape.xyz',
+  'embed.dragverse.app',
   'player.vimeo.com'
 ]
 

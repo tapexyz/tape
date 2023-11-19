@@ -1,12 +1,12 @@
 import InterweaveContent from '@components/Common/InterweaveContent'
 import UserProfile from '@components/Common/UserProfile'
+import type { Profile } from '@dragverse/lens'
+import { useProfileQuery } from '@dragverse/lens'
+import type { ChannelStreamType } from '@dragverse/lens/custom-types'
+import VideoPlayer from '@dragverse/ui/VideoPlayer'
 import { Button } from '@radix-ui/themes'
-import type { Profile } from '@tape.xyz/lens'
-import { useProfileQuery } from '@tape.xyz/lens'
-import type { ChannelStreamType } from '@tape.xyz/lens/custom-types'
-import VideoPlayer from '@tape.xyz/ui/VideoPlayer'
 import Link from 'next/link'
-import React, { memo } from 'react'
+import { memo } from 'react'
 
 const Item = ({ stream }: { stream: ChannelStreamType }) => {
   const { data } = useProfileQuery({

@@ -1,9 +1,9 @@
-import { useAverageColor } from '@tape.xyz/browser'
+import { useAverageColor } from '@dragverse/browser'
 import {
   STATIC_ASSETS,
   TAPE_APP_NAME,
   TAPE_WEBSITE_URL
-} from '@tape.xyz/constants'
+} from '@dragverse/constants'
 import {
   EVENTS,
   getPublicationData,
@@ -12,12 +12,12 @@ import {
   sanitizeDStorageUrl,
   Tower,
   truncate
-} from '@tape.xyz/generic'
-import type { PrimaryPublication } from '@tape.xyz/lens'
-import AudioPlayer from '@tape.xyz/ui/AudioPlayer'
+} from '@dragverse/generic'
+import type { PrimaryPublication } from '@dragverse/lens'
+import AudioPlayer from '@dragverse/ui/AudioPlayer'
 import Link from 'next/link'
 import type { FC } from 'react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import PauseOutline from './icons/PauseOutline'
 import PlayOutline from './icons/PlayOutline'

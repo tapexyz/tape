@@ -2,13 +2,13 @@ import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
 import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import TagOutline from '@components/Common/Icons/TagOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
+import { getCategoryName, getPublicationData } from '@dragverse/generic'
+import type { MirrorablePublication, VideoMetadataV3 } from '@dragverse/lens'
 import { getDateString, getRelativeTime } from '@lib/formatTime'
-import { getCategoryName, getPublicationData } from '@tape.xyz/generic'
-import type { MirrorablePublication, VideoMetadataV3 } from '@tape.xyz/lens'
 import clsx from 'clsx'
 import Link from 'next/link'
 import type { FC } from 'react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 type Props = {
   video: MirrorablePublication

@@ -1,19 +1,19 @@
 import MetaTags from '@components/Common/MetaTags'
 import { WatchShimmer } from '@components/Shimmers/WatchShimmer'
-import useAppStore from '@lib/store'
-import useProfileStore from '@lib/store/profile'
 import {
   EVENTS,
   getPublication,
   getPublicationData,
   isWatchable,
   Tower
-} from '@tape.xyz/generic'
-import type { AnyPublication } from '@tape.xyz/lens'
-import { usePublicationQuery } from '@tape.xyz/lens'
-import { CustomCommentsFilterEnum } from '@tape.xyz/lens/custom-types'
+} from '@dragverse/generic'
+import type { AnyPublication } from '@dragverse/lens'
+import { usePublicationQuery } from '@dragverse/lens'
+import { CustomCommentsFilterEnum } from '@dragverse/lens/custom-types'
+import useAppStore from '@lib/store'
+import useProfileStore from '@lib/store/profile'
 import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
 

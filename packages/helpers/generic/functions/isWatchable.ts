@@ -1,4 +1,4 @@
-import type { MirrorablePublication } from '@tape.xyz/lens'
+import type { MirrorablePublication } from '@dragverse/lens'
 
 export const isWatchable = (publication: MirrorablePublication) => {
   const canWatch =

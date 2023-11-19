@@ -1,9 +1,8 @@
 import Badge from '@components/Common/Badge'
+import { formatNumber } from '@dragverse/generic'
 import { Avatar } from '@radix-ui/themes'
-import { formatNumber } from '@tape.xyz/generic'
 import clsx from 'clsx'
 import type { FC } from 'react'
-import React from 'react'
 
 type Props = {
   className?: string

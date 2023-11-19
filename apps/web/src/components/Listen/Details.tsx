@@ -6,10 +6,9 @@ import {
   getProfile,
   getProfilePicture,
   getPublicationData
-} from '@tape.xyz/generic'
-import type { PrimaryPublication } from '@tape.xyz/lens'
+} from '@dragverse/generic'
+import type { PrimaryPublication } from '@dragverse/lens'
 import type { FC } from 'react'
-import React from 'react'
 
 type Props = {
   audio: PrimaryPublication

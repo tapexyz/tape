@@ -1,6 +1,5 @@
 import MetaTags from '@components/Common/MetaTags'
-import type { Profile } from '@tape.xyz/lens'
-import React from 'react'
+import type { Profile } from '@dragverse/lens'
 
 import FeeFollow from './FeeFollow'
 import RevertFollow from './RevertFollow'

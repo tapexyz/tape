@@ -2,19 +2,18 @@ import {
   FALLBACK_THUMBNAIL_URL,
   LENSTUBE_BYTES_APP_ID,
   STATIC_ASSETS
-} from '@tape.xyz/constants'
+} from '@dragverse/constants'
 import {
   getIsSensitiveContent,
   getPublication,
   getPublicationData,
   getThumbnailUrl,
   imageCdn
-} from '@tape.xyz/generic'
-import type { AnyPublication } from '@tape.xyz/lens'
+} from '@dragverse/generic'
+import type { AnyPublication } from '@dragverse/lens'
 import clsx from 'clsx'
 import Link from 'next/link'
 import type { FC } from 'react'
-import React from 'react'
 
 interface Props {
   results: AnyPublication[]

@@ -1,8 +1,7 @@
 import SortOutline from '@components/Common/Icons/SortOutline'
+import { CustomCommentsFilterEnum } from '@dragverse/lens/custom-types'
 import useProfileStore from '@lib/store/profile'
 import { Box, DropdownMenu, Text } from '@radix-ui/themes'
-import { CustomCommentsFilterEnum } from '@tape.xyz/lens/custom-types'
-import React from 'react'
 
 const CommentsFilter = () => {
   const { selectedCommentFilter, setSelectedCommentFilter } = useProfileStore()

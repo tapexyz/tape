@@ -7,7 +7,7 @@ import type {
   ProfileInterestTypes,
   RecipientDataInput,
   SimpleCollectOpenActionSettings
-} from '@tape.xyz/lens'
+} from '@dragverse/lens'
 
 export type IrysDataState = {
   instance: WebIrys | null

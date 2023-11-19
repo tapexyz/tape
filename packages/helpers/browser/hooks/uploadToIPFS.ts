@@ -4,9 +4,9 @@ import {
   EVER_ENDPOINT,
   EVER_REGION,
   WORKER_STS_TOKEN_URL
-} from '@tape.xyz/constants'
-import { logger } from '@tape.xyz/generic/logger'
-import type { IPFSUploadResult } from '@tape.xyz/lens/custom-types'
+} from '@dragverse/constants'
+import { logger } from '@dragverse/generic/logger'
+import type { IPFSUploadResult } from '@dragverse/lens/custom-types'
 import axios from 'axios'
 import { v4 as uuidv4 } from 'uuid'
 

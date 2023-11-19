@@ -1,8 +1,7 @@
+import { getProfile, getProfilePicture } from '@dragverse/generic'
+import type { Profile } from '@dragverse/lens'
 import { Avatar } from '@radix-ui/themes'
-import { getProfile, getProfilePicture } from '@tape.xyz/generic'
-import type { Profile } from '@tape.xyz/lens'
 import Link from 'next/link'
-import React from 'react'
 
 import HoverableProfile from './HoverableProfile'
 

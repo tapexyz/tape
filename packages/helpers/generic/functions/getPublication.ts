@@ -1,4 +1,4 @@
-import type { AnyPublication, PrimaryPublication } from '@tape.xyz/lens'
+import type { AnyPublication, PrimaryPublication } from '@dragverse/lens'
 
 export type Typename<T = string> = { [key in '__typename']?: T }
 

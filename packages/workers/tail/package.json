@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20231025.0",
-    "@tape.xyz/config": "*",
+    "@dragverse/config": "*",
     "typescript": "^5.2.2",
     "wrangler": "3.16.0"
   }

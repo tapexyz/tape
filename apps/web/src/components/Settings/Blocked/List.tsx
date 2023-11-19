@@ -1,18 +1,14 @@
 import Badge from '@components/Common/Badge'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import useNonceStore from '@lib/store/nonce'
-import useProfileStore from '@lib/store/profile'
-import { Avatar, Button } from '@radix-ui/themes'
-import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
 import {
   ERROR_MESSAGE,
   INFINITE_SCROLL_ROOT_MARGIN,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
   SIGN_IN_REQUIRED
-} from '@tape.xyz/constants'
+} from '@dragverse/constants'
 import {
   checkLensManagerPermissions,
   getProfile,
@@ -21,24 +17,28 @@ import {
   getSignature,
   imageCdn,
   sanitizeDStorageUrl
-} from '@tape.xyz/generic'
+} from '@dragverse/generic'
 import type {
   CreateUnblockProfilesBroadcastItemResult,
   Profile,
   WhoHaveBlockedRequest
-} from '@tape.xyz/lens'
+} from '@dragverse/lens'
 import {
   LimitType,
   useBroadcastOnchainMutation,
   useCreateUnblockProfilesTypedDataMutation,
   useUnblockMutation,
   useWhoHaveBlockedQuery
-} from '@tape.xyz/lens'
-import { useApolloClient } from '@tape.xyz/lens/apollo'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { Loader } from '@tape.xyz/ui'
+} from '@dragverse/lens'
+import { useApolloClient } from '@dragverse/lens/apollo'
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
+import { Loader } from '@dragverse/ui'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
+import useNonceStore from '@lib/store/nonce'
+import useProfileStore from '@lib/store/profile'
+import { Avatar, Button } from '@radix-ui/themes'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import toast from 'react-hot-toast'
 import { useContractWrite, useSignTypedData } from 'wagmi'

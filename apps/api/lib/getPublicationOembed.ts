@@ -3,21 +3,21 @@ import {
   TAPE_APP_NAME,
   TAPE_EMBED_URL,
   TAPE_WEBSITE_URL
-} from '@tape.xyz/constants'
+} from '@dragverse/constants'
 import {
   getProfile,
   getPublicationData,
   getThumbnailUrl,
   imageCdn,
   truncate
-} from '@tape.xyz/generic'
+} from '@dragverse/generic'
 import type {
   AnyPublication,
   MirrorablePublication,
   PublicationRequest
-} from '@tape.xyz/lens'
-import { PublicationDocument } from '@tape.xyz/lens'
-import { apolloClient } from '@tape.xyz/lens/apollo'
+} from '@dragverse/lens'
+import { PublicationDocument } from '@dragverse/lens'
+import { apolloClient } from '@dragverse/lens/apollo'
 
 const client = apolloClient()
 

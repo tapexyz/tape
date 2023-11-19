@@ -1,13 +1,13 @@
 import 'keen-slider/keen-slider.min.css'
 
+import { WORKER_STREAM_URL } from '@dragverse/constants'
+import type { ChannelStreamType } from '@dragverse/lens/custom-types'
 import { useQuery } from '@tanstack/react-query'
-import { WORKER_STREAM_URL } from '@tape.xyz/constants'
-import type { ChannelStreamType } from '@tape.xyz/lens/custom-types'
 import axios from 'axios'
 import clsx from 'clsx'
 import type { KeenSliderInstance } from 'keen-slider/react'
 import { useKeenSlider } from 'keen-slider/react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import Creators from './Creators'
 import Item from './Item'

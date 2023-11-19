@@ -1,8 +1,6 @@
 import Badge from '@components/Common/Badge'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import useProfileStore from '@lib/store/profile'
-import { Avatar } from '@radix-ui/themes'
-import { INFINITE_SCROLL_ROOT_MARGIN } from '@tape.xyz/constants'
+import { INFINITE_SCROLL_ROOT_MARGIN } from '@dragverse/constants'
 import {
   formatNumber,
   getProfile,
@@ -10,12 +8,13 @@ import {
   getProfilePicture,
   imageCdn,
   sanitizeDStorageUrl
-} from '@tape.xyz/generic'
-import type { Profile, ProfilesManagedRequest } from '@tape.xyz/lens'
-import { useProfilesManagedQuery } from '@tape.xyz/lens'
-import { Loader } from '@tape.xyz/ui'
+} from '@dragverse/generic'
+import type { Profile, ProfilesManagedRequest } from '@dragverse/lens'
+import { useProfilesManagedQuery } from '@dragverse/lens'
+import { Loader } from '@dragverse/ui'
+import useProfileStore from '@lib/store/profile'
+import { Avatar } from '@radix-ui/themes'
 import Link from 'next/link'
-import React from 'react'
 import { useInView } from 'react-cool-inview'
 
 const Managed = () => {

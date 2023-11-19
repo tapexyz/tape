@@ -1,18 +1,18 @@
-import { useProfileStore } from '@lib/store/profile'
-import { EVENTS, sanitizeProfileInterests, Tower } from '@tape.xyz/generic'
+import { EVENTS, sanitizeProfileInterests, Tower } from '@dragverse/generic'
 import type {
   ProfileInterestsRequest,
   ProfileInterestTypes
-} from '@tape.xyz/lens'
+} from '@dragverse/lens'
 import {
   useAddProfileInterestsMutation,
   useProfileInterestsOptionsQuery,
   useRemoveProfileInterestsMutation
-} from '@tape.xyz/lens'
-import { useApolloClient } from '@tape.xyz/lens/apollo'
-import { Loader } from '@tape.xyz/ui'
+} from '@dragverse/lens'
+import { useApolloClient } from '@dragverse/lens/apollo'
+import { Loader } from '@dragverse/ui'
+import { useProfileStore } from '@lib/store/profile'
 import clsx from 'clsx'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 
 const MAX_TOPICS_ALLOWED = 12
 

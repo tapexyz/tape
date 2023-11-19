@@ -1,15 +1,15 @@
 {
-  "name": "@tape.xyz/abis",
+  "name": "@dragverse/abis",
   "version": "0.0.0",
   "private": true,
   "license": "AGPL-3.0",
   "main": "index.ts",
   "scripts": {
-    "lint": "eslint . --ext .js,.ts,.tsx",
+    "lint": "eslint . --ext .js,.ts,.tsx --fix",
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@tape.xyz/config": "*",
+    "@dragverse/config": "*",
     "@types/node": "^20.9.2",
     "typescript": "^5.2.2"
   }

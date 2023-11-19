@@ -1,5 +1,5 @@
-import { LENS_NAMESPACE_PREFIX } from '@tape.xyz/constants'
-import type { Profile } from '@tape.xyz/lens'
+import { LENS_NAMESPACE_PREFIX } from '@dragverse/constants'
+import type { Profile } from '@dragverse/lens'
 
 export const getProfile = (
   profile: Profile | null

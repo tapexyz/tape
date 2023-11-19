@@ -5,11 +5,10 @@ import {
   getProfile,
   getProfilePicture,
   getPublicationData
-} from '@tape.xyz/generic'
-import type { MirrorablePublication } from '@tape.xyz/lens'
+} from '@dragverse/generic'
+import type { MirrorablePublication } from '@dragverse/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
-import React from 'react'
 
 type Props = {
   video: MirrorablePublication

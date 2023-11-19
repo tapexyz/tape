@@ -1,4 +1,4 @@
-Sitemap: https://tape.xyz/sitemap.xml
+Sitemap: https://dragverse.app/sitemap.xml
 
 User-agent: *
 Allow: /*

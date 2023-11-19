@@ -1,8 +1,7 @@
+import type { CollectModuleType } from '@dragverse/lens/custom-types'
 import useAppStore from '@lib/store'
 import { Button, Text } from '@radix-ui/themes'
-import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
 import type { FC } from 'react'
-import React from 'react'
 
 type Props = {
   setCollectType: (data: CollectModuleType) => void

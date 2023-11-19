@@ -4,11 +4,10 @@ import {
   getProfile,
   getProfilePicture,
   getPublicationData
-} from '@tape.xyz/generic'
-import type { MirrorNotification, ProfileMirrorResult } from '@tape.xyz/lens'
+} from '@dragverse/generic'
+import type { MirrorNotification, ProfileMirrorResult } from '@dragverse/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
-import React from 'react'
 
 type Props = {
   notification: MirrorNotification

@@ -1,16 +1,16 @@
 import { Countdown } from '@components/UIElements/CountDown'
-import useProfileStore from '@lib/store/profile'
-import { Button } from '@radix-ui/themes'
-import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   SIGN_IN_REQUIRED
-} from '@tape.xyz/constants'
-import type { Profile } from '@tape.xyz/lens'
-import { useProfileLazyQuery } from '@tape.xyz/lens'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { Loader } from '@tape.xyz/ui'
+} from '@dragverse/constants'
+import type { Profile } from '@dragverse/lens'
+import { useProfileLazyQuery } from '@dragverse/lens'
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
+import { Loader } from '@dragverse/ui'
+import useProfileStore from '@lib/store/profile'
+import { Button } from '@radix-ui/themes'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import { useEffect, useState } from 'react'

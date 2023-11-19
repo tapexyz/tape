@@ -7,17 +7,16 @@ import {
   IS_MAINNET,
   LENS_CUSTOM_FILTERS,
   TAPE_APP_ID
-} from '@tape.xyz/constants'
-import type { Post, Profile, PublicationsRequest } from '@tape.xyz/lens'
+} from '@dragverse/constants'
+import type { Post, Profile, PublicationsRequest } from '@dragverse/lens'
 import {
   LimitType,
   PublicationMetadataMainFocusType,
   PublicationType,
   usePublicationsQuery
-} from '@tape.xyz/lens'
-import { Loader } from '@tape.xyz/ui'
+} from '@dragverse/lens'
+import { Loader } from '@dragverse/ui'
 import type { FC } from 'react'
-import React from 'react'
 import { useInView } from 'react-cool-inview'
 
 type Props = {

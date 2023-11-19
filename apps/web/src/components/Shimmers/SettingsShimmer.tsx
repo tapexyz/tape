@@ -1,5 +1,4 @@
-import { Loader } from '@tape.xyz/ui'
-import React from 'react'
+import { Loader } from '@dragverse/ui'
 
 const SettingsShimmer = () => {
   return (

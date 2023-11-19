@@ -1,6 +1,5 @@
-import { TAPE_APP_NAME } from '@tape.xyz/constants'
+import { TAPE_APP_NAME } from '@dragverse/constants'
 import Link from 'next/link'
-import React from 'react'
 
 const terms = () => {
   return (
@@ -19,9 +18,9 @@ const terms = () => {
         <div className="prose-sm md:prose prose-slate dark:prose-invert prose-a:font-bold prose-a:text-brand-500 hover:prose-a:text-brand-600 mx-auto max-w-4xl">
           <h2>1. Overview</h2>
           <p>
-            The website tape.xyz” (the “Site”) offers information, tools and
-            services to you to allow you to interact with the Lens Protocol - a
-            composable and decentralised social graph protocol.
+            The website dragverse.app” (the “Site”) offers information, tools
+            and services to you to allow you to interact with the Lens Protocol
+            - a composable and decentralised social graph protocol.
           </p>
           <p>
             By visiting the Site, you agree to be bound by the following terms
@@ -248,7 +247,7 @@ const terms = () => {
           <div className="flex flex-col space-y-1">
             <span>{TAPE_APP_NAME}</span>
             <span>
-              Email: <Link href="mailto:terms@tape.xyz">terms@tape.xyz</Link>
+              Email: <Link href="mailto:terms@dragverse">terms@dragverse</Link>
             </span>
           </div>
           <p>To be effective, your notification must include the following:</p>
@@ -400,7 +399,7 @@ const terms = () => {
           <h2>14. Contact Information</h2>
           <p>
             Questions about the Terms should be sent to us at{' '}
-            <Link href="mailto:terms@tape.xyz">terms@tape.xyz</Link>.
+            <Link href="mailto:terms@dragverse">terms@dragverse</Link>.
           </p>
         </div>
       </div>

@@ -1,9 +1,8 @@
 import CheckOutline from '@components/Common/Icons/CheckOutline'
 import WarningOutline from '@components/Common/Icons/WarningOutline'
+import { POLYGON_CHAIN_ID } from '@dragverse/constants'
 import useProfileStore from '@lib/store/profile'
 import { Button, Callout, Flex } from '@radix-ui/themes'
-import { POLYGON_CHAIN_ID } from '@tape.xyz/constants'
-import React from 'react'
 import type { Connector } from 'wagmi'
 import { useAccount, useConnect } from 'wagmi'
 

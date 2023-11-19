@@ -4,27 +4,27 @@ import { Input } from '@components/UIElements/Input'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import ProfileSuggestion from '@components/UIElements/ProfileSuggestion'
 import Tooltip from '@components/UIElements/Tooltip'
-import useAppStore from '@lib/store'
-import { IconButton, Text } from '@radix-ui/themes'
-import { useDebounce, useOutsideClick } from '@tape.xyz/browser'
+import { useDebounce, useOutsideClick } from '@dragverse/browser'
 import {
   LENS_CUSTOM_FILTERS,
   LENS_NAMESPACE_PREFIX,
   TAPE_ADMIN_ADDRESS,
   TAPE_APP_NAME
-} from '@tape.xyz/constants'
+} from '@dragverse/constants'
 import {
   getProfile,
   getProfilePicture,
   splitNumber,
   trimify
-} from '@tape.xyz/generic'
-import type { Profile, RecipientDataInput } from '@tape.xyz/lens'
-import { LimitType, useSearchProfilesLazyQuery } from '@tape.xyz/lens'
-import { Loader } from '@tape.xyz/ui'
+} from '@dragverse/generic'
+import type { Profile, RecipientDataInput } from '@dragverse/lens'
+import { LimitType, useSearchProfilesLazyQuery } from '@dragverse/lens'
+import { Loader } from '@dragverse/ui'
+import useAppStore from '@lib/store'
+import { IconButton, Text } from '@radix-ui/themes'
 import clsx from 'clsx'
 import type { FC, RefObject } from 'react'
-import React, { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { isAddress } from 'viem'
 
 type Props = {

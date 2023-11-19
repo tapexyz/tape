@@ -1,50 +1,30 @@
 <div align="center">
-    <img src="https://static.tape.xyz/brand/og.png" alt="banner">
-    <br/>
-    <br/>
-    <p>Talk, Amplify, Post, Explore</p>
-    <a href="https://tape.xyz">tape.xyz</a>
+    <h1>Dragverse</h1>
+    <p>Decentralized livestreaming and video-sharing social media platform inspired by Tape.</p>
+    <a href="https://dragverse.io">dragverse.io</a>
 </div>
 <br>
-<div align="center">
-    <a href="https://tape.xyz/u/sasicodes">
-        <img src="https://lens-badge.vercel.app/api/badge/lens/sasicodes" alt="Lens">
-    </a>
-    <a href="https://www.gitpoap.io/gh/lenstube-xyz/tape">
-        <img src="https://public-api.gitpoap.io/v1/repo/lenstube-xyz/tape/badge" alt="Gitpoap">
-    </a>
-    <a href="https://tape.xyz/discord">
-       <img src="https://img.shields.io/discord/980882088783913010.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2" alt="Discord">
-    </a>
-    <a href="https://x.com/tapexyz">
-        <img src="https://img.shields.io/twitter/follow/tapexyz?style=social" alt="Twitter">
-    </a>
-    <a href="https://deepsource.io/gh/tapexyz/tape">
-        <img src="https://deepsource.io/gh/tapexyz/tape.svg/?label=active+issues&show_trend=true" alt="Deepsource">
-    </a>
-     <a href="https://status.tape.xyz">
-        <img src="https://betteruptime.com/status-badges/v1/monitor/dfaw.svg" alt="Better Uptime">
-    </a>
-    <span>
-        <img src="https://img.shields.io/github/stars/tapexyz/tape" alt="Stargazers">
-    </span>
-</div>
-<br>
+
+## Demo
+
+https://user-images.githubusercontent.com/8083958/222954569-b88fde67-8b95-466d-aadf-e5c9542d9601.mp4
+
+[Dragverse Video](https://dragverse.app/watch/0x70a8-0x01)  
+[Youtube Video](https://youtu.be/65LG2dkBcBI)
 
 ## 📽️ About
 
-**Tape** is a social media platform.
+**Dragverse** is a decentralized livestreaming and video-sharing social media platform, built using Lens Protocol and forked from the Tape project 🌿
 
 ## 💪 Community
 
-For a place to have open discussions on features, voice your ideas, or get help with general questions please visit our community at [Discord](https://tape.xyz/discord).
+For a place to have open discussions on features, voice your ideas, or get help with general questions please visit our community at [Discord](https://discord.gg/TbjTTgTh).
 
 ## 🚢 Deployments
 
-| Name    | Link                     |
-| ------- | ------------------------ |
-| Mainnet | https://tape.xyz         |
-| Testnet | https://testnet.tape.xyz |
+| Name    | Link                                   |
+| ------- | -------------------------------------- |
+| Mainnet | [dragverse.app](https://dragverse.app) |
 
 ## 🔭 What's inside?
 
@@ -54,7 +34,7 @@ This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. I
 
 | Name     | Description                         |
 | -------- | ----------------------------------- |
-| `web`    | NextJs tape website                 |
+| `web`    | NextJs dragverse website            |
 | `mobile` | React Native tape mobile app        |
 | `embed`  | NextJs application for video embeds |
 | `api`    | NextJs serverless functions         |
@@ -87,14 +67,27 @@ yarn dev
 
 and visit http://localhost:4783
 
+## Deploying the application
+
+Build all dependencies from repository root,
+
+```bash
+yarn build
+```
+
+To deploy on Vercel, use the following configuration:
+<img width="917" alt="Screenshot 2023-03-01 at 11 18 04 AM" src="https://user-images.githubusercontent.com/8083958/222251470-bf9be5f8-a172-4eac-930c-d7d557880787.png">
+
+<img width="899" alt="Screenshot 2023-03-01 at 12 55 51 PM" src="https://user-images.githubusercontent.com/8083958/222251898-e8486738-a85e-4e35-99f4-781da701468c.png">
+
 ## 🤝 Contributors
 
-We love contributors! Feel free to contribute to this project but please read the [Contributing Guidelines](CONTRIBUTING.md) before opening an issue or PR so you understand the branching strategy and local development environment.
+We love contributors! Dragverse uses work contributed from the Tape team. Feel free to contribute to this project but please read the [Contributing Guidelines](CONTRIBUTING.md) before opening an issue or PR so you understand the branching strategy and local development environment.
 
-<a href="https://github.com/tapexyz/tape/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=tapexyz/tape" />
+<a href="https://github.com/dragverse/marsha-v2/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=dragverse/marsha-v2" />
 </a>
 
 ## 📜 License
 
-Tape codebase is open-sourced software licensed under the [AGPLv3](LICENSE).
+Dragverse codebase is open-sourced software licensed under the [AGPLv3](LICENSE).

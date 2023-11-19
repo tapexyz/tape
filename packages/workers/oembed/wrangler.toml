@@ -3,5 +3,5 @@ main = "src/index.ts"
 compatibility_date = "2023-01-25"
 
 routes = [
-	{ pattern = "oembed.tape.xyz", custom_domain = true }
+	{ pattern = "oembed.dragverse.app", custom_domain = true }
 ]

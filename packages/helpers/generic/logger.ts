@@ -2,7 +2,7 @@ import {
   IS_MAINNET,
   IS_PRODUCTION,
   WORKER_LOGTAIL_INGEST_URL
-} from '@tape.xyz/constants/general'
+} from '@dragverse/constants/general'
 import axios from 'axios'
 
 const tailLog = (level: 'error' | 'log', message: string) => {

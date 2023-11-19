@@ -1,7 +1,7 @@
 import CategoryFilters from '@components/Common/CategoryFilters'
 import MetaTags from '@components/Common/MetaTags'
-import { EVENTS, Tower } from '@tape.xyz/generic'
-import React, { useEffect } from 'react'
+import { EVENTS, Tower } from '@dragverse/generic'
+import { useEffect } from 'react'
 
 import ExploreFeed from './Feed'
 

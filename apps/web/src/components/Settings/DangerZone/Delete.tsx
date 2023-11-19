@@ -1,15 +1,15 @@
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
+import {
+  LENSHUB_PROXY_ADDRESS,
+  REQUESTING_SIGNATURE_MESSAGE
+} from '@dragverse/constants'
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
+import { Loader } from '@dragverse/ui'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import { signOut } from '@lib/store/auth'
 import useProfileStore from '@lib/store/profile'
 import { Button } from '@radix-ui/themes'
-import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
-import {
-  LENSHUB_PROXY_ADDRESS,
-  REQUESTING_SIGNATURE_MESSAGE
-} from '@tape.xyz/constants'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { Loader } from '@tape.xyz/ui'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import toast from 'react-hot-toast'
 import Custom404 from 'src/pages/404'
 import { useContractWrite, useWaitForTransaction } from 'wagmi'

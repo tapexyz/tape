@@ -1,6 +1,9 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
 import TimesOutline from '@components/Common/Icons/TimesOutline'
 import BubblesShimmer from '@components/Shimmers/BubblesShimmer'
+import { getProfile, getProfilePicture } from '@dragverse/generic'
+import type { Profile } from '@dragverse/lens'
+import { LimitType, useMutualFollowersQuery } from '@dragverse/lens'
 import useProfileStore from '@lib/store/profile'
 import {
   Dialog,
@@ -9,11 +12,7 @@ import {
   IconButton,
   ScrollArea
 } from '@radix-ui/themes'
-import { getProfile, getProfilePicture } from '@tape.xyz/generic'
-import type { Profile } from '@tape.xyz/lens'
-import { LimitType, useMutualFollowersQuery } from '@tape.xyz/lens'
 import type { FC } from 'react'
-import React from 'react'
 
 import MutualFollowers from './MutualFollowers'
 

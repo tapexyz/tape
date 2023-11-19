@@ -1,11 +1,10 @@
 import GlobeOutline from '@components/Common/Icons/GlobeOutline'
 import LocationOutline from '@components/Common/Icons/LocationOutline'
-import { STATIC_ASSETS } from '@tape.xyz/constants'
-import { getValueFromKeyInAttributes, imageCdn } from '@tape.xyz/generic'
-import type { ProfileMetadata } from '@tape.xyz/lens'
+import { STATIC_ASSETS } from '@dragverse/constants'
+import { getValueFromKeyInAttributes, imageCdn } from '@dragverse/generic'
+import type { ProfileMetadata } from '@dragverse/lens'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
-import React from 'react'
 
 const CoverLinks = ({ metadata }: { metadata: ProfileMetadata }) => {
   const { resolvedTheme } = useTheme()

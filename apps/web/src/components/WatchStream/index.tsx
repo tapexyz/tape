@@ -1,7 +1,7 @@
 import MetaTags from '@components/Common/MetaTags'
-import { EVENTS, Tower } from '@tape.xyz/generic'
+import { EVENTS, Tower } from '@dragverse/generic'
 import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 
 import Channel from './Channel'
 

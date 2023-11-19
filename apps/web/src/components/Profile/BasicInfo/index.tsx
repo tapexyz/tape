@@ -6,6 +6,36 @@ import ThreeDotsOutline from '@components/Common/Icons/ThreeDotsOutline'
 import WarningOutline from '@components/Common/Icons/WarningOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import Tooltip from '@components/UIElements/Tooltip'
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
+import { useCopyToClipboard } from '@dragverse/browser'
+import {
+  ERROR_MESSAGE,
+  LENSHUB_PROXY_ADDRESS,
+  MISUSED_CHANNELS,
+  REQUESTING_SIGNATURE_MESSAGE,
+  STATIC_ASSETS,
+  TAPE_WEBSITE_URL
+} from '@dragverse/constants'
+import {
+  checkLensManagerPermissions,
+  getProfile,
+  getSignature,
+  trimify
+} from '@dragverse/generic'
+import type {
+  CreateBlockProfilesBroadcastItemResult,
+  CreateUnblockProfilesBroadcastItemResult,
+  Profile
+} from '@dragverse/lens'
+import {
+  useBlockMutation,
+  useBroadcastOnchainMutation,
+  useCreateBlockProfilesTypedDataMutation,
+  useCreateUnblockProfilesTypedDataMutation,
+  useUnblockMutation
+} from '@dragverse/lens'
+import { useApolloClient } from '@dragverse/lens/apollo'
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
 import useNonceStore from '@lib/store/nonce'
 import useProfileStore from '@lib/store/profile'
 import {
@@ -16,38 +46,8 @@ import {
   IconButton,
   Text
 } from '@radix-ui/themes'
-import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
-import { useCopyToClipboard } from '@tape.xyz/browser'
-import {
-  ERROR_MESSAGE,
-  LENSHUB_PROXY_ADDRESS,
-  MISUSED_CHANNELS,
-  REQUESTING_SIGNATURE_MESSAGE,
-  STATIC_ASSETS,
-  TAPE_WEBSITE_URL
-} from '@tape.xyz/constants'
-import {
-  checkLensManagerPermissions,
-  getProfile,
-  getSignature,
-  trimify
-} from '@tape.xyz/generic'
-import type {
-  CreateBlockProfilesBroadcastItemResult,
-  CreateUnblockProfilesBroadcastItemResult,
-  Profile
-} from '@tape.xyz/lens'
-import {
-  useBlockMutation,
-  useBroadcastOnchainMutation,
-  useCreateBlockProfilesTypedDataMutation,
-  useCreateUnblockProfilesTypedDataMutation,
-  useUnblockMutation
-} from '@tape.xyz/lens'
-import { useApolloClient } from '@tape.xyz/lens/apollo'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import type { FC } from 'react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 

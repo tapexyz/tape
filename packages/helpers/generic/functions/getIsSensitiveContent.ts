@@ -1,5 +1,5 @@
-import { SENSITIVE_CONTENT } from '@tape.xyz/constants'
-import type { PublicationMetadata } from '@tape.xyz/lens'
+import { SENSITIVE_CONTENT } from '@dragverse/constants'
+import type { PublicationMetadata } from '@dragverse/lens'
 
 export const getIsSensitiveContent = (
   metadata: PublicationMetadata | null,

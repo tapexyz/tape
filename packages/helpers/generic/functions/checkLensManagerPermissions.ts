@@ -1,4 +1,4 @@
-import type { Profile } from '@tape.xyz/lens'
+import type { Profile } from '@dragverse/lens'
 
 export const checkLensManagerPermissions = (
   profile: Profile | null

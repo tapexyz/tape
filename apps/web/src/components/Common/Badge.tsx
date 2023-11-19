@@ -1,8 +1,7 @@
 import Tooltip from '@components/UIElements/Tooltip'
-import { MISUSED_CHANNELS, VERIFIED_CHANNELS } from '@tape.xyz/constants'
+import { MISUSED_CHANNELS, VERIFIED_CHANNELS } from '@dragverse/constants'
 import clsx from 'clsx'
 import type { FC } from 'react'
-import React from 'react'
 
 import InfoSolid from './Icons/InfoSolid'
 import VerifiedSolid from './Icons/VerifiedSolid'

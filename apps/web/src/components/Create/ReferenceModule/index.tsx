@@ -1,7 +1,6 @@
+import type { ReferenceModuleType } from '@dragverse/lens/custom-types'
 import useAppStore from '@lib/store'
 import { Select, Text } from '@radix-ui/themes'
-import type { ReferenceModuleType } from '@tape.xyz/lens/custom-types'
-import React from 'react'
 
 const ReferenceModule = () => {
   const uploadedMedia = useAppStore((state) => state.uploadedMedia)

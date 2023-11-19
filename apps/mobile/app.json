@@ -17,11 +17,11 @@
     "ios": {
       "supportsTablet": false,
       "jsEngine": "hermes",
-      "bundleIdentifier": "xyz.tape.mobile",
-      "associatedDomains": ["applinks:tape.xyz"]
+      "bundleIdentifier": "app.dragverse.mobile",
+      "associatedDomains": ["applinks:dragverse.app"]
     },
     "android": {
-      "package": "xyz.tape.mobile",
+      "package": "app.dragverse.mobile",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#000000"

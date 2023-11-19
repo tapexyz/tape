@@ -1,4 +1,4 @@
-import { TAPE_APP_NAME, WC_PROJECT_ID } from '@tape.xyz/constants'
+import { TAPE_APP_NAME, WC_PROJECT_ID } from '@dragverse/constants'
 import { CoinbaseWalletConnector } from '@wagmi/connectors/coinbaseWallet'
 import { InjectedConnector } from '@wagmi/connectors/injected'
 import { WalletConnectConnector } from '@wagmi/connectors/walletConnect'

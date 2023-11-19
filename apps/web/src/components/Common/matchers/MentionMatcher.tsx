@@ -2,7 +2,7 @@ import {
   COMMON_REGEX,
   LEGACY_LENS_HANDLE_SUFFIX,
   LENS_NAMESPACE_PREFIX
-} from '@tape.xyz/constants'
+} from '@dragverse/constants'
 import { Matcher } from 'interweave'
 import Link from 'next/link'
 import React from 'react'

@@ -2,7 +2,7 @@ import {
   IMAGE_TRANSFORMATIONS,
   IS_PRODUCTION,
   LENS_IMAGEKIT_SNAPSHOT_URL
-} from '@tape.xyz/constants'
+} from '@dragverse/constants'
 
 export const imageCdn = (
   url: string,

@@ -1,5 +1,5 @@
-import type { ProfileInterestTypes } from '@tape.xyz/lens'
-import type { ProfileInterest } from '@tape.xyz/lens/custom-types'
+import type { ProfileInterestTypes } from '@dragverse/lens'
+import type { ProfileInterest } from '@dragverse/lens/custom-types'
 
 export const sanitizeProfileInterests = (
   profileInterests: ProfileInterestTypes[]

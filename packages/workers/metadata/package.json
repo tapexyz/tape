@@ -12,7 +12,7 @@
     "viem": "^1.19.3"
   },
   "devDependencies": {
-    "@tape.xyz/config": "*",
+    "@dragverse/config": "*",
     "typescript": "^5.2.2"
   }
 }

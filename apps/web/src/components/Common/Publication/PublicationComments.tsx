@@ -2,29 +2,28 @@ import Alert from '@components/Common/Alert'
 import CommentOutline from '@components/Common/Icons/CommentOutline'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import usePersistStore from '@lib/store/persist'
-import useProfileStore from '@lib/store/profile'
 import {
   INFINITE_SCROLL_ROOT_MARGIN,
   LENS_CUSTOM_FILTERS
-} from '@tape.xyz/constants'
-import { getProfile } from '@tape.xyz/generic'
+} from '@dragverse/constants'
+import { getProfile } from '@dragverse/generic'
 import type {
   AnyPublication,
   Comment,
   MirrorablePublication,
   PublicationsRequest
-} from '@tape.xyz/lens'
+} from '@dragverse/lens'
 import {
   CommentRankingFilterType,
   LimitType,
   TriStateValue,
   usePublicationsQuery
-} from '@tape.xyz/lens'
-import { CustomCommentsFilterEnum } from '@tape.xyz/lens/custom-types'
-import { Loader } from '@tape.xyz/ui'
+} from '@dragverse/lens'
+import { CustomCommentsFilterEnum } from '@dragverse/lens/custom-types'
+import { Loader } from '@dragverse/ui'
+import usePersistStore from '@lib/store/persist'
+import useProfileStore from '@lib/store/profile'
 import type { FC } from 'react'
-import React from 'react'
 import { useInView } from 'react-cool-inview'
 
 import CommentsFilter from '../../Watch/Comments/CommentsFilter'

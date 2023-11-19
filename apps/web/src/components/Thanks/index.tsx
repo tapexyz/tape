@@ -1,4 +1,4 @@
-import { STATIC_ASSETS, TAPE_APP_NAME } from '@tape.xyz/constants'
+import { STATIC_ASSETS, TAPE_APP_NAME } from '@dragverse/constants'
 import Link from 'next/link'
 
 const Thanks = () => {

@@ -1,40 +1,40 @@
 import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
-import { zodResolver } from '@hookform/resolvers/zod'
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import usePendingTxn from '@hooks/usePendingTxn'
-import useNonceStore from '@lib/store/nonce'
-import useProfileStore from '@lib/store/profile'
-import { Button, Flex, Select, Text } from '@radix-ui/themes'
-import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
-import { useCopyToClipboard } from '@tape.xyz/browser'
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
+import { useCopyToClipboard } from '@dragverse/browser'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
   WMATIC_TOKEN_ADDRESS
-} from '@tape.xyz/constants'
+} from '@dragverse/constants'
 import {
   checkLensManagerPermissions,
   getProfile,
   getSignature,
   shortenAddress
-} from '@tape.xyz/generic'
+} from '@dragverse/generic'
 import type {
   CreateSetFollowModuleBroadcastItemResult,
   FeeFollowModuleSettings,
   Profile
-} from '@tape.xyz/lens'
+} from '@dragverse/lens'
 import {
   LimitType,
   useBroadcastOnchainMutation,
   useCreateSetFollowModuleTypedDataMutation,
   useEnabledCurrenciesQuery,
   useProfileFollowModuleQuery
-} from '@tape.xyz/lens'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { Loader } from '@tape.xyz/ui'
-import React, { useEffect, useState } from 'react'
+} from '@dragverse/lens'
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
+import { Loader } from '@dragverse/ui'
+import { zodResolver } from '@hookform/resolvers/zod'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
+import usePendingTxn from '@hooks/usePendingTxn'
+import useNonceStore from '@lib/store/nonce'
+import useProfileStore from '@lib/store/profile'
+import { Button, Flex, Select, Text } from '@radix-ui/themes'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { useContractWrite, useSignTypedData } from 'wagmi'

@@ -3,18 +3,18 @@ import 'react-native-reanimated'
 import 'react-native-gesture-handler'
 
 import {
-  createReactClient,
-  LivepeerConfig,
-  studioProvider
-} from '@livepeer/react-native'
+    LIVEPEER_STUDIO_API_KEY,
+    TAPE_APP_DESCRIPTION,
+    TAPE_APP_NAME,
+    TAPE_WEBSITE_URL,
+    WC_PROJECT_ID
+} from '@dragverse/constants'
+import { ApolloProvider, apolloClient } from '@dragverse/lens/apollo'
 import {
-  LIVEPEER_STUDIO_API_KEY,
-  TAPE_APP_DESCRIPTION,
-  TAPE_APP_NAME,
-  TAPE_WEBSITE_URL,
-  WC_PROJECT_ID
-} from '@tape.xyz/constants'
-import { apolloClient, ApolloProvider } from '@tape.xyz/lens/apollo'
+    LivepeerConfig,
+    createReactClient,
+    studioProvider
+} from '@livepeer/react-native'
 import { WalletConnectModal } from '@walletconnect/modal-react-native'
 import React from 'react'
 import { StyleSheet } from 'react-native'
@@ -37,10 +37,10 @@ const providerMetadata = {
   name: TAPE_APP_NAME,
   description: TAPE_APP_DESCRIPTION,
   url: TAPE_WEBSITE_URL,
-  icons: ['https://static.tape.xyz/brand/logo.svg'],
+  icons: ['https://static.dragverse.app/brand/logo.svg'],
   redirect: {
     native: 'tape://',
-    universal: 'tape.xyz'
+    universal: 'dragverse.app'
   }
 }
 

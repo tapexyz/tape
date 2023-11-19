@@ -1,5 +1,5 @@
 {
-  "name": "@tape.xyz/api",
+  "name": "@dragverse/api",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -8,17 +8,17 @@
     "build": "next build",
     "start": "yarn build && next start --port 4002",
     "typecheck": "tsc --pretty",
-    "lint": "eslint . --ext .js,.ts,.tsx"
+    "lint": "eslint . --ext .js,.ts,.tsx --fix"
   },
   "dependencies": {
     "next": "14.0.3"
   },
   "devDependencies": {
-    "@tape.xyz/browser": "*",
-    "@tape.xyz/config": "*",
-    "@tape.xyz/constants": "*",
-    "@tape.xyz/generic": "*",
-    "@tape.xyz/lens": "*",
+    "@dragverse/browser": "*",
+    "@dragverse/config": "*",
+    "@dragverse/constants": "*",
+    "@dragverse/generic": "*",
+    "@dragverse/lens": "*",
     "@types/node": "20.9.2",
     "typescript": "5.2.2"
   }

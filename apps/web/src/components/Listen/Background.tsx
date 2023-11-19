@@ -1,10 +1,10 @@
-import { useAverageColor } from '@tape.xyz/browser'
+import { useAverageColor } from '@dragverse/browser'
 import {
   getThumbnailUrl,
   imageCdn,
   sanitizeDStorageUrl
-} from '@tape.xyz/generic'
-import type { PrimaryPublication } from '@tape.xyz/lens'
+} from '@dragverse/generic'
+import type { PrimaryPublication } from '@dragverse/lens'
 import type { FC } from 'react'
 import React from 'react'
 

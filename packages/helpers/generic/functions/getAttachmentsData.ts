@@ -1,4 +1,4 @@
-import type { Maybe, PublicationMetadataMedia } from '@tape.xyz/lens'
+import type { Maybe, PublicationMetadataMedia } from '@dragverse/lens'
 
 export const getAttachmentsData = (
   attachments?: Maybe<PublicationMetadataMedia[]>

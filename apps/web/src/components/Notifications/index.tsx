@@ -1,21 +1,21 @@
 import MetaTags from '@components/Common/MetaTags'
 import NotificationsShimmer from '@components/Shimmers/NotificationsShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import usePersistStore from '@lib/store/persist'
-import useProfileStore from '@lib/store/profile'
 import {
   INFINITE_SCROLL_ROOT_MARGIN,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
-} from '@tape.xyz/constants'
-import { EVENTS, Tower } from '@tape.xyz/generic'
-import type { Notification, NotificationRequest } from '@tape.xyz/lens'
-import { useNotificationsQuery } from '@tape.xyz/lens'
-import { CustomNotificationsFilterEnum } from '@tape.xyz/lens/custom-types'
-import { Loader } from '@tape.xyz/ui'
-import React, { useEffect } from 'react'
+} from '@dragverse/constants'
+import { EVENTS, Tower } from '@dragverse/generic'
+import type { Notification, NotificationRequest } from '@dragverse/lens'
+import { useNotificationsQuery } from '@dragverse/lens'
+import { CustomNotificationsFilterEnum } from '@dragverse/lens/custom-types'
+import { Loader } from '@dragverse/ui'
+import usePersistStore from '@lib/store/persist'
+import useProfileStore from '@lib/store/profile'
+import { useEffect } from 'react'
 import { useInView } from 'react-cool-inview'
 
 import Acted from './Acted'

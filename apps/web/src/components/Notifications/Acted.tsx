@@ -5,11 +5,10 @@ import {
   getProfilePicture,
   getPublication,
   getPublicationData
-} from '@tape.xyz/generic'
-import type { ActedNotification, OpenActionProfileActed } from '@tape.xyz/lens'
+} from '@dragverse/generic'
+import type { ActedNotification, OpenActionProfileActed } from '@dragverse/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
-import React from 'react'
 
 type Props = {
   notification: ActedNotification

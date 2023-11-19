@@ -1,16 +1,16 @@
 {
-  "name": "@tape.xyz/constants",
+  "name": "@dragverse/constants",
   "version": "0.0.0",
   "private": true,
   "license": "AGPL-3.0",
   "main": "index.ts",
   "scripts": {
-    "lint": "eslint . --ext .js,.ts,.tsx",
+    "lint": "eslint . --ext .js,.ts,.tsx --fix",
     "typecheck": "tsc --pretty"
   },
   "devDependencies": {
-    "@tape.xyz/config": "*",
-    "@tape.xyz/lens": "*",
+    "@dragverse/config": "*",
+    "@dragverse/lens": "*",
     "@types/node": "^20.9.2",
     "typescript": "^5.2.2"
   }

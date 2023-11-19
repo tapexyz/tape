@@ -3,11 +3,10 @@ import {
   TAPE_APP_DESCRIPTION,
   TAPE_APP_NAME,
   TAPE_WEBSITE_URL
-} from '@tape.xyz/constants'
+} from '@dragverse/constants'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
-import React from 'react'
 
 type Props = {
   title?: string

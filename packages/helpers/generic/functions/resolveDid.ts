@@ -1,4 +1,4 @@
-import { WORKER_DID_URL } from '@tape.xyz/constants'
+import { WORKER_DID_URL } from '@dragverse/constants'
 import axios from 'axios'
 
 export const resolveDid = async (addresses: string[]) => {

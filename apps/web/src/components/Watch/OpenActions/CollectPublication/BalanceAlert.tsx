@@ -1,10 +1,9 @@
 import WarningOutline from '@components/Common/Icons/WarningOutline'
+import { IS_MAINNET } from '@dragverse/constants'
+import type { SupportedOpenActionModuleType } from '@dragverse/lens/custom-types'
 import { Callout } from '@radix-ui/themes'
-import { IS_MAINNET } from '@tape.xyz/constants'
-import type { SupportedOpenActionModuleType } from '@tape.xyz/lens/custom-types'
 import Link from 'next/link'
 import type { FC } from 'react'
-import React from 'react'
 
 const getUniswapURL = (amount: number, outputCurrency: string): string => {
   return `https://app.uniswap.org/#/swap?exactField=output&exactAmount=${amount}&outputCurrency=${outputCurrency}&chain=${

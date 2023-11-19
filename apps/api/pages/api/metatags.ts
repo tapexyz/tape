@@ -1,9 +1,9 @@
-import { getMetaTags } from '@tape.xyz/browser'
+import { getMetaTags } from '@dragverse/browser'
 import {
   OG_IMAGE,
   TAPE_APP_DESCRIPTION,
   TAPE_APP_NAME
-} from '@tape.xyz/constants'
+} from '@dragverse/constants'
 import getProfileMeta from 'lib/getProfileMeta'
 import getPublicationMeta from 'lib/getPublicationMeta'
 import type { NextApiRequest, NextApiResponse } from 'next'

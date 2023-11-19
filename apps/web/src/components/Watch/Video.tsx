@@ -1,8 +1,6 @@
 import InterweaveContent from '@components/Common/InterweaveContent'
 import { CardShimmer } from '@components/Shimmers/VideoCardShimmer'
-import useAppStore from '@lib/store'
-import useProfileStore from '@lib/store/profile'
-import { LENSTUBE_BYTES_APP_ID } from '@tape.xyz/constants'
+import { LENSTUBE_BYTES_APP_ID } from '@dragverse/constants'
 import {
   getIsSensitiveContent,
   getPublicationData,
@@ -10,8 +8,10 @@ import {
   getThumbnailUrl,
   imageCdn,
   sanitizeDStorageUrl
-} from '@tape.xyz/generic'
-import type { PrimaryPublication } from '@tape.xyz/lens'
+} from '@dragverse/generic'
+import type { PrimaryPublication } from '@dragverse/lens'
+import useAppStore from '@lib/store'
+import useProfileStore from '@lib/store/profile'
 import dynamic from 'next/dynamic'
 import type { FC } from 'react'
 import React from 'react'
@@ -19,7 +19,7 @@ import React from 'react'
 import PublicationActions from '../Common/Publication/PublicationActions'
 import VideoMeta from './VideoMeta'
 
-const VideoPlayer = dynamic(() => import('@tape.xyz/ui/VideoPlayer'), {
+const VideoPlayer = dynamic(() => import('@dragverse/ui/VideoPlayer'), {
   loading: () => <CardShimmer rounded={false} />,
   ssr: false
 })

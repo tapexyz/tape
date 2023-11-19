@@ -1,12 +1,11 @@
 import SignalWaveGraphic from '@components/UIElements/SignalWaveGraphic'
-import { Button, Flex } from '@radix-ui/themes'
 import {
   GITCOIN_LIVE_ROUND,
   SHOW_GITCOIN_BANNER,
   TAPE_APP_NAME
-} from '@tape.xyz/constants'
+} from '@dragverse/constants'
+import { Button, Flex } from '@radix-ui/themes'
 import Link from 'next/link'
-import React from 'react'
 
 const GitcoinAlert = () => {
   if (!SHOW_GITCOIN_BANNER) {

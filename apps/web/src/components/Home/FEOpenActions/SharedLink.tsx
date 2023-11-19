@@ -1,8 +1,7 @@
-import { getOpenActionNftMetadata, getURLs } from '@tape.xyz/generic'
-import type { LinkMetadataV3, Profile } from '@tape.xyz/lens'
-import type { BasicNftMetadata } from '@tape.xyz/lens/custom-types'
+import { getOpenActionNftMetadata, getURLs } from '@dragverse/generic'
+import type { LinkMetadataV3, Profile } from '@dragverse/lens'
+import type { BasicNftMetadata } from '@dragverse/lens/custom-types'
 import type { FC } from 'react'
-import React from 'react'
 
 import ZoraNft from './Zora/ZoraNft'
 

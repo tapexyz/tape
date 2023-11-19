@@ -6,13 +6,13 @@ import {
   INFINITE_SCROLL_ROOT_MARGIN,
   LENS_CUSTOM_FILTERS,
   TAPE_APP_ID
-} from '@tape.xyz/constants'
-import { EVENTS, Tower } from '@tape.xyz/generic'
+} from '@dragverse/constants'
+import { EVENTS, Tower } from '@dragverse/generic'
 import type {
   AnyPublication,
   ExplorePublicationRequest,
   PrimaryPublication
-} from '@tape.xyz/lens'
+} from '@dragverse/lens'
 import {
   ExplorePublicationsOrderByType,
   ExplorePublicationType,
@@ -20,11 +20,11 @@ import {
   PublicationMetadataMainFocusType,
   useExplorePublicationsLazyQuery,
   usePublicationLazyQuery
-} from '@tape.xyz/lens'
-import { Loader } from '@tape.xyz/ui'
+} from '@dragverse/lens'
+import { Loader } from '@dragverse/ui'
 import { useKeenSlider } from 'keen-slider/react'
 import { useRouter } from 'next/router'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 
 import ByteVideo from './ByteVideo'

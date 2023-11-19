@@ -1,11 +1,10 @@
 import FollowActions from '@components/Common/FollowActions'
 import UserProfile from '@components/Common/UserProfile'
-import { CREATORS } from '@tape.xyz/constants/verified/creators'
-import { shuffleArray } from '@tape.xyz/generic'
-import type { Profile } from '@tape.xyz/lens'
-import { useProfilesQuery } from '@tape.xyz/lens'
-import { Loader } from '@tape.xyz/ui'
-import React from 'react'
+import { CREATORS } from '@dragverse/constants/verified/creators'
+import { shuffleArray } from '@dragverse/generic'
+import type { Profile } from '@dragverse/lens'
+import { useProfilesQuery } from '@dragverse/lens'
+import { Loader } from '@dragverse/ui'
 
 const shuffled = shuffleArray(CREATORS).slice(0, 6)
 

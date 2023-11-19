@@ -3,18 +3,12 @@ import UserOutline from '@components/Common/Icons/UserOutline'
 import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
 import { Countdown } from '@components/UIElements/CountDown'
 import Tooltip from '@components/UIElements/Tooltip'
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import { getRelativeTime } from '@lib/formatTime'
-import { getCollectModuleOutput } from '@lib/getCollectModuleOutput'
-import useNonceStore from '@lib/store/nonce'
-import useProfileStore from '@lib/store/profile'
-import { Button, Callout, Flex } from '@radix-ui/themes'
-import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   SIGN_IN_REQUIRED
-} from '@tape.xyz/constants'
+} from '@dragverse/constants'
 import {
   checkLensManagerPermissions,
   formatNumber,
@@ -24,7 +18,7 @@ import {
   getSignature,
   imageCdn,
   shortenAddress
-} from '@tape.xyz/generic'
+} from '@dragverse/generic'
 import type {
   ActOnOpenActionLensManagerRequest,
   HandleInfo,
@@ -32,7 +26,7 @@ import type {
   PrimaryPublication,
   Profile,
   RecipientDataOutput
-} from '@tape.xyz/lens'
+} from '@dragverse/lens'
 import {
   OpenActionModuleType,
   useActOnOpenActionMutation,
@@ -44,15 +38,21 @@ import {
   useProfilesQuery,
   usePublicationQuery,
   useRevenueFromPublicationQuery
-} from '@tape.xyz/lens'
+} from '@dragverse/lens'
 import type {
   CustomErrorWithData,
   SupportedOpenActionModuleType
-} from '@tape.xyz/lens/custom-types'
-import { Loader } from '@tape.xyz/ui'
+} from '@dragverse/lens/custom-types'
+import { Loader } from '@dragverse/ui'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
+import { getRelativeTime } from '@lib/formatTime'
+import { getCollectModuleOutput } from '@lib/getCollectModuleOutput'
+import useNonceStore from '@lib/store/nonce'
+import useProfileStore from '@lib/store/profile'
+import { Button, Callout, Flex } from '@radix-ui/themes'
 import Link from 'next/link'
 import type { FC } from 'react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
   useAccount,

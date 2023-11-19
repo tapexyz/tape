@@ -1,9 +1,8 @@
+import { getPublicationData } from '@dragverse/generic'
+import type { PrimaryPublication } from '@dragverse/lens'
 import { AspectRatio } from '@radix-ui/themes'
-import { getPublicationData } from '@tape.xyz/generic'
-import type { PrimaryPublication } from '@tape.xyz/lens'
 import Link from 'next/link'
 import type { FC } from 'react'
-import React from 'react'
 
 import PublicationOptions from '../Publication/PublicationOptions'
 import ThumbnailImage from '../VideoCard/ThumbnailImage'

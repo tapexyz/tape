@@ -1,6 +1,5 @@
-import { STATIC_ASSETS } from '@tape.xyz/constants'
+import { STATIC_ASSETS } from '@dragverse/constants'
 import clsx from 'clsx'
-import React from 'react'
 
 export const NoDataFound = ({
   text = 'Zero trace!',

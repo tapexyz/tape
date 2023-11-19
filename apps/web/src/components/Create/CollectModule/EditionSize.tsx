@@ -1,10 +1,10 @@
 import { Input } from '@components/UIElements/Input'
+import { trimify } from '@dragverse/generic'
+import type { CollectModuleType } from '@dragverse/lens/custom-types'
 import useAppStore from '@lib/store'
 import { Button, Text } from '@radix-ui/themes'
-import { trimify } from '@tape.xyz/generic'
-import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
 import type { FC } from 'react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 type Props = {
   setCollectType: (data: CollectModuleType) => void

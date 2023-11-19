@@ -1,8 +1,5 @@
-import { getCollectModuleConfig } from '@lib/getCollectModuleInput'
-import useProfileStore from '@lib/store/profile'
-import { Button, Select } from '@radix-ui/themes'
-import { WMATIC_TOKEN_ADDRESS } from '@tape.xyz/constants'
-import type { ApprovedAllowanceAmountResult, Erc20 } from '@tape.xyz/lens'
+import { WMATIC_TOKEN_ADDRESS } from '@dragverse/constants'
+import type { ApprovedAllowanceAmountResult, Erc20 } from '@dragverse/lens'
 import {
   FollowModuleType,
   LimitType,
@@ -10,10 +7,13 @@ import {
   useApprovedModuleAllowanceAmountQuery,
   useEnabledCurrenciesQuery,
   useGenerateModuleCurrencyApprovalDataLazyQuery
-} from '@tape.xyz/lens'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { Loader } from '@tape.xyz/ui'
-import React, { useState } from 'react'
+} from '@dragverse/lens'
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
+import { Loader } from '@dragverse/ui'
+import { getCollectModuleConfig } from '@lib/getCollectModuleInput'
+import useProfileStore from '@lib/store/profile'
+import { Button, Select } from '@radix-ui/themes'
+import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useSendTransaction, useWaitForTransaction } from 'wagmi'
 

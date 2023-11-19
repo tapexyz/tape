@@ -1,6 +1,6 @@
+import { ARWEAVE_GATEWAY_URL, IPFS_GATEWAY_URL } from '@dragverse/constants'
 import type { AspectRatio } from '@livepeer/react'
 import { Player } from '@livepeer/react'
-import { ARWEAVE_GATEWAY_URL, IPFS_GATEWAY_URL } from '@tape.xyz/constants'
 import type { FC } from 'react'
 import React from 'react'
 

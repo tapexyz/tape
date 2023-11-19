@@ -1,4 +1,43 @@
 import MetaTags from '@components/Common/MetaTags'
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
+import { getUserLocale, uploadToIPFS } from '@dragverse/browser'
+import {
+  ERROR_MESSAGE,
+  IRYS_CONNECT_MESSAGE,
+  LENSHUB_PROXY_ADDRESS,
+  REQUESTING_SIGNATURE_MESSAGE,
+  TAPE_APP_ID,
+  TAPE_APP_NAME,
+  TAPE_WEBSITE_URL
+} from '@dragverse/constants'
+import {
+  canUploadedToIpfs,
+  checkLensManagerPermissions,
+  EVENTS,
+  getProfile,
+  getSignature,
+  getUploadedMediaType,
+  logger,
+  Tower,
+  trimify,
+  uploadToAr
+} from '@dragverse/generic'
+import type {
+  CreateMomokaPostEip712TypedData,
+  CreateOnchainPostEip712TypedData,
+  Profile,
+  ReferenceModuleInput
+} from '@dragverse/lens'
+import {
+  ReferenceModuleType,
+  useBroadcastOnchainMutation,
+  useBroadcastOnMomokaMutation,
+  useCreateMomokaPostTypedDataMutation,
+  useCreateOnchainPostTypedDataMutation,
+  usePostOnchainMutation,
+  usePostOnMomokaMutation
+} from '@dragverse/lens'
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
 import useEthersWalletClient from '@hooks/useEthersWalletClient'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import type {
@@ -20,47 +59,8 @@ import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
 import useNonceStore from '@lib/store/nonce'
 import usePersistStore from '@lib/store/persist'
 import { useProfileStore } from '@lib/store/profile'
-import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
-import { getUserLocale, uploadToIPFS } from '@tape.xyz/browser'
-import {
-  ERROR_MESSAGE,
-  IRYS_CONNECT_MESSAGE,
-  LENSHUB_PROXY_ADDRESS,
-  REQUESTING_SIGNATURE_MESSAGE,
-  TAPE_APP_ID,
-  TAPE_APP_NAME,
-  TAPE_WEBSITE_URL
-} from '@tape.xyz/constants'
-import {
-  canUploadedToIpfs,
-  checkLensManagerPermissions,
-  EVENTS,
-  getProfile,
-  getSignature,
-  getUploadedMediaType,
-  logger,
-  Tower,
-  trimify,
-  uploadToAr
-} from '@tape.xyz/generic'
-import type {
-  CreateMomokaPostEip712TypedData,
-  CreateOnchainPostEip712TypedData,
-  Profile,
-  ReferenceModuleInput
-} from '@tape.xyz/lens'
-import {
-  ReferenceModuleType,
-  useBroadcastOnchainMutation,
-  useBroadcastOnMomokaMutation,
-  useCreateMomokaPostTypedDataMutation,
-  useCreateOnchainPostTypedDataMutation,
-  usePostOnchainMutation,
-  usePostOnMomokaMutation
-} from '@tape.xyz/lens'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import toast from 'react-hot-toast'
 import { v4 as uuidv4 } from 'uuid'
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi'

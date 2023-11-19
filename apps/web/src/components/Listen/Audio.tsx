@@ -1,8 +1,6 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
 import PauseOutline from '@components/Common/Icons/PauseOutline'
 import PlayOutline from '@components/Common/Icons/PlayOutline'
-import { getReadableTimeFromSeconds } from '@lib/formatTime'
-import { IconButton } from '@radix-ui/themes'
 import {
   getProfile,
   getProfilePicture,
@@ -10,11 +8,13 @@ import {
   getThumbnailUrl,
   imageCdn,
   sanitizeDStorageUrl
-} from '@tape.xyz/generic'
-import type { PrimaryPublication } from '@tape.xyz/lens'
-import AudioPlayer from '@tape.xyz/ui/AudioPlayer'
+} from '@dragverse/generic'
+import type { PrimaryPublication } from '@dragverse/lens'
+import AudioPlayer from '@dragverse/ui/AudioPlayer'
+import { getReadableTimeFromSeconds } from '@lib/formatTime'
+import { IconButton } from '@radix-ui/themes'
 import type { FC } from 'react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 type Props = {
   audio: PrimaryPublication

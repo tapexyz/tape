@@ -3,10 +3,9 @@ import {
   TAPE_GITHUB_HANDLE,
   TAPE_STATUS_PAGE,
   TAPE_X_HANDLE
-} from '@tape.xyz/constants'
-import { EVENTS, Tower } from '@tape.xyz/generic'
+} from '@dragverse/constants'
+import { EVENTS, Tower } from '@dragverse/generic'
 import Link from 'next/link'
-import React from 'react'
 
 const TapeMenu = () => {
   return (

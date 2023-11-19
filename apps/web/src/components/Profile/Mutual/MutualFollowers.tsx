@@ -1,14 +1,13 @@
 import Badge from '@components/Common/Badge'
 import UserOutline from '@components/Common/Icons/UserOutline'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { formatNumber, getProfile, getProfilePicture } from '@dragverse/generic'
+import type { MutualFollowersRequest, Profile } from '@dragverse/lens'
+import { LimitType, useMutualFollowersQuery } from '@dragverse/lens'
+import { Loader } from '@dragverse/ui'
 import useProfileStore from '@lib/store/profile'
-import { formatNumber, getProfile, getProfilePicture } from '@tape.xyz/generic'
-import type { MutualFollowersRequest, Profile } from '@tape.xyz/lens'
-import { LimitType, useMutualFollowersQuery } from '@tape.xyz/lens'
-import { Loader } from '@tape.xyz/ui'
 import Link from 'next/link'
 import type { FC } from 'react'
-import React from 'react'
 import { useInView } from 'react-cool-inview'
 
 type Props = {

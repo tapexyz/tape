@@ -4,14 +4,12 @@ import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import ReplyOutline from '@components/Common/Icons/ReplyOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
-import { getShortHandTime } from '@lib/formatTime'
-import { Button, Flex } from '@radix-ui/themes'
-import { LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
+import { LENS_CUSTOM_FILTERS } from '@dragverse/constants'
 import {
   getProfile,
   getProfilePicture,
   getPublicationData
-} from '@tape.xyz/generic'
+} from '@dragverse/generic'
 import {
   type Comment,
   CommentRankingFilterType,
@@ -19,11 +17,13 @@ import {
   type Profile,
   type PublicationsRequest,
   usePublicationsQuery
-} from '@tape.xyz/lens'
+} from '@dragverse/lens'
+import { getShortHandTime } from '@lib/formatTime'
+import { Button, Flex } from '@radix-ui/themes'
 import clsx from 'clsx'
 import Link from 'next/link'
 import type { FC } from 'react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import PublicationReaction from '../../Common/Publication/PublicationReaction'
 import CommentMedia from './CommentMedia'

@@ -1,4 +1,4 @@
-import { COMMON_REGEX } from '@tape.xyz/constants'
+import { COMMON_REGEX } from '@dragverse/constants'
 
 export const getURLs = (text: string): string[] => {
   if (!text) {

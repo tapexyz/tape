@@ -1,11 +1,5 @@
 import PinnedVideoShimmer from '@components/Shimmers/PinnedVideoShimmer'
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import type { ProfileOptions } from '@lens-protocol/metadata'
-import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
-import { getRelativeTime } from '@lib/formatTime'
-import useProfileStore from '@lib/store/profile'
-import { Button } from '@radix-ui/themes'
-import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
@@ -13,7 +7,7 @@ import {
   REQUESTING_SIGNATURE_MESSAGE,
   SIGN_IN_REQUIRED,
   TAPE_APP_ID
-} from '@tape.xyz/constants'
+} from '@dragverse/constants'
 import {
   checkLensManagerPermissions,
   EVENTS,
@@ -32,23 +26,29 @@ import {
   Tower,
   trimify,
   uploadToAr
-} from '@tape.xyz/generic'
+} from '@dragverse/generic'
 import type {
   AnyPublication,
   OnchainSetProfileMetadataRequest,
   Profile
-} from '@tape.xyz/lens'
+} from '@dragverse/lens'
 import {
   useBroadcastOnchainMutation,
   useCreateOnchainSetProfileMetadataTypedDataMutation,
   usePublicationQuery,
   useSetProfileMetadataMutation
-} from '@tape.xyz/lens'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import VideoPlayer from '@tape.xyz/ui/VideoPlayer'
+} from '@dragverse/lens'
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
+import VideoPlayer from '@dragverse/ui/VideoPlayer'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
+import type { ProfileOptions } from '@lens-protocol/metadata'
+import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
+import { getRelativeTime } from '@lib/formatTime'
+import useProfileStore from '@lib/store/profile'
+import { Button } from '@radix-ui/themes'
 import Link from 'next/link'
 import type { FC } from 'react'
-import React, { memo } from 'react'
+import { memo } from 'react'
 import toast from 'react-hot-toast'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'

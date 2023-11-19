@@ -1,7 +1,6 @@
-import { getPublication, isListenable } from '@tape.xyz/generic'
-import type { AnyPublication } from '@tape.xyz/lens'
+import { getPublication, isListenable } from '@dragverse/generic'
+import type { AnyPublication } from '@dragverse/lens'
 import type { FC } from 'react'
-import React from 'react'
 
 import Audio from './Audio'
 import Video from './Video'

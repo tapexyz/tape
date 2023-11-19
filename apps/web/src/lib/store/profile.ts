@@ -1,5 +1,5 @@
-import type { Profile } from '@tape.xyz/lens'
-import { CustomCommentsFilterEnum } from '@tape.xyz/lens/custom-types'
+import type { Profile } from '@dragverse/lens'
+import { CustomCommentsFilterEnum } from '@dragverse/lens/custom-types'
 import { create } from 'zustand'
 
 interface ProfileState {

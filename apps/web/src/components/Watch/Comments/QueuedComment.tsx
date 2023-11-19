@@ -1,21 +1,20 @@
 import Badge from '@components/Common/Badge'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import Tooltip from '@components/UIElements/Tooltip'
-import usePersistStore from '@lib/store/persist'
-import useProfileStore from '@lib/store/profile'
-import { getProfile, getProfilePicture } from '@tape.xyz/generic'
+import { getProfile, getProfilePicture } from '@dragverse/generic'
 import {
   LensTransactionStatusType,
   PublicationDocument,
   useLensTransactionStatusQuery,
   usePublicationLazyQuery,
   useTxIdToTxHashLazyQuery
-} from '@tape.xyz/lens'
-import { useApolloClient } from '@tape.xyz/lens/apollo'
-import type { QueuedCommentType } from '@tape.xyz/lens/custom-types'
+} from '@dragverse/lens'
+import { useApolloClient } from '@dragverse/lens/apollo'
+import type { QueuedCommentType } from '@dragverse/lens/custom-types'
+import usePersistStore from '@lib/store/persist'
+import useProfileStore from '@lib/store/profile'
 import Link from 'next/link'
 import type { FC } from 'react'
-import React from 'react'
 
 type Props = {
   queuedComment: QueuedCommentType

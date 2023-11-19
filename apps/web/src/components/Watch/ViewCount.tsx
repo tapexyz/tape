@@ -1,5 +1,4 @@
-import { useVideoViews } from '@tape.xyz/browser'
-import React from 'react'
+import { useVideoViews } from '@dragverse/browser'
 
 const ViewCount = ({ cid }: { cid: string }) => {
   const { views } = useVideoViews(cid)

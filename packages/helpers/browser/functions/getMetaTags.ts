@@ -6,13 +6,13 @@ import {
   TAPE_EMBED_URL,
   TAPE_WEBSITE_URL,
   TAPE_X_HANDLE
-} from '@tape.xyz/constants'
+} from '@dragverse/constants'
 import {
   getPublication,
   getPublicationMediaUrl,
   getValueFromKeyInAttributes
-} from '@tape.xyz/generic'
-import type { AnyPublication } from '@tape.xyz/lens'
+} from '@dragverse/generic'
+import type { AnyPublication } from '@dragverse/lens'
 
 type Props = {
   title?: string

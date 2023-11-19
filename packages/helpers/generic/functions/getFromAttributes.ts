@@ -1,4 +1,4 @@
-import type { MetadataAttribute } from '@tape.xyz/lens'
+import type { MetadataAttribute } from '@dragverse/lens'
 
 // key available only profile metadata
 export const getValueFromKeyInAttributes = (

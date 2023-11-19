@@ -6,23 +6,22 @@ import {
   INFINITE_SCROLL_ROOT_MARGIN,
   LENS_CUSTOM_FILTERS,
   TAPE_APP_ID
-} from '@tape.xyz/constants'
+} from '@dragverse/constants'
 import {
   getPublicationData,
   getThumbnailUrl,
   imageCdn
-} from '@tape.xyz/generic'
-import type { Post, PublicationsRequest } from '@tape.xyz/lens'
+} from '@dragverse/generic'
+import type { Post, PublicationsRequest } from '@dragverse/lens'
 import {
   LimitType,
   PublicationMetadataMainFocusType,
   PublicationType,
   usePublicationsQuery
-} from '@tape.xyz/lens'
-import { Loader } from '@tape.xyz/ui'
+} from '@dragverse/lens'
+import { Loader } from '@dragverse/ui'
 import Link from 'next/link'
 import type { FC } from 'react'
-import React from 'react'
 import { useInView } from 'react-cool-inview'
 
 type Props = {

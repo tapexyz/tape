@@ -1,5 +1,8 @@
 import CollectOutline from '@components/Common/Icons/CollectOutline'
 import TimesOutline from '@components/Common/Icons/TimesOutline'
+import { formatNumber, getPublication } from '@dragverse/generic'
+import isOpenActionAllowed from '@dragverse/generic/functions/isOpenActionAllowed'
+import { type AnyPublication, type OpenActionModule } from '@dragverse/lens'
 import { getCollectModuleOutput } from '@lib/getCollectModuleOutput'
 import {
   Accordion,
@@ -16,11 +19,7 @@ import {
   IconButton,
   ScrollArea
 } from '@radix-ui/themes'
-import { formatNumber, getPublication } from '@tape.xyz/generic'
-import isOpenActionAllowed from '@tape.xyz/generic/functions/isOpenActionAllowed'
-import { type AnyPublication, type OpenActionModule } from '@tape.xyz/lens'
 import type { FC, ReactNode } from 'react'
-import React from 'react'
 
 import CollectPublication from './CollectPublication'
 

@@ -1,5 +1,5 @@
-import { TAPE_APP_NAME } from '@tape.xyz/constants'
-import type { MobileThemeConfig } from '@tape.xyz/lens/custom-types'
+import { TAPE_APP_NAME } from '@dragverse/constants'
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
 import Constants from 'expo-constants'
 import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'

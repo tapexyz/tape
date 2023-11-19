@@ -1,5 +1,5 @@
+import { LocalStore } from '@dragverse/lens/custom-types'
 import { getCurrentBrowserFingerPrint } from '@rajesh896/broprint.js'
-import { LocalStore } from '@tape.xyz/lens/custom-types'
 
 const getFingerprint = async () => {
   const fingerprint = await getCurrentBrowserFingerPrint()

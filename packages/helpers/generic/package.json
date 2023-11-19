@@ -1,10 +1,10 @@
 {
-  "name": "@tape.xyz/generic",
+  "name": "@dragverse/generic",
   "version": "0.0.0",
   "license": "AGPL-3.0",
   "main": "index.ts",
   "scripts": {
-    "lint": "eslint . --ext .js,.ts,.tsx",
+    "lint": "eslint . --ext .js,.ts,.tsx --fix",
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
@@ -13,7 +13,7 @@
     "viem": "^1.19.3"
   },
   "devDependencies": {
-    "@tape.xyz/constants": "*",
+    "@dragverse/constants": "*",
     "typescript": "5.2.2"
   }
 }

@@ -1,4 +1,4 @@
-import { WORKER_LIVEPEER_VIEWS_URL } from '@tape.xyz/constants'
+import { WORKER_LIVEPEER_VIEWS_URL } from '@dragverse/constants'
 import axios from 'axios'
 import { useEffect, useState } from 'react'
 

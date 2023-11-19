@@ -6,20 +6,19 @@ import {
   LENS_CUSTOM_FILTERS,
   LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
-} from '@tape.xyz/constants'
+} from '@dragverse/constants'
 import type {
   ExplorePublicationRequest,
   PrimaryPublication
-} from '@tape.xyz/lens'
+} from '@dragverse/lens'
 import {
   ExplorePublicationsOrderByType,
   ExplorePublicationType,
   LimitType,
   PublicationMetadataMainFocusType,
   useExplorePublicationsQuery
-} from '@tape.xyz/lens'
-import { Loader } from '@tape.xyz/ui'
-import React from 'react'
+} from '@dragverse/lens'
+import { Loader } from '@dragverse/ui'
 import { useInView } from 'react-cool-inview'
 
 const request: ExplorePublicationRequest = {

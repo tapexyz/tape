@@ -1,16 +1,16 @@
 import MetaTags from '@components/Common/MetaTags'
 import ProfilePageShimmer from '@components/Shimmers/ProfilePageShimmer'
-import { LENS_NAMESPACE_PREFIX } from '@tape.xyz/constants'
+import { LENS_NAMESPACE_PREFIX } from '@dragverse/constants'
 import {
   EVENTS,
   getProfile,
   getValueFromKeyInAttributes,
   Tower
-} from '@tape.xyz/generic'
-import type { Profile, ProfileRequest } from '@tape.xyz/lens'
-import { useProfileQuery } from '@tape.xyz/lens'
+} from '@dragverse/generic'
+import type { Profile, ProfileRequest } from '@dragverse/lens'
+import { useProfileQuery } from '@dragverse/lens'
 import { useRouter } from 'next/router'
-import React, { memo, useEffect } from 'react'
+import { memo, useEffect } from 'react'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
 

@@ -1,4 +1,4 @@
-import { CustomFiltersType } from '@tape.xyz/lens'
+import { CustomFiltersType } from '@dragverse/lens'
 
 export const TAPE_APP_NAME = 'Tape'
 export const TAPE_APP_DESCRIPTION = 'Talk, Amplify, Post, Explore'
@@ -9,10 +9,10 @@ export const IS_MAINNET = LENS_ENV === 'mainnet'
 export const IS_DEVELOPMENT = process.env.NODE_ENV === 'development'
 export const IS_PRODUCTION = !IS_DEVELOPMENT
 
-export const STATIC_ASSETS = 'https://static.tape.xyz'
+export const STATIC_ASSETS = 'https://static.dragverse.app'
 export const TAPE_WEBSITE_URL = IS_MAINNET
-  ? 'https://tape.xyz'
-  : 'https://testnet.tape.xyz'
+  ? 'https://dragverse.app'
+  : 'https://testnet.dragverse.app'
 export const FALLBACK_THUMBNAIL_URL = `${STATIC_ASSETS}/images/fallback-thumbnail.webp`
 export const FALLBACK_COVER_URL = `${STATIC_ASSETS}/images/fallback-cover.svg`
 export const OG_IMAGE = `${STATIC_ASSETS}/brand/og.png`
@@ -37,11 +37,11 @@ export const TESTNET_API_URL = 'https://api-v2-mumbai.lens.dev'
 export const LENS_API_URL = IS_MAINNET ? MAINNET_API_URL : TESTNET_API_URL
 
 // api urls
-export const TAPE_MAINNET_API_URL = 'https://api.tape.xyz'
-export const TAPE_TESTNET_API_URL = 'https://api-testnet.tape.xyz'
+export const TAPE_MAINNET_API_URL = 'https://api.dragverse.app'
+export const TAPE_TESTNET_API_URL = 'https://api-testnet.dragverse.app'
 export const TAPE_EMBED_URL = IS_MAINNET
-  ? 'https://embed.tape.xyz'
-  : 'https://embed-testnet.tape.xyz'
+  ? 'https://embed.dragverse.app'
+  : 'https://embed-testnet.dragverse.app'
 export const TAPE_DEV_API_URL = 'http://localhost:4002'
 export const TAPE_API_URL = IS_MAINNET
   ? TAPE_MAINNET_API_URL
@@ -81,16 +81,16 @@ export const WC_PROJECT_ID = 'bf790b6b57570b99567abd1677b7415d'
 export const LIVEPEER_STUDIO_API_KEY = ''
 
 // workers
-export const WORKER_LIVEPEER_VIEWS_URL = 'https://views.tape.xyz'
-export const WORKER_IRYS_METADATA_UPLOAD_URL = 'https://metadata.tape.xyz'
-export const WORKER_LOGTAIL_INGEST_URL = 'https://tail.tape.xyz'
-export const WORKER_STS_TOKEN_URL = 'https://sts.tape.xyz'
-export const WORKER_RECS_URL = 'https://recs.tape.xyz'
-export const WORKER_NFTS_URL = 'https://nfts.tape.xyz'
-export const WORKER_DID_URL = 'https://did.tape.xyz'
-export const WORKER_STREAM_URL = 'https://stream.tape.xyz'
-export const WORKER_TOWER_URL = 'https://tower.tape.xyz'
-export const WORKER_OEMBED_URL = 'https://oembed.tape.xyz'
+export const WORKER_LIVEPEER_VIEWS_URL = 'https://views.dragverse.app'
+export const WORKER_IRYS_METADATA_UPLOAD_URL = 'https://metadata.dragverse.app'
+export const WORKER_LOGTAIL_INGEST_URL = 'https://tail.dragverse.app'
+export const WORKER_STS_TOKEN_URL = 'https://sts.dragverse.app'
+export const WORKER_RECS_URL = 'https://recs.dragverse.app'
+export const WORKER_NFTS_URL = 'https://nfts.dragverse.app'
+export const WORKER_DID_URL = 'https://did.dragverse.app'
+export const WORKER_STREAM_URL = 'https://stream.dragverse.app'
+export const WORKER_TOWER_URL = 'https://tower.dragverse.app'
+export const WORKER_OEMBED_URL = 'https://oembed.dragverse.app'
 
 // irys
 export const IRYS_NODE_URL = IS_MAINNET
@@ -120,11 +120,11 @@ export const ALLOWED_APP_IDS = [
 ]
 
 // official
-export const TAPE_X_HANDLE = 'tapexyz'
-export const TAPE_GITHUB_HANDLE = 'tapexyz'
+export const TAPE_X_HANDLE = 'dragverse'
+export const TAPE_GITHUB_HANDLE = 'dragverse'
 export const TAPE_LOGO = `${STATIC_ASSETS}/brand/logo.svg`
-export const TAPE_STATUS_PAGE = 'https://status.tape.xyz'
-export const TAPE_FEEDBACK_URL = 'https://feedback.tape.xyz'
+export const TAPE_STATUS_PAGE = 'https://status.dragverse.app'
+export const TAPE_FEEDBACK_URL = 'https://feedback.dragverse.app'
 
 // admin
 export const ADMIN_IDS = IS_MAINNET ? ['0x2d'] : ['0x34']

@@ -1,26 +1,25 @@
 import Tooltip from '@components/UIElements/Tooltip'
-import usePendingTxn from '@hooks/usePendingTxn'
-import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
-import usePersistStore from '@lib/store/persist'
-import useProfileStore from '@lib/store/profile'
-import { useAverageColor } from '@tape.xyz/browser'
-import { STATIC_ASSETS } from '@tape.xyz/constants'
+import { useAverageColor } from '@dragverse/browser'
+import { STATIC_ASSETS } from '@dragverse/constants'
 import {
   getProfile,
   getProfilePicture,
   imageCdn,
   sanitizeDStorageUrl
-} from '@tape.xyz/generic'
+} from '@dragverse/generic'
 import {
   PublicationDocument,
   usePublicationQuery,
   useTxIdToTxHashQuery
-} from '@tape.xyz/lens'
-import { useApolloClient } from '@tape.xyz/lens/apollo'
-import type { QueuedVideoType } from '@tape.xyz/lens/custom-types'
+} from '@dragverse/lens'
+import { useApolloClient } from '@dragverse/lens/apollo'
+import type { QueuedVideoType } from '@dragverse/lens/custom-types'
+import usePendingTxn from '@hooks/usePendingTxn'
+import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
+import usePersistStore from '@lib/store/persist'
+import useProfileStore from '@lib/store/profile'
 import clsx from 'clsx'
 import type { FC } from 'react'
-import React from 'react'
 
 import Badge from '../Badge'
 

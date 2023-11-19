@@ -3,8 +3,8 @@ main = "src/index.ts"
 compatibility_date = "2023-01-25"
 
 routes = [
-  "tape.xyz/u/*",
-  "tape.xyz/watch/*",
-  "tape.xyz/listen/*",
-  "tape.xyz/bytes/*"
+  "dragverse.app/u/*",
+  "dragverse.app/watch/*",
+  "dragverse.app/listen/*",
+  "dragverse.app/bytes/*"
 ]

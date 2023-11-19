@@ -1,5 +1,5 @@
-import { FALLBACK_THUMBNAIL_URL } from '@tape.xyz/constants'
-import { logger } from '@tape.xyz/generic'
+import { FALLBACK_THUMBNAIL_URL } from '@dragverse/constants'
+import { logger } from '@dragverse/generic'
 
 const canvasImageFromVideo = (
   file: File,

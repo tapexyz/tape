@@ -5,12 +5,12 @@ import {
   getPublicationData,
   isListenable,
   Tower
-} from '@tape.xyz/generic'
-import type { AnyPublication } from '@tape.xyz/lens'
-import { usePublicationQuery } from '@tape.xyz/lens'
-import { Loader } from '@tape.xyz/ui'
+} from '@dragverse/generic'
+import type { AnyPublication } from '@dragverse/lens'
+import { usePublicationQuery } from '@dragverse/lens'
+import { Loader } from '@dragverse/ui'
 import { useRouter } from 'next/router'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
 

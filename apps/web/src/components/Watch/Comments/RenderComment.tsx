@@ -7,23 +7,23 @@ import HeartFilled from '@components/Common/Icons/HeartFilled'
 import ReplyOutline from '@components/Common/Icons/ReplyOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import Tooltip from '@components/UIElements/Tooltip'
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import { getShortHandTime } from '@lib/formatTime'
-import usePersistStore from '@lib/store/persist'
-import useProfileStore from '@lib/store/profile'
-import { Button, Flex, Text } from '@radix-ui/themes'
-import { SIGN_IN_REQUIRED } from '@tape.xyz/constants'
+import { SIGN_IN_REQUIRED } from '@dragverse/constants'
 import {
   getProfile,
   getProfilePicture,
   getPublicationData,
   getValueFromKeyInAttributes
-} from '@tape.xyz/generic'
-import type { Comment } from '@tape.xyz/lens'
+} from '@dragverse/generic'
+import type { Comment } from '@dragverse/lens'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
+import { getShortHandTime } from '@lib/formatTime'
+import usePersistStore from '@lib/store/persist'
+import useProfileStore from '@lib/store/profile'
+import { Button, Flex, Text } from '@radix-ui/themes'
 import clsx from 'clsx'
 import Link from 'next/link'
 import type { FC } from 'react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 
 import PublicationReaction from '../../Common/Publication/PublicationReaction'

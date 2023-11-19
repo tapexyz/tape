@@ -4,27 +4,26 @@ import {
   FALLBACK_THUMBNAIL_URL,
   LENS_CUSTOM_FILTERS,
   TAPE_APP_ID
-} from '@tape.xyz/constants'
+} from '@dragverse/constants'
 import {
   getProfile,
   getProfilePicture,
   getPublicationData,
   getThumbnailUrl,
   imageCdn
-} from '@tape.xyz/generic'
+} from '@dragverse/generic'
 import type {
   ExplorePublicationRequest,
   PrimaryPublication
-} from '@tape.xyz/lens'
+} from '@dragverse/lens'
 import {
   ExplorePublicationsOrderByType,
   ExplorePublicationType,
   LimitType,
   PublicationMetadataMainFocusType,
   useExplorePublicationsQuery
-} from '@tape.xyz/lens'
+} from '@dragverse/lens'
 import Link from 'next/link'
-import React from 'react'
 
 const request: ExplorePublicationRequest = {
   where: {

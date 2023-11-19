@@ -1,12 +1,12 @@
+import {
+    getPublicationMediaUrl,
+    getThumbnailUrl,
+    imageCdn
+} from '@dragverse/generic'
+import type { PrimaryPublication } from '@dragverse/lens'
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
 import Ionicons from '@expo/vector-icons/Ionicons'
 import { useNavigation } from '@react-navigation/native'
-import {
-  getPublicationMediaUrl,
-  getThumbnailUrl,
-  imageCdn
-} from '@tape.xyz/generic'
-import type { PrimaryPublication } from '@tape.xyz/lens'
-import type { MobileThemeConfig } from '@tape.xyz/lens/custom-types'
 import { ResizeMode, Video } from 'expo-av'
 import type { FC } from 'react'
 import React from 'react'

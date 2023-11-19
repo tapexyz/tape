@@ -1,22 +1,22 @@
-import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId'
-import { hydrateAuthTokens, signOut } from '@lib/store/auth'
-import useNonceStore from '@lib/store/nonce'
-import useProfileStore from '@lib/store/profile'
 import {
   getToastOptions,
   setFingerprint,
   useIsMounted
-} from '@tape.xyz/browser'
-import { AUTH_ROUTES, OWNER_ONLY_ROUTES } from '@tape.xyz/constants'
-import { getIsProfileOwner, trimify } from '@tape.xyz/generic'
-import type { Profile } from '@tape.xyz/lens'
-import { useCurrentProfileQuery } from '@tape.xyz/lens'
-import { type CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+} from '@dragverse/browser'
+import { AUTH_ROUTES, OWNER_ONLY_ROUTES } from '@dragverse/constants'
+import { getIsProfileOwner, trimify } from '@dragverse/generic'
+import type { Profile } from '@dragverse/lens'
+import { useCurrentProfileQuery } from '@dragverse/lens'
+import { type CustomErrorWithData } from '@dragverse/lens/custom-types'
+import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId'
+import { hydrateAuthTokens, signOut } from '@lib/store/auth'
+import useNonceStore from '@lib/store/nonce'
+import useProfileStore from '@lib/store/profile'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
 import type { FC, ReactNode } from 'react'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { toast, Toaster } from 'react-hot-toast'
 import { useAccount, useDisconnect } from 'wagmi'
 

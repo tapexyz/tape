@@ -1,19 +1,18 @@
 import CollectOutline from '@components/Common/Icons/CollectOutline'
 import ExternalOutline from '@components/Common/Icons/ExternalOutline'
 import TagOutline from '@components/Common/Icons/TagOutline'
-import { useDid } from '@hooks/useDid'
-import { Button } from '@radix-ui/themes'
 import {
   EVENTS,
   getRandomProfilePicture,
   sanitizeDStorageUrl,
   shortenAddress,
   Tower
-} from '@tape.xyz/generic'
-import type { ZoraNft } from '@tape.xyz/lens/custom-types'
-import VideoPlayer from '@tape.xyz/ui/VideoPlayer'
+} from '@dragverse/generic'
+import type { ZoraNft } from '@dragverse/lens/custom-types'
+import VideoPlayer from '@dragverse/ui/VideoPlayer'
+import { useDid } from '@hooks/useDid'
+import { Button } from '@radix-ui/themes'
 import Link from 'next/link'
-import React from 'react'
 import { formatEther } from 'viem'
 
 import Collect from './Collect'

@@ -1,10 +1,10 @@
 {
-  "name": "@tape.xyz/browser",
+  "name": "@dragverse/browser",
   "version": "0.0.0",
   "license": "AGPL-3.0",
   "main": "./index.ts",
   "scripts": {
-    "lint": "eslint . --ext .js,.ts,.tsx",
+    "lint": "eslint . --ext .js,.ts,.tsx --fix",
     "typecheck": "tsc --pretty"
   },
   "devDependencies": {

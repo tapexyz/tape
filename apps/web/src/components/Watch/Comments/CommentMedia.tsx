@@ -1,13 +1,13 @@
-import { Dialog } from '@radix-ui/themes'
 import {
   getPublication,
   getPublicationMediaUrl,
   imageCdn,
   sanitizeDStorageUrl
-} from '@tape.xyz/generic'
-import type { AnyPublication } from '@tape.xyz/lens'
+} from '@dragverse/generic'
+import type { AnyPublication } from '@dragverse/lens'
+import { Dialog } from '@radix-ui/themes'
 import type { FC } from 'react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import AudioComment from './AudioComment'
 import VideoComment from './VideoComment'

@@ -1,13 +1,13 @@
 import UploadOutline from '@components/Common/Icons/UploadOutline'
-import useAppStore from '@lib/store'
-import { Box, Button } from '@radix-ui/themes'
-import { useDragAndDrop } from '@tape.xyz/browser'
+import { useDragAndDrop } from '@dragverse/browser'
 import {
   ALLOWED_AUDIO_MIME_TYPES,
   ALLOWED_UPLOAD_MIME_TYPES,
   CREATOR_VIDEO_CATEGORIES
-} from '@tape.xyz/constants'
-import { canUploadedToIpfs, EVENTS, logger, Tower } from '@tape.xyz/generic'
+} from '@dragverse/constants'
+import { canUploadedToIpfs, EVENTS, logger, Tower } from '@dragverse/generic'
+import useAppStore from '@lib/store'
+import { Box, Button } from '@radix-ui/themes'
 import clsx from 'clsx'
 import fileReaderStream from 'filereader-stream'
 import React, { useEffect } from 'react'

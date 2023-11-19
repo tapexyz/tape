@@ -1,18 +1,18 @@
 import HeartFilled from '@components/Common/Icons/HeartFilled'
 import HeartOutline from '@components/Common/Icons/HeartOutline'
-import useProfileStore from '@lib/store/profile'
-import { Button } from '@radix-ui/themes'
-import { SIGN_IN_REQUIRED } from '@tape.xyz/constants'
-import { EVENTS, formatNumber, getPublication, Tower } from '@tape.xyz/generic'
-import type { AnyPublication } from '@tape.xyz/lens'
+import { SIGN_IN_REQUIRED } from '@dragverse/constants'
+import { EVENTS, formatNumber, getPublication, Tower } from '@dragverse/generic'
+import type { AnyPublication } from '@dragverse/lens'
 import {
   PublicationReactionType,
   useAddReactionMutation,
   useRemoveReactionMutation
-} from '@tape.xyz/lens'
+} from '@dragverse/lens'
+import useProfileStore from '@lib/store/profile'
+import { Button } from '@radix-ui/themes'
 import clsx from 'clsx'
 import type { FC } from 'react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import toast from 'react-hot-toast'
 
 type Props = {

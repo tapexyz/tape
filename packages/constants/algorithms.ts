@@ -1,4 +1,4 @@
-import { ALGO_PROVIDER, AlgoType } from '@tape.xyz/lens/custom-types'
+import { ALGO_PROVIDER, AlgoType } from '@dragverse/lens/custom-types'
 
 export const FEED_ALGORITHMS = [
   {

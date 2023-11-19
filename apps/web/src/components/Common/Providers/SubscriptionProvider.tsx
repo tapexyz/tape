@@ -1,16 +1,16 @@
+import { LENS_API_URL } from '@dragverse/constants'
+import type { Notification, UserSigNonces } from '@dragverse/lens'
+import {
+  AuthorizationRecordRevokedSubscriptionDocument,
+  NewNotificationSubscriptionDocument,
+  UserSigNoncesSubscriptionDocument
+} from '@dragverse/lens'
+import { useApolloClient } from '@dragverse/lens/apollo'
 import getCurrentSessionId from '@lib/getCurrentSessionId'
 import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId'
 import { signOut } from '@lib/store/auth'
 import useNonceStore from '@lib/store/nonce'
 import usePersistStore from '@lib/store/persist'
-import { LENS_API_URL } from '@tape.xyz/constants'
-import type { Notification, UserSigNonces } from '@tape.xyz/lens'
-import {
-  AuthorizationRecordRevokedSubscriptionDocument,
-  NewNotificationSubscriptionDocument,
-  UserSigNoncesSubscriptionDocument
-} from '@tape.xyz/lens'
-import { useApolloClient } from '@tape.xyz/lens/apollo'
 import { useEffect } from 'react'
 import useWebSocket from 'react-use-websocket'
 import { isAddress } from 'viem'
