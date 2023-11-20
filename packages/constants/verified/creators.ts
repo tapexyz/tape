@@ -55,6 +55,6 @@ export const CREATORS = IS_MAINNET
       '0x0189df', // jacklennon
       '0x01ec9c', // kueenruby
       '0x01ecc3', // larastmarie
-      '0x01ed5f', // cloudyalice
+      '0x01ed5f' // cloudyalice
     ]
   : []
