@@ -52,6 +52,8 @@ export const CREATORS = IS_MAINNET
       '0x01b98e', //locoblock
       '0x4bed', // vansh
       '0x01bbdb', // ckbubbles
+      '0x01b8a0', // dragqueen
+      '0x0161a0', // cryptomusica
       '0x0189df', // jacklennon
       '0x01ec9c', // kueenruby
       '0x01ecc3', // larastmarie
