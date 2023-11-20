@@ -5,7 +5,7 @@ import Link from 'next/link'
 const JoinWaitlist = () => {
   return (
     <div className="tape-border rounded-large ultrawide:h-[400px] relative flex h-[350px] w-[500px] flex-none overflow-hidden">
-      <div className="bg-brand-600 absolute inset-0 h-full w-full" />
+      <div className="bg-brand-850 absolute inset-0 h-full w-full" />
       <div className="from-brand-700 absolute inset-0 h-full w-full bg-gradient-to-b to-transparent" />
       <img
         src={`${STATIC_ASSETS}/brand/transparent-bg-large.svg`}
@@ -13,7 +13,7 @@ const JoinWaitlist = () => {
         alt="cover"
       />
       <div className="ultrawide:p-8 relative flex h-full flex-col justify-end space-y-4 p-4 text-left text-white md:p-6">
-        <div className="text-3xl font-bold">Don't have a Lens account?</div>
+        <div className="text-3xl font-bold">Don't have a Lens profile?</div>
         <p className="md:text-md max-w-2xl text-sm lg:text-lg">
           In order to interact with the Dragverse you need a Lens profile, make
           sure to join the waitlist!
