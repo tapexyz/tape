@@ -42,7 +42,7 @@ const PublicationActions: FC<Props> = ({ publication }) => {
               }}
             >
               <TipOutline className="h-4 w-4" />
-              Thanks
+              Tip
             </Button>
           </Dialog.Trigger>
 
