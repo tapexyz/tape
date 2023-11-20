@@ -16,10 +16,10 @@ module.exports = {
       },
       colors: {
         // card bg in dark
-        cod: '#0a0a0a',
+        cod: '#18122D',
         // hover states
-        smoke: '#1a1a1a',
-        gallery: '#eaeaea',
+        smoke: '#18122D',
+        gallery: '#21186E',
         brand: {
           50: '#FCF1FC',
           100: '#FCF1FC',

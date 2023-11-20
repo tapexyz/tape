@@ -46,6 +46,15 @@ export const CREATORS = IS_MAINNET
       '0x1c19', // gabriel
       '0x0160', // ethglobal
       '0x9797', // ethdubai
-      '0xc01c' // tape
+      '0xc01c', // tape
+      '0x25bb', // salti
+      '0x01b89c', //dragverse
+      '0x01b98e', //locoblock
+      '0x4bed', // vansh
+      '0x01bbdb', // ckbubbles
+      '0x0189df', // jacklennon
+      '0x01ec9c', // kueenruby
+      '0x01ecc3', // larastmarie
+      '0x01ed5f', // cloudyalice
     ]
   : []
