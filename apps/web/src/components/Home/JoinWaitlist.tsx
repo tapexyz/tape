@@ -1,4 +1,4 @@
-import { STATIC_ASSETS, TAPE_APP_NAME } from '@dragverse/constants'
+import { STATIC_ASSETS } from '@dragverse/constants'
 import { Button, Flex } from '@radix-ui/themes'
 import Link from 'next/link'
 
@@ -15,7 +15,8 @@ const JoinWaitlist = () => {
       <div className="ultrawide:p-8 relative flex h-full flex-col justify-end space-y-4 p-4 text-left text-white md:p-6">
         <div className="text-3xl font-bold">Don't have a Lens account?</div>
         <p className="md:text-md max-w-2xl text-sm lg:text-lg">
-          In order to interact with the Dragverse you need a Lens profile, make sure to join the waitlist!
+          In order to interact with the Dragverse you need a Lens profile, make
+          sure to join the waitlist!
         </p>
         <Flex gap="3">
           <Link href="https://waitlist.lens.xyz/">
