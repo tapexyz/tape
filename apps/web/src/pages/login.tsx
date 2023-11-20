@@ -48,7 +48,9 @@ const Login = () => {
       <div className="relative grid h-full w-full place-items-center md:w-1/2">
         <div className="container mx-auto max-w-sm space-y-3 text-center">
           <h2 className="text-2xl font-bold">Welcome back again, Darling!✨</h2>
-          <p>It's time to enter the drag realm and enjoy some good Drag content.</p>
+          <p>
+            It's time to enter the drag realm and enjoy some good Drag content.
+          </p>
           <Connectors />
         </div>
       </div>

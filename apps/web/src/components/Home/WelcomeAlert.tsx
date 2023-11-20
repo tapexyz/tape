@@ -15,7 +15,9 @@ const WelcomeAlert = () => {
       <div className="ultrawide:p-8 relative flex h-full flex-col justify-end space-y-4 p-4 text-left text-white md:p-6">
         <div className="text-3xl font-bold">Welcome to {TAPE_APP_NAME}</div>
         <p className="md:text-md max-w-2xl text-sm lg:text-lg">
-          You are about to enter the most fabulous corner of the internet!✨ Connect your wallet, and confirm you own your Lens account.  {TAPE_APP_NAME}!
+          You are about to enter the most fabulous corner of the internet!✨
+          Connect your wallet, and confirm you own your Lens account.{' '}
+          {TAPE_APP_NAME}!
         </p>
         <Flex gap="3">
           <Link href="/login">

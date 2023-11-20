@@ -17,7 +17,9 @@ const Custom500 = () => {
             alt={TAPE_APP_NAME}
           />
         </div>
-        <h1 className="text-3xl font-bold">Oh no, something is not right bish!</h1>
+        <h1 className="text-3xl font-bold">
+          Oh no, something is not right bish!
+        </h1>
         <div className="mb-6 max-w-lg">
           We track these errors automatically, but if the problem persists feel
           free to contact us. In the meantime, try refreshing.
