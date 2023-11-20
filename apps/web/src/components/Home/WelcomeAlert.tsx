@@ -16,8 +16,8 @@ const WelcomeAlert = () => {
         <div className="text-3xl font-bold">Welcome to {TAPE_APP_NAME}</div>
         <p className="md:text-md max-w-2xl text-sm lg:text-lg">
           You are about to enter the most fabulous corner of the internet!✨
-          Connect your wallet, and confirm you own your Lens account to curate Drag content from the network at the {' '}
-          {TAPE_APP_NAME}!
+          Connect your wallet, and confirm you own your Lens account to curate
+          Drag content from the network at the {TAPE_APP_NAME}!
         </p>
         <Flex gap="3">
           <Link href="/login">
