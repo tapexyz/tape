@@ -3,6 +3,7 @@ import useProfileStore from '@lib/store/profile'
 import React, { useRef } from 'react'
 
 import GitcoinAlert from './GitcoinAlert'
+import JoinWaitlist from './JoinWaitlist'
 import LatestBytes from './LatestBytes'
 import LensManagerAlert from './LensManagerAlert'
 import WelcomeAlert from './WelcomeAlert'
