@@ -18,7 +18,7 @@ const AudioPlayer: FC<Props> = (props) => {
       const ws = WaveSurfer.create({
         container: waveformRef.current,
         waveColor: props.waveColor ?? 'white',
-        progressColor: props.progressColor ?? '#39c4ff',
+        progressColor: props.progressColor ?? '#E748E6',
         cursorColor: 'transparent',
         barWidth: 2,
         barRadius: 3,
