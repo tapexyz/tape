@@ -3,15 +3,15 @@ import localFont from 'next/font/local'
 export const tapeFont = localFont({
   src: [
     {
-      path: './font/Satoshi-Regular.woff2',
+      path: './font/Syne-Regular.ttf',
       weight: '400'
     },
     {
-      path: './font/Satoshi-Medium.woff2',
+      path: './font/Syne-Medium.ttf',
       weight: '500'
     },
     {
-      path: './font/Satoshi-Bold.woff2',
+      path: './font/Syne-Bold.ttf',
       weight: '700'
     }
   ],
