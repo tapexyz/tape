@@ -15,7 +15,7 @@ const TopSection = () => {
     <div className="flex flex-col">
       <HorizantalScroller
         sectionRef={sectionRef}
-        heading="Hottest Tea"
+        heading="Hottest Tea🔥"
         subheading="New & Trending From Around The Network"
       />
       <div

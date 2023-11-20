@@ -18,13 +18,11 @@ const GitcoinAlert = () => {
 
       <div className="ultrawide:p-8 relative flex h-full flex-col justify-end space-y-4 p-4 text-left md:p-6">
         <div className="text-3xl">
-          GG{GITCOIN_LIVE_ROUND} is ABOUT TO GET SICKNNING'⚡
+          GG{GITCOIN_LIVE_ROUND} is ABOUT TO GET SICKNENING'⚡
         </div>
         <p className="md:text-md max-w-2xl text-sm lg:text-lg">
           Support {TAPE_APP_NAME} on{' '}
-          <span className="font-medium">Gitcoin Grants</span> Round and help us
-          fund or next metaverse show and building roadmap.
-          {GITCOIN_LIVE_ROUND}
+          <span className="font-medium">Gitcoin Grants</span> {GITCOIN_LIVE_ROUND} Round and help us fund or next metaverse show and building roadmap.
         </p>
         <Flex>
           <Link href="/gitcoin" target="_blank">
