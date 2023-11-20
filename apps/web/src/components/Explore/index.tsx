@@ -13,7 +13,7 @@ const Explore = () => {
   return (
     <div className="max-w-screen-ultrawide container mx-auto">
       <MetaTags title="Explore✨" />
-      <CategoryFilters subheading="Everything From Around The Network" />
+      <CategoryFilters subheading="Beyond Drag" />
       <ExploreFeed />
     </div>
   )

@@ -22,7 +22,9 @@ const GitcoinAlert = () => {
         </div>
         <p className="md:text-md max-w-2xl text-sm lg:text-lg">
           Support {TAPE_APP_NAME} on{' '}
-          <span className="font-medium">Gitcoin Grants</span> {GITCOIN_LIVE_ROUND} Round and help us fund or next metaverse show and building roadmap.
+          <span className="font-medium">Gitcoin Grants</span>{' '}
+          {GITCOIN_LIVE_ROUND} Round and help us fund or next metaverse show and
+          building roadmap.
         </p>
         <Flex>
           <Link href="/gitcoin" target="_blank">
