@@ -55,7 +55,7 @@ const CommentMedia: FC<Props> = ({ comment }) => {
                 }}
               >
                 <img
-                  className="h-20 w-20 rounded-xl bg-white object-cover dark:bg-brand-850"
+                  className="dark:bg-brand-850 h-20 w-20 rounded-xl bg-white object-cover"
                   src={imageCdn(sanitizeDStorageUrl(uri), 'AVATAR_LG')}
                   alt={'attachment'}
                   draggable={false}

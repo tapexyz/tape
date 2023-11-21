@@ -28,7 +28,7 @@ const Navbar = () => {
   } = usePersistStore()
 
   return (
-    <div className="ultrawide:px-8 laptop:px-6 sticky top-0 z-10 flex h-14 w-full items-center bg-white/80 px-4 backdrop-blur-2xl dark:bg-brand-850/80">
+    <div className="ultrawide:px-8 laptop:px-6 dark:bg-brand-850/80 sticky top-0 z-10 flex h-14 w-full items-center bg-white/80 px-4 backdrop-blur-2xl">
       <div className="flex w-full items-center justify-between">
         <div className="flex items-center space-x-2 md:w-1/5">
           <Link href="/" className="inline-flex">
@@ -63,7 +63,7 @@ const Navbar = () => {
                 <span className="sr-only">Tape Menu</span>
               </IconButton>
             </DropdownMenu.Trigger>
-            <DropdownMenu.Content className="w-72 bg-white dark:bg-brand-850">
+            <DropdownMenu.Content className="dark:bg-brand-850 w-72 bg-white">
               <TapeMenu />
             </DropdownMenu.Content>
           </DropdownMenu.Root>

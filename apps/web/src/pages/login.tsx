@@ -19,7 +19,7 @@ const Login = () => {
       <Link
         href="/"
         id="tape-cursor"
-        className="hidden w-1/2 bg-brand-850 dark:bg-white md:block"
+        className="bg-brand-850 hidden w-1/2 dark:bg-white md:block"
       >
         <div className="dark:text-bunker flex h-full flex-col items-center justify-center text-white dark:text-black">
           <div className="flex justify-center">

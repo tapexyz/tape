@@ -106,7 +106,7 @@ const InputMentions: FC<Props> = ({
                 handle={suggestion.id as string}
                 followers={suggestion.followers as number}
                 className={clsx({
-                  'bg-brand-50 rounded dark:bg-brand-850': focused
+                  'bg-brand-50 dark:bg-brand-850 rounded': focused
                 })}
               />
             )}

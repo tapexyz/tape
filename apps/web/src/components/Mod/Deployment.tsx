@@ -9,21 +9,21 @@ import Link from 'next/link'
 const Deployment = () => {
   return (
     <div className="mb-4 flex items-center space-x-2">
-      <span className="rounded-lg bg-gray-200 bg-opacity-70 p-1 px-3 text-xs backdrop-blur-xl dark:bg-brand-850">
+      <span className="dark:bg-brand-850 rounded-lg bg-gray-200 bg-opacity-70 p-1 px-3 text-xs backdrop-blur-xl">
         {IS_MAINNET ? 'mainnet' : 'testnet'}
       </span>
       {GIT_DEPLOYED_BRANCH && (
-        <span className="rounded-lg bg-gray-200 bg-opacity-70 p-1 px-3 text-xs backdrop-blur-xl dark:bg-brand-850">
+        <span className="dark:bg-brand-850 rounded-lg bg-gray-200 bg-opacity-70 p-1 px-3 text-xs backdrop-blur-xl">
           {GIT_DEPLOYED_BRANCH}
         </span>
       )}
       {VERCEL_DEPLOYED_ENV && (
-        <span className="rounded-lg bg-gray-200 bg-opacity-70 p-1 px-3 text-xs backdrop-blur-xl dark:bg-brand-850">
+        <span className="dark:bg-brand-850 rounded-lg bg-gray-200 bg-opacity-70 p-1 px-3 text-xs backdrop-blur-xl">
           {VERCEL_DEPLOYED_ENV}
         </span>
       )}
       {GIT_DEPLOYED_COMMIT_SHA && (
-        <span className="rounded-lg bg-gray-200 bg-opacity-70 p-1 px-3 text-xs backdrop-blur-xl dark:bg-brand-850">
+        <span className="dark:bg-brand-850 rounded-lg bg-gray-200 bg-opacity-70 p-1 px-3 text-xs backdrop-blur-xl">
           <Link
             href={`https://github.com/dragverse/marsha-v2/commit/${GIT_DEPLOYED_COMMIT_SHA}`}
             target="_blank"

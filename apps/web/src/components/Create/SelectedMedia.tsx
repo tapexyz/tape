@@ -71,7 +71,7 @@ const SelectedMedia = () => {
               <label
                 htmlFor="choosePoster"
                 className={clsx(
-                  'rounded-small invisible absolute top-0 grid h-full w-full cursor-pointer place-items-center overflow-hidden bg-gray-100 bg-opacity-70 backdrop-blur-lg group-hover:visible dark:bg-brand-850',
+                  'rounded-small dark:bg-brand-850 invisible absolute top-0 grid h-full w-full cursor-pointer place-items-center overflow-hidden bg-gray-100 bg-opacity-70 backdrop-blur-lg group-hover:visible',
                   {
                     '!visible':
                       uploadedMedia.uploadingThumbnail ||
