@@ -17,5 +17,5 @@ div[type='button'] {
 .rt-SelectContent,
 .rt-HoverCardContent,
 .rt-BaseMenuContent {
-  @apply dark:!bg-black;
+  @apply dark:!bg-brand-850;
 }
