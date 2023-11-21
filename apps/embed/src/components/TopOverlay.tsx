@@ -114,7 +114,7 @@ const TopOverlay: FC<OverlayProps> = ({ playerRef, video }) => {
             className="ml-0.5 h-6 w-6 md:h-10 md:w-10"
             alt={TAPE_APP_NAME}
           />
-          <b>Watch on Tape</b>
+          <b>Watch on Dragverse</b>
         </Link>
       </div>
     </div>
