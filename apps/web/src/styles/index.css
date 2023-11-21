@@ -7,7 +7,7 @@ body {
 }
 
 .tape-border {
-  @apply border border-[#18122D] dark:border-[#ffffff20];
+  @apply border border-[#18122D] dark:border-[#18122D];
 }
 
 .text-dust {

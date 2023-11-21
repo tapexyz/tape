@@ -170,7 +170,7 @@ const Authenticate = () => {
 
   return (
     <div className="text-left">
-      {as && <p className="pb-1">Login as</p>}
+      {as && <p className="pb-1">👛Login as</p>}
       {profile ? (
         <Flex direction="column" gap="2">
           <Select.Root
@@ -203,7 +203,7 @@ const Authenticate = () => {
             disabled={loading || !selectedProfileId}
           >
             <KeyOutline className="h-4 w-4" />
-            Sign message
+            ⚡Sign message
           </Button>
         </Flex>
       ) : (

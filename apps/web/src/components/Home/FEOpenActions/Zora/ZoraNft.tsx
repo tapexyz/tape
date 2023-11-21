@@ -81,7 +81,7 @@ const ZoraNft: FC<Props> = ({ nftMetadata }) => {
             onClick={() => Tower.track(EVENTS.OPEN_ACTIONS.OPEN_IN_ZORA)}
             href={zoraLink}
             target="_blank"
-            className="flex items-center space-x-1 font-medium hover:text-golden-500"
+            className="hover:text-golden-500 flex items-center space-x-1 font-medium"
           >
             <img
               src={`${STATIC_ASSETS}/images/zora.png`}
