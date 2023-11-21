@@ -1,6 +1,7 @@
 import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import ThreeDotsOutline from '@components/Common/Icons/ThreeDotsOutline'
 import TipOutline from '@components/Common/Icons/TipOutline'
+import CollectOutline from '@components/Common/Icons/CollectOutline'
 import MirrorPublication from '@components/Common/MirrorPublication'
 import PublicationOptions from '@components/Common/Publication/PublicationOptions'
 import { EVENTS, getProfile, Tower } from '@dragverse/generic'
@@ -64,7 +65,12 @@ const PublicationActions: FC<Props> = ({ publication }) => {
           Mirror
         </Button>
       </MirrorPublication>
-      <OpenActions publication={publication} text="Collect Video" />
+      <OpenActions publication={publication}>
+      <Button variant="surface" color="purple" highContrast>
+          <CollectOutline className="h-4 w-4 flex-none" />
+          Collect
+        </Button>
+        </OpenActions> 
       <PublicationOptions publication={publication}>
         <IconButton variant="surface" color="purple" highContrast>
           <ThreeDotsOutline className="h-4 w-4" />
