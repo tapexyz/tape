@@ -16,7 +16,7 @@
   "dependencies": {
     "@gorhom/bottom-sheet": "^4.4.7",
     "@hookform/resolvers": "^3.3.2",
-    "@livepeer/react-native": "^2.0.5",
+    "@livepeer/react-native": "^2.0.6",
     "@react-native-async-storage/async-storage": "1.19.3",
     "@react-native-community/netinfo": "9.3.10",
     "@react-navigation/bottom-tabs": "^6.5.7",
@@ -62,7 +62,7 @@
     "react-native-view-shot": "3.7.0",
     "swr": "^2.2.4",
     "uuid": "^3.4.0",
-    "viem": "^1.19.4",
+    "viem": "^1.19.5",
     "zod": "^3.22.2",
     "zustand": "^4.4.6"
   },
@@ -78,12 +78,12 @@
     "@tape.xyz/config": "*",
     "@tape.xyz/generic": "*",
     "@tape.xyz/lens": "*",
-    "@types/node": "20.9.2",
+    "@types/node": "20.9.3",
     "@types/qrcode": "^1.5.5",
     "@welldone-software/why-did-you-render": "^7.0.1",
     "babel-plugin-module-resolver": "^5.0.0",
     "react-devtools": "^4.28.5",
     "ts-node": "^10.9.1",
-    "typescript": "^5.2.2"
+    "typescript": "^5.3.2"
   }
 }

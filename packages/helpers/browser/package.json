@@ -8,10 +8,10 @@
     "typecheck": "tsc --pretty"
   },
   "devDependencies": {
-    "typescript": "5.2.2"
+    "typescript": "5.3.2"
   },
   "dependencies": {
-    "fast-average-color": "^9.4.0",
-    "@rajesh896/broprint.js": "^2.1.1"
+    "@rajesh896/broprint.js": "^2.1.1",
+    "fast-average-color": "^9.4.0"
   }
 }
