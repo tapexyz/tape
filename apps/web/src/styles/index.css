@@ -11,7 +11,7 @@ body {
 }
 
 .text-dust {
-  @apply text-[#666666] dark:text-[#888888];
+  @apply text-[#666666] dark:text-[#F0B5F0];
 }
 
 .no-scrollbar::-webkit-scrollbar {
