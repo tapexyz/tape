@@ -13,8 +13,8 @@ export const getLivepeerClient = () => {
 export const videoPlayerTheme: ThemeConfig = {
   colors: {
     accent: '#fff',
-    progressLeft: '#39C4FF',
-    loading: '#39C4FF'
+    progressLeft: '#E748E6',
+    loading: '#E748E6'
   },
   fontSizes: {
     timeFontSize: '12px'
