@@ -80,16 +80,16 @@ export const WC_PROJECT_ID = 'bf790b6b57570b99567abd1677b7415d'
 export const LIVEPEER_STUDIO_API_KEY = '7b13484c-aa01-4b3b-bf17-b6548dd5b6b1'
 
 // workers
-export const WORKER_LIVEPEER_VIEWS_URL = 'https://views.dragverse.app'
-export const WORKER_IRYS_METADATA_UPLOAD_URL = 'https://metadata.dragverse.app'
-export const WORKER_LOGTAIL_INGEST_URL = 'https://tail.dragverse.app'
-export const WORKER_STS_TOKEN_URL = 'https://sts.dragverse.app'
-export const WORKER_RECS_URL = 'https://recs.dragverse.app'
-export const WORKER_NFTS_URL = 'https://nfts.dragverse.app'
-export const WORKER_DID_URL = 'https://did.dragverse.app'
-export const WORKER_STREAM_URL = 'https://stream.dragverse.app'
-export const WORKER_TOWER_URL = 'https://tower.dragverse.app'
-export const WORKER_OEMBED_URL = 'https://oembed.dragverse.app'
+export const WORKER_LIVEPEER_VIEWS_URL = 'https://views.tape.xyz'
+export const WORKER_IRYS_METADATA_UPLOAD_URL = 'https://metadata.tape.xyz'
+export const WORKER_LOGTAIL_INGEST_URL = 'https://tail.tape.xyz'
+export const WORKER_STS_TOKEN_URL = 'https://sts.tape.xyz'
+export const WORKER_RECS_URL = 'https://recs.tape.xyz'
+export const WORKER_NFTS_URL = 'https://nfts.tape.xyz'
+export const WORKER_DID_URL = 'https://did.tape.xyz'
+export const WORKER_STREAM_URL = 'https://stream.tape.xyz'
+export const WORKER_TOWER_URL = 'https://tower.tape.xyz'
+export const WORKER_OEMBED_URL = 'https://oembed.tape.xyz'
 
 // irys
 export const IRYS_NODE_URL = IS_MAINNET

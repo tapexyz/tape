@@ -6,8 +6,8 @@ import {
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
   SIGN_IN_REQUIRED,
-  STATIC_ASSETS,
   TAPE_APP_ID,
+  TAPE_LOGO,
   TAPE_WEBSITE_URL
 } from '@dragverse/constants'
 import {
@@ -386,10 +386,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
       <div className="flex flex-nowrap items-center justify-center space-x-2 p-10">
         <span className="flex items-center space-x-4">
           <img
-            src={imageCdn(
-              `${STATIC_ASSETS}/images/raise-hand.png`,
-              'AVATAR_LG'
-            )}
+            src={imageCdn(`${TAPE_LOGO}`, 'AVATAR_LG')}
             alt="Raising Hand"
             className="h-10"
             loading="eager"
