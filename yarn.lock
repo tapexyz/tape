@@ -18256,24 +18256,10 @@ vary@~1.1.2:
   resolved "https://registry.npmjs.org/vary/-/vary-1.1.2.tgz"
   integrity sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==
 
-viem@^1.0.0:
-  version "1.18.4"
-  resolved "https://registry.yarnpkg.com/viem/-/viem-1.18.4.tgz#2bb17c6e7c4082f06cd8a6ed8a34eedf6e4a3bc9"
-  integrity sha512-im+y30k+IGT6VtfD/q1V0RX5PaiHPsFTHkKqvTjTqV+ZT8RgJXzOGPXr5E0uPIm2cbJAJp6A9nR9BCHY7BKR2Q==
-  dependencies:
-    "@adraffy/ens-normalize" "1.9.4"
-    "@noble/curves" "1.2.0"
-    "@noble/hashes" "1.3.2"
-    "@scure/bip32" "1.3.2"
-    "@scure/bip39" "1.2.1"
-    abitype "0.9.8"
-    isows "1.0.3"
-    ws "8.13.0"
-
-viem@^1.19.4:
-  version "1.19.4"
-  resolved "https://registry.yarnpkg.com/viem/-/viem-1.19.4.tgz#0a345e36a6f5526dd6d7cf9b280b06de915ba46b"
-  integrity sha512-CvAVaOzxlu3Q/cpfrYvTRMBIPDMAkLu8aFmHLqU1Bg25DyUxp9xwoF1Ljp38q7/Rosm1OPFQ4y6K64v/VwoumQ==
+viem@^1.0.0, viem@^1.19.4, viem@>=0.3.35:
+  version "1.19.5"
+  resolved "https://registry.npmjs.org/viem/-/viem-1.19.5.tgz"
+  integrity sha512-lcWP9ErivUKVRpnDgI6mly27iWibJN1jZW2yUGuwU2CjfVHs7DJCyA5ityL+n/B+Oss4bllzQkWtJiBAHqaX2g==
   dependencies:
     "@adraffy/ens-normalize" "1.10.0"
     "@noble/curves" "1.2.0"
@@ -18328,7 +18314,7 @@ watchpack@^2.4.0, watchpack@2.4.0:
 
 wavesurfer.js@^7.4.6:
   version "7.4.6"
-  resolved "https://registry.yarnpkg.com/wavesurfer.js/-/wavesurfer.js-7.4.6.tgz#5fd381c773d2e184b2def732fabe41aa3ce767e5"
+  resolved "https://registry.npmjs.org/wavesurfer.js/-/wavesurfer.js-7.4.6.tgz"
   integrity sha512-uQDw132ucreP6rqJKou9vWe59QPZQ4PGftQml58JbwMzna4pJjUxXDZv+ubV7LJBkX1kaO/9BEmBRpmR64O3rQ==
 
 wbuf@^1.1.0, wbuf@^1.7.3:
