@@ -22,7 +22,7 @@ export const colors = {
   grey: '#333333',
   blueGrey: '#F0B5F0',
   golden: '#FFEC16',
-  garden: '#404B42'
+  garden: '#9A7CFF'
 }
 
 const darkTheme: MobileThemeConfig = {
