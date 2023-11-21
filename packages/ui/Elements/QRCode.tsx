@@ -48,7 +48,7 @@ const QRCode: FC<Props> = ({ ecl = 'M', size = 200, value }) => {
         dots.push(
           <rect
             key={`${i}_${x}_${y}`}
-            fill={i % 2 !== 0 ? '#fff' : '#12131A'}
+            fill={i % 2 !== 0 ? '#fff' : '#18122D'}
             height={cellSize * (7 - i * 2)}
             width={cellSize * (7 - i * 2)}
             rx={9}
