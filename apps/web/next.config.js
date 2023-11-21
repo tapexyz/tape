@@ -38,6 +38,11 @@ const moduleExports = {
         permanent: true
       },
       {
+        source: '/channel/:namespace/:handle',
+        destination: '/u/:namespace/:handle',
+        permanent: true
+      },
+      {
         source: '/discord',
         destination: 'https://discord.gg/TbjTTgTh',
         permanent: true
