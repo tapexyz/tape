@@ -235,7 +235,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
           Reset
         </Button>
         <Button
-          highContrast
+          color="gray"
           disabled={
             uploadedMedia.loading ||
             uploadedMedia.uploadingThumbnail ||
