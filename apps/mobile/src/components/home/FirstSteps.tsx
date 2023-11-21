@@ -54,7 +54,7 @@ const styles = (themeConfig: MobileThemeConfig) =>
       opacity: 0.7,
       letterSpacing: 2,
       fontSize: normalizeFont(8),
-      color: colors.black,
+      color: colors.brand-850,
       textTransform: 'uppercase'
     },
     cardDescription: {

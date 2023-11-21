@@ -19,7 +19,7 @@ module.exports = {
         cod: '#18122D',
         // hover states
         smoke: '#18122D',
-        gallery: '#21186E',
+        gallery: '#18122D',
         brand: {
           50: '#FCF1FC',
           100: '#FCF1FC',
