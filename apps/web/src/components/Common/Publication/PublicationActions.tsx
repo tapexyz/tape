@@ -64,9 +64,9 @@ const PublicationActions: FC<Props> = ({ publication }) => {
           Mirror
         </Button>
       </MirrorPublication>
-      <OpenActions publication={publication} text="Collect" />
+      <OpenActions publication={publication} text="Collect Video" />
       <PublicationOptions publication={publication}>
-        <IconButton variant="surface" color="green" highContrast>
+        <IconButton variant="surface" color="purple" highContrast>
           <ThreeDotsOutline className="h-4 w-4" />
         </IconButton>
       </PublicationOptions>
