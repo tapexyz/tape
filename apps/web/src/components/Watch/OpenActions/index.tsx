@@ -99,7 +99,7 @@ const OpenActions: FC<Props> = ({
             </Flex>
           </Dialog.Title>
           <DialogClose>
-            <IconButton variant="ghost" color="brand-100">
+            <IconButton variant="ghost" color="pink">
               <TimesOutline outlined={false} className="h-3 w-3" />
             </IconButton>
           </DialogClose>
