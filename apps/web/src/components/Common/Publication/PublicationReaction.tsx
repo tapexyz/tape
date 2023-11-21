@@ -23,7 +23,7 @@ type Props = {
   label?: string
   className?: string
   variant?: 'ghost' | 'surface' | 'soft'
-  color?: 'blue' | 'crimson'
+  color?: 'purple' | 'crimson'
 }
 
 const PublicationReaction: FC<Props> = ({
