@@ -23,7 +23,7 @@ const PermissionQuestion: FC<Props> = ({ setCollectType }) => {
           color={
             !uploadedMedia.collectModule.followerOnlyCollect &&
             !uploadedMedia.collectModule.isRevertCollect
-              ? 'blue'
+              ? 'purple'
               : 'gray'
           }
           variant="surface"
@@ -43,7 +43,7 @@ const PermissionQuestion: FC<Props> = ({ setCollectType }) => {
           color={
             uploadedMedia.collectModule.followerOnlyCollect &&
             !uploadedMedia.collectModule.isRevertCollect
-              ? 'blue'
+              ? 'purple'
               : 'gray'
           }
           variant="surface"

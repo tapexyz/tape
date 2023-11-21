@@ -20,7 +20,7 @@ export const colors = {
   green: 'green',
   orange: 'orange',
   grey: '#3e3b53',
-  blueGrey: '#F0B5F0',
+  purpleGrey: '#F0B5F0',
   golden: '#FFEC16',
   garden: '#9A7CFF'
 }

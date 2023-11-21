@@ -26,7 +26,7 @@ const CollectDuration: FC<Props> = ({ setCollectType }) => {
           type="button"
           highContrast
           color={
-            !uploadedMedia.collectModule.timeLimitEnabled ? 'blue' : 'gray'
+            !uploadedMedia.collectModule.timeLimitEnabled ? 'purple' : 'gray'
           }
           variant="surface"
           className="flex-1"
@@ -50,7 +50,7 @@ const CollectDuration: FC<Props> = ({ setCollectType }) => {
             setShowDayPicker(true)
           }}
           highContrast
-          color={uploadedMedia.collectModule.timeLimitEnabled ? 'blue' : 'gray'}
+          color={uploadedMedia.collectModule.timeLimitEnabled ? 'purple' : 'gray'}
           variant="surface"
           className="flex-1"
         >

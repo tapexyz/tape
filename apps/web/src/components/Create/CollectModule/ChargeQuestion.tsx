@@ -20,7 +20,7 @@ const ChargeQuestion: FC<Props> = ({ setCollectType }) => {
           className="flex-1"
           type="button"
           highContrast
-          color={!uploadedMedia.collectModule.isFeeCollect ? 'blue' : 'gray'}
+          color={!uploadedMedia.collectModule.isFeeCollect ? 'purple' : 'gray'}
           variant="surface"
           onClick={() =>
             setCollectType({
@@ -36,7 +36,7 @@ const ChargeQuestion: FC<Props> = ({ setCollectType }) => {
           className="flex-1"
           type="button"
           highContrast
-          color={uploadedMedia.collectModule.isFeeCollect ? 'blue' : 'gray'}
+          color={uploadedMedia.collectModule.isFeeCollect ? 'purple' : 'gray'}
           variant="surface"
           onClick={() =>
             setCollectType({

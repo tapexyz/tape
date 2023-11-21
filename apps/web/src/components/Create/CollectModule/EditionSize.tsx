@@ -33,7 +33,7 @@ const EditionSize: FC<Props> = ({ setCollectType }) => {
           }}
           highContrast
           color={
-            !uploadedMedia.collectModule.collectLimitEnabled ? 'blue' : 'gray'
+            !uploadedMedia.collectModule.collectLimitEnabled ? 'purple' : 'gray'
           }
           variant="surface"
           className="flex-1"
@@ -51,7 +51,7 @@ const EditionSize: FC<Props> = ({ setCollectType }) => {
           }}
           highContrast
           color={
-            uploadedMedia.collectModule.collectLimitEnabled ? 'blue' : 'gray'
+            uploadedMedia.collectModule.collectLimitEnabled ? 'purple' : 'gray'
           }
           variant="surface"
           className="flex-1"
