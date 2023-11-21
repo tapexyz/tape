@@ -52,7 +52,7 @@ const OpenActions: FC<Props> = ({
             value="item-1"
             className="rounded-small group border dark:border-gray-700"
           >
-            <AccordionTrigger className="bg-brand-50/50 dark:bg-brand-950/30 rounded-small w-full px-4 py-3 text-left">
+            <AccordionTrigger className="bg-purple/50 dark:bg-purple/30 rounded-small w-full px-4 py-3 text-left">
               <Flex justify="between" align="center">
                 <span className="text-brand-500">Collect publication</span>
                 <span className="group-data-[state=open]:hidden">
@@ -99,7 +99,7 @@ const OpenActions: FC<Props> = ({
             </Flex>
           </Dialog.Title>
           <DialogClose>
-            <IconButton variant="ghost" color="pink">
+            <IconButton variant="ghost" color="purple">
               <TimesOutline outlined={false} className="h-3 w-3" />
             </IconButton>
           </DialogClose>
