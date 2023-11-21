@@ -21,7 +21,7 @@ export const colors = {
   orange: 'orange',
   grey: '#333333',
   blueGrey: '#F0B5F0',
-  indigo: '#39C4FF',
+  golden: '#FFEC16',
   garden: '#404B42'
 }
 

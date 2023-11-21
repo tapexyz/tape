@@ -30,7 +30,7 @@ const rules: RenderRules = {
       <Text
         key={key}
         style={{
-          textDecorationColor: colors.indigo,
+          textDecorationColor: colors.golden,
           textDecorationStyle: 'dotted'
         }}
         suppressHighlighting
