@@ -84,7 +84,7 @@ const Overlay: FC<Props> = ({ byte: { stats, by, metadata, id } }) => {
           <LinearGradient
             locations={[0, 0, 0.8, 1]}
             style={StyleSheet.absoluteFill}
-            colors={['transparent', 'transparent', 'transparent', '#00000090']}
+            colors={['transparent', 'transparent', 'transparent', '#815BFF']}
           >
             <View style={styles.info}>
               <Pressable onPress={() => setShowMoreContent(!showMoreContent)}>

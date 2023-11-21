@@ -27,14 +27,14 @@ const PublicationActions: FC<Props> = ({ publication }) => {
         textSize="inherit"
         iconSize="base"
         variant="surface"
-        color="blue"
+        color="purple"
       />
       {publication.operations.canComment !== TriStateValue.No && (
         <Dialog.Root open={showTip}>
           <Dialog.Trigger>
             <Button
               variant="surface"
-              color="blue"
+              color="purple"
               highContrast
               onClick={() => {
                 setShowTip(true)
@@ -59,14 +59,14 @@ const PublicationActions: FC<Props> = ({ publication }) => {
         </Dialog.Root>
       )}
       <MirrorPublication video={publication}>
-        <Button variant="surface" color="blue" highContrast>
+        <Button variant="surface" color="purple" highContrast>
           <MirrorOutline className="h-4 w-4 flex-none" />
           Mirror
         </Button>
       </MirrorPublication>
       <OpenActions publication={publication} text="Collect" />
       <PublicationOptions publication={publication}>
-        <IconButton variant="surface" color="blue" highContrast>
+        <IconButton variant="surface" color="purple" highContrast>
           <ThreeDotsOutline className="h-4 w-4" />
         </IconButton>
       </PublicationOptions>
