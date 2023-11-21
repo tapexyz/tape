@@ -3548,12 +3548,12 @@
   dependencies:
     "@lit-labs/ssr-dom-shim" "^1.0.0"
 
-"@livepeer/core-react@^2.0.5":
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/@livepeer/core-react/-/core-react-2.0.5.tgz#335fbee269079ab088e0f1517782830e82633b22"
-  integrity sha512-Vyujp+7yFVn3Gvx/LlP6nN7zk4VFO6NXZDHbkW+JM/JO7Hz04dNNQYzNkDPqQh7RU85sEWJvM4/02rxQH+qc5A==
+"@livepeer/core-react@^2.0.6":
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/@livepeer/core-react/-/core-react-2.0.6.tgz#1a2ca2a2bcca035631a0c5c0746dee0841572536"
+  integrity sha512-XESB4Vtgrax0Gd6LUj7pB3XVS2pqbz+1d7Ege71ZzthyJ8W82Pr2R6xRPAZMLKCdOo2dvdTuG49n3OdjKupgEg==
   dependencies:
-    "@livepeer/core" "^2.0.5"
+    "@livepeer/core" "^2.0.6"
     "@tanstack/query-async-storage-persister" "4.29.23"
     "@tanstack/query-core" "4.29.23"
     "@tanstack/react-query" "4.29.23"
@@ -3561,12 +3561,12 @@
     use-sync-external-store "^1.2.0"
     zustand "^4.3.9"
 
-"@livepeer/core-web@^3.0.5":
-  version "3.0.5"
-  resolved "https://registry.yarnpkg.com/@livepeer/core-web/-/core-web-3.0.5.tgz#cd4f736e1f93ad2b152df2b896a9ce6872af6675"
-  integrity sha512-Q9eBDnfMhCOHUJ2EyVCdm0Sut1szMdNbk7/0dzTX+bNxYI4+SxChLLbVJxGsoapHvPbe8Gz8q/4zM+Tis48aDw==
+"@livepeer/core-web@^3.0.6":
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/@livepeer/core-web/-/core-web-3.0.6.tgz#e2a62f8d8375b64971d4fafbf2db4d9b9aba920a"
+  integrity sha512-LwHWg43AIVX9cMro3RdfDuLMQBVmOOaKaCPOkrjT339Z2T6aEKEcLGEULhMHQ49KqQQ1l6h7KbSx/Gj8exPpcQ==
   dependencies:
-    "@livepeer/core" "^2.0.5"
+    "@livepeer/core" "^2.0.6"
     "@stitches/core" "^1.2.8"
     core-js "^3.31.1"
     cross-fetch "^4.0.0"
@@ -3575,10 +3575,10 @@
     tus-js-client "^3.1.0"
     zustand "^4.3.9"
 
-"@livepeer/core@^2.0.5":
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/@livepeer/core/-/core-2.0.5.tgz#bb385a99ed053110b3a006d855ea63d3e528b53d"
-  integrity sha512-KpFitrULRumLYoNuYKJF9Z5vqdbzZR2/7Q9RQMd2aUIFwrq8UuArzujE5ETW8je6oBe1BUkvas7EhgZz7pagZA==
+"@livepeer/core@^2.0.6":
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/@livepeer/core/-/core-2.0.6.tgz#2f1a377ef3c6d277e4e87ef61b7566c509fe3c17"
+  integrity sha512-CMVb37edxD2/vl0UvFOp3/gyZX4NW0CtErZDRmOxAKF3q3hutSlNtbPdNsfntOi/ML7p3aPR0YQFAG91Z5mSVg==
   dependencies:
     cross-fetch "^4.0.0"
     ms "^3.0.0-canary.1"
@@ -3586,23 +3586,23 @@
     tus-js-client "^3.1.0"
     zustand "^4.3.9"
 
-"@livepeer/react-native@^2.0.5":
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/@livepeer/react-native/-/react-native-2.0.5.tgz#70a271c6e1b16ce5ce67c0f991b1b46db7a9138c"
-  integrity sha512-CqG3chKMY901qgwt5NNjWKRHvvr+ajgVkIPAuw6VrqGiZagkbvbHVi18ghw4SrdepjIxGPwregJ7WT/5CpkbvQ==
+"@livepeer/react-native@^2.0.6":
+  version "2.0.6"
+  resolved "https://registry.yarnpkg.com/@livepeer/react-native/-/react-native-2.0.6.tgz#bedf64014690d4576e5e569ed528a9ce6341b85b"
+  integrity sha512-XBZw8AV/ApHET0ho04UhvxxDZ0m3v4FwfaHkED+Vp6V4av6U3OhEe4xgUagzovoOrt4BpMP6+ZocoXsuOT48cg==
   dependencies:
-    "@livepeer/core-react" "^2.0.5"
+    "@livepeer/core-react" "^2.0.6"
     react-native-url-polyfill "^2.0.0"
     stitches-native "^0.4.0"
     zustand "^4.3.9"
 
-"@livepeer/react@^3.0.5":
-  version "3.0.5"
-  resolved "https://registry.yarnpkg.com/@livepeer/react/-/react-3.0.5.tgz#7be0451c4e9c5f62a8d49533fa3bf9d7f1d363ba"
-  integrity sha512-ZyHuCsHrVyqs0NBlmDVcITUylt609XtbLSWK8vkFLDu8GG25Vg9pXskN+LzpGsqDfrfSX0Hg22s9ZNYyP3a7mQ==
+"@livepeer/react@^3.0.6":
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/@livepeer/react/-/react-3.0.6.tgz#81e7e773463a8dd91f0fae982360b40fc4055e3b"
+  integrity sha512-6UNCFpqk0TkzPjK1Wvswcm18oFP//WHCNZR04TpWurU5pCrHNXOUYdr8szEjtCGgo7nNnZwu56Dr3HJjJclf3Q==
   dependencies:
-    "@livepeer/core-react" "^2.0.5"
-    "@livepeer/core-web" "^3.0.5"
+    "@livepeer/core-react" "^2.0.6"
+    "@livepeer/core-web" "^3.0.6"
     "@radix-ui/react-dialog" "^1.0.4"
     "@radix-ui/react-popover" "^1.0.6"
     "@radix-ui/react-select" "^1.2.2"
@@ -6195,10 +6195,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-11.11.6.tgz#df929d1bb2eee5afdda598a41930fe50b43eaa6a"
   integrity sha512-Exw4yUWMBXM3X+8oqzJNRqZSwUAaS4+7NdvHqQuFi/d+synz++xmX3QIf+BFqneW8N31R8Ky+sikfZUXq07ggQ==
 
-"@types/node@20.9.2", "@types/node@^20.9.2":
-  version "20.9.2"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.9.2.tgz#002815c8e87fe0c9369121c78b52e800fadc0ac6"
-  integrity sha512-WHZXKFCEyIUJzAwh3NyyTHYSR35SevJ6mZ1nWwJafKtiQbqRTIKSRcw3Ma3acqgsent3RRDqeVwpHntMk+9irg==
+"@types/node@20.9.3", "@types/node@^20.9.3":
+  version "20.9.3"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.9.3.tgz#e089e1634436f676ff299596c9531bd2b59fffc6"
+  integrity sha512-nk5wXLAXGBKfrhLB0cyHGbSqopS+nz0BUgZkUQqSHSSgdee0kssp1IAqlQOu333bW+gMNs2QREx7iynm19Abxw==
   dependencies:
     undici-types "~5.26.4"
 
@@ -6239,10 +6239,10 @@
   resolved "https://registry.yarnpkg.com/@types/range-parser/-/range-parser-1.2.6.tgz#7cb33992049fd7340d5b10c0098e104184dfcd2a"
   integrity sha512-+0autS93xyXizIYiyL02FCY8N+KkKPhILhcUSA276HxzreZ16kl+cmwvV2qAM/PuCCwPXzOXOWhiPcw20uSFcA==
 
-"@types/react-dom@18.2.15":
-  version "18.2.15"
-  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-18.2.15.tgz#921af67f9ee023ac37ea84b1bc0cc40b898ea522"
-  integrity sha512-HWMdW+7r7MR5+PZqJF6YFNSCtjz1T0dsvo/f1BV6HkV+6erD/nA7wd9NM00KVG83zf2nJ7uATPO9ttdIPvi3gg==
+"@types/react-dom@18.2.16":
+  version "18.2.16"
+  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-18.2.16.tgz#028f44b08f8cc3401c37dde4c2a5e36ddf9cb5b0"
+  integrity sha512-766c37araZ9vxtYs25gvY2wNdFWsT2ZiUvOd0zMhTaoGj6B911N8CKQWgXXJoPMLF3J82thpRqQA7Rf3rBwyJw==
   dependencies:
     "@types/react" "*"
 
@@ -6262,10 +6262,10 @@
     "@types/scheduler" "*"
     csstype "^3.0.2"
 
-"@types/react@18.2.37":
-  version "18.2.37"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.2.37.tgz#0f03af69e463c0f19a356c2660dbca5d19c44cae"
-  integrity sha512-RGAYMi2bhRgEXT3f4B92WTohopH6bIXw05FuGlmJEnv/omEn190+QYEIYxIAuIBdKgboYYdVved2p1AxZVQnaw==
+"@types/react@18.2.38":
+  version "18.2.38"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.2.38.tgz#3605ca41d3daff2c434e0b98d79a2469d4c2dd52"
+  integrity sha512-cBBXHzuPtQK6wNthuVMV6IjHAFkdl/FOPFIlkd81/Cd1+IqkHu/A+w4g43kaQQoYHik/ruaQBDL72HyCy1vuMw==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
@@ -17784,10 +17784,10 @@ typedarray-to-buffer@3.1.5, typedarray-to-buffer@^3.0.4:
   dependencies:
     is-typedarray "^1.0.0"
 
-typescript@5.2.2, typescript@^5.2.2:
-  version "5.2.2"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.2.2.tgz#5ebb5e5a5b75f085f22bc3f8460fba308310fa78"
-  integrity sha512-mI4WrpHsbCIcwT9cF4FZvr80QUeKvsUsUvKDoR+X/7XHQH98xYD8YHZg7ANtz2GtZt/CBq2QJ0thkGJMHfqc1w==
+typescript@5.3.2, typescript@^5.3.2:
+  version "5.3.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.3.2.tgz#00d1c7c1c46928c5845c1ee8d0cc2791031d4c43"
+  integrity sha512-6l+RyNy7oAHDfxC4FzSJcz9vnjTKxrLpDG5M2Vu4SHRVNg6xzqZp6LYSR9zjqQTu8DU/f5xwxUdADOkbrIX2gQ==
 
 ua-parser-js@^0.7.33:
   version "0.7.37"
@@ -18172,10 +18172,10 @@ viem@^1.0.0:
     isows "1.0.3"
     ws "8.13.0"
 
-viem@^1.19.4:
-  version "1.19.4"
-  resolved "https://registry.yarnpkg.com/viem/-/viem-1.19.4.tgz#0a345e36a6f5526dd6d7cf9b280b06de915ba46b"
-  integrity sha512-CvAVaOzxlu3Q/cpfrYvTRMBIPDMAkLu8aFmHLqU1Bg25DyUxp9xwoF1Ljp38q7/Rosm1OPFQ4y6K64v/VwoumQ==
+viem@^1.19.5:
+  version "1.19.5"
+  resolved "https://registry.yarnpkg.com/viem/-/viem-1.19.5.tgz#e1c9d52f889ad870e3533afa96e000da3004a7b7"
+  integrity sha512-lcWP9ErivUKVRpnDgI6mly27iWibJN1jZW2yUGuwU2CjfVHs7DJCyA5ityL+n/B+Oss4bllzQkWtJiBAHqaX2g==
   dependencies:
     "@adraffy/ens-normalize" "1.10.0"
     "@noble/curves" "1.2.0"
