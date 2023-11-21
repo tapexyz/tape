@@ -64,7 +64,7 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
               />
               {!isSensitiveContent && videoDuration ? (
                 <div>
-                  <span className="absolute bottom-1 right-1 rounded bg-black px-1 text-[10px] text-white">
+                  <span className="absolute bottom-1 right-1 rounded bg-brand-850 px-1 text-[10px] text-white">
                     {getTimeFromSeconds(String(videoDuration))}
                   </span>
                 </div>

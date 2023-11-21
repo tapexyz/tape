@@ -21,7 +21,7 @@ const Item = ({ stream }: { stream: ChannelStreamType }) => {
 
   return (
     <div className="keen-slider__slide relative flex justify-between">
-      <div className="absolute z-[6] flex h-full w-full flex-col justify-between space-y-6 bg-black bg-opacity-50 p-8 lg:static">
+      <div className="absolute z-[6] flex h-full w-full flex-col justify-between space-y-6 bg-brand-850 bg-opacity-50 p-8 lg:static">
         <div className="space-y-4">
           <div className="space-y-2">
             <h1 className="laptop:text-4xl text-2xl font-bold">

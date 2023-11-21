@@ -303,7 +303,7 @@ const BasicInfo = ({ profile }: Props) => {
       <form onSubmit={handleSubmit(onSaveBasicInfo)}>
         <div className="relative w-full flex-none">
           {uploading.cover && (
-            <div className="rounded-small absolute z-10 flex h-full w-full items-center justify-center bg-black opacity-40">
+            <div className="rounded-small absolute z-10 flex h-full w-full items-center justify-center bg-brand-850 opacity-40">
               <Loader />
             </div>
           )}
@@ -363,7 +363,7 @@ const BasicInfo = ({ profile }: Props) => {
             <label
               htmlFor="choosePfp"
               className={clsx(
-                'invisible absolute top-0 grid h-32 w-32 cursor-pointer place-items-center rounded-full bg-white bg-opacity-70 backdrop-blur-lg group-hover:visible dark:bg-black',
+                'invisible absolute top-0 grid h-32 w-32 cursor-pointer place-items-center rounded-full bg-white bg-opacity-70 backdrop-blur-lg group-hover:visible dark:bg-brand-850',
                 { '!visible': uploading.pfp }
               )}
             >

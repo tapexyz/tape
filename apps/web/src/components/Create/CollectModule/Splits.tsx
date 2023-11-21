@@ -185,7 +185,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
             !getIsValidAddress(splitRecipients[i].recipient) ? (
               <div
                 ref={resultsRef}
-                className="dragverse-border z-10 mt-1 w-full overflow-hidden rounded-md bg-white focus:outline-none dark:bg-black md:absolute"
+                className="dragverse-border z-10 mt-1 w-full overflow-hidden rounded-md bg-white focus:outline-none dark:bg-brand-850 md:absolute"
               >
                 {profilesLoading && <Loader className="my-4" />}
                 {!profiles?.length && !profilesLoading ? (
@@ -206,7 +206,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
                       pfp={getProfilePicture(profile, 'AVATAR')}
                       handle={getProfile(profile).slug}
                       followers={profile.stats.followers}
-                      className="hover:bg-brand-50 text-left dark:hover:bg-black"
+                      className="hover:bg-brand-50 text-left dark:hover:bg-brand-850"
                     />
                   </button>
                 ))}

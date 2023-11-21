@@ -234,7 +234,7 @@ const New = () => {
             <Input
               placeholder="Paste a link to a banger"
               autoComplete="off"
-              className="bg-white dark:bg-black"
+              className="bg-white dark:bg-brand-850"
               validationError={errors.link?.message}
               {...register('link')}
             />
