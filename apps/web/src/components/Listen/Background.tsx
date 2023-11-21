@@ -28,7 +28,7 @@ const Background: FC<Props> = ({ audio, children }) => {
         alt="audio cover"
         draggable={false}
       />
-      <div className="absolute inset-0 h-full w-full bg-brand-850 bg-opacity-40" />
+      <div className="bg-brand-850 absolute inset-0 h-full w-full bg-opacity-40" />
       <div className="backdrop-blur-3xl">{children}</div>
     </div>
   )

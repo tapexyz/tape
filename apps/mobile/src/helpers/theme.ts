@@ -5,8 +5,8 @@ export const { width: windowWidth, height: windowHeight } =
   Dimensions.get('window')
 
 export const colors = {
-  secondary: '#dee2e6',
-  background: '#000000',
+  secondary: '#FCF1FC',
+  background: '#18122D',
   backdrop: '#12131A',
   backdrop2: '#1E2028',
   border: '#000',
@@ -16,11 +16,11 @@ export const colors = {
   white: '#ffffff',
   red: 'red',
   lightRed: '#ff8f8f',
-  yellow: '#FEFF55',
+  yellow: '#FFEC16',
   green: 'green',
   orange: 'orange',
   grey: '#333333',
-  blueGrey: '#E0E8FF',
+  blueGrey: '#F0B5F0',
   indigo: '#39C4FF',
   garden: '#404B42'
 }

@@ -78,7 +78,7 @@ const Streams = () => {
       <div className="w-full lg:w-3/4">
         <div
           ref={sliderRef}
-          className="keen-slider rounded-medium tape-border relative bg-brand-850 text-white md:h-[400px]"
+          className="keen-slider rounded-medium tape-border bg-brand-850 relative text-white md:h-[400px]"
         >
           {streams?.map((stream: ChannelStreamType) => (
             <Item key={stream.uid} stream={stream} />
