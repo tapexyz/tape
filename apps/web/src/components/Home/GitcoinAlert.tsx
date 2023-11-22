@@ -30,7 +30,10 @@ const GitcoinAlert = () => {
           <Link href="/gitcoin" target="_blank">
             <Button highContrast>Contribute Community Round</Button>
           </Link>
-          <Link href="https://explorer.gitcoin.co/#/round/10/0xc34745b3852df32d5958be88df2bee0a83474001/0xc34745b3852df32d5958be88df2bee0a83474001-15" target="_blank">
+          <Link
+            href="https://explorer.gitcoin.co/#/round/10/0xc34745b3852df32d5958be88df2bee0a83474001/0xc34745b3852df32d5958be88df2bee0a83474001-15"
+            target="_blank"
+          >
             <Button highContrast>Contribute Social Round</Button>
           </Link>
         </Flex>
