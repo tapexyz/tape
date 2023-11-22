@@ -19,7 +19,7 @@ const Login = () => {
       <Link
         href="/"
         id="tape-cursor"
-        className="bg-brand-850 hidden w-1/2 dark:bg-brand-100 md:block"
+        className="bg-brand-850 dark:bg-brand-100 hidden w-1/2 md:block"
       >
         <div className="dark:text-bunker flex h-full flex-col items-center justify-center text-white dark:text-black">
           <div className="flex justify-center">
@@ -47,9 +47,12 @@ const Login = () => {
       </Link>
       <div className="relative grid h-full w-full place-items-center md:w-1/2">
         <div className="container mx-auto max-w-sm space-y-3 text-center">
-          <h2 className="text-2xl font-bold">You are about to enter the Dragverse✨</h2>
+          <h2 className="text-2xl font-bold">
+            You are about to enter the Dragverse✨
+          </h2>
           <p>
-            Connect your 👛 wallet and login with your Lens account 🗝 to interact with the social network, collect posts, and more! 
+            Connect your 👛 wallet and login with your Lens account 🗝 to
+            interact with the social network, collect posts, and more!
           </p>
           <Connectors />
         </div>
