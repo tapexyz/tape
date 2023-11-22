@@ -66,7 +66,7 @@ const Recents = () => {
     )
   }
   if (!videos.length || error) {
-    return <NoDataFound isCenter withImage text={`No videos found`} />
+    return <NoDataFound isCenter withImage text={`No DRAG content to consume yet 🌕 Share your drag make-up tutorial, music videos, and more with your community!`} />
   }
 
   return (

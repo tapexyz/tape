@@ -84,7 +84,7 @@ const Feed = ({ showFilter = true }) => {
           </>
         )}
         {videos?.length === 0 && (
-          <NoDataFound isCenter withImage text={`No videos found`} />
+          <NoDataFound isCenter withImage text={`No DRAG content to consume yet 🌕 Share your drag make-up tutorial, music videos, and more with your community!`} />
         )}
       </div>
     </div>

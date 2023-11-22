@@ -72,7 +72,7 @@ const Bookmarks: FC = () => {
       <NoDataFound
         isCenter
         withImage
-        text="No videos found"
+        text="No DRAG content to consume yet 🌕 Share your drag make-up tutorial, music videos, and more with your community!"
         className="my-20"
       />
     )
