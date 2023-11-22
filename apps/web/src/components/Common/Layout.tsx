@@ -142,7 +142,7 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
         <p className="text-brand-50 dark:text-brand-50 text-sm">
           We are a decentralized social network built by and for the drag
           community, brick by brick, to curate content and build their own
-          kikis!🌈 Powered by{' '}
+          kikis!🌈 Powered with{' '}
           <a
             href="https://tape.xyz"
             className="text-blue-500 hover:text-blue-700"
