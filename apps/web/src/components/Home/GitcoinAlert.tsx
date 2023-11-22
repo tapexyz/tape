@@ -32,7 +32,6 @@ const GitcoinAlert = () => {
           </Link>
         </Flex>
       </div>
-
     </div>
   )
 }
