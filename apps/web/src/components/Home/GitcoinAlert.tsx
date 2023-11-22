@@ -1,4 +1,3 @@
-import SignalWaveGraphic from '@components/UIElements/SignalWaveGraphic'
 import {
   GITCOIN_LIVE_ROUND,
   SHOW_GITCOIN_BANNER,
@@ -34,7 +33,6 @@ const GitcoinAlert = () => {
         </Flex>
       </div>
 
-      <SignalWaveGraphic />
     </div>
   )
 }
