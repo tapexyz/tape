@@ -73,7 +73,13 @@ const ProfileVideos: FC<Props> = ({ profile }) => {
   }
 
   if (data?.publications?.items?.length === 0 && queuedVideos.length === 0) {
-    return <NoDataFound isCenter withImage text={`No DRAG content to consume yet 🌕 Share your drag make-up tutorial, music videos, and more with your community!`} />
+    return (
+      <NoDataFound
+        isCenter
+        withImage
+        text={`No DRAG content to consume yet 🌕 Share your drag make-up tutorial, music videos, and more with your community!`}
+      />
+    )
   }
 
   return !error && !loading ? (

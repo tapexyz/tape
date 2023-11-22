@@ -15,12 +15,12 @@ const WelcomeAlert = () => {
       <div className="ultrawide:p-8 relative flex h-full flex-col justify-end space-y-4 p-4 text-left text-white md:p-6">
         <div className="text-3xl font-bold">Welcome to {TAPE_APP_NAME}</div>
         <p className="md:text-md max-w-2xl text-sm lg:text-lg">
-          Connect your wallet, and confirm you own an Lens account, to interact
-          with Drag content from the most fabulous corner of the internet!🌈✨.
+          Purse first! 👛 Connect your wallet, confirm you have a Lens account, 🗝 and interact
+          with Drag content from the most fabulous Drag creators on the intern3t!🌈✨.
         </p>
         <Flex gap="3">
           <Link href="/login">
-            <Button highContrast>Login</Button>
+            <Button highContrast>Enter Dragverse</Button>
           </Link>
         </Flex>
       </div>

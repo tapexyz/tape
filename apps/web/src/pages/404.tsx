@@ -18,7 +18,10 @@ const Custom404 = () => {
           />
         </div>
         <h1 className="text-4xl font-bold">404 👀 FASHION EMERGENCY</h1>
-        <div className="mb-6">This page you are looking for could not be found. Maybe Drag Delusion? 💅 </div>
+        <div className="mb-6">
+          This page you are looking for could not be found. Maybe Drag Delusion?
+          💅{' '}
+        </div>
         <Link href="/">
           <Button highContrast variant="surface">
             Go Home

@@ -158,7 +158,11 @@ const ExploreFeed = () => {
       <div className="my-4">
         {loading && <TimelineShimmer />}
         {videos?.length === 0 && (
-          <NoDataFound isCenter withImage text={`No DRAG content to consume yet 🌕 Share your drag make-up tutorial, music videos, and more with your community!`} />
+          <NoDataFound
+            isCenter
+            withImage
+            text={`No DRAG content to consume yet 🌕 Share your drag make-up tutorial, music videos, and more with your community!`}
+          />
         )}
         {!error && !loading && videos?.length ? (
           <>
