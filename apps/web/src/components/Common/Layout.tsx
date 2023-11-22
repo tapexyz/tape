@@ -138,6 +138,11 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
       >
         {children}
       </div>
+       <footer className="bg-gray-100 dark:bg-gray-800 text-center py-4">
+       <p className="text-sm text-gray-600 dark:text-gray-300">
+       We are a decentralized social network built by and for the drag community, brick by brick, to curate content and empower creators to build their community allies with🌈 Powered by <a href="https://tape.xyz" className="text-blue-500 hover:text-blue-700">tape.xyz</a>
+       </p>
+       </footer>
       <MobileBottomNav />
     </>
   )
