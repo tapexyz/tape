@@ -138,7 +138,7 @@ const Layout: FC<Props> = ({ children, skipNav, skipPadding }) => {
       >
         {children}
       </div>
-      <footer className="bg-brand-850 dark:bg-brand-850 py-4 text-center md:block hidden">
+      <footer className="bg-brand-850 dark:bg-brand-850 hidden py-4 text-center md:block">
         <p className="text-brand-50 dark:text-brand-50 text-sm">
           We are a decentralized social network built by and for the drag
           community, brick by brick, to curate content and build their own
