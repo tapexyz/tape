@@ -182,6 +182,8 @@ export const LEGACY_LENS_HANDLE_SUFFIX = IS_MAINNET ? '.lens' : '.test'
 export const HEY_WEBSITE_URL = IS_MAINNET
   ? 'https://hey.xyz'
   : 'https://testnet.hey.xyz'
+  ? 'https://tape.xyz'
+  : 'https://testnet.tape.xyz'
 
 // banners
 export const SHOW_GITCOIN_BANNER = true
