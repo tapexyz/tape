@@ -29,14 +29,14 @@ const GitcoinAlert = () => {
         <Flex>
           <Link href="/gitcoin" target="_blank">
             <Button highContrast className="mr-4">
-              Contribute to Community Round
+              Contribute: Community Round
             </Button>
           </Link>
           <Link
             href="https://explorer.gitcoin.co/#/round/10/0xc34745b3852df32d5958be88df2bee0a83474001/0xc34745b3852df32d5958be88df2bee0a83474001-15"
             target="_blank"
           >
-            <Button highContrast>Contribute to Social Round</Button>
+            <Button highContrast>Contribute: Social Round</Button>
           </Link>
         </Flex>
       </div>
