@@ -15,6 +15,8 @@ export const TAPE_WEBSITE_URL = IS_MAINNET
   ? 'https://dragverse.app'
   : 'https://testnet.dragverse.app'
 
+export const TAPEXYZ_WEBSITE_URL = 'https://tape.xyz'
+
 // export const LENS_IMAGEKIT_SNAPSHOT_URL =
 //   'https://ik.imagekit.io/lens/media-snapshot'
 export const LENS_IMAGEKIT_SNAPSHOT_URL = 'https://ik.imagekit.io/lenstube'
@@ -39,8 +41,8 @@ export const LENS_API_URL = IS_MAINNET ? MAINNET_API_URL : TESTNET_API_URL
 export const TAPE_MAINNET_API_URL = 'https://api.dragverse.app'
 export const TAPE_TESTNET_API_URL = 'https://api-testnet.dragverse.app'
 export const TAPE_EMBED_URL = IS_MAINNET
-  ? 'https://embed.dragverse.app'
-  : 'https://embed-testnet.dragverse.app'
+  ? 'https://embed.tape.xyz'
+  : 'https://embed-testnet.tape.xyz'
 export const TAPE_DEV_API_URL = 'http://localhost:4002'
 export const TAPE_API_URL = IS_MAINNET
   ? TAPE_MAINNET_API_URL
@@ -141,12 +143,14 @@ export const DRAGVERSE_BANNER_URL = `${STATIC_ASSETS}/dragverse-banner.jpeg`
 export const BUILDING_PROUDLY_URL = `${STATIC_ASSETS}/building-proudly.jpeg`
 export const BASE_LIVESTREAM_VIDEO_URL = `${STATIC_ASSETS}/dragverse-base-live-video.mp4`
 export const LENSTER_ICON_URL = `${STATIC_ASSETS}/lenster-logo.svg`
-export const TWITTER_ICON_URL = `${STATIC_ASSETS}/twitter-logo.jpeg`
+export const TWITTER_ICON_URL = `${STATIC_ASSETS}/x.avif`
 export const LINKEDIN_ICON_URL = `${STATIC_ASSETS}/linkedin-logo.png`
 export const REDDIT_ICON_URL = `${STATIC_ASSETS}/reddit-logo.png`
 export const ENS_ICON_URL = `${STATIC_ASSETS}/ens-logo.svg`
 export const MOUNTAINS_BACKGROUND_URL = `${STATIC_ASSETS}/mountains_background.jpeg`
 export const WINDOW_BACKGROUND_URL = `${STATIC_ASSETS}/windows_background.jpeg`
+export const HEY_LOGO = `${STATIC_ASSETS}/hey.webp`
+export const TAPEXYZ_LOGO = `${STATIC_ASSETS}/tape.jpeg`
 
 // admin
 export const ADMIN_IDS = IS_MAINNET ? ['0x2d'] : ['0x34']
