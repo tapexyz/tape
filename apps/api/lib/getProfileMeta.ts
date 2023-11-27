@@ -13,8 +13,9 @@ import type { NextApiResponse } from 'next'
 
 const client = apolloClient()
 
-const getProfileMeta = async (res: NextApiResponse, handle: string) => {
+const getProfileMeta = async (res: NextApiResponse, reqHandle: string) => {
   try {
+    const handle = reqHandle.replace(LENS_NAMESPACE_PREFIX, '')
     const request: ProfileRequest = {
       forHandle: `${LENS_NAMESPACE_PREFIX}${handle}`
     }

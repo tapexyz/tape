@@ -9,10 +9,10 @@
   },
   "dependencies": {
     "base64url": "^3.0.1",
-    "viem": "^1.19.1"
+    "viem": "^1.19.9"
   },
   "devDependencies": {
     "@tape.xyz/config": "*",
-    "typescript": "^5.2.2"
+    "typescript": "^5.3.2"
   }
 }

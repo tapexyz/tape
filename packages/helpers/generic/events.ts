@@ -26,6 +26,7 @@ export const EVENTS = {
     },
     SETTINGS: 'Settings Page',
     WATCH: 'Watch Page',
+    WATCH_STREAM: 'Watch Stream Page',
     BYTES: 'Bytes Page',
     NOTIFICATIONS: 'Notifications Page'
   },

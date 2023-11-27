@@ -28,7 +28,7 @@ const SubscriptionProvider = () => {
 
   const { sendJsonMessage, lastMessage, readyState } = useWebSocket(
     LENS_API_URL.replace('http', 'ws'),
-    { protocols: ['graphql-ws'] }
+    { protocols: ['graphql-transport-ws'] }
   )
 
   useEffect(() => {
@@ -41,27 +41,27 @@ const SubscriptionProvider = () => {
       if (!isAddress(currentSessionProfileId)) {
         sendJsonMessage({
           id: '1',
-          type: 'start',
+          type: 'subscribe',
           payload: {
             variables: { for: currentSessionProfileId },
-            query: NewNotificationSubscriptionDocument
+            query: NewNotificationSubscriptionDocument.loc?.source.body
           }
         })
       }
       sendJsonMessage({
         id: '2',
-        type: 'start',
+        type: 'subscribe',
         payload: {
           variables: { address },
-          query: UserSigNoncesSubscriptionDocument
+          query: UserSigNoncesSubscriptionDocument.loc?.source.body
         }
       })
       sendJsonMessage({
         id: '3',
-        type: 'start',
+        type: 'subscribe',
         payload: {
           variables: { authorizationId: getCurrentSessionId() },
-          query: AuthorizationRecordRevokedSubscriptionDocument
+          query: AuthorizationRecordRevokedSubscriptionDocument.loc?.source.body
         }
       })
     }

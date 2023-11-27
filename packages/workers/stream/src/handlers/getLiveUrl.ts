@@ -8,7 +8,7 @@ export default async (channelId?: string) => {
       return
     }
     const destinationURL = stream?.liveUrl
-    const statusCode = 301
+    const statusCode = 302
     return Response.redirect(destinationURL, statusCode)
   } catch (error) {
     throw error

@@ -12,9 +12,9 @@
     "@tape.xyz/constants": "*",
     "@tape.xyz/generic": "*",
     "prettier-plugin-tailwindcss": "^0.5.7",
-    "typescript": "5.2.2"
+    "typescript": "5.3.2"
   },
   "dependencies": {
-    "wavesurfer.js": "^7.4.5"
+    "wavesurfer.js": "^7.4.6"
   }
 }
