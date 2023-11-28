@@ -12,17 +12,17 @@
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "3.458.0",
-    "@aws-sdk/lib-storage": "3.458.0",
+    "@aws-sdk/client-s3": "3.460.0",
+    "@aws-sdk/lib-storage": "3.460.0",
     "@emoji-mart/react": "^1.1.1",
     "@hookform/resolvers": "^3.3.2",
-    "@irys/sdk": "^0.0.4",
+    "@irys/sdk": "^0.1.0",
     "@lens-protocol/metadata": "^1.0.5",
     "@livepeer/react": "^3.0.8",
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/themes": "^2.0.1",
     "@tailwindcss/aspect-ratio": "^0.4.2",
-    "@tanstack/react-query": "^5.8.7",
+    "@tanstack/react-query": "^5.8.9",
     "@tippyjs/react": "^4.2.6",
     "axios": "^1.6.2",
     "clsx": "^2.0.0",
@@ -47,7 +47,7 @@
     "viem": "^1.19.9",
     "wagmi": "^1.4.7",
     "zod": "^3.22.2",
-    "zustand": "^4.4.6"
+    "zustand": "^4.4.7"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.10",
@@ -58,7 +58,7 @@
     "@tape.xyz/lens": "*",
     "@tape.xyz/ui": "*",
     "@types/node": "20.10.0",
-    "@types/react": "18.2.38",
+    "@types/react": "18.2.39",
     "@types/react-dom": "18.2.17",
     "@types/react-mentions": "^4.1.13",
     "@types/uuid": "^9.0.7",
