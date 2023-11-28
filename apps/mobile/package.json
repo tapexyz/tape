@@ -64,7 +64,7 @@
     "uuid": "^3.4.0",
     "viem": "^1.19.9",
     "zod": "^3.22.2",
-    "zustand": "^4.4.6"
+    "zustand": "^4.4.7"
   },
   "devDependencies": {
     "@babel/core": "^7.22.11",
