@@ -1,6 +1,13 @@
 import Tooltip from '@components/UIElements/Tooltip'
 import { useCopyToClipboard } from '@dragverse/browser'
-import { STATIC_ASSETS, TAPE_WEBSITE_URL } from '@dragverse/constants'
+import {
+  HEY_LOGO,
+  LINKEDIN_ICON_URL,
+  REDDIT_ICON_URL,
+  TAPE_WEBSITE_URL,
+  TAPEXYZ_LOGO,
+  TWITTER_ICON_URL
+} from '@dragverse/constants'
 import { EVENTS, getSharableLink, imageCdn, Tower } from '@dragverse/generic'
 import type { PrimaryPublication } from '@dragverse/lens'
 import { IconButton } from '@radix-ui/themes'
@@ -43,14 +50,26 @@ const Share: FC<Props> = ({ publication }) => {
           className="rounded-full"
           target="_blank"
           rel="noreferrer"
+          onClick={() => Tower.track(EVENTS.PUBLICATION.SHARE.TAPE)}
+          href={getSharableLink('tape', publication)}
+        >
+          <img
+            src={imageCdn(`${TAPEXYZ_LOGO}`, 'AVATAR_LG')}
+            className="h-12 w-12 max-w-none rounded-full"
+            loading="eager"
+            alt="tape"
+            draggable={false}
+          />
+        </Link>
+        <Link
+          className="rounded-full"
+          target="_blank"
+          rel="noreferrer"
           onClick={() => Tower.track(EVENTS.PUBLICATION.SHARE.HEY)}
           href={getSharableLink('hey', publication)}
         >
           <img
-            src={imageCdn(
-              `${STATIC_ASSETS}/images/social/hey-logo.svg`,
-              'AVATAR_LG'
-            )}
+            src={imageCdn(`${HEY_LOGO}`, 'AVATAR_LG')}
             className="h-10 w-10 max-w-none"
             loading="eager"
             alt="hey"
@@ -65,33 +84,14 @@ const Share: FC<Props> = ({ publication }) => {
           href={getSharableLink('x', publication)}
           onClick={() => Tower.track(EVENTS.PUBLICATION.SHARE.X)}
         >
-          <div className="rounded-full bg-gray-200 p-3 dark:bg-gray-800">
-            {resolvedTheme === 'dark' ? (
-              <img
-                src={imageCdn(
-                  `${STATIC_ASSETS}/images/social/x-white.png`,
-                  'AVATAR'
-                )}
-                className="h-4 w-4"
-                height={16}
-                width={16}
-                alt="X Logo"
-                draggable={false}
-              />
-            ) : (
-              <img
-                src={imageCdn(
-                  `${STATIC_ASSETS}/images/social/x-black.png`,
-                  'AVATAR'
-                )}
-                className="h-4 w-4"
-                height={16}
-                width={16}
-                alt="X Logo"
-                draggable={false}
-              />
-            )}
-          </div>
+          <img
+            src={imageCdn(`${TWITTER_ICON_URL}`, 'AVATAR')}
+            className="h-10 w-10 max-w-none rounded-full"
+            height={16}
+            width={16}
+            alt="X Logo"
+            draggable={false}
+          />
         </Link>
         <Link
           href={getSharableLink('reddit', publication)}
@@ -100,10 +100,7 @@ const Share: FC<Props> = ({ publication }) => {
           rel="noreferrer"
         >
           <img
-            src={imageCdn(
-              `${STATIC_ASSETS}/images/social/reddit-logo.webp`,
-              'AVATAR_LG'
-            )}
+            src={imageCdn(`${REDDIT_ICON_URL}`, 'AVATAR_LG')}
             className="h-10 w-10 max-w-none rounded-full"
             loading="eager"
             alt="reddit"
@@ -117,10 +114,7 @@ const Share: FC<Props> = ({ publication }) => {
           rel="noreferrer"
         >
           <img
-            src={imageCdn(
-              `${STATIC_ASSETS}/images/social/linkedin-logo.png`,
-              'AVATAR_LG'
-            )}
+            src={imageCdn(`${LINKEDIN_ICON_URL}`, 'AVATAR_LG')}
             loading="eager"
             alt="linkedin"
             className="h-10 w-10 max-w-none rounded-full"

@@ -2,7 +2,8 @@ import {
   HEY_WEBSITE_URL,
   TAPE_APP_NAME,
   TAPE_WEBSITE_URL,
-  TAPE_X_HANDLE
+  TAPE_X_HANDLE,
+  TAPEXYZ_WEBSITE_URL
 } from '@dragverse/constants'
 import type { MirrorablePublication } from '@dragverse/lens'
 
@@ -22,8 +23,10 @@ export const getSharableLink = (
     publication.id
   }`
 
-  if (link === 'tape' || link === 'dragverse') {
+  if (link === 'dragverse') {
     return `${TAPE_WEBSITE_URL}/watch/${publication.id}`
+  } else if (link === 'tape') {
+    return `${TAPEXYZ_WEBSITE_URL}/watch/${publication.id}`
   } else if (link === 'hey') {
     return `${HEY_WEBSITE_URL}/?url=${url}&text=${
       (getPublicationData(metadata)?.title as string) ?? ''

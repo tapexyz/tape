@@ -51,6 +51,7 @@ export const EVENTS = {
     },
     SHARE: {
       HEY: 'Share to Hey',
+      TAPE: 'Share to Tape',
       X: 'Share to X',
       REDDIT: 'Share to Reddit',
       LINKEDIN: 'Share to LinkedIn'
