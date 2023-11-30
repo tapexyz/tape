@@ -18,27 +18,11 @@ const GitcoinAlert = () => {
 
       <div className="ultrawide:p-8 relative flex h-full flex-col justify-end space-y-4 p-4 text-left md:p-6">
         <div className="text-3xl">
-          Bring more Drag to the network and the metaverse⚡
+          Thank you for your support during {GITCOIN_LIVE_ROUND}⚡
         </div>
         <p className="md:text-md max-w-2xl text-sm lg:text-lg">
-          Support {TAPE_APP_NAME} on{' '}
-          <span className="font-medium">Gitcoin Grants</span>{' '}
-          {GITCOIN_LIVE_ROUND} Round and help us fund or next metaverse show and
-          building roadmap.
+        WE SEE YOU, GROWER! 🌱⚡ These funds allow us to keep working on our next {TAPE_APP_NAME} Ball and creating resources for the community.
         </p>
-        <Flex>
-          <Link href="/gitcoin" target="_blank">
-            <Button highContrast className="mr-4">
-              Contribute: Community Round
-            </Button>
-          </Link>
-          <Link
-            href="https://explorer.gitcoin.co/#/round/10/0xc34745b3852df32d5958be88df2bee0a83474001/0xc34745b3852df32d5958be88df2bee0a83474001-15"
-            target="_blank"
-          >
-            <Button highContrast>Contribute: Social Round</Button>
-          </Link>
-        </Flex>
       </div>
     </div>
   )
