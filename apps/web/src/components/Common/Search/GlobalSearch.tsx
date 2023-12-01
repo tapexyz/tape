@@ -184,7 +184,7 @@ const GlobalSearch = () => {
 
   return (
     <div>
-      <div className="relative hidden md:block" ref={resultsRef}>
+      <div className="relative" ref={resultsRef}>
         {showSearchBar ? <Content /> : <Trigger />}
       </div>
     </div>
