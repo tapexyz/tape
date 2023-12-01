@@ -130,6 +130,7 @@ const GlobalSearch = () => {
           value={keyword}
           onChange={(event) => setKeyword(event.target.value)}
           placeholder="Search"
+          className="text-base"
         />
       </TextField.Root>
       <div
