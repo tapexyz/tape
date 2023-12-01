@@ -117,7 +117,7 @@ const GlobalSearch = () => {
 
   const Content = () => (
     <>
-      <TextField.Root className="laptop:w-[800px] dark:bg-brand-850 z-20 w-[500px] rounded-full bg-white">
+      <TextField.Root className="w-[200px] md:w-[500px] laptop:w-[800px] dark:bg-brand-850 z-20 rounded-full bg-brand-50">
         <TextField.Slot px="3">
           <SearchOutline className="h-4 w-4" />
           <span className="sr-only">Search</span>
