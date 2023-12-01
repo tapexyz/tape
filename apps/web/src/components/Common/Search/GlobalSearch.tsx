@@ -134,11 +134,11 @@ const GlobalSearch = () => {
         />
       </TextField.Root>
       <div
-      className={clsx(
-        'rounded-medium tape-border dark:bg-brand-850 z-10 mt-1 bg-white text-base shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none absolute w-full md:w-[500px]',
-        { hidden: debouncedValue.length === 0 }
-      )}
-      style={{ top: '100%' }} // Adjust the top position for mobile
+        className={clsx(
+          'rounded-medium tape-border dark:bg-brand-850 absolute z-10 mt-1 w-full bg-white text-base shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none md:w-[500px]',
+          { hidden: debouncedValue.length === 0 }
+        )}
+        style={{ top: '100%' }} // Adjust the top position for mobile
       >
         <ScrollArea
           type="hover"
