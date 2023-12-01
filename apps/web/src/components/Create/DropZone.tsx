@@ -128,19 +128,6 @@ const DropZone = () => {
           )}
         </span>
       </label>
-      <footer className="bg-brand-850 dark:bg-brand-850 block py-4 text-center md:hidden">
-        <p className="text-brand-50 dark:text-brand-50 text-sm">
-          We are a decentralized open-source social network built by and for the
-          Drag community, brick by brick, to create content and share their
-          artistry.🌈 Powered with{' '}
-          <a
-            href="https://tape.xyz"
-            className="text-blue-500 hover:text-blue-700"
-          >
-            tape.xyz
-          </a>
-        </p>
-      </footer>
     </div>
   )
 }

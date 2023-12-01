@@ -113,7 +113,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
             <div className="relative mt-4">
               <InputMentions
                 label="Description"
-                placeholder="Describe more about your content, can also be @profile, #hashtags or chapters (00:20 - Intro)"
+                placeholder="Tell us more about your content! It can also be @profile, #hashtags or chapters (00:20 - Intro)"
                 autoComplete="off"
                 validationError={errors.description?.message}
                 value={watch('description')}
@@ -248,6 +248,19 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
             : uploadedMedia.buttonText}
         </Button>
       </div>
+      <footer className="bg-brand-850 dark:bg-brand-850 block py-4 text-center md:hidden">
+        <p className="text-brand-50 dark:text-brand-50 text-sm">
+          We are a decentralized open-source social network built by and for the
+          Drag community, brick by brick, to create content and share their
+          artistry.🌈 Powered with{' '}
+          <a
+            href="https://tape.xyz"
+            className="text-blue-500 hover:text-blue-700"
+          >
+            tape.xyz
+          </a>
+        </p>
+      </footer>
     </form>
   )
 }
