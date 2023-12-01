@@ -75,7 +75,7 @@ const DropZone = () => {
   }
 
   return (
-    <div className="h-64 md:h-48 relative flex w-full flex-1 flex-col">
+    <div className="relative flex h-64 w-full flex-1 flex-col md:h-48">
       <label
         className={clsx(
           'grid w-full place-items-center rounded-3xl border border-dashed p-10 text-center focus:outline-none md:p-20',
