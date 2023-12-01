@@ -16,11 +16,11 @@ const GitcoinAlert = () => {
 
       <div className="ultrawide:p-8 relative flex h-full flex-col justify-end space-y-4 p-4 text-left md:p-6">
         <div className="text-3xl">
-          Thank you for your support during {GITCOIN_LIVE_ROUND}⚡
+          Thank you for your support during the GG{GITCOIN_LIVE_ROUND} Round⚡
         </div>
         <p className="md:text-md max-w-2xl text-sm lg:text-lg">
           WE SEE YOU, GROWER! 🌱⚡ These funds allow us to keep working on our
-          next {TAPE_APP_NAME} Ball and creating resources for the community.
+          next {TAPE_APP_NAME} Ball and creating resources for the community on how to use the dApp.
         </p>
       </div>
     </div>
