@@ -184,13 +184,17 @@ const GlobalSearch = () => {
   )
 
   return (
-    <div className="relative" ref={resultsRef}> {/* This div is now the relative container */}
+    <div className="relative" ref={resultsRef}>
+      {' '}
+      {/* This div is now the relative container */}
       {showSearchBar ? (
         <>
-          <TextField.Root className="w-full rounded-full bg-white dark:bg-brand-850">
+          <TextField.Root className="dark:bg-brand-850 w-full rounded-full bg-white">
             {/* TextField contents */}
           </TextField.Root>
-          <div className="absolute top-full left-0 w-full z-10"> {/* Absolute positioning for results */}
+          <div className="absolute left-0 top-full z-10 w-full">
+            {' '}
+            {/* Absolute positioning for results */}
             {/* Search results content */}
           </div>
         </>
@@ -198,7 +202,7 @@ const GlobalSearch = () => {
         <Trigger />
       )}
     </div>
-  );
-};
+  )
+}
 
 export default GlobalSearch
