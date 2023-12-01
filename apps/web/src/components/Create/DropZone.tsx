@@ -14,10 +14,10 @@ import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
 
 const MobileFooter = () => (
-  <div className="block md:hidden p-4 bg-white shadow">
+  <div className="block bg-white p-4 shadow md:hidden">
     {/* You are about to make HERSTORY!🌈✨ */}
   </div>
-);
+)
 
 const DropZone = () => {
   const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
@@ -131,8 +131,8 @@ const DropZone = () => {
           )}
         </span>
       </label>
-            {/* Mobile Footer */}
-            <MobileFooter />
+      {/* Mobile Footer */}
+      <MobileFooter />
     </div>
   )
 }
