@@ -195,7 +195,7 @@ const GlobalSearch = () => {
         )}
       </div>
     </div>
-  );
+  )
 }
 
 export default GlobalSearch
