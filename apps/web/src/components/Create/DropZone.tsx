@@ -13,12 +13,6 @@ import fileReaderStream from 'filereader-stream'
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
 
-const MobileFooter = () => (
-  <div className="block bg-white p-4 shadow md:hidden">
-    {/* You are about to make HERSTORY!🌈✨ */}
-  </div>
-)
-
 const DropZone = () => {
   const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
 
@@ -104,8 +98,8 @@ const DropZone = () => {
         </span>
         <span className="space-y-10">
           <div className="space-y-4">
-            <p className="text-2xl md:text-4xl">Drag and drop</p>
-            <p>Select multimedia from your device.</p>
+            <p className="text-2xl md:text-4xl">Drag and drop to STUNT✨</p>
+            <p>Upload a piece of multimedia (video or audio file) from your device.</p>
           </div>
           <Box>
             <Button
@@ -131,8 +125,19 @@ const DropZone = () => {
           )}
         </span>
       </label>
-      {/* Mobile Footer */}
-      <MobileFooter />
+      <footer className="bg-brand-850 dark:bg-brand-850 block py-4 text-center md:hidden">
+  <p className="text-brand-50 dark:text-brand-50 text-sm">
+    We are a decentralized open-source social network built by and for the
+    Drag community, brick by brick, to create content and share their
+    artistry.🌈 Powered with{' '}
+    <a
+      href="https://tape.xyz"
+      className="text-blue-500 hover:text-blue-700"
+    >
+      tape.xyz
+    </a>
+    </p>
+    </footer>
     </div>
   )
 }
