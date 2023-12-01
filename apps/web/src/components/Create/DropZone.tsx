@@ -13,6 +13,12 @@ import fileReaderStream from 'filereader-stream'
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
 
+const MobileFooter = () => (
+  <div className="block md:hidden p-4 bg-white shadow">
+    {/* You are about to make HERSTORY!🌈✨ */}
+  </div>
+);
+
 const DropZone = () => {
   const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
 
@@ -75,7 +81,7 @@ const DropZone = () => {
   }
 
   return (
-    <div className="relative flex h-64 w-full flex-1 flex-col md:h-48">
+    <div className="relative flex w-full flex-1 flex-col">
       <label
         className={clsx(
           'grid w-full place-items-center rounded-3xl border border-dashed p-10 text-center focus:outline-none md:p-20',
@@ -125,6 +131,8 @@ const DropZone = () => {
           )}
         </span>
       </label>
+            {/* Mobile Footer */}
+            <MobileFooter />
     </div>
   )
 }
