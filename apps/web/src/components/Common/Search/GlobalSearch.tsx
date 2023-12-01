@@ -117,7 +117,7 @@ const GlobalSearch = () => {
 
   const Content = () => (
     <>
-      <TextField.Root className="laptop:w-[800px] dark:bg-brand-850 bg-brand-50 z-20 w-[250px] rounded-full md:w-[500px]">
+      <TextField.Root className="laptop:w-[800px] dark:bg-brand-850 bg-brand-50 z-20 w-[215px] rounded-full md:w-[500px] md:top-[100%]">
         <TextField.Slot px="3">
           <SearchOutline className="h-4 w-4" />
           <span className="sr-only">Search</span>
@@ -135,7 +135,7 @@ const GlobalSearch = () => {
       </TextField.Root>
       <div
         className={clsx(
-          'rounded-medium tape-border dark:bg-brand-850 z-10 mt-1 w-[300px] bg-white text-base shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none md:absolute md:top-[100%] md:w-[500px]',
+          'rounded-medium tape-border dark:bg-brand-850 z-10 mt-1 w-[300px] bg-white text-base shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none md:absolute md:w-[500px]',
           { hidden: debouncedValue.length === 0 }
         )}
       >
