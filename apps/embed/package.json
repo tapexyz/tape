@@ -12,7 +12,7 @@
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "@livepeer/react": "^3.0.8",
+    "@livepeer/react": "^3.0.10",
     "clsx": "^2.0.0",
     "graphql": "^16.8.1",
     "next": "14.0.3",
@@ -27,7 +27,7 @@
     "@tape.xyz/generic": "*",
     "@tape.xyz/lens": "*",
     "@tape.xyz/ui": "*",
-    "@types/node": "20.10.0",
+    "@types/node": "20.10.1",
     "@types/react": "18.2.39",
     "@types/react-dom": "18.2.17",
     "autoprefixer": "^10.4.16",
