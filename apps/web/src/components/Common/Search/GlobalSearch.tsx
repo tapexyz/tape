@@ -187,7 +187,7 @@ const GlobalSearch = () => {
     <div>
       <div className="relative" ref={resultsRef}>
         {showSearchBar ? (
-          <div className="absolute inset-x-0 top-full z-10 mt-2">
+          <div className="absolute inset-x-0 top-full mt-2 z-10 md:left-0 md:right-auto">
             <Content />
           </div>
         ) : (
