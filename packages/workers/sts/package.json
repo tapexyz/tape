@@ -9,7 +9,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "3.462.0"
+    "@aws-sdk/client-sts": "3.465.0"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20231121.0",
