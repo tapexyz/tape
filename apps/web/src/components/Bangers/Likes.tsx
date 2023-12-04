@@ -54,17 +54,21 @@ const Likes = ({ post }: { post: PrimaryPublication }) => {
           alt={getProfile(post.by)?.displayName}
         />
       </HoverableProfile>
-      {profiles?.slice(0, 20)?.map(({ profile }) => (
-        <HoverableProfile profile={profile} key={profile.id}>
-          <Avatar
-            size="2"
-            radius="full"
-            src={getProfilePicture(profile)}
-            fallback={getProfile(profile)?.displayName}
-            alt={getProfile(profile)?.displayName}
-          />
-        </HoverableProfile>
-      ))}
+      {profiles?.slice(0, 20)?.map(
+        ({ profile }) =>
+          profile.id !== post.by.id && (
+            <HoverableProfile profile={profile} key={profile.id}>
+              <Avatar
+                size="2"
+                radius="full"
+                className="z-[1]"
+                src={getProfilePicture(profile)}
+                fallback={getProfile(profile)?.displayName}
+                alt={getProfile(profile)?.displayName}
+              />
+            </HoverableProfile>
+          )
+      )}
       {loading && <BangersBubbles />}
     </div>
   )
