@@ -15,7 +15,7 @@ const Bangers = () => {
     Tower.track(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.FEED })
   }, [])
 
-  if (getIsFeatureEnabled(FEATURE_FLAGS.BANGERS, activeProfile?.id)) {
+  if (!getIsFeatureEnabled(FEATURE_FLAGS.BANGERS, activeProfile?.id)) {
     return <Custom404 />
   }
 
