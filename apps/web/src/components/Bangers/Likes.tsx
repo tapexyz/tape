@@ -29,7 +29,7 @@ const Likes = ({ post }: { post: PrimaryPublication }) => {
 
   const request: WhoReactedPublicationRequest = {
     for: publicationId,
-    limit: LimitType.Fifty
+    limit: LimitType.TwentyFive
   }
 
   const { data, loading } = useWhoReactedPublicationQuery({

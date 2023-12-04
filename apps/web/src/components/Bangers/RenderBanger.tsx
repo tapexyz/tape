@@ -6,7 +6,7 @@ import { getPublicationData } from '@tape.xyz/generic'
 import type { PrimaryPublication } from '@tape.xyz/lens'
 import React from 'react'
 
-import Mirrors from './Likes'
+import Likes from './Likes'
 import RenderLink from './RenderLink'
 
 const RenderBanger = ({ post }: { post: PrimaryPublication }) => {
@@ -15,7 +15,7 @@ const RenderBanger = ({ post }: { post: PrimaryPublication }) => {
       <div className="space-y-4">
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <Mirrors post={post} />
+            <Likes post={post} />
           </div>
           <div>
             <RenderLink
