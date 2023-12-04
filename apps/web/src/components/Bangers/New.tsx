@@ -16,6 +16,7 @@ import {
   LENSHUB_PROXY_ADDRESS,
   OG_IMAGE,
   REQUESTING_SIGNATURE_MESSAGE,
+  SIGN_IN_REQUIRED,
   TAPE_APP_ID,
   TAPE_WEBSITE_URL
 } from '@tape.xyz/constants'
@@ -169,6 +170,9 @@ const New = () => {
   })
 
   const onSubmit = async () => {
+    if (!activeProfile) {
+      return toast.error(SIGN_IN_REQUIRED)
+    }
     if (handleWrongNetwork()) {
       return
     }
@@ -207,15 +211,15 @@ const New = () => {
           }
         }
       })
-    } else {
-      return await createMomokaPostTypedData({
-        variables: {
-          request: {
-            contentURI: metadataUri
-          }
-        }
-      })
     }
+
+    return await createMomokaPostTypedData({
+      variables: {
+        request: {
+          contentURI: metadataUri
+        }
+      }
+    })
   }
 
   return (
@@ -226,7 +230,7 @@ const New = () => {
       className="relative h-44 w-full bg-gray-300 bg-cover bg-center bg-no-repeat dark:bg-gray-700 md:h-[30vh]"
     >
       <fieldset
-        disabled={!activeProfile || loading}
+        disabled={loading}
         className="container mx-auto flex h-full max-w-screen-sm flex-col items-center justify-center space-y-4 px-4 md:px-0"
       >
         <form onSubmit={handleSubmit(onSubmit)} className="w-full">

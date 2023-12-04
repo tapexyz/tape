@@ -3,7 +3,6 @@ import useProfileStore from '@lib/store/profile'
 import { FEATURE_FLAGS } from '@tape.xyz/constants'
 import { EVENTS, getIsFeatureEnabled, Tower } from '@tape.xyz/generic'
 import React, { useEffect } from 'react'
-import Custom404 from 'src/pages/404'
 
 import Feed from './Feed'
 import New from './New'
@@ -16,7 +15,7 @@ const Bangers = () => {
   }, [])
 
   if (!getIsFeatureEnabled(FEATURE_FLAGS.BANGERS, activeProfile?.id)) {
-    return <Custom404 />
+    // return <Custom404 />
   }
 
   return (
