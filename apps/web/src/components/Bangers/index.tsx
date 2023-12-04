@@ -5,7 +5,6 @@ import { EVENTS, getIsFeatureEnabled, Tower } from '@tape.xyz/generic'
 import React, { useEffect } from 'react'
 
 import Feed from './Feed'
-import New from './New'
 
 const Bangers = () => {
   const { activeProfile } = useProfileStore()
@@ -19,13 +18,10 @@ const Bangers = () => {
   }
 
   return (
-    <div>
+    <>
       <MetaTags title="Only Bangers" />
-      <New />
-      <div className="tape-border container mx-auto max-w-screen-sm !border-y-0">
-        <Feed />
-      </div>
-    </div>
+      <Feed />
+    </>
   )
 }
 

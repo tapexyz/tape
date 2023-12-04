@@ -42,6 +42,7 @@ import {
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
 import Link from 'next/link'
+import type { FC } from 'react'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -61,7 +62,11 @@ const formSchema = object({
 })
 type FormData = z.infer<typeof formSchema>
 
-const New = () => {
+type Props = {
+  refetch: () => void
+}
+
+const New: FC<Props> = ({ refetch }) => {
   const {
     register,
     handleSubmit,
@@ -96,6 +101,7 @@ const New = () => {
     }
     setLoading(false)
     reset()
+    refetch()
     toast.success('Posted successfully!')
     Tower.track(EVENTS.PUBLICATION.NEW_POST, {
       type: 'banger',

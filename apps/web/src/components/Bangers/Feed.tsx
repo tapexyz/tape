@@ -20,6 +20,7 @@ import { Loader } from '@tape.xyz/ui'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 
+import New from './New'
 import RenderBanger from './RenderBanger'
 
 const Feed = () => {
@@ -36,11 +37,12 @@ const Feed = () => {
     limit: LimitType.Fifty
   }
 
-  const { data, loading, error, fetchMore } = useExplorePublicationsQuery({
-    variables: {
-      request
-    }
-  })
+  const { data, loading, error, fetchMore, refetch } =
+    useExplorePublicationsQuery({
+      variables: {
+        request
+      }
+    })
 
   const posts = data?.explorePublications?.items as PrimaryPublication[]
   const pageInfo = data?.explorePublications?.pageInfo
@@ -68,14 +70,17 @@ const Feed = () => {
   }
 
   return (
-    <div>
-      {posts?.map((post) => <RenderBanger key={post.id} post={post} />)}
-      {pageInfo?.next && (
-        <span ref={observe} className="flex justify-center p-10">
-          <Loader />
-        </span>
-      )}
-    </div>
+    <>
+      <New refetch={() => refetch()} />
+      <div className="tape-border container mx-auto max-w-screen-sm !border-y-0">
+        {posts?.map((post) => <RenderBanger key={post.id} post={post} />)}
+        {pageInfo?.next && (
+          <span ref={observe} className="flex justify-center p-10">
+            <Loader />
+          </span>
+        )}
+      </div>
+    </>
   )
 }
 
