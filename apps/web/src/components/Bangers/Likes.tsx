@@ -9,13 +9,13 @@ import {
 } from '@tape.xyz/generic'
 import type {
   PrimaryPublication,
-  Profile,
-  ProfilesRequest
+  ProfileWhoReactedResult,
+  WhoReactedPublicationRequest
 } from '@tape.xyz/lens'
-import { LimitType, useProfilesQuery } from '@tape.xyz/lens'
+import { LimitType, useWhoReactedPublicationQuery } from '@tape.xyz/lens'
 import React from 'react'
 
-const Mirrors = ({ post }: { post: PrimaryPublication }) => {
+const Likes = ({ post }: { post: PrimaryPublication }) => {
   const parsePublicationId = () => {
     const sharingLink = getPublicationData(post.metadata)?.content ?? ''
     const match = sharingLink.match(COMMON_REGEX.TAPE_WATCH)
@@ -27,21 +27,20 @@ const Mirrors = ({ post }: { post: PrimaryPublication }) => {
   }
   const publicationId = parsePublicationId()
 
-  const request: ProfilesRequest = {
-    where: {
-      whoMirroredPublication: publicationId
-    },
+  const request: WhoReactedPublicationRequest = {
+    for: publicationId,
     limit: LimitType.Fifty
   }
 
-  const { data, loading } = useProfilesQuery({
+  const { data, loading } = useWhoReactedPublicationQuery({
     variables: {
       request
     },
     skip: !publicationId
   })
 
-  const mirroredByProfiles = data?.profiles?.items as Profile[]
+  const profiles = data?.whoReactedPublication
+    ?.items as ProfileWhoReactedResult[]
 
   return (
     <div className="no-scrollbar flex items-center -space-x-2 overflow-x-auto">
@@ -55,7 +54,7 @@ const Mirrors = ({ post }: { post: PrimaryPublication }) => {
           alt={getProfile(post.by)?.displayName}
         />
       </HoverableProfile>
-      {mirroredByProfiles?.slice(0, 20)?.map((profile) => (
+      {profiles?.slice(0, 20)?.map(({ profile }) => (
         <HoverableProfile profile={profile} key={profile.id}>
           <Avatar
             size="2"
@@ -71,4 +70,4 @@ const Mirrors = ({ post }: { post: PrimaryPublication }) => {
   )
 }
 
-export default Mirrors
+export default Likes
