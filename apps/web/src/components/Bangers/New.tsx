@@ -102,7 +102,9 @@ const New = () => {
       publication_state: canUseLensManager ? 'MOMOKA' : 'ON_CHAIN',
       user_id: activeProfile?.id
     })
-    location.reload()
+    if (!canUseLensManager) {
+      location.reload()
+    }
   }
 
   const { signTypedDataAsync } = useSignTypedData({
