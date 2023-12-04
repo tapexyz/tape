@@ -232,6 +232,7 @@ const New = () => {
         <form onSubmit={handleSubmit(onSubmit)} className="w-full">
           <div className="flex space-x-2">
             <Input
+              title="Tape/YouTube/Vimeo links supported"
               placeholder="Paste a link to a banger"
               autoComplete="off"
               className="bg-white dark:bg-black"

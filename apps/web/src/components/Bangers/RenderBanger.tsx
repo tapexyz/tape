@@ -1,13 +1,12 @@
-import FireOutline from '@components/Common/Icons/FireOutline'
-import MirrorPublication from '@components/Common/MirrorPublication'
+import PublicationReaction from '@components/Common/Publication/PublicationReaction'
 import { getDateString, getRelativeTime } from '@lib/formatTime'
-import { Button, Text } from '@radix-ui/themes'
+import { Text } from '@radix-ui/themes'
 import { TAPE_WEBSITE_URL } from '@tape.xyz/constants'
 import { getPublicationData } from '@tape.xyz/generic'
 import type { PrimaryPublication } from '@tape.xyz/lens'
 import React from 'react'
 
-import Mirrors from './Mirrors'
+import Likes from './Likes'
 import RenderLink from './RenderLink'
 
 const RenderBanger = ({ post }: { post: PrimaryPublication }) => {
@@ -16,7 +15,7 @@ const RenderBanger = ({ post }: { post: PrimaryPublication }) => {
       <div className="space-y-4">
         <div className="space-y-3">
           <div className="flex items-center justify-between">
-            <Mirrors post={post} />
+            <Likes post={post} />
           </div>
           <div>
             <RenderLink
@@ -28,14 +27,7 @@ const RenderBanger = ({ post }: { post: PrimaryPublication }) => {
         </div>
         <div className="mx-2 flex items-center justify-between space-x-2">
           <div className="flex items-center justify-between space-x-4">
-            <MirrorPublication video={post} successToast="Shared as Banger">
-              <div className="flex">
-                <Button size="1" highContrast variant="ghost">
-                  <FireOutline className="h-3.5 w-3.5" />
-                  Banger
-                </Button>
-              </div>
-            </MirrorPublication>
+            <PublicationReaction publication={post} label="Banger" />
           </div>
           <Text size="1" title={getDateString(post.createdAt)}>
             {getRelativeTime(post.createdAt)}
