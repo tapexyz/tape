@@ -9,18 +9,6 @@ const ALLOWED_EMBEDS = [
 ]
 
 const constructIframe = async (document: Document, url: string) => {
-  // if (COMMON_REGEX.TIKTOK_WATCH.test(url)) {
-  //   // Fetch oembed html from tiktok
-  //   const response = await fetch(`https://tiktok.com/oembed?url=${url}`, {
-  //     cf: {
-  //       cacheTtl: 60 * 60 * 24 * 7,
-  //       cacheEverything: true
-  //     }
-  //   })
-  //   const { html }: { html: string } = await response.json()
-  //   return `<iframe src="${html}" class="aspect-[16/9] w-full" allow="accelerometer; clipboard-write; encrypted-media" allowfullscreen></iframe>`
-  // }
-
   const ogURLTag =
     document.querySelector('meta[property="twitter:player"]') ||
     document.querySelector('meta[property="og:video:secure_url"]') ||

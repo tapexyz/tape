@@ -50,7 +50,7 @@ import type { z } from 'zod'
 import { object, string } from 'zod'
 
 const VALID_URL_REGEX = new RegExp(
-  `${COMMON_REGEX.YOUTUBE_WATCH.source}|${COMMON_REGEX.TAPE_WATCH.source}|${COMMON_REGEX.VIMEO_WATCH.source}|${COMMON_REGEX.TIKTOK_WATCH.source}`
+  `${COMMON_REGEX.YOUTUBE_WATCH.source}|${COMMON_REGEX.TAPE_WATCH.source}|${COMMON_REGEX.VIMEO_WATCH.source}`
 )
 
 const formSchema = object({
