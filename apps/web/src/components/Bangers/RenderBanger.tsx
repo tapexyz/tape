@@ -11,7 +11,7 @@ import RenderLink from './RenderLink'
 
 const RenderBanger = ({ post }: { post: PrimaryPublication }) => {
   return (
-    <div className="ultrawide:space-y-8 tape-border hover:bg-gallery/50 hover:dark:bg-smoke space-y-6 !border-x-0 !border-t-0 p-5">
+    <div className="ultrawide:space-y-8 tape-border hover:bg-gallery/50 hover:dark:bg-smoke space-y-6 !border-x-0 !border-t-0 p-2 md:p-5">
       <div className="space-y-4">
         <div className="space-y-3">
           <div className="flex items-center justify-between">
