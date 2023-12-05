@@ -29,7 +29,7 @@
     "dayjs": "^1.11.10",
     "emoji-mart": "^5.5.2",
     "filereader-stream": "^2.0.0",
-    "framer-motion": "^10.16.12",
+    "framer-motion": "^10.16.14",
     "graphql": "^16.8.1",
     "interweave": "^13.1.0",
     "keen-slider": "^6.8.6",
@@ -45,7 +45,7 @@
     "react-use-websocket": "^4.5.0",
     "uuid": "^9.0.1",
     "viem": "^1.19.11",
-    "wagmi": "^1.4.7",
+    "wagmi": "^1.4.8",
     "zod": "^3.22.2",
     "zustand": "^4.4.7"
   },
@@ -58,13 +58,13 @@
     "@tape.xyz/lens": "*",
     "@tape.xyz/ui": "*",
     "@types/node": "20.10.3",
-    "@types/react": "18.2.41",
+    "@types/react": "18.2.42",
     "@types/react-dom": "18.2.17",
     "@types/react-mentions": "^4.1.13",
     "@types/uuid": "^9.0.7",
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.32",
-    "tailwindcss": "^3.3.5",
+    "tailwindcss": "^3.3.6",
     "typescript": "5.3.2"
   }
 }
