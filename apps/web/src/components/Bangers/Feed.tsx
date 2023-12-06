@@ -69,7 +69,9 @@ const Feed = () => {
         {(!loading && !posts?.length) || error ? (
           <NoDataFound withImage isCenter className="my-20" />
         ) : null}
-        {posts?.map((post) => <RenderBanger key={post.id} post={post} />)}
+        {posts?.map((post, i) => (
+          <RenderBanger key={post.id} post={post} isCertifiedBanger={i === 0} />
+        ))}
         {pageInfo?.next && (
           <span ref={observe} className="flex justify-center p-10">
             <Loader />

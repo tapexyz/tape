@@ -1,4 +1,6 @@
+import FireOutline from '@components/Common/Icons/FireOutline'
 import PublicationReaction from '@components/Common/Publication/PublicationReaction'
+import Tooltip from '@components/UIElements/Tooltip'
 import { getDateString, getRelativeTime } from '@lib/formatTime'
 import { Text } from '@radix-ui/themes'
 import { TAPE_WEBSITE_URL } from '@tape.xyz/constants'
@@ -9,13 +11,26 @@ import React from 'react'
 import Likes from './Likes'
 import RenderLink from './RenderLink'
 
-const RenderBanger = ({ post }: { post: PrimaryPublication }) => {
+const RenderBanger = ({
+  post,
+  isCertifiedBanger
+}: {
+  post: PrimaryPublication
+  isCertifiedBanger: boolean
+}) => {
   return (
     <div className="ultrawide:space-y-8 tape-border hover:bg-gallery/50 hover:dark:bg-smoke space-y-6 !border-x-0 !border-t-0 p-2 md:p-5">
       <div className="space-y-4">
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <Likes post={post} />
+            {isCertifiedBanger && (
+              <Tooltip content="Certified Banger" placement="top">
+                <span className="ml-2 text-red-500">
+                  <FireOutline className="h-5 w-5" />
+                </span>
+              </Tooltip>
+            )}
           </div>
           <div>
             <RenderLink
