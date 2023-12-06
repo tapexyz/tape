@@ -61,18 +61,14 @@ const Feed = () => {
     }
   })
 
-  if (loading) {
-    return <BangersShimmer />
-  }
-
-  if ((!loading && !posts?.length) || error) {
-    return <NoDataFound withImage isCenter className="my-20" />
-  }
-
   return (
     <>
       <New refetch={() => refetch()} />
       <div className="tape-border container mx-auto max-w-screen-sm !border-y-0">
+        {loading && <BangersShimmer />}
+        {(!loading && !posts?.length) || error ? (
+          <NoDataFound withImage isCenter className="my-20" />
+        ) : null}
         {posts?.map((post) => <RenderBanger key={post.id} post={post} />)}
         {pageInfo?.next && (
           <span ref={observe} className="flex justify-center p-10">
