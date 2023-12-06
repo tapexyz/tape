@@ -61,7 +61,6 @@ const Likes = ({ post }: { post: PrimaryPublication }) => {
               <Avatar
                 size="2"
                 radius="full"
-                className="z-[1]"
                 src={getProfilePicture(profile)}
                 fallback={getProfile(profile)?.displayName}
                 alt={getProfile(profile)?.displayName}
