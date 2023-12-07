@@ -17,7 +17,7 @@
     "@tape.xyz/config": "*",
     "@tape.xyz/generic": "*",
     "@types/ua-parser-js": "^0.7.39",
-    "typescript": "^5.3.2",
-    "wrangler": "3.18.0"
+    "typescript": "^5.3.3",
+    "wrangler": "3.19.0"
   }
 }
