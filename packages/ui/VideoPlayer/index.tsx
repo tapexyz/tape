@@ -21,7 +21,8 @@ const VideoPlayer: FC<Props> = ({
   ratio = '16to9',
   currentTime = 0,
   isSensitiveContent,
-  showControls = true
+  showControls = true,
+  shouldUpload
 }) => {
   const playerRef = useRef<HTMLMediaElement>()
   const [sensitiveWarning, setSensitiveWarning] = useState(isSensitiveContent)
@@ -61,6 +62,7 @@ const VideoPlayer: FC<Props> = ({
             posterUrl={posterUrl}
             playerRef={mediaElementRef}
             showControls={showControls}
+            shouldUpload={shouldUpload}
           />
         </div>
       )}
