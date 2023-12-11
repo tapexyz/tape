@@ -31,12 +31,12 @@ const Connectors = () => {
 
   return (
     <Flex className="py-10" direction="column" gap="6">
-      <Flex direction="column" gap="3">
+      <Flex direction="column" gap="2">
         {connectors.map((c) => (
           <Button
             key={c.id}
             highContrast
-            variant="soft"
+            variant="surface"
             onClick={() => onChooseConnector(c)}
             disabled={c.id === connected?.id || isLoading}
           >
