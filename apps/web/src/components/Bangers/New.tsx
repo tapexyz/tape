@@ -16,6 +16,7 @@ import {
   LENSHUB_PROXY_ADDRESS,
   OG_IMAGE,
   REQUESTING_SIGNATURE_MESSAGE,
+  SIGN_IN_REQUIRED,
   TAPE_APP_ID,
   TAPE_WEBSITE_URL
 } from '@tape.xyz/constants'
@@ -41,6 +42,7 @@ import {
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
 import Link from 'next/link'
+import type { FC } from 'react'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -50,7 +52,7 @@ import type { z } from 'zod'
 import { object, string } from 'zod'
 
 const VALID_URL_REGEX = new RegExp(
-  `${COMMON_REGEX.YOUTUBE_WATCH.source}|${COMMON_REGEX.TAPE_WATCH.source}|${COMMON_REGEX.VIMEO_WATCH.source}|${COMMON_REGEX.TIKTOK_WATCH.source}`
+  `${COMMON_REGEX.YOUTUBE_WATCH.source}|${COMMON_REGEX.TAPE_WATCH.source}|${COMMON_REGEX.VIMEO_WATCH.source}`
 )
 
 const formSchema = object({
@@ -60,7 +62,11 @@ const formSchema = object({
 })
 type FormData = z.infer<typeof formSchema>
 
-const New = () => {
+type Props = {
+  refetch: () => void
+}
+
+const New: FC<Props> = ({ refetch }) => {
   const {
     register,
     handleSubmit,
@@ -95,13 +101,16 @@ const New = () => {
     }
     setLoading(false)
     reset()
+    refetch()
     toast.success('Posted successfully!')
     Tower.track(EVENTS.PUBLICATION.NEW_POST, {
       type: 'banger',
       publication_state: canUseLensManager ? 'MOMOKA' : 'ON_CHAIN',
       user_id: activeProfile?.id
     })
-    location.reload()
+    if (!canUseLensManager) {
+      location.reload()
+    }
   }
 
   const { signTypedDataAsync } = useSignTypedData({
@@ -169,6 +178,9 @@ const New = () => {
   })
 
   const onSubmit = async () => {
+    if (!activeProfile) {
+      return toast.error(SIGN_IN_REQUIRED)
+    }
     if (handleWrongNetwork()) {
       return
     }
@@ -207,15 +219,15 @@ const New = () => {
           }
         }
       })
-    } else {
-      return await createMomokaPostTypedData({
-        variables: {
-          request: {
-            contentURI: metadataUri
-          }
-        }
-      })
     }
+
+    return await createMomokaPostTypedData({
+      variables: {
+        request: {
+          contentURI: metadataUri
+        }
+      }
+    })
   }
 
   return (
@@ -226,12 +238,13 @@ const New = () => {
       className="relative h-44 w-full bg-gray-300 bg-cover bg-center bg-no-repeat dark:bg-gray-700 md:h-[30vh]"
     >
       <fieldset
-        disabled={!activeProfile || loading}
+        disabled={loading}
         className="container mx-auto flex h-full max-w-screen-sm flex-col items-center justify-center space-y-4 px-4 md:px-0"
       >
         <form onSubmit={handleSubmit(onSubmit)} className="w-full">
           <div className="flex space-x-2">
             <Input
+              title="Tape/YouTube/Vimeo links supported"
               placeholder="Paste a link to a banger"
               autoComplete="off"
               className="bg-white dark:bg-black"

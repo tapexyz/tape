@@ -2,7 +2,7 @@ import type { CodegenConfig } from '@graphql-codegen/cli'
 
 const config: CodegenConfig = {
   overwrite: true,
-  schema: 'https://api-v2-mumbai.lens.dev',
+  schema: 'https://api-v2-mumbai-live.lens.dev',
   documents: './documents/**/*.graphql',
   customFetch: 'node-fetch',
   generates: {
