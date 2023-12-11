@@ -5,6 +5,7 @@ import {
   FALLBACK_THUMBNAIL_URL,
   INFINITE_SCROLL_ROOT_MARGIN,
   LENS_CUSTOM_FILTERS,
+  LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
 } from '@tape.xyz/constants'
 import {
@@ -34,7 +35,7 @@ const ProfileBytes: FC<Props> = ({ profileId }) => {
     where: {
       metadata: {
         mainContentFocus: [PublicationMetadataMainFocusType.ShortVideo],
-        publishedOn: [TAPE_APP_ID]
+        publishedOn: [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID]
       },
       publicationTypes: [PublicationType.Post],
       customFilters: LENS_CUSTOM_FILTERS,
