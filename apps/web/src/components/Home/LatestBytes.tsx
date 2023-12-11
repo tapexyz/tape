@@ -3,6 +3,7 @@ import LatestBytesShimmer from '@components/Shimmers/LatestBytesShimmer'
 import {
   FALLBACK_THUMBNAIL_URL,
   LENS_CUSTOM_FILTERS,
+  LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
 } from '@tape.xyz/constants'
 import {
@@ -32,7 +33,7 @@ const request: ExplorePublicationRequest = {
     customFilters: LENS_CUSTOM_FILTERS,
     metadata: {
       mainContentFocus: [PublicationMetadataMainFocusType.ShortVideo],
-      publishedOn: [TAPE_APP_ID]
+      publishedOn: [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID]
     }
   },
   orderBy: ExplorePublicationsOrderByType.LensCurated,
