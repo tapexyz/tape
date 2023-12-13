@@ -166,17 +166,17 @@ const Timeline = () => {
     selectedFeedType === TimelineFeedType.ALGORITHM
       ? (data?.publications.items as MirrorablePublication[])
       : selectedFeedType === TimelineFeedType.HIGHLIGHTS
-      ? (feedHighlightsData?.feedHighlights.items as MirrorablePublication[])
-      : selectedFeedType === TimelineFeedType.FOLLOWING
-      ? (feedData?.feed?.items as FeedItem[])
-      : (curatedData?.explorePublications?.items as MirrorablePublication[])
+        ? (feedHighlightsData?.feedHighlights.items as MirrorablePublication[])
+        : selectedFeedType === TimelineFeedType.FOLLOWING
+          ? (feedData?.feed?.items as FeedItem[])
+          : (curatedData?.explorePublications?.items as MirrorablePublication[])
 
   const pageInfo =
     selectedFeedType === TimelineFeedType.CURATED
       ? curatedData?.explorePublications?.pageInfo
       : TimelineFeedType.HIGHLIGHTS
-      ? feedHighlightsData?.feedHighlights.pageInfo
-      : feedData?.feed.pageInfo
+        ? feedHighlightsData?.feedHighlights.pageInfo
+        : feedData?.feed.pageInfo
 
   const fetchMorePublications = async () => {
     if (selectedFeedType === TimelineFeedType.CURATED) {

@@ -70,8 +70,8 @@ export const getMetaTags = ({
     url: isAudio
       ? `${TAPE_WEBSITE_URL}/listen/${pubId}`
       : isVideo
-      ? `${TAPE_WEBSITE_URL}/watch/${pubId}`
-      : `${TAPE_WEBSITE_URL}/u/${handle}`
+        ? `${TAPE_WEBSITE_URL}/watch/${pubId}`
+        : `${TAPE_WEBSITE_URL}/u/${handle}`
   }
 
   let defaultMeta = `<title>${meta.title}</title>

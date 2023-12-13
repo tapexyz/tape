@@ -93,8 +93,8 @@ const CreateSteps = () => {
     ?.degreesOfSeparationReferenceModule
     ? ReferenceModuleType.DegreesOfSeparationReferenceModule
     : uploadedMedia.referenceModule.followerOnlyReferenceModule
-    ? ReferenceModuleType.FollowerOnlyReferenceModule
-    : null
+      ? ReferenceModuleType.FollowerOnlyReferenceModule
+      : null
 
   const resetToDefaults = () => {
     setUploadedMedia(UPLOADED_VIDEO_FORM_DEFAULTS)

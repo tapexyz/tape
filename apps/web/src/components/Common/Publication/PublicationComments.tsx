@@ -120,9 +120,9 @@ const PublicationComments: FC<Props> = ({ publication, hideTitle = false }) => {
                 {isFollowerOnlyReferenceModule
                   ? `Only followers can comment on this publication`
                   : isDegreesOfSeparationReferenceModule
-                  ? `Only followers within ${getProfile(publication.by)
-                      ?.displayName}'s preferred network can comment`
-                  : null}
+                    ? `Only followers within ${getProfile(publication.by)
+                        ?.displayName}'s preferred network can comment`
+                    : null}
               </span>
             </Alert>
           ) : null}

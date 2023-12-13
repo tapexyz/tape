@@ -17,10 +17,10 @@ export const getProfilePicture = (
     profile.metadata?.picture?.__typename === 'ImageSet'
       ? profile.metadata?.picture?.optimized?.uri
       : profile.metadata?.picture?.__typename === 'NftImage'
-      ? profile?.metadata.picture.image?.optimized?.uri
-      : withFallback
-      ? getRandomProfilePicture(profile?.ownedBy.address)
-      : null
+        ? profile?.metadata.picture.image?.optimized?.uri
+        : withFallback
+          ? getRandomProfilePicture(profile?.ownedBy.address)
+          : null
   const sanitized = sanitizeDStorageUrl(url)
   return imageCdn(sanitized, type)
 }
@@ -33,7 +33,7 @@ export const getProfilePictureUri = (profile: Profile | null): string => {
     profile.metadata?.picture?.__typename === 'ImageSet'
       ? profile.metadata?.picture?.raw?.uri
       : profile.metadata?.picture?.__typename === 'NftImage'
-      ? profile?.metadata.picture.image?.raw?.uri
-      : null
+        ? profile?.metadata.picture.image?.raw?.uri
+        : null
   return url
 }

@@ -8,6 +8,6 @@ export const getProfileCoverPicture = (
     profile.metadata?.coverPicture.optimized?.uri
     ? profile?.metadata.coverPicture.optimized.uri
     : withFallback
-    ? 'ipfs://bafkreihn5v4hpuxgcysnpb4pgcerkmhwddxq65qswmit6j4nj44btyzdou' //`${STATIC_ASSETS}/images/fallback-cover.svg`
-    : null
+      ? 'ipfs://bafkreihn5v4hpuxgcysnpb4pgcerkmhwddxq65qswmit6j4nj44btyzdou' //`${STATIC_ASSETS}/images/fallback-cover.svg`
+      : null
 }
