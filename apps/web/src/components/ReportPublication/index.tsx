@@ -83,7 +83,7 @@ const ReportPublication: FC<Props> = ({ publication }) => {
                 onValueChange={(value) => setReason(value)}
                 value={reason}
               >
-                <Select.Trigger placeholder="Select a reason" />
+                <Select.Trigger />
                 <Select.Content variant="soft">
                   <Select.Group>
                     <Select.Label>Spam</Select.Label>

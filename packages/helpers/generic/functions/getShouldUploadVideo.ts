@@ -7,7 +7,9 @@ export const getShouldUploadVideo = (video: PrimaryPublication): boolean => {
   const oneDay = 1000 * 60 * 60 * 24
   const oneDayAgo = new Date(now.getTime() - oneDay)
   const createdAt = new Date(video.createdAt)
-  if (createdAt > oneDayAgo && !Boolean(metadata.asset.video.optimized?.uri)) {
+
+  const uri = metadata.asset.video.optimized?.uri ?? ''
+  if (createdAt > oneDayAgo && (!Boolean(uri) || !uri.includes('.m3u8'))) {
     return true
   }
   return false

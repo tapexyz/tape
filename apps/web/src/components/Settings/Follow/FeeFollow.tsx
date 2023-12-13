@@ -263,10 +263,7 @@ const FeeFollow = ({ profile }: Props) => {
                 value={watch('token')}
                 onValueChange={(value) => setValue('token', value)}
               >
-                <Select.Trigger
-                  className="w-full"
-                  placeholder="Select preferred currency"
-                />
+                <Select.Trigger className="w-full" />
                 <Select.Content highContrast>
                   {currencies?.map(({ contract, name }) => (
                     <Select.Item
