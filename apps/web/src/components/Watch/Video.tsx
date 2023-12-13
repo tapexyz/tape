@@ -7,6 +7,7 @@ import {
   getIsSensitiveContent,
   getPublicationData,
   getPublicationMediaUrl,
+  getShouldUploadVideo,
   getThumbnailUrl,
   imageCdn,
   sanitizeDStorageUrl
@@ -60,6 +61,7 @@ const Video: FC<Props> = ({ video }) => {
             isCurrentlyShown: true
           }}
           isSensitiveContent={isSensitiveContent}
+          shouldUpload={getShouldUploadVideo(video)}
         />
       </div>
       <div className="flex items-center justify-between pb-2">

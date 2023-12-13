@@ -19,6 +19,7 @@ export interface PlayerProps {
     loadingSpinner: boolean
     isCurrentlyShown?: boolean
   }
+  shouldUpload?: boolean
 }
 
 const PlayerInstance: FC<PlayerProps> = ({
@@ -28,7 +29,8 @@ const PlayerInstance: FC<PlayerProps> = ({
   playerRef,
   options,
   address,
-  showControls
+  showControls,
+  shouldUpload
 }) => {
   return (
     <Player
@@ -47,11 +49,15 @@ const PlayerInstance: FC<PlayerProps> = ({
       autoPlay={options.autoPlay ?? false}
       showLoadingSpinner={options.loadingSpinner}
       _isCurrentlyShown={options.isCurrentlyShown ?? true}
-      autoUrlUpload={{
-        fallback: true,
-        ipfsGateway: IPFS_GATEWAY_URL,
-        arweaveGateway: ARWEAVE_GATEWAY_URL
-      }}
+      autoUrlUpload={
+        shouldUpload
+          ? {
+              fallback: true,
+              ipfsGateway: IPFS_GATEWAY_URL,
+              arweaveGateway: ARWEAVE_GATEWAY_URL
+            }
+          : undefined
+      }
       refetchPlaybackInfoInterval={1000 * 60 * 60 * 24 * 7} // to disable hls refetching every second
     >
       {/* eslint-disable-next-line react/jsx-no-useless-fragment */}

@@ -4,6 +4,7 @@ import {
   EVENTS,
   getPublicationData,
   getPublicationMediaUrl,
+  getShouldUploadVideo,
   getThumbnailUrl,
   imageCdn,
   sanitizeDStorageUrl,
@@ -91,6 +92,7 @@ const Video: FC<Props> = ({ video }) => {
             isCurrentlyShown: true,
             maxHeight: true
           }}
+          shouldUpload={getShouldUploadVideo(video)}
         />
       ) : (
         <div className="flex h-full w-full justify-center">

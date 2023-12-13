@@ -12,15 +12,15 @@
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "3.465.0",
-    "@aws-sdk/lib-storage": "3.465.0",
+    "@aws-sdk/client-s3": "3.468.0",
+    "@aws-sdk/lib-storage": "3.468.0",
     "@emoji-mart/react": "^1.1.1",
     "@hookform/resolvers": "^3.3.2",
     "@irys/sdk": "^0.1.1",
-    "@lens-protocol/metadata": "^1.0.5",
+    "@lens-protocol/metadata": "^1.1.1",
     "@livepeer/react": "^3.0.10",
     "@radix-ui/react-accordion": "^1.1.2",
-    "@radix-ui/themes": "^2.0.1",
+    "@radix-ui/themes": "^2.0.2",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tanstack/react-query": "^5.12.2",
     "@tippyjs/react": "^4.2.6",
@@ -29,7 +29,7 @@
     "dayjs": "^1.11.10",
     "emoji-mart": "^5.5.2",
     "filereader-stream": "^2.0.0",
-    "framer-motion": "^10.16.14",
+    "framer-motion": "^10.16.15",
     "graphql": "^16.8.1",
     "interweave": "^13.1.0",
     "keen-slider": "^6.8.6",
@@ -57,7 +57,7 @@
     "@tape.xyz/generic": "*",
     "@tape.xyz/lens": "*",
     "@tape.xyz/ui": "*",
-    "@types/node": "20.10.3",
+    "@types/node": "20.10.4",
     "@types/react": "18.2.42",
     "@types/react-dom": "18.2.17",
     "@types/react-mentions": "^4.1.13",
@@ -65,6 +65,6 @@
     "autoprefixer": "^10.4.16",
     "postcss": "^8.4.32",
     "tailwindcss": "^3.3.6",
-    "typescript": "5.3.2"
+    "typescript": "5.3.3"
   }
 }

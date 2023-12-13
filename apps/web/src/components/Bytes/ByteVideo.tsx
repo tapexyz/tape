@@ -4,6 +4,7 @@ import {
   getPublication,
   getPublicationData,
   getPublicationMediaUrl,
+  getShouldUploadVideo,
   getThumbnailUrl,
   imageCdn,
   sanitizeDStorageUrl
@@ -116,6 +117,7 @@ const ByteVideo: FC<Props> = ({
               loadingSpinner: true,
               isCurrentlyShown: currentViewingId === video.id
             }}
+            shouldUpload={getShouldUploadVideo(targetPublication)}
           />
         </div>
         <TopOverlay onClickVideo={onClickVideo} />

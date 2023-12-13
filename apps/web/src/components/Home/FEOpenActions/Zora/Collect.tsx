@@ -16,7 +16,7 @@ import {
   useWaitForTransaction
 } from 'wagmi'
 
-const FIXED_PRICE_SALE_STRATEGY = '0x169d9147dFc9409AfA4E558dF2C9ABeebc020182'
+const FIXED_PRICE_SALE_STRATEGY = '0x04E2516A2c207E84a1839755675dfd8eF6302F0a'
 const NO_BALANCE_ERROR = 'exceeds the balance of the account'
 const MAX_MINT_EXCEEDED_ERROR = 'Purchase_TooManyForAddress'
 
