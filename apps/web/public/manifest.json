@@ -8,7 +8,7 @@
   "theme_color": "#000000",
   "display": "standalone",
   "scope": "/",
-  	"iconPath": "https://static.tape.xyz/brand/favicons/android-chrome-512x512.png",
+  "iconPath": "https://static.tape.xyz/brand/favicons/android-chrome-512x512.png",
   "icons": [
     {
       "src": "https://static.tape.xyz/brand/favicons/android-chrome-192x192.png",
