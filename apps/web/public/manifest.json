@@ -2,11 +2,13 @@
   "id": "xyz.tape",
   "name": "Tape",
   "short_name": "Tape",
+  "description": "Talk, Amplify, Post, Explore.",
   "start_url": "/",
   "background_color": "#000000",
   "theme_color": "#000000",
   "display": "standalone",
   "scope": "/",
+  "iconPath": "https://static.tape.xyz/brand/favicons/android-chrome-512x512.png",
   "icons": [
     {
       "src": "https://static.tape.xyz/brand/favicons/android-chrome-192x192.png",
