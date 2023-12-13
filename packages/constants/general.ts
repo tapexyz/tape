@@ -78,7 +78,9 @@ export const EVER_REGION = 'us-west-2'
 export const WC_PROJECT_ID = 'bf790b6b57570b99567abd1677b7415d'
 
 // livepeer
-export const LIVEPEER_STUDIO_API_KEY = 'b13fd43e-d0d6-4abc-a5df-93592a0c5124'
+export const LIVEPEER_STUDIO_API_KEY = IS_PRODUCTION
+  ? 'ade26a09-c774-4898-a269-883551f1c5df'
+  : ''
 
 // workers
 export const WORKER_LIVEPEER_VIEWS_URL = 'https://views.tape.xyz'
