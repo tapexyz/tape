@@ -100,7 +100,7 @@ const Navbar = () => {
           >
             Feed
           </Link>
-          <Link
+          {/* <Link
             href="/explore"
             className={clsx(
               isActivePath('/explore')
@@ -109,7 +109,7 @@ const Navbar = () => {
             )}
           >
             Explore
-          </Link>
+          </Link> */}
           {getIsFeatureEnabled(FEATURE_FLAGS.BANGERS, activeProfile?.id) && (
             <Link
               href="/bangers"
