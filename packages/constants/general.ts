@@ -80,7 +80,7 @@ export const WC_PROJECT_ID = 'bf790b6b57570b99567abd1677b7415d'
 // livepeer
 export const LIVEPEER_STUDIO_API_KEY = IS_PRODUCTION
   ? '787ecb60-1293-4b65-8a80-490cd1e75948'
-  : ''
+  : 'f491cfd1-ed0a-4f74-bd92-f07cc23eade7'
 
 // workers
 export const WORKER_LIVEPEER_VIEWS_URL = 'https://views.tape.xyz'
