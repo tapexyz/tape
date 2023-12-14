@@ -1,7 +1,6 @@
 import { TAPE_APP_NAME, WC_PROJECT_ID } from '@tape.xyz/constants'
 import { CoinbaseWalletConnector } from '@wagmi/connectors/coinbaseWallet'
 import { InjectedConnector } from '@wagmi/connectors/injected'
-import { LedgerConnector } from '@wagmi/connectors/ledger'
 import { WalletConnectConnector } from '@wagmi/connectors/walletConnect'
 import { type FC, type ReactNode } from 'react'
 import { configureChains, createConfig, WagmiConfig } from 'wagmi'
@@ -43,12 +42,6 @@ const connectors: any = [
       projectId: WC_PROJECT_ID
     },
     chains
-  }),
-  new LedgerConnector({
-    chains,
-    options: {
-      projectId: WC_PROJECT_ID
-    }
   })
 ]
 
