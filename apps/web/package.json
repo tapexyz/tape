@@ -12,8 +12,8 @@
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "3.473.0",
-    "@aws-sdk/lib-storage": "3.473.0",
+    "@aws-sdk/client-s3": "3.474.0",
+    "@aws-sdk/lib-storage": "3.474.0",
     "@emoji-mart/react": "^1.1.1",
     "@hookform/resolvers": "^3.3.2",
     "@irys/sdk": "^0.1.1",
@@ -44,7 +44,7 @@
     "react-mentions": "^4.4.10",
     "react-use-websocket": "^4.5.0",
     "uuid": "^9.0.1",
-    "viem": "^1.19.15",
+    "viem": "^1.20.0",
     "wagmi": "^1.4.12",
     "zod": "^3.22.2",
     "zustand": "^4.4.7"
