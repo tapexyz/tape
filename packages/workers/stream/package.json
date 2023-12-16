@@ -16,6 +16,6 @@
     "@tape.xyz/config": "*",
     "@tape.xyz/generic": "*",
     "typescript": "^5.3.3",
-    "wrangler": "3.20.0"
+    "wrangler": "3.21.0"
   }
 }
