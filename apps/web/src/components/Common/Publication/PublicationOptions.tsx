@@ -1,4 +1,4 @@
-import ReportPublication from '@components/ReportPublication'
+import ReportPublication from '@components/Report/Publication'
 import Confirm from '@components/UIElements/Confirm'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import type { ProfileOptions } from '@lens-protocol/metadata'

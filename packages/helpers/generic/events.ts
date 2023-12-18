@@ -76,6 +76,7 @@ export const EVENTS = {
     FOLLOW: 'Follow',
     SUPER_FOLLOW: 'Super Follow',
     UNFOLLOW: 'Unfollow',
+    REPORT: 'Report Profile',
     SETTINGS: {
       TOGGLE_REVERT_FOLLOW: 'Toggle Revert Follow'
     }
