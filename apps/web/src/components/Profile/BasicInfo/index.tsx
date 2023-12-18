@@ -1,16 +1,20 @@
 import Badge from '@components/Common/Badge'
 import FollowActions from '@components/Common/FollowActions'
+import FlagOutline from '@components/Common/Icons/FlagOutline'
 import LinkOutline from '@components/Common/Icons/LinkOutline'
 import ProfileBanOutline from '@components/Common/Icons/ProfileBanOutline'
 import ThreeDotsOutline from '@components/Common/Icons/ThreeDotsOutline'
 import WarningOutline from '@components/Common/Icons/WarningOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
+import ReportProfile from '@components/Report/Profile'
 import Tooltip from '@components/UIElements/Tooltip'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import useNonceStore from '@lib/store/nonce'
 import useProfileStore from '@lib/store/profile'
 import {
   Badge as BadgeUI,
   Callout,
+  Dialog,
   DropdownMenu,
   Flex,
   IconButton,
@@ -23,6 +27,7 @@ import {
   LENSHUB_PROXY_ADDRESS,
   MISUSED_CHANNELS,
   REQUESTING_SIGNATURE_MESSAGE,
+  SIGN_IN_REQUIRED,
   STATIC_ASSETS,
   TAPE_WEBSITE_URL
 } from '@tape.xyz/constants'
@@ -65,6 +70,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
   const { activeProfile } = useProfileStore()
   const { canBroadcast } = checkLensManagerPermissions(activeProfile)
+  const handleWrongNetwork = useHandleWrongNetwork()
 
   const hasOnChainId =
     profile.onchainIdentity?.ens?.name ||
@@ -224,6 +230,15 @@ const BasicInfo: FC<Props> = ({ profile }) => {
     setLoading(false)
   }
 
+  const onClickReport = () => {
+    if (!activeProfile?.id) {
+      return toast.error(SIGN_IN_REQUIRED)
+    }
+    if (handleWrongNetwork()) {
+      return
+    }
+  }
+
   return (
     <div className="px-2 xl:px-0">
       {misused?.description && (
@@ -325,6 +340,29 @@ const BasicInfo: FC<Props> = ({ profile }) => {
                   <span className="whitespace-nowrap">Permalink</span>
                 </Flex>
               </DropdownMenu.Item>
+
+              {activeProfile?.id && (
+                <Dialog.Root>
+                  <Dialog.Trigger>
+                    <button
+                      className="!cursor-default rounded-md px-3 py-1.5 hover:bg-gray-500/20"
+                      onClick={() => onClickReport()}
+                    >
+                      <Flex align="center" gap="2">
+                        <FlagOutline className="h-3.5 w-3.5" />
+                        <Text size="2" className="whitespace-nowrap">
+                          Report
+                        </Text>
+                      </Flex>
+                    </button>
+                  </Dialog.Trigger>
+                  <Dialog.Content style={{ maxWidth: 450 }}>
+                    <Dialog.Title>Report</Dialog.Title>
+                    <ReportProfile profile={profile} />
+                  </Dialog.Content>
+                </Dialog.Root>
+              )}
+
               {profile.operations.canBlock && (
                 <DropdownMenu.Item
                   color="red"
