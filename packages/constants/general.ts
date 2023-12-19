@@ -99,7 +99,7 @@ export const IRYS_NODE_URL = IS_MAINNET
   ? 'https://node1.irys.xyz'
   : 'https://devnet.irys.xyz'
 export const IRYS_CURRENCY = 'matic'
-export const ARWEAVE_GATEWAY_URL = 'https://arweave.net'
+export const ARWEAVE_GATEWAY_URL = 'https://gateway.irys.xyz'
 export const IRYS_CONNECT_MESSAGE = 'Estimating video upload cost...'
 export const REQUESTING_SIGNATURE_MESSAGE = 'Requesting signature...'
 
