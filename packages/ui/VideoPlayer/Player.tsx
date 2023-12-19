@@ -36,7 +36,7 @@ const PlayerInstance: FC<PlayerProps> = ({
     <Player
       src={
         url?.includes(ARWEAVE_GATEWAY_URL)
-          ? url.replace(ARWEAVE_GATEWAY_URL, '')
+          ? url.replace(`${ARWEAVE_GATEWAY_URL}/`, 'ar://')
           : url
       }
       poster={posterUrl}
