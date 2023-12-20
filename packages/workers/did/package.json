@@ -10,13 +10,13 @@
   },
   "dependencies": {
     "itty-router": "^4.0.23",
-    "viem": "^1.20.2",
+    "viem": "^1.20.3",
     "zod": "^3.22.2"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20231121.0",
+    "@cloudflare/workers-types": "^4.20231218.0",
     "@tape.xyz/config": "*",
     "typescript": "^5.3.3",
-    "wrangler": "3.21.0"
+    "wrangler": "3.22.0"
   }
 }

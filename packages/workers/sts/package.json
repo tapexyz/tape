@@ -9,12 +9,12 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "3.476.0"
+    "@aws-sdk/client-sts": "3.477.0"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20231121.0",
+    "@cloudflare/workers-types": "^4.20231218.0",
     "@tape.xyz/config": "*",
     "typescript": "^5.3.3",
-    "wrangler": "3.21.0"
+    "wrangler": "3.22.0"
   }
 }

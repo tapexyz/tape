@@ -1,7 +1,8 @@
 import { IS_MAINNET } from '../general'
 
-export const AAVE_MEMBERS = IS_MAINNET
+export const AVARA_MEMBERS = IS_MAINNET
   ? [
+      '0x01cddb', // build
       '0x01a709', // avara
       '0x5c95', // 2irl4u
       '0x04', // letsraave
