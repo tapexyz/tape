@@ -12,6 +12,7 @@ import { getIsProfileOwner, trimify } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { useCurrentProfileQuery } from '@tape.xyz/lens'
 import { type CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+import { watchAccount } from '@wagmi/core'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
@@ -44,7 +45,7 @@ const Layout: FC<Props> = ({
 
   const isMounted = useIsMounted()
   const { resolvedTheme } = useTheme()
-  const { address, connector } = useAccount()
+  const { address } = useAccount()
   const { pathname, replace, asPath } = useRouter()
   const currentSessionProfileId = getCurrentSessionProfileId()
 
@@ -103,11 +104,12 @@ const Layout: FC<Props> = ({
 
   useEffect(() => {
     setFingerprint()
-    connector?.addListener('change', () => {
+    const unwatch = watchAccount(() => {
       if (activeProfile?.id) {
         logout()
       }
     })
+    return () => unwatch()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
