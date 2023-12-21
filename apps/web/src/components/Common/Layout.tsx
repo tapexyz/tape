@@ -11,15 +11,14 @@ import { AUTH_ROUTES, OWNER_ONLY_ROUTES } from '@tape.xyz/constants'
 import { getIsProfileOwner, trimify } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { useCurrentProfileQuery } from '@tape.xyz/lens'
-import { type CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { watchAccount } from '@wagmi/core'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
 import type { FC, ReactNode } from 'react'
 import React, { useEffect } from 'react'
-import { toast, Toaster } from 'react-hot-toast'
-import { useAccount, useDisconnect } from 'wagmi'
+import { Toaster } from 'react-hot-toast'
+import { useAccount } from 'wagmi'
 
 import FullPageLoader from './FullPageLoader'
 import MetaTags from './MetaTags'
@@ -49,30 +48,18 @@ const Layout: FC<Props> = ({
   const { pathname, replace, asPath } = useRouter()
   const currentSession = getCurrentSession()
 
-  const { disconnect } = useDisconnect({
-    onError(error: CustomErrorWithData) {
-      toast.error(error?.data?.message ?? error?.message)
-    }
-  })
-
-  const logout = () => {
-    setActiveProfile(null)
-    disconnect?.()
-    signOut()
-  }
-
   const { loading } = useCurrentProfileQuery({
     variables: { request: { forProfileId: currentSession?.profileId } },
     skip: trimify(currentSession?.profileId).length === 0,
     onCompleted: ({ userSigNonces, profile }) => {
       if (!profile) {
-        return logout()
+        return signOut()
       }
 
       setActiveProfile(profile as Profile)
       setLensHubOnchainSigNonce(userSigNonces.lensHubOnchainSigNonce)
     },
-    onError: () => logout()
+    onError: () => signOut()
   })
 
   const validateAuthRoutes = () => {
@@ -98,7 +85,7 @@ const Layout: FC<Props> = ({
     setFingerprint()
     const unwatch = watchAccount(() => {
       if (activeProfile?.id) {
-        logout()
+        signOut()
       }
     })
     return () => unwatch()
