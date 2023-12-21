@@ -8,13 +8,13 @@
     "worker:deploy": "wrangler deploy"
   },
   "dependencies": {
-    "itty-router": "^4.0.23",
+    "itty-router": "^4.0.24",
     "linkedom": "^0.16.5"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20231218.0",
     "@tape.xyz/config": "*",
     "typescript": "^5.3.3",
-    "wrangler": "3.22.0"
+    "wrangler": "3.22.1"
   }
 }
