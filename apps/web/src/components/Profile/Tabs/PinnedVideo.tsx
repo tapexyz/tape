@@ -234,8 +234,8 @@ const PinnedVideo: FC<Props> = ({ id }) => {
   return (
     <div className="mb-4 mt-6">
       <h1 className="text-brand-400 pb-4 text-xl font-bold">Featured</h1>
-      <div className="grid grid-cols-3 overflow-hidden md:space-x-5">
-        <div className="overflow-hidden md:rounded-xl">
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 overflow-hidden gap-5">
+        <div className="overflow-hidden rounded-xl">
           <VideoPlayer
             address={activeProfile?.ownedBy.address}
             url={getPublicationMediaUrl(pinnedPublication.metadata)}
@@ -249,7 +249,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
             }}
           />
         </div>
-        <div className="group flex flex-col justify-between pl-2 lg:col-span-2">
+        <div className="group flex flex-col justify-between pl-2 gap-3 lg:col-span-2">
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <Link
