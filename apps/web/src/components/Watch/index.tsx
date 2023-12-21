@@ -1,7 +1,7 @@
 import MetaTags from '@components/Common/MetaTags'
 import { WatchShimmer } from '@components/Shimmers/WatchShimmer'
 import useAppStore from '@lib/store'
-import useProfileStore from '@lib/store/profile'
+import useCommentStore from '@lib/store/comment'
 import {
   EVENTS,
   getPublication,
@@ -29,7 +29,7 @@ const VideoDetails = () => {
   } = useRouter()
 
   const setVideoWatchTime = useAppStore((state) => state.setVideoWatchTime)
-  const selectedCommentFilter = useProfileStore(
+  const selectedCommentFilter = useCommentStore(
     (state) => state.selectedCommentFilter
   )
 

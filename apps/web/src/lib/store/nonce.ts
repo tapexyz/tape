@@ -5,7 +5,7 @@ interface NonceState {
   setLensHubOnchainSigNonce: (nonce: number) => void
 }
 
-export const useNonceStore = create<NonceState>((set) => ({
+const useNonceStore = create<NonceState>((set) => ({
   lensHubOnchainSigNonce: 0,
   setLensHubOnchainSigNonce: (nonce: number) =>
     set({ lensHubOnchainSigNonce: nonce })

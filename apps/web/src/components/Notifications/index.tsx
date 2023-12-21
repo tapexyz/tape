@@ -1,8 +1,8 @@
 import MetaTags from '@components/Common/MetaTags'
 import NotificationsShimmer from '@components/Shimmers/NotificationsShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import useNotificationStore from '@lib/store/notification'
 import usePersistStore from '@lib/store/persist'
-import useProfileStore from '@lib/store/profile'
 import {
   INFINITE_SCROLL_ROOT_MARGIN,
   LENS_CUSTOM_FILTERS,
@@ -28,7 +28,7 @@ import Quoted from './Quoted'
 import Reactions from './Reactions'
 
 const Notifications = () => {
-  const setHasNewNotification = useProfileStore(
+  const setHasNewNotification = useNotificationStore(
     (state) => state.setHasNewNotification
   )
   const selectedNotificationsFilter = usePersistStore(

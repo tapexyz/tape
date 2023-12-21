@@ -123,6 +123,10 @@ export enum LocalStore {
   WAGMI_STORE = 'wagmi.store'
 }
 
+export enum LocalIDBStore {
+  PROFILE_STORE = 'profile.store'
+}
+
 export interface CustomNftItemType {
   contentValue: {
     video: string

@@ -74,7 +74,7 @@ interface AppState {
   }) => Promise<WebIrys | null>
 }
 
-export const useAppStore = create<AppState>((set) => ({
+const useAppStore = create<AppState>((set) => ({
   videoWatchTime: 0,
   activeTagFilter: 'all',
   irysData: UPLOADED_VIDEO_IRYS_DEFAULTS,

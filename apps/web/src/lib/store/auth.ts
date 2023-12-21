@@ -20,7 +20,7 @@ const cookieConfig: Cookies.CookieAttributes = {
   secure: true
 }
 
-export const useAuthPersistStore = create<AuthState>(() => ({
+const useAuthPersistStore = create<AuthState>(() => ({
   signIn: ({ accessToken, refreshToken }) => {
     Cookies.set('accessToken', accessToken, { ...cookieConfig, expires: 1 })
     Cookies.set('refreshToken', refreshToken, { ...cookieConfig, expires: 7 })

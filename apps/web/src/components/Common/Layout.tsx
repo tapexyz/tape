@@ -96,7 +96,7 @@ const Layout: FC<Props> = ({
     return <MetaTags />
   }
 
-  if (loading) {
+  if (!activeProfile && loading) {
     return <FullPageLoader />
   }
 
