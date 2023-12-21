@@ -56,8 +56,8 @@ const Layout: FC<Props> = ({
 
   const logout = () => {
     setActiveProfile(null)
-    signOut()
     disconnect?.()
+    signOut()
   }
 
   const { loading } = useCurrentProfileQuery({
