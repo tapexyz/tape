@@ -455,7 +455,7 @@ const PublicationOptions: FC<Props> = ({
                 <Dialog.Root>
                   <Dialog.Trigger disabled={!activeProfile?.id}>
                     <button
-                      className="!cursor-default rounded-md px-3 py-1.5 hover:bg-gray-500/20"
+                      className="!cursor-default disabled:opacity-40 disabled:hover:bg-inherit rounded-md px-3 py-1.5 hover:bg-gray-500/20"
                       onClick={() => onClickReport()}
                     >
                       <Flex align="center" gap="2">
