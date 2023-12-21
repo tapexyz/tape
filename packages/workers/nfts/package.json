@@ -9,13 +9,13 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "itty-router": "^4.0.22"
+    "itty-router": "^4.0.24"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20231218.0",
     "@tape.xyz/config": "*",
     "@tape.xyz/generic": "*",
     "typescript": "^5.3.3",
-    "wrangler": "3.22.0"
+    "wrangler": "3.22.1"
   }
 }
