@@ -1,5 +1,4 @@
-import getCurrentSessionId from '@lib/getCurrentSessionId'
-import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId'
+import getCurrentSession from '@lib/getCurrentSession'
 import { signOut } from '@lib/store/auth'
 import useNonceStore from '@lib/store/nonce'
 import usePersistStore from '@lib/store/persist'
@@ -20,7 +19,7 @@ const SubscriptionProvider = () => {
   const { address } = useAccount()
   const { setLensHubOnchainSigNonce } = useNonceStore()
   const { resetStore: resetApolloStore } = useApolloClient()
-  const currentSessionProfileId = getCurrentSessionProfileId()
+  const currentSession = getCurrentSession()
 
   const setLatestNotificationId = usePersistStore(
     (state) => state.setLatestNotificationId
@@ -37,13 +36,13 @@ const SubscriptionProvider = () => {
   }, [])
 
   useEffect(() => {
-    if (readyState === 1 && currentSessionProfileId) {
-      if (!isAddress(currentSessionProfileId)) {
+    if (readyState === 1 && currentSession?.profileId) {
+      if (!isAddress(currentSession.profileId)) {
         sendJsonMessage({
           id: '1',
           type: 'subscribe',
           payload: {
-            variables: { for: currentSessionProfileId },
+            variables: { for: currentSession.profileId },
             query: NewNotificationSubscriptionDocument.loc?.source.body
           }
         })
@@ -60,19 +59,19 @@ const SubscriptionProvider = () => {
         id: '3',
         type: 'subscribe',
         payload: {
-          variables: { authorizationId: getCurrentSessionId() },
+          variables: { authorizationId: getCurrentSession().authorizationId },
           query: AuthorizationRecordRevokedSubscriptionDocument.loc?.source.body
         }
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [readyState, currentSessionProfileId])
+  }, [readyState, currentSession?.profileId])
 
   useEffect(() => {
     const jsonData = JSON.parse(lastMessage?.data || '{}')
     const data = jsonData?.payload?.data
 
-    if (currentSessionProfileId && data) {
+    if (currentSession?.profileId && data) {
       if (jsonData.id === '1') {
         const notification = data.newNotification as Notification
         if (notification) {
@@ -91,7 +90,7 @@ const SubscriptionProvider = () => {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lastMessage, currentSessionProfileId])
+  }, [lastMessage, currentSession?.profileId])
 
   return null
 }

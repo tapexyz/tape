@@ -18,12 +18,11 @@ import {
   useProfilesManagedQuery
 } from '@tape.xyz/lens'
 import { useApolloClient } from '@tape.xyz/lens/apollo'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
 import { useRouter } from 'next/router'
 import React, { useCallback, useMemo, useState } from 'react'
 import toast from 'react-hot-toast'
-import { useAccount, useDisconnect, useSignMessage } from 'wagmi'
+import { useAccount, useSignMessage } from 'wagmi'
 
 import Signup from './Signup'
 
@@ -42,7 +41,6 @@ const Authenticate = () => {
 
   const onError = () => {
     signOut()
-    setActiveProfile(null)
   }
 
   const {
@@ -75,11 +73,6 @@ const Authenticate = () => {
   const { signMessageAsync } = useSignMessage({
     onError
   })
-  const { disconnect } = useDisconnect({
-    onError(error: CustomErrorWithData) {
-      toast.error(error?.data?.message ?? error?.message)
-    }
-  })
 
   const [loadChallenge] = useChallengeLazyQuery({
     // if cache old challenge persist issue (InvalidSignature)
@@ -90,7 +83,6 @@ const Authenticate = () => {
 
   const handleSign = useCallback(async () => {
     if (!isConnected) {
-      disconnect?.()
       signOut()
       return toast.error('Please connect to your wallet')
     }
@@ -148,7 +140,6 @@ const Authenticate = () => {
     router,
     address,
     connector,
-    disconnect,
     authenticate,
     isConnected,
     loadChallenge,

@@ -2,6 +2,7 @@ import Alert from '@components/Common/Alert'
 import CommentOutline from '@components/Common/Icons/CommentOutline'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import useCommentStore from '@lib/store/comment'
 import usePersistStore from '@lib/store/persist'
 import useProfileStore from '@lib/store/profile'
 import {
@@ -38,7 +39,10 @@ type Props = {
 }
 
 const PublicationComments: FC<Props> = ({ publication, hideTitle = false }) => {
-  const { activeProfile, selectedCommentFilter } = useProfileStore()
+  const activeProfile = useProfileStore((state) => state.activeProfile)
+  const selectedCommentFilter = useCommentStore(
+    (state) => state.selectedCommentFilter
+  )
   const queuedComments = usePersistStore((state) => state.queuedComments)
 
   const isFollowerOnlyReferenceModule =

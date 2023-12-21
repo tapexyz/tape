@@ -1,11 +1,11 @@
 import SortOutline from '@components/Common/Icons/SortOutline'
-import useProfileStore from '@lib/store/profile'
+import useCommentStore from '@lib/store/comment'
 import { Box, DropdownMenu, Text } from '@radix-ui/themes'
 import { CustomCommentsFilterEnum } from '@tape.xyz/lens/custom-types'
 import React from 'react'
 
 const CommentsFilter = () => {
-  const { selectedCommentFilter, setSelectedCommentFilter } = useProfileStore()
+  const { selectedCommentFilter, setSelectedCommentFilter } = useCommentStore()
 
   return (
     <DropdownMenu.Root>

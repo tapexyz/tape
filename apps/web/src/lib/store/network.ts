@@ -5,7 +5,7 @@ interface State {
   setShowSwitchNetwork: (value: boolean) => void
 }
 
-export const useNetworkStore = create<State>((set) => ({
+const useNetworkStore = create<State>((set) => ({
   showSwitchNetwork: false,
   setShowSwitchNetwork: (showSwitchNetwork) => set({ showSwitchNetwork })
 }))

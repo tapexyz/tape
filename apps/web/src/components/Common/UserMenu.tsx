@@ -1,4 +1,4 @@
-import getCurrentSessionId from '@lib/getCurrentSessionId'
+import getCurrentSession from '@lib/getCurrentSession'
 import { signOut } from '@lib/store/auth'
 import useProfileStore from '@lib/store/profile'
 import { Avatar, DropdownMenu, Flex, Text } from '@radix-ui/themes'
@@ -10,13 +10,11 @@ import {
   useProfilesManagedQuery,
   useRevokeAuthenticationMutation
 } from '@tape.xyz/lens'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
 import React, { useMemo } from 'react'
-import { toast } from 'react-hot-toast'
-import { useAccount, useDisconnect } from 'wagmi'
+import { useAccount } from 'wagmi'
 
 import BookmarkOutline from './Icons/BookmarkOutline'
 import CogOutline from './Icons/CogOutline'
@@ -31,12 +29,7 @@ const UserMenu = () => {
   const { theme, setTheme } = useTheme()
   const { push, asPath } = useRouter()
   const { address } = useAccount()
-  const { disconnect } = useDisconnect({
-    onError(error: CustomErrorWithData) {
-      toast.error(error?.data?.message || error?.message)
-    }
-  })
-  const { activeProfile, setActiveProfile } = useProfileStore()
+  const { activeProfile } = useProfileStore()
 
   const { data } = useProfilesManagedQuery({
     variables: {
@@ -58,14 +51,15 @@ const UserMenu = () => {
   const [revokeAuthentication, { loading }] = useRevokeAuthenticationMutation()
 
   const onClickSignout = async () => {
-    await revokeAuthentication({
-      variables: {
-        request: { authorizationId: getCurrentSessionId() }
-      }
-    })
+    const authorizationId = getCurrentSession().authorizationId
+    if (authorizationId) {
+      await revokeAuthentication({
+        variables: {
+          request: { authorizationId }
+        }
+      })
+    }
     signOut()
-    setActiveProfile(null)
-    disconnect?.()
     Tower.track(EVENTS.AUTH.SIGN_OUT)
     location.reload()
   }

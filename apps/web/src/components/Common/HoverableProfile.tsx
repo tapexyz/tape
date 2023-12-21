@@ -1,4 +1,4 @@
-import { useProfileStore } from '@lib/store/profile'
+import useProfileStore from '@lib/store/profile'
 import { Avatar, Flex, HoverCard, Inset, Text } from '@radix-ui/themes'
 import {
   getProfile,

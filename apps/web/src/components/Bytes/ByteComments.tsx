@@ -1,6 +1,6 @@
 import PublicationComments from '@components/Common/Publication/PublicationComments'
 import NonRelevantComments from '@components/Watch/Comments/NonRelevantComments'
-import useProfileStore from '@lib/store/profile'
+import useCommentStore from '@lib/store/comment'
 import type { MirrorablePublication } from '@tape.xyz/lens'
 import { CustomCommentsFilterEnum } from '@tape.xyz/lens/custom-types'
 import type { FC } from 'react'
@@ -11,7 +11,7 @@ type Props = {
 }
 
 const ByteComments: FC<Props> = ({ video }) => {
-  const selectedCommentFilter = useProfileStore(
+  const selectedCommentFilter = useCommentStore(
     (state) => state.selectedCommentFilter
   )
 
