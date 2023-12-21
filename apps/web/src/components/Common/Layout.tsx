@@ -1,5 +1,5 @@
-import getCurrentSessionProfileId from '@lib/getCurrentSessionProfileId'
-import { hydrateAuthTokens, signOut } from '@lib/store/auth'
+import getCurrentSession from '@lib/getCurrentSession'
+import { signOut } from '@lib/store/auth'
 import useNonceStore from '@lib/store/nonce'
 import useProfileStore from '@lib/store/profile'
 import {
@@ -47,7 +47,7 @@ const Layout: FC<Props> = ({
   const { resolvedTheme } = useTheme()
   const { address } = useAccount()
   const { pathname, replace, asPath } = useRouter()
-  const currentSessionProfileId = getCurrentSessionProfileId()
+  const currentSession = getCurrentSession()
 
   const { disconnect } = useDisconnect({
     onError(error: CustomErrorWithData) {
@@ -62,8 +62,8 @@ const Layout: FC<Props> = ({
   }
 
   const { loading } = useCurrentProfileQuery({
-    variables: { request: { forProfileId: currentSessionProfileId } },
-    skip: trimify(currentSessionProfileId).length === 0,
+    variables: { request: { forProfileId: currentSession?.profileId } },
+    skip: trimify(currentSession?.profileId).length === 0,
     onCompleted: ({ userSigNonces, profile }) => {
       if (!profile) {
         return logout()
@@ -76,7 +76,7 @@ const Layout: FC<Props> = ({
   })
 
   const validateAuthRoutes = () => {
-    if (!currentSessionProfileId && AUTH_ROUTES.includes(pathname)) {
+    if (!currentSession?.profileId && AUTH_ROUTES.includes(pathname)) {
       replace(`/login?next=${asPath}`)
     }
     if (
@@ -89,18 +89,10 @@ const Layout: FC<Props> = ({
     }
   }
 
-  const validateAuthentication = () => {
-    const { accessToken } = hydrateAuthTokens()
-    if (!accessToken) {
-      logout()
-    }
-  }
-
   useEffect(() => {
     validateAuthRoutes()
-    validateAuthentication()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [asPath, currentSessionProfileId, activeProfile])
+  }, [asPath, currentSession?.profileId, activeProfile])
 
   useEffect(() => {
     setFingerprint()

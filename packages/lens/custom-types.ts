@@ -119,7 +119,8 @@ export enum CustomNotificationsFilterEnum {
 export enum LocalStore {
   TAPE_AUTH_STORE = 'tape.auth.store',
   TAPE_STORE = 'tape.store',
-  TAPE_FINGERPRINT = 'tape.fingerprint'
+  TAPE_FINGERPRINT = 'tape.fingerprint',
+  WAGMI_STORE = 'wagmi.store'
 }
 
 export interface CustomNftItemType {

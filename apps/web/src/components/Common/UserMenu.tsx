@@ -1,4 +1,4 @@
-import getCurrentSessionId from '@lib/getCurrentSessionId'
+import getCurrentSession from '@lib/getCurrentSession'
 import { signOut } from '@lib/store/auth'
 import useProfileStore from '@lib/store/profile'
 import { Avatar, DropdownMenu, Flex, Text } from '@radix-ui/themes'
@@ -58,11 +58,14 @@ const UserMenu = () => {
   const [revokeAuthentication, { loading }] = useRevokeAuthenticationMutation()
 
   const onClickSignout = async () => {
-    await revokeAuthentication({
-      variables: {
-        request: { authorizationId: getCurrentSessionId() }
-      }
-    })
+    const authorizationId = getCurrentSession().authorizationId
+    if (authorizationId) {
+      await revokeAuthentication({
+        variables: {
+          request: { authorizationId }
+        }
+      })
+    }
     signOut()
     setActiveProfile(null)
     disconnect?.()

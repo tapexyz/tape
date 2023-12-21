@@ -2,6 +2,8 @@ import { LocalStore } from '@tape.xyz/lens/custom-types'
 import Cookies from 'js-cookie'
 import { create } from 'zustand'
 
+import { setActiveProfile } from './profile'
+
 type Tokens = {
   accessToken: string | undefined
   refreshToken: string | undefined
@@ -24,9 +26,11 @@ export const useAuthPersistStore = create<AuthState>(() => ({
     Cookies.set('refreshToken', refreshToken, { ...cookieConfig, expires: 7 })
   },
   signOut: () => {
+    setActiveProfile(null)
     Cookies.remove('accessToken')
     Cookies.remove('refreshToken')
     localStorage.removeItem(LocalStore.TAPE_STORE)
+    localStorage.removeItem(LocalStore.WAGMI_STORE)
   },
   hydrateAuthTokens: () => {
     return {

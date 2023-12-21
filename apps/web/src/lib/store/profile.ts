@@ -21,4 +21,7 @@ export const useProfileStore = create<ProfileState>((set) => ({
   setHasNewNotification: (hasNewNotification) => set({ hasNewNotification })
 }))
 
+export const setActiveProfile = (profile: ProfileState['activeProfile']) =>
+  useProfileStore.getState().setActiveProfile(profile)
+
 export default useProfileStore
