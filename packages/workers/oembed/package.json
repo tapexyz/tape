@@ -8,7 +8,7 @@
     "worker:deploy": "wrangler deploy"
   },
   "dependencies": {
-    "itty-router": "^4.0.24",
+    "itty-router": "^4.0.25",
     "linkedom": "^0.16.5"
   },
   "devDependencies": {

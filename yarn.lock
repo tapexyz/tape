@@ -12718,10 +12718,10 @@ iterator.prototype@^1.1.2:
     reflect.getprototypeof "^1.0.4"
     set-function-name "^2.0.1"
 
-itty-router@^4.0.24:
-  version "4.0.24"
-  resolved "https://registry.yarnpkg.com/itty-router/-/itty-router-4.0.24.tgz#f8ba5d30052740dff72d03676073a875db0a383f"
-  integrity sha512-RFS+HmKG6VBNUs1ntbQ1iQcfsPTOFQPBAwcNzjoxoKfzluN3E4COWp4lHAReTWRK3Fog/6ybGdIB+/jGu9G7gw==
+itty-router@^4.0.25:
+  version "4.0.25"
+  resolved "https://registry.yarnpkg.com/itty-router/-/itty-router-4.0.25.tgz#b47a9521b5075c340e88ab3e7d7d5ff0a5ea86d0"
+  integrity sha512-WbH1x46QFKNAjp85GYZzDteriZl9nJ0flwGJDVfzC4HT0B/nb01/KOD7mEr+5cYmuqy9T7L/A3ifNzCpzQ1fcw==
 
 jayson@^4.1.0:
   version "4.1.0"
