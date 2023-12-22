@@ -17,8 +17,8 @@ export const Loader: FC<Props> = ({ size = 'md', className }) => {
             'animate-spin fill-black text-gray-400 dark:fill-white',
             className,
             {
-              'h-5 w-5': size === 'md',
-              'h-3.5 w-3.5': size === 'sm'
+              'size-5': size === 'md',
+              'size-3.5': size === 'sm'
             }
           )}
           viewBox="0 0 100 101"

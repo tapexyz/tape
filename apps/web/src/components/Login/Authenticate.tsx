@@ -193,7 +193,7 @@ const Authenticate = () => {
             onClick={handleSign}
             disabled={loading || !selectedProfileId}
           >
-            <KeyOutline className="h-4 w-4" />
+            <KeyOutline className="size-4" />
             Sign message
           </Button>
         </Flex>

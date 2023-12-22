@@ -104,7 +104,7 @@ const GlobalSearch = () => {
       variant="soft"
       highContrast
     >
-      <SearchOutline className="h-3.5 w-3.5" />
+      <SearchOutline className="size-3.5" />
       <span className="sr-only">Search</span>
     </IconButton>
   )
@@ -113,7 +113,7 @@ const GlobalSearch = () => {
     <>
       <TextField.Root className="laptop:w-[800px] absolute z-20 hidden w-[500px] rounded-full bg-white dark:bg-black">
         <TextField.Slot px="3">
-          <SearchOutline className="h-4 w-4" />
+          <SearchOutline className="size-4" />
           <span className="sr-only">Search</span>
         </TextField.Slot>
         <TextField.Input

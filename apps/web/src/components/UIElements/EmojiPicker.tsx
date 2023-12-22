@@ -35,7 +35,7 @@ const EmojiPicker: FC<Props> = ({ onEmojiSelect }) => {
     <Popover.Root>
       <Popover.Trigger>
         <span className="cursor-pointer">
-          <EmojiOutline className="h-5 w-5" />
+          <EmojiOutline className="size-5" />
         </span>
       </Popover.Trigger>
       <Popover.Content align="end" className="!p-0">

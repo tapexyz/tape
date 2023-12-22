@@ -267,7 +267,7 @@ const New: FC<Props> = ({ refetch }) => {
               <Dialog.Title size="5">Upload to Tape</Dialog.Title>
               <DialogClose>
                 <IconButton variant="ghost" color="gray">
-                  <TimesOutline outlined={false} className="h-3 w-3" />
+                  <TimesOutline outlined={false} className="size-3" />
                 </IconButton>
               </DialogClose>
             </Flex>

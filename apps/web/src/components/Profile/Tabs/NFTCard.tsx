@@ -83,9 +83,9 @@ const NFTCard: FC<Props> = ({ nft }) => {
             className="absolute bottom-3 right-3 rounded-full bg-white p-3"
           >
             {toggleVideo ? (
-              <StopOutline className="h-4 w-4 text-black" />
+              <StopOutline className="size-4 text-black" />
             ) : (
-              <PlayOutline className="h-4 w-4 text-black" />
+              <PlayOutline className="size-4 text-black" />
             )}
           </button>
         </div>

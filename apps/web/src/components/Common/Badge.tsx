@@ -26,11 +26,11 @@ const Badge: FC<Props> = ({ id, size = 'sm', color }) => {
               className={clsx(
                 'text-brand-500 -mb-0.5 ml-0.5',
                 {
-                  'h-2.5 w-2.5': size === 'xs',
-                  'h-3 w-3': size === 'sm',
-                  'h-3.5 w-3.5': size === 'md',
-                  'h-4 w-4': size === 'lg',
-                  'h-5 w-5': size === 'xl'
+                  'size-2.5': size === 'xs',
+                  'size-3': size === 'sm',
+                  'size-3.5': size === 'md',
+                  'size-4': size === 'lg',
+                  'size-5': size === 'xl'
                 },
                 color
               )}
@@ -45,10 +45,10 @@ const Badge: FC<Props> = ({ id, size = 'sm', color }) => {
               className={clsx(
                 'ml-0.5 text-red-500',
                 {
-                  'h-2.5 w-2.5': size === 'xs',
-                  'h-3 w-3': size === 'sm',
-                  'h-3.5 w-3.5': size === 'md',
-                  'h-4 w-4': size === 'lg'
+                  'size-2.5': size === 'xs',
+                  'size-3': size === 'sm',
+                  'size-3.5': size === 'md',
+                  'size-4': size === 'lg'
                 },
                 color
               )}

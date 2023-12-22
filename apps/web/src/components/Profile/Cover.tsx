@@ -33,7 +33,7 @@ const Cover: FC<Props> = ({ profile }) => {
       <div className="flex justify-center">
         <div className="container absolute bottom-4 mx-auto flex max-w-screen-xl items-end justify-between px-2 xl:px-0">
           <img
-            className="laptop:h-32 laptop:w-32 rounded-small h-24 w-24 flex-none border-2 border-white bg-white shadow-2xl dark:bg-gray-900"
+            className="laptop:size-32 rounded-small size-24 flex-none border-2 border-white bg-white shadow-2xl dark:bg-gray-900"
             src={getProfilePicture(profile, 'AVATAR_LG')}
             draggable={false}
             alt={getProfile(profile)?.slug}

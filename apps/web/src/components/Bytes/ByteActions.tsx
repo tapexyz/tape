@@ -42,7 +42,7 @@ const ByteActions: FC<Props> = ({ video }) => {
                     className="text-black dark:text-white"
                     align="center"
                   >
-                    <CommentOutline className="h-5 w-5" />
+                    <CommentOutline className="size-5" />
                     <span className="pt-1 text-xs">
                       {video.stats.comments || 'Wdyt'}
                     </span>
@@ -55,7 +55,7 @@ const ByteActions: FC<Props> = ({ video }) => {
                   <Dialog.Title size="6">Comments</Dialog.Title>
                   <DialogClose>
                     <IconButton variant="ghost" className="w-7" color="gray">
-                      <TimesOutline outlined={false} className="h-4 w-4" />
+                      <TimesOutline outlined={false} className="size-4" />
                     </IconButton>
                   </DialogClose>
                 </Flex>
@@ -67,7 +67,7 @@ const ByteActions: FC<Props> = ({ video }) => {
             <MirrorPublication video={video}>
               <Button variant="ghost" className="w-7" highContrast>
                 <Flex direction="column" align="center">
-                  <MirrorOutline className="h-5 w-5" />
+                  <MirrorOutline className="size-5" />
                   <span className="pt-1 text-xs">
                     {video.stats?.mirrors || 'Mirror'}
                   </span>
@@ -79,7 +79,7 @@ const ByteActions: FC<Props> = ({ video }) => {
             <OpenActions publication={video}>
               <Button variant="ghost" className="w-7" highContrast>
                 <Flex direction="column" align="center">
-                  <CollectOutline className="h-5 w-5" />
+                  <CollectOutline className="size-5" />
                   <span className="pt-1 text-xs">
                     {video.stats?.countOpenActions || 'Collect'}
                   </span>

@@ -232,7 +232,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
       {misused?.description && (
         <Callout.Root color="red" mt="4">
           <Callout.Icon>
-            <WarningOutline className="h-5 w-5" />
+            <WarningOutline className="size-5" />
           </Callout.Icon>
           <Callout.Text highContrast>
             <Flex gap="2" align="center">
@@ -267,7 +267,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
                       <img
                         src={`${STATIC_ASSETS}/images/social/ens.svg`}
                         alt="ens"
-                        className="h-6 w-6"
+                        className="size-6"
                         draggable={false}
                       />
                     </Tooltip>
@@ -277,7 +277,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
                       <img
                         src={`${STATIC_ASSETS}/images/social/sybil.png`}
                         alt="sybil"
-                        className="h-7 w-7"
+                        className="size-7"
                         draggable={false}
                       />
                     </Tooltip>
@@ -287,7 +287,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
                       <img
                         src={`${STATIC_ASSETS}/images/social/poh.png`}
                         alt="poh"
-                        className="h-7 w-7"
+                        className="size-7"
                         draggable={false}
                       />
                     </Tooltip>
@@ -297,7 +297,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
                       <img
                         src={`${STATIC_ASSETS}/images/social/worldcoin.png`}
                         alt="worldcoin"
-                        className="h-7 w-7"
+                        className="size-7"
                         draggable={false}
                       />
                     </Tooltip>
@@ -314,7 +314,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
           <DropdownMenu.Root>
             <DropdownMenu.Trigger>
               <IconButton variant="ghost">
-                <ThreeDotsOutline className="h-4 w-4" />
+                <ThreeDotsOutline className="size-4" />
               </IconButton>
             </DropdownMenu.Trigger>
             <DropdownMenu.Content sideOffset={10} variant="soft" align="end">
@@ -324,7 +324,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
                 }
               >
                 <Flex align="center" gap="2">
-                  <LinkOutline className="h-3.5 w-3.5" />
+                  <LinkOutline className="size-3.5" />
                   <span className="whitespace-nowrap">Permalink</span>
                 </Flex>
               </DropdownMenu.Item>
@@ -334,7 +334,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
                   <Dialog.Trigger>
                     <button className="!cursor-default rounded-md px-3 py-1.5 hover:bg-gray-500/20">
                       <Flex align="center" gap="2">
-                        <FlagOutline className="h-3.5 w-3.5" />
+                        <FlagOutline className="size-3.5" />
                         <Text size="2" className="whitespace-nowrap">
                           Report
                         </Text>
@@ -355,7 +355,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
                   onClick={() => toggleBlockProfile()}
                 >
                   <Flex align="center" gap="2">
-                    <ProfileBanOutline className="h-4 w-4" />
+                    <ProfileBanOutline className="size-4" />
                     <span className="whitespace-nowrap">
                       {isBlockedByMe ? 'Unblock' : 'Block'}
                     </span>

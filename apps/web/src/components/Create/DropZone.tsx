@@ -94,7 +94,7 @@ const DropZone = () => {
           accept={ALLOWED_UPLOAD_MIME_TYPES.join(',')}
         />
         <span className="mb-6 flex justify-center opacity-80">
-          <UploadOutline className="h-10 w-10" />
+          <UploadOutline className="size-10" />
         </span>
         <span className="space-y-10">
           <div className="space-y-4">

@@ -16,7 +16,7 @@ const NotificationsFilter = () => {
     <DropdownMenu.Root>
       <DropdownMenu.Trigger>
         <Box>
-          <CogOutline className="h-4 w-4" />
+          <CogOutline className="size-4" />
         </Box>
       </DropdownMenu.Trigger>
       <DropdownMenu.Content sideOffset={10} variant="soft" align="end">

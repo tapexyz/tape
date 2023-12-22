@@ -103,7 +103,7 @@ const List = () => {
                   </div>
                   <span className="text-sm">{session.os}</span>
                 </div>
-                <ChevronDownOutline className="h-4 w-4 opacity-60 group-data-[state=open]:rotate-180" />
+                <ChevronDownOutline className="size-4 opacity-60 group-data-[state=open]:rotate-180" />
               </div>
             </AccordionTrigger>
             <AccordionContent className="pt-5">

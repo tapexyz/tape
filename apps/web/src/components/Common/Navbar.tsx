@@ -137,7 +137,7 @@ const Navbar = () => {
                 className="relative hidden md:block"
               >
                 <IconButton radius="full" highContrast variant="soft">
-                  <BellOutline className="h-3.5 w-3.5" />
+                  <BellOutline className="size-3.5" />
                 </IconButton>
                 {lastOpenedNotificationId !== latestNotificationId ? (
                   <span className="absolute right-0.5 top-0 h-2 w-2 rounded-full bg-red-500" />
@@ -145,7 +145,7 @@ const Navbar = () => {
               </Link>
               <Link href="/create" className="hidden md:block">
                 <Button highContrast>
-                  <UploadOutline className="h-3.5 w-3.5" />
+                  <UploadOutline className="size-3.5" />
                   Create
                 </Button>
               </Link>

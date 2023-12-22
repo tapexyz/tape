@@ -31,7 +31,7 @@ const BottomOverlay: FC<Props> = ({ video }) => {
           >
             <img
               src={getProfilePicture(profile, 'AVATAR')}
-              className="h-9 w-9 rounded-full"
+              className="size-9 rounded-full"
               draggable={false}
               alt={getProfile(video.by)?.slug}
             />

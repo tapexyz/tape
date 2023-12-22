@@ -65,7 +65,7 @@ const Entry = ({
         <AddressExplorerLink address={address}>
           <Flex align="center" gap="1">
             <span>{shortenAddress(address)}</span>
-            <ExternalOutline className="h-3 w-3" />
+            <ExternalOutline className="size-3" />
           </Flex>
         </AddressExplorerLink>
       </div>

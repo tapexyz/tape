@@ -19,7 +19,7 @@ const Thanks = () => {
           <img
             src={`${STATIC_ASSETS}/images/cloudflare.svg`}
             alt="cloudflare"
-            className="h-20 w-20 flex-none rounded-full"
+            className="size-20 flex-none rounded-full"
             draggable={false}
           />
           <h6 className="px-5 text-xl">Cloudflare</h6>
@@ -31,7 +31,7 @@ const Thanks = () => {
           <img
             src={`${STATIC_ASSETS}/images/4everland.png`}
             alt="lvpr"
-            className="h-20 w-20 flex-none rounded-full"
+            className="size-20 flex-none rounded-full"
             draggable={false}
           />
           <h6 className="px-5 text-xl">4everland</h6>
@@ -43,7 +43,7 @@ const Thanks = () => {
           <img
             src={`${STATIC_ASSETS}/images/livepeer.png`}
             alt="lvpr"
-            className="h-20 w-20 flex-none rounded-full"
+            className="size-20 flex-none rounded-full"
             draggable={false}
           />
           <h6 className="px-5 text-xl">Livepeer</h6>
@@ -55,7 +55,7 @@ const Thanks = () => {
           <img
             src={`${STATIC_ASSETS}/images/betteruptime.png`}
             alt="betteruptime"
-            className="h-20 w-20 flex-none rounded-full"
+            className="size-20 flex-none rounded-full"
             draggable={false}
           />
           <h6 className="px-5 text-xl">Better Uptime</h6>

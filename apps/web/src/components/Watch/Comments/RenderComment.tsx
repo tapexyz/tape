@@ -70,7 +70,7 @@ const RenderComment: FC<Props> = ({ comment }) => {
         >
           <img
             src={getProfilePicture(comment.by, 'AVATAR')}
-            className="h-8 w-8 rounded-full"
+            className="size-8 rounded-full"
             draggable={false}
             alt={getProfile(comment.by)?.slug}
           />
@@ -92,7 +92,7 @@ const RenderComment: FC<Props> = ({ comment }) => {
             ) && (
               <Tooltip placement="top" content="Supporter">
                 <span className="pl-1.5">
-                  <HeartFilled className="h-3 w-3 text-red-500" />
+                  <HeartFilled className="size-3 text-red-500" />
                 </span>
               </Tooltip>
             )}
@@ -113,11 +113,11 @@ const RenderComment: FC<Props> = ({ comment }) => {
               >
                 {clamped ? (
                   <>
-                    Show more <ChevronDownOutline className="ml-1 h-3 w-3" />
+                    Show more <ChevronDownOutline className="ml-1 size-3" />
                   </>
                 ) : (
                   <>
-                    Show less <ChevronUpOutline className="ml-1 h-3 w-3" />
+                    Show less <ChevronUpOutline className="ml-1 size-3" />
                   </>
                 )}
               </button>
@@ -141,7 +141,7 @@ const RenderComment: FC<Props> = ({ comment }) => {
                   setDefaultComment('')
                 }}
               >
-                <ReplyOutline className="h-3.5 w-3.5" />
+                <ReplyOutline className="size-3.5" />
                 <span className="text-xs">Reply</span>
               </Button>
               {comment.stats.comments ? (
@@ -149,7 +149,7 @@ const RenderComment: FC<Props> = ({ comment }) => {
                   variant="ghost"
                   onClick={() => setShowReplies(!showReplies)}
                 >
-                  <CommentOutline className="h-3.5 w-3.5" />
+                  <CommentOutline className="size-3.5" />
                   <Text size="1" highContrast color="gray">
                     {comment.stats.comments} replies
                   </Text>

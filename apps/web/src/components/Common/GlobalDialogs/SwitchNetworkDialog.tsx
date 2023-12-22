@@ -17,7 +17,7 @@ const SwitchNetworkDialog = () => {
           <Dialog.Title mb="0">Change network</Dialog.Title>
           <Dialog.Close>
             <IconButton variant="ghost" color="gray">
-              <TimesOutline outlined={false} className="h-3 w-3" />
+              <TimesOutline outlined={false} className="size-3" />
             </IconButton>
           </Dialog.Close>
         </Flex>

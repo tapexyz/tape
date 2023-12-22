@@ -62,7 +62,7 @@ const TopOverlay: FC<OverlayProps> = ({ playerRef, video }) => {
             >
               <img
                 src={getProfilePicture(video.by, 'AVATAR')}
-                className="h-9 w-9 rounded-full"
+                className="size-9 rounded-full"
                 draggable={false}
                 alt={getProfile(video.by)?.slug}
               />
@@ -96,7 +96,7 @@ const TopOverlay: FC<OverlayProps> = ({ playerRef, video }) => {
             onClick={() => onCopyVideoUrl()}
             className="invisible rounded-full bg-black/50 p-3 transition-all duration-200 ease-in-out group-hover:visible"
           >
-            <CopyOutline className="h-3.5 w-3.5" />
+            <CopyOutline className="size-3.5" />
           </button>
         </div>
       </div>
@@ -111,7 +111,7 @@ const TopOverlay: FC<OverlayProps> = ({ playerRef, video }) => {
           <img
             src={`${STATIC_ASSETS}/brand/logo.svg`}
             draggable={false}
-            className="ml-0.5 h-6 w-6 md:h-10 md:w-10"
+            className="ml-0.5 size-6 md:size-10"
             alt={TAPE_APP_NAME}
           />
           <b>Watch on Tape</b>

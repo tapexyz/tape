@@ -38,7 +38,7 @@ const VideoMeta: FC<Props> = ({ video }) => {
         pfp={
           <img
             src={getProfilePicture(video.by, 'AVATAR')}
-            className="h-5 w-5 rounded-full"
+            className="size-5 rounded-full"
             draggable={false}
             alt={getProfile(video.by)?.displayName}
           />
@@ -55,7 +55,7 @@ const VideoMeta: FC<Props> = ({ video }) => {
               <Dialog.Title size="6">Collectors</Dialog.Title>
               <DialogClose>
                 <IconButton variant="ghost" color="gray">
-                  <TimesOutline outlined={false} className="h-3 w-3" />
+                  <TimesOutline outlined={false} className="size-3" />
                 </IconButton>
               </DialogClose>
             </Flex>
@@ -78,7 +78,7 @@ const VideoMeta: FC<Props> = ({ video }) => {
               <Dialog.Title size="6">Mirrors</Dialog.Title>
               <DialogClose>
                 <IconButton variant="ghost" color="gray">
-                  <TimesOutline outlined={false} className="h-3 w-3" />
+                  <TimesOutline outlined={false} className="size-3" />
                 </IconButton>
               </DialogClose>
             </Flex>
@@ -99,7 +99,7 @@ const VideoMeta: FC<Props> = ({ video }) => {
           onClick={() => setShowCollectsModal(true)}
           className="flex items-center space-x-1 outline-none"
         >
-          <CollectOutline className="h-4 w-4" />
+          <CollectOutline className="size-4" />
           <span>{video.stats?.countOpenActions} collects</span>
         </button>
         <span className="middot px-1" />
@@ -108,7 +108,7 @@ const VideoMeta: FC<Props> = ({ video }) => {
           onClick={() => setShowMirrorsModal(true)}
           className="flex items-center space-x-1 outline-none"
         >
-          <MirrorOutline className="h-4 w-4" />
+          <MirrorOutline className="size-4" />
           <span>{video.stats?.mirrors} mirrors</span>
         </button>
       </div>

@@ -20,13 +20,13 @@ const Commented: FC<Props> = ({ notification: { comment } }) => {
     <div className="flex justify-between">
       <span className="flex space-x-4">
         <div className="p-1">
-          <CommentOutline className="h-5 w-5" />
+          <CommentOutline className="size-5" />
         </div>
         <div>
           <span className="flex -space-x-1.5">
             <HoverableProfile profile={comment.by} key={comment.by?.id}>
               <img
-                className="h-7 w-7 rounded-full border dark:border-gray-700/80"
+                className="size-7 rounded-full border dark:border-gray-700/80"
                 src={getProfilePicture(comment.by, 'AVATAR')}
                 draggable={false}
                 alt={getProfile(comment.by)?.slug}

@@ -65,7 +65,7 @@ const CommentOptions: FC<Props> = ({ comment }) => {
       <DropdownMenu.Root>
         <DropdownMenu.Trigger>
           <Box>
-            <ThreeDotsOutline className="h-3.5 w-3.5" />
+            <ThreeDotsOutline className="size-3.5" />
           </Box>
         </DropdownMenu.Trigger>
         <DropdownMenu.Content sideOffset={10} variant="soft" align="end">
@@ -77,7 +77,7 @@ const CommentOptions: FC<Props> = ({ comment }) => {
                   color="red"
                 >
                   <Flex align="center" gap="2">
-                    <TrashOutline className="h-3.5 w-3.5" />
+                    <TrashOutline className="size-3.5" />
                     <span className="whitespace-nowrap">Delete</span>
                   </Flex>
                 </DropdownMenu.Item>
@@ -90,7 +90,7 @@ const CommentOptions: FC<Props> = ({ comment }) => {
                     onClick={() => onClickReport()}
                   >
                     <Flex align="center" gap="2">
-                      <FlagOutline className="h-3.5 w-3.5" />
+                      <FlagOutline className="size-3.5" />
                       <Text size="2" className="whitespace-nowrap">
                         Report
                       </Text>

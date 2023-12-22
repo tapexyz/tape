@@ -41,7 +41,7 @@ const OtherProfiles: FC<Props> = ({ currentProfile }) => {
             >
               <Link href={`/u/${getProfile(profile)?.slug}`}>
                 <img
-                  className="h-24 w-24 rounded-full object-cover"
+                  className="size-24 rounded-full object-cover"
                   src={getProfilePicture(profile, 'AVATAR_LG')}
                   alt={getProfile(profile)?.slug}
                   draggable={false}

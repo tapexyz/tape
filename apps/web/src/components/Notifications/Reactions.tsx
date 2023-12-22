@@ -18,14 +18,14 @@ const Reactions: FC<Props> = ({ notification: { publication, reactions } }) => {
   return (
     <span className="flex space-x-5">
       <div className="p-1">
-        <HeartOutline className="h-5 w-5" />
+        <HeartOutline className="size-5" />
       </div>
       <div>
         <span className="flex -space-x-1.5">
           {reactions.slice(0, 30).map(({ profile }: ProfileReactedResult) => (
             <HoverableProfile profile={profile} key={profile?.id}>
               <img
-                className="h-7 w-7 rounded-full border dark:border-gray-700/80"
+                className="size-7 rounded-full border dark:border-gray-700/80"
                 src={getProfilePicture(profile, 'AVATAR')}
                 draggable={false}
                 alt={getProfile(profile)?.displayName}

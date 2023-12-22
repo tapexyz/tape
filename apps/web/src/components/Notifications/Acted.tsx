@@ -21,14 +21,14 @@ const Acted: FC<Props> = ({ notification: { publication, actions } }) => {
   return (
     <span className="flex space-x-4">
       <div className="p-1">
-        <CollectOutline className="h-5 w-5" />
+        <CollectOutline className="size-5" />
       </div>
       <div>
         <span className="flex -space-x-1.5">
           {actions.slice(0, 30).map(({ by }: OpenActionProfileActed) => (
             <HoverableProfile profile={by} key={by?.id}>
               <img
-                className="h-7 w-7 rounded-full border dark:border-gray-700/80"
+                className="size-7 rounded-full border dark:border-gray-700/80"
                 src={getProfilePicture(by, 'AVATAR')}
                 draggable={false}
                 alt={getProfile(by)?.slug}

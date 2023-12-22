@@ -166,7 +166,7 @@ const IrysInfo = () => {
       {!isEnoughBalanceAvailable && !fetchingBalance ? (
         <Callout.Root color="red">
           <Callout.Icon>
-            <WarningOutline className="h-4 w-4" />
+            <WarningOutline className="size-4" />
           </Callout.Icon>
           <Callout.Text highContrast>
             Not enough storage balance available, deposit to continue.
@@ -197,7 +197,7 @@ const IrysInfo = () => {
                 className="focus:outline-none"
                 onClick={() => onRefreshBalance()}
               >
-                <RefreshOutline className="h-3 w-3" />
+                <RefreshOutline className="size-3" />
               </IconButton>
             </Tooltip>
           </span>
@@ -214,9 +214,9 @@ const IrysInfo = () => {
             >
               <Text>Deposit</Text>
               {irysData.showDeposit ? (
-                <ChevronUpOutline className="ml-1 h-3 w-3" />
+                <ChevronUpOutline className="ml-1 size-3" />
               ) : (
-                <ChevronDownOutline className="ml-1 h-3 w-3" />
+                <ChevronDownOutline className="ml-1 size-3" />
               )}
             </Button>
           </span>

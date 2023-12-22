@@ -169,13 +169,13 @@ const Bytes = () => {
           className="bg-gallery rounded-full p-3 focus:outline-none dark:bg-gray-800"
           onClick={() => slider?.prev()}
         >
-          <ChevronUpOutline className="h-5 w-5" />
+          <ChevronUpOutline className="size-5" />
         </button>
         <button
           className="bg-gallery rounded-full p-3 focus:outline-none dark:bg-gray-800"
           onClick={() => slider?.next()}
         >
-          <ChevronDownOutline className="h-5 w-5" />
+          <ChevronDownOutline className="size-5" />
         </button>
       </div>
     </div>

@@ -63,7 +63,7 @@ const VideoCard: FC<Props> = ({ video }) => {
               <HoverableProfile profile={video.by} />
               <span className="middot" />
               <Flex align="center" gap="1">
-                <HeartOutline className="h-3 w-3" />
+                <HeartOutline className="size-3" />
                 {formatNumber(video.stats?.reactions)}
               </Flex>
               <span className="middot" />

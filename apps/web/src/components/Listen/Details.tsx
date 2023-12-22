@@ -30,7 +30,7 @@ const Details: FC<Props> = ({ audio }) => {
               pfp={
                 <img
                   src={getProfilePicture(audio.by, 'AVATAR')}
-                  className="h-7 w-7 rounded-full"
+                  className="size-7 rounded-full"
                   draggable={false}
                   alt={getProfile(audio.by)?.displayName}
                 />

@@ -151,7 +151,7 @@ const ChooseThumbnail: FC<Props> = ({ file }) => {
           className="hidden w-full"
           onChange={handleUpload}
         />
-        <AddImageOutline className="mb-1 h-4 w-4 flex-none" />
+        <AddImageOutline className="mb-1 size-4 flex-none" />
         <span className="text-xs">Upload</span>
       </label>
       {!thumbnails.length && uploadedMedia.file?.size ? (
