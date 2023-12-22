@@ -9,7 +9,7 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "itty-router": "^4.0.24",
+    "itty-router": "^4.0.25",
     "viem": "^1.20.3",
     "zod": "^3.22.2"
   },
