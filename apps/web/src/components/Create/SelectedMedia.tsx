@@ -83,7 +83,7 @@ const SelectedMedia = () => {
                   <Loader />
                 ) : (
                   <span className="inline-flex flex-col items-center space-y-2">
-                    <AddImageOutline className="h-5 w-5" />
+                    <AddImageOutline className="size-5" />
                     <span>Select Poster</span>
                   </span>
                 )}

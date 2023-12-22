@@ -94,9 +94,9 @@ const Audio: FC<Props> = ({ audio }) => {
                 className="bg-smoke rounded-full p-3 md:p-4"
               >
                 {isPlaying ? (
-                  <PauseOutline className="h-5 w-5" />
+                  <PauseOutline className="size-5" />
                 ) : (
-                  <PlayOutline className="h-5 w-5 pl-0.5" />
+                  <PlayOutline className="size-5 pl-0.5" />
                 )}
               </button>
               <div className="flex-1">
@@ -119,7 +119,7 @@ const Audio: FC<Props> = ({ audio }) => {
             <img
               src={`${STATIC_ASSETS}/brand/logo.svg`}
               draggable={false}
-              className="ml-0.5 h-6 w-6 md:h-10 md:w-10"
+              className="ml-0.5 size-6 md:size-10"
               alt={TAPE_APP_NAME}
             />
           </Link>

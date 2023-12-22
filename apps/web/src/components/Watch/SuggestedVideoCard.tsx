@@ -88,12 +88,12 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
             </div>
             <div className="flex items-center overflow-hidden text-xs opacity-80">
               <Flex align="center" gap="1">
-                <HeartOutline className="h-2.5 w-2.5" />
+                <HeartOutline className="size-2.5" />
                 {formatNumber(video.stats?.reactions)}
               </Flex>
               <span className="middot" />
               <Flex align="center" gap="1">
-                <CommentOutline className="h-2.5 w-2.5" />
+                <CommentOutline className="size-2.5" />
                 {formatNumber(video.stats?.comments)}
               </Flex>
               <span className="middot" />

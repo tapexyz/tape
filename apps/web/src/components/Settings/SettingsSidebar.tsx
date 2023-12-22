@@ -46,7 +46,7 @@ const SettingsSidebar = () => {
           isActivePath(SETTINGS) ? 'font-bold' : 'text-dust font-medium'
         )}
       >
-        <UserOutline className="h-4 w-4" />
+        <UserOutline className="size-4" />
         <span>Basic Info</span>
       </Link>
       <Link
@@ -56,7 +56,7 @@ const SettingsSidebar = () => {
           isActivePath(SETTINGS_FOLLOW) ? 'font-bold' : 'text-dust font-medium'
         )}
       >
-        <SubscribeOutline className="h-4 w-4" />
+        <SubscribeOutline className="size-4" />
         <span>Set Follow</span>
       </Link>
       <Link
@@ -66,7 +66,7 @@ const SettingsSidebar = () => {
           isActivePath(SETTINGS_HANDLES) ? 'font-bold' : 'text-dust font-medium'
         )}
       >
-        <MentionOutline className="h-4 w-4" />
+        <MentionOutline className="size-4" />
         <span>Handles</span>
       </Link>
       <Link
@@ -78,7 +78,7 @@ const SettingsSidebar = () => {
             : 'text-dust font-medium'
         )}
       >
-        <InterestsOutline className="h-4 w-4" />
+        <InterestsOutline className="size-4" />
         <span>Interests</span>
       </Link>
       {getIsProfileOwner(activeProfile, address) && (
@@ -91,7 +91,7 @@ const SettingsSidebar = () => {
               : 'text-dust font-medium'
           )}
         >
-          <ProfileManagerOutline className="h-4 w-4" />
+          <ProfileManagerOutline className="size-4" />
           <span>Manager</span>
         </Link>
       )}
@@ -104,7 +104,7 @@ const SettingsSidebar = () => {
             : 'text-dust font-medium'
         )}
       >
-        <LockOutline className="h-4 w-4" />
+        <LockOutline className="size-4" />
         <span>Allowance</span>
       </Link>
       <Link
@@ -114,7 +114,7 @@ const SettingsSidebar = () => {
           isActivePath(SETTINGS_BLOCKED) ? 'font-bold' : 'text-dust font-medium'
         )}
       >
-        <ProfileBanOutline className="h-4 w-4" />
+        <ProfileBanOutline className="size-4" />
         <span>Blocked</span>
       </Link>
       <Link
@@ -126,7 +126,7 @@ const SettingsSidebar = () => {
             : 'text-dust font-medium'
         )}
       >
-        <KeyOutline className="h-4 w-4" />
+        <KeyOutline className="size-4" />
         <span>Sessions</span>
       </Link>
       {getIsProfileOwner(activeProfile, address) && (
@@ -139,7 +139,7 @@ const SettingsSidebar = () => {
               : 'text-dust font-medium'
           )}
         >
-          <WarningOutline className="h-4 w-4" />
+          <WarningOutline className="size-4" />
           <span>Danger Zone</span>
         </Link>
       )}

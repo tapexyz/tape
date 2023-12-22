@@ -24,7 +24,7 @@ const MobileBottomNav = () => {
             isActivePath('/') ? 'opacity-100' : 'opacity-70'
           )}
         >
-          <HomeOutline className="h-6 w-6" />
+          <HomeOutline className="size-6" />
           <span className="sr-only">Home</span>
         </Link>
         <Link
@@ -34,7 +34,7 @@ const MobileBottomNav = () => {
             isActivePath('/bytes') ? 'opacity-100' : 'opacity-70'
           )}
         >
-          <BytesOutline className="h-6 w-6" />
+          <BytesOutline className="size-6" />
           <span className="sr-only">Bytes</span>
         </Link>
         <Link
@@ -44,7 +44,7 @@ const MobileBottomNav = () => {
             isActivePath('/create') ? 'opacity-100' : 'opacity-70'
           )}
         >
-          <PlusOutline className="h-7 w-7" />
+          <PlusOutline className="size-7" />
           <span className="sr-only">Create</span>
         </Link>
         <Link
@@ -54,7 +54,7 @@ const MobileBottomNav = () => {
             isActivePath('/explore') ? 'opacity-100' : 'opacity-70'
           )}
         >
-          <BellOutline className="h-6 w-6" />
+          <BellOutline className="size-6" />
           <span className="sr-only">Explore</span>
         </Link>
         <Link
@@ -64,7 +64,7 @@ const MobileBottomNav = () => {
             isActivePath('/feed') ? 'opacity-100' : 'opacity-70'
           )}
         >
-          <FeedOutline className="h-6 w-6" />
+          <FeedOutline className="size-6" />
           <span className="sr-only">Feed</span>
         </Link>
       </div>

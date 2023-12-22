@@ -85,7 +85,7 @@ const Signup = ({ onSuccess }: { onSuccess: () => void }) => {
     <div className="space-y-4">
       <Callout.Root color="red">
         <Callout.Icon>
-          <WarningOutline className="h-4 w-4" />
+          <WarningOutline className="size-4" />
         </Callout.Icon>
         <Callout.Text highContrast>
           We couldn't find any profiles linked to the connected address. (

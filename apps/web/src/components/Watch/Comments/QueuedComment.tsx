@@ -118,7 +118,7 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
         >
           <img
             src={getProfilePicture(activeProfile, 'AVATAR')}
-            className="h-7 w-7 rounded-full"
+            className="size-7 rounded-full"
             draggable={false}
             alt={getProfile(activeProfile)?.slug}
           />
@@ -139,9 +139,9 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
       <div>
         <div className="p-2">
           <Tooltip content="Indexing" placement="top">
-            <span className="relative flex h-2 w-2 items-center justify-center">
-              <span className="bg-brand-400 absolute inline-flex h-2 w-2 animate-ping rounded-full opacity-75" />
-              <span className="bg-brand-500 relative inline-flex h-1.5 w-1.5 rounded-full" />
+            <span className="relative flex size-2 items-center justify-center">
+              <span className="bg-brand-400 absolute inline-flex size-2 animate-ping rounded-full opacity-75" />
+              <span className="bg-brand-500 relative inline-flex size-1.5 rounded-full" />
             </span>
           </Tooltip>
         </div>

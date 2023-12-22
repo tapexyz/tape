@@ -69,7 +69,7 @@ const StreamCard: FC<Props> = ({ stream }) => {
               <HoverableProfile profile={stream.by} />
               <span className="middot" />
               <Flex align="center" gap="1">
-                <HeartOutline className="h-3 w-3" />
+                <HeartOutline className="size-3" />
                 {formatNumber(stream.stats?.reactions)}
               </Flex>
               <span className="middot" />

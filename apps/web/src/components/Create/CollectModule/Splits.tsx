@@ -151,7 +151,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
         </Text>
         <Tooltip content="Split revenue with anyone" placement="top">
           <span>
-            <InfoOutline className="mx-1 h-3 w-3 opacity-70" />
+            <InfoOutline className="mx-1 size-3 opacity-70" />
           </span>
         </Tooltip>
       </div>
@@ -228,7 +228,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
             color="red"
             onClick={() => removeRecipient(i)}
           >
-            <TimesOutline className="h-4 w-4 p-0.5" outlined={false} />
+            <TimesOutline className="size-4 p-0.5" outlined={false} />
           </IconButton>
         </div>
       ))}

@@ -96,7 +96,7 @@ const UserMenu = () => {
           {isAdmin && (
             <DropdownMenu.Item onClick={() => push('/mod')}>
               <Flex gap="2" align="center">
-                <GraphOutline className="h-4 w-4" />
+                <GraphOutline className="size-4" />
                 <Text as="p" className="truncate whitespace-nowrap">
                   Mod
                 </Text>
@@ -109,7 +109,7 @@ const UserMenu = () => {
                 onClick={() => push(getProfile(activeProfile)?.link)}
               >
                 <Flex gap="2" align="center">
-                  <UserOutline className="h-4 w-4" />
+                  <UserOutline className="size-4" />
                   <Text as="p" className="truncate whitespace-nowrap">
                     My Profile
                   </Text>
@@ -117,7 +117,7 @@ const UserMenu = () => {
               </DropdownMenu.Item>
               <DropdownMenu.Item onClick={() => push('/bookmarks')}>
                 <Flex gap="2" align="center">
-                  <BookmarkOutline className="h-4 w-4" />
+                  <BookmarkOutline className="size-4" />
                   <Text as="p" className="truncate whitespace-nowrap">
                     Bookmarks
                   </Text>
@@ -128,7 +128,7 @@ const UserMenu = () => {
                 <DropdownMenu.Sub>
                   <DropdownMenu.SubTrigger>
                     <Flex align="center" gap="2">
-                      <SwitchProfileOutline className="h-4 w-4" />
+                      <SwitchProfileOutline className="size-4" />
                       <Text as="p" className="truncate whitespace-nowrap">
                         Switch Profile
                       </Text>
@@ -171,7 +171,7 @@ const UserMenu = () => {
           )}
           <DropdownMenu.Item onClick={() => push('/settings')}>
             <Flex gap="2" align="center">
-              <CogOutline className="h-4 w-4" />
+              <CogOutline className="size-4" />
               <Text as="p" className="truncate whitespace-nowrap">
                 My Settings
               </Text>
@@ -189,9 +189,9 @@ const UserMenu = () => {
           >
             <Flex align="center" gap="2">
               {theme === 'dark' ? (
-                <SunOutline className="h-4 w-4" />
+                <SunOutline className="size-4" />
               ) : (
-                <MoonOutline className="h-4 w-4" />
+                <MoonOutline className="size-4" />
               )}
               <Text as="p" className="truncate whitespace-nowrap">
                 {theme === 'light' ? `Switch to Dark` : `Switch to Light`}
@@ -205,7 +205,7 @@ const UserMenu = () => {
             onClick={() => onClickSignout()}
           >
             <Flex align="center" gap="2">
-              <HandWaveOutline className="h-4 w-4" />
+              <HandWaveOutline className="size-4" />
               <Text as="p" className="truncate whitespace-nowrap">
                 Sign out
               </Text>

@@ -18,14 +18,14 @@ const Mirrored: FC<Props> = ({ notification: { mirrors, publication } }) => {
   return (
     <span className="flex space-x-4">
       <div className="p-1">
-        <MirrorOutline className="h-5 w-5" />
+        <MirrorOutline className="size-5" />
       </div>
       <div>
         <span className="flex -space-x-1.5">
           {mirrors.slice(0, 30).map(({ profile }: ProfileMirrorResult) => (
             <HoverableProfile profile={profile} key={profile?.id}>
               <img
-                className="h-7 w-7 rounded-full border dark:border-gray-700/80"
+                className="size-7 rounded-full border dark:border-gray-700/80"
                 src={getProfilePicture(profile, 'AVATAR')}
                 draggable={false}
                 alt={getProfile(profile)?.displayName}

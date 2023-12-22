@@ -42,7 +42,7 @@ const Connectors = () => {
           >
             <Flex justify="between" align="center" className="w-full">
               <span>{c.name}</span>
-              {c.id === connected?.id && <CheckOutline className="h-4 w-4" />}
+              {c.id === connected?.id && <CheckOutline className="size-4" />}
             </Flex>
           </Button>
         ))}
@@ -51,7 +51,7 @@ const Connectors = () => {
       {error?.message ? (
         <Callout.Root color="red">
           <Callout.Icon>
-            <WarningOutline className="h-4 w-4" />
+            <WarningOutline className="size-4" />
           </Callout.Icon>
           <Callout.Text highContrast>
             {error?.message ?? 'Failed to connect'}

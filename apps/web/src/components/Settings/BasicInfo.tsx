@@ -356,21 +356,21 @@ const BasicInfo = ({ profile }: Props) => {
                   ? sanitizeDStorageUrl(selectedPfp)
                   : getProfilePicture(profile, 'AVATAR_LG')
               }
-              className="h-32 w-32 rounded-full border-2 object-cover"
+              className="size-32 rounded-full border-2 object-cover"
               draggable={false}
               alt="No PFP"
             />
             <label
               htmlFor="choosePfp"
               className={clsx(
-                'invisible absolute top-0 grid h-32 w-32 cursor-pointer place-items-center rounded-full bg-white bg-opacity-70 backdrop-blur-lg group-hover:visible dark:bg-black',
+                'invisible absolute top-0 grid size-32 cursor-pointer place-items-center rounded-full bg-white bg-opacity-70 backdrop-blur-lg group-hover:visible dark:bg-black',
                 { '!visible': uploading.pfp }
               )}
             >
               {uploading.pfp ? (
                 <Loader />
               ) : (
-                <AddImageOutline className="h-5 w-5" />
+                <AddImageOutline className="size-5" />
               )}
               <input
                 id="choosePfp"
@@ -420,7 +420,7 @@ const BasicInfo = ({ profile }: Props) => {
                     variant="ghost"
                     type="button"
                   >
-                    <CopyOutline className="h-4 w-4" />
+                    <CopyOutline className="size-4" />
                   </IconButton>
                 </Tooltip>
               </div>

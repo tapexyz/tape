@@ -56,7 +56,7 @@ const Bubbles: FC<Props> = ({ viewing, showSeparator }) => {
               {mutualFollowers.slice(0, 3)?.map((profile: Profile) => (
                 <HoverableProfile profile={profile} key={profile?.id}>
                   <img
-                    className="h-7 w-7 flex-none rounded-full border bg-white dark:border-gray-700/80"
+                    className="size-7 flex-none rounded-full border bg-white dark:border-gray-700/80"
                     src={getProfilePicture(profile, 'AVATAR')}
                     draggable={false}
                     alt={getProfile(profile)?.slug}
@@ -64,7 +64,7 @@ const Bubbles: FC<Props> = ({ viewing, showSeparator }) => {
                 </HoverableProfile>
               ))}
               {mutualFollowers.length > 4 && (
-                <div className="flex h-7 w-7 flex-none items-center justify-center rounded-full border border-gray-300 bg-gray-200 dark:border-gray-600 dark:bg-gray-800">
+                <div className="flex size-7 flex-none items-center justify-center rounded-full border border-gray-300 bg-gray-200 dark:border-gray-600 dark:bg-gray-800">
                   <span role="img" className="text-sm">
                     👀
                   </span>
@@ -79,7 +79,7 @@ const Bubbles: FC<Props> = ({ viewing, showSeparator }) => {
           <Dialog.Title size="6">People you may know</Dialog.Title>
           <DialogClose>
             <IconButton variant="ghost" color="gray">
-              <TimesOutline outlined={false} className="h-3 w-3" />
+              <TimesOutline outlined={false} className="size-3" />
             </IconButton>
           </DialogClose>
         </Flex>

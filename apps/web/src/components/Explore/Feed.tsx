@@ -109,7 +109,7 @@ const ExploreFeed = () => {
           }}
         >
           <span className="flex items-center space-x-1">
-            <FireOutline className="h-3.5 w-3.5" />
+            <FireOutline className="size-3.5" />
             <span>Trending</span>
           </span>
         </Button>
@@ -129,7 +129,7 @@ const ExploreFeed = () => {
           }}
         >
           <span className="flex items-center space-x-1">
-            <CommentOutline className="h-3.5 w-3.5" />
+            <CommentOutline className="size-3.5" />
             <span>Popular</span>
           </span>
         </Button>
@@ -149,7 +149,7 @@ const ExploreFeed = () => {
           }}
         >
           <span className="flex items-center space-x-1">
-            <MirrorOutline className="h-3.5 w-3.5" />
+            <MirrorOutline className="size-3.5" />
             <span>Interesting</span>
           </span>
         </Button>

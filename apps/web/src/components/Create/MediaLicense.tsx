@@ -19,7 +19,7 @@ const MediaLicense = () => {
         <HoverCard.Root>
           <HoverCard.Trigger>
             <span>
-              <InfoOutline className="h-3 w-3" />
+              <InfoOutline className="size-3" />
             </span>
           </HoverCard.Trigger>
           <HoverCard.Content>

@@ -45,11 +45,11 @@ const AboutProfile: FC<Props> = ({ video }) => {
             >
               {clamped ? (
                 <>
-                  Show more <ChevronDownOutline className="ml-1 h-3 w-3" />
+                  Show more <ChevronDownOutline className="ml-1 size-3" />
                 </>
               ) : (
                 <>
-                  Show less <ChevronUpOutline className="ml-1 h-3 w-3" />
+                  Show less <ChevronUpOutline className="ml-1 size-3" />
                 </>
               )}
             </button>
@@ -62,7 +62,7 @@ const AboutProfile: FC<Props> = ({ video }) => {
                 href={`/explore/${video.metadata.tags[0]}`}
                 className="flex items-center space-x-1"
               >
-                <TagOutline className="h-4 w-4" />
+                <TagOutline className="size-4" />
                 <span className="whitespace-nowrap">
                   {getCategoryName(video.metadata.tags[0])}
                 </span>

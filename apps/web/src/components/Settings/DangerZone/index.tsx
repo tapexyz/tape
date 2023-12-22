@@ -29,7 +29,7 @@ const DangerZone = () => {
                   src={getProfilePicture(activeProfile, 'AVATAR')}
                   fallback={getProfile(activeProfile)?.displayName[0] ?? ';)'}
                   radius="full"
-                  className="h-9 w-9 rounded-full"
+                  className="size-9 rounded-full"
                   draggable={false}
                   alt={getProfile(activeProfile)?.displayName}
                 />

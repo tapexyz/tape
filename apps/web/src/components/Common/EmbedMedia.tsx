@@ -42,7 +42,7 @@ const EmbedMedia: FC<Props> = ({ publicationId, isAudio }) => {
           onClick={() => openModal()}
           className="rounded-full bg-purple-200 p-2.5 dark:bg-purple-800"
         >
-          <CodeOutline className="h-5 w-5" />
+          <CodeOutline className="size-5" />
         </button>
       </Dialog.Trigger>
 
@@ -51,7 +51,7 @@ const EmbedMedia: FC<Props> = ({ publicationId, isAudio }) => {
           <Dialog.Title mb="0">Embed Media</Dialog.Title>
           <Dialog.Close>
             <IconButton variant="ghost" color="gray">
-              <TimesOutline outlined={false} className="h-3 w-3" />
+              <TimesOutline outlined={false} className="size-3" />
             </IconButton>
           </Dialog.Close>
         </Flex>
@@ -83,7 +83,7 @@ const EmbedMedia: FC<Props> = ({ publicationId, isAudio }) => {
                   onClick={() => onCopyCode()}
                   className="absolute right-2 top-2"
                 >
-                  <CopyOutline className="h-4 w-4" />
+                  <CopyOutline className="size-4" />
                 </IconButton>
               </Tooltip>
             </Card>

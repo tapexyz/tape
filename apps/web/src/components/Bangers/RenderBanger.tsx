@@ -27,7 +27,7 @@ const RenderBanger = ({
             {isCertifiedBanger && (
               <Tooltip content="Certified Banger" placement="top">
                 <span className="ml-2 text-red-500">
-                  <FireOutline className="h-5 w-5" />
+                  <FireOutline className="size-5" />
                 </span>
               </Tooltip>
             )}

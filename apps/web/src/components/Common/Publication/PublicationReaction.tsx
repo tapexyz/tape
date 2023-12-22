@@ -106,17 +106,17 @@ const PublicationReaction: FC<Props> = ({
         {reaction.isLiked ? (
           <HeartFilled
             className={clsx({
-              'h-3.5 w-3.5': iconSize === 'sm',
-              'h-6 w-6': iconSize === 'lg',
-              'h-4 w-4': iconSize === 'base'
+              'size-3.5': iconSize === 'sm',
+              'size-6': iconSize === 'lg',
+              'size-4': iconSize === 'base'
             })}
           />
         ) : (
           <HeartOutline
             className={clsx({
-              'h-3.5 w-3.5': iconSize === 'sm',
-              'h-6 w-6': iconSize === 'lg',
-              'h-4 w-4': iconSize === 'base'
+              'size-3.5': iconSize === 'sm',
+              'size-6': iconSize === 'lg',
+              'size-4': iconSize === 'base'
             })}
           />
         )}

@@ -21,7 +21,7 @@ const BalanceAlert: FC<Props> = ({ action }) => {
     <div className="flex-1">
       <Callout.Root color="red">
         <Callout.Icon>
-          <WarningOutline className="h-4 w-4" />
+          <WarningOutline className="size-4" />
         </Callout.Icon>
         <Callout.Text highContrast>
           <div className="flex w-full flex-1 items-center justify-between space-x-2 text-sm">

@@ -37,7 +37,7 @@ const Share: FC<Props> = ({ publication }) => {
         <EmbedMedia publicationId={publication.id} isAudio={isAudio} />
         <MirrorPublication video={publication}>
           <div className="rounded-full bg-gray-200 p-3 dark:bg-gray-800">
-            <MirrorOutline className="h-5 w-5" />
+            <MirrorOutline className="size-5" />
           </div>
         </MirrorPublication>
         <Link
@@ -52,7 +52,7 @@ const Share: FC<Props> = ({ publication }) => {
               `${STATIC_ASSETS}/images/social/hey-logo.svg`,
               'AVATAR_LG'
             )}
-            className="h-10 w-10 max-w-none"
+            className="size-10 max-w-none"
             loading="eager"
             alt="hey"
             draggable={false}
@@ -73,7 +73,7 @@ const Share: FC<Props> = ({ publication }) => {
                   `${STATIC_ASSETS}/images/social/x-white.png`,
                   'AVATAR'
                 )}
-                className="h-4 w-4"
+                className="size-4"
                 height={16}
                 width={16}
                 alt="X Logo"
@@ -85,7 +85,7 @@ const Share: FC<Props> = ({ publication }) => {
                   `${STATIC_ASSETS}/images/social/x-black.png`,
                   'AVATAR'
                 )}
-                className="h-4 w-4"
+                className="size-4"
                 height={16}
                 width={16}
                 alt="X Logo"
@@ -105,7 +105,7 @@ const Share: FC<Props> = ({ publication }) => {
               `${STATIC_ASSETS}/images/social/reddit-logo.webp`,
               'AVATAR_LG'
             )}
-            className="h-10 w-10 max-w-none rounded-full"
+            className="size-10 max-w-none rounded-full"
             loading="eager"
             alt="reddit"
             draggable={false}
@@ -124,7 +124,7 @@ const Share: FC<Props> = ({ publication }) => {
             )}
             loading="eager"
             alt="linkedin"
-            className="h-10 w-10 max-w-none rounded-full"
+            className="size-10 max-w-none rounded-full"
             draggable={false}
           />
         </Link>
@@ -138,7 +138,7 @@ const Share: FC<Props> = ({ publication }) => {
             className="ml-2 hover:opacity-60 focus:outline-none"
             onClick={() => onCopyVideoUrl()}
           >
-            <CopyOutline className="h-4 w-4" />
+            <CopyOutline className="size-4" />
           </IconButton>
         </Tooltip>
       </div>

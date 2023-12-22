@@ -390,7 +390,7 @@ const NewComment: FC<Props> = ({
         <div className="flex-none">
           <img
             src={getProfilePicture(activeProfile, 'AVATAR')}
-            className="h-8 w-8 rounded-full"
+            className="size-8 rounded-full"
             draggable={false}
             alt={getProfile(activeProfile)?.slug}
           />

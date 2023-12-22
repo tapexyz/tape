@@ -11,7 +11,7 @@ const CommentsFilter = () => {
     <DropdownMenu.Root>
       <DropdownMenu.Trigger>
         <Box>
-          <SortOutline className="h-5 w-5" />
+          <SortOutline className="size-5" />
         </Box>
       </DropdownMenu.Trigger>
       <DropdownMenu.Content align="end" variant="soft" sideOffset={10}>

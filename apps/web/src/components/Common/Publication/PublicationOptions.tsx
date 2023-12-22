@@ -369,7 +369,7 @@ const PublicationOptions: FC<Props> = ({
         <DropdownMenu.Trigger>
           {children ?? (
             <IconButton radius="full" variant={variant} highContrast size="2">
-              <ThreeDotsOutline className="h-3.5 w-3.5" />
+              <ThreeDotsOutline className="size-3.5" />
               <span className="sr-only">Video Options</span>
             </IconButton>
           )}
@@ -380,7 +380,7 @@ const PublicationOptions: FC<Props> = ({
               <Dialog.Trigger>
                 <button className="!cursor-default rounded-md px-3 py-1.5 hover:bg-gray-500/20">
                   <Flex align="center" gap="2">
-                    <ShareOutline className="h-3.5 w-3.5" />
+                    <ShareOutline className="size-3.5" />
                     <Text size="2" className="whitespace-nowrap">
                       Share
                     </Text>
@@ -393,7 +393,7 @@ const PublicationOptions: FC<Props> = ({
                   <Dialog.Title mb="0">Share</Dialog.Title>
                   <Dialog.Close>
                     <IconButton variant="ghost" color="gray">
-                      <TimesOutline outlined={false} className="h-3 w-3" />
+                      <TimesOutline outlined={false} className="size-3" />
                     </IconButton>
                   </Dialog.Close>
                 </Flex>
@@ -409,7 +409,7 @@ const PublicationOptions: FC<Props> = ({
                     onClick={() => onPinVideo()}
                   >
                     <Flex align="center" gap="2">
-                      <PinOutline className="h-3.5 w-3.5" />
+                      <PinOutline className="size-3.5" />
                       <span className="whitespace-nowrap">Pin Video</span>
                     </Flex>
                   </DropdownMenu.Item>
@@ -419,7 +419,7 @@ const PublicationOptions: FC<Props> = ({
                   onClick={() => setShowConfirm(true)}
                 >
                   <Flex align="center" gap="2">
-                    <TrashOutline className="h-3.5 w-3.5" />
+                    <TrashOutline className="size-3.5" />
                     <span className="whitespace-nowrap">Delete</span>
                   </Flex>
                 </DropdownMenu.Item>
@@ -433,7 +433,7 @@ const PublicationOptions: FC<Props> = ({
                   onClick={() => saveToList()}
                 >
                   <Flex align="center" gap="2">
-                    <BookmarkOutline className="h-3.5 w-3.5 flex-none" />
+                    <BookmarkOutline className="size-3.5 flex-none" />
                     <span className="truncate whitespace-nowrap">
                       {publication.operations.hasBookmarked ? 'Unsave' : 'Save'}
                     </span>
@@ -444,7 +444,7 @@ const PublicationOptions: FC<Props> = ({
                   onClick={() => notInterested()}
                 >
                   <Flex align="center" gap="2">
-                    <ForbiddenOutline className="h-3.5 w-3.5" />
+                    <ForbiddenOutline className="size-3.5" />
                     <span className="whitespace-nowrap">
                       {publication.operations.isNotInterested
                         ? 'Interested'
@@ -459,7 +459,7 @@ const PublicationOptions: FC<Props> = ({
                       onClick={() => onClickReport()}
                     >
                       <Flex align="center" gap="2">
-                        <FlagOutline className="h-3.5 w-3.5" />
+                        <FlagOutline className="size-3.5" />
                         <Text size="2" className="whitespace-nowrap">
                           Report
                         </Text>
@@ -479,7 +479,7 @@ const PublicationOptions: FC<Props> = ({
                       onClick={() => Tower.track(EVENTS.CLICK_VIEW_METADATA)}
                     >
                       <Flex align="center" gap="2">
-                        <ExternalOutline className="h-3.5 w-3.5" />
+                        <ExternalOutline className="size-3.5" />
                         <span className="whitespace-nowrap">View metadata</span>
                       </Flex>
                     </DropdownMenu.Item>
@@ -490,7 +490,7 @@ const PublicationOptions: FC<Props> = ({
                       onClick={() => Tower.track(EVENTS.CLICK_VIEW_METADATA)}
                     >
                       <Flex align="center" gap="2">
-                        <ExternalOutline className="h-3.5 w-3.5" />
+                        <ExternalOutline className="size-3.5" />
                         <span className="whitespace-nowrap">View metadata</span>
                       </Flex>
                     </DropdownMenu.Item>
@@ -504,7 +504,7 @@ const PublicationOptions: FC<Props> = ({
                       onClick={() => Tower.track(EVENTS.CLICK_VIEW_PROOF)}
                     >
                       <Flex align="center" gap="2">
-                        <ExternalOutline className="h-3.5 w-3.5" />
+                        <ExternalOutline className="size-3.5" />
                         <span className="whitespace-nowrap">View proof</span>
                       </Flex>
                     </DropdownMenu.Item>

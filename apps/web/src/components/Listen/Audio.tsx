@@ -48,9 +48,9 @@ const Audio: FC<Props> = ({ audio }) => {
               highContrast
             >
               {isPlaying ? (
-                <PauseOutline className="h-5 w-5" />
+                <PauseOutline className="size-5" />
               ) : (
-                <PlayOutline className="h-5 w-5" />
+                <PlayOutline className="size-5" />
               )}
             </IconButton>
           </div>
@@ -67,7 +67,7 @@ const Audio: FC<Props> = ({ audio }) => {
                 pfp={
                   <img
                     src={getProfilePicture(audio.by, 'AVATAR')}
-                    className="h-5 w-5 rounded-full"
+                    className="size-5 rounded-full"
                     draggable={false}
                     alt={getProfile(audio.by)?.displayName}
                   />

@@ -59,10 +59,7 @@ const CollectModule = () => {
             content={`Split revenue enabled with ${multiRecipients?.length} recipients`}
           >
             <span>
-              <SplitOutline
-                className="mr-2 h-5 w-5 rotate-90"
-                outline={false}
-              />
+              <SplitOutline className="mr-2 size-5 rotate-90" outline={false} />
             </span>
           </Tooltip>
         )}
@@ -82,7 +79,7 @@ const CollectModule = () => {
           >
             <Flex align="center" width="100%" justify="between">
               <span>{getSelectedCollectType()}</span>
-              <ChevronRightOutline className="h-3 w-3" />
+              <ChevronRightOutline className="size-3" />
             </Flex>
           </Button>
         </Dialog.Trigger>

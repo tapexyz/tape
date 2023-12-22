@@ -74,7 +74,7 @@ const MutualFollowers: FC<Props> = ({ viewing }) => {
         >
           <div className="flex items-center space-x-1.5">
             <img
-              className="h-5 w-5 rounded-full"
+              className="size-5 rounded-full"
               src={getProfilePicture(profile, 'AVATAR')}
               alt={getProfile(profile)?.slug}
               draggable={false}
@@ -85,7 +85,7 @@ const MutualFollowers: FC<Props> = ({ viewing }) => {
             </div>
           </div>
           <div className="flex items-center space-x-1 whitespace-nowrap text-xs opacity-80">
-            <UserOutline className="h-2.5 w-2.5 opacity-60" />
+            <UserOutline className="size-2.5 opacity-60" />
             <span>{formatNumber(profile.stats.followers)}</span>
           </div>
         </Link>

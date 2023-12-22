@@ -119,7 +119,7 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
       <div className="py-2">
         <div className="flex items-start space-x-2.5">
           <img
-            className="h-8 w-8 rounded-full"
+            className="size-8 rounded-full"
             src={getProfilePicture(activeProfile, 'AVATAR')}
             alt={getProfile(activeProfile)?.slug}
             draggable={false}
@@ -134,9 +134,9 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
               </span>
               <div className="p-1">
                 <Tooltip content="Indexing" placement="top">
-                  <span className="relative flex h-2 w-2 items-center justify-center">
-                    <span className="bg-brand-500 absolute inline-flex h-2 w-2 animate-ping rounded-full opacity-75" />
-                    <span className="bg-brand-500 relative inline-flex h-1.5 w-1.5 rounded-full" />
+                  <span className="relative flex size-2 items-center justify-center">
+                    <span className="bg-brand-500 absolute inline-flex size-2 animate-ping rounded-full opacity-75" />
+                    <span className="bg-brand-500 relative inline-flex size-1.5 rounded-full" />
                   </span>
                 </Tooltip>
               </div>

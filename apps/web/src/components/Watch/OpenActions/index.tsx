@@ -86,7 +86,7 @@ const OpenActions: FC<Props> = ({
       <Dialog.Trigger>
         {children ?? (
           <Button variant={variant} highContrast>
-            <CollectOutline className="h-4 w-4" />
+            <CollectOutline className="size-4" />
             {text}
           </Button>
         )}
@@ -96,12 +96,12 @@ const OpenActions: FC<Props> = ({
         <Flex gap="3" justify="between" pb="2">
           <Dialog.Title>
             <Flex align="center" gap="2">
-              <CollectOutline className="h-5 w-5" /> <span>Collect</span>
+              <CollectOutline className="size-5" /> <span>Collect</span>
             </Flex>
           </Dialog.Title>
           <DialogClose>
             <IconButton variant="ghost" color="gray">
-              <TimesOutline outlined={false} className="h-3 w-3" />
+              <TimesOutline outlined={false} className="size-3" />
             </IconButton>
           </DialogClose>
         </Flex>

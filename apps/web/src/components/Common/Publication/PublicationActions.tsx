@@ -41,7 +41,7 @@ const PublicationActions: FC<Props> = ({ publication }) => {
                 Tower.track(EVENTS.PUBLICATION.TIP.OPEN)
               }}
             >
-              <TipOutline className="h-4 w-4" />
+              <TipOutline className="size-4" />
               Thanks
             </Button>
           </Dialog.Trigger>
@@ -60,14 +60,14 @@ const PublicationActions: FC<Props> = ({ publication }) => {
       )}
       <MirrorPublication video={publication}>
         <Button variant="surface" color="blue" highContrast>
-          <MirrorOutline className="h-4 w-4 flex-none" />
+          <MirrorOutline className="size-4 flex-none" />
           Mirror
         </Button>
       </MirrorPublication>
       <OpenActions publication={publication} text="Collect" />
       <PublicationOptions publication={publication}>
         <IconButton variant="surface" color="blue" highContrast>
-          <ThreeDotsOutline className="h-4 w-4" />
+          <ThreeDotsOutline className="size-4" />
         </IconButton>
       </PublicationOptions>
     </div>

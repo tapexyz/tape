@@ -60,11 +60,11 @@ const ReplyContent: FC<ReplyContentProps> = ({ comment }) => {
           >
             {clamped ? (
               <>
-                Show more <ChevronDownOutline className="ml-1 h-3 w-3" />
+                Show more <ChevronDownOutline className="ml-1 size-3" />
               </>
             ) : (
               <>
-                Show less <ChevronUpOutline className="ml-1 h-3 w-3" />
+                Show less <ChevronUpOutline className="ml-1 size-3" />
               </>
             )}
           </button>
@@ -135,7 +135,7 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
                 >
                   <img
                     src={getProfilePicture(comment.by, 'AVATAR')}
-                    className="h-8 w-8 rounded-full"
+                    className="size-8 rounded-full"
                     draggable={false}
                     alt={getProfile(comment.by)?.slug}
                   />
@@ -163,7 +163,7 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
                         highContrast
                         onClick={() => replyTo(comment.by)}
                       >
-                        <ReplyOutline className="h-3.5 w-3.5" />{' '}
+                        <ReplyOutline className="size-3.5" />{' '}
                         <span className="text-xs">Reply</span>
                       </Button>
                     </Flex>

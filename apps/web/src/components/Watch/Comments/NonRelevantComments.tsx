@@ -87,9 +87,9 @@ const NonRelevantComments: FC<Props> = ({ video, className }) => {
             {showSection ? 'Hide more comments' : 'Show more comments'}
           </span>
           {showSection ? (
-            <ChevronUpOutline className="h-3 w-3" />
+            <ChevronUpOutline className="size-3" />
           ) : (
-            <ChevronDownOutline className="h-3 w-3" />
+            <ChevronDownOutline className="size-3" />
           )}
         </span>
       </Button>

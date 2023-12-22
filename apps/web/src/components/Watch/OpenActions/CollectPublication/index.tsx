@@ -222,7 +222,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
           className="flex items-center space-x-2 py-1"
         >
           <div className="flex items-center space-x-1">
-            <img className="h-4 w-4 rounded-full" src={pfp} alt="pfp" />
+            <img className="size-4 rounded-full" src={pfp} alt="pfp" />
             <Tooltip
               placement="bottom-start"
               visible={hasManyProfiles}
@@ -513,7 +513,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
                     </Callout.Icon>
                     <Callout.Text highContrast weight="medium">
                       <Flex gap="2" align="center">
-                        <UserOutline className="h-3.5 w-3.5" />
+                        <UserOutline className="size-3.5" />
                         This publication can only be collected by the creator's
                         followers.
                       </Flex>
