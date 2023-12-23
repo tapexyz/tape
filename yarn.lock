@@ -3550,12 +3550,12 @@
   dependencies:
     "@lit-labs/ssr-dom-shim" "^1.0.0"
 
-"@livepeer/core-react@^2.1.7":
-  version "2.1.7"
-  resolved "https://registry.yarnpkg.com/@livepeer/core-react/-/core-react-2.1.7.tgz#ccb17614380fa26b5f951f97b7bfa9d3e3ef4bf5"
-  integrity sha512-/B4Tj5K+3AYA/J3y8lnVBeOKTHzBtPTmegCY7goTTJE1hJ4RpzUyzmipFyPwk7FDmGOYk1OrhQS7M8ao0w3hhg==
+"@livepeer/core-react@^2.1.8":
+  version "2.1.8"
+  resolved "https://registry.yarnpkg.com/@livepeer/core-react/-/core-react-2.1.8.tgz#0c305a3404b6b3099e8d6dc67cc36ff5a571911d"
+  integrity sha512-dW407B2v9bEG96MEsvUDPvdPP0gac4AZ1u56mQK5T4fDLQgncCTqPhXgoCRQOnfKtEy/pPMZrnpC97gC3Hv9lA==
   dependencies:
-    "@livepeer/core" "^2.1.7"
+    "@livepeer/core" "^2.1.8"
     "@tanstack/query-async-storage-persister" "4.29.23"
     "@tanstack/query-core" "4.29.23"
     "@tanstack/react-query" "4.29.23"
@@ -3563,12 +3563,12 @@
     use-sync-external-store "^1.2.0"
     zustand "^4.3.9"
 
-"@livepeer/core-web@^3.1.7":
-  version "3.1.7"
-  resolved "https://registry.yarnpkg.com/@livepeer/core-web/-/core-web-3.1.7.tgz#f2aead6d5e7ab9c152117628874f50c0fcc8a362"
-  integrity sha512-JJYJFWaAsROovSlIuZxBNHMQeKA4lRVm2q3d1PB6knuDYY/tjgBDPDbCC764CpPSU3I7/4W16BBfZ9xoHQahMA==
+"@livepeer/core-web@^3.1.8":
+  version "3.1.8"
+  resolved "https://registry.yarnpkg.com/@livepeer/core-web/-/core-web-3.1.8.tgz#c85d68239eff53b7d569bf406c0eefb3976e4955"
+  integrity sha512-wJ4S8RbgV7EcNSL3f/73XspI89tgRGhh5TNIc6xlrma2AmtfrJQaV6nO0bGCxo2jfR8egejYkp+x5xSCR9yd2w==
   dependencies:
-    "@livepeer/core" "^2.1.7"
+    "@livepeer/core" "^2.1.8"
     "@stitches/core" "^1.2.8"
     core-js "^3.31.1"
     cross-fetch "^4.0.0"
@@ -3577,10 +3577,10 @@
     tus-js-client "^3.1.0"
     zustand "^4.3.9"
 
-"@livepeer/core@^2.1.7":
-  version "2.1.7"
-  resolved "https://registry.yarnpkg.com/@livepeer/core/-/core-2.1.7.tgz#96e282d8f89d9da9adf5b13351c5bcb6524a07bc"
-  integrity sha512-bmwegTcsymFHVryNOnWFIORJXjtOszEzCY/18NYToqnjwmae3rdN1ej/e5ldtsRIHzmYKM+Rt2d7tdFuJpPBXw==
+"@livepeer/core@^2.1.8":
+  version "2.1.8"
+  resolved "https://registry.yarnpkg.com/@livepeer/core/-/core-2.1.8.tgz#eb76fc4d45a182c8bb4e8203164e9b00cadd854d"
+  integrity sha512-9fbv/xQ8x8UYjTLncLjKwVIM5txbdXJrrghPWH1ssZBRrslzRQ7jSbeYbF0v2T4QKhmS/yOmjyyyowfU6W128w==
   dependencies:
     cross-fetch "^4.0.0"
     ms "^3.0.0-canary.1"
@@ -3588,23 +3588,23 @@
     tus-js-client "^3.1.0"
     zustand "^4.3.9"
 
-"@livepeer/react-native@^2.0.11":
-  version "2.0.11"
-  resolved "https://registry.yarnpkg.com/@livepeer/react-native/-/react-native-2.0.11.tgz#ad13c39cad7949582d57c394ccf128c787c8f121"
-  integrity sha512-yus6naA1zOKU3eROdz1SKCFvaUPRrExZvOguCpsSvtG+PzukkxOWqp1WVOyqI91anWkn4X02Sw3h/PymP849zQ==
+"@livepeer/react-native@^2.0.12":
+  version "2.0.12"
+  resolved "https://registry.yarnpkg.com/@livepeer/react-native/-/react-native-2.0.12.tgz#cb3dd5925260f7ac12e692e49fbfd3f667c96332"
+  integrity sha512-YVuCQc0C3KzApz/XOOQuh/q9VM7P6vfh4a3ibqlFEkmVf4GXIgclJs7dN1L/oWNND9c/6Zz/BMcVYds+fBvIzw==
   dependencies:
-    "@livepeer/core-react" "^2.1.7"
+    "@livepeer/core-react" "^2.1.8"
     react-native-url-polyfill "^2.0.0"
     stitches-native "^0.4.0"
     zustand "^4.3.9"
 
-"@livepeer/react@^3.1.7":
-  version "3.1.7"
-  resolved "https://registry.yarnpkg.com/@livepeer/react/-/react-3.1.7.tgz#655661e7b307ca2ec1bfb8bf3a12cef04bd4020c"
-  integrity sha512-H6MjAK7P1wfEVZzCeEtwSQLJx5F9ogVy0DUKP/DhSj0+ARTUVDKNgUYE6t6g41NVO0Vv17mRru72nqHlxqr00g==
+"@livepeer/react@^3.1.8":
+  version "3.1.8"
+  resolved "https://registry.yarnpkg.com/@livepeer/react/-/react-3.1.8.tgz#5dd6ecca68f21bf40cfe3fd89be0d0e062b54ceb"
+  integrity sha512-owzx/1ghXXYa1Nkj5o1oLcXQnm7o01xz5haWaxZBkBJiHkmnm0lgOUX0GbGivDrV7+do1plAMSNBwj18Y/2Q/Q==
   dependencies:
-    "@livepeer/core-react" "^2.1.7"
-    "@livepeer/core-web" "^3.1.7"
+    "@livepeer/core-react" "^2.1.8"
+    "@livepeer/core-web" "^3.1.8"
     "@radix-ui/react-dialog" "^1.0.4"
     "@radix-ui/react-popover" "^1.0.6"
     "@radix-ui/react-select" "^1.2.2"
@@ -18586,10 +18586,10 @@ watchpack@2.4.0, watchpack@^2.4.0:
     glob-to-regexp "^0.4.1"
     graceful-fs "^4.1.2"
 
-wavesurfer.js@^7.5.3:
-  version "7.5.3"
-  resolved "https://registry.yarnpkg.com/wavesurfer.js/-/wavesurfer.js-7.5.3.tgz#82ea35298b297849150a661107bed3f57d2c67d9"
-  integrity sha512-nYK6svXBJaQAuIOa9YQ69njwRs8OnD1FkGE0uVRVuci2STQGsaEVJg13NEr3X02lXAh1ggllwqbh3JLcpG9c9A==
+wavesurfer.js@^7.5.4:
+  version "7.5.4"
+  resolved "https://registry.yarnpkg.com/wavesurfer.js/-/wavesurfer.js-7.5.4.tgz#908104bcc957196ebc2d9aeb7b5947cfa3f3fe8e"
+  integrity sha512-GdqojZTe/jHltIaF0d1XbodqHX5t6RQxWykvueV+MUWA/A7xPsXeDZzhgADEoyhbdjxt4Y2+8H0WxzXL1PlsHA==
 
 wbuf@^1.1.0, wbuf@^1.7.3:
   version "1.7.3"
