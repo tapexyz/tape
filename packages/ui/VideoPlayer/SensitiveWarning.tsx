@@ -1,4 +1,5 @@
 import type { FC } from 'react'
+
 import React from 'react'
 
 type Props = {
@@ -15,9 +16,9 @@ const SensitiveWarning: FC<Props> = ({ acceptWarning }) => {
         </div>
         <div>
           <button
-            type="button"
             className="mt-5 rounded-md bg-gray-800 px-5 py-2 text-sm font-medium text-white outline-none"
             onClick={() => acceptWarning()}
+            type="button"
           >
             I understand & wish to proceed
           </button>

@@ -7,25 +7,25 @@ import { getThumbnailUrl } from './getThumbnailUrl'
 export const getPublicationData = (
   metadata: PublicationMetadata
 ): {
-  title?: string
-  content?: string
   asset?: {
-    uri: string
-    cover?: string
     artist?: string
-    title?: string
+    cover?: string
     duration?: number
+    title?: string
+    uri: string
   }
   attachments?: {
     uri: string
   }[]
+  content?: string
+  title?: string
 } | null => {
   switch (metadata.__typename) {
     case 'ArticleMetadataV3':
       return {
-        title: metadata.title,
+        attachments: getAttachmentsData(metadata.attachments),
         content: metadata.content,
-        attachments: getAttachmentsData(metadata.attachments)
+        title: metadata.title
       }
     case 'TextOnlyMetadataV3':
       return {
@@ -37,55 +37,55 @@ export const getPublicationData = (
       }
     case 'ImageMetadataV3':
       return {
-        title: metadata.title,
-        content: metadata.content,
         asset: {
           uri: getPublicationMediaUrl(metadata)
         },
-        attachments: getAttachmentsData(metadata.attachments)
+        attachments: getAttachmentsData(metadata.attachments),
+        content: metadata.content,
+        title: metadata.title
       }
     case 'AudioMetadataV3':
       return {
-        title: metadata.title,
-        content: metadata.content,
         asset: {
-          uri: getPublicationMediaUrl(metadata),
-          cover: getThumbnailUrl(metadata),
           artist: metadata.asset.artist,
+          cover: getThumbnailUrl(metadata),
+          duration: metadata.asset.duration || 0,
           title: metadata.title,
-          duration: metadata.asset.duration || 0
-        }
+          uri: getPublicationMediaUrl(metadata)
+        },
+        content: metadata.content,
+        title: metadata.title
       }
     case 'VideoMetadataV3':
       return {
-        title: metadata.title,
-        content: metadata.content,
         asset: {
-          uri: getPublicationMediaUrl(metadata),
+          cover: getThumbnailUrl(metadata),
           duration: metadata.asset.duration || 0,
-          cover: getThumbnailUrl(metadata)
+          uri: getPublicationMediaUrl(metadata)
         },
-        attachments: getAttachmentsData(metadata.attachments)
+        attachments: getAttachmentsData(metadata.attachments),
+        content: metadata.content,
+        title: metadata.title
       }
     case 'MintMetadataV3':
       return {
-        content: metadata.content,
-        attachments: getAttachmentsData(metadata.attachments)
+        attachments: getAttachmentsData(metadata.attachments),
+        content: metadata.content
       }
     case 'EmbedMetadataV3':
       return {
-        content: metadata.content,
-        attachments: getAttachmentsData(metadata.attachments)
+        attachments: getAttachmentsData(metadata.attachments),
+        content: metadata.content
       }
     case 'LiveStreamMetadataV3':
       return {
-        title: metadata.title,
-        content: metadata.content,
-        attachments: getAttachmentsData(metadata.attachments),
         asset: {
-          uri: getPublicationMediaUrl(metadata),
-          cover: getThumbnailUrl(metadata)
-        }
+          cover: getThumbnailUrl(metadata),
+          uri: getPublicationMediaUrl(metadata)
+        },
+        attachments: getAttachmentsData(metadata.attachments),
+        content: metadata.content,
+        title: metadata.title
       }
     default:
       return null

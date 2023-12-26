@@ -1,7 +1,7 @@
 import type { Profile } from '@tape.xyz/lens'
 
 export const checkLensManagerPermissions = (
-  profile: Profile | null
+  profile: null | Profile
 ): {
   canBroadcast: boolean
   canUseLensManager: boolean

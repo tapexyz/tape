@@ -1,68 +1,69 @@
 import type { AspectRatio } from '@livepeer/react'
+import type { FC } from 'react'
+
 import { Player } from '@livepeer/react'
 import { ARWEAVE_GATEWAY_URL, IPFS_GATEWAY_URL } from '@tape.xyz/constants'
-import type { FC } from 'react'
 import React from 'react'
 
 export interface PlayerProps {
-  playerRef?: (ref: HTMLMediaElement) => void
-  posterUrl?: string
-  url?: string
-  ratio?: AspectRatio
-  showControls?: boolean
   address?: string
   options: {
     autoPlay?: boolean
-    muted?: boolean
+    isCurrentlyShown?: boolean
+    loadingSpinner: boolean
     loop?: boolean
     maxHeight?: boolean
-    loadingSpinner: boolean
-    isCurrentlyShown?: boolean
+    muted?: boolean
   }
+  playerRef?: (ref: HTMLMediaElement) => void
+  posterUrl?: string
+  ratio?: AspectRatio
   shouldUpload?: boolean
+  showControls?: boolean
+  url?: string
 }
 
 const PlayerInstance: FC<PlayerProps> = ({
-  ratio,
-  url,
-  posterUrl,
-  playerRef,
-  options,
   address,
+  options,
+  playerRef,
+  posterUrl,
+  ratio,
+  shouldUpload,
   showControls,
-  shouldUpload
+  url
 }) => {
   return (
     <Player
+      _isCurrentlyShown={options.isCurrentlyShown ?? true}
+      aspectRatio={ratio}
+      autoPlay={options.autoPlay ?? false}
+      autoUrlUpload={
+        shouldUpload
+          ? {
+              arweaveGateway: ARWEAVE_GATEWAY_URL,
+              fallback: true,
+              ipfsGateway: IPFS_GATEWAY_URL
+            }
+          : undefined
+      }
+      controls={{ defaultVolume: 1 }}
+      loop={options.loop ?? true}
+      mediaElementRef={playerRef}
+      muted={options?.muted ?? false}
+      objectFit="contain"
+      poster={posterUrl}
+      refetchPlaybackInfoInterval={1000 * 60 * 60 * 24 * 7} // to disable hls refetching every second
+      showLoadingSpinner={options.loadingSpinner}
+      showPipButton
+      showTitle={false}
+      showUploadingIndicator={false}
       src={
         url?.includes(ARWEAVE_GATEWAY_URL)
           ? url.replace(`${ARWEAVE_GATEWAY_URL}/`, 'ar://')
           : url
       }
-      poster={posterUrl}
-      showTitle={false}
-      objectFit="contain"
-      aspectRatio={ratio}
-      showPipButton
       viewerId={address}
-      mediaElementRef={playerRef}
-      loop={options.loop ?? true}
-      showUploadingIndicator={false}
-      muted={options?.muted ?? false}
-      controls={{ defaultVolume: 1 }}
-      autoPlay={options.autoPlay ?? false}
-      showLoadingSpinner={options.loadingSpinner}
-      _isCurrentlyShown={options.isCurrentlyShown ?? true}
-      autoUrlUpload={
-        shouldUpload
-          ? {
-              fallback: true,
-              ipfsGateway: IPFS_GATEWAY_URL,
-              arweaveGateway: ARWEAVE_GATEWAY_URL
-            }
-          : undefined
-      }
-      refetchPlaybackInfoInterval={1000 * 60 * 60 * 24 * 7} // to disable hls refetching every second
     >
       {/* eslint-disable-next-line react/jsx-no-useless-fragment */}
       {!showControls ? <></> : null}

@@ -1,7 +1,7 @@
 import { logger } from '@tape.xyz/generic'
 import { useState } from 'react'
 
-type CopiedValue = string | null
+type CopiedValue = null | string
 type CopyFn = (text: string) => Promise<boolean> // Return success
 
 export function useCopyToClipboard(): [CopyFn, CopiedValue] {
