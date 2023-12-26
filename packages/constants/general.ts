@@ -26,9 +26,9 @@ export const INFINITE_SCROLL_ROOT_MARGIN = '800px'
 export const IMAGE_TRANSFORMATIONS = {
   AVATAR: 'tr:w-60,h-60',
   AVATAR_LG: 'tr:w-300,h-300',
+  SQUARE: 'tr:w-200,h-200',
   THUMBNAIL: 'tr:w-720,h-404',
-  THUMBNAIL_V: 'tr:w-404,h-720',
-  SQUARE: 'tr:w-200,h-200'
+  THUMBNAIL_V: 'tr:w-404,h-720'
 }
 
 // lens

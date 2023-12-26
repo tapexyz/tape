@@ -1,3 +1,10 @@
+import type {
+  CreateUnblockProfilesBroadcastItemResult,
+  Profile,
+  WhoHaveBlockedRequest
+} from '@tape.xyz/lens'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+
 import Badge from '@components/Common/Badge'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
@@ -22,11 +29,6 @@ import {
   imageCdn,
   sanitizeDStorageUrl
 } from '@tape.xyz/generic'
-import type {
-  CreateUnblockProfilesBroadcastItemResult,
-  Profile,
-  WhoHaveBlockedRequest
-} from '@tape.xyz/lens'
 import {
   LimitType,
   useBroadcastOnchainMutation,
@@ -35,7 +37,6 @@ import {
   useWhoHaveBlockedQuery
 } from '@tape.xyz/lens'
 import { useApolloClient } from '@tape.xyz/lens/apollo'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
 import Link from 'next/link'
 import React, { useState } from 'react'
@@ -59,15 +60,15 @@ const List = () => {
 
   const updateCache = () => {
     const normalizedId = cache.identify({
-      id: unblockingProfileId,
-      __typename: 'Profile'
+      __typename: 'Profile',
+      id: unblockingProfileId
     })
     cache.evict({ id: normalizedId })
     cache.gc()
   }
 
   const onCompleted = (
-    __typename?: 'RelayError' | 'RelaySuccess' | 'LensProfileManagerRelayError'
+    __typename?: 'LensProfileManagerRelayError' | 'RelayError' | 'RelaySuccess'
   ) => {
     if (
       __typename === 'RelayError' ||
@@ -81,15 +82,13 @@ const List = () => {
   }
 
   const request: WhoHaveBlockedRequest = { limit: LimitType.Fifty }
-  const { data, loading, error, fetchMore } = useWhoHaveBlockedQuery({
-    variables: { request },
-    skip: !activeProfile?.id
+  const { data, error, fetchMore, loading } = useWhoHaveBlockedQuery({
+    skip: !activeProfile?.id,
+    variables: { request }
   })
   const pageInfo = data?.whoHaveBlocked?.pageInfo
 
   const { observe } = useInView({
-    threshold: 0.25,
-    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
     onEnter: async () => {
       await fetchMore({
         variables: {
@@ -99,7 +98,9 @@ const List = () => {
           }
         }
       })
-    }
+    },
+    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
+    threshold: 0.25
   })
 
   const { signTypedDataAsync } = useSignTypedData({
@@ -107,11 +108,11 @@ const List = () => {
   })
 
   const { write } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
     abi: LENSHUB_PROXY_ABI,
+    address: LENSHUB_PROXY_ADDRESS,
     functionName: 'setBlockStatus',
-    onSuccess: () => onCompleted(),
-    onError
+    onError,
+    onSuccess: () => onCompleted()
   })
 
   const [broadcast] = useBroadcastOnchainMutation({
@@ -123,8 +124,8 @@ const List = () => {
   const broadcastTypedData = async (
     typedDataResult: CreateUnblockProfilesBroadcastItemResult
   ) => {
-    const { typedData, id } = typedDataResult
-    const { byProfileId, idsOfProfilesToSetBlockStatus, blockStatus } =
+    const { id, typedData } = typedDataResult
+    const { blockStatus, byProfileId, idsOfProfilesToSetBlockStatus } =
       typedData.value
     const args = [byProfileId, idsOfProfilesToSetBlockStatus, blockStatus]
     try {
@@ -172,7 +173,7 @@ const List = () => {
   }
 
   if (!blockedProfiles?.length || error) {
-    return <NoDataFound withImage isCenter />
+    return <NoDataFound isCenter withImage />
   }
 
   const onClickUnblock = async (profileId: string) => {
@@ -201,32 +202,32 @@ const List = () => {
     <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
       {blockedProfiles.map((profile) => (
         <div
-          key={profile.id}
           className="tape-border rounded-small overflow-hidden"
+          key={profile.id}
         >
           <div
+            className="bg-brand-500 relative h-20 w-full bg-cover bg-center bg-no-repeat"
             style={{
               backgroundImage: `url(${imageCdn(
                 sanitizeDStorageUrl(getProfileCoverPicture(profile, true))
               )})`
             }}
-            className="bg-brand-500 relative h-20 w-full bg-cover bg-center bg-no-repeat"
           >
             <div className="absolute bottom-2 left-2 flex-none">
               <Avatar
+                alt={getProfile(profile)?.displayName}
                 className="border-2 border-white bg-white object-cover dark:bg-gray-900"
-                size="3"
                 fallback={getProfile(profile)?.displayName[0] ?? ';)'}
                 radius="medium"
+                size="3"
                 src={getProfilePicture(profile, 'AVATAR')}
-                alt={getProfile(profile)?.displayName}
               />
             </div>
             <div className="absolute bottom-2 right-2 flex-none">
               <Button
-                onClick={() => onClickUnblock(profile.id)}
                 disabled={unblockingProfileId === profile.id}
                 highContrast
+                onClick={() => onClickUnblock(profile.id)}
                 size="1"
               >
                 Unblock
@@ -235,8 +236,8 @@ const List = () => {
           </div>
           <div className="p-2 pl-4 pt-2.5">
             <Link
-              href={getProfile(profile)?.link}
               className="flex items-center space-x-1"
+              href={getProfile(profile)?.link}
             >
               <span className="text-2xl font-bold leading-tight">
                 {getProfile(profile)?.slug}
@@ -252,7 +253,7 @@ const List = () => {
         </div>
       ))}
       {pageInfo?.next && (
-        <span ref={observe} className="flex justify-center p-10">
+        <span className="flex justify-center p-10" ref={observe}>
           <Loader />
         </span>
       )}

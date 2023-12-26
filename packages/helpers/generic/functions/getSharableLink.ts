@@ -1,14 +1,15 @@
+import type { MirrorablePublication } from '@tape.xyz/lens'
+
 import {
   HEY_WEBSITE_URL,
   TAPE_APP_NAME,
   TAPE_WEBSITE_URL,
   TAPE_X_HANDLE
 } from '@tape.xyz/constants'
-import type { MirrorablePublication } from '@tape.xyz/lens'
 
 import { getPublicationData } from './getPublicationData'
 
-type Link = 'tape' | 'hey' | 'x' | 'reddit' | 'linkedin'
+type Link = 'hey' | 'linkedin' | 'reddit' | 'tape' | 'x'
 
 export const getSharableLink = (
   link: Link,

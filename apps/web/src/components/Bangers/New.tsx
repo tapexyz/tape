@@ -1,8 +1,16 @@
+import type { MetadataAttribute } from '@lens-protocol/metadata'
+import type {
+  CreateMomokaPostEip712TypedData,
+  CreateOnchainPostEip712TypedData
+} from '@tape.xyz/lens'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+import type { FC } from 'react'
+import type { z } from 'zod'
+
 import TimesOutline from '@components/Common/Icons/TimesOutline'
 import { Input } from '@components/UIElements/Input'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import type { MetadataAttribute } from '@lens-protocol/metadata'
 import { link, MetadataAttributeType } from '@lens-protocol/metadata'
 import useProfileStore from '@lib/store/idb/profile'
 import useNonceStore from '@lib/store/nonce'
@@ -30,25 +38,18 @@ import {
   trimify,
   uploadToAr
 } from '@tape.xyz/generic'
-import type {
-  CreateMomokaPostEip712TypedData,
-  CreateOnchainPostEip712TypedData
-} from '@tape.xyz/lens'
 import {
   useBroadcastOnMomokaMutation,
   useCreateMomokaPostTypedDataMutation,
   usePostOnMomokaMutation
 } from '@tape.xyz/lens'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
 import Link from 'next/link'
-import type { FC } from 'react'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
-import type { z } from 'zod'
 import { object, string } from 'zod'
 
 const VALID_URL_REGEX = new RegExp(
@@ -68,18 +69,18 @@ type Props = {
 
 const New: FC<Props> = ({ refetch }) => {
   const {
-    register,
-    handleSubmit,
+    formState: { errors },
     getValues,
-    reset,
-    formState: { errors }
+    handleSubmit,
+    register,
+    reset
   } = useForm<FormData>({
     resolver: zodResolver(formSchema)
   })
   const [loading, setLoading] = useState(false)
   const activeProfile = useProfileStore((state) => state.activeProfile)
   const handleWrongNetwork = useHandleWrongNetwork()
-  const { canUseLensManager, canBroadcast } =
+  const { canBroadcast, canUseLensManager } =
     checkLensManagerPermissions(activeProfile)
   const lensHubOnchainSigNonce = useNonceStore(
     (state) => state.lensHubOnchainSigNonce
@@ -94,7 +95,7 @@ const New: FC<Props> = ({ refetch }) => {
   }
 
   const onCompleted = (
-    __typename?: 'RelayError' | 'RelaySuccess' | 'CreateMomokaPublicationResult'
+    __typename?: 'CreateMomokaPublicationResult' | 'RelayError' | 'RelaySuccess'
   ) => {
     if (__typename === 'RelayError') {
       return
@@ -104,8 +105,8 @@ const New: FC<Props> = ({ refetch }) => {
     refetch()
     toast.success('Posted successfully!')
     Tower.track(EVENTS.PUBLICATION.NEW_POST, {
-      type: 'banger',
       publication_state: canUseLensManager ? 'MOMOKA' : 'ON_CHAIN',
+      type: 'banger',
       user_id: activeProfile?.id
     })
     if (!canUseLensManager) {
@@ -126,17 +127,17 @@ const New: FC<Props> = ({ refetch }) => {
   }
 
   const { write } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
     abi: LENSHUB_PROXY_ABI,
+    address: LENSHUB_PROXY_ADDRESS,
     functionName: 'post',
+    onError: (error) => {
+      onError(error)
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
+    },
     onSuccess: () => {
       setLoading(false)
       setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
       onCompleted()
-    },
-    onError: (error) => {
-      onError(error)
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
     }
   })
 
@@ -150,7 +151,7 @@ const New: FC<Props> = ({ refetch }) => {
 
   const [createMomokaPostTypedData] = useCreateMomokaPostTypedDataMutation({
     onCompleted: async ({ createMomokaPostTypedData }) => {
-      const { typedData, id } = createMomokaPostTypedData
+      const { id, typedData } = createMomokaPostTypedData
       try {
         if (canBroadcast) {
           const signature = await getSignatureFromTypedData(typedData)
@@ -169,12 +170,12 @@ const New: FC<Props> = ({ refetch }) => {
   })
 
   const [postOnMomoka] = usePostOnMomokaMutation({
-    onError,
     onCompleted: ({ postOnMomoka }) => {
       if (postOnMomoka.__typename === 'CreateMomokaPublicationResult') {
         onCompleted(postOnMomoka.__typename)
       }
-    }
+    },
+    onError
   })
 
   const onSubmit = async () => {
@@ -188,26 +189,26 @@ const New: FC<Props> = ({ refetch }) => {
     const linkText = trimify(getValues('link'))
     const attributes: MetadataAttribute[] = [
       {
-        type: MetadataAttributeType.STRING,
         key: 'publication',
+        type: MetadataAttributeType.STRING,
         value: 'banger'
       }
     ]
     const linkMetadata = link({
-      sharingLink: linkText,
       appId: TAPE_APP_ID,
-      id: uuidv4(),
+      attributes,
       content: `Only Bangers by Tape 📼 \n${TAPE_WEBSITE_URL}/bangers`,
+      id: uuidv4(),
       locale: getUserLocale(),
-      tags: ['banger'],
       marketplace: {
-        name: `Banger by @${getProfile(activeProfile)?.slug}`,
         attributes,
         description: linkText,
+        external_url: `${TAPE_WEBSITE_URL}/bangers`,
         image: OG_IMAGE,
-        external_url: `${TAPE_WEBSITE_URL}/bangers`
+        name: `Banger by @${getProfile(activeProfile)?.slug}`
       },
-      attributes
+      sharingLink: linkText,
+      tags: ['banger']
     })
     const metadataUri = await uploadToAr(linkMetadata)
 
@@ -232,22 +233,22 @@ const New: FC<Props> = ({ refetch }) => {
 
   return (
     <div
+      className="relative h-44 w-full bg-gray-300 bg-cover bg-center bg-no-repeat dark:bg-gray-700 md:h-[30vh]"
       style={{
         backgroundImage: `url("${imageCdn(FALLBACK_COVER_URL)}")`
       }}
-      className="relative h-44 w-full bg-gray-300 bg-cover bg-center bg-no-repeat dark:bg-gray-700 md:h-[30vh]"
     >
       <fieldset
-        disabled={loading}
         className="container mx-auto flex h-full max-w-screen-sm flex-col items-center justify-center space-y-4 px-4 md:px-0"
+        disabled={loading}
       >
-        <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+        <form className="w-full" onSubmit={handleSubmit(onSubmit)}>
           <div className="flex space-x-2">
             <Input
-              title="Tape/YouTube/Vimeo links supported"
-              placeholder="Paste a link to a banger"
               autoComplete="off"
               className="bg-white dark:bg-black"
+              placeholder="Paste a link to a banger"
+              title="Tape/YouTube/Vimeo links supported"
               validationError={errors.link?.message}
               {...register('link')}
             />
@@ -266,8 +267,8 @@ const New: FC<Props> = ({ refetch }) => {
             <Flex gap="3" justify="between" pb="2">
               <Dialog.Title size="5">Upload to Tape</Dialog.Title>
               <DialogClose>
-                <IconButton variant="ghost" color="gray">
-                  <TimesOutline outlined={false} className="size-3" />
+                <IconButton color="gray" variant="ghost">
+                  <TimesOutline className="size-3" outlined={false} />
                 </IconButton>
               </DialogClose>
             </Flex>

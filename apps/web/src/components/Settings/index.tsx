@@ -1,8 +1,9 @@
+import type { Profile } from '@tape.xyz/lens'
+
 import MetaTags from '@components/Common/MetaTags'
 import SettingsShimmer from '@components/Shimmers/SettingsShimmer'
 import useProfileStore from '@lib/store/idb/profile'
 import { EVENTS, Tower } from '@tape.xyz/generic'
-import type { Profile } from '@tape.xyz/lens'
 import { useProfileQuery } from '@tape.xyz/lens'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
@@ -38,11 +39,11 @@ const Settings = () => {
     Tower.track(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.SETTINGS })
   }, [])
 
-  const { data, loading, error } = useProfileQuery({
+  const { data, error, loading } = useProfileQuery({
+    skip: !activeProfile?.id,
     variables: {
       request: { forProfileId: activeProfile?.id }
-    },
-    skip: !activeProfile?.id
+    }
   })
 
   if (error) {

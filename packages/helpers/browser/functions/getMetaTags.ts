@@ -1,3 +1,5 @@
+import type { AnyPublication } from '@tape.xyz/lens'
+
 import {
   OG_IMAGE,
   TAPE_API_URL,
@@ -12,16 +14,15 @@ import {
   getPublicationMediaUrl,
   getValueFromKeyInAttributes
 } from '@tape.xyz/generic'
-import type { AnyPublication } from '@tape.xyz/lens'
 
 type Props = {
-  title?: string
   description: string
-  image: string
-  page?: 'PROFILE' | 'VIDEO' | 'AUDIO'
   handle?: string
+  image: string
+  page?: 'AUDIO' | 'PROFILE' | 'VIDEO'
   pubId?: string
   publication?: AnyPublication
+  title?: string
 }
 
 const secondsToISO = (seconds: string | undefined) => {
@@ -53,20 +54,20 @@ const secondsToISO = (seconds: string | undefined) => {
 }
 
 export const getMetaTags = ({
-  title,
   description,
+  handle,
   image,
   page,
-  handle,
   pubId,
-  publication
+  publication,
+  title
 }: Props) => {
   const isVideo = page === 'VIDEO'
   const isAudio = page === 'AUDIO'
   const meta = {
-    title: title ?? TAPE_APP_NAME,
     description: description || TAPE_APP_DESCRIPTION,
     image: image ?? OG_IMAGE,
+    title: title ?? TAPE_APP_NAME,
     url: isAudio
       ? `${TAPE_WEBSITE_URL}/listen/${pubId}`
       : isVideo
@@ -115,23 +116,23 @@ export const getMetaTags = ({
     const schemaObject = {
       '@context': 'https://schema.org',
       '@type': 'VideoObject',
-      name: meta.title,
+      contentUrl,
       description,
-      thumbnailUrl: meta.image,
-      uploadDate: target.createdAt,
       duration: secondsToISO(
         getValueFromKeyInAttributes(
           target.metadata.attributes,
           'durationInSeconds'
         )
       ),
-      contentUrl,
       embedUrl,
       interactionStatistic: {
         '@type': 'InteractionCounter',
         interactionType: { '@type': 'LikeAction' },
         userInteractionCount: target?.stats.reactions
-      }
+      },
+      name: meta.title,
+      thumbnailUrl: meta.image,
+      uploadDate: target.createdAt
     }
     defaultMeta += `<meta property="og:video" content="${embedUrl}" />
       <meta property="og:video:width" content="1280" />

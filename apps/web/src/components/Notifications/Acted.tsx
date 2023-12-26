@@ -1,3 +1,6 @@
+import type { ActedNotification, OpenActionProfileActed } from '@tape.xyz/lens'
+import type { FC } from 'react'
+
 import HoverableProfile from '@components/Common/HoverableProfile'
 import CollectOutline from '@components/Common/Icons/CollectOutline'
 import {
@@ -6,16 +9,14 @@ import {
   getPublication,
   getPublicationData
 } from '@tape.xyz/generic'
-import type { ActedNotification, OpenActionProfileActed } from '@tape.xyz/lens'
 import Link from 'next/link'
-import type { FC } from 'react'
 import React from 'react'
 
 type Props = {
   notification: ActedNotification
 }
 
-const Acted: FC<Props> = ({ notification: { publication, actions } }) => {
+const Acted: FC<Props> = ({ notification: { actions, publication } }) => {
   const targetPublication = getPublication(publication)
 
   return (
@@ -26,20 +27,20 @@ const Acted: FC<Props> = ({ notification: { publication, actions } }) => {
       <div>
         <span className="flex -space-x-1.5">
           {actions.slice(0, 30).map(({ by }: OpenActionProfileActed) => (
-            <HoverableProfile profile={by} key={by?.id}>
+            <HoverableProfile key={by?.id} profile={by}>
               <img
-                className="size-7 rounded-full border dark:border-gray-700/80"
-                src={getProfilePicture(by, 'AVATAR')}
-                draggable={false}
                 alt={getProfile(by)?.slug}
+                className="size-7 rounded-full border dark:border-gray-700/80"
+                draggable={false}
+                src={getProfilePicture(by, 'AVATAR')}
               />
             </HoverableProfile>
           ))}
         </span>
         <div className="py-2">acted on your publication</div>
         <Link
-          href={`/watch/${publication.id}`}
           className="text-dust line-clamp-2 font-medium"
+          href={`/watch/${publication.id}`}
         >
           {getPublicationData(targetPublication.metadata)?.content}
         </Link>

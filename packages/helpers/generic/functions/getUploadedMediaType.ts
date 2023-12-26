@@ -2,7 +2,7 @@ import { MediaAudioMimeType, MediaVideoMimeType } from '@lens-protocol/metadata'
 
 export const getUploadedMediaType = (
   mimeType: string
-): MediaVideoMimeType | MediaAudioMimeType => {
+): MediaAudioMimeType | MediaVideoMimeType => {
   switch (mimeType) {
     case 'video/mp4':
       return MediaVideoMimeType.MP4

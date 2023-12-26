@@ -7,7 +7,9 @@
     "apps/*",
     "packages/*",
     "packages/workers/*",
-    "packages/helpers/*"
+    "packages/helpers/*",
+    "packages/constants/*",
+    "packages/ui/*"
   ],
   "scripts": {
     "build": "turbo run build --parallel",

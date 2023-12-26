@@ -1,24 +1,25 @@
-import { LENS_NAMESPACE_PREFIX } from '@tape.xyz/constants'
 import type { Profile } from '@tape.xyz/lens'
 
+import { LENS_NAMESPACE_PREFIX } from '@tape.xyz/constants'
+
 export const getProfile = (
-  profile: Profile | null
+  profile: null | Profile
 ): {
+  address: string
+  displayName: string
+  id: string
+  link: string
   slug: string
   slugWithPrefix: string
-  displayName: string
-  link: string
-  id: string
-  address: string
 } => {
   if (!profile) {
     return {
-      slug: '',
-      slugWithPrefix: '',
+      address: '',
       displayName: '',
-      link: '',
       id: '',
-      address: ''
+      link: '',
+      slug: '',
+      slugWithPrefix: ''
     }
   }
 
@@ -27,13 +28,13 @@ export const getProfile = (
   slug = slug.replace(LENS_NAMESPACE_PREFIX, '')
 
   return {
-    id: profile.id,
-    slug,
-    slugWithPrefix: `${prefix}${slug}`,
+    address: profile.ownedBy?.address,
     displayName: profile.metadata?.displayName || slug,
+    id: profile.id,
     link: profile.handle
       ? `/u/${profile.handle.localName}`
       : `/profile/${profile.id}`,
-    address: profile.ownedBy?.address
+    slug,
+    slugWithPrefix: `${prefix}${slug}`
   }
 }

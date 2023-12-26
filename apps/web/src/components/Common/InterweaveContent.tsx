@@ -19,9 +19,9 @@ const InterweaveContent = ({ content }: { content: string }) => {
     <span className="interweave-content">
       <Interweave
         content={content?.trim()}
-        newWindow
         escapeHtml
         matchers={matchers}
+        newWindow
       />
     </span>
   )

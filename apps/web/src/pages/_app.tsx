@@ -1,17 +1,18 @@
-import '../styles/index.css'
-import 'tippy.js/dist/tippy.css'
-import '@radix-ui/themes/styles.css'
-import '../styles/theme.config.css'
+import type { AppProps } from 'next/app'
 
 import Providers from '@components/Common/Providers'
+import '@radix-ui/themes/styles.css'
 import { tapeFont } from '@tape.xyz/browser/font'
-import type { AppProps } from 'next/app'
 import React from 'react'
+import 'tippy.js/dist/tippy.css'
+
+import '../styles/index.css'
+import '../styles/theme.config.css'
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (
     <Providers>
-      <style jsx global>{`
+      <style global jsx>{`
         body {
           font-family: ${tapeFont.style.fontFamily};
         }

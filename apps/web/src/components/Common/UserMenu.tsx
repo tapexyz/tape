@@ -1,18 +1,19 @@
+import type { Profile } from '@tape.xyz/lens'
+
 import getCurrentSession from '@lib/getCurrentSession'
 import { signOut } from '@lib/store/auth'
 import useProfileStore from '@lib/store/idb/profile'
 import { Avatar, DropdownMenu, Flex, Text } from '@radix-ui/themes'
 import { ADMIN_IDS } from '@tape.xyz/constants'
 import { EVENTS, getProfile, getProfilePicture, Tower } from '@tape.xyz/generic'
-import type { Profile } from '@tape.xyz/lens'
 import {
   LimitType,
   useProfilesManagedQuery,
   useRevokeAuthenticationMutation
 } from '@tape.xyz/lens'
+import { useTheme } from 'next-themes'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useTheme } from 'next-themes'
 import React, { useMemo } from 'react'
 import { useAccount } from 'wagmi'
 
@@ -26,16 +27,16 @@ import SwitchProfileOutline from './Icons/SwitchProfileOutline'
 import UserOutline from './Icons/UserOutline'
 
 const UserMenu = () => {
-  const { theme, setTheme } = useTheme()
-  const { push, asPath } = useRouter()
+  const { setTheme, theme } = useTheme()
+  const { asPath, push } = useRouter()
   const { address } = useAccount()
   const { activeProfile } = useProfileStore()
 
   const { data } = useProfilesManagedQuery({
+    skip: !address,
     variables: {
       request: { for: address, includeOwned: true, limit: LimitType.Fifty }
-    },
-    skip: !address
+    }
   })
   const profilesManagedWithoutActiveProfile = useMemo(() => {
     if (!data?.profilesManaged?.items) {
@@ -51,7 +52,7 @@ const UserMenu = () => {
   const [revokeAuthentication, { loading }] = useRevokeAuthenticationMutation()
 
   const onClickSignout = async () => {
-    const authorizationId = getCurrentSession().authorizationId
+    const { authorizationId } = getCurrentSession()
     if (authorizationId) {
       await revokeAuthentication({
         variables: {
@@ -69,33 +70,33 @@ const UserMenu = () => {
       <DropdownMenu.Trigger>
         <div className="ring-brand-500 flex rounded-full hover:ring-2">
           <Avatar
-            size="2"
-            radius="full"
-            src={getProfilePicture(activeProfile, 'AVATAR')}
-            fallback={getProfile(activeProfile)?.slug[0] ?? ';)'}
             alt={getProfile(activeProfile)?.displayName}
+            fallback={getProfile(activeProfile)?.slug[0] ?? ';)'}
+            radius="full"
+            size="2"
+            src={getProfilePicture(activeProfile, 'AVATAR')}
           />
         </div>
       </DropdownMenu.Trigger>
-      <DropdownMenu.Content sideOffset={10} variant="soft" align="end">
+      <DropdownMenu.Content align="end" sideOffset={10} variant="soft">
         <div className="w-48">
           <Link href={getProfile(activeProfile)?.link}>
-            <Flex gap="2" px="2" py="1" pb="3" align="center">
+            <Flex align="center" gap="2" pb="3" px="2" py="1">
               <Avatar
-                size="1"
-                radius="full"
-                src={getProfilePicture(activeProfile, 'AVATAR')}
-                fallback={getProfile(activeProfile)?.slug[0] ?? ';)'}
                 alt={getProfile(activeProfile)?.displayName}
+                fallback={getProfile(activeProfile)?.slug[0] ?? ';)'}
+                radius="full"
+                size="1"
+                src={getProfilePicture(activeProfile, 'AVATAR')}
               />
-              <Text as="p" weight="bold" className="line-clamp-1">
+              <Text as="p" className="line-clamp-1" weight="bold">
                 {getProfile(activeProfile)?.slug}
               </Text>
             </Flex>
           </Link>
           {isAdmin && (
             <DropdownMenu.Item onClick={() => push('/mod')}>
-              <Flex gap="2" align="center">
+              <Flex align="center" gap="2">
                 <GraphOutline className="size-4" />
                 <Text as="p" className="truncate whitespace-nowrap">
                   Mod
@@ -108,7 +109,7 @@ const UserMenu = () => {
               <DropdownMenu.Item
                 onClick={() => push(getProfile(activeProfile)?.link)}
               >
-                <Flex gap="2" align="center">
+                <Flex align="center" gap="2">
                   <UserOutline className="size-4" />
                   <Text as="p" className="truncate whitespace-nowrap">
                     My Profile
@@ -116,7 +117,7 @@ const UserMenu = () => {
                 </Flex>
               </DropdownMenu.Item>
               <DropdownMenu.Item onClick={() => push('/bookmarks')}>
-                <Flex gap="2" align="center">
+                <Flex align="center" gap="2">
                   <BookmarkOutline className="size-4" />
                   <Text as="p" className="truncate whitespace-nowrap">
                     Bookmarks
@@ -144,15 +145,15 @@ const UserMenu = () => {
                               push(`/login?as=${profile.id}&next=${asPath}`)
                             }
                           >
-                            <Flex gap="2" align="center">
+                            <Flex align="center" gap="2">
                               <Avatar
-                                size="1"
-                                radius="full"
-                                src={getProfilePicture(profile)}
+                                alt={getProfile(activeProfile)?.displayName}
                                 fallback={
                                   getProfile(profile)?.displayName[0] ?? ';)'
                                 }
-                                alt={getProfile(activeProfile)?.displayName}
+                                radius="full"
+                                size="1"
+                                src={getProfilePicture(profile)}
                               />
                               <Text
                                 as="p"
@@ -170,7 +171,7 @@ const UserMenu = () => {
             </>
           )}
           <DropdownMenu.Item onClick={() => push('/settings')}>
-            <Flex gap="2" align="center">
+            <Flex align="center" gap="2">
               <CogOutline className="size-4" />
               <Text as="p" className="truncate whitespace-nowrap">
                 My Settings
@@ -200,8 +201,8 @@ const UserMenu = () => {
           </DropdownMenu.Item>
           <DropdownMenu.Item
             asChild
-            disabled={loading}
             color="red"
+            disabled={loading}
             onClick={() => onClickSignout()}
           >
             <Flex align="center" gap="2">

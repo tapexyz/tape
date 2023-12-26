@@ -21,7 +21,7 @@ const ProfileManager = () => {
             <Tabs.Trigger value="managed">Managed</Tabs.Trigger>
           </Tabs.List>
 
-          <Box pt="3" pb="2">
+          <Box pb="2" pt="3">
             <Tabs.Content value="managers">
               <Managers />
             </Tabs.Content>

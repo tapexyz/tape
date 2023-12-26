@@ -1,11 +1,11 @@
-import 'keen-slider/keen-slider.min.css'
+import type { ChannelStreamType } from '@tape.xyz/lens/custom-types'
+import type { KeenSliderInstance } from 'keen-slider/react'
 
 import { useQuery } from '@tanstack/react-query'
 import { WORKER_STREAM_URL } from '@tape.xyz/constants'
-import type { ChannelStreamType } from '@tape.xyz/lens/custom-types'
 import axios from 'axios'
 import clsx from 'clsx'
-import type { KeenSliderInstance } from 'keen-slider/react'
+import 'keen-slider/keen-slider.min.css'
 import { useKeenSlider } from 'keen-slider/react'
 import React, { useState } from 'react'
 
@@ -21,8 +21,8 @@ const Streams = () => {
   }
 
   const { data: streams } = useQuery({
-    queryKey: ['streams'],
-    queryFn: fetchStreams
+    queryFn: fetchStreams,
+    queryKey: ['streams']
   })
 
   const autoSwitchPlugin = (slider: KeenSliderInstance) => {
@@ -77,8 +77,8 @@ const Streams = () => {
     <div className="laptop:pb-6 flex flex-wrap gap-4 pb-4">
       <div className="w-full lg:w-3/4">
         <div
-          ref={sliderRef}
           className="keen-slider rounded-medium tape-border relative bg-black text-white md:h-[400px]"
+          ref={sliderRef}
         >
           {streams?.map((stream: ChannelStreamType) => (
             <Item key={stream.uid} stream={stream} />
@@ -94,8 +94,8 @@ const Streams = () => {
                         ? 'bg-brand-400 w-6'
                         : 'w-2 bg-white'
                     )}
-                    onClick={() => slider?.moveToIdx(index)}
                     key={stream.uid}
+                    onClick={() => slider?.moveToIdx(index)}
                   />
                 ))}
               </div>

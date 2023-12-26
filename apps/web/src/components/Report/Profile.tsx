@@ -1,11 +1,12 @@
+import type { Profile } from '@tape.xyz/lens'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+import type { FC } from 'react'
+
 import MetaTags from '@components/Common/MetaTags'
 import { Button, Dialog, Flex, Select, Text } from '@radix-ui/themes'
 import { ERROR_MESSAGE } from '@tape.xyz/constants'
 import { EVENTS, getProfile, Tower } from '@tape.xyz/generic'
-import type { Profile } from '@tape.xyz/lens'
 import { useReportProfileMutation } from '@tape.xyz/lens'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 
@@ -17,14 +18,14 @@ const ReportProfile: FC<Props> = ({ profile }) => {
   const [reason, setReason] = useState('SPAM-REPETITIVE')
 
   const [createReport, { loading: reporting }] = useReportProfileMutation({
-    onError: (error: CustomErrorWithData) => {
-      toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
-    },
     onCompleted: () => {
       toast.success(`Profile reported.`)
       Tower.track(EVENTS.PROFILE.REPORT, {
         profile_id: profile.id
       })
+    },
+    onError: (error: CustomErrorWithData) => {
+      toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     }
   })
 
@@ -44,14 +45,14 @@ const ReportProfile: FC<Props> = ({ profile }) => {
     await createReport({
       variables: {
         request: {
+          additionalComments: `${type} - ${subReason}`,
           for: profile.id,
           reason: {
             [getReasonType(type)]: {
               reason: type,
               subreason: subReason
             }
-          },
-          additionalComments: `${type} - ${subReason}`
+          }
         }
       }
     })
@@ -93,9 +94,9 @@ const ReportProfile: FC<Props> = ({ profile }) => {
                 </Select.Content>
               </Select.Root>
             </Flex>
-            <Flex mt="4" gap="2" justify="end">
+            <Flex gap="2" justify="end" mt="4">
               <Dialog.Close>
-                <Button variant="soft" color="gray">
+                <Button color="gray" variant="soft">
                   Cancel
                 </Button>
               </Dialog.Close>

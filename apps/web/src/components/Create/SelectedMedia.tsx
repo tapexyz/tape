@@ -1,3 +1,5 @@
+import type { IPFSUploadResult } from '@tape.xyz/lens/custom-types'
+
 import AddImageOutline from '@components/Common/Icons/AddImageOutline'
 import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
@@ -12,7 +14,6 @@ import {
   getIsFeatureEnabled,
   sanitizeDStorageUrl
 } from '@tape.xyz/generic'
-import type { IPFSUploadResult } from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import React, { useEffect, useRef, useState } from 'react'
@@ -59,17 +60,16 @@ const SelectedMedia = () => {
       {isAudio ? (
         <div className="flex w-full justify-end">
           <div className="md:rounded-large rounded-small w-full space-y-2 overflow-hidden border p-2 dark:border-gray-800">
-            <AspectRatio ratio={1 / 1} className="group relative">
+            <AspectRatio className="group relative" ratio={1 / 1}>
               {posterPreview ? (
                 <img
-                  src={posterPreview}
+                  alt="poster"
                   className="rounded-small h-full w-full object-cover"
                   draggable={false}
-                  alt="poster"
+                  src={posterPreview}
                 />
               ) : null}
               <label
-                htmlFor="choosePoster"
                 className={clsx(
                   'rounded-small invisible absolute top-0 grid h-full w-full cursor-pointer place-items-center overflow-hidden bg-gray-100 bg-opacity-70 backdrop-blur-lg group-hover:visible dark:bg-black',
                   {
@@ -78,6 +78,7 @@ const SelectedMedia = () => {
                       !uploadedMedia.thumbnail.length
                   }
                 )}
+                htmlFor="choosePoster"
               >
                 {uploadedMedia.uploadingThumbnail ? (
                   <Loader />
@@ -88,10 +89,9 @@ const SelectedMedia = () => {
                   </span>
                 )}
                 <input
-                  id="choosePoster"
-                  type="file"
                   accept=".png, .jpg, .jpeg, .svg, .gif, .webp"
                   className="hidden w-full"
+                  id="choosePoster"
                   onChange={async (e) => {
                     if (e.target.files?.length) {
                       const file = e.target.files[0]
@@ -100,52 +100,53 @@ const SelectedMedia = () => {
                       setPosterPreview(preview)
                       const { url }: IPFSUploadResult = await uploadToIPFS(file)
                       setUploadedMedia({
-                        uploadingThumbnail: false,
-                        thumbnail: url
+                        thumbnail: url,
+                        uploadingThumbnail: false
                       })
                     }
                   }}
+                  type="file"
                 />
               </label>
             </AspectRatio>
             <audio
+              className="w-full"
+              controls
+              controlsList="nodownload noplaybackrate"
               ref={mediaRef}
               src={uploadedMedia.preview}
-              className="w-full"
-              controlsList="nodownload noplaybackrate"
-              controls
             />
           </div>
         </div>
       ) : (
         <div className="md:rounded-large rounded-small relative w-full cursor-pointer overflow-hidden border dark:border-gray-800">
           <video
-            ref={mediaRef}
+            autoPlay={interacted}
             className="aspect-[16/9] w-full"
+            controls={false}
+            controlsList="nodownload noplaybackrate"
             disablePictureInPicture
             disableRemotePlayback
-            controlsList="nodownload noplaybackrate"
-            poster={sanitizeDStorageUrl(uploadedMedia.thumbnail)}
-            controls={false}
-            autoPlay={interacted}
             muted={!interacted}
             onClick={() => onClickVideo()}
+            poster={sanitizeDStorageUrl(uploadedMedia.thumbnail)}
+            ref={mediaRef}
             src={uploadedMedia.preview}
           />
           <Badge
-            onClick={() => onClickVideo()}
-            variant="solid"
-            radius="full"
-            highContrast
             className="absolute bottom-2 right-2"
+            highContrast
+            onClick={() => onClickVideo()}
+            radius="full"
+            variant="solid"
           >
             Play/Pause
           </Badge>
           <Badge
-            variant="solid"
-            radius="full"
-            highContrast
             className="absolute bottom-2 left-2"
+            highContrast
+            radius="full"
+            variant="solid"
           >
             {uploadedMedia.file?.size && (
               <span className="space-x-1 whitespace-nowrap font-bold">
@@ -158,10 +159,10 @@ const SelectedMedia = () => {
           </Badge>
           {uploadedMedia.durationInSeconds === 0 ? (
             <Badge
-              variant="solid"
-              radius="full"
-              color="red"
               className="absolute right-3 top-3"
+              color="red"
+              radius="full"
+              variant="solid"
             >
               <span className="whitespace-nowrap font-bold">
                 Only media files longer than 1 second are allowed
@@ -193,15 +194,15 @@ const SelectedMedia = () => {
       ) && (
         <div className="mt-4">
           <Input
-            label="Upload from Source URL"
             info="Skip the media upload (Only use this if you know what you are doing!)"
-            placeholder="ar:// or ipfs://"
-            value={uploadedMedia.dUrl}
+            label="Upload from Source URL"
             onChange={(e) =>
               setUploadedMedia({
                 dUrl: e.target.value
               })
             }
+            placeholder="ar:// or ipfs://"
+            value={uploadedMedia.dUrl}
           />
         </div>
       )}

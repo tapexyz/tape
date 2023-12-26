@@ -1,8 +1,10 @@
+import type { ApprovedAllowanceAmountResult, Erc20 } from '@tape.xyz/lens'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+
 import { getCollectModuleConfig } from '@lib/getCollectModuleInput'
 import useProfileStore from '@lib/store/idb/profile'
 import { Button, Select } from '@radix-ui/themes'
 import { WMATIC_TOKEN_ADDRESS } from '@tape.xyz/constants'
-import type { ApprovedAllowanceAmountResult, Erc20 } from '@tape.xyz/lens'
 import {
   FollowModuleType,
   LimitType,
@@ -11,7 +13,6 @@ import {
   useEnabledCurrenciesQuery,
   useGenerateModuleCurrencyApprovalDataLazyQuery
 } from '@tape.xyz/lens'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -32,9 +33,11 @@ const ModuleAllowance = () => {
 
   const {
     data,
-    refetch,
-    loading: gettingSettings
+    loading: gettingSettings,
+    refetch
   } = useApprovedModuleAllowanceAmountQuery({
+    fetchPolicy: 'no-cache',
+    skip: !activeProfile?.id,
     variables: {
       request: {
         currencies: [currency],
@@ -46,20 +49,18 @@ const ModuleAllowance = () => {
           OpenActionModuleType.LegacyMultirecipientFeeCollectModule
         ]
       }
-    },
-    skip: !activeProfile?.id,
-    fetchPolicy: 'no-cache'
+    }
   })
 
   useWaitForTransaction({
     hash: txData?.hash,
+    onError(error: CustomErrorWithData) {
+      toast.error(error?.data?.message ?? error?.message)
+      setLoadingModule('')
+    },
     onSuccess: () => {
       refetch()
       toast.success(`Permission updated`)
-      setLoadingModule('')
-    },
-    onError(error: CustomErrorWithData) {
-      toast.error(error?.data?.message ?? error?.message)
       setLoadingModule('')
     }
   })
@@ -94,8 +95,8 @@ const ModuleAllowance = () => {
       })
       const generated = allowanceData?.generateModuleCurrencyApprovalData
       sendTransaction?.({
-        to: generated?.to,
-        data: generated?.data
+        data: generated?.data,
+        to: generated?.to
       })
     } catch {
       setLoadingModule('')
@@ -115,8 +116,8 @@ const ModuleAllowance = () => {
         {!gettingSettings && data && (
           <div className="flex justify-end py-6">
             <Select.Root
-              value={currency}
               onValueChange={(value) => setCurrency(value)}
+              value={currency}
             >
               <Select.Trigger className="w-full" />
               <Select.Content highContrast>
@@ -141,8 +142,8 @@ const ModuleAllowance = () => {
           data?.approvedModuleAllowanceAmount?.map(
             (moduleItem: ApprovedAllowanceAmountResult) => (
               <div
-                key={moduleItem.moduleContract.address}
                 className="flex items-center rounded-md pb-4"
+                key={moduleItem.moduleContract.address}
               >
                 <div className="flex-1">
                   <h6 className="font-medium">
@@ -155,19 +156,19 @@ const ModuleAllowance = () => {
                 <div className="ml-2 flex flex-none items-center space-x-2">
                   {parseFloat(moduleItem?.allowance.value) === 0 ? (
                     <Button
-                      variant="surface"
-                      highContrast
                       disabled={loadingModule === moduleItem.moduleName}
+                      highContrast
                       onClick={() => handleClick(true, moduleItem.moduleName)}
+                      variant="surface"
                     >
                       Allow
                     </Button>
                   ) : (
                     <Button
-                      variant="surface"
                       color="red"
-                      onClick={() => handleClick(false, moduleItem.moduleName)}
                       disabled={loadingModule === moduleItem.moduleName}
+                      onClick={() => handleClick(false, moduleItem.moduleName)}
+                      variant="surface"
                     >
                       Revoke
                     </Button>

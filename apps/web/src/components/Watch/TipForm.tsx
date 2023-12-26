@@ -1,3 +1,12 @@
+import type {
+  AnyPublication,
+  CreateMomokaCommentEip712TypedData,
+  CreateOnchainCommentEip712TypedData
+} from '@tape.xyz/lens'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+import type { Dispatch, FC } from 'react'
+import type { z } from 'zod'
+
 import { Input } from '@components/UIElements/Input'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -26,11 +35,6 @@ import {
   Tower,
   uploadToAr
 } from '@tape.xyz/generic'
-import type {
-  AnyPublication,
-  CreateMomokaCommentEip712TypedData,
-  CreateOnchainCommentEip712TypedData
-} from '@tape.xyz/lens'
 import {
   PublicationDocument,
   useBroadcastOnchainMutation,
@@ -42,46 +46,43 @@ import {
   usePublicationLazyQuery
 } from '@tape.xyz/lens'
 import { useApolloClient } from '@tape.xyz/lens/apollo'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import type { Dispatch, FC } from 'react'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { v4 as uuidv4 } from 'uuid'
 import { parseEther } from 'viem'
 import { useContractWrite, useSendTransaction, useSignTypedData } from 'wagmi'
-import type { z } from 'zod'
 import { number, object, string } from 'zod'
 
 type Props = {
-  video: AnyPublication
   setShow: Dispatch<boolean>
+  video: AnyPublication
 }
 
 const formSchema = object({
+  message: string().min(1, { message: `Tip message is requried` }),
   tipQuantity: number()
     .nonnegative({ message: `Tip should to greater than zero` })
     .max(100, { message: `Tip should be less than or equal to 100 MATIC` })
-    .refine((n) => n > 0, { message: `Tip should be greater than 0 MATIC` }),
-  message: string().min(1, { message: `Tip message is requried` })
+    .refine((n) => n > 0, { message: `Tip should be greater than 0 MATIC` })
 })
 type FormData = z.infer<typeof formSchema>
 
-const TipForm: FC<Props> = ({ video, setShow }) => {
+const TipForm: FC<Props> = ({ setShow, video }) => {
   const targetVideo = getPublication(video)
 
   const {
-    register,
-    handleSubmit,
+    formState: { errors, isValid },
     getValues,
-    watch,
-    formState: { errors, isValid }
+    handleSubmit,
+    register,
+    watch
   } = useForm<FormData>({
-    resolver: zodResolver(formSchema),
     defaultValues: {
-      tipQuantity: 1,
-      message: `Thanks for creating this content!`
-    }
+      message: `Thanks for creating this content!`,
+      tipQuantity: 1
+    },
+    resolver: zodResolver(formSchema)
   })
   const watchTipQuantity = watch('tipQuantity', 1)
 
@@ -92,7 +93,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
   const queuedComments = usePersistStore((state) => state.queuedComments)
   const setQueuedComments = usePersistStore((state) => state.setQueuedComments)
 
-  const { canUseLensManager, canBroadcast } =
+  const { canBroadcast, canUseLensManager } =
     checkLensManagerPermissions(activeProfile)
 
   const onError = (error: CustomErrorWithData) => {
@@ -107,14 +108,14 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
     onError
   })
 
-  const setToQueue = (txn: { txnId?: string; txnHash?: string }) => {
+  const setToQueue = (txn: { txnHash?: string; txnId?: string }) => {
     if (txn.txnHash || txn.txnId) {
       setQueuedComments([
         {
           comment: getValues('message'),
-          txnId: txn.txnId,
+          pubId: targetVideo.id,
           txnHash: txn.txnHash,
-          pubId: targetVideo.id
+          txnId: txn.txnId
         },
         ...(queuedComments || [])
       ])
@@ -129,15 +130,15 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
     setShow(false)
     toast.success(`Tipped successfully`)
     Tower.track(EVENTS.PUBLICATION.NEW_COMMENT, {
-      publication_id: targetVideo.id,
       comment_type: 'tip',
+      publication_id: targetVideo.id,
       publication_state: targetVideo.momoka?.proof ? 'MOMOKA' : 'ON_CHAIN'
     })
   }
 
   const { write } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
     abi: LENSHUB_PROXY_ABI,
+    address: LENSHUB_PROXY_ADDRESS,
     functionName: 'comment',
     onError,
     onSuccess: (data) => {
@@ -192,7 +193,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
   const [createOnchainCommentTypedData] =
     useCreateOnchainCommentTypedDataMutation({
       onCompleted: async ({ createOnchainCommentTypedData }) => {
-        const { typedData, id } = createOnchainCommentTypedData
+        const { id, typedData } = createOnchainCommentTypedData
         const args = [typedData.value]
         try {
           if (canBroadcast) {
@@ -212,13 +213,13 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
     })
 
   const [commentOnchain] = useCommentOnchainMutation({
-    onError,
     onCompleted: ({ commentOnchain }) => {
       if (commentOnchain.__typename === 'RelaySuccess') {
         onCompleted(commentOnchain.__typename)
         setToQueue({ txnId: commentOnchain.txId })
       }
-    }
+    },
+    onError
   })
 
   const [broadcastOnMomoka] = useBroadcastOnMomokaMutation({
@@ -232,7 +233,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
   const [createMomokaCommentTypedData] =
     useCreateMomokaCommentTypedDataMutation({
       onCompleted: async ({ createMomokaCommentTypedData }) => {
-        const { typedData, id } = createMomokaCommentTypedData
+        const { id, typedData } = createMomokaCommentTypedData
         const args = [typedData.value]
         try {
           if (canBroadcast) {
@@ -252,12 +253,12 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
     })
 
   const [commentOnMomoka] = useCommentOnMomokaMutation({
-    onError,
     onCompleted: ({ commentOnMomoka }) => {
       if (commentOnMomoka.__typename === 'CreateMomokaPublicationResult') {
         fetchAndCacheComment(commentOnMomoka.id)
       }
-    }
+    },
+    onError
   })
 
   const submitComment = async (txnHash: string) => {
@@ -265,44 +266,44 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
       setLoading(true)
       const attributes = [
         {
-          type: MetadataAttributeType.STRING,
           key: 'publication',
+          type: MetadataAttributeType.STRING,
           value: video.id
         },
         {
-          type: MetadataAttributeType.STRING,
           key: 'creator',
+          type: MetadataAttributeType.STRING,
           value: `${getProfile(activeProfile)?.slug}`
         },
         {
-          type: MetadataAttributeType.STRING,
           key: 'app',
+          type: MetadataAttributeType.STRING,
           value: TAPE_WEBSITE_URL
         },
         {
-          type: MetadataAttributeType.STRING,
           key: 'type',
+          type: MetadataAttributeType.STRING,
           value: 'TIP'
         },
         {
-          type: MetadataAttributeType.STRING,
           key: 'hash',
+          type: MetadataAttributeType.STRING,
           value: txnHash
         }
       ]
       const metadata = textOnly({
         appId: TAPE_APP_ID,
-        id: uuidv4(),
         attributes,
         content: getValues('message'),
+        id: uuidv4(),
         locale: getUserLocale(),
         marketplace: {
-          name: `${getProfile(activeProfile)
-            ?.slug}'s comment on video ${targetVideo.metadata.marketplace
-            ?.name}`,
           attributes,
           description: getValues('message'),
-          external_url: `${TAPE_WEBSITE_URL}/watch/${video?.id}`
+          external_url: `${TAPE_WEBSITE_URL}/watch/${video?.id}`,
+          name: `${getProfile(activeProfile)
+            ?.slug}'s comment on video ${targetVideo.metadata.marketplace
+            ?.name}`
         }
       })
       const metadataUri = await uploadToAr(metadata)
@@ -313,8 +314,8 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
           return await commentOnMomoka({
             variables: {
               request: {
-                contentURI: metadataUri,
-                commentOn: targetVideo.id
+                commentOn: targetVideo.id,
+                contentURI: metadataUri
               }
             }
           })
@@ -323,8 +324,8 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
         return await createMomokaCommentTypedData({
           variables: {
             request: {
-              contentURI: metadataUri,
-              commentOn: targetVideo.id
+              commentOn: targetVideo.id,
+              contentURI: metadataUri
             }
           }
         })
@@ -386,20 +387,20 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
       <div className="flex flex-nowrap items-center justify-center space-x-2 p-10">
         <span className="flex items-center space-x-4">
           <img
+            alt="Raising Hand"
+            className="h-10"
+            draggable={false}
+            loading="eager"
             src={imageCdn(
               `${STATIC_ASSETS}/images/raise-hand.png`,
               'AVATAR_LG'
             )}
-            alt="Raising Hand"
-            className="h-10"
-            loading="eager"
-            draggable={false}
           />
           <span>x</span>
           <Input
-            type="number"
             className="w-14"
             step="any"
+            type="number"
             {...register('tipQuantity', { valueAsNumber: true })}
           />
         </span>
@@ -408,9 +409,9 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
         <TextArea
           label="Message"
           {...register('message')}
-          placeholder="Say something nice"
           autoComplete="off"
           className="w-full rounded-xl border border-gray-200 outline-none focus:ring-1 focus:ring-indigo-500 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-800"
+          placeholder="Say something nice"
           rows={3}
         />
         <div className="mt-1 text-xs opacity-70">
@@ -429,10 +430,10 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
           )}
         </span>
         <Flex gap="2">
-          <Button type="button" variant="soft" onClick={() => setShow(false)}>
+          <Button onClick={() => setShow(false)} type="button" variant="soft">
             Cancel
           </Button>
-          <Button highContrast disabled={!isValid || loading}>
+          <Button disabled={!isValid || loading} highContrast>
             {`Tip ${
               isNaN(Number(watchTipQuantity) * 1) ||
               Number(watchTipQuantity) < 0

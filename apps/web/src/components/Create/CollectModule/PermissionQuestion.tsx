@@ -1,7 +1,8 @@
-import useAppStore from '@lib/store'
-import { Button, Text } from '@radix-ui/themes'
 import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
 import type { FC } from 'react'
+
+import useAppStore from '@lib/store'
+import { Button, Text } from '@radix-ui/themes'
 import React from 'react'
 
 type Props = {
@@ -19,43 +20,43 @@ const PermissionQuestion: FC<Props> = ({ setCollectType }) => {
       <div className="flex flex-wrap gap-1.5 md:flex-nowrap">
         <Button
           className="flex-1"
-          type="button"
-          highContrast
           color={
             !uploadedMedia.collectModule.followerOnlyCollect &&
             !uploadedMedia.collectModule.isRevertCollect
               ? 'blue'
               : 'gray'
           }
-          variant="surface"
+          highContrast
           onClick={() =>
             setCollectType({
-              isSimpleCollect: true,
+              followerOnlyCollect: false,
               isRevertCollect: false,
-              followerOnlyCollect: false
+              isSimpleCollect: true
             })
           }
+          type="button"
+          variant="surface"
         >
           Anyone
         </Button>
         <Button
           className="flex-1"
-          type="button"
           color={
             uploadedMedia.collectModule.followerOnlyCollect &&
             !uploadedMedia.collectModule.isRevertCollect
               ? 'blue'
               : 'gray'
           }
-          variant="surface"
           highContrast
           onClick={() =>
             setCollectType({
-              isSimpleCollect: true,
               followerOnlyCollect: true,
-              isRevertCollect: false
+              isRevertCollect: false,
+              isSimpleCollect: true
             })
           }
+          type="button"
+          variant="surface"
         >
           Only Followers
         </Button>

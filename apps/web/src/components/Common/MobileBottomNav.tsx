@@ -18,51 +18,51 @@ const MobileBottomNav = () => {
     <div className="pb-safe fixed inset-x-0 bottom-0 z-10 border-t-[0.5px] border-gray-300 bg-white/90 backdrop-blur-xl dark:border-gray-700 dark:bg-black/90 md:hidden">
       <div className="grid grid-cols-5 py-3">
         <Link
-          href="/"
           className={clsx(
             'flex w-full flex-col items-center justify-center bg-transparent text-sm font-medium text-gray-700 dark:text-gray-100 dark:hover:text-gray-100 md:grid',
             isActivePath('/') ? 'opacity-100' : 'opacity-70'
           )}
+          href="/"
         >
           <HomeOutline className="size-6" />
           <span className="sr-only">Home</span>
         </Link>
         <Link
-          href="/bytes"
           className={clsx(
             'flex w-full flex-col items-center justify-center bg-transparent text-sm font-medium text-gray-700 dark:text-gray-100 dark:hover:text-gray-100 md:grid',
             isActivePath('/bytes') ? 'opacity-100' : 'opacity-70'
           )}
+          href="/bytes"
         >
           <BytesOutline className="size-6" />
           <span className="sr-only">Bytes</span>
         </Link>
         <Link
-          href="/create"
           className={clsx(
             'flex w-full flex-col items-center justify-center bg-transparent text-sm font-medium text-gray-700 dark:text-gray-100 dark:hover:text-gray-100 md:grid',
             isActivePath('/create') ? 'opacity-100' : 'opacity-70'
           )}
+          href="/create"
         >
           <PlusOutline className="size-7" />
           <span className="sr-only">Create</span>
         </Link>
         <Link
-          href="/notifications"
           className={clsx(
             'flex w-full flex-col items-center justify-center bg-transparent text-sm font-medium text-gray-700 dark:text-gray-100 dark:hover:text-gray-100 md:grid',
             isActivePath('/explore') ? 'opacity-100' : 'opacity-70'
           )}
+          href="/notifications"
         >
           <BellOutline className="size-6" />
           <span className="sr-only">Explore</span>
         </Link>
         <Link
-          href="/feed"
           className={clsx(
             'flex w-full flex-col items-center justify-center bg-transparent text-sm font-medium text-gray-700 dark:text-gray-100 dark:hover:text-gray-100 md:grid',
             isActivePath('/feed') ? 'opacity-100' : 'opacity-70'
           )}
+          href="/feed"
         >
           <FeedOutline className="size-6" />
           <span className="sr-only">Feed</span>

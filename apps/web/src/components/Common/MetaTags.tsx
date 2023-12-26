@@ -1,3 +1,5 @@
+import type { FC } from 'react'
+
 import {
   OG_IMAGE,
   STATIC_ASSETS,
@@ -8,7 +10,6 @@ import {
 } from '@tape.xyz/constants'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import type { FC } from 'react'
 import React from 'react'
 
 type Props = {
@@ -20,58 +21,58 @@ const MetaTags: FC<Props> = (props) => {
   const { title } = props
 
   const meta = {
-    title: title ? `${title} • ${TAPE_APP_NAME}` : TAPE_APP_NAME,
     description: TAPE_APP_DESCRIPTION,
     image: OG_IMAGE,
+    title: title ? `${title} • ${TAPE_APP_NAME}` : TAPE_APP_NAME,
     type: 'website'
   }
 
   return (
     <Head>
       <title>{meta.title}</title>
-      <meta name="robots" content="follow, index" />
+      <meta content="follow, index" name="robots" />
       <meta content={meta.description} name="description" />
       <meta
-        name="viewport"
         content="minimum-scale=1, initial-scale=1, width=device-width, shrink-to-fit=no, maximum-scale=5, viewport-fit=cover"
+        name="viewport"
       />
-      <link rel="canonical" href={`https://tape.xyz${router.asPath}`} />
-      <meta property="og:url" content={`https://tape.xyz${router.asPath}`} />
-      <meta property="og:type" content={meta.type} />
-      <meta property="og:site_name" content={TAPE_APP_NAME} />
-      <meta property="og:description" content={meta.description} />
-      <meta property="og:title" content={meta.title} />
-      <meta property="og:image" content={meta.image} />
-      <meta property="og:image:width" content="400" />
-      <meta property="og:image:height" content="400" />
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta property="twitter:image:width" content="400" />
-      <meta property="twitter:image:height" content="400" />
-      <meta name="twitter:site" content="@tapexyz" />
-      <meta name="twitter:title" content={meta.title} />
-      <meta name="twitter:description" content={meta.description} />
-      <meta property="twitter:image" content={meta.image} />
-      <meta property="twitter:creator" content={TAPE_X_HANDLE} />
+      <link href={`https://tape.xyz${router.asPath}`} rel="canonical" />
+      <meta content={`https://tape.xyz${router.asPath}`} property="og:url" />
+      <meta content={meta.type} property="og:type" />
+      <meta content={TAPE_APP_NAME} property="og:site_name" />
+      <meta content={meta.description} property="og:description" />
+      <meta content={meta.title} property="og:title" />
+      <meta content={meta.image} property="og:image" />
+      <meta content="400" property="og:image:width" />
+      <meta content="400" property="og:image:height" />
+      <meta content="summary_large_image" name="twitter:card" />
+      <meta content="400" property="twitter:image:width" />
+      <meta content="400" property="twitter:image:height" />
+      <meta content="@tapexyz" name="twitter:site" />
+      <meta content={meta.title} name="twitter:title" />
+      <meta content={meta.description} name="twitter:description" />
+      <meta content={meta.image} property="twitter:image" />
+      <meta content={TAPE_X_HANDLE} property="twitter:creator" />
       {(router.pathname === '/watch/[id]' ||
         router.pathname === '/listen/[id]') &&
         router.query?.id && (
           <>
             <link
-              rel="alternate"
-              type="text/xml+oembed"
               href={`${TAPE_API_URL}/oembed?format=xml&id=${router.query?.id}`}
+              rel="alternate"
               title={title}
+              type="text/xml+oembed"
             />
             <link
-              rel="alternate"
-              type="application/json+oembed"
               href={`${TAPE_API_URL}/oembed?format=json&id=${router.query?.id}`}
+              rel="alternate"
               title={title}
+              type="application/json+oembed"
             />
           </>
         )}
-      <link rel="preconnect" href={STATIC_ASSETS} />
-      <link rel="dns-prefetch" href={STATIC_ASSETS} />
+      <link href={STATIC_ASSETS} rel="preconnect" />
+      <link href={STATIC_ASSETS} rel="dns-prefetch" />
     </Head>
   )
 }

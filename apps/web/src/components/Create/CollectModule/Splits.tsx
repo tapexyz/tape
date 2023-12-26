@@ -1,3 +1,6 @@
+import type { Profile, RecipientDataInput } from '@tape.xyz/lens'
+import type { FC, RefObject } from 'react'
+
 import InfoOutline from '@components/Common/Icons/InfoOutline'
 import TimesOutline from '@components/Common/Icons/TimesOutline'
 import { Input } from '@components/UIElements/Input'
@@ -19,11 +22,9 @@ import {
   splitNumber,
   trimify
 } from '@tape.xyz/generic'
-import type { Profile, RecipientDataInput } from '@tape.xyz/lens'
 import { LimitType, useSearchProfilesLazyQuery } from '@tape.xyz/lens'
 import { Loader } from '@tape.xyz/ui'
 import clsx from 'clsx'
-import type { FC, RefObject } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
 import { isAddress } from 'viem'
 
@@ -47,8 +48,8 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
     setUploadedMedia({
       collectModule: {
         ...uploadedMedia.collectModule,
-        multiRecipients,
-        isMultiRecipientFeeCollect: enabled
+        isMultiRecipientFeeCollect: enabled,
+        multiRecipients
       }
     })
   }
@@ -159,33 +160,33 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
         <div className="flex gap-1.5" key={i}>
           <div className="relative w-full">
             <Input
-              placeholder={`0x12345...89 or ${LENS_NAMESPACE_PREFIX}tape`}
-              value={splitRecipient.recipient}
-              onChange={(e) => onChangeSplit('recipient', e.target.value, i)}
-              autoFocus
               autoComplete="off"
+              autoFocus
+              disabled={splitRecipient.recipient === TAPE_ADMIN_ADDRESS}
+              onChange={(e) => onChangeSplit('recipient', e.target.value, i)}
+              placeholder={`0x12345...89 or ${LENS_NAMESPACE_PREFIX}tape`}
+              showErrorLabel={false}
               spellCheck="false"
-              title={
-                splitRecipient.recipient === TAPE_ADMIN_ADDRESS
-                  ? TAPE_APP_NAME
-                  : undefined
-              }
               suffix={
                 splitRecipient.recipient === TAPE_ADMIN_ADDRESS
                   ? `${TAPE_APP_NAME}.xyz`.toLowerCase()
                   : ''
               }
-              disabled={splitRecipient.recipient === TAPE_ADMIN_ADDRESS}
+              title={
+                splitRecipient.recipient === TAPE_ADMIN_ADDRESS
+                  ? TAPE_APP_NAME
+                  : undefined
+              }
               validationError={
                 getIsValidAddress(splitRecipient.recipient) ? '' : ' '
               }
-              showErrorLabel={false}
+              value={splitRecipient.recipient}
             />
             {searchKeyword.length &&
             !getIsValidAddress(splitRecipients[i].recipient) ? (
               <div
-                ref={resultsRef}
                 className="tape-border z-10 mt-1 w-full overflow-hidden rounded-md bg-white focus:outline-none dark:bg-black md:absolute"
+                ref={resultsRef}
               >
                 {profilesLoading && <Loader className="my-4" />}
                 {!profiles?.length && !profilesLoading ? (
@@ -193,20 +194,20 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
                 ) : null}
                 {profiles?.slice(0, 2)?.map((profile) => (
                   <button
-                    type="button"
+                    className="w-full"
+                    key={profile.id}
                     onClick={() => {
                       onChangeSplit('recipient', getProfile(profile).address, i)
                       setSearchKeyword('')
                     }}
-                    className="w-full"
-                    key={profile.id}
+                    type="button"
                   >
                     <ProfileSuggestion
+                      className="hover:bg-brand-50 text-left dark:hover:bg-black"
+                      followers={profile.stats.followers}
+                      handle={getProfile(profile).slug}
                       id={profile.id}
                       pfp={getProfilePicture(profile, 'AVATAR')}
-                      handle={getProfile(profile).slug}
-                      followers={profile.stats.followers}
-                      className="hover:bg-brand-50 text-left dark:hover:bg-black"
                     />
                   </button>
                 ))}
@@ -215,18 +216,18 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
           </div>
           <div className="w-1/3">
             <Input
-              type="number"
+              onChange={(e) => onChangeSplit('split', e.target.value, i)}
               placeholder="2"
               suffix="%"
+              type="number"
               value={splitRecipient.split}
-              onChange={(e) => onChangeSplit('split', e.target.value, i)}
             />
           </div>
           <IconButton
-            variant="soft"
-            type="button"
             color="red"
             onClick={() => removeRecipient(i)}
+            type="button"
+            variant="soft"
           >
             <TimesOutline className="size-4 p-0.5" outlined={false} />
           </IconButton>
@@ -235,23 +236,23 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
       <div className="flex items-center justify-between space-x-1.5 pt-1">
         <div className="flex items-center space-x-1">
           <button
-            type="button"
             className={clsx(
               'rounded border border-gray-700 px-1 text-[10px] font-bold uppercase tracking-wider opacity-70 dark:border-gray-300',
               splitRecipients.length >= 5 && 'invisible'
             )}
             onClick={() => addRecipient()}
+            type="button"
           >
             Add recipient
           </button>
           {!isIncludesDonationAddress && (
             <button
-              type="button"
               className={clsx(
                 'rounded border border-gray-700 px-1 text-[10px] font-bold uppercase tracking-wider opacity-70 dark:border-gray-300',
                 splitRecipients.length >= 5 && 'invisible'
               )}
               onClick={() => addDonation()}
+              type="button"
             >
               Add Donation
             </button>
@@ -259,9 +260,9 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
         </div>
         {splitRecipients?.length > 1 && (
           <button
-            type="button"
             className="rounded border border-gray-700 px-1 text-[10px] font-bold uppercase tracking-wider opacity-70 dark:border-gray-300"
             onClick={() => splitEvenly()}
+            type="button"
           >
             Split evenly
           </button>

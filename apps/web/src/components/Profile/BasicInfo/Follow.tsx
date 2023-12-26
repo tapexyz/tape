@@ -1,3 +1,7 @@
+import type { FollowLensManagerRequest, Profile } from '@tape.xyz/lens'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+import type { FC } from 'react'
+
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import useProfileStore from '@lib/store/idb/profile'
 import useNonceStore from '@lib/store/nonce'
@@ -16,29 +20,26 @@ import {
   getSignature,
   Tower
 } from '@tape.xyz/generic'
-import type { FollowLensManagerRequest, Profile } from '@tape.xyz/lens'
 import {
   useBroadcastOnchainMutation,
   useCreateFollowTypedDataMutation,
   useFollowMutation
 } from '@tape.xyz/lens'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
-import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
 type Props = {
-  profile: Profile
   onSubscribe: () => void
+  profile: Profile
   size?: '1' | '2' | '3'
 }
 
-const Follow: FC<Props> = ({ profile, onSubscribe, size = '2' }) => {
+const Follow: FC<Props> = ({ onSubscribe, profile, size = '2' }) => {
   const [loading, setLoading] = useState(false)
   const { activeProfile } = useProfileStore()
-  const { canUseLensManager, canBroadcast } =
+  const { canBroadcast, canUseLensManager } =
     checkLensManagerPermissions(activeProfile)
   const handleWrongNetwork = useHandleWrongNetwork()
 
@@ -67,11 +68,11 @@ const Follow: FC<Props> = ({ profile, onSubscribe, size = '2' }) => {
   })
 
   const { write } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
     abi: LENSHUB_PROXY_ABI,
+    address: LENSHUB_PROXY_ADDRESS,
     functionName: 'follow',
-    onSuccess: () => onCompleted(),
-    onError
+    onError,
+    onSuccess: () => onCompleted()
   })
 
   const [broadcast] = useBroadcastOnchainMutation({
@@ -82,12 +83,12 @@ const Follow: FC<Props> = ({ profile, onSubscribe, size = '2' }) => {
 
   const [createFollowTypedData] = useCreateFollowTypedDataMutation({
     onCompleted: async ({ createFollowTypedData }) => {
-      const { typedData, id } = createFollowTypedData
+      const { id, typedData } = createFollowTypedData
       const {
+        datas,
         followerProfileId,
-        idsOfProfilesToFollow,
         followTokenIds,
-        datas
+        idsOfProfilesToFollow
       } = typedData.value
       const args = [
         followerProfileId,
@@ -165,10 +166,10 @@ const Follow: FC<Props> = ({ profile, onSubscribe, size = '2' }) => {
 
   return (
     <Button
-      size={size}
       disabled={loading}
-      onClick={() => follow()}
       highContrast
+      onClick={() => follow()}
+      size={size}
     >
       {loading && <Loader size="sm" />}
       Follow

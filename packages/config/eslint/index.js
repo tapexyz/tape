@@ -10,11 +10,15 @@ module.exports = {
   plugins: [
     '@typescript-eslint',
     'unused-imports',
-    'simple-import-sort',
     'prettier',
-    'unicorn'
+    'unicorn',
+    'perfectionist'
   ],
-  extends: ['next', 'next/core-web-vitals'],
+  extends: [
+    'next',
+    'next/core-web-vitals',
+    'plugin:perfectionist/recommended-alphabetical'
+  ],
   rules: {
     curly: 'error',
     'prettier/prettier': ['error', { endOfLine: 'auto' }],
@@ -25,14 +29,13 @@ module.exports = {
     'no-use-before-define': ['error'],
     'no-unused-vars': 'off',
     'unused-imports/no-unused-imports': 'error',
+    'prefer-destructuring': ['error', { VariableDeclarator: { object: true } }],
     '@next/next/no-html-link-for-pages': 'off',
     '@typescript-eslint/no-unused-vars': 'warn',
     '@typescript-eslint/ban-ts-comment': 'warn',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/consistent-type-imports': 'error',
     '@next/next/no-img-element': 'off',
-    'simple-import-sort/imports': 'error',
-    'simple-import-sort/exports': 'error',
     'jsx-a11y/role-supports-aria-props': 'off',
     'unicorn/no-lonely-if': 'error',
     'unicorn/no-useless-undefined': 'error'

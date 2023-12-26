@@ -1,8 +1,9 @@
+import type { HandleInfo, OwnedHandlesRequest } from '@tape.xyz/lens'
+
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useProfileStore from '@lib/store/idb/profile'
 import { INFINITE_SCROLL_ROOT_MARGIN } from '@tape.xyz/constants'
 import { getIsProfileOwner } from '@tape.xyz/generic'
-import type { HandleInfo, OwnedHandlesRequest } from '@tape.xyz/lens'
 import { useOwnedHandlesQuery } from '@tape.xyz/lens'
 import { Loader } from '@tape.xyz/ui'
 import Link from 'next/link'
@@ -16,18 +17,16 @@ const List = () => {
   const isOwner = activeProfile && getIsProfileOwner(activeProfile, address)
 
   const request: OwnedHandlesRequest = { for: address }
-  const { data, loading, error, fetchMore } = useOwnedHandlesQuery({
+  const { data, error, fetchMore, loading } = useOwnedHandlesQuery({
+    skip: !isOwner || !address,
     variables: {
       request
-    },
-    skip: !isOwner || !address
+    }
   })
   const ownedHandles = data?.ownedHandles.items as HandleInfo[]
   const pageInfo = data?.ownedHandles.pageInfo
 
   const { observe } = useInView({
-    threshold: 0.25,
-    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
     onEnter: async () => {
       await fetchMore({
         variables: {
@@ -37,7 +36,9 @@ const List = () => {
           }
         }
       })
-    }
+    },
+    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
+    threshold: 0.25
   })
 
   if (!isOwner) {
@@ -48,18 +49,18 @@ const List = () => {
     <div>
       {loading && <Loader className="my-10" />}
       {(!loading && !ownedHandles?.length) || error ? (
-        <NoDataFound withImage isCenter />
+        <NoDataFound isCenter withImage />
       ) : null}
       <div className="grid gap-2 md:grid-cols-3 lg:grid-cols-4">
         {ownedHandles?.map((handle) => (
           <div
-            key={handle.id}
             className="tape-border rounded-small flex items-center space-x-2 p-5"
+            key={handle.id}
           >
             <div className="flex flex-col">
               <Link
-                href={`/u/${handle.fullHandle}`}
                 className="line-clamp-1 font-semibold"
+                href={`/u/${handle.fullHandle}`}
               >
                 {handle.fullHandle}
               </Link>
@@ -68,7 +69,7 @@ const List = () => {
           </div>
         ))}
         {pageInfo?.next && (
-          <span ref={observe} className="flex justify-center p-10">
+          <span className="flex justify-center p-10" ref={observe}>
             <Loader />
           </span>
         )}

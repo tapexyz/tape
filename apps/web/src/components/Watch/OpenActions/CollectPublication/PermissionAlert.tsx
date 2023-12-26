@@ -1,24 +1,25 @@
+import type { ApprovedAllowanceAmountResult } from '@tape.xyz/lens'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+import type { Dispatch, FC } from 'react'
+
 import { getCollectModuleConfig } from '@lib/getCollectModuleInput'
 import { Button } from '@radix-ui/themes'
-import type { ApprovedAllowanceAmountResult } from '@tape.xyz/lens'
 import { useGenerateModuleCurrencyApprovalDataLazyQuery } from '@tape.xyz/lens'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
-import type { Dispatch, FC } from 'react'
 import React from 'react'
 import toast from 'react-hot-toast'
 import { useSendTransaction, useWaitForTransaction } from 'wagmi'
 
 type Props = {
-  setIsAllowed: Dispatch<boolean>
-  isAllowed: boolean
   allowanceModule: ApprovedAllowanceAmountResult
+  isAllowed: boolean
+  setIsAllowed: Dispatch<boolean>
 }
 
 const PermissionAlert: FC<Props> = ({
-  setIsAllowed,
+  allowanceModule,
   isAllowed,
-  allowanceModule
+  setIsAllowed
 }) => {
   const [generateAllowanceQuery, { loading }] =
     useGenerateModuleCurrencyApprovalDataLazyQuery()
@@ -34,14 +35,14 @@ const PermissionAlert: FC<Props> = ({
   })
   const { isLoading: waiting } = useWaitForTransaction({
     hash: txData?.hash,
+    onError(error: CustomErrorWithData) {
+      toast.error(error?.data?.message ?? error?.message)
+    },
     onSuccess: () => {
       toast.success(
         `Module ${isAllowed ? `disabled` : `enabled`} successfully!`
       )
       setIsAllowed(!isAllowed)
-    },
-    onError(error: CustomErrorWithData) {
-      toast.error(error?.data?.message ?? error?.message)
     }
   })
 
@@ -62,8 +63,8 @@ const PermissionAlert: FC<Props> = ({
     })
     const data = result?.data?.generateModuleCurrencyApprovalData
     sendTransaction?.({
-      to: data?.to,
-      data: data?.data
+      data: data?.data,
+      to: data?.to
     })
   }
 
@@ -73,8 +74,8 @@ const PermissionAlert: FC<Props> = ({
     <div className="flex justify-end">
       <Button
         disabled={processing}
-        onClick={() => handleAllowance()}
         highContrast
+        onClick={() => handleAllowance()}
       >
         {processing && <Loader size="sm" />}
         Allow Collect

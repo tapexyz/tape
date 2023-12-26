@@ -1,3 +1,5 @@
+import type { IPFSUploadResult } from '@tape.xyz/lens/custom-types'
+
 import { S3 } from '@aws-sdk/client-s3'
 import { Upload } from '@aws-sdk/lib-storage'
 import {
@@ -6,7 +8,6 @@ import {
   WORKER_STS_TOKEN_URL
 } from '@tape.xyz/constants'
 import { logger } from '@tape.xyz/generic/logger'
-import type { IPFSUploadResult } from '@tape.xyz/lens/custom-types'
 import axios from 'axios'
 import { v4 as uuidv4 } from 'uuid'
 
@@ -17,14 +18,14 @@ const everland = async (
   try {
     const token = await axios.get(WORKER_STS_TOKEN_URL)
     const client = new S3({
-      endpoint: EVER_ENDPOINT,
-      region: EVER_REGION,
       credentials: {
         accessKeyId: token.data?.accessKeyId,
         secretAccessKey: token.data?.secretAccessKey,
         sessionToken: token.data?.sessionToken
       },
-      maxAttempts: 10
+      endpoint: EVER_ENDPOINT,
+      maxAttempts: 10,
+      region: EVER_REGION
     })
     client.middlewareStack.addRelativeTo(
       (next: Function) => async (args: any) => {
@@ -38,17 +39,17 @@ const everland = async (
       },
       {
         name: 'nullFetchResponseBodyMiddleware',
-        toMiddleware: 'deserializerMiddleware',
+        override: true,
         relation: 'after',
-        override: true
+        toMiddleware: 'deserializerMiddleware'
       }
     )
     const fileKey = uuidv4()
     const params = {
-      Bucket: 'tape',
-      Key: fileKey,
       Body: file,
-      ContentType: file.type
+      Bucket: 'tape',
+      ContentType: file.type,
+      Key: fileKey
     }
     const task = new Upload({
       client,
@@ -64,14 +65,14 @@ const everland = async (
     const result = await client.headObject(params)
     const metadata = result.Metadata
     return {
-      url: `ipfs://${metadata?.['ipfs-hash']}`,
-      type: file.type
+      type: file.type,
+      url: `ipfs://${metadata?.['ipfs-hash']}`
     }
   } catch (error) {
     logger.error('[Error IPFS3 Media Upload]', error)
     return {
-      url: '',
-      type: file.type
+      type: file.type,
+      url: ''
     }
   }
 }
@@ -80,6 +81,6 @@ export const uploadToIPFS = async (
   file: File,
   onProgress?: (percentage: number) => void
 ): Promise<IPFSUploadResult> => {
-  const { url, type } = await everland(file, onProgress)
-  return { url, type }
+  const { type, url } = await everland(file, onProgress)
+  return { type, url }
 }

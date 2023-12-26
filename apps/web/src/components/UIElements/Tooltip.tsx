@@ -1,11 +1,11 @@
-import 'tippy.js/themes/light.css'
-import 'tippy.js/themes/translucent.css'
+import type { Placement } from 'tippy.js'
 
 import Tippy from '@tippyjs/react'
 import clsx from 'clsx'
 import { useTheme } from 'next-themes'
 import React from 'react'
-import type { Placement } from 'tippy.js'
+import 'tippy.js/themes/light.css'
+import 'tippy.js/themes/translucent.css'
 
 type Props = {
   children: React.ReactElement
@@ -17,21 +17,21 @@ type Props = {
 const Tooltip = ({
   children,
   content,
-  visible = true,
   placement = 'bottom',
+  visible = true,
   ...props
 }: Props) => {
   const { resolvedTheme } = useTheme()
   return (
     <Tippy
       {...props}
-      placement={placement}
-      content={content}
       arrow={false}
-      theme={resolvedTheme === 'dark' ? 'translucent' : 'light'}
       className={clsx('hidden !rounded-lg !font-normal', {
         'sm:block': visible
       })}
+      content={content}
+      placement={placement}
+      theme={resolvedTheme === 'dark' ? 'translucent' : 'light'}
     >
       {children}
     </Tippy>

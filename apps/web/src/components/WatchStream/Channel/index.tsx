@@ -1,3 +1,5 @@
+import type { PrimaryPublication, Profile } from '@tape.xyz/lens'
+
 import InterweaveContent from '@components/Common/InterweaveContent'
 import PublicationActions from '@components/Common/Publication/PublicationActions'
 import PublicationComments from '@components/Common/Publication/PublicationComments'
@@ -5,7 +7,6 @@ import UserProfile from '@components/Common/UserProfile'
 import VideoCardShimmer from '@components/Shimmers/VideoCardShimmer'
 import { useQuery } from '@tanstack/react-query'
 import { WORKER_STREAM_URL } from '@tape.xyz/constants'
-import type { PrimaryPublication, Profile } from '@tape.xyz/lens'
 import { useProfileQuery, usePublicationQuery } from '@tape.xyz/lens'
 import axios from 'axios'
 import React, { memo } from 'react'
@@ -22,30 +23,30 @@ const Channel = ({ id }: { id: string }) => {
 
   const {
     data: streamData,
-    isLoading,
-    error
+    error,
+    isLoading
   } = useQuery({
-    queryKey: ['channelStream', id],
-    queryFn: fetchChannelStream
+    queryFn: fetchChannelStream,
+    queryKey: ['channelStream', id]
   })
 
   const { data } = useProfileQuery({
+    skip: !streamData?.streamer,
     variables: {
       request: {
         forHandle: streamData?.streamer
       }
-    },
-    skip: !streamData?.streamer
+    }
   })
   const profile = data?.profile as Profile
 
   const { data: publicationData } = usePublicationQuery({
+    skip: !streamData?.pid,
     variables: {
       request: {
         forId: streamData?.pid
       }
-    },
-    skip: !streamData?.pid
+    }
   })
   const publication = publicationData?.publication as PrimaryPublication
 
@@ -60,8 +61,8 @@ const Channel = ({ id }: { id: string }) => {
   return (
     <div className="space-y-5">
       <LiveVideo
-        poster={streamData.posterUrl}
         playback={streamData.playbackUrl}
+        poster={streamData.posterUrl}
       />
       <div className="space-y-1">
         <h1 className="line-clamp-2 font-bold md:text-xl">

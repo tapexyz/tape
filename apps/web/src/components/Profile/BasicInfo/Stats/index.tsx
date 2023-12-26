@@ -1,6 +1,7 @@
-import { Flex } from '@radix-ui/themes'
 import type { Profile } from '@tape.xyz/lens'
 import type { FC } from 'react'
+
+import { Flex } from '@radix-ui/themes'
 import React from 'react'
 
 import Followers from './Followers'
@@ -13,8 +14,8 @@ type Props = {
 const Stats: FC<Props> = ({ profile }) => {
   return (
     <Flex gap="3">
-      <Followers stats={profile.stats} profileId={profile.id} />
-      <Following stats={profile.stats} profileId={profile.id} />
+      <Followers profileId={profile.id} stats={profile.stats} />
+      <Following profileId={profile.id} stats={profile.stats} />
     </Flex>
   )
 }

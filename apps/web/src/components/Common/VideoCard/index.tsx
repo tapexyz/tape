@@ -1,3 +1,6 @@
+import type { PrimaryPublication, VideoMetadataV3 } from '@tape.xyz/lens'
+import type { FC } from 'react'
+
 import { getShortHandTime } from '@lib/formatTime'
 import { AspectRatio, Avatar, Flex } from '@radix-ui/themes'
 import { LENSTUBE_BYTES_APP_ID } from '@tape.xyz/constants'
@@ -7,9 +10,7 @@ import {
   getProfilePicture,
   getPublicationData
 } from '@tape.xyz/generic'
-import type { PrimaryPublication, VideoMetadataV3 } from '@tape.xyz/lens'
 import Link from 'next/link'
-import type { FC } from 'react'
 import React from 'react'
 
 import HoverableProfile from '../HoverableProfile'
@@ -32,8 +33,8 @@ const VideoCard: FC<Props> = ({ video }) => {
     <div className="group">
       <Link href={href}>
         <AspectRatio
-          ratio={16 / 9}
           className="rounded-medium tape-border relative overflow-hidden"
+          ratio={16 / 9}
         >
           <ThumbnailImage video={video} />
           <ThumbnailOverlays video={video} />
@@ -42,14 +43,14 @@ const VideoCard: FC<Props> = ({ video }) => {
       <div className="py-2">
         <Flex gap="2">
           <Avatar
-            src={getProfilePicture(video.by, 'AVATAR')}
-            size="2"
-            radius="full"
-            fallback={getProfile(video.by)?.displayName[0] ?? ';)'}
             alt={getProfile(video.by)?.displayName}
+            fallback={getProfile(video.by)?.displayName[0] ?? ';)'}
+            radius="full"
+            size="2"
+            src={getProfilePicture(video.by, 'AVATAR')}
           />
 
-          <Flex direction="column" justify="between" gap="1" width="100%">
+          <Flex direction="column" gap="1" justify="between" width="100%">
             <div className="flex w-full min-w-0 items-start justify-between space-x-1.5">
               <Link className="line-clamp-2 break-words font-bold" href={href}>
                 {getPublicationData(metadata)?.title}

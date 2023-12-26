@@ -1,3 +1,6 @@
+import type { Post, Profile, PublicationsRequest } from '@tape.xyz/lens'
+import type { FC } from 'react'
+
 import VideoCard from '@components/Common/VideoCard'
 import QueuedVideo from '@components/Common/VideoCard/QueuedVideo'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
@@ -10,7 +13,6 @@ import {
   LENS_CUSTOM_FILTERS,
   TAPE_APP_ID
 } from '@tape.xyz/constants'
-import type { Post, Profile, PublicationsRequest } from '@tape.xyz/lens'
 import {
   LimitType,
   PublicationMetadataMainFocusType,
@@ -18,7 +20,6 @@ import {
   usePublicationsQuery
 } from '@tape.xyz/lens'
 import { Loader } from '@tape.xyz/ui'
-import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 
@@ -30,7 +31,10 @@ const ProfileVideos: FC<Props> = ({ profile }) => {
   const queuedVideos = usePersistStore((state) => state.queuedVideos)
 
   const request: PublicationsRequest = {
+    limit: LimitType.Fifty,
     where: {
+      customFilters: LENS_CUSTOM_FILTERS,
+      from: profile.id,
       metadata: {
         mainContentFocus: [
           PublicationMetadataMainFocusType.Video,
@@ -38,25 +42,21 @@ const ProfileVideos: FC<Props> = ({ profile }) => {
         ],
         publishedOn: IS_MAINNET ? [TAPE_APP_ID, ...ALLOWED_APP_IDS] : undefined
       },
-      publicationTypes: [PublicationType.Post],
-      customFilters: LENS_CUSTOM_FILTERS,
-      from: profile.id
-    },
-    limit: LimitType.Fifty
+      publicationTypes: [PublicationType.Post]
+    }
   }
 
-  const { data, loading, error, fetchMore } = usePublicationsQuery({
+  const { data, error, fetchMore, loading } = usePublicationsQuery({
+    skip: !profile?.id,
     variables: {
       request
-    },
-    skip: !profile?.id
+    }
   })
 
   const videos = data?.publications?.items as Post[]
   const pageInfo = data?.publications?.pageInfo
 
   const { observe } = useInView({
-    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
     onEnter: async () => {
       await fetchMore({
         variables: {
@@ -66,7 +66,8 @@ const ProfileVideos: FC<Props> = ({ profile }) => {
           }
         }
       })
-    }
+    },
+    rootMargin: INFINITE_SCROLL_ROOT_MARGIN
   })
 
   if (loading) {
@@ -74,7 +75,7 @@ const ProfileVideos: FC<Props> = ({ profile }) => {
   }
 
   if (data?.publications?.items?.length === 0 && queuedVideos.length === 0) {
-    return <NoDataFound isCenter withImage text={`No videos found`} />
+    return <NoDataFound isCenter text={`No videos found`} withImage />
   }
 
   return !error && !loading ? (
@@ -89,7 +90,7 @@ const ProfileVideos: FC<Props> = ({ profile }) => {
         return <VideoCard key={`${video?.id}_${i}`} video={video} />
       })}
       {pageInfo?.next && (
-        <span ref={observe} className="flex justify-center p-10">
+        <span className="flex justify-center p-10" ref={observe}>
           <Loader />
         </span>
       )}

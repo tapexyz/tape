@@ -1,3 +1,6 @@
+import type { ProfileManagersRequest } from '@tape.xyz/lens'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+
 import ExternalOutline from '@components/Common/Icons/ExternalOutline'
 import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
 import { Input } from '@components/UIElements/Input'
@@ -21,14 +24,12 @@ import {
   getSignature,
   shortenAddress
 } from '@tape.xyz/generic'
-import type { ProfileManagersRequest } from '@tape.xyz/lens'
 import {
   ChangeProfileManagerActionType,
   useBroadcastOnchainMutation,
   useCreateChangeProfileManagersTypedDataMutation,
   useProfileManagersQuery
 } from '@tape.xyz/lens'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
 import React, { useEffect, useMemo, useState } from 'react'
 import { useInView } from 'react-cool-inview'
@@ -47,18 +48,18 @@ type FormData = z.infer<typeof formSchema>
 
 const Entry = ({
   address,
-  removingAddress,
-  onRemove
+  onRemove,
+  removingAddress
 }: {
   address: string
-  removingAddress: string
   onRemove: (address: string) => void
+  removingAddress: string
 }) => {
   const { did } = useDid({ address })
   return (
     <div
-      key={address}
       className="tape-border rounded-small flex items-center justify-between px-4 py-3"
+      key={address}
     >
       <div>
         <span className="font-bold">{did || shortenAddress(address)}</span>
@@ -70,11 +71,11 @@ const Entry = ({
         </AddressExplorerLink>
       </div>
       <Button
-        onClick={() => onRemove(address)}
-        disabled={removingAddress === address}
         color="red"
-        variant="surface"
+        disabled={removingAddress === address}
+        onClick={() => onRemove(address)}
         size="1"
+        variant="surface"
       >
         Remove
       </Button>
@@ -88,10 +89,10 @@ const Managers = () => {
   const [showModal, setShowModal] = useState(false)
 
   const {
-    register,
+    formState: { errors },
     handleSubmit,
-    reset,
-    formState: { errors }
+    register,
+    reset
   } = useForm<FormData>({
     resolver: zodResolver(formSchema)
   })
@@ -102,9 +103,9 @@ const Managers = () => {
   const { canBroadcast } = checkLensManagerPermissions(activeProfile)
 
   const request: ProfileManagersRequest = { for: activeProfile?.id }
-  const { data, refetch, error, loading, fetchMore } = useProfileManagersQuery({
-    variables: { request },
-    skip: !activeProfile?.id
+  const { data, error, fetchMore, loading, refetch } = useProfileManagersQuery({
+    skip: !activeProfile?.id,
+    variables: { request }
   })
   const profileManagersWithoutLensManager = useMemo(() => {
     if (!data?.profileManagers?.items) {
@@ -137,23 +138,23 @@ const Managers = () => {
     onError
   })
 
-  const { write, data: writeData } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
+  const { data: writeData, write } = useContractWrite({
     abi: LENSHUB_PROXY_ABI,
+    address: LENSHUB_PROXY_ADDRESS,
     functionName: 'changeDelegatedExecutorsConfig',
-    onSuccess: () => {
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
-    },
     onError: (error) => {
       onError(error)
       setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
+    },
+    onSuccess: () => {
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
     }
   })
 
   const [broadcast, { data: broadcastData }] = useBroadcastOnchainMutation({
-    onError,
     onCompleted: ({ broadcastOnchain }) =>
-      onCompleted(broadcastOnchain.__typename)
+      onCompleted(broadcastOnchain.__typename),
+    onError
   })
 
   const { indexed } = usePendingTxn({
@@ -175,10 +176,10 @@ const Managers = () => {
     onCompleted: async ({ createChangeProfileManagersTypedData }) => {
       const { id, typedData } = createChangeProfileManagersTypedData
       const {
-        delegatorProfileId,
-        delegatedExecutors,
         approvals,
         configNumber,
+        delegatedExecutors,
+        delegatorProfileId,
         switchToGivenConfig
       } = typedData.value
       const args = [
@@ -219,8 +220,8 @@ const Managers = () => {
         request: {
           changeManagers: [
             {
-              address,
-              action: ChangeProfileManagerActionType.Add
+              action: ChangeProfileManagerActionType.Add,
+              address
             }
           ]
         }
@@ -239,8 +240,8 @@ const Managers = () => {
         request: {
           changeManagers: [
             {
-              address,
-              action: ChangeProfileManagerActionType.Remove
+              action: ChangeProfileManagerActionType.Remove,
+              address
             }
           ]
         }
@@ -249,8 +250,6 @@ const Managers = () => {
   }
 
   const { observe } = useInView({
-    threshold: 0.25,
-    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
     onEnter: async () => {
       await fetchMore({
         variables: {
@@ -260,14 +259,16 @@ const Managers = () => {
           }
         }
       })
-    }
+    },
+    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
+    threshold: 0.25
   })
 
   return (
     <div>
       <div className="flex items-center justify-between space-x-2">
         <p>Accounts managing your profile.</p>
-        <Dialog.Root open={showModal} onOpenChange={setShowModal}>
+        <Dialog.Root onOpenChange={setShowModal} open={showModal}>
           <Dialog.Trigger>
             <Button highContrast variant="surface">
               New Manager
@@ -276,7 +277,7 @@ const Managers = () => {
 
           <Dialog.Content style={{ maxWidth: 550 }}>
             <Dialog.Title>New Manager</Dialog.Title>
-            <Dialog.Description size="2" mb="4">
+            <Dialog.Description mb="4" size="2">
               This delegates permission to the address to perform all social
               operations on your behalf.
             </Dialog.Description>
@@ -288,13 +289,13 @@ const Managers = () => {
                 validationError={errors.address?.message}
                 {...register('address')}
               />
-              <Flex gap="2" mt="4" justify="end">
+              <Flex gap="2" justify="end" mt="4">
                 <Dialog.Close>
                   <Button
+                    color="gray"
                     onClick={() => reset()}
                     type="button"
                     variant="soft"
-                    color="gray"
                   >
                     Cancel
                   </Button>
@@ -311,22 +312,22 @@ const Managers = () => {
       <div className="mt-3">
         {loading && <Loader className="my-10" />}
         {(!loading && !profileManagersWithoutLensManager?.length) || error ? (
-          <NoDataFound withImage isCenter />
+          <NoDataFound isCenter withImage />
         ) : null}
         {profileManagersWithoutLensManager?.length ? (
           <div className="mt-4 grid gap-3 md:grid-cols-2">
             {profileManagersWithoutLensManager?.map(({ address }) => (
               <Entry
-                key={address}
                 address={address}
-                removingAddress={removingAddress}
+                key={address}
                 onRemove={(address) => removeManager(address)}
+                removingAddress={removingAddress}
               />
             ))}
           </div>
         ) : null}
         {pageInfo?.next && (
-          <span ref={observe} className="flex justify-center p-10">
+          <span className="flex justify-center p-10" ref={observe}>
             <Loader />
           </span>
         )}

@@ -1,3 +1,6 @@
+import type { IPFSUploadResult } from '@tape.xyz/lens/custom-types'
+import type { ChangeEvent, FC } from 'react'
+
 import AddImageOutline from '@components/Common/Icons/AddImageOutline'
 import ThumbnailsShimmer from '@components/Shimmers/ThumbnailsShimmer'
 import useAppStore from '@lib/store'
@@ -8,10 +11,8 @@ import {
   uploadToIPFS
 } from '@tape.xyz/browser'
 import { logger } from '@tape.xyz/generic'
-import type { IPFSUploadResult } from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
 import clsx from 'clsx'
-import type { ChangeEvent, FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import { toast } from 'react-hot-toast'
 
@@ -141,15 +142,15 @@ const ChooseThumbnail: FC<Props> = ({ file }) => {
   return (
     <Grid columns="5" gap="2">
       <label
-        htmlFor="chooseThumbnail"
         className="flex h-full w-full flex-none cursor-pointer flex-col items-center justify-center rounded-xl border border-gray-300 opacity-80 focus:outline-none dark:border-gray-700"
+        htmlFor="chooseThumbnail"
       >
         <input
-          id="chooseThumbnail"
-          type="file"
           accept=".png, .jpg, .jpeg, .webp"
           className="hidden w-full"
+          id="chooseThumbnail"
           onChange={handleUpload}
+          type="file"
         />
         <AddImageOutline className="mb-1 size-4 flex-none" />
         <span className="text-xs">Upload</span>
@@ -160,10 +161,6 @@ const ChooseThumbnail: FC<Props> = ({ file }) => {
       {thumbnails.map((thumbnail, idx) => {
         return (
           <button
-            key={idx}
-            type="button"
-            disabled={uploadedMedia.uploadingThumbnail}
-            onClick={() => onSelectThumbnail(idx)}
             className={clsx(
               'relative w-full flex-none overflow-hidden rounded-lg ring-1 ring-white focus:outline-none disabled:!cursor-not-allowed dark:ring-black',
               {
@@ -173,16 +170,20 @@ const ChooseThumbnail: FC<Props> = ({ file }) => {
                   thumbnail.ipfsUrl === uploadedMedia.thumbnail
               }
             )}
+            disabled={uploadedMedia.uploadingThumbnail}
+            key={idx}
+            onClick={() => onSelectThumbnail(idx)}
+            type="button"
           >
             <AspectRatio ratio={16 / 9}>
               <img
+                alt="thumbnail"
                 className={clsx(
                   'h-full w-full rounded-lg',
                   uploadedMedia.isByteVideo ? 'object-contain' : 'object-cover'
                 )}
-                src={thumbnail.blobUrl}
-                alt="thumbnail"
                 draggable={false}
+                src={thumbnail.blobUrl}
               />
             </AspectRatio>
             {uploadedMedia.uploadingThumbnail &&

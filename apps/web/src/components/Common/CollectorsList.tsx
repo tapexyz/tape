@@ -1,6 +1,8 @@
+import type { Profile, WhoActedOnPublicationRequest } from '@tape.xyz/lens'
+import type { FC } from 'react'
+
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { formatNumber, getProfile, getProfilePicture } from '@tape.xyz/generic'
-import type { Profile, WhoActedOnPublicationRequest } from '@tape.xyz/lens'
 import {
   LimitType,
   OpenActionCategoryType,
@@ -8,7 +10,6 @@ import {
 } from '@tape.xyz/lens'
 import { Loader } from '@tape.xyz/ui'
 import Link from 'next/link'
-import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 
@@ -21,16 +22,16 @@ type Props = {
 
 const CollectorsList: FC<Props> = ({ videoId }) => {
   const request: WhoActedOnPublicationRequest = {
+    limit: LimitType.Fifty,
+    on: videoId,
     where: {
       anyOf: [{ category: OpenActionCategoryType.Collect }]
-    },
-    on: videoId,
-    limit: LimitType.Fifty
+    }
   }
 
-  const { data, loading, fetchMore } = useWhoActedOnPublicationQuery({
-    variables: { request },
-    skip: !videoId
+  const { data, fetchMore, loading } = useWhoActedOnPublicationQuery({
+    skip: !videoId,
+    variables: { request }
   })
 
   const collectors = data?.whoActedOnPublication?.items as Profile[]
@@ -55,7 +56,7 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
   if (collectors?.length === 0) {
     return (
       <div className="pt-5">
-        <NoDataFound withImage isCenter />
+        <NoDataFound isCenter withImage />
       </div>
     )
   }
@@ -65,15 +66,15 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
       {collectors?.map((profile: Profile) => (
         <div className="flex flex-col" key={profile.id}>
           <Link
-            href={`/u/${getProfile(profile)?.slug}`}
             className="font-base flex items-center justify-between"
+            href={`/u/${getProfile(profile)?.slug}`}
           >
             <div className="flex items-center space-x-1.5">
               <img
-                className="size-5 rounded-full"
-                src={getProfilePicture(profile, 'AVATAR')}
                 alt={getProfile(profile)?.displayName}
+                className="size-5 rounded-full"
                 draggable={false}
+                src={getProfilePicture(profile, 'AVATAR')}
               />
               <div className="flex items-center space-x-1">
                 <span>{getProfile(profile)?.slug}</span>
@@ -88,7 +89,7 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
         </div>
       ))}
       {pageInfo?.next && (
-        <span ref={observe} className="p-5">
+        <span className="p-5" ref={observe}>
           <Loader />
         </span>
       )}

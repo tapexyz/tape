@@ -1,3 +1,11 @@
+import type {
+  CreateBlockProfilesBroadcastItemResult,
+  CreateUnblockProfilesBroadcastItemResult,
+  Profile
+} from '@tape.xyz/lens'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+import type { FC } from 'react'
+
 import Badge from '@components/Common/Badge'
 import FollowActions from '@components/Common/FollowActions'
 import FlagOutline from '@components/Common/Icons/FlagOutline'
@@ -35,11 +43,6 @@ import {
   getSignature,
   trimify
 } from '@tape.xyz/generic'
-import type {
-  CreateBlockProfilesBroadcastItemResult,
-  CreateUnblockProfilesBroadcastItemResult,
-  Profile
-} from '@tape.xyz/lens'
 import {
   useBlockMutation,
   useBroadcastOnchainMutation,
@@ -48,8 +51,6 @@ import {
   useUnblockMutation
 } from '@tape.xyz/lens'
 import { useApolloClient } from '@tape.xyz/lens/apollo'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useContractWrite, useSignTypedData } from 'wagmi'
@@ -84,13 +85,13 @@ const BasicInfo: FC<Props> = ({ profile }) => {
 
   const updateCache = (value: boolean) => {
     cache.modify({
-      id: `Profile:${profile?.id}`,
       fields: {
         operations: () => ({
           ...profile.operations,
           isBlockedByMe: { value }
         })
-      }
+      },
+      id: `Profile:${profile?.id}`
     })
   }
 
@@ -100,7 +101,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
   }
 
   const onCompleted = (
-    __typename?: 'RelayError' | 'RelaySuccess' | 'LensProfileManagerRelayError'
+    __typename?: 'LensProfileManagerRelayError' | 'RelayError' | 'RelaySuccess'
   ) => {
     if (
       __typename === 'RelayError' ||
@@ -121,11 +122,11 @@ const BasicInfo: FC<Props> = ({ profile }) => {
   })
 
   const { write } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
     abi: LENSHUB_PROXY_ABI,
+    address: LENSHUB_PROXY_ADDRESS,
     functionName: 'setBlockStatus',
-    onSuccess: () => onCompleted(),
-    onError
+    onError,
+    onSuccess: () => onCompleted()
   })
 
   const [broadcast] = useBroadcastOnchainMutation({
@@ -139,8 +140,8 @@ const BasicInfo: FC<Props> = ({ profile }) => {
       | CreateBlockProfilesBroadcastItemResult
       | CreateUnblockProfilesBroadcastItemResult
   ) => {
-    const { typedData, id } = typedDataResult
-    const { byProfileId, idsOfProfilesToSetBlockStatus, blockStatus } =
+    const { id, typedData } = typedDataResult
+    const { blockStatus, byProfileId, idsOfProfilesToSetBlockStatus } =
       typedData.value
     const args = [byProfileId, idsOfProfilesToSetBlockStatus, blockStatus]
     try {
@@ -235,7 +236,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
             <WarningOutline className="size-5" />
           </Callout.Icon>
           <Callout.Text highContrast>
-            <Flex gap="2" align="center">
+            <Flex align="center" gap="2">
               <BadgeUI>{misused.type}</BadgeUI>
               <InterweaveContent content={misused.description} />
             </Flex>
@@ -265,59 +266,59 @@ const BasicInfo: FC<Props> = ({ profile }) => {
                       placement="top"
                     >
                       <img
-                        src={`${STATIC_ASSETS}/images/social/ens.svg`}
                         alt="ens"
                         className="size-6"
                         draggable={false}
+                        src={`${STATIC_ASSETS}/images/social/ens.svg`}
                       />
                     </Tooltip>
                   )}
                   {profile?.onchainIdentity?.sybilDotOrg.verified && (
                     <Tooltip content={`Sybil Verified`} placement="top">
                       <img
-                        src={`${STATIC_ASSETS}/images/social/sybil.png`}
                         alt="sybil"
                         className="size-7"
                         draggable={false}
+                        src={`${STATIC_ASSETS}/images/social/sybil.png`}
                       />
                     </Tooltip>
                   )}
                   {profile?.onchainIdentity?.proofOfHumanity && (
                     <Tooltip content={`Proof of Humanity`} placement="top">
                       <img
-                        src={`${STATIC_ASSETS}/images/social/poh.png`}
                         alt="poh"
                         className="size-7"
                         draggable={false}
+                        src={`${STATIC_ASSETS}/images/social/poh.png`}
                       />
                     </Tooltip>
                   )}
                   {profile?.onchainIdentity?.worldcoin.isHuman && (
                     <Tooltip content={`Proof of Personhood`} placement="top">
                       <img
-                        src={`${STATIC_ASSETS}/images/social/worldcoin.png`}
                         alt="worldcoin"
                         className="size-7"
                         draggable={false}
+                        src={`${STATIC_ASSETS}/images/social/worldcoin.png`}
                       />
                     </Tooltip>
                   )}
                 </div>
               )}
               {profile?.id && !isOwnChannel ? (
-                <Bubbles viewing={profile.id} showSeparator={hasOnChainId} />
+                <Bubbles showSeparator={hasOnChainId} viewing={profile.id} />
               ) : null}
             </div>
           </div>
         </div>
-        <Flex gap="3" align="center">
+        <Flex align="center" gap="3">
           <DropdownMenu.Root>
             <DropdownMenu.Trigger>
               <IconButton variant="ghost">
                 <ThreeDotsOutline className="size-4" />
               </IconButton>
             </DropdownMenu.Trigger>
-            <DropdownMenu.Content sideOffset={10} variant="soft" align="end">
+            <DropdownMenu.Content align="end" sideOffset={10} variant="soft">
               <DropdownMenu.Item
                 onClick={() =>
                   copy(`${TAPE_WEBSITE_URL}${getProfile(profile).link}`)
@@ -335,7 +336,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
                     <button className="!cursor-default rounded-md px-3 py-1.5 hover:bg-gray-500/20">
                       <Flex align="center" gap="2">
                         <FlagOutline className="size-3.5" />
-                        <Text size="2" className="whitespace-nowrap">
+                        <Text className="whitespace-nowrap" size="2">
                           Report
                         </Text>
                       </Flex>

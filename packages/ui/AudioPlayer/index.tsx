@@ -1,35 +1,34 @@
 import type { FC } from 'react'
+
 import React, { memo, useEffect, useRef } from 'react'
 import WaveSurfer from 'wavesurfer.js'
 
 type Props = {
-  url: string
-  progressColor?: string
-  waveColor?: string
   isPlaying?: boolean
+  progressColor?: string
+  url: string
+  waveColor?: string
 }
 
 const AudioPlayer: FC<Props> = (props) => {
   const waveformRef = useRef<HTMLDivElement | null>(null)
-  const waveSurferRef = useRef<WaveSurfer | null>(null)
+  const waveSurferRef = useRef<null | WaveSurfer>(null)
 
   useEffect(() => {
     if (waveformRef.current && !waveSurferRef.current) {
       const ws = WaveSurfer.create({
-        container: waveformRef.current,
-        waveColor: props.waveColor ?? 'white',
-        progressColor: props.progressColor ?? '#39c4ff',
-        cursorColor: 'transparent',
-        barWidth: 2,
-        barRadius: 3,
-        cursorWidth: 0,
-        height: 100,
         barGap: 3,
-        normalize: true,
+        barRadius: 3,
+        barWidth: 2,
+        container: waveformRef.current,
+        cursorColor: 'transparent',
+        cursorWidth: 0,
         dragToSeek: true,
-        url: props.url,
+        height: 100,
+        normalize: true,
+        progressColor: props.progressColor ?? '#39c4ff',
         renderFunction: (channels, ctx) => {
-          const { width, height } = ctx.canvas
+          const { height, width } = ctx.canvas
           const scale = channels[0].length / width
           const step = 10
 
@@ -60,7 +59,9 @@ const AudioPlayer: FC<Props> = (props) => {
 
           ctx.stroke()
           ctx.closePath()
-        }
+        },
+        url: props.url,
+        waveColor: props.waveColor ?? 'white'
       })
 
       ws.on('interaction', () => {

@@ -1,3 +1,6 @@
+import type { AnyPublication, PublicationRequest } from '@tape.xyz/lens'
+import type { NextApiResponse } from 'next'
+
 import { getMetaTags } from '@tape.xyz/browser'
 import {
   OG_IMAGE,
@@ -11,10 +14,8 @@ import {
   imageCdn,
   truncate
 } from '@tape.xyz/generic'
-import type { AnyPublication, PublicationRequest } from '@tape.xyz/lens'
 import { PublicationDocument } from '@tape.xyz/lens'
 import { apolloClient } from '@tape.xyz/lens/apollo'
-import type { NextApiResponse } from 'next'
 
 const client = apolloClient()
 
@@ -52,20 +53,20 @@ const getPublicationMeta = async (
       .setHeader('Cache-Control', 's-maxage=86400')
       .send(
         getMetaTags({
-          title,
           description: description.replaceAll('\n', ' '),
           image: thumbnail,
           page: isAudio ? 'AUDIO' : 'VIDEO',
           pubId: target.id,
-          publication: target
+          publication: target,
+          title
         })
       )
   } catch {
     return res.setHeader('Content-Type', 'text/html').send(
       getMetaTags({
-        title: TAPE_APP_NAME,
         description: TAPE_APP_DESCRIPTION,
-        image: OG_IMAGE
+        image: OG_IMAGE,
+        title: TAPE_APP_NAME
       })
     )
   }

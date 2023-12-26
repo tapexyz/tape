@@ -1,3 +1,5 @@
+import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
+
 import ChevronRightOutline from '@components/Common/Icons/ChevronRightOutline'
 import SplitOutline from '@components/Common/Icons/SplitOutline'
 import Tooltip from '@components/UIElements/Tooltip'
@@ -6,7 +8,6 @@ import useCollectStore from '@lib/store/idb/collect'
 import useProfileStore from '@lib/store/idb/profile'
 import { Button, Dialog, Flex } from '@radix-ui/themes'
 import { LimitType, useEnabledCurrenciesQuery } from '@tape.xyz/lens'
-import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
 import React, { useState } from 'react'
 
 import ChargeQuestion from './ChargeQuestion'
@@ -29,22 +30,22 @@ const CollectModule = () => {
   }
 
   const { data: enabledCurrencies } = useEnabledCurrenciesQuery({
+    skip: !activeProfile?.id,
     variables: {
       request: {
         limit: LimitType.Fifty
       }
-    },
-    skip: !activeProfile?.id
+    }
   })
 
   const getSelectedCollectType = () => {
-    const followerOnlyCollect = uploadedMedia.collectModule.followerOnlyCollect
-    const timeLimitEnabled = uploadedMedia.collectModule.timeLimitEnabled
-    const collectLimitEnabled = uploadedMedia.collectModule.collectLimitEnabled
-    const isFeeCollect = uploadedMedia.collectModule.isFeeCollect
-    const collectLimit = uploadedMedia.collectModule.collectLimit
-    const timeLimit = uploadedMedia.collectModule.timeLimit
-    const multiRecipients = uploadedMedia.collectModule.multiRecipients
+    const { followerOnlyCollect } = uploadedMedia.collectModule
+    const { timeLimitEnabled } = uploadedMedia.collectModule
+    const { collectLimitEnabled } = uploadedMedia.collectModule
+    const { isFeeCollect } = uploadedMedia.collectModule
+    const { collectLimit } = uploadedMedia.collectModule
+    const { timeLimit } = uploadedMedia.collectModule
+    const { multiRecipients } = uploadedMedia.collectModule
     if (uploadedMedia.collectModule.isRevertCollect) {
       return `No one can collect this publication`
     }
@@ -71,15 +72,15 @@ const CollectModule = () => {
 
   return (
     <div className="mt-2 pb-2">
-      <Dialog.Root open={showModal} onOpenChange={setShowModal}>
+      <Dialog.Root onOpenChange={setShowModal} open={showModal}>
         <Dialog.Trigger>
           <Button
-            variant="surface"
-            type="button"
-            onClick={() => setShowModal(true)}
             className="w-full"
+            onClick={() => setShowModal(true)}
+            type="button"
+            variant="surface"
           >
-            <Flex align="center" width="100%" justify="between">
+            <Flex align="center" justify="between" width="100%">
               <span>{getSelectedCollectType()}</span>
               <ChevronRightOutline className="size-3" />
             </Flex>
@@ -87,8 +88,8 @@ const CollectModule = () => {
         </Dialog.Trigger>
 
         <Dialog.Content
-          style={{ maxWidth: 550 }}
           onPointerDownOutside={(e) => e.preventDefault()}
+          style={{ maxWidth: 550 }}
         >
           <Dialog.Title>Collectible</Dialog.Title>
           <Flex direction="column" gap="3">
@@ -108,19 +109,19 @@ const CollectModule = () => {
                   !uploadedMedia.collectModule.isRevertCollect &&
                   enabledCurrencies ? (
                     <FeeCollectForm
+                      enabledCurrencies={enabledCurrencies.currencies.items}
                       setCollectType={setCollectType}
                       setShowModal={setShowModal}
-                      enabledCurrencies={enabledCurrencies.currencies.items}
                     />
                   ) : (
                     <div className="flex justify-end pt-4">
                       <Button
-                        type="button"
                         highContrast
                         onClick={() => {
                           setCollectModule(uploadedMedia.collectModule)
                           setShowModal(false)
                         }}
+                        type="button"
                       >
                         Set Collect Type
                       </Button>

@@ -1,3 +1,7 @@
+import type { AnyPublication } from '@tape.xyz/lens'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+import type { FC } from 'react'
+
 import MetaTags from '@components/Common/MetaTags'
 import { Button, Dialog, Flex, Select, Text } from '@radix-ui/themes'
 import { ERROR_MESSAGE } from '@tape.xyz/constants'
@@ -7,10 +11,7 @@ import {
   getPublicationData,
   Tower
 } from '@tape.xyz/generic'
-import type { AnyPublication } from '@tape.xyz/lens'
 import { useReportPublicationMutation } from '@tape.xyz/lens'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 
@@ -23,15 +24,15 @@ const ReportPublication: FC<Props> = ({ publication }) => {
   const [reason, setReason] = useState('SPAM-FAKE_ENGAGEMENT')
 
   const [createReport, { loading: reporting }] = useReportPublicationMutation({
-    onError: (error: CustomErrorWithData) => {
-      toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
-    },
     onCompleted: () => {
       toast.success(`Publication reported.`)
       Tower.track(EVENTS.PUBLICATION.REPORT, {
         publication_id: targetPublication.id,
         publication_type: targetPublication.__typename?.toLowerCase()
       })
+    },
+    onError: (error: CustomErrorWithData) => {
+      toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     }
   })
 
@@ -57,14 +58,14 @@ const ReportPublication: FC<Props> = ({ publication }) => {
     await createReport({
       variables: {
         request: {
+          additionalComments: `${type} - ${subReason}`,
           for: targetPublication.id,
           reason: {
             [getReasonType(type)]: {
               reason: type,
               subreason: subReason
             }
-          },
-          additionalComments: `${type} - ${subReason}`
+          }
         }
       }
     })
@@ -140,9 +141,9 @@ const ReportPublication: FC<Props> = ({ publication }) => {
                 </Select.Content>
               </Select.Root>
             </Flex>
-            <Flex mt="4" gap="2" justify="end">
+            <Flex gap="2" justify="end" mt="4">
               <Dialog.Close>
-                <Button variant="soft" color="gray">
+                <Button color="gray" variant="soft">
                   Cancel
                 </Button>
               </Dialog.Close>

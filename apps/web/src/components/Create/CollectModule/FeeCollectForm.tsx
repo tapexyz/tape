@@ -1,29 +1,30 @@
+import type { Erc20 } from '@tape.xyz/lens'
+import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
+import type { Dispatch, FC } from 'react'
+import type { z } from 'zod'
+
 import { Input } from '@components/UIElements/Input'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useAppStore from '@lib/store'
 import useProfileStore from '@lib/store/idb/profile'
 import { Button, Flex, Select, Text } from '@radix-ui/themes'
 import { WMATIC_TOKEN_ADDRESS } from '@tape.xyz/constants'
-import type { Erc20 } from '@tape.xyz/lens'
-import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
-import type { Dispatch, FC } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { isAddress } from 'viem'
-import type { z } from 'zod'
 import { number, object, string } from 'zod'
 
 import Splits from './Splits'
 
 type Props = {
+  enabledCurrencies: Erc20[]
   setCollectType: (data: CollectModuleType) => void
   setShowModal: Dispatch<boolean>
-  enabledCurrencies: Erc20[]
 }
 
 const formSchema = object({
-  currency: string(),
   amount: string().min(1, { message: `Invalid amount` }).optional(),
+  currency: string(),
   referralPercent: number()
     .max(100, { message: `Percentage should be 0 to 100` })
     .nonnegative({ message: `Should to greater than or equal to zero` })
@@ -31,9 +32,9 @@ const formSchema = object({
 export type FormData = z.infer<typeof formSchema>
 
 const FeeCollectForm: FC<Props> = ({
+  enabledCurrencies,
   setCollectType,
-  setShowModal,
-  enabledCurrencies
+  setShowModal
 }) => {
   const submitContainerRef = useRef<HTMLDivElement>(null)
   const [validationError, setValidationError] = useState('')
@@ -44,18 +45,18 @@ const FeeCollectForm: FC<Props> = ({
   const splitRecipients = uploadedMedia.collectModule.multiRecipients ?? []
 
   const {
-    register,
     formState: { errors },
     handleSubmit,
+    register,
     setError
   } = useForm<FormData>({
-    resolver: zodResolver(formSchema),
     defaultValues: {
-      referralPercent: Number(uploadedMedia.collectModule.referralFee || 0),
+      amount: uploadedMedia.collectModule.amount?.value || '0',
       currency:
         uploadedMedia.collectModule.amount?.currency ?? WMATIC_TOKEN_ADDRESS,
-      amount: uploadedMedia.collectModule.amount?.value || '0'
-    }
+      referralPercent: Number(uploadedMedia.collectModule.referralFee || 0)
+    },
+    resolver: zodResolver(formSchema)
   })
 
   useEffect(() => {
@@ -68,8 +69,8 @@ const FeeCollectForm: FC<Props> = ({
         currency: data.currency,
         value: data.amount || '0'
       },
-      referralFee: data.referralPercent,
-      recipient: activeProfile?.ownedBy.address
+      recipient: activeProfile?.ownedBy.address,
+      referralFee: data.referralPercent
     })
     setShowModal(false)
   }
@@ -117,11 +118,11 @@ const FeeCollectForm: FC<Props> = ({
         <>
           <Flex align="start" gap="2">
             <Input
-              type="number"
-              placeholder="1.5"
-              min="0"
               autoComplete="off"
               max="100000"
+              min="0"
+              placeholder="1.5"
+              type="number"
               validationError={errors.amount?.message}
               {...register('amount', {
                 setValueAs: (v) => String(v)
@@ -129,12 +130,12 @@ const FeeCollectForm: FC<Props> = ({
             />
             <Select.Root
               {...register('currency')}
-              value={uploadedMedia.collectModule.amount?.currency}
               onValueChange={(value) => {
                 setCollectType({
                   amount: { currency: value, value: '' }
                 })
               }}
+              value={uploadedMedia.collectModule.amount?.currency}
             >
               <Select.Trigger />
               <Select.Content highContrast>
@@ -154,11 +155,11 @@ const FeeCollectForm: FC<Props> = ({
 
           <div>
             <Input
+              info="Percentage of collect revenue from mirrors can be shared with the referrer"
               label="Referral Percentage"
-              type="number"
               placeholder="2"
               suffix="%"
-              info="Percentage of collect revenue from mirrors can be shared with the referrer"
+              type="number"
               {...register('referralPercent', { valueAsNumber: true })}
               validationError={errors.referralPercent?.message}
             />
@@ -171,8 +172,8 @@ const FeeCollectForm: FC<Props> = ({
         </Text>
         <Button
           highContrast
-          type="button"
           onClick={() => handleSubmit(validateInputs)()}
+          type="button"
         >
           Set Collect Type
         </Button>

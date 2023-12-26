@@ -1,3 +1,6 @@
+import type { AnyPublication } from '@tape.xyz/lens'
+import type { FC } from 'react'
+
 import MetaTags from '@components/Common/MetaTags'
 import useProfileStore from '@lib/store/idb/profile'
 import {
@@ -9,9 +12,7 @@ import {
   imageCdn,
   sanitizeDStorageUrl
 } from '@tape.xyz/generic'
-import type { AnyPublication } from '@tape.xyz/lens'
 import VideoPlayer from '@tape.xyz/ui/VideoPlayer'
-import type { FC } from 'react'
 import React, { useEffect, useRef } from 'react'
 
 import BottomOverlay from './BottomOverlay'
@@ -19,15 +20,15 @@ import ByteActions from './ByteActions'
 import TopOverlay from './TopOverlay'
 
 type Props = {
-  video: AnyPublication
   currentViewingId: string
   intersectionCallback: (id: string) => void
+  video: AnyPublication
 }
 
 const ByteVideo: FC<Props> = ({
-  video,
   currentViewingId,
-  intersectionCallback
+  intersectionCallback,
+  video
 }) => {
   const videoRef = useRef<HTMLMediaElement>()
   const intersectionRef = useRef<HTMLDivElement>(null)
@@ -100,24 +101,24 @@ const ByteVideo: FC<Props> = ({
         <div className="rounded-large ultrawide:w-[650px] flex h-full w-[calc(100vw-80px)] items-center overflow-hidden bg-black md:w-[450px]">
           <div
             className="absolute top-[50%]"
-            ref={intersectionRef}
             id={targetPublication?.id}
+            ref={intersectionRef}
           />
           <VideoPlayer
             address={activeProfile?.ownedBy.address}
-            refCallback={refCallback}
-            url={getPublicationMediaUrl(targetPublication.metadata)}
-            posterUrl={thumbnailUrl}
-            ratio="9to16"
-            showControls={false}
             options={{
               autoPlay: currentViewingId === targetPublication.id,
-              muted: currentViewingId !== targetPublication.id,
-              loop: true,
+              isCurrentlyShown: currentViewingId === video.id,
               loadingSpinner: true,
-              isCurrentlyShown: currentViewingId === video.id
+              loop: true,
+              muted: currentViewingId !== targetPublication.id
             }}
+            posterUrl={thumbnailUrl}
+            ratio="9to16"
+            refCallback={refCallback}
             shouldUpload={getShouldUploadVideo(targetPublication)}
+            showControls={false}
+            url={getPublicationMediaUrl(targetPublication.metadata)}
           />
         </div>
         <TopOverlay onClickVideo={onClickVideo} />

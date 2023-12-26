@@ -9,9 +9,9 @@ const WelcomeAlert = () => {
       <div className="bg-brand-400 absolute inset-0 h-full w-full" />
       <div className="from-brand-600 absolute inset-0 h-full w-full bg-gradient-to-b to-transparent" />
       <img
-        src={`${STATIC_ASSETS}/brand/transparent-bg-large.svg`}
-        className="ultrawide:px-8 ultrawide:-top-10 absolute -top-20 px-4 md:px-6"
         alt="cover"
+        className="ultrawide:px-8 ultrawide:-top-10 absolute -top-20 px-4 md:px-6"
+        src={`${STATIC_ASSETS}/brand/transparent-bg-large.svg`}
       />
       <div className="ultrawide:p-8 relative flex h-full flex-col justify-end space-y-4 p-4 text-left text-white md:p-6">
         <div className="text-3xl font-bold">Welcome to {TAPE_APP_NAME}</div>

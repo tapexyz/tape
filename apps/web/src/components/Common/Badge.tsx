@@ -1,19 +1,20 @@
+import type { FC } from 'react'
+
 import Tooltip from '@components/UIElements/Tooltip'
 import { MISUSED_CHANNELS, VERIFIED_CHANNELS } from '@tape.xyz/constants'
 import clsx from 'clsx'
-import type { FC } from 'react'
 import React from 'react'
 
 import InfoSolid from './Icons/InfoSolid'
 import VerifiedSolid from './Icons/VerifiedSolid'
 
 type Props = {
-  id: string
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
   color?: string
+  id: string
+  size?: 'lg' | 'md' | 'sm' | 'xl' | 'xs'
 }
 
-const Badge: FC<Props> = ({ id, size = 'sm', color }) => {
+const Badge: FC<Props> = ({ color, id, size = 'sm' }) => {
   const isVerified = VERIFIED_CHANNELS.includes(id)
   const misused = MISUSED_CHANNELS.find((c) => c.id === id)
 

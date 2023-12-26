@@ -1,3 +1,17 @@
+import type {
+  ActOnOpenActionLensManagerRequest,
+  HandleInfo,
+  LegacyCollectRequest,
+  PrimaryPublication,
+  Profile,
+  RecipientDataOutput
+} from '@tape.xyz/lens'
+import type {
+  CustomErrorWithData,
+  SupportedOpenActionModuleType
+} from '@tape.xyz/lens/custom-types'
+import type { FC } from 'react'
+
 import InfoOutline from '@components/Common/Icons/InfoOutline'
 import UserOutline from '@components/Common/Icons/UserOutline'
 import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
@@ -25,14 +39,6 @@ import {
   imageCdn,
   shortenAddress
 } from '@tape.xyz/generic'
-import type {
-  ActOnOpenActionLensManagerRequest,
-  HandleInfo,
-  LegacyCollectRequest,
-  PrimaryPublication,
-  Profile,
-  RecipientDataOutput
-} from '@tape.xyz/lens'
 import {
   OpenActionModuleType,
   useActOnOpenActionMutation,
@@ -45,13 +51,8 @@ import {
   usePublicationQuery,
   useRevenueFromPublicationQuery
 } from '@tape.xyz/lens'
-import type {
-  CustomErrorWithData,
-  SupportedOpenActionModuleType
-} from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
 import Link from 'next/link'
-import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
@@ -69,7 +70,7 @@ type Props = {
   publication: PrimaryPublication
 }
 
-const CollectPublication: FC<Props> = ({ publication, action }) => {
+const CollectPublication: FC<Props> = ({ action, publication }) => {
   const activeProfile = useProfileStore((state) => state.activeProfile)
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
   const [alreadyCollected, setAlreadyCollected] = useState(
@@ -91,21 +92,22 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
     action.__typename === 'LegacySimpleCollectModuleSettings' ||
     action.__typename === 'LegacyMultirecipientFeeCollectModuleSettings'
 
-  const { canUseLensManager, canBroadcast } =
+  const { canBroadcast, canUseLensManager } =
     checkLensManagerPermissions(activeProfile)
   const isFreeCollect = !amount
   const isFreeForAnyone = !action?.followerOnly && isFreeCollect
 
   usePublicationQuery({
-    variables: { request: { forId: publication.id } },
+    fetchPolicy: 'cache-and-network',
     onCompleted: ({ publication }) => {
       const { operations } = publication as PrimaryPublication
       setAlreadyCollected(operations.hasActed.value)
     },
-    fetchPolicy: 'cache-and-network'
+    variables: { request: { forId: publication.id } }
   })
 
   const { data: recipientProfilesData } = useProfilesQuery({
+    skip: !Boolean(details?.recipients?.length) || isFreeCollect,
     variables: {
       request: {
         where: {
@@ -114,32 +116,38 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
             : details?.recipient
         }
       }
-    },
-    skip: !Boolean(details?.recipients?.length) || isFreeCollect
+    }
   })
 
   const { data: balanceData, isLoading: balanceLoading } = useBalance({
     address,
-    token: assetAddress,
+    enabled: Boolean(details?.amount.value) && !isFreeCollect,
     formatUnits: assetDecimals,
-    watch: Boolean(details?.amount.value),
-    enabled: Boolean(details?.amount.value) && !isFreeCollect
+    token: assetAddress,
+    watch: Boolean(details?.amount.value)
   })
 
   const { data: revenueData } = useRevenueFromPublicationQuery({
+    skip: !publication?.id,
     variables: {
       request: {
         for: publication?.id
       }
-    },
-    skip: !publication?.id
+    }
   })
 
   const {
-    loading: allowanceLoading,
     data: allowanceData,
+    loading: allowanceLoading,
     refetch: refetchAllowance
   } = useApprovedModuleAllowanceAmountQuery({
+    onCompleted: (data) => {
+      setIsAllowed(
+        parseFloat(data.approvedModuleAllowanceAmount[0].allowance.value) >
+          amount
+      )
+    },
+    skip: !assetAddress || isFreeCollect || !activeProfile?.id,
     variables: {
       request: {
         currencies: assetAddress,
@@ -147,13 +155,6 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
         openActionModules: [action?.type],
         referenceModules: []
       }
-    },
-    skip: !assetAddress || isFreeCollect || !activeProfile?.id,
-    onCompleted: (data) => {
-      setIsAllowed(
-        parseFloat(data.approvedModuleAllowanceAmount[0].allowance.value) >
-          amount
-      )
     }
   })
 
@@ -218,17 +219,17 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
 
       return (
         <div
-          key={splitRecipient.recipient}
           className="flex items-center space-x-2 py-1"
+          key={splitRecipient.recipient}
         >
           <div className="flex items-center space-x-1">
-            <img className="size-4 rounded-full" src={pfp} alt="pfp" />
+            <img alt="pfp" className="size-4 rounded-full" src={pfp} />
             <Tooltip
-              placement="bottom-start"
-              visible={hasManyProfiles}
               content={handles?.map((handle) => (
                 <p key={handle?.id}>{handle?.fullHandle}</p>
               ))}
+              placement="bottom-start"
+              visible={hasManyProfiles}
             >
               {defaultProfile?.handle ? (
                 <Link href={getProfile(defaultProfile).link} target="_blank">
@@ -255,7 +256,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
   }
 
   const onCompleted = (
-    __typename?: 'RelayError' | 'RelaySuccess' | 'LensProfileManagerRelayError'
+    __typename?: 'LensProfileManagerRelayError' | 'RelayError' | 'RelaySuccess'
   ) => {
     if (
       __typename === 'RelayError' ||
@@ -270,16 +271,16 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
   const { signTypedDataAsync } = useSignTypedData({ onError })
 
   const { write } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
     abi: LENSHUB_PROXY_ABI,
+    address: LENSHUB_PROXY_ADDRESS,
     functionName: isLegacyCollectModule ? 'collectLegacy' : 'act',
-    onSuccess: () => {
-      onCompleted()
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
-    },
     onError: (error) => {
       onError(error)
       setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
+    },
+    onSuccess: () => {
+      onCompleted()
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
     }
   })
 
@@ -423,8 +424,8 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
     }
 
     const actOnRequest: ActOnOpenActionLensManagerRequest = {
-      for: publication?.id,
-      actOn: { [getOpenActionActOnKey(action?.type)]: true }
+      actOn: { [getOpenActionActOnKey(action?.type)]: true },
+      for: publication?.id
     }
 
     if (canUseLensManager && isFreeForAnyone) {
@@ -469,8 +470,8 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
               <span className="mb-0.5 font-bold">Collect Ends in</span>
               <span className="text-lg">
                 <Countdown
-                  timestamp={details.endsAt}
                   endText={`Ended ${getRelativeTime(details.endsAt)}`}
+                  timestamp={details.endsAt}
                 />
               </span>
             </div>
@@ -512,7 +513,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
                       <InfoOutline />
                     </Callout.Icon>
                     <Callout.Text highContrast weight="medium">
-                      <Flex gap="2" align="center">
+                      <Flex align="center" gap="2">
                         <UserOutline className="size-3.5" />
                         This publication can only be collected by the creator's
                         followers.
@@ -526,8 +527,8 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
                 </div>
               ) : haveEnoughBalance ? (
                 <Button
-                  highContrast
                   disabled={collecting || alreadyCollected}
+                  highContrast
                   onClick={() => (!alreadyCollected ? collectNow() : null)}
                 >
                   {alreadyCollected ? 'Collected' : 'Collect'}
@@ -537,11 +538,11 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
               )
             ) : (
               <PermissionAlert
-                isAllowed={isAllowed}
-                setIsAllowed={setIsAllowed}
                 allowanceModule={
                   allowanceData?.approvedModuleAllowanceAmount[0] as any
                 }
+                isAllowed={isAllowed}
+                setIsAllowed={setIsAllowed}
               />
             )}
           </div>

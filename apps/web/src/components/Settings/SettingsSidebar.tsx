@@ -40,104 +40,104 @@ const SettingsSidebar = () => {
   return (
     <div className="m-1 flex flex-col space-y-1">
       <Link
-        href={SETTINGS}
         className={clsx(
           'hover:dark:bg-smoke hover:bg-gallery flex items-center space-x-3 rounded-lg px-3 py-2',
           isActivePath(SETTINGS) ? 'font-bold' : 'text-dust font-medium'
         )}
+        href={SETTINGS}
       >
         <UserOutline className="size-4" />
         <span>Basic Info</span>
       </Link>
       <Link
-        href={SETTINGS_FOLLOW}
         className={clsx(
           'hover:dark:bg-smoke hover:bg-gallery flex items-center space-x-3 rounded-lg px-3 py-2',
           isActivePath(SETTINGS_FOLLOW) ? 'font-bold' : 'text-dust font-medium'
         )}
+        href={SETTINGS_FOLLOW}
       >
         <SubscribeOutline className="size-4" />
         <span>Set Follow</span>
       </Link>
       <Link
-        href={SETTINGS_HANDLES}
         className={clsx(
           'hover:dark:bg-smoke hover:bg-gallery flex items-center space-x-3 rounded-lg px-3 py-2',
           isActivePath(SETTINGS_HANDLES) ? 'font-bold' : 'text-dust font-medium'
         )}
+        href={SETTINGS_HANDLES}
       >
         <MentionOutline className="size-4" />
         <span>Handles</span>
       </Link>
       <Link
-        href={SETTINGS_INTERESTS}
         className={clsx(
           'hover:dark:bg-smoke hover:bg-gallery flex items-center space-x-3 rounded-lg px-3 py-2',
           isActivePath(SETTINGS_INTERESTS)
             ? 'font-bold'
             : 'text-dust font-medium'
         )}
+        href={SETTINGS_INTERESTS}
       >
         <InterestsOutline className="size-4" />
         <span>Interests</span>
       </Link>
       {getIsProfileOwner(activeProfile, address) && (
         <Link
-          href={SETTINGS_MANAGER}
           className={clsx(
             'hover:dark:bg-smoke hover:bg-gallery flex items-center space-x-3 rounded-lg px-3 py-2',
             isActivePath(SETTINGS_MANAGER)
               ? 'font-bold'
               : 'text-dust font-medium'
           )}
+          href={SETTINGS_MANAGER}
         >
           <ProfileManagerOutline className="size-4" />
           <span>Manager</span>
         </Link>
       )}
       <Link
-        href={SETTINGS_ALLOWANCE}
         className={clsx(
           'hover:dark:bg-smoke hover:bg-gallery flex items-center space-x-3 rounded-lg px-3 py-2',
           isActivePath(SETTINGS_ALLOWANCE)
             ? 'font-bold'
             : 'text-dust font-medium'
         )}
+        href={SETTINGS_ALLOWANCE}
       >
         <LockOutline className="size-4" />
         <span>Allowance</span>
       </Link>
       <Link
-        href={SETTINGS_BLOCKED}
         className={clsx(
           'hover:dark:bg-smoke hover:bg-gallery flex items-center space-x-3 rounded-lg px-3 py-2',
           isActivePath(SETTINGS_BLOCKED) ? 'font-bold' : 'text-dust font-medium'
         )}
+        href={SETTINGS_BLOCKED}
       >
         <ProfileBanOutline className="size-4" />
         <span>Blocked</span>
       </Link>
       <Link
-        href={SETTINGS_SESSIONS}
         className={clsx(
           'hover:dark:bg-smoke hover:bg-gallery flex items-center space-x-3 rounded-lg px-3 py-2',
           isActivePath(SETTINGS_SESSIONS)
             ? 'font-bold'
             : 'text-dust font-medium'
         )}
+        href={SETTINGS_SESSIONS}
       >
         <KeyOutline className="size-4" />
         <span>Sessions</span>
       </Link>
       {getIsProfileOwner(activeProfile, address) && (
         <Link
-          href={SETTINGS_DANGER_ZONE}
           className={clsx(
             'hover:dark:bg-smoke text-red-500 hover:bg-red-100 dark:hover:bg-red-900/50 flex items-center space-x-3 rounded-lg px-3 py-2',
             isActivePath(SETTINGS_DANGER_ZONE)
               ? 'font-bold'
               : 'text-dust font-medium'
           )}
+          href={SETTINGS_DANGER_ZONE}
         >
           <WarningOutline className="size-4" />
           <span>Danger Zone</span>
