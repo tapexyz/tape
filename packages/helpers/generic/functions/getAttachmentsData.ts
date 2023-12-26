@@ -11,18 +11,18 @@ export const getAttachmentsData = (
     switch (attachment.__typename) {
       case 'PublicationMetadataMediaImage':
         return {
-          type: 'Image',
-          uri: attachment.image.optimized?.uri
+          uri: attachment.image.optimized?.uri,
+          type: 'Image'
         }
       case 'PublicationMetadataMediaVideo':
         return {
-          type: 'Video',
-          uri: attachment.video.optimized?.uri
+          uri: attachment.video.optimized?.uri,
+          type: 'Video'
         }
       case 'PublicationMetadataMediaAudio':
         return {
-          type: 'Audio',
-          uri: attachment.audio.optimized?.uri
+          uri: attachment.audio.optimized?.uri,
+          type: 'Audio'
         }
       default:
         return []

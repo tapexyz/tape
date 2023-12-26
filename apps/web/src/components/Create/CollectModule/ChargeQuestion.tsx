@@ -1,8 +1,7 @@
-import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
-import type { FC } from 'react'
-
 import useAppStore from '@lib/store'
 import { Button, Text } from '@radix-ui/themes'
+import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
+import type { FC } from 'react'
 import React from 'react'
 
 type Props = {
@@ -20,32 +19,32 @@ const ChargeQuestion: FC<Props> = ({ setCollectType }) => {
       <div className="flex flex-wrap gap-1.5 md:flex-nowrap">
         <Button
           className="flex-1"
-          color={!uploadedMedia.collectModule.isFeeCollect ? 'blue' : 'gray'}
+          type="button"
           highContrast
+          color={!uploadedMedia.collectModule.isFeeCollect ? 'blue' : 'gray'}
+          variant="surface"
           onClick={() =>
             setCollectType({
-              isFeeCollect: false,
+              isSimpleCollect: true,
               isMultiRecipientFeeCollect: false,
-              isSimpleCollect: true
+              isFeeCollect: false
             })
           }
-          type="button"
-          variant="surface"
         >
           Free
         </Button>
         <Button
           className="flex-1"
-          color={uploadedMedia.collectModule.isFeeCollect ? 'blue' : 'gray'}
+          type="button"
           highContrast
+          color={uploadedMedia.collectModule.isFeeCollect ? 'blue' : 'gray'}
+          variant="surface"
           onClick={() =>
             setCollectType({
-              isFeeCollect: true,
-              isSimpleCollect: true
+              isSimpleCollect: true,
+              isFeeCollect: true
             })
           }
-          type="button"
-          variant="surface"
         >
           Set Price
         </Button>

@@ -1,5 +1,4 @@
 import type { FEATURE_FLAGS } from '@tape.xyz/constants'
-
 import { featureFlags } from '@tape.xyz/constants'
 
 export const getIsFeatureEnabled = (flag: FEATURE_FLAGS, profileId: string) => {

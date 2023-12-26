@@ -1,7 +1,3 @@
-import type { FeeFollowModuleSettings, Profile } from '@tape.xyz/lens'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import type { FC } from 'react'
-
 import useProfileStore from '@lib/store/idb/profile'
 import useNonceStore from '@lib/store/nonce'
 import { Button, Dialog, Flex, Text } from '@radix-ui/themes'
@@ -19,6 +15,7 @@ import {
   getSignature,
   Tower
 } from '@tape.xyz/generic'
+import type { FeeFollowModuleSettings, Profile } from '@tape.xyz/lens'
 import {
   FollowModuleType,
   useApprovedModuleAllowanceAmountQuery,
@@ -27,7 +24,9 @@ import {
   useGenerateModuleCurrencyApprovalDataLazyQuery,
   useProfileFollowModuleQuery
 } from '@tape.xyz/lens'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
+import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import {
@@ -38,13 +37,13 @@ import {
 } from 'wagmi'
 
 type Props = {
-  onJoin: () => void
   profile: Profile
-  showText?: boolean
+  onJoin: () => void
   size?: '1' | '2' | '3'
+  showText?: boolean
 }
 
-const SuperFollow: FC<Props> = ({ onJoin, profile, size = '2' }) => {
+const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const [isAllowed, setIsAllowed] = useState(false)
@@ -77,11 +76,11 @@ const SuperFollow: FC<Props> = ({ onJoin, profile, size = '2' }) => {
   })
 
   const { write } = useContractWrite({
-    abi: LENSHUB_PROXY_ABI,
     address: LENSHUB_PROXY_ADDRESS,
+    abi: LENSHUB_PROXY_ABI,
     functionName: 'follow',
-    onError,
-    onSuccess: () => onCompleted()
+    onSuccess: () => onCompleted(),
+    onError
   })
 
   const [broadcast] = useBroadcastOnchainMutation({
@@ -91,8 +90,8 @@ const SuperFollow: FC<Props> = ({ onJoin, profile, size = '2' }) => {
   })
 
   const { data: followModuleData } = useProfileFollowModuleQuery({
-    skip: !profile?.id,
-    variables: { request: { forProfileId: profile?.id } }
+    variables: { request: { forProfileId: profile?.id } },
+    skip: !profile?.id
   })
 
   const followModule = followModuleData?.profile
@@ -100,12 +99,6 @@ const SuperFollow: FC<Props> = ({ onJoin, profile, size = '2' }) => {
   const amount = parseFloat(followModule?.amount?.value || '0')
 
   const { refetch } = useApprovedModuleAllowanceAmountQuery({
-    onCompleted: ({ approvedModuleAllowanceAmount }) => {
-      setIsAllowed(
-        parseFloat(approvedModuleAllowanceAmount[0].allowance.value) > amount
-      )
-    },
-    skip: !followModule?.amount?.asset?.contract.address || !activeProfile?.id,
     variables: {
       request: {
         currencies: followModule?.amount?.asset?.contract.address,
@@ -113,6 +106,12 @@ const SuperFollow: FC<Props> = ({ onJoin, profile, size = '2' }) => {
         openActionModules: [],
         referenceModules: []
       }
+    },
+    skip: !followModule?.amount?.asset?.contract.address || !activeProfile?.id,
+    onCompleted: ({ approvedModuleAllowanceAmount }) => {
+      setIsAllowed(
+        parseFloat(approvedModuleAllowanceAmount[0].allowance.value) > amount
+      )
     }
   })
 
@@ -129,12 +128,12 @@ const SuperFollow: FC<Props> = ({ onJoin, profile, size = '2' }) => {
 
   const [createFollowTypedData] = useCreateFollowTypedDataMutation({
     async onCompleted({ createFollowTypedData }) {
-      const { id, typedData } = createFollowTypedData
+      const { typedData, id } = createFollowTypedData
       const {
-        datas,
         followerProfileId,
+        idsOfProfilesToFollow,
         followTokenIds,
-        idsOfProfilesToFollow
+        datas
       } = typedData.value
       const args = [
         followerProfileId,
@@ -183,8 +182,8 @@ const SuperFollow: FC<Props> = ({ onJoin, profile, size = '2' }) => {
     })
     const generated = allowanceData?.generateModuleCurrencyApprovalData
     sendTransaction?.({
-      data: generated?.data,
-      to: generated?.to
+      to: generated?.to,
+      data: generated?.data
     })
   }
 
@@ -204,6 +203,7 @@ const SuperFollow: FC<Props> = ({ onJoin, profile, size = '2' }) => {
         request: {
           follow: [
             {
+              profileId: profile?.id,
               followModule: {
                 feeFollowModule: {
                   amount: {
@@ -211,8 +211,7 @@ const SuperFollow: FC<Props> = ({ onJoin, profile, size = '2' }) => {
                     value: followModule?.amount.value
                   }
                 }
-              },
-              profileId: profile?.id
+              }
             }
           ]
         }
@@ -221,13 +220,13 @@ const SuperFollow: FC<Props> = ({ onJoin, profile, size = '2' }) => {
   }
 
   return (
-    <Dialog.Root onOpenChange={setOpen} open={open}>
+    <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger>
         <Button
-          disabled={loading}
-          highContrast
           onClick={() => setOpen(true)}
+          highContrast
           size={size}
+          disabled={loading}
         >
           {loading && <Loader size="sm" />}
           Subscribe
@@ -236,38 +235,38 @@ const SuperFollow: FC<Props> = ({ onJoin, profile, size = '2' }) => {
 
       <Dialog.Content style={{ maxWidth: 450 }}>
         <Dialog.Title>Subscribe</Dialog.Title>
-        <Dialog.Description mb="4" size="2">
+        <Dialog.Description size="2" mb="4">
           Support creator for their contributions on the platform.
         </Dialog.Description>
 
-        <Flex align="baseline" gap="2">
+        <Flex gap="2" align="baseline">
           <Text as="div" size="4">
             Follow {getProfile(profile)?.displayName} for
           </Text>
-          <Flex align="center" gap="1">
+          <Flex gap="1" align="center">
             <Text as="div" size="4">
               {followModule?.amount.value} {followModule?.amount.asset.symbol}
             </Text>
           </Flex>
         </Flex>
 
-        <Flex gap="3" justify="end" mt="4">
+        <Flex gap="3" mt="4" justify="end">
           <Dialog.Close>
-            <Button color="gray" variant="soft">
+            <Button variant="soft" color="gray">
               Cancel
             </Button>
           </Dialog.Close>
           {isAllowed ? (
             <Button
-              disabled={loading}
               highContrast
               onClick={() => superFollow()}
+              disabled={loading}
             >
               {loading && <Loader size="sm" />}
               Subscribe Now
             </Button>
           ) : (
-            <Button disabled={loading} highContrast onClick={() => allow()}>
+            <Button highContrast onClick={() => allow()} disabled={loading}>
               {loading && <Loader size="sm" />}
               Allow
             </Button>

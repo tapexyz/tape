@@ -6,7 +6,6 @@ import type {
   TextOnlyMetadata,
   VideoMetadata
 } from '@lens-protocol/metadata'
-
 import { WORKER_IRYS_METADATA_UPLOAD_URL } from '@tape.xyz/constants'
 import axios from 'axios'
 
@@ -14,12 +13,12 @@ import { logger } from '../logger'
 
 export const uploadToAr = async (
   data:
+    | VideoMetadata
     | AudioMetadata
-    | LinkMetadata
-    | LiveStreamMetadata
     | ProfileMetadata
     | TextOnlyMetadata
-    | VideoMetadata
+    | LinkMetadata
+    | LiveStreamMetadata
 ): Promise<string> => {
   try {
     const response = await axios.post(WORKER_IRYS_METADATA_UPLOAD_URL, data)

@@ -1,5 +1,3 @@
-import type { FeedItem, FeedRequest, PrimaryPublication } from '@tape.xyz/lens'
-
 import CategoryFilters from '@components/Common/CategoryFilters'
 import MetaTags from '@components/Common/MetaTags'
 import VideoCard from '@components/Common/VideoCard'
@@ -14,6 +12,7 @@ import {
   TAPE_APP_ID
 } from '@tape.xyz/constants'
 import { EVENTS, Tower } from '@tape.xyz/generic'
+import type { FeedItem, FeedRequest, PrimaryPublication } from '@tape.xyz/lens'
 import {
   FeedEventItemType,
   PublicationMetadataMainFocusType,
@@ -37,25 +36,26 @@ const Feed = () => {
       feedEventItemTypes: [FeedEventItemType.Post],
       for: activeProfile?.id,
       metadata: {
-        mainContentFocus: [PublicationMetadataMainFocusType.Video],
         publishedOn: [TAPE_APP_ID, LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
         tags:
-          activeTagFilter !== 'all' ? { oneOf: [activeTagFilter] } : undefined
+          activeTagFilter !== 'all' ? { oneOf: [activeTagFilter] } : undefined,
+        mainContentFocus: [PublicationMetadataMainFocusType.Video]
       }
     }
   }
 
-  const { data, error, fetchMore, loading } = useFeedQuery({
-    skip: !activeProfile?.id,
+  const { data, loading, error, fetchMore } = useFeedQuery({
     variables: {
       request
-    }
+    },
+    skip: !activeProfile?.id
   })
 
   const feedItems = data?.feed?.items as FeedItem[]
   const pageInfo = data?.feed?.pageInfo
 
   const { observe } = useInView({
+    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
     onEnter: async () => {
       await fetchMore({
         variables: {
@@ -65,8 +65,7 @@ const Feed = () => {
           }
         }
       })
-    },
-    rootMargin: INFINITE_SCROLL_ROOT_MARGIN
+    }
   })
 
   if (!loading && error) {
@@ -82,8 +81,8 @@ const Feed = () => {
         <NoDataFound
           className="my-20"
           isCenter
-          text="No videos found!"
           withImage
+          text="No videos found!"
         />
       ) : null}
       {!error && !loading && (
@@ -100,7 +99,7 @@ const Feed = () => {
             })}
           </div>
           {pageInfo?.next && (
-            <span className="flex justify-center p-10" ref={observe}>
+            <span ref={observe} className="flex justify-center p-10">
               <Loader />
             </span>
           )}

@@ -1,5 +1,3 @@
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import { signOut } from '@lib/store/auth'
 import useProfileStore from '@lib/store/idb/profile'
@@ -9,6 +7,7 @@ import {
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE
 } from '@tape.xyz/constants'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -29,8 +28,8 @@ const Delete = () => {
   }
 
   const { write } = useContractWrite({
-    abi: LENSHUB_PROXY_ABI,
     address: LENSHUB_PROXY_ADDRESS,
+    abi: LENSHUB_PROXY_ABI,
     functionName: 'burn',
     onError,
     onSuccess: (data) => setTxnHash(data.hash)
@@ -39,13 +38,13 @@ const Delete = () => {
   useWaitForTransaction({
     enabled: txnHash && txnHash.length > 0,
     hash: txnHash,
-    onError,
     onSuccess: () => {
       signOut()
       setLoading(false)
       toast.success(`Profile deleted`)
       location.href = '/'
-    }
+    },
+    onError
   })
 
   const isCooldownEnded = () => {

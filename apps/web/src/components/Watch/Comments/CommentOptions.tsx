@@ -1,6 +1,3 @@
-import type { Comment } from '@tape.xyz/lens'
-import type { FC } from 'react'
-
 import FlagOutline from '@components/Common/Icons/FlagOutline'
 import ThreeDotsOutline from '@components/Common/Icons/ThreeDotsOutline'
 import TrashOutline from '@components/Common/Icons/TrashOutline'
@@ -11,7 +8,9 @@ import useProfileStore from '@lib/store/idb/profile'
 import { Box, Dialog, DropdownMenu, Flex, Text } from '@radix-ui/themes'
 import { SIGN_IN_REQUIRED } from '@tape.xyz/constants'
 import { EVENTS, Tower } from '@tape.xyz/generic'
+import type { Comment } from '@tape.xyz/lens'
 import { useHidePublicationMutation } from '@tape.xyz/lens'
+import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 
@@ -26,19 +25,19 @@ const CommentOptions: FC<Props> = ({ comment }) => {
   const { activeProfile } = useProfileStore()
 
   const [hideComment] = useHidePublicationMutation({
+    update(cache) {
+      const normalizedId = cache.identify({
+        id: comment?.id,
+        __typename: 'Comment'
+      })
+      cache.evict({ id: normalizedId })
+      cache.gc()
+    },
     onCompleted: () => {
       toast.success(`Comment deleted`)
       Tower.track(EVENTS.PUBLICATION.DELETE, {
         publication_type: comment.__typename?.toLowerCase()
       })
-    },
-    update(cache) {
-      const normalizedId = cache.identify({
-        __typename: 'Comment',
-        id: comment?.id
-      })
-      cache.evict({ id: normalizedId })
-      cache.gc()
     }
   })
 
@@ -59,9 +58,9 @@ const CommentOptions: FC<Props> = ({ comment }) => {
   return (
     <>
       <Confirm
-        action={onHideComment}
-        setShowConfirm={setShowConfirm}
         showConfirm={showConfirm}
+        setShowConfirm={setShowConfirm}
+        action={onHideComment}
       />
       <DropdownMenu.Root>
         <DropdownMenu.Trigger>
@@ -69,13 +68,13 @@ const CommentOptions: FC<Props> = ({ comment }) => {
             <ThreeDotsOutline className="size-3.5" />
           </Box>
         </DropdownMenu.Trigger>
-        <DropdownMenu.Content align="end" sideOffset={10} variant="soft">
+        <DropdownMenu.Content sideOffset={10} variant="soft" align="end">
           <div className="w-36 overflow-hidden">
             <div className="flex flex-col rounded-lg text-sm transition duration-150 ease-in-out">
               {activeProfile?.id === comment?.by?.id && (
                 <DropdownMenu.Item
-                  color="red"
                   onClick={() => setShowConfirm(true)}
+                  color="red"
                 >
                   <Flex align="center" gap="2">
                     <TrashOutline className="size-3.5" />
@@ -92,7 +91,7 @@ const CommentOptions: FC<Props> = ({ comment }) => {
                   >
                     <Flex align="center" gap="2">
                       <FlagOutline className="size-3.5" />
-                      <Text className="whitespace-nowrap" size="2">
+                      <Text size="2" className="whitespace-nowrap">
                         Report
                       </Text>
                     </Flex>

@@ -1,6 +1,3 @@
-import type { LiveStreamMetadataV3, PrimaryPublication } from '@tape.xyz/lens'
-import type { FC } from 'react'
-
 import { getShortHandTime } from '@lib/formatTime'
 import { AspectRatio, Avatar, Badge, Flex, Text } from '@radix-ui/themes'
 import {
@@ -10,7 +7,9 @@ import {
   getPublicationData,
   getRandomProfilePicture
 } from '@tape.xyz/generic'
+import type { LiveStreamMetadataV3, PrimaryPublication } from '@tape.xyz/lens'
 import Link from 'next/link'
+import type { FC } from 'react'
 import React from 'react'
 
 import HoverableProfile from '../HoverableProfile'
@@ -30,12 +29,12 @@ const StreamCard: FC<Props> = ({ stream }) => {
     <div className="ultrawide:w-[23rem] group w-80">
       <Link href={href}>
         <AspectRatio
-          className="rounded-medium tape-border relative overflow-hidden"
           ratio={16 / 9}
+          className="rounded-medium tape-border relative overflow-hidden"
         >
           <ThumbnailImage video={stream} />
           <div className="absolute bottom-2 right-2">
-            <Badge color="red" size="2">
+            <Badge size="2" color="red">
               <Text weight="bold">Live</Text>
             </Badge>
           </div>
@@ -44,11 +43,11 @@ const StreamCard: FC<Props> = ({ stream }) => {
       <div className="py-2">
         <Flex gap="2">
           <Avatar
-            alt={getProfile(stream.by).displayName}
-            fallback={getRandomProfilePicture(stream.by.ownedBy.address)}
-            radius="full"
-            size="1"
             src={getProfilePicture(stream.by, 'AVATAR')}
+            size="1"
+            radius="full"
+            fallback={getRandomProfilePicture(stream.by.ownedBy.address)}
+            alt={getProfile(stream.by).displayName}
           />
 
           <Flex direction="column" justify="between" width="100%">

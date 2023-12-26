@@ -13,10 +13,10 @@ export const useDragAndDrop = () => {
 
   return {
     dragOver,
-    fileDropError,
-    onDragLeave,
-    onDragOver,
     setDragOver,
+    onDragOver,
+    onDragLeave,
+    fileDropError,
     setFileDropError
   }
 }

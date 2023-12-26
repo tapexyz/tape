@@ -1,5 +1,3 @@
-import type { FC, ReactNode } from 'react'
-
 import CollectOutline from '@components/Common/Icons/CollectOutline'
 import TimesOutline from '@components/Common/Icons/TimesOutline'
 import { getCollectModuleOutput } from '@lib/getCollectModuleOutput'
@@ -21,22 +19,23 @@ import {
 import { formatNumber, getPublication } from '@tape.xyz/generic'
 import isOpenActionAllowed from '@tape.xyz/generic/functions/isOpenActionAllowed'
 import { type AnyPublication, type OpenActionModule } from '@tape.xyz/lens'
+import type { FC, ReactNode } from 'react'
 import React from 'react'
 
 import CollectPublication from './CollectPublication'
 
 type Props = {
-  children?: ReactNode
   publication: AnyPublication
+  variant?: 'classic' | 'solid' | 'soft' | 'surface' | 'outline' | 'ghost'
   text?: string
-  variant?: 'classic' | 'ghost' | 'outline' | 'soft' | 'solid' | 'surface'
+  children?: ReactNode
 }
 
 const OpenActions: FC<Props> = ({
-  children,
   publication,
+  variant = 'solid',
   text,
-  variant = 'solid'
+  children
 }) => {
   const targetPublication = getPublication(publication)
   const openActions = targetPublication.openActionModules
@@ -51,11 +50,11 @@ const OpenActions: FC<Props> = ({
         const details = getCollectModuleOutput(action)
         return (
           <AccordionItem
-            className="rounded-small group border dark:border-gray-700"
             value="item-1"
+            className="rounded-small group border dark:border-gray-700"
           >
             <AccordionTrigger className="bg-brand-50/50 dark:bg-brand-950/30 rounded-small w-full px-4 py-3 text-left">
-              <Flex align="center" justify="between">
+              <Flex justify="between" align="center">
                 <span className="text-brand-500">Collect publication</span>
                 <span className="group-data-[state=open]:hidden">
                   $<b> {formatNumber(Number(details?.amount.rate))}</b>
@@ -64,8 +63,8 @@ const OpenActions: FC<Props> = ({
             </AccordionTrigger>
             <AccordionContent className="p-3">
               <CollectPublication
-                action={action}
                 publication={targetPublication}
+                action={action}
               />
             </AccordionContent>
           </AccordionItem>
@@ -86,7 +85,7 @@ const OpenActions: FC<Props> = ({
     <Dialog.Root>
       <Dialog.Trigger>
         {children ?? (
-          <Button highContrast variant={variant}>
+          <Button variant={variant} highContrast>
             <CollectOutline className="size-4" />
             {text}
           </Button>
@@ -101,22 +100,22 @@ const OpenActions: FC<Props> = ({
             </Flex>
           </Dialog.Title>
           <DialogClose>
-            <IconButton color="gray" variant="ghost">
-              <TimesOutline className="size-3" outlined={false} />
+            <IconButton variant="ghost" color="gray">
+              <TimesOutline outlined={false} className="size-3" />
             </IconButton>
           </DialogClose>
         </Flex>
 
         <ScrollArea
+          type="hover"
           scrollbars="vertical"
           style={{ maxHeight: 500 }}
-          type="hover"
         >
           <Accordion
-            className="w-full space-y-2"
-            collapsible
-            defaultValue="item-1"
             type="single"
+            className="w-full space-y-2"
+            defaultValue="item-1"
+            collapsible
           >
             {openActions?.map((action, i) => {
               return <Box key={i}>{renderAction(action)}</Box>

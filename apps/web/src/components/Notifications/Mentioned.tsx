@@ -1,6 +1,3 @@
-import type { MentionNotification } from '@tape.xyz/lens'
-import type { FC } from 'react'
-
 import HoverableProfile from '@components/Common/HoverableProfile'
 import MentionOutline from '@components/Common/Icons/MentionOutline'
 import { getShortHandTime } from '@lib/formatTime'
@@ -9,7 +6,9 @@ import {
   getProfilePicture,
   getPublicationData
 } from '@tape.xyz/generic'
+import type { MentionNotification } from '@tape.xyz/lens'
 import Link from 'next/link'
+import type { FC } from 'react'
 import React from 'react'
 
 type Props = {
@@ -27,19 +26,19 @@ const Mentioned: FC<Props> = ({ notification: { publication } }) => {
         </div>
         <div>
           <span className="flex -space-x-1.5">
-            <HoverableProfile key={publication.by?.id} profile={publication.by}>
+            <HoverableProfile profile={publication.by} key={publication.by?.id}>
               <img
-                alt={getProfile(publication.by)?.displayName}
                 className="size-7 rounded-full border dark:border-gray-700/80"
-                draggable={false}
                 src={getProfilePicture(publication.by, 'AVATAR')}
+                draggable={false}
+                alt={getProfile(publication.by)?.displayName}
               />
             </HoverableProfile>
           </span>
           <div className="py-2">mentioned you</div>
           <Link
-            className="text-dust line-clamp-2 font-medium"
             href={`/watch/${videoId}`}
+            className="text-dust line-clamp-2 font-medium"
           >
             {getPublicationData(publication.metadata)?.content}
           </Link>

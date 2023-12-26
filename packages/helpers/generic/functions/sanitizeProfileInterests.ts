@@ -18,14 +18,14 @@ export const sanitizeProfileInterests = (
       )
       .map((item) => {
         return {
-          id: item,
-          label: item.toLowerCase().split('__')[1].replaceAll('_', ' & ')
+          label: item.toLowerCase().split('__')[1].replaceAll('_', ' & '),
+          id: item
         }
       })
     interests.push({
       category: {
-        id: category,
-        label: category.replaceAll('_', ' & ').toLowerCase()
+        label: category.replaceAll('_', ' & ').toLowerCase(),
+        id: category
       },
       subCategories
     })

@@ -1,10 +1,9 @@
-import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
-import type { FC } from 'react'
-
 import { Input } from '@components/UIElements/Input'
 import useAppStore from '@lib/store'
 import { Button, Text } from '@radix-ui/themes'
 import { trimify } from '@tape.xyz/generic'
+import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
+import type { FC } from 'react'
 import React, { useState } from 'react'
 
 type Props = {
@@ -24,36 +23,36 @@ const CollectDuration: FC<Props> = ({ setCollectType }) => {
       </Text>
       <div className="flex flex-wrap gap-1.5 md:flex-nowrap">
         <Button
-          className="flex-1"
+          type="button"
+          highContrast
           color={
             !uploadedMedia.collectModule.timeLimitEnabled ? 'blue' : 'gray'
           }
-          highContrast
+          variant="surface"
+          className="flex-1"
           onClick={() => {
             setCollectType({
-              isSimpleCollect: true,
-              timeLimitEnabled: false
+              timeLimitEnabled: false,
+              isSimpleCollect: true
             })
             setShowDayPicker(false)
           }}
-          type="button"
-          variant="surface"
         >
           Forever
         </Button>
         <Button
-          className="flex-1"
-          color={uploadedMedia.collectModule.timeLimitEnabled ? 'blue' : 'gray'}
-          highContrast
+          type="button"
           onClick={() => {
             setCollectType({
-              isSimpleCollect: true,
-              timeLimitEnabled: true
+              timeLimitEnabled: true,
+              isSimpleCollect: true
             })
             setShowDayPicker(true)
           }}
-          type="button"
+          highContrast
+          color={uploadedMedia.collectModule.timeLimitEnabled ? 'blue' : 'gray'}
           variant="surface"
+          className="flex-1"
         >
           Custom
         </Button>
@@ -61,6 +60,7 @@ const CollectDuration: FC<Props> = ({ setCollectType }) => {
       {showDayPicker && (
         <div>
           <Input
+            type="number"
             min="1"
             onBlur={(e) => {
               const { value } = e.target
@@ -74,10 +74,9 @@ const CollectDuration: FC<Props> = ({ setCollectType }) => {
                 timeLimit: Number(value) <= 0 ? '' : value
               })
             }}
+            value={uploadedMedia.collectModule.timeLimit}
             placeholder="Number of days"
             suffix="days"
-            type="number"
-            value={uploadedMedia.collectModule.timeLimit}
           />
         </div>
       )}

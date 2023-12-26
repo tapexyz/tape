@@ -1,8 +1,3 @@
-import type {
-  PrimaryPublication,
-  PublicationSearchRequest
-} from '@tape.xyz/lens'
-
 import MetaTags from '@components/Common/MetaTags'
 import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
@@ -15,6 +10,10 @@ import {
   LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
 } from '@tape.xyz/constants'
+import type {
+  PrimaryPublication,
+  PublicationSearchRequest
+} from '@tape.xyz/lens'
 import {
   LimitType,
   PublicationMetadataMainFocusType,
@@ -31,24 +30,24 @@ const ExploreHashtag = () => {
   const hashtag = query.hashtag as string
 
   const request: PublicationSearchRequest = {
-    limit: LimitType.Fifty,
-    query: hashtag,
     where: {
-      customFilters: LENS_CUSTOM_FILTERS,
       metadata: {
-        mainContentFocus: [PublicationMetadataMainFocusType.Video],
         publishedOn: IS_MAINNET
           ? [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
-          : undefined
-      }
-    }
+          : undefined,
+        mainContentFocus: [PublicationMetadataMainFocusType.Video]
+      },
+      customFilters: LENS_CUSTOM_FILTERS
+    },
+    query: hashtag,
+    limit: LimitType.Fifty
   }
 
-  const { data, error, fetchMore, loading } = useSearchPublicationsQuery({
-    skip: !hashtag,
+  const { data, loading, error, fetchMore } = useSearchPublicationsQuery({
     variables: {
       request
-    }
+    },
+    skip: !hashtag
   })
 
   const videos = data?.searchPublications
@@ -56,6 +55,7 @@ const ExploreHashtag = () => {
   const pageInfo = data?.searchPublications?.pageInfo
 
   const { observe } = useInView({
+    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
     onEnter: async () => {
       await fetchMore({
         variables: {
@@ -65,8 +65,7 @@ const ExploreHashtag = () => {
           }
         }
       })
-    },
-    rootMargin: INFINITE_SCROLL_ROOT_MARGIN
+    }
   })
 
   if (!hashtag) {
@@ -81,13 +80,13 @@ const ExploreHashtag = () => {
         <div className="my-4">
           {loading && <TimelineShimmer />}
           {videos?.length === 0 && (
-            <NoDataFound isCenter text={`No videos found`} withImage />
+            <NoDataFound isCenter withImage text={`No videos found`} />
           )}
           {!error && !loading && (
             <>
               <Timeline videos={videos} />
               {pageInfo?.next && (
-                <span className="flex justify-center p-10" ref={observe}>
+                <span ref={observe} className="flex justify-center p-10">
                   <Loader />
                 </span>
               )}

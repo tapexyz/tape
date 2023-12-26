@@ -1,6 +1,3 @@
-import type { PrimaryPublication } from '@tape.xyz/lens'
-import type { FC } from 'react'
-
 import { useAverageColor } from '@tape.xyz/browser'
 import { LENSTUBE_BYTES_APP_ID } from '@tape.xyz/constants'
 import {
@@ -14,9 +11,11 @@ import {
   Tower,
   truncate
 } from '@tape.xyz/generic'
+import type { PrimaryPublication } from '@tape.xyz/lens'
 import VideoPlayer from '@tape.xyz/ui/VideoPlayer'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
+import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 
 import PlayOutline from './icons/PlayOutline'
@@ -69,51 +68,51 @@ const Video: FC<Props> = ({ video }) => {
   return (
     <div className="group relative h-screen w-screen overflow-x-hidden">
       <MetaTags
+        title={truncate(
+          getPublicationData(video.metadata)?.title as string,
+          60
+        )}
         description={truncate(
           getPublicationData(video.metadata)?.content as string,
           100
         )}
         image={thumbnailUrl}
-        title={truncate(
-          getPublicationData(video.metadata)?.title as string,
-          60
-        )}
       />
       {clicked ? (
         <VideoPlayer
+          refCallback={refCallback}
+          url={getPublicationMediaUrl(video.metadata)}
+          posterUrl={thumbnailUrl}
           currentTime={currentTime}
           options={{
             autoPlay: isAutoPlay,
-            isCurrentlyShown: true,
-            loadingSpinner: true,
+            muted: isAutoPlay,
             loop: isLoop,
-            maxHeight: true,
-            muted: isAutoPlay
+            loadingSpinner: true,
+            isCurrentlyShown: true,
+            maxHeight: true
           }}
-          posterUrl={thumbnailUrl}
-          refCallback={refCallback}
           shouldUpload={getShouldUploadVideo(video)}
-          url={getPublicationMediaUrl(video.metadata)}
         />
       ) : (
         <div className="flex h-full w-full justify-center">
           <img
-            alt="thumbnail"
+            src={thumbnailUrl}
             className={clsx(
               'w-full bg-gray-100 object-center dark:bg-gray-900',
               isBytesVideo ? 'object-contain' : 'object-cover'
             )}
-            draggable={false}
-            src={thumbnailUrl}
             style={{
               backgroundColor: backgroundColor && `${backgroundColor}95`
             }}
+            alt="thumbnail"
+            draggable={false}
           />
           <div
             className="absolute grid h-full w-full place-items-center"
+            tabIndex={0}
             onClick={onClickOverlay}
             role="button"
-            tabIndex={0}
           >
             <button className="bg-brand-400 rounded-full p-3 shadow-2xl xl:p-5">
               <PlayOutline className="size-6 pl-0.5 text-white" />

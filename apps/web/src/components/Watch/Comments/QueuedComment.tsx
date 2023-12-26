@@ -1,6 +1,3 @@
-import type { QueuedCommentType } from '@tape.xyz/lens/custom-types'
-import type { FC } from 'react'
-
 import Badge from '@components/Common/Badge'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import Tooltip from '@components/UIElements/Tooltip'
@@ -15,7 +12,9 @@ import {
   useTxIdToTxHashLazyQuery
 } from '@tape.xyz/lens'
 import { useApolloClient } from '@tape.xyz/lens/apollo'
+import type { QueuedCommentType } from '@tape.xyz/lens/custom-types'
 import Link from 'next/link'
+import type { FC } from 'react'
 import React from 'react'
 
 type Props = {
@@ -72,6 +71,14 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
   }
 
   const { stopPolling } = useLensTransactionStatusQuery({
+    variables: {
+      request: {
+        forTxId: queuedComment?.txnId,
+        forTxHash: queuedComment?.txnHash
+      }
+    },
+    skip: !queuedComment?.txnId?.length && !queuedComment?.txnHash?.length,
+    pollInterval: 1000,
     notifyOnNetworkStatusChange: true,
     onCompleted: async (data) => {
       if (
@@ -95,14 +102,6 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
         }
         await getCommentByTxnId()
       }
-    },
-    pollInterval: 1000,
-    skip: !queuedComment?.txnId?.length && !queuedComment?.txnHash?.length,
-    variables: {
-      request: {
-        forTxHash: queuedComment?.txnHash,
-        forTxId: queuedComment?.txnId
-      }
     }
   })
 
@@ -114,21 +113,21 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
     <div className="flex items-start justify-between">
       <div className="flex items-start justify-between">
         <Link
-          className="mr-3 mt-0.5 flex-none"
           href={`/u/${getProfile(activeProfile)?.slug}`}
+          className="mr-3 mt-0.5 flex-none"
         >
           <img
-            alt={getProfile(activeProfile)?.slug}
+            src={getProfilePicture(activeProfile, 'AVATAR')}
             className="size-7 rounded-full"
             draggable={false}
-            src={getProfilePicture(activeProfile, 'AVATAR')}
+            alt={getProfile(activeProfile)?.slug}
           />
         </Link>
         <div className="mr-2 flex flex-col items-start">
           <span className="mb-1 flex items-center space-x-1">
             <Link
-              className="flex items-center space-x-1 text-sm font-medium"
               href={`/u/${getProfile(activeProfile)?.slug}`}
+              className="flex items-center space-x-1 text-sm font-medium"
             >
               <span>{getProfile(activeProfile)?.slug}</span>
               <Badge id={activeProfile.id} />

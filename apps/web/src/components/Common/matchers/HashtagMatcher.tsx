@@ -11,6 +11,10 @@ const Hashtag = ({ ...props }: any) => {
 }
 
 export class HashtagMatcher extends Matcher {
+  replaceWith(match: string, props: any) {
+    return React.createElement(Hashtag, props, match)
+  }
+
   asTag(): string {
     return 'a'
   }
@@ -21,9 +25,5 @@ export class HashtagMatcher extends Matcher {
         display: matches[0]
       }
     })
-  }
-
-  replaceWith(match: string, props: any) {
-    return React.createElement(Hashtag, props, match)
   }
 }

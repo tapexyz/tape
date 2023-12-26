@@ -1,9 +1,9 @@
 type ReturnType = {
-  authorizationId: string
-  exp: number
-  iat: number
   id: string
   role: string
+  authorizationId: string
+  iat: number
+  exp: number
 }
 
 const decoded = (str: string): string =>
@@ -13,6 +13,6 @@ export const parseJwt = (token: string): ReturnType => {
   try {
     return JSON.parse(decoded(token.split('.')[1]))
   } catch (e) {
-    return { authorizationId: '', exp: 0, iat: 0, id: '', role: '' }
+    return { id: '', role: '', authorizationId: '', iat: 0, exp: 0 }
   }
 }

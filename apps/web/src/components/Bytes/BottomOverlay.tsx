@@ -1,6 +1,3 @@
-import type { MirrorablePublication } from '@tape.xyz/lens'
-import type { FC } from 'react'
-
 import Badge from '@components/Common/Badge'
 import FollowActions from '@components/Common/FollowActions'
 import {
@@ -9,7 +6,9 @@ import {
   getProfilePicture,
   getPublicationData
 } from '@tape.xyz/generic'
+import type { MirrorablePublication } from '@tape.xyz/lens'
 import Link from 'next/link'
+import type { FC } from 'react'
 import React from 'react'
 
 type Props = {
@@ -27,21 +26,21 @@ const BottomOverlay: FC<Props> = ({ video }) => {
       <div className="flex items-center justify-between">
         <div className="min-w-0">
           <Link
-            className="flex flex-none cursor-pointer items-center space-x-2"
             href={`/u/${getProfile(video.by)?.slug}`}
+            className="flex flex-none cursor-pointer items-center space-x-2"
           >
             <img
-              alt={getProfile(video.by)?.slug}
+              src={getProfilePicture(profile, 'AVATAR')}
               className="size-9 rounded-full"
               draggable={false}
-              src={getProfilePicture(profile, 'AVATAR')}
+              alt={getProfile(video.by)?.slug}
             />
             <div className="flex min-w-0 flex-col items-start text-white">
               <h6 className="flex max-w-full items-center space-x-1">
                 <span className="truncate">{getProfile(video.by)?.slug}</span>
                 <Badge
-                  color="text-gray-300 dark:text-gray-300"
                   id={profile?.id}
+                  color="text-gray-300 dark:text-gray-300"
                 />
               </h6>
               <span className="inline-flex items-center space-x-1 text-xs">

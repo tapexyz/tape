@@ -1,12 +1,11 @@
 import type { SVGProps } from 'react'
-
 import React from 'react'
 
 const PlusOutline = (props: SVGProps<SVGSVGElement>) => (
   <svg
     {...props}
-    fill="none"
     viewBox="0 0 22 22"
+    fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path
@@ -14,10 +13,10 @@ const PlusOutline = (props: SVGProps<SVGSVGElement>) => (
       fill="currentColor"
     />
     <path
+      fillRule="evenodd"
       clipRule="evenodd"
       d="M11 0.25C5.06294 0.25 0.25 5.06294 0.25 11C0.25 16.9371 5.06294 21.75 11 21.75C16.9371 21.75 21.75 16.9371 21.75 11C21.75 5.06294 16.9371 0.25 11 0.25ZM1.75 11C1.75 5.89137 5.89137 1.75 11 1.75C16.1086 1.75 20.25 5.89137 20.25 11C20.25 16.1086 16.1086 20.25 11 20.25C5.89137 20.25 1.75 16.1086 1.75 11Z"
       fill="currentColor"
-      fillRule="evenodd"
     />
   </svg>
 )

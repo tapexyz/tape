@@ -1,9 +1,3 @@
-import type {
-  AnyPublication,
-  MirrorablePublication,
-  PublicationRequest
-} from '@tape.xyz/lens'
-
 import {
   OG_IMAGE,
   TAPE_APP_NAME,
@@ -17,6 +11,11 @@ import {
   imageCdn,
   truncate
 } from '@tape.xyz/generic'
+import type {
+  AnyPublication,
+  MirrorablePublication,
+  PublicationRequest
+} from '@tape.xyz/lens'
 import { PublicationDocument } from '@tape.xyz/lens'
 import { apolloClient } from '@tape.xyz/lens/apollo'
 
@@ -47,19 +46,19 @@ const getPublicationOembed = async (publicationId: string, format: string) => {
 
     if (format === 'json') {
       return {
+        title,
         author_name: getProfile(video.by)?.slug,
         author_url: `${TAPE_WEBSITE_URL}/u/${getProfile(video.by)?.slug}`,
+        type: 'video',
         height: 113,
-        html: `<iframe width="200" height="113" src="${TAPE_EMBED_URL}/${video.id}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="${title}"></iframe>`,
+        width: 200,
+        version: '1.0',
         provider_name: TAPE_APP_NAME,
         provider_url: TAPE_WEBSITE_URL,
         thumbnail_height: 360,
-        thumbnail_url: thumbnail,
         thumbnail_width: 480,
-        title,
-        type: 'video',
-        version: '1.0',
-        width: 200
+        thumbnail_url: thumbnail,
+        html: `<iframe width="200" height="113" src="${TAPE_EMBED_URL}/${video.id}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen title="${title}"></iframe>`
       }
     }
     if (format === 'xml') {

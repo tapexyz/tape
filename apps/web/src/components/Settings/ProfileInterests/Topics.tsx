@@ -1,10 +1,9 @@
+import useProfileStore from '@lib/store/idb/profile'
+import { EVENTS, sanitizeProfileInterests, Tower } from '@tape.xyz/generic'
 import type {
   ProfileInterestsRequest,
   ProfileInterestTypes
 } from '@tape.xyz/lens'
-
-import useProfileStore from '@lib/store/idb/profile'
-import { EVENTS, sanitizeProfileInterests, Tower } from '@tape.xyz/generic'
 import {
   useAddProfileInterestsMutation,
   useProfileInterestsOptionsQuery,
@@ -26,16 +25,16 @@ const Topics = () => {
 
   const { cache } = useApolloClient()
   const { data, loading } = useProfileInterestsOptionsQuery({
-    skip: !activeProfile?.id,
-    variables: { request: { forProfileId: activeProfile?.id } }
+    variables: { request: { forProfileId: activeProfile?.id } },
+    skip: !activeProfile?.id
   })
   const [addProfileInterests] = useAddProfileInterestsMutation()
   const [removeProfileInterests] = useRemoveProfileInterestsMutation()
 
   const updateCache = (interests: string[]) => {
     cache.modify({
-      fields: { interests: () => interests },
-      id: `Profile:${activeProfile?.id}`
+      id: `Profile:${activeProfile?.id}`,
+      fields: { interests: () => interests }
     })
   }
 
@@ -70,6 +69,7 @@ const Topics = () => {
             <h2 className="text-sm font-bold capitalize">{category.label}</h2>
             <div className="flex flex-wrap items-center gap-2">
               <button
+                type="button"
                 className={clsx(
                   'tape-border flex items-center justify-between rounded-md px-3 py-0.5 text-sm capitalize focus:outline-none disabled:cursor-not-allowed disabled:opacity-50',
                   {
@@ -83,13 +83,17 @@ const Topics = () => {
                   selectedTopics.length === MAX_TOPICS_ALLOWED
                 }
                 onClick={() => onSelectTopic(category.id)}
-                type="button"
               >
                 {category.label}
               </button>
               {subCategories?.map(
                 (subCategory: { id: ProfileInterestTypes; label: string }) => (
                   <button
+                    type="button"
+                    disabled={
+                      !selectedTopics.includes(subCategory.id) &&
+                      selectedTopics.length === MAX_TOPICS_ALLOWED
+                    }
                     className={clsx(
                       'tape-border flex items-center justify-between rounded-md px-3 py-0.5 text-sm capitalize focus:outline-none disabled:cursor-not-allowed disabled:opacity-50',
                       {
@@ -97,13 +101,8 @@ const Topics = () => {
                           selectedTopics.includes(subCategory.id)
                       }
                     )}
-                    disabled={
-                      !selectedTopics.includes(subCategory.id) &&
-                      selectedTopics.length === MAX_TOPICS_ALLOWED
-                    }
                     key={subCategory.id}
                     onClick={() => onSelectTopic(subCategory.id)}
-                    type="button"
                   >
                     {subCategory.label}
                   </button>

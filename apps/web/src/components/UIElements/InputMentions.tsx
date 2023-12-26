@@ -1,33 +1,32 @@
-import type { Profile } from '@tape.xyz/lens'
-import type { ComponentProps, FC } from 'react'
-import type { SuggestionDataItem } from 'react-mentions'
-
 import { Text } from '@radix-ui/themes'
 import { LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
 import { getProfile, getProfilePicture } from '@tape.xyz/generic'
+import type { Profile } from '@tape.xyz/lens'
 import { LimitType, useSearchProfilesLazyQuery } from '@tape.xyz/lens'
 import clsx from 'clsx'
+import type { ComponentProps, FC } from 'react'
 import React, { useId } from 'react'
+import type { SuggestionDataItem } from 'react-mentions'
 import { Mention, MentionsInput } from 'react-mentions'
 
 import ProfileSuggestion from './ProfileSuggestion'
 
 interface Props extends ComponentProps<'textarea'> {
-  className?: string
   label?: string
-  mentionsSelector: string
-  onContentChange: (value: string) => void
   type?: string
+  className?: string
   validationError?: string
   value: string
+  onContentChange: (value: string) => void
+  mentionsSelector: string
 }
 
 const InputMentions: FC<Props> = ({
   label,
-  mentionsSelector,
-  onContentChange,
   validationError,
   value,
+  onContentChange,
+  mentionsSelector,
   ...props
 }) => {
   const id = useId()
@@ -44,8 +43,8 @@ const InputMentions: FC<Props> = ({
       const { data } = await searchProfiles({
         variables: {
           request: {
-            limit: LimitType.Ten,
             query,
+            limit: LimitType.Ten,
             where: {
               customFilters: LENS_CUSTOM_FILTERS
             }
@@ -55,11 +54,11 @@ const InputMentions: FC<Props> = ({
       if (data?.searchProfiles.__typename === 'PaginatedProfileResult') {
         const profiles = data?.searchProfiles?.items as Profile[]
         const channels = profiles?.map((profile: Profile) => ({
-          display: getProfile(profile)?.displayName,
-          followers: profile.stats.followers,
           id: profile.handle?.fullHandle,
+          display: getProfile(profile)?.displayName,
+          profileId: profile.id,
           picture: getProfilePicture(profile, 'AVATAR'),
-          profileId: profile.id
+          followers: profile.stats.followers
         }))
         callback(channels)
       }
@@ -79,21 +78,21 @@ const InputMentions: FC<Props> = ({
       )}
       <div className="flex">
         <MentionsInput
-          className={mentionsSelector}
           id={id}
-          onChange={(e) => onContentChange(e.target.value)}
-          placeholder={props.placeholder}
+          className={mentionsSelector}
           value={value}
+          placeholder={props.placeholder}
+          onChange={(e) => onContentChange(e.target.value)}
         >
           <Mention
-            appendSpaceOnAdd
-            data={fetchSuggestions}
+            trigger="@"
             displayTransform={(handle) => `@${handle} `}
             markup=" @__id__ "
+            appendSpaceOnAdd
             renderSuggestion={(
               suggestion: SuggestionDataItem & {
-                followers?: number
                 picture?: string
+                followers?: number
                 profileId?: string
               },
               _search,
@@ -102,16 +101,16 @@ const InputMentions: FC<Props> = ({
               focused
             ) => (
               <ProfileSuggestion
+                id={suggestion.profileId as string}
+                pfp={suggestion.picture as string}
+                handle={suggestion.id as string}
+                followers={suggestion.followers as number}
                 className={clsx({
                   'bg-brand-50 rounded dark:bg-black': focused
                 })}
-                followers={suggestion.followers as number}
-                handle={suggestion.id as string}
-                id={suggestion.profileId as string}
-                pfp={suggestion.picture as string}
               />
             )}
-            trigger="@"
+            data={fetchSuggestions}
           />
         </MentionsInput>
       </div>

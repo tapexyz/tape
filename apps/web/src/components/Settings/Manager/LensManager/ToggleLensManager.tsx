@@ -1,6 +1,3 @@
-import type { Profile } from '@tape.xyz/lens'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import usePendingTxn from '@hooks/usePendingTxn'
 import useProfileStore from '@lib/store/idb/profile'
@@ -18,10 +15,12 @@ import {
   getSignature,
   Tower
 } from '@tape.xyz/generic'
+import type { Profile } from '@tape.xyz/lens'
 import {
   useBroadcastOnchainMutation,
   useCreateChangeProfileManagersTypedDataMutation
 } from '@tape.xyz/lens'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -46,16 +45,16 @@ const ToggleLensManager = () => {
     onError
   })
 
-  const { data: writeData, write } = useContractWrite({
-    abi: LENSHUB_PROXY_ABI,
+  const { write, data: writeData } = useContractWrite({
     address: LENSHUB_PROXY_ADDRESS,
+    abi: LENSHUB_PROXY_ABI,
     functionName: 'changeDelegatedExecutorsConfig',
+    onSuccess: () => {
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
+    },
     onError: (error) => {
       onError(error)
       setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
-    },
-    onSuccess: () => {
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
     }
   })
 
@@ -89,10 +88,10 @@ const ToggleLensManager = () => {
     onCompleted: async ({ createChangeProfileManagersTypedData }) => {
       const { id, typedData } = createChangeProfileManagersTypedData
       const {
+        delegatorProfileId,
+        delegatedExecutors,
         approvals,
         configNumber,
-        delegatedExecutors,
-        delegatorProfileId,
         switchToGivenConfig
       } = typedData.value
       const args = [
@@ -148,10 +147,10 @@ const ToggleLensManager = () => {
   return (
     <Button
       color={isLensManagerEnabled ? 'red' : 'gray'}
-      disabled={loading}
       highContrast={!isLensManagerEnabled}
-      onClick={onClick}
       variant="surface"
+      onClick={onClick}
+      disabled={loading}
     >
       {loading && <Loader size="sm" />}
       {getButtonText()}

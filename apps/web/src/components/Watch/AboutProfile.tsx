@@ -1,14 +1,13 @@
-import type { MirrorablePublication, VideoMetadataV3 } from '@tape.xyz/lens'
-import type { FC } from 'react'
-
 import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
 import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import TagOutline from '@components/Common/Icons/TagOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import { getDateString, getRelativeTime } from '@lib/formatTime'
 import { getCategoryName, getPublicationData } from '@tape.xyz/generic'
+import type { MirrorablePublication, VideoMetadataV3 } from '@tape.xyz/lens'
 import clsx from 'clsx'
 import Link from 'next/link'
+import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 
 type Props = {
@@ -40,9 +39,9 @@ const AboutProfile: FC<Props> = ({ video }) => {
         {showMore && (
           <div className="mt-3 inline-flex">
             <button
-              className="flex items-center text-sm opacity-80 outline-none hover:opacity-100"
-              onClick={() => setClamped(!clamped)}
               type="button"
+              onClick={() => setClamped(!clamped)}
+              className="flex items-center text-sm opacity-80 outline-none hover:opacity-100"
             >
               {clamped ? (
                 <>
@@ -60,8 +59,8 @@ const AboutProfile: FC<Props> = ({ video }) => {
           {video?.metadata?.tags && (
             <>
               <Link
-                className="flex items-center space-x-1"
                 href={`/explore/${video.metadata.tags[0]}`}
+                className="flex items-center space-x-1"
               >
                 <TagOutline className="size-4" />
                 <span className="whitespace-nowrap">

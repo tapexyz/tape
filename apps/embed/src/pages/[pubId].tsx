@@ -1,10 +1,9 @@
-import type { AnyPublication, PublicationRequest } from '@tape.xyz/lens'
-import type { GetServerSideProps } from 'next'
-
 import Publication from '@components/Publication'
 import { getPublication, isListenable, isWatchable } from '@tape.xyz/generic'
+import type { AnyPublication, PublicationRequest } from '@tape.xyz/lens'
 import { PublicationDocument } from '@tape.xyz/lens'
 import { apolloClient } from '@tape.xyz/lens/apollo'
+import type { GetServerSideProps } from 'next'
 
 export default Publication
 

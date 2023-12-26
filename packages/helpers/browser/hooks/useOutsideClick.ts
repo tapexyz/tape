@@ -1,5 +1,4 @@
 import type { RefObject } from 'react'
-
 import { useEffect } from 'react'
 
 type AnyEvent = MouseEvent | TouchEvent

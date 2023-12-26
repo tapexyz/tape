@@ -1,9 +1,3 @@
-import type {
-  AnyPublication,
-  ExplorePublicationRequest,
-  PrimaryPublication
-} from '@tape.xyz/lens'
-
 import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
 import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import MetaTags from '@components/Common/MetaTags'
@@ -15,6 +9,11 @@ import {
   TAPE_APP_ID
 } from '@tape.xyz/constants'
 import { EVENTS, Tower } from '@tape.xyz/generic'
+import type {
+  AnyPublication,
+  ExplorePublicationRequest,
+  PrimaryPublication
+} from '@tape.xyz/lens'
 import {
   ExplorePublicationsOrderByType,
   ExplorePublicationType,
@@ -33,16 +32,16 @@ import ByteVideo from './ByteVideo'
 import { KeyboardControls, WheelControls } from './SliderPlugin'
 
 const request: ExplorePublicationRequest = {
-  limit: LimitType.Fifty,
-  orderBy: ExplorePublicationsOrderByType.LensCurated,
   where: {
-    customFilters: LENS_CUSTOM_FILTERS,
+    publicationTypes: [ExplorePublicationType.Post],
     metadata: {
       mainContentFocus: [PublicationMetadataMainFocusType.ShortVideo],
       publishedOn: [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID]
     },
-    publicationTypes: [ExplorePublicationType.Post]
-  }
+    customFilters: LENS_CUSTOM_FILTERS
+  },
+  orderBy: ExplorePublicationsOrderByType.LensCurated,
+  limit: LimitType.Fifty
 }
 
 const Bytes = () => {
@@ -51,8 +50,8 @@ const Bytes = () => {
 
   const [sliderRef, { current: slider }] = useKeenSlider(
     {
-      slides: { perView: 1, spacing: 10 },
-      vertical: true
+      vertical: true,
+      slides: { perView: 1, spacing: 10 }
     },
     [WheelControls, KeyboardControls]
   )
@@ -62,8 +61,11 @@ const Bytes = () => {
     { data: singleByteData, loading: singleByteLoading }
   ] = usePublicationLazyQuery()
 
-  const [fetchAllBytes, { data, error, fetchMore, loading }] =
+  const [fetchAllBytes, { data, loading, error, fetchMore }] =
     useExplorePublicationsLazyQuery({
+      variables: {
+        request
+      },
       onCompleted: ({ explorePublications }) => {
         const items = explorePublications?.items as unknown as AnyPublication[]
         const publicationId = router.query.id
@@ -71,9 +73,6 @@ const Bytes = () => {
           const nextUrl = `${location.origin}/bytes/${items[0]?.id}`
           history.pushState({ path: nextUrl }, '', nextUrl)
         }
-      },
-      variables: {
-        request
       }
     })
 
@@ -87,11 +86,11 @@ const Bytes = () => {
       return fetchAllBytes()
     }
     await fetchPublication({
-      fetchPolicy: 'network-only',
-      onCompleted: () => fetchAllBytes(),
       variables: {
         request: { forId: publicationId }
-      }
+      },
+      onCompleted: () => fetchAllBytes(),
+      fetchPolicy: 'network-only'
     })
   }
 
@@ -104,6 +103,8 @@ const Bytes = () => {
   }, [router.isReady])
 
   const { observe } = useInView({
+    threshold: 0.25,
+    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
     onEnter: async () => {
       await fetchMore({
         variables: {
@@ -113,9 +114,7 @@ const Bytes = () => {
           }
         }
       })
-    },
-    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
-    threshold: 0.25
+    }
   })
 
   if (loading || singleByteLoading) {
@@ -138,30 +137,30 @@ const Bytes = () => {
     <div className="relative h-[calc(100vh-7rem)] overflow-y-hidden focus-visible:outline-none md:h-[calc(100vh-4rem)]">
       <MetaTags title="Bytes" />
       <div
-        className="keen-slider h-[calc(100vh-7rem)] snap-y snap-mandatory focus-visible:outline-none md:h-[calc(100vh-4rem)]"
         ref={sliderRef}
+        className="keen-slider h-[calc(100vh-7rem)] snap-y snap-mandatory focus-visible:outline-none md:h-[calc(100vh-4rem)]"
       >
         {singleByte && (
           <ByteVideo
+            video={singleByte}
             currentViewingId={currentViewingId}
             intersectionCallback={(id) => setCurrentViewingId(id)}
-            video={singleByte}
           />
         )}
         {bytes?.map(
           (video, index) =>
             singleByte?.id !== video.id && (
               <ByteVideo
+                video={video}
                 currentViewingId={currentViewingId}
                 intersectionCallback={(id) => setCurrentViewingId(id)}
                 key={`${video?.id}_${index}`}
-                video={video}
               />
             )
         )}
       </div>
       {pageInfo?.next && (
-        <span className="flex justify-center p-10" ref={observe}>
+        <span ref={observe} className="flex justify-center p-10">
           <Loader />
         </span>
       )}

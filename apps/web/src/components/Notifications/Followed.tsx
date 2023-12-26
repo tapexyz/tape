@@ -1,9 +1,8 @@
-import type { FollowNotification, Profile } from '@tape.xyz/lens'
-import type { FC } from 'react'
-
 import HoverableProfile from '@components/Common/HoverableProfile'
 import FollowOutline from '@components/Common/Icons/FollowOutline'
 import { getProfile, getProfilePicture } from '@tape.xyz/generic'
+import type { FollowNotification, Profile } from '@tape.xyz/lens'
+import type { FC } from 'react'
 import React from 'react'
 
 type Props = {
@@ -19,12 +18,12 @@ const Followed: FC<Props> = ({ notification: { followers } }) => {
       <div>
         <span className="flex -space-x-1.5">
           {followers.slice(0, 30).map((profile: Profile) => (
-            <HoverableProfile key={profile?.id} profile={profile}>
+            <HoverableProfile profile={profile} key={profile?.id}>
               <img
-                alt={getProfile(profile)?.displayName}
                 className="size-7 rounded-full border dark:border-gray-700/80"
-                draggable={false}
                 src={getProfilePicture(profile, 'AVATAR')}
+                draggable={false}
+                alt={getProfile(profile)?.displayName}
               />
             </HoverableProfile>
           ))}

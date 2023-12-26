@@ -1,6 +1,3 @@
-import type { Profile, ProfileRequest } from '@tape.xyz/lens'
-import type { NextApiResponse } from 'next'
-
 import { getMetaTags } from '@tape.xyz/browser'
 import {
   LENS_NAMESPACE_PREFIX,
@@ -9,8 +6,10 @@ import {
   TAPE_APP_NAME
 } from '@tape.xyz/constants'
 import { getProfile, getProfilePicture } from '@tape.xyz/generic'
+import type { Profile, ProfileRequest } from '@tape.xyz/lens'
 import { ProfileDocument } from '@tape.xyz/lens'
 import { apolloClient } from '@tape.xyz/lens/apollo'
+import type { NextApiResponse } from 'next'
 
 const client = apolloClient()
 
@@ -38,19 +37,19 @@ const getProfileMeta = async (res: NextApiResponse, reqHandle: string) => {
       .setHeader('Cache-Control', 's-maxage=86400')
       .send(
         getMetaTags({
+          title,
           description: description.replaceAll('\n', ' '),
-          handle,
           image,
           page: 'PROFILE',
-          title
+          handle
         })
       )
   } catch {
     return res.setHeader('Content-Type', 'text/html').send(
       getMetaTags({
+        title: TAPE_APP_NAME,
         description: TAPE_APP_DESCRIPTION,
-        image: OG_IMAGE,
-        title: TAPE_APP_NAME
+        image: OG_IMAGE
       })
     )
   }

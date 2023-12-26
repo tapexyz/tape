@@ -1,7 +1,3 @@
-import type { Profile } from '@tape.xyz/lens'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import type { FC } from 'react'
-
 import { Countdown } from '@components/UIElements/CountDown'
 import useProfileStore from '@lib/store/idb/profile'
 import { Button } from '@radix-ui/themes'
@@ -11,9 +7,12 @@ import {
   LENSHUB_PROXY_ADDRESS,
   SIGN_IN_REQUIRED
 } from '@tape.xyz/constants'
+import type { Profile } from '@tape.xyz/lens'
 import { useProfileLazyQuery } from '@tape.xyz/lens'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
 import clsx from 'clsx'
+import type { FC } from 'react'
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork'
@@ -29,15 +28,15 @@ const Guardian: FC = () => {
   const handleWrongNetwork = useHandleWrongNetwork()
 
   const [fetchProfile] = useProfileLazyQuery({
+    variables: {
+      request: {
+        forHandle: activeProfile?.handle?.fullHandle
+      }
+    },
     fetchPolicy: 'no-cache',
     onCompleted: ({ profile }) => {
       if (profile) {
         setActiveProfile(profile as Profile)
-      }
-    },
-    variables: {
-      request: {
-        forHandle: activeProfile?.handle?.fullHandle
       }
     }
   })
@@ -48,15 +47,15 @@ const Guardian: FC = () => {
   }
 
   const { data: disableData, write: disableWrite } = useContractWrite({
-    abi: LENSHUB_PROXY_ABI,
     address: LENSHUB_PROXY_ADDRESS,
+    abi: LENSHUB_PROXY_ABI,
     functionName: 'DANGER__disableTokenGuardian',
     onError
   })
 
   const { data: enableData, write: enableWrite } = useContractWrite({
-    abi: LENSHUB_PROXY_ABI,
     address: LENSHUB_PROXY_ADDRESS,
+    abi: LENSHUB_PROXY_ABI,
     functionName: 'enableTokenGuardian',
     onError
   })
@@ -135,8 +134,8 @@ const Guardian: FC = () => {
           <span className="flex items-center space-x-2">
             <span>Cooldown period ends in: </span>
             <Countdown
-              endText="Cooldown period ended"
               timestamp={activeProfile?.guardian?.cooldownEndsOn}
+              endText="Cooldown period ended"
             />
           </span>
         )}
@@ -147,10 +146,10 @@ const Guardian: FC = () => {
           </Button>
         ) : (
           <Button
+            variant="surface"
             disabled={loading}
             highContrast
             onClick={() => toggle()}
-            variant="surface"
           >
             {loading && <Loader size="sm" />}
             {loading ? 'Enabling' : 'Enable'}

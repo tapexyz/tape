@@ -27,8 +27,8 @@ const Deployment = () => {
         <span className="rounded-lg bg-gray-200 bg-opacity-70 p-1 px-3 text-xs backdrop-blur-xl dark:bg-black">
           <Link
             href={`https://github.com/tapexyz/tape/commit/${GIT_DEPLOYED_COMMIT_SHA}`}
-            rel="noreferer noreferrer"
             target="_blank"
+            rel="noreferer noreferrer"
           >
             {GIT_DEPLOYED_COMMIT_SHA?.substring(0, 6)}
           </Link>

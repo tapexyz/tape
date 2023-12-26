@@ -1,7 +1,3 @@
-import type { CreateUnfollowBroadcastItemResult, Profile } from '@tape.xyz/lens'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import type { FC } from 'react'
-
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import useProfileStore from '@lib/store/idb/profile'
 import useNonceStore from '@lib/store/nonce'
@@ -19,30 +15,33 @@ import {
   getSignature,
   Tower
 } from '@tape.xyz/generic'
+import type { CreateUnfollowBroadcastItemResult, Profile } from '@tape.xyz/lens'
 import {
   useBroadcastOnchainMutation,
   useCreateUnfollowTypedDataMutation,
   useUnfollowMutation
 } from '@tape.xyz/lens'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
+import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
 type Props = {
-  onUnSubscribe: () => void
   profile: Profile
-  showText?: boolean
-
+  onUnSubscribe: () => void
   size?: '1' | '2' | '3'
+
+  showText?: boolean
 }
 
-const UnFollow: FC<Props> = ({ onUnSubscribe, profile, size = '2' }) => {
+const UnFollow: FC<Props> = ({ profile, onUnSubscribe, size = '2' }) => {
   const [loading, setLoading] = useState(false)
 
   const { activeProfile } = useProfileStore()
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
-  const { canBroadcast, canUseLensManager } =
+  const { canUseLensManager, canBroadcast } =
     checkLensManagerPermissions(activeProfile)
 
   const handleWrongNetwork = useHandleWrongNetwork()
@@ -76,16 +75,16 @@ const UnFollow: FC<Props> = ({ onUnSubscribe, profile, size = '2' }) => {
   })
 
   const { write } = useContractWrite({
-    abi: LENSHUB_PROXY_ABI,
     address: LENSHUB_PROXY_ADDRESS,
+    abi: LENSHUB_PROXY_ABI,
     functionName: 'burn',
-    onError,
-    onSuccess: () => onCompleted()
+    onSuccess: () => onCompleted(),
+    onError
   })
 
   const [createUnfollowTypedData] = useCreateUnfollowTypedDataMutation({
     onCompleted: async ({ createUnfollowTypedData }) => {
-      const { id, typedData } =
+      const { typedData, id } =
         createUnfollowTypedData as CreateUnfollowBroadcastItemResult
       const { idsOfProfilesToUnfollow, unfollowerProfileId } = typedData.value
       const args = [unfollowerProfileId, idsOfProfilesToUnfollow]
@@ -143,10 +142,10 @@ const UnFollow: FC<Props> = ({ onUnSubscribe, profile, size = '2' }) => {
 
   return (
     <Button
-      disabled={loading}
-      highContrast
-      onClick={() => unfollow()}
       size={size}
+      onClick={() => unfollow()}
+      highContrast
+      disabled={loading}
     >
       {loading && <Loader size="sm" />}
       Unfollow

@@ -1,13 +1,13 @@
 import { create } from 'zustand'
 
 interface State {
-  setShowSwitchNetwork: (value: boolean) => void
   showSwitchNetwork: boolean
+  setShowSwitchNetwork: (value: boolean) => void
 }
 
 const useNetworkStore = create<State>((set) => ({
-  setShowSwitchNetwork: (showSwitchNetwork) => set({ showSwitchNetwork }),
-  showSwitchNetwork: false
+  showSwitchNetwork: false,
+  setShowSwitchNetwork: (showSwitchNetwork) => set({ showSwitchNetwork })
 }))
 
 export default useNetworkStore

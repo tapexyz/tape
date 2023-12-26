@@ -1,6 +1,3 @@
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import type { z } from 'zod'
-
 import WarningOutline from '@components/Common/Icons/WarningOutline'
 import { Input } from '@components/UIElements/Input'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -9,11 +6,13 @@ import { Button, Callout, Text } from '@radix-ui/themes'
 import { COMMON_REGEX, ERROR_MESSAGE, IS_MAINNET } from '@tape.xyz/constants'
 import { shortenAddress } from '@tape.xyz/generic'
 import { useCreateProfileWithHandleMutation } from '@tape.xyz/lens'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { useAccount } from 'wagmi'
+import type { z } from 'zod'
 import { object, string } from 'zod'
 
 const formSchema = object({
@@ -28,9 +27,9 @@ type FormData = z.infer<typeof formSchema>
 
 const Signup = ({ onSuccess }: { onSuccess: () => void }) => {
   const {
+    register,
     formState: { errors },
     handleSubmit,
-    register,
     reset
   } = useForm<FormData>({
     resolver: zodResolver(formSchema)
@@ -46,6 +45,7 @@ const Signup = ({ onSuccess }: { onSuccess: () => void }) => {
 
   const [createProfileWithHandle, { data }] =
     useCreateProfileWithHandleMutation({
+      onError,
       onCompleted: ({ createProfileWithHandle }) => {
         if (
           createProfileWithHandle.__typename ===
@@ -54,11 +54,10 @@ const Signup = ({ onSuccess }: { onSuccess: () => void }) => {
           setCreating(false)
           toast.error(createProfileWithHandle.reason)
         }
-      },
-      onError
+      }
     })
 
-  const { error, indexed } = usePendingTxn({
+  const { indexed, error } = usePendingTxn({
     txId:
       data?.createProfileWithHandle.__typename === 'RelaySuccess'
         ? data?.createProfileWithHandle?.txId
@@ -99,12 +98,12 @@ const Signup = ({ onSuccess }: { onSuccess: () => void }) => {
             Create Profile
           </Text>
           <form
-            className="flex justify-end space-x-2"
             onSubmit={handleSubmit(signup)}
+            className="flex justify-end space-x-2"
           >
             <Input
-              autoComplete="off"
               placeholder="gilfoyle"
+              autoComplete="off"
               validationError={errors.handle?.message}
               {...register('handle')}
             />

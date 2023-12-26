@@ -1,5 +1,3 @@
-import type { Profile } from '@tape.xyz/lens'
-
 import KeyOutline from '@components/Common/Icons/KeyOutline'
 import { signIn, signOut } from '@lib/store/auth'
 import useProfileStore from '@lib/store/idb/profile'
@@ -12,6 +10,7 @@ import {
   logger,
   Tower
 } from '@tape.xyz/generic'
+import type { Profile } from '@tape.xyz/lens'
 import {
   LimitType,
   useAuthenticateMutation,
@@ -49,17 +48,17 @@ const Authenticate = () => {
     loading: profilesLoading,
     refetch
   } = useProfilesManagedQuery({
+    variables: {
+      request: { for: address, includeOwned: true, limit: LimitType.Fifty }
+    },
     notifyOnNetworkStatusChange: true,
+    skip: !address,
     onCompleted: (data) => {
       const profiles = data?.profilesManaged.items
       if (profiles?.length) {
         const profile = [...profiles].reverse()[0]
         setSelectedProfileId(as || profile.id)
       }
-    },
-    skip: !address,
-    variables: {
-      request: { for: address, includeOwned: true, limit: LimitType.Fifty }
     }
   })
 
@@ -130,8 +129,8 @@ const Authenticate = () => {
       Tower.track(EVENTS.AUTH.SIGN_IN_WITH_LENS)
     } catch (error) {
       logger.error('[Error Sign In]', {
-        connector: connector?.name,
-        error
+        error,
+        connector: connector?.name
       })
     } finally {
       setLoading(false)
@@ -167,20 +166,20 @@ const Authenticate = () => {
         <Flex direction="column" gap="2">
           <Select.Root
             defaultValue={as ?? profile?.id}
-            onValueChange={(value) => setSelectedProfileId(value)}
             value={selectedProfileId}
+            onValueChange={(value) => setSelectedProfileId(value)}
           >
             <Select.Trigger className="w-full" />
             <Select.Content highContrast>
               {reversedProfilesManaged?.map((profile) => (
                 <Select.Item key={profile.id} value={profile.id}>
-                  <Flex align="center" gap="2">
+                  <Flex gap="2" align="center">
                     <Avatar
-                      alt={getProfile(profile)?.displayName}
+                      src={getProfilePicture(profile, 'AVATAR')}
                       fallback={getProfile(profile)?.displayName[0] ?? ';)'}
                       radius="full"
                       size="1"
-                      src={getProfilePicture(profile, 'AVATAR')}
+                      alt={getProfile(profile)?.displayName}
                     />
                     <Text>{getProfile(profile)?.slugWithPrefix}</Text>
                   </Flex>
@@ -190,9 +189,9 @@ const Authenticate = () => {
           </Select.Root>
           <Button
             className="w-full"
-            disabled={loading || !selectedProfileId}
             highContrast
             onClick={handleSign}
+            disabled={loading || !selectedProfileId}
           >
             <KeyOutline className="size-4" />
             Sign message

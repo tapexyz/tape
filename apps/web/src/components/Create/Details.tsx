@@ -1,6 +1,3 @@
-import type { FC } from 'react'
-import type { z } from 'zod'
-
 import EmojiPicker from '@components/UIElements/EmojiPicker'
 import InputMentions from '@components/UIElements/InputMentions'
 import Tooltip from '@components/UIElements/Tooltip'
@@ -10,9 +7,11 @@ import useCollectStore from '@lib/store/idb/collect'
 import { Button, Flex, Switch, Text } from '@radix-ui/themes'
 import { checkIsBytesVideo } from '@tape.xyz/generic'
 import clsx from 'clsx'
+import type { FC } from 'react'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 import { toast } from 'react-hot-toast'
+import type { z } from 'zod'
 import { boolean, object, string } from 'zod'
 
 import CollectModule from './CollectModule'
@@ -23,25 +22,25 @@ import ReferenceModule from './ReferenceModule'
 import SelectedMedia from './SelectedMedia'
 
 const formSchema = object({
+  title: string()
+    .trim()
+    .min(5, { message: `Title should be atleast 5 characters` })
+    .max(100, { message: `Title should not exceed 100 characters` }),
   description: string()
     .trim()
     .min(5, { message: `Description should be atleast 5 characters` })
     .max(5000, { message: `Description should not exceed 5000 characters` }),
-  isSensitiveContent: boolean(),
-  title: string()
-    .trim()
-    .min(5, { message: `Title should be atleast 5 characters` })
-    .max(100, { message: `Title should not exceed 100 characters` })
+  isSensitiveContent: boolean()
 })
 
 export type VideoFormData = z.infer<typeof formSchema>
 
 type Props = {
-  onCancel: () => void
   onUpload: (data: VideoFormData) => void
+  onCancel: () => void
 }
 
-const Details: FC<Props> = ({ onCancel, onUpload }) => {
+const Details: FC<Props> = ({ onUpload, onCancel }) => {
   const uploadedMedia = useAppStore((state) => state.uploadedMedia)
   const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
   const persistedCollectModule = useCollectStore((state) => state.collectModule)
@@ -49,19 +48,19 @@ const Details: FC<Props> = ({ onCancel, onUpload }) => {
   const isByteSizeVideo = checkIsBytesVideo(uploadedMedia.durationInSeconds)
 
   const {
-    clearErrors,
-    formState: { errors },
-    getValues,
     handleSubmit,
+    getValues,
+    formState: { errors },
     setValue,
-    watch
+    watch,
+    clearErrors
   } = useForm<VideoFormData>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
-      description: uploadedMedia.description,
       isSensitiveContent: uploadedMedia.isSensitiveContent ?? false,
-      title: uploadedMedia.title
-    },
-    resolver: zodResolver(formSchema)
+      title: uploadedMedia.title,
+      description: uploadedMedia.description
+    }
   })
 
   const onSubmitForm = (data: VideoFormData) => {
@@ -91,16 +90,16 @@ const Details: FC<Props> = ({ onCancel, onUpload }) => {
           <div>
             <div className="relative">
               <InputMentions
-                autoComplete="off"
                 label="Title"
-                mentionsSelector="input-mentions-single"
+                placeholder="Title that describes your content"
+                autoComplete="off"
+                validationError={errors.title?.message}
+                value={watch('title')}
                 onContentChange={(value) => {
                   setValue('title', value)
                   clearErrors('title')
                 }}
-                placeholder="Title that describes your content"
-                validationError={errors.title?.message}
-                value={watch('title')}
+                mentionsSelector="input-mentions-single"
               />
               <div className="absolute right-1 top-0 mt-1 flex items-center justify-end">
                 <span
@@ -117,17 +116,17 @@ const Details: FC<Props> = ({ onCancel, onUpload }) => {
             </div>
             <div className="relative mt-4">
               <InputMentions
-                autoComplete="off"
                 label="Description"
-                mentionsSelector="input-mentions-textarea"
+                placeholder="Describe more about your content, can also be @profile, #hashtags or chapters (00:20 - Intro)"
+                autoComplete="off"
+                validationError={errors.description?.message}
+                value={watch('description')}
                 onContentChange={(value) => {
                   setValue('description', value)
                   clearErrors('description')
                 }}
-                placeholder="Describe more about your content, can also be @profile, #hashtags or chapters (00:20 - Intro)"
                 rows={5}
-                validationError={errors.description?.message}
-                value={watch('description')}
+                mentionsSelector="input-mentions-textarea"
               />
               <div className="absolute right-2 top-8">
                 <EmojiPicker
@@ -166,10 +165,10 @@ const Details: FC<Props> = ({ onCancel, onUpload }) => {
 
             <div className="mt-4">
               <Text as="label">
-                <Flex align="center" gap="2">
+                <Flex gap="2" align="center">
                   <Switch
-                    checked={!uploadedMedia.collectModule.isRevertCollect}
                     highContrast
+                    checked={!uploadedMedia.collectModule.isRevertCollect}
                     onCheckedChange={(canCollect) =>
                       setUploadedMedia({
                         collectModule: persistedCollectModule ?? {
@@ -189,8 +188,8 @@ const Details: FC<Props> = ({ onCancel, onUpload }) => {
 
             {uploadedMedia.file && uploadedMedia.type === 'VIDEO' ? (
               <Tooltip
-                content="Please note that only videos under 2 minutes in length can be uploaded as bytes"
                 visible={!isByteSizeVideo}
+                content="Please note that only videos under 2 minutes in length can be uploaded as bytes"
               >
                 <div
                   className={clsx(
@@ -199,10 +198,10 @@ const Details: FC<Props> = ({ onCancel, onUpload }) => {
                   )}
                 >
                   <Text as="label">
-                    <Flex align="center" gap="2">
+                    <Flex gap="2" align="center">
                       <Switch
-                        checked={Boolean(uploadedMedia.isByteVideo)}
                         highContrast
+                        checked={Boolean(uploadedMedia.isByteVideo)}
                         onCheckedChange={(b) => toggleUploadAsByte(b)}
                       />
                       Upload this video as short-form bytes
@@ -214,10 +213,10 @@ const Details: FC<Props> = ({ onCancel, onUpload }) => {
 
             <div className="mt-2">
               <Text as="label">
-                <Flex align="center" gap="2">
+                <Flex gap="2" align="center">
                   <Switch
-                    checked={Boolean(watch('isSensitiveContent'))}
                     highContrast
+                    checked={Boolean(watch('isSensitiveContent'))}
                     onCheckedChange={(value) =>
                       setValue('isSensitiveContent', value)
                     }
@@ -231,21 +230,21 @@ const Details: FC<Props> = ({ onCancel, onUpload }) => {
       </div>
       <div className="mt-4 flex items-center justify-end space-x-2">
         <Button
+          type="button"
           color="gray"
+          variant="soft"
           disabled={uploadedMedia.loading}
           onClick={() => onCancel()}
-          type="button"
-          variant="soft"
         >
           Reset
         </Button>
         <Button
+          highContrast
           disabled={
             uploadedMedia.loading ||
             uploadedMedia.uploadingThumbnail ||
             uploadedMedia.durationInSeconds === 0
           }
-          highContrast
           type="submit"
         >
           {uploadedMedia.uploadingThumbnail

@@ -1,6 +1,3 @@
-import type { PrimaryPublication } from '@tape.xyz/lens'
-import type { FC } from 'react'
-
 import InterweaveContent from '@components/Common/InterweaveContent'
 import { CardShimmer } from '@components/Shimmers/VideoCardShimmer'
 import useAppStore from '@lib/store'
@@ -15,7 +12,9 @@ import {
   imageCdn,
   sanitizeDStorageUrl
 } from '@tape.xyz/generic'
+import type { PrimaryPublication } from '@tape.xyz/lens'
 import dynamic from 'next/dynamic'
+import type { FC } from 'react'
 import React from 'react'
 
 import PublicationActions from '../Common/Publication/PublicationActions'
@@ -53,16 +52,16 @@ const Video: FC<Props> = ({ video }) => {
       <div className="rounded-large overflow-hidden">
         <VideoPlayer
           address={activeProfile?.ownedBy.address}
-          currentTime={videoWatchTime}
-          isSensitiveContent={isSensitiveContent}
-          options={{
-            isCurrentlyShown: true,
-            loadingSpinner: true
-          }}
-          posterUrl={thumbnailUrl}
           refCallback={refCallback}
-          shouldUpload={getShouldUploadVideo(video)}
+          currentTime={videoWatchTime}
           url={videoUrl}
+          posterUrl={thumbnailUrl}
+          options={{
+            loadingSpinner: true,
+            isCurrentlyShown: true
+          }}
+          isSensitiveContent={isSensitiveContent}
+          shouldUpload={getShouldUploadVideo(video)}
         />
       </div>
       <div className="flex items-center justify-between pb-2">

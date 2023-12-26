@@ -1,5 +1,3 @@
-import type { Notification, NotificationRequest } from '@tape.xyz/lens'
-
 import MetaTags from '@components/Common/MetaTags'
 import NotificationsShimmer from '@components/Shimmers/NotificationsShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
@@ -13,6 +11,7 @@ import {
   TAPE_APP_ID
 } from '@tape.xyz/constants'
 import { EVENTS, Tower } from '@tape.xyz/generic'
+import type { Notification, NotificationRequest } from '@tape.xyz/lens'
 import { useNotificationsQuery } from '@tape.xyz/lens'
 import { CustomNotificationsFilterEnum } from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
@@ -50,17 +49,18 @@ const Notifications = () => {
     }
   }
 
-  const { data, fetchMore, loading } = useNotificationsQuery({
-    onCompleted: () => setHasNewNotification(false),
+  const { data, loading, fetchMore } = useNotificationsQuery({
     variables: {
       request
-    }
+    },
+    onCompleted: () => setHasNewNotification(false)
   })
 
   const notifications = data?.notifications?.items as Notification[]
   const pageInfo = data?.notifications?.pageInfo
 
   const { observe } = useInView({
+    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
     onEnter: async () => {
       await fetchMore({
         variables: {
@@ -70,8 +70,7 @@ const Notifications = () => {
           }
         }
       })
-    },
-    rootMargin: INFINITE_SCROLL_ROOT_MARGIN
+    }
   })
 
   return (
@@ -112,7 +111,7 @@ const Notifications = () => {
           </div>
         ))}
         {pageInfo?.next && (
-          <span className="flex justify-center p-10" ref={observe}>
+          <span ref={observe} className="flex justify-center p-10">
             <Loader />
           </span>
         )}

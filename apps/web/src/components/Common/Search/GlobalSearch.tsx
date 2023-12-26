@@ -1,10 +1,3 @@
-import type {
-  PrimaryPublication,
-  Profile,
-  ProfileSearchRequest,
-  PublicationSearchRequest
-} from '@tape.xyz/lens'
-
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { IconButton, ScrollArea, Text, TextField } from '@radix-ui/themes'
 import { useDebounce, useOutsideClick } from '@tape.xyz/browser'
@@ -15,6 +8,12 @@ import {
   TAPE_APP_ID
 } from '@tape.xyz/constants'
 import { EVENTS, Tower } from '@tape.xyz/generic'
+import type {
+  PrimaryPublication,
+  Profile,
+  ProfileSearchRequest,
+  PublicationSearchRequest
+} from '@tape.xyz/lens'
 import {
   LimitType,
   PublicationMetadataMainFocusType,
@@ -53,7 +52,6 @@ const GlobalSearch = () => {
     limit: LimitType.Ten,
     query: keyword,
     where: {
-      customFilters: LENS_CUSTOM_FILTERS,
       metadata: {
         mainContentFocus: [
           PublicationMetadataMainFocusType.Video,
@@ -61,7 +59,8 @@ const GlobalSearch = () => {
         ],
         publishedOn: [TAPE_APP_ID, LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID]
       },
-      publicationTypes: [SearchPublicationType.Post]
+      publicationTypes: [SearchPublicationType.Post],
+      customFilters: LENS_CUSTOM_FILTERS
     }
   }
 
@@ -100,10 +99,10 @@ const GlobalSearch = () => {
 
   const Trigger = () => (
     <IconButton
-      highContrast
       onClick={() => setShowSearchBar(true)}
       radius="full"
       variant="soft"
+      highContrast
     >
       <SearchOutline className="size-3.5" />
       <span className="sr-only">Search</span>
@@ -118,13 +117,13 @@ const GlobalSearch = () => {
           <span className="sr-only">Search</span>
         </TextField.Slot>
         <TextField.Input
-          autoFocus
-          onChange={(event) => setKeyword(event.target.value)}
-          placeholder="Search"
           radius="full"
+          autoFocus
+          variant="surface"
           type="search"
           value={keyword}
-          variant="surface"
+          onChange={(event) => setKeyword(event.target.value)}
+          placeholder="Search"
         />
       </TextField.Root>
       <div
@@ -134,9 +133,9 @@ const GlobalSearch = () => {
         )}
       >
         <ScrollArea
-          scrollbars="vertical"
-          style={{ maxHeight: '80vh' }}
           type="hover"
+          style={{ maxHeight: '80vh' }}
+          scrollbars="vertical"
         >
           <div className="p-4">
             {profilesLoading || publicationsLoading ? (
@@ -149,9 +148,9 @@ const GlobalSearch = () => {
                   <Text weight="bold">Creators</Text>
                   {profiles?.length ? (
                     <Profiles
-                      clearSearch={() => setKeyword('')}
-                      loading={profilesLoading}
                       results={profiles}
+                      loading={profilesLoading}
+                      clearSearch={() => setKeyword('')}
                     />
                   ) : (
                     <NoDataFound isCenter />
@@ -161,9 +160,9 @@ const GlobalSearch = () => {
                   <Text weight="bold">Releases</Text>
                   {publications?.length ? (
                     <Publications
-                      clearSearch={() => setKeyword('')}
-                      loading={publicationsLoading}
                       results={publications}
+                      loading={publicationsLoading}
+                      clearSearch={() => setKeyword('')}
                     />
                   ) : (
                     <NoDataFound isCenter />

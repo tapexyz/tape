@@ -1,6 +1,3 @@
-import type { PrimaryPublication } from '@tape.xyz/lens'
-import type { FC } from 'react'
-
 import { useCopyToClipboard } from '@tape.xyz/browser'
 import {
   STATIC_ASSETS,
@@ -14,7 +11,9 @@ import {
   getPublicationData,
   Tower
 } from '@tape.xyz/generic'
+import type { PrimaryPublication } from '@tape.xyz/lens'
 import Link from 'next/link'
+import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 
 import CopyOutline from './icons/CopyOutline'
@@ -56,26 +55,26 @@ const TopOverlay: FC<OverlayProps> = ({ playerRef, video }) => {
             <Link
               className="mr-3 flex-none cursor-pointer"
               href={`${TAPE_WEBSITE_URL}/u/${getProfile(video.by)?.slug}`}
+              target="_blank"
               onClick={() =>
                 Tower.track(EVENTS.EMBED_VIDEO.CLICK_EMBED_PROFILE)
               }
-              target="_blank"
             >
               <img
-                alt={getProfile(video.by)?.slug}
+                src={getProfilePicture(video.by, 'AVATAR')}
                 className="size-9 rounded-full"
                 draggable={false}
-                src={getProfilePicture(video.by, 'AVATAR')}
+                alt={getProfile(video.by)?.slug}
               />
             </Link>
             <div className="flex flex-col">
               <Link
                 className="line-clamp-1 break-words leading-5"
                 href={`${TAPE_WEBSITE_URL}/watch/${video?.id}`}
+                target="_blank"
                 onClick={() =>
                   Tower.track(EVENTS.EMBED_VIDEO.CLICK_EMBED_TITLE)
                 }
-                target="_blank"
               >
                 <h1 className="font-bold md:text-lg">
                   {getPublicationData(video.metadata)?.title}
@@ -84,18 +83,18 @@ const TopOverlay: FC<OverlayProps> = ({ playerRef, video }) => {
               <Link
                 className="line-clamp-1 break-words leading-3"
                 href={`${TAPE_WEBSITE_URL}/u/${getProfile(video.by)?.slug}`}
+                target="_blank"
                 onClick={() =>
                   Tower.track(EVENTS.EMBED_VIDEO.CLICK_EMBED_PROFILE)
                 }
-                target="_blank"
               >
                 <span className="text-sm">{getProfile(video.by)?.slug}</span>
               </Link>
             </div>
           </div>
           <button
-            className="invisible rounded-full bg-black/50 p-3 transition-all duration-200 ease-in-out group-hover:visible"
             onClick={() => onCopyVideoUrl()}
+            className="invisible rounded-full bg-black/50 p-3 transition-all duration-200 ease-in-out group-hover:visible"
           >
             <CopyOutline className="size-3.5" />
           </button>
@@ -104,16 +103,16 @@ const TopOverlay: FC<OverlayProps> = ({ playerRef, video }) => {
       <div className="absolute bottom-2 right-0 md:bottom-4">
         <Link
           className="rounded-l-small flex items-center space-x-1.5 bg-black/50 px-3 py-1.5 text-white"
-          href={`${TAPE_WEBSITE_URL}/watch/${video?.id}`}
-          onClick={() => Tower.track(EVENTS.EMBED_VIDEO.CLICK_WATCH_ON_TAPE)}
-          target="_blank"
           title={`Watch on ${TAPE_APP_NAME}`}
+          href={`${TAPE_WEBSITE_URL}/watch/${video?.id}`}
+          target="_blank"
+          onClick={() => Tower.track(EVENTS.EMBED_VIDEO.CLICK_WATCH_ON_TAPE)}
         >
           <img
-            alt={TAPE_APP_NAME}
-            className="ml-0.5 size-6 md:size-10"
-            draggable={false}
             src={`${STATIC_ASSETS}/brand/logo.svg`}
+            draggable={false}
+            className="ml-0.5 size-6 md:size-10"
+            alt={TAPE_APP_NAME}
           />
           <b>Watch on Tape</b>
         </Link>

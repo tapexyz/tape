@@ -1,15 +1,7 @@
-import type { ProfileOptions } from '@lens-protocol/metadata'
-import type {
-  OnchainSetProfileMetadataRequest,
-  PrimaryPublication,
-  Profile
-} from '@tape.xyz/lens'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import type { FC, ReactNode } from 'react'
-
 import ReportPublication from '@components/Report/Publication'
 import Confirm from '@components/UIElements/Confirm'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
+import type { ProfileOptions } from '@lens-protocol/metadata'
 import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
 import useProfileStore from '@lib/store/idb/profile'
 import { Dialog, DropdownMenu, Flex, IconButton, Text } from '@radix-ui/themes'
@@ -35,6 +27,11 @@ import {
   trimify,
   uploadToAr
 } from '@tape.xyz/generic'
+import type {
+  OnchainSetProfileMetadataRequest,
+  PrimaryPublication,
+  Profile
+} from '@tape.xyz/lens'
 import {
   useAddPublicationBookmarkMutation,
   useAddPublicationNotInterestedMutation,
@@ -46,6 +43,8 @@ import {
   useUndoPublicationNotInterestedMutation
 } from '@tape.xyz/lens'
 import { useApolloClient } from '@tape.xyz/lens/apollo'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+import type { FC, ReactNode } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { v4 as uuidv4 } from 'uuid'
@@ -65,22 +64,22 @@ import IPFSLink from '../Links/IPFSLink'
 import Share from '../VideoCard/Share'
 
 type Props = {
-  children?: ReactNode
   publication: PrimaryPublication
-  variant?: 'classic' | 'ghost' | 'outline' | 'soft' | 'solid' | 'surface'
+  children?: ReactNode
+  variant?: 'soft' | 'solid' | 'classic' | 'surface' | 'outline' | 'ghost'
 }
 
 const PublicationOptions: FC<Props> = ({
-  children,
   publication,
-  variant = 'ghost'
+  variant = 'ghost',
+  children
 }) => {
   const handleWrongNetwork = useHandleWrongNetwork()
   const [showConfirm, setShowConfirm] = useState(false)
 
   const { cache } = useApolloClient()
   const activeProfile = useProfileStore((state) => state.activeProfile)
-  const { canBroadcast, canUseLensManager } =
+  const { canUseLensManager, canBroadcast } =
     checkLensManagerPermissions(activeProfile)
 
   const isVideoOwner = activeProfile?.id === publication?.by?.id
@@ -90,19 +89,19 @@ const PublicationOptions: FC<Props> = ({
   )
 
   const [hideVideo] = useHidePublicationMutation({
+    update(cache) {
+      const normalizedId = cache.identify({
+        id: publication?.id,
+        __typename: 'Post'
+      })
+      cache.evict({ id: normalizedId })
+      cache.gc()
+    },
     onCompleted: () => {
       toast.success(`Video deleted`)
       Tower.track(EVENTS.PUBLICATION.DELETE, {
         publication_type: publication.__typename?.toLowerCase()
       })
-    },
-    update(cache) {
-      const normalizedId = cache.identify({
-        __typename: 'Post',
-        id: publication?.id
-      })
-      cache.evict({ id: normalizedId })
-      cache.gc()
     }
   })
 
@@ -125,7 +124,7 @@ const PublicationOptions: FC<Props> = ({
   }
 
   const onCompleted = (
-    __typename?: 'LensProfileManagerRelayError' | 'RelayError' | 'RelaySuccess'
+    __typename?: 'RelayError' | 'RelaySuccess' | 'LensProfileManagerRelayError'
   ) => {
     if (
       __typename === 'RelayError' ||
@@ -142,24 +141,24 @@ const PublicationOptions: FC<Props> = ({
   })
 
   const { write } = useContractWrite({
-    abi: LENSHUB_PROXY_ABI,
     address: LENSHUB_PROXY_ADDRESS,
+    abi: LENSHUB_PROXY_ABI,
     functionName: 'setProfileMetadataURI',
     onError,
     onSuccess: () => onCompleted()
   })
 
   const [broadcast] = useBroadcastOnchainMutation({
+    onError,
     onCompleted: ({ broadcastOnchain }) =>
-      onCompleted(broadcastOnchain.__typename),
-    onError
+      onCompleted(broadcastOnchain.__typename)
   })
 
   const [createOnchainSetProfileMetadataTypedData] =
     useCreateOnchainSetProfileMetadataTypedDataMutation({
       onCompleted: async ({ createOnchainSetProfileMetadataTypedData }) => {
-        const { id, typedData } = createOnchainSetProfileMetadataTypedData
-        const { metadataURI, profileId } = typedData.value
+        const { typedData, id } = createOnchainSetProfileMetadataTypedData
+        const { profileId, metadataURI } = typedData.value
         try {
           toast.loading(REQUESTING_SIGNATURE_MESSAGE)
           if (canBroadcast) {
@@ -186,11 +185,11 @@ const PublicationOptions: FC<Props> = ({
 
   const otherAttributes =
     activeProfile?.metadata?.attributes
-      ?.filter((attr) => !['app', 'pinnedPublicationId'].includes(attr.key))
-      .map(({ key, type, value }) => ({
+      ?.filter((attr) => !['pinnedPublicationId', 'app'].includes(attr.key))
+      .map(({ key, value, type }) => ({
         key,
-        type: MetadataAttributeType[type] as any,
-        value
+        value,
+        type: MetadataAttributeType[type] as any
       })) ?? []
 
   const onPinVideo = async () => {
@@ -215,21 +214,21 @@ const PublicationOptions: FC<Props> = ({
           picture: pfp
         }),
         appId: TAPE_APP_ID,
+        coverPicture: getProfileCoverPicture(activeProfile),
+        id: uuidv4(),
         attributes: [
           ...otherAttributes,
           {
-            key: 'pinnedPublicationId',
             type: MetadataAttributeType.STRING,
+            key: 'pinnedPublicationId',
             value: publication.id
           },
           {
-            key: 'app',
             type: MetadataAttributeType.STRING,
+            key: 'app',
             value: TAPE_APP_ID
           }
-        ],
-        coverPicture: getProfileCoverPicture(activeProfile),
-        id: uuidv4()
+        ]
       }
       metadata.attributes = metadata.attributes?.filter(
         (m) => Boolean(trimify(m.key)) && Boolean(trimify(m.value))
@@ -264,8 +263,8 @@ const PublicationOptions: FC<Props> = ({
 
   const modifyInterestCache = (notInterested: boolean) => {
     cache.modify({
-      fields: { notInterested: () => notInterested },
-      id: `Post:${publication?.id}`
+      id: `Post:${publication?.id}`,
+      fields: { notInterested: () => notInterested }
     })
     toast.success(
       notInterested
@@ -277,6 +276,7 @@ const PublicationOptions: FC<Props> = ({
 
   const modifyListCache = (saved: boolean) => {
     cache.modify({
+      id: `Post:${publication?.id}`,
       fields: {
         operations: () => {
           return {
@@ -284,8 +284,7 @@ const PublicationOptions: FC<Props> = ({
             hasBookmarked: saved
           }
         }
-      },
-      id: `Post:${publication?.id}`
+      }
     })
     toast.success(
       saved ? `Video added to your list` : `Video removed from your list`
@@ -294,23 +293,23 @@ const PublicationOptions: FC<Props> = ({
   }
 
   const [addNotInterested] = useAddPublicationNotInterestedMutation({
-    onCompleted: () => modifyInterestCache(true),
-    onError
+    onError,
+    onCompleted: () => modifyInterestCache(true)
   })
 
   const [removeNotInterested] = useUndoPublicationNotInterestedMutation({
-    onCompleted: () => modifyInterestCache(false),
-    onError
+    onError,
+    onCompleted: () => modifyInterestCache(false)
   })
 
   const [saveVideoToList] = useAddPublicationBookmarkMutation({
-    onCompleted: () => modifyListCache(true),
-    onError
+    onError,
+    onCompleted: () => modifyListCache(true)
   })
 
   const [removeVideoFromList] = useRemovePublicationBookmarkMutation({
-    onCompleted: () => modifyListCache(false),
-    onError
+    onError,
+    onCompleted: () => modifyListCache(false)
   })
 
   const notInterested = () => {
@@ -362,27 +361,27 @@ const PublicationOptions: FC<Props> = ({
   return (
     <>
       <Confirm
-        action={onHideVideo}
-        setShowConfirm={setShowConfirm}
         showConfirm={showConfirm}
+        setShowConfirm={setShowConfirm}
+        action={onHideVideo}
       />
       <DropdownMenu.Root>
         <DropdownMenu.Trigger>
           {children ?? (
-            <IconButton highContrast radius="full" size="2" variant={variant}>
+            <IconButton radius="full" variant={variant} highContrast size="2">
               <ThreeDotsOutline className="size-3.5" />
               <span className="sr-only">Video Options</span>
             </IconButton>
           )}
         </DropdownMenu.Trigger>
-        <DropdownMenu.Content align="end" sideOffset={10} variant="soft">
+        <DropdownMenu.Content sideOffset={10} variant="soft" align="end">
           <div className="flex w-40 flex-col transition duration-150 ease-in-out">
             <Dialog.Root>
               <Dialog.Trigger>
                 <button className="!cursor-default rounded-md px-3 py-1.5 hover:bg-gray-500/20">
                   <Flex align="center" gap="2">
                     <ShareOutline className="size-3.5" />
-                    <Text className="whitespace-nowrap" size="2">
+                    <Text size="2" className="whitespace-nowrap">
                       Share
                     </Text>
                   </Flex>
@@ -390,11 +389,11 @@ const PublicationOptions: FC<Props> = ({
               </Dialog.Trigger>
 
               <Dialog.Content style={{ maxWidth: 450 }}>
-                <Flex align="center" justify="between" pb="5">
+                <Flex justify="between" pb="5" align="center">
                   <Dialog.Title mb="0">Share</Dialog.Title>
                   <Dialog.Close>
-                    <IconButton color="gray" variant="ghost">
-                      <TimesOutline className="size-3" outlined={false} />
+                    <IconButton variant="ghost" color="gray">
+                      <TimesOutline outlined={false} className="size-3" />
                     </IconButton>
                   </Dialog.Close>
                 </Flex>
@@ -461,7 +460,7 @@ const PublicationOptions: FC<Props> = ({
                     >
                       <Flex align="center" gap="2">
                         <FlagOutline className="size-3.5" />
-                        <Text className="whitespace-nowrap" size="2">
+                        <Text size="2" className="whitespace-nowrap">
                           Report
                         </Text>
                       </Flex>

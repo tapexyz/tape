@@ -1,5 +1,3 @@
-import type { PrimaryPublication } from '@tape.xyz/lens'
-
 import FireOutline from '@components/Common/Icons/FireOutline'
 import PublicationReaction from '@components/Common/Publication/PublicationReaction'
 import Tooltip from '@components/UIElements/Tooltip'
@@ -7,17 +5,18 @@ import { getDateString, getRelativeTime } from '@lib/formatTime'
 import { Text } from '@radix-ui/themes'
 import { TAPE_WEBSITE_URL } from '@tape.xyz/constants'
 import { getPublicationData } from '@tape.xyz/generic'
+import type { PrimaryPublication } from '@tape.xyz/lens'
 import React from 'react'
 
 import Likes from './Likes'
 import RenderLink from './RenderLink'
 
 const RenderBanger = ({
-  isCertifiedBanger,
-  post
+  post,
+  isCertifiedBanger
 }: {
-  isCertifiedBanger: boolean
   post: PrimaryPublication
+  isCertifiedBanger: boolean
 }) => {
   return (
     <div className="ultrawide:space-y-8 tape-border hover:bg-gallery/50 hover:dark:bg-smoke space-y-6 !border-x-0 !border-t-0 p-2 md:p-5">
@@ -43,7 +42,7 @@ const RenderBanger = ({
         </div>
         <div className="mx-2 flex items-center justify-between space-x-2">
           <div className="flex items-center justify-between space-x-4">
-            <PublicationReaction label="Banger" publication={post} />
+            <PublicationReaction publication={post} label="Banger" />
           </div>
           <Text size="1" title={getDateString(post.createdAt)}>
             {getRelativeTime(post.createdAt)}

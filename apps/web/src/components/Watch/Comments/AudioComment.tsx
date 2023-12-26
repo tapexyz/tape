@@ -1,6 +1,5 @@
-import type { FC } from 'react'
-
 import { sanitizeDStorageUrl } from '@tape.xyz/generic'
+import type { FC } from 'react'
 import React from 'react'
 
 type Props = {

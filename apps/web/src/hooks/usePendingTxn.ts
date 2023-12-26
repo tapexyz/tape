@@ -14,6 +14,11 @@ const usePendingTxn = ({ txHash, txId }: Props) => {
   const [indexed, setIndexed] = useState(false)
 
   const { data, loading, stopPolling } = useLensTransactionStatusQuery({
+    variables: {
+      request: { forTxHash: txHash, forTxId: txId }
+    },
+    skip: !txHash && !txHash?.length && !txId && !txId?.length,
+    pollInterval: 1000,
     notifyOnNetworkStatusChange: true,
     onCompleted: (data) => {
       if (data?.lensTransactionStatus?.reason) {
@@ -29,11 +34,6 @@ const usePendingTxn = ({ txHash, txId }: Props) => {
         stopPolling()
         setIndexed(true)
       }
-    },
-    pollInterval: 1000,
-    skip: !txHash && !txHash?.length && !txId && !txId?.length,
-    variables: {
-      request: { forTxHash: txHash, forTxId: txId }
     }
   })
 
@@ -43,9 +43,9 @@ const usePendingTxn = ({ txHash, txId }: Props) => {
 
   return {
     data,
-    error: data?.lensTransactionStatus?.reason,
     indexed,
-    loading
+    loading,
+    error: data?.lensTransactionStatus?.reason
   }
 }
 

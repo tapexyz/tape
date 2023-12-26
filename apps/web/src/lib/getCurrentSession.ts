@@ -8,8 +8,8 @@ const getCurrentSession = () => {
   const currentSession = parseJwt(refreshToken || '')
 
   return {
-    authorizationId: currentSession?.authorizationId,
-    profileId: currentSession?.id
+    profileId: currentSession?.id,
+    authorizationId: currentSession?.authorizationId
   }
 }
 

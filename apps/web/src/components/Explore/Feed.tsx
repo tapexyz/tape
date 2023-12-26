@@ -1,8 +1,3 @@
-import type {
-  ExplorePublicationRequest,
-  PrimaryPublication
-} from '@tape.xyz/lens'
-
 import CommentOutline from '@components/Common/Icons/CommentOutline'
 import FireOutline from '@components/Common/Icons/FireOutline'
 import MirrorOutline from '@components/Common/Icons/MirrorOutline'
@@ -20,6 +15,10 @@ import {
   TAPE_APP_ID
 } from '@tape.xyz/constants'
 import { EVENTS, Tower } from '@tape.xyz/generic'
+import type {
+  ExplorePublicationRequest,
+  PrimaryPublication
+} from '@tape.xyz/lens'
 import {
   ExplorePublicationsOrderByType,
   ExplorePublicationType,
@@ -32,9 +31,9 @@ import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 
 const initialCriteria = {
-  interesting: false,
+  trending: true,
   popular: false,
-  trending: true
+  interesting: false
 }
 
 const ExploreFeed = () => {
@@ -55,23 +54,23 @@ const ExploreFeed = () => {
   }
 
   const request: ExplorePublicationRequest = {
-    limit: LimitType.Fifty,
-    orderBy: getCriteria(),
     where: {
       customFilters: LENS_CUSTOM_FILTERS,
+      publicationTypes: [ExplorePublicationType.Post],
       metadata: {
+        tags:
+          activeTagFilter !== 'all' ? { oneOf: [activeTagFilter] } : undefined,
         mainContentFocus: [PublicationMetadataMainFocusType.Video],
         publishedOn: IS_MAINNET
           ? [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
-          : undefined,
-        tags:
-          activeTagFilter !== 'all' ? { oneOf: [activeTagFilter] } : undefined
-      },
-      publicationTypes: [ExplorePublicationType.Post]
-    }
+          : undefined
+      }
+    },
+    orderBy: getCriteria(),
+    limit: LimitType.Fifty
   }
 
-  const { data, error, fetchMore, loading } = useExplorePublicationsQuery({
+  const { data, loading, error, fetchMore } = useExplorePublicationsQuery({
     variables: {
       request
     }
@@ -82,6 +81,7 @@ const ExploreFeed = () => {
   const pageInfo = data?.explorePublications?.pageInfo
 
   const { observe } = useInView({
+    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
     onEnter: async () => {
       await fetchMore({
         variables: {
@@ -91,23 +91,22 @@ const ExploreFeed = () => {
           }
         }
       })
-    },
-    rootMargin: INFINITE_SCROLL_ROOT_MARGIN
+    }
   })
 
   return (
     <div className="laptop:pt-6 pt-4">
       <div className="space-x-2">
         <Button
+          radius="full"
           highContrast
+          variant={activeCriteria.trending ? 'solid' : 'surface'}
           onClick={() => {
             setActiveCriteria({ ...initialCriteria })
             Tower.track(EVENTS.PAGEVIEW, {
               page: EVENTS.PAGE_VIEW.EXPLORE_TRENDING
             })
           }}
-          radius="full"
-          variant={activeCriteria.trending ? 'solid' : 'surface'}
         >
           <span className="flex items-center space-x-1">
             <FireOutline className="size-3.5" />
@@ -115,7 +114,9 @@ const ExploreFeed = () => {
           </span>
         </Button>
         <Button
+          radius="full"
           highContrast
+          variant={activeCriteria.popular ? 'solid' : 'surface'}
           onClick={() => {
             setActiveCriteria({
               ...initialCriteria,
@@ -126,8 +127,6 @@ const ExploreFeed = () => {
               page: EVENTS.PAGE_VIEW.EXPLORE_POPULAR
             })
           }}
-          radius="full"
-          variant={activeCriteria.popular ? 'solid' : 'surface'}
         >
           <span className="flex items-center space-x-1">
             <CommentOutline className="size-3.5" />
@@ -135,7 +134,9 @@ const ExploreFeed = () => {
           </span>
         </Button>
         <Button
+          radius="full"
           highContrast
+          variant={activeCriteria.interesting ? 'solid' : 'surface'}
           onClick={() => {
             setActiveCriteria({
               ...initialCriteria,
@@ -146,8 +147,6 @@ const ExploreFeed = () => {
               page: EVENTS.PAGE_VIEW.EXPLORE_INTERESTING
             })
           }}
-          radius="full"
-          variant={activeCriteria.interesting ? 'solid' : 'surface'}
         >
           <span className="flex items-center space-x-1">
             <MirrorOutline className="size-3.5" />
@@ -159,13 +158,13 @@ const ExploreFeed = () => {
       <div className="my-4">
         {loading && <TimelineShimmer />}
         {videos?.length === 0 && (
-          <NoDataFound isCenter text={`No videos found`} withImage />
+          <NoDataFound isCenter withImage text={`No videos found`} />
         )}
         {!error && !loading && videos?.length ? (
           <>
             <Timeline videos={videos} />
             {pageInfo?.next && (
-              <span className="flex justify-center p-10" ref={observe}>
+              <span ref={observe} className="flex justify-center p-10">
                 <Loader />
               </span>
             )}

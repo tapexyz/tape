@@ -1,6 +1,6 @@
 import { IPFS_FREE_UPLOAD_LIMIT } from '@tape.xyz/constants'
 
-export const canUploadedToIpfs = (bytes?: null | number) => {
+export const canUploadedToIpfs = (bytes?: number | null) => {
   if (bytes === null || bytes === undefined) {
     return false
   }
