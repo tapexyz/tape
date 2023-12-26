@@ -1,4 +1,4 @@
-import useProfileStore from '@lib/store/profile'
+import useProfileStore from '@lib/store/idb/profile'
 import { Avatar, Badge, Flex, Text } from '@radix-ui/themes'
 import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import Link from 'next/link'

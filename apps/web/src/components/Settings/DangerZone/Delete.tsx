@@ -1,6 +1,6 @@
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import { signOut } from '@lib/store/auth'
-import useProfileStore from '@lib/store/profile'
+import useProfileStore from '@lib/store/idb/profile'
 import { Button } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {

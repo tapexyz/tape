@@ -17,9 +17,9 @@ import {
 } from '@lens-protocol/metadata'
 import { getCollectModuleInput } from '@lib/getCollectModuleInput'
 import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
+import useProfileStore from '@lib/store/idb/profile'
 import useNonceStore from '@lib/store/nonce'
 import usePersistStore from '@lib/store/persist'
-import useProfileStore from '@lib/store/profile'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { getUserLocale, uploadToIPFS } from '@tape.xyz/browser'
 import {

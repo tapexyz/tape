@@ -1,5 +1,5 @@
 import usePersistStore from '@lib/store/persist'
-import useProfileStore from '@lib/store/profile'
+import useProfileStore from '@lib/store/idb/profile'
 import { Button, DropdownMenu, IconButton } from '@radix-ui/themes'
 import { FEATURE_FLAGS, STATIC_ASSETS } from '@tape.xyz/constants'
 import { getIsFeatureEnabled } from '@tape.xyz/generic'

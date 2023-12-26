@@ -1,5 +1,5 @@
 import { SuggestedVideosShimmer } from '@components/Shimmers/WatchShimmer'
-import useProfileStore from '@lib/store/profile'
+import useProfileStore from '@lib/store/idb/profile'
 import {
   ALLOWED_APP_IDS,
   INFINITE_SCROLL_ROOT_MARGIN,

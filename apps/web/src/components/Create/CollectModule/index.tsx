@@ -2,7 +2,7 @@ import ChevronRightOutline from '@components/Common/Icons/ChevronRightOutline'
 import SplitOutline from '@components/Common/Icons/SplitOutline'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
-import useProfileStore from '@lib/store/profile'
+import useProfileStore from '@lib/store/idb/profile'
 import { Button, Dialog, Flex } from '@radix-ui/themes'
 import { LimitType, useEnabledCurrenciesQuery } from '@tape.xyz/lens'
 import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
@@ -84,7 +84,10 @@ const CollectModule = () => {
           </Button>
         </Dialog.Trigger>
 
-        <Dialog.Content style={{ maxWidth: 550 }}>
+        <Dialog.Content
+          style={{ maxWidth: 550 }}
+          onPointerDownOutside={(e) => e.preventDefault()}
+        >
           <Dialog.Title>Collectible</Dialog.Title>
           <Flex direction="column" gap="3">
             <div className="no-scrollbar max-h-[80vh] space-y-2 overflow-y-auto p-0.5">

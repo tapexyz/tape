@@ -1,4 +1,4 @@
-import useProfileStore from '@lib/store/profile'
+import useProfileStore from '@lib/store/idb/profile'
 import { TAPE_APP_NAME } from '@tape.xyz/constants'
 import React from 'react'
 

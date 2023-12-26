@@ -1,7 +1,7 @@
 import getCurrentSession from '@lib/getCurrentSession'
 import { signOut } from '@lib/store/auth'
 import useNonceStore from '@lib/store/nonce'
-import useProfileStore from '@lib/store/profile'
+import useProfileStore from '@lib/store/idb/profile'
 import {
   getToastOptions,
   setFingerprint,

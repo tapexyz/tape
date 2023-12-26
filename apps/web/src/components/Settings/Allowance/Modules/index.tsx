@@ -1,5 +1,5 @@
 import { getCollectModuleConfig } from '@lib/getCollectModuleInput'
-import useProfileStore from '@lib/store/profile'
+import useProfileStore from '@lib/store/idb/profile'
 import { Button, Select } from '@radix-ui/themes'
 import { WMATIC_TOKEN_ADDRESS } from '@tape.xyz/constants'
 import type { ApprovedAllowanceAmountResult, Erc20 } from '@tape.xyz/lens'

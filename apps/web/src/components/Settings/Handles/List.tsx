@@ -1,5 +1,5 @@
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import useProfileStore from '@lib/store/profile'
+import useProfileStore from '@lib/store/idb/profile'
 import { INFINITE_SCROLL_ROOT_MARGIN } from '@tape.xyz/constants'
 import { getIsProfileOwner } from '@tape.xyz/generic'
 import type { HandleInfo, OwnedHandlesRequest } from '@tape.xyz/lens'
