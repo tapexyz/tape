@@ -2,7 +2,8 @@ import ChevronRightOutline from '@components/Common/Icons/ChevronRightOutline'
 import SplitOutline from '@components/Common/Icons/SplitOutline'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
-import useProfileStore from '@lib/store/profile'
+import useCollectStore from '@lib/store/idb/collect'
+import useProfileStore from '@lib/store/idb/profile'
 import { Button, Dialog, Flex } from '@radix-ui/themes'
 import { LimitType, useEnabledCurrenciesQuery } from '@tape.xyz/lens'
 import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
@@ -19,11 +20,12 @@ const CollectModule = () => {
   const uploadedMedia = useAppStore((state) => state.uploadedMedia)
   const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
   const activeProfile = useProfileStore((state) => state.activeProfile)
+  const setCollectModule = useCollectStore((state) => state.setCollectModule)
 
   const setCollectType = (data: CollectModuleType) => {
-    setUploadedMedia({
-      collectModule: { ...uploadedMedia.collectModule, ...data }
-    })
+    const collectModule = { ...uploadedMedia.collectModule, ...data }
+    setUploadedMedia({ collectModule })
+    setCollectModule(collectModule)
   }
 
   const { data: enabledCurrencies } = useEnabledCurrenciesQuery({
@@ -84,7 +86,10 @@ const CollectModule = () => {
           </Button>
         </Dialog.Trigger>
 
-        <Dialog.Content style={{ maxWidth: 550 }}>
+        <Dialog.Content
+          style={{ maxWidth: 550 }}
+          onPointerDownOutside={(e) => e.preventDefault()}
+        >
           <Dialog.Title>Collectible</Dialog.Title>
           <Flex direction="column" gap="3">
             <div className="no-scrollbar max-h-[80vh] space-y-2 overflow-y-auto p-0.5">
@@ -112,7 +117,10 @@ const CollectModule = () => {
                       <Button
                         type="button"
                         highContrast
-                        onClick={() => setShowModal(false)}
+                        onClick={() => {
+                          setCollectModule(uploadedMedia.collectModule)
+                          setShowModal(false)
+                        }}
                       >
                         Set Collect Type
                       </Button>

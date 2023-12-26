@@ -1,6 +1,6 @@
 import HeartFilled from '@components/Common/Icons/HeartFilled'
 import HeartOutline from '@components/Common/Icons/HeartOutline'
-import useProfileStore from '@lib/store/profile'
+import useProfileStore from '@lib/store/idb/profile'
 import { Button } from '@radix-ui/themes'
 import { SIGN_IN_REQUIRED } from '@tape.xyz/constants'
 import { EVENTS, formatNumber, getPublication, Tower } from '@tape.xyz/generic'

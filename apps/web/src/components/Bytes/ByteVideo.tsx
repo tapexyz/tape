@@ -1,5 +1,5 @@
 import MetaTags from '@components/Common/MetaTags'
-import useProfileStore from '@lib/store/profile'
+import useProfileStore from '@lib/store/idb/profile'
 import {
   getPublication,
   getPublicationData,

@@ -1,7 +1,7 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
 import TimesOutline from '@components/Common/Icons/TimesOutline'
 import BubblesShimmer from '@components/Shimmers/BubblesShimmer'
-import useProfileStore from '@lib/store/profile'
+import useProfileStore from '@lib/store/idb/profile'
 import {
   Dialog,
   DialogClose,

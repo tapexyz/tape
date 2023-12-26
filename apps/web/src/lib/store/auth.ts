@@ -2,7 +2,7 @@ import { LocalStore } from '@tape.xyz/lens/custom-types'
 import Cookies from 'js-cookie'
 import { create } from 'zustand'
 
-import { setActiveProfile } from './profile'
+import { setActiveProfile } from './idb/profile'
 
 type Tokens = {
   accessToken: string | undefined

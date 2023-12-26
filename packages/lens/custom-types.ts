@@ -124,7 +124,8 @@ export enum LocalStore {
 }
 
 export enum LocalIDBStore {
-  PROFILE_STORE = 'profile.store'
+  PROFILE_STORE = 'profile.store',
+  COLLECT_STORE = 'collect.store'
 }
 
 export interface CustomNftItemType {

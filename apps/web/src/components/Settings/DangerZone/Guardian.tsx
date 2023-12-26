@@ -1,5 +1,5 @@
 import { Countdown } from '@components/UIElements/CountDown'
-import useProfileStore from '@lib/store/profile'
+import useProfileStore from '@lib/store/idb/profile'
 import { Button } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {

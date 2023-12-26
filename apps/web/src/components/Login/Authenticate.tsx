@@ -1,6 +1,6 @@
 import KeyOutline from '@components/Common/Icons/KeyOutline'
 import { signIn, signOut } from '@lib/store/auth'
-import useProfileStore from '@lib/store/profile'
+import useProfileStore from '@lib/store/idb/profile'
 import { Avatar, Button, Flex, Select, Text } from '@radix-ui/themes'
 import { ERROR_MESSAGE } from '@tape.xyz/constants'
 import {

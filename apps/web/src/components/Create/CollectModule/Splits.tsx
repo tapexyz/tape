@@ -149,7 +149,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
         <Text size="2" weight="medium">
           Split revenue
         </Text>
-        <Tooltip content="Split revenue with anyone" placement="top">
+        <Tooltip content="Split collect revenue with anyone" placement="top">
           <span>
             <InfoOutline className="mx-1 size-3 opacity-70" />
           </span>

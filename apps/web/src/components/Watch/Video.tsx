@@ -1,7 +1,7 @@
 import InterweaveContent from '@components/Common/InterweaveContent'
 import { CardShimmer } from '@components/Shimmers/VideoCardShimmer'
 import useAppStore from '@lib/store'
-import useProfileStore from '@lib/store/profile'
+import useProfileStore from '@lib/store/idb/profile'
 import { LENSTUBE_BYTES_APP_ID } from '@tape.xyz/constants'
 import {
   getIsSensitiveContent,

@@ -1,6 +1,6 @@
 import Badge from '@components/Common/Badge'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import useProfileStore from '@lib/store/profile'
+import useProfileStore from '@lib/store/idb/profile'
 import { Avatar } from '@radix-ui/themes'
 import { INFINITE_SCROLL_ROOT_MARGIN } from '@tape.xyz/constants'
 import {

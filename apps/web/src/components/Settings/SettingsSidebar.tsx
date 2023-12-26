@@ -7,7 +7,7 @@ import ProfileManagerOutline from '@components/Common/Icons/ProfileManagerOutlin
 import SubscribeOutline from '@components/Common/Icons/SubscribeOutline'
 import UserOutline from '@components/Common/Icons/UserOutline'
 import WarningOutline from '@components/Common/Icons/WarningOutline'
-import useProfileStore from '@lib/store/profile'
+import useProfileStore from '@lib/store/idb/profile'
 import { getIsProfileOwner } from '@tape.xyz/generic'
 import clsx from 'clsx'
 import Link from 'next/link'

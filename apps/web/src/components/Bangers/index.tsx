@@ -1,5 +1,5 @@
 import MetaTags from '@components/Common/MetaTags'
-import useProfileStore from '@lib/store/profile'
+import useProfileStore from '@lib/store/idb/profile'
 import { FEATURE_FLAGS } from '@tape.xyz/constants'
 import { EVENTS, getIsFeatureEnabled, Tower } from '@tape.xyz/generic'
 import React, { useEffect } from 'react'

@@ -1,7 +1,7 @@
 import { Input } from '@components/UIElements/Input'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useAppStore from '@lib/store'
-import useProfileStore from '@lib/store/profile'
+import useProfileStore from '@lib/store/idb/profile'
 import { Button, Flex, Select, Text } from '@radix-ui/themes'
 import { WMATIC_TOKEN_ADDRESS } from '@tape.xyz/constants'
 import type { Erc20 } from '@tape.xyz/lens'
@@ -158,7 +158,7 @@ const FeeCollectForm: FC<Props> = ({
               type="number"
               placeholder="2"
               suffix="%"
-              info="Percent of collect revenue can be shared with anyone who mirrors your content."
+              info="Percentage of collect revenue from mirrors can be shared with the referrer"
               {...register('referralPercent', { valueAsNumber: true })}
               validationError={errors.referralPercent?.message}
             />

@@ -1,4 +1,4 @@
-import useProfileStore from '@lib/store/profile'
+import useProfileStore from '@lib/store/idb/profile'
 import { EVENTS, sanitizeProfileInterests, Tower } from '@tape.xyz/generic'
 import type {
   ProfileInterestsRequest,

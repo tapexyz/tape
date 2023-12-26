@@ -1,6 +1,6 @@
 import getCurrentSession from '@lib/getCurrentSession'
 import { signOut } from '@lib/store/auth'
-import useProfileStore from '@lib/store/profile'
+import useProfileStore from '@lib/store/idb/profile'
 import { Avatar, DropdownMenu, Flex, Text } from '@radix-ui/themes'
 import { ADMIN_IDS } from '@tape.xyz/constants'
 import { EVENTS, getProfile, getProfilePicture, Tower } from '@tape.xyz/generic'
