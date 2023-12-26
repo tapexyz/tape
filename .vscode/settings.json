@@ -5,7 +5,7 @@
   "git.confirmSync": false,
   "git.enableSmartCommit": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
+    "source.fixAll": true
   },
   "[typescript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
