@@ -2,6 +2,7 @@ import ChevronRightOutline from '@components/Common/Icons/ChevronRightOutline'
 import SplitOutline from '@components/Common/Icons/SplitOutline'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
+import useCollectStore from '@lib/store/idb/collect'
 import useProfileStore from '@lib/store/idb/profile'
 import { Button, Dialog, Flex } from '@radix-ui/themes'
 import { LimitType, useEnabledCurrenciesQuery } from '@tape.xyz/lens'
@@ -19,11 +20,12 @@ const CollectModule = () => {
   const uploadedMedia = useAppStore((state) => state.uploadedMedia)
   const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
   const activeProfile = useProfileStore((state) => state.activeProfile)
+  const setCollectModule = useCollectStore((state) => state.setCollectModule)
 
   const setCollectType = (data: CollectModuleType) => {
-    setUploadedMedia({
-      collectModule: { ...uploadedMedia.collectModule, ...data }
-    })
+    const collectModule = { ...uploadedMedia.collectModule, ...data }
+    setUploadedMedia({ collectModule })
+    setCollectModule(collectModule)
   }
 
   const { data: enabledCurrencies } = useEnabledCurrenciesQuery({
@@ -115,7 +117,10 @@ const CollectModule = () => {
                       <Button
                         type="button"
                         highContrast
-                        onClick={() => setShowModal(false)}
+                        onClick={() => {
+                          setCollectModule(uploadedMedia.collectModule)
+                          setShowModal(false)
+                        }}
                       >
                         Set Collect Type
                       </Button>

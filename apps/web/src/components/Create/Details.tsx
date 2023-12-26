@@ -3,6 +3,7 @@ import InputMentions from '@components/UIElements/InputMentions'
 import Tooltip from '@components/UIElements/Tooltip'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useAppStore from '@lib/store'
+import useCollectStore from '@lib/store/idb/collect'
 import { Button, Flex, Switch, Text } from '@radix-ui/themes'
 import { checkIsBytesVideo } from '@tape.xyz/generic'
 import clsx from 'clsx'
@@ -42,6 +43,8 @@ type Props = {
 const Details: FC<Props> = ({ onUpload, onCancel }) => {
   const uploadedMedia = useAppStore((state) => state.uploadedMedia)
   const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
+  const persistedCollectModule = useCollectStore((state) => state.collectModule)
+
   const isByteSizeVideo = checkIsBytesVideo(uploadedMedia.durationInSeconds)
 
   const {
@@ -168,7 +171,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                     checked={!uploadedMedia.collectModule.isRevertCollect}
                     onCheckedChange={(canCollect) =>
                       setUploadedMedia({
-                        collectModule: {
+                        collectModule: persistedCollectModule ?? {
                           ...uploadedMedia.collectModule,
                           isRevertCollect: !canCollect
                         }
