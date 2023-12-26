@@ -2,7 +2,6 @@ import { ALGO_PROVIDER, AlgoType } from '@tape.xyz/lens/custom-types'
 
 export const FEED_ALGORITHMS = [
   {
-    provider: ALGO_PROVIDER.K3L,
     algorithms: [
       {
         name: 'Karma Crowdsourced',
@@ -16,6 +15,7 @@ export const FEED_ALGORITHMS = [
         name: 'Karma Recommended',
         strategy: AlgoType.K3L_RECOMMENDED
       }
-    ]
+    ],
+    provider: ALGO_PROVIDER.K3L
   }
 ]
