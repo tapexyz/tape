@@ -10,9 +10,9 @@ type Tokens = {
 }
 
 interface AuthState {
+  hydrateAuthTokens: () => Tokens
   signIn: (tokens: { accessToken: string; refreshToken: string }) => void
   signOut: () => void
-  hydrateAuthTokens: () => Tokens
 }
 
 const cookieConfig: Cookies.CookieAttributes = {
@@ -21,6 +21,12 @@ const cookieConfig: Cookies.CookieAttributes = {
 }
 
 const useAuthPersistStore = create<AuthState>(() => ({
+  hydrateAuthTokens: () => {
+    return {
+      accessToken: Cookies.get('accessToken'),
+      refreshToken: Cookies.get('refreshToken')
+    }
+  },
   signIn: ({ accessToken, refreshToken }) => {
     Cookies.set('accessToken', accessToken, { ...cookieConfig, expires: 1 })
     Cookies.set('refreshToken', refreshToken, { ...cookieConfig, expires: 7 })
@@ -31,12 +37,6 @@ const useAuthPersistStore = create<AuthState>(() => ({
     localStorage.removeItem(LocalStore.TAPE_STORE)
     localStorage.removeItem(LocalStore.WAGMI_STORE)
     setActiveProfile(null)
-  },
-  hydrateAuthTokens: () => {
-    return {
-      accessToken: Cookies.get('accessToken'),
-      refreshToken: Cookies.get('refreshToken')
-    }
   }
 }))
 

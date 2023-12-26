@@ -1,3 +1,6 @@
+import type { AnyPublication } from '@tape.xyz/lens'
+import type { FC } from 'react'
+
 import { Dialog } from '@radix-ui/themes'
 import {
   getPublication,
@@ -5,8 +8,6 @@ import {
   imageCdn,
   sanitizeDStorageUrl
 } from '@tape.xyz/generic'
-import type { AnyPublication } from '@tape.xyz/lens'
-import type { FC } from 'react'
 import React, { useState } from 'react'
 
 import AudioComment from './AudioComment'
@@ -55,20 +56,20 @@ const CommentMedia: FC<Props> = ({ comment }) => {
                 }}
               >
                 <img
-                  className="size-20 rounded-xl bg-white object-cover dark:bg-black"
-                  src={imageCdn(sanitizeDStorageUrl(uri), 'AVATAR_LG')}
                   alt={'attachment'}
+                  className="size-20 rounded-xl bg-white object-cover dark:bg-black"
                   draggable={false}
+                  src={imageCdn(sanitizeDStorageUrl(uri), 'AVATAR_LG')}
                 />
               </button>
             </Dialog.Trigger>
 
             <Dialog.Content style={{ maxWidth: 650 }}>
               <img
-                src={imageSrc}
-                className="object-contain"
                 alt="attachment"
+                className="object-contain"
                 draggable={false}
+                src={imageSrc}
               />
             </Dialog.Content>
           </Dialog.Root>

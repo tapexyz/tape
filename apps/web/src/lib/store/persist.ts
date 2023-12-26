@@ -2,6 +2,7 @@ import type {
   QueuedCommentType,
   QueuedVideoType
 } from '@tape.xyz/lens/custom-types'
+
 import {
   CustomNotificationsFilterEnum,
   LocalStore
@@ -11,12 +12,12 @@ import { persist } from 'zustand/middleware'
 
 interface AppPerisistState {
   lastOpenedNotificationId: string
-  setLastOpenedNotificationId: (id: string) => void
   latestNotificationId: string
-  setLatestNotificationId: (id: string) => void
-  queuedVideos: QueuedVideoType[]
   queuedComments: QueuedCommentType[]
+  queuedVideos: QueuedVideoType[]
   selectedNotificationsFilter: CustomNotificationsFilterEnum
+  setLastOpenedNotificationId: (id: string) => void
+  setLatestNotificationId: (id: string) => void
   setQueuedComments: (queuedComments: QueuedCommentType[]) => void
   setQueuedVideos: (queuedVideos: QueuedVideoType[]) => void
   setSelectedNotificationsFilter: (
@@ -27,18 +28,18 @@ interface AppPerisistState {
 export const usePersistStore = create(
   persist<AppPerisistState>(
     (set) => ({
-      latestNotificationId: '',
-      setLatestNotificationId: (latestNotificationId) =>
-        set({ latestNotificationId }),
       lastOpenedNotificationId: '',
-      setLastOpenedNotificationId: (id) =>
-        set({ lastOpenedNotificationId: id }),
+      latestNotificationId: '',
       queuedComments: [],
       queuedVideos: [],
-      setQueuedVideos: (queuedVideos) => set({ queuedVideos }),
-      setQueuedComments: (queuedComments) => set({ queuedComments }),
       selectedNotificationsFilter:
         CustomNotificationsFilterEnum.ALL_NOTIFICATIONS,
+      setLastOpenedNotificationId: (id) =>
+        set({ lastOpenedNotificationId: id }),
+      setLatestNotificationId: (latestNotificationId) =>
+        set({ latestNotificationId }),
+      setQueuedComments: (queuedComments) => set({ queuedComments }),
+      setQueuedVideos: (queuedVideos) => set({ queuedVideos }),
       setSelectedNotificationsFilter: (selectedNotificationsFilter) =>
         set({ selectedNotificationsFilter })
     }),

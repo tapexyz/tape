@@ -1,3 +1,6 @@
+import type { QuoteNotification } from '@tape.xyz/lens'
+import type { FC } from 'react'
+
 import HoverableProfile from '@components/Common/HoverableProfile'
 import QuoteOutline from '@components/Common/Icons/QuoteOutline'
 import { getShortHandTime } from '@lib/formatTime'
@@ -6,9 +9,7 @@ import {
   getProfilePicture,
   getPublicationData
 } from '@tape.xyz/generic'
-import type { QuoteNotification } from '@tape.xyz/lens'
 import Link from 'next/link'
-import type { FC } from 'react'
 import React from 'react'
 
 type Props = {
@@ -24,19 +25,19 @@ const Quoted: FC<Props> = ({ notification: { quote } }) => {
         </div>
         <div>
           <span className="flex -space-x-1.5">
-            <HoverableProfile profile={quote.by} key={quote.by?.id}>
+            <HoverableProfile key={quote.by?.id} profile={quote.by}>
               <img
-                className="size-7 rounded-full border dark:border-gray-700/80"
-                src={getProfilePicture(quote.by, 'AVATAR')}
-                draggable={false}
                 alt={getProfile(quote.by)?.displayName}
+                className="size-7 rounded-full border dark:border-gray-700/80"
+                draggable={false}
+                src={getProfilePicture(quote.by, 'AVATAR')}
               />
             </HoverableProfile>
           </span>
           <div className="py-2">quoted your publication</div>
           <Link
-            href={`/watch/${quote.id}`}
             className="text-dust line-clamp-2 font-medium"
+            href={`/watch/${quote.id}`}
           >
             {getPublicationData(quote.metadata)?.content}
           </Link>

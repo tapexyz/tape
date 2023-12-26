@@ -1,3 +1,6 @@
+import type { AnyPublication } from '@tape.xyz/lens'
+import type { FC } from 'react'
+
 import { useAverageColor } from '@tape.xyz/browser'
 import {
   FALLBACK_THUMBNAIL_URL,
@@ -10,9 +13,7 @@ import {
   getThumbnailUrl,
   imageCdn
 } from '@tape.xyz/generic'
-import type { AnyPublication } from '@tape.xyz/lens'
 import clsx from 'clsx'
-import type { FC } from 'react'
 import React from 'react'
 
 type Props = {
@@ -36,21 +37,21 @@ const ThumbnailImage: FC<Props> = ({ video }) => {
 
   return (
     <img
-      src={imageCdn(thumbnailUrl, isBytesVideo ? 'THUMBNAIL_V' : 'THUMBNAIL')}
+      alt="thumbnail"
       className={clsx(
         'h-full w-full rounded-lg bg-gray-100 object-center dark:bg-gray-900 lg:h-full lg:w-full',
         isBytesVideo ? 'object-contain' : 'object-cover'
       )}
+      draggable={false}
+      height={600}
+      onError={({ currentTarget }) => {
+        currentTarget.src = FALLBACK_THUMBNAIL_URL
+      }}
+      src={imageCdn(thumbnailUrl, isBytesVideo ? 'THUMBNAIL_V' : 'THUMBNAIL')}
       style={{
         backgroundColor: backgroundColor && `${backgroundColor}95`
       }}
       width={1000}
-      height={600}
-      alt="thumbnail"
-      draggable={false}
-      onError={({ currentTarget }) => {
-        currentTarget.src = FALLBACK_THUMBNAIL_URL
-      }}
     />
   )
 }

@@ -1,3 +1,6 @@
+import type { PrimaryPublication } from '@tape.xyz/lens'
+import type { FC } from 'react'
+
 import HoverableProfile from '@components/Common/HoverableProfile'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import PublicationActions from '@components/Common/Publication/PublicationActions'
@@ -7,8 +10,6 @@ import {
   getProfilePicture,
   getPublicationData
 } from '@tape.xyz/generic'
-import type { PrimaryPublication } from '@tape.xyz/lens'
-import type { FC } from 'react'
 import React from 'react'
 
 type Props = {
@@ -25,16 +26,16 @@ const Details: FC<Props> = ({ audio }) => {
           <h1 className="laptop:text-2xl text-xl font-bold">Artist</h1>
           <div className="mt-2 inline-block">
             <HoverableProfile
-              profile={audio.by}
               fontSize="5"
               pfp={
                 <img
-                  src={getProfilePicture(audio.by, 'AVATAR')}
+                  alt={getProfile(audio.by)?.displayName}
                   className="size-7 rounded-full"
                   draggable={false}
-                  alt={getProfile(audio.by)?.displayName}
+                  src={getProfilePicture(audio.by, 'AVATAR')}
                 />
               }
+              profile={audio.by}
             />
           </div>
           {metadata?.content && (

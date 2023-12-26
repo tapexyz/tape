@@ -1,3 +1,8 @@
+import type {
+  ExplorePublicationRequest,
+  MirrorablePublication
+} from '@tape.xyz/lens'
+
 import { SuggestedVideosShimmer } from '@components/Shimmers/WatchShimmer'
 import useProfileStore from '@lib/store/idb/profile'
 import {
@@ -8,10 +13,6 @@ import {
   LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
 } from '@tape.xyz/constants'
-import type {
-  ExplorePublicationRequest,
-  MirrorablePublication
-} from '@tape.xyz/lens'
 import {
   ExplorePublicationsOrderByType,
   ExplorePublicationType,
@@ -31,13 +32,13 @@ const request: ExplorePublicationRequest = {
   orderBy: ExplorePublicationsOrderByType.LensCurated,
   where: {
     customFilters: LENS_CUSTOM_FILTERS,
-    publicationTypes: [ExplorePublicationType.Post],
     metadata: {
+      mainContentFocus: [PublicationMetadataMainFocusType.Video],
       publishedOn: IS_MAINNET
         ? [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
-        : undefined,
-      mainContentFocus: [PublicationMetadataMainFocusType.Video]
-    }
+        : undefined
+    },
+    publicationTypes: [ExplorePublicationType.Post]
   }
 }
 
@@ -48,7 +49,7 @@ const SuggestedVideos = () => {
 
   const { activeProfile } = useProfileStore()
 
-  const { data, loading, error, fetchMore, refetch } =
+  const { data, error, fetchMore, loading, refetch } =
     useExplorePublicationsQuery({
       variables: {
         request
@@ -64,18 +65,18 @@ const SuggestedVideos = () => {
   }, [id, refetch])
 
   const { observe } = useInView({
-    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
     onEnter: async () => {
       await fetchMore({
         variables: {
+          channelId: activeProfile?.id ?? null,
           request: {
             ...request,
             cursor: pageInfo?.next
-          },
-          channelId: activeProfile?.id ?? null
+          }
         }
       })
-    }
+    },
+    rootMargin: INFINITE_SCROLL_ROOT_MARGIN
   })
 
   return (
@@ -88,12 +89,12 @@ const SuggestedVideos = () => {
               (video) =>
                 !video.isHidden &&
                 video.id !== id && (
-                  <SuggestedVideoCard video={video} key={video?.id} />
+                  <SuggestedVideoCard key={video?.id} video={video} />
                 )
             )}
           </div>
           {pageInfo?.next && (
-            <span ref={observe} className="flex justify-center p-10">
+            <span className="flex justify-center p-10" ref={observe}>
               <Loader />
             </span>
           )}

@@ -14,20 +14,20 @@ const CommentsFilter = () => {
           <SortOutline className="size-5" />
         </Box>
       </DropdownMenu.Trigger>
-      <DropdownMenu.Content align="end" variant="soft" sideOffset={10}>
+      <DropdownMenu.Content align="end" sideOffset={10} variant="soft">
         <DropdownMenu.Item
           onClick={() =>
             setSelectedCommentFilter(CustomCommentsFilterEnum.RELEVANT_COMMENTS)
           }
         >
           <Text
+            className="whitespace-nowrap"
             weight={
               selectedCommentFilter ===
               CustomCommentsFilterEnum.RELEVANT_COMMENTS
                 ? 'bold'
                 : 'regular'
             }
-            className="whitespace-nowrap"
           >
             Relevant
           </Text>
@@ -38,12 +38,12 @@ const CommentsFilter = () => {
           }
         >
           <Text
+            className="whitespace-nowrap"
             weight={
               selectedCommentFilter === CustomCommentsFilterEnum.NEWEST_COMMENTS
                 ? 'bold'
                 : 'regular'
             }
-            className="whitespace-nowrap"
           >
             Newest first
           </Text>

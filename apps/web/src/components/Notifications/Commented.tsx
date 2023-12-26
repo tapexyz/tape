@@ -1,3 +1,6 @@
+import type { CommentNotification } from '@tape.xyz/lens'
+import type { FC } from 'react'
+
 import HoverableProfile from '@components/Common/HoverableProfile'
 import CommentOutline from '@components/Common/Icons/CommentOutline'
 import { getShortHandTime } from '@lib/formatTime'
@@ -6,9 +9,7 @@ import {
   getProfilePicture,
   getPublicationData
 } from '@tape.xyz/generic'
-import type { CommentNotification } from '@tape.xyz/lens'
 import Link from 'next/link'
-import type { FC } from 'react'
 import React from 'react'
 
 type Props = {
@@ -24,19 +25,19 @@ const Commented: FC<Props> = ({ notification: { comment } }) => {
         </div>
         <div>
           <span className="flex -space-x-1.5">
-            <HoverableProfile profile={comment.by} key={comment.by?.id}>
+            <HoverableProfile key={comment.by?.id} profile={comment.by}>
               <img
-                className="size-7 rounded-full border dark:border-gray-700/80"
-                src={getProfilePicture(comment.by, 'AVATAR')}
-                draggable={false}
                 alt={getProfile(comment.by)?.slug}
+                className="size-7 rounded-full border dark:border-gray-700/80"
+                draggable={false}
+                src={getProfilePicture(comment.by, 'AVATAR')}
               />
             </HoverableProfile>
           </span>
           <div className="py-2">commented on your publication</div>
           <Link
-            href={`/watch/${comment.root.id}`}
             className="text-dust line-clamp-2 font-medium"
+            href={`/watch/${comment.root.id}`}
           >
             {getPublicationData(comment.metadata)?.content}
           </Link>

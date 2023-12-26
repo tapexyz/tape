@@ -9,9 +9,9 @@ const ThumbnailsShimmer = () => {
     <>
       {thumbnails.map((e, i) => (
         <AspectRatio
-          ratio={16 / 9}
-          key={`${e}_${i}`}
           className="w-full animate-pulse rounded-lg"
+          key={`${e}_${i}`}
+          ratio={16 / 9}
         >
           <div className="h-full rounded-lg bg-gray-200 dark:bg-gray-800" />
         </AspectRatio>

@@ -1,3 +1,11 @@
+import type {
+  CreateSetFollowModuleBroadcastItemResult,
+  FeeFollowModuleSettings,
+  Profile
+} from '@tape.xyz/lens'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+import type { z } from 'zod'
+
 import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -20,11 +28,6 @@ import {
   getSignature,
   shortenAddress
 } from '@tape.xyz/generic'
-import type {
-  CreateSetFollowModuleBroadcastItemResult,
-  FeeFollowModuleSettings,
-  Profile
-} from '@tape.xyz/lens'
 import {
   LimitType,
   useBroadcastOnchainMutation,
@@ -32,13 +35,11 @@ import {
   useEnabledCurrenciesQuery,
   useProfileFollowModuleQuery
 } from '@tape.xyz/lens'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { useContractWrite, useSignTypedData } from 'wagmi'
-import type { z } from 'zod'
 import { number, object, string } from 'zod'
 
 type Props = {
@@ -46,10 +47,10 @@ type Props = {
 }
 
 const formSchema = object({
-  recipient: string().length(42, { message: 'Enter valid ethereum address' }),
   amount: number()
     .nonnegative({ message: 'Amount should to greater than zero' })
     .refine((n) => n > 0, { message: 'Amount should be greater than 0' }),
+  recipient: string().length(42, { message: 'Enter valid ethereum address' }),
   token: string().length(42, { message: 'Select valid token' })
 })
 type FormData = z.infer<typeof formSchema>
@@ -66,19 +67,19 @@ const FeeFollow = ({ profile }: Props) => {
   const { canBroadcast } = checkLensManagerPermissions(activeProfile)
 
   const {
-    register,
-    handleSubmit,
+    formState: { errors },
     getValues,
+    handleSubmit,
+    register,
     setValue,
-    watch,
-    formState: { errors }
+    watch
   } = useForm<FormData>({
-    resolver: zodResolver(formSchema),
     defaultValues: {
-      recipient: getProfile(profile).address,
       amount: 2,
+      recipient: getProfile(profile).address,
       token: WMATIC_TOKEN_ADDRESS
-    }
+    },
+    resolver: zodResolver(formSchema)
   })
 
   const onError = (error: CustomErrorWithData) => {
@@ -88,17 +89,17 @@ const FeeFollow = ({ profile }: Props) => {
 
   const {
     data: followModuleData,
-    refetch,
-    loading: moduleLoading
+    loading: moduleLoading,
+    refetch
   } = useProfileFollowModuleQuery({
-    variables: { request: { forProfileId: profile?.id } },
-    skip: !profile?.id,
     notifyOnNetworkStatusChange: true,
     onCompleted: ({ profile }) => {
       const activeFollowModule =
         profile?.followModule as FeeFollowModuleSettings
       setShowForm(activeFollowModule ? false : true)
-    }
+    },
+    skip: !profile?.id,
+    variables: { request: { forProfileId: profile?.id } }
   })
   const activeFollowModule = followModuleData?.profile
     ?.followModule as FeeFollowModuleSettings
@@ -107,12 +108,12 @@ const FeeFollow = ({ profile }: Props) => {
     onError
   })
   const { data: enabledCurrencies } = useEnabledCurrenciesQuery({
+    skip: !profile?.id,
     variables: {
       request: {
         limit: LimitType.Fifty
       }
-    },
-    skip: !profile?.id
+    }
   })
 
   const [broadcast, { data: broadcastData }] = useBroadcastOnchainMutation({
@@ -120,8 +121,8 @@ const FeeFollow = ({ profile }: Props) => {
   })
 
   const { data: writtenData, write } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
     abi: LENSHUB_PROXY_ABI,
+    address: LENSHUB_PROXY_ADDRESS,
     functionName: 'setFollowModule',
     onError
   })
@@ -146,9 +147,9 @@ const FeeFollow = ({ profile }: Props) => {
   const [createSetFollowModuleTypedData] =
     useCreateSetFollowModuleTypedDataMutation({
       onCompleted: async ({ createSetFollowModuleTypedData }) => {
-        const { typedData, id } =
+        const { id, typedData } =
           createSetFollowModuleTypedData as CreateSetFollowModuleBroadcastItemResult
-        const { profileId, followModule, followModuleInitData } =
+        const { followModule, followModuleInitData, profileId } =
           typedData.value
         const args = [profileId, followModule, followModuleInitData]
         try {
@@ -239,8 +240,8 @@ const FeeFollow = ({ profile }: Props) => {
               <Text>Recipient</Text>
               <Tooltip content="Copy Address" placement="top">
                 <Button
-                  variant="ghost"
                   onClick={() => copy(activeFollowModule.recipient)}
+                  variant="ghost"
                 >
                   <span className="block text-xl font-bold outline-none">
                     {shortenAddress(activeFollowModule.recipient, 6)}
@@ -254,14 +255,14 @@ const FeeFollow = ({ profile }: Props) => {
 
       {showForm && !moduleLoading ? (
         <form onSubmit={handleSubmit(onSubmitForm)}>
-          <Flex direction="column" className="laptop:w-1/2" gap="4">
+          <Flex className="laptop:w-1/2" direction="column" gap="4">
             <div>
-              <Text as="div" size="2" mb="1">
+              <Text as="div" mb="1" size="2">
                 Currency
               </Text>
               <Select.Root
-                value={watch('token')}
                 onValueChange={(value) => setValue('token', value)}
+                value={watch('token')}
               >
                 <Select.Trigger className="w-full" />
                 <Select.Content highContrast>
@@ -283,20 +284,20 @@ const FeeFollow = ({ profile }: Props) => {
             </div>
             <div>
               <Input
-                label="Amount"
-                type="number"
-                step="any"
-                placeholder="10"
                 autoComplete="off"
+                label="Amount"
+                placeholder="10"
+                step="any"
+                type="number"
                 validationError={errors.amount?.message}
                 {...register('amount', { valueAsNumber: true })}
               />
             </div>
             <div>
               <Input
+                autoComplete="off"
                 label="Recipient"
                 placeholder="0x00..."
-                autoComplete="off"
                 validationError={errors.recipient?.message}
                 {...register('recipient')}
               />
@@ -304,11 +305,11 @@ const FeeFollow = ({ profile }: Props) => {
           </Flex>
           <div className="mt-6 flex justify-end space-x-2">
             {activeFollowModule && (
-              <Button variant="surface" onClick={() => setShowForm(false)}>
+              <Button onClick={() => setShowForm(false)} variant="surface">
                 Cancel
               </Button>
             )}
-            <Button highContrast variant="surface" disabled={loading}>
+            <Button disabled={loading} highContrast variant="surface">
               {loading && <Loader size="sm" />}
               Set Membership
             </Button>
@@ -318,18 +319,18 @@ const FeeFollow = ({ profile }: Props) => {
       {!moduleLoading && !showForm && (
         <div className="flex items-center justify-end space-x-2">
           <Button
-            variant="surface"
             color="red"
             disabled={loading}
             onClick={() => updateFeeFollow(true)}
+            variant="surface"
           >
             {loading && <Loader size="sm" />}
             Disable
           </Button>
           <Button
-            variant="surface"
             highContrast
             onClick={() => setShowForm(true)}
+            variant="surface"
           >
             Update
           </Button>

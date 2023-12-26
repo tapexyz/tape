@@ -1,3 +1,6 @@
+import type { Profile } from '@tape.xyz/lens'
+import type { FC, ReactNode } from 'react'
+
 import getCurrentSession from '@lib/getCurrentSession'
 import { signOut } from '@lib/store/auth'
 import useProfileStore from '@lib/store/idb/profile'
@@ -9,13 +12,11 @@ import {
 } from '@tape.xyz/browser'
 import { AUTH_ROUTES, OWNER_ONLY_ROUTES } from '@tape.xyz/constants'
 import { getIsProfileOwner, trimify } from '@tape.xyz/generic'
-import type { Profile } from '@tape.xyz/lens'
 import { useCurrentProfileQuery } from '@tape.xyz/lens'
 import { watchAccount } from '@wagmi/core'
 import clsx from 'clsx'
-import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
-import type { FC, ReactNode } from 'react'
+import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { Toaster } from 'react-hot-toast'
 import { useAccount } from 'wagmi'
@@ -27,15 +28,15 @@ import Navbar from './Navbar'
 
 interface Props {
   children: ReactNode
-  skipNav?: boolean
   skipBottomNav?: boolean
+  skipNav?: boolean
   skipPadding?: boolean
 }
 
 const Layout: FC<Props> = ({
   children,
-  skipNav,
   skipBottomNav,
+  skipNav,
   skipPadding
 }) => {
   const { setLensHubOnchainSigNonce } = useNonceStore()
@@ -45,13 +46,11 @@ const Layout: FC<Props> = ({
   const isMounted = useIsMounted()
   const { resolvedTheme } = useTheme()
   const { address } = useAccount()
-  const { pathname, replace, asPath } = useRouter()
+  const { asPath, pathname, replace } = useRouter()
   const currentSession = getCurrentSession()
 
   const { loading } = useCurrentProfileQuery({
-    variables: { request: { forProfileId: currentSession?.profileId } },
-    skip: trimify(currentSession?.profileId).length === 0,
-    onCompleted: ({ userSigNonces, profile }) => {
+    onCompleted: ({ profile, userSigNonces }) => {
       if (!profile) {
         return signOut()
       }
@@ -59,7 +58,9 @@ const Layout: FC<Props> = ({
       setActiveProfile(profile as Profile)
       setLensHubOnchainSigNonce(userSigNonces.lensHubOnchainSigNonce)
     },
-    onError: () => signOut()
+    onError: () => signOut(),
+    skip: trimify(currentSession?.profileId).length === 0,
+    variables: { request: { forProfileId: currentSession?.profileId } }
   })
 
   const validateAuthRoutes = () => {
@@ -104,8 +105,8 @@ const Layout: FC<Props> = ({
     <>
       <MetaTags />
       <Toaster
-        position="bottom-right"
         containerStyle={{ wordBreak: 'break-word' }}
+        position="bottom-right"
         toastOptions={getToastOptions(resolvedTheme)}
       />
       {!skipNav && <Navbar />}

@@ -1,3 +1,8 @@
+import type {
+  ExplorePublicationRequest,
+  PrimaryPublication
+} from '@tape.xyz/lens'
+
 import MetaTags from '@components/Common/MetaTags'
 import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
@@ -11,10 +16,6 @@ import {
   TAPE_APP_ID
 } from '@tape.xyz/constants'
 import { getCategoryName } from '@tape.xyz/generic'
-import type {
-  ExplorePublicationRequest,
-  PrimaryPublication
-} from '@tape.xyz/lens'
 import {
   ExplorePublicationsOrderByType,
   ExplorePublicationType,
@@ -33,26 +34,26 @@ const ExploreCategory = () => {
   const categoryName = query.category as string
 
   const request: ExplorePublicationRequest = {
+    limit: LimitType.Fifty,
+    orderBy: ExplorePublicationsOrderByType.Latest,
     where: {
       customFilters: LENS_CUSTOM_FILTERS,
-      publicationTypes: [ExplorePublicationType.Post],
       metadata: {
-        tags: { oneOf: [categoryName] },
         mainContentFocus: [PublicationMetadataMainFocusType.Video],
         publishedOn: IS_MAINNET
           ? [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
-          : undefined
-      }
-    },
-    orderBy: ExplorePublicationsOrderByType.Latest,
-    limit: LimitType.Fifty
+          : undefined,
+        tags: { oneOf: [categoryName] }
+      },
+      publicationTypes: [ExplorePublicationType.Post]
+    }
   }
 
-  const { data, loading, error, fetchMore } = useExplorePublicationsQuery({
+  const { data, error, fetchMore, loading } = useExplorePublicationsQuery({
+    skip: !query.category,
     variables: {
       request
-    },
-    skip: !query.category
+    }
   })
 
   const videos = data?.explorePublications
@@ -60,7 +61,6 @@ const ExploreCategory = () => {
   const pageInfo = data?.explorePublications?.pageInfo
 
   const { observe } = useInView({
-    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
     onEnter: async () => {
       await fetchMore({
         variables: {
@@ -70,7 +70,8 @@ const ExploreCategory = () => {
           }
         }
       })
-    }
+    },
+    rootMargin: INFINITE_SCROLL_ROOT_MARGIN
   })
   if (!query.category) {
     return <Custom404 />
@@ -86,13 +87,13 @@ const ExploreCategory = () => {
         <div className="my-4">
           {loading && <TimelineShimmer />}
           {videos?.length === 0 && (
-            <NoDataFound isCenter withImage text={`No videos found`} />
+            <NoDataFound isCenter text={`No videos found`} withImage />
           )}
           {!error && !loading && (
             <>
               <Timeline videos={videos} />
               {pageInfo?.next && (
-                <span ref={observe} className="flex justify-center p-10">
+                <span className="flex justify-center p-10" ref={observe}>
                   <Loader />
                 </span>
               )}

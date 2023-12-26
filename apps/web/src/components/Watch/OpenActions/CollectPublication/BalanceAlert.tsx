@@ -1,9 +1,10 @@
+import type { SupportedOpenActionModuleType } from '@tape.xyz/lens/custom-types'
+import type { FC } from 'react'
+
 import WarningOutline from '@components/Common/Icons/WarningOutline'
 import { Callout } from '@radix-ui/themes'
 import { IS_MAINNET } from '@tape.xyz/constants'
-import type { SupportedOpenActionModuleType } from '@tape.xyz/lens/custom-types'
 import Link from 'next/link'
-import type { FC } from 'react'
 import React from 'react'
 
 const getUniswapURL = (amount: number, outputCurrency: string): string => {
@@ -29,13 +30,13 @@ const BalanceAlert: FC<Props> = ({ action }) => {
               Not enough {action?.amount?.asset?.symbol} token balance
             </span>
             <Link
+              className="text-brand-500"
               href={getUniswapURL(
                 parseFloat(action?.amount?.value),
                 action?.amount?.asset?.contract.address
               )}
               rel="noreferer noreferrer"
               target="_blank"
-              className="text-brand-500"
             >
               Swap
             </Link>

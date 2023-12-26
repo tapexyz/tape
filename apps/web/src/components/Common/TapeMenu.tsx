@@ -14,10 +14,10 @@ const TapeMenu = () => {
       <Link
         className="rounded-lg px-2.5 py-1.5"
         href={`https://github.com/${TAPE_GITHUB_HANDLE}/brand-kit`}
-        target="_blank"
         onClick={() => {
           Tower.track(EVENTS.SYSTEM.MORE_MENU.BRAND_KIT)
         }}
+        target="_blank"
       >
         Brand Kit
       </Link>
@@ -76,10 +76,10 @@ const TapeMenu = () => {
       <Link
         className="rounded-lg px-2.5 py-1.5"
         href="/thanks"
-        target="_blank"
         onClick={() => {
           Tower.track(EVENTS.SYSTEM.MORE_MENU.THANKS)
         }}
+        target="_blank"
       >
         Thanks
       </Link>
@@ -96,21 +96,21 @@ const TapeMenu = () => {
 
       <Link
         className="rounded-lg px-2.5 py-1.5"
-        target="_blank"
+        href="/terms"
         onClick={() => {
           Tower.track(EVENTS.SYSTEM.MORE_MENU.TERMS)
         }}
-        href="/terms"
+        target="_blank"
       >
         Terms
       </Link>
       <Link
         className="rounded-lg px-2.5 py-1.5"
-        target="_blank"
+        href="/privacy"
         onClick={() => {
           Tower.track(EVENTS.SYSTEM.MORE_MENU.PRIVACY)
         }}
-        href="/privacy"
+        target="_blank"
       >
         Privacy
       </Link>

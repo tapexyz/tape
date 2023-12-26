@@ -1,11 +1,12 @@
 import type { SVGProps } from 'react'
+
 import React from 'react'
 
 const UploadOutline = (props: SVGProps<SVGSVGElement>) => (
   <svg
     {...props}
-    viewBox="0 0 20 20"
     fill="none"
+    viewBox="0 0 20 20"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path

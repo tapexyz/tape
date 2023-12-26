@@ -1,3 +1,6 @@
+import type { MirrorNotification, ProfileMirrorResult } from '@tape.xyz/lens'
+import type { FC } from 'react'
+
 import HoverableProfile from '@components/Common/HoverableProfile'
 import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import {
@@ -5,9 +8,7 @@ import {
   getProfilePicture,
   getPublicationData
 } from '@tape.xyz/generic'
-import type { MirrorNotification, ProfileMirrorResult } from '@tape.xyz/lens'
 import Link from 'next/link'
-import type { FC } from 'react'
 import React from 'react'
 
 type Props = {
@@ -23,20 +24,20 @@ const Mirrored: FC<Props> = ({ notification: { mirrors, publication } }) => {
       <div>
         <span className="flex -space-x-1.5">
           {mirrors.slice(0, 30).map(({ profile }: ProfileMirrorResult) => (
-            <HoverableProfile profile={profile} key={profile?.id}>
+            <HoverableProfile key={profile?.id} profile={profile}>
               <img
-                className="size-7 rounded-full border dark:border-gray-700/80"
-                src={getProfilePicture(profile, 'AVATAR')}
-                draggable={false}
                 alt={getProfile(profile)?.displayName}
+                className="size-7 rounded-full border dark:border-gray-700/80"
+                draggable={false}
+                src={getProfilePicture(profile, 'AVATAR')}
               />
             </HoverableProfile>
           ))}
         </span>
         <div className="py-2">mirrored your publication</div>
         <Link
-          href={`/watch/${publication.id}`}
           className="text-dust line-clamp-2 font-medium"
+          href={`/watch/${publication.id}`}
         >
           {getPublicationData(publication.metadata)?.content}
         </Link>

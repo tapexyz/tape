@@ -1,3 +1,6 @@
+import type { Comment } from '@tape.xyz/lens'
+import type { FC } from 'react'
+
 import Badge from '@components/Common/Badge'
 import HoverableProfile from '@components/Common/HoverableProfile'
 import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
@@ -19,10 +22,8 @@ import {
   getPublicationData,
   getValueFromKeyInAttributes
 } from '@tape.xyz/generic'
-import type { Comment } from '@tape.xyz/lens'
 import clsx from 'clsx'
 import Link from 'next/link'
-import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 
@@ -65,22 +66,22 @@ const RenderComment: FC<Props> = ({ comment }) => {
     <div className="flex items-start justify-between">
       <div className="flex w-full items-start">
         <Link
-          href={getProfile(comment.by)?.link}
           className="mr-3 mt-0.5 flex-none"
+          href={getProfile(comment.by)?.link}
         >
           <img
-            src={getProfilePicture(comment.by, 'AVATAR')}
+            alt={getProfile(comment.by)?.slug}
             className="size-8 rounded-full"
             draggable={false}
-            alt={getProfile(comment.by)?.slug}
+            src={getProfilePicture(comment.by, 'AVATAR')}
           />
         </Link>
         <div className="mr-2 flex w-full flex-col items-start">
           <span className="mb-1 flex items-center">
             <HoverableProfile profile={comment.by}>
               <Link
-                href={getProfile(comment.by)?.link}
                 className="flex items-center space-x-1 font-medium"
+                href={getProfile(comment.by)?.link}
               >
                 <span>{getProfile(comment.by)?.slug}</span>
                 <Badge id={comment?.by.id} />
@@ -90,7 +91,7 @@ const RenderComment: FC<Props> = ({ comment }) => {
               comment?.metadata?.attributes,
               'hash'
             ) && (
-              <Tooltip placement="top" content="Supporter">
+              <Tooltip content="Supporter" placement="top">
                 <span className="pl-1.5">
                   <HeartFilled className="size-3 text-red-500" />
                 </span>
@@ -107,9 +108,9 @@ const RenderComment: FC<Props> = ({ comment }) => {
           {showMore && (
             <div className="mt-2 inline-flex">
               <button
-                type="button"
-                onClick={() => setClamped(!clamped)}
                 className="flex items-center text-sm opacity-80 outline-none hover:opacity-100"
+                onClick={() => setClamped(!clamped)}
+                type="button"
               >
                 {clamped ? (
                   <>
@@ -125,10 +126,9 @@ const RenderComment: FC<Props> = ({ comment }) => {
           )}
           <CommentMedia comment={comment} />
           {!comment.isHidden && (
-            <Flex mt="2" gap="4">
+            <Flex gap="4" mt="2">
               <PublicationReaction publication={comment} />
               <Button
-                variant="ghost"
                 highContrast
                 onClick={() => {
                   if (!activeProfile?.id) {
@@ -140,17 +140,18 @@ const RenderComment: FC<Props> = ({ comment }) => {
                   setShowNewComment(!showNewComment)
                   setDefaultComment('')
                 }}
+                variant="ghost"
               >
                 <ReplyOutline className="size-3.5" />
                 <span className="text-xs">Reply</span>
               </Button>
               {comment.stats.comments ? (
                 <Button
-                  variant="ghost"
                   onClick={() => setShowReplies(!showReplies)}
+                  variant="ghost"
                 >
                   <CommentOutline className="size-3.5" />
-                  <Text size="1" highContrast color="gray">
+                  <Text color="gray" highContrast size="1">
                     {comment.stats.comments} replies
                   </Text>
                 </Button>
@@ -190,14 +191,14 @@ const RenderComment: FC<Props> = ({ comment }) => {
             )}
             {showNewComment && (
               <NewComment
-                video={comment}
                 defaultValue={defaultComment}
-                placeholder="Write a reply"
                 hideEmojiPicker
+                placeholder="Write a reply"
                 resetReply={() => {
                   setDefaultComment('')
                   setShowNewComment(false)
                 }}
+                video={comment}
               />
             )}
           </div>

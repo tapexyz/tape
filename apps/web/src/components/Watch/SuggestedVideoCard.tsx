@@ -1,3 +1,6 @@
+import type { MirrorablePublication } from '@tape.xyz/lens'
+import type { FC } from 'react'
+
 import HoverableProfile from '@components/Common/HoverableProfile'
 import CommentOutline from '@components/Common/Icons/CommentOutline'
 import HeartOutline from '@components/Common/Icons/HeartOutline'
@@ -17,10 +20,8 @@ import {
   getThumbnailUrl,
   imageCdn
 } from '@tape.xyz/generic'
-import type { MirrorablePublication } from '@tape.xyz/lens'
 import clsx from 'clsx'
 import Link from 'next/link'
-import type { FC } from 'react'
 import React from 'react'
 
 type Props = {
@@ -42,25 +43,25 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
       <div className="flex justify-between">
         <div className="rounded-small flex-none overflow-hidden">
           <Link
-            href={`/watch/${video.id}`}
             className="cursor-pointer rounded-md"
+            href={`/watch/${video.id}`}
           >
             <div className="relative">
               <img
+                alt="thumbnail"
                 className={clsx(
                   'h-24 w-44 bg-gray-300 object-center dark:bg-gray-700',
                   isBytesVideo ? 'object-contain' : 'object-cover'
                 )}
+                draggable={false}
+                onError={({ currentTarget }) => {
+                  currentTarget.src = FALLBACK_THUMBNAIL_URL
+                }}
                 src={imageCdn(
                   thumbnailUrl,
                   isBytesVideo ? 'THUMBNAIL_V' : 'THUMBNAIL'
                 )}
                 style={{ backgroundColor: `${backgroundColor}95` }}
-                alt="thumbnail"
-                draggable={false}
-                onError={({ currentTarget }) => {
-                  currentTarget.src = FALLBACK_THUMBNAIL_URL
-                }}
               />
               {!isSensitiveContent && videoDuration ? (
                 <div>
@@ -76,15 +77,15 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
           <div className="flex flex-col items-start pb-1">
             <div className="grid w-full overflow-hidden break-words">
               <Link
-                href={`/watch/${video.id}`}
                 className="line-clamp-2 font-medium"
+                href={`/watch/${video.id}`}
                 title={getPublicationData(video.metadata)?.title ?? ''}
               >
                 {getPublicationData(video.metadata)?.title}
               </Link>
             </div>
             <div className="py-1">
-              <HoverableProfile profile={video.by} fontSize="1" />
+              <HoverableProfile fontSize="1" profile={video.by} />
             </div>
             <div className="flex items-center overflow-hidden text-xs opacity-80">
               <Flex align="center" gap="1">

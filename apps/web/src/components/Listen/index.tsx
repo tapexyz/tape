@@ -1,3 +1,5 @@
+import type { AnyPublication } from '@tape.xyz/lens'
+
 import MetaTags from '@components/Common/MetaTags'
 import {
   EVENTS,
@@ -6,7 +8,6 @@ import {
   isListenable,
   Tower
 } from '@tape.xyz/generic'
-import type { AnyPublication } from '@tape.xyz/lens'
 import { usePublicationQuery } from '@tape.xyz/lens'
 import { Loader } from '@tape.xyz/ui'
 import { useRouter } from 'next/router'
@@ -28,10 +29,10 @@ const Listen = () => {
   }, [])
 
   const { data, error, loading } = usePublicationQuery({
+    skip: !id,
     variables: {
       request: { forId: id }
-    },
-    skip: !id
+    }
   })
 
   if (loading || !data) {

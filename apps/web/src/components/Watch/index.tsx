@@ -1,3 +1,5 @@
+import type { AnyPublication } from '@tape.xyz/lens'
+
 import MetaTags from '@components/Common/MetaTags'
 import { WatchShimmer } from '@components/Shimmers/WatchShimmer'
 import useAppStore from '@lib/store'
@@ -9,7 +11,6 @@ import {
   isWatchable,
   Tower
 } from '@tape.xyz/generic'
-import type { AnyPublication } from '@tape.xyz/lens'
 import { usePublicationQuery } from '@tape.xyz/lens'
 import { CustomCommentsFilterEnum } from '@tape.xyz/lens/custom-types'
 import { useRouter } from 'next/router'
@@ -42,10 +43,10 @@ const VideoDetails = () => {
   }, [time, setVideoWatchTime])
 
   const { data, error, loading } = usePublicationQuery({
+    skip: !id,
     variables: {
       request: { forId: id }
-    },
-    skip: !id
+    }
   })
 
   if (loading || !data) {

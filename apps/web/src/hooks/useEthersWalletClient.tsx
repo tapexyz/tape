@@ -1,4 +1,5 @@
 import type { TypedDataDomain } from 'viem'
+
 import { usePublicClient, useWalletClient } from 'wagmi'
 
 const useEthersWalletClient = (): {
@@ -11,14 +12,11 @@ const useEthersWalletClient = (): {
   const { estimateGas, getGasPrice, getTransaction } = usePublicClient()
 
   const ethersWalletClient = {
-    signMessage: async (message: string): Promise<string> => {
-      const signature = await signer?.signMessage({ message })
-      return signature ?? ''
-    },
+    estimateGas: () => estimateGas,
+    getGasPrice: () => getGasPrice,
     getSigner: () => {
       return {
         ...signer,
-        getAddress: () => signer?.account.address,
         _signTypedData: async (
           domain: TypedDataDomain,
           types: any,
@@ -29,17 +27,20 @@ const useEthersWalletClient = (): {
           const r = await signer?.signTypedData({
             domain,
             message,
-            types,
             // Dont change to Irys
-            primaryType: 'Bundlr'
+            primaryType: 'Bundlr',
+            types
           })
           return r
-        }
+        },
+        getAddress: () => signer?.account.address
       }
     },
-    estimateGas: () => estimateGas,
-    getGasPrice: () => getGasPrice,
-    getTransaction: () => getTransaction
+    getTransaction: () => getTransaction,
+    signMessage: async (message: string): Promise<string> => {
+      const signature = await signer?.signMessage({ message })
+      return signature ?? ''
+    }
   }
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

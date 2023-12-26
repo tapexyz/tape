@@ -1,3 +1,6 @@
+import type { AnyPublication } from '@tape.xyz/lens'
+import type { FC } from 'react'
+
 import {
   FALLBACK_THUMBNAIL_URL,
   LENSTUBE_BYTES_APP_ID,
@@ -10,19 +13,17 @@ import {
   getThumbnailUrl,
   imageCdn
 } from '@tape.xyz/generic'
-import type { AnyPublication } from '@tape.xyz/lens'
 import clsx from 'clsx'
 import Link from 'next/link'
-import type { FC } from 'react'
 import React from 'react'
 
 interface Props {
-  results: AnyPublication[]
-  loading: boolean
   clearSearch: () => void
+  loading: boolean
+  results: AnyPublication[]
 }
 
-const Publications: FC<Props> = ({ results, loading, clearSearch }) => {
+const Publications: FC<Props> = ({ clearSearch, loading, results }) => {
   return (
     <div>
       {results?.map((result) => {
@@ -39,30 +40,30 @@ const Publications: FC<Props> = ({ results, loading, clearSearch }) => {
 
         return (
           <div
-            key={publication.id}
             className="hover:bg-gallery dark:hover:bg-smoke relative cursor-default select-none rounded-md pl-3 pr-4"
+            key={publication.id}
           >
             <Link
+              className="flex flex-col justify-center space-y-1 py-2"
               href={`/watch/${publication?.id}`}
               key={publication?.id}
               onClick={() => clearSearch()}
-              className="flex flex-col justify-center space-y-1 py-2"
             >
               <div className="flex items-center space-x-3">
                 <img
+                  alt="thumbnail"
                   className={clsx(
                     'h-16 w-28 flex-none rounded-md bg-gray-300 object-center dark:bg-gray-700',
                     isBytesVideo ? 'object-contain' : 'object-cover'
                   )}
-                  src={imageCdn(
-                    thumbnailUrl,
-                    isBytesVideo ? 'THUMBNAIL_V' : 'THUMBNAIL'
-                  )}
-                  alt="thumbnail"
                   draggable={false}
                   onError={({ currentTarget }) => {
                     currentTarget.src = FALLBACK_THUMBNAIL_URL
                   }}
+                  src={imageCdn(
+                    thumbnailUrl,
+                    isBytesVideo ? 'THUMBNAIL_V' : 'THUMBNAIL'
+                  )}
                 />
                 <div className="space-y-0.5">
                   <p className="line-clamp-1 font-medium">

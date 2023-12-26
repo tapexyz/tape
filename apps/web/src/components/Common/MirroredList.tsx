@@ -1,3 +1,5 @@
+import type { FC } from 'react'
+
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import {
@@ -8,7 +10,6 @@ import {
 } from '@tape.xyz/lens'
 import { Loader } from '@tape.xyz/ui'
 import Link from 'next/link'
-import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 
@@ -21,17 +22,17 @@ type Props = {
 
 const MirroredList: FC<Props> = ({ videoId }) => {
   const request: ProfilesRequest = {
+    limit: LimitType.Fifty,
     where: {
       whoMirroredPublication: videoId
-    },
-    limit: LimitType.Fifty
+    }
   }
 
-  const { data, loading, fetchMore } = useProfilesQuery({
+  const { data, fetchMore, loading } = useProfilesQuery({
+    skip: !videoId,
     variables: {
       request
-    },
-    skip: !videoId
+    }
   })
 
   const mirroredByProfiles = data?.profiles?.items as Profile[]
@@ -56,7 +57,7 @@ const MirroredList: FC<Props> = ({ videoId }) => {
   if (mirroredByProfiles?.length === 0) {
     return (
       <div className="pt-5">
-        <NoDataFound text="No mirrors yet" isCenter />
+        <NoDataFound isCenter text="No mirrors yet" />
       </div>
     )
   }
@@ -66,15 +67,15 @@ const MirroredList: FC<Props> = ({ videoId }) => {
       {mirroredByProfiles?.map((profile: Profile) => (
         <div className="flex flex-col" key={getProfile(profile)?.slug}>
           <Link
-            href={`/u/${getProfile(profile)?.slug}`}
             className="font-base flex items-center justify-between"
+            href={`/u/${getProfile(profile)?.slug}`}
           >
             <div className="flex items-center space-x-1.5">
               <img
-                className="size-5 rounded-full"
-                src={getProfilePicture(profile, 'AVATAR')}
                 alt={getProfile(profile)?.slug}
+                className="size-5 rounded-full"
                 draggable={false}
+                src={getProfilePicture(profile, 'AVATAR')}
               />
               <div className="flex items-center space-x-1">
                 <span>{getProfile(profile)?.slug}</span>
@@ -89,7 +90,7 @@ const MirroredList: FC<Props> = ({ videoId }) => {
         </div>
       ))}
       {pageInfo?.next && (
-        <span ref={observe} className="p-5">
+        <span className="p-5" ref={observe}>
           <Loader />
         </span>
       )}

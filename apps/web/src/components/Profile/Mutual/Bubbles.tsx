@@ -1,3 +1,6 @@
+import type { Profile } from '@tape.xyz/lens'
+import type { FC } from 'react'
+
 import HoverableProfile from '@components/Common/HoverableProfile'
 import TimesOutline from '@components/Common/Icons/TimesOutline'
 import BubblesShimmer from '@components/Shimmers/BubblesShimmer'
@@ -10,30 +13,28 @@ import {
   ScrollArea
 } from '@radix-ui/themes'
 import { getProfile, getProfilePicture } from '@tape.xyz/generic'
-import type { Profile } from '@tape.xyz/lens'
 import { LimitType, useMutualFollowersQuery } from '@tape.xyz/lens'
-import type { FC } from 'react'
 import React from 'react'
 
 import MutualFollowers from './MutualFollowers'
 
 type Props = {
-  viewing: string
   showSeparator?: boolean
+  viewing: string
 }
 
-const Bubbles: FC<Props> = ({ viewing, showSeparator }) => {
+const Bubbles: FC<Props> = ({ showSeparator, viewing }) => {
   const { activeProfile } = useProfileStore()
 
   const { data, loading } = useMutualFollowersQuery({
+    skip: !viewing || !activeProfile?.id,
     variables: {
       request: {
+        limit: LimitType.Ten,
         observer: activeProfile?.id,
-        viewing,
-        limit: LimitType.Ten
+        viewing
       }
-    },
-    skip: !viewing || !activeProfile?.id
+    }
   })
 
   const mutualFollowers = data?.mutualFollowers?.items as Profile[]
@@ -52,20 +53,20 @@ const Bubbles: FC<Props> = ({ viewing, showSeparator }) => {
         <span className="flex items-center">
           {showSeparator && <span className="middot px-1" />}
           <Flex align="center" gap="1">
-            <button type="button" className="flex cursor-pointer -space-x-1.5">
+            <button className="flex cursor-pointer -space-x-1.5" type="button">
               {mutualFollowers.slice(0, 3)?.map((profile: Profile) => (
-                <HoverableProfile profile={profile} key={profile?.id}>
+                <HoverableProfile key={profile?.id} profile={profile}>
                   <img
-                    className="size-7 flex-none rounded-full border bg-white dark:border-gray-700/80"
-                    src={getProfilePicture(profile, 'AVATAR')}
-                    draggable={false}
                     alt={getProfile(profile)?.slug}
+                    className="size-7 flex-none rounded-full border bg-white dark:border-gray-700/80"
+                    draggable={false}
+                    src={getProfilePicture(profile, 'AVATAR')}
                   />
                 </HoverableProfile>
               ))}
               {mutualFollowers.length > 4 && (
                 <div className="flex size-7 flex-none items-center justify-center rounded-full border border-gray-300 bg-gray-200 dark:border-gray-600 dark:bg-gray-800">
-                  <span role="img" className="text-sm">
+                  <span className="text-sm" role="img">
                     👀
                   </span>
                 </div>
@@ -78,12 +79,12 @@ const Bubbles: FC<Props> = ({ viewing, showSeparator }) => {
         <Flex gap="3" justify="between" pb="2">
           <Dialog.Title size="6">People you may know</Dialog.Title>
           <DialogClose>
-            <IconButton variant="ghost" color="gray">
-              <TimesOutline outlined={false} className="size-3" />
+            <IconButton color="gray" variant="ghost">
+              <TimesOutline className="size-3" outlined={false} />
             </IconButton>
           </DialogClose>
         </Flex>
-        <ScrollArea type="hover" scrollbars="vertical" style={{ height: 400 }}>
+        <ScrollArea scrollbars="vertical" style={{ height: 400 }} type="hover">
           <MutualFollowers viewing={viewing} />
         </ScrollArea>
       </Dialog.Content>

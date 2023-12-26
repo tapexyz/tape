@@ -1,3 +1,5 @@
+import type { FC } from 'react'
+
 import Badge from '@components/Common/Badge'
 import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
 import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
@@ -22,7 +24,6 @@ import {
 } from '@tape.xyz/lens'
 import clsx from 'clsx'
 import Link from 'next/link'
-import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 
 import PublicationReaction from '../../Common/Publication/PublicationReaction'
@@ -54,9 +55,9 @@ const ReplyContent: FC<ReplyContentProps> = ({ comment }) => {
       {showMore && (
         <div className="inline-flex">
           <button
-            type="button"
-            onClick={() => setClamped(!clamped)}
             className="my-2 flex items-center text-sm opacity-80 outline-none hover:opacity-100"
+            onClick={() => setClamped(!clamped)}
+            type="button"
           >
             {clamped ? (
               <>
@@ -84,19 +85,19 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
   const request: PublicationsRequest = {
     limit: LimitType.Fifty,
     where: {
-      customFilters: LENS_CUSTOM_FILTERS,
       commentOn: {
         id: comment.id,
         ranking: {
           filter: CommentRankingFilterType.All
         }
-      }
+      },
+      customFilters: LENS_CUSTOM_FILTERS
     }
   }
 
-  const { data, loading, error, fetchMore } = usePublicationsQuery({
-    variables: { request },
-    skip: !comment.id
+  const { data, error, fetchMore, loading } = usePublicationsQuery({
+    skip: !comment.id,
+    variables: { request }
   })
 
   const comments = data?.publications?.items as unknown as Comment[]
@@ -127,24 +128,24 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
       {comments?.map(
         (comment) =>
           !comment.isHidden && (
-            <div key={comment.id} className="flex items-start justify-between">
+            <div className="flex items-start justify-between" key={comment.id}>
               <div className="flex w-full items-start">
                 <Link
-                  href={`/u/${getProfile(comment.by)?.slug}`}
                   className="mr-3 mt-0.5 flex-none"
+                  href={`/u/${getProfile(comment.by)?.slug}`}
                 >
                   <img
-                    src={getProfilePicture(comment.by, 'AVATAR')}
+                    alt={getProfile(comment.by)?.slug}
                     className="size-8 rounded-full"
                     draggable={false}
-                    alt={getProfile(comment.by)?.slug}
+                    src={getProfilePicture(comment.by, 'AVATAR')}
                   />
                 </Link>
                 <div className="mr-2 flex w-full flex-col items-start">
                   <span className="mb-1 flex items-center">
                     <Link
-                      href={getProfile(comment.by)?.link}
                       className="flex items-center space-x-1 font-medium"
+                      href={getProfile(comment.by)?.link}
                     >
                       <span>{getProfile(comment.by)?.slug}</span>
                       <Badge id={comment?.by.id} />
@@ -156,12 +157,12 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
                   </span>
                   <ReplyContent comment={comment as Comment} />
                   {!comment.isHidden && (
-                    <Flex mt="2" gap="4">
+                    <Flex gap="4" mt="2">
                       <PublicationReaction publication={comment} />
                       <Button
-                        variant="ghost"
                         highContrast
                         onClick={() => replyTo(comment.by)}
+                        variant="ghost"
                       >
                         <ReplyOutline className="size-3.5" />{' '}
                         <span className="text-xs">Reply</span>
@@ -178,8 +179,8 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
       )}
       {pageInfo?.next && hasMore ? (
         <Button
-          highContrast
           className="group w-full text-center"
+          highContrast
           onClick={loadMore}
           variant="soft"
         >

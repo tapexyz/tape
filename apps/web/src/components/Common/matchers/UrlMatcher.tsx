@@ -1,10 +1,12 @@
-import { STATIC_ASSETS, TAPE_APP_NAME } from '@tape.xyz/constants'
 import type { ChildrenNode, MatchResponse, Node } from 'interweave'
+
+import { STATIC_ASSETS, TAPE_APP_NAME } from '@tape.xyz/constants'
 import { Matcher } from 'interweave'
 import Link from 'next/link'
 import React from 'react'
 
 import type { UrlMatcherOptions, UrlProps } from './utils'
+
 import { EMAIL_DISTINCT_PATTERN, URL_PATTERN } from './utils'
 
 export type UrlMatch = Pick<UrlProps, 'url' | 'urlParts'>
@@ -18,14 +20,14 @@ const Url = ({ children, url, ...props }: UrlProps) => {
 
   return href?.includes('tape.xyz/watch') || href?.includes('tape.xyz/u') ? (
     <Link
-      href={href}
       className="inline-flex items-center space-x-1 rounded-full bg-gray-200 px-2 text-sm font-medium dark:bg-gray-800"
+      href={href}
     >
       <img
-        src={`${STATIC_ASSETS}/brand/logo.svg`}
+        alt={TAPE_APP_NAME}
         className="size-4"
         draggable={false}
-        alt={TAPE_APP_NAME}
+        src={`${STATIC_ASSETS}/brand/logo.svg`}
       />
       <span>{href}</span>
     </Link>
@@ -40,7 +42,7 @@ export class UrlMatcher extends Matcher<UrlProps, UrlMatcherOptions> {
   constructor(
     name: string,
     options?: UrlMatcherOptions,
-    factory?: React.ComponentType<UrlProps> | null
+    factory?: null | React.ComponentType<UrlProps>
   ) {
     super(
       name,
@@ -53,22 +55,8 @@ export class UrlMatcher extends Matcher<UrlProps, UrlMatcherOptions> {
     )
   }
 
-  replaceWith(children: ChildrenNode, props: UrlProps): Node {
-    return React.createElement(Url, props, children)
-  }
-
   asTag(): string {
     return 'a'
-  }
-
-  match(string: string): MatchResponse<UrlMatch> | null {
-    const response = this.doMatch(string, URL_PATTERN, this.handleMatches)
-
-    if (response?.match.match(EMAIL_DISTINCT_PATTERN)) {
-      response.valid = false
-    }
-
-    return response
   }
 
   /**
@@ -87,5 +75,19 @@ export class UrlMatcher extends Matcher<UrlProps, UrlMatcherOptions> {
         scheme: matches[1] ? matches[1].replace('://', '') : 'http'
       }
     }
+  }
+
+  match(string: string): MatchResponse<UrlMatch> | null {
+    const response = this.doMatch(string, URL_PATTERN, this.handleMatches)
+
+    if (response?.match.match(EMAIL_DISTINCT_PATTERN)) {
+      response.valid = false
+    }
+
+    return response
+  }
+
+  replaceWith(children: ChildrenNode, props: UrlProps): Node {
+    return React.createElement(Url, props, children)
   }
 }

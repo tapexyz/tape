@@ -1,5 +1,6 @@
-import { del, get, set } from 'idb-keyval'
 import type { StorageValue } from 'zustand/middleware'
+
+import { del, get, set } from 'idb-keyval'
 
 const idbReviver = (_key: string, value: any) => {
   if (typeof value === 'object' && value !== null && value.dataType === 'Map') {

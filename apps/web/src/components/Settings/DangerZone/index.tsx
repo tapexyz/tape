@@ -26,12 +26,12 @@ const DangerZone = () => {
             <div className="mr-3 mt-0.5 flex-none">
               <HoverableProfile profile={activeProfile}>
                 <Avatar
-                  src={getProfilePicture(activeProfile, 'AVATAR')}
-                  fallback={getProfile(activeProfile)?.displayName[0] ?? ';)'}
-                  radius="full"
+                  alt={getProfile(activeProfile)?.displayName}
                   className="size-9 rounded-full"
                   draggable={false}
-                  alt={getProfile(activeProfile)?.displayName}
+                  fallback={getProfile(activeProfile)?.displayName[0] ?? ';)'}
+                  radius="full"
+                  src={getProfilePicture(activeProfile, 'AVATAR')}
                 />
               </HoverableProfile>
             </div>

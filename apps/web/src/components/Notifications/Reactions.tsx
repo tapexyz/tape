@@ -1,3 +1,6 @@
+import type { ProfileReactedResult, ReactionNotification } from '@tape.xyz/lens'
+import type { FC } from 'react'
+
 import HoverableProfile from '@components/Common/HoverableProfile'
 import HeartOutline from '@components/Common/Icons/HeartOutline'
 import {
@@ -5,9 +8,7 @@ import {
   getProfilePicture,
   getPublicationData
 } from '@tape.xyz/generic'
-import type { ProfileReactedResult, ReactionNotification } from '@tape.xyz/lens'
 import Link from 'next/link'
-import type { FC } from 'react'
 import React from 'react'
 
 type Props = {
@@ -23,20 +24,20 @@ const Reactions: FC<Props> = ({ notification: { publication, reactions } }) => {
       <div>
         <span className="flex -space-x-1.5">
           {reactions.slice(0, 30).map(({ profile }: ProfileReactedResult) => (
-            <HoverableProfile profile={profile} key={profile?.id}>
+            <HoverableProfile key={profile?.id} profile={profile}>
               <img
-                className="size-7 rounded-full border dark:border-gray-700/80"
-                src={getProfilePicture(profile, 'AVATAR')}
-                draggable={false}
                 alt={getProfile(profile)?.displayName}
+                className="size-7 rounded-full border dark:border-gray-700/80"
+                draggable={false}
+                src={getProfilePicture(profile, 'AVATAR')}
               />
             </HoverableProfile>
           ))}
         </span>
         <div className="py-2">reacted to your publication</div>
         <Link
-          href={`/watch/${publication.id}`}
           className="text-dust line-clamp-2 font-medium"
+          href={`/watch/${publication.id}`}
         >
           {getPublicationData(publication.metadata)?.title}
         </Link>

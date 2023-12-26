@@ -1,3 +1,8 @@
+import type {
+  ExplorePublicationRequest,
+  PrimaryPublication
+} from '@tape.xyz/lens'
+
 import BangersShimmer from '@components/Shimmers/BangersShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import {
@@ -5,10 +10,6 @@ import {
   LENS_CUSTOM_FILTERS,
   TAPE_APP_ID
 } from '@tape.xyz/constants'
-import type {
-  ExplorePublicationRequest,
-  PrimaryPublication
-} from '@tape.xyz/lens'
 import {
   ExplorePublicationsOrderByType,
   ExplorePublicationType,
@@ -25,19 +26,19 @@ import RenderBanger from './RenderBanger'
 
 const Feed = () => {
   const request: ExplorePublicationRequest = {
-    where: {
-      publicationTypes: [ExplorePublicationType.Post],
-      metadata: {
-        publishedOn: [TAPE_APP_ID],
-        mainContentFocus: [PublicationMetadataMainFocusType.Link]
-      },
-      customFilters: LENS_CUSTOM_FILTERS
-    },
+    limit: LimitType.Fifty,
     orderBy: ExplorePublicationsOrderByType.TopReacted,
-    limit: LimitType.Fifty
+    where: {
+      customFilters: LENS_CUSTOM_FILTERS,
+      metadata: {
+        mainContentFocus: [PublicationMetadataMainFocusType.Link],
+        publishedOn: [TAPE_APP_ID]
+      },
+      publicationTypes: [ExplorePublicationType.Post]
+    }
   }
 
-  const { data, loading, error, fetchMore, refetch } =
+  const { data, error, fetchMore, loading, refetch } =
     useExplorePublicationsQuery({
       variables: {
         request
@@ -48,7 +49,6 @@ const Feed = () => {
   const pageInfo = data?.explorePublications?.pageInfo
 
   const { observe } = useInView({
-    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
     onEnter: async () => {
       await fetchMore({
         variables: {
@@ -58,7 +58,8 @@ const Feed = () => {
           }
         }
       })
-    }
+    },
+    rootMargin: INFINITE_SCROLL_ROOT_MARGIN
   })
 
   return (
@@ -67,13 +68,13 @@ const Feed = () => {
       <div className="tape-border container mx-auto max-w-screen-sm !border-y-0">
         {loading && <BangersShimmer />}
         {(!loading && !posts?.length) || error ? (
-          <NoDataFound withImage isCenter className="my-20" />
+          <NoDataFound className="my-20" isCenter withImage />
         ) : null}
         {posts?.map((post, i) => (
-          <RenderBanger key={post.id} post={post} isCertifiedBanger={i === 0} />
+          <RenderBanger isCertifiedBanger={i === 0} key={post.id} post={post} />
         ))}
         {pageInfo?.next && (
-          <span ref={observe} className="flex justify-center p-10">
+          <span className="flex justify-center p-10" ref={observe}>
             <Loader />
           </span>
         )}

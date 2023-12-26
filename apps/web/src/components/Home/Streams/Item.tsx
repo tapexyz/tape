@@ -1,21 +1,22 @@
+import type { Profile } from '@tape.xyz/lens'
+import type { ChannelStreamType } from '@tape.xyz/lens/custom-types'
+
 import InterweaveContent from '@components/Common/InterweaveContent'
 import UserProfile from '@components/Common/UserProfile'
 import { Button } from '@radix-ui/themes'
-import type { Profile } from '@tape.xyz/lens'
 import { useProfileQuery } from '@tape.xyz/lens'
-import type { ChannelStreamType } from '@tape.xyz/lens/custom-types'
 import VideoPlayer from '@tape.xyz/ui/VideoPlayer'
 import Link from 'next/link'
 import React, { memo } from 'react'
 
 const Item = ({ stream }: { stream: ChannelStreamType }) => {
   const { data } = useProfileQuery({
+    skip: !stream?.streamer,
     variables: {
       request: {
         forHandle: stream?.streamer
       }
-    },
-    skip: !stream?.streamer
+    }
   })
   const profile = data?.profile as Profile
 
@@ -53,15 +54,15 @@ const Item = ({ stream }: { stream: ChannelStreamType }) => {
       <div className="relative aspect-[16/9]">
         <div className="absolute inset-0 z-[5] bg-gradient-to-r from-black via-transparent to-transparent" />
         <VideoPlayer
-          url={stream.liveUrl}
-          posterUrl={stream.posterUrl}
-          showControls={false}
           options={{
             autoPlay: true,
-            muted: true,
             loadingSpinner: true,
-            maxHeight: true
+            maxHeight: true,
+            muted: true
           }}
+          posterUrl={stream.posterUrl}
+          showControls={false}
+          url={stream.liveUrl}
         />
       </div>
     </div>

@@ -1,6 +1,7 @@
+import type { ReferenceModuleType } from '@tape.xyz/lens/custom-types'
+
 import useAppStore from '@lib/store'
 import { Select, Text } from '@radix-ui/themes'
-import type { ReferenceModuleType } from '@tape.xyz/lens/custom-types'
 import React from 'react'
 
 const ReferenceModule = () => {
@@ -37,21 +38,21 @@ const ReferenceModule = () => {
       </Text>
 
       <Select.Root
-        value={getSelectedReferenceTypeValue()}
         onValueChange={(value) => {
           setReferenceType({
-            followerOnlyReferenceModule: value === 'FOLLOWERS',
             degreesOfSeparationReferenceModule:
               value === 'FRIENDS_OF_FRIENDS'
                 ? {
                     commentsRestricted: true,
+                    degreesOfSeparation: 4,
                     mirrorsRestricted: true,
-                    quotesRestricted: true,
-                    degreesOfSeparation: 4
+                    quotesRestricted: true
                   }
-                : null
+                : null,
+            followerOnlyReferenceModule: value === 'FOLLOWERS'
           })
         }}
+        value={getSelectedReferenceTypeValue()}
       >
         <Select.Trigger className="w-full" />
         <Select.Content highContrast>

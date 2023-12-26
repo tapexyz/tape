@@ -14,10 +14,10 @@ const MediaCategory = () => {
       </Text>
 
       <Select.Root
-        value={uploadedMedia.mediaCategory.tag}
         onValueChange={(tag) =>
           setUploadedMedia({ mediaCategory: getCategoryByTag(tag) })
         }
+        value={uploadedMedia.mediaCategory.tag}
       >
         <Select.Trigger className="w-full" />
         <Select.Content highContrast>

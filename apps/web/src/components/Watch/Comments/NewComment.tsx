@@ -1,8 +1,17 @@
+import type { MetadataAttribute } from '@lens-protocol/metadata'
+import type {
+  AnyPublication,
+  CreateMomokaCommentEip712TypedData,
+  CreateOnchainCommentEip712TypedData
+} from '@tape.xyz/lens'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+import type { FC } from 'react'
+import type { z } from 'zod'
+
 import EmojiPicker from '@components/UIElements/EmojiPicker'
 import InputMentions from '@components/UIElements/InputMentions'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import type { MetadataAttribute } from '@lens-protocol/metadata'
 import { MetadataAttributeType, textOnly } from '@lens-protocol/metadata'
 import useProfileStore from '@lib/store/idb/profile'
 import useNonceStore from '@lib/store/nonce'
@@ -29,11 +38,6 @@ import {
   trimify,
   uploadToAr
 } from '@tape.xyz/generic'
-import type {
-  AnyPublication,
-  CreateMomokaCommentEip712TypedData,
-  CreateOnchainCommentEip712TypedData
-} from '@tape.xyz/lens'
 import {
   PublicationDocument,
   useBroadcastOnchainMutation,
@@ -45,22 +49,19 @@ import {
   usePublicationLazyQuery
 } from '@tape.xyz/lens'
 import { useApolloClient } from '@tape.xyz/lens/apollo'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
-import type { z } from 'zod'
 import { object, string } from 'zod'
 
 type Props = {
-  video: AnyPublication
   defaultValue?: string
-  placeholder?: string
   hideEmojiPicker?: boolean
+  placeholder?: string
   resetReply?: () => void
+  video: AnyPublication
 }
 
 const formSchema = object({
@@ -72,11 +73,11 @@ const formSchema = object({
 type FormData = z.infer<typeof formSchema>
 
 const NewComment: FC<Props> = ({
-  video,
   defaultValue = '',
-  placeholder = 'What do you think?',
   hideEmojiPicker = false,
-  resetReply
+  placeholder = 'What do you think?',
+  resetReply,
+  video
 }) => {
   const { cache } = useApolloClient()
   const [loading, setLoading] = useState(false)
@@ -87,18 +88,18 @@ const NewComment: FC<Props> = ({
   const queuedComments = usePersistStore((state) => state.queuedComments)
   const setQueuedComments = usePersistStore((state) => state.setQueuedComments)
 
-  const { canUseLensManager, canBroadcast } =
+  const { canBroadcast, canUseLensManager } =
     checkLensManagerPermissions(activeProfile)
   const targetVideo = getPublication(video)
 
   const {
     clearErrors,
-    handleSubmit,
     formState: { errors },
+    getValues,
+    handleSubmit,
     reset,
-    watch,
     setValue,
-    getValues
+    watch
   } = useForm<FormData>({
     defaultValues: {
       comment: defaultValue
@@ -111,14 +112,14 @@ const NewComment: FC<Props> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [defaultValue])
 
-  const setToQueue = (txn: { txnId?: string; txnHash?: string }) => {
+  const setToQueue = (txn: { txnHash?: string; txnId?: string }) => {
     if (txn.txnHash || txn.txnId) {
       setQueuedComments([
         {
           comment: getValues('comment'),
-          txnId: txn.txnId,
+          pubId: targetVideo.id,
           txnHash: txn.txnHash,
-          pubId: targetVideo.id
+          txnId: txn.txnId
         },
         ...(queuedComments || [])
       ])
@@ -148,19 +149,19 @@ const NewComment: FC<Props> = ({
   })
 
   const { write } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
     abi: LENSHUB_PROXY_ABI,
+    address: LENSHUB_PROXY_ADDRESS,
     functionName: 'comment',
+    onError: (error) => {
+      onError(error)
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
+    },
     onSuccess: (data) => {
       setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
       if (data.hash) {
         setToQueue({ txnHash: data.hash })
       }
       onCompleted()
-    },
-    onError: (error) => {
-      onError(error)
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
     }
   })
 
@@ -212,7 +213,7 @@ const NewComment: FC<Props> = ({
   const [createOnchainCommentTypedData] =
     useCreateOnchainCommentTypedDataMutation({
       onCompleted: async ({ createOnchainCommentTypedData }) => {
-        const { typedData, id } = createOnchainCommentTypedData
+        const { id, typedData } = createOnchainCommentTypedData
         const args = [typedData.value]
         try {
           if (canBroadcast) {
@@ -232,13 +233,13 @@ const NewComment: FC<Props> = ({
     })
 
   const [commentOnchain] = useCommentOnchainMutation({
-    onError,
     onCompleted: ({ commentOnchain }) => {
       if (commentOnchain.__typename === 'RelaySuccess') {
         setToQueue({ txnId: commentOnchain.txId })
         onCompleted(commentOnchain.__typename)
       }
-    }
+    },
+    onError
   })
 
   const [broadcastOnMomoka] = useBroadcastOnMomokaMutation({
@@ -253,7 +254,7 @@ const NewComment: FC<Props> = ({
   const [createMomokaCommentTypedData] =
     useCreateMomokaCommentTypedDataMutation({
       onCompleted: async ({ createMomokaCommentTypedData }) => {
-        const { typedData, id } = createMomokaCommentTypedData
+        const { id, typedData } = createMomokaCommentTypedData
         const args = [typedData.value]
         try {
           if (canBroadcast) {
@@ -273,13 +274,13 @@ const NewComment: FC<Props> = ({
     })
 
   const [commentOnMomoka] = useCommentOnMomokaMutation({
-    onError,
     onCompleted: ({ commentOnMomoka }) => {
       if (commentOnMomoka.__typename === 'CreateMomokaPublicationResult') {
         onCompleted()
         fetchAndCacheComment(commentOnMomoka.id)
       }
-    }
+    },
+    onError
   })
 
   const submitComment = async (formData: FormData) => {
@@ -295,35 +296,35 @@ const NewComment: FC<Props> = ({
       setLoading(true)
       const attributes: MetadataAttribute[] = [
         {
-          type: MetadataAttributeType.STRING,
           key: 'publication',
+          type: MetadataAttributeType.STRING,
           value: video.id
         },
         {
-          type: MetadataAttributeType.STRING,
           key: 'creator',
+          type: MetadataAttributeType.STRING,
           value: `${getProfile(activeProfile)?.slug}`
         },
         {
-          type: MetadataAttributeType.STRING,
           key: 'app',
+          type: MetadataAttributeType.STRING,
           value: TAPE_WEBSITE_URL
         }
       ]
       const metadata = textOnly({
         appId: TAPE_APP_ID,
-        id: uuidv4(),
         attributes,
         content: trimify(formData.comment),
+        id: uuidv4(),
         locale: getUserLocale(),
         marketplace: {
+          attributes,
+          description: trimify(formData.comment),
+          external_url: `${TAPE_WEBSITE_URL}/watch/${video?.id}`,
           name: `${getProfile(activeProfile)
             ?.slug}'s comment on video ${getPublicationData(
             targetVideo.metadata
-          )?.title}`,
-          attributes,
-          description: trimify(formData.comment),
-          external_url: `${TAPE_WEBSITE_URL}/watch/${video?.id}`
+          )?.title}`
         }
       })
       const metadataUri = await uploadToAr(metadata)
@@ -334,8 +335,8 @@ const NewComment: FC<Props> = ({
           return await commentOnMomoka({
             variables: {
               request: {
-                contentURI: metadataUri,
-                commentOn: video.id
+                commentOn: video.id,
+                contentURI: metadataUri
               }
             }
           })
@@ -344,8 +345,8 @@ const NewComment: FC<Props> = ({
         return await createMomokaCommentTypedData({
           variables: {
             request: {
-              contentURI: metadataUri,
-              commentOn: video.id
+              commentOn: video.id,
+              contentURI: metadataUri
             }
           }
         })
@@ -383,29 +384,29 @@ const NewComment: FC<Props> = ({
 
   return (
     <form
-      onSubmit={handleSubmit(submitComment)}
       className="mb-2 flex w-full flex-wrap items-start justify-end gap-2"
+      onSubmit={handleSubmit(submitComment)}
     >
       <div className="flex flex-1 items-start space-x-2 md:space-x-3">
         <div className="flex-none">
           <img
-            src={getProfilePicture(activeProfile, 'AVATAR')}
+            alt={getProfile(activeProfile)?.slug}
             className="size-8 rounded-full"
             draggable={false}
-            alt={getProfile(activeProfile)?.slug}
+            src={getProfilePicture(activeProfile, 'AVATAR')}
           />
         </div>
         <div className="relative w-full">
           <InputMentions
-            placeholder={placeholder}
             autoComplete="off"
-            validationError={errors.comment?.message}
-            value={watch('comment')}
+            mentionsSelector="input-mentions-single !pb-1"
             onContentChange={(value) => {
               setValue('comment', value)
               clearErrors('comment')
             }}
-            mentionsSelector="input-mentions-single !pb-1"
+            placeholder={placeholder}
+            validationError={errors.comment?.message}
+            value={watch('comment')}
           />
           {!hideEmojiPicker && (
             <div className="absolute right-2 top-1.5">
@@ -418,7 +419,7 @@ const NewComment: FC<Props> = ({
           )}
         </div>
       </div>
-      <Button variant="surface" disabled={loading}>
+      <Button disabled={loading} variant="surface">
         Comment
       </Button>
     </form>

@@ -2,8 +2,8 @@ import MetaTags from '@components/Common/MetaTags'
 import Connectors from '@components/Login/Connectors'
 import { STATIC_ASSETS } from '@tape.xyz/constants'
 import { EVENTS, Tower } from '@tape.xyz/generic'
-import Link from 'next/link'
 import { useTheme } from 'next-themes'
+import Link from 'next/link'
 import React, { useEffect } from 'react'
 
 const Login = () => {
@@ -17,29 +17,29 @@ const Login = () => {
     <div className="flex h-screen w-screen overflow-hidden">
       <MetaTags title="Login" />
       <Link
+        className="hidden w-1/2 bg-black dark:bg-white md:block"
         href="/"
         id="tape-cursor"
-        className="hidden w-1/2 bg-black dark:bg-white md:block"
       >
         <div className="dark:text-bunker flex h-full flex-col items-center justify-center text-white dark:text-black">
           <div className="flex justify-center">
             {resolvedTheme === 'dark' ? (
               <img
-                src={`${STATIC_ASSETS}/brand/logo-with-text-dark.webp`}
-                className="h-10"
                 alt="tape"
-                width={180}
-                height={30}
+                className="h-10"
                 draggable={false}
+                height={30}
+                src={`${STATIC_ASSETS}/brand/logo-with-text-dark.webp`}
+                width={180}
               />
             ) : (
               <img
-                src={`${STATIC_ASSETS}/brand/logo-with-text-light.webp`}
-                className="h-10"
                 alt="tape"
-                width={180}
-                height={30}
+                className="h-10"
                 draggable={false}
+                height={30}
+                src={`${STATIC_ASSETS}/brand/logo-with-text-light.webp`}
+                width={180}
               />
             )}
           </div>

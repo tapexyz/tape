@@ -1,3 +1,8 @@
+import type {
+  ExplorePublicationRequest,
+  PrimaryPublication
+} from '@tape.xyz/lens'
+
 import Badge from '@components/Common/Badge'
 import LatestBytesShimmer from '@components/Shimmers/LatestBytesShimmer'
 import {
@@ -13,10 +18,6 @@ import {
   getThumbnailUrl,
   imageCdn
 } from '@tape.xyz/generic'
-import type {
-  ExplorePublicationRequest,
-  PrimaryPublication
-} from '@tape.xyz/lens'
 import {
   ExplorePublicationsOrderByType,
   ExplorePublicationType,
@@ -28,16 +29,16 @@ import Link from 'next/link'
 import React from 'react'
 
 const request: ExplorePublicationRequest = {
+  limit: LimitType.Ten,
+  orderBy: ExplorePublicationsOrderByType.LensCurated,
   where: {
-    publicationTypes: [ExplorePublicationType.Post],
     customFilters: LENS_CUSTOM_FILTERS,
     metadata: {
       mainContentFocus: [PublicationMetadataMainFocusType.ShortVideo],
       publishedOn: [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID]
-    }
-  },
-  orderBy: ExplorePublicationsOrderByType.LensCurated,
-  limit: LimitType.Ten
+    },
+    publicationTypes: [ExplorePublicationType.Post]
+  }
 }
 
 const LatestBytes = () => {
@@ -62,19 +63,19 @@ const LatestBytes = () => {
         return (
           <div className="flex flex-col" key={byte.id}>
             <Link
-              href={`/bytes/${byte.id}`}
               className="ultrawide:w-[260px] rounded-large ultrawide:h-[400px] relative aspect-[9/16] h-[350px] w-[220px] flex-none overflow-hidden"
+              href={`/bytes/${byte.id}`}
             >
               <img
-                className="h-full object-cover"
-                src={thumbnailUrl ? imageCdn(thumbnailUrl, 'THUMBNAIL_V') : ''}
                 alt="thumbnail"
-                height={1000}
-                width={600}
+                className="h-full object-cover"
                 draggable={false}
+                height={1000}
                 onError={({ currentTarget }) => {
                   currentTarget.src = FALLBACK_THUMBNAIL_URL
                 }}
+                src={thumbnailUrl ? imageCdn(thumbnailUrl, 'THUMBNAIL_V') : ''}
+                width={600}
               />
               <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-b from-transparent to-black px-4 py-2">
                 <h1 className="line-clamp-2 break-all font-bold text-white">
@@ -84,16 +85,16 @@ const LatestBytes = () => {
             </Link>
             <span>
               <Link
-                href={getProfile(byte.by)?.link}
                 className="inline-flex items-center space-x-1 px-3 py-1"
+                href={getProfile(byte.by)?.link}
               >
                 <img
-                  className="size-4 rounded-full bg-gray-200 dark:bg-gray-800"
-                  src={getProfilePicture(byte.by, 'AVATAR')}
-                  height={50}
-                  width={50}
                   alt={`${getProfile(byte.by)?.slug}'s PFP`}
+                  className="size-4 rounded-full bg-gray-200 dark:bg-gray-800"
                   draggable={false}
+                  height={50}
+                  src={getProfilePicture(byte.by, 'AVATAR')}
+                  width={50}
                 />
                 <span className="flex items-center space-x-1 font-medium">
                   <span>{getProfile(byte.by)?.slug}</span>

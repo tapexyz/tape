@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 
 export const Countdown = ({
-  timestamp,
-  endText
+  endText,
+  timestamp
 }: {
-  timestamp: string
   endText: string
+  timestamp: string
 }) => {
   const calculateRemainingTime = () => {
     const now = new Date().getTime()
