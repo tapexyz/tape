@@ -1,14 +1,13 @@
-import type { MutualFollowersRequest, Profile } from '@tape.xyz/lens'
-import type { FC } from 'react'
-
 import Badge from '@components/Common/Badge'
 import UserOutline from '@components/Common/Icons/UserOutline'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useProfileStore from '@lib/store/idb/profile'
 import { formatNumber, getProfile, getProfilePicture } from '@tape.xyz/generic'
+import type { MutualFollowersRequest, Profile } from '@tape.xyz/lens'
 import { LimitType, useMutualFollowersQuery } from '@tape.xyz/lens'
 import { Loader } from '@tape.xyz/ui'
 import Link from 'next/link'
+import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 
@@ -20,16 +19,16 @@ const MutualFollowers: FC<Props> = ({ viewing }) => {
   const { activeProfile } = useProfileStore()
 
   const request: MutualFollowersRequest = {
-    limit: LimitType.Fifty,
+    viewing,
     observer: activeProfile?.id,
-    viewing
+    limit: LimitType.Fifty
   }
 
-  const { data, fetchMore, loading } = useMutualFollowersQuery({
-    skip: !viewing,
+  const { data, loading, fetchMore } = useMutualFollowersQuery({
     variables: {
       request
-    }
+    },
+    skip: !viewing
   })
 
   const mutualFollowers = data?.mutualFollowers?.items as Profile[]
@@ -54,7 +53,7 @@ const MutualFollowers: FC<Props> = ({ viewing }) => {
   if (mutualFollowers?.length === 0) {
     return (
       <div className="pt-5">
-        <NoDataFound isCenter text="No mutual followers" withImage />
+        <NoDataFound text="No mutual followers" withImage isCenter />
       </div>
     )
   }
@@ -64,21 +63,21 @@ const MutualFollowers: FC<Props> = ({ viewing }) => {
       {loading && <Loader />}
       {mutualFollowers?.length === 0 && (
         <div className="pt-5">
-          <NoDataFound isCenter withImage />
+          <NoDataFound withImage isCenter />
         </div>
       )}
       {mutualFollowers?.map((profile: Profile) => (
         <Link
-          className="font-base flex items-center justify-between"
           href={`/u/${getProfile(profile)?.slug}`}
+          className="font-base flex items-center justify-between"
           key={profile?.id}
         >
           <div className="flex items-center space-x-1.5">
             <img
-              alt={getProfile(profile)?.slug}
               className="size-5 rounded-full"
-              draggable={false}
               src={getProfilePicture(profile, 'AVATAR')}
+              alt={getProfile(profile)?.slug}
+              draggable={false}
             />
             <div className="flex items-center space-x-1">
               <span>{getProfile(profile)?.slug}</span>
@@ -92,7 +91,7 @@ const MutualFollowers: FC<Props> = ({ viewing }) => {
         </Link>
       ))}
       {pageInfo?.next && (
-        <span className="p-5" ref={observe}>
+        <span ref={observe} className="p-5">
           <Loader />
         </span>
       )}

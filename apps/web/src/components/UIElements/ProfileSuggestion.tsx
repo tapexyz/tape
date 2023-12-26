@@ -1,36 +1,35 @@
-import type { FC } from 'react'
-
 import Badge from '@components/Common/Badge'
 import { Avatar } from '@radix-ui/themes'
 import { formatNumber } from '@tape.xyz/generic'
 import clsx from 'clsx'
+import type { FC } from 'react'
 import React from 'react'
 
 type Props = {
   className?: string
-  followers: number
+  pfp: string
   handle: string
   id: string
-  pfp: string
+  followers: number
 }
 
 const ProfileSuggestion: FC<Props> = ({
   className,
-  followers,
+  pfp,
   handle,
   id,
-  pfp
+  followers
 }) => {
   return (
     <div className={clsx('flex space-x-2 truncate px-1.5 py-1.5', className)}>
       <Avatar
-        alt={handle}
-        className="mt-1 size-6 rounded-full"
-        draggable={false}
-        fallback={handle[0]}
-        radius="full"
-        size="2"
         src={pfp}
+        size="2"
+        radius="full"
+        className="mt-1 size-6 rounded-full"
+        fallback={handle[0]}
+        draggable={false}
+        alt={handle}
       />
       <div className="overflow-hidden">
         <div className="flex items-center space-x-0.5">

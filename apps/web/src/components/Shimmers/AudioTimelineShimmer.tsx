@@ -18,8 +18,8 @@ const AudioTimelineShimmer = ({
     >
       {cards.map((i, idx) => (
         <div
-          className="rounded-small aspect-[1/1] w-full animate-pulse bg-gray-200 dark:bg-gray-800"
           key={`${i}_${idx}`}
+          className="rounded-small aspect-[1/1] w-full animate-pulse bg-gray-200 dark:bg-gray-800"
         />
       ))}
     </div>

@@ -1,4 +1,4 @@
-import type { AppProps } from 'next/app'
+import '../styles/index.css'
 
 import { LivepeerConfig } from '@livepeer/react'
 import {
@@ -7,9 +7,8 @@ import {
   videoPlayerTheme
 } from '@tape.xyz/browser'
 import { tapeFont } from '@tape.xyz/browser/font'
+import type { AppProps } from 'next/app'
 import React, { useEffect } from 'react'
-
-import '../styles/index.css'
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   useEffect(() => {
@@ -19,7 +18,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 
   return (
     <LivepeerConfig client={getLivepeerClient()} theme={videoPlayerTheme}>
-      <style global jsx>{`
+      <style jsx global>{`
         body {
           font-family: ${tapeFont.style.fontFamily};
         }

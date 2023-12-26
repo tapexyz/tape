@@ -1,14 +1,13 @@
-import type { ReactElement } from 'react'
-
 import Link from 'next/link'
+import type { ReactElement } from 'react'
 import React from 'react'
 
 const ArweaveExplorerLink = ({
-  children,
-  txId
+  txId,
+  children
 }: {
-  children: ReactElement
   txId: string
+  children: ReactElement
 }) => {
   return (
     <Link

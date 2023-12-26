@@ -15,17 +15,17 @@ interface TypedData {
 export const getSignature = (
   typedData: TypedData
 ): {
-  domain: Record<string, any>
-  message: Record<string, any>
   primaryType: string
+  domain: Record<string, any>
   types: Record<string, any>
+  message: Record<string, any>
 } => {
   const { domain, types, value } = typedData
 
   return {
-    domain: omitKey(domain, '__typename'),
-    message: omitKey(value, '__typename'),
     primaryType: Object.keys(omitKey(types, '__typename'))[0],
-    types: omitKey(types, '__typename')
+    domain: omitKey(domain, '__typename'),
+    types: omitKey(types, '__typename'),
+    message: omitKey(value, '__typename')
   }
 }

@@ -1,14 +1,6 @@
-import type { ProfileOptions } from '@lens-protocol/metadata'
-import type {
-  AnyPublication,
-  OnchainSetProfileMetadataRequest,
-  Profile
-} from '@tape.xyz/lens'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import type { FC } from 'react'
-
 import PinnedVideoShimmer from '@components/Shimmers/PinnedVideoShimmer'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
+import type { ProfileOptions } from '@lens-protocol/metadata'
 import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
 import { getRelativeTime } from '@lib/formatTime'
 import useProfileStore from '@lib/store/idb/profile'
@@ -41,14 +33,21 @@ import {
   trimify,
   uploadToAr
 } from '@tape.xyz/generic'
+import type {
+  AnyPublication,
+  OnchainSetProfileMetadataRequest,
+  Profile
+} from '@tape.xyz/lens'
 import {
   useBroadcastOnchainMutation,
   useCreateOnchainSetProfileMetadataTypedDataMutation,
   usePublicationQuery,
   useSetProfileMetadataMutation
 } from '@tape.xyz/lens'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import VideoPlayer from '@tape.xyz/ui/VideoPlayer'
 import Link from 'next/link'
+import type { FC } from 'react'
 import React, { memo } from 'react'
 import toast from 'react-hot-toast'
 import { v4 as uuidv4 } from 'uuid'
@@ -61,7 +60,7 @@ type Props = {
 const PinnedVideo: FC<Props> = ({ id }) => {
   const { activeProfile } = useProfileStore()
   const handleWrongNetwork = useHandleWrongNetwork()
-  const { canBroadcast, canUseLensManager } =
+  const { canUseLensManager, canBroadcast } =
     checkLensManagerPermissions(activeProfile)
 
   const { data, error, loading } = usePublicationQuery({
@@ -75,7 +74,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
   }
 
   const onCompleted = (
-    __typename?: 'LensProfileManagerRelayError' | 'RelayError' | 'RelaySuccess'
+    __typename?: 'RelayError' | 'RelaySuccess' | 'LensProfileManagerRelayError'
   ) => {
     if (
       __typename === 'RelayError' ||
@@ -92,24 +91,24 @@ const PinnedVideo: FC<Props> = ({ id }) => {
   })
 
   const { write } = useContractWrite({
-    abi: LENSHUB_PROXY_ABI,
     address: LENSHUB_PROXY_ADDRESS,
+    abi: LENSHUB_PROXY_ABI,
     functionName: 'setProfileMetadataURI',
     onError,
     onSuccess: () => onCompleted()
   })
 
   const [broadcast] = useBroadcastOnchainMutation({
+    onError,
     onCompleted: ({ broadcastOnchain }) =>
-      onCompleted(broadcastOnchain.__typename),
-    onError
+      onCompleted(broadcastOnchain.__typename)
   })
 
   const [createOnchainSetProfileMetadataTypedData] =
     useCreateOnchainSetProfileMetadataTypedDataMutation({
       onCompleted: async ({ createOnchainSetProfileMetadataTypedData }) => {
-        const { id, typedData } = createOnchainSetProfileMetadataTypedData
-        const { metadataURI, profileId } = typedData.value
+        const { typedData, id } = createOnchainSetProfileMetadataTypedData
+        const { profileId, metadataURI } = typedData.value
         const args = [profileId, metadataURI]
         try {
           toast.loading(REQUESTING_SIGNATURE_MESSAGE)
@@ -137,11 +136,11 @@ const PinnedVideo: FC<Props> = ({ id }) => {
 
   const otherAttributes =
     activeProfile?.metadata?.attributes
-      ?.filter((attr) => !['app', 'pinnedPublicationId'].includes(attr.key))
-      .map(({ key, type, value }) => ({
+      ?.filter((attr) => !['pinnedPublicationId', 'app'].includes(attr.key))
+      .map(({ key, value, type }) => ({
         key,
-        type: MetadataAttributeType[type] as any,
-        value
+        value,
+        type: MetadataAttributeType[type] as any
       })) ?? []
 
   const unpinVideo = async () => {
@@ -166,17 +165,17 @@ const PinnedVideo: FC<Props> = ({ id }) => {
           picture: pfp
         }),
         appId: TAPE_APP_ID,
+        coverPicture: getProfileCoverPicture(activeProfile),
+        id: uuidv4(),
+        name: activeProfile?.metadata?.displayName ?? '',
         attributes: [
           ...otherAttributes,
           {
-            key: 'app',
             type: MetadataAttributeType.STRING,
+            key: 'app',
             value: TAPE_APP_ID
           }
-        ],
-        coverPicture: getProfileCoverPicture(activeProfile),
-        id: uuidv4(),
-        name: activeProfile?.metadata?.displayName ?? ''
+        ]
       }
       metadata.attributes = metadata.attributes?.filter(
         (m) => Boolean(trimify(m.key)) && Boolean(trimify(m.value))
@@ -239,15 +238,15 @@ const PinnedVideo: FC<Props> = ({ id }) => {
         <div className="overflow-hidden rounded-xl">
           <VideoPlayer
             address={activeProfile?.ownedBy.address}
+            url={getPublicationMediaUrl(pinnedPublication.metadata)}
+            posterUrl={thumbnailUrl}
             isSensitiveContent={isSensitiveContent}
             options={{
               autoPlay: true,
-              isCurrentlyShown: true,
+              loop: false,
               loadingSpinner: true,
-              loop: false
+              isCurrentlyShown: true
             }}
-            posterUrl={thumbnailUrl}
-            url={getPublicationMediaUrl(pinnedPublication.metadata)}
           />
         </div>
         <div className="group flex flex-col justify-between pl-2 gap-3 lg:col-span-2">
@@ -264,12 +263,12 @@ const PinnedVideo: FC<Props> = ({ id }) => {
               </Link>
               {isVideoOwner && (
                 <Button
-                  className="invisible hover:!bg-red-200 group-hover:visible dark:hover:!bg-red-800"
+                  variant="soft"
+                  size="2"
                   color="red"
                   highContrast
+                  className="invisible hover:!bg-red-200 group-hover:visible dark:hover:!bg-red-800"
                   onClick={() => unpinVideo()}
-                  size="2"
-                  variant="soft"
                 >
                   Unpin
                 </Button>

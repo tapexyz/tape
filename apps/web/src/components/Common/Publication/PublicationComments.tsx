@@ -1,11 +1,3 @@
-import type {
-  AnyPublication,
-  Comment,
-  MirrorablePublication,
-  PublicationsRequest
-} from '@tape.xyz/lens'
-import type { FC } from 'react'
-
 import Alert from '@components/Common/Alert'
 import CommentOutline from '@components/Common/Icons/CommentOutline'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
@@ -18,6 +10,12 @@ import {
   LENS_CUSTOM_FILTERS
 } from '@tape.xyz/constants'
 import { getProfile } from '@tape.xyz/generic'
+import type {
+  AnyPublication,
+  Comment,
+  MirrorablePublication,
+  PublicationsRequest
+} from '@tape.xyz/lens'
 import {
   CommentRankingFilterType,
   LimitType,
@@ -26,6 +24,7 @@ import {
 } from '@tape.xyz/lens'
 import { CustomCommentsFilterEnum } from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
+import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 
@@ -35,11 +34,11 @@ import QueuedComment from '../../Watch/Comments/QueuedComment'
 import RenderComment from '../../Watch/Comments/RenderComment'
 
 type Props = {
-  hideTitle?: boolean
   publication: MirrorablePublication
+  hideTitle?: boolean
 }
 
-const PublicationComments: FC<Props> = ({ hideTitle = false, publication }) => {
+const PublicationComments: FC<Props> = ({ publication, hideTitle = false }) => {
   const activeProfile = useProfileStore((state) => state.activeProfile)
   const selectedCommentFilter = useCommentStore(
     (state) => state.selectedCommentFilter
@@ -57,6 +56,7 @@ const PublicationComments: FC<Props> = ({ hideTitle = false, publication }) => {
   const request: PublicationsRequest = {
     limit: LimitType.Fifty,
     where: {
+      customFilters: LENS_CUSTOM_FILTERS,
       commentOn: {
         id: publication.id,
         ranking: {
@@ -65,20 +65,20 @@ const PublicationComments: FC<Props> = ({ hideTitle = false, publication }) => {
               ? CommentRankingFilterType.Relevant
               : CommentRankingFilterType.NoneRelevant
         }
-      },
-      customFilters: LENS_CUSTOM_FILTERS
+      }
     }
   }
 
-  const { data, error, fetchMore, loading } = usePublicationsQuery({
-    skip: !publication.id,
-    variables: { request }
+  const { data, loading, error, fetchMore } = usePublicationsQuery({
+    variables: { request },
+    skip: !publication.id
   })
 
   const comments = data?.publications?.items as AnyPublication[]
   const pageInfo = data?.publications?.pageInfo
 
   const { observe } = useInView({
+    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
     onEnter: async () => {
       await fetchMore({
         variables: {
@@ -88,8 +88,7 @@ const PublicationComments: FC<Props> = ({ hideTitle = false, publication }) => {
           }
         }
       })
-    },
-    rootMargin: INFINITE_SCROLL_ROOT_MARGIN
+    }
   })
 
   const showReferenceModuleAlert =
@@ -133,7 +132,7 @@ const PublicationComments: FC<Props> = ({ hideTitle = false, publication }) => {
           ) : null}
           {!comments?.length && !queuedComments.length ? (
             <span className="py-5">
-              <NoDataFound isCenter text="Be the first to comment" withImage />
+              <NoDataFound text="Be the first to comment" withImage isCenter />
             </span>
           ) : null}
           {!error && (queuedComments.length || comments?.length) ? (
@@ -152,14 +151,14 @@ const PublicationComments: FC<Props> = ({ hideTitle = false, publication }) => {
                   (comment) =>
                     !comment.isHidden && (
                       <RenderComment
-                        comment={comment as Comment}
                         key={`${comment?.id}_${comment.createdAt}`}
+                        comment={comment as Comment}
                       />
                     )
                 )}
               </div>
               {pageInfo?.next && (
-                <span className="flex justify-center p-10" ref={observe}>
+                <span ref={observe} className="flex justify-center p-10">
                   <Loader />
                 </span>
               )}

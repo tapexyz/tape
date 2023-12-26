@@ -1,8 +1,3 @@
-import type {
-  ExplorePublicationRequest,
-  PrimaryPublication
-} from '@tape.xyz/lens'
-
 import CategoryFilters from '@components/Common/CategoryFilters'
 import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
@@ -15,6 +10,10 @@ import {
   LENS_CUSTOM_FILTERS,
   TAPE_APP_ID
 } from '@tape.xyz/constants'
+import type {
+  ExplorePublicationRequest,
+  PrimaryPublication
+} from '@tape.xyz/lens'
 import {
   ExplorePublicationsOrderByType,
   ExplorePublicationType,
@@ -30,21 +29,21 @@ const Feed = ({ showFilter = true }) => {
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
 
   const request: ExplorePublicationRequest = {
-    limit: LimitType.Fifty,
-    orderBy: ExplorePublicationsOrderByType.LensCurated,
     where: {
+      publicationTypes: [ExplorePublicationType.Post],
       customFilters: LENS_CUSTOM_FILTERS,
       metadata: {
-        mainContentFocus: [PublicationMetadataMainFocusType.Video],
         publishedOn: IS_MAINNET ? [TAPE_APP_ID, ...ALLOWED_APP_IDS] : undefined,
         tags:
-          activeTagFilter !== 'all' ? { oneOf: [activeTagFilter] } : undefined
-      },
-      publicationTypes: [ExplorePublicationType.Post]
-    }
+          activeTagFilter !== 'all' ? { oneOf: [activeTagFilter] } : undefined,
+        mainContentFocus: [PublicationMetadataMainFocusType.Video]
+      }
+    },
+    orderBy: ExplorePublicationsOrderByType.LensCurated,
+    limit: LimitType.Fifty
   }
 
-  const { data, error, fetchMore, loading } = useExplorePublicationsQuery({
+  const { data, loading, error, fetchMore } = useExplorePublicationsQuery({
     variables: { request }
   })
 
@@ -53,6 +52,7 @@ const Feed = ({ showFilter = true }) => {
     ?.items as unknown as PrimaryPublication[]
 
   const { observe } = useInView({
+    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
     onEnter: async () => {
       await fetchMore({
         variables: {
@@ -62,8 +62,7 @@ const Feed = ({ showFilter = true }) => {
           }
         }
       })
-    },
-    rootMargin: INFINITE_SCROLL_ROOT_MARGIN
+    }
   })
 
   return (
@@ -79,14 +78,14 @@ const Feed = ({ showFilter = true }) => {
           <>
             <Timeline videos={videos} />
             {pageInfo?.next && (
-              <span className="flex justify-center p-10" ref={observe}>
+              <span ref={observe} className="flex justify-center p-10">
                 <Loader />
               </span>
             )}
           </>
         )}
         {videos?.length === 0 && (
-          <NoDataFound isCenter text={`No videos found`} withImage />
+          <NoDataFound isCenter withImage text={`No videos found`} />
         )}
       </div>
     </div>

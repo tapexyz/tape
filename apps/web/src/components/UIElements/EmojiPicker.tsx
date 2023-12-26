@@ -1,11 +1,10 @@
-import type { FC } from 'react'
-
 import EmojiOutline from '@components/Common/Icons/EmojiOutline'
 import Picker from '@emoji-mart/react'
 import { Popover } from '@radix-ui/themes'
 import { STATIC_ASSETS } from '@tape.xyz/constants'
 import axios from 'axios'
 import { useTheme } from 'next-themes'
+import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 
 type EmojiData = {
@@ -42,6 +41,12 @@ const EmojiPicker: FC<Props> = ({ onEmojiSelect }) => {
       <Popover.Content align="end" className="!p-0">
         <Picker
           data={data}
+          navPosition="bottom"
+          theme={resolvedTheme}
+          previewPosition="none"
+          onEmojiSelect={(data: { native: string }) =>
+            onEmojiSelect(data.native)
+          }
           emojiButtonColors={[
             'rgba(155,223,88,.7)',
             'rgba(149,211,254,.7)',
@@ -50,12 +55,6 @@ const EmojiPicker: FC<Props> = ({ onEmojiSelect }) => {
             'rgba(255,213,143,.7)',
             'rgba(211,209,255,.7)'
           ]}
-          navPosition="bottom"
-          onEmojiSelect={(data: { native: string }) =>
-            onEmojiSelect(data.native)
-          }
-          previewPosition="none"
-          theme={resolvedTheme}
         />
       </Popover.Content>
     </Popover.Root>

@@ -1,6 +1,5 @@
-import type { ReactNode } from 'react'
-
 import { logger } from '@tape.xyz/generic'
+import type { ReactNode } from 'react'
 import React, { Component } from 'react'
 import Custom500 from 'src/pages/500'
 

@@ -1,6 +1,5 @@
-import type { FC } from 'react'
-
 import QRCodeUtil from 'qrcode'
+import type { FC } from 'react'
 import React, { memo, useMemo } from 'react'
 
 const generateMatrix = (
@@ -48,12 +47,12 @@ const QRCode: FC<Props> = ({ ecl = 'M', size = 200, value }) => {
       for (let i = 0; i < 3; i++) {
         dots.push(
           <rect
+            key={`${i}_${x}_${y}`}
             fill={i % 2 !== 0 ? '#fff' : '#12131A'}
             height={cellSize * (7 - i * 2)}
-            key={`${i}_${x}_${y}`}
+            width={cellSize * (7 - i * 2)}
             rx={9}
             ry={9}
-            width={cellSize * (7 - i * 2)}
             x={x1 + cellSize * i}
             y={y1 + cellSize * i}
           />
@@ -73,10 +72,10 @@ const QRCode: FC<Props> = ({ ecl = 'M', size = 200, value }) => {
         ) {
           dots.push(
             <circle
+              key={`${i}_${j}_${column}`}
               cx={i * cellSize + cellSize / 2}
               cy={j * cellSize + cellSize / 2}
               fill={'#000'}
-              key={`${i}_${j}_${column}`}
               r={cellSize / 3}
             />
           )

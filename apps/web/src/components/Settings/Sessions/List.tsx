@@ -1,5 +1,3 @@
-import type { ApprovedAuthenticationRequest } from '@tape.xyz/lens'
-
 import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { getDateString } from '@lib/formatTime'
@@ -12,6 +10,7 @@ import {
 } from '@radix-ui/react-accordion'
 import { Blockquote, Button } from '@radix-ui/themes'
 import { INFINITE_SCROLL_ROOT_MARGIN } from '@tape.xyz/constants'
+import type { ApprovedAuthenticationRequest } from '@tape.xyz/lens'
 import {
   LimitType,
   useApprovedAuthenticationsQuery,
@@ -37,15 +36,17 @@ const List = () => {
   }
 
   const request: ApprovedAuthenticationRequest = { limit: LimitType.Fifty }
-  const { data, error, fetchMore, loading } = useApprovedAuthenticationsQuery({
-    skip: !activeProfile?.id,
-    variables: { request }
+  const { data, loading, error, fetchMore } = useApprovedAuthenticationsQuery({
+    variables: { request },
+    skip: !activeProfile?.id
   })
   const sessions = data?.approvedAuthentications?.items
 
   const pageInfo = data?.approvedAuthentications?.pageInfo
 
   const { observe } = useInView({
+    threshold: 0.25,
+    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
     onEnter: async () => {
       await fetchMore({
         variables: {
@@ -55,9 +56,7 @@ const List = () => {
           }
         }
       })
-    },
-    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
-    threshold: 0.25
+    }
   })
 
   const [revokeAuthentication] = useRevokeAuthenticationMutation({
@@ -73,7 +72,7 @@ const List = () => {
   }
 
   if (!sessions?.length || error) {
-    return <NoDataFound isCenter withImage />
+    return <NoDataFound withImage isCenter />
   }
 
   const revoke = async (authorizationId: string) => {
@@ -88,7 +87,7 @@ const List = () => {
   }
 
   return (
-    <Accordion className="w-full space-y-3" collapsible type="single">
+    <Accordion type="single" className="w-full space-y-3" collapsible>
       {sessions?.map((session) => {
         return (
           <AccordionItem
@@ -114,10 +113,10 @@ const List = () => {
                   {getDateString(session.createdAt)}
                 </Blockquote>
                 <Button
-                  color="red"
-                  disabled={revokingSessionId === session.authorizationId}
                   onClick={() => revoke(session.authorizationId)}
                   variant="surface"
+                  color="red"
+                  disabled={revokingSessionId === session.authorizationId}
                 >
                   Revoke
                 </Button>
@@ -127,7 +126,7 @@ const List = () => {
         )
       })}
       {pageInfo?.next && (
-        <span className="flex justify-center p-10" ref={observe}>
+        <span ref={observe} className="flex justify-center p-10">
           <Loader />
         </span>
       )}

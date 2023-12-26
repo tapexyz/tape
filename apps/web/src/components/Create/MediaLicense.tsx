@@ -12,7 +12,7 @@ const MediaLicense = () => {
 
   return (
     <div className="flex-1 space-y-1">
-      <Flex align="center" gap="1">
+      <Flex gap="1" align="center">
         <Text size="2" weight="medium">
           License
         </Text>
@@ -26,9 +26,9 @@ const MediaLicense = () => {
             <span>
               Learn more about{' '}
               <Link
-                className="text-brand-500"
                 href={`https://creativecommons.org/licenses/?utm_source=${TAPE_APP_NAME}`}
                 target="_blank"
+                className="text-brand-500"
               >
                 creative common licenses
               </Link>
@@ -37,10 +37,10 @@ const MediaLicense = () => {
         </HoverCard.Root>
       </Flex>
       <Select.Root
+        value={uploadedMedia.mediaLicense}
         onValueChange={(mediaLicense: MetadataLicenseType) =>
           setUploadedMedia({ mediaLicense })
         }
-        value={uploadedMedia.mediaLicense}
       >
         <Select.Trigger className="w-full" />
         <Select.Content highContrast>

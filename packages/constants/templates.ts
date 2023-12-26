@@ -1,18 +1,4 @@
 export const COLLECT_TEMPLATES = {
-  ANYONE: [
-    {
-      id: 1,
-      text: 'Anyone can collect for free'
-    },
-    {
-      id: 2,
-      text: 'Anyone can collect 10 items within 24 hrs'
-    },
-    {
-      id: 3,
-      text: 'Anyone can collect for 2 USDC'
-    }
-  ],
   FOLLOWERS: [
     {
       id: 1,
@@ -25,6 +11,20 @@ export const COLLECT_TEMPLATES = {
     {
       id: 3,
       text: 'My followers can collect for 1 WMATIC'
+    }
+  ],
+  ANYONE: [
+    {
+      id: 1,
+      text: 'Anyone can collect for free'
+    },
+    {
+      id: 2,
+      text: 'Anyone can collect 10 items within 24 hrs'
+    },
+    {
+      id: 3,
+      text: 'Anyone can collect for 2 USDC'
     }
   ]
 }

@@ -1,5 +1,6 @@
-import { Theme } from '@radix-ui/themes'
 import '@radix-ui/themes/styles.css'
+
+import { Theme } from '@radix-ui/themes'
 import { ThemeProvider as NextTheme } from 'next-themes'
 import { type FC, type ReactNode } from 'react'
 
@@ -9,7 +10,7 @@ type Props = {
 
 const ThemeProvider: FC<Props> = ({ children }) => {
   return (
-    <NextTheme attribute="class" defaultTheme="light">
+    <NextTheme defaultTheme="light" attribute="class">
       <Theme accentColor="gray" radius="large">
         {children}
       </Theme>

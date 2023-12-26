@@ -1,12 +1,11 @@
-import type { TextAreaProps } from '@radix-ui/themes/dist/cjs/components/text-area'
-
 import { Flex, Text, TextArea as TextAreaField } from '@radix-ui/themes'
+import type { TextAreaProps } from '@radix-ui/themes/dist/cjs/components/text-area'
 import React, { forwardRef, useId } from 'react'
 
 interface Props extends TextAreaProps {
-  className?: string
   label?: string
   type?: string
+  className?: string
   validationError?: string
 }
 
@@ -24,10 +23,10 @@ export const TextArea = forwardRef<HTMLTextAreaElement, Props>(
         )}
         <Flex>
           <TextAreaField
-            className="w-full"
-            color={validationError?.length ? 'red' : 'gray'}
             id={id}
             ref={ref}
+            className="w-full"
+            color={validationError?.length ? 'red' : 'gray'}
             {...props}
           />
         </Flex>

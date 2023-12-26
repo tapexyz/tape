@@ -1,5 +1,3 @@
-import type { ReactNode } from 'react'
-
 import authLink from '@lib/authLink'
 import { LivepeerConfig } from '@livepeer/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
@@ -7,6 +5,7 @@ import { getLivepeerClient, videoPlayerTheme } from '@tape.xyz/browser'
 import { apolloClient, ApolloProvider } from '@tape.xyz/lens/apollo'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
+import type { ReactNode } from 'react'
 
 import ErrorBoundary from '../ErrorBoundary'
 import ThemeProvider from './ThemeProvider'
@@ -49,8 +48,8 @@ const Providers = ({ children }: { children: ReactNode }) => {
               <GlobalDialogs />
               <LivepeerConfig client={livepeerClient} theme={videoPlayerTheme}>
                 <Layout
-                  skipBottomNav={NO_BOTTOM_NAV_PATHS.includes(pathname)}
                   skipNav={NO_TOP_NAV_PATHS.includes(pathname)}
+                  skipBottomNav={NO_BOTTOM_NAV_PATHS.includes(pathname)}
                   skipPadding={NO_PADDING_PATHS.includes(pathname)}
                 >
                   {children}

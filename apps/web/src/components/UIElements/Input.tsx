@@ -1,27 +1,26 @@
-import type { TextFieldInputProps } from '@radix-ui/themes/dist/cjs/components/text-field'
-
 import InfoOutline from '@components/Common/Icons/InfoOutline'
 import { Text, TextField } from '@radix-ui/themes'
+import type { TextFieldInputProps } from '@radix-ui/themes/dist/cjs/components/text-field'
 import React, { forwardRef, useId } from 'react'
 
 import Tooltip from './Tooltip'
 
 interface Props extends TextFieldInputProps {
-  info?: string
   label?: string
+  info?: string
   prefix?: string
-  showErrorLabel?: boolean
   suffix?: string
   validationError?: string
+  showErrorLabel?: boolean
 }
 export const Input = forwardRef<HTMLInputElement, Props>(function Input(
   {
-    info,
     label,
-    prefix,
-    showErrorLabel = true,
-    suffix,
+    info,
     validationError,
+    showErrorLabel = true,
+    prefix,
+    suffix,
     ...props
   },
   ref
@@ -47,20 +46,20 @@ export const Input = forwardRef<HTMLInputElement, Props>(function Input(
         <TextField.Root className="w-full">
           {prefix && (
             <TextField.Slot>
-              <Text size="2" weight="medium">
+              <Text weight="medium" size="2">
                 {prefix}
               </Text>
             </TextField.Slot>
           )}
           <TextField.Input
-            color={validationError?.length ? 'red' : 'gray'}
             id={id}
             ref={ref}
+            color={validationError?.length ? 'red' : 'gray'}
             {...props}
           />
           {suffix && (
             <TextField.Slot>
-              <Text size="2" weight="medium">
+              <Text weight="medium" size="2">
                 {suffix}
               </Text>
             </TextField.Slot>

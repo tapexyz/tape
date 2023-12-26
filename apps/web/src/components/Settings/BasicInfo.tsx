@@ -1,11 +1,3 @@
-import type { ProfileOptions } from '@lens-protocol/metadata'
-import type { OnchainSetProfileMetadataRequest, Profile } from '@tape.xyz/lens'
-import type {
-  CustomErrorWithData,
-  IPFSUploadResult
-} from '@tape.xyz/lens/custom-types'
-import type { z } from 'zod'
-
 import Badge from '@components/Common/Badge'
 import AddImageOutline from '@components/Common/Icons/AddImageOutline'
 import CopyOutline from '@components/Common/Icons/CopyOutline'
@@ -15,6 +7,7 @@ import { TextArea } from '@components/UIElements/TextArea'
 import Tooltip from '@components/UIElements/Tooltip'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
+import type { ProfileOptions } from '@lens-protocol/metadata'
 import {
   MetadataAttributeType,
   profile as profileMetadata
@@ -44,11 +37,16 @@ import {
   trimify,
   uploadToAr
 } from '@tape.xyz/generic'
+import type { OnchainSetProfileMetadataRequest, Profile } from '@tape.xyz/lens'
 import {
   useBroadcastOnchainMutation,
   useCreateOnchainSetProfileMetadataTypedDataMutation,
   useSetProfileMetadataMutation
 } from '@tape.xyz/lens'
+import type {
+  CustomErrorWithData,
+  IPFSUploadResult
+} from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import React, { useState } from 'react'
@@ -56,6 +54,7 @@ import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
+import type { z } from 'zod'
 import { object, string, union } from 'zod'
 
 type Props = {
@@ -63,12 +62,14 @@ type Props = {
 }
 
 const formSchema = object({
-  description: string().max(500, {
-    message: 'Description should not exceed 500 characters'
-  }),
   displayName: string().max(30, {
     message: 'Name should not exceed 30 characters'
   }),
+  description: string().max(500, {
+    message: 'Description should not exceed 500 characters'
+  }),
+  x: string(),
+  youtube: string(),
   location: string(),
   spotify: string(),
   website: union([
@@ -76,9 +77,7 @@ const formSchema = object({
       message: 'Invalid website URL'
     }),
     string().max(0)
-  ]),
-  x: string(),
-  youtube: string()
+  ])
 })
 type FormData = z.infer<typeof formSchema> & { coverImage?: string }
 
@@ -88,29 +87,35 @@ const BasicInfo = ({ profile }: Props) => {
   const [coverImage, setCoverImage] = useState<string>(
     profile.metadata?.coverPicture?.raw.uri
   )
-  const [selectedPfp, setSelectedPfp] = useState<null | string>(
+  const [selectedPfp, setSelectedPfp] = useState<string | null>(
     profile.metadata?.picture?.__typename === 'ImageSet'
       ? profile.metadata?.picture.raw.uri
       : null
   )
-  const [uploading, setUploading] = useState({ cover: false, pfp: false })
+  const [uploading, setUploading] = useState({ pfp: false, cover: false })
   const handleWrongNetwork = useHandleWrongNetwork()
-  const { canBroadcast, canUseLensManager } =
+  const { canUseLensManager, canBroadcast } =
     checkLensManagerPermissions(profile)
 
   const {
+    register,
+    handleSubmit,
     formState: { errors },
     getValues,
-    handleSubmit,
-    register,
     setValue
   } = useForm<FormData>({
+    resolver: zodResolver(formSchema),
     defaultValues: {
-      description: profile.metadata?.bio ?? '',
       displayName: profile.metadata?.displayName ?? '',
+      description: profile.metadata?.bio ?? '',
       location: getValueFromKeyInAttributes(
         profile.metadata?.attributes,
         'location'
+      ),
+      x: getValueFromKeyInAttributes(profile.metadata?.attributes, 'x'),
+      youtube: getValueFromKeyInAttributes(
+        profile.metadata?.attributes,
+        'youtube'
       ),
       spotify: getValueFromKeyInAttributes(
         profile.metadata?.attributes,
@@ -119,14 +124,8 @@ const BasicInfo = ({ profile }: Props) => {
       website: getValueFromKeyInAttributes(
         profile.metadata?.attributes,
         'website'
-      ),
-      x: getValueFromKeyInAttributes(profile.metadata?.attributes, 'x'),
-      youtube: getValueFromKeyInAttributes(
-        profile.metadata?.attributes,
-        'youtube'
       )
-    },
-    resolver: zodResolver(formSchema)
+    }
   })
 
   const onError = (error: CustomErrorWithData) => {
@@ -135,7 +134,7 @@ const BasicInfo = ({ profile }: Props) => {
   }
 
   const onCompleted = (
-    __typename?: 'LensProfileManagerRelayError' | 'RelayError' | 'RelaySuccess'
+    __typename?: 'RelayError' | 'RelaySuccess' | 'LensProfileManagerRelayError'
   ) => {
     if (
       __typename === 'RelayError' ||
@@ -153,24 +152,24 @@ const BasicInfo = ({ profile }: Props) => {
   })
 
   const { write } = useContractWrite({
-    abi: LENSHUB_PROXY_ABI,
     address: LENSHUB_PROXY_ADDRESS,
+    abi: LENSHUB_PROXY_ABI,
     functionName: 'setProfileMetadataURI',
     onError,
     onSuccess: () => onCompleted()
   })
 
   const [broadcast] = useBroadcastOnchainMutation({
+    onError,
     onCompleted: ({ broadcastOnchain }) =>
-      onCompleted(broadcastOnchain.__typename),
-    onError
+      onCompleted(broadcastOnchain.__typename)
   })
 
   const [createOnchainSetProfileMetadataTypedData] =
     useCreateOnchainSetProfileMetadataTypedDataMutation({
       onCompleted: async ({ createOnchainSetProfileMetadataTypedData }) => {
-        const { id, typedData } = createOnchainSetProfileMetadataTypedData
-        const { metadataURI, profileId } = typedData.value
+        const { typedData, id } = createOnchainSetProfileMetadataTypedData
+        const { profileId, metadataURI } = typedData.value
         const args = [profileId, metadataURI]
         try {
           toast.loading(REQUESTING_SIGNATURE_MESSAGE)
@@ -202,14 +201,14 @@ const BasicInfo = ({ profile }: Props) => {
     profile.metadata?.attributes
       ?.filter(
         (attr) =>
-          !['app', 'location', 'spotify', 'website', 'x', 'youtube'].includes(
+          !['website', 'location', 'x', 'youtube', 'spotify', 'app'].includes(
             attr.key
           )
       )
-      .map(({ key, type, value }) => ({
+      .map(({ key, value, type }) => ({
         key,
-        type: MetadataAttributeType[type] as any,
-        value
+        value,
+        type: MetadataAttributeType[type] as any
       })) ?? []
 
   const onSaveBasicInfo = async (data: FormData) => {
@@ -220,40 +219,40 @@ const BasicInfo = ({ profile }: Props) => {
       setLoading(true)
       const metadata: ProfileOptions = {
         appId: TAPE_APP_ID,
+        id: uuidv4(),
         attributes: [
           ...otherAttributes,
           {
-            key: 'website',
             type: MetadataAttributeType.STRING,
+            key: 'website',
             value: data.website
           },
           {
-            key: 'location',
             type: MetadataAttributeType.STRING,
+            key: 'location',
             value: data.location
           },
           {
-            key: 'x',
             type: MetadataAttributeType.STRING,
+            key: 'x',
             value: data.x
           },
           {
-            key: 'youtube',
             type: MetadataAttributeType.STRING,
+            key: 'youtube',
             value: data.youtube
           },
           {
-            key: 'spotify',
             type: MetadataAttributeType.STRING,
+            key: 'spotify',
             value: data.spotify
           },
           {
-            key: 'app',
             type: MetadataAttributeType.STRING,
+            key: 'app',
             value: TAPE_APP_ID
           }
-        ],
-        id: uuidv4()
+        ]
       }
       metadata.attributes = metadata.attributes?.filter(
         (m) => Boolean(trimify(m.key)) && Boolean(trimify(m.value))
@@ -309,9 +308,6 @@ const BasicInfo = ({ profile }: Props) => {
             </div>
           )}
           <img
-            alt="No cover found"
-            className="rounded-small bg-brand-500 h-48 w-full object-cover object-center md:h-56"
-            draggable={false}
             src={
               sanitizeDStorageUrl(coverImage) ||
               imageCdn(
@@ -319,20 +315,24 @@ const BasicInfo = ({ profile }: Props) => {
                 'THUMBNAIL'
               )
             }
+            className="rounded-small bg-brand-500 h-48 w-full object-cover object-center md:h-56"
+            draggable={false}
+            alt="No cover found"
           />
           <div className="absolute bottom-2 right-2 cursor-pointer text-sm">
             <Button
-              className="!px-0"
               highContrast
               type="button"
               variant="surface"
+              className="!px-0"
             >
-              <label className="p-3" htmlFor="chooseCover">
+              <label htmlFor="chooseCover" className="p-3">
                 Choose
                 <input
+                  id="chooseCover"
+                  type="file"
                   accept=".png, .jpg, .jpeg, .svg, .webp"
                   className="hidden w-full"
-                  id="chooseCover"
                   onChange={async (e) => {
                     if (e.target.files?.length) {
                       setUploading({ cover: true, pfp: false })
@@ -343,30 +343,29 @@ const BasicInfo = ({ profile }: Props) => {
                       setUploading({ cover: false, pfp: false })
                     }
                   }}
-                  type="file"
                 />
               </label>
             </Button>
           </div>
         </div>
-        <Flex align="center" gap="5" mt="5" wrap="wrap">
+        <Flex align="center" mt="5" gap="5" wrap="wrap">
           <div className="group relative flex-none overflow-hidden rounded-full">
             <img
-              alt="No PFP"
-              className="size-32 rounded-full border-2 object-cover"
-              draggable={false}
               src={
                 selectedPfp
                   ? sanitizeDStorageUrl(selectedPfp)
                   : getProfilePicture(profile, 'AVATAR_LG')
               }
+              className="size-32 rounded-full border-2 object-cover"
+              draggable={false}
+              alt="No PFP"
             />
             <label
+              htmlFor="choosePfp"
               className={clsx(
                 'invisible absolute top-0 grid size-32 cursor-pointer place-items-center rounded-full bg-white bg-opacity-70 backdrop-blur-lg group-hover:visible dark:bg-black',
                 { '!visible': uploading.pfp }
               )}
-              htmlFor="choosePfp"
             >
               {uploading.pfp ? (
                 <Loader />
@@ -374,9 +373,10 @@ const BasicInfo = ({ profile }: Props) => {
                 <AddImageOutline className="size-5" />
               )}
               <input
+                id="choosePfp"
+                type="file"
                 accept=".png, .jpg, .jpeg, .svg, .gif, .webp"
                 className="hidden w-full"
-                id="choosePfp"
                 onChange={async (e) => {
                   if (e.target.files?.length) {
                     setUploading({ cover: false, pfp: true })
@@ -387,7 +387,6 @@ const BasicInfo = ({ profile }: Props) => {
                     setUploading({ cover: false, pfp: false })
                   }
                 }}
-                type="file"
               />
             </label>
           </div>
@@ -418,8 +417,8 @@ const BasicInfo = ({ profile }: Props) => {
                         `${TAPE_WEBSITE_URL}/u/${getProfile(profile)?.slug}`
                       )
                     }
-                    type="button"
                     variant="ghost"
+                    type="button"
                   >
                     <CopyOutline className="size-4" />
                   </IconButton>
@@ -440,8 +439,8 @@ const BasicInfo = ({ profile }: Props) => {
         <div className="relative mt-4">
           <TextArea
             label="Bio"
-            placeholder="More about you and what you do!"
             rows={5}
+            placeholder="More about you and what you do!"
             validationError={errors.description?.message}
             {...register('description')}
           />
@@ -465,8 +464,8 @@ const BasicInfo = ({ profile }: Props) => {
           <Input
             label="Youtube"
             placeholder="channel"
-            prefix="https://youtube.com/"
             validationError={errors.youtube?.message}
+            prefix="https://youtube.com/"
             {...register('youtube')}
           />
         </div>
@@ -474,8 +473,8 @@ const BasicInfo = ({ profile }: Props) => {
           <Input
             label="Spotify"
             placeholder="artist/6xl0mjD1B4paRyfPDUOynf"
-            prefix="https://open.spotify.com/"
             validationError={errors.spotify?.message}
+            prefix="https://open.spotify.com/"
             {...register('spotify')}
           />
         </div>
@@ -483,8 +482,8 @@ const BasicInfo = ({ profile }: Props) => {
           <Input
             label="X (Twitter)"
             placeholder="profile"
-            prefix="https://x.com/"
             validationError={errors.x?.message}
+            prefix="https://x.com/"
             {...register('x')}
           />
         </div>

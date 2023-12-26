@@ -1,6 +1,3 @@
-import type { PrimaryPublication } from '@tape.xyz/lens'
-import type { FC } from 'react'
-
 import CollectorsList from '@components/Common/CollectorsList'
 import HoverableProfile from '@components/Common/HoverableProfile'
 import CollectOutline from '@components/Common/Icons/CollectOutline'
@@ -19,6 +16,8 @@ import {
   getProfilePicture,
   getPublicationMediaCid
 } from '@tape.xyz/generic'
+import type { PrimaryPublication } from '@tape.xyz/lens'
+import type { FC } from 'react'
 import React, { useState } from 'react'
 
 import ViewCount from './ViewCount'
@@ -35,59 +34,59 @@ const VideoMeta: FC<Props> = ({ video }) => {
     <div className="mt-2 flex flex-wrap items-center">
       <HoverableProfile
         fontSize="3"
+        profile={video.by}
         pfp={
           <img
-            alt={getProfile(video.by)?.displayName}
+            src={getProfilePicture(video.by, 'AVATAR')}
             className="size-5 rounded-full"
             draggable={false}
-            src={getProfilePicture(video.by, 'AVATAR')}
+            alt={getProfile(video.by)?.displayName}
           />
         }
-        profile={video.by}
       />
       <span className="middot px-1" />
       <div className="flex items-center">
         <Dialog.Root
-          onOpenChange={(b) => setShowCollectsModal(b)}
           open={showCollectsModal}
+          onOpenChange={(b) => setShowCollectsModal(b)}
         >
           <Dialog.Content style={{ maxWidth: 450 }}>
             <Flex gap="3" justify="between" pb="2">
               <Dialog.Title size="6">Collectors</Dialog.Title>
               <DialogClose>
-                <IconButton color="gray" variant="ghost">
-                  <TimesOutline className="size-3" outlined={false} />
+                <IconButton variant="ghost" color="gray">
+                  <TimesOutline outlined={false} className="size-3" />
                 </IconButton>
               </DialogClose>
             </Flex>
 
             <ScrollArea
+              type="hover"
               scrollbars="vertical"
               style={{ height: 400 }}
-              type="hover"
             >
               <CollectorsList videoId={video.id} />
             </ScrollArea>
           </Dialog.Content>
         </Dialog.Root>
         <Dialog.Root
-          onOpenChange={(b) => setShowMirrorsModal(b)}
           open={showMirrorsModal}
+          onOpenChange={(b) => setShowMirrorsModal(b)}
         >
           <Dialog.Content style={{ maxWidth: 450 }}>
             <Flex gap="3" justify="between" pb="2">
               <Dialog.Title size="6">Mirrors</Dialog.Title>
               <DialogClose>
-                <IconButton color="gray" variant="ghost">
-                  <TimesOutline className="size-3" outlined={false} />
+                <IconButton variant="ghost" color="gray">
+                  <TimesOutline outlined={false} className="size-3" />
                 </IconButton>
               </DialogClose>
             </Flex>
 
             <ScrollArea
+              type="hover"
               scrollbars="vertical"
               style={{ height: 400 }}
-              type="hover"
             >
               <MirroredList videoId={video.id} />
             </ScrollArea>
@@ -96,18 +95,18 @@ const VideoMeta: FC<Props> = ({ video }) => {
 
         <ViewCount cid={getPublicationMediaCid(video.metadata)} />
         <button
-          className="flex items-center space-x-1 outline-none"
-          onClick={() => setShowCollectsModal(true)}
           type="button"
+          onClick={() => setShowCollectsModal(true)}
+          className="flex items-center space-x-1 outline-none"
         >
           <CollectOutline className="size-4" />
           <span>{video.stats?.countOpenActions} collects</span>
         </button>
         <span className="middot px-1" />
         <button
-          className="flex items-center space-x-1 outline-none"
-          onClick={() => setShowMirrorsModal(true)}
           type="button"
+          onClick={() => setShowMirrorsModal(true)}
+          className="flex items-center space-x-1 outline-none"
         >
           <MirrorOutline className="size-4" />
           <span>{video.stats?.mirrors} mirrors</span>

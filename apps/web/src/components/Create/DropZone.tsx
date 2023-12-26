@@ -18,10 +18,10 @@ const DropZone = () => {
 
   const {
     dragOver,
-    fileDropError,
-    onDragLeave,
-    onDragOver,
     setDragOver,
+    onDragOver,
+    onDragLeave,
+    fileDropError,
     setFileDropError
   } = useDragAndDrop()
 
@@ -36,15 +36,15 @@ const DropZone = () => {
         const isAudio = ALLOWED_AUDIO_MIME_TYPES.includes(file?.type)
         const isUnderFreeLimit = canUploadedToIpfs(file?.size)
         setUploadedMedia({
+          stream: fileReaderStream(file),
+          preview,
+          mediaType: file?.type,
           file,
-          isUploadToIpfs: isUnderFreeLimit,
+          type: isAudio ? 'AUDIO' : 'VIDEO',
           mediaCategory: isAudio
             ? CREATOR_VIDEO_CATEGORIES[1]
             : CREATOR_VIDEO_CATEGORIES[0],
-          mediaType: file?.type,
-          preview,
-          stream: fileReaderStream(file),
-          type: isAudio ? 'AUDIO' : 'VIDEO'
+          isUploadToIpfs: isUnderFreeLimit
         })
       }
     } catch (error) {
@@ -82,16 +82,16 @@ const DropZone = () => {
           dragOver ? 'border-green-500' : 'border-gray-500'
         )}
         htmlFor="dropMedia"
-        onDragLeave={onDragLeave}
         onDragOver={onDragOver}
+        onDragLeave={onDragLeave}
         onDrop={onDrop}
       >
         <input
-          accept={ALLOWED_UPLOAD_MIME_TYPES.join(',')}
-          className="hidden"
-          id="dropMedia"
-          onChange={onChooseFile}
           type="file"
+          className="hidden"
+          onChange={onChooseFile}
+          id="dropMedia"
+          accept={ALLOWED_UPLOAD_MIME_TYPES.join(',')}
         />
         <span className="mb-6 flex justify-center opacity-80">
           <UploadOutline className="size-10" />
@@ -103,19 +103,19 @@ const DropZone = () => {
           </div>
           <Box>
             <Button
-              className="!px-0"
               highContrast
-              type="button"
               variant="surface"
+              className="!px-0"
+              type="button"
             >
-              <label className="cursor-pointer p-6" htmlFor="chooseMedia">
+              <label htmlFor="chooseMedia" className="cursor-pointer p-6">
                 Choose
                 <input
-                  accept={ALLOWED_UPLOAD_MIME_TYPES.join(',')}
-                  className="hidden"
                   id="chooseMedia"
                   onChange={onChooseFile}
                   type="file"
+                  className="hidden"
+                  accept={ALLOWED_UPLOAD_MIME_TYPES.join(',')}
                 />
               </label>
             </Button>

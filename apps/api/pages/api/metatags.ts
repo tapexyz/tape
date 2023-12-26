@@ -1,5 +1,3 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
-
 import { getMetaTags } from '@tape.xyz/browser'
 import {
   OG_IMAGE,
@@ -8,6 +6,7 @@ import {
 } from '@tape.xyz/constants'
 import getProfileMeta from 'lib/getProfileMeta'
 import getPublicationMeta from 'lib/getPublicationMeta'
+import type { NextApiRequest, NextApiResponse } from 'next'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'GET') {
@@ -40,17 +39,17 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     return res.setHeader('Content-Type', 'text/html').send(
       getMetaTags({
+        title: TAPE_APP_NAME,
         description: TAPE_APP_DESCRIPTION,
-        image: OG_IMAGE,
-        title: TAPE_APP_NAME
+        image: OG_IMAGE
       })
     )
   } catch (error) {
     return res.setHeader('Content-Type', 'text/html').send(
       getMetaTags({
+        title: TAPE_APP_NAME,
         description: TAPE_APP_DESCRIPTION,
-        image: OG_IMAGE,
-        title: TAPE_APP_NAME
+        image: OG_IMAGE
       })
     )
   }

@@ -1,30 +1,28 @@
 import type { FC } from 'react'
-
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 
 import type { PlayerProps } from './Player'
-
 import PlayerInstance from './Player'
 import SensitiveWarning from './SensitiveWarning'
 
 interface Props extends PlayerProps {
+  url: string
   currentTime?: number
   isSensitiveContent?: boolean
   refCallback?: (ref: HTMLMediaElement) => void
-  url: string
 }
 
 const VideoPlayer: FC<Props> = ({
+  url,
   address,
-  currentTime = 0,
-  isSensitiveContent,
   options,
   posterUrl,
-  ratio = '16to9',
   refCallback,
-  shouldUpload,
+  ratio = '16to9',
+  currentTime = 0,
+  isSensitiveContent,
   showControls = true,
-  url
+  shouldUpload
 }) => {
   const playerRef = useRef<HTMLMediaElement>()
   const [sensitiveWarning, setSensitiveWarning] = useState(isSensitiveContent)
@@ -53,18 +51,18 @@ const VideoPlayer: FC<Props> = ({
         <SensitiveWarning acceptWarning={() => setSensitiveWarning(false)} />
       ) : (
         <div
-          className={`relative flex ${options.maxHeight && 'h-full'}`}
           onContextMenu={onContextClick}
+          className={`relative flex ${options.maxHeight && 'h-full'}`}
         >
           <PlayerInstance
-            address={address}
-            options={options}
-            playerRef={mediaElementRef}
-            posterUrl={posterUrl}
             ratio={ratio}
-            shouldUpload={shouldUpload}
-            showControls={showControls}
             url={url}
+            options={options}
+            address={address}
+            posterUrl={posterUrl}
+            playerRef={mediaElementRef}
+            showControls={showControls}
+            shouldUpload={shouldUpload}
           />
         </div>
       )}

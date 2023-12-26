@@ -1,20 +1,19 @@
-import type { Dispatch, FC } from 'react'
-
 import { Button, Dialog } from '@radix-ui/themes'
+import type { Dispatch, FC } from 'react'
 import React from 'react'
 
 type Props = {
-  action: () => void
-  setShowConfirm: Dispatch<boolean>
   showConfirm: boolean
+  setShowConfirm: Dispatch<boolean>
+  action: () => void
 }
 
-const Confirm: FC<Props> = ({ action, setShowConfirm, showConfirm }) => {
+const Confirm: FC<Props> = ({ showConfirm, setShowConfirm, action }) => {
   return (
-    <Dialog.Root onOpenChange={(b) => setShowConfirm(b)} open={showConfirm}>
+    <Dialog.Root open={showConfirm} onOpenChange={(b) => setShowConfirm(b)}>
       <Dialog.Content style={{ maxWidth: 450 }}>
         <Dialog.Title>Confirm</Dialog.Title>
-        <Dialog.Description mb="4" size="2">
+        <Dialog.Description size="2" mb="4">
           Are you sure you want to continue?
         </Dialog.Description>
 
@@ -23,7 +22,7 @@ const Confirm: FC<Props> = ({ action, setShowConfirm, showConfirm }) => {
             This cannot be reverted
           </span>
           <div className="flex justify-end space-x-2 pt-2">
-            <Button onClick={() => setShowConfirm(false)} variant="soft">
+            <Button variant="soft" onClick={() => setShowConfirm(false)}>
               Cancel
             </Button>
             <Button highContrast onClick={action}>

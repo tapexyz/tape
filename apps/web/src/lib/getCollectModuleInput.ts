@@ -1,10 +1,9 @@
-import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
-
 import {
   type OpenActionModuleInput,
   OpenActionModuleType,
   type RecipientDataInput
 } from '@tape.xyz/lens'
+import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
 
 import { getAddedDaysFromToday } from './formatTime'
 
@@ -13,15 +12,15 @@ export const getCollectModuleInput = (
 ): OpenActionModuleInput => {
   const {
     amount,
+    referralFee,
     collectLimit,
-    collectLimitEnabled,
     followerOnlyCollect,
+    recipient,
+    timeLimitEnabled,
+    timeLimit = 1,
     isFeeCollect,
     isMultiRecipientFeeCollect,
-    recipient,
-    referralFee,
-    timeLimit = 1,
-    timeLimitEnabled
+    collectLimitEnabled
   } = selectedCollectModule
 
   // No one can collect the post
@@ -33,10 +32,10 @@ export const getCollectModuleInput = (
 
   const baseCollectModuleParams = {
     collectLimit: collectLimitEnabled ? collectLimit : undefined,
+    followerOnly: followerOnlyCollect as boolean,
     endsAt: timeLimitEnabled
       ? getAddedDaysFromToday(Number(timeLimit))
-      : undefined,
-    followerOnly: followerOnlyCollect as boolean
+      : undefined
   }
   const baseAmountParams = {
     amount: {
@@ -92,43 +91,43 @@ export const getCollectModuleConfig = (collectModule: string) => {
   switch (collectModule) {
     case OpenActionModuleType.SimpleCollectOpenActionModule:
       return {
-        description:
-          'Collect any publication including paid collects, limited and timed free collects and more!',
+        type: 'openActionModule',
         label: 'Simple collects',
-        type: 'openActionModule'
+        description:
+          'Collect any publication including paid collects, limited and timed free collects and more!'
       }
     case OpenActionModuleType.MultirecipientFeeCollectOpenActionModule:
       return {
-        description:
-          'Collect any publication which splits collect revenue with multiple recipients.',
+        type: 'openActionModule',
         label: 'Multi recipient collects',
-        type: 'openActionModule'
+        description:
+          'Collect any publication which splits collect revenue with multiple recipients.'
       }
     case OpenActionModuleType.LegacySimpleCollectModule:
       return {
-        description:
-          'Collect any publication including paid collects, limited and timed free collects and more!',
+        type: 'openActionModule',
         label: 'Legacy V1 - Simple collects',
-        type: 'openActionModule'
+        description:
+          'Collect any publication including paid collects, limited and timed free collects and more!'
       }
     case OpenActionModuleType.LegacyMultirecipientFeeCollectModule:
       return {
-        description:
-          'Collect any publication which splits collect revenue with multiple recipients.',
+        type: 'openActionModule',
         label: 'Legacy V1 - Multi recipient collects',
-        type: 'openActionModule'
+        description:
+          'Collect any publication which splits collect revenue with multiple recipients.'
       }
     case 'FeeFollowModule':
       return {
-        description:
-          'Subscribe any profile by paying a fee specified by the profile owner.',
+        type: 'followModule',
         label: 'Subscribe Profiles',
-        type: 'followModule'
+        description:
+          'Subscribe any profile by paying a fee specified by the profile owner.'
       }
     default:
       return {
-        description: '',
-        type: ''
+        type: '',
+        description: ''
       }
   }
 }

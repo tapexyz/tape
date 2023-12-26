@@ -1,9 +1,3 @@
-import type {
-  CreateSetFollowModuleBroadcastItemResult,
-  Profile
-} from '@tape.xyz/lens'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import usePendingTxn from '@hooks/usePendingTxn'
 import useProfileStore from '@lib/store/idb/profile'
@@ -21,11 +15,16 @@ import {
   getSignature,
   Tower
 } from '@tape.xyz/generic'
+import type {
+  CreateSetFollowModuleBroadcastItemResult,
+  Profile
+} from '@tape.xyz/lens'
 import {
   FollowModuleType,
   useBroadcastOnchainMutation,
   useCreateSetFollowModuleTypedDataMutation
 } from '@tape.xyz/lens'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -74,8 +73,8 @@ const RevertFollow = ({ profile }: Props) => {
   })
 
   const { data: writtenData, write } = useContractWrite({
-    abi: LENSHUB_PROXY_ABI,
     address: LENSHUB_PROXY_ADDRESS,
+    abi: LENSHUB_PROXY_ABI,
     functionName: 'setFollowModule',
     onError
   })
@@ -98,9 +97,9 @@ const RevertFollow = ({ profile }: Props) => {
   const [createSetFollowModuleTypedData] =
     useCreateSetFollowModuleTypedDataMutation({
       onCompleted: async ({ createSetFollowModuleTypedData }) => {
-        const { id, typedData } =
+        const { typedData, id } =
           createSetFollowModuleTypedData as CreateSetFollowModuleBroadcastItemResult
-        const { followModule, followModuleInitData, profileId } =
+        const { profileId, followModule, followModuleInitData } =
           typedData.value
         const args = [profileId, followModule, followModuleInitData]
         try {
@@ -154,10 +153,10 @@ const RevertFollow = ({ profile }: Props) => {
       <div className="flex items-center justify-end space-x-2">
         {isRevertFollow ? (
           <Button
+            variant="surface"
             disabled={loading}
             highContrast
             onClick={() => toggleRevert(false)}
-            variant="surface"
           >
             {loading && <Loader size="sm" />}
             Enable Follow
@@ -165,10 +164,10 @@ const RevertFollow = ({ profile }: Props) => {
         ) : (
           <Button
             color="red"
-            disabled={loading}
-            highContrast
-            onClick={() => toggleRevert(true)}
             variant="surface"
+            highContrast
+            disabled={loading}
+            onClick={() => toggleRevert(true)}
           >
             {loading && <Loader size="sm" />}
             Disable Follow

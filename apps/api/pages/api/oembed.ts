@@ -1,6 +1,5 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
-
 import getPublicationOembed from 'lib/getPublicationOembed'
+import type { NextApiRequest, NextApiResponse } from 'next'
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method !== 'GET') {

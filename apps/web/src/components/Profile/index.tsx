@@ -1,5 +1,3 @@
-import type { Profile, ProfileRequest } from '@tape.xyz/lens'
-
 import MetaTags from '@components/Common/MetaTags'
 import ProfilePageShimmer from '@components/Shimmers/ProfilePageShimmer'
 import { LENS_NAMESPACE_PREFIX } from '@tape.xyz/constants'
@@ -9,6 +7,7 @@ import {
   getValueFromKeyInAttributes,
   Tower
 } from '@tape.xyz/generic'
+import type { Profile, ProfileRequest } from '@tape.xyz/lens'
 import { useProfileQuery } from '@tape.xyz/lens'
 import { useRouter } from 'next/router'
 import React, { memo, useEffect } from 'react'
@@ -35,11 +34,11 @@ const ViewProfile = () => {
     ...(forProfileId ? { forProfileId } : { forHandle })
   }
 
-  const { data, error, loading } = useProfileQuery({
-    skip: !forProfileId && !handle,
+  const { data, loading, error } = useProfileQuery({
     variables: {
       request
-    }
+    },
+    skip: !forProfileId && !handle
   })
 
   if (loading || !data) {

@@ -1,40 +1,39 @@
-import type { Profile } from '@tape.xyz/lens'
-import type { FC } from 'react'
-
 import { formatNumber, getProfile, getProfilePicture } from '@tape.xyz/generic'
+import type { Profile } from '@tape.xyz/lens'
 import Link from 'next/link'
+import type { FC } from 'react'
 import React from 'react'
 
 import Badge from '../Badge'
 import UserOutline from '../Icons/UserOutline'
 
 interface Props {
-  clearSearch: () => void
-  loading: boolean
   results: Profile[]
+  loading: boolean
+  clearSearch: () => void
 }
 
-const Profiles: FC<Props> = ({ clearSearch, loading, results }) => {
+const Profiles: FC<Props> = ({ results, loading, clearSearch }) => {
   return (
     <div>
       {results?.map((profile: Profile) => (
         <div
-          className="hover:bg-gallery dark:hover:bg-smoke relative cursor-default select-none rounded-md pl-3 pr-4"
           key={profile.id}
+          className="hover:bg-gallery dark:hover:bg-smoke relative cursor-default select-none rounded-md pl-3 pr-4"
         >
           <Link
-            className="flex flex-col justify-center space-y-1 py-2"
+            onClick={() => clearSearch()}
             href={`/u/${getProfile(profile)?.slug}`}
             key={getProfile(profile)?.slug}
-            onClick={() => clearSearch()}
+            className="flex flex-col justify-center space-y-1 py-2"
           >
             <span className="flex items-center justify-between">
               <div className="inline-flex w-3/4 items-center space-x-2">
                 <img
-                  alt="pfp"
                   className="size-5 rounded-full"
-                  draggable={false}
                   src={getProfilePicture(profile, 'AVATAR')}
+                  draggable={false}
+                  alt="pfp"
                 />
                 <div className="flex items-center space-x-1">
                   <p className="line-clamp-1 truncate text-base">

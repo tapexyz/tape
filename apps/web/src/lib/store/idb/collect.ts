@@ -1,6 +1,5 @@
-import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
-
 import createIdbStorage from '@lib/createIdbStorage'
+import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
 import { LocalIDBStore } from '@tape.xyz/lens/custom-types'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'

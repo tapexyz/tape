@@ -1,9 +1,9 @@
 import { getCssText } from '@livepeer/react'
 import {
+  default as NextDocument,
   Head,
   Html,
   Main,
-  default as NextDocument,
   NextScript
 } from 'next/document'
 import * as React from 'react'
@@ -14,10 +14,10 @@ class Document extends NextDocument {
       <Html lang="en">
         <Head>
           <style
-            dangerouslySetInnerHTML={{ __html: getCssText() }}
             id="stitches"
+            dangerouslySetInnerHTML={{ __html: getCssText() }}
           />
-          <meta content="noindex" name="robots" />
+          <meta name="robots" content="noindex" />
         </Head>
         <body>
           <Main />

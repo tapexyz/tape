@@ -8,47 +8,47 @@ class AppDocument extends Document {
       <Html lang="en">
         <Head>
           <meta charSet="utf-8" />
-          <meta content="IE=edge" httpEquiv="X-UA-Compatible" />
+          <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
           <link
-            href={`${STATIC_ASSETS}/brand/logo.svg`}
             rel="icon"
+            href={`${STATIC_ASSETS}/brand/logo.svg`}
             type="image/svg+xml"
           />
           <link
-            href={`${STATIC_ASSETS}/brand/favicons/favicon.ico`}
             rel="icon"
+            href={`${STATIC_ASSETS}/brand/favicons/favicon.ico`}
             type="image/x-icon"
           />
           <link
-            href={`${STATIC_ASSETS}/brand/favicons/favicon.ico`}
             rel="shortcut icon"
+            href={`${STATIC_ASSETS}/brand/favicons/favicon.ico`}
           />
           <link
-            href={`${STATIC_ASSETS}/brand/favicons/apple-touch-icon.png`}
             rel="apple-touch-icon"
             sizes="180x180"
+            href={`${STATIC_ASSETS}/brand/favicons/apple-touch-icon.png`}
           />
           <link
-            href={`${STATIC_ASSETS}/brand/favicons/favicon-32x32.png`}
             rel="icon"
+            type="image/png"
             sizes="32x32"
-            type="image/png"
+            href={`${STATIC_ASSETS}/brand/favicons/favicon-32x32.png`}
           />
           <link
-            href={`${STATIC_ASSETS}/brand/favicons/favicon-16x16.png`}
             rel="icon"
-            sizes="16x16"
             type="image/png"
+            sizes="16x16"
+            href={`${STATIC_ASSETS}/brand/favicons/favicon-16x16.png`}
           />
-          <meta content="#000000" name="theme-color" />
-          <link href="/manifest.json" rel="manifest" />
-          <meta content="yes" name="apple-mobile-web-app-capable" />
-          <meta content="yes" name="mobile-web-app-capable" />
+          <meta name="theme-color" content="#000000" />
+          <link rel="manifest" href="/manifest.json" />
+          <meta name="apple-mobile-web-app-capable" content="yes" />
+          <meta name="mobile-web-app-capable" content="yes" />
           <meta
-            content="default"
             name="apple-mobile-web-app-status-bar-style"
+            content="default"
           />
-          <meta content={TAPE_APP_NAME} name="apple-mobile-web-app-title" />
+          <meta name="apple-mobile-web-app-title" content={TAPE_APP_NAME} />
         </Head>
         <body>
           <Main />

@@ -1,11 +1,10 @@
-import type { Connector } from 'wagmi'
-
 import CheckOutline from '@components/Common/Icons/CheckOutline'
 import WarningOutline from '@components/Common/Icons/WarningOutline'
 import useProfileStore from '@lib/store/idb/profile'
 import { Button, Callout, Flex } from '@radix-ui/themes'
 import { POLYGON_CHAIN_ID } from '@tape.xyz/constants'
 import React from 'react'
+import type { Connector } from 'wagmi'
 import { useAccount, useConnect } from 'wagmi'
 
 import Authenticate from './Authenticate'
@@ -14,7 +13,7 @@ import Authenticated from './Authenticated'
 const Connectors = () => {
   const { connector: connected } = useAccount()
 
-  const { connectAsync, connectors, error, isLoading } = useConnect({
+  const { connectors, connectAsync, isLoading, error } = useConnect({
     chainId: POLYGON_CHAIN_ID
   })
 
@@ -35,13 +34,13 @@ const Connectors = () => {
       <Flex direction="column" gap="2">
         {connectors.map((c) => (
           <Button
-            disabled={c.id === connected?.id || isLoading}
-            highContrast
             key={c.id}
-            onClick={() => onChooseConnector(c)}
+            highContrast
             variant="surface"
+            onClick={() => onChooseConnector(c)}
+            disabled={c.id === connected?.id || isLoading}
           >
-            <Flex align="center" className="w-full" justify="between">
+            <Flex justify="between" align="center" className="w-full">
               <span>{c.name}</span>
               {c.id === connected?.id && <CheckOutline className="size-4" />}
             </Flex>

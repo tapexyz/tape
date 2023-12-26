@@ -1,12 +1,11 @@
 import type { SVGProps } from 'react'
-
 import React from 'react'
 
 const TrashOutline = (props: SVGProps<SVGSVGElement>) => (
   <svg
     {...props}
-    fill="none"
     viewBox="0 0 20 21"
+    fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
     <path

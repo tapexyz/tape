@@ -1,3 +1,6 @@
+import MetaTags from '@components/Common/MetaTags'
+import useEthersWalletClient from '@hooks/useEthersWalletClient'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import type {
   AudioOptions,
   MediaAudioMimeType,
@@ -5,17 +8,6 @@ import type {
   MetadataAttribute,
   VideoOptions
 } from '@lens-protocol/metadata'
-import type {
-  CreateMomokaPostEip712TypedData,
-  CreateOnchainPostEip712TypedData,
-  Profile,
-  ReferenceModuleInput
-} from '@tape.xyz/lens'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-
-import MetaTags from '@components/Common/MetaTags'
-import useEthersWalletClient from '@hooks/useEthersWalletClient'
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import {
   audio,
   MetadataAttributeType,
@@ -51,6 +43,12 @@ import {
   trimify,
   uploadToAr
 } from '@tape.xyz/generic'
+import type {
+  CreateMomokaPostEip712TypedData,
+  CreateOnchainPostEip712TypedData,
+  Profile,
+  ReferenceModuleInput
+} from '@tape.xyz/lens'
 import {
   ReferenceModuleType,
   useBroadcastOnchainMutation,
@@ -60,6 +58,7 @@ import {
   usePostOnchainMutation,
   usePostOnMomokaMutation
 } from '@tape.xyz/lens'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
@@ -67,7 +66,6 @@ import { v4 as uuidv4 } from 'uuid'
 import { useAccount, useContractWrite, useSignTypedData } from 'wagmi'
 
 import type { VideoFormData } from './Details'
-
 import Details from './Details'
 
 const CreateSteps = () => {
@@ -86,7 +84,7 @@ const CreateSteps = () => {
   const { data: signer } = useEthersWalletClient()
   const router = useRouter()
   const handleWrongNetwork = useHandleWrongNetwork()
-  const { canBroadcast, canUseLensManager } =
+  const { canUseLensManager, canBroadcast } =
     checkLensManagerPermissions(activeProfile)
 
   const degreesOfSeparation = uploadedMedia.referenceModule
@@ -119,14 +117,14 @@ const CreateSteps = () => {
     router.push(`/watch/${pubId}`)
   }
 
-  const setToQueue = (txn: { txnHash?: string; txnId?: string }) => {
+  const setToQueue = (txn: { txnId?: string; txnHash?: string }) => {
     if (txn.txnHash || txn.txnId) {
       setQueuedVideos([
         {
           thumbnailUrl: uploadedMedia.thumbnail,
           title: uploadedMedia.title,
-          txnHash: txn.txnHash,
-          txnId: txn.txnId
+          txnId: txn.txnId,
+          txnHash: txn.txnHash
         },
         ...(queuedVideos || [])
       ])
@@ -161,6 +159,12 @@ const CreateSteps = () => {
       return
     }
     Tower.track(EVENTS.PUBLICATION.NEW_POST, {
+      video_format: uploadedMedia.mediaType,
+      video_type: uploadedMedia.isByteVideo ? 'SHORT_FORM' : 'LONG_FORM',
+      publication_state: uploadedMedia.collectModule.isRevertCollect
+        ? 'MOMOKA'
+        : 'ON_CHAIN',
+      video_storage: uploadedMedia.isUploadToIpfs ? 'IPFS' : 'ARWEAVE',
       publication_collect_module: Object.keys(
         getCollectModuleInput(uploadedMedia.collectModule)
       )[0],
@@ -169,13 +173,7 @@ const CreateSteps = () => {
         .referenceModule.degreesOfSeparationReferenceModule
         ? degreesOfSeparation
         : null,
-      publication_state: uploadedMedia.collectModule.isRevertCollect
-        ? 'MOMOKA'
-        : 'ON_CHAIN',
-      user_id: activeProfile?.id,
-      video_format: uploadedMedia.mediaType,
-      video_storage: uploadedMedia.isUploadToIpfs ? 'IPFS' : 'ARWEAVE',
-      video_type: uploadedMedia.isByteVideo ? 'SHORT_FORM' : 'LONG_FORM'
+      user_id: activeProfile?.id
     })
     return stopLoading()
   }
@@ -195,19 +193,19 @@ const CreateSteps = () => {
   })
 
   const { write } = useContractWrite({
-    abi: LENSHUB_PROXY_ABI,
     address: LENSHUB_PROXY_ADDRESS,
+    abi: LENSHUB_PROXY_ABI,
     functionName: 'post',
-    onError: (error) => {
-      onError(error)
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
-    },
     onSuccess: (data) => {
       if (data.hash) {
         setToQueue({ txnHash: data.hash })
       }
       stopLoading()
       setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
+    },
+    onError: (error) => {
+      onError(error)
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
     }
   })
 
@@ -239,7 +237,7 @@ const CreateSteps = () => {
 
   const [createOnchainPostTypedData] = useCreateOnchainPostTypedDataMutation({
     onCompleted: async ({ createOnchainPostTypedData }) => {
-      const { id, typedData } = createOnchainPostTypedData
+      const { typedData, id } = createOnchainPostTypedData
       try {
         if (canBroadcast) {
           const signature = await getSignatureFromTypedData(typedData)
@@ -263,18 +261,18 @@ const CreateSteps = () => {
   })
 
   const [postOnchain] = usePostOnchainMutation({
+    onError,
     onCompleted: ({ postOnchain }) => {
       if (postOnchain.__typename === 'RelaySuccess') {
         onCompleted(postOnchain.__typename)
         setToQueue({ txnId: postOnchain.txId })
       }
-    },
-    onError
+    }
   })
 
   const [createMomokaPostTypedData] = useCreateMomokaPostTypedDataMutation({
     onCompleted: async ({ createMomokaPostTypedData }) => {
-      const { id, typedData } = createMomokaPostTypedData
+      const { typedData, id } = createMomokaPostTypedData
       try {
         if (canBroadcast) {
           const signature = await getSignatureFromTypedData(typedData)
@@ -298,12 +296,12 @@ const CreateSteps = () => {
   })
 
   const [postOnMomoka] = usePostOnMomokaMutation({
+    onError,
     onCompleted: ({ postOnMomoka }) => {
       if (postOnMomoka.__typename === 'CreateMomokaPublicationResult') {
         redirectToWatchPage(postOnMomoka.id)
       }
-    },
-    onError
+    }
   })
 
   const createPost = async (metadataUri: string) => {
@@ -340,8 +338,8 @@ const CreateSteps = () => {
     // ON-CHAIN
     const referenceModuleDegrees = {
       commentsRestricted: isRestricted,
-      degreesOfSeparation: degreesOfSeparation ?? 0,
       mirrorsRestricted: isRestricted,
+      degreesOfSeparation: degreesOfSeparation ?? 0,
       quotesRestricted: isRestricted
     }
     const referenceModule: ReferenceModuleInput = {
@@ -375,49 +373,49 @@ const CreateSteps = () => {
   const constructVideoMetadata = async () => {
     const attributes: MetadataAttribute[] = [
       {
-        key: 'category',
         type: MetadataAttributeType.STRING,
+        key: 'category',
         value: uploadedMedia.mediaCategory.tag
       },
       {
-        key: 'creator',
         type: MetadataAttributeType.STRING,
+        key: 'creator',
         value: `${getProfile(activeProfile)?.slug}`
       },
       {
-        key: 'app',
         type: MetadataAttributeType.STRING,
+        key: 'app',
         value: TAPE_WEBSITE_URL
       }
     ]
 
     const publicationMetadata: VideoOptions = {
-      appId: TAPE_APP_ID,
-      attributes,
-      content: trimify(uploadedMedia.description),
-      id: uuidv4(),
-      locale: getUserLocale(),
-      marketplace: {
-        animation_url: uploadedMedia.dUrl,
-        attributes,
-        description: trimify(uploadedMedia.description),
-        external_url: `${TAPE_WEBSITE_URL}/u/${getProfile(activeProfile)
-          ?.slug}`,
-        image: uploadedMedia.thumbnail,
-        name: uploadedMedia.title
-      },
-      tags: [uploadedMedia.mediaCategory.tag],
-      title: uploadedMedia.title,
       video: {
+        item: uploadedMedia.dUrl,
+        type: getUploadedMediaType(
+          uploadedMedia.mediaType
+        ) as MediaVideoMimeType,
         altTag: trimify(uploadedMedia.title),
         attributes,
         cover: uploadedMedia.thumbnail,
         duration: uploadedMedia.durationInSeconds,
-        item: uploadedMedia.dUrl,
-        license: uploadedMedia.mediaLicense,
-        type: getUploadedMediaType(
-          uploadedMedia.mediaType
-        ) as MediaVideoMimeType
+        license: uploadedMedia.mediaLicense
+      },
+      appId: TAPE_APP_ID,
+      id: uuidv4(),
+      attributes,
+      content: trimify(uploadedMedia.description),
+      tags: [uploadedMedia.mediaCategory.tag],
+      locale: getUserLocale(),
+      title: uploadedMedia.title,
+      marketplace: {
+        attributes,
+        animation_url: uploadedMedia.dUrl,
+        external_url: `${TAPE_WEBSITE_URL}/u/${getProfile(activeProfile)
+          ?.slug}`,
+        image: uploadedMedia.thumbnail,
+        name: uploadedMedia.title,
+        description: trimify(uploadedMedia.description)
       }
     }
 
@@ -436,50 +434,50 @@ const CreateSteps = () => {
   const constructAudioMetadata = async () => {
     const attributes: MetadataAttribute[] = [
       {
-        key: 'category',
         type: MetadataAttributeType.STRING,
+        key: 'category',
         value: uploadedMedia.mediaCategory.tag
       },
       {
-        key: 'creator',
         type: MetadataAttributeType.STRING,
+        key: 'creator',
         value: `${getProfile(activeProfile)?.slug}`
       },
       {
-        key: 'app',
         type: MetadataAttributeType.STRING,
+        key: 'app',
         value: TAPE_WEBSITE_URL
       }
     ]
 
     const audioMetadata: AudioOptions = {
-      appId: TAPE_APP_ID,
-      attributes,
       audio: {
+        item: uploadedMedia.dUrl,
+        type: getUploadedMediaType(
+          uploadedMedia.mediaType
+        ) as MediaAudioMimeType,
         artist: `${getProfile(activeProfile)?.slug}`,
         attributes,
         cover: uploadedMedia.thumbnail,
         duration: uploadedMedia.durationInSeconds,
-        item: uploadedMedia.dUrl,
-        license: uploadedMedia.mediaLicense,
-        type: getUploadedMediaType(
-          uploadedMedia.mediaType
-        ) as MediaAudioMimeType
+        license: uploadedMedia.mediaLicense
       },
-      content: trimify(uploadedMedia.description),
+      appId: TAPE_APP_ID,
       id: uuidv4(),
+      attributes,
+      content: trimify(uploadedMedia.description),
+      tags: [uploadedMedia.mediaCategory.tag],
       locale: getUserLocale(),
+      title: uploadedMedia.title,
       marketplace: {
-        animation_url: uploadedMedia.dUrl,
         attributes,
-        description: trimify(uploadedMedia.description),
+        animation_url: uploadedMedia.dUrl,
         external_url: `${TAPE_WEBSITE_URL}/u/${getProfile(activeProfile)
           ?.slug}`,
         image: uploadedMedia.thumbnail,
-        name: uploadedMedia.title
-      },
-      tags: [uploadedMedia.mediaCategory.tag],
-      title: uploadedMedia.title
+        name: uploadedMedia.title,
+        description: trimify(uploadedMedia.description)
+      }
     }
 
     if (uploadedMedia.isSensitiveContent) {
@@ -522,8 +520,8 @@ const CreateSteps = () => {
       return toast.error('IPFS Upload failed')
     }
     setUploadedMedia({
-      dUrl: result.url,
-      percent: 100
+      percent: 100,
+      dUrl: result.url
     })
     return await create({
       dUrl: result.url
@@ -545,10 +543,10 @@ const CreateSteps = () => {
     }
     try {
       setUploadedMedia({
-        buttonText: 'Uploading...',
-        loading: true
+        loading: true,
+        buttonText: 'Uploading...'
       })
-      const { instance } = irysData
+      const instance = irysData.instance
       const tags = [
         { name: 'Content-Type', value: uploadedMedia.mediaType },
         { name: 'App-Name', value: TAPE_APP_NAME },
@@ -587,8 +585,8 @@ const CreateSteps = () => {
       })
       const response = await upload
       setUploadedMedia({
-        dUrl: `ar://${response.data.id}`,
-        loading: false
+        loading: false,
+        dUrl: `ar://${response.data.id}`
       })
       return await create({
         dUrl: `ar://${response.data.id}`

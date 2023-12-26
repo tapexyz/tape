@@ -7,17 +7,17 @@ import { useSwitchNetwork } from 'wagmi'
 import TimesOutline from '../Icons/TimesOutline'
 
 const SwitchNetworkDialog = () => {
-  const { setShowSwitchNetwork, showSwitchNetwork } = useNetworkStore()
+  const { showSwitchNetwork, setShowSwitchNetwork } = useNetworkStore()
   const { switchNetworkAsync } = useSwitchNetwork()
 
   return (
-    <Dialog.Root onOpenChange={setShowSwitchNetwork} open={showSwitchNetwork}>
+    <Dialog.Root open={showSwitchNetwork} onOpenChange={setShowSwitchNetwork}>
       <Dialog.Content style={{ maxWidth: 450 }}>
-        <Flex align="center" justify="between" pb="2">
+        <Flex justify="between" pb="2" align="center">
           <Dialog.Title mb="0">Change network</Dialog.Title>
           <Dialog.Close>
-            <IconButton color="gray" variant="ghost">
-              <TimesOutline className="size-3" outlined={false} />
+            <IconButton variant="ghost" color="gray">
+              <TimesOutline outlined={false} className="size-3" />
             </IconButton>
           </Dialog.Close>
         </Flex>

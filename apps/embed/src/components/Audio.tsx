@@ -1,6 +1,3 @@
-import type { PrimaryPublication } from '@tape.xyz/lens'
-import type { FC } from 'react'
-
 import { useAverageColor } from '@tape.xyz/browser'
 import {
   STATIC_ASSETS,
@@ -16,8 +13,10 @@ import {
   Tower,
   truncate
 } from '@tape.xyz/generic'
+import type { PrimaryPublication } from '@tape.xyz/lens'
 import AudioPlayer from '@tape.xyz/ui/AudioPlayer'
 import Link from 'next/link'
+import type { FC } from 'react'
 import React, { useState } from 'react'
 
 import PauseOutline from './icons/PauseOutline'
@@ -40,15 +39,15 @@ const Audio: FC<Props> = ({ audio }) => {
   return (
     <>
       <MetaTags
+        title={truncate(
+          getPublicationData(audio.metadata)?.title as string,
+          60
+        )}
         description={truncate(
           getPublicationData(audio.metadata)?.content as string,
           100
         )}
         image={coverImage}
-        title={truncate(
-          getPublicationData(audio.metadata)?.title as string,
-          60
-        )}
       />
       <div
         className="md:rounded-large rounded-small relative max-h-[350px] overflow-hidden p-4 md:p-6"
@@ -61,28 +60,28 @@ const Audio: FC<Props> = ({ audio }) => {
       >
         <div className="flex items-center space-x-6">
           <Link
-            className="rounded-small aspect-[1/1] w-[150px] flex-none shadow-2xl md:w-[250px]"
+            title={`Listen on ${TAPE_APP_NAME}`}
             href={`${TAPE_WEBSITE_URL}/listen/${audio?.id}`}
             onClick={() => Tower.track(EVENTS.EMBED_VIDEO.CLICK_LISTEN_ON_TAPE)}
-            title={`Listen on ${TAPE_APP_NAME}`}
+            className="rounded-small aspect-[1/1] w-[150px] flex-none shadow-2xl md:w-[250px]"
           >
             <img
-              alt="audio cover"
-              className="rounded-small tape-border object-cover"
-              draggable={false}
-              height={500}
               src={coverImage}
+              className="rounded-small tape-border object-cover"
+              alt="audio cover"
+              height={500}
               width={500}
+              draggable={false}
             />
           </Link>
           <div className="w-full text-white md:space-y-4">
             <Link
-              className="line-clamp-1 inline-block text-xl font-bold !leading-normal md:text-4xl"
+              title={`Listen on ${TAPE_APP_NAME}`}
               href={`${TAPE_WEBSITE_URL}/listen/${audio?.id}`}
               onClick={() =>
                 Tower.track(EVENTS.EMBED_VIDEO.CLICK_LISTEN_ON_TAPE)
               }
-              title={`Listen on ${TAPE_APP_NAME}`}
+              className="line-clamp-1 inline-block text-xl font-bold !leading-normal md:text-4xl"
             >
               {getPublicationData(audio.metadata)?.title}
             </Link>
@@ -91,8 +90,8 @@ const Audio: FC<Props> = ({ audio }) => {
             </p>
             <div className="flex w-full items-center space-x-2">
               <button
-                className="bg-smoke rounded-full p-3 md:p-4"
                 onClick={() => setIsPlaying(!isPlaying)}
+                className="bg-smoke rounded-full p-3 md:p-4"
               >
                 {isPlaying ? (
                   <PauseOutline className="size-5" />
@@ -112,16 +111,16 @@ const Audio: FC<Props> = ({ audio }) => {
 
         <div className="absolute right-4 top-4 md:right-6 md:top-5">
           <Link
-            href={`${TAPE_WEBSITE_URL}/listen/${audio?.id}`}
-            onClick={() => Tower.track(EVENTS.EMBED_VIDEO.CLICK_LISTEN_ON_TAPE)}
-            target="_blank"
             title={`Listen on ${TAPE_APP_NAME}`}
+            href={`${TAPE_WEBSITE_URL}/listen/${audio?.id}`}
+            target="_blank"
+            onClick={() => Tower.track(EVENTS.EMBED_VIDEO.CLICK_LISTEN_ON_TAPE)}
           >
             <img
-              alt={TAPE_APP_NAME}
-              className="ml-0.5 size-6 md:size-10"
-              draggable={false}
               src={`${STATIC_ASSETS}/brand/logo.svg`}
+              draggable={false}
+              className="ml-0.5 size-6 md:size-10"
+              alt={TAPE_APP_NAME}
             />
           </Link>
         </div>

@@ -1,9 +1,8 @@
-import type { Profile } from '@tape.xyz/lens'
-import type { FC } from 'react'
-
 import { Box, Tabs } from '@radix-ui/themes'
 import { EVENTS, getProfile, Tower } from '@tape.xyz/generic'
+import type { Profile } from '@tape.xyz/lens'
 import { useRouter } from 'next/router'
+import type { FC } from 'react'
 import React from 'react'
 
 import OtherProfiles from './OtherProfiles'

@@ -1,6 +1,3 @@
-import type { PrimaryPublication } from '@tape.xyz/lens'
-import type { FC } from 'react'
-
 import HoverableProfile from '@components/Common/HoverableProfile'
 import PauseOutline from '@components/Common/Icons/PauseOutline'
 import PlayOutline from '@components/Common/Icons/PlayOutline'
@@ -14,7 +11,9 @@ import {
   imageCdn,
   sanitizeDStorageUrl
 } from '@tape.xyz/generic'
+import type { PrimaryPublication } from '@tape.xyz/lens'
 import AudioPlayer from '@tape.xyz/ui/AudioPlayer'
+import type { FC } from 'react'
 import React, { useState } from 'react'
 
 type Props = {
@@ -35,18 +34,18 @@ const Audio: FC<Props> = ({ audio }) => {
       <div className="max-w-screen-laptop mx-auto grid place-items-center gap-6 py-10 md:grid-cols-2">
         <div className="relative flex aspect-[1/1] w-[250px] justify-center md:w-[350px]">
           <img
-            alt="audio cover"
-            className="rounded-small tape-border h-full w-full object-cover"
-            draggable={false}
-            height={500}
             src={coverUrl}
+            className="rounded-small tape-border h-full w-full object-cover"
+            alt="audio cover"
+            height={500}
             width={500}
+            draggable={false}
           />
           <div className="absolute inset-0 flex items-end justify-end space-x-1 p-3">
             <IconButton
-              highContrast
               onClick={() => setIsPlaying(!isPlaying)}
               size="3"
+              highContrast
             >
               {isPlaying ? (
                 <PauseOutline className="size-5" />
@@ -63,16 +62,16 @@ const Audio: FC<Props> = ({ audio }) => {
           <div className="flex items-center space-x-1">
             <div>
               <HoverableProfile
+                profile={audio.by}
                 fontSize="3"
                 pfp={
                   <img
-                    alt={getProfile(audio.by)?.displayName}
+                    src={getProfilePicture(audio.by, 'AVATAR')}
                     className="size-5 rounded-full"
                     draggable={false}
-                    src={getProfilePicture(audio.by, 'AVATAR')}
+                    alt={getProfile(audio.by)?.displayName}
                   />
                 }
-                profile={audio.by}
               />
             </div>
             <span className="middot" />

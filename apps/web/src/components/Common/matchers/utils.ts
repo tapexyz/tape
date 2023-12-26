@@ -182,5 +182,5 @@ export const EMAIL_DISTINCT_PATTERN = new RegExp(
 export interface MentionProps extends Partial<MatcherLinkProps> {
   children: ChildrenNode
   mention: string
-  mentionUrl: ((hashtag: string) => string) | string
+  mentionUrl: string | ((hashtag: string) => string)
 }

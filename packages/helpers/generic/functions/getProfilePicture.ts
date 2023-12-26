@@ -6,7 +6,7 @@ import { imageCdn } from './imageCdn'
 import { sanitizeDStorageUrl } from './sanitizeDStorageUrl'
 
 export const getProfilePicture = (
-  profile: null | Profile,
+  profile: Profile | null,
   type?: keyof typeof IMAGE_TRANSFORMATIONS,
   withFallback = true
 ): string => {
@@ -25,7 +25,7 @@ export const getProfilePicture = (
   return imageCdn(sanitized, type)
 }
 
-export const getProfilePictureUri = (profile: null | Profile): string => {
+export const getProfilePictureUri = (profile: Profile | null): string => {
   if (!profile) {
     return ''
   }

@@ -1,7 +1,6 @@
-import type { Profile } from '@tape.xyz/lens'
-
 import { Avatar } from '@radix-ui/themes'
 import { getProfile, getProfilePicture } from '@tape.xyz/generic'
+import type { Profile } from '@tape.xyz/lens'
 import Link from 'next/link'
 import React from 'react'
 
@@ -15,14 +14,14 @@ const UserProfile = ({ profile }: { profile: Profile }) => {
   return (
     <div>
       <Link
-        className="flex items-center space-x-2"
         href={getProfile(profile).link}
+        className="flex items-center space-x-2"
       >
         <Avatar
-          alt={getProfile(profile).displayName}
-          fallback={getProfile(profile).displayName[0]}
           radius="full"
           src={getProfilePicture(profile, 'AVATAR')}
+          fallback={getProfile(profile).displayName[0]}
+          alt={getProfile(profile).displayName}
         />
         <div className="flex flex-col">
           <h2 className="line-clamp-1 font-semibold">

@@ -1,6 +1,3 @@
-import type { MirrorablePublication } from '@tape.xyz/lens'
-import type { FC } from 'react'
-
 import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import ThreeDotsOutline from '@components/Common/Icons/ThreeDotsOutline'
 import TipOutline from '@components/Common/Icons/TipOutline'
@@ -8,7 +5,9 @@ import MirrorPublication from '@components/Common/MirrorPublication'
 import PublicationOptions from '@components/Common/Publication/PublicationOptions'
 import { Button, Dialog, IconButton } from '@radix-ui/themes'
 import { EVENTS, getProfile, Tower } from '@tape.xyz/generic'
+import type { MirrorablePublication } from '@tape.xyz/lens'
 import { TriStateValue } from '@tape.xyz/lens'
+import type { FC } from 'react'
 import React, { useState } from 'react'
 
 import OpenActions from '../../Watch/OpenActions'
@@ -24,23 +23,23 @@ const PublicationActions: FC<Props> = ({ publication }) => {
   return (
     <div className="flex items-center justify-end space-x-2">
       <PublicationReaction
-        color="blue"
-        iconSize="base"
         publication={publication}
         textSize="inherit"
+        iconSize="base"
         variant="surface"
+        color="blue"
       />
       {publication.operations.canComment !== TriStateValue.No && (
         <Dialog.Root open={showTip}>
           <Dialog.Trigger>
             <Button
+              variant="surface"
               color="blue"
               highContrast
               onClick={() => {
                 setShowTip(true)
                 Tower.track(EVENTS.PUBLICATION.TIP.OPEN)
               }}
-              variant="surface"
             >
               <TipOutline className="size-4" />
               Thanks
@@ -51,23 +50,23 @@ const PublicationActions: FC<Props> = ({ publication }) => {
             <Dialog.Title>
               Tip @{getProfile(publication.by)?.displayName}
             </Dialog.Title>
-            <Dialog.Description mb="4" size="2">
+            <Dialog.Description size="2" mb="4">
               Show appreciation with a comment and tip.
             </Dialog.Description>
 
-            <TipForm setShow={setShowTip} video={publication} />
+            <TipForm video={publication} setShow={setShowTip} />
           </Dialog.Content>
         </Dialog.Root>
       )}
       <MirrorPublication video={publication}>
-        <Button color="blue" highContrast variant="surface">
+        <Button variant="surface" color="blue" highContrast>
           <MirrorOutline className="size-4 flex-none" />
           Mirror
         </Button>
       </MirrorPublication>
       <OpenActions publication={publication} text="Collect" />
       <PublicationOptions publication={publication}>
-        <IconButton color="blue" highContrast variant="surface">
+        <IconButton variant="surface" color="blue" highContrast>
           <ThreeDotsOutline className="size-4" />
         </IconButton>
       </PublicationOptions>

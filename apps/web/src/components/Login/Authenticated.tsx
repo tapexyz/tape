@@ -21,13 +21,13 @@ const Authenticated = () => {
   return (
     <div>
       <div className="rounded-small tape-border my-6 p-3">
-        <Flex align="center" gap="2" justify="between">
-          <Flex align="center" gap="3">
+        <Flex gap="2" align="center" justify="between">
+          <Flex gap="3" align="center">
             <Avatar
-              alt={getProfile(activeProfile)?.displayName}
-              fallback={getProfile(activeProfile)?.slug[0] ?? ';)'}
               size="5"
               src={getProfilePicture(activeProfile, 'AVATAR')}
+              fallback={getProfile(activeProfile)?.slug[0] ?? ';)'}
+              alt={getProfile(activeProfile)?.displayName}
             />
             <div className="text-left">
               <h6 className="truncate text-xl font-bold">
@@ -41,7 +41,7 @@ const Authenticated = () => {
               </Link>
             </div>
           </Flex>
-          <Badge color="green" size="1">
+          <Badge size="1" color="green">
             Active
           </Badge>
         </Flex>

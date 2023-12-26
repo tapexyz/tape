@@ -13,8 +13,8 @@ export const useDid = ({
   enabled
 }: UseDidProps): {
   did: string
-  error: unknown
   loading: boolean
+  error: unknown
 } => {
   const loadDetails = async () => {
     const data = await resolveDid([address])
@@ -25,11 +25,11 @@ export const useDid = ({
     return item.length ? item : shortenAddress(address)
   }
 
-  const { data, error, isLoading } = useQuery({
-    enabled,
+  const { data, isLoading, error } = useQuery({
+    queryKey: ['didResolve', address],
     queryFn: loadDetails,
-    queryKey: ['didResolve', address]
+    enabled
   })
 
-  return { did: data, error, loading: isLoading }
+  return { did: data, loading: isLoading, error }
 }

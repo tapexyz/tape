@@ -38,13 +38,13 @@ const connectors: any = [
   new InjectedConnector({ chains, options: { shimDisconnect: true } }),
   new CoinbaseWalletConnector({ options: { appName: TAPE_APP_NAME } }),
   new WalletConnectConnector({
-    chains,
     options: {
       projectId: WC_PROJECT_ID,
       qrModalOptions: {
         explorerExcludedWalletIds: 'ALL'
       }
-    }
+    },
+    chains
   })
 ]
 

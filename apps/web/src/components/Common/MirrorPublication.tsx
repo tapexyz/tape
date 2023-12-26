@@ -1,12 +1,3 @@
-import type {
-  CreateMomokaMirrorEip712TypedData,
-  CreateOnchainMirrorEip712TypedData,
-  MirrorablePublication,
-  MomokaMirrorRequest
-} from '@tape.xyz/lens'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import type { FC } from 'react'
-
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import useProfileStore from '@lib/store/idb/profile'
 import useNonceStore from '@lib/store/nonce'
@@ -23,6 +14,12 @@ import {
   getSignature,
   Tower
 } from '@tape.xyz/generic'
+import type {
+  CreateMomokaMirrorEip712TypedData,
+  CreateOnchainMirrorEip712TypedData,
+  MirrorablePublication,
+  MomokaMirrorRequest
+} from '@tape.xyz/lens'
 import {
   useBroadcastOnchainMutation,
   useBroadcastOnMomokaMutation,
@@ -31,29 +28,31 @@ import {
   useMirrorOnchainMutation,
   useMirrorOnMomokaMutation
 } from '@tape.xyz/lens'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
 type Props = {
-  children: React.ReactNode
-  onMirrorSuccess?: () => void
-  successToast?: string
   video: MirrorablePublication
+  onMirrorSuccess?: () => void
+  children: React.ReactNode
+  successToast?: string
 }
 
 const MirrorPublication: FC<Props> = ({
+  video,
   children,
   onMirrorSuccess,
-  successToast = 'Mirrored video across lens.',
-  video
+  successToast = 'Mirrored video across lens.'
 }) => {
   const [loading, setLoading] = useState(false)
   const handleWrongNetwork = useHandleWrongNetwork()
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
 
   const activeProfile = useProfileStore((state) => state.activeProfile)
-  const { canBroadcast, canUseLensManager } =
+  const { canUseLensManager, canBroadcast } =
     checkLensManagerPermissions(activeProfile)
 
   const onError = (error: CustomErrorWithData) => {
@@ -79,16 +78,16 @@ const MirrorPublication: FC<Props> = ({
   })
 
   const { write } = useContractWrite({
-    abi: LENSHUB_PROXY_ABI,
     address: LENSHUB_PROXY_ADDRESS,
+    abi: LENSHUB_PROXY_ABI,
     functionName: 'mirror',
-    onError: (error) => {
-      onError(error)
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
-    },
     onSuccess: () => {
       onCompleted()
       setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
+    },
+    onError: (error) => {
+      onError(error)
+      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
     }
   })
 
@@ -111,7 +110,7 @@ const MirrorPublication: FC<Props> = ({
   const [createOnChainMirrorTypedData] =
     useCreateOnchainMirrorTypedDataMutation({
       onCompleted: async ({ createOnchainMirrorTypedData }) => {
-        const { id, typedData } = createOnchainMirrorTypedData
+        const { typedData, id } = createOnchainMirrorTypedData
         try {
           if (canBroadcast) {
             const signature = await getSignatureFromTypedData(typedData)
@@ -154,7 +153,7 @@ const MirrorPublication: FC<Props> = ({
 
   const [createMomokaMirrorTypedData] = useCreateMomokaMirrorTypedDataMutation({
     onCompleted: async ({ createMomokaMirrorTypedData }) => {
-      const { id, typedData } = createMomokaMirrorTypedData
+      const { typedData, id } = createMomokaMirrorTypedData
       try {
         if (canBroadcast) {
           const signature = await getSignatureFromTypedData(typedData)
@@ -231,10 +230,10 @@ const MirrorPublication: FC<Props> = ({
   return (
     <div className="inline-flex">
       <button
+        type="button"
         className="disabled:opacity-50"
         disabled={loading}
         onClick={() => mirrorPublication()}
-        type="button"
       >
         {children}
       </button>

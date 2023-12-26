@@ -28,13 +28,13 @@ export const Tower = {
       )
 
       worker.postMessage({
+        name,
+        properties,
         actor,
         fingerprint: storedFingerprint,
-        name,
-        platform: 'web',
-        properties,
         referrer: referrerDomain,
-        url: location.href
+        url: location.href,
+        platform: 'web'
       })
 
       worker.onmessage = function (event: MessageEvent) {

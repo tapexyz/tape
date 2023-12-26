@@ -1,8 +1,6 @@
 import localFont from 'next/font/local'
 
 export const tapeFont = localFont({
-  fallback: ['system-ui', 'sans-serif'],
-  preload: true,
   src: [
     {
       path: './font/Satoshi-Regular.woff2',
@@ -17,5 +15,7 @@ export const tapeFont = localFont({
       weight: '700'
     }
   ],
+  fallback: ['system-ui', 'sans-serif'],
+  preload: true,
   variable: '--font-tape'
 })

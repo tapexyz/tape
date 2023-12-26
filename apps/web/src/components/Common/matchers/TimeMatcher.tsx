@@ -14,6 +14,10 @@ const TimeLink = ({ ...props }: any) => {
 }
 
 export class TimeMatcher extends Matcher {
+  replaceWith(match: string, props: any) {
+    return React.createElement(TimeLink, props, match)
+  }
+
   asTag(): string {
     return 'a'
   }
@@ -28,9 +32,5 @@ export class TimeMatcher extends Matcher {
         }
       }
     )
-  }
-
-  replaceWith(match: string, props: any) {
-    return React.createElement(TimeLink, props, match)
   }
 }

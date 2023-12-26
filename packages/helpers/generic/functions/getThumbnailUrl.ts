@@ -1,6 +1,5 @@
-import type { PublicationMetadata } from '@tape.xyz/lens'
-
 import { FALLBACK_THUMBNAIL_URL } from '@tape.xyz/constants'
+import type { PublicationMetadata } from '@tape.xyz/lens'
 
 import { sanitizeDStorageUrl } from './sanitizeDStorageUrl'
 

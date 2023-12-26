@@ -1,6 +1,3 @@
-import type { FollowingRequest, Profile, ProfileStats } from '@tape.xyz/lens'
-import type { FC } from 'react'
-
 import HoverableProfile from '@components/Common/HoverableProfile'
 import TimesOutline from '@components/Common/Icons/TimesOutline'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
@@ -13,25 +10,27 @@ import {
   Text
 } from '@radix-ui/themes'
 import { formatNumber } from '@tape.xyz/generic'
+import type { FollowingRequest, Profile, ProfileStats } from '@tape.xyz/lens'
 import { LimitType, useFollowingQuery } from '@tape.xyz/lens'
 import { Loader } from '@tape.xyz/ui'
+import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 
 type Props = {
-  profileId: string
   stats: ProfileStats
+  profileId: string
 }
 
-const Following: FC<Props> = ({ profileId, stats }) => {
+const Following: FC<Props> = ({ stats, profileId }) => {
   const request: FollowingRequest = {
     for: profileId,
     limit: LimitType.Fifty
   }
 
-  const { data, fetchMore, loading } = useFollowingQuery({
-    skip: !profileId,
-    variables: { request }
+  const { data, loading, fetchMore } = useFollowingQuery({
+    variables: { request },
+    skip: !profileId
   })
 
   const followings = data?.following?.items as Profile[]
@@ -53,7 +52,7 @@ const Following: FC<Props> = ({ profileId, stats }) => {
   return (
     <Dialog.Root>
       <Dialog.Trigger>
-        <Flex align="end" gap="1">
+        <Flex gap="1" align="end">
           <Text weight="bold">{formatNumber(stats.following)}</Text>
           <Text>Followings</Text>
         </Flex>
@@ -64,29 +63,29 @@ const Following: FC<Props> = ({ profileId, stats }) => {
             {formatNumber(stats.following)} followings
           </Dialog.Title>
           <DialogClose>
-            <IconButton color="gray" variant="ghost">
-              <TimesOutline className="size-3" outlined={false} />
+            <IconButton variant="ghost" color="gray">
+              <TimesOutline outlined={false} className="size-3" />
             </IconButton>
           </DialogClose>
         </Flex>
-        <ScrollArea scrollbars="vertical" style={{ height: 400 }} type="hover">
+        <ScrollArea type="hover" scrollbars="vertical" style={{ height: 400 }}>
           {loading && <Loader />}
           {followings?.length === 0 && (
             <div className="pt-5">
-              <NoDataFound isCenter withImage />
+              <NoDataFound withImage isCenter />
             </div>
           )}
           <div className="space-y-2">
             {followings?.map((profile) => (
               <div key={profile.id}>
                 <span className="inline-flex">
-                  <HoverableProfile fontSize="3" profile={profile} />
+                  <HoverableProfile profile={profile} fontSize="3" />
                 </span>
               </div>
             ))}
           </div>
           {pageInfo?.next && (
-            <span className="p-5" ref={observe}>
+            <span ref={observe} className="p-5">
               <Loader />
             </span>
           )}

@@ -1,6 +1,3 @@
-import type { CustomNftItemType } from '@tape.xyz/lens/custom-types'
-import type { FC } from 'react'
-
 import PlayOutline from '@components/Common/Icons/PlayOutline'
 import StopOutline from '@components/Common/Icons/StopOutline'
 import {
@@ -9,7 +6,9 @@ import {
   POLYGONSCAN_URL
 } from '@tape.xyz/constants'
 import { sanitizeDStorageUrl } from '@tape.xyz/generic'
+import type { CustomNftItemType } from '@tape.xyz/lens/custom-types'
 import Link from 'next/link'
+import type { FC } from 'react'
 import React, { useState } from 'react'
 
 type Props = {
@@ -35,15 +34,15 @@ const NFTCard: FC<Props> = ({ nft }) => {
       <div className="aspect-h-9 aspect-w-16 relative overflow-hidden rounded-xl bg-gray-200 dark:bg-gray-800">
         {toggleVideo ? (
           <video
-            autoPlay
             className="aspect-[16/9] w-full"
-            controls
-            controlsList="nodownload noplaybackrate nofullscreen"
             disablePictureInPicture
             disableRemotePlayback
-            loop
+            autoPlay
             muted
+            loop
+            controlsList="nodownload noplaybackrate nofullscreen"
             poster={sanitizeDStorageUrl(nft.metaData.image)}
+            controls
             src={sanitizeDStorageUrl(
               nft.contentValue.video || nft.contentValue.audio
             )}
@@ -58,30 +57,30 @@ const NFTCard: FC<Props> = ({ nft }) => {
         ) : (
           <>
             <div
-              className="aspect-h-9 aspect-w-16 z-0 bg-cover bg-no-repeat blur-xl"
               style={{
                 backgroundImage: `url("${sanitizeDStorageUrl(
                   nft.metaData.image
                 )}")`
               }}
+              className="aspect-h-9 aspect-w-16 z-0 bg-cover bg-no-repeat blur-xl"
             />
             <img
-              alt={nft.metaData.name}
+              src={sanitizeDStorageUrl(
+                nft.metaData.image || FALLBACK_THUMBNAIL_URL
+              )}
               className="object-contain"
+              alt={nft.metaData.name}
               draggable={false}
               onError={({ currentTarget }) => {
                 currentTarget.src = FALLBACK_THUMBNAIL_URL
               }}
-              src={sanitizeDStorageUrl(
-                nft.metaData.image || FALLBACK_THUMBNAIL_URL
-              )}
             />
           </>
         )}
         <div className="static">
           <button
-            className="absolute bottom-3 right-3 rounded-full bg-white p-3"
             onClick={() => setToggleVideo(!toggleVideo)}
+            className="absolute bottom-3 right-3 rounded-full bg-white p-3"
           >
             {toggleVideo ? (
               <StopOutline className="size-4 text-black" />
@@ -94,14 +93,14 @@ const NFTCard: FC<Props> = ({ nft }) => {
 
       <Link
         href={`${explorer}/nft/${nft.address}/${nft.tokenId}`.toLowerCase()}
-        rel="noreferer noreferrer"
         target="_blank"
+        rel="noreferer noreferrer"
       >
         <div className="py-3">
           <div className="truncate text-sm uppercase">{nft.metaData.name}</div>
           <div
-            className="ultrawide:line-clamp-1 ultrawide:break-all line-clamp-2 opacity-50"
             title={nft.metaData?.description}
+            className="ultrawide:line-clamp-1 ultrawide:break-all line-clamp-2 opacity-50"
           >
             {nft.metaData?.description}
           </div>

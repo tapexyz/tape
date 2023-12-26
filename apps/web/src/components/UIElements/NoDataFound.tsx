@@ -3,10 +3,10 @@ import clsx from 'clsx'
 import React from 'react'
 
 export const NoDataFound = ({
-  className = '',
-  isCenter = false,
   text = 'Zero trace!',
-  withImage = false
+  withImage = false,
+  isCenter = false,
+  className = ''
 }) => {
   return (
     <div
@@ -16,11 +16,11 @@ export const NoDataFound = ({
     >
       {withImage && (
         <img
+          src={`${STATIC_ASSETS}/images/illustrations/404.gif`}
+          height={70}
+          width={70}
           alt="zero trace!"
           draggable={false}
-          height={70}
-          src={`${STATIC_ASSETS}/images/illustrations/404.gif`}
-          width={70}
         />
       )}
       <div

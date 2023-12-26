@@ -1,5 +1,3 @@
-import type { WebIrys } from '@irys/sdk'
-
 import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
 import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import RefreshOutline from '@components/Common/Icons/RefreshOutline'
@@ -7,6 +5,7 @@ import WarningOutline from '@components/Common/Icons/WarningOutline'
 import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
 import useEthersWalletClient from '@hooks/useEthersWalletClient'
+import type { WebIrys } from '@irys/sdk'
 import useAppStore from '@lib/store'
 import { Button, Callout, Flex, IconButton, Text } from '@radix-ui/themes'
 import { useIsMounted } from '@tape.xyz/browser'
@@ -123,10 +122,10 @@ const IrysInfo = () => {
     irysData.instance.tokenConfig.createTx = async (
       amount: `${number}`,
       to: `0x${string}`
-    ): Promise<{ tx: any; txId: string | undefined }> => {
+    ): Promise<{ txId: string | undefined; tx: any }> => {
       config.to = to
       config.value = parseEther(amount.toString() as `${number}`, 'gwei')
-      return { tx: config, txId: undefined }
+      return { txId: undefined, tx: config }
     }
     // TEMP:END: override irys functions for viem
 
@@ -147,8 +146,8 @@ const IrysInfo = () => {
       await fetchBalance()
       setIrysData({
         deposit: null,
-        depositing: false,
-        showDeposit: false
+        showDeposit: false,
+        depositing: false
       })
     }
   }
@@ -178,7 +177,7 @@ const IrysInfo = () => {
         <Text weight="medium">Estimated cost to upload</Text>
         <div className="flex justify-between">
           {!fetchingBalance ? (
-            <Text size="5" weight="bold">
+            <Text weight="bold" size="5">
               {Number(irysData.estimatedPrice).toFixed(2)} matic
             </Text>
           ) : (
@@ -192,11 +191,11 @@ const IrysInfo = () => {
             <Text>Your storage balance</Text>
             <Tooltip content="Refresh balance" placement="top">
               <IconButton
+                size="1"
+                variant="soft"
+                type="button"
                 className="focus:outline-none"
                 onClick={() => onRefreshBalance()}
-                size="1"
-                type="button"
-                variant="soft"
               >
                 <RefreshOutline className="size-3" />
               </IconButton>
@@ -204,14 +203,14 @@ const IrysInfo = () => {
           </span>
           <span>
             <Button
+              type="button"
+              size="1"
+              variant="soft"
               onClick={() =>
                 setIrysData({
                   showDeposit: !irysData.showDeposit
                 })
               }
-              size="1"
-              type="button"
-              variant="soft"
             >
               <Text>Deposit</Text>
               {irysData.showDeposit ? (
@@ -224,7 +223,7 @@ const IrysInfo = () => {
         </div>
         <div className="flex justify-between">
           {!fetchingBalance ? (
-            <Text size="5" weight="bold">
+            <Text weight="bold" size="5">
               {Number(irysData.balance).toFixed(2)} matic
             </Text>
           ) : (
@@ -237,27 +236,27 @@ const IrysInfo = () => {
           <Text weight="medium">Amount to deposit (MATIC)</Text>
           <Flex gap="2">
             <Input
-              autoComplete="off"
-              className="py-1.5 md:py-2"
-              min={0}
-              onChange={(e) => {
-                setIrysData({ deposit: e.target.value })
-              }}
-              placeholder={userBalance?.formatted}
               type="number"
+              placeholder={userBalance?.formatted}
+              className="py-1.5 md:py-2"
+              autoComplete="off"
+              min={0}
               value={
                 irysData.deposit ||
                 (
                   Number(irysData.estimatedPrice) - Number(irysData.balance)
                 ).toFixed(2)
               }
+              onChange={(e) => {
+                setIrysData({ deposit: e.target.value })
+              }}
             />
             <Button
-              disabled={irysData.depositing}
-              highContrast
-              onClick={() => depositToIrys()}
               type="button"
               variant="surface"
+              highContrast
+              disabled={irysData.depositing}
+              onClick={() => depositToIrys()}
             >
               Deposit
             </Button>

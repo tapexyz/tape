@@ -11,11 +11,11 @@ const Custom404 = () => {
       <div className="flex h-[calc(100vh-8rem)] flex-col items-center justify-center space-y-4 text-center">
         <div className="mb-10">
           <img
-            alt={TAPE_APP_NAME}
+            src={`${STATIC_ASSETS}/images/illustrations/404.gif`}
             draggable={false}
             height={200}
-            src={`${STATIC_ASSETS}/images/illustrations/404.gif`}
             width={200}
+            alt={TAPE_APP_NAME}
           />
         </div>
         <h1 className="text-4xl font-bold">404</h1>

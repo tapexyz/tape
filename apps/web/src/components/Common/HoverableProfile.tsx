@@ -1,6 +1,3 @@
-import type { Profile } from '@tape.xyz/lens'
-import type { FC, ReactElement } from 'react'
-
 import useProfileStore from '@lib/store/idb/profile'
 import { Avatar, Flex, HoverCard, Inset, Text } from '@radix-ui/themes'
 import {
@@ -10,24 +7,26 @@ import {
   imageCdn,
   sanitizeDStorageUrl
 } from '@tape.xyz/generic'
+import type { Profile } from '@tape.xyz/lens'
 import Link from 'next/link'
+import type { FC, ReactElement } from 'react'
 import React from 'react'
 
 import Badge from './Badge'
 import FollowActions from './FollowActions'
 
 type Props = {
-  children?: ReactElement
-  fontSize?: '1' | '2' | '3' | '4' | '5'
-  pfp?: ReactElement
   profile: Profile
+  fontSize?: '1' | '2' | '3' | '4' | '5'
+  children?: ReactElement
+  pfp?: ReactElement
 }
 
 const HoverableProfile: FC<Props> = ({
-  children,
+  profile,
   fontSize = '2',
-  pfp,
-  profile
+  children,
+  pfp
 }) => {
   const activeProfile = useProfileStore((state) => state.activeProfile)
   const isMyProfile = activeProfile?.id === profile.id
@@ -39,7 +38,7 @@ const HoverableProfile: FC<Props> = ({
           <Link href={getProfile(profile)?.link}>
             <Flex align="center" gap="1">
               {pfp}
-              <Text highContrast size={fontSize}>
+              <Text size={fontSize} highContrast>
                 {getProfile(profile)?.slug}
               </Text>
               <Badge id={profile?.id} size="xs" />
@@ -48,23 +47,23 @@ const HoverableProfile: FC<Props> = ({
         )}
       </HoverCard.Trigger>
       <HoverCard.Content className="w-80">
-        <Inset pb="current" side="top">
+        <Inset side="top" pb="current">
           <div
-            className="bg-brand-500 relative h-24 w-full bg-cover bg-center bg-no-repeat"
             style={{
               backgroundImage: `url(${imageCdn(
                 sanitizeDStorageUrl(getProfileCoverPicture(profile, true))
               )})`
             }}
+            className="bg-brand-500 relative h-24 w-full bg-cover bg-center bg-no-repeat"
           >
             <div className="absolute bottom-3 left-3 flex-none">
               <Avatar
-                alt={getProfile(activeProfile)?.displayName}
                 className="border-2 border-white bg-white object-cover dark:bg-gray-900"
+                src={getProfilePicture(profile, 'AVATAR')}
+                size="4"
                 fallback={getProfile(profile)?.displayName[0] ?? ';)'}
                 radius="large"
-                size="4"
-                src={getProfilePicture(profile, 'AVATAR')}
+                alt={getProfile(activeProfile)?.displayName}
               />
             </div>
             <div className="absolute bottom-3 right-3 flex-none">
@@ -76,8 +75,8 @@ const HoverableProfile: FC<Props> = ({
         </Inset>
         <div>
           <Link
-            className="flex items-center space-x-1"
             href={getProfile(profile)?.link}
+            className="flex items-center space-x-1"
           >
             <span className="truncate text-xl font-bold">
               {getProfile(profile)?.displayName}

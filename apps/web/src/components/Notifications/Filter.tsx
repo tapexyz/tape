@@ -19,7 +19,7 @@ const NotificationsFilter = () => {
           <CogOutline className="size-4" />
         </Box>
       </DropdownMenu.Trigger>
-      <DropdownMenu.Content align="end" sideOffset={10} variant="soft">
+      <DropdownMenu.Content sideOffset={10} variant="soft" align="end">
         <DropdownMenu.Item
           onClick={() =>
             setSelectedNotificationsFilter(
@@ -28,13 +28,13 @@ const NotificationsFilter = () => {
           }
         >
           <Text
-            className="whitespace-nowrap"
             weight={
               selectedNotificationsFilter ===
               CustomNotificationsFilterEnum.HIGH_SIGNAL
                 ? 'bold'
                 : 'regular'
             }
+            className="whitespace-nowrap"
           >
             High signal
           </Text>
@@ -47,13 +47,13 @@ const NotificationsFilter = () => {
           }
         >
           <Text
-            className="whitespace-nowrap"
             weight={
               selectedNotificationsFilter ===
               CustomNotificationsFilterEnum.ALL_NOTIFICATIONS
                 ? 'bold'
                 : 'regular'
             }
+            className="whitespace-nowrap"
           >
             Show all
           </Text>

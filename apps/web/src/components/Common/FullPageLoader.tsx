@@ -12,21 +12,21 @@ const FullPageLoader = () => {
       <MetaTags />
       {resolvedTheme === 'dark' ? (
         <img
-          alt="tape"
-          className="h-10"
-          draggable={false}
-          height={50}
           src={`${STATIC_ASSETS}/brand/logo-with-text-light.webp`}
+          className="h-10"
+          alt="tape"
+          height={50}
           width={180}
+          draggable={false}
         />
       ) : (
         <img
-          alt="tape"
-          className="h-10"
-          draggable={false}
-          height={50}
           src={`${STATIC_ASSETS}/brand/logo-with-text-dark.webp`}
+          className="h-10"
+          height={50}
           width={180}
+          alt="tape"
+          draggable={false}
         />
       )}
     </div>

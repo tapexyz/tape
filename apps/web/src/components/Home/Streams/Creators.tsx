@@ -1,9 +1,8 @@
-import type { Profile } from '@tape.xyz/lens'
-
 import FollowActions from '@components/Common/FollowActions'
 import UserProfile from '@components/Common/UserProfile'
 import { CREATORS } from '@tape.xyz/constants/verified/creators'
 import { shuffleArray } from '@tape.xyz/generic'
+import type { Profile } from '@tape.xyz/lens'
 import { useProfilesQuery } from '@tape.xyz/lens'
 import { Loader } from '@tape.xyz/ui'
 import React from 'react'
@@ -31,9 +30,9 @@ const Creators = () => {
         )}
         {!loading &&
           profiles?.map((profile) => (
-            <div className="flex items-center justify-between" key={profile.id}>
+            <div key={profile.id} className="flex items-center justify-between">
               <UserProfile profile={profile} />
-              <FollowActions profile={profile} showUnfollow={false} size="1" />
+              <FollowActions profile={profile} size="1" showUnfollow={false} />
             </div>
           ))}
       </div>

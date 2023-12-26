@@ -14,13 +14,13 @@ const RenderLink = ({ link }: { link: string }) => {
   }
 
   const {
-    data: ogData,
+    isLoading,
     error,
-    isLoading
+    data: ogData
   } = useQuery({
-    enabled: Boolean(link),
+    queryKey: ['oembed', link],
     queryFn: fetchOembed,
-    queryKey: ['oembed', link]
+    enabled: Boolean(link)
   })
 
   if (isLoading || error || !ogData) {
@@ -40,8 +40,8 @@ const RenderLink = ({ link }: { link: string }) => {
     <div className="tape-border rounded-small group space-y-2 overflow-hidden">
       <Link
         href={link}
-        rel="noreferrer noopener"
         target={link.includes(location.host) ? '_self' : '_blank'}
+        rel="noreferrer noopener"
       >
         <div className="p-4">
           <h1 className="font-medium">{ogData.title}</h1>
@@ -49,9 +49,9 @@ const RenderLink = ({ link }: { link: string }) => {
         </div>
         {ogData.image && (
           <img
-            alt="link image"
-            className="rounded-b-small aspect-[16/9]"
             src={ogData.image}
+            className="rounded-b-small aspect-[16/9]"
+            alt="link image"
           />
         )}
       </Link>

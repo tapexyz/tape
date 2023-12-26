@@ -14,13 +14,13 @@ const TopSection = () => {
   return (
     <div className="flex flex-col">
       <HorizantalScroller
-        heading="Today"
         sectionRef={sectionRef}
+        heading="Today"
         subheading="New & Trending"
       />
       <div
-        className="no-scrollbar laptop:pt-6 relative flex items-start space-x-4 overflow-x-auto overflow-y-hidden scroll-smooth pt-4"
         ref={sectionRef}
+        className="no-scrollbar laptop:pt-6 relative flex items-start space-x-4 overflow-x-auto overflow-y-hidden scroll-smooth pt-4"
       >
         {!activeProfile?.id && <WelcomeAlert />}
         <GitcoinAlert />

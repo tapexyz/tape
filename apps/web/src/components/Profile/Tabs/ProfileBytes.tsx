@@ -1,6 +1,3 @@
-import type { Post, PublicationsRequest } from '@tape.xyz/lens'
-import type { FC } from 'react'
-
 import PublicationOptions from '@components/Common/Publication/PublicationOptions'
 import LatestBytesShimmer from '@components/Shimmers/LatestBytesShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
@@ -16,6 +13,7 @@ import {
   getThumbnailUrl,
   imageCdn
 } from '@tape.xyz/generic'
+import type { Post, PublicationsRequest } from '@tape.xyz/lens'
 import {
   LimitType,
   PublicationMetadataMainFocusType,
@@ -24,6 +22,7 @@ import {
 } from '@tape.xyz/lens'
 import { Loader } from '@tape.xyz/ui'
 import Link from 'next/link'
+import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 
@@ -33,27 +32,28 @@ type Props = {
 
 const ProfileBytes: FC<Props> = ({ profileId }) => {
   const request: PublicationsRequest = {
-    limit: LimitType.Fifty,
     where: {
-      customFilters: LENS_CUSTOM_FILTERS,
-      from: [profileId],
       metadata: {
         mainContentFocus: [PublicationMetadataMainFocusType.ShortVideo],
         publishedOn: [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID]
       },
-      publicationTypes: [PublicationType.Post]
-    }
+      publicationTypes: [PublicationType.Post],
+      customFilters: LENS_CUSTOM_FILTERS,
+      from: [profileId]
+    },
+    limit: LimitType.Fifty
   }
 
-  const { data, error, fetchMore, loading } = usePublicationsQuery({
-    skip: !profileId,
-    variables: { request }
+  const { data, loading, error, fetchMore } = usePublicationsQuery({
+    variables: { request },
+    skip: !profileId
   })
 
   const bytes = data?.publications?.items as Post[]
   const pageInfo = data?.publications?.pageInfo
 
   const { observe } = useInView({
+    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
     onEnter: async () => {
       await fetchMore({
         variables: {
@@ -63,8 +63,7 @@ const ProfileBytes: FC<Props> = ({ profileId }) => {
           }
         }
       })
-    },
-    rootMargin: INFINITE_SCROLL_ROOT_MARGIN
+    }
   })
 
   if (loading) {
@@ -72,7 +71,7 @@ const ProfileBytes: FC<Props> = ({ profileId }) => {
   }
 
   if (data?.publications?.items?.length === 0) {
-    return <NoDataFound isCenter text={`No bytes found`} withImage />
+    return <NoDataFound isCenter withImage text={`No bytes found`} />
   }
 
   return (
@@ -86,18 +85,18 @@ const ProfileBytes: FC<Props> = ({ profileId }) => {
             )
             return (
               <Link
-                className="hover:border-brand-500 rounded-large tape-border relative aspect-[9/16] w-full flex-none place-self-center overflow-hidden md:h-[400px]"
-                href={`/bytes/${byte.id}`}
                 key={byte.id}
+                href={`/bytes/${byte.id}`}
+                className="hover:border-brand-500 rounded-large tape-border relative aspect-[9/16] w-full flex-none place-self-center overflow-hidden md:h-[400px]"
               >
                 <img
-                  alt="thumbnail"
                   className="h-full w-full object-cover"
+                  src={imageCdn(thumbnailUrl, 'THUMBNAIL_V')}
+                  alt="thumbnail"
                   draggable={false}
                   onError={({ currentTarget }) => {
                     currentTarget.src = FALLBACK_THUMBNAIL_URL
                   }}
-                  src={imageCdn(thumbnailUrl, 'THUMBNAIL_V')}
                 />
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-b from-transparent to-black px-4 py-2">
                   <h1 className="line-clamp-2 break-words font-bold text-white">
@@ -114,7 +113,7 @@ const ProfileBytes: FC<Props> = ({ profileId }) => {
             )
           })}
           {pageInfo?.next && (
-            <span className="flex justify-center p-10" ref={observe}>
+            <span ref={observe} className="flex justify-center p-10">
               <Loader />
             </span>
           )}

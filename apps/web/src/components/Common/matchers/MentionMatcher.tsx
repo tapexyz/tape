@@ -17,8 +17,8 @@ const ProfileLink = ({ ...props }: any) => {
 
   return (
     <Link
-      className="inline-flex items-center space-x-1 rounded-full font-medium"
       href={`/u/${handle}`}
+      className="inline-flex items-center space-x-1 rounded-full font-medium"
     >
       @{handle}
     </Link>
@@ -26,6 +26,10 @@ const ProfileLink = ({ ...props }: any) => {
 }
 
 export class MentionMatcher extends Matcher<MentionProps> {
+  replaceWith(match: string, props: MentionProps) {
+    return React.createElement(ProfileLink, props, match)
+  }
+
   asTag(): string {
     return 'a'
   }
@@ -40,9 +44,5 @@ export class MentionMatcher extends Matcher<MentionProps> {
         }
       }
     )
-  }
-
-  replaceWith(match: string, props: MentionProps) {
-    return React.createElement(ProfileLink, props, match)
   }
 }

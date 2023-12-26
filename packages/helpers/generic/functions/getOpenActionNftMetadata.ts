@@ -1,6 +1,5 @@
-import type { BasicNftMetadata } from '@tape.xyz/lens/custom-types'
-
 import { COMMON_REGEX } from '@tape.xyz/constants'
+import type { BasicNftMetadata } from '@tape.xyz/lens/custom-types'
 
 const knownSites = ['zora.co', 'testnet.zora.co']
 
@@ -13,7 +12,7 @@ const getZoraNFT = (url: string): BasicNftMetadata | null => {
     const address = matches[2]
     const token = matches[4]
 
-    return { address, chain, provider: 'zora', token }
+    return { chain, address, token, provider: 'zora' }
   }
 
   return null

@@ -1,41 +1,40 @@
-import type { AnyPublication } from '@tape.xyz/lens'
-import type { FC } from 'react'
-
 import HeartFilled from '@components/Common/Icons/HeartFilled'
 import HeartOutline from '@components/Common/Icons/HeartOutline'
 import useProfileStore from '@lib/store/idb/profile'
 import { Button } from '@radix-ui/themes'
 import { SIGN_IN_REQUIRED } from '@tape.xyz/constants'
 import { EVENTS, formatNumber, getPublication, Tower } from '@tape.xyz/generic'
+import type { AnyPublication } from '@tape.xyz/lens'
 import {
   PublicationReactionType,
   useAddReactionMutation,
   useRemoveReactionMutation
 } from '@tape.xyz/lens'
 import clsx from 'clsx'
+import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 
 type Props = {
-  className?: string
-  color?: 'blue' | 'crimson'
-  iconSize?: 'base' | 'lg' | 'sm'
+  publication: AnyPublication
+  iconSize?: 'sm' | 'base' | 'lg'
+  textSize?: 'sm' | 'inherit'
   isVertical?: boolean
   label?: string
-  publication: AnyPublication
-  textSize?: 'inherit' | 'sm'
-  variant?: 'ghost' | 'soft' | 'surface'
+  className?: string
+  variant?: 'ghost' | 'surface' | 'soft'
+  color?: 'blue' | 'crimson'
 }
 
 const PublicationReaction: FC<Props> = ({
-  className,
-  color,
+  publication,
   iconSize = 'sm',
+  textSize = 'sm',
   isVertical = false,
   label,
-  publication,
-  textSize = 'sm',
-  variant = 'ghost'
+  variant = 'ghost',
+  className,
+  color
 }) => {
   const targetPublication = getPublication(publication)
 
@@ -62,8 +61,8 @@ const PublicationReaction: FC<Props> = ({
       return toast.error(SIGN_IN_REQUIRED)
     }
     setReaction((prev) => ({
-      isLiked: !prev.isLiked,
-      likeCount: prev.isLiked ? prev.likeCount - 1 : prev.likeCount + 1
+      likeCount: prev.isLiked ? prev.likeCount - 1 : prev.likeCount + 1,
+      isLiked: !prev.isLiked
     }))
     if (reaction.isLiked) {
       removeReaction({
@@ -89,11 +88,11 @@ const PublicationReaction: FC<Props> = ({
 
   return (
     <Button
-      className={className}
+      variant={variant}
       color={color}
+      className={className}
       highContrast
       onClick={() => likeVideo()}
-      variant={variant}
     >
       <span
         className={clsx(
@@ -108,25 +107,25 @@ const PublicationReaction: FC<Props> = ({
           <HeartFilled
             className={clsx({
               'size-3.5': iconSize === 'sm',
-              'size-4': iconSize === 'base',
-              'size-6': iconSize === 'lg'
+              'size-6': iconSize === 'lg',
+              'size-4': iconSize === 'base'
             })}
           />
         ) : (
           <HeartOutline
             className={clsx({
               'size-3.5': iconSize === 'sm',
-              'size-4': iconSize === 'base',
-              'size-6': iconSize === 'lg'
+              'size-6': iconSize === 'lg',
+              'size-4': iconSize === 'base'
             })}
           />
         )}
         {label ? (
           <span
             className={clsx({
+              'text-xs': textSize === 'sm',
               'text-inherit': textSize === 'inherit',
-              'text-red-400': reaction.isLiked,
-              'text-xs': textSize === 'sm'
+              'text-red-400': reaction.isLiked
             })}
           >
             {label}
@@ -134,9 +133,9 @@ const PublicationReaction: FC<Props> = ({
         ) : (
           <span
             className={clsx({
+              'text-xs': textSize === 'sm',
               'text-inherit': textSize === 'inherit',
-              'text-red-400': reaction.isLiked,
-              'text-xs': textSize === 'sm'
+              'text-red-400': reaction.isLiked
             })}
           >
             {reaction.likeCount > 0 ? formatNumber(reaction.likeCount) : 'Like'}

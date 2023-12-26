@@ -1,8 +1,3 @@
-import type {
-  ExplorePublicationRequest,
-  PrimaryPublication
-} from '@tape.xyz/lens'
-
 import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
@@ -12,6 +7,10 @@ import {
   LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
 } from '@tape.xyz/constants'
+import type {
+  ExplorePublicationRequest,
+  PrimaryPublication
+} from '@tape.xyz/lens'
 import {
   ExplorePublicationsOrderByType,
   ExplorePublicationType,
@@ -24,20 +23,20 @@ import React from 'react'
 import { useInView } from 'react-cool-inview'
 
 const request: ExplorePublicationRequest = {
-  limit: LimitType.Fifty,
-  orderBy: ExplorePublicationsOrderByType.Latest,
   where: {
+    publicationTypes: [ExplorePublicationType.Post],
     customFilters: LENS_CUSTOM_FILTERS,
     metadata: {
-      mainContentFocus: [PublicationMetadataMainFocusType.Video],
-      publishedOn: [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID]
-    },
-    publicationTypes: [ExplorePublicationType.Post]
-  }
+      publishedOn: [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID],
+      mainContentFocus: [PublicationMetadataMainFocusType.Video]
+    }
+  },
+  orderBy: ExplorePublicationsOrderByType.Latest,
+  limit: LimitType.Fifty
 }
 
 const Recents = () => {
-  const { data, error, fetchMore, loading } = useExplorePublicationsQuery({
+  const { data, loading, error, fetchMore } = useExplorePublicationsQuery({
     variables: {
       request
     }
@@ -48,6 +47,7 @@ const Recents = () => {
   const pageInfo = data?.explorePublications?.pageInfo
 
   const { observe } = useInView({
+    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
     onEnter: async () => {
       await fetchMore({
         variables: {
@@ -57,8 +57,7 @@ const Recents = () => {
           }
         }
       })
-    },
-    rootMargin: INFINITE_SCROLL_ROOT_MARGIN
+    }
   })
   if (loading) {
     return (
@@ -68,7 +67,7 @@ const Recents = () => {
     )
   }
   if (!videos.length || error) {
-    return <NoDataFound isCenter text={`No videos found`} withImage />
+    return <NoDataFound isCenter withImage text={`No videos found`} />
   }
 
   return (
@@ -77,7 +76,7 @@ const Recents = () => {
         <>
           <Timeline videos={videos} />
           {pageInfo?.next && (
-            <span className="flex justify-center p-10" ref={observe}>
+            <span ref={observe} className="flex justify-center p-10">
               <Loader />
             </span>
           )}

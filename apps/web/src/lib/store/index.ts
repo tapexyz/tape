@@ -1,5 +1,3 @@
-import type { IrysDataState, UploadedMedia } from '@tape.xyz/lens/custom-types'
-
 import { WebIrys } from '@irys/sdk'
 import { MetadataLicenseType } from '@lens-protocol/metadata'
 import {
@@ -10,82 +8,94 @@ import {
   WMATIC_TOKEN_ADDRESS
 } from '@tape.xyz/constants'
 import { logger } from '@tape.xyz/generic'
+import type { IrysDataState, UploadedMedia } from '@tape.xyz/lens/custom-types'
 import { create } from 'zustand'
 
 export const UPLOADED_VIDEO_IRYS_DEFAULTS = {
   balance: '0',
-  deposit: null,
-  depositing: false,
   estimatedPrice: '0',
+  deposit: null,
   instance: null,
+  depositing: false,
   showDeposit: false
 }
 
 export const UPLOADED_VIDEO_FORM_DEFAULTS: UploadedMedia = {
-  buttonText: 'Post Now',
-  collectModule: {
-    amount: { currency: WMATIC_TOKEN_ADDRESS, value: '' },
-    collectLimit: '0',
-    collectLimitEnabled: false,
-    followerOnlyCollect: false,
-    isFeeCollect: false,
-    isMultiRecipientFeeCollect: false,
-    isRevertCollect: true,
-    multiRecipients: [],
-    referralFee: 0,
-    timeLimit: '1',
-    timeLimitEnabled: false
-  },
-  description: '',
-  durationInSeconds: 1,
-  dUrl: '',
+  type: 'VIDEO',
+  stream: null,
+  preview: '',
+  mediaType: '',
   file: null,
-  isByteVideo: false,
+  title: '',
+  description: '',
+  thumbnail: '',
+  thumbnailType: '',
+  dUrl: '',
+  percent: 0,
   isSensitiveContent: false,
   isUploadToIpfs: false,
   loading: false,
+  uploadingThumbnail: false,
+  buttonText: 'Post Now',
+  durationInSeconds: 1,
   mediaCategory: CREATOR_VIDEO_CATEGORIES[0],
   mediaLicense: MetadataLicenseType.CC_BY,
-  mediaType: '',
-  percent: 0,
-  preview: '',
-  referenceModule: {
-    degreesOfSeparationReferenceModule: null,
-    followerOnlyReferenceModule: false
+  isByteVideo: false,
+  collectModule: {
+    followerOnlyCollect: false,
+    amount: { currency: WMATIC_TOKEN_ADDRESS, value: '' },
+    referralFee: 0,
+    timeLimitEnabled: false,
+    timeLimit: '1',
+    isFeeCollect: false,
+    isRevertCollect: true,
+    isMultiRecipientFeeCollect: false,
+    collectLimit: '0',
+    collectLimitEnabled: false,
+    multiRecipients: []
   },
-  stream: null,
-  thumbnail: '',
-  thumbnailType: '',
-  title: '',
-  type: 'VIDEO',
-  uploadingThumbnail: false
+  referenceModule: {
+    followerOnlyReferenceModule: false,
+    degreesOfSeparationReferenceModule: null
+  }
 }
 
 interface AppState {
+  uploadedMedia: UploadedMedia
+  irysData: IrysDataState
+  videoWatchTime: number
   activeTagFilter: string
+  setUploadedMedia: (mediaProps: Partial<UploadedMedia>) => void
+  setActiveTagFilter: (activeTagFilter: string) => void
+  setVideoWatchTime: (videoWatchTime: number) => void
+  setIrysData: (irysProps: Partial<IrysDataState>) => void
   getIrysInstance: (signer: {
     signMessage: (message: string) => Promise<string>
-  }) => Promise<null | WebIrys>
-  irysData: IrysDataState
-  setActiveTagFilter: (activeTagFilter: string) => void
-  setIrysData: (irysProps: Partial<IrysDataState>) => void
-  setUploadedMedia: (mediaProps: Partial<UploadedMedia>) => void
-  setVideoWatchTime: (videoWatchTime: number) => void
-  uploadedMedia: UploadedMedia
-  videoWatchTime: number
+  }) => Promise<WebIrys | null>
 }
 
 const useAppStore = create<AppState>((set) => ({
+  videoWatchTime: 0,
   activeTagFilter: 'all',
+  irysData: UPLOADED_VIDEO_IRYS_DEFAULTS,
+  uploadedMedia: UPLOADED_VIDEO_FORM_DEFAULTS,
+  setActiveTagFilter: (activeTagFilter) => set({ activeTagFilter }),
+  setVideoWatchTime: (videoWatchTime) => set({ videoWatchTime }),
+  setIrysData: (props) =>
+    set((state) => ({ irysData: { ...state.irysData, ...props } })),
+  setUploadedMedia: (mediaProps) =>
+    set((state) => ({
+      uploadedMedia: { ...state.uploadedMedia, ...mediaProps }
+    })),
   getIrysInstance: async (signer) => {
     try {
       const instance = new WebIrys({
-        token: IRYS_CURRENCY,
         url: IRYS_NODE_URL,
+        token: IRYS_CURRENCY,
         wallet: {
+          rpcUrl: POLYGON_RPC_URL,
           name: 'viem',
-          provider: signer,
-          rpcUrl: POLYGON_RPC_URL
+          provider: signer
         }
       })
       await instance.utils.getBundlerAddress(IRYS_CURRENCY)
@@ -95,18 +105,7 @@ const useAppStore = create<AppState>((set) => ({
       logger.error('[Error Init Irys]', error)
       return null
     }
-  },
-  irysData: UPLOADED_VIDEO_IRYS_DEFAULTS,
-  setActiveTagFilter: (activeTagFilter) => set({ activeTagFilter }),
-  setIrysData: (props) =>
-    set((state) => ({ irysData: { ...state.irysData, ...props } })),
-  setUploadedMedia: (mediaProps) =>
-    set((state) => ({
-      uploadedMedia: { ...state.uploadedMedia, ...mediaProps }
-    })),
-  setVideoWatchTime: (videoWatchTime) => set({ videoWatchTime }),
-  uploadedMedia: UPLOADED_VIDEO_FORM_DEFAULTS,
-  videoWatchTime: 0
+  }
 }))
 
 export default useAppStore

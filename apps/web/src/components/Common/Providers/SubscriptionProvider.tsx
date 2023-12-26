@@ -1,10 +1,9 @@
-import type { Notification, UserSigNonces } from '@tape.xyz/lens'
-
 import getCurrentSession from '@lib/getCurrentSession'
 import { signOut } from '@lib/store/auth'
 import useNonceStore from '@lib/store/nonce'
 import usePersistStore from '@lib/store/persist'
 import { LENS_API_URL } from '@tape.xyz/constants'
+import type { Notification, UserSigNonces } from '@tape.xyz/lens'
 import {
   AuthorizationRecordRevokedSubscriptionDocument,
   NewNotificationSubscriptionDocument,
@@ -26,7 +25,7 @@ const SubscriptionProvider = () => {
     (state) => state.setLatestNotificationId
   )
 
-  const { lastMessage, readyState, sendJsonMessage } = useWebSocket(
+  const { sendJsonMessage, lastMessage, readyState } = useWebSocket(
     LENS_API_URL.replace('http', 'ws'),
     { protocols: ['graphql-transport-ws'] }
   )
@@ -41,29 +40,28 @@ const SubscriptionProvider = () => {
       if (!isAddress(currentSession.profileId)) {
         sendJsonMessage({
           id: '1',
+          type: 'subscribe',
           payload: {
-            query: NewNotificationSubscriptionDocument.loc?.source.body,
-            variables: { for: currentSession.profileId }
-          },
-          type: 'subscribe'
+            variables: { for: currentSession.profileId },
+            query: NewNotificationSubscriptionDocument.loc?.source.body
+          }
         })
       }
       sendJsonMessage({
         id: '2',
+        type: 'subscribe',
         payload: {
-          query: UserSigNoncesSubscriptionDocument.loc?.source.body,
-          variables: { address }
-        },
-        type: 'subscribe'
+          variables: { address },
+          query: UserSigNoncesSubscriptionDocument.loc?.source.body
+        }
       })
       sendJsonMessage({
         id: '3',
+        type: 'subscribe',
         payload: {
-          query:
-            AuthorizationRecordRevokedSubscriptionDocument.loc?.source.body,
-          variables: { authorizationId: getCurrentSession().authorizationId }
-        },
-        type: 'subscribe'
+          variables: { authorizationId: getCurrentSession().authorizationId },
+          query: AuthorizationRecordRevokedSubscriptionDocument.loc?.source.body
+        }
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

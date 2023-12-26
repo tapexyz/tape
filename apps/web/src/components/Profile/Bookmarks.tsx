@@ -1,9 +1,3 @@
-import type {
-  AnyPublication,
-  PublicationBookmarksRequest
-} from '@tape.xyz/lens'
-import type { FC } from 'react'
-
 import MetaTags from '@components/Common/MetaTags'
 import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
@@ -16,12 +10,17 @@ import {
   LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
 } from '@tape.xyz/constants'
+import type {
+  AnyPublication,
+  PublicationBookmarksRequest
+} from '@tape.xyz/lens'
 import {
   LimitType,
   PublicationMetadataMainFocusType,
   usePublicationBookmarksQuery
 } from '@tape.xyz/lens'
 import { Loader } from '@tape.xyz/ui'
+import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 
@@ -40,29 +39,29 @@ const Bookmarks: FC = () => {
     }
   }
 
-  const { data, error, fetchMore, loading } = usePublicationBookmarksQuery({
-    skip: !activeProfile?.id,
+  const { data, loading, error, fetchMore } = usePublicationBookmarksQuery({
     variables: {
       request
-    }
+    },
+    skip: !activeProfile?.id
   })
 
   const savedVideos = data?.publicationBookmarks?.items as AnyPublication[]
   const pageInfo = data?.publicationBookmarks?.pageInfo
 
   const { observe } = useInView({
+    rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
     onEnter: async () => {
       await fetchMore({
         variables: {
-          channelId: activeProfile?.id ?? null,
           request: {
             ...request,
             cursor: pageInfo?.next
-          }
+          },
+          channelId: activeProfile?.id ?? null
         }
       })
-    },
-    rootMargin: INFINITE_SCROLL_ROOT_MARGIN
+    }
   })
 
   if (loading) {
@@ -72,10 +71,10 @@ const Bookmarks: FC = () => {
   if (!data?.publicationBookmarks?.items?.length) {
     return (
       <NoDataFound
-        className="my-20"
         isCenter
-        text="No videos found"
         withImage
+        text="No videos found"
+        className="my-20"
       />
     )
   }
@@ -88,7 +87,7 @@ const Bookmarks: FC = () => {
         <>
           <Timeline videos={savedVideos} />
           {pageInfo?.next && (
-            <span className="flex justify-center p-10" ref={observe}>
+            <span ref={observe} className="flex justify-center p-10">
               <Loader />
             </span>
           )}
