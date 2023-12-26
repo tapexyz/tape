@@ -1,9 +1,10 @@
+import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
+import type { FC } from 'react'
+
 import { Input } from '@components/UIElements/Input'
 import useAppStore from '@lib/store'
 import { Button, Text } from '@radix-ui/themes'
 import { trimify } from '@tape.xyz/generic'
-import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
-import type { FC } from 'react'
 import React, { useState } from 'react'
 
 type Props = {
@@ -23,38 +24,38 @@ const EditionSize: FC<Props> = ({ setCollectType }) => {
       </Text>
       <div className="flex flex-wrap gap-1.5 md:flex-nowrap">
         <Button
-          type="button"
-          onClick={() => {
-            setCollectType({
-              isSimpleCollect: true,
-              collectLimitEnabled: false
-            })
-            setShowSizePicker(false)
-          }}
-          highContrast
+          className="flex-1"
           color={
             !uploadedMedia.collectModule.collectLimitEnabled ? 'blue' : 'gray'
           }
+          highContrast
+          onClick={() => {
+            setCollectType({
+              collectLimitEnabled: false,
+              isSimpleCollect: true
+            })
+            setShowSizePicker(false)
+          }}
+          type="button"
           variant="surface"
-          className="flex-1"
         >
           Open
         </Button>
         <Button
-          type="button"
-          onClick={() => {
-            setCollectType({
-              isSimpleCollect: true,
-              collectLimitEnabled: true
-            })
-            setShowSizePicker(true)
-          }}
-          highContrast
+          className="flex-1"
           color={
             uploadedMedia.collectModule.collectLimitEnabled ? 'blue' : 'gray'
           }
+          highContrast
+          onClick={() => {
+            setCollectType({
+              collectLimitEnabled: true,
+              isSimpleCollect: true
+            })
+            setShowSizePicker(true)
+          }}
+          type="button"
           variant="surface"
-          className="flex-1"
         >
           Fixed
         </Button>
@@ -62,9 +63,7 @@ const EditionSize: FC<Props> = ({ setCollectType }) => {
       {showSizePicker && (
         <div className="mt-2">
           <Input
-            type="number"
-            placeholder="5000"
-            suffix="editions"
+            autoComplete="off"
             min="0"
             onBlur={(e) => {
               const { value } = e.target
@@ -81,8 +80,10 @@ const EditionSize: FC<Props> = ({ setCollectType }) => {
                 collectLimit: Number(value) <= 0 ? '' : String(parseInt(value))
               })
             }}
+            placeholder="5000"
+            suffix="editions"
+            type="number"
             value={uploadedMedia.collectModule.collectLimit}
-            autoComplete="off"
           />
         </div>
       )}
