@@ -8,8 +8,8 @@ import WarningOutline from '@components/Common/Icons/WarningOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import ReportProfile from '@components/Report/Profile'
 import Tooltip from '@components/UIElements/Tooltip'
-import useNonceStore from '@lib/store/nonce'
 import useProfileStore from '@lib/store/idb/profile'
+import useNonceStore from '@lib/store/nonce'
 import {
   Badge as BadgeUI,
   Callout,

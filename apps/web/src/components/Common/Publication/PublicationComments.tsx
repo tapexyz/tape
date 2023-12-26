@@ -3,8 +3,8 @@ import CommentOutline from '@components/Common/Icons/CommentOutline'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useCommentStore from '@lib/store/comment'
-import usePersistStore from '@lib/store/persist'
 import useProfileStore from '@lib/store/idb/profile'
+import usePersistStore from '@lib/store/persist'
 import {
   INFINITE_SCROLL_ROOT_MARGIN,
   LENS_CUSTOM_FILTERS

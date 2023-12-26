@@ -1,8 +1,8 @@
 import Badge from '@components/Common/Badge'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import Tooltip from '@components/UIElements/Tooltip'
-import usePersistStore from '@lib/store/persist'
 import useProfileStore from '@lib/store/idb/profile'
+import usePersistStore from '@lib/store/persist'
 import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import {
   LensTransactionStatusType,
