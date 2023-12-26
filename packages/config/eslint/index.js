@@ -14,7 +14,11 @@ module.exports = {
     'unicorn',
     'perfectionist'
   ],
-  extends: ['next', 'next/core-web-vitals', 'plugin:perfectionist/recommended-alphabetical'],
+  extends: [
+    'next',
+    'next/core-web-vitals',
+    'plugin:perfectionist/recommended-alphabetical'
+  ],
   rules: {
     curly: 'error',
     'prettier/prettier': ['error', { endOfLine: 'auto' }],
