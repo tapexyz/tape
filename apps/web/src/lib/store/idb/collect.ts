@@ -7,13 +7,17 @@ import { persist } from 'zustand/middleware'
 interface State {
   collectModule: CollectModuleType | null
   setCollectModule: (collectModule: CollectModuleType | null) => void
+  saveAsDefault: boolean
+  setSaveAsDefault: (saveAsDefault: boolean) => void
 }
 
 const useCollectStore = create(
   persist<State>(
     (set) => ({
       collectModule: null,
-      setCollectModule: (collectModule) => set({ collectModule })
+      setCollectModule: (collectModule) => set({ collectModule }),
+      saveAsDefault: true,
+      setSaveAsDefault: (saveAsDefault) => set({ saveAsDefault })
     }),
     {
       name: LocalIDBStore.COLLECT_STORE,
