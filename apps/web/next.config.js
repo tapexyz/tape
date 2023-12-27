@@ -2,6 +2,7 @@
 const allowedBots =
   '.*(bot|telegram|baidu|bing|yandex|iframely|whatsapp|facebook|metainspector).*'
 const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }]
+
 const moduleExports = {
   transpilePackages: [
     '@tape.xyz/lens',
@@ -13,7 +14,6 @@ const moduleExports = {
   experimental: {
     scrollRestoration: true
   },
-  productionBrowserSourceMaps: true,
   async rewrites() {
     return [
       {
