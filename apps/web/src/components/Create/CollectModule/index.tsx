@@ -4,7 +4,7 @@ import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import useCollectStore from '@lib/store/idb/collect'
 import useProfileStore from '@lib/store/idb/profile'
-import { Button, Dialog, Flex } from '@radix-ui/themes'
+import { Button, Checkbox, Dialog, Flex, Text } from '@radix-ui/themes'
 import { LimitType, useEnabledCurrenciesQuery } from '@tape.xyz/lens'
 import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
 import React, { useState } from 'react'
@@ -20,12 +20,18 @@ const CollectModule = () => {
   const uploadedMedia = useAppStore((state) => state.uploadedMedia)
   const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
   const activeProfile = useProfileStore((state) => state.activeProfile)
-  const setCollectModule = useCollectStore((state) => state.setCollectModule)
+  const setPersistedCollectModule = useCollectStore(
+    (state) => state.setCollectModule
+  )
+  const saveAsDefault = useCollectStore((state) => state.saveAsDefault)
+  const setSaveAsDefault = useCollectStore((state) => state.setSaveAsDefault)
 
   const setCollectType = (data: CollectModuleType) => {
     const collectModule = { ...uploadedMedia.collectModule, ...data }
     setUploadedMedia({ collectModule })
-    setCollectModule(collectModule)
+    if (saveAsDefault) {
+      setPersistedCollectModule(collectModule)
+    }
   }
 
   const { data: enabledCurrencies } = useEnabledCurrenciesQuery({
@@ -91,6 +97,21 @@ const CollectModule = () => {
           onPointerDownOutside={(e) => e.preventDefault()}
         >
           <Dialog.Title>Collectible</Dialog.Title>
+          <Dialog.Description mb="4">
+            <Text as="label" size="2">
+              <Flex gap="2">
+                <Checkbox
+                  highContrast
+                  variant="soft"
+                  onCheckedChange={(checked) =>
+                    setSaveAsDefault(checked as boolean)
+                  }
+                  checked={saveAsDefault}
+                />{' '}
+                Save as default settings
+              </Flex>
+            </Text>
+          </Dialog.Description>
           <Flex direction="column" gap="3">
             <div className="no-scrollbar max-h-[80vh] space-y-2 overflow-y-auto p-0.5">
               <PermissionQuestion setCollectType={setCollectType} />
@@ -118,7 +139,11 @@ const CollectModule = () => {
                         type="button"
                         highContrast
                         onClick={() => {
-                          setCollectModule(uploadedMedia.collectModule)
+                          if (saveAsDefault) {
+                            setPersistedCollectModule(
+                              uploadedMedia.collectModule
+                            )
+                          }
                           setShowModal(false)
                         }}
                       >

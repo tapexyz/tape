@@ -44,6 +44,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
   const uploadedMedia = useAppStore((state) => state.uploadedMedia)
   const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
   const persistedCollectModule = useCollectStore((state) => state.collectModule)
+  const saveAsDefault = useCollectStore((state) => state.saveAsDefault)
 
   const isByteSizeVideo = checkIsBytesVideo(uploadedMedia.durationInSeconds)
 
@@ -169,14 +170,16 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                   <Switch
                     highContrast
                     checked={!uploadedMedia.collectModule.isRevertCollect}
-                    onCheckedChange={(canCollect) =>
-                      setUploadedMedia({
-                        collectModule: persistedCollectModule ?? {
-                          ...uploadedMedia.collectModule,
-                          isRevertCollect: !canCollect
-                        }
-                      })
-                    }
+                    onCheckedChange={(canCollect) => {
+                      const collectModuleData = {
+                        ...uploadedMedia.collectModule,
+                        isRevertCollect: !canCollect
+                      }
+                      const collectModule = saveAsDefault
+                        ? persistedCollectModule ?? collectModuleData
+                        : collectModuleData
+                      setUploadedMedia({ collectModule })
+                    }}
                   />
                   Collectible
                 </Flex>
