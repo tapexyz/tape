@@ -5,6 +5,7 @@ import useAppStore from '@lib/store'
 import useCollectStore from '@lib/store/idb/collect'
 import useProfileStore from '@lib/store/idb/profile'
 import { Button, Checkbox, Dialog, Flex, Text } from '@radix-ui/themes'
+import { EVENTS, Tower } from '@tape.xyz/generic'
 import { LimitType, useEnabledCurrenciesQuery } from '@tape.xyz/lens'
 import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
 import React, { useState } from 'react'
@@ -103,9 +104,10 @@ const CollectModule = () => {
                 <Checkbox
                   highContrast
                   variant="soft"
-                  onCheckedChange={(checked) =>
+                  onCheckedChange={(checked) => {
                     setSaveAsDefault(checked as boolean)
-                  }
+                    Tower.track(EVENTS.PUBLICATION.SAVE_AS_DEFAULT_COLLECT)
+                  }}
                   checked={saveAsDefault}
                 />{' '}
                 Save as default settings
