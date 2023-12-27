@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+const allowedBots =
+  '.*(bot|telegram|baidu|bing|yandex|iframely|whatsapp|facebook|metainspector).*'
 const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }]
 const moduleExports = {
   transpilePackages: [
@@ -17,6 +19,16 @@ const moduleExports = {
       {
         source: '/sitemaps/:match*',
         destination: 'https://static.tape.xyz/sitemaps/:match*'
+      },
+      {
+        source: '/u/:match*',
+        has: [{ key: 'user-agent', type: 'header', value: allowedBots }],
+        destination: 'https://og.tape.xyz/u/:match*'
+      },
+      {
+        source: '/watch/:match*',
+        has: [{ key: 'user-agent', type: 'header', value: allowedBots }],
+        destination: 'https://og.tape.xyz/watch/:match*'
       }
     ]
   },
@@ -40,6 +52,11 @@ const moduleExports = {
       {
         source: '/channel/:namespace/:handle',
         destination: '/u/:namespace/:handle',
+        permanent: true
+      },
+      {
+        source: '/u/lens/:handle*',
+        destination: '/u/:handle*',
         permanent: true
       },
       {

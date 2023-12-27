@@ -1,9 +1,0 @@
-{
-  "extends": "@tape.xyz/config/react.tsconfig.json",
-  "compilerOptions": {
-    "baseUrl": ".",
-    "noEmit": true,
-    "isolatedModules": true
-  },
-  "include": ["**/*.ts"]
-}

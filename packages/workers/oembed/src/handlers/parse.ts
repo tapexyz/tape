@@ -16,7 +16,7 @@ export default async (request: WorkerRequest) => {
     if (COMMON_REGEX.TAPE_WATCH.test(url)) {
       // Fetch metatags directly from tape.xyz
       const path = new URL(url).pathname
-      url = `https://api.tape.xyz/metatags?path=${path}`
+      url = `https://og.tape.xyz${path}`
     }
 
     // Fetch metatags from URL
