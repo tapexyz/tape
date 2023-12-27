@@ -37,15 +37,9 @@ export const TESTNET_API_URL = 'https://api-v2-mumbai-live.lens.dev'
 export const LENS_API_URL = IS_MAINNET ? MAINNET_API_URL : TESTNET_API_URL
 
 // api urls
-export const TAPE_MAINNET_API_URL = 'https://api.tape.xyz'
-export const TAPE_TESTNET_API_URL = 'https://api-testnet.tape.xyz'
 export const TAPE_EMBED_URL = IS_MAINNET
   ? 'https://embed.tape.xyz'
   : 'https://embed-testnet.tape.xyz'
-export const TAPE_DEV_API_URL = 'http://localhost:4002'
-export const TAPE_API_URL = IS_MAINNET
-  ? TAPE_MAINNET_API_URL
-  : TAPE_TESTNET_API_URL
 
 // addresses
 export const LENSHUB_PROXY_ADDRESS = IS_MAINNET
