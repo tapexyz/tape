@@ -45,6 +45,7 @@ export const EVENTS = {
     TOGGLE_INTEREST: 'Toggle Publication Interest',
     PERMALINK: 'Permalink publication',
     COLLECT: 'Collect publication',
+    SAVE_AS_DEFAULT_COLLECT: 'Save collect settings as default',
     TIP: {
       OPEN: 'Open Tip Modal',
       SENT: 'Tip Sent'
