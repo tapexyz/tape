@@ -18,7 +18,7 @@
     "@hookform/resolvers": "^3.3.3",
     "@irys/sdk": "^0.1.1",
     "@lens-protocol/metadata": "^1.1.5",
-    "@livepeer/react": "^3.1.8",
+    "@livepeer/react": "^3.1.9",
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/themes": "^2.0.3",
     "@tailwindcss/aspect-ratio": "^0.4.2",
