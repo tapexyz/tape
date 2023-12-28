@@ -12,7 +12,7 @@
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "@livepeer/react": "^3.1.8",
+    "@livepeer/react": "^3.1.9",
     "clsx": "^2.0.0",
     "graphql": "^16.8.1",
     "next": "14.0.4",
