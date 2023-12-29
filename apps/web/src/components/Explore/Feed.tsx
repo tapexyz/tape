@@ -4,6 +4,7 @@ import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { getUnixTimestampForDaysAgo } from '@lib/formatTime'
 import useAppStore from '@lib/store'
 import { Button } from '@radix-ui/themes'
 import {
@@ -36,6 +37,8 @@ const initialCriteria = {
   interesting: false
 }
 
+const since = getUnixTimestampForDaysAgo(30)
+
 const ExploreFeed = () => {
   const [activeCriteria, setActiveCriteria] = useState(initialCriteria)
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
@@ -64,7 +67,8 @@ const ExploreFeed = () => {
         publishedOn: IS_MAINNET
           ? [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
           : undefined
-      }
+      },
+      since
     },
     orderBy: getCriteria(),
     limit: LimitType.Fifty

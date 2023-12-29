@@ -2,6 +2,7 @@ import MetaTags from '@components/Common/MetaTags'
 import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { getUnixTimestampForDaysAgo } from '@lib/formatTime'
 import {
   ALLOWED_APP_IDS,
   INFINITE_SCROLL_ROOT_MARGIN,
@@ -28,6 +29,8 @@ import React from 'react'
 import { useInView } from 'react-cool-inview'
 import Custom404 from 'src/pages/404'
 
+const since = getUnixTimestampForDaysAgo(30)
+
 const ExploreCategory = () => {
   const { query } = useRouter()
   const categoryName = query.category as string
@@ -42,7 +45,8 @@ const ExploreCategory = () => {
         publishedOn: IS_MAINNET
           ? [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
           : undefined
-      }
+      },
+      since
     },
     orderBy: ExplorePublicationsOrderByType.Latest,
     limit: LimitType.Fifty

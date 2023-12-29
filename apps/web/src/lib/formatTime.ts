@@ -51,6 +51,10 @@ export const getAddedDaysFromToday = (days: number) => {
   return dayjs().add(days, 'day').utc().format()
 }
 
+export const getUnixTimestampForDaysAgo = (days: number) => {
+  return dayjs().subtract(days, 'day').unix()
+}
+
 export const getDateString = (timestamp: string) => {
   return dayjs(timestamp).format('dddd, MMMM D, YYYY h:mm A')
 }

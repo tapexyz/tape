@@ -2,6 +2,7 @@ import CategoryFilters from '@components/Common/CategoryFilters'
 import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { getUnixTimestampForDaysAgo } from '@lib/formatTime'
 import useAppStore from '@lib/store'
 import {
   ALLOWED_APP_IDS,
@@ -25,6 +26,8 @@ import { Loader } from '@tape.xyz/ui'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 
+const since = getUnixTimestampForDaysAgo(30)
+
 const Feed = ({ showFilter = true }) => {
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
 
@@ -37,7 +40,8 @@ const Feed = ({ showFilter = true }) => {
         tags:
           activeTagFilter !== 'all' ? { oneOf: [activeTagFilter] } : undefined,
         mainContentFocus: [PublicationMetadataMainFocusType.Video]
-      }
+      },
+      since
     },
     orderBy: ExplorePublicationsOrderByType.LensCurated,
     limit: LimitType.Fifty

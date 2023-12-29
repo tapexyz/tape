@@ -2,6 +2,7 @@ import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
 import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import MetaTags from '@components/Common/MetaTags'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { getUnixTimestampForDaysAgo } from '@lib/formatTime'
 import {
   INFINITE_SCROLL_ROOT_MARGIN,
   LENS_CUSTOM_FILTERS,
@@ -31,6 +32,8 @@ import { useInView } from 'react-cool-inview'
 import ByteVideo from './ByteVideo'
 import { KeyboardControls, WheelControls } from './SliderPlugin'
 
+const since = getUnixTimestampForDaysAgo(30)
+
 const request: ExplorePublicationRequest = {
   where: {
     publicationTypes: [ExplorePublicationType.Post],
@@ -38,7 +41,8 @@ const request: ExplorePublicationRequest = {
       mainContentFocus: [PublicationMetadataMainFocusType.ShortVideo],
       publishedOn: [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID]
     },
-    customFilters: LENS_CUSTOM_FILTERS
+    customFilters: LENS_CUSTOM_FILTERS,
+    since
   },
   orderBy: ExplorePublicationsOrderByType.LensCurated,
   limit: LimitType.Fifty
