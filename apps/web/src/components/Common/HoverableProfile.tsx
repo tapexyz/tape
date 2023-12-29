@@ -1,3 +1,4 @@
+import Stats from '@components/Profile/BasicInfo/Stats'
 import useProfileStore from '@lib/store/idb/profile'
 import { Avatar, Flex, HoverCard, Inset, Text } from '@radix-ui/themes'
 import {
@@ -84,8 +85,11 @@ const HoverableProfile: FC<Props> = ({
             <Badge id={profile?.id} size="lg" />
           </Link>
           {profile.metadata?.bio && (
-            <div className="line-clamp-3 py-1">{profile.metadata?.bio}</div>
+            <div className="line-clamp-2 py-1">{profile.metadata?.bio}</div>
           )}
+          <div className="mt-1">
+            <Stats profile={profile} />
+          </div>
         </div>
       </HoverCard.Content>
     </HoverCard.Root>
