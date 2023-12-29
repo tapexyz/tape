@@ -4,7 +4,6 @@ import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { getUnixTimestampForDaysAgo } from '@lib/formatTime'
 import {
   INFINITE_SCROLL_ROOT_MARGIN,
-  LENS_CUSTOM_FILTERS,
   LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
 } from '@tape.xyz/constants'
@@ -28,7 +27,6 @@ const since = getUnixTimestampForDaysAgo(30)
 const request: ExplorePublicationRequest = {
   where: {
     publicationTypes: [ExplorePublicationType.Post],
-    customFilters: LENS_CUSTOM_FILTERS,
     metadata: {
       publishedOn: [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID],
       mainContentFocus: [PublicationMetadataMainFocusType.Video]
