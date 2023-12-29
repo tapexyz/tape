@@ -185,7 +185,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
             !getIsValidAddress(splitRecipients[i].recipient) ? (
               <div
                 ref={resultsRef}
-                className="tape-border z-10 mt-1 w-full overflow-hidden rounded-md bg-white focus:outline-none dark:bg-black md:absolute"
+                className="tape-border z-10 mt-1 w-full overflow-hidden rounded-md bg-white focus:outline-none md:absolute dark:bg-black"
               >
                 {profilesLoading && <Loader className="my-4" />}
                 {!profiles?.length && !profilesLoading ? (

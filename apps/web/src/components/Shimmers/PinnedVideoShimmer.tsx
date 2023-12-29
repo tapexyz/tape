@@ -17,8 +17,8 @@ const PinnedVideoShimmer = () => {
             <div className="h-3 w-1/6 rounded-md bg-gray-200 dark:bg-gray-800" />
           </div>
           <div className="mt-4 space-y-3">
-            <div className="hidden h-3 rounded bg-gray-200 dark:bg-gray-800 lg:block" />
-            <div className="hidden h-3 w-2/3 rounded bg-gray-200 dark:bg-gray-800 lg:block" />
+            <div className="hidden h-3 rounded bg-gray-200 lg:block dark:bg-gray-800" />
+            <div className="hidden h-3 w-2/3 rounded bg-gray-200 lg:block dark:bg-gray-800" />
             <div className="h-3 rounded bg-gray-200 dark:bg-gray-800" />
             <div className="h-3 w-1/2 rounded bg-gray-200 dark:bg-gray-800" />
           </div>

@@ -235,7 +235,7 @@ const New: FC<Props> = ({ refetch }) => {
       style={{
         backgroundImage: `url("${imageCdn(FALLBACK_COVER_URL)}")`
       }}
-      className="relative h-44 w-full bg-gray-300 bg-cover bg-center bg-no-repeat dark:bg-gray-700 md:h-[30vh]"
+      className="relative h-44 w-full bg-gray-300 bg-cover bg-center bg-no-repeat md:h-[30vh] dark:bg-gray-700"
     >
       <fieldset
         disabled={loading}
