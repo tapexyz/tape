@@ -6,7 +6,7 @@ export const AudioCardShimmer = ({ rounded = true }) => {
       <div className="flex animate-pulse flex-col space-x-2">
         <div
           className={clsx(
-            'h-24 w-full bg-gray-200 dark:bg-gray-800 md:h-40',
+            'h-24 w-full bg-gray-200 md:h-40 dark:bg-gray-800',
             rounded && 'rounded-large'
           )}
         />

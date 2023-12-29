@@ -128,7 +128,7 @@ const GlobalSearch = () => {
       </TextField.Root>
       <div
         className={clsx(
-          'rounded-medium tape-border z-10 mt-1 w-full bg-white text-base shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none dark:bg-black md:absolute',
+          'rounded-medium tape-border z-10 mt-1 w-full bg-white text-base shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none md:absolute dark:bg-black',
           { hidden: debouncedValue.length === 0 }
         )}
       >

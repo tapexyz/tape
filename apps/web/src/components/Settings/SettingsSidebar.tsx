@@ -133,7 +133,7 @@ const SettingsSidebar = () => {
         <Link
           href={SETTINGS_DANGER_ZONE}
           className={clsx(
-            'hover:dark:bg-smoke text-red-500 hover:bg-red-100 dark:hover:bg-red-900/50 flex items-center space-x-3 rounded-lg px-3 py-2',
+            'hover:dark:bg-smoke flex items-center space-x-3 rounded-lg px-3 py-2 text-red-500 hover:bg-red-100 dark:hover:bg-red-900/50',
             isActivePath(SETTINGS_DANGER_ZONE)
               ? 'font-bold'
               : 'text-dust font-medium'
