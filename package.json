@@ -23,7 +23,8 @@
   },
   "devDependencies": {
     "husky": "^8.0.3",
-    "turbo": "1.11.2"
+    "turbo": "1.11.2",
+    "prettier-plugin-tailwindcss": "^0.5.10"
   },
   "engines": {
     "node": ">=16.18.1 <=19.0.0"
