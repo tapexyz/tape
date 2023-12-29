@@ -1,4 +1,5 @@
 import { SuggestedVideosShimmer } from '@components/Shimmers/WatchShimmer'
+import { getUnixTimestampForDaysAgo } from '@lib/formatTime'
 import useProfileStore from '@lib/store/idb/profile'
 import {
   ALLOWED_APP_IDS,
@@ -26,6 +27,8 @@ import { useInView } from 'react-cool-inview'
 
 import SuggestedVideoCard from './SuggestedVideoCard'
 
+const since = getUnixTimestampForDaysAgo(30)
+
 const request: ExplorePublicationRequest = {
   limit: LimitType.Fifty,
   orderBy: ExplorePublicationsOrderByType.LensCurated,
@@ -37,7 +40,8 @@ const request: ExplorePublicationRequest = {
         ? [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
         : undefined,
       mainContentFocus: [PublicationMetadataMainFocusType.Video]
-    }
+    },
+    since
   }
 }
 

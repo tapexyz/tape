@@ -1,5 +1,6 @@
 import Badge from '@components/Common/Badge'
 import LatestBytesShimmer from '@components/Shimmers/LatestBytesShimmer'
+import { getUnixTimestampForDaysAgo } from '@lib/formatTime'
 import {
   FALLBACK_THUMBNAIL_URL,
   LENS_CUSTOM_FILTERS,
@@ -27,6 +28,8 @@ import {
 import Link from 'next/link'
 import React from 'react'
 
+const since = getUnixTimestampForDaysAgo(30)
+
 const request: ExplorePublicationRequest = {
   where: {
     publicationTypes: [ExplorePublicationType.Post],
@@ -34,7 +37,8 @@ const request: ExplorePublicationRequest = {
     metadata: {
       mainContentFocus: [PublicationMetadataMainFocusType.ShortVideo],
       publishedOn: [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID]
-    }
+    },
+    since
   },
   orderBy: ExplorePublicationsOrderByType.LensCurated,
   limit: LimitType.Ten

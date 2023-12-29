@@ -1,6 +1,7 @@
 import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { getUnixTimestampForDaysAgo } from '@lib/formatTime'
 import {
   INFINITE_SCROLL_ROOT_MARGIN,
   LENS_CUSTOM_FILTERS,
@@ -22,6 +23,8 @@ import { Loader } from '@tape.xyz/ui'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 
+const since = getUnixTimestampForDaysAgo(30)
+
 const request: ExplorePublicationRequest = {
   where: {
     publicationTypes: [ExplorePublicationType.Post],
@@ -29,7 +32,8 @@ const request: ExplorePublicationRequest = {
     metadata: {
       publishedOn: [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID],
       mainContentFocus: [PublicationMetadataMainFocusType.Video]
-    }
+    },
+    since
   },
   orderBy: ExplorePublicationsOrderByType.Latest,
   limit: LimitType.Fifty
