@@ -1,38 +1,20 @@
-import { TAPE_APP_NAME, WC_PROJECT_ID } from '@tape.xyz/constants'
+import { IS_MAINNET, TAPE_APP_NAME, WC_PROJECT_ID } from '@tape.xyz/constants'
 import { CoinbaseWalletConnector } from '@wagmi/connectors/coinbaseWallet'
 import { InjectedConnector } from '@wagmi/connectors/injected'
 import { WalletConnectConnector } from '@wagmi/connectors/walletConnect'
 import { type FC, type ReactNode } from 'react'
 import { configureChains, createConfig, WagmiConfig } from 'wagmi'
-import {
-  base,
-  baseGoerli,
-  goerli,
-  mainnet,
-  optimism,
-  optimismGoerli,
-  polygon,
-  polygonMumbai,
-  zora,
-  zoraTestnet
-} from 'wagmi/chains'
+import { polygon, polygonMumbai } from 'wagmi/chains'
 import { publicProvider } from 'wagmi/providers/public'
 
-const { chains, publicClient } = configureChains(
-  [
-    polygon,
-    polygonMumbai,
-    mainnet,
-    goerli,
-    zora,
-    zoraTestnet,
-    optimism,
-    optimismGoerli,
-    base,
-    baseGoerli
-  ],
-  [publicProvider()]
-)
+const preferredChains = [
+  IS_MAINNET ? polygon : polygonMumbai,
+  IS_MAINNET ? polygon : polygonMumbai
+]
+
+const { chains, publicClient } = configureChains(preferredChains, [
+  publicProvider()
+])
 
 const connectors: any = [
   new InjectedConnector({ chains, options: { shimDisconnect: true } }),
