@@ -9,7 +9,7 @@ import {
   ScrollArea,
   Text
 } from '@radix-ui/themes'
-import { formatNumber } from '@tape.xyz/generic'
+import { formatNumber, getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { FollowersRequest, Profile, ProfileStats } from '@tape.xyz/lens'
 import { LimitType, useFollowersQuery } from '@tape.xyz/lens'
 import { Loader } from '@tape.xyz/ui'
@@ -79,7 +79,18 @@ const Followers: FC<Props> = ({ stats, profileId }) => {
             {followers?.map((profile) => (
               <div key={profile.id}>
                 <span className="inline-flex">
-                  <HoverableProfile profile={profile} fontSize="3" />
+                  <HoverableProfile
+                    profile={profile}
+                    fontSize="3"
+                    pfp={
+                      <img
+                        src={getProfilePicture(profile, 'AVATAR')}
+                        className="size-5 rounded-full"
+                        draggable={false}
+                        alt={getProfile(profile)?.displayName}
+                      />
+                    }
+                  />
                 </span>
               </div>
             ))}
