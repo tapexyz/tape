@@ -176,7 +176,10 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                         isRevertCollect: !canCollect
                       }
                       const collectModule = saveAsDefault
-                        ? persistedCollectModule ?? collectModuleData
+                        ? {
+                            ...persistedCollectModule,
+                            isRevertCollect: !canCollect
+                          } ?? collectModuleData
                         : collectModuleData
                       setUploadedMedia({ collectModule })
                     }}
