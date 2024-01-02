@@ -11,7 +11,7 @@ const ArweaveExplorerLink = ({
 }) => {
   return (
     <Link
-      href={`https://explorer.irys.xyz/transactions/${txId}`}
+      href={`https://gateway.irys.xyz/${txId}`}
       rel="noreferer noreferrer"
       target="_blank"
     >
