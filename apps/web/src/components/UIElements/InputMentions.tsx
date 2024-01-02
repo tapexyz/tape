@@ -144,7 +144,7 @@ const InputMentions: FC<Props> = ({
         onChange={handleInputChange}
         validationError={validationError}
       />
-      {showPopover ? (
+      {showPopover && (loading || profiles?.length) ? (
         <div
           tabIndex={-1}
           ref={resultsRef}
