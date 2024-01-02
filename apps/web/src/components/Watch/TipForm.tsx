@@ -351,7 +351,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
         }
       })
     } catch (error) {
-      console.error('🚀 ~ ', error)
+      logger.error('[NEW TIP ERROR]', error)
     }
   }
 

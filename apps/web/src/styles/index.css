@@ -45,21 +45,6 @@ input[type='number'] {
   @apply text-brand-500;
 }
 
-.input-mentions-single {
-  @apply min-h-[2rem] w-full;
-}
-.input-mentions-textarea {
-  @apply min-h-[7rem] w-full;
-}
-.input-mentions-textarea textarea,
-.input-mentions-single textarea {
-  @apply w-full resize-y rounded-lg border border-gray-300 bg-white px-2.5 pt-0.5 outline-none focus:ring-1 focus:ring-gray-300 disabled:bg-gray-500 disabled:bg-opacity-20 disabled:opacity-60 dark:border-gray-700 dark:bg-gray-900;
-}
-.input-mentions-textarea__suggestions,
-.input-mentions-single__suggestions {
-  @apply !mt-8 w-56 rounded-xl !border !bg-white p-1 dark:border-gray-700 dark:!bg-gray-800;
-}
-
 .pb-safe {
   padding-bottom: env(safe-area-inset-bottom);
 }

@@ -21,10 +21,10 @@ import {
   checkLensManagerPermissions,
   EVENTS,
   getProfile,
-  getProfilePicture,
   getPublication,
   getPublicationData,
   getSignature,
+  logger,
   Tower,
   trimify,
   uploadToAr
@@ -373,7 +373,7 @@ const NewComment: FC<Props> = ({
         }
       })
     } catch (error) {
-      console.error('🚀 ~ NewComment ', error)
+      logger.error('[NEW COMMENT ERROR]', error)
     }
   }
 
@@ -384,39 +384,29 @@ const NewComment: FC<Props> = ({
   return (
     <form
       onSubmit={handleSubmit(submitComment)}
-      className="mb-2 flex w-full flex-wrap items-start justify-end gap-2"
+      className="mb-2 flex w-full flex-col flex-wrap items-end gap-2"
     >
-      <div className="flex flex-1 items-start space-x-2 md:space-x-3">
-        <div className="flex-none">
-          <img
-            src={getProfilePicture(activeProfile, 'AVATAR')}
-            className="size-8 rounded-full"
-            draggable={false}
-            alt={getProfile(activeProfile)?.slug}
-          />
-        </div>
-        <div className="relative w-full">
-          <InputMentions
-            placeholder={placeholder}
-            autoComplete="off"
-            validationError={errors.comment?.message}
-            value={watch('comment')}
-            onContentChange={(value) => {
-              setValue('comment', value)
-              clearErrors('comment')
-            }}
-            mentionsSelector="input-mentions-single !pb-1"
-          />
-          {!hideEmojiPicker && (
-            <div className="absolute right-2 top-1.5">
-              <EmojiPicker
-                onEmojiSelect={(emoji) =>
-                  setValue('comment', `${getValues('comment')}${emoji}`)
-                }
-              />
-            </div>
-          )}
-        </div>
+      <div className="relative flex w-full flex-1 items-start space-x-2 md:space-x-3">
+        <InputMentions
+          placeholder={placeholder}
+          autoComplete="off"
+          validationError={errors.comment?.message}
+          value={watch('comment')}
+          onContentChange={(value) => {
+            setValue('comment', value)
+            clearErrors('comment')
+          }}
+          className="w-full !pb-1"
+        />
+        {!hideEmojiPicker && (
+          <div className="absolute right-2 top-2">
+            <EmojiPicker
+              onEmojiSelect={(emoji) =>
+                setValue('comment', `${getValues('comment')}${emoji}`)
+              }
+            />
+          </div>
+        )}
       </div>
       <Button variant="surface" disabled={loading}>
         Comment

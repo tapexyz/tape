@@ -43,8 +43,8 @@ type Props = {
 const Details: FC<Props> = ({ onUpload, onCancel }) => {
   const uploadedMedia = useAppStore((state) => state.uploadedMedia)
   const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
-  const persistedCollectModule = useCollectStore((state) => state.collectModule)
   const saveAsDefault = useCollectStore((state) => state.saveAsDefault)
+  const persistedCollectModule = useCollectStore((state) => state.collectModule)
 
   const isByteSizeVideo = checkIsBytesVideo(uploadedMedia.durationInSeconds)
 
@@ -87,34 +87,20 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
         <div className="w-full md:w-2/5">
           {uploadedMedia.file ? <SelectedMedia /> : <DropZone />}
         </div>
+
         <div className="flex flex-1 flex-col justify-between">
-          <div>
-            <div className="relative">
-              <InputMentions
-                label="Title"
-                placeholder="Title that describes your content"
-                autoComplete="off"
-                validationError={errors.title?.message}
-                value={watch('title')}
-                onContentChange={(value) => {
-                  setValue('title', value)
-                  clearErrors('title')
-                }}
-                mentionsSelector="input-mentions-single"
-              />
-              <div className="absolute right-1 top-0 mt-1 flex items-center justify-end">
-                <span
-                  className={clsx(
-                    'text-xs',
-                    watch('title')?.length > 100
-                      ? 'text-red-500 opacity-100'
-                      : ' opacity-70'
-                  )}
-                >
-                  {watch('title')?.length}/100
-                </span>
-              </div>
-            </div>
+          <div className="tape-border rounded-medium dark:bg-cod bg-white p-5">
+            <InputMentions
+              label="Title"
+              placeholder="Title that describes your content"
+              autoComplete="off"
+              validationError={errors.title?.message}
+              value={watch('title')}
+              onContentChange={(value) => {
+                setValue('title', value)
+                clearErrors('title')
+              }}
+            />
             <div className="relative mt-4">
               <InputMentions
                 label="Description"
@@ -126,8 +112,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                   setValue('description', value)
                   clearErrors('description')
                 }}
-                rows={5}
-                mentionsSelector="input-mentions-textarea"
+                rows={6}
               />
               <div className="absolute right-2 top-8">
                 <EmojiPicker
@@ -153,14 +138,9 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
               </div>
             </div>
 
-            <div className="mt-4">
-              <Flex gap="2">
-                <MediaCategory />
-                <ReferenceModule />
-              </Flex>
-            </div>
-
-            <div className="mt-2">
+            <div className="mt-4 space-y-4">
+              <MediaCategory />
+              <ReferenceModule />
               <MediaLicense />
             </div>
 
@@ -234,6 +214,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
           </div>
         </div>
       </div>
+
       <div className="mt-4 flex items-center justify-end space-x-2">
         <Button
           type="button"
@@ -254,7 +235,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
           type="submit"
         >
           {uploadedMedia.uploadingThumbnail
-            ? 'Uploading image...'
+            ? 'Uploading poster...'
             : uploadedMedia.buttonText}
         </Button>
       </div>

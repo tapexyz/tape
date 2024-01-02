@@ -1,49 +1,72 @@
-import { Text } from '@radix-ui/themes'
+import type { TextAreaProps } from '@radix-ui/themes/dist/cjs/components/text-area'
+import { useDebounce, useOutsideClick } from '@tape.xyz/browser'
 import { LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
 import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { LimitType, useSearchProfilesLazyQuery } from '@tape.xyz/lens'
+import { Loader } from '@tape.xyz/ui'
 import clsx from 'clsx'
-import type { ComponentProps, FC } from 'react'
-import React, { useId } from 'react'
-import type { SuggestionDataItem } from 'react-mentions'
-import { Mention, MentionsInput } from 'react-mentions'
+import type { FC } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import getCaretCoordinates from 'textarea-caret'
 
 import ProfileSuggestion from './ProfileSuggestion'
+import { TextArea } from './TextArea'
 
-interface Props extends ComponentProps<'textarea'> {
+interface Props extends TextAreaProps {
   label?: string
-  type?: string
   className?: string
   validationError?: string
-  value: string
   onContentChange: (value: string) => void
-  mentionsSelector: string
 }
 
 const InputMentions: FC<Props> = ({
   label,
+  placeholder,
   validationError,
-  value,
   onContentChange,
-  mentionsSelector,
   ...props
 }) => {
-  const id = useId()
-  const [searchProfiles] = useSearchProfilesLazyQuery()
+  const [dropdownStyle, setDropdownStyle] = useState({})
+  const [showPopover, setShowPopover] = useState(false)
+  const [keyword, setKeyword] = useState('')
+  const [selectedIndex, setSelectedIndex] = useState(0)
 
-  const fetchSuggestions = async (
-    query: string,
-    callback: (data: SuggestionDataItem[]) => void
-  ) => {
-    if (!query) {
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
+  const resultsRef = useRef<HTMLDivElement>(null)
+  const buttonsRef = useRef<HTMLButtonElement[]>([])
+
+  const debouncedValue = useDebounce<string>(keyword, 500)
+
+  const [searchProfiles, { data, loading }] = useSearchProfilesLazyQuery()
+  const profiles = data?.searchProfiles?.items as Profile[]
+
+  useEffect(() => {
+    buttonsRef.current = buttonsRef.current.slice(0, profiles?.length)
+    buttonsRef.current[0]?.focus()
+  }, [loading, profiles])
+
+  const clearStates = () => {
+    setDropdownStyle({})
+    setShowPopover(false)
+    setKeyword('')
+    setSelectedIndex(0)
+    textareaRef.current?.focus()
+  }
+
+  useOutsideClick(resultsRef, () => {
+    clearStates()
+  })
+
+  const fetchSuggestions = async () => {
+    if (!keyword.length) {
       return
     }
     try {
-      const { data } = await searchProfiles({
+      await searchProfiles({
         variables: {
           request: {
-            query,
+            query: keyword,
             limit: LimitType.Ten,
             where: {
               customFilters: LENS_CUSTOM_FILTERS
@@ -51,75 +74,115 @@ const InputMentions: FC<Props> = ({
           }
         }
       })
-      if (data?.searchProfiles.__typename === 'PaginatedProfileResult') {
-        const profiles = data?.searchProfiles?.items as Profile[]
-        const channels = profiles?.map((profile: Profile) => ({
-          id: profile.handle?.fullHandle,
-          display: getProfile(profile)?.displayName,
-          profileId: profile.id,
-          picture: getProfilePicture(profile, 'AVATAR'),
-          followers: profile.stats.followers
-        }))
-        callback(channels)
-      }
-    } catch {
-      callback([])
+    } catch {}
+  }
+
+  useEffect(() => {
+    fetchSuggestions()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedValue])
+
+  const handleInputChange = async (
+    event: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    const value = event.target.value
+    onContentChange(value)
+    if (!textareaRef.current) {
+      return
+    }
+
+    const lastWord = value.split(/\s/).pop() || ''
+
+    if (lastWord.startsWith('@') && lastWord.length > 3) {
+      const coordinates = getCaretCoordinates(
+        textareaRef.current,
+        event.target.selectionEnd
+      )
+      setDropdownStyle({
+        top: `${coordinates.top - textareaRef.current.scrollTop}px`,
+        left: `${coordinates.left}px`
+      })
+      setKeyword(lastWord)
+      setShowPopover(true)
+    } else {
+      clearStates()
+    }
+  }
+
+  const handleProfileClick = (profile: Profile) => {
+    const value = props.value as string
+    const lastAtSignIndex = value.lastIndexOf('@')
+    if (lastAtSignIndex !== -1) {
+      const newValue = `${value.substring(0, lastAtSignIndex)}@${profile.handle
+        ?.fullHandle} `
+      onContentChange(newValue)
+    }
+    clearStates()
+  }
+
+  const popoverHandleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === 'ArrowDown') {
+      event.preventDefault()
+      const nextIndex = (selectedIndex + 1) % profiles.length
+      buttonsRef.current[nextIndex]?.focus()
+      setSelectedIndex(nextIndex)
+    } else if (event.key === 'ArrowUp') {
+      event.preventDefault()
+      const prevIndex = (selectedIndex - 1 + profiles.length) % profiles.length
+      buttonsRef.current[prevIndex]?.focus()
+      setSelectedIndex(prevIndex)
     }
   }
 
   return (
-    <label className="w-full" htmlFor={id}>
-      {label && (
-        <div className="mb-1 flex items-center space-x-1.5">
-          <Text size="2" weight="medium">
-            {label}
-          </Text>
-        </div>
-      )}
-      <div className="flex">
-        <MentionsInput
-          id={id}
-          className={mentionsSelector}
-          value={value}
-          placeholder={props.placeholder}
-          onChange={(e) => onContentChange(e.target.value)}
+    <div className="relative w-full">
+      <TextArea
+        {...props}
+        ref={textareaRef}
+        label={label}
+        placeholder={placeholder}
+        onChange={handleInputChange}
+        validationError={validationError}
+      />
+      {showPopover && (loading || profiles?.length) ? (
+        <div
+          tabIndex={-1}
+          ref={resultsRef}
+          style={dropdownStyle}
+          onKeyDown={popoverHandleKeyDown}
+          className="rounded-medium tape-border absolute z-10 mt-10 space-y-1 bg-white p-1.5 dark:bg-black"
         >
-          <Mention
-            trigger="@"
-            displayTransform={(handle) => `@${handle} `}
-            markup=" @__id__ "
-            appendSpaceOnAdd
-            renderSuggestion={(
-              suggestion: SuggestionDataItem & {
-                picture?: string
-                followers?: number
-                profileId?: string
-              },
-              _search,
-              _highlightedDisplay,
-              _index,
-              focused
-            ) => (
-              <ProfileSuggestion
-                id={suggestion.profileId as string}
-                pfp={suggestion.picture as string}
-                handle={suggestion.id as string}
-                followers={suggestion.followers as number}
-                className={clsx({
-                  'bg-brand-50 rounded dark:bg-black': focused
-                })}
-              />
-            )}
-            data={fetchSuggestions}
-          />
-        </MentionsInput>
-      </div>
-      {validationError && (
-        <div className="mx-1 mt-1 text-xs font-medium text-red-500">
-          {validationError}
+          {loading ? (
+            <Loader />
+          ) : (
+            profiles?.map((profile: Profile, index) => (
+              <div key={profile.id} className="w-48" tabIndex={-1}>
+                <button
+                  ref={(el) => {
+                    if (el) {
+                      buttonsRef.current[index] = el
+                    }
+                  }}
+                  type="button"
+                  onClick={() => handleProfileClick(profile)}
+                  className={clsx(
+                    'hover:dark:bg-smoke hover:bg-gallery w-full rounded-lg text-left',
+                    index === selectedIndex && 'dark:bg-smoke bg-gallery'
+                  )}
+                >
+                  <ProfileSuggestion
+                    followers={profile.stats.followers}
+                    handle={getProfile(profile)?.slug}
+                    pfp={getProfilePicture(profile, 'AVATAR')}
+                    id={profile.id}
+                  />
+                </button>
+              </div>
+            ))
+          )}
         </div>
-      )}
-    </label>
+      ) : null}
+    </div>
   )
 }
 

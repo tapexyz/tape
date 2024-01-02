@@ -71,11 +71,7 @@ const Feed = ({ showFilter = true }) => {
 
   return (
     <div className="laptop:pt-6 space-y-4 pt-4">
-      {showFilter && (
-        <div>
-          <CategoryFilters />
-        </div>
-      )}
+      {showFilter && <CategoryFilters />}
       <div>
         {loading && <TimelineShimmer />}
         {!error && !loading && videos.length > 0 && (
