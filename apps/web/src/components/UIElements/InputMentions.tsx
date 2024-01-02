@@ -119,6 +119,14 @@ const InputMentions: FC<Props> = ({
     clearStates()
   }
 
+  const wrapperHandleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === 'ArrowDown') {
+      buttonsRef.current[selectedIndex + 1]?.focus()
+    } else if (event.key === 'ArrowUp') {
+      buttonsRef.current[selectedIndex - 1]?.focus()
+    }
+  }
+
   const popoverHandleKeyDown = (event: React.KeyboardEvent) => {
     if (event.key === 'ArrowDown') {
       event.preventDefault()
@@ -130,14 +138,6 @@ const InputMentions: FC<Props> = ({
       const prevIndex = (selectedIndex - 1 + profiles.length) % profiles.length
       setSelectedIndex(prevIndex)
       buttonsRef.current[prevIndex]?.focus()
-    }
-  }
-
-  const wrapperHandleKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === 'ArrowDown') {
-      buttonsRef.current[selectedIndex + 1]?.focus()
-    } else if (event.key === 'ArrowUp') {
-      buttonsRef.current[selectedIndex - 1]?.focus()
     }
   }
 
