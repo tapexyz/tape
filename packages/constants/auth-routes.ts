@@ -14,8 +14,4 @@ export const AUTH_ROUTES = [
   '/notifications'
 ]
 
-export const OWNER_ONLY_ROUTES = [
-  '/settings/danger',
-  '/settings/manager',
-  '/settings/handles'
-]
+export const OWNER_ONLY_ROUTES = ['/settings/danger', '/settings/manager']

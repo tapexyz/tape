@@ -20,6 +20,7 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "src/styles/index.css"
+    "src/styles/index.css",
+    ".next/types/**/*.ts"
   ]
 }
