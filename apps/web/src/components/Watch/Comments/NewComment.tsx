@@ -24,6 +24,7 @@ import {
   getPublication,
   getPublicationData,
   getSignature,
+  logger,
   Tower,
   trimify,
   uploadToAr
@@ -372,7 +373,7 @@ const NewComment: FC<Props> = ({
         }
       })
     } catch (error) {
-      console.error('🚀 ~ NewComment ', error)
+      logger.error('[NEW COMMENT ERROR]', error)
     }
   }
 
