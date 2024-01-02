@@ -32,10 +32,11 @@ const SettingsSidebar = () => {
   const { address } = useAccount()
   const activeProfile = useProfileStore((state) => state.activeProfile)
   const isActivePath = (path: string) => router.pathname === path
-
   if (!activeProfile || !address) {
     return null
   }
+
+  const isProfileOwner = getIsProfileOwner(activeProfile, address)
 
   return (
     <div className="m-1 flex flex-col space-y-1">
@@ -81,7 +82,7 @@ const SettingsSidebar = () => {
         <InterestsOutline className="size-4" />
         <span>Interests</span>
       </Link>
-      {getIsProfileOwner(activeProfile, address) && (
+      {isProfileOwner && (
         <Link
           href={SETTINGS_MANAGER}
           className={clsx(
@@ -129,7 +130,7 @@ const SettingsSidebar = () => {
         <KeyOutline className="size-4" />
         <span>Sessions</span>
       </Link>
-      {getIsProfileOwner(activeProfile, address) && (
+      {isProfileOwner && (
         <Link
           href={SETTINGS_DANGER_ZONE}
           className={clsx(

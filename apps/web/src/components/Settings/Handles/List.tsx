@@ -1,7 +1,5 @@
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import useProfileStore from '@lib/store/idb/profile'
 import { INFINITE_SCROLL_ROOT_MARGIN } from '@tape.xyz/constants'
-import { getIsProfileOwner } from '@tape.xyz/generic'
 import type { HandleInfo, OwnedHandlesRequest } from '@tape.xyz/lens'
 import { useOwnedHandlesQuery } from '@tape.xyz/lens'
 import { Loader } from '@tape.xyz/ui'
@@ -12,15 +10,13 @@ import { useAccount } from 'wagmi'
 
 const List = () => {
   const { address } = useAccount()
-  const activeProfile = useProfileStore((state) => state.activeProfile)
-  const isOwner = activeProfile && getIsProfileOwner(activeProfile, address)
 
   const request: OwnedHandlesRequest = { for: address }
   const { data, loading, error, fetchMore } = useOwnedHandlesQuery({
     variables: {
       request
     },
-    skip: !isOwner || !address
+    skip: !address
   })
   const ownedHandles = data?.ownedHandles.items as HandleInfo[]
   const pageInfo = data?.ownedHandles.pageInfo
@@ -39,10 +35,6 @@ const List = () => {
       })
     }
   })
-
-  if (!isOwner) {
-    return null
-  }
 
   return (
     <div>
