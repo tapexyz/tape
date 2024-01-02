@@ -79,7 +79,7 @@ const NonRelevantComments: FC<Props> = ({ video, className }) => {
       <Button
         className="group w-full text-center"
         onClick={() => onToggle()}
-        variant="outline"
+        variant="ghost"
         highContrast
       >
         <span className="flex items-center space-x-2">

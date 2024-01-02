@@ -99,7 +99,7 @@ const InputMentions: FC<Props> = ({
         event.target.selectionEnd
       )
       setDropdownStyle({
-        top: `${coordinates.top}px`,
+        top: `${coordinates.top - textareaRef.current.scrollTop}px`,
         left: `${coordinates.left}px`
       })
       setKeyword(lastWord)
