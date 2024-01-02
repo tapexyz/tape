@@ -102,7 +102,7 @@ const TopOverlay: FC<OverlayProps> = ({ playerRef, video }) => {
       </div>
       <div className="absolute bottom-2 right-0 md:bottom-4">
         <Link
-          className="rounded-l-small flex items-center space-x-1.5 bg-black/50 px-3 py-1.5 text-white"
+          className="flex items-center space-x-1.5 rounded-l-full bg-black/50 px-3 py-1.5 text-white"
           title={`Watch on ${TAPE_APP_NAME}`}
           href={`${TAPE_WEBSITE_URL}/watch/${video?.id}`}
           target="_blank"
@@ -111,8 +111,9 @@ const TopOverlay: FC<OverlayProps> = ({ playerRef, video }) => {
           <img
             src={`${STATIC_ASSETS}/brand/logo.svg`}
             draggable={false}
-            className="ml-0.5 size-6 md:size-10"
+            className="ml-2 size-5 md:size-10"
             alt={TAPE_APP_NAME}
+            width={40}
           />
           <b>Watch on Tape</b>
         </Link>

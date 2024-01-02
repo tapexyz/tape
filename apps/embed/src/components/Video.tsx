@@ -1,25 +1,24 @@
+'use client'
+
 import { useAverageColor } from '@tape.xyz/browser'
 import { LENSTUBE_BYTES_APP_ID } from '@tape.xyz/constants'
 import {
   EVENTS,
-  getPublicationData,
   getPublicationMediaUrl,
   getShouldUploadVideo,
   getThumbnailUrl,
   imageCdn,
   sanitizeDStorageUrl,
-  Tower,
-  truncate
+  Tower
 } from '@tape.xyz/generic'
 import type { PrimaryPublication } from '@tape.xyz/lens'
 import VideoPlayer from '@tape.xyz/ui/VideoPlayer'
 import clsx from 'clsx'
-import { useRouter } from 'next/router'
+import { useSearchParams } from 'next/navigation'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 
 import PlayOutline from './icons/PlayOutline'
-import MetaTags from './MetaTags'
 import TopOverlay from './TopOverlay'
 
 type Props = {
@@ -27,12 +26,12 @@ type Props = {
 }
 
 const Video: FC<Props> = ({ video }) => {
-  const { query } = useRouter()
+  const { get } = useSearchParams()
   const [playerRef, setPlayerRef] = useState<HTMLMediaElement>()
 
-  const isAutoPlay = Boolean(query.autoplay) && query.autoplay === '1'
-  const isLoop = Boolean(query.loop) && query.loop === '1'
-  const currentTime = Number(query.t ?? 0) ?? 0
+  const isAutoPlay = Boolean(get('autoplay')) && get('autoplay') === '1'
+  const isLoop = Boolean(get('loop')) && get('loop') === '1'
+  const currentTime = Number(get('t') ?? 0) ?? 0
 
   const [clicked, setClicked] = useState(isAutoPlay || currentTime !== 0)
 
@@ -67,17 +66,6 @@ const Video: FC<Props> = ({ video }) => {
 
   return (
     <div className="group relative h-screen w-screen overflow-x-hidden">
-      <MetaTags
-        title={truncate(
-          getPublicationData(video.metadata)?.title as string,
-          60
-        )}
-        description={truncate(
-          getPublicationData(video.metadata)?.content as string,
-          100
-        )}
-        image={thumbnailUrl}
-      />
       {clicked ? (
         <VideoPlayer
           refCallback={refCallback}

@@ -4,10 +4,22 @@
     "baseUrl": ".",
     "noEmit": true,
     "paths": {
-      "@components*": ["src/components*"],
-      "@lib*": ["src/lib*"]
+      "@/*": [
+        "./src/*"
+      ]
     },
-    "isolatedModules": true
+    "isolatedModules": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "strictNullChecks": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/styles/index.css"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "src/styles/index.css"
+  ]
 }
