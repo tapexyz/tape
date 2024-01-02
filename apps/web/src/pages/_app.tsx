@@ -12,7 +12,7 @@ const App = ({ Component, pageProps }: AppProps) => {
   return (
     <Providers>
       <style jsx global>{`
-        body {
+        html {
           font-family: ${tapeFont.style.fontFamily};
         }
       `}</style>

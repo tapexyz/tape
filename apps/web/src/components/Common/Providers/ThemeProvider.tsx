@@ -11,7 +11,7 @@ type Props = {
 const ThemeProvider: FC<Props> = ({ children }) => {
   return (
     <NextTheme defaultTheme="light" attribute="class">
-      <Theme accentColor="gray" radius="large">
+      <Theme accentColor="gray" radius="large" hasBackground={false}>
         {children}
       </Theme>
     </NextTheme>
