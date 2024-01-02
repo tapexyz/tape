@@ -11,7 +11,6 @@ import { AUTH_ROUTES, OWNER_ONLY_ROUTES } from '@tape.xyz/constants'
 import { getIsProfileOwner, trimify } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { useCurrentProfileQuery } from '@tape.xyz/lens'
-import { watchAccount } from '@wagmi/core'
 import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
@@ -77,20 +76,14 @@ const Layout: FC<Props> = ({
   }
 
   useEffect(() => {
+    setFingerprint()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
     validateAuthRoutes()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [asPath, currentSession?.profileId, activeProfile])
-
-  useEffect(() => {
-    setFingerprint()
-    const unwatch = watchAccount(() => {
-      if (activeProfile?.id) {
-        signOut()
-      }
-    })
-    return () => unwatch()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
 
   if (!isMounted()) {
     return <MetaTags />
