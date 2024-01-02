@@ -43,6 +43,7 @@ const InputMentions: FC<Props> = ({
 
   useEffect(() => {
     buttonsRef.current = buttonsRef.current.slice(0, profiles?.length)
+    buttonsRef.current[0]?.focus()
   }, [loading, profiles])
 
   const clearStates = () => {
@@ -119,30 +120,22 @@ const InputMentions: FC<Props> = ({
     clearStates()
   }
 
-  const wrapperHandleKeyDown = (event: React.KeyboardEvent) => {
-    if (event.key === 'ArrowDown') {
-      buttonsRef.current[selectedIndex + 1]?.focus()
-    } else if (event.key === 'ArrowUp') {
-      buttonsRef.current[selectedIndex - 1]?.focus()
-    }
-  }
-
   const popoverHandleKeyDown = (event: React.KeyboardEvent) => {
     if (event.key === 'ArrowDown') {
       event.preventDefault()
       const nextIndex = (selectedIndex + 1) % profiles.length
-      setSelectedIndex(nextIndex)
       buttonsRef.current[nextIndex]?.focus()
+      setSelectedIndex(nextIndex)
     } else if (event.key === 'ArrowUp') {
       event.preventDefault()
       const prevIndex = (selectedIndex - 1 + profiles.length) % profiles.length
-      setSelectedIndex(prevIndex)
       buttonsRef.current[prevIndex]?.focus()
+      setSelectedIndex(prevIndex)
     }
   }
 
   return (
-    <div className="relative w-full" onKeyDown={wrapperHandleKeyDown}>
+    <div className="relative w-full">
       <TextArea
         {...props}
         ref={textareaRef}
