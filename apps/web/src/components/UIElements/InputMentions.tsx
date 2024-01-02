@@ -5,6 +5,7 @@ import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { LimitType, useSearchProfilesLazyQuery } from '@tape.xyz/lens'
 import { Loader } from '@tape.xyz/ui'
+import clsx from 'clsx'
 import type { FC } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
 import getCaretCoordinates from 'textarea-caret'
@@ -29,18 +30,27 @@ const InputMentions: FC<Props> = ({
   const [dropdownStyle, setDropdownStyle] = useState({})
   const [showPopover, setShowPopover] = useState(false)
   const [keyword, setKeyword] = useState('')
+  const [selectedIndex, setSelectedIndex] = useState(0)
 
-  const textareaRef = useRef(null)
-  const resultsRef = useRef(null)
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
+  const resultsRef = useRef<HTMLDivElement>(null)
+  const buttonsRef = useRef<HTMLButtonElement[]>([])
+
   const debouncedValue = useDebounce<string>(keyword, 500)
 
   const [searchProfiles, { data, loading }] = useSearchProfilesLazyQuery()
   const profiles = data?.searchProfiles?.items as Profile[]
 
+  useEffect(() => {
+    buttonsRef.current = buttonsRef.current.slice(0, profiles?.length)
+  }, [loading, profiles])
+
   const clearStates = () => {
     setDropdownStyle({})
     setShowPopover(false)
     setKeyword('')
+    setSelectedIndex(0)
+    textareaRef.current?.focus()
   }
 
   useOutsideClick(resultsRef, () => {
@@ -109,8 +119,30 @@ const InputMentions: FC<Props> = ({
     clearStates()
   }
 
+  const popoverHandleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === 'ArrowDown') {
+      event.preventDefault()
+      const nextIndex = (selectedIndex + 1) % profiles.length
+      setSelectedIndex(nextIndex)
+      buttonsRef.current[nextIndex]?.focus()
+    } else if (event.key === 'ArrowUp') {
+      event.preventDefault()
+      const prevIndex = (selectedIndex - 1 + profiles.length) % profiles.length
+      setSelectedIndex(prevIndex)
+      buttonsRef.current[prevIndex]?.focus()
+    }
+  }
+
+  const wrapperHandleKeyDown = (event: React.KeyboardEvent) => {
+    if (event.key === 'ArrowDown') {
+      buttonsRef.current[selectedIndex + 1]?.focus()
+    } else if (event.key === 'ArrowUp') {
+      buttonsRef.current[selectedIndex - 1]?.focus()
+    }
+  }
+
   return (
-    <div className="relative w-full">
+    <div className="relative w-full" onKeyDown={wrapperHandleKeyDown}>
       <TextArea
         {...props}
         ref={textareaRef}
@@ -121,19 +153,29 @@ const InputMentions: FC<Props> = ({
       />
       {showPopover ? (
         <div
+          tabIndex={-1}
           ref={resultsRef}
           style={dropdownStyle}
-          className="rounded-medium tape-border absolute z-10 mt-10 bg-white p-1.5 dark:bg-black"
+          onKeyDown={popoverHandleKeyDown}
+          className="rounded-medium tape-border absolute z-10 mt-10 space-y-1 bg-white p-1.5 dark:bg-black"
         >
           {loading ? (
             <Loader />
           ) : (
-            profiles?.map((profile: Profile) => (
-              <div key={profile.id} className="w-48">
+            profiles?.map((profile: Profile, index) => (
+              <div key={profile.id} className="w-48" tabIndex={-1}>
                 <button
+                  ref={(el) => {
+                    if (el) {
+                      buttonsRef.current[index] = el
+                    }
+                  }}
                   type="button"
                   onClick={() => handleProfileClick(profile)}
-                  className="hover:dark:bg-smoke hover:bg-gallery w-full rounded-lg text-left"
+                  className={clsx(
+                    'hover:dark:bg-smoke hover:bg-gallery w-full rounded-lg text-left',
+                    index === selectedIndex && 'dark:bg-smoke bg-gallery'
+                  )}
                 >
                   <ProfileSuggestion
                     followers={profile.stats.followers}

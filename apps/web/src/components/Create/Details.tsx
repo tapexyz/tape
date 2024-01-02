@@ -1,6 +1,5 @@
 import EmojiPicker from '@components/UIElements/EmojiPicker'
 import InputMentions from '@components/UIElements/InputMentions'
-import { TextArea } from '@components/UIElements/TextArea'
 import Tooltip from '@components/UIElements/Tooltip'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useAppStore from '@lib/store'
@@ -55,8 +54,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
     formState: { errors },
     setValue,
     watch,
-    clearErrors,
-    register
+    clearErrors
   } = useForm<VideoFormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -92,25 +90,29 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
 
         <div className="flex flex-1 flex-col justify-between">
           <div className="tape-border rounded-medium dark:bg-cod bg-white p-5">
-            <TextArea
+            <InputMentions
               label="Title"
               placeholder="Title that describes your content"
               autoComplete="off"
               validationError={errors.title?.message}
-              {...register('title')}
+              value={watch('title')}
+              onContentChange={(value) => {
+                setValue('title', value)
+                clearErrors('title')
+              }}
             />
             <div className="relative mt-4">
               <InputMentions
                 label="Description"
                 placeholder="Describe more about your content, can also be @profile, #hashtags or chapters (00:20 - Intro)"
+                autoComplete="off"
+                validationError={errors.description?.message}
                 value={watch('description')}
                 onContentChange={(value) => {
                   setValue('description', value)
                   clearErrors('description')
                 }}
-                rows={5}
-                validationError={errors.description?.message}
-                autoComplete="off"
+                rows={6}
               />
               <div className="absolute right-2 top-8">
                 <EmojiPicker
