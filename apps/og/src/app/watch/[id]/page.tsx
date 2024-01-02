@@ -6,8 +6,8 @@ import {
 } from '@tape.xyz/constants'
 import {
   getProfile,
+  getPublication,
   getPublicationData,
-  isMirrorPublication,
   truncate
 } from '@tape.xyz/generic'
 import type { AnyPublication } from '@tape.xyz/lens'
@@ -35,9 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 
   const publication = data.publication as AnyPublication
-  const targetPublication = isMirrorPublication(publication)
-    ? publication.mirrorOn
-    : publication
+  const targetPublication = getPublication(publication)
   const { by: profile, metadata } = targetPublication
   const publicationTitle = getPublicationData(metadata)?.title || ''
   const publicationContent = truncate(
