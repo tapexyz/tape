@@ -19,3 +19,6 @@ div[type='button'] {
 .rt-BaseMenuContent {
   @apply dark:!bg-black;
 }
+.rt-TextAreaInput {
+  @apply !resize-y;
+}
