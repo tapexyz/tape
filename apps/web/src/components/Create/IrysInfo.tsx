@@ -163,7 +163,7 @@ const IrysInfo = () => {
 
   return (
     <div className="mt-4 w-full space-y-4">
-      {!isEnoughBalanceAvailable && !fetchingBalance ? (
+      {!isEnoughBalanceAvailable && !fetchingBalance && irysData.instance ? (
         <Callout.Root color="red">
           <Callout.Icon>
             <WarningOutline className="size-4" />
@@ -192,6 +192,7 @@ const IrysInfo = () => {
             <Tooltip content="Refresh balance" placement="top">
               <IconButton
                 size="1"
+                radius="full"
                 variant="soft"
                 type="button"
                 className="focus:outline-none"

@@ -1,5 +1,6 @@
 import UploadOutline from '@components/Common/Icons/UploadOutline'
 import useAppStore from '@lib/store'
+import useProfileStore from '@lib/store/idb/profile'
 import { Box, Button } from '@radix-ui/themes'
 import { useDragAndDrop } from '@tape.xyz/browser'
 import {
@@ -15,6 +16,7 @@ import toast from 'react-hot-toast'
 
 const DropZone = () => {
   const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
+  const activeProfile = useProfileStore((state) => state.activeProfile)
 
   const {
     dragOver,
@@ -34,7 +36,10 @@ const DropZone = () => {
       if (file) {
         const preview = URL.createObjectURL(file)
         const isAudio = ALLOWED_AUDIO_MIME_TYPES.includes(file?.type)
-        const isUnderFreeLimit = canUploadedToIpfs(file?.size)
+        const isUploadToIpfs = canUploadedToIpfs(
+          file?.size || 0,
+          activeProfile?.id
+        )
         setUploadedMedia({
           stream: fileReaderStream(file),
           preview,
@@ -44,7 +49,7 @@ const DropZone = () => {
           mediaCategory: isAudio
             ? CREATOR_VIDEO_CATEGORIES[1]
             : CREATOR_VIDEO_CATEGORIES[0],
-          isUploadToIpfs: isUnderFreeLimit
+          isUploadToIpfs
         })
       }
     } catch (error) {
