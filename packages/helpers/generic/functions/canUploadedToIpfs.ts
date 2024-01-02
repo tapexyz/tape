@@ -1,11 +1,7 @@
-import {
-  IPFS_FREE_UPLOAD_LIMIT,
-  UNSPONSORED_IPFS_UPLOADS
-} from '@tape.xyz/constants'
+import { IPFS_FREE_UPLOAD_LIMIT } from '@tape.xyz/constants'
 
-export const canUploadedToIpfs = (bytes: number, profileId: string) => {
-  const unsponsored = UNSPONSORED_IPFS_UPLOADS.includes(profileId)
-  if (bytes === null || bytes === undefined || unsponsored) {
+export const canUploadedToIpfs = (bytes: number, sponsored?: boolean) => {
+  if (bytes === null || bytes === undefined || !sponsored) {
     return false
   }
   const megaBytes = bytes ? bytes / 1024 ** 2 : 0

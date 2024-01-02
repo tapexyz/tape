@@ -38,7 +38,7 @@ const DropZone = () => {
         const isAudio = ALLOWED_AUDIO_MIME_TYPES.includes(file?.type)
         const isUploadToIpfs = canUploadedToIpfs(
           file?.size || 0,
-          activeProfile?.id
+          activeProfile?.sponsor
         )
         setUploadedMedia({
           stream: fileReaderStream(file),
