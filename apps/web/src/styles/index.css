@@ -44,7 +44,7 @@ input[type='number'] {
 .interweave-content a {
   @apply text-brand-500;
 }
- 
+
 .pb-safe {
   padding-bottom: env(safe-area-inset-bottom);
 }
