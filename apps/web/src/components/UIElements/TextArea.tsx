@@ -30,11 +30,6 @@ export const TextArea = forwardRef<HTMLTextAreaElement, Props>(
             {...props}
           />
         </Flex>
-        {validationError && (
-          <div className="mx-1 mt-1 text-xs font-medium text-red-500">
-            {validationError}
-          </div>
-        )}
         {validationError ? (
           <Text color="red" mt="1" size="1" weight="medium">
             {validationError}
