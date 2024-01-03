@@ -6,8 +6,8 @@ import UAParser from 'ua-parser-js'
 import type { z } from 'zod'
 import { any, object, string } from 'zod'
 
-import checkEventExistence from '@/helpers/checkEventExistence'
 import { ERROR_MESSAGE } from '@/helpers/constants'
+import checkEventExistence from '@/helpers/tower/checkEventExistence'
 
 type Bindings = {
   INGEST_REST_ENDPOINT: string

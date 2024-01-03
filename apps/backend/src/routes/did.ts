@@ -1,19 +1,33 @@
+import { zValidator } from '@hono/zod-validator'
+import { Hono } from 'hono'
+import { cors } from 'hono/cors'
 import { createPublicClient, http, isAddress } from 'viem'
 import { mainnet } from 'viem/chains'
+import type { z } from 'zod'
 import { array, object, string } from 'zod'
 
-import { resolverAbi } from '../resolverAbi'
-import type { WorkerRequest } from '../types'
+import {
+  ERROR_MESSAGE,
+  LENS_API_URL,
+  PUBLIC_ETHEREUM_NODE
+} from '@/helpers/constants'
+import { resolverAbi } from '@/helpers/did/resolverAbi'
 
-type ExtensionRequest = {
-  addresses: string[]
+const app = new Hono()
+const corsConfig = {
+  origin: ['*'],
+  allowHeaders: ['*'],
+  allowMethods: ['POST', 'OPTIONS'],
+  maxAge: 600
 }
+app.use('*', cors(corsConfig))
 
 const validationSchema = object({
   addresses: array(string().regex(/^(0x)?[\da-f]{40}$/i)).max(50, {
     message: 'Too many addresses!'
   })
 })
+type RequestInput = z.infer<typeof validationSchema>
 
 const PROFILES_QUERY = `query Profiles($ownedBy: [EvmAddress!]) {
   profiles(request: { where: { ownedBy: $ownedBy } }) {
@@ -46,7 +60,7 @@ const replaceAddressesWithHandles = (
 const resolveENS = async (address: string): Promise<string> => {
   const client = createPublicClient({
     chain: mainnet,
-    transport: http('https://ethereum.publicnode.com')
+    transport: http(PUBLIC_ETHEREUM_NODE)
   })
   const data = await client.readContract({
     address: '0x3671ae578e63fdf66ad4f3e12cc0c0d71ac7510c',
@@ -56,7 +70,7 @@ const resolveENS = async (address: string): Promise<string> => {
   })
 
   const results: string[] = (data as []) ?? []
-  const dids = results?.map((d: string, i) => (Boolean(d.trim()) ? d : address))
+  const dids = results?.map((d: string) => (Boolean(d.trim()) ? d : address))
   return dids[0]
 }
 
@@ -74,26 +88,11 @@ const resolveAllAddresses = async (
   return resolvedAddresses
 }
 
-export default async (request: WorkerRequest) => {
-  const body = await request.json()
-  if (!body) {
-    return new Response(
-      JSON.stringify({ success: false, error: 'No body found' })
-    )
-  }
-
-  const validation = validationSchema.safeParse(body)
-
-  if (!validation.success) {
-    return new Response(
-      JSON.stringify({ success: false, error: validation.error.issues })
-    )
-  }
-
-  const { addresses } = body as ExtensionRequest
-
+app.post('/', zValidator('json', validationSchema), async (c) => {
   try {
-    const response = await fetch('https://api-v2.lens.dev/', {
+    const { addresses } = await c.req.json<RequestInput>()
+
+    const response = await fetch(LENS_API_URL, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -116,8 +115,10 @@ export default async (request: WorkerRequest) => {
 
     const dids = await resolveAllAddresses(transformedAddresses)
 
-    return new Response(JSON.stringify({ success: true, dids }))
-  } catch (error) {
-    throw error
+    return c.json({ success: true, dids })
+  } catch {
+    return c.json({ success: false, message: ERROR_MESSAGE })
   }
-}
+})
+
+export default app
