@@ -1,20 +1,19 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
-import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@lenstube/constants'
+import { useNavigation } from '@react-navigation/native'
+import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@tape.xyz/constants'
 import {
   getPublicationMediaUrl,
-  getShortHandTime,
   getThumbnailUrl,
   imageCdn
-} from '@lenstube/generic'
-import type { MirrorablePublication, PublicationsRequest } from '@lenstube/lens'
+} from '@tape.xyz/generic'
+import type { MirrorablePublication, PublicationsRequest } from '@tape.xyz/lens'
 import {
   LimitType,
   PublicationMetadataMainFocusType,
   PublicationType,
   usePublicationsQuery
-} from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
-import { useNavigation } from '@react-navigation/native'
+} from '@tape.xyz/lens'
+import type { MobileThemeConfig } from '@tape.xyz/lens/custom-types'
 import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
 import React, { memo, useCallback, useMemo } from 'react'
@@ -27,6 +26,7 @@ import {
   View
 } from 'react-native'
 
+import { getShortHandTime } from '~/helpers/format-time'
 import normalizeFont from '~/helpers/normalize-font'
 import { colors } from '~/helpers/theme'
 import { useMobileTheme } from '~/hooks'
@@ -126,7 +126,9 @@ const PublicationItem: FC<Props> = ({ publication, index, last }) => {
   const isBytes = publication.publishedOn?.id === LENSTUBE_BYTES_APP_ID
   const isImage = publication.metadata.__typename === 'ImageMetadataV3'
   const imageUrl = imageCdn(
-    isImage ? getPublicationMediaUrl(publication) : getThumbnailUrl(publication)
+    isImage
+      ? getPublicationMediaUrl(publication.metadata)
+      : getThumbnailUrl(publication.metadata)
   )
 
   return (

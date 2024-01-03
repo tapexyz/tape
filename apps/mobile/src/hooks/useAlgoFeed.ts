@@ -1,11 +1,11 @@
-import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
-import type { PublicationsRequest } from '@lenstube/lens'
+import { LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
+import type { PublicationsRequest } from '@tape.xyz/lens'
 import {
   LimitType,
   PublicationMetadataMainFocusType,
   PublicationType,
   usePublicationsQuery
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 
 const useAlgoFeed = () => {
   const request: PublicationsRequest = {

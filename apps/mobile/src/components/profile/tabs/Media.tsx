@@ -1,15 +1,15 @@
-import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
+import { LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
 import type {
   MirrorablePublication,
   Profile,
   PublicationsRequest
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 import {
   LimitType,
   PublicationMetadataMainFocusType,
   PublicationType,
   usePublicationsQuery
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 import type { FC } from 'react'
 import React, { memo, useCallback } from 'react'
 import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native'

@@ -1,13 +1,13 @@
 import type { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
-import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
+import { FlashList } from '@shopify/flash-list'
+import { LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
 import type {
   AnyPublication,
   Comment,
   PublicationsRequest
-} from '@lenstube/lens'
-import { LimitType, usePublicationsQuery } from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
-import { FlashList } from '@shopify/flash-list'
+} from '@tape.xyz/lens'
+import { LimitType, usePublicationsQuery } from '@tape.xyz/lens'
+import type { MobileThemeConfig } from '@tape.xyz/lens/custom-types'
 import type { FC } from 'react'
 import React, { useCallback } from 'react'
 import {

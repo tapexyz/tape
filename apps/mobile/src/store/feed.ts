@@ -1,5 +1,5 @@
-import type { AlgoType } from '@lenstube/lens/custom-types'
-import { TimelineFeedType } from '@lenstube/lens/custom-types'
+import type { AlgoType } from '@tape.xyz/lens/custom-types'
+import { TimelineFeedType } from '@tape.xyz/lens/custom-types'
 import { create } from 'zustand'
 
 interface HomeFeedState {

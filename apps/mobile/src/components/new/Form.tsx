@@ -1,4 +1,4 @@
-import { PublicationMetadataMainFocusType } from '@lenstube/lens'
+import { PublicationMetadataMainFocusType } from '@tape.xyz/lens'
 import type { MutableRefObject } from 'react'
 import React from 'react'
 import type { UseFormReturn } from 'react-hook-form'

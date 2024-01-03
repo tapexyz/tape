@@ -1,8 +1,8 @@
-import type { Profile } from '@lenstube/lens'
+import type { Profile } from '@tape.xyz/lens'
 import {
   MOBILE_PROFILE_ITEMS,
   type MobileProfileTabItemType
-} from '@lenstube/lens/custom-types'
+} from '@tape.xyz/lens/custom-types'
 import type { FC } from 'react'
 import React, { memo, useCallback, useRef, useState } from 'react'
 import type {

@@ -1,18 +1,18 @@
-import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@lenstube/constants'
-import { getThumbnailUrl, imageCdn, trimify } from '@lenstube/generic'
+import { useNavigation } from '@react-navigation/native'
+import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@tape.xyz/constants'
+import { getThumbnailUrl, imageCdn, trimify } from '@tape.xyz/generic'
 import type {
   ExplorePublicationRequest,
   MirrorablePublication
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 import {
   ExplorePublicationsOrderByType,
   ExplorePublicationType,
   LimitType,
   PublicationMetadataMainFocusType,
   useExplorePublicationsQuery
-} from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
-import { useNavigation } from '@react-navigation/native'
+} from '@tape.xyz/lens'
+import type { MobileThemeConfig } from '@tape.xyz/lens/custom-types'
 import { Image as ExpoImage } from 'expo-image'
 import { LinearGradient } from 'expo-linear-gradient'
 import { Skeleton } from 'moti/skeleton'
@@ -28,7 +28,6 @@ import {
 import normalizeFont from '~/helpers/normalize-font'
 import { useMobileTheme } from '~/hooks'
 import useMobileStore from '~/store'
-import { useMobilePersistStore } from '~/store/persist'
 
 import UserProfile from '../common/UserProfile'
 import HCarousel from '../ui/HCarousel'
@@ -91,9 +90,6 @@ const PopularVideos = () => {
   const { themeConfig } = useMobileTheme()
   const style = styles(themeConfig)
 
-  const selectedProfile = useMobilePersistStore(
-    (state) => state.selectedProfile
-  )
   const homeGradientColor = useMobileStore((state) => state.homeGradientColor)
 
   const request: ExplorePublicationRequest = {
@@ -139,7 +135,7 @@ const PopularVideos = () => {
             renderItem={({ item }: { item: MirrorablePublication }) => {
               const isBytes = item.publishedOn?.id === LENSTUBE_BYTES_APP_ID
               const thumbnailUrl = imageCdn(
-                getThumbnailUrl(item, true),
+                getThumbnailUrl(item.metadata, true),
                 isBytes ? 'THUMBNAIL_V' : 'THUMBNAIL'
               )
               return (

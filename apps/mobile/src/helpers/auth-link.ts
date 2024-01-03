@@ -1,6 +1,6 @@
-import { LENS_API_URL, LENSTUBE_WEBSITE_URL } from '@lenstube/constants'
-import { logger, parseJwt } from '@lenstube/generic'
-import { ApolloLink, fromPromise, toPromise } from '@lenstube/lens/apollo'
+import { LENS_API_URL, TAPE_WEBSITE_URL } from '@tape.xyz/constants'
+import { logger, parseJwt } from '@tape.xyz/generic'
+import { ApolloLink, fromPromise, toPromise } from '@tape.xyz/lens/apollo'
 import axios from 'axios'
 
 import { hydrateAuthTokens, signIn, signOut } from '~/store/persist'
@@ -17,7 +17,7 @@ const REFRESH_AUTHENTICATION_MUTATION = `
 const mobileAuthLink = new ApolloLink((operation, forward) => {
   operation.setContext({
     headers: {
-      origin: LENSTUBE_WEBSITE_URL
+      origin: TAPE_WEBSITE_URL
     }
   })
   const { accessToken, refreshToken } = hydrateAuthTokens()

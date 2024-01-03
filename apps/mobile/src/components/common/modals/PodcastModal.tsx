@@ -1,13 +1,13 @@
-import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
-import type { ExplorePublicationRequest, Post } from '@lenstube/lens'
+import { FlashList } from '@shopify/flash-list'
+import { LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
+import type { ExplorePublicationRequest, Post } from '@tape.xyz/lens'
 import {
   ExplorePublicationsOrderByType,
   ExplorePublicationType,
   LimitType,
   PublicationMetadataMainFocusType,
   useExplorePublicationsQuery
-} from '@lenstube/lens'
-import { FlashList } from '@shopify/flash-list'
+} from '@tape.xyz/lens'
 import React, { useCallback } from 'react'
 import { ActivityIndicator, StyleSheet, View } from 'react-native'
 

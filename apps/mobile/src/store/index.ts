@@ -1,4 +1,4 @@
-import { ExplorePublicationsOrderByType } from '@lenstube/lens'
+import { ExplorePublicationsOrderByType } from '@tape.xyz/lens'
 import { create } from 'zustand'
 
 import { colors } from '~/helpers/theme'

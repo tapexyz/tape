@@ -1,18 +1,16 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
-import { LENSTUBE_BYTES_APP_ID, STATIC_ASSETS } from '@lenstube/constants'
+import { useNavigation } from '@react-navigation/native'
+import { LENSTUBE_BYTES_APP_ID, STATIC_ASSETS } from '@tape.xyz/constants'
 import {
   getIsSensitiveContent,
-  getRelativeTime,
   getThumbnailUrl,
-  getTimeFromSeconds,
-  getValueFromTraitType,
+  getValueFromKeyInAttributes,
   imageCdn,
   trimify,
   trimNewLines
-} from '@lenstube/generic'
-import type { Attribute, MirrorablePublication } from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
-import { useNavigation } from '@react-navigation/native'
+} from '@tape.xyz/generic'
+import type { MetadataAttribute, MirrorablePublication } from '@tape.xyz/lens'
+import type { MobileThemeConfig } from '@tape.xyz/lens/custom-types'
 import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
 import React, { memo } from 'react'
@@ -24,6 +22,7 @@ import {
   View
 } from 'react-native'
 
+import { getRelativeTime, getTimeFromSeconds } from '~/helpers/format-time'
 import normalizeFont from '~/helpers/normalize-font'
 import { useMobileTheme } from '~/hooks'
 
@@ -100,11 +99,11 @@ const VideoCard: FC<Props> = ({ video }) => {
   const thumbnailUrl = imageCdn(
     isSensitiveContent
       ? `${STATIC_ASSETS}/images/sensor-blur.png`
-      : getThumbnailUrl(video, true),
+      : getThumbnailUrl(video.metadata, true),
     isBytes ? 'THUMBNAIL_V' : 'THUMBNAIL'
   )
-  const videoDuration = getValueFromTraitType(
-    video.metadata?.marketplace?.attributes as Attribute[],
+  const videoDuration = getValueFromKeyInAttributes(
+    video.metadata?.marketplace?.attributes as MetadataAttribute[],
     'durationInSeconds'
   )
 

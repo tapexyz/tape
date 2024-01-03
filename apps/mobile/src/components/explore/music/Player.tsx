@@ -1,7 +1,7 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
-import { getPublicationMediaUrl } from '@lenstube/generic'
-import type { MirrorablePublication } from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
+import { getPublicationMediaUrl } from '@tape.xyz/generic'
+import type { MirrorablePublication } from '@tape.xyz/lens'
+import type { MobileThemeConfig } from '@tape.xyz/lens/custom-types'
 import type { AVPlaybackStatus } from 'expo-av'
 import { Audio } from 'expo-av'
 import type { FC } from 'react'
@@ -41,7 +41,7 @@ const Player: FC<Props> = ({ audio }) => {
     const soundInstance = new Audio.Sound()
     const result = await soundInstance.loadAsync(
       {
-        uri: getPublicationMediaUrl(audio)
+        uri: getPublicationMediaUrl(audio.metadata)
       },
       { shouldPlay: false },
       false

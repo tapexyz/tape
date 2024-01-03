@@ -1,5 +1,5 @@
-import { COLLECT_TEMPLATES } from '@lenstube/constants'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
+import { COLLECT_TEMPLATES } from '@tape.xyz/constants'
+import type { MobileThemeConfig } from '@tape.xyz/lens/custom-types'
 import React from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 

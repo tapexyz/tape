@@ -1,12 +1,13 @@
-import { LENSTUBE_BYTES_APP_ID, STATIC_ASSETS } from '@lenstube/constants'
-import { getIsDispatcherEnabled, imageCdn } from '@lenstube/generic'
-import type { MirrorablePublication, Profile } from '@lenstube/lens'
+import { STATIC_ASSETS } from '@tape.xyz/constants'
+import { checkLensManagerPermissions, imageCdn } from '@tape.xyz/generic'
+import type { MirrorablePublication, Profile } from '@tape.xyz/lens'
 import {
   LimitType,
+  PublicationMetadataMainFocusType,
   PublicationType,
   usePublicationsQuery
-} from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
+} from '@tape.xyz/lens'
+import type { MobileThemeConfig } from '@tape.xyz/lens/custom-types'
 import { useWalletConnectModal } from '@walletconnect/modal-react-native'
 import { Image as ExpoImage } from 'expo-image'
 import React from 'react'
@@ -85,7 +86,7 @@ const FirstSteps = () => {
           publicationTypes: [PublicationType.Post],
           from: [selectedProfile?.id],
           metadata: {
-            publishedOn: [LENSTUBE_BYTES_APP_ID]
+            mainContentFocus: [PublicationMetadataMainFocusType.ShortVideo]
           }
         }
       }
@@ -94,16 +95,18 @@ const FirstSteps = () => {
   })
   const bytes = data?.publications?.items as MirrorablePublication[]
 
-  const dispatcherEnabled = getIsDispatcherEnabled(selectedProfile as Profile)
+  const dispatcherEnabled = checkLensManagerPermissions(
+    selectedProfile as Profile
+  )
   const sharedByte = Boolean(bytes?.length)
 
-  if (dispatcherEnabled && sharedByte && selectedProfile) {
+  if (dispatcherEnabled.canBroadcast && sharedByte && selectedProfile) {
     return null
   }
 
   return (
     <View style={style.container}>
-      <Text style={style.title}>First steps with Lenstube</Text>
+      <Text style={style.title}>First steps with Tape</Text>
       <Text style={style.subheading}>Unleash New Social Horizons</Text>
       <Animated.View entering={FadeInRight}>
         <ScrollView

@@ -1,4 +1,6 @@
-import { LENS_CUSTOM_FILTERS, RECS_URL } from '@lenstube/constants'
+import { useScrollToTop } from '@react-navigation/native'
+import { FlashList } from '@shopify/flash-list'
+import { LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
 import type {
   ExplorePublicationRequest,
   FeedHighlightsRequest,
@@ -6,7 +8,7 @@ import type {
   FeedRequest,
   MirrorablePublication,
   PrimaryPublication
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 import {
   ExplorePublicationsOrderByType,
   ExplorePublicationType,
@@ -17,10 +19,8 @@ import {
   useFeedHighlightsQuery,
   useFeedQuery,
   usePublicationsQuery
-} from '@lenstube/lens'
-import { AlgoType, TimelineFeedType } from '@lenstube/lens/custom-types'
-import { useScrollToTop } from '@react-navigation/native'
-import { FlashList } from '@shopify/flash-list'
+} from '@tape.xyz/lens'
+import { AlgoType, TimelineFeedType } from '@tape.xyz/lens/custom-types'
 import React, { useCallback, useEffect, useMemo, useRef } from 'react'
 import { ActivityIndicator, StyleSheet, View } from 'react-native'
 import useSWR from 'swr'
@@ -148,7 +148,7 @@ const Timeline = () => {
   }
 
   const { data: recsData } = useSWR(
-    `${RECS_URL}/k3l-feed/${getAlgoStrategy()}`,
+    `/k3l-feed/${getAlgoStrategy()}`,
     (url: string) => fetch(url).then((res) => res.json())
   )
 

@@ -1,8 +1,8 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
-import { getCategoryName } from '@lenstube/generic'
-import { ExplorePublicationsOrderByType } from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { useNavigation } from '@react-navigation/native'
+import { getCategoryName } from '@tape.xyz/generic'
+import { ExplorePublicationsOrderByType } from '@tape.xyz/lens'
+import type { MobileThemeConfig } from '@tape.xyz/lens/custom-types'
 import React from 'react'
 import { Pressable, ScrollView, StyleSheet, Text } from 'react-native'
 

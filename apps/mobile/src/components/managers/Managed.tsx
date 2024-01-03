@@ -1,8 +1,8 @@
-import { trimLensHandle } from '@lenstube/generic'
-import type { Profile } from '@lenstube/lens'
-import { useProfilesQuery } from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { FlashList } from '@shopify/flash-list'
+import { getProfile } from '@tape.xyz/generic'
+import type { Profile } from '@tape.xyz/lens'
+import { useProfilesQuery } from '@tape.xyz/lens'
+import type { MobileThemeConfig } from '@tape.xyz/lens/custom-types'
 import React, { useCallback } from 'react'
 import { StyleSheet, Text, useWindowDimensions, View } from 'react-native'
 
@@ -63,7 +63,7 @@ const Managed = () => {
           imageStyle={{ width: 80, height: 80, borderRadius: 20 }}
           showHandle={false}
         />
-        <Text style={style.text}>{trimLensHandle(item.handle)}</Text>
+        <Text style={style.text}>{getProfile(item).slug}</Text>
       </View>
     ),
     [availableWidth, style]

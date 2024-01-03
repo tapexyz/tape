@@ -1,6 +1,6 @@
-import type { Profile } from '@lenstube/lens'
-import { useProfileQuery } from '@lenstube/lens'
 import { useNavigation } from '@react-navigation/native'
+import type { Profile } from '@tape.xyz/lens'
+import { useProfileQuery } from '@tape.xyz/lens'
 import React, { useEffect, useState } from 'react'
 import { ActivityIndicator, useWindowDimensions, View } from 'react-native'
 import {

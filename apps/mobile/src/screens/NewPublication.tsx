@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
+import type { MobileThemeConfig } from '@tape.xyz/lens/custom-types'
 import React, { useRef } from 'react'
 import {
   Animated,

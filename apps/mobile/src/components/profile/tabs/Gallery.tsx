@@ -1,10 +1,9 @@
-import { NFTS_URL } from '@lenstube/constants'
-import { imageCdn, sanitizeDStorageUrl } from '@lenstube/generic'
-import { type Profile } from '@lenstube/lens'
+import { imageCdn, sanitizeDStorageUrl } from '@tape.xyz/generic'
+import { type Profile } from '@tape.xyz/lens'
 import type {
   CustomNftItemType,
   MobileThemeConfig
-} from '@lenstube/lens/custom-types'
+} from '@tape.xyz/lens/custom-types'
 import { ResizeMode, Video } from 'expo-av'
 import type { FC } from 'react'
 import React, { memo, useCallback } from 'react'
@@ -50,7 +49,7 @@ const Gallery: FC<Props> = ({ profile, scrollHandler }) => {
   const style = styles(themeConfig)
 
   const { data: nfts, isLoading } = useSWR(
-    `${NFTS_URL}/${profile.handle}/200`,
+    `/${profile.handle}/200`,
     (url: string) => fetch(url).then((res) => res.json())
   )
 

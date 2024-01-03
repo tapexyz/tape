@@ -1,14 +1,14 @@
 import {
   formatNumber,
-  getChannelCoverPicture,
+  getProfile,
+  getProfileCoverPicture,
   getProfilePicture,
   imageCdn,
-  sanitizeDStorageUrl,
-  trimLensHandle
-} from '@lenstube/generic'
-import type { Profile } from '@lenstube/lens'
-import { useProfilesQuery } from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
+  sanitizeDStorageUrl
+} from '@tape.xyz/generic'
+import type { Profile } from '@tape.xyz/lens'
+import { useProfilesQuery } from '@tape.xyz/lens'
+import type { MobileThemeConfig } from '@tape.xyz/lens/custom-types'
 import { Image as ExpoImage } from 'expo-image'
 import { Skeleton } from 'moti/skeleton'
 import React, { memo, useCallback, useMemo } from 'react'
@@ -104,7 +104,7 @@ const SwitchProfile = () => {
         <ImageBackground
           source={{
             uri: imageCdn(
-              sanitizeDStorageUrl(getChannelCoverPicture(profile)),
+              sanitizeDStorageUrl(getProfileCoverPicture(profile)),
               'THUMBNAIL'
             )
           }}
@@ -147,7 +147,7 @@ const SwitchProfile = () => {
             />
             <View>
               <Text numberOfLines={1} style={style.handle}>
-                {trimLensHandle(profile.handle)}
+                {getProfile(profile).slug}
               </Text>
               <Text style={style.otherInfo}>
                 {formatNumber(profile.stats.followers)} followers

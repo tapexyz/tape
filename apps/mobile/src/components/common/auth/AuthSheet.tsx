@@ -1,17 +1,17 @@
 import type { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
-import { STATIC_ASSETS } from '@lenstube/constants'
+import { STATIC_ASSETS } from '@tape.xyz/constants'
 import {
   getRandomProfilePicture,
   imageCdn,
   logger,
   shortenAddress
-} from '@lenstube/generic'
-import type { Profile } from '@lenstube/lens'
+} from '@tape.xyz/generic'
+import type { Profile } from '@tape.xyz/lens'
 import {
   useAuthenticateMutation,
   useChallengeLazyQuery,
-  useSimpleProfilesLazyQuery
-} from '@lenstube/lens'
+  useProfilesLazyQuery
+} from '@tape.xyz/lens'
 import { useWalletConnectModal } from '@walletconnect/modal-react-native'
 import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
@@ -61,7 +61,7 @@ const AuthSheet: FC<Props> = ({ sheetRef }) => {
     fetchPolicy: 'no-cache' // if cache old challenge persist issue (InvalidSignature)
   })
   const [authenticate, { loading: signingIn }] = useAuthenticateMutation()
-  const [getAllSimpleProfiles] = useSimpleProfilesLazyQuery({
+  const [getAllProfiles] = useProfilesLazyQuery({
     fetchPolicy: 'no-cache'
   })
 
@@ -87,7 +87,7 @@ const AuthSheet: FC<Props> = ({ sheetRef }) => {
       const accessToken = data?.authenticate.accessToken
       const refreshToken = data?.authenticate.refreshToken
       persistSignin({ accessToken, refreshToken })
-      const { data: profilesData } = await getAllSimpleProfiles({
+      const { data: profilesData } = await getAllProfiles({
         variables: {
           request: {
             where: {

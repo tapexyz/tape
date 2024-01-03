@@ -1,7 +1,7 @@
-import { getProfilePicture, trimLensHandle } from '@lenstube/generic'
-import type { Profile } from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { useNavigation } from '@react-navigation/native'
+import { getProfile, getProfilePicture } from '@tape.xyz/generic'
+import type { Profile } from '@tape.xyz/lens'
+import type { MobileThemeConfig } from '@tape.xyz/lens/custom-types'
 import type { ImageStyle } from 'expo-image'
 import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
@@ -61,7 +61,7 @@ const UserProfile: FC<Props> = (props) => {
   const navigateToProfile = () => {
     haptic()
     navigate('ProfileScreen', {
-      handle: profile.handle
+      handle: getProfile(profile)?.slug
     })
   }
 
@@ -91,7 +91,7 @@ const UserProfile: FC<Props> = (props) => {
       />
       {showHandle && (
         <Text numberOfLines={1} style={[style.handle, handleStyle]}>
-          {trimLensHandle(profile.handle)}
+          {getProfile(profile).slugWithPrefix}
         </Text>
       )}
     </AnimatedPressable>

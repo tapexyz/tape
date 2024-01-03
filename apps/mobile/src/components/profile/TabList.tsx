@@ -1,4 +1,4 @@
-import { MOBILE_PROFILE_ITEMS } from '@lenstube/lens/custom-types'
+import { MOBILE_PROFILE_ITEMS } from '@tape.xyz/lens/custom-types'
 import type { FC } from 'react'
 import React, { memo, useCallback, useEffect, useRef } from 'react'
 import {
