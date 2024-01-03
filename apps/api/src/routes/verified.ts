@@ -1,4 +1,5 @@
 import { Hono } from 'hono'
+import { cache } from 'hono/cache'
 
 import { ERROR_MESSAGE } from '@/helpers/constants'
 
@@ -7,6 +8,13 @@ type Bindings = {
 }
 
 const app = new Hono<{ Bindings: Bindings }>()
+app.get(
+  '*',
+  cache({
+    cacheName: 'verified',
+    cacheControl: 'max-age=300'
+  })
+)
 
 app.get('/', async (c) => {
   try {
