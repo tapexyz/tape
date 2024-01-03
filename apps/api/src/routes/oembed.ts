@@ -1,7 +1,7 @@
 import { zValidator } from '@hono/zod-validator'
 import { Hono } from 'hono'
 import { parseHTML } from 'linkedom'
-import { object, z } from 'zod'
+import { object, string } from 'zod'
 
 import { ERROR_MESSAGE } from '@/helpers/constants'
 import extractOgTags from '@/helpers/oembed/extractOgTags'
@@ -14,7 +14,7 @@ type Bindings = {
 const app = new Hono<{ Bindings: Bindings }>()
 
 const validationSchema = object({
-  url: z.string().url()
+  url: string().url()
 })
 
 app.get('/', zValidator('query', validationSchema), async (c) => {

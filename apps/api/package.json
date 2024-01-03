@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "wrangler dev src/index.ts --port 4003",
+    "dev": "wrangler dev src/index.ts",
     "worker:deploy": "wrangler deploy --minify src/index.ts",
     "typecheck": "tsc --pretty",
     "lint": "eslint . --ext .js,.ts,.tsx"

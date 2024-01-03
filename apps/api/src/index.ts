@@ -2,6 +2,7 @@ import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 
 import did from './routes/did'
+import gateway from './routes/gateway'
 import metadata from './routes/metadata'
 import oembed from './routes/oembed'
 import recommendations from './routes/recommendations'
@@ -28,6 +29,7 @@ app.route('/tail', tail)
 app.route('/tower', tower)
 app.route('/views', views)
 app.route('/oembed', oembed)
+app.route('/gateway', gateway)
 app.route('/metadata', metadata)
 app.route('/recommendations', recommendations)
 

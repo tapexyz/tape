@@ -11,7 +11,7 @@ const ArweaveExplorerLink = ({
 }) => {
   return (
     <Link
-      href={`https://gateway.irys.xyz/${txId}`}
+      href={`https://api.tape.xyz/gateway/ar/${txId}`}
       rel="noreferer noreferrer"
       target="_blank"
     >
