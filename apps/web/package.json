@@ -31,7 +31,7 @@
     "dayjs": "^1.11.10",
     "emoji-mart": "^5.5.2",
     "filereader-stream": "^2.0.0",
-    "framer-motion": "^10.16.16",
+    "framer-motion": "^10.17.0",
     "graphql": "^16.8.1",
     "idb-keyval": "^6.2.1",
     "interweave": "^13.1.0",
