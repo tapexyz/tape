@@ -15,8 +15,4 @@ IP_API_KEY=""
 WALLET_PRIVATE_KEY=""
 LIVEPEER_API_TOKEN=""
 
-[[d1_databases]]
-binding = "DB"
-database_name = "my-database"
-database_id = ""
 
