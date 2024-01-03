@@ -1,4 +1,4 @@
-name: Deploy Cloudflare Workers
+name: WORKERS - Production Deployment
 
 on:
   push:

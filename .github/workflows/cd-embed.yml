@@ -4,8 +4,9 @@ env:
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID_EMBED }}
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+  workflow_dispatch:
+    
 jobs:
   Deploy-Production:
     runs-on: ubuntu-latest
