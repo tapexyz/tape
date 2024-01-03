@@ -1,17 +1,17 @@
 import { AssumeRoleCommand, STSClient } from '@aws-sdk/client-sts'
+import { Hono } from 'hono'
 
-type EnvType = {
+import { ERROR_MESSAGE } from '@/constants'
+
+type Bindings = {
   EVER_ACCESS_KEY: string
   EVER_ACCESS_SECRET: string
 }
 
-const headers = {
-  'Access-Control-Allow-Origin': '*',
-  'Content-Type': 'application/json'
-}
+const app = new Hono<{ Bindings: Bindings }>()
+
 const bucketName = 'tape'
 const everEndpoint = 'https://endpoint.4everland.co'
-
 const params = {
   DurationSeconds: 3600,
   Policy: `{
@@ -32,10 +32,10 @@ const params = {
   }`
 }
 
-async function handleRequest(_request: Request, env: EnvType) {
+app.get('/', async (c) => {
   try {
-    const accessKeyId = env.EVER_ACCESS_KEY
-    const secretAccessKey = env.EVER_ACCESS_SECRET
+    const accessKeyId = c.env.EVER_ACCESS_KEY
+    const secretAccessKey = c.env.EVER_ACCESS_SECRET
 
     const stsClient = new STSClient({
       endpoint: everEndpoint,
@@ -51,25 +51,15 @@ async function handleRequest(_request: Request, env: EnvType) {
       })
     )
 
-    return new Response(
-      JSON.stringify({
-        success: true,
-        accessKeyId: data.Credentials?.AccessKeyId,
-        secretAccessKey: data.Credentials?.SecretAccessKey,
-        sessionToken: data.Credentials?.SessionToken
-      }),
-      { headers }
-    )
+    return c.json({
+      success: true,
+      accessKeyId: data.Credentials?.AccessKeyId,
+      secretAccessKey: data.Credentials?.SecretAccessKey,
+      sessionToken: data.Credentials?.SessionToken
+    })
   } catch {
-    return new Response(
-      JSON.stringify({ success: false, message: 'Something went wrong!' }),
-      { headers }
-    )
+    return c.json({ success: false, message: ERROR_MESSAGE })
   }
-}
+})
 
-export default {
-  async fetch(request: Request, env: EnvType) {
-    return await handleRequest(request, env)
-  }
-}
+export default app
