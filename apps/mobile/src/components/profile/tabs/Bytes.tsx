@@ -1,16 +1,16 @@
-import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@lenstube/constants'
-import { getThumbnailUrl, imageCdn } from '@lenstube/generic'
+import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@tape.xyz/constants'
+import { getThumbnailUrl, imageCdn } from '@tape.xyz/generic'
 import type {
   MirrorablePublication,
   Profile,
   PublicationsRequest
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 import {
   LimitType,
   PublicationType,
   usePublicationsQuery
-} from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
+} from '@tape.xyz/lens'
+import type { MobileThemeConfig } from '@tape.xyz/lens/custom-types'
 import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
 import React, { memo, useCallback } from 'react'
@@ -100,7 +100,7 @@ const Bytes: FC<Props> = ({ profile, scrollHandler }) => {
         <AnimatedPressable>
           <ExpoImage
             source={{
-              uri: imageCdn(getThumbnailUrl(item, true), 'THUMBNAIL_V')
+              uri: imageCdn(getThumbnailUrl(item.metadata, true), 'THUMBNAIL_V')
             }}
             transition={300}
             contentFit="cover"

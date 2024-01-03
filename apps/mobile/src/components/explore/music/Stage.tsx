@@ -1,5 +1,6 @@
-import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
-import { getThumbnailUrl, imageCdn } from '@lenstube/generic'
+import { FlashList } from '@shopify/flash-list'
+import { LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
+import { getThumbnailUrl, imageCdn } from '@tape.xyz/generic'
 import {
   type ExplorePublicationRequest,
   ExplorePublicationsOrderByType,
@@ -8,8 +9,7 @@ import {
   type MirrorablePublication,
   PublicationMetadataMainFocusType,
   useExplorePublicationsQuery
-} from '@lenstube/lens'
-import { FlashList } from '@shopify/flash-list'
+} from '@tape.xyz/lens'
 import React, { useCallback, useState } from 'react'
 import type { ViewToken } from 'react-native'
 import {
@@ -119,7 +119,9 @@ const Stage = () => {
 
   return (
     <ImageBackground
-      source={{ uri: imageCdn(getThumbnailUrl(audios[activeAudioIndex])) }}
+      source={{
+        uri: imageCdn(getThumbnailUrl(audios[activeAudioIndex].metadata))
+      }}
       blurRadius={50}
       style={{ flex: 1 }}
       resizeMode="cover"

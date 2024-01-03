@@ -1,7 +1,7 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
-import { getSharableLink, trimify } from '@lenstube/generic'
-import type { MirrorablePublication } from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
+import { getSharableLink, trimify } from '@tape.xyz/generic'
+import type { MirrorablePublication } from '@tape.xyz/lens'
+import type { MobileThemeConfig } from '@tape.xyz/lens/custom-types'
 import type { FC } from 'react'
 import React from 'react'
 import { ScrollView, Share, StyleSheet, Text } from 'react-native'
@@ -86,7 +86,7 @@ const Actions: FC<Props> = ({ video }) => {
         onPress={() => {
           haptic()
           Share.share({
-            url: getSharableLink('lenstube', video),
+            url: getSharableLink('tape', video),
             message: `${title} by @${handle}`,
             title: `${title} by @${handle}`
           })

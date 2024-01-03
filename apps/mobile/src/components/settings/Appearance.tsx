@@ -1,5 +1,5 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
+import type { MobileThemeConfig } from '@tape.xyz/lens/custom-types'
 import React, { useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
 

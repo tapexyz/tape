@@ -1,10 +1,11 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
-import { getShortHandTime, trimify } from '@lenstube/generic'
-import type { Comment } from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
+import { trimify } from '@tape.xyz/generic'
+import type { Comment } from '@tape.xyz/lens'
+import type { MobileThemeConfig } from '@tape.xyz/lens/custom-types'
 import React from 'react'
 import { StyleSheet, Text, useWindowDimensions, View } from 'react-native'
 
+import { getShortHandTime } from '~/helpers/format-time'
 import normalizeFont from '~/helpers/normalize-font'
 import { useMobileTheme } from '~/hooks'
 

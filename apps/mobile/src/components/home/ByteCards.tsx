@@ -1,5 +1,6 @@
-import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@lenstube/constants'
-import { getThumbnailUrl, imageCdn } from '@lenstube/generic'
+import { useNavigation } from '@react-navigation/native'
+import { LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
+import { getThumbnailUrl, imageCdn } from '@tape.xyz/generic'
 import {
   type ExplorePublicationRequest,
   ExplorePublicationsOrderByType,
@@ -8,9 +9,8 @@ import {
   type MirrorablePublication,
   PublicationMetadataMainFocusType,
   useExplorePublicationsQuery
-} from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
-import { useNavigation } from '@react-navigation/native'
+} from '@tape.xyz/lens'
+import type { MobileThemeConfig } from '@tape.xyz/lens/custom-types'
 import { Image as ExpoImage } from 'expo-image'
 import { Gyroscope } from 'expo-sensors'
 import { Skeleton } from 'moti/skeleton'
@@ -171,7 +171,7 @@ const ByteCards = () => {
         <>
           <ExpoImage
             source={{
-              uri: imageCdn(getThumbnailUrl(byte, true), 'THUMBNAIL_V')
+              uri: imageCdn(getThumbnailUrl(byte.metadata, true), 'THUMBNAIL_V')
             }}
             contentFit="cover"
             transition={300}
@@ -201,8 +201,7 @@ const ByteCards = () => {
       publicationTypes: [ExplorePublicationType.Post],
       customFilters: LENS_CUSTOM_FILTERS,
       metadata: {
-        mainContentFocus: [PublicationMetadataMainFocusType.Video],
-        publishedOn: [LENSTUBE_BYTES_APP_ID]
+        mainContentFocus: [PublicationMetadataMainFocusType.ShortVideo]
       }
     }
   }

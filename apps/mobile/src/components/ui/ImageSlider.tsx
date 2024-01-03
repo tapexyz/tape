@@ -1,5 +1,4 @@
-import { imageCdn, sanitizeDStorageUrl } from '@lenstube/generic'
-import type { MediaSet } from '@lenstube/lens'
+import { imageCdn, sanitizeDStorageUrl } from '@tape.xyz/generic'
 import { Image as ExpoImage } from 'expo-image'
 import React, { memo, useState } from 'react'
 import {
@@ -22,7 +21,7 @@ const styles = StyleSheet.create({
 
 const MAX_SHOW_COUNT = 4
 
-const ImageSlider = ({ images }: { images: MediaSet[] }) => {
+const ImageSlider = ({ images }: { images: any[] }) => {
   const { themeConfig } = useMobileTheme()
   const [selectedItem, setSelectedItem] = useState(0)
 

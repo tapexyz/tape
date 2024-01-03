@@ -1,14 +1,14 @@
-import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@lenstube/constants'
-import type { AnyPublication, ExplorePublicationRequest } from '@lenstube/lens'
+import { useScrollToTop } from '@react-navigation/native'
+import { FlashList } from '@shopify/flash-list'
+import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@tape.xyz/constants'
+import type { AnyPublication, ExplorePublicationRequest } from '@tape.xyz/lens'
 import {
   ExplorePublicationsOrderByType,
   ExplorePublicationType,
   LimitType,
   PublicationMetadataMainFocusType,
   useExplorePublicationsQuery
-} from '@lenstube/lens'
-import { useScrollToTop } from '@react-navigation/native'
-import { FlashList } from '@shopify/flash-list'
+} from '@tape.xyz/lens'
 import React, { useCallback, useRef, useState } from 'react'
 import type { ViewToken } from 'react-native'
 import { ActivityIndicator } from 'react-native'

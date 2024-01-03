@@ -1,5 +1,5 @@
-import { LENSTUBE_LOGO } from '@lenstube/constants'
-import { imageCdn } from '@lenstube/generic'
+import { TAPE_LOGO } from '@tape.xyz/constants'
+import { imageCdn } from '@tape.xyz/generic'
 import QRCodeUtil from 'qrcode'
 import type { FC } from 'react'
 import React, { memo, useMemo } from 'react'
@@ -43,7 +43,7 @@ type Props = {
 }
 
 const QRCode: FC<Props> = ({
-  logo = imageCdn(LENSTUBE_LOGO),
+  logo = imageCdn(TAPE_LOGO),
   ecl = 'M',
   logoBackgroundColor = 'transparent',
   logoMargin = -5,

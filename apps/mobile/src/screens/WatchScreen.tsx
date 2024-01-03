@@ -1,6 +1,7 @@
-import type { AnyPublication } from '@lenstube/lens'
-import { usePublicationQuery } from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
+import { getPublication } from '@tape.xyz/generic'
+import type { AnyPublication } from '@tape.xyz/lens'
+import { usePublicationQuery } from '@tape.xyz/lens'
+import type { MobileThemeConfig } from '@tape.xyz/lens/custom-types'
 import React from 'react'
 import {
   ActivityIndicator,
@@ -51,7 +52,7 @@ export const WatchScreen = (props: WatchScreenProps) => {
 
   return (
     <SafeAreaView style={style.container}>
-      <VideoPlayer video={video} />
+      <VideoPlayer video={getPublication(video)} />
 
       <Animated.View style={{ height: windowHeight }} entering={FadeInDown}>
         <MoreVideos video={video} />

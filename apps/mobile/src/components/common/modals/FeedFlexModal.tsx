@@ -1,8 +1,8 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
-import { FEED_ALGORITHMS } from '@lenstube/constants'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
-import { TimelineFeedType } from '@lenstube/lens/custom-types'
 import { useNavigation } from '@react-navigation/native'
+import { FEED_ALGORITHMS } from '@tape.xyz/constants'
+import type { MobileThemeConfig } from '@tape.xyz/lens/custom-types'
+import { TimelineFeedType } from '@tape.xyz/lens/custom-types'
 import { BlurView } from 'expo-blur'
 import React from 'react'
 import {

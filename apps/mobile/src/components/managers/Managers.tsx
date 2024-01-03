@@ -1,9 +1,13 @@
-import { LENSTUBE_ADDRESS } from '@lenstube/constants'
-import { getRandomProfilePicture, shortenAddress } from '@lenstube/generic'
-import type { Profile } from '@lenstube/lens'
-import { useProfilesQuery } from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { FlashList } from '@shopify/flash-list'
+import { TAPE_ADMIN_ADDRESS } from '@tape.xyz/constants'
+import {
+  getProfile,
+  getRandomProfilePicture,
+  shortenAddress
+} from '@tape.xyz/generic'
+import type { Profile } from '@tape.xyz/lens'
+import { useProfilesQuery } from '@tape.xyz/lens'
+import type { MobileThemeConfig } from '@tape.xyz/lens/custom-types'
 import { Image as ExpoImage } from 'expo-image'
 import React, { useCallback, useState } from 'react'
 import {
@@ -53,7 +57,7 @@ const Addresses = () => {
 
   const sampleAddresses = [
     '0xa8535b8049948bE1bFeb1404daEabbD407792411',
-    LENSTUBE_ADDRESS,
+    TAPE_ADMIN_ADDRESS,
     '0xA8C62111e4652b07110A0FC81816303c42632f64',
     '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
   ]
@@ -107,7 +111,7 @@ const Item = ({ profile }: { profile: Profile }) => {
   const [active, setActive] = useState(false)
   return (
     <Accordion
-      text={profile.handle}
+      text={getProfile(profile).slug}
       setActive={setActive}
       active={active}
       key={profile.id}

@@ -1,5 +1,5 @@
-import { getThumbnailUrl, imageCdn } from '@lenstube/generic'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
+import { getThumbnailUrl, imageCdn } from '@tape.xyz/generic'
+import type { MobileThemeConfig } from '@tape.xyz/lens/custom-types'
 import { Image as ExpoImage } from 'expo-image'
 import { LinearGradient } from 'expo-linear-gradient'
 import * as React from 'react'

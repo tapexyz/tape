@@ -1,11 +1,15 @@
-import { getRelativeTime, trimNewLines } from '@lenstube/generic'
-import type { AnyPublication } from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
-import { getRelativeTime } from '@lib/formatTime'
+import {
+  getPublication,
+  getPublicationData,
+  trimNewLines
+} from '@tape.xyz/generic'
+import type { AnyPublication } from '@tape.xyz/lens'
+import type { MobileThemeConfig } from '@tape.xyz/lens/custom-types'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 
+import { getRelativeTime } from '~/helpers/format-time'
 import normalizeFont from '~/helpers/normalize-font'
 import { useMobileTheme } from '~/hooks'
 
@@ -50,11 +54,13 @@ const Metadata: FC<Props> = ({ video }) => {
   const style = styles(themeConfig)
 
   const [showMore, setShowMore] = useState(false)
+  const publication = getPublication(video)
+  const metadata = getPublicationData(publication.metadata)
 
   return (
     <View style={{ paddingVertical: 15 }}>
-      <Text style={style.title}>{video.metadata.marketplace?.name}</Text>
-      {video.metadata.marketplace?.description && (
+      <Text style={style.title}>{metadata?.title}</Text>
+      {metadata?.content && (
         <Pressable onPress={() => setShowMore(!showMore)}>
           <Text
             numberOfLines={!showMore ? 2 : undefined}
@@ -62,11 +68,11 @@ const Metadata: FC<Props> = ({ video }) => {
           >
             {showMore ? (
               <RenderMarkdown
-                content={video.metadata.marketplace.description}
+                content={metadata?.content}
                 textStyle={style.description}
               />
             ) : (
-              trimNewLines(video.metadata.marketplace.description)
+              trimNewLines(metadata?.content)
             )}
           </Text>
         </Pressable>
@@ -76,7 +82,7 @@ const Metadata: FC<Props> = ({ video }) => {
         <Text style={{ color: themeConfig.secondaryTextColor, fontSize: 3 }}>
           {'\u2B24'}
         </Text>
-        <Text style={style.otherInfo}>{video.stats.reactions} likes</Text>
+        <Text style={style.otherInfo}>{publication.stats.reactions} likes</Text>
         <Text style={{ color: themeConfig.secondaryTextColor, fontSize: 3 }}>
           {'\u2B24'}
         </Text>

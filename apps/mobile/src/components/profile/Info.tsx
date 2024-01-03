@@ -1,16 +1,16 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
 import type { BottomSheetModal } from '@gorhom/bottom-sheet'
+import { useNavigation } from '@react-navigation/native'
 import {
   formatNumber,
-  getChannelCoverPicture,
+  getProfile,
+  getProfileCoverPicture,
   imageCdn,
   sanitizeDStorageUrl,
-  trimLensHandle,
   trimNewLines
-} from '@lenstube/generic'
-import type { Profile } from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
-import { useNavigation } from '@react-navigation/native'
+} from '@tape.xyz/generic'
+import type { Profile } from '@tape.xyz/lens'
+import type { MobileThemeConfig } from '@tape.xyz/lens/custom-types'
 import type { Dispatch, FC } from 'react'
 import React, { memo, useRef, useState } from 'react'
 import {
@@ -147,7 +147,7 @@ const Info: FC<Props> = (props) => {
         <ImageBackground
           source={{
             uri: imageCdn(
-              sanitizeDStorageUrl(getChannelCoverPicture(profile)),
+              sanitizeDStorageUrl(getProfileCoverPicture(profile)),
               'THUMBNAIL'
             )
           }}
@@ -231,7 +231,7 @@ const Info: FC<Props> = (props) => {
               {isOwned && (
                 <Text style={[style.handle, { opacity: 0.5 }]}>gm, </Text>
               )}
-              {trimLensHandle(profile.handle)}
+              {getProfile(profile).slug}
             </Text>
 
             <Pressable onPress={() => setShowMoreBio(!showMoreBio)}>

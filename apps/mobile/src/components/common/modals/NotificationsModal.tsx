@@ -1,7 +1,7 @@
-import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
-import type { Notification, NotificationRequest } from '@lenstube/lens'
-import { useNotificationsQuery } from '@lenstube/lens'
 import { FlashList } from '@shopify/flash-list'
+import { LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
+import type { Notification, NotificationRequest } from '@tape.xyz/lens'
+import { useNotificationsQuery } from '@tape.xyz/lens'
 import React, { useCallback } from 'react'
 import { ActivityIndicator, Text } from 'react-native'
 

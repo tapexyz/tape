@@ -1,8 +1,7 @@
-import { RECS_URL } from '@lenstube/constants'
-import { getProfilePicture, shuffleArray } from '@lenstube/generic'
-import { type Profile, useProfilesQuery } from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { useNavigation } from '@react-navigation/native'
+import { getProfile, getProfilePicture, shuffleArray } from '@tape.xyz/generic'
+import { type Profile, useProfilesQuery } from '@tape.xyz/lens'
+import type { MobileThemeConfig } from '@tape.xyz/lens/custom-types'
 import { Image as ExpoImage } from 'expo-image'
 import React, { useMemo } from 'react'
 import {
@@ -59,7 +58,7 @@ const PopularCreators = () => {
   const style = styles(themeConfig)
 
   const { data: recsData, isLoading: recsLoading } = useSWR(
-    `${RECS_URL}/k3l-score/creator/49/0`,
+    `/k3l-score/creator/49/0`,
     (url: string) => fetch(url).then((res) => res.json())
   )
 
@@ -110,7 +109,7 @@ const PopularCreators = () => {
               key={profile.id}
               onPress={() =>
                 navigate('ProfileScreen', {
-                  handle: profile.handle
+                  handle: getProfile(profile).slug
                 })
               }
               style={style.imageContainer}

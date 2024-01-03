@@ -1,6 +1,6 @@
-import { logger } from '@lenstube/generic'
 import type { NavigationContainerRefWithCurrent } from '@react-navigation/core'
 import { createNavigationContainerRef } from '@react-navigation/native'
+import { logger } from '@tape.xyz/generic'
 import { useCallback, useRef } from 'react'
 
 export const navigationRef = createNavigationContainerRef()

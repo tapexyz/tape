@@ -1,6 +1,6 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
-import { PublicationMetadataMainFocusType } from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
+import { PublicationMetadataMainFocusType } from '@tape.xyz/lens'
+import type { MobileThemeConfig } from '@tape.xyz/lens/custom-types'
 import * as DocumentPicker from 'expo-document-picker'
 import { Image as ExpoImage } from 'expo-image'
 import * as ImagePicker from 'expo-image-picker'

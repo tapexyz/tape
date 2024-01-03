@@ -1,5 +1,5 @@
-import type { SimpleProfile } from '@lenstube/lens/custom-types'
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import type { Profile } from '@tape.xyz/lens'
 import { create } from 'zustand'
 import { createJSONStorage, persist } from 'zustand/middleware'
 
@@ -20,8 +20,8 @@ interface AuthPerisistState {
   }) => void
   signOut: () => void
   hydrateAuthTokens: () => Tokens
-  selectedProfile: SimpleProfile | null
-  setSelectedProfile: (profile: SimpleProfile | null) => void
+  selectedProfile: Profile | null
+  setSelectedProfile: (profile: Profile | null) => void
   theme: MobileTheme
   setTheme: (theme: MobileTheme) => void
 }
@@ -53,7 +53,7 @@ export const useMobilePersistStore = create(
       setTheme: (theme) => set({ theme })
     }),
     {
-      name: '@lenstube/mobile/store',
+      name: '@tape.xyz/mobile/store',
       storage: createJSONStorage(() => AsyncStorage)
     }
   )

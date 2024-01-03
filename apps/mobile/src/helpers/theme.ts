@@ -1,4 +1,4 @@
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
+import type { MobileThemeConfig } from '@tape.xyz/lens/custom-types'
 import { Dimensions } from 'react-native'
 
 export const { width: windowWidth, height: windowHeight } =

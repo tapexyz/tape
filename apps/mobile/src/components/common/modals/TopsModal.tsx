@@ -1,7 +1,7 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
-import { ExplorePublicationsOrderByType } from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { useNavigation } from '@react-navigation/native'
+import { ExplorePublicationsOrderByType } from '@tape.xyz/lens'
+import type { MobileThemeConfig } from '@tape.xyz/lens/custom-types'
 import { BlurView } from 'expo-blur'
 import React from 'react'
 import {

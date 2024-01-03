@@ -1,13 +1,13 @@
-import { RECS_URL, STATIC_ASSETS } from '@lenstube/constants'
-import { imageCdn } from '@lenstube/generic'
+import { FlashList } from '@shopify/flash-list'
+import { STATIC_ASSETS } from '@tape.xyz/constants'
+import { getPublication, imageCdn } from '@tape.xyz/generic'
 import type {
   AnyPublication,
   MirrorablePublication,
   PublicationsRequest
-} from '@lenstube/lens'
-import { LimitType, usePublicationsQuery } from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
-import { FlashList } from '@shopify/flash-list'
+} from '@tape.xyz/lens'
+import { LimitType, usePublicationsQuery } from '@tape.xyz/lens'
+import type { MobileThemeConfig } from '@tape.xyz/lens/custom-types'
 import { Image as ExpoImage } from 'expo-image'
 import type { FC } from 'react'
 import React, { useCallback, useMemo } from 'react'
@@ -71,7 +71,7 @@ const RecommendedTitle = () => {
 
 const MoreVideos: FC<Props> = ({ video }) => {
   const { data: recsData, isLoading: recsLoading } = useSWR(
-    `${RECS_URL}/k3l-feed/recommended?exclude=${video.id}`,
+    `/k3l-feed/recommended?exclude=${video.id}`,
     (url: string) => fetch(url).then((res) => res.json())
   )
 
@@ -109,7 +109,7 @@ const MoreVideos: FC<Props> = ({ video }) => {
     () => (
       <>
         <Metadata video={video} />
-        <Actions video={video} />
+        <Actions video={getPublication(video)} />
         <Comments id={video.id} />
         <RecommendedTitle />
       </>

@@ -1,17 +1,17 @@
-import { LENS_CUSTOM_FILTERS } from '@lenstube/constants'
-import { trimLensHandle } from '@lenstube/generic'
+import { LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
+import { getProfile } from '@tape.xyz/generic'
 import type {
   MirrorablePublication,
   Profile,
   PublicationsRequest
-} from '@lenstube/lens'
+} from '@tape.xyz/lens'
 import {
   LimitType,
   PublicationMetadataMainFocusType,
   PublicationType,
   usePublicationsQuery
-} from '@lenstube/lens'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
+} from '@tape.xyz/lens'
+import type { MobileThemeConfig } from '@tape.xyz/lens/custom-types'
 import type { FC } from 'react'
 import React, { memo, useCallback } from 'react'
 import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native'
@@ -107,7 +107,7 @@ const Clan: FC<Props> = ({ profile, scrollHandler }) => {
         ListHeaderComponent={
           <Text style={style.subheading}>
             Dedicated corner to connect, swap stories, and get hyped about what{' '}
-            {trimLensHandle(profile.handle)} do!
+            {getProfile(profile).slug} do!
           </Text>
         }
         data={publications}

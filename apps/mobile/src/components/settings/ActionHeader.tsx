@@ -1,6 +1,6 @@
 import Ionicons from '@expo/vector-icons/Ionicons'
-import type { MobileThemeConfig } from '@lenstube/lens/custom-types'
 import { useNavigation } from '@react-navigation/native'
+import type { MobileThemeConfig } from '@tape.xyz/lens/custom-types'
 import React from 'react'
 import { StyleSheet, View } from 'react-native'
 
