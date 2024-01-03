@@ -1,0 +1,28 @@
+{
+  "name": "@tape.xyz/api",
+  "description": "API for tape.xyz",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "wrangler dev src/index.ts --port 4003",
+    "worker:deploy": "wrangler deploy --minify src/index.ts",
+    "typecheck": "tsc --pretty",
+    "lint": "eslint . --ext .js,.ts,.tsx"
+  },
+  "dependencies": {
+    "@aws-sdk/client-sts": "3.484.0",
+    "@hono/zod-validator": "^0.1.11",
+    "hono": "^3.11.12",
+    "linkedom": "^0.16.6",
+    "ua-parser-js": "^1.0.37",
+    "viem": "^1.21.4",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20231218.0",
+    "@tape.xyz/config": "*",
+    "@tape.xyz/generic": "*",
+    "@types/ua-parser-js": "^0.7.39",
+    "wrangler": "^3.22.0"
+  }
+}

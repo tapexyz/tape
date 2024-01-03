@@ -3358,6 +3358,11 @@
   dependencies:
     "@hapi/hoek" "^9.0.0"
 
+"@hono/zod-validator@^0.1.11":
+  version "0.1.11"
+  resolved "https://registry.yarnpkg.com/@hono/zod-validator/-/zod-validator-0.1.11.tgz#7d3e900f01d4c7be6a8c7a7ea1986caaffef423b"
+  integrity sha512-PQXeHUP0+36qpRt8yfeD7N2jbK3ETlGvSN6dMof/HwUC/APRokQRjpXZm4rrlG71Ft0aWE01+Bm4XejqPie5Uw==
+
 "@hookform/resolvers@^3.3.3":
   version "3.3.3"
   resolved "https://registry.yarnpkg.com/@hookform/resolvers/-/resolvers-3.3.3.tgz#a90c786e5564e58a029d157347e1f2965d02e64f"
@@ -11868,6 +11873,11 @@ hoist-non-react-statics@^3.3.0, hoist-non-react-statics@^3.3.2:
   dependencies:
     react-is "^16.7.0"
 
+hono@^3.11.12:
+  version "3.11.12"
+  resolved "https://registry.yarnpkg.com/hono/-/hono-3.11.12.tgz#8236c08c0fbf811ae46d1b2cf452b0f4788a062b"
+  integrity sha512-TrxH75bc0m2UbvrhaXkoo32A9OhkJtvICAYgYWtxqLDOxBjRqSikyp4K7HTbnWkPeg9Z+2Q3nv0dN4o8kL6yLg==
+
 hosted-git-info@^2.1.4:
   version "2.8.9"
   resolved "https://registry.yarnpkg.com/hosted-git-info/-/hosted-git-info-2.8.9.tgz#dffc0bf9a21c02209090f2aa69429e1414daf3f9"
@@ -18786,7 +18796,7 @@ workerd@1.20231218.0:
     "@cloudflare/workerd-linux-arm64" "1.20231218.0"
     "@cloudflare/workerd-windows-64" "1.20231218.0"
 
-wrangler@3.22.2:
+wrangler@3.22.2, wrangler@^3.22.0:
   version "3.22.2"
   resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-3.22.2.tgz#2ba826d398e9425d121d7101bf1838edaaa9ea39"
   integrity sha512-lDq+921TGEpqzN3Wan8j8k683qnOJfpLgn6Fhc7NrvN3zNeqGHcQhn19v2uoXs22lL04Uyc0I61CRtdiT7paCg==

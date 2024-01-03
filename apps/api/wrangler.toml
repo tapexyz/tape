@@ -1,0 +1,18 @@
+name = "api"
+compatibility_date = "2023-01-01"
+routes = [
+	{ pattern = "api.tape.xyz", custom_domain = true }
+]
+keep_vars = true
+node_compat = true
+
+[env.production.vars]
+EVER_ACCESS_KEY=""
+EVER_ACCESS_SECRET=""
+LOGTAIL_API_KEY=""
+INGEST_REST_ENDPOINT=""
+IP_API_KEY=""
+WALLET_PRIVATE_KEY=""
+LIVEPEER_API_TOKEN=""
+
+

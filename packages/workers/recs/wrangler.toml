@@ -1,7 +1,0 @@
-name = "recs"
-main = "src/index.ts"
-compatibility_date = "2023-01-25"
-routes = [
-	{ pattern = "recs.tape.xyz", custom_domain = true }
-]
-keep_vars = true

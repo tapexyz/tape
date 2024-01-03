@@ -57,17 +57,17 @@ This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. I
 | `web`    | NextJs tape website                 |
 | `mobile` | React Native tape mobile app        |
 | `embed`  | NextJs application for video embeds |
-| `api`    | NextJs serverless functions         |
+| `api`    | Cloudflare functions                |
+| `og`     | Open graph tags generator           |
 
 ### Packages
 
 | Name        | Description                               |
 | ----------- | ----------------------------------------- |
-| `lens`      | Everything about Lens Backend             |
+| `lens`      | Everything realted to Lens                |
 | `abis`      | Contract Interfaces                       |
 | `helpers`   | Collection of browser and generic helpers |
 | `ui`        | UI components                             |
-| `workers`   | Cloudflare Workers                        |
 | `constants` | Constants for the entire application      |
 | `config`    | Shared lint config                        |
 
