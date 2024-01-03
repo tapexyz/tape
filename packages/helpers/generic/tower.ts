@@ -40,7 +40,7 @@ export const Tower = {
       worker.onmessage = function (event: MessageEvent) {
         const response = event.data
         const xhr = new XMLHttpRequest()
-        xhr.open('POST', `${WORKER_TOWER_URL}/ingest`)
+        xhr.open('POST', WORKER_TOWER_URL)
         xhr.setRequestHeader('Content-Type', 'application/json')
         xhr.send(JSON.stringify(response))
       }
