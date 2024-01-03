@@ -32,14 +32,14 @@ const validationSchema = object({
   fingerprint: string().nullable().optional(),
   properties: any()
 })
-export type Input = z.infer<typeof validationSchema>
+type RequestInput = z.infer<typeof validationSchema>
 
 app.post('/', zValidator('json', validationSchema), async (c) => {
   try {
-    const reqBody = await c.req.json<Input>()
+    const reqBody = await c.req.json<RequestInput>()
 
     const { name, actor, url, referrer, platform, properties, fingerprint } =
-      reqBody as Input
+      reqBody as RequestInput
 
     if (!checkEventExistence(ALL_EVENTS, name)) {
       return new Response(

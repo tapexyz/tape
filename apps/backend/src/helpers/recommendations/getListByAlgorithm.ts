@@ -1,7 +1,9 @@
-import { IRequest, error } from 'itty-router'
-import { k3lFeed, k3lScores } from './providers/k3l'
+import type { IRequest } from 'itty-router'
+import { error } from 'itty-router'
 
-export default async (request: IRequest) => {
+import { k3lFeed, k3lScores } from './k3l'
+
+const getListByAlgorithm = async (request: IRequest) => {
   const { provider, strategy, limit, offset } = request.params
   const exclude = request.query.exclude as string
 
@@ -32,3 +34,5 @@ export default async (request: IRequest) => {
     throw error
   }
 }
+
+export default getListByAlgorithm
