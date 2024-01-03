@@ -7,7 +7,7 @@ import React from 'react'
 
 const RenderLink = ({ link }: { link: string }) => {
   const fetchOembed = async () => {
-    const { data } = await axios.get(`${WORKER_OEMBED_URL}/parse`, {
+    const { data } = await axios.get(WORKER_OEMBED_URL, {
       params: { url: link }
     })
     return data.og
