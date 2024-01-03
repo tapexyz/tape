@@ -1,13 +1,16 @@
 import deepHash from './deephash'
 import type { DataItem, EthereumSigner } from './index'
 
-const map = {
+interface MapType {
+  [key: string]: string
+}
+
+const map: MapType = {
   sha256: 'SHA-256',
   sha384: 'SHA-384'
 }
 
 for (const [k, v] of Object.entries(map)) {
-  // @ts-expect-error
   map[v] = k
 }
 
