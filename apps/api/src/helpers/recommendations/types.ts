@@ -8,4 +8,3 @@ export type K3LProfile = {
 export type K3LFeedItem = {
   postId: string
 }
-export interface Env {}
