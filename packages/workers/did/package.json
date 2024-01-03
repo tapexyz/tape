@@ -17,6 +17,6 @@
     "@cloudflare/workers-types": "^4.20231218.0",
     "@tape.xyz/config": "*",
     "typescript": "^5.3.3",
-    "wrangler": "3.22.1"
+    "wrangler": "3.22.2"
   }
 }
