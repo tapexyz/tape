@@ -12,7 +12,6 @@ const Home: NextPage = () => {
 
   return (
     <div className="max-w-screen-ultrawide container mx-auto">
-      {/* <Streams /> */}
       <TopSection />
       <Feed />
     </div>

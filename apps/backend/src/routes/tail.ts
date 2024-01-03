@@ -3,7 +3,7 @@ import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 import { z } from 'zod'
 
-import { ERROR_MESSAGE } from '@/constants'
+import { ERROR_MESSAGE } from '@/helpers/constants'
 
 type Bindings = {
   LOGTAIL_API_KEY: string

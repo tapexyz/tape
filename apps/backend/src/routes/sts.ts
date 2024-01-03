@@ -1,7 +1,7 @@
 import { AssumeRoleCommand, STSClient } from '@aws-sdk/client-sts'
 import { Hono } from 'hono'
 
-import { ERROR_MESSAGE } from '@/constants'
+import { ERROR_MESSAGE } from '@/helpers/constants'
 
 type Bindings = {
   EVER_ACCESS_KEY: string

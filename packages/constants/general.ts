@@ -83,7 +83,6 @@ export const WORKER_LOGTAIL_INGEST_URL = 'https://tail.tape.xyz'
 export const WORKER_STS_TOKEN_URL = 'https://sts.tape.xyz'
 export const WORKER_RECS_URL = 'https://recs.tape.xyz'
 export const WORKER_DID_URL = 'https://did.tape.xyz'
-export const WORKER_STREAM_URL = 'https://stream.tape.xyz'
 export const WORKER_TOWER_URL = 'https://tower.tape.xyz'
 export const WORKER_OEMBED_URL = 'https://oembed.tape.xyz'
 

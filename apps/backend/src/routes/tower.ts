@@ -1,20 +1,27 @@
-import UAParser from 'ua-parser-js'
-import { any, object, string } from 'zod'
+import { zValidator } from '@hono/zod-validator'
 import { ALL_EVENTS } from '@tape.xyz/generic/events'
+import { Hono } from 'hono'
+import { cors } from 'hono/cors'
+import UAParser from 'ua-parser-js'
+import type { z } from 'zod'
+import { any, object, string } from 'zod'
 
-import checkEventExistence from '../helpers/checkEventExistence'
-import type { WorkerRequest } from '../types'
+import checkEventExistence from '@/helpers/checkEventExistence'
+import { ERROR_MESSAGE } from '@/helpers/constants'
 
-type ExtensionRequest = {
-  name: string
-  actor?: string
-  url: string
-  referrer?: string
-  user_agent?: string
-  platform: 'web' | 'mobile'
-  properties?: string
-  fingerprint?: string
+type Bindings = {
+  INGEST_REST_ENDPOINT: string
+  IP_API_KEY: string
 }
+
+const app = new Hono<{ Bindings: Bindings }>()
+const corsConfig = {
+  origin: ['*'],
+  allowHeaders: ['*'],
+  allowMethods: ['POST', 'OPTIONS'],
+  maxAge: 600
+}
+app.use('*', cors(corsConfig))
 
 const validationSchema = object({
   name: string().min(1, { message: 'Name is required' }),
@@ -22,37 +29,27 @@ const validationSchema = object({
   url: string(),
   referrer: string().nullable().optional(),
   platform: string(),
+  fingerprint: string().nullable().optional(),
   properties: any()
 })
+export type Input = z.infer<typeof validationSchema>
 
-export default async (request: WorkerRequest) => {
-  const body = await request.json()
-  if (!body) {
-    return new Response(JSON.stringify({ success: false, error: 'No body' }))
-  }
-
-  const validation = validationSchema.safeParse(body)
-
-  if (!validation.success) {
-    return new Response(
-      JSON.stringify({ success: false, error: validation.error.issues })
-    )
-  }
-
-  const { name, actor, url, referrer, platform, properties, fingerprint } =
-    body as ExtensionRequest
-
-  if (!checkEventExistence(ALL_EVENTS, name)) {
-    return new Response(
-      JSON.stringify({ success: false, error: 'Invalid event' })
-    )
-  }
-
-  const ip = request.headers.get('cf-connecting-ip')
-  const user_agent = request.headers.get('user-agent')
-
+app.post('/', zValidator('json', validationSchema), async (c) => {
   try {
-    // Extract IP data
+    const reqBody = await c.req.json<Input>()
+
+    const { name, actor, url, referrer, platform, properties, fingerprint } =
+      reqBody as Input
+
+    if (!checkEventExistence(ALL_EVENTS, name)) {
+      return new Response(
+        JSON.stringify({ success: false, error: 'Invalid event' })
+      )
+    }
+
+    const ip = c.req.header('cf-connecting-ip')
+    const user_agent = c.req.header('user-agent')
+
     const parser = new UAParser(user_agent || '')
     const ua = parser.getResult()
     let ipData: {
@@ -63,9 +60,9 @@ export default async (request: WorkerRequest) => {
 
     try {
       const ipResponse = await fetch(
-        `https://pro.ip-api.com/json/${ip}?key=${request.env.IP_API_KEY}`
+        `https://pro.ip-api.com/json/${ip}?key=${c.env.IP_API_KEY}`
       )
-      ipData = await ipResponse.json()
+      ipData = (await ipResponse.json()) as any
     } catch {}
 
     // Extract UTM parameters
@@ -118,20 +115,20 @@ export default async (request: WorkerRequest) => {
         )
       `
 
-    const clickhouseResponse = await fetch(request.env.INGEST_REST_ENDPOINT, {
+    const clickhouseResponse = await fetch(c.env.INGEST_REST_ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body
     })
 
     if (clickhouseResponse.status !== 200) {
-      return new Response(
-        JSON.stringify({ success: false, error: 'Ingest failed' })
-      )
+      return c.json({ success: false, message: ERROR_MESSAGE })
     }
 
-    return new Response(JSON.stringify({ success: true }))
-  } catch (error) {
-    throw error
+    return c.json({ success: true })
+  } catch {
+    return c.json({ success: false, message: ERROR_MESSAGE })
   }
-}
+})
+
+export default app
