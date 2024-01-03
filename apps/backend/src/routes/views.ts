@@ -6,7 +6,7 @@ import { object, z } from 'zod'
 import { ERROR_MESSAGE } from '@/helpers/constants'
 
 type Bindings = {
-  LOGTAIL_API_KEY: string
+  LIVEPEER_API_TOKEN: string
 }
 
 const app = new Hono<{ Bindings: Bindings }>()
@@ -18,31 +18,34 @@ const corsConfig = {
 }
 app.use('*', cors(corsConfig))
 
-const logtailApiURL = 'https://in.logtail.com/'
 const validationSchema = object({
-  source: z.string(),
-  level: z.string().nullable().optional(),
-  message: z.string().nullable().optional()
+  cid: z.string()
 })
 type RequestInput = z.infer<typeof validationSchema>
 
 app.post('/', zValidator('json', validationSchema), async (c) => {
   try {
     const body = await c.req.json<RequestInput>()
-    const LOGTAIL_API_KEY = c.env.LOGTAIL_API_KEY
-    const result = await fetch(logtailApiURL, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${LOGTAIL_API_KEY}`,
-        'Content-Type': 'application/json',
-        'User-Agent': 'Tape'
-      },
-      body: JSON.stringify(body)
-    })
-    if (!result.ok) {
-      return c.json({ success: false, message: ERROR_MESSAGE })
+
+    const LIVEPEER_API_TOKEN = c.env.LIVEPEER_API_TOKEN
+    const result = await fetch(
+      `https://livepeer.studio/api/data/views/query/total/${body.cid}`,
+      {
+        method: 'GET',
+        headers: {
+          Authorization: `Bearer ${LIVEPEER_API_TOKEN}`,
+          'Content-Type': 'application/json',
+          'User-Agent': 'Tape'
+        }
+      }
+    )
+    const viewsRes = (await result.json()) as any
+
+    if (!viewsRes.viewCount) {
+      return c.json({ success: false, views: 0 })
     }
-    return c.json({ success: true })
+
+    return c.json({ success: true, views: viewsRes.viewCount })
   } catch {
     return c.json({ success: false, message: ERROR_MESSAGE })
   }

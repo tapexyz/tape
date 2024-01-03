@@ -6,6 +6,7 @@ import recommendations from './routes/recommendations'
 import sts from './routes/sts'
 import tail from './routes/tail'
 import tower from './routes/tower'
+import views from './routes/views'
 
 const app = new Hono()
 
@@ -16,6 +17,7 @@ app.route('/tail', tail)
 app.route('/tower', tower)
 app.route('/did', did)
 app.route('/metadata', metadata)
+app.route('/views', views)
 app.route('/recommendations', recommendations)
 
 export default app
