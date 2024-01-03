@@ -6,7 +6,6 @@
   "workspaces": [
     "apps/*",
     "packages/*",
-    "packages/workers/*",
     "packages/helpers/*"
   ],
   "scripts": {
@@ -17,7 +16,7 @@
     "lint": "turbo run lint --parallel",
     "typecheck": "turbo run typecheck --parallel",
     "prepare": "husky install",
-    "workers:deploy": "turbo run worker:deploy --parallel",
+    "api:deploy": "turbo run worker:deploy --parallel",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "mobile": "cd apps/mobile && yarn mobile:start"
   },
