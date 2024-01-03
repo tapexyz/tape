@@ -1,11 +1,23 @@
-export type DeepHashChunk = Uint8Array | AsyncIterable<Buffer> | DeepHashChunks
+export type DeepHashChunk = Uint8Array | AsyncIterable<Buffer> | DeepHashChunk[]
 export type DeepHashChunks = DeepHashChunk[]
+
+const deepHashChunks = async (
+  chunks: DeepHashChunks,
+  acc: Uint8Array
+): Promise<Uint8Array> => {
+  if (chunks.length < 1) {
+    return acc
+  }
+
+  // eslint-disable-next-line no-use-before-define
+  const hashPair = Buffer.concat([acc, await deepHash(chunks[0])])
+  const newAcc = Buffer.from(await crypto.subtle.digest('SHA-384', hashPair))
+  return await deepHashChunks(chunks.slice(1), newAcc)
+}
 
 export const deepHash = async (data: DeepHashChunk): Promise<Uint8Array> => {
   if (
-    // @ts-expect-error
-    typeof data[Symbol.asyncIterator as keyof AsyncIterable<Buffer>] ===
-    'function'
+    typeof (data as AsyncIterable<Buffer>)[Symbol.asyncIterator] === 'function'
   ) {
     const _data = data as AsyncIterable<Buffer>
     let length = 0
@@ -46,19 +58,6 @@ export const deepHash = async (data: DeepHashChunk): Promise<Uint8Array> => {
   ])
 
   return Buffer.from(await crypto.subtle.digest('SHA-384', taggedHash))
-}
-
-const deepHashChunks = async (
-  chunks: DeepHashChunks,
-  acc: Uint8Array
-): Promise<Uint8Array> => {
-  if (chunks.length < 1) {
-    return acc
-  }
-
-  const hashPair = Buffer.concat([acc, await deepHash(chunks[0])])
-  const newAcc = Buffer.from(await crypto.subtle.digest('SHA-384', hashPair))
-  return await deepHashChunks(chunks.slice(1), newAcc)
 }
 
 export default deepHash

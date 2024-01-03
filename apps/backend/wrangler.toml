@@ -4,6 +4,7 @@ routes = [
 	{ pattern = "api.tape.xyz", custom_domain = true }
 ]
 keep_vars = true
+node_compat = true
 
 [env.production.vars]
 LOGTAIL_API_KEY=""

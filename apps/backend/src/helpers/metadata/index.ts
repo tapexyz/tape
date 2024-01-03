@@ -123,7 +123,7 @@ export class DataItem {
     return this.binary.subarray(dataStart, this.binary.length)
   }
 
-  getRaw(): Buffer {
+  getRaw() {
     return this.binary
   }
 

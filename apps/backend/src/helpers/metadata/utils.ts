@@ -11,6 +11,19 @@ for (const [k, v] of Object.entries(map)) {
   map[v] = k
 }
 
+const getSignatureData = (item: DataItem): Promise<Uint8Array> => {
+  return deepHash([
+    Buffer.from('dataitem', 'utf-8'),
+    Buffer.from('1', 'utf-8'),
+    Buffer.from(item.signatureType.toString(), 'utf-8'),
+    item.rawOwner,
+    item.rawTarget,
+    item.rawAnchor,
+    item.rawTags,
+    item.rawData
+  ])
+}
+
 export const getSignatureAndId = async (
   item: DataItem,
   signer: EthereumSigner
@@ -30,19 +43,6 @@ export const sign = async (
   item.getRaw().set(signature, 2)
 
   return id
-}
-
-const getSignatureData = (item: DataItem): Promise<Uint8Array> => {
-  return deepHash([
-    Buffer.from('dataitem', 'utf-8'),
-    Buffer.from('1', 'utf-8'),
-    Buffer.from(item.signatureType.toString(), 'utf-8'),
-    item.rawOwner,
-    item.rawTarget,
-    item.rawAnchor,
-    item.rawTags,
-    item.rawData
-  ])
 }
 
 export const byteArrayToLong = (byteArray: Uint8Array): number => {
