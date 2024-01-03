@@ -9,6 +9,7 @@ import recommendations from './routes/recommendations'
 import sts from './routes/sts'
 import tail from './routes/tail'
 import tower from './routes/tower'
+import verified from './routes/verified'
 import views from './routes/views'
 
 const app = new Hono()
@@ -31,6 +32,7 @@ app.route('/views', views)
 app.route('/oembed', oembed)
 app.route('/gateway', gateway)
 app.route('/metadata', metadata)
+app.route('/verified', verified)
 app.route('/recommendations', recommendations)
 
 export default app
