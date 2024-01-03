@@ -1,5 +1,6 @@
-import { Document } from 'linkedom'
-import { COMMON_REGEX } from './constants'
+import type { Document } from 'linkedom/types/interface/document'
+
+import { COMMON_REGEX } from './regex'
 
 const ALLOWED_EMBEDS = [
   'youtube.com',
@@ -8,7 +9,7 @@ const ALLOWED_EMBEDS = [
   'player.vimeo.com'
 ]
 
-const constructIframe = async (document: Document, url: string) => {
+const constructIframe = async (document: Document) => {
   const ogURLTag =
     document.querySelector('meta[property="twitter:player"]') ||
     document.querySelector('meta[property="og:video:secure_url"]') ||

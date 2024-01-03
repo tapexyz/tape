@@ -1,8 +1,8 @@
-import { COMMON_REGEX } from './constants'
-import constructIframe from './constructIframe'
-import { Document } from 'linkedom'
+import type { Document } from 'linkedom/types/interface/document'
 
-const extractOgTags = async (document: Document, url: string) => {
+import constructIframe from './constructIframe'
+
+const extractOgTags = async (document: Document) => {
   const ogTags = {
     title: '',
     description: '',
@@ -21,7 +21,7 @@ const extractOgTags = async (document: Document, url: string) => {
   const imageTag = document.querySelector('meta[property="og:image"]')
   ogTags.image = imageTag ? imageTag.getAttribute('content') || '' : ''
 
-  const iframeHTML = await constructIframe(document, url)
+  const iframeHTML = await constructIframe(document)
   ogTags.html = iframeHTML
 
   return ogTags

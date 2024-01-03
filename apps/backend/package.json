@@ -13,6 +13,7 @@
     "@aws-sdk/client-sts": "3.484.0",
     "@hono/zod-validator": "^0.1.11",
     "hono": "^3.11.12",
+    "linkedom": "^0.16.6",
     "ua-parser-js": "^1.0.37",
     "viem": "^1.21.4",
     "zod": "^3.22.4"
