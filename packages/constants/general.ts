@@ -77,14 +77,14 @@ export const LIVEPEER_STUDIO_API_KEY = IS_PRODUCTION
   : ''
 
 // workers
-export const WORKER_LIVEPEER_VIEWS_URL = 'https://views.tape.xyz'
-export const WORKER_IRYS_METADATA_UPLOAD_URL = 'https://metadata.tape.xyz'
-export const WORKER_LOGTAIL_INGEST_URL = 'https://tail.tape.xyz'
-export const WORKER_STS_TOKEN_URL = 'https://sts.tape.xyz'
-export const WORKER_RECS_URL = 'https://recs.tape.xyz'
-export const WORKER_DID_URL = 'https://did.tape.xyz'
-export const WORKER_TOWER_URL = 'https://tower.tape.xyz'
-export const WORKER_OEMBED_URL = 'https://oembed.tape.xyz'
+export const WORKER_LIVEPEER_VIEWS_URL = 'https://api.tape.xyz/views'
+export const WORKER_IRYS_METADATA_UPLOAD_URL = 'https://api.tape.xyz/metadata'
+export const WORKER_LOGTAIL_INGEST_URL = 'https://api.tape.xyz/tail'
+export const WORKER_STS_TOKEN_URL = 'https://api.tape.xyz/sts'
+export const WORKER_RECS_URL = 'https://api.tape.xyz/recommendations'
+export const WORKER_DID_URL = 'https://api.tape.xyz/did'
+export const WORKER_TOWER_URL = 'https://api.tape.xyz/tower'
+export const WORKER_OEMBED_URL = 'https://api.tape.xyz/oembed'
 
 // irys
 export const IRYS_NODE_URL = IS_MAINNET
