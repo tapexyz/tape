@@ -16,7 +16,7 @@ const app = new Hono<{ Bindings: Bindings }>()
 const corsConfig = {
   origin: ['https://tape.xyz', 'https://www.tape.xyz'],
   allowHeaders: ['*'],
-  allowMethods: ['POST', 'OPTIONS'],
+  allowMethods: ['GET', 'OPTIONS'],
   maxAge: 600
 }
 app.use('*', cors(corsConfig))

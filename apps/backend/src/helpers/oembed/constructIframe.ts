@@ -13,7 +13,8 @@ const constructIframe = async (document: Document) => {
   const ogURLTag =
     document.querySelector('meta[property="twitter:player"]') ||
     document.querySelector('meta[property="og:video:secure_url"]') ||
-    document.querySelector('meta[property="og:video:url"]')
+    document.querySelector('meta[property="og:video:url"]') ||
+    document.querySelector('meta[property="og:video"]')
 
   let embedUrl = ogURLTag ? ogURLTag.getAttribute('content') : null
   if (!embedUrl) {
