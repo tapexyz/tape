@@ -1,5 +1,6 @@
 import { zValidator } from '@hono/zod-validator'
 import { Hono } from 'hono'
+import { cache } from 'hono/cache'
 import { parseHTML } from 'linkedom'
 import { object, string } from 'zod'
 
@@ -12,6 +13,13 @@ type Bindings = {
 }
 
 const app = new Hono<{ Bindings: Bindings }>()
+app.get(
+  '*',
+  cache({
+    cacheName: 'oembed',
+    cacheControl: 'max-age=3600'
+  })
+)
 
 const validationSchema = object({
   url: string().url()
