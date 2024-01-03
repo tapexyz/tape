@@ -1,7 +1,6 @@
 import { zValidator } from '@hono/zod-validator'
 import { ALL_EVENTS } from '@tape.xyz/generic/events'
 import { Hono } from 'hono'
-import { cors } from 'hono/cors'
 import UAParser from 'ua-parser-js'
 import type { z } from 'zod'
 import { any, object, string } from 'zod'
@@ -15,13 +14,6 @@ type Bindings = {
 }
 
 const app = new Hono<{ Bindings: Bindings }>()
-const corsConfig = {
-  origin: ['*'],
-  allowHeaders: ['*'],
-  allowMethods: ['POST', 'OPTIONS'],
-  maxAge: 600
-}
-app.use('*', cors(corsConfig))
 
 const validationSchema = object({
   name: string().min(1, { message: 'Name is required' }),

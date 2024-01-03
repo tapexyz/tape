@@ -1,19 +1,11 @@
 import { zValidator } from '@hono/zod-validator'
 import { Hono } from 'hono'
-import { cors } from 'hono/cors'
 import { z } from 'zod'
 
 import { ERROR_MESSAGE } from '@/helpers/constants'
 import { k3lFeed, k3lScores } from '@/helpers/recommendations/k3l'
 
 const app = new Hono()
-const corsConfig = {
-  origin: ['*'],
-  allowHeaders: ['*'],
-  allowMethods: ['GET', 'OPTIONS'],
-  maxAge: 600
-}
-app.use('*', cors(corsConfig))
 
 app.get(
   '/:provider/:strategy/:limit?/:offset?',

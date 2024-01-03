@@ -1,5 +1,4 @@
 import { Hono } from 'hono'
-import { cors } from 'hono/cors'
 
 import { ERROR_MESSAGE, IRYS_NODE_URL } from '@/helpers/constants'
 import { createData, EthereumSigner } from '@/helpers/metadata'
@@ -9,13 +8,6 @@ type Bindings = {
 }
 
 const app = new Hono<{ Bindings: Bindings }>()
-const corsConfig = {
-  origin: ['*'],
-  allowHeaders: ['*'],
-  allowMethods: ['POST', 'OPTIONS'],
-  maxAge: 600
-}
-app.use('*', cors(corsConfig))
 
 app.post('/', async (c) => {
   try {

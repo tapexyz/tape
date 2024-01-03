@@ -1,6 +1,5 @@
 import { zValidator } from '@hono/zod-validator'
 import { Hono } from 'hono'
-import { cors } from 'hono/cors'
 import { object, z } from 'zod'
 
 import { ERROR_MESSAGE } from '@/helpers/constants'
@@ -10,13 +9,6 @@ type Bindings = {
 }
 
 const app = new Hono<{ Bindings: Bindings }>()
-const corsConfig = {
-  origin: ['https://tape.xyz', 'https://www.tape.xyz'],
-  allowHeaders: ['*'],
-  allowMethods: ['POST', 'OPTIONS'],
-  maxAge: 600
-}
-app.use('*', cors(corsConfig))
 
 const logtailApiURL = 'https://in.logtail.com/'
 const validationSchema = object({

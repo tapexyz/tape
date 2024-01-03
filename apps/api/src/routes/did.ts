@@ -1,6 +1,5 @@
 import { zValidator } from '@hono/zod-validator'
 import { Hono } from 'hono'
-import { cors } from 'hono/cors'
 import { createPublicClient, http, isAddress } from 'viem'
 import { mainnet } from 'viem/chains'
 import type { z } from 'zod'
@@ -14,13 +13,6 @@ import {
 import { resolverAbi } from '@/helpers/did/resolverAbi'
 
 const app = new Hono()
-const corsConfig = {
-  origin: ['*'],
-  allowHeaders: ['*'],
-  allowMethods: ['POST', 'OPTIONS'],
-  maxAge: 600
-}
-app.use('*', cors(corsConfig))
 
 const validationSchema = object({
   addresses: array(string().regex(/^(0x)?[\da-f]{40}$/i)).max(50, {

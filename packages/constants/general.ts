@@ -40,6 +40,7 @@ export const LENS_API_URL = IS_MAINNET ? MAINNET_API_URL : TESTNET_API_URL
 export const TAPE_EMBED_URL = IS_MAINNET
   ? 'https://embed.tape.xyz'
   : 'https://embed-testnet.tape.xyz'
+export const TAPE_API_URL = 'https://api.tape.xyz'
 
 // addresses
 export const LENSHUB_PROXY_ADDRESS = IS_MAINNET
@@ -77,14 +78,14 @@ export const LIVEPEER_STUDIO_API_KEY = IS_PRODUCTION
   : ''
 
 // workers
-export const WORKER_LIVEPEER_VIEWS_URL = 'https://api.tape.xyz/views'
-export const WORKER_IRYS_METADATA_UPLOAD_URL = 'https://api.tape.xyz/metadata'
-export const WORKER_LOGTAIL_INGEST_URL = 'https://api.tape.xyz/tail'
-export const WORKER_STS_TOKEN_URL = 'https://api.tape.xyz/sts'
-export const WORKER_RECS_URL = 'https://api.tape.xyz/recommendations'
-export const WORKER_DID_URL = 'https://api.tape.xyz/did'
-export const WORKER_TOWER_URL = 'https://api.tape.xyz/tower'
-export const WORKER_OEMBED_URL = 'https://api.tape.xyz/oembed'
+export const WORKER_LIVEPEER_VIEWS_URL = `${TAPE_API_URL}/views`
+export const WORKER_IRYS_METADATA_UPLOAD_URL = `${TAPE_API_URL}/metadata`
+export const WORKER_LOGTAIL_INGEST_URL = `${TAPE_API_URL}/tail`
+export const WORKER_STS_TOKEN_URL = `${TAPE_API_URL}/sts`
+export const WORKER_RECS_URL = `${TAPE_API_URL}/recommendations`
+export const WORKER_DID_URL = `${TAPE_API_URL}/did`
+export const WORKER_TOWER_URL = `${TAPE_API_URL}/tower`
+export const WORKER_OEMBED_URL = `${TAPE_API_URL}/oembed`
 
 // irys
 export const IRYS_NODE_URL = IS_MAINNET

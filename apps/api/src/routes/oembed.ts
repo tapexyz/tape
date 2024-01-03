@@ -1,6 +1,5 @@
 import { zValidator } from '@hono/zod-validator'
 import { Hono } from 'hono'
-import { cors } from 'hono/cors'
 import { parseHTML } from 'linkedom'
 import { object, z } from 'zod'
 
@@ -13,13 +12,6 @@ type Bindings = {
 }
 
 const app = new Hono<{ Bindings: Bindings }>()
-const corsConfig = {
-  origin: ['https://tape.xyz', 'https://www.tape.xyz'],
-  allowHeaders: ['*'],
-  allowMethods: ['GET', 'OPTIONS'],
-  maxAge: 600
-}
-app.use('*', cors(corsConfig))
 
 const validationSchema = object({
   url: z.string().url()
