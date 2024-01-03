@@ -1,6 +1,7 @@
 import { zValidator } from '@hono/zod-validator'
 import { Hono } from 'hono'
-import { object, z } from 'zod'
+import type { z } from 'zod'
+import { object, string } from 'zod'
 
 import { ERROR_MESSAGE } from '@/helpers/constants'
 
@@ -11,7 +12,7 @@ type Bindings = {
 const app = new Hono<{ Bindings: Bindings }>()
 
 const validationSchema = object({
-  cid: z.string()
+  cid: string()
 })
 type RequestInput = z.infer<typeof validationSchema>
 

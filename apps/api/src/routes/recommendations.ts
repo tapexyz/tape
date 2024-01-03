@@ -1,6 +1,6 @@
 import { zValidator } from '@hono/zod-validator'
 import { Hono } from 'hono'
-import { z } from 'zod'
+import { object, string } from 'zod'
 
 import { ERROR_MESSAGE } from '@/helpers/constants'
 import { k3lFeed, k3lScores } from '@/helpers/recommendations/k3l'
@@ -11,9 +11,9 @@ app.get(
   '/:provider/:strategy/:limit?/:offset?',
   zValidator(
     'param',
-    z.object({
-      provider: z.string(),
-      strategy: z.string()
+    object({
+      provider: string(),
+      strategy: string()
     })
   ),
   async (c) => {
