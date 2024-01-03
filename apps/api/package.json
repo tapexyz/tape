@@ -1,6 +1,6 @@
 {
-  "name": "@tape.xyz/backend",
-  "description": "Backend for tape.xyz",
+  "name": "@tape.xyz/api",
+  "description": "API for tape.xyz",
   "version": "0.0.0",
   "private": true,
   "scripts": {

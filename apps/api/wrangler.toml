@@ -1,4 +1,4 @@
-name = "backend"
+name = "api"
 compatibility_date = "2023-01-01"
 routes = [
 	{ pattern = "api.tape.xyz", custom_domain = true }
