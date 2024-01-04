@@ -1,5 +1,6 @@
 import Tooltip from '@components/UIElements/Tooltip'
-import { MISUSED_CHANNELS, VERIFIED_CHANNELS } from '@tape.xyz/constants'
+import useVerifiedStore from '@lib/store/idb/verified'
+import { MISUSED_CHANNELS } from '@tape.xyz/constants'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
@@ -14,7 +15,8 @@ type Props = {
 }
 
 const Badge: FC<Props> = ({ id, size = 'sm', color }) => {
-  const isVerified = VERIFIED_CHANNELS.includes(id)
+  const verifiedProfiles = useVerifiedStore((state) => state.verifiedProfiles)
+  const isVerified = verifiedProfiles.includes(id)
   const misused = MISUSED_CHANNELS.find((c) => c.id === id)
 
   return (

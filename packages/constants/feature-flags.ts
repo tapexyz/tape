@@ -1,5 +1,4 @@
 import { IS_MAINNET } from './general'
-import { CORE_MEMBERS } from './verified'
 
 export enum FEATURE_FLAGS {
   POST_WITH_SOURCE_URL = 'PostWithSource',
@@ -15,16 +14,14 @@ type FeatureFlag = {
 export const featureFlags: FeatureFlag[] = [
   {
     flag: FEATURE_FLAGS.POST_WITH_SOURCE_URL,
-    enabledFor: CORE_MEMBERS
+    enabledFor: IS_MAINNET ? ['0x2d'] : []
   },
   {
     flag: FEATURE_FLAGS.PROFILE_NFTS,
-    enabledFor: CORE_MEMBERS
+    enabledFor: IS_MAINNET ? ['0x2d'] : []
   },
   {
     flag: FEATURE_FLAGS.BANGERS,
-    enabledFor: IS_MAINNET
-      ? ['0x5c95', '0x0d', '0x6ba0', ...CORE_MEMBERS]
-      : CORE_MEMBERS
+    enabledFor: IS_MAINNET ? ['0x5c95', '0x0d', '0x6ba0', '0x2d'] : []
   }
 ]
