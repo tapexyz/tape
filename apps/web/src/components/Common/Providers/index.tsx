@@ -11,6 +11,7 @@ import ErrorBoundary from '../ErrorBoundary'
 import ThemeProvider from './ThemeProvider'
 
 const SubscriptionProvider = dynamic(() => import('./SubscriptionProvider'))
+const TogglesProvider = dynamic(() => import('./TogglesProvider'))
 const Web3Provider = dynamic(() => import('./Web3Provider'))
 const GlobalDialogs = dynamic(() => import('../GlobalDialogs'))
 const Layout = dynamic(() => import('../Layout'))
@@ -45,6 +46,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
           <QueryClientProvider client={reactQueryClient}>
             <ThemeProvider>
               <SubscriptionProvider />
+              <TogglesProvider />
               <GlobalDialogs />
               <LivepeerConfig client={livepeerClient} theme={videoPlayerTheme}>
                 <Layout
