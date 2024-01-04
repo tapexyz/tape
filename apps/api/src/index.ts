@@ -8,6 +8,7 @@ import oembed from './routes/oembed'
 import recommendations from './routes/recommendations'
 import sts from './routes/sts'
 import tail from './routes/tail'
+import toggles from './routes/toggles'
 import tower from './routes/tower'
 import verified from './routes/verified'
 import views from './routes/views'
@@ -31,6 +32,7 @@ app.route('/tower', tower)
 app.route('/views', views)
 app.route('/oembed', oembed)
 app.route('/gateway', gateway)
+app.route('/toggles', toggles)
 app.route('/metadata', metadata)
 app.route('/verified', verified)
 app.route('/recommendations', recommendations)
