@@ -22,7 +22,7 @@ jobs:
             bun-version: latest
  
         - name: Install dependencies 🧳
-          run: bun install --frozen-lockfile
+          run: bun install
           
         - name: Check Lint 💅🏻
           run: bun run lint && bun run typecheck
