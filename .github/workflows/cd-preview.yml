@@ -1,0 +1,49 @@
+name: APPS - Preview Deployment 👀
+env:
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID_WEB: ${{ secrets.VERCEL_PROJECT_ID_WEB }}
+  VERCEL_PROJECT_ID_EMBED: ${{ secrets.VERCEL_PROJECT_ID_EMBED }}
+  VERCEL_PROJECT_ID_OG: ${{ secrets.VERCEL_PROJECT_ID_OG }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to deploy'
+        required: true
+    
+jobs:
+  Deploy-Preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch }}
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+
+      - name: Pull Vercel Environment Information ・ WEB
+        run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }} --scope=${{ secrets.VERCEL_PROJECT_ID_WEB }}
+      - name: Build Project Artifacts ・ WEB
+        run: vercel build --token=${{ secrets.VERCEL_TOKEN }} --scope=${{ secrets.VERCEL_PROJECT_ID_WEB }}
+      - name: Deploy Project Artifacts to Vercel ・ WEB
+        run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }} --scope=${{ secrets.VERCEL_PROJECT_ID_WEB }}
+
+      - name: Pull Vercel Environment Information ・ EMBED
+        run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }} --scope=${{ secrets.VERCEL_PROJECT_ID_EMBED }}
+      - name: Build Project Artifacts ・ EMBED
+        run: vercel build --token=${{ secrets.VERCEL_TOKEN }} --scope=${{ secrets.VERCEL_PROJECT_ID_EMBED }}
+      - name: Deploy Project Artifacts to Vercel ・ EMBED
+        run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }} --scope=${{ secrets.VERCEL_PROJECT_ID_EMBED }}
+
+      - name: Pull Vercel Environment Information ・ OG
+        run: vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }} --scope=${{ secrets.VERCEL_PROJECT_ID_OG }}
+      - name: Build Project Artifacts ・ OG
+        run: vercel build --token=${{ secrets.VERCEL_TOKEN }} --scope=${{ secrets.VERCEL_PROJECT_ID_OG }}
+      - name: Deploy Project Artifacts to Vercel ・ OG
+        run: vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }} --scope=${{ secrets.VERCEL_PROJECT_ID_OG }}
