@@ -16,7 +16,7 @@ import views from './routes/views'
 const app = new Hono()
 
 const corsConfig = {
-  origin: ['https://tape.xyz', '*.tape.xyz'],
+  origin: ['https://tape.xyz', '*.tape.xyz', 'http://localhost:4783'],
   allowHeaders: ['*'],
   allowMethods: ['GET', 'POST', 'OPTIONS'],
   maxAge: 600

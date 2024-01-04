@@ -3,13 +3,13 @@ import { LocalIDBStore } from '@tape.xyz/lens/custom-types'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 
-interface ProfileState {
+interface State {
   verifiedProfiles: string[]
   setVerifiedProfiles: (verifiedProfiles: string[]) => void
 }
 
 const useVerifiedStore = create(
-  persist<ProfileState>(
+  persist<State>(
     (set) => ({
       verifiedProfiles: [],
       setVerifiedProfiles: (verifiedProfiles) => set({ verifiedProfiles })

@@ -89,6 +89,7 @@ export const WORKER_DID_URL = `${TAPE_API_URL}/did`
 export const WORKER_TOWER_URL = `${TAPE_API_URL}/tower`
 export const WORKER_OEMBED_URL = `${TAPE_API_URL}/oembed`
 export const WORKER_VERIFIED_URL = `${TAPE_API_URL}/verified`
+export const WORKER_TOGGLES_URL = `${TAPE_API_URL}/toggles`
 
 // irys
 export const IRYS_NODE_URL = IS_MAINNET
