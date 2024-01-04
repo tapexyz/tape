@@ -13,7 +13,6 @@ on:
 jobs:
   Deploy-Production:
     runs-on: ubuntu-latest
-    needs: build
     steps:
       - uses: actions/checkout@v4
       - name: Setup Bun
