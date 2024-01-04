@@ -11,23 +11,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with: 
-          fetch-depth: 2
-      - uses: actions/setup-node@v3
+      - name: Setup Bun 🥟
+        uses: oven-sh/setup-bun@v1
         with:
-          node-version-file: '.nvmrc'
-          cache: 'yarn'
+          bun-version: latest
 
       - name: Install dependencies 🧳
-        run: yarn install --frozen-lockfile
+        run: bun install
 
       - name: Check Lint 💅🏻
-        run: yarn lint && yarn typecheck
+        run: bun lint && bun typecheck
  
       - name: Deploy 🚀
         run: |
-          yarn global add wrangler
-          yarn api:deploy
+          bun global add wrangler
+          bun api:deploy
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
