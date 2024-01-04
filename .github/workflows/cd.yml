@@ -21,7 +21,7 @@ jobs:
           bun-version: latest
 
       - name: Install Vercel CLI
-        run: npm install --global vercel@latest
+        run: bun install --global vercel@latest
 
       - name: Deploy to Vercel ・ WEB
         env:
