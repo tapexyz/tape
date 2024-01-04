@@ -31,7 +31,7 @@ app.get(
 
     try {
       const result = await c.env.TAPE_DB.prepare(
-        'SELECT suspended, limited FROM ProfileRestriction WHERE profileId = ?'
+        'SELECT suspended, limited, flagged FROM ProfileRestriction WHERE profileId = ?'
       )
         .bind(profileId)
         .first()
@@ -40,7 +40,8 @@ app.get(
         success: true,
         restrictions: {
           suspended: Boolean(result?.suspended),
-          limited: Boolean(result?.limited)
+          limited: Boolean(result?.limited),
+          flagged: Boolean(result?.flagged)
         }
       })
     } catch {
