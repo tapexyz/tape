@@ -19,7 +19,6 @@ const DropZone = () => {
   const activeProfile = useProfileStore((state) => state.activeProfile)
 
   const {
-    dragOver,
     setDragOver,
     onDragOver,
     onDragLeave,
@@ -83,8 +82,7 @@ const DropZone = () => {
     <div className="relative flex w-full flex-1 flex-col">
       <label
         className={clsx(
-          'grid w-full place-items-center rounded-3xl border border-dashed p-10 text-center focus:outline-none md:p-20',
-          dragOver ? 'border-green-500' : 'border-gray-500'
+          'tape-border rounded-medium grid h-full w-full place-content-center place-items-center p-10 text-center focus:outline-none md:p-20'
         )}
         htmlFor="dropMedia"
         onDragOver={onDragOver}

@@ -61,6 +61,7 @@ export type UploadedMedia = {
   description: string
   thumbnail: string
   thumbnailType: string
+  thumbnailBlobUrl: string
   mediaCategory: { tag: string; name: string }
   mediaLicense: MetadataLicenseType
   percent: number
