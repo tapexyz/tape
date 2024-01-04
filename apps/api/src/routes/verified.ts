@@ -21,7 +21,7 @@ app.get('/', async (c) => {
     const { results } = await c.env.TAPE_DB.prepare(
       'SELECT * FROM Verified'
     ).all()
-    const ids = results.map((item: Record<string, unknown>) => item.ProfileId)
+    const ids = results.map((item: Record<string, unknown>) => item.profileId)
 
     return c.json({ success: true, ids })
   } catch {
