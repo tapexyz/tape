@@ -1,13 +1,7 @@
-# Dev
+# Migrations
 
 ```sh
-npx wrangler d1 execute tape-prod-d1 --local --file=./schema.sql
-npx wrangler d1 execute tape-prod-d1 --local --command="SELECT * FROM Verified"
-```
-
-# Prod
-
-```sh
-npx wrangler d1 execute tape-prod-d1 --file=./schema.sql
-npx wrangler d1 execute tape-prod-d1 --command="SELECT * FROM Verified"
+npx wrangler d1 migrations create tape-prod-d1 <MIGRATION_NAME>
+npx wrangler d1 migrations list tape-prod-d1 [OPTIONS]
+npx wrangler d1 migrations apply tape-prod-d1 [OPTIONS]
 ```
