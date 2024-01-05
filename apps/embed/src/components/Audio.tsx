@@ -13,13 +13,11 @@ import {
   Tower
 } from '@tape.xyz/generic'
 import type { PrimaryPublication } from '@tape.xyz/lens'
+import { PauseOutline, PlayOutline } from '@tape.xyz/ui'
 import AudioPlayer from '@tape.xyz/ui/AudioPlayer'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useState } from 'react'
-
-import PauseOutline from './icons/PauseOutline'
-import PlayOutline from './icons/PlayOutline'
 
 type Props = {
   audio: PrimaryPublication

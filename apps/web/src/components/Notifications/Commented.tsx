@@ -1,5 +1,4 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
-import CommentOutline from '@components/Common/Icons/CommentOutline'
 import { getShortHandTime } from '@lib/formatTime'
 import {
   getProfile,
@@ -7,6 +6,7 @@ import {
   getPublicationData
 } from '@tape.xyz/generic'
 import type { CommentNotification } from '@tape.xyz/lens'
+import { CommentOutline } from '@tape.xyz/ui'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'

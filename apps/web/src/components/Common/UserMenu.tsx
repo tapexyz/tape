@@ -10,20 +10,21 @@ import {
   useProfilesManagedQuery,
   useRevokeAuthenticationMutation
 } from '@tape.xyz/lens'
+import {
+  BookmarkOutline,
+  CogOutline,
+  GraphOutline,
+  HandWaveOutline,
+  MoonOutline,
+  SunOutline,
+  SwitchProfileOutline,
+  UserOutline
+} from '@tape.xyz/ui'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
 import React, { useMemo } from 'react'
 import { useAccount } from 'wagmi'
-
-import BookmarkOutline from './Icons/BookmarkOutline'
-import CogOutline from './Icons/CogOutline'
-import GraphOutline from './Icons/GraphOutline'
-import HandWaveOutline from './Icons/HandWaveOutline'
-import MoonOutline from './Icons/MoonOutline'
-import SunOutline from './Icons/SunOutline'
-import SwitchProfileOutline from './Icons/SwitchProfileOutline'
-import UserOutline from './Icons/UserOutline'
 
 const UserMenu = () => {
   const { theme, setTheme } = useTheme()

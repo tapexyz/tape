@@ -1,7 +1,7 @@
-import CogOutline from '@components/Common/Icons/CogOutline'
 import usePersistStore from '@lib/store/persist'
 import { Box, DropdownMenu, Text } from '@radix-ui/themes'
 import { CustomNotificationsFilterEnum } from '@tape.xyz/lens/custom-types'
+import { CogOutline } from '@tape.xyz/ui'
 import React from 'react'
 
 const NotificationsFilter = () => {

@@ -1,7 +1,3 @@
-import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
-import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
-import RefreshOutline from '@components/Common/Icons/RefreshOutline'
-import WarningOutline from '@components/Common/Icons/WarningOutline'
 import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
 import useEthersWalletClient from '@hooks/useEthersWalletClient'
@@ -11,6 +7,12 @@ import { Button, Callout, Flex, IconButton, Text } from '@radix-ui/themes'
 import { useIsMounted } from '@tape.xyz/browser'
 import { IRYS_CURRENCY, POLYGON_CHAIN_ID } from '@tape.xyz/constants'
 import { EVENTS, logger, Tower } from '@tape.xyz/generic'
+import {
+  ChevronDownOutline,
+  ChevronUpOutline,
+  RefreshOutline,
+  WarningOutline
+} from '@tape.xyz/ui'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { formatEther, parseEther, parseUnits } from 'viem'

@@ -1,5 +1,4 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
-import CollectOutline from '@components/Common/Icons/CollectOutline'
 import {
   getProfile,
   getProfilePicture,
@@ -7,6 +6,7 @@ import {
   getPublicationData
 } from '@tape.xyz/generic'
 import type { ActedNotification, OpenActionProfileActed } from '@tape.xyz/lens'
+import { CollectOutline } from '@tape.xyz/ui'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'

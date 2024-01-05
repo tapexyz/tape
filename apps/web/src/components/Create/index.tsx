@@ -133,7 +133,7 @@ const CreateSteps = () => {
   }
 
   useEffect(() => {
-    Tower.track(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.UPLOAD.STEPS })
+    Tower.track(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.UPLOAD })
   }, [])
 
   useEffect(() => {

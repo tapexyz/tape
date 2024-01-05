@@ -12,13 +12,13 @@ import {
   Tower
 } from '@tape.xyz/generic'
 import type { PrimaryPublication } from '@tape.xyz/lens'
+import { PlayOutline } from '@tape.xyz/ui'
 import VideoPlayer from '@tape.xyz/ui/VideoPlayer'
 import clsx from 'clsx'
 import { useSearchParams } from 'next/navigation'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 
-import PlayOutline from './icons/PlayOutline'
 import TopOverlay from './TopOverlay'
 
 type Props = {

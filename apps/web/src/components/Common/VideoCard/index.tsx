@@ -8,12 +8,12 @@ import {
   getPublicationData
 } from '@tape.xyz/generic'
 import type { PrimaryPublication, VideoMetadataV3 } from '@tape.xyz/lens'
+import { HeartOutline } from '@tape.xyz/ui'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
 
 import HoverableProfile from '../HoverableProfile'
-import HeartOutline from '../Icons/HeartOutline'
 import PublicationOptions from '../Publication/PublicationOptions'
 import ThumbnailImage from './ThumbnailImage'
 import ThumbnailOverlays from './ThumbnailOverlays'

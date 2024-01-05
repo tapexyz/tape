@@ -1,5 +1,4 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
-import TimesOutline from '@components/Common/Icons/TimesOutline'
 import BubblesShimmer from '@components/Shimmers/BubblesShimmer'
 import useProfileStore from '@lib/store/idb/profile'
 import {
@@ -12,6 +11,7 @@ import {
 import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { LimitType, useMutualFollowersQuery } from '@tape.xyz/lens'
+import { TimesOutline } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React from 'react'
 

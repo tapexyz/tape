@@ -1,6 +1,6 @@
-import InfoOutline from '@components/Common/Icons/InfoOutline'
 import { Text, TextField } from '@radix-ui/themes'
 import type { TextFieldInputProps } from '@radix-ui/themes/dist/cjs/components/text-field'
+import { InfoOutline } from '@tape.xyz/ui'
 import React, { forwardRef, useId } from 'react'
 
 import Tooltip from './Tooltip'

@@ -1,6 +1,3 @@
-import CommentOutline from '@components/Common/Icons/CommentOutline'
-import FireOutline from '@components/Common/Icons/FireOutline'
-import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
@@ -27,7 +24,12 @@ import {
   PublicationMetadataMainFocusType,
   useExplorePublicationsQuery
 } from '@tape.xyz/lens'
-import { Loader } from '@tape.xyz/ui'
+import {
+  CommentOutline,
+  FireOutline,
+  Loader,
+  MirrorOutline
+} from '@tape.xyz/ui'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 

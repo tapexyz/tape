@@ -1,6 +1,4 @@
 import Badge from '@components/Common/Badge'
-import AddImageOutline from '@components/Common/Icons/AddImageOutline'
-import CopyOutline from '@components/Common/Icons/CopyOutline'
 import EmojiPicker from '@components/UIElements/EmojiPicker'
 import { Input } from '@components/UIElements/Input'
 import { TextArea } from '@components/UIElements/TextArea'
@@ -47,7 +45,7 @@ import type {
   CustomErrorWithData,
   IPFSUploadResult
 } from '@tape.xyz/lens/custom-types'
-import { Loader } from '@tape.xyz/ui'
+import { AddImageOutline, CopyOutline, Loader } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'

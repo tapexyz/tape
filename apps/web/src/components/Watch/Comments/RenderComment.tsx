@@ -1,10 +1,5 @@
 import Badge from '@components/Common/Badge'
 import HoverableProfile from '@components/Common/HoverableProfile'
-import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
-import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
-import CommentOutline from '@components/Common/Icons/CommentOutline'
-import HeartFilled from '@components/Common/Icons/HeartFilled'
-import ReplyOutline from '@components/Common/Icons/ReplyOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import Tooltip from '@components/UIElements/Tooltip'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
@@ -20,6 +15,13 @@ import {
   getValueFromKeyInAttributes
 } from '@tape.xyz/generic'
 import type { Comment } from '@tape.xyz/lens'
+import {
+  ChevronDownOutline,
+  ChevronUpOutline,
+  CommentOutline,
+  HeartFilled,
+  ReplyOutline
+} from '@tape.xyz/ui'
 import clsx from 'clsx'
 import Link from 'next/link'
 import type { FC } from 'react'

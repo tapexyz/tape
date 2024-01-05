@@ -1,5 +1,3 @@
-import CollectOutline from '@components/Common/Icons/CollectOutline'
-import TimesOutline from '@components/Common/Icons/TimesOutline'
 import { getCollectModuleOutput } from '@lib/getCollectModuleOutput'
 import {
   Accordion,
@@ -19,6 +17,7 @@ import {
 import { formatNumber, getPublication } from '@tape.xyz/generic'
 import isOpenActionAllowed from '@tape.xyz/generic/functions/isOpenActionAllowed'
 import { type AnyPublication, type OpenActionModule } from '@tape.xyz/lens'
+import { CollectOutline, TimesOutline } from '@tape.xyz/ui'
 import type { FC, ReactNode } from 'react'
 import React from 'react'
 

@@ -73,6 +73,13 @@ export const EVER_REGION = 'us-west-2'
 
 // walletconnect
 export const WC_PROJECT_ID = 'bf790b6b57570b99567abd1677b7415d'
+export const EXPLORER_RECOMMENDED_WALLET_IDS = [
+  'c57ca95b47569778a828d19178114f4db188b89b763c899ba0be274e97267d96', // metamask
+  'ecc4036f814562b41a5268adc86270fba1365471402006302e70169465b7ac18', // zerion
+  '1ae92b26df02f0abca6304df07debccd18262fdf5fe82daa81593582dac9a369', // rainbow
+  'c03dfee351b6fcc421b4494ea33b9d4b92a984f87aa76d1663bb28705e95034a', // uniswap
+  '19177a98252e07ddfc9af2083ba8e07ef627cb6103467ffebb3f8f4205fd7927' // ledger live
+]
 
 // livepeer
 export const LIVEPEER_STUDIO_API_KEY = IS_PRODUCTION

@@ -1,8 +1,5 @@
 import CollectorsList from '@components/Common/CollectorsList'
 import HoverableProfile from '@components/Common/HoverableProfile'
-import CollectOutline from '@components/Common/Icons/CollectOutline'
-import MirrorOutline from '@components/Common/Icons/MirrorOutline'
-import TimesOutline from '@components/Common/Icons/TimesOutline'
 import MirroredList from '@components/Common/MirroredList'
 import {
   Dialog,
@@ -17,6 +14,7 @@ import {
   getPublicationMediaCid
 } from '@tape.xyz/generic'
 import type { PrimaryPublication } from '@tape.xyz/lens'
+import { CollectOutline, MirrorOutline, TimesOutline } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 

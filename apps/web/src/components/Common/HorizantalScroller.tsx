@@ -1,8 +1,6 @@
+import { ChevronLeftOutline, ChevronRightOutline } from '@tape.xyz/ui'
 import type { FC, RefObject } from 'react'
 import React from 'react'
-
-import ChevronLeftOutline from './Icons/ChevronLeftOutline'
-import ChevronRightOutline from './Icons/ChevronRightOutline'
 
 type Props = {
   heading: string

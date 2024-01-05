@@ -1,4 +1,3 @@
-import ExternalOutline from '@components/Common/Icons/ExternalOutline'
 import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
 import { Input } from '@components/UIElements/Input'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
@@ -29,7 +28,7 @@ import {
   useProfileManagersQuery
 } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { Loader } from '@tape.xyz/ui'
+import { ExternalOutline, Loader } from '@tape.xyz/ui'
 import React, { useEffect, useMemo, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { useForm } from 'react-hook-form'

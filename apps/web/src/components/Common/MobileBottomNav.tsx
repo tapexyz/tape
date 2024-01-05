@@ -1,13 +1,14 @@
+import {
+  BellOutline,
+  BytesOutline,
+  FeedOutline,
+  HomeOutline,
+  PlusOutline
+} from '@tape.xyz/ui'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
-
-import BellOutline from './Icons/BellOutline'
-import BytesOutline from './Icons/BytesOutline'
-import FeedOutline from './Icons/FeedOutline'
-import HomeOutline from './Icons/HomeOutline'
-import PlusOutline from './Icons/PlusOutline'
 
 const MobileBottomNav = () => {
   const router = useRouter()

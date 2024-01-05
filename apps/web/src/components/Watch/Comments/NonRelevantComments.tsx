@@ -1,5 +1,3 @@
-import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
-import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { Button } from '@radix-ui/themes'
 import {
@@ -17,7 +15,7 @@ import {
   LimitType,
   usePublicationsQuery
 } from '@tape.xyz/lens'
-import { Loader } from '@tape.xyz/ui'
+import { ChevronDownOutline, ChevronUpOutline, Loader } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'

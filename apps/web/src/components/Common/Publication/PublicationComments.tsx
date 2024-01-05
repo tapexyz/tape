@@ -1,5 +1,4 @@
 import Alert from '@components/Common/Alert'
-import CommentOutline from '@components/Common/Icons/CommentOutline'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useCommentStore from '@lib/store/comment'
@@ -23,7 +22,7 @@ import {
   usePublicationsQuery
 } from '@tape.xyz/lens'
 import { CustomCommentsFilterEnum } from '@tape.xyz/lens/custom-types'
-import { Loader } from '@tape.xyz/ui'
+import { CommentOutline, Loader } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'

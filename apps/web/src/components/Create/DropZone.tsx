@@ -1,4 +1,3 @@
-import UploadOutline from '@components/Common/Icons/UploadOutline'
 import useAppStore from '@lib/store'
 import useProfileStore from '@lib/store/idb/profile'
 import { Box, Button } from '@radix-ui/themes'
@@ -8,10 +7,11 @@ import {
   ALLOWED_UPLOAD_MIME_TYPES,
   CREATOR_VIDEO_CATEGORIES
 } from '@tape.xyz/constants'
-import { canUploadedToIpfs, EVENTS, logger, Tower } from '@tape.xyz/generic'
+import { canUploadedToIpfs, logger } from '@tape.xyz/generic'
+import { UploadOutline } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import fileReaderStream from 'filereader-stream'
-import React, { useEffect } from 'react'
+import React from 'react'
 import toast from 'react-hot-toast'
 
 const DropZone = () => {
@@ -25,10 +25,6 @@ const DropZone = () => {
     fileDropError,
     setFileDropError
   } = useDragAndDrop()
-
-  useEffect(() => {
-    Tower.track(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.UPLOAD.DROPZONE })
-  }, [])
 
   const handleUploadedMedia = (file: File) => {
     try {

@@ -12,11 +12,10 @@ import {
   Tower
 } from '@tape.xyz/generic'
 import type { PrimaryPublication } from '@tape.xyz/lens'
+import { CopyOutline } from '@tape.xyz/ui'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
-
-import CopyOutline from './icons/CopyOutline'
 
 type OverlayProps = {
   playerRef: HTMLMediaElement | undefined

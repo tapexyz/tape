@@ -1,14 +1,16 @@
-import InterestsOutline from '@components/Common/Icons/InterestsOutline'
-import KeyOutline from '@components/Common/Icons/KeyOutline'
-import LockOutline from '@components/Common/Icons/LockOutline'
-import MentionOutline from '@components/Common/Icons/MentionOutline'
-import ProfileBanOutline from '@components/Common/Icons/ProfileBanOutline'
-import ProfileManagerOutline from '@components/Common/Icons/ProfileManagerOutline'
-import SubscribeOutline from '@components/Common/Icons/SubscribeOutline'
-import UserOutline from '@components/Common/Icons/UserOutline'
-import WarningOutline from '@components/Common/Icons/WarningOutline'
 import useProfileStore from '@lib/store/idb/profile'
 import { getIsProfileOwner } from '@tape.xyz/generic'
+import {
+  InterestsOutline,
+  KeyOutline,
+  LockOutline,
+  MentionOutline,
+  ProfileBanOutline,
+  ProfileManagerOutline,
+  SubscribeOutline,
+  UserOutline,
+  WarningOutline
+} from '@tape.xyz/ui'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'

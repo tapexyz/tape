@@ -20,10 +20,7 @@ export const EVENTS = {
     EXPLORE_INTERESTING: 'Interesting Page',
     EXPLORE_POPULAR: 'Popular Page',
     THANKS: 'Thanks Page',
-    UPLOAD: {
-      DROPZONE: 'DropZone Page',
-      STEPS: 'Upload Steps Page'
-    },
+    UPLOAD: 'Upload Page',
     SETTINGS: 'Settings Page',
     WATCH: 'Watch Page',
     WATCH_STREAM: 'Watch Stream Page',
@@ -122,7 +119,6 @@ export const EVENTS = {
 export const ALL_EVENTS = {
   ...EVENTS,
   ...EVENTS.PAGE_VIEW,
-  ...EVENTS.PAGE_VIEW.UPLOAD,
   ...EVENTS.MANAGER,
   ...EVENTS.PUBLICATION,
   ...EVENTS.PUBLICATION.TIP,

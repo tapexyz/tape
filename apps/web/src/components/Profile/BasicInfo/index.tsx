@@ -1,10 +1,5 @@
 import Badge from '@components/Common/Badge'
 import FollowActions from '@components/Common/FollowActions'
-import FlagOutline from '@components/Common/Icons/FlagOutline'
-import LinkOutline from '@components/Common/Icons/LinkOutline'
-import ProfileBanOutline from '@components/Common/Icons/ProfileBanOutline'
-import ThreeDotsOutline from '@components/Common/Icons/ThreeDotsOutline'
-import WarningOutline from '@components/Common/Icons/WarningOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import ReportProfile from '@components/Report/Profile'
 import Tooltip from '@components/UIElements/Tooltip'
@@ -49,6 +44,13 @@ import {
 } from '@tape.xyz/lens'
 import { useApolloClient } from '@tape.xyz/lens/apollo'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+import {
+  FlagOutline,
+  LinkOutline,
+  ProfileBanOutline,
+  ThreeDotsOutline,
+  WarningOutline
+} from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'

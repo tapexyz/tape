@@ -1,7 +1,6 @@
-import KeyOutline from '@components/Common/Icons/KeyOutline'
+import ButtonShimmer from '@components/Shimmers/ButtonShimmer'
 import { signIn, signOut } from '@lib/store/auth'
 import useProfileStore from '@lib/store/idb/profile'
-import { Avatar, Button, Flex, Select, Text } from '@radix-ui/themes'
 import { ERROR_MESSAGE } from '@tape.xyz/constants'
 import {
   EVENTS,
@@ -18,7 +17,7 @@ import {
   useProfilesManagedQuery
 } from '@tape.xyz/lens'
 import { useApolloClient } from '@tape.xyz/lens/apollo'
-import { Loader } from '@tape.xyz/ui'
+import { Button, Select, SelectItem } from '@tape.xyz/ui'
 import { useRouter } from 'next/router'
 import React, { useCallback, useMemo, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -32,7 +31,7 @@ const Authenticate = () => {
   } = useRouter()
 
   const [loading, setLoading] = useState(false)
-  const [selectedProfileId, setSelectedProfileId] = useState<string>()
+  const [selectedProfileId, setSelectedProfileId] = useState<string>('')
   const { activeProfile, setActiveProfile } = useProfileStore()
 
   const router = useRouter()
@@ -156,47 +155,44 @@ const Authenticate = () => {
   }
 
   if (profilesLoading) {
-    return <Loader />
+    return (
+      <div className="space-y-2">
+        <ButtonShimmer className="h-11" />
+        <ButtonShimmer className="h-11" />
+      </div>
+    )
   }
 
   return (
     <div className="text-left">
-      {as && <p className="pb-1">Login as</p>}
       {profile ? (
-        <Flex direction="column" gap="2">
-          <Select.Root
+        <div className="flex flex-col gap-2">
+          <Select
             defaultValue={as ?? profile?.id}
             value={selectedProfileId}
             onValueChange={(value) => setSelectedProfileId(value)}
           >
-            <Select.Trigger className="w-full" />
-            <Select.Content highContrast>
-              {reversedProfilesManaged?.map((profile) => (
-                <Select.Item key={profile.id} value={profile.id}>
-                  <Flex gap="2" align="center">
-                    <Avatar
-                      src={getProfilePicture(profile, 'AVATAR')}
-                      fallback={getProfile(profile)?.displayName[0] ?? ';)'}
-                      radius="full"
-                      size="1"
-                      alt={getProfile(profile)?.displayName}
-                    />
-                    <Text>{getProfile(profile)?.slugWithPrefix}</Text>
-                  </Flex>
-                </Select.Item>
-              ))}
-            </Select.Content>
-          </Select.Root>
+            {reversedProfilesManaged?.map((profile) => (
+              <SelectItem key={profile.id} value={profile.id}>
+                <div className="flex items-center space-x-2">
+                  <img
+                    src={getProfilePicture(profile, 'AVATAR')}
+                    className="size-4 rounded-full"
+                    alt={getProfile(profile)?.displayName}
+                  />
+                  <span>{getProfile(profile).slugWithPrefix}</span>
+                </div>
+              </SelectItem>
+            ))}
+          </Select>
           <Button
-            className="w-full"
-            highContrast
+            loading={loading}
             onClick={handleSign}
             disabled={loading || !selectedProfileId}
           >
-            <KeyOutline className="size-4" />
-            Sign message
+            Login
           </Button>
-        </Flex>
+        </div>
       ) : (
         <Signup onSuccess={() => refetch()} />
       )}

@@ -1,7 +1,7 @@
-import WarningOutline from '@components/Common/Icons/WarningOutline'
 import { Callout } from '@radix-ui/themes'
 import { IS_MAINNET } from '@tape.xyz/constants'
 import type { SupportedOpenActionModuleType } from '@tape.xyz/lens/custom-types'
+import { WarningOutline } from '@tape.xyz/ui'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
