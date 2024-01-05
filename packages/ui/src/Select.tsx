@@ -3,6 +3,8 @@ import clsx from 'clsx'
 import type { ElementRef, ReactNode } from 'react'
 import React, { forwardRef } from 'react'
 
+import { CheckOutline, ChevronDownOutline, ChevronUpOutline } from './icons'
+
 type SelectItemProps = SelectPrimitive.SelectItemProps & {
   children?: ReactNode
   className?: string
@@ -31,7 +33,7 @@ export const SelectItem = forwardRef<
     >
       <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
       <SelectPrimitive.ItemIndicator className="absolute right-3 inline-flex w-[25px] items-center justify-center">
-        ✳︎
+        <CheckOutline className="size-3" />
       </SelectPrimitive.ItemIndicator>
     </SelectPrimitive.Item>
   )
@@ -66,15 +68,21 @@ export const Select = forwardRef<
         ref={ref}
       >
         <SelectPrimitive.Value />
-        <SelectPrimitive.Icon>↓</SelectPrimitive.Icon>
+        <SelectPrimitive.Icon>
+          <ChevronDownOutline className="size-3" />
+        </SelectPrimitive.Icon>
       </SelectPrimitive.Trigger>
       <SelectPrimitive.Portal>
         <SelectPrimitive.Content className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-800 dark:bg-black">
-          <SelectPrimitive.ScrollUpButton>▲</SelectPrimitive.ScrollUpButton>
+          <SelectPrimitive.ScrollUpButton>
+            <ChevronUpOutline className="size-3" />
+          </SelectPrimitive.ScrollUpButton>
           <SelectPrimitive.Viewport className="p-3">
             {children}
           </SelectPrimitive.Viewport>
-          <SelectPrimitive.ScrollDownButton>▼</SelectPrimitive.ScrollDownButton>
+          <SelectPrimitive.ScrollDownButton>
+            <ChevronDownOutline className="size-3" />
+          </SelectPrimitive.ScrollDownButton>
         </SelectPrimitive.Content>
       </SelectPrimitive.Portal>
     </SelectPrimitive.Root>
