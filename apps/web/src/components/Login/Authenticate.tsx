@@ -1,3 +1,4 @@
+import ButtonShimmer from '@components/Shimmers/ButtonShimmer'
 import { signIn, signOut } from '@lib/store/auth'
 import useProfileStore from '@lib/store/idb/profile'
 import { ERROR_MESSAGE } from '@tape.xyz/constants'
@@ -16,7 +17,7 @@ import {
   useProfilesManagedQuery
 } from '@tape.xyz/lens'
 import { useApolloClient } from '@tape.xyz/lens/apollo'
-import { Button, Loader, Select, SelectItem } from '@tape.xyz/ui'
+import { Button, Select, SelectItem } from '@tape.xyz/ui'
 import { useRouter } from 'next/router'
 import React, { useCallback, useMemo, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -154,7 +155,12 @@ const Authenticate = () => {
   }
 
   if (profilesLoading) {
-    return <Loader />
+    return (
+      <div className="space-y-2">
+        <ButtonShimmer className="h-11" />
+        <ButtonShimmer className="h-11" />
+      </div>
+    )
   }
 
   return (
