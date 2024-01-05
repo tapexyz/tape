@@ -180,29 +180,6 @@ const Authenticate = () => {
               </SelectItem>
             ))}
           </Select>
-          {/* <Select
-            defaultValue={as ?? profile?.id}
-            value={selectedProfileId}
-            onValueChange={(value) => setSelectedProfileId(value)}
-          >
-            <Select.Trigger className="w-full" />
-            <Select.Content highContrast>
-              {reversedProfilesManaged?.map((profile) => (
-                <Select.Item key={profile.id} value={profile.id}>
-                  <Flex gap="2" align="center">
-                    <Avatar
-                      src={getProfilePicture(profile, 'AVATAR')}
-                      fallback={getProfile(profile)?.displayName[0] ?? ';)'}
-                      radius="full"
-                      size="1"
-                      alt={getProfile(profile)?.displayName}
-                    />
-                    <Text>{getProfile(profile)?.slugWithPrefix}</Text>
-                  </Flex>
-                </Select.Item>
-              ))}
-            </Select.Content>
-          </Select> */}
           <Button onClick={handleSign} disabled={loading || !selectedProfileId}>
             Login
           </Button>
