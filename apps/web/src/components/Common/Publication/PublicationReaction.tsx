@@ -1,5 +1,3 @@
-import HeartFilled from '@components/Common/Icons/HeartFilled'
-import HeartOutline from '@components/Common/Icons/HeartOutline'
 import useProfileStore from '@lib/store/idb/profile'
 import { Button } from '@radix-ui/themes'
 import { SIGN_IN_REQUIRED } from '@tape.xyz/constants'
@@ -10,6 +8,7 @@ import {
   useAddReactionMutation,
   useRemoveReactionMutation
 } from '@tape.xyz/lens'
+import { HeartFilled, HeartOutline } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React, { useState } from 'react'

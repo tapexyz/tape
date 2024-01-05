@@ -1,5 +1,3 @@
-import PlayOutline from '@components/Common/Icons/PlayOutline'
-import StopOutline from '@components/Common/Icons/StopOutline'
 import {
   ETHERSCAN_URL,
   FALLBACK_THUMBNAIL_URL,
@@ -7,6 +5,7 @@ import {
 } from '@tape.xyz/constants'
 import { sanitizeDStorageUrl } from '@tape.xyz/generic'
 import type { CustomNftItemType } from '@tape.xyz/lens/custom-types'
+import { PlayOutline, StopOutline } from '@tape.xyz/ui'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useState } from 'react'

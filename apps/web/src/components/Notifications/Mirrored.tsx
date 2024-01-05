@@ -1,11 +1,11 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
-import MirrorOutline from '@components/Common/Icons/MirrorOutline'
 import {
   getProfile,
   getProfilePicture,
   getPublicationData
 } from '@tape.xyz/generic'
 import type { MirrorNotification, ProfileMirrorResult } from '@tape.xyz/lens'
+import { MirrorOutline } from '@tape.xyz/ui'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'

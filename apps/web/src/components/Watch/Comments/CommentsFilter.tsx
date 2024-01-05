@@ -1,7 +1,7 @@
-import SortOutline from '@components/Common/Icons/SortOutline'
 import useCommentStore from '@lib/store/comment'
 import { Box, DropdownMenu, Text } from '@radix-ui/themes'
 import { CustomCommentsFilterEnum } from '@tape.xyz/lens/custom-types'
+import { SortOutline } from '@tape.xyz/ui'
 import React from 'react'
 
 const CommentsFilter = () => {

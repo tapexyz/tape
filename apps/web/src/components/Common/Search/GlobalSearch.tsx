@@ -21,11 +21,10 @@ import {
   useSearchProfilesLazyQuery,
   useSearchPublicationsLazyQuery
 } from '@tape.xyz/lens'
-import { Loader } from '@tape.xyz/ui'
+import { Loader, SearchOutline } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import React, { useEffect, useRef, useState } from 'react'
 
-import SearchOutline from '../Icons/SearchOutline'
 import Profiles from './Profiles'
 import Publications from './Publications'
 

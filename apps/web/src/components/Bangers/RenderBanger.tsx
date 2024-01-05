@@ -1,4 +1,3 @@
-import FireOutline from '@components/Common/Icons/FireOutline'
 import PublicationReaction from '@components/Common/Publication/PublicationReaction'
 import Tooltip from '@components/UIElements/Tooltip'
 import { getDateString, getRelativeTime } from '@lib/formatTime'
@@ -6,6 +5,7 @@ import { Text } from '@radix-ui/themes'
 import { TAPE_WEBSITE_URL } from '@tape.xyz/constants'
 import { getPublicationData } from '@tape.xyz/generic'
 import type { PrimaryPublication } from '@tape.xyz/lens'
+import { FireOutline } from '@tape.xyz/ui'
 import React from 'react'
 
 import Likes from './Likes'

@@ -1,4 +1,3 @@
-import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { getDateString } from '@lib/formatTime'
 import useProfileStore from '@lib/store/idb/profile'
@@ -16,7 +15,7 @@ import {
   useApprovedAuthenticationsQuery,
   useRevokeAuthenticationMutation
 } from '@tape.xyz/lens'
-import { Loader } from '@tape.xyz/ui'
+import { ChevronDownOutline, Loader } from '@tape.xyz/ui'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import toast from 'react-hot-toast'

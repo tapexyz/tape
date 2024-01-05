@@ -1,4 +1,3 @@
-import UploadOutline from '@components/Common/Icons/UploadOutline'
 import useAppStore from '@lib/store'
 import useProfileStore from '@lib/store/idb/profile'
 import { Box, Button } from '@radix-ui/themes'
@@ -9,6 +8,7 @@ import {
   CREATOR_VIDEO_CATEGORIES
 } from '@tape.xyz/constants'
 import { canUploadedToIpfs, logger } from '@tape.xyz/generic'
+import { UploadOutline } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import fileReaderStream from 'filereader-stream'
 import React from 'react'

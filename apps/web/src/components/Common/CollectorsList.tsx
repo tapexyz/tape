@@ -6,14 +6,13 @@ import {
   OpenActionCategoryType,
   useWhoActedOnPublicationQuery
 } from '@tape.xyz/lens'
-import { Loader } from '@tape.xyz/ui'
+import { Loader, UserOutline } from '@tape.xyz/ui'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 
 import Badge from './Badge'
-import UserOutline from './Icons/UserOutline'
 
 type Props = {
   videoId: string

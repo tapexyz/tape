@@ -1,6 +1,4 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
-import PauseOutline from '@components/Common/Icons/PauseOutline'
-import PlayOutline from '@components/Common/Icons/PlayOutline'
 import { getReadableTimeFromSeconds } from '@lib/formatTime'
 import { IconButton } from '@radix-ui/themes'
 import {
@@ -12,6 +10,7 @@ import {
   sanitizeDStorageUrl
 } from '@tape.xyz/generic'
 import type { PrimaryPublication } from '@tape.xyz/lens'
+import { PauseOutline, PlayOutline } from '@tape.xyz/ui'
 import AudioPlayer from '@tape.xyz/ui/AudioPlayer'
 import type { FC } from 'react'
 import React, { useState } from 'react'

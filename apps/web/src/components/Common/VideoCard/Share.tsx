@@ -4,14 +4,13 @@ import { useCopyToClipboard } from '@tape.xyz/browser'
 import { STATIC_ASSETS, TAPE_WEBSITE_URL } from '@tape.xyz/constants'
 import { EVENTS, getSharableLink, imageCdn, Tower } from '@tape.xyz/generic'
 import type { PrimaryPublication } from '@tape.xyz/lens'
+import { CopyOutline, MirrorOutline } from '@tape.xyz/ui'
 import Link from 'next/link'
 import { useTheme } from 'next-themes'
 import type { FC } from 'react'
 import React from 'react'
 
 import EmbedMedia from '../EmbedMedia'
-import CopyOutline from '../Icons/CopyOutline'
-import MirrorOutline from '../Icons/MirrorOutline'
 import MirrorPublication from '../MirrorPublication'
 
 type Props = {

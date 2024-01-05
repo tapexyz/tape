@@ -1,12 +1,10 @@
 import Tooltip from '@components/UIElements/Tooltip'
 import useVerifiedStore from '@lib/store/idb/verified'
 import { MISUSED_CHANNELS } from '@tape.xyz/constants'
+import { InfoSolid, VerifiedSolid } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
-
-import InfoSolid from './Icons/InfoSolid'
-import VerifiedSolid from './Icons/VerifiedSolid'
 
 type Props = {
   id: string

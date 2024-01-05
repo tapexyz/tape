@@ -1,5 +1,4 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
-import TimesOutline from '@components/Common/Icons/TimesOutline'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import {
   Dialog,
@@ -12,7 +11,7 @@ import {
 import { formatNumber, getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { FollowingRequest, Profile, ProfileStats } from '@tape.xyz/lens'
 import { LimitType, useFollowingQuery } from '@tape.xyz/lens'
-import { Loader } from '@tape.xyz/ui'
+import { Loader, TimesOutline } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'

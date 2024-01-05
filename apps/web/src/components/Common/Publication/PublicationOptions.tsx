@@ -44,21 +44,23 @@ import {
 } from '@tape.xyz/lens'
 import { useApolloClient } from '@tape.xyz/lens/apollo'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+import {
+  BookmarkOutline,
+  ExternalOutline,
+  FlagOutline,
+  ForbiddenOutline,
+  PinOutline,
+  ShareOutline,
+  ThreeDotsOutline,
+  TimesOutline,
+  TrashOutline
+} from '@tape.xyz/ui'
 import type { FC, ReactNode } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { v4 as uuidv4 } from 'uuid'
 import { useContractWrite, useSignTypedData } from 'wagmi'
 
-import BookmarkOutline from '../Icons/BookmarkOutline'
-import ExternalOutline from '../Icons/ExternalOutline'
-import FlagOutline from '../Icons/FlagOutline'
-import ForbiddenOutline from '../Icons/ForbiddenOutline'
-import PinOutline from '../Icons/PinOutline'
-import ShareOutline from '../Icons/ShareOutline'
-import ThreeDotsOutline from '../Icons/ThreeDotsOutline'
-import TimesOutline from '../Icons/TimesOutline'
-import TrashOutline from '../Icons/TrashOutline'
 import ArweaveExplorerLink from '../Links/ArweaveExplorerLink'
 import IPFSLink from '../Links/IPFSLink'
 import Share from '../VideoCard/Share'

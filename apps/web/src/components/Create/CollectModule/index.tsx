@@ -1,5 +1,3 @@
-import ChevronRightOutline from '@components/Common/Icons/ChevronRightOutline'
-import SplitOutline from '@components/Common/Icons/SplitOutline'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import useCollectStore from '@lib/store/idb/collect'
@@ -8,6 +6,7 @@ import { Button, Checkbox, Dialog, Flex, Text } from '@radix-ui/themes'
 import { EVENTS, Tower } from '@tape.xyz/generic'
 import { LimitType, useEnabledCurrenciesQuery } from '@tape.xyz/lens'
 import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
+import { ChevronRightOutline, SplitOutline } from '@tape.xyz/ui'
 import React, { useState } from 'react'
 
 import ChargeQuestion from './ChargeQuestion'

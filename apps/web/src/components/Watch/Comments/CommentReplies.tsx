@@ -1,7 +1,4 @@
 import Badge from '@components/Common/Badge'
-import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
-import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
-import ReplyOutline from '@components/Common/Icons/ReplyOutline'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { getShortHandTime } from '@lib/formatTime'
@@ -20,6 +17,11 @@ import {
   type PublicationsRequest,
   usePublicationsQuery
 } from '@tape.xyz/lens'
+import {
+  ChevronDownOutline,
+  ChevronUpOutline,
+  ReplyOutline
+} from '@tape.xyz/ui'
 import clsx from 'clsx'
 import Link from 'next/link'
 import type { FC } from 'react'

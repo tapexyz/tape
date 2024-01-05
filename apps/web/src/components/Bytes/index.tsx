@@ -1,5 +1,3 @@
-import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
-import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
 import MetaTags from '@components/Common/MetaTags'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { getUnixTimestampForDaysAgo } from '@lib/formatTime'
@@ -23,7 +21,7 @@ import {
   useExplorePublicationsLazyQuery,
   usePublicationLazyQuery
 } from '@tape.xyz/lens'
-import { Loader } from '@tape.xyz/ui'
+import { ChevronDownOutline, ChevronUpOutline, Loader } from '@tape.xyz/ui'
 import { useKeenSlider } from 'keen-slider/react'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'

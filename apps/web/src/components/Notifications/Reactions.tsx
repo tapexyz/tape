@@ -1,11 +1,11 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
-import HeartOutline from '@components/Common/Icons/HeartOutline'
 import {
   getProfile,
   getProfilePicture,
   getPublicationData
 } from '@tape.xyz/generic'
 import type { ProfileReactedResult, ReactionNotification } from '@tape.xyz/lens'
+import { HeartOutline } from '@tape.xyz/ui'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'

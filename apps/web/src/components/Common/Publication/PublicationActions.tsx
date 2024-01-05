@@ -1,12 +1,10 @@
-import MirrorOutline from '@components/Common/Icons/MirrorOutline'
-import ThreeDotsOutline from '@components/Common/Icons/ThreeDotsOutline'
-import TipOutline from '@components/Common/Icons/TipOutline'
 import MirrorPublication from '@components/Common/MirrorPublication'
 import PublicationOptions from '@components/Common/Publication/PublicationOptions'
 import { Button, Dialog, IconButton } from '@radix-ui/themes'
 import { EVENTS, getProfile, Tower } from '@tape.xyz/generic'
 import type { MirrorablePublication } from '@tape.xyz/lens'
 import { TriStateValue } from '@tape.xyz/lens'
+import { MirrorOutline, ThreeDotsOutline, TipOutline } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 

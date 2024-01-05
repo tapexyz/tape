@@ -3,13 +3,10 @@ import { Card, Dialog, Flex, IconButton } from '@radix-ui/themes'
 import { useCopyToClipboard } from '@tape.xyz/browser'
 import { TAPE_APP_NAME, TAPE_EMBED_URL } from '@tape.xyz/constants'
 import { EVENTS, Tower } from '@tape.xyz/generic'
+import { CodeOutline, CopyOutline, TimesOutline } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
-
-import CodeOutline from './Icons/CodeOutline'
-import CopyOutline from './Icons/CopyOutline'
-import TimesOutline from './Icons/TimesOutline'
 
 type Props = {
   publicationId: string

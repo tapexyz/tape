@@ -1,5 +1,3 @@
-import InfoOutline from '@components/Common/Icons/InfoOutline'
-import UserOutline from '@components/Common/Icons/UserOutline'
 import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
 import { Countdown } from '@components/UIElements/CountDown'
 import Tooltip from '@components/UIElements/Tooltip'
@@ -49,7 +47,7 @@ import type {
   CustomErrorWithData,
   SupportedOpenActionModuleType
 } from '@tape.xyz/lens/custom-types'
-import { Loader } from '@tape.xyz/ui'
+import { InfoOutline, Loader, UserOutline } from '@tape.xyz/ui'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'

@@ -1,11 +1,11 @@
 import { formatNumber, getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
+import { UserOutline } from '@tape.xyz/ui'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
 
 import Badge from '../Badge'
-import UserOutline from '../Icons/UserOutline'
 
 interface Props {
   results: Profile[]
