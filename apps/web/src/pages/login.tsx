@@ -18,13 +18,16 @@ const Login = () => {
     <div className="relative flex h-screen w-screen overflow-hidden bg-[#FAFAFA] dark:bg-black">
       <MetaTags title="Login" />
       <div className="grid h-full w-full place-items-center">
+        <BackgroundComets />
+
         <div className="tape-border container relative z-10 mx-auto max-w-md bg-white bg-opacity-50 p-10 backdrop-blur-[2px] dark:bg-inherit">
           <CardBorders />
-          <h2 className="text-2xl font-bold">Welcome back</h2>
-          <p>Discover the new era of media sharing with Tape.</p>
+          <div className="mb-6">
+            <h2 className="text-2xl font-bold">Welcome back</h2>
+            <p>Discover the new era of media sharing with Tape.</p>
+          </div>
           <Connectors />
         </div>
-        <BackgroundComets />
       </div>
     </div>
   )

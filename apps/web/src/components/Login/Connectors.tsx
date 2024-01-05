@@ -31,11 +31,12 @@ const Connectors = () => {
   }
 
   return (
-    <Flex className="py-10" direction="column" gap="6">
-      <Flex direction="column" gap="2">
+    <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-2">
         {connectors.map((c) => (
           <Button
             key={c.id}
+            variant="secondary"
             onClick={() => onChooseConnector(c)}
             disabled={c.id === connected?.id || isLoading}
           >
@@ -45,7 +46,7 @@ const Connectors = () => {
             </Flex>
           </Button>
         ))}
-      </Flex>
+      </div>
       <Authenticate />
       {error?.message ? (
         <Callout.Root color="red">
@@ -57,7 +58,7 @@ const Connectors = () => {
           </Callout.Text>
         </Callout.Root>
       ) : null}
-    </Flex>
+    </div>
   )
 }
 

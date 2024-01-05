@@ -1,7 +1,6 @@
-import KeyOutline from '@components/Common/Icons/KeyOutline'
 import { signIn, signOut } from '@lib/store/auth'
 import useProfileStore from '@lib/store/idb/profile'
-import { Avatar, Button, Flex, Select, Text } from '@radix-ui/themes'
+import { Avatar, Flex, Select, Text } from '@radix-ui/themes'
 import { ERROR_MESSAGE } from '@tape.xyz/constants'
 import {
   EVENTS,
@@ -18,7 +17,7 @@ import {
   useProfilesManagedQuery
 } from '@tape.xyz/lens'
 import { useApolloClient } from '@tape.xyz/lens/apollo'
-import { Loader } from '@tape.xyz/ui'
+import { Button, Loader } from '@tape.xyz/ui'
 import { useRouter } from 'next/router'
 import React, { useCallback, useMemo, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -187,14 +186,8 @@ const Authenticate = () => {
               ))}
             </Select.Content>
           </Select.Root>
-          <Button
-            className="w-full"
-            highContrast
-            onClick={handleSign}
-            disabled={loading || !selectedProfileId}
-          >
-            <KeyOutline className="size-4" />
-            Sign message
+          <Button onClick={handleSign} disabled={loading || !selectedProfileId}>
+            Login
           </Button>
         </Flex>
       ) : (

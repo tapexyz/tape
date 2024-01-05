@@ -1,4 +1,9 @@
-import { IS_MAINNET, TAPE_APP_NAME, WC_PROJECT_ID } from '@tape.xyz/constants'
+import {
+  EXPLORER_RECOMMENDED_WALLET_IDS,
+  IS_MAINNET,
+  TAPE_APP_NAME,
+  WC_PROJECT_ID
+} from '@tape.xyz/constants'
 import { CoinbaseWalletConnector } from '@wagmi/connectors/coinbaseWallet'
 import { InjectedConnector } from '@wagmi/connectors/injected'
 import { WalletConnectConnector } from '@wagmi/connectors/walletConnect'
@@ -23,7 +28,8 @@ const connectors: any = [
     options: {
       projectId: WC_PROJECT_ID,
       qrModalOptions: {
-        explorerExcludedWalletIds: 'ALL'
+        explorerExcludedWalletIds: 'ALL',
+        explorerRecommendedWalletIds: EXPLORER_RECOMMENDED_WALLET_IDS
       }
     },
     chains
