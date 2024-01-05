@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 html {
   @apply overflow-y-scroll overflow-x-hidden;
 }
