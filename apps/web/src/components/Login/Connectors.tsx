@@ -1,8 +1,9 @@
 import CheckOutline from '@components/Common/Icons/CheckOutline'
 import WarningOutline from '@components/Common/Icons/WarningOutline'
 import useProfileStore from '@lib/store/idb/profile'
-import { Button, Callout, Flex } from '@radix-ui/themes'
+import { Callout, Flex } from '@radix-ui/themes'
 import { POLYGON_CHAIN_ID } from '@tape.xyz/constants'
+import { Button } from '@tape.xyz/ui'
 import React from 'react'
 import type { Connector } from 'wagmi'
 import { useAccount, useConnect } from 'wagmi'
@@ -35,14 +36,12 @@ const Connectors = () => {
         {connectors.map((c) => (
           <Button
             key={c.id}
-            highContrast
-            variant="surface"
             onClick={() => onChooseConnector(c)}
             disabled={c.id === connected?.id || isLoading}
           >
             <Flex justify="between" align="center" className="w-full">
               <span>{c.name}</span>
-              {c.id === connected?.id && <CheckOutline className="size-4" />}
+              {c.id === connected?.id && <CheckOutline className="size-3" />}
             </Flex>
           </Button>
         ))}
