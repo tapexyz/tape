@@ -31,7 +31,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const sizeClasses = {
-      'px-4 py-2 text-sm': size === 'sm',
+      'px-4 py-1 text-sm': size === 'sm',
       'px-6 py-3 text-sm': size === 'md',
       'px-8 py-4 text-base': size === 'lg'
     }
