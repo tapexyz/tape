@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+
+html {
+  @apply overflow-y-scroll overflow-x-hidden;
+}
+
 body {
   @apply min-h-screen bg-white text-black antialiased dark:bg-black dark:text-white;
 }
