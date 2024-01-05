@@ -12,17 +12,12 @@ import Authenticate from './Authenticate'
 import Authenticated from './Authenticated'
 
 const Connectors = () => {
-  const { connector: connected } = useAccount()
+  const { activeProfile } = useProfileStore()
 
+  const { connector: connected } = useAccount()
   const { connectors, connectAsync, isLoading, error } = useConnect({
     chainId: POLYGON_CHAIN_ID
   })
-  console.log(
-    '🚀 ~ file: Connectors.tsx:20 ~ Connectors ~ connectors:',
-    connectors
-  )
-
-  const { activeProfile } = useProfileStore()
 
   if (activeProfile?.id) {
     return <Authenticated />

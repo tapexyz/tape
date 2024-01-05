@@ -1,6 +1,5 @@
 import { signIn, signOut } from '@lib/store/auth'
 import useProfileStore from '@lib/store/idb/profile'
-import { Avatar, Flex, Select, Text } from '@radix-ui/themes'
 import { ERROR_MESSAGE } from '@tape.xyz/constants'
 import {
   EVENTS,
@@ -17,7 +16,7 @@ import {
   useProfilesManagedQuery
 } from '@tape.xyz/lens'
 import { useApolloClient } from '@tape.xyz/lens/apollo'
-import { Button, Loader } from '@tape.xyz/ui'
+import { Button, Loader, Select, SelectItem } from '@tape.xyz/ui'
 import { useRouter } from 'next/router'
 import React, { useCallback, useMemo, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -31,7 +30,7 @@ const Authenticate = () => {
   } = useRouter()
 
   const [loading, setLoading] = useState(false)
-  const [selectedProfileId, setSelectedProfileId] = useState<string>()
+  const [selectedProfileId, setSelectedProfileId] = useState<string>('')
   const { activeProfile, setActiveProfile } = useProfileStore()
 
   const router = useRouter()
@@ -162,8 +161,26 @@ const Authenticate = () => {
     <div className="text-left">
       {as && <p className="pb-1">Login as</p>}
       {profile ? (
-        <Flex direction="column" gap="2">
-          <Select.Root
+        <div className="flex flex-col gap-2">
+          <Select
+            defaultValue={as ?? profile?.id}
+            value={selectedProfileId}
+            onValueChange={(value) => setSelectedProfileId(value)}
+          >
+            {reversedProfilesManaged?.map((profile) => (
+              <SelectItem key={profile.id} value={profile.id}>
+                <div className="flex items-center space-x-2">
+                  <img
+                    src={getProfilePicture(profile, 'AVATAR')}
+                    className="size-5 rounded-full"
+                    alt={getProfile(profile)?.displayName}
+                  />
+                  <span>{getProfile(profile).slugWithPrefix}</span>
+                </div>
+              </SelectItem>
+            ))}
+          </Select>
+          {/* <Select
             defaultValue={as ?? profile?.id}
             value={selectedProfileId}
             onValueChange={(value) => setSelectedProfileId(value)}
@@ -185,11 +202,11 @@ const Authenticate = () => {
                 </Select.Item>
               ))}
             </Select.Content>
-          </Select.Root>
+          </Select> */}
           <Button onClick={handleSign} disabled={loading || !selectedProfileId}>
             Login
           </Button>
-        </Flex>
+        </div>
       ) : (
         <Signup onSuccess={() => refetch()} />
       )}
