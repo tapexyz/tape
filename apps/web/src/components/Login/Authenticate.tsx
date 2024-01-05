@@ -172,7 +172,7 @@ const Authenticate = () => {
                 <div className="flex items-center space-x-2">
                   <img
                     src={getProfilePicture(profile, 'AVATAR')}
-                    className="size-5 rounded-full"
+                    className="size-4 rounded-full"
                     alt={getProfile(profile)?.displayName}
                   />
                   <span>{getProfile(profile).slugWithPrefix}</span>

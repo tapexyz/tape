@@ -28,7 +28,7 @@ const Login = () => {
           </Link>
         </div>
 
-        <div className="tape-border container relative z-10 mx-auto max-w-md bg-white bg-opacity-50 p-10 backdrop-blur-[2px] dark:bg-inherit">
+        <div className="tape-border container relative z-10 mx-auto max-w-md bg-white bg-opacity-50 p-10 backdrop-blur-sm dark:bg-inherit">
           <CardBorders />
           <div className="mb-6">
             <h2 className="text-2xl font-bold">Welcome back</h2>
