@@ -33,7 +33,7 @@ const BackgroundComets = () => {
             d={path}
             stroke={`url(#linearGradient-${index})`}
             strokeOpacity="0.4"
-            strokeWidth="0.5"
+            strokeWidth="0.8"
           />
         ))}
         <defs>
@@ -53,14 +53,14 @@ const BackgroundComets = () => {
               }}
               transition={{
                 duration: Math.random() * 10 + 15,
-                ease: 'easeInOut',
+                ease: 'easeOut',
                 repeat: Infinity,
                 delay: Math.random() * 10
               }}
             >
-              <stop stopColor="#3377FF" stopOpacity="0"></stop>
-              <stop stopColor="#3377FF"></stop>
-              <stop offset="32.5%" stopColor="#6344F5"></stop>
+              <stop stopColor="#FF5733" stopOpacity="0"></stop>
+              <stop stopColor="#FF5733"></stop>
+              <stop offset="67.5%" stopColor="#FFD700"></stop>
               <stop offset="100%" stopColor="#FFD700" stopOpacity="0"></stop>
             </motion.linearGradient>
           ))}
