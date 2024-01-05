@@ -2,6 +2,8 @@ import clsx from 'clsx'
 import type { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from 'react'
 import { forwardRef } from 'react'
 
+import LoadingBorder from './LoadingBorder'
+
 interface ButtonProps
   extends DetailedHTMLProps<
     ButtonHTMLAttributes<HTMLButtonElement>,
@@ -9,6 +11,7 @@ interface ButtonProps
   > {
   icon?: ReactNode
   outline?: boolean
+  loading?: boolean
   className?: string
   children?: ReactNode
   size?: 'sm' | 'md' | 'lg'
@@ -17,7 +20,14 @@ interface ButtonProps
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
-    { children, className, size = 'md', variant = 'primary', ...props },
+    {
+      children,
+      className,
+      size = 'md',
+      variant = 'primary',
+      loading,
+      ...props
+    },
     ref
   ) => {
     const sizeClasses = {
@@ -28,24 +38,35 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     const variantClasses = {
       'hover:bg-gray-700 border border-transparent bg-gray-800 text-gray-100 dark:bg-gray-100 dark:text-gray-800 dark:hover:bg-gray-200':
         variant === 'primary',
-      'border border-gray-200 dark:border-gray-800 dark:hover:bg-gray-800 hover:bg-gray-100':
+      'border border-gray-200 dark:border-gray-800 dark:hover:bg-gray-800 hover:bg-gray-100 bg-white dark:bg-black':
         variant === 'secondary',
       '': variant === 'danger'
     }
 
     return (
-      <button
-        ref={ref}
-        className={clsx(
-          sizeClasses,
-          variantClasses,
-          'scale-100 appearance-none rounded-lg font-semibold transition-colors duration-150 active:scale-[0.98] disabled:pointer-events-none disabled:bg-opacity-80',
-          className
+      <div className="relative w-full">
+        {loading && (
+          <div className="absolute inset-0 overflow-hidden rounded-lg">
+            <LoadingBorder rx="30%" ry="30%">
+              <div className="bg-brand-400 h-20 w-20 rounded-full blur" />
+            </LoadingBorder>
+          </div>
         )}
-        {...props}
-      >
-        {children}
-      </button>
+        <div className="z-[1] p-[2px]">
+          <button
+            ref={ref}
+            className={clsx(
+              sizeClasses,
+              variantClasses,
+              'relative w-full scale-100 appearance-none rounded-lg font-semibold transition-colors duration-150 active:scale-[0.98] disabled:pointer-events-none',
+              className
+            )}
+            {...props}
+          >
+            {children}
+          </button>
+        </div>
+      </div>
     )
   }
 )

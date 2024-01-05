@@ -180,7 +180,11 @@ const Authenticate = () => {
               </SelectItem>
             ))}
           </Select>
-          <Button onClick={handleSign} disabled={loading || !selectedProfileId}>
+          <Button
+            loading={loading}
+            onClick={handleSign}
+            disabled={loading || !selectedProfileId}
+          >
             Login
           </Button>
         </div>
