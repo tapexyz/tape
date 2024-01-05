@@ -159,7 +159,6 @@ const Authenticate = () => {
 
   return (
     <div className="text-left">
-      {as && <p className="pb-1">Login as</p>}
       {profile ? (
         <div className="flex flex-col gap-2">
           <Select

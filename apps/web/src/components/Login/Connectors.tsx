@@ -7,7 +7,6 @@ import type { Connector } from 'wagmi'
 import { useAccount, useConnect } from 'wagmi'
 
 import Authenticate from './Authenticate'
-import Authenticated from './Authenticated'
 
 const Connectors = () => {
   const { activeProfile } = useProfileStore()
@@ -18,7 +17,7 @@ const Connectors = () => {
   })
 
   if (activeProfile?.id) {
-    return <Authenticated />
+    return <Authenticate />
   }
 
   const onChooseConnector = async (connector: Connector) => {
