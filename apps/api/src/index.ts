@@ -15,13 +15,7 @@ import views from './routes/views'
 
 const app = new Hono()
 
-const corsConfig = {
-  origin: ['https://tape.xyz', '*.tape.xyz'],
-  allowHeaders: ['*'],
-  allowMethods: ['GET', 'POST', 'OPTIONS'],
-  maxAge: 600
-}
-app.use('*', cors(corsConfig))
+app.use('*', cors())
 
 app.get('/', (c) => c.text('tape.xyz'))
 
