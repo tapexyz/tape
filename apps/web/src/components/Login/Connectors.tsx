@@ -17,6 +17,10 @@ const Connectors = () => {
   const { connectors, connectAsync, isLoading, error } = useConnect({
     chainId: POLYGON_CHAIN_ID
   })
+  console.log(
+    '🚀 ~ file: Connectors.tsx:20 ~ Connectors ~ connectors:',
+    connectors
+  )
 
   const { activeProfile } = useProfileStore()
 
@@ -30,6 +34,15 @@ const Connectors = () => {
     } catch {}
   }
 
+  const getConnectorName = (connector: Connector) => {
+    switch (connector.id) {
+      case 'walletConnect':
+        return 'Other Wallets'
+      default:
+        return connector.name
+    }
+  }
+
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-2">
@@ -41,7 +54,7 @@ const Connectors = () => {
             disabled={c.id === connected?.id || isLoading}
           >
             <Flex justify="between" align="center" className="w-full">
-              <span>{c.name}</span>
+              <span>{getConnectorName(c)}</span>
               {c.id === connected?.id && <CheckOutline className="size-3" />}
             </Flex>
           </Button>

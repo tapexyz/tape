@@ -39,7 +39,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         className={clsx(
           sizeClasses,
           variantClasses,
-          'scale-100 appearance-none rounded-lg font-semibold transition-colors duration-150 active:scale-[0.98] disabled:pointer-events-none',
+          'scale-100 appearance-none rounded-lg font-semibold transition-colors duration-150 active:scale-[0.98] disabled:pointer-events-none disabled:bg-opacity-80',
           className
         )}
         {...props}
