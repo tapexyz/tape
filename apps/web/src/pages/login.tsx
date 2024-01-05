@@ -22,7 +22,7 @@ const Login = () => {
       <div className="grid h-full w-full place-items-center">
         <BackgroundComets />
 
-        <div className="ultrawide:p-8 laptop:p-6 fixed top-0 z-10 flex w-full items-center justify-between p-4">
+        <div className="ultrawide:p-8 laptop:p-6 fixed top-0 z-10 flex h-14 w-full items-center justify-between p-4">
           <Link href="/">
             <Logo />
           </Link>
