@@ -1,24 +1,23 @@
 import useProfileStore from '@lib/store/idb/profile'
 import usePersistStore from '@lib/store/persist'
 import { Button, DropdownMenu, IconButton } from '@radix-ui/themes'
-import { FEATURE_FLAGS, STATIC_ASSETS } from '@tape.xyz/constants'
+import { FEATURE_FLAGS } from '@tape.xyz/constants'
 import { getIsFeatureEnabled } from '@tape.xyz/generic'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useTheme } from 'next-themes'
 import React from 'react'
 
 import BellOutline from './Icons/BellOutline'
 import ChevronDownOutline from './Icons/ChevronDownOutline'
 import UploadOutline from './Icons/UploadOutline'
+import Logo from './Logo'
 import GlobalSearch from './Search/GlobalSearch'
 import TapeMenu from './TapeMenu'
 import UserMenu from './UserMenu'
 
 const Navbar = () => {
   const { pathname, asPath } = useRouter()
-  const { resolvedTheme } = useTheme()
 
   const isActivePath = (path: string) => pathname === path
   const { activeProfile } = useProfileStore()
@@ -32,27 +31,7 @@ const Navbar = () => {
     <div className="ultrawide:px-8 laptop:px-6 sticky top-0 z-10 flex h-14 w-full items-center bg-white/80 px-4 backdrop-blur-2xl dark:bg-black/80">
       <div className="flex w-full items-center justify-between">
         <div className="flex items-center space-x-2 md:w-1/5">
-          <Link href="/" className="inline-flex">
-            {resolvedTheme === 'dark' ? (
-              <img
-                src={`${STATIC_ASSETS}/brand/logo-with-text-light.webp`}
-                className="-mb-0.5 h-6"
-                alt="tape"
-                height={30}
-                width={110}
-                draggable={false}
-              />
-            ) : (
-              <img
-                src={`${STATIC_ASSETS}/brand/logo-with-text-dark.webp`}
-                className="-mb-0.5 h-6"
-                height={30}
-                width={110}
-                alt="tape"
-                draggable={false}
-              />
-            )}
-          </Link>
+          <Logo />
           <DropdownMenu.Root>
             <DropdownMenu.Trigger>
               <IconButton
