@@ -5,7 +5,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import useAppStore from '@lib/store'
 import useCollectStore from '@lib/store/idb/collect'
 import { Button, Flex, Switch, Text } from '@radix-ui/themes'
+import { getFileFromDataURL, uploadToIPFS } from '@tape.xyz/browser'
 import { checkIsBytesVideo } from '@tape.xyz/generic'
+import type { IPFSUploadResult } from '@tape.xyz/lens/custom-types'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
@@ -36,7 +38,7 @@ const formSchema = object({
 export type VideoFormData = z.infer<typeof formSchema>
 
 type Props = {
-  onUpload: (data: VideoFormData) => void
+  onUpload: (data: VideoFormData & { thumbnail: string }) => void
   onCancel: () => void
 }
 
@@ -64,14 +66,32 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
     }
   })
 
-  const onSubmitForm = (data: VideoFormData) => {
+  const onSubmitForm = async (data: VideoFormData) => {
     if (!uploadedMedia.file) {
       return toast.error(`Please choose a media to upload`)
     }
-    if (!uploadedMedia.thumbnail?.length) {
-      return toast.error(`Please select or upload a thumbnail`)
-    }
-    onUpload(data)
+    setUploadedMedia({ uploadingThumbnail: true })
+    return getFileFromDataURL(
+      uploadedMedia.thumbnailBlobUrl,
+      'thumbnail.jpeg',
+      async (file) => {
+        if (!file) {
+          toast.error(`Please upload a custom thumbnail`)
+          return ''
+        }
+        const result: IPFSUploadResult = await uploadToIPFS(file)
+        if (!result.url) {
+          toast.error(`Failed to upload thumbnail`)
+        }
+        setUploadedMedia({
+          thumbnail: result.url,
+          thumbnailType: file.type || 'image/jpeg',
+          uploadingThumbnail: false,
+          buttonText: 'Uploading...'
+        })
+        onUpload({ ...data, thumbnail: result.url })
+      }
+    )
   }
 
   const toggleUploadAsByte = (enable: boolean) => {
@@ -89,7 +109,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
         </div>
 
         <div className="flex flex-1 flex-col justify-between">
-          <div className="tape-border rounded-medium dark:bg-cod bg-white p-5">
+          <div className="tape-border rounded-medium p-5">
             <InputMentions
               label="Title"
               placeholder="Title that describes your content"

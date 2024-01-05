@@ -30,6 +30,7 @@ export const UPLOADED_VIDEO_FORM_DEFAULTS: UploadedMedia = {
   description: '',
   thumbnail: '',
   thumbnailType: '',
+  thumbnailBlobUrl: '',
   dUrl: '',
   percent: 0,
   isSensitiveContent: false,

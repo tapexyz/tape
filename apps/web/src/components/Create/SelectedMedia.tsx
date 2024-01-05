@@ -58,7 +58,7 @@ const SelectedMedia = () => {
     <div className="flex flex-col">
       {isAudio ? (
         <div className="flex w-full justify-end">
-          <div className="md:rounded-large rounded-small w-full space-y-2 overflow-hidden border p-2 dark:border-gray-800">
+          <div className="md:rounded-medium rounded-small tape-border w-full space-y-2 overflow-hidden p-2">
             <AspectRatio ratio={1 / 1} className="group relative">
               {posterPreview ? (
                 <img
@@ -121,11 +121,14 @@ const SelectedMedia = () => {
         <div className="md:rounded-large rounded-small relative w-full cursor-pointer overflow-hidden border dark:border-gray-800">
           <video
             ref={mediaRef}
-            className="aspect-[16/9] w-full"
+            className="aspect-[16/9] w-full object-cover"
             disablePictureInPicture
             disableRemotePlayback
             controlsList="nodownload noplaybackrate"
-            poster={sanitizeDStorageUrl(uploadedMedia.thumbnail)}
+            poster={
+              uploadedMedia.thumbnailBlobUrl ||
+              sanitizeDStorageUrl(uploadedMedia.thumbnail)
+            }
             controls={false}
             autoPlay={interacted}
             muted={!interacted}
@@ -137,7 +140,7 @@ const SelectedMedia = () => {
             variant="solid"
             radius="full"
             highContrast
-            className="absolute bottom-2 right-2"
+            className="absolute bottom-3 right-2"
           >
             Play/Pause
           </Badge>
@@ -145,7 +148,7 @@ const SelectedMedia = () => {
             variant="solid"
             radius="full"
             highContrast
-            className="absolute bottom-2 left-2"
+            className="absolute bottom-3 left-2"
           >
             {uploadedMedia.file?.size && (
               <span className="space-x-1 whitespace-nowrap font-bold">

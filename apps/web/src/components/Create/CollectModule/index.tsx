@@ -81,10 +81,10 @@ const CollectModule = () => {
       <Dialog.Root open={showModal} onOpenChange={setShowModal}>
         <Dialog.Trigger>
           <Button
-            variant="surface"
+            variant="outline"
             type="button"
-            onClick={() => setShowModal(true)}
             className="w-full"
+            onClick={() => setShowModal(true)}
           >
             <Flex align="center" width="100%" justify="between">
               <span>{getSelectedCollectType()}</span>

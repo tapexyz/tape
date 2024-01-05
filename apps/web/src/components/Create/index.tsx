@@ -598,11 +598,12 @@ const CreateSteps = () => {
     }
   }
 
-  const onUpload = async (data: VideoFormData) => {
+  const onUpload = async (data: VideoFormData & { thumbnail: string }) => {
     uploadedMedia.title = data.title
     uploadedMedia.loading = true
     uploadedMedia.description = data.description
     uploadedMedia.isSensitiveContent = data.isSensitiveContent
+    uploadedMedia.thumbnail = data.thumbnail
     setUploadedMedia({ ...uploadedMedia })
     // Upload video directly from source without uploading again
     if (
@@ -625,11 +626,9 @@ const CreateSteps = () => {
   }
 
   return (
-    <div className="mx-auto gap-5 md:my-10">
+    <div className="container mx-auto max-w-screen-2xl md:mt-10">
       <MetaTags title="Create" />
-      <div className="container mx-auto max-w-screen-xl md:mt-10">
-        <Details onCancel={resetToDefaults} onUpload={onUpload} />
-      </div>
+      <Details onCancel={resetToDefaults} onUpload={onUpload} />
     </div>
   )
 }
