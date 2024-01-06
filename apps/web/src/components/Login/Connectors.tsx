@@ -2,7 +2,7 @@ import useProfileStore from '@lib/store/idb/profile'
 import { Callout, Flex } from '@radix-ui/themes'
 import { POLYGON_CHAIN_ID } from '@tape.xyz/constants'
 import { Button, CheckOutline, WarningOutline } from '@tape.xyz/ui'
-import React from 'react'
+import React, { memo } from 'react'
 import type { Connector } from 'wagmi'
 import { useAccount, useConnect } from 'wagmi'
 
@@ -67,4 +67,4 @@ const Connectors = () => {
   )
 }
 
-export default Connectors
+export default memo(Connectors)
