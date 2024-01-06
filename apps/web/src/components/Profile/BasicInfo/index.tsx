@@ -54,7 +54,7 @@ import {
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import { useContractWrite, useSignTypedData } from 'wagmi'
+import { useSignTypedData, useWriteContract } from 'wagmi'
 
 import Bubbles from '../Mutual/Bubbles'
 import Stats from './Stats'
@@ -119,15 +119,14 @@ const BasicInfo: FC<Props> = ({ profile }) => {
   }
 
   const { signTypedDataAsync } = useSignTypedData({
-    onError
+    mutation: { onError }
   })
 
-  const { write } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
-    abi: LENSHUB_PROXY_ABI,
-    functionName: 'setBlockStatus',
-    onSuccess: () => onCompleted(),
-    onError
+  const { writeContract } = useWriteContract({
+    mutation: {
+      onSuccess: () => onCompleted(),
+      onError
+    }
   })
 
   const [broadcast] = useBroadcastOnchainMutation({
@@ -154,11 +153,21 @@ const BasicInfo: FC<Props> = ({ profile }) => {
           variables: { request: { id, signature } }
         })
         if (data?.broadcastOnchain.__typename === 'RelayError') {
-          write({ args })
+          writeContract({
+            address: LENSHUB_PROXY_ADDRESS,
+            abi: LENSHUB_PROXY_ABI,
+            functionName: 'setBlockStatus',
+            args
+          })
         }
         return
       }
-      write({ args })
+      writeContract({
+        address: LENSHUB_PROXY_ADDRESS,
+        abi: LENSHUB_PROXY_ABI,
+        functionName: 'setBlockStatus',
+        args
+      })
     } catch {
       setLoading(false)
     }

@@ -28,7 +28,7 @@ import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import { useContractWrite, useSignTypedData } from 'wagmi'
+import { useSignTypedData, useWriteContract } from 'wagmi'
 
 type Props = {
   profile: Profile
@@ -65,22 +65,21 @@ const RevertFollow = ({ profile }: Props) => {
   }
 
   const { signTypedDataAsync } = useSignTypedData({
-    onError
+    mutation: { onError }
   })
 
   const [broadcast, { data: broadcastData }] = useBroadcastOnchainMutation({
     onError
   })
 
-  const { data: writtenData, write } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
-    abi: LENSHUB_PROXY_ABI,
-    functionName: 'setFollowModule',
-    onError
+  const { data: writtenHash, writeContract } = useWriteContract({
+    mutation: {
+      onError
+    }
   })
 
   const { indexed } = usePendingTxn({
-    txHash: writtenData?.hash,
+    txHash: writtenHash,
     txId:
       broadcastData?.broadcastOnchain.__typename === 'RelaySuccess'
         ? broadcastData?.broadcastOnchain?.txId
@@ -111,11 +110,21 @@ const RevertFollow = ({ profile }: Props) => {
               variables: { request: { id, signature } }
             })
             if (data?.broadcastOnchain?.__typename === 'RelayError') {
-              return write({ args })
+              return writeContract({
+                address: LENSHUB_PROXY_ADDRESS,
+                abi: LENSHUB_PROXY_ABI,
+                functionName: 'setFollowModule',
+                args
+              })
             }
             return onCompleted(data?.broadcastOnchain?.__typename)
           }
-          return write({ args })
+          return writeContract({
+            address: LENSHUB_PROXY_ADDRESS,
+            abi: LENSHUB_PROXY_ABI,
+            functionName: 'setFollowModule',
+            args
+          })
         } catch {
           setLoading(false)
         }

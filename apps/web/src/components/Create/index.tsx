@@ -63,7 +63,7 @@ import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
 import { v4 as uuidv4 } from 'uuid'
-import { useAccount, useContractWrite, useSignTypedData } from 'wagmi'
+import { useAccount, useSignTypedData, useWriteContract } from 'wagmi'
 
 import type { VideoFormData } from './Details'
 import Details from './Details'
@@ -189,23 +189,22 @@ const CreateSteps = () => {
   }
 
   const { signTypedDataAsync } = useSignTypedData({
-    onError
+    mutation: { onError }
   })
 
-  const { write } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
-    abi: LENSHUB_PROXY_ABI,
-    functionName: 'post',
-    onSuccess: (data) => {
-      if (data.hash) {
-        setToQueue({ txnHash: data.hash })
+  const { writeContract } = useWriteContract({
+    mutation: {
+      onSuccess: (txnHash) => {
+        if (txnHash) {
+          setToQueue({ txnHash })
+        }
+        stopLoading()
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
+      },
+      onError: (error) => {
+        onError(error)
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
       }
-      stopLoading()
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
-    },
-    onError: (error) => {
-      onError(error)
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
     }
   })
 
@@ -245,11 +244,21 @@ const CreateSteps = () => {
             variables: { request: { id, signature } }
           })
           if (data?.broadcastOnchain?.__typename === 'RelayError') {
-            return write({ args: [typedData.value] })
+            return writeContract({
+              address: LENSHUB_PROXY_ADDRESS,
+              abi: LENSHUB_PROXY_ABI,
+              functionName: 'post',
+              args: [typedData.value]
+            })
           }
           return
         }
-        return write({ args: [typedData.value] })
+        return writeContract({
+          address: LENSHUB_PROXY_ADDRESS,
+          abi: LENSHUB_PROXY_ABI,
+          functionName: 'post',
+          args: [typedData.value]
+        })
       } catch {
         setUploadedMedia({
           buttonText: 'Post Now',
@@ -280,11 +289,21 @@ const CreateSteps = () => {
             variables: { request: { id, signature } }
           })
           if (data?.broadcastOnMomoka?.__typename === 'RelayError') {
-            return write({ args: [typedData.value] })
+            return writeContract({
+              address: LENSHUB_PROXY_ADDRESS,
+              abi: LENSHUB_PROXY_ABI,
+              functionName: 'post',
+              args: [typedData.value]
+            })
           }
           return
         }
-        return write({ args: [typedData.value] })
+        return writeContract({
+          address: LENSHUB_PROXY_ADDRESS,
+          abi: LENSHUB_PROXY_ABI,
+          functionName: 'post',
+          args: [typedData.value]
+        })
       } catch {
         setUploadedMedia({
           buttonText: 'Post Now',

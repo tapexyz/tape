@@ -15,24 +15,25 @@ import {
 } from '@tape.xyz/ui'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import { formatEther, parseEther, parseUnits } from 'viem'
+import { formatEther, parseUnits } from 'viem'
 import {
   useAccount,
   useBalance,
-  usePrepareSendTransaction,
-  useSendTransaction
+  useBlockNumber,
+  useSendTransaction,
+  useSimulateContract
 } from 'wagmi'
 
 const IrysInfo = () => {
   const isMounted = useIsMounted()
   const { address } = useAccount()
   const { data: signer } = useEthersWalletClient()
-  const { sendTransactionAsync } = useSendTransaction()
-  const { config } = usePrepareSendTransaction()
-  const { data: userBalance } = useBalance({
+  const { sendTransactionAsync, data: txnHash } = useSendTransaction()
+  const { data } = useSimulateContract({})
+  const { data: blockNumber } = useBlockNumber({ watch: true })
+  const { data: userBalance, refetch: refetchUserBalance } = useBalance({
     address,
-    chainId: POLYGON_CHAIN_ID,
-    watch: true
+    chainId: POLYGON_CHAIN_ID
   })
 
   const uploadedMedia = useAppStore((state) => state.uploadedMedia)
@@ -40,6 +41,11 @@ const IrysInfo = () => {
   const irysData = useAppStore((state) => state.irysData)
   const setIrysData = useAppStore((state) => state.setIrysData)
   const [fetchingBalance, setFetchingBalance] = useState(false)
+
+  useEffect(() => {
+    refetchUserBalance()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [blockNumber])
 
   const estimatePrice = async (irys: WebIrys) => {
     if (!uploadedMedia.stream) {
@@ -114,21 +120,21 @@ const IrysInfo = () => {
     setIrysData({ depositing: true })
 
     // TEMP:START: override irys functions for viem
-    irysData.instance.tokenConfig.getFee = async (): Promise<any> => {
-      return 0
-    }
-    irysData.instance.tokenConfig.sendTx = async (data): Promise<string> => {
-      const { hash } = await sendTransactionAsync(data)
-      return hash
-    }
-    irysData.instance.tokenConfig.createTx = async (
-      amount: `${number}`,
-      to: `0x${string}`
-    ): Promise<{ txId: string | undefined; tx: any }> => {
-      config.to = to
-      config.value = parseEther(amount.toString() as `${number}`, 'gwei')
-      return { txId: undefined, tx: config }
-    }
+    // irysData.instance.tokenConfig.getFee = async (): Promise<any> => {
+    //   return 0
+    // }
+    // irysData.instance.tokenConfig.sendTx = async (data): Promise<string> => {
+    //   await sendTransactionAsync(data)
+    //   return txnHash as string
+    // }
+    // irysData.instance.tokenConfig.createTx = async (
+    //   amount: `${number}`,
+    //   to: `0x${string}`
+    // ): Promise<{ txId: string | undefined; tx: any }> => {
+    //   data?. = to
+    //   config.value = parseEther(amount.toString() as `${number}`, 'gwei')
+    //   return { txId: undefined, tx: config }
+    // }
     // TEMP:END: override irys functions for viem
 
     try {

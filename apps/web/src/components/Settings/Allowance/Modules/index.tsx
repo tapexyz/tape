@@ -11,11 +11,10 @@ import {
   useEnabledCurrenciesQuery,
   useGenerateModuleCurrencyApprovalDataLazyQuery
 } from '@tape.xyz/lens'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import { useSendTransaction, useWaitForTransaction } from 'wagmi'
+import { useSendTransaction, useWaitForTransactionReceipt } from 'wagmi'
 
 const ModuleAllowance = () => {
   const { activeProfile } = useProfileStore()
@@ -23,10 +22,12 @@ const ModuleAllowance = () => {
   const [currency, setCurrency] = useState(WMATIC_TOKEN_ADDRESS)
   const [loadingModule, setLoadingModule] = useState('')
 
-  const { data: txData, sendTransaction } = useSendTransaction({
-    onError(error: CustomErrorWithData) {
-      toast.error(error?.data?.message ?? error?.message)
-      setLoadingModule('')
+  const { data: txnHash, sendTransaction } = useSendTransaction({
+    mutation: {
+      onError: (error) => {
+        toast.error(error?.message)
+        setLoadingModule('')
+      }
     }
   })
 
@@ -51,18 +52,22 @@ const ModuleAllowance = () => {
     fetchPolicy: 'no-cache'
   })
 
-  useWaitForTransaction({
-    hash: txData?.hash,
-    onSuccess: () => {
+  const { isSuccess, isError, error } = useWaitForTransactionReceipt({
+    hash: txnHash
+  })
+
+  useEffect(() => {
+    if (isSuccess) {
       refetch()
       toast.success(`Permission updated`)
       setLoadingModule('')
-    },
-    onError(error: CustomErrorWithData) {
-      toast.error(error?.data?.message ?? error?.message)
+    }
+    if (isError) {
+      toast.error(error?.message)
       setLoadingModule('')
     }
-  })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccess, isError])
 
   const [generateAllowanceQuery] =
     useGenerateModuleCurrencyApprovalDataLazyQuery()

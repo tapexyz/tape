@@ -27,7 +27,7 @@ import { Loader } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import { useContractWrite, useSignTypedData } from 'wagmi'
+import { useSignTypedData, useWriteContract } from 'wagmi'
 
 type Props = {
   profile: Profile
@@ -63,15 +63,14 @@ const Follow: FC<Props> = ({ profile, onSubscribe, size = '2' }) => {
   }
 
   const { signTypedDataAsync } = useSignTypedData({
-    onError
+    mutation: { onError }
   })
 
-  const { write } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
-    abi: LENSHUB_PROXY_ABI,
-    functionName: 'follow',
-    onSuccess: () => onCompleted(),
-    onError
+  const { writeContract } = useWriteContract({
+    mutation: {
+      onSuccess: () => onCompleted(),
+      onError
+    }
   })
 
   const [broadcast] = useBroadcastOnchainMutation({
@@ -104,11 +103,21 @@ const Follow: FC<Props> = ({ profile, onSubscribe, size = '2' }) => {
             variables: { request: { id, signature } }
           })
           if (data?.broadcastOnchain?.__typename === 'RelayError') {
-            return write({ args })
+            return writeContract({
+              address: LENSHUB_PROXY_ADDRESS,
+              abi: LENSHUB_PROXY_ABI,
+              functionName: 'follow',
+              args
+            })
           }
           return
         }
-        return write({ args })
+        return writeContract({
+          address: LENSHUB_PROXY_ADDRESS,
+          abi: LENSHUB_PROXY_ABI,
+          functionName: 'follow',
+          args
+        })
       } catch {
         setLoading(false)
       }

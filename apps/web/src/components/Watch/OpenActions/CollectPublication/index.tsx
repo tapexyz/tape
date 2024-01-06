@@ -52,11 +52,12 @@ import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
+import { formatUnits } from 'viem'
 import {
   useAccount,
   useBalance,
-  useContractWrite,
-  useSignTypedData
+  useSignTypedData,
+  useWriteContract
 } from 'wagmi'
 
 import BalanceAlert from './BalanceAlert'
@@ -83,7 +84,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
   const details = getCollectModuleOutput(action)
 
   const assetAddress = details?.amount?.assetAddress
-  const assetDecimals = details?.amount?.assetDecimals
+  const assetDecimals = details?.amount?.assetDecimals || 18
   const amount = parseFloat(details?.amount?.value || '0')
   const isLegacyCollectModule =
     action.__typename === 'LegacySimpleCollectModuleSettings' ||
@@ -119,9 +120,9 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
   const { data: balanceData, isLoading: balanceLoading } = useBalance({
     address,
     token: assetAddress,
-    formatUnits: assetDecimals,
-    watch: Boolean(details?.amount.value),
-    enabled: Boolean(details?.amount.value) && !isFreeCollect
+    query: {
+      enabled: Boolean(details?.amount.value) && !isFreeCollect
+    }
   })
 
   const { data: revenueData } = useRevenueFromPublicationQuery({
@@ -159,7 +160,8 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
     if (
       balanceData &&
       details?.amount.value &&
-      parseFloat(balanceData?.formatted) < parseFloat(details?.amount.value)
+      parseFloat(formatUnits(balanceData.value, assetDecimals)) <
+        parseFloat(details?.amount.value)
     ) {
       setHaveEnoughBalance(false)
     } else {
@@ -174,7 +176,8 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
     details?.amount.value,
     refetchAllowance,
     activeProfile,
-    isFreeCollect
+    isFreeCollect,
+    assetDecimals
   ])
 
   const getDefaultProfileByAddress = (address: string) => {
@@ -265,19 +268,18 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
     setAlreadyCollected(true)
     toast.success('Collected as NFT')
   }
-  const { signTypedDataAsync } = useSignTypedData({ onError })
+  const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } })
 
-  const { write } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
-    abi: LENSHUB_PROXY_ABI,
-    functionName: isLegacyCollectModule ? 'collectLegacy' : 'act',
-    onSuccess: () => {
-      onCompleted()
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
-    },
-    onError: (error) => {
-      onError(error)
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
+  const { writeContract } = useWriteContract({
+    mutation: {
+      onSuccess: () => {
+        onCompleted()
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
+      },
+      onError: (error) => {
+        onError(error)
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
+      }
     }
   })
 
@@ -298,11 +300,21 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
             variables: { request: { id, signature } }
           })
           if (data?.broadcastOnchain.__typename === 'RelayError') {
-            return write({ args })
+            return writeContract({
+              address: LENSHUB_PROXY_ADDRESS,
+              abi: LENSHUB_PROXY_ABI,
+              functionName: isLegacyCollectModule ? 'collectLegacy' : 'act',
+              args
+            })
           }
           return
         }
-        return write({ args })
+        return writeContract({
+          address: LENSHUB_PROXY_ADDRESS,
+          abi: LENSHUB_PROXY_ABI,
+          functionName: isLegacyCollectModule ? 'collectLegacy' : 'act',
+          args
+        })
       },
       onError
     })
@@ -320,11 +332,21 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
             variables: { request: { id, signature } }
           })
           if (data?.broadcastOnchain.__typename === 'RelayError') {
-            return write({ args })
+            return writeContract({
+              address: LENSHUB_PROXY_ADDRESS,
+              abi: LENSHUB_PROXY_ABI,
+              functionName: isLegacyCollectModule ? 'collectLegacy' : 'act',
+              args
+            })
           }
           return
         }
-        return write({ args })
+        return writeContract({
+          address: LENSHUB_PROXY_ADDRESS,
+          abi: LENSHUB_PROXY_ABI,
+          functionName: isLegacyCollectModule ? 'collectLegacy' : 'act',
+          args
+        })
       },
       onError
     })

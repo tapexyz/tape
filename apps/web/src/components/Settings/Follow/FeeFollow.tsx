@@ -37,7 +37,7 @@ import { Loader } from '@tape.xyz/ui'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import { useContractWrite, useSignTypedData } from 'wagmi'
+import { useSignTypedData, useWriteContract } from 'wagmi'
 import type { z } from 'zod'
 import { number, object, string } from 'zod'
 
@@ -104,7 +104,7 @@ const FeeFollow = ({ profile }: Props) => {
     ?.followModule as FeeFollowModuleSettings
 
   const { signTypedDataAsync } = useSignTypedData({
-    onError
+    mutation: { onError }
   })
   const { data: enabledCurrencies } = useEnabledCurrenciesQuery({
     variables: {
@@ -119,15 +119,14 @@ const FeeFollow = ({ profile }: Props) => {
     onError
   })
 
-  const { data: writtenData, write } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
-    abi: LENSHUB_PROXY_ABI,
-    functionName: 'setFollowModule',
-    onError
+  const { data: writtenHash, writeContract } = useWriteContract({
+    mutation: {
+      onError
+    }
   })
 
   const { indexed } = usePendingTxn({
-    txHash: writtenData?.hash,
+    txHash: writtenHash,
     txId:
       broadcastData?.broadcastOnchain.__typename === 'RelaySuccess'
         ? broadcastData?.broadcastOnchain?.txId
@@ -160,11 +159,21 @@ const FeeFollow = ({ profile }: Props) => {
               variables: { request: { id, signature } }
             })
             if (data?.broadcastOnchain?.__typename === 'RelayError') {
-              return write({ args })
+              return writeContract({
+                address: LENSHUB_PROXY_ADDRESS,
+                abi: LENSHUB_PROXY_ABI,
+                functionName: 'setFollowModule',
+                args
+              })
             }
             return
           }
-          return write({ args })
+          return writeContract({
+            address: LENSHUB_PROXY_ADDRESS,
+            abi: LENSHUB_PROXY_ABI,
+            functionName: 'setFollowModule',
+            args
+          })
         } catch {
           setLoading(false)
         }

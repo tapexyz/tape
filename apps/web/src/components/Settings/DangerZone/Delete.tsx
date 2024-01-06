@@ -9,10 +9,10 @@ import {
 } from '@tape.xyz/constants'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { Loader } from '@tape.xyz/ui'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import Custom404 from 'src/pages/404'
-import { useContractWrite, useWaitForTransaction } from 'wagmi'
+import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
 
 const Delete = () => {
   const activeProfile = useProfileStore((state) => state.activeProfile)
@@ -27,25 +27,32 @@ const Delete = () => {
     toast.error(error?.data?.message ?? error?.message)
   }
 
-  const { write } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
-    abi: LENSHUB_PROXY_ABI,
-    functionName: 'burn',
-    onError,
-    onSuccess: (data) => setTxnHash(data.hash)
+  const { writeContract } = useWriteContract({
+    mutation: {
+      onError,
+      onSuccess: (txnHash) => setTxnHash(txnHash)
+    }
   })
 
-  useWaitForTransaction({
-    enabled: txnHash && txnHash.length > 0,
-    hash: txnHash,
-    onSuccess: () => {
+  const { isError, isSuccess, error } = useWaitForTransactionReceipt({
+    query: {
+      enabled: txnHash && txnHash.length > 0
+    },
+
+    hash: txnHash
+  })
+
+  useEffect(() => {
+    if (isError) {
+      onError(error)
+    }
+    if (isSuccess) {
       signOut()
       setLoading(false)
       toast.success(`Profile deleted`)
       location.href = '/'
-    },
-    onError
-  })
+    }
+  }, [isError, isSuccess])
 
   const isCooldownEnded = () => {
     const cooldownDate = activeProfile?.guardian?.cooldownEndsOn
@@ -62,7 +69,12 @@ const Delete = () => {
     setLoading(true)
     try {
       toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-      write({ args: [activeProfile?.id] })
+      writeContract({
+        address: LENSHUB_PROXY_ADDRESS,
+        abi: LENSHUB_PROXY_ABI,
+        functionName: 'burn',
+        args: [activeProfile?.id]
+      })
     } catch {
       setLoading(false)
     }

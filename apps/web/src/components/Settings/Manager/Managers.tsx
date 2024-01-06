@@ -34,7 +34,7 @@ import { useInView } from 'react-cool-inview'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { isAddress } from 'viem'
-import { useContractWrite, useSignTypedData } from 'wagmi'
+import { useSignTypedData, useWriteContract } from 'wagmi'
 import { object, string, type z } from 'zod'
 
 const formSchema = object({
@@ -133,19 +133,18 @@ const Managers = () => {
   }
 
   const { signTypedDataAsync } = useSignTypedData({
-    onError
+    mutation: { onError }
   })
 
-  const { write, data: writeData } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
-    abi: LENSHUB_PROXY_ABI,
-    functionName: 'changeDelegatedExecutorsConfig',
-    onSuccess: () => {
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
-    },
-    onError: (error) => {
-      onError(error)
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
+  const { writeContract, data: writeHash } = useWriteContract({
+    mutation: {
+      onSuccess: () => {
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
+      },
+      onError: (error) => {
+        onError(error)
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
+      }
     }
   })
 
@@ -156,7 +155,7 @@ const Managers = () => {
   })
 
   const { indexed } = usePendingTxn({
-    txHash: writeData?.hash,
+    txHash: writeHash,
     txId:
       broadcastData?.broadcastOnchain.__typename === 'RelaySuccess'
         ? broadcastData?.broadcastOnchain?.txId
@@ -195,11 +194,21 @@ const Managers = () => {
             variables: { request: { id, signature } }
           })
           if (data?.broadcastOnchain.__typename === 'RelayError') {
-            return write({ args })
+            return writeContract({
+              address: LENSHUB_PROXY_ADDRESS,
+              abi: LENSHUB_PROXY_ABI,
+              functionName: 'changeDelegatedExecutorsConfig',
+              args
+            })
           }
           return
         }
-        return write({ args })
+        return writeContract({
+          address: LENSHUB_PROXY_ADDRESS,
+          abi: LENSHUB_PROXY_ABI,
+          functionName: 'changeDelegatedExecutorsConfig',
+          args
+        })
       } catch {
         setSubmitting(false)
       }

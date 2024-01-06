@@ -3,11 +3,11 @@ import { Button, Dialog, Flex, IconButton } from '@radix-ui/themes'
 import { POLYGON_CHAIN_ID } from '@tape.xyz/constants'
 import { TimesOutline } from '@tape.xyz/ui'
 import React from 'react'
-import { useSwitchNetwork } from 'wagmi'
+import { useSwitchChain } from 'wagmi'
 
 const SwitchNetworkDialog = () => {
   const { showSwitchNetwork, setShowSwitchNetwork } = useNetworkStore()
-  const { switchNetworkAsync } = useSwitchNetwork()
+  const { switchChainAsync } = useSwitchChain()
 
   return (
     <Dialog.Root open={showSwitchNetwork} onOpenChange={setShowSwitchNetwork}>
@@ -31,7 +31,7 @@ const SwitchNetworkDialog = () => {
           <Button
             color="red"
             onClick={async () => {
-              await switchNetworkAsync?.(POLYGON_CHAIN_ID)
+              await switchChainAsync?.({ chainId: POLYGON_CHAIN_ID })
               setShowSwitchNetwork(false)
             }}
           >

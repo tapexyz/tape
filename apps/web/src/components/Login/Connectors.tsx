@@ -1,6 +1,5 @@
 import useProfileStore from '@lib/store/idb/profile'
 import { Callout, Flex } from '@radix-ui/themes'
-import { POLYGON_CHAIN_ID } from '@tape.xyz/constants'
 import { Button, CheckOutline, WarningOutline } from '@tape.xyz/ui'
 import React from 'react'
 import type { Connector } from 'wagmi'
@@ -12,9 +11,7 @@ const Connectors = () => {
   const { activeProfile } = useProfileStore()
 
   const { connector: connected } = useAccount()
-  const { connectors, connectAsync, isLoading, error } = useConnect({
-    chainId: POLYGON_CHAIN_ID
-  })
+  const { connectors, connectAsync, isPending, error } = useConnect()
 
   if (activeProfile?.id) {
     return <Authenticate />
@@ -43,7 +40,7 @@ const Connectors = () => {
             key={c.id}
             variant="secondary"
             onClick={() => onChooseConnector(c)}
-            disabled={c.id === connected?.id || isLoading}
+            disabled={c.id === connected?.id || isPending}
           >
             <Flex justify="between" align="center" className="w-full">
               <span>{getConnectorName(c)}</span>

@@ -51,7 +51,7 @@ import type { FC } from 'react'
 import React, { memo } from 'react'
 import toast from 'react-hot-toast'
 import { v4 as uuidv4 } from 'uuid'
-import { useContractWrite, useSignTypedData } from 'wagmi'
+import { useSignTypedData, useWriteContract } from 'wagmi'
 
 type Props = {
   id: string
@@ -87,15 +87,14 @@ const PinnedVideo: FC<Props> = ({ id }) => {
   }
 
   const { signTypedDataAsync } = useSignTypedData({
-    onError
+    mutation: { onError }
   })
 
-  const { write } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
-    abi: LENSHUB_PROXY_ABI,
-    functionName: 'setProfileMetadataURI',
-    onError,
-    onSuccess: () => onCompleted()
+  const { writeContract } = useWriteContract({
+    mutation: {
+      onError,
+      onSuccess: () => onCompleted()
+    }
   })
 
   const [broadcast] = useBroadcastOnchainMutation({
@@ -118,11 +117,21 @@ const PinnedVideo: FC<Props> = ({ id }) => {
               variables: { request: { id, signature } }
             })
             if (data?.broadcastOnchain?.__typename === 'RelayError') {
-              return write({ args })
+              return writeContract({
+                address: LENSHUB_PROXY_ADDRESS,
+                abi: LENSHUB_PROXY_ABI,
+                functionName: 'setProfileMetadataURI',
+                args
+              })
             }
             return
           }
-          return write({ args })
+          return writeContract({
+            address: LENSHUB_PROXY_ADDRESS,
+            abi: LENSHUB_PROXY_ABI,
+            functionName: 'setProfileMetadataURI',
+            args
+          })
         } catch {}
       },
       onError

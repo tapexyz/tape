@@ -70,7 +70,7 @@ const Authenticate = () => {
   const profile = reversedProfilesManaged?.[0]
 
   const { signMessageAsync } = useSignMessage({
-    onError
+    mutation: { onError }
   })
 
   const [loadChallenge] = useChallengeLazyQuery({

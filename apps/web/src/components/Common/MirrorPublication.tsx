@@ -32,7 +32,7 @@ import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import { useContractWrite, useSignTypedData } from 'wagmi'
+import { useSignTypedData, useWriteContract } from 'wagmi'
 
 type Props = {
   video: MirrorablePublication
@@ -74,20 +74,19 @@ const MirrorPublication: FC<Props> = ({
   }
 
   const { signTypedDataAsync } = useSignTypedData({
-    onError
+    mutation: { onError }
   })
 
-  const { write } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
-    abi: LENSHUB_PROXY_ABI,
-    functionName: 'mirror',
-    onSuccess: () => {
-      onCompleted()
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
-    },
-    onError: (error) => {
-      onError(error)
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
+  const { writeContract } = useWriteContract({
+    mutation: {
+      onSuccess: () => {
+        onCompleted()
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
+      },
+      onError: (error) => {
+        onError(error)
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
+      }
     }
   })
 
@@ -118,11 +117,21 @@ const MirrorPublication: FC<Props> = ({
               variables: { request: { id, signature } }
             })
             if (data?.broadcastOnchain?.__typename === 'RelayError') {
-              return write({ args: [typedData.value] })
+              return writeContract({
+                address: LENSHUB_PROXY_ADDRESS,
+                abi: LENSHUB_PROXY_ABI,
+                functionName: 'mirror',
+                args: [typedData.value]
+              })
             }
             return
           }
-          return write({ args: [typedData.value] })
+          return writeContract({
+            address: LENSHUB_PROXY_ADDRESS,
+            abi: LENSHUB_PROXY_ABI,
+            functionName: 'mirror',
+            args: [typedData.value]
+          })
         } catch {}
       },
       onError
@@ -161,11 +170,21 @@ const MirrorPublication: FC<Props> = ({
             variables: { request: { id, signature } }
           })
           if (data?.broadcastOnMomoka?.__typename === 'RelayError') {
-            return write({ args: [typedData.value] })
+            return writeContract({
+              address: LENSHUB_PROXY_ADDRESS,
+              abi: LENSHUB_PROXY_ABI,
+              functionName: 'mirror',
+              args: [typedData.value]
+            })
           }
           return
         }
-        return write({ args: [typedData.value] })
+        return writeContract({
+          address: LENSHUB_PROXY_ADDRESS,
+          abi: LENSHUB_PROXY_ABI,
+          functionName: 'mirror',
+          args: [typedData.value]
+        })
       } catch {}
     },
     onError

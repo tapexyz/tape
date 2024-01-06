@@ -49,7 +49,7 @@ import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { v4 as uuidv4 } from 'uuid'
 import { parseEther } from 'viem'
-import { useContractWrite, useSendTransaction, useSignTypedData } from 'wagmi'
+import { useSendTransaction, useSignTypedData, useWriteContract } from 'wagmi'
 import type { z } from 'zod'
 import { number, object, string } from 'zod'
 
@@ -101,10 +101,10 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
   }
 
   const { sendTransactionAsync } = useSendTransaction({
-    onError
+    mutation: { onError }
   })
   const { signTypedDataAsync } = useSignTypedData({
-    onError
+    mutation: { onError }
   })
 
   const setToQueue = (txn: { txnId?: string; txnHash?: string }) => {
@@ -135,13 +135,12 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
     })
   }
 
-  const { write } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
-    abi: LENSHUB_PROXY_ABI,
-    functionName: 'comment',
-    onError,
-    onSuccess: (data) => {
-      setToQueue({ txnHash: data.hash })
+  const { writeContract } = useWriteContract({
+    mutation: {
+      onError,
+      onSuccess: (hash) => {
+        setToQueue({ txnHash: hash })
+      }
     }
   })
 
@@ -201,11 +200,21 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
               variables: { request: { id, signature } }
             })
             if (data?.broadcastOnchain?.__typename === 'RelayError') {
-              return write({ args })
+              return writeContract({
+                address: LENSHUB_PROXY_ADDRESS,
+                abi: LENSHUB_PROXY_ABI,
+                functionName: 'comment',
+                args
+              })
             }
             return
           }
-          return write({ args })
+          return writeContract({
+            address: LENSHUB_PROXY_ADDRESS,
+            abi: LENSHUB_PROXY_ABI,
+            functionName: 'comment',
+            args
+          })
         } catch {}
       },
       onError
@@ -241,11 +250,21 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
               variables: { request: { id, signature } }
             })
             if (data?.broadcastOnMomoka?.__typename === 'RelayError') {
-              return write({ args })
+              return writeContract({
+                address: LENSHUB_PROXY_ADDRESS,
+                abi: LENSHUB_PROXY_ABI,
+                functionName: 'comment',
+                args
+              })
             }
             return
           }
-          return write({ args })
+          return writeContract({
+            address: LENSHUB_PROXY_ADDRESS,
+            abi: LENSHUB_PROXY_ABI,
+            functionName: 'comment',
+            args
+          })
         } catch {}
       },
       onError
@@ -367,12 +386,12 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
     setLoading(true)
     const amountToSend = Number(getValues('tipQuantity')) * 1
     try {
-      const data = await sendTransactionAsync?.({
+      const hash = await sendTransactionAsync?.({
         to: targetVideo.by?.ownedBy.address,
         value: BigInt(parseEther(amountToSend.toString() as `${number}`))
       })
-      if (data?.hash) {
-        await submitComment(data.hash)
+      if (hash) {
+        await submitComment(hash)
       }
       Tower.track(EVENTS.PUBLICATION.TIP.SENT)
     } catch (error) {

@@ -1,45 +1,32 @@
 import {
   EXPLORER_RECOMMENDED_WALLET_IDS,
-  IS_MAINNET,
   TAPE_APP_NAME,
   WC_PROJECT_ID
 } from '@tape.xyz/constants'
-import { CoinbaseWalletConnector } from '@wagmi/connectors/coinbaseWallet'
-import { InjectedConnector } from '@wagmi/connectors/injected'
-import { WalletConnectConnector } from '@wagmi/connectors/walletConnect'
 import { type FC, type ReactNode } from 'react'
-import { configureChains, createConfig, WagmiConfig } from 'wagmi'
+import { createConfig, http, WagmiProvider } from 'wagmi'
 import { polygon, polygonMumbai } from 'wagmi/chains'
-import { publicProvider } from 'wagmi/providers/public'
+import { coinbaseWallet, injected, walletConnect } from 'wagmi/connectors'
 
-const preferredChains = [
-  IS_MAINNET ? polygon : polygonMumbai,
-  IS_MAINNET ? polygon : polygonMumbai
-]
-
-const { chains, publicClient } = configureChains(preferredChains, [
-  publicProvider()
-])
-
-const connectors: any = [
-  new InjectedConnector({ chains, options: { shimDisconnect: true } }),
-  new CoinbaseWalletConnector({ options: { appName: TAPE_APP_NAME } }),
-  new WalletConnectConnector({
-    options: {
-      projectId: WC_PROJECT_ID,
-      qrModalOptions: {
-        explorerExcludedWalletIds: 'ALL',
-        explorerRecommendedWalletIds: EXPLORER_RECOMMENDED_WALLET_IDS
-      }
-    },
-    chains
+const connectors = [
+  injected(),
+  coinbaseWallet({ appName: TAPE_APP_NAME }),
+  walletConnect({
+    projectId: WC_PROJECT_ID,
+    qrModalOptions: {
+      explorerExcludedWalletIds: 'ALL',
+      explorerRecommendedWalletIds: EXPLORER_RECOMMENDED_WALLET_IDS
+    }
   })
 ]
 
 const wagmiConfig = createConfig({
-  autoConnect: true,
   connectors,
-  publicClient
+  chains: [polygon, polygon],
+  transports: {
+    [polygon.id]: http(),
+    [polygonMumbai.id]: http()
+  }
 })
 
 type Props = {
@@ -47,7 +34,7 @@ type Props = {
 }
 
 const Web3Provider: FC<Props> = ({ children }) => {
-  return <WagmiConfig config={wagmiConfig}>{children}</WagmiConfig>
+  return <WagmiProvider config={wagmiConfig}>{children}</WagmiProvider>
 }
 
 export default Web3Provider

@@ -59,7 +59,7 @@ import type { FC, ReactNode } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { v4 as uuidv4 } from 'uuid'
-import { useContractWrite, useSignTypedData } from 'wagmi'
+import { useSignTypedData, useWriteContract } from 'wagmi'
 
 import ArweaveExplorerLink from '../Links/ArweaveExplorerLink'
 import IPFSLink from '../Links/IPFSLink'
@@ -139,15 +139,14 @@ const PublicationOptions: FC<Props> = ({
   }
 
   const { signTypedDataAsync } = useSignTypedData({
-    onError
+    mutation: { onError }
   })
 
-  const { write } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
-    abi: LENSHUB_PROXY_ABI,
-    functionName: 'setProfileMetadataURI',
-    onError,
-    onSuccess: () => onCompleted()
+  const { writeContract } = useWriteContract({
+    mutation: {
+      onError,
+      onSuccess: () => onCompleted()
+    }
   })
 
   const [broadcast] = useBroadcastOnchainMutation({
@@ -163,17 +162,28 @@ const PublicationOptions: FC<Props> = ({
         const { profileId, metadataURI } = typedData.value
         try {
           toast.loading(REQUESTING_SIGNATURE_MESSAGE)
+
           if (canBroadcast) {
             const signature = await signTypedDataAsync(getSignature(typedData))
             const { data } = await broadcast({
               variables: { request: { id, signature } }
             })
             if (data?.broadcastOnchain?.__typename === 'RelayError') {
-              return write({ args: [profileId, metadataURI] })
+              return writeContract({
+                address: LENSHUB_PROXY_ADDRESS,
+                abi: LENSHUB_PROXY_ABI,
+                functionName: 'setProfileMetadataURI',
+                args: [profileId, metadataURI]
+              })
             }
             return
           }
-          return write({ args: [profileId, metadataURI] })
+          return writeContract({
+            address: LENSHUB_PROXY_ADDRESS,
+            abi: LENSHUB_PROXY_ABI,
+            functionName: 'setProfileMetadataURI',
+            args: [profileId, metadataURI]
+          })
         } catch {}
       },
       onError

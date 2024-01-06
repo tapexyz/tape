@@ -15,7 +15,7 @@
     "hono": "^3.12.0",
     "linkedom": "^0.16.6",
     "ua-parser-js": "^1.0.37",
-    "viem": "^1.21.4",
+    "viem": "^2.0.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
