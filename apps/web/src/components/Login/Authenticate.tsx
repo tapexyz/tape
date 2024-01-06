@@ -157,8 +157,8 @@ const Authenticate = () => {
   if (profilesLoading) {
     return (
       <div className="space-y-2">
-        <ButtonShimmer className="h-11" />
-        <ButtonShimmer className="h-11" />
+        <ButtonShimmer className="h-[46px]" />
+        <ButtonShimmer className="h-[46px]" />
       </div>
     )
   }
