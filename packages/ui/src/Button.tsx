@@ -47,13 +47,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <div className="relative w-full">
         {loading && (
-          <div className="absolute inset-0 overflow-hidden rounded-lg">
+          <div className="absolute -inset-[2px] overflow-hidden rounded-lg">
             <LoadingBorder rx="30%" ry="30%">
               <div className="bg-brand-400 h-20 w-20 rounded-full blur" />
             </LoadingBorder>
           </div>
         )}
-        <div className="z-[1] p-[2px]">
+        <div className="z-[1]">
           <button
             ref={ref}
             className={clsx(
