@@ -1,9 +1,9 @@
 import useProfileStore from '@lib/store/idb/profile'
 import usePersistStore from '@lib/store/persist'
-import { Button, DropdownMenu, IconButton } from '@radix-ui/themes'
+import { DropdownMenu, IconButton } from '@radix-ui/themes'
 import { FEATURE_FLAGS } from '@tape.xyz/constants'
 import { getIsFeatureEnabled } from '@tape.xyz/generic'
-import { BellOutline, ChevronDownOutline, UploadOutline } from '@tape.xyz/ui'
+import { BellOutline, Button, ChevronDownOutline } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -121,16 +121,13 @@ const Navbar = () => {
                 ) : null}
               </Link>
               <Link href="/create" className="hidden md:block">
-                <Button highContrast>
-                  <UploadOutline className="size-3.5" />
-                  Create
-                </Button>
+                <Button size="sm">Create</Button>
               </Link>
               <UserMenu />
             </>
           ) : (
             <Link href={`/login?next=${asPath}`}>
-              <Button highContrast>Login</Button>
+              <Button size="sm">Login</Button>
             </Link>
           )}
         </div>

@@ -19,7 +19,7 @@ import {
 import { useApolloClient } from '@tape.xyz/lens/apollo'
 import { Button, Select, SelectItem } from '@tape.xyz/ui'
 import { useRouter } from 'next/router'
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { memo, useCallback, useMemo, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useAccount, useSignMessage } from 'wagmi'
 
@@ -157,8 +157,8 @@ const Authenticate = () => {
   if (profilesLoading) {
     return (
       <div className="space-y-2">
-        <ButtonShimmer className="h-11" />
-        <ButtonShimmer className="h-11" />
+        <ButtonShimmer className="h-[46px]" />
+        <ButtonShimmer className="h-[46px]" />
       </div>
     )
   }
@@ -200,4 +200,4 @@ const Authenticate = () => {
   )
 }
 
-export default Authenticate
+export default memo(Authenticate)
