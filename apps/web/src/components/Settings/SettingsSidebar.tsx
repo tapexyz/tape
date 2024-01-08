@@ -144,10 +144,10 @@ const SettingsSidebar = () => {
         <Link
           href={SETTINGS_DANGER_ZONE}
           className={clsx(
-            'flex items-center space-x-3 rounded-lg px-3 py-1.5 text-sm text-red-500 transition-colors hover:bg-red-100 dark:hover:bg-red-900/50',
+            'flex items-center space-x-3 rounded-lg px-3 py-1.5 text-sm text-red-500 transition-colors',
             isActivePath(SETTINGS_DANGER_ZONE)
-              ? 'bg-gray-200 font-bold dark:bg-gray-800/80'
-              : 'text-dust font-medium hover:bg-gray-200 dark:hover:bg-gray-900/50'
+              ? 'bg-red-200 font-bold dark:bg-red-900/50'
+              : 'font-medium hover:bg-red-100 dark:hover:bg-red-900/50'
           )}
         >
           <WarningOutline className="size-4" />
