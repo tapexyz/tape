@@ -1,11 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import useAppStore from '@lib/store'
 import useProfileStore from '@lib/store/idb/profile'
-import { Button, Flex, Select, Text } from '@radix-ui/themes'
+import { Flex, Select } from '@radix-ui/themes'
 import { WMATIC_TOKEN_ADDRESS } from '@tape.xyz/constants'
 import type { Erc20 } from '@tape.xyz/lens'
 import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
-import { Input } from '@tape.xyz/ui'
+import { Button, Input } from '@tape.xyz/ui'
 import type { Dispatch, FC } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -165,15 +165,14 @@ const FeeCollectForm: FC<Props> = ({
           </div>
         </>
       ) : null}
-      <div className="flex justify-between pt-4" ref={submitContainerRef}>
-        <Text color="red" weight="medium">
+      <div
+        className="flex items-center justify-between pt-4"
+        ref={submitContainerRef}
+      >
+        <span className="text-sm font-medium text-red-500">
           {validationError}
-        </Text>
-        <Button
-          highContrast
-          type="button"
-          onClick={() => handleSubmit(validateInputs)()}
-        >
+        </span>
+        <Button type="button" onClick={() => handleSubmit(validateInputs)()}>
           Set Collect Type
         </Button>
       </div>

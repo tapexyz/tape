@@ -1,8 +1,8 @@
 import { MetadataLicenseType } from '@lens-protocol/metadata'
 import useAppStore from '@lib/store'
-import { Flex, HoverCard, Select, Text } from '@radix-ui/themes'
+import { Flex, HoverCard } from '@radix-ui/themes'
 import { TAPE_APP_NAME } from '@tape.xyz/constants'
-import { InfoOutline } from '@tape.xyz/ui'
+import { InfoOutline, Select, SelectItem } from '@tape.xyz/ui'
 import Link from 'next/link'
 import React from 'react'
 
@@ -13,9 +13,7 @@ const MediaLicense = () => {
   return (
     <div className="flex-1 space-y-1">
       <Flex gap="1" align="center">
-        <Text size="2" weight="medium">
-          License
-        </Text>
+        <span className="text-sm font-medium">License</span>
         <HoverCard.Root>
           <HoverCard.Trigger>
             <span>
@@ -36,28 +34,25 @@ const MediaLicense = () => {
           </HoverCard.Content>
         </HoverCard.Root>
       </Flex>
-      <Select.Root
+      <Select
         value={uploadedMedia.mediaLicense}
         onValueChange={(mediaLicense: MetadataLicenseType) =>
           setUploadedMedia({ mediaLicense })
         }
       >
-        <Select.Trigger className="w-full" />
-        <Select.Content highContrast>
-          <Select.Item value={MetadataLicenseType.CC_BY}>
-            Creative Commons With Attribution
-          </Select.Item>
-          <Select.Item value={MetadataLicenseType.CC_BY_ND}>
-            Creative Commons With Attribution - No Derivatives
-          </Select.Item>
-          <Select.Item value={MetadataLicenseType.CC_BY_NC}>
-            Creative Commons With Attribution - Not for Commercial use
-          </Select.Item>
-          <Select.Item value={MetadataLicenseType.CCO}>
-            No Rights Reserved
-          </Select.Item>
-        </Select.Content>
-      </Select.Root>
+        <SelectItem value={MetadataLicenseType.CC_BY}>
+          Creative Commons With Attribution
+        </SelectItem>
+        <SelectItem value={MetadataLicenseType.CC_BY_ND}>
+          Creative Commons With Attribution - No Derivatives
+        </SelectItem>
+        <SelectItem value={MetadataLicenseType.CC_BY_NC}>
+          Creative Commons With Attribution - Not for Commercial use
+        </SelectItem>
+        <SelectItem value={MetadataLicenseType.CCO}>
+          No Rights Reserved
+        </SelectItem>
+      </Select>
     </div>
   )
 }

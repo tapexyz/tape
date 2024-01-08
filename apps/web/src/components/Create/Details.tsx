@@ -4,10 +4,11 @@ import Tooltip from '@components/UIElements/Tooltip'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useAppStore from '@lib/store'
 import useCollectStore from '@lib/store/idb/collect'
-import { Button, Flex, Switch, Text } from '@radix-ui/themes'
+import { Switch, Text } from '@radix-ui/themes'
 import { getFileFromDataURL, uploadToIPFS } from '@tape.xyz/browser'
 import { checkIsBytesVideo } from '@tape.xyz/generic'
 import type { IPFSUploadResult } from '@tape.xyz/lens/custom-types'
+import { Button } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
@@ -166,7 +167,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
 
             <div className="mt-4">
               <Text as="label">
-                <Flex gap="2" align="center">
+                <div className="flex items-center gap-2">
                   <Switch
                     highContrast
                     checked={!uploadedMedia.collectModule.isRevertCollect}
@@ -185,7 +186,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                     }}
                   />
                   Collectible
-                </Flex>
+                </div>
               </Text>
               {!uploadedMedia.collectModule.isRevertCollect && (
                 <CollectModule />
@@ -204,14 +205,14 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                   )}
                 >
                   <Text as="label">
-                    <Flex gap="2" align="center">
+                    <div className="flex items-center gap-2">
                       <Switch
                         highContrast
                         checked={Boolean(uploadedMedia.isByteVideo)}
                         onCheckedChange={(b) => toggleUploadAsByte(b)}
                       />
                       Upload this video as short-form bytes
-                    </Flex>
+                    </div>
                   </Text>
                 </div>
               </Tooltip>
@@ -219,7 +220,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
 
             <div className="mt-2">
               <Text as="label">
-                <Flex gap="2" align="center">
+                <div className="flex items-center gap-2">
                   <Switch
                     highContrast
                     checked={Boolean(watch('isSensitiveContent'))}
@@ -228,7 +229,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                     }
                   />
                   Sensitive content for a general audience
-                </Flex>
+                </div>
               </Text>
             </div>
           </div>
@@ -238,15 +239,18 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
       <div className="mt-4 flex items-center justify-end space-x-2">
         <Button
           type="button"
-          color="gray"
-          variant="soft"
+          variant="secondary"
           disabled={uploadedMedia.loading}
           onClick={() => onCancel()}
         >
           Reset
         </Button>
         <Button
-          highContrast
+          loading={
+            uploadedMedia.loading ||
+            uploadedMedia.uploadingThumbnail ||
+            uploadedMedia.durationInSeconds === 0
+          }
           disabled={
             uploadedMedia.loading ||
             uploadedMedia.uploadingThumbnail ||

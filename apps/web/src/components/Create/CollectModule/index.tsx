@@ -2,11 +2,11 @@ import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import useCollectStore from '@lib/store/idb/collect'
 import useProfileStore from '@lib/store/idb/profile'
-import { Button, Checkbox, Dialog, Flex, Text } from '@radix-ui/themes'
+import { Checkbox, Dialog, Flex, Text } from '@radix-ui/themes'
 import { EVENTS, Tower } from '@tape.xyz/generic'
 import { LimitType, useEnabledCurrenciesQuery } from '@tape.xyz/lens'
 import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
-import { ChevronRightOutline, SplitOutline } from '@tape.xyz/ui'
+import { Button, ChevronRightOutline, SplitOutline } from '@tape.xyz/ui'
 import React, { useState } from 'react'
 
 import ChargeQuestion from './ChargeQuestion'
@@ -80,9 +80,9 @@ const CollectModule = () => {
       <Dialog.Root open={showModal} onOpenChange={setShowModal}>
         <Dialog.Trigger>
           <Button
-            variant="outline"
+            variant="secondary"
             type="button"
-            className="w-full"
+            className="font-normal"
             onClick={() => setShowModal(true)}
           >
             <Flex align="center" width="100%" justify="between">
@@ -138,7 +138,6 @@ const CollectModule = () => {
                     <div className="flex justify-end pt-4">
                       <Button
                         type="button"
-                        highContrast
                         onClick={() => {
                           if (saveAsDefault) {
                             setPersistedCollectModule(
