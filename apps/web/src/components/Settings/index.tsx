@@ -66,7 +66,7 @@ const Settings = () => {
           <div className="w-1/4 flex-none px-6">
             <SettingsSidebar />
           </div>
-          <div className="w-full">
+          <div className="w-full pb-6">
             {router.pathname === SETTINGS && <BasicInfo profile={profile} />}
             {router.pathname === SETTINGS_FOLLOW && (
               <FollowSettings profile={profile} />

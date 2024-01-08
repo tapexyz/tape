@@ -1,7 +1,4 @@
-import Badge from '@components/Common/Badge'
 import EmojiPicker from '@components/UIElements/EmojiPicker'
-import { TextArea } from '@components/UIElements/TextArea'
-import Tooltip from '@components/UIElements/Tooltip'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import type { ProfileOptions } from '@lens-protocol/metadata'
@@ -9,20 +6,17 @@ import {
   MetadataAttributeType,
   profile as profileMetadata
 } from '@lens-protocol/metadata'
-import { Flex, IconButton, Text } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
-import { uploadToIPFS, useCopyToClipboard } from '@tape.xyz/browser'
+import { uploadToIPFS } from '@tape.xyz/browser'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
-  TAPE_APP_ID,
-  TAPE_WEBSITE_URL
+  TAPE_APP_ID
 } from '@tape.xyz/constants'
 import {
   checkLensManagerPermissions,
   EVENTS,
-  getProfile,
   getProfileCoverPicture,
   getProfilePicture,
   getSignature,
@@ -44,13 +38,7 @@ import type {
   CustomErrorWithData,
   IPFSUploadResult
 } from '@tape.xyz/lens/custom-types'
-import {
-  AddImageOutline,
-  Button,
-  CopyOutline,
-  Input,
-  Loader
-} from '@tape.xyz/ui'
+import { AddImageOutline, Button, Input, Loader, TextArea } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -85,7 +73,6 @@ const formSchema = object({
 type FormData = z.infer<typeof formSchema> & { coverImage?: string }
 
 const BasicInfo = ({ profile }: Props) => {
-  const [copy] = useCopyToClipboard()
   const [loading, setLoading] = useState(false)
   const [coverImage, setCoverImage] = useState<string>(
     profile.metadata?.coverPicture?.raw.uri
@@ -322,9 +309,9 @@ const BasicInfo = ({ profile }: Props) => {
           alt="No cover found"
         />
         <div className="absolute bottom-2 right-2 cursor-pointer text-sm">
-          <Button type="button">
+          <Button type="button" variant="secondary">
             <label htmlFor="chooseCover" className="p-3">
-              Choose
+              Choose Cover
               <input
                 id="chooseCover"
                 type="file"
@@ -344,86 +331,50 @@ const BasicInfo = ({ profile }: Props) => {
             </label>
           </Button>
         </div>
-      </div>
-      <Flex align="center" mt="5" gap="5" wrap="wrap">
-        <div className="group relative flex-none overflow-hidden rounded-full">
-          <img
-            src={
-              selectedPfp
-                ? sanitizeDStorageUrl(selectedPfp)
-                : getProfilePicture(profile, 'AVATAR_LG')
-            }
-            className="size-32 rounded-full border-2 object-cover"
-            draggable={false}
-            alt="No PFP"
-          />
-          <label
-            htmlFor="choosePfp"
-            className={clsx(
-              'invisible absolute top-0 grid size-32 cursor-pointer place-items-center rounded-full bg-white bg-opacity-70 backdrop-blur-lg group-hover:visible dark:bg-black',
-              { '!visible': uploading.pfp }
-            )}
-          >
-            {uploading.pfp ? (
-              <Loader />
-            ) : (
-              <AddImageOutline className="size-5" />
-            )}
-            <input
-              id="choosePfp"
-              type="file"
-              accept=".png, .jpg, .jpeg, .svg, .gif, .webp"
-              className="hidden w-full"
-              onChange={async (e) => {
-                if (e.target.files?.length) {
-                  setUploading({ cover: false, pfp: true })
-                  const { url }: IPFSUploadResult = await uploadToIPFS(
-                    e.target.files[0]
-                  )
-                  setSelectedPfp(url)
-                  setUploading({ cover: false, pfp: false })
-                }
-              }}
+        <div className="absolute bottom-4 left-5">
+          <div className="group relative flex-none overflow-hidden rounded-full">
+            <img
+              src={
+                selectedPfp
+                  ? sanitizeDStorageUrl(selectedPfp)
+                  : getProfilePicture(profile, 'AVATAR_LG')
+              }
+              className="size-32 rounded-full border-2 object-cover"
+              draggable={false}
+              alt="No PFP"
             />
-          </label>
-        </div>
-        <div>
-          <Text as="div" className="opacity-70" size="2" weight="medium">
-            Profile
-          </Text>
-          <div className="flex items-center space-x-3">
-            <h6 className="flex items-center space-x-1">
-              <span>{getProfile(profile)?.slug}</span>
-              <Badge id={profile?.id} size="xs" />
-            </h6>
-          </div>
-          <div className="mt-4">
-            <Text as="div" className="opacity-70" size="2" weight="medium">
-              Permalink
-            </Text>
-            <div className="flex items-center space-x-2">
-              <span>
-                {TAPE_WEBSITE_URL}/u/
-                {getProfile(profile)?.slug}
-              </span>
-              <Tooltip content="Copy" placement="top">
-                <IconButton
-                  className="hover:opacity-60 focus:outline-none"
-                  onClick={async () =>
-                    await copy(
-                      `${TAPE_WEBSITE_URL}/u/${getProfile(profile)?.slug}`
+            <label
+              htmlFor="choosePfp"
+              className={clsx(
+                'invisible absolute top-0 grid size-32 cursor-pointer place-items-center rounded-full bg-white bg-opacity-70 backdrop-blur-lg group-hover:visible dark:bg-black',
+                { '!visible': uploading.pfp }
+              )}
+            >
+              {uploading.pfp ? (
+                <Loader />
+              ) : (
+                <AddImageOutline className="size-5" />
+              )}
+              <input
+                id="choosePfp"
+                type="file"
+                accept=".png, .jpg, .jpeg, .svg, .gif, .webp"
+                className="hidden w-full"
+                onChange={async (e) => {
+                  if (e.target.files?.length) {
+                    setUploading({ cover: false, pfp: true })
+                    const { url }: IPFSUploadResult = await uploadToIPFS(
+                      e.target.files[0]
                     )
+                    setSelectedPfp(url)
+                    setUploading({ cover: false, pfp: false })
                   }
-                  variant="ghost"
-                  type="button"
-                >
-                  <CopyOutline className="size-4" />
-                </IconButton>
-              </Tooltip>
-            </div>
+                }}
+              />
+            </label>
           </div>
         </div>
-      </Flex>
+      </div>
 
       <div className="mt-6">
         <Input
@@ -438,7 +389,7 @@ const BasicInfo = ({ profile }: Props) => {
           label="Bio"
           rows={5}
           placeholder="More about you and what you do!"
-          validationError={errors.description?.message}
+          error={errors.description?.message}
           {...register('description')}
         />
         <div className="absolute bottom-1.5 right-2">

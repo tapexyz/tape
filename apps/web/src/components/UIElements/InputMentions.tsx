@@ -4,14 +4,13 @@ import { LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
 import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { LimitType, useSearchProfilesLazyQuery } from '@tape.xyz/lens'
-import { Loader } from '@tape.xyz/ui'
+import { Loader, TextArea } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
 import getCaretCoordinates from 'textarea-caret'
 
 import ProfileSuggestion from './ProfileSuggestion'
-import { TextArea } from './TextArea'
 
 interface Props extends TextAreaProps {
   label?: string
@@ -142,7 +141,7 @@ const InputMentions: FC<Props> = ({
         label={label}
         placeholder={placeholder}
         onChange={handleInputChange}
-        validationError={validationError}
+        error={validationError}
       />
       {showPopover && (loading || profiles?.length) ? (
         <div
