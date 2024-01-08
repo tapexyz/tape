@@ -310,7 +310,7 @@ const BasicInfo = ({ profile }: Props) => {
         />
         <div className="absolute bottom-2 right-2 cursor-pointer text-sm">
           <Button type="button" variant="secondary">
-            <label htmlFor="chooseCover" className="p-3">
+            <label htmlFor="chooseCover" className="cursor-pointer p-3">
               Choose Cover
               <input
                 id="chooseCover"
