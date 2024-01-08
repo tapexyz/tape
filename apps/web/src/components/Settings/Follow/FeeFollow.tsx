@@ -4,7 +4,6 @@ import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import usePendingTxn from '@hooks/usePendingTxn'
 import useProfileStore from '@lib/store/idb/profile'
 import useNonceStore from '@lib/store/nonce'
-import { Button, Flex, Select, Text } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { useCopyToClipboard } from '@tape.xyz/browser'
 import {
@@ -32,7 +31,7 @@ import {
   useProfileFollowModuleQuery
 } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { Input, Loader } from '@tape.xyz/ui'
+import { Button, Input, Loader, Select, SelectItem } from '@tape.xyz/ui'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -222,25 +221,22 @@ const FeeFollow = ({ profile }: Props) => {
         <div className="tape-border mb-6 w-full rounded-xl bg-gradient-to-br p-6 transition-all">
           <div className="grid gap-y-4 md:grid-cols-3">
             <div>
-              <Text>Amount</Text>
+              <span>Amount</span>
               <h6 className="text-xl font-bold">
                 {activeFollowModule.amount?.value}{' '}
                 {activeFollowModule.amount?.asset?.symbol}
               </h6>
             </div>
             <div>
-              <Text>Asset</Text>
+              <span>Asset</span>
               <h6 className="text-xl font-bold">
                 {activeFollowModule.amount?.asset?.name}
               </h6>
             </div>
             <div>
-              <Text>Recipient</Text>
+              <span>Recipient</span>
               <Tooltip content="Copy Address" placement="top">
-                <Button
-                  variant="ghost"
-                  onClick={() => copy(activeFollowModule.recipient)}
-                >
+                <Button onClick={() => copy(activeFollowModule.recipient)}>
                   <span className="block text-xl font-bold outline-none">
                     {shortenAddress(activeFollowModule.recipient, 6)}
                   </span>
@@ -253,27 +249,19 @@ const FeeFollow = ({ profile }: Props) => {
 
       {showForm && !moduleLoading ? (
         <form onSubmit={handleSubmit(onSubmitForm)}>
-          <Flex direction="column" className="laptop:w-1/2" gap="4">
+          <div className="laptop:w-1/2 flex flex-col gap-4">
             <div>
-              <Text as="div" size="2" mb="1">
-                Currency
-              </Text>
-              <Select.Root
+              <div className="mb-1 text-sm font-medium">Currency</div>
+              <Select
                 value={watch('token')}
                 onValueChange={(value) => setValue('token', value)}
               >
-                <Select.Trigger className="w-full" />
-                <Select.Content highContrast>
-                  {currencies?.map(({ contract, name }) => (
-                    <Select.Item
-                      key={contract.address}
-                      value={contract.address}
-                    >
-                      {name}
-                    </Select.Item>
-                  ))}
-                </Select.Content>
-              </Select.Root>
+                {currencies?.map(({ contract, name }) => (
+                  <SelectItem key={contract.address} value={contract.address}>
+                    {name}
+                  </SelectItem>
+                ))}
+              </Select>
               {errors.token?.message && (
                 <div className="mx-1 mt-1 text-xs font-medium text-red-500">
                   {errors.token?.message}
@@ -300,15 +288,14 @@ const FeeFollow = ({ profile }: Props) => {
                 {...register('recipient')}
               />
             </div>
-          </Flex>
+          </div>
           <div className="mt-6 flex justify-end space-x-2">
             {activeFollowModule && (
-              <Button variant="surface" onClick={() => setShowForm(false)}>
+              <Button variant="secondary" onClick={() => setShowForm(false)}>
                 Cancel
               </Button>
             )}
-            <Button highContrast variant="surface" disabled={loading}>
-              {loading && <Loader size="sm" />}
+            <Button loading={loading} disabled={loading}>
               Set Membership
             </Button>
           </div>
@@ -317,21 +304,14 @@ const FeeFollow = ({ profile }: Props) => {
       {!moduleLoading && !showForm && (
         <div className="flex items-center justify-end space-x-2">
           <Button
-            variant="surface"
-            color="red"
+            variant="danger"
             disabled={loading}
+            loading={loading}
             onClick={() => updateFeeFollow(true)}
           >
-            {loading && <Loader size="sm" />}
             Disable
           </Button>
-          <Button
-            variant="surface"
-            highContrast
-            onClick={() => setShowForm(true)}
-          >
-            Update
-          </Button>
+          <Button onClick={() => setShowForm(true)}>Update</Button>
         </div>
       )}
     </>

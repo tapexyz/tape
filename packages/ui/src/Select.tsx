@@ -14,9 +14,9 @@ type SelectItemProps = SelectPrimitive.SelectItemProps & {
 export const SelectItem = forwardRef<
   ElementRef<typeof SelectPrimitive.Item>,
   SelectItemProps
->(({ children, className, size = 'md', ...props }, ref) => {
+>(({ children, className, size = 'sm', ...props }, ref) => {
   const sizeClasses = {
-    'px-4 py-1 text-sm': size === 'sm',
+    'px-4 py-2 text-sm': size === 'sm',
     'px-6 py-3 text-sm': size === 'md',
     'px-8 py-4 text-base': size === 'lg'
   }
@@ -49,9 +49,9 @@ type SelectProps = SelectPrimitive.SelectProps & {
 export const Select = forwardRef<
   ElementRef<typeof SelectPrimitive.Root>,
   SelectProps
->(({ children, className, size = 'md', ...props }, ref) => {
+>(({ children, className, size = 'sm', ...props }, ref) => {
   const sizeClasses = {
-    'px-4 py-1 text-sm': size === 'sm',
+    'px-4 py-1.5 text-sm': size === 'sm',
     'px-6 py-3 text-sm': size === 'md',
     'px-8 py-4 text-base': size === 'lg'
   }
@@ -61,7 +61,7 @@ export const Select = forwardRef<
       <SelectPrimitive.Trigger
         className={clsx(
           sizeClasses,
-          'flex appearance-none items-center justify-between rounded-lg border border-gray-200 focus:outline-none dark:border-gray-800',
+          'flex w-full appearance-none items-center justify-between rounded-lg border border-gray-200 focus:outline-none dark:border-gray-800',
           className
         )}
         aria-label="Food"
@@ -74,13 +74,13 @@ export const Select = forwardRef<
       </SelectPrimitive.Trigger>
       <SelectPrimitive.Portal>
         <SelectPrimitive.Content className="overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-800 dark:bg-black">
-          <SelectPrimitive.ScrollUpButton>
+          <SelectPrimitive.ScrollUpButton className="flex justify-center py-2">
             <ChevronUpOutline className="size-3" />
           </SelectPrimitive.ScrollUpButton>
           <SelectPrimitive.Viewport className="p-3">
             {children}
           </SelectPrimitive.Viewport>
-          <SelectPrimitive.ScrollDownButton>
+          <SelectPrimitive.ScrollDownButton className="flex justify-center py-2">
             <ChevronDownOutline className="size-3" />
           </SelectPrimitive.ScrollDownButton>
         </SelectPrimitive.Content>

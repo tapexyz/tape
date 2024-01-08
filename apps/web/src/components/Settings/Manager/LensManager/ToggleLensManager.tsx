@@ -2,7 +2,6 @@ import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import usePendingTxn from '@hooks/usePendingTxn'
 import useProfileStore from '@lib/store/idb/profile'
 import useNonceStore from '@lib/store/nonce'
-import { Button } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   ERROR_MESSAGE,
@@ -21,7 +20,7 @@ import {
   useCreateChangeProfileManagersTypedDataMutation
 } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { Loader } from '@tape.xyz/ui'
+import { Button } from '@tape.xyz/ui'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useContractWrite, useSignTypedData } from 'wagmi'
@@ -146,13 +145,11 @@ const ToggleLensManager = () => {
 
   return (
     <Button
-      color={isLensManagerEnabled ? 'red' : 'gray'}
-      highContrast={!isLensManagerEnabled}
-      variant="surface"
       onClick={onClick}
       disabled={loading}
+      loading={loading}
+      variant={isLensManagerEnabled ? 'danger' : 'primary'}
     >
-      {loading && <Loader size="sm" />}
       {getButtonText()}
     </Button>
   )

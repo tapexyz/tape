@@ -40,7 +40,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         variant === 'primary',
       'border border-gray-200 dark:border-gray-800 dark:hover:bg-gray-800 hover:bg-gray-100 bg-white dark:bg-black':
         variant === 'secondary',
-      'hover:bg-red-600 border border-transparent bg-red-700 text-white dark:bg-red-300 dark:text-black dark:hover:bg-red-400':
+      'hover:bg-red-500 dark:hover:bg-red-500 border border-transparent bg-red-600 text-white dark:bg-red-700 dark:text-white':
         variant === 'danger'
     }
 
