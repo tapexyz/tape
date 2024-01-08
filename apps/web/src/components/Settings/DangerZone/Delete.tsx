@@ -1,14 +1,13 @@
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import { signOut } from '@lib/store/auth'
 import useProfileStore from '@lib/store/idb/profile'
-import { Button } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE
 } from '@tape.xyz/constants'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { Loader } from '@tape.xyz/ui'
+import { Button } from '@tape.xyz/ui'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import Custom404 from 'src/pages/404'
@@ -82,8 +81,12 @@ const Delete = () => {
         </p>
       </div>
       <div className="rounded-b-medium flex justify-end border-b-0 bg-red-100 px-5 py-3 dark:bg-red-900/20">
-        <Button color="red" disabled={loading} onClick={() => onClickDelete()}>
-          {loading && <Loader size="sm" />}
+        <Button
+          variant="danger"
+          disabled={loading}
+          loading={loading}
+          onClick={() => onClickDelete()}
+        >
           Delete
         </Button>
       </div>

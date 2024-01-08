@@ -7,7 +7,7 @@ import {
   AccordionItem,
   AccordionTrigger
 } from '@radix-ui/react-accordion'
-import { Blockquote, Button } from '@radix-ui/themes'
+import { Blockquote } from '@radix-ui/themes'
 import { INFINITE_SCROLL_ROOT_MARGIN } from '@tape.xyz/constants'
 import type { ApprovedAuthenticationRequest } from '@tape.xyz/lens'
 import {
@@ -15,7 +15,7 @@ import {
   useApprovedAuthenticationsQuery,
   useRevokeAuthenticationMutation
 } from '@tape.xyz/lens'
-import { ChevronDownOutline, Loader } from '@tape.xyz/ui'
+import { Button, ChevronDownOutline, Loader } from '@tape.xyz/ui'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import toast from 'react-hot-toast'
@@ -113,9 +113,9 @@ const List = () => {
                 </Blockquote>
                 <Button
                   onClick={() => revoke(session.authorizationId)}
-                  variant="surface"
-                  color="red"
+                  variant="danger"
                   disabled={revokingSessionId === session.authorizationId}
+                  loading={revokingSessionId === session.authorizationId}
                 >
                   Revoke
                 </Button>

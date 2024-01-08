@@ -4,7 +4,7 @@ import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import useProfileStore from '@lib/store/idb/profile'
 import useNonceStore from '@lib/store/nonce'
-import { Avatar, Button } from '@radix-ui/themes'
+import { Avatar } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   ERROR_MESSAGE,
@@ -36,7 +36,7 @@ import {
 } from '@tape.xyz/lens'
 import { useApolloClient } from '@tape.xyz/lens/apollo'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { Loader } from '@tape.xyz/ui'
+import { Button, Loader } from '@tape.xyz/ui'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
@@ -226,8 +226,6 @@ const List = () => {
               <Button
                 onClick={() => onClickUnblock(profile.id)}
                 disabled={unblockingProfileId === profile.id}
-                highContrast
-                size="1"
               >
                 Unblock
               </Button>

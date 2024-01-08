@@ -3,7 +3,7 @@ import HoverableProfile from '@components/Common/HoverableProfile'
 import MetaTags from '@components/Common/MetaTags'
 import Stats from '@components/Profile/BasicInfo/Stats'
 import useProfileStore from '@lib/store/idb/profile'
-import { Avatar, Flex } from '@radix-ui/themes'
+import { Avatar } from '@radix-ui/themes'
 import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import React from 'react'
 
@@ -20,7 +20,7 @@ const DangerZone = () => {
   return (
     <>
       <MetaTags title="Danger Zone" />
-      <Flex align="center" justify="between">
+      <div className="mb-6 flex items-center justify-between">
         <div className="flex items-center">
           <div className="mr-3 mt-0.5 flex-none">
             <HoverableProfile profile={activeProfile}>
@@ -47,7 +47,7 @@ const DangerZone = () => {
         <div className="flex space-x-2">
           <Stats profile={activeProfile} />
         </div>
-      </Flex>
+      </div>
       <Guardian />
       <Delete />
     </>
