@@ -186,6 +186,7 @@ const Authenticate = () => {
             ))}
           </Select>
           <Button
+            size="md"
             loading={loading}
             onClick={handleSign}
             disabled={loading || !selectedProfileId}

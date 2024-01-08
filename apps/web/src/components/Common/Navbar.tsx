@@ -121,13 +121,13 @@ const Navbar = () => {
                 ) : null}
               </Link>
               <Link href="/create" className="hidden md:block">
-                <Button size="sm">Create</Button>
+                <Button>Create</Button>
               </Link>
               <UserMenu />
             </>
           ) : (
             <Link href={`/login?next=${asPath}`}>
-              <Button size="sm">Login</Button>
+              <Button>Login</Button>
             </Link>
           )}
         </div>

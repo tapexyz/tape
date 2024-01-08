@@ -1,4 +1,3 @@
-import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
 import useEthersWalletClient from '@hooks/useEthersWalletClient'
 import type { WebIrys } from '@irys/sdk'
@@ -10,6 +9,7 @@ import { EVENTS, logger, Tower } from '@tape.xyz/generic'
 import {
   ChevronDownOutline,
   ChevronUpOutline,
+  Input,
   RefreshOutline,
   WarningOutline
 } from '@tape.xyz/ui'

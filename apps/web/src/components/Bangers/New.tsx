@@ -1,4 +1,3 @@
-import { Input } from '@components/UIElements/Input'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import type { MetadataAttribute } from '@lens-protocol/metadata'
@@ -39,7 +38,7 @@ import {
   usePostOnMomokaMutation
 } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { Loader, TimesOutline } from '@tape.xyz/ui'
+import { Input, Loader, TimesOutline } from '@tape.xyz/ui'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useState } from 'react'
@@ -247,7 +246,7 @@ const New: FC<Props> = ({ refetch }) => {
               placeholder="Paste a link to a banger"
               autoComplete="off"
               className="bg-white dark:bg-black"
-              validationError={errors.link?.message}
+              error={errors.link?.message}
               {...register('link')}
             />
             <Button disabled={loading} highContrast>

@@ -1,4 +1,3 @@
-import { Input } from '@components/UIElements/Input'
 import Tooltip from '@components/UIElements/Tooltip'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
@@ -33,7 +32,7 @@ import {
   useProfileFollowModuleQuery
 } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { Loader } from '@tape.xyz/ui'
+import { Input, Loader } from '@tape.xyz/ui'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -204,7 +203,7 @@ const FeeFollow = ({ profile }: Props) => {
   const currencies = enabledCurrencies?.currencies.items
 
   return (
-    <div className="tape-border rounded-medium dark:bg-cod bg-white p-5">
+    <>
       <div className="mb-5 space-y-2">
         <h1 className="text-brand-400 text-xl font-bold">Grow with Lens</h1>
         <p className="text opacity-80">
@@ -288,7 +287,7 @@ const FeeFollow = ({ profile }: Props) => {
                 step="any"
                 placeholder="10"
                 autoComplete="off"
-                validationError={errors.amount?.message}
+                error={errors.amount?.message}
                 {...register('amount', { valueAsNumber: true })}
               />
             </div>
@@ -297,7 +296,7 @@ const FeeFollow = ({ profile }: Props) => {
                 label="Recipient"
                 placeholder="0x00..."
                 autoComplete="off"
-                validationError={errors.recipient?.message}
+                error={errors.recipient?.message}
                 {...register('recipient')}
               />
             </div>
@@ -335,7 +334,7 @@ const FeeFollow = ({ profile }: Props) => {
           </Button>
         </div>
       )}
-    </div>
+    </>
   )
 }
 

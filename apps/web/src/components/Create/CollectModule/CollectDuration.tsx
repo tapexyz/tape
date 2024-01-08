@@ -1,8 +1,8 @@
-import { Input } from '@components/UIElements/Input'
 import useAppStore from '@lib/store'
 import { Button, Text } from '@radix-ui/themes'
 import { trimify } from '@tape.xyz/generic'
 import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
+import { Input } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 

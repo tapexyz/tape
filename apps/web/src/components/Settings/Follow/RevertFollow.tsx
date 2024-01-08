@@ -139,7 +139,7 @@ const RevertFollow = ({ profile }: Props) => {
   }
 
   return (
-    <div className="tape-border rounded-medium dark:bg-cod bg-white p-5">
+    <>
       <div className="mb-5 space-y-2">
         <h1 className="text-brand-400 text-xl font-bold">
           {isRevertFollow ? 'Enable' : 'Disable'} Follow
@@ -174,7 +174,7 @@ const RevertFollow = ({ profile }: Props) => {
           </Button>
         )}
       </div>
-    </div>
+    </>
   )
 }
 

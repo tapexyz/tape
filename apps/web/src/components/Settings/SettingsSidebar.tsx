@@ -41,12 +41,14 @@ const SettingsSidebar = () => {
   const isProfileOwner = getIsProfileOwner(activeProfile, address)
 
   return (
-    <div className="m-1 flex flex-col space-y-1">
+    <div className="ml-auto flex w-44 flex-col space-y-1">
       <Link
         href={SETTINGS}
         className={clsx(
-          'hover:dark:bg-smoke hover:bg-gallery flex items-center space-x-3 rounded-lg px-3 py-2',
-          isActivePath(SETTINGS) ? 'font-bold' : 'text-dust font-medium'
+          'flex items-center space-x-3 rounded-lg px-3 py-1.5 text-sm transition-colors',
+          isActivePath(SETTINGS)
+            ? 'bg-gray-200 font-bold dark:bg-gray-800/80'
+            : 'text-dust font-medium hover:bg-gray-200 dark:hover:bg-gray-900/50'
         )}
       >
         <UserOutline className="size-4" />
@@ -55,8 +57,10 @@ const SettingsSidebar = () => {
       <Link
         href={SETTINGS_FOLLOW}
         className={clsx(
-          'hover:dark:bg-smoke hover:bg-gallery flex items-center space-x-3 rounded-lg px-3 py-2',
-          isActivePath(SETTINGS_FOLLOW) ? 'font-bold' : 'text-dust font-medium'
+          'flex items-center space-x-3 rounded-lg px-3 py-1.5 text-sm transition-colors',
+          isActivePath(SETTINGS_FOLLOW)
+            ? 'bg-gray-200 font-bold dark:bg-gray-800/80'
+            : 'text-dust font-medium hover:bg-gray-200 dark:hover:bg-gray-900/50'
         )}
       >
         <SubscribeOutline className="size-4" />
@@ -65,8 +69,10 @@ const SettingsSidebar = () => {
       <Link
         href={SETTINGS_HANDLES}
         className={clsx(
-          'hover:dark:bg-smoke hover:bg-gallery flex items-center space-x-3 rounded-lg px-3 py-2',
-          isActivePath(SETTINGS_HANDLES) ? 'font-bold' : 'text-dust font-medium'
+          'flex items-center space-x-3 rounded-lg px-3 py-1.5 text-sm transition-colors',
+          isActivePath(SETTINGS_HANDLES)
+            ? 'bg-gray-200 font-bold dark:bg-gray-800/80'
+            : 'text-dust font-medium hover:bg-gray-200 dark:hover:bg-gray-900/50'
         )}
       >
         <MentionOutline className="size-4" />
@@ -75,10 +81,10 @@ const SettingsSidebar = () => {
       <Link
         href={SETTINGS_INTERESTS}
         className={clsx(
-          'hover:dark:bg-smoke hover:bg-gallery flex items-center space-x-3 rounded-lg px-3 py-2',
+          'flex items-center space-x-3 rounded-lg px-3 py-1.5 text-sm transition-colors',
           isActivePath(SETTINGS_INTERESTS)
-            ? 'font-bold'
-            : 'text-dust font-medium'
+            ? 'bg-gray-200 font-bold dark:bg-gray-800/80'
+            : 'text-dust font-medium hover:bg-gray-200 dark:hover:bg-gray-900/50'
         )}
       >
         <InterestsOutline className="size-4" />
@@ -88,10 +94,10 @@ const SettingsSidebar = () => {
         <Link
           href={SETTINGS_MANAGER}
           className={clsx(
-            'hover:dark:bg-smoke hover:bg-gallery flex items-center space-x-3 rounded-lg px-3 py-2',
+            'flex items-center space-x-3 rounded-lg px-3 py-1.5 text-sm transition-colors',
             isActivePath(SETTINGS_MANAGER)
-              ? 'font-bold'
-              : 'text-dust font-medium'
+              ? 'bg-gray-200 font-bold dark:bg-gray-800/80'
+              : 'text-dust font-medium hover:bg-gray-200 dark:hover:bg-gray-900/50'
           )}
         >
           <ProfileManagerOutline className="size-4" />
@@ -101,10 +107,10 @@ const SettingsSidebar = () => {
       <Link
         href={SETTINGS_ALLOWANCE}
         className={clsx(
-          'hover:dark:bg-smoke hover:bg-gallery flex items-center space-x-3 rounded-lg px-3 py-2',
+          'flex items-center space-x-3 rounded-lg px-3 py-1.5 text-sm transition-colors',
           isActivePath(SETTINGS_ALLOWANCE)
-            ? 'font-bold'
-            : 'text-dust font-medium'
+            ? 'bg-gray-200 font-bold dark:bg-gray-800/80'
+            : 'text-dust font-medium hover:bg-gray-200 dark:hover:bg-gray-900/50'
         )}
       >
         <LockOutline className="size-4" />
@@ -113,8 +119,10 @@ const SettingsSidebar = () => {
       <Link
         href={SETTINGS_BLOCKED}
         className={clsx(
-          'hover:dark:bg-smoke hover:bg-gallery flex items-center space-x-3 rounded-lg px-3 py-2',
-          isActivePath(SETTINGS_BLOCKED) ? 'font-bold' : 'text-dust font-medium'
+          'flex items-center space-x-3 rounded-lg px-3 py-1.5 text-sm transition-colors',
+          isActivePath(SETTINGS_BLOCKED)
+            ? 'bg-gray-200 font-bold dark:bg-gray-800/80'
+            : 'text-dust font-medium hover:bg-gray-200 dark:hover:bg-gray-900/50'
         )}
       >
         <ProfileBanOutline className="size-4" />
@@ -123,10 +131,10 @@ const SettingsSidebar = () => {
       <Link
         href={SETTINGS_SESSIONS}
         className={clsx(
-          'hover:dark:bg-smoke hover:bg-gallery flex items-center space-x-3 rounded-lg px-3 py-2',
+          'flex items-center space-x-3 rounded-lg px-3 py-1.5 text-sm transition-colors',
           isActivePath(SETTINGS_SESSIONS)
-            ? 'font-bold'
-            : 'text-dust font-medium'
+            ? 'bg-gray-200 font-bold dark:bg-gray-800/80'
+            : 'text-dust font-medium hover:bg-gray-200 dark:hover:bg-gray-900/50'
         )}
       >
         <KeyOutline className="size-4" />
@@ -136,10 +144,10 @@ const SettingsSidebar = () => {
         <Link
           href={SETTINGS_DANGER_ZONE}
           className={clsx(
-            'hover:dark:bg-smoke flex items-center space-x-3 rounded-lg px-3 py-2 text-red-500 hover:bg-red-100 dark:hover:bg-red-900/50',
+            'flex items-center space-x-3 rounded-lg px-3 py-1.5 text-sm text-red-500 transition-colors hover:bg-red-100 dark:hover:bg-red-900/50',
             isActivePath(SETTINGS_DANGER_ZONE)
-              ? 'font-bold'
-              : 'text-dust font-medium'
+              ? 'bg-gray-200 font-bold dark:bg-gray-800/80'
+              : 'text-dust font-medium hover:bg-gray-200 dark:hover:bg-gray-900/50'
           )}
         >
           <WarningOutline className="size-4" />

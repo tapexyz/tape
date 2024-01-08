@@ -1,4 +1,3 @@
-import { Input } from '@components/UIElements/Input'
 import { zodResolver } from '@hookform/resolvers/zod'
 import usePendingTxn from '@hooks/usePendingTxn'
 import { Button, Callout, Text } from '@radix-ui/themes'
@@ -6,7 +5,7 @@ import { COMMON_REGEX, ERROR_MESSAGE, IS_MAINNET } from '@tape.xyz/constants'
 import { shortenAddress } from '@tape.xyz/generic'
 import { useCreateProfileWithHandleMutation } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { Loader, WarningOutline } from '@tape.xyz/ui'
+import { Input, Loader, WarningOutline } from '@tape.xyz/ui'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -103,7 +102,7 @@ const Signup = ({ onSuccess }: { onSuccess: () => void }) => {
             <Input
               placeholder="gilfoyle"
               autoComplete="off"
-              validationError={errors.handle?.message}
+              error={errors.handle?.message}
               {...register('handle')}
             />
             <Button disabled={creating} highContrast>

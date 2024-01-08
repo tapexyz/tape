@@ -1,6 +1,5 @@
 import Badge from '@components/Common/Badge'
 import EmojiPicker from '@components/UIElements/EmojiPicker'
-import { Input } from '@components/UIElements/Input'
 import { TextArea } from '@components/UIElements/TextArea'
 import Tooltip from '@components/UIElements/Tooltip'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -10,7 +9,7 @@ import {
   MetadataAttributeType,
   profile as profileMetadata
 } from '@lens-protocol/metadata'
-import { Button, Flex, IconButton, Text } from '@radix-ui/themes'
+import { Flex, IconButton, Text } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { uploadToIPFS, useCopyToClipboard } from '@tape.xyz/browser'
 import {
@@ -45,7 +44,13 @@ import type {
   CustomErrorWithData,
   IPFSUploadResult
 } from '@tape.xyz/lens/custom-types'
-import { AddImageOutline, CopyOutline, Loader } from '@tape.xyz/ui'
+import {
+  AddImageOutline,
+  Button,
+  CopyOutline,
+  Input,
+  Loader
+} from '@tape.xyz/ui'
 import clsx from 'clsx'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -297,210 +302,202 @@ const BasicInfo = ({ profile }: Props) => {
   }
 
   return (
-    <div className="tape-border rounded-medium dark:bg-cod bg-white p-5">
-      <form onSubmit={handleSubmit(onSaveBasicInfo)}>
-        <div className="relative w-full flex-none">
-          {uploading.cover && (
-            <div className="rounded-small absolute z-10 flex h-full w-full items-center justify-center bg-black opacity-40">
-              <Loader />
-            </div>
-          )}
-          <img
-            src={
-              sanitizeDStorageUrl(coverImage) ||
-              imageCdn(
-                sanitizeDStorageUrl(getProfileCoverPicture(profile)),
-                'THUMBNAIL'
-              )
-            }
-            className="rounded-small bg-brand-500 h-48 w-full object-cover object-center md:h-56"
-            draggable={false}
-            alt="No cover found"
-          />
-          <div className="absolute bottom-2 right-2 cursor-pointer text-sm">
-            <Button
-              highContrast
-              type="button"
-              variant="surface"
-              className="!px-0"
-            >
-              <label htmlFor="chooseCover" className="p-3">
-                Choose
-                <input
-                  id="chooseCover"
-                  type="file"
-                  accept=".png, .jpg, .jpeg, .svg, .webp"
-                  className="hidden w-full"
-                  onChange={async (e) => {
-                    if (e.target.files?.length) {
-                      setUploading({ cover: true, pfp: false })
-                      const result: IPFSUploadResult = await uploadToIPFS(
-                        e.target.files[0]
-                      )
-                      setCoverImage(result.url)
-                      setUploading({ cover: false, pfp: false })
-                    }
-                  }}
-                />
-              </label>
-            </Button>
+    <form onSubmit={handleSubmit(onSaveBasicInfo)} className="w-full">
+      <div className="relative w-full flex-none">
+        {uploading.cover && (
+          <div className="rounded-small absolute z-10 flex h-full w-full items-center justify-center bg-black opacity-40">
+            <Loader />
           </div>
-        </div>
-        <Flex align="center" mt="5" gap="5" wrap="wrap">
-          <div className="group relative flex-none overflow-hidden rounded-full">
-            <img
-              src={
-                selectedPfp
-                  ? sanitizeDStorageUrl(selectedPfp)
-                  : getProfilePicture(profile, 'AVATAR_LG')
-              }
-              className="size-32 rounded-full border-2 object-cover"
-              draggable={false}
-              alt="No PFP"
-            />
-            <label
-              htmlFor="choosePfp"
-              className={clsx(
-                'invisible absolute top-0 grid size-32 cursor-pointer place-items-center rounded-full bg-white bg-opacity-70 backdrop-blur-lg group-hover:visible dark:bg-black',
-                { '!visible': uploading.pfp }
-              )}
-            >
-              {uploading.pfp ? (
-                <Loader />
-              ) : (
-                <AddImageOutline className="size-5" />
-              )}
+        )}
+        <img
+          src={
+            sanitizeDStorageUrl(coverImage) ||
+            imageCdn(
+              sanitizeDStorageUrl(getProfileCoverPicture(profile, true)),
+              'THUMBNAIL'
+            )
+          }
+          className="rounded-small bg-brand-500 h-48 w-full object-cover object-center md:h-56"
+          draggable={false}
+          alt="No cover found"
+        />
+        <div className="absolute bottom-2 right-2 cursor-pointer text-sm">
+          <Button type="button">
+            <label htmlFor="chooseCover" className="p-3">
+              Choose
               <input
-                id="choosePfp"
+                id="chooseCover"
                 type="file"
-                accept=".png, .jpg, .jpeg, .svg, .gif, .webp"
+                accept=".png, .jpg, .jpeg, .svg, .webp"
                 className="hidden w-full"
                 onChange={async (e) => {
                   if (e.target.files?.length) {
-                    setUploading({ cover: false, pfp: true })
-                    const { url }: IPFSUploadResult = await uploadToIPFS(
+                    setUploading({ cover: true, pfp: false })
+                    const result: IPFSUploadResult = await uploadToIPFS(
                       e.target.files[0]
                     )
-                    setSelectedPfp(url)
+                    setCoverImage(result.url)
                     setUploading({ cover: false, pfp: false })
                   }
                 }}
               />
             </label>
-          </div>
-          <div>
-            <Text as="div" className="opacity-70" size="2" weight="medium">
-              Profile
-            </Text>
-            <div className="flex items-center space-x-3">
-              <h6 className="flex items-center space-x-1">
-                <span>{getProfile(profile)?.slug}</span>
-                <Badge id={profile?.id} size="xs" />
-              </h6>
-            </div>
-            <div className="mt-4">
-              <Text as="div" className="opacity-70" size="2" weight="medium">
-                Permalink
-              </Text>
-              <div className="flex items-center space-x-2">
-                <span>
-                  {TAPE_WEBSITE_URL}/u/
-                  {getProfile(profile)?.slug}
-                </span>
-                <Tooltip content="Copy" placement="top">
-                  <IconButton
-                    className="hover:opacity-60 focus:outline-none"
-                    onClick={async () =>
-                      await copy(
-                        `${TAPE_WEBSITE_URL}/u/${getProfile(profile)?.slug}`
-                      )
-                    }
-                    variant="ghost"
-                    type="button"
-                  >
-                    <CopyOutline className="size-4" />
-                  </IconButton>
-                </Tooltip>
-              </div>
-            </div>
-          </div>
-        </Flex>
-
-        <div className="mt-6">
-          <Input
-            label="Name"
-            placeholder="John Doe"
-            validationError={errors.displayName?.message}
-            {...register('displayName')}
-          />
-        </div>
-        <div className="relative mt-4">
-          <TextArea
-            label="Bio"
-            rows={5}
-            placeholder="More about you and what you do!"
-            validationError={errors.description?.message}
-            {...register('description')}
-          />
-          <div className="absolute bottom-1.5 right-2">
-            <EmojiPicker
-              onEmojiSelect={(emoji) =>
-                setValue('description', `${getValues('description')}${emoji}`)
-              }
-            />
-          </div>
-        </div>
-        <div className="mt-4">
-          <Input
-            label="Website"
-            placeholder="https://johndoe.xyz"
-            validationError={errors.website?.message}
-            {...register('website')}
-          />
-        </div>
-        <div className="mt-4">
-          <Input
-            label="Youtube"
-            placeholder="channel"
-            validationError={errors.youtube?.message}
-            prefix="https://youtube.com/"
-            {...register('youtube')}
-          />
-        </div>
-        <div className="mt-4">
-          <Input
-            label="Spotify"
-            placeholder="artist/6xl0mjD1B4paRyfPDUOynf"
-            validationError={errors.spotify?.message}
-            prefix="https://open.spotify.com/"
-            {...register('spotify')}
-          />
-        </div>
-        <div className="mt-4">
-          <Input
-            label="X (Twitter)"
-            placeholder="profile"
-            validationError={errors.x?.message}
-            prefix="https://x.com/"
-            {...register('x')}
-          />
-        </div>
-        <div className="mt-4">
-          <Input
-            label="Location"
-            placeholder="Cybertron"
-            validationError={errors.location?.message}
-            {...register('location')}
-          />
-        </div>
-        <div className="mt-6 flex justify-end">
-          <Button disabled={loading} highContrast>
-            {loading && <Loader size="sm" />}
-            Update Profile
           </Button>
         </div>
-      </form>
-    </div>
+      </div>
+      <Flex align="center" mt="5" gap="5" wrap="wrap">
+        <div className="group relative flex-none overflow-hidden rounded-full">
+          <img
+            src={
+              selectedPfp
+                ? sanitizeDStorageUrl(selectedPfp)
+                : getProfilePicture(profile, 'AVATAR_LG')
+            }
+            className="size-32 rounded-full border-2 object-cover"
+            draggable={false}
+            alt="No PFP"
+          />
+          <label
+            htmlFor="choosePfp"
+            className={clsx(
+              'invisible absolute top-0 grid size-32 cursor-pointer place-items-center rounded-full bg-white bg-opacity-70 backdrop-blur-lg group-hover:visible dark:bg-black',
+              { '!visible': uploading.pfp }
+            )}
+          >
+            {uploading.pfp ? (
+              <Loader />
+            ) : (
+              <AddImageOutline className="size-5" />
+            )}
+            <input
+              id="choosePfp"
+              type="file"
+              accept=".png, .jpg, .jpeg, .svg, .gif, .webp"
+              className="hidden w-full"
+              onChange={async (e) => {
+                if (e.target.files?.length) {
+                  setUploading({ cover: false, pfp: true })
+                  const { url }: IPFSUploadResult = await uploadToIPFS(
+                    e.target.files[0]
+                  )
+                  setSelectedPfp(url)
+                  setUploading({ cover: false, pfp: false })
+                }
+              }}
+            />
+          </label>
+        </div>
+        <div>
+          <Text as="div" className="opacity-70" size="2" weight="medium">
+            Profile
+          </Text>
+          <div className="flex items-center space-x-3">
+            <h6 className="flex items-center space-x-1">
+              <span>{getProfile(profile)?.slug}</span>
+              <Badge id={profile?.id} size="xs" />
+            </h6>
+          </div>
+          <div className="mt-4">
+            <Text as="div" className="opacity-70" size="2" weight="medium">
+              Permalink
+            </Text>
+            <div className="flex items-center space-x-2">
+              <span>
+                {TAPE_WEBSITE_URL}/u/
+                {getProfile(profile)?.slug}
+              </span>
+              <Tooltip content="Copy" placement="top">
+                <IconButton
+                  className="hover:opacity-60 focus:outline-none"
+                  onClick={async () =>
+                    await copy(
+                      `${TAPE_WEBSITE_URL}/u/${getProfile(profile)?.slug}`
+                    )
+                  }
+                  variant="ghost"
+                  type="button"
+                >
+                  <CopyOutline className="size-4" />
+                </IconButton>
+              </Tooltip>
+            </div>
+          </div>
+        </div>
+      </Flex>
+
+      <div className="mt-6">
+        <Input
+          label="Name"
+          placeholder="John Doe"
+          error={errors.displayName?.message}
+          {...register('displayName')}
+        />
+      </div>
+      <div className="relative mt-4">
+        <TextArea
+          label="Bio"
+          rows={5}
+          placeholder="More about you and what you do!"
+          validationError={errors.description?.message}
+          {...register('description')}
+        />
+        <div className="absolute bottom-1.5 right-2">
+          <EmojiPicker
+            onEmojiSelect={(emoji) =>
+              setValue('description', `${getValues('description')}${emoji}`)
+            }
+          />
+        </div>
+      </div>
+      <div className="mt-4">
+        <Input
+          label="Website"
+          placeholder="https://johndoe.xyz"
+          error={errors.website?.message}
+          {...register('website')}
+        />
+      </div>
+      <div className="mt-4">
+        <Input
+          label="Youtube"
+          placeholder="channel"
+          error={errors.youtube?.message}
+          prefix="https://youtube.com/"
+          {...register('youtube')}
+        />
+      </div>
+      <div className="mt-4">
+        <Input
+          label="Spotify"
+          placeholder="artist/6xl0mjD1B4paRyfPDUOynf"
+          error={errors.spotify?.message}
+          prefix="https://open.spotify.com/"
+          {...register('spotify')}
+        />
+      </div>
+      <div className="mt-4">
+        <Input
+          label="X (Twitter)"
+          placeholder="profile"
+          error={errors.x?.message}
+          prefix="https://x.com/"
+          {...register('x')}
+        />
+      </div>
+      <div className="mt-4">
+        <Input
+          label="Location"
+          placeholder="Cybertron"
+          error={errors.location?.message}
+          {...register('location')}
+        />
+      </div>
+      <div className="mt-6 flex justify-end">
+        <Button loading={loading} disabled={loading}>
+          Update Profile
+        </Button>
+      </div>
+    </form>
   )
 }
 

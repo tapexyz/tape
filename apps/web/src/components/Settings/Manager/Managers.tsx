@@ -1,5 +1,4 @@
 import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
-import { Input } from '@components/UIElements/Input'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useDid } from '@hooks/useDid'
@@ -28,7 +27,7 @@ import {
   useProfileManagersQuery
 } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { ExternalOutline, Loader } from '@tape.xyz/ui'
+import { ExternalOutline, Input, Loader } from '@tape.xyz/ui'
 import React, { useEffect, useMemo, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { useForm } from 'react-hook-form'
@@ -284,7 +283,7 @@ const Managers = () => {
               <Input
                 label="Address"
                 placeholder="0x00..."
-                validationError={errors.address?.message}
+                error={errors.address?.message}
                 {...register('address')}
               />
               <Flex gap="2" mt="4" justify="end">

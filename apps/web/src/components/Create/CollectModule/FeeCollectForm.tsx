@@ -1,4 +1,3 @@
-import { Input } from '@components/UIElements/Input'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useAppStore from '@lib/store'
 import useProfileStore from '@lib/store/idb/profile'
@@ -6,6 +5,7 @@ import { Button, Flex, Select, Text } from '@radix-ui/themes'
 import { WMATIC_TOKEN_ADDRESS } from '@tape.xyz/constants'
 import type { Erc20 } from '@tape.xyz/lens'
 import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
+import { Input } from '@tape.xyz/ui'
 import type { Dispatch, FC } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -122,7 +122,7 @@ const FeeCollectForm: FC<Props> = ({
               min="0"
               autoComplete="off"
               max="100000"
-              validationError={errors.amount?.message}
+              error={errors.amount?.message}
               {...register('amount', {
                 setValueAs: (v) => String(v)
               })}
@@ -160,7 +160,7 @@ const FeeCollectForm: FC<Props> = ({
               suffix="%"
               info="Percentage of collect revenue from mirrors can be shared with the referrer"
               {...register('referralPercent', { valueAsNumber: true })}
-              validationError={errors.referralPercent?.message}
+              error={errors.referralPercent?.message}
             />
           </div>
         </>

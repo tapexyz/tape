@@ -1,4 +1,3 @@
-import { Input } from '@components/UIElements/Input'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import ProfileSuggestion from '@components/UIElements/ProfileSuggestion'
 import Tooltip from '@components/UIElements/Tooltip'
@@ -19,7 +18,7 @@ import {
 } from '@tape.xyz/generic'
 import type { Profile, RecipientDataInput } from '@tape.xyz/lens'
 import { LimitType, useSearchProfilesLazyQuery } from '@tape.xyz/lens'
-import { InfoOutline, Loader, TimesOutline } from '@tape.xyz/ui'
+import { InfoOutline, Input, Loader, TimesOutline } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import type { FC, RefObject } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
@@ -174,10 +173,8 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
                   : ''
               }
               disabled={splitRecipient.recipient === TAPE_ADMIN_ADDRESS}
-              validationError={
-                getIsValidAddress(splitRecipient.recipient) ? '' : ' '
-              }
-              showErrorLabel={false}
+              error={getIsValidAddress(splitRecipient.recipient) ? '' : ' '}
+              showError={false}
             />
             {searchKeyword.length &&
             !getIsValidAddress(splitRecipients[i].recipient) ? (

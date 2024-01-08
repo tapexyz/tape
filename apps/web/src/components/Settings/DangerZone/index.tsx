@@ -19,37 +19,35 @@ const DangerZone = () => {
 
   return (
     <>
-      <div className="tape-border rounded-medium dark:bg-cod mb-4 bg-white p-5">
-        <MetaTags title="Danger Zone" />
-        <Flex align="center" justify="between">
-          <div className="flex items-center">
-            <div className="mr-3 mt-0.5 flex-none">
-              <HoverableProfile profile={activeProfile}>
-                <Avatar
-                  src={getProfilePicture(activeProfile, 'AVATAR')}
-                  fallback={getProfile(activeProfile)?.displayName[0] ?? ';)'}
-                  radius="full"
-                  className="size-9 rounded-full"
-                  draggable={false}
-                  alt={getProfile(activeProfile)?.displayName}
-                />
-              </HoverableProfile>
-            </div>
-            <div className="flex flex-col">
-              <h6 className="font-medium">
-                {getProfile(activeProfile)?.displayName}
-              </h6>
-              <span className="flex items-center space-x-1">
-                <p>{getProfile(activeProfile)?.slugWithPrefix}</p>
-                <Badge id={activeProfile?.id} size="sm" />
-              </span>
-            </div>
+      <MetaTags title="Danger Zone" />
+      <Flex align="center" justify="between">
+        <div className="flex items-center">
+          <div className="mr-3 mt-0.5 flex-none">
+            <HoverableProfile profile={activeProfile}>
+              <Avatar
+                src={getProfilePicture(activeProfile, 'AVATAR')}
+                fallback={getProfile(activeProfile)?.displayName[0] ?? ';)'}
+                radius="full"
+                className="size-9 rounded-full"
+                draggable={false}
+                alt={getProfile(activeProfile)?.displayName}
+              />
+            </HoverableProfile>
           </div>
-          <div className="flex space-x-2">
-            <Stats profile={activeProfile} />
+          <div className="flex flex-col">
+            <h6 className="font-medium">
+              {getProfile(activeProfile)?.displayName}
+            </h6>
+            <span className="flex items-center space-x-1">
+              <p>{getProfile(activeProfile)?.slugWithPrefix}</p>
+              <Badge id={activeProfile?.id} size="sm" />
+            </span>
           </div>
-        </Flex>
-      </div>
+        </div>
+        <div className="flex space-x-2">
+          <Stats profile={activeProfile} />
+        </div>
+      </Flex>
       <Guardian />
       <Delete />
     </>

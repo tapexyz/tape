@@ -1,4 +1,3 @@
-import { Input } from '@components/UIElements/Input'
 import { TextArea } from '@components/UIElements/TextArea'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { MetadataAttributeType, textOnly } from '@lens-protocol/metadata'
@@ -43,6 +42,7 @@ import {
 } from '@tape.xyz/lens'
 import { useApolloClient } from '@tape.xyz/lens/apollo'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+import { Input } from '@tape.xyz/ui'
 import type { Dispatch, FC } from 'react'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'

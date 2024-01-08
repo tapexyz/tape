@@ -23,7 +23,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     {
       children,
       className,
-      size = 'md',
+      size = 'sm',
       variant = 'primary',
       loading,
       ...props
@@ -45,11 +45,16 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     }
 
     return (
-      <div className="relative w-full">
+      <div className="relative">
         {loading && (
           <div className="absolute -inset-[2px] overflow-hidden rounded-lg">
             <LoadingBorder rx="30%" ry="30%">
-              <div className="bg-brand-400 h-20 w-20 rounded-full blur" />
+              <div
+                className={clsx(
+                  'bg-brand-400 rounded-full blur',
+                  size === 'sm' ? 'h-10 w-10' : 'h-20 w-20'
+                )}
+              />
             </LoadingBorder>
           </div>
         )}
