@@ -5,14 +5,12 @@ import { forwardRef, useId } from 'react'
 interface TextAreaProps extends Omit<ComponentProps<'textarea'>, 'prefix'> {
   label?: string
   info?: string
-  prefix?: string
-  suffix?: string
   error?: string
   showError?: boolean
 }
 
 export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
-  ({ className, label, prefix, suffix, error, ...props }, ref) => {
+  ({ className, label, error, ...props }, ref) => {
     const id = useId()
 
     return (
@@ -22,35 +20,17 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
             {label}
           </div>
         ) : null}
-        <div className="flex text-sm">
-          {prefix ? (
-            <span className="inline-flex items-center rounded-l-lg bg-gray-200 px-3 dark:bg-gray-800">
-              {prefix}
-            </span>
-          ) : null}
-          <div
+        <div className="flex w-full items-center rounded-lg text-sm">
+          <textarea
             className={clsx(
-              prefix ? 'rounded-r-lg' : 'rounded-lg',
-              'flex w-full items-center'
+              { 'placeholder:text-red-500': error },
+              'w-full rounded-lg border-none bg-gray-100 px-3 py-2 focus:outline-none dark:bg-gray-900',
+              className
             )}
-          >
-            <textarea
-              className={clsx(
-                { 'placeholder:text-red-500': error },
-                prefix ? 'rounded-r-lg' : 'rounded-lg',
-                'w-full border-none bg-gray-100 px-3 py-2 focus:outline-none dark:bg-gray-900',
-                className
-              )}
-              id={id}
-              ref={ref}
-              {...props}
-            />
-          </div>
-          {suffix ? (
-            <span className="inline-flex items-center rounded-l-lg bg-gray-200 px-3 dark:bg-gray-800">
-              {suffix}
-            </span>
-          ) : null}
+            id={id}
+            ref={ref}
+            {...props}
+          />
         </div>
         {error ? <p className="text-sm text-red-500">{error}</p> : null}
       </label>
