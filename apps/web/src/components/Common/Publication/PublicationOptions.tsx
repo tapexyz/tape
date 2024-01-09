@@ -4,7 +4,6 @@ import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import type { ProfileOptions } from '@lens-protocol/metadata'
 import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
 import useProfileStore from '@lib/store/idb/profile'
-import { DropdownMenu, Flex, IconButton, Text } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   ERROR_MESSAGE,
@@ -46,6 +45,9 @@ import { useApolloClient } from '@tape.xyz/lens/apollo'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import {
   BookmarkOutline,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
   ExternalOutline,
   FlagOutline,
   ForbiddenOutline,
@@ -370,18 +372,23 @@ const PublicationOptions: FC<Props> = ({
         setShowConfirm={setShowConfirm}
         action={onHideVideo}
       />
-      <DropdownMenu.Root>
-        <DropdownMenu.Trigger>
-          {children ?? (
-            <IconButton radius="full" variant={variant} highContrast size="2">
+      <DropdownMenu
+        trigger={
+          children ?? (
+            <button>
               <ThreeDotsOutline className="size-3.5" />
               <span className="sr-only">Video Options</span>
-            </IconButton>
-          )}
-        </DropdownMenu.Trigger>
-        <DropdownMenu.Content sideOffset={10} variant="soft" align="end">
+            </button>
+          )
+        }
+      >
+        <DropdownMenuContent
+          sideOffset={10}
+          className="tape-border rounded-xl bg-white p-2 dark:bg-black"
+          align="end"
+        >
           <div className="flex w-40 flex-col transition duration-150 ease-in-out">
-            <DropdownMenu.Item
+            <DropdownMenuItem
               onClick={(e) => {
                 e.preventDefault()
                 setShowShareModal(true)
@@ -390,11 +397,9 @@ const PublicationOptions: FC<Props> = ({
             >
               <div className="flex items-center gap-2">
                 <ShareOutline className="size-3.5" />
-                <Text size="2" className="whitespace-nowrap">
-                  Share
-                </Text>
+                <p className="whitespace-nowrap">Share</p>
               </div>
-            </DropdownMenu.Item>
+            </DropdownMenuItem>
             <Modal
               size="sm"
               title="Share"
@@ -406,54 +411,54 @@ const PublicationOptions: FC<Props> = ({
             {isVideoOwner && (
               <>
                 {pinnedVideoId !== publication.id && (
-                  <DropdownMenu.Item
+                  <DropdownMenuItem
                     disabled={!activeProfile?.id}
                     onClick={() => onPinVideo()}
                   >
-                    <Flex align="center" gap="2">
+                    <p className="flex items-center gap-2">
                       <PinOutline className="size-3.5" />
                       <span className="whitespace-nowrap">Pin Video</span>
-                    </Flex>
-                  </DropdownMenu.Item>
+                    </p>
+                  </DropdownMenuItem>
                 )}
-                <DropdownMenu.Item
+                <DropdownMenuItem
                   color="red"
                   onClick={() => setShowConfirm(true)}
                 >
-                  <Flex align="center" gap="2">
+                  <p className="flex items-center gap-2">
                     <TrashOutline className="size-3.5" />
                     <span className="whitespace-nowrap">Delete</span>
-                  </Flex>
-                </DropdownMenu.Item>
+                  </p>
+                </DropdownMenuItem>
               </>
             )}
 
             {!isVideoOwner && (
               <>
-                <DropdownMenu.Item
+                <DropdownMenuItem
                   disabled={!activeProfile?.id}
                   onClick={() => saveToList()}
                 >
-                  <Flex align="center" gap="2">
+                  <p className="flex items-center gap-2">
                     <BookmarkOutline className="size-3.5 flex-none" />
                     <span className="truncate whitespace-nowrap">
                       {publication.operations.hasBookmarked ? 'Unsave' : 'Save'}
                     </span>
-                  </Flex>
-                </DropdownMenu.Item>
-                <DropdownMenu.Item
+                  </p>
+                </DropdownMenuItem>
+                <DropdownMenuItem
                   disabled={!activeProfile?.id}
                   onClick={() => notInterested()}
                 >
-                  <Flex align="center" gap="2">
+                  <p className="flex items-center gap-2">
                     <ForbiddenOutline className="size-3.5" />
                     <span className="whitespace-nowrap">
                       {publication.operations.isNotInterested
                         ? 'Interested'
                         : 'Not Interested'}
                     </span>
-                  </Flex>
-                </DropdownMenu.Item>
+                  </p>
+                </DropdownMenuItem>
                 <Modal
                   title="Report"
                   show={showReportModal}
@@ -464,63 +469,61 @@ const PublicationOptions: FC<Props> = ({
                     close={() => setShowReportModal(false)}
                   />
                 </Modal>
-                <DropdownMenu.Item
+                <DropdownMenuItem
                   className="!cursor-default rounded-md px-3 py-1.5 hover:bg-gray-500/20 disabled:opacity-40 disabled:hover:bg-inherit"
                   onClick={(e) => {
                     e.preventDefault()
                     onClickReport()
                   }}
                 >
-                  <Flex align="center" gap="2">
+                  <div className="flex items-center gap-2">
                     <FlagOutline className="size-3.5" />
-                    <Text size="2" className="whitespace-nowrap">
-                      Report
-                    </Text>
-                  </Flex>
-                </DropdownMenu.Item>
+                    <p className="whitespace-nowrap">Report</p>
+                  </div>
+                </DropdownMenuItem>
 
                 {getIsIPFSUrl(publication.metadata.rawURI) ? (
                   <IPFSLink hash={getMetadataCid(publication)}>
-                    <DropdownMenu.Item
+                    <DropdownMenuItem
                       onClick={() => Tower.track(EVENTS.CLICK_VIEW_METADATA)}
                     >
-                      <Flex align="center" gap="2">
+                      <p className="flex items-center gap-2">
                         <ExternalOutline className="size-3.5" />
                         <span className="whitespace-nowrap">View metadata</span>
-                      </Flex>
-                    </DropdownMenu.Item>
+                      </p>
+                    </DropdownMenuItem>
                   </IPFSLink>
                 ) : (
                   <ArweaveExplorerLink txId={getMetadataCid(publication)}>
-                    <DropdownMenu.Item
+                    <DropdownMenuItem
                       onClick={() => Tower.track(EVENTS.CLICK_VIEW_METADATA)}
                     >
-                      <Flex align="center" gap="2">
+                      <p className="flex items-center gap-2">
                         <ExternalOutline className="size-3.5" />
                         <span className="whitespace-nowrap">View metadata</span>
-                      </Flex>
-                    </DropdownMenu.Item>
+                      </p>
+                    </DropdownMenuItem>
                   </ArweaveExplorerLink>
                 )}
                 {publication.momoka?.proof && (
                   <ArweaveExplorerLink
                     txId={publication.momoka?.proof?.replace('ar://', '')}
                   >
-                    <DropdownMenu.Item
+                    <DropdownMenuItem
                       onClick={() => Tower.track(EVENTS.CLICK_VIEW_PROOF)}
                     >
-                      <Flex align="center" gap="2">
+                      <p className="flex items-center gap-2">
                         <ExternalOutline className="size-3.5" />
                         <span className="whitespace-nowrap">View proof</span>
-                      </Flex>
-                    </DropdownMenu.Item>
+                      </p>
+                    </DropdownMenuItem>
                   </ArweaveExplorerLink>
                 )}
               </>
             )}
           </div>
-        </DropdownMenu.Content>
-      </DropdownMenu.Root>
+        </DropdownMenuContent>
+      </DropdownMenu>
     </>
   )
 }

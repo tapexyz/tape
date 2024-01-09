@@ -1,7 +1,12 @@
 import usePersistStore from '@lib/store/persist'
-import { Box, DropdownMenu, Text } from '@radix-ui/themes'
 import { CustomNotificationsFilterEnum } from '@tape.xyz/lens/custom-types'
-import { CogOutline } from '@tape.xyz/ui'
+import {
+  CogOutline,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem
+} from '@tape.xyz/ui'
+import clsx from 'clsx'
 import React from 'react'
 
 const NotificationsFilter = () => {
@@ -13,53 +18,48 @@ const NotificationsFilter = () => {
   )
 
   return (
-    <DropdownMenu.Root>
-      <DropdownMenu.Trigger>
-        <Box>
-          <CogOutline className="size-4" />
-        </Box>
-      </DropdownMenu.Trigger>
-      <DropdownMenu.Content sideOffset={10} variant="soft" align="end">
-        <DropdownMenu.Item
+    <DropdownMenu trigger={<CogOutline className="size-4" />}>
+      <DropdownMenuContent
+        sideOffset={10}
+        align="end"
+        className="tape-border rounded-xl bg-white p-2 dark:bg-black"
+      >
+        <DropdownMenuItem
           onClick={() =>
             setSelectedNotificationsFilter(
               CustomNotificationsFilterEnum.HIGH_SIGNAL
             )
           }
         >
-          <Text
-            weight={
+          <p
+            className={clsx(
+              'whitespace-nowrap',
               selectedNotificationsFilter ===
-              CustomNotificationsFilterEnum.HIGH_SIGNAL
-                ? 'bold'
-                : 'regular'
-            }
-            className="whitespace-nowrap"
+                CustomNotificationsFilterEnum.HIGH_SIGNAL && 'font-bold'
+            )}
           >
             High signal
-          </Text>
-        </DropdownMenu.Item>
-        <DropdownMenu.Item
+          </p>
+        </DropdownMenuItem>
+        <DropdownMenuItem
           onClick={() =>
             setSelectedNotificationsFilter(
               CustomNotificationsFilterEnum.ALL_NOTIFICATIONS
             )
           }
         >
-          <Text
-            weight={
+          <p
+            className={clsx(
+              'whitespace-nowrap',
               selectedNotificationsFilter ===
-              CustomNotificationsFilterEnum.ALL_NOTIFICATIONS
-                ? 'bold'
-                : 'regular'
-            }
-            className="whitespace-nowrap"
+                CustomNotificationsFilterEnum.ALL_NOTIFICATIONS && 'font-bold'
+            )}
           >
             Show all
-          </Text>
-        </DropdownMenu.Item>
-      </DropdownMenu.Content>
-    </DropdownMenu.Root>
+          </p>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   )
 }
 
