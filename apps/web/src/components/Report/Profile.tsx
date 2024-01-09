@@ -1,19 +1,20 @@
 import MetaTags from '@components/Common/MetaTags'
-import { Button, Dialog, Flex, Select, Text } from '@radix-ui/themes'
 import { ERROR_MESSAGE } from '@tape.xyz/constants'
-import { EVENTS, getProfile, Tower } from '@tape.xyz/generic'
+import { EVENTS, Tower } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { useReportProfileMutation } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+import { Button, Select, SelectItem } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 
 type Props = {
   profile: Profile
+  close?: () => void
 }
 
-const ReportProfile: FC<Props> = ({ profile }) => {
+const ReportProfile: FC<Props> = ({ profile, close }) => {
   const [reason, setReason] = useState('SPAM-REPETITIVE')
 
   const [createReport, { loading: reporting }] = useReportProfileMutation({
@@ -55,60 +56,35 @@ const ReportProfile: FC<Props> = ({ profile }) => {
         }
       }
     })
+    close?.()
   }
 
   return (
     <>
-      <MetaTags title={`Report Publication`} />
-      <div className="flex justify-center">
-        <div className="w-full">
-          <h1>{getProfile(profile)?.slugWithPrefix}</h1>
-          <div className="mt-4 flex flex-col space-y-4">
-            <Flex direction="column">
-              <Text weight="medium">Reason</Text>
-              <Select.Root
-                onValueChange={(value) => setReason(value)}
-                value={reason}
-              >
-                <Select.Trigger />
-                <Select.Content variant="soft">
-                  <Select.Group>
-                    <Select.Label>Spam</Select.Label>
-                    <Select.Item value="SPAM-REPETITIVE">
-                      Repetitive
-                    </Select.Item>
-                    <Select.Item value="SPAM-SOMETHING_ELSE">
-                      Something Else
-                    </Select.Item>
-                  </Select.Group>
-                  <Select.Group>
-                    <Select.Label>Fraud</Select.Label>
-                    <Select.Item value="FRAUD-IMPERSONATION">
-                      Impersonation
-                    </Select.Item>
-                    <Select.Item value="FRAUD-SOMETHING_ELSE">
-                      Something Else
-                    </Select.Item>
-                  </Select.Group>
-                </Select.Content>
-              </Select.Root>
-            </Flex>
-            <Flex mt="4" gap="2" justify="end">
-              <Dialog.Close>
-                <Button variant="soft" color="gray">
-                  Cancel
-                </Button>
-              </Dialog.Close>
-              <Dialog.Close>
-                <Button
-                  color="red"
-                  disabled={reporting}
-                  onClick={() => onReport()}
-                >
-                  Report
-                </Button>
-              </Dialog.Close>
-            </Flex>
+      <MetaTags title="Report Publication" />
+      <div className="w-full">
+        <div className="mt-4 flex flex-col space-y-4">
+          <div className="flex flex-col">
+            <Select onValueChange={(value) => setReason(value)} value={reason}>
+              <SelectItem value="SPAM-REPETITIVE">Repetitive</SelectItem>
+              <SelectItem value="FRAUD-IMPERSONATION">Impersonation</SelectItem>
+              <SelectItem value="SPAM-SOMETHING_ELSE">
+                Something Else
+              </SelectItem>
+            </Select>
+          </div>
+          <div className="mt-4 flex justify-end gap-2">
+            <Button variant="secondary" onClick={close}>
+              Cancel
+            </Button>
+            <Button
+              variant="danger"
+              disabled={reporting}
+              loading={reporting}
+              onClick={() => onReport()}
+            >
+              Report
+            </Button>
           </div>
         </div>
       </div>

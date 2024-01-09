@@ -1,6 +1,6 @@
 import Stats from '@components/Profile/BasicInfo/Stats'
 import useProfileStore from '@lib/store/idb/profile'
-import { Avatar, Flex, HoverCard, Inset, Text } from '@radix-ui/themes'
+import { Avatar, HoverCard, Inset, Text } from '@radix-ui/themes'
 import {
   getProfile,
   getProfileCoverPicture,
@@ -37,13 +37,13 @@ const HoverableProfile: FC<Props> = ({
       <HoverCard.Trigger>
         {children ?? (
           <Link href={getProfile(profile)?.link}>
-            <Flex align="center" gap="1">
+            <div className="flex items-center gap-1">
               {pfp}
               <Text size={fontSize} highContrast>
                 {getProfile(profile)?.slug}
               </Text>
               <Badge id={profile?.id} size="xs" />
-            </Flex>
+            </div>
           </Link>
         )}
       </HoverCard.Trigger>

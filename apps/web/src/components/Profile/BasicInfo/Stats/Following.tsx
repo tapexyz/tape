@@ -1,19 +1,12 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import {
-  Dialog,
-  DialogClose,
-  Flex,
-  IconButton,
-  ScrollArea,
-  Text
-} from '@radix-ui/themes'
+import { Text } from '@radix-ui/themes'
 import { formatNumber, getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { FollowingRequest, Profile, ProfileStats } from '@tape.xyz/lens'
 import { LimitType, useFollowingQuery } from '@tape.xyz/lens'
-import { Loader, TimesOutline } from '@tape.xyz/ui'
+import { Loader, Modal } from '@tape.xyz/ui'
 import type { FC } from 'react'
-import React from 'react'
+import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 
 type Props = {
@@ -22,6 +15,8 @@ type Props = {
 }
 
 const Following: FC<Props> = ({ stats, profileId }) => {
+  const [showModal, setShowModal] = useState(false)
+
   const request: FollowingRequest = {
     for: profileId,
     limit: LimitType.Fifty
@@ -49,25 +44,21 @@ const Following: FC<Props> = ({ stats, profileId }) => {
   })
 
   return (
-    <Dialog.Root>
-      <Dialog.Trigger>
-        <Flex gap="1" align="end">
-          <Text weight="bold">{formatNumber(stats.following)}</Text>
-          <Text>Followings</Text>
-        </Flex>
-      </Dialog.Trigger>
-      <Dialog.Content style={{ maxWidth: 450 }}>
-        <Flex gap="3" justify="between" pb="2">
-          <Dialog.Title size="6">
-            {formatNumber(stats.following)} followings
-          </Dialog.Title>
-          <DialogClose>
-            <IconButton variant="ghost" color="gray">
-              <TimesOutline outlined={false} className="size-3" />
-            </IconButton>
-          </DialogClose>
-        </Flex>
-        <ScrollArea type="hover" scrollbars="vertical" style={{ height: 400 }}>
+    <>
+      <button
+        className="flex items-end gap-1"
+        onClick={() => setShowModal(true)}
+      >
+        <Text weight="bold">{formatNumber(stats.following)}</Text>
+        <Text>Followings</Text>
+      </button>
+      <Modal
+        size="sm"
+        title={`${formatNumber(stats.following)} followings`}
+        show={showModal}
+        setShow={setShowModal}
+      >
+        <div className="no-scrollbar h-[70vh] overflow-y-auto">
           {loading && <Loader />}
           {followings?.length === 0 && (
             <div className="pt-5">
@@ -99,9 +90,9 @@ const Following: FC<Props> = ({ stats, profileId }) => {
               <Loader />
             </span>
           )}
-        </ScrollArea>
-      </Dialog.Content>
-    </Dialog.Root>
+        </div>
+      </Modal>
+    </>
   )
 }
 

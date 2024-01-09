@@ -8,7 +8,6 @@ import useNonceStore from '@lib/store/nonce'
 import {
   Badge as BadgeUI,
   Callout,
-  Dialog,
   DropdownMenu,
   Flex,
   IconButton,
@@ -47,6 +46,7 @@ import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import {
   FlagOutline,
   LinkOutline,
+  Modal,
   ProfileBanOutline,
   ThreeDotsOutline,
   WarningOutline
@@ -66,6 +66,7 @@ type Props = {
 const BasicInfo: FC<Props> = ({ profile }) => {
   const [copy] = useCopyToClipboard()
   const [loading, setLoading] = useState(false)
+  const [showReportModal, setShowReportModal] = useState(false)
 
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
   const { activeProfile } = useProfileStore()
@@ -332,22 +333,33 @@ const BasicInfo: FC<Props> = ({ profile }) => {
               </DropdownMenu.Item>
 
               {activeProfile?.id && (
-                <Dialog.Root>
-                  <Dialog.Trigger>
-                    <button className="!cursor-default rounded-md px-3 py-1.5 hover:bg-gray-500/20">
-                      <Flex align="center" gap="2">
-                        <FlagOutline className="size-3.5" />
-                        <Text size="2" className="whitespace-nowrap">
-                          Report
-                        </Text>
-                      </Flex>
-                    </button>
-                  </Dialog.Trigger>
-                  <Dialog.Content style={{ maxWidth: 450 }}>
-                    <Dialog.Title>Report</Dialog.Title>
-                    <ReportProfile profile={profile} />
-                  </Dialog.Content>
-                </Dialog.Root>
+                <>
+                  <DropdownMenu.Item
+                    onClick={(e) => {
+                      e.preventDefault()
+                      setShowReportModal(true)
+                    }}
+                    className="rounded-md px-3 py-1.5 hover:bg-gray-500/20"
+                  >
+                    <Flex align="center" gap="2">
+                      <FlagOutline className="size-3.5" />
+                      <Text size="2" className="whitespace-nowrap">
+                        Report
+                      </Text>
+                    </Flex>
+                  </DropdownMenu.Item>
+                  <Modal
+                    size="sm"
+                    title={`Report ${getProfile(profile)?.slugWithPrefix}`}
+                    show={showReportModal}
+                    setShow={setShowReportModal}
+                  >
+                    <ReportProfile
+                      profile={profile}
+                      close={() => setShowReportModal(false)}
+                    />
+                  </Modal>
+                </>
               )}
 
               {profile.operations.canBlock && (
