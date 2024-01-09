@@ -1,6 +1,5 @@
 import useProfileStore from '@lib/store/idb/profile'
 import useNonceStore from '@lib/store/nonce'
-import { Button, Dialog, Flex, Text } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   ERROR_MESSAGE,
@@ -25,7 +24,7 @@ import {
   useProfileFollowModuleQuery
 } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { Loader } from '@tape.xyz/ui'
+import { Button, Modal } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -39,11 +38,10 @@ import {
 type Props = {
   profile: Profile
   onJoin: () => void
-  size?: '1' | '2' | '3'
   showText?: boolean
 }
 
-const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
+const SuperFollow: FC<Props> = ({ profile, onJoin }) => {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const [isAllowed, setIsAllowed] = useState(false)
@@ -220,60 +218,52 @@ const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
   }
 
   return (
-    <Dialog.Root open={open} onOpenChange={setOpen}>
-      <Dialog.Trigger>
-        <Button
-          onClick={() => setOpen(true)}
-          highContrast
-          size={size}
-          disabled={loading}
-        >
-          {loading && <Loader size="sm" />}
-          Subscribe
-        </Button>
-      </Dialog.Trigger>
-
-      <Dialog.Content style={{ maxWidth: 450 }}>
-        <Dialog.Title>Subscribe</Dialog.Title>
-        <Dialog.Description size="2" mb="4">
-          Support creator for their contributions on the platform.
-        </Dialog.Description>
-
-        <Flex gap="2" align="baseline">
-          <Text as="div" size="4">
+    <>
+      <Button onClick={() => setOpen(true)} disabled={loading}>
+        Subscribe
+      </Button>
+      <Modal
+        size="sm"
+        title="Subscribe"
+        description="Support creator for their contributions on the platform."
+        show={open}
+        setShow={setOpen}
+      >
+        <div className="flex items-baseline gap-2">
+          <div className="text-lg">
             Follow {getProfile(profile)?.displayName} for
-          </Text>
-          <Flex gap="1" align="center">
-            <Text as="div" size="4">
+          </div>
+          <div className="flex items-center gap-1">
+            <div className="text-lg">
               {followModule?.amount.value} {followModule?.amount.asset.symbol}
-            </Text>
-          </Flex>
-        </Flex>
+            </div>
+          </div>
+        </div>
 
-        <Flex gap="3" mt="4" justify="end">
-          <Dialog.Close>
-            <Button variant="soft" color="gray">
-              Cancel
-            </Button>
-          </Dialog.Close>
+        <div className="mt-4 flex justify-end gap-3">
+          <Button variant="secondary" onClick={() => setOpen(false)}>
+            Cancel
+          </Button>
           {isAllowed ? (
             <Button
-              highContrast
               onClick={() => superFollow()}
+              loading={loading}
               disabled={loading}
             >
-              {loading && <Loader size="sm" />}
               Subscribe Now
             </Button>
           ) : (
-            <Button highContrast onClick={() => allow()} disabled={loading}>
-              {loading && <Loader size="sm" />}
+            <Button
+              loading={loading}
+              onClick={() => allow()}
+              disabled={loading}
+            >
               Allow
             </Button>
           )}
-        </Flex>
-      </Dialog.Content>
-    </Dialog.Root>
+        </div>
+      </Modal>
+    </>
   )
 }
 
