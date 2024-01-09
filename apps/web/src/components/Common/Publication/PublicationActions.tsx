@@ -1,6 +1,5 @@
 import MirrorPublication from '@components/Common/MirrorPublication'
 import PublicationOptions from '@components/Common/Publication/PublicationOptions'
-import { Button, IconButton } from '@radix-ui/themes'
 import type { MirrorablePublication } from '@tape.xyz/lens'
 import { TriStateValue } from '@tape.xyz/lens'
 import { MirrorOutline, Modal, ThreeDotsOutline } from '@tape.xyz/ui'
@@ -23,8 +22,6 @@ const PublicationActions: FC<Props> = ({ publication }) => {
         publication={publication}
         textSize="inherit"
         iconSize="base"
-        variant="surface"
-        color="blue"
       />
       {publication.operations.canComment !== TriStateValue.No ? (
         <Modal
@@ -37,16 +34,16 @@ const PublicationActions: FC<Props> = ({ publication }) => {
         </Modal>
       ) : null}
       <MirrorPublication video={publication}>
-        <Button variant="surface" color="blue" highContrast>
+        <button className="flex items-center space-x-1">
           <MirrorOutline className="size-4 flex-none" />
-          Mirror
-        </Button>
+          <span>Mirror</span>
+        </button>
       </MirrorPublication>
       <OpenActions publication={publication} text="Collect" />
       <PublicationOptions publication={publication}>
-        <IconButton variant="surface" color="blue" highContrast>
+        <button className="flex items-center space-x-1">
           <ThreeDotsOutline className="size-4" />
-        </IconButton>
+        </button>
       </PublicationOptions>
     </div>
   )

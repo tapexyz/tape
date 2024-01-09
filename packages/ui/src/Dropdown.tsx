@@ -108,7 +108,9 @@ type DropdownMenuProps = {
 export const DropdownMenu: FC<DropdownMenuProps> = ({ trigger, children }) => {
   return (
     <PrimitiveDropdownMenu.Root>
-      <PrimitiveDropdownMenu.Trigger>{trigger}</PrimitiveDropdownMenu.Trigger>
+      <PrimitiveDropdownMenu.Trigger className="outline-none">
+        {trigger}
+      </PrimitiveDropdownMenu.Trigger>
       <DropdownMenuPortal>{children}</DropdownMenuPortal>
     </PrimitiveDropdownMenu.Root>
   )

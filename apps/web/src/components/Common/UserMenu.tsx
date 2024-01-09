@@ -87,7 +87,7 @@ const UserMenu = () => {
       }
     >
       <DropdownMenuContent
-        sideOffset={10}
+        sideOffset={12}
         align="end"
         className="tape-border rounded-xl bg-white p-2 dark:bg-black"
       >
