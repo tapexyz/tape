@@ -108,6 +108,7 @@ const CollectModule = () => {
         }
         show={showModal}
         setShow={setShowModal}
+        locked
       >
         <Flex direction="column" gap="3">
           <div className="no-scrollbar max-h-[80vh] space-y-2 overflow-y-auto p-0.5">
