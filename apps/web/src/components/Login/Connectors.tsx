@@ -1,5 +1,5 @@
 import useProfileStore from '@lib/store/idb/profile'
-import { Callout, Flex } from '@radix-ui/themes'
+import { Callout } from '@radix-ui/themes'
 import { POLYGON_CHAIN_ID } from '@tape.xyz/constants'
 import { Button, CheckOutline, WarningOutline } from '@tape.xyz/ui'
 import React, { memo } from 'react'
@@ -46,10 +46,10 @@ const Connectors = () => {
             onClick={() => onChooseConnector(c)}
             disabled={c.id === connected?.id || isLoading}
           >
-            <Flex justify="between" align="center" className="w-full">
+            <div className="flex w-full items-center justify-between">
               <span>{getConnectorName(c)}</span>
               {c.id === connected?.id && <CheckOutline className="size-3" />}
-            </Flex>
+            </div>
           </Button>
         ))}
       </div>

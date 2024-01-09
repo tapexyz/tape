@@ -2,7 +2,7 @@ import Tooltip from '@components/UIElements/Tooltip'
 import useEthersWalletClient from '@hooks/useEthersWalletClient'
 import type { WebIrys } from '@irys/sdk'
 import useAppStore from '@lib/store'
-import { Button, Callout, Flex, IconButton, Text } from '@radix-ui/themes'
+import { Button, Callout, IconButton, Text } from '@radix-ui/themes'
 import { useIsMounted } from '@tape.xyz/browser'
 import { IRYS_CURRENCY, POLYGON_CHAIN_ID } from '@tape.xyz/constants'
 import { EVENTS, logger, Tower } from '@tape.xyz/generic'
@@ -237,7 +237,7 @@ const IrysInfo = () => {
       {irysData.showDeposit && (
         <div className="space-y-1">
           <Text weight="medium">Amount to deposit (MATIC)</Text>
-          <Flex gap="2">
+          <div className="flex gap-2">
             <Input
               type="number"
               placeholder={userBalance?.formatted}
@@ -263,7 +263,7 @@ const IrysInfo = () => {
             >
               Deposit
             </Button>
-          </Flex>
+          </div>
         </div>
       )}
     </div>

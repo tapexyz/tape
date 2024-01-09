@@ -1,5 +1,5 @@
 import SignalWaveGraphic from '@components/UIElements/SignalWaveGraphic'
-import { Button, Flex } from '@radix-ui/themes'
+import { Button } from '@radix-ui/themes'
 import {
   GITCOIN_LIVE_ROUND,
   SHOW_GITCOIN_BANNER,
@@ -24,11 +24,11 @@ const GitcoinAlert = () => {
           <span className="font-medium">Gitcoin Grants</span> Round{' '}
           {GITCOIN_LIVE_ROUND}
         </p>
-        <Flex>
+        <div className="flex">
           <Link href="/gitcoin" target="_blank">
             <Button highContrast>Contribute</Button>
           </Link>
-        </Flex>
+        </div>
       </div>
 
       <SignalWaveGraphic />

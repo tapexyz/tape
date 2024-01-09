@@ -32,12 +32,12 @@ export const Modal: FC<Props> = ({
   return (
     <Dialog.Root open={show} onOpenChange={setShow}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 bg-gray-500 bg-opacity-10 backdrop-blur" />
+        <Dialog.Overlay className="fixed inset-0 bg-white bg-opacity-50 backdrop-blur dark:bg-black" />
         <Dialog.Content
           onPointerDownOutside={(e) => (locked ? e.preventDefault() : null)}
           className={clsx(
             sizeClasses,
-            'fixed left-[50%] top-[50%] max-h-[85vh] w-[90vw] translate-x-[-50%] translate-y-[-50%] space-y-4 rounded-xl bg-white p-5 focus:outline-none dark:bg-black'
+            'tape-border fixed left-[50%] top-[50%] max-h-[85vh] w-[90vw] translate-x-[-50%] translate-y-[-50%] space-y-4 rounded-xl bg-white p-5 focus:outline-none dark:bg-black'
           )}
         >
           <div className="space-y-3">

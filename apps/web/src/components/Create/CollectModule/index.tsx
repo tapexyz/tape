@@ -2,7 +2,6 @@ import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import useCollectStore from '@lib/store/idb/collect'
 import useProfileStore from '@lib/store/idb/profile'
-import { Flex } from '@radix-ui/themes'
 import { EVENTS, Tower } from '@tape.xyz/generic'
 import { LimitType, useEnabledCurrenciesQuery } from '@tape.xyz/lens'
 import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
@@ -110,7 +109,7 @@ const CollectModule = () => {
         setShow={setShowModal}
         locked
       >
-        <Flex direction="column" gap="3">
+        <div className="flex flex-col gap-3">
           <div className="no-scrollbar max-h-[80vh] space-y-2 overflow-y-auto p-0.5">
             <PermissionQuestion setCollectType={setCollectType} />
             {!uploadedMedia.collectModule.isRevertCollect && (
@@ -149,7 +148,7 @@ const CollectModule = () => {
               </div>
             )}
           </div>
-        </Flex>
+        </div>
       </Modal>
     </div>
   )

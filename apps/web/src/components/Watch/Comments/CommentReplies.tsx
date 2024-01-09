@@ -2,7 +2,7 @@ import Badge from '@components/Common/Badge'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { getShortHandTime } from '@lib/formatTime'
-import { Button, Flex } from '@radix-ui/themes'
+import { Button } from '@radix-ui/themes'
 import { LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
 import {
   getProfile,
@@ -158,7 +158,7 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
                   </span>
                   <ReplyContent comment={comment as Comment} />
                   {!comment.isHidden && (
-                    <Flex mt="2" gap="4">
+                    <div className="mt-2 flex gap-4">
                       <PublicationReaction publication={comment} />
                       <Button
                         variant="ghost"
@@ -168,7 +168,7 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
                         <ReplyOutline className="size-3.5" />{' '}
                         <span className="text-xs">Reply</span>
                       </Button>
-                    </Flex>
+                    </div>
                   )}
                 </div>
               </div>

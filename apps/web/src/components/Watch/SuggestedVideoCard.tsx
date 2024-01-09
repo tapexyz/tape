@@ -1,7 +1,7 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
 import PublicationOptions from '@components/Common/Publication/PublicationOptions'
 import { getShortHandTime, getTimeFromSeconds } from '@lib/formatTime'
-import { Box, Flex } from '@radix-ui/themes'
+import { Box } from '@radix-ui/themes'
 import { useAverageColor } from '@tape.xyz/browser'
 import {
   FALLBACK_THUMBNAIL_URL,
@@ -86,15 +86,15 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
               <HoverableProfile profile={video.by} fontSize="1" />
             </div>
             <div className="flex items-center overflow-hidden text-xs opacity-80">
-              <Flex align="center" gap="1">
+              <div className="flex items-center gap-1">
                 <HeartOutline className="size-2.5" />
                 {formatNumber(video.stats?.reactions)}
-              </Flex>
+              </div>
               <span className="middot" />
-              <Flex align="center" gap="1">
+              <div className="flex items-center gap-1">
                 <CommentOutline className="size-2.5" />
                 {formatNumber(video.stats?.comments)}
-              </Flex>
+              </div>
               <span className="middot" />
               <span>{getShortHandTime(video.createdAt)}</span>
             </div>

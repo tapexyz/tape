@@ -1,6 +1,6 @@
 import { MetadataLicenseType } from '@lens-protocol/metadata'
 import useAppStore from '@lib/store'
-import { Flex, HoverCard } from '@radix-ui/themes'
+import { HoverCard } from '@radix-ui/themes'
 import { TAPE_APP_NAME } from '@tape.xyz/constants'
 import { InfoOutline, Select, SelectItem } from '@tape.xyz/ui'
 import Link from 'next/link'
@@ -12,7 +12,7 @@ const MediaLicense = () => {
 
   return (
     <div className="flex-1 space-y-1">
-      <Flex gap="1" align="center">
+      <div className="flex items-center gap-1">
         <span className="text-sm font-medium">License</span>
         <HoverCard.Root>
           <HoverCard.Trigger>
@@ -33,7 +33,7 @@ const MediaLicense = () => {
             </span>
           </HoverCard.Content>
         </HoverCard.Root>
-      </Flex>
+      </div>
       <Select
         value={uploadedMedia.mediaLicense}
         onValueChange={(mediaLicense: MetadataLicenseType) =>

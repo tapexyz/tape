@@ -2,7 +2,6 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { MetadataAttributeType, textOnly } from '@lens-protocol/metadata'
 import useProfileStore from '@lib/store/idb/profile'
 import usePersistStore from '@lib/store/persist'
-import { Button, Flex } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { getUserLocale } from '@tape.xyz/browser'
 import {
@@ -41,7 +40,7 @@ import {
 } from '@tape.xyz/lens'
 import { useApolloClient } from '@tape.xyz/lens/apollo'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { Input, TextArea } from '@tape.xyz/ui'
+import { Button, Input, TextArea } from '@tape.xyz/ui'
 import type { Dispatch, FC } from 'react'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -427,11 +426,15 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
             </div>
           )}
         </span>
-        <Flex gap="2">
-          <Button type="button" variant="soft" onClick={() => setShow(false)}>
+        <div className="flex gap-2">
+          <Button
+            type="button"
+            variant="secondary"
+            onClick={() => setShow(false)}
+          >
             Cancel
           </Button>
-          <Button highContrast disabled={!isValid || loading}>
+          <Button disabled={!isValid || loading}>
             {`Tip ${
               isNaN(Number(watchTipQuantity) * 1) ||
               Number(watchTipQuantity) < 0
@@ -439,7 +442,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
                 : Number(watchTipQuantity) * 1
             } MATIC`}
           </Button>
-        </Flex>
+        </div>
       </div>
     </form>
   )

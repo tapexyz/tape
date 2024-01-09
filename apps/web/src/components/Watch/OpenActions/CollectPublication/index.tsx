@@ -6,7 +6,7 @@ import { getRelativeTime } from '@lib/formatTime'
 import { getCollectModuleOutput } from '@lib/getCollectModuleOutput'
 import useProfileStore from '@lib/store/idb/profile'
 import useNonceStore from '@lib/store/nonce'
-import { Callout, Flex } from '@radix-ui/themes'
+import { Callout } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   ERROR_MESSAGE,
@@ -510,11 +510,11 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
                       <InfoOutline />
                     </Callout.Icon>
                     <Callout.Text highContrast weight="medium">
-                      <Flex gap="2" align="center">
+                      <div className="flex items-center gap-2">
                         <UserOutline className="size-3.5" />
                         This publication can only be collected by the creator's
                         followers.
-                      </Flex>
+                      </div>
                     </Callout.Text>
                   </Callout.Root>
                 </div>

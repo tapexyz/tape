@@ -6,7 +6,7 @@ import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import { getShortHandTime } from '@lib/formatTime'
 import useProfileStore from '@lib/store/idb/profile'
 import usePersistStore from '@lib/store/persist'
-import { Button, Flex, Text } from '@radix-ui/themes'
+import { Button, Text } from '@radix-ui/themes'
 import { SIGN_IN_REQUIRED } from '@tape.xyz/constants'
 import {
   getProfile,
@@ -127,7 +127,7 @@ const RenderComment: FC<Props> = ({ comment }) => {
           )}
           <CommentMedia comment={comment} />
           {!comment.isHidden && (
-            <Flex mt="2" gap="4">
+            <div className="mt-2 flex gap-4">
               <PublicationReaction publication={comment} />
               <Button
                 variant="ghost"
@@ -157,7 +157,7 @@ const RenderComment: FC<Props> = ({ comment }) => {
                   </Text>
                 </Button>
               ) : null}
-            </Flex>
+            </div>
           )}
           <div
             className={clsx(
