@@ -15,6 +15,6 @@
   },
   "dependencies": {
     "clsx": "^2.1.0",
-    "wavesurfer.js": "^7.6.1"
+    "wavesurfer.js": "^7.6.2"
   }
 }
