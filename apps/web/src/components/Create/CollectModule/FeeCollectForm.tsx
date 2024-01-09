@@ -1,11 +1,10 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import useAppStore from '@lib/store'
 import useProfileStore from '@lib/store/idb/profile'
-import { Flex, Select } from '@radix-ui/themes'
 import { WMATIC_TOKEN_ADDRESS } from '@tape.xyz/constants'
 import type { Erc20 } from '@tape.xyz/lens'
 import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
-import { Button, Input } from '@tape.xyz/ui'
+import { Button, Input, Select, SelectItem } from '@tape.xyz/ui'
 import type { Dispatch, FC } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -115,7 +114,7 @@ const FeeCollectForm: FC<Props> = ({
     <form className="space-y-3">
       {uploadedMedia.collectModule.isFeeCollect ? (
         <>
-          <Flex align="start" gap="2">
+          <div className="flex items-start gap-2">
             <Input
               type="number"
               placeholder="1.5"
@@ -127,28 +126,27 @@ const FeeCollectForm: FC<Props> = ({
                 setValueAs: (v) => String(v)
               })}
             />
-            <Select.Root
-              {...register('currency')}
-              value={uploadedMedia.collectModule.amount?.currency}
-              onValueChange={(value) => {
-                setCollectType({
-                  amount: { currency: value, value: '' }
-                })
-              }}
-            >
-              <Select.Trigger />
-              <Select.Content highContrast>
+            <div>
+              <Select
+                {...register('currency')}
+                value={uploadedMedia.collectModule.amount?.currency}
+                onValueChange={(value) => {
+                  setCollectType({
+                    amount: { currency: value, value: '' }
+                  })
+                }}
+              >
                 {enabledCurrencies?.map((currency) => (
-                  <Select.Item
+                  <SelectItem
                     key={currency.contract.address}
                     value={currency.contract.address}
                   >
                     {currency.symbol}
-                  </Select.Item>
+                  </SelectItem>
                 ))}
-              </Select.Content>
-            </Select.Root>
-          </Flex>
+              </Select>
+            </div>
+          </div>
 
           <Splits submitContainerRef={submitContainerRef} />
 

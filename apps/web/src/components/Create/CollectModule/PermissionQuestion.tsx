@@ -1,6 +1,7 @@
 import useAppStore from '@lib/store'
-import { Button, Text } from '@radix-ui/themes'
 import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
+import { Button } from '@tape.xyz/ui'
+import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
 
@@ -13,52 +14,50 @@ const PermissionQuestion: FC<Props> = ({ setCollectType }) => {
 
   return (
     <div className="space-y-1">
-      <Text size="2" weight="medium">
-        Who can collect?
-      </Text>
+      <span className="text-sm font-medium">Who can collect?</span>
       <div className="flex flex-wrap gap-1.5 md:flex-nowrap">
-        <Button
-          className="flex-1"
-          type="button"
-          highContrast
-          color={
-            !uploadedMedia.collectModule.followerOnlyCollect &&
-            !uploadedMedia.collectModule.isRevertCollect
-              ? 'blue'
-              : 'gray'
-          }
-          variant="surface"
-          onClick={() =>
-            setCollectType({
-              isSimpleCollect: true,
-              isRevertCollect: false,
-              followerOnlyCollect: false
-            })
-          }
-        >
-          Anyone
-        </Button>
-        <Button
-          className="flex-1"
-          type="button"
-          color={
-            uploadedMedia.collectModule.followerOnlyCollect &&
-            !uploadedMedia.collectModule.isRevertCollect
-              ? 'blue'
-              : 'gray'
-          }
-          variant="surface"
-          highContrast
-          onClick={() =>
-            setCollectType({
-              isSimpleCollect: true,
-              followerOnlyCollect: true,
-              isRevertCollect: false
-            })
-          }
-        >
-          Only Followers
-        </Button>
+        <div className="flex-1">
+          <Button
+            type="button"
+            className={clsx(
+              !uploadedMedia.collectModule.followerOnlyCollect &&
+                !uploadedMedia.collectModule.isRevertCollect
+                ? 'border-brand-500 border'
+                : ''
+            )}
+            variant="secondary"
+            onClick={() =>
+              setCollectType({
+                isSimpleCollect: true,
+                isRevertCollect: false,
+                followerOnlyCollect: false
+              })
+            }
+          >
+            Anyone
+          </Button>
+        </div>
+        <div className="flex-1">
+          <Button
+            type="button"
+            className={clsx(
+              uploadedMedia.collectModule.followerOnlyCollect &&
+                !uploadedMedia.collectModule.isRevertCollect
+                ? 'border-brand-500 border'
+                : ''
+            )}
+            variant="secondary"
+            onClick={() =>
+              setCollectType({
+                isSimpleCollect: true,
+                followerOnlyCollect: true,
+                isRevertCollect: false
+              })
+            }
+          >
+            Only Followers
+          </Button>
+        </div>
       </div>
     </div>
   )

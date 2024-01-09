@@ -41,6 +41,7 @@ const Connectors = () => {
         {connectors.map((c) => (
           <Button
             key={c.id}
+            size="md"
             variant="secondary"
             onClick={() => onChooseConnector(c)}
             disabled={c.id === connected?.id || isLoading}

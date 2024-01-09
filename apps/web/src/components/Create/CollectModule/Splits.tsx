@@ -2,7 +2,7 @@ import { NoDataFound } from '@components/UIElements/NoDataFound'
 import ProfileSuggestion from '@components/UIElements/ProfileSuggestion'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
-import { IconButton, Text } from '@radix-ui/themes'
+import { Text } from '@radix-ui/themes'
 import { useDebounce, useOutsideClick } from '@tape.xyz/browser'
 import {
   LENS_CUSTOM_FILTERS,
@@ -217,14 +217,13 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
               onChange={(e) => onChangeSplit('split', e.target.value, i)}
             />
           </div>
-          <IconButton
-            variant="soft"
+          <button
             type="button"
-            color="red"
+            className="rounded-lg px-2 text-red-500"
             onClick={() => removeRecipient(i)}
           >
-            <TimesOutline className="size-4 p-0.5" outlined={false} />
-          </IconButton>
+            <TimesOutline className="size-4" outlined={false} />
+          </button>
         </div>
       ))}
       <div className="flex items-center justify-between space-x-1.5 pt-1">

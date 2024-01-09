@@ -25,14 +25,14 @@ export const SelectItem = forwardRef<
     <SelectPrimitive.Item
       className={clsx(
         sizeClasses,
-        'relative flex select-none items-center rounded-md leading-none hover:bg-gray-100 data-[disabled]:pointer-events-none data-[highlighted]:bg-gray-200 data-[state=checked]:font-semibold data-[highlighted]:outline-none dark:hover:bg-gray-800 dark:data-[highlighted]:bg-gray-800',
+        'relative flex select-none items-center space-x-2 rounded-md leading-none hover:bg-gray-100 data-[disabled]:pointer-events-none data-[highlighted]:bg-gray-200 data-[state=checked]:font-semibold data-[highlighted]:outline-none dark:hover:bg-gray-800 dark:data-[highlighted]:bg-gray-800',
         className
       )}
       ref={ref}
       {...props}
     >
       <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
-      <SelectPrimitive.ItemIndicator className="absolute right-3 inline-flex w-[25px] items-center justify-center">
+      <SelectPrimitive.ItemIndicator>
         <CheckOutline className="size-3" />
       </SelectPrimitive.ItemIndicator>
     </SelectPrimitive.Item>
@@ -61,7 +61,7 @@ export const Select = forwardRef<
       <SelectPrimitive.Trigger
         className={clsx(
           sizeClasses,
-          'flex w-full appearance-none items-center justify-between rounded-lg border border-gray-200 focus:outline-none dark:border-gray-800',
+          'flex w-full appearance-none items-center justify-between space-x-2 rounded-lg border border-gray-200 focus:outline-none dark:border-gray-800',
           className
         )}
         aria-label="Food"
