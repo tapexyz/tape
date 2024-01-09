@@ -6,7 +6,7 @@ import { getRelativeTime } from '@lib/formatTime'
 import { getCollectModuleOutput } from '@lib/getCollectModuleOutput'
 import useProfileStore from '@lib/store/idb/profile'
 import useNonceStore from '@lib/store/nonce'
-import { Button, Callout, Flex } from '@radix-ui/themes'
+import { Callout, Flex } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   ERROR_MESSAGE,
@@ -47,7 +47,7 @@ import type {
   CustomErrorWithData,
   SupportedOpenActionModuleType
 } from '@tape.xyz/lens/custom-types'
-import { InfoOutline, Loader, UserOutline } from '@tape.xyz/ui'
+import { Button, InfoOutline, Loader, UserOutline } from '@tape.xyz/ui'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
@@ -524,7 +524,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
                 </div>
               ) : haveEnoughBalance ? (
                 <Button
-                  highContrast
+                  loading={collecting}
                   disabled={collecting || alreadyCollected}
                   onClick={() => (!alreadyCollected ? collectNow() : null)}
                 >

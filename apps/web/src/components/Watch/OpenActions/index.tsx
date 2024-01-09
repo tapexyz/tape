@@ -5,37 +5,24 @@ import {
   AccordionItem,
   AccordionTrigger
 } from '@radix-ui/react-accordion'
-import {
-  Box,
-  Button,
-  Dialog,
-  DialogClose,
-  Flex,
-  IconButton,
-  ScrollArea
-} from '@radix-ui/themes'
+import { Flex, ScrollArea } from '@radix-ui/themes'
 import { formatNumber, getPublication } from '@tape.xyz/generic'
 import isOpenActionAllowed from '@tape.xyz/generic/functions/isOpenActionAllowed'
 import { type AnyPublication, type OpenActionModule } from '@tape.xyz/lens'
-import { CollectOutline, TimesOutline } from '@tape.xyz/ui'
+import { Button, CollectOutline, Modal } from '@tape.xyz/ui'
 import type { FC, ReactNode } from 'react'
-import React from 'react'
+import React, { useState } from 'react'
 
 import CollectPublication from './CollectPublication'
 
 type Props = {
   publication: AnyPublication
-  variant?: 'classic' | 'solid' | 'soft' | 'surface' | 'outline' | 'ghost'
   text?: string
   children?: ReactNode
 }
 
-const OpenActions: FC<Props> = ({
-  publication,
-  variant = 'solid',
-  text,
-  children
-}) => {
+const OpenActions: FC<Props> = ({ publication, text, children }) => {
+  const [showActionModal, setShowActionModal] = useState(false)
   const targetPublication = getPublication(publication)
   const openActions = targetPublication.openActionModules
   const hasOpenActions = (targetPublication.openActionModules?.length || 0) > 0
@@ -81,30 +68,20 @@ const OpenActions: FC<Props> = ({
   }
 
   return (
-    <Dialog.Root>
-      <Dialog.Trigger>
-        {children ?? (
-          <Button variant={variant} highContrast>
-            <CollectOutline className="size-4" />
-            {text}
-          </Button>
-        )}
-      </Dialog.Trigger>
-
-      <Dialog.Content style={{ maxWidth: 450 }}>
-        <Flex gap="3" justify="between" pb="2">
-          <Dialog.Title>
-            <Flex align="center" gap="2">
-              <CollectOutline className="size-5" /> <span>Collect</span>
-            </Flex>
-          </Dialog.Title>
-          <DialogClose>
-            <IconButton variant="ghost" color="gray">
-              <TimesOutline outlined={false} className="size-3" />
-            </IconButton>
-          </DialogClose>
-        </Flex>
-
+    <>
+      {children ?? (
+        <Button
+          onClick={() => setShowActionModal(true)}
+          icon={<CollectOutline className="size-4" />}
+        >
+          {text}
+        </Button>
+      )}
+      <Modal
+        title="Collect"
+        show={showActionModal}
+        setShow={setShowActionModal}
+      >
         <ScrollArea
           type="hover"
           scrollbars="vertical"
@@ -117,12 +94,12 @@ const OpenActions: FC<Props> = ({
             collapsible
           >
             {openActions?.map((action, i) => {
-              return <Box key={i}>{renderAction(action)}</Box>
+              return <div key={i}>{renderAction(action)}</div>
             })}
           </Accordion>
         </ScrollArea>
-      </Dialog.Content>
-    </Dialog.Root>
+      </Modal>
+    </>
   )
 }
 

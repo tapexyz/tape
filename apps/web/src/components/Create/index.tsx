@@ -626,7 +626,7 @@ const CreateSteps = () => {
   }
 
   return (
-    <div className="container mx-auto max-w-screen-xl md:mt-10">
+    <div className="container mx-auto max-w-screen-xl">
       <MetaTags title="Create" />
       <Details onCancel={resetToDefaults} onUpload={onUpload} />
     </div>

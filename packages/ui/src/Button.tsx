@@ -26,6 +26,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
       size = 'sm',
       variant = 'primary',
       loading,
+      icon,
       ...props
     },
     ref
@@ -64,12 +65,13 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             className={clsx(
               sizeClasses,
               variantClasses,
-              'relative w-full scale-100 appearance-none rounded-lg font-semibold transition-colors duration-150 active:scale-[0.98] disabled:pointer-events-none',
+              'relative flex w-full scale-100 appearance-none items-center space-x-1.5 rounded-lg font-semibold transition-colors duration-150 active:scale-[0.98] disabled:pointer-events-none',
               className
             )}
             {...props}
           >
-            {children}
+            {icon}
+            <div>{children}</div>
           </button>
         </div>
       </div>

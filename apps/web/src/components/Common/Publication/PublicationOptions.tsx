@@ -4,7 +4,7 @@ import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import type { ProfileOptions } from '@lens-protocol/metadata'
 import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
 import useProfileStore from '@lib/store/idb/profile'
-import { Dialog, DropdownMenu, Flex, IconButton, Text } from '@radix-ui/themes'
+import { DropdownMenu, Flex, IconButton, Text } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   ERROR_MESSAGE,
@@ -49,10 +49,10 @@ import {
   ExternalOutline,
   FlagOutline,
   ForbiddenOutline,
+  Modal,
   PinOutline,
   ShareOutline,
   ThreeDotsOutline,
-  TimesOutline,
   TrashOutline
 } from '@tape.xyz/ui'
 import type { FC, ReactNode } from 'react'
@@ -78,6 +78,8 @@ const PublicationOptions: FC<Props> = ({
 }) => {
   const handleWrongNetwork = useHandleWrongNetwork()
   const [showConfirm, setShowConfirm] = useState(false)
+  const [showShareModal, setShowShareModal] = useState(false)
+  const [showReportModal, setShowReportModal] = useState(false)
 
   const { cache } = useApolloClient()
   const activeProfile = useProfileStore((state) => state.activeProfile)
@@ -119,6 +121,7 @@ const PublicationOptions: FC<Props> = ({
     if (handleWrongNetwork()) {
       return
     }
+    setShowReportModal(true)
   }
 
   const onError = (error: CustomErrorWithData) => {
@@ -378,31 +381,28 @@ const PublicationOptions: FC<Props> = ({
         </DropdownMenu.Trigger>
         <DropdownMenu.Content sideOffset={10} variant="soft" align="end">
           <div className="flex w-40 flex-col transition duration-150 ease-in-out">
-            <Dialog.Root>
-              <Dialog.Trigger>
-                <button className="!cursor-default rounded-md px-3 py-1.5 hover:bg-gray-500/20">
-                  <Flex align="center" gap="2">
-                    <ShareOutline className="size-3.5" />
-                    <Text size="2" className="whitespace-nowrap">
-                      Share
-                    </Text>
-                  </Flex>
-                </button>
-              </Dialog.Trigger>
-
-              <Dialog.Content style={{ maxWidth: 450 }}>
-                <Flex justify="between" pb="5" align="center">
-                  <Dialog.Title mb="0">Share</Dialog.Title>
-                  <Dialog.Close>
-                    <IconButton variant="ghost" color="gray">
-                      <TimesOutline outlined={false} className="size-3" />
-                    </IconButton>
-                  </Dialog.Close>
-                </Flex>
-
-                <Share publication={publication} />
-              </Dialog.Content>
-            </Dialog.Root>
+            <DropdownMenu.Item
+              onClick={(e) => {
+                e.preventDefault()
+                setShowShareModal(true)
+              }}
+              className="flex items-center justify-start space-x-2 rounded-md px-3 py-1.5 hover:bg-gray-500/20"
+            >
+              <div className="flex items-center gap-2">
+                <ShareOutline className="size-3.5" />
+                <Text size="2" className="whitespace-nowrap">
+                  Share
+                </Text>
+              </div>
+            </DropdownMenu.Item>
+            <Modal
+              size="sm"
+              title="Share"
+              show={showShareModal}
+              setShow={setShowShareModal}
+            >
+              <Share publication={publication} />
+            </Modal>
             {isVideoOwner && (
               <>
                 {pinnedVideoId !== publication.id && (
@@ -454,26 +454,30 @@ const PublicationOptions: FC<Props> = ({
                     </span>
                   </Flex>
                 </DropdownMenu.Item>
-                <Dialog.Root>
-                  <Dialog.Trigger disabled={!activeProfile?.id}>
-                    <button
-                      className="!cursor-default rounded-md px-3 py-1.5 hover:bg-gray-500/20 disabled:opacity-40 disabled:hover:bg-inherit"
-                      onClick={() => onClickReport()}
-                    >
-                      <Flex align="center" gap="2">
-                        <FlagOutline className="size-3.5" />
-                        <Text size="2" className="whitespace-nowrap">
-                          Report
-                        </Text>
-                      </Flex>
-                    </button>
-                  </Dialog.Trigger>
-
-                  <Dialog.Content style={{ maxWidth: 450 }}>
-                    <Dialog.Title>Report</Dialog.Title>
-                    <ReportPublication publication={publication} />
-                  </Dialog.Content>
-                </Dialog.Root>
+                <Modal
+                  title="Report"
+                  show={showReportModal}
+                  setShow={setShowReportModal}
+                >
+                  <ReportPublication
+                    publication={publication}
+                    close={() => setShowReportModal(false)}
+                  />
+                </Modal>
+                <DropdownMenu.Item
+                  className="!cursor-default rounded-md px-3 py-1.5 hover:bg-gray-500/20 disabled:opacity-40 disabled:hover:bg-inherit"
+                  onClick={(e) => {
+                    e.preventDefault()
+                    onClickReport()
+                  }}
+                >
+                  <Flex align="center" gap="2">
+                    <FlagOutline className="size-3.5" />
+                    <Text size="2" className="whitespace-nowrap">
+                      Report
+                    </Text>
+                  </Flex>
+                </DropdownMenu.Item>
 
                 {getIsIPFSUrl(publication.metadata.rawURI) ? (
                   <IPFSLink hash={getMetadataCid(publication)}>

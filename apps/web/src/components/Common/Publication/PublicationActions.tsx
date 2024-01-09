@@ -1,10 +1,9 @@
 import MirrorPublication from '@components/Common/MirrorPublication'
 import PublicationOptions from '@components/Common/Publication/PublicationOptions'
-import { Button, Dialog, IconButton } from '@radix-ui/themes'
-import { EVENTS, getProfile, Tower } from '@tape.xyz/generic'
+import { Button, IconButton } from '@radix-ui/themes'
 import type { MirrorablePublication } from '@tape.xyz/lens'
 import { TriStateValue } from '@tape.xyz/lens'
-import { MirrorOutline, ThreeDotsOutline, TipOutline } from '@tape.xyz/ui'
+import { MirrorOutline, Modal, ThreeDotsOutline } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 
@@ -27,35 +26,16 @@ const PublicationActions: FC<Props> = ({ publication }) => {
         variant="surface"
         color="blue"
       />
-      {publication.operations.canComment !== TriStateValue.No && (
-        <Dialog.Root open={showTip}>
-          <Dialog.Trigger>
-            <Button
-              variant="surface"
-              color="blue"
-              highContrast
-              onClick={() => {
-                setShowTip(true)
-                Tower.track(EVENTS.PUBLICATION.TIP.OPEN)
-              }}
-            >
-              <TipOutline className="size-4" />
-              Thanks
-            </Button>
-          </Dialog.Trigger>
-
-          <Dialog.Content style={{ maxWidth: 450 }}>
-            <Dialog.Title>
-              Tip @{getProfile(publication.by)?.displayName}
-            </Dialog.Title>
-            <Dialog.Description size="2" mb="4">
-              Show appreciation with a comment and tip.
-            </Dialog.Description>
-
-            <TipForm video={publication} setShow={setShowTip} />
-          </Dialog.Content>
-        </Dialog.Root>
-      )}
+      {publication.operations.canComment !== TriStateValue.No ? (
+        <Modal
+          show={showTip}
+          setShow={setShowTip}
+          title={`Tip @{getProfile(publication.by)?.displayName}`}
+          description="Show appreciation with a comment and tip."
+        >
+          <TipForm video={publication} setShow={setShowTip} />
+        </Modal>
+      ) : null}
       <MirrorPublication video={publication}>
         <Button variant="surface" color="blue" highContrast>
           <MirrorOutline className="size-4 flex-none" />

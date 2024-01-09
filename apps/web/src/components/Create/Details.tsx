@@ -115,7 +115,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
               label="Title"
               placeholder="Title that describes your content"
               autoComplete="off"
-              validationError={errors.title?.message}
+              error={errors.title?.message}
               value={watch('title')}
               onContentChange={(value) => {
                 setValue('title', value)
@@ -127,7 +127,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                 label="Description"
                 placeholder="Describe more about your content, can also be @profile, #hashtags or chapters (00:20 - Intro)"
                 autoComplete="off"
-                validationError={errors.description?.message}
+                error={errors.description?.message}
                 value={watch('description')}
                 onContentChange={(value) => {
                   setValue('description', value)

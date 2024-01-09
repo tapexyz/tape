@@ -12,7 +12,7 @@ interface InputProps extends Omit<ComponentProps<'input'>, 'prefix'> {
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ className, label, prefix, suffix, error, ...props }, ref) => {
+  ({ className, label, prefix, suffix, showError, error, ...props }, ref) => {
     const id = useId()
 
     return (
@@ -42,7 +42,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                   : suffix
                     ? 'rounded-l-lg'
                     : 'rounded-lg',
-                'w-full border-none bg-gray-100 px-3 py-2 focus:outline-none dark:bg-gray-900',
+                'w-full border-none bg-gray-100 px-3 py-1.5 focus:outline-none dark:bg-gray-900',
                 className
               )}
               id={id}
@@ -56,7 +56,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
             </span>
           ) : null}
         </div>
-        {error ? <p className="text-sm text-red-500">{error}</p> : null}
+        {error && showError ? (
+          <p className="text-sm text-red-500">{error}</p>
+        ) : null}
       </label>
     )
   }

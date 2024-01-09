@@ -1,4 +1,3 @@
-import type { TextAreaProps } from '@radix-ui/themes/dist/cjs/components/text-area'
 import { useDebounce, useOutsideClick } from '@tape.xyz/browser'
 import { LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
 import { getProfile, getProfilePicture } from '@tape.xyz/generic'
@@ -6,23 +5,23 @@ import type { Profile } from '@tape.xyz/lens'
 import { LimitType, useSearchProfilesLazyQuery } from '@tape.xyz/lens'
 import { Loader, TextArea } from '@tape.xyz/ui'
 import clsx from 'clsx'
-import type { FC } from 'react'
+import type { ComponentProps, FC } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
 import getCaretCoordinates from 'textarea-caret'
 
 import ProfileSuggestion from './ProfileSuggestion'
 
-interface Props extends TextAreaProps {
+interface TextAreaProps extends Omit<ComponentProps<'textarea'>, 'prefix'> {
   label?: string
+  error?: string
   className?: string
-  validationError?: string
   onContentChange: (value: string) => void
 }
 
-const InputMentions: FC<Props> = ({
+const InputMentions: FC<TextAreaProps> = ({
   label,
   placeholder,
-  validationError,
+  error,
   onContentChange,
   ...props
 }) => {
@@ -141,7 +140,7 @@ const InputMentions: FC<Props> = ({
         label={label}
         placeholder={placeholder}
         onChange={handleInputChange}
-        error={validationError}
+        error={error}
       />
       {showPopover && (loading || profiles?.length) ? (
         <div

@@ -7,7 +7,6 @@ import { MetadataAttributeType, textOnly } from '@lens-protocol/metadata'
 import useProfileStore from '@lib/store/idb/profile'
 import useNonceStore from '@lib/store/nonce'
 import usePersistStore from '@lib/store/persist'
-import { Button } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { getUserLocale } from '@tape.xyz/browser'
 import {
@@ -46,6 +45,7 @@ import {
 } from '@tape.xyz/lens'
 import { useApolloClient } from '@tape.xyz/lens/apollo'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+import { Button } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -390,7 +390,7 @@ const NewComment: FC<Props> = ({
         <InputMentions
           placeholder={placeholder}
           autoComplete="off"
-          validationError={errors.comment?.message}
+          error={errors.comment?.message}
           value={watch('comment')}
           onContentChange={(value) => {
             setValue('comment', value)
@@ -408,7 +408,7 @@ const NewComment: FC<Props> = ({
           </div>
         )}
       </div>
-      <Button variant="surface" disabled={loading}>
+      <Button loading={loading} disabled={loading}>
         Comment
       </Button>
     </form>
