@@ -2,7 +2,6 @@ import MirrorPublication from '@components/Common/MirrorPublication'
 import PublicationOptions from '@components/Common/Publication/PublicationOptions'
 import PublicationReaction from '@components/Common/Publication/PublicationReaction'
 import OpenActions from '@components/Watch/OpenActions'
-import { Button } from '@radix-ui/themes'
 import type { MirrorablePublication } from '@tape.xyz/lens'
 import {
   CollectOutline,
@@ -56,26 +55,26 @@ const ByteActions: FC<Props> = ({ video }) => {
           </div>
           <div className="w-full text-center">
             <MirrorPublication video={video}>
-              <Button variant="ghost" className="w-7" highContrast>
+              <button className="w-7">
                 <div className="flex flex-col items-center">
                   <MirrorOutline className="size-5" />
                   <span className="pt-1 text-xs">
                     {video.stats?.mirrors || 'Mirror'}
                   </span>
                 </div>
-              </Button>
+              </button>
             </MirrorPublication>
           </div>
           <div className="w-full text-center">
             <OpenActions publication={video}>
-              <Button variant="ghost" className="w-7" highContrast>
+              <button className="w-7">
                 <div className="flex flex-col items-center">
                   <CollectOutline className="size-5" />
                   <span className="pt-1 text-xs">
                     {video.stats?.countOpenActions || 'Collect'}
                   </span>
                 </div>
-              </Button>
+              </button>
             </OpenActions>
           </div>
         </div>

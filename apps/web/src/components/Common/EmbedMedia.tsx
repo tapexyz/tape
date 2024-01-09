@@ -1,5 +1,4 @@
 import Tooltip from '@components/UIElements/Tooltip'
-import { IconButton } from '@radix-ui/themes'
 import { useCopyToClipboard } from '@tape.xyz/browser'
 import { TAPE_APP_NAME, TAPE_EMBED_URL } from '@tape.xyz/constants'
 import { EVENTS, Tower } from '@tape.xyz/generic'
@@ -65,15 +64,13 @@ const EmbedMedia: FC<Props> = ({ publicationId, isAudio }) => {
           <div className="tape-border relative rounded-lg p-4">
             <code className="select-all text-sm opacity-60">{iframeCode}</code>
             <Tooltip content="Copy Code" placement="top">
-              <IconButton
+              <button
                 type="button"
-                size="1"
-                variant="soft"
+                className="absolute right-2 top-2 rounded p-1 hover:bg-gray-100 dark:hover:bg-gray-900"
                 onClick={() => onCopyCode()}
-                className="absolute right-2 top-2"
               >
                 <CopyOutline className="size-4" />
-              </IconButton>
+              </button>
             </Tooltip>
           </div>
         </div>
