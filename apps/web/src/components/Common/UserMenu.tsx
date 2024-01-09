@@ -1,7 +1,6 @@
 import getCurrentSession from '@lib/getCurrentSession'
 import { signOut } from '@lib/store/auth'
 import useProfileStore from '@lib/store/idb/profile'
-import { Avatar, DropdownMenu, Flex, Text } from '@radix-ui/themes'
 import { ADMIN_IDS } from '@tape.xyz/constants'
 import { EVENTS, getProfile, getProfilePicture, Tower } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
@@ -12,7 +11,16 @@ import {
 } from '@tape.xyz/lens'
 import {
   BookmarkOutline,
+  ChevronRightOutline,
   CogOutline,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuPortal,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
   GraphOutline,
   HandWaveOutline,
   MoonOutline,
@@ -66,120 +74,109 @@ const UserMenu = () => {
   }
 
   return (
-    <DropdownMenu.Root>
-      <DropdownMenu.Trigger>
-        <div className="ring-brand-500 flex rounded-full hover:ring-2">
-          <Avatar
-            size="2"
-            radius="full"
+    <DropdownMenu
+      trigger={
+        <div className="ring-brand-500 size-[34px] rounded-full hover:ring-2">
+          <img
+            className="h-full w-full flex-none rounded-full object-cover"
             src={getProfilePicture(activeProfile, 'AVATAR')}
-            fallback={getProfile(activeProfile)?.slug[0] ?? ';)'}
             alt={getProfile(activeProfile)?.displayName}
+            draggable={false}
           />
         </div>
-      </DropdownMenu.Trigger>
-      <DropdownMenu.Content sideOffset={10} variant="soft" align="end">
-        <div className="w-48">
+      }
+    >
+      <DropdownMenuContent
+        sideOffset={10}
+        align="end"
+        className="tape-border rounded-xl bg-white p-2 dark:bg-black"
+      >
+        <div className="w-44">
           <Link href={getProfile(activeProfile)?.link}>
-            <Flex gap="2" px="2" py="1" pb="3" align="center">
-              <Avatar
-                size="1"
-                radius="full"
+            <div className="flex items-center gap-2 px-2 py-1 pb-3">
+              <img
                 src={getProfilePicture(activeProfile, 'AVATAR')}
-                fallback={getProfile(activeProfile)?.slug[0] ?? ';)'}
                 alt={getProfile(activeProfile)?.displayName}
+                className="h-8 w-8 rounded-full"
               />
-              <Text as="p" weight="bold" className="line-clamp-1">
+              <p className="line-clamp-1 font-semibold">
                 {getProfile(activeProfile)?.slug}
-              </Text>
-            </Flex>
+              </p>
+            </div>
           </Link>
           {isAdmin && (
-            <DropdownMenu.Item onClick={() => push('/mod')}>
-              <Flex gap="2" align="center">
+            <DropdownMenuItem onClick={() => push('/mod')}>
+              <div className="flex items-center gap-2">
                 <GraphOutline className="size-4" />
-                <Text as="p" className="truncate whitespace-nowrap">
-                  Mod
-                </Text>
-              </Flex>
-            </DropdownMenu.Item>
+                <p className="whitespace-nowrap">Mod</p>
+              </div>
+            </DropdownMenuItem>
           )}
           {activeProfile && (
             <>
-              <DropdownMenu.Item
+              <DropdownMenuItem
                 onClick={() => push(getProfile(activeProfile)?.link)}
               >
-                <Flex gap="2" align="center">
+                <div className="flex items-center gap-2">
                   <UserOutline className="size-4" />
-                  <Text as="p" className="truncate whitespace-nowrap">
-                    My Profile
-                  </Text>
-                </Flex>
-              </DropdownMenu.Item>
-              <DropdownMenu.Item onClick={() => push('/bookmarks')}>
-                <Flex gap="2" align="center">
+                  <p className="whitespace-nowrap">My Profile</p>
+                </div>
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => push('/bookmarks')}>
+                <div className="flex items-center gap-2">
                   <BookmarkOutline className="size-4" />
-                  <Text as="p" className="truncate whitespace-nowrap">
-                    Bookmarks
-                  </Text>
-                </Flex>
-              </DropdownMenu.Item>
+                  <p className="whitespace-nowrap">Bookmarks</p>
+                </div>
+              </DropdownMenuItem>
 
               {profilesManagedWithoutActiveProfile.length ? (
-                <DropdownMenu.Sub>
-                  <DropdownMenu.SubTrigger>
-                    <Flex align="center" gap="2">
+                <DropdownMenuSub>
+                  <DropdownMenuSubTrigger className="flex justify-between">
+                    <div className="flex items-center gap-2">
                       <SwitchProfileOutline className="size-4" />
-                      <Text as="p" className="truncate whitespace-nowrap">
-                        Switch Profile
-                      </Text>
-                    </Flex>
-                  </DropdownMenu.SubTrigger>
-                  <DropdownMenu.SubContent>
-                    {profilesManagedWithoutActiveProfile?.map(
-                      (profile) =>
-                        profile.id !== activeProfile.id && (
-                          <DropdownMenu.Item
-                            key={profile.id}
-                            onClick={() =>
-                              push(`/login?as=${profile.id}&next=${asPath}`)
-                            }
-                          >
-                            <Flex gap="2" align="center">
-                              <Avatar
-                                size="1"
-                                radius="full"
-                                src={getProfilePicture(profile)}
-                                fallback={
-                                  getProfile(profile)?.displayName[0] ?? ';)'
-                                }
-                                alt={getProfile(activeProfile)?.displayName}
-                              />
-                              <Text
-                                as="p"
-                                className="truncate whitespace-nowrap"
-                              >
-                                {getProfile(profile)?.slug}
-                              </Text>
-                            </Flex>
-                          </DropdownMenu.Item>
-                        )
-                    )}
-                  </DropdownMenu.SubContent>
-                </DropdownMenu.Sub>
+                      <p className="whitespace-nowrap">Switch Profile</p>
+                    </div>
+                    <ChevronRightOutline className="size-2.5" />
+                  </DropdownMenuSubTrigger>
+                  <DropdownMenuPortal>
+                    <DropdownMenuSubContent>
+                      {profilesManagedWithoutActiveProfile?.map(
+                        (profile) =>
+                          profile.id !== activeProfile.id && (
+                            <DropdownMenuItem
+                              key={profile.id}
+                              onClick={() =>
+                                push(`/login?as=${profile.id}&next=${asPath}`)
+                              }
+                            >
+                              <div className="flex items-center gap-2">
+                                <img
+                                  src={getProfilePicture(profile)}
+                                  className="size-4 rounded-full"
+                                  draggable={false}
+                                  alt={getProfile(activeProfile)?.displayName}
+                                />
+                                <p className="whitespace-nowrap">
+                                  {getProfile(profile)?.slug}
+                                </p>
+                              </div>
+                            </DropdownMenuItem>
+                          )
+                      )}
+                    </DropdownMenuSubContent>
+                  </DropdownMenuPortal>
+                </DropdownMenuSub>
               ) : null}
             </>
           )}
-          <DropdownMenu.Item onClick={() => push('/settings')}>
-            <Flex gap="2" align="center">
+          <DropdownMenuItem onClick={() => push('/settings')}>
+            <div className="flex items-center gap-2">
               <CogOutline className="size-4" />
-              <Text as="p" className="truncate whitespace-nowrap">
-                My Settings
-              </Text>
-            </Flex>
-          </DropdownMenu.Item>
-          <DropdownMenu.Separator />
-          <DropdownMenu.Item
+              <p className="whitespace-nowrap">My Settings</p>
+            </div>
+          </DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem
             onClick={() => {
               const selected = theme === 'dark' ? 'light' : 'dark'
               setTheme(selected)
@@ -188,33 +185,26 @@ const UserMenu = () => {
               })
             }}
           >
-            <Flex align="center" gap="2">
+            <div className="flex items-center gap-2">
               {theme === 'dark' ? (
                 <SunOutline className="size-4" />
               ) : (
                 <MoonOutline className="size-4" />
               )}
-              <Text as="p" className="truncate whitespace-nowrap">
+              <p className="whitespace-nowrap">
                 {theme === 'light' ? `Switch to Dark` : `Switch to Light`}
-              </Text>
-            </Flex>
-          </DropdownMenu.Item>
-          <DropdownMenu.Item
-            asChild
-            disabled={loading}
-            color="red"
-            onClick={() => onClickSignout()}
-          >
-            <Flex align="center" gap="2">
+              </p>
+            </div>
+          </DropdownMenuItem>
+          <DropdownMenuItem disabled={loading} onClick={() => onClickSignout()}>
+            <div className="flex items-center gap-2 text-red-500">
               <HandWaveOutline className="size-4" />
-              <Text as="p" className="truncate whitespace-nowrap">
-                Sign out
-              </Text>
-            </Flex>
-          </DropdownMenu.Item>
+              <p className="whitespace-nowrap">Sign out</p>
+            </div>
+          </DropdownMenuItem>
         </div>
-      </DropdownMenu.Content>
-    </DropdownMenu.Root>
+      </DropdownMenuContent>
+    </DropdownMenu>
   )
 }
 

@@ -1,5 +1,4 @@
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { IconButton } from '@radix-ui/themes'
 import { useDebounce, useOutsideClick } from '@tape.xyz/browser'
 import {
   LENS_CUSTOM_FILTERS,
@@ -97,15 +96,13 @@ const GlobalSearch = () => {
   }, [debouncedValue])
 
   const Trigger = () => (
-    <IconButton
+    <button
+      className="rounded-full bg-gray-100 p-2.5 outline-none dark:bg-gray-900"
       onClick={() => setShowSearchBar(true)}
-      radius="full"
-      variant="soft"
-      highContrast
     >
       <SearchOutline className="size-3.5" />
       <span className="sr-only">Search</span>
-    </IconButton>
+    </button>
   )
 
   const Content = () => (
