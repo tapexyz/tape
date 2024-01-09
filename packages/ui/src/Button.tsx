@@ -71,7 +71,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             {...props}
           >
             {icon}
-            <div>{children}</div>
+            <div className="w-full">{children}</div>
           </button>
         </div>
       </div>

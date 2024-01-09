@@ -2,6 +2,7 @@ import MetaTags from '@components/Common/MetaTags'
 import { ERROR_MESSAGE } from '@tape.xyz/constants'
 import {
   EVENTS,
+  getProfile,
   getPublication,
   getPublicationData,
   Tower
@@ -78,6 +79,7 @@ const ReportPublication: FC<Props> = ({ publication, close }) => {
       <div className="flex justify-center">
         <div className="w-full">
           <h1>{getPublicationData(targetPublication.metadata)?.title}</h1>
+          <h6>by {getProfile(targetPublication.by)?.slugWithPrefix}</h6>
           <div className="mt-4 flex flex-col space-y-4">
             <Select onValueChange={(value) => setReason(value)} value={reason}>
               <SelectItem value="SPAM-FAKE_ENGAGEMENT">

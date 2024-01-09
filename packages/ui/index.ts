@@ -1,6 +1,7 @@
 export * from './AudioPlayer'
 export * from './Elements/Loader'
 export * from './src/Button'
+export * from './src/Checkbox'
 export * from './src/icons'
 export * from './src/Input'
 export * from './src/Modal'

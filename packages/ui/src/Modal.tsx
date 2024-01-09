@@ -29,7 +29,6 @@ export const Modal: FC<Props> = ({
   }
   return (
     <Dialog.Root open={show} onOpenChange={setShow}>
-      <Dialog.Trigger />
       <Dialog.Portal>
         <Dialog.Overlay className="data-[state=open]:animate-overlayShow fixed inset-0 bg-gray-500 bg-opacity-10 backdrop-blur" />
         <Dialog.Content
@@ -38,21 +37,23 @@ export const Modal: FC<Props> = ({
             'data-[state=open]:animate-contentShow fixed left-[50%] top-[50%] max-h-[85vh] w-[90vw] translate-x-[-50%] translate-y-[-50%] space-y-4 rounded-xl bg-white p-5 focus:outline-none dark:bg-black'
           )}
         >
-          <div className="flex items-center justify-between">
-            <Dialog.Title className="text-lg font-semibold">
-              {title}
-            </Dialog.Title>
-            <button className="flex" onClick={() => setShow(false)}>
-              <span className="cursor-pointer rounded p-1.5 hover:bg-gray-100 dark:hover:bg-gray-900">
-                <TimesOutline outlined={false} className="size-3" />
-              </span>
-            </button>
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <Dialog.Title className="text-lg font-semibold">
+                {title}
+              </Dialog.Title>
+              <button className="flex" onClick={() => setShow(false)}>
+                <span className="cursor-pointer rounded p-1.5 hover:bg-gray-100 dark:hover:bg-gray-900">
+                  <TimesOutline outlined={false} className="size-3" />
+                </span>
+              </button>
+            </div>
+            {description && (
+              <Dialog.Description className="leading-normal">
+                {description}
+              </Dialog.Description>
+            )}
           </div>
-          {description && (
-            <Dialog.Description className="leading-normal">
-              {description}
-            </Dialog.Description>
-          )}
           {children}
         </Dialog.Content>
       </Dialog.Portal>
