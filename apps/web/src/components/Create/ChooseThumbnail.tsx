@@ -3,7 +3,7 @@ import useAppStore from '@lib/store'
 import { Grid } from '@radix-ui/themes'
 import { generateVideoThumbnails } from '@tape.xyz/browser'
 import { logger } from '@tape.xyz/generic'
-import { AddImageOutline, Loader, PinOutline } from '@tape.xyz/ui'
+import { AddImageOutline, CheckOutline, Loader } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import type { ChangeEvent, FC } from 'react'
 import React, { useEffect, useState } from 'react'
@@ -129,7 +129,7 @@ const ChooseThumbnail: FC<Props> = ({ file }) => {
             />
             {selectedThumbnailIndex === idx && (
               <div className="absolute inset-0 grid place-items-center bg-gray-800 bg-opacity-50">
-                <PinOutline className="text-brand-500 size-4" />
+                <CheckOutline className="text-brand-500 size-4" />
               </div>
             )}
             {uploadedMedia.uploadingThumbnail &&
