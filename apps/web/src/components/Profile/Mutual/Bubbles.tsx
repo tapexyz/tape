@@ -72,7 +72,7 @@ const Bubbles: FC<Props> = ({ viewing, showSeparator }) => {
         show={showModal}
         setShow={setShowModal}
       >
-        <div className="no-scrollbar h-[70vh] overflow-y-auto">
+        <div className="no-scrollbar max-h-[70vh] overflow-y-auto">
           <MutualFollowers viewing={viewing} />
         </div>
       </Modal>

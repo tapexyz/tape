@@ -1,4 +1,3 @@
-import { Dialog } from '@radix-ui/themes'
 import {
   getPublication,
   getPublicationMediaUrl,
@@ -6,6 +5,7 @@ import {
   sanitizeDStorageUrl
 } from '@tape.xyz/generic'
 import type { AnyPublication } from '@tape.xyz/lens'
+import { Modal } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 
@@ -18,6 +18,7 @@ type Props = {
 
 const CommentMedia: FC<Props> = ({ comment }) => {
   const [imageSrc, setImageSrc] = useState('')
+  const [showModal, setShowModal] = useState(false)
   const targetComment = getPublication(comment)
 
   const uri = getPublicationMediaUrl(targetComment.metadata)
@@ -46,32 +47,31 @@ const CommentMedia: FC<Props> = ({ comment }) => {
         ) : getIsAudioComment() ? (
           <AudioComment uri={uri} />
         ) : getIsImageComment() ? (
-          <Dialog.Root>
-            <Dialog.Trigger>
-              <button
-                className="focus:outline-none"
-                onClick={() => {
-                  setImageSrc(imageCdn(sanitizeDStorageUrl(uri)))
-                }}
-              >
-                <img
-                  className="size-20 rounded-xl bg-white object-cover dark:bg-black"
-                  src={imageCdn(sanitizeDStorageUrl(uri), 'AVATAR_LG')}
-                  alt={'attachment'}
-                  draggable={false}
-                />
-              </button>
-            </Dialog.Trigger>
+          <>
+            <button
+              className="size-20 overflow-hidden focus:outline-none"
+              onClick={() => {
+                setImageSrc(imageCdn(sanitizeDStorageUrl(uri)))
+                setShowModal(true)
+              }}
+            >
+              <img
+                className="size-20 rounded-xl bg-white object-cover dark:bg-black"
+                src={imageCdn(sanitizeDStorageUrl(uri), 'AVATAR_LG')}
+                alt={'attachment'}
+                draggable={false}
+              />
+            </button>
 
-            <Dialog.Content style={{ maxWidth: 650 }}>
+            <Modal title="Preview" show={showModal} setShow={setShowModal}>
               <img
                 src={imageSrc}
-                className="object-contain"
+                className="h-full w-full rounded object-contain"
                 alt="attachment"
                 draggable={false}
               />
-            </Dialog.Content>
-          </Dialog.Root>
+            </Modal>
+          </>
         ) : null}
       </div>
     </div>

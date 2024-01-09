@@ -58,7 +58,7 @@ const Following: FC<Props> = ({ stats, profileId }) => {
         show={showModal}
         setShow={setShowModal}
       >
-        <div className="no-scrollbar h-[70vh] overflow-y-auto">
+        <div className="no-scrollbar max-h-[70vh] overflow-y-auto">
           {loading && <Loader />}
           {followings?.length === 0 && (
             <div className="pt-5">
