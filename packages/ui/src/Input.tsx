@@ -1,6 +1,18 @@
 import clsx from 'clsx'
+import { motion, useAnimation } from 'framer-motion'
 import type { ComponentProps } from 'react'
-import { forwardRef, useId } from 'react'
+import { forwardRef, useEffect, useId } from 'react'
+
+const ShakeAnimation = {
+  hidden: { marginLeft: 0 },
+  shake: {
+    marginLeft: [0, 2, -2, 0],
+    transition: {
+      duration: 0.2,
+      ease: 'easeInOut'
+    }
+  }
+}
 
 interface InputProps extends Omit<ComponentProps<'input'>, 'prefix'> {
   label?: string
@@ -12,8 +24,24 @@ interface InputProps extends Omit<ComponentProps<'input'>, 'prefix'> {
 }
 
 export const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ className, label, prefix, suffix, showError, error, ...props }, ref) => {
+  (
+    { className, label, prefix, suffix, showError = true, error, ...props },
+    ref
+  ) => {
     const id = useId()
+    const controls = useAnimation()
+
+    const handleErrorAlert = () => {
+      if (error?.length) {
+        return controls.start('shake')
+      }
+      controls.start('hidden')
+    }
+
+    useEffect(() => {
+      handleErrorAlert()
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [error])
 
     return (
       <label className="w-full" htmlFor={id}>
@@ -28,7 +56,9 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               {prefix}
             </span>
           ) : null}
-          <div
+          <motion.div
+            animate={controls}
+            variants={ShakeAnimation}
             className={clsx(
               prefix ? 'rounded-r-lg' : 'rounded-lg',
               'flex w-full items-center'
@@ -49,7 +79,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
               ref={ref}
               {...props}
             />
-          </div>
+          </motion.div>
           {suffix ? (
             <span className="inline-flex items-center rounded-r-lg bg-gray-200/80 px-3 dark:bg-gray-800">
               {suffix}
@@ -57,7 +87,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           ) : null}
         </div>
         {error && showError ? (
-          <p className="text-sm text-red-500">{error}</p>
+          <p className="p-1 text-xs font-medium text-red-500">{error}</p>
         ) : null}
       </label>
     )

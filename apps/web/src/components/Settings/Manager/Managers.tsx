@@ -6,7 +6,6 @@ import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import usePendingTxn from '@hooks/usePendingTxn'
 import useProfileStore from '@lib/store/idb/profile'
 import useNonceStore from '@lib/store/nonce'
-import { Button, Dialog, Flex } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   ERROR_MESSAGE,
@@ -27,7 +26,7 @@ import {
   useProfileManagersQuery
 } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { ExternalOutline, Input, Loader } from '@tape.xyz/ui'
+import { Button, ExternalOutline, Input, Loader, Modal } from '@tape.xyz/ui'
 import React, { useEffect, useMemo, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { useForm } from 'react-hook-form'
@@ -61,18 +60,17 @@ const Entry = ({
       <div>
         <span className="font-bold">{did || shortenAddress(address)}</span>
         <AddressExplorerLink address={address}>
-          <Flex align="center" gap="1">
+          <div className="flex items-center gap-1">
             <span>{shortenAddress(address)}</span>
             <ExternalOutline className="size-3" />
-          </Flex>
+          </div>
         </AddressExplorerLink>
       </div>
       <Button
         onClick={() => onRemove(address)}
         disabled={removingAddress === address}
         color="red"
-        variant="surface"
-        size="1"
+        variant="secondary"
       >
         Remove
       </Button>
@@ -265,46 +263,38 @@ const Managers = () => {
     <div>
       <div className="flex items-center justify-between space-x-2">
         <p>Accounts managing your profile.</p>
-        <Dialog.Root open={showModal} onOpenChange={setShowModal}>
-          <Dialog.Trigger>
-            <Button highContrast variant="surface">
-              New Manager
-            </Button>
-          </Dialog.Trigger>
-
-          <Dialog.Content style={{ maxWidth: 550 }}>
-            <Dialog.Title>New Manager</Dialog.Title>
-            <Dialog.Description size="2" mb="4">
-              This delegates permission to the address to perform all social
-              operations on your behalf.
-            </Dialog.Description>
-
-            <form onSubmit={handleSubmit(addManager)}>
-              <Input
-                label="Address"
-                placeholder="0x00..."
-                error={errors.address?.message}
-                {...register('address')}
-              />
-              <Flex gap="2" mt="4" justify="end">
-                <Dialog.Close>
-                  <Button
-                    onClick={() => reset()}
-                    type="button"
-                    variant="soft"
-                    color="gray"
-                  >
-                    Cancel
-                  </Button>
-                </Dialog.Close>
-                <Button disabled={submitting} highContrast>
-                  {submitting && <Loader size="sm" />}
-                  Submit
-                </Button>
-              </Flex>
-            </form>
-          </Dialog.Content>
-        </Dialog.Root>
+        <Button onClick={() => setShowModal(true)}>New Manager</Button>
+        <Modal
+          title="New Manager"
+          description="This delegates permission to the address to perform all social
+              operations on your behalf."
+          show={showModal}
+          setShow={setShowModal}
+        >
+          <form onSubmit={handleSubmit(addManager)}>
+            <Input
+              label="Address"
+              placeholder="0x00..."
+              error={errors.address?.message}
+              {...register('address')}
+            />
+            <div className="mt-4 flex justify-end gap-2">
+              <Button
+                type="button"
+                onClick={() => {
+                  reset()
+                  setShowModal(false)
+                }}
+                variant="secondary"
+              >
+                Cancel
+              </Button>
+              <Button disabled={submitting} loading={submitting}>
+                Submit
+              </Button>
+            </div>
+          </form>
+        </Modal>
       </div>
       <div className="mt-3">
         {loading && <Loader className="my-10" />}

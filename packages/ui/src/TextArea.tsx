@@ -1,6 +1,18 @@
 import clsx from 'clsx'
+import { motion, useAnimation } from 'framer-motion'
 import type { ComponentProps } from 'react'
-import { forwardRef, useId } from 'react'
+import { forwardRef, useEffect, useId } from 'react'
+
+const ShakeAnimation = {
+  hidden: { marginLeft: 0 },
+  shake: {
+    marginLeft: [0, 2, -2, 0],
+    transition: {
+      duration: 0.2,
+      ease: 'easeInOut'
+    }
+  }
+}
 
 interface TextAreaProps extends Omit<ComponentProps<'textarea'>, 'prefix'> {
   label?: string
@@ -12,6 +24,19 @@ interface TextAreaProps extends Omit<ComponentProps<'textarea'>, 'prefix'> {
 export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
   ({ className, label, error, ...props }, ref) => {
     const id = useId()
+    const controls = useAnimation()
+
+    const handleErrorAlert = () => {
+      if (error?.length) {
+        return controls.start('shake')
+      }
+      controls.start('hidden')
+    }
+
+    useEffect(() => {
+      handleErrorAlert()
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [error])
 
     return (
       <label className="w-full" htmlFor={id}>
@@ -20,7 +45,11 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
             {label}
           </div>
         ) : null}
-        <div className="flex w-full items-center rounded-lg text-sm">
+        <motion.div
+          animate={controls}
+          variants={ShakeAnimation}
+          className="flex w-full items-center rounded-lg text-sm"
+        >
           <textarea
             className={clsx(
               { 'placeholder:text-red-500': error },
@@ -31,7 +60,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
             ref={ref}
             {...props}
           />
-        </div>
+        </motion.div>
         {error ? <p className="text-sm text-red-500">{error}</p> : null}
       </label>
     )
