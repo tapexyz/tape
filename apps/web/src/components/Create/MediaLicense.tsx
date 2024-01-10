@@ -1,9 +1,6 @@
 import { MetadataLicenseType } from '@lens-protocol/metadata'
 import useAppStore from '@lib/store'
-import * as HoverCard from '@radix-ui/react-hover-card'
-import { TAPE_APP_NAME } from '@tape.xyz/constants'
-import { InfoOutline, Select, SelectItem } from '@tape.xyz/ui'
-import Link from 'next/link'
+import { Select, SelectItem } from '@tape.xyz/ui'
 import React from 'react'
 
 const MediaLicense = () => {
@@ -12,28 +9,7 @@ const MediaLicense = () => {
 
   return (
     <div className="flex-1 space-y-1">
-      <div className="flex items-center gap-1">
-        <span className="text-sm font-medium">License</span>
-        <HoverCard.Root>
-          <HoverCard.Trigger>
-            <span>
-              <InfoOutline className="size-3" />
-            </span>
-          </HoverCard.Trigger>
-          <HoverCard.Content>
-            <span>
-              Learn more about{' '}
-              <Link
-                href={`https://creativecommons.org/licenses/?utm_source=${TAPE_APP_NAME}`}
-                target="_blank"
-                className="text-brand-500"
-              >
-                creative common licenses
-              </Link>
-            </span>
-          </HoverCard.Content>
-        </HoverCard.Root>
-      </div>
+      <span className="text-sm font-medium">License</span>
       <Select
         value={uploadedMedia.mediaLicense}
         onValueChange={(mediaLicense: MetadataLicenseType) =>
