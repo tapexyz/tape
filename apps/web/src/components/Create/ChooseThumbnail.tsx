@@ -1,6 +1,5 @@
 import ThumbnailsShimmer from '@components/Shimmers/ThumbnailsShimmer'
 import useAppStore from '@lib/store'
-import { Grid } from '@radix-ui/themes'
 import { generateVideoThumbnails } from '@tape.xyz/browser'
 import { logger } from '@tape.xyz/generic'
 import { AddImageOutline, CheckOutline, Loader } from '@tape.xyz/ui'
@@ -93,7 +92,7 @@ const ChooseThumbnail: FC<Props> = ({ file }) => {
   }
 
   return (
-    <Grid columns="5" gap="2">
+    <div className="grid grid-cols-5 gap-2">
       <label
         htmlFor="chooseThumbnail"
         className="tape-border flex h-full w-full flex-none cursor-pointer flex-col items-center justify-center rounded-lg"
@@ -141,7 +140,7 @@ const ChooseThumbnail: FC<Props> = ({ file }) => {
           </button>
         )
       })}
-    </Grid>
+    </div>
   )
 }
 

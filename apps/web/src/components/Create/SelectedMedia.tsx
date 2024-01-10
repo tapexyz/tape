@@ -2,7 +2,6 @@ import Tooltip from '@components/UIElements/Tooltip'
 import { getTimeFromSeconds } from '@lib/formatTime'
 import useAppStore from '@lib/store'
 import useProfileStore from '@lib/store/idb/profile'
-import { AspectRatio, Badge } from '@radix-ui/themes'
 import { uploadToIPFS } from '@tape.xyz/browser'
 import { ALLOWED_AUDIO_MIME_TYPES, FEATURE_FLAGS } from '@tape.xyz/constants'
 import {
@@ -11,7 +10,7 @@ import {
   sanitizeDStorageUrl
 } from '@tape.xyz/generic'
 import type { IPFSUploadResult } from '@tape.xyz/lens/custom-types'
-import { AddImageOutline, Input, Loader } from '@tape.xyz/ui'
+import { AddImageOutline, Badge, Input, Loader } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import React, { useEffect, useRef, useState } from 'react'
 
@@ -57,7 +56,7 @@ const SelectedMedia = () => {
       {isAudio ? (
         <div className="flex w-full justify-end">
           <div className="md:rounded-medium rounded-small tape-border w-full space-y-2 overflow-hidden p-2">
-            <AspectRatio ratio={1 / 1} className="group relative">
+            <div className="group relative aspect-[1/1]">
               {posterPreview ? (
                 <img
                   src={posterPreview}
@@ -105,7 +104,7 @@ const SelectedMedia = () => {
                   }}
                 />
               </label>
-            </AspectRatio>
+            </div>
             <audio
               ref={mediaRef}
               src={uploadedMedia.preview}
@@ -135,21 +134,13 @@ const SelectedMedia = () => {
           />
           <Badge
             onClick={() => onClickVideo()}
-            variant="solid"
-            radius="full"
-            highContrast
             className="absolute bottom-3 right-2"
           >
             Play/Pause
           </Badge>
-          <Badge
-            variant="solid"
-            radius="full"
-            highContrast
-            className="absolute bottom-3 left-2"
-          >
+          <Badge className="absolute bottom-3 left-2">
             {uploadedMedia.file?.size && (
-              <span className="space-x-1 whitespace-nowrap font-bold">
+              <span className="space-x-1 whitespace-nowrap">
                 <span>
                   {getTimeFromSeconds(String(uploadedMedia.durationInSeconds))}
                 </span>
@@ -158,12 +149,7 @@ const SelectedMedia = () => {
             )}
           </Badge>
           {uploadedMedia.durationInSeconds === 0 ? (
-            <Badge
-              variant="solid"
-              radius="full"
-              color="red"
-              className="absolute right-3 top-3"
-            >
+            <Badge className="absolute right-3 top-3 bg-red-500 text-white">
               <span className="whitespace-nowrap font-bold">
                 Only media files longer than 1 second are allowed
               </span>

@@ -1,5 +1,4 @@
 import { getShortHandTime } from '@lib/formatTime'
-import { AspectRatio } from '@radix-ui/themes'
 import { LENSTUBE_BYTES_APP_ID } from '@tape.xyz/constants'
 import {
   formatNumber,
@@ -31,13 +30,10 @@ const VideoCard: FC<Props> = ({ video }) => {
   return (
     <div className="group">
       <Link href={href}>
-        <AspectRatio
-          ratio={16 / 9}
-          className="rounded-medium tape-border relative overflow-hidden"
-        >
+        <div className="rounded-medium tape-border relative aspect-[16/9] overflow-hidden">
           <ThumbnailImage video={video} />
           <ThumbnailOverlays video={video} />
-        </AspectRatio>
+        </div>
       </Link>
       <div className="py-2">
         <div className="flex gap-2">

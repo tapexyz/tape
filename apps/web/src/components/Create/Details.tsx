@@ -4,11 +4,10 @@ import Tooltip from '@components/UIElements/Tooltip'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useAppStore from '@lib/store'
 import useCollectStore from '@lib/store/idb/collect'
-import { Switch, Text } from '@radix-ui/themes'
 import { getFileFromDataURL, uploadToIPFS } from '@tape.xyz/browser'
 import { checkIsBytesVideo } from '@tape.xyz/generic'
 import type { IPFSUploadResult } from '@tape.xyz/lens/custom-types'
-import { Button } from '@tape.xyz/ui'
+import { Button, Switch } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
@@ -166,28 +165,23 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
             </div>
 
             <div className="mt-4">
-              <Text as="label">
-                <div className="flex items-center gap-2">
-                  <Switch
-                    highContrast
-                    checked={!uploadedMedia.collectModule.isRevertCollect}
-                    onCheckedChange={(canCollect) => {
-                      const collectModuleData = {
-                        ...uploadedMedia.collectModule,
+              <Switch
+                label="Collectible"
+                checked={!uploadedMedia.collectModule.isRevertCollect}
+                onCheckedChange={(canCollect) => {
+                  const collectModuleData = {
+                    ...uploadedMedia.collectModule,
+                    isRevertCollect: !canCollect
+                  }
+                  const collectModule = saveAsDefault
+                    ? {
+                        ...persistedCollectModule,
                         isRevertCollect: !canCollect
-                      }
-                      const collectModule = saveAsDefault
-                        ? {
-                            ...persistedCollectModule,
-                            isRevertCollect: !canCollect
-                          } ?? collectModuleData
-                        : collectModuleData
-                      setUploadedMedia({ collectModule })
-                    }}
-                  />
-                  Collectible
-                </div>
-              </Text>
+                      } ?? collectModuleData
+                    : collectModuleData
+                  setUploadedMedia({ collectModule })
+                }}
+              />
               {!uploadedMedia.collectModule.isRevertCollect && (
                 <CollectModule />
               )}
@@ -204,33 +198,23 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                     !isByteSizeVideo && 'cursor-not-allowed opacity-50'
                   )}
                 >
-                  <Text as="label">
-                    <div className="flex items-center gap-2">
-                      <Switch
-                        highContrast
-                        checked={Boolean(uploadedMedia.isByteVideo)}
-                        onCheckedChange={(b) => toggleUploadAsByte(b)}
-                      />
-                      Upload this video as short-form bytes
-                    </div>
-                  </Text>
+                  <Switch
+                    label="Upload this video as short-form bytes"
+                    checked={Boolean(uploadedMedia.isByteVideo)}
+                    onCheckedChange={(b) => toggleUploadAsByte(b)}
+                  />
                 </div>
               </Tooltip>
             ) : null}
 
             <div className="mt-2">
-              <Text as="label">
-                <div className="flex items-center gap-2">
-                  <Switch
-                    highContrast
-                    checked={Boolean(watch('isSensitiveContent'))}
-                    onCheckedChange={(value) =>
-                      setValue('isSensitiveContent', value)
-                    }
-                  />
-                  Sensitive content for a general audience
-                </div>
-              </Text>
+              <Switch
+                label="Sensitive content for a general audience"
+                checked={Boolean(watch('isSensitiveContent'))}
+                onCheckedChange={(value) =>
+                  setValue('isSensitiveContent', value)
+                }
+              />
             </div>
           </div>
         </div>
