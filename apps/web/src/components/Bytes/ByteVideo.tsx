@@ -10,7 +10,7 @@ import {
   sanitizeDStorageUrl
 } from '@tape.xyz/generic'
 import type { AnyPublication } from '@tape.xyz/lens'
-import VideoPlayer from '@tape.xyz/ui/VideoPlayer'
+import { VideoPlayer } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React, { useEffect, useRef } from 'react'
 

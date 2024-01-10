@@ -9,8 +9,7 @@ import {
   sanitizeDStorageUrl
 } from '@tape.xyz/generic'
 import type { PrimaryPublication } from '@tape.xyz/lens'
-import { PauseOutline, PlayOutline } from '@tape.xyz/ui'
-import AudioPlayer from '@tape.xyz/ui/AudioPlayer'
+import { AudioPlayer, PauseOutline, PlayOutline } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 

@@ -44,8 +44,7 @@ import {
   useSetProfileMetadataMutation
 } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { Button } from '@tape.xyz/ui'
-import VideoPlayer from '@tape.xyz/ui/VideoPlayer'
+import { Button, VideoPlayer } from '@tape.xyz/ui'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { memo } from 'react'

@@ -1,5 +1,4 @@
 import InterweaveContent from '@components/Common/InterweaveContent'
-import { CardShimmer } from '@components/Shimmers/VideoCardShimmer'
 import useAppStore from '@lib/store'
 import useProfileStore from '@lib/store/idb/profile'
 import { LENSTUBE_BYTES_APP_ID } from '@tape.xyz/constants'
@@ -14,20 +13,19 @@ import {
   sanitizeDStorageUrl
 } from '@tape.xyz/generic'
 import type { PrimaryPublication, VideoMetadataV3 } from '@tape.xyz/lens'
-import { Badge, ChevronDownOutline, ChevronUpOutline } from '@tape.xyz/ui'
+import {
+  Badge,
+  ChevronDownOutline,
+  ChevronUpOutline,
+  VideoPlayer
+} from '@tape.xyz/ui'
 import clsx from 'clsx'
-import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 
 import PublicationActions from '../Common/Publication/PublicationActions'
 import VideoMeta from './VideoMeta'
-
-const VideoPlayer = dynamic(() => import('@tape.xyz/ui/VideoPlayer'), {
-  loading: () => <CardShimmer rounded={false} />,
-  ssr: false
-})
 
 type Props = {
   video: PrimaryPublication
