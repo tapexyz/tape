@@ -301,12 +301,12 @@ const PublicationOptions: FC<Props> = ({
     Tower.track(EVENTS.PUBLICATION.TOGGLE_INTEREST)
   }
 
-  const [addNotInterested] = useAddPublicationNotInterestedMutation({
+  const [addToNotInterested] = useAddPublicationNotInterestedMutation({
     onError,
     onCompleted: () => modifyInterestCache(true)
   })
 
-  const [removeNotInterested] = useUndoPublicationNotInterestedMutation({
+  const [removeFromNotInterested] = useUndoPublicationNotInterestedMutation({
     onError,
     onCompleted: () => modifyInterestCache(false)
   })
@@ -321,12 +321,12 @@ const PublicationOptions: FC<Props> = ({
     onCompleted: () => modifyListCache(false)
   })
 
-  const notInterested = () => {
+  const notInterested = async () => {
     if (!activeProfile?.id) {
       return toast.error(SIGN_IN_REQUIRED)
     }
     if (publication.operations.isNotInterested) {
-      addNotInterested({
+      await removeFromNotInterested({
         variables: {
           request: {
             on: publication.id
@@ -334,7 +334,7 @@ const PublicationOptions: FC<Props> = ({
         }
       })
     } else {
-      removeNotInterested({
+      await addToNotInterested({
         variables: {
           request: {
             on: publication.id
