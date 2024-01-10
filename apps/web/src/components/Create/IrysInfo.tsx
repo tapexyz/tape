@@ -2,11 +2,12 @@ import Tooltip from '@components/UIElements/Tooltip'
 import useEthersWalletClient from '@hooks/useEthersWalletClient'
 import type { WebIrys } from '@irys/sdk'
 import useAppStore from '@lib/store'
-import { Button, Callout, IconButton, Text } from '@radix-ui/themes'
 import { useIsMounted } from '@tape.xyz/browser'
 import { IRYS_CURRENCY, POLYGON_CHAIN_ID } from '@tape.xyz/constants'
 import { EVENTS, logger, Tower } from '@tape.xyz/generic'
 import {
+  Button,
+  Callout,
   ChevronDownOutline,
   ChevronUpOutline,
   Input,
@@ -166,22 +167,17 @@ const IrysInfo = () => {
   return (
     <div className="mt-4 w-full space-y-4">
       {!isEnoughBalanceAvailable && !fetchingBalance && irysData.instance ? (
-        <Callout.Root color="red">
-          <Callout.Icon>
-            <WarningOutline className="size-4" />
-          </Callout.Icon>
-          <Callout.Text highContrast>
-            Not enough storage balance available, deposit to continue.
-          </Callout.Text>
-        </Callout.Root>
+        <Callout variant="danger" icon={<WarningOutline className="size-4" />}>
+          Not enough storage balance available, deposit to continue.
+        </Callout>
       ) : null}
       <div className="space-y-1">
-        <Text weight="medium">Estimated cost to upload</Text>
+        <span className="font-medium">Estimated cost to upload</span>
         <div className="flex justify-between">
           {!fetchingBalance ? (
-            <Text weight="bold" size="5">
+            <span className="text-lg font-bold">
               {Number(irysData.estimatedPrice).toFixed(2)} matic
-            </Text>
+            </span>
           ) : (
             <span className="mt-[6px] h-[22px] w-1/2 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700" />
           )}
@@ -190,45 +186,44 @@ const IrysInfo = () => {
       <div className="flex flex-col">
         <div className="inline-flex items-center justify-between rounded font-medium opacity-80">
           <span className="flex items-center space-x-1.5">
-            <Text>Your storage balance</Text>
+            <p>Your storage balance</p>
             <Tooltip content="Refresh balance" placement="top">
-              <IconButton
-                size="1"
-                radius="full"
-                variant="soft"
+              <button
                 type="button"
                 className="focus:outline-none"
                 onClick={() => onRefreshBalance()}
               >
                 <RefreshOutline className="size-3" />
-              </IconButton>
+              </button>
             </Tooltip>
           </span>
           <span>
             <Button
+              size="sm"
               type="button"
-              size="1"
-              variant="soft"
+              variant="secondary"
               onClick={() =>
                 setIrysData({
                   showDeposit: !irysData.showDeposit
                 })
               }
             >
-              <Text>Deposit</Text>
-              {irysData.showDeposit ? (
-                <ChevronUpOutline className="ml-1 size-3" />
-              ) : (
-                <ChevronDownOutline className="ml-1 size-3" />
-              )}
+              <span className="flex items-center space-x-1.5">
+                <span>Deposit</span>
+                {irysData.showDeposit ? (
+                  <ChevronUpOutline className="size-3" />
+                ) : (
+                  <ChevronDownOutline className="size-3" />
+                )}
+              </span>
             </Button>
           </span>
         </div>
         <div className="flex justify-between">
           {!fetchingBalance ? (
-            <Text weight="bold" size="5">
+            <span className="text-lg font-bold">
               {Number(irysData.balance).toFixed(2)} matic
-            </Text>
+            </span>
           ) : (
             <span className="mt-[6px] h-[22px] w-1/2 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700" />
           )}
@@ -236,7 +231,7 @@ const IrysInfo = () => {
       </div>
       {irysData.showDeposit && (
         <div className="space-y-1">
-          <Text weight="medium">Amount to deposit (MATIC)</Text>
+          <span className="font-medium">Amount to deposit (MATIC)</span>
           <div className="flex gap-2">
             <Input
               type="number"
@@ -244,20 +239,15 @@ const IrysInfo = () => {
               className="py-1.5 md:py-2"
               autoComplete="off"
               min={0}
-              value={
-                irysData.deposit ||
-                (
-                  Number(irysData.estimatedPrice) - Number(irysData.balance)
-                ).toFixed(2)
-              }
+              value={irysData.deposit ?? ''}
               onChange={(e) => {
                 setIrysData({ deposit: e.target.value })
               }}
             />
             <Button
               type="button"
-              variant="surface"
-              highContrast
+              variant="secondary"
+              loading={irysData.depositing}
               disabled={irysData.depositing}
               onClick={() => depositToIrys()}
             >

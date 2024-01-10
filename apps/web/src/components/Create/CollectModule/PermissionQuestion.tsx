@@ -21,9 +21,8 @@ const PermissionQuestion: FC<Props> = ({ setCollectType }) => {
             type="button"
             className={clsx(
               !uploadedMedia.collectModule.followerOnlyCollect &&
-                !uploadedMedia.collectModule.isRevertCollect
-                ? 'border-brand-500 border'
-                : ''
+                !uploadedMedia.collectModule.isRevertCollect &&
+                '!border-brand-500'
             )}
             variant="secondary"
             onClick={() =>
@@ -42,9 +41,8 @@ const PermissionQuestion: FC<Props> = ({ setCollectType }) => {
             type="button"
             className={clsx(
               uploadedMedia.collectModule.followerOnlyCollect &&
-                !uploadedMedia.collectModule.isRevertCollect
-                ? 'border-brand-500 border'
-                : ''
+                !uploadedMedia.collectModule.isRevertCollect &&
+                '!border-brand-500'
             )}
             variant="secondary"
             onClick={() =>

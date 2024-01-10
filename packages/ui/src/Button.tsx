@@ -46,7 +46,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     }
 
     return (
-      <div className="relative">
+      <div className="relative self-center">
         {loading && (
           <div className="absolute -inset-[2px] overflow-hidden rounded-lg">
             <LoadingBorder rx="30%" ry="30%">

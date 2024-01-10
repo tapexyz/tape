@@ -1,6 +1,7 @@
 import useAppStore from '@lib/store'
 import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
 import { Button } from '@tape.xyz/ui'
+import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
 
@@ -18,11 +19,9 @@ const ChargeQuestion: FC<Props> = ({ setCollectType }) => {
         <div className="flex-1">
           <Button
             type="button"
-            className={
-              !uploadedMedia.collectModule.isFeeCollect
-                ? 'border-brand-500 border'
-                : ''
-            }
+            className={clsx(
+              !uploadedMedia.collectModule.isFeeCollect && '!border-brand-500'
+            )}
             variant="secondary"
             onClick={() =>
               setCollectType({
@@ -38,11 +37,9 @@ const ChargeQuestion: FC<Props> = ({ setCollectType }) => {
         <div className="flex-1">
           <Button
             type="button"
-            className={
-              uploadedMedia.collectModule.isFeeCollect
-                ? 'border- border-brand-500'
-                : ''
-            }
+            className={clsx(
+              uploadedMedia.collectModule.isFeeCollect && '!border-brand-500'
+            )}
             variant="secondary"
             onClick={() =>
               setCollectType({

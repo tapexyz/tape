@@ -31,9 +31,8 @@ const EditionSize: FC<Props> = ({ setCollectType }) => {
               setShowSizePicker(false)
             }}
             className={clsx(
-              !uploadedMedia.collectModule.collectLimitEnabled
-                ? 'border-brand-500 border'
-                : ''
+              !uploadedMedia.collectModule.collectLimitEnabled &&
+                '!border-brand-500'
             )}
             variant="secondary"
           >
@@ -51,9 +50,8 @@ const EditionSize: FC<Props> = ({ setCollectType }) => {
               setShowSizePicker(true)
             }}
             className={clsx(
-              uploadedMedia.collectModule.collectLimitEnabled
-                ? 'border-brand-500 border'
-                : ''
+              uploadedMedia.collectModule.collectLimitEnabled &&
+                '!border-brand-500'
             )}
             variant="secondary"
           >
