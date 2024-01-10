@@ -39,7 +39,7 @@ const HoverableProfile: FC<Props> = ({ profile, children, pfp }) => {
           </Link>
         )}
       </HoverCard.Trigger>
-      <HoverCard.Content className="tape-border z-10 w-80 overflow-hidden rounded-lg bg-white shadow dark:bg-black">
+      <HoverCard.Content className="tape-border z-10 w-80 overflow-hidden rounded-xl bg-white shadow dark:bg-black">
         <div className="inset-0">
           <div
             style={{
@@ -64,7 +64,7 @@ const HoverableProfile: FC<Props> = ({ profile, children, pfp }) => {
             </div>
           </div>
         </div>
-        <div className="p-4">
+        <div className="p-4 text-base">
           <Link
             href={getProfile(profile)?.link}
             className="flex items-center space-x-1"

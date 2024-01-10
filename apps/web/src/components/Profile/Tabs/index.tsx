@@ -44,16 +44,6 @@ const ProfileTabs: FC<Props> = ({ profile }) => {
           <Tabs.Trigger
             className="rounded-t-lg border-black px-4 py-1.5 text-sm font-medium data-[state=active]:border-b data-[state=active]:bg-gray-100 dark:border-white data-[state=active]:dark:bg-gray-800"
             onClick={() => {
-              handleTabChange('audios')
-              Tower.track(EVENTS.PROFILE.CLICK_PROFILE_AUDIOS)
-            }}
-            value="audios"
-          >
-            Audios
-          </Tabs.Trigger>
-          <Tabs.Trigger
-            className="rounded-t-lg border-black px-4 py-1.5 text-sm font-medium data-[state=active]:border-b data-[state=active]:bg-gray-100 dark:border-white data-[state=active]:dark:bg-gray-800"
-            onClick={() => {
               handleTabChange('bytes')
               Tower.track(EVENTS.PROFILE.CLICK_PROFILE_BYTES)
             }}
