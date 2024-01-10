@@ -23,6 +23,6 @@
     "@tape.xyz/config": "*",
     "@tape.xyz/generic": "*",
     "@types/ua-parser-js": "^0.7.39",
-    "wrangler": "^3.22.3"
+    "wrangler": "^3.22.4"
   }
 }
