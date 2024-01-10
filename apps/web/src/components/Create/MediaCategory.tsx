@@ -1,5 +1,4 @@
 import useAppStore from '@lib/store'
-import { Text } from '@radix-ui/themes'
 import { CREATOR_VIDEO_CATEGORIES } from '@tape.xyz/constants'
 import { getCategoryByTag } from '@tape.xyz/generic'
 import { Select, SelectItem } from '@tape.xyz/ui'
@@ -10,9 +9,7 @@ const MediaCategory = () => {
   const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
   return (
     <div className="flex-1 space-y-1">
-      <Text size="2" weight="medium">
-        Category
-      </Text>
+      <span className="text-sm font-medium">Category</span>
 
       <Select
         value={uploadedMedia.mediaCategory.tag}

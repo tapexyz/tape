@@ -1,7 +1,6 @@
 import useProfileStore from '@lib/store/idb/profile'
-import { Callout } from '@radix-ui/themes'
 import { POLYGON_CHAIN_ID } from '@tape.xyz/constants'
-import { Button, CheckOutline, WarningOutline } from '@tape.xyz/ui'
+import { Button, Callout, CheckOutline, WarningOutline } from '@tape.xyz/ui'
 import React, { memo } from 'react'
 import type { Connector } from 'wagmi'
 import { useAccount, useConnect } from 'wagmi'
@@ -55,14 +54,9 @@ const Connectors = () => {
       </div>
       <Authenticate />
       {error?.message ? (
-        <Callout.Root color="red">
-          <Callout.Icon>
-            <WarningOutline className="size-4" />
-          </Callout.Icon>
-          <Callout.Text highContrast>
-            {error?.message ?? 'Failed to connect'}
-          </Callout.Text>
-        </Callout.Root>
+        <Callout variant="danger" icon={<WarningOutline className="size-4" />}>
+          {error?.message ?? 'Failed to connect'}
+        </Callout>
       ) : null}
     </div>
   )

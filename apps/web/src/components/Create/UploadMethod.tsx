@@ -1,6 +1,5 @@
 import useAppStore from '@lib/store'
 import useProfileStore from '@lib/store/idb/profile'
-import { Text } from '@radix-ui/themes'
 import { canUploadedToIpfs } from '@tape.xyz/generic'
 import React, { useEffect } from 'react'
 
@@ -28,10 +27,10 @@ const UploadMethod = () => {
 
   return (
     <div className="pt-4">
-      <Text weight="medium">
+      <span className="font-medium">
         Your current upload exceeds the free limit, and to proceed with the
         upload, you may consider covering the storage fee.
-      </Text>
+      </span>
       <IrysInfo />
     </div>
   )

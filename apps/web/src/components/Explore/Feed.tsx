@@ -3,7 +3,6 @@ import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { getUnixTimestampForDaysAgo } from '@lib/formatTime'
 import useAppStore from '@lib/store'
-import { Button } from '@radix-ui/themes'
 import {
   ALLOWED_APP_IDS,
   INFINITE_SCROLL_ROOT_MARGIN,
@@ -25,11 +24,13 @@ import {
   useExplorePublicationsQuery
 } from '@tape.xyz/lens'
 import {
+  Button,
   CommentOutline,
   FireOutline,
   Loader,
   MirrorOutline
 } from '@tape.xyz/ui'
+import clsx from 'clsx'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 
@@ -102,27 +103,23 @@ const ExploreFeed = () => {
 
   return (
     <div className="laptop:pt-6 pt-4">
-      <div className="space-x-2">
+      <div className="flex space-x-2">
         <Button
-          radius="full"
-          highContrast
-          variant={activeCriteria.trending ? 'solid' : 'surface'}
+          variant="secondary"
+          className={clsx(activeCriteria.trending && '!border-brand-500')}
           onClick={() => {
             setActiveCriteria({ ...initialCriteria })
             Tower.track(EVENTS.PAGEVIEW, {
               page: EVENTS.PAGE_VIEW.EXPLORE_TRENDING
             })
           }}
+          icon={<FireOutline className="size-5" />}
         >
-          <span className="flex items-center space-x-1">
-            <FireOutline className="size-3.5" />
-            <span>Trending</span>
-          </span>
+          Trending
         </Button>
         <Button
-          radius="full"
-          highContrast
-          variant={activeCriteria.popular ? 'solid' : 'surface'}
+          variant="secondary"
+          className={clsx(activeCriteria.popular && '!border-brand-500')}
           onClick={() => {
             setActiveCriteria({
               ...initialCriteria,
@@ -133,16 +130,13 @@ const ExploreFeed = () => {
               page: EVENTS.PAGE_VIEW.EXPLORE_POPULAR
             })
           }}
+          icon={<CommentOutline className="size-5" />}
         >
-          <span className="flex items-center space-x-1">
-            <CommentOutline className="size-3.5" />
-            <span>Popular</span>
-          </span>
+          Popular
         </Button>
         <Button
-          radius="full"
-          highContrast
-          variant={activeCriteria.interesting ? 'solid' : 'surface'}
+          variant="secondary"
+          className={clsx(activeCriteria.interesting && '!border-brand-500')}
           onClick={() => {
             setActiveCriteria({
               ...initialCriteria,
@@ -153,11 +147,9 @@ const ExploreFeed = () => {
               page: EVENTS.PAGE_VIEW.EXPLORE_INTERESTING
             })
           }}
+          icon={<MirrorOutline className="size-5" />}
         >
-          <span className="flex items-center space-x-1">
-            <MirrorOutline className="size-3.5" />
-            <span>Interesting</span>
-          </span>
+          Interesting
         </Button>
       </div>
 

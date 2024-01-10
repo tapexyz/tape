@@ -1,10 +1,10 @@
 import SignalWaveGraphic from '@components/UIElements/SignalWaveGraphic'
-import { Button } from '@radix-ui/themes'
 import {
   GITCOIN_LIVE_ROUND,
   SHOW_GITCOIN_BANNER,
   TAPE_APP_NAME
 } from '@tape.xyz/constants'
+import { Button } from '@tape.xyz/ui'
 import Link from 'next/link'
 import React from 'react'
 
@@ -26,7 +26,7 @@ const GitcoinAlert = () => {
         </p>
         <div className="flex">
           <Link href="/gitcoin" target="_blank">
-            <Button highContrast>Contribute</Button>
+            <Button>Contribute</Button>
           </Link>
         </div>
       </div>

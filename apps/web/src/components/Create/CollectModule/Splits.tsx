@@ -2,7 +2,6 @@ import { NoDataFound } from '@components/UIElements/NoDataFound'
 import ProfileSuggestion from '@components/UIElements/ProfileSuggestion'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
-import { Text } from '@radix-ui/themes'
 import { useDebounce, useOutsideClick } from '@tape.xyz/browser'
 import {
   LENS_CUSTOM_FILTERS,
@@ -143,9 +142,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
   return (
     <div className="space-y-1">
       <div className="flex items-center">
-        <Text size="2" weight="medium">
-          Split revenue
-        </Text>
+        <span className="text-sm font-medium">Split revenue</span>
         <Tooltip content="Split collect revenue with anyone" placement="top">
           <span>
             <InfoOutline className="mx-1 size-3 opacity-70" />

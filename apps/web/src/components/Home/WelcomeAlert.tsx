@@ -1,5 +1,5 @@
-import { Button } from '@radix-ui/themes'
 import { STATIC_ASSETS, TAPE_APP_NAME } from '@tape.xyz/constants'
+import { Button } from '@tape.xyz/ui'
 import Link from 'next/link'
 import React from 'react'
 
@@ -21,7 +21,7 @@ const WelcomeAlert = () => {
         </p>
         <div className="flex gap-3">
           <Link href="/login">
-            <Button highContrast>Login</Button>
+            <Button>Login</Button>
           </Link>
         </div>
       </div>

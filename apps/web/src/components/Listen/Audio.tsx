@@ -1,6 +1,5 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
 import { getReadableTimeFromSeconds } from '@lib/formatTime'
-import { IconButton } from '@radix-ui/themes'
 import {
   getProfile,
   getProfilePicture,
@@ -41,17 +40,13 @@ const Audio: FC<Props> = ({ audio }) => {
             draggable={false}
           />
           <div className="absolute inset-0 flex items-end justify-end space-x-1 p-3">
-            <IconButton
-              onClick={() => setIsPlaying(!isPlaying)}
-              size="3"
-              highContrast
-            >
+            <button onClick={() => setIsPlaying(!isPlaying)}>
               {isPlaying ? (
                 <PauseOutline className="size-5" />
               ) : (
                 <PlayOutline className="size-5" />
               )}
-            </IconButton>
+            </button>
           </div>
         </div>
         <div className="flex w-full flex-col items-center space-y-4 text-white lg:items-start">

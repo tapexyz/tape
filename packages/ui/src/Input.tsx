@@ -1,6 +1,6 @@
 import clsx from 'clsx'
 import { motion, useAnimation } from 'framer-motion'
-import type { ComponentProps } from 'react'
+import type { ComponentProps, ReactNode } from 'react'
 import { forwardRef, useEffect, useId } from 'react'
 
 const ShakeAnimation = {
@@ -17,8 +17,8 @@ const ShakeAnimation = {
 interface InputProps extends Omit<ComponentProps<'input'>, 'prefix'> {
   label?: string
   info?: string
-  prefix?: string
-  suffix?: string
+  prefix?: ReactNode | string
+  suffix?: ReactNode | string
   error?: string
   showError?: boolean
 }
@@ -72,7 +72,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
                   : suffix
                     ? 'rounded-l-lg'
                     : 'rounded-lg',
-                'w-full border-none bg-gray-100 px-3 py-1.5 focus:outline-none dark:bg-gray-900',
+                'w-full border-none bg-gray-100 px-3 py-2 focus:outline-none dark:bg-gray-900',
                 className
               )}
               id={id}
