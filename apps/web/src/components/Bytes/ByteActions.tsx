@@ -65,8 +65,8 @@ const ByteActions: FC<Props> = ({ video }) => {
               </button>
             </MirrorPublication>
           </div>
-          <div className="w-full text-center">
-            <OpenActions publication={video}>
+          <OpenActions publication={video}>
+            <div className="w-full text-center">
               <button className="w-7">
                 <div className="flex flex-col items-center">
                   <CollectOutline className="size-5" />
@@ -75,8 +75,8 @@ const ByteActions: FC<Props> = ({ video }) => {
                   </span>
                 </div>
               </button>
-            </OpenActions>
-          </div>
+            </div>
+          </OpenActions>
         </div>
       </div>
     </div>
