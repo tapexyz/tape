@@ -1,5 +1,5 @@
 import Picker from '@emoji-mart/react'
-import { Popover } from '@radix-ui/themes'
+import * as Popover from '@radix-ui/react-popover'
 import { STATIC_ASSETS } from '@tape.xyz/constants'
 import { EmojiOutline } from '@tape.xyz/ui'
 import axios from 'axios'

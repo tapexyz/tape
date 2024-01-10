@@ -1,5 +1,4 @@
 import { getDateString, getRelativeTime } from '@lib/formatTime'
-import { Badge as BadgeUI } from '@radix-ui/themes'
 import {
   getProfile,
   getProfileCoverPicture,
@@ -8,6 +7,7 @@ import {
   sanitizeDStorageUrl
 } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
+import { Badge as BadgeUI } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React from 'react'
 

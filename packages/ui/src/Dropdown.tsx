@@ -1,20 +1,20 @@
-import * as PrimitiveDropdownMenu from '@radix-ui/react-dropdown-menu'
+import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu'
 import clsx from 'clsx'
 import type { ElementRef, FC, ReactNode } from 'react'
 import React, { forwardRef } from 'react'
 
-export const DropdownMenuSub = PrimitiveDropdownMenu.Sub
-export const DropdownMenuSeparator = PrimitiveDropdownMenu.Separator
-export const DropdownMenuContent = PrimitiveDropdownMenu.Content
-export const DropdownMenuPortal = PrimitiveDropdownMenu.Portal
+export const DropdownMenuSub = DropdownMenuPrimitive.Sub
+export const DropdownMenuSeparator = DropdownMenuPrimitive.Separator
+export const DropdownMenuContent = DropdownMenuPrimitive.Content
+export const DropdownMenuPortal = DropdownMenuPrimitive.Portal
 
-type DropdownMenuSubContentProps = PrimitiveDropdownMenu.MenuSubContentProps & {
+type DropdownMenuSubContentProps = DropdownMenuPrimitive.MenuSubContentProps & {
   children?: ReactNode
   className?: string
   size?: 'sm' | 'md' | 'lg'
 }
 export const DropdownMenuSubContent = forwardRef<
-  ElementRef<typeof PrimitiveDropdownMenu.SubContent>,
+  ElementRef<typeof DropdownMenuPrimitive.SubContent>,
   DropdownMenuSubContentProps
 >(({ children, className, size = 'sm', ...props }, ref) => {
   const sizeClasses = {
@@ -23,7 +23,7 @@ export const DropdownMenuSubContent = forwardRef<
     'px-8 py-4 text-base': size === 'lg'
   }
   return (
-    <PrimitiveDropdownMenu.SubContent
+    <DropdownMenuPrimitive.SubContent
       sideOffset={5}
       className={clsx(
         sizeClasses,
@@ -34,18 +34,18 @@ export const DropdownMenuSubContent = forwardRef<
       {...props}
     >
       {children}
-    </PrimitiveDropdownMenu.SubContent>
+    </DropdownMenuPrimitive.SubContent>
   )
 })
 DropdownMenuSubContent.displayName = 'DropdownMenuSubContent'
 
-type DropdownMenuSubTriggerProps = PrimitiveDropdownMenu.MenuSubTriggerProps & {
+type DropdownMenuSubTriggerProps = DropdownMenuPrimitive.MenuSubTriggerProps & {
   children?: ReactNode
   className?: string
   size?: 'sm' | 'md' | 'lg'
 }
 export const DropdownMenuSubTrigger = forwardRef<
-  ElementRef<typeof PrimitiveDropdownMenu.SubTrigger>,
+  ElementRef<typeof DropdownMenuPrimitive.SubTrigger>,
   DropdownMenuSubTriggerProps
 >(({ children, className, size = 'sm', ...props }, ref) => {
   const sizeClasses = {
@@ -54,7 +54,7 @@ export const DropdownMenuSubTrigger = forwardRef<
     'px-8 py-4 text-base': size === 'lg'
   }
   return (
-    <PrimitiveDropdownMenu.SubTrigger
+    <DropdownMenuPrimitive.SubTrigger
       className={clsx(
         sizeClasses,
         'relative select-none items-center rounded-md leading-none data-[disabled]:pointer-events-none data-[highlighted]:bg-gray-200 data-[highlighted]:outline-none dark:data-[highlighted]:bg-gray-800',
@@ -64,18 +64,18 @@ export const DropdownMenuSubTrigger = forwardRef<
       {...props}
     >
       {children}
-    </PrimitiveDropdownMenu.SubTrigger>
+    </DropdownMenuPrimitive.SubTrigger>
   )
 })
 DropdownMenuSubTrigger.displayName = 'DropdownMenuSubTrigger'
 
-type DropdownMenuItemProps = PrimitiveDropdownMenu.DropdownMenuItemProps & {
+type DropdownMenuItemProps = DropdownMenuPrimitive.DropdownMenuItemProps & {
   children?: ReactNode
   className?: string
   size?: 'sm' | 'md' | 'lg'
 }
 export const DropdownMenuItem = forwardRef<
-  ElementRef<typeof PrimitiveDropdownMenu.Item>,
+  ElementRef<typeof DropdownMenuPrimitive.Item>,
   DropdownMenuItemProps
 >(({ children, className, size = 'sm', ...props }, ref) => {
   const sizeClasses = {
@@ -85,7 +85,7 @@ export const DropdownMenuItem = forwardRef<
   }
 
   return (
-    <PrimitiveDropdownMenu.Item
+    <DropdownMenuPrimitive.Item
       className={clsx(
         sizeClasses,
         'relative select-none items-center space-x-2 rounded-md leading-none data-[disabled]:pointer-events-none data-[highlighted]:bg-gray-200 data-[highlighted]:outline-none dark:hover:bg-gray-800 dark:data-[highlighted]:bg-gray-800',
@@ -95,7 +95,7 @@ export const DropdownMenuItem = forwardRef<
       {...props}
     >
       {children}
-    </PrimitiveDropdownMenu.Item>
+    </DropdownMenuPrimitive.Item>
   )
 })
 DropdownMenuItem.displayName = 'DropdownMenuItem'
@@ -107,11 +107,11 @@ type DropdownMenuProps = {
 
 export const DropdownMenu: FC<DropdownMenuProps> = ({ trigger, children }) => {
   return (
-    <PrimitiveDropdownMenu.Root>
-      <PrimitiveDropdownMenu.Trigger className="outline-none">
+    <DropdownMenuPrimitive.Root>
+      <DropdownMenuPrimitive.Trigger className="outline-none">
         {trigger}
-      </PrimitiveDropdownMenu.Trigger>
+      </DropdownMenuPrimitive.Trigger>
       <DropdownMenuPortal>{children}</DropdownMenuPortal>
-    </PrimitiveDropdownMenu.Root>
+    </DropdownMenuPrimitive.Root>
   )
 }

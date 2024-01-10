@@ -7,7 +7,6 @@ import {
   AccordionItem,
   AccordionTrigger
 } from '@radix-ui/react-accordion'
-import { Blockquote } from '@radix-ui/themes'
 import { INFINITE_SCROLL_ROOT_MARGIN } from '@tape.xyz/constants'
 import type { ApprovedAuthenticationRequest } from '@tape.xyz/lens'
 import {
@@ -107,10 +106,10 @@ const List = () => {
             </AccordionTrigger>
             <AccordionContent className="pt-5">
               <div className="flex items-center justify-between">
-                <Blockquote>
+                <p>
                   {session.browser}, created at{' '}
                   {getDateString(session.createdAt)}
-                </Blockquote>
+                </p>
                 <Button
                   onClick={() => revoke(session.authorizationId)}
                   variant="danger"

@@ -3,6 +3,14 @@
 @tailwind utilities;
 
 html {
+  scrollbar-gutter: stable;
+}
+
+body[style] {
+  margin: 0 auto !important;
+}
+
+html {
   @apply overflow-y-scroll overflow-x-hidden;
 }
 

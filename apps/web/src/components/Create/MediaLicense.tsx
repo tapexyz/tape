@@ -1,6 +1,6 @@
 import { MetadataLicenseType } from '@lens-protocol/metadata'
 import useAppStore from '@lib/store'
-import { HoverCard } from '@radix-ui/themes'
+import * as HoverCard from '@radix-ui/react-hover-card'
 import { TAPE_APP_NAME } from '@tape.xyz/constants'
 import { InfoOutline, Select, SelectItem } from '@tape.xyz/ui'
 import Link from 'next/link'
