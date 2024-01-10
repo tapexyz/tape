@@ -8,7 +8,6 @@ import type { Comment } from '@tape.xyz/lens'
 import { useHidePublicationMutation } from '@tape.xyz/lens'
 import {
   DropdownMenu,
-  DropdownMenuContent,
   DropdownMenuItem,
   FlagOutline,
   Modal,
@@ -70,44 +69,38 @@ const CommentOptions: FC<Props> = ({ comment }) => {
         action={onHideComment}
       />
       <DropdownMenu trigger={<ThreeDotsOutline className="size-3.5" />}>
-        <DropdownMenuContent
-          className="tape-border rounded-xl bg-white p-2 dark:bg-black"
-          sideOffset={10}
-          align="end"
-        >
-          <div className="w-36 overflow-hidden">
-            <div className="flex flex-col rounded-lg text-sm transition duration-150 ease-in-out">
-              {activeProfile?.id === comment?.by?.id && (
-                <DropdownMenuItem onClick={() => setShowConfirm(true)}>
-                  <div className="flex items-center gap-2">
-                    <TrashOutline className="size-3.5" />
-                    <span className="whitespace-nowrap">Delete</span>
-                  </div>
-                </DropdownMenuItem>
-              )}
-
-              <Modal
-                title="Report"
-                show={showReportModal}
-                setShow={setShowReportModal}
-              >
-                <ReportPublication
-                  publication={comment}
-                  close={() => setShowReportModal(false)}
-                />
-              </Modal>
-              <button
-                className="!cursor-default rounded-md px-3 py-1.5 hover:bg-gray-500/20"
-                onClick={() => onClickReport()}
-              >
+        <div className="w-36 overflow-hidden">
+          <div className="flex flex-col rounded-lg text-sm transition duration-150 ease-in-out">
+            {activeProfile?.id === comment?.by?.id && (
+              <DropdownMenuItem onClick={() => setShowConfirm(true)}>
                 <div className="flex items-center gap-2">
-                  <FlagOutline className="size-3.5" />
-                  <p className="whitespace-nowrap">Report</p>
+                  <TrashOutline className="size-3.5" />
+                  <span className="whitespace-nowrap">Delete</span>
                 </div>
-              </button>
-            </div>
+              </DropdownMenuItem>
+            )}
+
+            <Modal
+              title="Report"
+              show={showReportModal}
+              setShow={setShowReportModal}
+            >
+              <ReportPublication
+                publication={comment}
+                close={() => setShowReportModal(false)}
+              />
+            </Modal>
+            <button
+              className="!cursor-default rounded-md px-3 py-1.5 hover:bg-gray-500/20"
+              onClick={() => onClickReport()}
+            >
+              <div className="flex items-center gap-2">
+                <FlagOutline className="size-3.5" />
+                <p className="whitespace-nowrap">Report</p>
+              </div>
+            </button>
           </div>
-        </DropdownMenuContent>
+        </div>
       </DropdownMenu>
     </>
   )

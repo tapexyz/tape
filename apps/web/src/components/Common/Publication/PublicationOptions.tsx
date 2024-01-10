@@ -46,7 +46,6 @@ import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import {
   BookmarkOutline,
   DropdownMenu,
-  DropdownMenuContent,
   DropdownMenuItem,
   ExternalOutline,
   FlagOutline,
@@ -385,147 +384,141 @@ const PublicationOptions: FC<Props> = ({
           )
         }
       >
-        <DropdownMenuContent
-          sideOffset={10}
-          className="tape-border rounded-xl bg-white p-2 dark:bg-black"
-          align="end"
-        >
-          <div className="flex w-40 flex-col transition duration-150 ease-in-out">
-            <DropdownMenuItem
-              onClick={(e) => {
-                e.preventDefault()
-                setShowShareModal(true)
-              }}
-              className="flex items-center justify-start space-x-2 rounded-md px-3 py-1.5 hover:bg-gray-500/20"
-            >
-              <div className="flex items-center gap-2">
-                <ShareOutline className="size-3.5" />
-                <p className="whitespace-nowrap">Share</p>
-              </div>
-            </DropdownMenuItem>
-            <Modal
-              size="sm"
-              title="Share"
-              show={showShareModal}
-              setShow={setShowShareModal}
-            >
-              <Share publication={publication} />
-            </Modal>
-            {isVideoOwner && (
-              <>
-                {pinnedVideoId !== publication.id && (
+        <div className="flex w-40 flex-col transition duration-150 ease-in-out">
+          <DropdownMenuItem
+            onClick={(e) => {
+              e.preventDefault()
+              setShowShareModal(true)
+            }}
+            className="flex items-center justify-start space-x-2 rounded-md px-3 py-1.5 hover:bg-gray-500/20"
+          >
+            <div className="flex items-center gap-2">
+              <ShareOutline className="size-3.5" />
+              <p className="whitespace-nowrap">Share</p>
+            </div>
+          </DropdownMenuItem>
+          <Modal
+            size="sm"
+            title="Share"
+            show={showShareModal}
+            setShow={setShowShareModal}
+          >
+            <Share publication={publication} />
+          </Modal>
+          {isVideoOwner && (
+            <>
+              {pinnedVideoId !== publication.id && (
+                <DropdownMenuItem
+                  disabled={!activeProfile?.id}
+                  onClick={() => onPinVideo()}
+                >
+                  <p className="flex items-center gap-2">
+                    <PinOutline className="size-3.5" />
+                    <span className="whitespace-nowrap">Pin Video</span>
+                  </p>
+                </DropdownMenuItem>
+              )}
+              <DropdownMenuItem
+                color="red"
+                onClick={() => setShowConfirm(true)}
+              >
+                <p className="flex items-center gap-2">
+                  <TrashOutline className="size-3.5" />
+                  <span className="whitespace-nowrap">Delete</span>
+                </p>
+              </DropdownMenuItem>
+            </>
+          )}
+
+          {!isVideoOwner && (
+            <>
+              <DropdownMenuItem
+                disabled={!activeProfile?.id}
+                onClick={() => saveToList()}
+              >
+                <p className="flex items-center gap-2">
+                  <BookmarkOutline className="size-3.5 flex-none" />
+                  <span className="truncate whitespace-nowrap">
+                    {publication.operations.hasBookmarked ? 'Unsave' : 'Save'}
+                  </span>
+                </p>
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                disabled={!activeProfile?.id}
+                onClick={() => notInterested()}
+              >
+                <p className="flex items-center gap-2">
+                  <ForbiddenOutline className="size-3.5" />
+                  <span className="whitespace-nowrap">
+                    {publication.operations.isNotInterested
+                      ? 'Interested'
+                      : 'Not Interested'}
+                  </span>
+                </p>
+              </DropdownMenuItem>
+              <Modal
+                title="Report"
+                show={showReportModal}
+                setShow={setShowReportModal}
+              >
+                <ReportPublication
+                  publication={publication}
+                  close={() => setShowReportModal(false)}
+                />
+              </Modal>
+              <DropdownMenuItem
+                className="!cursor-default rounded-md px-3 py-1.5 hover:bg-gray-500/20 disabled:opacity-40 disabled:hover:bg-inherit"
+                onClick={(e) => {
+                  e.preventDefault()
+                  onClickReport()
+                }}
+              >
+                <div className="flex items-center gap-2">
+                  <FlagOutline className="size-3.5" />
+                  <p className="whitespace-nowrap">Report</p>
+                </div>
+              </DropdownMenuItem>
+
+              {getIsIPFSUrl(publication.metadata.rawURI) ? (
+                <IPFSLink hash={getMetadataCid(publication)}>
                   <DropdownMenuItem
-                    disabled={!activeProfile?.id}
-                    onClick={() => onPinVideo()}
+                    onClick={() => Tower.track(EVENTS.CLICK_VIEW_METADATA)}
                   >
                     <p className="flex items-center gap-2">
-                      <PinOutline className="size-3.5" />
-                      <span className="whitespace-nowrap">Pin Video</span>
+                      <ExternalOutline className="size-3.5" />
+                      <span className="whitespace-nowrap">View metadata</span>
                     </p>
                   </DropdownMenuItem>
-                )}
-                <DropdownMenuItem
-                  color="red"
-                  onClick={() => setShowConfirm(true)}
-                >
-                  <p className="flex items-center gap-2">
-                    <TrashOutline className="size-3.5" />
-                    <span className="whitespace-nowrap">Delete</span>
-                  </p>
-                </DropdownMenuItem>
-              </>
-            )}
-
-            {!isVideoOwner && (
-              <>
-                <DropdownMenuItem
-                  disabled={!activeProfile?.id}
-                  onClick={() => saveToList()}
-                >
-                  <p className="flex items-center gap-2">
-                    <BookmarkOutline className="size-3.5 flex-none" />
-                    <span className="truncate whitespace-nowrap">
-                      {publication.operations.hasBookmarked ? 'Unsave' : 'Save'}
-                    </span>
-                  </p>
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  disabled={!activeProfile?.id}
-                  onClick={() => notInterested()}
-                >
-                  <p className="flex items-center gap-2">
-                    <ForbiddenOutline className="size-3.5" />
-                    <span className="whitespace-nowrap">
-                      {publication.operations.isNotInterested
-                        ? 'Interested'
-                        : 'Not Interested'}
-                    </span>
-                  </p>
-                </DropdownMenuItem>
-                <Modal
-                  title="Report"
-                  show={showReportModal}
-                  setShow={setShowReportModal}
-                >
-                  <ReportPublication
-                    publication={publication}
-                    close={() => setShowReportModal(false)}
-                  />
-                </Modal>
-                <DropdownMenuItem
-                  className="!cursor-default rounded-md px-3 py-1.5 hover:bg-gray-500/20 disabled:opacity-40 disabled:hover:bg-inherit"
-                  onClick={(e) => {
-                    e.preventDefault()
-                    onClickReport()
-                  }}
-                >
-                  <div className="flex items-center gap-2">
-                    <FlagOutline className="size-3.5" />
-                    <p className="whitespace-nowrap">Report</p>
-                  </div>
-                </DropdownMenuItem>
-
-                {getIsIPFSUrl(publication.metadata.rawURI) ? (
-                  <IPFSLink hash={getMetadataCid(publication)}>
-                    <DropdownMenuItem
-                      onClick={() => Tower.track(EVENTS.CLICK_VIEW_METADATA)}
-                    >
-                      <p className="flex items-center gap-2">
-                        <ExternalOutline className="size-3.5" />
-                        <span className="whitespace-nowrap">View metadata</span>
-                      </p>
-                    </DropdownMenuItem>
-                  </IPFSLink>
-                ) : (
-                  <ArweaveExplorerLink txId={getMetadataCid(publication)}>
-                    <DropdownMenuItem
-                      onClick={() => Tower.track(EVENTS.CLICK_VIEW_METADATA)}
-                    >
-                      <p className="flex items-center gap-2">
-                        <ExternalOutline className="size-3.5" />
-                        <span className="whitespace-nowrap">View metadata</span>
-                      </p>
-                    </DropdownMenuItem>
-                  </ArweaveExplorerLink>
-                )}
-                {publication.momoka?.proof && (
-                  <ArweaveExplorerLink
-                    txId={publication.momoka?.proof?.replace('ar://', '')}
+                </IPFSLink>
+              ) : (
+                <ArweaveExplorerLink txId={getMetadataCid(publication)}>
+                  <DropdownMenuItem
+                    onClick={() => Tower.track(EVENTS.CLICK_VIEW_METADATA)}
                   >
-                    <DropdownMenuItem
-                      onClick={() => Tower.track(EVENTS.CLICK_VIEW_PROOF)}
-                    >
-                      <p className="flex items-center gap-2">
-                        <ExternalOutline className="size-3.5" />
-                        <span className="whitespace-nowrap">View proof</span>
-                      </p>
-                    </DropdownMenuItem>
-                  </ArweaveExplorerLink>
-                )}
-              </>
-            )}
-          </div>
-        </DropdownMenuContent>
+                    <p className="flex items-center gap-2">
+                      <ExternalOutline className="size-3.5" />
+                      <span className="whitespace-nowrap">View metadata</span>
+                    </p>
+                  </DropdownMenuItem>
+                </ArweaveExplorerLink>
+              )}
+              {publication.momoka?.proof && (
+                <ArweaveExplorerLink
+                  txId={publication.momoka?.proof?.replace('ar://', '')}
+                >
+                  <DropdownMenuItem
+                    onClick={() => Tower.track(EVENTS.CLICK_VIEW_PROOF)}
+                  >
+                    <p className="flex items-center gap-2">
+                      <ExternalOutline className="size-3.5" />
+                      <span className="whitespace-nowrap">View proof</span>
+                    </p>
+                  </DropdownMenuItem>
+                </ArweaveExplorerLink>
+              )}
+            </>
+          )}
+        </div>
       </DropdownMenu>
     </>
   )

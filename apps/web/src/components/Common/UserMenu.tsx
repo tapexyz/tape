@@ -14,7 +14,6 @@ import {
   ChevronRightOutline,
   CogOutline,
   DropdownMenu,
-  DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuPortal,
   DropdownMenuSeparator,
@@ -86,124 +85,118 @@ const UserMenu = () => {
         </div>
       }
     >
-      <DropdownMenuContent
-        sideOffset={12}
-        align="end"
-        className="tape-border rounded-xl bg-white p-2 dark:bg-black"
-      >
-        <div className="w-44">
-          <Link href={getProfile(activeProfile)?.link}>
-            <div className="flex items-center gap-2 px-2 py-1 pb-3">
-              <img
-                src={getProfilePicture(activeProfile, 'AVATAR')}
-                alt={getProfile(activeProfile)?.displayName}
-                className="h-8 w-8 rounded-full"
-              />
-              <p className="line-clamp-1 font-semibold">
-                {getProfile(activeProfile)?.slug}
-              </p>
+      <div className="w-44">
+        <Link href={getProfile(activeProfile)?.link}>
+          <div className="flex items-center gap-2 px-2 py-1 pb-3">
+            <img
+              src={getProfilePicture(activeProfile, 'AVATAR')}
+              alt={getProfile(activeProfile)?.displayName}
+              className="h-8 w-8 rounded-full"
+            />
+            <p className="line-clamp-1 font-semibold">
+              {getProfile(activeProfile)?.slug}
+            </p>
+          </div>
+        </Link>
+        {isAdmin && (
+          <DropdownMenuItem onClick={() => push('/mod')}>
+            <div className="flex items-center gap-2">
+              <GraphOutline className="size-4" />
+              <p className="whitespace-nowrap">Mod</p>
             </div>
-          </Link>
-          {isAdmin && (
-            <DropdownMenuItem onClick={() => push('/mod')}>
+          </DropdownMenuItem>
+        )}
+        {activeProfile && (
+          <>
+            <DropdownMenuItem
+              onClick={() => push(getProfile(activeProfile)?.link)}
+            >
               <div className="flex items-center gap-2">
-                <GraphOutline className="size-4" />
-                <p className="whitespace-nowrap">Mod</p>
+                <UserOutline className="size-4" />
+                <p className="whitespace-nowrap">My Profile</p>
               </div>
             </DropdownMenuItem>
-          )}
-          {activeProfile && (
-            <>
-              <DropdownMenuItem
-                onClick={() => push(getProfile(activeProfile)?.link)}
-              >
-                <div className="flex items-center gap-2">
-                  <UserOutline className="size-4" />
-                  <p className="whitespace-nowrap">My Profile</p>
-                </div>
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => push('/bookmarks')}>
-                <div className="flex items-center gap-2">
-                  <BookmarkOutline className="size-4" />
-                  <p className="whitespace-nowrap">Bookmarks</p>
-                </div>
-              </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => push('/bookmarks')}>
+              <div className="flex items-center gap-2">
+                <BookmarkOutline className="size-4" />
+                <p className="whitespace-nowrap">Bookmarks</p>
+              </div>
+            </DropdownMenuItem>
 
-              {profilesManagedWithoutActiveProfile.length ? (
-                <DropdownMenuSub>
-                  <DropdownMenuSubTrigger className="flex justify-between">
-                    <div className="flex items-center gap-2">
-                      <SwitchProfileOutline className="size-4" />
-                      <p className="whitespace-nowrap">Switch Profile</p>
-                    </div>
-                    <ChevronRightOutline className="size-2.5" />
-                  </DropdownMenuSubTrigger>
-                  <DropdownMenuPortal>
-                    <DropdownMenuSubContent>
-                      {profilesManagedWithoutActiveProfile?.map(
-                        (profile) =>
-                          profile.id !== activeProfile.id && (
-                            <DropdownMenuItem
-                              key={profile.id}
-                              onClick={() =>
-                                push(`/login?as=${profile.id}&next=${asPath}`)
-                              }
-                            >
-                              <div className="flex items-center gap-2">
-                                <img
-                                  src={getProfilePicture(profile)}
-                                  className="size-4 rounded-full"
-                                  draggable={false}
-                                  alt={getProfile(activeProfile)?.displayName}
-                                />
-                                <p className="whitespace-nowrap">
-                                  {getProfile(profile)?.slug}
-                                </p>
-                              </div>
-                            </DropdownMenuItem>
-                          )
-                      )}
-                    </DropdownMenuSubContent>
-                  </DropdownMenuPortal>
-                </DropdownMenuSub>
-              ) : null}
-            </>
-          )}
-          <DropdownMenuItem onClick={() => push('/settings')}>
-            <div className="flex items-center gap-2">
-              <CogOutline className="size-4" />
-              <p className="whitespace-nowrap">My Settings</p>
-            </div>
-          </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem
-            onClick={() => {
-              const selected = theme === 'dark' ? 'light' : 'dark'
-              setTheme(selected)
-              Tower.track(EVENTS.SYSTEM.TOGGLE_THEME, {
-                selected_theme: selected
-              })
-            }}
-          >
-            <div className="flex items-center gap-2">
-              {theme === 'dark' ? (
-                <SunOutline className="size-4" />
-              ) : (
-                <MoonOutline className="size-4" />
-              )}
-              <p className="whitespace-nowrap">
-                {theme === 'light' ? `Switch to Dark` : `Switch to Light`}
-              </p>
-            </div>
-          </DropdownMenuItem>
-          <DropdownMenuItem disabled={loading} onClick={() => onClickSignout()}>
-            <div className="flex items-center gap-2 text-red-500">
-              <HandWaveOutline className="size-4" />
-              <p className="whitespace-nowrap">Sign out</p>
-            </div>
-          </DropdownMenuItem>
-        </div>
-      </DropdownMenuContent>
+            {profilesManagedWithoutActiveProfile.length ? (
+              <DropdownMenuSub>
+                <DropdownMenuSubTrigger className="flex justify-between">
+                  <div className="flex items-center gap-2">
+                    <SwitchProfileOutline className="size-4" />
+                    <p className="whitespace-nowrap">Switch Profile</p>
+                  </div>
+                  <ChevronRightOutline className="size-2.5" />
+                </DropdownMenuSubTrigger>
+                <DropdownMenuPortal>
+                  <DropdownMenuSubContent>
+                    {profilesManagedWithoutActiveProfile?.map(
+                      (profile) =>
+                        profile.id !== activeProfile.id && (
+                          <DropdownMenuItem
+                            key={profile.id}
+                            onClick={() =>
+                              push(`/login?as=${profile.id}&next=${asPath}`)
+                            }
+                          >
+                            <div className="flex items-center gap-2">
+                              <img
+                                src={getProfilePicture(profile)}
+                                className="size-4 rounded-full"
+                                draggable={false}
+                                alt={getProfile(activeProfile)?.displayName}
+                              />
+                              <p className="whitespace-nowrap">
+                                {getProfile(profile)?.slug}
+                              </p>
+                            </div>
+                          </DropdownMenuItem>
+                        )
+                    )}
+                  </DropdownMenuSubContent>
+                </DropdownMenuPortal>
+              </DropdownMenuSub>
+            ) : null}
+          </>
+        )}
+        <DropdownMenuItem onClick={() => push('/settings')}>
+          <div className="flex items-center gap-2">
+            <CogOutline className="size-4" />
+            <p className="whitespace-nowrap">My Settings</p>
+          </div>
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem
+          onClick={() => {
+            const selected = theme === 'dark' ? 'light' : 'dark'
+            setTheme(selected)
+            Tower.track(EVENTS.SYSTEM.TOGGLE_THEME, {
+              selected_theme: selected
+            })
+          }}
+        >
+          <div className="flex items-center gap-2">
+            {theme === 'dark' ? (
+              <SunOutline className="size-4" />
+            ) : (
+              <MoonOutline className="size-4" />
+            )}
+            <p className="whitespace-nowrap">
+              {theme === 'light' ? `Switch to Dark` : `Switch to Light`}
+            </p>
+          </div>
+        </DropdownMenuItem>
+        <DropdownMenuItem disabled={loading} onClick={() => onClickSignout()}>
+          <div className="flex items-center gap-2 text-red-500">
+            <HandWaveOutline className="size-4" />
+            <p className="whitespace-nowrap">Sign out</p>
+          </div>
+        </DropdownMenuItem>
+      </div>
     </DropdownMenu>
   )
 }

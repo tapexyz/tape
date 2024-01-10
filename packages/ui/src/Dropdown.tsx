@@ -111,7 +111,15 @@ export const DropdownMenu: FC<DropdownMenuProps> = ({ trigger, children }) => {
       <DropdownMenuPrimitive.Trigger className="outline-none">
         {trigger}
       </DropdownMenuPrimitive.Trigger>
-      <DropdownMenuPortal>{children}</DropdownMenuPortal>
+      <DropdownMenuPortal>
+        <DropdownMenuContent
+          sideOffset={12}
+          align="end"
+          className="tape-border z-10 rounded-xl bg-white p-2 shadow dark:bg-black"
+        >
+          {children}
+        </DropdownMenuContent>
+      </DropdownMenuPortal>
     </DropdownMenuPrimitive.Root>
   )
 }

@@ -39,7 +39,6 @@ import {
   Badge as BadgeUI,
   Callout,
   DropdownMenu,
-  DropdownMenuContent,
   DropdownMenuItem,
   FlagOutline,
   LinkOutline,
@@ -310,64 +309,58 @@ const BasicInfo: FC<Props> = ({ profile }) => {
         </div>
         <div className="flex items-center gap-3">
           <DropdownMenu trigger={<ThreeDotsOutline className="size-4" />}>
-            <DropdownMenuContent
-              sideOffset={10}
-              className="tape-border rounded-xl bg-white p-2 dark:bg-black"
-              align="end"
+            <DropdownMenuItem
+              onClick={() =>
+                copy(`${TAPE_WEBSITE_URL}${getProfile(profile).link}`)
+              }
             >
-              <DropdownMenuItem
-                onClick={() =>
-                  copy(`${TAPE_WEBSITE_URL}${getProfile(profile).link}`)
-                }
-              >
-                <div className="flex items-center gap-2">
-                  <LinkOutline className="size-3.5" />
-                  <span className="whitespace-nowrap">Permalink</span>
-                </div>
-              </DropdownMenuItem>
+              <div className="flex items-center gap-2">
+                <LinkOutline className="size-3.5" />
+                <span className="whitespace-nowrap">Permalink</span>
+              </div>
+            </DropdownMenuItem>
 
-              {activeProfile?.id && (
-                <>
-                  <DropdownMenuItem
-                    onClick={(e) => {
-                      e.preventDefault()
-                      setShowReportModal(true)
-                    }}
-                    className="rounded-md px-3 py-1.5 hover:bg-gray-500/20"
-                  >
-                    <div className="flex items-center gap-2">
-                      <FlagOutline className="size-3.5" />
-                      <p className="whitespace-nowrap">Report</p>
-                    </div>
-                  </DropdownMenuItem>
-                  <Modal
-                    size="sm"
-                    title={`Report ${getProfile(profile)?.slugWithPrefix}`}
-                    show={showReportModal}
-                    setShow={setShowReportModal}
-                  >
-                    <ReportProfile
-                      profile={profile}
-                      close={() => setShowReportModal(false)}
-                    />
-                  </Modal>
-                </>
-              )}
-
-              {profile.operations.canBlock && (
+            {activeProfile?.id && (
+              <>
                 <DropdownMenuItem
-                  disabled={loading}
-                  onClick={() => toggleBlockProfile()}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    setShowReportModal(true)
+                  }}
+                  className="rounded-md px-3 py-1.5 hover:bg-gray-500/20"
                 >
-                  <div className="flex items-center gap-2 text-red-500">
-                    <ProfileBanOutline className="size-4" />
-                    <span className="whitespace-nowrap">
-                      {isBlockedByMe ? 'Unblock' : 'Block'}
-                    </span>
+                  <div className="flex items-center gap-2">
+                    <FlagOutline className="size-3.5" />
+                    <p className="whitespace-nowrap">Report</p>
                   </div>
                 </DropdownMenuItem>
-              )}
-            </DropdownMenuContent>
+                <Modal
+                  size="sm"
+                  title={`Report ${getProfile(profile)?.slugWithPrefix}`}
+                  show={showReportModal}
+                  setShow={setShowReportModal}
+                >
+                  <ReportProfile
+                    profile={profile}
+                    close={() => setShowReportModal(false)}
+                  />
+                </Modal>
+              </>
+            )}
+
+            {profile.operations.canBlock && (
+              <DropdownMenuItem
+                disabled={loading}
+                onClick={() => toggleBlockProfile()}
+              >
+                <div className="flex items-center gap-2 text-red-500">
+                  <ProfileBanOutline className="size-4" />
+                  <span className="whitespace-nowrap">
+                    {isBlockedByMe ? 'Unblock' : 'Block'}
+                  </span>
+                </div>
+              </DropdownMenuItem>
+            )}
           </DropdownMenu>
           <FollowActions profile={profile} />
         </div>
