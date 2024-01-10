@@ -69,7 +69,6 @@ const MutualFollowers: FC<Props> = ({ viewing }) => {
           <span className="inline-flex">
             <HoverableProfile
               profile={profile}
-              fontSize="3"
               pfp={
                 <img
                   src={getProfilePicture(profile, 'AVATAR')}

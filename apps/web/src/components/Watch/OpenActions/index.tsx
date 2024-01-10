@@ -5,7 +5,6 @@ import {
   AccordionItem,
   AccordionTrigger
 } from '@radix-ui/react-accordion'
-import { ScrollArea } from '@radix-ui/themes'
 import { formatNumber, getPublication } from '@tape.xyz/generic'
 import isOpenActionAllowed from '@tape.xyz/generic/functions/isOpenActionAllowed'
 import { type AnyPublication, type OpenActionModule } from '@tape.xyz/lens'
@@ -82,11 +81,7 @@ const OpenActions: FC<Props> = ({ publication, text, children }) => {
         show={showActionModal}
         setShow={setShowActionModal}
       >
-        <ScrollArea
-          type="hover"
-          scrollbars="vertical"
-          style={{ maxHeight: 500 }}
-        >
+        <div className="no-scrollbar max-h-[70vh] overflow-y-auto">
           <Accordion
             type="single"
             className="w-full space-y-2"
@@ -97,7 +92,7 @@ const OpenActions: FC<Props> = ({ publication, text, children }) => {
               return <div key={i}>{renderAction(action)}</div>
             })}
           </Accordion>
-        </ScrollArea>
+        </div>
       </Modal>
     </>
   )

@@ -1,5 +1,5 @@
 import MetaTags from '@components/Common/MetaTags'
-import { Box, Tabs } from '@radix-ui/themes'
+import * as Tabs from '@radix-ui/react-tabs'
 import React from 'react'
 
 import LensManager from './LensManager'
@@ -14,18 +14,28 @@ const ProfileManager = () => {
 
       <Tabs.Root defaultValue="managers">
         <Tabs.List>
-          <Tabs.Trigger value="managers">Managers</Tabs.Trigger>
-          <Tabs.Trigger value="managed">Managed</Tabs.Trigger>
+          <Tabs.Trigger
+            className="rounded-t-lg border-black px-4 py-1.5 text-sm font-medium data-[state=active]:border-b data-[state=active]:bg-gray-100 dark:border-white data-[state=active]:dark:bg-gray-800"
+            value="managers"
+          >
+            Managers
+          </Tabs.Trigger>
+          <Tabs.Trigger
+            className="rounded-t-lg border-black px-4 py-1.5 text-sm font-medium data-[state=active]:border-b data-[state=active]:bg-gray-100 dark:border-white data-[state=active]:dark:bg-gray-800"
+            value="managed"
+          >
+            Managed
+          </Tabs.Trigger>
         </Tabs.List>
 
-        <Box pt="3" pb="2">
+        <div className="pb-2 pt-3">
           <Tabs.Content value="managers">
             <Managers />
           </Tabs.Content>
           <Tabs.Content value="managed">
             <Managed />
           </Tabs.Content>
-        </Box>
+        </div>
       </Tabs.Root>
     </div>
   )

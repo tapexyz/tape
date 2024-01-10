@@ -71,7 +71,6 @@ const Followers: FC<Props> = ({ stats, profileId }) => {
                 <span className="inline-flex">
                   <HoverableProfile
                     profile={profile}
-                    fontSize="3"
                     pfp={
                       <img
                         src={getProfilePicture(profile, 'AVATAR')}

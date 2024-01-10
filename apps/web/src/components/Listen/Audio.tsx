@@ -57,7 +57,6 @@ const Audio: FC<Props> = ({ audio }) => {
             <div>
               <HoverableProfile
                 profile={audio.by}
-                fontSize="3"
                 pfp={
                   <img
                     src={getProfilePicture(audio.by, 'AVATAR')}

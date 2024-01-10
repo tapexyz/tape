@@ -24,7 +24,6 @@ const VideoMeta: FC<Props> = ({ video }) => {
   return (
     <div className="mt-2 flex flex-wrap items-center">
       <HoverableProfile
-        fontSize="3"
         profile={video.by}
         pfp={
           <img

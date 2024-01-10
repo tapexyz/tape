@@ -3,7 +3,6 @@ import HoverableProfile from '@components/Common/HoverableProfile'
 import MetaTags from '@components/Common/MetaTags'
 import Stats from '@components/Profile/BasicInfo/Stats'
 import useProfileStore from '@lib/store/idb/profile'
-import { Avatar } from '@radix-ui/themes'
 import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import React from 'react'
 
@@ -24,13 +23,11 @@ const DangerZone = () => {
         <div className="flex items-center">
           <div className="mr-3 mt-0.5 flex-none">
             <HoverableProfile profile={activeProfile}>
-              <Avatar
+              <img
                 src={getProfilePicture(activeProfile, 'AVATAR')}
-                fallback={getProfile(activeProfile)?.displayName[0] ?? ';)'}
-                radius="full"
-                className="size-9 rounded-full"
-                draggable={false}
+                className="size-10 rounded-full"
                 alt={getProfile(activeProfile)?.displayName}
+                draggable={false}
               />
             </HoverableProfile>
           </div>

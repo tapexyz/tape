@@ -1,9 +1,8 @@
 import { getCollectModuleConfig } from '@lib/getCollectModuleInput'
-import { Button } from '@radix-ui/themes'
 import type { ApprovedAllowanceAmountResult } from '@tape.xyz/lens'
 import { useGenerateModuleCurrencyApprovalDataLazyQuery } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { Loader } from '@tape.xyz/ui'
+import { Button, Loader } from '@tape.xyz/ui'
 import type { Dispatch, FC } from 'react'
 import React from 'react'
 import toast from 'react-hot-toast'
@@ -72,9 +71,9 @@ const PermissionAlert: FC<Props> = ({
   return (
     <div className="flex justify-end">
       <Button
+        loading={processing}
         disabled={processing}
         onClick={() => handleAllowance()}
-        highContrast
       >
         {processing && <Loader size="sm" />}
         Allow Collect

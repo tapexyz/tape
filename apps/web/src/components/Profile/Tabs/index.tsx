@@ -1,4 +1,4 @@
-import { Box, Tabs } from '@radix-ui/themes'
+import * as Tabs from '@radix-ui/react-tabs'
 import { EVENTS, getProfile, Tower } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { useRouter } from 'next/router'
@@ -32,6 +32,7 @@ const ProfileTabs: FC<Props> = ({ profile }) => {
       <Tabs.Root defaultValue={activeTab}>
         <Tabs.List>
           <Tabs.Trigger
+            className="rounded-t-lg border-black px-4 py-1.5 text-sm font-medium data-[state=active]:border-b data-[state=active]:bg-gray-100 dark:border-white data-[state=active]:dark:bg-gray-800"
             onClick={() => {
               handleTabChange('videos')
               Tower.track(EVENTS.PROFILE.CLICK_PROFILE_VIDEOS)
@@ -41,6 +42,7 @@ const ProfileTabs: FC<Props> = ({ profile }) => {
             Videos
           </Tabs.Trigger>
           <Tabs.Trigger
+            className="rounded-t-lg border-black px-4 py-1.5 text-sm font-medium data-[state=active]:border-b data-[state=active]:bg-gray-100 dark:border-white data-[state=active]:dark:bg-gray-800"
             onClick={() => {
               handleTabChange('audios')
               Tower.track(EVENTS.PROFILE.CLICK_PROFILE_AUDIOS)
@@ -50,6 +52,7 @@ const ProfileTabs: FC<Props> = ({ profile }) => {
             Audios
           </Tabs.Trigger>
           <Tabs.Trigger
+            className="rounded-t-lg border-black px-4 py-1.5 text-sm font-medium data-[state=active]:border-b data-[state=active]:bg-gray-100 dark:border-white data-[state=active]:dark:bg-gray-800"
             onClick={() => {
               handleTabChange('bytes')
               Tower.track(EVENTS.PROFILE.CLICK_PROFILE_BYTES)
@@ -59,6 +62,7 @@ const ProfileTabs: FC<Props> = ({ profile }) => {
             Bytes
           </Tabs.Trigger>
           <Tabs.Trigger
+            className="rounded-t-lg border-black px-4 py-1.5 text-sm font-medium data-[state=active]:border-b data-[state=active]:bg-gray-100 dark:border-white data-[state=active]:dark:bg-gray-800"
             onClick={() => {
               handleTabChange('channels')
               Tower.track(EVENTS.PROFILE.CLICK_OTHER_PROFILES)
@@ -69,7 +73,7 @@ const ProfileTabs: FC<Props> = ({ profile }) => {
           </Tabs.Trigger>
         </Tabs.List>
 
-        <Box pt="3">
+        <div className="pt-3">
           <Tabs.Content value="videos">
             <ProfileVideos profile={profile} />
           </Tabs.Content>
@@ -85,7 +89,7 @@ const ProfileTabs: FC<Props> = ({ profile }) => {
           <Tabs.Content value="channels">
             <OtherProfiles currentProfile={profile} />
           </Tabs.Content>
-        </Box>
+        </div>
       </Tabs.Root>
     </div>
   )

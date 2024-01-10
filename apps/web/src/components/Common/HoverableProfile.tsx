@@ -1,6 +1,6 @@
 import Stats from '@components/Profile/BasicInfo/Stats'
 import useProfileStore from '@lib/store/idb/profile'
-import { Avatar, HoverCard, Inset, Text } from '@radix-ui/themes'
+import * as HoverCard from '@radix-ui/react-hover-card'
 import {
   getProfile,
   getProfileCoverPicture,
@@ -18,17 +18,11 @@ import FollowActions from './FollowActions'
 
 type Props = {
   profile: Profile
-  fontSize?: '1' | '2' | '3' | '4' | '5'
   children?: ReactElement
   pfp?: ReactElement
 }
 
-const HoverableProfile: FC<Props> = ({
-  profile,
-  fontSize = '2',
-  children,
-  pfp
-}) => {
+const HoverableProfile: FC<Props> = ({ profile, children, pfp }) => {
   const activeProfile = useProfileStore((state) => state.activeProfile)
   const isMyProfile = activeProfile?.id === profile.id
 
@@ -39,16 +33,14 @@ const HoverableProfile: FC<Props> = ({
           <Link href={getProfile(profile)?.link}>
             <div className="flex items-center gap-1">
               {pfp}
-              <Text size={fontSize} highContrast>
-                {getProfile(profile)?.slug}
-              </Text>
+              <span>{getProfile(profile)?.slug}</span>
               <Badge id={profile?.id} size="xs" />
             </div>
           </Link>
         )}
       </HoverCard.Trigger>
-      <HoverCard.Content className="w-80">
-        <Inset side="top" pb="current">
+      <HoverCard.Content className="tape-border z-10 w-80 overflow-hidden rounded-lg bg-white shadow dark:bg-black">
+        <div className="inset-0">
           <div
             style={{
               backgroundImage: `url(${imageCdn(
@@ -58,13 +50,11 @@ const HoverableProfile: FC<Props> = ({
             className="bg-brand-500 relative h-24 w-full bg-cover bg-center bg-no-repeat"
           >
             <div className="absolute bottom-3 left-3 flex-none">
-              <Avatar
-                className="border-2 border-white bg-white object-cover dark:bg-gray-900"
+              <img
+                className="size-10 rounded-lg border-2 border-white bg-white object-cover dark:bg-gray-900"
                 src={getProfilePicture(profile, 'AVATAR')}
-                size="4"
-                fallback={getProfile(profile)?.displayName[0] ?? ';)'}
-                radius="large"
                 alt={getProfile(activeProfile)?.displayName}
+                draggable={false}
               />
             </div>
             <div className="absolute bottom-3 right-3 flex-none">
@@ -73,8 +63,8 @@ const HoverableProfile: FC<Props> = ({
               ) : null}
             </div>
           </div>
-        </Inset>
-        <div>
+        </div>
+        <div className="p-4">
           <Link
             href={getProfile(profile)?.link}
             className="flex items-center space-x-1"

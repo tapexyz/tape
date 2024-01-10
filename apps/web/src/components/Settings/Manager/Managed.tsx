@@ -1,7 +1,6 @@
 import Badge from '@components/Common/Badge'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useProfileStore from '@lib/store/idb/profile'
-import { Avatar } from '@radix-ui/themes'
 import { INFINITE_SCROLL_ROOT_MARGIN } from '@tape.xyz/constants'
 import {
   formatNumber,
@@ -71,13 +70,11 @@ const Managed = () => {
                   className="bg-brand-500 relative h-20 w-full bg-cover bg-center bg-no-repeat"
                 >
                   <div className="absolute bottom-3 left-3 flex-none">
-                    <Avatar
-                      className="border-2 border-white bg-white object-cover dark:bg-gray-900"
-                      size="3"
-                      fallback={getProfile(profile)?.displayName[0] ?? ';)'}
-                      radius="medium"
+                    <img
+                      className="size-10 rounded-full border-2 border-white bg-white object-cover dark:bg-gray-900"
                       src={getProfilePicture(profile, 'AVATAR')}
                       alt={getProfile(profile)?.displayName}
+                      draggable={false}
                     />
                   </div>
                 </div>
