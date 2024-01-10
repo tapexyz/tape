@@ -69,14 +69,9 @@ import Share from '../VideoCard/Share'
 type Props = {
   publication: PrimaryPublication
   children?: ReactNode
-  variant?: 'soft' | 'solid' | 'classic' | 'surface' | 'outline' | 'ghost'
 }
 
-const PublicationOptions: FC<Props> = ({
-  publication,
-  variant = 'ghost',
-  children
-}) => {
+const PublicationOptions: FC<Props> = ({ publication, children }) => {
   const handleWrongNetwork = useHandleWrongNetwork()
   const [showConfirm, setShowConfirm] = useState(false)
   const [showShareModal, setShowShareModal] = useState(false)

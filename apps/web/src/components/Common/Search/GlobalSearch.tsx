@@ -106,7 +106,7 @@ const GlobalSearch = () => {
   )
 
   const Content = () => (
-    <div className="laptop:w-[800px] absolute -top-4 right-0 z-20 w-[500px] rounded-full">
+    <div className="laptop:w-[800px] absolute -top-[18px] right-0 z-20 w-[500px] rounded-full">
       <Input
         autoFocus
         type="search"

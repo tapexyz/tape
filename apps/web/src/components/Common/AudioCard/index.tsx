@@ -27,7 +27,7 @@ const AudioCard: FC<Props> = ({ audio }) => {
           className="absolute right-2 top-2"
           onClick={(e) => e.stopPropagation()}
         >
-          <PublicationOptions publication={audio} variant="solid" />
+          <PublicationOptions publication={audio} />
         </div>
       </Link>
     </div>
