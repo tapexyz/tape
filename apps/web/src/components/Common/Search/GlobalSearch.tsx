@@ -20,7 +20,7 @@ import {
   useSearchProfilesLazyQuery,
   useSearchPublicationsLazyQuery
 } from '@tape.xyz/lens'
-import { Input, Loader, SearchOutline } from '@tape.xyz/ui'
+import { Input, SearchOutline, Spinner } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import React, { useEffect, useRef, useState } from 'react'
 
@@ -124,7 +124,7 @@ const GlobalSearch = () => {
           <div className="p-4">
             {profilesLoading || publicationsLoading ? (
               <div className="flex justify-center p-5">
-                <Loader />
+                <Spinner />
               </div>
             ) : (
               <>

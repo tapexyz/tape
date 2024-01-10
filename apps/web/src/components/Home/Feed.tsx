@@ -22,7 +22,7 @@ import {
   PublicationMetadataMainFocusType,
   useExplorePublicationsQuery
 } from '@tape.xyz/lens'
-import { Loader } from '@tape.xyz/ui'
+import { Spinner } from '@tape.xyz/ui'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 
@@ -79,7 +79,7 @@ const Feed = ({ showFilter = true }) => {
             <Timeline videos={videos} />
             {pageInfo?.next && (
               <span ref={observe} className="flex justify-center p-10">
-                <Loader />
+                <Spinner />
               </span>
             )}
           </>

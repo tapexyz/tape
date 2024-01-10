@@ -3,7 +3,7 @@ import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { formatNumber, getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { FollowersRequest, Profile, ProfileStats } from '@tape.xyz/lens'
 import { LimitType, useFollowersQuery } from '@tape.xyz/lens'
-import { Loader, Modal } from '@tape.xyz/ui'
+import { Modal, Spinner } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
@@ -59,7 +59,7 @@ const Followers: FC<Props> = ({ stats, profileId }) => {
         setShow={setShowModal}
       >
         <div className="no-scrollbar max-h-[70vh] overflow-y-auto">
-          {loading && <Loader />}
+          {loading && <Spinner />}
           {followers?.length === 0 && (
             <div className="pt-5">
               <NoDataFound withImage isCenter />
@@ -86,7 +86,7 @@ const Followers: FC<Props> = ({ stats, profileId }) => {
           </div>
           {pageInfo?.next && (
             <span ref={observe} className="p-5">
-              <Loader />
+              <Spinner />
             </span>
           )}
         </div>

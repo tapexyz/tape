@@ -11,7 +11,7 @@ import {
   useGenerateModuleCurrencyApprovalDataLazyQuery
 } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { Button, Loader, Select, SelectItem } from '@tape.xyz/ui'
+import { Button, Select, SelectItem, Spinner } from '@tape.xyz/ui'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useSendTransaction, useWaitForTransaction } from 'wagmi'
@@ -130,7 +130,7 @@ const ModuleAllowance = () => {
         )}
         {gettingSettings && (
           <div className="grid h-24 place-items-center">
-            <Loader />
+            <Spinner />
           </div>
         )}
         {!gettingSettings &&

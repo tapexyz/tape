@@ -24,7 +24,7 @@ import {
   useCreateSetFollowModuleTypedDataMutation
 } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { Button, Loader } from '@tape.xyz/ui'
+import { Button, Spinner } from '@tape.xyz/ui'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useContractWrite, useSignTypedData } from 'wagmi'
@@ -165,7 +165,7 @@ const RevertFollow = ({ profile }: Props) => {
             disabled={loading}
             onClick={() => toggleRevert(true)}
           >
-            {loading && <Loader size="sm" />}
+            {loading && <Spinner size="sm" />}
             Disable Follow
           </Button>
         )}

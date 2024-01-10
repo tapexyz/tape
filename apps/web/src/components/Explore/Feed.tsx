@@ -27,8 +27,8 @@ import {
   Button,
   CommentOutline,
   FireOutline,
-  Loader,
-  MirrorOutline
+  MirrorOutline,
+  Spinner
 } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import React, { useState } from 'react'
@@ -163,7 +163,7 @@ const ExploreFeed = () => {
             <Timeline videos={videos} />
             {pageInfo?.next && (
               <span ref={observe} className="flex justify-center p-10">
-                <Loader />
+                <Spinner />
               </span>
             )}
           </>

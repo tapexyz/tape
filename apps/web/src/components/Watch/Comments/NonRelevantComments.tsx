@@ -14,7 +14,7 @@ import {
   LimitType,
   usePublicationsQuery
 } from '@tape.xyz/lens'
-import { ChevronDownOutline, ChevronUpOutline, Loader } from '@tape.xyz/ui'
+import { ChevronDownOutline, ChevronUpOutline, Spinner } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
@@ -102,7 +102,7 @@ const NonRelevantComments: FC<Props> = ({ video, className }) => {
           </div>
           {pageInfo?.next && (
             <span ref={observe} className="flex justify-center p-10">
-              <Loader />
+              <Spinner />
             </span>
           )}
         </>

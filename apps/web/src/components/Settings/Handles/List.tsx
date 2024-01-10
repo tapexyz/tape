@@ -2,7 +2,7 @@ import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { INFINITE_SCROLL_ROOT_MARGIN } from '@tape.xyz/constants'
 import type { HandleInfo, OwnedHandlesRequest } from '@tape.xyz/lens'
 import { useOwnedHandlesQuery } from '@tape.xyz/lens'
-import { Loader } from '@tape.xyz/ui'
+import { Spinner } from '@tape.xyz/ui'
 import Link from 'next/link'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
@@ -38,7 +38,7 @@ const List = () => {
 
   return (
     <div>
-      {loading && <Loader className="my-10" />}
+      {loading && <Spinner className="my-10" />}
       {(!loading && !ownedHandles?.length) || error ? (
         <NoDataFound withImage isCenter />
       ) : null}
@@ -61,7 +61,7 @@ const List = () => {
         ))}
         {pageInfo?.next && (
           <span ref={observe} className="flex justify-center p-10">
-            <Loader />
+            <Spinner />
           </span>
         )}
       </div>

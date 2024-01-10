@@ -3,7 +3,7 @@ import { LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
 import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { LimitType, useSearchProfilesLazyQuery } from '@tape.xyz/lens'
-import { Loader, TextArea } from '@tape.xyz/ui'
+import { Spinner, TextArea } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import type { ComponentProps, FC } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
@@ -151,7 +151,7 @@ const InputMentions: FC<TextAreaProps> = ({
           className="rounded-medium tape-border absolute z-10 mt-10 space-y-1 bg-white p-1.5 dark:bg-black"
         >
           {loading ? (
-            <Loader />
+            <Spinner />
           ) : (
             profiles?.map((profile: Profile, index) => (
               <div key={profile.id} className="w-48" tabIndex={-1}>

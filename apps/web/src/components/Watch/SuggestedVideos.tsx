@@ -20,7 +20,7 @@ import {
   PublicationMetadataMainFocusType,
   useExplorePublicationsQuery
 } from '@tape.xyz/lens'
-import { Loader } from '@tape.xyz/ui'
+import { Spinner } from '@tape.xyz/ui'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { useInView } from 'react-cool-inview'
@@ -98,7 +98,7 @@ const SuggestedVideos = () => {
           </div>
           {pageInfo?.next && (
             <span ref={observe} className="flex justify-center p-10">
-              <Loader />
+              <Spinner />
             </span>
           )}
         </div>

@@ -31,7 +31,7 @@ import {
   useProfileFollowModuleQuery
 } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { Button, Input, Loader, Select, SelectItem } from '@tape.xyz/ui'
+import { Button, Input, Select, SelectItem, Spinner } from '@tape.xyz/ui'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -213,7 +213,7 @@ const FeeFollow = ({ profile }: Props) => {
       </div>
       {moduleLoading && (
         <div className="py-5">
-          <Loader size="sm" />
+          <Spinner size="sm" />
         </div>
       )}
 

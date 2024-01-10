@@ -17,7 +17,7 @@ import {
 } from '@tape.xyz/generic'
 import type { Profile, RecipientDataInput } from '@tape.xyz/lens'
 import { LimitType, useSearchProfilesLazyQuery } from '@tape.xyz/lens'
-import { InfoOutline, Input, Loader, TimesOutline } from '@tape.xyz/ui'
+import { InfoOutline, Input, Spinner, TimesOutline } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import type { FC, RefObject } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
@@ -179,7 +179,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
                 ref={resultsRef}
                 className="tape-border z-10 mt-1 w-full overflow-hidden rounded-md bg-white focus:outline-none md:absolute dark:bg-black"
               >
-                {profilesLoading && <Loader className="my-4" />}
+                {profilesLoading && <Spinner className="my-4" />}
                 {!profiles?.length && !profilesLoading ? (
                   <NoDataFound isCenter text="No profiles found" />
                 ) : null}

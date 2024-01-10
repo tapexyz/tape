@@ -22,7 +22,7 @@ import {
   usePublicationsQuery
 } from '@tape.xyz/lens'
 import { CustomCommentsFilterEnum } from '@tape.xyz/lens/custom-types'
-import { CommentOutline, Loader } from '@tape.xyz/ui'
+import { CommentOutline, Spinner } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
@@ -158,7 +158,7 @@ const PublicationComments: FC<Props> = ({ publication, hideTitle = false }) => {
               </div>
               {pageInfo?.next && (
                 <span ref={observe} className="flex justify-center p-10">
-                  <Loader />
+                  <Spinner />
                 </span>
               )}
             </>

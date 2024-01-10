@@ -26,7 +26,7 @@ import {
   useProfileManagersQuery
 } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { Button, ExternalOutline, Input, Loader, Modal } from '@tape.xyz/ui'
+import { Button, ExternalOutline, Input, Modal, Spinner } from '@tape.xyz/ui'
 import React, { useEffect, useMemo, useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import { useForm } from 'react-hook-form'
@@ -297,7 +297,7 @@ const Managers = () => {
         </Modal>
       </div>
       <div className="mt-3">
-        {loading && <Loader className="my-10" />}
+        {loading && <Spinner className="my-10" />}
         {(!loading && !profileManagersWithoutLensManager?.length) || error ? (
           <NoDataFound withImage isCenter />
         ) : null}
@@ -315,7 +315,7 @@ const Managers = () => {
         ) : null}
         {pageInfo?.next && (
           <span ref={observe} className="flex justify-center p-10">
-            <Loader />
+            <Spinner />
           </span>
         )}
       </div>

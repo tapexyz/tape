@@ -21,7 +21,7 @@ import {
   useExplorePublicationsLazyQuery,
   usePublicationLazyQuery
 } from '@tape.xyz/lens'
-import { ChevronDownOutline, ChevronUpOutline, Loader } from '@tape.xyz/ui'
+import { ChevronDownOutline, ChevronUpOutline, Spinner } from '@tape.xyz/ui'
 import { useKeenSlider } from 'keen-slider/react'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
@@ -122,7 +122,7 @@ const Bytes = () => {
   if (loading || singleByteLoading) {
     return (
       <div className="grid h-[80vh] place-items-center">
-        <Loader />
+        <Spinner />
       </div>
     )
   }
@@ -163,7 +163,7 @@ const Bytes = () => {
       </div>
       {pageInfo?.next && (
         <span ref={observe} className="flex justify-center p-10">
-          <Loader />
+          <Spinner />
         </span>
       )}
       <div className="laptop:right-6 ultrawide:right-8 bottom-3 right-4 hidden flex-col space-y-2 md:absolute md:flex">

@@ -38,7 +38,7 @@ import type {
   CustomErrorWithData,
   IPFSUploadResult
 } from '@tape.xyz/lens/custom-types'
-import { AddImageOutline, Button, Input, Loader, TextArea } from '@tape.xyz/ui'
+import { AddImageOutline, Button, Input, Spinner, TextArea } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -293,7 +293,7 @@ const BasicInfo = ({ profile }: Props) => {
       <div className="relative w-full flex-none">
         {uploading.cover && (
           <div className="rounded-small absolute z-10 flex h-full w-full items-center justify-center bg-black opacity-40">
-            <Loader />
+            <Spinner />
           </div>
         )}
         <img
@@ -351,7 +351,7 @@ const BasicInfo = ({ profile }: Props) => {
               )}
             >
               {uploading.pfp ? (
-                <Loader />
+                <Spinner />
               ) : (
                 <AddImageOutline className="size-5" />
               )}

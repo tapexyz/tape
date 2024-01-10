@@ -2,7 +2,7 @@ import ThumbnailsShimmer from '@components/Shimmers/ThumbnailsShimmer'
 import useAppStore from '@lib/store'
 import { generateVideoThumbnails } from '@tape.xyz/browser'
 import { logger } from '@tape.xyz/generic'
-import { AddImageOutline, CheckOutline, Loader } from '@tape.xyz/ui'
+import { AddImageOutline, CheckOutline, Spinner } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import type { ChangeEvent, FC } from 'react'
 import React, { useEffect, useState } from 'react'
@@ -134,7 +134,7 @@ const ChooseThumbnail: FC<Props> = ({ file }) => {
             {uploadedMedia.uploadingThumbnail &&
               selectedThumbnailIndex === idx && (
                 <div className="absolute inset-0 grid place-items-center bg-gray-100 bg-opacity-10 backdrop-blur-md">
-                  <Loader size="sm" />
+                  <Spinner size="sm" />
                 </div>
               )}
           </button>

@@ -2,7 +2,7 @@ import { getCollectModuleConfig } from '@lib/getCollectModuleInput'
 import type { ApprovedAllowanceAmountResult } from '@tape.xyz/lens'
 import { useGenerateModuleCurrencyApprovalDataLazyQuery } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { Button, Loader } from '@tape.xyz/ui'
+import { Button } from '@tape.xyz/ui'
 import type { Dispatch, FC } from 'react'
 import React from 'react'
 import toast from 'react-hot-toast'
@@ -75,7 +75,6 @@ const PermissionAlert: FC<Props> = ({
         disabled={processing}
         onClick={() => handleAllowance()}
       >
-        {processing && <Loader size="sm" />}
         Allow Collect
       </Button>
     </div>

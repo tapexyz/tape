@@ -12,7 +12,7 @@ import {
 } from '@tape.xyz/generic'
 import type { Profile, ProfilesManagedRequest } from '@tape.xyz/lens'
 import { useProfilesManagedQuery } from '@tape.xyz/lens'
-import { Loader } from '@tape.xyz/ui'
+import { Spinner } from '@tape.xyz/ui'
 import Link from 'next/link'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
@@ -50,7 +50,7 @@ const Managed = () => {
     <div>
       <p>Profiles managed by you.</p>
       <div className="mt-3">
-        {loading && <Loader className="my-10" />}
+        {loading && <Spinner className="my-10" />}
         {(!loading && !profilesManaged?.length) || error ? (
           <NoDataFound withImage isCenter />
         ) : null}
@@ -101,7 +101,7 @@ const Managed = () => {
         ) : null}
         {pageInfo?.next && (
           <span ref={observe} className="flex justify-center p-10">
-            <Loader />
+            <Spinner />
           </span>
         )}
       </div>

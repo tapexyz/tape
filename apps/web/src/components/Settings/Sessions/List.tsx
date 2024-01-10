@@ -14,7 +14,7 @@ import {
   useApprovedAuthenticationsQuery,
   useRevokeAuthenticationMutation
 } from '@tape.xyz/lens'
-import { Button, ChevronDownOutline, Loader } from '@tape.xyz/ui'
+import { Button, ChevronDownOutline, Spinner } from '@tape.xyz/ui'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import toast from 'react-hot-toast'
@@ -66,7 +66,7 @@ const List = () => {
   })
 
   if (loading) {
-    return <Loader className="my-20" />
+    return <Spinner className="my-20" />
   }
 
   if (!sessions?.length || error) {
@@ -125,7 +125,7 @@ const List = () => {
       })}
       {pageInfo?.next && (
         <span ref={observe} className="flex justify-center p-10">
-          <Loader />
+          <Spinner />
         </span>
       )}
     </Accordion>

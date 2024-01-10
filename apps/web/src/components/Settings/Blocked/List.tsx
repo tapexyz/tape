@@ -35,7 +35,7 @@ import {
 } from '@tape.xyz/lens'
 import { useApolloClient } from '@tape.xyz/lens/apollo'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { Button, Loader } from '@tape.xyz/ui'
+import { Button, Spinner } from '@tape.xyz/ui'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
@@ -167,7 +167,7 @@ const List = () => {
   const blockedProfiles = data?.whoHaveBlocked.items as Profile[]
 
   if (loading) {
-    return <Loader className="my-20" />
+    return <Spinner className="my-20" />
   }
 
   if (!blockedProfiles?.length || error) {
@@ -248,7 +248,7 @@ const List = () => {
       ))}
       {pageInfo?.next && (
         <span ref={observe} className="flex justify-center p-10">
-          <Loader />
+          <Spinner />
         </span>
       )}
     </div>

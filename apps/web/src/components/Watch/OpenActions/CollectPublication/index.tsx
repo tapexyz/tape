@@ -46,7 +46,7 @@ import type {
   CustomErrorWithData,
   SupportedOpenActionModuleType
 } from '@tape.xyz/lens/custom-types'
-import { Button, Callout, Loader, UserOutline } from '@tape.xyz/ui'
+import { Button, Callout, Spinner, UserOutline } from '@tape.xyz/ui'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
@@ -513,7 +513,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
                 </div>
               ) : balanceLoading && !haveEnoughBalance ? (
                 <div className="flex w-full justify-center py-2">
-                  <Loader />
+                  <Spinner />
                 </div>
               ) : haveEnoughBalance ? (
                 <Button
@@ -539,7 +539,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
         </>
       ) : (
         <div className="my-20">
-          <Loader />
+          <Spinner />
         </div>
       )}
     </div>

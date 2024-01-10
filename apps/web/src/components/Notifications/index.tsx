@@ -14,7 +14,7 @@ import { EVENTS, Tower } from '@tape.xyz/generic'
 import type { Notification, NotificationRequest } from '@tape.xyz/lens'
 import { useNotificationsQuery } from '@tape.xyz/lens'
 import { CustomNotificationsFilterEnum } from '@tape.xyz/lens/custom-types'
-import { Loader } from '@tape.xyz/ui'
+import { Spinner } from '@tape.xyz/ui'
 import React, { useEffect } from 'react'
 import { useInView } from 'react-cool-inview'
 
@@ -112,7 +112,7 @@ const Notifications = () => {
         ))}
         {pageInfo?.next && (
           <span ref={observe} className="flex justify-center p-10">
-            <Loader />
+            <Spinner />
           </span>
         )}
       </div>

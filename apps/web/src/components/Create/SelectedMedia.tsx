@@ -10,7 +10,7 @@ import {
   sanitizeDStorageUrl
 } from '@tape.xyz/generic'
 import type { IPFSUploadResult } from '@tape.xyz/lens/custom-types'
-import { AddImageOutline, Badge, Input, Loader } from '@tape.xyz/ui'
+import { AddImageOutline, Badge, Input, Spinner } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import React, { useEffect, useRef, useState } from 'react'
 
@@ -77,7 +77,7 @@ const SelectedMedia = () => {
                 )}
               >
                 {uploadedMedia.uploadingThumbnail ? (
-                  <Loader />
+                  <Spinner />
                 ) : (
                   <span className="inline-flex flex-col items-center space-y-2">
                     <AddImageOutline className="size-5" />

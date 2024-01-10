@@ -19,7 +19,7 @@ import {
   PublicationMetadataMainFocusType,
   useSearchPublicationsQuery
 } from '@tape.xyz/lens'
-import { Loader } from '@tape.xyz/ui'
+import { Spinner } from '@tape.xyz/ui'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
@@ -87,7 +87,7 @@ const ExploreHashtag = () => {
               <Timeline videos={videos} />
               {pageInfo?.next && (
                 <span ref={observe} className="flex justify-center p-10">
-                  <Loader />
+                  <Spinner />
                 </span>
               )}
             </>
