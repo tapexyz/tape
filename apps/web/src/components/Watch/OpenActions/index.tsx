@@ -39,7 +39,7 @@ const OpenActions: FC<Props> = ({ publication, text, children }) => {
             className="rounded-small group border dark:border-gray-700"
           >
             <AccordionTrigger className="bg-brand-50/50 dark:bg-brand-950/30 rounded-small w-full px-4 py-3 text-left">
-              <div className="flex items-center justify-center">
+              <div className="flex items-center justify-between">
                 <span className="text-brand-500">Collect publication</span>
                 <span className="group-data-[state=open]:hidden">
                   $<b> {formatNumber(Number(details?.amount.rate))}</b>
@@ -68,7 +68,7 @@ const OpenActions: FC<Props> = ({ publication, text, children }) => {
 
   return (
     <>
-      {children ?? (
+      {<button onClick={() => setShowActionModal(true)}>{children}</button> ?? (
         <Button
           onClick={() => setShowActionModal(true)}
           icon={<CollectOutline className="size-4" />}

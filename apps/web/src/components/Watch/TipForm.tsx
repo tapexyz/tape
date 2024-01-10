@@ -434,7 +434,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
           >
             Cancel
           </Button>
-          <Button disabled={!isValid || loading}>
+          <Button loading={loading} disabled={!isValid || loading}>
             {`Tip ${
               isNaN(Number(watchTipQuantity) * 1) ||
               Number(watchTipQuantity) < 0
