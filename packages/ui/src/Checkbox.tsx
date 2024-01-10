@@ -38,7 +38,7 @@ export const Checkbox = forwardRef<
           {...props}
         >
           <CheckboxPrimitive.Indicator>
-            <CheckOutline className={clsx(sizeClasses, 'p-0.5')} />
+            <CheckOutline className={clsx(sizeClasses, 'p-[3px]')} />
           </CheckboxPrimitive.Indicator>
         </CheckboxPrimitive.Root>
         <label className="text-sm font-medium leading-none" htmlFor={id}>

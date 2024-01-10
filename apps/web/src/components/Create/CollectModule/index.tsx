@@ -109,45 +109,43 @@ const CollectModule = () => {
         setShow={setShowModal}
         locked
       >
-        <div className="flex flex-col gap-3">
-          <div className="no-scrollbar max-h-[80vh] space-y-2 overflow-y-auto p-0.5">
-            <PermissionQuestion setCollectType={setCollectType} />
-            {!uploadedMedia.collectModule.isRevertCollect && (
-              <CollectDuration setCollectType={setCollectType} />
-            )}
-            {!uploadedMedia.collectModule.isRevertCollect && (
-              <EditionSize setCollectType={setCollectType} />
-            )}
-            {!uploadedMedia.collectModule.isRevertCollect && (
-              <div className="space-y-2">
-                <ChargeQuestion setCollectType={setCollectType} />
-                {(uploadedMedia.collectModule.isFeeCollect ||
-                  uploadedMedia.collectModule.collectLimitEnabled) &&
-                !uploadedMedia.collectModule.isRevertCollect &&
-                enabledCurrencies ? (
-                  <FeeCollectForm
-                    setCollectType={setCollectType}
-                    setShowModal={setShowModal}
-                    enabledCurrencies={enabledCurrencies.currencies.items}
-                  />
-                ) : (
-                  <div className="flex justify-end pt-4">
-                    <Button
-                      type="button"
-                      onClick={() => {
-                        if (saveAsDefault) {
-                          setPersistedCollectModule(uploadedMedia.collectModule)
-                        }
-                        setShowModal(false)
-                      }}
-                    >
-                      Set Collect Type
-                    </Button>
-                  </div>
-                )}
-              </div>
-            )}
-          </div>
+        <div className="no-scrollbar max-h-[70vh] space-y-2 overflow-y-auto p-0.5">
+          <PermissionQuestion setCollectType={setCollectType} />
+          {!uploadedMedia.collectModule.isRevertCollect && (
+            <CollectDuration setCollectType={setCollectType} />
+          )}
+          {!uploadedMedia.collectModule.isRevertCollect && (
+            <EditionSize setCollectType={setCollectType} />
+          )}
+          {!uploadedMedia.collectModule.isRevertCollect && (
+            <div className="space-y-2">
+              <ChargeQuestion setCollectType={setCollectType} />
+              {(uploadedMedia.collectModule.isFeeCollect ||
+                uploadedMedia.collectModule.collectLimitEnabled) &&
+              !uploadedMedia.collectModule.isRevertCollect &&
+              enabledCurrencies ? (
+                <FeeCollectForm
+                  setCollectType={setCollectType}
+                  setShowModal={setShowModal}
+                  enabledCurrencies={enabledCurrencies.currencies.items}
+                />
+              ) : (
+                <div className="flex justify-end pt-4">
+                  <Button
+                    type="button"
+                    onClick={() => {
+                      if (saveAsDefault) {
+                        setPersistedCollectModule(uploadedMedia.collectModule)
+                      }
+                      setShowModal(false)
+                    }}
+                  >
+                    Set Collect Type
+                  </Button>
+                </div>
+              )}
+            </div>
+          )}
         </div>
       </Modal>
     </div>
