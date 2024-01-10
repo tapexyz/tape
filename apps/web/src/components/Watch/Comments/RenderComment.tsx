@@ -145,7 +145,10 @@ const RenderComment: FC<Props> = ({ comment }) => {
                 <span className="text-xs">Reply</span>
               </button>
               {comment.stats.comments ? (
-                <button onClick={() => setShowReplies(!showReplies)}>
+                <button
+                  className="flex items-center space-x-1 focus:outline-none"
+                  onClick={() => setShowReplies(!showReplies)}
+                >
                   <CommentOutline className="size-3.5" />
                   <p className="text-sm">{comment.stats.comments} replies</p>
                 </button>

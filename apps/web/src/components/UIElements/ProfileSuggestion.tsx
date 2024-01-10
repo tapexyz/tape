@@ -1,5 +1,4 @@
 import Badge from '@components/Common/Badge'
-import { Avatar } from '@radix-ui/themes'
 import { formatNumber } from '@tape.xyz/generic'
 import clsx from 'clsx'
 import type { FC } from 'react'
@@ -22,12 +21,9 @@ const ProfileSuggestion: FC<Props> = ({
 }) => {
   return (
     <div className={clsx('flex space-x-2 truncate px-1.5 py-1.5', className)}>
-      <Avatar
+      <img
         src={pfp}
-        size="2"
-        radius="full"
-        className="mt-1 size-6 rounded-full"
-        fallback={handle[0]}
+        className="mt-1 size-8 rounded-full"
         draggable={false}
         alt={handle}
       />

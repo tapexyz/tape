@@ -2,7 +2,6 @@ import Badge from '@components/Common/Badge'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { getShortHandTime } from '@lib/formatTime'
-import { Button } from '@radix-ui/themes'
 import { LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
 import {
   getProfile,
@@ -160,14 +159,13 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
                   {!comment.isHidden && (
                     <div className="mt-2 flex gap-4">
                       <PublicationReaction publication={comment} />
-                      <Button
-                        variant="ghost"
-                        highContrast
+                      <button
+                        className="flex items-center space-x-1 focus:outline-none"
                         onClick={() => replyTo(comment.by)}
                       >
                         <ReplyOutline className="size-3.5" />{' '}
                         <span className="text-xs">Reply</span>
-                      </Button>
+                      </button>
                     </div>
                   )}
                 </div>
@@ -179,16 +177,15 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
           )
       )}
       {pageInfo?.next && hasMore ? (
-        <Button
-          highContrast
-          className="group w-full text-center"
+        <button
+          className="group flex w-full items-baseline space-x-2 text-center text-sm"
           onClick={loadMore}
-          variant="soft"
         >
-          <span className="flex items-center space-x-2 opacity-70 group-hover:opacity-100">
+          <span className="opacity-70 group-hover:opacity-100">
             Show more replies
           </span>
-        </Button>
+          <ChevronDownOutline className="size-2" />
+        </button>
       ) : null}
     </div>
   )

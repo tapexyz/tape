@@ -1,7 +1,6 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
 import PublicationOptions from '@components/Common/Publication/PublicationOptions'
 import { getShortHandTime, getTimeFromSeconds } from '@lib/formatTime'
-import { Box } from '@radix-ui/themes'
 import { useAverageColor } from '@tape.xyz/browser'
 import {
   FALLBACK_THUMBNAIL_URL,
@@ -101,9 +100,9 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
           </div>
         </div>
       </div>
-      <Box pt="2">
+      <div className="pt-2">
         <PublicationOptions publication={video} />
-      </Box>
+      </div>
     </div>
   )
 }
