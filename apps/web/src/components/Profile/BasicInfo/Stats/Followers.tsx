@@ -1,6 +1,5 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { Text } from '@radix-ui/themes'
 import { formatNumber, getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { FollowersRequest, Profile, ProfileStats } from '@tape.xyz/lens'
 import { LimitType, useFollowersQuery } from '@tape.xyz/lens'
@@ -49,8 +48,8 @@ const Followers: FC<Props> = ({ stats, profileId }) => {
         className="flex items-end gap-1"
         onClick={() => setShowModal(true)}
       >
-        <Text weight="bold">{formatNumber(stats.followers)}</Text>
-        <Text>Followers</Text>
+        <span className="font-bold">{formatNumber(stats.followers)}</span>
+        <span>Followers</span>
       </button>
 
       <Modal

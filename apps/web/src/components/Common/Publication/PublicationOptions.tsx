@@ -210,6 +210,7 @@ const PublicationOptions: FC<Props> = ({
     try {
       toast.loading(`Pinning video...`)
       const pfp = getProfilePictureUri(activeProfile as Profile)
+      const coverPicture = getProfileCoverPicture(activeProfile as Profile)
       const metadata: ProfileOptions = {
         ...(activeProfile?.metadata?.displayName && {
           name: activeProfile?.metadata.displayName
@@ -220,8 +221,10 @@ const PublicationOptions: FC<Props> = ({
         ...(pfp && {
           picture: pfp
         }),
+        ...(coverPicture && {
+          coverPicture
+        }),
         appId: TAPE_APP_ID,
-        coverPicture: getProfileCoverPicture(activeProfile),
         id: uuidv4(),
         attributes: [
           ...otherAttributes,

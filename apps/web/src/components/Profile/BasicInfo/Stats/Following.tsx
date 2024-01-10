@@ -1,6 +1,5 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { Text } from '@radix-ui/themes'
 import { formatNumber, getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { FollowingRequest, Profile, ProfileStats } from '@tape.xyz/lens'
 import { LimitType, useFollowingQuery } from '@tape.xyz/lens'
@@ -49,8 +48,8 @@ const Following: FC<Props> = ({ stats, profileId }) => {
         className="flex items-end gap-1"
         onClick={() => setShowModal(true)}
       >
-        <Text weight="bold">{formatNumber(stats.following)}</Text>
-        <Text>Followings</Text>
+        <span className="font-bold">{formatNumber(stats.following)}</span>
+        <span>Followings</span>
       </button>
       <Modal
         size="sm"

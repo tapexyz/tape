@@ -5,7 +5,6 @@ import ReportProfile from '@components/Report/Profile'
 import Tooltip from '@components/UIElements/Tooltip'
 import useProfileStore from '@lib/store/idb/profile'
 import useNonceStore from '@lib/store/nonce'
-import { Badge as BadgeUI, Callout } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { useCopyToClipboard } from '@tape.xyz/browser'
 import {
@@ -37,6 +36,8 @@ import {
 import { useApolloClient } from '@tape.xyz/lens/apollo'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import {
+  Badge as BadgeUI,
+  Callout,
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
@@ -228,18 +229,19 @@ const BasicInfo: FC<Props> = ({ profile }) => {
 
   return (
     <div className="px-2 xl:px-0">
-      {misused?.description && (
-        <Callout.Root color="red" mt="4">
-          <Callout.Icon>
-            <WarningOutline className="size-5" />
-          </Callout.Icon>
-          <Callout.Text highContrast>
-            <div className="flex items-center gap-2">
-              <BadgeUI>{misused.type}</BadgeUI>
+      {misused?.type && (
+        <Callout
+          variant="danger"
+          className="mt-4"
+          icon={<WarningOutline className="size-5" />}
+        >
+          <div className="flex items-center gap-2">
+            {misused.type}
+            {misused.description && (
               <InterweaveContent content={misused.description} />
-            </div>
-          </Callout.Text>
-        </Callout.Root>
+            )}
+          </div>
+        </Callout>
       )}
       <div className="flex flex-1 flex-wrap justify-between pb-1 pt-4 md:gap-5">
         <div className="flex flex-col items-start">
