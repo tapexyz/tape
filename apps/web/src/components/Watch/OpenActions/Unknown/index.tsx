@@ -71,7 +71,7 @@ const UnknownOpenAction = ({
 
   const { write } = useContractWrite({
     address: action.contract.address,
-    abi: JSON.parse(metadata?.processCalldataABI ?? []),
+    abi: JSON.parse(metadata?.processCalldataABI || '{}'),
     functionName: 'processPublicationAction',
     onSuccess: () => {
       onCompleted()
@@ -156,6 +156,9 @@ const UnknownOpenAction = ({
   }
 
   const renderAction = () => {
+    if (!metadata) {
+      return null
+    }
     switch (action.contract.address) {
       case VERIFIED_UNKNOWN_OPEN_ACTION_CONTRACTS.TIP:
         return (

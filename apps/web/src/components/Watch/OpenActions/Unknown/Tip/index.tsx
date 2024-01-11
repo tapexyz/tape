@@ -34,7 +34,7 @@ const TipOpenAction: FC<Props> = ({
   const [tip, setTip] = useState({ value: [5], currency: WMATIC_TOKEN_ADDRESS })
 
   const decoded = decodeAbiParameters(
-    JSON.parse(metadata?.initializeCalldataABI ?? []),
+    JSON.parse(metadata?.initializeCalldataABI ?? '{}'),
     action?.initializeCalldata
   )
 
@@ -45,7 +45,7 @@ const TipOpenAction: FC<Props> = ({
 
   const onSendTip = () => {
     const calldata = encodeAbiParameters(
-      JSON.parse(metadata?.processCalldataABI ?? []),
+      JSON.parse(metadata?.processCalldataABI ?? '{}'),
       [tip.currency, tip.value.toString()]
     )
     actOnUnknownOpenAction(action.contract.address, calldata)
@@ -72,7 +72,11 @@ const TipOpenAction: FC<Props> = ({
             }}
           >
             {ALLOWED_TOKEN_CURRENCIES?.map((currency) => (
-              <SelectItem key={currency.address} value={currency.address}>
+              <SelectItem
+                size="sm"
+                key={currency.address}
+                value={currency.address}
+              >
                 {currency.symbol}
               </SelectItem>
             ))}

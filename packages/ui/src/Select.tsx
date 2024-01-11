@@ -16,7 +16,7 @@ export const SelectItem = forwardRef<
   SelectItemProps
 >(({ children, className, size = 'md', ...props }, ref) => {
   const sizeClasses = {
-    'px-3 py-1 text-xs': size === 'sm',
+    'px-3 py-1.5 text-xs': size === 'sm',
     'px-4 py-1.5 text-sm': size === 'md',
     'px-6 py-3 text-sm': size === 'lg'
   }
@@ -33,7 +33,7 @@ export const SelectItem = forwardRef<
     >
       <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
       <SelectPrimitive.ItemIndicator>
-        <CheckOutline className="size-3" />
+        <CheckOutline className={clsx(size === 'sm' ? 'size-2' : 'size-4')} />
       </SelectPrimitive.ItemIndicator>
     </SelectPrimitive.Item>
   )
@@ -77,7 +77,9 @@ export const Select = forwardRef<
           <SelectPrimitive.ScrollUpButton className="flex justify-center py-2">
             <ChevronUpOutline className="size-3" />
           </SelectPrimitive.ScrollUpButton>
-          <SelectPrimitive.Viewport className="p-3">
+          <SelectPrimitive.Viewport
+            className={clsx(size === 'sm' ? 'p-2' : 'p-3')}
+          >
             {children}
           </SelectPrimitive.Viewport>
           <SelectPrimitive.ScrollDownButton className="flex justify-center py-2">

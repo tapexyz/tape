@@ -1,6 +1,5 @@
 import useAppStore from '@lib/store'
 import useCollectStore from '@lib/store/idb/collect'
-import useProfileStore from '@lib/store/idb/profile'
 import { EVENTS, Tower } from '@tape.xyz/generic'
 import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
 import {
@@ -23,7 +22,6 @@ const CollectModule = () => {
   const [showModal, setShowModal] = useState(false)
   const uploadedMedia = useAppStore((state) => state.uploadedMedia)
   const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
-  const activeProfile = useProfileStore((state) => state.activeProfile)
   const setPersistedCollectModule = useCollectStore(
     (state) => state.setCollectModule
   )
