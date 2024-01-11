@@ -32,7 +32,7 @@ export const getCollectModuleInput = (
 
   const baseCollectModuleParams = {
     collectLimit: collectLimitEnabled ? collectLimit : undefined,
-    followerOnly: followerOnlyCollect as boolean,
+    followerOnly: followerOnlyCollect || false,
     endsAt: timeLimitEnabled
       ? getAddedDaysFromToday(Number(timeLimit))
       : undefined

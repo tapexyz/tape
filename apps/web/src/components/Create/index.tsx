@@ -150,8 +150,9 @@ const CreateSteps = () => {
   }
 
   const onError = (error: CustomErrorWithData) => {
-    toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     stopLoading()
+    toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
+    logger.error('[Create Publication]', error)
   }
 
   const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
@@ -499,8 +500,8 @@ const CreateSteps = () => {
         return await constructAudioMetadata()
       }
       await constructVideoMetadata()
-    } catch (error) {
-      logger.error('[Create Publication]', error)
+    } catch (error: any) {
+      onError(error)
     }
   }
 
