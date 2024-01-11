@@ -1,4 +1,3 @@
-import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import useCollectStore from '@lib/store/idb/collect'
 import useProfileStore from '@lib/store/idb/profile'
@@ -10,7 +9,8 @@ import {
   Checkbox,
   ChevronRightOutline,
   Modal,
-  SplitOutline
+  SplitOutline,
+  Tooltip
 } from '@tape.xyz/ui'
 import React, { useState } from 'react'
 

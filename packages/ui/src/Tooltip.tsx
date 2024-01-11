@@ -1,5 +1,6 @@
 import 'tippy.js/themes/light.css'
 import 'tippy.js/themes/translucent.css'
+import 'tippy.js/dist/tippy.css'
 
 import Tippy from '@tippyjs/react'
 import clsx from 'clsx'
@@ -14,7 +15,7 @@ type Props = {
   visible?: boolean
 }
 
-const Tooltip = ({
+export const Tooltip = ({
   children,
   content,
   visible = true,
@@ -37,5 +38,3 @@ const Tooltip = ({
     </Tippy>
   )
 }
-
-export default Tooltip

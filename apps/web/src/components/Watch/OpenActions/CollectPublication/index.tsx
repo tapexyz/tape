@@ -1,6 +1,5 @@
 import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
 import { Countdown } from '@components/UIElements/CountDown'
-import Tooltip from '@components/UIElements/Tooltip'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import { getRelativeTime } from '@lib/formatTime'
 import { getCollectModuleOutput } from '@lib/getCollectModuleOutput'
@@ -46,7 +45,7 @@ import type {
   CustomErrorWithData,
   SupportedOpenActionModuleType
 } from '@tape.xyz/lens/custom-types'
-import { Button, Callout, Spinner, UserOutline } from '@tape.xyz/ui'
+import { Button, Callout, Spinner, Tooltip, UserOutline } from '@tape.xyz/ui'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'

@@ -1,4 +1,3 @@
-import Tooltip from '@components/UIElements/Tooltip'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import usePendingTxn from '@hooks/usePendingTxn'
@@ -31,7 +30,14 @@ import {
   useProfileFollowModuleQuery
 } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { Button, Input, Select, SelectItem, Spinner } from '@tape.xyz/ui'
+import {
+  Button,
+  Input,
+  Select,
+  SelectItem,
+  Spinner,
+  Tooltip
+} from '@tape.xyz/ui'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
