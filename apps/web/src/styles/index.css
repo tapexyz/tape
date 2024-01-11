@@ -2,13 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Start - To fix radix CLS on dropdown and modal */
 html {
   scrollbar-gutter: stable;
 }
-
 body[style] {
   margin: 0 auto !important;
 }
+/* Ends - To fix radix CLS on dropdown and modal */
 
 html {
   @apply overflow-y-scroll overflow-x-hidden;
