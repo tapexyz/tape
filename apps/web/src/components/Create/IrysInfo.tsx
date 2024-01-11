@@ -1,4 +1,3 @@
-import Tooltip from '@components/UIElements/Tooltip'
 import useEthersWalletClient from '@hooks/useEthersWalletClient'
 import type { WebIrys } from '@irys/sdk'
 import useAppStore from '@lib/store'
@@ -12,6 +11,7 @@ import {
   ChevronUpOutline,
   Input,
   RefreshOutline,
+  Tooltip,
   WarningOutline
 } from '@tape.xyz/ui'
 import React, { useEffect, useState } from 'react'

@@ -2,7 +2,6 @@ import Badge from '@components/Common/Badge'
 import FollowActions from '@components/Common/FollowActions'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import ReportProfile from '@components/Report/Profile'
-import Tooltip from '@components/UIElements/Tooltip'
 import useProfileStore from '@lib/store/idb/profile'
 import useNonceStore from '@lib/store/nonce'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
@@ -45,6 +44,7 @@ import {
   Modal,
   ProfileBanOutline,
   ThreeDotsOutline,
+  Tooltip,
   WarningOutline
 } from '@tape.xyz/ui'
 import type { FC } from 'react'

@@ -1,7 +1,6 @@
 import Badge from '@components/Common/Badge'
 import HoverableProfile from '@components/Common/HoverableProfile'
 import InterweaveContent from '@components/Common/InterweaveContent'
-import Tooltip from '@components/UIElements/Tooltip'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import { getShortHandTime } from '@lib/formatTime'
 import useProfileStore from '@lib/store/idb/profile'
@@ -19,7 +18,8 @@ import {
   ChevronUpOutline,
   CommentOutline,
   HeartFilled,
-  ReplyOutline
+  ReplyOutline,
+  Tooltip
 } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import Link from 'next/link'

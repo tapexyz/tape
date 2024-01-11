@@ -24,6 +24,7 @@
     "@radix-ui/react-switch": "^1.0.3",
     "@radix-ui/react-tabs": "^1.0.4",
     "clsx": "^2.1.0",
+    "@tippyjs/react": "^4.2.6",
     "wavesurfer.js": "^7.6.3"
   }
 }
