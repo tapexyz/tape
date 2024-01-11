@@ -81,7 +81,7 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
                 {getPublicationData(video.metadata)?.title}
               </Link>
             </div>
-            <div className="py-1">
+            <div className="py-1 text-sm">
               <HoverableProfile profile={video.by} />
             </div>
             <div className="flex items-center overflow-hidden text-xs opacity-80">

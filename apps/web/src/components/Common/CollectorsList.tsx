@@ -13,6 +13,7 @@ import React from 'react'
 import { useInView } from 'react-cool-inview'
 
 import Badge from './Badge'
+import HoverableProfile from './HoverableProfile'
 
 type Props = {
   videoId: string
@@ -67,18 +68,20 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
             href={`/u/${getProfile(profile)?.slug}`}
             className="font-base flex items-center justify-between"
           >
-            <div className="flex items-center space-x-1.5">
-              <img
-                className="size-5 rounded-full"
-                src={getProfilePicture(profile, 'AVATAR')}
-                alt={getProfile(profile)?.displayName}
-                draggable={false}
-              />
-              <div className="flex items-center space-x-1">
-                <span>{getProfile(profile)?.slug}</span>
-                <Badge id={profile?.id} size="xs" />
+            <HoverableProfile profile={profile} key={profile?.id}>
+              <div className="flex items-center space-x-1.5">
+                <img
+                  className="size-5 rounded-full"
+                  src={getProfilePicture(profile, 'AVATAR')}
+                  alt={getProfile(profile)?.displayName}
+                  draggable={false}
+                />
+                <div className="flex items-center space-x-1">
+                  <span>{getProfile(profile)?.slug}</span>
+                  <Badge id={profile?.id} size="xs" />
+                </div>
               </div>
-            </div>
+            </HoverableProfile>
             <div className="flex items-center space-x-1 whitespace-nowrap text-xs opacity-80">
               <UserOutline className="size-2.5 opacity-60" />
               <span>{formatNumber(profile.stats.followers)}</span>
