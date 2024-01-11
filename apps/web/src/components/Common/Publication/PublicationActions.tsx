@@ -25,12 +25,12 @@ const PublicationActions: FC<Props> = ({ publication }) => {
   const [showTip, setShowTip] = useState(false)
   return (
     <div className="flex justify-end space-x-1">
-      <div className="tape-border flex items-center justify-end rounded-full bg-gray-100 dark:bg-gray-900">
+      <div className="tape-border flex items-center justify-end overflow-hidden rounded-full bg-gray-100 dark:bg-gray-900">
         <PublicationReaction
           publication={publication}
           textSize="inherit"
           iconSize="base"
-          className="flex items-center rounded-l-full px-4 py-1 hover:bg-gray-200 dark:hover:bg-gray-800"
+          className="flex items-center px-4 py-1 hover:bg-gray-200 dark:hover:bg-gray-800"
         />
         {publication.operations.canComment !== TriStateValue.No ? (
           <>
@@ -58,7 +58,7 @@ const PublicationActions: FC<Props> = ({ publication }) => {
           </button>
         </MirrorPublication>
         <OpenActions publication={publication}>
-          <div className="flex items-center space-x-1 rounded-r-full px-4 py-1 hover:bg-gray-200 dark:hover:bg-gray-800">
+          <div className="flex items-center space-x-1 px-4 py-1 hover:bg-gray-200 dark:hover:bg-gray-800">
             <CollectOutline className="size-4" />
             <span>Collect</span>
           </div>
