@@ -168,7 +168,7 @@ const Authenticate = () => {
       {profile ? (
         <div className="flex flex-col gap-2">
           <Select
-            size="md"
+            size="lg"
             defaultValue={as ?? profile?.id}
             value={selectedProfileId}
             onValueChange={(value) => setSelectedProfileId(value)}

@@ -14,11 +14,11 @@ type SelectItemProps = SelectPrimitive.SelectItemProps & {
 export const SelectItem = forwardRef<
   ElementRef<typeof SelectPrimitive.Item>,
   SelectItemProps
->(({ children, className, size = 'sm', ...props }, ref) => {
+>(({ children, className, size = 'md', ...props }, ref) => {
   const sizeClasses = {
-    'px-4 py-2 text-sm': size === 'sm',
-    'px-6 py-3 text-sm': size === 'md',
-    'px-8 py-4 text-base': size === 'lg'
+    'px-3 py-1 text-xs': size === 'sm',
+    'px-4 py-1.5 text-sm': size === 'md',
+    'px-6 py-3 text-sm': size === 'lg'
   }
 
   return (
@@ -49,11 +49,11 @@ type SelectProps = SelectPrimitive.SelectProps & {
 export const Select = forwardRef<
   ElementRef<typeof SelectPrimitive.Root>,
   SelectProps
->(({ children, className, size = 'sm', ...props }, ref) => {
+>(({ children, className, size = 'md', ...props }, ref) => {
   const sizeClasses = {
-    'px-4 py-1.5 text-sm': size === 'sm',
-    'px-6 py-3 text-sm': size === 'md',
-    'px-8 py-4 text-base': size === 'lg'
+    'px-3 py-1 text-xs': size === 'sm',
+    'px-4 py-1.5 text-sm': size === 'md',
+    'px-6 py-3 text-sm': size === 'lg'
   }
 
   return (
