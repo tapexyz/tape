@@ -1,7 +1,6 @@
 import InterweaveContent from '@components/Common/InterweaveContent'
 import useAppStore from '@lib/store'
 import useProfileStore from '@lib/store/idb/profile'
-import { LENSTUBE_BYTES_APP_ID } from '@tape.xyz/constants'
 import {
   getCategoryName,
   getIsSensitiveContent,
@@ -22,7 +21,7 @@ import {
 import clsx from 'clsx'
 import Link from 'next/link'
 import type { FC } from 'react'
-import React, { useEffect, useState } from 'react'
+import React, { memo, useEffect, useState } from 'react'
 
 import PublicationActions from '../Common/Publication/PublicationActions'
 import VideoMeta from './VideoMeta'
@@ -31,13 +30,49 @@ type Props = {
   video: PrimaryPublication
 }
 
+const RenderPlayer = memo(function ({ video }: { video: PrimaryPublication }) {
+  const metadata = video.metadata as VideoMetadataV3
+  const isSensitiveContent = getIsSensitiveContent(metadata, video.id)
+  const videoWatchTime = useAppStore((state) => state.videoWatchTime)
+  const { activeProfile } = useProfileStore()
+
+  const isBytesVideo = metadata.isShortVideo
+  const thumbnailUrl = imageCdn(
+    sanitizeDStorageUrl(getThumbnailUrl(metadata, true)),
+    isBytesVideo ? 'THUMBNAIL_V' : 'THUMBNAIL'
+  )
+  const videoUrl = getPublicationMediaUrl(metadata)
+
+  const refCallback = (ref: HTMLMediaElement) => {
+    if (ref) {
+      ref.autoplay = true
+    }
+  }
+
+  return (
+    <div className="rounded-large overflow-hidden">
+      <VideoPlayer
+        address={activeProfile?.ownedBy.address}
+        refCallback={refCallback}
+        currentTime={videoWatchTime}
+        url={videoUrl}
+        posterUrl={thumbnailUrl}
+        options={{
+          loadingSpinner: true,
+          isCurrentlyShown: true
+        }}
+        isSensitiveContent={isSensitiveContent}
+        shouldUpload={getShouldUploadVideo(video)}
+      />
+    </div>
+  )
+})
+RenderPlayer.displayName = 'RenderPlayer'
+
 const Video: FC<Props> = ({ video }) => {
   const [clamped, setClamped] = useState(false)
   const [showMore, setShowMore] = useState(false)
 
-  const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
-  const videoWatchTime = useAppStore((state) => state.videoWatchTime)
-  const { activeProfile } = useProfileStore()
   const metadata = video.metadata as VideoMetadataV3
 
   useEffect(() => {
@@ -47,36 +82,9 @@ const Video: FC<Props> = ({ video }) => {
     }
   }, [metadata?.content])
 
-  const isBytesVideo = video.publishedOn?.id === LENSTUBE_BYTES_APP_ID
-  const thumbnailUrl = imageCdn(
-    sanitizeDStorageUrl(getThumbnailUrl(video.metadata, true)),
-    isBytesVideo ? 'THUMBNAIL_V' : 'THUMBNAIL'
-  )
-  const videoUrl = getPublicationMediaUrl(video.metadata)
-
-  const refCallback = (ref: HTMLMediaElement) => {
-    if (ref) {
-      ref.autoplay = true
-    }
-  }
-
   return (
     <div>
-      <div className="rounded-large overflow-hidden">
-        <VideoPlayer
-          address={activeProfile?.ownedBy.address}
-          refCallback={refCallback}
-          currentTime={videoWatchTime}
-          url={videoUrl}
-          posterUrl={thumbnailUrl}
-          options={{
-            loadingSpinner: true,
-            isCurrentlyShown: true
-          }}
-          isSensitiveContent={isSensitiveContent}
-          shouldUpload={getShouldUploadVideo(video)}
-        />
-      </div>
+      <RenderPlayer video={video} />
       <div>
         <h1 className="mt-4 line-clamp-2 font-bold md:text-xl">
           <InterweaveContent
@@ -127,4 +135,4 @@ const Video: FC<Props> = ({ video }) => {
   )
 }
 
-export default React.memo(Video)
+export default memo(Video)
