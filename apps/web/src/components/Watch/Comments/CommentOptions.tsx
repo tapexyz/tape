@@ -29,7 +29,7 @@ const CommentOptions: FC<Props> = ({ comment }) => {
 
   const { activeProfile } = useProfileStore()
 
-  const [hideComment] = useHidePublicationMutation({
+  const [hideComment, { loading: hiding }] = useHidePublicationMutation({
     update(cache) {
       const normalizedId = cache.identify({
         id: comment?.id,
@@ -67,6 +67,7 @@ const CommentOptions: FC<Props> = ({ comment }) => {
         showConfirm={showConfirm}
         setShowConfirm={setShowConfirm}
         action={onHideComment}
+        loading={hiding}
       />
       <DropdownMenu trigger={<ThreeDotsOutline className="size-3.5" />}>
         <div className="w-36 overflow-hidden">
