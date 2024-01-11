@@ -1,11 +1,11 @@
 import { useDid } from '@hooks/useDid'
-import useProfileStore from '@lib/store/idb/profile'
-import { WMATIC_TOKEN_ADDRESS } from '@tape.xyz/constants'
 import {
-  LimitType,
+  ALLOWED_TOKEN_CURRENCIES,
+  WMATIC_TOKEN_ADDRESS
+} from '@tape.xyz/constants'
+import {
   type ModuleMetadata,
-  type UnknownOpenActionModuleSettings,
-  useEnabledCurrenciesQuery
+  type UnknownOpenActionModuleSettings
 } from '@tape.xyz/lens'
 import {
   Button,
@@ -31,7 +31,6 @@ const TipOpenAction: FC<Props> = ({
   acting,
   actOnUnknownOpenAction
 }) => {
-  const activeProfile = useProfileStore((state) => state.activeProfile)
   const [tip, setTip] = useState({ value: [5], currency: WMATIC_TOKEN_ADDRESS })
 
   const decoded = decodeAbiParameters(
@@ -42,15 +41,6 @@ const TipOpenAction: FC<Props> = ({
   const { did } = useDid({
     address: decoded[0],
     enabled: Boolean(decoded[0])
-  })
-
-  const { data: enabledCurrencies } = useEnabledCurrenciesQuery({
-    variables: {
-      request: {
-        limit: LimitType.Fifty
-      }
-    },
-    skip: !activeProfile?.id
   })
 
   const onSendTip = () => {
@@ -81,11 +71,8 @@ const TipOpenAction: FC<Props> = ({
               setTip({ ...tip, currency })
             }}
           >
-            {enabledCurrencies?.currencies.items?.map((currency) => (
-              <SelectItem
-                key={currency.contract.address}
-                value={currency.contract.address}
-              >
+            {ALLOWED_TOKEN_CURRENCIES?.map((currency) => (
+              <SelectItem key={currency.address} value={currency.address}>
                 {currency.symbol}
               </SelectItem>
             ))}

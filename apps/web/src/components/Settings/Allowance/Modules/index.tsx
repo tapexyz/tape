@@ -1,13 +1,14 @@
 import { getCollectModuleConfig } from '@lib/getCollectModuleInput'
 import useProfileStore from '@lib/store/idb/profile'
-import { WMATIC_TOKEN_ADDRESS } from '@tape.xyz/constants'
-import type { ApprovedAllowanceAmountResult, Erc20 } from '@tape.xyz/lens'
+import {
+  ALLOWED_TOKEN_CURRENCIES,
+  WMATIC_TOKEN_ADDRESS
+} from '@tape.xyz/constants'
+import type { ApprovedAllowanceAmountResult } from '@tape.xyz/lens'
 import {
   FollowModuleType,
-  LimitType,
   OpenActionModuleType,
   useApprovedModuleAllowanceAmountQuery,
-  useEnabledCurrenciesQuery,
   useGenerateModuleCurrencyApprovalDataLazyQuery
 } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
@@ -66,15 +67,6 @@ const ModuleAllowance = () => {
   const [generateAllowanceQuery] =
     useGenerateModuleCurrencyApprovalDataLazyQuery()
 
-  const { data: enabledCurrencies } = useEnabledCurrenciesQuery({
-    variables: {
-      request: {
-        limit: LimitType.Fifty
-      }
-    }
-  })
-  const currencies = enabledCurrencies?.currencies.items
-
   const handleClick = async (isAllow: boolean, selectedModule: string) => {
     try {
       setLoadingModule(selectedModule)
@@ -117,11 +109,8 @@ const ModuleAllowance = () => {
               value={currency}
               onValueChange={(value) => setCurrency(value)}
             >
-              {currencies?.map((token: Erc20) => (
-                <SelectItem
-                  key={token.contract.address}
-                  value={token.contract.address}
-                >
+              {ALLOWED_TOKEN_CURRENCIES?.map((token) => (
+                <SelectItem key={token.address} value={token.address}>
                   {token.name}
                 </SelectItem>
               ))}

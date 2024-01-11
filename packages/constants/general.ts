@@ -52,6 +52,38 @@ export const WMATIC_TOKEN_ADDRESS = IS_MAINNET
   ? '0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270'
   : '0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889'
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
+export const ALLOWED_TOKEN_CURRENCIES = [
+  {
+    address: '0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270',
+    decimals: 18,
+    name: 'Wrapped Matic',
+    symbol: 'WMATIC'
+  },
+  {
+    address: '0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619',
+    decimals: 18,
+    name: 'Wrapped Ether',
+    symbol: 'WETH'
+  },
+  {
+    address: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F',
+    decimals: 6,
+    name: 'Tether USD',
+    symbol: 'USDT'
+  },
+  {
+    address: '0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359',
+    decimals: 6,
+    name: 'USD Coin',
+    symbol: 'USDC'
+  },
+  {
+    address: '0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063',
+    decimals: 18,
+    name: 'DAI Stablecoin',
+    symbol: 'DAI'
+  }
+]
 
 // polygon
 export const POLYGON_RPC_URL = IS_MAINNET
