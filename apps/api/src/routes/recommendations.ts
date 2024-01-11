@@ -8,7 +8,7 @@ import { k3lFeed, k3lScores } from '@/helpers/recommendations/k3l'
 const app = new Hono()
 
 app.get(
-  '/:provider/:strategy/:limit?/:offset?',
+  '/:provider/:strategy',
   zValidator(
     'param',
     object({
@@ -17,8 +17,10 @@ app.get(
     })
   ),
   async (c) => {
-    const { provider, strategy, limit, offset } = c.req.param()
+    const { provider, strategy } = c.req.param()
     const exclude = c.req.query('exclude')
+    const limit = c.req.query('limit')
+    const offset = c.req.query('offset')
 
     try {
       let items: string[] = []
