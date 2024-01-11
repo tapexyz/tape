@@ -34,8 +34,10 @@ const TipOpenAction: FC<Props> = ({
   const activeProfile = useProfileStore((state) => state.activeProfile)
   const [tip, setTip] = useState({ value: [5], currency: WMATIC_TOKEN_ADDRESS })
 
-  const abi = JSON.parse(metadata?.initializeCalldataABI ?? [])
-  const decoded = decodeAbiParameters(abi, action?.initializeCalldata)
+  const decoded = decodeAbiParameters(
+    JSON.parse(metadata?.initializeCalldataABI ?? []),
+    action?.initializeCalldata
+  )
 
   const { did } = useDid({
     address: decoded[0],
@@ -52,10 +54,10 @@ const TipOpenAction: FC<Props> = ({
   })
 
   const onSendTip = () => {
-    const calldata = encodeAbiParameters(abi, [
-      tip.currency,
-      tip.value.toString()
-    ])
+    const calldata = encodeAbiParameters(
+      JSON.parse(metadata?.processCalldataABI ?? []),
+      [tip.currency, tip.value.toString()]
+    )
     actOnUnknownOpenAction(action.contract.address, calldata)
   }
 
@@ -67,6 +69,7 @@ const TipOpenAction: FC<Props> = ({
 
       <div className="flex items-center justify-between space-x-4">
         <RangeSlider
+          min={1}
           value={tip.value}
           onValueChange={(value) => setTip({ ...tip, value })}
         />
