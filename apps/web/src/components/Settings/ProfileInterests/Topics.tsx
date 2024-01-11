@@ -10,7 +10,7 @@ import {
   useRemoveProfileInterestsMutation
 } from '@tape.xyz/lens'
 import { useApolloClient } from '@tape.xyz/lens/apollo'
-import { Loader } from '@tape.xyz/ui'
+import { Spinner } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import React, { useEffect } from 'react'
 
@@ -62,7 +62,7 @@ const Topics = () => {
 
   return (
     <div className="flex flex-col space-y-3">
-      {loading && <Loader className="my-10" />}
+      {loading && <Spinner className="my-10" />}
       {sanitizeProfileInterests(interestsData)?.map(
         ({ category, subCategories }) => (
           <div className="w-full space-y-2" key={category.id}>

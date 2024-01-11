@@ -1,6 +1,6 @@
 import useAppStore from '@lib/store'
-import { Select, Text } from '@radix-ui/themes'
 import type { ReferenceModuleType } from '@tape.xyz/lens/custom-types'
+import { Select, SelectItem } from '@tape.xyz/ui'
 import React from 'react'
 
 const ReferenceModule = () => {
@@ -32,11 +32,11 @@ const ReferenceModule = () => {
 
   return (
     <div className="flex-1 space-y-1">
-      <Text size="2" weight="medium">
+      <span className="text-sm font-medium">
         Who can comment, quote and mirror?
-      </Text>
+      </span>
 
-      <Select.Root
+      <Select
         value={getSelectedReferenceTypeValue()}
         onValueChange={(value) => {
           setReferenceType({
@@ -53,15 +53,10 @@ const ReferenceModule = () => {
           })
         }}
       >
-        <Select.Trigger className="w-full" />
-        <Select.Content highContrast>
-          <Select.Item value="ANYONE">Anyone</Select.Item>
-          <Select.Item value="FOLLOWERS">Followers</Select.Item>
-          <Select.Item value="FRIENDS_OF_FRIENDS">
-            Friends of Friends
-          </Select.Item>
-        </Select.Content>
-      </Select.Root>
+        <SelectItem value="ANYONE">Anyone</SelectItem>
+        <SelectItem value="FOLLOWERS">Followers</SelectItem>
+        <SelectItem value="FRIENDS_OF_FRIENDS">Friends of Friends</SelectItem>
+      </Select>
     </div>
   )
 }

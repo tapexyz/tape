@@ -1,6 +1,5 @@
 import { Countdown } from '@components/UIElements/CountDown'
 import useProfileStore from '@lib/store/idb/profile'
-import { Button } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   ERROR_MESSAGE,
@@ -10,7 +9,7 @@ import {
 import type { Profile } from '@tape.xyz/lens'
 import { useProfileLazyQuery } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { Loader } from '@tape.xyz/ui'
+import { Button } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import { useEffect, useState } from 'react'
@@ -146,18 +145,16 @@ const Guardian: FC = () => {
           </span>
         )}
         {guardianEnabled ? (
-          <Button color="red" disabled={loading} onClick={() => toggle()}>
-            {loading && <Loader size="sm" />}
+          <Button
+            variant="danger"
+            disabled={loading}
+            loading={loading}
+            onClick={() => toggle()}
+          >
             {loading ? 'Disabling' : 'Disable'}
           </Button>
         ) : (
-          <Button
-            variant="surface"
-            disabled={loading}
-            highContrast
-            onClick={() => toggle()}
-          >
-            {loading && <Loader size="sm" />}
+          <Button disabled={loading} loading={loading} onClick={() => toggle()}>
             {loading ? 'Enabling' : 'Enable'}
           </Button>
         )}

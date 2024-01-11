@@ -2,7 +2,6 @@ import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import usePendingTxn from '@hooks/usePendingTxn'
 import useProfileStore from '@lib/store/idb/profile'
 import useNonceStore from '@lib/store/nonce'
-import { Button } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   ERROR_MESSAGE,
@@ -25,7 +24,7 @@ import {
   useCreateSetFollowModuleTypedDataMutation
 } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { Loader } from '@tape.xyz/ui'
+import { Button, Spinner } from '@tape.xyz/ui'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useSignTypedData, useWriteContract } from 'wagmi'
@@ -148,7 +147,7 @@ const RevertFollow = ({ profile }: Props) => {
   }
 
   return (
-    <div className="tape-border rounded-medium dark:bg-cod bg-white p-5">
+    <>
       <div className="mb-5 space-y-2">
         <h1 className="text-brand-400 text-xl font-bold">
           {isRevertFollow ? 'Enable' : 'Disable'} Follow
@@ -162,28 +161,25 @@ const RevertFollow = ({ profile }: Props) => {
       <div className="flex items-center justify-end space-x-2">
         {isRevertFollow ? (
           <Button
-            variant="surface"
             disabled={loading}
-            highContrast
+            loading={loading}
             onClick={() => toggleRevert(false)}
           >
-            {loading && <Loader size="sm" />}
             Enable Follow
           </Button>
         ) : (
           <Button
-            color="red"
-            variant="surface"
-            highContrast
+            variant="danger"
+            loading={loading}
             disabled={loading}
             onClick={() => toggleRevert(true)}
           >
-            {loading && <Loader size="sm" />}
+            {loading && <Spinner size="sm" />}
             Disable Follow
           </Button>
         )}
       </div>
-    </div>
+    </>
   )
 }
 

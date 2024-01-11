@@ -1,5 +1,4 @@
 import useProfileStore from '@lib/store/idb/profile'
-import { Button } from '@radix-ui/themes'
 import { SIGN_IN_REQUIRED } from '@tape.xyz/constants'
 import { EVENTS, formatNumber, getPublication, Tower } from '@tape.xyz/generic'
 import type { AnyPublication } from '@tape.xyz/lens'
@@ -21,8 +20,6 @@ type Props = {
   isVertical?: boolean
   label?: string
   className?: string
-  variant?: 'ghost' | 'surface' | 'soft'
-  color?: 'blue' | 'crimson'
 }
 
 const PublicationReaction: FC<Props> = ({
@@ -31,9 +28,7 @@ const PublicationReaction: FC<Props> = ({
   textSize = 'sm',
   isVertical = false,
   label,
-  variant = 'ghost',
-  className,
-  color
+  className
 }) => {
   const targetPublication = getPublication(publication)
 
@@ -86,13 +81,7 @@ const PublicationReaction: FC<Props> = ({
   }
 
   return (
-    <Button
-      variant={variant}
-      color={color}
-      className={className}
-      highContrast
-      onClick={() => likeVideo()}
-    >
+    <button className={className} onClick={() => likeVideo()}>
       <span
         className={clsx(
           'flex items-center focus:outline-none',
@@ -141,7 +130,7 @@ const PublicationReaction: FC<Props> = ({
           </span>
         )}
       </span>
-    </Button>
+    </button>
   )
 }
 

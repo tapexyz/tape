@@ -1,9 +1,13 @@
 import useProfileStore from '@lib/store/idb/profile'
 import usePersistStore from '@lib/store/persist'
-import { DropdownMenu, IconButton } from '@radix-ui/themes'
 import { FEATURE_FLAGS } from '@tape.xyz/constants'
 import { getIsFeatureEnabled } from '@tape.xyz/generic'
-import { BellOutline, Button, ChevronDownOutline } from '@tape.xyz/ui'
+import {
+  BellOutline,
+  Button,
+  ChevronDownOutline,
+  DropdownMenu
+} from '@tape.xyz/ui'
 import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -26,25 +30,16 @@ const Navbar = () => {
   } = usePersistStore()
 
   return (
-    <div className="ultrawide:px-8 laptop:px-6 sticky top-0 z-10 flex h-14 w-full items-center bg-white/80 px-4 backdrop-blur-2xl dark:bg-black/80">
+    <div className="ultrawide:px-8 laptop:px-6 fixed top-0 z-10 flex h-14 w-full items-center bg-white/80 px-4 backdrop-blur-2xl dark:bg-black/80">
       <div className="flex w-full items-center justify-between">
         <div className="flex items-center space-x-2 md:w-1/5">
           <Logo />
-          <DropdownMenu.Root>
-            <DropdownMenu.Trigger>
-              <IconButton
-                variant="ghost"
-                radius="full"
-                className="opacity-50 hover:opacity-100"
-              >
-                <ChevronDownOutline className="h-3 w-3" />
-                <span className="sr-only">Tape Menu</span>
-              </IconButton>
-            </DropdownMenu.Trigger>
-            <DropdownMenu.Content className="w-72 bg-white dark:bg-black">
-              <TapeMenu />
-            </DropdownMenu.Content>
-          </DropdownMenu.Root>
+          <DropdownMenu
+            align="start"
+            trigger={<ChevronDownOutline className="h-3 w-3" />}
+          >
+            <TapeMenu />
+          </DropdownMenu>
         </div>
         <div className="hidden space-x-7 md:flex">
           <Link
@@ -77,16 +72,6 @@ const Navbar = () => {
           >
             Feed
           </Link>
-          {/* <Link
-            href="/explore"
-            className={clsx(
-              isActivePath('/explore')
-                ? 'font-bold'
-                : 'text-dust font-medium hover:opacity-90'
-            )}
-          >
-            Explore
-          </Link> */}
           {getIsFeatureEnabled(FEATURE_FLAGS.BANGERS, activeProfile?.id) && (
             <Link
               href="/bangers"
@@ -113,21 +98,21 @@ const Navbar = () => {
                 href="/notifications"
                 className="relative hidden md:block"
               >
-                <IconButton radius="full" highContrast variant="soft">
+                <div className="rounded-full bg-gray-100 p-2.5 dark:bg-gray-900">
                   <BellOutline className="size-3.5" />
-                </IconButton>
+                </div>
                 {lastOpenedNotificationId !== latestNotificationId ? (
                   <span className="absolute right-0.5 top-0 h-2 w-2 rounded-full bg-red-500" />
                 ) : null}
               </Link>
               <Link href="/create" className="hidden md:block">
-                <Button size="sm">Create</Button>
+                <Button>Create</Button>
               </Link>
               <UserMenu />
             </>
           ) : (
             <Link href={`/login?next=${asPath}`}>
-              <Button size="sm">Login</Button>
+              <Button>Login</Button>
             </Link>
           )}
         </div>

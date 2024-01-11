@@ -1,6 +1,6 @@
 import MetaTags from '@components/Common/MetaTags'
-import { Button } from '@radix-ui/themes'
 import { STATIC_ASSETS, TAPE_APP_NAME } from '@tape.xyz/constants'
+import { Button } from '@tape.xyz/ui'
 import Link from 'next/link'
 import React from 'react'
 
@@ -21,9 +21,7 @@ const Custom404 = () => {
         <h1 className="text-4xl font-bold">404</h1>
         <div className="mb-6">This page could not be found.</div>
         <Link href="/">
-          <Button highContrast variant="surface">
-            Go Home
-          </Button>
+          <Button>Go Home</Button>
         </Link>
       </div>
     </>

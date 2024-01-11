@@ -9,7 +9,7 @@ type Props = {
   isPlaying?: boolean
 }
 
-const AudioPlayer: FC<Props> = (props) => {
+export const AudioPlayer: FC<Props> = memo(function AudioPlayer(props) {
   const waveformRef = useRef<HTMLDivElement | null>(null)
   const waveSurferRef = useRef<WaveSurfer | null>(null)
 
@@ -90,6 +90,4 @@ const AudioPlayer: FC<Props> = (props) => {
   }, [props.isPlaying])
 
   return <div id="waveform" ref={waveformRef} />
-}
-
-export default memo(AudioPlayer)
+})

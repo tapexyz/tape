@@ -1,4 +1,3 @@
-import { AspectRatio } from '@radix-ui/themes'
 import { getPublicationData } from '@tape.xyz/generic'
 import type { PrimaryPublication } from '@tape.xyz/lens'
 import Link from 'next/link'
@@ -16,9 +15,9 @@ const AudioCard: FC<Props> = ({ audio }) => {
   return (
     <div className="rounded-medium tape-border group relative overflow-hidden">
       <Link href={`/listen/${audio.id}`}>
-        <AspectRatio ratio={1 / 1}>
+        <div className="aspect-[1/1]">
           <ThumbnailImage video={audio} />
-        </AspectRatio>
+        </div>
         <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-b from-transparent to-black px-4 py-2">
           <h1 className="line-clamp-2 break-all font-bold text-white">
             {getPublicationData(audio.metadata)?.title}
@@ -28,7 +27,7 @@ const AudioCard: FC<Props> = ({ audio }) => {
           className="absolute right-2 top-2"
           onClick={(e) => e.stopPropagation()}
         >
-          <PublicationOptions publication={audio} variant="solid" />
+          <PublicationOptions publication={audio} />
         </div>
       </Link>
     </div>

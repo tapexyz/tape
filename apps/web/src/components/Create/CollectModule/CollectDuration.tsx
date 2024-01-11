@@ -1,8 +1,8 @@
-import { Input } from '@components/UIElements/Input'
 import useAppStore from '@lib/store'
-import { Button, Text } from '@radix-ui/themes'
 import { trimify } from '@tape.xyz/generic'
 import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
+import { Button, Input } from '@tape.xyz/ui'
+import clsx from 'clsx'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 
@@ -18,44 +18,46 @@ const CollectDuration: FC<Props> = ({ setCollectType }) => {
   )
   return (
     <div className="space-y-1">
-      <Text size="2" weight="medium">
-        Collect duration
-      </Text>
+      <span className="text-sm font-medium">Collect duration</span>
       <div className="flex flex-wrap gap-1.5 md:flex-nowrap">
-        <Button
-          type="button"
-          highContrast
-          color={
-            !uploadedMedia.collectModule.timeLimitEnabled ? 'blue' : 'gray'
-          }
-          variant="surface"
-          className="flex-1"
-          onClick={() => {
-            setCollectType({
-              timeLimitEnabled: false,
-              isSimpleCollect: true
-            })
-            setShowDayPicker(false)
-          }}
-        >
-          Forever
-        </Button>
-        <Button
-          type="button"
-          onClick={() => {
-            setCollectType({
-              timeLimitEnabled: true,
-              isSimpleCollect: true
-            })
-            setShowDayPicker(true)
-          }}
-          highContrast
-          color={uploadedMedia.collectModule.timeLimitEnabled ? 'blue' : 'gray'}
-          variant="surface"
-          className="flex-1"
-        >
-          Custom
-        </Button>
+        <div className="flex-1">
+          <Button
+            type="button"
+            variant="secondary"
+            className={clsx(
+              !uploadedMedia.collectModule.timeLimitEnabled &&
+                '!border-brand-500'
+            )}
+            onClick={() => {
+              setCollectType({
+                timeLimitEnabled: false,
+                isSimpleCollect: true
+              })
+              setShowDayPicker(false)
+            }}
+          >
+            Forever
+          </Button>
+        </div>
+        <div className="flex-1">
+          <Button
+            type="button"
+            onClick={() => {
+              setCollectType({
+                timeLimitEnabled: true,
+                isSimpleCollect: true
+              })
+              setShowDayPicker(true)
+            }}
+            className={clsx(
+              uploadedMedia.collectModule.timeLimitEnabled &&
+                '!border-brand-500'
+            )}
+            variant="secondary"
+          >
+            Custom
+          </Button>
+        </div>
       </div>
       {showDayPicker && (
         <div>

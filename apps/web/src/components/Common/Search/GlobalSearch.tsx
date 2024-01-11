@@ -1,5 +1,4 @@
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { IconButton, ScrollArea, Text, TextField } from '@radix-ui/themes'
 import { useDebounce, useOutsideClick } from '@tape.xyz/browser'
 import {
   LENS_CUSTOM_FILTERS,
@@ -21,7 +20,7 @@ import {
   useSearchProfilesLazyQuery,
   useSearchPublicationsLazyQuery
 } from '@tape.xyz/lens'
-import { Loader, SearchOutline } from '@tape.xyz/ui'
+import { Input, SearchOutline, Spinner } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import React, { useEffect, useRef, useState } from 'react'
 
@@ -97,54 +96,40 @@ const GlobalSearch = () => {
   }, [debouncedValue])
 
   const Trigger = () => (
-    <IconButton
+    <button
+      className="rounded-full bg-gray-100 p-2.5 outline-none dark:bg-gray-900"
       onClick={() => setShowSearchBar(true)}
-      radius="full"
-      variant="soft"
-      highContrast
     >
       <SearchOutline className="size-3.5" />
       <span className="sr-only">Search</span>
-    </IconButton>
+    </button>
   )
 
   const Content = () => (
-    <>
-      <TextField.Root className="laptop:w-[800px] absolute z-20 hidden w-[500px] rounded-full bg-white dark:bg-black">
-        <TextField.Slot px="3">
-          <SearchOutline className="size-4" />
-          <span className="sr-only">Search</span>
-        </TextField.Slot>
-        <TextField.Input
-          radius="full"
-          autoFocus
-          variant="surface"
-          type="search"
-          value={keyword}
-          onChange={(event) => setKeyword(event.target.value)}
-          placeholder="Search"
-        />
-      </TextField.Root>
+    <div className="laptop:w-[800px] absolute -top-[18px] right-0 z-20 w-[500px] rounded-full">
+      <Input
+        autoFocus
+        type="search"
+        value={keyword}
+        onChange={(event) => setKeyword(event.target.value)}
+        placeholder="Search"
+      />
       <div
         className={clsx(
-          'rounded-medium tape-border z-10 mt-1 w-full bg-white text-base shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none md:absolute dark:bg-black',
+          'rounded-medium tape-border no-scrollbar top-10 z-10 mt-1 w-full overflow-y-auto bg-white text-base shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none md:absolute dark:bg-black',
           { hidden: debouncedValue.length === 0 }
         )}
       >
-        <ScrollArea
-          type="hover"
-          style={{ maxHeight: '80vh' }}
-          scrollbars="vertical"
-        >
+        <div style={{ maxHeight: '80vh' }}>
           <div className="p-4">
             {profilesLoading || publicationsLoading ? (
               <div className="flex justify-center p-5">
-                <Loader />
+                <Spinner />
               </div>
             ) : (
               <>
                 <div className="space-y-2 pb-2 focus:outline-none">
-                  <Text weight="bold">Creators</Text>
+                  <span className="font-bold">Creators</span>
                   {profiles?.length ? (
                     <Profiles
                       results={profiles}
@@ -156,7 +141,7 @@ const GlobalSearch = () => {
                   )}
                 </div>
                 <div className="space-y-2 focus:outline-none">
-                  <Text weight="bold">Releases</Text>
+                  <span className="font-bold">Releases</span>
                   {publications?.length ? (
                     <Publications
                       results={publications}
@@ -170,9 +155,9 @@ const GlobalSearch = () => {
               </>
             )}
           </div>
-        </ScrollArea>
+        </div>
       </div>
-    </>
+    </div>
   )
 
   return (

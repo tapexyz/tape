@@ -1,6 +1,5 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
 import { BangersBubbles } from '@components/Shimmers/BangersShimmer'
-import { Avatar } from '@radix-ui/themes'
 import { COMMON_REGEX } from '@tape.xyz/constants'
 import {
   getProfile,
@@ -45,24 +44,21 @@ const Likes = ({ post }: { post: PrimaryPublication }) => {
   return (
     <div className="no-scrollbar flex items-center -space-x-2 overflow-x-auto">
       <HoverableProfile profile={post.by}>
-        <Avatar
-          size="2"
-          radius="full"
-          className="z-[1]"
+        <img
+          className="z-[1] size-8 rounded-full"
           src={getProfilePicture(post.by)}
-          fallback={getProfile(post.by)?.displayName}
           alt={getProfile(post.by)?.displayName}
+          draggable={false}
         />
       </HoverableProfile>
       {profiles?.slice(0, 20)?.map(
         ({ profile }) =>
           profile.id !== post.by.id && (
             <HoverableProfile profile={profile} key={profile.id}>
-              <Avatar
-                size="2"
-                radius="full"
+              <img
+                className="z-[1] size-8 rounded-full"
                 src={getProfilePicture(profile)}
-                fallback={getProfile(profile)?.displayName}
+                draggable={false}
                 alt={getProfile(profile)?.displayName}
               />
             </HoverableProfile>

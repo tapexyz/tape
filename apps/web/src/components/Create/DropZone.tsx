@@ -1,6 +1,5 @@
 import useAppStore from '@lib/store'
 import useProfileStore from '@lib/store/idb/profile'
-import { Box, Button } from '@radix-ui/themes'
 import { useDragAndDrop } from '@tape.xyz/browser'
 import {
   ALLOWED_AUDIO_MIME_TYPES,
@@ -8,7 +7,7 @@ import {
   CREATOR_VIDEO_CATEGORIES
 } from '@tape.xyz/constants'
 import { canUploadedToIpfs, logger } from '@tape.xyz/generic'
-import { UploadOutline } from '@tape.xyz/ui'
+import { Button, UploadOutline } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import fileReaderStream from 'filereader-stream'
 import React from 'react'
@@ -100,13 +99,8 @@ const DropZone = () => {
             <p className="text-2xl md:text-4xl">Drag and drop</p>
             <p>Select multimedia from your device.</p>
           </div>
-          <Box>
-            <Button
-              highContrast
-              variant="surface"
-              className="!px-0"
-              type="button"
-            >
+          <div className="flex justify-center">
+            <Button variant="secondary" type="button">
               <label htmlFor="chooseMedia" className="cursor-pointer p-6">
                 Choose
                 <input
@@ -118,7 +112,7 @@ const DropZone = () => {
                 />
               </label>
             </Button>
-          </Box>
+          </div>
           {fileDropError && (
             <div className="font-medium text-red-500">{fileDropError}</div>
           )}

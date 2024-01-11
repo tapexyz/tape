@@ -1,6 +1,5 @@
 import { getCollectModuleConfig } from '@lib/getCollectModuleInput'
 import useProfileStore from '@lib/store/idb/profile'
-import { Button, Select } from '@radix-ui/themes'
 import { WMATIC_TOKEN_ADDRESS } from '@tape.xyz/constants'
 import type { ApprovedAllowanceAmountResult, Erc20 } from '@tape.xyz/lens'
 import {
@@ -11,8 +10,9 @@ import {
   useEnabledCurrenciesQuery,
   useGenerateModuleCurrencyApprovalDataLazyQuery
 } from '@tape.xyz/lens'
-import { Loader } from '@tape.xyz/ui'
-import React, { useEffect, useState } from 'react'
+import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
+import { Button, Select, SelectItem, Spinner } from '@tape.xyz/ui'
+import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useSendTransaction, useWaitForTransactionReceipt } from 'wagmi'
 
@@ -119,27 +119,24 @@ const ModuleAllowance = () => {
       <div>
         {!gettingSettings && data && (
           <div className="flex justify-end py-6">
-            <Select.Root
+            <Select
               value={currency}
               onValueChange={(value) => setCurrency(value)}
             >
-              <Select.Trigger className="w-full" />
-              <Select.Content highContrast>
-                {currencies?.map((token: Erc20) => (
-                  <Select.Item
-                    key={token.contract.address}
-                    value={token.contract.address}
-                  >
-                    {token.name}
-                  </Select.Item>
-                ))}
-              </Select.Content>
-            </Select.Root>
+              {currencies?.map((token: Erc20) => (
+                <SelectItem
+                  key={token.contract.address}
+                  value={token.contract.address}
+                >
+                  {token.name}
+                </SelectItem>
+              ))}
+            </Select>
           </div>
         )}
         {gettingSettings && (
           <div className="grid h-24 place-items-center">
-            <Loader />
+            <Spinner />
           </div>
         )}
         {!gettingSettings &&
@@ -160,19 +157,18 @@ const ModuleAllowance = () => {
                 <div className="ml-2 flex flex-none items-center space-x-2">
                   {parseFloat(moduleItem?.allowance.value) === 0 ? (
                     <Button
-                      variant="surface"
-                      highContrast
                       disabled={loadingModule === moduleItem.moduleName}
+                      loading={loadingModule === moduleItem.moduleName}
                       onClick={() => handleClick(true, moduleItem.moduleName)}
                     >
                       Allow
                     </Button>
                   ) : (
                     <Button
-                      variant="surface"
-                      color="red"
+                      variant="danger"
                       onClick={() => handleClick(false, moduleItem.moduleName)}
                       disabled={loadingModule === moduleItem.moduleName}
+                      loading={loadingModule === moduleItem.moduleName}
                     >
                       Revoke
                     </Button>

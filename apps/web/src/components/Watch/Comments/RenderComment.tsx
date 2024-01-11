@@ -6,7 +6,6 @@ import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import { getShortHandTime } from '@lib/formatTime'
 import useProfileStore from '@lib/store/idb/profile'
 import usePersistStore from '@lib/store/persist'
-import { Button, Flex, Text } from '@radix-ui/themes'
 import { SIGN_IN_REQUIRED } from '@tape.xyz/constants'
 import {
   getProfile,
@@ -127,11 +126,10 @@ const RenderComment: FC<Props> = ({ comment }) => {
           )}
           <CommentMedia comment={comment} />
           {!comment.isHidden && (
-            <Flex mt="2" gap="4">
+            <div className="mt-2 flex gap-4">
               <PublicationReaction publication={comment} />
-              <Button
-                variant="ghost"
-                highContrast
+              <button
+                className="flex items-center space-x-1"
                 onClick={() => {
                   if (!activeProfile?.id) {
                     return toast.error(SIGN_IN_REQUIRED)
@@ -145,19 +143,17 @@ const RenderComment: FC<Props> = ({ comment }) => {
               >
                 <ReplyOutline className="size-3.5" />
                 <span className="text-xs">Reply</span>
-              </Button>
+              </button>
               {comment.stats.comments ? (
-                <Button
-                  variant="ghost"
+                <button
+                  className="flex items-center space-x-1 focus:outline-none"
                   onClick={() => setShowReplies(!showReplies)}
                 >
                   <CommentOutline className="size-3.5" />
-                  <Text size="1" highContrast color="gray">
-                    {comment.stats.comments} replies
-                  </Text>
-                </Button>
+                  <p className="text-sm">{comment.stats.comments} replies</p>
+                </button>
               ) : null}
-            </Flex>
+            </div>
           )}
           <div
             className={clsx(

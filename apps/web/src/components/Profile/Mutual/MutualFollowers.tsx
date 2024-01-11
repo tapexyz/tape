@@ -4,7 +4,7 @@ import useProfileStore from '@lib/store/idb/profile'
 import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { MutualFollowersRequest, Profile } from '@tape.xyz/lens'
 import { LimitType, useMutualFollowersQuery } from '@tape.xyz/lens'
-import { Loader } from '@tape.xyz/ui'
+import { Spinner } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
@@ -46,7 +46,7 @@ const MutualFollowers: FC<Props> = ({ viewing }) => {
   })
 
   if (loading) {
-    return <Loader />
+    return <Spinner />
   }
   if (mutualFollowers?.length === 0) {
     return (
@@ -58,7 +58,7 @@ const MutualFollowers: FC<Props> = ({ viewing }) => {
 
   return (
     <div className="space-y-2">
-      {loading && <Loader />}
+      {loading && <Spinner />}
       {mutualFollowers?.length === 0 && (
         <div className="pt-5">
           <NoDataFound withImage isCenter />
@@ -69,7 +69,6 @@ const MutualFollowers: FC<Props> = ({ viewing }) => {
           <span className="inline-flex">
             <HoverableProfile
               profile={profile}
-              fontSize="3"
               pfp={
                 <img
                   src={getProfilePicture(profile, 'AVATAR')}
@@ -84,7 +83,7 @@ const MutualFollowers: FC<Props> = ({ viewing }) => {
       ))}
       {pageInfo?.next && (
         <span ref={observe} className="p-5">
-          <Loader />
+          <Spinner />
         </span>
       )}
     </div>

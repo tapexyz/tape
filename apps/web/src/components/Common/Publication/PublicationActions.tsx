@@ -1,10 +1,15 @@
 import MirrorPublication from '@components/Common/MirrorPublication'
 import PublicationOptions from '@components/Common/Publication/PublicationOptions'
-import { Button, Dialog, IconButton } from '@radix-ui/themes'
-import { EVENTS, getProfile, Tower } from '@tape.xyz/generic'
+import { getProfile } from '@tape.xyz/generic'
 import type { MirrorablePublication } from '@tape.xyz/lens'
 import { TriStateValue } from '@tape.xyz/lens'
-import { MirrorOutline, ThreeDotsOutline, TipOutline } from '@tape.xyz/ui'
+import {
+  CollectOutline,
+  MirrorOutline,
+  Modal,
+  ThreeDotsOutline,
+  TipOutline
+} from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 
@@ -19,54 +24,50 @@ type Props = {
 const PublicationActions: FC<Props> = ({ publication }) => {
   const [showTip, setShowTip] = useState(false)
   return (
-    <div className="flex items-center justify-end space-x-2">
-      <PublicationReaction
-        publication={publication}
-        textSize="inherit"
-        iconSize="base"
-        variant="surface"
-        color="blue"
-      />
-      {publication.operations.canComment !== TriStateValue.No && (
-        <Dialog.Root open={showTip}>
-          <Dialog.Trigger>
-            <Button
-              variant="surface"
-              color="blue"
-              highContrast
-              onClick={() => {
-                setShowTip(true)
-                Tower.track(EVENTS.PUBLICATION.TIP.OPEN)
-              }}
+    <div className="flex justify-end space-x-1">
+      <div className="tape-border flex items-center justify-end overflow-hidden rounded-full bg-gray-100 dark:bg-gray-900">
+        <PublicationReaction
+          publication={publication}
+          textSize="inherit"
+          iconSize="base"
+          className="flex items-center px-4 py-1 hover:bg-gray-200 dark:hover:bg-gray-800"
+        />
+        {publication.operations.canComment !== TriStateValue.No ? (
+          <>
+            <button
+              onClick={() => setShowTip(true)}
+              className="flex items-center space-x-1 px-4 py-1 hover:bg-gray-200 dark:hover:bg-gray-800"
             >
-              <TipOutline className="size-4" />
-              Thanks
-            </Button>
-          </Dialog.Trigger>
-
-          <Dialog.Content style={{ maxWidth: 450 }}>
-            <Dialog.Title>
-              Tip @{getProfile(publication.by)?.displayName}
-            </Dialog.Title>
-            <Dialog.Description size="2" mb="4">
-              Show appreciation with a comment and tip.
-            </Dialog.Description>
-
-            <TipForm video={publication} setShow={setShowTip} />
-          </Dialog.Content>
-        </Dialog.Root>
-      )}
-      <MirrorPublication video={publication}>
-        <Button variant="surface" color="blue" highContrast>
-          <MirrorOutline className="size-4 flex-none" />
-          Mirror
-        </Button>
-      </MirrorPublication>
-      <OpenActions publication={publication} text="Collect" />
+              <TipOutline className="size-4 flex-none" />
+              <span>Tip</span>
+            </button>
+            <Modal
+              show={showTip}
+              setShow={setShowTip}
+              title={`Tip ${getProfile(publication.by)?.displayName}`}
+              description="Show appreciation with a comment and tip."
+            >
+              <TipForm video={publication} setShow={setShowTip} />
+            </Modal>
+          </>
+        ) : null}
+        <MirrorPublication video={publication}>
+          <button className="flex items-center space-x-1 px-4 py-1 hover:bg-gray-200 dark:hover:bg-gray-800">
+            <MirrorOutline className="size-4 flex-none" />
+            <span>Mirror</span>
+          </button>
+        </MirrorPublication>
+        <OpenActions publication={publication}>
+          <div className="flex items-center space-x-1 px-4 py-1 hover:bg-gray-200 dark:hover:bg-gray-800">
+            <CollectOutline className="size-4" />
+            <span>Collect</span>
+          </div>
+        </OpenActions>
+      </div>
       <PublicationOptions publication={publication}>
-        <IconButton variant="surface" color="blue" highContrast>
+        <button className="tape-border flex items-center space-x-1 rounded-full bg-gray-100 p-2 hover:bg-gray-200 dark:bg-gray-900 dark:hover:bg-gray-800">
           <ThreeDotsOutline className="size-4" />
-        </IconButton>
+        </button>
       </PublicationOptions>
     </div>
   )

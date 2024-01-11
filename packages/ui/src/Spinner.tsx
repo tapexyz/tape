@@ -7,7 +7,7 @@ type Props = {
   className?: string
 }
 
-export const Loader: FC<Props> = ({ size = 'md', className }) => {
+export const Spinner: FC<Props> = ({ size = 'md', className }) => {
   return (
     <div className="border-0">
       <div className="grid justify-items-center space-y-2">

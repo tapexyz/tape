@@ -1,7 +1,6 @@
 import PublicationReaction from '@components/Common/Publication/PublicationReaction'
 import Tooltip from '@components/UIElements/Tooltip'
 import { getDateString, getRelativeTime } from '@lib/formatTime'
-import { Text } from '@radix-ui/themes'
 import { TAPE_WEBSITE_URL } from '@tape.xyz/constants'
 import { getPublicationData } from '@tape.xyz/generic'
 import type { PrimaryPublication } from '@tape.xyz/lens'
@@ -44,9 +43,9 @@ const RenderBanger = ({
           <div className="flex items-center justify-between space-x-4">
             <PublicationReaction publication={post} label="Banger" />
           </div>
-          <Text size="1" title={getDateString(post.createdAt)}>
+          <p className="text-sm" title={getDateString(post.createdAt)}>
             {getRelativeTime(post.createdAt)}
-          </Text>
+          </p>
         </div>
       </div>
     </div>

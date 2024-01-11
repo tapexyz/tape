@@ -1,7 +1,6 @@
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import useProfileStore from '@lib/store/idb/profile'
 import useNonceStore from '@lib/store/nonce'
-import { Button } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   LENSHUB_PROXY_ADDRESS,
@@ -22,7 +21,7 @@ import {
   useUnfollowMutation
 } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { Loader } from '@tape.xyz/ui'
+import { Button } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -31,12 +30,9 @@ import { useSignTypedData, useWriteContract } from 'wagmi'
 type Props = {
   profile: Profile
   onUnSubscribe: () => void
-  size?: '1' | '2' | '3'
-
-  showText?: boolean
 }
 
-const UnFollow: FC<Props> = ({ profile, onUnSubscribe, size = '2' }) => {
+const UnFollow: FC<Props> = ({ profile, onUnSubscribe }) => {
   const [loading, setLoading] = useState(false)
 
   const { activeProfile } = useProfileStore()
@@ -150,13 +146,7 @@ const UnFollow: FC<Props> = ({ profile, onUnSubscribe, size = '2' }) => {
   }
 
   return (
-    <Button
-      size={size}
-      onClick={() => unfollow()}
-      highContrast
-      disabled={loading}
-    >
-      {loading && <Loader size="sm" />}
+    <Button loading={loading} disabled={loading} onClick={() => unfollow()}>
       Unfollow
     </Button>
   )

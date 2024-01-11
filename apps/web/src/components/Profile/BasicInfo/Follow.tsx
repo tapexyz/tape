@@ -1,7 +1,6 @@
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import useProfileStore from '@lib/store/idb/profile'
 import useNonceStore from '@lib/store/nonce'
-import { Button } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   ERROR_MESSAGE,
@@ -23,7 +22,7 @@ import {
   useFollowMutation
 } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { Loader } from '@tape.xyz/ui'
+import { Button } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -32,10 +31,9 @@ import { useSignTypedData, useWriteContract } from 'wagmi'
 type Props = {
   profile: Profile
   onSubscribe: () => void
-  size?: '1' | '2' | '3'
 }
 
-const Follow: FC<Props> = ({ profile, onSubscribe, size = '2' }) => {
+const Follow: FC<Props> = ({ profile, onSubscribe }) => {
   const [loading, setLoading] = useState(false)
   const { activeProfile } = useProfileStore()
   const { canUseLensManager, canBroadcast } =
@@ -173,13 +171,7 @@ const Follow: FC<Props> = ({ profile, onSubscribe, size = '2' }) => {
   }
 
   return (
-    <Button
-      size={size}
-      disabled={loading}
-      onClick={() => follow()}
-      highContrast
-    >
-      {loading && <Loader size="sm" />}
+    <Button disabled={loading} loading={loading} onClick={() => follow()}>
       Follow
     </Button>
   )

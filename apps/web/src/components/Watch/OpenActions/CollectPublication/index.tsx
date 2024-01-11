@@ -6,7 +6,6 @@ import { getRelativeTime } from '@lib/formatTime'
 import { getCollectModuleOutput } from '@lib/getCollectModuleOutput'
 import useProfileStore from '@lib/store/idb/profile'
 import useNonceStore from '@lib/store/nonce'
-import { Button, Callout, Flex } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   ERROR_MESSAGE,
@@ -47,7 +46,7 @@ import type {
   CustomErrorWithData,
   SupportedOpenActionModuleType
 } from '@tape.xyz/lens/custom-types'
-import { InfoOutline, Loader, UserOutline } from '@tape.xyz/ui'
+import { Button, Callout, Spinner, UserOutline } from '@tape.xyz/ui'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
@@ -527,26 +526,20 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
               action?.followerOnly &&
               !publication.by.operations.isFollowedByMe.value ? (
                 <div className="flex-1">
-                  <Callout.Root>
-                    <Callout.Icon>
-                      <InfoOutline />
-                    </Callout.Icon>
-                    <Callout.Text highContrast weight="medium">
-                      <Flex gap="2" align="center">
-                        <UserOutline className="size-3.5" />
-                        This publication can only be collected by the creator's
-                        followers.
-                      </Flex>
-                    </Callout.Text>
-                  </Callout.Root>
+                  <Callout icon={<UserOutline className="size-3.5" />}>
+                    <div className="flex items-center gap-2">
+                      This publication can only be collected by the creator's
+                      followers.
+                    </div>
+                  </Callout>
                 </div>
               ) : balanceLoading && !haveEnoughBalance ? (
                 <div className="flex w-full justify-center py-2">
-                  <Loader />
+                  <Spinner />
                 </div>
               ) : haveEnoughBalance ? (
                 <Button
-                  highContrast
+                  loading={collecting}
                   disabled={collecting || alreadyCollected}
                   onClick={() => (!alreadyCollected ? collectNow() : null)}
                 >
@@ -568,7 +561,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
         </>
       ) : (
         <div className="my-20">
-          <Loader />
+          <Spinner />
         </div>
       )}
     </div>

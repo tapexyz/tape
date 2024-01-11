@@ -1,29 +1,27 @@
-import type { TextAreaProps } from '@radix-ui/themes/dist/cjs/components/text-area'
 import { useDebounce, useOutsideClick } from '@tape.xyz/browser'
 import { LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
 import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { LimitType, useSearchProfilesLazyQuery } from '@tape.xyz/lens'
-import { Loader } from '@tape.xyz/ui'
+import { Spinner, TextArea } from '@tape.xyz/ui'
 import clsx from 'clsx'
-import type { FC } from 'react'
+import type { ComponentProps, FC } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
 import getCaretCoordinates from 'textarea-caret'
 
 import ProfileSuggestion from './ProfileSuggestion'
-import { TextArea } from './TextArea'
 
-interface Props extends TextAreaProps {
+interface TextAreaProps extends Omit<ComponentProps<'textarea'>, 'prefix'> {
   label?: string
+  error?: string
   className?: string
-  validationError?: string
   onContentChange: (value: string) => void
 }
 
-const InputMentions: FC<Props> = ({
+const InputMentions: FC<TextAreaProps> = ({
   label,
   placeholder,
-  validationError,
+  error,
   onContentChange,
   ...props
 }) => {
@@ -142,7 +140,7 @@ const InputMentions: FC<Props> = ({
         label={label}
         placeholder={placeholder}
         onChange={handleInputChange}
-        validationError={validationError}
+        error={error}
       />
       {showPopover && (loading || profiles?.length) ? (
         <div
@@ -153,7 +151,7 @@ const InputMentions: FC<Props> = ({
           className="rounded-medium tape-border absolute z-10 mt-10 space-y-1 bg-white p-1.5 dark:bg-black"
         >
           {loading ? (
-            <Loader />
+            <Spinner />
           ) : (
             profiles?.map((profile: Profile, index) => (
               <div key={profile.id} className="w-48" tabIndex={-1}>

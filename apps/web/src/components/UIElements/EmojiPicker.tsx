@@ -1,7 +1,11 @@
 import Picker from '@emoji-mart/react'
-import { Popover } from '@radix-ui/themes'
 import { STATIC_ASSETS } from '@tape.xyz/constants'
-import { EmojiOutline } from '@tape.xyz/ui'
+import {
+  EmojiOutline,
+  Popover,
+  PopoverContent,
+  PopoverTrigger
+} from '@tape.xyz/ui'
 import axios from 'axios'
 import { useTheme } from 'next-themes'
 import type { FC } from 'react'
@@ -32,13 +36,13 @@ const EmojiPicker: FC<Props> = ({ onEmojiSelect }) => {
   }, [])
 
   return (
-    <Popover.Root>
-      <Popover.Trigger>
+    <Popover>
+      <PopoverTrigger>
         <span className="cursor-pointer">
           <EmojiOutline className="size-5" />
         </span>
-      </Popover.Trigger>
-      <Popover.Content align="end" className="!p-0">
+      </PopoverTrigger>
+      <PopoverContent align="end" className="!p-0">
         <Picker
           data={data}
           navPosition="bottom"
@@ -56,8 +60,8 @@ const EmojiPicker: FC<Props> = ({ onEmojiSelect }) => {
             'rgba(211,209,255,.7)'
           ]}
         />
-      </Popover.Content>
-    </Popover.Root>
+      </PopoverContent>
+    </Popover>
   )
 }
 

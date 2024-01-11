@@ -1,7 +1,6 @@
 import ToggleLensManager from '@components/Settings/Manager/LensManager/ToggleLensManager'
 import SignalWaveGraphic from '@components/UIElements/SignalWaveGraphic'
 import useProfileStore from '@lib/store/idb/profile'
-import { Flex } from '@radix-ui/themes'
 import { TAPE_APP_NAME } from '@tape.xyz/constants'
 import {
   checkLensManagerPermissions,
@@ -33,9 +32,9 @@ const LensManagerAlert = () => {
         <p className="md:text-md max-w-2xl text-sm lg:text-lg">
           {getDescription()}
         </p>
-        <Flex>
+        <div className="flex">
           <ToggleLensManager />
-        </Flex>
+        </div>
       </div>
 
       <SignalWaveGraphic />

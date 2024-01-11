@@ -8,7 +8,7 @@ import {
 } from '@tape.xyz/generic'
 import type { AnyPublication } from '@tape.xyz/lens'
 import { usePublicationQuery } from '@tape.xyz/lens'
-import { Loader } from '@tape.xyz/ui'
+import { Spinner } from '@tape.xyz/ui'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import Custom404 from 'src/pages/404'
@@ -37,7 +37,7 @@ const Listen = () => {
   if (loading || !data) {
     return (
       <div className="grid h-[80vh] place-items-center">
-        <Loader />
+        <Spinner />
       </div>
     )
   }

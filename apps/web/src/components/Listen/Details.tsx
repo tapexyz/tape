@@ -26,7 +26,6 @@ const Details: FC<Props> = ({ audio }) => {
           <div className="mt-2 inline-block">
             <HoverableProfile
               profile={audio.by}
-              fontSize="5"
               pfp={
                 <img
                   src={getProfilePicture(audio.by, 'AVATAR')}
