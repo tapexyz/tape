@@ -1,3 +1,4 @@
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import useProfileStore from '@lib/store/idb/profile'
 import useNonceStore from '@lib/store/nonce'
 import { ERROR_MESSAGE } from '@tape.xyz/constants'
@@ -54,6 +55,7 @@ const UnknownOpenAction = ({
     toast.success('Acted successfully')
   }
 
+  const handleWrongNetwork = useHandleWrongNetwork()
   const { signTypedDataAsync } = useSignTypedData({ onError })
 
   const activeProfile = useProfileStore((state) => state.activeProfile)
@@ -133,6 +135,10 @@ const UnknownOpenAction = ({
   }
 
   const actOnUnknownOpenAction = async (address: string, data: string) => {
+    if (handleWrongNetwork()) {
+      return
+    }
+
     const actOnRequest: ActOnOpenActionLensManagerRequest = {
       for: publicationId,
       actOn: {
