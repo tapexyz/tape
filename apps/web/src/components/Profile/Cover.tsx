@@ -1,5 +1,4 @@
 import { getDateString, getRelativeTime } from '@lib/formatTime'
-import { Badge as BadgeUI, Flex } from '@radix-ui/themes'
 import {
   getProfile,
   getProfileCoverPicture,
@@ -8,6 +7,7 @@ import {
   sanitizeDStorageUrl
 } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
+import { Badge as BadgeUI } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React from 'react'
 
@@ -38,10 +38,10 @@ const Cover: FC<Props> = ({ profile }) => {
             draggable={false}
             alt={getProfile(profile)?.slug}
           />
-          <Flex direction="column" gap="4" align="end">
+          <div className="flex flex-col items-end gap-4">
             {profile.metadata && <CoverLinks metadata={profile.metadata} />}
 
-            <Flex gap="1">
+            <div className="flex gap-1">
               <BadgeUI title={profile.id} className="!bg-white !text-black">
                 <span className="bg-white text-black">
                   # {parseInt(profile.id)}
@@ -53,8 +53,8 @@ const Cover: FC<Props> = ({ profile }) => {
               >
                 Joined {getRelativeTime(profile.createdAt)}
               </BadgeUI>
-            </Flex>
-          </Flex>
+            </div>
+          </div>
         </div>
       </div>
     </div>

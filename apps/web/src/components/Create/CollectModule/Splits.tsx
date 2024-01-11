@@ -1,9 +1,7 @@
-import { Input } from '@components/UIElements/Input'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import ProfileSuggestion from '@components/UIElements/ProfileSuggestion'
 import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
-import { IconButton, Text } from '@radix-ui/themes'
 import { useDebounce, useOutsideClick } from '@tape.xyz/browser'
 import {
   LENS_CUSTOM_FILTERS,
@@ -19,7 +17,7 @@ import {
 } from '@tape.xyz/generic'
 import type { Profile, RecipientDataInput } from '@tape.xyz/lens'
 import { LimitType, useSearchProfilesLazyQuery } from '@tape.xyz/lens'
-import { InfoOutline, Loader, TimesOutline } from '@tape.xyz/ui'
+import { InfoOutline, Input, Spinner, TimesOutline } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import type { FC, RefObject } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
@@ -144,9 +142,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
   return (
     <div className="space-y-1">
       <div className="flex items-center">
-        <Text size="2" weight="medium">
-          Split revenue
-        </Text>
+        <span className="text-sm font-medium">Split revenue</span>
         <Tooltip content="Split collect revenue with anyone" placement="top">
           <span>
             <InfoOutline className="mx-1 size-3 opacity-70" />
@@ -174,10 +170,8 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
                   : ''
               }
               disabled={splitRecipient.recipient === TAPE_ADMIN_ADDRESS}
-              validationError={
-                getIsValidAddress(splitRecipient.recipient) ? '' : ' '
-              }
-              showErrorLabel={false}
+              error={getIsValidAddress(splitRecipient.recipient) ? '' : ' '}
+              showError={false}
             />
             {searchKeyword.length &&
             !getIsValidAddress(splitRecipients[i].recipient) ? (
@@ -185,7 +179,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
                 ref={resultsRef}
                 className="tape-border z-10 mt-1 w-full overflow-hidden rounded-md bg-white focus:outline-none md:absolute dark:bg-black"
               >
-                {profilesLoading && <Loader className="my-4" />}
+                {profilesLoading && <Spinner className="my-4" />}
                 {!profiles?.length && !profilesLoading ? (
                   <NoDataFound isCenter text="No profiles found" />
                 ) : null}
@@ -220,14 +214,13 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
               onChange={(e) => onChangeSplit('split', e.target.value, i)}
             />
           </div>
-          <IconButton
-            variant="soft"
+          <button
             type="button"
-            color="red"
+            className="rounded-lg px-2 text-red-500"
             onClick={() => removeRecipient(i)}
           >
-            <TimesOutline className="size-4 p-0.5" outlined={false} />
-          </IconButton>
+            <TimesOutline className="size-4" outlined={false} />
+          </button>
         </div>
       ))}
       <div className="flex items-center justify-between space-x-1.5 pt-1">

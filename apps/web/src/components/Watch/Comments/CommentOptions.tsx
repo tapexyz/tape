@@ -2,12 +2,18 @@ import ReportPublication from '@components/Report/Publication'
 import Confirm from '@components/UIElements/Confirm'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import useProfileStore from '@lib/store/idb/profile'
-import { Box, Dialog, DropdownMenu, Flex, Text } from '@radix-ui/themes'
 import { SIGN_IN_REQUIRED } from '@tape.xyz/constants'
 import { EVENTS, Tower } from '@tape.xyz/generic'
 import type { Comment } from '@tape.xyz/lens'
 import { useHidePublicationMutation } from '@tape.xyz/lens'
-import { FlagOutline, ThreeDotsOutline, TrashOutline } from '@tape.xyz/ui'
+import {
+  DropdownMenu,
+  DropdownMenuItem,
+  FlagOutline,
+  Modal,
+  ThreeDotsOutline,
+  TrashOutline
+} from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -18,6 +24,7 @@ type Props = {
 
 const CommentOptions: FC<Props> = ({ comment }) => {
   const [showConfirm, setShowConfirm] = useState(false)
+  const [showReportModal, setShowReportModal] = useState(false)
   const handleWrongNetwork = useHandleWrongNetwork()
 
   const { activeProfile } = useProfileStore()
@@ -51,6 +58,7 @@ const CommentOptions: FC<Props> = ({ comment }) => {
     if (handleWrongNetwork()) {
       return
     }
+    setShowReportModal(true)
   }
 
   return (
@@ -60,52 +68,40 @@ const CommentOptions: FC<Props> = ({ comment }) => {
         setShowConfirm={setShowConfirm}
         action={onHideComment}
       />
-      <DropdownMenu.Root>
-        <DropdownMenu.Trigger>
-          <Box>
-            <ThreeDotsOutline className="size-3.5" />
-          </Box>
-        </DropdownMenu.Trigger>
-        <DropdownMenu.Content sideOffset={10} variant="soft" align="end">
-          <div className="w-36 overflow-hidden">
-            <div className="flex flex-col rounded-lg text-sm transition duration-150 ease-in-out">
-              {activeProfile?.id === comment?.by?.id && (
-                <DropdownMenu.Item
-                  onClick={() => setShowConfirm(true)}
-                  color="red"
-                >
-                  <Flex align="center" gap="2">
-                    <TrashOutline className="size-3.5" />
-                    <span className="whitespace-nowrap">Delete</span>
-                  </Flex>
-                </DropdownMenu.Item>
-              )}
+      <DropdownMenu trigger={<ThreeDotsOutline className="size-3.5" />}>
+        <div className="w-36 overflow-hidden">
+          <div className="flex flex-col rounded-lg text-sm transition duration-150 ease-in-out">
+            {activeProfile?.id === comment?.by?.id && (
+              <DropdownMenuItem onClick={() => setShowConfirm(true)}>
+                <div className="flex items-center gap-2">
+                  <TrashOutline className="size-3.5" />
+                  <span className="whitespace-nowrap">Delete</span>
+                </div>
+              </DropdownMenuItem>
+            )}
 
-              <Dialog.Root>
-                <Dialog.Trigger disabled={!activeProfile?.id}>
-                  <button
-                    className="!cursor-default rounded-md px-3 py-1.5 hover:bg-gray-500/20"
-                    onClick={() => onClickReport()}
-                  >
-                    <Flex align="center" gap="2">
-                      <FlagOutline className="size-3.5" />
-                      <Text size="2" className="whitespace-nowrap">
-                        Report
-                      </Text>
-                    </Flex>
-                  </button>
-                </Dialog.Trigger>
-
-                <Dialog.Content style={{ maxWidth: 450 }}>
-                  <Dialog.Title>Report</Dialog.Title>
-
-                  <ReportPublication publication={comment} />
-                </Dialog.Content>
-              </Dialog.Root>
-            </div>
+            <Modal
+              title="Report"
+              show={showReportModal}
+              setShow={setShowReportModal}
+            >
+              <ReportPublication
+                publication={comment}
+                close={() => setShowReportModal(false)}
+              />
+            </Modal>
+            <button
+              className="!cursor-default rounded-md px-3 py-1.5 hover:bg-gray-500/20"
+              onClick={() => onClickReport()}
+            >
+              <div className="flex items-center gap-2">
+                <FlagOutline className="size-3.5" />
+                <p className="whitespace-nowrap">Report</p>
+              </div>
+            </button>
           </div>
-        </DropdownMenu.Content>
-      </DropdownMenu.Root>
+        </div>
+      </DropdownMenu>
     </>
   )
 }

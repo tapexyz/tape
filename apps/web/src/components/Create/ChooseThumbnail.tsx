@@ -1,9 +1,8 @@
 import ThumbnailsShimmer from '@components/Shimmers/ThumbnailsShimmer'
 import useAppStore from '@lib/store'
-import { Grid } from '@radix-ui/themes'
 import { generateVideoThumbnails } from '@tape.xyz/browser'
 import { logger } from '@tape.xyz/generic'
-import { AddImageOutline, Loader, PinOutline } from '@tape.xyz/ui'
+import { AddImageOutline, CheckOutline, Spinner } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import type { ChangeEvent, FC } from 'react'
 import React, { useEffect, useState } from 'react'
@@ -93,7 +92,7 @@ const ChooseThumbnail: FC<Props> = ({ file }) => {
   }
 
   return (
-    <Grid columns="5" gap="2">
+    <div className="grid grid-cols-5 gap-2">
       <label
         htmlFor="chooseThumbnail"
         className="tape-border flex h-full w-full flex-none cursor-pointer flex-col items-center justify-center rounded-lg"
@@ -129,19 +128,19 @@ const ChooseThumbnail: FC<Props> = ({ file }) => {
             />
             {selectedThumbnailIndex === idx && (
               <div className="absolute inset-0 grid place-items-center bg-gray-800 bg-opacity-50">
-                <PinOutline className="text-brand-500 size-4" />
+                <CheckOutline className="text-brand-500 size-4" />
               </div>
             )}
             {uploadedMedia.uploadingThumbnail &&
               selectedThumbnailIndex === idx && (
                 <div className="absolute inset-0 grid place-items-center bg-gray-100 bg-opacity-10 backdrop-blur-md">
-                  <Loader size="sm" />
+                  <Spinner size="sm" />
                 </div>
               )}
           </button>
         )
       })}
-    </Grid>
+    </div>
   )
 }
 

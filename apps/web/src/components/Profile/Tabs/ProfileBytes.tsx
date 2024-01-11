@@ -20,7 +20,7 @@ import {
   PublicationType,
   usePublicationsQuery
 } from '@tape.xyz/lens'
-import { Loader } from '@tape.xyz/ui'
+import { Spinner } from '@tape.xyz/ui'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
@@ -104,17 +104,17 @@ const ProfileBytes: FC<Props> = ({ profileId }) => {
                   </h1>
                 </div>
                 <div
-                  className="absolute right-2 top-2"
+                  className="absolute right-2 top-2 rounded-full bg-white"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  <PublicationOptions publication={byte} variant="solid" />
+                  <PublicationOptions publication={byte} />
                 </div>
               </Link>
             )
           })}
           {pageInfo?.next && (
             <span ref={observe} className="flex justify-center p-10">
-              <Loader />
+              <Spinner />
             </span>
           )}
         </div>

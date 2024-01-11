@@ -1,11 +1,9 @@
-import { Input } from '@components/UIElements/Input'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import type { MetadataAttribute } from '@lens-protocol/metadata'
 import { link, MetadataAttributeType } from '@lens-protocol/metadata'
 import useProfileStore from '@lib/store/idb/profile'
 import useNonceStore from '@lib/store/nonce'
-import { Button, Dialog, DialogClose, Flex, IconButton } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { getUserLocale } from '@tape.xyz/browser'
 import {
@@ -39,7 +37,7 @@ import {
   usePostOnMomokaMutation
 } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { Loader, TimesOutline } from '@tape.xyz/ui'
+import { Button, Input, Modal } from '@tape.xyz/ui'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useState } from 'react'
@@ -76,6 +74,7 @@ const New: FC<Props> = ({ refetch }) => {
     resolver: zodResolver(formSchema)
   })
   const [loading, setLoading] = useState(false)
+  const [showNewUploadModal, setShowNewUploadModal] = useState(false)
   const activeProfile = useProfileStore((state) => state.activeProfile)
   const handleWrongNetwork = useHandleWrongNetwork()
   const { canUseLensManager, canBroadcast } =
@@ -241,47 +240,40 @@ const New: FC<Props> = ({ refetch }) => {
         className="container mx-auto flex h-full max-w-screen-sm flex-col items-center justify-center space-y-4 px-4 md:px-0"
       >
         <form onSubmit={handleSubmit(onSubmit)} className="w-full">
-          <div className="flex space-x-2">
+          <div className="flex items-center space-x-2">
             <Input
               title="Tape/YouTube/Vimeo links supported"
               placeholder="Paste a link to a banger"
               autoComplete="off"
               className="bg-white dark:bg-black"
-              validationError={errors.link?.message}
+              error={errors.link?.message}
+              showError={false}
               {...register('link')}
             />
-            <Button disabled={loading} highContrast>
-              {loading && <Loader size="sm" />}
+            <Button disabled={loading} loading={loading}>
               Post
             </Button>
           </div>
         </form>
         <span>or</span>
-        <Dialog.Root>
-          <Dialog.Trigger>
-            <Button highContrast>Upload</Button>
-          </Dialog.Trigger>
-          <Dialog.Content style={{ maxWidth: 450 }}>
-            <Flex gap="3" justify="between" pb="2">
-              <Dialog.Title size="5">Upload to Tape</Dialog.Title>
-              <DialogClose>
-                <IconButton variant="ghost" color="gray">
-                  <TimesOutline outlined={false} className="size-3" />
-                </IconButton>
-              </DialogClose>
-            </Flex>
-            <div>
-              <p>
-                You can upload a video to Tape and then post a link to it here.
-              </p>
-              <div className="mt-4 flex justify-end">
-                <Link href="/create">
-                  <Button highContrast>Continue to Upload</Button>
-                </Link>
-              </div>
+        <Button onClick={() => setShowNewUploadModal(true)}>Upload</Button>
+        <Modal
+          size="sm"
+          show={showNewUploadModal}
+          setShow={setShowNewUploadModal}
+          title="Upload to Tape"
+        >
+          <div>
+            <p>
+              You can upload a video to Tape and then post a link to it here.
+            </p>
+            <div className="mt-4 flex justify-end">
+              <Link href="/create">
+                <Button>Continue to Upload</Button>
+              </Link>
             </div>
-          </Dialog.Content>
-        </Dialog.Root>
+          </div>
+        </Modal>
       </fieldset>
     </div>
   )

@@ -1,5 +1,4 @@
 import Tooltip from '@components/UIElements/Tooltip'
-import { IconButton } from '@radix-ui/themes'
 import { useCopyToClipboard } from '@tape.xyz/browser'
 import { STATIC_ASSETS, TAPE_WEBSITE_URL } from '@tape.xyz/constants'
 import { EVENTS, getSharableLink, imageCdn, Tower } from '@tape.xyz/generic'
@@ -131,14 +130,12 @@ const Share: FC<Props> = ({ publication }) => {
       <div className="flex items-center justify-between rounded-lg border border-gray-200 p-2 dark:border-gray-800">
         <div className="select-all truncate text-sm">{url}</div>
         <Tooltip content="Copy" placement="top">
-          <IconButton
-            variant="soft"
-            size="1"
+          <button
             className="ml-2 hover:opacity-60 focus:outline-none"
             onClick={() => onCopyVideoUrl()}
           >
             <CopyOutline className="size-4" />
-          </IconButton>
+          </button>
         </Tooltip>
       </div>
     </div>

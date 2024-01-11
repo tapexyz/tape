@@ -6,7 +6,7 @@ import {
   type ProfilesRequest,
   useProfilesQuery
 } from '@tape.xyz/lens'
-import { Loader, UserOutline } from '@tape.xyz/ui'
+import { Spinner, UserOutline } from '@tape.xyz/ui'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
@@ -50,7 +50,7 @@ const MirroredList: FC<Props> = ({ videoId }) => {
   })
 
   if (loading) {
-    return <Loader />
+    return <Spinner />
   }
   if (mirroredByProfiles?.length === 0) {
     return (
@@ -89,7 +89,7 @@ const MirroredList: FC<Props> = ({ videoId }) => {
       ))}
       {pageInfo?.next && (
         <span ref={observe} className="p-5">
-          <Loader />
+          <Spinner />
         </span>
       )}
     </div>

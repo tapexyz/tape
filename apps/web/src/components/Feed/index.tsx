@@ -18,7 +18,7 @@ import {
   PublicationMetadataMainFocusType,
   useFeedQuery
 } from '@tape.xyz/lens'
-import { Loader } from '@tape.xyz/ui'
+import { Spinner } from '@tape.xyz/ui'
 import React, { useEffect } from 'react'
 import { useInView } from 'react-cool-inview'
 import Custom500 from 'src/pages/500'
@@ -100,7 +100,7 @@ const Feed = () => {
           </div>
           {pageInfo?.next && (
             <span ref={observe} className="flex justify-center p-10">
-              <Loader />
+              <Spinner />
             </span>
           )}
         </>

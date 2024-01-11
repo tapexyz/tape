@@ -18,7 +18,6 @@ import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
 
 import PublicationComments from '../Common/Publication/PublicationComments'
-import AboutProfile from './AboutProfile'
 import NonRelevantComments from './Comments/NonRelevantComments'
 import SuggestedVideos from './SuggestedVideos'
 import Video from './Video'
@@ -68,10 +67,8 @@ const VideoDetails = () => {
       <MetaTags title={getPublicationData(video?.metadata)?.title || `Watch`} />
       {!loading && !error && video ? (
         <div className="max-w-screen-ultrawide mx-auto grid grid-cols-1 gap-y-4 md:gap-4 xl:grid-cols-4">
-          <div className="col-span-3 space-y-3.5">
+          <div className="col-span-3 space-y-4">
             <Video video={video} />
-            <hr className="border-[0.5px] border-gray-200 dark:border-gray-800" />
-            <AboutProfile video={video} />
             <hr className="border-[0.5px] border-gray-200 dark:border-gray-800" />
             <PublicationComments publication={video} />
             {selectedCommentFilter ===

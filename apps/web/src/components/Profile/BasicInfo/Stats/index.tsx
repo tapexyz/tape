@@ -1,4 +1,3 @@
-import { Flex } from '@radix-ui/themes'
 import type { Profile } from '@tape.xyz/lens'
 import type { FC } from 'react'
 import React from 'react'
@@ -12,10 +11,10 @@ type Props = {
 
 const Stats: FC<Props> = ({ profile }) => {
   return (
-    <Flex gap="3">
+    <div className="flex gap-3">
       <Followers stats={profile.stats} profileId={profile.id} />
       <Following stats={profile.stats} profileId={profile.id} />
-    </Flex>
+    </div>
   )
 }
 

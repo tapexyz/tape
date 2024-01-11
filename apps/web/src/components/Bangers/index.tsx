@@ -19,10 +19,10 @@ const Bangers = () => {
   }
 
   return (
-    <>
+    <div className="pt-14">
       <MetaTags title="Only Bangers" />
       <Feed />
-    </>
+    </div>
   )
 }
 

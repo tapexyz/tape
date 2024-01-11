@@ -1,6 +1,6 @@
 import MetaTags from '@components/Common/MetaTags'
-import { Button } from '@radix-ui/themes'
 import { STATIC_ASSETS, TAPE_APP_NAME } from '@tape.xyz/constants'
+import { Button } from '@tape.xyz/ui'
 import Link from 'next/link'
 import React from 'react'
 
@@ -24,9 +24,7 @@ const Custom500 = () => {
           free to contact us. In the meantime, try refreshing.
         </div>
         <Link href="/">
-          <Button highContrast variant="surface">
-            Go Home
-          </Button>
+          <Button>Go Home</Button>
         </Link>
       </div>
     </>

@@ -17,7 +17,7 @@ import {
   PublicationType,
   usePublicationsQuery
 } from '@tape.xyz/lens'
-import { Loader } from '@tape.xyz/ui'
+import { Spinner } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
@@ -90,7 +90,7 @@ const ProfileVideos: FC<Props> = ({ profile }) => {
       })}
       {pageInfo?.next && (
         <span ref={observe} className="flex justify-center p-10">
-          <Loader />
+          <Spinner />
         </span>
       )}
     </div>

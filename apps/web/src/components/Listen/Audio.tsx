@@ -1,6 +1,5 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
 import { getReadableTimeFromSeconds } from '@lib/formatTime'
-import { IconButton } from '@radix-ui/themes'
 import {
   getProfile,
   getProfilePicture,
@@ -10,8 +9,7 @@ import {
   sanitizeDStorageUrl
 } from '@tape.xyz/generic'
 import type { PrimaryPublication } from '@tape.xyz/lens'
-import { PauseOutline, PlayOutline } from '@tape.xyz/ui'
-import AudioPlayer from '@tape.xyz/ui/AudioPlayer'
+import { AudioPlayer, PauseOutline, PlayOutline } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 
@@ -41,17 +39,13 @@ const Audio: FC<Props> = ({ audio }) => {
             draggable={false}
           />
           <div className="absolute inset-0 flex items-end justify-end space-x-1 p-3">
-            <IconButton
-              onClick={() => setIsPlaying(!isPlaying)}
-              size="3"
-              highContrast
-            >
+            <button onClick={() => setIsPlaying(!isPlaying)}>
               {isPlaying ? (
                 <PauseOutline className="size-5" />
               ) : (
                 <PlayOutline className="size-5" />
               )}
-            </IconButton>
+            </button>
           </div>
         </div>
         <div className="flex w-full flex-col items-center space-y-4 text-white lg:items-start">
@@ -62,7 +56,6 @@ const Audio: FC<Props> = ({ audio }) => {
             <div>
               <HoverableProfile
                 profile={audio.by}
-                fontSize="3"
                 pfp={
                   <img
                     src={getProfilePicture(audio.by, 'AVATAR')}

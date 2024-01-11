@@ -6,16 +6,10 @@ import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 
 type Props = {
-  size?: '1' | '2' | '3'
   profile: Profile
-  showUnfollow?: boolean
 }
 
-const FollowActions: FC<Props> = ({
-  profile,
-  size = '2',
-  showUnfollow = true
-}) => {
+const FollowActions: FC<Props> = ({ profile }) => {
   const isFollowedByMe = profile?.operations.isFollowedByMe.value
   const [subscriber, setSubscriber] = useState(isFollowedByMe)
   const followModule = profile?.followModule?.type
@@ -25,25 +19,11 @@ const FollowActions: FC<Props> = ({
   }, [isFollowedByMe])
 
   return subscriber ? (
-    showUnfollow ? (
-      <UnFollow
-        size={size}
-        profile={profile}
-        onUnSubscribe={() => setSubscriber(false)}
-      />
-    ) : null
+    <UnFollow profile={profile} onUnSubscribe={() => setSubscriber(false)} />
   ) : followModule === FollowModuleType.FeeFollowModule ? (
-    <SuperFollow
-      size={size}
-      profile={profile}
-      onJoin={() => setSubscriber(true)}
-    />
+    <SuperFollow profile={profile} onJoin={() => setSubscriber(true)} />
   ) : !followModule ? (
-    <Follow
-      size={size}
-      profile={profile}
-      onSubscribe={() => setSubscriber(true)}
-    />
+    <Follow profile={profile} onSubscribe={() => setSubscriber(true)} />
   ) : null
 }
 

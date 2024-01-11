@@ -1,5 +1,4 @@
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
-import { Button } from '@radix-ui/themes'
 import {
   INFINITE_SCROLL_ROOT_MARGIN,
   LENS_CUSTOM_FILTERS
@@ -15,7 +14,7 @@ import {
   LimitType,
   usePublicationsQuery
 } from '@tape.xyz/lens'
-import { ChevronDownOutline, ChevronUpOutline, Loader } from '@tape.xyz/ui'
+import { ChevronDownOutline, ChevronUpOutline, Spinner } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
@@ -74,23 +73,19 @@ const NonRelevantComments: FC<Props> = ({ video, className }) => {
 
   return (
     <div className={className}>
-      <Button
-        className="group w-full text-center"
+      <button
+        className="group flex w-full items-center space-x-2 text-center text-sm"
         onClick={() => onToggle()}
-        variant="ghost"
-        highContrast
       >
-        <span className="flex items-center space-x-2">
-          <span className="opacity-80 group-hover:opacity-100">
-            {showSection ? 'Hide more comments' : 'Show more comments'}
-          </span>
-          {showSection ? (
-            <ChevronUpOutline className="size-3" />
-          ) : (
-            <ChevronDownOutline className="size-3" />
-          )}
+        <span className="opacity-80 group-hover:opacity-100">
+          {showSection ? 'Hide more comments' : 'Show more comments'}
         </span>
-      </Button>
+        {showSection ? (
+          <ChevronUpOutline className="size-2" />
+        ) : (
+          <ChevronDownOutline className="size-2" />
+        )}
+      </button>
       {showSection ? (
         <>
           <div className="space-y-4 py-6">
@@ -107,7 +102,7 @@ const NonRelevantComments: FC<Props> = ({ video, className }) => {
           </div>
           {pageInfo?.next && (
             <span ref={observe} className="flex justify-center p-10">
-              <Loader />
+              <Spinner />
             </span>
           )}
         </>

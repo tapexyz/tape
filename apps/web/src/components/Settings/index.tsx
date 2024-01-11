@@ -59,14 +59,14 @@ const Settings = () => {
   const profile = data?.profile as Profile
 
   return (
-    <div className="ultrawide:max-w-screen-xl container mx-auto">
-      <MetaTags title={`Profile Settings`} />
+    <>
+      <MetaTags title="Profile Settings" />
       {!loading && !error && profile ? (
-        <div className="grid gap-4 md:grid-cols-4">
-          <div className="md:col-span-1">
+        <div className="container mx-auto flex h-full w-full max-w-screen-lg">
+          <div className="w-1/4 flex-none px-6">
             <SettingsSidebar />
           </div>
-          <div className="md:col-span-3">
+          <div className="w-full pb-6">
             {router.pathname === SETTINGS && <BasicInfo profile={profile} />}
             {router.pathname === SETTINGS_FOLLOW && (
               <FollowSettings profile={profile} />
@@ -81,7 +81,7 @@ const Settings = () => {
           </div>
         </div>
       ) : null}
-    </div>
+    </>
   )
 }
 

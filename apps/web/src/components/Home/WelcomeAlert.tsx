@@ -1,5 +1,5 @@
-import { Button, Flex } from '@radix-ui/themes'
 import { STATIC_ASSETS, TAPE_APP_NAME } from '@tape.xyz/constants'
+import { Button } from '@tape.xyz/ui'
 import Link from 'next/link'
 import React from 'react'
 
@@ -19,11 +19,11 @@ const WelcomeAlert = () => {
           Discover the new era of media sharing on Lens with {TAPE_APP_NAME}. A
           decentralized, user-centric approach to online media.
         </p>
-        <Flex gap="3">
+        <div className="flex gap-3">
           <Link href="/login">
-            <Button highContrast>Login</Button>
+            <Button>Login</Button>
           </Link>
-        </Flex>
+        </div>
       </div>
     </div>
   )

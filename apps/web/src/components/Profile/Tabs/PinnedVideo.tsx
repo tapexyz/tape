@@ -4,7 +4,6 @@ import type { ProfileOptions } from '@lens-protocol/metadata'
 import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
 import { getRelativeTime } from '@lib/formatTime'
 import useProfileStore from '@lib/store/idb/profile'
-import { Button } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   ERROR_MESSAGE,
@@ -45,7 +44,7 @@ import {
   useSetProfileMetadataMutation
 } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import VideoPlayer from '@tape.xyz/ui/VideoPlayer'
+import { Button, VideoPlayer } from '@tape.xyz/ui'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { memo } from 'react'
@@ -154,6 +153,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
     try {
       toast.loading(`Unpinning video...`)
       const pfp = getProfilePictureUri(activeProfile as Profile)
+      const coverPicture = getProfileCoverPicture(activeProfile as Profile)
       const metadata: ProfileOptions = {
         ...(activeProfile?.metadata?.displayName && {
           name: activeProfile?.metadata?.displayName
@@ -164,10 +164,11 @@ const PinnedVideo: FC<Props> = ({ id }) => {
         ...(pfp && {
           picture: pfp
         }),
+        ...(coverPicture && {
+          coverPicture
+        }),
         appId: TAPE_APP_ID,
-        coverPicture: getProfileCoverPicture(activeProfile),
         id: uuidv4(),
-        name: activeProfile?.metadata?.displayName ?? '',
         attributes: [
           ...otherAttributes,
           {
@@ -263,10 +264,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
               </Link>
               {isVideoOwner && (
                 <Button
-                  variant="soft"
-                  size="2"
-                  color="red"
-                  highContrast
+                  variant="danger"
                   className="invisible hover:!bg-red-200 group-hover:visible dark:hover:!bg-red-800"
                   onClick={() => unpinVideo()}
                 >

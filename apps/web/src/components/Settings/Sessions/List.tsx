@@ -1,13 +1,6 @@
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { getDateString } from '@lib/formatTime'
 import useProfileStore from '@lib/store/idb/profile'
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger
-} from '@radix-ui/react-accordion'
-import { Blockquote, Button } from '@radix-ui/themes'
 import { INFINITE_SCROLL_ROOT_MARGIN } from '@tape.xyz/constants'
 import type { ApprovedAuthenticationRequest } from '@tape.xyz/lens'
 import {
@@ -15,7 +8,15 @@ import {
   useApprovedAuthenticationsQuery,
   useRevokeAuthenticationMutation
 } from '@tape.xyz/lens'
-import { ChevronDownOutline, Loader } from '@tape.xyz/ui'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+  Button,
+  ChevronDownOutline,
+  Spinner
+} from '@tape.xyz/ui'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import toast from 'react-hot-toast'
@@ -67,7 +68,7 @@ const List = () => {
   })
 
   if (loading) {
-    return <Loader className="my-20" />
+    return <Spinner className="my-20" />
   }
 
   if (!sessions?.length || error) {
@@ -107,15 +108,15 @@ const List = () => {
             </AccordionTrigger>
             <AccordionContent className="pt-5">
               <div className="flex items-center justify-between">
-                <Blockquote>
+                <p>
                   {session.browser}, created at{' '}
                   {getDateString(session.createdAt)}
-                </Blockquote>
+                </p>
                 <Button
                   onClick={() => revoke(session.authorizationId)}
-                  variant="surface"
-                  color="red"
+                  variant="danger"
                   disabled={revokingSessionId === session.authorizationId}
+                  loading={revokingSessionId === session.authorizationId}
                 >
                   Revoke
                 </Button>
@@ -126,7 +127,7 @@ const List = () => {
       })}
       {pageInfo?.next && (
         <span ref={observe} className="flex justify-center p-10">
-          <Loader />
+          <Spinner />
         </span>
       )}
     </Accordion>

@@ -6,7 +6,7 @@ import {
   OpenActionCategoryType,
   useWhoActedOnPublicationQuery
 } from '@tape.xyz/lens'
-import { Loader, UserOutline } from '@tape.xyz/ui'
+import { Spinner, UserOutline } from '@tape.xyz/ui'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
@@ -49,7 +49,7 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
   })
 
   if (loading) {
-    return <Loader />
+    return <Spinner />
   }
   if (collectors?.length === 0) {
     return (
@@ -88,7 +88,7 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
       ))}
       {pageInfo?.next && (
         <span ref={observe} className="p-5">
-          <Loader />
+          <Spinner />
         </span>
       )}
     </div>

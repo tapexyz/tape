@@ -5,15 +5,6 @@ import ReportProfile from '@components/Report/Profile'
 import Tooltip from '@components/UIElements/Tooltip'
 import useProfileStore from '@lib/store/idb/profile'
 import useNonceStore from '@lib/store/nonce'
-import {
-  Badge as BadgeUI,
-  Callout,
-  Dialog,
-  DropdownMenu,
-  Flex,
-  IconButton,
-  Text
-} from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { useCopyToClipboard } from '@tape.xyz/browser'
 import {
@@ -45,8 +36,13 @@ import {
 import { useApolloClient } from '@tape.xyz/lens/apollo'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import {
+  Badge as BadgeUI,
+  Callout,
+  DropdownMenu,
+  DropdownMenuItem,
   FlagOutline,
   LinkOutline,
+  Modal,
   ProfileBanOutline,
   ThreeDotsOutline,
   WarningOutline
@@ -66,6 +62,7 @@ type Props = {
 const BasicInfo: FC<Props> = ({ profile }) => {
   const [copy] = useCopyToClipboard()
   const [loading, setLoading] = useState(false)
+  const [showReportModal, setShowReportModal] = useState(false)
 
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
   const { activeProfile } = useProfileStore()
@@ -231,28 +228,26 @@ const BasicInfo: FC<Props> = ({ profile }) => {
 
   return (
     <div className="px-2 xl:px-0">
-      {misused?.description && (
-        <Callout.Root color="red" mt="4">
-          <Callout.Icon>
-            <WarningOutline className="size-5" />
-          </Callout.Icon>
-          <Callout.Text highContrast>
-            <Flex gap="2" align="center">
-              <BadgeUI>{misused.type}</BadgeUI>
+      {misused?.type && (
+        <Callout
+          variant="danger"
+          className="mt-4"
+          icon={<WarningOutline className="size-5" />}
+        >
+          <div className="flex items-center gap-2">
+            {misused.type}
+            {misused.description && (
               <InterweaveContent content={misused.description} />
-            </Flex>
-          </Callout.Text>
-        </Callout.Root>
+            )}
+          </div>
+        </Callout>
       )}
       <div className="flex flex-1 flex-wrap justify-between pb-1 pt-4 md:gap-5">
         <div className="flex flex-col items-start">
-          <Text
-            className="flex items-center space-x-1.5 text-lg md:text-3xl"
-            weight="bold"
-          >
+          <p className="flex items-center space-x-1.5 text-lg font-bold md:text-3xl">
             <span>{getProfile(profile)?.displayName}</span>
             <Badge id={profile?.id} size="xl" />
-          </Text>
+          </p>
 
           <div className="flex items-center space-x-2">
             {profile.operations.isFollowingMe.value && (
@@ -312,62 +307,63 @@ const BasicInfo: FC<Props> = ({ profile }) => {
             </div>
           </div>
         </div>
-        <Flex gap="3" align="center">
-          <DropdownMenu.Root>
-            <DropdownMenu.Trigger>
-              <IconButton variant="ghost">
-                <ThreeDotsOutline className="size-4" />
-              </IconButton>
-            </DropdownMenu.Trigger>
-            <DropdownMenu.Content sideOffset={10} variant="soft" align="end">
-              <DropdownMenu.Item
-                onClick={() =>
-                  copy(`${TAPE_WEBSITE_URL}${getProfile(profile).link}`)
-                }
-              >
-                <Flex align="center" gap="2">
-                  <LinkOutline className="size-3.5" />
-                  <span className="whitespace-nowrap">Permalink</span>
-                </Flex>
-              </DropdownMenu.Item>
+        <div className="flex items-center gap-3">
+          <DropdownMenu trigger={<ThreeDotsOutline className="size-4" />}>
+            <DropdownMenuItem
+              onClick={() =>
+                copy(`${TAPE_WEBSITE_URL}${getProfile(profile).link}`)
+              }
+            >
+              <div className="flex items-center gap-2">
+                <LinkOutline className="size-3.5" />
+                <span className="whitespace-nowrap">Permalink</span>
+              </div>
+            </DropdownMenuItem>
 
-              {activeProfile?.id && (
-                <Dialog.Root>
-                  <Dialog.Trigger>
-                    <button className="!cursor-default rounded-md px-3 py-1.5 hover:bg-gray-500/20">
-                      <Flex align="center" gap="2">
-                        <FlagOutline className="size-3.5" />
-                        <Text size="2" className="whitespace-nowrap">
-                          Report
-                        </Text>
-                      </Flex>
-                    </button>
-                  </Dialog.Trigger>
-                  <Dialog.Content style={{ maxWidth: 450 }}>
-                    <Dialog.Title>Report</Dialog.Title>
-                    <ReportProfile profile={profile} />
-                  </Dialog.Content>
-                </Dialog.Root>
-              )}
-
-              {profile.operations.canBlock && (
-                <DropdownMenu.Item
-                  color="red"
-                  disabled={loading}
-                  onClick={() => toggleBlockProfile()}
+            {activeProfile?.id && (
+              <>
+                <DropdownMenuItem
+                  onClick={(e) => {
+                    e.preventDefault()
+                    setShowReportModal(true)
+                  }}
+                  className="rounded-md px-3 py-1.5 hover:bg-gray-500/20"
                 >
-                  <Flex align="center" gap="2">
-                    <ProfileBanOutline className="size-4" />
-                    <span className="whitespace-nowrap">
-                      {isBlockedByMe ? 'Unblock' : 'Block'}
-                    </span>
-                  </Flex>
-                </DropdownMenu.Item>
-              )}
-            </DropdownMenu.Content>
-          </DropdownMenu.Root>
+                  <div className="flex items-center gap-2">
+                    <FlagOutline className="size-3.5" />
+                    <p className="whitespace-nowrap">Report</p>
+                  </div>
+                </DropdownMenuItem>
+                <Modal
+                  size="sm"
+                  title={`Report ${getProfile(profile)?.slugWithPrefix}`}
+                  show={showReportModal}
+                  setShow={setShowReportModal}
+                >
+                  <ReportProfile
+                    profile={profile}
+                    close={() => setShowReportModal(false)}
+                  />
+                </Modal>
+              </>
+            )}
+
+            {profile.operations.canBlock && (
+              <DropdownMenuItem
+                disabled={loading}
+                onClick={() => toggleBlockProfile()}
+              >
+                <div className="flex items-center gap-2 text-red-500">
+                  <ProfileBanOutline className="size-4" />
+                  <span className="whitespace-nowrap">
+                    {isBlockedByMe ? 'Unblock' : 'Block'}
+                  </span>
+                </div>
+              </DropdownMenuItem>
+            )}
+          </DropdownMenu>
           <FollowActions profile={profile} />
-        </Flex>
+        </div>
       </div>
       <div className="flex flex-wrap items-center justify-between gap-3">
         {profile.metadata?.bio && (

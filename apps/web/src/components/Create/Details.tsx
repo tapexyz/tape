@@ -4,10 +4,10 @@ import Tooltip from '@components/UIElements/Tooltip'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useAppStore from '@lib/store'
 import useCollectStore from '@lib/store/idb/collect'
-import { Button, Flex, Switch, Text } from '@radix-ui/themes'
 import { getFileFromDataURL, uploadToIPFS } from '@tape.xyz/browser'
 import { checkIsBytesVideo } from '@tape.xyz/generic'
 import type { IPFSUploadResult } from '@tape.xyz/lens/custom-types'
+import { Button, Switch } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
@@ -114,7 +114,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
               label="Title"
               placeholder="Title that describes your content"
               autoComplete="off"
-              validationError={errors.title?.message}
+              error={errors.title?.message}
               value={watch('title')}
               onContentChange={(value) => {
                 setValue('title', value)
@@ -126,7 +126,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                 label="Description"
                 placeholder="Describe more about your content, can also be @profile, #hashtags or chapters (00:20 - Intro)"
                 autoComplete="off"
-                validationError={errors.description?.message}
+                error={errors.description?.message}
                 value={watch('description')}
                 onContentChange={(value) => {
                   setValue('description', value)
@@ -165,28 +165,23 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
             </div>
 
             <div className="mt-4">
-              <Text as="label">
-                <Flex gap="2" align="center">
-                  <Switch
-                    highContrast
-                    checked={!uploadedMedia.collectModule.isRevertCollect}
-                    onCheckedChange={(canCollect) => {
-                      const collectModuleData = {
-                        ...uploadedMedia.collectModule,
+              <Switch
+                label="Collectible"
+                checked={!uploadedMedia.collectModule.isRevertCollect}
+                onCheckedChange={(canCollect) => {
+                  const collectModuleData = {
+                    ...uploadedMedia.collectModule,
+                    isRevertCollect: !canCollect
+                  }
+                  const collectModule = saveAsDefault
+                    ? {
+                        ...persistedCollectModule,
                         isRevertCollect: !canCollect
-                      }
-                      const collectModule = saveAsDefault
-                        ? {
-                            ...persistedCollectModule,
-                            isRevertCollect: !canCollect
-                          } ?? collectModuleData
-                        : collectModuleData
-                      setUploadedMedia({ collectModule })
-                    }}
-                  />
-                  Collectible
-                </Flex>
-              </Text>
+                      } ?? collectModuleData
+                    : collectModuleData
+                  setUploadedMedia({ collectModule })
+                }}
+              />
               {!uploadedMedia.collectModule.isRevertCollect && (
                 <CollectModule />
               )}
@@ -203,33 +198,23 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                     !isByteSizeVideo && 'cursor-not-allowed opacity-50'
                   )}
                 >
-                  <Text as="label">
-                    <Flex gap="2" align="center">
-                      <Switch
-                        highContrast
-                        checked={Boolean(uploadedMedia.isByteVideo)}
-                        onCheckedChange={(b) => toggleUploadAsByte(b)}
-                      />
-                      Upload this video as short-form bytes
-                    </Flex>
-                  </Text>
+                  <Switch
+                    label="Upload this video as short-form bytes"
+                    checked={Boolean(uploadedMedia.isByteVideo)}
+                    onCheckedChange={(b) => toggleUploadAsByte(b)}
+                  />
                 </div>
               </Tooltip>
             ) : null}
 
             <div className="mt-2">
-              <Text as="label">
-                <Flex gap="2" align="center">
-                  <Switch
-                    highContrast
-                    checked={Boolean(watch('isSensitiveContent'))}
-                    onCheckedChange={(value) =>
-                      setValue('isSensitiveContent', value)
-                    }
-                  />
-                  Sensitive content for a general audience
-                </Flex>
-              </Text>
+              <Switch
+                label="Sensitive content for a general audience"
+                checked={Boolean(watch('isSensitiveContent'))}
+                onCheckedChange={(value) =>
+                  setValue('isSensitiveContent', value)
+                }
+              />
             </div>
           </div>
         </div>
@@ -238,15 +223,18 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
       <div className="mt-4 flex items-center justify-end space-x-2">
         <Button
           type="button"
-          color="gray"
-          variant="soft"
+          variant="secondary"
           disabled={uploadedMedia.loading}
           onClick={() => onCancel()}
         >
           Reset
         </Button>
         <Button
-          highContrast
+          loading={
+            uploadedMedia.loading ||
+            uploadedMedia.uploadingThumbnail ||
+            uploadedMedia.durationInSeconds === 0
+          }
           disabled={
             uploadedMedia.loading ||
             uploadedMedia.uploadingThumbnail ||

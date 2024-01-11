@@ -1,12 +1,10 @@
-import { Input } from '@components/UIElements/Input'
 import { zodResolver } from '@hookform/resolvers/zod'
 import usePendingTxn from '@hooks/usePendingTxn'
-import { Button, Callout, Text } from '@radix-ui/themes'
 import { COMMON_REGEX, ERROR_MESSAGE, IS_MAINNET } from '@tape.xyz/constants'
 import { shortenAddress } from '@tape.xyz/generic'
 import { useCreateProfileWithHandleMutation } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { Loader, WarningOutline } from '@tape.xyz/ui'
+import { Button, Callout, Input, WarningOutline } from '@tape.xyz/ui'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -82,20 +80,13 @@ const Signup = ({ onSuccess }: { onSuccess: () => void }) => {
 
   return (
     <div className="space-y-4">
-      <Callout.Root color="red">
-        <Callout.Icon>
-          <WarningOutline className="size-4" />
-        </Callout.Icon>
-        <Callout.Text highContrast>
-          We couldn't find any profiles linked to the connected address. (
-          {shortenAddress(address as string)})
-        </Callout.Text>
-      </Callout.Root>
+      <Callout variant="danger" icon={<WarningOutline className="size-4" />}>
+        We couldn't find any profiles linked to the connected address. (
+        {shortenAddress(address as string)})
+      </Callout>
       {!IS_MAINNET && (
         <div className="space-y-1">
-          <Text as="div" weight="medium">
-            Create Profile
-          </Text>
+          <div className="font-medium">Create Profile</div>
           <form
             onSubmit={handleSubmit(signup)}
             className="flex justify-end space-x-2"
@@ -103,13 +94,14 @@ const Signup = ({ onSuccess }: { onSuccess: () => void }) => {
             <Input
               placeholder="gilfoyle"
               autoComplete="off"
-              validationError={errors.handle?.message}
+              error={errors.handle?.message}
               {...register('handle')}
             />
-            <Button disabled={creating} highContrast>
-              {creating && <Loader size="sm" />}
-              Sign up
-            </Button>
+            <div className="flex-none">
+              <Button loading={creating} disabled={creating}>
+                Sign up
+              </Button>
+            </div>
           </form>
         </div>
       )}

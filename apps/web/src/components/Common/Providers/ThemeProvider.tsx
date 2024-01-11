@@ -1,6 +1,3 @@
-import '@radix-ui/themes/styles.css'
-
-import { Theme } from '@radix-ui/themes'
 import { ThemeProvider as NextTheme } from 'next-themes'
 import { type FC, type ReactNode } from 'react'
 
@@ -16,9 +13,7 @@ const ThemeProvider: FC<Props> = ({ children }) => {
       enableSystem
       enableColorScheme
     >
-      <Theme accentColor="gray" radius="large" hasBackground={false}>
-        {children}
-      </Theme>
+      {children}
     </NextTheme>
   )
 }

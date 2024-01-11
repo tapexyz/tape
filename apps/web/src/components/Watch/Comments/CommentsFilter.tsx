@@ -1,55 +1,45 @@
 import useCommentStore from '@lib/store/comment'
-import { Box, DropdownMenu, Text } from '@radix-ui/themes'
 import { CustomCommentsFilterEnum } from '@tape.xyz/lens/custom-types'
-import { SortOutline } from '@tape.xyz/ui'
+import { DropdownMenu, DropdownMenuItem, SortOutline } from '@tape.xyz/ui'
+import clsx from 'clsx'
 import React from 'react'
 
 const CommentsFilter = () => {
   const { selectedCommentFilter, setSelectedCommentFilter } = useCommentStore()
 
   return (
-    <DropdownMenu.Root>
-      <DropdownMenu.Trigger>
-        <Box>
-          <SortOutline className="size-5" />
-        </Box>
-      </DropdownMenu.Trigger>
-      <DropdownMenu.Content align="end" variant="soft" sideOffset={10}>
-        <DropdownMenu.Item
-          onClick={() =>
-            setSelectedCommentFilter(CustomCommentsFilterEnum.RELEVANT_COMMENTS)
-          }
+    <DropdownMenu trigger={<SortOutline className="size-5" />}>
+      <DropdownMenuItem
+        onClick={() =>
+          setSelectedCommentFilter(CustomCommentsFilterEnum.RELEVANT_COMMENTS)
+        }
+      >
+        <p
+          className={clsx(
+            'whitespace-nowrap',
+            selectedCommentFilter ===
+              CustomCommentsFilterEnum.RELEVANT_COMMENTS && 'font-bold'
+          )}
         >
-          <Text
-            weight={
-              selectedCommentFilter ===
-              CustomCommentsFilterEnum.RELEVANT_COMMENTS
-                ? 'bold'
-                : 'regular'
-            }
-            className="whitespace-nowrap"
-          >
-            Relevant
-          </Text>
-        </DropdownMenu.Item>
-        <DropdownMenu.Item
-          onClick={() =>
-            setSelectedCommentFilter(CustomCommentsFilterEnum.NEWEST_COMMENTS)
-          }
+          Relevant
+        </p>
+      </DropdownMenuItem>
+      <DropdownMenuItem
+        onClick={() =>
+          setSelectedCommentFilter(CustomCommentsFilterEnum.NEWEST_COMMENTS)
+        }
+      >
+        <p
+          className={clsx(
+            'whitespace-nowrap',
+            selectedCommentFilter ===
+              CustomCommentsFilterEnum.NEWEST_COMMENTS && 'font-bold'
+          )}
         >
-          <Text
-            weight={
-              selectedCommentFilter === CustomCommentsFilterEnum.NEWEST_COMMENTS
-                ? 'bold'
-                : 'regular'
-            }
-            className="whitespace-nowrap"
-          >
-            Newest first
-          </Text>
-        </DropdownMenu.Item>
-      </DropdownMenu.Content>
-    </DropdownMenu.Root>
+          Newest first
+        </p>
+      </DropdownMenuItem>
+    </DropdownMenu>
   )
 }
 

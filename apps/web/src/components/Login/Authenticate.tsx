@@ -168,12 +168,13 @@ const Authenticate = () => {
       {profile ? (
         <div className="flex flex-col gap-2">
           <Select
+            size="md"
             defaultValue={as ?? profile?.id}
             value={selectedProfileId}
             onValueChange={(value) => setSelectedProfileId(value)}
           >
             {reversedProfilesManaged?.map((profile) => (
-              <SelectItem key={profile.id} value={profile.id}>
+              <SelectItem key={profile.id} value={profile.id} size="md">
                 <div className="flex items-center space-x-2">
                   <img
                     src={getProfilePicture(profile, 'AVATAR')}
@@ -186,6 +187,7 @@ const Authenticate = () => {
             ))}
           </Select>
           <Button
+            size="md"
             loading={loading}
             onClick={handleSign}
             disabled={loading || !selectedProfileId}

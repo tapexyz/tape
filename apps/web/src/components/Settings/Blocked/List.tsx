@@ -4,7 +4,6 @@ import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import useProfileStore from '@lib/store/idb/profile'
 import useNonceStore from '@lib/store/nonce'
-import { Avatar, Button } from '@radix-ui/themes'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   ERROR_MESSAGE,
@@ -36,7 +35,7 @@ import {
 } from '@tape.xyz/lens'
 import { useApolloClient } from '@tape.xyz/lens/apollo'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { Loader } from '@tape.xyz/ui'
+import { Button, Spinner } from '@tape.xyz/ui'
 import Link from 'next/link'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
@@ -168,7 +167,7 @@ const List = () => {
   const blockedProfiles = data?.whoHaveBlocked.items as Profile[]
 
   if (loading) {
-    return <Loader className="my-20" />
+    return <Spinner className="my-20" />
   }
 
   if (!blockedProfiles?.length || error) {
@@ -213,21 +212,17 @@ const List = () => {
             className="bg-brand-500 relative h-20 w-full bg-cover bg-center bg-no-repeat"
           >
             <div className="absolute bottom-2 left-2 flex-none">
-              <Avatar
-                className="border-2 border-white bg-white object-cover dark:bg-gray-900"
-                size="3"
-                fallback={getProfile(profile)?.displayName[0] ?? ';)'}
-                radius="medium"
+              <img
+                className="size-8 rounded-full border-2 border-white bg-white object-cover dark:bg-gray-900"
                 src={getProfilePicture(profile, 'AVATAR')}
                 alt={getProfile(profile)?.displayName}
+                draggable={false}
               />
             </div>
             <div className="absolute bottom-2 right-2 flex-none">
               <Button
                 onClick={() => onClickUnblock(profile.id)}
                 disabled={unblockingProfileId === profile.id}
-                highContrast
-                size="1"
               >
                 Unblock
               </Button>
@@ -253,7 +248,7 @@ const List = () => {
       ))}
       {pageInfo?.next && (
         <span ref={observe} className="flex justify-center p-10">
-          <Loader />
+          <Spinner />
         </span>
       )}
     </div>
