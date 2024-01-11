@@ -103,9 +103,14 @@ DropdownMenuItem.displayName = 'DropdownMenuItem'
 type DropdownMenuProps = {
   trigger: React.ReactNode
   children: React.ReactNode
+  align?: 'start' | 'end'
 }
 
-export const DropdownMenu: FC<DropdownMenuProps> = ({ trigger, children }) => {
+export const DropdownMenu: FC<DropdownMenuProps> = ({
+  trigger,
+  children,
+  align = 'end'
+}) => {
   return (
     <DropdownMenuPrimitive.Root>
       <DropdownMenuPrimitive.Trigger className="outline-none">
@@ -114,7 +119,7 @@ export const DropdownMenu: FC<DropdownMenuProps> = ({ trigger, children }) => {
       <DropdownMenuPortal>
         <DropdownMenuContent
           sideOffset={12}
-          align="end"
+          align={align}
           className="tape-border z-10 rounded-xl bg-white p-2 shadow dark:bg-black"
         >
           {children}

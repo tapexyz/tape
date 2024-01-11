@@ -34,7 +34,10 @@ const Navbar = () => {
       <div className="flex w-full items-center justify-between">
         <div className="flex items-center space-x-2 md:w-1/5">
           <Logo />
-          <DropdownMenu trigger={<ChevronDownOutline className="h-3 w-3" />}>
+          <DropdownMenu
+            align="start"
+            trigger={<ChevronDownOutline className="h-3 w-3" />}
+          >
             <TapeMenu />
           </DropdownMenu>
         </div>
