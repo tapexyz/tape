@@ -1,12 +1,6 @@
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { getDateString } from '@lib/formatTime'
 import useProfileStore from '@lib/store/idb/profile'
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger
-} from '@radix-ui/react-accordion'
 import { INFINITE_SCROLL_ROOT_MARGIN } from '@tape.xyz/constants'
 import type { ApprovedAuthenticationRequest } from '@tape.xyz/lens'
 import {
@@ -14,7 +8,15 @@ import {
   useApprovedAuthenticationsQuery,
   useRevokeAuthenticationMutation
 } from '@tape.xyz/lens'
-import { Button, ChevronDownOutline, Spinner } from '@tape.xyz/ui'
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+  Button,
+  ChevronDownOutline,
+  Spinner
+} from '@tape.xyz/ui'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import toast from 'react-hot-toast'

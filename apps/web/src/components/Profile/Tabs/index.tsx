@@ -1,12 +1,11 @@
-import * as Tabs from '@radix-ui/react-tabs'
 import { EVENTS, getProfile, Tower } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@tape.xyz/ui'
 import { useRouter } from 'next/router'
 import type { FC } from 'react'
 import React from 'react'
 
 import OtherProfiles from './OtherProfiles'
-import ProfileAudios from './ProfileAudios'
 import ProfileBytes from './ProfileBytes'
 import ProfileVideos from './ProfileVideos'
 
@@ -29,9 +28,9 @@ const ProfileTabs: FC<Props> = ({ profile }) => {
 
   return (
     <div className="my-4 w-full md:my-5">
-      <Tabs.Root defaultValue={activeTab}>
-        <Tabs.List>
-          <Tabs.Trigger
+      <Tabs defaultValue={activeTab}>
+        <TabsList>
+          <TabsTrigger
             className="rounded-t-lg border-black px-4 py-1.5 text-sm font-medium data-[state=active]:border-b data-[state=active]:bg-gray-100 dark:border-white data-[state=active]:dark:bg-gray-800"
             onClick={() => {
               handleTabChange('videos')
@@ -40,8 +39,8 @@ const ProfileTabs: FC<Props> = ({ profile }) => {
             value="videos"
           >
             Videos
-          </Tabs.Trigger>
-          <Tabs.Trigger
+          </TabsTrigger>
+          <TabsTrigger
             className="rounded-t-lg border-black px-4 py-1.5 text-sm font-medium data-[state=active]:border-b data-[state=active]:bg-gray-100 dark:border-white data-[state=active]:dark:bg-gray-800"
             onClick={() => {
               handleTabChange('bytes')
@@ -50,8 +49,8 @@ const ProfileTabs: FC<Props> = ({ profile }) => {
             value="bytes"
           >
             Bytes
-          </Tabs.Trigger>
-          <Tabs.Trigger
+          </TabsTrigger>
+          <TabsTrigger
             className="rounded-t-lg border-black px-4 py-1.5 text-sm font-medium data-[state=active]:border-b data-[state=active]:bg-gray-100 dark:border-white data-[state=active]:dark:bg-gray-800"
             onClick={() => {
               handleTabChange('channels')
@@ -60,27 +59,23 @@ const ProfileTabs: FC<Props> = ({ profile }) => {
             value="channels"
           >
             Channels
-          </Tabs.Trigger>
-        </Tabs.List>
+          </TabsTrigger>
+        </TabsList>
 
         <div className="pt-3">
-          <Tabs.Content value="videos">
+          <TabsContent value="videos">
             <ProfileVideos profile={profile} />
-          </Tabs.Content>
+          </TabsContent>
 
-          <Tabs.Content value="audios">
-            <ProfileAudios profile={profile} />
-          </Tabs.Content>
-
-          <Tabs.Content value="bytes">
+          <TabsContent value="bytes">
             <ProfileBytes profileId={profile.id} />
-          </Tabs.Content>
+          </TabsContent>
 
-          <Tabs.Content value="channels">
+          <TabsContent value="channels">
             <OtherProfiles currentProfile={profile} />
-          </Tabs.Content>
+          </TabsContent>
         </div>
-      </Tabs.Root>
+      </Tabs>
     </div>
   )
 }

@@ -1,14 +1,16 @@
 import { getCollectModuleOutput } from '@lib/getCollectModuleOutput'
+import { formatNumber, getPublication } from '@tape.xyz/generic'
+import isOpenActionAllowed from '@tape.xyz/generic/functions/isOpenActionAllowed'
+import { type AnyPublication, type OpenActionModule } from '@tape.xyz/lens'
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
-  AccordionTrigger
-} from '@radix-ui/react-accordion'
-import { formatNumber, getPublication } from '@tape.xyz/generic'
-import isOpenActionAllowed from '@tape.xyz/generic/functions/isOpenActionAllowed'
-import { type AnyPublication, type OpenActionModule } from '@tape.xyz/lens'
-import { Button, CollectOutline, Modal } from '@tape.xyz/ui'
+  AccordionTrigger,
+  Button,
+  CollectOutline,
+  Modal
+} from '@tape.xyz/ui'
 import type { FC, ReactNode } from 'react'
 import React, { useState } from 'react'
 

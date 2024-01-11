@@ -1,6 +1,5 @@
 import Stats from '@components/Profile/BasicInfo/Stats'
 import useProfileStore from '@lib/store/idb/profile'
-import * as HoverCard from '@radix-ui/react-hover-card'
 import {
   getProfile,
   getProfileCoverPicture,
@@ -9,6 +8,7 @@ import {
   sanitizeDStorageUrl
 } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '@tape.xyz/ui'
 import Link from 'next/link'
 import type { FC, ReactElement } from 'react'
 import React from 'react'
@@ -27,8 +27,8 @@ const HoverableProfile: FC<Props> = ({ profile, children, pfp }) => {
   const isMyProfile = activeProfile?.id === profile.id
 
   return (
-    <HoverCard.Root>
-      <HoverCard.Trigger>
+    <HoverCard>
+      <HoverCardTrigger>
         {children ?? (
           <Link href={getProfile(profile)?.link}>
             <div className="flex items-center gap-1">
@@ -38,8 +38,8 @@ const HoverableProfile: FC<Props> = ({ profile, children, pfp }) => {
             </div>
           </Link>
         )}
-      </HoverCard.Trigger>
-      <HoverCard.Content className="tape-border z-10 w-80 overflow-hidden rounded-xl bg-white shadow dark:bg-black">
+      </HoverCardTrigger>
+      <HoverCardContent className="tape-border z-10 w-80 overflow-hidden rounded-xl bg-white shadow dark:bg-black">
         <div className="inset-0">
           <div
             style={{
@@ -81,8 +81,8 @@ const HoverableProfile: FC<Props> = ({ profile, children, pfp }) => {
             <Stats profile={profile} />
           </div>
         </div>
-      </HoverCard.Content>
-    </HoverCard.Root>
+      </HoverCardContent>
+    </HoverCard>
   )
 }
 

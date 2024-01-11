@@ -1,5 +1,5 @@
 import MetaTags from '@components/Common/MetaTags'
-import * as Tabs from '@radix-ui/react-tabs'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@tape.xyz/ui'
 import React from 'react'
 
 import LensManager from './LensManager'
@@ -12,31 +12,31 @@ const ProfileManager = () => {
       <MetaTags title="Manager" />
       <LensManager />
 
-      <Tabs.Root defaultValue="managers">
-        <Tabs.List>
-          <Tabs.Trigger
+      <Tabs defaultValue="managers">
+        <TabsList>
+          <TabsTrigger
             className="rounded-t-lg border-black px-4 py-1.5 text-sm font-medium data-[state=active]:border-b data-[state=active]:bg-gray-100 dark:border-white data-[state=active]:dark:bg-gray-800"
             value="managers"
           >
             Managers
-          </Tabs.Trigger>
-          <Tabs.Trigger
+          </TabsTrigger>
+          <TabsTrigger
             className="rounded-t-lg border-black px-4 py-1.5 text-sm font-medium data-[state=active]:border-b data-[state=active]:bg-gray-100 dark:border-white data-[state=active]:dark:bg-gray-800"
             value="managed"
           >
             Managed
-          </Tabs.Trigger>
-        </Tabs.List>
+          </TabsTrigger>
+        </TabsList>
 
         <div className="pb-2 pt-3">
-          <Tabs.Content value="managers">
+          <TabsContent value="managers">
             <Managers />
-          </Tabs.Content>
-          <Tabs.Content value="managed">
+          </TabsContent>
+          <TabsContent value="managed">
             <Managed />
-          </Tabs.Content>
+          </TabsContent>
         </div>
-      </Tabs.Root>
+      </Tabs>
     </div>
   )
 }
