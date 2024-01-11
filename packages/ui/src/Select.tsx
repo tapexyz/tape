@@ -17,7 +17,7 @@ export const SelectItem = forwardRef<
 >(({ children, className, size = 'md', ...props }, ref) => {
   const sizeClasses = {
     'px-3 py-1.5 text-xs': size === 'sm',
-    'px-4 py-1.5 text-sm': size === 'md',
+    'px-4 py-2 text-sm': size === 'md',
     'px-6 py-3 text-sm': size === 'lg'
   }
 

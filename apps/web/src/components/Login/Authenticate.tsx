@@ -174,7 +174,7 @@ const Authenticate = () => {
             onValueChange={(value) => setSelectedProfileId(value)}
           >
             {reversedProfilesManaged?.map((profile) => (
-              <SelectItem key={profile.id} value={profile.id} size="md">
+              <SelectItem size="lg" key={profile.id} value={profile.id}>
                 <div className="flex items-center space-x-2">
                   <img
                     src={getProfilePicture(profile, 'AVATAR')}
