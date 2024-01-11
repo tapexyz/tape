@@ -23,7 +23,7 @@ const SwitchNetworkDialog = () => {
         <Button
           variant="danger"
           onClick={async () => {
-            await switchNetworkAsync?.(POLYGON_CHAIN_ID)
+            await switchChainAsync?.({ chainId: POLYGON_CHAIN_ID })
             setShowSwitchNetwork(false)
           }}
         >

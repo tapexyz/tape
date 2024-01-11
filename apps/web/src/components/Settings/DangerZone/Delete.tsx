@@ -8,7 +8,7 @@ import {
 } from '@tape.xyz/constants'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { Button } from '@tape.xyz/ui'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import Custom404 from 'src/pages/404'
 import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
@@ -51,7 +51,7 @@ const Delete = () => {
       toast.success(`Profile deleted`)
       location.href = '/'
     }
-  }, [isError, isSuccess])
+  }, [isError, isSuccess, error])
 
   const isCooldownEnded = () => {
     const cooldownDate = activeProfile?.guardian?.cooldownEndsOn

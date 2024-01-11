@@ -10,9 +10,8 @@ import {
   useEnabledCurrenciesQuery,
   useGenerateModuleCurrencyApprovalDataLazyQuery
 } from '@tape.xyz/lens'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { Button, Select, SelectItem, Spinner } from '@tape.xyz/ui'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useSendTransaction, useWaitForTransactionReceipt } from 'wagmi'
 
