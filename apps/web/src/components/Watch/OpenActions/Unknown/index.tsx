@@ -34,11 +34,11 @@ const UnknownOpenAction = ({
   action: UnknownOpenActionModuleSettings
   publicationId: string
 }) => {
-  const [collecting, setCollecting] = useState(false)
+  const [acting, setActing] = useState(false)
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
-    setCollecting(false)
+    setActing(false)
   }
 
   const onCompleted = (
@@ -50,7 +50,7 @@ const UnknownOpenAction = ({
     ) {
       return
     }
-    setCollecting(false)
+    setActing(false)
     toast.success('Acted successfully')
   }
 
@@ -160,6 +160,7 @@ const UnknownOpenAction = ({
       case VERIFIED_UNKNOWN_OPEN_ACTION_CONTRACTS.TIP:
         return (
           <TipOpenAction
+            acting={acting}
             action={action}
             metadata={metadata as ModuleMetadata}
             actOnUnknownOpenAction={actOnUnknownOpenAction}

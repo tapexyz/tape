@@ -14,17 +14,22 @@ import {
   SelectItem,
   TipOutline
 } from '@tape.xyz/ui'
+import type { FC } from 'react'
 import React, { useState } from 'react'
 import { decodeAbiParameters, encodeAbiParameters } from 'viem'
 
-const TipOpenAction = ({
-  metadata,
-  action,
-  actOnUnknownOpenAction
-}: {
+type Props = {
   metadata: ModuleMetadata
   action: UnknownOpenActionModuleSettings
+  acting: boolean
   actOnUnknownOpenAction: (address: string, data: string) => void
+}
+
+const TipOpenAction: FC<Props> = ({
+  metadata,
+  action,
+  acting,
+  actOnUnknownOpenAction
 }) => {
   const activeProfile = useProfileStore((state) => state.activeProfile)
   const [tip, setTip] = useState({ value: [5], currency: WMATIC_TOKEN_ADDRESS })
@@ -87,6 +92,8 @@ const TipOpenAction = ({
 
       <div className="flex justify-end">
         <Button
+          loading={acting}
+          disabled={acting}
           onClick={() => onSendTip()}
           icon={<TipOutline className="size-4" />}
         >
