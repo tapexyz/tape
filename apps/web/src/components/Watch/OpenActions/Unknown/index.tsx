@@ -179,7 +179,9 @@ const UnknownOpenAction = ({
   }
 
   if (loading || !metadata) {
-    return null
+    return (
+      <div className="h-[70px] animate-pulse rounded-lg bg-gray-200 dark:bg-gray-800" />
+    )
   }
 
   return (
