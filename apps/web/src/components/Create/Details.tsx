@@ -19,6 +19,7 @@ import CollectModule from './CollectModule'
 import DropZone from './DropZone'
 import MediaCategory from './MediaCategory'
 import MediaLicense from './MediaLicense'
+import OpenActionSettings from './OpenAction'
 import ReferenceModule from './ReferenceModule'
 import SelectedMedia from './SelectedMedia'
 
@@ -184,6 +185,17 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
               {!uploadedMedia.collectModule.isRevertCollect && (
                 <CollectModule />
               )}
+            </div>
+
+            <div className="mt-2">
+              <Switch
+                label="Open Actions"
+                checked={uploadedMedia.hasOpenActions}
+                onCheckedChange={(hasOpenActions) => {
+                  setUploadedMedia({ hasOpenActions })
+                }}
+              />
+              {uploadedMedia.hasOpenActions && <OpenActionSettings />}
             </div>
 
             {uploadedMedia.file && uploadedMedia.type === 'VIDEO' ? (

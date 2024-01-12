@@ -46,6 +46,7 @@ import {
 import type {
   CreateMomokaPostEip712TypedData,
   CreateOnchainPostEip712TypedData,
+  OnchainPostRequest,
   Profile,
   ReferenceModuleInput
 } from '@tape.xyz/lens'
@@ -349,11 +350,17 @@ const CreateSteps = () => {
         : { degreesOfSeparationReferenceModule: referenceModuleDegrees })
     }
 
-    const request = {
+    const request: OnchainPostRequest = {
       contentURI: metadataUri,
       openActionModules: [
         {
-          ...getCollectModuleInput(uploadedMedia.collectModule)
+          ...getCollectModuleInput(uploadedMedia.collectModule),
+          ...(uploadedMedia?.unknownOpenAction && {
+            unknownOpenAction: {
+              address: uploadedMedia.unknownOpenAction.address,
+              data: uploadedMedia.unknownOpenAction.data
+            }
+          })
         }
       ],
       referenceModule
