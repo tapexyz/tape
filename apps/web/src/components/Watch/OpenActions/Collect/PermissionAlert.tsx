@@ -53,7 +53,7 @@ const PermissionAlert: FC<Props> = ({
             value: Number.MAX_SAFE_INTEGER.toString()
           },
           module: {
-            [getCollectModuleConfig(allowanceModule.moduleName).type]:
+            [getCollectModuleConfig(allowanceModule).type]:
               allowanceModule.moduleName
           }
         }

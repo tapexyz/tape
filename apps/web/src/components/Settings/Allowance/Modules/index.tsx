@@ -1,9 +1,12 @@
+import { VERIFIED_UNKNOWN_OPEN_ACTION_CONTRACTS } from '@components/Watch/OpenActions/verified-contracts'
 import { getCollectModuleConfig } from '@lib/getCollectModuleInput'
 import useProfileStore from '@lib/store/idb/profile'
 import {
   ALLOWED_TOKEN_CURRENCIES,
+  POLYGONSCAN_URL,
   WMATIC_TOKEN_ADDRESS
 } from '@tape.xyz/constants'
+import { shortenAddress } from '@tape.xyz/generic'
 import type { ApprovedAllowanceAmountResult } from '@tape.xyz/lens'
 import {
   FollowModuleType,
@@ -13,6 +16,7 @@ import {
 } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { Button, Select, SelectItem, Spinner } from '@tape.xyz/ui'
+import Link from 'next/link'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useSendTransaction, useWaitForTransaction } from 'wagmi'
@@ -39,6 +43,7 @@ const ModuleAllowance = () => {
       request: {
         currencies: [currency],
         followModules: [FollowModuleType.FeeFollowModule],
+        unknownOpenActionModules: [VERIFIED_UNKNOWN_OPEN_ACTION_CONTRACTS.TIP],
         openActionModules: [
           OpenActionModuleType.SimpleCollectOpenActionModule,
           OpenActionModuleType.MultirecipientFeeCollectOpenActionModule,
@@ -67,9 +72,12 @@ const ModuleAllowance = () => {
   const [generateAllowanceQuery] =
     useGenerateModuleCurrencyApprovalDataLazyQuery()
 
-  const handleClick = async (isAllow: boolean, selectedModule: string) => {
+  const handleClick = async (
+    isAllow: boolean,
+    module: ApprovedAllowanceAmountResult
+  ) => {
     try {
-      setLoadingModule(selectedModule)
+      setLoadingModule(module.moduleName)
       const { data: allowanceData } = await generateAllowanceQuery({
         variables: {
           request: {
@@ -78,7 +86,7 @@ const ModuleAllowance = () => {
               value: isAllow ? Number.MAX_SAFE_INTEGER.toString() : '0'
             },
             module: {
-              [getCollectModuleConfig(selectedModule).type]: selectedModule
+              [getCollectModuleConfig(module).type]: module.moduleName
             }
           }
         }
@@ -131,10 +139,17 @@ const ModuleAllowance = () => {
               >
                 <div className="flex-1">
                   <h6 className="font-medium">
-                    {getCollectModuleConfig(moduleItem.moduleName).label}
+                    {getCollectModuleConfig(moduleItem).label} (
+                    <Link
+                      className="text-xs"
+                      target="_blank"
+                      href={`${POLYGONSCAN_URL}/address/${moduleItem.moduleContract.address}`}
+                    >
+                      {shortenAddress(moduleItem.moduleContract.address)})
+                    </Link>
                   </h6>
                   <p className="opacity-70">
-                    {getCollectModuleConfig(moduleItem.moduleName).description}
+                    {getCollectModuleConfig(moduleItem).description}
                   </p>
                 </div>
                 <div className="ml-2 flex flex-none items-center space-x-2">
@@ -142,14 +157,14 @@ const ModuleAllowance = () => {
                     <Button
                       disabled={loadingModule === moduleItem.moduleName}
                       loading={loadingModule === moduleItem.moduleName}
-                      onClick={() => handleClick(true, moduleItem.moduleName)}
+                      onClick={() => handleClick(true, moduleItem)}
                     >
                       Allow
                     </Button>
                   ) : (
                     <Button
                       variant="danger"
-                      onClick={() => handleClick(false, moduleItem.moduleName)}
+                      onClick={() => handleClick(false, moduleItem)}
                       disabled={loadingModule === moduleItem.moduleName}
                       loading={loadingModule === moduleItem.moduleName}
                     >

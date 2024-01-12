@@ -1,7 +1,8 @@
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import useProfileStore from '@lib/store/idb/profile'
 import useNonceStore from '@lib/store/nonce'
-import { ERROR_MESSAGE } from '@tape.xyz/constants'
+import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
+import { ERROR_MESSAGE, LENSHUB_PROXY_ADDRESS } from '@tape.xyz/constants'
 import { checkLensManagerPermissions, getSignature } from '@tape.xyz/generic'
 import type {
   ActOnOpenActionLensManagerRequest,
@@ -72,9 +73,9 @@ const UnknownOpenAction = ({
   const metadata = module?.moduleMetadata?.metadata
 
   const { write } = useContractWrite({
-    address: action.contract.address,
-    abi: JSON.parse(metadata?.processCalldataABI || '{}'),
-    functionName: 'processPublicationAction',
+    address: LENSHUB_PROXY_ADDRESS,
+    abi: LENSHUB_PROXY_ABI,
+    functionName: 'act',
     onSuccess: () => {
       onCompleted()
       setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
