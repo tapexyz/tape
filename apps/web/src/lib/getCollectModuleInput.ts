@@ -129,6 +129,12 @@ export const getCollectModuleConfig = (
             label: 'Tip Action',
             description: 'Allow users to tip with supported currencies.'
           }
+        default:
+          return {
+            type: 'openActionModule',
+            label: 'Unknown Action',
+            description: ''
+          }
       }
     case 'FeeFollowModule':
       return {

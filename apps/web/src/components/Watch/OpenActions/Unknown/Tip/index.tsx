@@ -5,7 +5,8 @@ import {
 } from '@tape.xyz/constants'
 import {
   type ModuleMetadata,
-  type UnknownOpenActionModuleSettings
+  type UnknownOpenActionModuleSettings,
+  useApprovedModuleAllowanceAmountQuery
 } from '@tape.xyz/lens'
 import {
   Button,
@@ -15,9 +16,13 @@ import {
   TipOutline
 } from '@tape.xyz/ui'
 import type { FC } from 'react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { decodeAbiParameters, encodeAbiParameters, parseUnits } from 'viem'
+import { useAccount, useBalance } from 'wagmi'
+
+import BalanceAlert from '../../BalanceAlert'
+import PermissionAlert from '../../PermissionAlert'
 
 type Props = {
   metadata: ModuleMetadata
@@ -32,7 +37,10 @@ const TipOpenAction: FC<Props> = ({
   acting,
   actOnUnknownOpenAction
 }) => {
+  const { address } = useAccount()
   const [tip, setTip] = useState({ value: [5], currency: WMATIC_TOKEN_ADDRESS })
+  const [isAllowed, setIsAllowed] = useState(true)
+  const [haveEnoughBalance, setHaveEnoughBalance] = useState(false)
 
   const decoded = decodeAbiParameters(
     JSON.parse(metadata?.initializeCalldataABI ?? '{}'),
@@ -48,19 +56,102 @@ const TipOpenAction: FC<Props> = ({
     (token) => token.address === tip.currency
   )
 
+  const {
+    loading: allowanceLoading,
+    data: allowanceData,
+    refetch: refetchAllowance
+  } = useApprovedModuleAllowanceAmountQuery({
+    variables: {
+      request: {
+        currencies: [tipCurrency?.address],
+        unknownOpenActionModules: [action?.contract.address]
+      }
+    },
+    skip: !tipCurrency?.address || !action?.contract.address,
+    onCompleted: (data) => {
+      setIsAllowed(
+        parseFloat(data.approvedModuleAllowanceAmount[0].allowance.value) >
+          tip.value[0]
+      )
+    }
+  })
+
+  const { data: balanceData, isLoading: balanceLoading } = useBalance({
+    address,
+    token: tipCurrency?.address as `0x${string}`,
+    formatUnits: tipCurrency?.decimals,
+    watch: Boolean(tipCurrency?.address),
+    enabled: Boolean(tipCurrency?.address)
+  })
+
+  useEffect(() => {
+    if (
+      balanceData &&
+      tip.value &&
+      parseFloat(balanceData?.formatted) < parseFloat(String(tip.value[0]))
+    ) {
+      setHaveEnoughBalance(false)
+    } else {
+      setHaveEnoughBalance(true)
+    }
+    if (tipCurrency?.address) {
+      refetchAllowance()
+    }
+  }, [balanceData, tipCurrency?.address, refetchAllowance, tip.value])
+
   if (!tipCurrency) {
     return toast.error('Currency not supported')
   }
 
   const onSendTip = () => {
-    const calldata = encodeAbiParameters(
-      JSON.parse(metadata?.processCalldataABI ?? '{}'),
-      [
-        tip.currency,
-        parseUnits(tip.value.toString(), tipCurrency.decimals).toString()
-      ]
+    try {
+      const calldata = encodeAbiParameters(
+        JSON.parse(metadata?.processCalldataABI ?? '{}'),
+        [
+          tip.currency,
+          parseUnits(tip.value.toString(), tipCurrency.decimals).toString()
+        ]
+      )
+      actOnUnknownOpenAction(action.contract.address, calldata)
+    } catch {}
+  }
+
+  const getButton = () => {
+    if (balanceLoading || allowanceLoading) {
+      return <Button disabled>Checking...</Button>
+    }
+
+    if (!isAllowed) {
+      return (
+        <PermissionAlert
+          isAllowed={isAllowed}
+          setIsAllowed={setIsAllowed}
+          allowanceModule={
+            allowanceData?.approvedModuleAllowanceAmount[0] as any
+          }
+        />
+      )
+    }
+
+    if (!haveEnoughBalance) {
+      return (
+        <BalanceAlert
+          currencyName={tipCurrency.symbol}
+          address={tipCurrency.address}
+          value={String(tip.value[0])}
+        />
+      )
+    }
+    return (
+      <Button
+        loading={acting}
+        disabled={acting}
+        onClick={() => onSendTip()}
+        icon={<TipOutline className="size-4" />}
+      >
+        Send
+      </Button>
     )
-    actOnUnknownOpenAction(action.contract.address, calldata)
   }
 
   return (
@@ -96,16 +187,7 @@ const TipOpenAction: FC<Props> = ({
         </div>
       </div>
 
-      <div className="flex justify-end">
-        <Button
-          loading={acting}
-          disabled={acting}
-          onClick={() => onSendTip()}
-          icon={<TipOutline className="size-4" />}
-        >
-          Send
-        </Button>
-      </div>
+      <div className="flex justify-end">{getButton()}</div>
     </div>
   )
 }

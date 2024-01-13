@@ -35,7 +35,7 @@ const PermissionAlert: FC<Props> = ({
     hash: txData?.hash,
     onSuccess: () => {
       toast.success(
-        `Module ${isAllowed ? `disabled` : `enabled`} successfully!`
+        `Allowance ${isAllowed ? `disabled` : `enabled`} successfully!`
       )
       setIsAllowed(!isAllowed)
     },
@@ -49,7 +49,7 @@ const PermissionAlert: FC<Props> = ({
       variables: {
         request: {
           allowance: {
-            currency: allowanceModule.allowance.asset.contract.address,
+            currency: allowanceModule?.allowance.asset.contract.address,
             value: Number.MAX_SAFE_INTEGER.toString()
           },
           module: {

@@ -57,8 +57,8 @@ import {
   useSignTypedData
 } from 'wagmi'
 
-import BalanceAlert from './BalanceAlert'
-import PermissionAlert from './PermissionAlert'
+import BalanceAlert from '../BalanceAlert'
+import PermissionAlert from '../PermissionAlert'
 
 type Props = {
   action: SupportedOpenActionModuleType
@@ -523,7 +523,11 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
                   {alreadyCollected ? 'Collected' : 'Collect'}
                 </Button>
               ) : (
-                <BalanceAlert action={action} />
+                <BalanceAlert
+                  currencyName={action.amount.asset.symbol}
+                  address={action.amount.asset.contract.address}
+                  value={action.amount.value}
+                />
               )
             ) : (
               <PermissionAlert

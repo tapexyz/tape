@@ -30,7 +30,7 @@ export const Callout: FC<Props> = ({
       )}
     >
       <span className="m-1 flex-none">{icon}</span>
-      <span className="self-center opacity-70">{children}</span>
+      <span className="w-full self-center opacity-70">{children}</span>
     </div>
   )
 }
