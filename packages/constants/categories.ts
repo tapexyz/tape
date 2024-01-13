@@ -1,86 +1,66 @@
 export const CREATOR_VIDEO_CATEGORIES = [
   {
-    name: 'Drag Comedy',
-    tag: 'drag-comedy'
+    name: 'Comedy',
+    tag: 'comedy'
   },
   {
-    name: 'Drag Makeup',
-    tag: 'drag-makeup'
+    name: 'Makeup',
+    tag: 'makeup'
   },
   {
-    name: 'Drag Fashion',
-    tag: 'drag-fashion'
+    name: 'Fashion',
+    tag: 'fashion'
   },
   {
-    name: 'Drag Sewing',
-    tag: 'drag-sewing'
+    name: 'Sewing',
+    tag: 'sewing'
   },
   {
-    name: 'Drag Wig Styling',
-    tag: 'drag-wig-styling'
+    name: 'Styling',
+    tag: 'styling'
   },
   {
-    name: 'Drag Music',
-    tag: 'drag-music'
+    name: 'Music',
+    tag: 'music'
   },
   {
-    name: 'Drag Performances',
-    tag: 'drag-performances'
+    name: 'Performances',
+    tag: 'performances'
   },
   {
-    name: 'Drag Inspiration',
-    tag: 'drag-inspiration'
+    name: 'Inspiration',
+    tag: 'inspiration'
   },
   {
-    name: 'Meta Drag',
-    tag: 'meta-drag'
+    name: 'Metaverse',
+    tag: 'metaverse'
   },
   {
-    name: 'Drag Branding',
-    tag: 'drag-branding'
+    name: 'Branding',
+    tag: 'branding'
   },
   {
-    name: 'Drag Storytime',
-    tag: 'drag-storytime'
+    name: 'Storytime',
+    tag: 'storytime'
   },
   {
     name: 'Drag Race',
     tag: 'drag-race'
   },
   {
-    name: 'Drag Queen',
-    tag: 'drag-queen'
+    name: 'Gaming',
+    tag: 'gaming'
   },
   {
-    name: 'Drag Monster',
-    tag: 'drag-monster'
+    name: 'Education',
+    tag: 'education'
   },
   {
-    name: 'Drag King',
-    tag: 'drag-king'
+    name: 'Activism',
+    tag: 'activism'
   },
   {
-    name: 'Drag Other',
-    tag: 'drag-other'
-  },
-  {
-    name: 'Horror Drag',
-    tag: 'horror-drag'
-  },
-  {
-    name: 'Drag Gaming',
-    tag: 'drag-gaming'
-  },
-  {
-    name: 'Drag Education',
-    tag: 'drag-education'
-  },
-  {
-    name: 'Drag Activism',
-    tag: 'drag-activism'
-  },
-  {
-    name: 'Drag Dance',
-    tag: 'drag-dance'
+    name: 'Dance',
+    tag: 'dance'
   }
 ]
