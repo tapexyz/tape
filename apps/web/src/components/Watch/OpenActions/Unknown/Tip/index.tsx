@@ -16,7 +16,8 @@ import {
 } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React, { useState } from 'react'
-import { decodeAbiParameters, encodeAbiParameters } from 'viem'
+import toast from 'react-hot-toast'
+import { decodeAbiParameters, encodeAbiParameters, parseUnits } from 'viem'
 
 type Props = {
   metadata: ModuleMetadata
@@ -43,10 +44,21 @@ const TipOpenAction: FC<Props> = ({
     enabled: Boolean(decoded[0])
   })
 
+  const tipCurrency = ALLOWED_TOKEN_CURRENCIES?.find(
+    (token) => token.address === tip.currency
+  )
+
+  if (!tipCurrency) {
+    return toast.error('Currency not supported')
+  }
+
   const onSendTip = () => {
     const calldata = encodeAbiParameters(
       JSON.parse(metadata?.processCalldataABI ?? '{}'),
-      [tip.currency, tip.value.toString()]
+      [
+        tip.currency,
+        parseUnits(tip.value.toString(), tipCurrency.decimals).toString()
+      ]
     )
     actOnUnknownOpenAction(action.contract.address, calldata)
   }
