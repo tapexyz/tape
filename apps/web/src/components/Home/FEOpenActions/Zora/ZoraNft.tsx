@@ -1,6 +1,6 @@
 import {
-  STATIC_ASSETS,
   DRAGVERSE_ADMIN_ADDRESS,
+  STATIC_ASSETS,
   ZORA_MAINNET_CHAINS
 } from '@dragverse/constants'
 import { EVENTS, Tower } from '@dragverse/generic'

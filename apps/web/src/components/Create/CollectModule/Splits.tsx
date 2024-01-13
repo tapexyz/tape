@@ -6,9 +6,9 @@ import ProfileSuggestion from '@components/UIElements/ProfileSuggestion'
 import Tooltip from '@components/UIElements/Tooltip'
 import { useDebounce, useOutsideClick } from '@dragverse/browser'
 import {
+  DRAGVERSE_ADMIN_ADDRESS,
   LENS_CUSTOM_FILTERS,
   LENS_NAMESPACE_PREFIX,
-  DRAGVERSE_ADMIN_ADDRESS,
   TAPE_APP_NAME
 } from '@dragverse/constants'
 import {
@@ -55,8 +55,8 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
 
   const getIsValidAddress = (address: string) => isAddress(address)
   const isIncludesDonationAddress =
-    splitRecipients.filter((el) => el.recipient === DRAGVERSE_ADMIN_ADDRESS).length >
-    0
+    splitRecipients.filter((el) => el.recipient === DRAGVERSE_ADMIN_ADDRESS)
+      .length > 0
 
   const resultsRef = useRef(null)
   useOutsideClick(resultsRef, () => {
@@ -172,7 +172,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
               }
               suffix={
                 splitRecipient.recipient === DRAGVERSE_ADMIN_ADDRESS
-                  ? `${TAPE_APP_NAME}.xyz`.toLowerCase()
+                  ? `${TAPE_APP_NAME}.app`.toLowerCase()
                   : ''
               }
               disabled={splitRecipient.recipient === DRAGVERSE_ADMIN_ADDRESS}
