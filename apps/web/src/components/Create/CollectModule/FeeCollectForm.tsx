@@ -173,6 +173,7 @@ const FeeCollectForm: FC<Props> = ({
           highContrast
           type="button"
           onClick={() => handleSubmit(validateInputs)()}
+          className="text-brand-50"
         >
           Set Collect Type
         </Button>
