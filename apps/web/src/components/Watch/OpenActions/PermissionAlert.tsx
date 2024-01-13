@@ -1,6 +1,9 @@
 import { getCollectModuleConfig } from '@lib/getCollectModuleInput'
 import type { ApprovedAllowanceAmountResult } from '@tape.xyz/lens'
-import { useGenerateModuleCurrencyApprovalDataLazyQuery } from '@tape.xyz/lens'
+import {
+  OpenActionModuleType,
+  useGenerateModuleCurrencyApprovalDataLazyQuery
+} from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { Button } from '@tape.xyz/ui'
 import type { Dispatch, FC } from 'react'
@@ -45,6 +48,10 @@ const PermissionAlert: FC<Props> = ({
   })
 
   const handleAllowance = async () => {
+    const isUnknownModule =
+      allowanceModule.moduleName ===
+      OpenActionModuleType.UnknownOpenActionModule
+
     const result = await generateAllowanceQuery({
       variables: {
         request: {
@@ -53,8 +60,9 @@ const PermissionAlert: FC<Props> = ({
             value: Number.MAX_SAFE_INTEGER.toString()
           },
           module: {
-            [getCollectModuleConfig(allowanceModule).type]:
-              allowanceModule.moduleName
+            [getCollectModuleConfig(allowanceModule).type]: isUnknownModule
+              ? allowanceModule.moduleContract.address
+              : allowanceModule.moduleName
           }
         }
       }

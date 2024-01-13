@@ -99,24 +99,25 @@ const TipOpenAction: FC<Props> = ({
     }
   }, [balanceData, tipCurrency?.address, refetchAllowance, tip.value])
 
-  if (!tipCurrency) {
-    return toast.error('Currency not supported')
-  }
-
   const onSendTip = () => {
+    if (!tipCurrency) {
+      return toast.error('Currency not supported')
+    }
     try {
-      const calldata = encodeAbiParameters(
-        JSON.parse(metadata?.processCalldataABI ?? '{}'),
-        [
-          tip.currency,
-          parseUnits(tip.value.toString(), tipCurrency.decimals).toString()
-        ]
-      )
+      const abi = JSON.parse(metadata?.processCalldataABI ?? '{}')
+      const calldata = encodeAbiParameters(abi, [
+        tip.currency,
+        parseUnits(tip.value.toString(), tipCurrency.decimals).toString()
+      ])
       actOnUnknownOpenAction(action.contract.address, calldata)
     } catch {}
   }
 
   const getButton = () => {
+    if (!tipCurrency) {
+      return toast.error('Currency not supported')
+    }
+
     if (balanceLoading || allowanceLoading) {
       return <Button disabled>Checking...</Button>
     }

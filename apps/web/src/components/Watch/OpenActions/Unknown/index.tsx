@@ -36,7 +36,7 @@ const UnknownOpenAction = ({
   action: UnknownOpenActionModuleSettings
   publicationId: string
 }) => {
-  const [acting, setActing] = useState(false)
+  const [acting, setActing] = useState(true)
 
   const onError = (error: CustomErrorWithData) => {
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
@@ -139,7 +139,7 @@ const UnknownOpenAction = ({
     if (handleWrongNetwork()) {
       return
     }
-
+    setActing(true)
     const actOnRequest: ActOnOpenActionLensManagerRequest = {
       for: publicationId,
       actOn: {
@@ -150,7 +150,7 @@ const UnknownOpenAction = ({
       }
     }
 
-    if (canUseLensManager) {
+    if (canUseLensManager && action.signlessApproved) {
       return await actViaLensManager(actOnRequest)
     }
 

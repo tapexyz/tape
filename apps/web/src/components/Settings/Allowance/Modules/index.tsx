@@ -61,6 +61,8 @@ const ModuleItem = ({
   ) => {
     try {
       setLoadingModule(module.moduleName)
+      const isUnknownModule =
+        module.moduleName === OpenActionModuleType.UnknownOpenActionModule
       const { data: allowanceData } = await generateAllowanceQuery({
         variables: {
           request: {
@@ -69,7 +71,9 @@ const ModuleItem = ({
               value: isAllow ? Number.MAX_SAFE_INTEGER.toString() : '0'
             },
             module: {
-              [getCollectModuleConfig(module).type]: module.moduleName
+              [getCollectModuleConfig(module).type]: isUnknownModule
+                ? module.moduleContract.address
+                : module.moduleName
             }
           }
         }

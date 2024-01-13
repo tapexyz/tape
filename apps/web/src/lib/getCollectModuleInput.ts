@@ -125,7 +125,7 @@ export const getCollectModuleConfig = (
       switch (module.moduleContract.address) {
         case VERIFIED_UNKNOWN_OPEN_ACTION_CONTRACTS.TIP:
           return {
-            type: 'openActionModule',
+            type: 'unknownOpenActionModule',
             label: 'Tip Action',
             description: 'Allow users to tip with supported currencies.'
           }
