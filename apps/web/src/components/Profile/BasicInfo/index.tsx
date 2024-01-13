@@ -110,9 +110,8 @@ const BasicInfo: FC<Props> = ({ profile }) => {
     setLoading(false)
     updateCache(!isBlockedByMe)
     toast.success(
-      `${isBlockedByMe ? `Unblocked` : `Blocked`} ${
-        getProfile(profile)?.displayName
-      }`
+      `${isBlockedByMe ? `Unblocked` : `Blocked`} ${getProfile(profile)
+        ?.displayName}`
     )
   }
 

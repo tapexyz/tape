@@ -62,9 +62,8 @@ const ViewProfile = () => {
   return (
     <>
       <MetaTags
-        title={`${getProfile(profile)?.displayName} (${
-          getProfile(profile)?.slugWithPrefix
-        })`}
+        title={`${getProfile(profile)?.displayName} (${getProfile(profile)
+          ?.slugWithPrefix})`}
       />
       {!loading && !error && profile ? (
         <>
