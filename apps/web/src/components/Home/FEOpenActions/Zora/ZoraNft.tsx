@@ -1,6 +1,6 @@
 import {
   STATIC_ASSETS,
-  TAPE_ADMIN_ADDRESS,
+  DRAGVERSE_ADMIN_ADDRESS,
   ZORA_MAINNET_CHAINS
 } from '@dragverse/constants'
 import { EVENTS, Tower } from '@dragverse/generic'
@@ -39,7 +39,7 @@ const ZoraNft: FC<Props> = ({ nftMetadata }) => {
   const network = ZORA_MAINNET_CHAINS.includes(chain) ? '' : 'testnet.'
   const zoraLink = `https://${network}zora.co/collect/${chain}:${address}${
     token ? `/${token}` : ''
-  }?referrer=${TAPE_ADMIN_ADDRESS}`
+  }?referrer=${DRAGVERSE_ADMIN_ADDRESS}`
 
   const coverImage = `https://remote-image.decentralized-content.com/image?url=${zoraNft.coverImageUrl}&w=1200&q=75`
 

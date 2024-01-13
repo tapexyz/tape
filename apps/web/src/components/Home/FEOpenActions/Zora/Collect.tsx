@@ -1,5 +1,5 @@
 import { ZoraCreator1155Impl, ZoraERC721Drop } from '@dragverse/abis'
-import { TAPE_ADMIN_ADDRESS, TAPE_APP_NAME } from '@dragverse/constants'
+import { DRAGVERSE_ADMIN_ADDRESS, TAPE_APP_NAME } from '@dragverse/constants'
 import { EVENTS, getZoraChainInfo, Tower } from '@dragverse/generic'
 import type { ZoraNft } from '@dragverse/lens/custom-types'
 import { Button } from '@radix-ui/themes'
@@ -31,7 +31,7 @@ const Collect = ({ nft, link }: { nft: ZoraNft; link: string }) => {
   const nftAddress = nft.address
   const recipient = address as Address
   const comment = `Minted from ${TAPE_APP_NAME}`
-  const mintReferral = TAPE_ADMIN_ADDRESS
+  const mintReferral = DRAGVERSE_ADMIN_ADDRESS
   const mintFee = parseEther('0.000777')
 
   const price = quantity * parseInt(nft.price ?? 0)

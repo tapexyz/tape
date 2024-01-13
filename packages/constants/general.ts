@@ -155,7 +155,7 @@ export const TAPEXYZ_LOGO = `${STATIC_ASSETS}/tape.jpeg`
 // admin
 export const ADMIN_IDS = IS_MAINNET ? ['0x2d'] : ['0x34']
 export const MOD_IDS = IS_MAINNET ? [...ADMIN_IDS, '0x24'] : ['0x2f']
-export const TAPE_ADMIN_ADDRESS = '0xB89560D7b33ea8d787EaaEfbcE1268f8991Db9E1'
+export const DRAGVERSE_ADMIN_ADDRESS = '0x571f4905641E1E55f1f1ea56a9bbb797275afD01'
 
 // lens
 export const LENS_CUSTOM_FILTERS = [CustomFiltersType.Gardeners]

@@ -8,7 +8,7 @@ import { useDebounce, useOutsideClick } from '@dragverse/browser'
 import {
   LENS_CUSTOM_FILTERS,
   LENS_NAMESPACE_PREFIX,
-  TAPE_ADMIN_ADDRESS,
+  DRAGVERSE_ADMIN_ADDRESS,
   TAPE_APP_NAME
 } from '@dragverse/constants'
 import {
@@ -55,7 +55,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
 
   const getIsValidAddress = (address: string) => isAddress(address)
   const isIncludesDonationAddress =
-    splitRecipients.filter((el) => el.recipient === TAPE_ADMIN_ADDRESS).length >
+    splitRecipients.filter((el) => el.recipient === DRAGVERSE_ADMIN_ADDRESS).length >
     0
 
   const resultsRef = useRef(null)
@@ -112,7 +112,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
 
   const addDonation = () => {
     const splits = splitRecipients
-    splits.push({ recipient: TAPE_ADMIN_ADDRESS, split: 2 })
+    splits.push({ recipient: DRAGVERSE_ADMIN_ADDRESS, split: 2 })
     setSplitRecipients([...splits])
     scrollToSubmit()
   }
@@ -166,16 +166,16 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
               autoComplete="off"
               spellCheck="false"
               title={
-                splitRecipient.recipient === TAPE_ADMIN_ADDRESS
+                splitRecipient.recipient === DRAGVERSE_ADMIN_ADDRESS
                   ? TAPE_APP_NAME
                   : undefined
               }
               suffix={
-                splitRecipient.recipient === TAPE_ADMIN_ADDRESS
+                splitRecipient.recipient === DRAGVERSE_ADMIN_ADDRESS
                   ? `${TAPE_APP_NAME}.xyz`.toLowerCase()
                   : ''
               }
-              disabled={splitRecipient.recipient === TAPE_ADMIN_ADDRESS}
+              disabled={splitRecipient.recipient === DRAGVERSE_ADMIN_ADDRESS}
               validationError={
                 getIsValidAddress(splitRecipient.recipient) ? '' : ' '
               }
