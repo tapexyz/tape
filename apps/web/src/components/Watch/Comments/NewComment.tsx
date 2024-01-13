@@ -317,9 +317,10 @@ const NewComment: FC<Props> = ({
         content: trimify(formData.comment),
         locale: getUserLocale(),
         marketplace: {
-          name: `${getProfile(activeProfile)?.slug}'s comment on video ${
-            getPublicationData(targetVideo.metadata)?.title
-          }`,
+          name: `${getProfile(activeProfile)
+            ?.slug}'s comment on video ${getPublicationData(
+            targetVideo.metadata
+          )?.title}`,
           attributes,
           description: trimify(formData.comment),
           external_url: `${TAPE_WEBSITE_URL}/watch/${video?.id}`
