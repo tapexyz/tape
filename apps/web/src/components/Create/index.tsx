@@ -412,8 +412,9 @@ const CreateSteps = () => {
       marketplace: {
         attributes,
         animation_url: uploadedMedia.dUrl,
-        external_url: `${TAPE_WEBSITE_URL}/u/${getProfile(activeProfile)
-          ?.slug}`,
+        external_url: `${TAPE_WEBSITE_URL}/u/${
+          getProfile(activeProfile)?.slug
+        }`,
         image: uploadedMedia.thumbnail,
         name: uploadedMedia.title,
         description: trimify(uploadedMedia.description)
@@ -473,8 +474,9 @@ const CreateSteps = () => {
       marketplace: {
         attributes,
         animation_url: uploadedMedia.dUrl,
-        external_url: `${TAPE_WEBSITE_URL}/u/${getProfile(activeProfile)
-          ?.slug}`,
+        external_url: `${TAPE_WEBSITE_URL}/u/${
+          getProfile(activeProfile)?.slug
+        }`,
         image: uploadedMedia.thumbnail,
         name: uploadedMedia.title,
         description: trimify(uploadedMedia.description)
