@@ -21,11 +21,19 @@ import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useSendTransaction, useWaitForTransaction } from 'wagmi'
 
-const ModuleAllowance = () => {
-  const { activeProfile } = useProfileStore()
-
-  const [currency, setCurrency] = useState(WMATIC_TOKEN_ADDRESS)
+const ModuleItem = ({
+  moduleItem,
+  currency,
+  onSuccess
+}: {
+  moduleItem: ApprovedAllowanceAmountResult
+  currency: string
+  onSuccess: () => void
+}) => {
   const [loadingModule, setLoadingModule] = useState('')
+
+  const [generateAllowanceQuery] =
+    useGenerateModuleCurrencyApprovalDataLazyQuery()
 
   const { data: txData, sendTransaction } = useSendTransaction({
     onError(error: CustomErrorWithData) {
@@ -34,33 +42,11 @@ const ModuleAllowance = () => {
     }
   })
 
-  const {
-    data,
-    refetch,
-    loading: gettingSettings
-  } = useApprovedModuleAllowanceAmountQuery({
-    variables: {
-      request: {
-        currencies: [currency],
-        followModules: [FollowModuleType.FeeFollowModule],
-        unknownOpenActionModules: [VERIFIED_UNKNOWN_OPEN_ACTION_CONTRACTS.TIP],
-        openActionModules: [
-          OpenActionModuleType.SimpleCollectOpenActionModule,
-          OpenActionModuleType.MultirecipientFeeCollectOpenActionModule,
-          OpenActionModuleType.LegacySimpleCollectModule,
-          OpenActionModuleType.LegacyMultirecipientFeeCollectModule
-        ]
-      }
-    },
-    skip: !activeProfile?.id,
-    fetchPolicy: 'no-cache'
-  })
-
   useWaitForTransaction({
     hash: txData?.hash,
     onSuccess: () => {
-      refetch()
-      toast.success(`Permission updated`)
+      onSuccess()
+      toast.success(`Allowance updated`)
       setLoadingModule('')
     },
     onError(error: CustomErrorWithData) {
@@ -68,9 +54,6 @@ const ModuleAllowance = () => {
       setLoadingModule('')
     }
   })
-
-  const [generateAllowanceQuery] =
-    useGenerateModuleCurrencyApprovalDataLazyQuery()
 
   const handleClick = async (
     isAllow: boolean,
@@ -102,6 +85,90 @@ const ModuleAllowance = () => {
   }
 
   return (
+    <div
+      key={moduleItem.moduleContract.address}
+      className="flex items-center rounded-md pb-4"
+    >
+      <div className="flex-1">
+        <h6 className="font-medium">
+          {getCollectModuleConfig(moduleItem).label} (
+          <Link
+            className="text-xs"
+            target="_blank"
+            href={`${POLYGONSCAN_URL}/address/${moduleItem.moduleContract.address}`}
+          >
+            {shortenAddress(moduleItem.moduleContract.address)})
+          </Link>
+        </h6>
+        <p className="opacity-70">
+          {getCollectModuleConfig(moduleItem).description}
+        </p>
+      </div>
+      <div className="ml-2 flex flex-none items-center space-x-2">
+        {parseFloat(moduleItem?.allowance.value) === 0 ? (
+          <Button
+            disabled={loadingModule === moduleItem.moduleName}
+            loading={loadingModule === moduleItem.moduleName}
+            onClick={() => handleClick(true, moduleItem)}
+          >
+            Allow
+          </Button>
+        ) : (
+          <Button
+            variant="danger"
+            onClick={() => handleClick(false, moduleItem)}
+            disabled={loadingModule === moduleItem.moduleName}
+            loading={loadingModule === moduleItem.moduleName}
+          >
+            Revoke
+          </Button>
+        )}
+      </div>
+    </div>
+  )
+}
+
+const ModuleAllowance = () => {
+  const { activeProfile } = useProfileStore()
+  const [currency, setCurrency] = useState(WMATIC_TOKEN_ADDRESS)
+
+  const {
+    data: commonAllowancesData,
+    refetch: refetchCommonApproved,
+    loading: gettingSettings
+  } = useApprovedModuleAllowanceAmountQuery({
+    variables: {
+      request: {
+        currencies: [currency],
+        followModules: [FollowModuleType.FeeFollowModule],
+        openActionModules: [
+          OpenActionModuleType.SimpleCollectOpenActionModule,
+          OpenActionModuleType.MultirecipientFeeCollectOpenActionModule,
+          OpenActionModuleType.LegacySimpleCollectModule,
+          OpenActionModuleType.LegacyMultirecipientFeeCollectModule
+        ]
+      }
+    },
+    skip: !activeProfile?.id,
+    fetchPolicy: 'no-cache'
+  })
+
+  const {
+    data: unKnownActAllowancesData,
+    refetch: refetchUnknownActApproved,
+    loading: gettingUnknownActSettings
+  } = useApprovedModuleAllowanceAmountQuery({
+    variables: {
+      request: {
+        currencies: [currency],
+        unknownOpenActionModules: [VERIFIED_UNKNOWN_OPEN_ACTION_CONTRACTS.TIP]
+      }
+    },
+    skip: !activeProfile?.id,
+    fetchPolicy: 'no-cache'
+  })
+
+  return (
     <div>
       <div className="space-y-2">
         <h1 className="text-brand-400 text-xl font-bold">Allowance</h1>
@@ -111,7 +178,7 @@ const ModuleAllowance = () => {
         </p>
       </div>
       <div>
-        {!gettingSettings && data && (
+        {!gettingSettings && commonAllowancesData && (
           <div className="flex justify-end py-6">
             <Select
               value={currency}
@@ -125,54 +192,38 @@ const ModuleAllowance = () => {
             </Select>
           </div>
         )}
-        {gettingSettings && (
+        {gettingSettings || gettingUnknownActSettings ? (
           <div className="grid h-24 place-items-center">
             <Spinner />
           </div>
-        )}
+        ) : null}
         {!gettingSettings &&
-          data?.approvedModuleAllowanceAmount?.map(
+          commonAllowancesData?.approvedModuleAllowanceAmount?.map(
             (moduleItem: ApprovedAllowanceAmountResult) => (
-              <div
+              <ModuleItem
                 key={moduleItem.moduleContract.address}
-                className="flex items-center rounded-md pb-4"
-              >
-                <div className="flex-1">
-                  <h6 className="font-medium">
-                    {getCollectModuleConfig(moduleItem).label} (
-                    <Link
-                      className="text-xs"
-                      target="_blank"
-                      href={`${POLYGONSCAN_URL}/address/${moduleItem.moduleContract.address}`}
-                    >
-                      {shortenAddress(moduleItem.moduleContract.address)})
-                    </Link>
-                  </h6>
-                  <p className="opacity-70">
-                    {getCollectModuleConfig(moduleItem).description}
-                  </p>
-                </div>
-                <div className="ml-2 flex flex-none items-center space-x-2">
-                  {parseFloat(moduleItem?.allowance.value) === 0 ? (
-                    <Button
-                      disabled={loadingModule === moduleItem.moduleName}
-                      loading={loadingModule === moduleItem.moduleName}
-                      onClick={() => handleClick(true, moduleItem)}
-                    >
-                      Allow
-                    </Button>
-                  ) : (
-                    <Button
-                      variant="danger"
-                      onClick={() => handleClick(false, moduleItem)}
-                      disabled={loadingModule === moduleItem.moduleName}
-                      loading={loadingModule === moduleItem.moduleName}
-                    >
-                      Revoke
-                    </Button>
-                  )}
-                </div>
-              </div>
+                moduleItem={moduleItem}
+                currency={currency}
+                onSuccess={() => {
+                  refetchCommonApproved()
+                  refetchUnknownActApproved()
+                }}
+              />
+            )
+          )}
+        <h6 className="text-brand-500 mb-2 mt-4 font-medium">Open Actions</h6>
+        {!gettingUnknownActSettings &&
+          unKnownActAllowancesData?.approvedModuleAllowanceAmount?.map(
+            (moduleItem: ApprovedAllowanceAmountResult) => (
+              <ModuleItem
+                key={moduleItem.moduleContract.address}
+                moduleItem={moduleItem}
+                currency={currency}
+                onSuccess={() => {
+                  refetchCommonApproved()
+                  refetchUnknownActApproved()
+                }}
+              />
             )
           )}
       </div>

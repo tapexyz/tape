@@ -135,7 +135,7 @@ export const getCollectModuleConfig = (
         type: 'followModule',
         label: 'Subscribe Profiles',
         description:
-          'Subscribe any profile by paying a fee specified by the profile owner.'
+          'Subscribe any profile by paying a fee specified by the profile.'
       }
     default:
       return {
