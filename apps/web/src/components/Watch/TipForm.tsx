@@ -295,9 +295,9 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
         content: getValues('message'),
         locale: getUserLocale(),
         marketplace: {
-          name: `${getProfile(activeProfile)
-            ?.slug}'s comment on video ${targetVideo.metadata.marketplace
-            ?.name}`,
+          name: `${getProfile(activeProfile)?.slug}'s comment on video ${
+            targetVideo.metadata.marketplace?.name
+          }`,
           attributes,
           description: getValues('message'),
           external_url: `${TAPE_WEBSITE_URL}/watch/${video?.id}`
