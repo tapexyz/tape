@@ -116,6 +116,7 @@ const CollectModule = () => {
                         type="button"
                         highContrast
                         onClick={() => setShowModal(false)}
+                        className="text-brand-50"
                       >
                         Set Collect Type
                       </Button>
