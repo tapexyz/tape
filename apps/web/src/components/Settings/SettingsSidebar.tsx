@@ -41,7 +41,7 @@ const SettingsSidebar = () => {
   const isProfileOwner = getIsProfileOwner(activeProfile, address)
 
   return (
-    <div className="ml-auto flex w-44 flex-col space-y-1">
+    <div className="flex flex-col space-y-1 pb-10 md:ml-auto md:w-44">
       <Link
         href={SETTINGS}
         className={clsx(
