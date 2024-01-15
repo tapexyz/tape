@@ -133,7 +133,7 @@ export const getCollectModuleConfig = (
           return {
             type: 'openActionModule',
             label: 'Unknown Action',
-            description: ''
+            description: module.moduleContract.address
           }
       }
     case 'FeeFollowModule':
