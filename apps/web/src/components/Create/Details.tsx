@@ -186,6 +186,23 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
               )}
             </div>
 
+            {/* <div className="mt-2">
+              <Switch
+                label="Open Actions"
+                checked={uploadedMedia.hasOpenActions}
+                onCheckedChange={(hasOpenActions) => {
+                  setUploadedMedia({
+                    hasOpenActions,
+                    collectModule: {
+                      ...uploadedMedia,
+                      isRevertCollect: !hasOpenActions
+                    }
+                  })
+                }}
+              />
+              {uploadedMedia.hasOpenActions && <OpenActionSettings />}
+            </div> */}
+
             {uploadedMedia.file && uploadedMedia.type === 'VIDEO' ? (
               <Tooltip
                 visible={!isByteSizeVideo}

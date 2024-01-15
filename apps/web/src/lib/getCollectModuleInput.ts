@@ -1,8 +1,10 @@
-import {
-  type OpenActionModuleInput,
-  OpenActionModuleType,
-  type RecipientDataInput
+import { VERIFIED_UNKNOWN_OPEN_ACTION_CONTRACTS } from '@components/Watch/OpenActions/verified-contracts'
+import type {
+  ApprovedAllowanceAmountResult,
+  OpenActionModuleInput,
+  RecipientDataInput
 } from '@tape.xyz/lens'
+import { OpenActionModuleType } from '@tape.xyz/lens'
 import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
 
 import { getAddedDaysFromToday } from './formatTime'
@@ -87,8 +89,10 @@ export const getCollectModuleInput = (
   }
 }
 
-export const getCollectModuleConfig = (collectModule: string) => {
-  switch (collectModule) {
+export const getCollectModuleConfig = (
+  module: ApprovedAllowanceAmountResult
+) => {
+  switch (module.moduleName) {
     case OpenActionModuleType.SimpleCollectOpenActionModule:
       return {
         type: 'openActionModule',
@@ -117,12 +121,27 @@ export const getCollectModuleConfig = (collectModule: string) => {
         description:
           'Collect any publication which splits collect revenue with multiple recipients.'
       }
+    case OpenActionModuleType.UnknownOpenActionModule:
+      switch (module.moduleContract.address) {
+        case VERIFIED_UNKNOWN_OPEN_ACTION_CONTRACTS.TIP:
+          return {
+            type: 'unknownOpenActionModule',
+            label: 'Tip Action',
+            description: 'Allow users to tip with supported currencies.'
+          }
+        default:
+          return {
+            type: 'openActionModule',
+            label: 'Unknown Action',
+            description: module.moduleContract.address
+          }
+      }
     case 'FeeFollowModule':
       return {
         type: 'followModule',
         label: 'Subscribe Profiles',
         description:
-          'Subscribe any profile by paying a fee specified by the profile owner.'
+          'Subscribe any profile by paying a fee specified by the profile.'
       }
     default:
       return {

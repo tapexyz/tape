@@ -109,11 +109,8 @@ const BasicInfo: FC<Props> = ({ profile }) => {
     }
     setLoading(false)
     updateCache(!isBlockedByMe)
-    toast.success(
-      `${isBlockedByMe ? `Unblocked` : `Blocked`} ${
-        getProfile(profile)?.displayName
-      }`
-    )
+    const displayName = getProfile(profile)?.displayName
+    toast.success(`${isBlockedByMe ? `Unblocked` : `Blocked`} ${displayName}`)
   }
 
   const { signTypedDataAsync } = useSignTypedData({

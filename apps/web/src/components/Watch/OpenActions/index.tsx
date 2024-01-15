@@ -14,7 +14,8 @@ import {
 import type { FC, ReactNode } from 'react'
 import React, { useState } from 'react'
 
-import CollectPublication from './CollectPublication'
+import CollectPublication from './Collect'
+import UnknownOpenAction from './Unknown'
 
 type Props = {
   publication: AnyPublication
@@ -42,7 +43,7 @@ const OpenActions: FC<Props> = ({ publication, text, children }) => {
           >
             <AccordionTrigger className="bg-brand-50/50 dark:bg-brand-950/30 rounded-small w-full px-4 py-3 text-left">
               <div className="flex items-center justify-between">
-                <span className="text-brand-500">Collect publication</span>
+                <span className="font-bold">Collect publication</span>
                 <span className="group-data-[state=open]:hidden">
                   $<b> {formatNumber(Number(details?.amount.rate))}</b>
                 </span>
@@ -55,6 +56,13 @@ const OpenActions: FC<Props> = ({ publication, text, children }) => {
               />
             </AccordionContent>
           </AccordionItem>
+        )
+      case 'UnknownOpenActionModuleSettings':
+        return (
+          <UnknownOpenAction
+            action={action}
+            publicationId={targetPublication.id}
+          />
         )
       default:
         break
@@ -79,7 +87,12 @@ const OpenActions: FC<Props> = ({ publication, text, children }) => {
         </Button>
       )}
       <Modal
-        title="Collect"
+        title={
+          <div className="flex items-center space-x-1.5">
+            <CollectOutline className="size-4" />
+            <span>Open Actions</span>
+          </div>
+        }
         show={showActionModal}
         setShow={setShowActionModal}
       >

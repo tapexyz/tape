@@ -6,6 +6,7 @@ import useNonceStore from '@lib/store/nonce'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { useCopyToClipboard } from '@tape.xyz/browser'
 import {
+  ALLOWED_TOKEN_CURRENCIES,
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
@@ -23,10 +24,8 @@ import type {
   Profile
 } from '@tape.xyz/lens'
 import {
-  LimitType,
   useBroadcastOnchainMutation,
   useCreateSetFollowModuleTypedDataMutation,
-  useEnabledCurrenciesQuery,
   useProfileFollowModuleQuery
 } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
@@ -109,14 +108,6 @@ const FeeFollow = ({ profile }: Props) => {
 
   const { signTypedDataAsync } = useSignTypedData({
     onError
-  })
-  const { data: enabledCurrencies } = useEnabledCurrenciesQuery({
-    variables: {
-      request: {
-        limit: LimitType.Fifty
-      }
-    },
-    skip: !profile?.id
   })
 
   const [broadcast, { data: broadcastData }] = useBroadcastOnchainMutation({
@@ -205,8 +196,6 @@ const FeeFollow = ({ profile }: Props) => {
     updateFeeFollow(false)
   }
 
-  const currencies = enabledCurrencies?.currencies.items
-
   return (
     <>
       <div className="mb-5 space-y-2">
@@ -262,8 +251,8 @@ const FeeFollow = ({ profile }: Props) => {
                 value={watch('token')}
                 onValueChange={(value) => setValue('token', value)}
               >
-                {currencies?.map(({ contract, name }) => (
-                  <SelectItem key={contract.address} value={contract.address}>
+                {ALLOWED_TOKEN_CURRENCIES?.map(({ address, name }) => (
+                  <SelectItem key={address} value={address}>
                     {name}
                   </SelectItem>
                 ))}

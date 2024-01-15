@@ -58,7 +58,9 @@ export const UPLOADED_VIDEO_FORM_DEFAULTS: UploadedMedia = {
   referenceModule: {
     followerOnlyReferenceModule: false,
     degreesOfSeparationReferenceModule: null
-  }
+  },
+  unknownOpenAction: null,
+  hasOpenActions: false
 }
 
 interface AppState {

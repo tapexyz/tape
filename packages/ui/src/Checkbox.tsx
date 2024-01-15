@@ -41,7 +41,13 @@ export const Checkbox = forwardRef<
             <CheckOutline className={clsx(sizeClasses, 'p-[3px]')} />
           </CheckboxPrimitive.Indicator>
         </CheckboxPrimitive.Root>
-        <label className="text-sm font-medium leading-none" htmlFor={id}>
+        <label
+          className={clsx(
+            'font-medium leading-none',
+            size === 'lg' ? 'text-base' : 'text-sm'
+          )}
+          htmlFor={id}
+        >
           {label}
         </label>
       </div>
