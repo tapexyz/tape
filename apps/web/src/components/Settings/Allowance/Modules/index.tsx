@@ -1,11 +1,8 @@
 import { VERIFIED_UNKNOWN_OPEN_ACTION_CONTRACTS } from '@components/Watch/OpenActions/verified-contracts'
 import { getCollectModuleConfig } from '@lib/getCollectModuleInput'
 import useProfileStore from '@lib/store/idb/profile'
-import {
-  ALLOWED_TOKEN_CURRENCIES,
-  POLYGONSCAN_URL,
-  WMATIC_TOKEN_ADDRESS
-} from '@tape.xyz/constants'
+import useAllowedTokensStore from '@lib/store/idb/tokens'
+import { POLYGONSCAN_URL, WMATIC_TOKEN_ADDRESS } from '@tape.xyz/constants'
 import { shortenAddress } from '@tape.xyz/generic'
 import type { ApprovedAllowanceAmountResult } from '@tape.xyz/lens'
 import {
@@ -135,6 +132,7 @@ const ModuleItem = ({
 const ModuleAllowance = () => {
   const { activeProfile } = useProfileStore()
   const [currency, setCurrency] = useState(WMATIC_TOKEN_ADDRESS)
+  const allowedTokens = useAllowedTokensStore((state) => state.allowedTokens)
 
   const {
     data: commonAllowancesData,
@@ -188,7 +186,7 @@ const ModuleAllowance = () => {
               value={currency}
               onValueChange={(value) => setCurrency(value)}
             >
-              {ALLOWED_TOKEN_CURRENCIES?.map((token) => (
+              {allowedTokens?.map((token) => (
                 <SelectItem key={token.address} value={token.address}>
                   {token.name}
                 </SelectItem>
