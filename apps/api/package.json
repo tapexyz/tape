@@ -10,9 +10,9 @@
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "3.489.0",
+    "@aws-sdk/client-sts": "3.490.0",
     "@hono/zod-validator": "^0.1.11",
-    "hono": "^3.12.2",
+    "hono": "^3.12.4",
     "linkedom": "^0.16.6",
     "ua-parser-js": "^1.0.37",
     "viem": "^1.21.4",
