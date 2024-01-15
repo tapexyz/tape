@@ -215,7 +215,9 @@ const ModuleAllowance = () => {
               />
             )
           )}
-        <h6 className="text-brand-500 mb-2 mt-4 font-medium">Open Actions</h6>
+        {unKnownActAllowancesData?.approvedModuleAllowanceAmount.length ? (
+          <h6 className="text-brand-500 mb-2 mt-4 font-medium">Open Actions</h6>
+        ) : null}
         {!gettingUnknownActSettings &&
           unKnownActAllowancesData?.approvedModuleAllowanceAmount?.map(
             (moduleItem: ApprovedAllowanceAmountResult) => (
