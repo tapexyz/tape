@@ -137,6 +137,7 @@ export enum LocalIDBStore {
   PROFILE_STORE = 'profile.store',
   COLLECT_STORE = 'collect.store',
   VERIFIED_STORE = 'verified.store',
+  ALLOWED_TOKENS_STORE = 'allowed-tokens.store',
   RESTRICTIONS_STORE = 'restrictions.store'
 }
 
