@@ -439,6 +439,8 @@ const CreateSteps = () => {
     await createPost(metadataUri)
   }
 
+  const profileSlug = getProfile(activeProfile)?.slug
+
   const constructAudioMetadata = async () => {
     const attributes: MetadataAttribute[] = [
       {
@@ -449,7 +451,7 @@ const CreateSteps = () => {
       {
         type: MetadataAttributeType.STRING,
         key: 'creator',
-        value: `${getProfile(activeProfile)?.slug}`
+        value: profileSlug
       },
       {
         type: MetadataAttributeType.STRING,
@@ -464,7 +466,7 @@ const CreateSteps = () => {
         type: getUploadedMediaType(
           uploadedMedia.mediaType
         ) as MediaAudioMimeType,
-        artist: `${getProfile(activeProfile)?.slug}`,
+        artist: profileSlug,
         attributes,
         cover: uploadedMedia.thumbnail,
         duration: uploadedMedia.durationInSeconds,
@@ -480,8 +482,7 @@ const CreateSteps = () => {
       marketplace: {
         attributes,
         animation_url: uploadedMedia.dUrl,
-        external_url: `${TAPE_WEBSITE_URL}/u/${getProfile(activeProfile)
-          ?.slug}`,
+        external_url: `${TAPE_WEBSITE_URL}/u/${profileSlug}`,
         image: uploadedMedia.thumbnail,
         name: uploadedMedia.title,
         description: trimify(uploadedMedia.description)
