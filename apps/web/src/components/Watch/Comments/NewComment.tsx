@@ -310,6 +310,9 @@ const NewComment: FC<Props> = ({
           value: TAPE_WEBSITE_URL
         }
       ]
+
+      const title = getPublicationData(targetVideo.metadata)?.title
+      const profileSlug = getProfile(activeProfile)?.slug
       const metadata = textOnly({
         appId: TAPE_APP_ID,
         id: uuidv4(),
@@ -317,9 +320,7 @@ const NewComment: FC<Props> = ({
         content: trimify(formData.comment),
         locale: getUserLocale(),
         marketplace: {
-          name: `${getProfile(activeProfile)?.slug}'s comment on video ${
-            getPublicationData(targetVideo.metadata)?.title
-          }`,
+          name: `${profileSlug}'s comment on video ${title}`,
           attributes,
           description: trimify(formData.comment),
           external_url: `${TAPE_WEBSITE_URL}/watch/${video?.id}`

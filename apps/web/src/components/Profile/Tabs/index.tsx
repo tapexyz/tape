@@ -18,9 +18,8 @@ const ProfileTabs: FC<Props> = ({ profile }) => {
 
   const handleTabChange = (tab: string) => {
     if (tab) {
-      const nextUrl = `${location.origin}/u/${
-        getProfile(profile)?.slug
-      }?tab=${tab}`
+      const slug = getProfile(profile)?.slug
+      const nextUrl = `${location.origin}/u/${slug}?tab=${tab}`
       history.replaceState({ path: nextUrl }, '', nextUrl)
     }
   }
