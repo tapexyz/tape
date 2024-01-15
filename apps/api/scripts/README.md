@@ -1,5 +1,9 @@
 # Execute Scripts
 
+```
+cd apps/api
+```
+
 ## Local
 
 ```sh

@@ -1,8 +1,6 @@
 import { useDid } from '@hooks/useDid'
-import {
-  ALLOWED_TOKEN_CURRENCIES,
-  WMATIC_TOKEN_ADDRESS
-} from '@tape.xyz/constants'
+import useAllowedTokensStore from '@lib/store/idb/tokens'
+import { WMATIC_TOKEN_ADDRESS } from '@tape.xyz/constants'
 import {
   type ModuleMetadata,
   type UnknownOpenActionModuleSettings,
@@ -42,6 +40,8 @@ const TipOpenAction: FC<Props> = ({
   const [isAllowed, setIsAllowed] = useState(true)
   const [haveEnoughBalance, setHaveEnoughBalance] = useState(false)
 
+  const allowedTokens = useAllowedTokensStore((state) => state.allowedTokens)
+
   const decoded = decodeAbiParameters(
     JSON.parse(metadata?.initializeCalldataABI ?? '{}'),
     action?.initializeCalldata
@@ -52,7 +52,7 @@ const TipOpenAction: FC<Props> = ({
     enabled: Boolean(decoded[0])
   })
 
-  const tipCurrency = ALLOWED_TOKEN_CURRENCIES?.find(
+  const tipCurrency = allowedTokens?.find(
     (token) => token.address === tip.currency
   )
 
@@ -175,7 +175,7 @@ const TipOpenAction: FC<Props> = ({
               setTip({ ...tip, currency })
             }}
           >
-            {ALLOWED_TOKEN_CURRENCIES?.map((currency) => (
+            {allowedTokens?.map((currency) => (
               <SelectItem
                 size="sm"
                 key={currency.address}

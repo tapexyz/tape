@@ -2,11 +2,11 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import usePendingTxn from '@hooks/usePendingTxn'
 import useProfileStore from '@lib/store/idb/profile'
+import useAllowedTokensStore from '@lib/store/idb/tokens'
 import useNonceStore from '@lib/store/nonce'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { useCopyToClipboard } from '@tape.xyz/browser'
 import {
-  ALLOWED_TOKEN_CURRENCIES,
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
@@ -64,6 +64,7 @@ const FeeFollow = ({ profile }: Props) => {
   const [showForm, setShowForm] = useState(false)
 
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
+  const allowedTokens = useAllowedTokensStore((state) => state.allowedTokens)
   const handleWrongNetwork = useHandleWrongNetwork()
   const { activeProfile } = useProfileStore()
   const { canBroadcast } = checkLensManagerPermissions(activeProfile)
@@ -251,7 +252,7 @@ const FeeFollow = ({ profile }: Props) => {
                 value={watch('token')}
                 onValueChange={(value) => setValue('token', value)}
               >
-                {ALLOWED_TOKEN_CURRENCIES?.map(({ address, name }) => (
+                {allowedTokens?.map(({ address, name }) => (
                   <SelectItem key={address} value={address}>
                     {name}
                   </SelectItem>
