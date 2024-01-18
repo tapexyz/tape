@@ -19,7 +19,7 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20231218.0",
+    "@cloudflare/workers-types": "^4.20240117.0",
     "@tape.xyz/config": "*",
     "@tape.xyz/generic": "*",
     "@types/ua-parser-js": "^0.7.39",
