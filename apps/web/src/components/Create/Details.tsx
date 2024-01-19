@@ -177,7 +177,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                   const collectModule = saveAsDefault
                     ? {
                         ...(persistedCollectModule && {
-                          persistedCollectModule
+                          ...persistedCollectModule
                         }),
                         isRevertCollect: !canCollect
                       } ?? collectModuleData
