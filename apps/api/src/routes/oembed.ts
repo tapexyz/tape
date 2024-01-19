@@ -59,8 +59,7 @@ app.get('/', zValidator('query', validationSchema), async (c) => {
 
     if (format === 'xml') {
       c.res.headers.set('Content-Type', 'application/xml')
-      return c.body(`
-        <?xml version="1.0" encoding="utf-8"?>
+      return c.body(`<?xml version="1.0" encoding="utf-8"?>
         <oembed>
           <title>${ogData.title}</title>
           <author_name>${ogData.author_name}</author_name>
@@ -75,8 +74,7 @@ app.get('/', zValidator('query', validationSchema), async (c) => {
           <thumbnail_width>${ogData.thumbnail_width}</thumbnail_width>
           <thumbnail_url>${ogData.thumbnail_url}</thumbnail_url>
           <html>${ogData.html}</html>
-        </oembed>
-      `)
+        </oembed>`)
     }
 
     return c.json({ success: true, og: ogData })
