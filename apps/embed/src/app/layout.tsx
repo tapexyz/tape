@@ -5,8 +5,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: TAPE_APP_NAME,
-  description: TAPE_APP_DESCRIPTION,
-  robots: 'noindex'
+  description: TAPE_APP_DESCRIPTION
 }
 
 const RootLayout = ({ children }: { children: React.ReactNode }) => {
