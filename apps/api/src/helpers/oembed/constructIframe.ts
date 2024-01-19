@@ -40,7 +40,7 @@ const constructIframe = async (document: Document) => {
   }
 
   if (embedUrl) {
-    return `<iframe src="${embedUrl}" class="aspect-[16/9] w-full" allow="accelerometer; clipboard-write; encrypted-media" allowfullscreen></iframe>`
+    return `<iframe src="${embedUrl}" style="aspect-ratio: 16/9; width: 100%;" allow="accelerometer; clipboard-write; encrypted-media" allowfullscreen="true"></iframe>`
   } else {
     return 'No embed URL available.'
   }
