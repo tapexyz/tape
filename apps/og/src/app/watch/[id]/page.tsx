@@ -80,8 +80,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     alternates: {
       canonical: pageUrl,
       types: {
-        'application/json+oembed': `${WORKER_OEMBED_URL}?format=json&url=${pageUrl}`,
-        'text/xml+oembed': `${WORKER_OEMBED_URL}?format=xml&url=${pageUrl}`,
+        'application/json+oembed': `${WORKER_OEMBED_URL}?url=${pageUrl}&format=json`,
+        'text/xml+oembed': `${WORKER_OEMBED_URL}?url=${pageUrl}&format=xml`,
         title: publicationTitle
       }
     }
