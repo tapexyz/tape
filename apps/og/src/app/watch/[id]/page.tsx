@@ -2,7 +2,8 @@ import {
   OG_IMAGE,
   TAPE_APP_NAME,
   TAPE_EMBED_URL,
-  TAPE_WEBSITE_URL
+  TAPE_WEBSITE_URL,
+  TAPE_X_HANDLE
 } from '@tape.xyz/constants'
 import {
   getProfile,
@@ -50,11 +51,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     getProfile(profile).slugWithPrefix
   } • ${TAPE_APP_NAME}`
   const embedUrl = `${TAPE_EMBED_URL}/${targetPublication.id}`
+  const pageUrl = new URL(`${TAPE_WEBSITE_URL}/watch/${targetPublication.id}`)
 
   return {
     title,
+    applicationName: TAPE_APP_NAME,
     description: publicationContent,
-    metadataBase: new URL(`${TAPE_WEBSITE_URL}/watch/${targetPublication.id}`),
+    metadataBase: pageUrl,
     openGraph: {
       title,
       description: publicationContent,
@@ -63,13 +66,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       siteName: TAPE_APP_NAME,
       videos: [embedUrl],
       duration,
-      url: embedUrl
+      url: pageUrl,
+      tags: metadata.tags ?? ['tape', 'video']
     },
     twitter: {
       title,
       description: publicationContent,
       card: 'player',
-      images: [publicationCover]
+      images: [publicationCover],
+      site: `@${TAPE_X_HANDLE}`
     }
   }
 }
