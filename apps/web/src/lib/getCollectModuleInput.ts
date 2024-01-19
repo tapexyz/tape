@@ -33,11 +33,13 @@ export const getCollectModuleInput = (
   }
 
   const baseCollectModuleParams = {
-    collectLimit: collectLimitEnabled ? collectLimit : undefined,
     followerOnly: followerOnlyCollect || false,
-    endsAt: timeLimitEnabled
-      ? getAddedDaysFromToday(Number(timeLimit))
-      : undefined
+    ...(collectLimitEnabled && {
+      collectLimit
+    }),
+    ...(timeLimitEnabled && {
+      endsAt: getAddedDaysFromToday(Number(timeLimit))
+    })
   }
   const baseAmountParams = {
     amount: {

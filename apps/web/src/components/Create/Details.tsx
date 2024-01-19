@@ -169,12 +169,16 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                 checked={!uploadedMedia.collectModule.isRevertCollect}
                 onCheckedChange={(canCollect) => {
                   const collectModuleData = {
-                    ...uploadedMedia.collectModule,
+                    ...(uploadedMedia.collectModule && {
+                      ...uploadedMedia.collectModule
+                    }),
                     isRevertCollect: !canCollect
                   }
                   const collectModule = saveAsDefault
                     ? {
-                        ...persistedCollectModule,
+                        ...(persistedCollectModule && {
+                          persistedCollectModule
+                        }),
                         isRevertCollect: !canCollect
                       } ?? collectModuleData
                     : collectModuleData
