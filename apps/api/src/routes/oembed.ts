@@ -28,8 +28,11 @@ const validationSchema = object({
 
 app.get('/', zValidator('query', validationSchema), async (c) => {
   try {
-    let url = c.req.query('url') as string
-    let format = c.req.query('format') as string
+    const reqUrl = c.req.url.replace(/&amp;/g, '&')
+    const reqUrlParams = new URL(reqUrl).searchParams
+
+    let url = reqUrlParams.get('url') as string
+    const format = reqUrlParams.get('format') as string
 
     if (COMMON_REGEX.TAPE_WATCH.test(url)) {
       // Fetch metatags directly from tape.xyz
