@@ -3,7 +3,8 @@ import {
   TAPE_APP_NAME,
   TAPE_EMBED_URL,
   TAPE_WEBSITE_URL,
-  TAPE_X_HANDLE
+  TAPE_X_HANDLE,
+  WORKER_OEMBED_URL
 } from '@tape.xyz/constants'
 import {
   getProfile,
@@ -79,8 +80,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     alternates: {
       canonical: pageUrl,
       types: {
-        'application/json+oembed': `https://api.tape.xyz/oembed?format=json&url=${pageUrl}`,
-        'text/xml+oembed': `https://api.tape.xyz/oembed?format=xml&url=${pageUrl}`,
+        'application/json+oembed': `${WORKER_OEMBED_URL}?format=json&url=${pageUrl}`,
+        'text/xml+oembed': `${WORKER_OEMBED_URL}?format=xml&url=${pageUrl}`,
         title: publicationTitle
       }
     }
