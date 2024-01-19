@@ -75,6 +75,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: 'player',
       images: [publicationCover],
       site: `@${TAPE_X_HANDLE}`
+    },
+    alternates: {
+      canonical: pageUrl,
+      types: {
+        'application/json+oembed': `https://api.tape.xyz/oembed?format=json&url=${pageUrl}`,
+        'text/xml+oembed': `https://api.tape.xyz/oembed?format=xml&url=${pageUrl}`,
+        title: publicationTitle
+      }
     }
   }
 }
