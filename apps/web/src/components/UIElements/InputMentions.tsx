@@ -111,8 +111,8 @@ const InputMentions: FC<TextAreaProps> = ({
     const value = props.value as string
     const lastAtSignIndex = value.lastIndexOf('@')
     if (lastAtSignIndex !== -1) {
-      const newValue = `${value.substring(0, lastAtSignIndex)}@${profile.handle
-        ?.fullHandle} `
+      const fullHandle = profile.handle?.fullHandle
+      const newValue = `${value.substring(0, lastAtSignIndex)}@${fullHandle} `
       onContentChange(newValue)
     }
     clearStates()

@@ -52,7 +52,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             <LoadingBorder rx="30%" ry="30%">
               <div
                 className={clsx(
-                  'bg-brand-400 rounded-full blur',
+                  'rounded-full bg-red-400 blur',
                   size === 'sm' ? 'h-10 w-10' : 'h-20 w-20'
                 )}
               />

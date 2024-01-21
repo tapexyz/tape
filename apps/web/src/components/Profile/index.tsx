@@ -59,12 +59,12 @@ const ViewProfile = () => {
     'pinnedPublicationId'
   )
 
+  const slugWithPrefix = getProfile(profile)?.slugWithPrefix
+  const displayName = getProfile(profile)?.displayName
+
   return (
     <>
-      <MetaTags
-        title={`${getProfile(profile)?.displayName} (${getProfile(profile)
-          ?.slugWithPrefix})`}
-      />
+      <MetaTags title={`${displayName} (${slugWithPrefix})`} />
       {!loading && !error && profile ? (
         <>
           <Cover profile={profile} />

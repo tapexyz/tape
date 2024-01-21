@@ -1,6 +1,5 @@
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import ProfileSuggestion from '@components/UIElements/ProfileSuggestion'
-import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import { useDebounce, useOutsideClick } from '@tape.xyz/browser'
 import {
@@ -17,7 +16,13 @@ import {
 } from '@tape.xyz/generic'
 import type { Profile, RecipientDataInput } from '@tape.xyz/lens'
 import { LimitType, useSearchProfilesLazyQuery } from '@tape.xyz/lens'
-import { InfoOutline, Input, Spinner, TimesOutline } from '@tape.xyz/ui'
+import {
+  InfoOutline,
+  Input,
+  Spinner,
+  TimesOutline,
+  Tooltip
+} from '@tape.xyz/ui'
 import clsx from 'clsx'
 import type { FC, RefObject } from 'react'
 import React, { useEffect, useRef, useState } from 'react'

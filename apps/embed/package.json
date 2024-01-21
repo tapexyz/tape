@@ -15,7 +15,7 @@
     "@livepeer/react": "^3.1.9",
     "clsx": "^2.1.0",
     "graphql": "^16.8.1",
-    "next": "14.0.4",
+    "next": "14.1.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hot-toast": "^2.4.1"
@@ -27,12 +27,12 @@
     "@tape.xyz/generic": "*",
     "@tape.xyz/lens": "*",
     "@tape.xyz/ui": "*",
-    "@types/node": "20.11.0",
-    "@types/react": "18.2.47",
+    "@types/node": "20.11.5",
+    "@types/react": "18.2.48",
     "@types/react-dom": "18.2.18",
-    "autoprefixer": "^10.4.16",
+    "autoprefixer": "^10.4.17",
     "postcss": "^8.4.33",
-    "prettier": "^3.1.1",
+    "prettier": "^3.2.4",
     "tailwindcss": "^3.4.1",
     "typescript": "5.3.3"
   }

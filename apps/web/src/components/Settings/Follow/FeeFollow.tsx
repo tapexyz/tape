@@ -1,8 +1,8 @@
-import Tooltip from '@components/UIElements/Tooltip'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import usePendingTxn from '@hooks/usePendingTxn'
 import useProfileStore from '@lib/store/idb/profile'
+import useAllowedTokensStore from '@lib/store/idb/tokens'
 import useNonceStore from '@lib/store/nonce'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { useCopyToClipboard } from '@tape.xyz/browser'
@@ -24,14 +24,19 @@ import type {
   Profile
 } from '@tape.xyz/lens'
 import {
-  LimitType,
   useBroadcastOnchainMutation,
   useCreateSetFollowModuleTypedDataMutation,
-  useEnabledCurrenciesQuery,
   useProfileFollowModuleQuery
 } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { Button, Input, Select, SelectItem, Spinner } from '@tape.xyz/ui'
+import {
+  Button,
+  Input,
+  Select,
+  SelectItem,
+  Spinner,
+  Tooltip
+} from '@tape.xyz/ui'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -59,6 +64,7 @@ const FeeFollow = ({ profile }: Props) => {
   const [showForm, setShowForm] = useState(false)
 
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
+  const allowedTokens = useAllowedTokensStore((state) => state.allowedTokens)
   const handleWrongNetwork = useHandleWrongNetwork()
   const { activeProfile } = useProfileStore()
   const { canBroadcast } = checkLensManagerPermissions(activeProfile)
@@ -103,14 +109,6 @@ const FeeFollow = ({ profile }: Props) => {
 
   const { signTypedDataAsync } = useSignTypedData({
     mutation: { onError }
-  })
-  const { data: enabledCurrencies } = useEnabledCurrenciesQuery({
-    variables: {
-      request: {
-        limit: LimitType.Fifty
-      }
-    },
-    skip: !profile?.id
   })
 
   const [broadcast, { data: broadcastData }] = useBroadcastOnchainMutation({
@@ -208,8 +206,6 @@ const FeeFollow = ({ profile }: Props) => {
     updateFeeFollow(false)
   }
 
-  const currencies = enabledCurrencies?.currencies.items
-
   return (
     <>
       <div className="mb-5 space-y-2">
@@ -265,8 +261,8 @@ const FeeFollow = ({ profile }: Props) => {
                 value={watch('token')}
                 onValueChange={(value) => setValue('token', value)}
               >
-                {currencies?.map(({ contract, name }) => (
-                  <SelectItem key={contract.address} value={contract.address}>
+                {allowedTokens?.map(({ address, name }) => (
+                  <SelectItem key={address} value={address}>
                     {name}
                   </SelectItem>
                 ))}

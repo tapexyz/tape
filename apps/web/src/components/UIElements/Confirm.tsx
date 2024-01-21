@@ -6,9 +6,15 @@ type Props = {
   showConfirm: boolean
   setShowConfirm: Dispatch<boolean>
   action: () => void
+  loading?: boolean
 }
 
-const Confirm: FC<Props> = ({ showConfirm, setShowConfirm, action }) => {
+const Confirm: FC<Props> = ({
+  showConfirm,
+  setShowConfirm,
+  action,
+  loading
+}) => {
   return (
     <Modal
       size="sm"
@@ -23,7 +29,9 @@ const Confirm: FC<Props> = ({ showConfirm, setShowConfirm, action }) => {
           <Button variant="secondary" onClick={() => setShowConfirm(false)}>
             Cancel
           </Button>
-          <Button onClick={action}>Confirm</Button>
+          <Button onClick={action} disabled={loading} loading={loading}>
+            Confirm
+          </Button>
         </div>
       </div>
     </Modal>

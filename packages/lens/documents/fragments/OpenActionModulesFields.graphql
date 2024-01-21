@@ -104,6 +104,8 @@ fragment OpenActionModulesFields on OpenActionModule {
   ... on UnknownOpenActionModuleSettings {
     type
     collectNft
+    initializeResultData
+    initializeCalldata
     contract {
       ...NetworkAddressFields
     }

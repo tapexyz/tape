@@ -62,8 +62,8 @@ const Settings = () => {
     <>
       <MetaTags title="Profile Settings" />
       {!loading && !error && profile ? (
-        <div className="container mx-auto flex h-full w-full max-w-screen-lg">
-          <div className="w-1/4 flex-none px-6">
+        <div className="container mx-auto flex h-full w-full max-w-screen-lg flex-col md:flex-row">
+          <div className="flex-none md:px-6">
             <SettingsSidebar />
           </div>
           <div className="w-full pb-6">

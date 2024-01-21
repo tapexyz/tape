@@ -1,8 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import useAppStore from '@lib/store'
 import useProfileStore from '@lib/store/idb/profile'
+import useAllowedTokensStore from '@lib/store/idb/tokens'
 import { WMATIC_TOKEN_ADDRESS } from '@tape.xyz/constants'
-import type { Erc20 } from '@tape.xyz/lens'
 import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
 import { Button, Input, Select, SelectItem } from '@tape.xyz/ui'
 import type { Dispatch, FC } from 'react'
@@ -17,7 +17,6 @@ import Splits from './Splits'
 type Props = {
   setCollectType: (data: CollectModuleType) => void
   setShowModal: Dispatch<boolean>
-  enabledCurrencies: Erc20[]
 }
 
 const formSchema = object({
@@ -29,16 +28,13 @@ const formSchema = object({
 })
 export type FormData = z.infer<typeof formSchema>
 
-const FeeCollectForm: FC<Props> = ({
-  setCollectType,
-  setShowModal,
-  enabledCurrencies
-}) => {
+const FeeCollectForm: FC<Props> = ({ setCollectType, setShowModal }) => {
   const submitContainerRef = useRef<HTMLDivElement>(null)
   const [validationError, setValidationError] = useState('')
 
   const uploadedMedia = useAppStore((state) => state.uploadedMedia)
   const activeProfile = useProfileStore((state) => state.activeProfile)
+  const allowedTokens = useAllowedTokensStore((state) => state.allowedTokens)
 
   const splitRecipients = uploadedMedia.collectModule.multiRecipients ?? []
 
@@ -136,11 +132,8 @@ const FeeCollectForm: FC<Props> = ({
                   })
                 }}
               >
-                {enabledCurrencies?.map((currency) => (
-                  <SelectItem
-                    key={currency.contract.address}
-                    value={currency.contract.address}
-                  >
+                {allowedTokens?.map((currency) => (
+                  <SelectItem key={currency.address} value={currency.address}>
                     {currency.symbol}
                   </SelectItem>
                 ))}

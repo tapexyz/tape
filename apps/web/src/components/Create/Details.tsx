@@ -1,13 +1,12 @@
 import EmojiPicker from '@components/UIElements/EmojiPicker'
 import InputMentions from '@components/UIElements/InputMentions'
-import Tooltip from '@components/UIElements/Tooltip'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useAppStore from '@lib/store'
 import useCollectStore from '@lib/store/idb/collect'
 import { getFileFromDataURL, uploadToIPFS } from '@tape.xyz/browser'
 import { checkIsBytesVideo } from '@tape.xyz/generic'
 import type { IPFSUploadResult } from '@tape.xyz/lens/custom-types'
-import { Button, Switch } from '@tape.xyz/ui'
+import { Button, Switch, Tooltip } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
@@ -170,12 +169,16 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                 checked={!uploadedMedia.collectModule.isRevertCollect}
                 onCheckedChange={(canCollect) => {
                   const collectModuleData = {
-                    ...uploadedMedia.collectModule,
+                    ...(uploadedMedia.collectModule && {
+                      ...uploadedMedia.collectModule
+                    }),
                     isRevertCollect: !canCollect
                   }
                   const collectModule = saveAsDefault
                     ? {
-                        ...persistedCollectModule,
+                        ...(persistedCollectModule && {
+                          ...persistedCollectModule
+                        }),
                         isRevertCollect: !canCollect
                       } ?? collectModuleData
                     : collectModuleData
@@ -186,6 +189,23 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                 <CollectModule />
               )}
             </div>
+
+            {/* <div className="mt-2">
+              <Switch
+                label="Open Actions"
+                checked={uploadedMedia.hasOpenActions}
+                onCheckedChange={(hasOpenActions) => {
+                  setUploadedMedia({
+                    hasOpenActions,
+                    collectModule: {
+                      ...uploadedMedia,
+                      isRevertCollect: !hasOpenActions
+                    }
+                  })
+                }}
+              />
+              {uploadedMedia.hasOpenActions && <OpenActionSettings />}
+            </div> */}
 
             {uploadedMedia.file && uploadedMedia.type === 'VIDEO' ? (
               <Tooltip

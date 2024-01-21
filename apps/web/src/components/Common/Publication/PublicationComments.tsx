@@ -75,6 +75,7 @@ const PublicationComments: FC<Props> = ({ publication, hideTitle = false }) => {
 
   const comments = data?.publications?.items as AnyPublication[]
   const pageInfo = data?.publications?.pageInfo
+  const profile = getProfile(publication.by)
 
   const { observe } = useInView({
     rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
@@ -123,8 +124,7 @@ const PublicationComments: FC<Props> = ({ publication, hideTitle = false }) => {
                 {isFollowerOnlyReferenceModule
                   ? `Only followers can comment on this publication`
                   : isDegreesOfSeparationReferenceModule
-                    ? `Only followers within ${getProfile(publication.by)
-                        ?.displayName}'s preferred network can comment`
+                    ? `Only followers within ${profile.displayName}'s preferred network can comment`
                     : null}
               </span>
             </Alert>

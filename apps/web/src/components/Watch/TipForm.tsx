@@ -17,6 +17,7 @@ import {
   EVENTS,
   getProfile,
   getPublication,
+  getPublicationData,
   getSignature,
   imageCdn,
   logger,
@@ -307,6 +308,9 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
           value: txnHash
         }
       ]
+
+      const title = getPublicationData(targetVideo.metadata)?.title
+      const profileSlug = getProfile(activeProfile)?.slug
       const metadata = textOnly({
         appId: TAPE_APP_ID,
         id: uuidv4(),
@@ -314,9 +318,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
         content: getValues('message'),
         locale: getUserLocale(),
         marketplace: {
-          name: `${getProfile(activeProfile)
-            ?.slug}'s comment on video ${targetVideo.metadata.marketplace
-            ?.name}`,
+          name: `${profileSlug}'s comment on video ${title}`,
           attributes,
           description: getValues('message'),
           external_url: `${TAPE_WEBSITE_URL}/watch/${video?.id}`

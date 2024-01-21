@@ -1,16 +1,14 @@
-import Tooltip from '@components/UIElements/Tooltip'
 import useAppStore from '@lib/store'
 import useCollectStore from '@lib/store/idb/collect'
-import useProfileStore from '@lib/store/idb/profile'
 import { EVENTS, Tower } from '@tape.xyz/generic'
-import { LimitType, useEnabledCurrenciesQuery } from '@tape.xyz/lens'
 import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
 import {
   Button,
   Checkbox,
   ChevronRightOutline,
   Modal,
-  SplitOutline
+  SplitOutline,
+  Tooltip
 } from '@tape.xyz/ui'
 import React, { useState } from 'react'
 
@@ -24,7 +22,6 @@ const CollectModule = () => {
   const [showModal, setShowModal] = useState(false)
   const uploadedMedia = useAppStore((state) => state.uploadedMedia)
   const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
-  const activeProfile = useProfileStore((state) => state.activeProfile)
   const setPersistedCollectModule = useCollectStore(
     (state) => state.setCollectModule
   )
@@ -38,15 +35,6 @@ const CollectModule = () => {
       setPersistedCollectModule(collectModule)
     }
   }
-
-  const { data: enabledCurrencies } = useEnabledCurrenciesQuery({
-    variables: {
-      request: {
-        limit: LimitType.Fifty
-      }
-    },
-    skip: !activeProfile?.id
-  })
 
   const getSelectedCollectType = () => {
     const followerOnlyCollect = uploadedMedia.collectModule.followerOnlyCollect
@@ -122,12 +110,10 @@ const CollectModule = () => {
               <ChargeQuestion setCollectType={setCollectType} />
               {(uploadedMedia.collectModule.isFeeCollect ||
                 uploadedMedia.collectModule.collectLimitEnabled) &&
-              !uploadedMedia.collectModule.isRevertCollect &&
-              enabledCurrencies ? (
+              !uploadedMedia.collectModule.isRevertCollect ? (
                 <FeeCollectForm
                   setCollectType={setCollectType}
                   setShowModal={setShowModal}
-                  enabledCurrencies={enabledCurrencies.currencies.items}
                 />
               ) : (
                 <div className="flex justify-end pt-4">

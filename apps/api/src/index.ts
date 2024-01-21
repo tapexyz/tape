@@ -1,6 +1,7 @@
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 
+import allowedTokens from './routes/allowed-tokens'
 import did from './routes/did'
 import gateway from './routes/gateway'
 import metadata from './routes/metadata'
@@ -29,6 +30,7 @@ app.route('/gateway', gateway)
 app.route('/toggles', toggles)
 app.route('/metadata', metadata)
 app.route('/verified', verified)
+app.route('/allowed-tokens', allowedTokens)
 app.route('/recommendations', recommendations)
 
 export default app

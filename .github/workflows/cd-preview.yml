@@ -33,7 +33,10 @@ jobs:
         run: |
           vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
           vercel build --token=${{ secrets.VERCEL_TOKEN }}
-          vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
+          url="$(vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }})"
+          if [ "${{ github.event.inputs.branch }}" == "testnet" ]; then
+            vercel alias --token=${{ secrets.VERCEL_TOKEN }} set "$url" testnet.tape.xyz
+          fi
 
       - name: Deploy to Vercel ・ EMBED
         env:
@@ -41,7 +44,10 @@ jobs:
         run: |
           vercel pull --yes --environment=preview --token=${{ secrets.VERCEL_TOKEN }}
           vercel build --token=${{ secrets.VERCEL_TOKEN }}
-          vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }}
+          url="$(vercel deploy --prebuilt --token=${{ secrets.VERCEL_TOKEN }})"
+          if [ "${{ github.event.inputs.branch }}" == "testnet" ]; then
+            vercel alias --token=${{ secrets.VERCEL_TOKEN }} set "$url" embed-testnet.tape.xyz
+          fi
  
       - name: Deploy to Vercel ・ OG
         env:

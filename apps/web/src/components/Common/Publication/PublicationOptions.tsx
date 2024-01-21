@@ -88,7 +88,7 @@ const PublicationOptions: FC<Props> = ({ publication, children }) => {
     'pinnedPublicationId'
   )
 
-  const [hideVideo] = useHidePublicationMutation({
+  const [hideVideo, { loading: hiding }] = useHidePublicationMutation({
     update(cache) {
       const normalizedId = cache.identify({
         id: publication?.id,
@@ -378,6 +378,7 @@ const PublicationOptions: FC<Props> = ({ publication, children }) => {
         showConfirm={showConfirm}
         setShowConfirm={setShowConfirm}
         action={onHideVideo}
+        loading={hiding}
       />
       <DropdownMenu
         trigger={
@@ -423,11 +424,8 @@ const PublicationOptions: FC<Props> = ({ publication, children }) => {
                   </p>
                 </DropdownMenuItem>
               )}
-              <DropdownMenuItem
-                color="red"
-                onClick={() => setShowConfirm(true)}
-              >
-                <p className="flex items-center gap-2">
+              <DropdownMenuItem onClick={() => setShowConfirm(true)}>
+                <p className="flex items-center gap-2 hover:text-red-500">
                   <TrashOutline className="size-3.5" />
                   <span className="whitespace-nowrap">Delete</span>
                 </p>

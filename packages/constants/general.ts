@@ -52,6 +52,26 @@ export const WMATIC_TOKEN_ADDRESS = IS_MAINNET
   ? '0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270'
   : '0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889'
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
+export const TESTNET_ALLOWED_TOKENS = [
+  {
+    address: '0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889',
+    decimals: 18,
+    name: 'Wrapped Matic',
+    symbol: 'WMATIC'
+  },
+  {
+    address: '0x001B3B4d0F3714Ca98ba10F6042DaEbF0B1B7b6F',
+    decimals: 18,
+    name: 'DAI Stablecoin',
+    symbol: 'DAI'
+  },
+  {
+    address: '0x0FA8781a83E46826621b3BC094Ea2A0212e71B23',
+    decimals: 18,
+    name: 'USD Coin',
+    symbol: 'USDC'
+  }
+]
 
 // polygon
 export const POLYGON_RPC_URL = IS_MAINNET
@@ -97,6 +117,7 @@ export const WORKER_TOWER_URL = `${TAPE_API_URL}/tower`
 export const WORKER_OEMBED_URL = `${TAPE_API_URL}/oembed`
 export const WORKER_VERIFIED_URL = `${TAPE_API_URL}/verified`
 export const WORKER_TOGGLES_URL = `${TAPE_API_URL}/toggles`
+export const WORKER_ALLOWED_TOKENS_URL = `${TAPE_API_URL}/allowed-tokens`
 
 // irys
 export const IRYS_NODE_URL = IS_MAINNET

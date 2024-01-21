@@ -1,5 +1,4 @@
 import '../styles/index.css'
-import 'tippy.js/dist/tippy.css'
 
 import Providers from '@components/Common/Providers'
 import { tapeFont } from '@tape.xyz/browser/font'

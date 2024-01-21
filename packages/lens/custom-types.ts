@@ -51,6 +51,13 @@ type FileReaderStreamType = NodeJS.ReadableStream & {
   lastModified: string
 }
 
+export type UnknownOpenActionType = {
+  address: string
+  data: string
+  name: string
+  description: string
+}
+
 export type UploadedMedia = {
   type: 'VIDEO' | 'AUDIO'
   stream: FileReaderStreamType | null
@@ -75,6 +82,8 @@ export type UploadedMedia = {
   collectModule: CollectModuleType
   referenceModule: ReferenceModuleType
   isByteVideo: boolean
+  unknownOpenAction: UnknownOpenActionType | null
+  hasOpenActions: boolean
 }
 
 export type IPFSUploadResult = {
@@ -128,6 +137,7 @@ export enum LocalIDBStore {
   PROFILE_STORE = 'profile.store',
   COLLECT_STORE = 'collect.store',
   VERIFIED_STORE = 'verified.store',
+  ALLOWED_TOKENS_STORE = 'allowed-tokens.store',
   RESTRICTIONS_STORE = 'restrictions.store'
 }
 

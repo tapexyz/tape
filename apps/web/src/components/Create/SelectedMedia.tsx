@@ -1,4 +1,3 @@
-import Tooltip from '@components/UIElements/Tooltip'
 import { getTimeFromSeconds } from '@lib/formatTime'
 import useAppStore from '@lib/store'
 import useProfileStore from '@lib/store/idb/profile'
@@ -10,7 +9,7 @@ import {
   sanitizeDStorageUrl
 } from '@tape.xyz/generic'
 import type { IPFSUploadResult } from '@tape.xyz/lens/custom-types'
-import { AddImageOutline, Badge, Input, Spinner } from '@tape.xyz/ui'
+import { AddImageOutline, Badge, Input, Spinner, Tooltip } from '@tape.xyz/ui'
 import clsx from 'clsx'
 import React, { useEffect, useRef, useState } from 'react'
 
