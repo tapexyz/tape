@@ -12,15 +12,15 @@
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "3.490.0",
-    "@aws-sdk/lib-storage": "3.490.0",
+    "@aws-sdk/client-s3": "3.496.0",
+    "@aws-sdk/lib-storage": "3.496.0",
     "@emoji-mart/react": "^1.1.1",
     "@hookform/resolvers": "^3.3.3",
     "@irys/sdk": "^0.1.4",
     "@lens-protocol/metadata": "^1.1.5",
     "@livepeer/react": "^3.1.9",
     "@tailwindcss/aspect-ratio": "^0.4.2",
-    "@tanstack/react-query": "^5.17.15",
+    "@tanstack/react-query": "^5.17.19",
     "@types/js-cookie": "^3.0.6",
     "@types/textarea-caret": "^3.0.3",
     "axios": "^1.6.5",
@@ -35,7 +35,7 @@
     "js-cookie": "^3.0.5",
     "keen-slider": "^6.8.6",
     "make-plural": "^7.3.0",
-    "next": "14.0.4",
+    "next": "14.1.0",
     "next-themes": "^0.2.1",
     "react": "18.2.0",
     "react-cool-inview": "^3.0.1",
@@ -48,7 +48,7 @@
     "viem": "^1.21.4",
     "wagmi": "^1.4.12",
     "zod": "^3.22.2",
-    "zustand": "^4.4.7"
+    "zustand": "^4.5.0"
   },
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.10",
