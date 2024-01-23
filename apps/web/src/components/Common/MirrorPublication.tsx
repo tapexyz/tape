@@ -90,6 +90,15 @@ const MirrorPublication: FC<Props> = ({
     }
   })
 
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      address: LENSHUB_PROXY_ADDRESS,
+      abi: LENSHUB_PROXY_ABI,
+      functionName: 'mirror',
+      args
+    })
+  }
+
   const getSignatureFromTypedData = async (
     data: CreateMomokaMirrorEip712TypedData | CreateOnchainMirrorEip712TypedData
   ) => {
@@ -117,21 +126,11 @@ const MirrorPublication: FC<Props> = ({
               variables: { request: { id, signature } }
             })
             if (data?.broadcastOnchain?.__typename === 'RelayError') {
-              return writeContract({
-                address: LENSHUB_PROXY_ADDRESS,
-                abi: LENSHUB_PROXY_ABI,
-                functionName: 'mirror',
-                args: [typedData.value]
-              })
+              return write({ args: [typedData.value] })
             }
             return
           }
-          return writeContract({
-            address: LENSHUB_PROXY_ADDRESS,
-            abi: LENSHUB_PROXY_ABI,
-            functionName: 'mirror',
-            args: [typedData.value]
-          })
+          return write({ args: [typedData.value] })
         } catch {}
       },
       onError
@@ -170,21 +169,11 @@ const MirrorPublication: FC<Props> = ({
             variables: { request: { id, signature } }
           })
           if (data?.broadcastOnMomoka?.__typename === 'RelayError') {
-            return writeContract({
-              address: LENSHUB_PROXY_ADDRESS,
-              abi: LENSHUB_PROXY_ABI,
-              functionName: 'mirror',
-              args: [typedData.value]
-            })
+            return write({ args: [typedData.value] })
           }
           return
         }
-        return writeContract({
-          address: LENSHUB_PROXY_ADDRESS,
-          abi: LENSHUB_PROXY_ABI,
-          functionName: 'mirror',
-          args: [typedData.value]
-        })
+        return write({ args: [typedData.value] })
       } catch {}
     },
     onError
