@@ -71,18 +71,26 @@ const RevertFollow = ({ profile }: Props) => {
     onError
   })
 
-  const { data: writtenHash, writeContract } = useWriteContract({
+  const { data: txHash, writeContract } = useWriteContract({
     mutation: {
       onError
     }
   })
 
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      address: LENSHUB_PROXY_ADDRESS,
+      abi: LENSHUB_PROXY_ABI,
+      functionName: 'setFollowModule',
+      args
+    })
+  }
+
   const { indexed } = usePendingTxn({
-    txHash: writtenHash,
-    txId:
-      broadcastData?.broadcastOnchain.__typename === 'RelaySuccess'
-        ? broadcastData?.broadcastOnchain?.txId
-        : undefined
+    txHash,
+    ...(broadcastData?.broadcastOnchain.__typename === 'RelaySuccess' && {
+      txId: broadcastData?.broadcastOnchain?.txId
+    })
   })
 
   useEffect(() => {
@@ -109,21 +117,11 @@ const RevertFollow = ({ profile }: Props) => {
               variables: { request: { id, signature } }
             })
             if (data?.broadcastOnchain?.__typename === 'RelayError') {
-              return writeContract({
-                address: LENSHUB_PROXY_ADDRESS,
-                abi: LENSHUB_PROXY_ABI,
-                functionName: 'setFollowModule',
-                args
-              })
+              return write({ args })
             }
             return onCompleted(data?.broadcastOnchain?.__typename)
           }
-          return writeContract({
-            address: LENSHUB_PROXY_ADDRESS,
-            abi: LENSHUB_PROXY_ABI,
-            functionName: 'setFollowModule',
-            args
-          })
+          return write({ args })
         } catch {
           setLoading(false)
         }
