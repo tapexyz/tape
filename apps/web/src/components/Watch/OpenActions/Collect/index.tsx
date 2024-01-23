@@ -281,6 +281,15 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
     }
   })
 
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      address: LENSHUB_PROXY_ADDRESS,
+      abi: LENSHUB_PROXY_ABI,
+      functionName: isLegacyCollectModule ? 'collectLegacy' : 'act',
+      args
+    })
+  }
+
   const [broadcastOnchain] = useBroadcastOnchainMutation({
     onCompleted: ({ broadcastOnchain }) =>
       onCompleted(broadcastOnchain.__typename)
@@ -298,21 +307,11 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
             variables: { request: { id, signature } }
           })
           if (data?.broadcastOnchain.__typename === 'RelayError') {
-            return writeContract({
-              address: LENSHUB_PROXY_ADDRESS,
-              abi: LENSHUB_PROXY_ABI,
-              functionName: isLegacyCollectModule ? 'collectLegacy' : 'act',
-              args
-            })
+            return write({ args })
           }
           return
         }
-        return writeContract({
-          address: LENSHUB_PROXY_ADDRESS,
-          abi: LENSHUB_PROXY_ABI,
-          functionName: isLegacyCollectModule ? 'collectLegacy' : 'act',
-          args
-        })
+        return write({ args })
       },
       onError
     })
@@ -330,21 +329,11 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
             variables: { request: { id, signature } }
           })
           if (data?.broadcastOnchain.__typename === 'RelayError') {
-            return writeContract({
-              address: LENSHUB_PROXY_ADDRESS,
-              abi: LENSHUB_PROXY_ABI,
-              functionName: isLegacyCollectModule ? 'collectLegacy' : 'act',
-              args
-            })
+            return write({ args })
           }
           return
         }
-        return writeContract({
-          address: LENSHUB_PROXY_ADDRESS,
-          abi: LENSHUB_PROXY_ABI,
-          functionName: isLegacyCollectModule ? 'collectLegacy' : 'act',
-          args
-        })
+        return write({ args })
       },
       onError
     })
