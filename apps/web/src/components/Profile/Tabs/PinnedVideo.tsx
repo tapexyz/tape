@@ -96,6 +96,15 @@ const PinnedVideo: FC<Props> = ({ id }) => {
     }
   })
 
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      address: LENSHUB_PROXY_ADDRESS,
+      abi: LENSHUB_PROXY_ABI,
+      functionName: 'setProfileMetadataURI',
+      args
+    })
+  }
+
   const [broadcast] = useBroadcastOnchainMutation({
     onError,
     onCompleted: ({ broadcastOnchain }) =>
@@ -116,21 +125,11 @@ const PinnedVideo: FC<Props> = ({ id }) => {
               variables: { request: { id, signature } }
             })
             if (data?.broadcastOnchain?.__typename === 'RelayError') {
-              return writeContract({
-                address: LENSHUB_PROXY_ADDRESS,
-                abi: LENSHUB_PROXY_ABI,
-                functionName: 'setProfileMetadataURI',
-                args
-              })
+              return write({ args })
             }
             return
           }
-          return writeContract({
-            address: LENSHUB_PROXY_ADDRESS,
-            abi: LENSHUB_PROXY_ABI,
-            functionName: 'setProfileMetadataURI',
-            args
-          })
+          return write({ args })
         } catch {}
       },
       onError

@@ -124,6 +124,15 @@ const BasicInfo: FC<Props> = ({ profile }) => {
     }
   })
 
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      address: LENSHUB_PROXY_ADDRESS,
+      abi: LENSHUB_PROXY_ABI,
+      functionName: 'setBlockStatus',
+      args
+    })
+  }
+
   const [broadcast] = useBroadcastOnchainMutation({
     onCompleted: ({ broadcastOnchain }) =>
       onCompleted(broadcastOnchain.__typename),
@@ -148,21 +157,11 @@ const BasicInfo: FC<Props> = ({ profile }) => {
           variables: { request: { id, signature } }
         })
         if (data?.broadcastOnchain.__typename === 'RelayError') {
-          writeContract({
-            address: LENSHUB_PROXY_ADDRESS,
-            abi: LENSHUB_PROXY_ABI,
-            functionName: 'setBlockStatus',
-            args
-          })
+          return write({ args })
         }
         return
       }
-      writeContract({
-        address: LENSHUB_PROXY_ADDRESS,
-        abi: LENSHUB_PROXY_ABI,
-        functionName: 'setBlockStatus',
-        args
-      })
+      return write({ args })
     } catch {
       setLoading(false)
     }
@@ -214,15 +213,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
   const toggleBlockProfile = async () => {
     setLoading(true)
     if (isBlockedByMe) {
-      await unBlock({
-        variables: {
-          request: {
-            profiles: [profile.id]
-          }
-        }
-      })
-    } else {
-      await block({
+      return await unBlock({
         variables: {
           request: {
             profiles: [profile.id]
@@ -230,6 +221,14 @@ const BasicInfo: FC<Props> = ({ profile }) => {
         }
       })
     }
+
+    await block({
+      variables: {
+        request: {
+          profiles: [profile.id]
+        }
+      }
+    })
     setLoading(false)
   }
 
