@@ -143,6 +143,15 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
     }
   })
 
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      address: LENSHUB_PROXY_ADDRESS,
+      abi: LENSHUB_PROXY_ABI,
+      functionName: 'comment',
+      args
+    })
+  }
+
   const [getComment] = usePublicationLazyQuery()
 
   const fetchAndCacheComment = async (commentId: string) => {
@@ -199,21 +208,11 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
               variables: { request: { id, signature } }
             })
             if (data?.broadcastOnchain?.__typename === 'RelayError') {
-              return writeContract({
-                address: LENSHUB_PROXY_ADDRESS,
-                abi: LENSHUB_PROXY_ABI,
-                functionName: 'comment',
-                args
-              })
+              return write({ args })
             }
             return
           }
-          return writeContract({
-            address: LENSHUB_PROXY_ADDRESS,
-            abi: LENSHUB_PROXY_ABI,
-            functionName: 'comment',
-            args
-          })
+          return write({ args })
         } catch {}
       },
       onError
@@ -249,21 +248,11 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
               variables: { request: { id, signature } }
             })
             if (data?.broadcastOnMomoka?.__typename === 'RelayError') {
-              return writeContract({
-                address: LENSHUB_PROXY_ADDRESS,
-                abi: LENSHUB_PROXY_ABI,
-                functionName: 'comment',
-                args
-              })
+              return write({ args })
             }
             return
           }
-          return writeContract({
-            address: LENSHUB_PROXY_ADDRESS,
-            abi: LENSHUB_PROXY_ABI,
-            functionName: 'comment',
-            args
-          })
+          return write({ args })
         } catch {}
       },
       onError
@@ -388,7 +377,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
     try {
       const hash = await sendTransactionAsync?.({
         to: targetVideo.by?.ownedBy.address,
-        value: BigInt(parseEther(amountToSend.toString() as `${number}`))
+        value: BigInt(parseEther(amountToSend.toString()))
       })
       if (hash) {
         await submitComment(hash)
