@@ -44,7 +44,7 @@ const ToggleLensManager = () => {
     mutation: { onError }
   })
 
-  const { writeContract, data: writeHash } = useWriteContract({
+  const { writeContract, data: txHash } = useWriteContract({
     mutation: {
       onSuccess: () => {
         setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
@@ -56,16 +56,24 @@ const ToggleLensManager = () => {
     }
   })
 
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      address: LENSHUB_PROXY_ADDRESS,
+      abi: LENSHUB_PROXY_ABI,
+      functionName: 'changeDelegatedExecutorsConfig',
+      args
+    })
+  }
+
   const [broadcast, { data: broadcastData }] = useBroadcastOnchainMutation({
     onError
   })
 
   const { indexed } = usePendingTxn({
-    txHash: writeHash,
-    txId:
-      broadcastData?.broadcastOnchain.__typename === 'RelaySuccess'
-        ? broadcastData?.broadcastOnchain?.txId
-        : undefined
+    txHash,
+    ...(broadcastData?.broadcastOnchain.__typename === 'RelaySuccess' && {
+      txId: broadcastData?.broadcastOnchain?.txId
+    })
   })
 
   useEffect(() => {
@@ -107,21 +115,11 @@ const ToggleLensManager = () => {
             variables: { request: { id, signature } }
           })
           if (data?.broadcastOnchain?.__typename === 'RelayError') {
-            return writeContract({
-              address: LENSHUB_PROXY_ADDRESS,
-              abi: LENSHUB_PROXY_ABI,
-              functionName: 'changeDelegatedExecutorsConfig',
-              args
-            })
+            return write({ args })
           }
           return
         }
-        return writeContract({
-          address: LENSHUB_PROXY_ADDRESS,
-          abi: LENSHUB_PROXY_ABI,
-          functionName: 'changeDelegatedExecutorsConfig',
-          args
-        })
+        return write({ args })
       } catch {
         setLoading(false)
       }

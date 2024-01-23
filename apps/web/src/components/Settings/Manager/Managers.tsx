@@ -145,6 +145,15 @@ const Managers = () => {
     }
   })
 
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      address: LENSHUB_PROXY_ADDRESS,
+      abi: LENSHUB_PROXY_ABI,
+      functionName: 'changeDelegatedExecutorsConfig',
+      args
+    })
+  }
+
   const [broadcast, { data: broadcastData }] = useBroadcastOnchainMutation({
     onError,
     onCompleted: ({ broadcastOnchain }) =>
@@ -153,10 +162,9 @@ const Managers = () => {
 
   const { indexed } = usePendingTxn({
     txHash: writeHash,
-    txId:
-      broadcastData?.broadcastOnchain.__typename === 'RelaySuccess'
-        ? broadcastData?.broadcastOnchain?.txId
-        : undefined
+    ...(broadcastData?.broadcastOnchain.__typename === 'RelaySuccess' && {
+      txId: broadcastData?.broadcastOnchain?.txId
+    })
   })
 
   useEffect(() => {
@@ -191,21 +199,11 @@ const Managers = () => {
             variables: { request: { id, signature } }
           })
           if (data?.broadcastOnchain.__typename === 'RelayError') {
-            return writeContract({
-              address: LENSHUB_PROXY_ADDRESS,
-              abi: LENSHUB_PROXY_ABI,
-              functionName: 'changeDelegatedExecutorsConfig',
-              args
-            })
+            return write({ args })
           }
           return
         }
-        return writeContract({
-          address: LENSHUB_PROXY_ADDRESS,
-          abi: LENSHUB_PROXY_ABI,
-          functionName: 'changeDelegatedExecutorsConfig',
-          args
-        })
+        return write({ args })
       } catch {
         setSubmitting(false)
       }

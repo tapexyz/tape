@@ -163,6 +163,15 @@ const NewComment: FC<Props> = ({
     }
   })
 
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      address: LENSHUB_PROXY_ADDRESS,
+      abi: LENSHUB_PROXY_ABI,
+      functionName: 'comment',
+      args
+    })
+  }
+
   const [getComment] = usePublicationLazyQuery()
 
   const fetchAndCacheComment = async (commentId: string) => {
@@ -220,21 +229,11 @@ const NewComment: FC<Props> = ({
               variables: { request: { id, signature } }
             })
             if (data?.broadcastOnchain?.__typename === 'RelayError') {
-              return writeContract({
-                address: LENSHUB_PROXY_ADDRESS,
-                abi: LENSHUB_PROXY_ABI,
-                functionName: 'comment',
-                args
-              })
+              return write({ args })
             }
             return
           }
-          return writeContract({
-            address: LENSHUB_PROXY_ADDRESS,
-            abi: LENSHUB_PROXY_ABI,
-            functionName: 'comment',
-            args
-          })
+          return write({ args })
         } catch {}
       },
       onError
@@ -271,21 +270,11 @@ const NewComment: FC<Props> = ({
               variables: { request: { id, signature } }
             })
             if (data?.broadcastOnMomoka?.__typename === 'RelayError') {
-              return writeContract({
-                address: LENSHUB_PROXY_ADDRESS,
-                abi: LENSHUB_PROXY_ABI,
-                functionName: 'comment',
-                args
-              })
+              return write({ args })
             }
             return
           }
-          return writeContract({
-            address: LENSHUB_PROXY_ADDRESS,
-            abi: LENSHUB_PROXY_ABI,
-            functionName: 'comment',
-            args
-          })
+          return write({ args })
         } catch {}
       },
       onError
