@@ -112,6 +112,15 @@ const List = () => {
     }
   })
 
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      address: LENSHUB_PROXY_ADDRESS,
+      abi: LENSHUB_PROXY_ABI,
+      functionName: 'setBlockStatus',
+      args
+    })
+  }
+
   const [broadcast] = useBroadcastOnchainMutation({
     onCompleted: ({ broadcastOnchain }) =>
       onCompleted(broadcastOnchain.__typename),
@@ -134,21 +143,11 @@ const List = () => {
           variables: { request: { id, signature } }
         })
         if (data?.broadcastOnchain?.__typename === 'RelayError') {
-          return writeContract({
-            address: LENSHUB_PROXY_ADDRESS,
-            abi: LENSHUB_PROXY_ABI,
-            functionName: 'setBlockStatus',
-            args
-          })
+          return write({ args })
         }
         return
       }
-      return writeContract({
-        address: LENSHUB_PROXY_ADDRESS,
-        abi: LENSHUB_PROXY_ABI,
-        functionName: 'setBlockStatus',
-        args
-      })
+      return write({ args })
     } catch {
       setUnblockingProfileId('')
     }
