@@ -85,6 +85,15 @@ const UnknownOpenAction = ({
     }
   })
 
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      address: LENSHUB_PROXY_ADDRESS,
+      abi: LENSHUB_PROXY_ABI,
+      functionName: 'act',
+      args
+    })
+  }
+
   const [broadcastOnchain] = useBroadcastOnchainMutation({
     onCompleted: ({ broadcastOnchain }) =>
       onCompleted(broadcastOnchain.__typename)
@@ -102,21 +111,11 @@ const UnknownOpenAction = ({
             variables: { request: { id, signature } }
           })
           if (data?.broadcastOnchain.__typename === 'RelayError') {
-            return writeContract({
-              args,
-              address: LENSHUB_PROXY_ADDRESS,
-              abi: LENSHUB_PROXY_ABI,
-              functionName: 'act'
-            })
+            return write({ args })
           }
           return
         }
-        return writeContract({
-          args,
-          address: LENSHUB_PROXY_ADDRESS,
-          abi: LENSHUB_PROXY_ABI,
-          functionName: 'act'
-        })
+        return write({ args })
       },
       onError
     })

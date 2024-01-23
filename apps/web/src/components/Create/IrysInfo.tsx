@@ -34,7 +34,11 @@ const IrysInfo = () => {
   const { data: blockNumber } = useBlockNumber({ watch: true })
   const { data: userBalance, refetch: refetchUserBalance } = useBalance({
     address,
-    chainId: POLYGON_CHAIN_ID
+    chainId: POLYGON_CHAIN_ID,
+    query: {
+      enabled: Boolean(address),
+      refetchInterval: 2000
+    }
   })
 
   const uploadedMedia = useAppStore((state) => state.uploadedMedia)

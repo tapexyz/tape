@@ -119,7 +119,8 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
     address,
     token: assetAddress,
     query: {
-      enabled: Boolean(details?.amount.value) && !isFreeCollect
+      enabled: Boolean(details?.amount.value) && !isFreeCollect,
+      refetchInterval: 2000
     }
   })
 
