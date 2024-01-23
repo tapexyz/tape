@@ -148,6 +148,15 @@ const PublicationOptions: FC<Props> = ({ publication, children }) => {
     }
   })
 
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      address: LENSHUB_PROXY_ADDRESS,
+      abi: LENSHUB_PROXY_ABI,
+      functionName: 'setProfileMetadataURI',
+      args
+    })
+  }
+
   const [broadcast] = useBroadcastOnchainMutation({
     onError,
     onCompleted: ({ broadcastOnchain }) =>
@@ -168,21 +177,11 @@ const PublicationOptions: FC<Props> = ({ publication, children }) => {
               variables: { request: { id, signature } }
             })
             if (data?.broadcastOnchain?.__typename === 'RelayError') {
-              return writeContract({
-                address: LENSHUB_PROXY_ADDRESS,
-                abi: LENSHUB_PROXY_ABI,
-                functionName: 'setProfileMetadataURI',
-                args: [profileId, metadataURI]
-              })
+              return write({ args: [profileId, metadataURI] })
             }
             return
           }
-          return writeContract({
-            address: LENSHUB_PROXY_ADDRESS,
-            abi: LENSHUB_PROXY_ABI,
-            functionName: 'setProfileMetadataURI',
-            args: [profileId, metadataURI]
-          })
+          return write({ args: [profileId, metadataURI] })
         } catch {}
       },
       onError
