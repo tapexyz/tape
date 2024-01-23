@@ -71,6 +71,15 @@ const Follow: FC<Props> = ({ profile, onSubscribe }) => {
     }
   })
 
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      address: LENSHUB_PROXY_ADDRESS,
+      abi: LENSHUB_PROXY_ABI,
+      functionName: 'follow',
+      args
+    })
+  }
+
   const [broadcast] = useBroadcastOnchainMutation({
     onCompleted: ({ broadcastOnchain }) =>
       onCompleted(broadcastOnchain.__typename),
@@ -101,21 +110,11 @@ const Follow: FC<Props> = ({ profile, onSubscribe }) => {
             variables: { request: { id, signature } }
           })
           if (data?.broadcastOnchain?.__typename === 'RelayError') {
-            return writeContract({
-              address: LENSHUB_PROXY_ADDRESS,
-              abi: LENSHUB_PROXY_ABI,
-              functionName: 'follow',
-              args
-            })
+            return write({ args })
           }
           return
         }
-        return writeContract({
-          address: LENSHUB_PROXY_ADDRESS,
-          abi: LENSHUB_PROXY_ABI,
-          functionName: 'follow',
-          args
-        })
+        return write({ args })
       } catch {
         setLoading(false)
       }

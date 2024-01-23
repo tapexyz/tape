@@ -86,6 +86,15 @@ const SuperFollow: FC<Props> = ({ profile, onJoin }) => {
     onError
   })
 
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      address: LENSHUB_PROXY_ADDRESS,
+      abi: LENSHUB_PROXY_ABI,
+      functionName: 'follow',
+      args
+    })
+  }
+
   const { data: followModuleData } = useProfileFollowModuleQuery({
     variables: { request: { forProfileId: profile?.id } },
     skip: !profile?.id
@@ -155,21 +164,11 @@ const SuperFollow: FC<Props> = ({ profile, onJoin }) => {
             variables: { request: { id, signature } }
           })
           if (data?.broadcastOnchain.__typename === 'RelayError') {
-            return writeContract({
-              address: LENSHUB_PROXY_ADDRESS,
-              abi: LENSHUB_PROXY_ABI,
-              functionName: 'follow',
-              args
-            })
+            return write({ args })
           }
           return
         }
-        return writeContract({
-          address: LENSHUB_PROXY_ADDRESS,
-          abi: LENSHUB_PROXY_ABI,
-          functionName: 'follow',
-          args
-        })
+        return write({ args })
       } catch {
         setLoading(false)
       }
