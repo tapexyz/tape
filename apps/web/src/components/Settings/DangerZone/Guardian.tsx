@@ -45,20 +45,17 @@ const Guardian: FC = () => {
     setLoading(false)
   }
 
-  const { data: disableHash, writeContract: disableWrite } = useWriteContract({
-    mutation: {
-      onError
-    }
-  })
-
-  const { data: enableHash, writeContract: enableWrite } = useWriteContract({
+  const { data: txnHash, writeContract } = useWriteContract({
     mutation: {
       onError
     }
   })
 
   const { isSuccess } = useWaitForTransactionReceipt({
-    hash: disableHash ?? enableHash
+    hash: txnHash,
+    query: {
+      enabled: txnHash && txnHash.length > 0
+    }
   })
 
   useEffect(() => {
@@ -82,13 +79,13 @@ const Guardian: FC = () => {
     try {
       setLoading(true)
       if (guardianEnabled) {
-        return disableWrite({
+        return writeContract({
           address: LENSHUB_PROXY_ADDRESS,
           abi: LENSHUB_PROXY_ABI,
           functionName: 'DANGER__disableTokenGuardian'
         })
       }
-      return enableWrite({
+      return writeContract({
         address: LENSHUB_PROXY_ADDRESS,
         abi: LENSHUB_PROXY_ABI,
         functionName: 'DANGER__disableTokenGuardian'
