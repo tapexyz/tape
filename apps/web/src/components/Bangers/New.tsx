@@ -145,6 +145,15 @@ const New: FC<Props> = ({ refetch }) => {
     }
   })
 
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      address: LENSHUB_PROXY_ADDRESS,
+      abi: LENSHUB_PROXY_ABI,
+      functionName: 'post',
+      args
+    })
+  }
+
   const [createMomokaPostTypedData] = useCreateMomokaPostTypedDataMutation({
     onCompleted: async ({ createMomokaPostTypedData }) => {
       const { typedData, id } = createMomokaPostTypedData
@@ -155,21 +164,11 @@ const New: FC<Props> = ({ refetch }) => {
             variables: { request: { id, signature } }
           })
           if (data?.broadcastOnMomoka?.__typename === 'RelayError') {
-            return writeContract({
-              address: LENSHUB_PROXY_ADDRESS,
-              abi: LENSHUB_PROXY_ABI,
-              functionName: 'post',
-              args: [typedData.value]
-            })
+            return write({ args: [typedData.value] })
           }
           return
         }
-        return writeContract({
-          address: LENSHUB_PROXY_ADDRESS,
-          abi: LENSHUB_PROXY_ABI,
-          functionName: 'post',
-          args: [typedData.value]
-        })
+        return write({ args: [typedData.value] })
       } catch {}
     },
     onError
