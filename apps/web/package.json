@@ -12,8 +12,8 @@
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "3.496.0",
-    "@aws-sdk/lib-storage": "3.496.0",
+    "@aws-sdk/client-s3": "3.498.0",
+    "@aws-sdk/lib-storage": "3.498.0",
     "@emoji-mart/react": "^1.1.1",
     "@hookform/resolvers": "^3.3.3",
     "@irys/sdk": "^0.1.4",
@@ -28,7 +28,7 @@
     "dayjs": "^1.11.10",
     "emoji-mart": "^5.5.2",
     "filereader-stream": "^2.0.0",
-    "framer-motion": "^10.18.0",
+    "framer-motion": "^11.0.3",
     "graphql": "^16.8.1",
     "idb-keyval": "^6.2.1",
     "interweave": "^13.1.0",
@@ -58,7 +58,7 @@
     "@tape.xyz/generic": "*",
     "@tape.xyz/lens": "*",
     "@tape.xyz/ui": "*",
-    "@types/node": "20.11.5",
+    "@types/node": "20.11.6",
     "@types/react": "18.2.48",
     "@types/react-dom": "18.2.18",
     "@types/uuid": "^9.0.7",
