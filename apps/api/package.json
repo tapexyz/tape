@@ -13,7 +13,7 @@
     "@aws-sdk/client-sts": "3.496.0",
     "@hono/zod-validator": "^0.1.11",
     "hono": "^3.12.6",
-    "linkedom": "^0.16.6",
+    "linkedom": "^0.16.8",
     "ua-parser-js": "^1.0.37",
     "viem": "^1.21.4",
     "zod": "^3.22.4"
@@ -23,6 +23,6 @@
     "@tape.xyz/config": "*",
     "@tape.xyz/generic": "*",
     "@types/ua-parser-js": "^0.7.39",
-    "wrangler": "^3.23.0"
+    "wrangler": "^3.24.0"
   }
 }
