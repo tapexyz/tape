@@ -33,7 +33,7 @@ export const SelectItem = forwardRef<
     >
       <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
       <SelectPrimitive.ItemIndicator>
-        <CheckOutline className={clsx(size === 'sm' ? 'size-2' : 'size-4')} />
+        <CheckOutline className={clsx(size === 'sm' ? 'size-2' : 'size-3')} />
       </SelectPrimitive.ItemIndicator>
     </SelectPrimitive.Item>
   )
