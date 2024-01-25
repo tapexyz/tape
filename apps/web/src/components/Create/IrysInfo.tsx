@@ -16,23 +16,16 @@ import {
 } from '@tape.xyz/ui'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import { formatEther, parseUnits } from 'viem'
-import {
-  useAccount,
-  useBalance,
-  useBlockNumber,
-  useSendTransaction,
-  useSimulateContract
-} from 'wagmi'
+import { formatEther, formatUnits, parseEther, parseUnits } from 'viem'
+import { useAccount, useBalance, useSendTransaction } from 'wagmi'
 
 const IrysInfo = () => {
   const isMounted = useIsMounted()
   const { address } = useAccount()
   const { data: signer } = useEthersWalletClient()
-  const { sendTransactionAsync, data: txnHash } = useSendTransaction()
-  const { data } = useSimulateContract({})
-  const { data: blockNumber } = useBlockNumber({ watch: true })
-  const { data: userBalance, refetch: refetchUserBalance } = useBalance({
+  const { sendTransactionAsync, sendTransaction } = useSendTransaction()
+
+  const { data: userBalance } = useBalance({
     address,
     chainId: POLYGON_CHAIN_ID,
     query: {
@@ -46,11 +39,6 @@ const IrysInfo = () => {
   const irysData = useAppStore((state) => state.irysData)
   const setIrysData = useAppStore((state) => state.setIrysData)
   const [fetchingBalance, setFetchingBalance] = useState(false)
-
-  useEffect(() => {
-    refetchUserBalance()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [blockNumber])
 
   const estimatePrice = async (irys: WebIrys) => {
     if (!uploadedMedia.stream) {
@@ -114,10 +102,13 @@ const IrysInfo = () => {
     if (!value || Number(value) < 1) {
       return toast.error('Invalid deposit amount')
     }
-    if (
-      userBalance?.formatted &&
-      parseFloat(userBalance?.formatted) < depositAmount
-    ) {
+    console.log('🚀 ~ depositToIrys ~ userBalance:', userBalance)
+
+    const formattedValue = formatUnits(
+      userBalance?.value ?? BigInt(0),
+      userBalance?.decimals as number
+    )
+    if (formattedValue && parseFloat(formattedValue) < depositAmount) {
       return toast.error(
         `Insufficient funds in your wallet, you have ${userBalance?.formatted} MATIC.`
       )
@@ -125,21 +116,27 @@ const IrysInfo = () => {
     setIrysData({ depositing: true })
 
     // TEMP:START: override irys functions for viem
-    // irysData.instance.tokenConfig.getFee = async (): Promise<any> => {
-    //   return 0
-    // }
-    // irysData.instance.tokenConfig.sendTx = async (data): Promise<string> => {
-    //   await sendTransactionAsync(data)
-    //   return txnHash as string
-    // }
-    // irysData.instance.tokenConfig.createTx = async (
-    //   amount: `${number}`,
-    //   to: `0x${string}`
-    // ): Promise<{ txId: string | undefined; tx: any }> => {
-    //   data?. = to
-    //   config.value = parseEther(amount.toString() as `${number}`, 'gwei')
-    //   return { txId: undefined, tx: config }
-    // }
+    irysData.instance.tokenConfig.getFee = async (): Promise<any> => {
+      return 0
+    }
+    irysData.instance.tokenConfig.sendTx = async (data): Promise<string> => {
+      const hash = await sendTransactionAsync(data)
+      return hash
+    }
+    irysData.instance.tokenConfig.createTx = async (
+      amount: `${number}`,
+      to: `0x${string}`
+    ): Promise<{ txId: string | undefined; tx: any }> => {
+      const config = sendTransaction({
+        to,
+        value: parseEther(amount.toString(), 'gwei')
+      })
+
+      return {
+        txId: undefined,
+        tx: config
+      }
+    }
     // TEMP:END: override irys functions for viem
 
     try {

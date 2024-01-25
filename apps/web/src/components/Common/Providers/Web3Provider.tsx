@@ -22,7 +22,7 @@ const connectors = [
 
 const wagmiConfig = createConfig({
   connectors,
-  chains: [polygon, polygon],
+  chains: [polygon, polygonMumbai],
   transports: {
     [polygon.id]: http(),
     [polygonMumbai.id]: http()
