@@ -2,6 +2,7 @@ import Badge from '@components/Common/Badge'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { getShortHandTime } from '@lib/formatTime'
+import { tw } from '@tape.xyz/browser'
 import { LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
 import {
   getProfile,
@@ -21,7 +22,6 @@ import {
   ChevronUpOutline,
   ReplyOutline
 } from '@tape.xyz/ui'
-import clsx from 'clsx'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
@@ -49,7 +49,7 @@ const ReplyContent: FC<ReplyContentProps> = ({ comment }) => {
 
   return (
     <>
-      <div className={clsx({ 'line-clamp-2': clamped })}>
+      <div className={tw({ 'line-clamp-2': clamped })}>
         <InterweaveContent content={content} />
       </div>
       {showMore && (
@@ -124,7 +124,7 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
   }
 
   return (
-    <div className={clsx(comments.length && 'space-y-6')}>
+    <div className={tw(comments.length && 'space-y-6')}>
       {comments?.map(
         (comment) =>
           !comment.isHidden && (

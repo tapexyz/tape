@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import { tw } from '@tape.xyz/browser'
 import { motion, useAnimation } from 'framer-motion'
 import type { ComponentProps, ReactNode } from 'react'
 import { forwardRef, useEffect, useId } from 'react'
@@ -59,13 +59,13 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
           <motion.div
             animate={controls}
             variants={ShakeAnimation}
-            className={clsx(
+            className={tw(
               prefix ? 'rounded-r-lg' : 'rounded-lg',
               'flex w-full items-center'
             )}
           >
             <input
-              className={clsx(
+              className={tw(
                 { 'placeholder:text-red-500': error },
                 prefix
                   ? 'rounded-r-lg'

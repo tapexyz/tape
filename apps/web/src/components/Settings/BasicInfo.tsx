@@ -7,7 +7,7 @@ import {
   profile as profileMetadata
 } from '@lens-protocol/metadata'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
-import { uploadToIPFS } from '@tape.xyz/browser'
+import { tw, uploadToIPFS } from '@tape.xyz/browser'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
@@ -39,7 +39,6 @@ import type {
   IPFSUploadResult
 } from '@tape.xyz/lens/custom-types'
 import { AddImageOutline, Button, Input, Spinner, TextArea } from '@tape.xyz/ui'
-import clsx from 'clsx'
 import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -353,9 +352,9 @@ const BasicInfo = ({ profile }: Props) => {
             />
             <label
               htmlFor="choosePfp"
-              className={clsx(
+              className={tw(
                 'invisible absolute top-0 grid size-32 cursor-pointer place-items-center rounded-full bg-white bg-opacity-70 backdrop-blur-lg group-hover:visible dark:bg-black',
-                { '!visible': uploading.pfp }
+                { visible: uploading.pfp }
               )}
             >
               {uploading.pfp ? (

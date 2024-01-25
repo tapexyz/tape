@@ -1,7 +1,7 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
 import PublicationOptions from '@components/Common/Publication/PublicationOptions'
 import { getShortHandTime, getTimeFromSeconds } from '@lib/formatTime'
-import { useAverageColor } from '@tape.xyz/browser'
+import { tw, useAverageColor } from '@tape.xyz/browser'
 import {
   FALLBACK_THUMBNAIL_URL,
   LENSTUBE_BYTES_APP_ID,
@@ -16,7 +16,6 @@ import {
 } from '@tape.xyz/generic'
 import type { MirrorablePublication } from '@tape.xyz/lens'
 import { CommentOutline, HeartOutline } from '@tape.xyz/ui'
-import clsx from 'clsx'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
@@ -45,7 +44,7 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
           >
             <div className="relative">
               <img
-                className={clsx(
+                className={tw(
                   'h-24 w-44 bg-gray-300 object-center dark:bg-gray-700',
                   isBytesVideo ? 'object-contain' : 'object-cover'
                 )}

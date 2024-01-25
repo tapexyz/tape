@@ -3,11 +3,10 @@ import InputMentions from '@components/UIElements/InputMentions'
 import { zodResolver } from '@hookform/resolvers/zod'
 import useAppStore from '@lib/store'
 import useCollectStore from '@lib/store/idb/collect'
-import { getFileFromDataURL, uploadToIPFS } from '@tape.xyz/browser'
+import { getFileFromDataURL, tw, uploadToIPFS } from '@tape.xyz/browser'
 import { checkIsBytesVideo } from '@tape.xyz/generic'
 import type { IPFSUploadResult } from '@tape.xyz/lens/custom-types'
 import { Button, Switch, Tooltip } from '@tape.xyz/ui'
-import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
 import { useForm } from 'react-hook-form'
@@ -145,7 +144,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
               </div>
               <div className="absolute right-1 top-0 mt-1 flex items-center justify-end">
                 <span
-                  className={clsx(
+                  className={tw(
                     'text-xs',
                     watch('description')?.length > 5000
                       ? 'text-red-500 opacity-100'
@@ -213,7 +212,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                 content="Please note that only videos under 2 minutes in length can be uploaded as bytes"
               >
                 <div
-                  className={clsx(
+                  className={tw(
                     'mt-2',
                     !isByteSizeVideo && 'cursor-not-allowed opacity-50'
                   )}

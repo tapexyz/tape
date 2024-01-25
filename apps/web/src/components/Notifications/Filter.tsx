@@ -1,7 +1,7 @@
 import usePersistStore from '@lib/store/persist'
+import { tw } from '@tape.xyz/browser'
 import { CustomNotificationsFilterEnum } from '@tape.xyz/lens/custom-types'
 import { CogOutline, DropdownMenu, DropdownMenuItem } from '@tape.xyz/ui'
-import clsx from 'clsx'
 import React from 'react'
 
 const NotificationsFilter = () => {
@@ -22,7 +22,7 @@ const NotificationsFilter = () => {
         }
       >
         <p
-          className={clsx(
+          className={tw(
             'whitespace-nowrap',
             selectedNotificationsFilter ===
               CustomNotificationsFilterEnum.HIGH_SIGNAL && 'font-bold'
@@ -39,7 +39,7 @@ const NotificationsFilter = () => {
         }
       >
         <p
-          className={clsx(
+          className={tw(
             'whitespace-nowrap',
             selectedNotificationsFilter ===
               CustomNotificationsFilterEnum.ALL_NOTIFICATIONS && 'font-bold'

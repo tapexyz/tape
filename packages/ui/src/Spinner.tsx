@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import { tw } from '@tape.xyz/browser'
 import type { FC } from 'react'
 import React from 'react'
 
@@ -13,7 +13,7 @@ export const Spinner: FC<Props> = ({ size = 'md', className }) => {
       <div className="grid justify-items-center space-y-2">
         <svg
           role="status"
-          className={clsx(
+          className={tw(
             'animate-spin fill-black text-gray-400 dark:fill-white',
             className,
             {

@@ -1,5 +1,5 @@
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { useDebounce, useOutsideClick } from '@tape.xyz/browser'
+import { tw, useDebounce, useOutsideClick } from '@tape.xyz/browser'
 import {
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
@@ -21,7 +21,6 @@ import {
   useSearchPublicationsLazyQuery
 } from '@tape.xyz/lens'
 import { Input, SearchOutline, Spinner } from '@tape.xyz/ui'
-import clsx from 'clsx'
 import React, { useEffect, useRef, useState } from 'react'
 
 import Profiles from './Profiles'
@@ -115,7 +114,7 @@ const GlobalSearch = () => {
         placeholder="Search"
       />
       <div
-        className={clsx(
+        className={tw(
           'rounded-medium tape-border no-scrollbar top-10 z-10 mt-1 w-full overflow-y-auto bg-white text-base shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none md:absolute dark:bg-black',
           { hidden: debouncedValue.length === 0 }
         )}

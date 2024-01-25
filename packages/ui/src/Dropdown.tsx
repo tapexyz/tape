@@ -1,5 +1,5 @@
 import * as DropdownMenuPrimitive from '@radix-ui/react-dropdown-menu'
-import clsx from 'clsx'
+import { tw } from '@tape.xyz/browser'
 import type { ElementRef, FC, ReactNode } from 'react'
 import React, { forwardRef } from 'react'
 
@@ -25,7 +25,7 @@ export const DropdownMenuSubContent = forwardRef<
   return (
     <DropdownMenuPrimitive.SubContent
       sideOffset={5}
-      className={clsx(
+      className={tw(
         sizeClasses,
         'tape-border rounded-md bg-white leading-none data-[disabled]:pointer-events-none data-[highlighted]:bg-gray-200 data-[highlighted]:outline-none dark:bg-black dark:data-[highlighted]:bg-gray-800',
         className
@@ -55,7 +55,7 @@ export const DropdownMenuSubTrigger = forwardRef<
   }
   return (
     <DropdownMenuPrimitive.SubTrigger
-      className={clsx(
+      className={tw(
         sizeClasses,
         'relative select-none items-center rounded-md leading-none data-[disabled]:pointer-events-none data-[highlighted]:bg-gray-200 data-[highlighted]:outline-none dark:data-[highlighted]:bg-gray-800',
         className
@@ -86,7 +86,7 @@ export const DropdownMenuItem = forwardRef<
 
   return (
     <DropdownMenuPrimitive.Item
-      className={clsx(
+      className={tw(
         sizeClasses,
         'relative select-none items-center space-x-2 rounded-md leading-none data-[disabled]:pointer-events-none data-[highlighted]:bg-gray-200 data-[highlighted]:outline-none dark:hover:bg-gray-800 dark:data-[highlighted]:bg-gray-800',
         className

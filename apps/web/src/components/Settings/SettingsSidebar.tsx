@@ -1,4 +1,5 @@
 import useProfileStore from '@lib/store/idb/profile'
+import { tw } from '@tape.xyz/browser'
 import { getIsProfileOwner } from '@tape.xyz/generic'
 import {
   InterestsOutline,
@@ -11,7 +12,6 @@ import {
   UserOutline,
   WarningOutline
 } from '@tape.xyz/ui'
-import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
@@ -44,7 +44,7 @@ const SettingsSidebar = () => {
     <div className="flex flex-col space-y-1 pb-10 md:ml-auto md:w-44">
       <Link
         href={SETTINGS}
-        className={clsx(
+        className={tw(
           'flex items-center space-x-3 rounded-lg px-3 py-1.5 text-sm transition-colors',
           isActivePath(SETTINGS)
             ? 'bg-gray-200 font-bold dark:bg-gray-800/80'
@@ -56,7 +56,7 @@ const SettingsSidebar = () => {
       </Link>
       <Link
         href={SETTINGS_FOLLOW}
-        className={clsx(
+        className={tw(
           'flex items-center space-x-3 rounded-lg px-3 py-1.5 text-sm transition-colors',
           isActivePath(SETTINGS_FOLLOW)
             ? 'bg-gray-200 font-bold dark:bg-gray-800/80'
@@ -68,7 +68,7 @@ const SettingsSidebar = () => {
       </Link>
       <Link
         href={SETTINGS_HANDLES}
-        className={clsx(
+        className={tw(
           'flex items-center space-x-3 rounded-lg px-3 py-1.5 text-sm transition-colors',
           isActivePath(SETTINGS_HANDLES)
             ? 'bg-gray-200 font-bold dark:bg-gray-800/80'
@@ -80,7 +80,7 @@ const SettingsSidebar = () => {
       </Link>
       <Link
         href={SETTINGS_INTERESTS}
-        className={clsx(
+        className={tw(
           'flex items-center space-x-3 rounded-lg px-3 py-1.5 text-sm transition-colors',
           isActivePath(SETTINGS_INTERESTS)
             ? 'bg-gray-200 font-bold dark:bg-gray-800/80'
@@ -93,7 +93,7 @@ const SettingsSidebar = () => {
       {isProfileOwner && (
         <Link
           href={SETTINGS_MANAGER}
-          className={clsx(
+          className={tw(
             'flex items-center space-x-3 rounded-lg px-3 py-1.5 text-sm transition-colors',
             isActivePath(SETTINGS_MANAGER)
               ? 'bg-gray-200 font-bold dark:bg-gray-800/80'
@@ -106,7 +106,7 @@ const SettingsSidebar = () => {
       )}
       <Link
         href={SETTINGS_ALLOWANCE}
-        className={clsx(
+        className={tw(
           'flex items-center space-x-3 rounded-lg px-3 py-1.5 text-sm transition-colors',
           isActivePath(SETTINGS_ALLOWANCE)
             ? 'bg-gray-200 font-bold dark:bg-gray-800/80'
@@ -118,7 +118,7 @@ const SettingsSidebar = () => {
       </Link>
       <Link
         href={SETTINGS_BLOCKED}
-        className={clsx(
+        className={tw(
           'flex items-center space-x-3 rounded-lg px-3 py-1.5 text-sm transition-colors',
           isActivePath(SETTINGS_BLOCKED)
             ? 'bg-gray-200 font-bold dark:bg-gray-800/80'
@@ -130,7 +130,7 @@ const SettingsSidebar = () => {
       </Link>
       <Link
         href={SETTINGS_SESSIONS}
-        className={clsx(
+        className={tw(
           'flex items-center space-x-3 rounded-lg px-3 py-1.5 text-sm transition-colors',
           isActivePath(SETTINGS_SESSIONS)
             ? 'bg-gray-200 font-bold dark:bg-gray-800/80'
@@ -143,7 +143,7 @@ const SettingsSidebar = () => {
       {isProfileOwner && (
         <Link
           href={SETTINGS_DANGER_ZONE}
-          className={clsx(
+          className={tw(
             'flex items-center space-x-3 rounded-lg px-3 py-1.5 text-sm text-red-500 transition-colors',
             isActivePath(SETTINGS_DANGER_ZONE)
               ? 'bg-red-200 font-bold dark:bg-red-900/50'

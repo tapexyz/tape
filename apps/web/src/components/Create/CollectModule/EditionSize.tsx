@@ -1,8 +1,8 @@
 import useAppStore from '@lib/store'
+import { tw } from '@tape.xyz/browser'
 import { trimify } from '@tape.xyz/generic'
 import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
 import { Button, Input } from '@tape.xyz/ui'
-import clsx from 'clsx'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 
@@ -30,9 +30,9 @@ const EditionSize: FC<Props> = ({ setCollectType }) => {
               })
               setShowSizePicker(false)
             }}
-            className={clsx(
+            className={tw(
               !uploadedMedia.collectModule.collectLimitEnabled &&
-                '!border-brand-500'
+                'border-brand-500'
             )}
             variant="secondary"
           >
@@ -49,9 +49,9 @@ const EditionSize: FC<Props> = ({ setCollectType }) => {
               })
               setShowSizePicker(true)
             }}
-            className={clsx(
+            className={tw(
               uploadedMedia.collectModule.collectLimitEnabled &&
-                '!border-brand-500'
+                'border-brand-500'
             )}
             variant="secondary"
           >

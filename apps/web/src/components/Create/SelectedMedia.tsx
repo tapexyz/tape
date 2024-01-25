@@ -1,7 +1,7 @@
 import { getTimeFromSeconds } from '@lib/formatTime'
 import useAppStore from '@lib/store'
 import useProfileStore from '@lib/store/idb/profile'
-import { uploadToIPFS } from '@tape.xyz/browser'
+import { tw, uploadToIPFS } from '@tape.xyz/browser'
 import { ALLOWED_AUDIO_MIME_TYPES, FEATURE_FLAGS } from '@tape.xyz/constants'
 import {
   formatBytes,
@@ -10,7 +10,6 @@ import {
 } from '@tape.xyz/generic'
 import type { IPFSUploadResult } from '@tape.xyz/lens/custom-types'
 import { AddImageOutline, Badge, Input, Spinner, Tooltip } from '@tape.xyz/ui'
-import clsx from 'clsx'
 import React, { useEffect, useRef, useState } from 'react'
 
 import ChooseThumbnail from './ChooseThumbnail'
@@ -66,7 +65,7 @@ const SelectedMedia = () => {
               ) : null}
               <label
                 htmlFor="choosePoster"
-                className={clsx(
+                className={tw(
                   'rounded-small invisible absolute top-0 grid h-full w-full cursor-pointer place-items-center overflow-hidden bg-gray-100 bg-opacity-70 backdrop-blur-lg group-hover:visible dark:bg-black',
                   {
                     '!visible':
@@ -158,7 +157,7 @@ const SelectedMedia = () => {
             <Tooltip content={`Uploaded (${uploadedMedia.percent}%)`}>
               <div className="absolute bottom-0 w-full overflow-hidden bg-gray-200">
                 <div
-                  className={clsx(
+                  className={tw(
                     'h-[6px]',
                     uploadedMedia.percent !== 0
                       ? 'bg-brand-500'

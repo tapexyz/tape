@@ -1,6 +1,6 @@
 import useAppStore from '@lib/store'
 import useProfileStore from '@lib/store/idb/profile'
-import { useDragAndDrop } from '@tape.xyz/browser'
+import { tw, useDragAndDrop } from '@tape.xyz/browser'
 import {
   ALLOWED_AUDIO_MIME_TYPES,
   ALLOWED_UPLOAD_MIME_TYPES,
@@ -8,7 +8,6 @@ import {
 } from '@tape.xyz/constants'
 import { canUploadedToIpfs, logger } from '@tape.xyz/generic'
 import { Button, UploadOutline } from '@tape.xyz/ui'
-import clsx from 'clsx'
 import fileReaderStream from 'filereader-stream'
 import React from 'react'
 import toast from 'react-hot-toast'
@@ -76,7 +75,7 @@ const DropZone = () => {
   return (
     <div className="relative flex w-full flex-1 flex-col">
       <label
-        className={clsx(
+        className={tw(
           'tape-border rounded-medium grid h-full w-full place-content-center place-items-center p-10 text-center focus:outline-none md:p-20'
         )}
         htmlFor="dropMedia"

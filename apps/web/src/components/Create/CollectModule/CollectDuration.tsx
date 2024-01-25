@@ -1,8 +1,8 @@
 import useAppStore from '@lib/store'
+import { tw } from '@tape.xyz/browser'
 import { trimify } from '@tape.xyz/generic'
 import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
 import { Button, Input } from '@tape.xyz/ui'
-import clsx from 'clsx'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 
@@ -24,7 +24,7 @@ const CollectDuration: FC<Props> = ({ setCollectType }) => {
           <Button
             type="button"
             variant="secondary"
-            className={clsx(
+            className={tw(
               !uploadedMedia.collectModule.timeLimitEnabled &&
                 '!border-brand-500'
             )}
@@ -49,7 +49,7 @@ const CollectDuration: FC<Props> = ({ setCollectType }) => {
               })
               setShowDayPicker(true)
             }}
-            className={clsx(
+            className={tw(
               uploadedMedia.collectModule.timeLimitEnabled &&
                 '!border-brand-500'
             )}

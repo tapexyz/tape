@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import { tw } from '@tape.xyz/browser'
 import type { FC, ReactNode } from 'react'
 import React from 'react'
 
@@ -23,7 +23,7 @@ export const Callout: FC<Props> = ({
 
   return (
     <div
-      className={clsx(
+      className={tw(
         variantClasses,
         'flex space-x-2 rounded-lg p-3 text-sm font-medium',
         className

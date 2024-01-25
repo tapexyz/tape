@@ -1,4 +1,5 @@
 import useProfileStore from '@lib/store/idb/profile'
+import { tw } from '@tape.xyz/browser'
 import { EVENTS, sanitizeProfileInterests, Tower } from '@tape.xyz/generic'
 import type {
   ProfileInterestsRequest,
@@ -11,7 +12,6 @@ import {
 } from '@tape.xyz/lens'
 import { useApolloClient } from '@tape.xyz/lens/apollo'
 import { Spinner } from '@tape.xyz/ui'
-import clsx from 'clsx'
 import React, { useEffect } from 'react'
 
 const MAX_TOPICS_ALLOWED = 12
@@ -70,7 +70,7 @@ const Topics = () => {
             <div className="flex flex-wrap items-center gap-2">
               <button
                 type="button"
-                className={clsx(
+                className={tw(
                   'tape-border flex items-center justify-between rounded-md px-3 py-0.5 text-sm capitalize focus:outline-none disabled:cursor-not-allowed disabled:opacity-50',
                   {
                     '!border-brand-500 text-brand-500': selectedTopics.includes(
@@ -94,7 +94,7 @@ const Topics = () => {
                       !selectedTopics.includes(subCategory.id) &&
                       selectedTopics.length === MAX_TOPICS_ALLOWED
                     }
-                    className={clsx(
+                    className={tw(
                       'tape-border flex items-center justify-between rounded-md px-3 py-0.5 text-sm capitalize focus:outline-none disabled:cursor-not-allowed disabled:opacity-50',
                       {
                         '!border-brand-500 text-brand-500':

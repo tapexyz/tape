@@ -1,4 +1,4 @@
-import { useAverageColor } from '@tape.xyz/browser'
+import { tw, useAverageColor } from '@tape.xyz/browser'
 import {
   FALLBACK_THUMBNAIL_URL,
   LENSTUBE_BYTES_APP_ID,
@@ -11,7 +11,6 @@ import {
   imageCdn
 } from '@tape.xyz/generic'
 import type { AnyPublication } from '@tape.xyz/lens'
-import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
 
@@ -37,7 +36,7 @@ const ThumbnailImage: FC<Props> = ({ video }) => {
   return (
     <img
       src={imageCdn(thumbnailUrl, isBytesVideo ? 'THUMBNAIL_V' : 'THUMBNAIL')}
-      className={clsx(
+      className={tw(
         'h-full w-full rounded-lg bg-gray-100 object-center lg:h-full lg:w-full dark:bg-gray-900',
         isBytesVideo ? 'object-contain' : 'object-cover'
       )}

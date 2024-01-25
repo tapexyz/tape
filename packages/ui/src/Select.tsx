@@ -1,5 +1,5 @@
 import * as SelectPrimitive from '@radix-ui/react-select'
-import clsx from 'clsx'
+import { tw } from '@tape.xyz/browser'
 import type { ElementRef, ReactNode } from 'react'
 import React, { forwardRef } from 'react'
 
@@ -23,7 +23,7 @@ export const SelectItem = forwardRef<
 
   return (
     <SelectPrimitive.Item
-      className={clsx(
+      className={tw(
         sizeClasses,
         'relative flex select-none items-center justify-between space-x-2 rounded-md leading-none hover:bg-gray-100 data-[disabled]:pointer-events-none data-[highlighted]:bg-gray-200 data-[state=checked]:font-semibold data-[highlighted]:outline-none dark:hover:bg-gray-800 dark:data-[highlighted]:bg-gray-800',
         className
@@ -33,7 +33,7 @@ export const SelectItem = forwardRef<
     >
       <SelectPrimitive.ItemText>{children}</SelectPrimitive.ItemText>
       <SelectPrimitive.ItemIndicator>
-        <CheckOutline className={clsx(size === 'sm' ? 'size-2' : 'size-3')} />
+        <CheckOutline className={tw(size === 'sm' ? 'size-2' : 'size-3')} />
       </SelectPrimitive.ItemIndicator>
     </SelectPrimitive.Item>
   )
@@ -59,7 +59,7 @@ export const Select = forwardRef<
   return (
     <SelectPrimitive.Root {...props}>
       <SelectPrimitive.Trigger
-        className={clsx(
+        className={tw(
           sizeClasses,
           'flex w-full appearance-none items-center justify-between space-x-2 rounded-lg border border-gray-200 focus:outline-none dark:border-gray-800',
           className
@@ -78,7 +78,7 @@ export const Select = forwardRef<
             <ChevronUpOutline className="size-3" />
           </SelectPrimitive.ScrollUpButton>
           <SelectPrimitive.Viewport
-            className={clsx(size === 'sm' ? 'p-2' : 'p-3')}
+            className={tw(size === 'sm' ? 'p-2' : 'p-3')}
           >
             {children}
           </SelectPrimitive.Viewport>

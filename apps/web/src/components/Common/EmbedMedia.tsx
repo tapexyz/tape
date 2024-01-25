@@ -1,8 +1,7 @@
-import { useCopyToClipboard } from '@tape.xyz/browser'
+import { tw, useCopyToClipboard } from '@tape.xyz/browser'
 import { TAPE_APP_NAME, TAPE_EMBED_URL } from '@tape.xyz/constants'
 import { EVENTS, Tower } from '@tape.xyz/generic'
 import { CodeOutline, CopyOutline, Modal, Tooltip } from '@tape.xyz/ui'
-import clsx from 'clsx'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 
@@ -50,7 +49,7 @@ const EmbedMedia: FC<Props> = ({ publicationId, isAudio }) => {
           <div className="w-full overflow-hidden rounded">
             <iframe
               sandbox="allow-scripts allow-same-origin"
-              className={clsx(
+              className={tw(
                 'w-full',
                 isAudio ? 'min-h-[200px]' : 'aspect-[16/9] '
               )}

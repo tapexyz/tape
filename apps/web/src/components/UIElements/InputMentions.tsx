@@ -1,10 +1,9 @@
-import { useDebounce, useOutsideClick } from '@tape.xyz/browser'
+import { tw, useDebounce, useOutsideClick } from '@tape.xyz/browser'
 import { LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
 import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { LimitType, useSearchProfilesLazyQuery } from '@tape.xyz/lens'
 import { Spinner, TextArea } from '@tape.xyz/ui'
-import clsx from 'clsx'
 import type { ComponentProps, FC } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
 import getCaretCoordinates from 'textarea-caret'
@@ -163,7 +162,7 @@ const InputMentions: FC<TextAreaProps> = ({
                   }}
                   type="button"
                   onClick={() => handleProfileClick(profile)}
-                  className={clsx(
+                  className={tw(
                     'hover:dark:bg-smoke hover:bg-gallery w-full rounded-lg text-left',
                     index === selectedIndex && 'dark:bg-smoke bg-gallery'
                   )}

@@ -1,5 +1,5 @@
 import * as Dialog from '@radix-ui/react-dialog'
-import clsx from 'clsx'
+import { tw } from '@tape.xyz/browser'
 import type { FC, ReactNode } from 'react'
 import React from 'react'
 
@@ -35,7 +35,7 @@ export const Modal: FC<Props> = ({
         <Dialog.Overlay className="fixed inset-0 z-10 bg-gray-500 bg-opacity-30 backdrop-blur" />
         <Dialog.Content
           onPointerDownOutside={(e) => (locked ? e.preventDefault() : null)}
-          className={clsx(
+          className={tw(
             sizeClasses,
             'tape-border fixed left-[50%] top-[50%] z-10 max-h-[85vh] w-[90vw] translate-x-[-50%] translate-y-[-50%] space-y-4 rounded-xl bg-white p-5 focus:outline-none dark:bg-black'
           )}

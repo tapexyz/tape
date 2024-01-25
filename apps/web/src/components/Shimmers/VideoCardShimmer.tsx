@@ -1,12 +1,12 @@
-import clsx from 'clsx'
+import { tw } from '@tape.xyz/browser'
 import React from 'react'
 
 export const CardShimmer = ({ rounded = true }) => {
   return (
-    <div className={clsx('w-full', rounded && 'rounded-xl')}>
+    <div className={tw('w-full', rounded && 'rounded-xl')}>
       <div className="flex animate-pulse flex-col space-x-2">
         <div
-          className={clsx(
+          className={tw(
             'aspect-w-16 aspect-h-9 bg-gray-200 dark:bg-gray-800',
             rounded && 'rounded-large'
           )}

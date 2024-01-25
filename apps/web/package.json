@@ -24,7 +24,6 @@
     "@types/js-cookie": "^3.0.6",
     "@types/textarea-caret": "^3.0.3",
     "axios": "^1.6.5",
-    "clsx": "^2.1.0",
     "dayjs": "^1.11.10",
     "emoji-mart": "^5.5.2",
     "filereader-stream": "^2.0.0",

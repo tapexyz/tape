@@ -1,5 +1,5 @@
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox'
-import clsx from 'clsx'
+import { tw } from '@tape.xyz/browser'
 import type { ElementRef } from 'react'
 import React, { forwardRef, useId } from 'react'
 
@@ -27,7 +27,7 @@ export const Checkbox = forwardRef<
     <form>
       <div className="flex items-center space-x-1.5">
         <CheckboxPrimitive.Root
-          className={clsx(
+          className={tw(
             className,
             'tape-border flex appearance-none items-center justify-center rounded outline-none',
             sizeClasses
@@ -38,11 +38,11 @@ export const Checkbox = forwardRef<
           {...props}
         >
           <CheckboxPrimitive.Indicator>
-            <CheckOutline className={clsx(sizeClasses, 'p-[3px]')} />
+            <CheckOutline className={tw(sizeClasses, 'p-[3px]')} />
           </CheckboxPrimitive.Indicator>
         </CheckboxPrimitive.Root>
         <label
-          className={clsx(
+          className={tw(
             'font-medium leading-none',
             size === 'lg' ? 'text-base' : 'text-sm'
           )}

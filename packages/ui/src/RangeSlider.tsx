@@ -1,5 +1,5 @@
 import * as SliderPrimitive from '@radix-ui/react-slider'
-import clsx from 'clsx'
+import { tw } from '@tape.xyz/browser'
 import type { ElementRef } from 'react'
 import React, { forwardRef } from 'react'
 
@@ -13,7 +13,7 @@ export const RangeSlider = forwardRef<
 >(({ className, ...props }, ref) => {
   return (
     <SliderPrimitive.Root
-      className={clsx(
+      className={tw(
         'relative flex h-5 w-full touch-none select-none items-center',
         className
       )}

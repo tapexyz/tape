@@ -5,6 +5,7 @@ import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import { getShortHandTime } from '@lib/formatTime'
 import useProfileStore from '@lib/store/idb/profile'
 import usePersistStore from '@lib/store/persist'
+import { tw } from '@tape.xyz/browser'
 import { SIGN_IN_REQUIRED } from '@tape.xyz/constants'
 import {
   getProfile,
@@ -21,7 +22,6 @@ import {
   ReplyOutline,
   Tooltip
 } from '@tape.xyz/ui'
-import clsx from 'clsx'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
@@ -102,7 +102,7 @@ const RenderComment: FC<Props> = ({ comment }) => {
               {getShortHandTime(comment.createdAt)}
             </span>
           </span>
-          <div className={clsx({ 'line-clamp-2': clamped })}>
+          <div className={tw({ 'line-clamp-2': clamped })}>
             <InterweaveContent content={metadata?.content ?? ''} />
           </div>
           {showMore && (
@@ -156,7 +156,7 @@ const RenderComment: FC<Props> = ({ comment }) => {
             </div>
           )}
           <div
-            className={clsx(
+            className={tw(
               'w-full space-y-6',
               (showReplies || showNewComment || getIsReplyQueuedComment()) &&
                 'pt-6'

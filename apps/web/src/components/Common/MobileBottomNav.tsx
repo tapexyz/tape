@@ -1,3 +1,4 @@
+import { tw } from '@tape.xyz/browser'
 import {
   BellOutline,
   BytesOutline,
@@ -5,7 +6,6 @@ import {
   HomeOutline,
   PlusOutline
 } from '@tape.xyz/ui'
-import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
@@ -20,7 +20,7 @@ const MobileBottomNav = () => {
       <div className="grid grid-cols-5 py-3">
         <Link
           href="/"
-          className={clsx(
+          className={tw(
             'flex w-full flex-col items-center justify-center bg-transparent text-sm font-medium text-gray-700 md:grid dark:text-gray-100 dark:hover:text-gray-100',
             isActivePath('/') ? 'opacity-100' : 'opacity-70'
           )}
@@ -30,7 +30,7 @@ const MobileBottomNav = () => {
         </Link>
         <Link
           href="/bytes"
-          className={clsx(
+          className={tw(
             'flex w-full flex-col items-center justify-center bg-transparent text-sm font-medium text-gray-700 md:grid dark:text-gray-100 dark:hover:text-gray-100',
             isActivePath('/bytes') ? 'opacity-100' : 'opacity-70'
           )}
@@ -40,7 +40,7 @@ const MobileBottomNav = () => {
         </Link>
         <Link
           href="/create"
-          className={clsx(
+          className={tw(
             'flex w-full flex-col items-center justify-center bg-transparent text-sm font-medium text-gray-700 md:grid dark:text-gray-100 dark:hover:text-gray-100',
             isActivePath('/create') ? 'opacity-100' : 'opacity-70'
           )}
@@ -50,7 +50,7 @@ const MobileBottomNav = () => {
         </Link>
         <Link
           href="/notifications"
-          className={clsx(
+          className={tw(
             'flex w-full flex-col items-center justify-center bg-transparent text-sm font-medium text-gray-700 md:grid dark:text-gray-100 dark:hover:text-gray-100',
             isActivePath('/explore') ? 'opacity-100' : 'opacity-70'
           )}
@@ -60,7 +60,7 @@ const MobileBottomNav = () => {
         </Link>
         <Link
           href="/feed"
-          className={clsx(
+          className={tw(
             'flex w-full flex-col items-center justify-center bg-transparent text-sm font-medium text-gray-700 md:grid dark:text-gray-100 dark:hover:text-gray-100',
             isActivePath('/feed') ? 'opacity-100' : 'opacity-70'
           )}

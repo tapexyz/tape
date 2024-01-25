@@ -1,7 +1,7 @@
 import useCommentStore from '@lib/store/comment'
+import { tw } from '@tape.xyz/browser'
 import { CustomCommentsFilterEnum } from '@tape.xyz/lens/custom-types'
 import { DropdownMenu, DropdownMenuItem, SortOutline } from '@tape.xyz/ui'
-import clsx from 'clsx'
 import React from 'react'
 
 const CommentsFilter = () => {
@@ -15,7 +15,7 @@ const CommentsFilter = () => {
         }
       >
         <p
-          className={clsx(
+          className={tw(
             'whitespace-nowrap',
             selectedCommentFilter ===
               CustomCommentsFilterEnum.RELEVANT_COMMENTS && 'font-bold'
@@ -30,7 +30,7 @@ const CommentsFilter = () => {
         }
       >
         <p
-          className={clsx(
+          className={tw(
             'whitespace-nowrap',
             selectedCommentFilter ===
               CustomCommentsFilterEnum.NEWEST_COMMENTS && 'font-bold'

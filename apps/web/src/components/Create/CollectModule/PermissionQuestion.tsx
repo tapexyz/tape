@@ -1,7 +1,7 @@
 import useAppStore from '@lib/store'
+import { tw } from '@tape.xyz/browser'
 import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
 import { Button } from '@tape.xyz/ui'
-import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
 
@@ -19,7 +19,7 @@ const PermissionQuestion: FC<Props> = ({ setCollectType }) => {
         <div className="flex-1">
           <Button
             type="button"
-            className={clsx(
+            className={tw(
               !uploadedMedia.collectModule.followerOnlyCollect &&
                 !uploadedMedia.collectModule.isRevertCollect &&
                 '!border-brand-500'
@@ -39,7 +39,7 @@ const PermissionQuestion: FC<Props> = ({ setCollectType }) => {
         <div className="flex-1">
           <Button
             type="button"
-            className={clsx(
+            className={tw(
               uploadedMedia.collectModule.followerOnlyCollect &&
                 !uploadedMedia.collectModule.isRevertCollect &&
                 '!border-brand-500'

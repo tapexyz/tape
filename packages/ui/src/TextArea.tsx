@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import { tw } from '@tape.xyz/browser'
 import { motion, useAnimation } from 'framer-motion'
 import type { ComponentProps } from 'react'
 import { forwardRef, useEffect, useId } from 'react'
@@ -51,7 +51,7 @@ export const TextArea = forwardRef<HTMLTextAreaElement, TextAreaProps>(
           className="flex w-full items-center rounded-lg text-sm"
         >
           <textarea
-            className={clsx(
+            className={tw(
               { 'placeholder:text-red-500': error },
               'w-full rounded-lg border-none bg-gray-100 px-3 py-2 focus:outline-none dark:bg-gray-900',
               className

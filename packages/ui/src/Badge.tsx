@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import { tw } from '@tape.xyz/browser'
 import type { HTMLAttributes } from 'react'
 import React, { forwardRef } from 'react'
 
@@ -17,7 +17,7 @@ export const Badge = forwardRef<HTMLSpanElement, Props>(
     return (
       <span
         ref={ref}
-        className={clsx(
+        className={tw(
           sizeClasses,
           'rounded-full bg-gray-200 font-medium dark:bg-gray-800',
           className

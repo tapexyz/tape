@@ -1,6 +1,6 @@
 import Badge from '@components/Common/Badge'
+import { tw } from '@tape.xyz/browser'
 import { formatNumber } from '@tape.xyz/generic'
-import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
 
@@ -20,7 +20,7 @@ const ProfileSuggestion: FC<Props> = ({
   followers
 }) => {
   return (
-    <div className={clsx('flex space-x-2 truncate px-1.5 py-1.5', className)}>
+    <div className={tw('flex space-x-2 truncate px-1.5 py-1.5', className)}>
       <img
         src={pfp}
         className="mt-1 size-8 rounded-full"

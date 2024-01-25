@@ -1,4 +1,4 @@
-import clsx from 'clsx'
+import { tw } from '@tape.xyz/browser'
 import type { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from 'react'
 import { forwardRef } from 'react'
 
@@ -51,7 +51,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           <div className="absolute -inset-[2px] overflow-hidden rounded-lg">
             <LoadingBorder rx="30%" ry="30%">
               <div
-                className={clsx(
+                className={tw(
                   'rounded-full bg-red-400 blur',
                   size === 'sm' ? 'h-10 w-10' : 'h-20 w-20'
                 )}
@@ -62,7 +62,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         <div className="z-[1]">
           <button
             ref={ref}
-            className={clsx(
+            className={tw(
               sizeClasses,
               variantClasses,
               'relative flex w-full scale-100 appearance-none items-center space-x-1.5 rounded-lg font-semibold transition-colors duration-150 active:scale-[0.98] disabled:pointer-events-none',

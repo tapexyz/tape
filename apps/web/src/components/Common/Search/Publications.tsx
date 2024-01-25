@@ -1,3 +1,4 @@
+import { tw } from '@tape.xyz/browser'
 import {
   FALLBACK_THUMBNAIL_URL,
   LENSTUBE_BYTES_APP_ID,
@@ -11,7 +12,6 @@ import {
   imageCdn
 } from '@tape.xyz/generic'
 import type { AnyPublication } from '@tape.xyz/lens'
-import clsx from 'clsx'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
@@ -50,7 +50,7 @@ const Publications: FC<Props> = ({ results, loading, clearSearch }) => {
             >
               <div className="flex items-center space-x-3">
                 <img
-                  className={clsx(
+                  className={tw(
                     'h-16 w-28 flex-none rounded-md bg-gray-300 object-center dark:bg-gray-700',
                     isBytesVideo ? 'object-contain' : 'object-cover'
                   )}

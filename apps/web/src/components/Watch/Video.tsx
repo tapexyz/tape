@@ -1,6 +1,7 @@
 import InterweaveContent from '@components/Common/InterweaveContent'
 import useAppStore from '@lib/store'
 import useProfileStore from '@lib/store/idb/profile'
+import { tw } from '@tape.xyz/browser'
 import {
   getCategoryName,
   getIsSensitiveContent,
@@ -18,7 +19,6 @@ import {
   ChevronUpOutline,
   VideoPlayer
 } from '@tape.xyz/ui'
-import clsx from 'clsx'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { memo, useEffect, useState } from 'react'
@@ -97,7 +97,7 @@ const Video: FC<Props> = ({ video }) => {
         <hr className="my-4 border-[0.5px] border-gray-200 dark:border-gray-800" />
         <div className="flex flex-1 flex-col overflow-hidden break-words">
           {getPublicationData(metadata)?.content ? (
-            <p className={clsx({ 'line-clamp-3': clamped })}>
+            <p className={tw({ 'line-clamp-3': clamped })}>
               <InterweaveContent
                 content={getPublicationData(metadata)?.content || ''}
               />

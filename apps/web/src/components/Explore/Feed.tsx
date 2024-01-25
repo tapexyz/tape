@@ -3,6 +3,7 @@ import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { getUnixTimestampForDaysAgo } from '@lib/formatTime'
 import useAppStore from '@lib/store'
+import { tw } from '@tape.xyz/browser'
 import {
   ALLOWED_APP_IDS,
   INFINITE_SCROLL_ROOT_MARGIN,
@@ -30,7 +31,6 @@ import {
   MirrorOutline,
   Spinner
 } from '@tape.xyz/ui'
-import clsx from 'clsx'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 
@@ -106,7 +106,7 @@ const ExploreFeed = () => {
       <div className="flex space-x-2">
         <Button
           variant="secondary"
-          className={clsx(activeCriteria.trending && '!border-brand-500')}
+          className={tw(activeCriteria.trending && 'border-brand-500')}
           onClick={() => {
             setActiveCriteria({ ...initialCriteria })
             Tower.track(EVENTS.PAGEVIEW, {
@@ -119,7 +119,7 @@ const ExploreFeed = () => {
         </Button>
         <Button
           variant="secondary"
-          className={clsx(activeCriteria.popular && '!border-brand-500')}
+          className={tw(activeCriteria.popular && 'border-brand-500')}
           onClick={() => {
             setActiveCriteria({
               ...initialCriteria,
@@ -136,7 +136,7 @@ const ExploreFeed = () => {
         </Button>
         <Button
           variant="secondary"
-          className={clsx(activeCriteria.interesting && '!border-brand-500')}
+          className={tw(activeCriteria.interesting && 'border-brand-500')}
           onClick={() => {
             setActiveCriteria({
               ...initialCriteria,
@@ -156,7 +156,7 @@ const ExploreFeed = () => {
       <div className="my-4">
         {loading && <TimelineShimmer />}
         {videos?.length === 0 && (
-          <NoDataFound isCenter withImage text={`No videos found`} />
+          <NoDataFound isCenter withImage text="No videos found" />
         )}
         {!error && !loading && videos?.length ? (
           <>

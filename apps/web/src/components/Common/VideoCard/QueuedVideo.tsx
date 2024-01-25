@@ -2,7 +2,7 @@ import usePendingTxn from '@hooks/usePendingTxn'
 import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
 import useProfileStore from '@lib/store/idb/profile'
 import usePersistStore from '@lib/store/persist'
-import { useAverageColor } from '@tape.xyz/browser'
+import { tw, useAverageColor } from '@tape.xyz/browser'
 import { STATIC_ASSETS } from '@tape.xyz/constants'
 import {
   getProfile,
@@ -18,7 +18,6 @@ import {
 import { useApolloClient } from '@tape.xyz/lens/apollo'
 import type { QueuedVideoType } from '@tape.xyz/lens/custom-types'
 import { Tooltip } from '@tape.xyz/ui'
-import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
 
@@ -104,7 +103,7 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
         <div className="aspect-w-16 aspect-h-9 relative overflow-hidden">
           <img
             src={thumbnailUrl}
-            className={clsx(
+            className={tw(
               'h-full w-full bg-gray-100 object-center md:rounded-xl lg:h-full lg:w-full dark:bg-gray-900',
               uploadedMedia.isByteVideo ? 'object-contain' : 'object-cover'
             )}

@@ -1,5 +1,5 @@
 import * as PrimitiveSwitch from '@radix-ui/react-switch'
-import clsx from 'clsx'
+import { tw } from '@tape.xyz/browser'
 import type { ElementRef } from 'react'
 import React, { forwardRef, useId } from 'react'
 
@@ -35,7 +35,7 @@ export const Switch = forwardRef<
   return (
     <div className="flex items-center space-x-1.5">
       <PrimitiveSwitch.Root
-        className={clsx(
+        className={tw(
           sizeClasses,
           'relative cursor-default rounded-full bg-gray-200 outline-none data-[state=checked]:bg-black dark:bg-gray-800',
           className
@@ -45,13 +45,13 @@ export const Switch = forwardRef<
         {...props}
       >
         <PrimitiveSwitch.Thumb
-          className={clsx(
+          className={tw(
             thumbSizeClasses,
             'block translate-x-0.5 rounded-full bg-white transition-transform duration-100 will-change-transform'
           )}
         />
       </PrimitiveSwitch.Root>
-      <label className={clsx(labelSizeClasses, 'leading-none')} htmlFor={id}>
+      <label className={tw(labelSizeClasses, 'leading-none')} htmlFor={id}>
         {label}
       </label>
     </div>

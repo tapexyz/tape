@@ -1,5 +1,5 @@
+import { tw } from '@tape.xyz/browser'
 import { STATIC_ASSETS } from '@tape.xyz/constants'
-import clsx from 'clsx'
 import React from 'react'
 
 export const NoDataFound = ({
@@ -10,7 +10,7 @@ export const NoDataFound = ({
 }) => {
   return (
     <div
-      className={clsx('flex flex-col space-y-6 rounded-lg p-6', className, {
+      className={tw('flex flex-col space-y-6 rounded-lg p-6', className, {
         'items-center justify-center': isCenter
       })}
     >
@@ -24,7 +24,7 @@ export const NoDataFound = ({
         />
       )}
       <div
-        className={clsx('text-sm font-medium', {
+        className={tw('text-sm font-medium', {
           'text-center': isCenter
         })}
       >

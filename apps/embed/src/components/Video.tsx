@@ -1,6 +1,6 @@
 'use client'
 
-import { useAverageColor } from '@tape.xyz/browser'
+import { tw, useAverageColor } from '@tape.xyz/browser'
 import { LENSTUBE_BYTES_APP_ID } from '@tape.xyz/constants'
 import {
   EVENTS,
@@ -13,7 +13,6 @@ import {
 } from '@tape.xyz/generic'
 import type { PrimaryPublication } from '@tape.xyz/lens'
 import { PlayOutline, VideoPlayer } from '@tape.xyz/ui'
-import clsx from 'clsx'
 import { useSearchParams } from 'next/navigation'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
@@ -85,7 +84,7 @@ const Video: FC<Props> = ({ video }) => {
         <div className="flex h-full w-full justify-center">
           <img
             src={thumbnailUrl}
-            className={clsx(
+            className={tw(
               'w-full bg-gray-100 object-center dark:bg-gray-900',
               isBytesVideo ? 'object-contain' : 'object-cover'
             )}

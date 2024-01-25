@@ -1,6 +1,7 @@
 import { Countdown } from '@components/UIElements/CountDown'
 import useProfileStore from '@lib/store/idb/profile'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
+import { tw } from '@tape.xyz/browser'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
@@ -10,7 +11,6 @@ import type { Profile } from '@tape.xyz/lens'
 import { useProfileLazyQuery } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { Button } from '@tape.xyz/ui'
-import clsx from 'clsx'
 import type { FC } from 'react'
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -127,7 +127,7 @@ const Guardian: FC = () => {
       </div>
 
       <div
-        className={clsx(
+        className={tw(
           'rounded-b-medium flex border-b-0 bg-red-100 px-5 py-3 dark:bg-red-900/20',
           isCooldownEnded() ? 'justify-end' : 'justify-between'
         )}

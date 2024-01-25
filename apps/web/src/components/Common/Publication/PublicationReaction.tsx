@@ -1,4 +1,5 @@
 import useProfileStore from '@lib/store/idb/profile'
+import { tw } from '@tape.xyz/browser'
 import { SIGN_IN_REQUIRED } from '@tape.xyz/constants'
 import { EVENTS, formatNumber, getPublication, Tower } from '@tape.xyz/generic'
 import type { AnyPublication } from '@tape.xyz/lens'
@@ -8,7 +9,6 @@ import {
   useRemoveReactionMutation
 } from '@tape.xyz/lens'
 import { HeartFilled, HeartOutline } from '@tape.xyz/ui'
-import clsx from 'clsx'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
@@ -83,7 +83,7 @@ const PublicationReaction: FC<Props> = ({
   return (
     <button className={className} onClick={() => likeVideo()}>
       <span
-        className={clsx(
+        className={tw(
           'flex items-center focus:outline-none',
           isVertical ? 'flex-col space-y-1' : 'space-x-1',
           {
@@ -93,7 +93,7 @@ const PublicationReaction: FC<Props> = ({
       >
         {reaction.isLiked ? (
           <HeartFilled
-            className={clsx({
+            className={tw({
               'size-3.5': iconSize === 'sm',
               'size-6': iconSize === 'lg',
               'size-4': iconSize === 'base'
@@ -101,7 +101,7 @@ const PublicationReaction: FC<Props> = ({
           />
         ) : (
           <HeartOutline
-            className={clsx({
+            className={tw({
               'size-3.5': iconSize === 'sm',
               'size-6': iconSize === 'lg',
               'size-4': iconSize === 'base'
@@ -110,7 +110,7 @@ const PublicationReaction: FC<Props> = ({
         )}
         {label ? (
           <span
-            className={clsx({
+            className={tw({
               'text-xs': textSize === 'sm',
               'text-inherit': textSize === 'inherit',
               'text-red-400': reaction.isLiked
@@ -120,7 +120,7 @@ const PublicationReaction: FC<Props> = ({
           </span>
         ) : (
           <span
-            className={clsx({
+            className={tw({
               'text-xs': textSize === 'sm',
               'text-inherit': textSize === 'inherit',
               'text-red-400': reaction.isLiked

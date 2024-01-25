@@ -1,7 +1,7 @@
 import useVerifiedStore from '@lib/store/idb/verified'
+import { tw } from '@tape.xyz/browser'
 import { MISUSED_CHANNELS } from '@tape.xyz/constants'
 import { InfoSolid, Tooltip, VerifiedSolid } from '@tape.xyz/ui'
-import clsx from 'clsx'
 import type { FC } from 'react'
 import React from 'react'
 
@@ -22,7 +22,7 @@ const Badge: FC<Props> = ({ id, size = 'sm', color }) => {
         <Tooltip content="Verified" placement="top">
           <span>
             <VerifiedSolid
-              className={clsx(
+              className={tw(
                 'text-brand-500 -mb-0.5 ml-0.5',
                 {
                   'size-2.5': size === 'xs',
@@ -41,7 +41,7 @@ const Badge: FC<Props> = ({ id, size = 'sm', color }) => {
         <Tooltip content={misused.type} placement="right">
           <span>
             <InfoSolid
-              className={clsx(
+              className={tw(
                 'ml-0.5 text-red-500',
                 {
                   'size-2.5': size === 'xs',

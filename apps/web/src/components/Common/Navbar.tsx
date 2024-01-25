@@ -1,5 +1,6 @@
 import useProfileStore from '@lib/store/idb/profile'
 import usePersistStore from '@lib/store/persist'
+import { tw } from '@tape.xyz/browser'
 import { FEATURE_FLAGS } from '@tape.xyz/constants'
 import { getIsFeatureEnabled } from '@tape.xyz/generic'
 import {
@@ -8,7 +9,6 @@ import {
   ChevronDownOutline,
   DropdownMenu
 } from '@tape.xyz/ui'
-import clsx from 'clsx'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
@@ -44,7 +44,7 @@ const Navbar = () => {
         <div className="hidden space-x-7 md:flex">
           <Link
             href="/"
-            className={clsx(
+            className={tw(
               isActivePath('/')
                 ? 'font-bold'
                 : 'text-dust font-medium hover:opacity-90'
@@ -54,7 +54,7 @@ const Navbar = () => {
           </Link>
           <Link
             href="/bytes"
-            className={clsx(
+            className={tw(
               isActivePath('/bytes')
                 ? 'font-bold'
                 : 'text-dust font-medium hover:opacity-90'
@@ -64,7 +64,7 @@ const Navbar = () => {
           </Link>
           <Link
             href="/feed"
-            className={clsx(
+            className={tw(
               isActivePath('/feed')
                 ? 'font-bold'
                 : 'text-dust font-medium hover:opacity-90'
@@ -75,7 +75,7 @@ const Navbar = () => {
           {getIsFeatureEnabled(FEATURE_FLAGS.BANGERS, activeProfile?.id) && (
             <Link
               href="/bangers"
-              className={clsx(
+              className={tw(
                 isActivePath('/bangers')
                   ? 'font-bold'
                   : 'text-dust font-medium hover:opacity-90'

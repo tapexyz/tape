@@ -1,7 +1,7 @@
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import ProfileSuggestion from '@components/UIElements/ProfileSuggestion'
 import useAppStore from '@lib/store'
-import { useDebounce, useOutsideClick } from '@tape.xyz/browser'
+import { tw, useDebounce, useOutsideClick } from '@tape.xyz/browser'
 import {
   LENS_CUSTOM_FILTERS,
   LENS_NAMESPACE_PREFIX,
@@ -23,7 +23,6 @@ import {
   TimesOutline,
   Tooltip
 } from '@tape.xyz/ui'
-import clsx from 'clsx'
 import type { FC, RefObject } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
 import { isAddress } from 'viem'
@@ -232,7 +231,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
         <div className="flex items-center space-x-1">
           <button
             type="button"
-            className={clsx(
+            className={tw(
               'rounded border border-gray-700 px-1 text-[10px] font-bold uppercase tracking-wider opacity-70 dark:border-gray-300',
               splitRecipients.length >= 5 && 'invisible'
             )}
@@ -243,7 +242,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
           {!isIncludesDonationAddress && (
             <button
               type="button"
-              className={clsx(
+              className={tw(
                 'rounded border border-gray-700 px-1 text-[10px] font-bold uppercase tracking-wider opacity-70 dark:border-gray-300',
                 splitRecipients.length >= 5 && 'invisible'
               )}

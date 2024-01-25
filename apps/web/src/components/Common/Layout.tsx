@@ -5,13 +5,13 @@ import useNonceStore from '@lib/store/nonce'
 import {
   getToastOptions,
   setFingerprint,
+  tw,
   useIsMounted
 } from '@tape.xyz/browser'
 import { AUTH_ROUTES, OWNER_ONLY_ROUTES } from '@tape.xyz/constants'
 import { getIsProfileOwner, trimify } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { useCurrentProfileQuery } from '@tape.xyz/lens'
-import clsx from 'clsx'
 import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
 import type { FC, ReactNode } from 'react'
@@ -103,7 +103,7 @@ const Layout: FC<Props> = ({
       />
       {!skipNav && <Navbar />}
       <div
-        className={clsx(
+        className={tw(
           'relative focus-visible:outline-none',
           !skipPadding &&
             'ultrawide:px-8 ultrawide:pb-8 laptop:px-6 px-4 pb-16 pt-20 md:pb-6'
