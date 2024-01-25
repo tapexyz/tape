@@ -16,14 +16,20 @@ import {
 } from '@tape.xyz/ui'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import { formatEther, formatUnits, parseEther, parseUnits } from 'viem'
+import {
+  formatEther,
+  formatGwei,
+  formatUnits,
+  parseEther,
+  parseUnits
+} from 'viem'
 import { useAccount, useBalance, useSendTransaction } from 'wagmi'
 
 const IrysInfo = () => {
   const isMounted = useIsMounted()
   const { address } = useAccount()
   const { data: signer } = useEthersWalletClient()
-  const { sendTransactionAsync, sendTransaction } = useSendTransaction()
+  const { sendTransactionAsync } = useSendTransaction()
 
   const { data: userBalance } = useBalance({
     address,
@@ -102,7 +108,6 @@ const IrysInfo = () => {
     if (!value || Number(value) < 1) {
       return toast.error('Invalid deposit amount')
     }
-    console.log('🚀 ~ depositToIrys ~ userBalance:', userBalance)
 
     const formattedValue = formatUnits(
       userBalance?.value ?? BigInt(0),
@@ -127,14 +132,13 @@ const IrysInfo = () => {
       amount: `${number}`,
       to: `0x${string}`
     ): Promise<{ txId: string | undefined; tx: any }> => {
-      const config = sendTransaction({
-        to,
-        value: parseEther(amount.toString(), 'gwei')
-      })
-
       return {
         txId: undefined,
-        tx: config
+        tx: {
+          to,
+          account: address,
+          value: parseEther(amount.toString(), 'gwei')
+        }
       }
     }
     // TEMP:END: override irys functions for viem
@@ -143,9 +147,9 @@ const IrysInfo = () => {
       const fundResult = await irysData.instance.fund(value.toString())
       if (fundResult) {
         toast.success(
-          `Deposit of ${formatEther(
+          `Deposit of ${formatGwei(
             BigInt(fundResult?.quantity)
-          )} is done and it will be reflected in few seconds.`
+          )} ${IRYS_CURRENCY} is done and it will be reflected in few seconds.`
         )
         Tower.track(EVENTS.DEPOSIT_MATIC)
       }
