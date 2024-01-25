@@ -11,7 +11,6 @@ const Connectors = () => {
 
   const { connector: connected } = useAccount()
   const { connectors, connectAsync, isPending, error } = useConnect()
-  console.log('🚀 ~ Connectors ~ connectors:', connectors)
 
   const onChooseConnector = async (connector: Connector) => {
     try {
