@@ -26,7 +26,7 @@ const CollectDuration: FC<Props> = ({ setCollectType }) => {
             variant="secondary"
             className={tw(
               !uploadedMedia.collectModule.timeLimitEnabled &&
-                '!border-brand-500'
+                'border-brand-500'
             )}
             onClick={() => {
               setCollectType({
@@ -50,8 +50,7 @@ const CollectDuration: FC<Props> = ({ setCollectType }) => {
               setShowDayPicker(true)
             }}
             className={tw(
-              uploadedMedia.collectModule.timeLimitEnabled &&
-                '!border-brand-500'
+              uploadedMedia.collectModule.timeLimitEnabled && 'border-brand-500'
             )}
             variant="secondary"
           >
