@@ -2,11 +2,11 @@ import useNetworkStore from '@lib/store/network'
 import { POLYGON_CHAIN_ID } from '@tape.xyz/constants'
 import { Button, Modal } from '@tape.xyz/ui'
 import React from 'react'
-import { useSwitchNetwork } from 'wagmi'
+import { useSwitchChain } from 'wagmi'
 
 const SwitchNetworkDialog = () => {
   const { showSwitchNetwork, setShowSwitchNetwork } = useNetworkStore()
-  const { switchNetworkAsync } = useSwitchNetwork()
+  const { switchChainAsync } = useSwitchChain()
 
   if (!showSwitchNetwork) {
     return null
@@ -23,7 +23,7 @@ const SwitchNetworkDialog = () => {
         <Button
           variant="danger"
           onClick={async () => {
-            await switchNetworkAsync?.(POLYGON_CHAIN_ID)
+            await switchChainAsync?.({ chainId: POLYGON_CHAIN_ID })
             setShowSwitchNetwork(false)
           }}
         >

@@ -60,7 +60,7 @@ import type { FC, ReactNode } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { v4 as uuidv4 } from 'uuid'
-import { useContractWrite, useSignTypedData } from 'wagmi'
+import { useSignTypedData, useWriteContract } from 'wagmi'
 
 import ArweaveExplorerLink from '../Links/ArweaveExplorerLink'
 import IPFSLink from '../Links/IPFSLink'
@@ -138,16 +138,24 @@ const PublicationOptions: FC<Props> = ({ publication, children }) => {
   }
 
   const { signTypedDataAsync } = useSignTypedData({
-    onError
+    mutation: { onError }
   })
 
-  const { write } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
-    abi: LENSHUB_PROXY_ABI,
-    functionName: 'setProfileMetadataURI',
-    onError,
-    onSuccess: () => onCompleted()
+  const { writeContract } = useWriteContract({
+    mutation: {
+      onError,
+      onSuccess: () => onCompleted()
+    }
   })
+
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      address: LENSHUB_PROXY_ADDRESS,
+      abi: LENSHUB_PROXY_ABI,
+      functionName: 'setProfileMetadataURI',
+      args
+    })
+  }
 
   const [broadcast] = useBroadcastOnchainMutation({
     onError,
@@ -162,6 +170,7 @@ const PublicationOptions: FC<Props> = ({ publication, children }) => {
         const { profileId, metadataURI } = typedData.value
         try {
           toast.loading(REQUESTING_SIGNATURE_MESSAGE)
+
           if (canBroadcast) {
             const signature = await signTypedDataAsync(getSignature(typedData))
             const { data } = await broadcast({

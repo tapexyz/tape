@@ -23,7 +23,7 @@ import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { Button } from '@tape.xyz/ui'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import { useContractWrite, useSignTypedData } from 'wagmi'
+import { useSignTypedData, useWriteContract } from 'wagmi'
 
 const ToggleLensManager = () => {
   const [loading, setLoading] = useState(false)
@@ -41,32 +41,39 @@ const ToggleLensManager = () => {
   }
 
   const { signTypedDataAsync } = useSignTypedData({
-    onError
+    mutation: { onError }
   })
 
-  const { write, data: writeData } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
-    abi: LENSHUB_PROXY_ABI,
-    functionName: 'changeDelegatedExecutorsConfig',
-    onSuccess: () => {
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
-    },
-    onError: (error) => {
-      onError(error)
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
+  const { writeContract, data: txHash } = useWriteContract({
+    mutation: {
+      onSuccess: () => {
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
+      },
+      onError: (error) => {
+        onError(error)
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
+      }
     }
   })
+
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      address: LENSHUB_PROXY_ADDRESS,
+      abi: LENSHUB_PROXY_ABI,
+      functionName: 'changeDelegatedExecutorsConfig',
+      args
+    })
+  }
 
   const [broadcast, { data: broadcastData }] = useBroadcastOnchainMutation({
     onError
   })
 
   const { indexed } = usePendingTxn({
-    txHash: writeData?.hash,
-    txId:
-      broadcastData?.broadcastOnchain.__typename === 'RelaySuccess'
-        ? broadcastData?.broadcastOnchain?.txId
-        : undefined
+    txHash,
+    ...(broadcastData?.broadcastOnchain.__typename === 'RelaySuccess' && {
+      txId: broadcastData?.broadcastOnchain?.txId
+    })
   })
 
   useEffect(() => {

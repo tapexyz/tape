@@ -26,7 +26,7 @@ import { Button } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import { useContractWrite, useSignTypedData } from 'wagmi'
+import { useSignTypedData, useWriteContract } from 'wagmi'
 
 type Props = {
   profile: Profile
@@ -61,16 +61,24 @@ const Follow: FC<Props> = ({ profile, onSubscribe }) => {
   }
 
   const { signTypedDataAsync } = useSignTypedData({
-    onError
+    mutation: { onError }
   })
 
-  const { write } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
-    abi: LENSHUB_PROXY_ABI,
-    functionName: 'follow',
-    onSuccess: () => onCompleted(),
-    onError
+  const { writeContract } = useWriteContract({
+    mutation: {
+      onSuccess: () => onCompleted(),
+      onError
+    }
   })
+
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      address: LENSHUB_PROXY_ADDRESS,
+      abi: LENSHUB_PROXY_ABI,
+      functionName: 'follow',
+      args
+    })
+  }
 
   const [broadcast] = useBroadcastOnchainMutation({
     onCompleted: ({ broadcastOnchain }) =>

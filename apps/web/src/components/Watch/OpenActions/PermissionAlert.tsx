@@ -7,9 +7,9 @@ import {
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { Button } from '@tape.xyz/ui'
 import type { Dispatch, FC } from 'react'
-import React from 'react'
+import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
-import { useSendTransaction, useWaitForTransaction } from 'wagmi'
+import { useSendTransaction, useWaitForTransactionReceipt } from 'wagmi'
 
 type Props = {
   setIsAllowed: Dispatch<boolean>
@@ -26,26 +26,37 @@ const PermissionAlert: FC<Props> = ({
     useGenerateModuleCurrencyApprovalDataLazyQuery()
 
   const {
-    data: txData,
-    isLoading: transactionLoading,
+    data: txnHash,
+    isPending: transactionLoading,
     sendTransaction
   } = useSendTransaction({
-    onError: (error: CustomErrorWithData) => {
-      toast.error(error?.data?.message ?? error?.message)
+    mutation: {
+      onError: (error: CustomErrorWithData) => {
+        toast.error(error?.data?.message ?? error?.message)
+      }
     }
   })
-  const { isLoading: waiting } = useWaitForTransaction({
-    hash: txData?.hash,
-    onSuccess: () => {
+  const {
+    isLoading: waiting,
+    isSuccess,
+    isError,
+    error
+  } = useWaitForTransactionReceipt({
+    hash: txnHash
+  })
+
+  useEffect(() => {
+    if (isSuccess) {
       toast.success(
         `Allowance ${isAllowed ? `disabled` : `enabled`} successfully!`
       )
       setIsAllowed(!isAllowed)
-    },
-    onError(error: CustomErrorWithData) {
-      toast.error(error?.data?.message ?? error?.message)
     }
-  })
+    if (isError) {
+      toast.error(error?.message)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccess, isError])
 
   const handleAllowance = async () => {
     const isUnknownModule =

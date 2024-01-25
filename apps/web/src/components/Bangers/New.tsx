@@ -44,7 +44,7 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { v4 as uuidv4 } from 'uuid'
-import { useContractWrite, useSignTypedData } from 'wagmi'
+import { useSignTypedData, useWriteContract } from 'wagmi'
 import type { z } from 'zod'
 import { object, string } from 'zod'
 
@@ -112,7 +112,7 @@ const New: FC<Props> = ({ refetch }) => {
   }
 
   const { signTypedDataAsync } = useSignTypedData({
-    onError
+    mutation: { onError }
   })
 
   const getSignatureFromTypedData = async (
@@ -123,18 +123,17 @@ const New: FC<Props> = ({ refetch }) => {
     return signature
   }
 
-  const { write } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
-    abi: LENSHUB_PROXY_ABI,
-    functionName: 'post',
-    onSuccess: () => {
-      setLoading(false)
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
-      onCompleted()
-    },
-    onError: (error) => {
-      onError(error)
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
+  const { writeContract } = useWriteContract({
+    mutation: {
+      onSuccess: () => {
+        setLoading(false)
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
+        onCompleted()
+      },
+      onError: (error) => {
+        onError(error)
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
+      }
     }
   })
 
@@ -145,6 +144,15 @@ const New: FC<Props> = ({ refetch }) => {
       }
     }
   })
+
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      address: LENSHUB_PROXY_ADDRESS,
+      abi: LENSHUB_PROXY_ABI,
+      functionName: 'post',
+      args
+    })
+  }
 
   const [createMomokaPostTypedData] = useCreateMomokaPostTypedDataMutation({
     onCompleted: async ({ createMomokaPostTypedData }) => {

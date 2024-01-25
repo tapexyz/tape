@@ -26,13 +26,13 @@ import {
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { Button, Modal } from '@tape.xyz/ui'
 import type { FC } from 'react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
-  useContractWrite,
   useSendTransaction,
   useSignTypedData,
-  useWaitForTransaction
+  useWaitForTransactionReceipt,
+  useWriteContract
 } from 'wagmi'
 
 type Props = {
@@ -70,15 +70,14 @@ const SuperFollow: FC<Props> = ({ profile, onJoin }) => {
   }
 
   const { signTypedDataAsync } = useSignTypedData({
-    onError
+    mutation: { onError }
   })
 
-  const { write } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
-    abi: LENSHUB_PROXY_ABI,
-    functionName: 'follow',
-    onSuccess: () => onCompleted(),
-    onError
+  const { writeContract } = useWriteContract({
+    mutation: {
+      onSuccess: () => onCompleted(),
+      onError
+    }
   })
 
   const [broadcast] = useBroadcastOnchainMutation({
@@ -86,6 +85,15 @@ const SuperFollow: FC<Props> = ({ profile, onJoin }) => {
       onCompleted(broadcastOnchain.__typename),
     onError
   })
+
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      address: LENSHUB_PROXY_ADDRESS,
+      abi: LENSHUB_PROXY_ABI,
+      functionName: 'follow',
+      args
+    })
+  }
 
   const { data: followModuleData } = useProfileFollowModuleQuery({
     variables: { request: { forProfileId: profile?.id } },
@@ -113,16 +121,24 @@ const SuperFollow: FC<Props> = ({ profile, onJoin }) => {
     }
   })
 
-  const { data: txData, sendTransaction } = useSendTransaction({
-    onError(error: CustomErrorWithData) {
-      toast.error(error?.data?.message ?? error?.message)
+  const { data: txnHash, sendTransaction } = useSendTransaction({
+    mutation: {
+      onError: (error: CustomErrorWithData) => {
+        toast.error(error?.data?.message ?? error?.message)
+      }
     }
   })
 
-  useWaitForTransaction({
-    hash: txData?.hash,
-    onSuccess: () => refetch()
+  const { isSuccess } = useWaitForTransactionReceipt({
+    hash: txnHash
   })
+
+  useEffect(() => {
+    if (isSuccess) {
+      refetch()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccess])
 
   const [createFollowTypedData] = useCreateFollowTypedDataMutation({
     async onCompleted({ createFollowTypedData }) {

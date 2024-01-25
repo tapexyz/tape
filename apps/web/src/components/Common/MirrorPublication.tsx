@@ -32,7 +32,7 @@ import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import { useContractWrite, useSignTypedData } from 'wagmi'
+import { useSignTypedData, useWriteContract } from 'wagmi'
 
 type Props = {
   video: MirrorablePublication
@@ -74,22 +74,30 @@ const MirrorPublication: FC<Props> = ({
   }
 
   const { signTypedDataAsync } = useSignTypedData({
-    onError
+    mutation: { onError }
   })
 
-  const { write } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
-    abi: LENSHUB_PROXY_ABI,
-    functionName: 'mirror',
-    onSuccess: () => {
-      onCompleted()
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
-    },
-    onError: (error) => {
-      onError(error)
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
+  const { writeContract } = useWriteContract({
+    mutation: {
+      onSuccess: () => {
+        onCompleted()
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
+      },
+      onError: (error) => {
+        onError(error)
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
+      }
     }
   })
+
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      address: LENSHUB_PROXY_ADDRESS,
+      abi: LENSHUB_PROXY_ABI,
+      functionName: 'mirror',
+      args
+    })
+  }
 
   const getSignatureFromTypedData = async (
     data: CreateMomokaMirrorEip712TypedData | CreateOnchainMirrorEip712TypedData

@@ -16,7 +16,12 @@ import {
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import { decodeAbiParameters, encodeAbiParameters, parseUnits } from 'viem'
+import {
+  decodeAbiParameters,
+  encodeAbiParameters,
+  formatUnits,
+  parseUnits
+} from 'viem'
 import { useAccount, useBalance } from 'wagmi'
 
 import BalanceAlert from '../../BalanceAlert'
@@ -78,17 +83,20 @@ const TipOpenAction: FC<Props> = ({
 
   const { data: balanceData, isLoading: balanceLoading } = useBalance({
     address,
-    token: tipCurrency?.address as `0x${string}`,
-    formatUnits: tipCurrency?.decimals,
-    watch: Boolean(tipCurrency?.address),
-    enabled: Boolean(tipCurrency?.address)
+    query: {
+      enabled: Boolean(tipCurrency?.address),
+      refetchInterval: 2000
+    },
+    token: tipCurrency?.address as `0x${string}`
   })
 
   useEffect(() => {
     if (
       balanceData &&
       tip.value &&
-      parseFloat(balanceData?.formatted) < parseFloat(String(tip.value[0]))
+      parseFloat(
+        formatUnits(balanceData.value, tipCurrency?.decimals as number)
+      ) < parseFloat(String(tip.value[0]))
     ) {
       setHaveEnoughBalance(false)
     } else {
@@ -97,7 +105,7 @@ const TipOpenAction: FC<Props> = ({
     if (tipCurrency?.address) {
       refetchAllowance()
     }
-  }, [balanceData, tipCurrency?.address, refetchAllowance, tip.value])
+  }, [balanceData, tipCurrency, refetchAllowance, tip.value])
 
   const onSendTip = () => {
     if (!tipCurrency) {

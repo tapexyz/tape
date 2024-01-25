@@ -15,7 +15,7 @@ import type { FC } from 'react'
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork'
-import { useContractWrite, useWaitForTransaction } from 'wagmi'
+import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
 
 const Guardian: FC = () => {
   const { activeProfile, setActiveProfile } = useProfileStore()
@@ -45,22 +45,17 @@ const Guardian: FC = () => {
     setLoading(false)
   }
 
-  const { data: disableData, write: disableWrite } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
-    abi: LENSHUB_PROXY_ABI,
-    functionName: 'DANGER__disableTokenGuardian',
-    onError
+  const { data: txnHash, writeContract } = useWriteContract({
+    mutation: {
+      onError
+    }
   })
 
-  const { data: enableData, write: enableWrite } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
-    abi: LENSHUB_PROXY_ABI,
-    functionName: 'enableTokenGuardian',
-    onError
-  })
-
-  const { isSuccess } = useWaitForTransaction({
-    hash: disableData?.hash ?? enableData?.hash
+  const { isSuccess } = useWaitForTransactionReceipt({
+    hash: txnHash,
+    query: {
+      enabled: txnHash && txnHash.length > 0
+    }
   })
 
   useEffect(() => {
@@ -84,9 +79,17 @@ const Guardian: FC = () => {
     try {
       setLoading(true)
       if (guardianEnabled) {
-        return disableWrite()
+        return writeContract({
+          address: LENSHUB_PROXY_ADDRESS,
+          abi: LENSHUB_PROXY_ABI,
+          functionName: 'DANGER__disableTokenGuardian'
+        })
       }
-      return enableWrite()
+      return writeContract({
+        address: LENSHUB_PROXY_ADDRESS,
+        abi: LENSHUB_PROXY_ABI,
+        functionName: 'DANGER__disableTokenGuardian'
+      })
     } catch (error) {
       onError(error as any)
     }

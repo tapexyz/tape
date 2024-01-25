@@ -11,12 +11,11 @@ import {
   useApprovedModuleAllowanceAmountQuery,
   useGenerateModuleCurrencyApprovalDataLazyQuery
 } from '@tape.xyz/lens'
-import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import { Button, Select, SelectItem, Spinner } from '@tape.xyz/ui'
 import Link from 'next/link'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import { useSendTransaction, useWaitForTransaction } from 'wagmi'
+import { useSendTransaction, useWaitForTransactionReceipt } from 'wagmi'
 
 const ModuleItem = ({
   moduleItem,
@@ -32,25 +31,34 @@ const ModuleItem = ({
   const [generateAllowanceQuery] =
     useGenerateModuleCurrencyApprovalDataLazyQuery()
 
-  const { data: txData, sendTransaction } = useSendTransaction({
-    onError(error: CustomErrorWithData) {
-      toast.error(error?.data?.message ?? error?.message)
-      setLoadingModule('')
+  const { data: hash, sendTransaction } = useSendTransaction({
+    mutation: {
+      onError: (error) => {
+        toast.error(error?.message)
+        setLoadingModule('')
+      }
     }
   })
 
-  useWaitForTransaction({
-    hash: txData?.hash,
-    onSuccess: () => {
+  const { isSuccess, error, isError } = useWaitForTransactionReceipt({
+    hash,
+    query: {
+      enabled: hash && hash.length > 0
+    }
+  })
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(error?.message)
+      setLoadingModule('')
+    }
+    if (isSuccess) {
       onSuccess()
       toast.success(`Allowance updated`)
       setLoadingModule('')
-    },
-    onError(error: CustomErrorWithData) {
-      toast.error(error?.data?.message ?? error?.message)
-      setLoadingModule('')
     }
-  })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isError, isSuccess, error])
 
   const handleClick = async (
     isAllow: boolean,

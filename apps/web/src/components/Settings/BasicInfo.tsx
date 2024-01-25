@@ -44,7 +44,7 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { v4 as uuidv4 } from 'uuid'
-import { useContractWrite, useSignTypedData } from 'wagmi'
+import { useSignTypedData, useWriteContract } from 'wagmi'
 import type { z } from 'zod'
 import { object, string, union } from 'zod'
 
@@ -138,16 +138,24 @@ const BasicInfo = ({ profile }: Props) => {
   }
 
   const { signTypedDataAsync } = useSignTypedData({
-    onError
+    mutation: { onError }
   })
 
-  const { write } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
-    abi: LENSHUB_PROXY_ABI,
-    functionName: 'setProfileMetadataURI',
-    onError,
-    onSuccess: () => onCompleted()
+  const { writeContract } = useWriteContract({
+    mutation: {
+      onError,
+      onSuccess: () => onCompleted()
+    }
   })
+
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      address: LENSHUB_PROXY_ADDRESS,
+      abi: LENSHUB_PROXY_ABI,
+      functionName: 'setProfileMetadataURI',
+      args
+    })
+  }
 
   const [broadcast] = useBroadcastOnchainMutation({
     onError,

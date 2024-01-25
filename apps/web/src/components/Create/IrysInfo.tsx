@@ -16,24 +16,28 @@ import {
 } from '@tape.xyz/ui'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import { formatEther, parseEther, parseUnits } from 'viem'
 import {
-  useAccount,
-  useBalance,
-  usePrepareSendTransaction,
-  useSendTransaction
-} from 'wagmi'
+  formatEther,
+  formatGwei,
+  formatUnits,
+  parseEther,
+  parseUnits
+} from 'viem'
+import { useAccount, useBalance, useSendTransaction } from 'wagmi'
 
 const IrysInfo = () => {
   const isMounted = useIsMounted()
   const { address } = useAccount()
   const { data: signer } = useEthersWalletClient()
   const { sendTransactionAsync } = useSendTransaction()
-  const { config } = usePrepareSendTransaction()
+
   const { data: userBalance } = useBalance({
     address,
     chainId: POLYGON_CHAIN_ID,
-    watch: true
+    query: {
+      enabled: Boolean(address),
+      refetchInterval: 2000
+    }
   })
 
   const uploadedMedia = useAppStore((state) => state.uploadedMedia)
@@ -104,10 +108,12 @@ const IrysInfo = () => {
     if (!value || Number(value) < 1) {
       return toast.error('Invalid deposit amount')
     }
-    if (
-      userBalance?.formatted &&
-      parseFloat(userBalance?.formatted) < depositAmount
-    ) {
+
+    const formattedValue = formatUnits(
+      userBalance?.value ?? BigInt(0),
+      userBalance?.decimals as number
+    )
+    if (formattedValue && parseFloat(formattedValue) < depositAmount) {
       return toast.error(
         `Insufficient funds in your wallet, you have ${userBalance?.formatted} MATIC.`
       )
@@ -119,16 +125,21 @@ const IrysInfo = () => {
       return 0
     }
     irysData.instance.tokenConfig.sendTx = async (data): Promise<string> => {
-      const { hash } = await sendTransactionAsync(data)
+      const hash = await sendTransactionAsync(data)
       return hash
     }
     irysData.instance.tokenConfig.createTx = async (
       amount: `${number}`,
       to: `0x${string}`
     ): Promise<{ txId: string | undefined; tx: any }> => {
-      config.to = to
-      config.value = parseEther(amount.toString() as `${number}`, 'gwei')
-      return { txId: undefined, tx: config }
+      return {
+        txId: undefined,
+        tx: {
+          to,
+          account: address,
+          value: parseEther(amount.toString(), 'gwei')
+        }
+      }
     }
     // TEMP:END: override irys functions for viem
 
@@ -136,9 +147,9 @@ const IrysInfo = () => {
       const fundResult = await irysData.instance.fund(value.toString())
       if (fundResult) {
         toast.success(
-          `Deposit of ${formatEther(
+          `Deposit of ${formatGwei(
             BigInt(fundResult?.quantity)
-          )} is done and it will be reflected in few seconds.`
+          )} ${IRYS_CURRENCY} is done and it will be reflected in few seconds.`
         )
         Tower.track(EVENTS.DEPOSIT_MATIC)
       }

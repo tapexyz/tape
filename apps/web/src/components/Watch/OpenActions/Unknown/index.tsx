@@ -24,7 +24,7 @@ import {
 } from '@tape.xyz/ui'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import { useContractWrite, useSignTypedData } from 'wagmi'
+import { useSignTypedData, useWriteContract } from 'wagmi'
 
 import { VERIFIED_UNKNOWN_OPEN_ACTION_CONTRACTS } from '../verified-contracts'
 import TipOpenAction from './Tip'
@@ -57,7 +57,7 @@ const UnknownOpenAction = ({
   }
 
   const handleWrongNetwork = useHandleWrongNetwork()
-  const { signTypedDataAsync } = useSignTypedData({ onError })
+  const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } })
 
   const activeProfile = useProfileStore((state) => state.activeProfile)
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
@@ -72,19 +72,27 @@ const UnknownOpenAction = ({
 
   const metadata = module?.moduleMetadata?.metadata
 
-  const { write } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
-    abi: LENSHUB_PROXY_ABI,
-    functionName: 'act',
-    onSuccess: () => {
-      onCompleted()
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
-    },
-    onError: (error) => {
-      onError(error)
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
+  const { writeContract } = useWriteContract({
+    mutation: {
+      onSuccess: () => {
+        onCompleted()
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
+      },
+      onError: (error) => {
+        onError(error)
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
+      }
     }
   })
+
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      address: LENSHUB_PROXY_ADDRESS,
+      abi: LENSHUB_PROXY_ABI,
+      functionName: 'act',
+      args
+    })
+  }
 
   const [broadcastOnchain] = useBroadcastOnchainMutation({
     onCompleted: ({ broadcastOnchain }) =>

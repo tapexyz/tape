@@ -51,7 +51,7 @@ import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
 import { v4 as uuidv4 } from 'uuid'
-import { useContractWrite, useSignTypedData } from 'wagmi'
+import { useSignTypedData, useWriteContract } from 'wagmi'
 import type { z } from 'zod'
 import { object, string } from 'zod'
 
@@ -144,25 +144,33 @@ const NewComment: FC<Props> = ({
   }
 
   const { signTypedDataAsync } = useSignTypedData({
-    onError
+    mutation: { onError }
   })
 
-  const { write } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
-    abi: LENSHUB_PROXY_ABI,
-    functionName: 'comment',
-    onSuccess: (data) => {
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
-      if (data.hash) {
-        setToQueue({ txnHash: data.hash })
+  const { writeContract } = useWriteContract({
+    mutation: {
+      onSuccess: (hash) => {
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
+        if (hash) {
+          setToQueue({ txnHash: hash })
+        }
+        onCompleted()
+      },
+      onError: (error) => {
+        onError(error)
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
       }
-      onCompleted()
-    },
-    onError: (error) => {
-      onError(error)
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
     }
   })
+
+  const write = ({ args }: { args: any[] }) => {
+    return writeContract({
+      address: LENSHUB_PROXY_ADDRESS,
+      abi: LENSHUB_PROXY_ABI,
+      functionName: 'comment',
+      args
+    })
+  }
 
   const [getComment] = usePublicationLazyQuery()
 
