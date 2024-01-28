@@ -78,7 +78,7 @@
     "@tape.xyz/config": "*",
     "@tape.xyz/generic": "*",
     "@tape.xyz/lens": "*",
-    "@types/node": "20.11.6",
+    "@types/node": "20.11.7",
     "@types/qrcode": "^1.5.5",
     "@welldone-software/why-did-you-render": "^8.0.1",
     "babel-plugin-module-resolver": "^5.0.0",
