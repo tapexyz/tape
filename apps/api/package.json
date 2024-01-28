@@ -12,7 +12,7 @@
   "dependencies": {
     "@aws-sdk/client-sts": "3.501.0",
     "@hono/zod-validator": "^0.1.11",
-    "hono": "^3.12.6",
+    "hono": "^3.12.8",
     "linkedom": "^0.16.8",
     "ua-parser-js": "^1.0.37",
     "viem": "^2.0.0",
