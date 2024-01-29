@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@tape.xyz/config": "*",
-    "@types/node": "^20.11.9",
+    "@types/node": "^20.11.10",
     "typescript": "^5.3.3"
   }
 }
