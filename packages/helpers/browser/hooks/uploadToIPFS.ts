@@ -15,14 +15,14 @@ const everland = async (
   onProgress?: (percentage: number) => void
 ) => {
   try {
-    const token = await axios.get(WORKER_STS_TOKEN_URL)
+    const { data } = await axios.get(WORKER_STS_TOKEN_URL)
     const client = new S3({
       endpoint: EVER_ENDPOINT,
       region: EVER_REGION,
       credentials: {
-        accessKeyId: token.data?.accessKeyId,
-        secretAccessKey: token.data?.secretAccessKey,
-        sessionToken: token.data?.sessionToken
+        accessKeyId: data?.accessKeyId,
+        secretAccessKey: data?.secretAccessKey,
+        sessionToken: data?.sessionToken
       },
       maxAttempts: 10
     })
