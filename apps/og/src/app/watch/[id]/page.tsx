@@ -18,6 +18,7 @@ import { apolloClient } from '@tape.xyz/lens/apollo'
 import type { Metadata } from 'next'
 
 import common from '@/common'
+import { getCollectModuleMetadata } from '@/other-metadata'
 
 type Props = {
   params: { id: string }
@@ -68,7 +69,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       videos: [embedUrl],
       duration,
       url: pageUrl,
-      tags: metadata.tags ?? ['tape', 'video']
+      tags: [
+        ...(Array.isArray(metadata.tags) ? metadata.tags : []),
+        'tape',
+        'video',
+        'episode',
+        'watch',
+        title,
+        getProfile(profile).displayName
+      ],
+      releaseDate: targetPublication.createdAt
     },
     twitter: {
       title,
@@ -76,6 +86,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: 'player',
       images: [publicationCover],
       site: `@${TAPE_X_HANDLE}`
+    },
+    other: {
+      ...getCollectModuleMetadata(targetPublication)
     },
     alternates: {
       canonical: pageUrl,
