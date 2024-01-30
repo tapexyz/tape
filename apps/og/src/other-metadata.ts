@@ -20,13 +20,14 @@ export const getCollectModuleMetadata = (publication: PrimaryPublication) => {
     return
   }
 
+  const { metadata } = publication
   const pageUrl = `${TAPE_WEBSITE_URL}/watch/${publication.id}`
-  const publicationTitle = getPublicationData(publication.metadata)?.title || ''
+  const publicationTitle = getPublicationData(metadata)?.title || ''
   const title = `${publicationTitle} by ${
     getProfile(publication.by).slugWithPrefix
   } • ${TAPE_APP_NAME}`
   const publicationCover =
-    getPublicationData(publication.metadata)?.asset?.cover || OG_IMAGE
+    getPublicationData(metadata)?.asset?.cover || OG_IMAGE
 
   return {
     'eth:nft:chain': 'polygon',
