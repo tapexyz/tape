@@ -70,10 +70,3 @@ input[type='number'] {
 .preview-tippy-content > div {
   @apply !px-0 !py-0;
 }
-
-#tape-cursor {
-  cursor:
-    url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='70' height='70' viewport='0 0 70 70' style='fill:black;font-size:70px;'><text y='70%'>📼</text></svg>")
-      16 0,
-    auto;
-}

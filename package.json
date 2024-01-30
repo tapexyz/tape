@@ -21,7 +21,7 @@
     "mobile": "cd apps/mobile && yarn mobile:start"
   },
   "devDependencies": {
-    "husky": "^9.0.6",
+    "husky": "^9.0.7",
     "prettier-plugin-tailwindcss": "^0.5.11",
     "turbo": "1.11.3"
   },

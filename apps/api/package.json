@@ -10,16 +10,16 @@
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "3.501.0",
+    "@aws-sdk/client-sts": "3.502.0",
     "@hono/zod-validator": "^0.1.11",
     "hono": "^3.12.8",
     "linkedom": "^0.16.8",
     "ua-parser-js": "^1.0.37",
-    "viem": "^2.0.0",
+    "viem": "^2.6.0",
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20240117.0",
+    "@cloudflare/workers-types": "^4.20240129.0",
     "@tape.xyz/config": "*",
     "@tape.xyz/generic": "*",
     "@types/ua-parser-js": "^0.7.39",
