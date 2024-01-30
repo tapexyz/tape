@@ -10,7 +10,7 @@
   "dependencies": {
     "@lens-protocol/metadata": "^1.1.5",
     "dayjs-twitter": "^0.5.0",
-    "viem": "^2.0.0"
+    "viem": "^2.6.0"
   },
   "devDependencies": {
     "@tape.xyz/constants": "*",
