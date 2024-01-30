@@ -69,7 +69,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       videos: [embedUrl],
       duration,
       url: pageUrl,
-      tags: metadata.tags ?? ['tape', 'video'],
+      tags: [
+        ...(Array.isArray(metadata.tags) ? metadata.tags : []),
+        'tape',
+        'video',
+        'episode',
+        'watch',
+        title,
+        getProfile(profile).displayName
+      ],
       releaseDate: targetPublication.createdAt
     },
     twitter: {
