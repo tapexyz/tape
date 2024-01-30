@@ -36,6 +36,7 @@ export const getCollectModuleMetadata = (publication: PrimaryPublication) => {
     'eth:nft:media_url': publicationCover,
     'eth:nft:mint_count': publication.stats.countOpenActions,
     'eth:nft:mint_url': pageUrl,
+    'eth:nft:media:type': 'video',
     'eth:nft:schema': 'ERC721'
   }
 }
