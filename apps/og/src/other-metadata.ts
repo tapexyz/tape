@@ -21,11 +21,10 @@ export const getCollectModuleMetadata = (publication: PrimaryPublication) => {
   }
 
   const { metadata } = publication
-  const pageUrl = `${TAPE_WEBSITE_URL}/watch/${publication.id}`
+  const profile = getProfile(publication.by)
   const publicationTitle = getPublicationData(metadata)?.title || ''
-  const title = `${publicationTitle} by ${
-    getProfile(publication.by).slugWithPrefix
-  } • ${TAPE_APP_NAME}`
+  const title = `${publicationTitle} by ${profile.slugWithPrefix} • ${TAPE_APP_NAME}`
+  const pageUrl = `${TAPE_WEBSITE_URL}/watch/${publication.id}`
   const publicationCover =
     getPublicationData(metadata)?.asset?.cover || OG_IMAGE
 
