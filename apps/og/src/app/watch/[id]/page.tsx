@@ -18,6 +18,7 @@ import { apolloClient } from '@tape.xyz/lens/apollo'
 import type { Metadata } from 'next'
 
 import common from '@/common'
+import { getCollectModuleMetadata } from '@/other-metadata'
 
 type Props = {
   params: { id: string }
@@ -76,6 +77,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: 'player',
       images: [publicationCover],
       site: `@${TAPE_X_HANDLE}`
+    },
+    other: {
+      ...getCollectModuleMetadata(targetPublication)
     },
     alternates: {
       canonical: pageUrl,
