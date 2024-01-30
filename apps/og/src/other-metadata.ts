@@ -1,11 +1,9 @@
 import { OG_IMAGE, TAPE_APP_NAME, TAPE_WEBSITE_URL } from '@tape.xyz/constants'
 import { getProfile, getPublicationData } from '@tape.xyz/generic'
 import isOpenActionAllowed from '@tape.xyz/generic/functions/isOpenActionAllowed'
-import type { MirrorablePublication } from '@tape.xyz/lens'
+import type { PrimaryPublication } from '@tape.xyz/lens'
 
-export const getCollectModuleMetadata = (
-  publication: MirrorablePublication
-) => {
+export const getCollectModuleMetadata = (publication: PrimaryPublication) => {
   const { openActionModules } = publication
 
   if (!openActionModules) {
