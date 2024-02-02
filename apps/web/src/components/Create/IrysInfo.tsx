@@ -15,7 +15,7 @@ import {
 } from '@tape.xyz/ui'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import { formatEther, formatGwei, formatUnits, parseUnits } from 'viem'
+import { formatEther, formatGwei, formatUnits } from 'viem'
 import { useAccount, useBalance, useWalletClient } from 'wagmi'
 
 const IrysInfo = () => {
@@ -96,7 +96,7 @@ const IrysInfo = () => {
       return toast.error('Enter deposit amount')
     }
     const depositAmount = parseFloat(irysData.deposit)
-    const value = parseUnits(depositAmount.toString() as `${number}`, 9)
+    const value = irysData.instance.utils.toAtomic(depositAmount)
     if (!value || Number(value) < 1) {
       return toast.error('Invalid deposit amount')
     }
@@ -107,33 +107,10 @@ const IrysInfo = () => {
     )
     if (formattedValue && parseFloat(formattedValue) < depositAmount) {
       return toast.error(
-        `Insufficient funds in your wallet, you have ${userBalance?.formatted} MATIC.`
+        `Insufficient funds in your wallet, you have ${formattedValue} MATIC.`
       )
     }
     setIrysData({ depositing: true })
-
-    // TEMP:START: override irys functions for viem
-    // irysData.instance.tokenConfig.getFee = async (): Promise<any> => {
-    //   return 0
-    // }
-    // irysData.instance.tokenConfig.sendTx = async (data): Promise<string> => {
-    //   const hash = await sendTransactionAsync(data)
-    //   return hash
-    // }
-    // irysData.instance.tokenConfig.createTx = async (
-    //   amount: `${number}`,
-    //   to: `0x${string}`
-    // ): Promise<{ txId: string | undefined; tx: any }> => {
-    //   return {
-    //     txId: undefined,
-    //     tx: {
-    //       to,
-    //       account: address,
-    //       value: parseEther(amount.toString(), 'gwei')
-    //     }
-    //   }
-    // }
-    // TEMP:END: override irys functions for viem
 
     try {
       const fundResult = await irysData.instance.fund(value.toString())
