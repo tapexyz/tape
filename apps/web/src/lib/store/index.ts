@@ -1,6 +1,6 @@
 import { WebIrys } from '@irys/sdk'
 import { MetadataLicenseType } from '@lens-protocol/metadata'
-import { viemPublicClient, viemWalletClient } from '@lib/viemClient'
+import { viemPublicClient } from '@lib/viemClient'
 import {
   CREATOR_VIDEO_CATEGORIES,
   IRYS_CURRENCY,
@@ -9,6 +9,7 @@ import {
 } from '@tape.xyz/constants'
 import { logger } from '@tape.xyz/generic'
 import type { IrysDataState, UploadedMedia } from '@tape.xyz/lens/custom-types'
+import type { WalletClient } from 'viem'
 import { create } from 'zustand'
 
 export const UPLOADED_VIDEO_IRYS_DEFAULTS = {
@@ -72,7 +73,7 @@ interface AppState {
   setActiveTagFilter: (activeTagFilter: string) => void
   setVideoWatchTime: (videoWatchTime: number) => void
   setIrysData: (irysProps: Partial<IrysDataState>) => void
-  getIrysInstance: () => Promise<WebIrys | null>
+  getIrysInstance: (client: WalletClient) => Promise<WebIrys | null>
 }
 
 const useAppStore = create<AppState>((set) => ({
@@ -88,14 +89,14 @@ const useAppStore = create<AppState>((set) => ({
     set((state) => ({
       uploadedMedia: { ...state.uploadedMedia, ...mediaProps }
     })),
-  getIrysInstance: async () => {
+  getIrysInstance: async (client: WalletClient) => {
     try {
       const instance = new WebIrys({
         url: IRYS_NODE_URL,
         token: IRYS_CURRENCY,
         wallet: {
           name: 'viemv2',
-          provider: viemWalletClient,
+          provider: client,
           publicClient: viemPublicClient
         }
       })

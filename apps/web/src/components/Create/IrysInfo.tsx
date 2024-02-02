@@ -16,11 +16,12 @@ import {
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { formatEther, formatGwei, formatUnits, parseUnits } from 'viem'
-import { useAccount, useBalance } from 'wagmi'
+import { useAccount, useBalance, useWalletClient } from 'wagmi'
 
 const IrysInfo = () => {
   const isMounted = useIsMounted()
   const { address } = useAccount()
+  const { data: walletClient } = useWalletClient()
 
   const { data: userBalance } = useBalance({
     address,
@@ -34,7 +35,6 @@ const IrysInfo = () => {
   const uploadedMedia = useAppStore((state) => state.uploadedMedia)
   const getIrysInstance = useAppStore((state) => state.getIrysInstance)
   const irysData = useAppStore((state) => state.irysData)
-  console.log('🚀 ~ IrysInfo ~ irysData:', irysData)
   const setIrysData = useAppStore((state) => state.setIrysData)
   const [fetchingBalance, setFetchingBalance] = useState(false)
 
@@ -65,8 +65,8 @@ const IrysInfo = () => {
   }
 
   const initIrys = async () => {
-    if (address && !irysData.instance) {
-      const irys = await getIrysInstance()
+    if (walletClient && address && !irysData.instance) {
+      const irys = await getIrysInstance(walletClient)
       if (irys) {
         setIrysData({ instance: irys })
         await fetchBalance(irys)
