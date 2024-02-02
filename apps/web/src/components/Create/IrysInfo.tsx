@@ -75,11 +75,11 @@ const IrysInfo = () => {
   }
 
   useEffect(() => {
-    if (isMounted()) {
+    if (walletClient && isMounted()) {
       initIrys().catch((error) => logger.error('[Error Init Irys]', error))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isMounted()])
+  }, [walletClient, isMounted()])
 
   useEffect(() => {
     if (irysData.instance && isMounted()) {
