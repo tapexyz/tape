@@ -1,10 +1,10 @@
 import { WebIrys } from '@irys/sdk'
 import { MetadataLicenseType } from '@lens-protocol/metadata'
+import { viemPublicClient, viemWalletClient } from '@lib/viemClient'
 import {
   CREATOR_VIDEO_CATEGORIES,
   IRYS_CURRENCY,
   IRYS_NODE_URL,
-  POLYGON_RPC_URL,
   WMATIC_TOKEN_ADDRESS
 } from '@tape.xyz/constants'
 import { logger } from '@tape.xyz/generic'
@@ -72,9 +72,7 @@ interface AppState {
   setActiveTagFilter: (activeTagFilter: string) => void
   setVideoWatchTime: (videoWatchTime: number) => void
   setIrysData: (irysProps: Partial<IrysDataState>) => void
-  getIrysInstance: (signer: {
-    signMessage: (message: string) => Promise<string>
-  }) => Promise<WebIrys | null>
+  getIrysInstance: () => Promise<WebIrys | null>
 }
 
 const useAppStore = create<AppState>((set) => ({
@@ -90,18 +88,17 @@ const useAppStore = create<AppState>((set) => ({
     set((state) => ({
       uploadedMedia: { ...state.uploadedMedia, ...mediaProps }
     })),
-  getIrysInstance: async (signer) => {
+  getIrysInstance: async () => {
     try {
       const instance = new WebIrys({
         url: IRYS_NODE_URL,
         token: IRYS_CURRENCY,
         wallet: {
-          rpcUrl: POLYGON_RPC_URL,
-          name: 'viem',
-          provider: signer
+          name: 'viemv2',
+          provider: viemWalletClient,
+          publicClient: viemPublicClient
         }
       })
-      await instance.utils.getBundlerAddress(IRYS_CURRENCY)
       await instance.ready()
       return instance
     } catch (error) {

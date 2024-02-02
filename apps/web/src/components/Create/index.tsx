@@ -1,5 +1,4 @@
 import MetaTags from '@components/Common/MetaTags'
-import useEthersWalletClient from '@hooks/useEthersWalletClient'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import type {
   AudioOptions,
@@ -82,7 +81,6 @@ const CreateSteps = () => {
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
   const { queuedVideos, setQueuedVideos } = usePersistStore()
   const { address } = useAccount()
-  const { data: signer } = useEthersWalletClient()
   const router = useRouter()
   const handleWrongNetwork = useHandleWrongNetwork()
   const { canUseLensManager, canBroadcast } =
@@ -181,9 +179,9 @@ const CreateSteps = () => {
   }
 
   const initIrys = async () => {
-    if (signer && address && !irysData.instance) {
+    if (address && !irysData.instance) {
       toast.loading(IRYS_CONNECT_MESSAGE)
-      const instance = await getIrysInstance(signer)
+      const instance = await getIrysInstance()
       if (instance) {
         setIrysData({ instance })
       }

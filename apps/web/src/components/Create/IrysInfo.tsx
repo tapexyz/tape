@@ -1,4 +1,3 @@
-import useEthersWalletClient from '@hooks/useEthersWalletClient'
 import type { WebIrys } from '@irys/sdk'
 import useAppStore from '@lib/store'
 import { useIsMounted } from '@tape.xyz/browser'
@@ -16,20 +15,12 @@ import {
 } from '@tape.xyz/ui'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import {
-  formatEther,
-  formatGwei,
-  formatUnits,
-  parseEther,
-  parseUnits
-} from 'viem'
-import { useAccount, useBalance, useSendTransaction } from 'wagmi'
+import { formatEther, formatGwei, formatUnits, parseUnits } from 'viem'
+import { useAccount, useBalance } from 'wagmi'
 
 const IrysInfo = () => {
   const isMounted = useIsMounted()
   const { address } = useAccount()
-  const { data: signer } = useEthersWalletClient()
-  const { sendTransactionAsync } = useSendTransaction()
 
   const { data: userBalance } = useBalance({
     address,
@@ -43,6 +34,7 @@ const IrysInfo = () => {
   const uploadedMedia = useAppStore((state) => state.uploadedMedia)
   const getIrysInstance = useAppStore((state) => state.getIrysInstance)
   const irysData = useAppStore((state) => state.irysData)
+  console.log('🚀 ~ IrysInfo ~ irysData:', irysData)
   const setIrysData = useAppStore((state) => state.setIrysData)
   const [fetchingBalance, setFetchingBalance] = useState(false)
 
@@ -73,8 +65,8 @@ const IrysInfo = () => {
   }
 
   const initIrys = async () => {
-    if (signer && address && !irysData.instance) {
-      const irys = await getIrysInstance(signer)
+    if (address && !irysData.instance) {
+      const irys = await getIrysInstance()
       if (irys) {
         setIrysData({ instance: irys })
         await fetchBalance(irys)
@@ -83,11 +75,11 @@ const IrysInfo = () => {
   }
 
   useEffect(() => {
-    if (signer && isMounted()) {
+    if (isMounted()) {
       initIrys().catch((error) => logger.error('[Error Init Irys]', error))
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [signer, isMounted()])
+  }, [isMounted()])
 
   useEffect(() => {
     if (irysData.instance && isMounted()) {
@@ -121,26 +113,26 @@ const IrysInfo = () => {
     setIrysData({ depositing: true })
 
     // TEMP:START: override irys functions for viem
-    irysData.instance.tokenConfig.getFee = async (): Promise<any> => {
-      return 0
-    }
-    irysData.instance.tokenConfig.sendTx = async (data): Promise<string> => {
-      const hash = await sendTransactionAsync(data)
-      return hash
-    }
-    irysData.instance.tokenConfig.createTx = async (
-      amount: `${number}`,
-      to: `0x${string}`
-    ): Promise<{ txId: string | undefined; tx: any }> => {
-      return {
-        txId: undefined,
-        tx: {
-          to,
-          account: address,
-          value: parseEther(amount.toString(), 'gwei')
-        }
-      }
-    }
+    // irysData.instance.tokenConfig.getFee = async (): Promise<any> => {
+    //   return 0
+    // }
+    // irysData.instance.tokenConfig.sendTx = async (data): Promise<string> => {
+    //   const hash = await sendTransactionAsync(data)
+    //   return hash
+    // }
+    // irysData.instance.tokenConfig.createTx = async (
+    //   amount: `${number}`,
+    //   to: `0x${string}`
+    // ): Promise<{ txId: string | undefined; tx: any }> => {
+    //   return {
+    //     txId: undefined,
+    //     tx: {
+    //       to,
+    //       account: address,
+    //       value: parseEther(amount.toString(), 'gwei')
+    //     }
+    //   }
+    // }
     // TEMP:END: override irys functions for viem
 
     try {
