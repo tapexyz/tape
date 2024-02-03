@@ -1,5 +1,4 @@
 import MetaTags from '@components/Common/MetaTags'
-import useEthersWalletClient from '@hooks/useEthersWalletClient'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import type {
   AudioOptions,
@@ -64,7 +63,12 @@ import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
 import { v4 as uuidv4 } from 'uuid'
-import { useAccount, useSignTypedData, useWriteContract } from 'wagmi'
+import {
+  useAccount,
+  useSignTypedData,
+  useWalletClient,
+  useWriteContract
+} from 'wagmi'
 
 import type { VideoFormData } from './Details'
 import Details from './Details'
@@ -81,9 +85,11 @@ const CreateSteps = () => {
 
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
   const { queuedVideos, setQueuedVideos } = usePersistStore()
+
   const { address } = useAccount()
-  const { data: signer } = useEthersWalletClient()
   const router = useRouter()
+  const { data: walletClient } = useWalletClient()
+
   const handleWrongNetwork = useHandleWrongNetwork()
   const { canUseLensManager, canBroadcast } =
     checkLensManagerPermissions(activeProfile)
@@ -181,9 +187,9 @@ const CreateSteps = () => {
   }
 
   const initIrys = async () => {
-    if (signer && address && !irysData.instance) {
+    if (walletClient && address && !irysData.instance) {
       toast.loading(IRYS_CONNECT_MESSAGE)
-      const instance = await getIrysInstance(signer)
+      const instance = await getIrysInstance(walletClient)
       if (instance) {
         setIrysData({ instance })
       }
