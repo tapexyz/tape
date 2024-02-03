@@ -113,7 +113,7 @@ const IrysInfo = () => {
     setIrysData({ depositing: true })
 
     try {
-      const fundResult = await irysData.instance.fund(value.toString())
+      const fundResult = await irysData.instance.fund(value)
       if (fundResult) {
         toast.success(
           `Deposit of ${formatGwei(
