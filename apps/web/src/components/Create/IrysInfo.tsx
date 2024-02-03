@@ -96,8 +96,8 @@ const IrysInfo = () => {
       return toast.error('Enter deposit amount')
     }
     const depositAmount = parseFloat(irysData.deposit)
-    const value = irysData.instance.utils.toAtomic(depositAmount)
-    if (!value || Number(value) < 1) {
+    const fundValue = irysData.instance.utils.toAtomic(depositAmount)
+    if (!fundValue || Number(fundValue) < 1) {
       return toast.error('Invalid deposit amount')
     }
 
@@ -113,7 +113,7 @@ const IrysInfo = () => {
     setIrysData({ depositing: true })
 
     try {
-      const fundResult = await irysData.instance.fund(value)
+      const fundResult = await irysData.instance.fund(fundValue)
       if (fundResult) {
         toast.success(
           `Deposit of ${formatGwei(
