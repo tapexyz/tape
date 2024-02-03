@@ -3143,10 +3143,10 @@
     auto-bind "~4.0.0"
     tslib "~2.5.0"
 
-"@graphql-codegen/typescript-react-apollo@^4.1.0":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript-react-apollo/-/typescript-react-apollo-4.1.0.tgz#d900c5d6c259f9b986f917ee280d6bd539f7ecc4"
-  integrity sha512-G7l4ECoilGnW1zJeqgsFQEVup9ME3w3811ZxHP5yvTra3ZNsbZO4WbYBOPKyS5uc4swsTAxj70a28hNF7kdVcw==
+"@graphql-codegen/typescript-react-apollo@^4.2.0":
+  version "4.2.0"
+  resolved "https://registry.yarnpkg.com/@graphql-codegen/typescript-react-apollo/-/typescript-react-apollo-4.2.0.tgz#b68d9c0b97880ece3b3ce984eda68e4d1044fda1"
+  integrity sha512-rHIDYkW3aQj5fdyXjNtKODr9P8BT+vN2zc1BpVmRixvcleN7pPEuvMw6oDaNpE26wKKDPZ4OC5RxullpUXCMEQ==
   dependencies:
     "@graphql-codegen/plugin-helpers" "^3.0.0"
     "@graphql-codegen/visitor-plugin-common" "2.13.1"
@@ -6494,10 +6494,10 @@
     "@types/scheduler" "*"
     csstype "^3.0.2"
 
-"@types/react@18.2.51", "@types/react@^18.2.51":
-  version "18.2.51"
-  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.2.51.tgz#01ede6dfc712796257a3443bf8d613149e5c322a"
-  integrity sha512-XeoMaU4CzyjdRr3c4IQQtiH7Rpo18V07rYZUucEZQwOUEtGgTXv7e6igQiQ+xnV6MbMe1qjEmKdgMNnfppnXfg==
+"@types/react@18.2.52", "@types/react@^18.2.52":
+  version "18.2.52"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-18.2.52.tgz#83ca0c62bd1ff31464dac4cf1937e55c78f77aa2"
+  integrity sha512-E/YjWh3tH+qsLKaUzgpZb5AY0ChVa+ZJzF7ogehVILrFpdQk6nC/WXOv0bfFEABbXbgNxLBGU7IIZByPKb6eBw==
   dependencies:
     "@types/prop-types" "*"
     "@types/scheduler" "*"
@@ -11890,10 +11890,10 @@ hoist-non-react-statics@^3.3.0, hoist-non-react-statics@^3.3.1, hoist-non-react-
   dependencies:
     react-is "^16.7.0"
 
-hono@^3.12.9:
-  version "3.12.9"
-  resolved "https://registry.yarnpkg.com/hono/-/hono-3.12.9.tgz#140ce14c9ba1a101914faa9e89479515af4a97aa"
-  integrity sha512-JhurtI3+VspowZoP3dv6BylhUPIpTWNRlBsVfb5UbI/tmMGqd6RpeexGO7RjnrSG9Vqwb1ydKp7HHTTcYJU5Zw==
+hono@^3.12.10:
+  version "3.12.10"
+  resolved "https://registry.yarnpkg.com/hono/-/hono-3.12.10.tgz#52bf0fba5e0ac58fb5745c1883a44b778f10acb8"
+  integrity sha512-cPfwx4Khp+sUUjwH770UHVXmKN5CsCj/G15oUXZIpKMO2EdyTovSef9ptXSlvR6hz0yZSWorypIfwO6n2K0gFQ==
 
 hosted-git-info@^2.1.4:
   version "2.8.9"
@@ -18696,10 +18696,10 @@ viem@^1.0.0, viem@^1.1.4:
     isows "1.0.3"
     ws "8.13.0"
 
-viem@^2.7.1:
-  version "2.7.1"
-  resolved "https://registry.yarnpkg.com/viem/-/viem-2.7.1.tgz#b46e2d012b4b543e4377da8584cd12f79c6161b1"
-  integrity sha512-izAX2KedTFnI2l0ZshtnlK2ZuDvSlKeuaanWyNwC4ffDgrCGtwX1bvVXO3Krh53lZgqvjd8UGpjGaBl3WqJ4yQ==
+viem@^2.7.2:
+  version "2.7.2"
+  resolved "https://registry.yarnpkg.com/viem/-/viem-2.7.2.tgz#ae2a8cd8307f676bf324c903ba4fcd5b9fcca706"
+  integrity sha512-uRoD9ACARMrQG24rmXAqSJh0Sph5RkE6QP7FspmIs1XtuJIT8eS7B57f03oAUi2h/v564qmu9wv1mK/xB+XghA==
   dependencies:
     "@adraffy/ens-normalize" "1.10.0"
     "@noble/curves" "1.2.0"
