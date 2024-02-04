@@ -106,7 +106,7 @@ const Layout: FC<Props> = ({
         className={tw(
           'relative focus-visible:outline-none',
           !skipPadding &&
-            'ultrawide:px-8 ultrawide:pb-8 laptop:px-6 px-4 pb-16 pt-20 md:pb-6'
+            'ultrawide:px-8 ultrawide:pb-8 laptop:px-6 px-4 pb-6 pt-20'
         )}
       >
         {children}

@@ -16,7 +16,7 @@ const MobileBottomNav = () => {
   const isActivePath = (path: string) => router.pathname === path
 
   return (
-    <div className="pb-safe fixed inset-x-0 bottom-0 z-10 border-t-[0.5px] border-gray-300 bg-white/90 backdrop-blur-xl md:hidden dark:border-gray-700 dark:bg-black/90">
+    <div className="pb-safe sticky inset-x-0 bottom-0 z-10 border-t-[0.5px] border-gray-300 bg-white/90 backdrop-blur-xl md:hidden dark:border-gray-700 dark:bg-black/90">
       <div className="grid grid-cols-5 py-3">
         <Link
           href="/"
