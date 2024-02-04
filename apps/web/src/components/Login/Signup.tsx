@@ -1,6 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import usePendingTxn from '@hooks/usePendingTxn'
-import { COMMON_REGEX, ERROR_MESSAGE, IS_MAINNET } from '@tape.xyz/constants'
+import {
+  COMMON_REGEX,
+  ERROR_MESSAGE,
+  IS_MAINNET,
+  LENS_NAMESPACE_PREFIX
+} from '@tape.xyz/constants'
 import { shortenAddress } from '@tape.xyz/generic'
 import { useCreateProfileWithHandleMutation } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
@@ -67,6 +72,7 @@ const Signup = ({ onSuccess }: { onSuccess: () => void }) => {
       reset()
       toast.success('Profile created')
       setCreating(false)
+      location.reload()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indexed, error])
@@ -85,25 +91,18 @@ const Signup = ({ onSuccess }: { onSuccess: () => void }) => {
         {shortenAddress(address as string)})
       </Callout>
       {!IS_MAINNET && (
-        <div className="space-y-1">
-          <div className="font-medium">Create Profile</div>
-          <form
-            onSubmit={handleSubmit(signup)}
-            className="flex justify-end space-x-2"
-          >
-            <Input
-              placeholder="gilfoyle"
-              autoComplete="off"
-              error={errors.handle?.message}
-              {...register('handle')}
-            />
-            <div className="flex-none">
-              <Button loading={creating} disabled={creating}>
-                Sign up
-              </Button>
-            </div>
-          </form>
-        </div>
+        <form onSubmit={handleSubmit(signup)} className="space-y-2">
+          <Input
+            placeholder="gilfoyle"
+            autoComplete="off"
+            prefix={LENS_NAMESPACE_PREFIX}
+            error={errors.handle?.message}
+            {...register('handle')}
+          />
+          <Button loading={creating} disabled={creating}>
+            Sign up
+          </Button>
+        </form>
       )}
     </div>
   )
