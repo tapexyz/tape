@@ -15658,6 +15658,11 @@ prettier@^3.2.4:
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.2.4.tgz#4723cadeac2ce7c9227de758e5ff9b14e075f283"
   integrity sha512-FWu1oLHKCrtpO1ypU6J0SbK2d9Ckwysq6bHj/uaCP26DxrPpppCLQRGVuqAxSTvhF00AcvDRyYrLNW7ocBhFFQ==
 
+prettier@^3.2.5:
+  version "3.2.5"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.2.5.tgz#e52bc3090586e824964a8813b09aba6233b28368"
+  integrity sha512-3/GWa9aOC0YeD7LUfvOG2NiDyhOWRvt1k+rcKhOuYnMY24iiCphgneUfJDyFXd6rZCAnuLBv6UeAULtrhT/F4A==
+
 pretty-bytes@5.6.0:
   version "5.6.0"
   resolved "https://registry.yarnpkg.com/pretty-bytes/-/pretty-bytes-5.6.0.tgz#356256f643804773c82f64723fe78c92c62beaeb"
@@ -18696,10 +18701,10 @@ viem@^1.0.0, viem@^1.1.4:
     isows "1.0.3"
     ws "8.13.0"
 
-viem@^2.7.2:
-  version "2.7.2"
-  resolved "https://registry.yarnpkg.com/viem/-/viem-2.7.2.tgz#ae2a8cd8307f676bf324c903ba4fcd5b9fcca706"
-  integrity sha512-uRoD9ACARMrQG24rmXAqSJh0Sph5RkE6QP7FspmIs1XtuJIT8eS7B57f03oAUi2h/v564qmu9wv1mK/xB+XghA==
+viem@^2.7.3:
+  version "2.7.3"
+  resolved "https://registry.yarnpkg.com/viem/-/viem-2.7.3.tgz#9b2887365d4cd212d91e1797c6e2ad6d588d9127"
+  integrity sha512-+eoi3ZLXX7csB8/mbluIS+d3rUvtDwg3+Iu2hT+plJAdENdin5fW+SCyWOegJCm2yDKSo5xnUDBHMa1TCYk+dQ==
   dependencies:
     "@adraffy/ens-normalize" "1.10.0"
     "@noble/curves" "1.2.0"
