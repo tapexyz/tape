@@ -20,6 +20,8 @@ const Connectors = () => {
 
   const getConnectorName = (connector: Connector) => {
     switch (connector.id) {
+      case 'injected':
+        return 'Browser Wallet'
       case 'walletConnect':
         return 'Other Wallets'
       default:
@@ -28,11 +30,10 @@ const Connectors = () => {
   }
 
   const filteredConnectors = useMemo(() => {
-    return connectors
-      .filter((connector) => connector.id !== 'injected')
-      .sort(
-        (a, b) => Number(b.type === 'injected') - Number(a.type === 'injected')
-      )
+    return connectors.filter(
+      (connector, index, self) =>
+        self.findIndex((c) => c.type === connector.type) === index
+    )
   }, [connectors])
 
   if (activeProfile?.id) {
