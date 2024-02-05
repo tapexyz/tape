@@ -58,7 +58,7 @@
     "@tape.xyz/lens": "*",
     "@tape.xyz/ui": "*",
     "@types/node": "20.11.16",
-    "@types/react": "18.2.52",
+    "@types/react": "18.2.53",
     "@types/react-dom": "18.2.18",
     "@types/uuid": "^9.0.8",
     "autoprefixer": "^10.4.17",
