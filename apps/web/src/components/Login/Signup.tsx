@@ -171,7 +171,7 @@ const Signup = ({
         Sign up
       </Button>
       {showLogin && (
-        <div className="flex items-center justify-center space-x-2 pt-3">
+        <div className="flex items-center justify-center space-x-2 pt-3 text-sm">
           <span>Have an account?</span>
           <button
             type="button"

@@ -204,7 +204,7 @@ const Authenticate = () => {
           >
             Login
           </Button>
-          <div className="flex items-center justify-center space-x-2 pt-3">
+          <div className="flex items-center justify-center space-x-2 pt-3 text-sm">
             {profile ? (
               <span>Need new account?</span>
             ) : (
