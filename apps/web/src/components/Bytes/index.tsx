@@ -138,6 +138,11 @@ const Bytes = () => {
   return (
     <div className="relative mt-16 h-[calc(100vh-7rem)] overflow-y-hidden focus-visible:outline-none md:h-[calc(100vh-4rem)]">
       <MetaTags title="Bytes" />
+      <style jsx global>{`
+        html {
+          overflow-y: hidden;
+        }
+      `}</style>
       <div
         ref={sliderRef}
         className="keen-slider h-[calc(100vh-7rem)] snap-y snap-mandatory focus-visible:outline-none md:h-[calc(100vh-4rem)]"
@@ -160,6 +165,7 @@ const Bytes = () => {
               />
             )
         )}
+        s
       </div>
       {pageInfo?.next && (
         <span ref={observe} className="flex justify-center p-10">
