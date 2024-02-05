@@ -31,6 +31,7 @@ const Authenticate = () => {
   } = useRouter()
 
   const [loading, setLoading] = useState(false)
+  const [showSignup, setShowSignup] = useState(false)
   const [selectedProfileId, setSelectedProfileId] = useState<string>('')
   const { activeProfile, setActiveProfile } = useProfileStore()
 
@@ -55,8 +56,11 @@ const Authenticate = () => {
     onCompleted: (data) => {
       const profiles = data?.profilesManaged.items
       if (profiles?.length) {
+        setShowSignup(false)
         const profile = [...profiles].reverse()[0]
         setSelectedProfileId(as || profile.id)
+      } else {
+        setShowSignup(true)
       }
     }
   })
@@ -164,8 +168,14 @@ const Authenticate = () => {
   }
 
   return (
-    <div className="text-left">
-      {profile ? (
+    <div className="space-y-4 text-left">
+      {showSignup ? (
+        <Signup
+          onSuccess={() => refetch()}
+          setShowSignup={setShowSignup}
+          showLogin={Boolean(profile)}
+        />
+      ) : (
         <div className="flex flex-col gap-2">
           <Select
             size="lg"
@@ -194,9 +204,21 @@ const Authenticate = () => {
           >
             Login
           </Button>
+          <div className="flex items-center justify-center space-x-2 pt-3">
+            {profile ? (
+              <span>Need new account?</span>
+            ) : (
+              <span>Don't have an account?</span>
+            )}
+            <button
+              type="button"
+              className="text-brand-500 font-bold"
+              onClick={() => setShowSignup(true)}
+            >
+              Sign up
+            </button>
+          </div>
         </div>
-      ) : (
-        <Signup onSuccess={() => refetch()} />
       )}
     </div>
   )

@@ -1,15 +1,24 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import usePendingTxn from '@hooks/usePendingTxn'
+import { useDebounce } from '@tape.xyz/browser'
 import {
   COMMON_REGEX,
   ERROR_MESSAGE,
-  IS_MAINNET,
   LENS_NAMESPACE_PREFIX
 } from '@tape.xyz/constants'
-import { shortenAddress } from '@tape.xyz/generic'
-import { useCreateProfileWithHandleMutation } from '@tape.xyz/lens'
+import {
+  useCreateProfileWithHandleMutation,
+  useProfileLazyQuery
+} from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { Button, Callout, Input, WarningOutline } from '@tape.xyz/ui'
+import {
+  Button,
+  CheckOutline,
+  Input,
+  Spinner,
+  TimesOutline,
+  Tooltip
+} from '@tape.xyz/ui'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -27,18 +36,34 @@ const formSchema = object({
 })
 type FormData = z.infer<typeof formSchema>
 
-const Signup = ({ onSuccess }: { onSuccess: () => void }) => {
+const Signup = ({
+  showLogin,
+  onSuccess,
+  setShowSignup
+}: {
+  showLogin: boolean
+  onSuccess: () => void
+  setShowSignup: (b: boolean) => void
+}) => {
   const {
     register,
-    formState: { errors },
+    formState: { errors, isValid },
     handleSubmit,
-    reset
+    reset,
+    watch
   } = useForm<FormData>({
     resolver: zodResolver(formSchema)
   })
 
   const [creating, setCreating] = useState(false)
+  const [isHandleAvailable, setIsHandleAvailable] = useState(false)
+
   const { address } = useAccount()
+  const handle = watch('handle')
+
+  const [checkAvailability, { loading: checkingAvailability }] =
+    useProfileLazyQuery()
+  const debouncedValue = useDebounce<string>(handle, 500)
 
   const onError = (error: CustomErrorWithData) => {
     setCreating(false)
@@ -59,11 +84,31 @@ const Signup = ({ onSuccess }: { onSuccess: () => void }) => {
       }
     })
 
+  const onSearchDebounce = async () => {
+    if (handle?.trim().length) {
+      const { data } = await checkAvailability({
+        variables: {
+          request: {
+            forHandle: `${LENS_NAMESPACE_PREFIX}${handle}`
+          }
+        }
+      })
+      if (data?.profile) {
+        return setIsHandleAvailable(false)
+      }
+      setIsHandleAvailable(true)
+    }
+  }
+
+  useEffect(() => {
+    onSearchDebounce()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedValue])
+
   const { indexed, error } = usePendingTxn({
-    txId:
-      data?.createProfileWithHandle.__typename === 'RelaySuccess'
-        ? data?.createProfileWithHandle?.txId
-        : undefined
+    ...(data?.createProfileWithHandle.__typename === 'RelaySuccess' && {
+      txId: data?.createProfileWithHandle?.txId
+    })
   })
 
   useEffect(() => {
@@ -72,7 +117,6 @@ const Signup = ({ onSuccess }: { onSuccess: () => void }) => {
       reset()
       toast.success('Profile created')
       setCreating(false)
-      location.reload()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indexed, error])
@@ -85,26 +129,60 @@ const Signup = ({ onSuccess }: { onSuccess: () => void }) => {
   }
 
   return (
-    <div className="space-y-4">
-      <Callout variant="danger" icon={<WarningOutline className="size-4" />}>
-        We couldn't find any profiles linked to the connected address. (
-        {shortenAddress(address as string)})
-      </Callout>
-      {!IS_MAINNET && (
-        <form onSubmit={handleSubmit(signup)} className="space-y-2">
-          <Input
-            placeholder="gilfoyle"
-            autoComplete="off"
-            prefix={LENS_NAMESPACE_PREFIX}
-            error={errors.handle?.message}
-            {...register('handle')}
-          />
-          <Button loading={creating} disabled={creating}>
-            Sign up
-          </Button>
-        </form>
+    <form onSubmit={handleSubmit(signup)} className="space-y-2">
+      <div className="relative flex items-center">
+        <Input
+          placeholder="gilfoyle"
+          autoComplete="off"
+          prefix={`@${LENS_NAMESPACE_PREFIX}`}
+          error={errors.handle?.message}
+          {...register('handle')}
+        />
+        {isValid && (
+          <div className="flex items-center">
+            {checkingAvailability ? (
+              <span className="absolute right-3 text-white">
+                <Spinner size="sm" />
+              </span>
+            ) : (
+              <Tooltip
+                content={
+                  isHandleAvailable
+                    ? `@${LENS_NAMESPACE_PREFIX}${handle} is available`
+                    : `@${LENS_NAMESPACE_PREFIX}${handle} is taken`
+                }
+                placement="top"
+              >
+                {isHandleAvailable ? (
+                  <span className="absolute right-3 rounded-full bg-green-500 p-1 text-white">
+                    <CheckOutline className="size-2" />
+                  </span>
+                ) : (
+                  <span className="absolute right-3 rounded-full bg-red-500 p-1 text-white">
+                    <TimesOutline className="size-2" outlined={false} />
+                  </span>
+                )}
+              </Tooltip>
+            )}
+          </div>
+        )}
+      </div>
+      <Button size="md" loading={creating} disabled={creating}>
+        Sign up
+      </Button>
+      {showLogin && (
+        <div className="flex items-center justify-center space-x-2 pt-3">
+          <span>Have an account?</span>
+          <button
+            type="button"
+            className="text-brand-500 font-bold"
+            onClick={() => setShowSignup(false)}
+          >
+            Login
+          </button>
+        </div>
       )}
-    </div>
+    </form>
   )
 }
 
