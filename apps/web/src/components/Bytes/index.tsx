@@ -165,7 +165,6 @@ const Bytes = () => {
               />
             )
         )}
-        s
       </div>
       {pageInfo?.next && (
         <span ref={observe} className="flex justify-center p-10">
