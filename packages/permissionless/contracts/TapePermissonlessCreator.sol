@@ -10,29 +10,29 @@ struct CreateProfileParams {
   bytes followModuleInitData;
 }
 
-interface ILensPermissonlessCreator {
+interface ILensPermissionlessCreator {
   function createProfileWithHandleUsingCredits(
     CreateProfileParams calldata createProfileParams,
     string calldata handle,
     address[] calldata delegatedExecutors
-  ) external returns (uint256 profileId, uint256 handleId);
+  ) external returns (uint256, uint256);
 }
 
-contract TapePermissonlessCreator is Initializable, OwnableUpgradeable {
-  ILensPermissonlessCreator public LENS_PERMISSONLESS_CREATOR;
+contract TapePermissionlessCreator is Initializable, OwnableUpgradeable {
+  ILensPermissionlessCreator public lensPermissionlessCreator;
   uint256 public signupPrice;
 
   error InvalidFunds();
   error NotAllowed();
-  error WithdrawFailed();
+  error WithdrawalFailed();
 
   function initialize(
-    address tapeOwner,
-    address lensPermissonlessCreatorAddress
+    address tapeOwnerAddress,
+    address lensPermissionlessCreatorAddress
   ) public initializer {
-    __Ownable_init(tapeOwner);
-    LENS_PERMISSONLESS_CREATOR = ILensPermissonlessCreator(
-      lensPermissonlessCreatorAddress
+    __Ownable_init(tapeOwnerAddress);
+    lensPermissionlessCreator = ILensPermissionlessCreator(
+      lensPermissionlessCreatorAddress
     );
     signupPrice = 1 ether;
   }
@@ -45,12 +45,13 @@ contract TapePermissonlessCreator is Initializable, OwnableUpgradeable {
     if (msg.value != signupPrice) {
       revert InvalidFunds();
     }
+
     if (delegatedExecutors.length > 0 && createProfileParams.to != msg.sender) {
       revert NotAllowed();
     }
 
     return
-      LENS_PERMISSONLESS_CREATOR.createProfileWithHandleUsingCredits(
+      lensPermissionlessCreator.createProfileWithHandleUsingCredits(
         createProfileParams,
         handle,
         delegatedExecutors
@@ -60,11 +61,11 @@ contract TapePermissonlessCreator is Initializable, OwnableUpgradeable {
   function withdrawFunds() external onlyOwner {
     (bool success, ) = payable(owner()).call{value: address(this).balance}('');
     if (!success) {
-      revert WithdrawFailed();
+      revert WithdrawalFailed();
     }
   }
 
-  function setSignupPrice(uint256 _signupPrice) external onlyOwner {
-    signupPrice = _signupPrice;
+  function setSignupPrice(uint256 price) external onlyOwner {
+    signupPrice = price;
   }
 }
