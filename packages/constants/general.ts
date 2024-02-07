@@ -33,7 +33,7 @@ export const IMAGE_TRANSFORMATIONS = {
 
 // lens
 export const MAINNET_API_URL = 'https://api-v2.lens.dev'
-export const TESTNET_API_URL = 'https://api-v2-mumbai-live.lens.dev'
+export const TESTNET_API_URL = 'https://api-mumbai.lens-v2.crtlkey.com'
 export const LENS_API_URL = IS_MAINNET ? MAINNET_API_URL : TESTNET_API_URL
 
 // api urls
@@ -45,6 +45,9 @@ export const TAPE_API_URL = IS_PRODUCTION
   : 'http://localhost:4000'
 
 // addresses
+export const TAPE_PERMISSIONLESS_ADDRESS = IS_MAINNET
+  ? '0x313d9f4bB72160D3Aef52656849e6cB6f1D21E7B'
+  : '0x313d9f4bB72160D3Aef52656849e6cB6f1D21E7B'
 export const LENSHUB_PROXY_ADDRESS = IS_MAINNET
   ? '0xDb46d1Dc155634FbC732f92E853b10B288AD5a1d'
   : '0xC1E77eE73403B8a7478884915aA599932A677870'

@@ -1,15 +1,14 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import usePendingTxn from '@hooks/usePendingTxn'
+import { TAPE_PERMISSIONLESS_ABI } from '@tape.xyz/abis'
 import { useDebounce } from '@tape.xyz/browser'
 import {
   COMMON_REGEX,
   ERROR_MESSAGE,
-  LENS_NAMESPACE_PREFIX
+  LENS_NAMESPACE_PREFIX,
+  TAPE_PERMISSIONLESS_ADDRESS
 } from '@tape.xyz/constants'
-import {
-  useCreateProfileWithHandleMutation,
-  useProfileLazyQuery
-} from '@tape.xyz/lens'
+import { useProfileLazyQuery } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import {
   Button,
@@ -22,7 +21,8 @@ import {
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import { useAccount } from 'wagmi'
+import { parseEther } from 'viem'
+import { useAccount, useWriteContract } from 'wagmi'
 import type { z } from 'zod'
 import { object, string } from 'zod'
 
@@ -70,19 +70,14 @@ const Signup = ({
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
   }
 
-  const [createProfileWithHandle, { data }] =
-    useCreateProfileWithHandleMutation({
+  const { writeContractAsync, data: txnHash } = useWriteContract({
+    mutation: {
       onError,
-      onCompleted: ({ createProfileWithHandle }) => {
-        if (
-          createProfileWithHandle.__typename ===
-          'CreateProfileWithHandleErrorResult'
-        ) {
-          setCreating(false)
-          toast.error(createProfileWithHandle.reason)
-        }
+      onSuccess: () => {
+        setCreating(false)
       }
-    })
+    }
+  })
 
   const onSearchDebounce = async () => {
     if (handle?.trim().length) {
@@ -106,8 +101,8 @@ const Signup = ({
   }, [debouncedValue])
 
   const { indexed, error } = usePendingTxn({
-    ...(data?.createProfileWithHandle.__typename === 'RelaySuccess' && {
-      txId: data?.createProfileWithHandle?.txId
+    ...(txnHash && {
+      txHash: txnHash
     })
   })
 
@@ -123,8 +118,16 @@ const Signup = ({
 
   const signup = async ({ handle }: FormData) => {
     setCreating(true)
-    await createProfileWithHandle({
-      variables: { request: { handle: handle.toLowerCase(), to: address } }
+    return await writeContractAsync({
+      abi: TAPE_PERMISSIONLESS_ABI,
+      address: TAPE_PERMISSIONLESS_ADDRESS,
+      args: [
+        [address, '0x0000000000000000000000000000000000000000', '0x'],
+        handle,
+        ['0x6C1e1bC39b13f9E0Af9424D76De899203F47755F']
+      ],
+      functionName: 'createProfileWithHandleUsingCredits',
+      value: parseEther('1')
     })
   }
 
