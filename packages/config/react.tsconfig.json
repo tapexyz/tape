@@ -7,6 +7,7 @@
     "forceConsistentCasingInFileNames": true,
     "incremental": true,
     "jsx": "preserve",
+    "moduleResolution": "bundler",
     "lib": ["DOM", "DOM.Iterable", "ESNext"]
   },
   "exclude": ["node_modules", ".next", ".turbo"]
