@@ -1,4 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import usePendingTxn from '@hooks/usePendingTxn'
 import { TAPE_PERMISSIONLESS_ABI } from '@tape.xyz/abis'
 import { useDebounce } from '@tape.xyz/browser'
@@ -57,6 +58,7 @@ const Signup = ({
 
   const [creating, setCreating] = useState(false)
   const [isHandleAvailable, setIsHandleAvailable] = useState(false)
+  const handleWrongNetwork = useHandleWrongNetwork()
 
   const { address } = useAccount()
   const handle = watch('handle')
@@ -72,10 +74,7 @@ const Signup = ({
 
   const { writeContractAsync, data: txnHash } = useWriteContract({
     mutation: {
-      onError,
-      onSuccess: () => {
-        setCreating(false)
-      }
+      onError
     }
   })
 
@@ -117,6 +116,9 @@ const Signup = ({
   }, [indexed, error])
 
   const signup = async ({ handle }: FormData) => {
+    if (handleWrongNetwork()) {
+      return
+    }
     setCreating(true)
     return await writeContractAsync({
       abi: TAPE_PERMISSIONLESS_ABI,

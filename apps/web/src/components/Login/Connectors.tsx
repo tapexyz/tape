@@ -1,8 +1,9 @@
 import useProfileStore from '@lib/store/idb/profile'
+import { POLYGON_CHAIN_ID } from '@tape.xyz/constants'
 import { Button, Callout, CheckOutline, WarningOutline } from '@tape.xyz/ui'
 import React, { memo, useMemo } from 'react'
 import type { Connector } from 'wagmi'
-import { useAccount, useConnect } from 'wagmi'
+import { useAccount, useConnect, useSwitchChain } from 'wagmi'
 
 import Authenticate from './Authenticate'
 
@@ -10,10 +11,12 @@ const Connectors = () => {
   const { activeProfile } = useProfileStore()
 
   const { connector: connected } = useAccount()
+  const { switchChainAsync } = useSwitchChain()
   const { connectors, connectAsync, isPending, error } = useConnect()
 
   const onChooseConnector = async (connector: Connector) => {
     try {
+      await switchChainAsync?.({ chainId: POLYGON_CHAIN_ID })
       await connectAsync({ connector })
     } catch {}
   }
