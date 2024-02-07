@@ -1,3 +1,4 @@
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import useProfileStore from '@lib/store/idb/profile'
 import { POLYGON_CHAIN_ID } from '@tape.xyz/constants'
 import { Button, Callout, CheckOutline, WarningOutline } from '@tape.xyz/ui'
@@ -12,10 +13,14 @@ const Connectors = () => {
 
   const { connector: connected } = useAccount()
   const { switchChainAsync } = useSwitchChain()
+  const handleWrongNetwork = useHandleWrongNetwork()
   const { connectors, connectAsync, isPending, error } = useConnect()
 
   const onChooseConnector = async (connector: Connector) => {
     try {
+      if (handleWrongNetwork()) {
+        return
+      }
       await switchChainAsync?.({ chainId: POLYGON_CHAIN_ID })
       await connectAsync({ connector })
     } catch {}
