@@ -392,7 +392,6 @@ const PublicationOptions: FC<Props> = ({ publication, children }) => {
               e.preventDefault()
               setShowShareModal(true)
             }}
-            className="flex items-center justify-start space-x-2 rounded-md px-3 py-1.5 hover:bg-gray-500/20"
           >
             <div className="flex items-center gap-2">
               <ShareOutline className="size-3.5" />
@@ -466,7 +465,6 @@ const PublicationOptions: FC<Props> = ({ publication, children }) => {
                 />
               </Modal>
               <DropdownMenuItem
-                className="!cursor-default rounded-md px-3 py-1.5 hover:bg-gray-500/20 disabled:opacity-40 disabled:hover:bg-inherit"
                 onClick={(e) => {
                   e.preventDefault()
                   onClickReport()
