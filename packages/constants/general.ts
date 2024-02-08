@@ -1,4 +1,5 @@
 import { CustomFiltersType } from '@tape.xyz/lens'
+import LensEndpoint from '@tape.xyz/lens/endpoints'
 
 export const TAPE_APP_NAME = 'Tape'
 export const TAPE_APP_DESCRIPTION = 'Talk, Amplify, Post, Explore'
@@ -30,8 +31,8 @@ export const IMAGE_TRANSFORMATIONS = {
 }
 
 // lens
-export const MAINNET_API_URL = 'https://api-v2.lens.dev'
-export const TESTNET_API_URL = 'https://api-mumbai.lens-v2.crtlkey.com'
+export const MAINNET_API_URL = LensEndpoint.Mainnet
+export const TESTNET_API_URL = LensEndpoint.Staging
 export const LENS_API_URL = IS_MAINNET ? MAINNET_API_URL : TESTNET_API_URL
 
 // api urls
