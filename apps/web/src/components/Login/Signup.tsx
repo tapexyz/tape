@@ -69,7 +69,9 @@ const Signup = ({
   const handle = watch('handle')
   const debouncedValue = useDebounce<string>(handle, 500)
 
-  const [generateRelayerAddress] = useGenerateLensApiRelayAddressLazyQuery()
+  const [generateRelayerAddress] = useGenerateLensApiRelayAddressLazyQuery({
+    fetchPolicy: 'no-cache'
+  })
   const [checkAvailability, { loading: checkingAvailability }] =
     useProfileLazyQuery()
 
