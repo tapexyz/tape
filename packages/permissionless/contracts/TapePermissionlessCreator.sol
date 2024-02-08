@@ -34,7 +34,7 @@ contract TapePermissionlessCreator is Initializable, OwnableUpgradeable {
     address ownerAddress,
     address lensPermissionlessCreatorAddress,
     uint256 _signupPrice
-  ) internal initializer {
+  ) public initializer {
     __Ownable_init(ownerAddress);
     lensPermissionlessCreator = ILensPermissionlessCreator(
       lensPermissionlessCreatorAddress

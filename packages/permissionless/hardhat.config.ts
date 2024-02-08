@@ -1,4 +1,6 @@
-import { HardhatUserConfig } from "hardhat/config";
+require('dotenv').config()
+
+import { HardhatUserConfig } from 'hardhat/config'
 import '@openzeppelin/hardhat-upgrades'
 import '@nomicfoundation/hardhat-toolbox'
 
@@ -9,18 +11,14 @@ const config: HardhatUserConfig = {
   },
   defaultNetwork: 'polygonMumbai',
   etherscan: {
-    apiKey: {
-      polygonMumbai: '<>'
-    }
+    apiKey: { polygonMumbai: process.env.POLYGONSCAN_API_KEY! }
   },
   networks: {
     polygonMumbai: {
-      accounts: [
-        '<>'
-      ],
-      url: '<>'
+      accounts: [process.env.PRIVATE_KEY!],
+      url: `https://polygon-mumbai.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`
     }
   }
 }
 
-export default config;
+export default config

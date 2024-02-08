@@ -1,7 +1,7 @@
 export const TAPE_PERMISSIONLESS_ABI = [
+  { inputs: [], name: 'CreateNotAllowed', type: 'error' },
   { inputs: [], name: 'InvalidFunds', type: 'error' },
   { inputs: [], name: 'InvalidInitialization', type: 'error' },
-  { inputs: [], name: 'NotAllowed', type: 'error' },
   { inputs: [], name: 'NotInitializing', type: 'error' },
   {
     inputs: [{ internalType: 'address', name: 'owner', type: 'address' }],
@@ -13,7 +13,7 @@ export const TAPE_PERMISSIONLESS_ABI = [
     name: 'OwnableUnauthorizedAccount',
     type: 'error'
   },
-  { inputs: [], name: 'WithdrawFailed', type: 'error' },
+  { inputs: [], name: 'WithdrawalFailed', type: 'error' },
   {
     anonymous: false,
     inputs: [
@@ -47,17 +47,24 @@ export const TAPE_PERMISSIONLESS_ABI = [
     type: 'event'
   },
   {
-    inputs: [],
-    name: 'LENS_PERMISSONLESS_CREATOR',
-    outputs: [
+    anonymous: false,
+    inputs: [
       {
-        internalType: 'contract ILensPermissonlessCreator',
-        name: '',
-        type: 'address'
-      }
+        indexed: false,
+        internalType: 'uint256',
+        name: 'profileId',
+        type: 'uint256'
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'handleId',
+        type: 'uint256'
+      },
+      { indexed: false, internalType: 'string', name: 'handle', type: 'string' }
     ],
-    stateMutability: 'view',
-    type: 'function'
+    name: 'ProfileCreated',
+    type: 'event'
   },
   {
     inputs: [
@@ -88,12 +95,13 @@ export const TAPE_PERMISSIONLESS_ABI = [
   },
   {
     inputs: [
-      { internalType: 'address', name: 'tapeOwner', type: 'address' },
+      { internalType: 'address', name: 'ownerAddress', type: 'address' },
       {
         internalType: 'address',
-        name: 'lensPermissonlessCreatorAddress',
+        name: 'lensPermissionlessCreatorAddress',
         type: 'address'
-      }
+      },
+      { internalType: 'uint256', name: '_signupPrice', type: 'uint256' }
     ],
     name: 'initialize',
     outputs: [],
@@ -102,8 +110,28 @@ export const TAPE_PERMISSIONLESS_ABI = [
   },
   {
     inputs: [],
+    name: 'lensPermissionlessCreator',
+    outputs: [
+      {
+        internalType: 'contract ILensPermissionlessCreator',
+        name: '',
+        type: 'address'
+      }
+    ],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [],
     name: 'owner',
     outputs: [{ internalType: 'address', name: '', type: 'address' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    name: 'profiles',
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
     stateMutability: 'view',
     type: 'function'
   },
@@ -126,6 +154,13 @@ export const TAPE_PERMISSIONLESS_ABI = [
   {
     inputs: [],
     name: 'signupPrice',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'totalCount',
     outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function'
