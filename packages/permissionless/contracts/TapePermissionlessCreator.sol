@@ -15,26 +15,31 @@ interface ILensPermissionlessCreator {
     CreateProfileParams calldata createProfileParams,
     string calldata handle,
     address[] calldata delegatedExecutors
-  ) external returns (uint256, uint256);
+  ) external returns (uint256 profileId, uint256 handleId);
 }
 
 contract TapePermissionlessCreator is Initializable, OwnableUpgradeable {
   ILensPermissionlessCreator public lensPermissionlessCreator;
+  mapping(uint256 => bool) public profiles;
   uint256 public signupPrice;
+  uint256 public totalCount;
 
   error InvalidFunds();
-  error NotAllowed();
+  error CreateNotAllowed();
   error WithdrawalFailed();
 
+  event ProfileCreated(uint256 profileId, uint256 handleId, string handle);
+
   function initialize(
-    address tapeOwnerAddress,
-    address lensPermissionlessCreatorAddress
-  ) public initializer {
-    __Ownable_init(tapeOwnerAddress);
+    address ownerAddress,
+    address lensPermissionlessCreatorAddress,
+    uint256 _signupPrice
+  ) internal initializer {
+    __Ownable_init(ownerAddress);
     lensPermissionlessCreator = ILensPermissionlessCreator(
       lensPermissionlessCreatorAddress
     );
-    signupPrice = 1 ether;
+    signupPrice = _signupPrice;
   }
 
   function createProfileWithHandleUsingCredits(
@@ -47,15 +52,22 @@ contract TapePermissionlessCreator is Initializable, OwnableUpgradeable {
     }
 
     if (delegatedExecutors.length > 0 && createProfileParams.to != msg.sender) {
-      revert NotAllowed();
+      revert CreateNotAllowed();
     }
 
-    return
-      lensPermissionlessCreator.createProfileWithHandleUsingCredits(
+    (profileId, handleId) = lensPermissionlessCreator
+      .createProfileWithHandleUsingCredits(
         createProfileParams,
         handle,
         delegatedExecutors
       );
+
+    profiles[profileId] = true;
+    totalCount++;
+
+    emit ProfileCreated(profileId, handleId, handle);
+
+    return (profileId, handleId);
   }
 
   function withdrawFunds() external onlyOwner {
@@ -65,7 +77,7 @@ contract TapePermissionlessCreator is Initializable, OwnableUpgradeable {
     }
   }
 
-  function setSignupPrice(uint256 price) external onlyOwner {
-    signupPrice = price;
+  function setSignupPrice(uint256 _signupPrice) external onlyOwner {
+    signupPrice = _signupPrice;
   }
 }
