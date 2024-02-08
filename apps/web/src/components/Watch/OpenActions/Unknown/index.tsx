@@ -144,9 +144,8 @@ const UnknownOpenAction = ({
   }
 
   const actOnUnknownOpenAction = async (address: string, data: string) => {
-    if (handleWrongNetwork()) {
-      return
-    }
+    await handleWrongNetwork()
+
     setActing(true)
     const actOnRequest: ActOnOpenActionLensManagerRequest = {
       for: publicationId,

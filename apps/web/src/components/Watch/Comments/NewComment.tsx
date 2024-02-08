@@ -297,9 +297,8 @@ const NewComment: FC<Props> = ({
       )
     }
     try {
-      if (handleWrongNetwork()) {
-        return
-      }
+      await handleWrongNetwork()
+
       setLoading(true)
       const attributes: MetadataAttribute[] = [
         {

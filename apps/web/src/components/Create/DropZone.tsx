@@ -1,3 +1,4 @@
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import useAppStore from '@lib/store'
 import useProfileStore from '@lib/store/idb/profile'
 import { tw, useDragAndDrop } from '@tape.xyz/browser'
@@ -15,6 +16,7 @@ import toast from 'react-hot-toast'
 const DropZone = () => {
   const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
   const activeProfile = useProfileStore((state) => state.activeProfile)
+  const handleWrongNetwork = useHandleWrongNetwork()
 
   const {
     setDragOver,
@@ -24,7 +26,9 @@ const DropZone = () => {
     setFileDropError
   } = useDragAndDrop()
 
-  const handleUploadedMedia = (file: File) => {
+  const handleUploadedMedia = async (file: File) => {
+    await handleWrongNetwork()
+
     try {
       if (file) {
         const preview = URL.createObjectURL(file)

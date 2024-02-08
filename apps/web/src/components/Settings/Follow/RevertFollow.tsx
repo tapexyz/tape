@@ -130,9 +130,8 @@ const RevertFollow = ({ profile }: Props) => {
     })
 
   const toggleRevert = async (revertFollowModule: boolean) => {
-    if (handleWrongNetwork()) {
-      return
-    }
+    await handleWrongNetwork()
+
     setLoading(true)
     return await createSetFollowModuleTypedData({
       variables: {

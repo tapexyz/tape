@@ -110,13 +110,12 @@ const PublicationOptions: FC<Props> = ({ publication, children }) => {
     setShowConfirm(false)
   }
 
-  const onClickReport = () => {
+  const onClickReport = async () => {
     if (!activeProfile?.id) {
       return toast.error(SIGN_IN_REQUIRED)
     }
-    if (handleWrongNetwork()) {
-      return
-    }
+    await handleWrongNetwork()
+
     setShowReportModal(true)
   }
 
@@ -206,9 +205,7 @@ const PublicationOptions: FC<Props> = ({ publication, children }) => {
     if (!activeProfile) {
       return toast.error(SIGN_IN_REQUIRED)
     }
-    if (handleWrongNetwork()) {
-      return
-    }
+    await handleWrongNetwork()
 
     try {
       toast.loading(`Pinning video...`)

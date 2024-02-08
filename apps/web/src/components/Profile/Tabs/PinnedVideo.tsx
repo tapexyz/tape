@@ -154,9 +154,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
     if (!activeProfile) {
       return toast.error(SIGN_IN_REQUIRED)
     }
-    if (handleWrongNetwork()) {
-      return
-    }
+    await handleWrongNetwork()
 
     try {
       toast.loading(`Unpinning video...`)

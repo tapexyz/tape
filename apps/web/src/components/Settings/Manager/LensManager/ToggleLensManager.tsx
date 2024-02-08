@@ -127,10 +127,9 @@ const ToggleLensManager = () => {
     onError
   })
 
-  const onClick = () => {
-    if (handleWrongNetwork()) {
-      return
-    }
+  const onClick = async () => {
+    await handleWrongNetwork()
+
     setLoading(true)
     return toggleLensManager({
       variables: {

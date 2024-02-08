@@ -122,9 +122,8 @@ const Signup = ({
   }, [debouncedValue])
 
   const signup = async ({ handle }: FormData) => {
-    if (handleWrongNetwork()) {
-      return
-    }
+    await handleWrongNetwork()
+
     setCreating(true)
     try {
       const { data } = await generateRelayerAddress()

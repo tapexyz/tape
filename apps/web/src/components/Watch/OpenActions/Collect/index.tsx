@@ -407,9 +407,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
       return toast.error(SIGN_IN_REQUIRED)
     }
 
-    if (handleWrongNetwork()) {
-      return
-    }
+    await handleWrongNetwork()
 
     setCollecting(true)
 
