@@ -7,9 +7,14 @@ import {
   COMMON_REGEX,
   ERROR_MESSAGE,
   LENS_NAMESPACE_PREFIX,
-  TAPE_PERMISSIONLESS_ADDRESS
+  TAPE_PERMISSIONLESS_ADDRESS,
+  TAPE_PERMISSIONLESS_SIGNUP_PRICE,
+  ZERO_ADDRESS
 } from '@tape.xyz/constants'
-import { useProfileLazyQuery } from '@tape.xyz/lens'
+import {
+  useGenerateLensApiRelayAddressLazyQuery,
+  useProfileLazyQuery
+} from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import {
   Button,
@@ -62,10 +67,11 @@ const Signup = ({
 
   const { address } = useAccount()
   const handle = watch('handle')
+  const debouncedValue = useDebounce<string>(handle, 500)
 
+  const [generateRelayerAddress] = useGenerateLensApiRelayAddressLazyQuery()
   const [checkAvailability, { loading: checkingAvailability }] =
     useProfileLazyQuery()
-  const debouncedValue = useDebounce<string>(handle, 500)
 
   const onError = (error: CustomErrorWithData) => {
     setCreating(false)
@@ -94,11 +100,6 @@ const Signup = ({
     }
   }
 
-  useEffect(() => {
-    onSearchDebounce()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [debouncedValue])
-
   const { indexed, error } = usePendingTxn({
     ...(txnHash && {
       txHash: txnHash
@@ -115,22 +116,31 @@ const Signup = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indexed, error])
 
+  useEffect(() => {
+    onSearchDebounce()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedValue])
+
   const signup = async ({ handle }: FormData) => {
     if (handleWrongNetwork()) {
       return
     }
     setCreating(true)
-    return await writeContractAsync({
-      abi: TAPE_PERMISSIONLESS_ABI,
-      address: TAPE_PERMISSIONLESS_ADDRESS,
-      args: [
-        [address, '0x0000000000000000000000000000000000000000', '0x'],
-        handle,
-        ['0x6C1e1bC39b13f9E0Af9424D76De899203F47755F']
-      ],
-      functionName: 'createProfileWithHandleUsingCredits',
-      value: parseEther('1')
-    })
+    try {
+      const { data } = await generateRelayerAddress()
+      const relayerAddress = data?.generateLensAPIRelayAddress
+      if (!relayerAddress) {
+        setCreating(false)
+        return toast.error(ERROR_MESSAGE)
+      }
+      return await writeContractAsync({
+        abi: TAPE_PERMISSIONLESS_ABI,
+        address: TAPE_PERMISSIONLESS_ADDRESS,
+        args: [[address, ZERO_ADDRESS, '0x'], handle, [relayerAddress]],
+        functionName: 'createProfileWithHandleUsingCredits',
+        value: parseEther(TAPE_PERMISSIONLESS_SIGNUP_PRICE)
+      })
+    } catch {}
   }
 
   return (
