@@ -16,14 +16,11 @@ const Connectors = () => {
   const { connectors, connectAsync, isPending, error } = useConnect()
 
   const onChooseConnector = async (connector: Connector) => {
-    console.log('🚀 ~ onChooseConnector ~ connector:', connector)
     try {
       await handleWrongNetwork()
       await connectAsync({ connector })
       Tower.track(EVENTS.AUTH.CONNECT_WALLET, { connector: connector.id })
-    } catch (errr) {
-      console.log('🚀 ~ onChooseConnector ~ errr:', errr)
-    }
+    } catch {}
   }
 
   const getConnectorName = (connector: Connector) => {
