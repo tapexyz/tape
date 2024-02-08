@@ -1,19 +1,34 @@
 import { zodResolver } from '@hookform/resolvers/zod'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import usePendingTxn from '@hooks/usePendingTxn'
+import { TAPE_SIGNUP_PROXY_ABI } from '@tape.xyz/abis'
+import { useDebounce } from '@tape.xyz/browser'
 import {
   COMMON_REGEX,
   ERROR_MESSAGE,
-  IS_MAINNET,
-  LENS_NAMESPACE_PREFIX
+  LENS_NAMESPACE_PREFIX,
+  TAPE_SIGNUP_PRICE,
+  TAPE_SIGNUP_PROXY_ADDRESS,
+  ZERO_ADDRESS
 } from '@tape.xyz/constants'
-import { shortenAddress } from '@tape.xyz/generic'
-import { useCreateProfileWithHandleMutation } from '@tape.xyz/lens'
+import {
+  useGenerateLensApiRelayAddressLazyQuery,
+  useProfileLazyQuery
+} from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
-import { Button, Callout, Input, WarningOutline } from '@tape.xyz/ui'
+import {
+  Button,
+  CheckOutline,
+  Input,
+  Spinner,
+  TimesOutline,
+  Tooltip
+} from '@tape.xyz/ui'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import { useAccount } from 'wagmi'
+import { parseEther } from 'viem'
+import { useAccount, useWriteContract } from 'wagmi'
 import type { z } from 'zod'
 import { object, string } from 'zod'
 
@@ -27,43 +42,70 @@ const formSchema = object({
 })
 type FormData = z.infer<typeof formSchema>
 
-const Signup = ({ onSuccess }: { onSuccess: () => void }) => {
+const Signup = ({
+  showLogin,
+  onSuccess,
+  setShowSignup
+}: {
+  showLogin: boolean
+  onSuccess: () => void
+  setShowSignup: (b: boolean) => void
+}) => {
   const {
     register,
-    formState: { errors },
+    formState: { errors, isValid },
     handleSubmit,
-    reset
+    reset,
+    watch
   } = useForm<FormData>({
     resolver: zodResolver(formSchema)
   })
 
   const [creating, setCreating] = useState(false)
+  const [isHandleAvailable, setIsHandleAvailable] = useState(false)
+  const handleWrongNetwork = useHandleWrongNetwork()
+
   const { address } = useAccount()
+  const handle = watch('handle')
+  const debouncedValue = useDebounce<string>(handle, 500)
+
+  const [generateRelayerAddress] = useGenerateLensApiRelayAddressLazyQuery({
+    fetchPolicy: 'no-cache'
+  })
+  const [checkAvailability, { loading: checkingAvailability }] =
+    useProfileLazyQuery()
 
   const onError = (error: CustomErrorWithData) => {
     setCreating(false)
     toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
   }
 
-  const [createProfileWithHandle, { data }] =
-    useCreateProfileWithHandleMutation({
-      onError,
-      onCompleted: ({ createProfileWithHandle }) => {
-        if (
-          createProfileWithHandle.__typename ===
-          'CreateProfileWithHandleErrorResult'
-        ) {
-          setCreating(false)
-          toast.error(createProfileWithHandle.reason)
+  const { writeContractAsync, data: txnHash } = useWriteContract({
+    mutation: {
+      onError
+    }
+  })
+
+  const onSearchDebounce = async () => {
+    if (handle?.trim().length) {
+      const { data } = await checkAvailability({
+        variables: {
+          request: {
+            forHandle: `${LENS_NAMESPACE_PREFIX}${handle}`
+          }
         }
+      })
+      if (data?.profile) {
+        return setIsHandleAvailable(false)
       }
-    })
+      setIsHandleAvailable(true)
+    }
+  }
 
   const { indexed, error } = usePendingTxn({
-    txId:
-      data?.createProfileWithHandle.__typename === 'RelaySuccess'
-        ? data?.createProfileWithHandle?.txId
-        : undefined
+    ...(txnHash && {
+      txHash: txnHash
+    })
   })
 
   useEffect(() => {
@@ -72,39 +114,91 @@ const Signup = ({ onSuccess }: { onSuccess: () => void }) => {
       reset()
       toast.success('Profile created')
       setCreating(false)
-      location.reload()
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indexed, error])
 
+  useEffect(() => {
+    onSearchDebounce()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [debouncedValue])
+
   const signup = async ({ handle }: FormData) => {
+    await handleWrongNetwork()
+
     setCreating(true)
-    await createProfileWithHandle({
-      variables: { request: { handle: handle.toLowerCase(), to: address } }
-    })
+    try {
+      const { data } = await generateRelayerAddress()
+      const relayerAddress = data?.generateLensAPIRelayAddress
+      if (!relayerAddress) {
+        setCreating(false)
+        return toast.error(ERROR_MESSAGE)
+      }
+      return await writeContractAsync({
+        abi: TAPE_SIGNUP_PROXY_ABI,
+        address: TAPE_SIGNUP_PROXY_ADDRESS,
+        args: [[address, ZERO_ADDRESS, '0x'], handle, [relayerAddress]],
+        functionName: 'createProfileWithHandleUsingCredits',
+        value: parseEther(TAPE_SIGNUP_PRICE)
+      })
+    } catch {}
   }
 
   return (
-    <div className="space-y-4">
-      <Callout variant="danger" icon={<WarningOutline className="size-4" />}>
-        We couldn't find any profiles linked to the connected address. (
-        {shortenAddress(address as string)})
-      </Callout>
-      {!IS_MAINNET && (
-        <form onSubmit={handleSubmit(signup)} className="space-y-2">
-          <Input
-            placeholder="gilfoyle"
-            autoComplete="off"
-            prefix={LENS_NAMESPACE_PREFIX}
-            error={errors.handle?.message}
-            {...register('handle')}
-          />
-          <Button loading={creating} disabled={creating}>
-            Sign up
-          </Button>
-        </form>
+    <form onSubmit={handleSubmit(signup)} className="space-y-2">
+      <div className="relative flex items-center">
+        <Input
+          placeholder="gilfoyle"
+          autoComplete="off"
+          prefix={`@${LENS_NAMESPACE_PREFIX}`}
+          error={errors.handle?.message}
+          {...register('handle')}
+        />
+        {isValid && (
+          <div className="flex items-center">
+            {checkingAvailability ? (
+              <span className="absolute right-3 text-white">
+                <Spinner size="sm" />
+              </span>
+            ) : (
+              <Tooltip
+                content={
+                  isHandleAvailable
+                    ? `@${LENS_NAMESPACE_PREFIX}${handle} is available`
+                    : `@${LENS_NAMESPACE_PREFIX}${handle} is taken`
+                }
+                placement="top"
+              >
+                {isHandleAvailable ? (
+                  <span className="absolute right-3 rounded-full bg-green-500 p-1 text-white">
+                    <CheckOutline className="size-2" />
+                  </span>
+                ) : (
+                  <span className="absolute right-3 rounded-full bg-red-500 p-1 text-white">
+                    <TimesOutline className="size-2" outlined={false} />
+                  </span>
+                )}
+              </Tooltip>
+            )}
+          </div>
+        )}
+      </div>
+      <Button size="md" loading={creating} disabled={creating}>
+        Sign up
+      </Button>
+      {showLogin && (
+        <div className="flex items-center justify-center space-x-2 pt-3 text-sm">
+          <span>Have an account?</span>
+          <button
+            type="button"
+            className="text-brand-500 font-bold"
+            onClick={() => setShowSignup(false)}
+          >
+            Login
+          </button>
+        </div>
       )}
-    </div>
+    </form>
   )
 }
 

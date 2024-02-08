@@ -186,9 +186,7 @@ const List = () => {
     if (!activeProfile?.id) {
       return toast.error(SIGN_IN_REQUIRED)
     }
-    if (handleWrongNetwork()) {
-      return
-    }
+    await handleWrongNetwork()
 
     try {
       setUnblockingProfileId(profileId)

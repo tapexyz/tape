@@ -58,13 +58,12 @@ const Delete = () => {
     return new Date(cooldownDate).getTime() < Date.now()
   }
 
-  const onClickDelete = () => {
+  const onClickDelete = async () => {
     if (guardianEnabled || !isCooldownEnded()) {
       return toast.error('Profile Guardian enabled')
     }
-    if (handleWrongNetwork()) {
-      return
-    }
+    await handleWrongNetwork()
+
     setLoading(true)
     try {
       toast.loading(REQUESTING_SIGNATURE_MESSAGE)

@@ -51,13 +51,12 @@ const CommentOptions: FC<Props> = ({ comment }) => {
     setShowConfirm(false)
   }
 
-  const onClickReport = () => {
+  const onClickReport = async () => {
     if (!activeProfile?.id) {
       return toast.error(SIGN_IN_REQUIRED)
     }
-    if (handleWrongNetwork()) {
-      return
-    }
+    await handleWrongNetwork()
+
     setShowReportModal(true)
   }
 

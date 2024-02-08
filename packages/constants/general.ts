@@ -1,4 +1,5 @@
 import { CustomFiltersType } from '@tape.xyz/lens'
+import LensEndpoint from '@tape.xyz/lens/endpoints'
 
 export const TAPE_APP_NAME = 'Tape'
 export const TAPE_APP_DESCRIPTION = 'Talk, Amplify, Post, Explore'
@@ -16,8 +17,6 @@ export const TAPE_WEBSITE_URL = IS_MAINNET
 export const FALLBACK_THUMBNAIL_URL = `${STATIC_ASSETS}/images/fallback-thumbnail.webp`
 export const FALLBACK_COVER_URL = `${STATIC_ASSETS}/images/fallback-cover.svg`
 export const OG_IMAGE = `${STATIC_ASSETS}/brand/og.png`
-// export const LENS_IMAGEKIT_SNAPSHOT_URL =
-//   'https://ik.imagekit.io/lens/media-snapshot'
 export const LENS_IMAGEKIT_SNAPSHOT_URL = 'https://ik.imagekit.io/lenstube'
 
 // infinite scroll
@@ -32,8 +31,8 @@ export const IMAGE_TRANSFORMATIONS = {
 }
 
 // lens
-export const MAINNET_API_URL = 'https://api-v2.lens.dev'
-export const TESTNET_API_URL = 'https://api-v2-mumbai-live.lens.dev'
+export const MAINNET_API_URL = LensEndpoint.Mainnet
+export const TESTNET_API_URL = LensEndpoint.Staging
 export const LENS_API_URL = IS_MAINNET ? MAINNET_API_URL : TESTNET_API_URL
 
 // api urls
@@ -45,6 +44,9 @@ export const TAPE_API_URL = IS_PRODUCTION
   : 'http://localhost:4000'
 
 // addresses
+export const TAPE_SIGNUP_PROXY_ADDRESS = IS_MAINNET
+  ? '0x21970AD5c43e90184A62674fAC54f4Bed030Fb74'
+  : '0x21970AD5c43e90184A62674fAC54f4Bed030Fb74'
 export const LENSHUB_PROXY_ADDRESS = IS_MAINNET
   ? '0xDb46d1Dc155634FbC732f92E853b10B288AD5a1d'
   : '0xC1E77eE73403B8a7478884915aA599932A677870'
@@ -152,6 +154,7 @@ export const TAPE_GITHUB_HANDLE = 'tapexyz'
 export const TAPE_LOGO = `${STATIC_ASSETS}/brand/logo.svg`
 export const TAPE_STATUS_PAGE = 'https://status.tape.xyz'
 export const TAPE_FEEDBACK_URL = 'https://feedback.tape.xyz'
+export const TAPE_SIGNUP_PRICE = '1'
 
 // admin
 export const ADMIN_IDS = IS_MAINNET ? ['0x2d'] : ['0x34']

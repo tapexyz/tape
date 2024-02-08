@@ -1,4 +1,6 @@
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import useProfileStore from '@lib/store/idb/profile'
+import { EVENTS, Tower } from '@tape.xyz/generic'
 import { Button, Callout, CheckOutline, WarningOutline } from '@tape.xyz/ui'
 import React, { memo, useMemo } from 'react'
 import type { Connector } from 'wagmi'
@@ -10,11 +12,14 @@ const Connectors = () => {
   const { activeProfile } = useProfileStore()
 
   const { connector: connected } = useAccount()
+  const handleWrongNetwork = useHandleWrongNetwork()
   const { connectors, connectAsync, isPending, error } = useConnect()
 
   const onChooseConnector = async (connector: Connector) => {
     try {
+      await handleWrongNetwork()
       await connectAsync({ connector })
+      Tower.track(EVENTS.AUTH.CONNECT_WALLET, { connector: connector.id })
     } catch {}
   }
 

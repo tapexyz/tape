@@ -13,7 +13,6 @@ import ThemeProvider from './ThemeProvider'
 const SubscriptionProvider = dynamic(() => import('./SubscriptionProvider'))
 const TogglesProvider = dynamic(() => import('./TogglesProvider'))
 const Web3Provider = dynamic(() => import('./Web3Provider'))
-const GlobalDialogs = dynamic(() => import('../GlobalDialogs'))
 const Layout = dynamic(() => import('../Layout'))
 
 const NO_TOP_NAV_PATHS = ['/login']
@@ -47,7 +46,6 @@ const Providers = ({ children }: { children: ReactNode }) => {
             <ThemeProvider>
               <SubscriptionProvider />
               <TogglesProvider />
-              <GlobalDialogs />
               <LivepeerConfig client={livepeerClient} theme={videoPlayerTheme}>
                 <Layout
                   skipNav={NO_TOP_NAV_PATHS.includes(pathname)}

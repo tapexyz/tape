@@ -72,9 +72,7 @@ const Guardian: FC = () => {
       return toast.error(SIGN_IN_REQUIRED)
     }
 
-    if (handleWrongNetwork()) {
-      return
-    }
+    await handleWrongNetwork()
 
     try {
       setLoading(true)

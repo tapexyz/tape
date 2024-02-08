@@ -177,9 +177,8 @@ const FeeFollow = ({ profile }: Props) => {
     })
 
   const updateFeeFollow = async (disable: boolean) => {
-    if (handleWrongNetwork()) {
-      return
-    }
+    await handleWrongNetwork()
+
     setLoading(true)
     return await createSetFollowModuleTypedData({
       variables: {

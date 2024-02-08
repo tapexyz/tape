@@ -1,5 +1,4 @@
 import MetaTags from '@components/Common/MetaTags'
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import type {
   AudioOptions,
   MediaAudioMimeType,
@@ -90,7 +89,6 @@ const CreateSteps = () => {
   const router = useRouter()
   const { data: walletClient } = useWalletClient()
 
-  const handleWrongNetwork = useHandleWrongNetwork()
   const { canUseLensManager, canBroadcast } =
     checkLensManagerPermissions(activeProfile)
 
@@ -142,12 +140,6 @@ const CreateSteps = () => {
   useEffect(() => {
     Tower.track(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.UPLOAD })
   }, [])
-
-  useEffect(() => {
-    if (handleWrongNetwork()) {
-      return
-    }
-  }, [handleWrongNetwork])
 
   const stopLoading = () => {
     setUploadedMedia({

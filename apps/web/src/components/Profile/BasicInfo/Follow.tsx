@@ -144,9 +144,7 @@ const Follow: FC<Props> = ({ profile, onSubscribe }) => {
     if (!activeProfile?.id) {
       return toast.error(SIGN_IN_REQUIRED)
     }
-    if (handleWrongNetwork()) {
-      return
-    }
+    await handleWrongNetwork()
 
     setLoading(true)
     const request = {

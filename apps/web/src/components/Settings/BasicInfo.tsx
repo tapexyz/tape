@@ -209,9 +209,8 @@ const BasicInfo = ({ profile }: Props) => {
       })) ?? []
 
   const onSaveBasicInfo = async (data: FormData) => {
-    if (handleWrongNetwork()) {
-      return
-    }
+    await handleWrongNetwork()
+
     try {
       setLoading(true)
       const metadata: ProfileOptions = {

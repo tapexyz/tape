@@ -122,9 +122,7 @@ const UnFollow: FC<Props> = ({ profile, onUnSubscribe }) => {
     if (!activeProfile?.id) {
       return toast.error(SIGN_IN_REQUIRED)
     }
-    if (handleWrongNetwork()) {
-      return
-    }
+    await handleWrongNetwork()
 
     setLoading(true)
     if (canUseLensManager) {

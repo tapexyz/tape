@@ -187,9 +187,8 @@ const New: FC<Props> = ({ refetch }) => {
     if (!activeProfile) {
       return toast.error(SIGN_IN_REQUIRED)
     }
-    if (handleWrongNetwork()) {
-      return
-    }
+    await handleWrongNetwork()
+
     setLoading(true)
     const linkText = trimify(getValues('link'))
     const attributes: MetadataAttribute[] = [

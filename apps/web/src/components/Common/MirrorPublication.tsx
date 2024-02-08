@@ -187,9 +187,7 @@ const MirrorPublication: FC<Props> = ({
     if (!activeProfile?.id) {
       return toast.error(SIGN_IN_REQUIRED)
     }
-    if (handleWrongNetwork()) {
-      return
-    }
+    await handleWrongNetwork()
 
     if (video.momoka?.proof && !activeProfile?.sponsor) {
       return toast.error(

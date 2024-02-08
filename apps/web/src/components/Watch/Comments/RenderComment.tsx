@@ -130,13 +130,11 @@ const RenderComment: FC<Props> = ({ comment }) => {
               <PublicationReaction publication={comment} />
               <button
                 className="flex items-center space-x-1"
-                onClick={() => {
+                onClick={async () => {
                   if (!activeProfile?.id) {
                     return toast.error(SIGN_IN_REQUIRED)
                   }
-                  if (handleWrongNetwork()) {
-                    return
-                  }
+                  await handleWrongNetwork()
                   setShowNewComment(!showNewComment)
                   setDefaultComment('')
                 }}
@@ -174,13 +172,12 @@ const RenderComment: FC<Props> = ({ comment }) => {
             {showReplies && (
               <CommentReplies
                 comment={comment}
-                replyTo={(profile) => {
+                replyTo={async (profile) => {
                   if (!activeProfile?.id) {
                     return toast.error(SIGN_IN_REQUIRED)
                   }
-                  if (handleWrongNetwork()) {
-                    return
-                  }
+                  await handleWrongNetwork()
+
                   setShowNewComment(true)
                   setDefaultComment(`@${profile.handle?.fullHandle} `)
                 }}

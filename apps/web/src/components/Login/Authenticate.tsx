@@ -1,12 +1,13 @@
 import ButtonShimmer from '@components/Shimmers/ButtonShimmer'
 import { signIn, signOut } from '@lib/store/auth'
 import useProfileStore from '@lib/store/idb/profile'
-import { ERROR_MESSAGE } from '@tape.xyz/constants'
+import { ERROR_MESSAGE, IS_MAINNET } from '@tape.xyz/constants'
 import {
   EVENTS,
   getProfile,
   getProfilePicture,
   logger,
+  shortenAddress,
   Tower
 } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
@@ -17,7 +18,13 @@ import {
   useProfilesManagedQuery
 } from '@tape.xyz/lens'
 import { useApolloClient } from '@tape.xyz/lens/apollo'
-import { Button, Select, SelectItem } from '@tape.xyz/ui'
+import {
+  Button,
+  Callout,
+  Select,
+  SelectItem,
+  WarningOutline
+} from '@tape.xyz/ui'
 import { useRouter } from 'next/router'
 import React, { memo, useCallback, useMemo, useState } from 'react'
 import toast from 'react-hot-toast'
@@ -31,6 +38,7 @@ const Authenticate = () => {
   } = useRouter()
 
   const [loading, setLoading] = useState(false)
+  const [showSignup, setShowSignup] = useState(false)
   const [selectedProfileId, setSelectedProfileId] = useState<string>('')
   const { activeProfile, setActiveProfile } = useProfileStore()
 
@@ -55,8 +63,11 @@ const Authenticate = () => {
     onCompleted: (data) => {
       const profiles = data?.profilesManaged.items
       if (profiles?.length) {
+        setShowSignup(false)
         const profile = [...profiles].reverse()[0]
         setSelectedProfileId(as || profile.id)
+      } else {
+        setShowSignup(true)
       }
     }
   })
@@ -164,39 +175,71 @@ const Authenticate = () => {
   }
 
   return (
-    <div className="text-left">
-      {profile ? (
-        <div className="flex flex-col gap-2">
-          <Select
-            size="lg"
-            defaultValue={as ?? profile?.id}
-            value={selectedProfileId}
-            onValueChange={(value) => setSelectedProfileId(value)}
-          >
-            {reversedProfilesManaged?.map((profile) => (
-              <SelectItem size="lg" key={profile.id} value={profile.id}>
-                <div className="flex items-center space-x-2">
-                  <img
-                    src={getProfilePicture(profile, 'AVATAR')}
-                    className="size-4 rounded-full"
-                    alt={getProfile(profile)?.displayName}
-                  />
-                  <span>{getProfile(profile).slugWithPrefix}</span>
-                </div>
-              </SelectItem>
-            ))}
-          </Select>
-          <Button
-            size="md"
-            loading={loading}
-            onClick={handleSign}
-            disabled={loading || !selectedProfileId}
-          >
-            Login
-          </Button>
-        </div>
+    <div className="space-y-4 text-left">
+      {!IS_MAINNET && showSignup ? (
+        <Signup
+          onSuccess={() => refetch()}
+          setShowSignup={setShowSignup}
+          showLogin={Boolean(profile)}
+        />
       ) : (
-        <Signup onSuccess={() => refetch()} />
+        <div className="flex flex-col gap-2">
+          {profile ? (
+            <>
+              <Select
+                size="lg"
+                defaultValue={as ?? profile?.id}
+                value={selectedProfileId}
+                onValueChange={(value) => setSelectedProfileId(value)}
+              >
+                {reversedProfilesManaged?.map((profile) => (
+                  <SelectItem size="lg" key={profile.id} value={profile.id}>
+                    <div className="flex items-center space-x-2">
+                      <img
+                        src={getProfilePicture(profile, 'AVATAR')}
+                        className="size-4 rounded-full"
+                        alt={getProfile(profile)?.displayName}
+                      />
+                      <span>{getProfile(profile).slugWithPrefix}</span>
+                    </div>
+                  </SelectItem>
+                ))}
+              </Select>
+              <Button
+                size="md"
+                loading={loading}
+                onClick={handleSign}
+                disabled={loading || !selectedProfileId}
+              >
+                Login
+              </Button>
+            </>
+          ) : (
+            <Callout
+              variant="danger"
+              icon={<WarningOutline className="size-4" />}
+            >
+              We couldn't find any profiles linked to the connected address. (
+              {shortenAddress(address as string)})
+            </Callout>
+          )}
+          {!IS_MAINNET && (
+            <div className="flex items-center justify-center space-x-2 pt-3 text-sm">
+              {profile ? (
+                <span>Need new account?</span>
+              ) : (
+                <span>Don't have an account?</span>
+              )}
+              <button
+                type="button"
+                className="text-brand-500 font-bold"
+                onClick={() => setShowSignup(true)}
+              >
+                Sign up
+              </button>
+            </div>
+          )}
+        </div>
       )}
     </div>
   )

@@ -212,9 +212,8 @@ const Managers = () => {
   })
 
   const addManager = async ({ address }: FormData) => {
-    if (handleWrongNetwork()) {
-      return
-    }
+    await handleWrongNetwork()
+
     setSubmitting(true)
     return await toggleLensManager({
       variables: {
@@ -232,9 +231,8 @@ const Managers = () => {
   }
 
   const removeManager = async (address: string) => {
-    if (handleWrongNetwork()) {
-      return
-    }
+    await handleWrongNetwork()
+
     setRemovingAddress(address)
     return await toggleLensManager({
       variables: {
