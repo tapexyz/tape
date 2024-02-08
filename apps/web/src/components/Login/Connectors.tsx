@@ -10,17 +10,20 @@ import Authenticate from './Authenticate'
 
 const Connectors = () => {
   const { activeProfile } = useProfileStore()
+  const handleWrongNetwork = useHandleWrongNetwork()
 
   const { connector: connected } = useAccount()
-  const handleWrongNetwork = useHandleWrongNetwork()
   const { connectors, connectAsync, isPending, error } = useConnect()
 
   const onChooseConnector = async (connector: Connector) => {
+    console.log('🚀 ~ onChooseConnector ~ connector:', connector)
     try {
       await handleWrongNetwork()
       await connectAsync({ connector })
       Tower.track(EVENTS.AUTH.CONNECT_WALLET, { connector: connector.id })
-    } catch {}
+    } catch (errr) {
+      console.log('🚀 ~ onChooseConnector ~ errr:', errr)
+    }
   }
 
   const getConnectorName = (connector: Connector) => {

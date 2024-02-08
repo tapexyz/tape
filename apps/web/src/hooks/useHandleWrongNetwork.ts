@@ -7,9 +7,10 @@ const useHandleWrongNetwork = () => {
   const { switchChainAsync } = useSwitchChain()
 
   const handleWrongNetwork = async () => {
-    if (activeConnection[0].chainId !== POLYGON_CHAIN_ID) {
+    const activeChainId = activeConnection?.[0]?.chainId
+    if (activeChainId !== POLYGON_CHAIN_ID) {
       Tower.track(EVENTS.AUTH.SWITCH_NETWORK, {
-        fromChainId: activeConnection[0].chainId
+        fromChainId: activeChainId
       })
       return await switchChainAsync({ chainId: POLYGON_CHAIN_ID })
     }
