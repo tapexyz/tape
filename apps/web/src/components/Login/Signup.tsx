@@ -1,14 +1,14 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import usePendingTxn from '@hooks/usePendingTxn'
-import { TAPE_PERMISSIONLESS_ABI } from '@tape.xyz/abis'
+import { TAPE_SIGNUP_PROXY_ABI } from '@tape.xyz/abis'
 import { useDebounce } from '@tape.xyz/browser'
 import {
   COMMON_REGEX,
   ERROR_MESSAGE,
   LENS_NAMESPACE_PREFIX,
-  TAPE_PERMISSIONLESS_ADDRESS,
-  TAPE_PERMISSIONLESS_SIGNUP_PRICE,
+  TAPE_SIGNUP_PRICE,
+  TAPE_SIGNUP_PROXY_ADDRESS,
   ZERO_ADDRESS
 } from '@tape.xyz/constants'
 import {
@@ -135,11 +135,11 @@ const Signup = ({
         return toast.error(ERROR_MESSAGE)
       }
       return await writeContractAsync({
-        abi: TAPE_PERMISSIONLESS_ABI,
-        address: TAPE_PERMISSIONLESS_ADDRESS,
+        abi: TAPE_SIGNUP_PROXY_ABI,
+        address: TAPE_SIGNUP_PROXY_ADDRESS,
         args: [[address, ZERO_ADDRESS, '0x'], handle, [relayerAddress]],
         functionName: 'createProfileWithHandleUsingCredits',
-        value: parseEther(TAPE_PERMISSIONLESS_SIGNUP_PRICE)
+        value: parseEther(TAPE_SIGNUP_PRICE)
       })
     } catch {}
   }

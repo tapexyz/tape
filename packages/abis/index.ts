@@ -1,2 +1,2 @@
 export * from './src/LensHubProxy'
-export * from './src/TapePermissionless'
+export * from './src/TapeSignupProxy'

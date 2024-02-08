@@ -1,4 +1,4 @@
-export const TAPE_PERMISSIONLESS_ABI = [
+export const TAPE_SIGNUP_PROXY_ABI = [
   { inputs: [], name: 'CreateNotAllowed', type: 'error' },
   { inputs: [], name: 'InvalidFunds', type: 'error' },
   { inputs: [], name: 'InvalidInitialization', type: 'error' },
