@@ -10,9 +10,9 @@ import Authenticate from './Authenticate'
 
 const Connectors = () => {
   const { activeProfile } = useProfileStore()
+  const handleWrongNetwork = useHandleWrongNetwork()
 
   const { connector: connected } = useAccount()
-  const handleWrongNetwork = useHandleWrongNetwork()
   const { connectors, connectAsync, isPending, error } = useConnect()
 
   const onChooseConnector = async (connector: Connector) => {
