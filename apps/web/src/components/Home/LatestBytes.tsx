@@ -1,4 +1,5 @@
 import Badge from '@components/Common/Badge'
+import HoverableProfile from '@components/Common/HoverableProfile'
 import LatestBytesShimmer from '@components/Shimmers/LatestBytesShimmer'
 import { getUnixTimestampForDaysAgo } from '@lib/formatTime'
 import {
@@ -87,23 +88,25 @@ const LatestBytes = () => {
               </div>
             </Link>
             <span>
-              <Link
-                href={getProfile(byte.by)?.link}
-                className="inline-flex items-center space-x-1 px-3 py-1"
-              >
-                <img
-                  className="size-4 rounded-full bg-gray-200 dark:bg-gray-800"
-                  src={getProfilePicture(byte.by, 'AVATAR')}
-                  height={50}
-                  width={50}
-                  alt={`${getProfile(byte.by)?.slug}'s PFP`}
-                  draggable={false}
-                />
-                <span className="flex items-center space-x-1 font-medium">
-                  <span>{getProfile(byte.by)?.slug}</span>
-                  <Badge id={byte.by.id} size="xs" />
-                </span>
-              </Link>
+              <HoverableProfile profile={byte.by} key={byte.by?.id}>
+                <Link
+                  href={getProfile(byte.by)?.link}
+                  className="inline-flex items-center space-x-1 px-3 py-1"
+                >
+                  <img
+                    className="size-4 rounded-full bg-gray-200 dark:bg-gray-800"
+                    src={getProfilePicture(byte.by, 'AVATAR')}
+                    height={50}
+                    width={50}
+                    alt={`${getProfile(byte.by)?.slug}'s PFP`}
+                    draggable={false}
+                  />
+                  <span className="flex items-center space-x-1 font-medium">
+                    <span>{getProfile(byte.by)?.slug}</span>
+                    <Badge id={byte.by.id} size="xs" />
+                  </span>
+                </Link>
+              </HoverableProfile>
             </span>
           </div>
         )
