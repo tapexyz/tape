@@ -103,12 +103,10 @@ const Layout: FC<Props> = ({
       />
       {!skipNav && <Navbar />}
       <div
-        className={tw(
-          'ultrawide:pb-8 relative pb-6 focus-visible:outline-none',
-          {
-            'ultrawide:px-8 laptop:px-6 px-4 pt-20': !skipPadding
-          }
-        )}
+        className={tw('relative focus-visible:outline-none', {
+          'ultrawide:px-8 laptop:px-6 ultrawide:pb-8 px-4 pb-6 pt-20':
+            !skipPadding
+        })}
       >
         {children}
       </div>

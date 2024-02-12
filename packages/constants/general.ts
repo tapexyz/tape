@@ -129,6 +129,9 @@ export const IRYS_CURRENCY = 'matic'
 export const ARWEAVE_GATEWAY_URL = 'https://gateway.irys.xyz'
 export const IRYS_CONNECT_MESSAGE = 'Estimating video upload cost...'
 export const REQUESTING_SIGNATURE_MESSAGE = 'Requesting signature...'
+export const MOONPAY_URL = IS_MAINNET
+  ? 'https://buy.moonpay.com'
+  : 'https://buy-sandbox.moonpay.com'
 
 // error messages
 export const ERROR_MESSAGE = 'Oops, something went wrong!'
@@ -154,7 +157,7 @@ export const TAPE_GITHUB_HANDLE = 'tapexyz'
 export const TAPE_LOGO = `${STATIC_ASSETS}/brand/logo.svg`
 export const TAPE_STATUS_PAGE = 'https://status.tape.xyz'
 export const TAPE_FEEDBACK_URL = 'https://feedback.tape.xyz'
-export const TAPE_SIGNUP_PRICE = '1'
+export const TAPE_SIGNUP_PRICE = 1
 
 // admin
 export const ADMIN_IDS = IS_MAINNET ? ['0x2d'] : ['0x34']

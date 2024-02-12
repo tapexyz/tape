@@ -20,7 +20,7 @@ interface ILensPermissionlessCreator {
 
 contract TapePermissionlessCreator is Initializable, OwnableUpgradeable {
   ILensPermissionlessCreator public lensPermissionlessCreator;
-  mapping(uint256 => bool) public profiles;
+  mapping(uint256 => string) public profiles;
   uint256 public signupPrice;
   uint256 public totalCount;
 
@@ -32,14 +32,13 @@ contract TapePermissionlessCreator is Initializable, OwnableUpgradeable {
 
   function initialize(
     address ownerAddress,
-    address lensPermissionlessCreatorAddress,
-    uint256 _signupPrice
+    address lensPermissionlessCreatorAddress
   ) public initializer {
     __Ownable_init(ownerAddress);
     lensPermissionlessCreator = ILensPermissionlessCreator(
       lensPermissionlessCreatorAddress
     );
-    signupPrice = _signupPrice;
+    signupPrice = 15 ether;
   }
 
   function createProfileWithHandleUsingCredits(
@@ -62,7 +61,7 @@ contract TapePermissionlessCreator is Initializable, OwnableUpgradeable {
         delegatedExecutors
       );
 
-    profiles[profileId] = true;
+    profiles[profileId] = handle;
     totalCount++;
 
     emit ProfileCreated(profileId, handleId, handle);
