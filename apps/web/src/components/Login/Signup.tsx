@@ -88,7 +88,7 @@ const Signup = ({
 
   const onError = (error: CustomErrorWithData) => {
     setCreating(false)
-    toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
+    toast.error(error?.name ?? error?.message ?? ERROR_MESSAGE)
   }
 
   const { writeContractAsync, data: txnHash } = useWriteContract({
