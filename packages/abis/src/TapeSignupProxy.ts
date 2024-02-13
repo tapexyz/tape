@@ -100,8 +100,7 @@ export const TAPE_SIGNUP_PROXY_ABI = [
         internalType: 'address',
         name: 'lensPermissionlessCreatorAddress',
         type: 'address'
-      },
-      { internalType: 'uint256', name: '_signupPrice', type: 'uint256' }
+      }
     ],
     name: 'initialize',
     outputs: [],
@@ -131,13 +130,22 @@ export const TAPE_SIGNUP_PROXY_ABI = [
   {
     inputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     name: 'profiles',
-    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    outputs: [{ internalType: 'string', name: '', type: 'string' }],
     stateMutability: 'view',
     type: 'function'
   },
   {
     inputs: [],
     name: 'renounceOwnership',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [
+      { internalType: 'address', name: 'creatorAddress', type: 'address' }
+    ],
+    name: 'setLensPermissionlessCreatorAddress',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function'

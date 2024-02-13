@@ -45,7 +45,7 @@ export const TAPE_API_URL = IS_PRODUCTION
 
 // addresses
 export const TAPE_SIGNUP_PROXY_ADDRESS = IS_MAINNET
-  ? '0x21970AD5c43e90184A62674fAC54f4Bed030Fb74'
+  ? '0x68357D5F02a3913132577c7aC0847feade9a05aC'
   : '0x21970AD5c43e90184A62674fAC54f4Bed030Fb74'
 export const LENSHUB_PROXY_ADDRESS = IS_MAINNET
   ? '0xDb46d1Dc155634FbC732f92E853b10B288AD5a1d'
@@ -157,7 +157,7 @@ export const TAPE_GITHUB_HANDLE = 'tapexyz'
 export const TAPE_LOGO = `${STATIC_ASSETS}/brand/logo.svg`
 export const TAPE_STATUS_PAGE = 'https://status.tape.xyz'
 export const TAPE_FEEDBACK_URL = 'https://feedback.tape.xyz'
-export const TAPE_SIGNUP_PRICE = 1
+export const TAPE_SIGNUP_PRICE = IS_MAINNET ? 10 : 0
 
 // admin
 export const ADMIN_IDS = IS_MAINNET ? ['0x2d'] : ['0x34']

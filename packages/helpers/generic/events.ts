@@ -64,6 +64,8 @@ export const EVENTS = {
     CONNECT_WALLET: 'Connect Wallet',
     SWITCH_NETWORK: 'Switch Network',
     SIGN_IN_WITH_LENS: 'Sign in with Lens',
+    SIGNUP_SUCCESS: 'Signup Success',
+    SIGNUP_HANDLE_SEARCH: 'Signup Handle Search',
     SIGN_OUT: 'Sign Out'
   },
   PROFILE: {
