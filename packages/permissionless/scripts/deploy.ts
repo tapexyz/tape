@@ -14,11 +14,10 @@ async function deployProxy() {
   await deployProxy.waitForDeployment()
 
   const proxyAddress = await deployProxy.getAddress()
-  console.log(
-    `TapePermissonlessCreator Proxy deployed to ${proxyAddress}`
-  )
+  console.log(`TapePermissonlessCreator Proxy deployed to ${proxyAddress}`)
 
-  const currentImplAddress = await hre.upgrades.erc1967.getImplementationAddress(proxyAddress);
+  const currentImplAddress =
+    await hre.upgrades.erc1967.getImplementationAddress(proxyAddress)
   console.log(
     `TapePermissonlessCreator Implementation deployed to ${currentImplAddress}`
   )
