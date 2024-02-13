@@ -62,14 +62,15 @@ This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. I
 
 ### Packages
 
-| Name        | Description                               |
-| ----------- | ----------------------------------------- |
-| `lens`      | Everything realted to Lens                |
-| `abis`      | Contract Interfaces                       |
-| `helpers`   | Collection of browser and generic helpers |
-| `ui`        | UI components                             |
-| `constants` | Constants for the entire application      |
-| `config`    | Shared lint config                        |
+| Name             | Description                               |
+| ---------------- | ----------------------------------------- |
+| `lens`           | Everything realted to Lens                |
+| `abis`           | Contract Interfaces                       |
+| `helpers`        | Collection of browser and generic helpers |
+| `ui`             | UI components                             |
+| `constants`      | Constants for the entire application      |
+| `config`         | Shared lint config                        |
+| `permissionless` | Permissionless signup contracts           |
 
 ## Getting Started
 
