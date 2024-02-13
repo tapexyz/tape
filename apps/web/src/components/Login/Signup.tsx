@@ -39,9 +39,10 @@ import { object, string } from 'zod'
 const formSchema = object({
   handle: string()
     .min(5, { message: 'Handle should be at least 5 characters' })
-    .max(31, { message: 'Handle should not exceed 31 characters' })
+    .max(26, { message: 'Handle should not exceed 26 characters' })
     .regex(COMMON_REGEX.HANDLE, {
-      message: 'Handle should only contain alphanumeric characters'
+      message:
+        'Handle must start with a letter/number, only _ allowed in between'
     })
 })
 type FormData = z.infer<typeof formSchema>
