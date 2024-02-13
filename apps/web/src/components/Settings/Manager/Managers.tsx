@@ -133,7 +133,7 @@ const Managers = () => {
     mutation: { onError }
   })
 
-  const { writeContract, data: writeHash } = useWriteContract({
+  const { writeContractAsync, data: writeHash } = useWriteContract({
     mutation: {
       onSuccess: () => {
         setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
@@ -145,8 +145,8 @@ const Managers = () => {
     }
   })
 
-  const write = ({ args }: { args: any[] }) => {
-    return writeContract({
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
       address: LENSHUB_PROXY_ADDRESS,
       abi: LENSHUB_PROXY_ABI,
       functionName: 'changeDelegatedExecutorsConfig',
@@ -199,11 +199,11 @@ const Managers = () => {
             variables: { request: { id, signature } }
           })
           if (data?.broadcastOnchain.__typename === 'RelayError') {
-            return write({ args })
+            return await write({ args })
           }
           return
         }
-        return write({ args })
+        return await write({ args })
       } catch {
         setSubmitting(false)
       }

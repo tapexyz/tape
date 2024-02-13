@@ -44,7 +44,7 @@ const ToggleLensManager = () => {
     mutation: { onError }
   })
 
-  const { writeContract, data: txHash } = useWriteContract({
+  const { writeContractAsync, data: txHash } = useWriteContract({
     mutation: {
       onSuccess: () => {
         setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
@@ -56,8 +56,8 @@ const ToggleLensManager = () => {
     }
   })
 
-  const write = ({ args }: { args: any[] }) => {
-    return writeContract({
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
       address: LENSHUB_PROXY_ADDRESS,
       abi: LENSHUB_PROXY_ABI,
       functionName: 'changeDelegatedExecutorsConfig',
@@ -115,11 +115,11 @@ const ToggleLensManager = () => {
             variables: { request: { id, signature } }
           })
           if (data?.broadcastOnchain?.__typename === 'RelayError') {
-            return write({ args })
+            return await write({ args })
           }
           return
         }
-        return write({ args })
+        return await write({ args })
       } catch {
         setLoading(false)
       }

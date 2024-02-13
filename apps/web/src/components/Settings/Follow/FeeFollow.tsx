@@ -115,14 +115,14 @@ const FeeFollow = ({ profile }: Props) => {
     onError
   })
 
-  const { data: txHash, writeContract } = useWriteContract({
+  const { data: txHash, writeContractAsync } = useWriteContract({
     mutation: {
       onError
     }
   })
 
-  const write = ({ args }: { args: any[] }) => {
-    return writeContract({
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
       address: LENSHUB_PROXY_ADDRESS,
       abi: LENSHUB_PROXY_ABI,
       functionName: 'setFollowModule',
@@ -164,11 +164,11 @@ const FeeFollow = ({ profile }: Props) => {
               variables: { request: { id, signature } }
             })
             if (data?.broadcastOnchain?.__typename === 'RelayError') {
-              return write({ args })
+              return await write({ args })
             }
             return
           }
-          return write({ args })
+          return await write({ args })
         } catch {
           setLoading(false)
         }

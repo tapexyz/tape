@@ -269,7 +269,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
   }
   const { signTypedDataAsync } = useSignTypedData({ mutation: { onError } })
 
-  const { writeContract } = useWriteContract({
+  const { writeContractAsync } = useWriteContract({
     mutation: {
       onSuccess: () => {
         onCompleted()
@@ -282,8 +282,8 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
     }
   })
 
-  const write = ({ args }: { args: any[] }) => {
-    return writeContract({
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
       address: LENSHUB_PROXY_ADDRESS,
       abi: LENSHUB_PROXY_ABI,
       functionName: isLegacyCollectModule ? 'collectLegacy' : 'act',
@@ -308,11 +308,11 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
             variables: { request: { id, signature } }
           })
           if (data?.broadcastOnchain.__typename === 'RelayError') {
-            return write({ args })
+            return await write({ args })
           }
           return
         }
-        return write({ args })
+        return await write({ args })
       },
       onError
     })
@@ -330,11 +330,11 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
             variables: { request: { id, signature } }
           })
           if (data?.broadcastOnchain.__typename === 'RelayError') {
-            return write({ args })
+            return await write({ args })
           }
           return
         }
-        return write({ args })
+        return await write({ args })
       },
       onError
     })

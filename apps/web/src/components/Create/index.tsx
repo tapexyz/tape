@@ -192,7 +192,7 @@ const CreateSteps = () => {
     mutation: { onError }
   })
 
-  const { writeContract } = useWriteContract({
+  const { writeContractAsync } = useWriteContract({
     mutation: {
       onSuccess: (txnHash) => {
         if (txnHash) {
@@ -208,8 +208,8 @@ const CreateSteps = () => {
     }
   })
 
-  const write = ({ args }: { args: any[] }) => {
-    return writeContract({
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
       address: LENSHUB_PROXY_ADDRESS,
       abi: LENSHUB_PROXY_ABI,
       functionName: 'post',
@@ -253,11 +253,11 @@ const CreateSteps = () => {
             variables: { request: { id, signature } }
           })
           if (data?.broadcastOnchain?.__typename === 'RelayError') {
-            return write({ args: [typedData.value] })
+            return await write({ args: [typedData.value] })
           }
           return
         }
-        return write({ args: [typedData.value] })
+        return await write({ args: [typedData.value] })
       } catch {
         setUploadedMedia({
           buttonText: 'Post Now',
