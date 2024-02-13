@@ -24,7 +24,7 @@ async function deployProxy() {
 }
 
 // async function upgradeProxy() {
-//   const PROXY_ADDRESS = '0xf310282af8F4cca4633A3e1eC99Fa1bC83c94A7c'
+//   const PROXY_ADDRESS = '0x68357D5F02a3913132577c7aC0847feade9a05aC'
 
 //   const TapePermissionlessCreatorV2 = await hre.ethers.getContractFactory(
 //     'TapePermissonlessCreatorV2'
