@@ -15,7 +15,7 @@ const useHandleWrongNetwork = () => {
       return await switchChainAsync({ chainId: POLYGON_CHAIN_ID })
     }
 
-    return false
+    return
   }
 
   return handleWrongNetwork
