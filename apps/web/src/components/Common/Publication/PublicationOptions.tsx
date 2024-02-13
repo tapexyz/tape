@@ -140,15 +140,15 @@ const PublicationOptions: FC<Props> = ({ publication, children }) => {
     mutation: { onError }
   })
 
-  const { writeContract } = useWriteContract({
+  const { writeContractAsync } = useWriteContract({
     mutation: {
       onError,
       onSuccess: () => onCompleted()
     }
   })
 
-  const write = ({ args }: { args: any[] }) => {
-    return writeContract({
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
       address: LENSHUB_PROXY_ADDRESS,
       abi: LENSHUB_PROXY_ABI,
       functionName: 'setProfileMetadataURI',
@@ -176,11 +176,11 @@ const PublicationOptions: FC<Props> = ({ publication, children }) => {
               variables: { request: { id, signature } }
             })
             if (data?.broadcastOnchain?.__typename === 'RelayError') {
-              return write({ args: [profileId, metadataURI] })
+              return await write({ args: [profileId, metadataURI] })
             }
             return
           }
-          return write({ args: [profileId, metadataURI] })
+          return await write({ args: [profileId, metadataURI] })
         } catch {}
       },
       onError
