@@ -123,7 +123,7 @@ const New: FC<Props> = ({ refetch }) => {
     return signature
   }
 
-  const { writeContract } = useWriteContract({
+  const { writeContractAsync } = useWriteContract({
     mutation: {
       onSuccess: () => {
         setLoading(false)
@@ -145,8 +145,8 @@ const New: FC<Props> = ({ refetch }) => {
     }
   })
 
-  const write = ({ args }: { args: any[] }) => {
-    return writeContract({
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
       address: LENSHUB_PROXY_ADDRESS,
       abi: LENSHUB_PROXY_ABI,
       functionName: 'post',
@@ -164,11 +164,11 @@ const New: FC<Props> = ({ refetch }) => {
             variables: { request: { id, signature } }
           })
           if (data?.broadcastOnMomoka?.__typename === 'RelayError') {
-            return write({ args: [typedData.value] })
+            return await write({ args: [typedData.value] })
           }
           return
         }
-        return write({ args: [typedData.value] })
+        return await write({ args: [typedData.value] })
       } catch {}
     },
     onError

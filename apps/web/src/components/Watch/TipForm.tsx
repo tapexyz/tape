@@ -134,7 +134,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
     })
   }
 
-  const { writeContract } = useWriteContract({
+  const { writeContractAsync } = useWriteContract({
     mutation: {
       onError,
       onSuccess: (hash) => {
@@ -143,8 +143,8 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
     }
   })
 
-  const write = ({ args }: { args: any[] }) => {
-    return writeContract({
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
       address: LENSHUB_PROXY_ADDRESS,
       abi: LENSHUB_PROXY_ABI,
       functionName: 'comment',
@@ -208,11 +208,11 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
               variables: { request: { id, signature } }
             })
             if (data?.broadcastOnchain?.__typename === 'RelayError') {
-              return write({ args })
+              return await write({ args })
             }
             return
           }
-          return write({ args })
+          return await write({ args })
         } catch {}
       },
       onError
@@ -248,11 +248,11 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
               variables: { request: { id, signature } }
             })
             if (data?.broadcastOnMomoka?.__typename === 'RelayError') {
-              return write({ args })
+              return await write({ args })
             }
             return
           }
-          return write({ args })
+          return await write({ args })
         } catch {}
       },
       onError

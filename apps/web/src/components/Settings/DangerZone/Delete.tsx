@@ -26,7 +26,7 @@ const Delete = () => {
     toast.error(error?.data?.message ?? error?.message)
   }
 
-  const { writeContract } = useWriteContract({
+  const { writeContractAsync } = useWriteContract({
     mutation: {
       onError,
       onSuccess: (txnHash) => setTxnHash(txnHash)
@@ -67,7 +67,7 @@ const Delete = () => {
     setLoading(true)
     try {
       toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-      writeContract({
+      await writeContractAsync({
         address: LENSHUB_PROXY_ADDRESS,
         abi: LENSHUB_PROXY_ABI,
         functionName: 'burn',

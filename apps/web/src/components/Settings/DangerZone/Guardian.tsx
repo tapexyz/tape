@@ -45,7 +45,7 @@ const Guardian: FC = () => {
     setLoading(false)
   }
 
-  const { data: txnHash, writeContract } = useWriteContract({
+  const { data: txnHash, writeContractAsync } = useWriteContract({
     mutation: {
       onError
     }
@@ -77,13 +77,13 @@ const Guardian: FC = () => {
     try {
       setLoading(true)
       if (guardianEnabled) {
-        return writeContract({
+        return await writeContractAsync({
           address: LENSHUB_PROXY_ADDRESS,
           abi: LENSHUB_PROXY_ABI,
           functionName: 'DANGER__disableTokenGuardian'
         })
       }
-      return writeContract({
+      return await writeContractAsync({
         address: LENSHUB_PROXY_ADDRESS,
         abi: LENSHUB_PROXY_ABI,
         functionName: 'DANGER__disableTokenGuardian'
