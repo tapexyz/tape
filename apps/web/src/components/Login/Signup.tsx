@@ -12,6 +12,7 @@ import {
   TAPE_SIGNUP_PROXY_ADDRESS,
   ZERO_ADDRESS
 } from '@tape.xyz/constants'
+import { EVENTS, Tower } from '@tape.xyz/generic'
 import {
   useGenerateLensApiRelayAddressLazyQuery,
   useProfileLazyQuery
@@ -105,6 +106,9 @@ const Signup = ({
           }
         }
       })
+      Tower.track(EVENTS.AUTH.SIGNUP_HANDLE_SEARCH, {
+        handle: `${LENS_NAMESPACE_PREFIX}${handle}`
+      })
       if (data?.profile) {
         return setIsHandleAvailable(false)
       }
@@ -124,6 +128,7 @@ const Signup = ({
       reset()
       toast.success('Profile created')
       setCreating(false)
+      Tower.track(EVENTS.AUTH.SIGNUP_SUCCESS)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indexed, error])

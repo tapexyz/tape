@@ -1,6 +1,6 @@
 require('dotenv').config()
 
-import { HardhatUserConfig } from 'hardhat/config'
+import type { HardhatUserConfig } from 'hardhat/config'
 import '@openzeppelin/hardhat-upgrades'
 import '@nomicfoundation/hardhat-toolbox'
 
@@ -9,11 +9,18 @@ const config: HardhatUserConfig = {
   sourcify: {
     enabled: true
   },
-  defaultNetwork: 'polygonMumbai',
   etherscan: {
-    apiKey: { polygonMumbai: process.env.POLYGONSCAN_API_KEY! }
+    apiKey: {
+      polygon: process.env.POLYGONSCAN_API_KEY!,
+      polygonMumbai: process.env.POLYGONSCAN_API_KEY!
+    }
   },
   networks: {
+    polygon: {
+      accounts: [process.env.PRIVATE_KEY!],
+      url: `https://polygon-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
+      gasPrice: 400000000000
+    },
     polygonMumbai: {
       accounts: [process.env.PRIVATE_KEY!],
       url: `https://polygon-mumbai.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`

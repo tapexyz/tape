@@ -38,7 +38,7 @@ contract TapePermissionlessCreator is Initializable, OwnableUpgradeable {
     lensPermissionlessCreator = ILensPermissionlessCreator(
       lensPermissionlessCreatorAddress
     );
-    signupPrice = 15 ether;
+    signupPrice = 10 ether;
   }
 
   function createProfileWithHandleUsingCredits(
@@ -46,7 +46,7 @@ contract TapePermissionlessCreator is Initializable, OwnableUpgradeable {
     string calldata handle,
     address[] calldata delegatedExecutors
   ) external payable returns (uint256 profileId, uint256 handleId) {
-    if (msg.value != signupPrice) {
+    if (msg.value < signupPrice) {
       revert InvalidFunds();
     }
 
@@ -78,5 +78,11 @@ contract TapePermissionlessCreator is Initializable, OwnableUpgradeable {
 
   function setSignupPrice(uint256 _signupPrice) external onlyOwner {
     signupPrice = _signupPrice;
+  }
+
+  function setLensPermissionlessCreatorAddress(
+    address creatorAddress
+  ) external onlyOwner {
+    lensPermissionlessCreator = ILensPermissionlessCreator(creatorAddress);
   }
 }

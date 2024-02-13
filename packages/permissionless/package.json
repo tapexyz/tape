@@ -4,28 +4,15 @@
   "author": "sasicodes",
   "license": "AGPL-3.0",
   "devDependencies": {
-    "@nomicfoundation/hardhat-chai-matchers": "^2.0.0",
-    "@nomicfoundation/hardhat-ethers": "^3.0.0",
-    "@nomicfoundation/hardhat-network-helpers": "^1.0.0",
+    "@nomicfoundation/hardhat-ethers": "^3.0.5",
     "@nomicfoundation/hardhat-toolbox": "^4.0.0",
     "@nomicfoundation/hardhat-verify": "^2.0.0",
-    "@nomiclabs/hardhat-ethers": "^2.2.3",
     "@openzeppelin/contracts": "^5.0.1",
     "@openzeppelin/contracts-upgradeable": "^5.0.1",
     "@openzeppelin/hardhat-upgrades": "^3.0.3",
-    "@typechain/ethers-v6": "^0.5.0",
-    "@typechain/hardhat": "^9.0.0",
-    "@types/chai": "^4.2.0",
-    "@types/chai-as-promised": "^7.1.6",
-    "@types/mocha": ">=9.1.0",
-    "chai": "^5.1.0",
     "dotenv": "^16.4.3",
     "ethers": "^6.11.0",
-    "hardhat": "^2.19.5",
-    "hardhat-gas-reporter": "^1.0.8",
-    "solidity-coverage": "^0.8.7",
-    "ts-node": "^10.9.2",
-    "typechain": "^8.3.0",
-    "typescript": "^5.3.3"
+    "typescript": "^5.3.3",
+    "hardhat": "^2.19.5"
   }
 }
