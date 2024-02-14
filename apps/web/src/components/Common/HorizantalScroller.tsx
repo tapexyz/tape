@@ -4,11 +4,10 @@ import React from 'react'
 
 type Props = {
   heading: string
-  subheading: string
   sectionRef: RefObject<HTMLDivElement>
 }
 
-const HorizantalScroller: FC<Props> = ({ heading, subheading, sectionRef }) => {
+const HorizantalScroller: FC<Props> = ({ heading, sectionRef }) => {
   const sectionOffsetWidth = sectionRef.current?.offsetWidth ?? 1000
   const scrollOffset = sectionOffsetWidth / 1.2
 
@@ -21,8 +20,7 @@ const HorizantalScroller: FC<Props> = ({ heading, subheading, sectionRef }) => {
   return (
     <div className="flex items-center justify-between">
       <div className="flex items-center space-x-3 text-xl">
-        <h1 className="text-brand-500 font-bold">{heading}</h1>
-        <p>{subheading}</p>
+        <h1 className="font-bold">{heading}</h1>
       </div>
       <div className="space-x-2">
         <button

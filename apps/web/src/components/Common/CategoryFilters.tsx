@@ -9,10 +9,9 @@ import HorizantalScroller from './HorizantalScroller'
 
 type Props = {
   heading?: string
-  subheading?: string
 }
 
-const CategoryFilters: FC<Props> = ({ heading, subheading }) => {
+const CategoryFilters: FC<Props> = ({ heading }) => {
   const sectionRef = useRef<HTMLDivElement>(null)
   const { activeTagFilter, setActiveTagFilter } = useAppStore()
 
@@ -26,11 +25,10 @@ const CategoryFilters: FC<Props> = ({ heading, subheading }) => {
       <HorizantalScroller
         sectionRef={sectionRef}
         heading={heading ?? 'Explore'}
-        subheading={subheading ?? 'Categories'}
       />
       <div
         ref={sectionRef}
-        className="no-scrollbar laptop:pt-6 flex items-center overflow-x-auto scroll-smooth pt-4 md:mx-auto"
+        className="no-scrollbar flex items-center overflow-x-auto scroll-smooth pt-4 md:mx-auto"
       >
         <button
           className={tw(
