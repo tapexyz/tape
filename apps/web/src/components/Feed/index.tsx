@@ -75,7 +75,7 @@ const Feed = () => {
   return (
     <div className="max-w-screen-ultrawide container mx-auto">
       <MetaTags title="Your Feed" />
-      <CategoryFilters heading="Feed" subheading="Your Friends' Stories" />
+      <CategoryFilters heading="Your Feed" />
       {loading && <TimelineShimmer className="laptop:pt-6 pt-4" />}
       {!loading && !feedItems?.length ? (
         <NoDataFound
