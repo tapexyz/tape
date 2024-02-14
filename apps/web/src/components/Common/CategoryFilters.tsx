@@ -28,7 +28,7 @@ const CategoryFilters: FC<Props> = ({ heading }) => {
       />
       <div
         ref={sectionRef}
-        className="no-scrollbar laptop:pt-6 flex items-center overflow-x-auto scroll-smooth pt-4 md:mx-auto"
+        className="no-scrollbar flex items-center overflow-x-auto scroll-smooth pt-4 md:mx-auto"
       >
         <button
           className={tw(
