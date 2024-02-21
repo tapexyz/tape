@@ -14,7 +14,7 @@
     "eas:build:internal": "eas build --profile preview --platform ios --local"
   },
   "dependencies": {
-    "@gorhom/bottom-sheet": "^4.4.7",
+    "@gorhom/bottom-sheet": "^4.6.1",
     "@hookform/resolvers": "^3.3.3",
     "@livepeer/react-native": "^2.0.13",
     "@react-native-async-storage/async-storage": "1.18.2",
@@ -47,7 +47,7 @@
     "expo-system-ui": "~2.4.0",
     "expo-video-thumbnails": "~7.4.0",
     "markdown-it-regex": "^0.2.0",
-    "moti": "^0.27.2",
+    "moti": "^0.27.5",
     "qrcode": "^1.5.3",
     "react": "18.2.0",
     "react-hook-form": "^7.50.1",
@@ -60,11 +60,11 @@
     "react-native-safe-area-context": "4.6.3",
     "react-native-svg": "13.9.0",
     "react-native-view-shot": "3.7.0",
-    "swr": "^2.2.4",
+    "swr": "^2.2.5",
     "uuid": "^9.0.1",
-    "viem": "^2.7.8",
+    "viem": "^2.7.11",
     "zod": "^3.22.2",
-    "zustand": "^4.5.0"
+    "zustand": "^4.5.1"
   },
   "devDependencies": {
     "@babel/core": "^7.23.7",
