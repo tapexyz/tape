@@ -1,4 +1,5 @@
 import { zValidator } from '@hono/zod-validator'
+import crypto from 'crypto'
 import { Hono } from 'hono'
 import type { Address } from 'viem'
 import { createWalletClient, http } from 'viem'
@@ -28,8 +29,21 @@ const validationSchema = object({
 type RequestInput = z.infer<typeof validationSchema>
 
 app.post('/', zValidator('json', validationSchema), async (c) => {
+  const body = await c.req.json<RequestInput>()
   try {
-    const body = await c.req.json<RequestInput>()
+    const secret = process.env.SECRET!
+    const hmac = crypto.createHmac('sha256', secret)
+    const digest = Buffer.from(hmac.update(body as any).digest('hex'), 'utf8')
+    const signature = Buffer.from(c.req.header('X-Signature') || '', 'utf8')
+
+    if (!crypto.timingSafeEqual(digest, signature)) {
+      throw new Error('Invalid signature.')
+    }
+  } catch (error) {
+    return c.json({ success: false, message: error })
+  }
+
+  try {
     const { data, meta } = body
     const { custom_data, test_mode } = meta
     const { address, delegatedExecutor, handle } = custom_data
