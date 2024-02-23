@@ -1,6 +1,6 @@
-import HorizantalScroller from '@components/Common/HorizantalScroller'
+import HorizontalScroller from '@components/Common/HorizontalScroller'
 import useProfileStore from '@lib/store/idb/profile'
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 
 import GitcoinAlert from './GitcoinAlert'
 import LatestBytes from './LatestBytes'
@@ -13,7 +13,7 @@ const TopSection = () => {
 
   return (
     <div className="flex flex-col">
-      <HorizantalScroller sectionRef={sectionRef} heading="New & Trending" />
+      <HorizontalScroller sectionRef={sectionRef} heading="New & Trending" />
       <div
         ref={sectionRef}
         className="no-scrollbar laptop:pt-6 relative flex items-start space-x-4 overflow-x-auto overflow-y-hidden scroll-smooth pt-4"

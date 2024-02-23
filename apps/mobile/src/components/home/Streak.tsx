@@ -33,7 +33,7 @@ import { useMobileTheme } from '~/hooks'
 import { useMobilePersistStore } from '~/store/persist'
 
 import AnimatedPressable from '../ui/AnimatedPressable'
-import { HorizantalSlider } from '../ui/HorizantalSlider'
+import { HorizontalSlider } from '../ui/HorizontalSlider'
 
 const BORDER_RADIUS = 10
 
@@ -291,7 +291,7 @@ const Streak = () => {
                   size={20}
                 />
               </AnimatedPressable>
-              <HorizantalSlider
+              <HorizontalSlider
                 data={publications?.slice(0, 7)}
                 renderItem={renderItem}
                 decelerationRate="normal"
