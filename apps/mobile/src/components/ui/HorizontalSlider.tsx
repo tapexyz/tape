@@ -7,7 +7,7 @@ type Props<T> = Pick<
   'data' | 'renderItem' | 'snapToAlignment' | 'decelerationRate'
 >
 
-export function HorizantalSlider<T>({
+export function HorizontalSlider<T>({
   data,
   snapToAlignment = 'start',
   decelerationRate = 'fast',

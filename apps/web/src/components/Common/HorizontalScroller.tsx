@@ -1,13 +1,12 @@
 import { ChevronLeftOutline, ChevronRightOutline } from '@tape.xyz/ui'
 import type { FC, RefObject } from 'react'
-import React from 'react'
 
 type Props = {
   heading: string
   sectionRef: RefObject<HTMLDivElement>
 }
 
-const HorizantalScroller: FC<Props> = ({ heading, sectionRef }) => {
+const HorizontalScroller: FC<Props> = ({ heading, sectionRef }) => {
   const sectionOffsetWidth = sectionRef.current?.offsetWidth ?? 1000
   const scrollOffset = sectionOffsetWidth / 1.2
 
@@ -42,4 +41,4 @@ const HorizantalScroller: FC<Props> = ({ heading, sectionRef }) => {
   )
 }
 
-export default HorizantalScroller
+export default HorizontalScroller

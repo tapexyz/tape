@@ -3,9 +3,9 @@ import { tw } from '@tape.xyz/browser'
 import { CREATOR_VIDEO_CATEGORIES } from '@tape.xyz/constants'
 import { EVENTS, Tower } from '@tape.xyz/generic'
 import type { FC } from 'react'
-import React, { useRef } from 'react'
+import { useRef } from 'react'
 
-import HorizantalScroller from './HorizantalScroller'
+import HorizontalScroller from './HorizontalScroller'
 
 type Props = {
   heading?: string
@@ -22,7 +22,7 @@ const CategoryFilters: FC<Props> = ({ heading }) => {
 
   return (
     <div className="sticky top-0 z-[9] bg-white dark:bg-black">
-      <HorizantalScroller
+      <HorizontalScroller
         sectionRef={sectionRef}
         heading={heading ?? 'Explore'}
       />
