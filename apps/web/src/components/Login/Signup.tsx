@@ -76,8 +76,7 @@ const Signup = ({
     formState: { errors, isValid },
     handleSubmit,
     reset,
-    watch,
-    setValue
+    watch
   } = useForm<FormData>({
     resolver: zodResolver(formSchema)
   })
@@ -88,8 +87,8 @@ const Signup = ({
   const handleWrongNetwork = useHandleWrongNetwork()
 
   const { address } = useAccount()
-  const handle = watch('handle')
-  const debouncedValue = useDebounce<string>(handle, 500)
+  const handle = watch('handle')?.toLowerCase()
+  const debouncedValue = useDebounce<string>(handle, 300)
   const { data: balanceData } = useBalance({
     address,
     query: { refetchInterval: 2000 }
@@ -126,7 +125,7 @@ const Signup = ({
 
   const onError = (error: CustomErrorWithData) => {
     setCreating(false)
-    toast.error(error?.message ?? ERROR_MESSAGE)
+    toast.error(error.name ?? error?.message ?? ERROR_MESSAGE)
   }
 
   const { writeContractAsync, data: txnHash } = useWriteContract({
@@ -201,6 +200,7 @@ const Signup = ({
   }
 
   const handleBuy = () => {
+    setCreating(true)
     window.createLemonSqueezy?.()
     window.LemonSqueezy?.Setup?.({ eventHandler })
     window.LemonSqueezy?.Url?.Open?.(
@@ -212,7 +212,17 @@ const Signup = ({
   const hasBalance = balance && balance >= TAPE_SIGNUP_PRICE
 
   return (
-    <form onSubmit={handleSubmit(signup)} className="space-y-2">
+    <form
+      onSubmit={(e) => {
+        const clickedButton = (e.nativeEvent as any).submitter.name
+        if (clickedButton === 'card') {
+          handleBuy()
+        } else {
+          handleSubmit(signup)(e)
+        }
+      }}
+      className="space-y-2"
+    >
       <Script
         id="lemon-js"
         src="https://assets.lemonsqueezy.com/lemon.js"
@@ -226,9 +236,6 @@ const Signup = ({
           prefix={`@${LENS_NAMESPACE_PREFIX}`}
           error={errors.handle?.message}
           {...register('handle')}
-          onChange={(event) =>
-            setValue('handle', event.target.value.toLowerCase())
-          }
         />
         {isValid && (
           <div className="flex items-center">
@@ -279,13 +286,7 @@ const Signup = ({
       </Modal>
       <div className="relative flex items-center">
         <div className="w-full">
-          <Button
-            size="md"
-            type="button"
-            onClick={handleBuy}
-            loading={creating}
-            disabled={creating}
-          >
+          <Button name="card" size="md" loading={creating} disabled={creating}>
             Buy with Card
           </Button>
         </div>
@@ -298,6 +299,7 @@ const Signup = ({
         </button>
       </div>
       <Button
+        name="wallet"
         size="md"
         variant="secondary"
         loading={creating}
