@@ -16,6 +16,7 @@ import {
 
 type Bindings = {
   RELAYER_PRIVATE_KEYS: string
+  INGEST_REST_ENDPOINT: string
 }
 
 const app = new Hono<{ Bindings: Bindings }>()
@@ -29,10 +30,10 @@ type RequestInput = z.infer<typeof validationSchema>
 app.post('/', zValidator('json', validationSchema), async (c) => {
   try {
     const body = await c.req.json<RequestInput>()
-    const { meta, data } = body
+    const { data, meta } = body
     const { custom_data, test_mode } = meta
     const { address, delegatedExecutor, handle } = custom_data
-    const { id, user_email } = data
+    const { order_number, user_email: email } = data.attributes
 
     // env is delimited by commas with no spaces
     const privateKeys = c.env.RELAYER_PRIVATE_KEYS
@@ -54,6 +55,32 @@ app.post('/', zValidator('json', validationSchema), async (c) => {
       args: [[address, ZERO_ADDRESS, '0x'], handle, [delegatedExecutor]],
       functionName: 'createProfileWithHandle'
     })
+
+    const clickhouseBody = `
+        INSERT INTO signups (
+          address,
+          email,
+          handle,
+          hash,
+          order_number
+        ) VALUES (
+          '${address}',
+          '${email}',
+          '${handle}',
+          '${hash}',
+          '${order_number}'
+        )
+      `
+
+    const clickhouseResponse = await fetch(c.env.INGEST_REST_ENDPOINT, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: clickhouseBody
+    })
+
+    if (clickhouseResponse.status !== 200) {
+      return c.json({ success: false, message: ERROR_MESSAGE })
+    }
 
     return c.json({ success: true, hash })
   } catch {
