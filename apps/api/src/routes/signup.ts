@@ -1,5 +1,4 @@
 import { zValidator } from '@hono/zod-validator'
-import crypto from 'crypto'
 import { Hono } from 'hono'
 import type { Address } from 'viem'
 import { createWalletClient, http } from 'viem'
@@ -18,6 +17,7 @@ import {
 type Bindings = {
   RELAYER_PRIVATE_KEYS: string
   INGEST_REST_ENDPOINT: string
+  LS_WEBHOOK_SECRET: string
 }
 
 const app = new Hono<{ Bindings: Bindings }>()
@@ -31,16 +31,27 @@ type RequestInput = z.infer<typeof validationSchema>
 app.post('/', zValidator('json', validationSchema), async (c) => {
   const body = await c.req.json<RequestInput>()
   try {
-    const secret = process.env.SECRET!
-    const hmac = crypto.createHmac('sha256', secret)
-    const digest = Buffer.from(hmac.update(body as any).digest('hex'), 'utf8')
-    const signature = Buffer.from(c.req.header('X-Signature') || '', 'utf8')
-
-    if (!crypto.timingSafeEqual(digest, signature)) {
+    const secret = c.env.LS_WEBHOOK_SECRET
+    const encoder = new TextEncoder()
+    const secretKey = encoder.encode(secret)
+    const data = encoder.encode(await c.req.text())
+    const providedSignature = c.req.header('X-Signature')
+    const key = await crypto.subtle.importKey(
+      'raw',
+      secretKey,
+      { name: 'HMAC', hash: 'SHA-256' },
+      false,
+      ['sign']
+    )
+    const digest = await crypto.subtle.sign('HMAC', key, data)
+    const computedSignature = Array.from(new Uint8Array(digest))
+      .map((b) => b.toString(16).padStart(2, '0'))
+      .join('')
+    if (providedSignature !== computedSignature) {
       throw new Error('Invalid signature.')
     }
   } catch (error) {
-    return c.json({ success: false, message: error })
+    return c.json({ success: false, message: 'Invalid signature' })
   }
 
   try {
@@ -70,7 +81,8 @@ app.post('/', zValidator('json', validationSchema), async (c) => {
       functionName: 'createProfileWithHandle'
     })
 
-    const clickhouseBody = `
+    if (!test_mode) {
+      const clickhouseBody = `
         INSERT INTO signups (
           address,
           email,
@@ -85,19 +97,19 @@ app.post('/', zValidator('json', validationSchema), async (c) => {
           '${order_number}'
         )
       `
-
-    const clickhouseResponse = await fetch(c.env.INGEST_REST_ENDPOINT, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: clickhouseBody
-    })
-
-    if (clickhouseResponse.status !== 200) {
-      return c.json({ success: false, message: ERROR_MESSAGE })
+      const clickhouseResponse = await fetch(c.env.INGEST_REST_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: clickhouseBody
+      })
+      if (clickhouseResponse.status !== 200) {
+        return c.json({ success: false, message: ERROR_MESSAGE })
+      }
     }
 
     return c.json({ success: true, hash })
-  } catch {
+  } catch (error) {
+    console.log('🚀 ~ signup ~ app.post ~ error:', error)
     return c.json({ success: false, message: ERROR_MESSAGE })
   }
 })
