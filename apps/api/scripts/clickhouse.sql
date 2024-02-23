@@ -22,3 +22,15 @@ CREATE TABLE events (
   created DateTime DEFAULT now()
 ) ENGINE = MergeTree
 ORDER BY created;
+
+-- Signups
+CREATE TABLE signups (
+  id UUID DEFAULT generateUUIDv4(),
+  handle String,
+  address String,
+  email String,
+  ls_txn_id String,
+  txn_hash String,
+  created DateTime DEFAULT now()
+) ENGINE = MergeTree
+ORDER BY created;
