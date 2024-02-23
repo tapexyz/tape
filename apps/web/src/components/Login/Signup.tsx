@@ -29,6 +29,7 @@ import {
   Tooltip
 } from '@tape.xyz/ui'
 import Link from 'next/link'
+import Script from 'next/script'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -36,6 +37,19 @@ import { formatUnits, parseEther } from 'viem'
 import { useAccount, useBalance, useWriteContract } from 'wagmi'
 import type { z } from 'zod'
 import { object, string } from 'zod'
+
+declare global {
+  interface Window {
+    createLemonSqueezy: any
+    LemonSqueezy: {
+      Setup: ({ eventHandler }: { eventHandler: any }) => void
+      Url: {
+        Close: () => void
+        Open: (checkoutUrl: string) => void
+      }
+    }
+  }
+}
 
 const formSchema = object({
   handle: string()
@@ -62,7 +76,8 @@ const Signup = ({
     formState: { errors, isValid },
     handleSubmit,
     reset,
-    watch
+    watch,
+    setValue
   } = useForm<FormData>({
     resolver: zodResolver(formSchema)
   })
@@ -80,15 +95,38 @@ const Signup = ({
     query: { refetchInterval: 2000 }
   })
 
+  const onMinted = (via: string) => {
+    onSuccess()
+    reset()
+    toast.success('Profile created')
+    setCreating(false)
+    Tower.track(EVENTS.AUTH.SIGNUP_SUCCESS, {
+      price: TAPE_SIGNUP_PRICE,
+      via
+    })
+  }
+
   const [generateRelayerAddress] = useGenerateLensApiRelayAddressLazyQuery({
     fetchPolicy: 'no-cache'
   })
   const [checkAvailability, { loading: checkingAvailability }] =
     useProfileLazyQuery()
+  const [checkIsProfileMinted] = useProfileLazyQuery({
+    notifyOnNetworkStatusChange: true,
+    pollInterval: 3000,
+    variables: {
+      request: { forHandle: `${LENS_NAMESPACE_PREFIX}${handle}` }
+    },
+    onCompleted: (data) => {
+      if (data.profile) {
+        onMinted('card')
+      }
+    }
+  })
 
   const onError = (error: CustomErrorWithData) => {
     setCreating(false)
-    toast.error(error?.name ?? error?.message ?? ERROR_MESSAGE)
+    toast.error(error?.message ?? ERROR_MESSAGE)
   }
 
   const { writeContractAsync, data: txnHash } = useWriteContract({
@@ -124,11 +162,7 @@ const Signup = ({
 
   useEffect(() => {
     if (indexed) {
-      onSuccess()
-      reset()
-      toast.success('Profile created')
-      setCreating(false)
-      Tower.track(EVENTS.AUTH.SIGNUP_SUCCESS)
+      onMinted('wallet')
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [indexed, error])
@@ -159,11 +193,31 @@ const Signup = ({
     } catch {}
   }
 
+  const eventHandler = async ({ event }: { data: any; event: any }) => {
+    if (event === 'Checkout.Success' && window.LemonSqueezy) {
+      window.LemonSqueezy?.Url?.Close()
+      await checkIsProfileMinted()
+    }
+  }
+
+  const handleBuy = () => {
+    window.createLemonSqueezy?.()
+    window.LemonSqueezy?.Setup?.({ eventHandler })
+    window.LemonSqueezy?.Url?.Open?.(
+      `https://tape.lemonsqueezy.com/checkout/buy/d9dba154-17d4-40df-a786-6f90c3dc0ca7?checkout[custom][address]=${address}&checkout[custom][delegatedExecutor]=${address}&checkout[custom][handle]=${handle}&desc=0&discount=0&embed=1&logo=0&media=0`
+    )
+  }
+
   const balance = balanceData && parseFloat(formatUnits(balanceData.value, 18))
   const hasBalance = balance && balance >= TAPE_SIGNUP_PRICE
 
   return (
     <form onSubmit={handleSubmit(signup)} className="space-y-2">
+      <Script
+        id="lemon-js"
+        src="https://assets.lemonsqueezy.com/lemon.js"
+        strategy="afterInteractive"
+      />
       <div className="relative flex items-center">
         <Input
           className="h-[46px] text-base"
@@ -172,6 +226,9 @@ const Signup = ({
           prefix={`@${LENS_NAMESPACE_PREFIX}`}
           error={errors.handle?.message}
           {...register('handle')}
+          onChange={(event) =>
+            setValue('handle', event.target.value.toLowerCase())
+          }
         />
         {isValid && (
           <div className="flex items-center">
@@ -222,8 +279,14 @@ const Signup = ({
       </Modal>
       <div className="relative flex items-center">
         <div className="w-full">
-          <Button size="md" loading={creating} disabled={creating}>
-            Sign up for {TAPE_SIGNUP_PRICE} MATIC
+          <Button
+            size="md"
+            type="button"
+            onClick={handleBuy}
+            loading={creating}
+            disabled={creating}
+          >
+            Buy with Card
           </Button>
         </div>
         <button
@@ -234,6 +297,14 @@ const Signup = ({
           <InfoOutline className="size-4 text-white dark:text-black" />
         </button>
       </div>
+      <Button
+        size="md"
+        variant="secondary"
+        loading={creating}
+        disabled={creating}
+      >
+        Mint for {TAPE_SIGNUP_PRICE} MATIC
+      </Button>
       {showLogin && (
         <div className="flex items-center justify-center space-x-2 pt-3 text-sm">
           <span>Have an account?</span>
