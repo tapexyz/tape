@@ -171,10 +171,33 @@ const Signup = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedValue])
 
-  const signup = async ({ handle }: FormData) => {
+  const eventHandler = async ({ event }: { data: any; event: any }) => {
+    if (event === 'Checkout.Success' && window.LemonSqueezy) {
+      window.LemonSqueezy?.Url?.Close()
+      setCreating(true)
+      await checkIsProfileMinted()
+    }
+  }
+
+  const handleBuy = () => {
+    window.createLemonSqueezy?.()
+    window.LemonSqueezy?.Setup?.({ eventHandler })
+    window.LemonSqueezy?.Url?.Open?.(
+      `https://tape.lemonsqueezy.com/checkout/buy/d9dba154-17d4-40df-a786-6f90c3dc0ca7?checkout[custom][address]=${address}&checkout[custom][delegatedExecutor]=${address}&checkout[custom][handle]=${handle}&desc=0&discount=0&embed=1&media=0`
+    )
+  }
+
+  const signup = async (
+    { handle }: FormData,
+    e: React.FormEvent<HTMLFormElement>
+  ) => {
+    const clickedButton = (e.nativeEvent as any).submitter.name
+    if (clickedButton === 'card') {
+      return handleBuy()
+    }
+
     await handleWrongNetwork()
 
-    setCreating(true)
     try {
       const { data } = await generateRelayerAddress()
       const relayerAddress = data?.generateLensAPIRelayAddress
@@ -192,34 +215,14 @@ const Signup = ({
     } catch {}
   }
 
-  const eventHandler = async ({ event }: { data: any; event: any }) => {
-    if (event === 'Checkout.Success' && window.LemonSqueezy) {
-      window.LemonSqueezy?.Url?.Close()
-      await checkIsProfileMinted()
-    }
-  }
-
-  const handleBuy = () => {
-    setCreating(true)
-    window.createLemonSqueezy?.()
-    window.LemonSqueezy?.Setup?.({ eventHandler })
-    window.LemonSqueezy?.Url?.Open?.(
-      `https://tape.lemonsqueezy.com/checkout/buy/d9dba154-17d4-40df-a786-6f90c3dc0ca7?checkout[custom][address]=${address}&checkout[custom][delegatedExecutor]=${address}&checkout[custom][handle]=${handle}&desc=0&discount=0&embed=1&logo=0&media=0`
-    )
-  }
-
   const balance = balanceData && parseFloat(formatUnits(balanceData.value, 18))
   const hasBalance = balance && balance >= TAPE_SIGNUP_PRICE
 
   return (
     <form
       onSubmit={(e) => {
-        const clickedButton = (e.nativeEvent as any).submitter.name
-        if (clickedButton === 'card') {
-          handleBuy()
-        } else {
-          handleSubmit(signup)(e)
-        }
+        e.preventDefault()
+        handleSubmit((data) => signup(data, e))()
       }}
       className="space-y-2"
     >

@@ -6,7 +6,7 @@ export const ERROR_MESSAGE = 'Something went wrong'
 
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
 export const TAPE_SIGNUP_PROXY_ADDRESS =
-  '0x942AA116B95cd1BCc9a1cedc5C6Bff9f3aDfd5e3'
+  '0xe80e50dB1E8105d530f0c11Efe1f76767e812AFc'
 export const TAPE_SIGNUP_PROXY_ABI = [
   {
     inputs: [

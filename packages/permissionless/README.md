@@ -21,6 +21,6 @@ hh verify 0xCdeA6d8372E3a8837A6714E0828aFE37bB054040 --network polygon
 
 ```
 npx hardhat run scripts/deploy.ts --network polygonMumbai 
-npx hardhat verify 0x942AA116B95cd1BCc9a1cedc5C6Bff9f3aDfd5e3 --network polygonMumbai
-hh verify 0x942AA116B95cd1BCc9a1cedc5C6Bff9f3aDfd5e3 --network polygonMumbai
+npx hardhat verify 0xe80e50dB1E8105d530f0c11Efe1f76767e812AFc --network polygonMumbai
+hh verify 0xe80e50dB1E8105d530f0c11Efe1f76767e812AFc --network polygonMumbai
 ```

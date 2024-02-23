@@ -2,7 +2,8 @@ const hre = require('hardhat')
 
 async function deployProxy() {
   const owner = '0xB89560D7b33ea8d787EaaEfbcE1268f8991Db9E1'
-  const permissionlessCreator = '0x0b5e6100243f793e480DE6088dE6bA70aA9f3872'
+  // const permissionlessCreator = '0x0b5e6100243f793e480DE6088dE6bA70aA9f3872'
+  const permissionlessCreator = '0x42b302BBB4fA27c21d32EdF602E4e2aA65746999'
 
   const TapePermissionlessCreator = await hre.ethers.getContractFactory(
     'TapePermissionlessCreator'
