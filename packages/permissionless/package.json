@@ -10,9 +10,9 @@
     "@openzeppelin/contracts": "^5.0.1",
     "@openzeppelin/contracts-upgradeable": "^5.0.1",
     "@openzeppelin/hardhat-upgrades": "^3.0.3",
-    "dotenv": "^16.4.3",
-    "ethers": "^6.11.0",
-    "typescript": "^5.3.3",
-    "hardhat": "^2.19.5"
+    "dotenv": "^16.4.5",
+    "ethers": "^6.11.1",
+    "hardhat": "^2.20.1",
+    "typescript": "^5.3.3"
   }
 }
