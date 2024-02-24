@@ -40,6 +40,8 @@ import { object, string } from 'zod'
 
 declare global {
   interface Window {
+    $chatwoot: any
+    chatwootSDK: any
     createLemonSqueezy: any
     LemonSqueezy: {
       Setup: ({ eventHandler }: { eventHandler: any }) => void
@@ -171,6 +173,14 @@ const Signup = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedValue])
 
+  useEffect(() => {
+    window.$chatwoot.toggleBubbleVisibility('show')
+    return () => {
+      window.$chatwoot.toggle('close')
+      window.$chatwoot.toggleBubbleVisibility('hide')
+    }
+  }, [])
+
   const eventHandler = async ({ event }: { data: any; event: any }) => {
     if (event === 'Checkout.Success' && window.LemonSqueezy) {
       window.LemonSqueezy?.Url?.Close()
@@ -230,6 +240,19 @@ const Signup = ({
         id="lemon-js"
         src="https://assets.lemonsqueezy.com/lemon.js"
         strategy="afterInteractive"
+      />
+      <Script
+        id="chatwoot-js"
+        src="https://woot.tape.xyz/packs/js/sdk.js"
+        strategy="afterInteractive"
+        defer={true}
+        async={true}
+        onLoad={() => {
+          window.chatwootSDK.run({
+            websiteToken: '47H9cq5gNEAf3q6sUK97vDbG',
+            baseUrl: 'https://woot.tape.xyz'
+          })
+        }}
       />
       <div className="relative flex items-center">
         <Input
