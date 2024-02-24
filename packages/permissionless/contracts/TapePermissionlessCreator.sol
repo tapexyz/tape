@@ -1,4 +1,4 @@
-// SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: AGPL-3.0
 pragma solidity ^0.8.23;
 
 import '@openzeppelin/contracts-upgradeable/access/OwnableUpgradeable.sol';
@@ -21,12 +21,23 @@ interface ILensPermissionlessCreator {
 contract TapePermissionlessCreator is Initializable, OwnableUpgradeable {
   ILensPermissionlessCreator public lensPermissionlessCreator;
   mapping(uint256 => string) public profiles;
+  mapping(address => bool) public allowedRelayerAddresses;
+
   uint256 public signupPrice;
-  uint256 public totalCount;
+  uint256 public totalCountViaCard;
+  uint256 public totalCountViaCrypto;
 
   error InvalidFunds();
   error CreateNotAllowed();
   error WithdrawalFailed();
+
+  modifier onlyAllowed() {
+    require(
+      allowedRelayerAddresses[msg.sender],
+      'TapePermissionlessCreator: Not allowed'
+    );
+    _;
+  }
 
   event ProfileCreated(uint256 profileId, uint256 handleId, string handle);
 
@@ -39,6 +50,38 @@ contract TapePermissionlessCreator is Initializable, OwnableUpgradeable {
       lensPermissionlessCreatorAddress
     );
     signupPrice = 10 ether;
+  }
+
+  function addAllowedRelayerAddresses(
+    address[] calldata newAddresses
+  ) external onlyOwner {
+    for (uint256 i = 0; i < newAddresses.length; i++) {
+      allowedRelayerAddresses[newAddresses[i]] = true;
+    }
+  }
+
+  function removeAllowedRelayerAddress(address addressToRemove) external onlyOwner {
+    allowedRelayerAddresses[addressToRemove] = false;
+  }
+
+  function createProfileWithHandle(
+    CreateProfileParams calldata createProfileParams,
+    string calldata handle,
+    address[] calldata delegatedExecutors
+  ) external onlyAllowed returns (uint256 profileId, uint256 handleId) {
+    (profileId, handleId) = lensPermissionlessCreator
+      .createProfileWithHandleUsingCredits(
+        createProfileParams,
+        handle,
+        delegatedExecutors
+      );
+
+    profiles[profileId] = handle;
+    totalCountViaCard++;
+
+    emit ProfileCreated(profileId, handleId, handle);
+
+    return (profileId, handleId);
   }
 
   function createProfileWithHandleUsingCredits(
@@ -62,7 +105,7 @@ contract TapePermissionlessCreator is Initializable, OwnableUpgradeable {
       );
 
     profiles[profileId] = handle;
-    totalCount++;
+    totalCountViaCrypto++;
 
     emit ProfileCreated(profileId, handleId, handle);
 

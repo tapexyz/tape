@@ -43,10 +43,12 @@ export const TAPE_API_URL = IS_PRODUCTION
   ? 'https://api.tape.xyz'
   : 'http://localhost:4000'
 
-// addresses
+// tape addresses
 export const TAPE_SIGNUP_PROXY_ADDRESS = IS_MAINNET
-  ? '0x68357D5F02a3913132577c7aC0847feade9a05aC'
-  : '0x21970AD5c43e90184A62674fAC54f4Bed030Fb74'
+  ? '0xCdeA6d8372E3a8837A6714E0828aFE37bB054040'
+  : '0xb9F635c498CdC2dBf95B3A916b007fD16c5506ED'
+
+// lens addresses
 export const LENS_PERMISSIONLESS_CREATOR_ADDRESS = IS_MAINNET
   ? '0x0b5e6100243f793e480DE6088dE6bA70aA9f3872'
   : '0x42b302BBB4fA27c21d32EdF602E4e2aA65746999'
@@ -160,7 +162,7 @@ export const TAPE_GITHUB_HANDLE = 'tapexyz'
 export const TAPE_LOGO = `${STATIC_ASSETS}/brand/logo.svg`
 export const TAPE_STATUS_PAGE = 'https://status.tape.xyz'
 export const TAPE_FEEDBACK_URL = 'https://feedback.tape.xyz'
-export const TAPE_SIGNUP_PRICE = IS_MAINNET ? 10 : 0
+export const TAPE_SIGNUP_PRICE = 10
 
 // admin
 export const ADMIN_IDS = IS_MAINNET ? ['0x2d'] : ['0x34']

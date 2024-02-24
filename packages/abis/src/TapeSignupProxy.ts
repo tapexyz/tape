@@ -68,6 +68,49 @@ export const TAPE_SIGNUP_PROXY_ABI = [
   },
   {
     inputs: [
+      { internalType: 'address[]', name: 'newAddresses', type: 'address[]' }
+    ],
+    name: 'addAllowedRelayerAddresses',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [{ internalType: 'address', name: '', type: 'address' }],
+    name: 'allowedRelayerAddresses',
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [
+      {
+        components: [
+          { internalType: 'address', name: 'to', type: 'address' },
+          { internalType: 'address', name: 'followModule', type: 'address' },
+          { internalType: 'bytes', name: 'followModuleInitData', type: 'bytes' }
+        ],
+        internalType: 'struct CreateProfileParams',
+        name: 'createProfileParams',
+        type: 'tuple'
+      },
+      { internalType: 'string', name: 'handle', type: 'string' },
+      {
+        internalType: 'address[]',
+        name: 'delegatedExecutors',
+        type: 'address[]'
+      }
+    ],
+    name: 'createProfileWithHandle',
+    outputs: [
+      { internalType: 'uint256', name: 'profileId', type: 'uint256' },
+      { internalType: 'uint256', name: 'handleId', type: 'uint256' }
+    ],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [
       {
         components: [
           { internalType: 'address', name: 'to', type: 'address' },
@@ -135,6 +178,15 @@ export const TAPE_SIGNUP_PROXY_ABI = [
     type: 'function'
   },
   {
+    inputs: [
+      { internalType: 'address', name: 'addressToRemove', type: 'address' }
+    ],
+    name: 'removeAllowedRelayerAddress',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
     inputs: [],
     name: 'renounceOwnership',
     outputs: [],
@@ -168,7 +220,14 @@ export const TAPE_SIGNUP_PROXY_ABI = [
   },
   {
     inputs: [],
-    name: 'totalCount',
+    name: 'totalCountViaCard',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'totalCountViaCrypto',
     outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function'
