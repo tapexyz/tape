@@ -174,10 +174,10 @@ const Signup = ({
   }, [debouncedValue])
 
   useEffect(() => {
-    window.$chatwoot.toggleBubbleVisibility('show')
+    window.$chatwoot?.toggleBubbleVisibility('show')
     return () => {
-      window.$chatwoot.toggle('close')
-      window.$chatwoot.toggleBubbleVisibility('hide')
+      window.$chatwoot?.toggle('close')
+      window.$chatwoot?.toggleBubbleVisibility('hide')
     }
   }, [])
 
