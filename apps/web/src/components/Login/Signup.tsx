@@ -6,6 +6,7 @@ import { useDebounce } from '@tape.xyz/browser'
 import {
   COMMON_REGEX,
   ERROR_MESSAGE,
+  IS_MAINNET,
   LENS_NAMESPACE_PREFIX,
   MOONPAY_URL,
   TAPE_SIGNUP_PRICE,
@@ -40,8 +41,6 @@ import { object, string } from 'zod'
 
 declare global {
   interface Window {
-    $chatwoot: any
-    chatwootSDK: any
     createLemonSqueezy: any
     LemonSqueezy: {
       Setup: ({ eventHandler }: { eventHandler: any }) => void
@@ -50,6 +49,9 @@ declare global {
         Open: (checkoutUrl: string) => void
       }
     }
+    chatwootSettings: any
+    $chatwoot: any
+    chatwootSDK: any
   }
 }
 
@@ -241,19 +243,25 @@ const Signup = ({
         src="https://assets.lemonsqueezy.com/lemon.js"
         strategy="afterInteractive"
       />
-      <Script
-        id="chatwoot-js"
-        src="https://woot.tape.xyz/packs/js/sdk.js"
-        strategy="afterInteractive"
-        defer={true}
-        async={true}
-        onLoad={() => {
-          window.chatwootSDK.run({
-            websiteToken: '47H9cq5gNEAf3q6sUK97vDbG',
-            baseUrl: 'https://woot.tape.xyz'
-          })
-        }}
-      />
+      {IS_MAINNET && (
+        <Script
+          id="chatwoot-js"
+          src="https://woot.tape.xyz/packs/js/sdk.js"
+          strategy="afterInteractive"
+          defer={true}
+          async={true}
+          onLoad={() => {
+            window.chatwootSettings = {
+              type: 'expanded_bubble',
+              launcherTitle: 'Support'
+            }
+            window.chatwootSDK.run({
+              websiteToken: '47H9cq5gNEAf3q6sUK97vDbG',
+              baseUrl: 'https://woot.tape.xyz'
+            })
+          }}
+        />
+      )}
       <div className="relative flex items-center">
         <Input
           className="h-[46px] text-base"
