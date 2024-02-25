@@ -305,7 +305,7 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
         show={showModal}
         setShow={setShowModal}
         title="Why purchase?"
-        description="Creating new handle requires a purchase to help maintain the network and prevent bots. Rest assured, the associated price is a short-term measure. As the platform implements and refines additional bot prevention methods, the price will be gradually phased out."
+        description="Creating new handle requires a purchase to help maintain the network and prevent bots. Rest assured, the associated price is a short-term measure. As we implements and refines additional bot prevention methods, the price will be gradually phased out."
       >
         {!hasBalance && (
           <div className="mt-4">
@@ -321,7 +321,7 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
       <div className="relative flex items-center">
         <div className="w-full">
           <Button name="card" size="md" loading={creating} disabled={creating}>
-            Buy with Card
+            Buy with Card (${TAPE_SIGNUP_PRICE})
           </Button>
         </div>
         <button
