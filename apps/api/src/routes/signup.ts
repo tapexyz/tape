@@ -8,7 +8,6 @@ import type { z } from 'zod'
 import { any, object } from 'zod'
 
 import {
-  ERROR_MESSAGE,
   TAPE_SIGNUP_PROXY_ABI,
   TAPE_SIGNUP_PROXY_ADDRESS,
   ZERO_ADDRESS
@@ -84,17 +83,17 @@ app.post('/', zValidator('json', validationSchema), async (c) => {
     if (!test_mode) {
       const clickhouseBody = `
         INSERT INTO signups (
+          handle,
           address,
           email,
-          handle,
-          hash,
-          order_number
+          order_number,
+          hash
         ) VALUES (
+          '${handle}',
           '${address}',
           '${email}',
-          '${handle}',
-          '${hash}',
-          '${order_number}'
+          '${order_number}',
+          '${hash}'
         )
       `
       const clickhouseResponse = await fetch(c.env.INGEST_REST_ENDPOINT, {
@@ -103,14 +102,17 @@ app.post('/', zValidator('json', validationSchema), async (c) => {
         body: clickhouseBody
       })
       if (clickhouseResponse.status !== 200) {
-        return c.json({ success: false, message: ERROR_MESSAGE })
+        return c.json({
+          success: false,
+          message: 'Failed to ingest to clickhouse!'
+        })
       }
     }
 
     return c.json({ success: true, hash })
   } catch (error) {
     console.log('🚀 ~ signup ~ app.post ~ error:', error)
-    return c.json({ success: false, message: ERROR_MESSAGE })
+    return c.json({ success: false, message: error })
   }
 })
 
