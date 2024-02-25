@@ -31,6 +31,7 @@ import {
 } from '@tape.xyz/ui'
 import Link from 'next/link'
 import Script from 'next/script'
+import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -55,6 +56,12 @@ declare global {
   }
 }
 
+type Props = {
+  showLogin: boolean
+  onSuccess: () => void
+  setShowSignup: (b: boolean) => void
+}
+
 const formSchema = object({
   handle: string()
     .min(5, { message: 'Handle should be at least 5 characters' })
@@ -66,15 +73,7 @@ const formSchema = object({
 })
 type FormData = z.infer<typeof formSchema>
 
-const Signup = ({
-  showLogin,
-  onSuccess,
-  setShowSignup
-}: {
-  showLogin: boolean
-  onSuccess: () => void
-  setShowSignup: (b: boolean) => void
-}) => {
+const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
   const {
     register,
     formState: { errors, isValid },
@@ -92,6 +91,7 @@ const Signup = ({
 
   const { address } = useAccount()
   const handle = watch('handle')?.toLowerCase()
+
   const debouncedValue = useDebounce<string>(handle, 300)
   const { data: balanceData } = useBalance({
     address,
@@ -309,7 +309,7 @@ const Signup = ({
         show={showModal}
         setShow={setShowModal}
         title="Why purchase?"
-        description="Creating new handle requires a purchase to help maintain the network and prevent bots. Rest assured, the associated price is a short-term measure. As the platform implements and refines additional bot prevention methods, the price will be gradually phased out."
+        description="Creating new handle requires a purchase to help maintain the network and prevent bots. Rest assured, the associated price is a short-term measure. As we implements and refines additional bot prevention methods, the price will be gradually phased out."
       >
         {!hasBalance && (
           <div className="mt-4">
@@ -330,7 +330,7 @@ const Signup = ({
             loading={creating}
             disabled={creating || !isHandleAvailable || checkingAvailability}
           >
-            Buy with Card
+            Buy with Card (${TAPE_SIGNUP_PRICE})
           </Button>
         </div>
         <button
