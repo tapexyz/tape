@@ -29,8 +29,8 @@ CREATE TABLE signups (
   handle String,
   address String,
   email String,
-  ls_txn_id String,
-  txn_hash String,
+  order_number String,
+  hash String,
   created DateTime DEFAULT now()
 ) ENGINE = MergeTree
 ORDER BY created;
