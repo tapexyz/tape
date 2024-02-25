@@ -195,7 +195,7 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
     window.createLemonSqueezy?.()
     window.LemonSqueezy?.Setup?.({ eventHandler })
     window.LemonSqueezy?.Url?.Open?.(
-      `https://tape.lemonsqueezy.com/checkout/buy/d9dba154-17d4-40df-a786-6f90c3dc0ca7?checkout[custom][address]=${address}&checkout[custom][delegatedExecutor]=${address}&checkout[custom][handle]=${handle}&desc=0&discount=0&embed=1&media=0`
+      `https://tape.lemonsqueezy.com/checkout/buy/d9dba154-17d4-40df-a786-6f90c3dc0ca7?checkout[custom][address]=${address}&checkout[custom][delegatedExecutor]=${address}&checkout[custom][handle]=${handle}&desc=0&discount=1&embed=1&media=0`
     )
   }
 
@@ -203,6 +203,10 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
     { handle }: FormData,
     e: React.FormEvent<HTMLFormElement>
   ) => {
+    if (!isHandleAvailable) {
+      return toast.error('Handle is taken')
+    }
+
     const clickedButton = (e.nativeEvent as any).submitter.name
     if (clickedButton === 'card') {
       return handleBuy()
@@ -320,7 +324,12 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
       </Modal>
       <div className="relative flex items-center">
         <div className="w-full">
-          <Button name="card" size="md" loading={creating} disabled={creating}>
+          <Button
+            name="card"
+            size="md"
+            loading={creating}
+            disabled={creating || !isHandleAvailable || checkingAvailability}
+          >
             Buy with Card (${TAPE_SIGNUP_PRICE})
           </Button>
         </div>
@@ -337,7 +346,7 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
         size="md"
         variant="secondary"
         loading={creating}
-        disabled={creating}
+        disabled={creating || !isHandleAvailable || checkingAvailability}
       >
         Mint for {TAPE_SIGNUP_PRICE} MATIC
       </Button>
