@@ -15,7 +15,7 @@ import {
 } from '@tape.xyz/constants'
 import { EVENTS, Tower } from '@tape.xyz/generic'
 import {
-  useGenerateLensApiRelayAddressLazyQuery,
+  useGenerateLensApiRelayAddressQuery,
   useProfileLazyQuery
 } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
@@ -109,9 +109,11 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
     })
   }
 
-  const [generateRelayerAddress] = useGenerateLensApiRelayAddressLazyQuery({
+  const { data } = useGenerateLensApiRelayAddressQuery({
     fetchPolicy: 'no-cache'
   })
+  const delegatedExecutor = data?.generateLensAPIRelayAddress
+
   const [checkAvailability, { loading: checkingAvailability }] =
     useProfileLazyQuery()
   const [checkIsProfileMinted] = useProfileLazyQuery({
@@ -195,7 +197,7 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
     window.createLemonSqueezy?.()
     window.LemonSqueezy?.Setup?.({ eventHandler })
     window.LemonSqueezy?.Url?.Open?.(
-      `https://tape.lemonsqueezy.com/checkout/buy/d9dba154-17d4-40df-a786-6f90c3dc0ca7?checkout[custom][address]=${address}&checkout[custom][delegatedExecutor]=${address}&checkout[custom][handle]=${handle}&desc=0&discount=1&embed=1&media=0`
+      `https://tape.lemonsqueezy.com/checkout/buy/d9dba154-17d4-40df-a786-6f90c3dc0ca7?checkout[custom][address]=${address}&checkout[custom][delegatedExecutor]=${delegatedExecutor}&checkout[custom][handle]=${handle}&desc=0&discount=1&embed=1&media=0`
     )
   }
 
@@ -215,16 +217,14 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
     await handleWrongNetwork()
 
     try {
-      const { data } = await generateRelayerAddress()
-      const relayerAddress = data?.generateLensAPIRelayAddress
-      if (!relayerAddress) {
+      if (!delegatedExecutor) {
         setCreating(false)
         return toast.error(ERROR_MESSAGE)
       }
       return await writeContractAsync({
         abi: TAPE_SIGNUP_PROXY_ABI,
         address: TAPE_SIGNUP_PROXY_ADDRESS,
-        args: [[address, ZERO_ADDRESS, '0x'], handle, [relayerAddress]],
+        args: [[address, ZERO_ADDRESS, '0x'], handle, [delegatedExecutor]],
         functionName: 'createProfileWithHandleUsingCredits',
         value: parseEther(TAPE_SIGNUP_PRICE.toString())
       })

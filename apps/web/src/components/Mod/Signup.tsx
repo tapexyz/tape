@@ -5,9 +5,11 @@ import {
 import {
   LENS_PERMISSIONLESS_CREATOR_ADDRESS,
   POLYGON_CHAIN_ID,
-  TAPE_SIGNUP_PROXY_ADDRESS
+  TAPE_SIGNUP_PROXY_ADDRESS,
+  ZERO_ADDRESS
 } from '@tape.xyz/constants'
-import { Button } from '@tape.xyz/ui'
+import { useGenerateLensApiRelayAddressQuery } from '@tape.xyz/lens'
+import { Button, Input } from '@tape.xyz/ui'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import type { Address } from 'viem'
@@ -24,6 +26,12 @@ const RELAYER_ADDRESSES = [
 
 const Signup = () => {
   const [loading, setLoading] = useState(false)
+  const [newMint, setNewMint] = useState({ handle: '', address: '' })
+
+  const { data: relayerAddressData } = useGenerateLensApiRelayAddressQuery({
+    fetchPolicy: 'no-cache'
+  })
+  const delegatedExecutor = relayerAddressData?.generateLensAPIRelayAddress
 
   const { data } = useReadContract({
     abi: LENS_PERMISSIONLESS_CREATOR_ABI,
@@ -57,10 +65,10 @@ const Signup = () => {
   const balance =
     contractBalance && parseFloat(formatUnits(contractBalance.value, 18))
 
-  const { writeContractAsync } = useWriteContract({
+  const { writeContractAsync, isPending } = useWriteContract({
     mutation: {
       onSuccess: () => {
-        toast.success('Funds withdrawn')
+        toast.success('Write contract successful!')
         setLoading(false)
       },
       onError: (error) => {
@@ -77,6 +85,21 @@ const Signup = () => {
         abi: TAPE_SIGNUP_PROXY_ABI,
         address: TAPE_SIGNUP_PROXY_ADDRESS,
         functionName: 'withdrawFunds'
+      })
+    } catch {}
+  }
+
+  const mintForUser = async () => {
+    try {
+      await writeContractAsync({
+        abi: TAPE_SIGNUP_PROXY_ABI,
+        address: TAPE_SIGNUP_PROXY_ADDRESS,
+        args: [
+          [newMint.address, ZERO_ADDRESS, '0x'],
+          newMint.handle,
+          [delegatedExecutor]
+        ],
+        functionName: 'createProfileWithHandle'
       })
     } catch {}
   }
@@ -101,6 +124,32 @@ const Signup = () => {
             <RelayerAddress key={address} address={address as Address} />
           ))}
         </ul>
+      </div>
+      <div>
+        <h2 className="mb-2 font-bold">Mint for user</h2>
+        <div className="flex space-x-2">
+          <Input
+            className="rounded-lg border border-gray-300 p-2"
+            placeholder="Address"
+            value={newMint.address}
+            onChange={(e) =>
+              setNewMint({ ...newMint, address: e.target.value })
+            }
+          />
+          <Input
+            className="rounded-lg border border-gray-300 p-2"
+            placeholder="Handle"
+            value={newMint.handle}
+            onChange={(e) => setNewMint({ ...newMint, handle: e.target.value })}
+          />
+          <Button
+            disabled={isPending}
+            loading={isPending}
+            onClick={() => mintForUser()}
+          >
+            Mint
+          </Button>
+        </div>
       </div>
     </div>
   )
