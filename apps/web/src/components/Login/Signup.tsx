@@ -310,6 +310,7 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
       </div>
 
       <Modal
+        size="sm"
         show={showModal}
         setShow={setShowModal}
         title="Why do I need to pay?"
@@ -318,7 +319,7 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
         {!hasBalance && (
           <div className="mt-4">
             <Link
-              href={`${MOONPAY_URL}?baseCurrencyAmount=15&currencyCode=MATIC&walletAddress=${address}`}
+              href={`${MOONPAY_URL}?baseCurrencyAmount=50&currencyCode=MATIC&walletAddress=${address}`}
               target="_blank"
             >
               <Button variant="secondary">Buy MATIC</Button>
