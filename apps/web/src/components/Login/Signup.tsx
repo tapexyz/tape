@@ -356,7 +356,7 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
               loading={creating}
               disabled={creating || !isHandleAvailable || checkingAvailability}
             >
-              Buy with Card
+              Buy with Card ({signupPriceFormatted} USD)
             </Button>
           </div>
           <button

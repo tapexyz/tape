@@ -12,8 +12,8 @@
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "3.521.0",
-    "@aws-sdk/lib-storage": "3.521.0",
+    "@aws-sdk/client-s3": "3.523.0",
+    "@aws-sdk/lib-storage": "3.523.0",
     "@emoji-mart/react": "^1.1.1",
     "@hookform/resolvers": "^3.3.3",
     "@irys/sdk": "^0.1.9",
@@ -58,7 +58,7 @@
     "@tape.xyz/lens": "*",
     "@tape.xyz/ui": "*",
     "@types/node": "20.11.20",
-    "@types/react": "18.2.59",
+    "@types/react": "18.2.60",
     "@types/react-dom": "18.2.19",
     "@types/uuid": "^9.0.8",
     "autoprefixer": "^10.4.17",
