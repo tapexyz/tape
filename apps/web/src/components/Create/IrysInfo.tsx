@@ -159,7 +159,7 @@ const IrysInfo = () => {
               {Number(irysData.estimatedPrice).toFixed(2)} matic
             </span>
           ) : (
-            <span className="mt-[6px] h-[22px] w-1/2 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700" />
+            <span className="animate-shimmer mt-[6px] h-[22px] w-1/2 rounded-lg bg-gray-200 dark:bg-gray-700" />
           )}
         </div>
       </div>
@@ -205,7 +205,7 @@ const IrysInfo = () => {
               {Number(irysData.balance).toFixed(2)} matic
             </span>
           ) : (
-            <span className="mt-[6px] h-[22px] w-1/2 animate-pulse rounded-lg bg-gray-200 dark:bg-gray-700" />
+            <span className="animate-shimmer mt-[6px] h-[22px] w-1/2 rounded-lg bg-gray-200 dark:bg-gray-700" />
           )}
         </div>
       </div>

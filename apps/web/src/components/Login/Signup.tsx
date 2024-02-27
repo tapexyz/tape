@@ -269,10 +269,11 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
       <div className="relative flex items-center">
         <Input
           className="h-[46px] text-base"
-          placeholder="gilfoyle"
+          placeholder="handle"
           autoComplete="off"
           prefix={`@${LENS_NAMESPACE_PREFIX}`}
           error={errors.handle?.message}
+          autoFocus
           {...register('handle')}
         />
         {isValid && (
@@ -308,8 +309,8 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
       <Modal
         show={showModal}
         setShow={setShowModal}
-        title="Why purchase?"
-        description="Creating new handle requires a purchase to help maintain the network and prevent bots. Rest assured, the associated price is a short-term measure. As we implements and refines additional bot prevention methods, the price will be gradually phased out."
+        title="Why do I need to pay?"
+        description="Tape profiles, powered by Lens Protocol, a one-time signup for all ecosystem apps. Users must make a purchase to enhance network stability and deter bots, with the temporary cost gradually phased out as additional bot prevention measures are implemented and refined."
       >
         {!hasBalance && (
           <div className="mt-4">

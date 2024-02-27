@@ -20,7 +20,7 @@ export const WatchShimmer = () => {
     <div className="max-w-screen-ultrawide mx-auto grid grid-cols-1 gap-y-4 md:gap-4 xl:grid-cols-4">
       <div className="col-span-3">
         <CardShimmer />
-        <div className="mt-3 flex flex-1 animate-pulse flex-col space-y-3.5">
+        <div className="animate-shimmer mt-3 flex flex-1 flex-col space-y-3.5">
           <div>
             <div className="my-2 h-5 w-full rounded-md bg-gray-200 dark:bg-gray-800" />
             <div className="flex items-center space-x-3">

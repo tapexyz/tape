@@ -4,7 +4,7 @@ const NotificationsShimmer = () => {
   const notifications = useMemo(() => Array(20).fill(1), [])
 
   return (
-    <div className="animate-pulse space-y-4">
+    <div className="animate-shimmer space-y-4">
       {notifications.map((i, idx) => (
         <div key={`${i}_${idx}`} className="w-full space-y-1.5">
           <div className="flex items-center space-x-3">
