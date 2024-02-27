@@ -44,7 +44,7 @@
     "react-use-websocket": "^4.7.0",
     "textarea-caret": "^3.1.0",
     "uuid": "^9.0.1",
-    "viem": "^2.7.14",
+    "viem": "^2.7.15",
     "wagmi": "^2.5.7",
     "zod": "^3.22.2",
     "zustand": "^4.5.1"
@@ -58,7 +58,7 @@
     "@tape.xyz/lens": "*",
     "@tape.xyz/ui": "*",
     "@types/node": "20.11.20",
-    "@types/react": "18.2.58",
+    "@types/react": "18.2.59",
     "@types/react-dom": "18.2.19",
     "@types/uuid": "^9.0.8",
     "autoprefixer": "^10.4.17",
