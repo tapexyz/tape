@@ -116,7 +116,9 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
   const delegatedExecutor = data?.generateLensAPIRelayAddress
 
   const [checkAvailability, { loading: checkingAvailability }] =
-    useHandleToAddressLazyQuery()
+    useHandleToAddressLazyQuery({
+      fetchPolicy: 'no-cache'
+    })
   const [checkIsProfileMinted] = useProfileLazyQuery({
     notifyOnNetworkStatusChange: true,
     pollInterval: 3000,
