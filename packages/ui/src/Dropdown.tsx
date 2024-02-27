@@ -112,7 +112,7 @@ export const DropdownMenu: FC<DropdownMenuProps> = ({
   align = 'end'
 }) => {
   return (
-    <DropdownMenuPrimitive.Root>
+    <DropdownMenuPrimitive.Root modal={false}>
       <DropdownMenuPrimitive.Trigger className="outline-none">
         {trigger}
       </DropdownMenuPrimitive.Trigger>
