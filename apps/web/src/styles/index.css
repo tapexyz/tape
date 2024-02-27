@@ -2,6 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  @apply overflow-x-hidden overflow-y-scroll;
+}
+
+body {
+  @apply min-h-screen bg-white text-black antialiased dark:bg-black dark:text-white;
+}
+
 /* Start - To fix radix CLS on dropdown and modal */
 html {
   scrollbar-gutter: stable;
@@ -10,14 +18,6 @@ body[style] {
   margin: 0 auto !important;
 }
 /* Ends - To fix radix CLS on dropdown and modal */
-
-html {
-  @apply overflow-x-hidden overflow-y-scroll;
-}
-
-body {
-  @apply min-h-screen bg-white text-black antialiased dark:bg-black dark:text-white;
-}
 
 .tape-border {
   @apply border border-[#00000020] dark:border-[#ffffff20];
