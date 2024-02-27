@@ -165,8 +165,8 @@ export const TAPE_FEEDBACK_URL = 'https://feedback.tape.xyz'
 export const TAPE_SIGNUP_PRICE = 6
 
 // admin
-export const ADMIN_IDS = IS_MAINNET ? ['0x2d'] : ['0x34']
-export const MOD_IDS = IS_MAINNET ? [...ADMIN_IDS, '0x24'] : ['0x2f']
+export const ADMIN_IDS = IS_MAINNET ? ['0x2d'] : []
+export const MOD_IDS = IS_MAINNET ? [...ADMIN_IDS] : []
 export const TAPE_ADMIN_ADDRESS = '0xB89560D7b33ea8d787EaaEfbcE1268f8991Db9E1'
 
 // lens
