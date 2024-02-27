@@ -260,7 +260,8 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
           onLoad={() => {
             window.chatwootSettings = {
               type: 'expanded_bubble',
-              launcherTitle: 'Support'
+              launcherTitle: 'Support',
+              position: 'left'
             }
             window.chatwootSDK.run({
               websiteToken: '47H9cq5gNEAf3q6sUK97vDbG',
