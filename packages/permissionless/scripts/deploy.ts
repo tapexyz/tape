@@ -7,7 +7,7 @@ async function deployProxy() {
 
   // testnet
   // const owner = '0xa8535b8049948bE1bFeb1404daEabbD407792411'
-  // const permissionlessCreator = '0x42b302BBB4fA27c21d32EdF602E4e2aA65746999'
+  // const permissionlessCreator = '0xCb4FB63c3f13CB83cCD6F10E9e5F29eC250329Cc'
 
   const TapePermissionlessCreator = await hre.ethers.getContractFactory(
     'TapePermissionlessCreator'
