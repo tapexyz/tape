@@ -131,7 +131,7 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
 
   const onError = (error: CustomErrorWithData) => {
     setCreating(false)
-    toast.error(error.name ?? error?.message ?? ERROR_MESSAGE)
+    toast.error(error?.message ?? ERROR_MESSAGE)
   }
 
   const { writeContractAsync, data: txnHash } = useWriteContract({
