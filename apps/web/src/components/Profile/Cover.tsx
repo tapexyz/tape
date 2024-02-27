@@ -28,8 +28,8 @@ const Cover: FC<Props> = ({ profile }) => {
   const { data: isMintedViaTape } = useReadContract({
     abi: TAPE_SIGNUP_PROXY_ABI,
     address: TAPE_SIGNUP_PROXY_ADDRESS,
-    args: [profile.ownedBy.address],
-    functionName: 'allowedRelayerAddresses'
+    args: [profile.id],
+    functionName: 'profiles'
   })
 
   return (
