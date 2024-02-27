@@ -113,7 +113,7 @@ const Signup = () => {
         <li>Total Signups Card: {String(totalCountViaCard)}</li>
         <hr className="my-3" />
         <li>Total Crypto Revenue: {balance} MATIC</li>
-        <li>Total Card Revenue: {Number(totalCountViaCrypto || 0) * 6} USD</li>
+        <li>Total Card Revenue: {Number(totalCountViaCard || 0) * 6} USD</li>
         <hr className="my-3" />
       </ul>
       <div className="flex">

@@ -9,7 +9,6 @@ import {
   IS_MAINNET,
   LENS_NAMESPACE_PREFIX,
   MOONPAY_URL,
-  TAPE_SIGNUP_PRICE,
   TAPE_SIGNUP_PROXY_ADDRESS,
   ZERO_ADDRESS
 } from '@tape.xyz/constants'
@@ -36,8 +35,13 @@ import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
-import { formatUnits, parseEther } from 'viem'
-import { useAccount, useBalance, useWriteContract } from 'wagmi'
+import { formatUnits } from 'viem'
+import {
+  useAccount,
+  useBalance,
+  useReadContract,
+  useWriteContract
+} from 'wagmi'
 import type { z } from 'zod'
 import { object, string } from 'zod'
 
@@ -99,13 +103,22 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
     query: { refetchInterval: 2000 }
   })
 
+  const { data: signupPrice } = useReadContract({
+    abi: TAPE_SIGNUP_PROXY_ABI,
+    address: TAPE_SIGNUP_PROXY_ADDRESS,
+    functionName: 'signupPrice',
+    query: { refetchInterval: 1000 }
+  })
+
+  const signupPriceFormatted = formatUnits((signupPrice ?? 0) as bigint, 18)
+
   const onMinted = (via: string) => {
     onSuccess()
     reset()
     toast.success('Profile created')
     setCreating(false)
     Tower.track(EVENTS.AUTH.SIGNUP_SUCCESS, {
-      price: TAPE_SIGNUP_PRICE,
+      price: signupPriceFormatted,
       via
     })
   }
@@ -232,7 +245,7 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
         address: TAPE_SIGNUP_PROXY_ADDRESS,
         args: [[address, ZERO_ADDRESS, '0x'], handle, [delegatedExecutor]],
         functionName: 'createProfileWithHandleUsingCredits',
-        value: parseEther(TAPE_SIGNUP_PRICE.toString())
+        value: signupPrice as bigint
       })
     } catch {
       setCreating(false)
@@ -240,7 +253,7 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
   }
 
   const balance = balanceData && parseFloat(formatUnits(balanceData.value, 18))
-  const hasBalance = balance && balance >= TAPE_SIGNUP_PRICE
+  const hasBalance = balance && balance >= Number(signupPriceFormatted)
 
   return (
     <form
@@ -363,7 +376,7 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
         loading={creating}
         disabled={creating || !isHandleAvailable || checkingAvailability}
       >
-        Mint for {TAPE_SIGNUP_PRICE} MATIC
+        Mint for {signupPriceFormatted} MATIC
       </Button>
       {showLogin && (
         <div className="flex items-center justify-center space-x-2 pt-3 text-sm">
