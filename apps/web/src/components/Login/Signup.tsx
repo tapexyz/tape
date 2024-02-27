@@ -219,7 +219,7 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
     if (clickedButton === 'card') {
       return handleBuy()
     }
-
+    setCreating(true)
     await handleWrongNetwork()
 
     try {
@@ -234,7 +234,9 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
         functionName: 'createProfileWithHandleUsingCredits',
         value: parseEther(TAPE_SIGNUP_PRICE.toString())
       })
-    } catch {}
+    } catch {
+      setCreating(false)
+    }
   }
 
   const balance = balanceData && parseFloat(formatUnits(balanceData.value, 18))
