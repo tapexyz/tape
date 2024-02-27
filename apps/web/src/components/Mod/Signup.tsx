@@ -123,11 +123,9 @@ const Signup = () => {
       </div>
       <div>
         <h2 className="mb-2 font-bold">Relayers</h2>
-        <ul>
-          {RELAYER_ADDRESSES.map((address) => (
-            <RelayerAddress key={address} address={address as Address} />
-          ))}
-        </ul>
+        {RELAYER_ADDRESSES.map((address) => (
+          <RelayerAddress key={address} address={address as Address} />
+        ))}
       </div>
       <div>
         <h2 className="mb-2 font-bold">Mint for user</h2>
