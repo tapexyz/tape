@@ -196,8 +196,11 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
   const handleBuy = () => {
     window.createLemonSqueezy?.()
     window.LemonSqueezy?.Setup?.({ eventHandler })
+    const id = IS_MAINNET
+      ? '45a0b30c-7c01-4431-b9a0-2160a152f26f'
+      : 'd9dba154-17d4-40df-a786-6f90c3dc0ca7'
     window.LemonSqueezy?.Url?.Open?.(
-      `https://tape.lemonsqueezy.com/checkout/buy/d9dba154-17d4-40df-a786-6f90c3dc0ca7?checkout[custom][address]=${address}&checkout[custom][delegatedExecutor]=${delegatedExecutor}&checkout[custom][handle]=${handle}&desc=0&discount=1&embed=1&media=0`
+      `https://tape.lemonsqueezy.com/checkout/buy/${id}?checkout[custom][address]=${address}&checkout[custom][delegatedExecutor]=${delegatedExecutor}&checkout[custom][handle]=${handle}&embed=1&media=0`
     )
   }
 
