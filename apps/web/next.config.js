@@ -55,6 +55,11 @@ const moduleExports = {
         permanent: true
       },
       {
+        source: '/signup',
+        destination: '/login?signup=true',
+        permanent: true
+      },
+      {
         source: '/discord',
         destination:
           'https://discord.com/servers/tape-formerly-lenstube-980882088783913010',

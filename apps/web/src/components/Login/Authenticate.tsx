@@ -26,7 +26,7 @@ import {
   WarningOutline
 } from '@tape.xyz/ui'
 import { useRouter } from 'next/router'
-import React, { memo, useCallback, useMemo, useState } from 'react'
+import React, { memo, useCallback, useEffect, useMemo, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useAccount, useSignMessage } from 'wagmi'
 
@@ -34,7 +34,7 @@ import Signup from './Signup'
 
 const Authenticate = () => {
   const {
-    query: { as }
+    query: { as, signup }
   } = useRouter()
 
   const [loading, setLoading] = useState(false)
@@ -45,6 +45,12 @@ const Authenticate = () => {
   const router = useRouter()
   const { address, connector, isConnected } = useAccount()
   const { resetStore: resetApolloStore } = useApolloClient()
+
+  useEffect(() => {
+    if (signup) {
+      setShowSignup(true)
+    }
+  }, [signup])
 
   const onError = () => {
     signOut()
@@ -63,7 +69,6 @@ const Authenticate = () => {
     onCompleted: (data) => {
       const profiles = data?.profilesManaged.items
       if (profiles?.length) {
-        setShowSignup(false)
         const profile = [...profiles].reverse()[0]
         setSelectedProfileId(as || profile.id)
       } else {
@@ -178,7 +183,10 @@ const Authenticate = () => {
     <div className="space-y-4 text-left">
       {!IS_MAINNET && showSignup ? (
         <Signup
-          onSuccess={() => refetch()}
+          onSuccess={() => {
+            setShowSignup(false)
+            refetch()
+          }}
           setShowSignup={setShowSignup}
           showLogin={Boolean(profile)}
         />
