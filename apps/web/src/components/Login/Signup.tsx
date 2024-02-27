@@ -273,6 +273,7 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
           autoComplete="off"
           prefix={`@${LENS_NAMESPACE_PREFIX}`}
           error={errors.handle?.message}
+          autoFocus
           {...register('handle')}
         />
         {isValid && (
