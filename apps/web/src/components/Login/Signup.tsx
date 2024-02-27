@@ -196,8 +196,11 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
   const handleBuy = () => {
     window.createLemonSqueezy?.()
     window.LemonSqueezy?.Setup?.({ eventHandler })
+    const id = IS_MAINNET
+      ? '45a0b30c-7c01-4431-b9a0-2160a152f26f'
+      : 'd9dba154-17d4-40df-a786-6f90c3dc0ca7'
     window.LemonSqueezy?.Url?.Open?.(
-      `https://tape.lemonsqueezy.com/checkout/buy/d9dba154-17d4-40df-a786-6f90c3dc0ca7?checkout[custom][address]=${address}&checkout[custom][delegatedExecutor]=${delegatedExecutor}&checkout[custom][handle]=${handle}&desc=0&discount=1&embed=1&media=0`
+      `https://tape.lemonsqueezy.com/checkout/buy/${id}?checkout[custom][address]=${address}&checkout[custom][delegatedExecutor]=${delegatedExecutor}&checkout[custom][handle]=${handle}&embed=1&media=0`
     )
   }
 
@@ -257,7 +260,8 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
           onLoad={() => {
             window.chatwootSettings = {
               type: 'expanded_bubble',
-              launcherTitle: 'Support'
+              launcherTitle: 'Support',
+              position: 'left'
             }
             window.chatwootSDK.run({
               websiteToken: '47H9cq5gNEAf3q6sUK97vDbG',
@@ -307,6 +311,7 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
       </div>
 
       <Modal
+        size="sm"
         show={showModal}
         setShow={setShowModal}
         title="Why do I need to pay?"
@@ -315,7 +320,7 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
         {!hasBalance && (
           <div className="mt-4">
             <Link
-              href={`${MOONPAY_URL}?baseCurrencyAmount=15&currencyCode=MATIC&walletAddress=${address}`}
+              href={`${MOONPAY_URL}?baseCurrencyAmount=50&currencyCode=MATIC&walletAddress=${address}`}
               target="_blank"
             >
               <Button variant="secondary">Buy MATIC</Button>
@@ -323,25 +328,29 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
           </div>
         )}
       </Modal>
-      <div className="relative flex items-center">
-        <div className="w-full">
-          <Button
-            name="card"
-            size="md"
-            loading={creating}
-            disabled={creating || !isHandleAvailable || checkingAvailability}
+
+      {IS_MAINNET && (
+        <div className="relative flex items-center">
+          <div className="w-full">
+            <Button
+              name="card"
+              size="md"
+              loading={creating}
+              disabled={creating || !isHandleAvailable || checkingAvailability}
+            >
+              Buy with Card
+            </Button>
+          </div>
+          <button
+            type="button"
+            className="absolute right-2.5 z-[1] cursor-help p-1 text-xs"
+            onClick={() => setShowModal(true)}
           >
-            Buy with Card (${TAPE_SIGNUP_PRICE})
-          </Button>
+            <InfoOutline className="size-4 text-white dark:text-black" />
+          </button>
         </div>
-        <button
-          type="button"
-          className="absolute right-2.5 z-[1] cursor-help p-1 text-xs"
-          onClick={() => setShowModal(true)}
-        >
-          <InfoOutline className="size-4 text-white dark:text-black" />
-        </button>
-      </div>
+      )}
+
       <Button
         name="wallet"
         size="md"

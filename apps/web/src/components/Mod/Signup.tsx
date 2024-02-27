@@ -107,23 +107,25 @@ const Signup = () => {
   return (
     <div className="space-y-4 p-5">
       <ul>
-        <li>Credits: {credits}</li>
-        <li>Total Signups Card: {String(totalCountViaCard)}</li>
+        <li>Contract Credits Available: {credits}</li>
+        <hr className="my-3" />
         <li>Total Signups Crypto: {String(totalCountViaCrypto)}</li>
-        <li>Total Balance: {balance}</li>
+        <li>Total Signups Card: {String(totalCountViaCard)}</li>
+        <hr className="my-3" />
+        <li>Total Crypto Revenue: {balance} MATIC</li>
+        <li>Total Card Revenue: {Number(totalCountViaCrypto || 0) * 6} USD</li>
+        <hr className="my-3" />
       </ul>
       <div className="flex">
         <Button disabled={loading} loading={loading} onClick={() => withdraw()}>
-          Withdraw funds
+          Withdraw ({balance} MATIC) funds
         </Button>
       </div>
       <div>
         <h2 className="mb-2 font-bold">Relayers</h2>
-        <ul>
-          {RELAYER_ADDRESSES.map((address) => (
-            <RelayerAddress key={address} address={address as Address} />
-          ))}
-        </ul>
+        {RELAYER_ADDRESSES.map((address) => (
+          <RelayerAddress key={address} address={address as Address} />
+        ))}
       </div>
       <div>
         <h2 className="mb-2 font-bold">Mint for user</h2>
