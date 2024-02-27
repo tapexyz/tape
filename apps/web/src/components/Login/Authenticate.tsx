@@ -1,7 +1,7 @@
 import ButtonShimmer from '@components/Shimmers/ButtonShimmer'
 import { signIn, signOut } from '@lib/store/auth'
 import useProfileStore from '@lib/store/idb/profile'
-import { ERROR_MESSAGE, IS_MAINNET } from '@tape.xyz/constants'
+import { ERROR_MESSAGE } from '@tape.xyz/constants'
 import {
   EVENTS,
   getProfile,
@@ -181,7 +181,7 @@ const Authenticate = () => {
 
   return (
     <div className="space-y-4 text-left">
-      {!IS_MAINNET && showSignup ? (
+      {showSignup ? (
         <Signup
           onSuccess={() => {
             setShowSignup(false)
@@ -231,22 +231,20 @@ const Authenticate = () => {
               {shortenAddress(address as string)})
             </Callout>
           )}
-          {!IS_MAINNET && (
-            <div className="flex items-center justify-center space-x-2 pt-3 text-sm">
-              {profile ? (
-                <span>Need new account?</span>
-              ) : (
-                <span>Don't have an account?</span>
-              )}
-              <button
-                type="button"
-                className="text-brand-500 font-bold"
-                onClick={() => setShowSignup(true)}
-              >
-                Sign up
-              </button>
-            </div>
-          )}
+          <div className="flex items-center justify-center space-x-2 pt-3 text-sm">
+            {profile ? (
+              <span>Need new account?</span>
+            ) : (
+              <span>Don't have an account?</span>
+            )}
+            <button
+              type="button"
+              className="text-brand-500 font-bold"
+              onClick={() => setShowSignup(true)}
+            >
+              Sign up
+            </button>
+          </div>
         </div>
       )}
     </div>

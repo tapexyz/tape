@@ -326,25 +326,29 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
           </div>
         )}
       </Modal>
-      <div className="relative flex items-center">
-        <div className="w-full">
-          <Button
-            name="card"
-            size="md"
-            loading={creating}
-            disabled={creating || !isHandleAvailable || checkingAvailability}
+
+      {IS_MAINNET && (
+        <div className="relative flex items-center">
+          <div className="w-full">
+            <Button
+              name="card"
+              size="md"
+              loading={creating}
+              disabled={creating || !isHandleAvailable || checkingAvailability}
+            >
+              Buy with Card (${TAPE_SIGNUP_PRICE})
+            </Button>
+          </div>
+          <button
+            type="button"
+            className="absolute right-2.5 z-[1] cursor-help p-1 text-xs"
+            onClick={() => setShowModal(true)}
           >
-            Buy with Card (${TAPE_SIGNUP_PRICE})
-          </Button>
+            <InfoOutline className="size-4 text-white dark:text-black" />
+          </button>
         </div>
-        <button
-          type="button"
-          className="absolute right-2.5 z-[1] cursor-help p-1 text-xs"
-          onClick={() => setShowModal(true)}
-        >
-          <InfoOutline className="size-4 text-white dark:text-black" />
-        </button>
-      </div>
+      )}
+
       <Button
         name="wallet"
         size="md"
