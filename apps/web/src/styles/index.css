@@ -12,7 +12,7 @@ body[style] {
 /* Ends - To fix radix CLS on dropdown and modal */
 
 html {
-  @apply overflow-y-scroll overflow-x-hidden;
+  @apply overflow-x-hidden overflow-y-scroll;
 }
 
 body {

@@ -9,7 +9,7 @@ const ThumbnailsShimmer = () => {
       {thumbnails.map((e, i) => (
         <div
           key={`${e}_${i}`}
-          className="tape-border aspect-[16/9] h-full w-full animate-pulse rounded-md"
+          className="tape-border animate-shimmer aspect-[16/9] h-full w-full rounded-md"
         >
           <div className="h-full rounded-md bg-gray-200 dark:bg-gray-800" />
         </div>

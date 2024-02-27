@@ -16,7 +16,7 @@ export const BangersBubbles = () => {
 
 const BangersShimmer = () => {
   return (
-    <div className="ultrawide:space-y-8 animate-pulse space-y-6 p-5">
+    <div className="ultrawide:space-y-8 animate-shimmer space-y-6 p-5">
       <div className="space-y-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center -space-x-2">

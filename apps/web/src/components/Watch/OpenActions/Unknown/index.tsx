@@ -188,7 +188,7 @@ const UnknownOpenAction = ({
 
   if (loading || !metadata) {
     return (
-      <div className="h-[70px] animate-pulse rounded-lg bg-gray-200 dark:bg-gray-800" />
+      <div className="animate-shimmer h-[70px] rounded-lg bg-gray-200 dark:bg-gray-800" />
     )
   }
 

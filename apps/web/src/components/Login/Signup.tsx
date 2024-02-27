@@ -269,7 +269,7 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
       <div className="relative flex items-center">
         <Input
           className="h-[46px] text-base"
-          placeholder="gilfoyle"
+          placeholder="handle"
           autoComplete="off"
           prefix={`@${LENS_NAMESPACE_PREFIX}`}
           error={errors.handle?.message}
