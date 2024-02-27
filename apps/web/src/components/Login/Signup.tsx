@@ -16,6 +16,7 @@ import {
 import { EVENTS, Tower } from '@tape.xyz/generic'
 import {
   useGenerateLensApiRelayAddressQuery,
+  useHandleToAddressLazyQuery,
   useProfileLazyQuery
 } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
@@ -115,7 +116,7 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
   const delegatedExecutor = data?.generateLensAPIRelayAddress
 
   const [checkAvailability, { loading: checkingAvailability }] =
-    useProfileLazyQuery()
+    useHandleToAddressLazyQuery()
   const [checkIsProfileMinted] = useProfileLazyQuery({
     notifyOnNetworkStatusChange: true,
     pollInterval: 3000,
@@ -145,14 +146,14 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
       const { data } = await checkAvailability({
         variables: {
           request: {
-            forHandle: `${LENS_NAMESPACE_PREFIX}${handle}`
+            handle: `${LENS_NAMESPACE_PREFIX}${handle}`
           }
         }
       })
       Tower.track(EVENTS.AUTH.SIGNUP_HANDLE_SEARCH, {
         handle: `${LENS_NAMESPACE_PREFIX}${handle}`
       })
-      if (data?.profile) {
+      if (data?.handleToAddress) {
         return setIsHandleAvailable(false)
       }
       setIsHandleAvailable(true)
