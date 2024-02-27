@@ -15,8 +15,8 @@ npx hardhat compile
 ### Deploy
 ```
 npx hardhat run scripts/deploy.ts --network polygon 
-npx hardhat verify 0xFa920e03C4096C09ae20716c249f6d3A27114984 --network polygon
-hh verify 0xFa920e03C4096C09ae20716c249f6d3A27114984 --network polygon
+npx hardhat verify 0xD0f6d9676d36F5f4AF5765fCb78c388B51577327 --network polygon
+hh verify 0xD0f6d9676d36F5f4AF5765fCb78c388B51577327 --network polygon
 ```
 
 ```

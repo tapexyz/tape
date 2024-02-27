@@ -2,7 +2,7 @@ const hre = require('hardhat')
 
 async function deployProxy() {
   // mainnet
-  const owner = '0xB89560D7b33ea8d787EaaEfbcE1268f8991Db9E1'
+  const owner = '0x01d79BcEaEaaDfb8fD2F2f53005289CFcF483464'
   const permissionlessCreator = '0x0b5e6100243f793e480DE6088dE6bA70aA9f3872'
 
   // testnet
