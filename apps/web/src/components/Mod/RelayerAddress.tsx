@@ -25,8 +25,8 @@ const RelayerAddress: FC<RelayerAddressProps> = ({ address }) => {
   const balance = data ? parseFloat(formatUnits(data.value, 18)) : 0
 
   return (
-    <div className="mb-1 flex justify-between rounded-xl border px-5 py-4">
-      {address} {allowed ? '✅' : '❌'}
+    <div className="mb-1 flex flex-wrap justify-between rounded-xl border px-5 py-4">
+      <div className="truncate">{address}</div> {allowed ? '✅' : '❌'}
       <div>
         <b>{balance} </b>MATIC
       </div>
