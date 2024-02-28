@@ -58,7 +58,7 @@ This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. I
 | `mobile` | React Native tape mobile app        |
 | `embed`  | NextJs application for video embeds |
 | `api`    | Cloudflare functions                |
-| `og`     | Open graph tags generator           |
+| `og`     | Open graph meta tags generator      |
 
 ### Packages
 
