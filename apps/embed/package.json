@@ -26,7 +26,7 @@
     "@tape.xyz/generic": "*",
     "@tape.xyz/lens": "*",
     "@tape.xyz/ui": "*",
-    "@types/node": "20.11.21",
+    "@types/node": "20.11.22",
     "@types/react": "18.2.60",
     "@types/react-dom": "18.2.19",
     "autoprefixer": "^10.4.17",
