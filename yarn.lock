@@ -7019,10 +7019,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.15.13.tgz#f64277c341150c979e42b00e4ac289290c9df469"
   integrity sha512-N+0kuo9KgrUQ1Sn/ifDXsvg0TTleP7rIy4zOBGECxAljqvqfqpTfzx0Q1NUedOixRMBfe2Whhb056a42cWs26Q==
 
-"@types/node@20.11.21", "@types/node@^20.11.21":
-  version "20.11.21"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.11.21.tgz#ad67e65652f7be15686e2df87a38076a81c5e9c5"
-  integrity sha512-/ySDLGscFPNasfqStUuWWPfL78jompfIoVzLJPVVAHBh6rpG68+pI2Gk+fNLeI8/f1yPYL4s46EleVIc20F1Ow==
+"@types/node@20.11.22", "@types/node@^20.11.22":
+  version "20.11.22"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.11.22.tgz#9a192c3d7e7e71fa3a4b15032654f64643815cd6"
+  integrity sha512-/G+IxWxma6V3E+pqK1tSl2Fo1kl41pK1yeCyDsgkF9WlVAme4j5ISYM2zR11bgLFJGLN5sVK40T4RJNuiZbEjA==
   dependencies:
     undici-types "~5.26.4"
 
@@ -7035,13 +7035,6 @@
   version "16.18.80"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-16.18.80.tgz#9644e2d8acaf8163d46d23e05ce3822e9379dfc3"
   integrity sha512-vFxJ1Iyl7A0+xB0uW1r1v504yItKZLdqg/VZELUZ4H02U0bXAgBisSQ8Erf0DMruNFz9ggoiEv6T8Ll9bTg8Jw==
-
-"@types/node@^20.11.22":
-  version "20.11.22"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.11.22.tgz#9a192c3d7e7e71fa3a4b15032654f64643815cd6"
-  integrity sha512-/G+IxWxma6V3E+pqK1tSl2Fo1kl41pK1yeCyDsgkF9WlVAme4j5ISYM2zR11bgLFJGLN5sVK40T4RJNuiZbEjA==
-  dependencies:
-    undici-types "~5.26.4"
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.4"
@@ -20109,20 +20102,6 @@ viem@^1.0.0, viem@^1.1.4:
     "@scure/bip32" "1.3.2"
     "@scure/bip39" "1.2.1"
     abitype "0.9.8"
-    isows "1.0.3"
-    ws "8.13.0"
-
-viem@^2.7.15:
-  version "2.7.15"
-  resolved "https://registry.yarnpkg.com/viem/-/viem-2.7.15.tgz#0dfdcb75be196c85839950b0ccb88be0b377609c"
-  integrity sha512-I2RMQpg1/MC7fXVjHxeXRPU9k/WEOvZajK/KZSr7DChS0AaZ7uovsQWppwBn2wvZWguTCIRAHqzMwIEGku95yQ==
-  dependencies:
-    "@adraffy/ens-normalize" "1.10.0"
-    "@noble/curves" "1.2.0"
-    "@noble/hashes" "1.3.2"
-    "@scure/bip32" "1.3.2"
-    "@scure/bip39" "1.2.1"
-    abitype "1.0.0"
     isows "1.0.3"
     ws "8.13.0"
 
