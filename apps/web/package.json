@@ -21,10 +21,6 @@
     "@livepeer/react": "^3.1.9",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tanstack/react-query": "^5.24.1",
-    "@types/js-cookie": "^3.0.6",
-    "@types/textarea-caret": "^3.0.3",
-    "@vercel/analytics": "^1.2.2",
-    "@vercel/speed-insights": "^1.0.10",
     "axios": "^1.6.7",
     "dayjs": "^1.11.10",
     "emoji-mart": "^5.5.2",
@@ -52,6 +48,8 @@
     "zustand": "^4.5.1"
   },
   "devDependencies": {
+    "@types/js-cookie": "^3.0.6",
+    "@types/textarea-caret": "^3.0.3",
     "@tailwindcss/typography": "^0.5.10",
     "@tape.xyz/browser": "*",
     "@tape.xyz/config": "*",
