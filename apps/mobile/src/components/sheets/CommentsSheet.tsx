@@ -1,29 +1,29 @@
-import { LENS_CUSTOM_FILTERS } from '@dragverse/constants'
+import { LENS_CUSTOM_FILTERS } from '@dragverse/constants';
 import type {
-    AnyPublication,
-    Comment,
-    PublicationsRequest
-} from '@dragverse/lens'
-import { LimitType, usePublicationsQuery } from '@dragverse/lens'
-import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
-import type { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
-import { FlashList } from '@shopify/flash-list'
-import type { FC } from 'react'
-import React, { useCallback } from 'react'
+  AnyPublication,
+  Comment,
+  PublicationsRequest
+} from '@dragverse/lens';
+import { LimitType, usePublicationsQuery } from '@dragverse/lens';
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types';
+import type { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
+import { FlashList } from '@shopify/flash-list';
+import type { FC } from 'react';
+import React, { useCallback } from 'react';
 import {
-    ActivityIndicator,
-    StyleSheet,
-    Text,
-    View,
-    useWindowDimensions
-} from 'react-native'
+  ActivityIndicator,
+  StyleSheet,
+  Text,
+  View,
+  useWindowDimensions
+} from 'react-native';
 
-import normalizeFont from '~/helpers/normalize-font'
-import { useMobileTheme } from '~/hooks'
+import normalizeFont from '~/helpers/normalize-font';
+import { useMobileTheme } from '~/hooks';
 
-import NotFound from '../ui/NotFound'
-import Sheet from '../ui/Sheet'
-import RenderComment from '../watch/RenderComment'
+import NotFound from '../ui/NotFound';
+import Sheet from '../ui/Sheet';
+import RenderComment from '../watch/RenderComment';
 
 type Props = {
   id: string

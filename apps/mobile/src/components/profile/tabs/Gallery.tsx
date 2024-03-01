@@ -1,25 +1,24 @@
-import { NFTS_URL } from '@dragverse/constants'
-import { imageCdn, sanitizeDStorageUrl } from '@dragverse/generic'
-import { type Profile } from '@dragverse/lens'
+import { imageCdn, sanitizeDStorageUrl } from '@dragverse/generic';
+import { type Profile } from '@dragverse/lens';
 import type {
-    CustomNftItemType,
-    MobileThemeConfig
-} from '@dragverse/lens/custom-types'
-import { ResizeMode, Video } from 'expo-av'
-import type { FC } from 'react'
-import React, { memo, useCallback } from 'react'
-import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native'
+  CustomNftItemType,
+  MobileThemeConfig
+} from '@dragverse/lens/custom-types';
+import { ResizeMode, Video } from 'expo-av';
+import type { FC } from 'react';
+import React, { memo, useCallback } from 'react';
+import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
 import {
-    ActivityIndicator,
-    StyleSheet,
-    View,
-    useWindowDimensions
-} from 'react-native'
-import Animated from 'react-native-reanimated'
-import useSWR from 'swr'
+  ActivityIndicator,
+  StyleSheet,
+  View,
+  useWindowDimensions
+} from 'react-native';
+import Animated from 'react-native-reanimated';
+import useSWR from 'swr';
 
-import NotFound from '~/components/ui/NotFound'
-import { useMobileTheme } from '~/hooks'
+import NotFound from '~/components/ui/NotFound';
+import { useMobileTheme } from '~/hooks';
 
 type Props = {
   profile: Profile
@@ -50,7 +49,7 @@ const Gallery: FC<Props> = ({ profile, scrollHandler }) => {
   const style = styles(themeConfig)
 
   const { data: nfts, isLoading } = useSWR(
-    `${NFTS_URL}/${profile.handle}/200`,
+    `/${profile.handle}/200`,
     (url: string) => fetch(url).then((res) => res.json())
   )
 

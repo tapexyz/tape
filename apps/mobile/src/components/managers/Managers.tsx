@@ -1,25 +1,29 @@
-import { LENSTUBE_ADDRESS } from '@dragverse/constants'
-import { getRandomProfilePicture, shortenAddress } from '@dragverse/generic'
-import type { Profile } from '@dragverse/lens'
-import { useProfilesQuery } from '@dragverse/lens'
-import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
-import { FlashList } from '@shopify/flash-list'
-import { Image as ExpoImage } from 'expo-image'
-import React, { useCallback, useState } from 'react'
+import { DRAGVERSE_ADMIN_ADDRESS } from '@dragverse/constants';
 import {
-    FlatList,
-    StyleSheet,
-    Text,
-    View,
-    useWindowDimensions
-} from 'react-native'
+  getProfile,
+  getRandomProfilePicture,
+  shortenAddress
+} from '@dragverse/generic';
+import type { Profile } from '@dragverse/lens';
+import { useProfilesQuery } from '@dragverse/lens';
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types';
+import { FlashList } from '@shopify/flash-list';
+import { Image as ExpoImage } from 'expo-image';
+import React, { useCallback, useState } from 'react';
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+  useWindowDimensions
+} from 'react-native';
 
-import normalizeFont from '~/helpers/normalize-font'
-import { useMobileTheme } from '~/hooks'
-import { useMobilePersistStore } from '~/store/persist'
+import normalizeFont from '~/helpers/normalize-font';
+import { useMobileTheme } from '~/hooks';
+import { useMobilePersistStore } from '~/store/persist';
 
-import Accordion from '../ui/Accordion'
-import NotFound from '../ui/NotFound'
+import Accordion from '../ui/Accordion';
+import NotFound from '../ui/NotFound';
 
 const GRID_GAP = 10
 const NUM_COLUMNS = 3
@@ -53,7 +57,7 @@ const Addresses = () => {
 
   const sampleAddresses = [
     '0xa8535b8049948bE1bFeb1404daEabbD407792411',
-    LENSTUBE_ADDRESS,
+    DRAGVERSE_ADMIN_ADDRESS,
     '0xA8C62111e4652b07110A0FC81816303c42632f64',
     '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48'
   ]
@@ -107,7 +111,7 @@ const Item = ({ profile }: { profile: Profile }) => {
   const [active, setActive] = useState(false)
   return (
     <Accordion
-      text={profile.handle}
+      text={getProfile(profile).slug}
       setActive={setActive}
       active={active}
       key={profile.id}

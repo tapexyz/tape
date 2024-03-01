@@ -1,10 +1,9 @@
-import GlobeOutline from '@components/Common/Icons/GlobeOutline'
-import LocationOutline from '@components/Common/Icons/LocationOutline'
-import { STATIC_ASSETS } from '@dragverse/constants'
-import { getValueFromKeyInAttributes, imageCdn } from '@dragverse/generic'
-import type { ProfileMetadata } from '@dragverse/lens'
-import Link from 'next/link'
-import { useTheme } from 'next-themes'
+import { STATIC_ASSETS } from '@dragverse/constants';
+import { getValueFromKeyInAttributes, imageCdn } from '@dragverse/generic';
+import type { ProfileMetadata } from '@dragverse/lens';
+import { GlobeOutline, LocationOutline } from '@dragverse/ui';
+import { useTheme } from 'next-themes';
+import Link from 'next/link';
 
 const CoverLinks = ({ metadata }: { metadata: ProfileMetadata }) => {
   const { resolvedTheme } = useTheme()
@@ -25,7 +24,7 @@ const CoverLinks = ({ metadata }: { metadata: ProfileMetadata }) => {
           rel="noreferer noreferrer"
           className="rounded-lg bg-white bg-opacity-80 p-1.5 dark:bg-gray-900"
         >
-          <GlobeOutline className="h-4 w-4" />
+          <GlobeOutline className="size-4" />
         </Link>
       )}
       {location && (
@@ -35,7 +34,7 @@ const CoverLinks = ({ metadata }: { metadata: ProfileMetadata }) => {
           rel="noreferer noreferrer"
           className="rounded-lg bg-white bg-opacity-80 p-1.5 dark:bg-gray-900"
         >
-          <LocationOutline className="h-4 w-4" />
+          <LocationOutline className="size-4" />
         </Link>
       )}
       {spotify && (
@@ -52,7 +51,7 @@ const CoverLinks = ({ metadata }: { metadata: ProfileMetadata }) => {
               `${STATIC_ASSETS}/images/social/spotify.png`,
               'AVATAR'
             )}
-            className="h-4 w-4 object-contain"
+            className="size-4 object-contain"
             height={16}
             width={16}
             alt="Spotify"
@@ -71,7 +70,7 @@ const CoverLinks = ({ metadata }: { metadata: ProfileMetadata }) => {
         >
           <img
             src={`${STATIC_ASSETS}/images/social/youtube.png`}
-            className="h-4 w-4 object-contain"
+            className="size-4 object-contain"
             height={16}
             width={16}
             alt="Youtube"
@@ -94,7 +93,7 @@ const CoverLinks = ({ metadata }: { metadata: ProfileMetadata }) => {
                 `${STATIC_ASSETS}/images/social/x-white.png`,
                 'AVATAR'
               )}
-              className="h-3.5 w-3.5"
+              className="size-3.5"
               height={16}
               width={16}
               alt="X Logo"
@@ -106,7 +105,7 @@ const CoverLinks = ({ metadata }: { metadata: ProfileMetadata }) => {
                 `${STATIC_ASSETS}/images/social/x-black.png`,
                 'AVATAR'
               )}
-              className="h-3.5 w-3.5"
+              className="size-3.5"
               height={16}
               width={16}
               alt="X Logo"

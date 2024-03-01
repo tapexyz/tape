@@ -1,8 +1,10 @@
 import type { CodegenConfig } from '@graphql-codegen/cli'
 
+import LensEndpoint from './endpoints'
+
 const config: CodegenConfig = {
   overwrite: true,
-  schema: 'https://api-v2-mumbai.lens.dev',
+  schema: LensEndpoint.Staging,
   documents: './documents/**/*.graphql',
   customFetch: 'node-fetch',
   generates: {

@@ -1,20 +1,12 @@
-import HoverableProfile from '@components/Common/HoverableProfile'
-import TimesOutline from '@components/Common/Icons/TimesOutline'
-import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { formatNumber } from '@dragverse/generic'
-import type { FollowersRequest, Profile, ProfileStats } from '@dragverse/lens'
-import { LimitType, useFollowersQuery } from '@dragverse/lens'
-import { Loader } from '@dragverse/ui'
-import {
-  Dialog,
-  DialogClose,
-  Flex,
-  IconButton,
-  ScrollArea,
-  Text
-} from '@radix-ui/themes'
-import type { FC } from 'react'
-import { useInView } from 'react-cool-inview'
+import HoverableProfile from '@components/Common/HoverableProfile';
+import { NoDataFound } from '@components/UIElements/NoDataFound';
+import { formatNumber, getProfile, getProfilePicture } from '@dragverse/generic';
+import type { FollowersRequest, Profile, ProfileStats } from '@dragverse/lens';
+import { LimitType, useFollowersQuery } from '@dragverse/lens';
+import { Modal, Spinner } from '@dragverse/ui';
+import type { FC } from 'react';
+import { useState } from 'react';
+import { useInView } from 'react-cool-inview';
 
 type Props = {
   stats: ProfileStats
@@ -22,6 +14,8 @@ type Props = {
 }
 
 const Followers: FC<Props> = ({ stats, profileId }) => {
+  const [showModal, setShowModal] = useState(false)
+
   const request: FollowersRequest = {
     of: profileId,
     limit: LimitType.Fifty
@@ -49,26 +43,23 @@ const Followers: FC<Props> = ({ stats, profileId }) => {
   })
 
   return (
-    <Dialog.Root>
-      <Dialog.Trigger>
-        <Flex gap="1" align="end">
-          <Text weight="bold">{formatNumber(stats.followers)}</Text>
-          <Text>Followers</Text>
-        </Flex>
-      </Dialog.Trigger>
-      <Dialog.Content style={{ maxWidth: 450 }}>
-        <Flex gap="3" justify="between" pb="2">
-          <Dialog.Title size="6">
-            {formatNumber(stats.followers)} followers
-          </Dialog.Title>
-          <DialogClose>
-            <IconButton variant="ghost" color="gray">
-              <TimesOutline outlined={false} className="h-3 w-3" />
-            </IconButton>
-          </DialogClose>
-        </Flex>
-        <ScrollArea type="hover" scrollbars="vertical" style={{ height: 400 }}>
-          {loading && <Loader />}
+    <>
+      <button
+        className="flex items-end gap-1"
+        onClick={() => setShowModal(true)}
+      >
+        <span className="font-bold">{formatNumber(stats.followers)}</span>
+        <span>Followers</span>
+      </button>
+
+      <Modal
+        size="sm"
+        title={`${formatNumber(stats.followers)} followers`}
+        show={showModal}
+        setShow={setShowModal}
+      >
+        <div className="no-scrollbar max-h-[70vh] overflow-y-auto">
+          {loading && <Spinner />}
           {followers?.length === 0 && (
             <div className="pt-5">
               <NoDataFound withImage isCenter />
@@ -78,19 +69,29 @@ const Followers: FC<Props> = ({ stats, profileId }) => {
             {followers?.map((profile) => (
               <div key={profile.id}>
                 <span className="inline-flex">
-                  <HoverableProfile profile={profile} fontSize="3" />
+                  <HoverableProfile
+                    profile={profile}
+                    pfp={
+                      <img
+                        src={getProfilePicture(profile, 'AVATAR')}
+                        className="size-5 rounded-full"
+                        draggable={false}
+                        alt={getProfile(profile)?.displayName}
+                      />
+                    }
+                  />
                 </span>
               </div>
             ))}
           </div>
           {pageInfo?.next && (
             <span ref={observe} className="p-5">
-              <Loader />
+              <Spinner />
             </span>
           )}
-        </ScrollArea>
-      </Dialog.Content>
-    </Dialog.Root>
+        </div>
+      </Modal>
+    </>
   )
 }
 

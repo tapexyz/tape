@@ -1,37 +1,39 @@
-import { Button, Dialog } from '@radix-ui/themes'
+import { Button, Modal } from '@dragverse/ui'
 import type { Dispatch, FC } from 'react'
-import React from 'react'
 
 type Props = {
   showConfirm: boolean
   setShowConfirm: Dispatch<boolean>
   action: () => void
+  loading?: boolean
 }
 
-const Confirm: FC<Props> = ({ showConfirm, setShowConfirm, action }) => {
+const Confirm: FC<Props> = ({
+  showConfirm,
+  setShowConfirm,
+  action,
+  loading
+}) => {
   return (
-    <Dialog.Root open={showConfirm} onOpenChange={(b) => setShowConfirm(b)}>
-      <Dialog.Content style={{ maxWidth: 450 }}>
-        <Dialog.Title>Confirm</Dialog.Title>
-        <Dialog.Description size="2" mb="4">
-          Are you sure you want to continue?
-        </Dialog.Description>
-
-        <div>
-          <span className="text-red-500 opacity-75">
-            This cannot be reverted
-          </span>
-          <div className="flex justify-end space-x-2 pt-2">
-            <Button variant="soft" onClick={() => setShowConfirm(false)}>
-              Cancel
-            </Button>
-            <Button highContrast onClick={action}>
-              Confirm
-            </Button>
-          </div>
+    <Modal
+      size="sm"
+      title="Confirm"
+      description="Are you sure you want to continue?"
+      show={showConfirm}
+      setShow={(b) => setShowConfirm(b)}
+    >
+      <div>
+        <span className="text-red-500 opacity-75">This cannot be reverted</span>
+        <div className="flex justify-end space-x-2 pt-2">
+          <Button variant="secondary" onClick={() => setShowConfirm(false)}>
+            Cancel
+          </Button>
+          <Button onClick={action} disabled={loading} loading={loading}>
+            Confirm
+          </Button>
         </div>
-      </Dialog.Content>
-    </Dialog.Root>
+      </div>
+    </Modal>
   )
 }
 

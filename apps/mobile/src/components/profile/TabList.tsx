@@ -1,18 +1,18 @@
-import { MOBILE_PROFILE_ITEMS } from '@dragverse/lens/custom-types'
-import type { FC } from 'react'
-import React, { memo, useCallback, useEffect, useRef } from 'react'
+import { MOBILE_PROFILE_ITEMS } from '@dragverse/lens/custom-types';
+import type { FC } from 'react';
+import React, { memo, useCallback, useEffect, useRef } from 'react';
 import {
-    Pressable,
-    ScrollView,
-    StyleSheet,
-    Text,
-    View,
-    useWindowDimensions
-} from 'react-native'
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+  useWindowDimensions
+} from 'react-native';
 
-import haptic from '~/helpers/haptic'
-import normalizeFont from '~/helpers/normalize-font'
-import { useMobileTheme } from '~/hooks'
+import haptic from '~/helpers/haptic';
+import normalizeFont from '~/helpers/normalize-font';
+import { useMobileTheme } from '~/hooks';
 
 const styles = StyleSheet.create({
   container: {

@@ -1,7 +1,7 @@
-import { logger } from '@dragverse/generic'
-import type { NavigationContainerRefWithCurrent } from '@react-navigation/core'
-import { createNavigationContainerRef } from '@react-navigation/native'
-import { useCallback, useRef } from 'react'
+import { logger } from '@dragverse/generic';
+import type { NavigationContainerRefWithCurrent } from '@react-navigation/core';
+import { createNavigationContainerRef } from '@react-navigation/native';
+import { useCallback, useRef } from 'react';
 
 export const navigationRef = createNavigationContainerRef()
 

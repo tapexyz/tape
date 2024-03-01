@@ -1,5 +1,5 @@
-import { TAPE_LOGO } from '@dragverse/constants'
-import clsx from 'clsx'
+import { tw } from '@dragverse/browser';
+import { TAPE_LOGO } from '@dragverse/constants';
 
 export const NoDataFound = ({
   text = 'No Data Found',
@@ -9,7 +9,7 @@ export const NoDataFound = ({
 }) => {
   return (
     <div
-      className={clsx('flex flex-col space-y-6 rounded-lg p-6', className, {
+      className={tw('flex flex-col space-y-6 rounded-lg p-6', className, {
         'items-center justify-center': isCenter
       })}
     >
@@ -23,7 +23,7 @@ export const NoDataFound = ({
         />
       )}
       <div
-        className={clsx('text-sm font-medium', {
+        className={tw('text-sm font-medium', {
           'text-center': isCenter
         })}
       >

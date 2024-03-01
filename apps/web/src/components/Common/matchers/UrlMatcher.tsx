@@ -24,7 +24,7 @@ const Url = ({ children, url, ...props }: UrlProps) => {
     >
       <img
         src={`${STATIC_ASSETS}/brand/logo.svg`}
-        className="h-4 w-4"
+        className="size-4"
         draggable={false}
         alt={TAPE_APP_NAME}
       />

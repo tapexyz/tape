@@ -1,14 +1,11 @@
-import { SB_STORAGE_URL } from '@dragverse/constants'
-import { getPublicationMediaCid } from '@dragverse/generic'
-import type { MirrorablePublication } from '@dragverse/lens'
-import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
-import type { FC } from 'react'
-import React, { useMemo } from 'react'
-import { StyleSheet, useWindowDimensions, View } from 'react-native'
-import useSWR from 'swr'
+import type { MirrorablePublication } from '@dragverse/lens';
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types';
+import type { FC } from 'react';
+import React from 'react';
+import { StyleSheet, useWindowDimensions, View } from 'react-native';
 
-import normalizeFont from '~/helpers/normalize-font'
-import { useMobileTheme } from '~/hooks'
+import normalizeFont from '~/helpers/normalize-font';
+import { useMobileTheme } from '~/hooks';
 
 const styles = (themeConfig: MobileThemeConfig) =>
   StyleSheet.create({
@@ -40,16 +37,9 @@ const WaveForm: FC<Props> = ({ audio }) => {
   const style = styles(themeConfig)
   const { width } = useWindowDimensions()
 
-  const { data: waves } = useSWR(
-    `${SB_STORAGE_URL}/${getPublicationMediaCid(audio)}.json`,
-    (url: string) => fetch(url).then((res) => res.json())
-  )
-
-  const samples = useMemo(() => waves?.samples as number[], [waves])
-
   return (
     <View style={{ height: 60, width, alignItems: 'center' }}>
-      <View style={style.sticks}>
+      {/* <View style={style.sticks}>
         {samples?.map((value, i) => (
           <View
             key={i}
@@ -75,7 +65,7 @@ const WaveForm: FC<Props> = ({ audio }) => {
             ]}
           />
         ))}
-      </View>
+      </View> */}
     </View>
   )
 }

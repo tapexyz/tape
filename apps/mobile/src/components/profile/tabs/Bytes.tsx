@@ -1,31 +1,31 @@
-import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@dragverse/constants'
-import { getThumbnailUrl, imageCdn } from '@dragverse/generic'
+import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@dragverse/constants';
+import { getThumbnailUrl, imageCdn } from '@dragverse/generic';
 import type {
-    MirrorablePublication,
-    Profile,
-    PublicationsRequest
-} from '@dragverse/lens'
+  MirrorablePublication,
+  Profile,
+  PublicationsRequest
+} from '@dragverse/lens';
 import {
-    LimitType,
-    PublicationType,
-    usePublicationsQuery
-} from '@dragverse/lens'
-import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
-import { Image as ExpoImage } from 'expo-image'
-import type { FC } from 'react'
-import React, { memo, useCallback } from 'react'
-import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native'
+  LimitType,
+  PublicationType,
+  usePublicationsQuery
+} from '@dragverse/lens';
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types';
+import { Image as ExpoImage } from 'expo-image';
+import type { FC } from 'react';
+import React, { memo, useCallback } from 'react';
+import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
 import {
-    ActivityIndicator,
-    StyleSheet,
-    useWindowDimensions,
-    View
-} from 'react-native'
-import Animated from 'react-native-reanimated'
+  ActivityIndicator,
+  StyleSheet,
+  useWindowDimensions,
+  View
+} from 'react-native';
+import Animated from 'react-native-reanimated';
 
-import AnimatedPressable from '~/components/ui/AnimatedPressable'
-import NotFound from '~/components/ui/NotFound'
-import { useMobileTheme } from '~/hooks'
+import AnimatedPressable from '~/components/ui/AnimatedPressable';
+import NotFound from '~/components/ui/NotFound';
+import { useMobileTheme } from '~/hooks';
 
 type Props = {
   profile: Profile
@@ -100,7 +100,7 @@ const Bytes: FC<Props> = ({ profile, scrollHandler }) => {
         <AnimatedPressable>
           <ExpoImage
             source={{
-              uri: imageCdn(getThumbnailUrl(item, true), 'THUMBNAIL_V')
+              uri: imageCdn(getThumbnailUrl(item.metadata, true), 'THUMBNAIL_V')
             }}
             transition={300}
             contentFit="cover"

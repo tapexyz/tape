@@ -1,12 +1,12 @@
-import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types';
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
-import normalizeFont from '~/helpers/normalize-font'
-import { useMobileTheme } from '~/hooks'
+import normalizeFont from '~/helpers/normalize-font';
+import { useMobileTheme } from '~/hooks';
 
-import { useToast } from '../common/toast'
-import AnimatedPressable from './AnimatedPressable'
+import { useToast } from '../common/toast';
+import AnimatedPressable from './AnimatedPressable';
 
 const styles = (themeConfig: MobileThemeConfig) =>
   StyleSheet.create({

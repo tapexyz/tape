@@ -1,6 +1,6 @@
-import Badge from '@components/Common/Badge'
-import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { INFINITE_SCROLL_ROOT_MARGIN } from '@dragverse/constants'
+import Badge from '@components/Common/Badge';
+import { NoDataFound } from '@components/UIElements/NoDataFound';
+import { INFINITE_SCROLL_ROOT_MARGIN } from '@dragverse/constants';
 import {
   formatNumber,
   getProfile,
@@ -8,14 +8,13 @@ import {
   getProfilePicture,
   imageCdn,
   sanitizeDStorageUrl
-} from '@dragverse/generic'
-import type { Profile, ProfilesManagedRequest } from '@dragverse/lens'
-import { useProfilesManagedQuery } from '@dragverse/lens'
-import { Loader } from '@dragverse/ui'
-import useProfileStore from '@lib/store/profile'
-import { Avatar } from '@radix-ui/themes'
-import Link from 'next/link'
-import { useInView } from 'react-cool-inview'
+} from '@dragverse/generic';
+import type { Profile, ProfilesManagedRequest } from '@dragverse/lens';
+import { useProfilesManagedQuery } from '@dragverse/lens';
+import { Spinner } from '@dragverse/ui';
+import useProfileStore from '@lib/store/idb/profile';
+import Link from 'next/link';
+import { useInView } from 'react-cool-inview';
 
 const Managed = () => {
   const activeProfile = useProfileStore(
@@ -50,7 +49,7 @@ const Managed = () => {
     <div>
       <p>Profiles managed by you.</p>
       <div className="mt-3">
-        {loading && <Loader className="my-10" />}
+        {loading && <Spinner className="my-10" />}
         {(!loading && !profilesManaged?.length) || error ? (
           <NoDataFound withImage isCenter />
         ) : null}
@@ -70,13 +69,11 @@ const Managed = () => {
                   className="bg-brand-500 relative h-20 w-full bg-cover bg-center bg-no-repeat"
                 >
                   <div className="absolute bottom-3 left-3 flex-none">
-                    <Avatar
-                      className="border-2 border-white bg-white object-cover dark:bg-gray-900"
-                      size="3"
-                      fallback={getProfile(profile)?.displayName[0] ?? ';)'}
-                      radius="medium"
+                    <img
+                      className="size-10 rounded-full border-2 border-white bg-white object-cover dark:bg-gray-900"
                       src={getProfilePicture(profile, 'AVATAR')}
                       alt={getProfile(profile)?.displayName}
+                      draggable={false}
                     />
                   </div>
                 </div>
@@ -103,7 +100,7 @@ const Managed = () => {
         ) : null}
         {pageInfo?.next && (
           <span ref={observe} className="flex justify-center p-10">
-            <Loader />
+            <Spinner />
           </span>
         )}
       </div>

@@ -1,31 +1,31 @@
-import InfoOutline from '@components/Common/Icons/InfoOutline'
-import TimesOutline from '@components/Common/Icons/TimesOutline'
-import { Input } from '@components/UIElements/Input'
-import { NoDataFound } from '@components/UIElements/NoDataFound'
-import ProfileSuggestion from '@components/UIElements/ProfileSuggestion'
-import Tooltip from '@components/UIElements/Tooltip'
-import { useDebounce, useOutsideClick } from '@dragverse/browser'
+import { NoDataFound } from '@components/UIElements/NoDataFound';
+import ProfileSuggestion from '@components/UIElements/ProfileSuggestion';
+import { tw, useDebounce, useOutsideClick } from '@dragverse/browser';
 import {
-  DRAGVERSE_ADMIN_ADDRESS,
-  LENS_CUSTOM_FILTERS,
-  LENS_NAMESPACE_PREFIX,
-  TAPE_APP_NAME
-} from '@dragverse/constants'
+    DRAGVERSE_ADMIN_ADDRESS,
+    LENS_CUSTOM_FILTERS,
+    LENS_NAMESPACE_PREFIX,
+    TAPE_APP_NAME
+} from '@dragverse/constants';
 import {
-  getProfile,
-  getProfilePicture,
-  splitNumber,
-  trimify
-} from '@dragverse/generic'
-import type { Profile, RecipientDataInput } from '@dragverse/lens'
-import { LimitType, useSearchProfilesLazyQuery } from '@dragverse/lens'
-import { Loader } from '@dragverse/ui'
-import useAppStore from '@lib/store'
-import { IconButton, Text } from '@radix-ui/themes'
-import clsx from 'clsx'
-import type { FC, RefObject } from 'react'
-import { useEffect, useRef, useState } from 'react'
-import { isAddress } from 'viem'
+    getProfile,
+    getProfilePicture,
+    splitNumber,
+    trimify
+} from '@dragverse/generic';
+import type { Profile, RecipientDataInput } from '@dragverse/lens';
+import { LimitType, useSearchProfilesLazyQuery } from '@dragverse/lens';
+import {
+    InfoOutline,
+    Input,
+    Spinner,
+    TimesOutline,
+    Tooltip
+} from '@dragverse/ui';
+import useAppStore from '@lib/store';
+import type { FC, RefObject } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { isAddress } from 'viem';
 
 type Props = {
   submitContainerRef: RefObject<HTMLDivElement>
@@ -146,12 +146,10 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
   return (
     <div className="space-y-1">
       <div className="flex items-center">
-        <Text size="2" weight="medium">
-          Split revenue
-        </Text>
-        <Tooltip content="Split revenue with anyone" placement="top">
+        <span className="text-sm font-medium">Split revenue</span>
+        <Tooltip content="Split collect revenue with anyone" placement="top">
           <span>
-            <InfoOutline className="mx-1 h-3 w-3 opacity-70" />
+            <InfoOutline className="mx-1 size-3 opacity-70" />
           </span>
         </Tooltip>
       </div>
@@ -176,18 +174,16 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
                   : ''
               }
               disabled={splitRecipient.recipient === DRAGVERSE_ADMIN_ADDRESS}
-              validationError={
-                getIsValidAddress(splitRecipient.recipient) ? '' : ' '
-              }
-              showErrorLabel={false}
+              error={getIsValidAddress(splitRecipient.recipient) ? '' : ' '}
+              showError={false}
             />
             {searchKeyword.length &&
             !getIsValidAddress(splitRecipients[i].recipient) ? (
               <div
                 ref={resultsRef}
-                className="dragverse-border dark:bg-brand-850 z-10 mt-1 w-full overflow-hidden rounded-md bg-white focus:outline-none md:absolute"
+                className="tape-border z-10 mt-1 w-full overflow-hidden rounded-md bg-white focus:outline-none md:absolute dark:bg-brand-850"
               >
-                {profilesLoading && <Loader className="my-4" />}
+                {profilesLoading && <Spinner className="my-4" />}
                 {!profiles?.length && !profilesLoading ? (
                   <NoDataFound isCenter text="No profiles found" />
                 ) : null}
@@ -222,21 +218,20 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
               onChange={(e) => onChangeSplit('split', e.target.value, i)}
             />
           </div>
-          <IconButton
-            variant="soft"
+          <button
             type="button"
-            color="red"
+            className="rounded-lg px-2 text-red-500"
             onClick={() => removeRecipient(i)}
           >
-            <TimesOutline className="h-4 w-4 p-0.5" outlined={false} />
-          </IconButton>
+            <TimesOutline className="size-4" outlined={false} />
+          </button>
         </div>
       ))}
       <div className="flex items-center justify-between space-x-1.5 pt-1">
         <div className="flex items-center space-x-1">
           <button
             type="button"
-            className={clsx(
+            className={tw(
               'rounded border border-gray-700 px-1 text-[10px] font-bold uppercase tracking-wider opacity-70 dark:border-gray-300',
               splitRecipients.length >= 5 && 'invisible'
             )}
@@ -247,7 +242,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
           {!isIncludesDonationAddress && (
             <button
               type="button"
-              className={clsx(
+              className={tw(
                 'rounded border border-gray-700 px-1 text-[10px] font-bold uppercase tracking-wider opacity-70 dark:border-gray-300',
                 splitRecipients.length >= 5 && 'invisible'
               )}

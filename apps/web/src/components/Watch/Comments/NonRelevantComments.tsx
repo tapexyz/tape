@@ -1,28 +1,25 @@
-import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
-import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
-import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
+import CommentsShimmer from '@components/Shimmers/CommentsShimmer';
 import {
   INFINITE_SCROLL_ROOT_MARGIN,
   LENS_CUSTOM_FILTERS
-} from '@dragverse/constants'
+} from '@dragverse/constants';
 import type {
   AnyPublication,
   Comment,
   MirrorablePublication,
   PublicationsRequest
-} from '@dragverse/lens'
+} from '@dragverse/lens';
 import {
   CommentRankingFilterType,
   LimitType,
   usePublicationsQuery
-} from '@dragverse/lens'
-import { Loader } from '@dragverse/ui'
-import { Button } from '@radix-ui/themes'
-import type { FC } from 'react'
-import { useState } from 'react'
-import { useInView } from 'react-cool-inview'
+} from '@dragverse/lens';
+import { ChevronDownOutline, ChevronUpOutline, Spinner } from '@dragverse/ui';
+import type { FC } from 'react';
+import { useState } from 'react';
+import { useInView } from 'react-cool-inview';
 
-import RenderComment from './RenderComment'
+import RenderComment from './RenderComment';
 
 type Props = {
   video: MirrorablePublication
@@ -76,23 +73,19 @@ const NonRelevantComments: FC<Props> = ({ video, className }) => {
 
   return (
     <div className={className}>
-      <Button
-        className="group w-full text-center"
+      <button
+        className="group flex w-full items-center space-x-2 text-center text-sm"
         onClick={() => onToggle()}
-        variant="outline"
-        highContrast
       >
-        <span className="flex items-center space-x-2">
-          <span className="opacity-80 group-hover:opacity-100">
-            {showSection ? 'Hide more comments' : 'Show more comments'}
-          </span>
-          {showSection ? (
-            <ChevronUpOutline className="h-3 w-3" />
-          ) : (
-            <ChevronDownOutline className="h-3 w-3" />
-          )}
+        <span className="opacity-80 group-hover:opacity-100">
+          {showSection ? 'Hide more comments' : 'Show more comments'}
         </span>
-      </Button>
+        {showSection ? (
+          <ChevronUpOutline className="size-2" />
+        ) : (
+          <ChevronDownOutline className="size-2" />
+        )}
+      </button>
       {showSection ? (
         <>
           <div className="space-y-4 py-6">
@@ -109,7 +102,7 @@ const NonRelevantComments: FC<Props> = ({ video, className }) => {
           </div>
           {pageInfo?.next && (
             <span ref={observe} className="flex justify-center p-10">
-              <Loader />
+              <Spinner />
             </span>
           )}
         </>

@@ -1,13 +1,13 @@
-import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
-import Ionicons from '@expo/vector-icons/Ionicons'
-import type { FC } from 'react'
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import type { FC } from 'react';
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
-import normalizeFont from '~/helpers/normalize-font'
-import { useMobileTheme } from '~/hooks'
+import normalizeFont from '~/helpers/normalize-font';
+import { useMobileTheme } from '~/hooks';
 
-import AnimatedPressable from '../ui/AnimatedPressable'
+import AnimatedPressable from '../ui/AnimatedPressable';
 
 const styles = (themeConfig: MobileThemeConfig) =>
   StyleSheet.create({

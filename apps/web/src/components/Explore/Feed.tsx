@@ -1,9 +1,7 @@
-import CommentOutline from '@components/Common/Icons/CommentOutline'
-import FireOutline from '@components/Common/Icons/FireOutline'
-import MirrorOutline from '@components/Common/Icons/MirrorOutline'
-import Timeline from '@components/Home/Timeline'
-import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
-import { NoDataFound } from '@components/UIElements/NoDataFound'
+import Timeline from '@components/Home/Timeline';
+import TimelineShimmer from '@components/Shimmers/TimelineShimmer';
+import { NoDataFound } from '@components/UIElements/NoDataFound';
+import { tw } from '@dragverse/browser';
 import {
   ALLOWED_APP_IDS,
   INFINITE_SCROLL_ROOT_MARGIN,
@@ -11,30 +9,38 @@ import {
   LENS_CUSTOM_FILTERS,
   LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
-} from '@dragverse/constants'
-import { EVENTS, Tower } from '@dragverse/generic'
+} from '@dragverse/constants';
+import { EVENTS, Tower } from '@dragverse/generic';
 import type {
   ExplorePublicationRequest,
   PrimaryPublication
-} from '@dragverse/lens'
+} from '@dragverse/lens';
 import {
   ExplorePublicationsOrderByType,
   ExplorePublicationType,
   LimitType,
   PublicationMetadataMainFocusType,
   useExplorePublicationsQuery
-} from '@dragverse/lens'
-import { Loader } from '@dragverse/ui'
-import useAppStore from '@lib/store'
-import { Button } from '@radix-ui/themes'
-import { useState } from 'react'
-import { useInView } from 'react-cool-inview'
+} from '@dragverse/lens';
+import {
+  Button,
+  CommentOutline,
+  FireOutline,
+  MirrorOutline,
+  Spinner
+} from '@dragverse/ui';
+import { getUnixTimestampForDaysAgo } from '@lib/formatTime';
+import useAppStore from '@lib/store';
+import { useState } from 'react';
+import { useInView } from 'react-cool-inview';
 
 const initialCriteria = {
   trending: true,
   popular: false,
   interesting: false
 }
+
+const since = getUnixTimestampForDaysAgo(30)
 
 const ExploreFeed = () => {
   const [activeCriteria, setActiveCriteria] = useState(initialCriteria)
@@ -64,7 +70,8 @@ const ExploreFeed = () => {
         publishedOn: IS_MAINNET
           ? [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
           : undefined
-      }
+      },
+      since
     },
     orderBy: getCriteria(),
     limit: LimitType.Fifty
@@ -96,27 +103,23 @@ const ExploreFeed = () => {
 
   return (
     <div className="laptop:pt-6 pt-4">
-      <div className="space-x-2">
+      <div className="flex space-x-2">
         <Button
-          radius="full"
-          highContrast
-          variant={activeCriteria.trending ? 'solid' : 'surface'}
+          variant="secondary"
+          className={tw(activeCriteria.trending && 'border-brand-500')}
           onClick={() => {
             setActiveCriteria({ ...initialCriteria })
             Tower.track(EVENTS.PAGEVIEW, {
               page: EVENTS.PAGE_VIEW.EXPLORE_TRENDING
             })
           }}
+          icon={<FireOutline className="size-5" />}
         >
-          <span className="flex items-center space-x-1">
-            <FireOutline className="h-3.5 w-3.5" />
-            <span>Trending</span>
-          </span>
+          Trending
         </Button>
         <Button
-          radius="full"
-          highContrast
-          variant={activeCriteria.popular ? 'solid' : 'surface'}
+          variant="secondary"
+          className={tw(activeCriteria.popular && 'border-brand-500')}
           onClick={() => {
             setActiveCriteria({
               ...initialCriteria,
@@ -127,16 +130,13 @@ const ExploreFeed = () => {
               page: EVENTS.PAGE_VIEW.EXPLORE_POPULAR
             })
           }}
+          icon={<CommentOutline className="size-5" />}
         >
-          <span className="flex items-center space-x-1">
-            <CommentOutline className="h-3.5 w-3.5" />
-            <span>Popular</span>
-          </span>
+          Popular
         </Button>
         <Button
-          radius="full"
-          highContrast
-          variant={activeCriteria.interesting ? 'solid' : 'surface'}
+          variant="secondary"
+          className={tw(activeCriteria.interesting && 'border-brand-500')}
           onClick={() => {
             setActiveCriteria({
               ...initialCriteria,
@@ -147,29 +147,23 @@ const ExploreFeed = () => {
               page: EVENTS.PAGE_VIEW.EXPLORE_INTERESTING
             })
           }}
+          icon={<MirrorOutline className="size-5" />}
         >
-          <span className="flex items-center space-x-1">
-            <MirrorOutline className="h-3.5 w-3.5" />
-            <span>Interesting</span>
-          </span>
+          Interesting
         </Button>
       </div>
 
       <div className="my-4">
         {loading && <TimelineShimmer />}
         {videos?.length === 0 && (
-          <NoDataFound
-            isCenter
-            withImage
-            text={`No DRAG content to consume yet 🌕 Share your drag make-up tutorial, music videos, and more with your community!`}
-          />
+          <NoDataFound isCenter withImage text="No videos found" />
         )}
         {!error && !loading && videos?.length ? (
           <>
             <Timeline videos={videos} />
             {pageInfo?.next && (
               <span ref={observe} className="flex justify-center p-10">
-                <Loader />
+                <Spinner />
               </span>
             )}
           </>

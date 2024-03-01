@@ -1,20 +1,20 @@
-import { LENS_CUSTOM_FILTERS } from '@dragverse/constants'
-import type { ExplorePublicationRequest, Post } from '@dragverse/lens'
+import { LENS_CUSTOM_FILTERS } from '@dragverse/constants';
+import type { ExplorePublicationRequest, Post } from '@dragverse/lens';
 import {
-    ExplorePublicationType,
-    ExplorePublicationsOrderByType,
-    LimitType,
-    PublicationMetadataMainFocusType,
-    useExplorePublicationsQuery
-} from '@dragverse/lens'
-import { FlashList } from '@shopify/flash-list'
-import React, { useCallback } from 'react'
-import { ActivityIndicator, StyleSheet, View } from 'react-native'
+  ExplorePublicationType,
+  ExplorePublicationsOrderByType,
+  LimitType,
+  PublicationMetadataMainFocusType,
+  useExplorePublicationsQuery
+} from '@dragverse/lens';
+import { FlashList } from '@shopify/flash-list';
+import React, { useCallback } from 'react';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
 
-import VideoCard from '~/components/common/VideoCard'
-import NotFound from '~/components/ui/NotFound'
-import ServerError from '~/components/ui/ServerError'
-import { windowHeight } from '~/helpers/theme'
+import VideoCard from '~/components/common/VideoCard';
+import NotFound from '~/components/ui/NotFound';
+import ServerError from '~/components/ui/ServerError';
+import { windowHeight } from '~/helpers/theme';
 
 const styles = StyleSheet.create({
   container: {

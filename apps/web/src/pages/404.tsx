@@ -1,7 +1,7 @@
-import MetaTags from '@components/Common/MetaTags'
-import { STATIC_ASSETS, TAPE_APP_NAME } from '@dragverse/constants'
-import { Button } from '@radix-ui/themes'
-import Link from 'next/link'
+import MetaTags from '@components/Common/MetaTags';
+import { STATIC_ASSETS, TAPE_APP_NAME } from '@dragverse/constants';
+import { Button } from '@dragverse/ui';
+import Link from 'next/link';
 
 const Custom404 = () => {
   return (
@@ -23,9 +23,7 @@ const Custom404 = () => {
           💅{' '}
         </div>
         <Link href="/">
-          <Button highContrast variant="surface">
-            Go Home
-          </Button>
+          <Button>Go Home</Button>
         </Link>
       </div>
     </>

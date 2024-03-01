@@ -7,22 +7,22 @@ import { CardShimmer } from './VideoCardShimmer'
 export const BangersBubbles = () => {
   return (
     <div className="flex items-center -space-x-2">
-      <div className="tape-border h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-800" />
-      <div className="tape-border h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-800" />
-      <div className="tape-border h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-800" />
+      <div className="tape-border size-8 rounded-full bg-gray-200 dark:bg-gray-800" />
+      <div className="tape-border size-8 rounded-full bg-gray-200 dark:bg-gray-800" />
+      <div className="tape-border size-8 rounded-full bg-gray-200 dark:bg-gray-800" />
     </div>
   )
 }
 
 const BangersShimmer = () => {
   return (
-    <div className="ultrawide:space-y-8 animate-pulse space-y-6 p-5">
+    <div className="ultrawide:space-y-8 animate-shimmer space-y-6 p-5">
       <div className="space-y-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center -space-x-2">
-            <div className="tape-border h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-800" />
-            <div className="tape-border h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-800" />
-            <div className="tape-border h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-800" />
+            <div className="tape-border size-8 rounded-full bg-gray-200 dark:bg-gray-800" />
+            <div className="tape-border size-8 rounded-full bg-gray-200 dark:bg-gray-800" />
+            <div className="tape-border size-8 rounded-full bg-gray-200 dark:bg-gray-800" />
           </div>
           <ButtonShimmer className="h-8" />
         </div>
@@ -36,9 +36,9 @@ const BangersShimmer = () => {
       <div className="space-y-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center -space-x-2">
-            <div className="tape-border h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-800" />
-            <div className="tape-border h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-800" />
-            <div className="tape-border h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-800" />
+            <div className="tape-border size-8 rounded-full bg-gray-200 dark:bg-gray-800" />
+            <div className="tape-border size-8 rounded-full bg-gray-200 dark:bg-gray-800" />
+            <div className="tape-border size-8 rounded-full bg-gray-200 dark:bg-gray-800" />
           </div>
           <ButtonShimmer className="h-8" />
         </div>
@@ -52,9 +52,9 @@ const BangersShimmer = () => {
       <div className="space-y-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center -space-x-2">
-            <div className="tape-border h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-800" />
-            <div className="tape-border h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-800" />
-            <div className="tape-border h-8 w-8 rounded-full bg-gray-200 dark:bg-gray-800" />
+            <div className="tape-border size-8 rounded-full bg-gray-200 dark:bg-gray-800" />
+            <div className="tape-border size-8 rounded-full bg-gray-200 dark:bg-gray-800" />
+            <div className="tape-border size-8 rounded-full bg-gray-200 dark:bg-gray-800" />
           </div>
           <ButtonShimmer className="h-8" />
         </div>

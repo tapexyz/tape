@@ -1,7 +1,7 @@
-import { PublicationMetadataMainFocusType } from '@dragverse/lens'
-import type { DocumentPickerResult } from 'expo-document-picker'
-import type { ImagePickerResult } from 'expo-image-picker'
-import { create } from 'zustand'
+import { PublicationMetadataMainFocusType } from '@dragverse/lens';
+import type { DocumentPickerResult } from 'expo-document-picker';
+import type { ImagePickerResult } from 'expo-image-picker';
+import { create } from 'zustand';
 
 type DraftPublication = {
   title: string

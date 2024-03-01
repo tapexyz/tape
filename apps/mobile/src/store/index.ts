@@ -1,7 +1,7 @@
-import { ExplorePublicationsOrderByType } from '@dragverse/lens'
-import { create } from 'zustand'
+import { ExplorePublicationsOrderByType } from '@dragverse/lens';
+import { create } from 'zustand';
 
-import { colors } from '~/helpers/theme'
+import { colors } from '~/helpers/theme';
 
 type ExploreFilter = {
   criteria: ExplorePublicationsOrderByType

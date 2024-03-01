@@ -1,19 +1,19 @@
+import { tw } from '@dragverse/browser';
 import {
   FALLBACK_THUMBNAIL_URL,
   LENSTUBE_BYTES_APP_ID,
   STATIC_ASSETS
-} from '@dragverse/constants'
+} from '@dragverse/constants';
 import {
   getIsSensitiveContent,
   getPublication,
   getPublicationData,
   getThumbnailUrl,
   imageCdn
-} from '@dragverse/generic'
-import type { AnyPublication } from '@dragverse/lens'
-import clsx from 'clsx'
-import Link from 'next/link'
-import type { FC } from 'react'
+} from '@dragverse/generic';
+import type { AnyPublication } from '@dragverse/lens';
+import Link from 'next/link';
+import type { FC } from 'react';
 
 interface Props {
   results: AnyPublication[]
@@ -49,7 +49,7 @@ const Publications: FC<Props> = ({ results, loading, clearSearch }) => {
             >
               <div className="flex items-center space-x-3">
                 <img
-                  className={clsx(
+                  className={tw(
                     'h-16 w-28 flex-none rounded-md bg-gray-300 object-center dark:bg-gray-700',
                     isBytesVideo ? 'object-contain' : 'object-cover'
                   )}

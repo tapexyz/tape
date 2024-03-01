@@ -1,31 +1,31 @@
-import { LENS_CUSTOM_FILTERS } from '@dragverse/constants'
-import { getThumbnailUrl, imageCdn } from '@dragverse/generic'
+import { LENS_CUSTOM_FILTERS } from '@dragverse/constants';
+import { getThumbnailUrl, imageCdn } from '@dragverse/generic';
 import {
-    ExplorePublicationType,
-    ExplorePublicationsOrderByType,
-    LimitType,
-    PublicationMetadataMainFocusType,
-    useExplorePublicationsQuery,
-    type ExplorePublicationRequest,
-    type MirrorablePublication
-} from '@dragverse/lens'
-import { FlashList } from '@shopify/flash-list'
-import React, { useCallback, useState } from 'react'
-import type { ViewToken } from 'react-native'
+  ExplorePublicationType,
+  ExplorePublicationsOrderByType,
+  LimitType,
+  PublicationMetadataMainFocusType,
+  useExplorePublicationsQuery,
+  type ExplorePublicationRequest,
+  type MirrorablePublication
+} from '@dragverse/lens';
+import { FlashList } from '@shopify/flash-list';
+import React, { useCallback, useState } from 'react';
+import type { ViewToken } from 'react-native';
 import {
-    ActivityIndicator,
-    ImageBackground,
-    StyleSheet,
-    View
-} from 'react-native'
-import Animated, { FadeIn, FadeInDown } from 'react-native-reanimated'
+  ActivityIndicator,
+  ImageBackground,
+  StyleSheet,
+  View
+} from 'react-native';
+import Animated, { FadeIn, FadeInDown } from 'react-native-reanimated';
 
-import CollapseButton from '~/components/common/header/CollapseButton'
-import ServerError from '~/components/ui/ServerError'
-import Comments from '~/components/watch/Comments'
+import CollapseButton from '~/components/common/header/CollapseButton';
+import ServerError from '~/components/ui/ServerError';
+import Comments from '~/components/watch/Comments';
 
-import Item from './Item'
-import Player from './Player'
+import Item from './Item';
+import Player from './Player';
 
 const styles = StyleSheet.create({
   close: {
@@ -119,7 +119,9 @@ const Stage = () => {
 
   return (
     <ImageBackground
-      source={{ uri: imageCdn(getThumbnailUrl(audios[activeAudioIndex])) }}
+      source={{
+        uri: imageCdn(getThumbnailUrl(audios[activeAudioIndex].metadata))
+      }}
       blurRadius={50}
       style={{ flex: 1 }}
       resizeMode="cover"

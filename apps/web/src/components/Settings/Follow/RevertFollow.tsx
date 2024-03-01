@@ -1,34 +1,33 @@
-import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis';
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE
-} from '@dragverse/constants'
+} from '@dragverse/constants';
 import {
-  checkLensManagerPermissions,
   EVENTS,
-  getSignature,
-  Tower
-} from '@dragverse/generic'
+  Tower,
+  checkLensManagerPermissions,
+  getSignature
+} from '@dragverse/generic';
 import type {
   CreateSetFollowModuleBroadcastItemResult,
   Profile
-} from '@dragverse/lens'
+} from '@dragverse/lens';
 import {
   FollowModuleType,
   useBroadcastOnchainMutation,
   useCreateSetFollowModuleTypedDataMutation
-} from '@dragverse/lens'
-import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
-import { Loader } from '@dragverse/ui'
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import usePendingTxn from '@hooks/usePendingTxn'
-import useNonceStore from '@lib/store/nonce'
-import useProfileStore from '@lib/store/profile'
-import { Button } from '@radix-ui/themes'
-import { useEffect, useState } from 'react'
-import toast from 'react-hot-toast'
-import { useContractWrite, useSignTypedData } from 'wagmi'
+} from '@dragverse/lens';
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types';
+import { Button, Spinner } from '@dragverse/ui';
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
+import usePendingTxn from '@hooks/usePendingTxn';
+import useProfileStore from '@lib/store/idb/profile';
+import useNonceStore from '@lib/store/nonce';
+import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
+import { useSignTypedData, useWriteContract } from 'wagmi';
 
 type Props = {
   profile: Profile
@@ -65,26 +64,33 @@ const RevertFollow = ({ profile }: Props) => {
   }
 
   const { signTypedDataAsync } = useSignTypedData({
-    onError
+    mutation: { onError }
   })
 
   const [broadcast, { data: broadcastData }] = useBroadcastOnchainMutation({
     onError
   })
 
-  const { data: writtenData, write } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
-    abi: LENSHUB_PROXY_ABI,
-    functionName: 'setFollowModule',
-    onError
+  const { data: txHash, writeContractAsync } = useWriteContract({
+    mutation: {
+      onError
+    }
   })
 
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
+      address: LENSHUB_PROXY_ADDRESS,
+      abi: LENSHUB_PROXY_ABI,
+      functionName: 'setFollowModule',
+      args
+    })
+  }
+
   const { indexed } = usePendingTxn({
-    txHash: writtenData?.hash,
-    txId:
-      broadcastData?.broadcastOnchain.__typename === 'RelaySuccess'
-        ? broadcastData?.broadcastOnchain?.txId
-        : undefined
+    txHash,
+    ...(broadcastData?.broadcastOnchain.__typename === 'RelaySuccess' && {
+      txId: broadcastData?.broadcastOnchain?.txId
+    })
   })
 
   useEffect(() => {
@@ -111,11 +117,11 @@ const RevertFollow = ({ profile }: Props) => {
               variables: { request: { id, signature } }
             })
             if (data?.broadcastOnchain?.__typename === 'RelayError') {
-              return write({ args })
+              return await write({ args })
             }
             return onCompleted(data?.broadcastOnchain?.__typename)
           }
-          return write({ args })
+          return await write({ args })
         } catch {
           setLoading(false)
         }
@@ -124,9 +130,8 @@ const RevertFollow = ({ profile }: Props) => {
     })
 
   const toggleRevert = async (revertFollowModule: boolean) => {
-    if (handleWrongNetwork()) {
-      return
-    }
+    await handleWrongNetwork()
+
     setLoading(true)
     return await createSetFollowModuleTypedData({
       variables: {
@@ -139,7 +144,7 @@ const RevertFollow = ({ profile }: Props) => {
   }
 
   return (
-    <div className="tape-border rounded-medium dark:bg-cod bg-white p-5">
+    <>
       <div className="mb-5 space-y-2">
         <h1 className="text-brand-400 text-xl font-bold">
           {isRevertFollow ? 'Enable' : 'Disable'} Follow
@@ -153,28 +158,25 @@ const RevertFollow = ({ profile }: Props) => {
       <div className="flex items-center justify-end space-x-2">
         {isRevertFollow ? (
           <Button
-            variant="surface"
             disabled={loading}
-            highContrast
+            loading={loading}
             onClick={() => toggleRevert(false)}
           >
-            {loading && <Loader size="sm" />}
             Enable Follow
           </Button>
         ) : (
           <Button
-            color="red"
-            variant="surface"
-            highContrast
+            variant="danger"
+            loading={loading}
             disabled={loading}
             onClick={() => toggleRevert(true)}
           >
-            {loading && <Loader size="sm" />}
+            {loading && <Spinner size="sm" />}
             Disable Follow
           </Button>
         )}
       </div>
-    </div>
+    </>
   )
 }
 

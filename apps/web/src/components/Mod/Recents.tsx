@@ -1,34 +1,36 @@
-import Timeline from '@components/Home/Timeline'
-import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
-import { NoDataFound } from '@components/UIElements/NoDataFound'
+import Timeline from '@components/Home/Timeline';
+import TimelineShimmer from '@components/Shimmers/TimelineShimmer';
+import { NoDataFound } from '@components/UIElements/NoDataFound';
 import {
   INFINITE_SCROLL_ROOT_MARGIN,
-  LENS_CUSTOM_FILTERS,
   LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
-} from '@dragverse/constants'
+} from '@dragverse/constants';
 import type {
   ExplorePublicationRequest,
   PrimaryPublication
-} from '@dragverse/lens'
+} from '@dragverse/lens';
 import {
-  ExplorePublicationsOrderByType,
   ExplorePublicationType,
+  ExplorePublicationsOrderByType,
   LimitType,
   PublicationMetadataMainFocusType,
   useExplorePublicationsQuery
-} from '@dragverse/lens'
-import { Loader } from '@dragverse/ui'
-import { useInView } from 'react-cool-inview'
+} from '@dragverse/lens';
+import { Spinner } from '@dragverse/ui';
+import { getUnixTimestampForDaysAgo } from '@lib/formatTime';
+import { useInView } from 'react-cool-inview';
+
+const since = getUnixTimestampForDaysAgo(30)
 
 const request: ExplorePublicationRequest = {
   where: {
     publicationTypes: [ExplorePublicationType.Post],
-    customFilters: LENS_CUSTOM_FILTERS,
     metadata: {
       publishedOn: [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID],
       mainContentFocus: [PublicationMetadataMainFocusType.Video]
-    }
+    },
+    since
   },
   orderBy: ExplorePublicationsOrderByType.Latest,
   limit: LimitType.Fifty
@@ -82,7 +84,7 @@ const Recents = () => {
           <Timeline videos={videos} />
           {pageInfo?.next && (
             <span ref={observe} className="flex justify-center p-10">
-              <Loader />
+              <Spinner />
             </span>
           )}
         </>

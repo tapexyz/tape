@@ -1,18 +1,19 @@
-import { STATIC_ASSETS } from '@dragverse/constants'
-import { imageCdn } from '@dragverse/generic'
-import Ionicons from '@expo/vector-icons/Ionicons'
-import { type BottomSheetModal } from '@gorhom/bottom-sheet'
-import { useWalletConnectModal } from '@walletconnect/modal-react-native'
-import { Image as ExpoImage } from 'expo-image'
-import React, { useRef } from 'react'
 
-import AnimatedPressable from '~/components/ui/AnimatedPressable'
-import haptic from '~/helpers/haptic'
-import { useMobileTheme } from '~/hooks'
-import { signOut } from '~/store/persist'
+import { STATIC_ASSETS } from '@dragverse/constants';
+import { imageCdn } from '@dragverse/generic';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { type BottomSheetModal } from '@gorhom/bottom-sheet';
+import { useWalletConnectModal } from '@walletconnect/modal-react-native';
+import { Image as ExpoImage } from 'expo-image';
+import React, { useRef } from 'react';
 
-import { useToast } from '../toast'
-import AuthSheet from './AuthSheet'
+import AnimatedPressable from '~/components/ui/AnimatedPressable';
+import haptic from '~/helpers/haptic';
+import { useMobileTheme } from '~/hooks';
+import { signOut } from '~/store/persist';
+
+import { useToast } from '../toast';
+import AuthSheet from './AuthSheet';
 
 const SignIn = () => {
   const { themeConfig } = useMobileTheme()

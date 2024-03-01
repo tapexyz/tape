@@ -1,12 +1,12 @@
-import clsx from 'clsx'
+import { tw } from '@dragverse/browser'
 
 export const AudioCardShimmer = ({ rounded = true }) => {
   return (
-    <div className={clsx('w-full', rounded && 'rounded-xl')}>
-      <div className="flex animate-pulse flex-col space-x-2">
+    <div className={tw('w-full', rounded && 'rounded-xl')}>
+      <div className="animate-shimmer flex flex-col space-x-2">
         <div
-          className={clsx(
-            'h-24 w-full bg-gray-200 dark:bg-gray-800 md:h-40',
+          className={tw(
+            'h-24 w-full bg-gray-200 md:h-40 dark:bg-gray-800',
             rounded && 'rounded-large'
           )}
         />

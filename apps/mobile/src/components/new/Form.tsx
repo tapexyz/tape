@@ -1,20 +1,20 @@
-import { PublicationMetadataMainFocusType } from '@dragverse/lens'
-import type { MutableRefObject } from 'react'
-import React from 'react'
-import type { UseFormReturn } from 'react-hook-form'
-import { Controller } from 'react-hook-form'
-import { Animated, Text, View } from 'react-native'
+import { PublicationMetadataMainFocusType } from '@dragverse/lens';
+import type { MutableRefObject } from 'react';
+import React from 'react';
+import type { UseFormReturn } from 'react-hook-form';
+import { Controller } from 'react-hook-form';
+import { Animated, Text, View } from 'react-native';
 
-import type { FormData } from '~/screens/NewPublication'
-import useMobilePublicationStore from '~/store/publication'
+import type { FormData } from '~/screens/NewPublication';
+import useMobilePublicationStore from '~/store/publication';
 
-import AccordionWithSwitch from '../ui/AccordionWithSwitch'
-import Input from '../ui/Input'
-import Separator from '../ui/Separator'
-import AccessControl from './AccessControl'
-import Attachments from './Attachments'
-import ChooseFocus from './ChooseFocus'
-import CollectTemplates from './CollectTemplates'
+import AccordionWithSwitch from '../ui/AccordionWithSwitch';
+import Input from '../ui/Input';
+import Separator from '../ui/Separator';
+import AccessControl from './AccessControl';
+import Attachments from './Attachments';
+import ChooseFocus from './ChooseFocus';
+import CollectTemplates from './CollectTemplates';
 
 const Form = ({
   form,

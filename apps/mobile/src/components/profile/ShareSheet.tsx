@@ -1,29 +1,30 @@
-import { LENSTUBE_LOGO, LENSTUBE_WEBSITE_URL } from '@dragverse/constants'
+import { TAPE_LOGO, TAPE_WEBSITE_URL } from '@dragverse/constants';
 import {
-    formatNumber,
-    getProfilePicture,
-    imageCdn,
-    logger
-} from '@dragverse/generic'
-import type { Profile } from '@dragverse/lens'
-import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
-import Ionicons from '@expo/vector-icons/Ionicons'
-import type { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
-import { Image as ExpoImage } from 'expo-image'
-import * as Sharing from 'expo-sharing'
-import type { FC } from 'react'
-import React, { memo, useRef } from 'react'
-import { Share, StyleSheet, Text, View } from 'react-native'
-import { captureRef } from 'react-native-view-shot'
+  formatNumber,
+  getProfile,
+  getProfilePicture,
+  imageCdn,
+  logger
+} from '@dragverse/generic';
+import type { Profile } from '@dragverse/lens';
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import type { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
+import { Image as ExpoImage } from 'expo-image';
+import * as Sharing from 'expo-sharing';
+import type { FC } from 'react';
+import React, { memo, useRef } from 'react';
+import { Share, StyleSheet, Text, View } from 'react-native';
+import { captureRef } from 'react-native-view-shot';
 
-import AnimatedPressable from '~/components/ui/AnimatedPressable'
-import Sheet from '~/components/ui/Sheet'
-import haptic from '~/helpers/haptic'
-import normalizeFont from '~/helpers/normalize-font'
-import { colors } from '~/helpers/theme'
-import { useMobileTheme } from '~/hooks'
+import AnimatedPressable from '~/components/ui/AnimatedPressable';
+import Sheet from '~/components/ui/Sheet';
+import haptic from '~/helpers/haptic';
+import normalizeFont from '~/helpers/normalize-font';
+import { colors } from '~/helpers/theme';
+import { useMobileTheme } from '~/hooks';
 
-import QRCode from '../ui/QRCode'
+import QRCode from '../ui/QRCode';
 
 type Props = {
   sheetRef: React.RefObject<BottomSheetModalMethods>
@@ -117,7 +118,7 @@ const ShareSheet: FC<Props> = ({ sheetRef, profile }) => {
                   <QRCode
                     logo={getProfilePicture(profile)}
                     size={100}
-                    value={`${LENSTUBE_WEBSITE_URL}/channel/${profile.handle}`}
+                    value={`${TAPE_WEBSITE_URL}/u/${getProfile(profile)?.slug}`}
                   />
                 </View>
                 <View
@@ -157,12 +158,12 @@ const ShareSheet: FC<Props> = ({ sheetRef, profile }) => {
                       fontSize: normalizeFont(12)
                     }}
                   >
-                    {profile.handle}
+                    {getProfile(profile)?.slug}
                   </Text>
                 </View>
                 <ExpoImage
                   source={{
-                    uri: imageCdn(LENSTUBE_LOGO, 'AVATAR')
+                    uri: imageCdn(TAPE_LOGO, 'AVATAR')
                   }}
                   contentFit="cover"
                   transition={500}
@@ -201,9 +202,9 @@ const ShareSheet: FC<Props> = ({ sheetRef, profile }) => {
             onPress={() => {
               haptic()
               Share.share({
-                url: `${LENSTUBE_WEBSITE_URL}/channel/${profile.handle}`,
-                message: `Checkout my Lens profile! 🌿 ${LENSTUBE_WEBSITE_URL}/channel/${profile.handle}`,
-                title: `Checkout my Lens profile! 🌿 ${LENSTUBE_WEBSITE_URL}/channel/${profile.handle}`
+                url: `${TAPE_WEBSITE_URL}/channel/${profile.handle}`,
+                message: `Checkout my Lens profile! 🌿 ${TAPE_WEBSITE_URL}/channel/${profile.handle}`,
+                title: `Checkout my Lens profile! 🌿 ${TAPE_WEBSITE_URL}/channel/${profile.handle}`
               })
             }}
           >

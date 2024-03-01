@@ -1,37 +1,38 @@
-import Badge from '@components/Common/Badge'
-import HoverableProfile from '@components/Common/HoverableProfile'
-import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
-import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
-import CommentOutline from '@components/Common/Icons/CommentOutline'
-import HeartFilled from '@components/Common/Icons/HeartFilled'
-import ReplyOutline from '@components/Common/Icons/ReplyOutline'
-import InterweaveContent from '@components/Common/InterweaveContent'
-import Tooltip from '@components/UIElements/Tooltip'
-import { SIGN_IN_REQUIRED } from '@dragverse/constants'
+import Badge from '@components/Common/Badge';
+import HoverableProfile from '@components/Common/HoverableProfile';
+import InterweaveContent from '@components/Common/InterweaveContent';
+import { tw } from '@dragverse/browser';
+import { SIGN_IN_REQUIRED } from '@dragverse/constants';
 import {
   getProfile,
   getProfilePicture,
   getPublicationData,
   getValueFromKeyInAttributes
-} from '@dragverse/generic'
-import type { Comment } from '@dragverse/lens'
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import { getShortHandTime } from '@lib/formatTime'
-import usePersistStore from '@lib/store/persist'
-import useProfileStore from '@lib/store/profile'
-import { Button, Flex, Text } from '@radix-ui/themes'
-import clsx from 'clsx'
-import Link from 'next/link'
-import type { FC } from 'react'
-import { useEffect, useState } from 'react'
-import toast from 'react-hot-toast'
+} from '@dragverse/generic';
+import type { Comment } from '@dragverse/lens';
+import {
+  ChevronDownOutline,
+  ChevronUpOutline,
+  CommentOutline,
+  HeartFilled,
+  ReplyOutline,
+  Tooltip
+} from '@dragverse/ui';
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
+import { getShortHandTime } from '@lib/formatTime';
+import useProfileStore from '@lib/store/idb/profile';
+import usePersistStore from '@lib/store/persist';
+import Link from 'next/link';
+import type { FC } from 'react';
+import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 
-import PublicationReaction from '../../Common/Publication/PublicationReaction'
-import CommentMedia from './CommentMedia'
-import CommentOptions from './CommentOptions'
-import CommentReplies from './CommentReplies'
-import NewComment from './NewComment'
-import QueuedComment from './QueuedComment'
+import PublicationReaction from '../../Common/Publication/PublicationReaction';
+import CommentMedia from './CommentMedia';
+import CommentOptions from './CommentOptions';
+import CommentReplies from './CommentReplies';
+import NewComment from './NewComment';
+import QueuedComment from './QueuedComment';
 
 interface Props {
   comment: Comment
@@ -70,7 +71,7 @@ const RenderComment: FC<Props> = ({ comment }) => {
         >
           <img
             src={getProfilePicture(comment.by, 'AVATAR')}
-            className="h-8 w-8 rounded-full"
+            className="size-8 rounded-full"
             draggable={false}
             alt={getProfile(comment.by)?.slug}
           />
@@ -92,7 +93,7 @@ const RenderComment: FC<Props> = ({ comment }) => {
             ) && (
               <Tooltip placement="top" content="Supporter">
                 <span className="pl-1.5">
-                  <HeartFilled className="h-3 w-3 text-red-500" />
+                  <HeartFilled className="size-3 text-red-500" />
                 </span>
               </Tooltip>
             )}
@@ -101,7 +102,7 @@ const RenderComment: FC<Props> = ({ comment }) => {
               {getShortHandTime(comment.createdAt)}
             </span>
           </span>
-          <div className={clsx({ 'line-clamp-2': clamped })}>
+          <div className={tw({ 'line-clamp-2': clamped })}>
             <InterweaveContent content={metadata?.content ?? ''} />
           </div>
           {showMore && (
@@ -113,11 +114,11 @@ const RenderComment: FC<Props> = ({ comment }) => {
               >
                 {clamped ? (
                   <>
-                    Show more <ChevronDownOutline className="ml-1 h-3 w-3" />
+                    Show more <ChevronDownOutline className="ml-1 size-3" />
                   </>
                 ) : (
                   <>
-                    Show less <ChevronUpOutline className="ml-1 h-3 w-3" />
+                    Show less <ChevronUpOutline className="ml-1 size-3" />
                   </>
                 )}
               </button>
@@ -125,40 +126,35 @@ const RenderComment: FC<Props> = ({ comment }) => {
           )}
           <CommentMedia comment={comment} />
           {!comment.isHidden && (
-            <Flex mt="2" gap="4">
+            <div className="mt-2 flex gap-4">
               <PublicationReaction publication={comment} />
-              <Button
-                variant="ghost"
-                highContrast
-                onClick={() => {
+              <button
+                className="flex items-center space-x-1"
+                onClick={async () => {
                   if (!activeProfile?.id) {
                     return toast.error(SIGN_IN_REQUIRED)
                   }
-                  if (handleWrongNetwork()) {
-                    return
-                  }
+                  await handleWrongNetwork()
                   setShowNewComment(!showNewComment)
                   setDefaultComment('')
                 }}
               >
-                <ReplyOutline className="h-3.5 w-3.5" />
+                <ReplyOutline className="size-3.5" />
                 <span className="text-xs">Reply</span>
-              </Button>
+              </button>
               {comment.stats.comments ? (
-                <Button
-                  variant="ghost"
+                <button
+                  className="flex items-center space-x-1 focus:outline-none"
                   onClick={() => setShowReplies(!showReplies)}
                 >
-                  <CommentOutline className="h-3.5 w-3.5" />
-                  <Text size="1" highContrast color="gray">
-                    {comment.stats.comments} replies
-                  </Text>
-                </Button>
+                  <CommentOutline className="size-3.5" />
+                  <p className="text-sm">{comment.stats.comments} replies</p>
+                </button>
               ) : null}
-            </Flex>
+            </div>
           )}
           <div
-            className={clsx(
+            className={tw(
               'w-full space-y-6',
               (showReplies || showNewComment || getIsReplyQueuedComment()) &&
                 'pt-6'
@@ -176,13 +172,12 @@ const RenderComment: FC<Props> = ({ comment }) => {
             {showReplies && (
               <CommentReplies
                 comment={comment}
-                replyTo={(profile) => {
+                replyTo={async (profile) => {
                   if (!activeProfile?.id) {
                     return toast.error(SIGN_IN_REQUIRED)
                   }
-                  if (handleWrongNetwork()) {
-                    return
-                  }
+                  await handleWrongNetwork()
+
                   setShowNewComment(true)
                   setDefaultComment(`@${profile.handle?.fullHandle} `)
                 }}

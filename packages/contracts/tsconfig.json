@@ -1,0 +1,6 @@
+{
+  "extends": "@dragverse/config/base.tsconfig.json",
+  "compilerOptions": {
+    "module": "commonjs"
+  }
+}

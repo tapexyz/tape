@@ -1,9 +1,9 @@
-import { logger } from '@dragverse/generic'
-import Constants from 'expo-constants'
-import * as Device from 'expo-device'
-import * as Notifications from 'expo-notifications'
-import { useEffect, useRef, useState } from 'react'
-import { Platform } from 'react-native'
+import { logger } from '@dragverse/generic';
+import Constants from 'expo-constants';
+import * as Device from 'expo-device';
+import * as Notifications from 'expo-notifications';
+import { useEffect, useRef, useState } from 'react';
+import { Platform } from 'react-native';
 
 const registerForPushNotificationsAsync = async () => {
   let token = ''

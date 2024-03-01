@@ -1,21 +1,20 @@
-import { LENSTUBE_BYTES_APP_ID } from '@dragverse/constants'
+import { LENSTUBE_BYTES_APP_ID } from '@dragverse/constants';
 import {
   formatNumber,
   getProfile,
   getProfilePicture,
   getPublicationData
-} from '@dragverse/generic'
-import type { PrimaryPublication, VideoMetadataV3 } from '@dragverse/lens'
-import { getShortHandTime } from '@lib/formatTime'
-import { AspectRatio, Avatar, Flex } from '@radix-ui/themes'
-import Link from 'next/link'
-import type { FC } from 'react'
+} from '@dragverse/generic';
+import type { PrimaryPublication, VideoMetadataV3 } from '@dragverse/lens';
+import { HeartOutline } from '@dragverse/ui';
+import { getShortHandTime } from '@lib/formatTime';
+import Link from 'next/link';
+import type { FC } from 'react';
 
-import HoverableProfile from '../HoverableProfile'
-import HeartOutline from '../Icons/HeartOutline'
-import PublicationOptions from '../Publication/PublicationOptions'
-import ThumbnailImage from './ThumbnailImage'
-import ThumbnailOverlays from './ThumbnailOverlays'
+import HoverableProfile from '../HoverableProfile';
+import PublicationOptions from '../Publication/PublicationOptions';
+import ThumbnailImage from './ThumbnailImage';
+import ThumbnailOverlays from './ThumbnailOverlays';
 
 type Props = {
   video: PrimaryPublication
@@ -30,25 +29,21 @@ const VideoCard: FC<Props> = ({ video }) => {
   return (
     <div className="group">
       <Link href={href}>
-        <AspectRatio
-          ratio={16 / 9}
-          className="rounded-medium tape-border relative overflow-hidden"
-        >
+        <div className="rounded-medium tape-border relative aspect-[16/9] overflow-hidden">
           <ThumbnailImage video={video} />
           <ThumbnailOverlays video={video} />
-        </AspectRatio>
+        </div>
       </Link>
       <div className="py-2">
-        <Flex gap="2">
-          <Avatar
+        <div className="flex gap-2">
+          <img
             src={getProfilePicture(video.by, 'AVATAR')}
-            size="2"
-            radius="full"
-            fallback={getProfile(video.by)?.displayName[0] ?? ';)'}
+            className="size-8 rounded-full"
             alt={getProfile(video.by)?.displayName}
+            draggable={false}
           />
 
-          <Flex direction="column" justify="between" gap="1" width="100%">
+          <div className="flex w-full flex-col justify-between gap-1">
             <div className="flex w-full min-w-0 items-start justify-between space-x-1.5">
               <Link className="line-clamp-2 break-words font-bold" href={href}>
                 {getPublicationData(metadata)?.title}
@@ -58,18 +53,18 @@ const VideoCard: FC<Props> = ({ video }) => {
               </div>
             </div>
 
-            <Flex align="center" className="text-xs">
+            <div className="flex items-center text-xs">
               <HoverableProfile profile={video.by} />
               <span className="middot" />
-              <Flex align="center" gap="1">
-                <HeartOutline className="h-3 w-3" />
+              <div className="flex items-center gap-1">
+                <HeartOutline className="size-3" />
                 {formatNumber(video.stats?.reactions)}
-              </Flex>
+              </div>
               <span className="middot" />
               <span>{getShortHandTime(video.createdAt)}</span>
-            </Flex>
-          </Flex>
-        </Flex>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )

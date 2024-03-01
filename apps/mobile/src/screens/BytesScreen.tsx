@@ -1,19 +1,19 @@
-import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@dragverse/constants'
-import type { AnyPublication, ExplorePublicationRequest } from '@dragverse/lens'
+import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@dragverse/constants';
+import type { AnyPublication, ExplorePublicationRequest } from '@dragverse/lens';
 import {
-    ExplorePublicationsOrderByType,
-    ExplorePublicationType,
-    LimitType,
-    PublicationMetadataMainFocusType,
-    useExplorePublicationsQuery
-} from '@dragverse/lens'
-import { useScrollToTop } from '@react-navigation/native'
-import { FlashList } from '@shopify/flash-list'
-import React, { useCallback, useRef, useState } from 'react'
-import type { ViewToken } from 'react-native'
-import { ActivityIndicator } from 'react-native'
+  ExplorePublicationsOrderByType,
+  ExplorePublicationType,
+  LimitType,
+  PublicationMetadataMainFocusType,
+  useExplorePublicationsQuery
+} from '@dragverse/lens';
+import { useScrollToTop } from '@react-navigation/native';
+import { FlashList } from '@shopify/flash-list';
+import React, { useCallback, useRef, useState } from 'react';
+import type { ViewToken } from 'react-native';
+import { ActivityIndicator } from 'react-native';
 
-import ByteCard from '../components/bytes/ByteCard'
+import ByteCard from '../components/bytes/ByteCard';
 
 export const BytesScreen = (props: BytesScreenProps): JSX.Element => {
   const {

@@ -1,16 +1,16 @@
-import type { Profile } from '@dragverse/lens'
-import { useProfileQuery } from '@dragverse/lens'
-import { useNavigation } from '@react-navigation/native'
-import React, { useEffect, useState } from 'react'
-import { ActivityIndicator, View, useWindowDimensions } from 'react-native'
+import type { Profile } from '@dragverse/lens';
+import { useProfileQuery } from '@dragverse/lens';
+import { useNavigation } from '@react-navigation/native';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator, View, useWindowDimensions } from 'react-native';
 import {
-    useAnimatedScrollHandler,
-    useSharedValue
-} from 'react-native-reanimated'
+  useAnimatedScrollHandler,
+  useSharedValue
+} from 'react-native-reanimated';
 
-import Info from '~/components/profile/Info'
-import TabContent from '~/components/profile/TabContent'
-import { useMobileTheme } from '~/hooks'
+import Info from '~/components/profile/Info';
+import TabContent from '~/components/profile/TabContent';
+import { useMobileTheme } from '~/hooks';
 
 export const ProfileScreen = (
   props: ProfileScreenProps

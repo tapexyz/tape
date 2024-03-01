@@ -1,4 +1,5 @@
-import { CustomFiltersType } from '@dragverse/lens'
+import { CustomFiltersType } from '@dragverse/lens';
+import LensEndpoint from '@dragverse/lens/endpoints';
 
 export const TAPE_APP_NAME = 'Dragverse'
 export const TAPE_APP_DESCRIPTION =
@@ -14,11 +15,6 @@ export const STATIC_ASSETS = 'https://dragverse.4everland.store'
 export const TAPE_WEBSITE_URL = IS_MAINNET
   ? 'https://dragverse.app'
   : 'https://testnet.dragverse.app'
-
-export const TAPEXYZ_WEBSITE_URL = 'https://tape.xyz'
-
-// export const LENS_IMAGEKIT_SNAPSHOT_URL =
-//   'https://ik.imagekit.io/lens/media-snapshot'
 export const LENS_IMAGEKIT_SNAPSHOT_URL = 'https://ik.imagekit.io/lenstube'
 
 // infinite scroll
@@ -33,22 +29,27 @@ export const IMAGE_TRANSFORMATIONS = {
 }
 
 // lens
-export const MAINNET_API_URL = 'https://api-v2.lens.dev'
-export const TESTNET_API_URL = 'https://api-v2-mumbai.lens.dev'
+export const MAINNET_API_URL = LensEndpoint.Mainnet
+export const TESTNET_API_URL = LensEndpoint.Staging
 export const LENS_API_URL = IS_MAINNET ? MAINNET_API_URL : TESTNET_API_URL
 
 // api urls
-export const TAPE_MAINNET_API_URL = 'https://api.dragverse.app'
-export const TAPE_TESTNET_API_URL = 'https://api-testnet.dragverse.app'
 export const TAPE_EMBED_URL = IS_MAINNET
-  ? 'https://embed.tape.xyz'
-  : 'https://embed-testnet.tape.xyz'
-export const TAPE_DEV_API_URL = 'http://localhost:4002'
-export const TAPE_API_URL = IS_MAINNET
-  ? TAPE_MAINNET_API_URL
-  : TAPE_TESTNET_API_URL
+  ? 'https://embed.dragverse.app'
+  : 'https://embed-testnet.dragverse.app'
+export const TAPE_API_URL = IS_PRODUCTION
+  ? 'https://api.dragverse.app'
+  : 'http://localhost:4000'
 
-// addresses
+// tape addresses
+export const TAPE_SIGNUP_PROXY_ADDRESS = IS_MAINNET
+  ? '0xD0f6d9676d36F5f4AF5765fCb78c388B51577327'
+  : '0xb9F635c498CdC2dBf95B3A916b007fD16c5506ED'
+
+// lens addresses
+export const LENS_PERMISSIONLESS_CREATOR_ADDRESS = IS_MAINNET
+  ? '0x0b5e6100243f793e480DE6088dE6bA70aA9f3872'
+  : '0xCb4FB63c3f13CB83cCD6F10E9e5F29eC250329Cc'
 export const LENSHUB_PROXY_ADDRESS = IS_MAINNET
   ? '0xDb46d1Dc155634FbC732f92E853b10B288AD5a1d'
   : '0xC1E77eE73403B8a7478884915aA599932A677870'
@@ -56,6 +57,26 @@ export const WMATIC_TOKEN_ADDRESS = IS_MAINNET
   ? '0x0d500B1d8E8eF31E21C99d1Db9A6444d3ADf1270'
   : '0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889'
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
+export const TESTNET_ALLOWED_TOKENS = [
+  {
+    address: '0x9c3C9283D3e44854697Cd22D3Faa240Cfb032889',
+    decimals: 18,
+    name: 'Wrapped Matic',
+    symbol: 'WMATIC'
+  },
+  {
+    address: '0x001B3B4d0F3714Ca98ba10F6042DaEbF0B1B7b6F',
+    decimals: 18,
+    name: 'DAI Stablecoin',
+    symbol: 'DAI'
+  },
+  {
+    address: '0x0FA8781a83E46826621b3BC094Ea2A0212e71B23',
+    decimals: 18,
+    name: 'USD Coin',
+    symbol: 'USDC'
+  }
+]
 
 // polygon
 export const POLYGON_RPC_URL = IS_MAINNET
@@ -70,37 +91,50 @@ export const ETHERSCAN_URL = IS_MAINNET
 export const POLYGON_CHAIN_ID = IS_MAINNET ? 137 : 80001
 
 // ipfs
-export const IPFS_FREE_UPLOAD_LIMIT = IS_MAINNET ? 10000 : 100 // in MB
+export const IPFS_FREE_UPLOAD_LIMIT = IS_MAINNET ? 6000 : 0 // in MB
 export const IPFS_GATEWAY_URL = 'https://gw.ipfs-lens.dev/ipfs'
 export const EVER_ENDPOINT = 'https://endpoint.4everland.co'
 export const EVER_REGION = 'us-west-2'
 
 // walletconnect
 export const WC_PROJECT_ID = 'bf790b6b57570b99567abd1677b7415d'
+export const EXPLORER_RECOMMENDED_WALLET_IDS = [
+  'c57ca95b47569778a828d19178114f4db188b89b763c899ba0be274e97267d96', // metamask
+  'ecc4036f814562b41a5268adc86270fba1365471402006302e70169465b7ac18', // zerion
+  '1ae92b26df02f0abca6304df07debccd18262fdf5fe82daa81593582dac9a369', // rainbow
+  'c03dfee351b6fcc421b4494ea33b9d4b92a984f87aa76d1663bb28705e95034a', // uniswap
+  '19177a98252e07ddfc9af2083ba8e07ef627cb6103467ffebb3f8f4205fd7927' // ledger live
+]
 
 // livepeer
-export const LIVEPEER_STUDIO_API_KEY = '7b13484c-aa01-4b3b-bf17-b6548dd5b6b1'
+export const LIVEPEER_STUDIO_API_KEY = IS_PRODUCTION
+  ? 'ade26a09-c774-4898-a269-883551f1c5df'
+  : ''
 
 // workers
-export const WORKER_LIVEPEER_VIEWS_URL = 'https://views.tape.xyz'
-export const WORKER_IRYS_METADATA_UPLOAD_URL = 'https://metadata.tape.xyz'
-export const WORKER_LOGTAIL_INGEST_URL = 'https://tail.tape.xyz'
-export const WORKER_STS_TOKEN_URL = 'https://sts.tape.xyz'
-export const WORKER_RECS_URL = 'https://recs.tape.xyz'
-export const WORKER_NFTS_URL = 'https://nfts.tape.xyz'
-export const WORKER_DID_URL = 'https://did.tape.xyz'
-export const WORKER_STREAM_URL = 'https://stream.tape.xyz'
-export const WORKER_TOWER_URL = 'https://tower.tape.xyz'
-export const WORKER_OEMBED_URL = 'https://oembed.tape.xyz'
+export const WORKER_LIVEPEER_VIEWS_URL = `${TAPE_API_URL}/views`
+export const WORKER_IRYS_METADATA_UPLOAD_URL = `${TAPE_API_URL}/metadata`
+export const WORKER_LOGTAIL_INGEST_URL = `${TAPE_API_URL}/tail`
+export const WORKER_STS_TOKEN_URL = `${TAPE_API_URL}/sts`
+export const WORKER_RECS_URL = `${TAPE_API_URL}/recommendations`
+export const WORKER_DID_URL = `${TAPE_API_URL}/did`
+export const WORKER_TOWER_URL = `${TAPE_API_URL}/tower`
+export const WORKER_OEMBED_URL = `${TAPE_API_URL}/oembed`
+export const WORKER_VERIFIED_URL = `${TAPE_API_URL}/verified`
+export const WORKER_TOGGLES_URL = `${TAPE_API_URL}/toggles`
+export const WORKER_ALLOWED_TOKENS_URL = `${TAPE_API_URL}/allowed-tokens`
 
 // irys
 export const IRYS_NODE_URL = IS_MAINNET
   ? 'https://node1.irys.xyz'
   : 'https://devnet.irys.xyz'
 export const IRYS_CURRENCY = 'matic'
-export const ARWEAVE_GATEWAY_URL = 'https://arweave.net'
+export const ARWEAVE_GATEWAY_URL = 'https://gateway.irys.xyz'
 export const IRYS_CONNECT_MESSAGE = 'Estimating video upload cost...'
 export const REQUESTING_SIGNATURE_MESSAGE = 'Requesting signature...'
+export const MOONPAY_URL = IS_MAINNET
+  ? 'https://buy.moonpay.com'
+  : 'https://buy-sandbox.moonpay.com'
 
 // error messages
 export const ERROR_MESSAGE = 'Oops, something went wrong!'
@@ -187,18 +221,10 @@ export const LEGACY_LENS_HANDLE_SUFFIX = IS_MAINNET ? '.lens' : '.test'
 export const HEY_WEBSITE_URL = IS_MAINNET
   ? 'https://hey.xyz'
   : 'https://testnet.hey.xyz'
-  ? 'https://tape.xyz'
-  : 'https://testnet.tape.xyz'
 
 // banners
-export const SHOW_GITCOIN_BANNER = true
-export const GITCOIN_LIVE_ROUND = 19
-
-// vercel
-export const GIT_DEPLOYED_COMMIT_SHA =
-  process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_SHA
-export const GIT_DEPLOYED_BRANCH = process.env.NEXT_PUBLIC_VERCEL_GIT_COMMIT_REF
-export const VERCEL_DEPLOYED_ENV = process.env.NEXT_PUBLIC_VERCEL_ENV
+export const SHOW_GITCOIN_BANNER = false
+export const GITCOIN_LIVE_ROUND = 20
 
 // open actions
 export const ZORA_MAINNET_CHAINS = ['eth', 'oeth', 'base', 'zora']
@@ -211,3 +237,7 @@ export const FEATURED_ZORA_COLLECTS = [
   'https://zora.co/collect/zora:0xd4889d519b1ab9b2fa8634e0271118de480f6d32',
   'https://zora.co/collect/zora:0xab821ed94191628354078bcbb206512914eb42e1'
 ]
+
+export const TAPEXYZ_WEBSITE_URL = IS_MAINNET
+  ? 'https://tape.xyz'
+  : 'https://testnet.tape.xyz'

@@ -6,13 +6,13 @@ import TimelineShimmer from './TimelineShimmer'
 const ProfilePageShimmer = () => {
   return (
     <>
-      <div className="flex animate-pulse flex-col">
-        <div className="ultrawide:h-[25vh] h-44 bg-gray-100 dark:bg-gray-800 md:h-[20vw]" />
+      <div className="animate-shimmer flex flex-col">
+        <div className="ultrawide:h-[25vh] h-44 bg-gray-100 md:h-[20vw] dark:bg-gray-800" />
         <div className="mx-auto flex w-full max-w-screen-xl items-center space-x-4 px-2 md:pt-1 xl:px-0">
           <div className="flex w-full py-4">
             <div className="flex flex-1 flex-col space-y-2">
-              <div className="col-span-2 h-5 rounded bg-gray-200 dark:bg-gray-800 md:w-1/4" />
-              <div className="col-span-2 h-4 rounded bg-gray-200 dark:bg-gray-800 md:w-1/6" />
+              <div className="col-span-2 h-5 rounded bg-gray-200 md:w-1/4 dark:bg-gray-800" />
+              <div className="col-span-2 h-4 rounded bg-gray-200 md:w-1/6 dark:bg-gray-800" />
             </div>
             <div className="hidden gap-3 md:flex md:flex-col md:items-end">
               <ButtonShimmer />

@@ -1,7 +1,5 @@
-import { Input } from '@components/UIElements/Input'
-import { TextArea } from '@components/UIElements/TextArea'
-import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
-import { getUserLocale } from '@dragverse/browser'
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis';
+import { getUserLocale } from '@dragverse/browser';
 import {
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
@@ -9,49 +7,50 @@ import {
   TAPE_APP_ID,
   TAPE_LOGO,
   TAPE_WEBSITE_URL
-} from '@dragverse/constants'
+} from '@dragverse/constants';
 import {
-  checkLensManagerPermissions,
   EVENTS,
+  Tower,
+  checkLensManagerPermissions,
   getProfile,
   getPublication,
+  getPublicationData,
   getSignature,
   imageCdn,
   logger,
-  Tower,
   uploadToAr
-} from '@dragverse/generic'
+} from '@dragverse/generic';
 import type {
   AnyPublication,
   CreateMomokaCommentEip712TypedData,
   CreateOnchainCommentEip712TypedData
-} from '@dragverse/lens'
+} from '@dragverse/lens';
 import {
   PublicationDocument,
-  useBroadcastOnchainMutation,
   useBroadcastOnMomokaMutation,
-  useCommentOnchainMutation,
+  useBroadcastOnchainMutation,
   useCommentOnMomokaMutation,
+  useCommentOnchainMutation,
   useCreateMomokaCommentTypedDataMutation,
   useCreateOnchainCommentTypedDataMutation,
   usePublicationLazyQuery
-} from '@dragverse/lens'
-import { useApolloClient } from '@dragverse/lens/apollo'
-import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { MetadataAttributeType, textOnly } from '@lens-protocol/metadata'
-import usePersistStore from '@lib/store/persist'
-import { useProfileStore } from '@lib/store/profile'
-import { Button, Flex } from '@radix-ui/themes'
-import type { Dispatch, FC } from 'react'
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import toast from 'react-hot-toast'
-import { v4 as uuidv4 } from 'uuid'
-import { parseEther } from 'viem'
-import { useContractWrite, useSendTransaction, useSignTypedData } from 'wagmi'
-import type { z } from 'zod'
-import { number, object, string } from 'zod'
+} from '@dragverse/lens';
+import { useApolloClient } from '@dragverse/lens/apollo';
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types';
+import { Button, Input, TextArea } from '@dragverse/ui';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { MetadataAttributeType, textOnly } from '@lens-protocol/metadata';
+import useProfileStore from '@lib/store/idb/profile';
+import usePersistStore from '@lib/store/persist';
+import type { Dispatch, FC } from 'react';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import { v4 as uuidv4 } from 'uuid';
+import { parseEther } from 'viem';
+import { useSendTransaction, useSignTypedData, useWriteContract } from 'wagmi';
+import type { z } from 'zod';
+import { number, object, string } from 'zod';
 
 type Props = {
   video: AnyPublication
@@ -101,10 +100,10 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
   }
 
   const { sendTransactionAsync } = useSendTransaction({
-    onError
+    mutation: { onError }
   })
   const { signTypedDataAsync } = useSignTypedData({
-    onError
+    mutation: { onError }
   })
 
   const setToQueue = (txn: { txnId?: string; txnHash?: string }) => {
@@ -135,15 +134,23 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
     })
   }
 
-  const { write } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
-    abi: LENSHUB_PROXY_ABI,
-    functionName: 'comment',
-    onError,
-    onSuccess: (data) => {
-      setToQueue({ txnHash: data.hash })
+  const { writeContractAsync } = useWriteContract({
+    mutation: {
+      onError,
+      onSuccess: (hash) => {
+        setToQueue({ txnHash: hash })
+      }
     }
   })
+
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
+      address: LENSHUB_PROXY_ADDRESS,
+      abi: LENSHUB_PROXY_ABI,
+      functionName: 'comment',
+      args
+    })
+  }
 
   const [getComment] = usePublicationLazyQuery()
 
@@ -201,11 +208,11 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
               variables: { request: { id, signature } }
             })
             if (data?.broadcastOnchain?.__typename === 'RelayError') {
-              return write({ args })
+              return await write({ args })
             }
             return
           }
-          return write({ args })
+          return await write({ args })
         } catch {}
       },
       onError
@@ -241,11 +248,11 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
               variables: { request: { id, signature } }
             })
             if (data?.broadcastOnMomoka?.__typename === 'RelayError') {
-              return write({ args })
+              return await write({ args })
             }
             return
           }
-          return write({ args })
+          return await write({ args })
         } catch {}
       },
       onError
@@ -290,6 +297,9 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
           value: txnHash
         }
       ]
+
+      const title = getPublicationData(targetVideo.metadata)?.title
+      const profileSlug = getProfile(activeProfile)?.slug
       const metadata = textOnly({
         appId: TAPE_APP_ID,
         id: uuidv4(),
@@ -297,9 +307,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
         content: getValues('message'),
         locale: getUserLocale(),
         marketplace: {
-          name: `${getProfile(activeProfile)
-            ?.slug}'s comment on video ${targetVideo.metadata.marketplace
-            ?.name}`,
+          name: `${profileSlug}'s comment on video ${title}`,
           attributes,
           description: getValues('message'),
           external_url: `${TAPE_WEBSITE_URL}/watch/${video?.id}`
@@ -351,7 +359,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
         }
       })
     } catch (error) {
-      console.error('🚀 ~ ', error)
+      logger.error('[NEW TIP ERROR]', error)
     }
   }
 
@@ -367,12 +375,12 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
     setLoading(true)
     const amountToSend = Number(getValues('tipQuantity')) * 1
     try {
-      const data = await sendTransactionAsync?.({
+      const hash = await sendTransactionAsync?.({
         to: targetVideo.by?.ownedBy.address,
-        value: BigInt(parseEther(amountToSend.toString() as `${number}`))
+        value: BigInt(parseEther(amountToSend.toString()))
       })
-      if (data?.hash) {
-        await submitComment(data.hash)
+      if (hash) {
+        await submitComment(hash)
       }
       Tower.track(EVENTS.PUBLICATION.TIP.SENT)
     } catch (error) {
@@ -425,11 +433,15 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
             </div>
           )}
         </span>
-        <Flex gap="2">
-          <Button type="button" variant="soft" onClick={() => setShow(false)}>
+        <div className="flex gap-2">
+          <Button
+            type="button"
+            variant="secondary"
+            onClick={() => setShow(false)}
+          >
             Cancel
           </Button>
-          <Button highContrast disabled={!isValid || loading}>
+          <Button loading={loading} disabled={!isValid || loading}>
             {`Tip ${
               isNaN(Number(watchTipQuantity) * 1) ||
               Number(watchTipQuantity) < 0
@@ -437,7 +449,7 @@ const TipForm: FC<Props> = ({ video, setShow }) => {
                 : Number(watchTipQuantity) * 1
             } MATIC`}
           </Button>
-        </Flex>
+        </div>
       </div>
     </form>
   )

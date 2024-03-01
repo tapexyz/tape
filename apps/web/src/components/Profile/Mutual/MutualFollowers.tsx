@@ -1,14 +1,12 @@
-import Badge from '@components/Common/Badge'
-import UserOutline from '@components/Common/Icons/UserOutline'
-import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { formatNumber, getProfile, getProfilePicture } from '@dragverse/generic'
-import type { MutualFollowersRequest, Profile } from '@dragverse/lens'
-import { LimitType, useMutualFollowersQuery } from '@dragverse/lens'
-import { Loader } from '@dragverse/ui'
-import useProfileStore from '@lib/store/profile'
-import Link from 'next/link'
-import type { FC } from 'react'
-import { useInView } from 'react-cool-inview'
+import HoverableProfile from '@components/Common/HoverableProfile';
+import { NoDataFound } from '@components/UIElements/NoDataFound';
+import { getProfile, getProfilePicture } from '@dragverse/generic';
+import type { MutualFollowersRequest, Profile } from '@dragverse/lens';
+import { LimitType, useMutualFollowersQuery } from '@dragverse/lens';
+import { Spinner } from '@dragverse/ui';
+import useProfileStore from '@lib/store/idb/profile';
+import type { FC } from 'react';
+import { useInView } from 'react-cool-inview';
 
 type Props = {
   viewing: string
@@ -47,7 +45,7 @@ const MutualFollowers: FC<Props> = ({ viewing }) => {
   })
 
   if (loading) {
-    return <Loader />
+    return <Spinner />
   }
   if (mutualFollowers?.length === 0) {
     return (
@@ -58,40 +56,33 @@ const MutualFollowers: FC<Props> = ({ viewing }) => {
   }
 
   return (
-    <div className="space-y-3">
-      {loading && <Loader />}
+    <div className="space-y-2">
+      {loading && <Spinner />}
       {mutualFollowers?.length === 0 && (
         <div className="pt-5">
           <NoDataFound withImage isCenter />
         </div>
       )}
       {mutualFollowers?.map((profile: Profile) => (
-        <Link
-          href={`/u/${getProfile(profile)?.slug}`}
-          className="font-base flex items-center justify-between"
-          key={profile?.id}
-        >
-          <div className="flex items-center space-x-1.5">
-            <img
-              className="h-5 w-5 rounded-full"
-              src={getProfilePicture(profile, 'AVATAR')}
-              alt={getProfile(profile)?.slug}
-              draggable={false}
+        <div key={profile.id}>
+          <span className="inline-flex">
+            <HoverableProfile
+              profile={profile}
+              pfp={
+                <img
+                  src={getProfilePicture(profile, 'AVATAR')}
+                  className="size-5 rounded-full"
+                  draggable={false}
+                  alt={getProfile(profile)?.displayName}
+                />
+              }
             />
-            <div className="flex items-center space-x-1">
-              <span>{getProfile(profile)?.slug}</span>
-              <Badge id={profile?.id} size="xs" />
-            </div>
-          </div>
-          <div className="flex items-center space-x-1 whitespace-nowrap text-xs opacity-80">
-            <UserOutline className="h-2.5 w-2.5 opacity-60" />
-            <span>{formatNumber(profile.stats.followers)}</span>
-          </div>
-        </Link>
+          </span>
+        </div>
       ))}
       {pageInfo?.next && (
         <span ref={observe} className="p-5">
-          <Loader />
+          <Spinner />
         </span>
       )}
     </div>

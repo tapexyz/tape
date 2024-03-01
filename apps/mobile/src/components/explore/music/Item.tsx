@@ -1,19 +1,15 @@
-import {
-    getShortHandTime,
-    getThumbnailUrl,
-    imageCdn,
-    trimify
-} from '@dragverse/generic'
-import type { MirrorablePublication } from '@dragverse/lens'
-import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
-import { Image as ExpoImage } from 'expo-image'
-import type { FC } from 'react'
-import React from 'react'
-import { StyleSheet, Text, View, useWindowDimensions } from 'react-native'
+import { getThumbnailUrl, imageCdn, trimify } from '@dragverse/generic';
+import type { MirrorablePublication } from '@dragverse/lens';
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types';
+import { Image as ExpoImage } from 'expo-image';
+import type { FC } from 'react';
+import React from 'react';
+import { StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 
-import UserProfile from '~/components/common/UserProfile'
-import normalizeFont from '~/helpers/normalize-font'
-import { useMobileTheme } from '~/hooks'
+import UserProfile from '~/components/common/UserProfile';
+import { getShortHandTime } from '~/helpers/format-time';
+import normalizeFont from '~/helpers/normalize-font';
+import { useMobileTheme } from '~/hooks';
 
 const BORDER_RADIUS = 25
 
@@ -104,7 +100,7 @@ const Item: FC<Props> = ({ audio }) => {
         <View style={[style.poster, { height: width * 0.6 }]}>
           <ExpoImage
             source={{
-              uri: imageCdn(getThumbnailUrl(audio), 'SQUARE')
+              uri: imageCdn(getThumbnailUrl(audio.metadata), 'SQUARE')
             }}
             transition={300}
             contentFit="cover"

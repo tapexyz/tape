@@ -1,48 +1,49 @@
-import { ADMIN_IDS } from '@dragverse/constants'
-import {
-  EVENTS,
-  getProfile,
-  getProfilePicture,
-  Tower
-} from '@dragverse/generic'
-import type { Profile } from '@dragverse/lens'
+import { ADMIN_IDS } from '@dragverse/constants';
+import { EVENTS, getProfile, getProfilePicture, Tower } from '@dragverse/generic';
+import type { Profile } from '@dragverse/lens';
 import {
   LimitType,
   useProfilesManagedQuery,
   useRevokeAuthenticationMutation
-} from '@dragverse/lens'
-import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
-import getCurrentSessionId from '@lib/getCurrentSessionId'
-import { signOut } from '@lib/store/auth'
-import useProfileStore from '@lib/store/profile'
-import { Avatar, DropdownMenu, Flex, Text } from '@radix-ui/themes'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { useMemo } from 'react'
-import { toast } from 'react-hot-toast'
-import { useAccount, useDisconnect } from 'wagmi'
-
-import BookmarkOutline from './Icons/BookmarkOutline'
-import CogOutline from './Icons/CogOutline'
-import GraphOutline from './Icons/GraphOutline'
-import HandWaveOutline from './Icons/HandWaveOutline'
-import SwitchProfileOutline from './Icons/SwitchProfileOutline'
-import UserOutline from './Icons/UserOutline'
+} from '@dragverse/lens';
+import {
+  BookmarkOutline,
+  ChevronRightOutline,
+  CogOutline,
+  DropdownMenu,
+  DropdownMenuItem,
+  DropdownMenuPortal,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  GraphOutline,
+  HandWaveOutline,
+  MoonOutline,
+  SunOutline,
+  SwitchProfileOutline,
+  UserOutline
+} from '@dragverse/ui';
+import getCurrentSession from '@lib/getCurrentSession';
+import { signOut } from '@lib/store/auth';
+import useProfileStore from '@lib/store/idb/profile';
+import { useTheme } from 'next-themes';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useMemo } from 'react';
+import { useAccount } from 'wagmi';
 
 const UserMenu = () => {
+  const { theme, setTheme } = useTheme()
   const { push, asPath } = useRouter()
   const { address } = useAccount()
-  const { disconnect } = useDisconnect({
-    onError(error: CustomErrorWithData) {
-      toast.error(error?.data?.message || error?.message)
-    }
-  })
-  const { activeProfile, setActiveProfile } = useProfileStore()
+  const { activeProfile } = useProfileStore()
 
   const { data } = useProfilesManagedQuery({
     variables: {
       request: { for: address, includeOwned: true, limit: LimitType.Fifty }
-    }
+    },
+    skip: !address
   })
   const profilesManagedWithoutActiveProfile = useMemo(() => {
     if (!data?.profilesManaged?.items) {
@@ -58,148 +59,145 @@ const UserMenu = () => {
   const [revokeAuthentication, { loading }] = useRevokeAuthenticationMutation()
 
   const onClickSignout = async () => {
-    await revokeAuthentication({
-      variables: {
-        request: { authorizationId: getCurrentSessionId() }
-      }
-    })
+    const authorizationId = getCurrentSession().authorizationId
+    if (authorizationId) {
+      await revokeAuthentication({
+        variables: {
+          request: { authorizationId }
+        }
+      })
+    }
     signOut()
-    setActiveProfile(null)
-    disconnect?.()
     Tower.track(EVENTS.AUTH.SIGN_OUT)
     location.reload()
   }
 
   return (
-    <DropdownMenu.Root>
-      <DropdownMenu.Trigger>
-        <div className="ring-brand-500 flex rounded-full hover:ring-2">
-          <Avatar
-            size="2"
-            radius="full"
+    <DropdownMenu
+      trigger={
+        <div className="ring-brand-500 size-[34px] rounded-full hover:ring-2">
+          <img
+            className="h-full w-full flex-none rounded-full object-cover"
             src={getProfilePicture(activeProfile, 'AVATAR')}
-            fallback={getProfile(activeProfile)?.slug[0] ?? ';)'}
             alt={getProfile(activeProfile)?.displayName}
+            draggable={false}
           />
         </div>
-      </DropdownMenu.Trigger>
-      <DropdownMenu.Content sideOffset={10} variant="soft" align="end">
-        <div className="w-48">
-          <Link href={getProfile(activeProfile)?.link}>
-            <Flex gap="2" px="2" py="1" pb="3" align="center">
-              <Avatar
-                size="1"
-                radius="full"
-                src={getProfilePicture(activeProfile, 'AVATAR')}
-                fallback={getProfile(activeProfile)?.slug[0] ?? ';)'}
-                alt={getProfile(activeProfile)?.displayName}
-              />
-              <Text as="p" weight="bold" className="line-clamp-1">
-                {getProfile(activeProfile)?.slug}
-              </Text>
-            </Flex>
-          </Link>
-          {isAdmin && (
-            <DropdownMenu.Item onClick={() => push('/mod')}>
-              <Flex gap="2" align="center">
-                <GraphOutline className="h-4 w-4" />
-                <Text as="p" className="truncate whitespace-nowrap">
-                  Mod
-                </Text>
-              </Flex>
-            </DropdownMenu.Item>
-          )}
-          {activeProfile && (
-            <>
-              <DropdownMenu.Item
-                onClick={() => push(getProfile(activeProfile)?.link)}
-              >
-                <Flex gap="2" align="center">
-                  <UserOutline className="h-4 w-4" />
-                  <Text as="p" className="truncate whitespace-nowrap">
-                    My Profile
-                  </Text>
-                </Flex>
-              </DropdownMenu.Item>
-              <DropdownMenu.Item onClick={() => push('/bookmarks')}>
-                <Flex gap="2" align="center">
-                  <BookmarkOutline className="h-4 w-4" />
-                  <Text as="p" className="truncate whitespace-nowrap">
-                    Bookmarks
-                  </Text>
-                </Flex>
-              </DropdownMenu.Item>
+      }
+    >
+      <div className="w-44">
+        <Link href={getProfile(activeProfile)?.link}>
+          <div className="flex items-center gap-2 px-2 py-1 pb-3">
+            <img
+              src={getProfilePicture(activeProfile, 'AVATAR')}
+              alt={getProfile(activeProfile)?.displayName}
+              className="h-8 w-8 rounded-full"
+            />
+            <p className="line-clamp-1 font-semibold">
+              {getProfile(activeProfile)?.slug}
+            </p>
+          </div>
+        </Link>
+        {isAdmin && (
+          <DropdownMenuItem onClick={() => push('/mod')}>
+            <div className="flex items-center gap-2">
+              <GraphOutline className="size-4" />
+              <p className="whitespace-nowrap">Mod</p>
+            </div>
+          </DropdownMenuItem>
+        )}
+        {activeProfile && (
+          <>
+            <DropdownMenuItem
+              onClick={() => push(getProfile(activeProfile)?.link)}
+            >
+              <div className="flex items-center gap-2">
+                <UserOutline className="size-4" />
+                <p className="whitespace-nowrap">My Profile</p>
+              </div>
+            </DropdownMenuItem>
+            <DropdownMenuItem onClick={() => push('/bookmarks')}>
+              <div className="flex items-center gap-2">
+                <BookmarkOutline className="size-4" />
+                <p className="whitespace-nowrap">Bookmarks</p>
+              </div>
+            </DropdownMenuItem>
 
-              {profilesManagedWithoutActiveProfile.length ? (
-                <DropdownMenu.Sub>
-                  <DropdownMenu.SubTrigger>
-                    <Flex align="center" gap="2">
-                      <SwitchProfileOutline className="h-4 w-4" />
-                      <Text as="p" className="truncate whitespace-nowrap">
-                        Switch Profile
-                      </Text>
-                    </Flex>
-                  </DropdownMenu.SubTrigger>
-                  <DropdownMenu.SubContent>
+            {profilesManagedWithoutActiveProfile.length ? (
+              <DropdownMenuSub>
+                <DropdownMenuSubTrigger className="flex justify-between">
+                  <div className="flex items-center gap-2">
+                    <SwitchProfileOutline className="size-4" />
+                    <p className="whitespace-nowrap">Switch Profile</p>
+                  </div>
+                  <ChevronRightOutline className="size-2.5" />
+                </DropdownMenuSubTrigger>
+                <DropdownMenuPortal>
+                  <DropdownMenuSubContent>
                     {profilesManagedWithoutActiveProfile?.map(
                       (profile) =>
                         profile.id !== activeProfile.id && (
-                          <DropdownMenu.Item
+                          <DropdownMenuItem
                             key={profile.id}
                             onClick={() =>
                               push(`/login?as=${profile.id}&next=${asPath}`)
                             }
                           >
-                            <Flex gap="2" align="center">
-                              <Avatar
-                                size="1"
-                                radius="full"
+                            <div className="flex items-center gap-2">
+                              <img
                                 src={getProfilePicture(profile)}
-                                fallback={
-                                  getProfile(profile)?.displayName[0] ?? ';)'
-                                }
+                                className="size-4 rounded-full"
+                                draggable={false}
                                 alt={getProfile(activeProfile)?.displayName}
                               />
-                              <Text
-                                as="p"
-                                className="truncate whitespace-nowrap"
-                              >
+                              <p className="whitespace-nowrap">
                                 {getProfile(profile)?.slug}
-                              </Text>
-                            </Flex>
-                          </DropdownMenu.Item>
+                              </p>
+                            </div>
+                          </DropdownMenuItem>
                         )
                     )}
-                  </DropdownMenu.SubContent>
-                </DropdownMenu.Sub>
-              ) : null}
-            </>
-          )}
-          <DropdownMenu.Item onClick={() => push('/settings')}>
-            <Flex gap="2" align="center">
-              <CogOutline className="h-4 w-4" />
-              <Text as="p" className="truncate whitespace-nowrap">
-                My Settings
-              </Text>
-            </Flex>
-          </DropdownMenu.Item>
-          <DropdownMenu.Separator />
-          <DropdownMenu.Item
-            asChild
-            disabled={loading}
-            color="red"
-            onClick={() => onClickSignout()}
-          >
-            <Flex align="center" gap="2">
-              <HandWaveOutline className="h-4 w-4" />
-              <Text as="p" className="truncate whitespace-nowrap">
-                Sign out
-              </Text>
-            </Flex>
-          </DropdownMenu.Item>
-        </div>
-      </DropdownMenu.Content>
-    </DropdownMenu.Root>
+                  </DropdownMenuSubContent>
+                </DropdownMenuPortal>
+              </DropdownMenuSub>
+            ) : null}
+          </>
+        )}
+        <DropdownMenuItem onClick={() => push('/settings')}>
+          <div className="flex items-center gap-2">
+            <CogOutline className="size-4" />
+            <p className="whitespace-nowrap">My Settings</p>
+          </div>
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem
+          onClick={() => {
+            const selected = theme === 'dark' ? 'light' : 'dark'
+            setTheme(selected)
+            Tower.track(EVENTS.SYSTEM.TOGGLE_THEME, {
+              selected_theme: selected
+            })
+          }}
+        >
+          <div className="flex items-center gap-2">
+            {theme === 'dark' ? (
+              <SunOutline className="size-4" />
+            ) : (
+              <MoonOutline className="size-4" />
+            )}
+            <p className="whitespace-nowrap">
+              {theme === 'light' ? `Switch to Dark` : `Switch to Light`}
+            </p>
+          </div>
+        </DropdownMenuItem>
+        <DropdownMenuItem disabled={loading} onClick={() => onClickSignout()}>
+          <div className="flex items-center gap-2 text-red-500">
+            <HandWaveOutline className="size-4" />
+            <p className="whitespace-nowrap">Sign out</p>
+          </div>
+        </DropdownMenuItem>
+      </div>
+    </DropdownMenu>
   )
 }
 

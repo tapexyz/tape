@@ -1,9 +1,9 @@
-import CategoryFilters from '@components/Common/CategoryFilters'
-import MetaTags from '@components/Common/MetaTags'
-import { EVENTS, Tower } from '@dragverse/generic'
-import { useEffect } from 'react'
+import CategoryFilters from '@components/Common/CategoryFilters';
+import MetaTags from '@components/Common/MetaTags';
+import { EVENTS, Tower } from '@dragverse/generic';
+import { useEffect } from 'react';
 
-import ExploreFeed from './Feed'
+import ExploreFeed from './Feed';
 
 const Explore = () => {
   useEffect(() => {
@@ -12,8 +12,8 @@ const Explore = () => {
 
   return (
     <div className="max-w-screen-ultrawide container mx-auto">
-      <MetaTags title="Explore✨" />
-      <CategoryFilters subheading="Beyond Drag" />
+      <MetaTags title="Explore" />
+      <CategoryFilters heading="Everything" />
       <ExploreFeed />
     </div>
   )

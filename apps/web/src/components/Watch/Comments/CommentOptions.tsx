@@ -1,18 +1,22 @@
-import FlagOutline from '@components/Common/Icons/FlagOutline'
-import ThreeDotsOutline from '@components/Common/Icons/ThreeDotsOutline'
-import TrashOutline from '@components/Common/Icons/TrashOutline'
-import ReportPublication from '@components/ReportPublication'
-import Confirm from '@components/UIElements/Confirm'
-import { SIGN_IN_REQUIRED } from '@dragverse/constants'
-import { EVENTS, Tower } from '@dragverse/generic'
-import type { Comment } from '@dragverse/lens'
-import { useHidePublicationMutation } from '@dragverse/lens'
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import useProfileStore from '@lib/store/profile'
-import { Box, Dialog, DropdownMenu, Flex, Text } from '@radix-ui/themes'
-import type { FC } from 'react'
-import { useState } from 'react'
-import toast from 'react-hot-toast'
+import ReportPublication from '@components/Report/Publication';
+import Confirm from '@components/UIElements/Confirm';
+import { SIGN_IN_REQUIRED } from '@dragverse/constants';
+import { EVENTS, Tower } from '@dragverse/generic';
+import type { Comment } from '@dragverse/lens';
+import { useHidePublicationMutation } from '@dragverse/lens';
+import {
+  DropdownMenu,
+  DropdownMenuItem,
+  FlagOutline,
+  Modal,
+  ThreeDotsOutline,
+  TrashOutline
+} from '@dragverse/ui';
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
+import useProfileStore from '@lib/store/idb/profile';
+import type { FC } from 'react';
+import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 type Props = {
   comment: Comment
@@ -20,11 +24,12 @@ type Props = {
 
 const CommentOptions: FC<Props> = ({ comment }) => {
   const [showConfirm, setShowConfirm] = useState(false)
+  const [showReportModal, setShowReportModal] = useState(false)
   const handleWrongNetwork = useHandleWrongNetwork()
 
   const { activeProfile } = useProfileStore()
 
-  const [hideComment] = useHidePublicationMutation({
+  const [hideComment, { loading: hiding }] = useHidePublicationMutation({
     update(cache) {
       const normalizedId = cache.identify({
         id: comment?.id,
@@ -46,13 +51,13 @@ const CommentOptions: FC<Props> = ({ comment }) => {
     setShowConfirm(false)
   }
 
-  const onClickReport = () => {
+  const onClickReport = async () => {
     if (!activeProfile?.id) {
       return toast.error(SIGN_IN_REQUIRED)
     }
-    if (handleWrongNetwork()) {
-      return
-    }
+    await handleWrongNetwork()
+
+    setShowReportModal(true)
   }
 
   return (
@@ -61,53 +66,42 @@ const CommentOptions: FC<Props> = ({ comment }) => {
         showConfirm={showConfirm}
         setShowConfirm={setShowConfirm}
         action={onHideComment}
+        loading={hiding}
       />
-      <DropdownMenu.Root>
-        <DropdownMenu.Trigger>
-          <Box>
-            <ThreeDotsOutline className="h-3.5 w-3.5" />
-          </Box>
-        </DropdownMenu.Trigger>
-        <DropdownMenu.Content sideOffset={10} variant="soft" align="end">
-          <div className="w-36 overflow-hidden">
-            <div className="flex flex-col rounded-lg text-sm transition duration-150 ease-in-out">
-              {activeProfile?.id === comment?.by?.id && (
-                <DropdownMenu.Item
-                  onClick={() => setShowConfirm(true)}
-                  color="red"
-                >
-                  <Flex align="center" gap="2">
-                    <TrashOutline className="h-3.5 w-3.5" />
-                    <span className="whitespace-nowrap">Delete</span>
-                  </Flex>
-                </DropdownMenu.Item>
-              )}
+      <DropdownMenu trigger={<ThreeDotsOutline className="size-3.5" />}>
+        <div className="w-36 overflow-hidden">
+          <div className="flex flex-col rounded-lg text-sm transition duration-150 ease-in-out">
+            {activeProfile?.id === comment?.by?.id && (
+              <DropdownMenuItem onClick={() => setShowConfirm(true)}>
+                <div className="flex items-center gap-2">
+                  <TrashOutline className="size-3.5" />
+                  <span className="whitespace-nowrap">Delete</span>
+                </div>
+              </DropdownMenuItem>
+            )}
 
-              <Dialog.Root>
-                <Dialog.Trigger disabled={!activeProfile?.id}>
-                  <button
-                    className="!cursor-default rounded-md px-3 py-1.5 hover:bg-gray-500/20"
-                    onClick={() => onClickReport()}
-                  >
-                    <Flex align="center" gap="2">
-                      <FlagOutline className="h-3.5 w-3.5" />
-                      <Text size="2" className="whitespace-nowrap">
-                        Report
-                      </Text>
-                    </Flex>
-                  </button>
-                </Dialog.Trigger>
-
-                <Dialog.Content style={{ maxWidth: 450 }}>
-                  <Dialog.Title>Report</Dialog.Title>
-
-                  <ReportPublication publication={comment} />
-                </Dialog.Content>
-              </Dialog.Root>
-            </div>
+            <Modal
+              title="Report"
+              show={showReportModal}
+              setShow={setShowReportModal}
+            >
+              <ReportPublication
+                publication={comment}
+                close={() => setShowReportModal(false)}
+              />
+            </Modal>
+            <button
+              className="!cursor-default rounded-md px-3 py-1.5 hover:bg-gray-500/20"
+              onClick={() => onClickReport()}
+            >
+              <div className="flex items-center gap-2">
+                <FlagOutline className="size-3.5" />
+                <p className="whitespace-nowrap">Report</p>
+              </div>
+            </button>
           </div>
-        </DropdownMenu.Content>
-      </DropdownMenu.Root>
+        </div>
+      </DropdownMenu>
     </>
   )
 }

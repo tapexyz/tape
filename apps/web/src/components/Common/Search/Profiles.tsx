@@ -1,10 +1,10 @@
-import { formatNumber, getProfile, getProfilePicture } from '@dragverse/generic'
-import type { Profile } from '@dragverse/lens'
-import Link from 'next/link'
-import type { FC } from 'react'
+import { formatNumber, getProfile, getProfilePicture } from '@dragverse/generic';
+import type { Profile } from '@dragverse/lens';
+import { UserOutline } from '@dragverse/ui';
+import Link from 'next/link';
+import type { FC } from 'react';
 
-import Badge from '../Badge'
-import UserOutline from '../Icons/UserOutline'
+import Badge from '../Badge';
 
 interface Props {
   results: Profile[]
@@ -29,7 +29,7 @@ const Profiles: FC<Props> = ({ results, loading, clearSearch }) => {
             <span className="flex items-center justify-between">
               <div className="inline-flex w-3/4 items-center space-x-2">
                 <img
-                  className="h-5 w-5 rounded-full"
+                  className="size-5 rounded-full"
                   src={getProfilePicture(profile, 'AVATAR')}
                   draggable={false}
                   alt="pfp"
@@ -42,7 +42,7 @@ const Profiles: FC<Props> = ({ results, loading, clearSearch }) => {
                 </div>
               </div>
               <span className="inline-flex items-center space-x-1 whitespace-nowrap text-xs opacity-60">
-                <UserOutline className="h-2.5 w-2.5" />
+                <UserOutline className="size-2.5" />
                 <span>{formatNumber(profile.stats.followers)}</span>
               </span>
             </span>

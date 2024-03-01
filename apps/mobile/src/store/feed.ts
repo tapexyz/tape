@@ -1,6 +1,6 @@
-import type { AlgoType } from '@dragverse/lens/custom-types'
-import { TimelineFeedType } from '@dragverse/lens/custom-types'
-import { create } from 'zustand'
+import type { AlgoType } from '@dragverse/lens/custom-types';
+import { TimelineFeedType } from '@dragverse/lens/custom-types';
+import { create } from 'zustand';
 
 interface HomeFeedState {
   selectedFeedType: TimelineFeedType

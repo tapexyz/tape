@@ -1,7 +1,6 @@
 import {
   OG_IMAGE,
   STATIC_ASSETS,
-  TAPE_API_URL,
   TAPE_APP_DESCRIPTION,
   TAPE_APP_NAME,
   TAPE_X_HANDLE
@@ -54,24 +53,6 @@ const MetaTags: FC<Props> = (props) => {
       <meta name="twitter:description" content={meta.description} />
       <meta property="twitter:image" content={meta.image} />
       <meta property="twitter:creator" content={TAPE_X_HANDLE} />
-      {(router.pathname === '/watch/[id]' ||
-        router.pathname === '/listen/[id]') &&
-        router.query?.id && (
-          <>
-            <link
-              rel="alternate"
-              type="text/xml+oembed"
-              href={`${TAPE_API_URL}/oembed?format=xml&id=${router.query?.id}`}
-              title={title}
-            />
-            <link
-              rel="alternate"
-              type="application/json+oembed"
-              href={`${TAPE_API_URL}/oembed?format=json&id=${router.query?.id}`}
-              title={title}
-            />
-          </>
-        )}
       <link rel="preconnect" href={STATIC_ASSETS} />
       <link rel="dns-prefetch" href={STATIC_ASSETS} />
     </Head>

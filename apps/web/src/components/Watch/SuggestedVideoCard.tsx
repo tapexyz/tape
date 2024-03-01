@@ -1,27 +1,24 @@
-import HoverableProfile from '@components/Common/HoverableProfile'
-import CommentOutline from '@components/Common/Icons/CommentOutline'
-import HeartOutline from '@components/Common/Icons/HeartOutline'
-import PublicationOptions from '@components/Common/Publication/PublicationOptions'
-import { useAverageColor } from '@dragverse/browser'
+import HoverableProfile from '@components/Common/HoverableProfile';
+import PublicationOptions from '@components/Common/Publication/PublicationOptions';
+import { tw, useAverageColor } from '@dragverse/browser';
 import {
   FALLBACK_THUMBNAIL_URL,
   LENSTUBE_BYTES_APP_ID,
   STATIC_ASSETS
-} from '@dragverse/constants'
+} from '@dragverse/constants';
 import {
   formatNumber,
   getIsSensitiveContent,
   getPublicationData,
   getThumbnailUrl,
   imageCdn
-} from '@dragverse/generic'
-import type { MirrorablePublication } from '@dragverse/lens'
-import { getShortHandTime, getTimeFromSeconds } from '@lib/formatTime'
-import { Box, Flex } from '@radix-ui/themes'
-import clsx from 'clsx'
-import Link from 'next/link'
-import type { FC } from 'react'
-import React from 'react'
+} from '@dragverse/generic';
+import type { MirrorablePublication } from '@dragverse/lens';
+import { CommentOutline, HeartOutline } from '@dragverse/ui';
+import { getShortHandTime, getTimeFromSeconds } from '@lib/formatTime';
+import Link from 'next/link';
+import type { FC } from 'react';
+import React from 'react';
 
 type Props = {
   video: MirrorablePublication
@@ -47,7 +44,7 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
           >
             <div className="relative">
               <img
-                className={clsx(
+                className={tw(
                   'h-24 w-44 bg-gray-300 object-center dark:bg-gray-700',
                   isBytesVideo ? 'object-contain' : 'object-cover'
                 )}
@@ -83,28 +80,28 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
                 {getPublicationData(video.metadata)?.title}
               </Link>
             </div>
-            <div className="py-1">
-              <HoverableProfile profile={video.by} fontSize="1" />
+            <div className="py-1 text-sm">
+              <HoverableProfile profile={video.by} />
             </div>
             <div className="flex items-center overflow-hidden text-xs opacity-80">
-              <Flex align="center" gap="1">
-                <HeartOutline className="h-2.5 w-2.5" />
+              <div className="flex items-center gap-1">
+                <HeartOutline className="size-2.5" />
                 {formatNumber(video.stats?.reactions)}
-              </Flex>
+              </div>
               <span className="middot" />
-              <Flex align="center" gap="1">
-                <CommentOutline className="h-2.5 w-2.5" />
+              <div className="flex items-center gap-1">
+                <CommentOutline className="size-2.5" />
                 {formatNumber(video.stats?.comments)}
-              </Flex>
+              </div>
               <span className="middot" />
               <span>{getShortHandTime(video.createdAt)}</span>
             </div>
           </div>
         </div>
       </div>
-      <Box pt="2">
+      <div className="pt-2">
         <PublicationOptions publication={video} />
-      </Box>
+      </div>
     </div>
   )
 }

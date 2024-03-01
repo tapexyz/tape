@@ -1,14 +1,9 @@
-import Tooltip from '@components/UIElements/Tooltip'
-import { useCopyToClipboard } from '@dragverse/browser'
-import { TAPE_APP_NAME, TAPE_EMBED_URL } from '@dragverse/constants'
-import { EVENTS, Tower } from '@dragverse/generic'
-import { Card, Dialog, Flex, IconButton } from '@radix-ui/themes'
-import clsx from 'clsx'
-import type { FC } from 'react'
-
-import CodeOutline from './Icons/CodeOutline'
-import CopyOutline from './Icons/CopyOutline'
-import TimesOutline from './Icons/TimesOutline'
+import { tw, useCopyToClipboard } from '@dragverse/browser';
+import { TAPE_APP_NAME, TAPE_EMBED_URL } from '@dragverse/constants';
+import { EVENTS, Tower } from '@dragverse/generic';
+import { CodeOutline, CopyOutline, Modal, Tooltip } from '@dragverse/ui';
+import type { FC } from 'react';
+import { useState } from 'react';
 
 type Props = {
   publicationId: string
@@ -17,6 +12,7 @@ type Props = {
 
 const EmbedMedia: FC<Props> = ({ publicationId, isAudio }) => {
   const [copy] = useCopyToClipboard()
+  const [showEmbedModal, setShowEmbedModal] = useState(false)
 
   let iframeCode = `<iframe width="560" height="315" src="${TAPE_EMBED_URL}/${publicationId}?autoplay=1&t=0&loop=0" title="${TAPE_APP_NAME} player" frameborder="0" allow="accelerometer; autoplay; clipboard-write;" allowfullscreen></iframe>`
 
@@ -30,36 +26,30 @@ const EmbedMedia: FC<Props> = ({ publicationId, isAudio }) => {
   }
 
   const openModal = () => {
+    setShowEmbedModal(true)
     Tower.track(EVENTS.EMBED_VIDEO.OPEN)
   }
 
   return (
-    <Dialog.Root>
-      <Dialog.Trigger>
-        <button
-          type="button"
-          onClick={() => openModal()}
-          className="rounded-full bg-purple-200 p-2.5 dark:bg-purple-800"
-        >
-          <CodeOutline className="h-5 w-5" />
-        </button>
-      </Dialog.Trigger>
-
-      <Dialog.Content style={{ maxWidth: 650 }}>
-        <Flex justify="between" pb="5" align="center">
-          <Dialog.Title mb="0">Embed Media</Dialog.Title>
-          <Dialog.Close>
-            <IconButton variant="ghost" color="gray">
-              <TimesOutline outlined={false} className="h-3 w-3" />
-            </IconButton>
-          </Dialog.Close>
-        </Flex>
-
+    <>
+      <button
+        type="button"
+        onClick={() => openModal()}
+        className="rounded-full bg-gray-200 p-3 dark:bg-gray-800"
+      >
+        <CodeOutline className="size-5" />
+      </button>
+      <Modal
+        title="Embed Media"
+        size="md"
+        show={showEmbedModal}
+        setShow={setShowEmbedModal}
+      >
         <div className="flex flex-col space-y-3">
-          <div className="w-full">
+          <div className="w-full overflow-hidden rounded">
             <iframe
               sandbox="allow-scripts allow-same-origin"
-              className={clsx(
+              className={tw(
                 'w-full',
                 isAudio ? 'min-h-[200px]' : 'aspect-[16/9] '
               )}
@@ -69,27 +59,21 @@ const EmbedMedia: FC<Props> = ({ publicationId, isAudio }) => {
               allowFullScreen
             />
           </div>
-          <Flex>
-            <Card className="relative">
-              <code className="select-all text-sm opacity-60">
-                {iframeCode}
-              </code>
-              <Tooltip content="Copy Code" placement="top">
-                <IconButton
-                  type="button"
-                  size="1"
-                  variant="soft"
-                  onClick={() => onCopyCode()}
-                  className="absolute right-2 top-2"
-                >
-                  <CopyOutline className="h-4 w-4" />
-                </IconButton>
-              </Tooltip>
-            </Card>
-          </Flex>
+          <div className="tape-border relative rounded-lg p-4">
+            <code className="select-all text-sm opacity-60">{iframeCode}</code>
+            <Tooltip content="Copy Code" placement="top">
+              <button
+                type="button"
+                className="absolute right-2 top-2 rounded p-1 hover:bg-gray-100 dark:hover:bg-gray-900"
+                onClick={() => onCopyCode()}
+              >
+                <CopyOutline className="size-4" />
+              </button>
+            </Tooltip>
+          </div>
         </div>
-      </Dialog.Content>
-    </Dialog.Root>
+      </Modal>
+    </>
   )
 }
 

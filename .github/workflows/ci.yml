@@ -10,27 +10,23 @@ on:
 
 jobs:
   build:
-      name: Build and Test
+      name: Build and Test 👷🏻
       timeout-minutes: 60
       runs-on: ubuntu-latest
 
       steps:
-        - uses: actions/checkout@v3
-          with: 
-            fetch-depth: 2
-        - uses: actions/setup-node@v3
+        - uses: actions/checkout@v4
+        - name: Setup Bun 🥟
+          uses: oven-sh/setup-bun@v1
           with:
-            node-version-file: '.nvmrc'
-            cache: 'yarn'
+            bun-version: latest
  
         - name: Install dependencies 🧳
-          run: yarn install --frozen-lockfile
+          run: bun install
           
         - name: Check Lint 💅🏻
-          run: yarn run lint && yarn run typecheck
+          run: bun run lint && bun run typecheck
 
         - name: Run Build 🔨
-          run: yarn run build
+          run: bun run build
  
-        
-          

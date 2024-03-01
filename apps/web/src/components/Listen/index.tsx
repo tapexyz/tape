@@ -1,22 +1,22 @@
-import MetaTags from '@components/Common/MetaTags'
+import MetaTags from '@components/Common/MetaTags';
 import {
   EVENTS,
   getPublication,
   getPublicationData,
   isListenable,
   Tower
-} from '@dragverse/generic'
-import type { AnyPublication } from '@dragverse/lens'
-import { usePublicationQuery } from '@dragverse/lens'
-import { Loader } from '@dragverse/ui'
-import { useRouter } from 'next/router'
-import { useEffect } from 'react'
-import Custom404 from 'src/pages/404'
-import Custom500 from 'src/pages/500'
+} from '@dragverse/generic';
+import type { AnyPublication } from '@dragverse/lens';
+import { usePublicationQuery } from '@dragverse/lens';
+import { Spinner } from '@dragverse/ui';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import Custom404 from 'src/pages/404';
+import Custom500 from 'src/pages/500';
 
-import Audio from './Audio'
-import Background from './Background'
-import Details from './Details'
+import Audio from './Audio';
+import Background from './Background';
+import Details from './Details';
 
 const Listen = () => {
   const {
@@ -37,7 +37,7 @@ const Listen = () => {
   if (loading || !data) {
     return (
       <div className="grid h-[80vh] place-items-center">
-        <Loader />
+        <Spinner />
       </div>
     )
   }

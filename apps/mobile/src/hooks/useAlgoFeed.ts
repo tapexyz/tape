@@ -1,11 +1,11 @@
-import { LENS_CUSTOM_FILTERS } from '@dragverse/constants'
-import type { PublicationsRequest } from '@dragverse/lens'
+import { LENS_CUSTOM_FILTERS } from '@dragverse/constants';
+import type { PublicationsRequest } from '@dragverse/lens';
 import {
-    LimitType,
-    PublicationMetadataMainFocusType,
-    PublicationType,
-    usePublicationsQuery
-} from '@dragverse/lens'
+  LimitType,
+  PublicationMetadataMainFocusType,
+  PublicationType,
+  usePublicationsQuery
+} from '@dragverse/lens';
 
 const useAlgoFeed = () => {
   const request: PublicationsRequest = {

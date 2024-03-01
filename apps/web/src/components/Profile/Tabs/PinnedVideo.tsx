@@ -1,5 +1,5 @@
-import PinnedVideoShimmer from '@components/Shimmers/PinnedVideoShimmer'
-import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
+import PinnedVideoShimmer from '@components/Shimmers/PinnedVideoShimmer';
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis';
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
@@ -7,10 +7,11 @@ import {
   REQUESTING_SIGNATURE_MESSAGE,
   SIGN_IN_REQUIRED,
   TAPE_APP_ID
-} from '@dragverse/constants'
+} from '@dragverse/constants';
 import {
-  checkLensManagerPermissions,
   EVENTS,
+  Tower,
+  checkLensManagerPermissions,
   getIsSensitiveContent,
   getProfileCoverPicture,
   getProfilePictureUri,
@@ -23,35 +24,33 @@ import {
   isWatchable,
   logger,
   sanitizeDStorageUrl,
-  Tower,
   trimify,
   uploadToAr
-} from '@dragverse/generic'
+} from '@dragverse/generic';
 import type {
   AnyPublication,
   OnchainSetProfileMetadataRequest,
   Profile
-} from '@dragverse/lens'
+} from '@dragverse/lens';
 import {
   useBroadcastOnchainMutation,
   useCreateOnchainSetProfileMetadataTypedDataMutation,
   usePublicationQuery,
   useSetProfileMetadataMutation
-} from '@dragverse/lens'
-import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
-import VideoPlayer from '@dragverse/ui/VideoPlayer'
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import type { ProfileOptions } from '@lens-protocol/metadata'
-import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
-import { getRelativeTime } from '@lib/formatTime'
-import useProfileStore from '@lib/store/profile'
-import { Button } from '@radix-ui/themes'
-import Link from 'next/link'
-import type { FC } from 'react'
-import { memo } from 'react'
-import toast from 'react-hot-toast'
-import { v4 as uuidv4 } from 'uuid'
-import { useContractWrite, useSignTypedData } from 'wagmi'
+} from '@dragverse/lens';
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types';
+import { Button, VideoPlayer } from '@dragverse/ui';
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
+import type { ProfileOptions } from '@lens-protocol/metadata';
+import { MetadataAttributeType, profile } from '@lens-protocol/metadata';
+import { getRelativeTime } from '@lib/formatTime';
+import useProfileStore from '@lib/store/idb/profile';
+import Link from 'next/link';
+import type { FC } from 'react';
+import { memo } from 'react';
+import toast from 'react-hot-toast';
+import { v4 as uuidv4 } from 'uuid';
+import { useSignTypedData, useWriteContract } from 'wagmi';
 
 type Props = {
   id: string
@@ -87,16 +86,24 @@ const PinnedVideo: FC<Props> = ({ id }) => {
   }
 
   const { signTypedDataAsync } = useSignTypedData({
-    onError
+    mutation: { onError }
   })
 
-  const { write } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
-    abi: LENSHUB_PROXY_ABI,
-    functionName: 'setProfileMetadataURI',
-    onError,
-    onSuccess: () => onCompleted()
+  const { writeContractAsync } = useWriteContract({
+    mutation: {
+      onError,
+      onSuccess: () => onCompleted()
+    }
   })
+
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
+      address: LENSHUB_PROXY_ADDRESS,
+      abi: LENSHUB_PROXY_ABI,
+      functionName: 'setProfileMetadataURI',
+      args
+    })
+  }
 
   const [broadcast] = useBroadcastOnchainMutation({
     onError,
@@ -118,11 +125,11 @@ const PinnedVideo: FC<Props> = ({ id }) => {
               variables: { request: { id, signature } }
             })
             if (data?.broadcastOnchain?.__typename === 'RelayError') {
-              return write({ args })
+              return await write({ args })
             }
             return
           }
-          return write({ args })
+          return await write({ args })
         } catch {}
       },
       onError
@@ -147,13 +154,12 @@ const PinnedVideo: FC<Props> = ({ id }) => {
     if (!activeProfile) {
       return toast.error(SIGN_IN_REQUIRED)
     }
-    if (handleWrongNetwork()) {
-      return
-    }
+    await handleWrongNetwork()
 
     try {
       toast.loading(`Unpinning video...`)
       const pfp = getProfilePictureUri(activeProfile as Profile)
+      const coverPicture = getProfileCoverPicture(activeProfile as Profile)
       const metadata: ProfileOptions = {
         ...(activeProfile?.metadata?.displayName && {
           name: activeProfile?.metadata?.displayName
@@ -164,10 +170,11 @@ const PinnedVideo: FC<Props> = ({ id }) => {
         ...(pfp && {
           picture: pfp
         }),
+        ...(coverPicture && {
+          coverPicture
+        }),
         appId: TAPE_APP_ID,
-        coverPicture: getProfileCoverPicture(activeProfile),
         id: uuidv4(),
-        name: activeProfile?.metadata?.displayName ?? '',
         attributes: [
           ...otherAttributes,
           {
@@ -234,8 +241,8 @@ const PinnedVideo: FC<Props> = ({ id }) => {
   return (
     <div className="mb-4 mt-6">
       <h1 className="text-brand-400 pb-4 text-xl font-bold">Featured</h1>
-      <div className="grid grid-cols-3 overflow-hidden md:space-x-5">
-        <div className="overflow-hidden md:rounded-xl">
+      <div className="grid gap-5 overflow-hidden md:grid-cols-2 lg:grid-cols-3">
+        <div className="overflow-hidden rounded-xl">
           <VideoPlayer
             address={activeProfile?.ownedBy.address}
             url={getPublicationMediaUrl(pinnedPublication.metadata)}
@@ -249,7 +256,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
             }}
           />
         </div>
-        <div className="group flex flex-col justify-between pl-2 lg:col-span-2">
+        <div className="group flex flex-col justify-between gap-3 pl-2 lg:col-span-2">
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <Link
@@ -263,10 +270,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
               </Link>
               {isVideoOwner && (
                 <Button
-                  variant="soft"
-                  size="2"
-                  color="red"
-                  highContrast
+                  variant="danger"
                   className="invisible hover:!bg-red-200 group-hover:visible dark:hover:!bg-red-800"
                   onClick={() => unpinVideo()}
                 >

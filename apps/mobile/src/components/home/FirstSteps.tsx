@@ -1,25 +1,26 @@
-import { LENSTUBE_BYTES_APP_ID, STATIC_ASSETS } from '@dragverse/constants'
-import { getIsDispatcherEnabled, imageCdn } from '@dragverse/generic'
-import type { MirrorablePublication, Profile } from '@dragverse/lens'
+import { STATIC_ASSETS } from '@dragverse/constants';
+import { checkLensManagerPermissions, imageCdn } from '@dragverse/generic';
+import type { MirrorablePublication, Profile } from '@dragverse/lens';
 import {
-    LimitType,
-    PublicationType,
-    usePublicationsQuery
-} from '@dragverse/lens'
-import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
-import { useWalletConnectModal } from '@walletconnect/modal-react-native'
-import { Image as ExpoImage } from 'expo-image'
-import React from 'react'
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import Animated, { FadeInRight } from 'react-native-reanimated'
+  LimitType,
+  PublicationMetadataMainFocusType,
+  PublicationType,
+  usePublicationsQuery
+} from '@dragverse/lens';
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types';
+import { useWalletConnectModal } from '@walletconnect/modal-react-native';
+import { Image as ExpoImage } from 'expo-image';
+import React from 'react';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import Animated, { FadeInRight } from 'react-native-reanimated';
 
-import haptic from '~/helpers/haptic'
-import normalizeFont from '~/helpers/normalize-font'
-import { colors } from '~/helpers/theme'
-import { useMobileTheme } from '~/hooks'
-import { useMobilePersistStore } from '~/store/persist'
+import haptic from '~/helpers/haptic';
+import normalizeFont from '~/helpers/normalize-font';
+import { colors } from '~/helpers/theme';
+import { useMobileTheme } from '~/hooks';
+import { useMobilePersistStore } from '~/store/persist';
 
-import AnimatedPressable from '../ui/AnimatedPressable'
+import AnimatedPressable from '../ui/AnimatedPressable';
 
 const BORDER_RADIUS = 25
 
@@ -85,7 +86,7 @@ const FirstSteps = () => {
           publicationTypes: [PublicationType.Post],
           from: [selectedProfile?.id],
           metadata: {
-            publishedOn: [LENSTUBE_BYTES_APP_ID]
+            mainContentFocus: [PublicationMetadataMainFocusType.ShortVideo]
           }
         }
       }
@@ -94,16 +95,18 @@ const FirstSteps = () => {
   })
   const bytes = data?.publications?.items as MirrorablePublication[]
 
-  const dispatcherEnabled = getIsDispatcherEnabled(selectedProfile as Profile)
+  const dispatcherEnabled = checkLensManagerPermissions(
+    selectedProfile as Profile
+  )
   const sharedByte = Boolean(bytes?.length)
 
-  if (dispatcherEnabled && sharedByte && selectedProfile) {
+  if (dispatcherEnabled.canBroadcast && sharedByte && selectedProfile) {
     return null
   }
 
   return (
     <View style={style.container}>
-      <Text style={style.title}>First steps with Lenstube</Text>
+      <Text style={style.title}>First steps with Tape</Text>
       <Text style={style.subheading}>Unleash New Social Horizons</Text>
       <Animated.View entering={FadeInRight}>
         <ScrollView

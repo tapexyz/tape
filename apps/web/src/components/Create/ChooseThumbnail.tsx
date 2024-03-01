@@ -1,19 +1,10 @@
-import AddImageOutline from '@components/Common/Icons/AddImageOutline'
-import ThumbnailsShimmer from '@components/Shimmers/ThumbnailsShimmer'
-import {
-  generateVideoThumbnails,
-  getFileFromDataURL,
-  uploadToIPFS
-} from '@dragverse/browser'
-import { logger } from '@dragverse/generic'
-import type { IPFSUploadResult } from '@dragverse/lens/custom-types'
-import { Loader } from '@dragverse/ui'
-import useAppStore from '@lib/store'
-import { AspectRatio, Grid } from '@radix-ui/themes'
-import clsx from 'clsx'
-import type { ChangeEvent, FC } from 'react'
-import { useEffect, useState } from 'react'
-import { toast } from 'react-hot-toast'
+import ThumbnailsShimmer from '@components/Shimmers/ThumbnailsShimmer';
+import { generateVideoThumbnails, tw } from '@dragverse/browser';
+import { logger } from '@dragverse/generic';
+import { AddImageOutline, CheckOutline, Spinner } from '@dragverse/ui';
+import useAppStore from '@lib/store';
+import type { ChangeEvent, FC } from 'react';
+import { useEffect, useState } from 'react';
 
 interface Props {
   file: File | null
@@ -24,7 +15,6 @@ export const THUMBNAIL_GENERATE_COUNT = 9
 
 type Thumbnail = {
   blobUrl: string
-  ipfsUrl: string
   mimeType: string
 }
 
@@ -34,52 +24,14 @@ const ChooseThumbnail: FC<Props> = ({ file }) => {
   const uploadedMedia = useAppStore((state) => state.uploadedMedia)
   const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
 
-  const uploadThumbnailToIpfs = async (fileToUpload: File) => {
-    setUploadedMedia({ uploadingThumbnail: true })
-    const result: IPFSUploadResult = await uploadToIPFS(fileToUpload)
-    if (!result.url) {
-      toast.error(`Failed to upload thumbnail`)
-    }
-    setUploadedMedia({
-      thumbnail: result.url,
-      thumbnailType: fileToUpload.type || 'image/jpeg',
-      uploadingThumbnail: false
-    })
-    return result
-  }
-
   const onSelectThumbnail = async (index: number) => {
     if (uploadedMedia.durationInSeconds === 0) {
       return
     }
     setSelectedThumbnailIndex(index)
-    if (thumbnails[index]?.ipfsUrl === '') {
-      setUploadedMedia({ uploadingThumbnail: true })
-      getFileFromDataURL(
-        thumbnails[index].blobUrl,
-        'thumbnail.jpeg',
-        async (file) => {
-          if (!file) {
-            return toast.error(`Please upload a custom thumbnail`)
-          }
-          const ipfsResult = await uploadThumbnailToIpfs(file)
-          setThumbnails(
-            thumbnails.map((thumbnail, i) => {
-              if (i === index) {
-                thumbnail.ipfsUrl = ipfsResult?.url
-              }
-              return thumbnail
-            })
-          )
-        }
-      )
-    } else {
-      setUploadedMedia({
-        thumbnail: thumbnails[index]?.ipfsUrl,
-        thumbnailType: thumbnails[index]?.mimeType || 'image/jpeg',
-        uploadingThumbnail: false
-      })
-    }
+    setUploadedMedia({
+      thumbnailBlobUrl: thumbnails[index]?.blobUrl
+    })
   }
 
   const generateThumbnails = async (fileToGenerate: File) => {
@@ -92,7 +44,6 @@ const ChooseThumbnail: FC<Props> = ({ file }) => {
       thumbnailArray.forEach((thumbnailBlob) => {
         thumbnailList.push({
           blobUrl: thumbnailBlob,
-          ipfsUrl: '',
           mimeType: 'image/jpeg'
         })
       })
@@ -122,27 +73,28 @@ const ChooseThumbnail: FC<Props> = ({ file }) => {
   const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
       setSelectedThumbnailIndex(-1)
-      toast.loading(`Uploading thumbnail`)
       const file = e.target.files[0]
-      const result = await uploadThumbnailToIpfs(file)
-      const preview = window.URL?.createObjectURL(file)
+      const preview = URL?.createObjectURL(file)
       setThumbnails([
         {
           blobUrl: preview,
-          ipfsUrl: result.url,
           mimeType: file.type || 'image/jpeg'
         },
         ...thumbnails
       ])
+      setUploadedMedia({
+        thumbnailBlobUrl: preview,
+        thumbnailType: file.type || 'image/jpeg'
+      })
       setSelectedThumbnailIndex(0)
     }
   }
 
   return (
-    <Grid columns="5" gap="2">
+    <div className="grid grid-cols-5 gap-2">
       <label
         htmlFor="chooseThumbnail"
-        className="flex h-full w-full flex-none cursor-pointer flex-col items-center justify-center rounded-xl border border-gray-300 opacity-80 focus:outline-none dark:border-gray-700"
+        className="tape-border flex h-full w-full flex-none cursor-pointer flex-col items-center justify-center rounded-lg"
       >
         <input
           id="chooseThumbnail"
@@ -151,8 +103,7 @@ const ChooseThumbnail: FC<Props> = ({ file }) => {
           className="hidden w-full"
           onChange={handleUpload}
         />
-        <AddImageOutline className="mb-1 h-4 w-4 flex-none" />
-        <span className="text-xs">Upload</span>
+        <AddImageOutline className="size-4 flex-none" />
       </label>
       {!thumbnails.length && uploadedMedia.file?.size ? (
         <ThumbnailsShimmer />
@@ -162,39 +113,33 @@ const ChooseThumbnail: FC<Props> = ({ file }) => {
           <button
             key={idx}
             type="button"
-            disabled={uploadedMedia.uploadingThumbnail}
             onClick={() => onSelectThumbnail(idx)}
-            className={clsx(
-              'relative w-full flex-none overflow-hidden rounded-lg ring-1 ring-white focus:outline-none disabled:!cursor-not-allowed dark:ring-black',
-              {
-                '!ring-brand-500 !ring':
-                  thumbnail.ipfsUrl &&
-                  selectedThumbnailIndex === idx &&
-                  thumbnail.ipfsUrl === uploadedMedia.thumbnail
-              }
-            )}
+            className="tape-border relative h-full w-full flex-none overflow-hidden rounded-md dark:ring-black"
           >
-            <AspectRatio ratio={16 / 9}>
-              <img
-                className={clsx(
-                  'h-full w-full rounded-lg',
-                  uploadedMedia.isByteVideo ? 'object-contain' : 'object-cover'
-                )}
-                src={thumbnail.blobUrl}
-                alt="thumbnail"
-                draggable={false}
-              />
-            </AspectRatio>
+            <img
+              className={tw(
+                'h-full w-full rounded-md',
+                uploadedMedia.isByteVideo ? 'object-contain' : 'object-cover'
+              )}
+              src={thumbnail.blobUrl}
+              alt="thumbnail"
+              draggable={false}
+            />
+            {selectedThumbnailIndex === idx && (
+              <div className="absolute inset-0 grid place-items-center bg-gray-800 bg-opacity-50">
+                <CheckOutline className="text-brand-500 size-4" />
+              </div>
+            )}
             {uploadedMedia.uploadingThumbnail &&
               selectedThumbnailIndex === idx && (
                 <div className="absolute inset-0 grid place-items-center bg-gray-100 bg-opacity-10 backdrop-blur-md">
-                  <Loader size="sm" />
+                  <Spinner size="sm" />
                 </div>
               )}
           </button>
         )
       })}
-    </Grid>
+    </div>
   )
 }
 

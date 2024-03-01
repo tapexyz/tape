@@ -1,14 +1,14 @@
-import Badge from '@components/Common/Badge'
-import InterweaveContent from '@components/Common/InterweaveContent'
-import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
+import Badge from '@components/Common/Badge';
+import InterweaveContent from '@components/Common/InterweaveContent';
+import { NoDataFound } from '@components/UIElements/NoDataFound';
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis';
 import {
   ERROR_MESSAGE,
   INFINITE_SCROLL_ROOT_MARGIN,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
   SIGN_IN_REQUIRED
-} from '@dragverse/constants'
+} from '@dragverse/constants';
 import {
   checkLensManagerPermissions,
   getProfile,
@@ -17,31 +17,30 @@ import {
   getSignature,
   imageCdn,
   sanitizeDStorageUrl
-} from '@dragverse/generic'
+} from '@dragverse/generic';
 import type {
   CreateUnblockProfilesBroadcastItemResult,
   Profile,
   WhoHaveBlockedRequest
-} from '@dragverse/lens'
+} from '@dragverse/lens';
 import {
   LimitType,
   useBroadcastOnchainMutation,
   useCreateUnblockProfilesTypedDataMutation,
   useUnblockMutation,
   useWhoHaveBlockedQuery
-} from '@dragverse/lens'
-import { useApolloClient } from '@dragverse/lens/apollo'
-import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
-import { Loader } from '@dragverse/ui'
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import useNonceStore from '@lib/store/nonce'
-import useProfileStore from '@lib/store/profile'
-import { Avatar, Button } from '@radix-ui/themes'
-import Link from 'next/link'
-import { useState } from 'react'
-import { useInView } from 'react-cool-inview'
-import toast from 'react-hot-toast'
-import { useContractWrite, useSignTypedData } from 'wagmi'
+} from '@dragverse/lens';
+import { useApolloClient } from '@dragverse/lens/apollo';
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types';
+import { Button, Spinner } from '@dragverse/ui';
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
+import useProfileStore from '@lib/store/idb/profile';
+import useNonceStore from '@lib/store/nonce';
+import Link from 'next/link';
+import { useState } from 'react';
+import { useInView } from 'react-cool-inview';
+import toast from 'react-hot-toast';
+import { useSignTypedData, useWriteContract } from 'wagmi';
 
 const List = () => {
   const [unblockingProfileId, setUnblockingProfileId] = useState('')
@@ -103,16 +102,24 @@ const List = () => {
   })
 
   const { signTypedDataAsync } = useSignTypedData({
-    onError
+    mutation: { onError }
   })
 
-  const { write } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
-    abi: LENSHUB_PROXY_ABI,
-    functionName: 'setBlockStatus',
-    onSuccess: () => onCompleted(),
-    onError
+  const { writeContractAsync } = useWriteContract({
+    mutation: {
+      onSuccess: () => onCompleted(),
+      onError
+    }
   })
+
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
+      address: LENSHUB_PROXY_ADDRESS,
+      abi: LENSHUB_PROXY_ABI,
+      functionName: 'setBlockStatus',
+      args
+    })
+  }
 
   const [broadcast] = useBroadcastOnchainMutation({
     onCompleted: ({ broadcastOnchain }) =>
@@ -136,11 +143,11 @@ const List = () => {
           variables: { request: { id, signature } }
         })
         if (data?.broadcastOnchain?.__typename === 'RelayError') {
-          return write({ args })
+          return await write({ args })
         }
         return
       }
-      return write({ args })
+      return await write({ args })
     } catch {
       setUnblockingProfileId('')
     }
@@ -168,7 +175,7 @@ const List = () => {
   const blockedProfiles = data?.whoHaveBlocked.items as Profile[]
 
   if (loading) {
-    return <Loader className="my-20" />
+    return <Spinner className="my-20" />
   }
 
   if (!blockedProfiles?.length || error) {
@@ -179,9 +186,7 @@ const List = () => {
     if (!activeProfile?.id) {
       return toast.error(SIGN_IN_REQUIRED)
     }
-    if (handleWrongNetwork()) {
-      return
-    }
+    await handleWrongNetwork()
 
     try {
       setUnblockingProfileId(profileId)
@@ -213,21 +218,17 @@ const List = () => {
             className="bg-brand-500 relative h-20 w-full bg-cover bg-center bg-no-repeat"
           >
             <div className="absolute bottom-2 left-2 flex-none">
-              <Avatar
-                className="border-2 border-white bg-white object-cover dark:bg-gray-900"
-                size="3"
-                fallback={getProfile(profile)?.displayName[0] ?? ';)'}
-                radius="medium"
+              <img
+                className="size-8 rounded-full border-2 border-white bg-white object-cover dark:bg-gray-900"
                 src={getProfilePicture(profile, 'AVATAR')}
                 alt={getProfile(profile)?.displayName}
+                draggable={false}
               />
             </div>
             <div className="absolute bottom-2 right-2 flex-none">
               <Button
                 onClick={() => onClickUnblock(profile.id)}
                 disabled={unblockingProfileId === profile.id}
-                highContrast
-                size="1"
               >
                 Unblock
               </Button>
@@ -253,7 +254,7 @@ const List = () => {
       ))}
       {pageInfo?.next && (
         <span ref={observe} className="flex justify-center p-10">
-          <Loader />
+          <Spinner />
         </span>
       )}
     </div>

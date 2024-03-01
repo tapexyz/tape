@@ -1,22 +1,22 @@
-import { LENS_CUSTOM_FILTERS } from '@dragverse/constants'
+import { LENS_CUSTOM_FILTERS } from '@dragverse/constants';
 import type {
-    AnyPublication,
-    Comment,
-    PublicationsRequest
-} from '@dragverse/lens'
-import { LimitType, usePublicationsQuery } from '@dragverse/lens'
-import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
-import type { BottomSheetModal } from '@gorhom/bottom-sheet'
-import { Skeleton } from 'moti/skeleton'
-import type { FC } from 'react'
-import React, { useRef } from 'react'
-import { Pressable, StyleSheet, View } from 'react-native'
+  AnyPublication,
+  Comment,
+  PublicationsRequest
+} from '@dragverse/lens';
+import { LimitType, usePublicationsQuery } from '@dragverse/lens';
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types';
+import type { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { Skeleton } from 'moti/skeleton';
+import type { FC } from 'react';
+import React, { useRef } from 'react';
+import { Pressable, StyleSheet, View } from 'react-native';
 
-import { useMobileTheme } from '~/hooks'
+import { useMobileTheme } from '~/hooks';
 
-import CommentsSheet from '../sheets/CommentsSheet'
-import CommentButton from './CommentButton'
-import RenderComment from './RenderComment'
+import CommentsSheet from '../sheets/CommentsSheet';
+import CommentButton from './CommentButton';
+import RenderComment from './RenderComment';
 
 // fixed height to fix CLS between comment and comment button
 const CONTAINER_HEIGHT = 80

@@ -1,6 +1,5 @@
 import Link from 'next/link'
 import type { ReactElement } from 'react'
-import React from 'react'
 
 const ArweaveExplorerLink = ({
   txId,
@@ -11,7 +10,7 @@ const ArweaveExplorerLink = ({
 }) => {
   return (
     <Link
-      href={`https://explorer.irys.xyz/transactions/${txId}`}
+      href={`https://api.dragverse.app/gateway/ar/${txId}?pretty`}
       rel="noreferer noreferrer"
       target="_blank"
     >

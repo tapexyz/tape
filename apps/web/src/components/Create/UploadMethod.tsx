@@ -1,34 +1,36 @@
-import { IPFS_FREE_UPLOAD_LIMIT } from '@dragverse/constants'
-import { canUploadedToIpfs, formatMB } from '@dragverse/generic'
-import useAppStore from '@lib/store'
-import { Text } from '@radix-ui/themes'
-import { useEffect } from 'react'
+import { canUploadedToIpfs } from '@dragverse/generic';
+import useAppStore from '@lib/store';
+import useProfileStore from '@lib/store/idb/profile';
+import { useEffect } from 'react';
 
-import IrysInfo from './IrysInfo'
+import IrysInfo from './IrysInfo';
 
 const UploadMethod = () => {
   const uploadedMedia = useAppStore((state) => state.uploadedMedia)
   const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
+  const activeProfile = useProfileStore((state) => state.activeProfile)
 
-  const isUnderFreeLimit = canUploadedToIpfs(uploadedMedia.file?.size)
+  const canUploadToIpfs = canUploadedToIpfs(
+    uploadedMedia.file?.size || 0,
+    activeProfile?.sponsor
+  )
 
   useEffect(() => {
-    if (!isUnderFreeLimit) {
+    if (!canUploadToIpfs) {
       setUploadedMedia({ isUploadToIpfs: false })
     }
-  }, [isUnderFreeLimit, setUploadedMedia])
+  }, [canUploadToIpfs, setUploadedMedia])
 
-  if (isUnderFreeLimit) {
+  if (canUploadToIpfs) {
     return null
   }
 
   return (
     <div className="pt-4">
-      <Text weight="medium">
-        Please note that your media exceeds the free limit (
-        {formatMB(IPFS_FREE_UPLOAD_LIMIT)}), and you can proceed with the upload
-        by paying the storage fee.
-      </Text>
+      <span className="font-medium">
+        Your current upload exceeds the free limit, and to proceed with the
+        upload, you may consider covering the storage fee.
+      </span>
       <IrysInfo />
     </div>
   )

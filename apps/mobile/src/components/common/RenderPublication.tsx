@@ -1,16 +1,21 @@
-import { getRelativeTime, trimNewLines } from '@dragverse/generic'
-import type { MirrorablePublication } from '@dragverse/lens'
-import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
-import type { FC } from 'react'
-import React, { memo } from 'react'
-import { Pressable, StyleSheet, Text, View } from 'react-native'
+import {
+  getPublication,
+  getPublicationData,
+  trimNewLines
+} from '@dragverse/generic';
+import type { MirrorablePublication } from '@dragverse/lens';
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types';
+import type { FC } from 'react';
+import React, { memo } from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-import normalizeFont from '~/helpers/normalize-font'
-import { useMobileTheme } from '~/hooks'
+import { getRelativeTime } from '~/helpers/format-time';
+import normalizeFont from '~/helpers/normalize-font';
+import { useMobileTheme } from '~/hooks';
 
-import ImageSlider from '../ui/ImageSlider'
-import RenderMarkdown from './markdown/RenderMarkdown'
-import UserProfile from './UserProfile'
+import ImageSlider from '../ui/ImageSlider';
+import RenderMarkdown from './markdown/RenderMarkdown';
+import UserProfile from './UserProfile';
 
 type Props = {
   publication: MirrorablePublication
@@ -60,12 +65,10 @@ const RenderPublication: FC<Props> = ({ publication }) => {
   const { themeConfig } = useMobileTheme()
   const style = styles(themeConfig)
 
-  const media =
-    publication.metadata.__typename !== 'TextOnlyMetadataV3' &&
-    publication.metadata.__typename !== 'StoryMetadataV3' &&
-    publication.metadata.__typename !== 'LegacyPublicationMetadata'
-      ? publication.metadata.attachments
-      : publication.metadata.conditionalMedia
+  const media = getPublicationData(getPublication(publication).metadata)
+    ?.attachments as {
+    uri: string
+  }[]
 
   const isTextPost =
     publication.metadata.__typename === 'TextOnlyMetadataV3' ||

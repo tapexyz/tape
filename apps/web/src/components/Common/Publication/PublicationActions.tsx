@@ -1,19 +1,21 @@
-import CollectOutline from '@components/Common/Icons/CollectOutline'
-import MirrorOutline from '@components/Common/Icons/MirrorOutline'
-import ThreeDotsOutline from '@components/Common/Icons/ThreeDotsOutline'
-import TipOutline from '@components/Common/Icons/TipOutline'
-import MirrorPublication from '@components/Common/MirrorPublication'
-import PublicationOptions from '@components/Common/Publication/PublicationOptions'
-import { EVENTS, getProfile, Tower } from '@dragverse/generic'
-import type { MirrorablePublication } from '@dragverse/lens'
-import { TriStateValue } from '@dragverse/lens'
-import { Button, Dialog, IconButton } from '@radix-ui/themes'
-import type { FC } from 'react'
-import { useState } from 'react'
+import MirrorPublication from '@components/Common/MirrorPublication';
+import PublicationOptions from '@components/Common/Publication/PublicationOptions';
+import { getProfile } from '@dragverse/generic';
+import type { MirrorablePublication } from '@dragverse/lens';
+import { TriStateValue } from '@dragverse/lens';
+import {
+  CollectOutline,
+  MirrorOutline,
+  Modal,
+  ThreeDotsOutline,
+  TipOutline
+} from '@dragverse/ui';
+import type { FC } from 'react';
+import { useState } from 'react';
 
-import OpenActions from '../../Watch/OpenActions'
-import TipForm from '../../Watch/TipForm'
-import PublicationReaction from './PublicationReaction'
+import OpenActions from '../../Watch/OpenActions';
+import TipForm from '../../Watch/TipForm';
+import PublicationReaction from './PublicationReaction';
 
 type Props = {
   publication: MirrorablePublication
@@ -22,59 +24,50 @@ type Props = {
 const PublicationActions: FC<Props> = ({ publication }) => {
   const [showTip, setShowTip] = useState(false)
   return (
-    <div className="flex items-center justify-end space-x-2">
-      <PublicationReaction
-        publication={publication}
-        textSize="inherit"
-        iconSize="base"
-        variant="surface"
-        color="purple"
-      />
-      {publication.operations.canComment !== TriStateValue.No && (
-        <Dialog.Root open={showTip}>
-          <Dialog.Trigger>
-            <Button
-              variant="surface"
-              color="purple"
-              highContrast
-              onClick={() => {
-                setShowTip(true)
-                Tower.track(EVENTS.PUBLICATION.TIP.OPEN)
-              }}
+    <div className="mt-4 flex justify-end space-x-1">
+      <div className="tape-border flex items-center justify-end overflow-hidden rounded-full bg-gray-100 dark:bg-gray-900">
+        <PublicationReaction
+          publication={publication}
+          textSize="inherit"
+          iconSize="base"
+          className="flex items-center px-4 py-1 hover:bg-gray-200 dark:hover:bg-gray-800"
+        />
+        {publication.operations.canComment !== TriStateValue.No ? (
+          <>
+            <button
+              onClick={() => setShowTip(true)}
+              className="flex items-center space-x-1 px-4 py-1 hover:bg-gray-200 dark:hover:bg-gray-800"
             >
-              <TipOutline className="h-4 w-4" />
-              Tip
-            </Button>
-          </Dialog.Trigger>
-
-          <Dialog.Content style={{ maxWidth: 450 }}>
-            <Dialog.Title>
-              Tip @{getProfile(publication.by)?.displayName}
-            </Dialog.Title>
-            <Dialog.Description size="2" mb="4">
-              Show appreciation with a comment and tip.
-            </Dialog.Description>
-
-            <TipForm video={publication} setShow={setShowTip} />
-          </Dialog.Content>
-        </Dialog.Root>
-      )}
-      <MirrorPublication video={publication}>
-        <Button variant="surface" color="purple" highContrast>
-          <MirrorOutline className="h-4 w-4 flex-none" />
-          Mirror
-        </Button>
-      </MirrorPublication>
-      <OpenActions publication={publication}>
-        <Button variant="surface" color="pink" highContrast>
-          <CollectOutline className="h-4 w-4 flex-none" />
-          Collect
-        </Button>
-      </OpenActions>
+              <TipOutline className="size-4 flex-none" />
+              <span>Tip</span>
+            </button>
+            <Modal
+              show={showTip}
+              setShow={setShowTip}
+              title={`Tip ${getProfile(publication.by)?.displayName}`}
+              description="Show appreciation with a comment and tip."
+            >
+              <TipForm video={publication} setShow={setShowTip} />
+            </Modal>
+          </>
+        ) : null}
+        <MirrorPublication video={publication}>
+          <button className="flex items-center space-x-1 px-4 py-1 hover:bg-gray-200 dark:hover:bg-gray-800">
+            <MirrorOutline className="size-4 flex-none" />
+            <span>Mirror</span>
+          </button>
+        </MirrorPublication>
+        <OpenActions publication={publication}>
+          <div className="flex items-center space-x-1 px-4 py-1 hover:bg-gray-200 dark:hover:bg-gray-800">
+            <CollectOutline className="size-4" />
+            <span>Actions</span>
+          </div>
+        </OpenActions>
+      </div>
       <PublicationOptions publication={publication}>
-        <IconButton variant="surface" color="purple" highContrast>
-          <ThreeDotsOutline className="h-4 w-4" />
-        </IconButton>
+        <button className="tape-border flex items-center space-x-1 rounded-full bg-gray-100 p-2 hover:bg-gray-200 dark:bg-gray-900 dark:hover:bg-gray-800">
+          <ThreeDotsOutline className="size-4" />
+        </button>
       </PublicationOptions>
     </div>
   )

@@ -1,8 +1,11 @@
 import Badge from '@components/Common/Badge'
+import HoverableProfile from '@components/Common/HoverableProfile'
 import LatestBytesShimmer from '@components/Shimmers/LatestBytesShimmer'
+import { getUnixTimestampForDaysAgo } from '@lib/formatTime'
 import {
   FALLBACK_THUMBNAIL_URL,
   LENS_CUSTOM_FILTERS,
+  LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
 } from '@dragverse/constants'
 import {
@@ -25,14 +28,17 @@ import {
 } from '@dragverse/lens'
 import Link from 'next/link'
 
+const since = getUnixTimestampForDaysAgo(30)
+
 const request: ExplorePublicationRequest = {
   where: {
     publicationTypes: [ExplorePublicationType.Post],
     customFilters: LENS_CUSTOM_FILTERS,
     metadata: {
       mainContentFocus: [PublicationMetadataMainFocusType.ShortVideo],
-      publishedOn: [TAPE_APP_ID]
-    }
+      publishedOn: [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID]
+    },
+    since
   },
   orderBy: ExplorePublicationsOrderByType.LensCurated,
   limit: LimitType.Ten
@@ -81,23 +87,25 @@ const LatestBytes = () => {
               </div>
             </Link>
             <span>
-              <Link
-                href={getProfile(byte.by)?.link}
-                className="inline-flex items-center space-x-1 px-3 py-1"
-              >
-                <img
-                  className="h-4 w-4 rounded-full bg-gray-200 dark:bg-gray-800"
-                  src={getProfilePicture(byte.by, 'AVATAR')}
-                  height={50}
-                  width={50}
-                  alt={`${getProfile(byte.by)?.slug}'s PFP`}
-                  draggable={false}
-                />
-                <span className="flex items-center space-x-1 font-medium">
-                  <span>{getProfile(byte.by)?.slug}</span>
-                  <Badge id={byte.by.id} size="xs" />
-                </span>
-              </Link>
+              <HoverableProfile profile={byte.by} key={byte.by?.id}>
+                <Link
+                  href={getProfile(byte.by)?.link}
+                  className="inline-flex items-center space-x-1 px-3 py-1"
+                >
+                  <img
+                    className="size-4 rounded-full bg-gray-200 dark:bg-gray-800"
+                    src={getProfilePicture(byte.by, 'AVATAR')}
+                    height={50}
+                    width={50}
+                    alt={`${getProfile(byte.by)?.slug}'s PFP`}
+                    draggable={false}
+                  />
+                  <span className="flex items-center space-x-1 font-medium">
+                    <span>{getProfile(byte.by)?.slug}</span>
+                    <Badge id={byte.by.id} size="xs" />
+                  </span>
+                </Link>
+              </HoverableProfile>
             </span>
           </div>
         )

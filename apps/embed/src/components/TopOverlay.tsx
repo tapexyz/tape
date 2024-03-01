@@ -1,22 +1,21 @@
-import { useCopyToClipboard } from '@dragverse/browser'
+import { useCopyToClipboard } from '@dragverse/browser';
 import {
-  STATIC_ASSETS,
-  TAPE_APP_NAME,
-  TAPE_WEBSITE_URL
-} from '@dragverse/constants'
+    STATIC_ASSETS,
+    TAPE_APP_NAME,
+    TAPE_WEBSITE_URL
+} from '@dragverse/constants';
 import {
-  EVENTS,
-  getProfile,
-  getProfilePicture,
-  getPublicationData,
-  Tower
-} from '@dragverse/generic'
-import type { PrimaryPublication } from '@dragverse/lens'
-import Link from 'next/link'
-import type { FC } from 'react'
-import { useEffect, useState } from 'react'
-
-import CopyOutline from './icons/CopyOutline'
+    EVENTS,
+    Tower,
+    getProfile,
+    getProfilePicture,
+    getPublicationData
+} from '@dragverse/generic';
+import type { PrimaryPublication } from '@dragverse/lens';
+import { CopyOutline } from '@dragverse/ui';
+import Link from 'next/link';
+import type { FC } from 'react';
+import { useEffect, useState } from 'react';
 
 type OverlayProps = {
   playerRef: HTMLMediaElement | undefined
@@ -62,7 +61,7 @@ const TopOverlay: FC<OverlayProps> = ({ playerRef, video }) => {
             >
               <img
                 src={getProfilePicture(video.by, 'AVATAR')}
-                className="h-9 w-9 rounded-full"
+                className="size-9 rounded-full"
                 draggable={false}
                 alt={getProfile(video.by)?.slug}
               />
@@ -96,13 +95,13 @@ const TopOverlay: FC<OverlayProps> = ({ playerRef, video }) => {
             onClick={() => onCopyVideoUrl()}
             className="bg-brand-850/50 invisible rounded-full p-3 transition-all duration-200 ease-in-out group-hover:visible"
           >
-            <CopyOutline className="h-3.5 w-3.5" />
+            <CopyOutline className="size-3.5" />
           </button>
         </div>
       </div>
       <div className="absolute bottom-2 right-0 md:bottom-4">
         <Link
-          className="rounded-l-small bg-brand-850/50 flex items-center space-x-1.5 px-3 py-1.5 text-white"
+          className="flex items-center space-x-1.5 rounded-l-full bg-brand-850/50 px-3 py-1.5 text-white"
           title={`Watch on ${TAPE_APP_NAME}`}
           href={`${TAPE_WEBSITE_URL}/watch/${video?.id}`}
           target="_blank"
@@ -111,8 +110,9 @@ const TopOverlay: FC<OverlayProps> = ({ playerRef, video }) => {
           <img
             src={`${STATIC_ASSETS}/brand/logo.svg`}
             draggable={false}
-            className="ml-0.5 h-6 w-6 md:h-10 md:w-10"
+            className="ml-2 size-5 md:size-10"
             alt={TAPE_APP_NAME}
+            width={40}
           />
           <b>Watch on Dragverse</b>
         </Link>

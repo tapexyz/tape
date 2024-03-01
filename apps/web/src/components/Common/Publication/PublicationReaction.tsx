@@ -1,19 +1,17 @@
-import HeartFilled from '@components/Common/Icons/HeartFilled'
-import HeartOutline from '@components/Common/Icons/HeartOutline'
-import { SIGN_IN_REQUIRED } from '@dragverse/constants'
-import { EVENTS, formatNumber, getPublication, Tower } from '@dragverse/generic'
-import type { AnyPublication } from '@dragverse/lens'
+import { tw } from '@dragverse/browser';
+import { SIGN_IN_REQUIRED } from '@dragverse/constants';
+import { EVENTS, formatNumber, getPublication, Tower } from '@dragverse/generic';
+import type { AnyPublication } from '@dragverse/lens';
 import {
   PublicationReactionType,
   useAddReactionMutation,
   useRemoveReactionMutation
-} from '@dragverse/lens'
-import useProfileStore from '@lib/store/profile'
-import { Button } from '@radix-ui/themes'
-import clsx from 'clsx'
-import type { FC } from 'react'
-import { useState } from 'react'
-import toast from 'react-hot-toast'
+} from '@dragverse/lens';
+import { HeartFilled, HeartOutline } from '@dragverse/ui';
+import useProfileStore from '@lib/store/idb/profile';
+import type { FC } from 'react';
+import { useState } from 'react';
+import toast from 'react-hot-toast';
 
 type Props = {
   publication: AnyPublication
@@ -22,8 +20,6 @@ type Props = {
   isVertical?: boolean
   label?: string
   className?: string
-  variant?: 'ghost' | 'surface' | 'soft'
-  color?: 'purple' | 'crimson'
 }
 
 const PublicationReaction: FC<Props> = ({
@@ -32,9 +28,7 @@ const PublicationReaction: FC<Props> = ({
   textSize = 'sm',
   isVertical = false,
   label,
-  variant = 'ghost',
-  className,
-  color
+  className
 }) => {
   const targetPublication = getPublication(publication)
 
@@ -87,15 +81,9 @@ const PublicationReaction: FC<Props> = ({
   }
 
   return (
-    <Button
-      variant={variant}
-      color={color}
-      className={className}
-      highContrast
-      onClick={() => likeVideo()}
-    >
+    <button className={className} onClick={() => likeVideo()}>
       <span
-        className={clsx(
+        className={tw(
           'flex items-center focus:outline-none',
           isVertical ? 'flex-col space-y-1' : 'space-x-1',
           {
@@ -105,24 +93,24 @@ const PublicationReaction: FC<Props> = ({
       >
         {reaction.isLiked ? (
           <HeartFilled
-            className={clsx({
-              'h-3.5 w-3.5': iconSize === 'sm',
-              'h-6 w-6': iconSize === 'lg',
-              'h-4 w-4': iconSize === 'base'
+            className={tw({
+              'size-3.5': iconSize === 'sm',
+              'size-6': iconSize === 'lg',
+              'size-4': iconSize === 'base'
             })}
           />
         ) : (
           <HeartOutline
-            className={clsx({
-              'h-3.5 w-3.5': iconSize === 'sm',
-              'h-6 w-6': iconSize === 'lg',
-              'h-4 w-4': iconSize === 'base'
+            className={tw({
+              'size-3.5': iconSize === 'sm',
+              'size-6': iconSize === 'lg',
+              'size-4': iconSize === 'base'
             })}
           />
         )}
         {label ? (
           <span
-            className={clsx({
+            className={tw({
               'text-xs': textSize === 'sm',
               'text-inherit': textSize === 'inherit',
               'text-red-400': reaction.isLiked
@@ -132,7 +120,7 @@ const PublicationReaction: FC<Props> = ({
           </span>
         ) : (
           <span
-            className={clsx({
+            className={tw({
               'text-xs': textSize === 'sm',
               'text-inherit': textSize === 'inherit',
               'text-red-400': reaction.isLiked
@@ -142,7 +130,7 @@ const PublicationReaction: FC<Props> = ({
           </span>
         )}
       </span>
-    </Button>
+    </button>
   )
 }
 

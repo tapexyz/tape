@@ -1,16 +1,17 @@
-import ReportPublication from '@components/ReportPublication'
-import Confirm from '@components/UIElements/Confirm'
-import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
+import ReportPublication from '@components/Report/Publication';
+import Confirm from '@components/UIElements/Confirm';
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis';
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
   SIGN_IN_REQUIRED,
   TAPE_APP_ID
-} from '@dragverse/constants'
+} from '@dragverse/constants';
 import {
-  checkLensManagerPermissions,
   EVENTS,
+  Tower,
+  checkLensManagerPermissions,
   getIsIPFSUrl,
   getMetadataCid,
   getProfileCoverPicture,
@@ -18,15 +19,14 @@ import {
   getSignature,
   getValueFromKeyInAttributes,
   logger,
-  Tower,
   trimify,
   uploadToAr
-} from '@dragverse/generic'
+} from '@dragverse/generic';
 import type {
   OnchainSetProfileMetadataRequest,
   PrimaryPublication,
   Profile
-} from '@dragverse/lens'
+} from '@dragverse/lens';
 import {
   useAddPublicationBookmarkMutation,
   useAddPublicationNotInterestedMutation,
@@ -36,46 +36,46 @@ import {
   useRemovePublicationBookmarkMutation,
   useSetProfileMetadataMutation,
   useUndoPublicationNotInterestedMutation
-} from '@dragverse/lens'
-import { useApolloClient } from '@dragverse/lens/apollo'
-import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import type { ProfileOptions } from '@lens-protocol/metadata'
-import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
-import useProfileStore from '@lib/store/profile'
-import { Dialog, DropdownMenu, Flex, IconButton, Text } from '@radix-ui/themes'
-import type { FC, ReactNode } from 'react'
-import { useState } from 'react'
-import toast from 'react-hot-toast'
-import { v4 as uuidv4 } from 'uuid'
-import { useContractWrite, useSignTypedData } from 'wagmi'
+} from '@dragverse/lens';
+import { useApolloClient } from '@dragverse/lens/apollo';
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types';
+import {
+  BookmarkOutline,
+  DropdownMenu,
+  DropdownMenuItem,
+  ExternalOutline,
+  FlagOutline,
+  ForbiddenOutline,
+  Modal,
+  PinOutline,
+  ShareOutline,
+  ThreeDotsOutline,
+  TrashOutline
+} from '@dragverse/ui';
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
+import type { ProfileOptions } from '@lens-protocol/metadata';
+import { MetadataAttributeType, profile } from '@lens-protocol/metadata';
+import useProfileStore from '@lib/store/idb/profile';
+import type { FC, ReactNode } from 'react';
+import { useState } from 'react';
+import toast from 'react-hot-toast';
+import { v4 as uuidv4 } from 'uuid';
+import { useSignTypedData, useWriteContract } from 'wagmi';
 
-import BookmarkOutline from '../Icons/BookmarkOutline'
-import ExternalOutline from '../Icons/ExternalOutline'
-import FlagOutline from '../Icons/FlagOutline'
-import ForbiddenOutline from '../Icons/ForbiddenOutline'
-import PinOutline from '../Icons/PinOutline'
-import ShareOutline from '../Icons/ShareOutline'
-import ThreeDotsOutline from '../Icons/ThreeDotsOutline'
-import TimesOutline from '../Icons/TimesOutline'
-import TrashOutline from '../Icons/TrashOutline'
-import ArweaveExplorerLink from '../Links/ArweaveExplorerLink'
-import IPFSLink from '../Links/IPFSLink'
-import Share from '../VideoCard/Share'
+import ArweaveExplorerLink from '../Links/ArweaveExplorerLink';
+import IPFSLink from '../Links/IPFSLink';
+import Share from '../VideoCard/Share';
 
 type Props = {
   publication: PrimaryPublication
   children?: ReactNode
-  variant?: 'soft' | 'solid' | 'classic' | 'surface' | 'outline' | 'ghost'
 }
 
-const PublicationOptions: FC<Props> = ({
-  publication,
-  variant = 'ghost',
-  children
-}) => {
+const PublicationOptions: FC<Props> = ({ publication, children }) => {
   const handleWrongNetwork = useHandleWrongNetwork()
   const [showConfirm, setShowConfirm] = useState(false)
+  const [showShareModal, setShowShareModal] = useState(false)
+  const [showReportModal, setShowReportModal] = useState(false)
 
   const { cache } = useApolloClient()
   const activeProfile = useProfileStore((state) => state.activeProfile)
@@ -88,7 +88,7 @@ const PublicationOptions: FC<Props> = ({
     'pinnedPublicationId'
   )
 
-  const [hideVideo] = useHidePublicationMutation({
+  const [hideVideo, { loading: hiding }] = useHidePublicationMutation({
     update(cache) {
       const normalizedId = cache.identify({
         id: publication?.id,
@@ -110,13 +110,13 @@ const PublicationOptions: FC<Props> = ({
     setShowConfirm(false)
   }
 
-  const onClickReport = () => {
+  const onClickReport = async () => {
     if (!activeProfile?.id) {
       return toast.error(SIGN_IN_REQUIRED)
     }
-    if (handleWrongNetwork()) {
-      return
-    }
+    await handleWrongNetwork()
+
+    setShowReportModal(true)
   }
 
   const onError = (error: CustomErrorWithData) => {
@@ -137,16 +137,24 @@ const PublicationOptions: FC<Props> = ({
   }
 
   const { signTypedDataAsync } = useSignTypedData({
-    onError
+    mutation: { onError }
   })
 
-  const { write } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
-    abi: LENSHUB_PROXY_ABI,
-    functionName: 'setProfileMetadataURI',
-    onError,
-    onSuccess: () => onCompleted()
+  const { writeContractAsync } = useWriteContract({
+    mutation: {
+      onError,
+      onSuccess: () => onCompleted()
+    }
   })
+
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
+      address: LENSHUB_PROXY_ADDRESS,
+      abi: LENSHUB_PROXY_ABI,
+      functionName: 'setProfileMetadataURI',
+      args
+    })
+  }
 
   const [broadcast] = useBroadcastOnchainMutation({
     onError,
@@ -161,17 +169,18 @@ const PublicationOptions: FC<Props> = ({
         const { profileId, metadataURI } = typedData.value
         try {
           toast.loading(REQUESTING_SIGNATURE_MESSAGE)
+
           if (canBroadcast) {
             const signature = await signTypedDataAsync(getSignature(typedData))
             const { data } = await broadcast({
               variables: { request: { id, signature } }
             })
             if (data?.broadcastOnchain?.__typename === 'RelayError') {
-              return write({ args: [profileId, metadataURI] })
+              return await write({ args: [profileId, metadataURI] })
             }
             return
           }
-          return write({ args: [profileId, metadataURI] })
+          return await write({ args: [profileId, metadataURI] })
         } catch {}
       },
       onError
@@ -196,13 +205,12 @@ const PublicationOptions: FC<Props> = ({
     if (!activeProfile) {
       return toast.error(SIGN_IN_REQUIRED)
     }
-    if (handleWrongNetwork()) {
-      return
-    }
+    await handleWrongNetwork()
 
     try {
       toast.loading(`Pinning video...`)
       const pfp = getProfilePictureUri(activeProfile as Profile)
+      const coverPicture = getProfileCoverPicture(activeProfile as Profile)
       const metadata: ProfileOptions = {
         ...(activeProfile?.metadata?.displayName && {
           name: activeProfile?.metadata.displayName
@@ -213,8 +221,10 @@ const PublicationOptions: FC<Props> = ({
         ...(pfp && {
           picture: pfp
         }),
+        ...(coverPicture && {
+          coverPicture
+        }),
         appId: TAPE_APP_ID,
-        coverPicture: getProfileCoverPicture(activeProfile),
         id: uuidv4(),
         attributes: [
           ...otherAttributes,
@@ -292,12 +302,12 @@ const PublicationOptions: FC<Props> = ({
     Tower.track(EVENTS.PUBLICATION.TOGGLE_INTEREST)
   }
 
-  const [addNotInterested] = useAddPublicationNotInterestedMutation({
+  const [addToNotInterested] = useAddPublicationNotInterestedMutation({
     onError,
     onCompleted: () => modifyInterestCache(true)
   })
 
-  const [removeNotInterested] = useUndoPublicationNotInterestedMutation({
+  const [removeFromNotInterested] = useUndoPublicationNotInterestedMutation({
     onError,
     onCompleted: () => modifyInterestCache(false)
   })
@@ -312,12 +322,12 @@ const PublicationOptions: FC<Props> = ({
     onCompleted: () => modifyListCache(false)
   })
 
-  const notInterested = () => {
+  const notInterested = async () => {
     if (!activeProfile?.id) {
       return toast.error(SIGN_IN_REQUIRED)
     }
     if (publication.operations.isNotInterested) {
-      addNotInterested({
+      await removeFromNotInterested({
         variables: {
           request: {
             on: publication.id
@@ -325,7 +335,7 @@ const PublicationOptions: FC<Props> = ({
         }
       })
     } else {
-      removeNotInterested({
+      await addToNotInterested({
         variables: {
           request: {
             on: publication.id
@@ -364,157 +374,149 @@ const PublicationOptions: FC<Props> = ({
         showConfirm={showConfirm}
         setShowConfirm={setShowConfirm}
         action={onHideVideo}
+        loading={hiding}
       />
-      <DropdownMenu.Root>
-        <DropdownMenu.Trigger>
-          {children ?? (
-            <IconButton radius="full" variant={variant} highContrast size="2">
-              <ThreeDotsOutline className="h-3.5 w-3.5" />
+      <DropdownMenu
+        trigger={
+          children ?? (
+            <button>
+              <ThreeDotsOutline className="size-3.5" />
               <span className="sr-only">Video Options</span>
-            </IconButton>
+            </button>
+          )
+        }
+      >
+        <div className="flex w-40 flex-col transition duration-150 ease-in-out">
+          <DropdownMenuItem
+            onClick={(e) => {
+              e.preventDefault()
+              setShowShareModal(true)
+            }}
+          >
+            <div className="flex items-center gap-2">
+              <ShareOutline className="size-3.5" />
+              <p className="whitespace-nowrap">Share</p>
+            </div>
+          </DropdownMenuItem>
+          <Modal
+            size="sm"
+            title="Share"
+            show={showShareModal}
+            setShow={setShowShareModal}
+          >
+            <Share publication={publication} />
+          </Modal>
+          {isVideoOwner && (
+            <>
+              {pinnedVideoId !== publication.id && (
+                <DropdownMenuItem
+                  disabled={!activeProfile?.id}
+                  onClick={() => onPinVideo()}
+                >
+                  <p className="flex items-center gap-2">
+                    <PinOutline className="size-3.5" />
+                    <span className="whitespace-nowrap">Pin Video</span>
+                  </p>
+                </DropdownMenuItem>
+              )}
+              <DropdownMenuItem onClick={() => setShowConfirm(true)}>
+                <p className="flex items-center gap-2 hover:text-red-500">
+                  <TrashOutline className="size-3.5" />
+                  <span className="whitespace-nowrap">Delete</span>
+                </p>
+              </DropdownMenuItem>
+            </>
           )}
-        </DropdownMenu.Trigger>
-        <DropdownMenu.Content sideOffset={10} variant="soft" align="end">
-          <div className="flex w-40 flex-col transition duration-150 ease-in-out">
-            <Dialog.Root>
-              <Dialog.Trigger>
-                <button className="!cursor-default rounded-md px-3 py-1.5 hover:bg-gray-500/20">
-                  <Flex align="center" gap="2">
-                    <ShareOutline className="h-3.5 w-3.5" />
-                    <Text size="2" className="whitespace-nowrap">
-                      Share
-                    </Text>
-                  </Flex>
-                </button>
-              </Dialog.Trigger>
 
-              <Dialog.Content style={{ maxWidth: 450 }}>
-                <Flex justify="between" pb="5" align="center">
-                  <Dialog.Title mb="0">Share</Dialog.Title>
-                  <Dialog.Close>
-                    <IconButton variant="ghost" color="gray">
-                      <TimesOutline outlined={false} className="h-3 w-3" />
-                    </IconButton>
-                  </Dialog.Close>
-                </Flex>
+          {!isVideoOwner && (
+            <>
+              <DropdownMenuItem
+                disabled={!activeProfile?.id}
+                onClick={() => saveToList()}
+              >
+                <p className="flex items-center gap-2">
+                  <BookmarkOutline className="size-3.5 flex-none" />
+                  <span className="truncate whitespace-nowrap">
+                    {publication.operations.hasBookmarked ? 'Unsave' : 'Save'}
+                  </span>
+                </p>
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                disabled={!activeProfile?.id}
+                onClick={() => notInterested()}
+              >
+                <p className="flex items-center gap-2">
+                  <ForbiddenOutline className="size-3.5" />
+                  <span className="whitespace-nowrap">
+                    {publication.operations.isNotInterested
+                      ? 'Interested'
+                      : 'Not Interested'}
+                  </span>
+                </p>
+              </DropdownMenuItem>
+              <Modal
+                title="Report"
+                show={showReportModal}
+                setShow={setShowReportModal}
+              >
+                <ReportPublication
+                  publication={publication}
+                  close={() => setShowReportModal(false)}
+                />
+              </Modal>
+              <DropdownMenuItem
+                onClick={(e) => {
+                  e.preventDefault()
+                  onClickReport()
+                }}
+              >
+                <div className="flex items-center gap-2">
+                  <FlagOutline className="size-3.5" />
+                  <p className="whitespace-nowrap">Report</p>
+                </div>
+              </DropdownMenuItem>
 
-                <Share publication={publication} />
-              </Dialog.Content>
-            </Dialog.Root>
-            {isVideoOwner && (
-              <>
-                {pinnedVideoId !== publication.id && (
-                  <DropdownMenu.Item
-                    disabled={!activeProfile?.id}
-                    onClick={() => onPinVideo()}
+              {getIsIPFSUrl(publication.metadata.rawURI) ? (
+                <IPFSLink hash={getMetadataCid(publication)}>
+                  <DropdownMenuItem
+                    onClick={() => Tower.track(EVENTS.CLICK_VIEW_METADATA)}
                   >
-                    <Flex align="center" gap="2">
-                      <PinOutline className="h-3.5 w-3.5" />
-                      <span className="whitespace-nowrap">Pin Video</span>
-                    </Flex>
-                  </DropdownMenu.Item>
-                )}
-                <DropdownMenu.Item
-                  color="red"
-                  onClick={() => setShowConfirm(true)}
-                >
-                  <Flex align="center" gap="2">
-                    <TrashOutline className="h-3.5 w-3.5" />
-                    <span className="whitespace-nowrap">Delete</span>
-                  </Flex>
-                </DropdownMenu.Item>
-              </>
-            )}
-
-            {!isVideoOwner && (
-              <>
-                <DropdownMenu.Item
-                  disabled={!activeProfile?.id}
-                  onClick={() => saveToList()}
-                >
-                  <Flex align="center" gap="2">
-                    <BookmarkOutline className="h-3.5 w-3.5 flex-none" />
-                    <span className="truncate whitespace-nowrap">
-                      {publication.operations.hasBookmarked ? 'Unsave' : 'Save'}
-                    </span>
-                  </Flex>
-                </DropdownMenu.Item>
-                <DropdownMenu.Item
-                  disabled={!activeProfile?.id}
-                  onClick={() => notInterested()}
-                >
-                  <Flex align="center" gap="2">
-                    <ForbiddenOutline className="h-3.5 w-3.5" />
-                    <span className="whitespace-nowrap">
-                      {publication.operations.isNotInterested
-                        ? 'Interested'
-                        : 'Not Interested'}
-                    </span>
-                  </Flex>
-                </DropdownMenu.Item>
-                <Dialog.Root>
-                  <Dialog.Trigger disabled={!activeProfile?.id}>
-                    <button
-                      className="!cursor-default rounded-md px-3 py-1.5 hover:bg-gray-500/20"
-                      onClick={() => onClickReport()}
-                    >
-                      <Flex align="center" gap="2">
-                        <FlagOutline className="h-3.5 w-3.5" />
-                        <Text size="2" className="whitespace-nowrap">
-                          Report
-                        </Text>
-                      </Flex>
-                    </button>
-                  </Dialog.Trigger>
-
-                  <Dialog.Content style={{ maxWidth: 450 }}>
-                    <Dialog.Title>Report</Dialog.Title>
-                    <ReportPublication publication={publication} />
-                  </Dialog.Content>
-                </Dialog.Root>
-
-                {getIsIPFSUrl(publication.metadata.rawURI) ? (
-                  <IPFSLink hash={getMetadataCid(publication)}>
-                    <DropdownMenu.Item
-                      onClick={() => Tower.track(EVENTS.CLICK_VIEW_METADATA)}
-                    >
-                      <Flex align="center" gap="2">
-                        <ExternalOutline className="h-3.5 w-3.5" />
-                        <span className="whitespace-nowrap">View metadata</span>
-                      </Flex>
-                    </DropdownMenu.Item>
-                  </IPFSLink>
-                ) : (
-                  <ArweaveExplorerLink txId={getMetadataCid(publication)}>
-                    <DropdownMenu.Item
-                      onClick={() => Tower.track(EVENTS.CLICK_VIEW_METADATA)}
-                    >
-                      <Flex align="center" gap="2">
-                        <ExternalOutline className="h-3.5 w-3.5" />
-                        <span className="whitespace-nowrap">View metadata</span>
-                      </Flex>
-                    </DropdownMenu.Item>
-                  </ArweaveExplorerLink>
-                )}
-                {publication.momoka?.proof && (
-                  <ArweaveExplorerLink
-                    txId={publication.momoka?.proof?.replace('ar://', '')}
+                    <p className="flex items-center gap-2">
+                      <ExternalOutline className="size-3.5" />
+                      <span className="whitespace-nowrap">View metadata</span>
+                    </p>
+                  </DropdownMenuItem>
+                </IPFSLink>
+              ) : (
+                <ArweaveExplorerLink txId={getMetadataCid(publication)}>
+                  <DropdownMenuItem
+                    onClick={() => Tower.track(EVENTS.CLICK_VIEW_METADATA)}
                   >
-                    <DropdownMenu.Item
-                      onClick={() => Tower.track(EVENTS.CLICK_VIEW_PROOF)}
-                    >
-                      <Flex align="center" gap="2">
-                        <ExternalOutline className="h-3.5 w-3.5" />
-                        <span className="whitespace-nowrap">View proof</span>
-                      </Flex>
-                    </DropdownMenu.Item>
-                  </ArweaveExplorerLink>
-                )}
-              </>
-            )}
-          </div>
-        </DropdownMenu.Content>
-      </DropdownMenu.Root>
+                    <p className="flex items-center gap-2">
+                      <ExternalOutline className="size-3.5" />
+                      <span className="whitespace-nowrap">View metadata</span>
+                    </p>
+                  </DropdownMenuItem>
+                </ArweaveExplorerLink>
+              )}
+              {publication.momoka?.proof && (
+                <ArweaveExplorerLink
+                  txId={publication.momoka?.proof?.replace('ar://', '')}
+                >
+                  <DropdownMenuItem
+                    onClick={() => Tower.track(EVENTS.CLICK_VIEW_PROOF)}
+                  >
+                    <p className="flex items-center gap-2">
+                      <ExternalOutline className="size-3.5" />
+                      <span className="whitespace-nowrap">View proof</span>
+                    </p>
+                  </DropdownMenuItem>
+                </ArweaveExplorerLink>
+              )}
+            </>
+          )}
+        </div>
+      </DropdownMenu>
     </>
   )
 }

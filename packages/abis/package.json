@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@dragverse/config": "*",
-    "@types/node": "^20.9.2",
-    "typescript": "^5.2.2"
+    "@types/node": "^20.11.22",
+    "typescript": "^5.3.3"
   }
 }

@@ -1,37 +1,37 @@
-import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@dragverse/constants'
-import { getThumbnailUrl, imageCdn } from '@dragverse/generic'
+import { LENS_CUSTOM_FILTERS } from '@dragverse/constants';
+import { getThumbnailUrl, imageCdn } from '@dragverse/generic';
 import {
-    ExplorePublicationsOrderByType,
-    ExplorePublicationType,
-    LimitType,
-    PublicationMetadataMainFocusType,
-    useExplorePublicationsQuery,
-    type ExplorePublicationRequest,
-    type MirrorablePublication
-} from '@dragverse/lens'
-import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
-import { useNavigation } from '@react-navigation/native'
-import { Image as ExpoImage } from 'expo-image'
-import { Gyroscope } from 'expo-sensors'
-import { Skeleton } from 'moti/skeleton'
-import React, { useCallback, useEffect } from 'react'
-import { Pressable, StyleSheet, View } from 'react-native'
+  ExplorePublicationType,
+  ExplorePublicationsOrderByType,
+  LimitType,
+  PublicationMetadataMainFocusType,
+  useExplorePublicationsQuery,
+  type ExplorePublicationRequest,
+  type MirrorablePublication
+} from '@dragverse/lens';
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types';
+import { useNavigation } from '@react-navigation/native';
+import { Image as ExpoImage } from 'expo-image';
+import { Gyroscope } from 'expo-sensors';
+import { Skeleton } from 'moti/skeleton';
+import React, { useCallback, useEffect } from 'react';
+import { Pressable, StyleSheet, View } from 'react-native';
 import Animated, {
-    interpolate,
-    useAnimatedStyle,
-    useDerivedValue,
-    useSharedValue,
-    withSpring
-} from 'react-native-reanimated'
+  interpolate,
+  useAnimatedStyle,
+  useDerivedValue,
+  useSharedValue,
+  withSpring
+} from 'react-native-reanimated';
 
-import haptic from '~/helpers/haptic'
-import { colors } from '~/helpers/theme'
-import { useMobileTheme, usePlatform } from '~/hooks'
-import useMobileStore from '~/store'
+import haptic from '~/helpers/haptic';
+import { colors } from '~/helpers/theme';
+import { useMobileTheme, usePlatform } from '~/hooks';
+import useMobileStore from '~/store';
 
-import UserProfile from '../common/UserProfile'
-import AnimatedPressable from '../ui/AnimatedPressable'
-import ServerError from '../ui/ServerError'
+import UserProfile from '../common/UserProfile';
+import AnimatedPressable from '../ui/AnimatedPressable';
+import ServerError from '../ui/ServerError';
 
 const BORDER_RADIUS = 20
 
@@ -171,7 +171,7 @@ const ByteCards = () => {
         <>
           <ExpoImage
             source={{
-              uri: imageCdn(getThumbnailUrl(byte, true), 'THUMBNAIL_V')
+              uri: imageCdn(getThumbnailUrl(byte.metadata, true), 'THUMBNAIL_V')
             }}
             contentFit="cover"
             transition={300}
@@ -201,8 +201,7 @@ const ByteCards = () => {
       publicationTypes: [ExplorePublicationType.Post],
       customFilters: LENS_CUSTOM_FILTERS,
       metadata: {
-        mainContentFocus: [PublicationMetadataMainFocusType.Video],
-        publishedOn: [LENSTUBE_BYTES_APP_ID]
+        mainContentFocus: [PublicationMetadataMainFocusType.ShortVideo]
       }
     }
   }

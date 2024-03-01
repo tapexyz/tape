@@ -1,39 +1,40 @@
-import ChevronRightOutline from '@components/Common/Icons/ChevronRightOutline'
-import SplitOutline from '@components/Common/Icons/SplitOutline'
-import Tooltip from '@components/UIElements/Tooltip'
-import { LimitType, useEnabledCurrenciesQuery } from '@dragverse/lens'
-import type { CollectModuleType } from '@dragverse/lens/custom-types'
-import useAppStore from '@lib/store'
-import useProfileStore from '@lib/store/profile'
-import { Button, Dialog, Flex } from '@radix-ui/themes'
-import { useState } from 'react'
+import { EVENTS, Tower } from '@dragverse/generic';
+import type { CollectModuleType } from '@dragverse/lens/custom-types';
+import {
+  Button,
+  Checkbox,
+  ChevronRightOutline,
+  Modal,
+  SplitOutline,
+  Tooltip
+} from '@dragverse/ui';
+import useAppStore from '@lib/store';
+import useCollectStore from '@lib/store/idb/collect';
+import { useState } from 'react';
 
-import ChargeQuestion from './ChargeQuestion'
-import CollectDuration from './CollectDuration'
-import EditionSize from './EditionSize'
-import FeeCollectForm from './FeeCollectForm'
-import PermissionQuestion from './PermissionQuestion'
+import ChargeQuestion from './ChargeQuestion';
+import CollectDuration from './CollectDuration';
+import EditionSize from './EditionSize';
+import FeeCollectForm from './FeeCollectForm';
+import PermissionQuestion from './PermissionQuestion';
 
 const CollectModule = () => {
   const [showModal, setShowModal] = useState(false)
   const uploadedMedia = useAppStore((state) => state.uploadedMedia)
   const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
-  const activeProfile = useProfileStore((state) => state.activeProfile)
+  const setPersistedCollectModule = useCollectStore(
+    (state) => state.setCollectModule
+  )
+  const saveAsDefault = useCollectStore((state) => state.saveAsDefault)
+  const setSaveAsDefault = useCollectStore((state) => state.setSaveAsDefault)
 
   const setCollectType = (data: CollectModuleType) => {
-    setUploadedMedia({
-      collectModule: { ...uploadedMedia.collectModule, ...data }
-    })
+    const collectModule = { ...uploadedMedia.collectModule, ...data }
+    setUploadedMedia({ collectModule })
+    if (saveAsDefault) {
+      setPersistedCollectModule(collectModule)
+    }
   }
-
-  const { data: enabledCurrencies } = useEnabledCurrenciesQuery({
-    variables: {
-      request: {
-        limit: LimitType.Fifty
-      }
-    },
-    skip: !activeProfile?.id
-  })
 
   const getSelectedCollectType = () => {
     const followerOnlyCollect = uploadedMedia.collectModule.followerOnlyCollect
@@ -59,10 +60,7 @@ const CollectModule = () => {
             content={`Split revenue enabled with ${multiRecipients?.length} recipients`}
           >
             <span>
-              <SplitOutline
-                className="mr-2 h-5 w-5 rotate-90"
-                outline={false}
-              />
+              <SplitOutline className="mr-2 size-5 rotate-90" outline={false} />
             </span>
           </Tooltip>
         )}
@@ -72,62 +70,70 @@ const CollectModule = () => {
 
   return (
     <div className="mt-2 pb-2">
-      <Dialog.Root open={showModal} onOpenChange={setShowModal}>
-        <Dialog.Trigger>
-          <Button
-            variant="surface"
-            type="button"
-            onClick={() => setShowModal(true)}
-            className="w-full"
-          >
-            <Flex align="center" width="100%" justify="between">
-              <span>{getSelectedCollectType()}</span>
-              <ChevronRightOutline className="h-3 w-3" />
-            </Flex>
-          </Button>
-        </Dialog.Trigger>
-
-        <Dialog.Content style={{ maxWidth: 550 }}>
-          <Dialog.Title>Collectible</Dialog.Title>
-          <Flex direction="column" gap="3">
-            <div className="no-scrollbar max-h-[80vh] space-y-2 overflow-y-auto p-0.5">
-              <PermissionQuestion setCollectType={setCollectType} />
-              {!uploadedMedia.collectModule.isRevertCollect && (
-                <CollectDuration setCollectType={setCollectType} />
-              )}
-              {!uploadedMedia.collectModule.isRevertCollect && (
-                <EditionSize setCollectType={setCollectType} />
-              )}
-              {!uploadedMedia.collectModule.isRevertCollect && (
-                <div className="space-y-2">
-                  <ChargeQuestion setCollectType={setCollectType} />
-                  {(uploadedMedia.collectModule.isFeeCollect ||
-                    uploadedMedia.collectModule.collectLimitEnabled) &&
-                  !uploadedMedia.collectModule.isRevertCollect &&
-                  enabledCurrencies ? (
-                    <FeeCollectForm
-                      setCollectType={setCollectType}
-                      setShowModal={setShowModal}
-                      enabledCurrencies={enabledCurrencies.currencies.items}
-                    />
-                  ) : (
-                    <div className="flex justify-end pt-4">
-                      <Button
-                        type="button"
-                        highContrast
-                        onClick={() => setShowModal(false)}
-                        className="text-brand-50"
-                      >
-                        Set Collect Type
-                      </Button>
-                    </div>
-                  )}
+      <Button
+        type="button"
+        variant="secondary"
+        className="!font-normal"
+        onClick={() => setShowModal(true)}
+      >
+        <div className="flex w-full items-center justify-between">
+          <span>{getSelectedCollectType()}</span>
+          <ChevronRightOutline className="size-3" />
+        </div>
+      </Button>
+      <Modal
+        title="Collectible"
+        description={
+          <Checkbox
+            label="Save as default settings"
+            onCheckedChange={(checked) => {
+              setSaveAsDefault(checked as boolean)
+              Tower.track(EVENTS.PUBLICATION.SAVE_AS_DEFAULT_COLLECT)
+            }}
+            checked={saveAsDefault}
+          />
+        }
+        show={showModal}
+        setShow={setShowModal}
+        locked
+      >
+        <div className="no-scrollbar max-h-[70vh] space-y-2 overflow-y-auto p-0.5">
+          <PermissionQuestion setCollectType={setCollectType} />
+          {!uploadedMedia.collectModule.isRevertCollect && (
+            <CollectDuration setCollectType={setCollectType} />
+          )}
+          {!uploadedMedia.collectModule.isRevertCollect && (
+            <EditionSize setCollectType={setCollectType} />
+          )}
+          {!uploadedMedia.collectModule.isRevertCollect && (
+            <div className="space-y-2">
+              <ChargeQuestion setCollectType={setCollectType} />
+              {(uploadedMedia.collectModule.isFeeCollect ||
+                uploadedMedia.collectModule.collectLimitEnabled) &&
+              !uploadedMedia.collectModule.isRevertCollect ? (
+                <FeeCollectForm
+                  setCollectType={setCollectType}
+                  setShowModal={setShowModal}
+                />
+              ) : (
+                <div className="flex justify-end pt-4">
+                  <Button
+                    type="button"
+                    onClick={() => {
+                      if (saveAsDefault) {
+                        setPersistedCollectModule(uploadedMedia.collectModule)
+                      }
+                      setShowModal(false)
+                    }}
+                  >
+                    Set Collect Type
+                  </Button>
                 </div>
               )}
             </div>
-          </Flex>
-        </Dialog.Content>
-      </Dialog.Root>
+          )}
+        </div>
+      </Modal>
     </div>
   )
 }

@@ -1,16 +1,16 @@
-import { getSharableLink, trimify } from '@dragverse/generic'
-import type { MirrorablePublication } from '@dragverse/lens'
-import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
-import Ionicons from '@expo/vector-icons/Ionicons'
-import type { FC } from 'react'
-import React from 'react'
-import { ScrollView, Share, StyleSheet, Text } from 'react-native'
+import { getSharableLink, trimify } from '@dragverse/generic';
+import type { MirrorablePublication } from '@dragverse/lens';
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import type { FC } from 'react';
+import React from 'react';
+import { ScrollView, Share, StyleSheet, Text } from 'react-native';
 
-import haptic from '~/helpers/haptic'
-import normalizeFont from '~/helpers/normalize-font'
-import { useMobileTheme } from '~/hooks'
+import haptic from '~/helpers/haptic';
+import normalizeFont from '~/helpers/normalize-font';
+import { useMobileTheme } from '~/hooks';
 
-import AnimatedPressable from '../ui/AnimatedPressable'
+import AnimatedPressable from '../ui/AnimatedPressable';
 
 const styles = (themeConfig: MobileThemeConfig) =>
   StyleSheet.create({
@@ -86,7 +86,7 @@ const Actions: FC<Props> = ({ video }) => {
         onPress={() => {
           haptic()
           Share.share({
-            url: getSharableLink('lenstube', video),
+            url: getSharableLink('tape', video),
             message: `${title} by @${handle}`,
             title: `${title} by @${handle}`
           })

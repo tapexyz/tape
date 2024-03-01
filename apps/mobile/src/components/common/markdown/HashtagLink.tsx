@@ -1,9 +1,9 @@
-import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
-import React from 'react'
-import { StyleSheet, Text } from 'react-native'
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types';
+import React from 'react';
+import { StyleSheet, Text } from 'react-native';
 
-import normalizeFont from '~/helpers/normalize-font'
-import { useMobileTheme } from '~/hooks'
+import normalizeFont from '~/helpers/normalize-font';
+import { useMobileTheme } from '~/hooks';
 
 export type HashtagLinkProps = {
   hashtag: string

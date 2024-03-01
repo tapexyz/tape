@@ -1,15 +1,15 @@
-import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
-import Ionicons from '@expo/vector-icons/Ionicons'
-import React, { useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
-import normalizeFont from '~/helpers/normalize-font'
-import { colors } from '~/helpers/theme'
-import { useMobileTheme } from '~/hooks'
-import { useMobilePersistStore } from '~/store/persist'
+import normalizeFont from '~/helpers/normalize-font';
+import { colors } from '~/helpers/theme';
+import { useMobileTheme } from '~/hooks';
+import { useMobilePersistStore } from '~/store/persist';
 
-import Accordion from '../ui/Accordion'
-import AnimatedPressable from '../ui/AnimatedPressable'
+import Accordion from '../ui/Accordion';
+import AnimatedPressable from '../ui/AnimatedPressable';
 
 const BOX_HEIGHT = 50
 

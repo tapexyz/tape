@@ -1,17 +1,16 @@
-import { imageCdn, sanitizeDStorageUrl } from '@dragverse/generic'
-import type { MediaSet } from '@dragverse/lens'
-import { Image as ExpoImage } from 'expo-image'
-import React, { memo, useState } from 'react'
+import { imageCdn, sanitizeDStorageUrl } from '@dragverse/generic';
+import { Image as ExpoImage } from 'expo-image';
+import React, { memo, useState } from 'react';
 import {
-    ImageBackground,
-    Pressable,
-    StyleSheet,
-    Text,
-    View
-} from 'react-native'
+  ImageBackground,
+  Pressable,
+  StyleSheet,
+  Text,
+  View
+} from 'react-native';
 
-import normalizeFont from '~/helpers/normalize-font'
-import { useMobileTheme } from '~/hooks'
+import normalizeFont from '~/helpers/normalize-font';
+import { useMobileTheme } from '~/hooks';
 
 const styles = StyleSheet.create({
   container: {
@@ -22,7 +21,7 @@ const styles = StyleSheet.create({
 
 const MAX_SHOW_COUNT = 4
 
-const ImageSlider = ({ images }: { images: MediaSet[] }) => {
+const ImageSlider = ({ images }: { images: any[] }) => {
   const { themeConfig } = useMobileTheme()
   const [selectedItem, setSelectedItem] = useState(0)
 

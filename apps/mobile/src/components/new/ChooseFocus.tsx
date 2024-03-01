@@ -1,13 +1,13 @@
-import { PublicationMetadataMainFocusType } from '@dragverse/lens'
-import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { PublicationMetadataMainFocusType } from '@dragverse/lens';
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types';
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
-import normalizeFont from '~/helpers/normalize-font'
-import { useMobileTheme } from '~/hooks'
-import useMobilePublicationStore from '~/store/publication'
+import normalizeFont from '~/helpers/normalize-font';
+import { useMobileTheme } from '~/hooks';
+import useMobilePublicationStore from '~/store/publication';
 
-import AnimatedPressable from '../ui/AnimatedPressable'
+import AnimatedPressable from '../ui/AnimatedPressable';
 
 const styles = (themeConfig: MobileThemeConfig) =>
   StyleSheet.create({

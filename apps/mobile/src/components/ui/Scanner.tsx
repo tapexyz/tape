@@ -1,15 +1,15 @@
-import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
-import Ionicons from '@expo/vector-icons/Ionicons'
-import type { BarCodeEvent } from 'expo-barcode-scanner'
-import { BarCodeScanner } from 'expo-barcode-scanner'
-import * as Linking from 'expo-linking'
-import React, { useEffect, useState } from 'react'
-import { Pressable, StyleSheet, Text, View } from 'react-native'
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import type { BarCodeEvent } from 'expo-barcode-scanner';
+import { BarCodeScanner } from 'expo-barcode-scanner';
+import * as Linking from 'expo-linking';
+import React, { useEffect, useState } from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-import normalizeFont from '~/helpers/normalize-font'
-import { useMobileTheme } from '~/hooks'
+import normalizeFont from '~/helpers/normalize-font';
+import { useMobileTheme } from '~/hooks';
 
-import AnimatedPressable from './AnimatedPressable'
+import AnimatedPressable from './AnimatedPressable';
 
 const styles = (themeConfig: MobileThemeConfig) =>
   StyleSheet.create({

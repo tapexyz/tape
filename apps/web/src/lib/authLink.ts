@@ -15,19 +15,21 @@ const REFRESH_AUTHENTICATION_MUTATION = `
 
 const authLink = new ApolloLink((operation, forward) => {
   const { accessToken, refreshToken } = hydrateAuthTokens()
-  if (!accessToken || !refreshToken) {
+  if (!refreshToken) {
     signOut()
     return forward(operation)
   }
 
-  const willExpireSoon = Date.now() >= parseJwt(accessToken)?.exp * 1000
-  if (!willExpireSoon) {
-    operation.setContext({
-      headers: {
-        'x-access-token': accessToken ? `Bearer ${accessToken}` : ''
-      }
-    })
-    return forward(operation)
+  if (accessToken) {
+    const willExpireSoon = Date.now() >= parseJwt(accessToken)?.exp * 1000
+    if (!willExpireSoon) {
+      operation.setContext({
+        headers: {
+          'x-access-token': accessToken ? `Bearer ${accessToken}` : ''
+        }
+      })
+      return forward(operation)
+    }
   }
   return fromPromise(
     axios

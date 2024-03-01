@@ -1,12 +1,12 @@
-import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
-import type { FC } from 'react'
-import React from 'react'
-import type { TextInputProps } from 'react-native'
-import { StyleSheet, TextInput, View } from 'react-native'
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types';
+import type { FC } from 'react';
+import React from 'react';
+import type { TextInputProps } from 'react-native';
+import { StyleSheet, TextInput, View } from 'react-native';
 
-import normalizeFont from '~/helpers/normalize-font'
-import { colors } from '~/helpers/theme'
-import { useMobileTheme } from '~/hooks'
+import normalizeFont from '~/helpers/normalize-font';
+import { colors } from '~/helpers/theme';
+import { useMobileTheme } from '~/hooks';
 
 interface Props extends TextInputProps {
   errored?: boolean

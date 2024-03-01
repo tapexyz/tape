@@ -1,18 +1,18 @@
-import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis';
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
   SIGN_IN_REQUIRED
-} from '@dragverse/constants'
+} from '@dragverse/constants';
 import {
-  checkLensManagerPermissions,
   EVENTS,
+  Tower,
+  checkLensManagerPermissions,
   getProfile,
-  getSignature,
-  Tower
-} from '@dragverse/generic'
-import type { FeeFollowModuleSettings, Profile } from '@dragverse/lens'
+  getSignature
+} from '@dragverse/generic';
+import type { FeeFollowModuleSettings, Profile } from '@dragverse/lens';
 import {
   FollowModuleType,
   useApprovedModuleAllowanceAmountQuery,
@@ -20,30 +20,28 @@ import {
   useCreateFollowTypedDataMutation,
   useGenerateModuleCurrencyApprovalDataLazyQuery,
   useProfileFollowModuleQuery
-} from '@dragverse/lens'
-import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
-import { Loader } from '@dragverse/ui'
-import useNonceStore from '@lib/store/nonce'
-import useProfileStore from '@lib/store/profile'
-import { Button, Dialog, Flex, Text } from '@radix-ui/themes'
-import type { FC } from 'react'
-import { useState } from 'react'
-import toast from 'react-hot-toast'
+} from '@dragverse/lens';
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types';
+import { Button, Modal } from '@dragverse/ui';
+import useProfileStore from '@lib/store/idb/profile';
+import useNonceStore from '@lib/store/nonce';
+import type { FC } from 'react';
+import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
 import {
-  useContractWrite,
   useSendTransaction,
   useSignTypedData,
-  useWaitForTransaction
-} from 'wagmi'
+  useWaitForTransactionReceipt,
+  useWriteContract
+} from 'wagmi';
 
 type Props = {
   profile: Profile
   onJoin: () => void
-  size?: '1' | '2' | '3'
   showText?: boolean
 }
 
-const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
+const SuperFollow: FC<Props> = ({ profile, onJoin }) => {
   const [open, setOpen] = useState(false)
   const [loading, setLoading] = useState(false)
   const [isAllowed, setIsAllowed] = useState(false)
@@ -72,15 +70,14 @@ const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
   }
 
   const { signTypedDataAsync } = useSignTypedData({
-    onError
+    mutation: { onError }
   })
 
-  const { write } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
-    abi: LENSHUB_PROXY_ABI,
-    functionName: 'follow',
-    onSuccess: () => onCompleted(),
-    onError
+  const { writeContractAsync } = useWriteContract({
+    mutation: {
+      onSuccess: () => onCompleted(),
+      onError
+    }
   })
 
   const [broadcast] = useBroadcastOnchainMutation({
@@ -88,6 +85,15 @@ const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
       onCompleted(broadcastOnchain.__typename),
     onError
   })
+
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
+      address: LENSHUB_PROXY_ADDRESS,
+      abi: LENSHUB_PROXY_ABI,
+      functionName: 'follow',
+      args
+    })
+  }
 
   const { data: followModuleData } = useProfileFollowModuleQuery({
     variables: { request: { forProfileId: profile?.id } },
@@ -115,16 +121,24 @@ const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
     }
   })
 
-  const { data: txData, sendTransaction } = useSendTransaction({
-    onError(error: CustomErrorWithData) {
-      toast.error(error?.data?.message ?? error?.message)
+  const { data: txnHash, sendTransaction } = useSendTransaction({
+    mutation: {
+      onError: (error: CustomErrorWithData) => {
+        toast.error(error?.data?.message ?? error?.message)
+      }
     }
   })
 
-  useWaitForTransaction({
-    hash: txData?.hash,
-    onSuccess: () => refetch()
+  const { isSuccess } = useWaitForTransactionReceipt({
+    hash: txnHash
   })
+
+  useEffect(() => {
+    if (isSuccess) {
+      refetch()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isSuccess])
 
   const [createFollowTypedData] = useCreateFollowTypedDataMutation({
     async onCompleted({ createFollowTypedData }) {
@@ -150,11 +164,11 @@ const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
             variables: { request: { id, signature } }
           })
           if (data?.broadcastOnchain.__typename === 'RelayError') {
-            return write({ args })
+            return await write({ args })
           }
           return
         }
-        return write({ args })
+        return await write({ args })
       } catch {
         setLoading(false)
       }
@@ -220,60 +234,52 @@ const SuperFollow: FC<Props> = ({ profile, onJoin, size = '2' }) => {
   }
 
   return (
-    <Dialog.Root open={open} onOpenChange={setOpen}>
-      <Dialog.Trigger>
-        <Button
-          onClick={() => setOpen(true)}
-          highContrast
-          size={size}
-          disabled={loading}
-        >
-          {loading && <Loader size="sm" />}
-          Subscribe
-        </Button>
-      </Dialog.Trigger>
-
-      <Dialog.Content style={{ maxWidth: 450 }}>
-        <Dialog.Title>Subscribe</Dialog.Title>
-        <Dialog.Description size="2" mb="4">
-          Support creator for their contributions on the platform.
-        </Dialog.Description>
-
-        <Flex gap="2" align="baseline">
-          <Text as="div" size="4">
+    <>
+      <Button onClick={() => setOpen(true)} disabled={loading}>
+        Subscribe
+      </Button>
+      <Modal
+        size="sm"
+        title="Subscribe"
+        description="Support creator for their contributions on the platform."
+        show={open}
+        setShow={setOpen}
+      >
+        <div className="flex items-baseline gap-2">
+          <div className="text-lg">
             Follow {getProfile(profile)?.displayName} for
-          </Text>
-          <Flex gap="1" align="center">
-            <Text as="div" size="4">
+          </div>
+          <div className="flex items-center gap-1">
+            <div className="text-lg">
               {followModule?.amount.value} {followModule?.amount.asset.symbol}
-            </Text>
-          </Flex>
-        </Flex>
+            </div>
+          </div>
+        </div>
 
-        <Flex gap="3" mt="4" justify="end">
-          <Dialog.Close>
-            <Button variant="soft" color="gray">
-              Cancel
-            </Button>
-          </Dialog.Close>
+        <div className="mt-4 flex justify-end gap-3">
+          <Button variant="secondary" onClick={() => setOpen(false)}>
+            Cancel
+          </Button>
           {isAllowed ? (
             <Button
-              highContrast
               onClick={() => superFollow()}
+              loading={loading}
               disabled={loading}
             >
-              {loading && <Loader size="sm" />}
               Subscribe Now
             </Button>
           ) : (
-            <Button highContrast onClick={() => allow()} disabled={loading}>
-              {loading && <Loader size="sm" />}
+            <Button
+              loading={loading}
+              onClick={() => allow()}
+              disabled={loading}
+            >
               Allow
             </Button>
           )}
-        </Flex>
-      </Dialog.Content>
-    </Dialog.Root>
+        </div>
+      </Modal>
+    </>
   )
 }
 

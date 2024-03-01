@@ -1,13 +1,13 @@
-import clsx from 'clsx'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import React from 'react'
-
-import BellOutline from './Icons/BellOutline'
-import BytesOutline from './Icons/BytesOutline'
-import FeedOutline from './Icons/FeedOutline'
-import HomeOutline from './Icons/HomeOutline'
-import PlusOutline from './Icons/PlusOutline'
+import { tw } from '@dragverse/browser';
+import {
+    BellOutline,
+    BytesOutline,
+    FeedOutline,
+    HomeOutline,
+    PlusOutline
+} from '@dragverse/ui';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const MobileBottomNav = () => {
   const router = useRouter()
@@ -15,56 +15,56 @@ const MobileBottomNav = () => {
   const isActivePath = (path: string) => router.pathname === path
 
   return (
-    <div className="pb-safe dark:bg-brand-850/90 fixed inset-x-0 bottom-0 z-10 border-t-[0.5px] border-gray-300 bg-white/90 backdrop-blur-xl dark:border-gray-700 md:hidden">
+    <div className="pb-safe sticky inset-x-0 bottom-0 z-10 border-t-[0.5px] border-gray-300 bg-white/90 backdrop-blur-xl md:hidden dark:border-gray-700 dark:bg-brand-850/90">
       <div className="grid grid-cols-5 py-3">
         <Link
           href="/"
-          className={clsx(
-            'flex w-full flex-col items-center justify-center bg-transparent text-sm font-medium text-gray-700 dark:text-gray-100 dark:hover:text-gray-100 md:grid',
+          className={tw(
+            'flex w-full flex-col items-center justify-center bg-transparent text-sm font-medium text-gray-700 md:grid dark:text-gray-100 dark:hover:text-gray-100',
             isActivePath('/') ? 'opacity-100' : 'opacity-70'
           )}
         >
-          <HomeOutline className="h-6 w-6" />
+          <HomeOutline className="size-6" />
           <span className="sr-only">Home</span>
         </Link>
         <Link
           href="/bytes"
-          className={clsx(
-            'flex w-full flex-col items-center justify-center bg-transparent text-sm font-medium text-gray-700 dark:text-gray-100 dark:hover:text-gray-100 md:grid',
+          className={tw(
+            'flex w-full flex-col items-center justify-center bg-transparent text-sm font-medium text-gray-700 md:grid dark:text-gray-100 dark:hover:text-gray-100',
             isActivePath('/bytes') ? 'opacity-100' : 'opacity-70'
           )}
         >
-          <BytesOutline className="h-6 w-6" />
+          <BytesOutline className="size-6" />
           <span className="sr-only">Bytes</span>
         </Link>
         <Link
           href="/create"
-          className={clsx(
-            'flex w-full flex-col items-center justify-center bg-transparent text-sm font-medium text-gray-700 dark:text-gray-100 dark:hover:text-gray-100 md:grid',
+          className={tw(
+            'flex w-full flex-col items-center justify-center bg-transparent text-sm font-medium text-gray-700 md:grid dark:text-gray-100 dark:hover:text-gray-100',
             isActivePath('/create') ? 'opacity-100' : 'opacity-70'
           )}
         >
-          <PlusOutline className="h-7 w-7" />
+          <PlusOutline className="size-7" />
           <span className="sr-only">Create</span>
         </Link>
         <Link
           href="/notifications"
-          className={clsx(
-            'flex w-full flex-col items-center justify-center bg-transparent text-sm font-medium text-gray-700 dark:text-gray-100 dark:hover:text-gray-100 md:grid',
+          className={tw(
+            'flex w-full flex-col items-center justify-center bg-transparent text-sm font-medium text-gray-700 md:grid dark:text-gray-100 dark:hover:text-gray-100',
             isActivePath('/explore') ? 'opacity-100' : 'opacity-70'
           )}
         >
-          <BellOutline className="h-6 w-6" />
+          <BellOutline className="size-6" />
           <span className="sr-only">Explore</span>
         </Link>
         <Link
           href="/feed"
-          className={clsx(
-            'flex w-full flex-col items-center justify-center bg-transparent text-sm font-medium text-gray-700 dark:text-gray-100 dark:hover:text-gray-100 md:grid',
+          className={tw(
+            'flex w-full flex-col items-center justify-center bg-transparent text-sm font-medium text-gray-700 md:grid dark:text-gray-100 dark:hover:text-gray-100',
             isActivePath('/feed') ? 'opacity-100' : 'opacity-70'
           )}
         >
-          <FeedOutline className="h-6 w-6" />
+          <FeedOutline className="size-6" />
           <span className="sr-only">Feed</span>
         </Link>
       </div>

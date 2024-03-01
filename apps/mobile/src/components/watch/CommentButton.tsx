@@ -1,12 +1,12 @@
-import { STATIC_ASSETS } from '@dragverse/constants'
-import { imageCdn } from '@dragverse/generic'
-import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
-import { Image as ExpoImage } from 'expo-image'
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { STATIC_ASSETS } from '@dragverse/constants';
+import { imageCdn } from '@dragverse/generic';
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types';
+import { Image as ExpoImage } from 'expo-image';
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 
-import normalizeFont from '~/helpers/normalize-font'
-import { useMobileTheme } from '~/hooks'
+import normalizeFont from '~/helpers/normalize-font';
+import { useMobileTheme } from '~/hooks';
 
 const styles = (themeConfig: MobileThemeConfig) =>
   StyleSheet.create({

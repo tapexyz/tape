@@ -1,25 +1,21 @@
-import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { INFINITE_SCROLL_ROOT_MARGIN } from '@dragverse/constants'
-import { getIsProfileOwner } from '@dragverse/generic'
-import type { HandleInfo, OwnedHandlesRequest } from '@dragverse/lens'
-import { useOwnedHandlesQuery } from '@dragverse/lens'
-import { Loader } from '@dragverse/ui'
-import useProfileStore from '@lib/store/profile'
-import Link from 'next/link'
-import { useInView } from 'react-cool-inview'
-import { useAccount } from 'wagmi'
+import { NoDataFound } from '@components/UIElements/NoDataFound';
+import { INFINITE_SCROLL_ROOT_MARGIN } from '@dragverse/constants';
+import type { HandleInfo, OwnedHandlesRequest } from '@dragverse/lens';
+import { useOwnedHandlesQuery } from '@dragverse/lens';
+import { Spinner } from '@dragverse/ui';
+import Link from 'next/link';
+import { useInView } from 'react-cool-inview';
+import { useAccount } from 'wagmi';
 
 const List = () => {
   const { address } = useAccount()
-  const activeProfile = useProfileStore((state) => state.activeProfile)
-  const isOwner = activeProfile && getIsProfileOwner(activeProfile, address)
 
   const request: OwnedHandlesRequest = { for: address }
   const { data, loading, error, fetchMore } = useOwnedHandlesQuery({
     variables: {
       request
     },
-    skip: !isOwner || !address
+    skip: !address
   })
   const ownedHandles = data?.ownedHandles.items as HandleInfo[]
   const pageInfo = data?.ownedHandles.pageInfo
@@ -39,13 +35,9 @@ const List = () => {
     }
   })
 
-  if (!isOwner) {
-    return null
-  }
-
   return (
     <div>
-      {loading && <Loader className="my-10" />}
+      {loading && <Spinner className="my-10" />}
       {(!loading && !ownedHandles?.length) || error ? (
         <NoDataFound withImage isCenter />
       ) : null}
@@ -68,7 +60,7 @@ const List = () => {
         ))}
         {pageInfo?.next && (
           <span ref={observe} className="flex justify-center p-10">
-            <Loader />
+            <Spinner />
           </span>
         )}
       </div>

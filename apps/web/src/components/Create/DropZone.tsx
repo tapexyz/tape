@@ -1,23 +1,24 @@
-import UploadOutline from '@components/Common/Icons/UploadOutline'
-import { useDragAndDrop } from '@dragverse/browser'
+import { tw, useDragAndDrop } from '@dragverse/browser';
 import {
   ALLOWED_AUDIO_MIME_TYPES,
   ALLOWED_UPLOAD_MIME_TYPES,
   CREATOR_VIDEO_CATEGORIES
-} from '@dragverse/constants'
-import { canUploadedToIpfs, EVENTS, logger, Tower } from '@dragverse/generic'
-import useAppStore from '@lib/store'
-import { Box, Button } from '@radix-ui/themes'
-import clsx from 'clsx'
-import fileReaderStream from 'filereader-stream'
-import React, { useEffect } from 'react'
-import toast from 'react-hot-toast'
+} from '@dragverse/constants';
+import { canUploadedToIpfs, logger } from '@dragverse/generic';
+import { Button, UploadOutline } from '@dragverse/ui';
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
+import useAppStore from '@lib/store';
+import useProfileStore from '@lib/store/idb/profile';
+import fileReaderStream from 'filereader-stream';
+import React from 'react';
+import toast from 'react-hot-toast';
 
 const DropZone = () => {
   const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
+  const activeProfile = useProfileStore((state) => state.activeProfile)
+  const handleWrongNetwork = useHandleWrongNetwork()
 
   const {
-    dragOver,
     setDragOver,
     onDragOver,
     onDragLeave,
@@ -25,16 +26,17 @@ const DropZone = () => {
     setFileDropError
   } = useDragAndDrop()
 
-  useEffect(() => {
-    Tower.track(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.UPLOAD.DROPZONE })
-  }, [])
+  const handleUploadedMedia = async (file: File) => {
+    await handleWrongNetwork()
 
-  const handleUploadedMedia = (file: File) => {
     try {
       if (file) {
         const preview = URL.createObjectURL(file)
         const isAudio = ALLOWED_AUDIO_MIME_TYPES.includes(file?.type)
-        const isUnderFreeLimit = canUploadedToIpfs(file?.size)
+        const isUploadToIpfs = canUploadedToIpfs(
+          file?.size || 0,
+          activeProfile?.sponsor
+        )
         setUploadedMedia({
           stream: fileReaderStream(file),
           preview,
@@ -44,7 +46,7 @@ const DropZone = () => {
           mediaCategory: isAudio
             ? CREATOR_VIDEO_CATEGORIES[1]
             : CREATOR_VIDEO_CATEGORIES[0],
-          isUploadToIpfs: isUnderFreeLimit
+          isUploadToIpfs
         })
       }
     } catch (error) {
@@ -77,9 +79,8 @@ const DropZone = () => {
   return (
     <div className="relative flex w-full flex-1 flex-col">
       <label
-        className={clsx(
-          'grid w-full place-items-center rounded-3xl border border-dashed p-10 text-center focus:outline-none md:p-20',
-          dragOver ? 'border-green-500' : 'border-gray-500'
+        className={tw(
+          'tape-border rounded-medium grid h-full w-full place-content-center place-items-center p-10 text-center focus:outline-none md:p-20'
         )}
         htmlFor="dropMedia"
         onDragOver={onDragOver}
@@ -94,7 +95,7 @@ const DropZone = () => {
           accept={ALLOWED_UPLOAD_MIME_TYPES.join(',')}
         />
         <span className="mb-6 flex justify-center opacity-80">
-          <UploadOutline className="h-10 w-10" />
+          <UploadOutline className="size-10" />
         </span>
         <span className="space-y-10">
           <div className="space-y-4">
@@ -104,13 +105,8 @@ const DropZone = () => {
               device.
             </p>
           </div>
-          <Box>
-            <Button
-              highContrast
-              variant="surface"
-              className="!px-0"
-              type="button"
-            >
+          <div className="flex justify-center">
+            <Button variant="secondary" type="button">
               <label htmlFor="chooseMedia" className="cursor-pointer p-6">
                 Choose
                 <input
@@ -122,7 +118,7 @@ const DropZone = () => {
                 />
               </label>
             </Button>
-          </Box>
+          </div>
           {fileDropError && (
             <div className="font-medium text-red-500">{fileDropError}</div>
           )}

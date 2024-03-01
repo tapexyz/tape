@@ -1,33 +1,33 @@
-import { LENS_CUSTOM_FILTERS } from '@dragverse/constants'
-import { trimLensHandle } from '@dragverse/generic'
+import { LENS_CUSTOM_FILTERS } from '@dragverse/constants';
+import { getProfile } from '@dragverse/generic';
 import type {
-    MirrorablePublication,
-    Profile,
-    PublicationsRequest
-} from '@dragverse/lens'
+  MirrorablePublication,
+  Profile,
+  PublicationsRequest
+} from '@dragverse/lens';
 import {
-    LimitType,
-    PublicationMetadataMainFocusType,
-    PublicationType,
-    usePublicationsQuery
-} from '@dragverse/lens'
-import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
-import type { FC } from 'react'
-import React, { memo, useCallback } from 'react'
-import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native'
+  LimitType,
+  PublicationMetadataMainFocusType,
+  PublicationType,
+  usePublicationsQuery
+} from '@dragverse/lens';
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types';
+import type { FC } from 'react';
+import React, { memo, useCallback } from 'react';
+import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
 import {
-    ActivityIndicator,
-    StyleSheet,
-    Text,
-    View,
-    useWindowDimensions
-} from 'react-native'
-import Animated from 'react-native-reanimated'
+  ActivityIndicator,
+  StyleSheet,
+  Text,
+  View,
+  useWindowDimensions
+} from 'react-native';
+import Animated from 'react-native-reanimated';
 
-import RenderPublication from '~/components/common/RenderPublication'
-import NotFound from '~/components/ui/NotFound'
-import normalizeFont from '~/helpers/normalize-font'
-import { useMobileTheme } from '~/hooks'
+import RenderPublication from '~/components/common/RenderPublication';
+import NotFound from '~/components/ui/NotFound';
+import normalizeFont from '~/helpers/normalize-font';
+import { useMobileTheme } from '~/hooks';
 
 type Props = {
   profile: Profile
@@ -107,7 +107,7 @@ const Clan: FC<Props> = ({ profile, scrollHandler }) => {
         ListHeaderComponent={
           <Text style={style.subheading}>
             Dedicated corner to connect, swap stories, and get hyped about what{' '}
-            {trimLensHandle(profile.handle)} do!
+            {getProfile(profile).slug} do!
           </Text>
         }
         data={publications}

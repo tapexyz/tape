@@ -5,7 +5,7 @@ import Topics from './Topics'
 
 const ProfileInterests = () => {
   return (
-    <div className="tape-border rounded-medium dark:bg-cod bg-white p-5">
+    <>
       <MetaTags title="Profile Interests" />
       <div className="mb-5 space-y-2">
         <h1 className="text-brand-400 text-xl font-bold">Interests</h1>
@@ -16,7 +16,7 @@ const ProfileInterests = () => {
         </p>
       </div>
       <Topics />
-    </div>
+    </>
   )
 }
 

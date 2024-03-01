@@ -11,11 +11,12 @@ import ErrorBoundary from '../ErrorBoundary'
 import ThemeProvider from './ThemeProvider'
 
 const SubscriptionProvider = dynamic(() => import('./SubscriptionProvider'))
+const TogglesProvider = dynamic(() => import('./TogglesProvider'))
 const Web3Provider = dynamic(() => import('./Web3Provider'))
-const GlobalDialogs = dynamic(() => import('../GlobalDialogs'))
 const Layout = dynamic(() => import('../Layout'))
 
-const NO_NAV_PATHS = ['/login']
+const NO_TOP_NAV_PATHS = ['/login']
+const NO_BOTTOM_NAV_PATHS = ['/bangers']
 const NO_PADDING_PATHS = [
   '/u/[[...handle]]',
   '/bangers',
@@ -44,10 +45,11 @@ const Providers = ({ children }: { children: ReactNode }) => {
           <QueryClientProvider client={reactQueryClient}>
             <ThemeProvider>
               <SubscriptionProvider />
-              <GlobalDialogs />
+              <TogglesProvider />
               <LivepeerConfig client={livepeerClient} theme={videoPlayerTheme}>
                 <Layout
-                  skipNav={NO_NAV_PATHS.includes(pathname)}
+                  skipNav={NO_TOP_NAV_PATHS.includes(pathname)}
+                  skipBottomNav={NO_BOTTOM_NAV_PATHS.includes(pathname)}
                   skipPadding={NO_PADDING_PATHS.includes(pathname)}
                 >
                   {children}

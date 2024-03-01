@@ -1,18 +1,17 @@
-import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis';
 import {
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE
-} from '@dragverse/constants'
-import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
-import { Loader } from '@dragverse/ui'
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import { signOut } from '@lib/store/auth'
-import useProfileStore from '@lib/store/profile'
-import { Button } from '@radix-ui/themes'
-import { useState } from 'react'
-import toast from 'react-hot-toast'
-import Custom404 from 'src/pages/404'
-import { useContractWrite, useWaitForTransaction } from 'wagmi'
+} from '@dragverse/constants';
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types';
+import { Button } from '@dragverse/ui';
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
+import { signOut } from '@lib/store/auth';
+import useProfileStore from '@lib/store/idb/profile';
+import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
+import Custom404 from 'src/pages/404';
+import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi';
 
 const Delete = () => {
   const activeProfile = useProfileStore((state) => state.activeProfile)
@@ -27,42 +26,53 @@ const Delete = () => {
     toast.error(error?.data?.message ?? error?.message)
   }
 
-  const { write } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
-    abi: LENSHUB_PROXY_ABI,
-    functionName: 'burn',
-    onError,
-    onSuccess: (data) => setTxnHash(data.hash)
+  const { writeContractAsync } = useWriteContract({
+    mutation: {
+      onError,
+      onSuccess: (txnHash) => setTxnHash(txnHash)
+    }
   })
 
-  useWaitForTransaction({
-    enabled: txnHash && txnHash.length > 0,
-    hash: txnHash,
-    onSuccess: () => {
+  const { isError, isSuccess, error } = useWaitForTransactionReceipt({
+    query: {
+      enabled: txnHash && txnHash.length > 0
+    },
+
+    hash: txnHash
+  })
+
+  useEffect(() => {
+    if (isError) {
+      onError(error)
+    }
+    if (isSuccess) {
       signOut()
       setLoading(false)
       toast.success(`Profile deleted`)
       location.href = '/'
-    },
-    onError
-  })
+    }
+  }, [isError, isSuccess, error])
 
   const isCooldownEnded = () => {
     const cooldownDate = activeProfile?.guardian?.cooldownEndsOn
     return new Date(cooldownDate).getTime() < Date.now()
   }
 
-  const onClickDelete = () => {
+  const onClickDelete = async () => {
     if (guardianEnabled || !isCooldownEnded()) {
       return toast.error('Profile Guardian enabled')
     }
-    if (handleWrongNetwork()) {
-      return
-    }
+    await handleWrongNetwork()
+
     setLoading(true)
     try {
       toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-      write({ args: [activeProfile?.id] })
+      await writeContractAsync({
+        address: LENSHUB_PROXY_ADDRESS,
+        abi: LENSHUB_PROXY_ABI,
+        functionName: 'burn',
+        args: [activeProfile?.id]
+      })
     } catch {
       setLoading(false)
     }
@@ -82,8 +92,12 @@ const Delete = () => {
         </p>
       </div>
       <div className="rounded-b-medium flex justify-end border-b-0 bg-red-100 px-5 py-3 dark:bg-red-900/20">
-        <Button color="red" disabled={loading} onClick={() => onClickDelete()}>
-          {loading && <Loader size="sm" />}
+        <Button
+          variant="danger"
+          disabled={loading}
+          loading={loading}
+          onClick={() => onClickDelete()}
+        >
           Delete
         </Button>
       </div>

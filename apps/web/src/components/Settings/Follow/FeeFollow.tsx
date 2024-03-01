@@ -1,45 +1,48 @@
-import { Input } from '@components/UIElements/Input'
-import Tooltip from '@components/UIElements/Tooltip'
-import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
-import { useCopyToClipboard } from '@dragverse/browser'
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis';
+import { useCopyToClipboard } from '@dragverse/browser';
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
   WMATIC_TOKEN_ADDRESS
-} from '@dragverse/constants'
+} from '@dragverse/constants';
 import {
   checkLensManagerPermissions,
   getProfile,
   getSignature,
   shortenAddress
-} from '@dragverse/generic'
+} from '@dragverse/generic';
 import type {
   CreateSetFollowModuleBroadcastItemResult,
   FeeFollowModuleSettings,
   Profile
-} from '@dragverse/lens'
+} from '@dragverse/lens';
 import {
-  LimitType,
   useBroadcastOnchainMutation,
   useCreateSetFollowModuleTypedDataMutation,
-  useEnabledCurrenciesQuery,
   useProfileFollowModuleQuery
-} from '@dragverse/lens'
-import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
-import { Loader } from '@dragverse/ui'
-import { zodResolver } from '@hookform/resolvers/zod'
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import usePendingTxn from '@hooks/usePendingTxn'
-import useNonceStore from '@lib/store/nonce'
-import useProfileStore from '@lib/store/profile'
-import { Button, Flex, Select, Text } from '@radix-ui/themes'
-import { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import toast from 'react-hot-toast'
-import { useContractWrite, useSignTypedData } from 'wagmi'
-import type { z } from 'zod'
-import { number, object, string } from 'zod'
+} from '@dragverse/lens';
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types';
+import {
+  Button,
+  Input,
+  Select,
+  SelectItem,
+  Spinner,
+  Tooltip
+} from '@dragverse/ui';
+import { zodResolver } from '@hookform/resolvers/zod';
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
+import usePendingTxn from '@hooks/usePendingTxn';
+import useProfileStore from '@lib/store/idb/profile';
+import useAllowedTokensStore from '@lib/store/idb/tokens';
+import useNonceStore from '@lib/store/nonce';
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import { useSignTypedData, useWriteContract } from 'wagmi';
+import type { z } from 'zod';
+import { number, object, string } from 'zod';
 
 type Props = {
   profile: Profile
@@ -61,6 +64,7 @@ const FeeFollow = ({ profile }: Props) => {
   const [showForm, setShowForm] = useState(false)
 
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
+  const allowedTokens = useAllowedTokensStore((state) => state.allowedTokens)
   const handleWrongNetwork = useHandleWrongNetwork()
   const { activeProfile } = useProfileStore()
   const { canBroadcast } = checkLensManagerPermissions(activeProfile)
@@ -104,30 +108,30 @@ const FeeFollow = ({ profile }: Props) => {
     ?.followModule as FeeFollowModuleSettings
 
   const { signTypedDataAsync } = useSignTypedData({
-    onError
-  })
-  const { data: enabledCurrencies } = useEnabledCurrenciesQuery({
-    variables: {
-      request: {
-        limit: LimitType.Fifty
-      }
-    },
-    skip: !profile?.id
+    mutation: { onError }
   })
 
   const [broadcast, { data: broadcastData }] = useBroadcastOnchainMutation({
     onError
   })
 
-  const { data: writtenData, write } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
-    abi: LENSHUB_PROXY_ABI,
-    functionName: 'setFollowModule',
-    onError
+  const { data: txHash, writeContractAsync } = useWriteContract({
+    mutation: {
+      onError
+    }
   })
 
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
+      address: LENSHUB_PROXY_ADDRESS,
+      abi: LENSHUB_PROXY_ABI,
+      functionName: 'setFollowModule',
+      args
+    })
+  }
+
   const { indexed } = usePendingTxn({
-    txHash: writtenData?.hash,
+    txHash,
     txId:
       broadcastData?.broadcastOnchain.__typename === 'RelaySuccess'
         ? broadcastData?.broadcastOnchain?.txId
@@ -160,11 +164,11 @@ const FeeFollow = ({ profile }: Props) => {
               variables: { request: { id, signature } }
             })
             if (data?.broadcastOnchain?.__typename === 'RelayError') {
-              return write({ args })
+              return await write({ args })
             }
             return
           }
-          return write({ args })
+          return await write({ args })
         } catch {
           setLoading(false)
         }
@@ -173,9 +177,8 @@ const FeeFollow = ({ profile }: Props) => {
     })
 
   const updateFeeFollow = async (disable: boolean) => {
-    if (handleWrongNetwork()) {
-      return
-    }
+    await handleWrongNetwork()
+
     setLoading(true)
     return await createSetFollowModuleTypedData({
       variables: {
@@ -201,10 +204,8 @@ const FeeFollow = ({ profile }: Props) => {
     updateFeeFollow(false)
   }
 
-  const currencies = enabledCurrencies?.currencies.items
-
   return (
-    <div className="tape-border rounded-medium dark:bg-cod bg-white p-5">
+    <>
       <div className="mb-5 space-y-2">
         <h1 className="text-brand-400 text-xl font-bold">Grow with Lens</h1>
         <p className="text opacity-80">
@@ -215,7 +216,7 @@ const FeeFollow = ({ profile }: Props) => {
       </div>
       {moduleLoading && (
         <div className="py-5">
-          <Loader size="sm" />
+          <Spinner size="sm" />
         </div>
       )}
 
@@ -223,25 +224,22 @@ const FeeFollow = ({ profile }: Props) => {
         <div className="tape-border mb-6 w-full rounded-xl bg-gradient-to-br p-6 transition-all">
           <div className="grid gap-y-4 md:grid-cols-3">
             <div>
-              <Text>Amount</Text>
+              <span>Amount</span>
               <h6 className="text-xl font-bold">
                 {activeFollowModule.amount?.value}{' '}
                 {activeFollowModule.amount?.asset?.symbol}
               </h6>
             </div>
             <div>
-              <Text>Asset</Text>
+              <span>Asset</span>
               <h6 className="text-xl font-bold">
                 {activeFollowModule.amount?.asset?.name}
               </h6>
             </div>
             <div>
-              <Text>Recipient</Text>
+              <span>Recipient</span>
               <Tooltip content="Copy Address" placement="top">
-                <Button
-                  variant="ghost"
-                  onClick={() => copy(activeFollowModule.recipient)}
-                >
+                <Button onClick={() => copy(activeFollowModule.recipient)}>
                   <span className="block text-xl font-bold outline-none">
                     {shortenAddress(activeFollowModule.recipient, 6)}
                   </span>
@@ -254,30 +252,19 @@ const FeeFollow = ({ profile }: Props) => {
 
       {showForm && !moduleLoading ? (
         <form onSubmit={handleSubmit(onSubmitForm)}>
-          <Flex direction="column" className="laptop:w-1/2" gap="4">
+          <div className="laptop:w-1/2 flex flex-col gap-4">
             <div>
-              <Text as="div" size="2" mb="1">
-                Currency
-              </Text>
-              <Select.Root
+              <div className="mb-1 text-sm font-medium">Currency</div>
+              <Select
                 value={watch('token')}
                 onValueChange={(value) => setValue('token', value)}
               >
-                <Select.Trigger
-                  className="w-full"
-                  placeholder="Select preferred currency"
-                />
-                <Select.Content highContrast>
-                  {currencies?.map(({ contract, name }) => (
-                    <Select.Item
-                      key={contract.address}
-                      value={contract.address}
-                    >
-                      {name}
-                    </Select.Item>
-                  ))}
-                </Select.Content>
-              </Select.Root>
+                {allowedTokens?.map(({ address, name }) => (
+                  <SelectItem key={address} value={address}>
+                    {name}
+                  </SelectItem>
+                ))}
+              </Select>
               {errors.token?.message && (
                 <div className="mx-1 mt-1 text-xs font-medium text-red-500">
                   {errors.token?.message}
@@ -291,7 +278,7 @@ const FeeFollow = ({ profile }: Props) => {
                 step="any"
                 placeholder="10"
                 autoComplete="off"
-                validationError={errors.amount?.message}
+                error={errors.amount?.message}
                 {...register('amount', { valueAsNumber: true })}
               />
             </div>
@@ -300,19 +287,18 @@ const FeeFollow = ({ profile }: Props) => {
                 label="Recipient"
                 placeholder="0x00..."
                 autoComplete="off"
-                validationError={errors.recipient?.message}
+                error={errors.recipient?.message}
                 {...register('recipient')}
               />
             </div>
-          </Flex>
+          </div>
           <div className="mt-6 flex justify-end space-x-2">
             {activeFollowModule && (
-              <Button variant="surface" onClick={() => setShowForm(false)}>
+              <Button variant="secondary" onClick={() => setShowForm(false)}>
                 Cancel
               </Button>
             )}
-            <Button highContrast variant="surface" disabled={loading}>
-              {loading && <Loader size="sm" />}
+            <Button loading={loading} disabled={loading}>
               Set Membership
             </Button>
           </div>
@@ -321,24 +307,17 @@ const FeeFollow = ({ profile }: Props) => {
       {!moduleLoading && !showForm && (
         <div className="flex items-center justify-end space-x-2">
           <Button
-            variant="surface"
-            color="red"
+            variant="danger"
             disabled={loading}
+            loading={loading}
             onClick={() => updateFeeFollow(true)}
           >
-            {loading && <Loader size="sm" />}
             Disable
           </Button>
-          <Button
-            variant="surface"
-            highContrast
-            onClick={() => setShowForm(true)}
-          >
-            Update
-          </Button>
+          <Button onClick={() => setShowForm(true)}>Update</Button>
         </div>
       )}
-    </div>
+    </>
   )
 }
 

@@ -1,24 +1,19 @@
-import AddImageOutline from '@components/Common/Icons/AddImageOutline'
-import { Input } from '@components/UIElements/Input'
-import Tooltip from '@components/UIElements/Tooltip'
-import { uploadToIPFS } from '@dragverse/browser'
-import { ALLOWED_AUDIO_MIME_TYPES, FEATURE_FLAGS } from '@dragverse/constants'
+import { tw, uploadToIPFS } from '@dragverse/browser';
+import { ALLOWED_AUDIO_MIME_TYPES, FEATURE_FLAGS } from '@dragverse/constants';
 import {
-  formatBytes,
-  getIsFeatureEnabled,
-  sanitizeDStorageUrl
-} from '@dragverse/generic'
-import type { IPFSUploadResult } from '@dragverse/lens/custom-types'
-import { Loader } from '@dragverse/ui'
-import { getTimeFromSeconds } from '@lib/formatTime'
-import useAppStore from '@lib/store'
-import useProfileStore from '@lib/store/profile'
-import { AspectRatio, Badge } from '@radix-ui/themes'
-import clsx from 'clsx'
-import { useEffect, useRef, useState } from 'react'
+    formatBytes,
+    getIsFeatureEnabled,
+    sanitizeDStorageUrl
+} from '@dragverse/generic';
+import type { IPFSUploadResult } from '@dragverse/lens/custom-types';
+import { AddImageOutline, Badge, Input, Spinner, Tooltip } from '@dragverse/ui';
+import { getTimeFromSeconds } from '@lib/formatTime';
+import useAppStore from '@lib/store';
+import useProfileStore from '@lib/store/idb/profile';
+import { useEffect, useRef, useState } from 'react';
 
-import ChooseThumbnail from './ChooseThumbnail'
-import UploadMethod from './UploadMethod'
+import ChooseThumbnail from './ChooseThumbnail';
+import UploadMethod from './UploadMethod';
 
 const SelectedMedia = () => {
   const mediaRef = useRef<HTMLVideoElement>(null)
@@ -58,8 +53,8 @@ const SelectedMedia = () => {
     <div className="flex flex-col">
       {isAudio ? (
         <div className="flex w-full justify-end">
-          <div className="md:rounded-large rounded-small w-full space-y-2 overflow-hidden border p-2 dark:border-gray-800">
-            <AspectRatio ratio={1 / 1} className="group relative">
+          <div className="md:rounded-medium rounded-small tape-border w-full space-y-2 overflow-hidden p-2">
+            <div className="group relative aspect-[1/1]">
               {posterPreview ? (
                 <img
                   src={posterPreview}
@@ -70,8 +65,8 @@ const SelectedMedia = () => {
               ) : null}
               <label
                 htmlFor="choosePoster"
-                className={clsx(
-                  'rounded-small dark:bg-brand-850 invisible absolute top-0 grid h-full w-full cursor-pointer place-items-center overflow-hidden bg-gray-100 bg-opacity-70 backdrop-blur-lg group-hover:visible',
+                className={tw(
+                  'rounded-small invisible absolute top-0 grid h-full w-full cursor-pointer place-items-center overflow-hidden bg-gray-100 bg-opacity-70 backdrop-blur-lg group-hover:visible dark:bg-brand-850',
                   {
                     '!visible':
                       uploadedMedia.uploadingThumbnail ||
@@ -80,10 +75,10 @@ const SelectedMedia = () => {
                 )}
               >
                 {uploadedMedia.uploadingThumbnail ? (
-                  <Loader />
+                  <Spinner />
                 ) : (
                   <span className="inline-flex flex-col items-center space-y-2">
-                    <AddImageOutline className="h-5 w-5" />
+                    <AddImageOutline className="size-5" />
                     <span>Select Poster</span>
                   </span>
                 )}
@@ -107,7 +102,7 @@ const SelectedMedia = () => {
                   }}
                 />
               </label>
-            </AspectRatio>
+            </div>
             <audio
               ref={mediaRef}
               src={uploadedMedia.preview}
@@ -121,11 +116,14 @@ const SelectedMedia = () => {
         <div className="md:rounded-large rounded-small relative w-full cursor-pointer overflow-hidden border dark:border-gray-800">
           <video
             ref={mediaRef}
-            className="aspect-[16/9] w-full"
+            className="aspect-[16/9] w-full object-cover"
             disablePictureInPicture
             disableRemotePlayback
             controlsList="nodownload noplaybackrate"
-            poster={sanitizeDStorageUrl(uploadedMedia.thumbnail)}
+            poster={
+              uploadedMedia.thumbnailBlobUrl ||
+              sanitizeDStorageUrl(uploadedMedia.thumbnail)
+            }
             controls={false}
             autoPlay={interacted}
             muted={!interacted}
@@ -134,21 +132,13 @@ const SelectedMedia = () => {
           />
           <Badge
             onClick={() => onClickVideo()}
-            variant="solid"
-            radius="full"
-            highContrast
-            className="absolute bottom-2 right-2"
+            className="absolute bottom-3 right-2"
           >
             Play/Pause
           </Badge>
-          <Badge
-            variant="solid"
-            radius="full"
-            highContrast
-            className="absolute bottom-2 left-2"
-          >
+          <Badge className="absolute bottom-3 left-2">
             {uploadedMedia.file?.size && (
-              <span className="space-x-1 whitespace-nowrap font-bold">
+              <span className="space-x-1 whitespace-nowrap">
                 <span>
                   {getTimeFromSeconds(String(uploadedMedia.durationInSeconds))}
                 </span>
@@ -157,12 +147,7 @@ const SelectedMedia = () => {
             )}
           </Badge>
           {uploadedMedia.durationInSeconds === 0 ? (
-            <Badge
-              variant="solid"
-              radius="full"
-              color="red"
-              className="absolute right-3 top-3"
-            >
+            <Badge className="absolute right-3 top-3 bg-red-500 text-white">
               <span className="whitespace-nowrap font-bold">
                 Only media files longer than 1 second are allowed
               </span>
@@ -172,7 +157,7 @@ const SelectedMedia = () => {
             <Tooltip content={`Uploaded (${uploadedMedia.percent}%)`}>
               <div className="absolute bottom-0 w-full overflow-hidden bg-gray-200">
                 <div
-                  className={clsx(
+                  className={tw(
                     'h-[6px]',
                     uploadedMedia.percent !== 0
                       ? 'bg-brand-500'

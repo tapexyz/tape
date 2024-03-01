@@ -1,6 +1,4 @@
-import HoverableProfile from '@components/Common/HoverableProfile'
-import PauseOutline from '@components/Common/Icons/PauseOutline'
-import PlayOutline from '@components/Common/Icons/PlayOutline'
+import HoverableProfile from '@components/Common/HoverableProfile';
 import {
   getProfile,
   getProfilePicture,
@@ -8,13 +6,12 @@ import {
   getThumbnailUrl,
   imageCdn,
   sanitizeDStorageUrl
-} from '@dragverse/generic'
-import type { PrimaryPublication } from '@dragverse/lens'
-import AudioPlayer from '@dragverse/ui/AudioPlayer'
-import { getReadableTimeFromSeconds } from '@lib/formatTime'
-import { IconButton } from '@radix-ui/themes'
-import type { FC } from 'react'
-import { useState } from 'react'
+} from '@dragverse/generic';
+import type { PrimaryPublication } from '@dragverse/lens';
+import { AudioPlayer, PauseOutline, PlayOutline } from '@dragverse/ui';
+import { getReadableTimeFromSeconds } from '@lib/formatTime';
+import type { FC } from 'react';
+import { useState } from 'react';
 
 type Props = {
   audio: PrimaryPublication
@@ -42,17 +39,13 @@ const Audio: FC<Props> = ({ audio }) => {
             draggable={false}
           />
           <div className="absolute inset-0 flex items-end justify-end space-x-1 p-3">
-            <IconButton
-              onClick={() => setIsPlaying(!isPlaying)}
-              size="3"
-              highContrast
-            >
+            <button onClick={() => setIsPlaying(!isPlaying)}>
               {isPlaying ? (
-                <PauseOutline className="h-5 w-5" />
+                <PauseOutline className="size-5" />
               ) : (
-                <PlayOutline className="h-5 w-5" />
+                <PlayOutline className="size-5" />
               )}
-            </IconButton>
+            </button>
           </div>
         </div>
         <div className="flex w-full flex-col items-center space-y-4 text-white lg:items-start">
@@ -63,11 +56,10 @@ const Audio: FC<Props> = ({ audio }) => {
             <div>
               <HoverableProfile
                 profile={audio.by}
-                fontSize="3"
                 pfp={
                   <img
                     src={getProfilePicture(audio.by, 'AVATAR')}
-                    className="h-5 w-5 rounded-full"
+                    className="size-5 rounded-full"
                     draggable={false}
                     alt={getProfile(audio.by)?.displayName}
                   />

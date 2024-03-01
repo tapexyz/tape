@@ -1,8 +1,7 @@
-import Badge from '@components/Common/Badge'
-import { formatNumber } from '@dragverse/generic'
-import { Avatar } from '@radix-ui/themes'
-import clsx from 'clsx'
-import type { FC } from 'react'
+import Badge from '@components/Common/Badge';
+import { tw } from '@dragverse/browser';
+import { formatNumber } from '@dragverse/generic';
+import type { FC } from 'react';
 
 type Props = {
   className?: string
@@ -20,13 +19,10 @@ const ProfileSuggestion: FC<Props> = ({
   followers
 }) => {
   return (
-    <div className={clsx('flex space-x-2 truncate px-1.5 py-1.5', className)}>
-      <Avatar
+    <div className={tw('flex space-x-2 truncate px-1.5 py-1.5', className)}>
+      <img
         src={pfp}
-        size="2"
-        radius="full"
-        className="mt-1 h-6 w-6 rounded-full"
-        fallback={handle[0]}
+        className="mt-1 size-8 rounded-full"
         draggable={false}
         alt={handle}
       />

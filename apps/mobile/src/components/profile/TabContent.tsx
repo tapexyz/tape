@@ -1,30 +1,30 @@
-import type { Profile } from '@dragverse/lens'
+import type { Profile } from '@dragverse/lens';
 import {
-    MOBILE_PROFILE_ITEMS,
-    type MobileProfileTabItemType
-} from '@dragverse/lens/custom-types'
-import type { FC } from 'react'
-import React, { memo, useCallback, useRef, useState } from 'react'
+  MOBILE_PROFILE_ITEMS,
+  type MobileProfileTabItemType
+} from '@dragverse/lens/custom-types';
+import type { FC } from 'react';
+import React, { memo, useCallback, useRef, useState } from 'react';
 import type {
-    NativeScrollEvent,
-    NativeSyntheticEvent,
-    ViewToken
-} from 'react-native'
-import { FlatList, View, useWindowDimensions } from 'react-native'
-import type { SharedValue } from 'react-native-reanimated'
+  NativeScrollEvent,
+  NativeSyntheticEvent,
+  ViewToken
+} from 'react-native';
+import { FlatList, View, useWindowDimensions } from 'react-native';
+import type { SharedValue } from 'react-native-reanimated';
 import Animated, {
-    Extrapolate,
-    interpolate,
-    useAnimatedStyle
-} from 'react-native-reanimated'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
+  Extrapolate,
+  interpolate,
+  useAnimatedStyle
+} from 'react-native-reanimated';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-import TabList from './TabList'
-import Bytes from './tabs/Bytes'
-import Clan from './tabs/Clan'
-import Gallery from './tabs/Gallery'
-import Media from './tabs/Media'
-import Replies from './tabs/Replies'
+import TabList from './TabList';
+import Bytes from './tabs/Bytes';
+import Clan from './tabs/Clan';
+import Gallery from './tabs/Gallery';
+import Media from './tabs/Media';
+import Replies from './tabs/Replies';
 
 type Props = {
   profile: Profile

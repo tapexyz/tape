@@ -1,20 +1,20 @@
-import { STATIC_ASSETS } from '@dragverse/constants'
-import { imageCdn } from '@dragverse/generic'
-import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
-import { useNavigation } from '@react-navigation/native'
-import { LinearGradient } from 'expo-linear-gradient'
-import React, { memo } from 'react'
-import { ImageBackground, StyleSheet, Text, View } from 'react-native'
-import Animated, { FadeInRight } from 'react-native-reanimated'
+import { STATIC_ASSETS } from '@dragverse/constants';
+import { imageCdn } from '@dragverse/generic';
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types';
+import { useNavigation } from '@react-navigation/native';
+import { LinearGradient } from 'expo-linear-gradient';
+import React, { memo } from 'react';
+import { ImageBackground, StyleSheet, Text, View } from 'react-native';
+import Animated, { FadeInRight } from 'react-native-reanimated';
 
-import haptic from '~/helpers/haptic'
-import normalizeFont from '~/helpers/normalize-font'
-import { colors } from '~/helpers/theme'
-import { useMobileTheme } from '~/hooks'
-import { useMobilePersistStore } from '~/store/persist'
+import haptic from '~/helpers/haptic';
+import normalizeFont from '~/helpers/normalize-font';
+import { colors } from '~/helpers/theme';
+import { useMobileTheme } from '~/hooks';
+import { useMobilePersistStore } from '~/store/persist';
 
-import { useToast } from '../common/toast'
-import AnimatedPressable from '../ui/AnimatedPressable'
+import { useToast } from '../common/toast';
+import AnimatedPressable from '../ui/AnimatedPressable';
 
 const BORDER_RADIUS = 30
 

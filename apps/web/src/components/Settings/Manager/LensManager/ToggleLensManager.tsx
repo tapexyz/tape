@@ -1,30 +1,29 @@
-import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis';
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE
-} from '@dragverse/constants'
+} from '@dragverse/constants';
 import {
-  checkLensManagerPermissions,
   EVENTS,
-  getSignature,
-  Tower
-} from '@dragverse/generic'
-import type { Profile } from '@dragverse/lens'
+  Tower,
+  checkLensManagerPermissions,
+  getSignature
+} from '@dragverse/generic';
+import type { Profile } from '@dragverse/lens';
 import {
   useBroadcastOnchainMutation,
   useCreateChangeProfileManagersTypedDataMutation
-} from '@dragverse/lens'
-import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
-import { Loader } from '@dragverse/ui'
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import usePendingTxn from '@hooks/usePendingTxn'
-import useNonceStore from '@lib/store/nonce'
-import useProfileStore from '@lib/store/profile'
-import { Button } from '@radix-ui/themes'
-import { useEffect, useState } from 'react'
-import toast from 'react-hot-toast'
-import { useContractWrite, useSignTypedData } from 'wagmi'
+} from '@dragverse/lens';
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types';
+import { Button } from '@dragverse/ui';
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
+import usePendingTxn from '@hooks/usePendingTxn';
+import useProfileStore from '@lib/store/idb/profile';
+import useNonceStore from '@lib/store/nonce';
+import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
+import { useSignTypedData, useWriteContract } from 'wagmi';
 
 const ToggleLensManager = () => {
   const [loading, setLoading] = useState(false)
@@ -42,32 +41,39 @@ const ToggleLensManager = () => {
   }
 
   const { signTypedDataAsync } = useSignTypedData({
-    onError
+    mutation: { onError }
   })
 
-  const { write, data: writeData } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
-    abi: LENSHUB_PROXY_ABI,
-    functionName: 'changeDelegatedExecutorsConfig',
-    onSuccess: () => {
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
-    },
-    onError: (error) => {
-      onError(error)
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
+  const { writeContractAsync, data: txHash } = useWriteContract({
+    mutation: {
+      onSuccess: () => {
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
+      },
+      onError: (error) => {
+        onError(error)
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
+      }
     }
   })
+
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
+      address: LENSHUB_PROXY_ADDRESS,
+      abi: LENSHUB_PROXY_ABI,
+      functionName: 'changeDelegatedExecutorsConfig',
+      args
+    })
+  }
 
   const [broadcast, { data: broadcastData }] = useBroadcastOnchainMutation({
     onError
   })
 
   const { indexed } = usePendingTxn({
-    txHash: writeData?.hash,
-    txId:
-      broadcastData?.broadcastOnchain.__typename === 'RelaySuccess'
-        ? broadcastData?.broadcastOnchain?.txId
-        : undefined
+    txHash,
+    ...(broadcastData?.broadcastOnchain.__typename === 'RelaySuccess' && {
+      txId: broadcastData?.broadcastOnchain?.txId
+    })
   })
 
   useEffect(() => {
@@ -109,11 +115,11 @@ const ToggleLensManager = () => {
             variables: { request: { id, signature } }
           })
           if (data?.broadcastOnchain?.__typename === 'RelayError') {
-            return write({ args })
+            return await write({ args })
           }
           return
         }
-        return write({ args })
+        return await write({ args })
       } catch {
         setLoading(false)
       }
@@ -121,10 +127,9 @@ const ToggleLensManager = () => {
     onError
   })
 
-  const onClick = () => {
-    if (handleWrongNetwork()) {
-      return
-    }
+  const onClick = async () => {
+    await handleWrongNetwork()
+
     setLoading(true)
     return toggleLensManager({
       variables: {
@@ -146,13 +151,11 @@ const ToggleLensManager = () => {
 
   return (
     <Button
-      color={isLensManagerEnabled ? 'red' : 'gray'}
-      highContrast={!isLensManagerEnabled}
-      variant="surface"
       onClick={onClick}
       disabled={loading}
+      loading={loading}
+      variant={isLensManagerEnabled ? 'danger' : 'primary'}
     >
-      {loading && <Loader size="sm" />}
       {getButtonText()}
     </Button>
   )

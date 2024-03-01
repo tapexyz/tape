@@ -1,15 +1,16 @@
-import { getShortHandTime, trimify } from '@dragverse/generic'
-import type { Comment } from '@dragverse/lens'
-import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
-import Ionicons from '@expo/vector-icons/Ionicons'
-import React from 'react'
-import { StyleSheet, Text, useWindowDimensions, View } from 'react-native'
+import { trimify } from '@dragverse/generic';
+import type { Comment } from '@dragverse/lens';
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import React from 'react';
+import { StyleSheet, Text, useWindowDimensions, View } from 'react-native';
 
-import normalizeFont from '~/helpers/normalize-font'
-import { useMobileTheme } from '~/hooks'
+import { getShortHandTime } from '~/helpers/format-time';
+import normalizeFont from '~/helpers/normalize-font';
+import { useMobileTheme } from '~/hooks';
 
-import RenderMarkdown from '../common/markdown/RenderMarkdown'
-import UserProfile from '../common/UserProfile'
+import RenderMarkdown from '../common/markdown/RenderMarkdown';
+import UserProfile from '../common/UserProfile';
 
 const styles = (themeConfig: MobileThemeConfig) =>
   StyleSheet.create({

@@ -1,25 +1,26 @@
-import BangersShimmer from '@components/Shimmers/BangersShimmer'
-import { NoDataFound } from '@components/UIElements/NoDataFound'
+import BangersShimmer from '@components/Shimmers/BangersShimmer';
+import { NoDataFound } from '@components/UIElements/NoDataFound';
 import {
   INFINITE_SCROLL_ROOT_MARGIN,
   LENS_CUSTOM_FILTERS,
   TAPE_APP_ID
-} from '@dragverse/constants'
+} from '@dragverse/constants';
 import type {
   ExplorePublicationRequest,
   PrimaryPublication
-} from '@dragverse/lens'
+} from '@dragverse/lens';
 import {
-  ExplorePublicationsOrderByType,
   ExplorePublicationType,
+  ExplorePublicationsOrderByType,
   LimitType,
   PublicationMetadataMainFocusType,
   useExplorePublicationsQuery
-} from '@dragverse/lens'
-import { Loader } from '@dragverse/ui'
-import { useInView } from 'react-cool-inview'
+} from '@dragverse/lens';
+import { Spinner } from '@dragverse/ui';
+import { useInView } from 'react-cool-inview';
 
-import RenderBanger from './RenderBanger'
+import New from './New';
+import RenderBanger from './RenderBanger';
 
 const Feed = () => {
   const request: ExplorePublicationRequest = {
@@ -31,15 +32,16 @@ const Feed = () => {
       },
       customFilters: LENS_CUSTOM_FILTERS
     },
-    orderBy: ExplorePublicationsOrderByType.TopMirrored,
+    orderBy: ExplorePublicationsOrderByType.TopReacted,
     limit: LimitType.Fifty
   }
 
-  const { data, loading, error, fetchMore } = useExplorePublicationsQuery({
-    variables: {
-      request
-    }
-  })
+  const { data, loading, error, fetchMore, refetch } =
+    useExplorePublicationsQuery({
+      variables: {
+        request
+      }
+    })
 
   const posts = data?.explorePublications?.items as PrimaryPublication[]
   const pageInfo = data?.explorePublications?.pageInfo
@@ -58,23 +60,24 @@ const Feed = () => {
     }
   })
 
-  if (loading) {
-    return <BangersShimmer />
-  }
-
-  if ((!loading && !posts?.length) || error) {
-    return <NoDataFound withImage isCenter className="my-20" />
-  }
-
   return (
-    <div>
-      {posts?.map((post) => <RenderBanger key={post.id} post={post} />)}
-      {pageInfo?.next && (
-        <span ref={observe} className="flex justify-center p-10">
-          <Loader />
-        </span>
-      )}
-    </div>
+    <>
+      <New refetch={() => refetch()} />
+      <div className="tape-border container mx-auto max-w-screen-sm !border-y-0">
+        {loading && <BangersShimmer />}
+        {(!loading && !posts?.length) || error ? (
+          <NoDataFound withImage isCenter className="my-20" />
+        ) : null}
+        {posts?.map((post, i) => (
+          <RenderBanger key={post.id} post={post} isCertifiedBanger={i === 0} />
+        ))}
+        {pageInfo?.next && (
+          <span ref={observe} className="flex justify-center p-10">
+            <Spinner />
+          </span>
+        )}
+      </div>
+    </>
   )
 }
 

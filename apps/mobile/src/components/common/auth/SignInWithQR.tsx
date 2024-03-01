@@ -1,15 +1,15 @@
-import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
-import Ionicons from '@expo/vector-icons/Ionicons'
-import type { BottomSheetModal } from '@gorhom/bottom-sheet'
-import React, { useRef } from 'react'
-import { StyleSheet, Text, useWindowDimensions, View } from 'react-native'
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import type { BottomSheetModal } from '@gorhom/bottom-sheet';
+import React, { useRef } from 'react';
+import { StyleSheet, Text, useWindowDimensions, View } from 'react-native';
 
-import AnimatedPressable from '~/components/ui/AnimatedPressable'
-import Scanner from '~/components/ui/Scanner'
-import Sheet from '~/components/ui/Sheet'
-import haptic from '~/helpers/haptic'
-import normalizeFont from '~/helpers/normalize-font'
-import { useMobileTheme } from '~/hooks'
+import AnimatedPressable from '~/components/ui/AnimatedPressable';
+import Scanner from '~/components/ui/Scanner';
+import Sheet from '~/components/ui/Sheet';
+import haptic from '~/helpers/haptic';
+import normalizeFont from '~/helpers/normalize-font';
+import { useMobileTheme } from '~/hooks';
 
 const styles = (themeConfig: MobileThemeConfig) =>
   StyleSheet.create({

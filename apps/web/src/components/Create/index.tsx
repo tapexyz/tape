@@ -1,6 +1,6 @@
-import MetaTags from '@components/Common/MetaTags'
-import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
-import { getUserLocale, uploadToIPFS } from '@dragverse/browser'
+import MetaTags from '@components/Common/MetaTags';
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis';
+import { getUserLocale, uploadToIPFS } from '@dragverse/browser';
 import {
   ERROR_MESSAGE,
   IRYS_CONNECT_MESSAGE,
@@ -9,64 +9,68 @@ import {
   TAPE_APP_ID,
   TAPE_APP_NAME,
   TAPE_WEBSITE_URL
-} from '@dragverse/constants'
+} from '@dragverse/constants';
 import {
+  EVENTS,
+  Tower,
   canUploadedToIpfs,
   checkLensManagerPermissions,
-  EVENTS,
   getProfile,
   getSignature,
   getUploadedMediaType,
   logger,
-  Tower,
   trimify,
   uploadToAr
-} from '@dragverse/generic'
+} from '@dragverse/generic';
 import type {
   CreateMomokaPostEip712TypedData,
   CreateOnchainPostEip712TypedData,
+  OnchainPostRequest,
   Profile,
   ReferenceModuleInput
-} from '@dragverse/lens'
+} from '@dragverse/lens';
 import {
   ReferenceModuleType,
-  useBroadcastOnchainMutation,
   useBroadcastOnMomokaMutation,
+  useBroadcastOnchainMutation,
   useCreateMomokaPostTypedDataMutation,
   useCreateOnchainPostTypedDataMutation,
-  usePostOnchainMutation,
-  usePostOnMomokaMutation
-} from '@dragverse/lens'
-import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
-import useEthersWalletClient from '@hooks/useEthersWalletClient'
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
+  usePostOnMomokaMutation,
+  usePostOnchainMutation
+} from '@dragverse/lens';
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types';
 import type {
   AudioOptions,
   MediaAudioMimeType,
   MediaVideoMimeType,
   MetadataAttribute,
   VideoOptions
-} from '@lens-protocol/metadata'
+} from '@lens-protocol/metadata';
 import {
-  audio,
   MetadataAttributeType,
   PublicationContentWarning,
+  audio,
   shortVideo,
   video
-} from '@lens-protocol/metadata'
-import { getCollectModuleInput } from '@lib/getCollectModuleInput'
-import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
-import useNonceStore from '@lib/store/nonce'
-import usePersistStore from '@lib/store/persist'
-import { useProfileStore } from '@lib/store/profile'
-import { useRouter } from 'next/router'
-import { useEffect } from 'react'
-import toast from 'react-hot-toast'
-import { v4 as uuidv4 } from 'uuid'
-import { useAccount, useContractWrite, useSignTypedData } from 'wagmi'
+} from '@lens-protocol/metadata';
+import { getCollectModuleInput } from '@lib/getCollectModuleInput';
+import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store';
+import useProfileStore from '@lib/store/idb/profile';
+import useNonceStore from '@lib/store/nonce';
+import usePersistStore from '@lib/store/persist';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import toast from 'react-hot-toast';
+import { v4 as uuidv4 } from 'uuid';
+import {
+  useAccount,
+  useSignTypedData,
+  useWalletClient,
+  useWriteContract
+} from 'wagmi';
 
-import type { VideoFormData } from './Details'
-import Details from './Details'
+import type { VideoFormData } from './Details';
+import Details from './Details';
 
 const CreateSteps = () => {
   const getIrysInstance = useAppStore((state) => state.getIrysInstance)
@@ -80,10 +84,11 @@ const CreateSteps = () => {
 
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
   const { queuedVideos, setQueuedVideos } = usePersistStore()
+
   const { address } = useAccount()
-  const { data: signer } = useEthersWalletClient()
   const router = useRouter()
-  const handleWrongNetwork = useHandleWrongNetwork()
+  const { data: walletClient } = useWalletClient()
+
   const { canUseLensManager, canBroadcast } =
     checkLensManagerPermissions(activeProfile)
 
@@ -93,8 +98,8 @@ const CreateSteps = () => {
     ?.degreesOfSeparationReferenceModule
     ? ReferenceModuleType.DegreesOfSeparationReferenceModule
     : uploadedMedia.referenceModule.followerOnlyReferenceModule
-    ? ReferenceModuleType.FollowerOnlyReferenceModule
-    : null
+      ? ReferenceModuleType.FollowerOnlyReferenceModule
+      : null
 
   const resetToDefaults = () => {
     setUploadedMedia(UPLOADED_VIDEO_FORM_DEFAULTS)
@@ -133,14 +138,8 @@ const CreateSteps = () => {
   }
 
   useEffect(() => {
-    Tower.track(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.UPLOAD.STEPS })
+    Tower.track(EVENTS.PAGEVIEW, { page: EVENTS.PAGE_VIEW.UPLOAD })
   }, [])
-
-  useEffect(() => {
-    if (handleWrongNetwork()) {
-      return
-    }
-  }, [handleWrongNetwork])
 
   const stopLoading = () => {
     setUploadedMedia({
@@ -150,8 +149,9 @@ const CreateSteps = () => {
   }
 
   const onError = (error: CustomErrorWithData) => {
-    toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
     stopLoading()
+    toast.error(error?.data?.message ?? error?.message ?? ERROR_MESSAGE)
+    logger.error('[Create Publication]', error)
   }
 
   const onCompleted = (__typename?: 'RelayError' | 'RelaySuccess') => {
@@ -179,9 +179,9 @@ const CreateSteps = () => {
   }
 
   const initIrys = async () => {
-    if (signer && address && !irysData.instance) {
+    if (walletClient && address && !irysData.instance) {
       toast.loading(IRYS_CONNECT_MESSAGE)
-      const instance = await getIrysInstance(signer)
+      const instance = await getIrysInstance(walletClient)
       if (instance) {
         setIrysData({ instance })
       }
@@ -189,25 +189,33 @@ const CreateSteps = () => {
   }
 
   const { signTypedDataAsync } = useSignTypedData({
-    onError
+    mutation: { onError }
   })
 
-  const { write } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
-    abi: LENSHUB_PROXY_ABI,
-    functionName: 'post',
-    onSuccess: (data) => {
-      if (data.hash) {
-        setToQueue({ txnHash: data.hash })
+  const { writeContractAsync } = useWriteContract({
+    mutation: {
+      onSuccess: (txnHash) => {
+        if (txnHash) {
+          setToQueue({ txnHash })
+        }
+        stopLoading()
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
+      },
+      onError: (error) => {
+        onError(error)
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
       }
-      stopLoading()
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
-    },
-    onError: (error) => {
-      onError(error)
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
     }
   })
+
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
+      address: LENSHUB_PROXY_ADDRESS,
+      abi: LENSHUB_PROXY_ABI,
+      functionName: 'post',
+      args
+    })
+  }
 
   const getSignatureFromTypedData = async (
     data: CreateMomokaPostEip712TypedData | CreateOnchainPostEip712TypedData
@@ -245,11 +253,11 @@ const CreateSteps = () => {
             variables: { request: { id, signature } }
           })
           if (data?.broadcastOnchain?.__typename === 'RelayError') {
-            return write({ args: [typedData.value] })
+            return await write({ args: [typedData.value] })
           }
           return
         }
-        return write({ args: [typedData.value] })
+        return await write({ args: [typedData.value] })
       } catch {
         setUploadedMedia({
           buttonText: 'Post Now',
@@ -348,11 +356,17 @@ const CreateSteps = () => {
         : { degreesOfSeparationReferenceModule: referenceModuleDegrees })
     }
 
-    const request = {
+    const request: OnchainPostRequest = {
       contentURI: metadataUri,
       openActionModules: [
         {
-          ...getCollectModuleInput(uploadedMedia.collectModule)
+          ...getCollectModuleInput(uploadedMedia.collectModule),
+          ...(uploadedMedia?.unknownOpenAction && {
+            unknownOpenAction: {
+              address: uploadedMedia.unknownOpenAction.address,
+              data: uploadedMedia.unknownOpenAction.data
+            }
+          })
         }
       ],
       referenceModule
@@ -389,6 +403,7 @@ const CreateSteps = () => {
       }
     ]
 
+    const profileSlug = getProfile(activeProfile)?.slug
     const publicationMetadata: VideoOptions = {
       video: {
         item: uploadedMedia.dUrl,
@@ -411,8 +426,7 @@ const CreateSteps = () => {
       marketplace: {
         attributes,
         animation_url: uploadedMedia.dUrl,
-        external_url: `${TAPE_WEBSITE_URL}/u/${getProfile(activeProfile)
-          ?.slug}`,
+        external_url: `${TAPE_WEBSITE_URL}/u/${profileSlug}`,
         image: uploadedMedia.thumbnail,
         name: uploadedMedia.title,
         description: trimify(uploadedMedia.description)
@@ -431,6 +445,8 @@ const CreateSteps = () => {
     await createPost(metadataUri)
   }
 
+  const profileSlug = getProfile(activeProfile)?.slug
+
   const constructAudioMetadata = async () => {
     const attributes: MetadataAttribute[] = [
       {
@@ -441,7 +457,7 @@ const CreateSteps = () => {
       {
         type: MetadataAttributeType.STRING,
         key: 'creator',
-        value: `${getProfile(activeProfile)?.slug}`
+        value: profileSlug
       },
       {
         type: MetadataAttributeType.STRING,
@@ -456,7 +472,7 @@ const CreateSteps = () => {
         type: getUploadedMediaType(
           uploadedMedia.mediaType
         ) as MediaAudioMimeType,
-        artist: `${getProfile(activeProfile)?.slug}`,
+        artist: profileSlug,
         attributes,
         cover: uploadedMedia.thumbnail,
         duration: uploadedMedia.durationInSeconds,
@@ -472,8 +488,7 @@ const CreateSteps = () => {
       marketplace: {
         attributes,
         animation_url: uploadedMedia.dUrl,
-        external_url: `${TAPE_WEBSITE_URL}/u/${getProfile(activeProfile)
-          ?.slug}`,
+        external_url: `${TAPE_WEBSITE_URL}/u/${profileSlug}`,
         image: uploadedMedia.thumbnail,
         name: uploadedMedia.title,
         description: trimify(uploadedMedia.description)
@@ -499,8 +514,8 @@ const CreateSteps = () => {
         return await constructAudioMetadata()
       }
       await constructVideoMetadata()
-    } catch (error) {
-      logger.error('[Create Publication]', error)
+    } catch (error: any) {
+      onError(error)
     }
   }
 
@@ -598,11 +613,12 @@ const CreateSteps = () => {
     }
   }
 
-  const onUpload = async (data: VideoFormData) => {
+  const onUpload = async (data: VideoFormData & { thumbnail: string }) => {
     uploadedMedia.title = data.title
     uploadedMedia.loading = true
     uploadedMedia.description = data.description
     uploadedMedia.isSensitiveContent = data.isSensitiveContent
+    uploadedMedia.thumbnail = data.thumbnail
     setUploadedMedia({ ...uploadedMedia })
     // Upload video directly from source without uploading again
     if (
@@ -615,7 +631,7 @@ const CreateSteps = () => {
       })
     }
     if (
-      canUploadedToIpfs(uploadedMedia.file?.size) &&
+      canUploadedToIpfs(uploadedMedia.file?.size || 0, activeProfile.sponsor) &&
       uploadedMedia.isUploadToIpfs
     ) {
       return await uploadVideoToIpfs()
@@ -625,11 +641,9 @@ const CreateSteps = () => {
   }
 
   return (
-    <div className="mx-auto gap-5 md:my-10">
+    <div className="container mx-auto max-w-screen-xl">
       <MetaTags title="Create" />
-      <div className="container mx-auto max-w-screen-xl md:mt-10">
-        <Details onCancel={resetToDefaults} onUpload={onUpload} />
-      </div>
+      <Details onCancel={resetToDefaults} onUpload={onUpload} />
     </div>
   )
 }

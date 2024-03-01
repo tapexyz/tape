@@ -1,7 +1,7 @@
-import { TAPE_APP_NAME } from '@dragverse/constants'
-import useProfileStore from '@lib/store/profile'
+import { TAPE_APP_NAME } from '@dragverse/constants';
+import useProfileStore from '@lib/store/idb/profile';
 
-import ToggleLensManager from './ToggleLensManager'
+import ToggleLensManager from './ToggleLensManager';
 
 const LensManager = () => {
   const activeProfile = useProfileStore((state) => state.activeProfile)

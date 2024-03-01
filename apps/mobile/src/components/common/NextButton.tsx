@@ -1,13 +1,13 @@
-import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
-import { useNavigation } from '@react-navigation/native'
-import React from 'react'
-import { StyleSheet, Text } from 'react-native'
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types';
+import { useNavigation } from '@react-navigation/native';
+import React from 'react';
+import { StyleSheet, Text } from 'react-native';
 
-import haptic from '~/helpers/haptic'
-import normalizeFont from '~/helpers/normalize-font'
-import { useMobileTheme } from '~/hooks'
+import haptic from '~/helpers/haptic';
+import normalizeFont from '~/helpers/normalize-font';
+import { useMobileTheme } from '~/hooks';
 
-import AnimatedPressable from '../ui/AnimatedPressable'
+import AnimatedPressable from '../ui/AnimatedPressable';
 
 const styles = (themeConfig: MobileThemeConfig) =>
   StyleSheet.create({

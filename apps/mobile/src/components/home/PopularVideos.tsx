@@ -1,38 +1,37 @@
-import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@dragverse/constants'
-import { getThumbnailUrl, imageCdn, trimify } from '@dragverse/generic'
+import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@dragverse/constants';
+import { getThumbnailUrl, imageCdn, trimify } from '@dragverse/generic';
 import type {
-    ExplorePublicationRequest,
-    MirrorablePublication
-} from '@dragverse/lens'
+  ExplorePublicationRequest,
+  MirrorablePublication
+} from '@dragverse/lens';
 import {
-    ExplorePublicationsOrderByType,
-    ExplorePublicationType,
-    LimitType,
-    PublicationMetadataMainFocusType,
-    useExplorePublicationsQuery
-} from '@dragverse/lens'
-import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
-import { useNavigation } from '@react-navigation/native'
-import { Image as ExpoImage } from 'expo-image'
-import { LinearGradient } from 'expo-linear-gradient'
-import { Skeleton } from 'moti/skeleton'
-import React from 'react'
+  ExplorePublicationsOrderByType,
+  ExplorePublicationType,
+  LimitType,
+  PublicationMetadataMainFocusType,
+  useExplorePublicationsQuery
+} from '@dragverse/lens';
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types';
+import { useNavigation } from '@react-navigation/native';
+import { Image as ExpoImage } from 'expo-image';
+import { LinearGradient } from 'expo-linear-gradient';
+import { Skeleton } from 'moti/skeleton';
+import React from 'react';
 import {
-    ImageBackground,
-    Pressable,
-    StyleSheet,
-    Text,
-    View
-} from 'react-native'
+  ImageBackground,
+  Pressable,
+  StyleSheet,
+  Text,
+  View
+} from 'react-native';
 
-import normalizeFont from '~/helpers/normalize-font'
-import { useMobileTheme } from '~/hooks'
-import useMobileStore from '~/store'
-import { useMobilePersistStore } from '~/store/persist'
+import normalizeFont from '~/helpers/normalize-font';
+import { useMobileTheme } from '~/hooks';
+import useMobileStore from '~/store';
 
-import UserProfile from '../common/UserProfile'
-import HCarousel from '../ui/HCarousel'
-import ServerError from '../ui/ServerError'
+import UserProfile from '../common/UserProfile';
+import HCarousel from '../ui/HCarousel';
+import ServerError from '../ui/ServerError';
 
 const CAROUSEL_HEIGHT = 210
 const BORDER_RADIUS = 25
@@ -91,9 +90,6 @@ const PopularVideos = () => {
   const { themeConfig } = useMobileTheme()
   const style = styles(themeConfig)
 
-  const selectedProfile = useMobilePersistStore(
-    (state) => state.selectedProfile
-  )
   const homeGradientColor = useMobileStore((state) => state.homeGradientColor)
 
   const request: ExplorePublicationRequest = {
@@ -139,7 +135,7 @@ const PopularVideos = () => {
             renderItem={({ item }: { item: MirrorablePublication }) => {
               const isBytes = item.publishedOn?.id === LENSTUBE_BYTES_APP_ID
               const thumbnailUrl = imageCdn(
-                getThumbnailUrl(item, true),
+                getThumbnailUrl(item.metadata, true),
                 isBytes ? 'THUMBNAIL_V' : 'THUMBNAIL'
               )
               return (

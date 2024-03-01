@@ -1,17 +1,17 @@
-import { getPublicationMediaUrl } from '@dragverse/generic'
-import type { MirrorablePublication } from '@dragverse/lens'
-import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
-import Ionicons from '@expo/vector-icons/Ionicons'
-import type { AVPlaybackStatus } from 'expo-av'
-import { Audio } from 'expo-av'
-import type { FC } from 'react'
-import React, { useState } from 'react'
-import { StyleSheet } from 'react-native'
+import { getPublicationMediaUrl } from '@dragverse/generic';
+import type { MirrorablePublication } from '@dragverse/lens';
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import type { AVPlaybackStatus } from 'expo-av';
+import { Audio } from 'expo-av';
+import type { FC } from 'react';
+import React, { useState } from 'react';
+import { StyleSheet } from 'react-native';
 
-import WaveForm from '~/components/common/WaveForm'
-import AnimatedPressable from '~/components/ui/AnimatedPressable'
-import haptic from '~/helpers/haptic'
-import { useMobileTheme } from '~/hooks'
+import WaveForm from '~/components/common/WaveForm';
+import AnimatedPressable from '~/components/ui/AnimatedPressable';
+import haptic from '~/helpers/haptic';
+import { useMobileTheme } from '~/hooks';
 
 const styles = (themeConfig: MobileThemeConfig) =>
   StyleSheet.create({
@@ -41,7 +41,7 @@ const Player: FC<Props> = ({ audio }) => {
     const soundInstance = new Audio.Sound()
     const result = await soundInstance.loadAsync(
       {
-        uri: getPublicationMediaUrl(audio)
+        uri: getPublicationMediaUrl(audio.metadata)
       },
       { shouldPlay: false },
       false

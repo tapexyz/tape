@@ -8,4 +8,10 @@
     <sitemap>
         <loc>https://dragverse.app/sitemaps/profiles/3.xml</loc>
     </sitemap>
+    <sitemap>
+        <loc>https://dragverse.app/sitemaps/videos/1.xml</loc>
+    </sitemap>
+    <sitemap>
+        <loc>https://dragverse.app/sitemaps/videos/2.xml</loc>
+    </sitemap>
 </sitemapindex>

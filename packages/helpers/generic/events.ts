@@ -20,10 +20,7 @@ export const EVENTS = {
     EXPLORE_INTERESTING: 'Interesting Page',
     EXPLORE_POPULAR: 'Popular Page',
     THANKS: 'Thanks Page',
-    UPLOAD: {
-      DROPZONE: 'DropZone Page',
-      STEPS: 'Upload Steps Page'
-    },
+    UPLOAD: 'Upload Page',
     SETTINGS: 'Settings Page',
     WATCH: 'Watch Page',
     WATCH_STREAM: 'Watch Stream Page',
@@ -45,6 +42,7 @@ export const EVENTS = {
     TOGGLE_INTEREST: 'Toggle Publication Interest',
     PERMALINK: 'Permalink publication',
     COLLECT: 'Collect publication',
+    SAVE_AS_DEFAULT_COLLECT: 'Save collect settings as default',
     TIP: {
       OPEN: 'Open Tip Modal',
       SENT: 'Tip Sent'
@@ -65,7 +63,10 @@ export const EVENTS = {
   },
   AUTH: {
     CONNECT_WALLET: 'Connect Wallet',
+    SWITCH_NETWORK: 'Switch Network',
     SIGN_IN_WITH_LENS: 'Sign in with Lens',
+    SIGNUP_SUCCESS: 'Signup Success',
+    SIGNUP_HANDLE_SEARCH: 'Signup Handle Search',
     SIGN_OUT: 'Sign Out'
   },
   PROFILE: {
@@ -77,6 +78,7 @@ export const EVENTS = {
     FOLLOW: 'Follow',
     SUPER_FOLLOW: 'Super Follow',
     UNFOLLOW: 'Unfollow',
+    REPORT: 'Report Profile',
     SETTINGS: {
       TOGGLE_REVERT_FOLLOW: 'Toggle Revert Follow'
     }
@@ -123,7 +125,6 @@ export const EVENTS = {
 export const ALL_EVENTS = {
   ...EVENTS,
   ...EVENTS.PAGE_VIEW,
-  ...EVENTS.PAGE_VIEW.UPLOAD,
   ...EVENTS.MANAGER,
   ...EVENTS.PUBLICATION,
   ...EVENTS.PUBLICATION.TIP,

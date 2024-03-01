@@ -1,24 +1,22 @@
-import { Input } from '@components/UIElements/Input'
-import { WMATIC_TOKEN_ADDRESS } from '@dragverse/constants'
-import type { Erc20 } from '@dragverse/lens'
-import type { CollectModuleType } from '@dragverse/lens/custom-types'
-import { zodResolver } from '@hookform/resolvers/zod'
-import useAppStore from '@lib/store'
-import useProfileStore from '@lib/store/profile'
-import { Button, Flex, Select, Text } from '@radix-ui/themes'
-import type { Dispatch, FC } from 'react'
-import { useEffect, useRef, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { isAddress } from 'viem'
-import type { z } from 'zod'
-import { number, object, string } from 'zod'
+import { WMATIC_TOKEN_ADDRESS } from '@dragverse/constants';
+import type { CollectModuleType } from '@dragverse/lens/custom-types';
+import { Button, Input, Select, SelectItem } from '@dragverse/ui';
+import { zodResolver } from '@hookform/resolvers/zod';
+import useAppStore from '@lib/store';
+import useProfileStore from '@lib/store/idb/profile';
+import useAllowedTokensStore from '@lib/store/idb/tokens';
+import type { Dispatch, FC } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { isAddress } from 'viem';
+import type { z } from 'zod';
+import { number, object, string } from 'zod';
 
-import Splits from './Splits'
+import Splits from './Splits';
 
 type Props = {
   setCollectType: (data: CollectModuleType) => void
   setShowModal: Dispatch<boolean>
-  enabledCurrencies: Erc20[]
 }
 
 const formSchema = object({
@@ -30,16 +28,13 @@ const formSchema = object({
 })
 export type FormData = z.infer<typeof formSchema>
 
-const FeeCollectForm: FC<Props> = ({
-  setCollectType,
-  setShowModal,
-  enabledCurrencies
-}) => {
+const FeeCollectForm: FC<Props> = ({ setCollectType, setShowModal }) => {
   const submitContainerRef = useRef<HTMLDivElement>(null)
   const [validationError, setValidationError] = useState('')
 
   const uploadedMedia = useAppStore((state) => state.uploadedMedia)
   const activeProfile = useProfileStore((state) => state.activeProfile)
+  const allowedTokens = useAllowedTokensStore((state) => state.allowedTokens)
 
   const splitRecipients = uploadedMedia.collectModule.multiRecipients ?? []
 
@@ -115,40 +110,36 @@ const FeeCollectForm: FC<Props> = ({
     <form className="space-y-3">
       {uploadedMedia.collectModule.isFeeCollect ? (
         <>
-          <Flex align="start" gap="2">
+          <div className="flex items-start gap-2">
             <Input
               type="number"
               placeholder="1.5"
               min="0"
               autoComplete="off"
               max="100000"
-              validationError={errors.amount?.message}
+              error={errors.amount?.message}
               {...register('amount', {
                 setValueAs: (v) => String(v)
               })}
             />
-            <Select.Root
-              {...register('currency')}
-              value={uploadedMedia.collectModule.amount?.currency}
-              onValueChange={(value) => {
-                setCollectType({
-                  amount: { currency: value, value: '' }
-                })
-              }}
-            >
-              <Select.Trigger />
-              <Select.Content highContrast>
-                {enabledCurrencies?.map((currency) => (
-                  <Select.Item
-                    key={currency.contract.address}
-                    value={currency.contract.address}
-                  >
+            <div>
+              <Select
+                {...register('currency')}
+                value={uploadedMedia.collectModule.amount?.currency}
+                onValueChange={(value) => {
+                  setCollectType({
+                    amount: { currency: value, value: '' }
+                  })
+                }}
+              >
+                {allowedTokens?.map((currency) => (
+                  <SelectItem key={currency.address} value={currency.address}>
                     {currency.symbol}
-                  </Select.Item>
+                  </SelectItem>
                 ))}
-              </Select.Content>
-            </Select.Root>
-          </Flex>
+              </Select>
+            </div>
+          </div>
 
           <Splits submitContainerRef={submitContainerRef} />
 
@@ -158,23 +149,21 @@ const FeeCollectForm: FC<Props> = ({
               type="number"
               placeholder="2"
               suffix="%"
-              info="Percent of collect revenue can be shared with anyone who mirrors your content."
+              info="Percentage of collect revenue from mirrors can be shared with the referrer"
               {...register('referralPercent', { valueAsNumber: true })}
-              validationError={errors.referralPercent?.message}
+              error={errors.referralPercent?.message}
             />
           </div>
         </>
       ) : null}
-      <div className="flex justify-between pt-4" ref={submitContainerRef}>
-        <Text color="red" weight="medium">
+      <div
+        className="flex items-center justify-between pt-4"
+        ref={submitContainerRef}
+      >
+        <span className="text-sm font-medium text-red-500">
           {validationError}
-        </Text>
-        <Button
-          highContrast
-          type="button"
-          onClick={() => handleSubmit(validateInputs)()}
-          className="text-brand-50"
-        >
+        </span>
+        <Button type="button" onClick={() => handleSubmit(validateInputs)()}>
           Set Collect Type
         </Button>
       </div>

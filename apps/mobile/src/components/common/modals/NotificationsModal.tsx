@@ -1,12 +1,12 @@
-import { LENS_CUSTOM_FILTERS } from '@dragverse/constants'
-import type { Notification, NotificationRequest } from '@dragverse/lens'
-import { useNotificationsQuery } from '@dragverse/lens'
-import { FlashList } from '@shopify/flash-list'
-import React, { useCallback } from 'react'
-import { ActivityIndicator, Text } from 'react-native'
+import { LENS_CUSTOM_FILTERS } from '@dragverse/constants';
+import type { Notification, NotificationRequest } from '@dragverse/lens';
+import { useNotificationsQuery } from '@dragverse/lens';
+import { FlashList } from '@shopify/flash-list';
+import React, { useCallback } from 'react';
+import { ActivityIndicator, Text } from 'react-native';
 
-import NotFound from '~/components/ui/NotFound'
-import { useMobileTheme, usePushNotifications } from '~/hooks'
+import NotFound from '~/components/ui/NotFound';
+import { useMobileTheme, usePushNotifications } from '~/hooks';
 
 export const NotificationsModal = (): JSX.Element => {
   usePushNotifications()

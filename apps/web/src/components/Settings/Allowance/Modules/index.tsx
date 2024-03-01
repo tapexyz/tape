@@ -1,38 +1,150 @@
-import { WMATIC_TOKEN_ADDRESS } from '@dragverse/constants'
-import type { ApprovedAllowanceAmountResult, Erc20 } from '@dragverse/lens'
+import { VERIFIED_UNKNOWN_OPEN_ACTION_CONTRACTS } from '@components/Watch/OpenActions/verified-contracts';
+import { POLYGONSCAN_URL, WMATIC_TOKEN_ADDRESS } from '@dragverse/constants';
+import { shortenAddress } from '@dragverse/generic';
+import type { ApprovedAllowanceAmountResult } from '@dragverse/lens';
 import {
   FollowModuleType,
-  LimitType,
   OpenActionModuleType,
   useApprovedModuleAllowanceAmountQuery,
-  useEnabledCurrenciesQuery,
   useGenerateModuleCurrencyApprovalDataLazyQuery
-} from '@dragverse/lens'
-import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
-import { Loader } from '@dragverse/ui'
-import { getCollectModuleConfig } from '@lib/getCollectModuleInput'
-import useProfileStore from '@lib/store/profile'
-import { Button, Select } from '@radix-ui/themes'
-import { useState } from 'react'
-import toast from 'react-hot-toast'
-import { useSendTransaction, useWaitForTransaction } from 'wagmi'
+} from '@dragverse/lens';
+import { Button, Select, SelectItem, Spinner } from '@dragverse/ui';
+import { getCollectModuleConfig } from '@lib/getCollectModuleInput';
+import useProfileStore from '@lib/store/idb/profile';
+import useAllowedTokensStore from '@lib/store/idb/tokens';
+import Link from 'next/link';
+import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
+import { useSendTransaction, useWaitForTransactionReceipt } from 'wagmi';
 
-const ModuleAllowance = () => {
-  const { activeProfile } = useProfileStore()
-
-  const [currency, setCurrency] = useState(WMATIC_TOKEN_ADDRESS)
+const ModuleItem = ({
+  moduleItem,
+  currency,
+  onSuccess
+}: {
+  moduleItem: ApprovedAllowanceAmountResult
+  currency: string
+  onSuccess: () => void
+}) => {
   const [loadingModule, setLoadingModule] = useState('')
 
-  const { data: txData, sendTransaction } = useSendTransaction({
-    onError(error: CustomErrorWithData) {
-      toast.error(error?.data?.message ?? error?.message)
-      setLoadingModule('')
+  const [generateAllowanceQuery] =
+    useGenerateModuleCurrencyApprovalDataLazyQuery()
+
+  const { data: hash, sendTransaction } = useSendTransaction({
+    mutation: {
+      onError: (error) => {
+        toast.error(error?.message)
+        setLoadingModule('')
+      }
     }
   })
 
+  const { isSuccess, error, isError } = useWaitForTransactionReceipt({
+    hash,
+    query: {
+      enabled: hash && hash.length > 0
+    }
+  })
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(error?.message)
+      setLoadingModule('')
+    }
+    if (isSuccess) {
+      onSuccess()
+      toast.success(`Allowance updated`)
+      setLoadingModule('')
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isError, isSuccess, error])
+
+  const handleClick = async (
+    isAllow: boolean,
+    module: ApprovedAllowanceAmountResult
+  ) => {
+    try {
+      setLoadingModule(module.moduleName)
+      const isUnknownModule =
+        module.moduleName === OpenActionModuleType.UnknownOpenActionModule
+      const { data: allowanceData } = await generateAllowanceQuery({
+        variables: {
+          request: {
+            allowance: {
+              currency,
+              value: isAllow ? Number.MAX_SAFE_INTEGER.toString() : '0'
+            },
+            module: {
+              [getCollectModuleConfig(module).type]: isUnknownModule
+                ? module.moduleContract.address
+                : module.moduleName
+            }
+          }
+        }
+      })
+      const generated = allowanceData?.generateModuleCurrencyApprovalData
+      sendTransaction?.({
+        to: generated?.to,
+        data: generated?.data
+      })
+    } catch {
+      setLoadingModule('')
+    }
+  }
+
+  return (
+    <div
+      key={moduleItem.moduleContract.address}
+      className="flex items-center rounded-md pb-4"
+    >
+      <div className="flex-1">
+        <h6 className="font-medium">
+          {getCollectModuleConfig(moduleItem).label} (
+          <Link
+            className="text-xs"
+            target="_blank"
+            href={`${POLYGONSCAN_URL}/address/${moduleItem.moduleContract.address}`}
+          >
+            {shortenAddress(moduleItem.moduleContract.address)})
+          </Link>
+        </h6>
+        <p className="opacity-70">
+          {getCollectModuleConfig(moduleItem).description}
+        </p>
+      </div>
+      <div className="ml-2 flex flex-none items-center space-x-2">
+        {parseFloat(moduleItem?.allowance.value) === 0 ? (
+          <Button
+            disabled={loadingModule === moduleItem.moduleName}
+            loading={loadingModule === moduleItem.moduleName}
+            onClick={() => handleClick(true, moduleItem)}
+          >
+            Allow
+          </Button>
+        ) : (
+          <Button
+            variant="danger"
+            onClick={() => handleClick(false, moduleItem)}
+            disabled={loadingModule === moduleItem.moduleName}
+            loading={loadingModule === moduleItem.moduleName}
+          >
+            Revoke
+          </Button>
+        )}
+      </div>
+    </div>
+  )
+}
+
+const ModuleAllowance = () => {
+  const { activeProfile } = useProfileStore()
+  const [currency, setCurrency] = useState(WMATIC_TOKEN_ADDRESS)
+  const allowedTokens = useAllowedTokensStore((state) => state.allowedTokens)
+
   const {
-    data,
-    refetch,
+    data: commonAllowancesData,
+    refetch: refetchCommonApproved,
     loading: gettingSettings
   } = useApprovedModuleAllowanceAmountQuery({
     variables: {
@@ -51,56 +163,20 @@ const ModuleAllowance = () => {
     fetchPolicy: 'no-cache'
   })
 
-  useWaitForTransaction({
-    hash: txData?.hash,
-    onSuccess: () => {
-      refetch()
-      toast.success(`Permission updated`)
-      setLoadingModule('')
-    },
-    onError(error: CustomErrorWithData) {
-      toast.error(error?.data?.message ?? error?.message)
-      setLoadingModule('')
-    }
-  })
-
-  const [generateAllowanceQuery] =
-    useGenerateModuleCurrencyApprovalDataLazyQuery()
-
-  const { data: enabledCurrencies } = useEnabledCurrenciesQuery({
+  const {
+    data: unKnownActAllowancesData,
+    refetch: refetchUnknownActApproved,
+    loading: gettingUnknownActSettings
+  } = useApprovedModuleAllowanceAmountQuery({
     variables: {
       request: {
-        limit: LimitType.Fifty
+        currencies: [currency],
+        unknownOpenActionModules: [VERIFIED_UNKNOWN_OPEN_ACTION_CONTRACTS.TIP]
       }
-    }
+    },
+    skip: !activeProfile?.id,
+    fetchPolicy: 'no-cache'
   })
-  const currencies = enabledCurrencies?.currencies.items
-
-  const handleClick = async (isAllow: boolean, selectedModule: string) => {
-    try {
-      setLoadingModule(selectedModule)
-      const { data: allowanceData } = await generateAllowanceQuery({
-        variables: {
-          request: {
-            allowance: {
-              currency,
-              value: isAllow ? Number.MAX_SAFE_INTEGER.toString() : '0'
-            },
-            module: {
-              [getCollectModuleConfig(selectedModule).type]: selectedModule
-            }
-          }
-        }
-      })
-      const generated = allowanceData?.generateModuleCurrencyApprovalData
-      sendTransaction?.({
-        to: generated?.to,
-        data: generated?.data
-      })
-    } catch {
-      setLoadingModule('')
-    }
-  }
 
   return (
     <div>
@@ -112,68 +188,54 @@ const ModuleAllowance = () => {
         </p>
       </div>
       <div>
-        {!gettingSettings && data && (
+        {!gettingSettings && commonAllowancesData && (
           <div className="flex justify-end py-6">
-            <Select.Root
+            <Select
               value={currency}
               onValueChange={(value) => setCurrency(value)}
             >
-              <Select.Trigger className="w-full" />
-              <Select.Content highContrast>
-                {currencies?.map((token: Erc20) => (
-                  <Select.Item
-                    key={token.contract.address}
-                    value={token.contract.address}
-                  >
-                    {token.name}
-                  </Select.Item>
-                ))}
-              </Select.Content>
-            </Select.Root>
+              {allowedTokens?.map((token) => (
+                <SelectItem key={token.address} value={token.address}>
+                  {token.name}
+                </SelectItem>
+              ))}
+            </Select>
           </div>
         )}
-        {gettingSettings && (
+        {gettingSettings || gettingUnknownActSettings ? (
           <div className="grid h-24 place-items-center">
-            <Loader />
+            <Spinner />
           </div>
-        )}
+        ) : null}
         {!gettingSettings &&
-          data?.approvedModuleAllowanceAmount?.map(
+          commonAllowancesData?.approvedModuleAllowanceAmount?.map(
             (moduleItem: ApprovedAllowanceAmountResult) => (
-              <div
+              <ModuleItem
                 key={moduleItem.moduleContract.address}
-                className="flex items-center rounded-md pb-4"
-              >
-                <div className="flex-1">
-                  <h6 className="font-medium">
-                    {getCollectModuleConfig(moduleItem.moduleName).label}
-                  </h6>
-                  <p className="opacity-70">
-                    {getCollectModuleConfig(moduleItem.moduleName).description}
-                  </p>
-                </div>
-                <div className="ml-2 flex flex-none items-center space-x-2">
-                  {parseFloat(moduleItem?.allowance.value) === 0 ? (
-                    <Button
-                      variant="surface"
-                      highContrast
-                      disabled={loadingModule === moduleItem.moduleName}
-                      onClick={() => handleClick(true, moduleItem.moduleName)}
-                    >
-                      Allow
-                    </Button>
-                  ) : (
-                    <Button
-                      variant="surface"
-                      color="red"
-                      onClick={() => handleClick(false, moduleItem.moduleName)}
-                      disabled={loadingModule === moduleItem.moduleName}
-                    >
-                      Revoke
-                    </Button>
-                  )}
-                </div>
-              </div>
+                moduleItem={moduleItem}
+                currency={currency}
+                onSuccess={() => {
+                  refetchCommonApproved()
+                  refetchUnknownActApproved()
+                }}
+              />
+            )
+          )}
+        {unKnownActAllowancesData?.approvedModuleAllowanceAmount.length ? (
+          <h6 className="text-brand-500 mb-2 mt-4 font-medium">Open Actions</h6>
+        ) : null}
+        {!gettingUnknownActSettings &&
+          unKnownActAllowancesData?.approvedModuleAllowanceAmount?.map(
+            (moduleItem: ApprovedAllowanceAmountResult) => (
+              <ModuleItem
+                key={moduleItem.moduleContract.address}
+                moduleItem={moduleItem}
+                currency={currency}
+                onSuccess={() => {
+                  refetchCommonApproved()
+                  refetchUnknownActApproved()
+                }}
+              />
             )
           )}
       </div>

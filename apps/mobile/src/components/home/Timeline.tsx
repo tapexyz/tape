@@ -1,43 +1,43 @@
-import { LENS_CUSTOM_FILTERS, RECS_URL } from '@dragverse/constants'
+import { LENS_CUSTOM_FILTERS } from '@dragverse/constants';
 import type {
-    ExplorePublicationRequest,
-    FeedHighlightsRequest,
-    FeedItem,
-    FeedRequest,
-    MirrorablePublication,
-    PrimaryPublication
-} from '@dragverse/lens'
+  ExplorePublicationRequest,
+  FeedHighlightsRequest,
+  FeedItem,
+  FeedRequest,
+  MirrorablePublication,
+  PrimaryPublication
+} from '@dragverse/lens';
 import {
-    ExplorePublicationType,
-    ExplorePublicationsOrderByType,
-    FeedEventItemType,
-    LimitType,
-    PublicationMetadataMainFocusType,
-    useExplorePublicationsQuery,
-    useFeedHighlightsQuery,
-    useFeedQuery,
-    usePublicationsQuery
-} from '@dragverse/lens'
-import { AlgoType, TimelineFeedType } from '@dragverse/lens/custom-types'
-import { useScrollToTop } from '@react-navigation/native'
-import { FlashList } from '@shopify/flash-list'
-import React, { useCallback, useEffect, useMemo, useRef } from 'react'
-import { ActivityIndicator, StyleSheet, View } from 'react-native'
-import useSWR from 'swr'
+  ExplorePublicationType,
+  ExplorePublicationsOrderByType,
+  FeedEventItemType,
+  LimitType,
+  PublicationMetadataMainFocusType,
+  useExplorePublicationsQuery,
+  useFeedHighlightsQuery,
+  useFeedQuery,
+  usePublicationsQuery
+} from '@dragverse/lens';
+import { AlgoType, TimelineFeedType } from '@dragverse/lens/custom-types';
+import { useScrollToTop } from '@react-navigation/native';
+import { FlashList } from '@shopify/flash-list';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import useSWR from 'swr';
 
-import { windowHeight } from '~/helpers/theme'
-import useMobileHomeFeedStore from '~/store/feed'
-import { useMobilePersistStore } from '~/store/persist'
+import { windowHeight } from '~/helpers/theme';
+import useMobileHomeFeedStore from '~/store/feed';
+import { useMobilePersistStore } from '~/store/persist';
 
-import AudioCard from '../common/AudioCard'
-import VideoCard from '../common/VideoCard'
-import NotFound from '../ui/NotFound'
-import ServerError from '../ui/ServerError'
-import ByteCards from './ByteCards'
-import FirstSteps from './FirstSteps'
-import PopularCreators from './PopularCreators'
-import Streak from './Streak'
-import TimelineFilters from './TimelineFilters'
+import AudioCard from '../common/AudioCard';
+import VideoCard from '../common/VideoCard';
+import NotFound from '../ui/NotFound';
+import ServerError from '../ui/ServerError';
+import ByteCards from './ByteCards';
+import FirstSteps from './FirstSteps';
+import PopularCreators from './PopularCreators';
+import Streak from './Streak';
+import TimelineFilters from './TimelineFilters';
 
 const styles = StyleSheet.create({
   container: {
@@ -148,7 +148,7 @@ const Timeline = () => {
   }
 
   const { data: recsData } = useSWR(
-    `${RECS_URL}/k3l-feed/${getAlgoStrategy()}`,
+    `/k3l-feed/${getAlgoStrategy()}`,
     (url: string) => fetch(url).then((res) => res.json())
   )
 
@@ -166,17 +166,17 @@ const Timeline = () => {
     selectedFeedType === TimelineFeedType.ALGORITHM
       ? (data?.publications.items as MirrorablePublication[])
       : selectedFeedType === TimelineFeedType.HIGHLIGHTS
-      ? (feedHighlightsData?.feedHighlights.items as MirrorablePublication[])
-      : selectedFeedType === TimelineFeedType.FOLLOWING
-      ? (feedData?.feed?.items as FeedItem[])
-      : (curatedData?.explorePublications?.items as MirrorablePublication[])
+        ? (feedHighlightsData?.feedHighlights.items as MirrorablePublication[])
+        : selectedFeedType === TimelineFeedType.FOLLOWING
+          ? (feedData?.feed?.items as FeedItem[])
+          : (curatedData?.explorePublications?.items as MirrorablePublication[])
 
   const pageInfo =
     selectedFeedType === TimelineFeedType.CURATED
       ? curatedData?.explorePublications?.pageInfo
       : TimelineFeedType.HIGHLIGHTS
-      ? feedHighlightsData?.feedHighlights.pageInfo
-      : feedData?.feed.pageInfo
+        ? feedHighlightsData?.feedHighlights.pageInfo
+        : feedData?.feed.pageInfo
 
   const fetchMorePublications = async () => {
     if (selectedFeedType === TimelineFeedType.CURATED) {

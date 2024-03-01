@@ -1,23 +1,24 @@
-import EmojiPicker from '@components/UIElements/EmojiPicker'
-import InputMentions from '@components/UIElements/InputMentions'
-import Tooltip from '@components/UIElements/Tooltip'
-import { checkIsBytesVideo } from '@dragverse/generic'
-import { zodResolver } from '@hookform/resolvers/zod'
-import useAppStore from '@lib/store'
-import { Button, Flex, Switch, Text } from '@radix-ui/themes'
-import clsx from 'clsx'
-import type { FC } from 'react'
-import { useForm } from 'react-hook-form'
-import { toast } from 'react-hot-toast'
-import type { z } from 'zod'
-import { boolean, object, string } from 'zod'
+import EmojiPicker from '@components/UIElements/EmojiPicker';
+import InputMentions from '@components/UIElements/InputMentions';
+import { getFileFromDataURL, tw, uploadToIPFS } from '@dragverse/browser';
+import { checkIsBytesVideo } from '@dragverse/generic';
+import type { IPFSUploadResult } from '@dragverse/lens/custom-types';
+import { Button, Switch, Tooltip } from '@dragverse/ui';
+import { zodResolver } from '@hookform/resolvers/zod';
+import useAppStore from '@lib/store';
+import useCollectStore from '@lib/store/idb/collect';
+import type { FC } from 'react';
+import { useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
+import type { z } from 'zod';
+import { boolean, object, string } from 'zod';
 
-import CollectModule from './CollectModule'
-import DropZone from './DropZone'
-import MediaCategory from './MediaCategory'
-import MediaLicense from './MediaLicense'
-import ReferenceModule from './ReferenceModule'
-import SelectedMedia from './SelectedMedia'
+import CollectModule from './CollectModule';
+import DropZone from './DropZone';
+import MediaCategory from './MediaCategory';
+import MediaLicense from './MediaLicense';
+import ReferenceModule from './ReferenceModule';
+import SelectedMedia from './SelectedMedia';
 
 const formSchema = object({
   title: string()
@@ -34,13 +35,16 @@ const formSchema = object({
 export type VideoFormData = z.infer<typeof formSchema>
 
 type Props = {
-  onUpload: (data: VideoFormData) => void
+  onUpload: (data: VideoFormData & { thumbnail: string }) => void
   onCancel: () => void
 }
 
 const Details: FC<Props> = ({ onUpload, onCancel }) => {
   const uploadedMedia = useAppStore((state) => state.uploadedMedia)
   const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
+  const saveAsDefault = useCollectStore((state) => state.saveAsDefault)
+  const persistedCollectModule = useCollectStore((state) => state.collectModule)
+
   const isByteSizeVideo = checkIsBytesVideo(uploadedMedia.durationInSeconds)
 
   const {
@@ -59,14 +63,32 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
     }
   })
 
-  const onSubmitForm = (data: VideoFormData) => {
+  const onSubmitForm = async (data: VideoFormData) => {
     if (!uploadedMedia.file) {
       return toast.error(`Please choose a media to upload`)
     }
-    if (!uploadedMedia.thumbnail?.length) {
-      return toast.error(`Please select or upload a thumbnail`)
-    }
-    onUpload(data)
+    setUploadedMedia({ uploadingThumbnail: true })
+    return getFileFromDataURL(
+      uploadedMedia.thumbnailBlobUrl,
+      'thumbnail.jpeg',
+      async (file) => {
+        if (!file) {
+          toast.error(`Please upload a custom thumbnail`)
+          return ''
+        }
+        const result: IPFSUploadResult = await uploadToIPFS(file)
+        if (!result.url) {
+          toast.error(`Failed to upload thumbnail`)
+        }
+        setUploadedMedia({
+          thumbnail: result.url,
+          thumbnailType: file.type || 'image/jpeg',
+          uploadingThumbnail: false,
+          buttonText: 'Uploading...'
+        })
+        onUpload({ ...data, thumbnail: result.url })
+      }
+    )
   }
 
   const toggleUploadAsByte = (enable: boolean) => {
@@ -82,47 +104,32 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
         <div className="w-full md:w-2/5">
           {uploadedMedia.file ? <SelectedMedia /> : <DropZone />}
         </div>
+
         <div className="flex flex-1 flex-col justify-between">
-          <div>
-            <div className="relative">
-              <InputMentions
-                label="Title"
-                placeholder="Title that describes your content"
-                autoComplete="off"
-                validationError={errors.title?.message}
-                value={watch('title')}
-                onContentChange={(value) => {
-                  setValue('title', value)
-                  clearErrors('title')
-                }}
-                mentionsSelector="input-mentions-single"
-              />
-              <div className="absolute right-1 top-0 mt-1 flex items-center justify-end">
-                <span
-                  className={clsx(
-                    'text-xs',
-                    watch('title')?.length > 100
-                      ? 'text-red-500 opacity-100'
-                      : ' opacity-70'
-                  )}
-                >
-                  {watch('title')?.length}/100
-                </span>
-              </div>
-            </div>
+          <div className="tape-border rounded-medium p-5">
+            <InputMentions
+              label="Title"
+              placeholder="Title that describes your content"
+              autoComplete="off"
+              error={errors.title?.message}
+              value={watch('title')}
+              onContentChange={(value) => {
+                setValue('title', value)
+                clearErrors('title')
+              }}
+            />
             <div className="relative mt-4">
               <InputMentions
                 label="Description"
                 placeholder="Tell us more about your content! It can also be @profile, #hashtags or chapters (00:20 - Intro)"
                 autoComplete="off"
-                validationError={errors.description?.message}
+                error={errors.description?.message}
                 value={watch('description')}
                 onContentChange={(value) => {
                   setValue('description', value)
                   clearErrors('description')
                 }}
-                rows={5}
-                mentionsSelector="input-mentions-textarea"
+                rows={6}
               />
               <div className="absolute right-2 top-8">
                 <EmojiPicker
@@ -136,7 +143,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
               </div>
               <div className="absolute right-1 top-0 mt-1 flex items-center justify-end">
                 <span
-                  className={clsx(
+                  className={tw(
                     'text-xs',
                     watch('description')?.length > 5000
                       ? 'text-red-500 opacity-100'
@@ -148,39 +155,55 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
               </div>
             </div>
 
-            <div className="mt-4">
-              <Flex gap="2">
-                <MediaCategory />
-                <ReferenceModule />
-              </Flex>
-            </div>
-
-            <div className="mt-2">
+            <div className="mt-4 space-y-4">
+              <MediaCategory />
+              <ReferenceModule />
               <MediaLicense />
             </div>
 
             <div className="mt-4">
-              <Text as="label">
-                <Flex gap="2" align="center">
-                  <Switch
-                    highContrast
-                    checked={!uploadedMedia.collectModule.isRevertCollect}
-                    onCheckedChange={(canCollect) =>
-                      setUploadedMedia({
-                        collectModule: {
-                          ...uploadedMedia.collectModule,
-                          isRevertCollect: !canCollect
-                        }
-                      })
-                    }
-                  />
-                  Collectible
-                </Flex>
-              </Text>
+              <Switch
+                label="Collectible"
+                checked={!uploadedMedia.collectModule.isRevertCollect}
+                onCheckedChange={(canCollect) => {
+                  const collectModuleData = {
+                    ...(uploadedMedia.collectModule && {
+                      ...uploadedMedia.collectModule
+                    }),
+                    isRevertCollect: !canCollect
+                  }
+                  const collectModule = saveAsDefault
+                    ? {
+                        ...(persistedCollectModule && {
+                          ...persistedCollectModule
+                        }),
+                        isRevertCollect: !canCollect
+                      } ?? collectModuleData
+                    : collectModuleData
+                  setUploadedMedia({ collectModule })
+                }}
+              />
               {!uploadedMedia.collectModule.isRevertCollect && (
                 <CollectModule />
               )}
             </div>
+
+            {/* <div className="mt-2">
+              <Switch
+                label="Open Actions"
+                checked={uploadedMedia.hasOpenActions}
+                onCheckedChange={(hasOpenActions) => {
+                  setUploadedMedia({
+                    hasOpenActions,
+                    collectModule: {
+                      ...uploadedMedia,
+                      isRevertCollect: !hasOpenActions
+                    }
+                  })
+                }}
+              />
+              {uploadedMedia.hasOpenActions && <OpenActionSettings />}
+            </div> */}
 
             {uploadedMedia.file && uploadedMedia.type === 'VIDEO' ? (
               <Tooltip
@@ -188,54 +211,48 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                 content="Please note that only videos under 2 minutes in length can be uploaded as bytes"
               >
                 <div
-                  className={clsx(
+                  className={tw(
                     'mt-2',
                     !isByteSizeVideo && 'cursor-not-allowed opacity-50'
                   )}
                 >
-                  <Text as="label">
-                    <Flex gap="2" align="center">
-                      <Switch
-                        highContrast
-                        checked={Boolean(uploadedMedia.isByteVideo)}
-                        onCheckedChange={(b) => toggleUploadAsByte(b)}
-                      />
-                      Upload this video as short-form bytes
-                    </Flex>
-                  </Text>
+                  <Switch
+                    label="Upload this video as short-form bytes"
+                    checked={Boolean(uploadedMedia.isByteVideo)}
+                    onCheckedChange={(b) => toggleUploadAsByte(b)}
+                  />
                 </div>
               </Tooltip>
             ) : null}
 
             <div className="mt-2">
-              <Text as="label">
-                <Flex gap="2" align="center">
-                  <Switch
-                    highContrast
-                    checked={Boolean(watch('isSensitiveContent'))}
-                    onCheckedChange={(value) =>
-                      setValue('isSensitiveContent', value)
-                    }
-                  />
-                  Sensitive content for a general audience
-                </Flex>
-              </Text>
+              <Switch
+                label="Sensitive content for a general audience"
+                checked={Boolean(watch('isSensitiveContent'))}
+                onCheckedChange={(value) =>
+                  setValue('isSensitiveContent', value)
+                }
+              />
             </div>
           </div>
         </div>
       </div>
+
       <div className="mt-4 flex items-center justify-end space-x-2">
         <Button
           type="button"
-          color="gray"
-          variant="soft"
+          variant="secondary"
           disabled={uploadedMedia.loading}
           onClick={() => onCancel()}
         >
           Reset
         </Button>
         <Button
-          color="gray"
+          loading={
+            uploadedMedia.loading ||
+            uploadedMedia.uploadingThumbnail ||
+            uploadedMedia.durationInSeconds === 0
+          }
           disabled={
             uploadedMedia.loading ||
             uploadedMedia.uploadingThumbnail ||
@@ -244,7 +261,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
           type="submit"
         >
           {uploadedMedia.uploadingThumbnail
-            ? 'Uploading image...'
+            ? 'Uploading poster...'
             : uploadedMedia.buttonText}
         </Button>
       </div>

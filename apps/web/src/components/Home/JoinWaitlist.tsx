@@ -1,6 +1,6 @@
-import { STATIC_ASSETS } from '@dragverse/constants'
-import { Button, Flex } from '@radix-ui/themes'
-import Link from 'next/link'
+import { STATIC_ASSETS } from '@dragverse/constants';
+import { Button } from '@dragverse/ui';
+import Link from 'next/link';
 
 const JoinWaitlist = () => {
   return (
@@ -19,11 +19,9 @@ const JoinWaitlist = () => {
           Make sure to join the waitlist! We are slowly onboarding creators and
           community members.
         </p>
-        <Flex gap="3">
-          <Link href="https://waitlist.lens.xyz/">
-            <Button highContrast>Join Waitlist</Button>
-          </Link>
-        </Flex>
+        <Link href="https://waitlist.lens.xyz/">
+          <Button>Join Waitlist</Button>
+        </Link>
       </div>
     </div>
   )

@@ -1,9 +1,9 @@
-import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
-import type { FC, PropsWithChildren } from 'react'
-import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types';
+import type { FC, PropsWithChildren } from 'react';
+import React from 'react';
+import { StyleSheet, View } from 'react-native';
 
-import { useMobileTheme } from '~/hooks'
+import { useMobileTheme } from '~/hooks';
 
 const styles = (themeConfig: MobileThemeConfig) =>
   StyleSheet.create({

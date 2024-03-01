@@ -1,25 +1,25 @@
-import VideoCard from '@components/Common/VideoCard'
-import QueuedVideo from '@components/Common/VideoCard/QueuedVideo'
-import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
-import { NoDataFound } from '@components/UIElements/NoDataFound'
+import VideoCard from '@components/Common/VideoCard';
+import QueuedVideo from '@components/Common/VideoCard/QueuedVideo';
+import TimelineShimmer from '@components/Shimmers/TimelineShimmer';
+import { NoDataFound } from '@components/UIElements/NoDataFound';
 import {
   ALLOWED_APP_IDS,
   INFINITE_SCROLL_ROOT_MARGIN,
   IS_MAINNET,
   LENS_CUSTOM_FILTERS,
   TAPE_APP_ID
-} from '@dragverse/constants'
-import type { Post, Profile, PublicationsRequest } from '@dragverse/lens'
+} from '@dragverse/constants';
+import type { Post, Profile, PublicationsRequest } from '@dragverse/lens';
 import {
   LimitType,
   PublicationMetadataMainFocusType,
   PublicationType,
   usePublicationsQuery
-} from '@dragverse/lens'
-import { Loader } from '@dragverse/ui'
-import usePersistStore from '@lib/store/persist'
-import type { FC } from 'react'
-import { useInView } from 'react-cool-inview'
+} from '@dragverse/lens';
+import { Spinner } from '@dragverse/ui';
+import usePersistStore from '@lib/store/persist';
+import type { FC } from 'react';
+import { useInView } from 'react-cool-inview';
 
 type Props = {
   profile: Profile
@@ -95,7 +95,7 @@ const ProfileVideos: FC<Props> = ({ profile }) => {
       })}
       {pageInfo?.next && (
         <span ref={observe} className="flex justify-center p-10">
-          <Loader />
+          <Spinner />
         </span>
       )}
     </div>

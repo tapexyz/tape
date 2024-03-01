@@ -1,37 +1,35 @@
-import { useAverageColor } from '@dragverse/browser'
-import { LENSTUBE_BYTES_APP_ID } from '@dragverse/constants'
+'use client'
+
+import { tw, useAverageColor } from '@dragverse/browser';
+import { LENSTUBE_BYTES_APP_ID } from '@dragverse/constants';
 import {
   EVENTS,
-  getPublicationData,
+  Tower,
   getPublicationMediaUrl,
+  getShouldUploadVideo,
   getThumbnailUrl,
   imageCdn,
-  sanitizeDStorageUrl,
-  Tower,
-  truncate
-} from '@dragverse/generic'
-import type { PrimaryPublication } from '@dragverse/lens'
-import VideoPlayer from '@dragverse/ui/VideoPlayer'
-import clsx from 'clsx'
-import { useRouter } from 'next/router'
-import type { FC } from 'react'
-import { useEffect, useState } from 'react'
+  sanitizeDStorageUrl
+} from '@dragverse/generic';
+import type { PrimaryPublication } from '@dragverse/lens';
+import { PlayOutline, VideoPlayer } from '@dragverse/ui';
+import { useSearchParams } from 'next/navigation';
+import type { FC } from 'react';
+import { useEffect, useState } from 'react';
 
-import PlayOutline from './icons/PlayOutline'
-import MetaTags from './MetaTags'
-import TopOverlay from './TopOverlay'
+import TopOverlay from './TopOverlay';
 
 type Props = {
   video: PrimaryPublication
 }
 
 const Video: FC<Props> = ({ video }) => {
-  const { query } = useRouter()
+  const { get } = useSearchParams()
   const [playerRef, setPlayerRef] = useState<HTMLMediaElement>()
 
-  const isAutoPlay = Boolean(query.autoplay) && query.autoplay === '1'
-  const isLoop = Boolean(query.loop) && query.loop === '1'
-  const currentTime = Number(query.t ?? 0) ?? 0
+  const isAutoPlay = Boolean(get('autoplay')) && get('autoplay') === '1'
+  const isLoop = Boolean(get('loop')) && get('loop') === '1'
+  const currentTime = Number(get('t') ?? 0) ?? 0
 
   const [clicked, setClicked] = useState(isAutoPlay || currentTime !== 0)
 
@@ -66,17 +64,6 @@ const Video: FC<Props> = ({ video }) => {
 
   return (
     <div className="group relative h-screen w-screen overflow-x-hidden">
-      <MetaTags
-        title={truncate(
-          getPublicationData(video.metadata)?.title as string,
-          60
-        )}
-        description={truncate(
-          getPublicationData(video.metadata)?.content as string,
-          100
-        )}
-        image={thumbnailUrl}
-      />
       {clicked ? (
         <VideoPlayer
           refCallback={refCallback}
@@ -91,12 +78,13 @@ const Video: FC<Props> = ({ video }) => {
             isCurrentlyShown: true,
             maxHeight: true
           }}
+          shouldUpload={getShouldUploadVideo(video)}
         />
       ) : (
         <div className="flex h-full w-full justify-center">
           <img
             src={thumbnailUrl}
-            className={clsx(
+            className={tw(
               'w-full bg-gray-100 object-center dark:bg-gray-900',
               isBytesVideo ? 'object-contain' : 'object-cover'
             )}
@@ -113,7 +101,7 @@ const Video: FC<Props> = ({ video }) => {
             role="button"
           >
             <button className="bg-brand-400 rounded-full p-3 shadow-2xl xl:p-5">
-              <PlayOutline className="h-6 w-6 pl-0.5 text-white" />
+              <PlayOutline className="size-6 pl-0.5 text-white" />
             </button>
           </div>
         </div>

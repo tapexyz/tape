@@ -1,16 +1,16 @@
-import PublicationComments from '@components/Common/Publication/PublicationComments'
-import NonRelevantComments from '@components/Watch/Comments/NonRelevantComments'
-import type { MirrorablePublication } from '@dragverse/lens'
-import { CustomCommentsFilterEnum } from '@dragverse/lens/custom-types'
-import useProfileStore from '@lib/store/profile'
-import type { FC } from 'react'
+import PublicationComments from '@components/Common/Publication/PublicationComments';
+import NonRelevantComments from '@components/Watch/Comments/NonRelevantComments';
+import type { MirrorablePublication } from '@dragverse/lens';
+import { CustomCommentsFilterEnum } from '@dragverse/lens/custom-types';
+import useCommentStore from '@lib/store/comment';
+import type { FC } from 'react';
 
 type Props = {
   video: MirrorablePublication
 }
 
 const ByteComments: FC<Props> = ({ video }) => {
-  const selectedCommentFilter = useProfileStore(
+  const selectedCommentFilter = useCommentStore(
     (state) => state.selectedCommentFilter
   )
 

@@ -1,25 +1,28 @@
 {
   "name": "@dragverse/api",
+  "description": "API for dragverse",
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev --port 4002",
-    "export": "next export",
-    "build": "next build",
-    "start": "yarn build && next start --port 4002",
+    "dev": "wrangler dev src/index.ts --port 4000",
+    "worker:deploy": "wrangler deploy --minify src/index.ts",
     "typecheck": "tsc --pretty",
     "lint": "eslint . --ext .js,.ts,.tsx --fix"
   },
   "dependencies": {
-    "next": "14.0.3"
+    "@aws-sdk/client-sts": "3.525.0",
+    "@hono/zod-validator": "^0.1.11",
+    "hono": "^4.0.8",
+    "linkedom": "^0.16.8",
+    "ua-parser-js": "^1.0.37",
+    "viem": "^2.7.16",
+    "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@dragverse/browser": "*",
+    "@cloudflare/workers-types": "^4.20240222.0",
     "@dragverse/config": "*",
-    "@dragverse/constants": "*",
     "@dragverse/generic": "*",
-    "@dragverse/lens": "*",
-    "@types/node": "20.9.2",
-    "typescript": "5.2.2"
+    "@types/ua-parser-js": "^0.7.39",
+    "wrangler": "^3.30.1"
   }
 }

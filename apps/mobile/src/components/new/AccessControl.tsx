@@ -1,10 +1,10 @@
-import { REFERENCE_TEMPLATES } from '@dragverse/constants'
-import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
-import React from 'react'
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import { REFERENCE_TEMPLATES } from '@dragverse/constants';
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types';
+import React from 'react';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
-import normalizeFont from '~/helpers/normalize-font'
-import { useMobileTheme } from '~/hooks'
+import normalizeFont from '~/helpers/normalize-font';
+import { useMobileTheme } from '~/hooks';
 
 const styles = (themeConfig: MobileThemeConfig) =>
   StyleSheet.create({

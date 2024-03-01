@@ -1,5 +1,5 @@
-import clsx from 'clsx'
-import React, { useMemo } from 'react'
+import { tw } from '@dragverse/browser'
+import { useMemo } from 'react'
 
 const AudioTimelineShimmer = ({
   className,
@@ -11,7 +11,7 @@ const AudioTimelineShimmer = ({
   const cards = useMemo(() => Array(count).fill(1), [count])
   return (
     <div
-      className={clsx(
+      className={tw(
         'ultrawide:grid-cols-6 desktop:grid-cols-4 tablet:grid-cols-3 grid-col-1 grid gap-x-4 gap-y-2 md:gap-y-6',
         className
       )}
@@ -19,7 +19,7 @@ const AudioTimelineShimmer = ({
       {cards.map((i, idx) => (
         <div
           key={`${i}_${idx}`}
-          className="rounded-small aspect-[1/1] w-full animate-pulse bg-gray-200 dark:bg-gray-800"
+          className="rounded-small animate-shimmer aspect-[1/1] w-full bg-gray-200 dark:bg-gray-800"
         />
       ))}
     </div>

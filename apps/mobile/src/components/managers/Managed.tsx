@@ -1,17 +1,17 @@
-import { trimLensHandle } from '@dragverse/generic'
-import type { Profile } from '@dragverse/lens'
-import { useProfilesQuery } from '@dragverse/lens'
-import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
-import { FlashList } from '@shopify/flash-list'
-import React, { useCallback } from 'react'
-import { StyleSheet, Text, useWindowDimensions, View } from 'react-native'
+import { getProfile } from '@dragverse/generic';
+import type { Profile } from '@dragverse/lens';
+import { useProfilesQuery } from '@dragverse/lens';
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types';
+import { FlashList } from '@shopify/flash-list';
+import React, { useCallback } from 'react';
+import { StyleSheet, Text, useWindowDimensions, View } from 'react-native';
 
-import normalizeFont from '~/helpers/normalize-font'
-import { useMobileTheme } from '~/hooks'
-import { useMobilePersistStore } from '~/store/persist'
+import normalizeFont from '~/helpers/normalize-font';
+import { useMobileTheme } from '~/hooks';
+import { useMobilePersistStore } from '~/store/persist';
 
-import UserProfile from '../common/UserProfile'
-import NotFound from '../ui/NotFound'
+import UserProfile from '../common/UserProfile';
+import NotFound from '../ui/NotFound';
 
 const GRID_GAP = 10
 const NUM_COLUMNS = 3
@@ -63,7 +63,7 @@ const Managed = () => {
           imageStyle={{ width: 80, height: 80, borderRadius: 20 }}
           showHandle={false}
         />
-        <Text style={style.text}>{trimLensHandle(item.handle)}</Text>
+        <Text style={style.text}>{getProfile(item).slug}</Text>
       </View>
     ),
     [availableWidth, style]

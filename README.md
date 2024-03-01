@@ -32,24 +32,25 @@ This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. I
 
 ### Apps
 
-| Name     | Description                              |
-| -------- | -----------------------------------      |
-| `web`    | NextJs dragverse website                 |
-| `mobile` | React Native dragverse mobile app        |
-| `embed`  | NextJs application for video embeds      |
-| `api`    | NextJs serverless functions              |
+| Name     | Description                         |
+| -------- | ----------------------------------- |
+| `web`    | NextJs dragverse website            |
+| `mobile` | React Native dragverse mobile app   |
+| `embed`  | NextJs application for video embeds |
+| `api`    | Cloudflare functions                |
+| `og`     | Open graph meta tags generator      |
 
 ### Packages
 
-| Name        | Description                               |
-| ----------- | ----------------------------------------- |
-| `lens`      | Everything about Lens Backend             |
-| `abis`      | Contract Interfaces                       |
-| `helpers`   | Collection of browser and generic helpers |
-| `ui`        | UI components                             |
-| `workers`   | Cloudflare Workers                        |
-| `constants` | Constants for the entire application      |
-| `config`    | Shared lint config                        |
+| Name             | Description                               |
+| ---------------- | ----------------------------------------- |
+| `lens`           | Everything related to Lens                |
+| `abis`           | Contract Interfaces                       |
+| `helpers`        | Collection of browser and generic helpers |
+| `ui`             | UI components                             |
+| `constants`      | Constants for the entire application      |
+| `config`         | Shared lint config                        |
+| `permissionless` | Permissionless signup contracts           |
 
 ## Getting Started
 

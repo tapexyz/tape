@@ -1,6 +1,6 @@
-import { STATIC_ASSETS, TAPE_APP_NAME } from '@dragverse/constants'
-import { Button, Flex } from '@radix-ui/themes'
-import Link from 'next/link'
+import { STATIC_ASSETS, TAPE_APP_NAME } from '@dragverse/constants';
+import { Button } from '@dragverse/ui';
+import Link from 'next/link';
 
 const WelcomeAlert = () => {
   return (
@@ -19,11 +19,11 @@ const WelcomeAlert = () => {
           🗝 and interact with Drag content from the most fabulous Drag creators
           on the intern3t!🌈✨.
         </p>
-        <Flex gap="3">
+        <div className="flex gap-3">
           <Link href="/login">
-            <Button highContrast>Enter Dragverse</Button>
+            <Button>Login</Button>
           </Link>
-        </Flex>
+        </div>
       </div>
     </div>
   )

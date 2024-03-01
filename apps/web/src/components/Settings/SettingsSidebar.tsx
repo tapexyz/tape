@@ -1,18 +1,20 @@
-import InterestsOutline from '@components/Common/Icons/InterestsOutline'
-import KeyOutline from '@components/Common/Icons/KeyOutline'
-import LockOutline from '@components/Common/Icons/LockOutline'
-import MentionOutline from '@components/Common/Icons/MentionOutline'
-import ProfileBanOutline from '@components/Common/Icons/ProfileBanOutline'
-import ProfileManagerOutline from '@components/Common/Icons/ProfileManagerOutline'
-import SubscribeOutline from '@components/Common/Icons/SubscribeOutline'
-import UserOutline from '@components/Common/Icons/UserOutline'
-import WarningOutline from '@components/Common/Icons/WarningOutline'
-import { getIsProfileOwner } from '@dragverse/generic'
-import useProfileStore from '@lib/store/profile'
-import clsx from 'clsx'
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import { useAccount } from 'wagmi'
+import { tw } from '@dragverse/browser';
+import { getIsProfileOwner } from '@dragverse/generic';
+import {
+  InterestsOutline,
+  KeyOutline,
+  LockOutline,
+  MentionOutline,
+  ProfileBanOutline,
+  ProfileManagerOutline,
+  SubscribeOutline,
+  UserOutline,
+  WarningOutline
+} from '@dragverse/ui';
+import useProfileStore from '@lib/store/idb/profile';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useAccount } from 'wagmi';
 
 import {
   SETTINGS,
@@ -24,121 +26,130 @@ import {
   SETTINGS_INTERESTS,
   SETTINGS_MANAGER,
   SETTINGS_SESSIONS
-} from '.'
+} from '.';
 
 const SettingsSidebar = () => {
   const router = useRouter()
   const { address } = useAccount()
   const activeProfile = useProfileStore((state) => state.activeProfile)
   const isActivePath = (path: string) => router.pathname === path
-
   if (!activeProfile || !address) {
     return null
   }
 
+  const isProfileOwner = getIsProfileOwner(activeProfile, address)
+
   return (
-    <div className="m-1 flex flex-col space-y-1">
+    <div className="flex flex-col space-y-1 pb-10 md:ml-auto md:w-44">
       <Link
         href={SETTINGS}
-        className={clsx(
-          'hover:dark:bg-smoke hover:bg-gallery flex items-center space-x-3 rounded-lg px-3 py-2',
-          isActivePath(SETTINGS) ? 'font-bold' : 'text-dust font-medium'
+        className={tw(
+          'flex items-center space-x-3 rounded-lg px-3 py-1.5 text-sm transition-colors',
+          isActivePath(SETTINGS)
+            ? 'bg-gray-200 font-bold dark:bg-gray-800/80'
+            : 'text-dust font-medium hover:bg-gray-200 dark:hover:bg-gray-900/50'
         )}
       >
-        <UserOutline className="h-4 w-4" />
+        <UserOutline className="size-4" />
         <span>Basic Info</span>
       </Link>
       <Link
         href={SETTINGS_FOLLOW}
-        className={clsx(
-          'hover:dark:bg-smoke hover:bg-gallery flex items-center space-x-3 rounded-lg px-3 py-2',
-          isActivePath(SETTINGS_FOLLOW) ? 'font-bold' : 'text-dust font-medium'
+        className={tw(
+          'flex items-center space-x-3 rounded-lg px-3 py-1.5 text-sm transition-colors',
+          isActivePath(SETTINGS_FOLLOW)
+            ? 'bg-gray-200 font-bold dark:bg-gray-800/80'
+            : 'text-dust font-medium hover:bg-gray-200 dark:hover:bg-gray-900/50'
         )}
       >
-        <SubscribeOutline className="h-4 w-4" />
+        <SubscribeOutline className="size-4" />
         <span>Set Follow</span>
       </Link>
       <Link
         href={SETTINGS_HANDLES}
-        className={clsx(
-          'hover:dark:bg-smoke hover:bg-gallery flex items-center space-x-3 rounded-lg px-3 py-2',
-          isActivePath(SETTINGS_HANDLES) ? 'font-bold' : 'text-dust font-medium'
+        className={tw(
+          'flex items-center space-x-3 rounded-lg px-3 py-1.5 text-sm transition-colors',
+          isActivePath(SETTINGS_HANDLES)
+            ? 'bg-gray-200 font-bold dark:bg-gray-800/80'
+            : 'text-dust font-medium hover:bg-gray-200 dark:hover:bg-gray-900/50'
         )}
       >
-        <MentionOutline className="h-4 w-4" />
+        <MentionOutline className="size-4" />
         <span>Handles</span>
       </Link>
       <Link
         href={SETTINGS_INTERESTS}
-        className={clsx(
-          'hover:dark:bg-smoke hover:bg-gallery flex items-center space-x-3 rounded-lg px-3 py-2',
+        className={tw(
+          'flex items-center space-x-3 rounded-lg px-3 py-1.5 text-sm transition-colors',
           isActivePath(SETTINGS_INTERESTS)
-            ? 'font-bold'
-            : 'text-dust font-medium'
+            ? 'bg-gray-200 font-bold dark:bg-gray-800/80'
+            : 'text-dust font-medium hover:bg-gray-200 dark:hover:bg-gray-900/50'
         )}
       >
-        <InterestsOutline className="h-4 w-4" />
+        <InterestsOutline className="size-4" />
         <span>Interests</span>
       </Link>
-      {getIsProfileOwner(activeProfile, address) && (
+      {isProfileOwner && (
         <Link
           href={SETTINGS_MANAGER}
-          className={clsx(
-            'hover:dark:bg-smoke hover:bg-gallery flex items-center space-x-3 rounded-lg px-3 py-2',
+          className={tw(
+            'flex items-center space-x-3 rounded-lg px-3 py-1.5 text-sm transition-colors',
             isActivePath(SETTINGS_MANAGER)
-              ? 'font-bold'
-              : 'text-dust font-medium'
+              ? 'bg-gray-200 font-bold dark:bg-gray-800/80'
+              : 'text-dust font-medium hover:bg-gray-200 dark:hover:bg-gray-900/50'
           )}
         >
-          <ProfileManagerOutline className="h-4 w-4" />
+          <ProfileManagerOutline className="size-4" />
           <span>Manager</span>
         </Link>
       )}
       <Link
         href={SETTINGS_ALLOWANCE}
-        className={clsx(
-          'hover:dark:bg-smoke hover:bg-gallery flex items-center space-x-3 rounded-lg px-3 py-2',
+        className={tw(
+          'flex items-center space-x-3 rounded-lg px-3 py-1.5 text-sm transition-colors',
           isActivePath(SETTINGS_ALLOWANCE)
-            ? 'font-bold'
-            : 'text-dust font-medium'
+            ? 'bg-gray-200 font-bold dark:bg-gray-800/80'
+            : 'text-dust font-medium hover:bg-gray-200 dark:hover:bg-gray-900/50'
         )}
       >
-        <LockOutline className="h-4 w-4" />
+        <LockOutline className="size-4" />
         <span>Allowance</span>
       </Link>
       <Link
         href={SETTINGS_BLOCKED}
-        className={clsx(
-          'hover:dark:bg-smoke hover:bg-gallery flex items-center space-x-3 rounded-lg px-3 py-2',
-          isActivePath(SETTINGS_BLOCKED) ? 'font-bold' : 'text-dust font-medium'
+        className={tw(
+          'flex items-center space-x-3 rounded-lg px-3 py-1.5 text-sm transition-colors',
+          isActivePath(SETTINGS_BLOCKED)
+            ? 'bg-gray-200 font-bold dark:bg-gray-800/80'
+            : 'text-dust font-medium hover:bg-gray-200 dark:hover:bg-gray-900/50'
         )}
       >
-        <ProfileBanOutline className="h-4 w-4" />
+        <ProfileBanOutline className="size-4" />
         <span>Blocked</span>
       </Link>
       <Link
         href={SETTINGS_SESSIONS}
-        className={clsx(
-          'hover:dark:bg-smoke hover:bg-gallery flex items-center space-x-3 rounded-lg px-3 py-2',
+        className={tw(
+          'flex items-center space-x-3 rounded-lg px-3 py-1.5 text-sm transition-colors',
           isActivePath(SETTINGS_SESSIONS)
-            ? 'font-bold'
-            : 'text-dust font-medium'
+            ? 'bg-gray-200 font-bold dark:bg-gray-800/80'
+            : 'text-dust font-medium hover:bg-gray-200 dark:hover:bg-gray-900/50'
         )}
       >
-        <KeyOutline className="h-4 w-4" />
+        <KeyOutline className="size-4" />
         <span>Sessions</span>
       </Link>
-      {getIsProfileOwner(activeProfile, address) && (
+      {isProfileOwner && (
         <Link
           href={SETTINGS_DANGER_ZONE}
-          className={clsx(
-            'hover:dark:bg-smoke hover:bg-gallery flex items-center space-x-3 rounded-lg px-3 py-2',
+          className={tw(
+            'flex items-center space-x-3 rounded-lg px-3 py-1.5 text-sm text-red-500 transition-colors',
             isActivePath(SETTINGS_DANGER_ZONE)
-              ? 'font-bold'
-              : 'text-dust font-medium'
+              ? 'bg-red-200 font-bold dark:bg-red-900/50'
+              : 'font-medium hover:bg-red-100 dark:hover:bg-red-900/50'
           )}
         >
-          <WarningOutline className="h-4 w-4" />
+          <WarningOutline className="size-4" />
           <span>Danger Zone</span>
         </Link>
       )}

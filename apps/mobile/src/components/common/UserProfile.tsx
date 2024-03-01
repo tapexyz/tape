@@ -1,19 +1,19 @@
-import { getProfilePicture, trimLensHandle } from '@dragverse/generic'
-import type { Profile } from '@dragverse/lens'
-import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
-import { useNavigation } from '@react-navigation/native'
-import type { ImageStyle } from 'expo-image'
-import { Image as ExpoImage } from 'expo-image'
-import type { FC } from 'react'
-import React, { memo } from 'react'
-import type { StyleProp, TextStyle } from 'react-native'
-import { StyleSheet, Text } from 'react-native'
+import { getProfile, getProfilePicture } from '@dragverse/generic';
+import type { Profile } from '@dragverse/lens';
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types';
+import { useNavigation } from '@react-navigation/native';
+import type { ImageStyle } from 'expo-image';
+import { Image as ExpoImage } from 'expo-image';
+import type { FC } from 'react';
+import React, { memo } from 'react';
+import type { StyleProp, TextStyle } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
 
-import haptic from '~/helpers/haptic'
-import normalizeFont from '~/helpers/normalize-font'
-import { useMobileTheme } from '~/hooks'
+import haptic from '~/helpers/haptic';
+import normalizeFont from '~/helpers/normalize-font';
+import { useMobileTheme } from '~/hooks';
 
-import AnimatedPressable from '../ui/AnimatedPressable'
+import AnimatedPressable from '../ui/AnimatedPressable';
 
 type Props = {
   profile: Profile
@@ -61,7 +61,7 @@ const UserProfile: FC<Props> = (props) => {
   const navigateToProfile = () => {
     haptic()
     navigate('ProfileScreen', {
-      handle: profile.handle
+      handle: getProfile(profile)?.slug
     })
   }
 
@@ -91,7 +91,7 @@ const UserProfile: FC<Props> = (props) => {
       />
       {showHandle && (
         <Text numberOfLines={1} style={[style.handle, handleStyle]}>
-          {trimLensHandle(profile.handle)}
+          {getProfile(profile).slugWithPrefix}
         </Text>
       )}
     </AnimatedPressable>

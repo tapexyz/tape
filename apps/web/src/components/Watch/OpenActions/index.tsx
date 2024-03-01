@@ -1,41 +1,30 @@
-import CollectOutline from '@components/Common/Icons/CollectOutline'
-import TimesOutline from '@components/Common/Icons/TimesOutline'
-import { formatNumber, getPublication } from '@dragverse/generic'
-import isOpenActionAllowed from '@dragverse/generic/functions/isOpenActionAllowed'
-import { type AnyPublication, type OpenActionModule } from '@dragverse/lens'
-import { getCollectModuleOutput } from '@lib/getCollectModuleOutput'
+import { formatNumber, getPublication } from '@dragverse/generic';
+import isOpenActionAllowed from '@dragverse/generic/functions/isOpenActionAllowed';
+import { type AnyPublication, type OpenActionModule } from '@dragverse/lens';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
-  AccordionTrigger
-} from '@radix-ui/react-accordion'
-import {
-  Box,
+  AccordionTrigger,
   Button,
-  Dialog,
-  DialogClose,
-  Flex,
-  IconButton,
-  ScrollArea
-} from '@radix-ui/themes'
-import type { FC, ReactNode } from 'react'
+  CollectOutline,
+  Modal
+} from '@dragverse/ui';
+import { getCollectModuleOutput } from '@lib/getCollectModuleOutput';
+import type { FC, ReactNode } from 'react';
+import { useState } from 'react';
 
-import CollectPublication from './CollectPublication'
+import CollectPublication from './Collect';
+import UnknownOpenAction from './Unknown';
 
 type Props = {
   publication: AnyPublication
-  variant?: 'classic' | 'solid' | 'soft' | 'surface' | 'outline' | 'ghost'
   text?: string
   children?: ReactNode
 }
 
-const OpenActions: FC<Props> = ({
-  publication,
-  variant = 'solid',
-  text,
-  children
-}) => {
+const OpenActions: FC<Props> = ({ publication, text, children }) => {
+  const [showActionModal, setShowActionModal] = useState(false)
   const targetPublication = getPublication(publication)
   const openActions = targetPublication.openActionModules
   const hasOpenActions = (targetPublication.openActionModules?.length || 0) > 0
@@ -52,13 +41,13 @@ const OpenActions: FC<Props> = ({
             value="item-1"
             className="rounded-small group border dark:border-gray-700"
           >
-            <AccordionTrigger className="bg-purple/50 dark:bg-purple/30 rounded-small w-full px-4 py-3 text-left">
-              <Flex justify="between" align="center">
-                <span className="text-brand-500">Collect publication</span>
+            <AccordionTrigger className="bg-brand-50/50 dark:bg-brand-950/30 rounded-small w-full px-4 py-3 text-left">
+              <div className="flex items-center justify-between">
+                <span className="font-bold">Collect publication</span>
                 <span className="group-data-[state=open]:hidden">
                   $<b> {formatNumber(Number(details?.amount.rate))}</b>
                 </span>
-              </Flex>
+              </div>
             </AccordionTrigger>
             <AccordionContent className="p-3">
               <CollectPublication
@@ -67,6 +56,13 @@ const OpenActions: FC<Props> = ({
               />
             </AccordionContent>
           </AccordionItem>
+        )
+      case 'UnknownOpenActionModuleSettings':
+        return (
+          <UnknownOpenAction
+            action={action}
+            publicationId={targetPublication.id}
+          />
         )
       default:
         break
@@ -81,35 +77,26 @@ const OpenActions: FC<Props> = ({
   }
 
   return (
-    <Dialog.Root>
-      <Dialog.Trigger>
-        {children ?? (
-          <Button variant={variant} highContrast>
-            <CollectOutline className="h-4 w-4" />
-            {text}
-          </Button>
-        )}
-      </Dialog.Trigger>
-
-      <Dialog.Content style={{ maxWidth: 450 }}>
-        <Flex gap="3" justify="between" pb="2">
-          <Dialog.Title>
-            <Flex align="center" gap="2">
-              <CollectOutline className="h-5 w-5" /> <span>Collect</span>
-            </Flex>
-          </Dialog.Title>
-          <DialogClose>
-            <IconButton variant="ghost" color="purple">
-              <TimesOutline outlined={false} className="h-3 w-3" />
-            </IconButton>
-          </DialogClose>
-        </Flex>
-
-        <ScrollArea
-          type="hover"
-          scrollbars="vertical"
-          style={{ maxHeight: 500 }}
+    <>
+      {<button onClick={() => setShowActionModal(true)}>{children}</button> ?? (
+        <Button
+          onClick={() => setShowActionModal(true)}
+          icon={<CollectOutline className="size-4" />}
         >
+          {text}
+        </Button>
+      )}
+      <Modal
+        title={
+          <div className="flex items-center space-x-1.5">
+            <CollectOutline className="size-4" />
+            <span>Open Actions</span>
+          </div>
+        }
+        show={showActionModal}
+        setShow={setShowActionModal}
+      >
+        <div className="no-scrollbar max-h-[70vh] overflow-y-auto">
           <Accordion
             type="single"
             className="w-full space-y-2"
@@ -117,12 +104,12 @@ const OpenActions: FC<Props> = ({
             collapsible
           >
             {openActions?.map((action, i) => {
-              return <Box key={i}>{renderAction(action)}</Box>
+              return <div key={i}>{renderAction(action)}</div>
             })}
           </Accordion>
-        </ScrollArea>
-      </Dialog.Content>
-    </Dialog.Root>
+        </div>
+      </Modal>
+    </>
   )
 }
 

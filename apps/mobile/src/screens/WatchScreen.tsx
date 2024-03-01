@@ -1,19 +1,20 @@
-import type { AnyPublication } from '@dragverse/lens'
-import { usePublicationQuery } from '@dragverse/lens'
-import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
-import React from 'react'
+import { getPublication } from '@dragverse/generic';
+import type { AnyPublication } from '@dragverse/lens';
+import { usePublicationQuery } from '@dragverse/lens';
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types';
+import React from 'react';
 import {
-    ActivityIndicator,
-    StyleSheet,
-    useWindowDimensions
-} from 'react-native'
-import Animated, { FadeInDown } from 'react-native-reanimated'
-import { SafeAreaView } from 'react-native-safe-area-context'
+  ActivityIndicator,
+  StyleSheet,
+  useWindowDimensions
+} from 'react-native';
+import Animated, { FadeInDown } from 'react-native-reanimated';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-import ServerError from '~/components/ui/ServerError'
-import MoreVideos from '~/components/watch/MoreVideos'
-import VideoPlayer from '~/components/watch/Player'
-import { useMobileTheme } from '~/hooks'
+import ServerError from '~/components/ui/ServerError';
+import MoreVideos from '~/components/watch/MoreVideos';
+import VideoPlayer from '~/components/watch/Player';
+import { useMobileTheme } from '~/hooks';
 
 const styles = (themeConfig: MobileThemeConfig) =>
   StyleSheet.create({
@@ -51,7 +52,7 @@ export const WatchScreen = (props: WatchScreenProps) => {
 
   return (
     <SafeAreaView style={style.container}>
-      <VideoPlayer video={video} />
+      <VideoPlayer video={getPublication(video)} />
 
       <Animated.View style={{ height: windowHeight }} entering={FadeInDown}>
         <MoreVideos video={video} />

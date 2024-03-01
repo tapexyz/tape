@@ -1,31 +1,31 @@
-import { LENS_CUSTOM_FILTERS } from '@dragverse/constants'
+import { LENS_CUSTOM_FILTERS } from '@dragverse/constants';
 import type {
-    ExplorePublicationRequest,
-    MirrorablePublication
-} from '@dragverse/lens'
+  ExplorePublicationRequest,
+  MirrorablePublication
+} from '@dragverse/lens';
 import {
-    ExplorePublicationType,
-    LimitType,
-    PublicationMetadataMainFocusType,
-    useExplorePublicationsQuery
-} from '@dragverse/lens'
-import { useScrollToTop } from '@react-navigation/native'
-import { FlashList } from '@shopify/flash-list'
-import React, { useCallback, useMemo, useRef } from 'react'
+  ExplorePublicationType,
+  LimitType,
+  PublicationMetadataMainFocusType,
+  useExplorePublicationsQuery
+} from '@dragverse/lens';
+import { useScrollToTop } from '@react-navigation/native';
+import { FlashList } from '@shopify/flash-list';
+import React, { useCallback, useMemo, useRef } from 'react';
 import {
-    ActivityIndicator,
-    StyleSheet,
-    View,
-    useWindowDimensions
-} from 'react-native'
+  ActivityIndicator,
+  StyleSheet,
+  View,
+  useWindowDimensions
+} from 'react-native';
 
-import useMobileStore from '~/store'
+import useMobileStore from '~/store';
 
-import AudioCard from '../common/AudioCard'
-import VideoCard from '../common/VideoCard'
-import NotFound from '../ui/NotFound'
-import Filters from './Filters'
-import Showcase from './Showcase'
+import AudioCard from '../common/AudioCard';
+import VideoCard from '../common/VideoCard';
+import NotFound from '../ui/NotFound';
+import Filters from './Filters';
+import Showcase from './Showcase';
 
 const styles = StyleSheet.create({
   container: {

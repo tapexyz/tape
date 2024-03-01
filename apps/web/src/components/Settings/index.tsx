@@ -1,24 +1,24 @@
-import MetaTags from '@components/Common/MetaTags'
-import SettingsShimmer from '@components/Shimmers/SettingsShimmer'
-import { EVENTS, Tower } from '@dragverse/generic'
-import type { Profile } from '@dragverse/lens'
-import { useProfileQuery } from '@dragverse/lens'
-import useProfileStore from '@lib/store/profile'
-import { useRouter } from 'next/router'
-import { useEffect } from 'react'
-import Custom404 from 'src/pages/404'
-import Custom500 from 'src/pages/500'
+import MetaTags from '@components/Common/MetaTags';
+import SettingsShimmer from '@components/Shimmers/SettingsShimmer';
+import { EVENTS, Tower } from '@dragverse/generic';
+import type { Profile } from '@dragverse/lens';
+import { useProfileQuery } from '@dragverse/lens';
+import useProfileStore from '@lib/store/idb/profile';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import Custom404 from 'src/pages/404';
+import Custom500 from 'src/pages/500';
 
-import Allowance from './Allowance'
-import BasicInfo from './BasicInfo'
-import Blocked from './Blocked'
-import DangerZone from './DangerZone'
-import FollowSettings from './Follow'
-import Handles from './Handles'
-import ProfileManager from './Manager'
-import ProfileInterests from './ProfileInterests'
-import Sessions from './Sessions'
-import SettingsSidebar from './SettingsSidebar'
+import Allowance from './Allowance';
+import BasicInfo from './BasicInfo';
+import Blocked from './Blocked';
+import DangerZone from './DangerZone';
+import FollowSettings from './Follow';
+import Handles from './Handles';
+import ProfileManager from './Manager';
+import ProfileInterests from './ProfileInterests';
+import Sessions from './Sessions';
+import SettingsSidebar from './SettingsSidebar';
 
 export const SETTINGS_FOLLOW = '/settings/follow'
 export const SETTINGS_HANDLES = '/settings/handles'
@@ -59,14 +59,14 @@ const Settings = () => {
   const profile = data?.profile as Profile
 
   return (
-    <div className="ultrawide:max-w-screen-xl container mx-auto">
-      <MetaTags title={`Profile Settings`} />
+    <>
+      <MetaTags title="Profile Settings" />
       {!loading && !error && profile ? (
-        <div className="grid gap-4 md:grid-cols-4">
-          <div className="md:col-span-1">
+        <div className="container mx-auto flex h-full w-full max-w-screen-lg flex-col md:flex-row">
+          <div className="flex-none md:px-6">
             <SettingsSidebar />
           </div>
-          <div className="md:col-span-3">
+          <div className="w-full pb-6">
             {router.pathname === SETTINGS && <BasicInfo profile={profile} />}
             {router.pathname === SETTINGS_FOLLOW && (
               <FollowSettings profile={profile} />
@@ -81,7 +81,7 @@ const Settings = () => {
           </div>
         </div>
       ) : null}
-    </div>
+    </>
   )
 }
 

@@ -1,10 +1,10 @@
-import { Input } from '@components/UIElements/Input'
-import { trimify } from '@dragverse/generic'
-import type { CollectModuleType } from '@dragverse/lens/custom-types'
-import useAppStore from '@lib/store'
-import { Button, Text } from '@radix-ui/themes'
-import type { FC } from 'react'
-import { useState } from 'react'
+import { tw } from '@dragverse/browser';
+import { trimify } from '@dragverse/generic';
+import type { CollectModuleType } from '@dragverse/lens/custom-types';
+import { Button, Input } from '@dragverse/ui';
+import useAppStore from '@lib/store';
+import type { FC } from 'react';
+import { useState } from 'react';
 
 type Props = {
   setCollectType: (data: CollectModuleType) => void
@@ -18,46 +18,45 @@ const CollectDuration: FC<Props> = ({ setCollectType }) => {
   )
   return (
     <div className="space-y-1">
-      <Text size="2" weight="medium">
-        Collect duration
-      </Text>
+      <span className="text-sm font-medium">Collect duration</span>
       <div className="flex flex-wrap gap-1.5 md:flex-nowrap">
-        <Button
-          type="button"
-          highContrast
-          color={
-            !uploadedMedia.collectModule.timeLimitEnabled ? 'purple' : 'gray'
-          }
-          variant="surface"
-          className="flex-1"
-          onClick={() => {
-            setCollectType({
-              timeLimitEnabled: false,
-              isSimpleCollect: true
-            })
-            setShowDayPicker(false)
-          }}
-        >
-          Forever
-        </Button>
-        <Button
-          type="button"
-          onClick={() => {
-            setCollectType({
-              timeLimitEnabled: true,
-              isSimpleCollect: true
-            })
-            setShowDayPicker(true)
-          }}
-          highContrast
-          color={
-            uploadedMedia.collectModule.timeLimitEnabled ? 'purple' : 'gray'
-          }
-          variant="surface"
-          className="flex-1"
-        >
-          Custom
-        </Button>
+        <div className="flex-1">
+          <Button
+            type="button"
+            variant="secondary"
+            className={tw(
+              !uploadedMedia.collectModule.timeLimitEnabled &&
+                'border-brand-500'
+            )}
+            onClick={() => {
+              setCollectType({
+                timeLimitEnabled: false,
+                isSimpleCollect: true
+              })
+              setShowDayPicker(false)
+            }}
+          >
+            Forever
+          </Button>
+        </div>
+        <div className="flex-1">
+          <Button
+            type="button"
+            onClick={() => {
+              setCollectType({
+                timeLimitEnabled: true,
+                isSimpleCollect: true
+              })
+              setShowDayPicker(true)
+            }}
+            className={tw(
+              uploadedMedia.collectModule.timeLimitEnabled && 'border-brand-500'
+            )}
+            variant="secondary"
+          >
+            Custom
+          </Button>
+        </div>
       </div>
       {showDayPicker && (
         <div>

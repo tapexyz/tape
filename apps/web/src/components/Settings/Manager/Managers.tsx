@@ -1,42 +1,39 @@
-import ExternalOutline from '@components/Common/Icons/ExternalOutline'
-import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
-import { Input } from '@components/UIElements/Input'
-import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
+import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink';
+import { NoDataFound } from '@components/UIElements/NoDataFound';
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis';
 import {
   ERROR_MESSAGE,
   INFINITE_SCROLL_ROOT_MARGIN,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE
-} from '@dragverse/constants'
+} from '@dragverse/constants';
 import {
   checkLensManagerPermissions,
   getSignature,
   shortenAddress
-} from '@dragverse/generic'
-import type { ProfileManagersRequest } from '@dragverse/lens'
+} from '@dragverse/generic';
+import type { ProfileManagersRequest } from '@dragverse/lens';
 import {
   ChangeProfileManagerActionType,
   useBroadcastOnchainMutation,
   useCreateChangeProfileManagersTypedDataMutation,
   useProfileManagersQuery
-} from '@dragverse/lens'
-import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
-import { Loader } from '@dragverse/ui'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useDid } from '@hooks/useDid'
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import usePendingTxn from '@hooks/usePendingTxn'
-import useNonceStore from '@lib/store/nonce'
-import useProfileStore from '@lib/store/profile'
-import { Button, Dialog, Flex } from '@radix-ui/themes'
-import { useEffect, useMemo, useState } from 'react'
-import { useInView } from 'react-cool-inview'
-import { useForm } from 'react-hook-form'
-import toast from 'react-hot-toast'
-import { isAddress } from 'viem'
-import { useContractWrite, useSignTypedData } from 'wagmi'
-import { object, string, type z } from 'zod'
+} from '@dragverse/lens';
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types';
+import { Button, ExternalOutline, Input, Modal, Spinner } from '@dragverse/ui';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useDid } from '@hooks/useDid';
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
+import usePendingTxn from '@hooks/usePendingTxn';
+import useProfileStore from '@lib/store/idb/profile';
+import useNonceStore from '@lib/store/nonce';
+import { useEffect, useMemo, useState } from 'react';
+import { useInView } from 'react-cool-inview';
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import { isAddress } from 'viem';
+import { useSignTypedData, useWriteContract } from 'wagmi';
+import { object, string, type z } from 'zod';
 
 const formSchema = object({
   address: string().refine((addr) => isAddress(addr), {
@@ -63,18 +60,17 @@ const Entry = ({
       <div>
         <span className="font-bold">{did || shortenAddress(address)}</span>
         <AddressExplorerLink address={address}>
-          <Flex align="center" gap="1">
+          <div className="flex items-center gap-1">
             <span>{shortenAddress(address)}</span>
-            <ExternalOutline className="h-3 w-3" />
-          </Flex>
+            <ExternalOutline className="size-3" />
+          </div>
         </AddressExplorerLink>
       </div>
       <Button
         onClick={() => onRemove(address)}
         disabled={removingAddress === address}
         color="red"
-        variant="surface"
-        size="1"
+        variant="secondary"
       >
         Remove
       </Button>
@@ -134,21 +130,29 @@ const Managers = () => {
   }
 
   const { signTypedDataAsync } = useSignTypedData({
-    onError
+    mutation: { onError }
   })
 
-  const { write, data: writeData } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
-    abi: LENSHUB_PROXY_ABI,
-    functionName: 'changeDelegatedExecutorsConfig',
-    onSuccess: () => {
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
-    },
-    onError: (error) => {
-      onError(error)
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
+  const { writeContractAsync, data: writeHash } = useWriteContract({
+    mutation: {
+      onSuccess: () => {
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
+      },
+      onError: (error) => {
+        onError(error)
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
+      }
     }
   })
+
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
+      address: LENSHUB_PROXY_ADDRESS,
+      abi: LENSHUB_PROXY_ABI,
+      functionName: 'changeDelegatedExecutorsConfig',
+      args
+    })
+  }
 
   const [broadcast, { data: broadcastData }] = useBroadcastOnchainMutation({
     onError,
@@ -157,11 +161,10 @@ const Managers = () => {
   })
 
   const { indexed } = usePendingTxn({
-    txHash: writeData?.hash,
-    txId:
-      broadcastData?.broadcastOnchain.__typename === 'RelaySuccess'
-        ? broadcastData?.broadcastOnchain?.txId
-        : undefined
+    txHash: writeHash,
+    ...(broadcastData?.broadcastOnchain.__typename === 'RelaySuccess' && {
+      txId: broadcastData?.broadcastOnchain?.txId
+    })
   })
 
   useEffect(() => {
@@ -196,11 +199,11 @@ const Managers = () => {
             variables: { request: { id, signature } }
           })
           if (data?.broadcastOnchain.__typename === 'RelayError') {
-            return write({ args })
+            return await write({ args })
           }
           return
         }
-        return write({ args })
+        return await write({ args })
       } catch {
         setSubmitting(false)
       }
@@ -209,9 +212,8 @@ const Managers = () => {
   })
 
   const addManager = async ({ address }: FormData) => {
-    if (handleWrongNetwork()) {
-      return
-    }
+    await handleWrongNetwork()
+
     setSubmitting(true)
     return await toggleLensManager({
       variables: {
@@ -229,9 +231,8 @@ const Managers = () => {
   }
 
   const removeManager = async (address: string) => {
-    if (handleWrongNetwork()) {
-      return
-    }
+    await handleWrongNetwork()
+
     setRemovingAddress(address)
     return await toggleLensManager({
       variables: {
@@ -267,49 +268,41 @@ const Managers = () => {
     <div>
       <div className="flex items-center justify-between space-x-2">
         <p>Accounts managing your profile.</p>
-        <Dialog.Root open={showModal} onOpenChange={setShowModal}>
-          <Dialog.Trigger>
-            <Button highContrast variant="surface">
-              New Manager
-            </Button>
-          </Dialog.Trigger>
-
-          <Dialog.Content style={{ maxWidth: 550 }}>
-            <Dialog.Title>New Manager</Dialog.Title>
-            <Dialog.Description size="2" mb="4">
-              This delegates permission to the address to perform all social
-              operations on your behalf.
-            </Dialog.Description>
-
-            <form onSubmit={handleSubmit(addManager)}>
-              <Input
-                label="Address"
-                placeholder="0x00..."
-                validationError={errors.address?.message}
-                {...register('address')}
-              />
-              <Flex gap="2" mt="4" justify="end">
-                <Dialog.Close>
-                  <Button
-                    onClick={() => reset()}
-                    type="button"
-                    variant="soft"
-                    color="gray"
-                  >
-                    Cancel
-                  </Button>
-                </Dialog.Close>
-                <Button disabled={submitting} highContrast>
-                  {submitting && <Loader size="sm" />}
-                  Submit
-                </Button>
-              </Flex>
-            </form>
-          </Dialog.Content>
-        </Dialog.Root>
+        <Button onClick={() => setShowModal(true)}>New Manager</Button>
+        <Modal
+          title="New Manager"
+          description="This delegates permission to the address to perform all social
+              operations on your behalf."
+          show={showModal}
+          setShow={setShowModal}
+        >
+          <form onSubmit={handleSubmit(addManager)}>
+            <Input
+              label="Address"
+              placeholder="0x00..."
+              error={errors.address?.message}
+              {...register('address')}
+            />
+            <div className="mt-4 flex justify-end gap-2">
+              <Button
+                type="button"
+                onClick={() => {
+                  reset()
+                  setShowModal(false)
+                }}
+                variant="secondary"
+              >
+                Cancel
+              </Button>
+              <Button disabled={submitting} loading={submitting}>
+                Submit
+              </Button>
+            </div>
+          </form>
+        </Modal>
       </div>
       <div className="mt-3">
-        {loading && <Loader className="my-10" />}
+        {loading && <Spinner className="my-10" />}
         {(!loading && !profileManagersWithoutLensManager?.length) || error ? (
           <NoDataFound withImage isCenter />
         ) : null}
@@ -327,7 +320,7 @@ const Managers = () => {
         ) : null}
         {pageInfo?.next && (
           <span ref={observe} className="flex justify-center p-10">
-            <Loader />
+            <Spinner />
           </span>
         )}
       </div>

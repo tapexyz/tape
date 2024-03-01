@@ -1,34 +1,31 @@
-import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { useDebounce, useOutsideClick } from '@dragverse/browser'
+import { NoDataFound } from '@components/UIElements/NoDataFound';
+import { tw, useDebounce, useOutsideClick } from '@dragverse/browser';
 import {
-  LENS_CUSTOM_FILTERS,
-  LENSTUBE_APP_ID,
-  LENSTUBE_BYTES_APP_ID,
-  TAPE_APP_ID,
-  TAPE_BYTES_APP_ID
-} from '@dragverse/constants'
-import { EVENTS, Tower } from '@dragverse/generic'
+    LENSTUBE_APP_ID,
+    LENSTUBE_BYTES_APP_ID,
+    LENS_CUSTOM_FILTERS,
+    TAPE_APP_ID,
+    TAPE_BYTES_APP_ID
+} from '@dragverse/constants';
+import { EVENTS, Tower } from '@dragverse/generic';
 import type {
-  PrimaryPublication,
-  Profile,
-  ProfileSearchRequest,
-  PublicationSearchRequest
-} from '@dragverse/lens'
+    PrimaryPublication,
+    Profile,
+    ProfileSearchRequest,
+    PublicationSearchRequest
+} from '@dragverse/lens';
 import {
-  LimitType,
-  PublicationMetadataMainFocusType,
-  SearchPublicationType,
-  useSearchProfilesLazyQuery,
-  useSearchPublicationsLazyQuery
-} from '@dragverse/lens'
-import { Loader } from '@dragverse/ui'
-import { IconButton, ScrollArea, Text, TextField } from '@radix-ui/themes'
-import clsx from 'clsx'
-import { useEffect, useRef, useState } from 'react'
+    LimitType,
+    PublicationMetadataMainFocusType,
+    SearchPublicationType,
+    useSearchProfilesLazyQuery,
+    useSearchPublicationsLazyQuery
+} from '@dragverse/lens';
+import { Input, SearchOutline, Spinner } from '@dragverse/ui';
+import { useEffect, useRef, useState } from 'react';
 
-import SearchOutline from '../Icons/SearchOutline'
-import Profiles from './Profiles'
-import Publications from './Publications'
+import Profiles from './Profiles';
+import Publications from './Publications';
 
 const GlobalSearch = () => {
   const [showSearchBar, setShowSearchBar] = useState(false)
@@ -104,56 +101,41 @@ const GlobalSearch = () => {
   }, [debouncedValue])
 
   const Trigger = () => (
-    <IconButton
+    <button
+      className="rounded-full bg-gray-100 p-2.5 outline-none dark:bg-gray-900"
       onClick={() => setShowSearchBar(true)}
-      radius="full"
-      variant="soft"
-      highContrast
     >
-      <SearchOutline className="h-3.5 w-3.5" />
+      <SearchOutline className="size-3.5" />
       <span className="sr-only">Search</span>
-    </IconButton>
+    </button>
   )
 
   const Content = () => (
-    <>
-      <TextField.Root className="laptop:w-[800px] dark:bg-brand-850 bg-brand-50 z-20 w-[215px] rounded-full md:w-[500px]">
-        <TextField.Slot px="3">
-          <SearchOutline className="h-4 w-4" />
-          <span className="sr-only">Search</span>
-        </TextField.Slot>
-        <TextField.Input
-          radius="full"
-          autoFocus
-          variant="surface"
-          type="search"
-          value={keyword}
-          onChange={(event) => setKeyword(event.target.value)}
-          placeholder="Search"
-          className="text-base"
-        />
-      </TextField.Root>
+    <div className="laptop:w-[800px] absolute -top-[18px] right-0 z-20 w-[500px] rounded-full">
+      <Input
+        autoFocus
+        type="search"
+        value={keyword}
+        onChange={(event) => setKeyword(event.target.value)}
+        placeholder="Search"
+      />
       <div
-        className={clsx(
-          'rounded-medium tape-border dark:bg-brand-850 absolute z-10 mt-1 w-full bg-white text-base shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none md:w-[500px]',
+        className={tw(
+          'rounded-medium tape-border no-scrollbar top-10 z-10 mt-1 w-full overflow-y-auto bg-white text-base shadow-2xl ring-1 ring-black ring-opacity-5 focus:outline-none md:absolute dark:bg-brand-850',
           { hidden: debouncedValue.length === 0 }
         )}
         style={{ top: '100%' }} // Adjust the top position for mobile
       >
-        <ScrollArea
-          type="hover"
-          style={{ maxHeight: '80vh' }}
-          scrollbars="vertical"
-        >
+        <div style={{ maxHeight: '80vh' }}>
           <div className="p-4">
             {profilesLoading || publicationsLoading ? (
               <div className="flex justify-center p-5">
-                <Loader />
+                <Spinner />
               </div>
             ) : (
               <>
                 <div className="space-y-2 pb-2 focus:outline-none">
-                  <Text weight="bold">Creators</Text>
+                  <span className="font-bold">Creators</span>
                   {profiles?.length ? (
                     <Profiles
                       results={profiles}
@@ -165,7 +147,7 @@ const GlobalSearch = () => {
                   )}
                 </div>
                 <div className="space-y-2 focus:outline-none">
-                  <Text weight="bold">Releases</Text>
+                  <span className="font-bold">Releases</span>
                   {publications?.length ? (
                     <Publications
                       results={publications}
@@ -179,9 +161,9 @@ const GlobalSearch = () => {
               </>
             )}
           </div>
-        </ScrollArea>
+        </div>
       </div>
-    </>
+    </div>
   )
 
   return (

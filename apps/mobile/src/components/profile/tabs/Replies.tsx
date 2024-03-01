@@ -1,26 +1,26 @@
-import { LENS_CUSTOM_FILTERS } from '@dragverse/constants'
-import type { Comment, Profile, PublicationsQueryRequest } from '@dragverse/lens'
+import { LENS_CUSTOM_FILTERS } from '@dragverse/constants';
+import type { Comment, Profile, PublicationsRequest } from '@dragverse/lens';
 import {
-    PublicationMainFocus,
-    PublicationTypes,
-    useCommentsQuery
-} from '@dragverse/lens'
-import type { FC } from 'react'
-import React, { memo, useCallback } from 'react'
-import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native'
+  LimitType,
+  PublicationMetadataMainFocusType,
+  usePublicationsQuery
+} from '@dragverse/lens';
+import type { FC } from 'react';
+import React, { memo, useCallback } from 'react';
+import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
 import {
-    ActivityIndicator,
-    StyleSheet,
-    View,
-    useWindowDimensions
-} from 'react-native'
-import Animated from 'react-native-reanimated'
+  ActivityIndicator,
+  StyleSheet,
+  View,
+  useWindowDimensions
+} from 'react-native';
+import Animated from 'react-native-reanimated';
 
-import NotFound from '~/components/ui/NotFound'
-import ServerError from '~/components/ui/ServerError'
+import NotFound from '~/components/ui/NotFound';
+import ServerError from '~/components/ui/ServerError';
 
-import AudioCard from '../../common/AudioCard'
-import VideoCard from '../../common/VideoCard'
+import AudioCard from '../../common/AudioCard';
+import VideoCard from '../../common/VideoCard';
 
 type Props = {
   profile: Profile
@@ -37,21 +37,24 @@ const styles = StyleSheet.create({
 const Replies: FC<Props> = ({ profile, scrollHandler }) => {
   const { height } = useWindowDimensions()
 
-  const request: PublicationsQueryRequest = {
-    publicationTypes: [PublicationTypes.Comment],
-    limit: 10,
-    metadata: {
-      mainContentFocus: [
-        PublicationMainFocus.Video,
-        PublicationMainFocus.Audio,
-        PublicationMainFocus.Image
-      ]
-    },
-    customFilters: LENS_CUSTOM_FILTERS,
-    profileId: profile?.id
+  const request: PublicationsRequest = {
+    limit: LimitType.Ten,
+    where: {
+      actedBy: {
+        id: profile.id
+      },
+      metadata: {
+        mainContentFocus: [
+          PublicationMetadataMainFocusType.Video,
+          PublicationMetadataMainFocusType.Audio,
+          PublicationMetadataMainFocusType.Image
+        ]
+      },
+      customFilters: LENS_CUSTOM_FILTERS
+    }
   }
 
-  const { data, loading, fetchMore, error, refetch } = useCommentsQuery({
+  const { data, loading, fetchMore, error, refetch } = usePublicationsQuery({
     variables: {
       request
     },
@@ -76,7 +79,7 @@ const Replies: FC<Props> = ({ profile, scrollHandler }) => {
   const renderItem = useCallback(
     ({ item }: { item: Comment }) => (
       <View style={{ marginBottom: 30 }}>
-        {item.metadata.mainContentFocus === PublicationMainFocus.Audio ? (
+        {item.metadata.__typename === 'AudioMetadataV3' ? (
           <AudioCard audio={item} />
         ) : (
           <VideoCard video={item} />

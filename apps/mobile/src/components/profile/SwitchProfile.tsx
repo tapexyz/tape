@@ -1,31 +1,31 @@
 import {
-    formatNumber,
-    getChannelCoverPicture,
-    getProfilePicture,
-    imageCdn,
-    sanitizeDStorageUrl,
-    trimLensHandle
-} from '@dragverse/generic'
-import type { Profile } from '@dragverse/lens'
-import { useProfilesQuery } from '@dragverse/lens'
-import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
-import { Image as ExpoImage } from 'expo-image'
-import { Skeleton } from 'moti/skeleton'
-import React, { memo, useCallback, useMemo } from 'react'
+  formatNumber,
+  getProfile,
+  getProfileCoverPicture,
+  getProfilePicture,
+  imageCdn,
+  sanitizeDStorageUrl
+} from '@dragverse/generic';
+import type { Profile } from '@dragverse/lens';
+import { useProfilesQuery } from '@dragverse/lens';
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types';
+import { Image as ExpoImage } from 'expo-image';
+import { Skeleton } from 'moti/skeleton';
+import React, { memo, useCallback, useMemo } from 'react';
 import {
-    ImageBackground,
-    ScrollView,
-    StyleSheet,
-    Text,
-    View
-} from 'react-native'
+  ImageBackground,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View
+} from 'react-native';
 
-import haptic from '~/helpers/haptic'
-import normalizeFont from '~/helpers/normalize-font'
-import { useMobileTheme } from '~/hooks'
-import { useMobilePersistStore } from '~/store/persist'
+import haptic from '~/helpers/haptic';
+import normalizeFont from '~/helpers/normalize-font';
+import { useMobileTheme } from '~/hooks';
+import { useMobilePersistStore } from '~/store/persist';
 
-import AnimatedPressable from '../ui/AnimatedPressable'
+import AnimatedPressable from '../ui/AnimatedPressable';
 
 const BORDER_RADIUS = 100
 
@@ -104,7 +104,7 @@ const SwitchProfile = () => {
         <ImageBackground
           source={{
             uri: imageCdn(
-              sanitizeDStorageUrl(getChannelCoverPicture(profile)),
+              sanitizeDStorageUrl(getProfileCoverPicture(profile)),
               'THUMBNAIL'
             )
           }}
@@ -147,7 +147,7 @@ const SwitchProfile = () => {
             />
             <View>
               <Text numberOfLines={1} style={style.handle}>
-                {trimLensHandle(profile.handle)}
+                {getProfile(profile).slug}
               </Text>
               <Text style={style.otherInfo}>
                 {formatNumber(profile.stats.followers)} followers

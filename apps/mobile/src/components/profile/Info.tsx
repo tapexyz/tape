@@ -1,44 +1,44 @@
 import {
-    formatNumber,
-    getChannelCoverPicture,
-    imageCdn,
-    sanitizeDStorageUrl,
-    trimLensHandle,
-    trimNewLines
-} from '@dragverse/generic'
-import type { Profile } from '@dragverse/lens'
-import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
-import Ionicons from '@expo/vector-icons/Ionicons'
-import type { BottomSheetModal } from '@gorhom/bottom-sheet'
-import { useNavigation } from '@react-navigation/native'
-import type { Dispatch, FC } from 'react'
-import React, { memo, useRef, useState } from 'react'
+  formatNumber,
+  getProfile,
+  getProfileCoverPicture,
+  imageCdn,
+  sanitizeDStorageUrl,
+  trimNewLines
+} from '@dragverse/generic';
+import type { Profile } from '@dragverse/lens';
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import type { BottomSheetModal } from '@gorhom/bottom-sheet';
+import { useNavigation } from '@react-navigation/native';
+import type { Dispatch, FC } from 'react';
+import React, { memo, useRef, useState } from 'react';
 import {
-    ImageBackground,
-    Pressable,
-    StyleSheet,
-    Text,
-    View,
-    useWindowDimensions
-} from 'react-native'
-import type { SharedValue } from 'react-native-reanimated'
+  ImageBackground,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  useWindowDimensions
+} from 'react-native';
+import type { SharedValue } from 'react-native-reanimated';
 import Animated, {
-    Extrapolate,
-    interpolate,
-    useAnimatedStyle
-} from 'react-native-reanimated'
-import { SafeAreaView } from 'react-native-safe-area-context'
+  Extrapolate,
+  interpolate,
+  useAnimatedStyle
+} from 'react-native-reanimated';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-import haptic from '~/helpers/haptic'
-import normalizeFont from '~/helpers/normalize-font'
-import { windowWidth } from '~/helpers/theme'
-import { useMobileTheme } from '~/hooks'
-import { useMobilePersistStore } from '~/store/persist'
+import haptic from '~/helpers/haptic';
+import normalizeFont from '~/helpers/normalize-font';
+import { windowWidth } from '~/helpers/theme';
+import { useMobileTheme } from '~/hooks';
+import { useMobilePersistStore } from '~/store/persist';
 
-import UserProfile from '../common/UserProfile'
-import Button from '../ui/Button'
-import OnChainInfo from './OnChainInfo'
-import ShareSheet from './ShareSheet'
+import UserProfile from '../common/UserProfile';
+import Button from '../ui/Button';
+import OnChainInfo from './OnChainInfo';
+import ShareSheet from './ShareSheet';
 
 type Props = {
   profile: Profile
@@ -147,7 +147,7 @@ const Info: FC<Props> = (props) => {
         <ImageBackground
           source={{
             uri: imageCdn(
-              sanitizeDStorageUrl(getChannelCoverPicture(profile)),
+              sanitizeDStorageUrl(getProfileCoverPicture(profile)),
               'THUMBNAIL'
             )
           }}
@@ -231,7 +231,7 @@ const Info: FC<Props> = (props) => {
               {isOwned && (
                 <Text style={[style.handle, { opacity: 0.5 }]}>gm, </Text>
               )}
-              {trimLensHandle(profile.handle)}
+              {getProfile(profile).slug}
             </Text>
 
             <Pressable onPress={() => setShowMoreBio(!showMoreBio)}>

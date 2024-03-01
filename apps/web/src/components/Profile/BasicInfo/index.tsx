@@ -1,13 +1,9 @@
-import Badge from '@components/Common/Badge'
-import FollowActions from '@components/Common/FollowActions'
-import LinkOutline from '@components/Common/Icons/LinkOutline'
-import ProfileBanOutline from '@components/Common/Icons/ProfileBanOutline'
-import ThreeDotsOutline from '@components/Common/Icons/ThreeDotsOutline'
-import WarningOutline from '@components/Common/Icons/WarningOutline'
-import InterweaveContent from '@components/Common/InterweaveContent'
-import Tooltip from '@components/UIElements/Tooltip'
-import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
-import { useCopyToClipboard } from '@dragverse/browser'
+import Badge from '@components/Common/Badge';
+import FollowActions from '@components/Common/FollowActions';
+import InterweaveContent from '@components/Common/InterweaveContent';
+import ReportProfile from '@components/Report/Profile';
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis';
+import { useCopyToClipboard } from '@dragverse/browser';
 import {
   ENS_ICON_URL,
   ERROR_MESSAGE,
@@ -16,44 +12,49 @@ import {
   REQUESTING_SIGNATURE_MESSAGE,
   STATIC_ASSETS,
   TAPE_WEBSITE_URL
-} from '@dragverse/constants'
+} from '@dragverse/constants';
 import {
   checkLensManagerPermissions,
   getProfile,
   getSignature,
   trimify
-} from '@dragverse/generic'
+} from '@dragverse/generic';
 import type {
   CreateBlockProfilesBroadcastItemResult,
   CreateUnblockProfilesBroadcastItemResult,
   Profile
-} from '@dragverse/lens'
+} from '@dragverse/lens';
 import {
   useBlockMutation,
   useBroadcastOnchainMutation,
   useCreateBlockProfilesTypedDataMutation,
   useCreateUnblockProfilesTypedDataMutation,
   useUnblockMutation
-} from '@dragverse/lens'
-import { useApolloClient } from '@dragverse/lens/apollo'
-import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
-import useNonceStore from '@lib/store/nonce'
-import useProfileStore from '@lib/store/profile'
+} from '@dragverse/lens';
+import { useApolloClient } from '@dragverse/lens/apollo';
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types';
 import {
   Badge as BadgeUI,
   Callout,
   DropdownMenu,
-  Flex,
-  IconButton,
-  Text
-} from '@radix-ui/themes'
-import type { FC } from 'react'
-import { useState } from 'react'
-import toast from 'react-hot-toast'
-import { useContractWrite, useSignTypedData } from 'wagmi'
+  DropdownMenuItem,
+  FlagOutline,
+  LinkOutline,
+  Modal,
+  ProfileBanOutline,
+  ThreeDotsOutline,
+  Tooltip,
+  WarningOutline
+} from '@dragverse/ui';
+import useProfileStore from '@lib/store/idb/profile';
+import useNonceStore from '@lib/store/nonce';
+import type { FC } from 'react';
+import { useState } from 'react';
+import toast from 'react-hot-toast';
+import { useSignTypedData, useWriteContract } from 'wagmi';
 
-import Bubbles from '../Mutual/Bubbles'
-import Stats from './Stats'
+import Bubbles from '../Mutual/Bubbles';
+import Stats from './Stats';
 
 type Props = {
   profile: Profile
@@ -62,6 +63,7 @@ type Props = {
 const BasicInfo: FC<Props> = ({ profile }) => {
   const [copy] = useCopyToClipboard()
   const [loading, setLoading] = useState(false)
+  const [showReportModal, setShowReportModal] = useState(false)
 
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
   const { activeProfile } = useProfileStore()
@@ -108,23 +110,29 @@ const BasicInfo: FC<Props> = ({ profile }) => {
     }
     setLoading(false)
     updateCache(!isBlockedByMe)
-    toast.success(
-      `${isBlockedByMe ? `Unblocked` : `Blocked`} ${getProfile(profile)
-        ?.displayName}`
-    )
+    const displayName = getProfile(profile)?.displayName
+    toast.success(`${isBlockedByMe ? `Unblocked` : `Blocked`} ${displayName}`)
   }
 
   const { signTypedDataAsync } = useSignTypedData({
-    onError
+    mutation: { onError }
   })
 
-  const { write } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
-    abi: LENSHUB_PROXY_ABI,
-    functionName: 'setBlockStatus',
-    onSuccess: () => onCompleted(),
-    onError
+  const { writeContractAsync } = useWriteContract({
+    mutation: {
+      onSuccess: () => onCompleted(),
+      onError
+    }
   })
+
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
+      address: LENSHUB_PROXY_ADDRESS,
+      abi: LENSHUB_PROXY_ABI,
+      functionName: 'setBlockStatus',
+      args
+    })
+  }
 
   const [broadcast] = useBroadcastOnchainMutation({
     onCompleted: ({ broadcastOnchain }) =>
@@ -150,11 +158,11 @@ const BasicInfo: FC<Props> = ({ profile }) => {
           variables: { request: { id, signature } }
         })
         if (data?.broadcastOnchain.__typename === 'RelayError') {
-          write({ args })
+          return await write({ args })
         }
         return
       }
-      write({ args })
+      return await write({ args })
     } catch {
       setLoading(false)
     }
@@ -206,15 +214,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
   const toggleBlockProfile = async () => {
     setLoading(true)
     if (isBlockedByMe) {
-      await unBlock({
-        variables: {
-          request: {
-            profiles: [profile.id]
-          }
-        }
-      })
-    } else {
-      await block({
+      return await unBlock({
         variables: {
           request: {
             profiles: [profile.id]
@@ -222,33 +222,39 @@ const BasicInfo: FC<Props> = ({ profile }) => {
         }
       })
     }
+
+    await block({
+      variables: {
+        request: {
+          profiles: [profile.id]
+        }
+      }
+    })
     setLoading(false)
   }
 
   return (
     <div className="px-2 xl:px-0">
-      {misused?.description && (
-        <Callout.Root color="red" mt="4">
-          <Callout.Icon>
-            <WarningOutline className="h-5 w-5" />
-          </Callout.Icon>
-          <Callout.Text highContrast>
-            <Flex gap="2" align="center">
-              <BadgeUI>{misused.type}</BadgeUI>
+      {misused?.type && (
+        <Callout
+          variant="danger"
+          className="mt-4"
+          icon={<WarningOutline className="size-5" />}
+        >
+          <div className="flex items-center gap-2">
+            {misused.type}
+            {misused.description && (
               <InterweaveContent content={misused.description} />
-            </Flex>
-          </Callout.Text>
-        </Callout.Root>
+            )}
+          </div>
+        </Callout>
       )}
       <div className="flex flex-1 flex-wrap justify-between pb-1 pt-4 md:gap-5">
         <div className="flex flex-col items-start">
-          <Text
-            className="flex items-center space-x-1.5 text-lg md:text-3xl"
-            weight="bold"
-          >
+          <p className="flex items-center space-x-1.5 text-lg font-bold md:text-3xl">
             <span>{getProfile(profile)?.displayName}</span>
             <Badge id={profile?.id} size="xl" />
-          </Text>
+          </p>
 
           <div className="flex items-center space-x-2">
             {profile.operations.isFollowingMe.value && (
@@ -265,7 +271,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
                       <img
                         src={`${ENS_ICON_URL}`}
                         alt="ens"
-                        className="h-6 w-6"
+                        className="size-6"
                         draggable={false}
                       />
                     </Tooltip>
@@ -275,7 +281,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
                       <img
                         src={`${STATIC_ASSETS}/images/social/sybil.png`}
                         alt="sybil"
-                        className="h-7 w-7"
+                        className="size-7"
                         draggable={false}
                       />
                     </Tooltip>
@@ -285,7 +291,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
                       <img
                         src={`${STATIC_ASSETS}/images/social/poh.png`}
                         alt="poh"
-                        className="h-7 w-7"
+                        className="size-7"
                         draggable={false}
                       />
                     </Tooltip>
@@ -295,7 +301,7 @@ const BasicInfo: FC<Props> = ({ profile }) => {
                       <img
                         src={`${STATIC_ASSETS}/images/social/worldcoin.png`}
                         alt="worldcoin"
-                        className="h-7 w-7"
+                        className="size-7"
                         draggable={false}
                       />
                     </Tooltip>
@@ -308,42 +314,62 @@ const BasicInfo: FC<Props> = ({ profile }) => {
             </div>
           </div>
         </div>
-        <Flex gap="3" align="center">
-          <DropdownMenu.Root>
-            <DropdownMenu.Trigger>
-              <IconButton variant="ghost">
-                <ThreeDotsOutline className="h-4 w-4" />
-              </IconButton>
-            </DropdownMenu.Trigger>
-            <DropdownMenu.Content sideOffset={10} variant="soft" align="end">
-              <DropdownMenu.Item
-                onClick={() =>
-                  copy(`${TAPE_WEBSITE_URL}${getProfile(profile).link}`)
-                }
-              >
-                <Flex align="center" gap="2">
-                  <LinkOutline className="h-3.5 w-3.5" />
-                  <span className="whitespace-nowrap">Permalink</span>
-                </Flex>
-              </DropdownMenu.Item>
-              {profile.operations.canBlock && (
-                <DropdownMenu.Item
-                  color="red"
-                  disabled={loading}
-                  onClick={() => toggleBlockProfile()}
+        <div className="flex items-center gap-3">
+          <DropdownMenu trigger={<ThreeDotsOutline className="size-4" />}>
+            <DropdownMenuItem
+              onClick={() =>
+                copy(`${TAPE_WEBSITE_URL}${getProfile(profile).link}`)
+              }
+            >
+              <div className="flex items-center gap-2">
+                <LinkOutline className="size-3.5" />
+                <span className="whitespace-nowrap">Permalink</span>
+              </div>
+            </DropdownMenuItem>
+
+            {activeProfile?.id && (
+              <>
+                <DropdownMenuItem
+                  onClick={(e) => {
+                    e.preventDefault()
+                    setShowReportModal(true)
+                  }}
                 >
-                  <Flex align="center" gap="2">
-                    <ProfileBanOutline className="h-4 w-4" />
-                    <span className="whitespace-nowrap">
-                      {isBlockedByMe ? 'Unblock' : 'Block'}
-                    </span>
-                  </Flex>
-                </DropdownMenu.Item>
-              )}
-            </DropdownMenu.Content>
-          </DropdownMenu.Root>
+                  <div className="flex items-center gap-2">
+                    <FlagOutline className="size-3.5" />
+                    <p className="whitespace-nowrap">Report</p>
+                  </div>
+                </DropdownMenuItem>
+                <Modal
+                  size="sm"
+                  title={`Report ${getProfile(profile)?.slugWithPrefix}`}
+                  show={showReportModal}
+                  setShow={setShowReportModal}
+                >
+                  <ReportProfile
+                    profile={profile}
+                    close={() => setShowReportModal(false)}
+                  />
+                </Modal>
+              </>
+            )}
+
+            {profile.operations.canBlock && (
+              <DropdownMenuItem
+                disabled={loading}
+                onClick={() => toggleBlockProfile()}
+              >
+                <div className="flex items-center gap-2 text-red-500">
+                  <ProfileBanOutline className="size-4" />
+                  <span className="whitespace-nowrap">
+                    {isBlockedByMe ? 'Unblock' : 'Block'}
+                  </span>
+                </div>
+              </DropdownMenuItem>
+            )}
+          </DropdownMenu>
           <FollowActions profile={profile} />
-        </Flex>
+        </div>
       </div>
       <div className="flex flex-wrap items-center justify-between gap-3">
         {profile.metadata?.bio && (

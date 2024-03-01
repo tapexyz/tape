@@ -1,39 +1,39 @@
-import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@dragverse/constants'
+import { LENS_CUSTOM_FILTERS, LENSTUBE_BYTES_APP_ID } from '@dragverse/constants';
 import {
-    getPublicationMediaUrl,
-    getShortHandTime,
-    getThumbnailUrl,
-    imageCdn
-} from '@dragverse/generic'
-import type { MirrorablePublication, PublicationsRequest } from '@dragverse/lens'
+  getPublicationMediaUrl,
+  getThumbnailUrl,
+  imageCdn
+} from '@dragverse/generic';
+import type { MirrorablePublication, PublicationsRequest } from '@dragverse/lens';
 import {
-    LimitType,
-    PublicationMetadataMainFocusType,
-    PublicationType,
-    usePublicationsQuery
-} from '@dragverse/lens'
-import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
-import Ionicons from '@expo/vector-icons/Ionicons'
-import { useNavigation } from '@react-navigation/native'
-import { Image as ExpoImage } from 'expo-image'
-import type { FC } from 'react'
-import React, { memo, useCallback, useMemo } from 'react'
-import type { ListRenderItemInfo } from 'react-native'
+  LimitType,
+  PublicationMetadataMainFocusType,
+  PublicationType,
+  usePublicationsQuery
+} from '@dragverse/lens';
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
+import { Image as ExpoImage } from 'expo-image';
+import type { FC } from 'react';
+import React, { memo, useCallback, useMemo } from 'react';
+import type { ListRenderItemInfo } from 'react-native';
 import {
-    ActivityIndicator,
-    ImageBackground,
-    StyleSheet,
-    Text,
-    View
-} from 'react-native'
+  ActivityIndicator,
+  ImageBackground,
+  StyleSheet,
+  Text,
+  View
+} from 'react-native';
 
-import normalizeFont from '~/helpers/normalize-font'
-import { colors } from '~/helpers/theme'
-import { useMobileTheme } from '~/hooks'
-import { useMobilePersistStore } from '~/store/persist'
+import { getShortHandTime } from '~/helpers/format-time';
+import normalizeFont from '~/helpers/normalize-font';
+import { colors } from '~/helpers/theme';
+import { useMobileTheme } from '~/hooks';
+import { useMobilePersistStore } from '~/store/persist';
 
-import AnimatedPressable from '../ui/AnimatedPressable'
-import { HorizantalSlider } from '../ui/HorizantalSlider'
+import AnimatedPressable from '../ui/AnimatedPressable';
+import { HorizontalSlider } from '../ui/HorizontalSlider';
 
 const BORDER_RADIUS = 10
 
@@ -126,7 +126,9 @@ const PublicationItem: FC<Props> = ({ publication, index, last }) => {
   const isBytes = publication.publishedOn?.id === LENSTUBE_BYTES_APP_ID
   const isImage = publication.metadata.__typename === 'ImageMetadataV3'
   const imageUrl = imageCdn(
-    isImage ? getPublicationMediaUrl(publication) : getThumbnailUrl(publication)
+    isImage
+      ? getPublicationMediaUrl(publication.metadata)
+      : getThumbnailUrl(publication.metadata)
   )
 
   return (
@@ -289,7 +291,7 @@ const Streak = () => {
                   size={20}
                 />
               </AnimatedPressable>
-              <HorizantalSlider
+              <HorizontalSlider
                 data={publications?.slice(0, 7)}
                 renderItem={renderItem}
                 decelerationRate="normal"

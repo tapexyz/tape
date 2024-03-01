@@ -1,28 +1,28 @@
-import { RECS_URL, STATIC_ASSETS } from '@dragverse/constants'
-import { imageCdn } from '@dragverse/generic'
+import { STATIC_ASSETS } from '@dragverse/constants';
+import { getPublication, imageCdn } from '@dragverse/generic';
 import type {
-    AnyPublication,
-    MirrorablePublication,
-    PublicationsRequest
-} from '@dragverse/lens'
-import { LimitType, usePublicationsQuery } from '@dragverse/lens'
-import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
-import { FlashList } from '@shopify/flash-list'
-import { Image as ExpoImage } from 'expo-image'
-import type { FC } from 'react'
-import React, { useCallback, useMemo } from 'react'
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native'
-import useSWR from 'swr'
+  AnyPublication,
+  MirrorablePublication,
+  PublicationsRequest
+} from '@dragverse/lens';
+import { LimitType, usePublicationsQuery } from '@dragverse/lens';
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types';
+import { FlashList } from '@shopify/flash-list';
+import { Image as ExpoImage } from 'expo-image';
+import type { FC } from 'react';
+import React, { useCallback, useMemo } from 'react';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import useSWR from 'swr';
 
-import normalizeFont from '~/helpers/normalize-font'
-import { useMobileTheme } from '~/hooks'
+import normalizeFont from '~/helpers/normalize-font';
+import { useMobileTheme } from '~/hooks';
 
-import AudioCard from '../common/AudioCard'
-import VideoCard from '../common/VideoCard'
-import NotFound from '../ui/NotFound'
-import Actions from './Actions'
-import Comments from './Comments'
-import Metadata from './Metadata'
+import AudioCard from '../common/AudioCard';
+import VideoCard from '../common/VideoCard';
+import NotFound from '../ui/NotFound';
+import Actions from './Actions';
+import Comments from './Comments';
+import Metadata from './Metadata';
 
 const styles = (themeConfig: MobileThemeConfig) =>
   StyleSheet.create({
@@ -71,7 +71,7 @@ const RecommendedTitle = () => {
 
 const MoreVideos: FC<Props> = ({ video }) => {
   const { data: recsData, isLoading: recsLoading } = useSWR(
-    `${RECS_URL}/k3l-feed/recommended?exclude=${video.id}`,
+    `/k3l-feed/recommended?exclude=${video.id}`,
     (url: string) => fetch(url).then((res) => res.json())
   )
 
@@ -109,7 +109,7 @@ const MoreVideos: FC<Props> = ({ video }) => {
     () => (
       <>
         <Metadata video={video} />
-        <Actions video={video} />
+        <Actions video={getPublication(video)} />
         <Comments id={video.id} />
         <RecommendedTitle />
       </>

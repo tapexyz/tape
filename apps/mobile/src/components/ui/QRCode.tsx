@@ -1,18 +1,18 @@
-import { LENSTUBE_LOGO } from '@dragverse/constants'
-import { imageCdn } from '@dragverse/generic'
-import QRCodeUtil from 'qrcode'
-import type { FC } from 'react'
-import React, { memo, useMemo } from 'react'
+import { TAPE_LOGO } from '@dragverse/constants';
+import { imageCdn } from '@dragverse/generic';
+import QRCodeUtil from 'qrcode';
+import type { FC } from 'react';
+import React, { memo, useMemo } from 'react';
 import Svg, {
-    Circle,
-    ClipPath,
-    Defs,
-    G,
-    Rect,
-    Image as SvgImage
-} from 'react-native-svg'
+  Circle,
+  ClipPath,
+  Defs,
+  G,
+  Rect,
+  Image as SvgImage
+} from 'react-native-svg';
 
-import { colors } from '~/helpers/theme'
+import { colors } from '~/helpers/theme';
 
 const generateMatrix = (
   value: string,
@@ -43,7 +43,7 @@ type Props = {
 }
 
 const QRCode: FC<Props> = ({
-  logo = imageCdn(LENSTUBE_LOGO),
+  logo = imageCdn(TAPE_LOGO),
   ecl = 'M',
   logoBackgroundColor = 'transparent',
   logoMargin = -5,

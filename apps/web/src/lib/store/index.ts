@@ -2,14 +2,15 @@ import {
   CREATOR_VIDEO_CATEGORIES,
   IRYS_CURRENCY,
   IRYS_NODE_URL,
-  POLYGON_RPC_URL,
   WMATIC_TOKEN_ADDRESS
-} from '@dragverse/constants'
-import { logger } from '@dragverse/generic'
-import type { IrysDataState, UploadedMedia } from '@dragverse/lens/custom-types'
-import { WebIrys } from '@irys/sdk'
-import { MetadataLicenseType } from '@lens-protocol/metadata'
-import { create } from 'zustand'
+} from '@dragverse/constants';
+import { logger } from '@dragverse/generic';
+import type { IrysDataState, UploadedMedia } from '@dragverse/lens/custom-types';
+import { WebIrys } from '@irys/sdk';
+import { MetadataLicenseType } from '@lens-protocol/metadata';
+import { viemPublicClient } from '@lib/viemClient';
+import type { WalletClient } from 'viem';
+import { create } from 'zustand';
 
 export const UPLOADED_VIDEO_IRYS_DEFAULTS = {
   balance: '0',
@@ -30,6 +31,7 @@ export const UPLOADED_VIDEO_FORM_DEFAULTS: UploadedMedia = {
   description: '',
   thumbnail: '',
   thumbnailType: '',
+  thumbnailBlobUrl: '',
   dUrl: '',
   percent: 0,
   isSensitiveContent: false,
@@ -57,7 +59,9 @@ export const UPLOADED_VIDEO_FORM_DEFAULTS: UploadedMedia = {
   referenceModule: {
     followerOnlyReferenceModule: false,
     degreesOfSeparationReferenceModule: null
-  }
+  },
+  unknownOpenAction: null,
+  hasOpenActions: false
 }
 
 interface AppState {
@@ -69,12 +73,10 @@ interface AppState {
   setActiveTagFilter: (activeTagFilter: string) => void
   setVideoWatchTime: (videoWatchTime: number) => void
   setIrysData: (irysProps: Partial<IrysDataState>) => void
-  getIrysInstance: (signer: {
-    signMessage: (message: string) => Promise<string>
-  }) => Promise<WebIrys | null>
+  getIrysInstance: (client: WalletClient) => Promise<WebIrys | null>
 }
 
-export const useAppStore = create<AppState>((set) => ({
+const useAppStore = create<AppState>((set) => ({
   videoWatchTime: 0,
   activeTagFilter: 'all',
   irysData: UPLOADED_VIDEO_IRYS_DEFAULTS,
@@ -87,18 +89,17 @@ export const useAppStore = create<AppState>((set) => ({
     set((state) => ({
       uploadedMedia: { ...state.uploadedMedia, ...mediaProps }
     })),
-  getIrysInstance: async (signer) => {
+  getIrysInstance: async (client: WalletClient) => {
     try {
       const instance = new WebIrys({
         url: IRYS_NODE_URL,
         token: IRYS_CURRENCY,
         wallet: {
-          rpcUrl: POLYGON_RPC_URL,
-          name: 'viem',
-          provider: signer
+          name: 'viemv2',
+          provider: client,
+          publicClient: viemPublicClient
         }
       })
-      await instance.utils.getBundlerAddress(IRYS_CURRENCY)
       await instance.ready()
       return instance
     } catch (error) {

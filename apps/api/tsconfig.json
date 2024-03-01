@@ -1,9 +1,17 @@
 {
-  "extends": "@dragverse/config/react.tsconfig.json",
+  "extends": "@dragverse/config/base.tsconfig.json",
   "compilerOptions": {
-    "baseUrl": ".",
-    "noEmit": true,
-    "isolatedModules": true
-  },
-  "include": ["**/*.ts"]
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "strict": true,
+    "lib": ["esnext"],
+    "types": ["@cloudflare/workers-types"],
+    "jsx": "react-jsx",
+    "jsxImportSource": "hono/jsx",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
 }

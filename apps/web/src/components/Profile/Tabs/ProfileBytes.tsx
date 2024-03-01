@@ -1,28 +1,29 @@
-import PublicationOptions from '@components/Common/Publication/PublicationOptions'
-import LatestBytesShimmer from '@components/Shimmers/LatestBytesShimmer'
-import { NoDataFound } from '@components/UIElements/NoDataFound'
+import PublicationOptions from '@components/Common/Publication/PublicationOptions';
+import LatestBytesShimmer from '@components/Shimmers/LatestBytesShimmer';
+import { NoDataFound } from '@components/UIElements/NoDataFound';
 import {
   FALLBACK_THUMBNAIL_URL,
   INFINITE_SCROLL_ROOT_MARGIN,
   LENS_CUSTOM_FILTERS,
+  LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
-} from '@dragverse/constants'
+} from '@dragverse/constants';
 import {
   getPublicationData,
   getThumbnailUrl,
   imageCdn
-} from '@dragverse/generic'
-import type { Post, PublicationsRequest } from '@dragverse/lens'
+} from '@dragverse/generic';
+import type { Post, PublicationsRequest } from '@dragverse/lens';
 import {
   LimitType,
   PublicationMetadataMainFocusType,
   PublicationType,
   usePublicationsQuery
-} from '@dragverse/lens'
-import { Loader } from '@dragverse/ui'
-import Link from 'next/link'
-import type { FC } from 'react'
-import { useInView } from 'react-cool-inview'
+} from '@dragverse/lens';
+import { Spinner } from '@dragverse/ui';
+import Link from 'next/link';
+import type { FC } from 'react';
+import { useInView } from 'react-cool-inview';
 
 type Props = {
   profileId: string
@@ -33,7 +34,7 @@ const ProfileBytes: FC<Props> = ({ profileId }) => {
     where: {
       metadata: {
         mainContentFocus: [PublicationMetadataMainFocusType.ShortVideo],
-        publishedOn: [TAPE_APP_ID]
+        publishedOn: [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID]
       },
       publicationTypes: [PublicationType.Post],
       customFilters: LENS_CUSTOM_FILTERS,
@@ -102,17 +103,17 @@ const ProfileBytes: FC<Props> = ({ profileId }) => {
                   </h1>
                 </div>
                 <div
-                  className="absolute right-2 top-2"
+                  className="absolute right-2 top-2 rounded-full bg-white"
                   onClick={(e) => e.stopPropagation()}
                 >
-                  <PublicationOptions publication={byte} variant="solid" />
+                  <PublicationOptions publication={byte} />
                 </div>
               </Link>
             )
           })}
           {pageInfo?.next && (
             <span ref={observe} className="flex justify-center p-10">
-              <Loader />
+              <Spinner />
             </span>
           )}
         </div>

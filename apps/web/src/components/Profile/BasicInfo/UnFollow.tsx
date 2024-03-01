@@ -1,45 +1,41 @@
-import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis';
 import {
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
   SIGN_IN_REQUIRED
-} from '@dragverse/constants'
+} from '@dragverse/constants';
 import {
-  checkLensManagerPermissions,
   EVENTS,
+  Tower,
+  checkLensManagerPermissions,
   getProfile,
-  getSignature,
-  Tower
-} from '@dragverse/generic'
+  getSignature
+} from '@dragverse/generic';
 import type {
   CreateUnfollowBroadcastItemResult,
   Profile
-} from '@dragverse/lens'
+} from '@dragverse/lens';
 import {
   useBroadcastOnchainMutation,
   useCreateUnfollowTypedDataMutation,
   useUnfollowMutation
-} from '@dragverse/lens'
-import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
-import { Loader } from '@dragverse/ui'
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import useNonceStore from '@lib/store/nonce'
-import { useProfileStore } from '@lib/store/profile'
-import { Button } from '@radix-ui/themes'
-import type { FC } from 'react'
-import { useState } from 'react'
-import toast from 'react-hot-toast'
-import { useContractWrite, useSignTypedData } from 'wagmi'
+} from '@dragverse/lens';
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types';
+import { Button } from '@dragverse/ui';
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
+import useProfileStore from '@lib/store/idb/profile';
+import useNonceStore from '@lib/store/nonce';
+import type { FC } from 'react';
+import { useState } from 'react';
+import toast from 'react-hot-toast';
+import { useSignTypedData, useWriteContract } from 'wagmi';
 
 type Props = {
   profile: Profile
   onUnSubscribe: () => void
-  size?: '1' | '2' | '3'
-
-  showText?: boolean
 }
 
-const UnFollow: FC<Props> = ({ profile, onUnSubscribe, size = '2' }) => {
+const UnFollow: FC<Props> = ({ profile, onUnSubscribe }) => {
   const [loading, setLoading] = useState(false)
 
   const { activeProfile } = useProfileStore()
@@ -68,7 +64,7 @@ const UnFollow: FC<Props> = ({ profile, onUnSubscribe, size = '2' }) => {
   }
 
   const { signTypedDataAsync } = useSignTypedData({
-    onError
+    mutation: { onError }
   })
 
   const [broadcast] = useBroadcastOnchainMutation({
@@ -77,13 +73,21 @@ const UnFollow: FC<Props> = ({ profile, onUnSubscribe, size = '2' }) => {
     onError
   })
 
-  const { write } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
-    abi: LENSHUB_PROXY_ABI,
-    functionName: 'burn',
-    onSuccess: () => onCompleted(),
-    onError
+  const { writeContractAsync } = useWriteContract({
+    mutation: {
+      onSuccess: () => onCompleted(),
+      onError
+    }
   })
+
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
+      address: LENSHUB_PROXY_ADDRESS,
+      abi: LENSHUB_PROXY_ABI,
+      functionName: 'burn',
+      args
+    })
+  }
 
   const [createUnfollowTypedData] = useCreateUnfollowTypedDataMutation({
     onCompleted: async ({ createUnfollowTypedData }) => {
@@ -100,11 +104,11 @@ const UnFollow: FC<Props> = ({ profile, onUnSubscribe, size = '2' }) => {
             variables: { request: { id, signature } }
           })
           if (data?.broadcastOnchain?.__typename === 'RelayError') {
-            return write({ args })
+            return await write({ args })
           }
           return
         }
-        return write({ args })
+        return await write({ args })
       } catch {
         setLoading(false)
       }
@@ -121,9 +125,7 @@ const UnFollow: FC<Props> = ({ profile, onUnSubscribe, size = '2' }) => {
     if (!activeProfile?.id) {
       return toast.error(SIGN_IN_REQUIRED)
     }
-    if (handleWrongNetwork()) {
-      return
-    }
+    await handleWrongNetwork()
 
     setLoading(true)
     if (canUseLensManager) {
@@ -144,13 +146,7 @@ const UnFollow: FC<Props> = ({ profile, onUnSubscribe, size = '2' }) => {
   }
 
   return (
-    <Button
-      size={size}
-      onClick={() => unfollow()}
-      highContrast
-      disabled={loading}
-    >
-      {loading && <Loader size="sm" />}
+    <Button loading={loading} disabled={loading} onClick={() => unfollow()}>
       Unfollow
     </Button>
   )

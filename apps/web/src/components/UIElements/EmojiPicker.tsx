@@ -1,11 +1,15 @@
-import EmojiOutline from '@components/Common/Icons/EmojiOutline'
-import { STATIC_ASSETS } from '@dragverse/constants'
-import Picker from '@emoji-mart/react'
-import { Popover } from '@radix-ui/themes'
-import axios from 'axios'
-import { useTheme } from 'next-themes'
-import type { FC } from 'react'
-import { useEffect, useState } from 'react'
+import { STATIC_ASSETS } from '@dragverse/constants';
+import {
+  EmojiOutline,
+  Popover,
+  PopoverContent,
+  PopoverTrigger
+} from '@dragverse/ui';
+import Picker from '@emoji-mart/react';
+import axios from 'axios';
+import { useTheme } from 'next-themes';
+import type { FC } from 'react';
+import { useEffect, useState } from 'react';
 
 type EmojiData = {
   aliases: Object
@@ -23,7 +27,7 @@ const EmojiPicker: FC<Props> = ({ onEmojiSelect }) => {
   const { resolvedTheme } = useTheme()
 
   const fetchEmojiData = async () => {
-    const response = await axios.get(`${STATIC_ASSETS}/data/emoji.json`)
+    const response = await axios.get(`${STATIC_ASSETS}/emoji.json`)
     setData(response.data)
   }
 
@@ -32,13 +36,13 @@ const EmojiPicker: FC<Props> = ({ onEmojiSelect }) => {
   }, [])
 
   return (
-    <Popover.Root>
-      <Popover.Trigger>
+    <Popover>
+      <PopoverTrigger>
         <span className="cursor-pointer">
-          <EmojiOutline className="h-5 w-5" />
+          <EmojiOutline className="size-5" />
         </span>
-      </Popover.Trigger>
-      <Popover.Content align="end" className="!p-0">
+      </PopoverTrigger>
+      <PopoverContent align="end" className="!p-0">
         <Picker
           data={data}
           navPosition="bottom"
@@ -56,8 +60,8 @@ const EmojiPicker: FC<Props> = ({ onEmojiSelect }) => {
             'rgba(211,209,255,.7)'
           ]}
         />
-      </Popover.Content>
-    </Popover.Root>
+      </PopoverContent>
+    </Popover>
   )
 }
 

@@ -1,22 +1,21 @@
-import { Countdown } from '@components/UIElements/CountDown'
-import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
+import { Countdown } from '@components/UIElements/CountDown';
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis';
+import { tw } from '@dragverse/browser';
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   SIGN_IN_REQUIRED
-} from '@dragverse/constants'
-import type { Profile } from '@dragverse/lens'
-import { useProfileLazyQuery } from '@dragverse/lens'
-import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
-import { Loader } from '@dragverse/ui'
-import useProfileStore from '@lib/store/profile'
-import { Button } from '@radix-ui/themes'
-import clsx from 'clsx'
-import type { FC } from 'react'
-import { useEffect, useState } from 'react'
-import toast from 'react-hot-toast'
-import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork'
-import { useContractWrite, useWaitForTransaction } from 'wagmi'
+} from '@dragverse/constants';
+import type { Profile } from '@dragverse/lens';
+import { useProfileLazyQuery } from '@dragverse/lens';
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types';
+import { Button } from '@dragverse/ui';
+import useProfileStore from '@lib/store/idb/profile';
+import type { FC } from 'react';
+import { useEffect, useState } from 'react';
+import toast from 'react-hot-toast';
+import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
+import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi';
 
 const Guardian: FC = () => {
   const { activeProfile, setActiveProfile } = useProfileStore()
@@ -46,22 +45,17 @@ const Guardian: FC = () => {
     setLoading(false)
   }
 
-  const { data: disableData, write: disableWrite } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
-    abi: LENSHUB_PROXY_ABI,
-    functionName: 'DANGER__disableTokenGuardian',
-    onError
+  const { data: txnHash, writeContractAsync } = useWriteContract({
+    mutation: {
+      onError
+    }
   })
 
-  const { data: enableData, write: enableWrite } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
-    abi: LENSHUB_PROXY_ABI,
-    functionName: 'enableTokenGuardian',
-    onError
-  })
-
-  const { isSuccess } = useWaitForTransaction({
-    hash: disableData?.hash ?? enableData?.hash
+  const { isSuccess } = useWaitForTransactionReceipt({
+    hash: txnHash,
+    query: {
+      enabled: txnHash && txnHash.length > 0
+    }
   })
 
   useEffect(() => {
@@ -78,16 +72,22 @@ const Guardian: FC = () => {
       return toast.error(SIGN_IN_REQUIRED)
     }
 
-    if (handleWrongNetwork()) {
-      return
-    }
+    await handleWrongNetwork()
 
     try {
       setLoading(true)
       if (guardianEnabled) {
-        return disableWrite()
+        return await writeContractAsync({
+          address: LENSHUB_PROXY_ADDRESS,
+          abi: LENSHUB_PROXY_ABI,
+          functionName: 'DANGER__disableTokenGuardian'
+        })
       }
-      return enableWrite()
+      return await writeContractAsync({
+        address: LENSHUB_PROXY_ADDRESS,
+        abi: LENSHUB_PROXY_ABI,
+        functionName: 'DANGER__disableTokenGuardian'
+      })
     } catch (error) {
       onError(error as any)
     }
@@ -125,7 +125,7 @@ const Guardian: FC = () => {
       </div>
 
       <div
-        className={clsx(
+        className={tw(
           'rounded-b-medium flex border-b-0 bg-red-100 px-5 py-3 dark:bg-red-900/20',
           isCooldownEnded() ? 'justify-end' : 'justify-between'
         )}
@@ -140,18 +140,16 @@ const Guardian: FC = () => {
           </span>
         )}
         {guardianEnabled ? (
-          <Button color="red" disabled={loading} onClick={() => toggle()}>
-            {loading && <Loader size="sm" />}
+          <Button
+            variant="danger"
+            disabled={loading}
+            loading={loading}
+            onClick={() => toggle()}
+          >
             {loading ? 'Disabling' : 'Disable'}
           </Button>
         ) : (
-          <Button
-            variant="surface"
-            disabled={loading}
-            highContrast
-            onClick={() => toggle()}
-          >
-            {loading && <Loader size="sm" />}
+          <Button disabled={loading} loading={loading} onClick={() => toggle()}>
             {loading ? 'Enabling' : 'Enable'}
           </Button>
         )}

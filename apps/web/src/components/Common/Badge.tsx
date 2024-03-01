@@ -1,10 +1,8 @@
-import Tooltip from '@components/UIElements/Tooltip'
-import { MISUSED_CHANNELS, VERIFIED_CHANNELS } from '@dragverse/constants'
-import clsx from 'clsx'
-import type { FC } from 'react'
-
-import InfoSolid from './Icons/InfoSolid'
-import VerifiedSolid from './Icons/VerifiedSolid'
+import { tw } from '@dragverse/browser';
+import { MISUSED_CHANNELS } from '@dragverse/constants';
+import { InfoSolid, Tooltip, VerifiedSolid } from '@dragverse/ui';
+import useVerifiedStore from '@lib/store/idb/verified';
+import type { FC } from 'react';
 
 type Props = {
   id: string
@@ -13,7 +11,8 @@ type Props = {
 }
 
 const Badge: FC<Props> = ({ id, size = 'sm', color }) => {
-  const isVerified = VERIFIED_CHANNELS.includes(id)
+  const verifiedProfiles = useVerifiedStore((state) => state.verifiedProfiles)
+  const isVerified = verifiedProfiles.includes(id)
   const misused = MISUSED_CHANNELS.find((c) => c.id === id)
 
   return (
@@ -22,14 +21,14 @@ const Badge: FC<Props> = ({ id, size = 'sm', color }) => {
         <Tooltip content="Verified" placement="top">
           <span>
             <VerifiedSolid
-              className={clsx(
+              className={tw(
                 'text-brand-500 -mb-0.5 ml-0.5',
                 {
-                  'h-2.5 w-2.5': size === 'xs',
-                  'h-3 w-3': size === 'sm',
-                  'h-3.5 w-3.5': size === 'md',
-                  'h-4 w-4': size === 'lg',
-                  'h-5 w-5': size === 'xl'
+                  'size-2.5': size === 'xs',
+                  'size-3': size === 'sm',
+                  'size-3.5': size === 'md',
+                  'size-4': size === 'lg',
+                  'size-5': size === 'xl'
                 },
                 color
               )}
@@ -41,13 +40,13 @@ const Badge: FC<Props> = ({ id, size = 'sm', color }) => {
         <Tooltip content={misused.type} placement="right">
           <span>
             <InfoSolid
-              className={clsx(
+              className={tw(
                 'ml-0.5 text-red-500',
                 {
-                  'h-2.5 w-2.5': size === 'xs',
-                  'h-3 w-3': size === 'sm',
-                  'h-3.5 w-3.5': size === 'md',
-                  'h-4 w-4': size === 'lg'
+                  'size-2.5': size === 'xs',
+                  'size-3': size === 'sm',
+                  'size-3.5': size === 'md',
+                  'size-4': size === 'lg'
                 },
                 color
               )}

@@ -1,30 +1,30 @@
-import { LENS_CUSTOM_FILTERS } from '@dragverse/constants'
+import { LENS_CUSTOM_FILTERS } from '@dragverse/constants';
 import type {
-    MirrorablePublication,
-    Profile,
-    PublicationsRequest
-} from '@dragverse/lens'
+  MirrorablePublication,
+  Profile,
+  PublicationsRequest
+} from '@dragverse/lens';
 import {
-    LimitType,
-    PublicationMetadataMainFocusType,
-    PublicationType,
-    usePublicationsQuery
-} from '@dragverse/lens'
-import type { FC } from 'react'
-import React, { memo, useCallback } from 'react'
-import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native'
+  LimitType,
+  PublicationMetadataMainFocusType,
+  PublicationType,
+  usePublicationsQuery
+} from '@dragverse/lens';
+import type { FC } from 'react';
+import React, { memo, useCallback } from 'react';
+import type { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
 import {
-    ActivityIndicator,
-    StyleSheet,
-    View,
-    useWindowDimensions
-} from 'react-native'
-import Animated from 'react-native-reanimated'
+  ActivityIndicator,
+  StyleSheet,
+  View,
+  useWindowDimensions
+} from 'react-native';
+import Animated from 'react-native-reanimated';
 
-import NotFound from '~/components/ui/NotFound'
+import NotFound from '~/components/ui/NotFound';
 
-import AudioCard from '../../common/AudioCard'
-import VideoCard from '../../common/VideoCard'
+import AudioCard from '../../common/AudioCard';
+import VideoCard from '../../common/VideoCard';
 
 type Props = {
   profile: Profile

@@ -1,14 +1,16 @@
 import { ENS_ICON_URL, STATIC_ASSETS } from '@dragverse/constants';
 import { imageCdn } from '@dragverse/generic';
-import { ProfileOnchainIdentity } from '@dragverse/lens';
-import { MobileThemeConfig } from '@dragverse/lens/custom-types';
+import type { ProfileOnchainIdentity } from '@dragverse/lens';
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types';
 import { Image as ExpoImage } from 'expo-image';
 import type { FC } from 'react';
 import React from 'react';
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+
 import haptic from '~/helpers/haptic';
 import normalizeFont from '~/helpers/normalize-font';
 import { useMobileTheme } from '~/hooks';
+
 import { useToast } from '../common/toast';
 
 type Props = {

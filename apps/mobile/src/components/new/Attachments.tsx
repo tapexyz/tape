@@ -1,16 +1,16 @@
-import { PublicationMetadataMainFocusType } from '@dragverse/lens'
-import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
-import Ionicons from '@expo/vector-icons/Ionicons'
-import * as DocumentPicker from 'expo-document-picker'
-import { Image as ExpoImage } from 'expo-image'
-import * as ImagePicker from 'expo-image-picker'
-import * as VideoThumbnails from 'expo-video-thumbnails'
-import React from 'react'
-import { Pressable, StyleSheet, Text, View } from 'react-native'
+import { PublicationMetadataMainFocusType } from '@dragverse/lens';
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import * as DocumentPicker from 'expo-document-picker';
+import { Image as ExpoImage } from 'expo-image';
+import * as ImagePicker from 'expo-image-picker';
+import * as VideoThumbnails from 'expo-video-thumbnails';
+import React from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-import normalizeFont from '~/helpers/normalize-font'
-import { useMobileTheme } from '~/hooks'
-import useMobilePublicationStore from '~/store/publication'
+import normalizeFont from '~/helpers/normalize-font';
+import { useMobileTheme } from '~/hooks';
+import useMobilePublicationStore from '~/store/publication';
 
 const styles = (themeConfig: MobileThemeConfig) =>
   StyleSheet.create({

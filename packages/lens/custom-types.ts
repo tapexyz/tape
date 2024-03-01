@@ -51,6 +51,13 @@ type FileReaderStreamType = NodeJS.ReadableStream & {
   lastModified: string
 }
 
+export type UnknownOpenActionType = {
+  address: string
+  data: string
+  name: string
+  description: string
+}
+
 export type UploadedMedia = {
   type: 'VIDEO' | 'AUDIO'
   stream: FileReaderStreamType | null
@@ -61,6 +68,7 @@ export type UploadedMedia = {
   description: string
   thumbnail: string
   thumbnailType: string
+  thumbnailBlobUrl: string
   mediaCategory: { tag: string; name: string }
   mediaLicense: MetadataLicenseType
   percent: number
@@ -74,6 +82,8 @@ export type UploadedMedia = {
   collectModule: CollectModuleType
   referenceModule: ReferenceModuleType
   isByteVideo: boolean
+  unknownOpenAction: UnknownOpenActionType | null
+  hasOpenActions: boolean
 }
 
 export type IPFSUploadResult = {
@@ -119,7 +129,16 @@ export enum CustomNotificationsFilterEnum {
 export enum LocalStore {
   TAPE_AUTH_STORE = 'dragverse.auth.store',
   TAPE_STORE = 'dragverse.store',
-  TAPE_FINGERPRINT = 'dragverse.fingerprint'
+  TAPE_FINGERPRINT = 'dragverse.fingerprint',
+  WAGMI_STORE = 'wagmi.store'
+}
+
+export enum LocalIDBStore {
+  PROFILE_STORE = 'profile.store',
+  COLLECT_STORE = 'collect.store',
+  VERIFIED_STORE = 'verified.store',
+  ALLOWED_TOKENS_STORE = 'allowed-tokens.store',
+  RESTRICTIONS_STORE = 'restrictions.store'
 }
 
 export interface CustomNftItemType {
@@ -136,39 +155,6 @@ export interface CustomNftItemType {
   blockchain: string
   chainId: string
   address: string
-}
-
-export interface NftProvider {
-  provider: 'zora' | 'basepaint'
-}
-
-export interface BasicNftMetadata extends NftProvider {
-  chain: string
-  address: string
-  token: string
-}
-
-export type ZoraNft = {
-  chainId: number
-  name: string
-  description: string
-  coverImageUrl: string
-  mediaUrl: string
-  tokenId: string
-  address: `0x${string}`
-  owner: `0x${string}`
-  creator: `0x${string}`
-  maxSupply: number
-  remainingSupply: number
-  totalMinted: number
-  isOpenEdition: boolean
-  price: string
-  contractType:
-    | 'ERC721_DROP'
-    | 'ERC721_SINGLE_EDITION'
-    | 'ERC1155_COLLECTION'
-    | 'ERC1155_COLLECTION_TOKEN'
-  contractStandard: 'ERC721' | 'ERC1155'
 }
 
 export type SupportedOpenActionModuleType =

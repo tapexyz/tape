@@ -1,18 +1,18 @@
-import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { getProfile, getProfilePicture } from '@dragverse/generic'
+import { NoDataFound } from '@components/UIElements/NoDataFound';
+import { getProfile, getProfilePicture } from '@dragverse/generic';
 import {
   LimitType,
+  useProfilesQuery,
   type Profile,
-  type ProfilesRequest,
-  useProfilesQuery
-} from '@dragverse/lens'
-import { Loader } from '@dragverse/ui'
-import Link from 'next/link'
-import type { FC } from 'react'
-import { useInView } from 'react-cool-inview'
+  type ProfilesRequest
+} from '@dragverse/lens';
+import { Spinner, UserOutline } from '@dragverse/ui';
+import Link from 'next/link';
+import type { FC } from 'react';
+import { useInView } from 'react-cool-inview';
 
-import Badge from './Badge'
-import UserOutline from './Icons/UserOutline'
+import Badge from './Badge';
+import HoverableProfile from './HoverableProfile';
 
 type Props = {
   videoId: string
@@ -50,7 +50,7 @@ const MirroredList: FC<Props> = ({ videoId }) => {
   })
 
   if (loading) {
-    return <Loader />
+    return <Spinner />
   }
   if (mirroredByProfiles?.length === 0) {
     return (
@@ -68,20 +68,22 @@ const MirroredList: FC<Props> = ({ videoId }) => {
             href={`/u/${getProfile(profile)?.slug}`}
             className="font-base flex items-center justify-between"
           >
-            <div className="flex items-center space-x-1.5">
-              <img
-                className="h-5 w-5 rounded-full"
-                src={getProfilePicture(profile, 'AVATAR')}
-                alt={getProfile(profile)?.slug}
-                draggable={false}
-              />
-              <div className="flex items-center space-x-1">
-                <span>{getProfile(profile)?.slug}</span>
-                <Badge id={profile?.id} size="xs" />
+            <HoverableProfile profile={profile} key={profile?.id}>
+              <div className="flex items-center space-x-1.5">
+                <img
+                  className="size-5 rounded-full"
+                  src={getProfilePicture(profile, 'AVATAR')}
+                  alt={getProfile(profile)?.slug}
+                  draggable={false}
+                />
+                <div className="flex items-center space-x-1">
+                  <span>{getProfile(profile)?.slug}</span>
+                  <Badge id={profile?.id} size="xs" />
+                </div>
               </div>
-            </div>
+            </HoverableProfile>
             <div className="flex items-center space-x-1 whitespace-nowrap text-xs opacity-80">
-              <UserOutline className="h-2.5 w-2.5 opacity-60" />
+              <UserOutline className="size-2.5 opacity-60" />
               <span>{profile.stats.followers}</span>
             </div>
           </Link>
@@ -89,7 +91,7 @@ const MirroredList: FC<Props> = ({ videoId }) => {
       ))}
       {pageInfo?.next && (
         <span ref={observe} className="p-5">
-          <Loader />
+          <Spinner />
         </span>
       )}
     </div>

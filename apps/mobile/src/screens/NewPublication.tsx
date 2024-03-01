@@ -1,21 +1,21 @@
-import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
-import { zodResolver } from '@hookform/resolvers/zod'
-import React, { useRef } from 'react'
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types';
+import { zodResolver } from '@hookform/resolvers/zod';
+import React, { useRef } from 'react';
 import {
-    Animated,
-    KeyboardAvoidingView,
-    ScrollView,
-    StyleSheet
-} from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
-import type { z } from 'zod'
-import { object, string } from 'zod'
+  Animated,
+  KeyboardAvoidingView,
+  ScrollView,
+  StyleSheet
+} from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import type { z } from 'zod';
+import { object, string } from 'zod';
 
-import ActionHeader from '~/components/new/ActionHeader'
-import Form from '~/components/new/Form'
-import shakeForm from '~/helpers/form-shake'
-import normalizeFont from '~/helpers/normalize-font'
-import { useForm, useMobileTheme, usePlatform } from '~/hooks'
+import ActionHeader from '~/components/new/ActionHeader';
+import Form from '~/components/new/Form';
+import shakeForm from '~/helpers/form-shake';
+import normalizeFont from '~/helpers/normalize-font';
+import { useForm, useMobileTheme, usePlatform } from '~/hooks';
 
 const styles = (themeConfig: MobileThemeConfig) =>
   StyleSheet.create({

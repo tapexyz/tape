@@ -1,48 +1,59 @@
-import KeyOutline from '@components/Common/Icons/KeyOutline'
-import { ERROR_MESSAGE } from '@dragverse/constants'
+import ButtonShimmer from '@components/Shimmers/ButtonShimmer';
+import { ERROR_MESSAGE } from '@dragverse/constants';
 import {
   EVENTS,
+  Tower,
   getProfile,
   getProfilePicture,
   logger,
-  Tower
-} from '@dragverse/generic'
-import type { Profile } from '@dragverse/lens'
+  shortenAddress
+} from '@dragverse/generic';
+import type { Profile } from '@dragverse/lens';
 import {
   LimitType,
   useAuthenticateMutation,
   useChallengeLazyQuery,
   useProfilesManagedQuery
-} from '@dragverse/lens'
-import { useApolloClient } from '@dragverse/lens/apollo'
-import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
-import { Loader } from '@dragverse/ui'
-import { signIn, signOut } from '@lib/store/auth'
-import useProfileStore from '@lib/store/profile'
-import { Avatar, Button, Flex, Select, Text } from '@radix-ui/themes'
-import { useRouter } from 'next/router'
-import { useCallback, useMemo, useState } from 'react'
-import toast from 'react-hot-toast'
-import { useAccount, useDisconnect, useSignMessage } from 'wagmi'
+} from '@dragverse/lens';
+import { useApolloClient } from '@dragverse/lens/apollo';
+import {
+  Button,
+  Callout,
+  Select,
+  SelectItem,
+  WarningOutline
+} from '@dragverse/ui';
+import { signIn, signOut } from '@lib/store/auth';
+import useProfileStore from '@lib/store/idb/profile';
+import { useRouter } from 'next/router';
+import { memo, useCallback, useEffect, useMemo, useState } from 'react';
+import toast from 'react-hot-toast';
+import { useAccount, useSignMessage } from 'wagmi';
 
-import Signup from './Signup'
+import Signup from './Signup';
 
 const Authenticate = () => {
   const {
-    query: { as }
+    query: { as, signup }
   } = useRouter()
 
   const [loading, setLoading] = useState(false)
-  const [selectedProfileId, setSelectedProfileId] = useState<string>()
+  const [showSignup, setShowSignup] = useState(false)
+  const [selectedProfileId, setSelectedProfileId] = useState<string>('')
   const { activeProfile, setActiveProfile } = useProfileStore()
 
   const router = useRouter()
   const { address, connector, isConnected } = useAccount()
   const { resetStore: resetApolloStore } = useApolloClient()
 
+  useEffect(() => {
+    if (signup) {
+      setShowSignup(true)
+    }
+  }, [signup])
+
   const onError = () => {
     signOut()
-    setActiveProfile(null)
   }
 
   const {
@@ -60,6 +71,8 @@ const Authenticate = () => {
       if (profiles?.length) {
         const profile = [...profiles].reverse()[0]
         setSelectedProfileId(as || profile.id)
+      } else {
+        setShowSignup(true)
       }
     }
   })
@@ -73,12 +86,7 @@ const Authenticate = () => {
   const profile = reversedProfilesManaged?.[0]
 
   const { signMessageAsync } = useSignMessage({
-    onError
-  })
-  const { disconnect } = useDisconnect({
-    onError(error: CustomErrorWithData) {
-      toast.error(error?.data?.message ?? error?.message)
-    }
+    mutation: { onError }
   })
 
   const [loadChallenge] = useChallengeLazyQuery({
@@ -90,7 +98,6 @@ const Authenticate = () => {
 
   const handleSign = useCallback(async () => {
     if (!isConnected) {
-      disconnect?.()
       signOut()
       return toast.error('Please connect to your wallet')
     }
@@ -148,7 +155,6 @@ const Authenticate = () => {
     router,
     address,
     connector,
-    disconnect,
     authenticate,
     isConnected,
     loadChallenge,
@@ -165,52 +171,84 @@ const Authenticate = () => {
   }
 
   if (profilesLoading) {
-    return <Loader />
+    return (
+      <div className="space-y-2">
+        <ButtonShimmer className="h-[46px]" />
+        <ButtonShimmer className="h-[46px]" />
+      </div>
+    )
   }
 
   return (
-    <div className="text-left">
-      {as && <p className="pb-1">👛Login as</p>}
-      {profile ? (
-        <Flex direction="column" gap="2">
-          <Select.Root
-            defaultValue={as ?? profile?.id}
-            value={selectedProfileId}
-            onValueChange={(value) => setSelectedProfileId(value)}
-          >
-            <Select.Trigger className="w-full" />
-            <Select.Content highContrast>
-              {reversedProfilesManaged?.map((profile) => (
-                <Select.Item key={profile.id} value={profile.id}>
-                  <Flex gap="2" align="center">
-                    <Avatar
-                      src={getProfilePicture(profile, 'AVATAR')}
-                      fallback={getProfile(profile)?.displayName[0] ?? ';)'}
-                      radius="full"
-                      size="1"
-                      alt={getProfile(profile)?.displayName}
-                    />
-                    <Text>{getProfile(profile)?.slugWithPrefix}</Text>
-                  </Flex>
-                </Select.Item>
-              ))}
-            </Select.Content>
-          </Select.Root>
-          <Button
-            className="w-full"
-            highContrast
-            onClick={handleSign}
-            disabled={loading || !selectedProfileId}
-          >
-            <KeyOutline className="h-4 w-4" />
-            ⚡Sign message
-          </Button>
-        </Flex>
+    <div className="space-y-4 text-left">
+      {showSignup ? (
+        <Signup
+          onSuccess={() => {
+            setShowSignup(false)
+            refetch()
+          }}
+          setShowSignup={setShowSignup}
+          showLogin={Boolean(profile)}
+        />
       ) : (
-        <Signup onSuccess={() => refetch()} />
+        <div className="flex flex-col gap-2">
+          {profile ? (
+            <>
+              <Select
+                size="lg"
+                defaultValue={as ?? profile?.id}
+                value={selectedProfileId}
+                onValueChange={(value) => setSelectedProfileId(value)}
+              >
+                {reversedProfilesManaged?.map((profile) => (
+                  <SelectItem size="lg" key={profile.id} value={profile.id}>
+                    <div className="flex items-center space-x-2">
+                      <img
+                        src={getProfilePicture(profile, 'AVATAR')}
+                        className="size-4 rounded-full"
+                        alt={getProfile(profile)?.displayName}
+                      />
+                      <span>{getProfile(profile).slugWithPrefix}</span>
+                    </div>
+                  </SelectItem>
+                ))}
+              </Select>
+              <Button
+                size="md"
+                loading={loading}
+                onClick={handleSign}
+                disabled={loading || !selectedProfileId}
+              >
+                Login
+              </Button>
+            </>
+          ) : (
+            <Callout
+              variant="danger"
+              icon={<WarningOutline className="size-4" />}
+            >
+              We couldn't find any profiles linked to the connected address. (
+              {shortenAddress(address as string)})
+            </Callout>
+          )}
+          <div className="flex items-center justify-center space-x-2 pt-3 text-sm">
+            {profile ? (
+              <span>Need new account?</span>
+            ) : (
+              <span>Don't have an account?</span>
+            )}
+            <button
+              type="button"
+              className="text-brand-500 font-bold"
+              onClick={() => setShowSignup(true)}
+            >
+              Sign up
+            </button>
+          </div>
+        </div>
       )}
     </div>
   )
 }
 
-export default Authenticate
+export default memo(Authenticate)

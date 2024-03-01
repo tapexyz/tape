@@ -16,7 +16,7 @@ const VideoComment: FC<Props> = ({ commentId }) => {
       >
         <img
           src={`${STATIC_ASSETS}/brand/logo.svg`}
-          className="h-5 w-5"
+          className="size-5"
           draggable={false}
           alt={TAPE_APP_NAME}
         />

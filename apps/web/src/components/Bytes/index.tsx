@@ -1,18 +1,17 @@
-import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
-import ChevronUpOutline from '@components/Common/Icons/ChevronUpOutline'
-import MetaTags from '@components/Common/MetaTags'
-import { NoDataFound } from '@components/UIElements/NoDataFound'
+import MetaTags from '@components/Common/MetaTags';
+import { NoDataFound } from '@components/UIElements/NoDataFound';
 import {
   INFINITE_SCROLL_ROOT_MARGIN,
   LENS_CUSTOM_FILTERS,
+  LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
-} from '@dragverse/constants'
-import { EVENTS, Tower } from '@dragverse/generic'
+} from '@dragverse/constants';
+import { EVENTS, Tower } from '@dragverse/generic';
 import type {
   AnyPublication,
   ExplorePublicationRequest,
   PrimaryPublication
-} from '@dragverse/lens'
+} from '@dragverse/lens';
 import {
   ExplorePublicationsOrderByType,
   ExplorePublicationType,
@@ -20,24 +19,28 @@ import {
   PublicationMetadataMainFocusType,
   useExplorePublicationsLazyQuery,
   usePublicationLazyQuery
-} from '@dragverse/lens'
-import { Loader } from '@dragverse/ui'
-import { useKeenSlider } from 'keen-slider/react'
-import { useRouter } from 'next/router'
-import { useEffect, useState } from 'react'
-import { useInView } from 'react-cool-inview'
+} from '@dragverse/lens';
+import { ChevronDownOutline, ChevronUpOutline, Spinner } from '@dragverse/ui';
+import { getUnixTimestampForDaysAgo } from '@lib/formatTime';
+import { useKeenSlider } from 'keen-slider/react';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { useInView } from 'react-cool-inview';
 
-import ByteVideo from './ByteVideo'
-import { KeyboardControls, WheelControls } from './SliderPlugin'
+import ByteVideo from './ByteVideo';
+import { KeyboardControls, WheelControls } from './SliderPlugin';
+
+const since = getUnixTimestampForDaysAgo(30)
 
 const request: ExplorePublicationRequest = {
   where: {
     publicationTypes: [ExplorePublicationType.Post],
     metadata: {
       mainContentFocus: [PublicationMetadataMainFocusType.ShortVideo],
-      publishedOn: [TAPE_APP_ID]
+      publishedOn: [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID]
     },
-    customFilters: LENS_CUSTOM_FILTERS
+    customFilters: LENS_CUSTOM_FILTERS,
+    since
   },
   orderBy: ExplorePublicationsOrderByType.LensCurated,
   limit: LimitType.Fifty
@@ -119,7 +122,7 @@ const Bytes = () => {
   if (loading || singleByteLoading) {
     return (
       <div className="grid h-[80vh] place-items-center">
-        <Loader />
+        <Spinner />
       </div>
     )
   }
@@ -133,8 +136,13 @@ const Bytes = () => {
   }
 
   return (
-    <div className="relative h-[calc(100vh-7rem)] overflow-y-hidden focus-visible:outline-none md:h-[calc(100vh-4rem)]">
+    <div className="relative mt-16 h-[calc(100vh-7rem)] overflow-y-hidden focus-visible:outline-none md:h-[calc(100vh-4rem)]">
       <MetaTags title="Bytes" />
+      <style jsx global>{`
+        html {
+          overflow-y: hidden;
+        }
+      `}</style>
       <div
         ref={sliderRef}
         className="keen-slider h-[calc(100vh-7rem)] snap-y snap-mandatory focus-visible:outline-none md:h-[calc(100vh-4rem)]"
@@ -160,21 +168,21 @@ const Bytes = () => {
       </div>
       {pageInfo?.next && (
         <span ref={observe} className="flex justify-center p-10">
-          <Loader />
+          <Spinner />
         </span>
       )}
-      <div className="laptop:right-6 ultrawide:right-8 bottom-2 right-4 hidden flex-col space-y-2 md:absolute md:flex">
+      <div className="laptop:right-6 ultrawide:right-8 bottom-3 right-4 hidden flex-col space-y-2 md:absolute md:flex">
         <button
           className="bg-gallery rounded-full p-3 focus:outline-none dark:bg-gray-800"
           onClick={() => slider?.prev()}
         >
-          <ChevronUpOutline className="h-5 w-5" />
+          <ChevronUpOutline className="size-5" />
         </button>
         <button
           className="bg-gallery rounded-full p-3 focus:outline-none dark:bg-gray-800"
           onClick={() => slider?.next()}
         >
-          <ChevronDownOutline className="h-5 w-5" />
+          <ChevronDownOutline className="size-5" />
         </button>
       </div>
     </div>

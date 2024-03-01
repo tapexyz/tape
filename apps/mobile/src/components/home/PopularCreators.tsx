@@ -1,24 +1,23 @@
-import { RECS_URL } from '@dragverse/constants'
-import { getProfilePicture, shuffleArray } from '@dragverse/generic'
-import { useProfilesQuery, type Profile } from '@dragverse/lens'
-import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
-import { useNavigation } from '@react-navigation/native'
-import { Image as ExpoImage } from 'expo-image'
-import React, { useMemo } from 'react'
+import { getProfile, getProfilePicture, shuffleArray } from '@dragverse/generic';
+import { useProfilesQuery, type Profile } from '@dragverse/lens';
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types';
+import { useNavigation } from '@react-navigation/native';
+import { Image as ExpoImage } from 'expo-image';
+import React, { useMemo } from 'react';
 import {
-    ActivityIndicator,
-    ScrollView,
-    StyleSheet,
-    Text,
-    View
-} from 'react-native'
-import Animated, { FadeInRight } from 'react-native-reanimated'
-import useSWR from 'swr'
+  ActivityIndicator,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View
+} from 'react-native';
+import Animated, { FadeInRight } from 'react-native-reanimated';
+import useSWR from 'swr';
 
-import normalizeFont from '~/helpers/normalize-font'
-import { useMobileTheme } from '~/hooks'
+import normalizeFont from '~/helpers/normalize-font';
+import { useMobileTheme } from '~/hooks';
 
-import AnimatedPressable from '../ui/AnimatedPressable'
+import AnimatedPressable from '../ui/AnimatedPressable';
 
 const BORDER_RADIUS = 25
 
@@ -59,7 +58,7 @@ const PopularCreators = () => {
   const style = styles(themeConfig)
 
   const { data: recsData, isLoading: recsLoading } = useSWR(
-    `${RECS_URL}/k3l-score/creator/49/0`,
+    `/k3l-score/creator/49/0`,
     (url: string) => fetch(url).then((res) => res.json())
   )
 
@@ -110,7 +109,7 @@ const PopularCreators = () => {
               key={profile.id}
               onPress={() =>
                 navigate('ProfileScreen', {
-                  handle: profile.handle
+                  handle: getProfile(profile).slug
                 })
               }
               style={style.imageContainer}

@@ -1,7 +1,7 @@
 import { IPFS_FREE_UPLOAD_LIMIT } from '@dragverse/constants'
 
-export const canUploadedToIpfs = (bytes?: number | null) => {
-  if (bytes === null || bytes === undefined) {
+export const canUploadedToIpfs = (bytes: number, sponsored?: boolean) => {
+  if (bytes === null || bytes === undefined || !sponsored) {
     return false
   }
   const megaBytes = bytes ? bytes / 1024 ** 2 : 0

@@ -1,64 +1,76 @@
-import CheckOutline from '@components/Common/Icons/CheckOutline'
-import WarningOutline from '@components/Common/Icons/WarningOutline'
-import { POLYGON_CHAIN_ID } from '@dragverse/constants'
-import useProfileStore from '@lib/store/profile'
-import { Button, Callout, Flex } from '@radix-ui/themes'
-import type { Connector } from 'wagmi'
-import { useAccount, useConnect } from 'wagmi'
+import { EVENTS, Tower } from '@dragverse/generic';
+import { Button, Callout, CheckOutline, WarningOutline } from '@dragverse/ui';
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
+import useProfileStore from '@lib/store/idb/profile';
+import { memo, useMemo } from 'react';
+import type { Connector } from 'wagmi';
+import { useAccount, useConnect } from 'wagmi';
 
-import Authenticate from './Authenticate'
-import Authenticated from './Authenticated'
+import Authenticate from './Authenticate';
 
 const Connectors = () => {
-  const { connector: connected } = useAccount()
-
-  const { connectors, connectAsync, isLoading, error } = useConnect({
-    chainId: POLYGON_CHAIN_ID
-  })
-
   const { activeProfile } = useProfileStore()
+  const handleWrongNetwork = useHandleWrongNetwork()
 
-  if (activeProfile?.id) {
-    return <Authenticated />
-  }
+  const { connector: connected } = useAccount()
+  const { connectors, connectAsync, isPending, error } = useConnect()
 
   const onChooseConnector = async (connector: Connector) => {
     try {
+      await handleWrongNetwork()
       await connectAsync({ connector })
+      Tower.track(EVENTS.AUTH.CONNECT_WALLET, { connector: connector.id })
     } catch {}
   }
 
+  const getConnectorName = (connector: Connector) => {
+    switch (connector.id) {
+      case 'injected':
+        return 'Browser Wallet'
+      case 'walletConnect':
+        return 'Other Wallets'
+      default:
+        return connector.name
+    }
+  }
+
+  const filteredConnectors = useMemo(() => {
+    return connectors.filter(
+      (connector, index, self) =>
+        self.findIndex((c) => c.type === connector.type) === index
+    )
+  }, [connectors])
+
+  if (activeProfile?.id) {
+    return <Authenticate />
+  }
+
   return (
-    <Flex className="py-10" direction="column" gap="6">
-      <Flex direction="column" gap="3">
-        {connectors.map((c) => (
+    <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-2">
+        {filteredConnectors.map((c) => (
           <Button
             key={c.id}
-            highContrast
-            variant="soft"
+            size="md"
+            variant="secondary"
             onClick={() => onChooseConnector(c)}
-            disabled={c.id === connected?.id || isLoading}
+            disabled={c.id === connected?.id || isPending}
           >
-            <Flex justify="between" align="center" className="w-full">
-              <span>{c.name}</span>
-              {c.id === connected?.id && <CheckOutline className="h-4 w-4" />}
-            </Flex>
+            <div className="flex w-full items-center justify-between">
+              <span>{getConnectorName(c)}</span>
+              {c.id === connected?.id && <CheckOutline className="size-3" />}
+            </div>
           </Button>
         ))}
-      </Flex>
+      </div>
       <Authenticate />
       {error?.message ? (
-        <Callout.Root color="red">
-          <Callout.Icon>
-            <WarningOutline className="h-4 w-4" />
-          </Callout.Icon>
-          <Callout.Text highContrast>
-            {error?.message ?? 'Failed to connect'}
-          </Callout.Text>
-        </Callout.Root>
+        <Callout variant="danger" icon={<WarningOutline className="size-4" />}>
+          {error?.message ?? 'Failed to connect'}
+        </Callout>
       ) : null}
-    </Flex>
+    </div>
   )
 }
 
-export default Connectors
+export default memo(Connectors)

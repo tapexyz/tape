@@ -1,33 +1,32 @@
-import { LENSTUBE_BYTES_APP_ID, STATIC_ASSETS } from '@dragverse/constants'
+import { LENSTUBE_BYTES_APP_ID, STATIC_ASSETS } from '@dragverse/constants';
 import {
-    getIsSensitiveContent,
-    getRelativeTime,
-    getThumbnailUrl,
-    getTimeFromSeconds,
-    getValueFromTraitType,
-    imageCdn,
-    trimNewLines,
-    trimify
-} from '@dragverse/generic'
-import type { Attribute, MirrorablePublication } from '@dragverse/lens'
-import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
-import Ionicons from '@expo/vector-icons/Ionicons'
-import { useNavigation } from '@react-navigation/native'
-import { Image as ExpoImage } from 'expo-image'
-import type { FC } from 'react'
-import React, { memo } from 'react'
+  getIsSensitiveContent,
+  getThumbnailUrl,
+  getValueFromKeyInAttributes,
+  imageCdn,
+  trimNewLines,
+  trimify
+} from '@dragverse/generic';
+import type { MetadataAttribute, MirrorablePublication } from '@dragverse/lens';
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { useNavigation } from '@react-navigation/native';
+import { Image as ExpoImage } from 'expo-image';
+import type { FC } from 'react';
+import React, { memo } from 'react';
 import {
-    ImageBackground,
-    Pressable,
-    StyleSheet,
-    Text,
-    View
-} from 'react-native'
+  ImageBackground,
+  Pressable,
+  StyleSheet,
+  Text,
+  View
+} from 'react-native';
 
-import normalizeFont from '~/helpers/normalize-font'
-import { useMobileTheme } from '~/hooks'
+import { getRelativeTime, getTimeFromSeconds } from '~/helpers/format-time';
+import normalizeFont from '~/helpers/normalize-font';
+import { useMobileTheme } from '~/hooks';
 
-import UserProfile from './UserProfile'
+import UserProfile from './UserProfile';
 
 type Props = {
   video: MirrorablePublication
@@ -100,11 +99,11 @@ const VideoCard: FC<Props> = ({ video }) => {
   const thumbnailUrl = imageCdn(
     isSensitiveContent
       ? `${STATIC_ASSETS}/images/sensor-blur.png`
-      : getThumbnailUrl(video, true),
+      : getThumbnailUrl(video.metadata, true),
     isBytes ? 'THUMBNAIL_V' : 'THUMBNAIL'
   )
-  const videoDuration = getValueFromTraitType(
-    video.metadata?.marketplace?.attributes as Attribute[],
+  const videoDuration = getValueFromKeyInAttributes(
+    video.metadata?.marketplace?.attributes as MetadataAttribute[],
     'durationInSeconds'
   )
 

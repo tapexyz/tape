@@ -1,27 +1,22 @@
-import { useAverageColor } from '@dragverse/browser'
+import { useAverageColor } from '@dragverse/browser';
 import {
   STATIC_ASSETS,
   TAPE_APP_NAME,
   TAPE_WEBSITE_URL
-} from '@dragverse/constants'
+} from '@dragverse/constants';
 import {
   EVENTS,
+  Tower,
   getPublicationData,
   getThumbnailUrl,
   imageCdn,
-  sanitizeDStorageUrl,
-  Tower,
-  truncate
-} from '@dragverse/generic'
-import type { PrimaryPublication } from '@dragverse/lens'
-import AudioPlayer from '@dragverse/ui/AudioPlayer'
-import Link from 'next/link'
-import type { FC } from 'react'
-import { useState } from 'react'
-
-import PauseOutline from './icons/PauseOutline'
-import PlayOutline from './icons/PlayOutline'
-import MetaTags from './MetaTags'
+  sanitizeDStorageUrl
+} from '@dragverse/generic';
+import type { PrimaryPublication } from '@dragverse/lens';
+import { AudioPlayer, PauseOutline, PlayOutline } from '@dragverse/ui';
+import Link from 'next/link';
+import type { FC } from 'react';
+import { useState } from 'react';
 
 type Props = {
   audio: PrimaryPublication
@@ -37,95 +32,80 @@ const Audio: FC<Props> = ({ audio }) => {
   const { color: backgroundColor } = useAverageColor(coverImage, true)
 
   return (
-    <>
-      <MetaTags
-        title={truncate(
-          getPublicationData(audio.metadata)?.title as string,
-          60
-        )}
-        description={truncate(
-          getPublicationData(audio.metadata)?.content as string,
-          100
-        )}
-        image={coverImage}
-      />
-      <div
-        className="md:rounded-large rounded-small relative max-h-[350px] overflow-hidden p-4 md:p-6"
-        style={{
-          backgroundColor,
-          backgroundImage: `url("${imageCdn(
-            `${STATIC_ASSETS}/images/fallback-cover.svg`
-          )}")`
-        }}
-      >
-        <div className="flex items-center space-x-6">
+    <div
+      className="md:rounded-large rounded-small relative max-h-[350px] overflow-hidden p-4 md:p-6"
+      style={{
+        backgroundColor,
+        backgroundImage: `url("${imageCdn(
+          `${STATIC_ASSETS}/images/fallback-cover.svg`
+        )}")`
+      }}
+    >
+      <div className="flex items-center space-x-6">
+        <Link
+          title={`Listen on ${TAPE_APP_NAME}`}
+          href={`${TAPE_WEBSITE_URL}/listen/${audio?.id}`}
+          onClick={() => Tower.track(EVENTS.EMBED_VIDEO.CLICK_LISTEN_ON_TAPE)}
+          className="rounded-small aspect-[1/1] w-[150px] flex-none shadow-2xl md:w-[250px]"
+        >
+          <img
+            src={coverImage}
+            className="rounded-small tape-border object-cover"
+            alt="audio cover"
+            height={500}
+            width={500}
+            draggable={false}
+          />
+        </Link>
+        <div className="w-full text-white md:space-y-4">
           <Link
             title={`Listen on ${TAPE_APP_NAME}`}
             href={`${TAPE_WEBSITE_URL}/listen/${audio?.id}`}
             onClick={() => Tower.track(EVENTS.EMBED_VIDEO.CLICK_LISTEN_ON_TAPE)}
-            className="rounded-small aspect-[1/1] w-[150px] flex-none shadow-2xl md:w-[250px]"
+            className="line-clamp-1 inline-block text-xl font-bold !leading-normal md:text-4xl"
           >
-            <img
-              src={coverImage}
-              className="rounded-small tape-border object-cover"
-              alt="audio cover"
-              height={500}
-              width={500}
-              draggable={false}
-            />
+            {getPublicationData(audio.metadata)?.title}
           </Link>
-          <div className="w-full text-white md:space-y-4">
-            <Link
-              title={`Listen on ${TAPE_APP_NAME}`}
-              href={`${TAPE_WEBSITE_URL}/listen/${audio?.id}`}
-              onClick={() =>
-                Tower.track(EVENTS.EMBED_VIDEO.CLICK_LISTEN_ON_TAPE)
-              }
-              className="line-clamp-1 inline-block text-xl font-bold !leading-normal md:text-4xl"
+          <p className="line-clamp-1 md:line-clamp-2">
+            {getPublicationData(audio.metadata)?.content}
+          </p>
+          <div className="flex w-full items-center space-x-2">
+            <button
+              onClick={() => setIsPlaying(!isPlaying)}
+              className="bg-smoke rounded-full p-3 md:p-4"
             >
-              {getPublicationData(audio.metadata)?.title}
-            </Link>
-            <p className="line-clamp-1 md:line-clamp-2">
-              {getPublicationData(audio.metadata)?.content}
-            </p>
-            <div className="flex w-full items-center space-x-2">
-              <button
-                onClick={() => setIsPlaying(!isPlaying)}
-                className="bg-smoke rounded-full p-3 md:p-4"
-              >
-                {isPlaying ? (
-                  <PauseOutline className="h-5 w-5" />
-                ) : (
-                  <PlayOutline className="h-5 w-5 pl-0.5" />
-                )}
-              </button>
-              <div className="flex-1">
-                <AudioPlayer
-                  isPlaying={isPlaying}
-                  url={getPublicationData(audio.metadata)?.asset?.uri ?? ''}
-                />
-              </div>
+              {isPlaying ? (
+                <PauseOutline className="size-5" />
+              ) : (
+                <PlayOutline className="size-5 pl-0.5" />
+              )}
+            </button>
+            <div className="flex-1">
+              <AudioPlayer
+                isPlaying={isPlaying}
+                url={getPublicationData(audio.metadata)?.asset?.uri ?? ''}
+              />
             </div>
           </div>
         </div>
-
-        <div className="absolute right-4 top-4 md:right-6 md:top-5">
-          <Link
-            title={`Listen on ${TAPE_APP_NAME}`}
-            href={`${TAPE_WEBSITE_URL}/listen/${audio?.id}`}
-            target="_blank"
-            onClick={() => Tower.track(EVENTS.EMBED_VIDEO.CLICK_LISTEN_ON_TAPE)}
-          >
-            <img
-              src={`${STATIC_ASSETS}/brand/logo.svg`}
-              draggable={false}
-              className="ml-0.5 h-6 w-6 md:h-10 md:w-10"
-              alt={TAPE_APP_NAME}
-            />
-          </Link>
-        </div>
       </div>
-    </>
+
+      <div className="absolute right-4 top-4 md:right-6 md:top-5">
+        <Link
+          title={`Listen on ${TAPE_APP_NAME}`}
+          href={`${TAPE_WEBSITE_URL}/listen/${audio?.id}`}
+          target="_blank"
+          onClick={() => Tower.track(EVENTS.EMBED_VIDEO.CLICK_LISTEN_ON_TAPE)}
+        >
+          <img
+            src={`${STATIC_ASSETS}/brand/logo.svg`}
+            draggable={false}
+            className="ml-0.5 size-6 md:size-10"
+            alt={TAPE_APP_NAME}
+          />
+        </Link>
+      </div>
+    </div>
   )
 }
 

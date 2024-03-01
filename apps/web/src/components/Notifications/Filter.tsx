@@ -1,7 +1,7 @@
-import CogOutline from '@components/Common/Icons/CogOutline'
-import { CustomNotificationsFilterEnum } from '@dragverse/lens/custom-types'
-import usePersistStore from '@lib/store/persist'
-import { Box, DropdownMenu, Text } from '@radix-ui/themes'
+import { tw } from '@dragverse/browser';
+import { CustomNotificationsFilterEnum } from '@dragverse/lens/custom-types';
+import { CogOutline, DropdownMenu, DropdownMenuItem } from '@dragverse/ui';
+import usePersistStore from '@lib/store/persist';
 
 const NotificationsFilter = () => {
   const selectedNotificationsFilter = usePersistStore(
@@ -12,53 +12,42 @@ const NotificationsFilter = () => {
   )
 
   return (
-    <DropdownMenu.Root>
-      <DropdownMenu.Trigger>
-        <Box>
-          <CogOutline className="h-4 w-4" />
-        </Box>
-      </DropdownMenu.Trigger>
-      <DropdownMenu.Content sideOffset={10} variant="soft" align="end">
-        <DropdownMenu.Item
-          onClick={() =>
-            setSelectedNotificationsFilter(
-              CustomNotificationsFilterEnum.HIGH_SIGNAL
-            )
-          }
+    <DropdownMenu trigger={<CogOutline className="size-4" />}>
+      <DropdownMenuItem
+        onClick={() =>
+          setSelectedNotificationsFilter(
+            CustomNotificationsFilterEnum.HIGH_SIGNAL
+          )
+        }
+      >
+        <p
+          className={tw(
+            'whitespace-nowrap',
+            selectedNotificationsFilter ===
+              CustomNotificationsFilterEnum.HIGH_SIGNAL && 'font-bold'
+          )}
         >
-          <Text
-            weight={
-              selectedNotificationsFilter ===
-              CustomNotificationsFilterEnum.HIGH_SIGNAL
-                ? 'bold'
-                : 'regular'
-            }
-            className="whitespace-nowrap"
-          >
-            High signal
-          </Text>
-        </DropdownMenu.Item>
-        <DropdownMenu.Item
-          onClick={() =>
-            setSelectedNotificationsFilter(
-              CustomNotificationsFilterEnum.ALL_NOTIFICATIONS
-            )
-          }
+          High signal
+        </p>
+      </DropdownMenuItem>
+      <DropdownMenuItem
+        onClick={() =>
+          setSelectedNotificationsFilter(
+            CustomNotificationsFilterEnum.ALL_NOTIFICATIONS
+          )
+        }
+      >
+        <p
+          className={tw(
+            'whitespace-nowrap',
+            selectedNotificationsFilter ===
+              CustomNotificationsFilterEnum.ALL_NOTIFICATIONS && 'font-bold'
+          )}
         >
-          <Text
-            weight={
-              selectedNotificationsFilter ===
-              CustomNotificationsFilterEnum.ALL_NOTIFICATIONS
-                ? 'bold'
-                : 'regular'
-            }
-            className="whitespace-nowrap"
-          >
-            Show all
-          </Text>
-        </DropdownMenu.Item>
-      </DropdownMenu.Content>
-    </DropdownMenu.Root>
+          Show all
+        </p>
+      </DropdownMenuItem>
+    </DropdownMenu>
   )
 }
 

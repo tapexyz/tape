@@ -1,13 +1,12 @@
-import { EVENTS, getProfile, Tower } from '@dragverse/generic'
-import type { Profile } from '@dragverse/lens'
-import { Box, Tabs } from '@radix-ui/themes'
-import { useRouter } from 'next/router'
-import type { FC } from 'react'
+import { EVENTS, getProfile, Tower } from '@dragverse/generic';
+import type { Profile } from '@dragverse/lens';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@dragverse/ui';
+import { useRouter } from 'next/router';
+import type { FC } from 'react';
 
-import OtherProfiles from './OtherProfiles'
-import ProfileAudios from './ProfileAudios'
-import ProfileBytes from './ProfileBytes'
-import ProfileVideos from './ProfileVideos'
+import OtherProfiles from './OtherProfiles';
+import ProfileBytes from './ProfileBytes';
+import ProfileVideos from './ProfileVideos';
 
 type Props = {
   profile: Profile
@@ -18,8 +17,8 @@ const ProfileTabs: FC<Props> = ({ profile }) => {
 
   const handleTabChange = (tab: string) => {
     if (tab) {
-      const nextUrl = `${location.origin}/u/${getProfile(profile)
-        ?.slug}?tab=${tab}`
+      const slug = getProfile(profile)?.slug
+      const nextUrl = `${location.origin}/u/${slug}?tab=${tab}`
       history.replaceState({ path: nextUrl }, '', nextUrl)
     }
   }
@@ -28,9 +27,10 @@ const ProfileTabs: FC<Props> = ({ profile }) => {
 
   return (
     <div className="my-4 w-full md:my-5">
-      <Tabs.Root defaultValue={activeTab}>
-        <Tabs.List>
-          <Tabs.Trigger
+      <Tabs defaultValue={activeTab}>
+        <TabsList>
+          <TabsTrigger
+            className="rounded-t-lg border-black px-4 py-1.5 text-sm font-medium data-[state=active]:border-b data-[state=active]:bg-gray-100 dark:border-white data-[state=active]:dark:bg-gray-800"
             onClick={() => {
               handleTabChange('videos')
               Tower.track(EVENTS.PROFILE.CLICK_PROFILE_VIDEOS)
@@ -38,17 +38,9 @@ const ProfileTabs: FC<Props> = ({ profile }) => {
             value="videos"
           >
             Videos
-          </Tabs.Trigger>
-          <Tabs.Trigger
-            onClick={() => {
-              handleTabChange('audios')
-              Tower.track(EVENTS.PROFILE.CLICK_PROFILE_AUDIOS)
-            }}
-            value="audios"
-          >
-            Audios
-          </Tabs.Trigger>
-          <Tabs.Trigger
+          </TabsTrigger>
+          <TabsTrigger
+            className="rounded-t-lg border-black px-4 py-1.5 text-sm font-medium data-[state=active]:border-b data-[state=active]:bg-gray-100 dark:border-white data-[state=active]:dark:bg-gray-800"
             onClick={() => {
               handleTabChange('bytes')
               Tower.track(EVENTS.PROFILE.CLICK_PROFILE_BYTES)
@@ -56,8 +48,9 @@ const ProfileTabs: FC<Props> = ({ profile }) => {
             value="bytes"
           >
             Bytes
-          </Tabs.Trigger>
-          <Tabs.Trigger
+          </TabsTrigger>
+          <TabsTrigger
+            className="rounded-t-lg border-black px-4 py-1.5 text-sm font-medium data-[state=active]:border-b data-[state=active]:bg-gray-100 dark:border-white data-[state=active]:dark:bg-gray-800"
             onClick={() => {
               handleTabChange('channels')
               Tower.track(EVENTS.PROFILE.CLICK_OTHER_PROFILES)
@@ -65,27 +58,23 @@ const ProfileTabs: FC<Props> = ({ profile }) => {
             value="channels"
           >
             Channels
-          </Tabs.Trigger>
-        </Tabs.List>
+          </TabsTrigger>
+        </TabsList>
 
-        <Box pt="3">
-          <Tabs.Content value="videos">
+        <div className="pt-3">
+          <TabsContent value="videos">
             <ProfileVideos profile={profile} />
-          </Tabs.Content>
+          </TabsContent>
 
-          <Tabs.Content value="audios">
-            <ProfileAudios profile={profile} />
-          </Tabs.Content>
-
-          <Tabs.Content value="bytes">
+          <TabsContent value="bytes">
             <ProfileBytes profileId={profile.id} />
-          </Tabs.Content>
+          </TabsContent>
 
-          <Tabs.Content value="channels">
+          <TabsContent value="channels">
             <OtherProfiles currentProfile={profile} />
-          </Tabs.Content>
-        </Box>
-      </Tabs.Root>
+          </TabsContent>
+        </div>
+      </Tabs>
     </div>
   )
 }

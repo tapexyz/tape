@@ -1,59 +1,59 @@
-import EmojiPicker from '@components/UIElements/EmojiPicker'
-import InputMentions from '@components/UIElements/InputMentions'
-import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
-import { getUserLocale } from '@dragverse/browser'
+import EmojiPicker from '@components/UIElements/EmojiPicker';
+import InputMentions from '@components/UIElements/InputMentions';
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis';
+import { getUserLocale } from '@dragverse/browser';
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
   TAPE_APP_ID,
   TAPE_WEBSITE_URL
-} from '@dragverse/constants'
+} from '@dragverse/constants';
 import {
-  checkLensManagerPermissions,
   EVENTS,
+  Tower,
+  checkLensManagerPermissions,
   getProfile,
-  getProfilePicture,
   getPublication,
   getPublicationData,
   getSignature,
-  Tower,
+  logger,
   trimify,
   uploadToAr
-} from '@dragverse/generic'
+} from '@dragverse/generic';
 import type {
   AnyPublication,
   CreateMomokaCommentEip712TypedData,
   CreateOnchainCommentEip712TypedData
-} from '@dragverse/lens'
+} from '@dragverse/lens';
 import {
   PublicationDocument,
-  useBroadcastOnchainMutation,
   useBroadcastOnMomokaMutation,
-  useCommentOnchainMutation,
+  useBroadcastOnchainMutation,
   useCommentOnMomokaMutation,
+  useCommentOnchainMutation,
   useCreateMomokaCommentTypedDataMutation,
   useCreateOnchainCommentTypedDataMutation,
   usePublicationLazyQuery
-} from '@dragverse/lens'
-import { useApolloClient } from '@dragverse/lens/apollo'
-import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
-import { zodResolver } from '@hookform/resolvers/zod'
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import type { MetadataAttribute } from '@lens-protocol/metadata'
-import { MetadataAttributeType, textOnly } from '@lens-protocol/metadata'
-import useNonceStore from '@lib/store/nonce'
-import usePersistStore from '@lib/store/persist'
-import useProfileStore from '@lib/store/profile'
-import { Button } from '@radix-ui/themes'
-import type { FC } from 'react'
-import { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import toast from 'react-hot-toast'
-import { v4 as uuidv4 } from 'uuid'
-import { useContractWrite, useSignTypedData } from 'wagmi'
-import type { z } from 'zod'
-import { object, string } from 'zod'
+} from '@dragverse/lens';
+import { useApolloClient } from '@dragverse/lens/apollo';
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types';
+import { Button } from '@dragverse/ui';
+import { zodResolver } from '@hookform/resolvers/zod';
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
+import type { MetadataAttribute } from '@lens-protocol/metadata';
+import { MetadataAttributeType, textOnly } from '@lens-protocol/metadata';
+import useProfileStore from '@lib/store/idb/profile';
+import useNonceStore from '@lib/store/nonce';
+import usePersistStore from '@lib/store/persist';
+import type { FC } from 'react';
+import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import { v4 as uuidv4 } from 'uuid';
+import { useSignTypedData, useWriteContract } from 'wagmi';
+import type { z } from 'zod';
+import { object, string } from 'zod';
 
 type Props = {
   video: AnyPublication
@@ -144,25 +144,33 @@ const NewComment: FC<Props> = ({
   }
 
   const { signTypedDataAsync } = useSignTypedData({
-    onError
+    mutation: { onError }
   })
 
-  const { write } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
-    abi: LENSHUB_PROXY_ABI,
-    functionName: 'comment',
-    onSuccess: (data) => {
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
-      if (data.hash) {
-        setToQueue({ txnHash: data.hash })
+  const { writeContractAsync } = useWriteContract({
+    mutation: {
+      onSuccess: (hash) => {
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
+        if (hash) {
+          setToQueue({ txnHash: hash })
+        }
+        onCompleted()
+      },
+      onError: (error) => {
+        onError(error)
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
       }
-      onCompleted()
-    },
-    onError: (error) => {
-      onError(error)
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
     }
   })
+
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
+      address: LENSHUB_PROXY_ADDRESS,
+      abi: LENSHUB_PROXY_ABI,
+      functionName: 'comment',
+      args
+    })
+  }
 
   const [getComment] = usePublicationLazyQuery()
 
@@ -221,11 +229,11 @@ const NewComment: FC<Props> = ({
               variables: { request: { id, signature } }
             })
             if (data?.broadcastOnchain?.__typename === 'RelayError') {
-              return write({ args })
+              return await write({ args })
             }
             return
           }
-          return write({ args })
+          return await write({ args })
         } catch {}
       },
       onError
@@ -262,11 +270,11 @@ const NewComment: FC<Props> = ({
               variables: { request: { id, signature } }
             })
             if (data?.broadcastOnMomoka?.__typename === 'RelayError') {
-              return write({ args })
+              return await write({ args })
             }
             return
           }
-          return write({ args })
+          return await write({ args })
         } catch {}
       },
       onError
@@ -289,9 +297,8 @@ const NewComment: FC<Props> = ({
       )
     }
     try {
-      if (handleWrongNetwork()) {
-        return
-      }
+      await handleWrongNetwork()
+
       setLoading(true)
       const attributes: MetadataAttribute[] = [
         {
@@ -310,6 +317,9 @@ const NewComment: FC<Props> = ({
           value: TAPE_WEBSITE_URL
         }
       ]
+
+      const title = getPublicationData(targetVideo.metadata)?.title
+      const profileSlug = getProfile(activeProfile)?.slug
       const metadata = textOnly({
         appId: TAPE_APP_ID,
         id: uuidv4(),
@@ -317,10 +327,7 @@ const NewComment: FC<Props> = ({
         content: trimify(formData.comment),
         locale: getUserLocale(),
         marketplace: {
-          name: `${getProfile(activeProfile)
-            ?.slug}'s comment on video ${getPublicationData(
-            targetVideo.metadata
-          )?.title}`,
+          name: `${profileSlug}'s comment on video ${title}`,
           attributes,
           description: trimify(formData.comment),
           external_url: `${TAPE_WEBSITE_URL}/watch/${video?.id}`
@@ -373,7 +380,7 @@ const NewComment: FC<Props> = ({
         }
       })
     } catch (error) {
-      console.error('🚀 ~ NewComment ', error)
+      logger.error('[NEW COMMENT ERROR]', error)
     }
   }
 
@@ -384,41 +391,31 @@ const NewComment: FC<Props> = ({
   return (
     <form
       onSubmit={handleSubmit(submitComment)}
-      className="mb-2 flex w-full flex-wrap items-start justify-end gap-2"
+      className="mb-2 flex w-full flex-col flex-wrap items-end gap-2"
     >
-      <div className="flex flex-1 items-start space-x-2 md:space-x-3">
-        <div className="flex-none">
-          <img
-            src={getProfilePicture(activeProfile, 'AVATAR')}
-            className="h-8 w-8 rounded-full"
-            draggable={false}
-            alt={getProfile(activeProfile)?.slug}
-          />
-        </div>
-        <div className="relative w-full">
-          <InputMentions
-            placeholder={placeholder}
-            autoComplete="off"
-            validationError={errors.comment?.message}
-            value={watch('comment')}
-            onContentChange={(value) => {
-              setValue('comment', value)
-              clearErrors('comment')
-            }}
-            mentionsSelector="input-mentions-single !pb-1"
-          />
-          {!hideEmojiPicker && (
-            <div className="absolute right-2 top-1.5">
-              <EmojiPicker
-                onEmojiSelect={(emoji) =>
-                  setValue('comment', `${getValues('comment')}${emoji}`)
-                }
-              />
-            </div>
-          )}
-        </div>
+      <div className="relative flex w-full flex-1 items-start space-x-2 md:space-x-3">
+        <InputMentions
+          placeholder={placeholder}
+          autoComplete="off"
+          error={errors.comment?.message}
+          value={watch('comment')}
+          onContentChange={(value) => {
+            setValue('comment', value)
+            clearErrors('comment')
+          }}
+          className="w-full !pb-1"
+        />
+        {!hideEmojiPicker && (
+          <div className="absolute right-2 top-2">
+            <EmojiPicker
+              onEmojiSelect={(emoji) =>
+                setValue('comment', `${getValues('comment')}${emoji}`)
+              }
+            />
+          </div>
+        )}
       </div>
-      <Button variant="surface" disabled={loading}>
+      <Button loading={loading} disabled={loading}>
         Comment
       </Button>
     </form>

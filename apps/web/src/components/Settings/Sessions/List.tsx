@@ -1,25 +1,25 @@
-import ChevronDownOutline from '@components/Common/Icons/ChevronDownOutline'
-import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { INFINITE_SCROLL_ROOT_MARGIN } from '@dragverse/constants'
-import type { ApprovedAuthenticationRequest } from '@dragverse/lens'
+import { NoDataFound } from '@components/UIElements/NoDataFound';
+import { INFINITE_SCROLL_ROOT_MARGIN } from '@dragverse/constants';
+import type { ApprovedAuthenticationRequest } from '@dragverse/lens';
 import {
   LimitType,
   useApprovedAuthenticationsQuery,
   useRevokeAuthenticationMutation
-} from '@dragverse/lens'
-import { Loader } from '@dragverse/ui'
-import { getDateString } from '@lib/formatTime'
-import useProfileStore from '@lib/store/profile'
+} from '@dragverse/lens';
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
-  AccordionTrigger
-} from '@radix-ui/react-accordion'
-import { Blockquote, Button } from '@radix-ui/themes'
-import { useState } from 'react'
-import { useInView } from 'react-cool-inview'
-import toast from 'react-hot-toast'
+  AccordionTrigger,
+  Button,
+  ChevronDownOutline,
+  Spinner
+} from '@dragverse/ui';
+import { getDateString } from '@lib/formatTime';
+import useProfileStore from '@lib/store/idb/profile';
+import { useState } from 'react';
+import { useInView } from 'react-cool-inview';
+import toast from 'react-hot-toast';
 
 const List = () => {
   const [revokingSessionId, setRevokingSessionId] = useState('')
@@ -68,7 +68,7 @@ const List = () => {
   })
 
   if (loading) {
-    return <Loader className="my-20" />
+    return <Spinner className="my-20" />
   }
 
   if (!sessions?.length || error) {
@@ -103,20 +103,20 @@ const List = () => {
                   </div>
                   <span className="text-sm">{session.os}</span>
                 </div>
-                <ChevronDownOutline className="h-4 w-4 opacity-60 group-data-[state=open]:rotate-180" />
+                <ChevronDownOutline className="size-4 opacity-60 group-data-[state=open]:rotate-180" />
               </div>
             </AccordionTrigger>
             <AccordionContent className="pt-5">
               <div className="flex items-center justify-between">
-                <Blockquote>
+                <p>
                   {session.browser}, created at{' '}
                   {getDateString(session.createdAt)}
-                </Blockquote>
+                </p>
                 <Button
                   onClick={() => revoke(session.authorizationId)}
-                  variant="surface"
-                  color="red"
+                  variant="danger"
                   disabled={revokingSessionId === session.authorizationId}
+                  loading={revokingSessionId === session.authorizationId}
                 >
                   Revoke
                 </Button>
@@ -127,7 +127,7 @@ const List = () => {
       })}
       {pageInfo?.next && (
         <span ref={observe} className="flex justify-center p-10">
-          <Loader />
+          <Spinner />
         </span>
       )}
     </Accordion>

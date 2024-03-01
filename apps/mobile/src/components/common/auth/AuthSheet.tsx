@@ -1,32 +1,32 @@
-import { STATIC_ASSETS } from '@dragverse/constants'
+import { STATIC_ASSETS } from '@dragverse/constants';
 import {
-    getRandomProfilePicture,
-    imageCdn,
-    logger,
-    shortenAddress
-} from '@dragverse/generic'
-import type { Profile } from '@dragverse/lens'
+  getRandomProfilePicture,
+  imageCdn,
+  logger,
+  shortenAddress
+} from '@dragverse/generic';
+import type { Profile } from '@dragverse/lens';
 import {
-    useAuthenticateMutation,
-    useChallengeLazyQuery,
-    useSimpleProfilesLazyQuery
-} from '@dragverse/lens'
-import type { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types'
-import { useWalletConnectModal } from '@walletconnect/modal-react-native'
-import { Image as ExpoImage } from 'expo-image'
-import type { FC } from 'react'
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import type { SignableMessage } from 'viem'
-import { createWalletClient, custom } from 'viem'
-import { polygon } from 'viem/chains'
+  useAuthenticateMutation,
+  useChallengeLazyQuery,
+  useProfilesLazyQuery
+} from '@dragverse/lens';
+import type { BottomSheetModalMethods } from '@gorhom/bottom-sheet/lib/typescript/types';
+import { useWalletConnectModal } from '@walletconnect/modal-react-native';
+import { Image as ExpoImage } from 'expo-image';
+import type { FC } from 'react';
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import type { SignableMessage } from 'viem';
+import { createWalletClient, custom } from 'viem';
+import { polygon } from 'viem/chains';
 
-import Button from '~/components/ui/Button'
-import Sheet from '~/components/ui/Sheet'
-import haptic from '~/helpers/haptic'
-import normalizeFont from '~/helpers/normalize-font'
-import { useMobileTheme } from '~/hooks'
-import { useMobilePersistStore } from '~/store/persist'
+import Button from '~/components/ui/Button';
+import Sheet from '~/components/ui/Sheet';
+import haptic from '~/helpers/haptic';
+import normalizeFont from '~/helpers/normalize-font';
+import { useMobileTheme } from '~/hooks';
+import { useMobilePersistStore } from '~/store/persist';
 
 type Props = {
   sheetRef: React.RefObject<BottomSheetModalMethods>
@@ -61,7 +61,7 @@ const AuthSheet: FC<Props> = ({ sheetRef }) => {
     fetchPolicy: 'no-cache' // if cache old challenge persist issue (InvalidSignature)
   })
   const [authenticate, { loading: signingIn }] = useAuthenticateMutation()
-  const [getAllSimpleProfiles] = useSimpleProfilesLazyQuery({
+  const [getAllProfiles] = useProfilesLazyQuery({
     fetchPolicy: 'no-cache'
   })
 
@@ -87,7 +87,7 @@ const AuthSheet: FC<Props> = ({ sheetRef }) => {
       const accessToken = data?.authenticate.accessToken
       const refreshToken = data?.authenticate.refreshToken
       persistSignin({ accessToken, refreshToken })
-      const { data: profilesData } = await getAllSimpleProfiles({
+      const { data: profilesData } = await getAllProfiles({
         variables: {
           request: {
             where: {

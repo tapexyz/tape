@@ -1,28 +1,31 @@
-import CategoryFilters from '@components/Common/CategoryFilters'
-import Timeline from '@components/Home/Timeline'
-import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
-import { NoDataFound } from '@components/UIElements/NoDataFound'
+import CategoryFilters from '@components/Common/CategoryFilters';
+import Timeline from '@components/Home/Timeline';
+import TimelineShimmer from '@components/Shimmers/TimelineShimmer';
+import { NoDataFound } from '@components/UIElements/NoDataFound';
 import {
   ALLOWED_APP_IDS,
   INFINITE_SCROLL_ROOT_MARGIN,
   IS_MAINNET,
   LENS_CUSTOM_FILTERS,
   TAPE_APP_ID
-} from '@dragverse/constants'
+} from '@dragverse/constants';
 import type {
   ExplorePublicationRequest,
   PrimaryPublication
-} from '@dragverse/lens'
+} from '@dragverse/lens';
 import {
-  ExplorePublicationsOrderByType,
   ExplorePublicationType,
+  ExplorePublicationsOrderByType,
   LimitType,
   PublicationMetadataMainFocusType,
   useExplorePublicationsQuery
-} from '@dragverse/lens'
-import { Loader } from '@dragverse/ui'
-import useAppStore from '@lib/store'
-import { useInView } from 'react-cool-inview'
+} from '@dragverse/lens';
+import { Spinner } from '@dragverse/ui';
+import { getUnixTimestampForDaysAgo } from '@lib/formatTime';
+import useAppStore from '@lib/store';
+import { useInView } from 'react-cool-inview';
+
+const since = getUnixTimestampForDaysAgo(30)
 
 const Feed = ({ showFilter = true }) => {
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
@@ -36,7 +39,8 @@ const Feed = ({ showFilter = true }) => {
         tags:
           activeTagFilter !== 'all' ? { oneOf: [activeTagFilter] } : undefined,
         mainContentFocus: [PublicationMetadataMainFocusType.Video]
-      }
+      },
+      since
     },
     orderBy: ExplorePublicationsOrderByType.LensCurated,
     limit: LimitType.Fifty
@@ -66,11 +70,7 @@ const Feed = ({ showFilter = true }) => {
 
   return (
     <div className="laptop:pt-6 space-y-4 pt-4">
-      {showFilter && (
-        <div>
-          <CategoryFilters />
-        </div>
-      )}
+      {showFilter && <CategoryFilters />}
       <div>
         {loading && <TimelineShimmer />}
         {!error && !loading && videos.length > 0 && (
@@ -78,7 +78,7 @@ const Feed = ({ showFilter = true }) => {
             <Timeline videos={videos} />
             {pageInfo?.next && (
               <span ref={observe} className="flex justify-center p-10">
-                <Loader />
+                <Spinner />
               </span>
             )}
           </>

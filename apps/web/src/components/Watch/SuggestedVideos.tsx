@@ -1,4 +1,4 @@
-import { SuggestedVideosShimmer } from '@components/Shimmers/WatchShimmer'
+import { SuggestedVideosShimmer } from '@components/Shimmers/WatchShimmer';
 import {
   ALLOWED_APP_IDS,
   INFINITE_SCROLL_ROOT_MARGIN,
@@ -6,25 +6,28 @@ import {
   LENS_CUSTOM_FILTERS,
   LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
-} from '@dragverse/constants'
+} from '@dragverse/constants';
 import type {
   ExplorePublicationRequest,
   MirrorablePublication
-} from '@dragverse/lens'
+} from '@dragverse/lens';
 import {
   ExplorePublicationsOrderByType,
   ExplorePublicationType,
   LimitType,
   PublicationMetadataMainFocusType,
   useExplorePublicationsQuery
-} from '@dragverse/lens'
-import { Loader } from '@dragverse/ui'
-import useProfileStore from '@lib/store/profile'
-import { useRouter } from 'next/router'
-import { useEffect } from 'react'
-import { useInView } from 'react-cool-inview'
+} from '@dragverse/lens';
+import { Spinner } from '@dragverse/ui';
+import { getUnixTimestampForDaysAgo } from '@lib/formatTime';
+import useProfileStore from '@lib/store/idb/profile';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
+import { useInView } from 'react-cool-inview';
 
-import SuggestedVideoCard from './SuggestedVideoCard'
+import SuggestedVideoCard from './SuggestedVideoCard';
+
+const since = getUnixTimestampForDaysAgo(30)
 
 const request: ExplorePublicationRequest = {
   limit: LimitType.Fifty,
@@ -37,7 +40,8 @@ const request: ExplorePublicationRequest = {
         ? [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID, ...ALLOWED_APP_IDS]
         : undefined,
       mainContentFocus: [PublicationMetadataMainFocusType.Video]
-    }
+    },
+    since
   }
 }
 
@@ -94,7 +98,7 @@ const SuggestedVideos = () => {
           </div>
           {pageInfo?.next && (
             <span ref={observe} className="flex justify-center p-10">
-              <Loader />
+              <Spinner />
             </span>
           )}
         </div>

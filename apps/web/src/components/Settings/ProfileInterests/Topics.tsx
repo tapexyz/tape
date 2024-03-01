@@ -1,18 +1,18 @@
-import { EVENTS, sanitizeProfileInterests, Tower } from '@dragverse/generic'
+import { tw } from '@dragverse/browser';
+import { EVENTS, sanitizeProfileInterests, Tower } from '@dragverse/generic';
 import type {
   ProfileInterestsRequest,
   ProfileInterestTypes
-} from '@dragverse/lens'
+} from '@dragverse/lens';
 import {
   useAddProfileInterestsMutation,
   useProfileInterestsOptionsQuery,
   useRemoveProfileInterestsMutation
-} from '@dragverse/lens'
-import { useApolloClient } from '@dragverse/lens/apollo'
-import { Loader } from '@dragverse/ui'
-import { useProfileStore } from '@lib/store/profile'
-import clsx from 'clsx'
-import { useEffect } from 'react'
+} from '@dragverse/lens';
+import { useApolloClient } from '@dragverse/lens/apollo';
+import { Spinner } from '@dragverse/ui';
+import useProfileStore from '@lib/store/idb/profile';
+import { useEffect } from 'react';
 
 const MAX_TOPICS_ALLOWED = 12
 
@@ -62,7 +62,7 @@ const Topics = () => {
 
   return (
     <div className="flex flex-col space-y-3">
-      {loading && <Loader className="my-10" />}
+      {loading && <Spinner className="my-10" />}
       {sanitizeProfileInterests(interestsData)?.map(
         ({ category, subCategories }) => (
           <div className="w-full space-y-2" key={category.id}>
@@ -70,7 +70,7 @@ const Topics = () => {
             <div className="flex flex-wrap items-center gap-2">
               <button
                 type="button"
-                className={clsx(
+                className={tw(
                   'tape-border flex items-center justify-between rounded-md px-3 py-0.5 text-sm capitalize focus:outline-none disabled:cursor-not-allowed disabled:opacity-50',
                   {
                     '!border-brand-500 text-brand-500': selectedTopics.includes(
@@ -94,7 +94,7 @@ const Topics = () => {
                       !selectedTopics.includes(subCategory.id) &&
                       selectedTopics.length === MAX_TOPICS_ALLOWED
                     }
-                    className={clsx(
+                    className={tw(
                       'tape-border flex items-center justify-between rounded-md px-3 py-0.5 text-sm capitalize focus:outline-none disabled:cursor-not-allowed disabled:opacity-50',
                       {
                         '!border-brand-500 text-brand-500':

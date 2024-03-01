@@ -1,5 +1,8 @@
 /** @type {import('next').NextConfig} */
+const allowedBots =
+  '.*(bot|telegram|baidu|bing|yandex|iframely|whatsapp|facebook|metainspector).*'
 const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }]
+
 const moduleExports = {
   transpilePackages: [
     '@dragverse/lens',
@@ -11,12 +14,21 @@ const moduleExports = {
   experimental: {
     scrollRestoration: true
   },
-  productionBrowserSourceMaps: true,
   async rewrites() {
     return [
       {
         source: '/sitemaps/:match*',
         destination: 'https://static.dragverse.app/sitemaps/:match*'
+      },
+      {
+        source: '/u/:match*',
+        has: [{ key: 'user-agent', type: 'header', value: allowedBots }],
+        destination: 'https://og.dragverse.app/u/:match*'
+      },
+      {
+        source: '/watch/:match*',
+        has: [{ key: 'user-agent', type: 'header', value: allowedBots }],
+        destination: 'https://og.dragverse.app/watch/:match*'
       }
     ]
   },
@@ -40,6 +52,11 @@ const moduleExports = {
       {
         source: '/channel/:namespace/:handle',
         destination: '/u/:namespace/:handle',
+        permanent: true
+      },
+      {
+        source: '/signup',
+        destination: '/login?signup=true',
         permanent: true
       },
       {

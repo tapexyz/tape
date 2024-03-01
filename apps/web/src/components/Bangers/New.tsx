@@ -1,56 +1,55 @@
-import TimesOutline from '@components/Common/Icons/TimesOutline'
-import { Input } from '@components/UIElements/Input'
-import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
-import { getUserLocale } from '@dragverse/browser'
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis';
+import { getUserLocale } from '@dragverse/browser';
 import {
-  COMMON_REGEX,
-  ERROR_MESSAGE,
-  FALLBACK_COVER_URL,
-  LENSHUB_PROXY_ADDRESS,
-  OG_IMAGE,
-  REQUESTING_SIGNATURE_MESSAGE,
-  TAPE_APP_ID,
-  TAPE_WEBSITE_URL
-} from '@dragverse/constants'
+    COMMON_REGEX,
+    ERROR_MESSAGE,
+    FALLBACK_COVER_URL,
+    LENSHUB_PROXY_ADDRESS,
+    OG_IMAGE,
+    REQUESTING_SIGNATURE_MESSAGE,
+    SIGN_IN_REQUIRED,
+    TAPE_APP_ID,
+    TAPE_WEBSITE_URL
+} from '@dragverse/constants';
 import {
-  checkLensManagerPermissions,
-  EVENTS,
-  getProfile,
-  getSignature,
-  imageCdn,
-  Tower,
-  trimify,
-  uploadToAr
-} from '@dragverse/generic'
+    EVENTS,
+    Tower,
+    checkLensManagerPermissions,
+    getProfile,
+    getSignature,
+    imageCdn,
+    trimify,
+    uploadToAr
+} from '@dragverse/generic';
 import type {
-  CreateMomokaPostEip712TypedData,
-  CreateOnchainPostEip712TypedData
-} from '@dragverse/lens'
+    CreateMomokaPostEip712TypedData,
+    CreateOnchainPostEip712TypedData
+} from '@dragverse/lens';
 import {
-  useBroadcastOnMomokaMutation,
-  useCreateMomokaPostTypedDataMutation,
-  usePostOnMomokaMutation
-} from '@dragverse/lens'
-import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
-import { Loader } from '@dragverse/ui'
-import { zodResolver } from '@hookform/resolvers/zod'
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import type { MetadataAttribute } from '@lens-protocol/metadata'
-import { link, MetadataAttributeType } from '@lens-protocol/metadata'
-import useNonceStore from '@lib/store/nonce'
-import useProfileStore from '@lib/store/profile'
-import { Button, Dialog, DialogClose, Flex, IconButton } from '@radix-ui/themes'
-import Link from 'next/link'
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import toast from 'react-hot-toast'
-import { v4 as uuidv4 } from 'uuid'
-import { useContractWrite, useSignTypedData } from 'wagmi'
-import type { z } from 'zod'
-import { object, string } from 'zod'
+    useBroadcastOnMomokaMutation,
+    useCreateMomokaPostTypedDataMutation,
+    usePostOnMomokaMutation
+} from '@dragverse/lens';
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types';
+import { Button, Input, Modal } from '@dragverse/ui';
+import { zodResolver } from '@hookform/resolvers/zod';
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
+import type { MetadataAttribute } from '@lens-protocol/metadata';
+import { MetadataAttributeType, link } from '@lens-protocol/metadata';
+import useProfileStore from '@lib/store/idb/profile';
+import useNonceStore from '@lib/store/nonce';
+import Link from 'next/link';
+import type { FC } from 'react';
+import { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import toast from 'react-hot-toast';
+import { v4 as uuidv4 } from 'uuid';
+import { useSignTypedData, useWriteContract } from 'wagmi';
+import type { z } from 'zod';
+import { object, string } from 'zod';
 
 const VALID_URL_REGEX = new RegExp(
-  `${COMMON_REGEX.YOUTUBE_WATCH.source}|${COMMON_REGEX.TAPE_WATCH.source}|${COMMON_REGEX.VIMEO_WATCH.source}|${COMMON_REGEX.TIKTOK_WATCH.source}`
+  `${COMMON_REGEX.YOUTUBE_WATCH.source}|${COMMON_REGEX.TAPE_WATCH.source}|${COMMON_REGEX.VIMEO_WATCH.source}`
 )
 
 const formSchema = object({
@@ -60,7 +59,11 @@ const formSchema = object({
 })
 type FormData = z.infer<typeof formSchema>
 
-const New = () => {
+type Props = {
+  refetch: () => void
+}
+
+const New: FC<Props> = ({ refetch }) => {
   const {
     register,
     handleSubmit,
@@ -71,6 +74,7 @@ const New = () => {
     resolver: zodResolver(formSchema)
   })
   const [loading, setLoading] = useState(false)
+  const [showNewUploadModal, setShowNewUploadModal] = useState(false)
   const activeProfile = useProfileStore((state) => state.activeProfile)
   const handleWrongNetwork = useHandleWrongNetwork()
   const { canUseLensManager, canBroadcast } =
@@ -95,17 +99,20 @@ const New = () => {
     }
     setLoading(false)
     reset()
+    refetch()
     toast.success('Posted successfully!')
     Tower.track(EVENTS.PUBLICATION.NEW_POST, {
       type: 'banger',
       publication_state: canUseLensManager ? 'MOMOKA' : 'ON_CHAIN',
       user_id: activeProfile?.id
     })
-    location.reload()
+    if (!canUseLensManager) {
+      location.reload()
+    }
   }
 
   const { signTypedDataAsync } = useSignTypedData({
-    onError
+    mutation: { onError }
   })
 
   const getSignatureFromTypedData = async (
@@ -116,18 +123,17 @@ const New = () => {
     return signature
   }
 
-  const { write } = useContractWrite({
-    address: LENSHUB_PROXY_ADDRESS,
-    abi: LENSHUB_PROXY_ABI,
-    functionName: 'post',
-    onSuccess: () => {
-      setLoading(false)
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
-      onCompleted()
-    },
-    onError: (error) => {
-      onError(error)
-      setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
+  const { writeContractAsync } = useWriteContract({
+    mutation: {
+      onSuccess: () => {
+        setLoading(false)
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce + 1)
+        onCompleted()
+      },
+      onError: (error) => {
+        onError(error)
+        setLensHubOnchainSigNonce(lensHubOnchainSigNonce - 1)
+      }
     }
   })
 
@@ -139,6 +145,15 @@ const New = () => {
     }
   })
 
+  const write = async ({ args }: { args: any[] }) => {
+    return await writeContractAsync({
+      address: LENSHUB_PROXY_ADDRESS,
+      abi: LENSHUB_PROXY_ABI,
+      functionName: 'post',
+      args
+    })
+  }
+
   const [createMomokaPostTypedData] = useCreateMomokaPostTypedDataMutation({
     onCompleted: async ({ createMomokaPostTypedData }) => {
       const { typedData, id } = createMomokaPostTypedData
@@ -149,11 +164,11 @@ const New = () => {
             variables: { request: { id, signature } }
           })
           if (data?.broadcastOnMomoka?.__typename === 'RelayError') {
-            return write({ args: [typedData.value] })
+            return await write({ args: [typedData.value] })
           }
           return
         }
-        return write({ args: [typedData.value] })
+        return await write({ args: [typedData.value] })
       } catch {}
     },
     onError
@@ -169,9 +184,11 @@ const New = () => {
   })
 
   const onSubmit = async () => {
-    if (handleWrongNetwork()) {
-      return
+    if (!activeProfile) {
+      return toast.error(SIGN_IN_REQUIRED)
     }
+    await handleWrongNetwork()
+
     setLoading(true)
     const linkText = trimify(getValues('link'))
     const attributes: MetadataAttribute[] = [
@@ -207,15 +224,15 @@ const New = () => {
           }
         }
       })
-    } else {
-      return await createMomokaPostTypedData({
-        variables: {
-          request: {
-            contentURI: metadataUri
-          }
-        }
-      })
     }
+
+    return await createMomokaPostTypedData({
+      variables: {
+        request: {
+          contentURI: metadataUri
+        }
+      }
+    })
   }
 
   return (
@@ -223,53 +240,47 @@ const New = () => {
       style={{
         backgroundImage: `url("${imageCdn(FALLBACK_COVER_URL)}")`
       }}
-      className="relative h-44 w-full bg-gray-300 bg-cover bg-center bg-no-repeat dark:bg-gray-700 md:h-[30vh]"
+      className="relative h-44 w-full bg-gray-300 bg-cover bg-center bg-no-repeat md:h-[30vh] dark:bg-gray-700"
     >
       <fieldset
-        disabled={!activeProfile || loading}
+        disabled={loading}
         className="container mx-auto flex h-full max-w-screen-sm flex-col items-center justify-center space-y-4 px-4 md:px-0"
       >
         <form onSubmit={handleSubmit(onSubmit)} className="w-full">
-          <div className="flex space-x-2">
+          <div className="flex items-center space-x-2">
             <Input
+              title="Tape/YouTube/Vimeo links supported"
               placeholder="Paste a link to a banger"
               autoComplete="off"
-              className="dark:bg-brand-850 bg-white"
-              validationError={errors.link?.message}
+              className="bg-white dark:bg-brand-850"
+              error={errors.link?.message}
+              showError={false}
               {...register('link')}
             />
-            <Button disabled={loading} highContrast>
-              {loading && <Loader size="sm" />}
+            <Button disabled={loading} loading={loading}>
               Post
             </Button>
           </div>
         </form>
         <span>or</span>
-        <Dialog.Root>
-          <Dialog.Trigger>
-            <Button highContrast>Upload</Button>
-          </Dialog.Trigger>
-          <Dialog.Content style={{ maxWidth: 450 }}>
-            <Flex gap="3" justify="between" pb="2">
-              <Dialog.Title size="5">Upload to Tape</Dialog.Title>
-              <DialogClose>
-                <IconButton variant="ghost" color="gray">
-                  <TimesOutline outlined={false} className="h-3 w-3" />
-                </IconButton>
-              </DialogClose>
-            </Flex>
-            <div>
-              <p>
-                You can upload a video to Tape and then post a link to it here.
-              </p>
-              <div className="mt-4 flex justify-end">
-                <Link href="/create">
-                  <Button highContrast>Continue to Upload</Button>
-                </Link>
-              </div>
+        <Button onClick={() => setShowNewUploadModal(true)}>Upload</Button>
+        <Modal
+          size="sm"
+          show={showNewUploadModal}
+          setShow={setShowNewUploadModal}
+          title="Upload to Tape"
+        >
+          <div>
+            <p>
+              You can upload a video to Tape and then post a link to it here.
+            </p>
+            <div className="mt-4 flex justify-end">
+              <Link href="/create">
+                <Button>Continue to Upload</Button>
+              </Link>
             </div>
-          </Dialog.Content>
-        </Dialog.Root>
+          </div>
+        </Modal>
       </fieldset>
     </div>
   )

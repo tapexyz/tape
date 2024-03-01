@@ -2,7 +2,9 @@ import {
   GITCOIN_LIVE_ROUND,
   SHOW_GITCOIN_BANNER,
   TAPE_APP_NAME
-} from '@dragverse/constants'
+} from '@dragverse/constants';
+import { Button } from '@dragverse/ui';
+import Link from 'next/link';
 
 const GitcoinAlert = () => {
   if (!SHOW_GITCOIN_BANNER) {
@@ -23,6 +25,11 @@ const GitcoinAlert = () => {
           next {TAPE_APP_NAME} Ball and creating resources for the community on
           how to use the dApp.
         </p>
+        <div className="flex">
+          <Link href="/gitcoin" target="_blank">
+            <Button>Contribute</Button>
+          </Link>
+        </div>
       </div>
     </div>
   )

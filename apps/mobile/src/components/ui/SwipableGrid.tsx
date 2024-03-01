@@ -1,25 +1,25 @@
-import { getThumbnailUrl, imageCdn } from '@dragverse/generic'
-import type { MobileThemeConfig } from '@dragverse/lens/custom-types'
-import { Image as ExpoImage } from 'expo-image'
-import { LinearGradient } from 'expo-linear-gradient'
-import * as React from 'react'
-import { Pressable, StyleSheet, Text, View } from 'react-native'
-import { PanGestureHandler } from 'react-native-gesture-handler'
+import { getThumbnailUrl, imageCdn } from '@dragverse/generic';
+import type { MobileThemeConfig } from '@dragverse/lens/custom-types';
+import { Image as ExpoImage } from 'expo-image';
+import { LinearGradient } from 'expo-linear-gradient';
+import * as React from 'react';
+import { Pressable, StyleSheet, Text, View } from 'react-native';
+import { PanGestureHandler } from 'react-native-gesture-handler';
 import Animated, {
-    useAnimatedGestureHandler,
-    useAnimatedProps,
-    useAnimatedStyle,
-    useDerivedValue,
-    useSharedValue,
-    withDelay,
-    withTiming
-} from 'react-native-reanimated'
+  useAnimatedGestureHandler,
+  useAnimatedProps,
+  useAnimatedStyle,
+  useDerivedValue,
+  useSharedValue,
+  withDelay,
+  withTiming
+} from 'react-native-reanimated';
 
-import normalizeFont from '~/helpers/normalize-font'
-import { windowHeight, windowWidth } from '~/helpers/theme'
-import { useMobileTheme } from '~/hooks'
+import normalizeFont from '~/helpers/normalize-font';
+import { windowHeight, windowWidth } from '~/helpers/theme';
+import { useMobileTheme } from '~/hooks';
 
-import UserProfile from '../common/UserProfile'
+import UserProfile from '../common/UserProfile';
 
 const styles = (themeConfig: MobileThemeConfig) =>
   StyleSheet.create({

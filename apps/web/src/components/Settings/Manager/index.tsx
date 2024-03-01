@@ -1,6 +1,5 @@
 import MetaTags from '@components/Common/MetaTags'
-import { Box, Tabs } from '@radix-ui/themes'
-import React from 'react'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@dragverse/ui'
 
 import LensManager from './LensManager'
 import Managed from './Managed'
@@ -10,27 +9,33 @@ const ProfileManager = () => {
   return (
     <div className="space-y-4">
       <MetaTags title="Manager" />
-      <div className="tape-border rounded-medium dark:bg-cod bg-white p-5">
-        <LensManager />
-      </div>
+      <LensManager />
 
-      <div className="tape-border rounded-medium dark:bg-cod bg-white p-5">
-        <Tabs.Root defaultValue="managers">
-          <Tabs.List>
-            <Tabs.Trigger value="managers">Managers</Tabs.Trigger>
-            <Tabs.Trigger value="managed">Managed</Tabs.Trigger>
-          </Tabs.List>
+      <Tabs defaultValue="managers">
+        <TabsList>
+          <TabsTrigger
+            className="rounded-t-lg border-black px-4 py-1.5 text-sm font-medium data-[state=active]:border-b data-[state=active]:bg-gray-100 dark:border-white data-[state=active]:dark:bg-gray-800"
+            value="managers"
+          >
+            Managers
+          </TabsTrigger>
+          <TabsTrigger
+            className="rounded-t-lg border-black px-4 py-1.5 text-sm font-medium data-[state=active]:border-b data-[state=active]:bg-gray-100 dark:border-white data-[state=active]:dark:bg-gray-800"
+            value="managed"
+          >
+            Managed
+          </TabsTrigger>
+        </TabsList>
 
-          <Box pt="3" pb="2">
-            <Tabs.Content value="managers">
-              <Managers />
-            </Tabs.Content>
-            <Tabs.Content value="managed">
-              <Managed />
-            </Tabs.Content>
-          </Box>
-        </Tabs.Root>
-      </div>
+        <div className="pb-2 pt-3">
+          <TabsContent value="managers">
+            <Managers />
+          </TabsContent>
+          <TabsContent value="managed">
+            <Managed />
+          </TabsContent>
+        </div>
+      </Tabs>
     </div>
   )
 }
