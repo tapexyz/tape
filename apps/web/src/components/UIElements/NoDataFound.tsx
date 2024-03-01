@@ -1,5 +1,5 @@
-import { tw } from '@dragverse/browser';
-import { TAPE_LOGO } from '@dragverse/constants';
+import { tw } from '@dragverse/browser'
+import { TAPE_LOGO } from '@dragverse/constants'
 
 export const NoDataFound = ({
   text = 'No Data Found',

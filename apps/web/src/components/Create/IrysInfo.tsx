@@ -1,6 +1,6 @@
-import { useIsMounted } from '@dragverse/browser';
-import { IRYS_CURRENCY, POLYGON_CHAIN_ID } from '@dragverse/constants';
-import { EVENTS, Tower, logger } from '@dragverse/generic';
+import { useIsMounted } from '@dragverse/browser'
+import { IRYS_CURRENCY, POLYGON_CHAIN_ID } from '@dragverse/constants'
+import { EVENTS, logger, Tower } from '@dragverse/generic'
 import {
   Button,
   Callout,
@@ -10,13 +10,13 @@ import {
   RefreshOutline,
   Tooltip,
   WarningOutline
-} from '@dragverse/ui';
-import type { WebIrys } from '@irys/sdk';
-import useAppStore from '@lib/store';
-import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
-import { formatEther, formatGwei, formatUnits } from 'viem';
-import { useAccount, useBalance, useWalletClient } from 'wagmi';
+} from '@dragverse/ui'
+import type { WebIrys } from '@irys/sdk'
+import useAppStore from '@lib/store'
+import { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
+import { formatEther, formatGwei, formatUnits } from 'viem'
+import { useAccount, useBalance, useWalletClient } from 'wagmi'
 
 const IrysInfo = () => {
   const isMounted = useIsMounted()

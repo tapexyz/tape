@@ -1,27 +1,27 @@
-import MetaTags from '@components/Common/MetaTags';
-import Timeline from '@components/Home/Timeline';
-import TimelineShimmer from '@components/Shimmers/TimelineShimmer';
-import { NoDataFound } from '@components/UIElements/NoDataFound';
+import MetaTags from '@components/Common/MetaTags'
+import Timeline from '@components/Home/Timeline'
+import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
+import { NoDataFound } from '@components/UIElements/NoDataFound'
 import {
   ALLOWED_APP_IDS,
   INFINITE_SCROLL_ROOT_MARGIN,
   IS_MAINNET,
   LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
-} from '@dragverse/constants';
+} from '@dragverse/constants'
 import type {
   AnyPublication,
   PublicationBookmarksRequest
-} from '@dragverse/lens';
+} from '@dragverse/lens'
 import {
   LimitType,
   PublicationMetadataMainFocusType,
   usePublicationBookmarksQuery
-} from '@dragverse/lens';
-import { Spinner } from '@dragverse/ui';
-import useProfileStore from '@lib/store/idb/profile';
-import type { FC } from 'react';
-import { useInView } from 'react-cool-inview';
+} from '@dragverse/lens'
+import { Spinner } from '@dragverse/ui'
+import useProfileStore from '@lib/store/idb/profile'
+import type { FC } from 'react'
+import { useInView } from 'react-cool-inview'
 
 const Bookmarks: FC = () => {
   const { activeProfile } = useProfileStore()

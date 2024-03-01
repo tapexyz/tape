@@ -1,8 +1,8 @@
-import { tw } from '@dragverse/browser';
-import type { CollectModuleType } from '@dragverse/lens/custom-types';
-import { Button } from '@dragverse/ui';
-import useAppStore from '@lib/store';
-import type { FC } from 'react';
+import { tw } from '@dragverse/browser'
+import type { CollectModuleType } from '@dragverse/lens/custom-types'
+import { Button } from '@dragverse/ui'
+import useAppStore from '@lib/store'
+import type { FC } from 'react'
 
 type Props = {
   setCollectType: (data: CollectModuleType) => void

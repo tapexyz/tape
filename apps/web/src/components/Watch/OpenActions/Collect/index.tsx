@@ -1,11 +1,11 @@
-import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink';
-import { Countdown } from '@components/UIElements/CountDown';
-import { LENSHUB_PROXY_ABI } from '@dragverse/abis';
+import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
+import { Countdown } from '@components/UIElements/CountDown'
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   SIGN_IN_REQUIRED
-} from '@dragverse/constants';
+} from '@dragverse/constants'
 import {
   checkLensManagerPermissions,
   formatNumber,
@@ -15,7 +15,7 @@ import {
   getSignature,
   imageCdn,
   shortenAddress
-} from '@dragverse/generic';
+} from '@dragverse/generic'
 import type {
   ActOnOpenActionLensManagerRequest,
   HandleInfo,
@@ -23,7 +23,7 @@ import type {
   PrimaryPublication,
   Profile,
   RecipientDataOutput
-} from '@dragverse/lens';
+} from '@dragverse/lens'
 import {
   OpenActionModuleType,
   useActOnOpenActionMutation,
@@ -35,31 +35,31 @@ import {
   useProfilesQuery,
   usePublicationQuery,
   useRevenueFromPublicationQuery
-} from '@dragverse/lens';
+} from '@dragverse/lens'
 import type {
   CustomErrorWithData,
   SupportedOpenActionModuleType
-} from '@dragverse/lens/custom-types';
-import { Button, Callout, Spinner, Tooltip, UserOutline } from '@dragverse/ui';
-import Link from 'next/link';
-import type { FC } from 'react';
-import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
-import { formatUnits } from 'viem';
+} from '@dragverse/lens/custom-types'
+import { Button, Callout, Spinner, Tooltip, UserOutline } from '@dragverse/ui'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
+import { getRelativeTime } from '@lib/formatTime'
+import { getCollectModuleOutput } from '@lib/getCollectModuleOutput'
+import useProfileStore from '@lib/store/idb/profile'
+import useNonceStore from '@lib/store/nonce'
+import Link from 'next/link'
+import type { FC } from 'react'
+import { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
+import { formatUnits } from 'viem'
 import {
   useAccount,
   useBalance,
   useSignTypedData,
   useWriteContract
-} from 'wagmi';
+} from 'wagmi'
 
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
-import { getRelativeTime } from '@lib/formatTime';
-import { getCollectModuleOutput } from '@lib/getCollectModuleOutput';
-import useProfileStore from '@lib/store/idb/profile';
-import useNonceStore from '@lib/store/nonce';
-import BalanceAlert from '../BalanceAlert';
-import PermissionAlert from '../PermissionAlert';
+import BalanceAlert from '../BalanceAlert'
+import PermissionAlert from '../PermissionAlert'
 
 type Props = {
   action: SupportedOpenActionModuleType

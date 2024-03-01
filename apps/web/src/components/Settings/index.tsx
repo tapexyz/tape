@@ -1,24 +1,24 @@
-import MetaTags from '@components/Common/MetaTags';
-import SettingsShimmer from '@components/Shimmers/SettingsShimmer';
-import { EVENTS, Tower } from '@dragverse/generic';
-import type { Profile } from '@dragverse/lens';
-import { useProfileQuery } from '@dragverse/lens';
-import useProfileStore from '@lib/store/idb/profile';
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
-import Custom404 from 'src/pages/404';
-import Custom500 from 'src/pages/500';
+import MetaTags from '@components/Common/MetaTags'
+import SettingsShimmer from '@components/Shimmers/SettingsShimmer'
+import { EVENTS, Tower } from '@dragverse/generic'
+import type { Profile } from '@dragverse/lens'
+import { useProfileQuery } from '@dragverse/lens'
+import useProfileStore from '@lib/store/idb/profile'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
+import Custom404 from 'src/pages/404'
+import Custom500 from 'src/pages/500'
 
-import Allowance from './Allowance';
-import BasicInfo from './BasicInfo';
-import Blocked from './Blocked';
-import DangerZone from './DangerZone';
-import FollowSettings from './Follow';
-import Handles from './Handles';
-import ProfileManager from './Manager';
-import ProfileInterests from './ProfileInterests';
-import Sessions from './Sessions';
-import SettingsSidebar from './SettingsSidebar';
+import Allowance from './Allowance'
+import BasicInfo from './BasicInfo'
+import Blocked from './Blocked'
+import DangerZone from './DangerZone'
+import FollowSettings from './Follow'
+import Handles from './Handles'
+import ProfileManager from './Manager'
+import ProfileInterests from './ProfileInterests'
+import Sessions from './Sessions'
+import SettingsSidebar from './SettingsSidebar'
 
 export const SETTINGS_FOLLOW = '/settings/follow'
 export const SETTINGS_HANDLES = '/settings/handles'

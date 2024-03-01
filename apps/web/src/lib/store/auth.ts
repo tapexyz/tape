@@ -1,8 +1,8 @@
-import { LocalStore } from '@dragverse/lens/custom-types';
-import Cookies from 'js-cookie';
-import { create } from 'zustand';
+import { LocalStore } from '@dragverse/lens/custom-types'
+import Cookies from 'js-cookie'
+import { create } from 'zustand'
 
-import { setActiveProfile } from './idb/profile';
+import { setActiveProfile } from './idb/profile'
 
 type Tokens = {
   accessToken: string | undefined

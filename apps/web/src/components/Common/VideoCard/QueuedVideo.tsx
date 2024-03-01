@@ -1,26 +1,26 @@
-import { tw, useAverageColor } from '@dragverse/browser';
-import { STATIC_ASSETS } from '@dragverse/constants';
+import { tw, useAverageColor } from '@dragverse/browser'
+import { STATIC_ASSETS } from '@dragverse/constants'
 import {
   getProfile,
   getProfilePicture,
   imageCdn,
   sanitizeDStorageUrl
-} from '@dragverse/generic';
+} from '@dragverse/generic'
 import {
   PublicationDocument,
   usePublicationQuery,
   useTxIdToTxHashQuery
-} from '@dragverse/lens';
-import { useApolloClient } from '@dragverse/lens/apollo';
-import type { QueuedVideoType } from '@dragverse/lens/custom-types';
-import { Tooltip } from '@dragverse/ui';
-import usePendingTxn from '@hooks/usePendingTxn';
-import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store';
-import useProfileStore from '@lib/store/idb/profile';
-import usePersistStore from '@lib/store/persist';
-import type { FC } from 'react';
+} from '@dragverse/lens'
+import { useApolloClient } from '@dragverse/lens/apollo'
+import type { QueuedVideoType } from '@dragverse/lens/custom-types'
+import { Tooltip } from '@dragverse/ui'
+import usePendingTxn from '@hooks/usePendingTxn'
+import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
+import useProfileStore from '@lib/store/idb/profile'
+import usePersistStore from '@lib/store/persist'
+import type { FC } from 'react'
 
-import Badge from '../Badge';
+import Badge from '../Badge'
 
 type Props = {
   queuedVideo: QueuedVideoType

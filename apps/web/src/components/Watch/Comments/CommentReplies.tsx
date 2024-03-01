@@ -1,34 +1,34 @@
-import Badge from '@components/Common/Badge';
-import InterweaveContent from '@components/Common/InterweaveContent';
-import CommentsShimmer from '@components/Shimmers/CommentsShimmer';
-import { tw } from '@dragverse/browser';
-import { LENS_CUSTOM_FILTERS } from '@dragverse/constants';
+import Badge from '@components/Common/Badge'
+import InterweaveContent from '@components/Common/InterweaveContent'
+import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
+import { tw } from '@dragverse/browser'
+import { LENS_CUSTOM_FILTERS } from '@dragverse/constants'
 import {
   getProfile,
   getProfilePicture,
   getPublicationData
-} from '@dragverse/generic';
+} from '@dragverse/generic'
 import {
+  type Comment,
   CommentRankingFilterType,
   LimitType,
-  usePublicationsQuery,
-  type Comment,
   type Profile,
-  type PublicationsRequest
-} from '@dragverse/lens';
+  type PublicationsRequest,
+  usePublicationsQuery
+} from '@dragverse/lens'
 import {
   ChevronDownOutline,
   ChevronUpOutline,
   ReplyOutline
-} from '@dragverse/ui';
-import { getShortHandTime } from '@lib/formatTime';
-import Link from 'next/link';
-import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+} from '@dragverse/ui'
+import { getShortHandTime } from '@lib/formatTime'
+import Link from 'next/link'
+import type { FC } from 'react'
+import { useEffect, useState } from 'react'
 
-import PublicationReaction from '../../Common/Publication/PublicationReaction';
-import CommentMedia from './CommentMedia';
-import CommentOptions from './CommentOptions';
+import PublicationReaction from '../../Common/Publication/PublicationReaction'
+import CommentMedia from './CommentMedia'
+import CommentOptions from './CommentOptions'
 
 type ReplyContentProps = {
   comment: Comment

@@ -1,6 +1,6 @@
-import { POLYGON_CHAIN_ID } from '@dragverse/constants';
-import { EVENTS, Tower } from '@dragverse/generic';
-import { useConnections, useSwitchChain } from 'wagmi';
+import { POLYGON_CHAIN_ID } from '@dragverse/constants'
+import { EVENTS, Tower } from '@dragverse/generic'
+import { useConnections, useSwitchChain } from 'wagmi'
 
 const useHandleWrongNetwork = () => {
   const activeConnection = useConnections()

@@ -9,7 +9,7 @@
     "export": "next export",
     "start": "yarn build && next start --port 4002",
     "typecheck": "tsc --pretty",
-    "lint": "eslint . --ext .js,.ts,.tsx"
+    "lint": "eslint . --ext .js,.ts,.tsx --fix"
   },
   "dependencies": {
     "next": "14.1.0",

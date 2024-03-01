@@ -1,9 +1,9 @@
-import { canUploadedToIpfs } from '@dragverse/generic';
-import useAppStore from '@lib/store';
-import useProfileStore from '@lib/store/idb/profile';
-import { useEffect } from 'react';
+import { canUploadedToIpfs } from '@dragverse/generic'
+import useAppStore from '@lib/store'
+import useProfileStore from '@lib/store/idb/profile'
+import { useEffect } from 'react'
 
-import IrysInfo from './IrysInfo';
+import IrysInfo from './IrysInfo'
 
 const UploadMethod = () => {
   const uploadedMedia = useAppStore((state) => state.uploadedMedia)

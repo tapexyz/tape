@@ -1,12 +1,12 @@
-import Badge from '@components/Common/Badge';
-import HoverableProfile from '@components/Common/HoverableProfile';
-import MetaTags from '@components/Common/MetaTags';
-import Stats from '@components/Profile/BasicInfo/Stats';
-import { getProfile, getProfilePicture } from '@dragverse/generic';
-import useProfileStore from '@lib/store/idb/profile';
+import Badge from '@components/Common/Badge'
+import HoverableProfile from '@components/Common/HoverableProfile'
+import MetaTags from '@components/Common/MetaTags'
+import Stats from '@components/Profile/BasicInfo/Stats'
+import { getProfile, getProfilePicture } from '@dragverse/generic'
+import useProfileStore from '@lib/store/idb/profile'
 
-import Delete from './Delete';
-import Guardian from './Guardian';
+import Delete from './Delete'
+import Guardian from './Guardian'
 
 const DangerZone = () => {
   const activeProfile = useProfileStore((state) => state.activeProfile)

@@ -1,21 +1,21 @@
-import MirrorPublication from '@components/Common/MirrorPublication';
-import PublicationOptions from '@components/Common/Publication/PublicationOptions';
-import { getProfile } from '@dragverse/generic';
-import type { MirrorablePublication } from '@dragverse/lens';
-import { TriStateValue } from '@dragverse/lens';
+import MirrorPublication from '@components/Common/MirrorPublication'
+import PublicationOptions from '@components/Common/Publication/PublicationOptions'
+import { getProfile } from '@dragverse/generic'
+import type { MirrorablePublication } from '@dragverse/lens'
+import { TriStateValue } from '@dragverse/lens'
 import {
   CollectOutline,
   MirrorOutline,
   Modal,
   ThreeDotsOutline,
   TipOutline
-} from '@dragverse/ui';
-import type { FC } from 'react';
-import { useState } from 'react';
+} from '@dragverse/ui'
+import type { FC } from 'react'
+import { useState } from 'react'
 
-import OpenActions from '../../Watch/OpenActions';
-import TipForm from '../../Watch/TipForm';
-import PublicationReaction from './PublicationReaction';
+import OpenActions from '../../Watch/OpenActions'
+import TipForm from '../../Watch/TipForm'
+import PublicationReaction from './PublicationReaction'
 
 type Props = {
   publication: MirrorablePublication

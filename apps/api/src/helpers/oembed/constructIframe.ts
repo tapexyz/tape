@@ -1,5 +1,6 @@
-import type { Document } from 'linkedom/types/interface/document';
-import { COMMON_REGEX } from './regex';
+import type { Document } from 'linkedom/types/interface/document'
+
+import { COMMON_REGEX } from './regex'
 
 const ALLOWED_EMBEDS = [
   'youtube.com',

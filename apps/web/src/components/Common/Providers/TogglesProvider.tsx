@@ -1,9 +1,9 @@
 import {
-    IS_MAINNET,
-    TESTNET_ALLOWED_TOKENS,
-    WORKER_ALLOWED_TOKENS_URL,
-    WORKER_TOGGLES_URL,
-    WORKER_VERIFIED_URL
+  IS_MAINNET,
+  TESTNET_ALLOWED_TOKENS,
+  WORKER_ALLOWED_TOKENS_URL,
+  WORKER_TOGGLES_URL,
+  WORKER_VERIFIED_URL
 } from '@dragverse/constants'
 import useProfileStore from '@lib/store/idb/profile'
 import useProfileRestrictionsStore from '@lib/store/idb/restrictions'

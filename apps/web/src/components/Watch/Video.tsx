@@ -1,5 +1,5 @@
-import InterweaveContent from '@components/Common/InterweaveContent';
-import { tw } from '@dragverse/browser';
+import InterweaveContent from '@components/Common/InterweaveContent'
+import { tw } from '@dragverse/browser'
 import {
   getCategoryName,
   getIsSensitiveContent,
@@ -9,22 +9,22 @@ import {
   getThumbnailUrl,
   imageCdn,
   sanitizeDStorageUrl
-} from '@dragverse/generic';
-import type { PrimaryPublication, VideoMetadataV3 } from '@dragverse/lens';
+} from '@dragverse/generic'
+import type { PrimaryPublication, VideoMetadataV3 } from '@dragverse/lens'
 import {
   Badge,
   ChevronDownOutline,
   ChevronUpOutline,
   VideoPlayer
-} from '@dragverse/ui';
-import useAppStore from '@lib/store';
-import useProfileStore from '@lib/store/idb/profile';
-import Link from 'next/link';
-import type { FC } from 'react';
-import { memo, useEffect, useState } from 'react';
+} from '@dragverse/ui'
+import useAppStore from '@lib/store'
+import useProfileStore from '@lib/store/idb/profile'
+import Link from 'next/link'
+import type { FC } from 'react'
+import { memo, useEffect, useState } from 'react'
 
-import PublicationActions from '../Common/Publication/PublicationActions';
-import VideoMeta from './VideoMeta';
+import PublicationActions from '../Common/Publication/PublicationActions'
+import VideoMeta from './VideoMeta'
 
 type Props = {
   video: PrimaryPublication

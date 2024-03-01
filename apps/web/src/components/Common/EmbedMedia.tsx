@@ -1,9 +1,9 @@
-import { tw, useCopyToClipboard } from '@dragverse/browser';
-import { TAPE_APP_NAME, TAPE_EMBED_URL } from '@dragverse/constants';
-import { EVENTS, Tower } from '@dragverse/generic';
-import { CodeOutline, CopyOutline, Modal, Tooltip } from '@dragverse/ui';
-import type { FC } from 'react';
-import { useState } from 'react';
+import { tw, useCopyToClipboard } from '@dragverse/browser'
+import { TAPE_APP_NAME, TAPE_EMBED_URL } from '@dragverse/constants'
+import { EVENTS, Tower } from '@dragverse/generic'
+import { CodeOutline, CopyOutline, Modal, Tooltip } from '@dragverse/ui'
+import type { FC } from 'react'
+import { useState } from 'react'
 
 type Props = {
   publicationId: string

@@ -1,6 +1,6 @@
-import { STATIC_ASSETS, TAPE_APP_NAME } from '@dragverse/constants';
-import { Button } from '@dragverse/ui';
-import Link from 'next/link';
+import { STATIC_ASSETS, TAPE_APP_NAME } from '@dragverse/constants'
+import { Button } from '@dragverse/ui'
+import Link from 'next/link'
 
 const WelcomeAlert = () => {
   return (

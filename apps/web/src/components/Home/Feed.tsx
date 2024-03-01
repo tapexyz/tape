@@ -1,29 +1,29 @@
-import CategoryFilters from '@components/Common/CategoryFilters';
-import Timeline from '@components/Home/Timeline';
-import TimelineShimmer from '@components/Shimmers/TimelineShimmer';
-import { NoDataFound } from '@components/UIElements/NoDataFound';
+import CategoryFilters from '@components/Common/CategoryFilters'
+import Timeline from '@components/Home/Timeline'
+import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
+import { NoDataFound } from '@components/UIElements/NoDataFound'
 import {
   ALLOWED_APP_IDS,
   INFINITE_SCROLL_ROOT_MARGIN,
   IS_MAINNET,
   LENS_CUSTOM_FILTERS,
   TAPE_APP_ID
-} from '@dragverse/constants';
+} from '@dragverse/constants'
 import type {
   ExplorePublicationRequest,
   PrimaryPublication
-} from '@dragverse/lens';
+} from '@dragverse/lens'
 import {
-  ExplorePublicationType,
   ExplorePublicationsOrderByType,
+  ExplorePublicationType,
   LimitType,
   PublicationMetadataMainFocusType,
   useExplorePublicationsQuery
-} from '@dragverse/lens';
-import { Spinner } from '@dragverse/ui';
-import { getUnixTimestampForDaysAgo } from '@lib/formatTime';
-import useAppStore from '@lib/store';
-import { useInView } from 'react-cool-inview';
+} from '@dragverse/lens'
+import { Spinner } from '@dragverse/ui'
+import { getUnixTimestampForDaysAgo } from '@lib/formatTime'
+import useAppStore from '@lib/store'
+import { useInView } from 'react-cool-inview'
 
 const since = getUnixTimestampForDaysAgo(30)
 

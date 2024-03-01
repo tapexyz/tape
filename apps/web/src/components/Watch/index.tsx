@@ -1,26 +1,26 @@
-import MetaTags from '@components/Common/MetaTags';
-import { WatchShimmer } from '@components/Shimmers/WatchShimmer';
+import MetaTags from '@components/Common/MetaTags'
+import { WatchShimmer } from '@components/Shimmers/WatchShimmer'
 import {
   EVENTS,
   getPublication,
   getPublicationData,
   isWatchable,
   Tower
-} from '@dragverse/generic';
-import type { AnyPublication } from '@dragverse/lens';
-import { usePublicationQuery } from '@dragverse/lens';
-import { CustomCommentsFilterEnum } from '@dragverse/lens/custom-types';
-import useAppStore from '@lib/store';
-import useCommentStore from '@lib/store/comment';
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
-import Custom404 from 'src/pages/404';
-import Custom500 from 'src/pages/500';
+} from '@dragverse/generic'
+import type { AnyPublication } from '@dragverse/lens'
+import { usePublicationQuery } from '@dragverse/lens'
+import { CustomCommentsFilterEnum } from '@dragverse/lens/custom-types'
+import useAppStore from '@lib/store'
+import useCommentStore from '@lib/store/comment'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
+import Custom404 from 'src/pages/404'
+import Custom500 from 'src/pages/500'
 
-import PublicationComments from '../Common/Publication/PublicationComments';
-import NonRelevantComments from './Comments/NonRelevantComments';
-import SuggestedVideos from './SuggestedVideos';
-import Video from './Video';
+import PublicationComments from '../Common/Publication/PublicationComments'
+import NonRelevantComments from './Comments/NonRelevantComments'
+import SuggestedVideos from './SuggestedVideos'
+import Video from './Video'
 
 const VideoDetails = () => {
   const {

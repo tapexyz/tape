@@ -1,8 +1,8 @@
-import HoverableProfile from '@components/Common/HoverableProfile';
-import { getProfile, getProfilePicture } from '@dragverse/generic';
-import type { FollowNotification, Profile } from '@dragverse/lens';
-import { FollowOutline } from '@dragverse/ui';
-import type { FC } from 'react';
+import HoverableProfile from '@components/Common/HoverableProfile'
+import { getProfile, getProfilePicture } from '@dragverse/generic'
+import type { FollowNotification, Profile } from '@dragverse/lens'
+import { FollowOutline } from '@dragverse/ui'
+import type { FC } from 'react'
 
 type Props = {
   notification: FollowNotification

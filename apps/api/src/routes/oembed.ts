@@ -1,12 +1,12 @@
-import { zValidator } from '@hono/zod-validator';
-import { Hono } from 'hono';
-import { cache } from 'hono/cache';
-import { parseHTML } from 'linkedom';
-import { object, string } from 'zod';
+import { zValidator } from '@hono/zod-validator'
+import { Hono } from 'hono'
+import { cache } from 'hono/cache'
+import { parseHTML } from 'linkedom'
+import { object, string } from 'zod'
 
-import { ERROR_MESSAGE } from '@/helpers/constants';
-import extractOgTags from '@/helpers/oembed/extractOgTags';
-import { COMMON_REGEX } from '@/helpers/oembed/regex';
+import { ERROR_MESSAGE } from '@/helpers/constants'
+import extractOgTags from '@/helpers/oembed/extractOgTags'
+import { COMMON_REGEX } from '@/helpers/oembed/regex'
 
 type Bindings = {
   LIVEPEER_API_TOKEN: string

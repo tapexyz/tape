@@ -1,17 +1,17 @@
-import CollectorsList from '@components/Common/CollectorsList';
-import HoverableProfile from '@components/Common/HoverableProfile';
-import MirroredList from '@components/Common/MirroredList';
+import CollectorsList from '@components/Common/CollectorsList'
+import HoverableProfile from '@components/Common/HoverableProfile'
+import MirroredList from '@components/Common/MirroredList'
 import {
   getProfile,
   getProfilePicture,
   getPublicationMediaCid
-} from '@dragverse/generic';
-import type { PrimaryPublication } from '@dragverse/lens';
-import { CollectOutline, MirrorOutline, Modal } from '@dragverse/ui';
-import type { FC } from 'react';
-import { useState } from 'react';
+} from '@dragverse/generic'
+import type { PrimaryPublication } from '@dragverse/lens'
+import { CollectOutline, MirrorOutline, Modal } from '@dragverse/ui'
+import type { FC } from 'react'
+import { useState } from 'react'
 
-import ViewCount from './ViewCount';
+import ViewCount from './ViewCount'
 
 type Props = {
   video: PrimaryPublication

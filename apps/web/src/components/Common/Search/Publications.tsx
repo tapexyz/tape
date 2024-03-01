@@ -1,19 +1,19 @@
-import { tw } from '@dragverse/browser';
+import { tw } from '@dragverse/browser'
 import {
   FALLBACK_THUMBNAIL_URL,
   LENSTUBE_BYTES_APP_ID,
   STATIC_ASSETS
-} from '@dragverse/constants';
+} from '@dragverse/constants'
 import {
   getIsSensitiveContent,
   getPublication,
   getPublicationData,
   getThumbnailUrl,
   imageCdn
-} from '@dragverse/generic';
-import type { AnyPublication } from '@dragverse/lens';
-import Link from 'next/link';
-import type { FC } from 'react';
+} from '@dragverse/generic'
+import type { AnyPublication } from '@dragverse/lens'
+import Link from 'next/link'
+import type { FC } from 'react'
 
 interface Props {
   results: AnyPublication[]

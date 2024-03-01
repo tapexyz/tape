@@ -1,9 +1,9 @@
-import Badge from '@components/Common/Badge';
-import FollowActions from '@components/Common/FollowActions';
-import InterweaveContent from '@components/Common/InterweaveContent';
-import ReportProfile from '@components/Report/Profile';
-import { LENSHUB_PROXY_ABI } from '@dragverse/abis';
-import { useCopyToClipboard } from '@dragverse/browser';
+import Badge from '@components/Common/Badge'
+import FollowActions from '@components/Common/FollowActions'
+import InterweaveContent from '@components/Common/InterweaveContent'
+import ReportProfile from '@components/Report/Profile'
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
+import { useCopyToClipboard } from '@dragverse/browser'
 import {
   ENS_ICON_URL,
   ERROR_MESSAGE,
@@ -12,27 +12,27 @@ import {
   REQUESTING_SIGNATURE_MESSAGE,
   STATIC_ASSETS,
   TAPE_WEBSITE_URL
-} from '@dragverse/constants';
+} from '@dragverse/constants'
 import {
   checkLensManagerPermissions,
   getProfile,
   getSignature,
   trimify
-} from '@dragverse/generic';
+} from '@dragverse/generic'
 import type {
   CreateBlockProfilesBroadcastItemResult,
   CreateUnblockProfilesBroadcastItemResult,
   Profile
-} from '@dragverse/lens';
+} from '@dragverse/lens'
 import {
   useBlockMutation,
   useBroadcastOnchainMutation,
   useCreateBlockProfilesTypedDataMutation,
   useCreateUnblockProfilesTypedDataMutation,
   useUnblockMutation
-} from '@dragverse/lens';
-import { useApolloClient } from '@dragverse/lens/apollo';
-import type { CustomErrorWithData } from '@dragverse/lens/custom-types';
+} from '@dragverse/lens'
+import { useApolloClient } from '@dragverse/lens/apollo'
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
 import {
   Badge as BadgeUI,
   Callout,
@@ -45,16 +45,16 @@ import {
   ThreeDotsOutline,
   Tooltip,
   WarningOutline
-} from '@dragverse/ui';
-import useProfileStore from '@lib/store/idb/profile';
-import useNonceStore from '@lib/store/nonce';
-import type { FC } from 'react';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import { useSignTypedData, useWriteContract } from 'wagmi';
+} from '@dragverse/ui'
+import useProfileStore from '@lib/store/idb/profile'
+import useNonceStore from '@lib/store/nonce'
+import type { FC } from 'react'
+import { useState } from 'react'
+import toast from 'react-hot-toast'
+import { useSignTypedData, useWriteContract } from 'wagmi'
 
-import Bubbles from '../Mutual/Bubbles';
-import Stats from './Stats';
+import Bubbles from '../Mutual/Bubbles'
+import Stats from './Stats'
 
 type Props = {
   profile: Profile

@@ -1,18 +1,18 @@
-import MirrorPublication from '@components/Common/MirrorPublication';
-import PublicationOptions from '@components/Common/Publication/PublicationOptions';
-import PublicationReaction from '@components/Common/Publication/PublicationReaction';
-import OpenActions from '@components/Watch/OpenActions';
-import type { MirrorablePublication } from '@dragverse/lens';
+import MirrorPublication from '@components/Common/MirrorPublication'
+import PublicationOptions from '@components/Common/Publication/PublicationOptions'
+import PublicationReaction from '@components/Common/Publication/PublicationReaction'
+import OpenActions from '@components/Watch/OpenActions'
+import type { MirrorablePublication } from '@dragverse/lens'
 import {
   CollectOutline,
   CommentOutline,
   MirrorOutline,
   Modal
-} from '@dragverse/ui';
-import type { FC } from 'react';
-import { useState } from 'react';
+} from '@dragverse/ui'
+import type { FC } from 'react'
+import { useState } from 'react'
 
-import ByteComments from './ByteComments';
+import ByteComments from './ByteComments'
 
 type Props = {
   video: MirrorablePublication

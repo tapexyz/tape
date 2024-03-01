@@ -1,14 +1,19 @@
-import { useCopyToClipboard } from '@dragverse/browser';
-import { LINKEDIN_ICON_URL, STATIC_ASSETS, TAPEXYZ_LOGO, TAPE_WEBSITE_URL } from '@dragverse/constants';
-import { EVENTS, Tower, getSharableLink, imageCdn } from '@dragverse/generic';
-import type { PrimaryPublication } from '@dragverse/lens';
-import { CopyOutline, MirrorOutline, Tooltip } from '@dragverse/ui';
-import { useTheme } from 'next-themes';
-import Link from 'next/link';
-import type { FC } from 'react';
+import { useCopyToClipboard } from '@dragverse/browser'
+import {
+  LINKEDIN_ICON_URL,
+  STATIC_ASSETS,
+  TAPE_WEBSITE_URL,
+  TAPEXYZ_LOGO
+} from '@dragverse/constants'
+import { EVENTS, getSharableLink, imageCdn, Tower } from '@dragverse/generic'
+import type { PrimaryPublication } from '@dragverse/lens'
+import { CopyOutline, MirrorOutline, Tooltip } from '@dragverse/ui'
+import Link from 'next/link'
+import { useTheme } from 'next-themes'
+import type { FC } from 'react'
 
-import EmbedMedia from '../EmbedMedia';
-import MirrorPublication from '../MirrorPublication';
+import EmbedMedia from '../EmbedMedia'
+import MirrorPublication from '../MirrorPublication'
 
 type Props = {
   publication: PrimaryPublication

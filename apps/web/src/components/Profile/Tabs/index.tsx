@@ -1,12 +1,12 @@
-import { EVENTS, getProfile, Tower } from '@dragverse/generic';
-import type { Profile } from '@dragverse/lens';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@dragverse/ui';
-import { useRouter } from 'next/router';
-import type { FC } from 'react';
+import { EVENTS, getProfile, Tower } from '@dragverse/generic'
+import type { Profile } from '@dragverse/lens'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@dragverse/ui'
+import { useRouter } from 'next/router'
+import type { FC } from 'react'
 
-import OtherProfiles from './OtherProfiles';
-import ProfileBytes from './ProfileBytes';
-import ProfileVideos from './ProfileVideos';
+import OtherProfiles from './OtherProfiles'
+import ProfileBytes from './ProfileBytes'
+import ProfileVideos from './ProfileVideos'
 
 type Props = {
   profile: Profile

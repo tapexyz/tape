@@ -1,11 +1,11 @@
-import HorizontalScroller from '@components/Common/HorizontalScroller';
-import useProfileStore from '@lib/store/idb/profile';
-import { useRef } from 'react';
+import HorizontalScroller from '@components/Common/HorizontalScroller'
+import useProfileStore from '@lib/store/idb/profile'
+import { useRef } from 'react'
 
-import GitcoinAlert from './GitcoinAlert';
-import LatestBytes from './LatestBytes';
-import LensManagerAlert from './LensManagerAlert';
-import WelcomeAlert from './WelcomeAlert';
+import GitcoinAlert from './GitcoinAlert'
+import LatestBytes from './LatestBytes'
+import LensManagerAlert from './LensManagerAlert'
+import WelcomeAlert from './WelcomeAlert'
 
 const TopSection = () => {
   const sectionRef = useRef<HTMLDivElement>(null)

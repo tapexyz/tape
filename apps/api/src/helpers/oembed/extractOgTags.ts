@@ -1,6 +1,6 @@
-import type { Document } from 'linkedom/types/interface/document';
+import type { Document } from 'linkedom/types/interface/document'
 
-import constructIframe from './constructIframe';
+import constructIframe from './constructIframe'
 
 const extractOgTags = async (document: Document) => {
   const titleTag = document.querySelector('title')

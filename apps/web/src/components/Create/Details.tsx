@@ -1,24 +1,24 @@
-import EmojiPicker from '@components/UIElements/EmojiPicker';
-import InputMentions from '@components/UIElements/InputMentions';
-import { getFileFromDataURL, tw, uploadToIPFS } from '@dragverse/browser';
-import { checkIsBytesVideo } from '@dragverse/generic';
-import type { IPFSUploadResult } from '@dragverse/lens/custom-types';
-import { Button, Switch, Tooltip } from '@dragverse/ui';
-import { zodResolver } from '@hookform/resolvers/zod';
-import useAppStore from '@lib/store';
-import useCollectStore from '@lib/store/idb/collect';
-import type { FC } from 'react';
-import { useForm } from 'react-hook-form';
-import { toast } from 'react-hot-toast';
-import type { z } from 'zod';
-import { boolean, object, string } from 'zod';
+import EmojiPicker from '@components/UIElements/EmojiPicker'
+import InputMentions from '@components/UIElements/InputMentions'
+import { getFileFromDataURL, tw, uploadToIPFS } from '@dragverse/browser'
+import { checkIsBytesVideo } from '@dragverse/generic'
+import type { IPFSUploadResult } from '@dragverse/lens/custom-types'
+import { Button, Switch, Tooltip } from '@dragverse/ui'
+import { zodResolver } from '@hookform/resolvers/zod'
+import useAppStore from '@lib/store'
+import useCollectStore from '@lib/store/idb/collect'
+import type { FC } from 'react'
+import { useForm } from 'react-hook-form'
+import { toast } from 'react-hot-toast'
+import type { z } from 'zod'
+import { boolean, object, string } from 'zod'
 
-import CollectModule from './CollectModule';
-import DropZone from './DropZone';
-import MediaCategory from './MediaCategory';
-import MediaLicense from './MediaLicense';
-import ReferenceModule from './ReferenceModule';
-import SelectedMedia from './SelectedMedia';
+import CollectModule from './CollectModule'
+import DropZone from './DropZone'
+import MediaCategory from './MediaCategory'
+import MediaLicense from './MediaLicense'
+import ReferenceModule from './ReferenceModule'
+import SelectedMedia from './SelectedMedia'
 
 const formSchema = object({
   title: string()

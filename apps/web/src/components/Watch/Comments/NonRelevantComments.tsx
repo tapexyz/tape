@@ -1,25 +1,25 @@
-import CommentsShimmer from '@components/Shimmers/CommentsShimmer';
+import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import {
   INFINITE_SCROLL_ROOT_MARGIN,
   LENS_CUSTOM_FILTERS
-} from '@dragverse/constants';
+} from '@dragverse/constants'
 import type {
   AnyPublication,
   Comment,
   MirrorablePublication,
   PublicationsRequest
-} from '@dragverse/lens';
+} from '@dragverse/lens'
 import {
   CommentRankingFilterType,
   LimitType,
   usePublicationsQuery
-} from '@dragverse/lens';
-import { ChevronDownOutline, ChevronUpOutline, Spinner } from '@dragverse/ui';
-import type { FC } from 'react';
-import { useState } from 'react';
-import { useInView } from 'react-cool-inview';
+} from '@dragverse/lens'
+import { ChevronDownOutline, ChevronUpOutline, Spinner } from '@dragverse/ui'
+import type { FC } from 'react'
+import { useState } from 'react'
+import { useInView } from 'react-cool-inview'
 
-import RenderComment from './RenderComment';
+import RenderComment from './RenderComment'
 
 type Props = {
   video: MirrorablePublication

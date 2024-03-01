@@ -1,7 +1,7 @@
-import { CREATOR_VIDEO_CATEGORIES } from '@dragverse/constants';
-import { getCategoryByTag } from '@dragverse/generic';
-import { Select, SelectItem } from '@dragverse/ui';
-import useAppStore from '@lib/store';
+import { CREATOR_VIDEO_CATEGORIES } from '@dragverse/constants'
+import { getCategoryByTag } from '@dragverse/generic'
+import { Select, SelectItem } from '@dragverse/ui'
+import useAppStore from '@lib/store'
 
 const MediaCategory = () => {
   const uploadedMedia = useAppStore((state) => state.uploadedMedia)

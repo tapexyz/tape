@@ -2,22 +2,22 @@ import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
 import { ERROR_MESSAGE, LENSHUB_PROXY_ADDRESS } from '@dragverse/constants'
 import { checkLensManagerPermissions, getSignature } from '@dragverse/generic'
 import type {
-    ActOnOpenActionLensManagerRequest,
-    ModuleMetadata,
-    UnknownOpenActionModuleSettings
+  ActOnOpenActionLensManagerRequest,
+  ModuleMetadata,
+  UnknownOpenActionModuleSettings
 } from '@dragverse/lens'
 import {
-    useActOnOpenActionMutation,
-    useBroadcastOnchainMutation,
-    useCreateActOnOpenActionTypedDataMutation,
-    useModuleMetadataQuery
+  useActOnOpenActionMutation,
+  useBroadcastOnchainMutation,
+  useCreateActOnOpenActionTypedDataMutation,
+  useModuleMetadataQuery
 } from '@dragverse/lens'
 import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
 import {
-    AccordionContent,
-    AccordionItem,
-    AccordionTrigger,
-    VerifiedSolid
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+  VerifiedSolid
 } from '@dragverse/ui'
 import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import useProfileStore from '@lib/store/idb/profile'

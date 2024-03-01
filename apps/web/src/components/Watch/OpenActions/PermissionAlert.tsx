@@ -1,15 +1,15 @@
-import type { ApprovedAllowanceAmountResult } from '@dragverse/lens';
+import type { ApprovedAllowanceAmountResult } from '@dragverse/lens'
 import {
   OpenActionModuleType,
   useGenerateModuleCurrencyApprovalDataLazyQuery
-} from '@dragverse/lens';
-import type { CustomErrorWithData } from '@dragverse/lens/custom-types';
-import { Button } from '@dragverse/ui';
-import { getCollectModuleConfig } from '@lib/getCollectModuleInput';
-import type { Dispatch, FC } from 'react';
-import { useEffect } from 'react';
-import toast from 'react-hot-toast';
-import { useSendTransaction, useWaitForTransactionReceipt } from 'wagmi';
+} from '@dragverse/lens'
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
+import { Button } from '@dragverse/ui'
+import { getCollectModuleConfig } from '@lib/getCollectModuleInput'
+import type { Dispatch, FC } from 'react'
+import { useEffect } from 'react'
+import toast from 'react-hot-toast'
+import { useSendTransaction, useWaitForTransactionReceipt } from 'wagmi'
 
 type Props = {
   setIsAllowed: Dispatch<boolean>

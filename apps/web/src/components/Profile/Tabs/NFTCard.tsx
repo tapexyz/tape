@@ -2,13 +2,13 @@ import {
   ETHERSCAN_URL,
   FALLBACK_THUMBNAIL_URL,
   POLYGONSCAN_URL
-} from '@dragverse/constants';
-import { sanitizeDStorageUrl } from '@dragverse/generic';
-import type { CustomNftItemType } from '@dragverse/lens/custom-types';
-import { PlayOutline, StopOutline } from '@dragverse/ui';
-import Link from 'next/link';
-import type { FC } from 'react';
-import { useState } from 'react';
+} from '@dragverse/constants'
+import { sanitizeDStorageUrl } from '@dragverse/generic'
+import type { CustomNftItemType } from '@dragverse/lens/custom-types'
+import { PlayOutline, StopOutline } from '@dragverse/ui'
+import Link from 'next/link'
+import type { FC } from 'react'
+import { useState } from 'react'
 
 type Props = {
   nft: CustomNftItemType

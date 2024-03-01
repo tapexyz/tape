@@ -1,8 +1,8 @@
-import type { Profile } from '@dragverse/lens';
-import type { FC } from 'react';
+import type { Profile } from '@dragverse/lens'
+import type { FC } from 'react'
 
-import Followers from './Followers';
-import Following from './Following';
+import Followers from './Followers'
+import Following from './Following'
 
 type Props = {
   profile: Profile

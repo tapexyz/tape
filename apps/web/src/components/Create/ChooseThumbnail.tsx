@@ -1,10 +1,10 @@
-import ThumbnailsShimmer from '@components/Shimmers/ThumbnailsShimmer';
-import { generateVideoThumbnails, tw } from '@dragverse/browser';
-import { logger } from '@dragverse/generic';
-import { AddImageOutline, CheckOutline, Spinner } from '@dragverse/ui';
-import useAppStore from '@lib/store';
-import type { ChangeEvent, FC } from 'react';
-import { useEffect, useState } from 'react';
+import ThumbnailsShimmer from '@components/Shimmers/ThumbnailsShimmer'
+import { generateVideoThumbnails, tw } from '@dragverse/browser'
+import { logger } from '@dragverse/generic'
+import { AddImageOutline, CheckOutline, Spinner } from '@dragverse/ui'
+import useAppStore from '@lib/store'
+import type { ChangeEvent, FC } from 'react'
+import { useEffect, useState } from 'react'
 
 interface Props {
   file: File | null

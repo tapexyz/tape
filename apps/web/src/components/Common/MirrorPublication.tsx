@@ -1,38 +1,38 @@
-import { LENSHUB_PROXY_ABI } from '@dragverse/abis';
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
   SIGN_IN_REQUIRED
-} from '@dragverse/constants';
+} from '@dragverse/constants'
 import {
-  EVENTS,
-  Tower,
   checkLensManagerPermissions,
-  getSignature
-} from '@dragverse/generic';
+  EVENTS,
+  getSignature,
+  Tower
+} from '@dragverse/generic'
 import type {
   CreateMomokaMirrorEip712TypedData,
   CreateOnchainMirrorEip712TypedData,
   MirrorablePublication,
   MomokaMirrorRequest
-} from '@dragverse/lens';
+} from '@dragverse/lens'
 import {
-  useBroadcastOnMomokaMutation,
   useBroadcastOnchainMutation,
+  useBroadcastOnMomokaMutation,
   useCreateMomokaMirrorTypedDataMutation,
   useCreateOnchainMirrorTypedDataMutation,
-  useMirrorOnMomokaMutation,
-  useMirrorOnchainMutation
-} from '@dragverse/lens';
-import type { CustomErrorWithData } from '@dragverse/lens/custom-types';
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
-import useProfileStore from '@lib/store/idb/profile';
-import useNonceStore from '@lib/store/nonce';
-import type { FC } from 'react';
-import React, { useState } from 'react';
-import toast from 'react-hot-toast';
-import { useSignTypedData, useWriteContract } from 'wagmi';
+  useMirrorOnchainMutation,
+  useMirrorOnMomokaMutation
+} from '@dragverse/lens'
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
+import useProfileStore from '@lib/store/idb/profile'
+import useNonceStore from '@lib/store/nonce'
+import type { FC } from 'react'
+import React, { useState } from 'react'
+import toast from 'react-hot-toast'
+import { useSignTypedData, useWriteContract } from 'wagmi'
 
 type Props = {
   video: MirrorablePublication

@@ -1,6 +1,6 @@
-import Badge from '@components/Common/Badge';
-import { NoDataFound } from '@components/UIElements/NoDataFound';
-import { INFINITE_SCROLL_ROOT_MARGIN } from '@dragverse/constants';
+import Badge from '@components/Common/Badge'
+import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { INFINITE_SCROLL_ROOT_MARGIN } from '@dragverse/constants'
 import {
   formatNumber,
   getProfile,
@@ -8,13 +8,13 @@ import {
   getProfilePicture,
   imageCdn,
   sanitizeDStorageUrl
-} from '@dragverse/generic';
-import type { Profile, ProfilesManagedRequest } from '@dragverse/lens';
-import { useProfilesManagedQuery } from '@dragverse/lens';
-import { Spinner } from '@dragverse/ui';
-import useProfileStore from '@lib/store/idb/profile';
-import Link from 'next/link';
-import { useInView } from 'react-cool-inview';
+} from '@dragverse/generic'
+import type { Profile, ProfilesManagedRequest } from '@dragverse/lens'
+import { useProfilesManagedQuery } from '@dragverse/lens'
+import { Spinner } from '@dragverse/ui'
+import useProfileStore from '@lib/store/idb/profile'
+import Link from 'next/link'
+import { useInView } from 'react-cool-inview'
 
 const Managed = () => {
   const activeProfile = useProfileStore(

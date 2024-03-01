@@ -1,6 +1,6 @@
-import { Select, SelectItem } from '@dragverse/ui';
-import { MetadataLicenseType } from '@lens-protocol/metadata';
-import useAppStore from '@lib/store';
+import { Select, SelectItem } from '@dragverse/ui'
+import { MetadataLicenseType } from '@lens-protocol/metadata'
+import useAppStore from '@lib/store'
 
 const MediaLicense = () => {
   const uploadedMedia = useAppStore((state) => state.uploadedMedia)

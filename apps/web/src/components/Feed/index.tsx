@@ -1,27 +1,27 @@
-import CategoryFilters from '@components/Common/CategoryFilters';
-import MetaTags from '@components/Common/MetaTags';
-import VideoCard from '@components/Common/VideoCard';
-import TimelineShimmer from '@components/Shimmers/TimelineShimmer';
-import { NoDataFound } from '@components/UIElements/NoDataFound';
+import CategoryFilters from '@components/Common/CategoryFilters'
+import MetaTags from '@components/Common/MetaTags'
+import VideoCard from '@components/Common/VideoCard'
+import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
+import { NoDataFound } from '@components/UIElements/NoDataFound'
 import {
   INFINITE_SCROLL_ROOT_MARGIN,
   LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
-} from '@dragverse/constants';
-import { EVENTS, Tower } from '@dragverse/generic';
-import type { FeedItem, FeedRequest, PrimaryPublication } from '@dragverse/lens';
+} from '@dragverse/constants'
+import { EVENTS, Tower } from '@dragverse/generic'
+import type { FeedItem, FeedRequest, PrimaryPublication } from '@dragverse/lens'
 import {
   FeedEventItemType,
   PublicationMetadataMainFocusType,
   useFeedQuery
-} from '@dragverse/lens';
-import { Spinner } from '@dragverse/ui';
-import useAppStore from '@lib/store';
-import useProfileStore from '@lib/store/idb/profile';
-import { useEffect } from 'react';
-import { useInView } from 'react-cool-inview';
-import Custom500 from 'src/pages/500';
+} from '@dragverse/lens'
+import { Spinner } from '@dragverse/ui'
+import useAppStore from '@lib/store'
+import useProfileStore from '@lib/store/idb/profile'
+import { useEffect } from 'react'
+import { useInView } from 'react-cool-inview'
+import Custom500 from 'src/pages/500'
 
 const Feed = () => {
   const { activeProfile } = useProfileStore()

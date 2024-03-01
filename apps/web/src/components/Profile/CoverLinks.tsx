@@ -1,9 +1,9 @@
-import { STATIC_ASSETS } from '@dragverse/constants';
-import { getValueFromKeyInAttributes, imageCdn } from '@dragverse/generic';
-import type { ProfileMetadata } from '@dragverse/lens';
-import { GlobeOutline, LocationOutline } from '@dragverse/ui';
-import { useTheme } from 'next-themes';
-import Link from 'next/link';
+import { STATIC_ASSETS } from '@dragverse/constants'
+import { getValueFromKeyInAttributes, imageCdn } from '@dragverse/generic'
+import type { ProfileMetadata } from '@dragverse/lens'
+import { GlobeOutline, LocationOutline } from '@dragverse/ui'
+import Link from 'next/link'
+import { useTheme } from 'next-themes'
 
 const CoverLinks = ({ metadata }: { metadata: ProfileMetadata }) => {
   const { resolvedTheme } = useTheme()

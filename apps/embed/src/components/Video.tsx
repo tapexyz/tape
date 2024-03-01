@@ -1,23 +1,23 @@
 'use client'
 
-import { tw, useAverageColor } from '@dragverse/browser';
-import { LENSTUBE_BYTES_APP_ID } from '@dragverse/constants';
+import { tw, useAverageColor } from '@dragverse/browser'
+import { LENSTUBE_BYTES_APP_ID } from '@dragverse/constants'
 import {
   EVENTS,
-  Tower,
   getPublicationMediaUrl,
   getShouldUploadVideo,
   getThumbnailUrl,
   imageCdn,
-  sanitizeDStorageUrl
-} from '@dragverse/generic';
-import type { PrimaryPublication } from '@dragverse/lens';
-import { PlayOutline, VideoPlayer } from '@dragverse/ui';
-import { useSearchParams } from 'next/navigation';
-import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+  sanitizeDStorageUrl,
+  Tower
+} from '@dragverse/generic'
+import type { PrimaryPublication } from '@dragverse/lens'
+import { PlayOutline, VideoPlayer } from '@dragverse/ui'
+import { useSearchParams } from 'next/navigation'
+import type { FC } from 'react'
+import { useEffect, useState } from 'react'
 
-import TopOverlay from './TopOverlay';
+import TopOverlay from './TopOverlay'
 
 type Props = {
   video: PrimaryPublication

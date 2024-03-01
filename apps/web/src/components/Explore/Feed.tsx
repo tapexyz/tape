@@ -1,7 +1,7 @@
-import Timeline from '@components/Home/Timeline';
-import TimelineShimmer from '@components/Shimmers/TimelineShimmer';
-import { NoDataFound } from '@components/UIElements/NoDataFound';
-import { tw } from '@dragverse/browser';
+import Timeline from '@components/Home/Timeline'
+import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
+import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { tw } from '@dragverse/browser'
 import {
   ALLOWED_APP_IDS,
   INFINITE_SCROLL_ROOT_MARGIN,
@@ -9,30 +9,30 @@ import {
   LENS_CUSTOM_FILTERS,
   LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
-} from '@dragverse/constants';
-import { EVENTS, Tower } from '@dragverse/generic';
+} from '@dragverse/constants'
+import { EVENTS, Tower } from '@dragverse/generic'
 import type {
   ExplorePublicationRequest,
   PrimaryPublication
-} from '@dragverse/lens';
+} from '@dragverse/lens'
 import {
   ExplorePublicationsOrderByType,
   ExplorePublicationType,
   LimitType,
   PublicationMetadataMainFocusType,
   useExplorePublicationsQuery
-} from '@dragverse/lens';
+} from '@dragverse/lens'
 import {
   Button,
   CommentOutline,
   FireOutline,
   MirrorOutline,
   Spinner
-} from '@dragverse/ui';
-import { getUnixTimestampForDaysAgo } from '@lib/formatTime';
-import useAppStore from '@lib/store';
-import { useState } from 'react';
-import { useInView } from 'react-cool-inview';
+} from '@dragverse/ui'
+import { getUnixTimestampForDaysAgo } from '@lib/formatTime'
+import useAppStore from '@lib/store'
+import { useState } from 'react'
+import { useInView } from 'react-cool-inview'
 
 const initialCriteria = {
   trending: true,

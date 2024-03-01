@@ -1,5 +1,5 @@
-import { EVENTS, Tower } from '@dragverse/generic';
-import type { CollectModuleType } from '@dragverse/lens/custom-types';
+import { EVENTS, Tower } from '@dragverse/generic'
+import type { CollectModuleType } from '@dragverse/lens/custom-types'
 import {
   Button,
   Checkbox,
@@ -7,16 +7,16 @@ import {
   Modal,
   SplitOutline,
   Tooltip
-} from '@dragverse/ui';
-import useAppStore from '@lib/store';
-import useCollectStore from '@lib/store/idb/collect';
-import { useState } from 'react';
+} from '@dragverse/ui'
+import useAppStore from '@lib/store'
+import useCollectStore from '@lib/store/idb/collect'
+import { useState } from 'react'
 
-import ChargeQuestion from './ChargeQuestion';
-import CollectDuration from './CollectDuration';
-import EditionSize from './EditionSize';
-import FeeCollectForm from './FeeCollectForm';
-import PermissionQuestion from './PermissionQuestion';
+import ChargeQuestion from './ChargeQuestion'
+import CollectDuration from './CollectDuration'
+import EditionSize from './EditionSize'
+import FeeCollectForm from './FeeCollectForm'
+import PermissionQuestion from './PermissionQuestion'
 
 const CollectModule = () => {
   const [showModal, setShowModal] = useState(false)

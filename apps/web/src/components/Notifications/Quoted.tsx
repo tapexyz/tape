@@ -1,14 +1,14 @@
-import HoverableProfile from '@components/Common/HoverableProfile';
+import HoverableProfile from '@components/Common/HoverableProfile'
 import {
   getProfile,
   getProfilePicture,
   getPublicationData
-} from '@dragverse/generic';
-import type { QuoteNotification } from '@dragverse/lens';
-import { QuoteOutline } from '@dragverse/ui';
-import { getShortHandTime } from '@lib/formatTime';
-import Link from 'next/link';
-import type { FC } from 'react';
+} from '@dragverse/generic'
+import type { QuoteNotification } from '@dragverse/lens'
+import { QuoteOutline } from '@dragverse/ui'
+import { getShortHandTime } from '@lib/formatTime'
+import Link from 'next/link'
+import type { FC } from 'react'
 
 type Props = {
   notification: QuoteNotification

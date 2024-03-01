@@ -1,12 +1,12 @@
-import HoverableProfile from '@components/Common/HoverableProfile';
-import { NoDataFound } from '@components/UIElements/NoDataFound';
-import { getProfile, getProfilePicture } from '@dragverse/generic';
-import type { MutualFollowersRequest, Profile } from '@dragverse/lens';
-import { LimitType, useMutualFollowersQuery } from '@dragverse/lens';
-import { Spinner } from '@dragverse/ui';
-import useProfileStore from '@lib/store/idb/profile';
-import type { FC } from 'react';
-import { useInView } from 'react-cool-inview';
+import HoverableProfile from '@components/Common/HoverableProfile'
+import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { getProfile, getProfilePicture } from '@dragverse/generic'
+import type { MutualFollowersRequest, Profile } from '@dragverse/lens'
+import { LimitType, useMutualFollowersQuery } from '@dragverse/lens'
+import { Spinner } from '@dragverse/ui'
+import useProfileStore from '@lib/store/idb/profile'
+import type { FC } from 'react'
+import { useInView } from 'react-cool-inview'
 
 type Props = {
   viewing: string

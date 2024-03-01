@@ -1,21 +1,21 @@
-import { useCopyToClipboard } from '@dragverse/browser';
+import { useCopyToClipboard } from '@dragverse/browser'
 import {
-    STATIC_ASSETS,
-    TAPE_APP_NAME,
-    TAPE_WEBSITE_URL
-} from '@dragverse/constants';
+  STATIC_ASSETS,
+  TAPE_APP_NAME,
+  TAPE_WEBSITE_URL
+} from '@dragverse/constants'
 import {
-    EVENTS,
-    Tower,
-    getProfile,
-    getProfilePicture,
-    getPublicationData
-} from '@dragverse/generic';
-import type { PrimaryPublication } from '@dragverse/lens';
-import { CopyOutline } from '@dragverse/ui';
-import Link from 'next/link';
-import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+  EVENTS,
+  getProfile,
+  getProfilePicture,
+  getPublicationData,
+  Tower
+} from '@dragverse/generic'
+import type { PrimaryPublication } from '@dragverse/lens'
+import { CopyOutline } from '@dragverse/ui'
+import Link from 'next/link'
+import type { FC } from 'react'
+import { useEffect, useState } from 'react'
 
 type OverlayProps = {
   playerRef: HTMLMediaElement | undefined
@@ -101,7 +101,7 @@ const TopOverlay: FC<OverlayProps> = ({ playerRef, video }) => {
       </div>
       <div className="absolute bottom-2 right-0 md:bottom-4">
         <Link
-          className="flex items-center space-x-1.5 rounded-l-full bg-brand-850/50 px-3 py-1.5 text-white"
+          className="bg-brand-850/50 flex items-center space-x-1.5 rounded-l-full px-3 py-1.5 text-white"
           title={`Watch on ${TAPE_APP_NAME}`}
           href={`${TAPE_WEBSITE_URL}/watch/${video?.id}`}
           target="_blank"

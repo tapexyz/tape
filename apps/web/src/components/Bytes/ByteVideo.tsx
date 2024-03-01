@@ -1,22 +1,22 @@
-import MetaTags from '@components/Common/MetaTags';
+import MetaTags from '@components/Common/MetaTags'
 import {
-    getPublication,
-    getPublicationData,
-    getPublicationMediaUrl,
-    getShouldUploadVideo,
-    getThumbnailUrl,
-    imageCdn,
-    sanitizeDStorageUrl
-} from '@dragverse/generic';
-import type { AnyPublication } from '@dragverse/lens';
-import { VideoPlayer } from '@dragverse/ui';
-import useProfileStore from '@lib/store/idb/profile';
-import type { FC } from 'react';
-import React, { useEffect, useRef } from 'react';
+  getPublication,
+  getPublicationData,
+  getPublicationMediaUrl,
+  getShouldUploadVideo,
+  getThumbnailUrl,
+  imageCdn,
+  sanitizeDStorageUrl
+} from '@dragverse/generic'
+import type { AnyPublication } from '@dragverse/lens'
+import { VideoPlayer } from '@dragverse/ui'
+import useProfileStore from '@lib/store/idb/profile'
+import type { FC } from 'react'
+import React, { useEffect, useRef } from 'react'
 
-import BottomOverlay from './BottomOverlay';
-import ByteActions from './ByteActions';
-import TopOverlay from './TopOverlay';
+import BottomOverlay from './BottomOverlay'
+import ByteActions from './ByteActions'
+import TopOverlay from './TopOverlay'
 
 type Props = {
   video: AnyPublication
@@ -97,7 +97,7 @@ const ByteVideo: FC<Props> = ({
     <div className="keen-slider__slide flex snap-center justify-center focus-visible:outline-none md:ml-16 md:pb-2">
       <MetaTags title={getPublicationData(targetPublication.metadata)?.title} />
       <div className="relative">
-        <div className="rounded-large ultrawide:w-[650px] flex h-full w-[calc(100vw-80px)] items-center overflow-hidden bg-brand-850 md:w-[450px]">
+        <div className="rounded-large ultrawide:w-[650px] bg-brand-850 flex h-full w-[calc(100vw-80px)] items-center overflow-hidden md:w-[450px]">
           <div
             className="absolute top-[50%]"
             ref={intersectionRef}

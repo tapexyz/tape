@@ -1,17 +1,17 @@
-import { tw } from '@dragverse/browser';
-import { SIGN_IN_REQUIRED } from '@dragverse/constants';
-import { EVENTS, formatNumber, getPublication, Tower } from '@dragverse/generic';
-import type { AnyPublication } from '@dragverse/lens';
+import { tw } from '@dragverse/browser'
+import { SIGN_IN_REQUIRED } from '@dragverse/constants'
+import { EVENTS, formatNumber, getPublication, Tower } from '@dragverse/generic'
+import type { AnyPublication } from '@dragverse/lens'
 import {
   PublicationReactionType,
   useAddReactionMutation,
   useRemoveReactionMutation
-} from '@dragverse/lens';
-import { HeartFilled, HeartOutline } from '@dragverse/ui';
-import useProfileStore from '@lib/store/idb/profile';
-import type { FC } from 'react';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
+} from '@dragverse/lens'
+import { HeartFilled, HeartOutline } from '@dragverse/ui'
+import useProfileStore from '@lib/store/idb/profile'
+import type { FC } from 'react'
+import { useState } from 'react'
+import toast from 'react-hot-toast'
 
 type Props = {
   publication: AnyPublication

@@ -1,6 +1,6 @@
-import type { ReferenceModuleType } from '@dragverse/lens/custom-types';
-import { Select, SelectItem } from '@dragverse/ui';
-import useAppStore from '@lib/store';
+import type { ReferenceModuleType } from '@dragverse/lens/custom-types'
+import { Select, SelectItem } from '@dragverse/ui'
+import useAppStore from '@lib/store'
 
 const ReferenceModule = () => {
   const uploadedMedia = useAppStore((state) => state.uploadedMedia)

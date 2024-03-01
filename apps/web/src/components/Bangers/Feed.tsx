@@ -1,26 +1,26 @@
-import BangersShimmer from '@components/Shimmers/BangersShimmer';
-import { NoDataFound } from '@components/UIElements/NoDataFound';
+import BangersShimmer from '@components/Shimmers/BangersShimmer'
+import { NoDataFound } from '@components/UIElements/NoDataFound'
 import {
   INFINITE_SCROLL_ROOT_MARGIN,
   LENS_CUSTOM_FILTERS,
   TAPE_APP_ID
-} from '@dragverse/constants';
+} from '@dragverse/constants'
 import type {
   ExplorePublicationRequest,
   PrimaryPublication
-} from '@dragverse/lens';
+} from '@dragverse/lens'
 import {
-  ExplorePublicationType,
   ExplorePublicationsOrderByType,
+  ExplorePublicationType,
   LimitType,
   PublicationMetadataMainFocusType,
   useExplorePublicationsQuery
-} from '@dragverse/lens';
-import { Spinner } from '@dragverse/ui';
-import { useInView } from 'react-cool-inview';
+} from '@dragverse/lens'
+import { Spinner } from '@dragverse/ui'
+import { useInView } from 'react-cool-inview'
 
-import New from './New';
-import RenderBanger from './RenderBanger';
+import New from './New'
+import RenderBanger from './RenderBanger'
 
 const Feed = () => {
   const request: ExplorePublicationRequest = {

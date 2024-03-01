@@ -1,20 +1,19 @@
-import { LENS_API_URL } from '@dragverse/constants';
+import { LENS_API_URL } from '@dragverse/constants'
+import type { Notification, UserSigNonces } from '@dragverse/lens'
 import {
   AuthorizationRecordRevokedSubscriptionDocument,
   NewNotificationSubscriptionDocument,
-  Notification,
-  UserSigNonces,
   UserSigNoncesSubscriptionDocument
-} from '@dragverse/lens';
-import { useApolloClient } from '@dragverse/lens/apollo';
-import getCurrentSession from '@lib/getCurrentSession';
-import { signOut } from '@lib/store/auth';
-import useNonceStore from '@lib/store/nonce';
-import usePersistStore from '@lib/store/persist';
-import { useEffect } from 'react';
-import useWebSocket from 'react-use-websocket';
-import { isAddress } from 'viem';
-import { useAccount } from 'wagmi';
+} from '@dragverse/lens'
+import { useApolloClient } from '@dragverse/lens/apollo'
+import getCurrentSession from '@lib/getCurrentSession'
+import { signOut } from '@lib/store/auth'
+import useNonceStore from '@lib/store/nonce'
+import usePersistStore from '@lib/store/persist'
+import { useEffect } from 'react'
+import useWebSocket from 'react-use-websocket'
+import { isAddress } from 'viem'
+import { useAccount } from 'wagmi'
 
 const SubscriptionProvider = () => {
   const { address } = useAccount()

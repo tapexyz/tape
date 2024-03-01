@@ -1,5 +1,5 @@
-import { CustomFiltersType } from '@dragverse/lens';
-import LensEndpoint from '@dragverse/lens/endpoints';
+import { CustomFiltersType } from '@dragverse/lens'
+import LensEndpoint from '@dragverse/lens/endpoints'
 
 export const TAPE_APP_NAME = 'Dragverse'
 export const TAPE_APP_DESCRIPTION =

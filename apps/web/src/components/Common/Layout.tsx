@@ -3,26 +3,26 @@ import {
   setFingerprint,
   tw,
   useIsMounted
-} from '@dragverse/browser';
-import { AUTH_ROUTES, OWNER_ONLY_ROUTES } from '@dragverse/constants';
-import { getIsProfileOwner, trimify } from '@dragverse/generic';
-import type { Profile } from '@dragverse/lens';
-import { useCurrentProfileQuery } from '@dragverse/lens';
-import getCurrentSession from '@lib/getCurrentSession';
-import { signOut } from '@lib/store/auth';
-import useProfileStore from '@lib/store/idb/profile';
-import useNonceStore from '@lib/store/nonce';
-import { useTheme } from 'next-themes';
-import { useRouter } from 'next/router';
-import type { FC, ReactNode } from 'react';
-import { useEffect } from 'react';
-import { Toaster } from 'react-hot-toast';
-import { useAccount } from 'wagmi';
+} from '@dragverse/browser'
+import { AUTH_ROUTES, OWNER_ONLY_ROUTES } from '@dragverse/constants'
+import { getIsProfileOwner, trimify } from '@dragverse/generic'
+import type { Profile } from '@dragverse/lens'
+import { useCurrentProfileQuery } from '@dragverse/lens'
+import getCurrentSession from '@lib/getCurrentSession'
+import { signOut } from '@lib/store/auth'
+import useProfileStore from '@lib/store/idb/profile'
+import useNonceStore from '@lib/store/nonce'
+import { useRouter } from 'next/router'
+import { useTheme } from 'next-themes'
+import type { FC, ReactNode } from 'react'
+import { useEffect } from 'react'
+import { Toaster } from 'react-hot-toast'
+import { useAccount } from 'wagmi'
 
-import FullPageLoader from './FullPageLoader';
-import MetaTags from './MetaTags';
-import MobileBottomNav from './MobileBottomNav';
-import Navbar from './Navbar';
+import FullPageLoader from './FullPageLoader'
+import MetaTags from './MetaTags'
+import MobileBottomNav from './MobileBottomNav'
+import Navbar from './Navbar'
 
 interface Props {
   children: ReactNode

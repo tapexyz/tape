@@ -1,7 +1,7 @@
-import MetaTags from '@components/Common/MetaTags';
-import Timeline from '@components/Home/Timeline';
-import TimelineShimmer from '@components/Shimmers/TimelineShimmer';
-import { NoDataFound } from '@components/UIElements/NoDataFound';
+import MetaTags from '@components/Common/MetaTags'
+import Timeline from '@components/Home/Timeline'
+import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
+import { NoDataFound } from '@components/UIElements/NoDataFound'
 import {
   ALLOWED_APP_IDS,
   INFINITE_SCROLL_ROOT_MARGIN,
@@ -9,24 +9,24 @@ import {
   LENS_CUSTOM_FILTERS,
   LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
-} from '@dragverse/constants';
-import { getCategoryName } from '@dragverse/generic';
+} from '@dragverse/constants'
+import { getCategoryName } from '@dragverse/generic'
 import type {
   ExplorePublicationRequest,
   PrimaryPublication
-} from '@dragverse/lens';
+} from '@dragverse/lens'
 import {
   ExplorePublicationsOrderByType,
   ExplorePublicationType,
   LimitType,
   PublicationMetadataMainFocusType,
   useExplorePublicationsQuery
-} from '@dragverse/lens';
-import { Spinner } from '@dragverse/ui';
-import { getUnixTimestampForDaysAgo } from '@lib/formatTime';
-import { useRouter } from 'next/router';
-import { useInView } from 'react-cool-inview';
-import Custom404 from 'src/pages/404';
+} from '@dragverse/lens'
+import { Spinner } from '@dragverse/ui'
+import { getUnixTimestampForDaysAgo } from '@lib/formatTime'
+import { useRouter } from 'next/router'
+import { useInView } from 'react-cool-inview'
+import Custom404 from 'src/pages/404'
 
 const since = getUnixTimestampForDaysAgo(30)
 

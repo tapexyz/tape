@@ -1,7 +1,7 @@
-import Badge from '@components/Common/Badge';
-import { tw } from '@dragverse/browser';
-import { formatNumber } from '@dragverse/generic';
-import type { FC } from 'react';
+import Badge from '@components/Common/Badge'
+import { tw } from '@dragverse/browser'
+import { formatNumber } from '@dragverse/generic'
+import type { FC } from 'react'
 
 type Props = {
   className?: string

@@ -1,11 +1,11 @@
-import { NoDataFound } from '@components/UIElements/NoDataFound';
-import { INFINITE_SCROLL_ROOT_MARGIN } from '@dragverse/constants';
-import type { ApprovedAuthenticationRequest } from '@dragverse/lens';
+import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { INFINITE_SCROLL_ROOT_MARGIN } from '@dragverse/constants'
+import type { ApprovedAuthenticationRequest } from '@dragverse/lens'
 import {
   LimitType,
   useApprovedAuthenticationsQuery,
   useRevokeAuthenticationMutation
-} from '@dragverse/lens';
+} from '@dragverse/lens'
 import {
   Accordion,
   AccordionContent,
@@ -14,12 +14,12 @@ import {
   Button,
   ChevronDownOutline,
   Spinner
-} from '@dragverse/ui';
-import { getDateString } from '@lib/formatTime';
-import useProfileStore from '@lib/store/idb/profile';
-import { useState } from 'react';
-import { useInView } from 'react-cool-inview';
-import toast from 'react-hot-toast';
+} from '@dragverse/ui'
+import { getDateString } from '@lib/formatTime'
+import useProfileStore from '@lib/store/idb/profile'
+import { useState } from 'react'
+import { useInView } from 'react-cool-inview'
+import toast from 'react-hot-toast'
 
 const List = () => {
   const [revokingSessionId, setRevokingSessionId] = useState('')

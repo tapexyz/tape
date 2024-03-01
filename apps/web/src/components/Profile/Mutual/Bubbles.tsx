@@ -1,14 +1,14 @@
-import HoverableProfile from '@components/Common/HoverableProfile';
-import BubblesShimmer from '@components/Shimmers/BubblesShimmer';
-import { getProfile, getProfilePicture } from '@dragverse/generic';
-import type { Profile } from '@dragverse/lens';
-import { LimitType, useMutualFollowersQuery } from '@dragverse/lens';
-import { Modal } from '@dragverse/ui';
-import useProfileStore from '@lib/store/idb/profile';
-import type { FC } from 'react';
-import { useState } from 'react';
+import HoverableProfile from '@components/Common/HoverableProfile'
+import BubblesShimmer from '@components/Shimmers/BubblesShimmer'
+import { getProfile, getProfilePicture } from '@dragverse/generic'
+import type { Profile } from '@dragverse/lens'
+import { LimitType, useMutualFollowersQuery } from '@dragverse/lens'
+import { Modal } from '@dragverse/ui'
+import useProfileStore from '@lib/store/idb/profile'
+import type { FC } from 'react'
+import { useState } from 'react'
 
-import MutualFollowers from './MutualFollowers';
+import MutualFollowers from './MutualFollowers'
 
 type Props = {
   viewing: string

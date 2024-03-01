@@ -1,14 +1,14 @@
-import Badge from '@components/Common/Badge';
-import InterweaveContent from '@components/Common/InterweaveContent';
-import { NoDataFound } from '@components/UIElements/NoDataFound';
-import { LENSHUB_PROXY_ABI } from '@dragverse/abis';
+import Badge from '@components/Common/Badge'
+import InterweaveContent from '@components/Common/InterweaveContent'
+import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
 import {
   ERROR_MESSAGE,
   INFINITE_SCROLL_ROOT_MARGIN,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
   SIGN_IN_REQUIRED
-} from '@dragverse/constants';
+} from '@dragverse/constants'
 import {
   checkLensManagerPermissions,
   getProfile,
@@ -17,30 +17,30 @@ import {
   getSignature,
   imageCdn,
   sanitizeDStorageUrl
-} from '@dragverse/generic';
+} from '@dragverse/generic'
 import type {
   CreateUnblockProfilesBroadcastItemResult,
   Profile,
   WhoHaveBlockedRequest
-} from '@dragverse/lens';
+} from '@dragverse/lens'
 import {
   LimitType,
   useBroadcastOnchainMutation,
   useCreateUnblockProfilesTypedDataMutation,
   useUnblockMutation,
   useWhoHaveBlockedQuery
-} from '@dragverse/lens';
-import { useApolloClient } from '@dragverse/lens/apollo';
-import type { CustomErrorWithData } from '@dragverse/lens/custom-types';
-import { Button, Spinner } from '@dragverse/ui';
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
-import useProfileStore from '@lib/store/idb/profile';
-import useNonceStore from '@lib/store/nonce';
-import Link from 'next/link';
-import { useState } from 'react';
-import { useInView } from 'react-cool-inview';
-import toast from 'react-hot-toast';
-import { useSignTypedData, useWriteContract } from 'wagmi';
+} from '@dragverse/lens'
+import { useApolloClient } from '@dragverse/lens/apollo'
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
+import { Button, Spinner } from '@dragverse/ui'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
+import useProfileStore from '@lib/store/idb/profile'
+import useNonceStore from '@lib/store/nonce'
+import Link from 'next/link'
+import { useState } from 'react'
+import { useInView } from 'react-cool-inview'
+import toast from 'react-hot-toast'
+import { useSignTypedData, useWriteContract } from 'wagmi'
 
 const List = () => {
   const [unblockingProfileId, setUnblockingProfileId] = useState('')

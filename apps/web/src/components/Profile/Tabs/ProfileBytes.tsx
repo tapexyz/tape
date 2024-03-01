@@ -1,29 +1,29 @@
-import PublicationOptions from '@components/Common/Publication/PublicationOptions';
-import LatestBytesShimmer from '@components/Shimmers/LatestBytesShimmer';
-import { NoDataFound } from '@components/UIElements/NoDataFound';
+import PublicationOptions from '@components/Common/Publication/PublicationOptions'
+import LatestBytesShimmer from '@components/Shimmers/LatestBytesShimmer'
+import { NoDataFound } from '@components/UIElements/NoDataFound'
 import {
   FALLBACK_THUMBNAIL_URL,
   INFINITE_SCROLL_ROOT_MARGIN,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
-} from '@dragverse/constants';
+} from '@dragverse/constants'
 import {
   getPublicationData,
   getThumbnailUrl,
   imageCdn
-} from '@dragverse/generic';
-import type { Post, PublicationsRequest } from '@dragverse/lens';
+} from '@dragverse/generic'
+import type { Post, PublicationsRequest } from '@dragverse/lens'
 import {
   LimitType,
   PublicationMetadataMainFocusType,
   PublicationType,
   usePublicationsQuery
-} from '@dragverse/lens';
-import { Spinner } from '@dragverse/ui';
-import Link from 'next/link';
-import type { FC } from 'react';
-import { useInView } from 'react-cool-inview';
+} from '@dragverse/lens'
+import { Spinner } from '@dragverse/ui'
+import Link from 'next/link'
+import type { FC } from 'react'
+import { useInView } from 'react-cool-inview'
 
 type Props = {
   profileId: string

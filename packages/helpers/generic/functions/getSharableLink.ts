@@ -4,10 +4,10 @@ import {
   TAPE_WEBSITE_URL,
   TAPE_X_HANDLE,
   TAPEXYZ_WEBSITE_URL
-} from '@dragverse/constants';
-import type { MirrorablePublication } from '@dragverse/lens';
+} from '@dragverse/constants'
+import type { MirrorablePublication } from '@dragverse/lens'
 
-import { getPublicationData } from './getPublicationData';
+import { getPublicationData } from './getPublicationData'
 
 type Link = 'dragverse' | 'tape' | 'hey' | 'x' | 'reddit' | 'linkedin'
 

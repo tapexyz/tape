@@ -1,21 +1,21 @@
-import { tw } from '@dragverse/browser';
-import { FEATURE_FLAGS } from '@dragverse/constants';
-import { getIsFeatureEnabled } from '@dragverse/generic';
+import { tw } from '@dragverse/browser'
+import { FEATURE_FLAGS } from '@dragverse/constants'
+import { getIsFeatureEnabled } from '@dragverse/generic'
 import {
   BellOutline,
   Button,
   ChevronDownOutline,
   DropdownMenu
-} from '@dragverse/ui';
-import useProfileStore from '@lib/store/idb/profile';
-import usePersistStore from '@lib/store/persist';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+} from '@dragverse/ui'
+import useProfileStore from '@lib/store/idb/profile'
+import usePersistStore from '@lib/store/persist'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 
-import Logo from './Logo';
-import GlobalSearch from './Search/GlobalSearch';
-import TapeMenu from './TapeMenu';
-import UserMenu from './UserMenu';
+import Logo from './Logo'
+import GlobalSearch from './Search/GlobalSearch'
+import TapeMenu from './TapeMenu'
+import UserMenu from './UserMenu'
 
 const Navbar = () => {
   const { pathname, asPath } = useRouter()
@@ -29,7 +29,7 @@ const Navbar = () => {
   } = usePersistStore()
 
   return (
-    <div className="ultrawide:px-8 laptop:px-6 fixed top-0 z-10 flex h-14 w-full items-center bg-white/80 px-4 backdrop-blur-2xl dark:bg-brand-850/80">
+    <div className="ultrawide:px-8 laptop:px-6 dark:bg-brand-850/80 fixed top-0 z-10 flex h-14 w-full items-center bg-white/80 px-4 backdrop-blur-2xl">
       <div className="flex w-full items-center justify-between">
         <div className="flex items-center space-x-2 md:w-1/5">
           <Logo />

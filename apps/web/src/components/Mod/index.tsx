@@ -1,12 +1,12 @@
-import MetaTags from '@components/Common/MetaTags';
-import { ADMIN_IDS } from '@dragverse/constants';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@dragverse/ui';
-import useProfileStore from '@lib/store/idb/profile';
-import { useState } from 'react';
-import Custom404 from 'src/pages/404';
+import MetaTags from '@components/Common/MetaTags'
+import { ADMIN_IDS } from '@dragverse/constants'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@dragverse/ui'
+import useProfileStore from '@lib/store/idb/profile'
+import { useState } from 'react'
+import Custom404 from 'src/pages/404'
 
-import Recents from './Recents';
-import Signup from './Signup';
+import Recents from './Recents'
+import Signup from './Signup'
 
 const Mod = () => {
   const { activeProfile } = useProfileStore()

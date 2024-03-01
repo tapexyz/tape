@@ -1,19 +1,19 @@
-import { Hono } from 'hono';
-import { cors } from 'hono/cors';
+import { Hono } from 'hono'
+import { cors } from 'hono/cors'
 
-import allowedTokens from './routes/allowed-tokens';
-import did from './routes/did';
-import gateway from './routes/gateway';
-import metadata from './routes/metadata';
-import oembed from './routes/oembed';
-import recommendations from './routes/recommendations';
-import signup from './routes/signup';
-import sts from './routes/sts';
-import tail from './routes/tail';
-import toggles from './routes/toggles';
-import tower from './routes/tower';
-import verified from './routes/verified';
-import views from './routes/views';
+import allowedTokens from './routes/allowed-tokens'
+import did from './routes/did'
+import gateway from './routes/gateway'
+import metadata from './routes/metadata'
+import oembed from './routes/oembed'
+import recommendations from './routes/recommendations'
+import signup from './routes/signup'
+import sts from './routes/sts'
+import tail from './routes/tail'
+import toggles from './routes/toggles'
+import tower from './routes/tower'
+import verified from './routes/verified'
+import views from './routes/views'
 
 const app = new Hono()
 

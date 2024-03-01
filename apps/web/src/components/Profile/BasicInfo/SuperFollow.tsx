@@ -1,18 +1,18 @@
-import { LENSHUB_PROXY_ABI } from '@dragverse/abis';
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
   SIGN_IN_REQUIRED
-} from '@dragverse/constants';
+} from '@dragverse/constants'
 import {
-  EVENTS,
-  Tower,
   checkLensManagerPermissions,
+  EVENTS,
   getProfile,
-  getSignature
-} from '@dragverse/generic';
-import type { FeeFollowModuleSettings, Profile } from '@dragverse/lens';
+  getSignature,
+  Tower
+} from '@dragverse/generic'
+import type { FeeFollowModuleSettings, Profile } from '@dragverse/lens'
 import {
   FollowModuleType,
   useApprovedModuleAllowanceAmountQuery,
@@ -20,20 +20,20 @@ import {
   useCreateFollowTypedDataMutation,
   useGenerateModuleCurrencyApprovalDataLazyQuery,
   useProfileFollowModuleQuery
-} from '@dragverse/lens';
-import type { CustomErrorWithData } from '@dragverse/lens/custom-types';
-import { Button, Modal } from '@dragverse/ui';
-import useProfileStore from '@lib/store/idb/profile';
-import useNonceStore from '@lib/store/nonce';
-import type { FC } from 'react';
-import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
+} from '@dragverse/lens'
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
+import { Button, Modal } from '@dragverse/ui'
+import useProfileStore from '@lib/store/idb/profile'
+import useNonceStore from '@lib/store/nonce'
+import type { FC } from 'react'
+import { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
 import {
   useSendTransaction,
   useSignTypedData,
   useWaitForTransactionReceipt,
   useWriteContract
-} from 'wagmi';
+} from 'wagmi'
 
 type Props = {
   profile: Profile

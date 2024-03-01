@@ -1,9 +1,9 @@
-import ReportPublication from '@components/Report/Publication';
-import Confirm from '@components/UIElements/Confirm';
-import { SIGN_IN_REQUIRED } from '@dragverse/constants';
-import { EVENTS, Tower } from '@dragverse/generic';
-import type { Comment } from '@dragverse/lens';
-import { useHidePublicationMutation } from '@dragverse/lens';
+import ReportPublication from '@components/Report/Publication'
+import Confirm from '@components/UIElements/Confirm'
+import { SIGN_IN_REQUIRED } from '@dragverse/constants'
+import { EVENTS, Tower } from '@dragverse/generic'
+import type { Comment } from '@dragverse/lens'
+import { useHidePublicationMutation } from '@dragverse/lens'
 import {
   DropdownMenu,
   DropdownMenuItem,
@@ -11,12 +11,12 @@ import {
   Modal,
   ThreeDotsOutline,
   TrashOutline
-} from '@dragverse/ui';
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
-import useProfileStore from '@lib/store/idb/profile';
-import type { FC } from 'react';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
+} from '@dragverse/ui'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
+import useProfileStore from '@lib/store/idb/profile'
+import type { FC } from 'react'
+import { useState } from 'react'
+import toast from 'react-hot-toast'
 
 type Props = {
   comment: Comment

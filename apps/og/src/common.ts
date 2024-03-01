@@ -1,8 +1,8 @@
 import {
-    OG_IMAGE,
-    TAPE_APP_DESCRIPTION,
-    TAPE_APP_NAME,
-    TAPE_WEBSITE_URL
+  OG_IMAGE,
+  TAPE_APP_DESCRIPTION,
+  TAPE_APP_NAME,
+  TAPE_WEBSITE_URL
 } from '@dragverse/constants'
 import type { Metadata } from 'next'
 

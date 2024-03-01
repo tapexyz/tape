@@ -1,5 +1,5 @@
-import { tw } from '@dragverse/browser';
-import { getIsProfileOwner } from '@dragverse/generic';
+import { tw } from '@dragverse/browser'
+import { getIsProfileOwner } from '@dragverse/generic'
 import {
   InterestsOutline,
   KeyOutline,
@@ -10,11 +10,11 @@ import {
   SubscribeOutline,
   UserOutline,
   WarningOutline
-} from '@dragverse/ui';
-import useProfileStore from '@lib/store/idb/profile';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useAccount } from 'wagmi';
+} from '@dragverse/ui'
+import useProfileStore from '@lib/store/idb/profile'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useAccount } from 'wagmi'
 
 import {
   SETTINGS,
@@ -26,7 +26,7 @@ import {
   SETTINGS_INTERESTS,
   SETTINGS_MANAGER,
   SETTINGS_SESSIONS
-} from '.';
+} from '.'
 
 const SettingsSidebar = () => {
   const router = useRouter()

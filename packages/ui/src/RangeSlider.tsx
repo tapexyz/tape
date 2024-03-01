@@ -25,7 +25,7 @@ export const RangeSlider = forwardRef<
       <SliderPrimitive.Track className="relative h-[3px] grow rounded-full bg-gray-200 dark:bg-gray-800">
         <SliderPrimitive.Range className="absolute h-full rounded-full bg-gray-500" />
       </SliderPrimitive.Track>
-      <SliderPrimitive.Thumb className="block h-4 rounded-sm bg-brand-850 px-1 text-xs font-bold text-white focus:outline-none active:scale-110 dark:bg-white dark:text-black">
+      <SliderPrimitive.Thumb className="bg-brand-850 block h-4 rounded-sm px-1 text-xs font-bold text-white focus:outline-none active:scale-110 dark:bg-white dark:text-black">
         {props.value}
       </SliderPrimitive.Thumb>
     </SliderPrimitive.Root>

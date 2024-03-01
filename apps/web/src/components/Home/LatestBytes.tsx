@@ -1,7 +1,6 @@
 import Badge from '@components/Common/Badge'
 import HoverableProfile from '@components/Common/HoverableProfile'
 import LatestBytesShimmer from '@components/Shimmers/LatestBytesShimmer'
-import { getUnixTimestampForDaysAgo } from '@lib/formatTime'
 import {
   FALLBACK_THUMBNAIL_URL,
   LENS_CUSTOM_FILTERS,
@@ -26,6 +25,7 @@ import {
   PublicationMetadataMainFocusType,
   useExplorePublicationsQuery
 } from '@dragverse/lens'
+import { getUnixTimestampForDaysAgo } from '@lib/formatTime'
 import Link from 'next/link'
 
 const since = getUnixTimestampForDaysAgo(30)

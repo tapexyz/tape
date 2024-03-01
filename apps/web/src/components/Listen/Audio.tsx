@@ -1,4 +1,4 @@
-import HoverableProfile from '@components/Common/HoverableProfile';
+import HoverableProfile from '@components/Common/HoverableProfile'
 import {
   getProfile,
   getProfilePicture,
@@ -6,12 +6,12 @@ import {
   getThumbnailUrl,
   imageCdn,
   sanitizeDStorageUrl
-} from '@dragverse/generic';
-import type { PrimaryPublication } from '@dragverse/lens';
-import { AudioPlayer, PauseOutline, PlayOutline } from '@dragverse/ui';
-import { getReadableTimeFromSeconds } from '@lib/formatTime';
-import type { FC } from 'react';
-import { useState } from 'react';
+} from '@dragverse/generic'
+import type { PrimaryPublication } from '@dragverse/lens'
+import { AudioPlayer, PauseOutline, PlayOutline } from '@dragverse/ui'
+import { getReadableTimeFromSeconds } from '@lib/formatTime'
+import type { FC } from 'react'
+import { useState } from 'react'
 
 type Props = {
   audio: PrimaryPublication

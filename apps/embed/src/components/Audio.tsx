@@ -1,22 +1,22 @@
-import { useAverageColor } from '@dragverse/browser';
+import { useAverageColor } from '@dragverse/browser'
 import {
   STATIC_ASSETS,
   TAPE_APP_NAME,
   TAPE_WEBSITE_URL
-} from '@dragverse/constants';
+} from '@dragverse/constants'
 import {
   EVENTS,
-  Tower,
   getPublicationData,
   getThumbnailUrl,
   imageCdn,
-  sanitizeDStorageUrl
-} from '@dragverse/generic';
-import type { PrimaryPublication } from '@dragverse/lens';
-import { AudioPlayer, PauseOutline, PlayOutline } from '@dragverse/ui';
-import Link from 'next/link';
-import type { FC } from 'react';
-import { useState } from 'react';
+  sanitizeDStorageUrl,
+  Tower
+} from '@dragverse/generic'
+import type { PrimaryPublication } from '@dragverse/lens'
+import { AudioPlayer, PauseOutline, PlayOutline } from '@dragverse/ui'
+import Link from 'next/link'
+import type { FC } from 'react'
+import { useState } from 'react'
 
 type Props = {
   audio: PrimaryPublication

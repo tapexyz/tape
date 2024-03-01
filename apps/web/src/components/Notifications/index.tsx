@@ -1,31 +1,31 @@
-import MetaTags from '@components/Common/MetaTags';
-import NotificationsShimmer from '@components/Shimmers/NotificationsShimmer';
-import { NoDataFound } from '@components/UIElements/NoDataFound';
+import MetaTags from '@components/Common/MetaTags'
+import NotificationsShimmer from '@components/Shimmers/NotificationsShimmer'
+import { NoDataFound } from '@components/UIElements/NoDataFound'
 import {
   INFINITE_SCROLL_ROOT_MARGIN,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
-} from '@dragverse/constants';
-import { EVENTS, Tower } from '@dragverse/generic';
-import type { Notification, NotificationRequest } from '@dragverse/lens';
-import { useNotificationsQuery } from '@dragverse/lens';
-import { CustomNotificationsFilterEnum } from '@dragverse/lens/custom-types';
-import { Spinner } from '@dragverse/ui';
-import useNotificationStore from '@lib/store/notification';
-import usePersistStore from '@lib/store/persist';
-import { useEffect } from 'react';
-import { useInView } from 'react-cool-inview';
+} from '@dragverse/constants'
+import { EVENTS, Tower } from '@dragverse/generic'
+import type { Notification, NotificationRequest } from '@dragverse/lens'
+import { useNotificationsQuery } from '@dragverse/lens'
+import { CustomNotificationsFilterEnum } from '@dragverse/lens/custom-types'
+import { Spinner } from '@dragverse/ui'
+import useNotificationStore from '@lib/store/notification'
+import usePersistStore from '@lib/store/persist'
+import { useEffect } from 'react'
+import { useInView } from 'react-cool-inview'
 
-import Acted from './Acted';
-import Commented from './Commented';
-import NotificationsFilter from './Filter';
-import Followed from './Followed';
-import Mentioned from './Mentioned';
-import Mirrored from './Mirrored';
-import Quoted from './Quoted';
-import Reactions from './Reactions';
+import Acted from './Acted'
+import Commented from './Commented'
+import NotificationsFilter from './Filter'
+import Followed from './Followed'
+import Mentioned from './Mentioned'
+import Mirrored from './Mirrored'
+import Quoted from './Quoted'
+import Reactions from './Reactions'
 
 const Notifications = () => {
   const setHasNewNotification = useNotificationStore(

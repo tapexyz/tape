@@ -1,13 +1,16 @@
-import HoverableProfile from '@components/Common/HoverableProfile';
+import HoverableProfile from '@components/Common/HoverableProfile'
 import {
   getProfile,
   getProfilePicture,
   getPublicationData
-} from '@dragverse/generic';
-import type { ProfileReactedResult, ReactionNotification } from '@dragverse/lens';
-import { HeartOutline } from '@dragverse/ui';
-import Link from 'next/link';
-import type { FC } from 'react';
+} from '@dragverse/generic'
+import type {
+  ProfileReactedResult,
+  ReactionNotification
+} from '@dragverse/lens'
+import { HeartOutline } from '@dragverse/ui'
+import Link from 'next/link'
+import type { FC } from 'react'
 
 type Props = {
   notification: ReactionNotification

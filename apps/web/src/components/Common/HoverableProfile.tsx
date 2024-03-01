@@ -1,19 +1,19 @@
-import Stats from '@components/Profile/BasicInfo/Stats';
+import Stats from '@components/Profile/BasicInfo/Stats'
 import {
-    getProfile,
-    getProfileCoverPicture,
-    getProfilePicture,
-    imageCdn,
-    sanitizeDStorageUrl
-} from '@dragverse/generic';
-import type { Profile } from '@dragverse/lens';
-import { HoverCard, HoverCardContent, HoverCardTrigger } from '@dragverse/ui';
-import useProfileStore from '@lib/store/idb/profile';
-import Link from 'next/link';
-import type { FC, ReactElement } from 'react';
+  getProfile,
+  getProfileCoverPicture,
+  getProfilePicture,
+  imageCdn,
+  sanitizeDStorageUrl
+} from '@dragverse/generic'
+import type { Profile } from '@dragverse/lens'
+import { HoverCard, HoverCardContent, HoverCardTrigger } from '@dragverse/ui'
+import useProfileStore from '@lib/store/idb/profile'
+import Link from 'next/link'
+import type { FC, ReactElement } from 'react'
 
-import Badge from './Badge';
-import FollowActions from './FollowActions';
+import Badge from './Badge'
+import FollowActions from './FollowActions'
 
 type Props = {
   profile: Profile
@@ -38,7 +38,7 @@ const HoverableProfile: FC<Props> = ({ profile, children, pfp }) => {
           </Link>
         )}
       </HoverCardTrigger>
-      <HoverCardContent className="tape-border z-10 w-80 overflow-hidden rounded-xl bg-white shadow dark:bg-brand-850">
+      <HoverCardContent className="tape-border dark:bg-brand-850 z-10 w-80 overflow-hidden rounded-xl bg-white shadow">
         <div className="inset-0">
           <div
             style={{

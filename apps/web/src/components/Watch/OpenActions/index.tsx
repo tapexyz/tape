@@ -1,6 +1,6 @@
-import { formatNumber, getPublication } from '@dragverse/generic';
-import isOpenActionAllowed from '@dragverse/generic/functions/isOpenActionAllowed';
-import { type AnyPublication, type OpenActionModule } from '@dragverse/lens';
+import { formatNumber, getPublication } from '@dragverse/generic'
+import isOpenActionAllowed from '@dragverse/generic/functions/isOpenActionAllowed'
+import { type AnyPublication, type OpenActionModule } from '@dragverse/lens'
 import {
   Accordion,
   AccordionContent,
@@ -9,13 +9,13 @@ import {
   Button,
   CollectOutline,
   Modal
-} from '@dragverse/ui';
-import { getCollectModuleOutput } from '@lib/getCollectModuleOutput';
-import type { FC, ReactNode } from 'react';
-import { useState } from 'react';
+} from '@dragverse/ui'
+import { getCollectModuleOutput } from '@lib/getCollectModuleOutput'
+import type { FC, ReactNode } from 'react'
+import { useState } from 'react'
 
-import CollectPublication from './Collect';
-import UnknownOpenAction from './Unknown';
+import CollectPublication from './Collect'
+import UnknownOpenAction from './Unknown'
 
 type Props = {
   publication: AnyPublication

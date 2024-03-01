@@ -1,31 +1,31 @@
-import { NoDataFound } from '@components/UIElements/NoDataFound';
-import ProfileSuggestion from '@components/UIElements/ProfileSuggestion';
-import { tw, useDebounce, useOutsideClick } from '@dragverse/browser';
+import { NoDataFound } from '@components/UIElements/NoDataFound'
+import ProfileSuggestion from '@components/UIElements/ProfileSuggestion'
+import { tw, useDebounce, useOutsideClick } from '@dragverse/browser'
 import {
-    DRAGVERSE_ADMIN_ADDRESS,
-    LENS_CUSTOM_FILTERS,
-    LENS_NAMESPACE_PREFIX,
-    TAPE_APP_NAME
-} from '@dragverse/constants';
+  DRAGVERSE_ADMIN_ADDRESS,
+  LENS_CUSTOM_FILTERS,
+  LENS_NAMESPACE_PREFIX,
+  TAPE_APP_NAME
+} from '@dragverse/constants'
 import {
-    getProfile,
-    getProfilePicture,
-    splitNumber,
-    trimify
-} from '@dragverse/generic';
-import type { Profile, RecipientDataInput } from '@dragverse/lens';
-import { LimitType, useSearchProfilesLazyQuery } from '@dragverse/lens';
+  getProfile,
+  getProfilePicture,
+  splitNumber,
+  trimify
+} from '@dragverse/generic'
+import type { Profile, RecipientDataInput } from '@dragverse/lens'
+import { LimitType, useSearchProfilesLazyQuery } from '@dragverse/lens'
 import {
-    InfoOutline,
-    Input,
-    Spinner,
-    TimesOutline,
-    Tooltip
-} from '@dragverse/ui';
-import useAppStore from '@lib/store';
-import type { FC, RefObject } from 'react';
-import { useEffect, useRef, useState } from 'react';
-import { isAddress } from 'viem';
+  InfoOutline,
+  Input,
+  Spinner,
+  TimesOutline,
+  Tooltip
+} from '@dragverse/ui'
+import useAppStore from '@lib/store'
+import type { FC, RefObject } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { isAddress } from 'viem'
 
 type Props = {
   submitContainerRef: RefObject<HTMLDivElement>
@@ -181,7 +181,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
             !getIsValidAddress(splitRecipients[i].recipient) ? (
               <div
                 ref={resultsRef}
-                className="tape-border z-10 mt-1 w-full overflow-hidden rounded-md bg-white focus:outline-none md:absolute dark:bg-brand-850"
+                className="tape-border dark:bg-brand-850 z-10 mt-1 w-full overflow-hidden rounded-md bg-white focus:outline-none md:absolute"
               >
                 {profilesLoading && <Spinner className="my-4" />}
                 {!profiles?.length && !profilesLoading ? (

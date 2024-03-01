@@ -1,10 +1,10 @@
-import { formatNumber, getProfile, getProfilePicture } from '@dragverse/generic';
-import type { Profile } from '@dragverse/lens';
-import { UserOutline } from '@dragverse/ui';
-import Link from 'next/link';
-import type { FC } from 'react';
+import { formatNumber, getProfile, getProfilePicture } from '@dragverse/generic'
+import type { Profile } from '@dragverse/lens'
+import { UserOutline } from '@dragverse/ui'
+import Link from 'next/link'
+import type { FC } from 'react'
 
-import Badge from '../Badge';
+import Badge from '../Badge'
 
 interface Props {
   results: Profile[]

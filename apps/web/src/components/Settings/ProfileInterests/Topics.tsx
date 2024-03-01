@@ -1,18 +1,18 @@
-import { tw } from '@dragverse/browser';
-import { EVENTS, sanitizeProfileInterests, Tower } from '@dragverse/generic';
+import { tw } from '@dragverse/browser'
+import { EVENTS, sanitizeProfileInterests, Tower } from '@dragverse/generic'
 import type {
   ProfileInterestsRequest,
   ProfileInterestTypes
-} from '@dragverse/lens';
+} from '@dragverse/lens'
 import {
   useAddProfileInterestsMutation,
   useProfileInterestsOptionsQuery,
   useRemoveProfileInterestsMutation
-} from '@dragverse/lens';
-import { useApolloClient } from '@dragverse/lens/apollo';
-import { Spinner } from '@dragverse/ui';
-import useProfileStore from '@lib/store/idb/profile';
-import { useEffect } from 'react';
+} from '@dragverse/lens'
+import { useApolloClient } from '@dragverse/lens/apollo'
+import { Spinner } from '@dragverse/ui'
+import useProfileStore from '@lib/store/idb/profile'
+import { useEffect } from 'react'
 
 const MAX_TOPICS_ALLOWED = 12
 

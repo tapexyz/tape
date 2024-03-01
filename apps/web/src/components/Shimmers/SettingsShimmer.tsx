@@ -1,4 +1,4 @@
-import { Spinner } from '@dragverse/ui';
+import { Spinner } from '@dragverse/ui'
 
 const SettingsShimmer = () => {
   return (

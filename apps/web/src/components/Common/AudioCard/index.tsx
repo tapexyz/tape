@@ -1,10 +1,10 @@
-import { getPublicationData } from '@dragverse/generic';
-import type { PrimaryPublication } from '@dragverse/lens';
-import Link from 'next/link';
-import type { FC } from 'react';
+import { getPublicationData } from '@dragverse/generic'
+import type { PrimaryPublication } from '@dragverse/lens'
+import Link from 'next/link'
+import type { FC } from 'react'
 
-import PublicationOptions from '../Publication/PublicationOptions';
-import ThumbnailImage from '../VideoCard/ThumbnailImage';
+import PublicationOptions from '../Publication/PublicationOptions'
+import ThumbnailImage from '../VideoCard/ThumbnailImage'
 
 type Props = {
   audio: PrimaryPublication

@@ -1,18 +1,18 @@
-import { NoDataFound } from '@components/UIElements/NoDataFound';
-import { getProfile, getProfilePicture } from '@dragverse/generic';
+import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { getProfile, getProfilePicture } from '@dragverse/generic'
 import {
   LimitType,
-  useProfilesQuery,
   type Profile,
-  type ProfilesRequest
-} from '@dragverse/lens';
-import { Spinner, UserOutline } from '@dragverse/ui';
-import Link from 'next/link';
-import type { FC } from 'react';
-import { useInView } from 'react-cool-inview';
+  type ProfilesRequest,
+  useProfilesQuery
+} from '@dragverse/lens'
+import { Spinner, UserOutline } from '@dragverse/ui'
+import Link from 'next/link'
+import type { FC } from 'react'
+import { useInView } from 'react-cool-inview'
 
-import Badge from './Badge';
-import HoverableProfile from './HoverableProfile';
+import Badge from './Badge'
+import HoverableProfile from './HoverableProfile'
 
 type Props = {
   videoId: string

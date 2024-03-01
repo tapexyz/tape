@@ -1,8 +1,8 @@
-import { tw } from '@dragverse/browser';
-import { MISUSED_CHANNELS } from '@dragverse/constants';
-import { InfoSolid, Tooltip, VerifiedSolid } from '@dragverse/ui';
-import useVerifiedStore from '@lib/store/idb/verified';
-import type { FC } from 'react';
+import { tw } from '@dragverse/browser'
+import { MISUSED_CHANNELS } from '@dragverse/constants'
+import { InfoSolid, Tooltip, VerifiedSolid } from '@dragverse/ui'
+import useVerifiedStore from '@lib/store/idb/verified'
+import type { FC } from 'react'
 
 type Props = {
   id: string

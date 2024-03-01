@@ -1,17 +1,17 @@
-import { tw, useAverageColor } from '@dragverse/browser';
+import { tw, useAverageColor } from '@dragverse/browser'
 import {
   FALLBACK_THUMBNAIL_URL,
   LENSTUBE_BYTES_APP_ID,
   STATIC_ASSETS
-} from '@dragverse/constants';
+} from '@dragverse/constants'
 import {
   getIsSensitiveContent,
   getPublication,
   getThumbnailUrl,
   imageCdn
-} from '@dragverse/generic';
-import type { AnyPublication } from '@dragverse/lens';
-import type { FC } from 'react';
+} from '@dragverse/generic'
+import type { AnyPublication } from '@dragverse/lens'
+import type { FC } from 'react'
 
 type Props = {
   video: AnyPublication

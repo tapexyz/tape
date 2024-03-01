@@ -1,15 +1,15 @@
 import { WMATIC_TOKEN_ADDRESS } from '@dragverse/constants'
 import {
-    useApprovedModuleAllowanceAmountQuery,
-    type ModuleMetadata,
-    type UnknownOpenActionModuleSettings
+  type ModuleMetadata,
+  type UnknownOpenActionModuleSettings,
+  useApprovedModuleAllowanceAmountQuery
 } from '@dragverse/lens'
 import {
-    Button,
-    RangeSlider,
-    Select,
-    SelectItem,
-    TipOutline
+  Button,
+  RangeSlider,
+  Select,
+  SelectItem,
+  TipOutline
 } from '@dragverse/ui'
 import { useDid } from '@hooks/useDid'
 import useAllowedTokensStore from '@lib/store/idb/tokens'
@@ -17,10 +17,10 @@ import type { FC } from 'react'
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import {
-    decodeAbiParameters,
-    encodeAbiParameters,
-    formatUnits,
-    parseUnits
+  decodeAbiParameters,
+  encodeAbiParameters,
+  formatUnits,
+  parseUnits
 } from 'viem'
 import { useAccount, useBalance } from 'wagmi'
 

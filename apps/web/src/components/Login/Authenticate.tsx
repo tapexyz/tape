@@ -1,36 +1,36 @@
-import ButtonShimmer from '@components/Shimmers/ButtonShimmer';
-import { ERROR_MESSAGE } from '@dragverse/constants';
+import ButtonShimmer from '@components/Shimmers/ButtonShimmer'
+import { ERROR_MESSAGE } from '@dragverse/constants'
 import {
   EVENTS,
-  Tower,
   getProfile,
   getProfilePicture,
   logger,
-  shortenAddress
-} from '@dragverse/generic';
-import type { Profile } from '@dragverse/lens';
+  shortenAddress,
+  Tower
+} from '@dragverse/generic'
+import type { Profile } from '@dragverse/lens'
 import {
   LimitType,
   useAuthenticateMutation,
   useChallengeLazyQuery,
   useProfilesManagedQuery
-} from '@dragverse/lens';
-import { useApolloClient } from '@dragverse/lens/apollo';
+} from '@dragverse/lens'
+import { useApolloClient } from '@dragverse/lens/apollo'
 import {
   Button,
   Callout,
   Select,
   SelectItem,
   WarningOutline
-} from '@dragverse/ui';
-import { signIn, signOut } from '@lib/store/auth';
-import useProfileStore from '@lib/store/idb/profile';
-import { useRouter } from 'next/router';
-import { memo, useCallback, useEffect, useMemo, useState } from 'react';
-import toast from 'react-hot-toast';
-import { useAccount, useSignMessage } from 'wagmi';
+} from '@dragverse/ui'
+import { signIn, signOut } from '@lib/store/auth'
+import useProfileStore from '@lib/store/idb/profile'
+import { useRouter } from 'next/router'
+import { memo, useCallback, useEffect, useMemo, useState } from 'react'
+import toast from 'react-hot-toast'
+import { useAccount, useSignMessage } from 'wagmi'
 
-import Signup from './Signup';
+import Signup from './Signup'
 
 const Authenticate = () => {
   const {

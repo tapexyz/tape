@@ -1,51 +1,57 @@
-import EmojiPicker from '@components/UIElements/EmojiPicker';
-import { LENSHUB_PROXY_ABI } from '@dragverse/abis';
-import { tw, uploadToIPFS } from '@dragverse/browser';
+import EmojiPicker from '@components/UIElements/EmojiPicker'
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
+import { tw, uploadToIPFS } from '@dragverse/browser'
 import {
-    ERROR_MESSAGE,
-    LENSHUB_PROXY_ADDRESS,
-    REQUESTING_SIGNATURE_MESSAGE,
-    TAPE_APP_ID
-} from '@dragverse/constants';
+  ERROR_MESSAGE,
+  LENSHUB_PROXY_ADDRESS,
+  REQUESTING_SIGNATURE_MESSAGE,
+  TAPE_APP_ID
+} from '@dragverse/constants'
 import {
-    EVENTS,
-    Tower,
-    checkLensManagerPermissions,
-    getProfileCoverPicture,
-    getProfilePicture,
-    getSignature,
-    getValueFromKeyInAttributes,
-    imageCdn,
-    logger,
-    sanitizeDStorageUrl,
-    trimify,
-    uploadToAr
-} from '@dragverse/generic';
-import type { OnchainSetProfileMetadataRequest, Profile } from '@dragverse/lens';
+  checkLensManagerPermissions,
+  EVENTS,
+  getProfileCoverPicture,
+  getProfilePicture,
+  getSignature,
+  getValueFromKeyInAttributes,
+  imageCdn,
+  logger,
+  sanitizeDStorageUrl,
+  Tower,
+  trimify,
+  uploadToAr
+} from '@dragverse/generic'
+import type { OnchainSetProfileMetadataRequest, Profile } from '@dragverse/lens'
 import {
-    useBroadcastOnchainMutation,
-    useCreateOnchainSetProfileMetadataTypedDataMutation,
-    useSetProfileMetadataMutation
-} from '@dragverse/lens';
+  useBroadcastOnchainMutation,
+  useCreateOnchainSetProfileMetadataTypedDataMutation,
+  useSetProfileMetadataMutation
+} from '@dragverse/lens'
 import type {
-    CustomErrorWithData,
-    IPFSUploadResult
-} from '@dragverse/lens/custom-types';
-import { AddImageOutline, Button, Input, Spinner, TextArea } from '@dragverse/ui';
-import { zodResolver } from '@hookform/resolvers/zod';
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
-import type { ProfileOptions } from '@lens-protocol/metadata';
+  CustomErrorWithData,
+  IPFSUploadResult
+} from '@dragverse/lens/custom-types'
 import {
-    MetadataAttributeType,
-    profile as profileMetadata
-} from '@lens-protocol/metadata';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
-import { v4 as uuidv4 } from 'uuid';
-import { useSignTypedData, useWriteContract } from 'wagmi';
-import type { z } from 'zod';
-import { object, string, union } from 'zod';
+  AddImageOutline,
+  Button,
+  Input,
+  Spinner,
+  TextArea
+} from '@dragverse/ui'
+import { zodResolver } from '@hookform/resolvers/zod'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
+import type { ProfileOptions } from '@lens-protocol/metadata'
+import {
+  MetadataAttributeType,
+  profile as profileMetadata
+} from '@lens-protocol/metadata'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
+import { v4 as uuidv4 } from 'uuid'
+import { useSignTypedData, useWriteContract } from 'wagmi'
+import type { z } from 'zod'
+import { object, string, union } from 'zod'
 
 type Props = {
   profile: Profile
@@ -298,7 +304,7 @@ const BasicInfo = ({ profile }: Props) => {
     <form onSubmit={handleSubmit(onSaveBasicInfo)} className="w-full">
       <div className="relative w-full flex-none">
         {uploading.cover && (
-          <div className="rounded-small absolute z-10 flex h-full w-full items-center justify-center bg-brand-850 opacity-40">
+          <div className="rounded-small bg-brand-850 absolute z-10 flex h-full w-full items-center justify-center opacity-40">
             <Spinner />
           </div>
         )}
@@ -352,7 +358,7 @@ const BasicInfo = ({ profile }: Props) => {
             <label
               htmlFor="choosePfp"
               className={tw(
-                'invisible absolute top-0 grid size-32 cursor-pointer place-items-center rounded-full bg-white bg-opacity-70 backdrop-blur-lg group-hover:visible dark:bg-brand-850',
+                'dark:bg-brand-850 invisible absolute top-0 grid size-32 cursor-pointer place-items-center rounded-full bg-white bg-opacity-70 backdrop-blur-lg group-hover:visible',
                 { visible: uploading.pfp }
               )}
             >

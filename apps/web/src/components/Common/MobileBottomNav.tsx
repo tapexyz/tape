@@ -1,13 +1,13 @@
-import { tw } from '@dragverse/browser';
+import { tw } from '@dragverse/browser'
 import {
-    BellOutline,
-    BytesOutline,
-    FeedOutline,
-    HomeOutline,
-    PlusOutline
-} from '@dragverse/ui';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
+  BellOutline,
+  BytesOutline,
+  FeedOutline,
+  HomeOutline,
+  PlusOutline
+} from '@dragverse/ui'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 const MobileBottomNav = () => {
   const router = useRouter()
@@ -15,7 +15,7 @@ const MobileBottomNav = () => {
   const isActivePath = (path: string) => router.pathname === path
 
   return (
-    <div className="pb-safe sticky inset-x-0 bottom-0 z-10 border-t-[0.5px] border-gray-300 bg-white/90 backdrop-blur-xl md:hidden dark:border-gray-700 dark:bg-brand-850/90">
+    <div className="pb-safe dark:bg-brand-850/90 sticky inset-x-0 bottom-0 z-10 border-t-[0.5px] border-gray-300 bg-white/90 backdrop-blur-xl md:hidden dark:border-gray-700">
       <div className="grid grid-cols-5 py-3">
         <Link
           href="/"

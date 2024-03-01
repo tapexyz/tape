@@ -1,12 +1,12 @@
-import ToggleLensManager from '@components/Settings/Manager/LensManager/ToggleLensManager';
-import SignalWaveGraphic from '@components/UIElements/SignalWaveGraphic';
-import { TAPE_APP_NAME } from '@dragverse/constants';
+import ToggleLensManager from '@components/Settings/Manager/LensManager/ToggleLensManager'
+import SignalWaveGraphic from '@components/UIElements/SignalWaveGraphic'
+import { TAPE_APP_NAME } from '@dragverse/constants'
 import {
   checkLensManagerPermissions,
   getIsProfileOwner
-} from '@dragverse/generic';
-import useProfileStore from '@lib/store/idb/profile';
-import { useAccount } from 'wagmi';
+} from '@dragverse/generic'
+import useProfileStore from '@lib/store/idb/profile'
+import { useAccount } from 'wagmi'
 
 const LensManagerAlert = () => {
   const { address } = useAccount()

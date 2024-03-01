@@ -1,8 +1,8 @@
-import type { Profile } from '@dragverse/lens';
-import { LocalIDBStore } from '@dragverse/lens/custom-types';
-import createIdbStorage from '@lib/createIdbStorage';
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import type { Profile } from '@dragverse/lens'
+import { LocalIDBStore } from '@dragverse/lens/custom-types'
+import createIdbStorage from '@lib/createIdbStorage'
+import { create } from 'zustand'
+import { persist } from 'zustand/middleware'
 
 interface ProfileState {
   activeProfile: Profile | null

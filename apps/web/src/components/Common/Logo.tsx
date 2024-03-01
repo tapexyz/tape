@@ -1,6 +1,6 @@
-import { TAPE_LOGO } from '@dragverse/constants';
-import { useTheme } from 'next-themes';
-import Link from 'next/link';
+import { TAPE_LOGO } from '@dragverse/constants'
+import Link from 'next/link'
+import { useTheme } from 'next-themes'
 
 const Logo = () => {
   const { resolvedTheme } = useTheme()

@@ -1,12 +1,12 @@
-import PublicationReaction from '@components/Common/Publication/PublicationReaction';
-import { TAPE_WEBSITE_URL } from '@dragverse/constants';
-import { getPublicationData } from '@dragverse/generic';
-import type { PrimaryPublication } from '@dragverse/lens';
-import { FireOutline, Tooltip } from '@dragverse/ui';
-import { getDateString, getRelativeTime } from '@lib/formatTime';
+import PublicationReaction from '@components/Common/Publication/PublicationReaction'
+import { TAPE_WEBSITE_URL } from '@dragverse/constants'
+import { getPublicationData } from '@dragverse/generic'
+import type { PrimaryPublication } from '@dragverse/lens'
+import { FireOutline, Tooltip } from '@dragverse/ui'
+import { getDateString, getRelativeTime } from '@lib/formatTime'
 
-import Likes from './Likes';
-import RenderLink from './RenderLink';
+import Likes from './Likes'
+import RenderLink from './RenderLink'
 
 const RenderBanger = ({
   post,

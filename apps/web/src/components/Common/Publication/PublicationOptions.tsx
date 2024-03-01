@@ -1,17 +1,16 @@
-import ReportPublication from '@components/Report/Publication';
-import Confirm from '@components/UIElements/Confirm';
-import { LENSHUB_PROXY_ABI } from '@dragverse/abis';
+import ReportPublication from '@components/Report/Publication'
+import Confirm from '@components/UIElements/Confirm'
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
   SIGN_IN_REQUIRED,
   TAPE_APP_ID
-} from '@dragverse/constants';
+} from '@dragverse/constants'
 import {
-  EVENTS,
-  Tower,
   checkLensManagerPermissions,
+  EVENTS,
   getIsIPFSUrl,
   getMetadataCid,
   getProfileCoverPicture,
@@ -19,14 +18,15 @@ import {
   getSignature,
   getValueFromKeyInAttributes,
   logger,
+  Tower,
   trimify,
   uploadToAr
-} from '@dragverse/generic';
+} from '@dragverse/generic'
 import type {
   OnchainSetProfileMetadataRequest,
   PrimaryPublication,
   Profile
-} from '@dragverse/lens';
+} from '@dragverse/lens'
 import {
   useAddPublicationBookmarkMutation,
   useAddPublicationNotInterestedMutation,
@@ -36,9 +36,9 @@ import {
   useRemovePublicationBookmarkMutation,
   useSetProfileMetadataMutation,
   useUndoPublicationNotInterestedMutation
-} from '@dragverse/lens';
-import { useApolloClient } from '@dragverse/lens/apollo';
-import type { CustomErrorWithData } from '@dragverse/lens/custom-types';
+} from '@dragverse/lens'
+import { useApolloClient } from '@dragverse/lens/apollo'
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
 import {
   BookmarkOutline,
   DropdownMenu,
@@ -51,20 +51,20 @@ import {
   ShareOutline,
   ThreeDotsOutline,
   TrashOutline
-} from '@dragverse/ui';
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
-import type { ProfileOptions } from '@lens-protocol/metadata';
-import { MetadataAttributeType, profile } from '@lens-protocol/metadata';
-import useProfileStore from '@lib/store/idb/profile';
-import type { FC, ReactNode } from 'react';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import { v4 as uuidv4 } from 'uuid';
-import { useSignTypedData, useWriteContract } from 'wagmi';
+} from '@dragverse/ui'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
+import type { ProfileOptions } from '@lens-protocol/metadata'
+import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
+import useProfileStore from '@lib/store/idb/profile'
+import type { FC, ReactNode } from 'react'
+import { useState } from 'react'
+import toast from 'react-hot-toast'
+import { v4 as uuidv4 } from 'uuid'
+import { useSignTypedData, useWriteContract } from 'wagmi'
 
-import ArweaveExplorerLink from '../Links/ArweaveExplorerLink';
-import IPFSLink from '../Links/IPFSLink';
-import Share from '../VideoCard/Share';
+import ArweaveExplorerLink from '../Links/ArweaveExplorerLink'
+import IPFSLink from '../Links/IPFSLink'
+import Share from '../VideoCard/Share'
 
 type Props = {
   publication: PrimaryPublication

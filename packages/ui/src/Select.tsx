@@ -73,7 +73,7 @@ export const Select = forwardRef<
         </SelectPrimitive.Icon>
       </SelectPrimitive.Trigger>
       <SelectPrimitive.Portal>
-        <SelectPrimitive.Content className="z-10 overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-800 dark:bg-brand-850">
+        <SelectPrimitive.Content className="dark:bg-brand-850 z-10 overflow-hidden rounded-lg border border-gray-200 bg-white shadow-lg dark:border-gray-800">
           <SelectPrimitive.ScrollUpButton className="flex justify-center py-2">
             <ChevronUpOutline className="size-3" />
           </SelectPrimitive.ScrollUpButton>

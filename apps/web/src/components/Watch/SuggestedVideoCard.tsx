@@ -1,24 +1,24 @@
-import HoverableProfile from '@components/Common/HoverableProfile';
-import PublicationOptions from '@components/Common/Publication/PublicationOptions';
-import { tw, useAverageColor } from '@dragverse/browser';
+import HoverableProfile from '@components/Common/HoverableProfile'
+import PublicationOptions from '@components/Common/Publication/PublicationOptions'
+import { tw, useAverageColor } from '@dragverse/browser'
 import {
   FALLBACK_THUMBNAIL_URL,
   LENSTUBE_BYTES_APP_ID,
   STATIC_ASSETS
-} from '@dragverse/constants';
+} from '@dragverse/constants'
 import {
   formatNumber,
   getIsSensitiveContent,
   getPublicationData,
   getThumbnailUrl,
   imageCdn
-} from '@dragverse/generic';
-import type { MirrorablePublication } from '@dragverse/lens';
-import { CommentOutline, HeartOutline } from '@dragverse/ui';
-import { getShortHandTime, getTimeFromSeconds } from '@lib/formatTime';
-import Link from 'next/link';
-import type { FC } from 'react';
-import React from 'react';
+} from '@dragverse/generic'
+import type { MirrorablePublication } from '@dragverse/lens'
+import { CommentOutline, HeartOutline } from '@dragverse/ui'
+import { getShortHandTime, getTimeFromSeconds } from '@lib/formatTime'
+import Link from 'next/link'
+import type { FC } from 'react'
+import React from 'react'
 
 type Props = {
   video: MirrorablePublication

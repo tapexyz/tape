@@ -1,12 +1,12 @@
 import {
-    LENS_PERMISSIONLESS_CREATOR_ABI,
-    TAPE_SIGNUP_PROXY_ABI
+  LENS_PERMISSIONLESS_CREATOR_ABI,
+  TAPE_SIGNUP_PROXY_ABI
 } from '@dragverse/abis'
 import {
-    LENS_PERMISSIONLESS_CREATOR_ADDRESS,
-    POLYGON_CHAIN_ID,
-    TAPE_SIGNUP_PROXY_ADDRESS,
-    ZERO_ADDRESS
+  LENS_PERMISSIONLESS_CREATOR_ADDRESS,
+  POLYGON_CHAIN_ID,
+  TAPE_SIGNUP_PROXY_ADDRESS,
+  ZERO_ADDRESS
 } from '@dragverse/constants'
 import { useGenerateLensApiRelayAddressQuery } from '@dragverse/lens'
 import { Button, Input } from '@dragverse/ui'

@@ -1,7 +1,7 @@
-import MetaTags from '@components/Common/MetaTags';
-import { STATIC_ASSETS, TAPE_APP_NAME } from '@dragverse/constants';
-import { Button } from '@dragverse/ui';
-import Link from 'next/link';
+import MetaTags from '@components/Common/MetaTags'
+import { STATIC_ASSETS, TAPE_APP_NAME } from '@dragverse/constants'
+import { Button } from '@dragverse/ui'
+import Link from 'next/link'
 
 const Custom500 = () => {
   return (

@@ -1,14 +1,14 @@
-import { tw, useDebounce, useOutsideClick } from '@dragverse/browser';
-import { LENS_CUSTOM_FILTERS } from '@dragverse/constants';
-import { getProfile, getProfilePicture } from '@dragverse/generic';
-import type { Profile } from '@dragverse/lens';
-import { LimitType, useSearchProfilesLazyQuery } from '@dragverse/lens';
-import { Spinner, TextArea } from '@dragverse/ui';
-import type { ComponentProps, FC } from 'react';
-import React, { useEffect, useRef, useState } from 'react';
-import getCaretCoordinates from 'textarea-caret';
+import { tw, useDebounce, useOutsideClick } from '@dragverse/browser'
+import { LENS_CUSTOM_FILTERS } from '@dragverse/constants'
+import { getProfile, getProfilePicture } from '@dragverse/generic'
+import type { Profile } from '@dragverse/lens'
+import { LimitType, useSearchProfilesLazyQuery } from '@dragverse/lens'
+import { Spinner, TextArea } from '@dragverse/ui'
+import type { ComponentProps, FC } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
+import getCaretCoordinates from 'textarea-caret'
 
-import ProfileSuggestion from './ProfileSuggestion';
+import ProfileSuggestion from './ProfileSuggestion'
 
 interface TextAreaProps extends Omit<ComponentProps<'textarea'>, 'prefix'> {
   label?: string
@@ -147,7 +147,7 @@ const InputMentions: FC<TextAreaProps> = ({
           ref={resultsRef}
           style={dropdownStyle}
           onKeyDown={popoverHandleKeyDown}
-          className="rounded-medium tape-border absolute z-10 mt-10 space-y-1 bg-white p-1.5 dark:bg-brand-850"
+          className="rounded-medium tape-border dark:bg-brand-850 absolute z-10 mt-10 space-y-1 bg-white p-1.5"
         >
           {loading ? (
             <Spinner />

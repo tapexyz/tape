@@ -1,5 +1,5 @@
-import { TAPE_SIGNUP_PROXY_ABI } from '@dragverse/abis';
-import { useDebounce } from '@dragverse/browser';
+import { TAPE_SIGNUP_PROXY_ABI } from '@dragverse/abis'
+import { useDebounce } from '@dragverse/browser'
 import {
   COMMON_REGEX,
   ERROR_MESSAGE,
@@ -8,14 +8,14 @@ import {
   MOONPAY_URL,
   TAPE_SIGNUP_PROXY_ADDRESS,
   ZERO_ADDRESS
-} from '@dragverse/constants';
-import { EVENTS, Tower } from '@dragverse/generic';
+} from '@dragverse/constants'
+import { EVENTS, Tower } from '@dragverse/generic'
 import {
   useGenerateLensApiRelayAddressQuery,
   useHandleToAddressLazyQuery,
   useProfileLazyQuery
-} from '@dragverse/lens';
-import type { CustomErrorWithData } from '@dragverse/lens/custom-types';
+} from '@dragverse/lens'
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
 import {
   Button,
   CheckOutline,
@@ -25,25 +25,25 @@ import {
   Spinner,
   TimesOutline,
   Tooltip
-} from '@dragverse/ui';
-import { zodResolver } from '@hookform/resolvers/zod';
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
-import usePendingTxn from '@hooks/usePendingTxn';
-import Link from 'next/link';
-import Script from 'next/script';
-import type { FC } from 'react';
-import React, { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
-import { formatUnits } from 'viem';
+} from '@dragverse/ui'
+import { zodResolver } from '@hookform/resolvers/zod'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
+import usePendingTxn from '@hooks/usePendingTxn'
+import Link from 'next/link'
+import Script from 'next/script'
+import type { FC } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
+import { formatUnits } from 'viem'
 import {
   useAccount,
   useBalance,
   useReadContract,
   useWriteContract
-} from 'wagmi';
-import type { z } from 'zod';
-import { object, string } from 'zod';
+} from 'wagmi'
+import type { z } from 'zod'
+import { object, string } from 'zod'
 
 declare global {
   interface Window {

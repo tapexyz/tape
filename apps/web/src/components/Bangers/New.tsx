@@ -1,52 +1,52 @@
-import { LENSHUB_PROXY_ABI } from '@dragverse/abis';
-import { getUserLocale } from '@dragverse/browser';
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
+import { getUserLocale } from '@dragverse/browser'
 import {
-    COMMON_REGEX,
-    ERROR_MESSAGE,
-    FALLBACK_COVER_URL,
-    LENSHUB_PROXY_ADDRESS,
-    OG_IMAGE,
-    REQUESTING_SIGNATURE_MESSAGE,
-    SIGN_IN_REQUIRED,
-    TAPE_APP_ID,
-    TAPE_WEBSITE_URL
-} from '@dragverse/constants';
+  COMMON_REGEX,
+  ERROR_MESSAGE,
+  FALLBACK_COVER_URL,
+  LENSHUB_PROXY_ADDRESS,
+  OG_IMAGE,
+  REQUESTING_SIGNATURE_MESSAGE,
+  SIGN_IN_REQUIRED,
+  TAPE_APP_ID,
+  TAPE_WEBSITE_URL
+} from '@dragverse/constants'
 import {
-    EVENTS,
-    Tower,
-    checkLensManagerPermissions,
-    getProfile,
-    getSignature,
-    imageCdn,
-    trimify,
-    uploadToAr
-} from '@dragverse/generic';
+  checkLensManagerPermissions,
+  EVENTS,
+  getProfile,
+  getSignature,
+  imageCdn,
+  Tower,
+  trimify,
+  uploadToAr
+} from '@dragverse/generic'
 import type {
-    CreateMomokaPostEip712TypedData,
-    CreateOnchainPostEip712TypedData
-} from '@dragverse/lens';
+  CreateMomokaPostEip712TypedData,
+  CreateOnchainPostEip712TypedData
+} from '@dragverse/lens'
 import {
-    useBroadcastOnMomokaMutation,
-    useCreateMomokaPostTypedDataMutation,
-    usePostOnMomokaMutation
-} from '@dragverse/lens';
-import type { CustomErrorWithData } from '@dragverse/lens/custom-types';
-import { Button, Input, Modal } from '@dragverse/ui';
-import { zodResolver } from '@hookform/resolvers/zod';
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
-import type { MetadataAttribute } from '@lens-protocol/metadata';
-import { MetadataAttributeType, link } from '@lens-protocol/metadata';
-import useProfileStore from '@lib/store/idb/profile';
-import useNonceStore from '@lib/store/nonce';
-import Link from 'next/link';
-import type { FC } from 'react';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
-import { v4 as uuidv4 } from 'uuid';
-import { useSignTypedData, useWriteContract } from 'wagmi';
-import type { z } from 'zod';
-import { object, string } from 'zod';
+  useBroadcastOnMomokaMutation,
+  useCreateMomokaPostTypedDataMutation,
+  usePostOnMomokaMutation
+} from '@dragverse/lens'
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
+import { Button, Input, Modal } from '@dragverse/ui'
+import { zodResolver } from '@hookform/resolvers/zod'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
+import type { MetadataAttribute } from '@lens-protocol/metadata'
+import { link, MetadataAttributeType } from '@lens-protocol/metadata'
+import useProfileStore from '@lib/store/idb/profile'
+import useNonceStore from '@lib/store/nonce'
+import Link from 'next/link'
+import type { FC } from 'react'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
+import { v4 as uuidv4 } from 'uuid'
+import { useSignTypedData, useWriteContract } from 'wagmi'
+import type { z } from 'zod'
+import { object, string } from 'zod'
 
 const VALID_URL_REGEX = new RegExp(
   `${COMMON_REGEX.YOUTUBE_WATCH.source}|${COMMON_REGEX.TAPE_WATCH.source}|${COMMON_REGEX.VIMEO_WATCH.source}`
@@ -252,7 +252,7 @@ const New: FC<Props> = ({ refetch }) => {
               title="Tape/YouTube/Vimeo links supported"
               placeholder="Paste a link to a banger"
               autoComplete="off"
-              className="bg-white dark:bg-brand-850"
+              className="dark:bg-brand-850 bg-white"
               error={errors.link?.message}
               showError={false}
               {...register('link')}

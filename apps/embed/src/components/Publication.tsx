@@ -5,15 +5,15 @@ import {
   setFingerprint,
   tapeFont,
   videoPlayerTheme
-} from '@dragverse/browser';
-import { getPublication, isListenable } from '@dragverse/generic';
-import type { AnyPublication } from '@dragverse/lens';
-import { LivepeerConfig } from '@livepeer/react';
-import type { FC } from 'react';
-import { useEffect } from 'react';
+} from '@dragverse/browser'
+import { getPublication, isListenable } from '@dragverse/generic'
+import type { AnyPublication } from '@dragverse/lens'
+import { LivepeerConfig } from '@livepeer/react'
+import type { FC } from 'react'
+import { useEffect } from 'react'
 
-import Audio from './Audio';
-import Video from './Video';
+import Audio from './Audio'
+import Video from './Video'
 
 type Props = {
   publication: AnyPublication

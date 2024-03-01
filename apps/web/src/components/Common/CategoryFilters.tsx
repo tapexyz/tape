@@ -1,10 +1,11 @@
-import { tw } from '@dragverse/browser';
-import { CREATOR_VIDEO_CATEGORIES } from '@dragverse/constants';
-import { EVENTS, Tower } from '@dragverse/generic';
-import useAppStore from '@lib/store';
-import type { FC } from 'react';
-import { useRef } from 'react';
-import HorizontalScroller from './HorizontalScroller';
+import { tw } from '@dragverse/browser'
+import { CREATOR_VIDEO_CATEGORIES } from '@dragverse/constants'
+import { EVENTS, Tower } from '@dragverse/generic'
+import useAppStore from '@lib/store'
+import type { FC } from 'react'
+import { useRef } from 'react'
+
+import HorizontalScroller from './HorizontalScroller'
 
 type Props = {
   heading?: string
@@ -20,7 +21,7 @@ const CategoryFilters: FC<Props> = ({ heading }) => {
   }
 
   return (
-    <div className="sticky top-0 z-[9] bg-white dark:bg-brand-850">
+    <div className="dark:bg-brand-850 sticky top-0 z-[9] bg-white">
       <HorizontalScroller
         sectionRef={sectionRef}
         heading={heading ?? 'Explore'}

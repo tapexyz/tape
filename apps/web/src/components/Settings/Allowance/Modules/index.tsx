@@ -1,21 +1,21 @@
-import { VERIFIED_UNKNOWN_OPEN_ACTION_CONTRACTS } from '@components/Watch/OpenActions/verified-contracts';
-import { POLYGONSCAN_URL, WMATIC_TOKEN_ADDRESS } from '@dragverse/constants';
-import { shortenAddress } from '@dragverse/generic';
-import type { ApprovedAllowanceAmountResult } from '@dragverse/lens';
+import { VERIFIED_UNKNOWN_OPEN_ACTION_CONTRACTS } from '@components/Watch/OpenActions/verified-contracts'
+import { POLYGONSCAN_URL, WMATIC_TOKEN_ADDRESS } from '@dragverse/constants'
+import { shortenAddress } from '@dragverse/generic'
+import type { ApprovedAllowanceAmountResult } from '@dragverse/lens'
 import {
   FollowModuleType,
   OpenActionModuleType,
   useApprovedModuleAllowanceAmountQuery,
   useGenerateModuleCurrencyApprovalDataLazyQuery
-} from '@dragverse/lens';
-import { Button, Select, SelectItem, Spinner } from '@dragverse/ui';
-import { getCollectModuleConfig } from '@lib/getCollectModuleInput';
-import useProfileStore from '@lib/store/idb/profile';
-import useAllowedTokensStore from '@lib/store/idb/tokens';
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
-import { useSendTransaction, useWaitForTransactionReceipt } from 'wagmi';
+} from '@dragverse/lens'
+import { Button, Select, SelectItem, Spinner } from '@dragverse/ui'
+import { getCollectModuleConfig } from '@lib/getCollectModuleInput'
+import useProfileStore from '@lib/store/idb/profile'
+import useAllowedTokensStore from '@lib/store/idb/tokens'
+import Link from 'next/link'
+import { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
+import { useSendTransaction, useWaitForTransactionReceipt } from 'wagmi'
 
 const ModuleItem = ({
   moduleItem,

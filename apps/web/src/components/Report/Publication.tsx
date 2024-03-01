@@ -1,11 +1,11 @@
 import MetaTags from '@components/Common/MetaTags'
 import { ERROR_MESSAGE } from '@dragverse/constants'
 import {
-    EVENTS,
-    getProfile,
-    getPublication,
-    getPublicationData,
-    Tower
+  EVENTS,
+  getProfile,
+  getPublication,
+  getPublicationData,
+  Tower
 } from '@dragverse/generic'
 import type { AnyPublication } from '@dragverse/lens'
 import { useReportPublicationMutation } from '@dragverse/lens'

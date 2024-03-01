@@ -1,13 +1,13 @@
-import { VERIFIED_UNKNOWN_OPEN_ACTION_CONTRACTS } from '@components/Watch/OpenActions/verified-contracts';
+import { VERIFIED_UNKNOWN_OPEN_ACTION_CONTRACTS } from '@components/Watch/OpenActions/verified-contracts'
 import type {
   ApprovedAllowanceAmountResult,
   OpenActionModuleInput,
   RecipientDataInput
-} from '@dragverse/lens';
-import { OpenActionModuleType } from '@dragverse/lens';
-import type { CollectModuleType } from '@dragverse/lens/custom-types';
+} from '@dragverse/lens'
+import { OpenActionModuleType } from '@dragverse/lens'
+import type { CollectModuleType } from '@dragverse/lens/custom-types'
 
-import { getAddedDaysFromToday } from './formatTime';
+import { getAddedDaysFromToday } from './formatTime'
 
 export const getCollectModuleInput = (
   selectedCollectModule: CollectModuleType

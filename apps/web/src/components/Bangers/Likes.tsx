@@ -1,17 +1,17 @@
-import HoverableProfile from '@components/Common/HoverableProfile';
-import { BangersBubbles } from '@components/Shimmers/BangersShimmer';
-import { COMMON_REGEX } from '@dragverse/constants';
+import HoverableProfile from '@components/Common/HoverableProfile'
+import { BangersBubbles } from '@components/Shimmers/BangersShimmer'
+import { COMMON_REGEX } from '@dragverse/constants'
 import {
   getProfile,
   getProfilePicture,
   getPublicationData
-} from '@dragverse/generic';
+} from '@dragverse/generic'
 import type {
   PrimaryPublication,
   ProfileWhoReactedResult,
   WhoReactedPublicationRequest
-} from '@dragverse/lens';
-import { LimitType, useWhoReactedPublicationQuery } from '@dragverse/lens';
+} from '@dragverse/lens'
+import { LimitType, useWhoReactedPublicationQuery } from '@dragverse/lens'
 
 const Likes = ({ post }: { post: PrimaryPublication }) => {
   const parsePublicationId = () => {

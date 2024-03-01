@@ -1,19 +1,19 @@
-import { TAPE_SIGNUP_PROXY_ABI } from '@dragverse/abis';
-import { STATIC_ASSETS, TAPE_SIGNUP_PROXY_ADDRESS } from '@dragverse/constants';
+import { TAPE_SIGNUP_PROXY_ABI } from '@dragverse/abis'
+import { STATIC_ASSETS, TAPE_SIGNUP_PROXY_ADDRESS } from '@dragverse/constants'
 import {
   getProfile,
   getProfileCoverPicture,
   getProfilePicture,
   imageCdn,
   sanitizeDStorageUrl
-} from '@dragverse/generic';
-import type { Profile } from '@dragverse/lens';
-import { Badge as BadgeUI, Tooltip } from '@dragverse/ui';
-import { getDateString, getRelativeTime } from '@lib/formatTime';
-import type { FC } from 'react';
-import { useReadContract } from 'wagmi';
+} from '@dragverse/generic'
+import type { Profile } from '@dragverse/lens'
+import { Badge as BadgeUI, Tooltip } from '@dragverse/ui'
+import { getDateString, getRelativeTime } from '@lib/formatTime'
+import type { FC } from 'react'
+import { useReadContract } from 'wagmi'
 
-import CoverLinks from './CoverLinks';
+import CoverLinks from './CoverLinks'
 
 type Props = {
   profile: Profile

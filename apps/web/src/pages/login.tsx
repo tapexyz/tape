@@ -1,11 +1,11 @@
-import Logo from '@components/Common/Logo';
-import MetaTags from '@components/Common/MetaTags';
-import CardBorders from '@components/Login/CardBorders';
-import Connectors from '@components/Login/Connectors';
-import { EVENTS, Tower } from '@dragverse/generic';
-import dynamic from 'next/dynamic';
-import Link from 'next/link';
-import { useEffect } from 'react';
+import Logo from '@components/Common/Logo'
+import MetaTags from '@components/Common/MetaTags'
+import CardBorders from '@components/Login/CardBorders'
+import Connectors from '@components/Login/Connectors'
+import { EVENTS, Tower } from '@dragverse/generic'
+import dynamic from 'next/dynamic'
+import Link from 'next/link'
+import { useEffect } from 'react'
 
 const BackgroundComets = dynamic(
   () => import('@components/Login/BackgroundComets')
@@ -17,7 +17,7 @@ const Login = () => {
   }, [])
 
   return (
-    <div className="relative flex h-screen w-screen overflow-hidden bg-[#FAFAFA] dark:bg-brand-850">
+    <div className="dark:bg-brand-850 relative flex h-screen w-screen overflow-hidden bg-[#FAFAFA]">
       <MetaTags title="Login" />
       <div className="grid h-full w-full place-items-center">
         <BackgroundComets />

@@ -1,18 +1,18 @@
-import { WMATIC_TOKEN_ADDRESS } from '@dragverse/constants';
-import type { CollectModuleType } from '@dragverse/lens/custom-types';
-import { Button, Input, Select, SelectItem } from '@dragverse/ui';
-import { zodResolver } from '@hookform/resolvers/zod';
-import useAppStore from '@lib/store';
-import useProfileStore from '@lib/store/idb/profile';
-import useAllowedTokensStore from '@lib/store/idb/tokens';
-import type { Dispatch, FC } from 'react';
-import { useEffect, useRef, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { isAddress } from 'viem';
-import type { z } from 'zod';
-import { number, object, string } from 'zod';
+import { WMATIC_TOKEN_ADDRESS } from '@dragverse/constants'
+import type { CollectModuleType } from '@dragverse/lens/custom-types'
+import { Button, Input, Select, SelectItem } from '@dragverse/ui'
+import { zodResolver } from '@hookform/resolvers/zod'
+import useAppStore from '@lib/store'
+import useProfileStore from '@lib/store/idb/profile'
+import useAllowedTokensStore from '@lib/store/idb/tokens'
+import type { Dispatch, FC } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { isAddress } from 'viem'
+import type { z } from 'zod'
+import { number, object, string } from 'zod'
 
-import Splits from './Splits';
+import Splits from './Splits'
 
 type Props = {
   setCollectType: (data: CollectModuleType) => void

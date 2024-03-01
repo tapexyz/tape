@@ -1,16 +1,16 @@
 import {
-    getPublication,
-    getPublicationMediaUrl,
-    imageCdn,
-    sanitizeDStorageUrl
-} from '@dragverse/generic';
-import type { AnyPublication } from '@dragverse/lens';
-import { Modal } from '@dragverse/ui';
-import type { FC } from 'react';
-import { useState } from 'react';
+  getPublication,
+  getPublicationMediaUrl,
+  imageCdn,
+  sanitizeDStorageUrl
+} from '@dragverse/generic'
+import type { AnyPublication } from '@dragverse/lens'
+import { Modal } from '@dragverse/ui'
+import type { FC } from 'react'
+import { useState } from 'react'
 
-import AudioComment from './AudioComment';
-import VideoComment from './VideoComment';
+import AudioComment from './AudioComment'
+import VideoComment from './VideoComment'
 
 type Props = {
   comment: AnyPublication
@@ -56,7 +56,7 @@ const CommentMedia: FC<Props> = ({ comment }) => {
               }}
             >
               <img
-                className="size-20 rounded-xl bg-white object-cover dark:bg-brand-850"
+                className="dark:bg-brand-850 size-20 rounded-xl bg-white object-cover"
                 src={imageCdn(sanitizeDStorageUrl(uri), 'AVATAR_LG')}
                 alt={'attachment'}
                 draggable={false}

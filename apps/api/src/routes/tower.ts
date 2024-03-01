@@ -1,12 +1,12 @@
-import { ALL_EVENTS } from '@dragverse/generic/events';
-import { zValidator } from '@hono/zod-validator';
-import { Hono } from 'hono';
-import UAParser from 'ua-parser-js';
-import type { z } from 'zod';
-import { any, object, string } from 'zod';
+import { ALL_EVENTS } from '@dragverse/generic/events'
+import { zValidator } from '@hono/zod-validator'
+import { Hono } from 'hono'
+import UAParser from 'ua-parser-js'
+import type { z } from 'zod'
+import { any, object, string } from 'zod'
 
-import { ERROR_MESSAGE } from '@/helpers/constants';
-import checkEventExistence from '@/helpers/tower/checkEventExistence';
+import { ERROR_MESSAGE } from '@/helpers/constants'
+import checkEventExistence from '@/helpers/tower/checkEventExistence'
 
 type Bindings = {
   INGEST_REST_ENDPOINT: string

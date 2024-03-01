@@ -1,19 +1,19 @@
-import { tw, uploadToIPFS } from '@dragverse/browser';
-import { ALLOWED_AUDIO_MIME_TYPES, FEATURE_FLAGS } from '@dragverse/constants';
+import { tw, uploadToIPFS } from '@dragverse/browser'
+import { ALLOWED_AUDIO_MIME_TYPES, FEATURE_FLAGS } from '@dragverse/constants'
 import {
-    formatBytes,
-    getIsFeatureEnabled,
-    sanitizeDStorageUrl
-} from '@dragverse/generic';
-import type { IPFSUploadResult } from '@dragverse/lens/custom-types';
-import { AddImageOutline, Badge, Input, Spinner, Tooltip } from '@dragverse/ui';
-import { getTimeFromSeconds } from '@lib/formatTime';
-import useAppStore from '@lib/store';
-import useProfileStore from '@lib/store/idb/profile';
-import { useEffect, useRef, useState } from 'react';
+  formatBytes,
+  getIsFeatureEnabled,
+  sanitizeDStorageUrl
+} from '@dragverse/generic'
+import type { IPFSUploadResult } from '@dragverse/lens/custom-types'
+import { AddImageOutline, Badge, Input, Spinner, Tooltip } from '@dragverse/ui'
+import { getTimeFromSeconds } from '@lib/formatTime'
+import useAppStore from '@lib/store'
+import useProfileStore from '@lib/store/idb/profile'
+import { useEffect, useRef, useState } from 'react'
 
-import ChooseThumbnail from './ChooseThumbnail';
-import UploadMethod from './UploadMethod';
+import ChooseThumbnail from './ChooseThumbnail'
+import UploadMethod from './UploadMethod'
 
 const SelectedMedia = () => {
   const mediaRef = useRef<HTMLVideoElement>(null)
@@ -66,7 +66,7 @@ const SelectedMedia = () => {
               <label
                 htmlFor="choosePoster"
                 className={tw(
-                  'rounded-small invisible absolute top-0 grid h-full w-full cursor-pointer place-items-center overflow-hidden bg-gray-100 bg-opacity-70 backdrop-blur-lg group-hover:visible dark:bg-brand-850',
+                  'rounded-small dark:bg-brand-850 invisible absolute top-0 grid h-full w-full cursor-pointer place-items-center overflow-hidden bg-gray-100 bg-opacity-70 backdrop-blur-lg group-hover:visible',
                   {
                     '!visible':
                       uploadedMedia.uploadingThumbnail ||

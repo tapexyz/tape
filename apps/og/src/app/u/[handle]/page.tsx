@@ -1,8 +1,8 @@
 import {
-    LENS_NAMESPACE_PREFIX,
-    TAPE_APP_DESCRIPTION,
-    TAPE_APP_NAME,
-    TAPE_WEBSITE_URL
+  LENS_NAMESPACE_PREFIX,
+  TAPE_APP_DESCRIPTION,
+  TAPE_APP_NAME,
+  TAPE_WEBSITE_URL
 } from '@dragverse/constants'
 import { getProfile, getProfilePicture } from '@dragverse/generic'
 import type { Profile } from '@dragverse/lens'

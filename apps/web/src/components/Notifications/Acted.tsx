@@ -1,14 +1,14 @@
-import HoverableProfile from '@components/Common/HoverableProfile';
+import HoverableProfile from '@components/Common/HoverableProfile'
 import {
   getProfile,
   getProfilePicture,
   getPublication,
   getPublicationData
-} from '@dragverse/generic';
-import type { ActedNotification, OpenActionProfileActed } from '@dragverse/lens';
-import { CollectOutline } from '@dragverse/ui';
-import Link from 'next/link';
-import type { FC } from 'react';
+} from '@dragverse/generic'
+import type { ActedNotification, OpenActionProfileActed } from '@dragverse/lens'
+import { CollectOutline } from '@dragverse/ui'
+import Link from 'next/link'
+import type { FC } from 'react'
 
 type Props = {
   notification: ActedNotification

@@ -1,28 +1,28 @@
-import { LENSHUB_PROXY_ABI } from '@dragverse/abis';
-import { useCopyToClipboard } from '@dragverse/browser';
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
+import { useCopyToClipboard } from '@dragverse/browser'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
   WMATIC_TOKEN_ADDRESS
-} from '@dragverse/constants';
+} from '@dragverse/constants'
 import {
   checkLensManagerPermissions,
   getProfile,
   getSignature,
   shortenAddress
-} from '@dragverse/generic';
+} from '@dragverse/generic'
 import type {
   CreateSetFollowModuleBroadcastItemResult,
   FeeFollowModuleSettings,
   Profile
-} from '@dragverse/lens';
+} from '@dragverse/lens'
 import {
   useBroadcastOnchainMutation,
   useCreateSetFollowModuleTypedDataMutation,
   useProfileFollowModuleQuery
-} from '@dragverse/lens';
-import type { CustomErrorWithData } from '@dragverse/lens/custom-types';
+} from '@dragverse/lens'
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
 import {
   Button,
   Input,
@@ -30,19 +30,19 @@ import {
   SelectItem,
   Spinner,
   Tooltip
-} from '@dragverse/ui';
-import { zodResolver } from '@hookform/resolvers/zod';
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
-import usePendingTxn from '@hooks/usePendingTxn';
-import useProfileStore from '@lib/store/idb/profile';
-import useAllowedTokensStore from '@lib/store/idb/tokens';
-import useNonceStore from '@lib/store/nonce';
-import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
-import { useSignTypedData, useWriteContract } from 'wagmi';
-import type { z } from 'zod';
-import { number, object, string } from 'zod';
+} from '@dragverse/ui'
+import { zodResolver } from '@hookform/resolvers/zod'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
+import usePendingTxn from '@hooks/usePendingTxn'
+import useProfileStore from '@lib/store/idb/profile'
+import useAllowedTokensStore from '@lib/store/idb/tokens'
+import useNonceStore from '@lib/store/nonce'
+import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
+import { useSignTypedData, useWriteContract } from 'wagmi'
+import type { z } from 'zod'
+import { number, object, string } from 'zod'
 
 type Props = {
   profile: Profile

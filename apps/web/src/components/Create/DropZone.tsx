@@ -1,17 +1,17 @@
-import { tw, useDragAndDrop } from '@dragverse/browser';
+import { tw, useDragAndDrop } from '@dragverse/browser'
 import {
   ALLOWED_AUDIO_MIME_TYPES,
   ALLOWED_UPLOAD_MIME_TYPES,
   CREATOR_VIDEO_CATEGORIES
-} from '@dragverse/constants';
-import { canUploadedToIpfs, logger } from '@dragverse/generic';
-import { Button, UploadOutline } from '@dragverse/ui';
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
-import useAppStore from '@lib/store';
-import useProfileStore from '@lib/store/idb/profile';
-import fileReaderStream from 'filereader-stream';
-import React from 'react';
-import toast from 'react-hot-toast';
+} from '@dragverse/constants'
+import { canUploadedToIpfs, logger } from '@dragverse/generic'
+import { Button, UploadOutline } from '@dragverse/ui'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
+import useAppStore from '@lib/store'
+import useProfileStore from '@lib/store/idb/profile'
+import fileReaderStream from 'filereader-stream'
+import React from 'react'
+import toast from 'react-hot-toast'
 
 const DropZone = () => {
   const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)

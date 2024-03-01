@@ -1,6 +1,6 @@
-import MetaTags from '@components/Common/MetaTags';
-import { LENSHUB_PROXY_ABI } from '@dragverse/abis';
-import { getUserLocale, uploadToIPFS } from '@dragverse/browser';
+import MetaTags from '@components/Common/MetaTags'
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
+import { getUserLocale, uploadToIPFS } from '@dragverse/browser'
 import {
   ERROR_MESSAGE,
   IRYS_CONNECT_MESSAGE,
@@ -9,68 +9,68 @@ import {
   TAPE_APP_ID,
   TAPE_APP_NAME,
   TAPE_WEBSITE_URL
-} from '@dragverse/constants';
+} from '@dragverse/constants'
 import {
-  EVENTS,
-  Tower,
   canUploadedToIpfs,
   checkLensManagerPermissions,
+  EVENTS,
   getProfile,
   getSignature,
   getUploadedMediaType,
   logger,
+  Tower,
   trimify,
   uploadToAr
-} from '@dragverse/generic';
+} from '@dragverse/generic'
 import type {
   CreateMomokaPostEip712TypedData,
   CreateOnchainPostEip712TypedData,
   OnchainPostRequest,
   Profile,
   ReferenceModuleInput
-} from '@dragverse/lens';
+} from '@dragverse/lens'
 import {
   ReferenceModuleType,
-  useBroadcastOnMomokaMutation,
   useBroadcastOnchainMutation,
+  useBroadcastOnMomokaMutation,
   useCreateMomokaPostTypedDataMutation,
   useCreateOnchainPostTypedDataMutation,
-  usePostOnMomokaMutation,
-  usePostOnchainMutation
-} from '@dragverse/lens';
-import type { CustomErrorWithData } from '@dragverse/lens/custom-types';
+  usePostOnchainMutation,
+  usePostOnMomokaMutation
+} from '@dragverse/lens'
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
 import type {
   AudioOptions,
   MediaAudioMimeType,
   MediaVideoMimeType,
   MetadataAttribute,
   VideoOptions
-} from '@lens-protocol/metadata';
+} from '@lens-protocol/metadata'
 import {
+  audio,
   MetadataAttributeType,
   PublicationContentWarning,
-  audio,
   shortVideo,
   video
-} from '@lens-protocol/metadata';
-import { getCollectModuleInput } from '@lib/getCollectModuleInput';
-import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store';
-import useProfileStore from '@lib/store/idb/profile';
-import useNonceStore from '@lib/store/nonce';
-import usePersistStore from '@lib/store/persist';
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
-import toast from 'react-hot-toast';
-import { v4 as uuidv4 } from 'uuid';
+} from '@lens-protocol/metadata'
+import { getCollectModuleInput } from '@lib/getCollectModuleInput'
+import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
+import useProfileStore from '@lib/store/idb/profile'
+import useNonceStore from '@lib/store/nonce'
+import usePersistStore from '@lib/store/persist'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
+import toast from 'react-hot-toast'
+import { v4 as uuidv4 } from 'uuid'
 import {
   useAccount,
   useSignTypedData,
   useWalletClient,
   useWriteContract
-} from 'wagmi';
+} from 'wagmi'
 
-import type { VideoFormData } from './Details';
-import Details from './Details';
+import type { VideoFormData } from './Details'
+import Details from './Details'
 
 const CreateSteps = () => {
   const getIrysInstance = useAppStore((state) => state.getIrysInstance)

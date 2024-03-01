@@ -5,20 +5,20 @@ import {
   TAPE_WEBSITE_URL,
   TAPE_X_HANDLE,
   WORKER_OEMBED_URL
-} from '@dragverse/constants';
+} from '@dragverse/constants'
 import {
   getProfile,
   getPublication,
   getPublicationData,
   truncate
-} from '@dragverse/generic';
-import type { AnyPublication } from '@dragverse/lens';
-import { PublicationDocument } from '@dragverse/lens';
-import { apolloClient } from '@dragverse/lens/apollo';
-import type { Metadata } from 'next';
+} from '@dragverse/generic'
+import type { AnyPublication } from '@dragverse/lens'
+import { PublicationDocument } from '@dragverse/lens'
+import { apolloClient } from '@dragverse/lens/apollo'
+import type { Metadata } from 'next'
 
-import common from '@/common';
-import { getCollectModuleMetadata } from '@/other-metadata';
+import common from '@/common'
+import { getCollectModuleMetadata } from '@/other-metadata'
 
 type Props = {
   params: { id: string }

@@ -1,15 +1,15 @@
-import { STATIC_ASSETS } from '@dragverse/constants';
+import { STATIC_ASSETS } from '@dragverse/constants'
 import {
   EmojiOutline,
   Popover,
   PopoverContent,
   PopoverTrigger
-} from '@dragverse/ui';
-import Picker from '@emoji-mart/react';
-import axios from 'axios';
-import { useTheme } from 'next-themes';
-import type { FC } from 'react';
-import { useEffect, useState } from 'react';
+} from '@dragverse/ui'
+import Picker from '@emoji-mart/react'
+import axios from 'axios'
+import { useTheme } from 'next-themes'
+import type { FC } from 'react'
+import { useEffect, useState } from 'react'
 
 type EmojiData = {
   aliases: Object

@@ -1,34 +1,34 @@
-import { LENSHUB_PROXY_ABI } from '@dragverse/abis';
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
 import {
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
   SIGN_IN_REQUIRED
-} from '@dragverse/constants';
+} from '@dragverse/constants'
 import {
-  EVENTS,
-  Tower,
   checkLensManagerPermissions,
+  EVENTS,
   getProfile,
-  getSignature
-} from '@dragverse/generic';
+  getSignature,
+  Tower
+} from '@dragverse/generic'
 import type {
   CreateUnfollowBroadcastItemResult,
   Profile
-} from '@dragverse/lens';
+} from '@dragverse/lens'
 import {
   useBroadcastOnchainMutation,
   useCreateUnfollowTypedDataMutation,
   useUnfollowMutation
-} from '@dragverse/lens';
-import type { CustomErrorWithData } from '@dragverse/lens/custom-types';
-import { Button } from '@dragverse/ui';
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
-import useProfileStore from '@lib/store/idb/profile';
-import useNonceStore from '@lib/store/nonce';
-import type { FC } from 'react';
-import { useState } from 'react';
-import toast from 'react-hot-toast';
-import { useSignTypedData, useWriteContract } from 'wagmi';
+} from '@dragverse/lens'
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
+import { Button } from '@dragverse/ui'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
+import useProfileStore from '@lib/store/idb/profile'
+import useNonceStore from '@lib/store/nonce'
+import type { FC } from 'react'
+import { useState } from 'react'
+import toast from 'react-hot-toast'
+import { useSignTypedData, useWriteContract } from 'wagmi'
 
 type Props = {
   profile: Profile

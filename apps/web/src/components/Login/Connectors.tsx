@@ -1,12 +1,12 @@
-import { EVENTS, Tower } from '@dragverse/generic';
-import { Button, Callout, CheckOutline, WarningOutline } from '@dragverse/ui';
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
-import useProfileStore from '@lib/store/idb/profile';
-import { memo, useMemo } from 'react';
-import type { Connector } from 'wagmi';
-import { useAccount, useConnect } from 'wagmi';
+import { EVENTS, Tower } from '@dragverse/generic'
+import { Button, Callout, CheckOutline, WarningOutline } from '@dragverse/ui'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
+import useProfileStore from '@lib/store/idb/profile'
+import { memo, useMemo } from 'react'
+import type { Connector } from 'wagmi'
+import { useAccount, useConnect } from 'wagmi'
 
-import Authenticate from './Authenticate';
+import Authenticate from './Authenticate'
 
 const Connectors = () => {
   const { activeProfile } = useProfileStore()

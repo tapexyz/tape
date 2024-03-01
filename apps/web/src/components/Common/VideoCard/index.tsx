@@ -1,20 +1,20 @@
-import { LENSTUBE_BYTES_APP_ID } from '@dragverse/constants';
+import { LENSTUBE_BYTES_APP_ID } from '@dragverse/constants'
 import {
   formatNumber,
   getProfile,
   getProfilePicture,
   getPublicationData
-} from '@dragverse/generic';
-import type { PrimaryPublication, VideoMetadataV3 } from '@dragverse/lens';
-import { HeartOutline } from '@dragverse/ui';
-import { getShortHandTime } from '@lib/formatTime';
-import Link from 'next/link';
-import type { FC } from 'react';
+} from '@dragverse/generic'
+import type { PrimaryPublication, VideoMetadataV3 } from '@dragverse/lens'
+import { HeartOutline } from '@dragverse/ui'
+import { getShortHandTime } from '@lib/formatTime'
+import Link from 'next/link'
+import type { FC } from 'react'
 
-import HoverableProfile from '../HoverableProfile';
-import PublicationOptions from '../Publication/PublicationOptions';
-import ThumbnailImage from './ThumbnailImage';
-import ThumbnailOverlays from './ThumbnailOverlays';
+import HoverableProfile from '../HoverableProfile'
+import PublicationOptions from '../Publication/PublicationOptions'
+import ThumbnailImage from './ThumbnailImage'
+import ThumbnailOverlays from './ThumbnailOverlays'
 
 type Props = {
   video: PrimaryPublication

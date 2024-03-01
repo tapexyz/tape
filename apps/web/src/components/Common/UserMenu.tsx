@@ -1,11 +1,16 @@
-import { ADMIN_IDS } from '@dragverse/constants';
-import { EVENTS, getProfile, getProfilePicture, Tower } from '@dragverse/generic';
-import type { Profile } from '@dragverse/lens';
+import { ADMIN_IDS } from '@dragverse/constants'
+import {
+  EVENTS,
+  getProfile,
+  getProfilePicture,
+  Tower
+} from '@dragverse/generic'
+import type { Profile } from '@dragverse/lens'
 import {
   LimitType,
   useProfilesManagedQuery,
   useRevokeAuthenticationMutation
-} from '@dragverse/lens';
+} from '@dragverse/lens'
 import {
   BookmarkOutline,
   ChevronRightOutline,
@@ -23,15 +28,15 @@ import {
   SunOutline,
   SwitchProfileOutline,
   UserOutline
-} from '@dragverse/ui';
-import getCurrentSession from '@lib/getCurrentSession';
-import { signOut } from '@lib/store/auth';
-import useProfileStore from '@lib/store/idb/profile';
-import { useTheme } from 'next-themes';
-import Link from 'next/link';
-import { useRouter } from 'next/router';
-import { useMemo } from 'react';
-import { useAccount } from 'wagmi';
+} from '@dragverse/ui'
+import getCurrentSession from '@lib/getCurrentSession'
+import { signOut } from '@lib/store/auth'
+import useProfileStore from '@lib/store/idb/profile'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useTheme } from 'next-themes'
+import { useMemo } from 'react'
+import { useAccount } from 'wagmi'
 
 const UserMenu = () => {
   const { theme, setTheme } = useTheme()

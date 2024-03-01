@@ -1,15 +1,15 @@
-import Badge from '@components/Common/Badge';
-import HoverableProfile from '@components/Common/HoverableProfile';
-import InterweaveContent from '@components/Common/InterweaveContent';
-import { tw } from '@dragverse/browser';
-import { SIGN_IN_REQUIRED } from '@dragverse/constants';
+import Badge from '@components/Common/Badge'
+import HoverableProfile from '@components/Common/HoverableProfile'
+import InterweaveContent from '@components/Common/InterweaveContent'
+import { tw } from '@dragverse/browser'
+import { SIGN_IN_REQUIRED } from '@dragverse/constants'
 import {
   getProfile,
   getProfilePicture,
   getPublicationData,
   getValueFromKeyInAttributes
-} from '@dragverse/generic';
-import type { Comment } from '@dragverse/lens';
+} from '@dragverse/generic'
+import type { Comment } from '@dragverse/lens'
 import {
   ChevronDownOutline,
   ChevronUpOutline,
@@ -17,22 +17,22 @@ import {
   HeartFilled,
   ReplyOutline,
   Tooltip
-} from '@dragverse/ui';
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
-import { getShortHandTime } from '@lib/formatTime';
-import useProfileStore from '@lib/store/idb/profile';
-import usePersistStore from '@lib/store/persist';
-import Link from 'next/link';
-import type { FC } from 'react';
-import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
+} from '@dragverse/ui'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
+import { getShortHandTime } from '@lib/formatTime'
+import useProfileStore from '@lib/store/idb/profile'
+import usePersistStore from '@lib/store/persist'
+import Link from 'next/link'
+import type { FC } from 'react'
+import { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
 
-import PublicationReaction from '../../Common/Publication/PublicationReaction';
-import CommentMedia from './CommentMedia';
-import CommentOptions from './CommentOptions';
-import CommentReplies from './CommentReplies';
-import NewComment from './NewComment';
-import QueuedComment from './QueuedComment';
+import PublicationReaction from '../../Common/Publication/PublicationReaction'
+import CommentMedia from './CommentMedia'
+import CommentOptions from './CommentOptions'
+import CommentReplies from './CommentReplies'
+import NewComment from './NewComment'
+import QueuedComment from './QueuedComment'
 
 interface Props {
   comment: Comment

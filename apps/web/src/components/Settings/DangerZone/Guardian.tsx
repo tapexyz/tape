@@ -1,21 +1,21 @@
-import { Countdown } from '@components/UIElements/CountDown';
-import { LENSHUB_PROXY_ABI } from '@dragverse/abis';
-import { tw } from '@dragverse/browser';
+import { Countdown } from '@components/UIElements/CountDown'
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
+import { tw } from '@dragverse/browser'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   SIGN_IN_REQUIRED
-} from '@dragverse/constants';
-import type { Profile } from '@dragverse/lens';
-import { useProfileLazyQuery } from '@dragverse/lens';
-import type { CustomErrorWithData } from '@dragverse/lens/custom-types';
-import { Button } from '@dragverse/ui';
-import useProfileStore from '@lib/store/idb/profile';
-import type { FC } from 'react';
-import { useEffect, useState } from 'react';
-import toast from 'react-hot-toast';
-import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork';
-import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi';
+} from '@dragverse/constants'
+import type { Profile } from '@dragverse/lens'
+import { useProfileLazyQuery } from '@dragverse/lens'
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
+import { Button } from '@dragverse/ui'
+import useProfileStore from '@lib/store/idb/profile'
+import type { FC } from 'react'
+import { useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
+import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork'
+import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
 
 const Guardian: FC = () => {
   const { activeProfile, setActiveProfile } = useProfileStore()

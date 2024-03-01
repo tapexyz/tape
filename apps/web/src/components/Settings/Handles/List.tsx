@@ -1,11 +1,11 @@
-import { NoDataFound } from '@components/UIElements/NoDataFound';
-import { INFINITE_SCROLL_ROOT_MARGIN } from '@dragverse/constants';
-import type { HandleInfo, OwnedHandlesRequest } from '@dragverse/lens';
-import { useOwnedHandlesQuery } from '@dragverse/lens';
-import { Spinner } from '@dragverse/ui';
-import Link from 'next/link';
-import { useInView } from 'react-cool-inview';
-import { useAccount } from 'wagmi';
+import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { INFINITE_SCROLL_ROOT_MARGIN } from '@dragverse/constants'
+import type { HandleInfo, OwnedHandlesRequest } from '@dragverse/lens'
+import { useOwnedHandlesQuery } from '@dragverse/lens'
+import { Spinner } from '@dragverse/ui'
+import Link from 'next/link'
+import { useInView } from 'react-cool-inview'
+import { useAccount } from 'wagmi'
 
 const List = () => {
   const { address } = useAccount()

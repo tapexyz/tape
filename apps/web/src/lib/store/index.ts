@@ -3,14 +3,14 @@ import {
   IRYS_CURRENCY,
   IRYS_NODE_URL,
   WMATIC_TOKEN_ADDRESS
-} from '@dragverse/constants';
-import { logger } from '@dragverse/generic';
-import type { IrysDataState, UploadedMedia } from '@dragverse/lens/custom-types';
-import { WebIrys } from '@irys/sdk';
-import { MetadataLicenseType } from '@lens-protocol/metadata';
-import { viemPublicClient } from '@lib/viemClient';
-import type { WalletClient } from 'viem';
-import { create } from 'zustand';
+} from '@dragverse/constants'
+import { logger } from '@dragverse/generic'
+import type { IrysDataState, UploadedMedia } from '@dragverse/lens/custom-types'
+import { WebIrys } from '@irys/sdk'
+import { MetadataLicenseType } from '@lens-protocol/metadata'
+import { viemPublicClient } from '@lib/viemClient'
+import type { WalletClient } from 'viem'
+import { create } from 'zustand'
 
 export const UPLOADED_VIDEO_IRYS_DEFAULTS = {
   balance: '0',

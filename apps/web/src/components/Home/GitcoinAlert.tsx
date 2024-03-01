@@ -2,9 +2,9 @@ import {
   GITCOIN_LIVE_ROUND,
   SHOW_GITCOIN_BANNER,
   TAPE_APP_NAME
-} from '@dragverse/constants';
-import { Button } from '@dragverse/ui';
-import Link from 'next/link';
+} from '@dragverse/constants'
+import { Button } from '@dragverse/ui'
+import Link from 'next/link'
 
 const GitcoinAlert = () => {
   if (!SHOW_GITCOIN_BANNER) {

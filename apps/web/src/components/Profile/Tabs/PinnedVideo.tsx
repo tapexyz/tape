@@ -1,5 +1,5 @@
-import PinnedVideoShimmer from '@components/Shimmers/PinnedVideoShimmer';
-import { LENSHUB_PROXY_ABI } from '@dragverse/abis';
+import PinnedVideoShimmer from '@components/Shimmers/PinnedVideoShimmer'
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
@@ -7,11 +7,10 @@ import {
   REQUESTING_SIGNATURE_MESSAGE,
   SIGN_IN_REQUIRED,
   TAPE_APP_ID
-} from '@dragverse/constants';
+} from '@dragverse/constants'
 import {
-  EVENTS,
-  Tower,
   checkLensManagerPermissions,
+  EVENTS,
   getIsSensitiveContent,
   getProfileCoverPicture,
   getProfilePictureUri,
@@ -24,33 +23,34 @@ import {
   isWatchable,
   logger,
   sanitizeDStorageUrl,
+  Tower,
   trimify,
   uploadToAr
-} from '@dragverse/generic';
+} from '@dragverse/generic'
 import type {
   AnyPublication,
   OnchainSetProfileMetadataRequest,
   Profile
-} from '@dragverse/lens';
+} from '@dragverse/lens'
 import {
   useBroadcastOnchainMutation,
   useCreateOnchainSetProfileMetadataTypedDataMutation,
   usePublicationQuery,
   useSetProfileMetadataMutation
-} from '@dragverse/lens';
-import type { CustomErrorWithData } from '@dragverse/lens/custom-types';
-import { Button, VideoPlayer } from '@dragverse/ui';
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork';
-import type { ProfileOptions } from '@lens-protocol/metadata';
-import { MetadataAttributeType, profile } from '@lens-protocol/metadata';
-import { getRelativeTime } from '@lib/formatTime';
-import useProfileStore from '@lib/store/idb/profile';
-import Link from 'next/link';
-import type { FC } from 'react';
-import { memo } from 'react';
-import toast from 'react-hot-toast';
-import { v4 as uuidv4 } from 'uuid';
-import { useSignTypedData, useWriteContract } from 'wagmi';
+} from '@dragverse/lens'
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
+import { Button, VideoPlayer } from '@dragverse/ui'
+import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
+import type { ProfileOptions } from '@lens-protocol/metadata'
+import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
+import { getRelativeTime } from '@lib/formatTime'
+import useProfileStore from '@lib/store/idb/profile'
+import Link from 'next/link'
+import type { FC } from 'react'
+import { memo } from 'react'
+import toast from 'react-hot-toast'
+import { v4 as uuidv4 } from 'uuid'
+import { useSignTypedData, useWriteContract } from 'wagmi'
 
 type Props = {
   id: string

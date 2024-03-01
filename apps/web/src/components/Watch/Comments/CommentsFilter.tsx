@@ -1,7 +1,7 @@
-import { tw } from '@dragverse/browser';
-import { CustomCommentsFilterEnum } from '@dragverse/lens/custom-types';
-import { DropdownMenu, DropdownMenuItem, SortOutline } from '@dragverse/ui';
-import useCommentStore from '@lib/store/comment';
+import { tw } from '@dragverse/browser'
+import { CustomCommentsFilterEnum } from '@dragverse/lens/custom-types'
+import { DropdownMenu, DropdownMenuItem, SortOutline } from '@dragverse/ui'
+import useCommentStore from '@lib/store/comment'
 
 const CommentsFilter = () => {
   const { selectedCommentFilter, setSelectedCommentFilter } = useCommentStore()

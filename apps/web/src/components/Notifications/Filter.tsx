@@ -1,7 +1,7 @@
-import { tw } from '@dragverse/browser';
-import { CustomNotificationsFilterEnum } from '@dragverse/lens/custom-types';
-import { CogOutline, DropdownMenu, DropdownMenuItem } from '@dragverse/ui';
-import usePersistStore from '@lib/store/persist';
+import { tw } from '@dragverse/browser'
+import { CustomNotificationsFilterEnum } from '@dragverse/lens/custom-types'
+import { CogOutline, DropdownMenu, DropdownMenuItem } from '@dragverse/ui'
+import usePersistStore from '@lib/store/persist'
 
 const NotificationsFilter = () => {
   const selectedNotificationsFilter = usePersistStore(

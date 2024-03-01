@@ -1,17 +1,17 @@
-import MetaTags from '@components/Common/MetaTags';
-import { NoDataFound } from '@components/UIElements/NoDataFound';
+import MetaTags from '@components/Common/MetaTags'
+import { NoDataFound } from '@components/UIElements/NoDataFound'
 import {
   INFINITE_SCROLL_ROOT_MARGIN,
   LENS_CUSTOM_FILTERS,
   LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
-} from '@dragverse/constants';
-import { EVENTS, Tower } from '@dragverse/generic';
+} from '@dragverse/constants'
+import { EVENTS, Tower } from '@dragverse/generic'
 import type {
   AnyPublication,
   ExplorePublicationRequest,
   PrimaryPublication
-} from '@dragverse/lens';
+} from '@dragverse/lens'
 import {
   ExplorePublicationsOrderByType,
   ExplorePublicationType,
@@ -19,16 +19,16 @@ import {
   PublicationMetadataMainFocusType,
   useExplorePublicationsLazyQuery,
   usePublicationLazyQuery
-} from '@dragverse/lens';
-import { ChevronDownOutline, ChevronUpOutline, Spinner } from '@dragverse/ui';
-import { getUnixTimestampForDaysAgo } from '@lib/formatTime';
-import { useKeenSlider } from 'keen-slider/react';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-import { useInView } from 'react-cool-inview';
+} from '@dragverse/lens'
+import { ChevronDownOutline, ChevronUpOutline, Spinner } from '@dragverse/ui'
+import { getUnixTimestampForDaysAgo } from '@lib/formatTime'
+import { useKeenSlider } from 'keen-slider/react'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
+import { useInView } from 'react-cool-inview'
 
-import ByteVideo from './ByteVideo';
-import { KeyboardControls, WheelControls } from './SliderPlugin';
+import ByteVideo from './ByteVideo'
+import { KeyboardControls, WheelControls } from './SliderPlugin'
 
 const since = getUnixTimestampForDaysAgo(30)
 

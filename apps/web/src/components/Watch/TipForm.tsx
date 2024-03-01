@@ -1,5 +1,5 @@
-import { LENSHUB_PROXY_ABI } from '@dragverse/abis';
-import { getUserLocale } from '@dragverse/browser';
+import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
+import { getUserLocale } from '@dragverse/browser'
 import {
   LENSHUB_PROXY_ADDRESS,
   REQUESTING_SIGNATURE_MESSAGE,
@@ -7,50 +7,50 @@ import {
   TAPE_APP_ID,
   TAPE_LOGO,
   TAPE_WEBSITE_URL
-} from '@dragverse/constants';
+} from '@dragverse/constants'
 import {
-  EVENTS,
-  Tower,
   checkLensManagerPermissions,
+  EVENTS,
   getProfile,
   getPublication,
   getPublicationData,
   getSignature,
   imageCdn,
   logger,
+  Tower,
   uploadToAr
-} from '@dragverse/generic';
+} from '@dragverse/generic'
 import type {
   AnyPublication,
   CreateMomokaCommentEip712TypedData,
   CreateOnchainCommentEip712TypedData
-} from '@dragverse/lens';
+} from '@dragverse/lens'
 import {
   PublicationDocument,
-  useBroadcastOnMomokaMutation,
   useBroadcastOnchainMutation,
-  useCommentOnMomokaMutation,
+  useBroadcastOnMomokaMutation,
   useCommentOnchainMutation,
+  useCommentOnMomokaMutation,
   useCreateMomokaCommentTypedDataMutation,
   useCreateOnchainCommentTypedDataMutation,
   usePublicationLazyQuery
-} from '@dragverse/lens';
-import { useApolloClient } from '@dragverse/lens/apollo';
-import type { CustomErrorWithData } from '@dragverse/lens/custom-types';
-import { Button, Input, TextArea } from '@dragverse/ui';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { MetadataAttributeType, textOnly } from '@lens-protocol/metadata';
-import useProfileStore from '@lib/store/idb/profile';
-import usePersistStore from '@lib/store/persist';
-import type { Dispatch, FC } from 'react';
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import toast from 'react-hot-toast';
-import { v4 as uuidv4 } from 'uuid';
-import { parseEther } from 'viem';
-import { useSendTransaction, useSignTypedData, useWriteContract } from 'wagmi';
-import type { z } from 'zod';
-import { number, object, string } from 'zod';
+} from '@dragverse/lens'
+import { useApolloClient } from '@dragverse/lens/apollo'
+import type { CustomErrorWithData } from '@dragverse/lens/custom-types'
+import { Button, Input, TextArea } from '@dragverse/ui'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { MetadataAttributeType, textOnly } from '@lens-protocol/metadata'
+import useProfileStore from '@lib/store/idb/profile'
+import usePersistStore from '@lib/store/persist'
+import type { Dispatch, FC } from 'react'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import toast from 'react-hot-toast'
+import { v4 as uuidv4 } from 'uuid'
+import { parseEther } from 'viem'
+import { useSendTransaction, useSignTypedData, useWriteContract } from 'wagmi'
+import type { z } from 'zod'
+import { number, object, string } from 'zod'
 
 type Props = {
   video: AnyPublication
