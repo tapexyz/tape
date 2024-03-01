@@ -10,7 +10,7 @@
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "3.523.0",
+    "@aws-sdk/client-sts": "3.525.0",
     "@hono/zod-validator": "^0.1.11",
     "hono": "^4.0.8",
     "linkedom": "^0.16.8",
@@ -23,6 +23,6 @@
     "@tape.xyz/config": "*",
     "@tape.xyz/generic": "*",
     "@types/ua-parser-js": "^0.7.39",
-    "wrangler": "^3.30.0"
+    "wrangler": "^3.30.1"
   }
 }
