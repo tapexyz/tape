@@ -21,6 +21,7 @@
     "@livepeer/react": "^3.1.9",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tanstack/react-query": "^5.24.1",
+    "@walletconnect/modal": "^2.6.2",
     "axios": "^1.6.7",
     "dayjs": "^1.11.10",
     "emoji-mart": "^5.5.2",
@@ -48,13 +49,13 @@
     "zustand": "^4.5.1"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.10",
     "@dragverse/browser": "*",
     "@dragverse/config": "*",
     "@dragverse/constants": "*",
     "@dragverse/generic": "*",
     "@dragverse/lens": "*",
     "@dragverse/ui": "*",
+    "@tailwindcss/typography": "^0.5.10",
     "@types/js-cookie": "^3.0.6",
     "@types/node": "20.11.22",
     "@types/react": "18.2.60",
