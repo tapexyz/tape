@@ -1,9 +1,11 @@
 import { useCopyToClipboard } from '@dragverse/browser'
 import {
+  HEY_LOGO,
   LINKEDIN_ICON_URL,
-  STATIC_ASSETS,
+  REDDIT_ICON_URL,
   TAPE_WEBSITE_URL,
-  TAPEXYZ_LOGO
+  TAPEXYZ_LOGO,
+  TWITTER_ICON_URL
 } from '@dragverse/constants'
 import { EVENTS, getSharableLink, imageCdn, Tower } from '@dragverse/generic'
 import type { PrimaryPublication } from '@dragverse/lens'
@@ -64,10 +66,7 @@ const Share: FC<Props> = ({ publication }) => {
           href={getSharableLink('hey', publication)}
         >
           <img
-            src={imageCdn(
-              `${STATIC_ASSETS}/images/social/hey-logo.svg`,
-              'AVATAR_LG'
-            )}
+            src={imageCdn(`${HEY_LOGO}`, 'AVATAR_LG')}
             className="size-10 max-w-none"
             loading="eager"
             alt="hey"
@@ -85,11 +84,8 @@ const Share: FC<Props> = ({ publication }) => {
           <div className="rounded-full bg-gray-200 p-3 dark:bg-gray-800">
             {resolvedTheme === 'dark' ? (
               <img
-                src={imageCdn(
-                  `${STATIC_ASSETS}/images/social/x-white.png`,
-                  'AVATAR'
-                )}
-                className="size-4"
+                src={imageCdn(`${TWITTER_ICON_URL}`, 'AVATAR')}
+                className="size-8"
                 height={16}
                 width={16}
                 alt="X Logo"
@@ -97,11 +93,8 @@ const Share: FC<Props> = ({ publication }) => {
               />
             ) : (
               <img
-                src={imageCdn(
-                  `${STATIC_ASSETS}/images/social/x-black.png`,
-                  'AVATAR'
-                )}
-                className="size-4"
+                src={imageCdn(`${TWITTER_ICON_URL}`, 'AVATAR')}
+                className="size-8"
                 height={16}
                 width={16}
                 alt="X Logo"
@@ -117,10 +110,7 @@ const Share: FC<Props> = ({ publication }) => {
           rel="noreferrer"
         >
           <img
-            src={imageCdn(
-              `${STATIC_ASSETS}/images/social/reddit-logo.webp`,
-              'AVATAR_LG'
-            )}
+            src={imageCdn(`${REDDIT_ICON_URL}`, 'AVATAR_LG')}
             className="size-10 max-w-none rounded-full"
             loading="eager"
             alt="reddit"
