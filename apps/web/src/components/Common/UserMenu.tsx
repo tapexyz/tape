@@ -41,7 +41,8 @@ const UserMenu = () => {
 
   const { data } = useProfilesManagedQuery({
     variables: {
-      request: { for: address, includeOwned: true, limit: LimitType.Fifty }
+      request: { for: address, includeOwned: true, limit: LimitType.Fifty },
+      lastLoggedInProfileRequest: { for: address }
     },
     skip: !address
   })

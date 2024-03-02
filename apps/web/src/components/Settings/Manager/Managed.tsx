@@ -25,7 +25,7 @@ const Managed = () => {
 
   const request: ProfilesManagedRequest = { for: address }
   const { data, loading, error, fetchMore } = useProfilesManagedQuery({
-    variables: { request },
+    variables: { request, lastLoggedInProfileRequest: { for: address } },
     skip: !address
   })
   const profilesManaged = data?.profilesManaged.items as Profile[]
