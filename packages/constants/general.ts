@@ -159,7 +159,7 @@ export const ALLOWED_APP_IDS = [
 // official
 export const TAPE_X_HANDLE = 'metadragverse'
 export const TAPE_GITHUB_HANDLE = 'dragverse'
-export const TAPE_LOGO = `${STATIC_ASSETS}/dragverse.svg`
+export const TAPE_LOGO = `${STATIC_ASSETS}/dragverse.webp`
 export const TAPE_STATUS_PAGE = 'https://dragverse.canny.io'
 export const TAPE_FEEDBACK_URL = 'https://dragverse.canny.io'
 
@@ -176,11 +176,10 @@ export const OG_IMAGE = `${TAPE_LOGO}`
 export const DRAGVERSE_BANNER_URL = `${STATIC_ASSETS}/dragverse-banner.jpeg`
 export const BUILDING_PROUDLY_URL = `${STATIC_ASSETS}/building-proudly.jpeg`
 export const BASE_LIVESTREAM_VIDEO_URL = `${STATIC_ASSETS}/dragverse-base-live-video.mp4`
-export const LENSTER_ICON_URL = `${STATIC_ASSETS}/lenster-logo.svg`
 export const TWITTER_ICON_URL = `${STATIC_ASSETS}/x.avif`
 export const LINKEDIN_ICON_URL = `${STATIC_ASSETS}/linkedin-logo.png`
 export const REDDIT_ICON_URL = `${STATIC_ASSETS}/reddit-logo.png`
-export const ENS_ICON_URL = `${STATIC_ASSETS}/ens-logo.svg`
+export const ENS_ICON_URL = `${STATIC_ASSETS}/ens-logo.webp`
 export const MOUNTAINS_BACKGROUND_URL = `${STATIC_ASSETS}/mountains_background.jpeg`
 export const WINDOW_BACKGROUND_URL = `${STATIC_ASSETS}/windows_background.jpeg`
 export const HEY_LOGO = `${STATIC_ASSETS}/hey.webp`

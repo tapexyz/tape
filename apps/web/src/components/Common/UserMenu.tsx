@@ -24,8 +24,6 @@ import {
   DropdownMenuSubTrigger,
   GraphOutline,
   HandWaveOutline,
-  MoonOutline,
-  SunOutline,
   SwitchProfileOutline,
   UserOutline
 } from '@dragverse/ui'
@@ -175,7 +173,7 @@ const UserMenu = () => {
           </div>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem
+        {/* <DropdownMenuItem
           onClick={() => {
             const selected = theme === 'dark' ? 'light' : 'dark'
             setTheme(selected)
@@ -194,7 +192,7 @@ const UserMenu = () => {
               {theme === 'light' ? `Switch to Dark` : `Switch to Light`}
             </p>
           </div>
-        </DropdownMenuItem>
+        </DropdownMenuItem> */}
         <DropdownMenuItem disabled={loading} onClick={() => onClickSignout()}>
           <div className="flex items-center gap-2 text-red-500">
             <HandWaveOutline className="size-4" />
