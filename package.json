@@ -4,7 +4,10 @@
   "version": "2.0.0-beta",
   "private": true,
   "workspaces": [
-    "apps/*",
+    "apps/embed",
+    "apps/mobile",
+    "apps/og",
+    "apps/web",
     "packages/*",
     "packages/helpers/*"
   ],
