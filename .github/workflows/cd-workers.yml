@@ -1,31 +1,31 @@
-name: WORKERS - Production Deployment
+# name: WORKERS - Production Deployment
 
-on:
-  push:
-    branches: [main]
-  workflow_dispatch:
+# on:
+#   push:
+#     branches: [main]
+#   workflow_dispatch:
 
-jobs:
-  deploy:
-    name: Deploy
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Setup Bun 🥟
-        uses: oven-sh/setup-bun@v1
-        with:
-          bun-version: latest
+# jobs:
+#   deploy:
+#     name: Deploy
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v4
+#       - name: Setup Bun 🥟
+#         uses: oven-sh/setup-bun@v1
+#         with:
+#           bun-version: latest
 
-      - name: Install dependencies 🧳
-        run: bun install
+#       - name: Install dependencies 🧳
+#         run: bun install
 
-      - name: Check Lint 💅🏻
-        run: bun lint && bun typecheck
+#       - name: Check Lint 💅🏻
+#         run: bun lint && bun typecheck
  
-      - name: Deploy 🚀
-        run: |
-          bun install --global wrangler
-          bun api:deploy
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+#       - name: Deploy 🚀
+#         run: |
+#           bun install --global wrangler
+#           bun api:deploy
+#         env:
+#           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+#           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
