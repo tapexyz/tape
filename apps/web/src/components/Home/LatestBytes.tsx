@@ -41,8 +41,8 @@ const request: ExplorePublicationRequest = {
     },
     since
   },
-  orderBy: ExplorePublicationsOrderByType.LensCurated,
-  limit: LimitType.Ten
+  orderBy: ExplorePublicationsOrderByType.Latest,
+  limit: LimitType.Fifty
 }
 
 const LatestBytes = () => {

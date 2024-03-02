@@ -50,7 +50,7 @@
     "moti": "^0.27.5",
     "qrcode": "^1.5.3",
     "react": "18.2.0",
-    "react-hook-form": "^7.50.1",
+    "react-hook-form": "^7.51.0",
     "react-native": "0.72.6",
     "react-native-gesture-handler": "~2.12.0",
     "react-native-get-random-values": "~1.9.0",
@@ -64,7 +64,7 @@
     "uuid": "^9.0.1",
     "viem": "^2.7.16",
     "zod": "^3.22.2",
-    "zustand": "^4.5.1"
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
     "@babel/core": "^7.23.7",
