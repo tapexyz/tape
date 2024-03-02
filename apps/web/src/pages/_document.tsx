@@ -1,4 +1,11 @@
-import { STATIC_ASSETS, TAPE_APP_NAME } from '@dragverse/constants'
+import {
+  DRAGVERSE_APPLE_TOUCH_ICON,
+  DRAGVERSE_FAVICON,
+  DRAGVERSE_FAVICON_16,
+  DRAGVERSE_FAVICON_32,
+  DRAGVERSE_LOGO,
+  TAPE_APP_NAME
+} from '@dragverse/constants'
 import Document, { Head, Html, Main, NextScript } from 'next/document'
 
 class AppDocument extends Document {
@@ -8,36 +15,25 @@ class AppDocument extends Document {
         <Head>
           <meta charSet="utf-8" />
           <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-          <link
-            rel="icon"
-            href={`${STATIC_ASSETS}/brand/logo.svg`}
-            type="image/svg+xml"
-          />
-          <link
-            rel="icon"
-            href={`${STATIC_ASSETS}/brand/favicons/favicon.ico`}
-            type="image/x-icon"
-          />
-          <link
-            rel="shortcut icon"
-            href={`${STATIC_ASSETS}/brand/favicons/favicon.ico`}
-          />
+          <link rel="icon" href={`${DRAGVERSE_LOGO}`} type="image/svg+xml" />
+          <link rel="icon" href={`${DRAGVERSE_FAVICON}`} type="image/x-icon" />
+          <link rel="shortcut icon" href={`${DRAGVERSE_FAVICON}`} />
           <link
             rel="apple-touch-icon"
             sizes="180x180"
-            href={`${STATIC_ASSETS}/brand/favicons/apple-touch-icon.png`}
+            href={`${DRAGVERSE_APPLE_TOUCH_ICON}`}
           />
           <link
             rel="icon"
             type="image/png"
             sizes="32x32"
-            href={`${STATIC_ASSETS}/brand/favicons/favicon-32x32.png`}
+            href={`${DRAGVERSE_FAVICON_32}`}
           />
           <link
             rel="icon"
             type="image/png"
             sizes="16x16"
-            href={`${STATIC_ASSETS}/brand/favicons/favicon-16x16.png`}
+            href={`${DRAGVERSE_FAVICON_16}`}
           />
           <meta name="theme-color" content="#000000" />
           <link rel="manifest" href="/manifest.json" />

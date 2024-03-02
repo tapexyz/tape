@@ -1,5 +1,6 @@
 import { useAverageColor } from '@dragverse/browser'
 import {
+  DRAGVERSE_LOGO,
   STATIC_ASSETS,
   TAPE_APP_NAME,
   TAPE_WEBSITE_URL
@@ -98,7 +99,7 @@ const Audio: FC<Props> = ({ audio }) => {
           onClick={() => Tower.track(EVENTS.EMBED_VIDEO.CLICK_LISTEN_ON_TAPE)}
         >
           <img
-            src={`${STATIC_ASSETS}/brand/logo.svg`}
+            src={`${DRAGVERSE_LOGO}`}
             draggable={false}
             className="ml-0.5 size-6 md:size-10"
             alt={TAPE_APP_NAME}

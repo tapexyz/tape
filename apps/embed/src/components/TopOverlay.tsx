@@ -1,6 +1,6 @@
 import { useCopyToClipboard } from '@dragverse/browser'
 import {
-  STATIC_ASSETS,
+  DRAGVERSE_LOGO,
   TAPE_APP_NAME,
   TAPE_WEBSITE_URL
 } from '@dragverse/constants'
@@ -108,7 +108,7 @@ const TopOverlay: FC<OverlayProps> = ({ playerRef, video }) => {
           onClick={() => Tower.track(EVENTS.EMBED_VIDEO.CLICK_WATCH_ON_TAPE)}
         >
           <img
-            src={`${STATIC_ASSETS}/brand/logo.svg`}
+            src={`${DRAGVERSE_LOGO}`}
             draggable={false}
             className="ml-2 size-5 md:size-10"
             alt={TAPE_APP_NAME}

@@ -1,4 +1,4 @@
-import { STATIC_ASSETS } from '@dragverse/constants'
+import { DRAGVERSE_LOGO } from '@dragverse/constants'
 import { Button } from '@dragverse/ui'
 import Link from 'next/link'
 
@@ -8,7 +8,7 @@ const JoinWaitlist = () => {
       <div className="bg-brand-250 absolute inset-0 h-full w-full" />
       <div className="from-brand-250 absolute inset-0 h-full w-full bg-gradient-to-b to-transparent" />
       <img
-        src={`${STATIC_ASSETS}/brand/transparent-bg-large.svg`}
+        src={`${DRAGVERSE_LOGO}`}
         className="ultrawide:px-8 ultrawide:-top-10 absolute -top-20 px-4 md:px-6"
         alt="cover"
       />

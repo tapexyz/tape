@@ -1,4 +1,4 @@
-import { STATIC_ASSETS, TAPE_APP_NAME } from '@dragverse/constants'
+import { DRAGVERSE_LOGO, TAPE_APP_NAME } from '@dragverse/constants'
 import Link from 'next/link'
 import type { FC } from 'react'
 
@@ -15,7 +15,7 @@ const VideoComment: FC<Props> = ({ commentId }) => {
         target="_blank"
       >
         <img
-          src={`${STATIC_ASSETS}/brand/logo.svg`}
+          src={`${DRAGVERSE_LOGO}`}
           className="size-5"
           draggable={false}
           alt={TAPE_APP_NAME}

@@ -1,4 +1,4 @@
-import { STATIC_ASSETS, TAPE_APP_NAME } from '@dragverse/constants'
+import { DRAGVERSE_LOGO, TAPE_APP_NAME } from '@dragverse/constants'
 import type { ChildrenNode, MatchResponse, Node } from 'interweave'
 import { Matcher } from 'interweave'
 import Link from 'next/link'
@@ -23,7 +23,7 @@ const Url = ({ children, url, ...props }: UrlProps) => {
       className="inline-flex items-center space-x-1 rounded-full bg-gray-200 px-2 text-sm font-medium dark:bg-gray-800"
     >
       <img
-        src={`${STATIC_ASSETS}/brand/logo.svg`}
+        src={`${DRAGVERSE_LOGO}`}
         className="size-4"
         draggable={false}
         alt={TAPE_APP_NAME}

@@ -10,7 +10,7 @@ const ArweaveExplorerLink = ({
 }) => {
   return (
     <Link
-      href={`https://api.dragverse.app/gateway/ar/${txId}?pretty`}
+      href={`https://api.tape.xyz/gateway/ar/${txId}?pretty`}
       rel="noreferer noreferrer"
       target="_blank"
     >

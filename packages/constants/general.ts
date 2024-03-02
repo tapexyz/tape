@@ -160,6 +160,11 @@ export const ALLOWED_APP_IDS = [
 export const TAPE_X_HANDLE = 'metadragverse'
 export const TAPE_GITHUB_HANDLE = 'dragverse'
 export const TAPE_LOGO = `${STATIC_ASSETS}/dragverse.webp`
+export const DRAGVERSE_LOGO = `${STATIC_ASSETS}/dragverse.svg`
+export const DRAGVERSE_FAVICON = `${STATIC_ASSETS}/favicon.ico`
+export const DRAGVERSE_FAVICON_32 = `${STATIC_ASSETS}/favicon-32x32.png`
+export const DRAGVERSE_FAVICON_16 = `${STATIC_ASSETS}/favicon-16x16.png`
+export const DRAGVERSE_APPLE_TOUCH_ICON = `${STATIC_ASSETS}/apple-touch-icon.png`
 export const TAPE_STATUS_PAGE = 'https://dragverse.canny.io'
 export const TAPE_FEEDBACK_URL = 'https://dragverse.canny.io'
 

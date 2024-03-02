@@ -1,5 +1,5 @@
 import { TAPE_SIGNUP_PROXY_ABI } from '@dragverse/abis'
-import { STATIC_ASSETS, TAPE_SIGNUP_PROXY_ADDRESS } from '@dragverse/constants'
+import { DRAGVERSE_LOGO, TAPE_SIGNUP_PROXY_ADDRESS } from '@dragverse/constants'
 import {
   getProfile,
   getProfileCoverPicture,
@@ -53,7 +53,7 @@ const Cover: FC<Props> = ({ profile }) => {
                 <span className="absolute bottom-1 right-1">
                   <img
                     className="size-6 rounded-full"
-                    src={imageCdn(`${STATIC_ASSETS}/brand/logo.png`, 'AVATAR')}
+                    src={imageCdn(`${DRAGVERSE_LOGO}`, 'AVATAR')}
                     alt="logo"
                     draggable={false}
                   />
