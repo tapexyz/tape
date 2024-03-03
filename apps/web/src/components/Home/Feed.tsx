@@ -43,7 +43,7 @@ const Feed = ({ showFilter = true }) => {
       },
       since
     },
-    orderBy: ExplorePublicationsOrderByType.LensCurated,
+    orderBy: ExplorePublicationsOrderByType.TopReacted,
     limit: LimitType.Fifty
   }
 

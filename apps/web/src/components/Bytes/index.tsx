@@ -42,7 +42,7 @@ const request: ExplorePublicationRequest = {
     customFilters: LENS_CUSTOM_FILTERS,
     since
   },
-  orderBy: ExplorePublicationsOrderByType.LensCurated,
+  orderBy: ExplorePublicationsOrderByType.Latest,
   limit: LimitType.Fifty
 }
 
