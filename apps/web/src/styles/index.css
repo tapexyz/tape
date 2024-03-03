@@ -3,12 +3,12 @@
 @tailwind utilities;
 
 /* Start - To fix radix CLS on dropdown and modal */
-html {
+/* html {
   scrollbar-gutter: stable;
 }
 body[style], body[data-scroll-locked] {
   margin: 0 !important;
-}
+} */
 /* Ends - To fix radix CLS on dropdown and modal */
 
 html {
