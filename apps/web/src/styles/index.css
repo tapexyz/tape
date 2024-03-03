@@ -3,17 +3,17 @@
 @tailwind utilities;
 
 /* Start - To fix radix CLS on dropdown and modal */
-/* html {
+html {
   scrollbar-gutter: stable;
 }
 body[style], body[data-scroll-locked] {
   margin: 0 !important;
-} */
+}
 /* Ends - To fix radix CLS on dropdown and modal */
 
-/* html {
+html {
   @apply overflow-x-hidden overflow-y-scroll;
-} */
+}
 
 body {
   @apply min-h-screen bg-white text-black antialiased dark:bg-black dark:text-white;
