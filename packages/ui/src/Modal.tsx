@@ -1,7 +1,7 @@
 import * as Dialog from '@radix-ui/react-dialog'
 import { tw } from '@tape.xyz/browser'
 import type { FC, ReactNode } from 'react'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 import { TimesOutline } from './icons'
 
@@ -24,6 +24,13 @@ export const Modal: FC<Props> = ({
   locked,
   size = 'md'
 }) => {
+  useEffect(() => {
+    // remove existing margin-right from radix from body when modal is open
+    if (show) {
+      document.body.style.marginRight = '0px'
+    }
+  }, [show])
+
   const sizeClasses = {
     'max-w-[450px]': size === 'sm',
     'max-w-[550px]': size === 'md',
