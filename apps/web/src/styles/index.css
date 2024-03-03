@@ -8,6 +8,7 @@ html {
 }
 body[style], body[data-scroll-locked] {
   margin: 0 !important;
+  margin-right: 0 !important;
 }
 /* Ends - To fix radix CLS on dropdown and modal */
 
