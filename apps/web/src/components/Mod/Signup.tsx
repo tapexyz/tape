@@ -127,7 +127,7 @@ const Signup = () => {
           <b className="text-xl">{String(totalCountViaCard)}</b>
         </div>
         <div className="tape-border flex w-full flex-col space-y-1 rounded-lg px-4 py-3">
-          <span>🤑 Total Crypto Revenue</span>
+          <span>💸 Total Crypto Revenue</span>
           <div className="flex justify-between">
             <b className="text-xl">{balance} MATIC</b>
             <Button
@@ -141,7 +141,7 @@ const Signup = () => {
           </div>
         </div>
         <div className="tape-border flex w-full flex-col space-y-1 rounded-lg px-4 py-3">
-          <span>💰 Total Card Revenue </span>
+          <span>💸 Total Card Revenue</span>
           <b className="text-xl">{Number(totalCountViaCard || 0) * 6} USD</b>
         </div>
       </div>
