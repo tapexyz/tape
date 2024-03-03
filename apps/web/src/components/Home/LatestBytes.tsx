@@ -41,7 +41,7 @@ const request: ExplorePublicationRequest = {
     },
     since
   },
-  orderBy: ExplorePublicationsOrderByType.Latest,
+  orderBy: ExplorePublicationsOrderByType.TopReacted,
   limit: LimitType.Fifty
 }
 
