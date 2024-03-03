@@ -12,6 +12,9 @@ const App = ({ Component, pageProps }: AppProps) => {
         html {
           font-family: ${tapeFont.style.fontFamily};
         }
+        body[data-scroll-locked] {
+          margin-right: 0 !important;
+        }
       `}</style>
       <Component {...pageProps} />
     </Providers>
