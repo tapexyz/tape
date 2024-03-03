@@ -121,7 +121,7 @@ const Bytes = () => {
 
   if (loading || singleByteLoading) {
     return (
-      <div className="grid h-[80vh] place-items-center">
+      <div className="grid h-screen place-items-center">
         <Spinner />
       </div>
     )
@@ -129,7 +129,7 @@ const Bytes = () => {
 
   if (error || (!bytes?.length && !singleByte)) {
     return (
-      <div className="grid h-[80vh] place-items-center">
+      <div className="grid h-screen place-items-center">
         <NoDataFound isCenter withImage />
       </div>
     )
@@ -145,7 +145,7 @@ const Bytes = () => {
       `}</style>
       <div
         ref={sliderRef}
-        className="keen-slider h-[calc(100vh-7rem)] snap-y snap-mandatory focus-visible:outline-none md:h-[calc(100vh-4rem)]"
+        className="keen-slider h-[calc(100vh-9rem)] snap-y snap-mandatory focus-visible:outline-none md:h-[calc(100vh-4rem)]"
       >
         {singleByte && (
           <ByteVideo
