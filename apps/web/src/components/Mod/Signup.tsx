@@ -39,7 +39,7 @@ const Signup = () => {
     address: LENS_PERMISSIONLESS_CREATOR_ADDRESS,
     args: [TAPE_SIGNUP_PROXY_ADDRESS],
     functionName: 'getCreditBalance',
-    query: { refetchInterval: 5000 }
+    query: { refetchInterval: 2000 }
   })
   const credits = String(data)
 
@@ -47,20 +47,20 @@ const Signup = () => {
     abi: TAPE_SIGNUP_PROXY_ABI,
     address: TAPE_SIGNUP_PROXY_ADDRESS,
     functionName: 'totalCountViaCard',
-    query: { refetchInterval: 5000 }
+    query: { refetchInterval: 2000 }
   })
   const { data: totalCountViaCrypto } = useReadContract({
     abi: TAPE_SIGNUP_PROXY_ABI,
     address: TAPE_SIGNUP_PROXY_ADDRESS,
     functionName: 'totalCountViaCrypto',
-    query: { refetchInterval: 5000 }
+    query: { refetchInterval: 2000 }
   })
 
   const { data: contractBalance } = useBalance({
     address: TAPE_SIGNUP_PROXY_ADDRESS,
     chainId: POLYGON_CHAIN_ID,
     query: {
-      refetchInterval: 5000
+      refetchInterval: 2000
     }
   })
   const balance =
@@ -119,15 +119,15 @@ const Signup = () => {
           <b className="text-xl">{credits}</b>
         </div>
         <div className="tape-border flex w-full flex-col space-y-1 rounded-lg px-4 py-3">
-          <span>💰 Total Signups via Crypto</span>
+          <span>💁 Total Signups via Crypto</span>
           <b className="text-xl">{String(totalCountViaCrypto)}</b>
         </div>
         <div className="tape-border flex w-full flex-col space-y-1 rounded-lg px-4 py-3">
-          <span>💳 Total Signups via Card</span>
+          <span>💁 Total Signups via Card</span>
           <b className="text-xl">{String(totalCountViaCard)}</b>
         </div>
         <div className="tape-border flex w-full flex-col space-y-1 rounded-lg px-4 py-3">
-          <span>💰 Total Crypto Revenue</span>
+          <span>💸 Total Crypto Revenue</span>
           <div className="flex justify-between">
             <b className="text-xl">{balance} MATIC</b>
             <Button
@@ -141,7 +141,7 @@ const Signup = () => {
           </div>
         </div>
         <div className="tape-border flex w-full flex-col space-y-1 rounded-lg px-4 py-3">
-          <span>💳 Total Card Revenue </span>
+          <span>💸 Total Card Revenue</span>
           <b className="text-xl">{Number(totalCountViaCard || 0) * 6} USD</b>
         </div>
       </div>
