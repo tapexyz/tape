@@ -38,7 +38,7 @@ const Signup = () => {
     address: LENS_PERMISSIONLESS_CREATOR_ADDRESS,
     args: [TAPE_SIGNUP_PROXY_ADDRESS],
     functionName: 'getCreditBalance',
-    query: { refetchInterval: 2000 }
+    query: { refetchInterval: 5000 }
   })
   const credits = String(data)
 
@@ -46,20 +46,20 @@ const Signup = () => {
     abi: TAPE_SIGNUP_PROXY_ABI,
     address: TAPE_SIGNUP_PROXY_ADDRESS,
     functionName: 'totalCountViaCard',
-    query: { refetchInterval: 2000 }
+    query: { refetchInterval: 5000 }
   })
   const { data: totalCountViaCrypto } = useReadContract({
     abi: TAPE_SIGNUP_PROXY_ABI,
     address: TAPE_SIGNUP_PROXY_ADDRESS,
     functionName: 'totalCountViaCrypto',
-    query: { refetchInterval: 2000 }
+    query: { refetchInterval: 5000 }
   })
 
   const { data: contractBalance } = useBalance({
     address: TAPE_SIGNUP_PROXY_ADDRESS,
     chainId: POLYGON_CHAIN_ID,
     query: {
-      refetchInterval: 2000
+      refetchInterval: 5000
     }
   })
   const balance =
@@ -70,6 +70,7 @@ const Signup = () => {
       onSuccess: () => {
         toast.success('Write contract successful!')
         setLoading(false)
+        setNewMint({ handle: '', address: '' })
       },
       onError: (error) => {
         toast.error(error.message)
