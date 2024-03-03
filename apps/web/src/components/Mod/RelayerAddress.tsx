@@ -26,9 +26,10 @@ const RelayerAddress: FC<RelayerAddressProps> = ({ address }) => {
 
   return (
     <div className="mb-1 flex flex-wrap justify-between rounded-xl border px-5 py-4">
-      <div className="truncate">{address}</div> {allowed ? '✅' : '❌'}
+      <div className="truncate">{address}</div>
       <div>
-        <b>{balance} </b>MATIC
+        {allowed ? '✅' : '❌'}
+        <b> {balance} </b>MATIC
       </div>
     </div>
   )

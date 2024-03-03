@@ -2,6 +2,7 @@ import {
   LENS_PERMISSIONLESS_CREATOR_ABI,
   TAPE_SIGNUP_PROXY_ABI
 } from '@tape.xyz/abis'
+import { tw } from '@tape.xyz/browser'
 import {
   LENS_PERMISSIONLESS_CREATOR_ADDRESS,
   POLYGON_CHAIN_ID,
@@ -106,21 +107,43 @@ const Signup = () => {
   }
 
   return (
-    <div className="space-y-4 p-5">
-      <ul>
-        <li>Contract Credits Available: {credits}</li>
-        <hr className="my-3" />
-        <li>Total Signups Crypto: {String(totalCountViaCrypto)}</li>
-        <li>Total Signups Card: {String(totalCountViaCard)}</li>
-        <hr className="my-3" />
-        <li>Total Crypto Revenue: {balance} MATIC</li>
-        <li>Total Card Revenue: {Number(totalCountViaCard || 0) * 6} USD</li>
-        <hr className="my-3" />
-      </ul>
-      <div className="flex">
-        <Button disabled={loading} loading={loading} onClick={() => withdraw()}>
-          Withdraw ({balance} MATIC) funds
-        </Button>
+    <div className="space-y-4 py-5">
+      <div className="flex flex-wrap gap-2 md:flex-nowrap">
+        <div
+          className={tw(
+            'tape-border flex w-full flex-col space-y-1 rounded-lg px-4 py-3',
+            { 'animate-shimmer bg-red-200': Number(credits) < 3000 }
+          )}
+        >
+          <span>🤝 Contract Credits</span>
+          <b className="text-xl">{credits}</b>
+        </div>
+        <div className="tape-border flex w-full flex-col space-y-1 rounded-lg px-4 py-3">
+          <span>💰 Total Signups via Crypto</span>
+          <b className="text-xl">{String(totalCountViaCrypto)}</b>
+        </div>
+        <div className="tape-border flex w-full flex-col space-y-1 rounded-lg px-4 py-3">
+          <span>💳 Total Signups via Card</span>
+          <b className="text-xl">{String(totalCountViaCard)}</b>
+        </div>
+        <div className="tape-border flex w-full flex-col space-y-1 rounded-lg px-4 py-3">
+          <span>💰 Total Crypto Revenue</span>
+          <div className="flex justify-between">
+            <b className="text-xl">{balance} MATIC</b>
+            <Button
+              size="xs"
+              disabled={loading}
+              loading={loading}
+              onClick={() => withdraw()}
+            >
+              Withdraw
+            </Button>
+          </div>
+        </div>
+        <div className="tape-border flex w-full flex-col space-y-1 rounded-lg px-4 py-3">
+          <span>💳 Total Card Revenue </span>
+          <b className="text-xl">{Number(totalCountViaCard || 0) * 6} USD</b>
+        </div>
       </div>
       <div>
         <h2 className="mb-2 font-bold">Relayers</h2>

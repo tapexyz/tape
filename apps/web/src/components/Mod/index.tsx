@@ -10,7 +10,7 @@ import Signup from './Signup'
 
 const Mod = () => {
   const { activeProfile } = useProfileStore()
-  const [activeTab, setActiveTab] = useState('videos')
+  const [activeTab, setActiveTab] = useState('signup')
 
   if (!ADMIN_IDS.includes(activeProfile?.id)) {
     return <Custom404 />
@@ -25,28 +25,28 @@ const Mod = () => {
             <TabsTrigger
               className="rounded-t-lg border-black px-4 py-1.5 text-sm font-medium data-[state=active]:border-b data-[state=active]:bg-gray-100 dark:border-white data-[state=active]:dark:bg-gray-800"
               onClick={() => {
-                setActiveTab('videos')
-              }}
-              value="videos"
-            >
-              Videos
-            </TabsTrigger>
-            <TabsTrigger
-              className="rounded-t-lg border-black px-4 py-1.5 text-sm font-medium data-[state=active]:border-b data-[state=active]:bg-gray-100 dark:border-white data-[state=active]:dark:bg-gray-800"
-              onClick={() => {
                 setActiveTab('signup')
               }}
               value="signup"
             >
               Signup
             </TabsTrigger>
+            <TabsTrigger
+              className="rounded-t-lg border-black px-4 py-1.5 text-sm font-medium data-[state=active]:border-b data-[state=active]:bg-gray-100 dark:border-white data-[state=active]:dark:bg-gray-800"
+              onClick={() => {
+                setActiveTab('videos')
+              }}
+              value="videos"
+            >
+              Videos
+            </TabsTrigger>
           </TabsList>
 
-          <TabsContent value="videos">
-            <Recents />
-          </TabsContent>
           <TabsContent value="signup">
             <Signup />
+          </TabsContent>
+          <TabsContent value="videos">
+            <Recents />
           </TabsContent>
         </Tabs>
       </div>
