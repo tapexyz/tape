@@ -4,7 +4,6 @@ import { NoDataFound } from '@components/UIElements/NoDataFound'
 import {
   FALLBACK_THUMBNAIL_URL,
   INFINITE_SCROLL_ROOT_MARGIN,
-  LENS_CUSTOM_FILTERS,
   LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
 } from '@tape.xyz/constants'
@@ -38,7 +37,6 @@ const ProfileBytes: FC<Props> = ({ profileId }) => {
         publishedOn: [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID]
       },
       publicationTypes: [PublicationType.Post],
-      customFilters: LENS_CUSTOM_FILTERS,
       from: [profileId]
     },
     limit: LimitType.Fifty

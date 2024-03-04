@@ -5,7 +5,6 @@ import {
   ALLOWED_APP_IDS,
   INFINITE_SCROLL_ROOT_MARGIN,
   IS_MAINNET,
-  LENS_CUSTOM_FILTERS,
   TAPE_APP_ID
 } from '@tape.xyz/constants'
 import type { Post, Profile, PublicationsRequest } from '@tape.xyz/lens'
@@ -32,7 +31,6 @@ const ProfileAudios: FC<Props> = ({ profile }) => {
         publishedOn: IS_MAINNET ? [TAPE_APP_ID, ...ALLOWED_APP_IDS] : undefined
       },
       publicationTypes: [PublicationType.Post],
-      customFilters: LENS_CUSTOM_FILTERS,
       from: profile.id
     },
     limit: LimitType.Fifty
