@@ -6715,10 +6715,10 @@
   resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-4.29.23.tgz#a38f0efcc4abd5849222a7f382ce3a19a9efb070"
   integrity sha512-4BMHPrkfYmLP+NvqbbkV7Mk1nnphu+bNmxhhuB0+EMjKA7VfyFCfiyiTf55RRDgLaevyb9LrFK16lHW2owF52w==
 
-"@tanstack/query-core@5.24.6":
-  version "5.24.6"
-  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.24.6.tgz#9bddbeea2e688e797981730b9bfd5bb1d354cdbc"
-  integrity sha512-xYhxiMUPh1JzamVK8VwwkBpIBXVYRyIBW9gjSN+/BB4kL1nS86gnRWeW8L+sacCj1RiyEsysJe3GSvtbIpHdWw==
+"@tanstack/query-core@5.24.8":
+  version "5.24.8"
+  resolved "https://registry.yarnpkg.com/@tanstack/query-core/-/query-core-5.24.8.tgz#b407546a726ecd4d60b8682dec2ca84ac9eab81e"
+  integrity sha512-yH7KnfXMf10p1U5GffTQzFi2Miiw6WJZImGYGdV7eqa5ZbKO8qVx9lOA9SfhIaJXomrMp1Yz5w/CBhVM3yWeTA==
 
 "@tanstack/query-persist-client-core@4.29.23":
   version "4.29.23"
@@ -6742,12 +6742,12 @@
     "@tanstack/query-core" "4.29.23"
     use-sync-external-store "^1.2.0"
 
-"@tanstack/react-query@^5.24.6":
-  version "5.24.6"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-5.24.6.tgz#bc334f7aac742277fb5ba7a57284f7d805735190"
-  integrity sha512-eyIWwHiO1ZirYGzqs0kfRMkf8icuXroFunjnsgntk9YgGFbGoPs3Hxy9/OushNvpnkHT9RwPZb8UfEKzMzzEaQ==
+"@tanstack/react-query@^5.24.8":
+  version "5.24.8"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-query/-/react-query-5.24.8.tgz#9de1423a710bcdfce90df82acaf494659edb6221"
+  integrity sha512-jB3JS9SzDmBySk9VVOTPt/0ixWEb3K3dy9IExlVl/1NouY3N7HzAqG/1d4m6E9eFfKJoLvA/hBksaLu0lw627A==
   dependencies:
-    "@tanstack/query-core" "5.24.6"
+    "@tanstack/query-core" "5.24.8"
 
 "@tippyjs/react@^4.2.6":
   version "4.2.6"
@@ -20137,10 +20137,10 @@ viem@^1.0.0, viem@^1.1.4:
     isows "1.0.3"
     ws "8.13.0"
 
-viem@^2.7.18:
-  version "2.7.18"
-  resolved "https://registry.yarnpkg.com/viem/-/viem-2.7.18.tgz#759d864f5bfd584c80fb5ea14b21d0819e78b0f4"
-  integrity sha512-tA7fDLrbnRiTIYb9v57PHdc2ARouLDE5XEEBsNu+BN8O8obgh5JevXDGwn9eSWZdvz1PnydGHkCfJGfSkSS9+w==
+viem@^2.7.19:
+  version "2.7.19"
+  resolved "https://registry.yarnpkg.com/viem/-/viem-2.7.19.tgz#fa6bd8f46df2f0332e5ca6d116772dff6f161a72"
+  integrity sha512-UOMeqy+8p2709ra2j9HEOL1NfjsXZzlJ8gwR6YO/zXH8KIZvyzW07t4iQARF5+ShVZ/7+/1ec8oPjVi1M//33A==
   dependencies:
     "@adraffy/ens-normalize" "1.10.0"
     "@noble/curves" "1.2.0"
