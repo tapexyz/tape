@@ -3,6 +3,7 @@ import Timeline from '@components/Home/Timeline'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { getUnixTimestampForDaysAgo } from '@lib/formatTime'
+import { getRandomFeedOrder } from '@lib/getRandomFeedOrder'
 import useAppStore from '@lib/store'
 import {
   ALLOWED_APP_IDS,
@@ -16,20 +17,21 @@ import type {
   PrimaryPublication
 } from '@tape.xyz/lens'
 import {
-  ExplorePublicationsOrderByType,
   ExplorePublicationType,
   LimitType,
   PublicationMetadataMainFocusType,
   useExplorePublicationsQuery
 } from '@tape.xyz/lens'
 import { Spinner } from '@tape.xyz/ui'
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useInView } from 'react-cool-inview'
 
 const since = getUnixTimestampForDaysAgo(30)
 
 const Feed = ({ showFilter = true }) => {
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
+
+  const orderBy = useMemo(() => getRandomFeedOrder(), [])
 
   const request: ExplorePublicationRequest = {
     where: {
@@ -43,7 +45,7 @@ const Feed = ({ showFilter = true }) => {
       },
       since
     },
-    orderBy: ExplorePublicationsOrderByType.TopReacted,
+    orderBy,
     limit: LimitType.Fifty
   }
 
