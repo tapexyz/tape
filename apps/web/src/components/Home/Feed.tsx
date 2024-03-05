@@ -23,15 +23,14 @@ import {
   useExplorePublicationsQuery
 } from '@tape.xyz/lens'
 import { Spinner } from '@tape.xyz/ui'
-import React, { useMemo } from 'react'
+import React from 'react'
 import { useInView } from 'react-cool-inview'
 
 const since = getUnixTimestampForDaysAgo(30)
+const orderBy = getRandomFeedOrder()
 
 const Feed = ({ showFilter = true }) => {
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
-
-  const orderBy = useMemo(() => getRandomFeedOrder(), [])
 
   const request: ExplorePublicationRequest = {
     where: {
