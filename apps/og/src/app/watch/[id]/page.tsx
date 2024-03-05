@@ -85,7 +85,13 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: publicationContent,
       card: 'player',
       images: [publicationCover],
-      site: `@${TAPE_X_HANDLE}`
+      site: `@${TAPE_X_HANDLE}`,
+      players: {
+        playerUrl: embedUrl,
+        streamUrl: embedUrl,
+        height: 1280,
+        width: 720
+      }
     },
     other: {
       ...getCollectModuleMetadata(targetPublication)
