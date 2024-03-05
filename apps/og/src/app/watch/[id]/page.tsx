@@ -89,8 +89,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       players: {
         playerUrl: embedUrl,
         streamUrl: embedUrl,
-        height: 1280,
-        width: 720
+        height: 720,
+        width: 1280
       }
     },
     other: {
