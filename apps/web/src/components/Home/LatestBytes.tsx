@@ -2,6 +2,7 @@ import Badge from '@components/Common/Badge'
 import HoverableProfile from '@components/Common/HoverableProfile'
 import LatestBytesShimmer from '@components/Shimmers/LatestBytesShimmer'
 import { getUnixTimestampForDaysAgo } from '@lib/formatTime'
+import { getRandomFeedOrder } from '@lib/getRandomFeedOrder'
 import {
   FALLBACK_THUMBNAIL_URL,
   LENS_CUSTOM_FILTERS,
@@ -20,7 +21,6 @@ import type {
   PrimaryPublication
 } from '@tape.xyz/lens'
 import {
-  ExplorePublicationsOrderByType,
   ExplorePublicationType,
   LimitType,
   PublicationMetadataMainFocusType,
@@ -30,6 +30,7 @@ import Link from 'next/link'
 import React from 'react'
 
 const since = getUnixTimestampForDaysAgo(30)
+const orderBy = getRandomFeedOrder()
 
 const request: ExplorePublicationRequest = {
   where: {
@@ -41,7 +42,7 @@ const request: ExplorePublicationRequest = {
     },
     since
   },
-  orderBy: ExplorePublicationsOrderByType.TopReacted,
+  orderBy,
   limit: LimitType.Fifty
 }
 
