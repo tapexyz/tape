@@ -23,7 +23,7 @@
     "@tape.xyz/lens": "*",
     "@types/node": "^20.11.24",
     "@types/react": "^18.2.60",
-    "@types/react-dom": "^18",
+    "@types/react-dom": "^18.2.20",
     "typescript": "^5"
   }
 }
