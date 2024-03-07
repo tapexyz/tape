@@ -62,7 +62,7 @@
     "react-native-view-shot": "3.7.0",
     "swr": "^2.2.5",
     "uuid": "^9.0.1",
-    "viem": "^2.7.19",
+    "viem": "^2.7.20",
     "zod": "^3.22.2",
     "zustand": "^4.5.2"
   },
@@ -78,12 +78,12 @@
     "@tape.xyz/config": "*",
     "@tape.xyz/generic": "*",
     "@tape.xyz/lens": "*",
-    "@types/node": "20.11.24",
+    "@types/node": "20.11.25",
     "@types/qrcode": "^1.5.5",
     "@welldone-software/why-did-you-render": "^8.0.1",
     "babel-plugin-module-resolver": "^5.0.0",
     "react-devtools": "^5.0.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.3.3"
+    "typescript": "^5.4.2"
   }
 }
