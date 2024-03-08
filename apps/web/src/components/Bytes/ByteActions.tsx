@@ -2,7 +2,7 @@ import MirrorPublication from '@components/Common/MirrorPublication'
 import PublicationOptions from '@components/Common/Publication/PublicationOptions'
 import PublicationReaction from '@components/Common/Publication/PublicationReaction'
 import OpenActions from '@components/Watch/OpenActions'
-import { type MirrorablePublication } from '@tape.xyz/lens'
+import type { MirrorablePublication } from '@tape.xyz/lens'
 import {
   CollectOutline,
   CommentOutline,
