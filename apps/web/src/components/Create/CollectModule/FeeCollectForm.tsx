@@ -42,7 +42,8 @@ const FeeCollectForm: FC<Props> = ({ setCollectType, setShowModal }) => {
     register,
     formState: { errors },
     handleSubmit,
-    setError
+    setError,
+    setValue
   } = useForm<FormData>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -59,6 +60,7 @@ const FeeCollectForm: FC<Props> = ({ setCollectType, setShowModal }) => {
 
   const onSubmit = (data: FormData) => {
     setCollectType({
+      ...uploadedMedia.collectModule,
       amount: {
         currency: data.currency,
         value: data.amount || '0'
@@ -127,10 +129,12 @@ const FeeCollectForm: FC<Props> = ({ setCollectType, setShowModal }) => {
                 {...register('currency')}
                 defaultValue={allowedTokens[0].address}
                 value={uploadedMedia.collectModule.amount?.currency}
-                onValueChange={(value) => {
+                onValueChange={(currency) => {
                   setCollectType({
-                    amount: { currency: value, value: '' }
+                    ...uploadedMedia.collectModule,
+                    amount: { currency, value: '' }
                   })
+                  setValue('currency', currency)
                 }}
               >
                 {allowedTokens?.map((currency) => (
