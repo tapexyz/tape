@@ -140,10 +140,6 @@ const Signup = () => {
             </Button>
           </div>
         </div>
-        <div className="tape-border flex w-full flex-col space-y-1 rounded-lg px-4 py-3">
-          <span>💸 Total Card Revenue</span>
-          <b className="text-xl">{Number(totalCountViaCard || 0) * 6} USD</b>
-        </div>
       </div>
       <div>
         <h2 className="mb-2 font-bold">Relayers</h2>
