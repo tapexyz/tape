@@ -1,7 +1,8 @@
 import MirrorPublication from '@components/Common/MirrorPublication'
+import PublicationOptions from '@components/Common/Publication/PublicationOptions'
 import PublicationReaction from '@components/Common/Publication/PublicationReaction'
 import OpenActions from '@components/Watch/OpenActions'
-import type { MirrorablePublication } from '@tape.xyz/lens'
+import { type MirrorablePublication } from '@tape.xyz/lens'
 import {
   CollectOutline,
   CommentOutline,
@@ -21,7 +22,10 @@ const ByteActions: FC<Props> = ({ video }) => {
   const [showCommentsModal, setShowCommentsModal] = useState(false)
 
   return (
-    <div className="flex w-16 flex-col items-center justify-end">
+    <div className="flex w-16 flex-col items-center justify-between">
+      <div className="pt-2">
+        <PublicationOptions publication={video} />
+      </div>
       <div className="items-center pt-2.5 md:flex md:flex-col">
         <div className="pb-2">
           <PublicationReaction
