@@ -3892,10 +3892,10 @@
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
 
-"@lens-protocol/metadata@^1.1.5":
-  version "1.1.5"
-  resolved "https://registry.yarnpkg.com/@lens-protocol/metadata/-/metadata-1.1.5.tgz#c32c1eb49caf0960e861cad1dfcb97bc6d572dc8"
-  integrity sha512-leO6Vq4VCV8jkfB2uHwVuyHjz1kwse2JB0avFXhGm3ZBYsQ7Hazw7IlR58wlcn3TEqg5a4DkQ9uG6l/idkbSPQ==
+"@lens-protocol/metadata@^1.1.6":
+  version "1.1.6"
+  resolved "https://registry.yarnpkg.com/@lens-protocol/metadata/-/metadata-1.1.6.tgz#407c3eaecabe70fd5bbc4c40eca1bb00079ae706"
+  integrity sha512-GswaavJLD6iBW/i3ShcBTeV3oiYTaHa4qIGSVZWxNfAChOxonJC9FHw7UH2bVlj4GzURhuwzL0mSGthecGLibQ==
   dependencies:
     uuid "^9.0.1"
 
@@ -4719,15 +4719,7 @@
     amazon-cognito-identity-js "^6.3.6"
     async-retry "^1.3.3"
 
-"@openzeppelin/defender-sdk-base-client@^1.9.0":
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/@openzeppelin/defender-sdk-base-client/-/defender-sdk-base-client-1.9.0.tgz#2596ab12edc44236290720cd4a89cedbc480b3c0"
-  integrity sha512-ywxZslKaY7Z5z9APpBunIDp4nXkGnYZAStaIhzzh8vbbzu7lxiZO98tsX3B9vCefqWC4oyX0mm78CdyYUgW5KQ==
-  dependencies:
-    amazon-cognito-identity-js "^6.3.6"
-    async-retry "^1.3.3"
-
-"@openzeppelin/defender-sdk-deploy-client@^1.9.0":
+"@openzeppelin/defender-sdk-deploy-client@^1.10.0":
   version "1.10.0"
   resolved "https://registry.yarnpkg.com/@openzeppelin/defender-sdk-deploy-client/-/defender-sdk-deploy-client-1.10.0.tgz#64d7789eceede36ec12dcdae0dc4b67ffa7ae97d"
   integrity sha512-PckmUQYwe26/u/s3sjLateSNtKQ0tdAaOyP6spsgaT+us+XUUqAt/EUfEJdGpt8JApsRWYzrQzH6Z0ywoUyqyw==
@@ -4737,21 +4729,32 @@
     axios "^1.6.7"
     lodash "^4.17.21"
 
-"@openzeppelin/hardhat-upgrades@^3.0.4":
-  version "3.0.4"
-  resolved "https://registry.yarnpkg.com/@openzeppelin/hardhat-upgrades/-/hardhat-upgrades-3.0.4.tgz#76239e4e51cb19fdb5f91820bf19eae683cbfc9c"
-  integrity sha512-YmfTgi7K8mjqxPvlYbW1nKXXswh8O/HrJH5z4vHEQHJXoHnVyY10tqlYyB5FUlcVOh2zMRiPUhvr++ObjeqScw==
+"@openzeppelin/defender-sdk-network-client@^1.10.0":
+  version "1.10.0"
+  resolved "https://registry.yarnpkg.com/@openzeppelin/defender-sdk-network-client/-/defender-sdk-network-client-1.10.0.tgz#0da6113d994f1b48a4cee4313e1befc31acab800"
+  integrity sha512-nrSuJ4KKhTIO2f1WIKtCq0XbeHb4ExqvpIE2g4yf/k8DmZuM9SR6xNDLz7wuKt11u+U88AYBN9MoiKRo/ybp6w==
+  dependencies:
+    "@ethersproject/abi" "^5.7.0"
+    "@openzeppelin/defender-sdk-base-client" "^1.10.0"
+    axios "^1.6.7"
+    lodash "^4.17.21"
+
+"@openzeppelin/hardhat-upgrades@^3.0.5":
+  version "3.0.5"
+  resolved "https://registry.yarnpkg.com/@openzeppelin/hardhat-upgrades/-/hardhat-upgrades-3.0.5.tgz#792bef91f78c34aa1b64866dcbbf3b230bd6c4f7"
+  integrity sha512-7Klg1B6fH45+7Zxzr6d9mLqudrL9Uk6CUG5AeG5NckPfP4ZlQRo1squcQ8yJPwqDS8rQjfChiqKDelp4LTjyZQ==
   dependencies:
     "@openzeppelin/defender-admin-client" "^1.52.0"
     "@openzeppelin/defender-base-client" "^1.52.0"
-    "@openzeppelin/defender-sdk-base-client" "^1.9.0"
-    "@openzeppelin/defender-sdk-deploy-client" "^1.9.0"
+    "@openzeppelin/defender-sdk-base-client" "^1.10.0"
+    "@openzeppelin/defender-sdk-deploy-client" "^1.10.0"
+    "@openzeppelin/defender-sdk-network-client" "^1.10.0"
     "@openzeppelin/upgrades-core" "^1.32.0"
     chalk "^4.1.0"
     debug "^4.1.1"
     ethereumjs-util "^7.1.5"
     proper-lockfile "^4.1.1"
-    undici "^5.28.2"
+    undici "^6.0.0"
 
 "@openzeppelin/upgrades-core@^1.32.0":
   version "1.32.4"
@@ -17228,10 +17231,10 @@ react-cool-inview@^3.0.1:
   resolved "https://registry.yarnpkg.com/react-cool-inview/-/react-cool-inview-3.0.1.tgz#345b0a36d124d9da4d8dfc354397d54c40bfd165"
   integrity sha512-ly6i3Pv5p0fvm12NmJGfKS34eOhA+iU43Th+gZ6t3G6UwsxQsWoITHTHzA9pdkOc/3VmnReqvC/hJkQUDGhQFA==
 
-react-devtools-core@5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/react-devtools-core/-/react-devtools-core-5.0.0.tgz#50b04a4dbfa62badbe4d86529e9478c396988b31"
-  integrity sha512-SAAMLacNDfFjMJjmbXURNWtrTyARi9xTqGkY48Btw5cIWlr1wgxfWYZKxoUZav1qqmhbpgTzSmmF+cpMHGHY3A==
+react-devtools-core@5.0.2:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/react-devtools-core/-/react-devtools-core-5.0.2.tgz#c3c11c7b91857131d694457885ef49b7ae590857"
+  integrity sha512-+fDp3kDfPpF5xbAACJmihPHL0iDKpnKr7MyRvW0nZq71xwHWDW3zRCNpiiAJWd85vAGT+GbV9O87zAIDgvV1gw==
   dependencies:
     shell-quote "^1.6.1"
     ws "^7"
@@ -17244,16 +17247,16 @@ react-devtools-core@^4.27.2:
     shell-quote "^1.6.1"
     ws "^7"
 
-react-devtools@^5.0.0:
-  version "5.0.0"
-  resolved "https://registry.yarnpkg.com/react-devtools/-/react-devtools-5.0.0.tgz#c30da7bc23262dfa6fb97153cfee774cc8075fcb"
-  integrity sha512-AN24OgEHaS06cbVYxTa/DH1B86TlKwIO483WIJ06jYfUL0QCv3oyX+FpP5mzAI4abcBNrtOORKsRsJ0JnhrEsg==
+react-devtools@^5.0.2:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/react-devtools/-/react-devtools-5.0.2.tgz#c61fdc40e5c9e555d5b97ae098b47ad9c7dc9c72"
+  integrity sha512-B/zmxo0Oq0mOk6LsEg74jNsIv3bLyhdzLtiurVLwMm0mMHMVDB6wCUBDJaVbx0X8btY70PxR5LO9HLv36Zqi9A==
   dependencies:
     cross-spawn "^5.0.1"
     electron "^23.1.2"
     ip "^1.1.4"
     minimist "^1.2.3"
-    react-devtools-core "5.0.0"
+    react-devtools-core "5.0.2"
     update-notifier "^2.1.0"
 
 react-dom@18.2.0, react-dom@^18, react-dom@^18.2.0:
@@ -19692,6 +19695,11 @@ undici@^5.14.0, undici@^5.28.2:
   dependencies:
     "@fastify/busboy" "^2.0.0"
 
+undici@^6.0.0:
+  version "6.7.1"
+  resolved "https://registry.yarnpkg.com/undici/-/undici-6.7.1.tgz#3cb27222fd5d72c1b2058f4e18bf9b53dd933af8"
+  integrity sha512-+Wtb9bAQw6HYWzCnxrPTMVEV3Q1QjYanI0E4q02ehReMuquQdLTEFEYbfs7hcImVYKcQkWSwT6buEmSVIiDDtQ==
+
 unenv@^1.9.0:
   version "1.9.0"
   resolved "https://registry.yarnpkg.com/unenv/-/unenv-1.9.0.tgz#469502ae85be1bd3a6aa60f810972b1a904ca312"
@@ -20120,10 +20128,10 @@ watchpack@^2.4.0:
     glob-to-regexp "^0.4.1"
     graceful-fs "^4.1.2"
 
-wavesurfer.js@^7.7.3:
-  version "7.7.3"
-  resolved "https://registry.yarnpkg.com/wavesurfer.js/-/wavesurfer.js-7.7.3.tgz#f0fe8415abf29fdfcbb8d9b1ef0dedc7c70cd246"
-  integrity sha512-TC7cQb0RVggtNC+Dl05gcnhSFL5U+fww3ZYJUuqgfR+r9oY+bh/hChCipDFDjs5cWtuek3GEtsPXWa93a9XYxw==
+wavesurfer.js@^7.7.4:
+  version "7.7.4"
+  resolved "https://registry.yarnpkg.com/wavesurfer.js/-/wavesurfer.js-7.7.4.tgz#1d7d9054a6bf56dcb3b39a2921f67e231c456ec4"
+  integrity sha512-MXQtql/5BMmBpQmiwoVCTYTlfRAn2cuiioxCjWwgAUX/T0t5mQZfmL4IYeCXSfr7sn2DtseRpLh1YFc63bM01Q==
 
 wbuf@^1.1.0, wbuf@^1.7.3:
   version "1.7.3"
