@@ -65,7 +65,7 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
       {collectors?.map((profile: Profile) => (
         <div className="flex flex-col" key={profile.id}>
           <Link
-            href={`/u/${getProfile(profile)?.slug}`}
+            href={getProfile(profile)?.link}
             className="font-base flex items-center justify-between"
           >
             <HoverableProfile profile={profile} key={profile?.id}>

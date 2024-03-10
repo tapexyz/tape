@@ -113,7 +113,7 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
     <div className="flex items-start justify-between">
       <div className="flex items-start justify-between">
         <Link
-          href={`/u/${getProfile(activeProfile)?.slug}`}
+          href={getProfile(activeProfile)?.link}
           className="mr-3 mt-0.5 flex-none"
         >
           <img
@@ -126,7 +126,7 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
         <div className="mr-2 flex flex-col items-start">
           <span className="mb-1 flex items-center space-x-1">
             <Link
-              href={`/u/${getProfile(activeProfile)?.slug}`}
+              href={getProfile(activeProfile)?.link}
               className="flex items-center space-x-1 text-sm font-medium"
             >
               <span>{getProfile(activeProfile)?.slug}</span>
