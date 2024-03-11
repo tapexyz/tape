@@ -66,7 +66,7 @@ const MirroredList: FC<Props> = ({ videoId }) => {
       {mirroredByProfiles?.map((profile: Profile) => (
         <div className="flex flex-col" key={getProfile(profile)?.slug}>
           <Link
-            href={`/u/${getProfile(profile)?.slug}`}
+            href={getProfile(profile)?.link}
             className="font-base flex items-center justify-between"
           >
             <HoverableProfile profile={profile} key={profile?.id}>

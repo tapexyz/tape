@@ -131,7 +131,7 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
             <div key={comment.id} className="flex items-start justify-between">
               <div className="flex w-full items-start">
                 <Link
-                  href={`/u/${getProfile(comment.by)?.slug}`}
+                  href={getProfile(comment.by)?.link}
                   className="mr-3 mt-0.5 flex-none"
                 >
                   <img
