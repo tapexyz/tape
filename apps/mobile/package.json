@@ -62,7 +62,7 @@
     "react-native-view-shot": "3.7.0",
     "swr": "^2.2.5",
     "uuid": "^9.0.1",
-    "viem": "^2.8.4",
+    "viem": "^2.8.5",
     "zod": "^3.22.2",
     "zustand": "^4.5.2"
   },
@@ -73,7 +73,7 @@
     "@babel/plugin-transform-arrow-functions": "^7.22.5",
     "@babel/plugin-transform-shorthand-properties": "^7.22.5",
     "@babel/plugin-transform-template-literals": "^7.22.5",
-    "@expo/metro-config": "^0.10.7",
+    "@expo/metro-config": "^0.17.6",
     "@expo/webpack-config": "^19.0.0",
     "@tape.xyz/config": "*",
     "@tape.xyz/generic": "*",
