@@ -15,11 +15,11 @@
     "hono": "^4.1.0",
     "linkedom": "^0.16.9",
     "ua-parser-js": "^1.0.37",
-    "viem": "^2.8.6",
+    "viem": "^2.8.9",
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20240312.0",
+    "@cloudflare/workers-types": "^4.20240314.0",
     "@tape.xyz/config": "*",
     "@tape.xyz/generic": "*",
     "@types/ua-parser-js": "^0.7.39",
