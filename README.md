@@ -33,7 +33,7 @@
 
 ## 📽️ About
 
-**Tape** is a social media platform.
+**Tape** is a social-media platform.
 
 ## 💪 Community
 
