@@ -108,8 +108,8 @@ export const EXPLORER_RECOMMENDED_WALLET_IDS = [
 
 // livepeer
 export const LIVEPEER_STUDIO_API_KEY = IS_PRODUCTION
-  ? 'ade26a09-c774-4898-a269-883551f1c5df'
-  : ''
+  ? '6a7a905f-72d9-4303-adda-09679b3f5f8c'
+  : 'cf2eb693-e25c-42fe-b5d9-a8ce29124ae6'
 
 // workers
 export const WORKER_LIVEPEER_VIEWS_URL = `${TAPE_API_URL}/views`
