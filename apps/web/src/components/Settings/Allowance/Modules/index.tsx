@@ -1,5 +1,5 @@
 import { VERIFIED_UNKNOWN_OPEN_ACTION_CONTRACTS } from '@components/Watch/OpenActions/verified-contracts'
-import { POLYGONSCAN_URL, WMATIC_TOKEN_ADDRESS } from '@dragverse/constants'
+import { BONSAI_TOKEN_ADDRESS, POLYGONSCAN_URL } from '@dragverse/constants'
 import { shortenAddress } from '@dragverse/generic'
 import type { ApprovedAllowanceAmountResult } from '@dragverse/lens'
 import {
@@ -139,7 +139,7 @@ const ModuleItem = ({
 
 const ModuleAllowance = () => {
   const { activeProfile } = useProfileStore()
-  const [currency, setCurrency] = useState(WMATIC_TOKEN_ADDRESS)
+  const [currency, setCurrency] = useState(BONSAI_TOKEN_ADDRESS)
   const allowedTokens = useAllowedTokensStore((state) => state.allowedTokens)
 
   const {

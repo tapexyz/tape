@@ -1,4 +1,4 @@
-import { WMATIC_TOKEN_ADDRESS } from '@dragverse/constants'
+import { BONSAI_TOKEN_ADDRESS } from '@dragverse/constants'
 import type { CollectModuleType } from '@dragverse/lens/custom-types'
 import { Button, Input, Select, SelectItem } from '@dragverse/ui'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -48,7 +48,7 @@ const FeeCollectForm: FC<Props> = ({ setCollectType, setShowModal }) => {
     defaultValues: {
       referralPercent: Number(uploadedMedia.collectModule.referralFee || 0),
       currency:
-        uploadedMedia.collectModule.amount?.currency ?? WMATIC_TOKEN_ADDRESS,
+        uploadedMedia.collectModule.amount?.currency ?? BONSAI_TOKEN_ADDRESS,
       amount: uploadedMedia.collectModule.amount?.value || '0'
     }
   })

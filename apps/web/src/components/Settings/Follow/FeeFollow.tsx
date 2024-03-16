@@ -1,10 +1,10 @@
 import { LENSHUB_PROXY_ABI } from '@dragverse/abis'
 import { useCopyToClipboard } from '@dragverse/browser'
 import {
+  BONSAI_TOKEN_ADDRESS,
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
-  REQUESTING_SIGNATURE_MESSAGE,
-  WMATIC_TOKEN_ADDRESS
+  REQUESTING_SIGNATURE_MESSAGE
 } from '@dragverse/constants'
 import {
   checkLensManagerPermissions,
@@ -81,7 +81,7 @@ const FeeFollow = ({ profile }: Props) => {
     defaultValues: {
       recipient: getProfile(profile).address,
       amount: 2,
-      token: WMATIC_TOKEN_ADDRESS
+      token: BONSAI_TOKEN_ADDRESS
     }
   })
 

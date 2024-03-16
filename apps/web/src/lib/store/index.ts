@@ -1,8 +1,8 @@
 import {
+  BONSAI_TOKEN_ADDRESS,
   CREATOR_VIDEO_CATEGORIES,
   IRYS_CURRENCY,
-  IRYS_NODE_URL,
-  WMATIC_TOKEN_ADDRESS
+  IRYS_NODE_URL
 } from '@dragverse/constants'
 import { logger } from '@dragverse/generic'
 import type { IrysDataState, UploadedMedia } from '@dragverse/lens/custom-types'
@@ -45,7 +45,7 @@ export const UPLOADED_VIDEO_FORM_DEFAULTS: UploadedMedia = {
   isByteVideo: false,
   collectModule: {
     followerOnlyCollect: false,
-    amount: { currency: WMATIC_TOKEN_ADDRESS, value: '' },
+    amount: { currency: BONSAI_TOKEN_ADDRESS, value: '' },
     referralFee: 0,
     timeLimitEnabled: false,
     timeLimit: '1',

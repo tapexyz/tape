@@ -1,4 +1,4 @@
-import { WMATIC_TOKEN_ADDRESS } from '@dragverse/constants'
+import { BONSAI_TOKEN_ADDRESS } from '@dragverse/constants'
 import {
   type ModuleMetadata,
   type UnknownOpenActionModuleSettings,
@@ -41,7 +41,7 @@ const TipOpenAction: FC<Props> = ({
   actOnUnknownOpenAction
 }) => {
   const { address } = useAccount()
-  const [tip, setTip] = useState({ value: [5], currency: WMATIC_TOKEN_ADDRESS })
+  const [tip, setTip] = useState({ value: [5], currency: BONSAI_TOKEN_ADDRESS })
   const [isAllowed, setIsAllowed] = useState(true)
   const [haveEnoughBalance, setHaveEnoughBalance] = useState(false)
 
