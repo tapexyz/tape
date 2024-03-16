@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import type { FC } from 'react'
 
 import OtherProfiles from './OtherProfiles'
+import ProfileAudios from './ProfileAudios'
 import ProfileBytes from './ProfileBytes'
 import ProfileVideos from './ProfileVideos'
 
@@ -59,6 +60,16 @@ const ProfileTabs: FC<Props> = ({ profile }) => {
           >
             Channels
           </TabsTrigger>
+          <TabsTrigger
+            className="rounded-t-lg border-black px-4 py-1.5 text-sm font-medium data-[state=active]:border-b data-[state=active]:bg-gray-100 dark:border-white data-[state=active]:dark:bg-gray-800"
+            onClick={() => {
+              handleTabChange('audio')
+              Tower.track(EVENTS.PROFILE.CLICK_PROFILE_AUDIOS)
+            }}
+            value="audio"
+          >
+            Audio
+          </TabsTrigger>
         </TabsList>
 
         <div className="pt-3">
@@ -72,6 +83,10 @@ const ProfileTabs: FC<Props> = ({ profile }) => {
 
           <TabsContent value="channels">
             <OtherProfiles currentProfile={profile} />
+          </TabsContent>
+
+          <TabsContent value="audio">
+            <ProfileAudios profile={profile} />
           </TabsContent>
         </div>
       </Tabs>

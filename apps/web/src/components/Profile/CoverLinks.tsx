@@ -1,4 +1,4 @@
-import { STATIC_ASSETS } from '@dragverse/constants'
+import { STATIC_ASSETS, TWITTER_ICON_URL } from '@dragverse/constants'
 import { getValueFromKeyInAttributes, imageCdn } from '@dragverse/generic'
 import type { ProfileMetadata } from '@dragverse/lens'
 import { GlobeOutline, LocationOutline } from '@dragverse/ui'
@@ -89,10 +89,7 @@ const CoverLinks = ({ metadata }: { metadata: ProfileMetadata }) => {
         >
           {resolvedTheme === 'dark' ? (
             <img
-              src={imageCdn(
-                `${STATIC_ASSETS}/images/social/x-white.png`,
-                'AVATAR'
-              )}
+              src={imageCdn(`${TWITTER_ICON_URL}`, 'AVATAR')}
               className="size-3.5"
               height={16}
               width={16}
@@ -101,10 +98,7 @@ const CoverLinks = ({ metadata }: { metadata: ProfileMetadata }) => {
             />
           ) : (
             <img
-              src={imageCdn(
-                `${STATIC_ASSETS}/images/social/x-black.png`,
-                'AVATAR'
-              )}
+              src={imageCdn(`${TWITTER_ICON_URL}`, 'AVATAR')}
               className="size-3.5"
               height={16}
               width={16}

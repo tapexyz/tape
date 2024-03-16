@@ -39,7 +39,7 @@ export const TAPE_EMBED_URL = IS_MAINNET
   : 'https://embed-testnet.dragverse.app'
 export const TAPE_API_URL = IS_PRODUCTION
   ? 'https://api.tape.xyz'
-  : 'http://localhost:4000'
+  : 'https://api.tape.xyz'
 
 // tape addresses
 export const TAPE_SIGNUP_PROXY_ADDRESS = IS_MAINNET
