@@ -12,8 +12,8 @@
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "3.534.0",
-    "@aws-sdk/lib-storage": "3.534.0",
+    "@aws-sdk/client-s3": "3.535.0",
+    "@aws-sdk/lib-storage": "3.535.0",
     "@emoji-mart/react": "^1.1.1",
     "@hookform/resolvers": "^3.3.3",
     "@irys/sdk": "^0.1.16",
@@ -37,7 +37,7 @@
     "react": "18.2.0",
     "react-cool-inview": "^3.0.1",
     "react-dom": "18.2.0",
-    "react-hook-form": "^7.51.0",
+    "react-hook-form": "^7.51.1",
     "react-hot-toast": "^2.4.1",
     "react-use-websocket": "^4.8.1",
     "textarea-caret": "^3.1.0",

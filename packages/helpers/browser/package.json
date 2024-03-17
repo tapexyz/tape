@@ -13,6 +13,6 @@
   "dependencies": {
     "@rajesh896/broprint.js": "^2.1.1",
     "fast-average-color": "^9.4.0",
-    "tailwind-merge": "^2.2.0"
+    "tailwind-merge": "^2.2.2"
   }
 }
