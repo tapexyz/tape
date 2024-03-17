@@ -1,4 +1,4 @@
-import { formatNumber, getPublication } from '@dragverse/generic'
+import { getPublication } from '@dragverse/generic'
 import isOpenActionAllowed from '@dragverse/generic/functions/isOpenActionAllowed'
 import { type AnyPublication, type OpenActionModule } from '@dragverse/lens'
 import {
@@ -10,7 +10,6 @@ import {
   CollectOutline,
   Modal
 } from '@dragverse/ui'
-import { getCollectModuleOutput } from '@lib/getCollectModuleOutput'
 import type { FC, ReactNode } from 'react'
 import { useState } from 'react'
 
@@ -35,19 +34,13 @@ const OpenActions: FC<Props> = ({ publication, text, children }) => {
       case 'MultirecipientFeeCollectOpenActionSettings':
       case 'LegacySimpleCollectModuleSettings':
       case 'LegacyMultirecipientFeeCollectModuleSettings':
-        const details = getCollectModuleOutput(action)
         return (
           <AccordionItem
             value="item-1"
             className="rounded-small group border dark:border-gray-700"
           >
             <AccordionTrigger className="bg-brand-50/50 dark:bg-brand-950/30 rounded-small w-full px-4 py-3 text-left">
-              <div className="flex items-center justify-between">
-                <span className="font-bold">Collect publication</span>
-                <span className="group-data-[state=open]:hidden">
-                  $<b> {formatNumber(Number(details?.amount.rate))}</b>
-                </span>
-              </div>
+              <h6 className="font-bold">Collect publication</h6>
             </AccordionTrigger>
             <AccordionContent className="p-3">
               <CollectPublication

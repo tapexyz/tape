@@ -10,19 +10,19 @@
     "lint": "eslint . --ext .js,.ts,.tsx --fix"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "3.525.0",
-    "@hono/zod-validator": "^0.1.11",
-    "hono": "^4.0.8",
-    "linkedom": "^0.16.8",
+    "@aws-sdk/client-sts": "3.533.0",
+    "@hono/zod-validator": "^0.2.0",
+    "hono": "^4.1.0",
+    "linkedom": "^0.16.9",
     "ua-parser-js": "^1.0.37",
-    "viem": "^2.7.16",
+    "viem": "^2.8.9",
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20240222.0",
+    "@cloudflare/workers-types": "^4.20240314.0",
     "@dragverse/config": "*",
     "@dragverse/generic": "*",
     "@types/ua-parser-js": "^0.7.39",
-    "wrangler": "^3.30.1"
+    "wrangler": "^3.34.2"
   }
 }

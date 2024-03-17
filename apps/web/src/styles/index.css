@@ -6,7 +6,10 @@
 html {
   scrollbar-gutter: stable;
 }
-body[style], body[data-scroll-locked] {
+html body[data-scroll-locked] {
+  margin-right: 0 !important;
+}
+html body[style] {
   margin: 0 !important;
 }
 /* Ends - To fix radix CLS on dropdown and modal */

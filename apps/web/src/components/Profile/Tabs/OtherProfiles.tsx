@@ -38,7 +38,7 @@ const OtherProfiles: FC<Props> = ({ currentProfile }) => {
               key={profile.id}
               className="flex w-44 flex-col items-center justify-center rounded-xl border border-gray-200 py-3 dark:border-gray-800"
             >
-              <Link href={`/u/${getProfile(profile)?.slug}`}>
+              <Link href={getProfile(profile)?.link}>
                 <img
                   className="size-24 rounded-full object-cover"
                   src={getProfilePicture(profile, 'AVATAR_LG')}
@@ -49,7 +49,7 @@ const OtherProfiles: FC<Props> = ({ currentProfile }) => {
               <div className="w-full px-1.5 py-2">
                 <div className="flex-1 text-center">
                   <Link
-                    href={`/u/${getProfile(profile)?.slug}`}
+                    href={getProfile(profile)?.link}
                     className="block truncate font-medium"
                   >
                     <div className="flex items-center justify-center space-x-1">

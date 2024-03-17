@@ -109,8 +109,8 @@ const CreateSteps = () => {
     resetToDefaults()
     router.push(
       uploadedMedia.isByteVideo
-        ? `/u/${getProfile(activeProfile)?.slug}?tab=bytes`
-        : `/u/${getProfile(activeProfile)?.slug}`
+        ? `${getProfile(activeProfile)?.link}?tab=bytes`
+        : `${getProfile(activeProfile)?.link}`
     )
   }
 

@@ -179,6 +179,7 @@ const TipOpenAction: FC<Props> = ({
           <Select
             size="sm"
             value={tip.currency}
+            defaultValue={allowedTokens[0].address}
             onValueChange={(currency) => {
               setTip({ ...tip, currency })
             }}

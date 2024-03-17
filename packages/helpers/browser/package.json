@@ -8,7 +8,7 @@
     "typecheck": "tsc --pretty"
   },
   "devDependencies": {
-    "typescript": "5.3.3"
+    "typescript": "5.4.2"
   },
   "dependencies": {
     "@rajesh896/broprint.js": "^2.1.1",

@@ -31,7 +31,7 @@ const since = getUnixTimestampForDaysAgo(30)
 
 const request: ExplorePublicationRequest = {
   limit: LimitType.Fifty,
-  orderBy: ExplorePublicationsOrderByType.LensCurated,
+  orderBy: ExplorePublicationsOrderByType.TopReacted,
   where: {
     customFilters: LENS_CUSTOM_FILTERS,
     publicationTypes: [ExplorePublicationType.Post],

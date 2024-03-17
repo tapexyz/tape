@@ -19,16 +19,17 @@ import type {
   PrimaryPublication
 } from '@dragverse/lens'
 import {
-  ExplorePublicationsOrderByType,
   ExplorePublicationType,
   LimitType,
   PublicationMetadataMainFocusType,
   useExplorePublicationsQuery
 } from '@dragverse/lens'
 import { getUnixTimestampForDaysAgo } from '@lib/formatTime'
+import { getRandomFeedOrder } from '@lib/getRandomFeedOrder'
 import Link from 'next/link'
 
 const since = getUnixTimestampForDaysAgo(30)
+const orderBy = getRandomFeedOrder()
 
 const request: ExplorePublicationRequest = {
   where: {
@@ -40,8 +41,8 @@ const request: ExplorePublicationRequest = {
     },
     since
   },
-  orderBy: ExplorePublicationsOrderByType.LensCurated,
-  limit: LimitType.Ten
+  orderBy,
+  limit: LimitType.Fifty
 }
 
 const LatestBytes = () => {

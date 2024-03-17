@@ -14,7 +14,6 @@ import type {
   PrimaryPublication
 } from '@dragverse/lens'
 import {
-  ExplorePublicationsOrderByType,
   ExplorePublicationType,
   LimitType,
   PublicationMetadataMainFocusType,
@@ -22,10 +21,12 @@ import {
 } from '@dragverse/lens'
 import { Spinner } from '@dragverse/ui'
 import { getUnixTimestampForDaysAgo } from '@lib/formatTime'
+import { getRandomFeedOrder } from '@lib/getRandomFeedOrder'
 import useAppStore from '@lib/store'
 import { useInView } from 'react-cool-inview'
 
 const since = getUnixTimestampForDaysAgo(30)
+const orderBy = getRandomFeedOrder()
 
 const Feed = ({ showFilter = true }) => {
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
@@ -42,7 +43,7 @@ const Feed = ({ showFilter = true }) => {
       },
       since
     },
-    orderBy: ExplorePublicationsOrderByType.LensCurated,
+    orderBy,
     limit: LimitType.Fifty
   }
 

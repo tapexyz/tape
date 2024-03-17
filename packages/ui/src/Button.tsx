@@ -14,7 +14,7 @@ interface ButtonProps
   loading?: boolean
   className?: string
   children?: ReactNode
-  size?: 'sm' | 'md' | 'lg'
+  size?: 'xs' | 'sm' | 'md' | 'lg'
   variant?: 'primary' | 'secondary' | 'danger'
 }
 
@@ -32,6 +32,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     ref
   ) => {
     const sizeClasses = {
+      'px-2 py-1 text-xs': size === 'xs',
       'px-4 py-1.5 text-sm': size === 'sm',
       'px-6 py-3 text-sm': size === 'md',
       'px-8 py-4 text-base': size === 'lg'

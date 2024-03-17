@@ -193,6 +193,7 @@ const ModuleAllowance = () => {
             <Select
               value={currency}
               onValueChange={(value) => setCurrency(value)}
+              defaultValue={allowedTokens[0].address}
             >
               {allowedTokens?.map((token) => (
                 <SelectItem key={token.address} value={token.address}>

@@ -12,7 +12,7 @@
     "lint": "eslint . --ext .js,.ts,.tsx --fix"
   },
   "dependencies": {
-    "next": "14.1.0",
+    "next": "14.1.3",
     "react": "^18",
     "react-dom": "^18"
   },
@@ -21,9 +21,9 @@
     "@dragverse/constants": "*",
     "@dragverse/generic": "*",
     "@dragverse/lens": "*",
-    "@types/node": "^20.11.22",
-    "@types/react": "^18.2.60",
-    "@types/react-dom": "^18",
-    "typescript": "^5"
+    "@types/node": "^20.11.28",
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
+    "typescript": "^5.4.2"
   }
 }

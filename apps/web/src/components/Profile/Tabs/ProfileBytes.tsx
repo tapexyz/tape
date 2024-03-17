@@ -4,7 +4,6 @@ import { NoDataFound } from '@components/UIElements/NoDataFound'
 import {
   FALLBACK_THUMBNAIL_URL,
   INFINITE_SCROLL_ROOT_MARGIN,
-  LENS_CUSTOM_FILTERS,
   LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
 } from '@dragverse/constants'
@@ -37,7 +36,6 @@ const ProfileBytes: FC<Props> = ({ profileId }) => {
         publishedOn: [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID]
       },
       publicationTypes: [PublicationType.Post],
-      customFilters: LENS_CUSTOM_FILTERS,
       from: [profileId]
     },
     limit: LimitType.Fifty
@@ -103,8 +101,9 @@ const ProfileBytes: FC<Props> = ({ profileId }) => {
                   </h1>
                 </div>
                 <div
-                  className="absolute right-2 top-2 rounded-full bg-white"
-                  onClick={(e) => e.stopPropagation()}
+                  role="button"
+                  className="absolute right-2 top-2 z-[1] rounded-full bg-white p-1.5"
+                  onClick={(e) => e.preventDefault()}
                 >
                   <PublicationOptions publication={byte} />
                 </div>

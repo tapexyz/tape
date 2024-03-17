@@ -8,11 +8,9 @@
     "lint": "eslint . --ext .js,.ts,.tsx --fix",
     "typecheck": "tsc --pretty"
   },
-  "dependencies": {
-    "@types/node": "^20.11.22",
-    "typescript": "^5.3.3"
-  },
   "devDependencies": {
-    "@dragverse/config": "*"
+    "@dragverse/config": "*",
+    "@types/node": "^20.11.28",
+    "typescript": "^5.4.2"
   }
 }

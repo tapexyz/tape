@@ -466,7 +466,6 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
               <span className="space-x-1">
                 <span className="text-2xl">{details?.amount.value}</span>
                 <span>{details?.amount.assetSymbol}</span>
-                <span>( ${details?.amount.rate} )</span>
               </span>
             </div>
           ) : null}

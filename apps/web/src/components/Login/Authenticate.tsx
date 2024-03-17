@@ -62,15 +62,21 @@ const Authenticate = () => {
     refetch
   } = useProfilesManagedQuery({
     variables: {
-      request: { for: address, includeOwned: true, limit: LimitType.Fifty }
+      request: { for: address, includeOwned: true, limit: LimitType.Fifty },
+      lastLoggedInProfileRequest: { for: address }
     },
     notifyOnNetworkStatusChange: true,
     skip: !address,
     onCompleted: (data) => {
       const profiles = data?.profilesManaged.items
+      const lastLogin = data?.lastLoggedInProfile
       if (profiles?.length) {
-        const profile = [...profiles].reverse()[0]
-        setSelectedProfileId(as || profile.id)
+        const profile = lastLogin
+          ? profiles.find((p) => p.id === lastLogin.id)
+          : profiles[0]
+
+        const profileId = as || (signup ? profiles[0].id : profile?.id)
+        setSelectedProfileId(profileId)
       } else {
         setShowSignup(true)
       }
@@ -78,12 +84,17 @@ const Authenticate = () => {
   })
 
   const profilesManaged = data?.profilesManaged.items as Profile[]
-  const reversedProfilesManaged = useMemo(() => {
-    // Use the spread operator to create a new array and sort it by the "handle" key
-    return [...(profilesManaged || [])].reverse()
-  }, [profilesManaged])
+  const lastLogin = data?.lastLoggedInProfile as Profile
 
-  const profile = reversedProfilesManaged?.[0]
+  const remainingProfiles = useMemo(() => {
+    return lastLogin
+      ? profilesManaged.filter((profile) => profile.id !== lastLogin.id)
+      : profilesManaged
+  }, [profilesManaged, lastLogin])
+
+  const profiles = lastLogin
+    ? [lastLogin, ...remainingProfiles]
+    : remainingProfiles
 
   const { signMessageAsync } = useSignMessage({
     mutation: { onError }
@@ -188,19 +199,19 @@ const Authenticate = () => {
             refetch()
           }}
           setShowSignup={setShowSignup}
-          showLogin={Boolean(profile)}
+          showLogin={Boolean(profiles[0])}
         />
       ) : (
         <div className="flex flex-col gap-2">
-          {profile ? (
+          {profiles[0] ? (
             <>
               <Select
                 size="lg"
-                defaultValue={as ?? profile?.id}
+                defaultValue={as ?? profiles[0].id}
                 value={selectedProfileId}
                 onValueChange={(value) => setSelectedProfileId(value)}
               >
-                {reversedProfilesManaged?.map((profile) => (
+                {profiles?.map((profile) => (
                   <SelectItem size="lg" key={profile.id} value={profile.id}>
                     <div className="flex items-center space-x-2">
                       <img
@@ -232,7 +243,7 @@ const Authenticate = () => {
             </Callout>
           )}
           <div className="flex items-center justify-center space-x-2 pt-3 text-sm">
-            {profile ? (
+            {profiles[0] ? (
               <span>Need new account?</span>
             ) : (
               <span>Don't have an account?</span>

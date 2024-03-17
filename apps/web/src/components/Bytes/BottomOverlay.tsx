@@ -25,7 +25,7 @@ const BottomOverlay: FC<Props> = ({ video }) => {
       <div className="flex items-center justify-between">
         <div className="min-w-0">
           <Link
-            href={`/u/${getProfile(video.by)?.slug}`}
+            href={`${getProfile(video.by)?.link}?tab=bytes`}
             className="flex flex-none cursor-pointer items-center space-x-2"
           >
             <img

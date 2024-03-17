@@ -5,14 +5,14 @@
   "license": "AGPL-3.0",
   "devDependencies": {
     "@nomicfoundation/hardhat-ethers": "^3.0.5",
-    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
-    "@nomicfoundation/hardhat-verify": "^2.0.0",
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@nomicfoundation/hardhat-verify": "^2.0.5",
     "@openzeppelin/contracts": "^5.0.2",
     "@openzeppelin/contracts-upgradeable": "^5.0.2",
-    "@openzeppelin/hardhat-upgrades": "^3.0.4",
+    "@openzeppelin/hardhat-upgrades": "^3.0.5",
     "dotenv": "^16.4.5",
     "ethers": "^6.11.1",
-    "hardhat": "^2.20.1",
-    "typescript": "^5.3.3"
+    "hardhat": "^2.22.1",
+    "typescript": "^5.4.2"
   }
 }

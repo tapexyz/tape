@@ -258,6 +258,7 @@ const FeeFollow = ({ profile }: Props) => {
               <Select
                 value={watch('token')}
                 onValueChange={(value) => setValue('token', value)}
+                defaultValue={allowedTokens[0].address}
               >
                 {allowedTokens?.map(({ address, name }) => (
                   <SelectItem key={address} value={address}>

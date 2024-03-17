@@ -8,12 +8,12 @@
     "typecheck": "tsc --pretty"
   },
   "dependencies": {
-    "@lens-protocol/metadata": "^1.1.5",
+    "@lens-protocol/metadata": "^1.1.6",
     "dayjs-twitter": "^0.5.0",
-    "viem": "^2.7.16"
+    "viem": "^2.8.9"
   },
   "devDependencies": {
     "@dragverse/constants": "*",
-    "typescript": "5.3.3"
+    "typescript": "5.4.2"
   }
 }

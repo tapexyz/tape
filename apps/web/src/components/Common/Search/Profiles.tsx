@@ -22,7 +22,7 @@ const Profiles: FC<Props> = ({ results, loading, clearSearch }) => {
         >
           <Link
             onClick={() => clearSearch()}
-            href={`/u/${getProfile(profile)?.slug}`}
+            href={getProfile(profile)?.link}
             key={getProfile(profile)?.slug}
             className="flex flex-col justify-center space-y-1 py-2"
           >
