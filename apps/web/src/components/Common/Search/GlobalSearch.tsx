@@ -1,31 +1,31 @@
-import { NoDataFound } from '@components/UIElements/NoDataFound';
-import { tw, useDebounce, useOutsideClick } from '@dragverse/browser';
+import { NoDataFound } from '@components/UIElements/NoDataFound'
+import { tw, useDebounce, useOutsideClick } from '@dragverse/browser'
 import {
+  LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
-  LENS_CUSTOM_FILTERS,
   TAPE_APP_ID,
   TAPE_BYTES_APP_ID
-} from '@dragverse/constants';
-import { EVENTS, Tower } from '@dragverse/generic';
+} from '@dragverse/constants'
+import { EVENTS, Tower } from '@dragverse/generic'
 import type {
   PrimaryPublication,
   Profile,
   ProfileSearchRequest,
   PublicationSearchRequest
-} from '@dragverse/lens';
+} from '@dragverse/lens'
 import {
   LimitType,
   PublicationMetadataMainFocusType,
   SearchPublicationType,
   useSearchProfilesLazyQuery,
   useSearchPublicationsLazyQuery
-} from '@dragverse/lens';
-import { Input, SearchOutline, Spinner } from '@dragverse/ui';
-import { useEffect, useRef, useState } from 'react';
+} from '@dragverse/lens'
+import { Input, SearchOutline, Spinner } from '@dragverse/ui'
+import { useEffect, useRef, useState } from 'react'
 
-import Profiles from './Profiles';
-import Publications from './Publications';
+import Profiles from './Profiles'
+import Publications from './Publications'
 
 const GlobalSearch = () => {
   const [showSearchBar, setShowSearchBar] = useState(false)
