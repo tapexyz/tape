@@ -49,7 +49,7 @@ const Cover: FC<Props> = ({ profile }) => {
               alt={getProfile(profile)?.slug}
             />
             {Boolean(isMintedViaTape) && (
-              <Tooltip content="Profile minted via Tape">
+              <Tooltip content="Profile minted via Dragverse">
                 <span className="absolute bottom-1 right-1">
                   <img
                     className="size-6 rounded-full"
