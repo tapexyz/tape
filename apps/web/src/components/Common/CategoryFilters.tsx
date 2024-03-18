@@ -24,7 +24,7 @@ const CategoryFilters: FC<Props> = ({ heading }) => {
     <div className="dark:bg-brand-850 sticky top-0 z-[9] bg-white">
       <HorizontalScroller
         sectionRef={sectionRef}
-        heading={heading ?? 'Explore'}
+        heading={heading ?? 'Explore The Garden🌱'}
       />
       <div
         ref={sectionRef}

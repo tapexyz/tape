@@ -16,11 +16,10 @@ const JoinWaitlist = () => {
         <div className="text-3xl font-bold">Don't have a Lens profile?</div>
         <p className="md:text-md max-w-2xl text-sm lg:text-lg">
           In order to interact with the Dragverse you need a Lens profile. 🌱
-          Make sure to join the waitlist! We are slowly onboarding creators and
-          community members.
+          Get your handle at lens.xyz, hey.xyz, or tape.xyz!
         </p>
-        <Link href="https://waitlist.lens.xyz/">
-          <Button>Join Waitlist</Button>
+        <Link href="https://tape.xyz/">
+          <Button>Get</Button>
         </Link>
       </div>
     </div>
