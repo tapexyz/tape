@@ -29,11 +29,13 @@ const TogglesProvider = () => {
   const fetchVerifiedProfiles = async () => {
     try {
       const { data } = await axios.get(WORKER_VERIFIED_URL)
-      const backendVerifiedProfiles = data?.ids ?? [];
-      const combinedVerifiedProfiles = [...new Set([...backendVerifiedProfiles, ...myVerifiedProfiles])];
-      setVerifiedProfiles(combinedVerifiedProfiles);
+      const backendVerifiedProfiles = data?.ids ?? []
+      const combinedVerifiedProfiles = [
+        ...new Set([...backendVerifiedProfiles, ...myVerifiedProfiles])
+      ]
+      setVerifiedProfiles(combinedVerifiedProfiles)
     } catch (error) {
-      console.error('Error fetching verified profiles:', error);
+      console.error('Error fetching verified profiles:', error)
       // Handle error appropriately
     }
   }
@@ -77,4 +79,3 @@ const TogglesProvider = () => {
 }
 
 export default TogglesProvider
-
