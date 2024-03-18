@@ -12,6 +12,8 @@ import useVerifiedStore from '@lib/store/idb/verified'
 import { useQuery } from '@tanstack/react-query'
 import axios from 'axios'
 
+import { myVerifiedProfiles } from './myVerifiedProfiles'
+
 const TogglesProvider = () => {
   const activeProfile = useProfileStore((state) => state.activeProfile)
   const setVerifiedProfiles = useVerifiedStore(
@@ -25,8 +27,15 @@ const TogglesProvider = () => {
   )
 
   const fetchVerifiedProfiles = async () => {
-    const { data } = await axios.get(WORKER_VERIFIED_URL)
-    setVerifiedProfiles(data?.ids ?? [])
+    try {
+      const { data } = await axios.get(WORKER_VERIFIED_URL)
+      const backendVerifiedProfiles = data?.ids ?? [];
+      const combinedVerifiedProfiles = [...new Set([...backendVerifiedProfiles, ...myVerifiedProfiles])];
+      setVerifiedProfiles(combinedVerifiedProfiles);
+    } catch (error) {
+      console.error('Error fetching verified profiles:', error);
+      // Handle error appropriately
+    }
   }
 
   useQuery({
@@ -68,3 +77,4 @@ const TogglesProvider = () => {
 }
 
 export default TogglesProvider
+
