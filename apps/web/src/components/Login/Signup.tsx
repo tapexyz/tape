@@ -115,7 +115,8 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
   const onMinted = (via: string) => {
     onSuccess()
     reset()
-    toast.success('Profile created')
+    toast.success('Profile created. It might take a few minutes to register on the blockchain and let you use your new handle.')
+    duration: 10000
     setCreating(false)
     Tower.track(EVENTS.AUTH.SIGNUP_SUCCESS, {
       price: signupPriceFormatted,

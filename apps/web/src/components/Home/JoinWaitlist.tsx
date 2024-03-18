@@ -15,12 +15,14 @@ const JoinWaitlist = () => {
       <div className="ultrawide:p-8 relative flex h-full flex-col justify-end space-y-4 p-4 text-left text-white md:p-6">
         <div className="text-3xl font-bold">Don't have a Lens profile?</div>
         <p className="md:text-md max-w-2xl text-sm lg:text-lg">
-          In order to interact with the Dragverse you need a Lens profile. 🌱
-          Get your handle at lens.xyz, hey.xyz, or tape.xyz!
+          In order to interact with the Dragverse, and other apps in the garden, you need a Lens profile. 🌱
+          Connect your wallet, and mint your handle:
         </p>
-        <Link href="https://tape.xyz/">
+        <div className="flex gap-3">
+        <Link href="https://dragverse.app/login?signup=true">
           <Button>Get</Button>
         </Link>
+        </div>
       </div>
     </div>
   )
