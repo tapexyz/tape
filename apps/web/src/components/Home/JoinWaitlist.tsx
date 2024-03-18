@@ -19,7 +19,7 @@ const JoinWaitlist = () => {
           Connect your wallet, and mint your handle:
         </p>
         <div className="flex gap-3">
-        <Link href="https://dragverse.app/login?signup=true">
+        <Link href="/login?signup=true">
           <Button>Get</Button>
         </Link>
         </div>
