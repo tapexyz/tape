@@ -15,13 +15,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Bun
-        uses: oven-sh/setup-bun@v1
+      - uses: actions/setup-node@v3
         with:
-          bun-version: latest
+          node-version-file: '.nvmrc'
+          cache: 'yarn'
 
       - name: Install Vercel CLI
-        run: bun install --global vercel@latest
+        run: yarn global add vercel@latest
 
       - name: Deploy to Vercel ・ WEB
         env:
