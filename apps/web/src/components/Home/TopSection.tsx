@@ -13,7 +13,7 @@ const TopSection = () => {
 
   return (
     <div className="flex flex-col">
-      <HorizontalScroller sectionRef={sectionRef} heading="New & Trending" />
+      <HorizontalScroller sectionRef={sectionRef} heading="" />
       <div
         ref={sectionRef}
         className="no-scrollbar laptop:pt-6 relative flex items-start space-x-4 overflow-x-auto overflow-y-hidden scroll-smooth pt-4"
