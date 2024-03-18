@@ -31,8 +31,8 @@ const Login = () => {
         <div className="tape-border container relative z-10 mx-auto max-w-md bg-white bg-opacity-50 p-10 backdrop-blur-sm dark:bg-inherit">
           <CardBorders />
           <div className="mb-6">
-            <h2 className="text-2xl font-bold">Welcome back</h2>
-            <p>Discover the new era of media sharing with Tape.</p>
+            <h2 className="text-2xl font-bold">Welcome to Dragverse</h2>
+            <p>Connect your wallet and Lens account.👛 New to the scene? No worries! Grab your Lens account right here and let the magic begin.✨</p>
           </div>
           <Connectors />
         </div>

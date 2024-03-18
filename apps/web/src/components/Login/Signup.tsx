@@ -193,13 +193,13 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedValue])
 
-  useEffect(() => {
+  /* useEffect(() => {
     window.$chatwoot?.toggleBubbleVisibility('show')
     return () => {
       window.$chatwoot?.toggle('close')
       window.$chatwoot?.toggleBubbleVisibility('hide')
     }
-  }, [])
+  }, []) */
 
   const eventHandler = async ({ event }: { data: any; event: any }) => {
     if (event === 'Checkout.Success' && window.LemonSqueezy) {
@@ -333,7 +333,7 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
         show={showModal}
         setShow={setShowModal}
         title="Why do I need to pay?"
-        description="Tape profiles, powered by Lens Protocol, a one-time signup for all ecosystem apps. Users must make a purchase to enhance network stability and deter bots, with the temporary cost gradually phased out as additional bot prevention measures are implemented and refined."
+        description="In Dragverse, your profile is your gateway to our glittering world, powered by Lens Protocol. This one-time signup fee is part of our commitment to a bot-free, authentic community. It enhances stability and keeps the vibe real. We're working on new ways to manage this, and plan to reduce the cost as we evolve."
       >
         {!hasBalance && (
           <div className="mt-4">
@@ -350,22 +350,22 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
       {IS_MAINNET && (
         <div className="relative flex items-center">
           <div className="w-full">
-            <Button
+            {/* <Button
               name="card"
               size="md"
               loading={creating}
               disabled={creating || !isHandleAvailable || checkingAvailability}
             >
               Buy with Card
-            </Button>
+      </Button> */}
           </div>
-          <button
+          {/* <button
             type="button"
             className="absolute right-2.5 z-[1] cursor-help p-1 text-xs"
             onClick={() => setShowModal(true)}
           >
             <InfoOutline className="size-4 text-white dark:text-black" />
-          </button>
+      </button> */}
         </div>
       )}
 
@@ -378,6 +378,16 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
       >
         Mint for {signupPriceFormatted} MATIC
       </Button>
+
+      <button
+       type="button"
+       className="ml-2 cursor-help p-1 text-xs flex items-center justify-center"
+       onClick={() => setShowModal(true)}
+     >
+       <InfoOutline className="size-4 mr-1" />
+      <span>Why do I have to pay?</span>
+</button>
+
       {showLogin && (
         <div className="flex items-center justify-center space-x-2 pt-3 text-sm">
           <span>Have an account?</span>
