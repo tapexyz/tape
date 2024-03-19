@@ -101,7 +101,7 @@ export const EVER_ENDPOINT = 'https://endpoint.4everland.co'
 export const EVER_REGION = 'us-west-2'
 
 // walletconnect
-export const WC_PROJECT_ID = 'bf790b6b57570b99567abd1677b7415d'
+export const WC_PROJECT_ID = '6c98e7b769b4ccd8dd7a5533cb65d34b'
 export const EXPLORER_RECOMMENDED_WALLET_IDS = [
   'c57ca95b47569778a828d19178114f4db188b89b763c899ba0be274e97267d96', // metamask
   'ecc4036f814562b41a5268adc86270fba1365471402006302e70169465b7ac18', // zerion
@@ -114,6 +114,11 @@ export const EXPLORER_RECOMMENDED_WALLET_IDS = [
 export const LIVEPEER_STUDIO_API_KEY = IS_PRODUCTION
   ? '6a7a905f-72d9-4303-adda-09679b3f5f8c'
   : 'cf2eb693-e25c-42fe-b5d9-a8ce29124ae6'
+
+// privy
+export const PRIVY_APP_ID = IS_PRODUCTION
+  ? 'clt93hfel08df9kmxfmnb7t3r'
+  : 'clt93hfel08df9kmxfmnb7t3r'
 
 // workers
 export const WORKER_LIVEPEER_VIEWS_URL = `${TAPE_API_URL}/views`

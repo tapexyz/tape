@@ -115,7 +115,9 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
   const onMinted = (via: string) => {
     onSuccess()
     reset()
-    toast.success('Profile created. It might take a few minutes to register on the blockchain and let you use your new handle.')
+    toast.success(
+      'Profile created. It might take a few minutes to register on the blockchain and let you use your new handle.'
+    )
     duration: 10000
     setCreating(false)
     Tower.track(EVENTS.AUTH.SIGNUP_SUCCESS, {
@@ -381,13 +383,13 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
       </Button>
 
       <button
-       type="button"
-       className="ml-2 cursor-help p-1 text-xs flex items-center justify-center"
-       onClick={() => setShowModal(true)}
-     >
-       <InfoOutline className="size-4 mr-1" />
-      <span>Why do I have to pay?</span>
-</button>
+        type="button"
+        className="ml-2 flex cursor-help items-center justify-center p-1 text-xs"
+        onClick={() => setShowModal(true)}
+      >
+        <InfoOutline className="mr-1 size-4" />
+        <span>Why do I have to pay?</span>
+      </button>
 
       {showLogin && (
         <div className="flex items-center justify-center space-x-2 pt-3 text-sm">

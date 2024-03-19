@@ -19,6 +19,8 @@
     "@irys/sdk": "^0.1.16",
     "@lens-protocol/metadata": "^1.1.6",
     "@livepeer/react": "^3.1.9",
+    "@privy-io/react-auth": "^1.59.3",
+    "@privy-io/wagmi": "^0.2.1",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tanstack/react-query": "^5.28.4",
     "axios": "^1.6.7",
