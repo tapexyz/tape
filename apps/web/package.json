@@ -12,8 +12,8 @@
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "3.535.0",
-    "@aws-sdk/lib-storage": "3.535.0",
+    "@aws-sdk/client-s3": "3.536.0",
+    "@aws-sdk/lib-storage": "3.536.0",
     "@emoji-mart/react": "^1.1.1",
     "@hookform/resolvers": "^3.3.3",
     "@irys/sdk": "^0.1.16",
@@ -42,8 +42,8 @@
     "react-use-websocket": "^4.8.1",
     "textarea-caret": "^3.1.0",
     "uuid": "^9.0.1",
-    "viem": "^2.8.9",
-    "wagmi": "^2.5.7",
+    "viem": "^2.8.12",
+    "wagmi": "^2.5.11",
     "zod": "^3.22.2",
     "zustand": "^4.5.2"
   },
@@ -56,13 +56,13 @@
     "@tape.xyz/lens": "*",
     "@tape.xyz/ui": "*",
     "@types/js-cookie": "^3.0.6",
-    "@types/node": "20.11.28",
-    "@types/react": "18.2.66",
+    "@types/node": "20.11.29",
+    "@types/react": "18.2.67",
     "@types/react-dom": "18.2.22",
     "@types/textarea-caret": "^3.0.3",
     "@types/uuid": "^9.0.8",
     "autoprefixer": "^10.4.18",
-    "postcss": "^8.4.34",
+    "postcss": "^8.4.36",
     "tailwindcss": "^3.4.1",
     "typescript": "5.4.2"
   }
