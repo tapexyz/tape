@@ -1,7 +1,7 @@
 {
   "name": "tape.xyz",
   "description": "Talk, Amplify, Post, Explore",
-  "version": "2.0.1-beta",
+  "version": "2.0.2-beta",
   "private": true,
   "workspaces": [
     "apps/*",
@@ -17,8 +17,7 @@
     "typecheck": "turbo run typecheck --parallel",
     "prepare": "husky install",
     "api:deploy": "turbo run worker:deploy --parallel",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-    "mobile": "cd apps/mobile && yarn mobile:start"
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
     "husky": "^9.0.11",
