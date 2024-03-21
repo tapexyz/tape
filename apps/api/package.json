@@ -12,17 +12,17 @@
   "dependencies": {
     "@aws-sdk/client-sts": "3.535.0",
     "@hono/zod-validator": "^0.2.0",
-    "hono": "^4.1.2",
+    "hono": "^4.1.3",
     "linkedom": "^0.16.9",
     "ua-parser-js": "^1.0.37",
-    "viem": "^2.8.12",
+    "viem": "^2.8.16",
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20240314.0",
+    "@cloudflare/workers-types": "^4.20240320.1",
     "@tape.xyz/config": "*",
     "@tape.xyz/generic": "*",
     "@types/ua-parser-js": "^0.7.39",
-    "wrangler": "^3.34.2"
+    "wrangler": "^3.36.0"
   }
 }
