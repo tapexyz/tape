@@ -15,7 +15,7 @@
     "codegen": "turbo run codegen --parallel",
     "lint": "turbo run lint --parallel",
     "typecheck": "turbo run typecheck --parallel",
-    "prepare": "husky install",
+    "prepare": "husky",
     "api:deploy": "turbo run worker:deploy --parallel",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },

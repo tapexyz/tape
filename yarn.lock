@@ -2497,25 +2497,25 @@
     base64-js "^1.5.1"
     bignumber.js "^9.1.1"
 
-"@irys/query@^0.0.3":
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/@irys/query/-/query-0.0.3.tgz#79341601bf985dbd7dc5b150291d46f78160b3ff"
-  integrity sha512-M5njzHfda496dyXQUKlrfC3MoBc+sDrG8GFOuWM/JgMhOWpOVU78nIdL00KAaxsVAYqKTp78llCHOM1Q91XhyA==
+"@irys/query@^0.0.5":
+  version "0.0.5"
+  resolved "https://registry.yarnpkg.com/@irys/query/-/query-0.0.5.tgz#ff0099ee31f20f5c4473c03a10067fd588445f2a"
+  integrity sha512-Me/jTrSLVcbbDkSVioV9lQ3hUGsDVImXFtkkaGiaIVrGCN61jLhtePWXd3bW8XslN8KM9uVJcBKA3mKR8NNarg==
   dependencies:
     async-retry "^1.3.3"
     axios "^1.4.0"
 
-"@irys/sdk@^0.1.18-a1":
-  version "0.1.18-a1"
-  resolved "https://registry.yarnpkg.com/@irys/sdk/-/sdk-0.1.18-a1.tgz#d4f081e27bce42c777bfb62d53daa968ea21701b"
-  integrity sha512-Xapag0MFMdGp0YeeMq/oPG2+AlifWDRYOlHsnIroIXYaqpGqL1cnaEA7gVWQTZYA6Jyo1zweBdswC6eArHRbUw==
+"@irys/sdk@^0.1.18":
+  version "0.1.18"
+  resolved "https://registry.yarnpkg.com/@irys/sdk/-/sdk-0.1.18.tgz#f5e52eb2a54f3d32ef892328b79e78d45f39a983"
+  integrity sha512-CHRxyObYiEMUAnOozINp5Vw1Lcu6oxnixt6U6uZK7Aj7c+t92//+mkofoNwFt2kGVcG2j6AvQLeUGYW7AWIPOw==
   dependencies:
     "@aptos-labs/ts-sdk" "^1.9.0"
     "@ethersproject/bignumber" "^5.7.0"
     "@ethersproject/contracts" "^5.7.0"
     "@ethersproject/providers" "^5.7.2"
     "@ethersproject/wallet" "^5.7.0"
-    "@irys/query" "^0.0.3"
+    "@irys/query" "^0.0.5"
     "@near-js/crypto" "^0.0.3"
     "@near-js/keystores-browser" "^0.0.3"
     "@near-js/providers" "^0.0.4"

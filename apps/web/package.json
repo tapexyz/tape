@@ -16,7 +16,7 @@
     "@aws-sdk/lib-storage": "3.537.0",
     "@emoji-mart/react": "^1.1.1",
     "@hookform/resolvers": "^3.3.3",
-    "@irys/sdk": "^0.1.18-a1",
+    "@irys/sdk": "^0.1.18",
     "@lens-protocol/metadata": "^1.1.6",
     "@livepeer/react": "^3.1.9",
     "@tailwindcss/aspect-ratio": "^0.4.2",
