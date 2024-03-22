@@ -27,7 +27,7 @@ export const DropdownMenuSubContent = forwardRef<
       sideOffset={5}
       className={tw(
         sizeClasses,
-        'tape-border rounded-md bg-white leading-none data-[disabled]:pointer-events-none data-[highlighted]:bg-gray-200 data-[highlighted]:outline-none dark:bg-black dark:data-[highlighted]:bg-gray-800',
+        'tape-border z-10 rounded-md bg-white leading-none data-[disabled]:pointer-events-none data-[highlighted]:bg-gray-200 data-[highlighted]:outline-none dark:bg-black dark:data-[highlighted]:bg-gray-800',
         className
       )}
       ref={ref}
