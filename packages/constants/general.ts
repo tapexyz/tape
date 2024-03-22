@@ -127,9 +127,7 @@ export const WORKER_TOGGLES_URL = `${TAPE_API_URL}/toggles`
 export const WORKER_ALLOWED_TOKENS_URL = `${TAPE_API_URL}/allowed-tokens`
 
 // irys
-export const IRYS_NODE_URL = IS_MAINNET
-  ? 'https://node1.irys.xyz'
-  : 'https://devnet.irys.xyz'
+export const IRYS_NETWORK = IS_MAINNET ? 'mainnet' : 'devnet'
 export const IRYS_CURRENCY = 'matic'
 export const ARWEAVE_GATEWAY_URL = 'https://gateway.irys.xyz'
 export const IRYS_CONNECT_MESSAGE = 'Estimating video upload cost...'
