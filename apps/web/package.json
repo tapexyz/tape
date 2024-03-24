@@ -12,11 +12,11 @@
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "3.537.0",
-    "@aws-sdk/lib-storage": "3.537.0",
+    "@aws-sdk/client-s3": "3.540.0",
+    "@aws-sdk/lib-storage": "3.540.0",
     "@emoji-mart/react": "^1.1.1",
     "@hookform/resolvers": "^3.3.3",
-    "@irys/sdk": "^0.1.18",
+    "@irys/sdk": "^0.1.19",
     "@lens-protocol/metadata": "^1.1.6",
     "@livepeer/react": "^3.1.9",
     "@tailwindcss/aspect-ratio": "^0.4.2",
@@ -57,7 +57,7 @@
     "@tape.xyz/ui": "*",
     "@types/js-cookie": "^3.0.6",
     "@types/node": "20.11.30",
-    "@types/react": "18.2.67",
+    "@types/react": "18.2.69",
     "@types/react-dom": "18.2.22",
     "@types/textarea-caret": "^3.0.3",
     "@types/uuid": "^9.0.8",
