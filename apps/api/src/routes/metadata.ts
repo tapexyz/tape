@@ -31,7 +31,7 @@ app.post('/', async (c) => {
       return c.json({
         success: true,
         message: ERROR_MESSAGE,
-        irysRes
+        irysRes: JSON.stringify(irysRes)
       })
     }
 
