@@ -17,7 +17,7 @@ export const getProfilePicture = (
       ? profile.metadata?.picture?.optimized?.uri
       : profile.metadata?.picture?.__typename === 'NftImage'
         ? profile?.metadata.picture.image?.optimized?.uri
-        : getLennyPicture(profile?.ownedBy.address)
+        : getLennyPicture(profile?.id)
   const sanitized = sanitizeDStorageUrl(url)
   return imageCdn(sanitized, type)
 }
