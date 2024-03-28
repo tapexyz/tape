@@ -22,6 +22,6 @@ export const featureFlags: FeatureFlag[] = [
   },
   {
     flag: FEATURE_FLAGS.BANGERS,
-    enabledFor: IS_MAINNET ? ['0x5c95', '0x0d', '0x6ba0', '0x2d'] : []
+    enabledFor: IS_MAINNET ? ['0x2d'] : []
   }
 ]
