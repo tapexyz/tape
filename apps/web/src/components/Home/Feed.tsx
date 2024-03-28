@@ -68,7 +68,7 @@ const Feed = ({ showFilter = true }) => {
       {showFilter && <CategoryFilters />}
       <div>
         {loading && <TimelineShimmer />}
-        {!error && !loading && videos.length > 0 && (
+        {!error && !loading && videos?.length > 0 && (
           <>
             <Timeline videos={videos} />
             {pageInfo?.next && (
