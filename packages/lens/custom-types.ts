@@ -138,7 +138,8 @@ export enum LocalIDBStore {
   COLLECT_STORE = 'collect.store',
   VERIFIED_STORE = 'verified.store',
   ALLOWED_TOKENS_STORE = 'allowed-tokens.store',
-  RESTRICTIONS_STORE = 'restrictions.store'
+  RESTRICTIONS_STORE = 'restrictions.store',
+  CURATED_STORE = 'curated.store'
 }
 
 export type SupportedOpenActionModuleType =

@@ -1,11 +1,11 @@
 import Badge from '@components/Common/Badge'
 import HoverableProfile from '@components/Common/HoverableProfile'
 import LatestBytesShimmer from '@components/Shimmers/LatestBytesShimmer'
+import useCuratedProfiles from '@lib/store/idb/curated'
 import {
   FALLBACK_THUMBNAIL_URL,
   LENSTUBE_BYTES_APP_ID,
-  TAPE_APP_ID,
-  TAPE_CURATOR_ID
+  TAPE_APP_ID
 } from '@tape.xyz/constants'
 import {
   getProfile,
@@ -14,47 +14,48 @@ import {
   getThumbnailUrl,
   imageCdn
 } from '@tape.xyz/generic'
-import type { FeedItem, FeedRequest } from '@tape.xyz/lens'
+import type { PrimaryPublication, PublicationsRequest } from '@tape.xyz/lens'
 import {
-  FeedEventItemType,
+  LimitType,
   PublicationMetadataMainFocusType,
-  useFeedQuery
+  PublicationType,
+  usePublicationsQuery
 } from '@tape.xyz/lens'
 import Link from 'next/link'
 import React from 'react'
 
-// const since = getUnixTimestampForDaysAgo(30)
-
-const request: FeedRequest = {
-  where: {
-    feedEventItemTypes: [FeedEventItemType.Post],
-    for: TAPE_CURATOR_ID,
-    metadata: {
-      publishedOn: [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID],
-      mainContentFocus: [PublicationMetadataMainFocusType.ShortVideo]
-    }
-  }
-}
-
 const LatestBytes = () => {
-  const { data, error, loading } = useFeedQuery({
+  const curatedProfiles = useCuratedProfiles((state) => state.curatedProfiles)
+
+  const request: PublicationsRequest = {
+    where: {
+      metadata: {
+        mainContentFocus: [PublicationMetadataMainFocusType.ShortVideo],
+        publishedOn: [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID]
+      },
+      publicationTypes: [PublicationType.Post],
+      from: curatedProfiles
+    },
+    limit: LimitType.Fifty
+  }
+
+  const { data, error, loading } = usePublicationsQuery({
     variables: { request }
   })
 
-  const feedItems = data?.feed?.items as FeedItem[]
+  const bytes = data?.publications?.items as PrimaryPublication[]
 
   if (loading) {
     return <LatestBytesShimmer />
   }
 
-  if (!feedItems?.length || error) {
+  if (!bytes?.length || error) {
     return null
   }
 
   return (
     <>
-      {feedItems.map((feedItem: FeedItem) => {
-        const byte = feedItem.root
+      {bytes.map((byte) => {
         const thumbnailUrl = getThumbnailUrl(byte.metadata)
         return (
           <div className="flex flex-col" key={byte.id}>
