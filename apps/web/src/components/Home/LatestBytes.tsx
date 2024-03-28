@@ -1,13 +1,11 @@
 import Badge from '@components/Common/Badge'
 import HoverableProfile from '@components/Common/HoverableProfile'
 import LatestBytesShimmer from '@components/Shimmers/LatestBytesShimmer'
-import { getUnixTimestampForDaysAgo } from '@lib/formatTime'
-import { getRandomFeedOrder } from '@lib/getRandomFeedOrder'
 import {
   FALLBACK_THUMBNAIL_URL,
-  LENS_CUSTOM_FILTERS,
   LENSTUBE_BYTES_APP_ID,
-  TAPE_APP_ID
+  TAPE_APP_ID,
+  TAPE_CURATOR_ID
 } from '@tape.xyz/constants'
 import {
   getProfile,
@@ -16,54 +14,47 @@ import {
   getThumbnailUrl,
   imageCdn
 } from '@tape.xyz/generic'
-import type {
-  ExplorePublicationRequest,
-  PrimaryPublication
-} from '@tape.xyz/lens'
+import type { FeedItem, FeedRequest } from '@tape.xyz/lens'
 import {
-  ExplorePublicationType,
-  LimitType,
+  FeedEventItemType,
   PublicationMetadataMainFocusType,
-  useExplorePublicationsQuery
+  useFeedQuery
 } from '@tape.xyz/lens'
 import Link from 'next/link'
 import React from 'react'
 
-const since = getUnixTimestampForDaysAgo(30)
-const orderBy = getRandomFeedOrder()
+// const since = getUnixTimestampForDaysAgo(30)
 
-const request: ExplorePublicationRequest = {
+const request: FeedRequest = {
   where: {
-    publicationTypes: [ExplorePublicationType.Post],
-    customFilters: LENS_CUSTOM_FILTERS,
+    feedEventItemTypes: [FeedEventItemType.Post],
+    for: TAPE_CURATOR_ID,
     metadata: {
-      mainContentFocus: [PublicationMetadataMainFocusType.ShortVideo],
-      publishedOn: [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID]
-    },
-    since
-  },
-  orderBy,
-  limit: LimitType.Fifty
+      publishedOn: [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID],
+      mainContentFocus: [PublicationMetadataMainFocusType.ShortVideo]
+    }
+  }
 }
 
 const LatestBytes = () => {
-  const { data, error, loading } = useExplorePublicationsQuery({
+  const { data, error, loading } = useFeedQuery({
     variables: { request }
   })
 
-  const bytes = data?.explorePublications?.items as PrimaryPublication[]
+  const feedItems = data?.feed?.items as FeedItem[]
 
   if (loading) {
     return <LatestBytesShimmer />
   }
 
-  if (!bytes?.length || error) {
+  if (!feedItems?.length || error) {
     return null
   }
 
   return (
     <>
-      {bytes.map((byte) => {
+      {feedItems.map((feedItem: FeedItem) => {
+        const byte = feedItem.root
         const thumbnailUrl = getThumbnailUrl(byte.metadata)
         return (
           <div className="flex flex-col" key={byte.id}>

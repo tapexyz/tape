@@ -1,60 +1,49 @@
 import CategoryFilters from '@components/Common/CategoryFilters'
-import Timeline from '@components/Home/Timeline'
+import VideoCard from '@components/Common/VideoCard'
 import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { getUnixTimestampForDaysAgo } from '@lib/formatTime'
-import { getRandomFeedOrder } from '@lib/getRandomFeedOrder'
 import useAppStore from '@lib/store'
 import {
-  ALLOWED_APP_IDS,
   INFINITE_SCROLL_ROOT_MARGIN,
-  IS_MAINNET,
-  LENS_CUSTOM_FILTERS,
-  TAPE_APP_ID
+  LENSTUBE_APP_ID,
+  LENSTUBE_BYTES_APP_ID,
+  TAPE_APP_ID,
+  TAPE_CURATOR_ID
 } from '@tape.xyz/constants'
-import type {
-  ExplorePublicationRequest,
-  PrimaryPublication
-} from '@tape.xyz/lens'
+import type { FeedItem, FeedRequest, PrimaryPublication } from '@tape.xyz/lens'
 import {
-  ExplorePublicationType,
-  LimitType,
+  FeedEventItemType,
   PublicationMetadataMainFocusType,
-  useExplorePublicationsQuery
+  useFeedQuery
 } from '@tape.xyz/lens'
 import { Spinner } from '@tape.xyz/ui'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 
-const since = getUnixTimestampForDaysAgo(30)
-const orderBy = getRandomFeedOrder()
+// const since = getUnixTimestampForDaysAgo(30)
 
 const Feed = ({ showFilter = true }) => {
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
 
-  const request: ExplorePublicationRequest = {
+  const request: FeedRequest = {
     where: {
-      publicationTypes: [ExplorePublicationType.Post],
-      customFilters: LENS_CUSTOM_FILTERS,
+      feedEventItemTypes: [FeedEventItemType.Post],
+      for: TAPE_CURATOR_ID,
       metadata: {
-        publishedOn: IS_MAINNET ? [TAPE_APP_ID, ...ALLOWED_APP_IDS] : undefined,
+        publishedOn: [TAPE_APP_ID, LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID],
         tags:
           activeTagFilter !== 'all' ? { oneOf: [activeTagFilter] } : undefined,
         mainContentFocus: [PublicationMetadataMainFocusType.Video]
-      },
-      since
-    },
-    orderBy,
-    limit: LimitType.Fifty
+      }
+    }
   }
 
-  const { data, loading, error, fetchMore } = useExplorePublicationsQuery({
+  const { data, loading, error, fetchMore } = useFeedQuery({
     variables: { request }
   })
 
-  const pageInfo = data?.explorePublications?.pageInfo
-  const videos = data?.explorePublications
-    ?.items as unknown as PrimaryPublication[]
+  const pageInfo = data?.feed?.pageInfo
+  const feedItems = data?.feed?.items as FeedItem[]
 
   const { observe } = useInView({
     rootMargin: INFINITE_SCROLL_ROOT_MARGIN,
@@ -75,9 +64,19 @@ const Feed = ({ showFilter = true }) => {
       {showFilter && <CategoryFilters />}
       <div>
         {loading && <TimelineShimmer />}
-        {!error && !loading && videos.length > 0 && (
+        {!error && !loading && feedItems.length > 0 && (
           <>
-            <Timeline videos={videos} />
+            <div className="ultrawide:grid-cols-6 grid-col-1 desktop:grid-cols-4 tablet:grid-cols-3 grid gap-x-4 gap-y-2 md:gap-y-6">
+              {feedItems?.map((feedItem: FeedItem) => {
+                const video = feedItem.root
+                return (
+                  <VideoCard
+                    key={video?.id}
+                    video={video as PrimaryPublication}
+                  />
+                )
+              })}
+            </div>
             {pageInfo?.next && (
               <span ref={observe} className="flex justify-center p-10">
                 <Spinner />
@@ -85,7 +84,7 @@ const Feed = ({ showFilter = true }) => {
             )}
           </>
         )}
-        {videos?.length === 0 && (
+        {feedItems?.length === 0 && (
           <NoDataFound isCenter withImage text={`No videos found`} />
         )}
       </div>
