@@ -1,3 +1,4 @@
+import Badge from '@components/Common/Badge'
 import ButtonShimmer from '@components/Shimmers/ButtonShimmer'
 import { signIn, signOut } from '@lib/store/auth'
 import useProfileStore from '@lib/store/idb/profile'
@@ -220,6 +221,7 @@ const Authenticate = () => {
                         alt={getProfile(profile)?.displayName}
                       />
                       <span>{getProfile(profile).slugWithPrefix}</span>
+                      <Badge id={profile?.id} size="xs" />
                     </div>
                   </SelectItem>
                 ))}

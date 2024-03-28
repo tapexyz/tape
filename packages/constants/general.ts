@@ -118,7 +118,6 @@ export const WORKER_LIVEPEER_VIEWS_URL = `${TAPE_API_URL}/views`
 export const WORKER_IRYS_METADATA_UPLOAD_URL = `${TAPE_API_URL}/metadata`
 export const WORKER_LOGTAIL_INGEST_URL = `${TAPE_API_URL}/tail`
 export const WORKER_STS_TOKEN_URL = `${TAPE_API_URL}/sts`
-export const WORKER_RECS_URL = `${TAPE_API_URL}/recommendations`
 export const WORKER_DID_URL = `${TAPE_API_URL}/did`
 export const WORKER_TOWER_URL = `${TAPE_API_URL}/tower`
 export const WORKER_OEMBED_URL = `${TAPE_API_URL}/oembed`
