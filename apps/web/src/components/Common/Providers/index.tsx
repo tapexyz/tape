@@ -8,6 +8,7 @@ import { useRouter } from 'next/router'
 import type { ReactNode } from 'react'
 
 import ErrorBoundary from '../ErrorBoundary'
+import CuratedProfilesProvider from './CuratedProfilesProvider'
 import ThemeProvider from './ThemeProvider'
 
 const SubscriptionProvider = dynamic(() => import('./SubscriptionProvider'))
@@ -44,6 +45,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
         <ApolloProvider client={apolloQueryClient}>
           <QueryClientProvider client={reactQueryClient}>
             <ThemeProvider>
+              <CuratedProfilesProvider />
               <SubscriptionProvider />
               <TogglesProvider />
               <LivepeerConfig client={livepeerClient} theme={videoPlayerTheme}>
