@@ -4,6 +4,7 @@ import useProfileStore from '@lib/store/idb/profile'
 import { INFINITE_SCROLL_ROOT_MARGIN } from '@tape.xyz/constants'
 import {
   formatNumber,
+  getLennyPicture,
   getProfile,
   getProfileCoverPicture,
   getProfilePicture,
@@ -75,6 +76,9 @@ const Managed = () => {
                       src={getProfilePicture(profile, 'AVATAR')}
                       alt={getProfile(profile)?.displayName}
                       draggable={false}
+                      onError={({ currentTarget }) => {
+                        currentTarget.src = getLennyPicture(profile?.id)
+                      }}
                     />
                   </div>
                 </div>

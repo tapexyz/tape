@@ -2,7 +2,12 @@ import Badge from '@components/Common/Badge'
 import FollowActions from '@components/Common/FollowActions'
 import OtherChannelsShimmer from '@components/Shimmers/OtherChannelsShimmer'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { formatNumber, getProfile, getProfilePicture } from '@tape.xyz/generic'
+import {
+  formatNumber,
+  getLennyPicture,
+  getProfile,
+  getProfilePicture
+} from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { useProfilesQuery } from '@tape.xyz/lens'
 import Link from 'next/link'
@@ -45,6 +50,9 @@ const OtherProfiles: FC<Props> = ({ currentProfile }) => {
                   src={getProfilePicture(profile, 'AVATAR_LG')}
                   alt={getProfile(profile)?.slug}
                   draggable={false}
+                  onError={({ currentTarget }) => {
+                    currentTarget.src = getLennyPicture(profile?.id)
+                  }}
                 />
               </Link>
               <div className="w-full px-1.5 py-2">
