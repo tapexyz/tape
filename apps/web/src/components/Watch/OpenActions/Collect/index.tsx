@@ -14,9 +14,9 @@ import {
 import {
   checkLensManagerPermissions,
   formatNumber,
+  getLennyPicture,
   getProfile,
   getProfilePicture,
-  getRandomProfilePicture,
   getSignature,
   imageCdn,
   shortenAddress
@@ -206,7 +206,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
       const pfp = imageCdn(
         defaultProfile
           ? getProfilePicture(defaultProfile)
-          : getRandomProfilePicture(splitRecipient.recipient),
+          : getLennyPicture(splitRecipient.recipient),
         'AVATAR'
       )
       const label =

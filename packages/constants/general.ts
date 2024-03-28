@@ -123,6 +123,7 @@ export const WORKER_TOWER_URL = `${TAPE_API_URL}/tower`
 export const WORKER_OEMBED_URL = `${TAPE_API_URL}/oembed`
 export const WORKER_VERIFIED_URL = `${TAPE_API_URL}/verified`
 export const WORKER_TOGGLES_URL = `${TAPE_API_URL}/toggles`
+export const WORKER_AVATAR_URL = `${TAPE_API_URL}/avatar`
 export const WORKER_ALLOWED_TOKENS_URL = `${TAPE_API_URL}/allowed-tokens`
 
 // irys
