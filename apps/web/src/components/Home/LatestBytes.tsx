@@ -1,11 +1,9 @@
 import Badge from '@components/Common/Badge'
 import HoverableProfile from '@components/Common/HoverableProfile'
 import LatestBytesShimmer from '@components/Shimmers/LatestBytesShimmer'
-import { getUnixTimestampForDaysAgo } from '@lib/formatTime'
-import { getRandomFeedOrder } from '@lib/getRandomFeedOrder'
+import useCuratedProfiles from '@lib/store/idb/curated'
 import {
   FALLBACK_THUMBNAIL_URL,
-  LENS_CUSTOM_FILTERS,
   LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
 } from '@tape.xyz/constants'
@@ -16,42 +14,37 @@ import {
   getThumbnailUrl,
   imageCdn
 } from '@tape.xyz/generic'
-import type {
-  ExplorePublicationRequest,
-  PrimaryPublication
-} from '@tape.xyz/lens'
+import type { PrimaryPublication, PublicationsRequest } from '@tape.xyz/lens'
 import {
-  ExplorePublicationType,
   LimitType,
   PublicationMetadataMainFocusType,
-  useExplorePublicationsQuery
+  PublicationType,
+  usePublicationsQuery
 } from '@tape.xyz/lens'
 import Link from 'next/link'
 import React from 'react'
 
-const since = getUnixTimestampForDaysAgo(30)
-const orderBy = getRandomFeedOrder()
-
-const request: ExplorePublicationRequest = {
-  where: {
-    publicationTypes: [ExplorePublicationType.Post],
-    customFilters: LENS_CUSTOM_FILTERS,
-    metadata: {
-      mainContentFocus: [PublicationMetadataMainFocusType.ShortVideo],
-      publishedOn: [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID]
-    },
-    since
-  },
-  orderBy,
-  limit: LimitType.Fifty
-}
-
 const LatestBytes = () => {
-  const { data, error, loading } = useExplorePublicationsQuery({
-    variables: { request }
+  const curatedProfiles = useCuratedProfiles((state) => state.curatedProfiles)
+
+  const request: PublicationsRequest = {
+    where: {
+      metadata: {
+        mainContentFocus: [PublicationMetadataMainFocusType.ShortVideo],
+        publishedOn: [TAPE_APP_ID, LENSTUBE_BYTES_APP_ID]
+      },
+      publicationTypes: [PublicationType.Post],
+      from: curatedProfiles
+    },
+    limit: LimitType.Fifty
+  }
+
+  const { data, error, loading } = usePublicationsQuery({
+    variables: { request },
+    skip: !curatedProfiles?.length
   })
 
-  const bytes = data?.explorePublications?.items as PrimaryPublication[]
+  const bytes = data?.publications?.items as PrimaryPublication[]
 
   if (loading) {
     return <LatestBytesShimmer />
