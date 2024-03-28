@@ -163,8 +163,7 @@ export const TAPE_STATUS_PAGE = 'https://status.tape.xyz'
 export const TAPE_FEEDBACK_URL = 'https://feedback.tape.xyz'
 
 // admin
-export const ADMIN_IDS = IS_MAINNET ? ['0x2d'] : []
-export const MOD_IDS = IS_MAINNET ? [...ADMIN_IDS] : []
+export const ADMIN_IDS = IS_MAINNET ? ['0x2d', TAPE_CURATOR_ID] : []
 export const TAPE_ADMIN_ADDRESS = '0xB89560D7b33ea8d787EaaEfbcE1268f8991Db9E1'
 
 // lens
