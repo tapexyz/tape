@@ -133,7 +133,10 @@ const GlobalSearch = () => {
                     <Profiles
                       results={profiles}
                       loading={profilesLoading}
-                      clearSearch={() => setKeyword('')}
+                      clearSearch={() => {
+                        setShowSearchBar(false)
+                        setKeyword('')
+                      }}
                     />
                   ) : (
                     <NoDataFound isCenter />
@@ -145,7 +148,10 @@ const GlobalSearch = () => {
                     <Publications
                       results={publications}
                       loading={publicationsLoading}
-                      clearSearch={() => setKeyword('')}
+                      clearSearch={() => {
+                        setShowSearchBar(false)
+                        setKeyword('')
+                      }}
                     />
                   ) : (
                     <NoDataFound isCenter />
