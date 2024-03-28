@@ -59,7 +59,6 @@ import {
 import type { FC, ReactNode } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
-import { v4 as uuidv4 } from 'uuid'
 import { useSignTypedData, useWriteContract } from 'wagmi'
 
 import ArweaveExplorerLink from '../Links/ArweaveExplorerLink'
@@ -224,8 +223,6 @@ const PublicationOptions: FC<Props> = ({ publication, children }) => {
         ...(coverPicture && {
           coverPicture
         }),
-        appId: TAPE_APP_ID,
-        id: uuidv4(),
         attributes: [
           ...otherAttributes,
           {
