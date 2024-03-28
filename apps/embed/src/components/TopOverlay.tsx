@@ -6,6 +6,7 @@ import {
 } from '@tape.xyz/constants'
 import {
   EVENTS,
+  getLennyPicture,
   getProfile,
   getProfilePicture,
   getPublicationData,
@@ -64,6 +65,9 @@ const TopOverlay: FC<OverlayProps> = ({ playerRef, video }) => {
                 className="size-9 rounded-full"
                 draggable={false}
                 alt={getProfile(video.by)?.slug}
+                onError={({ currentTarget }) => {
+                  currentTarget.src = getLennyPicture(video.by?.id)
+                }}
               />
             </Link>
             <div className="flex flex-col">

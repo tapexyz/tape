@@ -5,6 +5,7 @@ import usePersistStore from '@lib/store/persist'
 import { tw, useAverageColor } from '@tape.xyz/browser'
 import { STATIC_ASSETS } from '@tape.xyz/constants'
 import {
+  getLennyPicture,
   getProfile,
   getProfilePicture,
   imageCdn,
@@ -122,6 +123,9 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
             src={getProfilePicture(activeProfile, 'AVATAR')}
             alt={getProfile(activeProfile)?.slug}
             draggable={false}
+            onError={({ currentTarget }) => {
+              currentTarget.src = getLennyPicture(activeProfile?.id)
+            }}
           />
           <div className="grid flex-1">
             <div className="flex w-full min-w-0 items-start justify-between space-x-1.5 pb-1">

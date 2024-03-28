@@ -5,6 +5,7 @@ import useProfileStore from '@lib/store/idb/profile'
 import { ERROR_MESSAGE } from '@tape.xyz/constants'
 import {
   EVENTS,
+  getLennyPicture,
   getProfile,
   getProfilePicture,
   logger,
@@ -218,6 +219,9 @@ const Authenticate = () => {
                       <img
                         src={getProfilePicture(profile, 'AVATAR')}
                         className="size-4 rounded-full"
+                        onError={({ currentTarget }) => {
+                          currentTarget.src = getLennyPicture(profile?.id)
+                        }}
                         alt={getProfile(profile)?.displayName}
                       />
                       <span>{getProfile(profile).slugWithPrefix}</span>
