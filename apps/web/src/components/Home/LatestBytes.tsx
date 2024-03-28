@@ -40,7 +40,8 @@ const LatestBytes = () => {
   }
 
   const { data, error, loading } = usePublicationsQuery({
-    variables: { request }
+    variables: { request },
+    skip: !curatedProfiles?.length
   })
 
   const bytes = data?.publications?.items as PrimaryPublication[]

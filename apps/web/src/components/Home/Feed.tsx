@@ -42,7 +42,8 @@ const Feed = ({ showFilter = true }) => {
   }
 
   const { data, loading, error, fetchMore } = usePublicationsQuery({
-    variables: { request }
+    variables: { request },
+    skip: !curatedProfiles?.length
   })
 
   const pageInfo = data?.publications?.pageInfo
