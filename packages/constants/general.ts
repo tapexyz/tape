@@ -119,12 +119,12 @@ export const WORKER_LIVEPEER_VIEWS_URL = `${TAPE_API_URL}/views`
 export const WORKER_IRYS_METADATA_UPLOAD_URL = `${TAPE_API_URL}/metadata`
 export const WORKER_LOGTAIL_INGEST_URL = `${TAPE_API_URL}/tail`
 export const WORKER_STS_TOKEN_URL = `${TAPE_API_URL}/sts`
-export const WORKER_RECS_URL = `${TAPE_API_URL}/recommendations`
 export const WORKER_DID_URL = `${TAPE_API_URL}/did`
 export const WORKER_TOWER_URL = `${TAPE_API_URL}/tower`
 export const WORKER_OEMBED_URL = `${TAPE_API_URL}/oembed`
 export const WORKER_VERIFIED_URL = `${TAPE_API_URL}/verified`
 export const WORKER_TOGGLES_URL = `${TAPE_API_URL}/toggles`
+export const WORKER_AVATAR_URL = `${TAPE_API_URL}/avatar`
 export const WORKER_ALLOWED_TOKENS_URL = `${TAPE_API_URL}/allowed-tokens`
 
 // irys
@@ -163,8 +163,7 @@ export const TAPE_STATUS_PAGE = 'https://status.tape.xyz'
 export const TAPE_FEEDBACK_URL = 'https://feedback.tape.xyz'
 
 // admin
-export const ADMIN_IDS = IS_MAINNET ? ['0x2d'] : []
-export const MOD_IDS = IS_MAINNET ? [...ADMIN_IDS] : []
+export const ADMIN_IDS = IS_MAINNET ? ['0x2d', TAPE_CURATOR_ID] : []
 export const TAPE_ADMIN_ADDRESS = '0xB89560D7b33ea8d787EaaEfbcE1268f8991Db9E1'
 
 // lens

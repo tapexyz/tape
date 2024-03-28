@@ -112,6 +112,7 @@ const GlobalSearch = () => {
         value={keyword}
         onChange={(event) => setKeyword(event.target.value)}
         placeholder="Search"
+        className="focus:outline-brand-400"
       />
       <div
         className={tw(
