@@ -15,7 +15,7 @@ const app = new Hono()
 app.get(
   '*',
   cache({
-    cacheName: 'verified',
+    cacheName: 'avatar',
     cacheControl: 'max-age=300'
   })
 )
