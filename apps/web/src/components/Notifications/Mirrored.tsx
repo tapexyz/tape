@@ -1,5 +1,6 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
 import {
+  getLennyPicture,
   getProfile,
   getProfilePicture,
   getPublicationData
@@ -29,6 +30,9 @@ const Mirrored: FC<Props> = ({ notification: { mirrors, publication } }) => {
                 src={getProfilePicture(profile, 'AVATAR')}
                 draggable={false}
                 alt={getProfile(profile)?.displayName}
+                onError={({ currentTarget }) => {
+                  currentTarget.src = getLennyPicture(profile?.id)
+                }}
               />
             </HoverableProfile>
           ))}

@@ -1,5 +1,9 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
-import { getProfile, getProfilePicture } from '@tape.xyz/generic'
+import {
+  getLennyPicture,
+  getProfile,
+  getProfilePicture
+} from '@tape.xyz/generic'
 import type { FollowNotification, Profile } from '@tape.xyz/lens'
 import { FollowOutline } from '@tape.xyz/ui'
 import type { FC } from 'react'
@@ -24,6 +28,9 @@ const Followed: FC<Props> = ({ notification: { followers } }) => {
                 src={getProfilePicture(profile, 'AVATAR')}
                 draggable={false}
                 alt={getProfile(profile)?.displayName}
+                onError={({ currentTarget }) => {
+                  currentTarget.src = getLennyPicture(profile?.id)
+                }}
               />
             </HoverableProfile>
           ))}
