@@ -8,6 +8,7 @@ import {
   TAPE_APP_ID
 } from '@tape.xyz/constants'
 import {
+  getLennyPicture,
   getProfile,
   getProfilePicture,
   getPublicationData,
@@ -94,6 +95,9 @@ const LatestBytes = () => {
                     width={50}
                     alt={`${getProfile(byte.by)?.slug}'s PFP`}
                     draggable={false}
+                    onError={({ currentTarget }) => {
+                      currentTarget.src = getLennyPicture(byte.by?.id)
+                    }}
                   />
                   <span className="flex items-center space-x-1 font-medium">
                     <span>{getProfile(byte.by)?.slug}</span>

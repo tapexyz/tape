@@ -2,6 +2,7 @@ import CollectorsList from '@components/Common/CollectorsList'
 import HoverableProfile from '@components/Common/HoverableProfile'
 import MirroredList from '@components/Common/MirroredList'
 import {
+  getLennyPicture,
   getProfile,
   getProfilePicture,
   getPublicationMediaCid
@@ -31,6 +32,9 @@ const VideoMeta: FC<Props> = ({ video }) => {
             className="size-5 rounded-full"
             draggable={false}
             alt={getProfile(video.by)?.displayName}
+            onError={({ currentTarget }) => {
+              currentTarget.src = getLennyPicture(video.by?.id)
+            }}
           />
         }
       />

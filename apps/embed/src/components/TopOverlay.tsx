@@ -63,11 +63,11 @@ const TopOverlay: FC<OverlayProps> = ({ playerRef, video }) => {
               <img
                 src={getProfilePicture(video.by, 'AVATAR')}
                 className="size-9 rounded-full"
-                draggable={false}
-                alt={getProfile(video.by)?.slug}
                 onError={({ currentTarget }) => {
                   currentTarget.src = getLennyPicture(video.by?.id)
                 }}
+                alt={getProfile(video.by)?.slug}
+                draggable={false}
               />
             </Link>
             <div className="flex flex-col">
