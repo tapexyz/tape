@@ -1229,10 +1229,10 @@
   resolved "https://registry.yarnpkg.com/@cloudflare/workerd-windows-64/-/workerd-windows-64-1.20240320.1.tgz#c2c5e6e82056a49453ce06133f106c504273ac20"
   integrity sha512-9xDylCOsuzWqGuANkuUByiJ5RHeMqgw37FiI7rn8I6zdGAc/alOB9B4Bh7B73WC2uEpFL+XCEjcHZ6NmsO4NaQ==
 
-"@cloudflare/workers-types@^4.20240320.1":
-  version "4.20240320.1"
-  resolved "https://registry.yarnpkg.com/@cloudflare/workers-types/-/workers-types-4.20240320.1.tgz#d738a379e683d4f7acf53b0af961162ca992421b"
-  integrity sha512-CiYtVpQURPgQqtBKkmOAnfPElVZuD7Xyf1IxKtKp2B4aB9gnooapwJhzeY8c4Ls4u17SgMS0MprOkrgYwzZ6xg==
+"@cloudflare/workers-types@^4.20240329.0":
+  version "4.20240329.0"
+  resolved "https://registry.yarnpkg.com/@cloudflare/workers-types/-/workers-types-4.20240329.0.tgz#18fd98a2987579ad208b6b9675c4f6411703fff0"
+  integrity sha512-AbzgvSQjG8Nci4xxQEcjTTVjiWXgOQnFIbIHtEZXteHiMGDXMWGegjWBo5JHGsZCq+U5V/SD5EnlypQnUQEoig==
 
 "@coinbase/wallet-sdk@3.9.1":
   version "3.9.1"
@@ -2505,10 +2505,10 @@
     async-retry "^1.3.3"
     axios "^1.4.0"
 
-"@irys/sdk@^0.1.20":
-  version "0.1.20"
-  resolved "https://registry.yarnpkg.com/@irys/sdk/-/sdk-0.1.20.tgz#b2a2e119f45a60679068c492bba0e3b3832c47f4"
-  integrity sha512-prwukjVh9tgRoVJHnESRZaw1pNWhDm5iGJgLl34HAcvcD82FqfLn/8toxl6pdZQK37LdoR3THDjxP8tFQk6WDA==
+"@irys/sdk@^0.1.21":
+  version "0.1.21"
+  resolved "https://registry.yarnpkg.com/@irys/sdk/-/sdk-0.1.21.tgz#71e358222440ce65bf7eca3b14e04bee7210b2ee"
+  integrity sha512-efW00ynWZkVGfFhOwONZGYLoME6r4yMty/y/v5vXNhlgc24D3AxUpW5ciaUpYN/pl6rDmAOLivJsoPcxdlhgMg==
   dependencies:
     "@aptos-labs/ts-sdk" "^1.9.0"
     "@ethersproject/bignumber" "^5.7.0"
@@ -5150,10 +5150,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.15.13.tgz#f64277c341150c979e42b00e4ac289290c9df469"
   integrity sha512-N+0kuo9KgrUQ1Sn/ifDXsvg0TTleP7rIy4zOBGECxAljqvqfqpTfzx0Q1NUedOixRMBfe2Whhb056a42cWs26Q==
 
-"@types/node@20.11.30", "@types/node@^20.11.30":
-  version "20.11.30"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.11.30.tgz#9c33467fc23167a347e73834f788f4b9f399d66f"
-  integrity sha512-dHM6ZxwlmuZaRmUPfv1p+KrdD1Dci04FbdEm/9wEMouFqxYoFl5aMkt0VMAUtYRQDyYvD41WJLukhq/ha3YuTw==
+"@types/node@20.12.2", "@types/node@^20.12.2":
+  version "20.12.2"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-20.12.2.tgz#9facdd11102f38b21b4ebedd9d7999663343d72e"
+  integrity sha512-zQ0NYO87hyN6Xrclcqp7f8ZbXNbRfoGWNcMvHTPQp9UUrwI0mI7XBz+cu7/W6/VClYo2g63B0cjull/srU7LgQ==
   dependencies:
     undici-types "~5.26.4"
 
@@ -5184,10 +5184,10 @@
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.11.tgz#2596fb352ee96a1379c657734d4b913a613ad563"
   integrity sha512-ga8y9v9uyeiLdpKddhxYQkxNDrfvuPrlFb0N1qnZZByvcElJaXthF1UhvCh9TLWJBEHeNtdnbysW7Y6Uq8CVng==
 
-"@types/react-dom@18.2.22", "@types/react-dom@^18.2.22":
-  version "18.2.22"
-  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-18.2.22.tgz#d332febf0815403de6da8a97e5fe282cbe609bae"
-  integrity sha512-fHkBXPeNtfvri6gdsMYyW+dW7RXFo6Ad09nLFK0VQWR7yGLai/Cyvyj696gbwYvBnhGtevUG9cET0pmUbMtoPQ==
+"@types/react-dom@18.2.23", "@types/react-dom@^18.2.23":
+  version "18.2.23"
+  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-18.2.23.tgz#112338760f622a16d64271b408355f2f27f6302c"
+  integrity sha512-ZQ71wgGOTmDYpnav2knkjr3qXdAFu0vsk8Ci5w3pGAIdj7/kKAyn+VsQDhXsmzzzepAiI9leWMmubXz690AI/A==
   dependencies:
     "@types/react" "*"
 
@@ -5392,10 +5392,10 @@
   resolved "https://registry.yarnpkg.com/@ungap/structured-clone/-/structured-clone-1.2.0.tgz#756641adb587851b5ccb3e095daf27ae581c8406"
   integrity sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==
 
-"@wagmi/connectors@4.1.19":
-  version "4.1.19"
-  resolved "https://registry.yarnpkg.com/@wagmi/connectors/-/connectors-4.1.19.tgz#7112f0409818d6671d136029ad0711a51f31c6b0"
-  integrity sha512-7OmdvepGCmzjGlY+pT7SgItgDd+eo7J2q50PywtnZ8xIdIEJUiwDm37izwQH0S7ZH8EL/9XkmOuz9hV5ORwn8Q==
+"@wagmi/connectors@4.1.22":
+  version "4.1.22"
+  resolved "https://registry.yarnpkg.com/@wagmi/connectors/-/connectors-4.1.22.tgz#6e2b253a5e08ff8a145cfc2beb943a375a073414"
+  integrity sha512-9t14G28awyeWTjGS/OfEd/DhdeX5t4Pio3SJHw4M4aTexIfN5DHGmmtfUtSu6DP1r+LD2vSI4ShT7vH0dgtZwA==
   dependencies:
     "@coinbase/wallet-sdk" "3.9.1"
     "@metamask/sdk" "0.14.3"
@@ -5404,10 +5404,10 @@
     "@walletconnect/ethereum-provider" "2.11.2"
     "@walletconnect/modal" "2.6.2"
 
-"@wagmi/core@2.6.10":
-  version "2.6.10"
-  resolved "https://registry.yarnpkg.com/@wagmi/core/-/core-2.6.10.tgz#2dd62844a2d7eb3329c9afd64a7171c3ee6262f9"
-  integrity sha512-CwY6T5MZgvhahNltArxVUpeh9Fk+zPeumqXyA+MIB0bdudOaxw0BjHyUOWGwcE8BH+uzT8YuTigeFVW3sKecVg==
+"@wagmi/core@2.6.13":
+  version "2.6.13"
+  resolved "https://registry.yarnpkg.com/@wagmi/core/-/core-2.6.13.tgz#eaca669b6b4283ec69412a206e66182a11d926c6"
+  integrity sha512-RZQ0mBXMH5oe7uvFkNh0e/gPWWLsbkDv/6/SeTY2H7fsH4I/T62ID6eNYUtyOoz7FgQTdAyPdSEt9lst1ZXxkQ==
   dependencies:
     eventemitter3 "5.0.1"
     mipd "0.0.5"
@@ -8593,10 +8593,10 @@ fraction.js@^4.3.7:
   resolved "https://registry.yarnpkg.com/fraction.js/-/fraction.js-4.3.7.tgz#06ca0085157e42fda7f9e726e79fefc4068840f7"
   integrity sha512-ZsDfxO51wGAXREY55a7la9LScWpwv9RxIrYABrlvOFBlH/ShPnrtsXeuUIfXKKOVicNxQ+o8JTbJvjS4M89yew==
 
-framer-motion@^11.0.22:
-  version "11.0.22"
-  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-11.0.22.tgz#15fa88138b26d7fed15980b08175b67a6445b3c7"
-  integrity sha512-kWyldNJLyKDvLWjPYFmgngQYLiU8973BtAeVBc83r2cnil/NBUQJb1ff/6/EweNQYb5BW3PaXFjZa4D3pn/W2Q==
+framer-motion@^11.0.24:
+  version "11.0.24"
+  resolved "https://registry.yarnpkg.com/framer-motion/-/framer-motion-11.0.24.tgz#d6ac88cd7d627e2ce57eb9bac05c60469fca6223"
+  integrity sha512-l2iM8NR53qtcujgAqYvGPJJGModPNWEVUaATRDLfnaLvUoFpImovBm0AHalSSsY8tW6knP8mfJTW4WYGbnAe4w==
   dependencies:
     tslib "^2.4.0"
 
@@ -10347,10 +10347,10 @@ min-indent@^1.0.0:
   resolved "https://registry.yarnpkg.com/min-indent/-/min-indent-1.0.1.tgz#a63f681673b30571fbe8bc25686ae746eefa9869"
   integrity sha512-I9jwMn07Sy/IwOj3zVkVik2JTvgpaykDZEigL6Rx6N9LbMywwUSMtxET+7lVoDLLd3O3IXwJwvuuns8UB/HeAg==
 
-miniflare@3.20240320.0:
-  version "3.20240320.0"
-  resolved "https://registry.yarnpkg.com/miniflare/-/miniflare-3.20240320.0.tgz#45f601e61529c84c7b37248c8ca133eaafad76ec"
-  integrity sha512-4M2QRxs+J5sUsybBzKT++tlbrjjjGZdtWxKmj2sqLsT26dGaKDz7DxjAeF5XIhKa5cADcffygjxx4EvfWocMmw==
+miniflare@3.20240320.1:
+  version "3.20240320.1"
+  resolved "https://registry.yarnpkg.com/miniflare/-/miniflare-3.20240320.1.tgz#150d4f2eb44a5755b18e12a4050c34502b609c81"
+  integrity sha512-MoHhT+XaFPQtplNIkJc5NtWOi5u/7VkmBUWyyxDH7ehHk4xRT2PDkMCvVOUIcaqbHNIBzigyoYegdYmZcYtdCg==
   dependencies:
     "@cspotcode/source-map-support" "0.8.1"
     acorn "^8.8.0"
@@ -13141,10 +13141,10 @@ viem@^1.0.0, viem@^1.1.4:
     isows "1.0.3"
     ws "8.13.0"
 
-viem@^2.9.4:
-  version "2.9.4"
-  resolved "https://registry.yarnpkg.com/viem/-/viem-2.9.4.tgz#0431a016366c0c920fb42c7e30eaea044ff7beac"
-  integrity sha512-j239PwRYc9WU7GOogfJ5Iu/5jwYaidpR85gLxKCwQmuXkNILKiRHntEM15EAtC9bcgaa9oklYwQ+/MlLU593/A==
+viem@^2.9.5:
+  version "2.9.5"
+  resolved "https://registry.yarnpkg.com/viem/-/viem-2.9.5.tgz#2d38abd5eb338886488719d9079500e7c971af10"
+  integrity sha512-IKLmGZJEQkdt9fqvryjR+W1FsPZM+dhALT0pwR8xhBOLvVHM0/lEViGRWDpm2ArNsFszipFhc2EpKp80/PnXkw==
   dependencies:
     "@adraffy/ens-normalize" "1.10.0"
     "@noble/curves" "1.2.0"
@@ -13165,13 +13165,13 @@ void-elements@3.1.0:
   resolved "https://registry.yarnpkg.com/void-elements/-/void-elements-3.1.0.tgz#614f7fbf8d801f0bb5f0661f5b2f5785750e4f09"
   integrity sha512-Dhxzh5HZuiHQhbvTW9AMetFfBHDMYpo23Uo9btPXgdYP+3T5S+p+jgNy7spra+veYhBP2dCSgxR/i2Y02h5/6w==
 
-wagmi@^2.5.13:
-  version "2.5.13"
-  resolved "https://registry.yarnpkg.com/wagmi/-/wagmi-2.5.13.tgz#b7aa7dde9667dc9619d03242f22c811a332e9e31"
-  integrity sha512-0+38DUGfLqwrzYx9Aza5ed+v2pO1qKN04egrcICaH4ff1N0Nj3iGlPBZ7HHyu+20r8qEKXIkW//6TPQMlc64YQ==
+wagmi@^2.5.16:
+  version "2.5.16"
+  resolved "https://registry.yarnpkg.com/wagmi/-/wagmi-2.5.16.tgz#42e4be44dd8e96deda10d953b91d13ee3a512758"
+  integrity sha512-nVSx65kGYcjvELJKoe+l1E78zHqtYwfg0nf2HuZkt1gVvqguo+hIQe534hSf1m+ivdtb0MPlwNCvj6K4QJ7FTw==
   dependencies:
-    "@wagmi/connectors" "4.1.19"
-    "@wagmi/core" "2.6.10"
+    "@wagmi/connectors" "4.1.22"
+    "@wagmi/core" "2.6.13"
     use-sync-external-store "1.2.0"
 
 wavesurfer.js@^7.7.5:
@@ -13317,10 +13317,10 @@ workerpool@6.2.1:
   resolved "https://registry.yarnpkg.com/workerpool/-/workerpool-6.2.1.tgz#46fc150c17d826b86a008e5a4508656777e9c343"
   integrity sha512-ILEIE97kDZvF9Wb9f6h5aXK4swSlKGUcOEGiIYb2OOu/IrDU9iwj0fD//SsA6E5ibwJxpEvhullJY4Sl4GcpAw==
 
-wrangler@^3.39.0:
-  version "3.39.0"
-  resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-3.39.0.tgz#bdbf50999c1af48feb7472315f19fcb01a2e724f"
-  integrity sha512-bcSuZSsC2FCLrdtpFqAu1vV993wG+z3zASbZlPP1iq1VhJyuWeRS3GlObtCrbgRTJIva1T+ZOLCno8kaMSc8Pg==
+wrangler@^3.41.0:
+  version "3.41.0"
+  resolved "https://registry.yarnpkg.com/wrangler/-/wrangler-3.41.0.tgz#84d883cb533b8aae69928db0ea19c777571058b6"
+  integrity sha512-iPFHF+88ZchnoZaQnq69Qkcpt0/LwkD44FzTxHWGzuBiNFwWwaNZ5zJ1G7Ga4nyipwcgtj+ykGlB/Amdgmut7w==
   dependencies:
     "@cloudflare/kv-asset-handler" "0.3.1"
     "@esbuild-plugins/node-globals-polyfill" "^0.2.3"
@@ -13328,7 +13328,7 @@ wrangler@^3.39.0:
     blake3-wasm "^2.1.5"
     chokidar "^3.5.3"
     esbuild "0.17.19"
-    miniflare "3.20240320.0"
+    miniflare "3.20240320.1"
     nanoid "^3.3.3"
     path-to-regexp "^6.2.0"
     resolve "^1.22.8"
