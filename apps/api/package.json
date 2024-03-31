@@ -12,6 +12,8 @@
   "dependencies": {
     "@aws-sdk/client-sts": "3.535.0",
     "@hono/zod-validator": "^0.2.0",
+    "@iexec/dataprotector": "^2.0.0-nightly-b23a0b206c2e75190a2eb5cb364b9c2709b13ebe",
+    "@iexec/web3mail": "^0.6.0",
     "hono": "^4.1.2",
     "linkedom": "^0.16.9",
     "ua-parser-js": "^1.0.37",
