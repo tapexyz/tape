@@ -1,7 +1,11 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
 import BubblesShimmer from '@components/Shimmers/BubblesShimmer'
 import useProfileStore from '@lib/store/idb/profile'
-import { getProfile, getProfilePicture } from '@tape.xyz/generic'
+import {
+  getLennyPicture,
+  getProfile,
+  getProfilePicture
+} from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { LimitType, useMutualFollowersQuery } from '@tape.xyz/lens'
 import { Modal } from '@tape.xyz/ui'
@@ -53,6 +57,9 @@ const Bubbles: FC<Props> = ({ viewing, showSeparator }) => {
                   src={getProfilePicture(profile, 'AVATAR')}
                   draggable={false}
                   alt={getProfile(profile)?.slug}
+                  onError={({ currentTarget }) => {
+                    currentTarget.src = getLennyPicture(profile?.id)
+                  }}
                 />
               </HoverableProfile>
             ))}

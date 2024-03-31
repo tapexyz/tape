@@ -1,5 +1,9 @@
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { getProfile, getProfilePicture } from '@tape.xyz/generic'
+import {
+  getLennyPicture,
+  getProfile,
+  getProfilePicture
+} from '@tape.xyz/generic'
 import {
   LimitType,
   type Profile,
@@ -76,6 +80,9 @@ const MirroredList: FC<Props> = ({ videoId }) => {
                   src={getProfilePicture(profile, 'AVATAR')}
                   alt={getProfile(profile)?.slug}
                   draggable={false}
+                  onError={({ currentTarget }) => {
+                    currentTarget.src = getLennyPicture(profile?.id)
+                  }}
                 />
                 <div className="flex items-center space-x-1">
                   <span>{getProfile(profile)?.slug}</span>

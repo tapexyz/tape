@@ -2,7 +2,11 @@ import Badge from '@components/Common/Badge'
 import InterweaveContent from '@components/Common/InterweaveContent'
 import useProfileStore from '@lib/store/idb/profile'
 import usePersistStore from '@lib/store/persist'
-import { getProfile, getProfilePicture } from '@tape.xyz/generic'
+import {
+  getLennyPicture,
+  getProfile,
+  getProfilePicture
+} from '@tape.xyz/generic'
 import {
   LensTransactionStatusType,
   PublicationDocument,
@@ -121,6 +125,9 @@ const QueuedComment: FC<Props> = ({ queuedComment }) => {
             className="size-7 rounded-full"
             draggable={false}
             alt={getProfile(activeProfile)?.slug}
+            onError={({ currentTarget }) => {
+              currentTarget.src = getLennyPicture(activeProfile?.id)
+            }}
           />
         </Link>
         <div className="mr-2 flex flex-col items-start">

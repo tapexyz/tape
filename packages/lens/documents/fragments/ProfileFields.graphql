@@ -41,7 +41,7 @@ fragment ProfileFields on Profile {
     address
     chainId
   }
-  metadata(request: { appId: "tape", useFallback: true }) {
+  metadata {
     ...ProfileMetadataFields
   }
   followModule {

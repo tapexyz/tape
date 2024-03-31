@@ -1,6 +1,7 @@
 import Stats from '@components/Profile/BasicInfo/Stats'
 import useProfileStore from '@lib/store/idb/profile'
 import {
+  getLennyPicture,
   getProfile,
   getProfileCoverPicture,
   getProfilePicture,
@@ -55,6 +56,9 @@ const HoverableProfile: FC<Props> = ({ profile, children, pfp }) => {
                 src={getProfilePicture(profile, 'AVATAR')}
                 alt={getProfile(activeProfile)?.displayName}
                 draggable={false}
+                onError={({ currentTarget }) => {
+                  currentTarget.src = getLennyPicture(profile?.id)
+                }}
               />
             </div>
             <div className="absolute bottom-3 right-3 flex-none">

@@ -17,16 +17,16 @@ const MediaLicense = () => {
         }
       >
         <SelectItem value={MetadataLicenseType.CC_BY}>
-          Creative Commons With Attribution
+          Use or share content with attribution
         </SelectItem>
         <SelectItem value={MetadataLicenseType.CC_BY_ND}>
-          Creative Commons With Attribution - No Derivatives
+          Use or share with attribution but no modifications
         </SelectItem>
         <SelectItem value={MetadataLicenseType.CC_BY_NC}>
-          Creative Commons With Attribution - Not for Commercial use
+          Use or share content with attribution for non-commercial purposes
         </SelectItem>
         <SelectItem value={MetadataLicenseType.CCO}>
-          No Rights Reserved
+          Use or share content without any restrictions
         </SelectItem>
       </Select>
     </div>

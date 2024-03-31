@@ -2,6 +2,7 @@ import { getDateString, getRelativeTime } from '@lib/formatTime'
 import { TAPE_SIGNUP_PROXY_ABI } from '@tape.xyz/abis'
 import { STATIC_ASSETS, TAPE_SIGNUP_PROXY_ADDRESS } from '@tape.xyz/constants'
 import {
+  getLennyPicture,
   getProfile,
   getProfileCoverPicture,
   getProfilePicture,
@@ -48,6 +49,9 @@ const Cover: FC<Props> = ({ profile }) => {
               src={getProfilePicture(profile, 'AVATAR_LG')}
               draggable={false}
               alt={getProfile(profile)?.slug}
+              onError={({ currentTarget }) => {
+                currentTarget.src = getLennyPicture(profile?.id)
+              }}
             />
             {Boolean(isMintedViaTape) && (
               <Tooltip content="Profile minted via Tape">

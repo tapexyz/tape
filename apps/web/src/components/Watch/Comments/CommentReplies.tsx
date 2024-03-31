@@ -5,6 +5,7 @@ import { getShortHandTime } from '@lib/formatTime'
 import { tw } from '@tape.xyz/browser'
 import { LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
 import {
+  getLennyPicture,
   getProfile,
   getProfilePicture,
   getPublicationData
@@ -139,6 +140,9 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
                     className="size-8 rounded-full"
                     draggable={false}
                     alt={getProfile(comment.by)?.slug}
+                    onError={({ currentTarget }) => {
+                      currentTarget.src = getLennyPicture(comment.by?.id)
+                    }}
                   />
                 </Link>
                 <div className="mr-2 flex w-full flex-col items-start">

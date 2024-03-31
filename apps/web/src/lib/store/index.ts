@@ -4,7 +4,7 @@ import { viemPublicClient } from '@lib/viemClient'
 import {
   CREATOR_VIDEO_CATEGORIES,
   IRYS_CURRENCY,
-  IRYS_NODE_URL,
+  IRYS_NETWORK,
   WMATIC_TOKEN_ADDRESS
 } from '@tape.xyz/constants'
 import { logger } from '@tape.xyz/generic'
@@ -92,7 +92,7 @@ const useAppStore = create<AppState>((set) => ({
   getIrysInstance: async (client: WalletClient) => {
     try {
       const instance = new WebIrys({
-        url: IRYS_NODE_URL,
+        network: IRYS_NETWORK,
         token: IRYS_CURRENCY,
         wallet: {
           name: 'viemv2',

@@ -2,6 +2,7 @@ import Badge from '@components/Common/Badge'
 import FollowActions from '@components/Common/FollowActions'
 import {
   formatNumber,
+  getLennyPicture,
   getProfile,
   getProfilePicture,
   getPublicationData
@@ -32,8 +33,11 @@ const BottomOverlay: FC<Props> = ({ video }) => {
             <img
               src={getProfilePicture(profile, 'AVATAR')}
               className="size-9 rounded-full"
-              draggable={false}
               alt={getProfile(video.by)?.slug}
+              draggable={false}
+              onError={({ currentTarget }) => {
+                currentTarget.src = getLennyPicture(profile?.id)
+              }}
             />
             <div className="flex min-w-0 flex-col items-start text-white">
               <h6 className="flex max-w-full items-center space-x-1">

@@ -1,6 +1,11 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { formatNumber, getProfile, getProfilePicture } from '@tape.xyz/generic'
+import {
+  formatNumber,
+  getLennyPicture,
+  getProfile,
+  getProfilePicture
+} from '@tape.xyz/generic'
 import type { FollowersRequest, Profile, ProfileStats } from '@tape.xyz/lens'
 import { LimitType, useFollowersQuery } from '@tape.xyz/lens'
 import { Modal, Spinner } from '@tape.xyz/ui'
@@ -77,6 +82,9 @@ const Followers: FC<Props> = ({ stats, profileId }) => {
                         className="size-5 rounded-full"
                         draggable={false}
                         alt={getProfile(profile)?.displayName}
+                        onError={({ currentTarget }) => {
+                          currentTarget.src = getLennyPicture(profile?.id)
+                        }}
                       />
                     }
                   />

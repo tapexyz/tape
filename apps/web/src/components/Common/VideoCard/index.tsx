@@ -2,6 +2,7 @@ import { getShortHandTime } from '@lib/formatTime'
 import { LENSTUBE_BYTES_APP_ID } from '@tape.xyz/constants'
 import {
   formatNumber,
+  getLennyPicture,
   getProfile,
   getProfilePicture,
   getPublicationData
@@ -42,6 +43,9 @@ const VideoCard: FC<Props> = ({ video }) => {
             className="size-8 rounded-full"
             alt={getProfile(video.by)?.displayName}
             draggable={false}
+            onError={({ currentTarget }) => {
+              currentTarget.src = getLennyPicture(video.by?.id)
+            }}
           />
 
           <div className="flex w-full flex-col justify-between gap-1">

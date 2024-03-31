@@ -1,4 +1,9 @@
-import { formatNumber, getProfile, getProfilePicture } from '@tape.xyz/generic'
+import {
+  formatNumber,
+  getLennyPicture,
+  getProfile,
+  getProfilePicture
+} from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { UserOutline } from '@tape.xyz/ui'
 import Link from 'next/link'
@@ -34,6 +39,9 @@ const Profiles: FC<Props> = ({ results, loading, clearSearch }) => {
                   src={getProfilePicture(profile, 'AVATAR')}
                   draggable={false}
                   alt="pfp"
+                  onError={({ currentTarget }) => {
+                    currentTarget.src = getLennyPicture(profile?.id)
+                  }}
                 />
                 <div className="flex items-center space-x-1">
                   <p className="line-clamp-1 truncate text-base">

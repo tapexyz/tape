@@ -49,7 +49,6 @@ import Link from 'next/link'
 import type { FC } from 'react'
 import React, { memo } from 'react'
 import toast from 'react-hot-toast'
-import { v4 as uuidv4 } from 'uuid'
 import { useSignTypedData, useWriteContract } from 'wagmi'
 
 type Props = {
@@ -173,8 +172,6 @@ const PinnedVideo: FC<Props> = ({ id }) => {
         ...(coverPicture && {
           coverPicture
         }),
-        appId: TAPE_APP_ID,
-        id: uuidv4(),
         attributes: [
           ...otherAttributes,
           {

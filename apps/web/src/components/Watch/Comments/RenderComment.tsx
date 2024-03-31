@@ -8,6 +8,7 @@ import usePersistStore from '@lib/store/persist'
 import { tw } from '@tape.xyz/browser'
 import { SIGN_IN_REQUIRED } from '@tape.xyz/constants'
 import {
+  getLennyPicture,
   getProfile,
   getProfilePicture,
   getPublicationData,
@@ -74,6 +75,9 @@ const RenderComment: FC<Props> = ({ comment }) => {
             className="size-8 rounded-full"
             draggable={false}
             alt={getProfile(comment.by)?.slug}
+            onError={({ currentTarget }) => {
+              currentTarget.src = getLennyPicture(comment.by?.id)
+            }}
           />
         </Link>
         <div className="mr-2 flex w-full flex-col items-start">

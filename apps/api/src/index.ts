@@ -2,11 +2,11 @@ import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 
 import allowedTokens from './routes/allowed-tokens'
+import avatar from './routes/avatar'
 import did from './routes/did'
 import gateway from './routes/gateway'
 import metadata from './routes/metadata'
 import oembed from './routes/oembed'
-import recommendations from './routes/recommendations'
 import signup from './routes/signup'
 import sts from './routes/sts'
 import tail from './routes/tail'
@@ -28,11 +28,11 @@ app.route('/tower', tower)
 app.route('/views', views)
 app.route('/oembed', oembed)
 app.route('/signup', signup)
+app.route('/avatar', avatar)
 app.route('/gateway', gateway)
 app.route('/toggles', toggles)
 app.route('/metadata', metadata)
 app.route('/verified', verified)
 app.route('/allowed-tokens', allowedTokens)
-app.route('/recommendations', recommendations)
 
 export default app

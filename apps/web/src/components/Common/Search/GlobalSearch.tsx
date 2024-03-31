@@ -112,6 +112,7 @@ const GlobalSearch = () => {
         value={keyword}
         onChange={(event) => setKeyword(event.target.value)}
         placeholder="Search"
+        className="focus:outline-brand-400"
       />
       <div
         className={tw(
@@ -133,7 +134,10 @@ const GlobalSearch = () => {
                     <Profiles
                       results={profiles}
                       loading={profilesLoading}
-                      clearSearch={() => setKeyword('')}
+                      clearSearch={() => {
+                        setShowSearchBar(false)
+                        setKeyword('')
+                      }}
                     />
                   ) : (
                     <NoDataFound isCenter />
@@ -145,7 +149,10 @@ const GlobalSearch = () => {
                     <Publications
                       results={publications}
                       loading={publicationsLoading}
-                      clearSearch={() => setKeyword('')}
+                      clearSearch={() => {
+                        setShowSearchBar(false)
+                        setKeyword('')
+                      }}
                     />
                   ) : (
                     <NoDataFound isCenter />

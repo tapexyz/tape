@@ -138,23 +138,8 @@ export enum LocalIDBStore {
   COLLECT_STORE = 'collect.store',
   VERIFIED_STORE = 'verified.store',
   ALLOWED_TOKENS_STORE = 'allowed-tokens.store',
-  RESTRICTIONS_STORE = 'restrictions.store'
-}
-
-export interface CustomNftItemType {
-  contentValue: {
-    video: string
-    audio: string
-  }
-  metaData: {
-    name: string
-    image: string
-    description: string
-  }
-  tokenId: string
-  blockchain: string
-  chainId: string
-  address: string
+  RESTRICTIONS_STORE = 'restrictions.store',
+  CURATED_STORE = 'curated.store'
 }
 
 export type SupportedOpenActionModuleType =
@@ -162,68 +147,3 @@ export type SupportedOpenActionModuleType =
   | MultirecipientFeeCollectOpenActionSettings
   | LegacySimpleCollectModuleSettings
   | LegacyMultirecipientFeeCollectModuleSettings
-
-export enum StreamChannelType {
-  Unlonely = 'unlonely',
-  Rad = 'rad'
-}
-
-export type ChannelStreamType = {
-  title: string
-  content: string
-  posterUrl: string
-  playbackUrl: string
-  liveUrl: string
-  uid: string
-  pid: string
-  streamer: string
-  channel: string
-  isLive: boolean
-}
-
-// ------------------------------------------------------------------------MOBILE STARTS---------------------------------------------------------------------------------------------------------------
-
-export enum TimelineFeedType {
-  CURATED = 'CURATED',
-  FOLLOWING = 'FOLLOWING',
-  HIGHLIGHTS = 'HIGHLIGHTS',
-  ALGORITHM = 'ALGORITHM'
-}
-
-export enum AlgoType {
-  K3L_RECOMMENDED = 'K3L_RECOMMENDED',
-  K3L_POPULAR = 'K3L_POPULAR',
-  K3L_CROWDSOURCED = 'K3L_CROWDSOURCED'
-}
-
-export enum ALGO_PROVIDER {
-  K3L = 'K3L'
-}
-
-export const MOBILE_PROFILE_ITEMS = [
-  'Clan',
-  'Media',
-  'Bytes',
-  'Replies',
-  'Gallery'
-] as const
-
-export type MobileProfileTabItemType = (typeof MOBILE_PROFILE_ITEMS)[number]
-
-export interface MobileThemeConfig {
-  textColor: string
-  secondaryTextColor: string
-  backgroudColor: string
-  backgroudColor2: string
-  backgroudColor3: string
-  sheetBackgroundColor: string
-  borderColor: string
-  contrastBorderColor: string
-  sheetBorderColor: string
-  contrastBackgroundColor: string
-  contrastTextColor: string
-  buttonBackgroundColor: string
-  buttonTextColor: string
-}
-
-// ------------------------------------------------------------------------MOBILE ENDS---------------------------------------------------------------------------------------------------------------

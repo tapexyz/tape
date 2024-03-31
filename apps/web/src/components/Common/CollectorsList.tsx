@@ -1,5 +1,10 @@
 import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { formatNumber, getProfile, getProfilePicture } from '@tape.xyz/generic'
+import {
+  formatNumber,
+  getLennyPicture,
+  getProfile,
+  getProfilePicture
+} from '@tape.xyz/generic'
 import type { Profile, WhoActedOnPublicationRequest } from '@tape.xyz/lens'
 import {
   LimitType,
@@ -75,6 +80,9 @@ const CollectorsList: FC<Props> = ({ videoId }) => {
                   src={getProfilePicture(profile, 'AVATAR')}
                   alt={getProfile(profile)?.displayName}
                   draggable={false}
+                  onError={({ currentTarget }) => {
+                    currentTarget.src = getLennyPicture(profile?.id)
+                  }}
                 />
                 <div className="flex items-center space-x-1">
                   <span>{getProfile(profile)?.slug}</span>

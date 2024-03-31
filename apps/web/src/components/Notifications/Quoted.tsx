@@ -1,6 +1,7 @@
 import HoverableProfile from '@components/Common/HoverableProfile'
 import { getShortHandTime } from '@lib/formatTime'
 import {
+  getLennyPicture,
   getProfile,
   getProfilePicture,
   getPublicationData
@@ -30,6 +31,9 @@ const Quoted: FC<Props> = ({ notification: { quote } }) => {
                 src={getProfilePicture(quote.by, 'AVATAR')}
                 draggable={false}
                 alt={getProfile(quote.by)?.displayName}
+                onError={({ currentTarget }) => {
+                  currentTarget.src = getLennyPicture(quote.by?.id)
+                }}
               />
             </HoverableProfile>
           </span>
