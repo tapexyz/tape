@@ -9079,10 +9079,10 @@ hoist-non-react-statics@^3.3.1, hoist-non-react-statics@^3.3.2:
   dependencies:
     react-is "^16.7.0"
 
-hono@^4.1.5:
-  version "4.1.5"
-  resolved "https://registry.yarnpkg.com/hono/-/hono-4.1.5.tgz#7c3d7547672fab1928347ff0eb458e4e34634a3a"
-  integrity sha512-3ChJiIoeCxvkt6vnkxJagplrt1YZg3NyNob7ssVeK2PUqEINp4q1F94HzFnvY9QE8asVmbW5kkTDlyWylfg2vg==
+hono@^4.1.7:
+  version "4.1.7"
+  resolved "https://registry.yarnpkg.com/hono/-/hono-4.1.7.tgz#d1e2a7dd9729ab59c5989c361ac96684962012b6"
+  integrity sha512-Qa9/OM64d3we/COpxpJNT8p2IEvXbvRzp2eX4wf48eDvqoU3pBrnbY6zAF2rK878GxkkfCo6yipZXNsPiTrBMQ==
 
 hosted-git-info@^2.1.4:
   version "2.8.9"
@@ -13141,10 +13141,10 @@ viem@^1.0.0, viem@^1.1.4:
     isows "1.0.3"
     ws "8.13.0"
 
-viem@^2.9.5:
-  version "2.9.5"
-  resolved "https://registry.yarnpkg.com/viem/-/viem-2.9.5.tgz#2d38abd5eb338886488719d9079500e7c971af10"
-  integrity sha512-IKLmGZJEQkdt9fqvryjR+W1FsPZM+dhALT0pwR8xhBOLvVHM0/lEViGRWDpm2ArNsFszipFhc2EpKp80/PnXkw==
+viem@^2.9.6:
+  version "2.9.6"
+  resolved "https://registry.yarnpkg.com/viem/-/viem-2.9.6.tgz#66819684e878b6ea659ad9c49a0a864512859190"
+  integrity sha512-VVFWjGQei2wnWTvAB/xrIf22m6flCwxeBr8LnwejXMTSSi1EORWEswrw2lfKTmw3TlRPSG4uSiQMa/d0l0DKRg==
   dependencies:
     "@adraffy/ens-normalize" "1.10.0"
     "@noble/curves" "1.2.0"
@@ -13174,10 +13174,10 @@ wagmi@^2.5.16:
     "@wagmi/core" "2.6.13"
     use-sync-external-store "1.2.0"
 
-wavesurfer.js@^7.7.5:
-  version "7.7.5"
-  resolved "https://registry.yarnpkg.com/wavesurfer.js/-/wavesurfer.js-7.7.5.tgz#fc63eddb734e277366b9cf87a214ab82a4d9702e"
-  integrity sha512-LegTsXbIwbpAp4IbE+yltF+behavUp4OufpPHCWA+NYqv0+Y3T2M1y6MrdF/QmfYnb7ZiUsOLXtSHe2OhgCPiw==
+wavesurfer.js@^7.7.7:
+  version "7.7.7"
+  resolved "https://registry.yarnpkg.com/wavesurfer.js/-/wavesurfer.js-7.7.7.tgz#c3b38e557a429716fd223673c645f12a9c1aea03"
+  integrity sha512-cFnzxi6T6A5UH5CgiXCpV8KPgDvwzK5S3b54Hq1g+o1KzXH2CouavRj1ciwLBLXf6MK1eG9JnbhxF/1ppZ2iGQ==
 
 wcwidth@^1.0.1:
   version "1.0.1"
