@@ -21,8 +21,8 @@
     "@tape.xyz/constants": "*",
     "@tape.xyz/generic": "*",
     "@tape.xyz/lens": "*",
-    "@types/node": "^20.12.2",
-    "@types/react": "^18.2.73",
+    "@types/node": "^20.12.3",
+    "@types/react": "^18.2.74",
     "@types/react-dom": "^18.2.23",
     "typescript": "^5.4.3"
   }
