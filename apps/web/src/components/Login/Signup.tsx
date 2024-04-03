@@ -196,8 +196,8 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
   useEffect(() => {
     window.$chatwoot?.toggleBubbleVisibility('show')
     return () => {
-      window.$chatwoot?.toggle('close')
       window.$chatwoot?.toggleBubbleVisibility('hide')
+      window.$chatwoot?.toggle('close')
     }
   }, [])
 
