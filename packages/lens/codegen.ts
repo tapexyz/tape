@@ -1,6 +1,6 @@
 import type { CodegenConfig } from '@graphql-codegen/cli'
 
-import LensEndpoint from './endpoints'
+import { LensEndpoint } from '@tape.xyz/constants'
 
 const config: CodegenConfig = {
   overwrite: true,

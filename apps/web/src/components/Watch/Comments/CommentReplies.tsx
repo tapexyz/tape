@@ -3,7 +3,6 @@ import InterweaveContent from '@components/Common/InterweaveContent'
 import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
 import { getShortHandTime } from '@lib/formatTime'
 import { tw } from '@tape.xyz/browser'
-import { LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
 import {
   getLennyPicture,
   getProfile,
@@ -13,6 +12,7 @@ import {
 import {
   type Comment,
   CommentRankingFilterType,
+  CustomFiltersType,
   LimitType,
   type Profile,
   type PublicationsRequest,
@@ -86,7 +86,7 @@ const CommentReplies: FC<Props> = ({ comment, replyTo }) => {
   const request: PublicationsRequest = {
     limit: LimitType.Fifty,
     where: {
-      customFilters: LENS_CUSTOM_FILTERS,
+      customFilters: [CustomFiltersType.Gardeners],
       commentOn: {
         id: comment.id,
         ranking: {

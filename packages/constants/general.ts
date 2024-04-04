@@ -1,5 +1,4 @@
-import { CustomFiltersType } from '@tape.xyz/lens'
-import LensEndpoint from '@tape.xyz/lens/endpoints'
+import { LensEndpoint } from './endpoints'
 
 export const TAPE_APP_NAME = 'Tape'
 export const TAPE_APP_DESCRIPTION = 'Talk, Amplify, Post, Explore'
@@ -167,7 +166,6 @@ export const ADMIN_IDS = IS_MAINNET ? ['0x2d', TAPE_CURATOR_ID] : []
 export const TAPE_ADMIN_ADDRESS = '0xB89560D7b33ea8d787EaaEfbcE1268f8991Db9E1'
 
 // lens
-export const LENS_CUSTOM_FILTERS = [CustomFiltersType.Gardeners]
 export const ALLOWED_VIDEO_MIME_TYPES = [
   'video/mp4',
   'video/mpeg',

@@ -1,7 +1,6 @@
 import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { tw, useDebounce, useOutsideClick } from '@tape.xyz/browser'
 import {
-  LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
@@ -14,6 +13,7 @@ import type {
   PublicationSearchRequest
 } from '@tape.xyz/lens'
 import {
+  CustomFiltersType,
   LimitType,
   PublicationMetadataMainFocusType,
   SearchPublicationType,
@@ -57,7 +57,7 @@ const GlobalSearch = () => {
         publishedOn: [TAPE_APP_ID, LENSTUBE_APP_ID, LENSTUBE_BYTES_APP_ID]
       },
       publicationTypes: [SearchPublicationType.Post],
-      customFilters: LENS_CUSTOM_FILTERS
+      customFilters: [CustomFiltersType.Gardeners]
     }
   }
 
@@ -65,7 +65,7 @@ const GlobalSearch = () => {
     limit: LimitType.Ten,
     query: keyword,
     where: {
-      customFilters: LENS_CUSTOM_FILTERS
+      customFilters: [CustomFiltersType.Gardeners]
     }
   }
 

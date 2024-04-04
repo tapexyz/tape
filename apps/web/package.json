@@ -7,13 +7,11 @@
     "dev": "next dev --port 4783",
     "build": "next build",
     "export": "next export",
-    "start": "yarn build && next start --port 4783",
+    "start": "pnpm build && next start --port 4783",
     "typecheck": "tsc --pretty",
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "@aws-sdk/client-s3": "3.540.0",
-    "@aws-sdk/lib-storage": "3.540.0",
     "@emoji-mart/react": "^1.1.1",
     "@hookform/resolvers": "^3.3.3",
     "@irys/sdk": "^0.1.21",
@@ -48,13 +46,15 @@
     "zustand": "^4.5.2"
   },
   "devDependencies": {
+    "@tape.xyz/browser": "workspace:*",
+    "@tape.xyz/config": "workspace:*",
+    "@tape.xyz/constants": "workspace:*",
+    "@tape.xyz/generic": "workspace:*",
+    "@tape.xyz/lens": "workspace:*",
+    "@tape.xyz/abis": "workspace:*",
+    "@tape.xyz/ui": "workspace:*",
     "@tailwindcss/typography": "^0.5.12",
-    "@tape.xyz/browser": "*",
-    "@tape.xyz/config": "*",
-    "@tape.xyz/constants": "*",
-    "@tape.xyz/generic": "*",
-    "@tape.xyz/lens": "*",
-    "@tape.xyz/ui": "*",
+
     "@types/js-cookie": "^3.0.6",
     "@types/node": "20.12.4",
     "@types/react": "18.2.74",

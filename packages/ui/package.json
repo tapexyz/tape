@@ -7,13 +7,8 @@
     "lint": "eslint . --ext .js,.ts,.tsx",
     "typecheck": "tsc --pretty"
   },
-  "devDependencies": {
-    "@tape.xyz/browser": "*",
-    "@tape.xyz/constants": "*",
-    "@tape.xyz/generic": "*",
-    "typescript": "5.4.3"
-  },
   "dependencies": {
+    "@livepeer/react": "^3.1.9",
     "@radix-ui/react-accordion": "^1.1.2",
     "@radix-ui/react-checkbox": "^1.0.4",
     "@radix-ui/react-dialog": "^1.0.5",
@@ -25,6 +20,18 @@
     "@radix-ui/react-switch": "^1.0.3",
     "@radix-ui/react-tabs": "^1.0.4",
     "@tippyjs/react": "^4.2.6",
+    "framer-motion": "^11.0.24",
+    "next-themes": "^0.3.0",
+    "react": "^18.2.0",
+    "tippy.js": "^6.3.7",
     "wavesurfer.js": "^7.7.8"
+  },
+  "devDependencies": {
+    "@tape.xyz/browser": "workspace:*",
+    "@tape.xyz/config": "workspace:*",
+    "@tape.xyz/constants": "workspace:*",
+    "@tape.xyz/generic": "workspace:*",
+    "@types/react": "^18.2.74",
+    "typescript": "5.4.3"
   }
 }

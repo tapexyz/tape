@@ -3,7 +3,6 @@ import ProfileSuggestion from '@components/UIElements/ProfileSuggestion'
 import useAppStore from '@lib/store'
 import { tw, useDebounce, useOutsideClick } from '@tape.xyz/browser'
 import {
-  LENS_CUSTOM_FILTERS,
   LENS_NAMESPACE_PREFIX,
   TAPE_ADMIN_ADDRESS,
   TAPE_APP_NAME
@@ -15,7 +14,11 @@ import {
   trimify
 } from '@tape.xyz/generic'
 import type { Profile, RecipientDataInput } from '@tape.xyz/lens'
-import { LimitType, useSearchProfilesLazyQuery } from '@tape.xyz/lens'
+import {
+  CustomFiltersType,
+  LimitType,
+  useSearchProfilesLazyQuery
+} from '@tape.xyz/lens'
 import {
   InfoOutline,
   Input,
@@ -71,7 +74,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
             limit: LimitType.Ten,
             query: searchKeyword,
             where: {
-              customFilters: LENS_CUSTOM_FILTERS
+              customFilters: [CustomFiltersType.Gardeners]
             }
           }
         }

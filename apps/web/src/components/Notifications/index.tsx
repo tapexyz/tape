@@ -5,14 +5,13 @@ import useNotificationStore from '@lib/store/notification'
 import usePersistStore from '@lib/store/persist'
 import {
   INFINITE_SCROLL_ROOT_MARGIN,
-  LENS_CUSTOM_FILTERS,
   LENSTUBE_APP_ID,
   LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
 } from '@tape.xyz/constants'
 import { EVENTS, Tower } from '@tape.xyz/generic'
 import type { Notification, NotificationRequest } from '@tape.xyz/lens'
-import { useNotificationsQuery } from '@tape.xyz/lens'
+import { CustomFiltersType, useNotificationsQuery } from '@tape.xyz/lens'
 import { CustomNotificationsFilterEnum } from '@tape.xyz/lens/custom-types'
 import { Spinner } from '@tape.xyz/ui'
 import React, { useEffect } from 'react'
@@ -41,7 +40,7 @@ const Notifications = () => {
 
   const request: NotificationRequest = {
     where: {
-      customFilters: LENS_CUSTOM_FILTERS,
+      customFilters: [CustomFiltersType.Gardeners],
       highSignalFilter:
         selectedNotificationsFilter ===
         CustomNotificationsFilterEnum.HIGH_SIGNAL,
