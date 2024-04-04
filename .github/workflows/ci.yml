@@ -15,7 +15,9 @@ jobs:
       runs-on: ubuntu-latest
 
       steps:
-        - uses: pnpm/action-setup@v3
+        - name: Setup pnpm
+          uses: pnpm/action-setup@v3
+          
         - uses: actions/checkout@v4
         - uses: actions/setup-node@v4
           with:
