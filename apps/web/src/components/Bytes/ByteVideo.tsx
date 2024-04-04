@@ -4,7 +4,6 @@ import {
   getPublication,
   getPublicationData,
   getPublicationMediaUrl,
-  getShouldUploadVideo,
   getThumbnailUrl,
   imageCdn,
   sanitizeDStorageUrl
@@ -104,6 +103,21 @@ const ByteVideo: FC<Props> = ({
             id={targetPublication?.id}
           />
           <VideoPlayer
+            src={[
+              {
+                src: getPublicationMediaUrl(targetPublication.metadata),
+                type: 'video',
+                height: 720,
+                width: 1080,
+                mime: 'video/mp4'
+              }
+            ]}
+            title={getPublicationData(targetPublication.metadata)?.title || ''}
+            poster={thumbnailUrl}
+            aspectRatio={9 / 16}
+            showControls={false}
+          />
+          {/* <VideoPlayer
             address={activeProfile?.ownedBy.address}
             refCallback={refCallback}
             url={getPublicationMediaUrl(targetPublication.metadata)}
@@ -118,7 +132,7 @@ const ByteVideo: FC<Props> = ({
               isCurrentlyShown: currentViewingId === video.id
             }}
             shouldUpload={getShouldUploadVideo(targetPublication)}
-          />
+          /> */}
         </div>
         <TopOverlay onClickVideo={onClickVideo} />
         <BottomOverlay video={targetPublication} />

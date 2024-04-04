@@ -4,8 +4,8 @@ import { tw, useAverageColor } from '@tape.xyz/browser'
 import { LENSTUBE_BYTES_APP_ID } from '@tape.xyz/constants'
 import {
   EVENTS,
+  getPublicationData,
   getPublicationMediaUrl,
-  getShouldUploadVideo,
   getThumbnailUrl,
   imageCdn,
   sanitizeDStorageUrl,
@@ -44,19 +44,19 @@ const Video: FC<Props> = ({ video }) => {
     Tower.track(EVENTS.EMBED_VIDEO.LOADED)
   }, [])
 
-  const refCallback = (ref: HTMLMediaElement) => {
-    if (!ref) {
-      return null
-    }
-    setPlayerRef(ref)
-  }
+  // const refCallback = (ref: HTMLMediaElement) => {
+  //   if (!ref) {
+  //     return null
+  //   }
+  //   setPlayerRef(ref)
+  // }
 
-  useEffect(() => {
-    if (playerRef && clicked) {
-      playerRef.autoplay = true
-      playerRef?.play().catch(() => {})
-    }
-  }, [playerRef, clicked, isAutoPlay])
+  // useEffect(() => {
+  //   if (playerRef && clicked) {
+  //     playerRef.autoplay = true
+  //     playerRef?.play().catch(() => {})
+  //   }
+  // }, [playerRef, clicked, isAutoPlay])
 
   const onClickOverlay = () => {
     setClicked(true)
@@ -66,21 +66,35 @@ const Video: FC<Props> = ({ video }) => {
     <div className="group relative h-screen w-screen overflow-x-hidden">
       {clicked ? (
         <VideoPlayer
-          refCallback={refCallback}
-          url={getPublicationMediaUrl(video.metadata)}
-          posterUrl={thumbnailUrl}
-          currentTime={currentTime}
-          options={{
-            autoPlay: isAutoPlay,
-            muted: isAutoPlay,
-            loop: isLoop,
-            loadingSpinner: true,
-            isCurrentlyShown: true,
-            maxHeight: true
-          }}
-          shouldUpload={getShouldUploadVideo(video)}
+          src={[
+            {
+              src: getPublicationMediaUrl(video.metadata),
+              type: 'video',
+              height: 720,
+              width: 1080,
+              mime: 'video/mp4'
+            }
+          ]}
+          title={getPublicationData(video.metadata)?.title || ''}
+          poster={thumbnailUrl}
+          timestamp={currentTime}
         />
       ) : (
+        // <VideoPlayer
+        //   refCallback={refCallback}
+        //   url={getPublicationMediaUrl(video.metadata)}
+        //   posterUrl={thumbnailUrl}
+        //   currentTime={currentTime}
+        //   options={{
+        //     autoPlay: isAutoPlay,
+        //     muted: isAutoPlay,
+        //     loop: isLoop,
+        //     loadingSpinner: true,
+        //     isCurrentlyShown: true,
+        //     maxHeight: true
+        //   }}
+        //   shouldUpload={getShouldUploadVideo(video)}
+        // />
         <div className="flex h-full w-full justify-center">
           <img
             src={thumbnailUrl}

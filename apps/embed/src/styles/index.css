@@ -14,6 +14,14 @@ button:active {
   animation: button-pop 0.25s ease-out;
 }
 
+div[data-radix-aspect-ratio-wrapper] {
+  height: 100%;
+}
+img[data-livepeer-poster] {
+  height: 100%;
+  object-fit: contain;
+}
+
 @keyframes button-pop {
   0% {
     transform: scale(0.9);

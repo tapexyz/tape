@@ -16,7 +16,6 @@
     "@hookform/resolvers": "^3.3.3",
     "@irys/sdk": "^0.1.21",
     "@lens-protocol/metadata": "^1.1.6",
-    "@livepeer/react": "^3.1.9",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tanstack/react-query": "^5.28.14",
     "axios": "^1.6.7",
@@ -46,15 +45,14 @@
     "zustand": "^4.5.2"
   },
   "devDependencies": {
+    "@tailwindcss/typography": "^0.5.12",
+    "@tape.xyz/abis": "workspace:*",
     "@tape.xyz/browser": "workspace:*",
     "@tape.xyz/config": "workspace:*",
     "@tape.xyz/constants": "workspace:*",
     "@tape.xyz/generic": "workspace:*",
     "@tape.xyz/lens": "workspace:*",
-    "@tape.xyz/abis": "workspace:*",
     "@tape.xyz/ui": "workspace:*",
-    "@tailwindcss/typography": "^0.5.12",
-
     "@types/js-cookie": "^3.0.6",
     "@types/node": "20.12.4",
     "@types/react": "18.2.74",

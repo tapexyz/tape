@@ -241,16 +241,17 @@ const PinnedVideo: FC<Props> = ({ id }) => {
       <div className="grid gap-5 overflow-hidden md:grid-cols-2 lg:grid-cols-3">
         <div className="overflow-hidden rounded-xl">
           <VideoPlayer
-            address={activeProfile?.ownedBy.address}
-            url={getPublicationMediaUrl(pinnedPublication.metadata)}
-            posterUrl={thumbnailUrl}
-            isSensitiveContent={isSensitiveContent}
-            options={{
-              autoPlay: true,
-              loop: false,
-              loadingSpinner: true,
-              isCurrentlyShown: true
-            }}
+            src={[
+              {
+                src: getPublicationMediaUrl(pinnedPublication.metadata),
+                type: 'video',
+                height: 720,
+                width: 1080,
+                mime: 'video/mp4'
+              }
+            ]}
+            title={getPublicationData(pinnedPublication.metadata)?.title || ''}
+            poster={thumbnailUrl}
           />
         </div>
         <div className="group flex flex-col justify-between gap-3 pl-2 lg:col-span-2">
