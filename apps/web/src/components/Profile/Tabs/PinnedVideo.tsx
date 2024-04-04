@@ -241,15 +241,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
       <div className="grid gap-5 overflow-hidden md:grid-cols-2 lg:grid-cols-3">
         <div className="overflow-hidden rounded-xl">
           <VideoPlayer
-            src={[
-              {
-                src: getPublicationMediaUrl(pinnedPublication.metadata),
-                type: 'video',
-                height: 720,
-                width: 1080,
-                mime: 'video/mp4'
-              }
-            ]}
+            url={getPublicationMediaUrl(pinnedPublication.metadata)}
             title={getPublicationData(pinnedPublication.metadata)?.title || ''}
             poster={thumbnailUrl}
           />

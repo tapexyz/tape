@@ -43,15 +43,7 @@ const RenderPlayer = memo(function ({ video }: { video: PrimaryPublication }) {
   return (
     <div className="rounded-large overflow-hidden">
       <VideoPlayer
-        src={[
-          {
-            src: videoUrl,
-            type: 'video',
-            height: 720,
-            width: 1080,
-            mime: 'video/mp4'
-          }
-        ]}
+        url={videoUrl}
         title={getPublicationData(metadata)?.title || ''}
         poster={thumbnailUrl}
         timestamp={videoWatchTime}

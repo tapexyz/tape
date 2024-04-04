@@ -15,7 +15,7 @@ import type { PrimaryPublication } from '@tape.xyz/lens'
 import { PlayOutline, VideoPlayer } from '@tape.xyz/ui'
 import { useSearchParams } from 'next/navigation'
 import type { FC } from 'react'
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import TopOverlay from './TopOverlay'
 
@@ -66,15 +66,7 @@ const Video: FC<Props> = ({ video }) => {
     <div className="group relative h-screen w-screen overflow-x-hidden">
       {clicked ? (
         <VideoPlayer
-          src={[
-            {
-              src: getPublicationMediaUrl(video.metadata),
-              type: 'video',
-              height: 720,
-              width: 1080,
-              mime: 'video/mp4'
-            }
-          ]}
+          url={getPublicationMediaUrl(video.metadata)}
           title={getPublicationData(video.metadata)?.title || ''}
           poster={thumbnailUrl}
           timestamp={currentTime}

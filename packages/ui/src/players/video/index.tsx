@@ -1,4 +1,3 @@
-import type { Src } from '@livepeer/react'
 import {
   EnterFullscreenIcon,
   ExitFullscreenIcon,
@@ -9,16 +8,17 @@ import {
   PlayIcon,
   UnmuteIcon
 } from '@livepeer/react/assets'
+import { getSrc } from '@livepeer/react/external'
 import * as Player from '@livepeer/react/player'
 import type { FC } from 'react'
-import React, { useState } from 'react'
+import { useState } from 'react'
 
 import { PlayerLoading } from './PlayerLoading'
 import SensitiveWarning from './SensitiveWarning'
 import Settings from './Settings'
 
 type Props = {
-  src: Src[] | null
+  url: string
   title: string
   poster: string
   timestamp?: number
@@ -29,7 +29,7 @@ type Props = {
 
 export const VideoPlayer: FC<Props> = (props) => {
   const {
-    src,
+    url,
     title,
     poster,
     timestamp = 0,
@@ -43,14 +43,22 @@ export const VideoPlayer: FC<Props> = (props) => {
     return <SensitiveWarning acceptWarning={() => setSensitiveWarning(false)} />
   }
 
-  if (!src) {
-    return (
-      <PlayerLoading
-        title="Invalid Video"
-        description="We could not fetch valid playback information for the source you provided. Please check and try again."
-      />
-    )
+  const vodSource = {
+    type: 'vod',
+    meta: {
+      playbackPolicy: null,
+      source: [
+        {
+          hrn: 'HLS (TS)',
+          type: 'html5/application/vnd.apple.mpegurl',
+          url
+        }
+      ]
+    }
   }
+
+  const src = getSrc(vodSource)
+  console.log('🚀 ~ src:', src, url)
 
   return (
     <Player.Root src={src} aspectRatio={aspectRatio} autoPlay>

@@ -103,15 +103,7 @@ const ByteVideo: FC<Props> = ({
             id={targetPublication?.id}
           />
           <VideoPlayer
-            src={[
-              {
-                src: getPublicationMediaUrl(targetPublication.metadata),
-                type: 'video',
-                height: 720,
-                width: 1080,
-                mime: 'video/mp4'
-              }
-            ]}
+            url={getPublicationMediaUrl(targetPublication.metadata)}
             title={getPublicationData(targetPublication.metadata)?.title || ''}
             poster={thumbnailUrl}
             aspectRatio={9 / 16}
