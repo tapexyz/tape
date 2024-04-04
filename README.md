@@ -39,18 +39,12 @@
 
 For a place to have open discussions on features, voice your ideas, or get help with general questions please visit our community at [Discord](https://tape.xyz/discord).
 
-## 🚢 Deployments
-
-| Name    | Link                     |
-| ------- | ------------------------ |
-| Mainnet | https://tape.xyz         |
-| Testnet | https://testnet.tape.xyz |
 
 ## 🔭 What's inside?
 
 This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. It includes the following packages/apps:
 
-### Apps
+### 🏗️ Apps
 
 | Name     | Description                         |
 | -------- | ----------------------------------- |
@@ -59,7 +53,7 @@ This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. I
 | `api`    | Cloudflare functions                |
 | `og`     | Open graph meta tags generator      |
 
-### Packages
+### 📦 Packages
 
 | Name             | Description                               |
 | ---------------- | ----------------------------------------- |
@@ -69,9 +63,9 @@ This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. I
 | `ui`             | UI components                             |
 | `constants`      | Constants for the entire application      |
 | `config`         | Shared lint config                        |
-| `permissionless` | Permissionless signup contracts           |
+| `contracts`      | Permissionless signup contracts           |
 
-## Getting Started
+## 🆕 Getting Started
 
 Install all dependencies from repository root,
 
