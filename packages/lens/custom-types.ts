@@ -59,7 +59,7 @@ export type UnknownOpenActionType = {
 }
 
 export type UploadedMedia = {
-  type: 'VIDEO' | 'AUDIO'
+  type: 'VIDEO'
   stream: FileReaderStreamType | null
   preview: string
   mediaType: string

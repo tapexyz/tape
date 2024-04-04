@@ -14,7 +14,6 @@ export const EVENTS = {
     BANGERS: 'Bangers Page',
     LOGIN: 'Login Page',
     EXPLORE: 'Explore Page',
-    LISTEN: 'Listen Page',
     PROFILE: 'Profile Page',
     EXPLORE_TRENDING: 'Trending Page',
     EXPLORE_INTERESTING: 'Interesting Page',
@@ -71,7 +70,6 @@ export const EVENTS = {
   PROFILE: {
     CLICK_PROFILE_VIDEOS: 'Click Profile Videos',
     CLICK_PROFILE_BYTES: 'Click Profile Bytes',
-    CLICK_PROFILE_AUDIOS: 'Click Profile Audios',
     CLICK_OTHER_PROFILES: 'Click Other Profiles',
     UPDATE: 'Update Profile',
     FOLLOW: 'Follow',
@@ -87,7 +85,6 @@ export const EVENTS = {
     COPY: 'Copy Embed',
     LOADED: 'Embed Video Loaded',
     CLICK_WATCH_ON_TAPE: 'Click Watch on Tape',
-    CLICK_LISTEN_ON_TAPE: 'Click Listen on Tape',
     CLICK_EMBED_TITLE: 'Click Embed Title',
     CLICK_EMBED_PROFILE: 'Click Embed Profile',
     CLICK_COPY_URL: 'Click Embed Copy Url'

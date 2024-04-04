@@ -18,10 +18,7 @@ type Props = {
 const Share: FC<Props> = ({ publication }) => {
   const [copy] = useCopyToClipboard()
   const { resolvedTheme } = useTheme()
-  const isAudio = publication.metadata?.__typename === 'AudioMetadataV3'
-  const url = `${TAPE_WEBSITE_URL}/${isAudio ? 'listen' : 'watch'}/${
-    publication.id
-  }`
+  const url = `${TAPE_WEBSITE_URL}/watch/${publication.id}`
 
   const onCopyVideoUrl = async () => {
     await copy(url)
@@ -31,7 +28,7 @@ const Share: FC<Props> = ({ publication }) => {
   return (
     <div>
       <div className="no-scrollbar mb-4 flex flex-nowrap items-center space-x-3 overflow-x-auto">
-        <EmbedMedia publicationId={publication.id} isAudio={isAudio} />
+        <EmbedMedia publicationId={publication.id} />
         <MirrorPublication video={publication}>
           <div className="rounded-full bg-gray-200 p-3 dark:bg-gray-800">
             <MirrorOutline className="size-5" />

@@ -1,4 +1,4 @@
-import { getPublication, isListenable, isWatchable } from '@tape.xyz/generic'
+import { getPublication, isWatchable } from '@tape.xyz/generic'
 import type { AnyPublication } from '@tape.xyz/lens'
 import { PublicationDocument } from '@tape.xyz/lens'
 import { apolloClient } from '@tape.xyz/lens/apollo'
@@ -25,10 +25,9 @@ export default async function Page({ params }: Props) {
 
   const publication = data.publication as AnyPublication
   const targetPublication = getPublication(publication)
-  const isAudio = isListenable(targetPublication)
   const isVideo = isWatchable(targetPublication)
 
-  if (!isAudio && !isVideo) {
+  if (!isVideo) {
     return <Custom404 />
   }
 
