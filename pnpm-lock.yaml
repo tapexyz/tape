@@ -576,9 +576,6 @@ importers:
       tippy.js:
         specifier: ^6.3.7
         version: 6.3.7
-      wavesurfer.js:
-        specifier: ^7.7.8
-        version: 7.7.8
     devDependencies:
       '@tape.xyz/browser':
         specifier: workspace:*
@@ -18243,10 +18240,6 @@ packages:
     resolution: {integrity: sha512-ts/8E8l5b7kY0vlWLewOkDXMmPdLcVV4GmOQLyxuSswIJsweeFZtAsMF7k1Nszz+TYBQrlYRmzOnr398y1JemQ==}
     dependencies:
       makeerror: 1.0.12
-
-  /wavesurfer.js@7.7.8:
-    resolution: {integrity: sha512-uzpe+wOe031G03wC4P/LO7Ai9OkF7Wyh8QGn9IMjAbwtiwK+H083cOZij9S4SD/vEdTdXligFKvziSB9bVmaIg==}
-    dev: false
 
   /wcwidth@1.0.1:
     resolution: {integrity: sha512-XHPEwS0q6TaxcvG85+8EYkbiCux2XtWG2mkc47Ng2A77BQu9+DqIOJldST4HgPkuea7dvKSj5VgX3P1d4rW8Tg==}

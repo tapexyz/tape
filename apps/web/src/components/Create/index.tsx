@@ -1,13 +1,10 @@
 import MetaTags from '@components/Common/MetaTags'
 import type {
-  AudioOptions,
-  MediaAudioMimeType,
   MediaVideoMimeType,
   MetadataAttribute,
   VideoOptions
 } from '@lens-protocol/metadata'
 import {
-  audio,
   MetadataAttributeType,
   PublicationContentWarning,
   shortVideo,
@@ -116,9 +113,6 @@ const CreateSteps = () => {
 
   const redirectToWatchPage = (pubId: string) => {
     resetToDefaults()
-    if (uploadedMedia.type === 'AUDIO') {
-      return router.push(`/listen/${pubId}`)
-    }
     router.push(`/watch/${pubId}`)
   }
 
@@ -445,64 +439,6 @@ const CreateSteps = () => {
     await createPost(metadataUri)
   }
 
-  const profileSlug = getProfile(activeProfile)?.slug
-
-  const constructAudioMetadata = async () => {
-    const attributes: MetadataAttribute[] = [
-      {
-        type: MetadataAttributeType.STRING,
-        key: 'category',
-        value: uploadedMedia.mediaCategory.tag
-      },
-      {
-        type: MetadataAttributeType.STRING,
-        key: 'creator',
-        value: profileSlug
-      },
-      {
-        type: MetadataAttributeType.STRING,
-        key: 'app',
-        value: TAPE_WEBSITE_URL
-      }
-    ]
-
-    const audioMetadata: AudioOptions = {
-      audio: {
-        item: uploadedMedia.dUrl,
-        type: getUploadedMediaType(
-          uploadedMedia.mediaType
-        ) as MediaAudioMimeType,
-        artist: profileSlug,
-        attributes,
-        cover: uploadedMedia.thumbnail,
-        duration: uploadedMedia.durationInSeconds,
-        license: uploadedMedia.mediaLicense
-      },
-      appId: TAPE_APP_ID,
-      id: uuidv4(),
-      attributes,
-      content: trimify(uploadedMedia.description),
-      tags: [uploadedMedia.mediaCategory.tag],
-      locale: getUserLocale(),
-      title: uploadedMedia.title,
-      marketplace: {
-        attributes,
-        animation_url: uploadedMedia.dUrl,
-        external_url: `${TAPE_WEBSITE_URL}/u/${profileSlug}`,
-        image: uploadedMedia.thumbnail,
-        name: uploadedMedia.title,
-        description: trimify(uploadedMedia.description)
-      }
-    }
-
-    if (uploadedMedia.isSensitiveContent) {
-      audioMetadata.contentWarning = PublicationContentWarning.SENSITIVE
-    }
-
-    const metadataUri = await uploadToAr(audio(audioMetadata))
-    await createPost(metadataUri)
-  }
-
   const create = async ({ dUrl }: { dUrl: string }) => {
     try {
       setUploadedMedia({
@@ -510,9 +446,6 @@ const CreateSteps = () => {
         loading: true
       })
       uploadedMedia.dUrl = dUrl
-      if (uploadedMedia.type === 'AUDIO') {
-        return await constructAudioMetadata()
-      }
       await constructVideoMetadata()
     } catch (error: any) {
       onError(error)

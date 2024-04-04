@@ -16,11 +16,8 @@ export const getSharableLink = (
 ) => {
   const fullHandle = publication.by.handle?.fullHandle
   const { metadata } = publication
-  const isAudio = metadata?.__typename === 'AudioMetadataV3'
 
-  const url = `${TAPE_WEBSITE_URL}/${isAudio ? 'listen' : 'watch'}/${
-    publication.id
-  }`
+  const url = `${TAPE_WEBSITE_URL}/watch/${publication.id}`
 
   if (link === 'tape') {
     return `${TAPE_WEBSITE_URL}/watch/${publication.id}`

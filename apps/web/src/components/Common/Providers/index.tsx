@@ -22,7 +22,6 @@ const NO_PADDING_PATHS = [
   '/u/[[...handle]]',
   '/bangers',
   '/profile/[id]',
-  '/listen/[id]',
   '/login',
   '/bytes',
   '/bytes/[id]',

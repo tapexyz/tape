@@ -7,12 +7,11 @@ import {
   tapeFont,
   videoPlayerTheme
 } from '@tape.xyz/browser'
-import { getPublication, isListenable } from '@tape.xyz/generic'
+import { getPublication } from '@tape.xyz/generic'
 import type { AnyPublication } from '@tape.xyz/lens'
 import type { FC } from 'react'
 import React, { useEffect } from 'react'
 
-import Audio from './Audio'
 import Video from './Video'
 
 type Props = {
@@ -26,17 +25,12 @@ const Publication: FC<Props> = ({ publication }) => {
   }, [])
 
   const target = getPublication(publication)
-  const isAudio = isListenable(target)
 
   return (
     <div className={tapeFont.className}>
-      {isAudio ? (
-        <Audio audio={target} />
-      ) : (
-        <LivepeerConfig client={getLivepeerClient()} theme={videoPlayerTheme}>
-          <Video video={target} />
-        </LivepeerConfig>
-      )}
+      <LivepeerConfig client={getLivepeerClient()} theme={videoPlayerTheme}>
+        <Video video={target} />
+      </LivepeerConfig>
     </div>
   )
 }
