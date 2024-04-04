@@ -7,7 +7,6 @@ import {
   ALLOWED_APP_IDS,
   INFINITE_SCROLL_ROOT_MARGIN,
   IS_MAINNET,
-  LENS_CUSTOM_FILTERS,
   LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
 } from '@tape.xyz/constants'
@@ -17,6 +16,7 @@ import type {
   PrimaryPublication
 } from '@tape.xyz/lens'
 import {
+  CustomFiltersType,
   ExplorePublicationsOrderByType,
   ExplorePublicationType,
   LimitType,
@@ -37,7 +37,7 @@ const ExploreCategory = () => {
 
   const request: ExplorePublicationRequest = {
     where: {
-      customFilters: LENS_CUSTOM_FILTERS,
+      customFilters: [CustomFiltersType.Gardeners],
       publicationTypes: [ExplorePublicationType.Post],
       metadata: {
         tags: { oneOf: [categoryName] },

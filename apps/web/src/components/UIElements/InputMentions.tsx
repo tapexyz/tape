@@ -1,8 +1,11 @@
 import { tw, useDebounce, useOutsideClick } from '@tape.xyz/browser'
-import { LENS_CUSTOM_FILTERS } from '@tape.xyz/constants'
 import { getProfile, getProfilePicture } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
-import { LimitType, useSearchProfilesLazyQuery } from '@tape.xyz/lens'
+import {
+  CustomFiltersType,
+  LimitType,
+  useSearchProfilesLazyQuery
+} from '@tape.xyz/lens'
 import { Spinner, TextArea } from '@tape.xyz/ui'
 import type { ComponentProps, FC } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
@@ -66,7 +69,7 @@ const InputMentions: FC<TextAreaProps> = ({
             query: keyword,
             limit: LimitType.Ten,
             where: {
-              customFilters: LENS_CUSTOM_FILTERS
+              customFilters: [CustomFiltersType.Gardeners]
             }
           }
         }

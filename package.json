@@ -3,12 +3,8 @@
   "description": "Talk, Amplify, Post, Explore",
   "version": "2.0.2-beta",
   "private": true,
-  "workspaces": [
-    "apps/*",
-    "packages/*",
-    "packages/helpers/*"
-  ],
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "build": "turbo run build --parallel",
     "dev": "turbo run dev --parallel",
     "start": "turbo run start --parallel",
@@ -24,8 +20,11 @@
     "prettier-plugin-tailwindcss": "^0.5.13",
     "turbo": "1.13.2"
   },
+  "eslintConfig": {
+    "root": true
+  },
   "engines": {
     "node": ">=16.18.1 <=19.0.0"
   },
-  "packageManager": "yarn@1.22.19"
+  "packageManager": "pnpm@8.15.4"
 }

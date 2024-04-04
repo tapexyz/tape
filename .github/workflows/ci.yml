@@ -16,17 +16,22 @@ jobs:
 
       steps:
         - uses: actions/checkout@v4
+        - uses: pnpm/action-setup@v3
+          with:
+            version: 8
+          
         - uses: actions/setup-node@v4
           with:
+            check-latest: true
             node-version-file: '.nvmrc'
-            cache: 'yarn'
+            cache: 'pnpm'
  
         - name: Install dependencies 🧳
-          run: yarn install
+          run: pnpm install
           
         - name: Check Lint 💅🏻
-          run: yarn lint && yarn typecheck
+          run: pnpm lint && pnpm typecheck
 
         - name: Run Build 🔨
-          run: yarn build
+          run: pnpm build
  

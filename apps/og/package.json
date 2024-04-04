@@ -7,7 +7,7 @@
     "dev": "next dev --port 4002",
     "build": "next build",
     "export": "next export",
-    "start": "yarn build && next start --port 4002",
+    "start": "pnpm build && next start --port 4002",
     "typecheck": "tsc --pretty",
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
@@ -17,10 +17,10 @@
     "react-dom": "^18"
   },
   "devDependencies": {
-    "@tape.xyz/config": "*",
-    "@tape.xyz/constants": "*",
-    "@tape.xyz/generic": "*",
-    "@tape.xyz/lens": "*",
+    "@tape.xyz/config": "workspace:*",
+    "@tape.xyz/constants": "workspace:*",
+    "@tape.xyz/generic": "workspace:*",
+    "@tape.xyz/lens": "workspace:*",
     "@types/node": "^20.12.4",
     "@types/react": "^18.2.74",
     "@types/react-dom": "^18.2.24",

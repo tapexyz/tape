@@ -1,5 +1,5 @@
 import { InMemoryCache } from '@apollo/client'
-import result from '@tape.xyz/lens'
+import result from '../generated'
 
 import cursorBasedPagination from './cursorBasedPagination'
 

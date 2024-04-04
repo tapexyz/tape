@@ -4,10 +4,7 @@ import { NoDataFound } from '@components/UIElements/NoDataFound'
 import useCommentStore from '@lib/store/comment'
 import useProfileStore from '@lib/store/idb/profile'
 import usePersistStore from '@lib/store/persist'
-import {
-  INFINITE_SCROLL_ROOT_MARGIN,
-  LENS_CUSTOM_FILTERS
-} from '@tape.xyz/constants'
+import { INFINITE_SCROLL_ROOT_MARGIN } from '@tape.xyz/constants'
 import { getProfile } from '@tape.xyz/generic'
 import type {
   AnyPublication,
@@ -17,6 +14,7 @@ import type {
 } from '@tape.xyz/lens'
 import {
   CommentRankingFilterType,
+  CustomFiltersType,
   LimitType,
   TriStateValue,
   usePublicationsQuery
@@ -55,7 +53,7 @@ const PublicationComments: FC<Props> = ({ publication, hideTitle = false }) => {
   const request: PublicationsRequest = {
     limit: LimitType.Fifty,
     where: {
-      customFilters: LENS_CUSTOM_FILTERS,
+      customFilters: [CustomFiltersType.Gardeners],
       commentOn: {
         id: publication.id,
         ranking: {

@@ -6,7 +6,6 @@ import {
   ALLOWED_APP_IDS,
   INFINITE_SCROLL_ROOT_MARGIN,
   IS_MAINNET,
-  LENS_CUSTOM_FILTERS,
   LENSTUBE_BYTES_APP_ID,
   TAPE_APP_ID
 } from '@tape.xyz/constants'
@@ -15,6 +14,7 @@ import type {
   PublicationSearchRequest
 } from '@tape.xyz/lens'
 import {
+  CustomFiltersType,
   LimitType,
   PublicationMetadataMainFocusType,
   useSearchPublicationsQuery
@@ -37,7 +37,7 @@ const ExploreHashtag = () => {
           : undefined,
         mainContentFocus: [PublicationMetadataMainFocusType.Video]
       },
-      customFilters: LENS_CUSTOM_FILTERS
+      customFilters: [CustomFiltersType.Gardeners]
     },
     query: hashtag,
     limit: LimitType.Fifty

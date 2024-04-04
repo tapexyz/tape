@@ -10,10 +10,13 @@
   "dependencies": {
     "@lens-protocol/metadata": "^1.1.6",
     "dayjs-twitter": "^0.5.0",
-    "viem": "^2.9.9"
+    "viem": "^2.9.9",
+    "axios": "^1.6.7"
   },
   "devDependencies": {
-    "@tape.xyz/constants": "*",
+    "@tape.xyz/constants": "workspace:*",
+    "@tape.xyz/lens": "workspace:*",
+    "@tape.xyz/config": "workspace:*",
     "typescript": "5.4.3"
   }
 }

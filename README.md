@@ -19,10 +19,7 @@
     <a href="https://x.com/tapexyz">
         <img src="https://img.shields.io/twitter/follow/tapexyz?style=social" alt="Twitter">
     </a>
-    <a href="https://deepsource.io/gh/tapexyz/tape">
-        <img src="https://deepsource.io/gh/tapexyz/tape.svg/?label=active+issues&show_trend=true" alt="Deepsource">
-    </a>
-     <a href="https://status.tape.xyz">
+    <a href="https://status.tape.xyz">
         <img src="https://betteruptime.com/status-badges/v1/monitor/dfaw.svg" alt="Better Uptime">
     </a>
     <span>
@@ -42,7 +39,7 @@ For a place to have open discussions on features, voice your ideas, or get help 
 
 ## 🔭 What's inside?
 
-This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. It includes the following packages/apps:
+This turborepo uses [Pnpm](https://pnpm.io/) as a package manager. It includes the following apps and packages:
 
 ### 🏗️ Apps
 
@@ -70,13 +67,13 @@ This turborepo uses [Yarn](https://classic.yarnpkg.com/) as a package manager. I
 Install all dependencies from repository root,
 
 ```bash
-yarn install
+pnpm install
 ```
 
 Start the application,
 
 ```bash
-yarn dev
+pnpm dev
 ```
 
 and visit http://localhost:4783
