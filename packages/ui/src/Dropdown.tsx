@@ -13,8 +13,11 @@ type DropdownMenuSubContentProps = DropdownMenuPrimitive.MenuSubContentProps & {
   className?: string
   size?: 'sm' | 'md' | 'lg'
 }
-export const DropdownMenuSubContent = forwardRef<
-  ElementRef<typeof DropdownMenuPrimitive.SubContent>,
+export const DropdownMenuSubContent: React.ForwardRefExoticComponent<
+  DropdownMenuSubContentProps &
+    React.RefAttributes<HTMLElement | SVGElement | React.Component | null>
+> = forwardRef<
+  HTMLElement | SVGElement | React.Component | null,
   DropdownMenuSubContentProps
 >(({ children, className, size = 'sm', ...props }, ref) => {
   const sizeClasses = {
@@ -30,7 +33,7 @@ export const DropdownMenuSubContent = forwardRef<
         'tape-border z-10 rounded-md bg-white leading-none data-[disabled]:pointer-events-none data-[highlighted]:bg-gray-200 data-[highlighted]:outline-none dark:bg-black dark:data-[highlighted]:bg-gray-800',
         className
       )}
-      ref={ref}
+      ref={ref as React.Ref<HTMLDivElement>}
       {...props}
     >
       {children}
@@ -44,8 +47,11 @@ type DropdownMenuSubTriggerProps = DropdownMenuPrimitive.MenuSubTriggerProps & {
   className?: string
   size?: 'sm' | 'md' | 'lg'
 }
-export const DropdownMenuSubTrigger = forwardRef<
-  ElementRef<typeof DropdownMenuPrimitive.SubTrigger>,
+export const DropdownMenuSubTrigger: React.ForwardRefExoticComponent<
+  DropdownMenuSubTriggerProps &
+    React.RefAttributes<HTMLElement | SVGElement | React.Component | null>
+> = forwardRef<
+  HTMLElement | SVGElement | React.Component | null,
   DropdownMenuSubTriggerProps
 >(({ children, className, size = 'sm', ...props }, ref) => {
   const sizeClasses = {
@@ -60,7 +66,7 @@ export const DropdownMenuSubTrigger = forwardRef<
         'relative select-none items-center rounded-md leading-none data-[disabled]:pointer-events-none data-[highlighted]:bg-gray-200 data-[highlighted]:outline-none dark:data-[highlighted]:bg-gray-800',
         className
       )}
-      ref={ref}
+      ref={ref as React.Ref<HTMLDivElement>}
       {...props}
     >
       {children}
