@@ -20,11 +20,12 @@ jobs:
           version: 8
       - uses: actions/setup-node@v4
         with:
+          check-latest: true
           node-version-file: '.nvmrc'
-          cache: 'yarn'
+          cache: 'pnpm'
 
       - name: Install Vercel CLI
-        run: yarn global add vercel@latest
+        run: pnpm add -g vercel@latest
 
       - name: Deploy to Vercel ・ WEB
         env:
