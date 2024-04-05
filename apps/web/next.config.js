@@ -4,6 +4,24 @@ const allowedBots =
 const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }]
 
 const moduleExports = {
+  webpack: (
+    config,
+    { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }
+  ) => {
+    if (webpack && !isServer) {
+      config.resolve.fallback['crypto'] = require.resolve('crypto-browserify')
+      config.resolve.fallback['stream'] = require.resolve('stream-browserify')
+      config.plugins.push(
+        new webpack.NormalModuleReplacementPlugin(/node:crypto/, function (
+          resource
+        ) {
+          resource.request = resource.request.replace(/^node:/, '')
+        })
+      )
+    }
+
+    return config
+  },
   transpilePackages: [
     '@tape.xyz/lens',
     '@tape.xyz/browser',

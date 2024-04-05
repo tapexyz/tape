@@ -1,5 +1,11 @@
 import MetaTags from '@components/Common/MetaTags'
 import type {
+  AddToCollectionParams,
+  ProtectedDataWithSecretProps,
+  SetProtectedDataToRentingParams,
+  SuccessWithTransactionHash
+} from '@iexec/dataprotector'
+import type {
   AudioOptions,
   MediaAudioMimeType,
   MediaVideoMimeType,
@@ -14,6 +20,13 @@ import {
   video
 } from '@lens-protocol/metadata'
 import { getCollectModuleInput } from '@lib/getCollectModuleInput'
+import createArrayBufferFromFile from '@lib/iexec/createArrayBufferFromFile'
+import {
+  generateSignatureChallenge,
+  getCollectionTokenId,
+  getIExec
+} from '@lib/iexec/walletProvider'
+import WalletType from '@lib/iexec/walletType'
 import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
 import useProfileStore from '@lib/store/idb/profile'
 import useNonceStore from '@lib/store/nonce'
@@ -24,6 +37,7 @@ import {
   ERROR_MESSAGE,
   IRYS_CONNECT_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
+  PROTECTED_CONTENT_INTRO_URL,
   REQUESTING_SIGNATURE_MESSAGE,
   TAPE_APP_ID,
   TAPE_APP_NAME,
@@ -64,6 +78,7 @@ import toast from 'react-hot-toast'
 import { v4 as uuidv4 } from 'uuid'
 import {
   useAccount,
+  useSignMessage,
   useSignTypedData,
   useWalletClient,
   useWriteContract
@@ -81,7 +96,7 @@ const CreateSteps = () => {
   const activeProfile = useProfileStore(
     (state) => state.activeProfile
   ) as Profile
-
+  const { signMessage } = useSignMessage()
   const { lensHubOnchainSigNonce, setLensHubOnchainSigNonce } = useNonceStore()
   const { queuedVideos, setQueuedVideos } = usePersistStore()
 
@@ -403,6 +418,21 @@ const CreateSteps = () => {
       }
     ]
 
+    if (uploadedMedia.isProtectedContent) {
+      let protectedContentAttribute: MetadataAttribute[] = [
+        {
+          type: MetadataAttributeType.STRING,
+          key: 'protectedContentManager',
+          value: '@iexec/dataprotector'
+        },
+        {
+          type: MetadataAttributeType.STRING,
+          key: 'protectedContentAddress',
+          value: uploadedMedia.protectedContentAddress
+        }
+      ]
+      attributes.push(...protectedContentAttribute)
+    }
     const profileSlug = getProfile(activeProfile)?.slug
     const publicationMetadata: VideoOptions = {
       video: {
@@ -465,6 +495,22 @@ const CreateSteps = () => {
         value: TAPE_WEBSITE_URL
       }
     ]
+
+    if (uploadedMedia.isProtectedContent) {
+      let protectedContentAttribute: MetadataAttribute[] = [
+        {
+          type: MetadataAttributeType.STRING,
+          key: 'protectedContentManager',
+          value: '@iexec/dataprotector'
+        },
+        {
+          type: MetadataAttributeType.STRING,
+          key: 'protectedContentAddress',
+          value: uploadedMedia.protectedContentAddress
+        }
+      ]
+      attributes.push(...protectedContentAttribute)
+    }
 
     const audioMetadata: AudioOptions = {
       audio: {
@@ -613,12 +659,139 @@ const CreateSteps = () => {
     }
   }
 
+  // Here we publish a video showing that the content is protected
+  const uploadProtectedVideoToIpfs = async () => {
+    let response = await fetch(PROTECTED_CONTENT_INTRO_URL)
+    let filecontents = await response.blob()
+    let metadata = {
+      type: 'video/mp4'
+    }
+    let fileName: string = `${uploadedMedia.protectedContentAddress}.mp4`
+
+    let file = new File([filecontents], fileName, metadata)
+
+    const result = await uploadToIPFS(file, (percentCompleted) => {
+      setUploadedMedia({
+        buttonText: 'Uploading...',
+        loading: true,
+        percent: percentCompleted
+      })
+    })
+
+    if (!result.url) {
+      stopLoading()
+      return toast.error('IPFS Upload failed')
+    }
+    setUploadedMedia({
+      percent: 100,
+      dUrl: result.url
+    })
+
+    return await create({
+      dUrl: result.url
+    })
+  }
+
+  const uploadProtectedContent = async () => {
+    try {
+      setUploadedMedia({
+        buttonText: 'Protecting content...',
+        loading: true
+      })
+
+      const fileContent = await createArrayBufferFromFile(
+        uploadedMedia.file as File
+      )
+
+      //const blurHash = getRandomBlurHash();
+      //  const base64BlurHash = btoa(blurHash);
+      const thumbnailCid = uploadedMedia.thumbnail.split('/').slice(-1)
+
+      let mediaType: string = getUploadedMediaType(
+        uploadedMedia.mediaType
+      ).replaceAll('/', '-')
+
+      let messageToSign = generateSignatureChallenge(
+        activeProfile?.ownedBy.address
+      )
+      await signMessage(
+        { message: messageToSign },
+        {
+          onSuccess: async (signature) => {
+            try {
+              let dataProtectorSdk = getIExec(
+                WalletType.CONTENT_PUBLISHER,
+                activeProfile,
+                signature
+              )
+
+              let protectDataParam = {
+                file: fileContent,
+                [`mediaType-${mediaType}`]: 'void',
+                [`thumb-${thumbnailCid}`]: 'void'
+              }
+
+              const res: ProtectedDataWithSecretProps | undefined =
+                await dataProtectorSdk?.core.protectData({
+                  name: uploadedMedia.file?.name,
+                  data: protectDataParam
+                })
+
+              let addToCollectionParams: AddToCollectionParams = {
+                collectionTokenId: getCollectionTokenId(
+                  activeProfile,
+                  signature
+                ),
+                protectedDataAddress: res?.address || ''
+              }
+              let addToCollectionResult:
+                | SuccessWithTransactionHash
+                | undefined = await dataProtectorSdk?.sharing.addToCollection(
+                addToCollectionParams
+              )
+
+              // Setting price to 0 and duration to 30 days for the time being...
+              let setProtectedDataToRentingParams: SetProtectedDataToRentingParams =
+                {
+                  protectedDataAddress: res?.address || '',
+                  priceInNRLC: 0,
+                  durationInSeconds: 30 * 24 * 3600
+                }
+
+              let setToRentingResult =
+                await dataProtectorSdk?.sharing.setProtectedDataToRenting(
+                  setProtectedDataToRentingParams
+                )
+
+              uploadedMedia.protectedContentAddress = res?.address || ''
+
+              setUploadedMedia({ ...uploadedMedia })
+
+              return await uploadProtectedVideoToIpfs()
+            } catch (e) {
+              console.log(e)
+            }
+          }
+        }
+      )
+    } catch (err) {
+      console.log('err', err)
+    }
+  }
+
   const onUpload = async (data: VideoFormData & { thumbnail: string }) => {
     uploadedMedia.title = data.title
     uploadedMedia.loading = true
     uploadedMedia.description = data.description
     uploadedMedia.isSensitiveContent = data.isSensitiveContent
+    uploadedMedia.isProtectedContent = data.isProtectedContent
     uploadedMedia.thumbnail = data.thumbnail
+
+    //Handle protected content with iexec
+    if (uploadedMedia.isProtectedContent) {
+      return await uploadProtectedContent()
+    }
+
     setUploadedMedia({ ...uploadedMedia })
     // Upload video directly from source without uploading again
     if (

@@ -35,6 +35,7 @@ export const UPLOADED_VIDEO_FORM_DEFAULTS: UploadedMedia = {
   dUrl: '',
   percent: 0,
   isSensitiveContent: false,
+  isProtectedContent: false,
   isUploadToIpfs: false,
   loading: false,
   uploadingThumbnail: false,
@@ -61,7 +62,8 @@ export const UPLOADED_VIDEO_FORM_DEFAULTS: UploadedMedia = {
     degreesOfSeparationReferenceModule: null
   },
   unknownOpenAction: null,
-  hasOpenActions: false
+  hasOpenActions: false,
+  protectedContentAddress: ''
 }
 
 interface AppState {

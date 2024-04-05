@@ -73,3 +73,10 @@ input[type='number'] {
 .preview-tippy-content > div {
   @apply !px-0 !py-0;
 }
+
+.iexec-logo-inline {
+  display: inline-block;
+  *display: inline; /* for older IE */
+  *zoom: 1; /* for older IE */
+  vertical-align: middle;
+}

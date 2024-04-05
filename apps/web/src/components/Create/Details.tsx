@@ -30,7 +30,8 @@ const formSchema = object({
     .trim()
     .min(5, { message: `Description should be atleast 5 characters` })
     .max(5000, { message: `Description should not exceed 5000 characters` }),
-  isSensitiveContent: boolean()
+  isSensitiveContent: boolean(),
+  isProtectedContent: boolean()
 })
 
 export type VideoFormData = z.infer<typeof formSchema>
@@ -59,6 +60,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
     resolver: zodResolver(formSchema),
     defaultValues: {
       isSensitiveContent: uploadedMedia.isSensitiveContent ?? false,
+      isProtectedContent: uploadedMedia.isProtectedContent ?? false,
       title: uploadedMedia.title,
       description: uploadedMedia.description
     }
@@ -233,6 +235,15 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                 onCheckedChange={(value) =>
                   setValue('isSensitiveContent', value)
                 }
+              />
+            </div>
+            <div className="mt-2">
+              <Switch
+                label="Protected content for monetization"
+                checked={Boolean(watch('isProtectedContent'))}
+                onCheckedChange={(value) => {
+                  setValue('isProtectedContent', value)
+                }}
               />
             </div>
           </div>

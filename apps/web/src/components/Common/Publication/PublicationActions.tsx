@@ -5,6 +5,7 @@ import type { MirrorablePublication } from '@tape.xyz/lens'
 import { TriStateValue } from '@tape.xyz/lens'
 import {
   CollectOutline,
+  IExecOutline,
   MirrorOutline,
   Modal,
   ThreeDotsOutline,
@@ -15,6 +16,7 @@ import React, { useState } from 'react'
 
 import OpenActions from '../../Watch/OpenActions'
 import TipForm from '../../Watch/TipForm'
+import ConsumePublication from '../ConsumePublication'
 import PublicationReaction from './PublicationReaction'
 
 type Props = {
@@ -51,6 +53,12 @@ const PublicationActions: FC<Props> = ({ publication }) => {
             </Modal>
           </>
         ) : null}
+        <ConsumePublication video={publication}>
+          <button className="flex items-center space-x-1 px-4 py-1 hover:bg-gray-200 dark:hover:bg-gray-800">
+            <IExecOutline className="size-4 flex-none" />
+            <span>View</span>
+          </button>
+        </ConsumePublication>
         <MirrorPublication video={publication}>
           <button className="flex items-center space-x-1 px-4 py-1 hover:bg-gray-200 dark:hover:bg-gray-800">
             <MirrorOutline className="size-4 flex-none" />

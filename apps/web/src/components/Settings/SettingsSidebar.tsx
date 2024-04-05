@@ -2,6 +2,7 @@ import useProfileStore from '@lib/store/idb/profile'
 import { tw } from '@tape.xyz/browser'
 import { getIsProfileOwner } from '@tape.xyz/generic'
 import {
+  IExecOutline,
   InterestsOutline,
   KeyOutline,
   LockOutline,
@@ -22,10 +23,12 @@ import {
   SETTINGS_ALLOWANCE,
   SETTINGS_BLOCKED,
   SETTINGS_DANGER_ZONE,
+  SETTINGS_EMAIL_NOTIFICATION,
   SETTINGS_FOLLOW,
   SETTINGS_HANDLES,
   SETTINGS_INTERESTS,
   SETTINGS_MANAGER,
+  SETTINGS_PROTECTED_CONTENT,
   SETTINGS_SESSIONS
 } from '.'
 
@@ -102,6 +105,34 @@ const SettingsSidebar = () => {
         >
           <ProfileManagerOutline className="size-4" />
           <span>Manager</span>
+        </Link>
+      )}
+      {isProfileOwner && (
+        <Link
+          href={SETTINGS_PROTECTED_CONTENT}
+          className={tw(
+            'flex items-center space-x-3 rounded-lg px-3 py-1.5 text-sm transition-colors',
+            isActivePath(SETTINGS_PROTECTED_CONTENT)
+              ? 'bg-gray-200 font-bold dark:bg-gray-800/80'
+              : 'text-dust font-medium hover:bg-gray-200 dark:hover:bg-gray-900/50'
+          )}
+        >
+          <IExecOutline className="size-4" />
+          <span>Protected Content</span>
+        </Link>
+      )}
+      {isProfileOwner && (
+        <Link
+          href={SETTINGS_EMAIL_NOTIFICATION}
+          className={tw(
+            'flex items-center space-x-3 rounded-lg px-3 py-1.5 text-sm transition-colors',
+            isActivePath(SETTINGS_EMAIL_NOTIFICATION)
+              ? 'bg-gray-200 font-bold dark:bg-gray-800/80'
+              : 'text-dust font-medium hover:bg-gray-200 dark:hover:bg-gray-900/50'
+          )}
+        >
+          <IExecOutline className="size-4" />
+          <span>Email Notifications</span>
         </Link>
       )}
       <Link

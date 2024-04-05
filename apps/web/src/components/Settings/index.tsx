@@ -13,10 +13,12 @@ import Allowance from './Allowance'
 import BasicInfo from './BasicInfo'
 import Blocked from './Blocked'
 import DangerZone from './DangerZone'
+import EmailNotification from './EmailNotification'
 import FollowSettings from './Follow'
 import Handles from './Handles'
 import ProfileManager from './Manager'
 import ProfileInterests from './ProfileInterests'
+import ProtectedContent from './ProtectedContent'
 import Sessions from './Sessions'
 import SettingsSidebar from './SettingsSidebar'
 
@@ -29,6 +31,8 @@ export const SETTINGS_SESSIONS = '/settings/sessions'
 export const SETTINGS_BLOCKED = '/settings/blocked'
 export const SETTINGS_DANGER_ZONE = '/settings/danger'
 export const SETTINGS = '/settings'
+export const SETTINGS_PROTECTED_CONTENT = '/settings/protectedcontent'
+export const SETTINGS_EMAIL_NOTIFICATION = '/settings/emailnotification'
 
 const Settings = () => {
   const router = useRouter()
@@ -78,6 +82,12 @@ const Settings = () => {
             {router.pathname === SETTINGS_HANDLES && <Handles />}
             {router.pathname === SETTINGS_BLOCKED && <Blocked />}
             {router.pathname === SETTINGS_DANGER_ZONE && <DangerZone />}
+            {router.pathname === SETTINGS_PROTECTED_CONTENT && (
+              <ProtectedContent />
+            )}
+            {router.pathname === SETTINGS_EMAIL_NOTIFICATION && (
+              <EmailNotification />
+            )}
           </div>
         </div>
       ) : null}

@@ -17,7 +17,7 @@ module.exports = {
   extends: ['next', 'next/core-web-vitals'],
   rules: {
     curly: 'error',
-    'prettier/prettier': ['error', { endOfLine: 'auto' }],
+    'prettier/prettier': ['error', { endOfLine: 'auto' }],    
     'import/no-duplicates': ['error', { considerQueryString: true }],
     'react/prop-types': 'off',
     'react/no-unescaped-entities': 'off',

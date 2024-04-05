@@ -11,7 +11,9 @@ export const AUTH_ROUTES = [
   '/settings/danger',
   '/settings/manager',
   '/settings/blocked',
-  '/notifications'
+  '/notifications',
+  '/settings/protectedcontent',
+  '/settings/emailnotification'
 ]
 
 export const OWNER_ONLY_ROUTES = ['/settings/danger', '/settings/manager']

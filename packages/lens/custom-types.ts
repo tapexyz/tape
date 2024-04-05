@@ -73,6 +73,7 @@ export type UploadedMedia = {
   mediaLicense: MetadataLicenseType
   percent: number
   isSensitiveContent: boolean
+  isProtectedContent: boolean
   isUploadToIpfs: boolean
   loading: boolean
   uploadingThumbnail: boolean
@@ -84,6 +85,7 @@ export type UploadedMedia = {
   isByteVideo: boolean
   unknownOpenAction: UnknownOpenActionType | null
   hasOpenActions: boolean
+  protectedContentAddress: string
 }
 
 export type IPFSUploadResult = {

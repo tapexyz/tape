@@ -98,6 +98,7 @@ export const IPFS_FREE_UPLOAD_LIMIT = IS_MAINNET ? 6000 : 0 // in MB
 export const IPFS_GATEWAY_URL = 'https://gw.ipfs-lens.dev/ipfs'
 export const EVER_ENDPOINT = 'https://endpoint.4everland.co'
 export const EVER_REGION = 'us-west-2'
+export const EVER_BUCKETNAME = 'tape'
 
 // walletconnect
 export const WC_PROJECT_ID = 'bf790b6b57570b99567abd1677b7415d'
