@@ -73,8 +73,6 @@ export const VideoPlayer: FC<Props> = (props) => {
     }
 
     if (videoRef.current.paused) {
-      videoRef.current.muted = false
-      videoRef.current.volume = 1
       return videoRef.current.play()
     }
     videoRef.current.pause()
@@ -96,6 +94,19 @@ export const VideoPlayer: FC<Props> = (props) => {
           poster={poster}
           loop={loop}
         />
+
+        {!showControls && (
+          <div className="absolute right-5 top-5 z-10">
+            <Player.PlayPauseTrigger className="ultrawide:size-8 size-6 flex-shrink-0 text-white transition hover:scale-110">
+              <Player.PlayingIndicator asChild matcher={false}>
+                <PlayIcon className="h-full w-full" />
+              </Player.PlayingIndicator>
+              <Player.PlayingIndicator asChild>
+                <PauseIcon className="h-full w-full" />
+              </Player.PlayingIndicator>
+            </Player.PlayPauseTrigger>
+          </div>
+        )}
 
         <Player.LoadingIndicator className="data-[visible=true]:animate-in data-[visible=false]:animate-out data-[visible=false]:fade-out-0 data-[visible=true]:fade-in-0 relative h-full w-full bg-black/50 backdrop-blur">
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">

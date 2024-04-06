@@ -26,7 +26,6 @@ const ByteVideo: FC<Props> = ({
   currentViewingId,
   intersectionCallback
 }) => {
-  console.log('🚀 ~ currentViewingId:', currentViewingId)
   const intersectionRef = useRef<HTMLDivElement>(null)
   const targetPublication = getPublication(video)
 
