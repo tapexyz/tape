@@ -38,13 +38,14 @@ const RenderPlayer = memo(function ({ video }: { video: PrimaryPublication }) {
     sanitizeDStorageUrl(getThumbnailUrl(metadata, true)),
     isBytesVideo ? 'THUMBNAIL_V' : 'THUMBNAIL'
   )
-  const videoUrl = getPublicationMediaUrl(metadata)
+  const url = getPublicationMediaUrl(metadata)
+  const title = getPublicationData(metadata)?.title || ''
 
   return (
     <div className="rounded-large overflow-hidden">
       <VideoPlayer
-        url={videoUrl}
-        title={getPublicationData(metadata)?.title || ''}
+        url={url}
+        title={title}
         poster={thumbnailUrl}
         timestamp={videoWatchTime}
         isSensitiveContent={isSensitiveContent}
