@@ -1,3 +1,4 @@
+import type { Src } from '@livepeer/react'
 import {
   EnterFullscreenIcon,
   ExitFullscreenIcon,
@@ -20,6 +21,7 @@ import Settings from './Settings'
 type Props = {
   url: string
   title: string
+  loop?: boolean
   poster: string
   timestamp?: number
   aspectRatio?: number | null
@@ -31,6 +33,7 @@ export const VideoPlayer: FC<Props> = (props) => {
   const {
     url,
     title,
+    loop = false,
     poster,
     timestamp = 0,
     aspectRatio = 16 / 9,
@@ -57,14 +60,16 @@ export const VideoPlayer: FC<Props> = (props) => {
     }
   }
 
-  const src = getSrc(vodSource)
-  console.log('🚀 ~ src:', src, url)
+  const src = url.includes('.m3u8')
+    ? getSrc(vodSource)
+    : ([{ src: url, type: 'video', mime: 'video/mp4' }] as Src[])
 
+  console.log('🚀 ~ src:', src)
   return (
     <Player.Root src={src} aspectRatio={aspectRatio} autoPlay>
       <Player.Container className="h-full w-full overflow-hidden bg-black outline-none transition">
         <Player.Video
-          muted
+          loop={loop}
           ref={(ref) => {
             if (ref?.currentTime) {
               ref.currentTime = Number.isFinite(timestamp) ? timestamp : 0
@@ -123,6 +128,22 @@ export const VideoPlayer: FC<Props> = (props) => {
                   </Player.PlayingIndicator>
                 </Player.PlayPauseTrigger>
 
+                <Player.MuteTrigger className="size-6 flex-shrink-0 transition hover:scale-110">
+                  <Player.VolumeIndicator asChild matcher={false}>
+                    <MuteIcon className="h-full w-full" />
+                  </Player.VolumeIndicator>
+                  <Player.VolumeIndicator asChild matcher={true}>
+                    <UnmuteIcon className="h-full w-full" />
+                  </Player.VolumeIndicator>
+                </Player.MuteTrigger>
+
+                <Player.Volume className="group relative mr-1 flex h-5 max-w-[120px] flex-1 cursor-pointer touch-none select-none items-center">
+                  <Player.Track className="relative h-[2px] grow rounded-full bg-white/30 transition group-hover:h-[3px] md:h-[3px] group-hover:md:h-[4px]">
+                    <Player.Range className="absolute h-full rounded-full bg-white" />
+                  </Player.Track>
+                  <Player.Thumb className="block h-3 w-3 rounded-full bg-white transition group-hover:scale-110" />
+                </Player.Volume>
+
                 <Player.LiveIndicator className="flex items-center gap-2">
                   <div className="h-1.5 w-1.5 rounded-full bg-red-600" />
                   <span className="select-none text-sm">LIVE</span>
@@ -133,21 +154,6 @@ export const VideoPlayer: FC<Props> = (props) => {
                 >
                   <Player.Time className="select-none text-sm" />
                 </Player.LiveIndicator>
-
-                <Player.MuteTrigger className="size-6 flex-shrink-0 transition hover:scale-110">
-                  <Player.VolumeIndicator asChild matcher={false}>
-                    <MuteIcon className="h-full w-full" />
-                  </Player.VolumeIndicator>
-                  <Player.VolumeIndicator asChild matcher={true}>
-                    <UnmuteIcon className="h-full w-full" />
-                  </Player.VolumeIndicator>
-                </Player.MuteTrigger>
-                <Player.Volume className="group relative mr-1 flex h-5 max-w-[120px] flex-1 cursor-pointer touch-none select-none items-center">
-                  <Player.Track className="relative h-[2px] grow rounded-full bg-white/30 transition group-hover:h-[3px] md:h-[3px] group-hover:md:h-[4px]">
-                    <Player.Range className="absolute h-full rounded-full bg-white" />
-                  </Player.Track>
-                  <Player.Thumb className="block h-3 w-3 rounded-full bg-white transition group-hover:scale-110" />
-                </Player.Volume>
               </div>
               <div className="flex items-center justify-end gap-2.5 sm:flex-1 md:flex-[1.5]">
                 <Player.FullscreenIndicator matcher={false} asChild>

@@ -16,6 +16,7 @@ button:active {
 
 div[data-radix-aspect-ratio-wrapper] {
   height: 100%;
+  padding-bottom: 0 !important;
 }
 img[data-livepeer-poster] {
   height: 100%;

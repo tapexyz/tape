@@ -25,7 +25,6 @@ type Props = {
 
 const Video: FC<Props> = ({ video }) => {
   const { get } = useSearchParams()
-  const [playerRef, setPlayerRef] = useState<HTMLMediaElement>()
 
   const isAutoPlay = Boolean(get('autoplay')) && get('autoplay') === '1'
   const isLoop = Boolean(get('loop')) && get('loop') === '1'
@@ -44,20 +43,6 @@ const Video: FC<Props> = ({ video }) => {
     Tower.track(EVENTS.EMBED_VIDEO.LOADED)
   }, [])
 
-  // const refCallback = (ref: HTMLMediaElement) => {
-  //   if (!ref) {
-  //     return null
-  //   }
-  //   setPlayerRef(ref)
-  // }
-
-  // useEffect(() => {
-  //   if (playerRef && clicked) {
-  //     playerRef.autoplay = true
-  //     playerRef?.play().catch(() => {})
-  //   }
-  // }, [playerRef, clicked, isAutoPlay])
-
   const onClickOverlay = () => {
     setClicked(true)
   }
@@ -70,23 +55,9 @@ const Video: FC<Props> = ({ video }) => {
           title={getPublicationData(video.metadata)?.title || ''}
           poster={thumbnailUrl}
           timestamp={currentTime}
+          loop={isLoop}
         />
       ) : (
-        // <VideoPlayer
-        //   refCallback={refCallback}
-        //   url={getPublicationMediaUrl(video.metadata)}
-        //   posterUrl={thumbnailUrl}
-        //   currentTime={currentTime}
-        //   options={{
-        //     autoPlay: isAutoPlay,
-        //     muted: isAutoPlay,
-        //     loop: isLoop,
-        //     loadingSpinner: true,
-        //     isCurrentlyShown: true,
-        //     maxHeight: true
-        //   }}
-        //   shouldUpload={getShouldUploadVideo(video)}
-        // />
         <div className="flex h-full w-full justify-center">
           <img
             src={thumbnailUrl}
@@ -112,7 +83,7 @@ const Video: FC<Props> = ({ video }) => {
           </div>
         </div>
       )}
-      <TopOverlay playerRef={playerRef} video={video} />
+      <TopOverlay video={video} />
     </div>
   )
 }
