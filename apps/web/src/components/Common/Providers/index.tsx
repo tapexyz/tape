@@ -1,7 +1,7 @@
 import authLink from '@lib/authLink'
 import { LivepeerConfig } from '@livepeer/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { getLivepeerClient, videoPlayerTheme } from '@tape.xyz/browser'
+import { getLivepeerClient } from '@tape.xyz/browser'
 import { apolloClient, ApolloProvider } from '@tape.xyz/lens/apollo'
 import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
@@ -47,7 +47,7 @@ const Providers = ({ children }: { children: ReactNode }) => {
               <CuratedProfilesProvider />
               <SubscriptionProvider />
               <TogglesProvider />
-              <LivepeerConfig client={livepeerClient} theme={videoPlayerTheme}>
+              <LivepeerConfig client={livepeerClient}>
                 <Layout
                   skipNav={NO_TOP_NAV_PATHS.includes(pathname)}
                   skipBottomNav={NO_BOTTOM_NAV_PATHS.includes(pathname)}

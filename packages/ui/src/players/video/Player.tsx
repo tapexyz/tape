@@ -1,5 +1,6 @@
 import type { AspectRatio } from '@livepeer/react'
 import { Player } from '@livepeer/react'
+import { videoPlayerTheme } from '@tape.xyz/browser'
 import { ARWEAVE_GATEWAY_URL, IPFS_GATEWAY_URL } from '@tape.xyz/constants'
 import type { FC } from 'react'
 import React from 'react'
@@ -34,6 +35,7 @@ const PlayerInstance: FC<PlayerProps> = ({
 }) => {
   return (
     <Player
+      theme={videoPlayerTheme}
       src={
         url?.includes(ARWEAVE_GATEWAY_URL)
           ? url.replace(`${ARWEAVE_GATEWAY_URL}/`, 'ar://')
