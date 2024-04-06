@@ -12,7 +12,7 @@ import {
 import { getSrc } from '@livepeer/react/external'
 import * as Player from '@livepeer/react/player'
 import type { FC } from 'react'
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import { PlayerLoading } from './PlayerLoading'
 import SensitiveWarning from './SensitiveWarning'
@@ -41,10 +41,13 @@ export const VideoPlayer: FC<Props> = (props) => {
     isSensitiveContent = false
   } = props
   const [sensitiveWarning, setSensitiveWarning] = useState(isSensitiveContent)
+  const videoRef = useRef<HTMLVideoElement>(null)
 
-  if (sensitiveWarning) {
-    return <SensitiveWarning acceptWarning={() => setSensitiveWarning(false)} />
-  }
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.currentTime = Number.isFinite(timestamp) ? timestamp : 0
+    }
+  }, [timestamp])
 
   const vodSource = {
     type: 'vod',
@@ -64,19 +67,30 @@ export const VideoPlayer: FC<Props> = (props) => {
     ? getSrc(vodSource)
     : ([{ src: url, type: 'video', mime: 'video/mp4' }] as Src[])
 
-  console.log('🚀 ~ src:', src)
+  const togglePlay = () => {
+    if (!videoRef.current) {
+      return
+    }
+
+    if (videoRef.current.paused) {
+      return videoRef.current.play()
+    }
+    videoRef.current.pause()
+  }
+
+  if (sensitiveWarning) {
+    return <SensitiveWarning acceptWarning={() => setSensitiveWarning(false)} />
+  }
+
   return (
     <Player.Root src={src} aspectRatio={aspectRatio} autoPlay>
       <Player.Container className="h-full w-full overflow-hidden bg-black outline-none transition">
         <Player.Video
-          loop={loop}
-          ref={(ref) => {
-            if (ref?.currentTime) {
-              ref.currentTime = Number.isFinite(timestamp) ? timestamp : 0
-            }
-          }}
+          ref={videoRef}
           title={title}
           className="h-full w-full object-cover transition"
+          onClick={() => togglePlay()}
+          loop={loop}
         />
 
         <Player.LoadingIndicator className="data-[visible=true]:animate-in data-[visible=false]:animate-out data-[visible=false]:fade-out-0 data-[visible=true]:fade-in-0 relative h-full w-full bg-black/50 backdrop-blur">
