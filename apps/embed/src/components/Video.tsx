@@ -30,13 +30,15 @@ const Video: FC<Props> = ({ video }) => {
   const isLoop = Boolean(get('loop')) && get('loop') === '1'
   const currentTime = Number(get('t') ?? 0) ?? 0
 
-  const [clicked, setClicked] = useState(isAutoPlay || currentTime !== 0)
-
   const isBytesVideo = video.publishedOn?.id === LENSTUBE_BYTES_APP_ID
   const thumbnailUrl = imageCdn(
     sanitizeDStorageUrl(getThumbnailUrl(video.metadata, true)),
     isBytesVideo ? 'THUMBNAIL_V' : 'THUMBNAIL'
   )
+  const title = getPublicationData(video.metadata)?.title || ''
+  const url = getPublicationMediaUrl(video.metadata)
+
+  const [clicked, setClicked] = useState(isAutoPlay || currentTime !== 0)
   const { color: backgroundColor } = useAverageColor(thumbnailUrl, isBytesVideo)
 
   useEffect(() => {
@@ -51,11 +53,11 @@ const Video: FC<Props> = ({ video }) => {
     <div className="group relative h-screen w-screen overflow-x-hidden">
       {clicked ? (
         <VideoPlayer
-          url={getPublicationMediaUrl(video.metadata)}
-          title={getPublicationData(video.metadata)?.title || ''}
+          url={url}
+          title={title}
+          loop={isLoop}
           poster={thumbnailUrl}
           timestamp={currentTime}
-          loop={isLoop}
         />
       ) : (
         <div className="flex h-full w-full justify-center">
