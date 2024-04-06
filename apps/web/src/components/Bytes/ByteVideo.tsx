@@ -26,6 +26,7 @@ const ByteVideo: FC<Props> = ({
   currentViewingId,
   intersectionCallback
 }) => {
+  console.log('🚀 ~ currentViewingId:', currentViewingId)
   const intersectionRef = useRef<HTMLDivElement>(null)
   const targetPublication = getPublication(video)
 
@@ -58,7 +59,10 @@ const ByteVideo: FC<Props> = ({
     <div className="keen-slider__slide flex snap-center justify-center focus-visible:outline-none md:ml-16 md:pb-2">
       <MetaTags title={title} />
       <div className="rounded-large relative overflow-hidden">
-        <div className="rounded-large ultrawide:w-[650px] flex h-full w-[calc(100vw-80px)] items-center overflow-hidden bg-black md:w-[450px]">
+        <div
+          className="rounded-large flex h-full w-[calc(100vw-80px)] items-center overflow-hidden bg-black md:w-[650px]"
+          style={{ backgroundImage: `url(${thumbnailUrl})` }}
+        >
           <div
             className="absolute top-[50%]"
             ref={intersectionRef}
@@ -73,6 +77,7 @@ const ByteVideo: FC<Props> = ({
               poster={thumbnailUrl}
               aspectRatio={null}
               showControls={false}
+              loop={true}
             />
           )}
         </div>

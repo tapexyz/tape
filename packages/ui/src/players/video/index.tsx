@@ -66,7 +66,6 @@ export const VideoPlayer: FC<Props> = (props) => {
   const src = url.includes('.m3u8')
     ? getSrc(vodSource)
     : ([{ src: url, type: 'video', mime: 'video/mp4' }] as Src[])
-  console.log('🚀 ~ src:', src)
 
   const togglePlay = () => {
     if (!videoRef.current) {
@@ -74,6 +73,8 @@ export const VideoPlayer: FC<Props> = (props) => {
     }
 
     if (videoRef.current.paused) {
+      videoRef.current.muted = false
+      videoRef.current.volume = 1
       return videoRef.current.play()
     }
     videoRef.current.pause()
@@ -84,13 +85,15 @@ export const VideoPlayer: FC<Props> = (props) => {
   }
 
   return (
-    <Player.Root src={src} aspectRatio={aspectRatio} autoPlay>
+    <Player.Root src={src} aspectRatio={aspectRatio} autoPlay preload="auto">
       <Player.Container className="h-full w-full overflow-hidden bg-black outline-none transition">
         <Player.Video
           ref={videoRef}
           title={title}
           className="h-full w-full object-cover transition"
           onClick={() => togglePlay()}
+          onContextMenu={(e) => e.preventDefault()}
+          poster={poster}
           loop={loop}
         />
 
