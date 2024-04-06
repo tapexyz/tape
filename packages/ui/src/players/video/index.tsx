@@ -66,6 +66,7 @@ export const VideoPlayer: FC<Props> = (props) => {
   const src = url.includes('.m3u8')
     ? getSrc(vodSource)
     : ([{ src: url, type: 'video', mime: 'video/mp4' }] as Src[])
+  console.log('🚀 ~ src:', src)
 
   const togglePlay = () => {
     if (!videoRef.current) {
