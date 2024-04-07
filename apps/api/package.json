@@ -10,22 +10,22 @@
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "3.540.0",
+    "@aws-sdk/client-sts": "3.549.0",
     "@hono/zod-validator": "^0.2.1",
     "base64url": "^3.0.1",
-    "hono": "^4.2.1",
+    "hono": "^4.2.2",
     "linkedom": "^0.16.11",
     "ua-parser-js": "^1.0.37",
-    "viem": "^2.9.9",
+    "viem": "^2.9.12",
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20240403.0",
+    "@cloudflare/workers-types": "^4.20240405.0",
     "@tape.xyz/config": "workspace:*",
     "@tape.xyz/generic": "workspace:*",
     "@types/ua-parser-js": "^0.7.39",
     "prettier": "^3.2.5",
-    "typescript": "5.4.3",
-    "wrangler": "^3.45.0"
+    "typescript": "5.4.4",
+    "wrangler": "^3.48.0"
   }
 }

@@ -13,12 +13,12 @@
     "@lens-protocol/metadata": "^1.1.6"
   },
   "devDependencies": {
-    "@tape.xyz/constants": "workspace:*",
     "@graphql-codegen/cli": "^5.0.2",
     "@graphql-codegen/fragment-matcher": "^5.0.2",
     "@graphql-codegen/typescript": "^4.0.6",
     "@graphql-codegen/typescript-operations": "^4.2.0",
     "@graphql-codegen/typescript-react-apollo": "^4.3.0",
-    "typescript": "5.4.3"
+    "@tape.xyz/constants": "workspace:*",
+    "typescript": "5.4.4"
   }
 }

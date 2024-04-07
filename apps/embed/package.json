@@ -25,13 +25,13 @@
     "@tape.xyz/generic": "workspace:*",
     "@tape.xyz/lens": "workspace:*",
     "@tape.xyz/ui": "workspace:*",
-    "@types/node": "20.12.4",
+    "@types/node": "20.12.5",
     "@types/react": "18.2.74",
     "@types/react-dom": "18.2.24",
     "autoprefixer": "^10.4.19",
     "postcss": "^8.4.38",
     "prettier": "^3.2.5",
     "tailwindcss": "^3.4.3",
-    "typescript": "5.4.3"
+    "typescript": "5.4.4"
   }
 }
