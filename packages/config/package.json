@@ -6,7 +6,7 @@
   "exports": {
     "./*": "./*"
   },
-  "dependencies": {
+  "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^7.5.0",
     "eslint": "8.57.0",
     "eslint-config-next": "14.1.4",

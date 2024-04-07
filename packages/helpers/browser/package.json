@@ -8,16 +8,17 @@
     "typecheck": "tsc --pretty"
   },
   "devDependencies": {
-    "@aws-sdk/client-s3": "3.540.0",
-    "@aws-sdk/lib-storage": "3.540.0",
+    "@aws-sdk/client-s3": "3.550.0",
+    "@aws-sdk/lib-storage": "3.550.0",
     "@livepeer/react": "^3.1.9",
-    "react": "^18.2.0",
     "axios": "^1.6.7",
     "next": "^14.1.4",
-    "typescript": "5.4.3",
+    "react": "^18.2.0",
+    "typescript": "5.4.4",
     "uuid": "^9.0.1"
   },
   "dependencies": {
+    "@rajesh896/broprint.js": "^2.1.1",
     "@tape.xyz/config": "workspace:*",
     "@tape.xyz/constants": "workspace:*",
     "@tape.xyz/generic": "workspace:*",
@@ -25,7 +26,6 @@
     "@types/react": "^18.2.74",
     "@types/uuid": "^9.0.8",
     "clsx": "^2.1.0",
-    "@rajesh896/broprint.js": "^2.1.1",
     "fast-average-color": "^9.4.0",
     "tailwind-merge": "^2.2.2"
   }
