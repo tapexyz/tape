@@ -4,6 +4,7 @@ export const IRYS_NODE_URL = 'https://arweave.mainnet.irys.xyz/tx/matic'
 export const POLYGON_RPC_URL = 'https://rpc.ankr.com/polygon'
 export const LENSHUB_PROXY_ADDRESS =
   '0xDb46d1Dc155634FbC732f92E853b10B288AD5a1d'
+export const ADMIN_IDS = ['0x2d']
 
 export const ERROR_MESSAGE = 'Something went wrong'
 
