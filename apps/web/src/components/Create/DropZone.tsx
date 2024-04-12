@@ -31,10 +31,7 @@ const DropZone = () => {
     try {
       if (file) {
         const preview = URL.createObjectURL(file)
-        const isUploadToIpfs = canUploadedToIpfs(
-          file?.size || 0,
-          activeProfile?.sponsor
-        )
+        const isUploadToIpfs = canUploadedToIpfs(file?.size || 0, activeProfile)
         setUploadedMedia({
           stream: fileReaderStream(file),
           preview,
