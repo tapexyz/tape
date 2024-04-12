@@ -55,9 +55,6 @@ declare global {
         Open: (checkoutUrl: string) => void
       }
     }
-    chatwootSettings: any
-    $chatwoot: any
-    chatwootSDK: any
   }
 }
 
@@ -193,14 +190,6 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedValue])
 
-  useEffect(() => {
-    window.$chatwoot?.toggleBubbleVisibility('show')
-    return () => {
-      window.$chatwoot?.toggleBubbleVisibility('hide')
-      window.$chatwoot?.toggle('close')
-    }
-  }, [])
-
   const eventHandler = async ({ event }: { data: any; event: any }) => {
     if (event === 'Checkout.Success' && window.LemonSqueezy) {
       window.LemonSqueezy?.Url?.Close()
@@ -268,26 +257,6 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
         src="https://assets.lemonsqueezy.com/lemon.js"
         strategy="afterInteractive"
       />
-      {IS_MAINNET && (
-        <Script
-          id="chatwoot-js"
-          src="https://woot.tape.xyz/packs/js/sdk.js"
-          strategy="afterInteractive"
-          defer={true}
-          async={true}
-          onLoad={() => {
-            window.chatwootSettings = {
-              type: 'expanded_bubble',
-              launcherTitle: 'Support',
-              position: 'left'
-            }
-            window.chatwootSDK.run({
-              websiteToken: '47H9cq5gNEAf3q6sUK97vDbG',
-              baseUrl: 'https://woot.tape.xyz'
-            })
-          }}
-        />
-      )}
       <div className="relative flex items-center">
         <Input
           className="h-[46px] text-base"

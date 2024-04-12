@@ -4,6 +4,7 @@
   "author": "sasicodes",
   "license": "AGPL-3.0",
   "devDependencies": {
+    "@tape.xyz/config": "workspace:*",
     "@nomicfoundation/hardhat-ethers": "^3.0.5",
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
     "@nomicfoundation/hardhat-verify": "^2.0.5",
@@ -13,6 +14,7 @@
     "dotenv": "^16.4.5",
     "ethers": "^6.11.1",
     "hardhat": "^2.22.2",
-    "typescript": "^5.4.4"
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
   }
 }

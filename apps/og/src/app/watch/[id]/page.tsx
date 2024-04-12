@@ -39,7 +39,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const publication = data.publication as AnyPublication
   const targetPublication = getPublication(publication)
-  const { by: profile, metadata } = targetPublication
+  const { by: profile, metadata, isHidden } = targetPublication
+
+  if (isHidden) {
+    return common
+  }
+
   const publicationTitle = getPublicationData(metadata)?.title || ''
   const publicationContent = truncate(
     getPublicationData(metadata)?.content || '',

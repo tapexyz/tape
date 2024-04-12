@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const allowedBots =
-  '.*(bot|telegram|baidu|bing|yandex|iframely|whatsapp|facebook|metainspector|twitterbot).*'
+  '.*(bot|telegram|baidu|bing|yandex|iframely|whatsapp|facebook|metainspector|twitterbot|trendictionbot|Applebot|PetalBot).*'
 const headers = [{ key: 'Cache-Control', value: 'public, max-age=3600' }]
 
 const moduleExports = {

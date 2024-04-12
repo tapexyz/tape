@@ -4,15 +4,12 @@ import MirroredList from '@components/Common/MirroredList'
 import {
   getLennyPicture,
   getProfile,
-  getProfilePicture,
-  getPublicationMediaCid
+  getProfilePicture
 } from '@tape.xyz/generic'
 import type { PrimaryPublication } from '@tape.xyz/lens'
 import { CollectOutline, MirrorOutline, Modal } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React, { useState } from 'react'
-
-import ViewCount from './ViewCount'
 
 type Props = {
   video: PrimaryPublication
@@ -61,7 +58,7 @@ const VideoMeta: FC<Props> = ({ video }) => {
           </div>
         </Modal>
 
-        <ViewCount cid={getPublicationMediaCid(video.metadata)} />
+        {/* <ViewCount cid={getPublicationMediaCid(video.metadata)} /> */}
         <button
           type="button"
           onClick={() => setShowCollectsModal(true)}
