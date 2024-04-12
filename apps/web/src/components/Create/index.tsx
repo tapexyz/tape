@@ -564,7 +564,7 @@ const CreateSteps = () => {
       })
     }
     if (
-      canUploadedToIpfs(uploadedMedia.file?.size || 0, activeProfile.sponsor) &&
+      canUploadedToIpfs(uploadedMedia.file?.size || 0, activeProfile) &&
       uploadedMedia.isUploadToIpfs
     ) {
       return await uploadVideoToIpfs()

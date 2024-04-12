@@ -12,7 +12,7 @@ const UploadMethod = () => {
 
   const canUploadToIpfs = canUploadedToIpfs(
     uploadedMedia.file?.size || 0,
-    activeProfile?.sponsor
+    activeProfile
   )
 
   useEffect(() => {
