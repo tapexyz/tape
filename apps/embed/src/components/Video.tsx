@@ -24,12 +24,15 @@ type Props = {
 }
 
 const Video: FC<Props> = ({ video }) => {
-  const { get } = useSearchParams()
   const [playerRef, setPlayerRef] = useState<HTMLMediaElement>()
+  const searchParams = useSearchParams()
+  const autoplay = searchParams.get('autoplay')
+  const loop = searchParams.get('loop')
+  const t = searchParams.get('t')
 
-  const isAutoPlay = Boolean(get('autoplay')) && get('autoplay') === '1'
-  const isLoop = Boolean(get('loop')) && get('loop') === '1'
-  const currentTime = Number(get('t') ?? 0) ?? 0
+  const isAutoPlay = Boolean(autoplay) && autoplay === '1'
+  const isLoop = Boolean(loop) && loop === '1'
+  const currentTime = Number(t ?? 0) ?? 0
 
   const [clicked, setClicked] = useState(isAutoPlay || currentTime !== 0)
 
