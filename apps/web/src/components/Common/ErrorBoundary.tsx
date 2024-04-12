@@ -23,7 +23,7 @@ class ErrorBoundary extends Component<Props, State> {
     logger.error('[ERROR BOUNDARY]', error)
   }
 
-  render() {
+  render(): ReactNode {
     if (this.state.hasError) {
       return <Custom500 />
     }

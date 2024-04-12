@@ -17,7 +17,6 @@ import UploadMethod from './UploadMethod'
 const SelectedMedia = () => {
   const mediaRef = useRef<HTMLVideoElement>(null)
   const [interacted, setInteracted] = useState(false)
-  const [posterPreview, setPosterPreview] = useState('')
   const activeProfile = useProfileStore((state) => state.activeProfile)
   const uploadedMedia = useAppStore((state) => state.uploadedMedia)
   const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
