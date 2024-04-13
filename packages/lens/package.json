@@ -19,6 +19,7 @@
     "@graphql-codegen/typescript-operations": "^4.2.0",
     "@graphql-codegen/typescript-react-apollo": "^4.3.0",
     "@tape.xyz/constants": "workspace:*",
+    "@tape.xyz/config": "workspace:*",
     "typescript": "5.4.5"
   }
 }

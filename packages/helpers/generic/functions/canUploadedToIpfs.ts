@@ -6,8 +6,9 @@ export const canUploadedToIpfs = (
   activeProfile: Profile | null
 ) => {
   const sponsored = activeProfile?.sponsor
-  const hasFollowers = (activeProfile?.stats.followers ?? 0) > 0 ? true : false
-  const allowed = hasFollowers && sponsored
+  const hasGoodScore =
+    (activeProfile?.stats.lensClassifierScore ?? 0) > 10 ? true : false
+  const allowed = hasGoodScore && sponsored
   if (bytes === null || bytes === undefined || !allowed) {
     return false
   }
