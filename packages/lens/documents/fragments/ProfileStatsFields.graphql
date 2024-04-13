@@ -10,4 +10,5 @@ fragment ProfileStatsFields on ProfileStats {
   reactions
   reacted
   countOpenActions
+  lensClassifierScore
 }
