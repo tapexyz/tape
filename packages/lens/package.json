@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@apollo/client": "3.9.11",
-    "@irys/sdk": "^0.1.21",
+    "@irys/sdk": "^0.1.22",
     "@lens-protocol/metadata": "^1.1.6"
   },
   "devDependencies": {
@@ -18,8 +18,8 @@
     "@graphql-codegen/typescript": "^4.0.6",
     "@graphql-codegen/typescript-operations": "^4.2.0",
     "@graphql-codegen/typescript-react-apollo": "^4.3.0",
-    "@tape.xyz/constants": "workspace:*",
     "@tape.xyz/config": "workspace:*",
+    "@tape.xyz/constants": "workspace:*",
     "typescript": "5.4.5"
   }
 }
