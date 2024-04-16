@@ -12,7 +12,7 @@
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "next": "14.2.0",
+    "next": "14.2.1",
     "react": "^18",
     "react-dom": "^18"
   },
@@ -22,7 +22,7 @@
     "@tape.xyz/generic": "workspace:*",
     "@tape.xyz/lens": "workspace:*",
     "@types/node": "^20.12.7",
-    "@types/react": "^18.2.77",
+    "@types/react": "^18.2.79",
     "@types/react-dom": "^18.2.25",
     "typescript": "^5.4.5"
   }
