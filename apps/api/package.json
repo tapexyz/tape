@@ -10,13 +10,13 @@
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "3.554.0",
+    "@aws-sdk/client-sts": "3.556.0",
     "@hono/zod-validator": "^0.2.1",
     "base64url": "^3.0.1",
     "hono": "^4.2.4",
     "linkedom": "^0.16.11",
     "ua-parser-js": "^1.0.37",
-    "viem": "^2.9.19",
+    "viem": "^2.9.20",
     "zod": "^3.22.4"
   },
   "devDependencies": {
