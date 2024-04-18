@@ -127,7 +127,7 @@ const FeeCollectForm: FC<Props> = ({ setCollectType, setShowModal }) => {
             <div>
               <Select
                 {...register('currency')}
-                defaultValue={allowedTokens[0].address}
+                defaultValue={allowedTokens?.[0]?.address}
                 value={uploadedMedia.collectModule.amount?.currency}
                 onValueChange={(currency) => {
                   setCollectType({

@@ -1,5 +1,5 @@
 import { logger } from '@tape.xyz/generic'
-import type { ReactNode } from 'react'
+import type { ErrorInfo, ReactNode } from 'react'
 import React, { Component } from 'react'
 import Custom500 from 'src/pages/500'
 
@@ -19,8 +19,11 @@ class ErrorBoundary extends Component<Props, State> {
     return { hasError: true }
   }
 
-  componentDidCatch(error: Error) {
-    logger.error('[ERROR BOUNDARY]', JSON.stringify(error))
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
+    logger.error(
+      '[ERROR BOUNDARY]',
+      JSON.stringify(error) + ' - ' + JSON.stringify(errorInfo)
+    )
   }
 
   render(): ReactNode {
