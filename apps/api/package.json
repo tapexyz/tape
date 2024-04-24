@@ -13,14 +13,14 @@
     "@aws-sdk/client-sts": "3.556.0",
     "@hono/zod-validator": "^0.2.1",
     "base64url": "^3.0.1",
-    "hono": "^4.2.6",
+    "hono": "^4.2.7",
     "linkedom": "^0.16.11",
     "ua-parser-js": "^1.0.37",
-    "viem": "^2.9.25",
-    "zod": "^3.23.0"
+    "viem": "^2.9.26",
+    "zod": "^3.23.4"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20240419.0",
+    "@cloudflare/workers-types": "^4.20240423.0",
     "@tape.xyz/config": "workspace:*",
     "@tape.xyz/generic": "workspace:*",
     "@types/ua-parser-js": "^0.7.39",

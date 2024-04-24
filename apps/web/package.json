@@ -18,7 +18,7 @@
     "@lens-protocol/metadata": "^1.1.6",
     "@livepeer/react": "^3.1.9",
     "@tailwindcss/aspect-ratio": "^0.4.2",
-    "@tanstack/react-query": "^5.31.0",
+    "@tanstack/react-query": "^5.32.0",
     "axios": "^1.6.7",
     "dayjs": "^1.11.10",
     "emoji-mart": "^5.5.2",
@@ -40,9 +40,9 @@
     "react-use-websocket": "^4.8.1",
     "textarea-caret": "^3.1.0",
     "uuid": "^9.0.1",
-    "viem": "^2.9.25",
+    "viem": "^2.9.26",
     "wagmi": "^2.5.20",
-    "zod": "^3.23.0",
+    "zod": "^3.23.4",
     "zustand": "^4.5.2"
   },
   "devDependencies": {
