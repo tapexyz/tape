@@ -25,7 +25,6 @@ const ProfilePageShimmer = () => {
         <div className="no-scrollbar flex items-center space-x-4 overflow-x-auto border-b border-gray-200 pb-3 pt-2 dark:border-gray-700">
           <div className="h-8 w-24 flex-none rounded-md bg-gray-200 dark:bg-gray-800" />
           <div className="h-8 w-24 flex-none rounded-md bg-gray-200 dark:bg-gray-800" />
-          <div className="h-8 w-24 flex-none rounded-md bg-gray-200 dark:bg-gray-800" />
         </div>
         <div className="mt-3">
           <TimelineShimmer count={4} className="lg:!grid-cols-4" />
