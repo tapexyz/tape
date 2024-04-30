@@ -27,7 +27,6 @@
     </span>
 </div>
 <br>
-<br>
 
 ## 📽️ About
 
