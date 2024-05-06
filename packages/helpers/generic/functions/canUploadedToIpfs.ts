@@ -1,4 +1,7 @@
-import { IPFS_FREE_UPLOAD_LIMIT } from '@tape.xyz/constants'
+import {
+  IPFS_FREE_UPLOAD_LIMIT,
+  IPFS_FREE_UPLOAD_MAX_LIMIT
+} from '@tape.xyz/constants'
 import type { Profile } from '@tape.xyz/lens'
 
 export const canUploadedToIpfs = (
@@ -14,5 +17,11 @@ export const canUploadedToIpfs = (
     return false
   }
   const megaBytes = bytes ? bytes / 1024 ** 2 : 0
-  return bytes ? (megaBytes < IPFS_FREE_UPLOAD_LIMIT ? true : false) : false
+
+  const canUploadMaxLimit =
+    (activeProfile?.stats.lensClassifierScore ?? 0) > 0.6 * 10000 ? true : false
+  const limit = canUploadMaxLimit
+    ? IPFS_FREE_UPLOAD_MAX_LIMIT
+    : IPFS_FREE_UPLOAD_LIMIT
+  return bytes ? (megaBytes < limit ? true : false) : false
 }
