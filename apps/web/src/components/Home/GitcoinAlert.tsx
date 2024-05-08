@@ -22,7 +22,7 @@ const GitcoinAlert = () => {
         <span className="font-bold">
           <Countdown
             timestamp="2024-05-07T23:59:00+00:00"
-            endText="GG20 round ended"
+            endText={`Round ${GITCOIN_LIVE_ROUND} has ended`}
           />
         </span>
 

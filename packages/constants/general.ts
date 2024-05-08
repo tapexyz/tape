@@ -185,8 +185,8 @@ export const HEY_WEBSITE_URL = IS_MAINNET
   : 'https://testnet.hey.xyz'
 
 // banners
-export const SHOW_GITCOIN_BANNER = true
-export const GITCOIN_LIVE_ROUND = 20
+export const SHOW_GITCOIN_BANNER = false
+export const GITCOIN_LIVE_ROUND = 21
 
 // open actions
 export const ZORA_MAINNET_CHAINS = ['eth', 'oeth', 'base', 'zora']
