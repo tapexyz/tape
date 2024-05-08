@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@tape.xyz/config": "workspace:*",
-    "@types/node": "^20.12.8",
+    "@types/node": "^20.12.10",
     "typescript": "^5.4.5"
   }
 }
