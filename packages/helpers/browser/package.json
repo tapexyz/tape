@@ -8,8 +8,8 @@
     "typecheck": "tsc --pretty"
   },
   "devDependencies": {
-    "@aws-sdk/client-s3": "3.569.0",
-    "@aws-sdk/lib-storage": "3.569.0",
+    "@aws-sdk/client-s3": "3.574.0",
+    "@aws-sdk/lib-storage": "3.574.0",
     "@livepeer/react": "^3.1.9",
     "axios": "^1.6.7",
     "next": "^14.2.3",
@@ -23,7 +23,7 @@
     "@tape.xyz/constants": "workspace:*",
     "@tape.xyz/generic": "workspace:*",
     "@tape.xyz/lens": "workspace:*",
-    "@types/react": "^18.3.1",
+    "@types/react": "^18.3.2",
     "@types/uuid": "^9.0.8",
     "clsx": "^2.1.1",
     "fast-average-color": "^9.4.0",
