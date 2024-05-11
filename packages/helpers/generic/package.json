@@ -11,7 +11,7 @@
     "@lens-protocol/metadata": "^1.1.6",
     "axios": "^1.6.7",
     "dayjs-twitter": "^0.5.0",
-    "viem": "^2.10.2"
+    "viem": "^2.10.3"
   },
   "devDependencies": {
     "@tape.xyz/config": "workspace:*",
