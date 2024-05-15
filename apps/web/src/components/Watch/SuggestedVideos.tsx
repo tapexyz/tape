@@ -76,7 +76,7 @@ const SuggestedVideos = () => {
   return (
     <>
       {loading && <SuggestedVideosShimmer />}
-      {!error && !loading && videos.length ? (
+      {!error && !loading && videos?.length ? (
         <div className="pb-3">
           <div className="space-y-3 md:grid md:grid-cols-2 md:gap-3 lg:flex lg:flex-col lg:gap-0">
             {videos?.map(

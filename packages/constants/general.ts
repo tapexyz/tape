@@ -90,7 +90,7 @@ export const POLYGONSCAN_URL = IS_MAINNET
 export const ETHERSCAN_URL = IS_MAINNET
   ? 'https://etherscan.io'
   : 'https://goerli.etherscan.io'
-export const POLYGON_CHAIN_ID = IS_MAINNET ? 137 : 80001
+export const POLYGON_CHAIN_ID = IS_MAINNET ? 137 : 80002
 
 // ipfs
 export const IPFS_FREE_UPLOAD_LIMIT = IS_MAINNET ? 6000 : 0 // in MB
