@@ -3,6 +3,5 @@ Sitemap: https://tape.xyz/sitemap.xml
 User-agent: *
 Allow: /*
 
-Disallow: /_next/*
 Disallow: /api/*
 Disallow: /settings/*
