@@ -3,7 +3,7 @@ import { Hono } from 'hono'
 import type { Address } from 'viem'
 import { createWalletClient, http } from 'viem'
 import { privateKeyToAccount } from 'viem/accounts'
-import { polygon, polygonMumbai } from 'viem/chains'
+import { polygon, polygonAmoy } from 'viem/chains'
 import type { z } from 'zod'
 import { any, object } from 'zod'
 
@@ -69,7 +69,7 @@ app.post('/', zValidator('json', validationSchema), async (c) => {
 
     const client = createWalletClient({
       account,
-      chain: test_mode ? polygonMumbai : polygon,
+      chain: test_mode ? polygonAmoy : polygon,
       transport: http()
     })
 

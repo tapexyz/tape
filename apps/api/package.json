@@ -12,6 +12,7 @@
   "dependencies": {
     "@aws-sdk/client-sts": "3.576.0",
     "@hono/zod-validator": "^0.2.1",
+    "@lens-protocol/metadata": "^1.2.0",
     "base64url": "^3.0.1",
     "hono": "^4.3.6",
     "linkedom": "^0.18.0",

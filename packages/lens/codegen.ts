@@ -1,5 +1,4 @@
 import type { CodegenConfig } from '@graphql-codegen/cli'
-
 import { LensEndpoint } from '@tape.xyz/constants'
 
 const config: CodegenConfig = {

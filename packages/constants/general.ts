@@ -32,7 +32,7 @@ export const IMAGE_TRANSFORMATIONS = {
 
 // lens
 export const MAINNET_API_URL = LensEndpoint.Mainnet
-export const TESTNET_API_URL = LensEndpoint.Staging
+export const TESTNET_API_URL = LensEndpoint.Testnet
 export const LENS_API_URL = IS_MAINNET ? MAINNET_API_URL : TESTNET_API_URL
 
 // api urls
@@ -46,7 +46,7 @@ export const TAPE_API_URL = IS_PRODUCTION
 // tape addresses
 export const TAPE_SIGNUP_PROXY_ADDRESS = IS_MAINNET
   ? '0xD0f6d9676d36F5f4AF5765fCb78c388B51577327'
-  : '0xb9F635c498CdC2dBf95B3A916b007fD16c5506ED'
+  : '0xe6869F02F97229E95116A9647b1b005140c80A49'
 
 // lens addresses
 export const LENS_PERMISSIONLESS_CREATOR_ADDRESS = IS_MAINNET
@@ -83,14 +83,14 @@ export const TESTNET_ALLOWED_TOKENS = [
 // polygon
 export const POLYGON_RPC_URL = IS_MAINNET
   ? 'https://rpc.ankr.com/polygon'
-  : 'https://rpc.ankr.com/polygon_mumbai'
+  : 'https://rpc.ankr.com/polygon_amoy'
 export const POLYGONSCAN_URL = IS_MAINNET
   ? 'https://polygonscan.com'
-  : 'https://mumbai.polygonscan.com'
+  : 'https://amoy.polygonscan.com'
 export const ETHERSCAN_URL = IS_MAINNET
   ? 'https://etherscan.io'
   : 'https://goerli.etherscan.io'
-export const POLYGON_CHAIN_ID = IS_MAINNET ? 137 : 80001
+export const POLYGON_CHAIN_ID = IS_MAINNET ? 137 : 80002
 
 // ipfs
 export const IPFS_FREE_UPLOAD_LIMIT = IS_MAINNET ? 6000 : 0 // in MB
