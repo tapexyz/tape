@@ -11,8 +11,18 @@ const config: HardhatUserConfig = {
   etherscan: {
     apiKey: {
       polygon: process.env.POLYGONSCAN_API_KEY!,
-      polygonMumbai: process.env.POLYGONSCAN_API_KEY!
-    }
+      polygonAmoy: process.env.POLYGONSCAN_API_KEY!
+    },
+    customChains: [
+      {
+        network: 'polygonAmoy',
+        chainId: 80002,
+        urls: {
+          apiURL: 'https://api-amoy.polygonscan.com/api',
+          browserURL: 'https://amoy.polygonscan.com'
+        }
+      }
+    ]
   },
   networks: {
     polygon: {
@@ -20,9 +30,9 @@ const config: HardhatUserConfig = {
       url: `https://polygon-mainnet.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,
       gasPrice: 400000000000
     },
-    polygonMumbai: {
+    polygonAmoy: {
       accounts: [process.env.PRIVATE_KEY!],
-      url: `https://polygon-mumbai.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`
+      url: `https://rpc.ankr.com/polygon_amoy`
     }
   }
 }

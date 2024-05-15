@@ -3,7 +3,7 @@
 | Network           | Address                                      |
 | ----------------- | -------------------------------------------- |
 | `Polygon Mainnet` | `0xD0f6d9676d36F5f4AF5765fCb78c388B51577327` |
-| `Polygon Mumbai`  | `0xb9F635c498CdC2dBf95B3A916b007fD16c5506ED` |
+| `Polygon Amoy`    | `0xe6869F02F97229E95116A9647b1b005140c80A49` |
 
 Try running some of the following tasks:
 
@@ -20,7 +20,7 @@ hh verify 0xD0f6d9676d36F5f4AF5765fCb78c388B51577327 --network polygon
 ```
 
 ```
-npx hardhat run scripts/deploy.ts --network polygonMumbai 
-npx hardhat verify 0xb9F635c498CdC2dBf95B3A916b007fD16c5506ED --network polygonMumbai
-hh verify 0xb9F635c498CdC2dBf95B3A916b007fD16c5506ED --network polygonMumbai
+npx hardhat run scripts/deploy.ts --network polygonAmoy 
+npx hardhat verify 0xe6869F02F97229E95116A9647b1b005140c80A49 --network polygonAmoy
+hh verify 0xe6869F02F97229E95116A9647b1b005140c80A49 --network polygonAmoy
 ```
