@@ -4,16 +4,16 @@
   "author": "sasicodes",
   "license": "AGPL-3.0",
   "devDependencies": {
-    "@nomicfoundation/hardhat-ethers": "^3.0.5",
+    "@nomicfoundation/hardhat-ethers": "^3.0.6",
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
-    "@nomicfoundation/hardhat-verify": "^2.0.6",
+    "@nomicfoundation/hardhat-verify": "^2.0.7",
     "@openzeppelin/contracts": "^5.0.2",
     "@openzeppelin/contracts-upgradeable": "^5.0.2",
     "@openzeppelin/hardhat-upgrades": "^3.1.0",
     "@tape.xyz/config": "workspace:*",
     "dotenv": "^16.4.5",
     "ethers": "^6.12.1",
-    "hardhat": "^2.22.3",
+    "hardhat": "^2.22.4",
     "ts-node": "^10.9.2",
     "typescript": "^5.4.5"
   }
