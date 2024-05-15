@@ -1,4 +1,6 @@
+import { signMetadata } from '@lens-protocol/metadata'
 import { Hono } from 'hono'
+import { privateKeyToAccount } from 'viem/accounts'
 
 import { ERROR_MESSAGE, IRYS_NODE_URL } from '@/helpers/constants'
 import { createData, EthereumSigner } from '@/helpers/metadata'
@@ -14,7 +16,13 @@ app.post('/', async (c) => {
     const payload = await c.req.json()
 
     const signer = new EthereumSigner(c.env.WALLET_PRIVATE_KEY)
-    const tx = createData(JSON.stringify(payload), signer, {
+
+    const account = privateKeyToAccount(`0x${c.env.WALLET_PRIVATE_KEY}`)
+    const signed = await signMetadata(payload, (message) =>
+      account.signMessage({ message })
+    )
+
+    const tx = createData(JSON.stringify(signed), signer, {
       tags: [
         { name: 'Content-Type', value: 'application/json' },
         { name: 'App-Name', value: 'Tape' }
