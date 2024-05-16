@@ -74,6 +74,12 @@ const moduleExports = {
         source: '/gitcoin',
         destination: 'https://explorer.gitcoin.co/#/round/42161/25/0',
         permanent: true
+      },
+      {
+        source: '/zorb',
+        destination:
+          'https://zora.co/collect/zora:0x3c753d866790b0511ab6139ba4eeba1dce194ee8/1',
+        permanent: true
       }
     ]
   },
