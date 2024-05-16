@@ -78,7 +78,7 @@ const moduleExports = {
       {
         source: '/zorb',
         destination:
-          'https://zora.co/collect/zora:0x3c753d866790b0511ab6139ba4eeba1dce194ee8/1',
+          'https://zora.co/collect/zora:0x3c753d866790b0511ab6139ba4eeba1dce194ee8/1?referrer=0x01d79BcEaEaaDfb8fD2F2f53005289CFcF483464',
         permanent: true
       }
     ]
