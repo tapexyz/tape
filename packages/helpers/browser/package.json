@@ -9,7 +9,7 @@
   },
   "devDependencies": {
     "@aws-sdk/client-s3": "3.577.0",
-    "@aws-sdk/lib-storage": "3.577.0",
+    "@aws-sdk/lib-storage": "3.578.0",
     "@livepeer/react": "^3.1.9",
     "axios": "^1.6.7",
     "next": "^14.2.3",
