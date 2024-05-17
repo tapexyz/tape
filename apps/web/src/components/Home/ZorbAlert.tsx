@@ -13,7 +13,7 @@ const ZorbAlert = () => {
         className="absolute inset-0 size-full object-cover"
         alt="cover"
       />
-      <div className="ultrawide:p-8 relative z-10 flex h-full flex-col justify-end space-y-4 p-4 text-left text-white md:p-6">
+      <div className="ultrawide:p-8 relative z-[2] flex h-full flex-col justify-end space-y-4 p-4 text-left text-white md:p-6">
         <div className="text-3xl font-bold">
           Mint your free {TAPE_APP_NAME} Zorb!
         </div>
