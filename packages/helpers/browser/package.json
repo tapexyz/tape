@@ -11,7 +11,7 @@
     "@aws-sdk/client-s3": "3.577.0",
     "@aws-sdk/lib-storage": "3.578.0",
     "@livepeer/react": "^3.1.9",
-    "axios": "^1.6.7",
+    "axios": "^1.7.1",
     "next": "^14.2.3",
     "react": "^18.3.1",
     "typescript": "5.4.5",
