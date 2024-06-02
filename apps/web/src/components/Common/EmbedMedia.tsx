@@ -44,7 +44,7 @@ const EmbedMedia: FC<Props> = ({ publicationId }) => {
           <div className="w-full overflow-hidden rounded">
             <iframe
               sandbox="allow-scripts allow-same-origin"
-              className="aspect-[16/9] w-full "
+              className="aspect-[16/9] w-full"
               src={`${TAPE_EMBED_URL}/${publicationId}`}
               title={`${TAPE_APP_NAME} player`}
               allow="accelerometer; autoplay; clipboard-write; gyroscope;"
