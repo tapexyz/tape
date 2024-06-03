@@ -14,7 +14,7 @@
   "dependencies": {
     "@emoji-mart/react": "^1.1.1",
     "@hookform/resolvers": "^3.4.2",
-    "@irys/sdk": "^0.2.1",
+    "@irys/sdk": "^0.1.24",
     "@lens-protocol/metadata": "^1.2.0",
     "@livepeer/react": "^3.1.9",
     "@tailwindcss/aspect-ratio": "^0.4.2",

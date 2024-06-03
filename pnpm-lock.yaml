@@ -42,7 +42,7 @@ importers:
         specifier: ^1.0.38
         version: 1.0.38
       viem:
-        specifier: ^2.13.1
+        specifier: ^2.13.3
         version: 2.13.3(bufferutil@4.0.8)(typescript@5.4.5)(utf-8-validate@6.0.4)(zod@3.23.8)
       zod:
         specifier: ^3.23.8
@@ -110,8 +110,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/ui
       '@types/node':
-        specifier: 20.12.13
-        version: 20.12.13
+        specifier: 20.13.0
+        version: 20.13.0
       '@types/react':
         specifier: 18.3.3
         version: 18.3.3
@@ -129,7 +129,7 @@ importers:
         version: 3.3.0
       tailwindcss:
         specifier: ^3.4.3
-        version: 3.4.3(ts-node@10.9.2(@types/node@20.12.13)(typescript@5.4.5))
+        version: 3.4.3(ts-node@10.9.2(@types/node@20.13.0)(typescript@5.4.5))
       typescript:
         specifier: 5.4.5
         version: 5.4.5
@@ -159,8 +159,8 @@ importers:
         specifier: workspace:*
         version: link:../../packages/lens
       '@types/node':
-        specifier: ^20.12.13
-        version: 20.12.13
+        specifier: ^20.13.0
+        version: 20.13.0
       '@types/react':
         specifier: ^18.3.3
         version: 18.3.3
@@ -180,8 +180,8 @@ importers:
         specifier: ^3.4.2
         version: 3.4.2(react-hook-form@7.51.5(react@18.3.1))
       '@irys/sdk':
-        specifier: ^0.2.1
-        version: 0.2.1(arweave@1.15.1)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+        specifier: ^0.1.24
+        version: 0.1.24(arweave@1.15.1)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
       '@lens-protocol/metadata':
         specifier: ^1.2.0
         version: 1.2.0(zod@3.23.8)
@@ -190,7 +190,7 @@ importers:
         version: 3.1.9(@types/react-dom@18.3.0)(@types/react@18.3.3)(immer@10.0.2)(react-dom@18.3.1(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.6)(@babel/preset-env@7.24.6(@babel/core@7.24.6))(@types/react@18.3.3)(bufferutil@4.0.8)(react@18.3.1)(utf-8-validate@5.0.10))(react@18.3.1)
       '@tailwindcss/aspect-ratio':
         specifier: ^0.4.2
-        version: 0.4.2(tailwindcss@3.4.3(ts-node@10.9.2(@types/node@20.12.13)(typescript@5.4.5)))
+        version: 0.4.2(tailwindcss@3.4.3(ts-node@10.9.2(@types/node@20.13.0)(typescript@5.4.5)))
       '@tanstack/react-query':
         specifier: ^5.40.0
         version: 5.40.0(react@18.3.1)
@@ -258,7 +258,7 @@ importers:
         specifier: ^9.0.1
         version: 9.0.1
       viem:
-        specifier: ^2.13.1
+        specifier: ^2.13.3
         version: 2.13.3(bufferutil@4.0.8)(typescript@5.4.5)(utf-8-validate@5.0.10)(zod@3.23.8)
       wagmi:
         specifier: ^2.9.8
@@ -272,7 +272,7 @@ importers:
     devDependencies:
       '@tailwindcss/typography':
         specifier: ^0.5.13
-        version: 0.5.13(tailwindcss@3.4.3(ts-node@10.9.2(@types/node@20.12.13)(typescript@5.4.5)))
+        version: 0.5.13(tailwindcss@3.4.3(ts-node@10.9.2(@types/node@20.13.0)(typescript@5.4.5)))
       '@tape.xyz/abis':
         specifier: workspace:*
         version: link:../../packages/abis
@@ -298,8 +298,8 @@ importers:
         specifier: ^3.0.6
         version: 3.0.6
       '@types/node':
-        specifier: 20.12.13
-        version: 20.12.13
+        specifier: 20.13.0
+        version: 20.13.0
       '@types/react':
         specifier: 18.3.3
         version: 18.3.3
@@ -320,7 +320,7 @@ importers:
         version: 8.4.38
       tailwindcss:
         specifier: ^3.4.3
-        version: 3.4.3(ts-node@10.9.2(@types/node@20.12.13)(typescript@5.4.5))
+        version: 3.4.3(ts-node@10.9.2(@types/node@20.13.0)(typescript@5.4.5))
       typescript:
         specifier: 5.4.5
         version: 5.4.5
@@ -331,8 +331,8 @@ importers:
         specifier: workspace:*
         version: link:../config
       '@types/node':
-        specifier: ^20.12.13
-        version: 20.12.13
+        specifier: ^20.13.0
+        version: 20.13.0
       typescript:
         specifier: ^5.4.5
         version: 5.4.5
@@ -370,8 +370,8 @@ importers:
         specifier: workspace:*
         version: link:../config
       '@types/node':
-        specifier: ^20.12.13
-        version: 20.12.13
+        specifier: ^20.13.0
+        version: 20.13.0
       typescript:
         specifier: ^5.4.5
         version: 5.4.5
@@ -485,7 +485,7 @@ importers:
         specifier: ^0.5.0
         version: 0.5.0
       viem:
-        specifier: ^2.13.1
+        specifier: ^2.13.3
         version: 2.13.3(bufferutil@4.0.8)(typescript@5.4.5)(utf-8-validate@6.0.4)(zod@3.23.8)
     devDependencies:
       '@tape.xyz/config':
@@ -507,8 +507,8 @@ importers:
         specifier: 3.10.4
         version: 3.10.4(@types/react@18.3.3)(graphql-ws@5.16.0(graphql@16.8.1))(graphql@16.8.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@irys/sdk':
-        specifier: ^0.2.1
-        version: 0.2.1(arweave@1.15.1)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+        specifier: ^0.1.24
+        version: 0.1.24(arweave@1.15.1)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
       '@lens-protocol/metadata':
         specifier: ^1.2.0
         version: 1.2.0(zod@3.23.8)
@@ -2199,8 +2199,8 @@ packages:
     resolution: {integrity: sha512-J8zCZDos2vFogSbroCJHZJq5gnPZEal01Iy3duXAotjIMgrI2ElDANiqEbaP1JAImR1jdUo1ChJnZB7MRLN9Hw==}
     engines: {node: '>=16.10.0'}
 
-  '@irys/sdk@0.2.1':
-    resolution: {integrity: sha512-ylSjawDGSgAxMwXxEiZBpY+QKHXR2Df1v0QSLED7vByt2D7NhZI1gBS1yoSUokSRuzuYJDlIPAe8ITQ1cVY7nQ==}
+  '@irys/sdk@0.1.24':
+    resolution: {integrity: sha512-8vpgd4o/B1KaChPDgSBcLjAJapi16t/6wlV0SIPEJefbPdDKVuPyK36N3SlFeMkYexrBdqQOkLomHxBaWs0pLA==}
     engines: {node: '>=16.10.0'}
     hasBin: true
 
@@ -4020,9 +4020,6 @@ packages:
   '@types/node@18.19.33':
     resolution: {integrity: sha512-NR9+KrpSajr2qBVp/Yt5TU/rp+b5Mayi3+OlMlcg2cVCfRmcG5PWZ7S4+MG9PZ5gWBoc9Pd0BKSRViuBCRPu0A==}
 
-  '@types/node@20.12.13':
-    resolution: {integrity: sha512-gBGeanV41c1L171rR7wjbMiEpEI/l5XFQdLLfhr/REwpgDy/4U8y89+i8kRiLzDyZdOkXh+cRaTetUnCYutoXA==}
-
   '@types/node@20.13.0':
     resolution: {integrity: sha512-FM6AOb3khNkNIXPnHFDYaHerSv8uN22C91z098AnGccVu+Pcdhi+pNUFDi0iLmPIsVE0JBD0KVS7mzUYt4nRzQ==}
 
@@ -4475,8 +4472,8 @@ packages:
   appdirsjs@1.2.7:
     resolution: {integrity: sha512-Quji6+8kLBC3NnBeo14nPDq0+2jUs5s3/xEye+udFHumHhRk4M7aAMXp/PBJqkKYGuuyR9M/6Dq7d2AViiGmhw==}
 
-  arbundles@0.11.1:
-    resolution: {integrity: sha512-H1hyI98VTggH7pyxaa6jKuzB3UYHKSwRQChT2pJp8uGGv20FQEQjug/n+mza4yM8dMcLHwXji0PLpmKQKoJs+g==}
+  arbundles@0.10.1:
+    resolution: {integrity: sha512-QYFepxessLCirvRkQK9iQmjxjHz+s50lMNGRwZwpyPWLohuf6ISyj1gkFXJHlMT+rNSrsHxb532glHnKbjwu3A==}
 
   arconnect@0.4.2:
     resolution: {integrity: sha512-Jkpd4QL3TVqnd3U683gzXmZUVqBUy17DdJDuL/3D9rkysLgX6ymJ2e+sR+xyZF5Rh42CBqDXWNMmCjBXeP7Gbw==}
@@ -12242,7 +12239,7 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  '@irys/sdk@0.2.1(arweave@1.15.1)(bufferutil@4.0.8)(utf-8-validate@5.0.10)':
+  '@irys/sdk@0.1.24(arweave@1.15.1)(bufferutil@4.0.8)(utf-8-validate@5.0.10)':
     dependencies:
       '@aptos-labs/ts-sdk': 1.17.0
       '@ethersproject/bignumber': 5.7.0
@@ -12257,7 +12254,7 @@ snapshots:
       '@solana/web3.js': 1.91.8(bufferutil@4.0.8)(utf-8-validate@5.0.10)
       '@supercharge/promise-pool': 3.2.0
       algosdk: 1.24.1
-      arbundles: 0.11.1(arweave@1.15.1)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
+      arbundles: 0.10.1(arweave@1.15.1)(bufferutil@4.0.8)(utf-8-validate@5.0.10)
       async-retry: 1.3.3
       axios: 1.7.2(debug@4.3.5)
       base64url: 3.0.1
@@ -12296,14 +12293,14 @@ snapshots:
     dependencies:
       '@jest/fake-timers': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 20.12.13
+      '@types/node': 20.13.0
       jest-mock: 29.7.0
 
   '@jest/fake-timers@29.7.0':
     dependencies:
       '@jest/types': 29.6.3
       '@sinonjs/fake-timers': 10.3.0
-      '@types/node': 20.12.13
+      '@types/node': 20.13.0
       jest-message-util: 29.7.0
       jest-mock: 29.7.0
       jest-util: 29.7.0
@@ -12316,7 +12313,7 @@ snapshots:
     dependencies:
       '@types/istanbul-lib-coverage': 2.0.6
       '@types/istanbul-reports': 3.0.4
-      '@types/node': 20.12.13
+      '@types/node': 20.13.0
       '@types/yargs': 15.0.19
       chalk: 4.1.2
 
@@ -12325,7 +12322,7 @@ snapshots:
       '@jest/schemas': 29.6.3
       '@types/istanbul-lib-coverage': 2.0.6
       '@types/istanbul-reports': 3.0.4
-      '@types/node': 20.12.13
+      '@types/node': 20.13.0
       '@types/yargs': 17.0.32
       chalk: 4.1.2
 
@@ -14702,17 +14699,17 @@ snapshots:
     dependencies:
       defer-to-connect: 2.0.1
 
-  '@tailwindcss/aspect-ratio@0.4.2(tailwindcss@3.4.3(ts-node@10.9.2(@types/node@20.12.13)(typescript@5.4.5)))':
+  '@tailwindcss/aspect-ratio@0.4.2(tailwindcss@3.4.3(ts-node@10.9.2(@types/node@20.13.0)(typescript@5.4.5)))':
     dependencies:
-      tailwindcss: 3.4.3(ts-node@10.9.2(@types/node@20.12.13)(typescript@5.4.5))
+      tailwindcss: 3.4.3(ts-node@10.9.2(@types/node@20.13.0)(typescript@5.4.5))
 
-  '@tailwindcss/typography@0.5.13(tailwindcss@3.4.3(ts-node@10.9.2(@types/node@20.12.13)(typescript@5.4.5)))':
+  '@tailwindcss/typography@0.5.13(tailwindcss@3.4.3(ts-node@10.9.2(@types/node@20.13.0)(typescript@5.4.5)))':
     dependencies:
       lodash.castarray: 4.4.0
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       postcss-selector-parser: 6.0.10
-      tailwindcss: 3.4.3(ts-node@10.9.2(@types/node@20.12.13)(typescript@5.4.5))
+      tailwindcss: 3.4.3(ts-node@10.9.2(@types/node@20.13.0)(typescript@5.4.5))
 
   '@tanstack/query-async-storage-persister@4.29.23':
     dependencies:
@@ -14791,17 +14788,17 @@ snapshots:
 
   '@types/bn.js@4.11.6':
     dependencies:
-      '@types/node': 20.12.13
+      '@types/node': 20.13.0
 
   '@types/bn.js@5.1.5':
     dependencies:
-      '@types/node': 20.12.13
+      '@types/node': 20.13.0
 
   '@types/cacheable-request@6.0.3':
     dependencies:
       '@types/http-cache-semantics': 4.0.4
       '@types/keyv': 3.1.4
-      '@types/node': 20.12.13
+      '@types/node': 20.13.0
       '@types/responselike': 1.0.3
 
   '@types/chai-as-promised@7.1.8':
@@ -14812,11 +14809,11 @@ snapshots:
 
   '@types/concat-stream@1.6.1':
     dependencies:
-      '@types/node': 20.12.13
+      '@types/node': 20.13.0
 
   '@types/connect@3.4.38':
     dependencies:
-      '@types/node': 20.12.13
+      '@types/node': 20.13.0
 
   '@types/debug@4.1.12':
     dependencies:
@@ -14826,12 +14823,12 @@ snapshots:
 
   '@types/form-data@0.0.33':
     dependencies:
-      '@types/node': 20.12.13
+      '@types/node': 20.13.0
 
   '@types/glob@7.2.0':
     dependencies:
       '@types/minimatch': 5.1.2
-      '@types/node': 20.12.13
+      '@types/node': 20.13.0
 
   '@types/http-cache-semantics@4.0.4': {}
 
@@ -14853,7 +14850,7 @@ snapshots:
 
   '@types/keyv@3.1.4':
     dependencies:
-      '@types/node': 20.12.13
+      '@types/node': 20.13.0
 
   '@types/lru-cache@5.1.1': {}
 
@@ -14865,7 +14862,7 @@ snapshots:
 
   '@types/node-forge@1.3.11':
     dependencies:
-      '@types/node': 20.12.13
+      '@types/node': 20.13.0
 
   '@types/node@10.17.60': {}
 
@@ -14879,10 +14876,6 @@ snapshots:
     dependencies:
       undici-types: 5.26.5
 
-  '@types/node@20.12.13':
-    dependencies:
-      undici-types: 5.26.5
-
   '@types/node@20.13.0':
     dependencies:
       undici-types: 5.26.5
@@ -14893,7 +14886,7 @@ snapshots:
 
   '@types/pbkdf2@3.1.2':
     dependencies:
-      '@types/node': 20.12.13
+      '@types/node': 20.13.0
 
   '@types/prettier@2.7.3': {}
 
@@ -14912,11 +14905,11 @@ snapshots:
 
   '@types/responselike@1.0.3':
     dependencies:
-      '@types/node': 20.12.13
+      '@types/node': 20.13.0
 
   '@types/secp256k1@4.0.6':
     dependencies:
-      '@types/node': 20.12.13
+      '@types/node': 20.13.0
 
   '@types/stack-utils@2.0.3': {}
 
@@ -14930,11 +14923,11 @@ snapshots:
 
   '@types/ws@7.4.7':
     dependencies:
-      '@types/node': 20.12.13
+      '@types/node': 20.13.0
 
   '@types/ws@8.5.10':
     dependencies:
-      '@types/node': 20.12.13
+      '@types/node': 20.13.0
 
   '@types/yargs-parser@21.0.3': {}
 
@@ -15640,7 +15633,7 @@ snapshots:
 
   appdirsjs@1.2.7: {}
 
-  arbundles@0.11.1(arweave@1.15.1)(bufferutil@4.0.8)(utf-8-validate@5.0.10):
+  arbundles@0.10.1(arweave@1.15.1)(bufferutil@4.0.8)(utf-8-validate@5.0.10):
     dependencies:
       '@ethersproject/bytes': 5.7.0
       '@ethersproject/hash': 5.7.0
@@ -16272,7 +16265,7 @@ snapshots:
 
   chrome-launcher@0.15.2:
     dependencies:
-      '@types/node': 20.12.13
+      '@types/node': 20.13.0
       escape-string-regexp: 4.0.0
       is-wsl: 2.2.0
       lighthouse-logger: 1.4.2
@@ -18524,7 +18517,7 @@ snapshots:
       '@jest/environment': 29.7.0
       '@jest/fake-timers': 29.7.0
       '@jest/types': 29.6.3
-      '@types/node': 20.12.13
+      '@types/node': 20.13.0
       jest-mock: 29.7.0
       jest-util: 29.7.0
 
@@ -18545,13 +18538,13 @@ snapshots:
   jest-mock@29.7.0:
     dependencies:
       '@jest/types': 29.6.3
-      '@types/node': 20.12.13
+      '@types/node': 20.13.0
       jest-util: 29.7.0
 
   jest-util@29.7.0:
     dependencies:
       '@jest/types': 29.6.3
-      '@types/node': 20.12.13
+      '@types/node': 20.13.0
       chalk: 4.1.2
       ci-info: 3.9.0
       graceful-fs: 4.2.11
@@ -18568,7 +18561,7 @@ snapshots:
 
   jest-worker@29.7.0:
     dependencies:
-      '@types/node': 20.12.13
+      '@types/node': 20.13.0
       jest-util: 29.7.0
       merge-stream: 2.0.0
       supports-color: 8.1.1
@@ -19863,13 +19856,13 @@ snapshots:
       camelcase-css: 2.0.1
       postcss: 8.4.38
 
-  postcss-load-config@4.0.2(postcss@8.4.38)(ts-node@10.9.2(@types/node@20.12.13)(typescript@5.4.5)):
+  postcss-load-config@4.0.2(postcss@8.4.38)(ts-node@10.9.2(@types/node@20.13.0)(typescript@5.4.5)):
     dependencies:
       lilconfig: 3.1.1
       yaml: 2.4.3
     optionalDependencies:
       postcss: 8.4.38
-      ts-node: 10.9.2(@types/node@20.12.13)(typescript@5.4.5)
+      ts-node: 10.9.2(@types/node@20.13.0)(typescript@5.4.5)
 
   postcss-nested@6.0.1(postcss@8.4.38):
     dependencies:
@@ -21019,7 +21012,7 @@ snapshots:
     dependencies:
       '@babel/runtime': 7.24.6
 
-  tailwindcss@3.4.3(ts-node@10.9.2(@types/node@20.12.13)(typescript@5.4.5)):
+  tailwindcss@3.4.3(ts-node@10.9.2(@types/node@20.13.0)(typescript@5.4.5)):
     dependencies:
       '@alloc/quick-lru': 5.2.0
       arg: 5.0.2
@@ -21038,7 +21031,7 @@ snapshots:
       postcss: 8.4.38
       postcss-import: 15.1.0(postcss@8.4.38)
       postcss-js: 4.0.1(postcss@8.4.38)
-      postcss-load-config: 4.0.2(postcss@8.4.38)(ts-node@10.9.2(@types/node@20.12.13)(typescript@5.4.5))
+      postcss-load-config: 4.0.2(postcss@8.4.38)(ts-node@10.9.2(@types/node@20.13.0)(typescript@5.4.5))
       postcss-nested: 6.0.1(postcss@8.4.38)
       postcss-selector-parser: 6.1.0
       resolve: 1.22.8
@@ -21160,25 +21153,6 @@ snapshots:
       tslib: 2.6.2
 
   ts-log@2.2.5: {}
-
-  ts-node@10.9.2(@types/node@20.12.13)(typescript@5.4.5):
-    dependencies:
-      '@cspotcode/source-map-support': 0.8.1
-      '@tsconfig/node10': 1.0.11
-      '@tsconfig/node12': 1.0.11
-      '@tsconfig/node14': 1.0.3
-      '@tsconfig/node16': 1.0.4
-      '@types/node': 20.12.13
-      acorn: 8.11.3
-      acorn-walk: 8.3.2
-      arg: 4.1.3
-      create-require: 1.1.1
-      diff: 4.0.2
-      make-error: 1.3.6
-      typescript: 5.4.5
-      v8-compile-cache-lib: 3.0.1
-      yn: 3.1.1
-    optional: true
 
   ts-node@10.9.2(@types/node@20.13.0)(typescript@5.4.5):
     dependencies:
