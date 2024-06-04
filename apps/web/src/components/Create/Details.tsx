@@ -148,7 +148,7 @@ const Details: FC<Props> = ({ onUpload, onCancel }) => {
                     'text-xs',
                     watch('description')?.length > 5000
                       ? 'text-red-500 opacity-100'
-                      : ' opacity-70'
+                      : 'opacity-70'
                   )}
                 >
                   {watch('description')?.length}/5000
