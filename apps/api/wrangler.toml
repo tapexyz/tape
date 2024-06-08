@@ -1,4 +1,5 @@
 name = "api"
+main = "src/index.ts"
 account_id="8c096dfa36dc8fff1771c356915965a3"
 compatibility_date = "2023-01-01"
 routes = [
