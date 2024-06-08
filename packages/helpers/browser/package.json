@@ -8,8 +8,8 @@
     "typecheck": "tsc --pretty"
   },
   "devDependencies": {
-    "@aws-sdk/client-s3": "3.588.0",
-    "@aws-sdk/lib-storage": "3.588.0",
+    "@aws-sdk/client-s3": "3.592.0",
+    "@aws-sdk/lib-storage": "3.592.0",
     "@livepeer/react": "^3.1.9",
     "axios": "^1.7.2",
     "next": "^14.2.3",
