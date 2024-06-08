@@ -1,7 +1,7 @@
 import { zValidator } from '@hono/zod-validator'
 import { ALL_EVENTS } from '@tape.xyz/generic/events'
 import { Hono } from 'hono'
-import UAParser from 'ua-parser-js'
+import { UAParser } from 'ua-parser-js'
 import type { z } from 'zod'
 import { any, object, string } from 'zod'
 
