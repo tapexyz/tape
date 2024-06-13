@@ -1,7 +1,11 @@
 import type { WebIrys } from '@irys/sdk'
 import useAppStore from '@lib/store'
 import { useIsMounted } from '@tape.xyz/browser'
-import { IRYS_CURRENCY, POLYGON_CHAIN_ID } from '@tape.xyz/constants'
+import {
+  IRYS_CURRENCY,
+  POLYGON_CHAIN_ID,
+  REQUESTING_SIGNATURE_MESSAGE
+} from '@tape.xyz/constants'
 import { EVENTS, logger, Tower } from '@tape.xyz/generic'
 import {
   Button,
@@ -11,6 +15,7 @@ import {
   Input,
   RefreshOutline,
   Tooltip,
+  WalletOutline,
   WarningOutline
 } from '@tape.xyz/ui'
 import React, { useEffect, useState } from 'react'
@@ -142,6 +147,26 @@ const IrysInfo = () => {
     await fetchBalance()
   }
 
+  const onWithdrawBalance = async () => {
+    if (!irysData.instance) {
+      return await initIrys()
+    }
+
+    try {
+      toast.loading(REQUESTING_SIGNATURE_MESSAGE)
+      const withdrawBalanceResult = await irysData.instance.withdrawAll()
+      if (withdrawBalanceResult.tx_id) {
+        toast.success(
+          `Withdraw of ${Number(irysData.balance).toFixed(2)} ${IRYS_CURRENCY} is done and it will be reflected in few seconds.`
+        )
+        Tower.track(EVENTS.WITHDRAW_MATIC)
+      }
+    } catch (error) {
+      logger.error('[Error Irys Withdraw]', error)
+      toast.error('Failed to withdraw storage balance')
+    }
+  }
+
   const isEnoughBalanceAvailable = irysData.estimatedPrice < irysData.balance
 
   return (
@@ -165,18 +190,31 @@ const IrysInfo = () => {
       </div>
       <div className="flex flex-col">
         <div className="inline-flex items-center justify-between rounded font-medium opacity-80">
-          <span className="flex items-center space-x-1.5">
+          <div className="flex items-center space-x-2">
             <p>Your storage balance</p>
-            <Tooltip content="Refresh balance" placement="top">
-              <button
-                type="button"
-                className="focus:outline-none"
-                onClick={() => onRefreshBalance()}
-              >
-                <RefreshOutline className="size-3" />
-              </button>
-            </Tooltip>
-          </span>
+            <span className="-mb-1 flex items-center space-x-3">
+              <Tooltip content="Refresh balance" placement="top">
+                <button
+                  type="button"
+                  className="focus:outline-none"
+                  onClick={() => onRefreshBalance()}
+                >
+                  <RefreshOutline className="size-3" />
+                </button>
+              </Tooltip>
+              {Boolean(Number(irysData.balance)) && (
+                <Tooltip content="Withdraw balance" placement="top">
+                  <button
+                    type="button"
+                    className="focus:outline-none"
+                    onClick={() => onWithdrawBalance()}
+                  >
+                    <WalletOutline className="size-3" />
+                  </button>
+                </Tooltip>
+              )}
+            </span>
+          </div>
           <span>
             <Button
               size="sm"
