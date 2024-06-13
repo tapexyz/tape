@@ -10,14 +10,14 @@
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "3.592.0",
+    "@aws-sdk/client-sts": "3.596.0",
     "@hono/zod-validator": "^0.2.2",
     "@lens-protocol/metadata": "^1.2.0",
     "base64url": "^3.0.1",
-    "hono": "^4.4.4",
+    "hono": "^4.4.5",
     "linkedom": "^0.18.3",
     "ua-parser-js": "2.0.0-beta.3",
-    "viem": "^2.13.7",
+    "viem": "^2.13.10",
     "zod": "^3.23.8"
   },
   "devDependencies": {
@@ -25,8 +25,8 @@
     "@tape.xyz/config": "workspace:*",
     "@tape.xyz/generic": "workspace:*",
     "@types/ua-parser-js": "^0.7.39",
-    "prettier": "^3.3.1",
+    "prettier": "^3.3.2",
     "typescript": "5.4.5",
-    "wrangler": "^3.60.0"
+    "wrangler": "^3.60.2"
   }
 }
