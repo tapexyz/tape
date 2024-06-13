@@ -27,9 +27,10 @@ jobs:
         run: pnpm lint && pnpm typecheck
  
       - name: Deploy 🚀
-        run: |
-          pnpm add -g wrangler
-          CLOUDFLARE_API_TOKEN=${{ secrets.CLOUDFLARE_API_TOKEN }} pnpm api:deploy
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          pnpm add -g wrangler
+          pnpm api:deploy
+          
