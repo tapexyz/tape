@@ -27,6 +27,6 @@
     "@types/ua-parser-js": "^0.7.39",
     "prettier": "^3.3.2",
     "typescript": "5.4.5",
-    "wrangler": "^3.59.0"
+    "wrangler": "^3.60.2"
   }
 }
