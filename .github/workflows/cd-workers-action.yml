@@ -9,6 +9,14 @@ jobs:
     timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 8
+      - uses: actions/setup-node@v4
+        with:
+          check-latest: true
+          node-version-file: '.nvmrc'
+          cache: 'pnpm'
       - name: Build & Deploy Worker
         uses: cloudflare/wrangler-action@v3
         with:
