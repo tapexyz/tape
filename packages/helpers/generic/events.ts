@@ -1,6 +1,7 @@
 export const EVENTS = {
   PAGEVIEW: 'Pageview',
   DEPOSIT_MATIC: 'Deposit Matic',
+  WITHDRAW_MATIC: 'Withdraw Matic',
   FILTER_CATEGORIES: 'Filter Categories',
   CLICK_VIEW_METADATA: 'Click View Metadata',
   CLICK_VIEW_TOKEN: 'Click View Token',
