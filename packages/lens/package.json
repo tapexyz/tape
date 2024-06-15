@@ -8,7 +8,7 @@
     "codegen": "graphql-codegen"
   },
   "dependencies": {
-    "@apollo/client": "3.10.4",
+    "@apollo/client": "3.10.5",
     "@irys/sdk": "^0.2.3",
     "@lens-protocol/metadata": "^1.2.0"
   },
