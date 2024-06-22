@@ -8,8 +8,8 @@
     "codegen": "graphql-codegen"
   },
   "dependencies": {
-    "@apollo/client": "3.10.5",
-    "@irys/sdk": "^0.2.3",
+    "@apollo/client": "3.10.6",
+    "@irys/sdk": "^0.2.4",
     "@lens-protocol/metadata": "^1.2.0"
   },
   "devDependencies": {
@@ -20,6 +20,6 @@
     "@graphql-codegen/typescript-react-apollo": "^4.3.0",
     "@tape.xyz/config": "workspace:*",
     "@tape.xyz/constants": "workspace:*",
-    "typescript": "5.4.5"
+    "typescript": "5.5.2"
   }
 }

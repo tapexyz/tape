@@ -8,11 +8,12 @@ export const DropdownMenuSeparator = DropdownMenuPrimitive.Separator
 export const DropdownMenuContent = DropdownMenuPrimitive.Content
 export const DropdownMenuPortal = DropdownMenuPrimitive.Portal
 
-type DropdownMenuSubContentProps = DropdownMenuPrimitive.MenuSubContentProps & {
-  children?: ReactNode
-  className?: string
-  size?: 'sm' | 'md' | 'lg'
-}
+type DropdownMenuSubContentProps =
+  DropdownMenuPrimitive.DropdownMenuSubContentProps & {
+    children?: ReactNode
+    className?: string
+    size?: 'sm' | 'md' | 'lg'
+  }
 export const DropdownMenuSubContent: React.ForwardRefExoticComponent<
   DropdownMenuSubContentProps &
     React.RefAttributes<HTMLElement | SVGElement | React.Component | null>
@@ -42,11 +43,12 @@ export const DropdownMenuSubContent: React.ForwardRefExoticComponent<
 })
 DropdownMenuSubContent.displayName = 'DropdownMenuSubContent'
 
-type DropdownMenuSubTriggerProps = DropdownMenuPrimitive.MenuSubTriggerProps & {
-  children?: ReactNode
-  className?: string
-  size?: 'sm' | 'md' | 'lg'
-}
+type DropdownMenuSubTriggerProps =
+  DropdownMenuPrimitive.DropdownMenuSubTriggerProps & {
+    children?: ReactNode
+    className?: string
+    size?: 'sm' | 'md' | 'lg'
+  }
 export const DropdownMenuSubTrigger: React.ForwardRefExoticComponent<
   DropdownMenuSubTriggerProps &
     React.RefAttributes<HTMLElement | SVGElement | React.Component | null>
