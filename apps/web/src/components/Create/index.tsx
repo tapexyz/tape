@@ -159,9 +159,7 @@ const CreateSteps = () => {
         ? 'MOMOKA'
         : 'ON_CHAIN',
       video_storage: uploadedMedia.isUploadToIpfs ? 'IPFS' : 'ARWEAVE',
-      publication_collect_module: Object.keys(
-        getCollectModuleInput(uploadedMedia.collectModule)
-      )[0],
+      publication_collect_module: uploadedMedia.collectModule,
       publication_reference_module: enabledReferenceModule,
       publication_reference_module_degrees_of_separation: uploadedMedia
         .referenceModule.degreesOfSeparationReferenceModule
