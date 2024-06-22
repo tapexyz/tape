@@ -12,9 +12,9 @@
     "@openzeppelin/hardhat-upgrades": "^3.1.1",
     "@tape.xyz/config": "workspace:*",
     "dotenv": "^16.4.5",
-    "ethers": "^6.13.0",
+    "ethers": "^6.13.1",
     "hardhat": "^2.22.5",
     "ts-node": "^10.9.2",
-    "typescript": "^5.4.5"
+    "typescript": "^5.5.2"
   }
 }

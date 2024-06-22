@@ -1,5 +1,6 @@
 import type { WebIrys } from '@irys/sdk'
 import type { MetadataLicenseType } from '@lens-protocol/metadata'
+
 import type {
   LegacyMultirecipientFeeCollectModuleSettings,
   LegacySimpleCollectModuleSettings,

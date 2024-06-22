@@ -38,6 +38,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
   const uploadedMedia = useAppStore((state) => state.uploadedMedia)
   const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
   const splitRecipients = uploadedMedia.collectModule.multiRecipients ?? []
+  const isFeeCollect = uploadedMedia.collectModule.isFeeCollect
   const [searchKeyword, setSearchKeyword] = useState('')
   const debouncedValue = useDebounce<string>(searchKeyword, 500)
 
@@ -46,7 +47,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
   const profiles = profilesData?.searchProfiles?.items as Profile[]
 
   const setSplitRecipients = (multiRecipients: RecipientDataInput[]) => {
-    const enabled = Boolean(splitRecipients.length)
+    const enabled = isFeeCollect ? true : Boolean(splitRecipients.length)
     setUploadedMedia({
       collectModule: {
         ...uploadedMedia.collectModule,
@@ -57,9 +58,6 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
   }
 
   const getIsValidAddress = (address: string) => isAddress(address)
-  const isIncludesDonationAddress =
-    splitRecipients.filter((el) => el.recipient === TAPE_ADMIN_ADDRESS).length >
-    0
 
   const resultsRef = useRef(null)
   useOutsideClick(resultsRef, () => {
@@ -113,28 +111,6 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
     }, 50)
   }
 
-  const addDonation = () => {
-    const splits = splitRecipients
-    splits.push({ recipient: TAPE_ADMIN_ADDRESS, split: 2 })
-    setSplitRecipients([...splits])
-    scrollToSubmit()
-  }
-
-  const addRecipient = () => {
-    const splits = splitRecipients
-    splits.push({ recipient: '', split: 1 })
-    setSplitRecipients([...splits])
-    scrollToSubmit()
-  }
-
-  const removeRecipient = (index: number) => {
-    const splits = splitRecipients
-    if (index >= 0) {
-      splits.splice(index, 1)
-    }
-    setSplitRecipients([...splits])
-  }
-
   const splitEvenly = () => {
     const equalSplits = splitNumber(100, splitRecipients.length)
     const splits = splitRecipients.map((splitRecipient, i) => {
@@ -143,6 +119,22 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
         split: equalSplits[i]
       }
     })
+    setSplitRecipients([...splits])
+  }
+
+  const addRecipient = () => {
+    const splits = splitRecipients
+    splits.push({ recipient: '', split: 20 })
+    setSplitRecipients([...splits])
+    scrollToSubmit()
+    splitEvenly()
+  }
+
+  const removeRecipient = (index: number) => {
+    const splits = splitRecipients
+    if (index >= 0) {
+      splits.splice(index, 1)
+    }
     setSplitRecipients([...splits])
   }
 
@@ -231,7 +223,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
         </div>
       ))}
       <div className="flex items-center justify-between space-x-1.5 pt-1">
-        <div className="flex items-center space-x-1">
+        <div className="flex">
           <button
             type="button"
             className={tw(
@@ -242,18 +234,6 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
           >
             Add recipient
           </button>
-          {!isIncludesDonationAddress && (
-            <button
-              type="button"
-              className={tw(
-                'rounded border border-gray-700 px-1 text-[10px] font-bold uppercase tracking-wider opacity-70 dark:border-gray-300',
-                splitRecipients.length >= 5 && 'invisible'
-              )}
-              onClick={() => addDonation()}
-            >
-              Add Donation
-            </button>
-          )}
         </div>
         {splitRecipients?.length > 1 && (
           <button

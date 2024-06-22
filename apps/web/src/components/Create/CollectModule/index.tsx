@@ -55,7 +55,8 @@ const CollectModule = () => {
           {isFeeCollect ? `for set price` : `for free`}{' '}
           {timeLimitEnabled ? `within ${timeLimit} days` : ''}
         </span>
-        {uploadedMedia.collectModule.isMultiRecipientFeeCollect && (
+        {uploadedMedia.collectModule.isMultiRecipientFeeCollect &&
+        multiRecipients?.length ? (
           <Tooltip
             content={`Split revenue enabled with ${multiRecipients?.length} recipients`}
           >
@@ -63,7 +64,7 @@ const CollectModule = () => {
               <SplitOutline className="mr-2 size-5 rotate-90" outline={false} />
             </span>
           </Tooltip>
-        )}
+        ) : null}
       </div>
     )
   }
