@@ -1,4 +1,5 @@
 import { VERIFIED_UNKNOWN_OPEN_ACTION_CONTRACTS } from '@components/Watch/OpenActions/verified-contracts'
+import { TAPE_ADMIN_ADDRESS } from '@tape.xyz/constants'
 import type {
   ApprovedAllowanceAmountResult,
   OpenActionModuleInput,
@@ -8,6 +9,9 @@ import { OpenActionModuleType } from '@tape.xyz/lens'
 import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
 
 import { getAddedDaysFromToday } from './formatTime'
+
+const PLATFORM_FEE = 5
+const RECIPIENT_SHARE = 100 - PLATFORM_FEE
 
 export const getCollectModuleInput = (
   selectedCollectModule: CollectModuleType
@@ -22,8 +26,50 @@ export const getCollectModuleInput = (
     timeLimit = 1,
     isFeeCollect,
     isMultiRecipientFeeCollect,
-    collectLimitEnabled
+    collectLimitEnabled,
+    multiRecipients
   } = selectedCollectModule
+
+  const recipients = multiRecipients?.length
+    ? multiRecipients
+    : [{ recipient, split: 100 }]
+
+  let totalSplitPercentage = 0
+
+  const updatedRecipients = recipients?.map((split) => {
+    let revisedSplitPercentage = Math.floor(
+      split.split * (RECIPIENT_SHARE / 100)
+    )
+    totalSplitPercentage += revisedSplitPercentage
+    return {
+      recipient: split.recipient,
+      split: revisedSplitPercentage
+    }
+  })
+
+  if (updatedRecipients?.length) {
+    let adjustments = 0
+    updatedRecipients.forEach((recipient) => {
+      if (
+        // Check if the recipient has a split of 0
+        recipient.split === 0 &&
+        // Check if the total split percentage is less than 100
+        RECIPIENT_SHARE - totalSplitPercentage > 0
+      ) {
+        recipient.split++
+        adjustments++
+      }
+    })
+    // Adjust the first recipient's split to ensure total is 100%
+    updatedRecipients[0].split +=
+      RECIPIENT_SHARE - totalSplitPercentage - adjustments
+  }
+
+  // Add the admin fee split
+  updatedRecipients?.push({
+    recipient: TAPE_ADMIN_ADDRESS,
+    split: PLATFORM_FEE
+  })
 
   // No one can collect the post
   if (selectedCollectModule.isRevertCollect) {
@@ -41,6 +87,7 @@ export const getCollectModuleInput = (
       endsAt: getAddedDaysFromToday(Number(timeLimit))
     })
   }
+
   const baseAmountParams = {
     amount: {
       currency: amount?.currency,
@@ -70,8 +117,7 @@ export const getCollectModuleInput = (
         multirecipientCollectOpenAction: {
           ...baseAmountParams,
           ...baseCollectModuleParams,
-          recipients:
-            selectedCollectModule.multiRecipients as RecipientDataInput[]
+          recipients: updatedRecipients as RecipientDataInput[]
         }
       }
     }

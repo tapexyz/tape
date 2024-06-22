@@ -99,7 +99,8 @@ const FeeCollectForm: FC<Props> = ({ setCollectType, setShowModal }) => {
       }
       if (
         uploadedMedia.collectModule.isMultiRecipientFeeCollect &&
-        splitsSum !== 100
+        splitsSum !== 100 &&
+        splitRecipients.length
       ) {
         return setValidationError('Sum of all splits should be 100%')
       }
