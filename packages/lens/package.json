@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@apollo/client": "3.10.6",
-    "@irys/sdk": "^0.2.4",
+    "@irys/sdk": "^0.2.5",
     "@lens-protocol/metadata": "^1.2.0"
   },
   "devDependencies": {

@@ -1,7 +1,11 @@
 import type { WebIrys } from '@irys/sdk'
 import useAppStore from '@lib/store'
 import { useIsMounted } from '@tape.xyz/browser'
-import { IRYS_CURRENCY, POLYGON_CHAIN_ID } from '@tape.xyz/constants'
+import {
+  IRYS_CURRENCY,
+  POLYGON_CHAIN_ID,
+  REQUESTING_SIGNATURE_MESSAGE
+} from '@tape.xyz/constants'
 import { EVENTS, logger, Tower } from '@tape.xyz/generic'
 import {
   Button,
@@ -11,6 +15,7 @@ import {
   Input,
   RefreshOutline,
   Tooltip,
+  WalletOutline,
   WarningOutline
 } from '@tape.xyz/ui'
 import React, { useEffect, useState } from 'react'
@@ -142,25 +147,25 @@ const IrysInfo = () => {
     await fetchBalance()
   }
 
-  // const onWithdrawBalance = async () => {
-  //   if (!irysData.instance) {
-  //     return await initIrys()
-  //   }
+  const onWithdrawBalance = async () => {
+    if (!irysData.instance) {
+      return await initIrys()
+    }
 
-  //   try {
-  //     toast.loading(REQUESTING_SIGNATURE_MESSAGE)
-  //     const withdrawBalanceResult = await irysData.instance.withdrawAll()
-  //     if (withdrawBalanceResult.tx_id) {
-  //       toast.success(
-  //         `Withdraw of ${Number(irysData.balance).toFixed(2)} ${IRYS_CURRENCY} is done and it will be reflected in few seconds.`
-  //       )
-  //       Tower.track(EVENTS.WITHDRAW_MATIC)
-  //     }
-  //   } catch (error) {
-  //     logger.error('[Error Irys Withdraw]', error)
-  //     toast.error('Failed to withdraw storage balance')
-  //   }
-  // }
+    try {
+      toast.loading(REQUESTING_SIGNATURE_MESSAGE)
+      const withdrawBalanceResult = await irysData.instance.withdrawAll()
+      if (withdrawBalanceResult.tx_id) {
+        toast.success(
+          `Withdraw of ${Number(irysData.balance).toFixed(2)} ${IRYS_CURRENCY} is done and it will be reflected in few seconds.`
+        )
+        Tower.track(EVENTS.WITHDRAW_MATIC)
+      }
+    } catch (error) {
+      logger.error('[Error Irys Withdraw]', error)
+      toast.error('Failed to withdraw storage balance')
+    }
+  }
 
   const isEnoughBalanceAvailable = irysData.estimatedPrice < irysData.balance
 
@@ -197,7 +202,7 @@ const IrysInfo = () => {
                   <RefreshOutline className="size-3" />
                 </button>
               </Tooltip>
-              {/* {Boolean(Number(irysData.balance)) && (
+              {Boolean(Number(irysData.balance)) && (
                 <Tooltip content="Withdraw balance" placement="top">
                   <button
                     type="button"
@@ -207,7 +212,7 @@ const IrysInfo = () => {
                     <WalletOutline className="size-3" />
                   </button>
                 </Tooltip>
-              )} */}
+              )}
             </span>
           </div>
           <span>
