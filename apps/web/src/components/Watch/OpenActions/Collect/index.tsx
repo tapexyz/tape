@@ -9,7 +9,9 @@ import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
-  SIGN_IN_REQUIRED
+  SIGN_IN_REQUIRED,
+  TAPE_ADMIN_ADDRESS,
+  TAPE_APP_NAME
 } from '@tape.xyz/constants'
 import {
   checkLensManagerPermissions,
@@ -44,7 +46,14 @@ import type {
   CustomErrorWithData,
   SupportedOpenActionModuleType
 } from '@tape.xyz/lens/custom-types'
-import { Button, Callout, Spinner, Tooltip, UserOutline } from '@tape.xyz/ui'
+import {
+  Button,
+  Callout,
+  InfoOutline,
+  Spinner,
+  Tooltip,
+  UserOutline
+} from '@tape.xyz/ui'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
@@ -444,6 +453,10 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
     })
   }
 
+  const hasTapeFees = details?.recipients?.some(
+    (split) => split.recipient === TAPE_ADMIN_ADDRESS
+  )
+
   return (
     <div className="pt-2">
       {!allowanceLoading ? (
@@ -462,10 +475,39 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
           {amount ? (
             <div className="mb-3 flex flex-col">
               <span className="font-bold">Price</span>
-              <span className="space-x-1">
-                <span className="text-2xl">{details?.amount.value}</span>
-                <span>{details?.amount.assetSymbol}</span>
-              </span>
+              <div className="flex items-end space-x-1">
+                <span className="space-x-1">
+                  <span className="text-2xl">{details?.amount.value}</span>
+                  <span>{details?.amount.assetSymbol}</span>
+                </span>
+                <Tooltip
+                  content={
+                    <div className="space-y-2 p-3">
+                      <h6 className="font-bold">Collect Fees</h6>
+                      <div className="flex items-start justify-between space-x-10">
+                        <div>Lens Protocol</div>
+                        <b>
+                          {(amount * 0.05).toFixed(2)}{' '}
+                          {details?.amount.assetSymbol} (5%)
+                        </b>
+                      </div>
+                      {hasTapeFees && (
+                        <div className="flex items-start justify-between space-x-10">
+                          <div>{TAPE_APP_NAME}</div>
+                          <b>
+                            {(amount * 0.05).toFixed(2)}{' '}
+                            {details?.amount.assetSymbol} (5%)
+                          </b>
+                        </div>
+                      )}
+                    </div>
+                  }
+                >
+                  <span className="pb-1.5">
+                    <InfoOutline className="size-3.5" />
+                  </span>
+                </Tooltip>
+              </div>
             </div>
           ) : null}
           {details?.endsAt ? (
@@ -483,7 +525,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
             <div className="mb-3 flex flex-col">
               <span className="font-bold">Revenue</span>
               <span className="space-x-1">
-                <span className="text-2xl font-bold">
+                <span className="text-2xl">
                   {revenueData?.revenueFromPublication?.revenue[0].total
                     .value ?? 0}
                 </span>
