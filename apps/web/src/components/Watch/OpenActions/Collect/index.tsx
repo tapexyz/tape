@@ -484,7 +484,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
                   content={
                     <div className="space-y-2 p-3">
                       <h6 className="font-bold">Collect Fees</h6>
-                      <div className="flex items-start justify-between space-x-10">
+                      <div className="flex items-center justify-between gap-6">
                         <div>Lens Protocol</div>
                         <b>
                           {(amount * 0.05).toFixed(2)}{' '}
@@ -492,7 +492,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
                         </b>
                       </div>
                       {hasTapeFees && (
-                        <div className="flex items-start justify-between space-x-10">
+                        <div className="flex items-center justify-between gap-6">
                           <div>{TAPE_APP_NAME}</div>
                           <b>
                             {(amount * 0.05).toFixed(2)}{' '}
