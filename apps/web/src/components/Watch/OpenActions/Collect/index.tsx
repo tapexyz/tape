@@ -10,6 +10,7 @@ import {
   ERROR_MESSAGE,
   LENSHUB_PROXY_ADDRESS,
   SIGN_IN_REQUIRED,
+  STATIC_ASSETS,
   TAPE_ADMIN_ADDRESS,
   TAPE_APP_NAME
 } from '@tape.xyz/constants'
@@ -224,11 +225,25 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
         getProfilesByAddress(splitRecipient.recipient)?.length > 1
       const handles = getProfilesByAddress(splitRecipient.recipient)
 
+      const recipient = splitRecipient.recipient
+      if (recipient === TAPE_ADMIN_ADDRESS) {
+        return (
+          <div key={recipient} className="flex items-center space-x-2 py-1">
+            <div className="flex items-center space-x-1">
+              <img
+                className="size-4 rounded-full"
+                src={imageCdn(`${STATIC_ASSETS}/brand/logo.svg`, 'SQUARE')}
+                alt="tape"
+              />
+              <span>{TAPE_APP_NAME}</span>
+            </div>
+            <span className="text-sm">({splitRecipient?.split}%)</span>
+          </div>
+        )
+      }
+
       return (
-        <div
-          key={splitRecipient.recipient}
-          className="flex items-center space-x-2 py-1"
-        >
+        <div key={recipient} className="flex items-center space-x-2 py-1">
           <div className="flex items-center space-x-1">
             <img className="size-4 rounded-full" src={pfp} alt="pfp" />
             <Tooltip
@@ -243,7 +258,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
                   {label}
                 </Link>
               ) : (
-                <AddressExplorerLink address={splitRecipient?.recipient}>
+                <AddressExplorerLink address={recipient}>
                   <span>{label}</span>
                 </AddressExplorerLink>
               )}
@@ -540,7 +555,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
           ) : null}
           {details?.recipients?.length ? (
             <div className="mb-3 flex flex-col">
-              <span className="mb-0.5 font-bold">Recipients</span>
+              <span className="mb-0.5 font-bold">Fee Recipients</span>
               {action.type ===
                 OpenActionModuleType.MultirecipientFeeCollectOpenActionModule &&
               details?.recipients?.length
