@@ -1,21 +1,9 @@
 export const LENSHUB_PROXY_ABI = [
   {
     inputs: [
-      {
-        internalType: 'address',
-        name: 'moduleGlobals',
-        type: 'address'
-      },
-      {
-        internalType: 'address',
-        name: 'followNFTImpl',
-        type: 'address'
-      },
-      {
-        internalType: 'address',
-        name: 'collectNFTImpl',
-        type: 'address'
-      },
+      { internalType: 'address', name: 'followNFTImpl', type: 'address' },
+      { internalType: 'address', name: 'collectNFTImpl', type: 'address' },
+      { internalType: 'address', name: 'moduleRegistry', type: 'address' },
       {
         internalType: 'uint256',
         name: 'tokenGuardianCooldown',
@@ -47,11 +35,6 @@ export const LENSHUB_PROXY_ABI = [
             internalType: 'address',
             name: 'newFeeFollowModule',
             type: 'address'
-          },
-          {
-            internalType: 'address',
-            name: 'migrationAdmin',
-            type: 'address'
           }
         ],
         internalType: 'struct Types.MigrationParams',
@@ -62,96 +45,29 @@ export const LENSHUB_PROXY_ABI = [
     stateMutability: 'nonpayable',
     type: 'constructor'
   },
-  {
-    inputs: [],
-    name: 'AlreadyEnabled',
-    type: 'error'
-  },
-  {
-    inputs: [],
-    name: 'CallerNotCollectNFT',
-    type: 'error'
-  },
-  {
-    inputs: [],
-    name: 'CallerNotFollowNFT',
-    type: 'error'
-  },
-  {
-    inputs: [],
-    name: 'DisablingAlreadyTriggered',
-    type: 'error'
-  },
-  {
-    inputs: [],
-    name: 'ExecutorInvalid',
-    type: 'error'
-  },
-  {
-    inputs: [],
-    name: 'GuardianEnabled',
-    type: 'error'
-  },
-  {
-    inputs: [],
-    name: 'InvalidOwner',
-    type: 'error'
-  },
-  {
-    inputs: [],
-    name: 'InvalidParameter',
-    type: 'error'
-  },
-  {
-    inputs: [],
-    name: 'NonERC721ReceiverImplementer',
-    type: 'error'
-  },
-  {
-    inputs: [],
-    name: 'NotEOA',
-    type: 'error'
-  },
-  {
-    inputs: [],
-    name: 'NotGovernance',
-    type: 'error'
-  },
-  {
-    inputs: [],
-    name: 'NotMigrationAdmin',
-    type: 'error'
-  },
-  {
-    inputs: [],
-    name: 'NotOwnerOrApproved',
-    type: 'error'
-  },
-  {
-    inputs: [],
-    name: 'NotProfileOwner',
-    type: 'error'
-  },
-  {
-    inputs: [],
-    name: 'NotWhitelisted',
-    type: 'error'
-  },
-  {
-    inputs: [],
-    name: 'Paused',
-    type: 'error'
-  },
-  {
-    inputs: [],
-    name: 'PublishingPaused',
-    type: 'error'
-  },
-  {
-    inputs: [],
-    name: 'TokenDoesNotExist',
-    type: 'error'
-  },
+  { inputs: [], name: 'AlreadyEnabled', type: 'error' },
+  { inputs: [], name: 'CallerNotCollectNFT', type: 'error' },
+  { inputs: [], name: 'CallerNotFollowNFT', type: 'error' },
+  { inputs: [], name: 'CannotInitImplementation', type: 'error' },
+  { inputs: [], name: 'DisablingAlreadyTriggered', type: 'error' },
+  { inputs: [], name: 'ExecutorInvalid', type: 'error' },
+  { inputs: [], name: 'GuardianEnabled', type: 'error' },
+  { inputs: [], name: 'InitParamsInvalid', type: 'error' },
+  { inputs: [], name: 'Initialized', type: 'error' },
+  { inputs: [], name: 'InvalidOwner', type: 'error' },
+  { inputs: [], name: 'InvalidParameter', type: 'error' },
+  { inputs: [], name: 'NonERC721ReceiverImplementer', type: 'error' },
+  { inputs: [], name: 'NotAllowed', type: 'error' },
+  { inputs: [], name: 'NotEOA', type: 'error' },
+  { inputs: [], name: 'NotGovernance', type: 'error' },
+  { inputs: [], name: 'NotHub', type: 'error' },
+  { inputs: [], name: 'NotMigrationAdmin', type: 'error' },
+  { inputs: [], name: 'NotOwnerOrApproved', type: 'error' },
+  { inputs: [], name: 'NotProfileOwner', type: 'error' },
+  { inputs: [], name: 'NotWhitelisted', type: 'error' },
+  { inputs: [], name: 'Paused', type: 'error' },
+  { inputs: [], name: 'PublishingPaused', type: 'error' },
+  { inputs: [], name: 'TokenDoesNotExist', type: 'error' },
   {
     anonymous: false,
     inputs: [
@@ -192,12 +108,7 @@ export const LENSHUB_PROXY_ABI = [
         name: 'operator',
         type: 'address'
       },
-      {
-        indexed: false,
-        internalType: 'bool',
-        name: 'approved',
-        type: 'bool'
-      }
+      { indexed: false, internalType: 'bool', name: 'approved', type: 'bool' }
     ],
     name: 'ApprovalForAll',
     type: 'event'
@@ -206,17 +117,121 @@ export const LENSHUB_PROXY_ABI = [
     anonymous: false,
     inputs: [
       {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'fromTokenId',
+        type: 'uint256'
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'toTokenId',
+        type: 'uint256'
+      }
+    ],
+    name: 'BatchMetadataUpdate',
+    type: 'event'
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
         indexed: true,
+        internalType: 'uint256',
+        name: 'profileId',
+        type: 'uint256'
+      },
+      {
+        indexed: true,
+        internalType: 'uint256',
+        name: 'pubId',
+        type: 'uint256'
+      },
+      {
+        indexed: true,
+        internalType: 'uint256',
+        name: 'collectNFTId',
+        type: 'uint256'
+      },
+      {
+        indexed: false,
         internalType: 'address',
         name: 'from',
         type: 'address'
       },
+      { indexed: false, internalType: 'address', name: 'to', type: 'address' },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'timestamp',
+        type: 'uint256'
+      }
+    ],
+    name: 'CollectNFTTransferred',
+    type: 'event'
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: false,
+        internalType: 'address',
+        name: 'implementation',
+        type: 'address'
+      },
+      {
+        indexed: false,
+        internalType: 'string',
+        name: 'version',
+        type: 'string'
+      },
+      {
+        indexed: false,
+        internalType: 'bytes20',
+        name: 'gitCommit',
+        type: 'bytes20'
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'timestamp',
+        type: 'uint256'
+      }
+    ],
+    name: 'LensUpgradeVersion',
+    type: 'event'
+  },
+  {
+    anonymous: false,
+    inputs: [
       {
         indexed: true,
         internalType: 'address',
-        name: 'to',
+        name: 'wallet',
         type: 'address'
       },
+      { indexed: true, internalType: 'bool', name: 'enabled', type: 'bool' },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'tokenGuardianDisablingTimestamp',
+        type: 'uint256'
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'timestamp',
+        type: 'uint256'
+      }
+    ],
+    name: 'TokenGuardianStateChanged',
+    type: 'event'
+  },
+  {
+    anonymous: false,
+    inputs: [
+      { indexed: true, internalType: 'address', name: 'from', type: 'address' },
+      { indexed: true, internalType: 'address', name: 'to', type: 'address' },
       {
         indexed: true,
         internalType: 'uint256',
@@ -228,6 +243,87 @@ export const LENSHUB_PROXY_ABI = [
     type: 'event'
   },
   {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'uint16',
+        name: 'prevTreasuryFee',
+        type: 'uint16'
+      },
+      {
+        indexed: true,
+        internalType: 'uint16',
+        name: 'newTreasuryFee',
+        type: 'uint16'
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'timestamp',
+        type: 'uint256'
+      }
+    ],
+    name: 'TreasuryFeeSet',
+    type: 'event'
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'prevTreasury',
+        type: 'address'
+      },
+      {
+        indexed: true,
+        internalType: 'address',
+        name: 'newTreasury',
+        type: 'address'
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'timestamp',
+        type: 'uint256'
+      }
+    ],
+    name: 'TreasurySet',
+    type: 'event'
+  },
+  {
+    anonymous: false,
+    inputs: [
+      {
+        indexed: true,
+        internalType: 'uint256',
+        name: 'unfollowerProfileId',
+        type: 'uint256'
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'idOfProfileUnfollowed',
+        type: 'uint256'
+      },
+      {
+        indexed: false,
+        internalType: 'address',
+        name: 'transactionExecutor',
+        type: 'address'
+      },
+      {
+        indexed: false,
+        internalType: 'uint256',
+        name: 'timestamp',
+        type: 'uint256'
+      }
+    ],
+    name: 'Unfollowed',
+    type: 'event'
+  },
+  {
     inputs: [],
     name: 'DANGER__disableTokenGuardian',
     outputs: [],
@@ -235,6 +331,13 @@ export const LENSHUB_PROXY_ABI = [
     type: 'function'
   },
   {
+    inputs: [],
+    name: 'TOKEN_GUARDIAN_COOLDOWN',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
     inputs: [
       {
         components: [
@@ -248,11 +351,7 @@ export const LENSHUB_PROXY_ABI = [
             name: 'publicationActedId',
             type: 'uint256'
           },
-          {
-            internalType: 'uint256',
-            name: 'actorProfileId',
-            type: 'uint256'
-          },
+          { internalType: 'uint256', name: 'actorProfileId', type: 'uint256' },
           {
             internalType: 'uint256[]',
             name: 'referrerProfileIds',
@@ -268,11 +367,7 @@ export const LENSHUB_PROXY_ABI = [
             name: 'actionModuleAddress',
             type: 'address'
           },
-          {
-            internalType: 'bytes',
-            name: 'actionModuleData',
-            type: 'bytes'
-          }
+          { internalType: 'bytes', name: 'actionModuleData', type: 'bytes' }
         ],
         internalType: 'struct Types.PublicationActionParams',
         name: 'publicationActionParams',
@@ -280,13 +375,7 @@ export const LENSHUB_PROXY_ABI = [
       }
     ],
     name: 'act',
-    outputs: [
-      {
-        internalType: 'bytes',
-        name: '',
-        type: 'bytes'
-      }
-    ],
+    outputs: [{ internalType: 'bytes', name: '', type: 'bytes' }],
     stateMutability: 'nonpayable',
     type: 'function'
   },
@@ -304,11 +393,7 @@ export const LENSHUB_PROXY_ABI = [
             name: 'publicationActedId',
             type: 'uint256'
           },
-          {
-            internalType: 'uint256',
-            name: 'actorProfileId',
-            type: 'uint256'
-          },
+          { internalType: 'uint256', name: 'actorProfileId', type: 'uint256' },
           {
             internalType: 'uint256[]',
             name: 'referrerProfileIds',
@@ -324,11 +409,7 @@ export const LENSHUB_PROXY_ABI = [
             name: 'actionModuleAddress',
             type: 'address'
           },
-          {
-            internalType: 'bytes',
-            name: 'actionModuleData',
-            type: 'bytes'
-          }
+          { internalType: 'bytes', name: 'actionModuleData', type: 'bytes' }
         ],
         internalType: 'struct Types.PublicationActionParams',
         name: 'publicationActionParams',
@@ -336,31 +417,11 @@ export const LENSHUB_PROXY_ABI = [
       },
       {
         components: [
-          {
-            internalType: 'address',
-            name: 'signer',
-            type: 'address'
-          },
-          {
-            internalType: 'uint8',
-            name: 'v',
-            type: 'uint8'
-          },
-          {
-            internalType: 'bytes32',
-            name: 'r',
-            type: 'bytes32'
-          },
-          {
-            internalType: 'bytes32',
-            name: 's',
-            type: 'bytes32'
-          },
-          {
-            internalType: 'uint256',
-            name: 'deadline',
-            type: 'uint256'
-          }
+          { internalType: 'address', name: 'signer', type: 'address' },
+          { internalType: 'uint8', name: 'v', type: 'uint8' },
+          { internalType: 'bytes32', name: 'r', type: 'bytes32' },
+          { internalType: 'bytes32', name: 's', type: 'bytes32' },
+          { internalType: 'uint256', name: 'deadline', type: 'uint256' }
         ],
         internalType: 'struct Types.EIP712Signature',
         name: 'signature',
@@ -368,28 +429,14 @@ export const LENSHUB_PROXY_ABI = [
       }
     ],
     name: 'actWithSig',
-    outputs: [
-      {
-        internalType: 'bytes',
-        name: '',
-        type: 'bytes'
-      }
-    ],
+    outputs: [{ internalType: 'bytes', name: '', type: 'bytes' }],
     stateMutability: 'nonpayable',
     type: 'function'
   },
   {
     inputs: [
-      {
-        internalType: 'address',
-        name: 'to',
-        type: 'address'
-      },
-      {
-        internalType: 'uint256',
-        name: 'tokenId',
-        type: 'uint256'
-      }
+      { internalType: 'address', name: 'to', type: 'address' },
+      { internalType: 'uint256', name: 'tokenId', type: 'uint256' }
     ],
     name: 'approve',
     outputs: [],
@@ -397,31 +444,15 @@ export const LENSHUB_PROXY_ABI = [
     type: 'function'
   },
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'owner',
-        type: 'address'
-      }
-    ],
+    inputs: [{ internalType: 'address', name: 'owner', type: 'address' }],
     name: 'balanceOf',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256'
-      }
-    ],
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function'
   },
   {
     inputs: [
-      {
-        internalType: 'uint256[]',
-        name: 'profileIds',
-        type: 'uint256[]'
-      }
+      { internalType: 'uint256[]', name: 'profileIds', type: 'uint256[]' }
     ],
     name: 'batchMigrateFollowModules',
     outputs: [],
@@ -435,16 +466,8 @@ export const LENSHUB_PROXY_ABI = [
         name: 'followerProfileIds',
         type: 'uint256[]'
       },
-      {
-        internalType: 'uint256',
-        name: 'idOfProfileFollowed',
-        type: 'uint256'
-      },
-      {
-        internalType: 'uint256[]',
-        name: 'followTokenIds',
-        type: 'uint256[]'
-      }
+      { internalType: 'uint256', name: 'idOfProfileFollowed', type: 'uint256' },
+      { internalType: 'uint256[]', name: 'followTokenIds', type: 'uint256[]' }
     ],
     name: 'batchMigrateFollowers',
     outputs: [],
@@ -453,21 +476,13 @@ export const LENSHUB_PROXY_ABI = [
   },
   {
     inputs: [
-      {
-        internalType: 'uint256',
-        name: 'followerProfileId',
-        type: 'uint256'
-      },
+      { internalType: 'uint256', name: 'followerProfileId', type: 'uint256' },
       {
         internalType: 'uint256[]',
         name: 'idsOfProfileFollowed',
         type: 'uint256[]'
       },
-      {
-        internalType: 'uint256[]',
-        name: 'followTokenIds',
-        type: 'uint256[]'
-      }
+      { internalType: 'uint256[]', name: 'followTokenIds', type: 'uint256[]' }
     ],
     name: 'batchMigrateFollows',
     outputs: [],
@@ -476,11 +491,7 @@ export const LENSHUB_PROXY_ABI = [
   },
   {
     inputs: [
-      {
-        internalType: 'uint256[]',
-        name: 'profileIds',
-        type: 'uint256[]'
-      }
+      { internalType: 'uint256[]', name: 'profileIds', type: 'uint256[]' }
     ],
     name: 'batchMigrateProfiles',
     outputs: [],
@@ -488,13 +499,7 @@ export const LENSHUB_PROXY_ABI = [
     type: 'function'
   },
   {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: 'tokenId',
-        type: 'uint256'
-      }
-    ],
+    inputs: [{ internalType: 'uint256', name: 'tokenId', type: 'uint256' }],
     name: 'burn',
     outputs: [],
     stateMutability: 'nonpayable',
@@ -502,31 +507,15 @@ export const LENSHUB_PROXY_ABI = [
   },
   {
     inputs: [
-      {
-        internalType: 'uint256',
-        name: 'delegatorProfileId',
-        type: 'uint256'
-      },
+      { internalType: 'uint256', name: 'delegatorProfileId', type: 'uint256' },
       {
         internalType: 'address[]',
         name: 'delegatedExecutors',
         type: 'address[]'
       },
-      {
-        internalType: 'bool[]',
-        name: 'approvals',
-        type: 'bool[]'
-      },
-      {
-        internalType: 'uint64',
-        name: 'configNumber',
-        type: 'uint64'
-      },
-      {
-        internalType: 'bool',
-        name: 'switchToGivenConfig',
-        type: 'bool'
-      }
+      { internalType: 'bool[]', name: 'approvals', type: 'bool[]' },
+      { internalType: 'uint64', name: 'configNumber', type: 'uint64' },
+      { internalType: 'bool', name: 'switchToGivenConfig', type: 'bool' }
     ],
     name: 'changeDelegatedExecutorsConfig',
     outputs: [],
@@ -535,21 +524,13 @@ export const LENSHUB_PROXY_ABI = [
   },
   {
     inputs: [
-      {
-        internalType: 'uint256',
-        name: 'delegatorProfileId',
-        type: 'uint256'
-      },
+      { internalType: 'uint256', name: 'delegatorProfileId', type: 'uint256' },
       {
         internalType: 'address[]',
         name: 'delegatedExecutors',
         type: 'address[]'
       },
-      {
-        internalType: 'bool[]',
-        name: 'approvals',
-        type: 'bool[]'
-      }
+      { internalType: 'bool[]', name: 'approvals', type: 'bool[]' }
     ],
     name: 'changeDelegatedExecutorsConfig',
     outputs: [],
@@ -558,58 +539,22 @@ export const LENSHUB_PROXY_ABI = [
   },
   {
     inputs: [
-      {
-        internalType: 'uint256',
-        name: 'delegatorProfileId',
-        type: 'uint256'
-      },
+      { internalType: 'uint256', name: 'delegatorProfileId', type: 'uint256' },
       {
         internalType: 'address[]',
         name: 'delegatedExecutors',
         type: 'address[]'
       },
-      {
-        internalType: 'bool[]',
-        name: 'approvals',
-        type: 'bool[]'
-      },
-      {
-        internalType: 'uint64',
-        name: 'configNumber',
-        type: 'uint64'
-      },
-      {
-        internalType: 'bool',
-        name: 'switchToGivenConfig',
-        type: 'bool'
-      },
+      { internalType: 'bool[]', name: 'approvals', type: 'bool[]' },
+      { internalType: 'uint64', name: 'configNumber', type: 'uint64' },
+      { internalType: 'bool', name: 'switchToGivenConfig', type: 'bool' },
       {
         components: [
-          {
-            internalType: 'address',
-            name: 'signer',
-            type: 'address'
-          },
-          {
-            internalType: 'uint8',
-            name: 'v',
-            type: 'uint8'
-          },
-          {
-            internalType: 'bytes32',
-            name: 'r',
-            type: 'bytes32'
-          },
-          {
-            internalType: 'bytes32',
-            name: 's',
-            type: 'bytes32'
-          },
-          {
-            internalType: 'uint256',
-            name: 'deadline',
-            type: 'uint256'
-          }
+          { internalType: 'address', name: 'signer', type: 'address' },
+          { internalType: 'uint8', name: 'v', type: 'uint8' },
+          { internalType: 'bytes32', name: 'r', type: 'bytes32' },
+          { internalType: 'bytes32', name: 's', type: 'bytes32' },
+          { internalType: 'uint256', name: 'deadline', type: 'uint256' }
         ],
         internalType: 'struct Types.EIP712Signature',
         name: 'signature',
@@ -645,30 +590,16 @@ export const LENSHUB_PROXY_ABI = [
             name: 'referrerProfileId',
             type: 'uint256'
           },
-          {
-            internalType: 'uint256',
-            name: 'referrerPubId',
-            type: 'uint256'
-          },
-          {
-            internalType: 'bytes',
-            name: 'collectModuleData',
-            type: 'bytes'
-          }
+          { internalType: 'uint256', name: 'referrerPubId', type: 'uint256' },
+          { internalType: 'bytes', name: 'collectModuleData', type: 'bytes' }
         ],
-        internalType: 'struct Types.CollectParams',
+        internalType: 'struct Types.LegacyCollectParams',
         name: 'collectParams',
         type: 'tuple'
       }
     ],
-    name: 'collect',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256'
-      }
-    ],
+    name: 'collectLegacy',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'nonpayable',
     type: 'function'
   },
@@ -696,62 +627,28 @@ export const LENSHUB_PROXY_ABI = [
             name: 'referrerProfileId',
             type: 'uint256'
           },
-          {
-            internalType: 'uint256',
-            name: 'referrerPubId',
-            type: 'uint256'
-          },
-          {
-            internalType: 'bytes',
-            name: 'collectModuleData',
-            type: 'bytes'
-          }
+          { internalType: 'uint256', name: 'referrerPubId', type: 'uint256' },
+          { internalType: 'bytes', name: 'collectModuleData', type: 'bytes' }
         ],
-        internalType: 'struct Types.CollectParams',
+        internalType: 'struct Types.LegacyCollectParams',
         name: 'collectParams',
         type: 'tuple'
       },
       {
         components: [
-          {
-            internalType: 'address',
-            name: 'signer',
-            type: 'address'
-          },
-          {
-            internalType: 'uint8',
-            name: 'v',
-            type: 'uint8'
-          },
-          {
-            internalType: 'bytes32',
-            name: 'r',
-            type: 'bytes32'
-          },
-          {
-            internalType: 'bytes32',
-            name: 's',
-            type: 'bytes32'
-          },
-          {
-            internalType: 'uint256',
-            name: 'deadline',
-            type: 'uint256'
-          }
+          { internalType: 'address', name: 'signer', type: 'address' },
+          { internalType: 'uint8', name: 'v', type: 'uint8' },
+          { internalType: 'bytes32', name: 'r', type: 'bytes32' },
+          { internalType: 'bytes32', name: 's', type: 'bytes32' },
+          { internalType: 'uint256', name: 'deadline', type: 'uint256' }
         ],
         internalType: 'struct Types.EIP712Signature',
         name: 'signature',
         type: 'tuple'
       }
     ],
-    name: 'collectWithSig',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256'
-      }
-    ],
+    name: 'collectLegacyWithSig',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'nonpayable',
     type: 'function'
   },
@@ -759,26 +656,14 @@ export const LENSHUB_PROXY_ABI = [
     inputs: [
       {
         components: [
-          {
-            internalType: 'uint256',
-            name: 'profileId',
-            type: 'uint256'
-          },
-          {
-            internalType: 'string',
-            name: 'contentURI',
-            type: 'string'
-          },
+          { internalType: 'uint256', name: 'profileId', type: 'uint256' },
+          { internalType: 'string', name: 'contentURI', type: 'string' },
           {
             internalType: 'uint256',
             name: 'pointedProfileId',
             type: 'uint256'
           },
-          {
-            internalType: 'uint256',
-            name: 'pointedPubId',
-            type: 'uint256'
-          },
+          { internalType: 'uint256', name: 'pointedPubId', type: 'uint256' },
           {
             internalType: 'uint256[]',
             name: 'referrerProfileIds',
@@ -789,11 +674,7 @@ export const LENSHUB_PROXY_ABI = [
             name: 'referrerPubIds',
             type: 'uint256[]'
           },
-          {
-            internalType: 'bytes',
-            name: 'referenceModuleData',
-            type: 'bytes'
-          },
+          { internalType: 'bytes', name: 'referenceModuleData', type: 'bytes' },
           {
             internalType: 'address[]',
             name: 'actionModules',
@@ -804,11 +685,7 @@ export const LENSHUB_PROXY_ABI = [
             name: 'actionModulesInitDatas',
             type: 'bytes[]'
           },
-          {
-            internalType: 'address',
-            name: 'referenceModule',
-            type: 'address'
-          },
+          { internalType: 'address', name: 'referenceModule', type: 'address' },
           {
             internalType: 'bytes',
             name: 'referenceModuleInitData',
@@ -821,13 +698,7 @@ export const LENSHUB_PROXY_ABI = [
       }
     ],
     name: 'comment',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256'
-      }
-    ],
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'nonpayable',
     type: 'function'
   },
@@ -835,26 +706,14 @@ export const LENSHUB_PROXY_ABI = [
     inputs: [
       {
         components: [
-          {
-            internalType: 'uint256',
-            name: 'profileId',
-            type: 'uint256'
-          },
-          {
-            internalType: 'string',
-            name: 'contentURI',
-            type: 'string'
-          },
+          { internalType: 'uint256', name: 'profileId', type: 'uint256' },
+          { internalType: 'string', name: 'contentURI', type: 'string' },
           {
             internalType: 'uint256',
             name: 'pointedProfileId',
             type: 'uint256'
           },
-          {
-            internalType: 'uint256',
-            name: 'pointedPubId',
-            type: 'uint256'
-          },
+          { internalType: 'uint256', name: 'pointedPubId', type: 'uint256' },
           {
             internalType: 'uint256[]',
             name: 'referrerProfileIds',
@@ -865,11 +724,7 @@ export const LENSHUB_PROXY_ABI = [
             name: 'referrerPubIds',
             type: 'uint256[]'
           },
-          {
-            internalType: 'bytes',
-            name: 'referenceModuleData',
-            type: 'bytes'
-          },
+          { internalType: 'bytes', name: 'referenceModuleData', type: 'bytes' },
           {
             internalType: 'address[]',
             name: 'actionModules',
@@ -880,11 +735,7 @@ export const LENSHUB_PROXY_ABI = [
             name: 'actionModulesInitDatas',
             type: 'bytes[]'
           },
-          {
-            internalType: 'address',
-            name: 'referenceModule',
-            type: 'address'
-          },
+          { internalType: 'address', name: 'referenceModule', type: 'address' },
           {
             internalType: 'bytes',
             name: 'referenceModuleInitData',
@@ -897,31 +748,11 @@ export const LENSHUB_PROXY_ABI = [
       },
       {
         components: [
-          {
-            internalType: 'address',
-            name: 'signer',
-            type: 'address'
-          },
-          {
-            internalType: 'uint8',
-            name: 'v',
-            type: 'uint8'
-          },
-          {
-            internalType: 'bytes32',
-            name: 'r',
-            type: 'bytes32'
-          },
-          {
-            internalType: 'bytes32',
-            name: 's',
-            type: 'bytes32'
-          },
-          {
-            internalType: 'uint256',
-            name: 'deadline',
-            type: 'uint256'
-          }
+          { internalType: 'address', name: 'signer', type: 'address' },
+          { internalType: 'uint8', name: 'v', type: 'uint8' },
+          { internalType: 'bytes32', name: 'r', type: 'bytes32' },
+          { internalType: 'bytes32', name: 's', type: 'bytes32' },
+          { internalType: 'uint256', name: 'deadline', type: 'uint256' }
         ],
         internalType: 'struct Types.EIP712Signature',
         name: 'signature',
@@ -929,13 +760,7 @@ export const LENSHUB_PROXY_ABI = [
       }
     ],
     name: 'commentWithSig',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256'
-      }
-    ],
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'nonpayable',
     type: 'function'
   },
@@ -943,21 +768,9 @@ export const LENSHUB_PROXY_ABI = [
     inputs: [
       {
         components: [
-          {
-            internalType: 'address',
-            name: 'to',
-            type: 'address'
-          },
-          {
-            internalType: 'address',
-            name: 'followModule',
-            type: 'address'
-          },
-          {
-            internalType: 'bytes',
-            name: 'followModuleInitData',
-            type: 'bytes'
-          }
+          { internalType: 'address', name: 'to', type: 'address' },
+          { internalType: 'address', name: 'followModule', type: 'address' },
+          { internalType: 'bytes', name: 'followModuleInitData', type: 'bytes' }
         ],
         internalType: 'struct Types.CreateProfileParams',
         name: 'createProfileParams',
@@ -965,43 +778,17 @@ export const LENSHUB_PROXY_ABI = [
       }
     ],
     name: 'createProfile',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256'
-      }
-    ],
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'nonpayable',
     type: 'function'
   },
   {
     inputs: [
-      {
-        internalType: 'uint256',
-        name: 'profileId',
-        type: 'uint256'
-      },
-      {
-        internalType: 'uint256',
-        name: 'pubId',
-        type: 'uint256'
-      },
-      {
-        internalType: 'uint256',
-        name: 'collectNFTId',
-        type: 'uint256'
-      },
-      {
-        internalType: 'address',
-        name: 'from',
-        type: 'address'
-      },
-      {
-        internalType: 'address',
-        name: 'to',
-        type: 'address'
-      }
+      { internalType: 'uint256', name: 'profileId', type: 'uint256' },
+      { internalType: 'uint256', name: 'pubId', type: 'uint256' },
+      { internalType: 'uint256', name: 'collectNFTId', type: 'uint256' },
+      { internalType: 'address', name: 'from', type: 'address' },
+      { internalType: 'address', name: 'to', type: 'address' }
     ],
     name: 'emitCollectNFTTransferEvent',
     outputs: [],
@@ -1010,23 +797,22 @@ export const LENSHUB_PROXY_ABI = [
   },
   {
     inputs: [
-      {
-        internalType: 'uint256',
-        name: 'unfollowerProfileId',
-        type: 'uint256'
-      },
+      { internalType: 'uint256', name: 'unfollowerProfileId', type: 'uint256' },
       {
         internalType: 'uint256',
         name: 'idOfProfileUnfollowed',
         type: 'uint256'
       },
-      {
-        internalType: 'address',
-        name: 'transactionExecutor',
-        type: 'address'
-      }
+      { internalType: 'address', name: 'transactionExecutor', type: 'address' }
     ],
     name: 'emitUnfollowedEvent',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'emitVersion',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function'
@@ -1039,107 +825,45 @@ export const LENSHUB_PROXY_ABI = [
     type: 'function'
   },
   {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: 'tokenId',
-        type: 'uint256'
-      }
-    ],
+    inputs: [{ internalType: 'uint256', name: 'tokenId', type: 'uint256' }],
     name: 'exists',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool'
-      }
-    ],
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
     stateMutability: 'view',
     type: 'function'
   },
   {
     inputs: [
-      {
-        internalType: 'uint256',
-        name: 'followerProfileId',
-        type: 'uint256'
-      },
+      { internalType: 'uint256', name: 'followerProfileId', type: 'uint256' },
       {
         internalType: 'uint256[]',
         name: 'idsOfProfilesToFollow',
         type: 'uint256[]'
       },
-      {
-        internalType: 'uint256[]',
-        name: 'followTokenIds',
-        type: 'uint256[]'
-      },
-      {
-        internalType: 'bytes[]',
-        name: 'datas',
-        type: 'bytes[]'
-      }
+      { internalType: 'uint256[]', name: 'followTokenIds', type: 'uint256[]' },
+      { internalType: 'bytes[]', name: 'datas', type: 'bytes[]' }
     ],
     name: 'follow',
-    outputs: [
-      {
-        internalType: 'uint256[]',
-        name: '',
-        type: 'uint256[]'
-      }
-    ],
+    outputs: [{ internalType: 'uint256[]', name: '', type: 'uint256[]' }],
     stateMutability: 'nonpayable',
     type: 'function'
   },
   {
     inputs: [
-      {
-        internalType: 'uint256',
-        name: 'followerProfileId',
-        type: 'uint256'
-      },
+      { internalType: 'uint256', name: 'followerProfileId', type: 'uint256' },
       {
         internalType: 'uint256[]',
         name: 'idsOfProfilesToFollow',
         type: 'uint256[]'
       },
-      {
-        internalType: 'uint256[]',
-        name: 'followTokenIds',
-        type: 'uint256[]'
-      },
-      {
-        internalType: 'bytes[]',
-        name: 'datas',
-        type: 'bytes[]'
-      },
+      { internalType: 'uint256[]', name: 'followTokenIds', type: 'uint256[]' },
+      { internalType: 'bytes[]', name: 'datas', type: 'bytes[]' },
       {
         components: [
-          {
-            internalType: 'address',
-            name: 'signer',
-            type: 'address'
-          },
-          {
-            internalType: 'uint8',
-            name: 'v',
-            type: 'uint8'
-          },
-          {
-            internalType: 'bytes32',
-            name: 'r',
-            type: 'bytes32'
-          },
-          {
-            internalType: 'bytes32',
-            name: 's',
-            type: 'bytes32'
-          },
-          {
-            internalType: 'uint256',
-            name: 'deadline',
-            type: 'uint256'
-          }
+          { internalType: 'address', name: 'signer', type: 'address' },
+          { internalType: 'uint8', name: 'v', type: 'uint8' },
+          { internalType: 'bytes32', name: 'r', type: 'bytes32' },
+          { internalType: 'bytes32', name: 's', type: 'bytes32' },
+          { internalType: 'uint256', name: 'deadline', type: 'uint256' }
         ],
         internalType: 'struct Types.EIP712Signature',
         name: 'signature',
@@ -1147,245 +871,119 @@ export const LENSHUB_PROXY_ABI = [
       }
     ],
     name: 'followWithSig',
-    outputs: [
-      {
-        internalType: 'uint256[]',
-        name: '',
-        type: 'uint256[]'
-      }
-    ],
+    outputs: [{ internalType: 'uint256[]', name: '', type: 'uint256[]' }],
     stateMutability: 'nonpayable',
     type: 'function'
   },
   {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: 'id',
-        type: 'uint256'
-      }
-    ],
-    name: 'getActionModuleById',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address'
-      }
-    ],
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'actionModule',
-        type: 'address'
-      }
-    ],
-    name: 'getActionModuleWhitelistData',
-    outputs: [
-      {
-        components: [
-          {
-            internalType: 'uint248',
-            name: 'id',
-            type: 'uint248'
-          },
-          {
-            internalType: 'bool',
-            name: 'isWhitelisted',
-            type: 'bool'
-          }
-        ],
-        internalType: 'struct Types.ActionModuleWhitelistData',
-        name: '',
-        type: 'tuple'
-      }
-    ],
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: 'tokenId',
-        type: 'uint256'
-      }
-    ],
+    inputs: [{ internalType: 'uint256', name: 'tokenId', type: 'uint256' }],
     name: 'getApproved',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address'
-      }
-    ],
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
-    inputs: [],
-    name: 'getCollectNFTImpl',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address'
-      }
-    ],
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
     stateMutability: 'view',
     type: 'function'
   },
   {
     inputs: [
-      {
-        internalType: 'uint256',
-        name: 'profileId',
-        type: 'uint256'
-      },
-      {
-        internalType: 'uint256',
-        name: 'pubId',
-        type: 'uint256'
-      }
+      { internalType: 'uint256', name: 'profileId', type: 'uint256' },
+      { internalType: 'uint256', name: 'pubId', type: 'uint256' }
     ],
     name: 'getContentURI',
-    outputs: [
-      {
-        internalType: 'string',
-        name: '',
-        type: 'string'
-      }
-    ],
+    outputs: [{ internalType: 'string', name: '', type: 'string' }],
     stateMutability: 'view',
     type: 'function'
   },
   {
     inputs: [
-      {
-        internalType: 'uint256',
-        name: 'delegatorProfileId',
-        type: 'uint256'
-      }
+      { internalType: 'uint256', name: 'delegatorProfileId', type: 'uint256' }
     ],
     name: 'getDelegatedExecutorsConfigNumber',
-    outputs: [
-      {
-        internalType: 'uint64',
-        name: '',
-        type: 'uint64'
-      }
-    ],
+    outputs: [{ internalType: 'uint64', name: '', type: 'uint64' }],
     stateMutability: 'view',
     type: 'function'
   },
   {
     inputs: [
-      {
-        internalType: 'uint256',
-        name: 'delegatorProfileId',
-        type: 'uint256'
-      }
+      { internalType: 'uint256', name: 'delegatorProfileId', type: 'uint256' }
     ],
     name: 'getDelegatedExecutorsMaxConfigNumberSet',
-    outputs: [
-      {
-        internalType: 'uint64',
-        name: '',
-        type: 'uint64'
-      }
-    ],
+    outputs: [{ internalType: 'uint64', name: '', type: 'uint64' }],
     stateMutability: 'view',
     type: 'function'
   },
   {
     inputs: [
-      {
-        internalType: 'uint256',
-        name: 'delegatorProfileId',
-        type: 'uint256'
-      }
+      { internalType: 'uint256', name: 'delegatorProfileId', type: 'uint256' }
     ],
     name: 'getDelegatedExecutorsPrevConfigNumber',
-    outputs: [
-      {
-        internalType: 'uint64',
-        name: '',
-        type: 'uint64'
-      }
-    ],
+    outputs: [{ internalType: 'uint64', name: '', type: 'uint64' }],
     stateMutability: 'view',
     type: 'function'
   },
   {
     inputs: [],
     name: 'getDomainSeparator',
-    outputs: [
-      {
-        internalType: 'bytes32',
-        name: '',
-        type: 'bytes32'
-      }
-    ],
+    outputs: [{ internalType: 'bytes32', name: '', type: 'bytes32' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [{ internalType: 'uint256', name: 'profileId', type: 'uint256' }],
+    name: 'getFollowModule',
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
     stateMutability: 'view',
     type: 'function'
   },
   {
     inputs: [],
     name: 'getFollowNFTImpl',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address'
-      }
-    ],
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
     stateMutability: 'view',
     type: 'function'
   },
   {
     inputs: [],
-    name: 'getGovernance',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address'
-      }
-    ],
+    name: 'getFollowTokenURIContract',
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
     stateMutability: 'view',
     type: 'function'
   },
   {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: 'profileId',
-        type: 'uint256'
-      }
-    ],
+    inputs: [],
+    name: 'getGitCommit',
+    outputs: [{ internalType: 'bytes20', name: '', type: 'bytes20' }],
+    stateMutability: 'pure',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'getGovernance',
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'getLegacyCollectNFTImpl',
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'getModuleRegistry',
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [{ internalType: 'uint256', name: 'profileId', type: 'uint256' }],
     name: 'getProfile',
     outputs: [
       {
         components: [
-          {
-            internalType: 'uint256',
-            name: 'pubCount',
-            type: 'uint256'
-          },
-          {
-            internalType: 'address',
-            name: 'followModule',
-            type: 'address'
-          },
-          {
-            internalType: 'address',
-            name: 'followNFT',
-            type: 'address'
-          },
+          { internalType: 'uint256', name: 'pubCount', type: 'uint256' },
+          { internalType: 'address', name: 'followModule', type: 'address' },
+          { internalType: 'address', name: 'followNFT', type: 'address' },
           {
             internalType: 'string',
             name: '__DEPRECATED__handle',
@@ -1401,11 +999,7 @@ export const LENSHUB_PROXY_ABI = [
             name: '__DEPRECATED__followNFTURI',
             type: 'string'
           },
-          {
-            internalType: 'string',
-            name: 'metadataURI',
-            type: 'string'
-          }
+          { internalType: 'string', name: 'metadataURI', type: 'string' }
         ],
         internalType: 'struct Types.Profile',
         name: '',
@@ -1416,36 +1010,23 @@ export const LENSHUB_PROXY_ABI = [
     type: 'function'
   },
   {
-    inputs: [
-      {
-        internalType: 'bytes32',
-        name: 'handleHash',
-        type: 'bytes32'
-      }
-    ],
+    inputs: [{ internalType: 'bytes32', name: 'handleHash', type: 'bytes32' }],
     name: 'getProfileIdByHandleHash',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256'
-      }
-    ],
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'getProfileTokenURIContract',
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
     stateMutability: 'view',
     type: 'function'
   },
   {
     inputs: [
-      {
-        internalType: 'uint256',
-        name: 'profileId',
-        type: 'uint256'
-      },
-      {
-        internalType: 'uint256',
-        name: 'pubId',
-        type: 'uint256'
-      }
+      { internalType: 'uint256', name: 'profileId', type: 'uint256' },
+      { internalType: 'uint256', name: 'pubId', type: 'uint256' }
     ],
     name: 'getPublication',
     outputs: [
@@ -1456,21 +1037,9 @@ export const LENSHUB_PROXY_ABI = [
             name: 'pointedProfileId',
             type: 'uint256'
           },
-          {
-            internalType: 'uint256',
-            name: 'pointedPubId',
-            type: 'uint256'
-          },
-          {
-            internalType: 'string',
-            name: 'contentURI',
-            type: 'string'
-          },
-          {
-            internalType: 'address',
-            name: 'referenceModule',
-            type: 'address'
-          },
+          { internalType: 'uint256', name: 'pointedPubId', type: 'uint256' },
+          { internalType: 'string', name: 'contentURI', type: 'string' },
+          { internalType: 'address', name: 'referenceModule', type: 'address' },
           {
             internalType: 'address',
             name: '__DEPRECATED__collectModule',
@@ -1486,50 +1055,25 @@ export const LENSHUB_PROXY_ABI = [
             name: 'pubType',
             type: 'uint8'
           },
-          {
-            internalType: 'uint256',
-            name: 'rootProfileId',
-            type: 'uint256'
-          },
-          {
-            internalType: 'uint256',
-            name: 'rootPubId',
-            type: 'uint256'
-          },
-          {
-            internalType: 'uint256',
-            name: 'enabledActionModulesBitmap',
-            type: 'uint256'
-          }
+          { internalType: 'uint256', name: 'rootProfileId', type: 'uint256' },
+          { internalType: 'uint256', name: 'rootPubId', type: 'uint256' }
         ],
-        internalType: 'struct Types.Publication',
+        internalType: 'struct Types.PublicationMemory',
         name: '',
         type: 'tuple'
       }
     ],
-    stateMutability: 'view',
+    stateMutability: 'pure',
     type: 'function'
   },
   {
     inputs: [
-      {
-        internalType: 'uint256',
-        name: 'profileId',
-        type: 'uint256'
-      },
-      {
-        internalType: 'uint256',
-        name: 'pubId',
-        type: 'uint256'
-      }
+      { internalType: 'uint256', name: 'profileId', type: 'uint256' },
+      { internalType: 'uint256', name: 'pubId', type: 'uint256' }
     ],
     name: 'getPublicationType',
     outputs: [
-      {
-        internalType: 'enum Types.PublicationType',
-        name: '',
-        type: 'uint8'
-      }
+      { internalType: 'enum Types.PublicationType', name: '', type: 'uint8' }
     ],
     stateMutability: 'view',
     type: 'function'
@@ -1538,232 +1082,153 @@ export const LENSHUB_PROXY_ABI = [
     inputs: [],
     name: 'getState',
     outputs: [
-      {
-        internalType: 'enum Types.ProtocolState',
-        name: '',
-        type: 'uint8'
-      }
+      { internalType: 'enum Types.ProtocolState', name: '', type: 'uint8' }
     ],
     stateMutability: 'view',
     type: 'function'
   },
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'wallet',
-        type: 'address'
-      }
-    ],
+    inputs: [{ internalType: 'address', name: 'wallet', type: 'address' }],
     name: 'getTokenGuardianDisablingTimestamp',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'getTreasury',
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'getTreasuryData',
     outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256'
-      }
+      { internalType: 'address', name: '', type: 'address' },
+      { internalType: 'uint16', name: '', type: 'uint16' }
     ],
     stateMutability: 'view',
     type: 'function'
   },
   {
+    inputs: [],
+    name: 'getTreasuryFee',
+    outputs: [{ internalType: 'uint16', name: '', type: 'uint16' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'getVersion',
+    outputs: [{ internalType: 'string', name: '', type: 'string' }],
+    stateMutability: 'pure',
+    type: 'function'
+  },
+  {
+    inputs: [{ internalType: 'uint8', name: 'increment', type: 'uint8' }],
+    name: 'incrementNonce',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
     inputs: [
-      {
-        internalType: 'address',
-        name: 'owner',
-        type: 'address'
-      },
-      {
-        internalType: 'address',
-        name: 'operator',
-        type: 'address'
-      }
+      { internalType: 'string', name: 'name', type: 'string' },
+      { internalType: 'string', name: 'symbol', type: 'string' },
+      { internalType: 'address', name: 'newGovernance', type: 'address' }
+    ],
+    name: 'initialize',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [
+      { internalType: 'uint256', name: 'profileId', type: 'uint256' },
+      { internalType: 'uint256', name: 'pubId', type: 'uint256' },
+      { internalType: 'address', name: 'module', type: 'address' }
+    ],
+    name: 'isActionModuleEnabledInPublication',
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [
+      { internalType: 'address', name: 'owner', type: 'address' },
+      { internalType: 'address', name: 'operator', type: 'address' }
     ],
     name: 'isApprovedForAll',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool'
-      }
-    ],
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
     stateMutability: 'view',
     type: 'function'
   },
   {
     inputs: [
-      {
-        internalType: 'uint256',
-        name: 'profileId',
-        type: 'uint256'
-      },
-      {
-        internalType: 'uint256',
-        name: 'byProfileId',
-        type: 'uint256'
-      }
+      { internalType: 'uint256', name: 'profileId', type: 'uint256' },
+      { internalType: 'uint256', name: 'byProfileId', type: 'uint256' }
     ],
     name: 'isBlocked',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool'
-      }
-    ],
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
     stateMutability: 'view',
     type: 'function'
   },
   {
     inputs: [
-      {
-        internalType: 'uint256',
-        name: 'delegatorProfileId',
-        type: 'uint256'
-      },
-      {
-        internalType: 'address',
-        name: 'delegatedExecutor',
-        type: 'address'
-      }
+      { internalType: 'uint256', name: 'delegatorProfileId', type: 'uint256' },
+      { internalType: 'address', name: 'delegatedExecutor', type: 'address' }
     ],
     name: 'isDelegatedExecutorApproved',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool'
-      }
-    ],
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
     stateMutability: 'view',
     type: 'function'
   },
   {
     inputs: [
-      {
-        internalType: 'uint256',
-        name: 'delegatorProfileId',
-        type: 'uint256'
-      },
-      {
-        internalType: 'address',
-        name: 'delegatedExecutor',
-        type: 'address'
-      },
-      {
-        internalType: 'uint64',
-        name: 'configNumber',
-        type: 'uint64'
-      }
+      { internalType: 'uint256', name: 'delegatorProfileId', type: 'uint256' },
+      { internalType: 'address', name: 'delegatedExecutor', type: 'address' },
+      { internalType: 'uint64', name: 'configNumber', type: 'uint64' }
     ],
     name: 'isDelegatedExecutorApproved',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool'
-      }
-    ],
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
     stateMutability: 'view',
     type: 'function'
   },
   {
     inputs: [
-      {
-        internalType: 'address',
-        name: 'followModule',
-        type: 'address'
-      }
-    ],
-    name: 'isFollowModuleWhitelisted',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool'
-      }
-    ],
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: 'followerProfileId',
-        type: 'uint256'
-      },
-      {
-        internalType: 'uint256',
-        name: 'followedProfileId',
-        type: 'uint256'
-      }
+      { internalType: 'uint256', name: 'followedProfileId', type: 'uint256' },
+      { internalType: 'address', name: 'followerAddress', type: 'address' },
+      { internalType: 'uint256', name: '', type: 'uint256' }
     ],
     name: 'isFollowing',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool'
-      }
-    ],
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
     stateMutability: 'view',
     type: 'function'
   },
   {
     inputs: [
-      {
-        internalType: 'address',
-        name: 'profileCreator',
-        type: 'address'
-      }
+      { internalType: 'uint256', name: 'followerProfileId', type: 'uint256' },
+      { internalType: 'uint256', name: 'followedProfileId', type: 'uint256' }
+    ],
+    name: 'isFollowing',
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [
+      { internalType: 'address', name: 'profileCreator', type: 'address' }
     ],
     name: 'isProfileCreatorWhitelisted',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool'
-      }
-    ],
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
     stateMutability: 'view',
     type: 'function'
   },
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'referenceModule',
-        type: 'address'
-      }
-    ],
-    name: 'isReferenceModuleWhitelisted',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool'
-      }
-    ],
-    stateMutability: 'view',
-    type: 'function'
-  },
-  {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: 'tokenId',
-        type: 'uint256'
-      }
-    ],
+    inputs: [{ internalType: 'uint256', name: 'tokenId', type: 'uint256' }],
     name: 'mintTimestampOf',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256'
-      }
-    ],
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function'
   },
@@ -1771,26 +1236,14 @@ export const LENSHUB_PROXY_ABI = [
     inputs: [
       {
         components: [
-          {
-            internalType: 'uint256',
-            name: 'profileId',
-            type: 'uint256'
-          },
-          {
-            internalType: 'string',
-            name: 'metadataURI',
-            type: 'string'
-          },
+          { internalType: 'uint256', name: 'profileId', type: 'uint256' },
+          { internalType: 'string', name: 'metadataURI', type: 'string' },
           {
             internalType: 'uint256',
             name: 'pointedProfileId',
             type: 'uint256'
           },
-          {
-            internalType: 'uint256',
-            name: 'pointedPubId',
-            type: 'uint256'
-          },
+          { internalType: 'uint256', name: 'pointedPubId', type: 'uint256' },
           {
             internalType: 'uint256[]',
             name: 'referrerProfileIds',
@@ -1801,11 +1254,7 @@ export const LENSHUB_PROXY_ABI = [
             name: 'referrerPubIds',
             type: 'uint256[]'
           },
-          {
-            internalType: 'bytes',
-            name: 'referenceModuleData',
-            type: 'bytes'
-          }
+          { internalType: 'bytes', name: 'referenceModuleData', type: 'bytes' }
         ],
         internalType: 'struct Types.MirrorParams',
         name: 'mirrorParams',
@@ -1813,13 +1262,7 @@ export const LENSHUB_PROXY_ABI = [
       }
     ],
     name: 'mirror',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256'
-      }
-    ],
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'nonpayable',
     type: 'function'
   },
@@ -1827,26 +1270,14 @@ export const LENSHUB_PROXY_ABI = [
     inputs: [
       {
         components: [
-          {
-            internalType: 'uint256',
-            name: 'profileId',
-            type: 'uint256'
-          },
-          {
-            internalType: 'string',
-            name: 'metadataURI',
-            type: 'string'
-          },
+          { internalType: 'uint256', name: 'profileId', type: 'uint256' },
+          { internalType: 'string', name: 'metadataURI', type: 'string' },
           {
             internalType: 'uint256',
             name: 'pointedProfileId',
             type: 'uint256'
           },
-          {
-            internalType: 'uint256',
-            name: 'pointedPubId',
-            type: 'uint256'
-          },
+          { internalType: 'uint256', name: 'pointedPubId', type: 'uint256' },
           {
             internalType: 'uint256[]',
             name: 'referrerProfileIds',
@@ -1857,11 +1288,7 @@ export const LENSHUB_PROXY_ABI = [
             name: 'referrerPubIds',
             type: 'uint256[]'
           },
-          {
-            internalType: 'bytes',
-            name: 'referenceModuleData',
-            type: 'bytes'
-          }
+          { internalType: 'bytes', name: 'referenceModuleData', type: 'bytes' }
         ],
         internalType: 'struct Types.MirrorParams',
         name: 'mirrorParams',
@@ -1869,31 +1296,11 @@ export const LENSHUB_PROXY_ABI = [
       },
       {
         components: [
-          {
-            internalType: 'address',
-            name: 'signer',
-            type: 'address'
-          },
-          {
-            internalType: 'uint8',
-            name: 'v',
-            type: 'uint8'
-          },
-          {
-            internalType: 'bytes32',
-            name: 'r',
-            type: 'bytes32'
-          },
-          {
-            internalType: 'bytes32',
-            name: 's',
-            type: 'bytes32'
-          },
-          {
-            internalType: 'uint256',
-            name: 'deadline',
-            type: 'uint256'
-          }
+          { internalType: 'address', name: 'signer', type: 'address' },
+          { internalType: 'uint8', name: 'v', type: 'uint8' },
+          { internalType: 'bytes32', name: 'r', type: 'bytes32' },
+          { internalType: 'bytes32', name: 's', type: 'bytes32' },
+          { internalType: 'uint256', name: 'deadline', type: 'uint256' }
         ],
         internalType: 'struct Types.EIP712Signature',
         name: 'signature',
@@ -1901,64 +1308,28 @@ export const LENSHUB_PROXY_ABI = [
       }
     ],
     name: 'mirrorWithSig',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256'
-      }
-    ],
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'nonpayable',
     type: 'function'
   },
   {
     inputs: [],
     name: 'name',
-    outputs: [
-      {
-        internalType: 'string',
-        name: '',
-        type: 'string'
-      }
-    ],
+    outputs: [{ internalType: 'string', name: '', type: 'string' }],
     stateMutability: 'view',
     type: 'function'
   },
   {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'signer',
-        type: 'address'
-      }
-    ],
+    inputs: [{ internalType: 'address', name: 'signer', type: 'address' }],
     name: 'nonces',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256'
-      }
-    ],
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function'
   },
   {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: 'tokenId',
-        type: 'uint256'
-      }
-    ],
+    inputs: [{ internalType: 'uint256', name: 'tokenId', type: 'uint256' }],
     name: 'ownerOf',
-    outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address'
-      }
-    ],
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
     stateMutability: 'view',
     type: 'function'
   },
@@ -1966,16 +1337,8 @@ export const LENSHUB_PROXY_ABI = [
     inputs: [
       {
         components: [
-          {
-            internalType: 'uint256',
-            name: 'profileId',
-            type: 'uint256'
-          },
-          {
-            internalType: 'string',
-            name: 'contentURI',
-            type: 'string'
-          },
+          { internalType: 'uint256', name: 'profileId', type: 'uint256' },
+          { internalType: 'string', name: 'contentURI', type: 'string' },
           {
             internalType: 'address[]',
             name: 'actionModules',
@@ -1986,11 +1349,7 @@ export const LENSHUB_PROXY_ABI = [
             name: 'actionModulesInitDatas',
             type: 'bytes[]'
           },
-          {
-            internalType: 'address',
-            name: 'referenceModule',
-            type: 'address'
-          },
+          { internalType: 'address', name: 'referenceModule', type: 'address' },
           {
             internalType: 'bytes',
             name: 'referenceModuleInitData',
@@ -2003,13 +1362,7 @@ export const LENSHUB_PROXY_ABI = [
       }
     ],
     name: 'post',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256'
-      }
-    ],
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'nonpayable',
     type: 'function'
   },
@@ -2017,16 +1370,8 @@ export const LENSHUB_PROXY_ABI = [
     inputs: [
       {
         components: [
-          {
-            internalType: 'uint256',
-            name: 'profileId',
-            type: 'uint256'
-          },
-          {
-            internalType: 'string',
-            name: 'contentURI',
-            type: 'string'
-          },
+          { internalType: 'uint256', name: 'profileId', type: 'uint256' },
+          { internalType: 'string', name: 'contentURI', type: 'string' },
           {
             internalType: 'address[]',
             name: 'actionModules',
@@ -2037,11 +1382,7 @@ export const LENSHUB_PROXY_ABI = [
             name: 'actionModulesInitDatas',
             type: 'bytes[]'
           },
-          {
-            internalType: 'address',
-            name: 'referenceModule',
-            type: 'address'
-          },
+          { internalType: 'address', name: 'referenceModule', type: 'address' },
           {
             internalType: 'bytes',
             name: 'referenceModuleInitData',
@@ -2054,31 +1395,11 @@ export const LENSHUB_PROXY_ABI = [
       },
       {
         components: [
-          {
-            internalType: 'address',
-            name: 'signer',
-            type: 'address'
-          },
-          {
-            internalType: 'uint8',
-            name: 'v',
-            type: 'uint8'
-          },
-          {
-            internalType: 'bytes32',
-            name: 'r',
-            type: 'bytes32'
-          },
-          {
-            internalType: 'bytes32',
-            name: 's',
-            type: 'bytes32'
-          },
-          {
-            internalType: 'uint256',
-            name: 'deadline',
-            type: 'uint256'
-          }
+          { internalType: 'address', name: 'signer', type: 'address' },
+          { internalType: 'uint8', name: 'v', type: 'uint8' },
+          { internalType: 'bytes32', name: 'r', type: 'bytes32' },
+          { internalType: 'bytes32', name: 's', type: 'bytes32' },
+          { internalType: 'uint256', name: 'deadline', type: 'uint256' }
         ],
         internalType: 'struct Types.EIP712Signature',
         name: 'signature',
@@ -2086,13 +1407,7 @@ export const LENSHUB_PROXY_ABI = [
       }
     ],
     name: 'postWithSig',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256'
-      }
-    ],
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'nonpayable',
     type: 'function'
   },
@@ -2100,26 +1415,14 @@ export const LENSHUB_PROXY_ABI = [
     inputs: [
       {
         components: [
-          {
-            internalType: 'uint256',
-            name: 'profileId',
-            type: 'uint256'
-          },
-          {
-            internalType: 'string',
-            name: 'contentURI',
-            type: 'string'
-          },
+          { internalType: 'uint256', name: 'profileId', type: 'uint256' },
+          { internalType: 'string', name: 'contentURI', type: 'string' },
           {
             internalType: 'uint256',
             name: 'pointedProfileId',
             type: 'uint256'
           },
-          {
-            internalType: 'uint256',
-            name: 'pointedPubId',
-            type: 'uint256'
-          },
+          { internalType: 'uint256', name: 'pointedPubId', type: 'uint256' },
           {
             internalType: 'uint256[]',
             name: 'referrerProfileIds',
@@ -2130,11 +1433,7 @@ export const LENSHUB_PROXY_ABI = [
             name: 'referrerPubIds',
             type: 'uint256[]'
           },
-          {
-            internalType: 'bytes',
-            name: 'referenceModuleData',
-            type: 'bytes'
-          },
+          { internalType: 'bytes', name: 'referenceModuleData', type: 'bytes' },
           {
             internalType: 'address[]',
             name: 'actionModules',
@@ -2145,11 +1444,7 @@ export const LENSHUB_PROXY_ABI = [
             name: 'actionModulesInitDatas',
             type: 'bytes[]'
           },
-          {
-            internalType: 'address',
-            name: 'referenceModule',
-            type: 'address'
-          },
+          { internalType: 'address', name: 'referenceModule', type: 'address' },
           {
             internalType: 'bytes',
             name: 'referenceModuleInitData',
@@ -2162,13 +1457,7 @@ export const LENSHUB_PROXY_ABI = [
       }
     ],
     name: 'quote',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256'
-      }
-    ],
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'nonpayable',
     type: 'function'
   },
@@ -2176,26 +1465,14 @@ export const LENSHUB_PROXY_ABI = [
     inputs: [
       {
         components: [
-          {
-            internalType: 'uint256',
-            name: 'profileId',
-            type: 'uint256'
-          },
-          {
-            internalType: 'string',
-            name: 'contentURI',
-            type: 'string'
-          },
+          { internalType: 'uint256', name: 'profileId', type: 'uint256' },
+          { internalType: 'string', name: 'contentURI', type: 'string' },
           {
             internalType: 'uint256',
             name: 'pointedProfileId',
             type: 'uint256'
           },
-          {
-            internalType: 'uint256',
-            name: 'pointedPubId',
-            type: 'uint256'
-          },
+          { internalType: 'uint256', name: 'pointedPubId', type: 'uint256' },
           {
             internalType: 'uint256[]',
             name: 'referrerProfileIds',
@@ -2206,11 +1483,7 @@ export const LENSHUB_PROXY_ABI = [
             name: 'referrerPubIds',
             type: 'uint256[]'
           },
-          {
-            internalType: 'bytes',
-            name: 'referenceModuleData',
-            type: 'bytes'
-          },
+          { internalType: 'bytes', name: 'referenceModuleData', type: 'bytes' },
           {
             internalType: 'address[]',
             name: 'actionModules',
@@ -2221,11 +1494,7 @@ export const LENSHUB_PROXY_ABI = [
             name: 'actionModulesInitDatas',
             type: 'bytes[]'
           },
-          {
-            internalType: 'address',
-            name: 'referenceModule',
-            type: 'address'
-          },
+          { internalType: 'address', name: 'referenceModule', type: 'address' },
           {
             internalType: 'bytes',
             name: 'referenceModuleInitData',
@@ -2238,31 +1507,11 @@ export const LENSHUB_PROXY_ABI = [
       },
       {
         components: [
-          {
-            internalType: 'address',
-            name: 'signer',
-            type: 'address'
-          },
-          {
-            internalType: 'uint8',
-            name: 'v',
-            type: 'uint8'
-          },
-          {
-            internalType: 'bytes32',
-            name: 'r',
-            type: 'bytes32'
-          },
-          {
-            internalType: 'bytes32',
-            name: 's',
-            type: 'bytes32'
-          },
-          {
-            internalType: 'uint256',
-            name: 'deadline',
-            type: 'uint256'
-          }
+          { internalType: 'address', name: 'signer', type: 'address' },
+          { internalType: 'uint8', name: 'v', type: 'uint8' },
+          { internalType: 'bytes32', name: 'r', type: 'bytes32' },
+          { internalType: 'bytes32', name: 's', type: 'bytes32' },
+          { internalType: 'uint256', name: 'deadline', type: 'uint256' }
         ],
         internalType: 'struct Types.EIP712Signature',
         name: 'signature',
@@ -2270,62 +1519,28 @@ export const LENSHUB_PROXY_ABI = [
       }
     ],
     name: 'quoteWithSig',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256'
-      }
-    ],
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'nonpayable',
     type: 'function'
   },
   {
     inputs: [
-      {
-        internalType: 'uint256',
-        name: 'tokenId',
-        type: 'uint256'
-      },
-      {
-        internalType: 'uint256',
-        name: 'salePrice',
-        type: 'uint256'
-      }
+      { internalType: 'uint256', name: 'tokenId', type: 'uint256' },
+      { internalType: 'uint256', name: 'salePrice', type: 'uint256' }
     ],
     name: 'royaltyInfo',
     outputs: [
-      {
-        internalType: 'address',
-        name: '',
-        type: 'address'
-      },
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256'
-      }
+      { internalType: 'address', name: '', type: 'address' },
+      { internalType: 'uint256', name: '', type: 'uint256' }
     ],
     stateMutability: 'view',
     type: 'function'
   },
   {
     inputs: [
-      {
-        internalType: 'address',
-        name: 'from',
-        type: 'address'
-      },
-      {
-        internalType: 'address',
-        name: 'to',
-        type: 'address'
-      },
-      {
-        internalType: 'uint256',
-        name: 'tokenId',
-        type: 'uint256'
-      }
+      { internalType: 'address', name: 'from', type: 'address' },
+      { internalType: 'address', name: 'to', type: 'address' },
+      { internalType: 'uint256', name: 'tokenId', type: 'uint256' }
     ],
     name: 'safeTransferFrom',
     outputs: [],
@@ -2334,26 +1549,10 @@ export const LENSHUB_PROXY_ABI = [
   },
   {
     inputs: [
-      {
-        internalType: 'address',
-        name: 'from',
-        type: 'address'
-      },
-      {
-        internalType: 'address',
-        name: 'to',
-        type: 'address'
-      },
-      {
-        internalType: 'uint256',
-        name: 'tokenId',
-        type: 'uint256'
-      },
-      {
-        internalType: 'bytes',
-        name: '_data',
-        type: 'bytes'
-      }
+      { internalType: 'address', name: 'from', type: 'address' },
+      { internalType: 'address', name: 'to', type: 'address' },
+      { internalType: 'uint256', name: 'tokenId', type: 'uint256' },
+      { internalType: 'bytes', name: '_data', type: 'bytes' }
     ],
     name: 'safeTransferFrom',
     outputs: [],
@@ -2362,16 +1561,8 @@ export const LENSHUB_PROXY_ABI = [
   },
   {
     inputs: [
-      {
-        internalType: 'address',
-        name: 'operator',
-        type: 'address'
-      },
-      {
-        internalType: 'bool',
-        name: 'approved',
-        type: 'bool'
-      }
+      { internalType: 'address', name: 'operator', type: 'address' },
+      { internalType: 'bool', name: 'approved', type: 'bool' }
     ],
     name: 'setApprovalForAll',
     outputs: [],
@@ -2380,21 +1571,13 @@ export const LENSHUB_PROXY_ABI = [
   },
   {
     inputs: [
-      {
-        internalType: 'uint256',
-        name: 'byProfileId',
-        type: 'uint256'
-      },
+      { internalType: 'uint256', name: 'byProfileId', type: 'uint256' },
       {
         internalType: 'uint256[]',
         name: 'idsOfProfilesToSetBlockStatus',
         type: 'uint256[]'
       },
-      {
-        internalType: 'bool[]',
-        name: 'blockStatus',
-        type: 'bool[]'
-      }
+      { internalType: 'bool[]', name: 'blockStatus', type: 'bool[]' }
     ],
     name: 'setBlockStatus',
     outputs: [],
@@ -2403,48 +1586,20 @@ export const LENSHUB_PROXY_ABI = [
   },
   {
     inputs: [
-      {
-        internalType: 'uint256',
-        name: 'byProfileId',
-        type: 'uint256'
-      },
+      { internalType: 'uint256', name: 'byProfileId', type: 'uint256' },
       {
         internalType: 'uint256[]',
         name: 'idsOfProfilesToSetBlockStatus',
         type: 'uint256[]'
       },
-      {
-        internalType: 'bool[]',
-        name: 'blockStatus',
-        type: 'bool[]'
-      },
+      { internalType: 'bool[]', name: 'blockStatus', type: 'bool[]' },
       {
         components: [
-          {
-            internalType: 'address',
-            name: 'signer',
-            type: 'address'
-          },
-          {
-            internalType: 'uint8',
-            name: 'v',
-            type: 'uint8'
-          },
-          {
-            internalType: 'bytes32',
-            name: 'r',
-            type: 'bytes32'
-          },
-          {
-            internalType: 'bytes32',
-            name: 's',
-            type: 'bytes32'
-          },
-          {
-            internalType: 'uint256',
-            name: 'deadline',
-            type: 'uint256'
-          }
+          { internalType: 'address', name: 'signer', type: 'address' },
+          { internalType: 'uint8', name: 'v', type: 'uint8' },
+          { internalType: 'bytes32', name: 'r', type: 'bytes32' },
+          { internalType: 'bytes32', name: 's', type: 'bytes32' },
+          { internalType: 'uint256', name: 'deadline', type: 'uint256' }
         ],
         internalType: 'struct Types.EIP712Signature',
         name: 'signature',
@@ -2458,11 +1613,7 @@ export const LENSHUB_PROXY_ABI = [
   },
   {
     inputs: [
-      {
-        internalType: 'address',
-        name: 'newEmergencyAdmin',
-        type: 'address'
-      }
+      { internalType: 'address', name: 'newEmergencyAdmin', type: 'address' }
     ],
     name: 'setEmergencyAdmin',
     outputs: [],
@@ -2471,21 +1622,9 @@ export const LENSHUB_PROXY_ABI = [
   },
   {
     inputs: [
-      {
-        internalType: 'uint256',
-        name: 'profileId',
-        type: 'uint256'
-      },
-      {
-        internalType: 'address',
-        name: 'followModule',
-        type: 'address'
-      },
-      {
-        internalType: 'bytes',
-        name: 'followModuleInitData',
-        type: 'bytes'
-      }
+      { internalType: 'uint256', name: 'profileId', type: 'uint256' },
+      { internalType: 'address', name: 'followModule', type: 'address' },
+      { internalType: 'bytes', name: 'followModuleInitData', type: 'bytes' }
     ],
     name: 'setFollowModule',
     outputs: [],
@@ -2494,48 +1633,16 @@ export const LENSHUB_PROXY_ABI = [
   },
   {
     inputs: [
-      {
-        internalType: 'uint256',
-        name: 'profileId',
-        type: 'uint256'
-      },
-      {
-        internalType: 'address',
-        name: 'followModule',
-        type: 'address'
-      },
-      {
-        internalType: 'bytes',
-        name: 'followModuleInitData',
-        type: 'bytes'
-      },
+      { internalType: 'uint256', name: 'profileId', type: 'uint256' },
+      { internalType: 'address', name: 'followModule', type: 'address' },
+      { internalType: 'bytes', name: 'followModuleInitData', type: 'bytes' },
       {
         components: [
-          {
-            internalType: 'address',
-            name: 'signer',
-            type: 'address'
-          },
-          {
-            internalType: 'uint8',
-            name: 'v',
-            type: 'uint8'
-          },
-          {
-            internalType: 'bytes32',
-            name: 'r',
-            type: 'bytes32'
-          },
-          {
-            internalType: 'bytes32',
-            name: 's',
-            type: 'bytes32'
-          },
-          {
-            internalType: 'uint256',
-            name: 'deadline',
-            type: 'uint256'
-          }
+          { internalType: 'address', name: 'signer', type: 'address' },
+          { internalType: 'uint8', name: 'v', type: 'uint8' },
+          { internalType: 'bytes32', name: 'r', type: 'bytes32' },
+          { internalType: 'bytes32', name: 's', type: 'bytes32' },
+          { internalType: 'uint256', name: 'deadline', type: 'uint256' }
         ],
         internalType: 'struct Types.EIP712Signature',
         name: 'signature',
@@ -2551,9 +1658,18 @@ export const LENSHUB_PROXY_ABI = [
     inputs: [
       {
         internalType: 'address',
-        name: 'newGovernance',
+        name: 'followTokenURIContract',
         type: 'address'
       }
+    ],
+    name: 'setFollowTokenURIContract',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [
+      { internalType: 'address', name: 'newGovernance', type: 'address' }
     ],
     name: 'setGovernance',
     outputs: [],
@@ -2562,16 +1678,8 @@ export const LENSHUB_PROXY_ABI = [
   },
   {
     inputs: [
-      {
-        internalType: 'address[]',
-        name: 'migrationAdmins',
-        type: 'address[]'
-      },
-      {
-        internalType: 'bool',
-        name: 'whitelisted',
-        type: 'bool'
-      }
+      { internalType: 'address[]', name: 'migrationAdmins', type: 'address[]' },
+      { internalType: 'bool', name: 'whitelisted', type: 'bool' }
     ],
     name: 'setMigrationAdmins',
     outputs: [],
@@ -2580,16 +1688,8 @@ export const LENSHUB_PROXY_ABI = [
   },
   {
     inputs: [
-      {
-        internalType: 'uint256',
-        name: 'profileId',
-        type: 'uint256'
-      },
-      {
-        internalType: 'string',
-        name: 'metadataURI',
-        type: 'string'
-      }
+      { internalType: 'uint256', name: 'profileId', type: 'uint256' },
+      { internalType: 'string', name: 'metadataURI', type: 'string' }
     ],
     name: 'setProfileMetadataURI',
     outputs: [],
@@ -2598,43 +1698,15 @@ export const LENSHUB_PROXY_ABI = [
   },
   {
     inputs: [
-      {
-        internalType: 'uint256',
-        name: 'profileId',
-        type: 'uint256'
-      },
-      {
-        internalType: 'string',
-        name: 'metadataURI',
-        type: 'string'
-      },
+      { internalType: 'uint256', name: 'profileId', type: 'uint256' },
+      { internalType: 'string', name: 'metadataURI', type: 'string' },
       {
         components: [
-          {
-            internalType: 'address',
-            name: 'signer',
-            type: 'address'
-          },
-          {
-            internalType: 'uint8',
-            name: 'v',
-            type: 'uint8'
-          },
-          {
-            internalType: 'bytes32',
-            name: 'r',
-            type: 'bytes32'
-          },
-          {
-            internalType: 'bytes32',
-            name: 's',
-            type: 'bytes32'
-          },
-          {
-            internalType: 'uint256',
-            name: 'deadline',
-            type: 'uint256'
-          }
+          { internalType: 'address', name: 'signer', type: 'address' },
+          { internalType: 'uint8', name: 'v', type: 'uint8' },
+          { internalType: 'bytes32', name: 'r', type: 'bytes32' },
+          { internalType: 'bytes32', name: 's', type: 'bytes32' },
+          { internalType: 'uint256', name: 'deadline', type: 'uint256' }
         ],
         internalType: 'struct Types.EIP712Signature',
         name: 'signature',
@@ -2642,6 +1714,19 @@ export const LENSHUB_PROXY_ABI = [
       }
     ],
     name: 'setProfileMetadataURIWithSig',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [
+      {
+        internalType: 'address',
+        name: 'profileTokenURIContract',
+        type: 'address'
+      }
+    ],
+    name: 'setProfileTokenURIContract',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function'
@@ -2673,59 +1758,43 @@ export const LENSHUB_PROXY_ABI = [
     type: 'function'
   },
   {
+    inputs: [{ internalType: 'address', name: 'newTreasury', type: 'address' }],
+    name: 'setTreasury',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
     inputs: [
-      {
-        internalType: 'bytes4',
-        name: 'interfaceId',
-        type: 'bytes4'
-      }
+      { internalType: 'uint16', name: 'newTreasuryFee', type: 'uint16' }
     ],
+    name: 'setTreasuryFee',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [{ internalType: 'bytes4', name: 'interfaceId', type: 'bytes4' }],
     name: 'supportsInterface',
-    outputs: [
-      {
-        internalType: 'bool',
-        name: '',
-        type: 'bool'
-      }
-    ],
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
     stateMutability: 'view',
     type: 'function'
   },
   {
     inputs: [],
     name: 'symbol',
-    outputs: [
-      {
-        internalType: 'string',
-        name: '',
-        type: 'string'
-      }
-    ],
+    outputs: [{ internalType: 'string', name: '', type: 'string' }],
     stateMutability: 'view',
     type: 'function'
   },
   {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: 'tokenId',
-        type: 'uint256'
-      }
-    ],
+    inputs: [{ internalType: 'uint256', name: 'tokenId', type: 'uint256' }],
     name: 'tokenDataOf',
     outputs: [
       {
         components: [
-          {
-            internalType: 'address',
-            name: 'owner',
-            type: 'address'
-          },
-          {
-            internalType: 'uint96',
-            name: 'mintTimestamp',
-            type: 'uint96'
-          }
+          { internalType: 'address', name: 'owner', type: 'address' },
+          { internalType: 'uint96', name: 'mintTimestamp', type: 'uint96' }
         ],
         internalType: 'struct Types.TokenData',
         name: '',
@@ -2736,54 +1805,24 @@ export const LENSHUB_PROXY_ABI = [
     type: 'function'
   },
   {
-    inputs: [
-      {
-        internalType: 'uint256',
-        name: 'tokenId',
-        type: 'uint256'
-      }
-    ],
+    inputs: [{ internalType: 'uint256', name: 'tokenId', type: 'uint256' }],
     name: 'tokenURI',
-    outputs: [
-      {
-        internalType: 'string',
-        name: '',
-        type: 'string'
-      }
-    ],
+    outputs: [{ internalType: 'string', name: '', type: 'string' }],
     stateMutability: 'view',
     type: 'function'
   },
   {
     inputs: [],
     name: 'totalSupply',
-    outputs: [
-      {
-        internalType: 'uint256',
-        name: '',
-        type: 'uint256'
-      }
-    ],
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
     stateMutability: 'view',
     type: 'function'
   },
   {
     inputs: [
-      {
-        internalType: 'address',
-        name: 'from',
-        type: 'address'
-      },
-      {
-        internalType: 'address',
-        name: 'to',
-        type: 'address'
-      },
-      {
-        internalType: 'uint256',
-        name: 'tokenId',
-        type: 'uint256'
-      }
+      { internalType: 'address', name: 'from', type: 'address' },
+      { internalType: 'address', name: 'to', type: 'address' },
+      { internalType: 'uint256', name: 'tokenId', type: 'uint256' }
     ],
     name: 'transferFrom',
     outputs: [],
@@ -2792,11 +1831,18 @@ export const LENSHUB_PROXY_ABI = [
   },
   {
     inputs: [
-      {
-        internalType: 'uint256',
-        name: 'unfollowerProfileId',
-        type: 'uint256'
-      },
+      { internalType: 'address', name: 'from', type: 'address' },
+      { internalType: 'address', name: 'to', type: 'address' },
+      { internalType: 'uint256', name: 'tokenId', type: 'uint256' }
+    ],
+    name: 'transferFromKeepingDelegates',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [
+      { internalType: 'uint256', name: 'unfollowerProfileId', type: 'uint256' },
       {
         internalType: 'uint256[]',
         name: 'idsOfProfilesToUnfollow',
@@ -2810,11 +1856,7 @@ export const LENSHUB_PROXY_ABI = [
   },
   {
     inputs: [
-      {
-        internalType: 'uint256',
-        name: 'unfollowerProfileId',
-        type: 'uint256'
-      },
+      { internalType: 'uint256', name: 'unfollowerProfileId', type: 'uint256' },
       {
         internalType: 'uint256[]',
         name: 'idsOfProfilesToUnfollow',
@@ -2822,31 +1864,11 @@ export const LENSHUB_PROXY_ABI = [
       },
       {
         components: [
-          {
-            internalType: 'address',
-            name: 'signer',
-            type: 'address'
-          },
-          {
-            internalType: 'uint8',
-            name: 'v',
-            type: 'uint8'
-          },
-          {
-            internalType: 'bytes32',
-            name: 'r',
-            type: 'bytes32'
-          },
-          {
-            internalType: 'bytes32',
-            name: 's',
-            type: 'bytes32'
-          },
-          {
-            internalType: 'uint256',
-            name: 'deadline',
-            type: 'uint256'
-          }
+          { internalType: 'address', name: 'signer', type: 'address' },
+          { internalType: 'uint8', name: 'v', type: 'uint8' },
+          { internalType: 'bytes32', name: 'r', type: 'bytes32' },
+          { internalType: 'bytes32', name: 's', type: 'bytes32' },
+          { internalType: 'uint256', name: 'deadline', type: 'uint256' }
         ],
         internalType: 'struct Types.EIP712Signature',
         name: 'signature',
@@ -2860,72 +1882,10 @@ export const LENSHUB_PROXY_ABI = [
   },
   {
     inputs: [
-      {
-        internalType: 'address',
-        name: 'actionModule',
-        type: 'address'
-      },
-      {
-        internalType: 'bool',
-        name: 'whitelist',
-        type: 'bool'
-      }
-    ],
-    name: 'whitelistActionModule',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function'
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'followModule',
-        type: 'address'
-      },
-      {
-        internalType: 'bool',
-        name: 'whitelist',
-        type: 'bool'
-      }
-    ],
-    name: 'whitelistFollowModule',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function'
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'profileCreator',
-        type: 'address'
-      },
-      {
-        internalType: 'bool',
-        name: 'whitelist',
-        type: 'bool'
-      }
+      { internalType: 'address', name: 'profileCreator', type: 'address' },
+      { internalType: 'bool', name: 'whitelist', type: 'bool' }
     ],
     name: 'whitelistProfileCreator',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function'
-  },
-  {
-    inputs: [
-      {
-        internalType: 'address',
-        name: 'referenceModule',
-        type: 'address'
-      },
-      {
-        internalType: 'bool',
-        name: 'whitelist',
-        type: 'bool'
-      }
-    ],
-    name: 'whitelistReferenceModule',
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function'
