@@ -21,10 +21,7 @@ type Props = {
 const ThumbnailImage: FC<Props> = ({ video }) => {
   const targetPublication = getPublication(video)
 
-  const isSensitiveContent = getIsSensitiveContent(
-    targetPublication.metadata,
-    video.id
-  )
+  const isSensitiveContent = getIsSensitiveContent(targetPublication.metadata)
   const isBytesVideo =
     targetPublication.publishedOn?.id === LENSTUBE_BYTES_APP_ID
 

@@ -296,9 +296,12 @@ const terms = () => {
           <p>
             <b>Disclaimer</b>: We are not responsible for the User Content
             posted by users on our Site and do not have control over the
-            materials that are made available through the Site. We will comply
-            with takedown notices and take steps to prevent repeat infringers,
-            but we do not assume any liability for material posted by users.
+            materials that are made available through the Site.{' '}
+            <b>
+              We will comply with takedown notices and take steps to prevent
+              repeat infringers, but we do not assume any liability for material
+              posted by users.
+            </b>
           </p>
           <h2>6. Accuracy, Completeness and Timeliness of information</h2>
           <p>

@@ -27,10 +27,7 @@ const Publications: FC<Props> = ({ results, loading, clearSearch }) => {
     <div>
       {results?.map((result) => {
         const publication = getPublication(result)
-        const isSensitiveContent = getIsSensitiveContent(
-          publication.metadata,
-          publication.id
-        )
+        const isSensitiveContent = getIsSensitiveContent(publication.metadata)
         const isBytesVideo =
           publication.publishedOn?.id === LENSTUBE_BYTES_APP_ID
         const thumbnailUrl = isSensitiveContent

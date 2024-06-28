@@ -226,10 +226,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
     pinnedPublication?.publishedOn?.id === LENSTUBE_BYTES_APP_ID
   const isVideoOwner = activeProfile?.id === pinnedPublication?.by.id
 
-  const isSensitiveContent = getIsSensitiveContent(
-    pinnedPublication?.metadata,
-    pinnedPublication?.id
-  )
+  const isSensitiveContent = getIsSensitiveContent(pinnedPublication?.metadata)
   const thumbnailUrl = imageCdn(
     sanitizeDStorageUrl(getThumbnailUrl(pinnedPublication?.metadata, true)),
     isBytesVideo ? 'THUMBNAIL_V' : 'THUMBNAIL'
