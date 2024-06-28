@@ -1,9 +1,11 @@
 import MetaTags from '@components/Common/MetaTags'
+import ProfileSuspended from '@components/Common/ProfileSuspended'
 import { WatchShimmer } from '@components/Shimmers/WatchShimmer'
 import useAppStore from '@lib/store'
 import useCommentStore from '@lib/store/comment'
 import {
   EVENTS,
+  getIsSuspendedProfile,
   getPublication,
   getPublicationData,
   isWatchable,
@@ -57,6 +59,11 @@ const VideoDetails = () => {
 
   const publication = data?.publication as AnyPublication
   const video = getPublication(publication)
+  const isSuspended = getIsSuspendedProfile(video.by.id)
+
+  if (isSuspended) {
+    return <ProfileSuspended />
+  }
 
   if (!isWatchable(video)) {
     return <Custom404 />

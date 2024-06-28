@@ -32,7 +32,7 @@ type Props = {
 
 const RenderPlayer = memo(function ({ video }: { video: PrimaryPublication }) {
   const metadata = video.metadata as VideoMetadataV3
-  const isSensitiveContent = getIsSensitiveContent(metadata, video.id)
+  const isSensitiveContent = getIsSensitiveContent(metadata)
   const videoWatchTime = useAppStore((state) => state.videoWatchTime)
   const { activeProfile } = useProfileStore()
 

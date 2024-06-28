@@ -1,8 +1,10 @@
 import MetaTags from '@components/Common/MetaTags'
+import ProfileSuspended from '@components/Common/ProfileSuspended'
 import ProfilePageShimmer from '@components/Shimmers/ProfilePageShimmer'
 import { LENS_NAMESPACE_PREFIX } from '@tape.xyz/constants'
 import {
   EVENTS,
+  getIsSuspendedProfile,
   getProfile,
   getValueFromKeyInAttributes,
   Tower
@@ -54,6 +56,13 @@ const ViewProfile = () => {
   }
 
   const profile = data?.profile as Profile
+
+  const isSuspended = getIsSuspendedProfile(profile.id)
+
+  if (isSuspended) {
+    return <ProfileSuspended />
+  }
+
   const pinnedVideoId = getValueFromKeyInAttributes(
     profile?.metadata?.attributes,
     'pinnedPublicationId'

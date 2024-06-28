@@ -26,7 +26,7 @@ type Props = {
 
 const SuggestedVideoCard: FC<Props> = ({ video }) => {
   const isBytesVideo = video.publishedOn?.id === LENSTUBE_BYTES_APP_ID
-  const isSensitiveContent = getIsSensitiveContent(video.metadata, video.id)
+  const isSensitiveContent = getIsSensitiveContent(video.metadata)
   const thumbnailUrl = isSensitiveContent
     ? `${STATIC_ASSETS}/images/sensor-blur.webp`
     : getThumbnailUrl(video.metadata, true)
