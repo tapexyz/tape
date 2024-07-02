@@ -11,12 +11,12 @@
     "@lens-protocol/metadata": "^1.2.0",
     "axios": "^1.7.2",
     "dayjs-twitter": "^0.5.0",
-    "viem": "^2.16.3"
+    "viem": "^2.16.5"
   },
   "devDependencies": {
     "@tape.xyz/config": "workspace:*",
     "@tape.xyz/constants": "workspace:*",
     "@tape.xyz/lens": "workspace:*",
-    "typescript": "5.5.2"
+    "typescript": "5.5.3"
   }
 }

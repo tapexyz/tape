@@ -13,8 +13,8 @@
     "@tape.xyz/config": "workspace:*",
     "dotenv": "^16.4.5",
     "ethers": "^6.13.1",
-    "hardhat": "^2.22.5",
+    "hardhat": "^2.22.6",
     "ts-node": "^10.9.2",
-    "typescript": "^5.5.2"
+    "typescript": "^5.5.3"
   }
 }
