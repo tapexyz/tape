@@ -10,14 +10,14 @@
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "3.606.0",
+    "@aws-sdk/client-sts": "3.609.0",
     "@hono/zod-validator": "^0.2.2",
     "@lens-protocol/metadata": "^1.2.0",
     "base64url": "^3.0.1",
-    "hono": "^4.4.10",
+    "hono": "^4.4.11",
     "linkedom": "^0.18.4",
     "ua-parser-js": "2.0.0-beta.3",
-    "viem": "^2.16.5",
+    "viem": "^2.17.0",
     "zod": "^3.23.8"
   },
   "devDependencies": {
@@ -27,6 +27,6 @@
     "@types/ua-parser-js": "^0.7.39",
     "prettier": "^3.3.2",
     "typescript": "5.5.3",
-    "wrangler": "^3.62.0"
+    "wrangler": "^3.63.0"
   }
 }
