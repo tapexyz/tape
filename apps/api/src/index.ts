@@ -7,7 +7,6 @@ import did from './routes/did'
 import gateway from './routes/gateway'
 import metadata from './routes/metadata'
 import oembed from './routes/oembed'
-import signup from './routes/signup'
 import sts from './routes/sts'
 import tail from './routes/tail'
 import toggles from './routes/toggles'
@@ -27,7 +26,6 @@ app.route('/tail', tail)
 app.route('/tower', tower)
 app.route('/views', views)
 app.route('/oembed', oembed)
-app.route('/signup', signup)
 app.route('/avatar', avatar)
 app.route('/gateway', gateway)
 app.route('/toggles', toggles)
