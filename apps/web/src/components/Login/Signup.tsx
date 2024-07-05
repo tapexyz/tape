@@ -6,7 +6,6 @@ import { useDebounce } from '@tape.xyz/browser'
 import {
   COMMON_REGEX,
   ERROR_MESSAGE,
-  IS_MAINNET,
   LENS_NAMESPACE_PREFIX,
   MOONPAY_URL,
   TAPE_SIGNUP_PROXY_ADDRESS,
@@ -15,8 +14,7 @@ import {
 import { EVENTS, Tower } from '@tape.xyz/generic'
 import {
   useGenerateLensApiRelayAddressQuery,
-  useHandleToAddressLazyQuery,
-  useProfileLazyQuery
+  useHandleToAddressLazyQuery
 } from '@tape.xyz/lens'
 import type { CustomErrorWithData } from '@tape.xyz/lens/custom-types'
 import {
@@ -30,7 +28,6 @@ import {
   Tooltip
 } from '@tape.xyz/ui'
 import Link from 'next/link'
-import Script from 'next/script'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
@@ -44,19 +41,6 @@ import {
 } from 'wagmi'
 import type { z } from 'zod'
 import { object, string } from 'zod'
-
-declare global {
-  interface Window {
-    createLemonSqueezy: any
-    LemonSqueezy: {
-      Setup: ({ eventHandler }: { eventHandler: any }) => void
-      Url: {
-        Close: () => void
-        Open: (checkoutUrl: string) => void
-      }
-    }
-  }
-}
 
 type Props = {
   showLogin: boolean
@@ -129,18 +113,6 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
     useHandleToAddressLazyQuery({
       fetchPolicy: 'no-cache'
     })
-  const [checkIsProfileMinted] = useProfileLazyQuery({
-    notifyOnNetworkStatusChange: true,
-    pollInterval: 3000,
-    variables: {
-      request: { forHandle: `${LENS_NAMESPACE_PREFIX}${handle}` }
-    },
-    onCompleted: (data) => {
-      if (data.profile) {
-        onMinted('card')
-      }
-    }
-  })
 
   const onError = (error: CustomErrorWithData) => {
     setCreating(false)
@@ -190,37 +162,11 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedValue])
 
-  const eventHandler = async ({ event }: { data: any; event: any }) => {
-    if (event === 'Checkout.Success' && window.LemonSqueezy) {
-      window.LemonSqueezy?.Url?.Close()
-      setCreating(true)
-      await checkIsProfileMinted()
-    }
-  }
-
-  const handleBuy = () => {
-    window.createLemonSqueezy?.()
-    window.LemonSqueezy?.Setup?.({ eventHandler })
-    const id = IS_MAINNET
-      ? '45a0b30c-7c01-4431-b9a0-2160a152f26f'
-      : 'd9dba154-17d4-40df-a786-6f90c3dc0ca7'
-    window.LemonSqueezy?.Url?.Open?.(
-      `https://tape.lemonsqueezy.com/checkout/buy/${id}?checkout[custom][address]=${address}&checkout[custom][delegatedExecutor]=${delegatedExecutor}&checkout[custom][handle]=${handle}&embed=1&media=0`
-    )
-  }
-
-  const signup = async (
-    { handle }: FormData,
-    e: React.FormEvent<HTMLFormElement>
-  ) => {
+  const signup = async ({ handle }: FormData) => {
     if (!isHandleAvailable) {
       return toast.error('Handle is taken')
     }
 
-    const clickedButton = (e.nativeEvent as any).submitter.name
-    if (clickedButton === 'card') {
-      return handleBuy()
-    }
     setCreating(true)
     await handleWrongNetwork()
 
@@ -248,15 +194,10 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
     <form
       onSubmit={(e) => {
         e.preventDefault()
-        handleSubmit((data) => signup(data, e))()
+        handleSubmit((data) => signup(data))()
       }}
       className="space-y-2"
     >
-      <Script
-        id="lemon-js"
-        src="https://assets.lemonsqueezy.com/lemon.js"
-        strategy="afterInteractive"
-      />
       <div className="relative flex items-center">
         <Input
           className="h-[46px] text-base"
@@ -316,37 +257,25 @@ const Signup: FC<Props> = ({ showLogin, onSuccess, setShowSignup }) => {
         )}
       </Modal>
 
-      {IS_MAINNET && (
-        <div className="relative flex items-center">
-          <div className="w-full">
-            <Button
-              name="card"
-              size="md"
-              loading={creating}
-              disabled={creating || !isHandleAvailable || checkingAvailability}
-            >
-              Buy with Card
-            </Button>
-          </div>
-          <button
-            type="button"
-            className="absolute right-2.5 z-[1] cursor-help p-1 text-xs"
-            onClick={() => setShowModal(true)}
+      <div className="relative flex items-center">
+        <div className="w-full">
+          <Button
+            size="md"
+            loading={creating}
+            disabled={creating || !isHandleAvailable || checkingAvailability}
           >
-            <InfoOutline className="size-4 text-white dark:text-black" />
-          </button>
+            Mint for {signupPriceFormatted} MATIC
+          </Button>
         </div>
-      )}
+        <button
+          type="button"
+          className="absolute right-2.5 z-[1] cursor-help p-1 text-xs"
+          onClick={() => setShowModal(true)}
+        >
+          <InfoOutline className="size-4 text-white dark:text-black" />
+        </button>
+      </div>
 
-      <Button
-        name="wallet"
-        size="md"
-        variant="secondary"
-        loading={creating}
-        disabled={creating || !isHandleAvailable || checkingAvailability}
-      >
-        Mint for {signupPriceFormatted} MATIC
-      </Button>
       {showLogin && (
         <div className="flex items-center justify-center space-x-2 pt-3 text-sm">
           <span>Have an account?</span>
