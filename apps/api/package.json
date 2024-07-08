@@ -14,10 +14,10 @@
     "@hono/zod-validator": "^0.2.2",
     "@lens-protocol/metadata": "^1.2.0",
     "base64url": "^3.0.1",
-    "hono": "^4.4.11",
+    "hono": "^4.4.12",
     "linkedom": "^0.18.4",
     "ua-parser-js": "2.0.0-beta.3",
-    "viem": "^2.17.0",
+    "viem": "^2.17.3",
     "zod": "^3.23.8"
   },
   "devDependencies": {
@@ -27,6 +27,6 @@
     "@types/ua-parser-js": "^0.7.39",
     "prettier": "^3.3.2",
     "typescript": "5.5.3",
-    "wrangler": "^3.63.0"
+    "wrangler": "^3.63.1"
   }
 }
