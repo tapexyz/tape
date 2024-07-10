@@ -10,7 +10,7 @@
     "lint": "eslint . --ext .js,.ts,.tsx"
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "3.609.0",
+    "@aws-sdk/client-sts": "3.613.0",
     "@hono/zod-validator": "^0.2.2",
     "@lens-protocol/metadata": "^1.2.0",
     "base64url": "^3.0.1",
@@ -27,6 +27,6 @@
     "@types/ua-parser-js": "^0.7.39",
     "prettier": "^3.3.2",
     "typescript": "5.5.3",
-    "wrangler": "^3.63.1"
+    "wrangler": "^3.63.2"
   }
 }

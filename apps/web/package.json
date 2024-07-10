@@ -23,7 +23,7 @@
     "dayjs": "^1.11.11",
     "emoji-mart": "^5.6.0",
     "filereader-stream": "^2.0.0",
-    "framer-motion": "^11.2.13",
+    "framer-motion": "^11.2.14",
     "graphql": "^16.9.0",
     "idb-keyval": "^6.2.1",
     "interweave": "^13.1.0",
@@ -41,7 +41,7 @@
     "textarea-caret": "^3.1.0",
     "uuid": "^10.0.0",
     "viem": "^2.17.3",
-    "wagmi": "^2.10.9",
+    "wagmi": "^2.10.10",
     "zod": "^3.23.8",
     "zustand": "^4.5.4"
   },
