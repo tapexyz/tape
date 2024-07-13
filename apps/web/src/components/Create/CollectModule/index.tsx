@@ -1,10 +1,7 @@
 import useAppStore from '@lib/store'
-import useCollectStore from '@lib/store/idb/collect'
-import { EVENTS, Tower } from '@tape.xyz/generic'
 import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
 import {
   Button,
-  Checkbox,
   ChevronRightOutline,
   Modal,
   SplitOutline,
@@ -22,18 +19,18 @@ const CollectModule = () => {
   const [showModal, setShowModal] = useState(false)
   const uploadedMedia = useAppStore((state) => state.uploadedMedia)
   const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
-  const setPersistedCollectModule = useCollectStore(
-    (state) => state.setCollectModule
-  )
-  const saveAsDefault = useCollectStore((state) => state.saveAsDefault)
-  const setSaveAsDefault = useCollectStore((state) => state.setSaveAsDefault)
+  // const setPersistedCollectModule = useCollectStore(
+  //   (state) => state.setCollectModule
+  // )
+  // const saveAsDefault = useCollectStore((state) => state.saveAsDefault)
+  // const setSaveAsDefault = useCollectStore((state) => state.setSaveAsDefault)
 
   const setCollectType = (data: CollectModuleType) => {
     const collectModule = { ...uploadedMedia.collectModule, ...data }
     setUploadedMedia({ collectModule })
-    if (saveAsDefault) {
-      setPersistedCollectModule(collectModule)
-    }
+    // if (saveAsDefault) {
+    //   setPersistedCollectModule(collectModule)
+    // }
   }
 
   const getSelectedCollectType = () => {
@@ -84,16 +81,16 @@ const CollectModule = () => {
       </Button>
       <Modal
         title="Collectible"
-        description={
-          <Checkbox
-            label="Save as default settings"
-            onCheckedChange={(checked) => {
-              setSaveAsDefault(checked as boolean)
-              Tower.track(EVENTS.PUBLICATION.SAVE_AS_DEFAULT_COLLECT)
-            }}
-            checked={saveAsDefault}
-          />
-        }
+        // description={
+        //   <Checkbox
+        //     label="Save as default settings"
+        //     onCheckedChange={(checked) => {
+        //       setSaveAsDefault(checked as boolean)
+        //       Tower.track(EVENTS.PUBLICATION.SAVE_AS_DEFAULT_COLLECT)
+        //     }}
+        //     checked={saveAsDefault}
+        //   />
+        // }
         show={showModal}
         setShow={setShowModal}
         locked
@@ -121,9 +118,9 @@ const CollectModule = () => {
                   <Button
                     type="button"
                     onClick={() => {
-                      if (saveAsDefault) {
-                        setPersistedCollectModule(uploadedMedia.collectModule)
-                      }
+                      // if (saveAsDefault) {
+                      //   setPersistedCollectModule(uploadedMedia.collectModule)
+                      // }
                       setShowModal(false)
                     }}
                   >
