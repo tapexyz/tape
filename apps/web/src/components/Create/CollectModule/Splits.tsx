@@ -228,7 +228,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
             type="button"
             className={tw(
               'rounded border border-gray-700 px-1 text-[10px] font-bold uppercase tracking-wider opacity-70 dark:border-gray-300',
-              splitRecipients.length >= 5 && 'invisible'
+              splitRecipients.length >= 4 && 'invisible'
             )}
             onClick={() => addRecipient()}
           >
