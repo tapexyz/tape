@@ -11,9 +11,6 @@ const moduleExports = {
     '@tape.xyz/ui'
   ],
   reactStrictMode: process.env.NODE_ENV === 'production',
-  experimental: {
-    scrollRestoration: true
-  },
   async rewrites() {
     return [
       {
