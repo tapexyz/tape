@@ -16,7 +16,7 @@
     "@hookform/resolvers": "^3.9.0",
     "@irys/sdk": "^0.2.6",
     "@lens-protocol/metadata": "^1.2.0",
-    "@livepeer/react": "^3.1.9",
+    "@livepeer/react": "3.1.9",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tanstack/react-query": "^5.50.1",
     "axios": "^1.7.2",

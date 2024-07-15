@@ -55,7 +55,7 @@ const TogglesProvider = () => {
 
   const fetchAllowedTokens = async () => {
     const { data } = await axios.get(WORKER_ALLOWED_TOKENS_URL)
-    setAllowedTokens(IS_MAINNET ? data.tokens ?? [] : TESTNET_ALLOWED_TOKENS)
+    setAllowedTokens(IS_MAINNET ? (data.tokens ?? []) : TESTNET_ALLOWED_TOKENS)
   }
 
   useQuery({

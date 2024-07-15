@@ -3,18 +3,16 @@ import { LivepeerConfig } from '@livepeer/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { getLivepeerClient } from '@tape.xyz/browser'
 import { apolloClient, ApolloProvider } from '@tape.xyz/lens/apollo'
-import dynamic from 'next/dynamic'
 import { useRouter } from 'next/router'
 import type { ReactNode } from 'react'
 
 import ErrorBoundary from '../ErrorBoundary'
+import Layout from '../Layout'
 import CuratedProfilesProvider from './CuratedProfilesProvider'
+import SubscriptionProvider from './SubscriptionProvider'
 import ThemeProvider from './ThemeProvider'
-
-const SubscriptionProvider = dynamic(() => import('./SubscriptionProvider'))
-const TogglesProvider = dynamic(() => import('./TogglesProvider'))
-const Web3Provider = dynamic(() => import('./Web3Provider'))
-const Layout = dynamic(() => import('../Layout'))
+import TogglesProvider from './TogglesProvider'
+import Web3Provider from './Web3Provider'
 
 const NO_TOP_NAV_PATHS = ['/login']
 const NO_BOTTOM_NAV_PATHS = ['/bangers']
