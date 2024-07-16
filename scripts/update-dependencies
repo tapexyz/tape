@@ -21,6 +21,12 @@ if [[ ! $(git status --porcelain) ]]; then
   exit 0
 fi
 
+# Call the clean-packages script
+./scripts/clean-packages
+
+# Install dependencies again
+pnpm install
+
 # Commit changes
 git add .
 git commit -m "$commit_message"
