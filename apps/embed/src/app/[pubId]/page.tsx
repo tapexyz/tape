@@ -6,6 +6,8 @@ import { apolloClient } from '@tape.xyz/lens/apollo'
 import Custom404 from '@/components/Custom404'
 import Publication from '@/components/Publication'
 
+export const runtime = 'edge'
+
 type Props = {
   params: { pubId: string }
 }
