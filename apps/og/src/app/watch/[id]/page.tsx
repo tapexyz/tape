@@ -20,8 +20,6 @@ import type { Metadata } from 'next'
 import common from '@/common'
 import { getCollectModuleMetadata } from '@/other-metadata'
 
-export const runtime = 'edge'
-
 type Props = {
   params: { id: string }
 }

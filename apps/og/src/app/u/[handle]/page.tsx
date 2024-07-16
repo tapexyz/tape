@@ -12,8 +12,6 @@ import type { Metadata } from 'next'
 
 import common from '@/common'
 
-export const runtime = 'edge'
-
 type Props = {
   params: { handle: string }
 }
