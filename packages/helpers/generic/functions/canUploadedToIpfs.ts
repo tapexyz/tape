@@ -6,7 +6,6 @@ import type { Profile, ProfileOnchainIdentity } from '@tape.xyz/lens'
 
 const validateOnchainIdentity = (onchainIdentity: ProfileOnchainIdentity) => {
   const { proofOfHumanity, ens, sybilDotOrg, worldcoin } = onchainIdentity
-  // Validation logic
   return (
     proofOfHumanity || ens?.name || sybilDotOrg.verified || worldcoin.isHuman
   )
@@ -25,9 +24,9 @@ export const canUploadedToIpfs = (
     activeProfile.onchainIdentity
   )
 
-  // Return true if the user has an onchain identity or a score greater than 100 (0 to 10000 range)
-  if (hasOnchainIdentity || score > 100) {
-    return true
+  // Return false if the user dont have an onchain identity and the score is less than 100
+  if (!hasOnchainIdentity && score <= 100) {
+    return false
   }
 
   // Calculate the size of the file in megabytes
