@@ -7,6 +7,7 @@ RUN apk add --no-cache gcompat
 WORKDIR /app
 COPY package*json tsconfig.json src ./
 
+RUN pnpm install
 RUN pnpm run build
 
 FROM base AS runner
