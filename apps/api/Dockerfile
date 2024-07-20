@@ -1,27 +1,42 @@
+# Base image
 FROM node:18-alpine AS base
+RUN apk add --no-cache libc6-compat
 
+# Builder stage
 FROM base AS builder
-RUN npm install -g pnpm
-
-RUN apk add --no-cache gcompat
 WORKDIR /app
-COPY package*json tsconfig.json src ./
+RUN npm install -g turbo
+COPY . .
+RUN turbo prune --scope=@tape.xyz/api --docker
 
+# Installer stage
+FROM base AS installer
+WORKDIR /app
+
+RUN npm install -g pnpm turbo
+
+COPY --from=builder /app/out/json/ .
+COPY --from=builder /app/out/full/ .
+COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
 RUN pnpm install
-RUN pnpm run build
 
+COPY turbo.json turbo.json
+
+RUN turbo run build --filter=@tape.xyz/api...
+
+# Runner stage
 FROM base AS runner
 WORKDIR /app
 
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 hono
+RUN npm install -g pnpm
+RUN addgroup --system --gid 1001 sasi
+RUN adduser --system --uid 1001 app
 
-COPY --from=builder --chown=hono:nodejs /app/node_modules /app/node_modules
-COPY --from=builder --chown=hono:nodejs /app/dist /app/dist
-COPY --from=builder --chown=hono:nodejs /app/package.json /app/package.json
+USER app
+COPY --from=installer /app .
 
-USER hono
+# Expose the port
 EXPOSE 3000
 
-RUN npm install -g pnpm
-CMD pnpm run start
+# Command to run the app
+CMD sleep 3 && pnpm --filter @tape.xyz/api run start
