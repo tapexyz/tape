@@ -5,19 +5,16 @@ import { privateKeyToAccount } from 'viem/accounts'
 import { ERROR_MESSAGE, IRYS_NODE_URL } from '@/helpers/constants'
 import { createData, EthereumSigner } from '@/helpers/metadata'
 
-type Bindings = {
-  WALLET_PRIVATE_KEY: string
-}
-
-const app = new Hono<{ Bindings: Bindings }>()
+const app = new Hono()
 
 app.post('/', async (c) => {
   try {
     const payload = await c.req.json()
 
-    const signer = new EthereumSigner(c.env.WALLET_PRIVATE_KEY)
+    const WALLET_PRIVATE_KEY = process.env.WALLET_PRIVATE_KEY!
+    const signer = new EthereumSigner(WALLET_PRIVATE_KEY)
 
-    const account = privateKeyToAccount(`0x${c.env.WALLET_PRIVATE_KEY}`)
+    const account = privateKeyToAccount(`0x${WALLET_PRIVATE_KEY}`)
     const signed = await signMetadata(payload, (message) =>
       account.signMessage({ message })
     )

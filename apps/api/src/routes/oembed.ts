@@ -8,11 +8,7 @@ import { ERROR_MESSAGE } from '@/helpers/constants'
 import extractOgTags from '@/helpers/oembed/extractOgTags'
 import { COMMON_REGEX } from '@/helpers/oembed/regex'
 
-type Bindings = {
-  LIVEPEER_API_TOKEN: string
-}
-
-const app = new Hono<{ Bindings: Bindings }>()
+const app = new Hono()
 app.get(
   '*',
   cache({
