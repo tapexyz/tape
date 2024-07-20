@@ -1,20 +1,19 @@
 FROM node:20-alpine AS base
 
 RUN npm install -g pnpm
+RUN npm install -g turbo
 
 FROM base AS builder
-
 RUN apk add --no-cache gcompat
 WORKDIR /app
 
-COPY package*.json pnpm-lock.yaml tsconfig.json ./
-COPY src ./src
+# Copy the entire monorepo context
+COPY . .
 
-# Use pnpm for installing dependencies, building, and pruning
-RUN pnpm install --frozen-lockfile && \
-    pnpm run build && \
-    pnpm prune --prod
-    
+# Install dependencies using pnpm with the help of turbo
+RUN turbo install --prefer-offline
+RUN turbo run build --filter=@tape.xyz/api
+
 FROM base AS runner
 WORKDIR /app
 
