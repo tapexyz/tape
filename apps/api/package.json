@@ -8,8 +8,8 @@
     "build": "tsc",
     "typecheck": "tsc --pretty",
     "lint": "eslint . --ext .js,.ts,.tsx",
-    "db:migrate": "prisma migrate dev --schema ./db/schema.prisma",
-    "prisma:format": "prisma format --schema ./db/schema.prisma"
+    "db:migrate": "prisma migrate dev --schema ./src/db/schema.prisma",
+    "prisma:format": "prisma format --schema ./src/db/schema.prisma"
   },
   "dependencies": {
     "@aws-sdk/client-sts": "3.614.0",

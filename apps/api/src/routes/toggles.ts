@@ -5,7 +5,7 @@ import { object, string } from 'zod'
 
 import { ERROR_MESSAGE } from '@/helpers/constants'
 
-import db from '../../db/config'
+import db from '../db/config'
 
 const app = new Hono()
 app.get(
