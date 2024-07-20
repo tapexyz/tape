@@ -1,6 +1,5 @@
 import { zValidator } from '@hono/zod-validator'
 import { Hono } from 'hono'
-import { cache } from 'hono/cache'
 import { object, string } from 'zod'
 
 import { ERROR_MESSAGE } from '@/helpers/constants'
@@ -8,13 +7,6 @@ import { ERROR_MESSAGE } from '@/helpers/constants'
 import db from '../db/config'
 
 const app = new Hono()
-app.get(
-  '*',
-  cache({
-    cacheName: 'verified',
-    cacheControl: 'max-age=300'
-  })
-)
 
 app.get(
   '/:profileId',
@@ -38,6 +30,7 @@ app.get(
         [profileId]
       )
 
+      c.header('Cache-Control', 'max-age=300')
       return c.json({
         success: true,
         restrictions: {

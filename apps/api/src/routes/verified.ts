@@ -1,18 +1,10 @@
 import { Hono } from 'hono'
-import { cache } from 'hono/cache'
 
 import { ERROR_MESSAGE } from '@/helpers/constants'
 
 import db from '../db/config'
 
 const app = new Hono()
-app.get(
-  '*',
-  cache({
-    cacheName: 'verified',
-    cacheControl: 'max-age=300'
-  })
-)
 
 app.get('/', async (c) => {
   try {
@@ -24,6 +16,7 @@ app.get('/', async (c) => {
 
     const ids = results.map((item: Record<string, unknown>) => item.profileId)
 
+    c.header('Cache-Control', 'max-age=300')
     return c.json({ success: true, ids })
   } catch {
     return c.json({ success: false, message: ERROR_MESSAGE })

@@ -1,6 +1,5 @@
 import { zValidator } from '@hono/zod-validator'
 import { Hono } from 'hono'
-import { cache } from 'hono/cache'
 import { parseHTML } from 'linkedom'
 import { object, string } from 'zod'
 
@@ -9,13 +8,6 @@ import extractOgTags from '@/helpers/oembed/extractOgTags'
 import { COMMON_REGEX } from '@/helpers/oembed/regex'
 
 const app = new Hono()
-app.get(
-  '*',
-  cache({
-    cacheName: 'oembed',
-    cacheControl: 'max-age=3600'
-  })
-)
 
 const validationSchema = object({
   url: string().url(),
@@ -69,6 +61,7 @@ app.get('/', zValidator('query', validationSchema), async (c) => {
         </oembed>`)
     }
 
+    c.header('Cache-Control', 'max-age=3600')
     return c.json({ success: true, og: ogData })
   } catch {
     return c.json({ success: false, message: ERROR_MESSAGE })

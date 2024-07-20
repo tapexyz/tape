@@ -1,18 +1,10 @@
 import { Hono } from 'hono'
-import { cache } from 'hono/cache'
 
 import { ERROR_MESSAGE } from '@/helpers/constants'
 
 import db from '../db/config'
 
 const app = new Hono()
-app.get(
-  '*',
-  cache({
-    cacheName: 'allowed-tokens',
-    cacheControl: 'max-age=600' // 10 mins
-  })
-)
 
 app.get('/', async (c) => {
   try {
@@ -28,6 +20,7 @@ app.get('/', async (c) => {
       symbol: item.symbol
     }))
 
+    c.header('Cache-Control', 'max-age=600')
     return c.json({ success: true, tokens })
   } catch {
     return c.json({ success: false, message: ERROR_MESSAGE })

@@ -1,6 +1,5 @@
 import { zValidator } from '@hono/zod-validator'
 import { Hono } from 'hono'
-import { cache } from 'hono/cache'
 import { createPublicClient, http } from 'viem'
 import { polygon } from 'viem/chains'
 import { object, string } from 'zod'
@@ -12,13 +11,6 @@ import {
 } from '@/helpers/constants'
 
 const app = new Hono()
-app.get(
-  '*',
-  cache({
-    cacheName: 'avatar',
-    cacheControl: 'max-age=300'
-  })
-)
 
 app.get(
   '/:profileId',
@@ -51,6 +43,8 @@ app.get(
       const svgImage = Buffer.from(base64Image, 'base64').toString('utf-8')
 
       c.header('Content-Type', 'image/svg+xml')
+      c.header('Cache-Control', 'max-age=300')
+
       return c.body(svgImage)
     } catch {
       return c.redirect(`https://cdn.stamp.fyi/avatar/${profileId}?s=300`)
