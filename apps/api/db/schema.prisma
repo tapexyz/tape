@@ -1,0 +1,33 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Verified {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  profileId String   @db.Text
+  createdAt DateTime @default(now())
+
+  @@index([profileId])
+}
+
+model ProfileRestriction {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  profileId String   @db.Text
+  suspended Int      @default(0)
+  flagged   Int      @default(0)
+  limited   Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([profileId])
+}
+
+model AllowedToken {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name      String   @db.Text
+  symbol    String   @db.Text
+  decimals  Int      @default(18)
+  address   String   @unique @db.Text
+  createdAt DateTime @default(now())
+}

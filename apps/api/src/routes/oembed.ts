@@ -8,11 +8,7 @@ import { ERROR_MESSAGE } from '@/helpers/constants'
 import extractOgTags from '@/helpers/oembed/extractOgTags'
 import { COMMON_REGEX } from '@/helpers/oembed/regex'
 
-type Bindings = {
-  LIVEPEER_API_TOKEN: string
-}
-
-const app = new Hono<{ Bindings: Bindings }>()
+const app = new Hono()
 app.get(
   '*',
   cache({
@@ -42,11 +38,7 @@ app.get('/', zValidator('query', validationSchema), async (c) => {
 
     // Fetch metatags from URL
     const response = await fetch(url, {
-      headers: { 'User-Agent': 'bot' },
-      cf: {
-        cacheTtl: 60 * 60 * 24 * 7,
-        cacheEverything: true
-      }
+      headers: { 'User-Agent': 'bot' }
     })
     const html = await response.text()
     const { document } = parseHTML(html)

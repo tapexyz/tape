@@ -3,11 +3,9 @@ import { cache } from 'hono/cache'
 
 import { ERROR_MESSAGE } from '@/helpers/constants'
 
-type Bindings = {
-  TAPE_DB: D1Database
-}
+import db from '../../db/config'
 
-const app = new Hono<{ Bindings: Bindings }>()
+const app = new Hono()
 app.get(
   '*',
   cache({
@@ -18,9 +16,11 @@ app.get(
 
 app.get('/', async (c) => {
   try {
-    const { results } = await c.env.TAPE_DB.prepare(
-      'SELECT * FROM AllowedToken'
-    ).all()
+    const results = await db.manyOrNone(
+      `
+       SELECT * FROM "AllowedToken";
+      `
+    )
     const tokens = results.map((item: Record<string, unknown>) => ({
       address: item.address,
       decimals: item.decimals,

@@ -3,12 +3,7 @@ import { Hono } from 'hono'
 
 import { ERROR_MESSAGE } from '@/helpers/constants'
 
-type Bindings = {
-  EVER_ACCESS_KEY: string
-  EVER_ACCESS_SECRET: string
-}
-
-const app = new Hono<{ Bindings: Bindings }>()
+const app = new Hono()
 
 const bucketName = 'tape'
 const everEndpoint = 'https://endpoint.4everland.co'
@@ -34,8 +29,8 @@ const params = {
 
 app.get('/', async (c) => {
   try {
-    const accessKeyId = c.env.EVER_ACCESS_KEY
-    const secretAccessKey = c.env.EVER_ACCESS_SECRET
+    const accessKeyId = process.env.EVER_ACCESS_KEY!
+    const secretAccessKey = process.env.EVER_ACCESS_SECRET!
 
     const stsClient = new STSClient({
       endpoint: everEndpoint,

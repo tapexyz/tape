@@ -8,12 +8,7 @@ import { any, object, string } from 'zod'
 import { ERROR_MESSAGE } from '@/helpers/constants'
 import checkEventExistence from '@/helpers/tower/checkEventExistence'
 
-type Bindings = {
-  INGEST_REST_ENDPOINT: string
-  IP_API_KEY: string
-}
-
-const app = new Hono<{ Bindings: Bindings }>()
+const app = new Hono()
 
 const validationSchema = object({
   name: string().min(1, { message: 'Name is required' }),
@@ -50,9 +45,11 @@ app.post('/', zValidator('json', validationSchema), async (c) => {
       regionName: string
     } | null = null
 
+    const IP_API_KEY = process.env.IP_API_KEY!
+    const INGEST_REST_ENDPOINT = process.env.INGEST_REST_ENDPOINT!
     try {
       const ipResponse = await fetch(
-        `https://pro.ip-api.com/json/${ip}?key=${c.env.IP_API_KEY}`
+        `https://pro.ip-api.com/json/${ip}?key=${IP_API_KEY}`
       )
       ipData = (await ipResponse.json()) as any
     } catch {}
@@ -107,7 +104,7 @@ app.post('/', zValidator('json', validationSchema), async (c) => {
         )
       `
 
-    const clickhouseResponse = await fetch(c.env.INGEST_REST_ENDPOINT, {
+    const clickhouseResponse = await fetch(INGEST_REST_ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body

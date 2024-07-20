@@ -5,11 +5,7 @@ import { object, string } from 'zod'
 
 import { ERROR_MESSAGE } from '@/helpers/constants'
 
-type Bindings = {
-  LIVEPEER_API_TOKEN: string
-}
-
-const app = new Hono<{ Bindings: Bindings }>()
+const app = new Hono()
 
 const validationSchema = object({
   cid: string()
@@ -20,7 +16,7 @@ app.post('/', zValidator('json', validationSchema), async (c) => {
   try {
     const body = await c.req.json<RequestInput>()
 
-    const LIVEPEER_API_TOKEN = c.env.LIVEPEER_API_TOKEN
+    const LIVEPEER_API_TOKEN = process.env.LIVEPEER_API_TOKEN!
     const result = await fetch(
       `https://livepeer.studio/api/data/views/query/total/${body.cid}`,
       {
