@@ -42,11 +42,7 @@ app.get('/', zValidator('query', validationSchema), async (c) => {
 
     // Fetch metatags from URL
     const response = await fetch(url, {
-      headers: { 'User-Agent': 'bot' },
-      cf: {
-        cacheTtl: 60 * 60 * 24 * 7,
-        cacheEverything: true
-      }
+      headers: { 'User-Agent': 'bot' }
     })
     const html = await response.text()
     const { document } = parseHTML(html)
