@@ -46,7 +46,7 @@ app.post('/', zValidator('json', validationSchema), async (c) => {
     } | null = null
 
     const IP_API_KEY = process.env.IP_API_KEY!
-    const INGEST_REST_ENDPOINT = process.env.INGEST_REST_ENDPOINT!
+    const CH_INGEST_ENDPOINT = process.env.CH_INGEST_ENDPOINT!
     try {
       const ipResponse = await fetch(
         `https://pro.ip-api.com/json/${ip}?key=${IP_API_KEY}`
@@ -104,7 +104,7 @@ app.post('/', zValidator('json', validationSchema), async (c) => {
         )
       `
 
-    const clickhouseResponse = await fetch(INGEST_REST_ENDPOINT, {
+    const clickhouseResponse = await fetch(CH_INGEST_ENDPOINT, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body

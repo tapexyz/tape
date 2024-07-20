@@ -63,6 +63,9 @@ importers:
       '@tape.xyz/generic':
         specifier: workspace:*
         version: link:../../packages/helpers/generic
+      '@types/node':
+        specifier: ^20.11.17
+        version: 20.14.10
       '@types/ua-parser-js':
         specifier: ^0.7.39
         version: 0.7.39

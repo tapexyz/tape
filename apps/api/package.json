@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "start": "tsx src/index.ts",
+    "build": "tsc",
     "typecheck": "tsc --pretty",
     "lint": "eslint . --ext .js,.ts,.tsx",
     "db:migrate": "prisma migrate dev --schema ./db/schema.prisma",
@@ -31,6 +31,7 @@
     "@types/ua-parser-js": "^0.7.39",
     "prettier": "^3.3.2",
     "tsx": "^4.7.1",
+    "@types/node": "^20.11.17",
     "typescript": "5.5.3"
   }
 }

@@ -1,6 +1,7 @@
 {
   "extends": "@tape.xyz/config/base.tsconfig.json",
   "compilerOptions": {
+    "outDir": "./dist",
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "node",
@@ -8,9 +9,11 @@
     "strict": true,
     "lib": ["esnext"],
     "jsx": "react-jsx",
+    "types": ["node"],
     "jsxImportSource": "hono/jsx",
     "paths": {
       "@/*": ["./src/*"]
     }
-  }
+  },
+  "exclude": ["node_modules"]
 }
