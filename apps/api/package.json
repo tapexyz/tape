@@ -6,7 +6,6 @@
   "scripts": {
     "dev": "tsx watch src/index.ts",
     "start": "tsx src/index.ts",
-    "worker:deploy": "wrangler deploy --minify src/index.ts",
     "typecheck": "tsc --pretty",
     "lint": "eslint . --ext .js,.ts,.tsx",
     "db:migrate": "prisma migrate dev --schema ./db/schema.prisma",
