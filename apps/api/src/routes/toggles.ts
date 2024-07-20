@@ -5,11 +5,9 @@ import { object, string } from 'zod'
 
 import { ERROR_MESSAGE } from '@/helpers/constants'
 
-type Bindings = {
-  TAPE_DB: D1Database
-}
+import db from '../../db/config'
 
-const app = new Hono<{ Bindings: Bindings }>()
+const app = new Hono()
 app.get(
   '*',
   cache({
@@ -30,11 +28,15 @@ app.get(
     const { profileId } = c.req.param()
 
     try {
-      const result = await c.env.TAPE_DB.prepare(
-        'SELECT suspended, limited, flagged FROM ProfileRestriction WHERE profileId = ?'
+      const result = await db.oneOrNone(
+        `
+        SELECT suspended, limited, flagged
+        FROM "ProfileRestriction"
+        WHERE "profileId"  = $1
+        LIMIT 1;
+      `,
+        [profileId]
       )
-        .bind(profileId)
-        .first()
 
       return c.json({
         success: true,

@@ -5,11 +5,7 @@ import { object, string } from 'zod'
 
 import { ERROR_MESSAGE } from '@/helpers/constants'
 
-type Bindings = {
-  LOGTAIL_API_KEY: string
-}
-
-const app = new Hono<{ Bindings: Bindings }>()
+const app = new Hono()
 
 const logtailApiURL = 'https://in.logtail.com/'
 const validationSchema = object({
@@ -22,7 +18,7 @@ type RequestInput = z.infer<typeof validationSchema>
 app.post('/', zValidator('json', validationSchema), async (c) => {
   try {
     const body = await c.req.json<RequestInput>()
-    const LOGTAIL_API_KEY = c.env.LOGTAIL_API_KEY
+    const LOGTAIL_API_KEY = process.env.LOGTAIL_API_KEY!
     const result = await fetch(logtailApiURL, {
       method: 'POST',
       headers: {

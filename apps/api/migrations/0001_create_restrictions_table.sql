@@ -1,9 +1,0 @@
--- Migration number: 0001 	 2024-01-04T06:07:37.002Z
-CREATE TABLE IF NOT EXISTS ProfileRestriction (
-  id INTEGER PRIMARY KEY AUTOINCREMENT, 
-  profileId TEXT, 
-  suspended INTEGER DEFAULT 0, 
-  limited INTEGER DEFAULT 0, 
-  createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 
-  updatedAt TIMESTAMP
-);

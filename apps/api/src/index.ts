@@ -1,3 +1,6 @@
+import 'dotenv/config'
+
+import { serve } from '@hono/node-server'
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
 
@@ -33,4 +36,6 @@ app.route('/metadata', metadata)
 app.route('/verified', verified)
 app.route('/allowed-tokens', allowedTokens)
 
-export default app
+serve(app, (info) => {
+  console.log(`API listening on http://localhost:${info.port}`)
+})
