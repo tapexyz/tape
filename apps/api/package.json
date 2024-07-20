@@ -3,8 +3,9 @@
   "description": "API for tape.xyz",
   "version": "0.0.0",
   "private": true,
+  "main": "dist/index.js",
   "scripts": {
-    "dev": "tsx watch src/index.ts",
+    "dev": "tsx --watch src/index.ts",
     "build": "tsc",
     "start": "node dist/index.js",
     "typecheck": "tsc --pretty",
