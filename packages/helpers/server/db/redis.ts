@@ -5,9 +5,18 @@ const redisClient: RedisClientType = createClient({
   url: process.env.REDIS_URL!
 })
 
+const connectRedis = async () => {
+  await redisClient.connect()
+}
+
+if (redisClient) {
+  connectRedis()
+}
+
 const rSave = async (key: string, value: string): Promise<void> => {
   await redisClient.rPush(key, value)
 }
+
 const rLoad = async (
   key: string,
   start: number = 0,
