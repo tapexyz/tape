@@ -29,7 +29,7 @@ WORKDIR /app
 RUN npm install -g pnpm
 
 # Add non-root user for better security
-RUN addgroup --system --gid 1001 sasi
+RUN addgroup --system --gid 1001 hono
 RUN adduser --system --uid 1001 app
 
 USER app
