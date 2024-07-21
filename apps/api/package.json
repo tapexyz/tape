@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@aws-sdk/client-sts": "3.614.0",
+    "@clickhouse/client": "^1.4.0",
     "@hono/node-server": "^1.11.2",
     "@hono/zod-validator": "^0.2.2",
     "@lens-protocol/metadata": "^1.2.0",
@@ -30,10 +31,10 @@
   "devDependencies": {
     "@tape.xyz/config": "workspace:*",
     "@tape.xyz/generic": "workspace:*",
+    "@types/node": "^20.11.17",
     "@types/ua-parser-js": "^0.7.39",
     "prettier": "^3.3.2",
     "tsx": "^4.7.1",
-    "@types/node": "^20.11.17",
     "typescript": "5.5.3"
   }
 }

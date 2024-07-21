@@ -5,12 +5,12 @@
   "private": true,
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "build": "pnpm -r run build",
-    "dev": "pnpm -r run dev",
-    "start": "pnpm -r run start",
-    "codegen": "pnpm -r run codegen",
-    "lint": "pnpm -r run lint",
-    "typecheck": "pnpm -r run typecheck",
+    "build": "pnpm -r --parallel run build",
+    "dev": "pnpm -r --parallel run dev",
+    "start": "pnpm -r --parallel run start",
+    "codegen": "pnpm -r --parallel run codegen",
+    "lint": "pnpm -r --parallel run lint",
+    "typecheck": "pnpm -r --parallel run typecheck",
     "prepare": "husky",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },

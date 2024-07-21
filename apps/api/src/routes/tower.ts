@@ -7,6 +7,7 @@ import { any, object, string } from 'zod'
 
 import { ERROR_MESSAGE } from '@/helpers/constants'
 import checkEventExistence from '@/helpers/tower/checkEventExistence'
+import clickhouseClient from '@/helpers/tower/clickhouse'
 
 const app = new Hono()
 
@@ -46,7 +47,6 @@ app.post('/', zValidator('json', validationSchema), async (c) => {
     } | null = null
 
     const IP_API_KEY = process.env.IP_API_KEY!
-    const CH_INGEST_ENDPOINT = process.env.CH_INGEST_ENDPOINT!
     try {
       const ipResponse = await fetch(
         `https://pro.ip-api.com/json/${ip}?key=${IP_API_KEY}`
@@ -62,57 +62,32 @@ app.post('/', zValidator('json', validationSchema), async (c) => {
     const utmTerm = parsedUrl.searchParams.get('utm_term') || null
     const utmContent = parsedUrl.searchParams.get('utm_content') || null
 
-    const body = `
-        INSERT INTO events (
-          name,
-          actor,
-          properties,
-          url,
-          city,
-          country,
-          region,
-          referrer,
-          platform,
-          browser,
-          browser_version,
-          os,
-          utm_source,
-          utm_medium,
-          utm_campaign,
-          utm_term,
-          utm_content,
-          fingerprint
-        ) VALUES (
-          '${name}',
-          ${actor ? `'${actor}'` : null},
-          ${properties ? `'${JSON.stringify(properties)}'` : null},
-          ${url ? `'${url}'` : null},
-          ${ipData?.city ? `'${ipData?.city}'` : null},
-          ${ipData?.country ? `'${ipData?.country}'` : null},
-          ${ipData?.regionName ? `'${ipData?.regionName}'` : null},
-          ${referrer ? `'${referrer}'` : null},
-          ${platform ? `'${platform}'` : null},
-          ${ua.browser.name ? `'${ua.browser.name}'` : null},
-          ${ua.browser.version ? `'${ua.os.version}'` : null},
-          ${ua.os.name ? `'${ua.os.name}'` : null},
-          ${utmSource ? `'${utmSource}'` : null},
-          ${utmMedium ? `'${utmMedium}'` : null},
-          ${utmCampaign ? `'${utmCampaign}'` : null},
-          ${utmTerm ? `'${utmTerm}'` : null},
-          ${utmContent ? `'${utmContent}'` : null},
-          ${fingerprint ? `'${fingerprint}'` : null}
-        )
-      `
-
-    const clickhouseResponse = await fetch(CH_INGEST_ENDPOINT, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body
-    })
-
-    if (clickhouseResponse.status !== 200) {
-      return c.json({ success: false, message: ERROR_MESSAGE })
+    const value = {
+      name,
+      actor: actor || null,
+      properties: properties || null,
+      url: url || null,
+      city: ipData?.city || null,
+      country: ipData?.country || null,
+      region: ipData?.regionName || null,
+      referrer: referrer || null,
+      platform: platform || null,
+      browser: ua.browser.name || null,
+      browser_version: ua.browser.version || null,
+      os: ua.os.name || null,
+      utm_source: utmSource || null,
+      utm_medium: utmMedium || null,
+      utm_campaign: utmCampaign || null,
+      utm_term: utmTerm || null,
+      utm_content: utmContent || null,
+      fingerprint: fingerprint || null
     }
+
+    await clickhouseClient.insert({
+      format: 'JSONEachRow',
+      table: 'events',
+      values: [value]
+    })
 
     return c.json({ success: true })
   } catch {
