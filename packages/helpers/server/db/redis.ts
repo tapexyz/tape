@@ -1,28 +1,31 @@
-import Redis from 'ioredis'
+import type { RedisClientType } from 'redis'
+import { createClient } from 'redis'
 
-const redis = new Redis(process.env.REDIS_URL!)
+const redisClient: RedisClientType = createClient({
+  url: process.env.REDIS_URL!
+})
 
 const rSave = async (key: string, value: string): Promise<void> => {
-  await redis.rpush(key, value)
+  await redisClient.rPush(key, value)
 }
 const rLoad = async (
   key: string,
   start: number = 0,
   end: number = -1
 ): Promise<string[]> => {
-  return await redis.lrange(key, start, end)
+  return await redisClient.lRange(key, start, end)
 }
 
 const rClear = async (key: string): Promise<void> => {
-  await redis.del(key)
+  await redisClient.del(key)
 }
 
 const rLength = async (key: string): Promise<number> => {
-  return redis.llen(key)
+  return redisClient.lLen(key)
 }
 
 const rTrim = async (key: string, count: number): Promise<void> => {
-  await redis.ltrim(key, count, -1)
+  await redisClient.lTrim(key, count, -1)
 }
 
-export { rClear, redis, rLength, rLoad, rSave, rTrim }
+export { rClear, redisClient, rLength, rLoad, rSave, rTrim }

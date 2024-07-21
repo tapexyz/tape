@@ -9,8 +9,8 @@
   },
   "dependencies": {
     "@clickhouse/client": "^1.4.0",
-    "ioredis": "^5.4.1",
-    "pg-promise": "^11.9.1"
+    "pg-promise": "^11.9.1",
+    "redis": "^4.6.15"
   },
   "devDependencies": {
     "@tape.xyz/config": "workspace:*",
