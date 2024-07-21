@@ -48,6 +48,6 @@ jobs:
         id: deploy
         with:
           url: 'https://redeploy.tapes.workers.dev'
-          params: '{ "secret": "${{ secrets.SECRET }}", "service": "${{ secrets.API_RAILWAY_SERVICE_ID }}" }'
+          params: '{ "secret": "${{ secrets.SECRET_KEY }}", "service": "${{ secrets.API_RAILWAY_SERVICE_ID }}" }'
           method: 'GET'
           timeout: 30000
