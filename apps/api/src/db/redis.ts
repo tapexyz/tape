@@ -22,7 +22,7 @@ const rLength = async (key: string): Promise<number> => {
 }
 
 const rTrim = async (key: string, count: number): Promise<void> => {
-  await redis.ltrim(key, 0, count - 1)
+  await redis.ltrim(key, count, -1)
 }
 
 export { rClear, redis, rLength, rLoad, rSave, rTrim }
