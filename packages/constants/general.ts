@@ -114,7 +114,7 @@ export const LIVEPEER_STUDIO_API_KEY = IS_PRODUCTION
   ? 'ade26a09-c774-4898-a269-883551f1c5df'
   : ''
 
-// workers
+// api urls
 export const WORKER_LIVEPEER_VIEWS_URL = `${TAPE_API_URL}/views`
 export const WORKER_IRYS_METADATA_UPLOAD_URL = `${TAPE_API_URL}/metadata`
 export const WORKER_LOGTAIL_INGEST_URL = `${TAPE_API_URL}/tail`
@@ -126,6 +126,9 @@ export const WORKER_VERIFIED_URL = `${TAPE_API_URL}/verified`
 export const WORKER_TOGGLES_URL = `${TAPE_API_URL}/toggles`
 export const WORKER_AVATAR_URL = `${TAPE_API_URL}/avatar`
 export const WORKER_ALLOWED_TOKENS_URL = `${TAPE_API_URL}/allowed-tokens`
+
+// redis
+export const TOWER_EVENTS_REDIS_KEY = 'towerEvents'
 
 // irys
 export const IRYS_NETWORK = IS_MAINNET ? 'mainnet' : 'devnet'

@@ -1,10 +1,9 @@
 import { zValidator } from '@hono/zod-validator'
+import { db } from '@tape.xyz/server'
 import { Hono } from 'hono'
 import { object, string } from 'zod'
 
 import { ERROR_MESSAGE } from '@/helpers/constants'
-
-import db from '../db/psql'
 
 const app = new Hono()
 

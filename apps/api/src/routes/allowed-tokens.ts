@@ -1,8 +1,7 @@
+import { db } from '@tape.xyz/server'
 import { Hono } from 'hono'
 
 import { ERROR_MESSAGE } from '@/helpers/constants'
-
-import db from '../db/psql'
 
 const app = new Hono()
 
