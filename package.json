@@ -1,24 +1,22 @@
 {
   "name": "tape.xyz",
-  "description": "Talk, Amplify, Post, Explore",
-  "version": "2.0.2-beta",
+  "description": "an open-source social media.",
+  "version": "2.0.3-beta",
   "private": true,
   "scripts": {
     "preinstall": "npx only-allow pnpm",
-    "build": "turbo run build --parallel",
-    "dev": "turbo run dev --parallel",
-    "start": "turbo run start --parallel",
-    "codegen": "turbo run codegen --parallel",
-    "lint": "turbo run lint --parallel",
-    "typecheck": "turbo run typecheck --parallel",
+    "build": "pnpm -r run build",
+    "dev": "pnpm -r run dev",
+    "start": "pnpm -r run start",
+    "codegen": "pnpm -r run codegen",
+    "lint": "pnpm -r run lint",
+    "typecheck": "pnpm -r run typecheck",
     "prepare": "husky",
-    "api:deploy": "turbo run worker:deploy --parallel",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
   "devDependencies": {
     "husky": "^9.0.11",
-    "prettier-plugin-tailwindcss": "^0.6.5",
-    "turbo": "2.0.6"
+    "prettier-plugin-tailwindcss": "^0.6.5"
   },
   "eslintConfig": {
     "root": true

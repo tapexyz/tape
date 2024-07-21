@@ -9,5 +9,5 @@
     "jsx": "preserve",
     "lib": ["DOM", "DOM.Iterable", "ESNext"]
   },
-  "exclude": ["node_modules", ".next", ".turbo"]
+  "exclude": ["node_modules", ".next"]
 }

@@ -1,3 +1,9 @@
+# Run
+
+```
+pnpm dev
+```
+
 # Migrations
 
 ```
