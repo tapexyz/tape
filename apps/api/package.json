@@ -15,14 +15,12 @@
   },
   "dependencies": {
     "@aws-sdk/client-sts": "3.614.0",
-    "@clickhouse/client": "^1.4.0",
     "@hono/node-server": "^1.11.2",
     "@hono/zod-validator": "^0.2.2",
     "@lens-protocol/metadata": "^1.2.0",
     "base64url": "^3.0.1",
     "hono": "^4.4.12",
     "linkedom": "^0.18.4",
-    "pg-promise": "^11.9.1",
     "prisma": "^5.17.0",
     "ua-parser-js": "2.0.0-beta.3",
     "viem": "^2.17.3",
@@ -31,9 +29,11 @@
   "devDependencies": {
     "@tape.xyz/config": "workspace:*",
     "@tape.xyz/generic": "workspace:*",
+    "@tape.xyz/server": "workspace:*",
+    "@tape.xyz/abis": "workspace:*",
+    "@tape.xyz/constants": "workspace:*",
     "@types/node": "^20.11.17",
     "@types/ua-parser-js": "^0.7.39",
-    "prettier": "^3.3.2",
     "tsx": "^4.7.1",
     "typescript": "5.5.3"
   }

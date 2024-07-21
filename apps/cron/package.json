@@ -1,0 +1,27 @@
+{
+  "name": "@tape.xyz/cron",
+  "version": "0.0.0",
+  "main": "dist/index.js",
+  "private": true,
+  "scripts": {
+    "dev": "tsx --watch src/index.ts",
+    "build": "tsc",
+    "start": "tsx src/index.ts",
+    "typecheck": "tsc --pretty",
+    "lint": "eslint . --ext .js,.ts,.tsx"
+  },
+  "license": "AGPL-3.0",
+  "dependencies": {
+    "node-cron": "^3.0.3"
+  },
+  "devDependencies": {
+    "@types/node-cron": "^3.0.11",
+    "@tape.xyz/server": "workspace:*",
+    "typescript": "5.5.3",
+    "@tape.xyz/config": "workspace:*",
+    "@tape.xyz/generic": "workspace:*",
+    "@tape.xyz/constants": "workspace:*",
+    "@types/node": "^20.11.17",
+    "tsx": "^4.7.1"
+  }
+}

@@ -1,13 +1,13 @@
 import { zValidator } from '@hono/zod-validator'
+import { ERROR_MESSAGE, TOWER_EVENTS_REDIS_KEY } from '@tape.xyz/constants'
 import { ALL_EVENTS } from '@tape.xyz/generic/events'
+import { rSave } from '@tape.xyz/server'
 import { Hono } from 'hono'
 import { UAParser } from 'ua-parser-js'
 import type { z } from 'zod'
 import { any, object, string } from 'zod'
 
-import { ERROR_MESSAGE } from '@/helpers/constants'
-import checkEventExistence from '@/helpers/tower/checkEventExistence'
-import clickhouseClient from '@/helpers/tower/clickhouse'
+import { checkEventExistence } from '@/helpers/tower/checkEventExistence'
 
 const app = new Hono()
 
@@ -83,11 +83,7 @@ app.post('/', zValidator('json', validationSchema), async (c) => {
       fingerprint: fingerprint || null
     }
 
-    await clickhouseClient.insert({
-      format: 'JSONEachRow',
-      table: 'events',
-      values: [value]
-    })
+    await rSave(TOWER_EVENTS_REDIS_KEY, JSON.stringify(value))
 
     return c.json({ success: true })
   } catch {

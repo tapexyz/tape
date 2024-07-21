@@ -8,4 +8,4 @@ const clickhouseClient = createClient({
   url: process.env.CLICKHOUSE_URL
 })
 
-export default clickhouseClient
+export { clickhouseClient }

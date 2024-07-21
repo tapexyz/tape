@@ -1,9 +1,8 @@
 import { zValidator } from '@hono/zod-validator'
+import { ERROR_MESSAGE } from '@tape.xyz/constants'
 import { Hono } from 'hono'
 import type { z } from 'zod'
 import { object, string } from 'zod'
-
-import { ERROR_MESSAGE } from '@/helpers/constants'
 
 const app = new Hono()
 
