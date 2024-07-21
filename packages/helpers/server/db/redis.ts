@@ -28,4 +28,4 @@ const rTrim = async (key: string, count: number): Promise<void> => {
   await redisClient.lTrim(key, count, -1)
 }
 
-export { rClear, redisClient, rLength, rLoad, rSave, rTrim }
+export { rClear, rLength, rLoad, rSave, rTrim }
