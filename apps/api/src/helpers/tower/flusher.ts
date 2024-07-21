@@ -1,7 +1,7 @@
 import clickhouseClient from '@/db/clickhouse'
 import { rLength, rLoad, rTrim } from '@/db/redis'
 
-const QUEUE_KEY = 'eventQueue'
+const QUEUE_KEY = 'towerEvents'
 const BATCH_SIZE = 5000
 
 const flushEvents = async (): Promise<void> => {
