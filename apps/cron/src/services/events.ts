@@ -1,5 +1,4 @@
 import { TOWER_EVENTS_REDIS_KEY } from '@tape.xyz/constants'
-import { logger } from '@tape.xyz/generic'
 import { clickhouseClient, rLength, rLoad, rTrim } from '@tape.xyz/server'
 
 const QUEUE_KEY = TOWER_EVENTS_REDIS_KEY
@@ -25,7 +24,7 @@ const flushEvents = async (): Promise<void> => {
       }
     }
   } catch (error) {
-    logger.error('[cron] Error flushing tower events', error)
+    console.error('[cron] Error flushing tower events', error)
   }
 }
 
