@@ -1,3 +1,5 @@
+import 'dotenv/config'
+
 import { logger } from '@tape.xyz/generic'
 import cron from 'node-cron'
 
