@@ -1,22 +1,29 @@
 name: Docker Build and Push
+description: 'Build and push docker image'
 
 inputs:
   dockerhub_username:
+    description: 'Dockerhub username'
     required: true
     default: ''
   dockerhub_token:
+    description: 'Dockerhub token'
     required: true
     default: ''
   image_name:
+    description: 'Image name'
     required: true
     default: ''
   docker_file:
+    description: 'Docker file'
     required: true
     default: ''
   tag_name:
+    description: 'Tag name'
     required: false
     default: 'latest'
   build_args:
+    description: 'Build args'
     required: false
     default: ''
 

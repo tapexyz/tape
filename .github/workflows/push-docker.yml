@@ -10,8 +10,25 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  check-changes:
+    runs-on: ubuntu-latest
+    outputs:
+      api-changed: ${{ steps.filter.outputs.api }}
+    steps:
+      - name: Checkout 🚪
+        uses: actions/checkout@v4
+      - name: Check for changes 🔍
+        id: filter
+        uses: dorny/paths-filter@v2
+        with:
+          filters: |
+            api:
+              - 'apps/api/**'
+              - 'packages/**'
   api:
-    name:  API
+    needs: check-changes
+    if: needs.check-changes.outputs.api-changed == 'true'
+    name:  Build API
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🚪
