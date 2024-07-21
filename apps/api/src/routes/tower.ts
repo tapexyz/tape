@@ -1,5 +1,5 @@
 import { zValidator } from '@hono/zod-validator'
-import { TOWER_EVENTS_REDIS_KEY } from '@tape.xyz/constants'
+import { ERROR_MESSAGE, TOWER_EVENTS_REDIS_KEY } from '@tape.xyz/constants'
 import { ALL_EVENTS } from '@tape.xyz/generic/events'
 import { rSave } from '@tape.xyz/server'
 import { Hono } from 'hono'
@@ -86,8 +86,8 @@ app.post('/', zValidator('json', validationSchema), async (c) => {
     await rSave(TOWER_EVENTS_REDIS_KEY, JSON.stringify(value))
 
     return c.json({ success: true })
-  } catch (error) {
-    return c.json({ success: false, message: JSON.stringify(error) })
+  } catch {
+    return c.json({ success: false, message: ERROR_MESSAGE })
   }
 })
 
