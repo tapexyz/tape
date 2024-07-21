@@ -86,7 +86,8 @@ app.post('/', zValidator('json', validationSchema), async (c) => {
     await rSave(TOWER_EVENTS_REDIS_KEY, JSON.stringify(value))
 
     return c.json({ success: true })
-  } catch {
+  } catch (error) {
+    console.error(error)
     return c.json({ success: false, message: ERROR_MESSAGE })
   }
 })
