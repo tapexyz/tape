@@ -73,11 +73,11 @@ jobs:
           tag_name: 'latest'
           docker_file: ./apps/api/Dockerfile
 
-      # - name: Trigger Cron Deployment 🚢
-      #   uses: indiesdev/curl@v1
-      #   id: deploy
-      #   with:
-      #     url: 'https://redeploy.tapes.workers.dev'
-      #     params: '{ "secret": "${{ secrets.SECRET_KEY }}", "service": "${{ secrets.CRON_RAILWAY_SERVICE_ID }}" }'
-      #     method: 'GET'
-      #     timeout: 30000
+      - name: Trigger Cron Deployment 🚢
+        uses: indiesdev/curl@v1
+        id: deploy
+        with:
+          url: 'https://redeploy.tapes.workers.dev'
+          params: '{ "secret": "${{ secrets.SECRET_KEY }}", "service": "${{ secrets.CRON_RAILWAY_SERVICE_ID }}" }'
+          method: 'GET'
+          timeout: 30000
