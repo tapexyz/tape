@@ -28,8 +28,6 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 .env
-# turbo
-.turbo
 
 # vercel
 .vercel

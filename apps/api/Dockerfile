@@ -5,38 +5,40 @@ RUN apk add --no-cache libc6-compat
 # Builder stage
 FROM base AS builder
 WORKDIR /app
-RUN npm install -g turbo
+
+# Install pnpm globally
+RUN npm install -g pnpm
+
+# Copy all files to the build context
 COPY . .
-RUN turbo prune --scope=@tape.xyz/api --docker
 
-# Installer stage
-FROM base AS installer
-WORKDIR /app
+# Install dependencies
+RUN pnpm install --frozen-lockfile
 
-RUN npm install -g pnpm turbo
+# Build the project
+RUN pnpm --filter @tape.xyz/api build
 
-COPY --from=builder /app/out/json/ .
-COPY --from=builder /app/out/full/ .
-COPY --from=builder /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
-RUN pnpm install
-
-COPY turbo.json turbo.json
-
-RUN turbo run build --filter=@tape.xyz/api...
+# Prune dev dependencies to reduce image size
+RUN pnpm prune --prod
 
 # Runner stage
 FROM base AS runner
 WORKDIR /app
 
+# Install pnpm globally
 RUN npm install -g pnpm
+
+# Add non-root user for better security
 RUN addgroup --system --gid 1001 sasi
 RUN adduser --system --uid 1001 app
 
 USER app
-COPY --from=installer /app .
+
+# Copy built application and production dependencies from builder stage
+COPY --from=builder /app .
 
 # Expose the port
 EXPOSE 3000
 
 # Command to run the app
-CMD sleep 3 && pnpm --filter @tape.xyz/api run start
+CMD sleep 3 && pnpm --filter @tape.xyz/api start

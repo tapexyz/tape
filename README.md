@@ -39,7 +39,7 @@ For a place to have open discussions on features, voice your ideas, or get help 
 
 ## 🔭 What's inside?
 
-This turborepo uses [Pnpm](https://pnpm.io/) as a package manager. It includes the following apps and packages:
+This monorepo uses [Pnpm](https://pnpm.io/) as a package manager. It includes the following apps and packages:
 
 ### 🏗️ Apps
 
