@@ -1,4 +1,4 @@
-const checkEventExistence = (obj: any, event: string): boolean => {
+export const checkEventExistence = (obj: any, event: string): boolean => {
   for (const key in obj) {
     if (typeof obj[key] === 'object') {
       if (checkEventExistence(obj[key], event)) {
@@ -10,5 +10,3 @@ const checkEventExistence = (obj: any, event: string): boolean => {
   }
   return false
 }
-
-export default checkEventExistence

@@ -1,5 +1,5 @@
 import { zValidator } from '@hono/zod-validator'
-import { TOWER_EVENTS_REDIS_KEY } from '@tape.xyz/constants'
+import { ERROR_MESSAGE, TOWER_EVENTS_REDIS_KEY } from '@tape.xyz/constants'
 import { ALL_EVENTS } from '@tape.xyz/generic/events'
 import { rSave } from '@tape.xyz/server'
 import { Hono } from 'hono'
@@ -7,8 +7,7 @@ import { UAParser } from 'ua-parser-js'
 import type { z } from 'zod'
 import { any, object, string } from 'zod'
 
-import { ERROR_MESSAGE } from '@/helpers/constants'
-import checkEventExistence from '@/helpers/tower/checkEventExistence'
+import { checkEventExistence } from '@/helpers/tower/checkEventExistence'
 
 const app = new Hono()
 

@@ -1,14 +1,10 @@
 import { zValidator } from '@hono/zod-validator'
+import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
+import { LENSHUB_PROXY_ADDRESS, POLYGON_RPC_URL } from '@tape.xyz/constants'
 import { Hono } from 'hono'
 import { createPublicClient, http } from 'viem'
 import { polygon } from 'viem/chains'
 import { object, string } from 'zod'
-
-import {
-  LENSHUB_PROXY_ABI,
-  LENSHUB_PROXY_ADDRESS,
-  POLYGON_RPC_URL
-} from '@/helpers/constants'
 
 const app = new Hono()
 

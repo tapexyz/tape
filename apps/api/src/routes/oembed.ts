@@ -1,9 +1,9 @@
 import { zValidator } from '@hono/zod-validator'
+import { ERROR_MESSAGE } from '@tape.xyz/constants'
 import { Hono } from 'hono'
 import { parseHTML } from 'linkedom'
 import { object, string } from 'zod'
 
-import { ERROR_MESSAGE } from '@/helpers/constants'
 import extractOgTags from '@/helpers/oembed/extractOgTags'
 import { COMMON_REGEX } from '@/helpers/oembed/regex'
 

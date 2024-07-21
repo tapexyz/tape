@@ -1,8 +1,8 @@
 import { signMetadata } from '@lens-protocol/metadata'
+import { ERROR_MESSAGE } from '@tape.xyz/constants'
 import { Hono } from 'hono'
 import { privateKeyToAccount } from 'viem/accounts'
 
-import { ERROR_MESSAGE, IRYS_NODE_URL } from '@/helpers/constants'
 import { createData, EthereumSigner } from '@/helpers/metadata'
 
 const app = new Hono()
@@ -26,7 +26,7 @@ app.post('/', async (c) => {
       ]
     })
     await tx.sign(signer)
-    const irysRes = await fetch(IRYS_NODE_URL, {
+    const irysRes = await fetch('https://arweave.mainnet.irys.xyz/tx/matic', {
       method: 'POST',
       headers: { 'content-type': 'application/octet-stream' },
       body: tx.getRaw()
