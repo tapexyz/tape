@@ -28,13 +28,13 @@ jobs:
   api:
     needs: check-changes
     if: needs.check-changes.outputs.api-changed == 'true'
-    name:  Build API
+    name:  building api changes
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 🚪
         uses: actions/checkout@v4
 
-      - name: Build and push docker image 🚀
+      - name: Build and push docker image 🔨
         uses: ./.github/actions/docker
         with:
           dockerhub_username: ${{ secrets.DOCKERHUB_USERNAME }}
@@ -42,3 +42,12 @@ jobs:
           image_name: tape-api
           tag_name: 'latest'
           docker_file: ./apps/api/Dockerfile
+
+      - name: Trigger API Deployment 🚢
+        uses: indiesdev/curl@v1
+        id: deploy
+        with:
+          url: 'https://redeploy.tapes.workers.dev'
+          params: '{ "secret": "${{ secrets.SECRET }}", "service": "${{ secrets.API_RAILWAY_SERVICE_ID }}" }'
+          method: 'GET'
+          timeout: 30000
