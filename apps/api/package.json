@@ -21,6 +21,7 @@
     "@lens-protocol/metadata": "^1.2.0",
     "base64url": "^3.0.1",
     "hono": "^4.4.12",
+    "ioredis": "^5.4.1",
     "linkedom": "^0.18.4",
     "pg-promise": "^11.9.1",
     "prisma": "^5.17.0",

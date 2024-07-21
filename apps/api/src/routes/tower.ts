@@ -5,9 +5,10 @@ import { UAParser } from 'ua-parser-js'
 import type { z } from 'zod'
 import { any, object, string } from 'zod'
 
+import { rSave } from '@/db/redis'
 import { ERROR_MESSAGE } from '@/helpers/constants'
 import checkEventExistence from '@/helpers/tower/checkEventExistence'
-import clickhouseClient from '@/helpers/tower/clickhouse'
+import { QUEUE_KEY } from '@/helpers/tower/flusher'
 
 const app = new Hono()
 
@@ -83,11 +84,7 @@ app.post('/', zValidator('json', validationSchema), async (c) => {
       fingerprint: fingerprint || null
     }
 
-    await clickhouseClient.insert({
-      format: 'JSONEachRow',
-      table: 'events',
-      values: [value]
-    })
+    await rSave(QUEUE_KEY, JSON.stringify(value))
 
     return c.json({ success: true })
   } catch {
