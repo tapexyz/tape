@@ -21,11 +21,6 @@
   "eslintConfig": {
     "root": true
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "pnpm run lint && pnpm run format &&pnpm run typecheck"
-    }
-  },
   "engines": {
     "node": ">=16.18.1 <=19.0.0"
   },
