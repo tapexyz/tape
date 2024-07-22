@@ -25,7 +25,7 @@ WORKDIR /app
 # Install pnpm globally
 RUN npm install -g pnpm
 
-RUN addgroup --system --gid 1001 tape
+RUN addgroup --system --gid 1001 nodeCron
 RUN adduser --system --uid 1001 app
 
 USER app
