@@ -225,7 +225,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
         getProfilesByAddress(splitRecipient.recipient)?.length > 1
       const handles = getProfilesByAddress(splitRecipient.recipient)
 
-      const recipient = splitRecipient.recipient
+      const { recipient } = splitRecipient
       if (recipient === TAPE_ADMIN_ADDRESS) {
         return (
           <div key={recipient} className="flex items-center space-x-2 py-1">
@@ -570,8 +570,8 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
                 <div className="flex-1">
                   <Callout icon={<UserOutline className="size-3.5" />}>
                     <div className="flex items-center gap-2">
-                      This publication can only be collected by the creator's
-                      followers.
+                      This publication can only be collected by the
+                      creator&apos;s followers.
                     </div>
                   </Callout>
                 </div>

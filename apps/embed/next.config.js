@@ -8,7 +8,7 @@ const nextConfig = {
     '@tape.xyz/ui'
   ],
   reactStrictMode: true,
-  async headers() {
+  headers() {
     return [
       {
         source: '/(.*)',

@@ -34,13 +34,13 @@ const CollectModule = () => {
   }
 
   const getSelectedCollectType = () => {
-    const followerOnlyCollect = uploadedMedia.collectModule.followerOnlyCollect
-    const timeLimitEnabled = uploadedMedia.collectModule.timeLimitEnabled
-    const collectLimitEnabled = uploadedMedia.collectModule.collectLimitEnabled
-    const isFeeCollect = uploadedMedia.collectModule.isFeeCollect
-    const collectLimit = uploadedMedia.collectModule.collectLimit
-    const timeLimit = uploadedMedia.collectModule.timeLimit
-    const multiRecipients = uploadedMedia.collectModule.multiRecipients
+    const { followerOnlyCollect } = uploadedMedia.collectModule
+    const { timeLimitEnabled } = uploadedMedia.collectModule
+    const { collectLimitEnabled } = uploadedMedia.collectModule
+    const { isFeeCollect } = uploadedMedia.collectModule
+    const { collectLimit } = uploadedMedia.collectModule
+    const { timeLimit } = uploadedMedia.collectModule
+    const { multiRecipients } = uploadedMedia.collectModule
     if (uploadedMedia.collectModule.isRevertCollect) {
       return `No one can collect this publication`
     }

@@ -16,6 +16,7 @@ import type { AnyPublication } from '@tape.xyz/lens'
 import { PublicationDocument } from '@tape.xyz/lens'
 import { apolloClient } from '@tape.xyz/lens/apollo'
 import type { Metadata } from 'next'
+import React from 'react'
 
 import common from '@/common'
 import { getCollectModuleMetadata } from '@/other-metadata'
@@ -112,6 +113,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   }
 }
 
-export default async function Page({ params }: Props) {
+export default function Page({ params }: Props) {
   return <div>{params.id}</div>
 }

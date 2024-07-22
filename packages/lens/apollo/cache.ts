@@ -1,6 +1,6 @@
 import { InMemoryCache } from '@apollo/client'
-import result from '../generated'
 
+import result from '../generated'
 import cursorBasedPagination from './cursorBasedPagination'
 
 const cache = new InMemoryCache({

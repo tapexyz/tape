@@ -5,7 +5,8 @@
   "main": "index.ts",
   "scripts": {
     "lint": "eslint . --ext .js,.ts,.tsx",
-    "typecheck": "tsc --pretty"
+    "typecheck": "tsc --pretty",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json,css}\""
   },
   "dependencies": {
     "@clickhouse/client": "^1.4.0",

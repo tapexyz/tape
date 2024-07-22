@@ -2,6 +2,7 @@ import '../styles/index.css'
 
 import { TAPE_APP_DESCRIPTION, TAPE_APP_NAME } from '@tape.xyz/constants'
 import type { Metadata } from 'next'
+import React from 'react'
 
 export const metadata: Metadata = {
   title: TAPE_APP_NAME,

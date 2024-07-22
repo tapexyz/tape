@@ -5,6 +5,7 @@ import { getLivepeerClient } from '@tape.xyz/browser'
 import { apolloClient, ApolloProvider } from '@tape.xyz/lens/apollo'
 import { useRouter } from 'next/router'
 import type { ReactNode } from 'react'
+import React from 'react'
 
 import ErrorBoundary from '../ErrorBoundary'
 import Layout from '../Layout'

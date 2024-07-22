@@ -82,10 +82,8 @@ const InputMentions: FC<TextAreaProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedValue])
 
-  const handleInputChange = async (
-    event: React.ChangeEvent<HTMLTextAreaElement>
-  ) => {
-    const value = event.target.value
+  const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const { value } = event.target
     onContentChange(value)
     if (!textareaRef.current) {
       return

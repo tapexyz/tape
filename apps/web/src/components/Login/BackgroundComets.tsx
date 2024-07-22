@@ -53,10 +53,10 @@ const BackgroundComets = () => {
                 delay: Math.random() * 10
               }}
             >
-              <stop stopColor="#FF5733" stopOpacity="0"></stop>
-              <stop stopColor="#FF5733"></stop>
-              <stop offset="67.5%" stopColor="#FFD700"></stop>
-              <stop offset="100%" stopColor="#FFD700" stopOpacity="0"></stop>
+              <stop stopColor="#FF5733" stopOpacity="0" />
+              <stop stopColor="#FF5733" />
+              <stop offset="67.5%" stopColor="#FFD700" />
+              <stop offset="100%" stopColor="#FFD700" stopOpacity="0" />
             </motion.linearGradient>
           ))}
 
@@ -68,9 +68,9 @@ const BackgroundComets = () => {
             gradientUnits="userSpaceOnUse"
             gradientTransform="translate(352 34) rotate(90) scale(555 1560.62)"
           >
-            <stop offset="0.0666667" stopColor="var(--neutral-300)"></stop>
-            <stop offset="0.243243" stopColor="var(--neutral-300)"></stop>
-            <stop offset="0.43594" stopColor="white" stopOpacity="0"></stop>
+            <stop offset="0.0666667" stopColor="var(--neutral-300)" />
+            <stop offset="0.243243" stopColor="var(--neutral-300)" />
+            <stop offset="0.43594" stopColor="white" stopOpacity="0" />
           </radialGradient>
         </defs>
       </svg>

@@ -24,7 +24,7 @@ const ChooseThumbnail: FC<Props> = ({ file }) => {
   const uploadedMedia = useAppStore((state) => state.uploadedMedia)
   const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
 
-  const onSelectThumbnail = async (index: number) => {
+  const onSelectThumbnail = (index: number) => {
     if (uploadedMedia.durationInSeconds === 0) {
       return
     }
@@ -70,7 +70,7 @@ const ChooseThumbnail: FC<Props> = ({ file }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [file])
 
-  const handleUpload = async (e: ChangeEvent<HTMLInputElement>) => {
+  const handleUpload = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files?.length) {
       setSelectedThumbnailIndex(-1)
       const file = e.target.files[0]

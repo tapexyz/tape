@@ -3,7 +3,7 @@ import { tw } from '@tape.xyz/browser'
 import { CREATOR_VIDEO_CATEGORIES } from '@tape.xyz/constants'
 import { EVENTS, Tower } from '@tape.xyz/generic'
 import type { FC } from 'react'
-import { useRef } from 'react'
+import React, { useRef } from 'react'
 
 import HorizontalScroller from './HorizontalScroller'
 

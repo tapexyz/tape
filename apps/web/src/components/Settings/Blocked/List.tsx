@@ -155,7 +155,7 @@ const List = () => {
   }
 
   const [createUnBlockTypedData] = useCreateUnblockProfilesTypedDataMutation({
-    onCompleted: async ({ createUnblockProfilesTypedData }) => {
+    onCompleted: ({ createUnblockProfilesTypedData }) => {
       broadcastTypedData(createUnblockProfilesTypedData)
     },
     onError

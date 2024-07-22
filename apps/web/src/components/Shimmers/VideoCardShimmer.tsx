@@ -1,7 +1,7 @@
 import { tw } from '@tape.xyz/browser'
 import React from 'react'
 
-export const CardShimmer = ({ rounded = true }) => {
+export const CardShimmer = ({ rounded = true }: { rounded?: boolean }) => {
   return (
     <div className={tw('w-full', rounded && 'rounded-xl')}>
       <div className="animate-shimmer flex flex-col space-x-2">

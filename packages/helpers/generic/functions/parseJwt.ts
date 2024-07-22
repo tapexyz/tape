@@ -12,7 +12,7 @@ const decoded = (str: string): string =>
 export const parseJwt = (token: string): ReturnType => {
   try {
     return JSON.parse(decoded(token.split('.')[1]))
-  } catch (e) {
+  } catch (error) {
     return { id: '', role: '', authorizationId: '', iat: 0, exp: 0 }
   }
 }

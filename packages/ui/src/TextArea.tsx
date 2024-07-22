@@ -1,7 +1,7 @@
 import { tw } from '@tape.xyz/browser'
 import { motion, useAnimation } from 'framer-motion'
 import type { ComponentProps } from 'react'
-import { forwardRef, useEffect, useId } from 'react'
+import React, { forwardRef, useEffect, useId } from 'react'
 
 const ShakeAnimation = {
   hidden: { marginLeft: 0 },

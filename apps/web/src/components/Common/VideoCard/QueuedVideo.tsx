@@ -76,7 +76,7 @@ const QueuedVideo: FC<Props> = ({ queuedVideo }) => {
     skip: !txHashData?.txIdToTxHash?.length && !queuedVideo.txnHash?.length,
     pollInterval: 1000,
     notifyOnNetworkStatusChange: true,
-    onCompleted: async (data) => {
+    onCompleted: (data) => {
       if (data?.publication?.txHash) {
         stopPolling()
         cache.modify({

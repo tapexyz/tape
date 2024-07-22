@@ -1,7 +1,7 @@
 {
   "extends": "@tape.xyz/config/base.tsconfig.json",
   "compilerOptions": {
-    "outDir": "./dist",
+    "outDir": "./dist"
   },
   "exclude": ["node_modules", "dist"]
 }

@@ -1,4 +1,3 @@
-import type { FC } from 'react'
 import React, { memo, useCallback, useEffect, useRef, useState } from 'react'
 
 import type { PlayerProps } from './Player'
@@ -12,7 +11,7 @@ interface Props extends PlayerProps {
   refCallback?: (ref: HTMLMediaElement) => void
 }
 
-export const VideoPlayer: FC<Props> = memo(function VideoPlayer({
+export const VideoPlayer = memo(function VideoPlayer({
   url,
   address,
   options,
@@ -23,7 +22,7 @@ export const VideoPlayer: FC<Props> = memo(function VideoPlayer({
   isSensitiveContent,
   showControls = true,
   shouldUpload
-}) {
+}: Props) {
   const playerRef = useRef<HTMLMediaElement>()
   const [sensitiveWarning, setSensitiveWarning] = useState(isSensitiveContent)
 

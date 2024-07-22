@@ -38,7 +38,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
   const uploadedMedia = useAppStore((state) => state.uploadedMedia)
   const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)
   const splitRecipients = uploadedMedia.collectModule.multiRecipients ?? []
-  const isFeeCollect = uploadedMedia.collectModule.isFeeCollect
+  const { isFeeCollect } = uploadedMedia.collectModule
   const [searchKeyword, setSearchKeyword] = useState('')
   const debouncedValue = useDebounce<string>(searchKeyword, 500)
 
@@ -85,7 +85,7 @@ const Splits: FC<Props> = ({ submitContainerRef }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [debouncedValue])
 
-  const onChangeSplit = async (
+  const onChangeSplit = (
     key: 'recipient' | 'split',
     value: string,
     index: number
