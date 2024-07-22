@@ -1,6 +1,7 @@
 'use client'
 
 import { TAPE_APP_DESCRIPTION, TAPE_APP_NAME } from '@tape.xyz/constants'
+import React from 'react'
 
 const Home = () => {
   return (

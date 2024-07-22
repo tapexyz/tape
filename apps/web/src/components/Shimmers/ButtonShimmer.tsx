@@ -1,7 +1,7 @@
 import { tw } from '@tape.xyz/browser'
 import React from 'react'
 
-const ButtonShimmer = ({ className = 'h-10' }) => {
+const ButtonShimmer = ({ className = 'h-10' }: { className?: string }) => {
   return (
     <div className="animate-shimmer w-full">
       <div

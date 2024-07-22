@@ -30,7 +30,7 @@ const rClear = async (key: string): Promise<void> => {
 }
 
 const rLength = async (key: string): Promise<number> => {
-  return redisClient.lLen(key)
+  return await redisClient.lLen(key)
 }
 
 const rTrim = async (key: string, count: number): Promise<void> => {

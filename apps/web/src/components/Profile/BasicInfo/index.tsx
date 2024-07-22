@@ -168,14 +168,14 @@ const BasicInfo: FC<Props> = ({ profile }) => {
   }
 
   const [createBlockTypedData] = useCreateBlockProfilesTypedDataMutation({
-    onCompleted: async ({ createBlockProfilesTypedData }) => {
+    onCompleted: ({ createBlockProfilesTypedData }) => {
       broadcastTypedData(createBlockProfilesTypedData)
     },
     onError
   })
 
   const [createUnBlockTypedData] = useCreateUnblockProfilesTypedDataMutation({
-    onCompleted: async ({ createUnblockProfilesTypedData }) => {
+    onCompleted: ({ createUnblockProfilesTypedData }) => {
       broadcastTypedData(createUnblockProfilesTypedData)
     },
     onError

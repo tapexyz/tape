@@ -8,10 +8,11 @@
     "dev": "tsx --watch src/index.ts",
     "build": "tsc",
     "start": "tsx src/index.ts",
-    "typecheck": "tsc --pretty",
-    "lint": "eslint . --ext .js,.ts,.tsx",
     "db:migrate": "prisma migrate dev --schema ./src/db/schema.prisma",
-    "prisma:format": "prisma format --schema ./src/db/schema.prisma"
+    "prisma:format": "prisma format --schema ./src/db/schema.prisma",
+    "lint": "eslint . --ext .js,.ts,.tsx",
+    "typecheck": "tsc --pretty",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json,css}\""
   },
   "dependencies": {
     "@aws-sdk/client-sts": "3.614.0",

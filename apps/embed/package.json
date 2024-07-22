@@ -8,8 +8,9 @@
     "build": "next build",
     "export": "next export",
     "start": "pnpm build && next start --port 4001",
+    "lint": "eslint . --ext .js,.ts,.tsx",
     "typecheck": "tsc --pretty",
-    "lint": "eslint . --ext .js,.ts,.tsx"
+    "format": "prettier --write \"**/*.{ts,tsx,md,json,css}\""
   },
   "dependencies": {
     "@livepeer/react": "3.1.9",

@@ -3,6 +3,7 @@ import { tw } from '@tape.xyz/browser'
 import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
 import { Button } from '@tape.xyz/ui'
 import type { FC } from 'react'
+import React from 'react'
 
 type Props = {
   setCollectType: (data: CollectModuleType) => void

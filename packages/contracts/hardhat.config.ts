@@ -5,6 +5,7 @@ import type { HardhatUserConfig } from 'hardhat/config'
 
 const config: HardhatUserConfig = {
   solidity: '0.8.23',
+  // @ts-expect-error TODO: fix type error
   sourcify: {
     enabled: true
   },

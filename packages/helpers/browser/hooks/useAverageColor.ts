@@ -6,7 +6,7 @@ const fac = new FastAverageColor()
 export const useAverageColor = (src: string, check: boolean) => {
   const [color, setColor] = useState('')
 
-  const getColors = useCallback(async () => {
+  const getColors = useCallback(() => {
     if (!check || !src) {
       return
     }

@@ -11,7 +11,7 @@ const moduleExports = {
     '@tape.xyz/ui'
   ],
   reactStrictMode: process.env.NODE_ENV === 'production',
-  async rewrites() {
+  rewrites() {
     return [
       {
         source: '/sitemaps/:match*',
@@ -29,7 +29,7 @@ const moduleExports = {
       }
     ]
   },
-  async redirects() {
+  redirects() {
     return [
       {
         source: '/channel/:handle(.+).lens',
@@ -80,7 +80,7 @@ const moduleExports = {
       }
     ]
   },
-  async headers() {
+  headers() {
     return [
       {
         source: '/(.*)',

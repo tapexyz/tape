@@ -9,7 +9,7 @@ const ALLOWED_EMBEDS = [
   'player.vimeo.com'
 ]
 
-const constructIframe = async (document: Document) => {
+const constructIframe = (document: Document) => {
   const ogURLTag =
     document.querySelector('meta[property="twitter:player"]') ||
     document.querySelector('meta[property="og:video:secure_url"]') ||

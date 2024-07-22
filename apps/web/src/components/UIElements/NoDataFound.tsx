@@ -2,12 +2,19 @@ import { tw } from '@tape.xyz/browser'
 import { STATIC_ASSETS } from '@tape.xyz/constants'
 import React from 'react'
 
+type Props = {
+  text?: string
+  withImage?: boolean
+  isCenter?: boolean
+  className?: string
+}
+
 export const NoDataFound = ({
   text = 'Zero trace!',
   withImage = false,
   isCenter = false,
   className = ''
-}) => {
+}: Props) => {
   return (
     <div
       className={tw('flex flex-col space-y-6 rounded-lg p-6', className, {

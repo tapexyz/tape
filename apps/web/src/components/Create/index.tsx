@@ -492,7 +492,7 @@ const CreateSteps = () => {
         loading: true,
         buttonText: 'Uploading...'
       })
-      const instance = irysData.instance
+      const { instance } = irysData
       const tags = [
         { name: 'Content-Type', value: uploadedMedia.mediaType },
         { name: 'App-Name', value: TAPE_APP_NAME },

@@ -68,7 +68,7 @@ const UserMenu = () => {
   const [revokeAuthentication, { loading }] = useRevokeAuthenticationMutation()
 
   const onClickSignout = async () => {
-    const authorizationId = getCurrentSession().authorizationId
+    const { authorizationId } = getCurrentSession()
     if (authorizationId) {
       await revokeAuthentication({
         variables: {

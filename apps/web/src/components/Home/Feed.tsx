@@ -23,7 +23,7 @@ import { useInView } from 'react-cool-inview'
 
 // const since = getUnixTimestampForDaysAgo(30)
 
-const Feed = ({ showFilter = true }) => {
+const Feed = ({ showFilter = true }: { showFilter?: boolean }) => {
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
   const curatedProfiles = useCuratedProfiles((state) => state.curatedProfiles)
 

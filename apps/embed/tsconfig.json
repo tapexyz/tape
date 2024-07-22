@@ -4,9 +4,7 @@
     "baseUrl": ".",
     "noEmit": true,
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["./src/*"]
     },
     "isolatedModules": true,
     "plugins": [

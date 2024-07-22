@@ -16,7 +16,6 @@ type Props = {
 const Publication: FC<Props> = ({ publication }) => {
   useEffect(() => {
     setFingerprint()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const target = getPublication(publication)

@@ -4,15 +4,15 @@
   "version": "2.0.3-beta",
   "private": true,
   "scripts": {
+    "prepare": "husky install",
     "preinstall": "npx only-allow pnpm",
-    "build": "pnpm -r --parallel run build",
     "dev": "pnpm -r --parallel run dev",
     "start": "pnpm -r --parallel run start",
+    "build": "pnpm -r --parallel run build",
     "codegen": "pnpm -r --parallel run codegen",
     "lint": "pnpm -r --parallel run lint",
-    "typecheck": "pnpm -r --parallel run typecheck",
-    "prepare": "husky",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "pnpm -r --parallel run format",
+    "typecheck": "pnpm -r --parallel run typecheck"
   },
   "devDependencies": {
     "husky": "^9.0.11",

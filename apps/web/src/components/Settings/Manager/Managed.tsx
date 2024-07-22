@@ -22,7 +22,7 @@ const Managed = () => {
   const activeProfile = useProfileStore(
     (state) => state.activeProfile
   ) as Profile
-  const address = getProfile(activeProfile).address
+  const { address } = getProfile(activeProfile)
 
   const request: ProfilesManagedRequest = { for: address }
   const { data, loading, error, fetchMore } = useProfilesManagedQuery({

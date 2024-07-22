@@ -23,7 +23,6 @@ export const useVideoViews = (cid: string) => {
 
   useEffect(() => {
     fetchVideoViews()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cid])
 
   return { views, loading }

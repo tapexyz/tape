@@ -1,5 +1,6 @@
 import { ThemeProvider as NextTheme } from 'next-themes'
 import { type FC, type ReactNode } from 'react'
+import React from 'react'
 
 type Props = {
   children: ReactNode

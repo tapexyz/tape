@@ -1,5 +1,6 @@
 import { STATIC_ASSETS, TAPE_APP_NAME } from '@tape.xyz/constants'
 import Link from 'next/link'
+import React from 'react'
 
 const Thanks = () => {
   return (

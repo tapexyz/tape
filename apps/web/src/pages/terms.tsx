@@ -88,11 +88,11 @@ const terms = () => {
             entity is a party to any transaction on the blockchain networks
             underlying the Lens Protocol; we do not have possession, custody or
             control over any items on your wallet and we do not have possession,
-            custody, ability to delete or control over any items on any user's
-            wallet or interactions with the Lens Protocol.
+            custody, ability to delete or control over any items on any
+            user&apos;s wallet or interactions with the Lens Protocol.
           </p>
           <p>
-            If you're not comfortable with interacting with an inherently
+            If you&apos;re not comfortable with interacting with an inherently
             transparent blockchain, you should not engage with our Site to
             create and manage a User Content on the lens protocol. You are
             solely responsible for the safekeeping of the private key associated
@@ -117,12 +117,12 @@ const terms = () => {
           <h2>4. User Content</h2>
           <p>
             You are solely responsible for any content you provide by
-            interacting with the Lens Protocol ("User Content"). You should only
-            provide User Content to Lens Protocol that you are comfortable
-            sharing with others. You represent and warrant that you have, or
-            have obtained all rights, licenses, consents, permissions, power
-            and/or authority necessary to grant the rights granted herein for
-            any User Content you post.
+            interacting with the Lens Protocol (&quot;User Content&quot;). You
+            should only provide User Content to Lens Protocol that you are
+            comfortable sharing with others. You represent and warrant that you
+            have, or have obtained all rights, licenses, consents, permissions,
+            power and/or authority necessary to grant the rights granted herein
+            for any User Content you post.
           </p>
           <p>
             We take no responsibility for the User Content on the Lens Protocol,
@@ -150,10 +150,10 @@ const terms = () => {
           </p>
           <p>
             User Content may embody, comprise or otherwise be associated with
-            certain characters, artwork, or other work of authorship ("Artwork")
-            made available by Profiles (who may represent artists, musicians and
-            other creators) for collecting in the form of non-fungible tokens (a
-            “Token" or “Tokens”).
+            certain characters, artwork, or other work of authorship
+            (&quot;Artwork&quot;) made available by Profiles (who may represent
+            artists, musicians and other creators) for collecting in the form of
+            non-fungible tokens (a &quot;Token&quot; or &quot;Tokens&quot;).
           </p>
           <p>
             All transactions related to the Service, including making a Token
@@ -306,8 +306,8 @@ const terms = () => {
           <h2>6. Accuracy, Completeness and Timeliness of information</h2>
           <p>
             We are not responsible for any mistakes or inaccuracies on contents
-            published on this Site. Profile's are fully responsible for what
-            they are doing in the Site.
+            published on this Site. Profile&apos;s are fully responsible for
+            what they are doing in the Site.
           </p>
           <p>
             As a Site, we offer information about the content and interaction on
@@ -330,10 +330,10 @@ const terms = () => {
             Those are governed by the terms of use of the third-party providers.
           </p>
           <p>
-            Please review carefully the third-party's policies and practices and
-            make sure you understand them before you engage in any transaction.
-            Complaints, claims, concerns, or questions regarding third-party
-            products should be directed to the third-party.
+            Please review carefully the third-party&apos;s policies and
+            practices and make sure you understand them before you engage in any
+            transaction. Complaints, claims, concerns, or questions regarding
+            third-party products should be directed to the third-party.
           </p>
           <h2>9. Personal Information</h2>
           <p>

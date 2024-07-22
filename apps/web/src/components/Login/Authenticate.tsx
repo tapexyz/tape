@@ -244,15 +244,15 @@ const Authenticate = () => {
               variant="danger"
               icon={<WarningOutline className="size-4" />}
             >
-              We couldn't find any profiles linked to the connected address. (
-              {shortenAddress(address as string)})
+              We could&apos;nt find any profiles linked to the connected
+              address. ({shortenAddress(address as string)})
             </Callout>
           )}
           <div className="flex items-center justify-center space-x-2 pt-3 text-sm">
             {profiles[0] ? (
               <span>Need new account?</span>
             ) : (
-              <span>Don't have an account?</span>
+              <span>Don&apos;t have an account?</span>
             )}
             <button
               type="button"

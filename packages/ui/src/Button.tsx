@@ -1,6 +1,6 @@
 import { tw } from '@tape.xyz/browser'
 import type { ButtonHTMLAttributes, DetailedHTMLProps, ReactNode } from 'react'
-import { forwardRef } from 'react'
+import React, { forwardRef } from 'react'
 
 import LoadingBorder from './LoadingBorder'
 
