@@ -77,7 +77,6 @@ const Layout: FC<Props> = ({
 
   useEffect(() => {
     setFingerprint()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
