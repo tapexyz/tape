@@ -27,7 +27,6 @@ const params = {
 }
 
 app.get('/', async (c) => {
-  console.log('[API] Incoming request for STS')
   try {
     const accessKeyId = process.env.EVER_ACCESS_KEY!
     const secretAccessKey = process.env.EVER_ACCESS_SECRET!
@@ -52,7 +51,8 @@ app.get('/', async (c) => {
       secretAccessKey: data.Credentials?.SecretAccessKey,
       sessionToken: data.Credentials?.SessionToken
     })
-  } catch {
+  } catch (error) {
+    console.error('[STS] Error:', error)
     return c.json({ success: false, message: ERROR_MESSAGE })
   }
 })

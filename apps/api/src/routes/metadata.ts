@@ -45,7 +45,8 @@ app.post('/', async (c) => {
       id: tx.id,
       url: `ar://${tx.id}`
     })
-  } catch {
+  } catch (error) {
+    console.error('[METADATA] Error:', error)
     return c.json({ success: false, message: ERROR_MESSAGE })
   }
 })

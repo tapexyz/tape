@@ -104,7 +104,8 @@ app.post('/', zValidator('json', validationSchema), async (c) => {
     const dids = await resolveAllAddresses(transformedAddresses)
 
     return c.json({ success: true, dids })
-  } catch {
+  } catch (error) {
+    console.error('[DID] Error:', error)
     return c.json({ success: false, message: ERROR_MESSAGE })
   }
 })

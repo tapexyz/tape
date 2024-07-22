@@ -16,7 +16,8 @@ app.get('/', async (c) => {
 
     c.header('Cache-Control', 'max-age=300')
     return c.json({ success: true, ids })
-  } catch {
+  } catch (error) {
+    console.error('[VERIFIED] Error:', error)
     return c.json({ success: false, message: ERROR_MESSAGE })
   }
 })

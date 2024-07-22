@@ -34,7 +34,8 @@ app.post('/', zValidator('json', validationSchema), async (c) => {
     }
 
     return c.json({ success: true, views: viewsRes.viewCount })
-  } catch {
+  } catch (error) {
+    console.error('[VIEWS] Error:', error)
     return c.json({ success: false, message: ERROR_MESSAGE })
   }
 })

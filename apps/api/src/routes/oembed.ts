@@ -63,7 +63,8 @@ app.get('/', zValidator('query', validationSchema), async (c) => {
 
     c.header('Cache-Control', 'max-age=3600')
     return c.json({ success: true, og: ogData })
-  } catch {
+  } catch (error) {
+    console.error('[OEMBED] Error:', error)
     return c.json({ success: false, message: ERROR_MESSAGE })
   }
 })

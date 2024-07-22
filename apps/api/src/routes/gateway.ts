@@ -16,16 +16,20 @@ app.get(
   ),
   async (c) => {
     const { id } = c.req.param()
-
-    const result = await fetch(`https://gateway.irys.xyz/${id}`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'User-Agent': 'Tape'
-      }
-    })
-    const viewsRes = (await result.json()) as JSON
-    return c.json(JSON.parse(JSON.stringify(viewsRes)))
+    try {
+      const result = await fetch(`https://gateway.irys.xyz/${id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'User-Agent': 'Tape'
+        }
+      })
+      const viewsRes = (await result.json()) as JSON
+      return c.json(JSON.parse(JSON.stringify(viewsRes)))
+    } catch (error) {
+      console.error('[GATEWAY] Error:', error)
+      return c.redirect(`https://gateway.irys.xyz/${id}`)
+    }
   }
 )
 

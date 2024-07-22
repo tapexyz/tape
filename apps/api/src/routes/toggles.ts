@@ -37,7 +37,8 @@ app.get(
           flagged: Boolean(result?.flagged)
         }
       })
-    } catch {
+    } catch (error) {
+      console.error('[TOGGLES] Error:', error)
       return c.json({ success: false, message: ERROR_MESSAGE })
     }
   }

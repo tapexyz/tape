@@ -20,7 +20,8 @@ app.get('/', async (c) => {
 
     c.header('Cache-Control', 'max-age=600')
     return c.json({ success: true, tokens })
-  } catch {
+  } catch (error) {
+    console.error('[ALLOWED TOKENS] Error:', error)
     return c.json({ success: false, message: ERROR_MESSAGE })
   }
 })

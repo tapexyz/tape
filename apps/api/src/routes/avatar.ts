@@ -42,7 +42,8 @@ app.get(
       c.header('Cache-Control', 'max-age=300')
 
       return c.body(svgImage)
-    } catch {
+    } catch (error) {
+      console.error('[AVATAR] Error:', error)
       return c.redirect(`https://cdn.stamp.fyi/avatar/${profileId}?s=300`)
     }
   }
