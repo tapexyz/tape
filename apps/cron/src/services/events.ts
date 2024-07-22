@@ -9,11 +9,12 @@ const flushEvents = async (): Promise<void> => {
     const length = await rLength(QUEUE_KEY)
     // Loop as batch of BATCH_SIZE events
     for (let i = 0; i < length; i += BATCH_SIZE) {
-      // pick BATCH_SIZE events from the start of the queue
+      // pick BATCH_SIZE events from the start of the queue (for eg 0 to 4999)
       const rawEvents = await rLoad(QUEUE_KEY, i, BATCH_SIZE - 1)
       const events: Record<string, any>[] = rawEvents.map((event) =>
         JSON.parse(event)
       )
+
       if (events.length > 0) {
         await clickhouseClient.insert({
           format: 'JSONEachRow',
