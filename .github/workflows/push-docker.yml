@@ -71,7 +71,7 @@ jobs:
           dockerhub_token: ${{ secrets.DOCKERHUB_TOKEN }}
           image_name: tape-cron
           tag_name: 'latest'
-          docker_file: ./apps/api/Dockerfile
+          docker_file: ./apps/cron/Dockerfile
 
       - name: Trigger Cron Deployment 🚢
         uses: indiesdev/curl@v1
