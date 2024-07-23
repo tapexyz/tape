@@ -2,7 +2,7 @@
     <img src="https://static.tape.xyz/brand/og.png" alt="banner">
     <br/>
     <br/>
-    <p>Talk, Amplify, Post, Explore</p>
+    <p>Talk, Amplify, Post, Explore - social media platform</p>
     <a href="https://tape.xyz">tape.xyz</a>
 </div>
 <br>
@@ -36,31 +36,31 @@
 
 For a place to have open discussions on features, voice your ideas, or get help with general questions please visit our community at [Discord](https://tape.xyz/discord).
 
-
 ## 🔭 What's inside?
 
 This monorepo uses [Pnpm](https://pnpm.io/) as a package manager. It includes the following apps and packages:
 
 ### 🏗️ Apps
 
-| Name     | Description                         |
-| -------- | ----------------------------------- |
-| `web`    | NextJs tape website                 |
-| `embed`  | NextJs application for video embeds |
-| `api`    | Cloudflare functions                |
-| `og`     | Open graph meta tags generator      |
+| Name    | Description                    |
+| ------- | ------------------------------ |
+| `web`   | Frontend application           |
+| `embed` | Embed Video Player             |
+| `cron`  | Cron jobs for background tasks |
+| `api`   | Backend server                 |
+| `og`    | Open graph meta tags generator |
 
 ### 📦 Packages
 
-| Name             | Description                               |
-| ---------------- | ----------------------------------------- |
-| `lens`           | Everything related to Lens                |
-| `abis`           | Contract Interfaces                       |
-| `helpers`        | Collection of browser and generic helpers |
-| `ui`             | UI components                             |
-| `constants`      | Constants for the entire application      |
-| `config`         | Shared lint config                        |
-| `contracts`      | Permissionless signup contracts           |
+| Name        | Description                               |
+| ----------- | ----------------------------------------- |
+| `abis`      | Contract Interfaces                       |
+| `config`    | Shared lint config                        |
+| `constants` | Constants for the entire application      |
+| `contracts` | Permissionless signup contracts           |
+| `helpers`   | Collection of browser and generic helpers |
+| `lens`      | Everything related to Lens                |
+| `ui`        | UI components                             |
 
 ## 🆕 Getting Started
 
