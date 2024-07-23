@@ -31,3 +31,9 @@ model AllowedToken {
   address   String   @unique @db.Text
   createdAt DateTime @default(now())
 }
+
+model CuratedProfile {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  profileId String   @db.Text
+  createdAt DateTime @default(now())
+}
