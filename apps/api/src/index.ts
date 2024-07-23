@@ -7,6 +7,7 @@ import { logger } from 'hono/logger'
 
 import allowedTokens from './routes/allowed-tokens'
 import avatar from './routes/avatar'
+import curated from './routes/curated'
 import did from './routes/did'
 import gateway from './routes/gateway'
 import metadata from './routes/metadata'
@@ -33,6 +34,7 @@ app.route('/views', views)
 app.route('/oembed', oembed)
 app.route('/avatar', avatar)
 app.route('/gateway', gateway)
+app.route('/curated', curated)
 app.route('/toggles', toggles)
 app.route('/metadata', metadata)
 app.route('/verified', verified)
