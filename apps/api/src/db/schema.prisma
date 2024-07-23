@@ -5,7 +5,7 @@ datasource db {
 
 model Verified {
   id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  profileId String   @db.Text
+  profileId String   @unique @db.Text
   createdAt DateTime @default(now())
 
   @@index([profileId])
@@ -13,7 +13,7 @@ model Verified {
 
 model ProfileRestriction {
   id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  profileId String   @db.Text
+  profileId String   @unique @db.Text
   suspended Int      @default(0)
   flagged   Int      @default(0)
   limited   Int      @default(0)
@@ -34,6 +34,6 @@ model AllowedToken {
 
 model CuratedProfile {
   id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  profileId String   @db.Text
+  profileId String   @unique @db.Text
   createdAt DateTime @default(now())
 }
