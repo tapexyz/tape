@@ -11,12 +11,10 @@ app.get('/profiles', async (c) => {
        SELECT "profileId" FROM "CuratedProfile" ORDER BY RANDOM() LIMIT 50;
       `
     )
-    const profiles = results.map(
-      (item: Record<string, unknown>) => item.profileId
-    )
+    const ids = results.map((item: Record<string, unknown>) => item.profileId)
 
     c.header('Cache-Control', 'max-age=86400')
-    return c.json({ success: true, profiles })
+    return c.json({ success: true, ids })
   } catch (error) {
     console.error('[CURATED PROFILES] Error:', error)
     return c.json({ success: false, message: ERROR_MESSAGE })

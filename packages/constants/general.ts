@@ -17,7 +17,6 @@ export const FALLBACK_THUMBNAIL_URL = `${STATIC_ASSETS}/images/fallback-thumbnai
 export const FALLBACK_COVER_URL = `${STATIC_ASSETS}/images/fallback-cover.svg`
 export const OG_IMAGE = `${STATIC_ASSETS}/brand/og.png`
 export const LENS_IMAGEKIT_SNAPSHOT_URL = 'https://ik.imagekit.io/lenstube'
-export const TAPE_CURATOR_ID = '0x04298d'
 
 // infinite scroll
 export const INFINITE_SCROLL_ROOT_MARGIN = '800px'
@@ -41,7 +40,7 @@ export const TAPE_EMBED_URL = IS_MAINNET
   : 'https://embed-testnet.tape.xyz'
 export const TAPE_API_URL = IS_PRODUCTION
   ? 'https://api.tape.xyz'
-  : 'http://localhost:4000'
+  : 'http://localhost:3000'
 
 // tape addresses
 export const TAPE_SIGNUP_PROXY_ADDRESS = IS_MAINNET
@@ -123,6 +122,7 @@ export const WORKER_DID_URL = `${TAPE_API_URL}/did`
 export const WORKER_TOWER_URL = `${TAPE_API_URL}/tower`
 export const WORKER_OEMBED_URL = `${TAPE_API_URL}/oembed`
 export const WORKER_VERIFIED_URL = `${TAPE_API_URL}/verified`
+export const WORKER_CURATED_PROFILES_URL = `${TAPE_API_URL}/curated/profiles`
 export const WORKER_TOGGLES_URL = `${TAPE_API_URL}/toggles`
 export const WORKER_AVATAR_URL = `${TAPE_API_URL}/avatar`
 export const WORKER_ALLOWED_TOKENS_URL = `${TAPE_API_URL}/allowed-tokens`
@@ -166,7 +166,7 @@ export const TAPE_STATUS_PAGE = 'https://status.tape.xyz'
 export const TAPE_FEEDBACK_URL = 'https://feedback.tape.xyz'
 
 // admin
-export const ADMIN_IDS = IS_MAINNET ? ['0x2d', TAPE_CURATOR_ID] : []
+export const ADMIN_IDS = IS_MAINNET ? ['0x2d'] : []
 export const TAPE_ADMIN_ADDRESS = '0xB89560D7b33ea8d787EaaEfbcE1268f8991Db9E1'
 
 // lens
