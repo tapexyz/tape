@@ -11,8 +11,8 @@
     "format": "prettier --write \"**/*.{ts,tsx,md,json,css}\""
   },
   "dependencies": {
-    "@apollo/client": "3.10.8",
-    "@irys/sdk": "^0.2.6",
+    "@apollo/client": "3.11.1",
+    "@irys/sdk": "^0.2.9",
     "@lens-protocol/metadata": "^1.2.0"
   },
   "devDependencies": {
@@ -23,6 +23,6 @@
     "@graphql-codegen/typescript-react-apollo": "^4.3.0",
     "@tape.xyz/config": "workspace:*",
     "@tape.xyz/constants": "workspace:*",
-    "typescript": "5.5.3"
+    "typescript": "5.5.4"
   }
 }
