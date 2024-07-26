@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from '@tape.xyz/constants'
+import { CACHE_CONTROL, ERROR_MESSAGE } from '@tape.xyz/constants'
 import { db } from '@tape.xyz/server'
 import { Hono } from 'hono'
 
@@ -18,7 +18,7 @@ app.get('/', async (c) => {
       symbol: item.symbol
     }))
 
-    c.header('Cache-Control', 'max-age=600')
+    c.header('Cache-Control', CACHE_CONTROL.FOR_ONE_DAY)
     return c.json({ success: true, tokens })
   } catch (error) {
     console.error('[ALLOWED TOKENS] Error:', error)

@@ -1,5 +1,5 @@
 import { zValidator } from '@hono/zod-validator'
-import { ERROR_MESSAGE } from '@tape.xyz/constants'
+import { CACHE_CONTROL, ERROR_MESSAGE } from '@tape.xyz/constants'
 import { Hono } from 'hono'
 import { parseHTML } from 'linkedom'
 import { object, string } from 'zod'
@@ -61,7 +61,7 @@ app.get('/', zValidator('query', validationSchema), async (c) => {
         </oembed>`)
     }
 
-    c.header('Cache-Control', 'max-age=3600')
+    c.header('Cache-Control', CACHE_CONTROL.FOR_ONE_WEEK)
     return c.json({ success: true, og: ogData })
   } catch (error) {
     console.error('[OEMBED] Error:', error)

@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from '@tape.xyz/constants'
+import { CACHE_CONTROL, ERROR_MESSAGE } from '@tape.xyz/constants'
 import { db } from '@tape.xyz/server'
 import { Hono } from 'hono'
 
@@ -14,7 +14,7 @@ app.get('/', async (c) => {
 
     const ids = results.map((item: Record<string, unknown>) => item.profileId)
 
-    c.header('Cache-Control', 'max-age=300')
+    c.header('Cache-Control', CACHE_CONTROL.FOR_FIVE_MINUTE)
     return c.json({ success: true, ids })
   } catch (error) {
     console.error('[VERIFIED] Error:', error)

@@ -1,6 +1,10 @@
 import { zValidator } from '@hono/zod-validator'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
-import { LENSHUB_PROXY_ADDRESS, POLYGON_RPC_URL } from '@tape.xyz/constants'
+import {
+  CACHE_CONTROL,
+  LENSHUB_PROXY_ADDRESS,
+  POLYGON_RPC_URL
+} from '@tape.xyz/constants'
 import { Hono } from 'hono'
 import { createPublicClient, http } from 'viem'
 import { polygon } from 'viem/chains'
@@ -39,7 +43,7 @@ app.get(
       const svgImage = Buffer.from(base64Image, 'base64').toString('utf-8')
 
       c.header('Content-Type', 'image/svg+xml')
-      c.header('Cache-Control', 'max-age=300')
+      c.header('Cache-Control', CACHE_CONTROL.FOR_ONE_YEAR)
 
       return c.body(svgImage)
     } catch (error) {

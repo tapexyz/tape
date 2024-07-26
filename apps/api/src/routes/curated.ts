@@ -1,4 +1,4 @@
-import { ERROR_MESSAGE } from '@tape.xyz/constants'
+import { CACHE_CONTROL, ERROR_MESSAGE } from '@tape.xyz/constants'
 import { db } from '@tape.xyz/server'
 import { Hono } from 'hono'
 
@@ -13,7 +13,7 @@ app.get('/profiles', async (c) => {
     )
     const ids = results.map((item: Record<string, unknown>) => item.profileId)
 
-    c.header('Cache-Control', 'max-age=86400')
+    c.header('Cache-Control', CACHE_CONTROL.FOR_ONE_DAY)
     return c.json({ success: true, ids })
   } catch (error) {
     console.error('[CURATED PROFILES] Error:', error)

@@ -190,3 +190,13 @@ export const HEY_WEBSITE_URL = IS_MAINNET
 // banners
 export const SHOW_GITCOIN_BANNER = false
 export const GITCOIN_LIVE_ROUND = 21
+
+// cache control
+export const CACHE_CONTROL = {
+  FOR_ONE_YEAR: 'public, max-age=31536000, s-maxage=31536000',
+  FOR_ONE_MONTH: 'public, max-age=2592000, s-maxage=2592000',
+  FOR_ONE_WEEK: 'public, max-age=604800, s-maxage=604800',
+  FOR_ONE_DAY: 'public, max-age=86400, s-maxage=86400',
+  FOR_ONE_HOUR: 'public, max-age=3600, s-maxage=3600',
+  FOR_FIVE_MINUTE: 'public, max-age=300, s-maxage=300'
+}

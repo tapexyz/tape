@@ -1,5 +1,5 @@
 import { zValidator } from '@hono/zod-validator'
-import { ERROR_MESSAGE } from '@tape.xyz/constants'
+import { CACHE_CONTROL, ERROR_MESSAGE } from '@tape.xyz/constants'
 import { db } from '@tape.xyz/server'
 import { Hono } from 'hono'
 import { object, string } from 'zod'
@@ -28,7 +28,7 @@ app.get(
         [profileId]
       )
 
-      c.header('Cache-Control', 'max-age=300')
+      c.header('Cache-Control', CACHE_CONTROL.FOR_FIVE_MINUTE)
       return c.json({
         success: true,
         restrictions: {
