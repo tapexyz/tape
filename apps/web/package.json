@@ -19,12 +19,12 @@
     "@lens-protocol/metadata": "^1.2.0",
     "@livepeer/react": "3.1.9",
     "@tailwindcss/aspect-ratio": "^0.4.2",
-    "@tanstack/react-query": "^5.50.1",
+    "@tanstack/react-query": "^5.51.15",
     "axios": "^1.7.2",
     "dayjs": "^1.11.11",
     "emoji-mart": "^5.6.0",
     "filereader-stream": "^2.0.0",
-    "framer-motion": "^11.3.17",
+    "framer-motion": "^11.3.19",
     "graphql": "^16.9.0",
     "idb-keyval": "^6.2.1",
     "interweave": "^13.1.0",
@@ -41,8 +41,8 @@
     "react-use-websocket": "^4.8.1",
     "textarea-caret": "^3.1.0",
     "uuid": "^10.0.0",
-    "viem": "^2.18.0",
-    "wagmi": "^2.12.0",
+    "viem": "^2.18.2",
+    "wagmi": "^2.12.1",
     "zod": "^3.23.8",
     "zustand": "^4.5.4"
   },
@@ -63,7 +63,7 @@
     "@types/uuid": "^10.0.0",
     "autoprefixer": "^10.4.19",
     "postcss": "^8.4.40",
-    "tailwindcss": "^3.4.4",
+    "tailwindcss": "^3.4.7",
     "typescript": "5.5.4"
   }
 }
