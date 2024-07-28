@@ -15,7 +15,7 @@
     "typecheck": "pnpm -r --parallel run typecheck"
   },
   "devDependencies": {
-    "husky": "^9.0.11",
+    "husky": "^9.1.3",
     "prettier-plugin-tailwindcss": "^0.6.5"
   },
   "eslintConfig": {
