@@ -11,11 +11,11 @@
   "dependencies": {
     "@clickhouse/client": "^1.4.0",
     "pg-promise": "^11.9.1",
-    "redis": "^4.6.15"
+    "redis": "^4.7.0"
   },
   "devDependencies": {
     "@tape.xyz/config": "workspace:*",
-    "@types/node": "^20.14.12",
+    "@types/node": "^22.0.0",
     "typescript": "5.5.4"
   }
 }

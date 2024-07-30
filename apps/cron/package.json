@@ -19,7 +19,7 @@
     "@tape.xyz/config": "workspace:*",
     "@tape.xyz/constants": "workspace:*",
     "@tape.xyz/server": "workspace:*",
-    "@types/node": "^20.14.12",
+    "@types/node": "^22.0.0",
     "@types/node-cron": "^3.0.11",
     "tsx": "^4.7.1",
     "typescript": "5.5.4"
