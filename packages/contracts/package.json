@@ -11,14 +11,14 @@
   "devDependencies": {
     "@nomicfoundation/hardhat-ethers": "^3.0.6",
     "@nomicfoundation/hardhat-toolbox": "^5.0.0",
-    "@nomicfoundation/hardhat-verify": "^2.0.8",
+    "@nomicfoundation/hardhat-verify": "^2.0.9",
     "@openzeppelin/contracts": "^5.0.2",
     "@openzeppelin/contracts-upgradeable": "^5.0.2",
-    "@openzeppelin/hardhat-upgrades": "^3.2.0",
+    "@openzeppelin/hardhat-upgrades": "^3.2.1",
     "@tape.xyz/config": "workspace:*",
     "dotenv": "^16.4.5",
     "ethers": "^6.13.2",
-    "hardhat": "^2.22.6",
+    "hardhat": "^2.22.7",
     "ts-node": "^10.9.2",
     "typescript": "^5.5.4"
   }
