@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@lens-protocol/metadata": "^1.2.0",
-    "axios": "^1.7.2",
+    "axios": "^1.7.3",
     "dayjs-twitter": "^0.5.0",
     "viem": "^2.18.7"
   },
