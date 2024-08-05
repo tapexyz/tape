@@ -3,10 +3,10 @@ import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   CACHE_CONTROL,
   LENSHUB_PROXY_ADDRESS,
-  POLYGON_RPC_URL
+  POLYGON_RPC_URLS
 } from '@tape.xyz/constants'
 import { Hono } from 'hono'
-import { createPublicClient, http } from 'viem'
+import { createPublicClient, fallback, http } from 'viem'
 import { polygon } from 'viem/chains'
 import { object, string } from 'zod'
 
@@ -26,7 +26,7 @@ app.get(
     try {
       const client = createPublicClient({
         chain: polygon,
-        transport: http(POLYGON_RPC_URL)
+        transport: fallback(POLYGON_RPC_URLS.map((rpc) => http(rpc)))
       })
 
       const data: any = await client.readContract({
