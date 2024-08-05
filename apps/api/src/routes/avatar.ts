@@ -47,7 +47,7 @@ app.get(
 
       return c.body(svgImage)
     } catch (error) {
-      console.error('[AVATAR] Error:', error)
+      console.error('[AVATAR] Error:', profileId, error)
       return c.redirect(`https://cdn.stamp.fyi/avatar/${profileId}?s=300`)
     }
   }
