@@ -80,9 +80,17 @@ export const TESTNET_ALLOWED_TOKENS = [
 ]
 
 // polygon
-export const POLYGON_RPC_URL = IS_MAINNET
-  ? 'https://rpc.ankr.com/polygon'
-  : 'https://rpc.ankr.com/polygon_amoy'
+export const POLYGON_RPC_URLS = IS_MAINNET
+  ? [
+      'https://rpc.ankr.com/polygon',
+      'https://polygon.llamarpc.com',
+      'https://polygon-bor-rpc.publicnode.com'
+    ]
+  : [
+      'https://rpc.ankr.com/polygon_amoy',
+      'https://rpc-amoy.polygon.technology',
+      'https://polygon-amoy-bor-rpc.publicnode.com'
+    ]
 export const POLYGONSCAN_URL = IS_MAINNET
   ? 'https://polygonscan.com'
   : 'https://amoy.polygonscan.com'

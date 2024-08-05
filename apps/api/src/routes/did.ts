@@ -1,7 +1,7 @@
 import { zValidator } from '@hono/zod-validator'
 import { ERROR_MESSAGE, LENS_API_URL } from '@tape.xyz/constants'
 import { Hono } from 'hono'
-import { createPublicClient, http, isAddress } from 'viem'
+import { createPublicClient, fallback, http, isAddress } from 'viem'
 import { mainnet } from 'viem/chains'
 import type { z } from 'zod'
 import { array, object, string } from 'zod'
@@ -48,7 +48,11 @@ const replaceAddressesWithHandles = (
 const resolveENS = async (address: string): Promise<string> => {
   const client = createPublicClient({
     chain: mainnet,
-    transport: http('https://ethereum.publicnode.com')
+    transport: fallback([
+      http('https://ethereum.publicnode.com'),
+      http('https://rpc.ankr.com/eth'),
+      http('https://eth.merkle.io')
+    ])
   })
   const data = await client.readContract({
     address: '0x3671ae578e63fdf66ad4f3e12cc0c0d71ac7510c',

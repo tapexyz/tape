@@ -1,15 +1,17 @@
 import { WebIrys } from '@irys/sdk'
 import { MetadataLicenseType } from '@lens-protocol/metadata'
-import { viemPublicClient } from '@lib/viemClient'
 import {
   CREATOR_VIDEO_CATEGORIES,
   IRYS_CURRENCY,
   IRYS_NETWORK,
+  IS_MAINNET,
+  POLYGON_RPC_URLS,
   WMATIC_TOKEN_ADDRESS
 } from '@tape.xyz/constants'
 import { logger } from '@tape.xyz/generic'
 import type { IrysDataState, UploadedMedia } from '@tape.xyz/lens/custom-types'
-import type { WalletClient } from 'viem'
+import { createPublicClient, fallback, http, type WalletClient } from 'viem'
+import { polygon, polygonAmoy } from 'viem/chains'
 import { create } from 'zustand'
 
 export const UPLOADED_VIDEO_IRYS_DEFAULTS = {
@@ -97,7 +99,10 @@ const useAppStore = create<AppState>((set) => ({
         wallet: {
           name: 'viemv2',
           provider: client,
-          publicClient: viemPublicClient
+          publicClient: createPublicClient({
+            chain: IS_MAINNET ? polygon : polygonAmoy,
+            transport: fallback(POLYGON_RPC_URLS.map((rpc) => http(rpc)))
+          })
         }
       })
       await instance.ready()
