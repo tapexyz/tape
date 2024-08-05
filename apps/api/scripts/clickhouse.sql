@@ -1,25 +1,27 @@
 -- Events
-CREATE TABLE events (
+CREATE TABLE events_new (
   id UUID DEFAULT generateUUIDv4(),
   name String,
-  actor Nullable(String),
+  actor LowCardinality(Nullable(String)),
   properties Nullable(String),
-  url Nullable(String),
-  city Nullable(String),
+  url LowCardinality(Nullable(String)),
+  city LowCardinality(Nullable(String)),
   country LowCardinality(String),
-  region Nullable(String),
-  referrer Nullable(String),
-  platform String,
-  browser Nullable(String),
-  browser_version Nullable(String),
-  os Nullable(String),
-  utm_source Nullable(String),
-  utm_medium Nullable(String),
-  utm_campaign Nullable(String),
-  utm_term Nullable(String),
-  utm_content Nullable(String),
-  fingerprint Nullable(String),
+  region LowCardinality(Nullable(String)),
+  referrer LowCardinality(Nullable(String)),
+  platform LowCardinality(String),
+  browser LowCardinality(Nullable(String)),
+  browser_version LowCardinality(Nullable(String)),
+  os LowCardinality(Nullable(String)),
+  utm_source LowCardinality(Nullable(String)),
+  utm_medium LowCardinality(Nullable(String)),
+  utm_campaign LowCardinality(Nullable(String)),
+  utm_term LowCardinality(Nullable(String)),
+  utm_content LowCardinality(Nullable(String)),
+  fingerprint LowCardinality(Nullable(String)),
   created DateTime DEFAULT now()
 ) ENGINE = MergeTree
-ORDER BY created;
-
+PARTITION BY toYYYYMM(created)
+ORDER BY created
+TTL created + INTERVAL 1 YEAR
+SETTINGS index_granularity = 8192;
