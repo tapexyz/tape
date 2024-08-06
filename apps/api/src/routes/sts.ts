@@ -4,7 +4,7 @@ import { Hono } from 'hono'
 
 const app = new Hono()
 
-const bucketName = 'tape'
+const bucketName = 'tape-2024'
 const everEndpoint = 'https://endpoint.4everland.co'
 const params = {
   DurationSeconds: 3600,
