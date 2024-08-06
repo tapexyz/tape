@@ -6,7 +6,7 @@ import { object, string } from 'zod'
 
 const app = new Hono()
 
-const logtailApiURL = 'https://in.logtail.com/'
+const logtailApiURL = 'https://in.logs.betterstack.com'
 const validationSchema = object({
   source: string(),
   level: string().nullable().optional(),
