@@ -11,7 +11,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md,json,css}\""
   },
   "dependencies": {
-    "@apollo/client": "3.11.2",
+    "@apollo/client": "3.11.3",
     "@irys/sdk": "^0.2.9",
     "@lens-protocol/metadata": "^1.2.0"
   },

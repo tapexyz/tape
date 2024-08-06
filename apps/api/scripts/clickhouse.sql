@@ -1,5 +1,5 @@
 -- Events
-CREATE TABLE events_new (
+CREATE TABLE events (
   id UUID DEFAULT generateUUIDv4(),
   name String,
   actor LowCardinality(Nullable(String)),
