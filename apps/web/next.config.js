@@ -69,7 +69,7 @@ const moduleExports = {
       },
       {
         source: '/gitcoin',
-        destination: 'https://explorer.gitcoin.co/#/round/42161/25/0',
+        destination: 'https://explorer.gitcoin.co/#/round/10/44/13',
         permanent: true
       },
       {
