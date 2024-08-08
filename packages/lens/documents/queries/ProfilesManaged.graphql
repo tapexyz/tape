@@ -1,5 +1,5 @@
 query ProfilesManaged(
-  $request: ProfilesManagedRequest!,
+  $request: ProfilesManagedRequest!
   $lastLoggedInProfileRequest: LastLoggedInProfileRequest!
 ) {
   profilesManaged(request: $request) {
