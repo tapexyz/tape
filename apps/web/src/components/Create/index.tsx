@@ -405,7 +405,9 @@ const CreateSteps = () => {
         altTag: trimify(uploadedMedia.title),
         attributes,
         cover: uploadedMedia.thumbnail,
-        duration: uploadedMedia.durationInSeconds,
+        ...(Boolean(uploadedMedia.durationInSeconds) && {
+          duration: uploadedMedia.durationInSeconds
+        }),
         license: uploadedMedia.mediaLicense
       },
       appId: TAPE_APP_ID,

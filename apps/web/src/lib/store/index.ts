@@ -41,7 +41,7 @@ export const UPLOADED_VIDEO_FORM_DEFAULTS: UploadedMedia = {
   loading: false,
   uploadingThumbnail: false,
   buttonText: 'Post Now',
-  durationInSeconds: 1,
+  durationInSeconds: 0,
   mediaCategory: CREATOR_VIDEO_CATEGORIES[0],
   mediaLicense: MetadataLicenseType.CC_BY,
   isByteVideo: false,
