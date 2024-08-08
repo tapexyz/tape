@@ -8,14 +8,26 @@ const redisClient: RedisClientType = createClient({
 const connectRedis = async () => {
   try {
     await redisClient.connect()
-    console.log('[REDIS] Connected to Redis successfully.')
   } catch (error) {
-    console.error('[REDIS] Failed to connect to Redis:', error)
+    console.error('[REDIS] Connection failed', error)
   }
+}
+
+const listenToRedis = () => {
+  redisClient.on('connect', () => console.log('[REDIS] Connected to Redis'))
+  redisClient.on('ready', () => console.log('[REDIS] Redis is ready'))
+  redisClient.on('reconnecting', () =>
+    console.log('[REDIS] Redis is reconnecting')
+  )
+  redisClient.on('error', (error) =>
+    console.error('[REDIS] Redis error', error)
+  )
+  redisClient.on('end', () => console.log('[REDIS] Redis connection ended'))
 }
 
 if (redisClient) {
   connectRedis()
+  listenToRedis()
 }
 
 const rSave = async (key: string, value: string): Promise<void> => {
