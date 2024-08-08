@@ -15,7 +15,7 @@
   "dependencies": {
     "@emoji-mart/react": "^1.1.1",
     "@hookform/resolvers": "^3.9.0",
-    "@irys/sdk": "^0.2.9",
+    "@irys/sdk": "^0.2.10",
     "@lens-protocol/metadata": "^1.2.0",
     "@livepeer/react": "3.1.9",
     "@tailwindcss/aspect-ratio": "^0.4.2",
@@ -24,7 +24,7 @@
     "dayjs": "^1.11.11",
     "emoji-mart": "^5.6.0",
     "filereader-stream": "^2.0.0",
-    "framer-motion": "^11.3.21",
+    "framer-motion": "^11.3.23",
     "graphql": "^16.9.0",
     "idb-keyval": "^6.2.1",
     "interweave": "^13.1.0",
@@ -41,13 +41,13 @@
     "react-use-websocket": "^4.8.1",
     "textarea-caret": "^3.1.0",
     "uuid": "^10.0.0",
-    "viem": "^2.18.8",
-    "wagmi": "^2.12.2",
+    "viem": "^2.19.2",
+    "wagmi": "^2.12.4",
     "zod": "^3.23.8",
     "zustand": "^4.5.4"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.13",
+    "@tailwindcss/typography": "^0.5.14",
     "@tape.xyz/abis": "workspace:*",
     "@tape.xyz/browser": "workspace:*",
     "@tape.xyz/config": "workspace:*",
@@ -63,7 +63,7 @@
     "@types/uuid": "^10.0.0",
     "autoprefixer": "^10.4.20",
     "postcss": "^8.4.41",
-    "tailwindcss": "^3.4.7",
+    "tailwindcss": "^3.4.8",
     "typescript": "5.5.4"
   }
 }

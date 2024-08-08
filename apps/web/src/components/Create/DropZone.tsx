@@ -4,7 +4,8 @@ import useProfileStore from '@lib/store/idb/profile'
 import { tw, useDragAndDrop } from '@tape.xyz/browser'
 import {
   ALLOWED_UPLOAD_MIME_TYPES,
-  CREATOR_VIDEO_CATEGORIES
+  CREATOR_VIDEO_CATEGORIES,
+  IPFS_FREE_UPLOAD_LIMIT
 } from '@tape.xyz/constants'
 import { canUploadedToIpfs, logger } from '@tape.xyz/generic'
 import { Button, UploadOutline } from '@tape.xyz/ui'
@@ -93,7 +94,10 @@ const DropZone = () => {
         <span className="space-y-10">
           <div className="space-y-4">
             <p className="text-2xl md:text-4xl">Drag and drop</p>
-            <p>Select multimedia from your device.</p>
+            <p>
+              Select multimedia from your device. (Recommended {'<'}
+              {IPFS_FREE_UPLOAD_LIMIT / 1000}GB)
+            </p>
           </div>
           <div className="flex justify-center">
             <Button variant="secondary" type="button">
