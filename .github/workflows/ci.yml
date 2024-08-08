@@ -30,7 +30,7 @@ jobs:
           run: pnpm install
           
         - name: Check Lint 💅🏻
-          run: pnpm lint && pnpm typecheck
+          run: pnpm lint && pnpm typecheck && pnpm format:check
 
         - name: Run Build 🔨
           run: pnpm build
