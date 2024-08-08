@@ -1,10 +1,9 @@
 import { AssumeRoleCommand, STSClient } from '@aws-sdk/client-sts'
-import { ERROR_MESSAGE } from '@tape.xyz/constants'
+import { ERROR_MESSAGE, EVER_BUCKET_NAME } from '@tape.xyz/constants'
 import { Hono } from 'hono'
 
 const app = new Hono()
 
-const bucketName = 'tape-2024'
 const everEndpoint = 'https://endpoint.4everland.co'
 const params = {
   DurationSeconds: 3600,
@@ -19,7 +18,7 @@ const params = {
 		      "s3:AbortMultipartUpload"
         ],
         "Resource": [
-          "arn:aws:s3:::${bucketName}/*"
+          "arn:aws:s3:::${EVER_BUCKET_NAME}/*"
         ]
       }
     ]

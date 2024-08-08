@@ -1,6 +1,7 @@
 import { S3 } from '@aws-sdk/client-s3'
 import { Upload } from '@aws-sdk/lib-storage'
 import {
+  EVER_BUCKET_NAME,
   EVER_ENDPOINT,
   EVER_REGION,
   WORKER_STS_TOKEN_URL
@@ -45,7 +46,7 @@ const everland = async (
     )
     const fileKey = uuidv4()
     const params = {
-      Bucket: 'tape-2024',
+      Bucket: EVER_BUCKET_NAME,
       Key: fileKey,
       Body: file,
       ContentType: file.type
