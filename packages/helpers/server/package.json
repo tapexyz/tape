@@ -9,7 +9,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md,json,css}\""
   },
   "dependencies": {
-    "@clickhouse/client": "^1.4.0",
+    "@clickhouse/client": "^1.4.1",
     "pg-promise": "^11.9.1",
     "redis": "^4.7.0"
   },
