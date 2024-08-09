@@ -19,7 +19,6 @@ import {
   useChallengeLazyQuery,
   useProfilesManagedQuery
 } from '@tape.xyz/lens'
-import { useApolloClient } from '@tape.xyz/lens/apollo'
 import {
   Button,
   Callout,
@@ -46,7 +45,6 @@ const Authenticate = () => {
 
   const router = useRouter()
   const { address, connector, isConnected } = useAccount()
-  const { resetStore: resetApolloStore } = useApolloClient()
 
   useEffect(() => {
     if (signup) {
@@ -54,9 +52,8 @@ const Authenticate = () => {
     }
   }, [signup])
 
-  const onError = (error: any) => {
+  const onError = () => {
     signOut()
-    toast.error(error?.message ?? ERROR_MESSAGE)
   }
 
   const {
@@ -136,9 +133,6 @@ const Authenticate = () => {
           request: { id: challenge.data?.challenge.id, signature }
         }
       })
-      if (!result.data?.authenticate) {
-        return toast.error(result.errors?.[0]?.message ?? ERROR_MESSAGE)
-      }
       const accessToken = result.data?.authenticate.accessToken
       const refreshToken = result.data?.authenticate.refreshToken
       signIn({ accessToken, refreshToken })
@@ -159,7 +153,6 @@ const Authenticate = () => {
           router.push('/')
         }
       }
-      resetApolloStore()
       Tower.track(EVENTS.AUTH.SIGN_IN_WITH_LENS)
     } catch (error) {
       logger.error('[Error Sign In]', {
