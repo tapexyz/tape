@@ -37,3 +37,16 @@ model CuratedProfile {
   profileId String   @unique @db.Text
   createdAt DateTime @default(now())
 }
+
+model Profile {
+  id          String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  profileId   String   @unique @db.Text
+  isCurated   Boolean  @default(false)
+  isVerified  Boolean  @default(false)
+  isSuspended Boolean  @default(false)
+  isLimited   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @default(now())
+
+  @@index([profileId])
+}

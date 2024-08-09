@@ -8,7 +8,7 @@ app.get('/', async (c) => {
   try {
     const results = await db.manyOrNone(
       `
-       SELECT * FROM "Verified";
+       SELECT "profileId" FROM "Profile" WHERE "isVerified" = TRUE;
       `
     )
 
