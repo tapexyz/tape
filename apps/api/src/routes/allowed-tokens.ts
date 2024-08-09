@@ -1,11 +1,20 @@
-import { CACHE_CONTROL, ERROR_MESSAGE } from '@tape.xyz/constants'
-import { db } from '@tape.xyz/server'
+import { CACHE_CONTROL, ERROR_MESSAGE, REDIS_KEYS } from '@tape.xyz/constants'
+import { db, rGet, rSet } from '@tape.xyz/server'
 import { Hono } from 'hono'
 
 const app = new Hono()
 
 app.get('/', async (c) => {
   try {
+    c.header('Cache-Control', CACHE_CONTROL.FOR_FIVE_MINUTE)
+
+    const cachedValue = await rGet(REDIS_KEYS.ALLOWED_TOKENS)
+    if (cachedValue) {
+      console.info('CACHE HIT')
+      return c.json({ success: true, tokens: JSON.parse(cachedValue) })
+    }
+    console.info('CACHE MISS')
+
     const results = await db.manyOrNone(
       `
        SELECT * FROM "AllowedToken";
@@ -18,7 +27,7 @@ app.get('/', async (c) => {
       symbol: item.symbol
     }))
 
-    c.header('Cache-Control', CACHE_CONTROL.FOR_ONE_DAY)
+    await rSet(REDIS_KEYS.ALLOWED_TOKENS, JSON.stringify(tokens))
     return c.json({ success: true, tokens })
   } catch (error) {
     console.error('[ALLOWED TOKENS] Error:', error)

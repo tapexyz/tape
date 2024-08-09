@@ -1,11 +1,20 @@
-import { CACHE_CONTROL, ERROR_MESSAGE } from '@tape.xyz/constants'
-import { db } from '@tape.xyz/server'
+import { CACHE_CONTROL, ERROR_MESSAGE, REDIS_KEYS } from '@tape.xyz/constants'
+import { db, rGet, rSet } from '@tape.xyz/server'
 import { Hono } from 'hono'
 
 const app = new Hono()
 
 app.get('/profiles', async (c) => {
   try {
+    c.header('Cache-Control', CACHE_CONTROL.FOR_ONE_HOUR)
+
+    const cachedValue = await rGet(REDIS_KEYS.CURATED_PROFILES)
+    if (cachedValue) {
+      console.info('CACHE HIT')
+      return c.json({ success: true, ids: JSON.parse(cachedValue) })
+    }
+    console.info('CACHE MISS')
+
     const results = await db.manyOrNone(
       `
        SELECT "profileId" FROM "Profile" WHERE "isCurated" = TRUE ORDER BY RANDOM() LIMIT 50;
@@ -13,7 +22,7 @@ app.get('/profiles', async (c) => {
     )
     const ids = results.map((item: Record<string, unknown>) => item.profileId)
 
-    c.header('Cache-Control', CACHE_CONTROL.FOR_ONE_HOUR)
+    await rSet(REDIS_KEYS.CURATED_PROFILES, JSON.stringify(ids))
     return c.json({ success: true, ids })
   } catch (error) {
     console.error('[CURATED PROFILES] Error:', error)

@@ -1,7 +1,7 @@
 import { zValidator } from '@hono/zod-validator'
-import { ERROR_MESSAGE, TOWER_EVENTS_REDIS_KEY } from '@tape.xyz/constants'
+import { ERROR_MESSAGE, REDIS_KEYS } from '@tape.xyz/constants'
 import { ALL_EVENTS } from '@tape.xyz/generic/events'
-import { rSave } from '@tape.xyz/server'
+import { rPush } from '@tape.xyz/server'
 import { Hono } from 'hono'
 import { UAParser } from 'ua-parser-js'
 import type { z } from 'zod'
@@ -83,7 +83,7 @@ app.post('/', zValidator('json', validationSchema), async (c) => {
       fingerprint: fingerprint || null
     }
 
-    await rSave(TOWER_EVENTS_REDIS_KEY, JSON.stringify(value))
+    await rPush(REDIS_KEYS.TOWER_EVENTS, JSON.stringify(value))
 
     return c.json({ success: true })
   } catch (error) {

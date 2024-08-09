@@ -1,6 +1,6 @@
 import { zValidator } from '@hono/zod-validator'
-import { CACHE_CONTROL, ERROR_MESSAGE } from '@tape.xyz/constants'
-import { db } from '@tape.xyz/server'
+import { CACHE_CONTROL, ERROR_MESSAGE, REDIS_KEYS } from '@tape.xyz/constants'
+import { db, rGet, rSet } from '@tape.xyz/server'
 import { Hono } from 'hono'
 import { object, string } from 'zod'
 
@@ -16,6 +16,15 @@ app.get(
   ),
   async (c) => {
     const { profileId } = c.req.param()
+    c.header('Cache-Control', CACHE_CONTROL.FOR_FIVE_MINUTE)
+
+    const cacheKey = `${REDIS_KEYS.PROFILE_TOGGLES}:${profileId}`
+    const cachedValue = await rGet(cacheKey)
+    if (cachedValue) {
+      console.info('CACHE HIT')
+      return c.json({ success: true, toggles: JSON.parse(cachedValue) })
+    }
+    console.info('CACHE MISS')
 
     try {
       const result = await db.oneOrNone(
@@ -27,14 +36,15 @@ app.get(
       `,
         [profileId]
       )
+      const toggles = {
+        suspended: result.isSuspended,
+        limited: result.isLimited
+      }
 
-      c.header('Cache-Control', CACHE_CONTROL.FOR_FIVE_MINUTE)
+      await rSet(cacheKey, JSON.stringify(toggles))
       return c.json({
         success: true,
-        restrictions: {
-          suspended: Boolean(result?.isSuspended),
-          limited: Boolean(result?.isLimited)
-        }
+        toggles
       })
     } catch (error) {
       console.error('[TOGGLES] Error:', error)

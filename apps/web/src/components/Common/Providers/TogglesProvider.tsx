@@ -1,5 +1,5 @@
 import useProfileStore from '@lib/store/idb/profile'
-import useProfileRestrictionsStore from '@lib/store/idb/restrictions'
+import useProfileTogglesStore from '@lib/store/idb/toggles'
 import useAllowedTokensStore from '@lib/store/idb/tokens'
 import useVerifiedStore from '@lib/store/idb/verified'
 import { useQuery } from '@tanstack/react-query'
@@ -17,9 +17,7 @@ const TogglesProvider = () => {
   const setVerifiedProfiles = useVerifiedStore(
     (state) => state.setVerifiedProfiles
   )
-  const setProfileRestrictions = useProfileRestrictionsStore(
-    (state) => state.setProfileRestrictions
-  )
+  const setToggles = useProfileTogglesStore((state) => state.setToggles)
   const setAllowedTokens = useAllowedTokensStore(
     (state) => state.setAllowedTokens
   )
@@ -38,8 +36,8 @@ const TogglesProvider = () => {
     const { data } = await axios.get(
       `${WORKER_TOGGLES_URL}/${activeProfile?.id}`
     )
-    setProfileRestrictions(
-      data?.restrictions ?? {
+    setToggles(
+      data?.toggles ?? {
         suspended: false,
         limited: false
       }
