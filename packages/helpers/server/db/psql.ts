@@ -1,5 +1,20 @@
 import pgp from 'pg-promise'
 
-const db = pgp()({ connectionString: process.env.DATABASE_URL, max: 10 })
+const initOptions: pgp.IInitOptions = {
+  error: (err, e) => {
+    console.error('[PG] Error:', err?.message || err)
+    if (e.query) {
+      console.log('[PG] Error Query:', e.query)
+      if (e.params) {
+        console.log('[PG] Error Parameters:', e.params)
+      }
+    }
+  }
+}
+
+const db = pgp(initOptions)({
+  connectionString: process.env.DATABASE_URL!,
+  max: 50
+})
 
 export { db }
