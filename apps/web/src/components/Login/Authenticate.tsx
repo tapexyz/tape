@@ -54,8 +54,9 @@ const Authenticate = () => {
     }
   }, [signup])
 
-  const onError = () => {
+  const onError = (error: any) => {
     signOut()
+    toast.error(error?.message ?? ERROR_MESSAGE)
   }
 
   const {
@@ -107,7 +108,9 @@ const Authenticate = () => {
     fetchPolicy: 'no-cache',
     onError
   })
-  const [authenticate] = useAuthenticateMutation()
+  const [authenticate] = useAuthenticateMutation({
+    onError
+  })
 
   const handleSign = useCallback(async () => {
     if (!isConnected) {
@@ -133,6 +136,9 @@ const Authenticate = () => {
           request: { id: challenge.data?.challenge.id, signature }
         }
       })
+      if (!result.data?.authenticate) {
+        return toast.error(result.errors?.[0]?.message ?? ERROR_MESSAGE)
+      }
       const accessToken = result.data?.authenticate.accessToken
       const refreshToken = result.data?.authenticate.refreshToken
       signIn({ accessToken, refreshToken })
