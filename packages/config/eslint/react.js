@@ -17,7 +17,8 @@ module.exports = {
       }
     ],
     'react/jsx-no-useless-fragment': 'error',
-    'react/self-closing-comp': 'error'
+    'react/self-closing-comp': 'error',
+    'react/react-in-jsx-scope': 'off',
   },
   settings: { react: { version: 'detect' } }
 }
