@@ -13,7 +13,7 @@ app.get('/profiles', async (c) => {
     )
     const ids = results.map((item: Record<string, unknown>) => item.profileId)
 
-    c.header('Cache-Control', CACHE_CONTROL.FOR_FIVE_MINUTE)
+    c.header('Cache-Control', CACHE_CONTROL.FOR_ONE_HOUR)
     return c.json({ success: true, ids })
   } catch (error) {
     console.error('[CURATED PROFILES] Error:', error)
