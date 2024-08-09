@@ -46,8 +46,8 @@ app.get(
       c.header('Cache-Control', CACHE_CONTROL.FOR_ONE_YEAR)
 
       return c.body(svgImage)
-    } catch (error) {
-      console.error('[AVATAR] Error:', profileId, error)
+    } catch (error: any) {
+      console.error('[AVATAR] Error:', profileId, error?.message)
       return c.redirect(`https://cdn.stamp.fyi/avatar/${profileId}?s=300`)
     }
   }
