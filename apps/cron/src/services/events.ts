@@ -1,7 +1,7 @@
-import { TOWER_EVENTS_REDIS_KEY } from '@tape.xyz/constants'
+import { REDIS_KEYS } from '@tape.xyz/constants'
 import { clickhouseClient, rLength, rLoad, rTrim } from '@tape.xyz/server'
 
-const QUEUE_KEY = TOWER_EVENTS_REDIS_KEY
+const QUEUE_KEY = REDIS_KEYS.TOWER_EVENTS
 const BATCH_SIZE = 5000
 
 const flushEvents = async (): Promise<void> => {

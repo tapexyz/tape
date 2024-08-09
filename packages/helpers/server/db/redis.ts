@@ -30,10 +30,27 @@ if (redisClient) {
   listenToRedis()
 }
 
-const rSave = async (key: string, value: string): Promise<void> => {
-  await redisClient.rPush(key, value)
+/**
+ * Redis Key-Value Operations
+ */
+
+const rGet = async (key: string): Promise<string | null> => {
+  return await redisClient.get(key)
 }
 
+const rSet = async (
+  key: string,
+  value: string,
+  expiry: number = 1 * 24 * 60 * 60 // 1 day
+): Promise<string | null> => {
+  return await redisClient.set(key, value, { EX: expiry })
+}
+
+/**
+ * Redis List Operations
+ */
+
+// Load a range of values from a list
 const rLoad = async (
   key: string,
   start: number = 0,
@@ -42,16 +59,27 @@ const rLoad = async (
   return await redisClient.lRange(key, start, end)
 }
 
-const rClear = async (key: string): Promise<void> => {
-  await redisClient.del(key)
+// Push a value to a list
+const rPush = async (key: string, value: string): Promise<void> => {
+  await redisClient.rPush(key, value)
 }
 
+// Get the length of a list
 const rLength = async (key: string): Promise<number> => {
   return await redisClient.lLen(key)
 }
 
+/**
+ * Trims the list stored at key so that it only contains elements between count and -1
+ * eg - ["a", "b", "c", "d", "e", "f", "g"] -> ["d", "e", "f", "g"]
+ */
 const rTrim = async (key: string, count: number): Promise<void> => {
   await redisClient.lTrim(key, count, -1)
 }
 
-export { rClear, rLength, rLoad, rSave, rTrim }
+// Delete a key
+const rClear = async (key: string): Promise<void> => {
+  await redisClient.del(key)
+}
+
+export { rClear, rGet, rLength, rLoad, rPush, rSet, rTrim }

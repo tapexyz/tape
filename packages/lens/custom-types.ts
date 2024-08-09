@@ -139,7 +139,7 @@ export enum LocalIDBStore {
   COLLECT_STORE = 'collect.store',
   VERIFIED_STORE = 'verified.store',
   ALLOWED_TOKENS_STORE = 'allowed-tokens.store',
-  RESTRICTIONS_STORE = 'restrictions.store',
+  TOGGLES_STORE = 'toggles.store',
   CURATED_STORE = 'curated.store'
 }
 

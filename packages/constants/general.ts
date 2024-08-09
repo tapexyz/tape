@@ -136,7 +136,13 @@ export const WORKER_AVATAR_URL = `${TAPE_API_URL}/avatar`
 export const WORKER_ALLOWED_TOKENS_URL = `${TAPE_API_URL}/allowed-tokens`
 
 // redis
-export const TOWER_EVENTS_REDIS_KEY = 'towerEvents'
+export const REDIS_KEYS = {
+  TOWER_EVENTS: 'towerEvents',
+  ALLOWED_TOKENS: 'allowedTokens',
+  CURATED_PROFILES: 'curatedProfiles',
+  PROFILE_TOGGLES: 'profileToggles',
+  VERIFIED_PROFILES: 'verifiedProfiles'
+}
 
 // irys
 export const IRYS_NETWORK = IS_MAINNET ? 'mainnet' : 'devnet'
