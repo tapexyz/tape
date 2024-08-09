@@ -41,8 +41,7 @@ const TogglesProvider = () => {
     setProfileRestrictions(
       data?.restrictions ?? {
         suspended: false,
-        restricted: false,
-        flagged: false
+        limited: false
       }
     )
   }

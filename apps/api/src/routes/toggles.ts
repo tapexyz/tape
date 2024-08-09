@@ -20,8 +20,8 @@ app.get(
     try {
       const result = await db.oneOrNone(
         `
-        SELECT suspended, limited, flagged
-        FROM "ProfileRestriction"
+        SELECT "isSuspended", "isLimited"
+        FROM "Profile"
         WHERE "profileId"  = $1
         LIMIT 1;
       `,
@@ -32,9 +32,8 @@ app.get(
       return c.json({
         success: true,
         restrictions: {
-          suspended: Boolean(result?.suspended),
-          limited: Boolean(result?.limited),
-          flagged: Boolean(result?.flagged)
+          suspended: Boolean(result?.isSuspended),
+          limited: Boolean(result?.isLimited)
         }
       })
     } catch (error) {

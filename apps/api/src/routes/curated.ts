@@ -8,7 +8,7 @@ app.get('/profiles', async (c) => {
   try {
     const results = await db.manyOrNone(
       `
-       SELECT "profileId" FROM "CuratedProfile" ORDER BY RANDOM() LIMIT 50;
+       SELECT "profileId" FROM "Profile" WHERE "isCurated" = TRUE ORDER BY RANDOM() LIMIT 50;
       `
     )
     const ids = results.map((item: Record<string, unknown>) => item.profileId)

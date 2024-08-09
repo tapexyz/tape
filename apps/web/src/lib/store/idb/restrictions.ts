@@ -6,7 +6,6 @@ import { persist } from 'zustand/middleware'
 type Restrictions = {
   suspended: boolean
   limited: boolean
-  flagged: boolean
 }
 
 interface State {
@@ -17,7 +16,7 @@ interface State {
 const useProfileRestrictionsStore = create(
   persist<State>(
     (set) => ({
-      profileRestrictions: { suspended: false, limited: false, flagged: false },
+      profileRestrictions: { suspended: false, limited: false },
       setProfileRestrictions: (profileRestrictions) =>
         set({ profileRestrictions })
     }),
