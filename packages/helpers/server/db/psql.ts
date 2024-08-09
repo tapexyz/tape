@@ -14,7 +14,7 @@ const initOptions: pgp.IInitOptions = {
 
 const db = pgp(initOptions)({
   connectionString: process.env.DATABASE_URL!,
-  max: 50
+  max: 10
 })
 
 export { db }
