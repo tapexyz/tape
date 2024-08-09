@@ -6,7 +6,7 @@ module.exports = {
   content: [
     './src/pages/**/*.{js,ts,jsx,tsx}',
     './src/components/**/*.{js,ts,jsx,tsx}',
-    '../../packages/**/*.{ts,tsx}'
+    '../../packages/ui/src/**/*.{ts,tsx}'
   ],
   plugins: [require('@tailwindcss/aspect-ratio')]
 }
