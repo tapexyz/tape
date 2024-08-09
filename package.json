@@ -4,7 +4,7 @@
   "version": "2.0.3-beta",
   "private": true,
   "scripts": {
-    "prepare": "husky install",
+    "prepare": "husky",
     "preinstall": "npx only-allow pnpm",
     "dev": "pnpm -r --parallel run dev",
     "start": "pnpm -r --parallel run start",
