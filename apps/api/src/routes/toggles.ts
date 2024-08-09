@@ -37,8 +37,8 @@ app.get(
         [profileId]
       )
       const toggles = {
-        suspended: result.isSuspended,
-        limited: result.isLimited
+        suspended: Boolean(result?.isSuspended),
+        limited: Boolean(result?.isLimited)
       }
 
       await rSet(cacheKey, JSON.stringify(toggles))
