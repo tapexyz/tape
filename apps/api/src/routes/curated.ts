@@ -1,5 +1,5 @@
 import { CACHE_CONTROL, ERROR_MESSAGE, REDIS_KEYS } from '@tape.xyz/constants'
-import { db, rGet, rSet } from '@tape.xyz/server'
+import { psql, rGet, rSet } from '@tape.xyz/server'
 import { Hono } from 'hono'
 
 const app = new Hono()
@@ -15,12 +15,10 @@ app.get('/profiles', async (c) => {
     }
     console.info('CACHE MISS')
 
-    const results = await db.manyOrNone(
-      `
-       SELECT "profileId" FROM "Profile" WHERE "isCurated" = TRUE ORDER BY RANDOM() LIMIT 50;
-      `
-    )
-    const ids = results.map((item: Record<string, unknown>) => item.profileId)
+    const results: { profileId: string }[] =
+      await psql.$queryRaw`SELECT "profileId" FROM "Profile" WHERE "isCurated" = TRUE ORDER BY RANDOM() LIMIT 50;`
+
+    const ids = results.map(({ profileId }) => profileId)
 
     await rSet(REDIS_KEYS.CURATED_PROFILES, JSON.stringify(ids))
     return c.json({ success: true, ids })

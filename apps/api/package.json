@@ -8,8 +8,6 @@
     "dev": "tsx --watch src/index.ts",
     "build": "tsc",
     "start": "tsx src/index.ts",
-    "db:migrate": "prisma migrate dev --schema ./src/db/schema.prisma",
-    "prisma:format": "prisma format --schema ./src/db/schema.prisma",
     "lint": "eslint . --ext .js,.ts,.tsx",
     "typecheck": "tsc --pretty",
     "format:check": "prettier --check \"**/*.{ts,tsx,md,json,css}\"",

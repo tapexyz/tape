@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/tsdb.ts"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("TSDB_DATABASE_URL")
+}
+
+model Event {
+  id             String   @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name           String
+  actor          String?
+  properties     String?
+  url            String?
+  city           String?
+  country        String?
+  region         String?
+  referrer       String?
+  platform       String?
+  browser        String?
+  browserVersion String?
+  os             String?
+  utmSource      String?
+  utmMedium      String?
+  utmCampaign    String?
+  utmTerm        String?
+  utmContent     String?
+  fingerprint    String?
+  created        DateTime @default(now()) @db.Timestamptz(3)
+
+  @@id([created, id])
+  @@index([created])
+}

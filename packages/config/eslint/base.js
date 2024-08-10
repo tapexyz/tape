@@ -36,5 +36,5 @@ module.exports = {
     'simple-import-sort/exports': 'error',
     'unicorn/no-useless-undefined': 'error'
   },
-  ignorePatterns: ['generated.ts', 'node_modules', 'dist', '.next', 'out']
+  ignorePatterns: ['generated.ts', 'node_modules', 'dist', '.next', 'out', 'generated']
 }

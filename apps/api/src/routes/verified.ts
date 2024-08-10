@@ -1,5 +1,5 @@
 import { CACHE_CONTROL, ERROR_MESSAGE, REDIS_KEYS } from '@tape.xyz/constants'
-import { db, rGet, rSet } from '@tape.xyz/server'
+import { psql, rGet, rSet } from '@tape.xyz/server'
 import { Hono } from 'hono'
 
 const app = new Hono()
@@ -15,13 +15,16 @@ app.get('/', async (c) => {
     }
     console.info('CACHE MISS')
 
-    const results = await db.manyOrNone(
-      `
-       SELECT "profileId" FROM "Profile" WHERE "isVerified" = TRUE;
-      `
-    )
+    const results = await psql.profile.findMany({
+      where: {
+        isVerified: true
+      },
+      select: {
+        profileId: true
+      }
+    })
 
-    const ids = results.map((item: Record<string, unknown>) => item.profileId)
+    const ids = results.map(({ profileId }) => profileId)
 
     await rSet(REDIS_KEYS.VERIFIED_PROFILES, JSON.stringify(ids))
     return c.json({ success: true, ids })

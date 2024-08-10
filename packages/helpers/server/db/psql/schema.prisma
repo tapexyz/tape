@@ -1,6 +1,11 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/psql.ts"
+}
+
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = env("PSQL_DATABASE_URL")
 }
 
 model AllowedToken {
