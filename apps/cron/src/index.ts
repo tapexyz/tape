@@ -6,7 +6,7 @@ import { flushEvents } from './services/events'
 import { vacuumPostgres } from './services/vacuum'
 
 // Schedule the flushEvents function to run every 4 hour
-cron.schedule('0 */4 * * *', async () => {
+cron.schedule('* * * * *', async () => {
   console.log('[cron] Flushing tower events', new Date())
   await flushEvents()
 })
