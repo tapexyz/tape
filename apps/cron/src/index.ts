@@ -11,8 +11,8 @@ cron.schedule('0 */4 * * *', async () => {
   await flushEvents()
 })
 
-// Schedule the vacuumPostgres function to run every 24 hour
-cron.schedule('0 0 * * *', async () => {
+// Schedule the vacuumPostgres function to run every sunday at midnight
+cron.schedule('0 0 * * 0', async () => {
   console.log('[cron] Vacuuming postgres', new Date())
   await vacuumPostgres()
 })
