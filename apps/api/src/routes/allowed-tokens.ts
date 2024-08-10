@@ -1,5 +1,5 @@
 import { CACHE_CONTROL, ERROR_MESSAGE, REDIS_KEYS } from '@tape.xyz/constants'
-import { db, rGet, rSet } from '@tape.xyz/server'
+import { psql, rGet, rSet } from '@tape.xyz/server'
 import { Hono } from 'hono'
 
 const app = new Hono()
@@ -15,11 +15,7 @@ app.get('/', async (c) => {
     }
     console.info('CACHE MISS')
 
-    const results = await db.manyOrNone(
-      `
-       SELECT * FROM "AllowedToken";
-      `
-    )
+    const results = await psql.allowedToken.findMany()
     const tokens = results.map((item: Record<string, unknown>) => ({
       address: item.address,
       decimals: item.decimals,

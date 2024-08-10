@@ -1,6 +1,6 @@
 import { zValidator } from '@hono/zod-validator'
 import { CACHE_CONTROL, ERROR_MESSAGE, REDIS_KEYS } from '@tape.xyz/constants'
-import { db, rGet, rSet } from '@tape.xyz/server'
+import { psql, rGet, rSet } from '@tape.xyz/server'
 import { Hono } from 'hono'
 import { object, string } from 'zod'
 
@@ -27,15 +27,16 @@ app.get(
     console.info('CACHE MISS')
 
     try {
-      const result = await db.oneOrNone(
-        `
-        SELECT "isSuspended", "isLimited"
-        FROM "Profile"
-        WHERE "profileId"  = $1
-        LIMIT 1;
-      `,
-        [profileId]
-      )
+      const result = await psql.profile.findUnique({
+        where: {
+          profileId
+        },
+        select: {
+          isSuspended: true,
+          isLimited: true
+        }
+      })
+
       const toggles = {
         suspended: Boolean(result?.isSuspended),
         limited: Boolean(result?.isLimited)

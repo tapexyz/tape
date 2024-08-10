@@ -7,16 +7,22 @@
     "lint": "eslint . --ext .js,.ts,.tsx",
     "typecheck": "tsc --pretty",
     "format:check": "prettier --check \"**/*.{ts,tsx,md,json,css}\"",
-    "format": "prettier --write \"**/*.{ts,tsx,md,json,css}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md,json,css}\"",
+    "psql:migrate": "prisma migrate dev --schema ./db/psql/schema.prisma",
+    "tsdb:migrate": "prisma migrate dev --schema ./db/tsdb/schema.prisma",
+    "prisma:generate": "prisma generate --schema ./db/psql/schema.prisma && prisma generate --schema ./db/tsdb/schema.prisma",
+    "postinstall": "pnpm prisma:generate"
   },
   "dependencies": {
     "@clickhouse/client": "^1.4.1",
     "pg-promise": "^11.9.1",
+    "@prisma/client": "^5.18.0",
     "redis": "^4.7.0"
   },
   "devDependencies": {
     "@tape.xyz/config": "workspace:*",
     "@types/node": "^22.1.0",
+    "prisma": "^5.18.0",
     "typescript": "5.5.4"
   }
 }

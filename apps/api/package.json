@@ -8,8 +8,6 @@
     "dev": "tsx --watch src/index.ts",
     "build": "tsc",
     "start": "tsx src/index.ts",
-    "db:migrate": "prisma migrate dev --schema ./src/db/schema.prisma",
-    "prisma:format": "prisma format --schema ./src/db/schema.prisma",
     "lint": "eslint . --ext .js,.ts,.tsx",
     "typecheck": "tsc --pretty",
     "format:check": "prettier --check \"**/*.{ts,tsx,md,json,css}\"",
@@ -23,7 +21,6 @@
     "base64url": "^3.0.1",
     "hono": "^4.5.4",
     "linkedom": "^0.18.4",
-    "prisma": "^5.18.0",
     "ua-parser-js": "2.0.0-beta.3",
     "viem": "^2.19.2",
     "zod": "^3.23.8"
