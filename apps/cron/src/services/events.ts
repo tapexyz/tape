@@ -24,7 +24,7 @@ const flushEvents = async (): Promise<void> => {
 
       const took = performance.now() - startTime
       console.log(
-        `[cron] tower events - batch inserted ${events.length} events to clickhouse in ${took}ms`
+        `[cron] tower events - batch inserted ${events.length} events to tsdb in ${took}ms`
       )
     }
   } catch (error) {
