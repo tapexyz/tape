@@ -12,7 +12,7 @@ model Event {
   id             String   @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   name           String
   actor          String?
-  properties     String?
+  properties     Json?
   url            String?
   city           String?
   country        String?
