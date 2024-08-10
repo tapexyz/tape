@@ -38,9 +38,6 @@ importers:
       linkedom:
         specifier: ^0.18.4
         version: 0.18.4
-      prisma:
-        specifier: ^5.18.0
-        version: 5.18.0
       ua-parser-js:
         specifier: 2.0.0-beta.3
         version: 2.0.0-beta.3
@@ -559,6 +556,9 @@ importers:
       '@types/node':
         specifier: ^22.1.0
         version: 22.1.0
+      prisma:
+        specifier: ^5.18.0
+        version: 5.18.0
       typescript:
         specifier: 5.5.4
         version: 5.5.4
