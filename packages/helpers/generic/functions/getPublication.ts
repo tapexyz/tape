@@ -1,5 +1,6 @@
 import type { AnyPublication, PrimaryPublication } from '@tape.xyz/lens'
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export type Typename<T = string> = { [key in '__typename']?: T }
 
 export type PickByTypename<

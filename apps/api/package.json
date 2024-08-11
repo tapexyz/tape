@@ -19,7 +19,7 @@
     "@hono/zod-validator": "^0.2.2",
     "@lens-protocol/metadata": "^1.2.0",
     "base64url": "^3.0.1",
-    "hono": "^4.5.4",
+    "hono": "^4.5.5",
     "linkedom": "^0.18.4",
     "ua-parser-js": "2.0.0-beta.3",
     "viem": "^2.19.2",
@@ -31,7 +31,7 @@
     "@tape.xyz/constants": "workspace:*",
     "@tape.xyz/generic": "workspace:*",
     "@tape.xyz/server": "workspace:*",
-    "@types/node": "^22.1.0",
+    "@types/node": "^22.2.0",
     "@types/ua-parser-js": "^0.7.39",
     "tsx": "^4.16.5",
     "typescript": "5.5.4"

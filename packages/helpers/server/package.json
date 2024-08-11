@@ -15,13 +15,12 @@
   },
   "dependencies": {
     "@clickhouse/client": "^1.4.1",
-    "pg-promise": "^11.9.1",
     "@prisma/client": "^5.18.0",
     "redis": "^4.7.0"
   },
   "devDependencies": {
     "@tape.xyz/config": "workspace:*",
-    "@types/node": "^22.1.0",
+    "@types/node": "^22.2.0",
     "prisma": "^5.18.0",
     "typescript": "5.5.4"
   }
