@@ -1,5 +1,5 @@
 import { REDIS_KEYS } from '@tape.xyz/constants'
-import { rLength, rLoad, rTrim, tsdb } from '@tape.xyz/server'
+import { clickhouseClient, rLength, rLoad, rTrim } from '@tape.xyz/server'
 
 const QUEUE_KEY = REDIS_KEYS.TOWER_EVENTS
 const BATCH_SIZE = 5000
@@ -13,18 +13,22 @@ const flushEvents = async (): Promise<void> => {
 
       // pick BATCH_SIZE events from the start of the queue (for eg 0 to 4999)
       const rawEvents = await rLoad(QUEUE_KEY, i, BATCH_SIZE - 1)
-      const events: any[] = rawEvents.map((event) => JSON.parse(event))
+      const events: Record<string, any>[] = rawEvents.map((event) =>
+        JSON.parse(event)
+      )
 
       if (events.length > 0) {
-        await tsdb.event.createMany({
-          data: events
+        await clickhouseClient.insert({
+          format: 'JSONEachRow',
+          table: 'events',
+          values: events
         })
         await rTrim(QUEUE_KEY, events.length)
       }
 
       const took = performance.now() - startTime
       console.log(
-        `[cron] tower events - batch inserted ${events.length} events to tsdb in ${took}ms`
+        `[cron] tower events - batch inserted ${events.length} events to clickhouse in ${took}ms`
       )
     }
   } catch (error) {

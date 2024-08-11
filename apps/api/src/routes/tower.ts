@@ -73,13 +73,13 @@ app.post('/', zValidator('json', validationSchema), async (c) => {
       referrer: referrer || null,
       platform: platform || null,
       browser: ua.browser.name || null,
-      browserVersion: ua.browser.version || null,
+      browser_version: ua.browser.version || null,
       os: ua.os.name || null,
-      utmSource: utmSource || null,
-      utmMedium: utmMedium || null,
-      utmCampaign: utmCampaign || null,
-      utmTerm: utmTerm || null,
-      utmContent: utmContent || null,
+      utm_source: utmSource || null,
+      utm_medium: utmMedium || null,
+      utm_campaign: utmCampaign || null,
+      utm_term: utmTerm || null,
+      utm_content: utmContent || null,
       fingerprint: fingerprint || null
     }
 
