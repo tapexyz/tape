@@ -1,5 +1,5 @@
 import { CACHE_CONTROL, ERROR_MESSAGE, REDIS_KEYS } from '@tape.xyz/constants'
-import { psql, rGet, rSet } from '@tape.xyz/server'
+import { psql, REDIS_EXPIRY, rGet, rSet } from '@tape.xyz/server'
 import { Hono } from 'hono'
 
 const app = new Hono()
@@ -26,7 +26,11 @@ app.get('/', async (c) => {
 
     const ids = results.map(({ profileId }) => profileId)
 
-    await rSet(REDIS_KEYS.VERIFIED_PROFILES, JSON.stringify(ids))
+    await rSet(
+      REDIS_KEYS.VERIFIED_PROFILES,
+      JSON.stringify(ids),
+      REDIS_EXPIRY.ONE_DAY
+    )
     return c.json({ success: true, ids })
   } catch (error) {
     console.error('[VERIFIED] Error:', error)

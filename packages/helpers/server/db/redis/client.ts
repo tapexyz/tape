@@ -30,6 +30,11 @@ if (redisClient) {
   listenToRedis()
 }
 
+export enum REDIS_EXPIRY {
+  FOREVER = 0,
+  ONE_DAY = 1 * 24 * 60 * 60 // 1 day in seconds
+}
+
 /**
  * Redis Key-Value Operations
  */
@@ -41,8 +46,11 @@ const rGet = async (key: string): Promise<string | null> => {
 const rSet = async (
   key: string,
   value: string,
-  expiry: number = 1 * 24 * 60 * 60 // 1 day
+  expiry: number
 ): Promise<string | null> => {
+  if (expiry === REDIS_EXPIRY.FOREVER) {
+    return await redisClient.set(key, value)
+  }
   return await redisClient.set(key, value, { EX: expiry })
 }
 

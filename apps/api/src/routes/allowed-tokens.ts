@@ -1,5 +1,5 @@
 import { CACHE_CONTROL, ERROR_MESSAGE, REDIS_KEYS } from '@tape.xyz/constants'
-import { psql, rGet, rSet } from '@tape.xyz/server'
+import { psql, REDIS_EXPIRY, rGet, rSet } from '@tape.xyz/server'
 import { Hono } from 'hono'
 
 const app = new Hono()
@@ -23,7 +23,11 @@ app.get('/', async (c) => {
       symbol: item.symbol
     }))
 
-    await rSet(REDIS_KEYS.ALLOWED_TOKENS, JSON.stringify(tokens))
+    await rSet(
+      REDIS_KEYS.ALLOWED_TOKENS,
+      JSON.stringify(tokens),
+      REDIS_EXPIRY.ONE_DAY
+    )
     return c.json({ success: true, tokens })
   } catch (error) {
     console.error('[ALLOWED TOKENS] Error:', error)

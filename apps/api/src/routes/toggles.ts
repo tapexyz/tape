@@ -1,6 +1,6 @@
 import { zValidator } from '@hono/zod-validator'
 import { CACHE_CONTROL, ERROR_MESSAGE, REDIS_KEYS } from '@tape.xyz/constants'
-import { psql, rGet, rSet } from '@tape.xyz/server'
+import { psql, REDIS_EXPIRY, rGet, rSet } from '@tape.xyz/server'
 import { Hono } from 'hono'
 import { object, string } from 'zod'
 
@@ -42,7 +42,7 @@ app.get(
         limited: Boolean(result?.isLimited)
       }
 
-      await rSet(cacheKey, JSON.stringify(toggles))
+      await rSet(cacheKey, JSON.stringify(toggles), REDIS_EXPIRY.ONE_DAY)
       return c.json({
         success: true,
         toggles
