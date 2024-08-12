@@ -6,8 +6,8 @@ import { flushEvents } from './services/events'
 import { vacuumPostgres } from './services/vacuum'
 import { wake } from './services/wake'
 
-// Schedule the wake function to run 5 minutes before the main job
-cron.schedule('55 */3 * * *', async () => {
+// Schedule the wake function to run 2 minutes before the flush job
+cron.schedule('58 */3 * * *', async () => {
   console.log('[cron] Waking up database', new Date())
   await wake()
 })
