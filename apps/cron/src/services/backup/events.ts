@@ -1,5 +1,9 @@
 import { clickhouseClient, REDIS_EXPIRY, rGet, rSet } from '@tape.xyz/server'
 
+const { S3_BUCKET_URL } = process.env
+const { S3_ACCESS_KEY_ID } = process.env
+const { S3_SECRET_ACCESS_KEY } = process.env
+
 const backupEventsToS3 = async () => {
   try {
     const cacheKey = 'backups:events:offset'
@@ -37,9 +41,9 @@ const backupEventsToS3 = async () => {
         query: `
           INSERT INTO FUNCTION
           s3(
-            '${process.env.S3_BUCKET_URL}/tape-clickhouse-backups/${fileName}',
-            '${process.env.S3_ACCESS_KEY_ID}',
-            '${process.env.S3_SECRET_ACCESS_KEY}',
+            '${S3_BUCKET_URL}/tape-clickhouse-backups/${fileName}',
+            '${S3_ACCESS_KEY_ID}',
+            '${S3_SECRET_ACCESS_KEY}',
             'CSV'
           )
           SETTINGS s3_truncate_on_insert=1
