@@ -32,6 +32,7 @@ if (redisClient) {
 
 export enum REDIS_EXPIRY {
   FOREVER = 0,
+  HALF_DAY = 12 * 60 * 60, // 12 hours in seconds
   ONE_DAY = 1 * 24 * 60 * 60 // 1 day in seconds
 }
 

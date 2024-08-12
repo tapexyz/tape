@@ -23,7 +23,7 @@ app.get('/profiles', async (c) => {
     await rSet(
       REDIS_KEYS.CURATED_PROFILES,
       JSON.stringify(ids),
-      REDIS_EXPIRY.ONE_DAY
+      REDIS_EXPIRY.HALF_DAY
     )
     return c.json({ success: true, ids })
   } catch (error) {
