@@ -4,10 +4,10 @@
   "version": "0.0.0",
   "license": "AGPL-3.0",
   "scripts": {
-    "dev": "next dev --port 4783",
+    "dev": "next dev --port 4784",
     "build": "next build",
     "export": "next export",
-    "start": "pnpm build && next start --port 4783",
+    "start": "pnpm build && next start --port 4784",
     "lint": "eslint . --ext .js,.ts,.tsx",
     "typecheck": "tsc --pretty",
     "format:check": "prettier --check \"**/*.{ts,tsx,md,json,css}\"",

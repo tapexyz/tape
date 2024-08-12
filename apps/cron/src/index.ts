@@ -5,13 +5,12 @@ import cron from 'node-cron'
 import { backupEventsToS3 } from './services/backup/events'
 import { flushEvents } from './services/events'
 import { vacuumPostgres } from './services/vacuum'
-import { wake } from './services/wake'
 
 // Schedule the wake function to run 2 minutes before the flush job
-cron.schedule('58 */3 * * *', async () => {
-  console.log('[cron] Waking up database', new Date())
-  await wake()
-})
+// cron.schedule('58 */3 * * *', async () => {
+//   console.log('[cron] Waking up database', new Date())
+//   await wake()
+// })
 
 // Schedule the flushEvents function to run every 4 hour
 cron.schedule('0 */4 * * *', async () => {
