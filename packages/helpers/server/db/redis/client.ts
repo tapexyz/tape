@@ -48,6 +48,9 @@ const rSet = async (
   value: string,
   expiry: number
 ): Promise<string | null> => {
+  if (expiry === REDIS_EXPIRY.FOREVER) {
+    return await redisClient.set(key, value)
+  }
   return await redisClient.set(key, value, { EX: expiry })
 }
 
