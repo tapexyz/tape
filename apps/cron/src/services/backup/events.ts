@@ -37,7 +37,7 @@ const backupEventsToS3 = async () => {
         query: `
           INSERT INTO FUNCTION
           s3(
-            'https://tape-db-backups.s3.us-east-1.amazonaws.com/tape-clickhouse-backups/${fileName}',
+            '${process.env.S3_BUCKET_URL}/tape-clickhouse-backups/${fileName}',
             '${process.env.S3_ACCESS_KEY_ID}',
             '${process.env.S3_SECRET_ACCESS_KEY}',
             'CSV'
