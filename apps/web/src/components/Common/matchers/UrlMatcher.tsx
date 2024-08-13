@@ -13,7 +13,7 @@ export type UrlMatch = Pick<UrlProps, 'url' | 'urlParts'>
 const Url = ({ children, url, ...props }: UrlProps) => {
   let href = url
 
-  if (!Boolean(/^https?:\/\//.test(href))) {
+  if (!/^https?:\/\//.test(href)) {
     href = `http://${href}`
   }
 

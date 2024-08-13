@@ -28,11 +28,11 @@ const Video: FC<Props> = ({ video }) => {
   const searchParams = useSearchParams()
   const autoplay = searchParams.get('autoplay')
   const loop = searchParams.get('loop')
-  const t = searchParams.get('t')
+  const t = searchParams.get('t') ?? '0'
 
   const isAutoPlay = Boolean(autoplay) && autoplay === '1'
   const isLoop = Boolean(loop) && loop === '1'
-  const currentTime = Number(t ?? 0) ?? 0
+  const currentTime = Number(t)
 
   const [clicked, setClicked] = useState(isAutoPlay || currentTime !== 0)
 

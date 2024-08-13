@@ -62,7 +62,7 @@ const resolveENS = async (address: string): Promise<string> => {
   })
 
   const results: string[] = (data as []) ?? []
-  const dids = results?.map((d: string) => (Boolean(d.trim()) ? d : address))
+  const dids = results?.map((d: string) => (d.trim().length ? d : address))
   return dids[0]
 }
 

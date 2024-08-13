@@ -68,7 +68,7 @@ const UnknownOpenAction = ({
 
   const { data: module, loading } = useModuleMetadataQuery({
     variables: { request: { implementation: action?.contract.address } },
-    skip: !Boolean(action?.contract.address)
+    skip: !action?.contract.address
   })
 
   const metadata = module?.moduleMetadata?.metadata

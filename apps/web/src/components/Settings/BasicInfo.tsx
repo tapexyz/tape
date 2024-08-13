@@ -251,7 +251,7 @@ const BasicInfo = ({ profile }: Props) => {
       metadata.attributes = metadata.attributes?.filter(
         (m) => Boolean(trimify(m.key)) && Boolean(trimify(m.value))
       )
-      if (Boolean(trimify(data.description))) {
+      if (trimify(data.description)) {
         metadata.bio = trimify(data.description)
       }
       if (selectedPfp && Boolean(selectedPfp)) {
@@ -260,7 +260,7 @@ const BasicInfo = ({ profile }: Props) => {
       if (coverImage && Boolean(coverImage)) {
         metadata.coverPicture = coverImage
       }
-      if (Boolean(trimify(data.displayName))) {
+      if (trimify(data.displayName)) {
         metadata.name = trimify(data.displayName)
       }
 

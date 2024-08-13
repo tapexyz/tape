@@ -122,7 +122,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
         }
       }
     },
-    skip: !Boolean(details?.recipients?.length) || isFreeCollect
+    skip: !details?.recipients?.length || isFreeCollect
   })
 
   const { data: balanceData, isLoading: balanceLoading } = useBalance({

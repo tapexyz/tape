@@ -33,9 +33,9 @@ const ViewProfile = () => {
 
   const forHandle =
     handle?.length > 1 ? handle.join('/') : `${LENS_NAMESPACE_PREFIX}${handle}`
-  const request: ProfileRequest = {
-    ...(forProfileId ? { forProfileId } : { forHandle })
-  }
+  const request: ProfileRequest = forProfileId
+    ? { forProfileId }
+    : { forHandle }
 
   const { data, loading, error } = useProfileQuery({
     variables: {

@@ -343,11 +343,10 @@ const CreateSteps = () => {
       degreesOfSeparation: degreesOfSeparation ?? 0,
       quotesRestricted: isRestricted
     }
-    const referenceModule: ReferenceModuleInput = {
-      ...(uploadedMedia.referenceModule?.followerOnlyReferenceModule
-        ? { followerOnlyReferenceModule: true }
-        : { degreesOfSeparationReferenceModule: referenceModuleDegrees })
-    }
+    const referenceModule: ReferenceModuleInput = uploadedMedia.referenceModule
+      ?.followerOnlyReferenceModule
+      ? { followerOnlyReferenceModule: true }
+      : { degreesOfSeparationReferenceModule: referenceModuleDegrees }
 
     const request: OnchainPostRequest = {
       contentURI: metadataUri,

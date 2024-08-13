@@ -88,7 +88,7 @@ const SelectedMedia = () => {
             </span>
           </Badge>
         ) : null}
-        {Boolean(uploadedMedia.percent) ? (
+        {uploadedMedia.percent ? (
           <Tooltip content={`Uploaded (${uploadedMedia.percent}%)`}>
             <div className="absolute bottom-0 w-full overflow-hidden bg-gray-200">
               <div
