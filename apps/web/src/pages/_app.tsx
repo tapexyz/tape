@@ -1,9 +1,10 @@
 import '../styles/index.css'
 
-import Providers from '@components/Common/Providers'
 import { tapeFont } from '@tape.xyz/browser/font'
 import type { AppProps } from 'next/app'
 import React from 'react'
+
+import Providers from '@/components/Common/Providers'
 
 const App = ({ Component, pageProps }: AppProps) => {
   return (

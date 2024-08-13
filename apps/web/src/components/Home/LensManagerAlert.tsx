@@ -1,6 +1,3 @@
-import ToggleLensManager from '@components/Settings/Manager/LensManager/ToggleLensManager'
-import SignalWaveGraphic from '@components/UIElements/SignalWaveGraphic'
-import useProfileStore from '@lib/store/idb/profile'
 import { TAPE_APP_NAME } from '@tape.xyz/constants'
 import {
   checkLensManagerPermissions,
@@ -8,6 +5,10 @@ import {
 } from '@tape.xyz/generic'
 import React from 'react'
 import { useAccount } from 'wagmi'
+
+import ToggleLensManager from '@/components/Settings/Manager/LensManager/ToggleLensManager'
+import SignalWaveGraphic from '@/components/UIElements/SignalWaveGraphic'
+import useProfileStore from '@/lib/store/idb/profile'
 
 const LensManagerAlert = () => {
   const { address } = useAccount()

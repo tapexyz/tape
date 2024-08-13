@@ -1,4 +1,3 @@
-import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { tw, useDebounce, useOutsideClick } from '@tape.xyz/browser'
 import {
   LENSTUBE_APP_ID,
@@ -22,6 +21,8 @@ import {
 } from '@tape.xyz/lens'
 import { Input, SearchOutline, Spinner } from '@tape.xyz/ui'
 import React, { useEffect, useRef, useState } from 'react'
+
+import { NoDataFound } from '@/components/UIElements/NoDataFound'
 
 import Profiles from './Profiles'
 import Publications from './Publications'

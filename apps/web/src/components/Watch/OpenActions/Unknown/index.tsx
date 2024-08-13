@@ -1,6 +1,3 @@
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import useProfileStore from '@lib/store/idb/profile'
-import useNonceStore from '@lib/store/nonce'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { ERROR_MESSAGE, LENSHUB_PROXY_ADDRESS } from '@tape.xyz/constants'
 import { checkLensManagerPermissions, getSignature } from '@tape.xyz/generic'
@@ -25,6 +22,10 @@ import {
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useSignTypedData, useWriteContract } from 'wagmi'
+
+import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork'
+import useProfileStore from '@/lib/store/idb/profile'
+import useNonceStore from '@/lib/store/nonce'
 
 import { VERIFIED_UNKNOWN_OPEN_ACTION_CONTRACTS } from '../verified-contracts'
 import TipOpenAction from './Tip'

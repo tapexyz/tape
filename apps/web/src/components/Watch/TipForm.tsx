@@ -1,7 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { MetadataAttributeType, textOnly } from '@lens-protocol/metadata'
-import useProfileStore from '@lib/store/idb/profile'
-import usePersistStore from '@lib/store/persist'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { getUserLocale } from '@tape.xyz/browser'
 import {
@@ -51,6 +49,9 @@ import { parseEther } from 'viem'
 import { useSendTransaction, useSignTypedData, useWriteContract } from 'wagmi'
 import type { z } from 'zod'
 import { number, object, string } from 'zod'
+
+import useProfileStore from '@/lib/store/idb/profile'
+import usePersistStore from '@/lib/store/persist'
 
 type Props = {
   video: AnyPublication

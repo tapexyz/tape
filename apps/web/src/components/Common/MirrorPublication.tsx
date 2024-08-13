@@ -1,6 +1,3 @@
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import useProfileStore from '@lib/store/idb/profile'
-import useNonceStore from '@lib/store/nonce'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   ERROR_MESSAGE,
@@ -33,6 +30,10 @@ import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useSignTypedData, useWriteContract } from 'wagmi'
+
+import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork'
+import useProfileStore from '@/lib/store/idb/profile'
+import useNonceStore from '@/lib/store/nonce'
 
 type Props = {
   video: MirrorablePublication

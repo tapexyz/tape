@@ -1,4 +1,3 @@
-import { NoDataFound } from '@components/UIElements/NoDataFound'
 import {
   getLennyPicture,
   getProfile,
@@ -15,6 +14,8 @@ import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
+
+import { NoDataFound } from '@/components/UIElements/NoDataFound'
 
 import Badge from './Badge'
 import HoverableProfile from './HoverableProfile'

@@ -1,7 +1,3 @@
-import Badge from '@components/Common/Badge'
-import InterweaveContent from '@components/Common/InterweaveContent'
-import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
-import { getShortHandTime } from '@lib/formatTime'
 import { tw } from '@tape.xyz/browser'
 import {
   getLennyPicture,
@@ -26,6 +22,11 @@ import {
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
+
+import Badge from '@/components/Common/Badge'
+import InterweaveContent from '@/components/Common/InterweaveContent'
+import CommentsShimmer from '@/components/Shimmers/CommentsShimmer'
+import { getShortHandTime } from '@/lib/formatTime'
 
 import PublicationReaction from '../../Common/Publication/PublicationReaction'
 import CommentMedia from './CommentMedia'

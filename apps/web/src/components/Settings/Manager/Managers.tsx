@@ -1,11 +1,4 @@
-import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
-import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useDid } from '@hooks/useDid'
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import usePendingTxn from '@hooks/usePendingTxn'
-import useProfileStore from '@lib/store/idb/profile'
-import useNonceStore from '@lib/store/nonce'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   ERROR_MESSAGE,
@@ -34,6 +27,14 @@ import toast from 'react-hot-toast'
 import { isAddress } from 'viem'
 import { useSignTypedData, useWriteContract } from 'wagmi'
 import { object, string, type z } from 'zod'
+
+import AddressExplorerLink from '@/components/Common/Links/AddressExplorerLink'
+import { NoDataFound } from '@/components/UIElements/NoDataFound'
+import { useDid } from '@/hooks/useDid'
+import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork'
+import usePendingTxn from '@/hooks/usePendingTxn'
+import useProfileStore from '@/lib/store/idb/profile'
+import useNonceStore from '@/lib/store/nonce'
 
 const formSchema = object({
   address: string().refine((addr) => isAddress(addr), {

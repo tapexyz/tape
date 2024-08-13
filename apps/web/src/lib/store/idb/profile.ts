@@ -1,8 +1,9 @@
-import createIdbStorage from '@lib/createIdbStorage'
 import type { Profile } from '@tape.xyz/lens'
 import { LocalIDBStore } from '@tape.xyz/lens/custom-types'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+
+import createIdbStorage from '@/lib/createIdbStorage'
 
 interface ProfileState {
   activeProfile: Profile | null

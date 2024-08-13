@@ -1,5 +1,3 @@
-import MetaTags from '@components/Common/MetaTags'
-import useProfileStore from '@lib/store/idb/profile'
 import {
   getPublication,
   getPublicationData,
@@ -13,6 +11,9 @@ import type { AnyPublication } from '@tape.xyz/lens'
 import { VideoPlayer } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React, { useEffect, useRef } from 'react'
+
+import MetaTags from '@/components/Common/MetaTags'
+import useProfileStore from '@/lib/store/idb/profile'
 
 import BottomOverlay from './BottomOverlay'
 import ByteActions from './ByteActions'

@@ -1,9 +1,10 @@
-import useAppStore from '@lib/store'
 import { tw } from '@tape.xyz/browser'
 import { CREATOR_VIDEO_CATEGORIES } from '@tape.xyz/constants'
 import { EVENTS, Tower } from '@tape.xyz/generic'
 import type { FC } from 'react'
 import React, { useRef } from 'react'
+
+import useAppStore from '@/lib/store'
 
 import HorizontalScroller from './HorizontalScroller'
 

@@ -1,5 +1,3 @@
-import { Countdown } from '@components/UIElements/CountDown'
-import useProfileStore from '@lib/store/idb/profile'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { tw } from '@tape.xyz/browser'
 import {
@@ -16,6 +14,9 @@ import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import useHandleWrongNetwork from 'src/hooks/useHandleWrongNetwork'
 import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
+
+import { Countdown } from '@/components/UIElements/CountDown'
+import useProfileStore from '@/lib/store/idb/profile'
 
 const Guardian: FC = () => {
   const { activeProfile, setActiveProfile } = useProfileStore()

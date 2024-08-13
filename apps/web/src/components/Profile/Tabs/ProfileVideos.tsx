@@ -1,8 +1,3 @@
-import VideoCard from '@components/Common/VideoCard'
-import QueuedVideo from '@components/Common/VideoCard/QueuedVideo'
-import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
-import { NoDataFound } from '@components/UIElements/NoDataFound'
-import usePersistStore from '@lib/store/persist'
 import {
   ALLOWED_APP_IDS,
   INFINITE_SCROLL_ROOT_MARGIN,
@@ -20,6 +15,12 @@ import { Spinner } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
+
+import VideoCard from '@/components/Common/VideoCard'
+import QueuedVideo from '@/components/Common/VideoCard/QueuedVideo'
+import TimelineShimmer from '@/components/Shimmers/TimelineShimmer'
+import { NoDataFound } from '@/components/UIElements/NoDataFound'
+import usePersistStore from '@/lib/store/persist'
 
 type Props = {
   profile: Profile

@@ -1,7 +1,3 @@
-import getCurrentSession from '@lib/getCurrentSession'
-import { signOut } from '@lib/store/auth'
-import useNonceStore from '@lib/store/nonce'
-import usePersistStore from '@lib/store/persist'
 import { LENS_API_URL } from '@tape.xyz/constants'
 import type { Notification, UserSigNonces } from '@tape.xyz/lens'
 import {
@@ -14,6 +10,11 @@ import { useEffect } from 'react'
 import useWebSocket from 'react-use-websocket'
 import { isAddress } from 'viem'
 import { useAccount } from 'wagmi'
+
+import getCurrentSession from '@/lib/getCurrentSession'
+import { signOut } from '@/lib/store/auth'
+import useNonceStore from '@/lib/store/nonce'
+import usePersistStore from '@/lib/store/persist'
 
 const SubscriptionProvider = () => {
   const { address } = useAccount()

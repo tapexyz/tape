@@ -1,3 +1,3 @@
-import Bookmarks from '@components/Profile/Bookmarks'
+import Bookmarks from '@/components/Profile/Bookmarks'
 
 export default Bookmarks

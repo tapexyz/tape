@@ -1,7 +1,3 @@
-import Badge from '@components/Common/Badge'
-import ButtonShimmer from '@components/Shimmers/ButtonShimmer'
-import { signIn, signOut } from '@lib/store/auth'
-import useProfileStore from '@lib/store/idb/profile'
 import { ERROR_MESSAGE } from '@tape.xyz/constants'
 import {
   EVENTS,
@@ -30,6 +26,11 @@ import { useRouter } from 'next/router'
 import React, { memo, useCallback, useEffect, useMemo, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useAccount, useSignMessage } from 'wagmi'
+
+import Badge from '@/components/Common/Badge'
+import ButtonShimmer from '@/components/Shimmers/ButtonShimmer'
+import { signIn, signOut } from '@/lib/store/auth'
+import useProfileStore from '@/lib/store/idb/profile'
 
 import Signup from './Signup'
 

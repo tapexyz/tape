@@ -1,4 +1,3 @@
-import { getShortHandTime } from '@lib/formatTime'
 import { LENSTUBE_BYTES_APP_ID } from '@tape.xyz/constants'
 import {
   formatNumber,
@@ -12,6 +11,8 @@ import { HeartOutline } from '@tape.xyz/ui'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
+
+import { getShortHandTime } from '@/lib/formatTime'
 
 import HoverableProfile from '../HoverableProfile'
 import PublicationOptions from '../Publication/PublicationOptions'

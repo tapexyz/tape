@@ -1,9 +1,10 @@
-import Follow from '@components/Profile/BasicInfo/Follow'
-import SuperFollow from '@components/Profile/BasicInfo/SuperFollow'
-import UnFollow from '@components/Profile/BasicInfo/UnFollow'
 import { FollowModuleType, type Profile } from '@tape.xyz/lens'
 import type { FC } from 'react'
 import React, { useEffect, useState } from 'react'
+
+import Follow from '@/components/Profile/BasicInfo/Follow'
+import SuperFollow from '@/components/Profile/BasicInfo/SuperFollow'
+import UnFollow from '@/components/Profile/BasicInfo/UnFollow'
 
 type Props = {
   profile: Profile

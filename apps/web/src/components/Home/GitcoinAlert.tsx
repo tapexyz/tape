@@ -1,5 +1,3 @@
-import { Countdown } from '@components/UIElements/CountDown'
-import SignalWaveGraphic from '@components/UIElements/SignalWaveGraphic'
 import {
   GITCOIN_LIVE_ROUND,
   SHOW_GITCOIN_BANNER,
@@ -8,6 +6,9 @@ import {
 import { Button } from '@tape.xyz/ui'
 import Link from 'next/link'
 import React from 'react'
+
+import { Countdown } from '@/components/UIElements/CountDown'
+import SignalWaveGraphic from '@/components/UIElements/SignalWaveGraphic'
 
 const GitcoinAlert = () => {
   if (!SHOW_GITCOIN_BANNER) {

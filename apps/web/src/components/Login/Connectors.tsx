@@ -1,10 +1,11 @@
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import useProfileStore from '@lib/store/idb/profile'
 import { EVENTS, Tower } from '@tape.xyz/generic'
 import { Button, Callout, CheckOutline, WarningOutline } from '@tape.xyz/ui'
 import React, { memo, useMemo } from 'react'
 import type { Connector } from 'wagmi'
 import { useAccount, useConnect } from 'wagmi'
+
+import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork'
+import useProfileStore from '@/lib/store/idb/profile'
 
 import Authenticate from './Authenticate'
 

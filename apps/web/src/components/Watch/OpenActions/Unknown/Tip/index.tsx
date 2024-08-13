@@ -1,5 +1,3 @@
-import { useDid } from '@hooks/useDid'
-import useAllowedTokensStore from '@lib/store/idb/tokens'
 import { WMATIC_TOKEN_ADDRESS } from '@tape.xyz/constants'
 import {
   type ModuleMetadata,
@@ -23,6 +21,9 @@ import {
   parseUnits
 } from 'viem'
 import { useAccount, useBalance } from 'wagmi'
+
+import { useDid } from '@/hooks/useDid'
+import useAllowedTokensStore from '@/lib/store/idb/tokens'
 
 import BalanceAlert from '../../BalanceAlert'
 import PermissionAlert from '../../PermissionAlert'

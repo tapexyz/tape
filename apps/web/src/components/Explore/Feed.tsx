@@ -1,8 +1,3 @@
-import Timeline from '@components/Home/Timeline'
-import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
-import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { getUnixTimestampForDaysAgo } from '@lib/formatTime'
-import useAppStore from '@lib/store'
 import { tw } from '@tape.xyz/browser'
 import {
   ALLOWED_APP_IDS,
@@ -33,6 +28,12 @@ import {
 } from '@tape.xyz/ui'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
+
+import Timeline from '@/components/Home/Timeline'
+import TimelineShimmer from '@/components/Shimmers/TimelineShimmer'
+import { NoDataFound } from '@/components/UIElements/NoDataFound'
+import { getUnixTimestampForDaysAgo } from '@/lib/formatTime'
+import useAppStore from '@/lib/store'
 
 const initialCriteria = {
   trending: true,

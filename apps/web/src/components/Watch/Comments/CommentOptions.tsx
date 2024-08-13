@@ -1,7 +1,3 @@
-import ReportPublication from '@components/Report/Publication'
-import Confirm from '@components/UIElements/Confirm'
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import useProfileStore from '@lib/store/idb/profile'
 import { SIGN_IN_REQUIRED } from '@tape.xyz/constants'
 import { EVENTS, Tower } from '@tape.xyz/generic'
 import type { Comment } from '@tape.xyz/lens'
@@ -17,6 +13,11 @@ import {
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
+
+import ReportPublication from '@/components/Report/Publication'
+import Confirm from '@/components/UIElements/Confirm'
+import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork'
+import useProfileStore from '@/lib/store/idb/profile'
 
 type Props = {
   comment: Comment

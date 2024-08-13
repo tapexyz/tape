@@ -1,6 +1,3 @@
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import { signOut } from '@lib/store/auth'
-import useProfileStore from '@lib/store/idb/profile'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   LENSHUB_PROXY_ADDRESS,
@@ -12,6 +9,10 @@ import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import Custom404 from 'src/pages/404'
 import { useWaitForTransactionReceipt, useWriteContract } from 'wagmi'
+
+import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork'
+import { signOut } from '@/lib/store/auth'
+import useProfileStore from '@/lib/store/idb/profile'
 
 const Delete = () => {
   const activeProfile = useProfileStore((state) => state.activeProfile)

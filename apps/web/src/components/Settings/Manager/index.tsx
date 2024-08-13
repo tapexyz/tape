@@ -1,6 +1,7 @@
-import MetaTags from '@components/Common/MetaTags'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@tape.xyz/ui'
 import React from 'react'
+
+import MetaTags from '@/components/Common/MetaTags'
 
 import LensManager from './LensManager'
 import Managed from './Managed'

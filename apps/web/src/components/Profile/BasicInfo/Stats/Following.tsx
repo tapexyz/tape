@@ -1,5 +1,3 @@
-import HoverableProfile from '@components/Common/HoverableProfile'
-import { NoDataFound } from '@components/UIElements/NoDataFound'
 import {
   formatNumber,
   getLennyPicture,
@@ -12,6 +10,9 @@ import { Modal, Spinner } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
+
+import HoverableProfile from '@/components/Common/HoverableProfile'
+import { NoDataFound } from '@/components/UIElements/NoDataFound'
 
 type Props = {
   stats: ProfileStats

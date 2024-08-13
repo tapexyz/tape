@@ -1,9 +1,5 @@
-import ReportPublication from '@components/Report/Publication'
-import Confirm from '@components/UIElements/Confirm'
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import type { ProfileOptions } from '@lens-protocol/metadata'
 import { MetadataAttributeType, profile } from '@lens-protocol/metadata'
-import useProfileStore from '@lib/store/idb/profile'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   ERROR_MESSAGE,
@@ -60,6 +56,11 @@ import type { FC, ReactNode } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useSignTypedData, useWriteContract } from 'wagmi'
+
+import ReportPublication from '@/components/Report/Publication'
+import Confirm from '@/components/UIElements/Confirm'
+import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork'
+import useProfileStore from '@/lib/store/idb/profile'
 
 import ArweaveExplorerLink from '../Links/ArweaveExplorerLink'
 import IPFSLink from '../Links/IPFSLink'

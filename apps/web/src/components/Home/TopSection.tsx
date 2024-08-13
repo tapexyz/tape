@@ -1,6 +1,7 @@
-import HorizontalScroller from '@components/Common/HorizontalScroller'
-import useProfileStore from '@lib/store/idb/profile'
 import React, { useRef } from 'react'
+
+import HorizontalScroller from '@/components/Common/HorizontalScroller'
+import useProfileStore from '@/lib/store/idb/profile'
 
 import GitcoinAlert from './GitcoinAlert'
 import LatestBytes from './LatestBytes'

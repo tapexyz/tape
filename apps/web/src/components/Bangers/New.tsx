@@ -1,9 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import type { MetadataAttribute } from '@lens-protocol/metadata'
 import { link, MetadataAttributeType } from '@lens-protocol/metadata'
-import useProfileStore from '@lib/store/idb/profile'
-import useNonceStore from '@lib/store/nonce'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { getUserLocale } from '@tape.xyz/browser'
 import {
@@ -47,6 +44,10 @@ import { v4 as uuidv4 } from 'uuid'
 import { useSignTypedData, useWriteContract } from 'wagmi'
 import type { z } from 'zod'
 import { object, string } from 'zod'
+
+import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork'
+import useProfileStore from '@/lib/store/idb/profile'
+import useNonceStore from '@/lib/store/nonce'
 
 const VALID_URL_REGEX = new RegExp(
   `${COMMON_REGEX.YOUTUBE_WATCH.source}|${COMMON_REGEX.TAPE_WATCH.source}|${COMMON_REGEX.VIMEO_WATCH.source}`

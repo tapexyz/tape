@@ -1,10 +1,3 @@
-import CategoryFilters from '@components/Common/CategoryFilters'
-import MetaTags from '@components/Common/MetaTags'
-import VideoCard from '@components/Common/VideoCard'
-import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
-import { NoDataFound } from '@components/UIElements/NoDataFound'
-import useAppStore from '@lib/store'
-import useProfileStore from '@lib/store/idb/profile'
 import {
   INFINITE_SCROLL_ROOT_MARGIN,
   LENSTUBE_APP_ID,
@@ -22,6 +15,14 @@ import { Spinner } from '@tape.xyz/ui'
 import React, { useEffect } from 'react'
 import { useInView } from 'react-cool-inview'
 import Custom500 from 'src/pages/500'
+
+import CategoryFilters from '@/components/Common/CategoryFilters'
+import MetaTags from '@/components/Common/MetaTags'
+import VideoCard from '@/components/Common/VideoCard'
+import TimelineShimmer from '@/components/Shimmers/TimelineShimmer'
+import { NoDataFound } from '@/components/UIElements/NoDataFound'
+import useAppStore from '@/lib/store'
+import useProfileStore from '@/lib/store/idb/profile'
 
 const Feed = () => {
   const { activeProfile } = useProfileStore()

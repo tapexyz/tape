@@ -1,7 +1,3 @@
-import MirrorPublication from '@components/Common/MirrorPublication'
-import PublicationOptions from '@components/Common/Publication/PublicationOptions'
-import PublicationReaction from '@components/Common/Publication/PublicationReaction'
-import OpenActions from '@components/Watch/OpenActions'
 import type { MirrorablePublication } from '@tape.xyz/lens'
 import {
   CollectOutline,
@@ -11,6 +7,11 @@ import {
 } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React, { useState } from 'react'
+
+import MirrorPublication from '@/components/Common/MirrorPublication'
+import PublicationOptions from '@/components/Common/Publication/PublicationOptions'
+import PublicationReaction from '@/components/Common/Publication/PublicationReaction'
+import OpenActions from '@/components/Watch/OpenActions'
 
 import ByteComments from './ByteComments'
 

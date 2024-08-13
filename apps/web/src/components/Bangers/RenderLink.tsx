@@ -1,9 +1,10 @@
-import { CardShimmer } from '@components/Shimmers/VideoCardShimmer'
 import { useQuery } from '@tanstack/react-query'
 import { WORKER_OEMBED_URL } from '@tape.xyz/constants'
 import axios from 'axios'
 import Link from 'next/link'
 import React from 'react'
+
+import { CardShimmer } from '@/components/Shimmers/VideoCardShimmer'
 
 const RenderLink = ({ link }: { link: string }) => {
   const fetchOembed = async () => {

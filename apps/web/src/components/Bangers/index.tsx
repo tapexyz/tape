@@ -1,9 +1,10 @@
-import MetaTags from '@components/Common/MetaTags'
-import useProfileStore from '@lib/store/idb/profile'
 import { FEATURE_FLAGS } from '@tape.xyz/constants'
 import { EVENTS, getIsFeatureEnabled, Tower } from '@tape.xyz/generic'
 import React, { useEffect } from 'react'
 import Custom404 from 'src/pages/404'
+
+import MetaTags from '@/components/Common/MetaTags'
+import useProfileStore from '@/lib/store/idb/profile'
 
 import Feed from './Feed'
 

@@ -1,14 +1,15 @@
-import Badge from '@components/Common/Badge'
-import HoverableProfile from '@components/Common/HoverableProfile'
-import MetaTags from '@components/Common/MetaTags'
-import Stats from '@components/Profile/BasicInfo/Stats'
-import useProfileStore from '@lib/store/idb/profile'
 import {
   getLennyPicture,
   getProfile,
   getProfilePicture
 } from '@tape.xyz/generic'
 import React from 'react'
+
+import Badge from '@/components/Common/Badge'
+import HoverableProfile from '@/components/Common/HoverableProfile'
+import MetaTags from '@/components/Common/MetaTags'
+import Stats from '@/components/Profile/BasicInfo/Stats'
+import useProfileStore from '@/lib/store/idb/profile'
 
 import Delete from './Delete'
 import Guardian from './Guardian'

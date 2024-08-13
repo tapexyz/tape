@@ -1,7 +1,4 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import useAppStore from '@lib/store'
-import useProfileStore from '@lib/store/idb/profile'
-import useAllowedTokensStore from '@lib/store/idb/tokens'
 import { WMATIC_TOKEN_ADDRESS } from '@tape.xyz/constants'
 import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
 import { Button, Input, Select, SelectItem } from '@tape.xyz/ui'
@@ -11,6 +8,10 @@ import { useForm } from 'react-hook-form'
 import { isAddress } from 'viem'
 import type { z } from 'zod'
 import { number, object, string } from 'zod'
+
+import useAppStore from '@/lib/store'
+import useProfileStore from '@/lib/store/idb/profile'
+import useAllowedTokensStore from '@/lib/store/idb/tokens'
 
 import Splits from './Splits'
 

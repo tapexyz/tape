@@ -1,7 +1,3 @@
-import Badge from '@components/Common/Badge'
-import InterweaveContent from '@components/Common/InterweaveContent'
-import useProfileStore from '@lib/store/idb/profile'
-import usePersistStore from '@lib/store/persist'
 import {
   getLennyPicture,
   getProfile,
@@ -20,6 +16,11 @@ import { Tooltip } from '@tape.xyz/ui'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
+
+import Badge from '@/components/Common/Badge'
+import InterweaveContent from '@/components/Common/InterweaveContent'
+import useProfileStore from '@/lib/store/idb/profile'
+import usePersistStore from '@/lib/store/persist'
 
 type Props = {
   queuedComment: QueuedCommentType

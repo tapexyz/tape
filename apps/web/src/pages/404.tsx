@@ -1,8 +1,9 @@
-import MetaTags from '@components/Common/MetaTags'
 import { STATIC_ASSETS, TAPE_APP_NAME } from '@tape.xyz/constants'
 import { Button } from '@tape.xyz/ui'
 import Link from 'next/link'
 import React from 'react'
+
+import MetaTags from '@/components/Common/MetaTags'
 
 const Custom404 = () => {
   return (

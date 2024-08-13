@@ -1,10 +1,3 @@
-import AddressExplorerLink from '@components/Common/Links/AddressExplorerLink'
-import { Countdown } from '@components/UIElements/CountDown'
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import { getRelativeTime } from '@lib/formatTime'
-import { getCollectModuleOutput } from '@lib/getCollectModuleOutput'
-import useProfileStore from '@lib/store/idb/profile'
-import useNonceStore from '@lib/store/nonce'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   ERROR_MESSAGE,
@@ -66,6 +59,14 @@ import {
   useSignTypedData,
   useWriteContract
 } from 'wagmi'
+
+import AddressExplorerLink from '@/components/Common/Links/AddressExplorerLink'
+import { Countdown } from '@/components/UIElements/CountDown'
+import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork'
+import { getRelativeTime } from '@/lib/formatTime'
+import { getCollectModuleOutput } from '@/lib/getCollectModuleOutput'
+import useProfileStore from '@/lib/store/idb/profile'
+import useNonceStore from '@/lib/store/nonce'
 
 import BalanceAlert from '../BalanceAlert'
 import PermissionAlert from '../PermissionAlert'

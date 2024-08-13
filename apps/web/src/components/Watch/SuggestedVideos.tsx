@@ -1,6 +1,3 @@
-import { SuggestedVideosShimmer } from '@components/Shimmers/WatchShimmer'
-import useCuratedProfiles from '@lib/store/idb/curated'
-import useProfileStore from '@lib/store/idb/profile'
 import {
   ALLOWED_APP_IDS,
   INFINITE_SCROLL_ROOT_MARGIN,
@@ -19,6 +16,10 @@ import { Spinner } from '@tape.xyz/ui'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { useInView } from 'react-cool-inview'
+
+import { SuggestedVideosShimmer } from '@/components/Shimmers/WatchShimmer'
+import useCuratedProfiles from '@/lib/store/idb/curated'
+import useProfileStore from '@/lib/store/idb/profile'
 
 import SuggestedVideoCard from './SuggestedVideoCard'
 

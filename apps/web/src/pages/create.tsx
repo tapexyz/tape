@@ -1,3 +1,3 @@
-import CreateSteps from '@components/Create'
+import CreateSteps from '@/components/Create'
 
 export default CreateSteps

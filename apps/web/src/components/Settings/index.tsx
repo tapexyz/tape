@@ -1,6 +1,3 @@
-import MetaTags from '@components/Common/MetaTags'
-import SettingsShimmer from '@components/Shimmers/SettingsShimmer'
-import useProfileStore from '@lib/store/idb/profile'
 import { EVENTS, Tower } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
 import { useProfileQuery } from '@tape.xyz/lens'
@@ -8,6 +5,10 @@ import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
+
+import MetaTags from '@/components/Common/MetaTags'
+import SettingsShimmer from '@/components/Shimmers/SettingsShimmer'
+import useProfileStore from '@/lib/store/idb/profile'
 
 import Allowance from './Allowance'
 import BasicInfo from './BasicInfo'

@@ -1,4 +1,3 @@
-import useAppStore from '@lib/store'
 import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
 import {
   Button,
@@ -8,6 +7,8 @@ import {
   Tooltip
 } from '@tape.xyz/ui'
 import React, { useState } from 'react'
+
+import useAppStore from '@/lib/store'
 
 import ChargeQuestion from './ChargeQuestion'
 import CollectDuration from './CollectDuration'

@@ -1,7 +1,8 @@
-import createIdbStorage from '@lib/createIdbStorage'
 import { LocalIDBStore } from '@tape.xyz/lens/custom-types'
 import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
+
+import createIdbStorage from '@/lib/createIdbStorage'
 
 type Token = {
   address: string

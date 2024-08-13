@@ -1,4 +1,3 @@
-import { getDateString, getRelativeTime } from '@lib/formatTime'
 import { TAPE_SIGNUP_PROXY_ABI } from '@tape.xyz/abis'
 import { STATIC_ASSETS, TAPE_SIGNUP_PROXY_ADDRESS } from '@tape.xyz/constants'
 import {
@@ -14,6 +13,8 @@ import { Badge as BadgeUI, Tooltip } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React from 'react'
 import { useReadContract } from 'wagmi'
+
+import { getDateString, getRelativeTime } from '@/lib/formatTime'
 
 import CoverLinks from './CoverLinks'
 

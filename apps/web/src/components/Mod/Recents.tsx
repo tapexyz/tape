@@ -1,7 +1,3 @@
-import Timeline from '@components/Home/Timeline'
-import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
-import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { getUnixTimestampForDaysAgo } from '@lib/formatTime'
 import {
   INFINITE_SCROLL_ROOT_MARGIN,
   LENSTUBE_BYTES_APP_ID,
@@ -21,6 +17,11 @@ import {
 import { Spinner } from '@tape.xyz/ui'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
+
+import Timeline from '@/components/Home/Timeline'
+import TimelineShimmer from '@/components/Shimmers/TimelineShimmer'
+import { NoDataFound } from '@/components/UIElements/NoDataFound'
+import { getUnixTimestampForDaysAgo } from '@/lib/formatTime'
 
 const since = getUnixTimestampForDaysAgo(30)
 

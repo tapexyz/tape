@@ -1,5 +1,3 @@
-import HoverableProfile from '@components/Common/HoverableProfile'
-import { BangersBubbles } from '@components/Shimmers/BangersShimmer'
 import { COMMON_REGEX } from '@tape.xyz/constants'
 import {
   getLennyPicture,
@@ -14,6 +12,9 @@ import type {
 } from '@tape.xyz/lens'
 import { LimitType, useWhoReactedPublicationQuery } from '@tape.xyz/lens'
 import React from 'react'
+
+import HoverableProfile from '@/components/Common/HoverableProfile'
+import { BangersBubbles } from '@/components/Shimmers/BangersShimmer'
 
 const Likes = ({ post }: { post: PrimaryPublication }) => {
   const parsePublicationId = () => {

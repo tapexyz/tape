@@ -1,6 +1,3 @@
-import PublicationOptions from '@components/Common/Publication/PublicationOptions'
-import LatestBytesShimmer from '@components/Shimmers/LatestBytesShimmer'
-import { NoDataFound } from '@components/UIElements/NoDataFound'
 import {
   FALLBACK_THUMBNAIL_URL,
   INFINITE_SCROLL_ROOT_MARGIN,
@@ -24,6 +21,10 @@ import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
+
+import PublicationOptions from '@/components/Common/Publication/PublicationOptions'
+import LatestBytesShimmer from '@/components/Shimmers/LatestBytesShimmer'
+import { NoDataFound } from '@/components/UIElements/NoDataFound'
 
 type Props = {
   profileId: string

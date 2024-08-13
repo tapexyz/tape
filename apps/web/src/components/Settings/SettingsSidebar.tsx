@@ -1,4 +1,3 @@
-import useProfileStore from '@lib/store/idb/profile'
 import { tw } from '@tape.xyz/browser'
 import { getIsProfileOwner } from '@tape.xyz/generic'
 import {
@@ -16,6 +15,8 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { useAccount } from 'wagmi'
+
+import useProfileStore from '@/lib/store/idb/profile'
 
 import {
   SETTINGS,

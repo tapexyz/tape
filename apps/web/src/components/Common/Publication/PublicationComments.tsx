@@ -1,9 +1,3 @@
-import Alert from '@components/Common/Alert'
-import CommentsShimmer from '@components/Shimmers/CommentsShimmer'
-import { NoDataFound } from '@components/UIElements/NoDataFound'
-import useCommentStore from '@lib/store/comment'
-import useProfileStore from '@lib/store/idb/profile'
-import usePersistStore from '@lib/store/persist'
 import { INFINITE_SCROLL_ROOT_MARGIN } from '@tape.xyz/constants'
 import { getProfile } from '@tape.xyz/generic'
 import type {
@@ -24,6 +18,13 @@ import { CommentOutline, Spinner } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
+
+import Alert from '@/components/Common/Alert'
+import CommentsShimmer from '@/components/Shimmers/CommentsShimmer'
+import { NoDataFound } from '@/components/UIElements/NoDataFound'
+import useCommentStore from '@/lib/store/comment'
+import useProfileStore from '@/lib/store/idb/profile'
+import usePersistStore from '@/lib/store/persist'
 
 import CommentsFilter from '../../Watch/Comments/CommentsFilter'
 import NewComment from '../../Watch/Comments/NewComment'
