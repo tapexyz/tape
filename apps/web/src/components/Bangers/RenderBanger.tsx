@@ -5,7 +5,7 @@ import { FireOutline, Tooltip } from '@tape.xyz/ui'
 import React from 'react'
 
 import PublicationReaction from '@/components/Common/Publication/PublicationReaction'
-import { getDateString, getRelativeTime } from '@/lib/formatTime'
+import { getReadableDateWithTime, getTimeAgo } from '@/lib/formatTime'
 
 import Likes from './Likes'
 import RenderLink from './RenderLink'
@@ -43,8 +43,11 @@ const RenderBanger = ({
           <div className="flex items-center justify-between space-x-4">
             <PublicationReaction publication={post} label="Banger" />
           </div>
-          <p className="text-sm" title={getDateString(post.createdAt)}>
-            {getRelativeTime(post.createdAt)}
+          <p
+            className="text-sm"
+            title={getReadableDateWithTime(post.createdAt)}
+          >
+            {getTimeAgo(post.createdAt)}
           </p>
         </div>
       </div>

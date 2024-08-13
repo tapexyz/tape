@@ -49,7 +49,7 @@ import { useSignTypedData, useWriteContract } from 'wagmi'
 
 import PinnedVideoShimmer from '@/components/Shimmers/PinnedVideoShimmer'
 import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork'
-import { getRelativeTime } from '@/lib/formatTime'
+import { getTimeAgo } from '@/lib/formatTime'
 import useProfileStore from '@/lib/store/idb/profile'
 
 type Props = {
@@ -280,7 +280,7 @@ const PinnedVideo: FC<Props> = ({ id }) => {
               <span className="middot" />
               {pinnedPublication.createdAt && (
                 <span className="whitespace-nowrap">
-                  {getRelativeTime(pinnedPublication.createdAt)}
+                  {getTimeAgo(pinnedPublication.createdAt)}
                 </span>
               )}
             </div>

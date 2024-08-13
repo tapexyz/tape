@@ -3,7 +3,7 @@ import type { AnyPublication } from '@tape.xyz/lens'
 import type { FC } from 'react'
 import React from 'react'
 
-import { getTimeFromSeconds } from '@/lib/formatTime'
+import { formatTimeFromSeconds } from '@/lib/formatTime'
 
 type Props = {
   video: AnyPublication
@@ -21,7 +21,7 @@ const ThumbnailOverlays: FC<Props> = ({ video }) => {
   return (
     <div>
       <span className="absolute bottom-2 right-2 rounded bg-black px-1 py-0.5 text-xs font-bold text-white">
-        {getTimeFromSeconds(String(videoDuration))}
+        {formatTimeFromSeconds(String(videoDuration))}
       </span>
     </div>
   )

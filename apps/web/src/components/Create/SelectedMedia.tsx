@@ -8,7 +8,7 @@ import {
 import { Badge, Input, Tooltip } from '@tape.xyz/ui'
 import React, { useEffect, useRef, useState } from 'react'
 
-import { getTimeFromSeconds } from '@/lib/formatTime'
+import { formatTimeFromSeconds } from '@/lib/formatTime'
 import useAppStore from '@/lib/store'
 import useProfileStore from '@/lib/store/idb/profile'
 
@@ -75,7 +75,7 @@ const SelectedMedia = () => {
           {uploadedMedia.file?.size && (
             <span className="space-x-1 whitespace-nowrap">
               <span>
-                {getTimeFromSeconds(String(uploadedMedia.durationInSeconds))}
+                {formatTimeFromSeconds(String(uploadedMedia.durationInSeconds))}
               </span>
               <span>({formatBytes(uploadedMedia.file?.size)})</span>
             </span>

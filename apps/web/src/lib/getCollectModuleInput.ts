@@ -9,7 +9,7 @@ import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
 
 import { VERIFIED_UNKNOWN_OPEN_ACTION_CONTRACTS } from '@/components/Watch/OpenActions/verified-contracts'
 
-import { getAddedDaysFromToday } from './formatTime'
+import { getUTCDateAfterDays } from './formatTime'
 
 const PLATFORM_FEE = 5
 const RECIPIENT_SHARE = 100 - PLATFORM_FEE
@@ -85,7 +85,7 @@ export const getCollectModuleInput = (
       collectLimit
     }),
     ...(timeLimitEnabled && {
-      endsAt: getAddedDaysFromToday(Number(timeLimit))
+      endsAt: getUTCDateAfterDays(Number(timeLimit))
     })
   }
 

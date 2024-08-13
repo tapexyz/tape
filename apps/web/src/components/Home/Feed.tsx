@@ -22,8 +22,6 @@ import { NoDataFound } from '@/components/UIElements/NoDataFound'
 import useAppStore from '@/lib/store'
 import useCuratedProfiles from '@/lib/store/idb/curated'
 
-// const since = getUnixTimestampForDaysAgo(30)
-
 const Feed = ({ showFilter = true }: { showFilter?: boolean }) => {
   const activeTagFilter = useAppStore((state) => state.activeTagFilter)
   const curatedProfiles = useCuratedProfiles((state) => state.curatedProfiles)

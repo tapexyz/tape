@@ -19,7 +19,7 @@ import React from 'react'
 
 import HoverableProfile from '@/components/Common/HoverableProfile'
 import PublicationOptions from '@/components/Common/Publication/PublicationOptions'
-import { getShortHandTime, getTimeFromSeconds } from '@/lib/formatTime'
+import { formatTimeFromSeconds, getShortHandTime } from '@/lib/formatTime'
 
 type Props = {
   video: MirrorablePublication
@@ -63,7 +63,7 @@ const SuggestedVideoCard: FC<Props> = ({ video }) => {
               {!isSensitiveContent && videoDuration ? (
                 <div>
                   <span className="absolute bottom-1 right-1 rounded bg-black px-1 text-[10px] text-white">
-                    {getTimeFromSeconds(String(videoDuration))}
+                    {formatTimeFromSeconds(String(videoDuration))}
                   </span>
                 </div>
               ) : null}

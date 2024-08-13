@@ -3,12 +3,12 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
 
-import { getSecondsFromTime } from '@/lib/formatTime'
+import { convertTimeToSeconds } from '@/lib/formatTime'
 
 const TimeLink = ({ ...props }: any) => {
   const { query } = useRouter()
   return (
-    <Link href={`/watch/${query.id}?t=${getSecondsFromTime(props.display)}`}>
+    <Link href={`/watch/${query.id}?t=${convertTimeToSeconds(props.display)}`}>
       {props.display}
     </Link>
   )
