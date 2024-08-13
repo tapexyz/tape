@@ -10,8 +10,8 @@
     <a href="https://tape.xyz/u/sasicodes">
         <img src="https://lens-badge.vercel.app/api/badge/lens/sasicodes" alt="Lens">
     </a>
-    <a href="https://www.gitpoap.io/gh/lenstube-xyz/tape">
-        <img src="https://public-api.gitpoap.io/v1/repo/lenstube-xyz/tape/badge" alt="Gitpoap">
+    <a href="https://www.gitpoap.io/gh/tapexyz/tape">
+        <img src="https://public-api.gitpoap.io/v1/repo/tapexyz/tape/badge" alt="Gitpoap">
     </a>
     <a href="https://tape.xyz/discord">
        <img src="https://img.shields.io/discord/980882088783913010.svg?label=&logo=discord&logoColor=ffffff&color=7389D8&labelColor=6A7EC2" alt="Discord">
