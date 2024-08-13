@@ -28,9 +28,9 @@ import MetaTags from '@/components/Common/MetaTags'
 import Timeline from '@/components/Home/Timeline'
 import TimelineShimmer from '@/components/Shimmers/TimelineShimmer'
 import { NoDataFound } from '@/components/UIElements/NoDataFound'
-import { getUnixTimestampForDaysAgo } from '@/lib/formatTime'
+import { getUnixTimestampNDaysAgo } from '@/lib/formatTime'
 
-const since = getUnixTimestampForDaysAgo(30)
+const since = getUnixTimestampNDaysAgo(30)
 
 const ExploreCategory = () => {
   const { query } = useRouter()

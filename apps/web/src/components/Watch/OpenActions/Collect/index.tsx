@@ -63,7 +63,7 @@ import {
 import AddressExplorerLink from '@/components/Common/Links/AddressExplorerLink'
 import { Countdown } from '@/components/UIElements/CountDown'
 import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork'
-import { getRelativeTime } from '@/lib/formatTime'
+import { getTimeAgo } from '@/lib/formatTime'
 import { getCollectModuleOutput } from '@/lib/getCollectModuleOutput'
 import useProfileStore from '@/lib/store/idb/profile'
 import useNonceStore from '@/lib/store/nonce'
@@ -532,7 +532,7 @@ const CollectPublication: FC<Props> = ({ publication, action }) => {
               <span className="text-lg">
                 <Countdown
                   timestamp={details.endsAt}
-                  endText={`Ended ${getRelativeTime(details.endsAt)}`}
+                  endText={`Ended ${getTimeAgo(details.endsAt)}`}
                 />
               </span>
             </div>

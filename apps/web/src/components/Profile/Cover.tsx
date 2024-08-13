@@ -14,7 +14,7 @@ import type { FC } from 'react'
 import React from 'react'
 import { useReadContract } from 'wagmi'
 
-import { getDateString, getRelativeTime } from '@/lib/formatTime'
+import { getReadableDateWithTime, getTimeAgo } from '@/lib/formatTime'
 
 import CoverLinks from './CoverLinks'
 
@@ -77,10 +77,10 @@ const Cover: FC<Props> = ({ profile }) => {
                 </span>
               </BadgeUI>
               <BadgeUI
-                title={getDateString(profile.createdAt)}
+                title={getReadableDateWithTime(profile.createdAt)}
                 className="!bg-white !text-black"
               >
-                Joined {getRelativeTime(profile.createdAt)}
+                Joined {getTimeAgo(profile.createdAt)}
               </BadgeUI>
             </div>
           </div>

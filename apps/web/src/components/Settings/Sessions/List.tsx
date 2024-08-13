@@ -19,7 +19,7 @@ import { useInView } from 'react-cool-inview'
 import toast from 'react-hot-toast'
 
 import { NoDataFound } from '@/components/UIElements/NoDataFound'
-import { getDateString } from '@/lib/formatTime'
+import { getReadableDateWithTime } from '@/lib/formatTime'
 import useProfileStore from '@/lib/store/idb/profile'
 
 const List = () => {
@@ -111,7 +111,7 @@ const List = () => {
               <div className="flex items-center justify-between">
                 <p>
                   {session.browser}, created at{' '}
-                  {getDateString(session.createdAt)}
+                  {getReadableDateWithTime(session.createdAt)}
                 </p>
                 <Button
                   onClick={() => revoke(session.authorizationId)}
