@@ -1,4 +1,3 @@
-import MetaTags from '@components/Common/MetaTags'
 import type {
   MediaVideoMimeType,
   MetadataAttribute,
@@ -10,11 +9,6 @@ import {
   shortVideo,
   video
 } from '@lens-protocol/metadata'
-import { getCollectModuleInput } from '@lib/getCollectModuleInput'
-import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
-import useProfileStore from '@lib/store/idb/profile'
-import useNonceStore from '@lib/store/nonce'
-import usePersistStore from '@lib/store/persist'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { getUserLocale, uploadToIPFS } from '@tape.xyz/browser'
 import {
@@ -65,6 +59,13 @@ import {
   useWalletClient,
   useWriteContract
 } from 'wagmi'
+
+import MetaTags from '@/components/Common/MetaTags'
+import { getCollectModuleInput } from '@/lib/getCollectModuleInput'
+import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@/lib/store'
+import useProfileStore from '@/lib/store/idb/profile'
+import useNonceStore from '@/lib/store/nonce'
+import usePersistStore from '@/lib/store/persist'
 
 import type { VideoFormData } from './Details'
 import Details from './Details'

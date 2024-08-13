@@ -1,9 +1,4 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import usePendingTxn from '@hooks/usePendingTxn'
-import useProfileStore from '@lib/store/idb/profile'
-import useAllowedTokensStore from '@lib/store/idb/tokens'
-import useNonceStore from '@lib/store/nonce'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { useCopyToClipboard } from '@tape.xyz/browser'
 import {
@@ -43,6 +38,12 @@ import toast from 'react-hot-toast'
 import { useSignTypedData, useWriteContract } from 'wagmi'
 import type { z } from 'zod'
 import { number, object, string } from 'zod'
+
+import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork'
+import usePendingTxn from '@/hooks/usePendingTxn'
+import useProfileStore from '@/lib/store/idb/profile'
+import useAllowedTokensStore from '@/lib/store/idb/tokens'
+import useNonceStore from '@/lib/store/nonce'
 
 type Props = {
   profile: Profile

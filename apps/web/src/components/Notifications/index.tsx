@@ -1,8 +1,3 @@
-import MetaTags from '@components/Common/MetaTags'
-import NotificationsShimmer from '@components/Shimmers/NotificationsShimmer'
-import { NoDataFound } from '@components/UIElements/NoDataFound'
-import useNotificationStore from '@lib/store/notification'
-import usePersistStore from '@lib/store/persist'
 import {
   INFINITE_SCROLL_ROOT_MARGIN,
   LENSTUBE_APP_ID,
@@ -16,6 +11,12 @@ import { CustomNotificationsFilterEnum } from '@tape.xyz/lens/custom-types'
 import { Spinner } from '@tape.xyz/ui'
 import React, { useEffect } from 'react'
 import { useInView } from 'react-cool-inview'
+
+import MetaTags from '@/components/Common/MetaTags'
+import NotificationsShimmer from '@/components/Shimmers/NotificationsShimmer'
+import { NoDataFound } from '@/components/UIElements/NoDataFound'
+import useNotificationStore from '@/lib/store/notification'
+import usePersistStore from '@/lib/store/persist'
 
 import Acted from './Acted'
 import Commented from './Commented'

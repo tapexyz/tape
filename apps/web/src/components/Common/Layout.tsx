@@ -1,7 +1,3 @@
-import getCurrentSession from '@lib/getCurrentSession'
-import { signOut } from '@lib/store/auth'
-import useProfileStore from '@lib/store/idb/profile'
-import useNonceStore from '@lib/store/nonce'
 import {
   getToastOptions,
   setFingerprint,
@@ -18,6 +14,11 @@ import type { FC, ReactNode } from 'react'
 import React, { useEffect } from 'react'
 import { Toaster } from 'react-hot-toast'
 import { useAccount } from 'wagmi'
+
+import getCurrentSession from '@/lib/getCurrentSession'
+import { signOut } from '@/lib/store/auth'
+import useProfileStore from '@/lib/store/idb/profile'
+import useNonceStore from '@/lib/store/nonce'
 
 import FullPageLoader from './FullPageLoader'
 import MetaTags from './MetaTags'

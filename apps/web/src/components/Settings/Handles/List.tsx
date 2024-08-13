@@ -1,4 +1,3 @@
-import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { INFINITE_SCROLL_ROOT_MARGIN } from '@tape.xyz/constants'
 import type { HandleInfo, OwnedHandlesRequest } from '@tape.xyz/lens'
 import { useOwnedHandlesQuery } from '@tape.xyz/lens'
@@ -7,6 +6,8 @@ import Link from 'next/link'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 import { useAccount } from 'wagmi'
+
+import { NoDataFound } from '@/components/UIElements/NoDataFound'
 
 const List = () => {
   const { address } = useAccount()

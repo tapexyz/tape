@@ -1,10 +1,11 @@
-import useAppStore from '@lib/store'
 import { tw } from '@tape.xyz/browser'
 import { trimify } from '@tape.xyz/generic'
 import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
 import { Button, Input } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React, { useState } from 'react'
+
+import useAppStore from '@/lib/store'
 
 type Props = {
   setCollectType: (data: CollectModuleType) => void

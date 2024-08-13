@@ -1,7 +1,8 @@
-import useAppStore from '@lib/store'
 import type { UnknownOpenActionType } from '@tape.xyz/lens/custom-types'
 import { Button, Checkbox, ChevronRightOutline, Modal } from '@tape.xyz/ui'
 import React, { useState } from 'react'
+
+import useAppStore from '@/lib/store'
 
 const APPROVED_UNKNOWN_OPEN_ACTIONS = [
   {

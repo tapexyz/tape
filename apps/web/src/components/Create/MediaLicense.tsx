@@ -1,7 +1,8 @@
 import { MetadataLicenseType } from '@lens-protocol/metadata'
-import useAppStore from '@lib/store'
 import { Select, SelectItem } from '@tape.xyz/ui'
 import React from 'react'
+
+import useAppStore from '@/lib/store'
 
 const MediaLicense = () => {
   const uploadedMedia = useAppStore((state) => state.uploadedMedia)

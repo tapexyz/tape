@@ -1,4 +1,3 @@
-import MetaTags from '@components/Common/MetaTags'
 import { ERROR_MESSAGE } from '@tape.xyz/constants'
 import { EVENTS, Tower } from '@tape.xyz/generic'
 import type { Profile } from '@tape.xyz/lens'
@@ -8,6 +7,8 @@ import { Button, Select, SelectItem } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
+
+import MetaTags from '@/components/Common/MetaTags'
 
 type Props = {
   profile: Profile

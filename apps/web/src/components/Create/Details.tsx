@@ -1,7 +1,4 @@
-import EmojiPicker from '@components/UIElements/EmojiPicker'
-import InputMentions from '@components/UIElements/InputMentions'
 import { zodResolver } from '@hookform/resolvers/zod'
-import useAppStore from '@lib/store'
 import { getFileFromDataURL, tw, uploadToIPFS } from '@tape.xyz/browser'
 import { checkIsBytesVideo } from '@tape.xyz/generic'
 import type { IPFSUploadResult } from '@tape.xyz/lens/custom-types'
@@ -12,6 +9,10 @@ import { useForm } from 'react-hook-form'
 import { toast } from 'react-hot-toast'
 import type { z } from 'zod'
 import { boolean, object, string } from 'zod'
+
+import EmojiPicker from '@/components/UIElements/EmojiPicker'
+import InputMentions from '@/components/UIElements/InputMentions'
+import useAppStore from '@/lib/store'
 
 import CollectModule from './CollectModule'
 import DropZone from './DropZone'

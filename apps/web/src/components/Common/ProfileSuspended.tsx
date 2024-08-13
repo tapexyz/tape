@@ -1,7 +1,8 @@
-import MetaTags from '@components/Common/MetaTags'
 import { Button } from '@tape.xyz/ui'
 import Link from 'next/link'
 import React from 'react'
+
+import MetaTags from '@/components/Common/MetaTags'
 
 const ProfileSuspended = () => {
   return (

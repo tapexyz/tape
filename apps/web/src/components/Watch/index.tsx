@@ -1,8 +1,3 @@
-import MetaTags from '@components/Common/MetaTags'
-import ProfileSuspended from '@components/Common/ProfileSuspended'
-import { WatchShimmer } from '@components/Shimmers/WatchShimmer'
-import useAppStore from '@lib/store'
-import useCommentStore from '@lib/store/comment'
 import {
   EVENTS,
   getIsSuspendedProfile,
@@ -18,6 +13,12 @@ import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
+
+import MetaTags from '@/components/Common/MetaTags'
+import ProfileSuspended from '@/components/Common/ProfileSuspended'
+import { WatchShimmer } from '@/components/Shimmers/WatchShimmer'
+import useAppStore from '@/lib/store'
+import useCommentStore from '@/lib/store/comment'
 
 import PublicationComments from '../Common/Publication/PublicationComments'
 import NonRelevantComments from './Comments/NonRelevantComments'

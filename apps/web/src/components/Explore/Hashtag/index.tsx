@@ -1,7 +1,3 @@
-import MetaTags from '@components/Common/MetaTags'
-import Timeline from '@components/Home/Timeline'
-import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
-import { NoDataFound } from '@components/UIElements/NoDataFound'
 import {
   ALLOWED_APP_IDS,
   INFINITE_SCROLL_ROOT_MARGIN,
@@ -24,6 +20,11 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
 import Custom404 from 'src/pages/404'
+
+import MetaTags from '@/components/Common/MetaTags'
+import Timeline from '@/components/Home/Timeline'
+import TimelineShimmer from '@/components/Shimmers/TimelineShimmer'
+import { NoDataFound } from '@/components/UIElements/NoDataFound'
 
 const ExploreHashtag = () => {
   const { query } = useRouter()

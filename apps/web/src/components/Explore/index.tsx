@@ -1,7 +1,8 @@
-import CategoryFilters from '@components/Common/CategoryFilters'
-import MetaTags from '@components/Common/MetaTags'
 import { EVENTS, Tower } from '@tape.xyz/generic'
 import React, { useEffect } from 'react'
+
+import CategoryFilters from '@/components/Common/CategoryFilters'
+import MetaTags from '@/components/Common/MetaTags'
 
 import ExploreFeed from './Feed'
 

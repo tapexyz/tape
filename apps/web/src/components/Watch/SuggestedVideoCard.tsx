@@ -1,6 +1,3 @@
-import HoverableProfile from '@components/Common/HoverableProfile'
-import PublicationOptions from '@components/Common/Publication/PublicationOptions'
-import { getShortHandTime, getTimeFromSeconds } from '@lib/formatTime'
 import { tw, useAverageColor } from '@tape.xyz/browser'
 import {
   FALLBACK_THUMBNAIL_URL,
@@ -19,6 +16,10 @@ import { CommentOutline, HeartOutline } from '@tape.xyz/ui'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
+
+import HoverableProfile from '@/components/Common/HoverableProfile'
+import PublicationOptions from '@/components/Common/Publication/PublicationOptions'
+import { getShortHandTime, getTimeFromSeconds } from '@/lib/formatTime'
 
 type Props = {
   video: MirrorablePublication

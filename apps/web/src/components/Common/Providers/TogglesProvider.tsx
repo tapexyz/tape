@@ -1,7 +1,3 @@
-import useProfileStore from '@lib/store/idb/profile'
-import useProfileTogglesStore from '@lib/store/idb/toggles'
-import useAllowedTokensStore from '@lib/store/idb/tokens'
-import useVerifiedStore from '@lib/store/idb/verified'
 import { useQuery } from '@tanstack/react-query'
 import {
   IS_MAINNET,
@@ -11,6 +7,11 @@ import {
   WORKER_VERIFIED_URL
 } from '@tape.xyz/constants'
 import axios from 'axios'
+
+import useProfileStore from '@/lib/store/idb/profile'
+import useProfileTogglesStore from '@/lib/store/idb/toggles'
+import useAllowedTokensStore from '@/lib/store/idb/tokens'
+import useVerifiedStore from '@/lib/store/idb/verified'
 
 const TogglesProvider = () => {
   const activeProfile = useProfileStore((state) => state.activeProfile)

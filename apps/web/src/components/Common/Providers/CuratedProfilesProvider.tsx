@@ -1,7 +1,8 @@
-import useCuratedProfiles from '@lib/store/idb/curated'
 import { useQuery } from '@tanstack/react-query'
 import { WORKER_CURATED_PROFILES_URL } from '@tape.xyz/constants'
 import axios from 'axios'
+
+import useCuratedProfiles from '@/lib/store/idb/curated'
 
 const CuratedProfilesProvider = () => {
   const setCuratedProfiles = useCuratedProfiles(

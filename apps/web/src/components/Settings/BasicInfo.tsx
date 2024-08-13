@@ -1,6 +1,4 @@
-import EmojiPicker from '@components/UIElements/EmojiPicker'
 import { zodResolver } from '@hookform/resolvers/zod'
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import type { ProfileOptions } from '@lens-protocol/metadata'
 import {
   MetadataAttributeType,
@@ -45,6 +43,9 @@ import toast from 'react-hot-toast'
 import { useSignTypedData, useWriteContract } from 'wagmi'
 import type { z } from 'zod'
 import { object, string, union } from 'zod'
+
+import EmojiPicker from '@/components/UIElements/EmojiPicker'
+import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork'
 
 type Props = {
   profile: Profile

@@ -1,7 +1,3 @@
-import usePendingTxn from '@hooks/usePendingTxn'
-import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@lib/store'
-import useProfileStore from '@lib/store/idb/profile'
-import usePersistStore from '@lib/store/persist'
 import { tw, useAverageColor } from '@tape.xyz/browser'
 import { STATIC_ASSETS } from '@tape.xyz/constants'
 import {
@@ -21,6 +17,11 @@ import type { QueuedVideoType } from '@tape.xyz/lens/custom-types'
 import { Tooltip } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React from 'react'
+
+import usePendingTxn from '@/hooks/usePendingTxn'
+import useAppStore, { UPLOADED_VIDEO_FORM_DEFAULTS } from '@/lib/store'
+import useProfileStore from '@/lib/store/idb/profile'
+import usePersistStore from '@/lib/store/persist'
 
 import Badge from '../Badge'
 

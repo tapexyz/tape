@@ -1,6 +1,3 @@
-import HoverableProfile from '@components/Common/HoverableProfile'
-import { NoDataFound } from '@components/UIElements/NoDataFound'
-import useProfileStore from '@lib/store/idb/profile'
 import {
   getLennyPicture,
   getProfile,
@@ -12,6 +9,10 @@ import { Spinner } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
+
+import HoverableProfile from '@/components/Common/HoverableProfile'
+import { NoDataFound } from '@/components/UIElements/NoDataFound'
+import useProfileStore from '@/lib/store/idb/profile'
 
 type Props = {
   viewing: string

@@ -1,6 +1,3 @@
-import CollectorsList from '@components/Common/CollectorsList'
-import HoverableProfile from '@components/Common/HoverableProfile'
-import MirroredList from '@components/Common/MirroredList'
 import {
   getLennyPicture,
   getProfile,
@@ -9,7 +6,11 @@ import {
 import type { PrimaryPublication } from '@tape.xyz/lens'
 import { CollectOutline, MirrorOutline, Modal } from '@tape.xyz/ui'
 import type { FC } from 'react'
-import React, { useState } from 'react'
+import { useState } from 'react'
+
+import CollectorsList from '@/components/Common/CollectorsList'
+import HoverableProfile from '@/components/Common/HoverableProfile'
+import MirroredList from '@/components/Common/MirroredList'
 
 type Props = {
   video: PrimaryPublication

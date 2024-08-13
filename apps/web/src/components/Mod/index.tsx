@@ -1,9 +1,10 @@
-import MetaTags from '@components/Common/MetaTags'
-import useProfileStore from '@lib/store/idb/profile'
 import { ADMIN_IDS } from '@tape.xyz/constants'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@tape.xyz/ui'
 import React, { useState } from 'react'
 import Custom404 from 'src/pages/404'
+
+import MetaTags from '@/components/Common/MetaTags'
+import useProfileStore from '@/lib/store/idb/profile'
 
 import Recents from './Recents'
 import Signup from './Signup'

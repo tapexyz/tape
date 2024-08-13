@@ -1,6 +1,3 @@
-import InterweaveContent from '@components/Common/InterweaveContent'
-import useAppStore from '@lib/store'
-import useProfileStore from '@lib/store/idb/profile'
 import { tw } from '@tape.xyz/browser'
 import {
   getCategoryName,
@@ -22,6 +19,10 @@ import {
 import Link from 'next/link'
 import type { FC } from 'react'
 import React, { memo, useEffect, useState } from 'react'
+
+import InterweaveContent from '@/components/Common/InterweaveContent'
+import useAppStore from '@/lib/store'
+import useProfileStore from '@/lib/store/idb/profile'
 
 import PublicationActions from '../Common/Publication/PublicationActions'
 import VideoMeta from './VideoMeta'

@@ -1,6 +1,3 @@
-import getCurrentSession from '@lib/getCurrentSession'
-import { signOut } from '@lib/store/auth'
-import useProfileStore from '@lib/store/idb/profile'
 import { ADMIN_IDS } from '@tape.xyz/constants'
 import {
   EVENTS,
@@ -38,6 +35,10 @@ import { useRouter } from 'next/router'
 import { useTheme } from 'next-themes'
 import React, { useMemo } from 'react'
 import { useAccount } from 'wagmi'
+
+import getCurrentSession from '@/lib/getCurrentSession'
+import { signOut } from '@/lib/store/auth'
+import useProfileStore from '@/lib/store/idb/profile'
 
 import Badge from './Badge'
 

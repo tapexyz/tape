@@ -1,4 +1,3 @@
-import useProfileStore from '@lib/store/idb/profile'
 import { tw } from '@tape.xyz/browser'
 import { EVENTS, sanitizeProfileInterests, Tower } from '@tape.xyz/generic'
 import type {
@@ -13,6 +12,8 @@ import {
 import { useApolloClient } from '@tape.xyz/lens/apollo'
 import { Spinner } from '@tape.xyz/ui'
 import React, { useEffect } from 'react'
+
+import useProfileStore from '@/lib/store/idb/profile'
 
 const MAX_TOPICS_ALLOWED = 12
 

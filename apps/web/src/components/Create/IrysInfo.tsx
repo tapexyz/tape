@@ -1,5 +1,4 @@
 import type { WebIrys } from '@irys/sdk'
-import useAppStore from '@lib/store'
 import { useIsMounted } from '@tape.xyz/browser'
 import {
   IRYS_CURRENCY,
@@ -22,6 +21,8 @@ import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { formatEther, formatGwei, formatUnits } from 'viem'
 import { useAccount, useBalance, useWalletClient } from 'wagmi'
+
+import useAppStore from '@/lib/store'
 
 const IrysInfo = () => {
   const isMounted = useIsMounted()

@@ -1,7 +1,3 @@
-import { VERIFIED_UNKNOWN_OPEN_ACTION_CONTRACTS } from '@components/Watch/OpenActions/verified-contracts'
-import { getCollectModuleConfig } from '@lib/getCollectModuleInput'
-import useProfileStore from '@lib/store/idb/profile'
-import useAllowedTokensStore from '@lib/store/idb/tokens'
 import { POLYGONSCAN_URL, WMATIC_TOKEN_ADDRESS } from '@tape.xyz/constants'
 import { shortenAddress } from '@tape.xyz/generic'
 import type { ApprovedAllowanceAmountResult } from '@tape.xyz/lens'
@@ -16,6 +12,11 @@ import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useSendTransaction, useWaitForTransactionReceipt } from 'wagmi'
+
+import { VERIFIED_UNKNOWN_OPEN_ACTION_CONTRACTS } from '@/components/Watch/OpenActions/verified-contracts'
+import { getCollectModuleConfig } from '@/lib/getCollectModuleInput'
+import useProfileStore from '@/lib/store/idb/profile'
+import useAllowedTokensStore from '@/lib/store/idb/tokens'
 
 const ModuleItem = ({
   moduleItem,

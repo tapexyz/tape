@@ -1,8 +1,9 @@
-import { getSecondsFromTime } from '@lib/formatTime'
 import { Matcher } from 'interweave'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
+
+import { getSecondsFromTime } from '@/lib/formatTime'
 
 const TimeLink = ({ ...props }: any) => {
   const { query } = useRouter()

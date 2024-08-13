@@ -1,9 +1,3 @@
-import CategoryFilters from '@components/Common/CategoryFilters'
-import Timeline from '@components/Home/Timeline'
-import TimelineShimmer from '@components/Shimmers/TimelineShimmer'
-import { NoDataFound } from '@components/UIElements/NoDataFound'
-import useAppStore from '@lib/store'
-import useCuratedProfiles from '@lib/store/idb/curated'
 import {
   ALLOWED_APP_IDS,
   INFINITE_SCROLL_ROOT_MARGIN,
@@ -20,6 +14,13 @@ import {
 import { Spinner } from '@tape.xyz/ui'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
+
+import CategoryFilters from '@/components/Common/CategoryFilters'
+import Timeline from '@/components/Home/Timeline'
+import TimelineShimmer from '@/components/Shimmers/TimelineShimmer'
+import { NoDataFound } from '@/components/UIElements/NoDataFound'
+import useAppStore from '@/lib/store'
+import useCuratedProfiles from '@/lib/store/idb/curated'
 
 // const since = getUnixTimestampForDaysAgo(30)
 

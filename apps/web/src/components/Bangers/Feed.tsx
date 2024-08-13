@@ -1,5 +1,3 @@
-import BangersShimmer from '@components/Shimmers/BangersShimmer'
-import { NoDataFound } from '@components/UIElements/NoDataFound'
 import { INFINITE_SCROLL_ROOT_MARGIN, TAPE_APP_ID } from '@tape.xyz/constants'
 import type {
   ExplorePublicationRequest,
@@ -16,6 +14,9 @@ import {
 import { Spinner } from '@tape.xyz/ui'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
+
+import BangersShimmer from '@/components/Shimmers/BangersShimmer'
+import { NoDataFound } from '@/components/UIElements/NoDataFound'
 
 import New from './New'
 import RenderBanger from './RenderBanger'

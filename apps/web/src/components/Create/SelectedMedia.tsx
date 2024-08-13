@@ -1,6 +1,3 @@
-import { getTimeFromSeconds } from '@lib/formatTime'
-import useAppStore from '@lib/store'
-import useProfileStore from '@lib/store/idb/profile'
 import { tw } from '@tape.xyz/browser'
 import { FEATURE_FLAGS } from '@tape.xyz/constants'
 import {
@@ -10,6 +7,10 @@ import {
 } from '@tape.xyz/generic'
 import { Badge, Input, Tooltip } from '@tape.xyz/ui'
 import React, { useEffect, useRef, useState } from 'react'
+
+import { getTimeFromSeconds } from '@/lib/formatTime'
+import useAppStore from '@/lib/store'
+import useProfileStore from '@/lib/store/idb/profile'
 
 import ChooseThumbnail from './ChooseThumbnail'
 import UploadMethod from './UploadMethod'

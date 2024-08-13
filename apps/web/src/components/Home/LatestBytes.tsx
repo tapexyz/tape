@@ -1,7 +1,3 @@
-import Badge from '@components/Common/Badge'
-import HoverableProfile from '@components/Common/HoverableProfile'
-import LatestBytesShimmer from '@components/Shimmers/LatestBytesShimmer'
-import useCuratedProfiles from '@lib/store/idb/curated'
 import {
   FALLBACK_THUMBNAIL_URL,
   LENSTUBE_BYTES_APP_ID,
@@ -24,6 +20,11 @@ import {
 } from '@tape.xyz/lens'
 import Link from 'next/link'
 import React from 'react'
+
+import Badge from '@/components/Common/Badge'
+import HoverableProfile from '@/components/Common/HoverableProfile'
+import LatestBytesShimmer from '@/components/Shimmers/LatestBytesShimmer'
+import useCuratedProfiles from '@/lib/store/idb/curated'
 
 const LatestBytes = () => {
   const curatedProfiles = useCuratedProfiles((state) => state.curatedProfiles)

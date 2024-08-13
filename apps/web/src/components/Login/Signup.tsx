@@ -1,6 +1,4 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import usePendingTxn from '@hooks/usePendingTxn'
 import { TAPE_SIGNUP_PROXY_ABI } from '@tape.xyz/abis'
 import { useDebounce } from '@tape.xyz/browser'
 import {
@@ -41,6 +39,9 @@ import {
 } from 'wagmi'
 import type { z } from 'zod'
 import { object, string } from 'zod'
+
+import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork'
+import usePendingTxn from '@/hooks/usePendingTxn'
 
 type Props = {
   showLogin: boolean

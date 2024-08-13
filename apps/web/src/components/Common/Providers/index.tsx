@@ -1,4 +1,3 @@
-import authLink from '@lib/authLink'
 import { LivepeerConfig } from '@livepeer/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { getLivepeerClient } from '@tape.xyz/browser'
@@ -6,6 +5,8 @@ import { apolloClient, ApolloProvider } from '@tape.xyz/lens/apollo'
 import { useRouter } from 'next/router'
 import type { ReactNode } from 'react'
 import React from 'react'
+
+import authLink from '@/lib/authLink'
 
 import ErrorBoundary from '../ErrorBoundary'
 import Layout from '../Layout'

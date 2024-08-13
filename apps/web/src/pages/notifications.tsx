@@ -1,5 +1,6 @@
-import Notifications from '@components/Notifications'
 import React from 'react'
+
+import Notifications from '@/components/Notifications'
 
 const notifications = () => {
   return <Notifications />

@@ -1,4 +1,3 @@
-import { VERIFIED_UNKNOWN_OPEN_ACTION_CONTRACTS } from '@components/Watch/OpenActions/verified-contracts'
 import { TAPE_ADMIN_ADDRESS } from '@tape.xyz/constants'
 import type {
   ApprovedAllowanceAmountResult,
@@ -7,6 +6,8 @@ import type {
 } from '@tape.xyz/lens'
 import { OpenActionModuleType } from '@tape.xyz/lens'
 import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
+
+import { VERIFIED_UNKNOWN_OPEN_ACTION_CONTRACTS } from '@/components/Watch/OpenActions/verified-contracts'
 
 import { getAddedDaysFromToday } from './formatTime'
 

@@ -1,9 +1,3 @@
-import Badge from '@components/Common/Badge'
-import InterweaveContent from '@components/Common/InterweaveContent'
-import { NoDataFound } from '@components/UIElements/NoDataFound'
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import useProfileStore from '@lib/store/idb/profile'
-import useNonceStore from '@lib/store/nonce'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import {
   ERROR_MESSAGE,
@@ -42,6 +36,13 @@ import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import toast from 'react-hot-toast'
 import { useSignTypedData, useWriteContract } from 'wagmi'
+
+import Badge from '@/components/Common/Badge'
+import InterweaveContent from '@/components/Common/InterweaveContent'
+import { NoDataFound } from '@/components/UIElements/NoDataFound'
+import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork'
+import useProfileStore from '@/lib/store/idb/profile'
+import useNonceStore from '@/lib/store/nonce'
 
 const List = () => {
   const [unblockingProfileId, setUnblockingProfileId] = useState('')

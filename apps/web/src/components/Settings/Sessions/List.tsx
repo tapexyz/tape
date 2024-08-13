@@ -1,6 +1,3 @@
-import { NoDataFound } from '@components/UIElements/NoDataFound'
-import { getDateString } from '@lib/formatTime'
-import useProfileStore from '@lib/store/idb/profile'
 import { INFINITE_SCROLL_ROOT_MARGIN } from '@tape.xyz/constants'
 import type { ApprovedAuthenticationRequest } from '@tape.xyz/lens'
 import {
@@ -20,6 +17,10 @@ import {
 import React, { useState } from 'react'
 import { useInView } from 'react-cool-inview'
 import toast from 'react-hot-toast'
+
+import { NoDataFound } from '@/components/UIElements/NoDataFound'
+import { getDateString } from '@/lib/formatTime'
+import useProfileStore from '@/lib/store/idb/profile'
 
 const List = () => {
   const [revokingSessionId, setRevokingSessionId] = useState('')

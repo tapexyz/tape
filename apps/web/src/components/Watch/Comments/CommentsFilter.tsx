@@ -1,8 +1,9 @@
-import useCommentStore from '@lib/store/comment'
 import { tw } from '@tape.xyz/browser'
 import { CustomCommentsFilterEnum } from '@tape.xyz/lens/custom-types'
 import { DropdownMenu, DropdownMenuItem, SortOutline } from '@tape.xyz/ui'
 import React from 'react'
+
+import useCommentStore from '@/lib/store/comment'
 
 const CommentsFilter = () => {
   const { selectedCommentFilter, setSelectedCommentFilter } = useCommentStore()

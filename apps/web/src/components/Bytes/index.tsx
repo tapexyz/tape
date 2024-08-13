@@ -1,6 +1,3 @@
-import MetaTags from '@components/Common/MetaTags'
-import { NoDataFound } from '@components/UIElements/NoDataFound'
-import useCuratedProfiles from '@lib/store/idb/curated'
 import {
   ALLOWED_APP_IDS,
   INFINITE_SCROLL_ROOT_MARGIN,
@@ -25,6 +22,10 @@ import { useKeenSlider } from 'keen-slider/react'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useInView } from 'react-cool-inview'
+
+import MetaTags from '@/components/Common/MetaTags'
+import { NoDataFound } from '@/components/UIElements/NoDataFound'
+import useCuratedProfiles from '@/lib/store/idb/curated'
 
 import ByteVideo from './ByteVideo'
 import { KeyboardControls, WheelControls } from './SliderPlugin'

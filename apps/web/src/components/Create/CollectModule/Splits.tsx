@@ -1,6 +1,3 @@
-import { NoDataFound } from '@components/UIElements/NoDataFound'
-import ProfileSuggestion from '@components/UIElements/ProfileSuggestion'
-import useAppStore from '@lib/store'
 import { tw, useDebounce, useOutsideClick } from '@tape.xyz/browser'
 import {
   LENS_NAMESPACE_PREFIX,
@@ -29,6 +26,10 @@ import {
 import type { FC, RefObject } from 'react'
 import React, { useEffect, useRef, useState } from 'react'
 import { isAddress } from 'viem'
+
+import { NoDataFound } from '@/components/UIElements/NoDataFound'
+import ProfileSuggestion from '@/components/UIElements/ProfileSuggestion'
+import useAppStore from '@/lib/store'
 
 type Props = {
   submitContainerRef: RefObject<HTMLDivElement>

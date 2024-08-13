@@ -1,12 +1,6 @@
-import EmojiPicker from '@components/UIElements/EmojiPicker'
-import InputMentions from '@components/UIElements/InputMentions'
 import { zodResolver } from '@hookform/resolvers/zod'
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
 import type { MetadataAttribute } from '@lens-protocol/metadata'
 import { MetadataAttributeType, textOnly } from '@lens-protocol/metadata'
-import useProfileStore from '@lib/store/idb/profile'
-import useNonceStore from '@lib/store/nonce'
-import usePersistStore from '@lib/store/persist'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { getUserLocale } from '@tape.xyz/browser'
 import {
@@ -54,6 +48,13 @@ import { v4 as uuidv4 } from 'uuid'
 import { useSignTypedData, useWriteContract } from 'wagmi'
 import type { z } from 'zod'
 import { object, string } from 'zod'
+
+import EmojiPicker from '@/components/UIElements/EmojiPicker'
+import InputMentions from '@/components/UIElements/InputMentions'
+import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork'
+import useProfileStore from '@/lib/store/idb/profile'
+import useNonceStore from '@/lib/store/nonce'
+import usePersistStore from '@/lib/store/persist'
 
 type Props = {
   video: AnyPublication

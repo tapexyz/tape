@@ -1,6 +1,3 @@
-import useHandleWrongNetwork from '@hooks/useHandleWrongNetwork'
-import useAppStore from '@lib/store'
-import useProfileStore from '@lib/store/idb/profile'
 import { tw, useDragAndDrop } from '@tape.xyz/browser'
 import {
   ALLOWED_UPLOAD_MIME_TYPES,
@@ -12,6 +9,10 @@ import { Button, UploadOutline } from '@tape.xyz/ui'
 import fileReaderStream from 'filereader-stream'
 import React from 'react'
 import toast from 'react-hot-toast'
+
+import useHandleWrongNetwork from '@/hooks/useHandleWrongNetwork'
+import useAppStore from '@/lib/store'
+import useProfileStore from '@/lib/store/idb/profile'
 
 const DropZone = () => {
   const setUploadedMedia = useAppStore((state) => state.setUploadedMedia)

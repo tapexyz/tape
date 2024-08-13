@@ -1,6 +1,3 @@
-import HoverableProfile from '@components/Common/HoverableProfile'
-import BubblesShimmer from '@components/Shimmers/BubblesShimmer'
-import useProfileStore from '@lib/store/idb/profile'
 import {
   getLennyPicture,
   getProfile,
@@ -11,6 +8,10 @@ import { LimitType, useMutualFollowersQuery } from '@tape.xyz/lens'
 import { Modal } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React, { useState } from 'react'
+
+import HoverableProfile from '@/components/Common/HoverableProfile'
+import BubblesShimmer from '@/components/Shimmers/BubblesShimmer'
+import useProfileStore from '@/lib/store/idb/profile'
 
 import MutualFollowers from './MutualFollowers'
 

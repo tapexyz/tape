@@ -1,6 +1,3 @@
-import Badge from '@components/Common/Badge'
-import { NoDataFound } from '@components/UIElements/NoDataFound'
-import useProfileStore from '@lib/store/idb/profile'
 import { INFINITE_SCROLL_ROOT_MARGIN } from '@tape.xyz/constants'
 import {
   formatNumber,
@@ -17,6 +14,10 @@ import { Spinner } from '@tape.xyz/ui'
 import Link from 'next/link'
 import React from 'react'
 import { useInView } from 'react-cool-inview'
+
+import Badge from '@/components/Common/Badge'
+import { NoDataFound } from '@/components/UIElements/NoDataFound'
+import useProfileStore from '@/lib/store/idb/profile'
 
 const Managed = () => {
   const activeProfile = useProfileStore(

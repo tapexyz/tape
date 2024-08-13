@@ -1,9 +1,3 @@
-import Badge from '@components/Common/Badge'
-import FollowActions from '@components/Common/FollowActions'
-import InterweaveContent from '@components/Common/InterweaveContent'
-import ReportProfile from '@components/Report/Profile'
-import useProfileStore from '@lib/store/idb/profile'
-import useNonceStore from '@lib/store/nonce'
 import { LENSHUB_PROXY_ABI } from '@tape.xyz/abis'
 import { useCopyToClipboard } from '@tape.xyz/browser'
 import {
@@ -51,6 +45,13 @@ import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useSignTypedData, useWriteContract } from 'wagmi'
+
+import Badge from '@/components/Common/Badge'
+import FollowActions from '@/components/Common/FollowActions'
+import InterweaveContent from '@/components/Common/InterweaveContent'
+import ReportProfile from '@/components/Report/Profile'
+import useProfileStore from '@/lib/store/idb/profile'
+import useNonceStore from '@/lib/store/nonce'
 
 import Bubbles from '../Mutual/Bubbles'
 import Stats from './Stats'

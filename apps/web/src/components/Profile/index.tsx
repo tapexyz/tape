@@ -1,6 +1,3 @@
-import MetaTags from '@components/Common/MetaTags'
-import ProfileSuspended from '@components/Common/ProfileSuspended'
-import ProfilePageShimmer from '@components/Shimmers/ProfilePageShimmer'
 import { LENS_NAMESPACE_PREFIX } from '@tape.xyz/constants'
 import {
   EVENTS,
@@ -15,6 +12,10 @@ import { useRouter } from 'next/router'
 import React, { memo, useEffect } from 'react'
 import Custom404 from 'src/pages/404'
 import Custom500 from 'src/pages/500'
+
+import MetaTags from '@/components/Common/MetaTags'
+import ProfileSuspended from '@/components/Common/ProfileSuspended'
+import ProfilePageShimmer from '@/components/Shimmers/ProfilePageShimmer'
 
 import BasicInfo from './BasicInfo'
 import Cover from './Cover'

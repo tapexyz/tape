@@ -1,9 +1,10 @@
-import useAppStore from '@lib/store'
 import { tw } from '@tape.xyz/browser'
 import type { CollectModuleType } from '@tape.xyz/lens/custom-types'
 import { Button } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React from 'react'
+
+import useAppStore from '@/lib/store'
 
 type Props = {
   setCollectType: (data: CollectModuleType) => void

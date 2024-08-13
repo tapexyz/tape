@@ -1,4 +1,3 @@
-import { getCollectModuleConfig } from '@lib/getCollectModuleInput'
 import type { ApprovedAllowanceAmountResult } from '@tape.xyz/lens'
 import {
   OpenActionModuleType,
@@ -10,6 +9,8 @@ import type { Dispatch, FC } from 'react'
 import React, { useEffect } from 'react'
 import toast from 'react-hot-toast'
 import { useSendTransaction, useWaitForTransactionReceipt } from 'wagmi'
+
+import { getCollectModuleConfig } from '@/lib/getCollectModuleInput'
 
 type Props = {
   setIsAllowed: Dispatch<boolean>

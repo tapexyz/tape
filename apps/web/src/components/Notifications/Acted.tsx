@@ -1,4 +1,3 @@
-import HoverableProfile from '@components/Common/HoverableProfile'
 import {
   getLennyPicture,
   getProfile,
@@ -11,6 +10,8 @@ import { CollectOutline } from '@tape.xyz/ui'
 import Link from 'next/link'
 import type { FC } from 'react'
 import React from 'react'
+
+import HoverableProfile from '@/components/Common/HoverableProfile'
 
 type Props = {
   notification: ActedNotification

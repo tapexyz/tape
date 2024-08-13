@@ -1,5 +1,3 @@
-import MirrorPublication from '@components/Common/MirrorPublication'
-import PublicationOptions from '@components/Common/Publication/PublicationOptions'
 import { getProfile } from '@tape.xyz/generic'
 import type { MirrorablePublication } from '@tape.xyz/lens'
 import { TriStateValue } from '@tape.xyz/lens'
@@ -12,6 +10,9 @@ import {
 } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React, { useState } from 'react'
+
+import MirrorPublication from '@/components/Common/MirrorPublication'
+import PublicationOptions from '@/components/Common/Publication/PublicationOptions'
 
 import OpenActions from '../../Watch/OpenActions'
 import TipForm from '../../Watch/TipForm'

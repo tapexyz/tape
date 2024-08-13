@@ -1,5 +1,3 @@
-import useProfileStore from '@lib/store/idb/profile'
-import usePersistStore from '@lib/store/persist'
 import { tw } from '@tape.xyz/browser'
 import { FEATURE_FLAGS } from '@tape.xyz/constants'
 import { getIsFeatureEnabled } from '@tape.xyz/generic'
@@ -12,6 +10,9 @@ import {
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
+
+import useProfileStore from '@/lib/store/idb/profile'
+import usePersistStore from '@/lib/store/persist'
 
 import Logo from './Logo'
 import GlobalSearch from './Search/GlobalSearch'

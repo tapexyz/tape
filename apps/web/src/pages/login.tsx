@@ -1,14 +1,15 @@
-import Logo from '@components/Common/Logo'
-import MetaTags from '@components/Common/MetaTags'
-import CardBorders from '@components/Login/CardBorders'
-import Connectors from '@components/Login/Connectors'
 import { EVENTS, Tower } from '@tape.xyz/generic'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
 import React, { useEffect } from 'react'
 
+import Logo from '@/components/Common/Logo'
+import MetaTags from '@/components/Common/MetaTags'
+import CardBorders from '@/components/Login/CardBorders'
+import Connectors from '@/components/Login/Connectors'
+
 const BackgroundComets = dynamic(
-  () => import('@components/Login/BackgroundComets')
+  () => import('@/components/Login/BackgroundComets')
 )
 
 const Login = () => {

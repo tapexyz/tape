@@ -1,4 +1,3 @@
-import useProfileStore from '@lib/store/idb/profile'
 import { tw } from '@tape.xyz/browser'
 import { SIGN_IN_REQUIRED } from '@tape.xyz/constants'
 import { EVENTS, formatNumber, getPublication, Tower } from '@tape.xyz/generic'
@@ -12,6 +11,8 @@ import { HeartFilled, HeartOutline } from '@tape.xyz/ui'
 import type { FC } from 'react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
+
+import useProfileStore from '@/lib/store/idb/profile'
 
 type Props = {
   publication: AnyPublication
