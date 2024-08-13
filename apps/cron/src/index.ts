@@ -18,8 +18,8 @@ cron.schedule('0 0 * * 0', async () => {
   await vacuumPostgres()
 })
 
-// Schedule the backupEventsToS3 function to run every 5 hour
-cron.schedule('0 */5 * * *', async () => {
+// Schedule the backupEventsToS3 function to run every 4 hour
+cron.schedule('0 */4 * * *', async () => {
   console.log('[cron] Backing up events to S3', new Date())
   await backupEventsToS3()
 })
