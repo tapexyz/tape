@@ -3,7 +3,7 @@ import { clickhouseClient } from '@tape.xyz/server'
 const wakeClickHouse = async () => {
   try {
     let attempt = 0
-    let maxAttempts = 5
+    let maxAttempts = 10
     let delay = 2000 // 2 seconds delay between attempts
 
     while (attempt < maxAttempts) {
