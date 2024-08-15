@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@lens-protocol/metadata": "^1.2.0",
-    "axios": "^1.7.3",
+    "axios": "^1.7.4",
     "viem": "^2.19.4"
   },
   "devDependencies": {

@@ -14,7 +14,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md,json,css}\""
   },
   "dependencies": {
-    "@aws-sdk/client-sts": "3.624.0",
+    "@aws-sdk/client-sts": "3.631.0",
     "@hono/node-server": "^1.11.2",
     "@hono/zod-validator": "^0.2.2",
     "@lens-protocol/metadata": "^1.2.0",
@@ -31,7 +31,7 @@
     "@tape.xyz/constants": "workspace:*",
     "@tape.xyz/generic": "workspace:*",
     "@tape.xyz/server": "workspace:*",
-    "@types/node": "^22.2.0",
+    "@types/node": "^22.3.0",
     "@types/ua-parser-js": "^0.7.39",
     "tsx": "^4.16.5",
     "typescript": "5.5.4"
