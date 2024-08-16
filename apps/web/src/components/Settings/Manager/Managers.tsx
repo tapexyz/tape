@@ -268,7 +268,7 @@ const Managers = () => {
   return (
     <div>
       <div className="flex items-center justify-between space-x-2">
-        <p>Accounts managing your profile.</p>
+        <p>Wallet accounts managing your profile.</p>
         <Button onClick={() => setShowModal(true)}>New Manager</Button>
         <Modal
           title="New Manager"

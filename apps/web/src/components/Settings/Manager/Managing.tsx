@@ -19,7 +19,7 @@ import Badge from '@/components/Common/Badge'
 import { NoDataFound } from '@/components/UIElements/NoDataFound'
 import useProfileStore from '@/lib/store/idb/profile'
 
-const Managed = () => {
+const Managing = () => {
   const activeProfile = useProfileStore(
     (state) => state.activeProfile
   ) as Profile
@@ -50,7 +50,7 @@ const Managed = () => {
 
   return (
     <div>
-      <p>Profiles managed by you.</p>
+      <p>Profiles managed by your wallet account.</p>
       <div className="mt-3">
         {loading && <Spinner className="my-10" />}
         {(!loading && !profilesManaged?.length) || error ? (
@@ -114,4 +114,4 @@ const Managed = () => {
   )
 }
 
-export default Managed
+export default Managing
