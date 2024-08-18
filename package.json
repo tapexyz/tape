@@ -10,6 +10,7 @@
     "start": "pnpm -r --parallel run start",
     "build": "pnpm -r --parallel run build",
     "codegen": "pnpm -r --parallel run codegen",
+    "codegenv3": "pnpm -r --parallel run codegenv3",
     "lint": "pnpm -r --parallel run lint",
     "format:check": "pnpm -r --parallel run format:check",
     "format": "pnpm -r --parallel run format",

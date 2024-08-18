@@ -2,7 +2,8 @@
 const nextConfig = {
   poweredByHeader: false,
   experimental: {
-    typedRoutes: true
+    typedRoutes: true,
+    ppr: true
   },
   logging: {
     fetches: {
