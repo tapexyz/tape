@@ -2,7 +2,7 @@
     <img src="https://static.tape.xyz/brand/og.png" alt="banner">
     <br/>
     <br/>
-    <p>Talk, Amplify, Post, Explore - social media platform</p>
+    <p>social media platform</p>
     <a href="https://tape.xyz">tape.xyz</a>
 </div>
 <br>
