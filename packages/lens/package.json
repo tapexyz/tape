@@ -6,6 +6,7 @@
   "private": true,
   "scripts": {
     "codegen": "graphql-codegen",
+    "codegenv3": "graphql-codegen --config codegenv3.ts",
     "lint": "eslint . --ext .js,.ts,.tsx",
     "typecheck": "tsc --pretty",
     "format:check": "prettier --check \"**/*.{ts,tsx,md,json,css,graphql}\"",
@@ -13,6 +14,7 @@
   },
   "dependencies": {
     "@apollo/client": "3.11.4",
+    "@graphql-codegen/client-preset": "^4.3.3",
     "@irys/sdk": "^0.2.10",
     "@lens-protocol/metadata": "^1.2.0"
   },
@@ -22,6 +24,7 @@
     "@graphql-codegen/typescript": "^4.0.9",
     "@graphql-codegen/typescript-operations": "^4.2.3",
     "@graphql-codegen/typescript-react-apollo": "^4.3.0",
+    "@graphql-typed-document-node/core": "^3.2.0",
     "@tape.xyz/config": "workspace:*",
     "@tape.xyz/constants": "workspace:*",
     "typescript": "5.5.4"
