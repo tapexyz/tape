@@ -6,16 +6,13 @@ import { publicationsQuery } from '@/components/home/query'
 import { rqClient } from './providers/react-query'
 
 export default function HomePage() {
-  void rqClient.prefetchQuery(publicationsQuery)
+  void rqClient.prefetchInfiniteQuery(publicationsQuery)
 
   return (
     <main className="flex min-h-screen flex-col items-center p-24">
       <HydrationBoundary state={dehydrate(rqClient)}>
         <Feed />
       </HydrationBoundary>
-      {/* <Suspense fallback={'loading...'}>
-        <PokemonRSC />
-      </Suspense> */}
     </main>
   )
 }
