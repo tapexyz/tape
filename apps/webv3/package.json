@@ -15,9 +15,10 @@
   },
   "dependencies": {
     "@tanstack/react-query": "^5.51.24",
-    "next": "15.0.0-canary.119",
-    "react": "19.0.0-rc-1eaccd82-20240816",
-    "react-dom": "19.0.0-rc-1eaccd82-20240816"
+    "next": "14.2.5",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-virtuoso": "^4.10.1"
   },
   "devDependencies": {
     "@tanstack/react-query-devtools": "^5.51.24",
