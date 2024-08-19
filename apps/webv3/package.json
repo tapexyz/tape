@@ -14,18 +14,18 @@
     "format": "prettier --write \"**/*.{ts,tsx,md,json,css}\""
   },
   "dependencies": {
-    "@tanstack/react-query": "^5.51.21",
+    "@tanstack/react-query": "^5.51.24",
     "next": "15.0.0-canary.119",
     "react": "19.0.0-rc-1eaccd82-20240816",
     "react-dom": "19.0.0-rc-1eaccd82-20240816"
   },
   "devDependencies": {
-    "@tanstack/react-query-devtools": "^5.51.23",
+    "@tanstack/react-query-devtools": "^5.51.24",
     "@tape.xyz/config": "workspace:*",
     "@tape.xyz/constants": "workspace:*",
-    "@tape.xyz/lens": "workspace:*",
     "@tape.xyz/generic": "workspace:*",
-    "@types/node": "^22.4.0",
+    "@tape.xyz/lens": "workspace:*",
+    "@types/node": "^22.4.1",
     "@types/react": "18.3.3",
     "@types/react-dom": "18.3.0",
     "postcss": "^8",
