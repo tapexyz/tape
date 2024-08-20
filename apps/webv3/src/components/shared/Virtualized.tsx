@@ -38,6 +38,7 @@ export const Virtualized = <T,>({
       data={data}
       useWindowScroll
       increaseViewportBy={100}
+      initialTopMostItemIndex={0}
       itemContent={itemContent}
       computeItemKey={(_index, item) => (item as any).id}
       endReached={() => (hasNextPage ? endReached() : null)}
