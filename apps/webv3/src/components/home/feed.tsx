@@ -7,7 +7,7 @@ import Link from 'next/link'
 
 import { Virtualized } from '@/components/shared/Virtualized'
 
-import { publicationsQuery } from './query'
+import { publicationsQuery } from './queries'
 
 export const Feed = () => {
   const { data, fetchNextPage, isLoading, hasNextPage } =
@@ -30,7 +30,7 @@ export const Feed = () => {
             const publication = getPublication(anyPublication)
             return (
               <div className="p-5">
-                <Link href={`/watch/${publication.id}`}>
+                <Link href={`/watch/${publication.id}`} prefetch={false}>
                   {publication.metadata.content}
                 </Link>
               </div>

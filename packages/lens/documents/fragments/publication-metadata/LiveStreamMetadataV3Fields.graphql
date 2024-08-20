@@ -1,4 +1,5 @@
 fragment LiveStreamMetadataV3Fields on LiveStreamMetadataV3 {
+  __typename
   id
   rawURI
   tags
