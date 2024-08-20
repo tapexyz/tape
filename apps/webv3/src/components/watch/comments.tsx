@@ -1,6 +1,6 @@
 'use client'
 
-import { useInfiniteQuery } from '@tanstack/react-query'
+import { useSuspenseInfiniteQuery } from '@tanstack/react-query'
 import { getPublication } from '@tape.xyz/generic'
 import type { AnyPublication } from '@tape.xyz/lens/gql'
 import { useParams } from 'next/navigation'
@@ -10,7 +10,7 @@ import { commentsQuery } from './query'
 export const Comments = () => {
   const { id } = useParams<{ id: string }>()
 
-  const { data, isLoading } = useInfiniteQuery(commentsQuery(id))
+  const { data, isLoading } = useSuspenseInfiniteQuery(commentsQuery(id))
 
   return (
     <div>

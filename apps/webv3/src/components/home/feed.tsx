@@ -1,6 +1,6 @@
 'use client'
 
-import { useInfiniteQuery } from '@tanstack/react-query'
+import { useSuspenseInfiniteQuery } from '@tanstack/react-query'
 import { getPublication } from '@tape.xyz/generic'
 import type { AnyPublication } from '@tape.xyz/lens/gql'
 import Link from 'next/link'
@@ -11,7 +11,7 @@ import { publicationsQuery } from './query'
 
 export const Feed = () => {
   const { data, fetchNextPage, isLoading, hasNextPage } =
-    useInfiniteQuery(publicationsQuery)
+    useSuspenseInfiniteQuery(publicationsQuery)
 
   const allPublications = data?.pages.flatMap(
     (page) => page.publications.items

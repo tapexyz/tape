@@ -1,14 +1,27 @@
-'use client'
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query'
+import { Suspense } from 'react'
 
+import { rqClient } from '@/app/providers/react-query'
 import { Comments } from '@/components/watch/comments'
 import { Publication } from '@/components/watch/publication'
+import { publicationQuery } from '@/components/watch/query'
 
-export default function WatchPage() {
+type Params = {
+  id: string
+}
+
+export default function WatchPage({ params }: { params: Params }) {
+  void rqClient.prefetchQuery(publicationQuery(params.id))
+
   return (
     <div className="flex min-h-screen flex-col items-center p-24">
-      <Publication />
-      <p>Comments</p>
-      <Comments />
+      <HydrationBoundary state={dehydrate(rqClient)}>
+        <Publication />
+      </HydrationBoundary>
+      <Suspense fallback={'loading...'}>
+        <p>Comments</p>
+        <Comments />
+      </Suspense>
     </div>
   )
 }
